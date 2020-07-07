@@ -109,8 +109,12 @@ export const PlainButton = styled.button`
 // tslint:disable-next-line:variable-name
 export const ButtonLink = styled(PlainButton)`
   outline: none;
-  ${textStyle}
-  ${(props: {decorated: boolean}) => props.decorated ? decoratedLinkStyle : linkStyle}
+  ${(props: {decorated: boolean, disabled: boolean}) =>
+    props.disabled ? `
+      cursor: not-allowed;
+    `
+    : props.decorated ? {textStyle, decoratedLinkStyle} : {textStyle, linkStyle}
+  }
 `;
 
 export default Button;

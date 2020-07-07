@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { loggedOut } from '../../../auth/selectors';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
@@ -67,6 +69,8 @@ const ChapterFilter = ({
   selectedLocationFilters,
   setFilters,
 }: Props) => {
+  const userLoggedOut = useSelector(loggedOut);
+
   const setSelectedChapters = (ids: string[]) => {
     setFilters({locationIds: ids});
   };
@@ -89,7 +93,7 @@ const ChapterFilter = ({
         {sectionChunk.map((location) => <Checkbox
           key={location.id}
           checked={selectedLocationFilters.has(location.id)}
-          disabled={!locationFiltersWithContent.has(location.id)}
+          disabled={userLoggedOut || !locationFiltersWithContent.has(location.id)}
           onChange={() => handleChange(location.id)}
         >
           <ChapterTitle dangerouslySetInnerHTML={{__html: location.title}} />

@@ -1,6 +1,7 @@
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
+import { loggedOut } from '../../../auth/selectors';
 import { AppState, Dispatch } from '../../../types';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown } from '../../components/popUp/Filters';
@@ -9,7 +10,7 @@ import { setSummaryFilters } from '../actions';
 import * as selectors from '../selectors';
 
 // tslint:disable-next-line:variable-name
-const ConnectedChapterFilter = connect(
+export const ConnectedChapterFilter = connect(
   (state: AppState) => ({
     locationFilters: selectors.studyGuidesLocationFilters(state),
     locationFiltersWithContent: selectors.studyGuidesLocationFiltersWithContent(state),
@@ -21,7 +22,7 @@ const ConnectedChapterFilter = connect(
 )(ChapterFilter);
 
 // tslint:disable-next-line:variable-name
-const ConnectedFilterList = connect(
+export const ConnectedFilterList = connect(
   (state: AppState) => ({
     locationFilters: selectors.studyGuidesLocationFilters(state),
     selectedLocationFilters: selectors.summaryLocationFilters(state),
@@ -31,13 +32,16 @@ const ConnectedFilterList = connect(
   })
 )(FiltersList);
 
-export default () =>
-  <Filters>
+export default () => {
+  const userLoggedOut = useSelector(loggedOut);
+
+  return <Filters>
     <FilterDropdown
       label='i18n:highlighting:filters:chapters'
       ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
     >
       <ConnectedChapterFilter />
     </FilterDropdown>
-    <ConnectedFilterList />
+    {!userLoggedOut ? <ConnectedFilterList /> : null}
   </Filters>;
+};
