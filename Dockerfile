@@ -21,9 +21,10 @@ RUN apk add \
   curl \
   git \
   jq \
-  wget \
+  make \
+  py-pip \
   python \
-  py-pip && \
+  wget && \
   pip install awscli --upgrade && \
   apk --purge del py-pip
 
