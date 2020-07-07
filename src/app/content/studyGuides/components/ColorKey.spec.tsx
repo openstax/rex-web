@@ -1,5 +1,4 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
@@ -36,7 +35,7 @@ describe('Study Guides button and PopUp', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('Tracks open close to GA', async() => {
+  it('Tracks open close to GA', () => {
     const spyTrack = jest.spyOn(services.analytics.openCloseColorKey, 'track');
 
     const component = renderer.create(<Provider store={store}>
@@ -51,17 +50,14 @@ describe('Study Guides button and PopUp', () => {
     const button = component.root.findByType(ColorKeyButtonWrapper);
     renderer.act(() => {
       button.props.onClick();
-      expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, true);
     });
+    expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, true);
 
-    await renderer.act(async() => {
+    renderer.act(() => {
       spyTrack.mockClear();
       button.props.onClick();
     });
-
-    act(() => {
-      expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, false);
-    });
+    expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, false);
 
   });
 });
