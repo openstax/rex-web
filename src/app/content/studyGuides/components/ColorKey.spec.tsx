@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
@@ -58,7 +59,7 @@ describe('Study Guides button and PopUp', () => {
       button.props.onClick();
     });
 
-    renderer.act(() => {
+    act(() => {
       expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, false);
     });
 
