@@ -11,7 +11,8 @@ on:
         description: 'Browser eg. Chrome, Firefox, MicrosoftEdge, Safari'
         default: 'Chrome'
       marker:
-        description: 'Marker (optional) eg. smoke_test'
+        description: 'Marker (optional, ignored when testrail run id is set)'
+        default: 'smoke_test'
       tr_run_id:
         description: 'Testrail run ID (optional)'
 
