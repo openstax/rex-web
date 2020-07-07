@@ -19,8 +19,6 @@ on:
 jobs:
   selenium:
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI
-
     steps:
     - uses: actions/checkout@v2
 
