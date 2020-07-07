@@ -20,7 +20,6 @@ jobs:
   selenium:
     runs-on: ubuntu-latest
     container: python 
-
     steps:
     - uses: actions/checkout@v2
 
