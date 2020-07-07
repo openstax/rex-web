@@ -57,6 +57,10 @@ class GoogleAnalyticsClient {
     }
   }
 
+  public getPendingCommands(): ReadonlyArray<PendingCommand> {
+    return this.pendingCommands;
+  }
+
   public setUserId(id: string) {
     this.gaProxy({name: 'set', payload: {userId: id}});
   }
