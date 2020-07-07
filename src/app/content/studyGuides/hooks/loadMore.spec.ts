@@ -57,24 +57,33 @@ describe('loadMore', () => {
   it('fetches multiple pages across multiple sources', async() => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
+
+    const highlightsCount = {
+      'testbook1-testpage2-uuid': 15,
+      // keep the order of pages in the used fixture
+        // tslint:disable-next-line: object-literal-sort-keys
+      'testbook1-testpage11-uuid': 10,
+      'testbook1-testpage8-uuid': 15,
+    };
+
     store.dispatch(receiveStudyGuidesTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 15},
-      'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
-      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 15},
+      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage2-uuid']},
+      // tslint:disable-next-line: object-literal-sort-keys
+      'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage11-uuid']},
+      'testbook1-testpage8-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage8-uuid']},
     }));
     store.dispatch(setDefaultSummaryFilters({locationIds: [
-      'testbook1-testpage1-uuid',
       'testbook1-testchapter1-uuid',
     ]}));
 
     const page1 = createTestHighlights({
-      amount: 15,
-      sourceId: 'testbook1-testpage1-uuid',
+      amount: highlightsCount['testbook1-testpage2-uuid'],
+      sourceId: 'testbook1-testpage2-uuid',
     });
 
     const page2 = createTestHighlights({
-      amount: 5,
-      sourceId: 'testbook1-testpage2-uuid',
+      amount: 20 - page1.length,
+      sourceId: 'testbook1-testpage11-uuid',
       startIdsFrom: page1.length,
     });
 
@@ -89,17 +98,16 @@ describe('loadMore', () => {
         meta: {
           page: 1,
           perPage: 20,
-          totalCount: 30,
+          totalCount: highlightsCount['testbook1-testpage2-uuid'] + highlightsCount['testbook1-testpage11-uuid'],
         },
       }))
     ;
 
     const response: SummaryHighlights = {
       'testbook1-testchapter1-uuid': {
-        'testbook1-testpage2-uuid': page2,
-      },
-      'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': page1,
+        'testbook1-testpage2-uuid': page1,
+        // tslint:disable-next-line: object-literal-sort-keys
+        'testbook1-testpage11-uuid': page2,
       },
     };
 
@@ -107,24 +115,26 @@ describe('loadMore', () => {
 
     expect(highlightClient).lastCalledWith(expect.objectContaining({
       page: 1,
+      perPage: 20,
+      sourceIds: ['testbook1-testpage2-uuid', 'testbook1-testpage11-uuid'],
     }));
     expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response, {
       pagination: {
         page: 1,
         perPage: 20,
-        sourceIds: ['testbook1-testpage1-uuid', 'testbook1-testpage2-uuid'],
+        sourceIds: ['testbook1-testpage2-uuid', 'testbook1-testpage11-uuid'],
       },
     }));
 
     const page3 = createTestHighlights({
-      amount: 10,
-      sourceId: 'testbook1-testpage2-uuid',
+      amount: highlightsCount['testbook1-testpage11-uuid'] - page2.length, // remaining highlights for testpage11
+      sourceId: 'testbook1-testpage11-uuid',
       startIdsFrom: page1.length + page2.length,
     });
 
     const page4 = createTestHighlights({
-      amount: 5,
-      sourceId: 'testbook1-testpage11-uuid',
+      amount: 20 - page3.length,
+      sourceId: 'testbook1-testpage8-uuid',
       startIdsFrom: page1.length + page2.length + page3.length,
     });
 
@@ -132,9 +142,9 @@ describe('loadMore', () => {
       .mockReturnValueOnce(Promise.resolve({
         data: page3,
         meta: {
-          page: 1,
+          page: 2,
           perPage: 20,
-          totalCount: 30,
+          totalCount: highlightsCount['testbook1-testpage2-uuid'] + highlightsCount['testbook1-testpage11-uuid'],
         },
       }))
       .mockReturnValueOnce(Promise.resolve({
@@ -142,7 +152,7 @@ describe('loadMore', () => {
         meta: {
           page: 1,
           perPage: 20,
-          totalCount: 5,
+          totalCount: highlightsCount['testbook1-testpage8-uuid'],
         },
       }))
     ;
@@ -151,8 +161,8 @@ describe('loadMore', () => {
 
     const response2: SummaryHighlights = {
       'testbook1-testchapter1-uuid': {
-        'testbook1-testpage11-uuid': page4,
-        'testbook1-testpage2-uuid': page3,
+        'testbook1-testpage11-uuid': page3,
+        'testbook1-testpage8-uuid': page4,
       },
     };
 
