@@ -4,8 +4,8 @@ on: [pull_request]
 
 jobs:
   selenium:
-    runs-on: openstax/rex-web:CI 
-    container: python 
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI
     steps:
     - uses: actions/checkout@v2
     - name: find deployment 
