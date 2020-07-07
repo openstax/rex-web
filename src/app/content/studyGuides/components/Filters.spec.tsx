@@ -66,13 +66,7 @@ describe('Filters', () => {
       </MessageProvider>
     </Provider>);
 
-    let message: string | undefined;
-    try {
-      component.root.findByType(ConnectedFilterList);
-    } catch (e) {
-      message = e.message;
-    }
-    expect(message).toEqual('No instances found with node type: "Connect(FiltersList)"');
+    expect(() => component.root.findByType(ConnectedFilterList)).toThrow();
   });
 
 });
