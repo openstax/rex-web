@@ -30,8 +30,7 @@ const parser = new DOMParser();
 interface PageState {
   hasHighlightError: boolean;
   hasSearchError: boolean;
-  selectedHighlightId: null | string;
-  selectedSearchResultId: null | string;
+  highlightId: null | string;
 }
 
 export default class PageComponent extends Component<PagePropTypes, PageState> {
@@ -39,8 +38,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   public state = {
     hasHighlightError: false,
     hasSearchError: false,
-    selectedHighlightId: null,
-    selectedSearchResultId: null,
+    highlightId: null,
   };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
@@ -89,7 +87,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
 
     const shouldUpdateHighlights = prevProps !== this.props ||
       (prevState.hasSearchError === this.state.hasSearchError &&
-        prevState.selectedSearchResultId === this.state.selectedSearchResultId);
+        prevState.highlightId === this.state.highlightId);
 
     if (!shouldUpdateHighlights) { return; }
 
@@ -102,20 +100,20 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   }
 
   public onHighlightSelect = (scrollTarget: HighlightScrollTarget | null, highlight: Highlight | null) => {
-    if (highlight && highlight.id !== this.state.selectedHighlightId) {
+    if (highlight && highlight.id !== this.state.highlightId) {
       this.setState({
         hasHighlightError: false,
-        selectedHighlightId: highlight.id,
+        highlightId: highlight.id,
       });
       return;
     }
 
-    if (scrollTarget && scrollTarget.id === this.state.selectedHighlightId) { return; }
+    if (scrollTarget && scrollTarget.id === this.state.highlightId) { return; }
 
     if (scrollTarget && !highlight) {
       this.setState({
         hasHighlightError: true,
-        selectedHighlightId: scrollTarget.id,
+        highlightId: scrollTarget.id,
       });
     }
   };
@@ -124,7 +122,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     if (selectedHighlight) {
       this.setState({
         hasSearchError: false,
-        selectedSearchResultId: null,
+        highlightId: null,
       });
 
       return;
@@ -132,11 +130,11 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     const selectedResult = assertNotNull(current.selectedResult, 'Current result cannot be null after its selection');
     const currentResultId = `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`;
 
-    if (currentResultId === this.state.selectedSearchResultId) { return; }
+    if (currentResultId === this.state.highlightId) { return; }
 
     this.setState({
       hasSearchError: true,
-      selectedSearchResultId: currentResultId,
+      highlightId: currentResultId,
     });
   };
 
@@ -171,7 +169,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
                 ? 'i18n:notification:search-failure'
                 : 'i18n:notification:scroll-to-highlight-failure'
             }
-            selectedHighlight={this.state.selectedSearchResultId || this.state.selectedHighlightId}
+            selectedHighlight={this.state.highlightId}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
           />
         : null}

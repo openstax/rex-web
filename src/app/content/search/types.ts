@@ -31,5 +31,3 @@ export interface SearchScrollTarget {
   index: number;
   elementId: string;
 }
-
-export type SearchScrollTargetParams = Omit<SearchScrollTarget, 'elementId'>;

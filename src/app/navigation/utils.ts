@@ -3,13 +3,11 @@ import { Action, Location } from 'history';
 import curry from 'lodash/fp/curry';
 import omit from 'lodash/fp/omit';
 import pathToRegexp, { Key, parse } from 'path-to-regexp';
-import { OutputParams } from 'query-string';
+import queryString, { OutputParams } from 'query-string';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
 import { HighlightScrollTarget } from '../content/highlights/types';
-import { hasHighlightScrollTargetParams } from '../content/highlights/utils';
 import { SearchScrollTarget } from '../content/search/types';
-import { hasSearchScrollTargetParams } from '../content/search/utils';
 import { pathTokenIsKey } from '../navigation/guards';
 import { actionHook } from '../utils';
 import * as actions from './actions';
@@ -115,6 +113,15 @@ export const findPathForParams = (params: object, paths: string[]) => {
   });
 };
 
+const isScrollTarget = (
+  object: { [key: string]: any }
+): object is HighlightScrollTarget | SearchScrollTarget => {
+  if (typeof object.elementId !== 'string') { return false; }
+  if (object.type === 'search' && typeof object.index === 'number') { return true; }
+  if (object.type === 'highlight' && typeof object.id === 'string') { return true; }
+  return false;
+};
+
 export const getScrollTargetFromQuery = (
   query: OutputParams,
   hash: string
@@ -122,18 +129,23 @@ export const getScrollTargetFromQuery = (
   if (!hash || !query.target || Array.isArray(query.target)) { return null; }
   try {
     const parsed = JSON.parse(decodeURIComponent(query.target));
-    if (
-      parsed instanceof Object
-      && (hasSearchScrollTargetParams(parsed) || hasHighlightScrollTargetParams(parsed))
-    ) {
-      return {
-        elementId: hash.replace('#', ''),
-        ...parsed,
-      };
+    if (parsed instanceof Object) {
+      parsed.elementId = hash.replace('#', '');
+      if (isScrollTarget(parsed)) { return parsed; }
     }
-
     return null;
   } catch {
     return null;
   }
+};
+
+export const generateTargetQueryFromScrollTarget = (scrollTarget: HighlightScrollTarget | SearchScrollTarget) => {
+  let data: object;
+  if (scrollTarget.type === 'search') {
+    data = { target: JSON.stringify({ index: scrollTarget.index, type: 'search' }) };
+    return queryString.stringify(data);
+  } else {
+    data = { target: JSON.stringify({ id: scrollTarget.id, type: 'highlight' }) };
+  }
+  return queryString.stringify(data) + `#${scrollTarget.elementId}`;
 };

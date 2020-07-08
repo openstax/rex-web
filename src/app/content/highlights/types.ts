@@ -52,5 +52,3 @@ export interface HighlightScrollTarget {
   id: string;
   elementId: string;
 }
-
-export type HighlightScrollTargetParams = Omit<HighlightScrollTarget, 'elementId'>;
