@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { isDefined } from '../guards';
 import theme, { ColorSet } from '../theme';
-import { decoratedLinkStyle, linkStyle } from './Typography';
+import { decoratedLinkStyle, disabledStyle, linkStyle } from './Typography';
 import { textStyle } from './Typography/base';
 
 const applyColor = (color: ColorSet) => `
@@ -109,12 +109,9 @@ export const PlainButton = styled.button`
 // tslint:disable-next-line:variable-name
 export const ButtonLink = styled(PlainButton)`
   outline: none;
-  ${(props: {decorated: boolean, disabled: boolean}) =>
-    props.disabled ? `
-      cursor: not-allowed;
-    `
-    : props.decorated ? {textStyle, decoratedLinkStyle} : {textStyle, linkStyle}
-  }
+  ${textStyle}
+  ${(props: {decorated: boolean}) => props.decorated ? decoratedLinkStyle : linkStyle}
+  ${(props: {disabled: boolean}) => props.disabled && disabledStyle}
 `;
 
 export default Button;

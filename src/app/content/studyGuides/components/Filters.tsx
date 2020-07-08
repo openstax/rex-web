@@ -40,7 +40,7 @@ export default () => {
       label='i18n:highlighting:filters:chapters'
       ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
     >
-      <ConnectedChapterFilter />
+      <ConnectedChapterFilter disabled={userLoggedOut}/>
     </FilterDropdown>
     {!userLoggedOut ? <ConnectedFilterList /> : null}
   </Filters>;

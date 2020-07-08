@@ -1,27 +1,24 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import { loggedOut } from '../auth/selectors';
 import { ButtonLink } from './Button';
 
 interface Props {
   className?: string;
   onAll: () => void;
   onNone: () => void;
+  disabled?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
-const AllOrNone = ({className, onAll, onNone}: Props) => {
-  const userLoggedOut = useSelector(loggedOut);
-
+const AllOrNone = ({className, onAll, onNone, disabled}: Props) => {
   return <div className={className}>
     <FormattedMessage id='i18n:highlighting:filters:all'>
-      {(msg: Element | string) => <ButtonLink disabled={userLoggedOut} decorated onClick={onAll}>{msg}</ButtonLink>}
+      {(msg: Element | string) => <ButtonLink disabled={disabled} decorated onClick={onAll}>{msg}</ButtonLink>}
     </FormattedMessage>
     <span>|</span>
     <FormattedMessage id='i18n:highlighting:filters:none'>
-      {(msg: Element | string) => <ButtonLink disabled={userLoggedOut} decorated onClick={onNone}>{msg}</ButtonLink>}
+      {(msg: Element | string) => <ButtonLink disabled={disabled} decorated onClick={onNone}>{msg}</ButtonLink>}
     </FormattedMessage>
   </div>;
 };

@@ -53,4 +53,10 @@ describe('ButtonLink', () => {
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('matches snapshot (disabled)', () => {
+    const component = renderer.create(<ButtonLink disabled />);
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

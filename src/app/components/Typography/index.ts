@@ -1,4 +1,5 @@
 import { css } from 'styled-components/macro';
+import theme from '../../theme';
 import { textStyle } from './base';
 
 export * from './base';
@@ -51,4 +52,17 @@ export const labelStyle = css`
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
+`;
+
+export const disabledStyle = css`
+  cursor: not-allowed;
+  color: ${theme.color.primary.gray.lighter};
+  text-decoration: none;
+
+  :hover,
+  :focus {
+    underline: none;
+    color: ${theme.color.primary.gray.lighter};
+    text-decoration: none;
+  }
 `;

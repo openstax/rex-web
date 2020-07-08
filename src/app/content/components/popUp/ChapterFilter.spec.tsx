@@ -17,7 +17,7 @@ import { receiveHighlightsTotalCounts } from '../../highlights/actions';
 import { ConnectedChapterFilter } from '../../highlights/components/SummaryPopup/Filters';
 import { HighlightLocationFilters } from '../../highlights/types';
 import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
-import { ConnectedChapterFilter as ConnectedChapterFilterSG } from '../../studyGuides/components/Filters';
+import Filters from '../../studyGuides/components/Filters';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 
@@ -217,12 +217,11 @@ describe('ChapterFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ConnectedChapterFilterSG />
+        <Filters />
       </MessageProvider>
     </Provider>);
 
     const [...allOrNoneButtons] = component.root.findAllByType(ButtonLink);
     expect(allOrNoneButtons.every((button) => button.props.disabled)).toBe(true);
-
   });
 });
