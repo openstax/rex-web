@@ -1,6 +1,4 @@
-import googleAnalyticsClient from '../../../gateways/googleAnalyticsClient';
 import { setHead } from '../../head/actions';
-import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { receivePage } from '../actions';
@@ -30,7 +28,6 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   const page = select.page(state);
   const loadingBook = select.loadingBook(state);
   const loadingPage = select.loadingPage(state);
-  const pathname = selectNavigation.pathname(state);
 
   if (!page || !book) {
     return;
@@ -63,8 +60,6 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
     ],
     title,
   }));
-
-  googleAnalyticsClient.trackPageView(pathname);
 };
 
 export default hookBody;

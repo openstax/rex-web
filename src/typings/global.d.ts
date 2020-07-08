@@ -3,6 +3,7 @@
 import * as dom from '@openstax/types/lib.dom';
 import { compose } from 'redux';
 import { AppServices, AppState, Store } from '../app/types';
+import { registerGlobalAnalytics } from '../helpers/analytics';
 import PromiseCollector from '../helpers/PromiseCollector';
 
 declare global {
@@ -13,6 +14,7 @@ declare global {
     __APP_STORE: Store;
     __APP_SERVICES: AppServices;
     __APP_ASYNC_HOOKS: PromiseCollector;
+    __APP_ANALYTICS: ReturnType<registerGlobalAnalytics>;
 
     HTMLAnchorElement: {
       prototype: dom.HTMLAnchorElement;
@@ -55,5 +57,6 @@ declare global {
   var document: dom.Document | undefined;
   var navigator: dom.Navigator | undefined;
   var URL: dom.URLConstructor | undefined;
+  // tslint:disable-next-line:variable-name
   var DOMParser: dom.DOMParserConstructor;
 }
