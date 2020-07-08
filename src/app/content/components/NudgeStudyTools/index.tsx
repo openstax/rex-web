@@ -39,7 +39,6 @@ const NudgeStudyTools = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    console.log('positions', positions)
     if (positions) {
       document.body.style.overflow = 'hidden';
     }
