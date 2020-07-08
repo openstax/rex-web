@@ -3,8 +3,8 @@ export { default as getHighlightLocationFiltersWithContent } from './getHighligh
 export { default as getHighlightColorFiltersWithContent } from './getHighlightColorFiltersWithContent';
 
 export {
-   getFilteredHighlightLocationFilters,
-   getHighlightLocationFilters
+  getFilteredHighlightLocationFilters,
+  getHighlightLocationFilters
 } from './getHighlightLocationFilters';
 
 export {

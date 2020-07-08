@@ -58,9 +58,11 @@ describe('loadMore', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
 
+    const maxHighlightsApiPageSize = 20;
+
     const highlightsCount = {
       'testbook1-testpage2-uuid': 15,
-      // keep the order of pages in the used fixture
+      // keep the order of pages as they appear in the used fixture
       // tslint:disable-next-line: object-literal-sort-keys
       'testbook1-testpage11-uuid': 10,
       'testbook1-testpage8-uuid': 15,
@@ -82,7 +84,7 @@ describe('loadMore', () => {
     });
 
     const page2 = createTestHighlights({
-      amount: 20 - page1.length,
+      amount: maxHighlightsApiPageSize - page1.length,
       sourceId: 'testbook1-testpage11-uuid',
       startIdsFrom: page1.length,
     });
@@ -97,7 +99,7 @@ describe('loadMore', () => {
         data: highlights,
         meta: {
           page: 1,
-          perPage: 20,
+          perPage: maxHighlightsApiPageSize,
           totalCount: highlightsCount['testbook1-testpage2-uuid'] + highlightsCount['testbook1-testpage11-uuid'],
         },
       }))
@@ -115,13 +117,13 @@ describe('loadMore', () => {
 
     expect(highlightClient).lastCalledWith(expect.objectContaining({
       page: 1,
-      perPage: 20,
+      perPage: maxHighlightsApiPageSize,
       sourceIds: ['testbook1-testpage2-uuid', 'testbook1-testpage11-uuid'],
     }));
     expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response, {
       pagination: {
         page: 1,
-        perPage: 20,
+        perPage: maxHighlightsApiPageSize,
         sourceIds: ['testbook1-testpage2-uuid', 'testbook1-testpage11-uuid'],
       },
     }));
@@ -133,7 +135,7 @@ describe('loadMore', () => {
     });
 
     const page4 = createTestHighlights({
-      amount: 20 - page3.length,
+      amount: maxHighlightsApiPageSize - page3.length,
       sourceId: 'testbook1-testpage8-uuid',
       startIdsFrom: page1.length + page2.length + page3.length,
     });
@@ -143,7 +145,7 @@ describe('loadMore', () => {
         data: page3,
         meta: {
           page: 2,
-          perPage: 20,
+          perPage: maxHighlightsApiPageSize,
           totalCount: highlightsCount['testbook1-testpage2-uuid'] + highlightsCount['testbook1-testpage11-uuid'],
         },
       }))
@@ -151,7 +153,7 @@ describe('loadMore', () => {
         data: page4,
         meta: {
           page: 1,
-          perPage: 20,
+          perPage: maxHighlightsApiPageSize,
           totalCount: highlightsCount['testbook1-testpage8-uuid'],
         },
       }))
