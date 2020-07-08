@@ -47,6 +47,18 @@ test-rail-sauce: venv
 		--secure-store-password=$(SECURE_STORE_PASSWORD) \
 		pytest-selenium/tests
 
+sauce: venv
+	marker="$(MARKER)" && . .venv/bin/activate && pytest \
+		$${marker:+-m "$$marker"} \
+		--base-url=$(BASE_URL) \
+		--driver SauceLabs \
+		--capability avoidProxy True \
+		--capability browserName $(BROWSER) \
+		--capability screenResolution 1600x1200 \
+		--secure-store-filename=pytest-selenium/store/store.aes \
+		--secure-store-password=$(SECURE_STORE_PASSWORD) \
+		pytest-selenium/tests
+
 test-local: venv
 	@. .venv/bin/activate && pytest \
 		--base-url https://localhost:3000 \
