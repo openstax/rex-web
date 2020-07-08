@@ -19,6 +19,7 @@ FROM puppeteer as CI
 RUN apk add \
   bash \
   curl \
+  gcc \
   git \
   jq \
   make \
