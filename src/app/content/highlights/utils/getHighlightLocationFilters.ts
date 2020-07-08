@@ -13,11 +13,10 @@ type LocationFilterSection = LinkedArchiveTree | LinkedArchiveTreeSection;
 
 const sectionIsLocationFilter = (section: LocationFilterSection) =>
   (archiveTreeSectionIsPage(section) && archiveTreeSectionIsBook(section.parent))
-    || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section));
+  || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section));
 
 const getLocationFilterSectionsForBook = (book: Book | ArchiveBook | undefined) => book
-  ? flattenArchiveTree(book.tree)
-      .filter(sectionIsLocationFilter)
+  ? flattenArchiveTree(book.tree).filter(sectionIsLocationFilter)
   : [];
 
 const sectionsToLocationFilters = (sections: LocationFilterSection[]): HighlightLocationFilters =>
