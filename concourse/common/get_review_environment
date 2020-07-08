@@ -7,7 +7,9 @@ then
 fi
 
 function github {
-  curl -s -H "Authentication: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/$1"
+  response=$(curl -s -H "Authentication: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/$1")
+  echo "$response">&2
+  echo "$response"
 }
 
 pr_sha=$(git rev-parse HEAD)
