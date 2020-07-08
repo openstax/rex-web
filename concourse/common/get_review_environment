@@ -15,14 +15,14 @@ function github {
 
 pr_sha=$(git rev-parse HEAD)
 
-WAIT_MINUTES=5
+WAIT_MINUTES=10
 until [ $WAIT_MINUTES -eq 0 ] || [ "$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].task')" == "deploy" ]; do
   echo "sleeping 1m">&2
   sleep 60
   WAIT_MINUTES=$(( WAIT_MINUTES - 1 ))
 done
 
-pr_deployment_id=$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].id')
+pr_deployment_id=$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].id // ""')
 
 if [ -z "$pr_deployment_id" ]; then
   echo "No deployment exists for this pr.">&2
