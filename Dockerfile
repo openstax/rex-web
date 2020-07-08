@@ -24,6 +24,7 @@ RUN apk add \
   make \
   py-pip \
   python \
+  python3 \
   wget && \
   pip install awscli --upgrade && \
   apk --purge del py-pip
