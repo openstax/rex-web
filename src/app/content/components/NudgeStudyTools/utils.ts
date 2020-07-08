@@ -66,19 +66,15 @@ export const getPositions = (target: HTMLElement, isMobile: boolean, windowWidth
 
 // Target may have display set to `contents` so we are calculatings rect for children of passed target.
 const getBoundingRectOfNudgeTarget = (target: HTMLElement) => {
-  // Starting values depends on if we checks for Math.max or Math.min
-  let top = 9999;
-  let bottom = 0;
-  let left = 9999;
-  let right = 0;
-
-  for (const child of Array.from(target.children)) {
+  const { top, bottom, left, right } = Array.from(target.children).reduce((rects, child) => {
     const rect = child.getBoundingClientRect();
-    top = Math.min(top, rect.top);
-    bottom = Math.max(bottom, rect.bottom);
-    left = Math.min(left, rect.left);
-    right = Math.max(right, rect.right);
-  }
+    rects.top = Math.min(rects.top, rect.top);
+    rects.bottom = Math.max(rects.bottom, rect.bottom);
+    rects.left = Math.min(rects.left, rect.left);
+    rects.right = Math.max(rects.right, rect.right);
+    return rects;
+    // Starting values depends on if we checks for Math.max or Math.min
+  }, { top: 9999, bottom: 0, left: 9999, right: 0 });
 
   return {
     height: bottom - top,
@@ -101,7 +97,7 @@ export const usePositions = (isMobile: boolean) => {
     const target = document.querySelector(`#${nudgeStudyToolsTargetId}`) as HTMLElement | null;
     if (isEnabled && target) {
       // Make sure that we calculate positions with body overflow set to hidden
-      // because it causes scrollbar to hide which results with different positions.
+      // because it causes scrollbar to hide which results in different positions.
       const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       setPositions(getPositions(target, isMobile, windowWidth));

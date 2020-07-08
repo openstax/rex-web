@@ -35,43 +35,27 @@ const NudgeStudyTools = () => {
   const document = assertDocument();
   const wrapperRef = React.useRef<HTMLElement>(null);
   const isMobile = useMatchMobileQuery();
-  const show = useSelector(showNudgeStudyTools);
   const positions = usePositions(isMobile);
-  const hasStudyGuides = useSelector(hasStudyGuidesSelector);
-  const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
   const dispatch = useDispatch();
 
-  useIncrementPageCounter();
-
   React.useEffect(() => {
-    if (
-      show === null
-      && hasStudyGuides
-      && shouldDisplayNudgeStudyTools()
-    ) {
-      setNudgeStudyToolsCookies();
-      trackOpen();
-      dispatch(openNudgeStudyTools());
-    }
-  }, [show, hasStudyGuides, trackOpen, dispatch]);
-
-  React.useEffect(() => {
-    if (show && positions) {
+    console.log('positions', positions)
+    if (positions) {
       document.body.style.overflow = 'hidden';
     }
     return () => { document.body.style.overflow = null; };
     // document will not change
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [show, positions]);
+  }, [positions]);
 
   React.useEffect(() => {
     const element = wrapperRef.current;
-    if (show && positions && element) {
+    if (positions && element) {
      element.focus();
     }
-  }, [wrapperRef, show, positions]);
+  }, [wrapperRef, positions]);
 
-  if (!show || !positions) { return null; }
+  if (!positions) { return null; }
 
   return ReactDOM.createPortal(
     <NudgeWrapper data-analytics-region='Nudge Study Tools'>
@@ -117,10 +101,32 @@ const NudgeStudyTools = () => {
   );
 };
 
+// Do not render <NudgeStudyTools/> if it is hidden so scroll listener is not attached
+// to the DOM and do not render if document or window is undefined which may happen for prerendering.
 // tslint:disable-next-line: variable-name
-const NoopForPrerendering = () => {
-  if (typeof document === 'undefined' || typeof window === 'undefined') { return null; }
+const NoopForPrerenderingAndForHiddenState = () => {
+  const hasStudyGuides = useSelector(hasStudyGuidesSelector);
+  const show = useSelector(showNudgeStudyTools);
+  const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
+  const dispatch = useDispatch();
+
+  useIncrementPageCounter();
+
+  React.useEffect(() => {
+    if (
+      show === null
+      && hasStudyGuides
+      && shouldDisplayNudgeStudyTools()
+    ) {
+      setNudgeStudyToolsCookies();
+      trackOpen();
+      dispatch(openNudgeStudyTools());
+    }
+  }, [show, hasStudyGuides, trackOpen, dispatch]);
+
+  if (typeof document === 'undefined' || typeof window === 'undefined' || !show ) { return null; }
+
   return <NudgeStudyTools />;
 };
 
-export default NoopForPrerendering;
+export default NoopForPrerenderingAndForHiddenState;

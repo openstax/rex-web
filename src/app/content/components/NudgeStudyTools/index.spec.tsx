@@ -26,6 +26,18 @@ describe('NudgeStudyTools', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let services: AppServices;
+  const mockPositions = {
+    arrowLeft: 1200,
+    arrowTopOffset: 245,
+    closeButtonLeft: 1500,
+    closeButtonTopOffset: 345,
+    contentWrapperRight: -486,
+    contentWrapperTopOffset: 385,
+    spotlightHeight: 45,
+    spotlightLeftOffset: 1190,
+    spotlightTopOffset: 190,
+    spotlightWidth: 300,
+  };
 
   beforeEach(() => {
     store = createTestStore();
@@ -90,18 +102,7 @@ describe('NudgeStudyTools', () => {
       .mockReturnValue(true);
 
     jest.spyOn(utils, 'usePositions')
-      .mockReturnValue({
-        arrowLeft: 1200,
-        arrowTopOffset: 245,
-        closeButtonLeft: 1500,
-        closeButtonTopOffset: 345,
-        contentWrapperRight: -486,
-        contentWrapperTopOffset: 385,
-        spotlightHeight: 45,
-        spotlightLeftOffset: 1190,
-        spotlightTopOffset: 190,
-        spotlightWidth: 300,
-      });
+      .mockReturnValue(mockPositions);
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -126,18 +127,7 @@ describe('NudgeStudyTools', () => {
       .mockReturnValue(true);
 
     jest.spyOn(utils, 'usePositions')
-      .mockReturnValue({
-        arrowLeft: 1200,
-        arrowTopOffset: 245,
-        closeButtonLeft: 1500,
-        closeButtonTopOffset: 345,
-        contentWrapperRight: -486,
-        contentWrapperTopOffset: 385,
-        spotlightHeight: 45,
-        spotlightLeftOffset: 1190,
-        spotlightTopOffset: 190,
-        spotlightWidth: 300,
-      });
+      .mockReturnValue(mockPositions);
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -166,18 +156,7 @@ describe('NudgeStudyTools', () => {
       .mockReturnValue(true);
 
     jest.spyOn(utils, 'usePositions')
-      .mockReturnValue({
-        arrowLeft: 1200,
-        arrowTopOffset: 245,
-        closeButtonLeft: 1500,
-        closeButtonTopOffset: 345,
-        contentWrapperRight: -486,
-        contentWrapperTopOffset: 385,
-        spotlightHeight: 45,
-        spotlightLeftOffset: 1190,
-        spotlightTopOffset: 190,
-        spotlightWidth: 300,
-      });
+      .mockReturnValue(mockPositions);
 
     const spyFocusWrapper = jest.fn();
     const createNodeMock = () => ({
@@ -197,5 +176,44 @@ describe('NudgeStudyTools', () => {
     renderer.act(() => {});
 
     expect(spyFocusWrapper).toHaveBeenCalledTimes(1);
+  });
+
+  it('sets overflow hidden for body element and resets it', () => {
+    jest.spyOn(contentSelect, 'showNudgeStudyTools')
+      .mockReturnValue(true);
+
+    jest.spyOn(utils, 'usePositions')
+      .mockReturnValueOnce(mockPositions)
+      .mockReturnValue(null);
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NudgeStudyTools/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    // Call useEffect's
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    expect(() => component.root.findByType(NudgeArrow)).not.toThrow();
+
+    expect(assertDocument().body.style.overflow).toEqual('hidden');
+
+    // Callind component.update and then renderer.act triggers hooks to be recalcualted
+    component.update(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NudgeStudyTools/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    expect(assertDocument().body.style.overflow).toEqual('');
   });
 });
