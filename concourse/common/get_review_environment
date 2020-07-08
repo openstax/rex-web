@@ -12,11 +12,11 @@ function github {
 
 pr_sha=$(git rev-parse HEAD)
 
-NEXT_WAIT_TIME=60
-until [ $NEXT_WAIT_TIME -eq 300 ] || [ "$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].task')" == "deploy" ]; do
-  echo "sleeping $NEXT_WAIT_TIME">&2
-  sleep $NEXT_WAIT_TIME
-  NEXT_WAIT_TIME=$(( NEXT_WAIT_TIME + 60 ))
+WAIT_MINUTES=5
+until [ $WAIT_MINUTES -eq 0 ] || [ "$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].task')" == "deploy" ]; do
+  echo "sleeping 1m">&2
+  sleep 60
+  WAIT_MINUTES=$(( WAIT_MINUTES - 1 ))
 done
 
 pr_deployment_id=$(github "repos/openstax/rex-web/deployments?sha=$pr_sha" | jq -r '.[0].id')
@@ -26,14 +26,14 @@ if [ -z "$pr_deployment_id" ]; then
   exit 1;
 fi;
 
-NEXT_WAIT_TIME=60
-until [ $NEXT_WAIT_TIME -eq 600 ] || [ "$(github "repos/openstax/rex-web/deployments/$pr_deployment_id/statuses" | jq -r .[0].state)" == "success" ]; do
-  echo "sleeping $NEXT_WAIT_TIME">&2
-  sleep $NEXT_WAIT_TIME
-  NEXT_WAIT_TIME=$(( NEXT_WAIT_TIME + 60 ))
+WAIT_MINUTES=10
+until [ $WAIT_MINUTES -eq 0 ] || [ "$(github "repos/openstax/rex-web/deployments/$pr_deployment_id/statuses" | jq -r .[0].state)" == "success" ]; do
+  echo "sleeping 1m">&2
+  sleep 60
+  WAIT_MINUTES=$(( WAIT_MINUTES - 1 ))
 done
 
-if [ $NEXT_WAIT_TIME -gt 599 ]; then
+if [ $NEXT_WAIT_TIME -lt 1 ]; then
   echo "timed out">&2
   exit 1
 fi;
