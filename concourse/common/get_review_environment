@@ -8,6 +8,7 @@ fi
 
 function github {
   response=$(curl -s -H "Authentication: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/$1")
+  echo "https://api.github.com/$1">&2
   echo "$response">&2
   echo "$response"
 }
