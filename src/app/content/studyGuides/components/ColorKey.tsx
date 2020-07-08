@@ -113,7 +113,7 @@ const ColorKeyWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 const ColorKey = () => {
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [open, setOpen] = React.useState(false);
   const trackOpenClose = useAnalyticsEvent('openCloseColorKey');
 
   const toggleColorKey = () => {
