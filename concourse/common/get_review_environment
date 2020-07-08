@@ -41,4 +41,8 @@ if [ $NEXT_WAIT_TIME -lt 1 ]; then
   exit 1
 fi;
 
-github "repos/openstax/rex-web/deployments/$pr_deployment_id" | jq -r '.payload.web_url|rtrimstr("/")'
+url=$(github "repos/openstax/rex-web/deployments/$pr_deployment_id" | jq -r '.payload.web_url|rtrimstr("/")')
+
+echo "found url: $url">&2
+
+echo $url
