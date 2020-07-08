@@ -1,9 +1,10 @@
-name: Selenium Smoke Test
+name: CI
 
 on: [pull_request]
 
 jobs:
   selenium:
+    name: Selenium Smoke Test
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
     steps:
@@ -12,8 +13,7 @@ jobs:
       env:
         GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        . concourse/common/get_review_environment
-        review_url=$(get_review_environment)
+        review_url=$(./concourse/common/get_review_environment)
         echo "::set-env name=BASE_URL::$review_url"
     - name: selenium
       env:
