@@ -232,11 +232,11 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, links, modu
   html = html.replace('</head>',
     fonts.map((font) => `<link rel="stylesheet" href="${font}">`).join('') +
     meta.map(
-      (tag) => `<meta ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`).join(''
-    ) +
+      (tag) => `<meta data-rex-page ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`
+    ).join('') +
     links.map(
-      (tag) => `<link ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`).join(''
-    ) +
+      (tag) => `<link data-rex-page ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')} />`
+    ).join('') +
     styles.getStyleTags() +
     '</head>'
   );
