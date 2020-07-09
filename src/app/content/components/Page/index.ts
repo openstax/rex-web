@@ -11,4 +11,4 @@ export default flow(
   injectIntl,
   withServices,
   connector
-)(withServices(PageComponent));
+)(PageComponent);

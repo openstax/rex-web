@@ -2,14 +2,14 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import { scrollTo } from '../../../domUtils';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState } from '../../../types';
-import { assertWindow, resetTabIndex } from '../../../utils';
+import { assertWindow, memoize, resetTabIndex } from '../../../utils';
 import * as select from '../../selectors';
 import allImagesLoaded from '../utils/allImagesLoaded';
 
-export const mapStateToScrollTargetProp = (state: AppState) => ({
+export const mapStateToScrollTargetProp = memoize((state: AppState) => ({
   hash: selectNavigation.hash(state),
   page: select.page(state),
-});
+}));
 type ScrollTargetProp = ReturnType<typeof mapStateToScrollTargetProp>;
 
 const scrollToTarget = (container: HTMLElement | null, hash: string) => {
