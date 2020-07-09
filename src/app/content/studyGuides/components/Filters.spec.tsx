@@ -20,7 +20,6 @@ jest.mock('../../components/popUp/ChapterFilter', () => (props: any) => <div moc
 describe('Filters', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
-  let printSpy: jest.SpyInstance;
   let dispatch: jest.SpyInstance;
   const window = assertWindow();
   const book = formatBookData(archiveBook, mockCmsBook);
@@ -32,7 +31,6 @@ describe('Filters', () => {
     window.print = jest.fn();
 
     dispatch = jest.spyOn(store, 'dispatch');
-    printSpy = jest.spyOn(services.analytics.printStudyGuides, 'track');
   });
 
   it('matches snapshot', () => {
@@ -65,7 +63,7 @@ describe('Filters', () => {
   });
 
   describe('PrintButton', () => {
-    it('triggers analytics event on click', () => {
+    it('triggers print immediately if nothing left to load', () => {
       const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider>
@@ -80,7 +78,6 @@ describe('Filters', () => {
         printButton.props.onClick();
       });
 
-      expect(printSpy).toHaveBeenCalled();
       expect(dispatch).not.toHaveBeenCalledWith(printStudyGuides());
       expect(window.print).toHaveBeenCalled();
     });
@@ -102,7 +99,6 @@ describe('Filters', () => {
         printButton.props.onClick();
       });
 
-      expect(printSpy).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(printStudyGuides());
     });
   });

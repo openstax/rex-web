@@ -1,9 +1,7 @@
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
-import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { AppState, Dispatch } from '../../../types';
-import { assertWindow } from '../../../utils';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown } from '../../components/popUp/Filters';
 import FiltersList from '../../components/popUp/FiltersList';
@@ -44,38 +42,28 @@ const ConnectedPrintButton = connect(
   (dispatch: Dispatch) => ({
     loadHighlightsAndPrint: flow(printStudyGuides, dispatch),
   }),
-  (stateProps, dispatchProps, ownProps: {onClick: () => void}) => {
+  (stateProps, dispatchProps, ownProps) => {
     const {shouldFetchMore, loadHighlightsAndPrint, ...props} = {
       ...stateProps,
       ...dispatchProps,
       ...ownProps,
     };
 
-    const onClick = () => {
-      ownProps.onClick();
-
-      if (shouldFetchMore) {
-        loadHighlightsAndPrint();
-      } else {
-        assertWindow().print();
-      }
-    };
-
-    return {...props, onClick};
+    return shouldFetchMore
+      ? {...props, onClick: loadHighlightsAndPrint}
+      : props
+    ;
   }
 )(PrintButton);
 
-export default () => {
-  const trackPrint = useAnalyticsEvent('printStudyGuides');
-
-  return <Filters>
+export default () =>
+  <Filters>
     <FilterDropdown
       label='i18n:highlighting:filters:chapters'
       ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
     >
       <ConnectedChapterFilter />
     </FilterDropdown>
-    <ConnectedPrintButton onClick={trackPrint}/>
+    <ConnectedPrintButton />
     <ConnectedFilterList />
   </Filters>;
-};
