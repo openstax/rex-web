@@ -30,7 +30,7 @@ export const ColorKeyButtonWrapper = styled(PlainButton)`
 `;
 
 // tslint:disable-next-line:variable-name
-const ColorKeyDescription = styled.div`
+export const ColorKeyDescription = styled.div`
   ::before {
     content: "";
     position: absolute;
@@ -128,7 +128,7 @@ const ColorKey = () => {
     });
   };
 
-  const closeColorKey = () => setOpen(false);
+  const closeColorKey = () => { setOpen(false); };
 
   useOnClickOutside(colorKeyRef, true, closeColorKey);
 

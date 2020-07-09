@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
@@ -7,8 +6,8 @@ import createTestStore from '../../../../test/createTestStore';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
-import * as onClickOutside from '../../highlights/components/utils/onClickOutside';
-import ColorKey, { ColorKeyButtonWrapper } from './ColorKey';
+import { assertDocument } from '../../../utils';
+import ColorKey, { ColorKeyButtonWrapper, ColorKeyDescription } from './ColorKey';
 import Filters from './Filters';
 
 describe('Study Guides button and PopUp', () => {
@@ -40,7 +39,6 @@ describe('Study Guides button and PopUp', () => {
 
   it('Tracks open close to GA', () => {
     const spyTrack = jest.spyOn(services.analytics.openCloseColorKey, 'track');
-    const spyClickOutside = jest.spyOn(onClickOutside, 'useOnClickOutside');
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -50,7 +48,7 @@ describe('Study Guides button and PopUp', () => {
       </Services.Provider>
     </Provider>);
 
-    /*open and close color key*/
+    /*open and close color key from button*/
     const button = component.root.findByType(ColorKeyButtonWrapper);
     renderer.act(() => {
       button.props.onClick();
@@ -58,11 +56,39 @@ describe('Study Guides button and PopUp', () => {
     expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, true);
 
     renderer.act(() => {
-      ReactTestUtils.Simulate.click(component);
-      button.props.onClick();
+      button.props.onClick(); /* closing from Color key button*/
     });
+
     /*mock close call to GA*/
     services.analytics.openCloseColorKey.track({pathname: '/'}, false);
-    expect(spyClickOutside).toHaveBeenCalledWith({current: null}, true, expect.any(Function));
+    expect(() => component.root.findByType(ColorKeyDescription)).toThrow();
+  });
+
+  it('Closes from click outside', () => {
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Filters />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>, {createNodeMock: () => assertDocument().createElement('div')});
+
+    const clickOutside = () => {
+      const document = assertDocument();
+      const elementOutside = document.createElement('div');
+      document.body.appendChild(elementOutside);
+      const event = document.createEvent('MouseEvent');
+      event.initEvent('click', true, false);
+      elementOutside.dispatchEvent(event);
+      elementOutside.remove();
+    };
+
+    const button = component.root.findByType(ColorKeyButtonWrapper);
+    renderer.act(() => button.props.onClick());
+
+    expect(() => component.root.findByType(ColorKeyDescription)).not.toThrow();
+
+    renderer.act(() => clickOutside());
+    expect(() => component.root.findByType(ColorKeyDescription)).toThrow();
   });
 });
