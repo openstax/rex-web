@@ -1656,6 +1656,10 @@ class Content(Page):
             """
             return self.find_element(*self._title_text_locator).text
 
+        @property
+        def discard_button(self):
+            return self.find_element(*self._discard_button_locator)
+
         def click_discard_changes(self):
             """Click the Discard Changes button & close the modal.
 
@@ -1663,8 +1667,7 @@ class Content(Page):
             :rtype: Content
 
             """
-            button = self.find_element(*self._discard_button_locator)
-            Utilities.click_option(self.driver, element=button)
+            Utilities.click_option(self.driver, element=self.discard_button)
             self.wait.until(expected.staleness_of(self.root))
 
         def click_cancel_changes(self):

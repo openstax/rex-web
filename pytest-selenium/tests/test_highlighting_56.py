@@ -132,8 +132,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_toc(
     book.offscreen_click(toc.sections[3].root)
 
     # AND: click Discard changes in the modal
-    book.discard_modal.click_discard_changes()
-    book.wait_for_page_to_load()
+    book.click_and_wait_for_load(book.discard_modal.discard_button)
 
     # THEN: New page is loaded
     assert toc.sections[3].is_active
@@ -150,8 +149,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_toc(
         pytest.fail("existing highlight present in the page")
 
     # WHEN: Navigate back to the initial page
-    toc.sections[1].click()
-    book.wait_for_page_to_load()
+    book.click_and_wait_for_load(toc.sections[1].root)
 
     # THEN: The unsaved note in the initial page is not saved
     highlight = book.content.get_highlight(by_id=highlight_id)[0]
@@ -208,8 +206,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_prev_link(
     book.offscreen_click(book.previous_link)
 
     # AND: click Discard changes in the modal
-    book.discard_modal.click_discard_changes()
-    book.wait_for_page_to_load()
+    book.click_and_wait_for_load(book.discard_modal.discard_button)
 
     # THEN: New page is loaded
     assert toc.sections[0].is_active
@@ -283,8 +280,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_next_link(
     book.offscreen_click(book.next_link)
 
     # AND: click Discard changes in the modal
-    book.discard_modal.click_discard_changes()
-    book.wait_for_page_to_load()
+    book.click_and_wait_for_load(book.discard_modal.discard_button)
 
     # THEN: New page is loaded
     assert toc.sections[2].is_active
@@ -450,7 +446,7 @@ def test_modal_for_unsaved_notes_appears_on_selecting_new_text(
 def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
     selenium, base_url, book_slug, page_slug
 ):
-    """Discard modal appears when unsaved notes are present & selecting search sidebar result in same page."""
+    """Discard modal appears when unsaved notes are present & selecting search result in same page."""
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     toolbar = book.toolbar
@@ -521,7 +517,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
 def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_page(
     selenium, base_url, book_slug, page_slug
 ):
-    """Discard modal appears when unsaved notes are present & selecting search sidebar result in different page."""
+    """Discard modal appears when unsaved notes are present & selecting search result in different page."""
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     toolbar = book.toolbar
@@ -571,8 +567,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_pag
     Utilities.click_option(selenium, element=search_results[2])
 
     # AND: Click Discard changes in the modal
-    book.discard_modal.click_discard_changes()
-    book.wait_for_page_to_load()
+    book.click_and_wait_for_load(book.discard_modal.discard_button)
 
     # THEN: The selected search result is highlighted in the new page
     phrase_searched = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=search_term))
@@ -594,8 +589,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_pag
         pytest.fail("existing highlight present in the page")
 
     # WHEN: Navigate back to the initial page
-    Utilities.click_option(selenium, element=search_results[0])
-    book.wait_for_page_to_load()
+    book.click_and_wait_for_load(search_results[0])
 
     # THEN: The unsaved note in the initial page is not saved
     id_1 = book.content.highlight_ids[0]
