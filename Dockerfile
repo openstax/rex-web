@@ -16,13 +16,12 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 FROM puppeteer as CI
 
+# general CLI utilities
 RUN apk add \
   bash \
   curl \
-  gcc \
   git \
   jq \
-  make \
   py-pip \
   python \
   python3 \
@@ -30,3 +29,12 @@ RUN apk add \
   pip install awscli --upgrade && \
   apk --purge del py-pip
 
+# make and friends, needed for pytest suite
+RUN apk add \
+  gcc \
+  libffi-dev \
+  make \
+  musl-dev \
+  openssl-dev \
+  python-dev \
+  python3-dev
