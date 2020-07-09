@@ -362,7 +362,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_book_title(
     assert expected_page_url == osweb.current_url
 
     # WHEN: Click the view online link in osweb book detail page
-    osweb.click_view_online()
+    book.click_and_wait_for_load(osweb.view_online)
 
     # THEN: The unsaved note in the initial page is not saved
     highlight = book.content.get_highlight(by_id=highlight_id)[0]
