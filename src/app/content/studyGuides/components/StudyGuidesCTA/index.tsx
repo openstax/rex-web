@@ -31,6 +31,7 @@ const StudyGuidesCTA = () => {
       <Styled.StudyGuidesCTAButtons>
         <FormattedMessage id='i18n:studyguides:cta:button'>
           {(msg: Element | string) => <Styled.StudyGuidesCTAButton
+            // eslint-disable-next-line jsx-a11y/anchor-has-content
             component={<a href={signupLink}/>}
           >{msg}</Styled.StudyGuidesCTAButton>}
         </FormattedMessage>
