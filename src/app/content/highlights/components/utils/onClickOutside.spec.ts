@@ -81,6 +81,22 @@ describe('onClickOutside', () => {
     expect(cb).toHaveBeenCalled();
   });
 
+  it('works for list of HTMLElemnets', () => {
+    const cb = jest.fn();
+    const container = documentBack.createElement('div');
+    const container2 = documentBack.createElement('div');
+    const child = documentBack.createElement('div');
+    container2.appendChild(child);
+
+    onClickOutside([container, container2], true, cb)();
+
+    addEventListener.mock.calls[0][1]({
+      target: child,
+    });
+
+    expect(cb).not.toHaveBeenCalled();
+  });
+
   describe('outside browser', () => {
     beforeEach(() => {
       delete (global as any).document;
