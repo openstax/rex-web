@@ -14,17 +14,19 @@ import { findBooks } from './utils/bookUtils';
 (global as any).DOMParser = new JSDOM().window.DOMParser;
 
 const {
-  rootUrl,
+  archiveUrl,
   bookId,
   bookVersion,
   queryString,
-  archiveUrl,
+  rootUrl,
+  showBrowser,
 } = argv as {
-  rootUrl?: string;
+  archiveUrl?: string;
   bookId?: string;
   bookVersion?: string;
   queryString?: string;
-  archiveUrl?: string;
+  rootUrl?: string;
+  showBrowser?: string;
 };
 
 const devTools = false;
@@ -46,12 +48,24 @@ const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
   }
 });
 
-async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audit) {
+type PageErrorObserver = (message: string) => void;
+type ObservePageErrors = (newObserver: PageErrorObserver) => void;
+
+async function visitPages(
+  page: puppeteer.Page,
+  observePageErrors: ObservePageErrors,
+  bookPages: string[],
+  audit: Audit
+) {
   let anyFailures = false;
   const bar = new ProgressBar('visiting [:bar] :current/:total (:etas ETA) ', {
     complete: '=',
     incomplete: ' ',
     total: bookPages.length,
+  });
+
+  observePageErrors((message) => {
+    bar.interrupt(message);
   });
 
   for (const pageUrl of bookPages) {
@@ -83,12 +97,50 @@ async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audi
   return anyFailures;
 }
 
+function makePageErrorDetector(page: puppeteer.Page): ObservePageErrors {
+  let observer: PageErrorObserver = () => null;
+
+  page.on('console', (message) => {
+    if (['info'].includes(message.type())) {
+      return;
+    }
+    if (message.text() === 'Failed to load resource: the server responded with a status of 403 (Forbidden)') {
+      return;
+    }
+    observer(`console: ${message.type().substr(0, 3).toUpperCase()} ${message.text()}`);
+  });
+
+  page.on('pageerror', ({ message }) => observer('ERR: ' + message));
+
+  page.on('response', (response) => {
+    if ([200, 304].includes(response.status())) {
+      return;
+    }
+    if (response.url() === 'https://rex-web-update-content--z57zgg.herokuapp.com/accounts/api/user') {
+      return;
+    }
+    observer(`response: ${response.status()} ${response.url()}`);
+  });
+
+  page.on('requestfailed', (request) => {
+    const failure = request.failure();
+    const text = failure ? failure.errorText : 'failed';
+    if (text === 'net::ERR_ABORTED' && request.url().includes('/resources/')) {
+      return;
+    }
+    observer(`requestfailed: ${text} ${request.url()}`);
+  });
+
+  return (newObserver: PageErrorObserver) => observer = newObserver;
+}
+
 async function run() {
   const audit = (await import(auditPath)).default;
   const browser = await puppeteer.launch({
     // from https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md#running-on-alpine
     args: ['--no-sandbox', '--disable-dev-shm-usage'],
     devtools: devTools,
+    headless: showBrowser === undefined,
   });
   const books = await findBooks({
     archiveUrl,
@@ -102,8 +154,10 @@ async function run() {
   const page = await browser.newPage();
   page.setDefaultNavigationTimeout(60 * 1000);
 
+  const errorDetector = makePageErrorDetector(page);
+
   for (const book of books) {
-    anyFailures = await visitPages(page, findBookPages(book), audit) || anyFailures;
+    anyFailures = await visitPages(page, errorDetector, findBookPages(book), audit) || anyFailures;
   }
 
   await browser.close();
