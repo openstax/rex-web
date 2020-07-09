@@ -45,7 +45,7 @@ const HighlightsChapter = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const HighlightWrapper = styled.div`
+export const HighlightWrapper = styled.div`
   margin: ${desktopVerticalMargin}rem ${desktopHorizontalMargin}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
   ${theme.breakpoints.mobile(css`
@@ -55,7 +55,6 @@ const HighlightWrapper = styled.div`
 
   @media print {
     border-width: 0;
-    margin: 0;
   }
 `;
 
@@ -86,7 +85,8 @@ export const HighlightSection = styled.div`
   }
 
   @media print {
-    page-break-after: avoid;
+    break-after: avoid;
+    break-inside: avoid;
     background: white;
   }
 `;
