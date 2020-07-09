@@ -209,6 +209,8 @@ class Page(pypom.Page):
         return element.get_attribute("textContent")
 
     def element_in_viewport(self, target: WebElement):
+        """verifies if target element is within viewport."""
+
         boundry = self.driver.execute_script(BOUNDING_RECTANGLE, target)
 
         target_left_bound = round_up(boundry.get("left"))

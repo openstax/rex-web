@@ -625,7 +625,6 @@ def test_modal_for_unsaved_notes_appears_on_clicking_content_links(
 
     # WHEN: Click on a in-content link
     link = random.sample(book.content.links, 1)
-    print(link[0].get_attribute("textContent"))
     Utilities.click_option(selenium, element=link[0])
 
     # THEN: Discard modal is displayed
