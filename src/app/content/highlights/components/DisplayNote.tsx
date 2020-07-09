@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components/macro';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
+import { isHtmlElement } from '../../../guards';
 import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
@@ -68,7 +69,12 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
 
   // Change Event phase so when clicking on another Card,
   // onBlur is called before this Card calls focus.
-  useOnClickOutside(element, isFocused, onBlur, { capture: true });
+  useOnClickOutside(
+    [element.current, ...highlight.elements].filter(isHtmlElement),
+    isFocused,
+    onBlur,
+    { capture: true }
+  );
 
   React.useEffect(() => {
     if (!isFocused) {

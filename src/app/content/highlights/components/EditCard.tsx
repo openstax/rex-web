@@ -8,6 +8,7 @@ import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as selectAuth from '../../../auth/selectors';
 import Button, { ButtonGroup } from '../../../components/Button';
+import { isHtmlElement } from '../../../guards';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
@@ -85,7 +86,12 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   }, []);
 
   React.useEffect(
-    onClickOutside(element, props.isFocused, blurIfNotEditing, { capture: true }),
+    onClickOutside(
+      [element.current, ...props.highlight.elements].filter(isHtmlElement),
+      props.isFocused,
+      blurIfNotEditing,
+      { capture: true }
+    ),
     [props.isFocused, blurIfNotEditing]
   );
 
