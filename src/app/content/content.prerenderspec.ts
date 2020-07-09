@@ -1,4 +1,5 @@
 /** @jest-environment puppeteer */
+import equals from 'lodash/fp/equals';
 import pretty from 'pretty';
 import { finishRender, navigate } from '../../test/browserutils';
 
@@ -78,5 +79,92 @@ describe('content', () => {
     expect(links).toEqual([
       'test-page-1',
     ]);
+  });
+
+  it('triggers google analytics pageview initially', async() => {
+    await page.setJavaScriptEnabled(true);
+    await navigate(page, TEST_PAGE_WITHOUT_MATH);
+
+    const pendingEvents = await page.evaluate(() =>
+      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+    );
+
+    expect(pendingEvents).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "command": Object {
+            "name": "send",
+            "payload": Object {
+              "hitType": "pageview",
+              "page": "/books/book-slug-1/pages/2-test-page-3",
+            },
+          },
+          "savedAt": Object {},
+        },
+        Object {
+          "command": Object {
+            "name": "set",
+            "payload": Object {
+              "dimension3": "not embedded",
+            },
+          },
+          "savedAt": Object {},
+        },
+        Object {
+          "command": Object {
+            "name": "set",
+            "payload": Object {},
+          },
+          "savedAt": Object {},
+        },
+      ]
+    `);
+  });
+
+  it('triggers google analytics pageview after navigating again', async() => {
+    await page.setJavaScriptEnabled(true);
+    await navigate(page, TEST_PAGE_WITHOUT_MATH);
+
+    const initialEvents = await page.evaluate(() =>
+      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+    );
+
+    await page.click('a[data-analytics-label="next"]');
+
+    const pendingEvents = await page.evaluate(() =>
+      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+    );
+
+    const newEvents = pendingEvents.filter(
+      (event: any) => !initialEvents.find(equals(event))
+    );
+
+    expect(newEvents).toMatchInlineSnapshot(`
+            Array [
+              Object {
+                "command": Object {
+                  "name": "send",
+                  "payload": Object {
+                    "eventAction": "next",
+                    "eventCategory": "REX Link (prev-next)",
+                    "eventLabel": "/books/book-slug-1/pages/2-test-page-3",
+                    "hitType": "event",
+                    "transport": "beacon",
+                  },
+                },
+                "savedAt": Object {},
+              },
+              Object {
+                "command": Object {
+                  "name": "send",
+                  "payload": Object {
+                    "hitType": "pageview",
+                    "page": "/books/book-slug-1/pages/3-test-page-4",
+                  },
+                },
+                "savedAt": Object {},
+              },
+            ]
+        `);
   });
 });
