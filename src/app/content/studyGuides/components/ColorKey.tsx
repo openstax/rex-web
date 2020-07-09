@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
@@ -9,6 +10,7 @@ import theme from '../../../theme';
 import { toolbarIconStyles } from '../../components/Toolbar/iconStyles';
 import { toolbarDefaultText } from '../../components/Toolbar/styled';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
+import { useOnClickOutside } from '../../highlights/components/utils/onClickOutside';
 import { desktopHorizontalMargin, mobilePaddingSides } from '../../styles/PopupConstants';
 import { highlightStyles } from '../constants';
 
@@ -51,6 +53,7 @@ const ColorKeyDescription = styled.div`
 
   min-height: ${noteConstants.noteHeight}rem;
   width: ${noteConstants.noteWidth}rem;
+  max-width: ${noteConstants.noteWidth}rem;
   box-sizing: border-box;
   border: 0.1rem solid ${theme.color.neutral.formBorder};
   box-shadow: 0 0.4rem 0.6rem 0 rgba(0, 0, 0, 0.2);
@@ -115,16 +118,21 @@ const ColorKeyWrapper = styled.div`
 const ColorKey = () => {
   const [open, setOpen] = React.useState(false);
   const trackOpenClose = useAnalyticsEvent('openCloseColorKey');
+  const colorKeyRef = React.useRef<HTMLElement>(null);
 
   const toggleColorKey = () => {
     setOpen((state) => {
       const newVal = !state;
-      trackOpenClose(newVal);
+      if (newVal) { trackOpenClose(newVal); }
       return newVal;
     });
   };
 
-  return <ColorKeyWrapper>
+  const closeColorKey = () => setOpen(false);
+
+  useOnClickOutside(colorKeyRef, true, closeColorKey);
+
+  return <ColorKeyWrapper ref={colorKeyRef}>
     <FormattedMessage id='i18n:studyguides:popup:color-key'>
       {(msg: Element | string) =>
         <ColorKeyButtonWrapper onClick={toggleColorKey} aria-label={msg}>
