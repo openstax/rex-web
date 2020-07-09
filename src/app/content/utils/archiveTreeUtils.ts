@@ -136,5 +136,5 @@ export const comparePositionsOfNodes = (tree: LinkedArchiveTree, idA: string, id
     if (node.id === idA) { return -1; }
     if (node.id === idB) { return 1; }
   }
-  return 0;
+  throw new Error('provided ids were not found in the book tree');
 };

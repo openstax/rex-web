@@ -3,11 +3,10 @@ import { comparePositionsOfNodes } from '../../utils/archiveTreeUtils';
 import { CountsPerSource, HighlightLocationFilters } from '../types';
 import getHighlightLocationFilterForPage from './getHighlightLocationFilterForPage';
 
-/** Pass book to get orderd location ids */
 export default (
   locationFilters: HighlightLocationFilters,
   totalCounts: CountsPerSource,
-  book?: BookWithOSWebData | ArchiveBook
+  sortInBookOrder?: BookWithOSWebData | ArchiveBook
 ) => {
   const locationIds = Object.entries(totalCounts).reduce((result, [pageId]) => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageId);
@@ -19,9 +18,9 @@ export default (
     return result;
   }, new Set<string>());
 
-  const sortedLocationIds = book
+  const sortedLocationIds = sortInBookOrder
     ? Array.from(locationIds).sort((idA: string, idB: string) => {
-      return comparePositionsOfNodes(book.tree, idA, idB);
+      return comparePositionsOfNodes(sortInBookOrder.tree, idA, idB);
     })
     : null;
 

@@ -181,8 +181,8 @@ describe('comparePositionsOfNodes', () => {
     expect(comparePositionsOfNodes(book.tree, '1', '1')).toEqual(0);
   });
 
-  it('return 0 for ids that does not belongs to this book', () => {
-    expect(comparePositionsOfNodes(book.tree, '1', '2')).toEqual(0);
+  it('throws an error if non of provided ids does not belong to this book', () => {
+    expect(() => comparePositionsOfNodes(book.tree, '1', '2')).toThrow();
   });
 
   it('return -1 if the first id is before the second id', () => {
