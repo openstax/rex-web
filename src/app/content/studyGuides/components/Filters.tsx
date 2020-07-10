@@ -5,7 +5,8 @@ import { AppState, Dispatch } from '../../../types';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown } from '../../components/popUp/Filters';
 import FiltersList from '../../components/popUp/FiltersList';
-import { setSummaryFilters } from '../actions';
+import PrintButton from '../../components/popUp/PrintButton';
+import { printStudyGuides, setSummaryFilters } from '../actions';
 import * as selectors from '../selectors';
 import ColorKey from './ColorKey';
 
@@ -32,6 +33,30 @@ const ConnectedFilterList = connect(
   })
 )(FiltersList);
 
+// tslint:disable-next-line:variable-name
+const ConnectedPrintButton = connect(
+  (state: AppState) => ({
+    disabled: selectors.summaryIsLoading(state),
+    loading: selectors.summaryIsLoading(state),
+    shouldFetchMore: selectors.hasMoreResults(state),
+  }),
+  (dispatch: Dispatch) => ({
+    loadHighlightsAndPrint: flow(printStudyGuides, dispatch),
+  }),
+  (stateProps, dispatchProps, ownProps) => {
+    const {shouldFetchMore, loadHighlightsAndPrint, ...props} = {
+      ...stateProps,
+      ...dispatchProps,
+      ...ownProps,
+    };
+
+    return shouldFetchMore
+      ? {...props, onClick: loadHighlightsAndPrint}
+      : props
+    ;
+  }
+)(PrintButton);
+
 export default () =>
   <Filters>
     <FilterDropdown
@@ -41,5 +66,6 @@ export default () =>
       <ConnectedChapterFilter />
     </FilterDropdown>
     <ColorKey />
+    <ConnectedPrintButton />
     <ConnectedFilterList />
   </Filters>;
