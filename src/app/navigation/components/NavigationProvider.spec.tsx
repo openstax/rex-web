@@ -1,15 +1,16 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { createStore } from 'redux';
-import { AppState } from '../../types';
+import createTestStore from '../../../test/createTestStore';
+import { State } from '../types';
 import NavigationProvider from './NavigationProvider';
 
-const initialState = {
+const initialState: State = {
   hash: '',
-  pathname: '',
+  pathname: '/',
+  query: {},
   search: '',
-  state: {},
+  state: null,
 };
 
 const routes = [
@@ -30,12 +31,10 @@ const routes = [
 describe('NavigationProvider', () => {
 
   it('renders the component for the matching route', () => {
-    const rootState = {navigation: {
+    const store = createTestStore({navigation: {
       ...initialState,
       pathname: '/test1',
-    }} as AppState;
-
-    const store = createStore(() => rootState, rootState);
+    }});
 
     const heading = renderer
       .create(<Provider store={store}><NavigationProvider routes={routes} /></Provider>)
@@ -47,12 +46,10 @@ describe('NavigationProvider', () => {
   });
 
   it('doesn\'t render any route component if none match', () => {
-    const rootState = {navigation: {
+    const store = createTestStore({navigation: {
       ...initialState,
       pathname: '/asdfasdfasdf',
-    }} as AppState;
-
-    const store = createStore(() => rootState, rootState);
+    }});
 
     const headings = renderer
       .create(<Provider store={store}><NavigationProvider routes={routes} /></Provider>)
