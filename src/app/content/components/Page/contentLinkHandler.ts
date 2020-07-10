@@ -1,4 +1,4 @@
-import { HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
+import { Document, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import { isHtmlElementWithHighlight } from '../../../guards';
@@ -30,16 +30,19 @@ export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
 export type ContentLinkProp =
   ReturnType<typeof mapStateToContentLinkProp> & ReturnType<typeof mapDispatchToContentLinkProp>;
 
-export const reduceReferences = ({references, currentPath}: ContentLinkProp) => (pageContent: string) =>
-  references.reduce(
-    (html, reference) => {
-      const path = content.getUrl(reference.params);
-      const search = content.getSearch && content.getSearch(reference.params);
-      const query = search ? `?${search}` : '';
-      return html.replace(reference.match, toRelativeUrl(currentPath, path) + query);
-    },
-    pageContent
-  );
+export const reduceReferences = (document: Document, {references, currentPath}: ContentLinkProp) => {
+  for (const reference of references) {
+    const path = content.getUrl(reference.params);
+    const search = content.getSearch && content.getSearch(reference.params);
+    const query = search ? `?${search}` : '';
+    const a = document.querySelector(`[href^='${reference.match}']`);
+    if (a) {
+      const href = (a.getAttribute('href') || '')
+        .replace(reference.match, toRelativeUrl(currentPath, path) + query);
+      a.setAttribute('href', href);
+    }
+  }
+};
 
 const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap) =>
   content.getUrl(ref.params) === pathname
