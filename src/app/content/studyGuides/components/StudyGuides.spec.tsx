@@ -44,7 +44,6 @@ describe('StudyGuides', () => {
 
   it('properly display summary highlights', () => {
     const state = store.getState();
-
     const locationFilters = studyGuidesLocationFilters(state);
     const firstLocation = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     const secondLocation = getHighlightLocationFilterForPage(locationFilters, pageInOtherChapter);
