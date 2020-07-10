@@ -30,6 +30,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, summary: {...state.summary, open: true}};
     case getType(actions.closeStudyGuides):
       return {...state, summary: {...state.summary, open: false}};
+    case getType(actions.toggleStudyGuidesSummaryLoading):
+      return {...state, summary: {...state.summary, loading: action.payload}};
+    case getType(actions.printStudyGuides):
     case getType(actions.loadMoreStudyGuides):
       return {...state, summary: {...state.summary, loading: true}};
     case getType(actions.setDefaultSummaryFilters): {
