@@ -60,9 +60,9 @@ jobs:
     - uses: actions/cache@v2
       id: node_modules
       with:
-        path: node_modules 
-        key: node_modules 
+        path: node_modules
+        key: node_modules
     - run: yarn install
-    - run: yarn test
+    - run: yarn test --forceExit
     - run: yarn lint
     - uses: codecov/codecov-action@v1

@@ -45,6 +45,7 @@ RUN apk add \
   jq \
   py-pip \
   python3 \
+  shellcheck \
   wget && \
   pip install awscli --upgrade && \
   apk --purge del py-pip
