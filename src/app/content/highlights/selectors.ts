@@ -4,7 +4,8 @@ import {
   getHighlightColorFiltersWithContent,
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
-  getSortedSummaryHighlights
+  getSortedSummaryHighlights,
+  sectionIsHighlightLocationFitler
 } from './utils';
 import {
   checkIfHasMoreResults,
@@ -75,7 +76,7 @@ export const summaryPagination = createSelector(
 
 export const highlightLocationFilters = createSelector(
   parentSelectors.book,
-  getHighlightLocationFilters
+  getHighlightLocationFilters(sectionIsHighlightLocationFitler)
 );
 
 export const orderedSummaryHighlights = createSelector(
