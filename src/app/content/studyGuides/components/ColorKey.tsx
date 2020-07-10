@@ -78,6 +78,8 @@ const ColorKeyIcon = styled.img`
 const ColorKeyText = styled.span`
   ${toolbarDefaultText}
   backface-visibility: hidden;
+  perspective: 1000;
+  transform: translate3d(0,0,0);
 `;
 
 // tslint:disable-next-line:variable-name
