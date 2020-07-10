@@ -2,6 +2,10 @@
 FROM alpine:3
 
 # node
+#
+# this is really excessively complicated logic just so the .nvmrc can be
+# the source of truth about our supported node version
+#
 # hackery from https://github.com/nvm-sh/nvm/issues/1102#issuecomment-591560924
 COPY .nvmrc /root/.
 RUN touch $HOME/.profile && apk add libstdc++ curl bash && \
@@ -14,7 +18,7 @@ RUN touch $HOME/.profile && apk add libstdc++ curl bash && \
 
 ENV PATH /usr/local/node-bin:$PATH
 
-# fix Error: could not get uid/gid https://stackoverflow.com/a/52196681
+# fix "Error: could not get uid/gid" https://stackoverflow.com/a/52196681
 RUN npm config set unsafe-perm true && \
   npm install -g yarn && \
   npm config set unsafe-perm false
