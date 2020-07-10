@@ -76,10 +76,12 @@ const ColorKeyIcon = styled.img`
 
 // tslint:disable-next-line:variable-name
 const ColorKeyText = styled.span`
-  ${toolbarDefaultText}
-  backface-visibility: hidden;
-  perspective: 1000;
-  transform: translate3d(0,0,0);
+  ${toolbarDefaultText};
+
+  :active,
+  :focus {
+    color: ${theme.color.primary.gray.base};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
