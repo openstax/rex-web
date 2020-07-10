@@ -24,15 +24,15 @@ const getLocationFilterSectionsForBook = (book: Book | ArchiveBook | undefined) 
 const sectionsToLocationFilters = (sections: LocationFilterSection[]): HighlightLocationFilters =>
   new Map(sections.map((section) => [section.id, section]));
 
-export const sectionIsHighlightLocationFitler = (section: LocationFilterSection) =>
-  (archiveTreeSectionIsPage(section) && archiveTreeSectionIsBook(section.parent))
-  || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section));
-
 export const getHighlightLocationFilters = (filterBy: (section: LocationFilterSection) => boolean) => flow(
   getLocationFilterSectionsForBook,
   (sections) => sections.filter(filterBy),
   sectionsToLocationFilters
 );
+
+export const sectionIsHighlightLocationFitler = (section: LocationFilterSection) =>
+  (archiveTreeSectionIsPage(section) && archiveTreeSectionIsBook(section.parent))
+  || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section));
 
 export const getHighlightLocationFilterForPage = (
   locationFilters: HighlightLocationFilters, page: Page | LinkedArchiveTreeNode | string
