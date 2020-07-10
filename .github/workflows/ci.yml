@@ -31,7 +31,7 @@ jobs:
         echo "::set-output name=url::$review_url"
 
   selenium:
-    name: Selenium Smoke Test
+    name: Selenium
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
     needs: deploy
@@ -57,6 +57,8 @@ jobs:
       fail-fast: false
       matrix:
         suite: [unit, browser, screenshots, build]
+    env:
+      CI: true
     steps:
     - uses: actions/checkout@v2
       with:
