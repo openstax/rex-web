@@ -12,6 +12,7 @@ import {
   getSelectedHighlightsLocationFilters,
 } from '../highlights/utils/selectorsUtils';
 import * as parentSelectors from '../selectors';
+import { archiveTreeSectionIsChapter } from '../utils/archiveTreeUtils';
 import { allColors } from './constants';
 
 export const localState = createSelector(
@@ -57,7 +58,7 @@ export const summaryStudyGuidesPagination = createSelector(
 
 export const studyGuidesLocationFilters = createSelector(
   parentSelectors.book,
-  getHighlightLocationFilters
+  getHighlightLocationFilters(archiveTreeSectionIsChapter)
 );
 
 export const summaryStudyGuides = createSelector(
