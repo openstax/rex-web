@@ -3,29 +3,68 @@ name: CI
 on: [pull_request]
 
 jobs:
-  selenium:
-    name: Selenium Smoke Test
+  cancel-previous:
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.4.0
       with:
         access_token: ${{ github.token }}
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI
+    outputs:
+      url: ${{ steps.find-deployment.outputs.url }}
+    steps:
     - uses: actions/checkout@v2
       with:
-        ref: ${{ github.event.pull_request.head.sha }}
-    - name: find deployment
+        ref: master
+    - name: find-deployment
       env:
         GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         review_url=$(./concourse/common/get_review_environment)
-        echo "::set-env name=BASE_URL::$review_url"
+        echo "::set-output name=url::$review_url"
+
+  selenium:
+    name: Selenium Smoke Test
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI
+    needs: deploy
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: master
     - name: selenium
       env:
         BROWSER: 'Chrome'
         MARKER: 'smoke_test'
+        BASE_URL: ${{ needs.deploy.outputs.url }}
         SAUCELABS_USERNAME: ${{ secrets.saucelabs_username }}
         SAUCELABS_API_KEY: ${{ secrets.saucelabs_api_key }}
         SECURE_STORE_PASSWORD: ${{ secrets.secure_store_password }}
       run: make sauce
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: test
+      run: yarn test
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: lint
+      run: yarn lint
