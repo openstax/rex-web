@@ -54,8 +54,9 @@ jobs:
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
     strategy:
+      fail-fase: false
       matrix:
-        suite: [unit, browser, screenshot, build]
+        suite: [unit, browser, screenshots, build]
     steps:
     - uses: actions/checkout@v2
       with:
