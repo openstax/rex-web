@@ -37,34 +37,7 @@ describe('Study Guides button and PopUp', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('Tracks open close to GA', () => {
-    const spyTrack = jest.spyOn(services.analytics.openCloseColorKey, 'track');
-
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Filters />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
-
-    /*open and close color key from button*/
-    const button = component.root.findByType(ColorKeyButtonWrapper);
-    renderer.act(() => {
-      button.props.onClick();
-    });
-    expect(spyTrack).toHaveBeenCalledWith({pathname: '/'}, true);
-
-    renderer.act(() => {
-      button.props.onClick(); /* closing from Color key button*/
-    });
-
-    /*mock close call to GA*/
-    services.analytics.openCloseColorKey.track({pathname: '/'}, false);
-    expect(() => component.root.findByType(ColorKeyDescription)).toThrow();
-  });
-
-  it('Closes from click outside', () => {
+  it('Opens and closes from click outside or button', () => {
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
@@ -84,10 +57,16 @@ describe('Study Guides button and PopUp', () => {
     };
 
     const button = component.root.findByType(ColorKeyButtonWrapper);
+
+    /* open and close from clicking button*/
     renderer.act(() => button.props.onClick());
-
     expect(() => component.root.findByType(ColorKeyDescription)).not.toThrow();
+    renderer.act(() => button.props.onClick());
+    expect(() => component.root.findByType(ColorKeyDescription)).toThrow();
 
+    /*close from clicking outside*/
+    renderer.act(() => button.props.onClick());
+    expect(() => component.root.findByType(ColorKeyDescription)).not.toThrow();
     renderer.act(() => clickOutside());
     expect(() => component.root.findByType(ColorKeyDescription)).toThrow();
   });

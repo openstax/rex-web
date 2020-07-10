@@ -3,7 +3,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import colorKeyIcon from '../../../../assets/colorKeyIcon.png';
-import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { PlainButton } from '../../../components/Button';
 import { textRegularStyle } from '../../../components/Typography';
 import theme from '../../../theme';
@@ -78,6 +77,7 @@ const ColorKeyIcon = styled.img`
 // tslint:disable-next-line:variable-name
 const ColorKeyText = styled.span`
   ${toolbarDefaultText}
+  backface-visibility: hidden;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -117,15 +117,10 @@ const ColorKeyWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const ColorKey = () => {
   const [open, setOpen] = React.useState(false);
-  const trackOpenClose = useAnalyticsEvent('openCloseColorKey');
   const colorKeyRef = React.useRef<HTMLElement>(null);
 
   const toggleColorKey = () => {
-    setOpen((state) => {
-      const newVal = !state;
-      if (newVal) { trackOpenClose(newVal); }
-      return newVal;
-    });
+    setOpen((state) => !state);
   };
 
   const closeColorKey = () => { setOpen(false); };
