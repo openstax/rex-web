@@ -56,19 +56,20 @@ export const getHighlightLocationFilterForPage = (
   return location;
 };
 
-export const getHighlightLocationFiltersWithContent =
-  (locationFilters: HighlightLocationFilters, totalCounts: CountsPerSource) => {
+export const getHighlightLocationFiltersWithContent = (
+  locationFilters: HighlightLocationFilters, totalCounts: CountsPerSource
+) => {
 
-    return Object.entries(totalCounts).reduce((result, [pageId]) => {
-      const location = getHighlightLocationFilterForPage(locationFilters, pageId);
+  return Object.entries(totalCounts).reduce((result, [pageId]) => {
+    const location = getHighlightLocationFilterForPage(locationFilters, pageId);
 
-      if (location && !result.has(location.id)) {
-        result.add(location.id);
-      }
+    if (location && !result.has(location.id)) {
+      result.add(location.id);
+    }
 
-      return result;
-    }, new Set<string>());
-  };
+    return result;
+  }, new Set<string>());
+};
 
 export const getHighlightColorFiltersWithContent = (locationsWithContent: CountsPerSource) => {
   const colorFiltersWithContent: Set<HighlightColorEnum> = new Set();
