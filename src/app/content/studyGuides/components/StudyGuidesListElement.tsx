@@ -15,6 +15,14 @@ const HighlightOuterWrapper = styled.div`
     border-bottom: solid 0.2rem ${theme.color.neutral.darker};
   }
 
+  @media print {
+    page-break-inside: avoid;
+
+    :not(:last-child) {
+      border-color: white;
+    }
+  }
+
   background: ${theme.color.neutral.base};
   ${theme.breakpoints.mobile`
     padding: 0 0 1rem 0;
@@ -61,6 +69,14 @@ export const HighlightContentWrapper = styled.div`
   ${theme.breakpoints.mobile`
     margin-left: 2rem;
   `}
+
+  @media print {
+    break-inside: avoid-page;
+
+    ${HighlightContent} {
+      background-color: white;
+    }
+  }
 `;
 
 interface HighlightListElementProps {
