@@ -10,7 +10,12 @@ RUN touch $HOME/.profile && apk add libstdc++ curl bash && \
     NVM_DIR="$HOME/.nvm" && source $HOME/.nvm/nvm.sh && source $HOME/.profile
 
 COPY .nvmrc /root/.
-RUN source ~/.profile && cd && nvm install && npm install -g yarn
+RUN source ~/.profile && cd && nvm install && \
+  # fix Error: could not get uid/gid https://stackoverflow.com/a/52196681
+  npm config set unsafe-perm true && \
+  npm install -g yarn && \
+  npm config set unsafe-perm false
+
 
 # so bash will source npm and node
 RUN ln -s /root/.profile /root/.bashrc
