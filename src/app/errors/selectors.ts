@@ -6,11 +6,6 @@ export const localState = createSelector(
   (parentState) => parentState.errors
 );
 
-export const currentError = createSelector(
-  localState,
-  (state) => state.error
-);
-
 export const getMessageIdStack = createSelector(
   localState,
   (state) => state.sentryMessageIdStack
@@ -19,4 +14,9 @@ export const getMessageIdStack = createSelector(
 export const code = createSelector(
   localState,
   (state) => state.code
+);
+
+export const showErrorDialog = createSelector(
+  localState,
+  (state) => state.showDialog
 );
