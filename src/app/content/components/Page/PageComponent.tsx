@@ -18,6 +18,7 @@ import PageContent from './PageContent';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
+import { validateDOMContent } from './validateDOMContent';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -48,6 +49,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     const parsedContent = parser.parseFromString(cleanContent, 'text/html');
 
     transformContent(parsedContent, parsedContent.body, this.props.intl);
+    validateDOMContent(parsedContent, parsedContent.body);
 
     return parsedContent.body.innerHTML;
   };
