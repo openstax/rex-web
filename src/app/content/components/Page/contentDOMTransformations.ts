@@ -14,6 +14,7 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   wrapSolutions(rootEl, intl);
   prefixResources(rootEl);
   moveFootnotes(document, rootEl, intl);
+  setLinksAttributes(rootEl);
 };
 
 const toggleSolutionSectionStyles = (section: HTMLElement, shouldBeVisible: boolean) => {
@@ -209,3 +210,18 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
     sup.appendChild(link);
   }
 }
+
+const setLinksAttributes = (rootEl: HTMLElement) => {
+  for (const a of Array.from(rootEl.querySelectorAll('a'))) {
+    const href = a.getAttribute('href') || '';
+    if (href.startsWith('https://') || href.startsWith('http://') || href.startsWith('//')) {
+      // target blank and add `rel` to links that begin with: http:// https:// //
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener nofollow');
+    } else if (href.startsWith('../')) {
+      // target blank and allow indexing links to relative content
+      a.setAttribute('target', '_blank');
+      a.removeAttribute('rel');
+    }
+  }
+};

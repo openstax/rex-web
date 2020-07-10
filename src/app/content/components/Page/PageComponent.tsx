@@ -186,16 +186,6 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     this.listenersOff();
 
     this.mapLinks((a) => {
-      const href = a.getAttribute('href') || '';
-      if (href.startsWith('https://') || href.startsWith('http://') || href.startsWith('//')) {
-        // target blank and add `rel` to links that begin with: http:// https:// //
-        a.setAttribute('target', '_blank');
-        a.setAttribute('rel', 'noopener nofollow');
-      } else if (href.startsWith('../')) {
-        // same as previous, but allow indexing links to relative content
-        a.setAttribute('target', '_blank');
-        a.removeAttribute('rel');
-      }
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks);
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
