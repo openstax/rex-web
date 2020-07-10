@@ -48,25 +48,45 @@ jobs:
         SECURE_STORE_PASSWORD: ${{ secrets.secure_store_password }}
       run: make sauce
 
-  test:
-    name: Test
+  build:
+    name: Build 
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
     steps:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.head.sha }}
+    - name: build 
+      run: yarn install 
+    - uses: actions/upload-artifact@v2
+      with:
+        name: build 
+        path: ./ 
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI
+    needs: build
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: build 
     - name: test
+      working-directory: ./build
       run: yarn test
     - uses: codecov/codecov-action@v1
+      working-directory: ./build
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
+    needs: build
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@v2
       with:
-        ref: ${{ github.event.pull_request.head.sha }}
+        name: build 
     - name: lint
       run: yarn lint
+      working-directory: ./build
