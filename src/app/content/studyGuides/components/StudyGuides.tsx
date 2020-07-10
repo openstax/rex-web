@@ -9,7 +9,11 @@ import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
 import theme from '../../../theme';
 import { assertWindow } from '../../../utils';
-import SectionHighlights, { HighlightsChapterWrapper, HighlightSection } from '../../components/SectionHighlights';
+import SectionHighlights, {
+  HighlightsChapterWrapper,
+  HighlightSection,
+  HighlightWrapper
+} from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import { GeneralCenterText } from '../../highlights/components/HighlightStyles';
 import HighlightsWrapper from '../../styles/HighlightsWrapper';
@@ -78,8 +82,26 @@ export default styled(StudyGuides)`
 
   ${HighlightSection} {
     ${theme.breakpoints.mobile`
-    padding-left: 2rem;
-  `}
+      padding-left: 2rem;
+    `}
+  }
+
+  @media print {
+    ${HighlightsChapterWrapper} {
+      padding-left: 0;
+
+      & + ${HighlightWrapper} {
+        margin-top: 0;
+      }
+    }
+
+    ${HighlightWrapper} {
+      margin-left: 0;
+    }
+
+    ${HighlightSection} {
+      background: ${theme.color.neutral.darkest};
+    }
   }
 
   display: contents;
