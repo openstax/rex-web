@@ -1,11 +1,10 @@
-export { default as getHighlightLocationFilterForPage } from './getHighlightLocationFilterForPage';
-export { default as getHighlightLocationFiltersWithContent } from './getHighlightLocationFiltersWithContent';
-export { default as getHighlightColorFiltersWithContent } from './getHighlightColorFiltersWithContent';
-
 export {
-  getFilteredHighlightLocationFilters,
-  getHighlightLocationFilters
-} from './getHighlightLocationFilters';
+  getHighlightLocationFilters,
+  getHighlightColorFiltersWithContent,
+  getHighlightLocationFilterForPage,
+  getHighlightLocationFiltersWithContent,
+  sectionIsHighlightLocationFitler
+} from './locationFiltersUtils';
 
 export {
   addToTotalCounts,

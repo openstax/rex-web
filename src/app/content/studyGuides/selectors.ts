@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
-  getFilteredHighlightLocationFilters,
+  getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
   getSortedSummaryHighlights
 } from '../highlights/utils';
@@ -58,7 +58,7 @@ export const summaryStudyGuidesPagination = createSelector(
 
 export const studyGuidesLocationFilters = createSelector(
   parentSelectors.book,
-  getFilteredHighlightLocationFilters(archiveTreeSectionIsChapter)
+  getHighlightLocationFilters(archiveTreeSectionIsChapter)
 );
 
 export const summaryStudyGuides = createSelector(
