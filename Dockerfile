@@ -17,10 +17,8 @@ RUN source ~/.profile && cd && nvm install && \
   npm config set unsafe-perm false
 
 
-# so bash will source npm and node
-RUN ln -s /root/.profile /root/.bashrc
-# so ash will source npm and node
-ENV ENV="/root/.profile"
+# so things will be sourced properly
+ENTRYPOINT ["/bin/ash", "-lc"]
 
 # puppeteer
 # from https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md#running-on-alpine
