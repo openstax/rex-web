@@ -49,19 +49,19 @@ jobs:
       run: make sauce
 
   build:
-    name: Build 
+    name: Build
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
     steps:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.head.sha }}
-    - name: build 
-      run: yarn install 
+    - name: build
+      run: yarn install
     - uses: actions/upload-artifact@v2
       with:
-        name: build 
-        path: ./ 
+        name: build
+        path: ./
 
   test:
     name: Test
@@ -71,12 +71,11 @@ jobs:
     steps:
     - uses: actions/download-artifact@v2
       with:
-        name: build 
+        name: build
     - name: test
       working-directory: ./build
       run: yarn test
     - uses: codecov/codecov-action@v1
-      working-directory: ./build
 
   lint:
     name: Lint
@@ -86,7 +85,7 @@ jobs:
     steps:
     - uses: actions/download-artifact@v2
       with:
-        name: build 
+        name: build
     - name: lint
       run: yarn lint
       working-directory: ./build
