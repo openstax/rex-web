@@ -5,7 +5,7 @@ import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
-import { assertWindow } from '../../../utils';
+import { assertNotNull, assertWindow } from '../../../utils';
 import { hasOSWebData } from '../../guards';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import { focused, hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
@@ -35,12 +35,12 @@ export const reduceReferences = (document: Document, {references, currentPath}: 
     const path = content.getUrl(reference.params);
     const search = content.getSearch && content.getSearch(reference.params);
     const query = search ? `?${search}` : '';
-    const a = document.querySelector(`[href^='${reference.match}']`);
-    if (a) {
-      const href = (a.getAttribute('href') || '')
-        .replace(reference.match, toRelativeUrl(currentPath, path) + query);
-      a.setAttribute('href', href);
-    }
+    const a = assertNotNull(
+      document.querySelector(`[href^='${reference.match}']`),
+      'references are created from hrefs');
+    const href = assertNotNull(a.getAttribute('href'), 'it was found by href value')
+      .replace(reference.match, toRelativeUrl(currentPath, path) + query);
+    a.setAttribute('href', href);
   }
 };
 
