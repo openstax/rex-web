@@ -137,6 +137,10 @@ describe('setHead hook', () => {
 
   describe('getCanonicalURL', () => {
 
+    afterEach(() => {
+      archiveUtils.CACHED_FLATTENED_TREES.clear();
+    });
+
     it('returns the current book when the book does not have a canonical book entry', async() => {
       const pageId = page.id;
       const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);

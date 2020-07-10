@@ -191,7 +191,7 @@ describe('Page', () => {
 
     it('adds (target="_blank" rel="noopener nofollow") to external links', async() => {
       expect(await htmlHelper('<a href="https://openstax.org/external-url">external-link</a>'))
-      .toEqual('<a target="_blank" rel="noopener nofollow" href="https://openstax.org/external-url">external-link</a>');
+      .toEqual('<a href="https://openstax.org/external-url" target="_blank" rel="noopener nofollow">external-link</a>');
     });
 
     it('numbers lists that have a start attribute', async() => {

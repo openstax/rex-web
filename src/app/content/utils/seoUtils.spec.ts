@@ -1,9 +1,14 @@
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
 import { Book, Page } from '../types';
+import { CACHED_FLATTENED_TREES } from './archiveTreeUtils';
 import { createTitle } from './seoUtils';
 
 describe('createTitle', () => {
+  afterEach(() => {
+    CACHED_FLATTENED_TREES.clear();
+  });
+
   it('creates title for a page without a parent and without .os-text class in the title', () => {
     const page = makeArchiveSection('page1');
     const book = {

@@ -11,10 +11,11 @@ import {
 } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
-const CACHED_FLATTENED_TREES = new WeakMap<LinkedArchiveTree, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
+// This is exported so it can be cleared for tests cases
+export const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
 export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
-  if (CACHED_FLATTENED_TREES.has(tree)) {
-    return CACHED_FLATTENED_TREES.get(tree)!;
+  if (CACHED_FLATTENED_TREES.has(tree.id)) {
+    return CACHED_FLATTENED_TREES.get(tree.id)!;
   }
   const flattened = [tree, ...flatten(tree.contents.map((section) =>
     flatten(isArchiveTree(section)
@@ -32,7 +33,7 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
       parent: section.parent,
     }),
   }));
-  CACHED_FLATTENED_TREES.set(tree, flattened);
+  CACHED_FLATTENED_TREES.set(tree.id, flattened);
   return flattened;
 }
 
