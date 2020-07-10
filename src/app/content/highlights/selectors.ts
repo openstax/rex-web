@@ -18,24 +18,34 @@ export const localState = createSelector(
   (parentState) => parentState.highlights
 );
 
-export const highlightsLoaded = createSelector(
+const currentPage = createSelector(
   localState,
-  (state) => state.currentPage.highlights !== null
+  (state) => state.currentPage
+)
+
+export const highlightsLoaded = createSelector(
+  currentPage,
+  (page) => page.highlights !== null
 );
 
 export const highlightsPageId = createSelector(
-  localState,
-  (state) => state.currentPage.pageId
+  currentPage,
+  (page) => page.pageId
 );
 
 export const highlights = createSelector(
-  localState,
-  (state) => state.currentPage.highlights || []
+  currentPage,
+  (page) => page.highlights || []
 );
 
-export const totalCountsPerPage = createSelector(
+const highlightsSummary = createSelector(
   localState,
-  (state) => state.summary.totalCountsPerPage
+  (state) => state.summary
+)
+
+export const totalCountsPerPage = createSelector(
+  highlightsSummary,
+  (summary) => summary.totalCountsPerPage
 );
 
 const totalCountsPerPageOrEmpty = createSelector(
@@ -44,33 +54,33 @@ const totalCountsPerPageOrEmpty = createSelector(
 );
 
 export const focused = createSelector(
-  localState,
-  (state) => state.currentPage.focused
+  currentPage,
+  (page) => page.focused
 );
 
 export const hasUnsavedHighlight = createSelector(
-  localState,
-  (state) => state.currentPage.hasUnsavedHighlight
+  currentPage,
+  (page) => page.hasUnsavedHighlight
 );
 
 export const myHighlightsOpen = createSelector(
-  localState,
-  (state) => state.summary.open
+  highlightsSummary,
+  (summary) => summary.open
 );
 
 export const summaryIsLoading = createSelector(
-  localState,
-  (state) => state.summary.loading
+  highlightsSummary,
+  (summary) => summary.loading
 );
 
 export const summaryHighlights = createSelector(
-  localState,
-  (state) => state.summary.highlights
+  highlightsSummary,
+  (summary) => summary.highlights
 );
 
 export const summaryPagination = createSelector(
-  localState,
-  (state) => state.summary.pagination
+  highlightsSummary,
+  (summary) => summary.pagination
 );
 
 export const highlightLocationFilters = createSelector(
@@ -103,8 +113,8 @@ export const loadedCountsPerSource = createSelector(
 );
 
 const summaryFilters = createSelector(
-  localState,
-  (state) => state.summary.filters
+  highlightsSummary,
+  (summary) => summary.filters
 );
 
 const rawSummaryLocationFilters = createSelector(
