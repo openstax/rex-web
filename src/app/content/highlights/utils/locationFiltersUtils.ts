@@ -1,16 +1,20 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import { highlightStyles } from '../../constants';
-import { LinkedArchiveTreeNode, Page } from '../../types';
-import { ArchiveBook, Book, LinkedArchiveTree, LinkedArchiveTreeSection } from '../../types';
+import {
+  ArchiveBook,
+  Book,
+  LinkedArchiveTree,
+  LinkedArchiveTreeNode,
+  LinkedArchiveTreeSection,
+  Page
+} from '../../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
   archiveTreeSectionIsPage,
   archiveTreeSectionIsUnit,
   findArchiveTreeNode,
-} from '../../utils/archiveTreeUtils';
-import {
   flattenArchiveTree,
 } from '../../utils/archiveTreeUtils';
 import { CountsPerSource, HighlightLocationFilters } from '../types';
