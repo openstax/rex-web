@@ -8,7 +8,6 @@ import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as selectAuth from '../../../auth/selectors';
 import Button, { ButtonGroup } from '../../../components/Button';
-import { isHtmlElement } from '../../../guards';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
@@ -23,7 +22,7 @@ import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
 import Note from './Note';
-import onClickOutside from './utils/onClickOutside';
+import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
 
 export interface EditCardProps {
   isFocused: boolean;
@@ -85,15 +84,12 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  React.useEffect(
-    onClickOutside(
-      [element.current, ...props.highlight.elements].filter(isHtmlElement),
-      props.isFocused,
-      blurIfNotEditing,
-      { capture: true }
-    ),
-    [props.isFocused, blurIfNotEditing]
-  );
+  const elements = React.useMemo(
+    () => [element, ...props.highlight.elements].filter(isElementForOnClickOutside),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [element.current, props.highlight]);
+
+  useOnClickOutside(elements, props.isFocused, blurIfNotEditing, { capture: true });
 
   React.useEffect(() => {
     if (element.current) {

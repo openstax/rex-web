@@ -81,7 +81,7 @@ describe('onClickOutside', () => {
     expect(cb).toHaveBeenCalled();
   });
 
-  it('works for list of HTMLElemnets', () => {
+  it('invoking event with target that is child of one of elements does nothing', () => {
     const cb = jest.fn();
     const container = documentBack.createElement('div');
     const container2 = documentBack.createElement('div');
@@ -95,6 +95,41 @@ describe('onClickOutside', () => {
     });
 
     expect(cb).not.toHaveBeenCalled();
+  });
+
+  it('invoking event with target that is child of one of refs does nothing', () => {
+    const cb = jest.fn();
+    const container = documentBack.createElement('div');
+    const container2 = documentBack.createElement('div');
+    const child = documentBack.createElement('div');
+    container2.appendChild(child);
+
+    const mockRef = { current: container } as React.RefObject<HTMLElement>;
+    const mockRef2 = { current: container2 } as React.RefObject<HTMLElement>;
+    onClickOutside([mockRef, mockRef2], true, cb)();
+
+    addEventListener.mock.calls[0][1]({
+      target: child,
+    });
+
+    expect(cb).not.toHaveBeenCalled();
+  });
+
+  it('invoking event with target that is not child of one of elements calls callback', () => {
+    const cb = jest.fn();
+    const container = documentBack.createElement('div');
+    const container2 = documentBack.createElement('div');
+    const child = documentBack.createElement('div');
+    container2.appendChild(child);
+    const notChild = documentBack.createElement('div');
+
+    onClickOutside([container, container2], true, cb)();
+
+    addEventListener.mock.calls[0][1]({
+      target: notChild,
+    });
+
+    expect(cb).toHaveBeenCalled();
   });
 
   describe('outside browser', () => {
