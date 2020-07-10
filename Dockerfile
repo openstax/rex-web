@@ -10,7 +10,7 @@ RUN touch $HOME/.profile && apk add libstdc++ curl bash && \
     NVM_DIR="$HOME/.nvm" && source $HOME/.nvm/nvm.sh && source $HOME/.profile
 
 COPY .nvmrc /root/.
-RUN source ~/.profile && cd && nvm install
+RUN source ~/.profile && cd && nvm install && npm install -g yarn
 
 # so bash will source npm and node
 RUN ln -s /root/.profile /root/.bashrc
