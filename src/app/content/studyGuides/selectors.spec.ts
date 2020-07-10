@@ -17,7 +17,7 @@ describe('studyGuidesLocationFiltersWithContent', () => {
       summary: {
         totalCountsPerPage: {page1: { blue: 1 }, page2: { pink: 3 }, preface: { yellow: 2 }},
       },
-    } as any)).toEqual(new Set(['chapter1', 'preface']));
+    } as any)).toEqual(new Set(['chapter1']));
   });
 
   it('works with null counts', () => {
