@@ -49,8 +49,27 @@ jobs:
         SECURE_STORE_PASSWORD: ${{ secrets.secure_store_password }}
       run: make sauce
 
-  build:
+  test:
     name: Test
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI
+    strategy:
+      matrix:
+        suite: [unit, browser, screenshot, build]
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - uses: actions/cache@v2
+      id: node_modules
+      with:
+        path: node_modules
+        key: node_modules
+    - run: yarn install
+    - run: yarn test:${{ matrix.suite }} --forceExit
+
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
     steps:
@@ -63,6 +82,4 @@ jobs:
         path: node_modules
         key: node_modules
     - run: yarn install
-    - run: yarn test --forceExit
     - run: yarn lint
-    - uses: codecov/codecov-action@v1
