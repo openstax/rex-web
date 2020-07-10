@@ -66,6 +66,6 @@ export default () =>
       <ConnectedChapterFilter />
     </FilterDropdown>
     <ColorKey />
-    <ConnectedPrintButton />
+    <ConnectedPrintButton studyGuidesButton={true}/>
     <ConnectedFilterList />
   </Filters>;

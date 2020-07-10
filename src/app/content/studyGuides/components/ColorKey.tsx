@@ -10,7 +10,7 @@ import { toolbarIconStyles } from '../../components/Toolbar/iconStyles';
 import { toolbarDefaultText } from '../../components/Toolbar/styled';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { useOnClickOutside } from '../../highlights/components/utils/onClickOutside';
-import { desktopHorizontalMargin, mobilePaddingSides } from '../../styles/PopupConstants';
+import { mobilePaddingSides } from '../../styles/PopupConstants';
 import { highlightStyles } from '../constants';
 
 const noteConstants = {
@@ -43,7 +43,7 @@ export const ColorKeyDescription = styled.div`
     border-top: 0.1rem solid ${theme.color.neutral.formBorder};
     border-left: 0.1rem solid ${theme.color.neutral.formBorder};
     ${theme.breakpoints.mobile(css`
-      right: 1.3rem;
+      right: 6rem;
       width: 1rem;
       height: 1rem;
       top: -0.6rem;
@@ -64,7 +64,7 @@ export const ColorKeyDescription = styled.div`
   padding: 1.5rem 1.65rem;
   ${theme.breakpoints.mobile(css`
     width: calc(100vw - ${mobilePaddingSides * 2}rem);
-    right: -${mobilePaddingSides / 2}rem;
+    right: -5.3rem;
     top: 3.5rem;
   `)}
 `;
@@ -106,7 +106,7 @@ const KeyTermWrapper = styled.div`
 const ColorKeyWrapper = styled.div`
   outline: none;
   margin-left: auto;
-  margin-right: ${desktopHorizontalMargin}rem;
+  margin-right: 4.8rem;
   position: relative;
   overflow: visible;
   ${theme.breakpoints.mobile(css`
