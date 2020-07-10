@@ -10,7 +10,7 @@ export const StudyGuidesCTAWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   color: ${theme.color.text.default};
-  box-shadow: inset, 0, 0, 10px, 0, rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.4);
   overflow: hidden;
 
   strong {
