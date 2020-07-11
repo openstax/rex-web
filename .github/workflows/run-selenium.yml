@@ -22,16 +22,12 @@ jobs:
     container: python 
     steps:
     - uses: actions/checkout@v2
-
-    - name: set vars
-      run: |
-        echo "::set-env name=BASE_URL::${{ github.event.inputs.base_url }}"
-        echo "::set-env name=BROWSER::${{ github.event.inputs.browser }}"
-        echo "::set-env name=MARKER::${{ github.event.inputs.marker }}"
-        echo "::set-env name=TR_RUN_ID::${{ github.event.inputs.tr_run_id }}"
-
     - name: selenium
       env:
+        BASE_URL: ${{ github.event.inputs.base_url }}
+        BROWSER: ${{ github.event.inputs.browser }}
+        MARKER: ${{ github.event.inputs.marker }}
+        TR_RUN_ID: ${{ github.event.inputs.tr_run_id }}
         TR_PROJECT_ID: ${{ secrets.testrail_project_id }}
         TR_INSTANCE: ${{ secrets.testrail_instance }}
         TR_USERNAME: ${{ secrets.testrail_username }}
