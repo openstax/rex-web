@@ -7,11 +7,10 @@ import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
 import Modal from '../../components/Modal';
 import { Body, BodyHeading, Footer, modalPadding } from '../../components/Modal/styles';
-import { labelStyle } from '../../components/Typography';
-import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
-import { clearCurrentError } from '../actions';
-import { currentError, getMessageIdStack } from '../selectors';
+import { hideErrorDialog } from '../actions';
+import * as select from '../selectors';
+import ErrorIdList from './ErrorIdList';
 
 // tslint:disable-next-line:variable-name
 const BodyErrorText = styled.div`
@@ -19,25 +18,18 @@ const BodyErrorText = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const ErrorList = styled.div`
-  ${labelStyle}
-  font-size: 0.9rem;
-  color: ${theme.color.primary.gray.darker};
-  opacity: 0.6;
-`;
-
-// tslint:disable-next-line:variable-name
 const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
 interface PropTypes {
+  show: boolean;
   error?: Error;
   stack: string[];
   clearError: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const ErrorModal = ({ error, clearError, stack }: PropTypes) => {
-  if (!error) { return null; }
+const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
+  if (!show) { return null; }
 
   return (
     <Modal className='error-modal' heading='i18n:error:boundary:heading' onModalClose={clearError}>
@@ -46,9 +38,7 @@ const ErrorModal = ({ error, clearError, stack }: PropTypes) => {
           {(msg) => <BodyHeading>{msg}</BodyHeading>}
         </FormattedMessage>
         <BodyWithLink values={{supportCenterLink}}/>
-        {stack.length ? <ErrorList>
-          {stack.slice(0, 4).join(', ')}
-        </ErrorList> : null}
+        <ErrorIdList ids={stack} />
       </Body>
       <Footer>
         <FormattedMessage id='i18n:error:boundary:action-btn-text'>
@@ -66,10 +56,10 @@ const ErrorModal = ({ error, clearError, stack }: PropTypes) => {
 
 export default connect(
   (state: AppState) => ({
-    error: currentError(state),
-    stack: getMessageIdStack(state),
+    show: select.showErrorDialog(state),
+    stack: select.getMessageIdStack(state),
   }),
   (dispatch: Dispatch) => ({
-    clearError: () => dispatch(clearCurrentError()),
+    clearError: () => dispatch(hideErrorDialog()),
   })
 )(ErrorModal);
