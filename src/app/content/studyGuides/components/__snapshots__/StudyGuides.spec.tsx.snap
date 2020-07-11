@@ -14,7 +14,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="SectionHighlights__HighlightsChapter-c51y19-1 gNtpFU"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"os-text\\">Test Page 1</span>",
+            "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
           }
         }
         data-testid="chapter-title"
@@ -23,6 +23,15 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     <div
       className="SectionHighlights__HighlightWrapper-c51y19-2 gFcHNj"
     >
+      <div
+        className="SectionHighlights__HighlightSection-c51y19-3 cYxWVd"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<span class=\\"os-text\\">Test Page 6</span>",
+          }
+        }
+        data-testid="section-title"
+      />
       <div
         className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
       >
@@ -144,7 +153,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="SectionHighlights__HighlightsChapter-c51y19-1 gNtpFU"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+            "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
           }
         }
         data-testid="chapter-title"
@@ -157,7 +166,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="SectionHighlights__HighlightSection-c51y19-3 cYxWVd"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"os-text\\">Test Page 6</span>",
+            "__html": "<span class=\\"os-text\\">Test Page 7</span>",
           }
         }
         data-testid="section-title"
