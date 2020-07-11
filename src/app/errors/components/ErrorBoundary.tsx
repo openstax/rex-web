@@ -1,5 +1,7 @@
+import flow from 'lodash/fp/flow';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import Sentry from '../../../helpers/Sentry';
 import Footer from '../../components/Footer';
@@ -8,9 +10,15 @@ import htmlMessage from '../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography/headings';
 import theme from '../../theme';
+import { AppState, Dispatch } from '../../types';
+import { recordError } from '../actions';
+import { getMessageIdStack } from '../selectors';
+import ErrorIdList from './ErrorIdList';
 
 interface Props {
   children: ReactNode;
+  recordError: typeof recordError;
+  stack: string[];
 }
 
 interface State {
@@ -40,23 +48,25 @@ const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
 class ErrorBoundary extends React.Component<Props, State> {
 
-  public state = { error: undefined };
+  public state: State = { error: undefined };
 
   public componentDidCatch(error: Error) {
     Sentry.captureException(error);
     this.setState({ error });
+    this.props.recordError(error);
   }
 
   public render() {
     if (this.state.error) {
       return <React.Fragment>
-        <ErrorWrapper error={this.state.error as any as Error}>
+        <ErrorWrapper error={this.state.error}>
           <HeadingWrapper>
             <FormattedMessage id='i18n:error:boundary:sub-heading'>
               {(msg) => <H2>{msg}</H2>}
             </FormattedMessage>
           </HeadingWrapper>
           <BodyWithLink values={{supportCenterLink}}/>
+          <ErrorIdList ids={this.props.stack} />
         </ErrorWrapper>
         <Footer />
       </React.Fragment>;
@@ -65,4 +75,11 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 }
 
-export default ErrorBoundary;
+export default connect(
+  (state: AppState) => ({
+    stack: getMessageIdStack(state),
+  }),
+  (dispatch: Dispatch) => ({
+    recordError: flow(recordError, dispatch),
+  })
+)(ErrorBoundary);
