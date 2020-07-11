@@ -77,6 +77,7 @@ const ColorKeyIcon = styled.img`
 // tslint:disable-next-line:variable-name
 const ColorKeyText = styled.span`
   ${toolbarDefaultText};
+  color: ${theme.color.primary.gray.base};
 
   :active,
   :focus {
