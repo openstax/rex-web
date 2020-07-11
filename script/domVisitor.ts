@@ -86,7 +86,9 @@ async function visitPages(
     } catch (e) {
       anyFailures = true;
       bar.interrupt(`- (error loading) ${basename(pageUrl)}`);
-      bar.interrupt(e.message);
+      if (e.message) {
+        bar.interrupt(e.message);
+      }
     }
 
     bar.tick();
