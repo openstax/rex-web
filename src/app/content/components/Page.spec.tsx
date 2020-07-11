@@ -91,7 +91,7 @@ describe('Page', () => {
         some text
         <a href="/content/link">some link</a>
         some more text
-        <a href="/rando/link">another link</a>
+        <a href="./rando/link">another link</a>
         some more text
         text
         <button>asdf</button>
@@ -473,7 +473,7 @@ describe('Page', () => {
     }
 
     expect(firstLink.getAttribute('href')).toEqual('books/book-slug-1/pages/page-title');
-    expect(secondLink.getAttribute('href')).toEqual('/rando/link');
+    expect(secondLink.getAttribute('href')).toEqual('./rando/link');
   });
 
   it('interceptes clicking content links', async() => {
