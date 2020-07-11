@@ -1,3 +1,4 @@
+import https from 'https';
 import fetch from 'node-fetch';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { assertDefined } from '../../src/app/utils';
@@ -23,7 +24,12 @@ export async function findBooks({
     .catch(() => config.BOOKS)
   ;
 
-  (global as any).fetch = fetch;
+  // this hackery makes it not care about self signed certificates
+  const agent = new (https.Agent as any)({
+    rejectUnauthorized: false,
+  });
+  (global as any).fetch = (url: any, options: any) => fetch(url, {...options, agent});
+
   const archiveLoader = createArchiveLoader(`${archiveUrl ? archiveUrl : rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
   const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
