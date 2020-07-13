@@ -9,14 +9,12 @@ import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { RouteState } from '../../navigation/types';
 import { AppState, Dispatch } from '../../types';
-import { assertWindow } from '../../utils';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
-import { SearchScrollTarget } from '../search/types';
 import * as select from '../selectors';
 import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
@@ -35,7 +33,7 @@ interface Props {
   currentPath: string;
   hasUnsavedHighlight: boolean;
   search: RouteState<typeof content>['search'];
-  searchScrollTarget?: SearchScrollTarget;
+  scrollTarget?: Exclude<ReturnType<typeof selectNavigation.scrollTarget>, null>;
   className?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
 }
@@ -48,7 +46,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     currentBook,
     currentPath,
     search,
-    searchScrollTarget,
+    scrollTarget,
     navigate,
     onClick,
     children,
@@ -78,13 +76,18 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         onClick();
       }
 
-      const searchParams = queryString.parse(assertWindow().location.search);
-      if (searchScrollTarget) {
-        searchParams.target = JSON.stringify(omit('elementId', searchScrollTarget));
+      const optionsParams: { hash?: string, search?: { [key: string]: string } } = {};
+      if (search && search.query) {
+        optionsParams.search = { query: search.query };
       }
-      const options = searchScrollTarget
-        ? { hash: searchScrollTarget.elementId, search: queryString.stringify(searchParams) }
-        : undefined;
+      if (scrollTarget) {
+        optionsParams.search = { ...optionsParams.search, target: JSON.stringify(omit('elementId', scrollTarget)) };
+        optionsParams.hash = scrollTarget.elementId;
+      }
+      const options = {
+        hash: optionsParams.hash,
+        search: optionsParams.search ? queryString.stringify(optionsParams.search) : undefined,
+      }
 
       navigate({
         params,

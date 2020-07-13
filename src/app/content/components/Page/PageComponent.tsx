@@ -93,10 +93,10 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
 
     if (!shouldUpdateHighlights) { return; }
 
-    const highlgihtsAddedOrRemoved = this.highlightManager.update({ onSelect: this.onHighlightSelect });
+    const highlightsAddedOrRemoved = this.highlightManager.update({ onSelect: this.onHighlightSelect });
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
-      forceRedraw: highlgihtsAddedOrRemoved,
+      forceRedraw: highlightsAddedOrRemoved,
       onSelect: this.onSearchHighlightSelect,
     });
   }

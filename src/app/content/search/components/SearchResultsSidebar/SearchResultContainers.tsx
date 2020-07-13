@@ -89,7 +89,7 @@ const SearchResult = (props: {
           book={props.book}
           page={props.page}
           result={thisResult}
-          searchScrollTarget={target}
+          scrollTarget={target}
           onClick={() => props.selectResult(thisResult)}
           {...isSelected ?  {ref: props.activeSectionRef} : {}}
         >
