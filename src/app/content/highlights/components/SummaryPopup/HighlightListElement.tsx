@@ -67,6 +67,8 @@ export const HighlightContentWrapper = styled.div`
   }}
 
   @media print {
+    break-inside: avoid-page;
+
     ${HighlightContent} {
       background-color: white;
     }
