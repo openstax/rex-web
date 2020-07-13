@@ -30,7 +30,10 @@ COPY .nvmrc /root/.
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && \
   NVM_DIR="$HOME/.nvm" && . $HOME/.nvm/nvm.sh && \
   cd && nvm install && \
-  npm install -g yarn
+  npm install -g yarn && \
+  ln -s $(dirname $(which node)) /usr/local/node-bin
+
+ENV PATH /usr/local/node-bin:$PATH
   
 FROM CI as CHROME
 
