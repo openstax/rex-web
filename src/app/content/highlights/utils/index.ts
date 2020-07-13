@@ -1,3 +1,6 @@
+import { ScrollTarget } from '../../../navigation/types';
+import { HighlightScrollTarget } from '../types';
+
 export {
   getHighlightLocationFilters,
   getHighlightColorFiltersWithContent,
@@ -17,3 +20,8 @@ export {
   updateSummaryHighlightsDependOnFilters,
   getSortedSummaryHighlights
 } from './summaryHighlightsUtils';
+
+export const isHighlightScrollTarget = (target: ScrollTarget): target is HighlightScrollTarget => {
+  if (target.type === 'highlight' && typeof target.id === 'string') { return true; }
+  return false;
+};

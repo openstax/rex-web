@@ -13,7 +13,8 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import * as select from '../selectors';
-import { findSearchResultHit, getFirstResult, getIndexData, getSearchFromLocation } from '../utils';
+import { findSearchResultHit, getFirstResult, getIndexData,
+  getSearchFromLocation, isSearchScrollTarget } from '../utils';
 import trackSearch from './trackSearch';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
@@ -120,7 +121,7 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async(/* 
   const navigationQuery = navigationState.query.query;
   const searchQuery = select.query(state);
   const scrollTarget = selectNavigation.scrollTarget(state);
-  const searchScrollTarget = scrollTarget && scrollTarget.type === 'search' ? scrollTarget : null;
+  const searchScrollTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? scrollTarget : null;
   const searchHits = select.hits(state) || [];
   const targettedHit = searchScrollTarget && findSearchResultHit(searchHits, searchScrollTarget);
   const navigationSelectedResult = targettedHit && searchScrollTarget

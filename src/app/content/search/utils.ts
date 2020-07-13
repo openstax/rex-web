@@ -4,7 +4,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
-import { RouteState } from '../../navigation/types';
+import { RouteState, ScrollTarget } from '../../navigation/types';
 import { getAllRegexMatches } from '../../utils';
 import attachHighlight from '../components/utils/attachHighlight';
 import { content } from '../routes';
@@ -177,4 +177,9 @@ export const findSearchResultHit = (
   target: SearchScrollTarget
 ): SearchResultHit | undefined => {
   return results.find((result) => result.source.elementId === target.elementId);
+};
+
+export const isSearchScrollTarget = (target: ScrollTarget): target is SearchScrollTarget => {
+  if (target.type === 'search' && typeof target.index === 'number') { return true; }
+  return false;
 };

@@ -3,17 +3,15 @@ import { Action, Location } from 'history';
 import curry from 'lodash/fp/curry';
 import omit from 'lodash/fp/omit';
 import pathToRegexp, { Key, parse } from 'path-to-regexp';
-import queryString, { OutputParams } from 'query-string';
+import { OutputParams } from 'query-string';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
-import { HighlightScrollTarget } from '../content/highlights/types';
-import { SearchScrollTarget } from '../content/search/types';
 import { pathTokenIsKey } from '../navigation/guards';
 import { actionHook } from '../utils';
 import * as actions from './actions';
 import { hasParams } from './guards';
 import { AnyMatch, AnyRoute, GenericMatch,
-  LocationChange, Match, RouteHookBody, RouteState } from './types';
+  LocationChange, Match, RouteHookBody, RouteState, ScrollTarget } from './types';
 
 const delimiter = '_';
 
@@ -115,37 +113,28 @@ export const findPathForParams = (params: object, paths: string[]) => {
 
 const isScrollTarget = (
   object: { [key: string]: any }
-): object is HighlightScrollTarget | SearchScrollTarget => {
-  if (typeof object.elementId !== 'string') { return false; }
-  if (object.type === 'search' && typeof object.index === 'number') { return true; }
-  if (object.type === 'highlight' && typeof object.id === 'string') { return true; }
-  return false;
+): object is ScrollTarget => {
+  if (!object.elementId || !object.type) { return false; }
+  for (const key in object) {
+    if (typeof key !== 'string') { return false; }
+  }
+  return true;
 };
 
 export const getScrollTargetFromQuery = (
   query: OutputParams,
   hash: string
-): HighlightScrollTarget | SearchScrollTarget | null => {
+): ScrollTarget | null => {
   if (!hash || !query.target || Array.isArray(query.target)) { return null; }
+  let parsed: any;
   try {
-    const parsed = JSON.parse(decodeURIComponent(query.target));
-    if (parsed instanceof Object) {
-      parsed.elementId = hash.replace('#', '');
-      if (isScrollTarget(parsed)) { return parsed; }
-    }
-    return null;
+    parsed = JSON.parse(decodeURIComponent(query.target));
   } catch {
     return null;
   }
-};
-
-export const generateTargetQueryFromScrollTarget = (scrollTarget: HighlightScrollTarget | SearchScrollTarget) => {
-  let data: object;
-  if (scrollTarget.type === 'search') {
-    data = { target: JSON.stringify({ index: scrollTarget.index, type: 'search' }) };
-    return queryString.stringify(data);
-  } else {
-    data = { target: JSON.stringify({ id: scrollTarget.id, type: 'highlight' }) };
+  if (parsed instanceof Object) {
+    parsed.elementId = hash.replace('#', '');
+    if (isScrollTarget(parsed)) { return parsed; }
   }
-  return queryString.stringify(data) + `#${scrollTarget.elementId}`;
+  return null;
 };

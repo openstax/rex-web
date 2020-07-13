@@ -17,6 +17,7 @@ import CardWrapper from '../../highlights/components/CardWrapper';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData, HighlightScrollTarget } from '../../highlights/types';
+import { isHighlightScrollTarget } from '../../highlights/utils';
 import * as select from '../../selectors';
 import attachHighlight from '../utils/attachHighlight';
 import { erase, highlightData, insertPendingCardInOrder, isUnknownHighlightData, updateStyle } from './highlightUtils';
@@ -179,7 +180,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
 
       highlighter.clearFocus();
       const { scrollTarget, focus, focused: focusedId, highlightsLoaded, loggedOut, page } = getProp();
-      const highlightScrollTarget = scrollTarget && scrollTarget.type === 'highlight' ? scrollTarget : null;
+      const highlightScrollTarget = scrollTarget && isHighlightScrollTarget(scrollTarget) ? scrollTarget : null;
       const focused = focusedId && highlighter.getHighlight(focusedId);
       const scrollTargetHighlight = highlightScrollTarget && highlighter.getHighlight(highlightScrollTarget.id);
       const toFocus = scrollTargetHighlight || focused;

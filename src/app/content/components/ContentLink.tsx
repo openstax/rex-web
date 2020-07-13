@@ -87,7 +87,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
       const options = {
         hash: optionsParams.hash,
         search: optionsParams.search ? queryString.stringify(optionsParams.search) : undefined,
-      }
+      };
 
       navigate({
         params,
