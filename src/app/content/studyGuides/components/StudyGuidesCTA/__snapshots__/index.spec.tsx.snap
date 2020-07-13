@@ -11,7 +11,7 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
       className="styles__StudyGuidesCTAContent-dthmzf-2 hZLeDx"
     >
       <h2
-        className="styles__StudyGuidesCTATitle-dthmzf-3 hmDIvd"
+        className="styles__StudyGuidesCTATitle-dthmzf-3 jEdCPi"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Expert-created study guides. <strong>100% free!</strong>",

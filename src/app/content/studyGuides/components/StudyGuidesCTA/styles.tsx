@@ -50,6 +50,7 @@ export const StudyGuidesCTATitle = styled.h2`
   ${theme.breakpoints.mobile(css`
     font-size: 1.8rem;
     line-height: 2.6rem;
+    margin-top: 1rem;
   `)}
 `;
 
