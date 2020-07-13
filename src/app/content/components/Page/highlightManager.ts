@@ -16,7 +16,7 @@ import {
 import CardWrapper from '../../highlights/components/CardWrapper';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import * as selectHighlights from '../../highlights/selectors';
-import { HighlightData, HighlightScrollTarget } from '../../highlights/types';
+import { HighlightData } from '../../highlights/types';
 import { isHighlightScrollTarget } from '../../highlights/utils';
 import * as select from '../../selectors';
 import attachHighlight from '../utils/attachHighlight';
@@ -57,9 +57,6 @@ const onClickHighlight = (services: HighlightManagerServices, highlight: Highlig
   }
 
   services.getProp().focus(highlight.id);
-  if (services.getProp().scrollTarget) {
-    services.history.replace({hash: '', search: ''});
-  }
 });
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
@@ -95,7 +92,8 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
 };
 
 interface UpdateOptions {
-  onSelect: (scrollTarget: HighlightScrollTarget | null, highlight: Highlight | null) => void;
+  clearError: () => void;
+  setError: (id: string, messageKey: string) => void;
 }
 
 export default (container: HTMLElement, getProp: () => HighlightProp, history: History) => {
@@ -149,7 +147,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
       });
     },
     unmount: (): void => highlighter && highlighter.unmount(),
-    update: (options?: UpdateOptions) => {
+    update: (prevProps: HighlightProp, options?: UpdateOptions) => {
       let addedOrRemoved = false;
 
       const matchHighlightId = (id: string) => (search: HighlightData | Highlight) => search.id === id;
@@ -180,21 +178,45 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
 
       highlighter.clearFocus();
       const { scrollTarget, focus, focused: focusedId, highlightsLoaded, loggedOut, page } = getProp();
+      const prevHighlightScrollTarget = prevProps.scrollTarget && isHighlightScrollTarget(prevProps.scrollTarget)
+        ? prevProps.scrollTarget
+        : null;
       const highlightScrollTarget = scrollTarget && isHighlightScrollTarget(scrollTarget) ? scrollTarget : null;
-      const focused = focusedId && highlighter.getHighlight(focusedId);
+      const focused = focusedId ? highlighter.getHighlight(focusedId) : null;
       const scrollTargetHighlight = highlightScrollTarget && highlighter.getHighlight(highlightScrollTarget.id);
-      const toFocus = scrollTargetHighlight || focused;
+
+      // When user highlights are fetched or user is logged out and page is loaded
+      // then clear or set an error for the current scrollStarget
+      if (options && (highlightsLoaded || (loggedOut && page))) {
+        if (highlightScrollTarget && scrollTargetHighlight) {
+          options.clearError();
+        } else if (highlightScrollTarget) {
+          options.setError(highlightScrollTarget.id, 'i18n:notification:scroll-to-highlight-failure');
+        }
+      }
+
+      let toFocus: Highlight | null | undefined = null;
+      if (scrollTargetHighlight && focused) {
+        // If previously scroll target was undefined or different than current scroll target
+        // then focus current scroll target.
+        if (
+          !prevHighlightScrollTarget
+          || (prevHighlightScrollTarget && scrollTargetHighlight.id !== prevHighlightScrollTarget.id)
+        ) {
+          toFocus = scrollTargetHighlight;
+        } else {
+          // If user focused another highlight
+          toFocus = focused;
+        }
+      } else {
+        toFocus = scrollTargetHighlight || focused;
+      }
+
       if (toFocus) {
         toFocus.focus();
         if (toFocus.id !== focusedId) {
           focus(toFocus.id);
         }
-      }
-      if (
-        options
-        && (highlightsLoaded || (loggedOut && page))
-      ) {
-        options.onSelect(highlightScrollTarget, toFocus || null);
       }
 
       if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {
@@ -214,5 +236,5 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
 export const stubHighlightManager = ({
   CardList: (() => null) as React.FC,
   unmount: (): void => undefined,
-  update: (_options?: UpdateOptions): boolean => false,
+  update: (_prevProps: HighlightProp, _options?: UpdateOptions): boolean => false,
 });

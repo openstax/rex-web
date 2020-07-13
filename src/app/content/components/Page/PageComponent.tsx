@@ -1,12 +1,10 @@
-import { Highlight } from '@openstax/highlighter';
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import SearchOrHighlightFailure from '../../../notifications/components/SearchOrHighlightFailure';
-import { assertNotNull, assertWindow } from '../../../utils';
-import { HighlightScrollTarget } from '../../highlights/types';
+import FlashMessageError from '../../../notifications/components/FlashMessageError';
+import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
@@ -19,7 +17,7 @@ import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
-import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
+import searchHighlightManager, { stubManager } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
 
 if (typeof(document) !== 'undefined') {
@@ -29,17 +27,17 @@ if (typeof(document) !== 'undefined') {
 const parser = new DOMParser();
 
 interface PageState {
-  hasHighlightError: boolean;
-  hasSearchError: boolean;
-  highlightId: null | string;
+  flashMessageError: boolean;
+  flashMessageErrorId: string | null;
+  flashMessageErrorKey: string | null;
 }
 
 export default class PageComponent extends Component<PagePropTypes, PageState> {
   public container = React.createRef<HTMLDivElement>();
   public state = {
-    hasHighlightError: false,
-    hasSearchError: false,
-    highlightId: null,
+    flashMessageError: false,
+    flashMessageErrorId: null,
+    flashMessageErrorKey: null,
   };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
@@ -88,62 +86,38 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     }
 
     const shouldUpdateHighlights = prevProps !== this.props ||
-      (prevState.hasSearchError === this.state.hasSearchError &&
-        prevState.highlightId === this.state.highlightId);
+      (prevState.flashMessageError === this.state.flashMessageError &&
+        prevState.flashMessageErrorKey === this.state.flashMessageErrorKey);
 
     if (!shouldUpdateHighlights) { return; }
 
-    const highlightsAddedOrRemoved = this.highlightManager.update({ onSelect: this.onHighlightSelect });
+    const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
+      clearError: this.clearError,
+      setError: this.setError,
+    });
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
+      clearError: this.clearError,
       forceRedraw: highlightsAddedOrRemoved,
-      onSelect: this.onSearchHighlightSelect,
+      setError: this.setError,
     });
   }
 
-  public onHighlightSelect = (scrollTarget: HighlightScrollTarget | null, highlight: Highlight | null) => {
-    if (highlight && highlight.id !== this.state.highlightId) {
-      this.setState({
-        hasHighlightError: false,
-        highlightId: highlight.id,
-      });
-      return;
-    }
-
-    if (scrollTarget && scrollTarget.id === this.state.highlightId) { return; }
-
-    if (scrollTarget && !highlight) {
-      this.setState({
-        hasHighlightError: true,
-        highlightId: scrollTarget.id,
-      });
-    }
-  };
-
-  public onSearchHighlightSelect: OptionsCallback = ({current, selectedHighlight}) => {
-    if (selectedHighlight) {
-      this.setState({
-        hasSearchError: false,
-        highlightId: null,
-      });
-
-      return;
-    }
-    const selectedResult = assertNotNull(current.selectedResult, 'Current result cannot be null after its selection');
-    const currentResultId = `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`;
-
-    if (currentResultId === this.state.highlightId) { return; }
-
+  public setError = (id: string, messageKey: string) => {
+    if (this.state.flashMessageErrorId === id) { return; }
     this.setState({
-      hasSearchError: true,
-      highlightId: currentResultId,
+      flashMessageError: true,
+      flashMessageErrorId: id,
+      flashMessageErrorKey: messageKey,
     });
   };
 
-  public dismissError = () => {
+  public clearError = () => {
+    if (!this.state.flashMessageError) { return; }
     this.setState({
-      hasHighlightError: false,
-      hasSearchError: false,
+      flashMessageError: false,
+      flashMessageErrorId: null,
+      flashMessageErrorKey: null,
     });
   };
 
@@ -163,15 +137,11 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      {this.state.hasSearchError || this.state.hasHighlightError
-        ? <SearchOrHighlightFailure
-            dismiss={this.dismissError}
-            messageKey={
-              this.state.hasSearchError
-                ? 'i18n:notification:search-failure'
-                : 'i18n:notification:scroll-to-highlight-failure'
-            }
-            selectedHighlight={this.state.highlightId}
+      {this.state.flashMessageError && this.state.flashMessageErrorKey
+        ? <FlashMessageError
+            dismiss={this.clearError}
+            messageKey={this.state.flashMessageErrorKey!}
+            uniqueId={this.state.flashMessageErrorId}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
           />
         : null}

@@ -1,4 +1,4 @@
-import Highlighter, { Highlight } from '@openstax/highlighter';
+import Highlighter from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
@@ -25,19 +25,11 @@ export const mapStateToSearchHighlightProp = (state: AppState) => {
   };
 };
 export type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
-export type OptionsCallback = ({
-  current,
-  previous,
-  selectedHighlight,
-}: {
-  current: HighlightProp,
-  previous: HighlightProp,
-  selectedHighlight?: Highlight
-}) => void;
 
 interface Options {
   forceRedraw: boolean;
-  onSelect: OptionsCallback;
+  clearError: () => void;
+  setError: (id: string, messageKey: string) => void;
 }
 
 const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
@@ -51,9 +43,11 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
 
 const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
   if (!current.selectedResult) {
+    options.clearError();
     return;
   }
   if (!options.forceRedraw && previous.selectedResult === current.selectedResult) {
+    options.clearError();
     return;
   }
 
@@ -67,6 +61,10 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
 
   if (firstSelectedHighlight) {
     firstSelectedHighlight.focus();
+    options.clearError();
+  } else {
+    const currentResultId = `${current.selectedResult.highlight}-${current.selectedResult.result.source.pageId}`;
+    options.setError(currentResultId, 'i18n:notification:search-failure');
   }
 
   if (firstSelectedHighlight && previous.selectedResult !== current.selectedResult) {
@@ -74,12 +72,6 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
       () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
     );
   }
-
-  options.onSelect({
-    current,
-    previous,
-    selectedHighlight: firstSelectedHighlight,
-  });
 };
 
 const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {

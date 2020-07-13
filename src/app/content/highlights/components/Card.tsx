@@ -5,7 +5,6 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useServices } from '../../../context/Services';
 import { scrollTarget } from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
@@ -57,7 +56,6 @@ const Card = (props: CardProps) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
-  const services = useServices();
 
   React.useEffect(() => {
     if (!props.isFocused) {
@@ -124,15 +122,7 @@ const Card = (props: CardProps) => {
     className: props.className,
     highlight: props.highlight,
     isFocused: props.isFocused,
-    onBlur: () => {
-      if (props.scrollTarget) {
-        services.history.replace({
-          hash: '',
-          search: '',
-        });
-      }
-      props.blur();
-    },
+    onBlur: props.blur,
     onHeightChange: props.onHeightChange,
     onRemove,
     ref: element,
