@@ -69,7 +69,7 @@ jobs:
         path: node_modules
         key: node_modules
     - run: yarn install
-    - run: yarn test:${{ matrix.suite }} --forceExit
+    - run: yarn test:${{ matrix.suite }}
 
   lint:
     name: Lint
