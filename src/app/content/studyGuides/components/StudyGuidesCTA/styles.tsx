@@ -20,6 +20,19 @@ export const StudyGuidesCTAWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     height: 17.6rem;
     padding: 0 1.6rem;
+    justify-content: center;
+  `)}
+`;
+
+// tslint:disable-next-line: variable-name
+export const StudyGuidesCTAInnerWrapper = styled.div`
+  display: contents;
+
+  ${theme.breakpoints.mobile(css`
+    display: flex;
+    max-width: 34rem;
+    height: 100%;
+    overflow: visible;
   `)}
 `;
 

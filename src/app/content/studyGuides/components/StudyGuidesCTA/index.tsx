@@ -26,34 +26,36 @@ const StudyGuidesCTA = () => {
   if (!isNotLoggedIn) { return null; }
 
   return <Styled.StudyGuidesCTAWrapper>
-    <Styled.StudyGuidesCTAContent>
-      <StudyGuidesCTATitle />
-      <Styled.StudyGuidesCTAButtons>
-        <FormattedMessage id='i18n:studyguides:cta:button'>
-          {(msg: Element | string) => <Styled.StudyGuidesCTAButton
-            // eslint-disable-next-line jsx-a11y/anchor-has-content
-            component={<a href={signupLink}/>}
-          >{msg}</Styled.StudyGuidesCTAButton>}
-        </FormattedMessage>
-        <Styled.StudyGuidesCTAButtonsSecondary>
-          <Styled.StudyGuidesCTASeparator>
-            <FormattedMessage id='i18n:studyguides:cta:separator'>
-              {(msg: Element | string) => msg}
-            </FormattedMessage>
-          </Styled.StudyGuidesCTASeparator>
-          <FormattedMessage id='i18n:studyguides:cta:login'>
-            {(msg: Element | string) => <Styled.StudyGuidesCTALink
-              href={loginLink}
-            >{msg}</Styled.StudyGuidesCTALink>}
+    <Styled.StudyGuidesCTAInnerWrapper>
+      <Styled.StudyGuidesCTAContent>
+        <StudyGuidesCTATitle />
+        <Styled.StudyGuidesCTAButtons>
+          <FormattedMessage id='i18n:studyguides:cta:button'>
+            {(msg: Element | string) => <Styled.StudyGuidesCTAButton
+              // eslint-disable-next-line jsx-a11y/anchor-has-content
+              component={<a href={signupLink}/>}
+            >{msg}</Styled.StudyGuidesCTAButton>}
           </FormattedMessage>
-        </Styled.StudyGuidesCTAButtonsSecondary>
-      </Styled.StudyGuidesCTAButtons>
-    </Styled.StudyGuidesCTAContent>
-    <Styled.StudyGuidesCTAInfoWrapper>
-      <StudyGuidesCTAInfo />
-      <Styled.StudyGuidesCTAArrowDesktop src={arrowDesktop} alt='' />
-      <Styled.StudyGuidesCTAArrowMobile src={arrowMobile} alt='' />
-    </Styled.StudyGuidesCTAInfoWrapper>
+          <Styled.StudyGuidesCTAButtonsSecondary>
+            <Styled.StudyGuidesCTASeparator>
+              <FormattedMessage id='i18n:studyguides:cta:separator'>
+                {(msg: Element | string) => msg}
+              </FormattedMessage>
+            </Styled.StudyGuidesCTASeparator>
+            <FormattedMessage id='i18n:studyguides:cta:login'>
+              {(msg: Element | string) => <Styled.StudyGuidesCTALink
+                href={loginLink}
+              >{msg}</Styled.StudyGuidesCTALink>}
+            </FormattedMessage>
+          </Styled.StudyGuidesCTAButtonsSecondary>
+        </Styled.StudyGuidesCTAButtons>
+      </Styled.StudyGuidesCTAContent>
+      <Styled.StudyGuidesCTAInfoWrapper>
+        <StudyGuidesCTAInfo />
+        <Styled.StudyGuidesCTAArrowDesktop src={arrowDesktop} alt='' />
+        <Styled.StudyGuidesCTAArrowMobile src={arrowMobile} alt='' />
+      </Styled.StudyGuidesCTAInfoWrapper>
+    </Styled.StudyGuidesCTAInnerWrapper>
   </Styled.StudyGuidesCTAWrapper>;
 };
 

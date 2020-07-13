@@ -2,66 +2,70 @@
 
 exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
 <div
-  className="styles__StudyGuidesCTAWrapper-dthmzf-0 cqLgIZ"
+  className="styles__StudyGuidesCTAWrapper-dthmzf-0 hMTOib"
 >
   <div
-    className="styles__StudyGuidesCTAContent-dthmzf-1 jUYjMg"
+    className="styles__StudyGuidesCTAInnerWrapper-dthmzf-1 ekANVM"
   >
-    <h2
-      className="styles__StudyGuidesCTATitle-dthmzf-2 dSrkmG"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "Expert-created study guides. <strong>100% free!</strong>",
-        }
-      }
-    />
     <div
-      className="styles__StudyGuidesCTAButtons-dthmzf-3 hwbGXN"
+      className="styles__StudyGuidesCTAContent-dthmzf-2 hZLeDx"
     >
-      <a
-        className="Button-ayg7nk-0 styles__StudyGuidesCTAButton-dthmzf-4 pleeo"
-        href="/accounts/signup?r=/"
-      >
-        Sign Up
-      </a>
+      <h2
+        className="styles__StudyGuidesCTATitle-dthmzf-3 hmDIvd"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Expert-created study guides. <strong>100% free!</strong>",
+          }
+        }
+      />
       <div
-        className="styles__StudyGuidesCTAButtonsSecondary-dthmzf-5 bJMpUy"
+        className="styles__StudyGuidesCTAButtons-dthmzf-4 kchdVc"
       >
-        <span
-          className="styles__StudyGuidesCTASeparator-dthmzf-6 kyyUHw"
-        >
-          or
-        </span>
         <a
-          className="styles__StudyGuidesCTALink-dthmzf-7 kAeWfN"
-          href="/accounts/login?r=/"
+          className="Button-ayg7nk-0 styles__StudyGuidesCTAButton-dthmzf-5 bzUNmz"
+          href="/accounts/signup?r=/"
         >
-          Log in
+          Sign Up
         </a>
+        <div
+          className="styles__StudyGuidesCTAButtonsSecondary-dthmzf-6 dSPDZh"
+        >
+          <span
+            className="styles__StudyGuidesCTASeparator-dthmzf-7 bXhklW"
+          >
+            or
+          </span>
+          <a
+            className="styles__StudyGuidesCTALink-dthmzf-8 hLoOdb"
+            href="/accounts/login?r=/"
+          >
+            Log in
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    className="styles__StudyGuidesCTAInfoWrapper-dthmzf-8 ilsAaO"
-  >
     <div
-      className="styles__StudyGuidesCTAInfo-dthmzf-9 bjQynl"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "Like this guide? <br>We've got study guides for every chapter. <strong>Free forever.</strong>",
+      className="styles__StudyGuidesCTAInfoWrapper-dthmzf-9 kVfvue"
+    >
+      <div
+        className="styles__StudyGuidesCTAInfo-dthmzf-10 kYVnvh"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Like this guide? <br>We've got study guides for every chapter. <strong>Free forever.</strong>",
+          }
         }
-      }
-    />
-    <img
-      alt=""
-      className="styles__StudyGuidesCTAArrowDesktop-dthmzf-10 dfOdsD"
-      src="arrow-desktop.svg"
-    />
-    <img
-      alt=""
-      className="styles__StudyGuidesCTAArrowMobile-dthmzf-11 jzZbVU"
-      src="arrow-mobile.svg"
-    />
+      />
+      <img
+        alt=""
+        className="styles__StudyGuidesCTAArrowDesktop-dthmzf-11 cKiziA"
+        src="arrow-desktop.svg"
+      />
+      <img
+        alt=""
+        className="styles__StudyGuidesCTAArrowMobile-dthmzf-12 fMCjiC"
+        src="arrow-mobile.svg"
+      />
+    </div>
   </div>
 </div>
 `;
