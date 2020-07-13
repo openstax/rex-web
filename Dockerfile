@@ -3,7 +3,6 @@ FROM debian:jessie as CI
 
 RUN apt-get update && apt-get install -y \
   # CI utils
-  shellcheck \
   git \
   # / CI utils
   # CLI utils
@@ -21,6 +20,13 @@ RUN apt-get update && apt-get install -y \
 
 # AWS CLI
 RUN pip3 install awscli --upgrade
+
+# ShellCheck (apt version is very old)
+# includes crazy hack around some linking issue from https://github.com/koalaman/shellcheck/issues/1053#issuecomment-357816927
+RUN curl -Ls https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar -Jxf - --strip-components=1 shellcheck-stable/shellcheck -C $HOME && \
+  touch /tmp/libc.so.6 && \
+  echo "LD_LIBRARY_PATH=/tmp $HOME/shellcheck \"\$@\"" > /usr/bin/shellcheck && \
+  chmod a+x /usr/bin/shellcheck
 
 # node
 #
