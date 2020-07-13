@@ -8,8 +8,7 @@ from pages.accounts import Signup
 from tests import markers
 from pages.osweb import WebBase
 from pages.content import Content
-from utils.utility import Highlight, Utilities
-from utils import utility
+from utils.utility import Highlight, Utilities, get_search_term
 
 HAS_INDICATOR = (
     "return window.getComputedStyle(arguments[0], ':after').getPropertyValue('opacity') == '0.8';"
@@ -462,7 +461,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
         book.notification.got_it()
 
     # AND: Search results are displayed in sidebar
-    search_term = utility.get_search_term(book_slug)
+    search_term = get_search_term(book_slug)
     toolbar.search_for(search_term)
     book.wait_for_page_to_load()
     search_results = search_sidebar.search_results(search_term)
@@ -533,7 +532,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_pag
         book.notification.got_it()
 
     # AND: Search results are displayed in sidebar
-    search_term = utility.get_search_term(book_slug)
+    search_term = get_search_term(book_slug)
     toolbar.search_for(search_term)
     book.wait_for_page_to_load()
     search_results = search_sidebar.search_results(search_term)
