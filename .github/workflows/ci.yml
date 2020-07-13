@@ -33,7 +33,7 @@ jobs:
   selenium:
     name: Selenium
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI
+    container: python
     needs: deploy
     steps:
     - uses: actions/checkout@v2
