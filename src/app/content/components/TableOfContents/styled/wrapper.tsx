@@ -27,7 +27,7 @@ const sidebarClosedStyle = css`
   box-shadow: none;
   pointer-events: none;
   visibility: hidden;
-
+  opacity: 0;
   > * {
     opacity: 0;
   }
