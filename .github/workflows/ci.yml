@@ -47,11 +47,22 @@ jobs:
         SECURE_STORE_PASSWORD: ${{ secrets.secure_store_password }}
       run: make sauce
 
-  scan-books:
-    name: Scan Books
+  books:
+    name: Detect Books
+    runs-on: ubuntu-latest
+    outputs:
+      changes: ${{ steps.detect.outputs.changes }}
+    steps:
+    - id: detect
+      run: echo "::set-output name=changes::{\"include\":$(./script/get-modified-books.bash)}"
+
+  browser-scan-books:
+    name: Browser Scan
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
-    needs: deploy
+    needs: [deploy, books]
+    strategy:
+      matrix: ${{fromJson(needs.books.outputs.changes})}}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -63,13 +74,24 @@ jobs:
         key: node_modules
     - run: yarn install
     - run: ./script/scan-modified-books.bash
+      run: |
+        node script/entry.js domVisitor errorsExist \
+          --bookId="$BOOK_ID" \
+          --bookVersion="$BOOK_VERSION" \
+          --rootUrl "$BASE_URL" \
+          --queryString="validateLinks"
       env:
+        BOOK_id: ${{ matrix.book }}
+        BOOK_VERSION: ${{ matrix.version }}
         BASE_URL: ${{ needs.deploy.outputs.url }}
 
-  check-urls:
-    name: Scan Urls
+  url-scan-books:
+    name: URL Scan
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
+    needs: [deploy, books]
+    strategy:
+      matrix: ${{fromJson(needs.books.outputs.changes})}}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -81,6 +103,15 @@ jobs:
         key: node_modules
     - run: yarn install
     - run: ./script/scan-production-urls.bash
+      run: |
+        node script/entry.js urlChecker \
+          --rootUrl="https://openstax.org" \
+          --bookId="$BOOK_ID" \
+          --bookVersion="$BOOK_VERSION"  \
+          --useUnversionedUrls
+      env:
+        BOOK_id: ${{ matrix.book }}
+        BOOK_VERSION: ${{ matrix.version }}
 
   test:
     name: Test
