@@ -2,8 +2,8 @@ import { createSelector } from 'reselect';
 import * as selectNavigation from '../../../app/navigation/selectors';
 import { AnalyticsEvent } from '../event';
 
-const open = 'REX Study guides (open SG popup)';
-const close = 'REX Study guides (close SG popup)';
+const openSG = 'REX Study guides (open SG popup)';
+const closeSG = 'REX Study guides (close SG popup)';
 
 export const selector = createSelector(
   selectNavigation.pathname,
@@ -17,7 +17,7 @@ export const track = (
   return {
     getGoogleAnalyticsPayload: () => ({
       eventAction: closeAction ? closeAction : 'button',
-      eventCategory: closeAction ? close : open,
+      eventCategory: closeAction ? closeSG : openSG,
       eventLabel: pathname,
     }),
   };
