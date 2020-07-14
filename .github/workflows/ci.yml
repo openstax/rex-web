@@ -78,7 +78,7 @@ jobs:
         path: node_modules
         key: node_modules
     - run: yarn install
-      run: |
+    - run: |
         node script/entry.js domVisitor errorsExist \
           --bookId="$BOOK_ID" \
           --bookVersion="$BOOK_VERSION" \
@@ -107,7 +107,7 @@ jobs:
         path: node_modules
         key: node_modules
     - run: yarn install
-      run: |
+    - run: |
         node script/entry.js urlChecker \
           --rootUrl="https://openstax.org" \
           --bookId="$BOOK_ID" \
