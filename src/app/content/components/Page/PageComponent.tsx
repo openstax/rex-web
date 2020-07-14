@@ -23,28 +23,6 @@ if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
 }
 
-function different<T extends any>(prev: T, current: T) {
-  const difference: Array<any> = [] ;
-  // tslint:disable-next-line: forin
-  for (const prop in prev) {
-    const key = prop as keyof T;
-
-    if (prev[key] !== current[key]) {
-      const lower = !Array.isArray(prev[key]) ? different(prev[key], current[key]) : []
-      if (lower.length) {
-        difference.push({
-          [key]:lower
-        });
-      } else {
-        difference.push(key)
-      }
-     
-    }
-  }
-
-  return difference
-}
-
 const parser = new DOMParser();
 
 interface PageState {
@@ -91,10 +69,6 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     // be relevant if there are rapid page navigations.
     await this.processing;
 
-    console.log("props", JSON.stringify(different(prevProps, this.props), null, 4));
-    console.log("state", JSON.stringify(different(prevState, this.state), null, 4));
-    debugger;
-    console.clear()
     this.scrollTargetManager(prevProps.scrollTarget, this.props.scrollTarget);
 
     if (prevProps.page !== this.props.page) {

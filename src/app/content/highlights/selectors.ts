@@ -21,7 +21,7 @@ export const localState = createSelector(
 const currentPage = createSelector(
   localState,
   (state) => state.currentPage
-)
+);
 
 export const highlightsLoaded = createSelector(
   currentPage,
@@ -41,7 +41,7 @@ export const highlights = createSelector(
 const highlightsSummary = createSelector(
   localState,
   (state) => state.summary
-)
+);
 
 export const totalCountsPerPage = createSelector(
   highlightsSummary,

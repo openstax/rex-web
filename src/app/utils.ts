@@ -196,7 +196,7 @@ export const shallowEqual = <T extends object>(obj1: T, obj2: T) => {
   if (!obj1 || !obj2) { return false; }
 
   for (const key in obj1) {
-    if (obj1[key] !== obj2[key]) {
+    if (!(key in obj1 ) || !(key in obj2) || obj1[key] !== obj2[key]) {
       return false;
     }
   }
@@ -213,7 +213,7 @@ export const memoize = <T extends object>(fun: (state: AppState) => T) => {
       return prev;
     }
     prev = current;
-    return prev;
+    return current;
   };
 };
 
