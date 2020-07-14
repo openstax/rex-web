@@ -1,3 +1,4 @@
+import { JSDOM } from 'jsdom';
 import chunk from 'lodash/chunk';
 import fetch from 'node-fetch';
 import ProgressBar from 'progress';
@@ -8,6 +9,8 @@ import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { getBookPageUrlAndParams, getUrlParamForPageId } from '../src/app/content/utils/urlUtils';
 import { assertDefined } from '../src/app/utils';
 import { findBooks } from './utils/bookUtils';
+
+(global as any).DOMParser = new JSDOM().window.DOMParser;
 
 const {
   rootUrl,
