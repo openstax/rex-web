@@ -2,7 +2,6 @@ import fs from 'fs';
 import { JSDOM } from 'jsdom';
 import path from 'path';
 import { basename } from 'path';
-import ProgressBar from 'progress';
 import puppeteer from 'puppeteer';
 import { argv } from 'yargs';
 import { Book } from '../src/app/content/types';
@@ -10,6 +9,7 @@ import { getBookPageUrlAndParams } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { assertDefined } from '../src/app/utils';
 import { findBooks } from './utils/bookUtils';
+import progressBar from './utils/progressBar';
 
 (global as any).DOMParser = new JSDOM().window.DOMParser;
 
@@ -58,7 +58,7 @@ async function visitPages(
   audit: Audit
 ) {
   let anyFailures = false;
-  const bar = new ProgressBar('visiting [:bar] :current/:total (:etas ETA) ', {
+  const bar = progressBar('visiting [:bar] :current/:total (:etas ETA) ', {
     complete: '=',
     incomplete: ' ',
     total: bookPages.length,

@@ -1,7 +1,6 @@
 import { JSDOM } from 'jsdom';
 import chunk from 'lodash/chunk';
 import fetch from 'node-fetch';
-import ProgressBar from 'progress';
 import { argv } from 'yargs';
 import { content as contentRoute } from '../src/app/content/routes';
 import { Book, BookWithOSWebData, LinkedArchiveTreeSection } from '../src/app/content/types';
@@ -9,6 +8,7 @@ import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { getBookPageUrlAndParams, getUrlParamForPageId } from '../src/app/content/utils/urlUtils';
 import { assertDefined } from '../src/app/utils';
 import { findBooks } from './utils/bookUtils';
+import progressBar from './utils/progressBar';
 
 (global as any).DOMParser = new JSDOM().window.DOMParser;
 
@@ -28,7 +28,7 @@ const {
 
 async function checkPages(bookSlug: string, pages: string[]) {
   let anyFailures = false;
-  const bar = new ProgressBar(`checking ${bookSlug} [:bar] :current/:total (:etas ETA)`, {
+  const bar = progressBar(`checking ${bookSlug} [:bar] :current/:total (:etas ETA)`, {
     complete: '=',
     incomplete: ' ',
     total: pages.length,
