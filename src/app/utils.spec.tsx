@@ -418,7 +418,7 @@ describe('shallowEqual', () => {
   });
 });
 
-describe.only('memoizeStateToProps', () => {
+describe('memoizeStateToProps', () => {
   const customStateToProps = (state: AppState) => ({
     book: selectors.book(state),
     page: selectors.page(state),
