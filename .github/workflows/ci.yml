@@ -64,7 +64,7 @@ jobs:
     name: Browser Scan
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
-    needs: [deploy, books]
+    needs: books
     strategy:
       matrix: ${{fromJson(needs.books.outputs.changes})}}
     steps:
@@ -93,7 +93,7 @@ jobs:
     name: URL Scan
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
-    needs: [deploy, books]
+    needs: books
     strategy:
       matrix: ${{fromJson(needs.books.outputs.changes})}}
     steps:
