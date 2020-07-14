@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
     outputs:
-      modified-books: ${{ steps.detect.outputs.changes }}
+      modified-books: ${{ steps.detect.outputs.modified-books }}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -64,7 +64,7 @@ jobs:
         key: node_modules
     - run: yarn install
     - id: detect
-      run: echo "::set-output name=changes::{\"include\":$(./script/get-modified-books.bash)}"
+      run: echo "::set-output name=modified-books::{\"include\":$(./script/get-modified-books.bash)}"
 
   browser-scan-books:
     name: Browser Scan
