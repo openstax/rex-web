@@ -3,7 +3,7 @@ import Sentry from '../helpers/Sentry';
 import * as actions from './content/actions';
 import { AppServices, AppState, MiddlewareAPI } from './types';
 import * as utils from './utils';
-import { assertDocument, UnauthenticatedError } from './utils';
+import { assertDocument, shallowEqual, UnauthenticatedError } from './utils';
 
 jest.mock('../helpers/Sentry');
 
@@ -355,5 +355,60 @@ describe('preventDefault', () => {
     const event = {preventDefault: jest.fn()} as any;
     utils.preventDefault(event);
     expect(event.preventDefault).toHaveBeenCalled();
+  });
+});
+
+describe('shallowEqual', () => {
+  describe('eveluates to true', () => {
+    it('for the same object', () => {
+      const obj = {};
+      expect(shallowEqual(obj, obj)).toBe(true);
+    });
+
+    it('for objects with primitive values', () => {
+      const objA = {prop1: 1, prop2: 'string', prop3: null, prop4: false, prop5: undefined};
+      const objB = {...objA};
+      expect(shallowEqual(objA, objB)).toBe(true);
+    });
+
+    it('for object with the same references as their properties', () => {
+      const nested = {prop: 1};
+
+      const objA = {propA: false, propB: nested};
+      const objB = {propA: false, propB: nested};
+
+      expect(shallowEqual(objA, objB)).toBe(true);
+    });
+
+    it('for objects with properties in different order', () => {
+      const objA = {propA: 1, propB: 'string'};
+      const objB = {propB: 'string', propA: 1};
+
+      expect(shallowEqual(objA, objB)).toBe(true);
+    });
+  });
+
+  describe('evaluates to false', () => {
+    it('for objects with missing keys', () => {
+      const objA = {propA: 1, propB: 'string'};
+      const objB = {propA: 1};
+
+      expect(shallowEqual(objA, objB)).toBe(false);
+      expect(shallowEqual(objB, objA)).toBe(false);
+    });
+
+    it('for objects with different top level values', () => {
+      const objA = {propA: 1, propB: 'string'};
+      const objB = {propA: 1, propB: 'another string'};
+
+      expect(shallowEqual(objA, objB)).toBe(false);
+    });
+
+    it('for objects with different property references', () => {
+      const objA = {propA: 1, propB: {}};
+      const objB = {propA: 1, propB: {}};
+
+      expect(shallowEqual(objA, objB)).toBe(false);
+    });
   });
 });
