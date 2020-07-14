@@ -54,6 +54,9 @@ async function checkPages(bookSlug: string, pages: string[]) {
     await Promise.all(pageChunk.map(visitPage));
   }
 
+   // tslint:disable-next-line:no-console
+  console.log(`checked ${pages.length} pages, found ${notFound.length} 404s`);
+
   if (notFound.length) {
     console.log(`404'd: ${notFound.length === pages.length // tslint:disable-line:no-console
       ? 'all'

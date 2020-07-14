@@ -117,7 +117,7 @@ jobs:
         node script/entry.js urlChecker \
           --rootUrl="https://openstax.org" \
           --bookId="$BOOK_ID" \
-          --bookVersion="$BOOK_VERSION"  \
+          --bookVersion="$BOOK_VERSION" \
           --useUnversionedUrls
       env:
         BOOK_ID: ${{ matrix.book }}
