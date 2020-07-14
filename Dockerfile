@@ -1,35 +1,37 @@
 # this dockerfile is not for production, its for QA and CI
-FROM debian:jessie as CI
+FROM debian:buster as CI
 
 RUN apt-get update && apt-get install -y \
   # CI utils
   git \
+  procps \
   # / CI utils
   # CLI utils
   curl \
   jq \
   # / CLI utils
-  # for selenium tests
-  python3 \
-  # / for selenium tests
-  # for aws cli 
-  python3-pip \
-  python3-dev \
-  # / for aws cli 
+  # deps for shellcheck
+  xz-utils \
+  # / deps for shellcheck
+  # deps for aws
+  unzip \
+  # / deps for aws
   && rm -rf /var/lib/apt/lists/*
 
 # AWS CLI
-RUN pip3 install awscli --upgrade
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+  unzip awscliv2.zip && \
+  ./aws/install && \
+  rm -rf awscliv2.zip aws
 
 # ShellCheck (apt version is very old)
 # includes crazy hack around some linking issue from https://github.com/koalaman/shellcheck/issues/1053#issuecomment-357816927
-RUN curl -Ls https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar -Jxf - --strip-components=1 shellcheck-stable/shellcheck -C $HOME && \
+RUN curl -Ls https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar -Jxf - --strip-components=1 -C $HOME shellcheck-stable/shellcheck && \
   touch /tmp/libc.so.6 && \
   echo "LD_LIBRARY_PATH=/tmp $HOME/shellcheck \"\$@\"" > /usr/bin/shellcheck && \
   chmod a+x /usr/bin/shellcheck
 
 # node
-#
 # this is really excessively complicated logic just so the .nvmrc can be
 # the source of truth about our supported node version
 COPY .nvmrc /root/.
@@ -40,7 +42,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | b
   ln -s $(dirname $(which node)) /usr/local/node-bin
 
 ENV PATH /usr/local/node-bin:$PATH
-  
+
 FROM CI as CHROME
 
 RUN apt-get update && apt-get install -y \
