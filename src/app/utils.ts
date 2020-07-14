@@ -203,7 +203,7 @@ export const shallowEqual = <T extends object>(objA: T, objB: T) => {
   });
 };
 
-export const memoize = <T extends object>(fun: (state: AppState) => T) => {
+export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => T) => {
   let prev = {} as T;
 
   return (state: AppState) => {

@@ -1,9 +1,14 @@
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
+import createTestStore from '../test/createTestStore';
+import { book } from '../test/mocks/archiveLoader';
+import { mockCmsBook } from '../test/mocks/osWebLoader';
 import * as actions from './content/actions';
-import { AppServices, AppState, MiddlewareAPI } from './types';
+import * as selectors from './content/selectors';
+import { formatBookData } from './content/utils';
+import { AppServices, AppState, MiddlewareAPI, Store } from './types';
 import * as utils from './utils';
-import { assertDocument, shallowEqual, UnauthenticatedError } from './utils';
+import { assertDocument, UnauthenticatedError } from './utils';
 
 jest.mock('../helpers/Sentry');
 
@@ -362,13 +367,13 @@ describe('shallowEqual', () => {
   describe('eveluates to true', () => {
     it('for the same object', () => {
       const obj = {};
-      expect(shallowEqual(obj, obj)).toBe(true);
+      expect(utils.shallowEqual(obj, obj)).toBe(true);
     });
 
     it('for objects with primitive values', () => {
       const objA = {prop1: 1, prop2: 'string', prop3: null, prop4: false, prop5: undefined};
       const objB = {...objA};
-      expect(shallowEqual(objA, objB)).toBe(true);
+      expect(utils.shallowEqual(objA, objB)).toBe(true);
     });
 
     it('for object with the same references as their properties', () => {
@@ -377,14 +382,14 @@ describe('shallowEqual', () => {
       const objA = {propA: false, propB: nested};
       const objB = {propA: false, propB: nested};
 
-      expect(shallowEqual(objA, objB)).toBe(true);
+      expect(utils.shallowEqual(objA, objB)).toBe(true);
     });
 
     it('for objects with properties in different order', () => {
       const objA = {propA: 1, propB: 'string'};
       const objB = {propB: 'string', propA: 1};
 
-      expect(shallowEqual(objA, objB)).toBe(true);
+      expect(utils.shallowEqual(objA, objB)).toBe(true);
     });
   });
 
@@ -393,22 +398,65 @@ describe('shallowEqual', () => {
       const objA = {propA: 1, propB: 'string'};
       const objB = {propA: 1};
 
-      expect(shallowEqual(objA, objB)).toBe(false);
-      expect(shallowEqual(objB, objA)).toBe(false);
+      expect(utils.shallowEqual(objA, objB)).toBe(false);
+      expect(utils.shallowEqual(objB, objA)).toBe(false);
     });
 
     it('for objects with different top level values', () => {
       const objA = {propA: 1, propB: 'string'};
       const objB = {propA: 1, propB: 'another string'};
 
-      expect(shallowEqual(objA, objB)).toBe(false);
+      expect(utils.shallowEqual(objA, objB)).toBe(false);
     });
 
     it('for objects with different property references', () => {
       const objA = {propA: 1, propB: {}};
       const objB = {propA: 1, propB: {}};
 
-      expect(shallowEqual(objA, objB)).toBe(false);
+      expect(utils.shallowEqual(objA, objB)).toBe(false);
     });
+  });
+});
+
+describe.only('memoizeStateToProps', () => {
+  const customStateToProps = (state: AppState) => ({
+    book: selectors.book(state),
+    page: selectors.page(state),
+  });
+
+  let store: Store;
+
+  beforeEach(() => {
+    store = createTestStore();
+  });
+
+  it('memoizes custom state mapping functions', () => {
+    const memoized = utils.memoizeStateToProps(customStateToProps);
+
+    const mapStateToPropsWithMemoization = (state: AppState) => ({
+      bookAndPage: customStateToProps(state),
+      memoizedBookAndPage: memoized(state),
+      tocOpen: selectors.tocOpen(state),
+    });
+
+    const stateA = mapStateToPropsWithMemoization(store.getState());
+    const stateB = mapStateToPropsWithMemoization(store.getState());
+
+    expect(stateA.bookAndPage).not.toBe(stateB.bookAndPage);
+    expect(stateA.memoizedBookAndPage).toBe(stateB.memoizedBookAndPage);
+  });
+
+  it('return new values after state changes', () => {
+    const memoized = utils.memoizeStateToProps(customStateToProps);
+
+    const mapStateToProps = (state: AppState) => ({
+      bookAndPage: memoized(state),
+    });
+    const stateA = mapStateToProps(store.getState());
+
+    store.dispatch(actions.receiveBook(formatBookData(book, mockCmsBook)));
+    const stateB = mapStateToProps(store.getState());
+
+    expect(stateA.bookAndPage).not.toBe(stateB.bookAndPage);
   });
 });
