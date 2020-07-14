@@ -47,12 +47,12 @@ jobs:
         SECURE_STORE_PASSWORD: ${{ secrets.secure_store_password }}
       run: make sauce
 
-  books:
+  check-books:
     name: Detect Books
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
     outputs:
-      changes: ${{ steps.detect.outputs.changes }}
+      modified-books: ${{ steps.detect.outputs.changes }}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -64,9 +64,10 @@ jobs:
     name: Browser Scan
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
-    needs: books
+    needs: [deploy, check-books]
     strategy:
-      matrix: ${{fromJson(needs.books.outputs.changes})}}
+      fail-fast: false
+      matrix: ${{fromJson(needs.check-books.outputs.modified-books)}}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -85,7 +86,7 @@ jobs:
           --rootUrl "$BASE_URL" \
           --queryString="validateLinks"
       env:
-        BOOK_id: ${{ matrix.book }}
+        BOOK_ID: ${{ matrix.book }}
         BOOK_VERSION: ${{ matrix.version }}
         BASE_URL: ${{ needs.deploy.outputs.url }}
 
@@ -93,9 +94,10 @@ jobs:
     name: URL Scan
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
-    needs: books
+    needs: check-books
     strategy:
-      matrix: ${{fromJson(needs.books.outputs.changes})}}
+      fail-fast: false
+      matrix: ${{fromJson(needs.check-books.outputs.modified-books})}}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -114,7 +116,7 @@ jobs:
           --bookVersion="$BOOK_VERSION"  \
           --useUnversionedUrls
       env:
-        BOOK_id: ${{ matrix.book }}
+        BOOK_ID: ${{ matrix.book }}
         BOOK_VERSION: ${{ matrix.version }}
 
   test:
