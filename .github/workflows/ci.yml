@@ -85,10 +85,14 @@ jobs:
         key: node_modules
     - run: yarn install
     - run: |
-        node script/entry.js domVisitor errorsExist --bookId="$BOOK_ID" --bookVersion="$BOOK_VERSION" --rootUrl "$BASE_URL" --queryString="validateLinks"
+        node script/entry.js domVisitor errorsExist \
+          --bookId="$BOOK_ID" \
+          --bookVersion="$BOOK_VERSION" \
+          --rootUrl "$BASE_URL" \
+          --queryString="validateLinks"
       env:
-        BOOK_ID: ${{ matrix.book }}
-        BOOK_VERSION: ${{ matrix.version }}
+        BOOK_ID: ${{ matrix.book_id }}
+        BOOK_VERSION: ${{ matrix.book_version }}
         BASE_URL: ${{ needs.deploy.outputs.url }}
 
   url-scan-books:
@@ -110,10 +114,14 @@ jobs:
         key: node_modules
     - run: yarn install
     - run: |
-        node script/entry.js urlChecker --rootUrl="https://openstax.org" --bookId="$BOOK_ID" --bookVersion="$BOOK_VERSION" --useUnversionedUrls
+        node script/entry.js urlChecker \
+          --rootUrl="https://openstax.org" \
+          --bookId="$BOOK_ID" \
+          --bookVersion="$BOOK_VERSION" \
+          --useUnversionedUrls
       env:
-        BOOK_ID: ${{ matrix.book }}
-        BOOK_VERSION: ${{ matrix.version }}
+        BOOK_ID: ${{ matrix.book_id }}
+        BOOK_VERSION: ${{ matrix.book_version }}
 
   test:
     name: Test
