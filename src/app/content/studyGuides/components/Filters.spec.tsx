@@ -25,6 +25,7 @@ describe('Filters', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
 
   beforeEach(() => {
+    services = createTestServices();
     store = createTestStore();
     services = createTestServices();
 
