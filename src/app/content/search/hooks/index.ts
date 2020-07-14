@@ -13,8 +13,7 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import * as select from '../selectors';
-import { findSearchResultHit, getFirstResult, getIndexData,
-  getSearchFromLocation, isSearchScrollTarget } from '../utils';
+import { findSearchResultHit, getFirstResult, getIndexData, isSearchScrollTarget } from '../utils';
 import trackSearch from './trackSearch';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
@@ -32,13 +31,6 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     searchStrategy: 's1',
   });
 
-  const params = queryString.parse(services.history.location.search);
-  params.query = payload;
-  services.history.replace({
-    hash: services.history.location.hash,
-    search: queryString.stringify(params),
-  });
-
   services.dispatch(receiveSearchResults(results, meta));
 };
 
@@ -47,7 +39,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const {page, book} = selectContent.bookAndPage(state);
   const query = select.query(state);
   const results = select.hits(state) || [];
-  const savedSearch = getSearchFromLocation(services.history.location);
 
   if (!page || !book) {
     return; // book changed while query was in the air
@@ -58,40 +49,32 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
     : getFirstResult(book, payload);
 
-  if (!selectedResult) {
+  if (
+    // selectedResult may equal to null if api did not return any results
+    !selectedResult
+    // We are clearing selected result when requesting a new search so this should never happen
+    // Should I leave this check here?
+    || isEqual(select.selectedResult(state), selectedResult)
+    // I don't know why this could have a different id. We should either add a comment here or remove this check.
+    || book.id !== getIndexData(selectedResult.result.index).bookId
+  ) {
     return;
   }
+
+  services.dispatch(selectSearchResult(selectedResult));
 
   const targetPageId = selectedResult.result.source.pageId;
   const targetPage = assertDefined(
     findArchiveTreeNode(book.tree, targetPageId),
     'search result pointed to page that wasn\'t in book'
   );
-
-  const savedQuery = savedSearch ? savedSearch.query : null;
-  if (
-    savedQuery === query &&
-    page.id === stripIdVersion(targetPage.id) &&
-    isEqual(select.selectedResult(state), selectedResult)
-  ) {
-    return; // if search and page match current history record, noop
-  }
-
-  if (book.id !== getIndexData(selectedResult.result.index).bookId) {
-    return;
-  }
-
-  services.dispatch(selectSearchResult(selectedResult));
-
   const navigation = {
     params: getBookPageUrlAndParams(book, targetPage).params,
     route: content,
     state : {
-      // TODO: Check which of these are still required
       bookUid: book.id,
       bookVersion: book.version,
       pageUid: stripIdVersion(targetPage.id),
-      search: {query},
     },
   };
 
@@ -106,7 +89,8 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 };
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
-  if (services.history.location.state && services.history.location.state.search) {
+  const scrollTarget = selectNavigation.scrollTarget(services.getState());
+  if (scrollTarget && isSearchScrollTarget(scrollTarget)) {
     services.history.replace({
       hash: '',
       search: '',
@@ -117,8 +101,7 @@ export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc
 // composed in /content/locationChange hook because it needs to happen after book load
 export const syncSearch: RouteHookBody<typeof content> = (services) => async(/* locationChange */) => {
   const state = services.getState();
-  const navigationState = selectNavigation.localState(state);
-  const navigationQuery = navigationState.query.query;
+  const navigationQuery = selectNavigation.localState(state).query.query;
   const searchQuery = select.query(state);
   const scrollTarget = selectNavigation.scrollTarget(state);
   const searchScrollTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? scrollTarget : null;

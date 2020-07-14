@@ -1,13 +1,11 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { SearchResult, SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
-import { RouteState, ScrollTarget } from '../../navigation/types';
+import { ScrollTarget } from '../../navigation/types';
 import { getAllRegexMatches } from '../../utils';
 import attachHighlight from '../components/utils/attachHighlight';
-import { content } from '../routes';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
@@ -86,9 +84,6 @@ export const getIndexData = (indexName: string) => {
 export const countTotalHighlights = (results: SearchResultHit[]) => {
   return results.reduce((count, hit) => count + hit.highlight.visibleContent.length, 0);
 };
-
-export const getSearchFromLocation = (location: Location): RouteState<typeof content>['search'] =>
-  location.state && location.state.search;
 
 const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);
 

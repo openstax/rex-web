@@ -78,9 +78,11 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       const optionsParams: { hash?: string, search?: { [key: string]: string } } = {};
       if (search && search.query) {
+        // Leave a search query when navigating
         optionsParams.search = { query: search.query };
       }
       if (scrollTarget) {
+        // Add a scroll target to the url if it was provided as a direct prop (not from the redux state)
         optionsParams.search = { ...optionsParams.search, target: JSON.stringify(omit('elementId', scrollTarget)) };
         optionsParams.hash = scrollTarget.elementId;
       }
