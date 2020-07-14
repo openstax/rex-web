@@ -20,7 +20,7 @@ script
 
 rm src/config.books.old.js
 
-working_set=$(jq "map({(.book_id): .}) | add" <<< "$book_json")
+working_set=$(jq "map({(.book_id): .}) | add // {}" <<< "$book_json")
 
 for book_id in $(jq -r "keys[]" <<< "$working_set"); do
   title=$(node script/entry.js book-info --field=title "$book_id")
