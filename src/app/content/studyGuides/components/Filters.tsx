@@ -8,6 +8,7 @@ import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import * as selectors from '../selectors';
+import ColorKey from './ColorKey';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -64,6 +65,7 @@ export default () =>
     >
       <ConnectedChapterFilter />
     </FilterDropdown>
-    <ConnectedPrintButton />
+    <ColorKey />
+    <ConnectedPrintButton studyGuidesButton={true}/>
     <ConnectedFilterList />
   </Filters>;
