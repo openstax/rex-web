@@ -10,7 +10,7 @@ book_json=$(node -e "$(cat <<script
 
   const modified = Object.keys(newBooks).map((key) => {
     if (oldBooks[key] === undefined || newBooks[key].defaultVersion !== oldBooks[key].defaultVersion) {
-      return {book: key, version: newBooks[key].defaultVersion};
+      return {book_id: key, book_version: newBooks[key].defaultVersion};
     }
   }).filter(record => !!record);
 
@@ -20,4 +20,15 @@ script
 
 rm src/config.books.old.js
 
-echo "$book_json"
+working_set=$(jq "map({(.book_id): .}) | add" <<< "$book_json")
+
+for book_id in $(jq -r "keys[]" <<< "$working_set"); do
+  title=$(node script/entry.js book-info --field=title "$book_id")
+  working_set=$(jq -r \
+    --arg title "$title" \
+    --arg book_id "$book_id" \
+    '.[$book_id].title = $title' <<< "$working_set")
+done
+
+
+jq 'to_entries[] | .value' <<< "$working_set"
