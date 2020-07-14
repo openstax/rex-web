@@ -42,7 +42,7 @@ export const useOnClickOutside = (
   cb: (e: MouseEvent) => void,
   eventOptions?: EventListenerOptions
 ) => {
-  React.useEffect(onClickOutside(element, isEnabled, cb, eventOptions), [element, isEnabled]);
+  React.useEffect(onClickOutside(element, isEnabled, cb, eventOptions), [element, cb, isEnabled]);
 };
 
 export default onClickOutside;
