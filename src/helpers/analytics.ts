@@ -17,7 +17,7 @@ import * as openCloseMH from './analyticsEvents/highlighting/summaryPopup/openCl
 import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
-import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClose';
+import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClosePopUp';
 import * as unload from './analyticsEvents/unload';
 
 type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
