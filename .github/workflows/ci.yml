@@ -27,7 +27,7 @@ jobs:
         GIT_REF: ${{ github.event.pull_request.head.sha }}
         GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "::set-output name=url::$(./script/get-review-environment)"
+        echo "::set-output name=url::$(./script/get-review-environment.bash)"
 
   selenium:
     name: Selenium
@@ -67,7 +67,7 @@ jobs:
         BASE_URL: ${{ needs.deploy.outputs.url }}
 
   check-urls:
-    name: Check Urls 
+    name: Scan Urls
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
     steps:
