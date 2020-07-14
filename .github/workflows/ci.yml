@@ -96,7 +96,7 @@ jobs:
     needs: check-books
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.check-books.outputs.modified-books})}}
+      matrix: ${{fromJson(needs.check-books.outputs.modified-books)}}
     steps:
     - uses: actions/checkout@v2
       with:
