@@ -178,38 +178,30 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
 
       highlighter.clearFocus();
       const { scrollTarget, focus, focused: focusedId, highlightsLoaded, loggedOut, page } = getProp();
-      const prevHighlightScrollTarget = prevProps.scrollTarget && isHighlightScrollTarget(prevProps.scrollTarget)
-        ? prevProps.scrollTarget
-        : null;
-      const highlightScrollTarget = scrollTarget && isHighlightScrollTarget(scrollTarget) ? scrollTarget : null;
       const focused = focusedId ? highlighter.getHighlight(focusedId) : null;
+      const stateEstablished = (highlightsLoaded || (loggedOut && page));
+
+      const highlightScrollTarget = scrollTarget && isHighlightScrollTarget(scrollTarget) ? scrollTarget : null;
       const scrollTargetHighlight = highlightScrollTarget && highlighter.getHighlight(highlightScrollTarget.id);
 
-      // When user highlights are fetched or user is logged out and page is loaded
-      // then clear or set an error for the current scrollStarget
-      if (options && (highlightsLoaded || (loggedOut && page))) {
-        if (highlightScrollTarget && scrollTargetHighlight) {
+      if (options && stateEstablished) {
+        if (scrollTargetHighlight) {
           options.clearError();
-        } else if (highlightScrollTarget) {
+        } else if (highlightScrollTarget && !scrollTargetHighlight) {
           options.setError(highlightScrollTarget.id, 'i18n:notification:scroll-to-highlight-failure');
         }
       }
 
       let toFocus: Highlight | null | undefined = null;
-      if (scrollTargetHighlight && focused) {
-        // If previously scroll target was undefined or different than current scroll target
-        // then focus current scroll target.
-        if (
-          !prevHighlightScrollTarget
-          || (prevHighlightScrollTarget && scrollTargetHighlight.id !== prevHighlightScrollTarget.id)
-        ) {
-          toFocus = scrollTargetHighlight;
-        } else {
-          // If user focused another highlight
-          toFocus = focused;
-        }
-      } else {
-        toFocus = scrollTargetHighlight || focused;
+      if (focused) {
+        toFocus = focused;
+      } else if (
+        !pendingHighlight
+        && !prevProps.focused
+        && highlightScrollTarget
+        && scrollTargetHighlight
+      ) {
+        toFocus = scrollTargetHighlight;
       }
 
       if (toFocus) {
