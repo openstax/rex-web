@@ -50,9 +50,13 @@ jobs:
   books:
     name: Detect Books
     runs-on: ubuntu-latest
+    container: openstax/rex-web:CI
     outputs:
       changes: ${{ steps.detect.outputs.changes }}
     steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
     - id: detect
       run: echo "::set-output name=changes::{\"include\":$(./script/get-modified-books.bash)}"
 
