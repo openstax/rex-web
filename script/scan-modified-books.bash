@@ -1,22 +1,10 @@
 #!/usr/bin/env bash
 set -ex
+# loads every page on heroku for any books that have new
+# versions in the code and ensure that the app is not displaying
+# an error screen (errors registered in redux)
 
-git fetch origin master
-git show origin/master:src/config.books.js > src/config.books.old.js
-
-book_ids=$(node -e "$(cat <<script
-  const oldBooks = require('./src/config.books.old.js');
-  const newBooks = require('./src/config.books.js');
-
-  Object.keys(newBooks).forEach((key) => {
-    if (oldBooks[key] === undefined || newBooks[key].defaultVersion !== oldBooks[key].defaultVersion) {
-      console.log(key);
-    }
-  });
-script
-)")
-
-rm src/config.books.old.js
+book_ids=$(./script/get-modified-books.bash)
 
 if [ -z "$book_ids" ]; then
   echo "No modified books found.";
@@ -25,24 +13,10 @@ fi;
 
 failed=0
 
-for book_id in $book_ids; do
-  book_version=$(node -e "$(cat <<script
-    const newBooks = require('./src/config.books.js');
-    console.log(newBooks['$book_id'].defaultVersion);
-script
-  )")
-
-  echo "ensuring production urls exist for: $book_id@$book_version"
-
-  # scans production and raises any new urls
-  node script/entry.js urlChecker errorsExist \
-    --rootUrl="https://openstax.org" \
-    --bookId="$book_id" \
-    --bookVersion="$book_version"  \
-    --useUnversionedUrls || failed=1
-done
-
-review_url=$(./script/get-review-environment.bash)
+if [ -z "$BASE_URL" ]
+then
+  BASE_URL=$(./script/get-review-environment.bash)
+fi
 
 for book_id in $book_ids; do
   book_version=$(node -e "$(cat <<script
@@ -57,7 +31,7 @@ script
   node script/entry.js domVisitor errorsExist \
     --bookId="$book_id" \
     --bookVersion="$book_version"  \
-    --rootUrl "$review_url" \
+    --rootUrl "$BASE_URL" \
     --queryString="validateLinks" || failed=1
 done
 
