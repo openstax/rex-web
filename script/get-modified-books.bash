@@ -30,4 +30,4 @@ for book_id in $(jq -r "keys[]" <<< "$working_set"); do
     '.[$book_id].title = $title' <<< "$working_set")
 done
 
-jq 'to_entries | map(.value)' <<< "$working_set"
+jq -cr 'to_entries | map(.value)' <<< "$working_set"
