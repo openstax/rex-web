@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Study Guides button and PopUp matches snapshot 1`] = `
+<div
+  className="ColorKey__ColorKeyWrapper-afl82f-6 eURUEn"
+>
+  <button
+    aria-label="Color key"
+    className="Button__PlainButton-ayg7nk-2 ColorKey__ColorKeyButtonWrapper-afl82f-0 fkFtKM"
+    onClick={[Function]}
+  >
+    <img
+      className="ColorKey__ColorKeyIcon-afl82f-2 kbHiQJ"
+      src="colorKeyIcon.png"
+    />
+    <span
+      className="ColorKey__ColorKeyText-afl82f-3 cLeOIZ"
+    >
+      Color key
+    </span>
+  </button>
+  <div
+    className="ColorKey__ColorKeyDescription-afl82f-1 MvEfD"
+  >
+    <div
+      className="ColorKey__KeyTermWrapper-afl82f-5 kwvQBa"
+    >
+      <label
+        aria-label="yellow color"
+        className="ColorIndicator-sc-1w5zl7g-1 kBHzhz"
+        shape="circle"
+      >
+        <svg
+          aria-hidden="true"
+          className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 512 512"
+        >
+          <path
+            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            fill="currentColor"
+          />
+        </svg>
+      </label>
+      <span
+        className="ColorKey__KeyTermText-afl82f-4 dOnBcA"
+      >
+        Key terms and phrases
+      </span>
+    </div>
+    <div
+      className="ColorKey__KeyTermWrapper-afl82f-5 kwvQBa"
+    >
+      <label
+        aria-label="green color"
+        className="ColorIndicator-sc-1w5zl7g-1 dSRHOr"
+        shape="circle"
+      >
+        <svg
+          aria-hidden="true"
+          className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 512 512"
+        >
+          <path
+            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            fill="currentColor"
+          />
+        </svg>
+      </label>
+      <span
+        className="ColorKey__KeyTermText-afl82f-4 dOnBcA"
+      >
+        Key connections, relationships between topics
+      </span>
+    </div>
+    <div
+      className="ColorKey__KeyTermWrapper-afl82f-5 kwvQBa"
+    >
+      <label
+        aria-label="blue color"
+        className="ColorIndicator-sc-1w5zl7g-1 eibKCM"
+        shape="circle"
+      >
+        <svg
+          aria-hidden="true"
+          className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 512 512"
+        >
+          <path
+            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            fill="currentColor"
+          />
+        </svg>
+      </label>
+      <span
+        className="ColorKey__KeyTermText-afl82f-4 dOnBcA"
+      >
+        Key facts and summaries to know for tests/essays
+      </span>
+    </div>
+    <div
+      className="ColorKey__KeyTermWrapper-afl82f-5 kwvQBa"
+    >
+      <label
+        aria-label="purple color"
+        className="ColorIndicator-sc-1w5zl7g-1 ekjDWZ"
+        shape="circle"
+      >
+        <svg
+          aria-hidden="true"
+          className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 512 512"
+        >
+          <path
+            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            fill="currentColor"
+          />
+        </svg>
+      </label>
+      <span
+        className="ColorKey__KeyTermText-afl82f-4 dOnBcA"
+      >
+        Enrichment
+      </span>
+    </div>
+  </div>
+</div>
+`;
