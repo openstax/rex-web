@@ -131,12 +131,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     if (!searchSidebar) {
       return;
     }
-
-    const sidebarChildren = searchSidebar.children;
-    if (sidebarChildren.length === 2) {
-      const headerHeight = sidebarChildren[0].clientHeight;
-      searchSidebar.children[1].setAttribute('style', `height: calc(100% - ${headerHeight}px)`);
-    }
   }
 
   public componentWillUnmount() {

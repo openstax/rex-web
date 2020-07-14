@@ -90,6 +90,8 @@ export const styleWhenSearchClosed = (closedStyle: FlattenSimpleInterpolation) =
 
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
+  display: flex;
+  flex-direction: column;
   -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
@@ -149,6 +151,7 @@ export const SearchQueryWrapper = styled.div`
   align-items: baseline;
   background: ${theme.color.neutral.base};
   min-height: ${headerHeight}rem;
+  overflow: visible;
 `;
 
 // tslint:disable-next-line:variable-name
