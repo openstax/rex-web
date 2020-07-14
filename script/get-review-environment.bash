@@ -40,7 +40,7 @@ until [ $WAIT_MINUTES -eq 0 ] || [ "$(github "repos/openstax/rex-web/deployments
   WAIT_MINUTES=$(( WAIT_MINUTES - 1 ))
 done
 
-if [ $NEXT_WAIT_TIME -lt 1 ]; then
+if [ "$NEXT_WAIT_TIME" -lt 1 ]; then
   echo "timed out">&2
   exit 1
 fi;
@@ -49,4 +49,4 @@ url=$(github "repos/openstax/rex-web/deployments/$pr_deployment_id" | jq -r '.pa
 
 echo "found url: $url">&2
 
-echo $url
+echo "$url"
