@@ -66,7 +66,7 @@ jobs:
     - id: detect
       run: echo "::set-output name=modified-books::{\"include\":$(./script/get-modified-books.bash)}"
 
-  scan-books:
+  browser-scan-books:
     name: Browser Scan
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
@@ -85,11 +85,7 @@ jobs:
         key: node_modules
     - run: yarn install
     - run: |
-        node script/entry.js domVisitor errorsExist \
-          --bookId="$BOOK_ID" \
-          --bookVersion="$BOOK_VERSION" \
-          --rootUrl "$BASE_URL" \
-          --queryString="validateLinks"
+        node script/entry.js domVisitor errorsExist --bookId="$BOOK_ID" --bookVersion="$BOOK_VERSION" --rootUrl "$BASE_URL" --queryString="validateLinks"
       env:
         BOOK_ID: ${{ matrix.book }}
         BOOK_VERSION: ${{ matrix.version }}
@@ -114,11 +110,7 @@ jobs:
         key: node_modules
     - run: yarn install
     - run: |
-        node script/entry.js urlChecker \
-          --rootUrl="https://openstax.org" \
-          --bookId="$BOOK_ID" \
-          --bookVersion="$BOOK_VERSION" \
-          --useUnversionedUrls
+        node script/entry.js urlChecker --rootUrl="https://openstax.org" --bookId="$BOOK_ID" --bookVersion="$BOOK_VERSION" --useUnversionedUrls
       env:
         BOOK_ID: ${{ matrix.book }}
         BOOK_VERSION: ${{ matrix.version }}
