@@ -90,8 +90,6 @@ export const styleWhenSearchClosed = (closedStyle: FlattenSimpleInterpolation) =
 
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
-  display: flex;
-  flex-direction: column;
   -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
@@ -128,6 +126,10 @@ export const SearchResultsBar = styled.div`
   }
 
   ${disablePrint}
+`;
+
+// tslint:disable-next-line:variable-name
+export const SearchResultsBody = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name

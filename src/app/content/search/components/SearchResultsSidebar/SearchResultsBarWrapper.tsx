@@ -98,10 +98,12 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
             ref={this.searchSidebar}
             data-testid='search-results-sidebar'
           >
-            {!results ? this.loadindState() : null}
-            {results && results.length > 0 ? this.totalResults() : null}
-            {results && results.length === 0 ? this.noResults() : null}
-            {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
+            <Styled.SearchResultsBody>
+              {!results ? this.loadindState() : null}
+              {results && results.length > 0 ? this.totalResults() : null}
+              {results && results.length === 0 ? this.noResults() : null}
+              {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
+            </Styled.SearchResultsBody>
           </Styled.SearchResultsBar>
         )}
       </FormattedMessage>
