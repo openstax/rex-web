@@ -4,6 +4,7 @@ on: [pull_request]
 
 jobs:
   cancel-previous:
+    name: Cancel Previous Jobs
     runs-on: ubuntu-latest
     steps:
     - name: Cancel Previous Runs
