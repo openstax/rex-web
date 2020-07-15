@@ -81,9 +81,8 @@ describe('ContentLink', () => {
           bookUid: 'testbook1-uuid',
           bookVersion: '1.0',
           pageUid: 'testbook1-testpage1-uuid',
-          search: expect.objectContaining({query: 'asdf'}),
         },
-      }));
+      }, { search: 'query=asdf' }));
       expect(event.preventDefault).toHaveBeenCalled();
     });
 

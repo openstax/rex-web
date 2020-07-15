@@ -1,4 +1,5 @@
 import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
+import queryString from 'querystring';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
@@ -251,7 +252,14 @@ describe('hooks', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...shortPage, references: [] }));
       store.dispatch(requestSearch('asdf'));
+
       go([hit]);
+      expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit, highlight: 0 }));
+
+      const search = queryString.stringify({
+        query: 'asdf',
+        target: JSON.stringify({ type: 'search', index: 0 }),
+      });
       expect(dispatch).toHaveBeenCalledWith(
         push({
           params: expect.anything(),
@@ -260,11 +268,10 @@ describe('hooks', () => {
             bookUid: book.id,
             bookVersion: book.version,
             pageUid: page.id,
-            search: expect.objectContaining({query: 'asdf'}),
           },
         }, {
           hash: hit.source.elementId,
-          search: `?query=asdf&target=${JSON.stringify({ type: 'search', index: 0 })}`,
+          search,
         })
       );
     });
@@ -273,7 +280,13 @@ describe('hooks', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
+
       go([hit]);
+
+      const search = queryString.stringify({
+        query: 'asdf',
+        target: JSON.stringify({ type: 'search', index: 0 }),
+      });
       expect(dispatch).toHaveBeenCalledWith(
         replace({
           params: expect.anything(),
@@ -285,7 +298,7 @@ describe('hooks', () => {
           },
         }, {
           hash: hit.source.elementId,
-          search: `?query=asdf&target=${JSON.stringify({ type: 'search', index: 0 })}`,
+          search,
         })
       );
     });
@@ -295,8 +308,16 @@ describe('hooks', () => {
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
       const hit2 = makeSearchResultHit({book, page});
+      store.dispatch(receiveSearchResults({ hits: { hits: [hit, hit2] } } as any));
       Object.defineProperty(hit2.source, 'elementId', { value: 'elem' });
-      go([hit, hit2], {searchScrollTarget: { type: 'search', index: 0, elementId: hit2.source.elementId }});
+
+      go([hit, hit2], {searchScrollTarget: { type: 'search', index: 1, elementId: hit2.source.elementId }});
+      expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit2, highlight: 1 }));
+
+      const search = queryString.stringify({
+        query: 'asdf',
+        target: JSON.stringify({ type: 'search', index: 1 }),
+      });
       expect(dispatch).toHaveBeenCalledWith(
         replace({
           params: expect.anything(),
@@ -308,7 +329,7 @@ describe('hooks', () => {
           },
         }, {
           hash: hit2.source.elementId,
-          search: `?query=asdf&target=${JSON.stringify({ type: 'search', index: 0 })}`,
+          search,
         })
       );
     });

@@ -86,10 +86,13 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         optionsParams.search = { ...optionsParams.search, target: JSON.stringify(omit('elementId', scrollTarget)) };
         optionsParams.hash = scrollTarget.elementId;
       }
-      const options = {
-        hash: optionsParams.hash,
-        search: optionsParams.search ? queryString.stringify(optionsParams.search) : undefined,
-      };
+      // Add options only if linking to the same book
+      const options = currentBook && currentBook.id === bookUid
+        ? {
+            hash: optionsParams.hash,
+            search: optionsParams.search ? queryString.stringify(optionsParams.search) : undefined,
+          }
+        : undefined;
 
       navigate({
         params,
