@@ -135,8 +135,7 @@ function makePageErrorDetector(page: puppeteer.Page): ObservePageErrors {
 async function run() {
   const audit = (await import(auditPath)).default;
   const browser = await puppeteer.launch({
-    // from https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md#running-on-alpine
-    args: ['--no-sandbox', '--disable-dev-shm-usage'],
+    args: ['--no-sandbox'],
     devtools: devTools,
     headless: showBrowser === undefined,
   });
