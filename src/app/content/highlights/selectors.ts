@@ -18,34 +18,24 @@ export const localState = createSelector(
   (parentState) => parentState.highlights
 );
 
-const currentPage = createSelector(
-  localState,
-  (state) => state.currentPage
-);
-
 export const highlightsLoaded = createSelector(
-  currentPage,
-  (page) => page.highlights !== null
+  localState,
+  (state) => state.currentPage.highlights !== null
 );
 
 export const highlightsPageId = createSelector(
-  currentPage,
-  (page) => page.pageId
+  localState,
+  (state) => state.currentPage.pageId
 );
 
 export const highlights = createSelector(
-  currentPage,
-  (page) => page.highlights || []
-);
-
-const highlightsSummary = createSelector(
   localState,
-  (state) => state.summary
+  (state) => state.currentPage.highlights || []
 );
 
 export const totalCountsPerPage = createSelector(
-  highlightsSummary,
-  (summary) => summary.totalCountsPerPage
+  localState,
+  (state) => state.summary.totalCountsPerPage
 );
 
 const totalCountsPerPageOrEmpty = createSelector(
@@ -54,33 +44,33 @@ const totalCountsPerPageOrEmpty = createSelector(
 );
 
 export const focused = createSelector(
-  currentPage,
-  (page) => page.focused
+  localState,
+  (state) => state.currentPage.focused
 );
 
 export const hasUnsavedHighlight = createSelector(
-  currentPage,
-  (page) => page.hasUnsavedHighlight
+  localState,
+  (state) => state.currentPage.hasUnsavedHighlight
 );
 
 export const myHighlightsOpen = createSelector(
-  highlightsSummary,
-  (summary) => summary.open
+  localState,
+  (state) => state.summary.open
 );
 
 export const summaryIsLoading = createSelector(
-  highlightsSummary,
-  (summary) => summary.loading
+  localState,
+  (state) => state.summary.loading
 );
 
 export const summaryHighlights = createSelector(
-  highlightsSummary,
-  (summary) => summary.highlights
+  localState,
+  (state) => state.summary.highlights
 );
 
 export const summaryPagination = createSelector(
-  highlightsSummary,
-  (summary) => summary.pagination
+  localState,
+  (state) => state.summary.pagination
 );
 
 export const highlightLocationFilters = createSelector(
