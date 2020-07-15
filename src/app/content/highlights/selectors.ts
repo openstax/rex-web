@@ -103,8 +103,8 @@ export const loadedCountsPerSource = createSelector(
 );
 
 const summaryFilters = createSelector(
-  highlightsSummary,
-  (summary) => summary.filters
+  localState,
+  (state) => state.summary.filters
 );
 
 const rawSummaryLocationFilters = createSelector(
