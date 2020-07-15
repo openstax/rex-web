@@ -125,12 +125,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public componentDidUpdate() {
     this.scrollToSelectedPage();
-
-    const searchSidebar = this.searchSidebar.current;
-
-    if (!searchSidebar) {
-      return;
-    }
   }
 
   public componentWillUnmount() {
