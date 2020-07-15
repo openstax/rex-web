@@ -1,7 +1,7 @@
 import ProgressBar from 'progress';
 
 const noop = {
-  interrupt: () => null,
+  interrupt: (message: string) => console.log(message), // tslint:disable-line:no-console
   tick: () => null,
 };
 
