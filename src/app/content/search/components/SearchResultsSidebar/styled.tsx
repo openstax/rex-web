@@ -126,10 +126,9 @@ export const SearchResultsBar = styled.div`
   }
 
   ${disablePrint}
-`;
 
-// tslint:disable-next-line:variable-name
-export const SearchResultsBody = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 // tslint:disable-next-line:variable-name
