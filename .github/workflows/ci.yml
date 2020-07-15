@@ -67,8 +67,8 @@ jobs:
     - id: detect
       run: echo "::set-output name=modified-books::{\"include\":$(./script/get-modified-books.bash)}"
 
-  browser-scan-books:
-    name: Browser Scan
+  scan-books:
+    name: Scan
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI
     needs: [deploy, check-books]
@@ -85,44 +85,31 @@ jobs:
         path: node_modules
         key: node_modules
     - run: yarn install
+    - run: echo "::set-env name=failed::0"
     - run: |
         node script/entry.js domVisitor errorsExist \
           --bookId="$BOOK_ID" \
           --bookVersion="$BOOK_VERSION" \
           --rootUrl "$BASE_URL" \
-          --queryString="validateLinks"
+          --queryString="validateLinks" || failed=1
+        echo "::set-env name=failed::$failed" && exit "$failed"
+      continue-on-error: true
       env:
         BOOK_ID: ${{ matrix.book_id }}
         BOOK_VERSION: ${{ matrix.book_version }}
-        BASE_URL: ${{ needs.deploy.outputs.url }}
-
-  url-scan-books:
-    name: URL Scan
-    runs-on: ubuntu-latest
-    container: openstax/rex-web:CI
-    needs: check-books
-    strategy:
-      fail-fast: false
-      matrix: ${{fromJson(needs.check-books.outputs.modified-books)}}
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-    - uses: actions/cache@v2
-      id: node_modules
-      with:
-        path: node_modules
-        key: node_modules
-    - run: yarn install
     - run: |
         node script/entry.js urlChecker \
           --rootUrl="https://openstax.org" \
           --bookId="$BOOK_ID" \
           --bookVersion="$BOOK_VERSION" \
-          --useUnversionedUrls
+          --useUnversionedUrls || failed=1
+        echo "::set-env name=failed::$failed" && exit "$failed"
+      continue-on-error: true
       env:
         BOOK_ID: ${{ matrix.book_id }}
         BOOK_VERSION: ${{ matrix.book_version }}
+        BASE_URL: ${{ needs.deploy.outputs.url }}
+    - run: exit "$failed"
 
   test:
     name: Test
@@ -145,6 +132,10 @@ jobs:
         key: node_modules
     - run: yarn install
     - run: yarn test:${{ matrix.suite }}
+    - uses: actions/upload-artifact@v2
+      with:
+        name: diff output
+        path: "**/__diff_output__/*"
 
   lint:
     name: Lint
