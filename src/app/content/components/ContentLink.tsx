@@ -98,10 +98,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
           bookUid,
           bookVersion: book.version,
           pageUid: stripIdVersion(page.id),
-          ...(currentBook && currentBook.id === bookUid && search && Object.values(search).filter((x) => !!x).length > 0
-            ? {search}
-            : {}
-          ),
         },
       },
       options);

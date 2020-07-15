@@ -52,10 +52,9 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   if (
     // selectedResult may equal to null if api did not return any results
     !selectedResult
-    // We are clearing selected result when requesting a new search so this should never happen
-    // Should I leave this check here?
+    // We are clearing selected result when requesting a new search so in the theory this should never happen
     || isEqual(select.selectedResult(state), selectedResult)
-    // I don't know why this could have a different id. We should either add a comment here or remove this check.
+    // selectedResult bookId data is different than current book id
     || book.id !== getIndexData(selectedResult.result.index).bookId
   ) {
     return;
@@ -99,7 +98,7 @@ export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc
 };
 
 // composed in /content/locationChange hook because it needs to happen after book load
-export const syncSearch: RouteHookBody<typeof content> = (services) => async(/* locationChange */) => {
+export const syncSearch: RouteHookBody<typeof content> = (services) => async() => {
   const state = services.getState();
   const navigationQuery = selectNavigation.localState(state).query.query;
   const searchQuery = select.query(state);

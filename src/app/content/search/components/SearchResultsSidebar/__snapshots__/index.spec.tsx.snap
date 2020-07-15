@@ -160,6 +160,26 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         data-testid="search-result"
         href="books/book-slug-1/pages/test-page-1"
         onClick={[Function]}
+        result={
+          Object {
+            "highlight": 0,
+            "result": Object {
+              "highlight": Object {
+                "visibleContent": Array [
+                  "cool <strong>highlight</strong> bruh",
+                ],
+              },
+              "index": "testbook1-uuid@1.0_i1",
+              "score": 2,
+              "source": Object {
+                "elementId": "fs-id1544727",
+                "elementType": "paragraph",
+                "pageId": "testbook1-testpage1-uuid@1.0",
+                "pagePosition": 60,
+              },
+            },
+          }
+        }
       >
         <div
           dangerouslySetInnerHTML={
@@ -244,6 +264,26 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               data-testid="search-result"
               href="books/book-slug-1/pages/10-test-page-6"
               onClick={[Function]}
+              result={
+                Object {
+                  "highlight": 0,
+                  "result": Object {
+                    "highlight": Object {
+                      "visibleContent": Array [
+                        "cool <strong>highlight</strong> bruh",
+                      ],
+                    },
+                    "index": "testbook1-uuid@1.0_i1",
+                    "score": 2,
+                    "source": Object {
+                      "elementId": "fs-id1544727",
+                      "elementType": "paragraph",
+                      "pageId": "testbook1-testpage6-uuid@1.0",
+                      "pagePosition": 60,
+                    },
+                  },
+                }
+              }
             >
               <div
                 dangerouslySetInnerHTML={
@@ -330,6 +370,26 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               data-testid="search-result"
               href="books/book-slug-1/pages/12-test-page-7"
               onClick={[Function]}
+              result={
+                Object {
+                  "highlight": 0,
+                  "result": Object {
+                    "highlight": Object {
+                      "visibleContent": Array [
+                        "cool <strong>highlight</strong> bruh",
+                      ],
+                    },
+                    "index": "testbook1-uuid@1.0_i1",
+                    "score": 2,
+                    "source": Object {
+                      "elementId": "fs-id1544727",
+                      "elementType": "paragraph",
+                      "pageId": "testbook1-testpage7-uuid@1.0",
+                      "pagePosition": 60,
+                    },
+                  },
+                }
+              }
             >
               <div
                 dangerouslySetInnerHTML={

@@ -1,6 +1,5 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { History } from 'history';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
@@ -28,7 +27,6 @@ export interface HighlightManagerServices {
   clearPendingHighlight: () => void;
   highlighter: Highlighter;
   container: HTMLElement;
-  history: History;
 }
 
 export const mapStateToHighlightProp = (state: AppState) => ({
@@ -96,7 +94,7 @@ interface UpdateOptions {
   setError: (id: string, messageKey: string) => void;
 }
 
-export default (container: HTMLElement, getProp: () => HighlightProp, history: History) => {
+export default (container: HTMLElement, getProp: () => HighlightProp) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let setListHighlighter = (_highlighter: Highlighter): void => undefined;
@@ -121,7 +119,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp, history: H
     clearPendingHighlight,
     container,
     getProp,
-    history,
     setPendingHighlight,
   };
 

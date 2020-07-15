@@ -1,4 +1,4 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
@@ -33,6 +33,11 @@ import HighlightsPopUp from './HighlightsPopUp';
 import ShowMyHighlights from './ShowMyHighlights';
 import { ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
 import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
+
+jest.mock('./SummaryPopup/utils', () => ({
+  ...jest.requireActual('./SummaryPopup/utils'),
+  createHighlightLink: (highlight: Highlight) => `/link/to/highlight/${highlight.id}`,
+}));
 
 describe('Show my highlights', () => {
   let store: Store;
