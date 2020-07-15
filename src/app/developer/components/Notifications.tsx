@@ -2,7 +2,7 @@ import flow from 'lodash/fp/flow';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Button, { ButtonGroup } from '../../components/Button';
-import { recordError } from '../../errors/actions';
+import { recordError, showErrorDialog } from '../../errors/actions';
 import * as notifications from '../../notifications/actions';
 import { Dispatch } from '../../types';
 import demoAppMessages from '../sample-app-messages.json';
@@ -42,7 +42,10 @@ export default connect<{}, React.ComponentProps<typeof Notifications>>(
   () => ({}),
   (dispatch: Dispatch): Props => ({
     acceptCookies: flow(notifications.acceptCookies, dispatch),
-    error: flow(recordError, dispatch),
+    error: (error: Error) => {
+      dispatch(recordError(error));
+      dispatch(showErrorDialog());
+    },
     sendMessages: () => dispatch(notifications.receiveMessages(demoAppMessages)),
     updateAvailable: flow(notifications.updateAvailable, dispatch),
   })
