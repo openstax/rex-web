@@ -6,6 +6,7 @@ import pathToRegexp, { Key, parse } from 'path-to-regexp';
 import { OutputParams } from 'query-string';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
+import { isPlainObject } from '../guards';
 import { pathTokenIsKey } from '../navigation/guards';
 import { actionHook } from '../utils';
 import * as actions from './actions';
@@ -111,13 +112,14 @@ export const findPathForParams = (params: object, paths: string[]) => {
   });
 };
 
-const isScrollTarget = (
+export const isScrollTarget = (
   object: { [key: string]: any }
 ): object is ScrollTarget => {
-  if (!object.elementId || !object.type) { return false; }
-  for (const key in object) {
-    if (typeof key !== 'string') { return false; }
-  }
+  if (
+    !object.elementId
+    || typeof object.elementId !== 'string'
+    || typeof object.type !== 'string'
+  ) { return false; }
   return true;
 };
 
@@ -132,8 +134,8 @@ export const getScrollTargetFromQuery = (
   } catch {
     return null;
   }
-  if (parsed instanceof Object) {
-    parsed.elementId = hash.replace('#', '');
+  if (isPlainObject(parsed)) {
+    (parsed as {[key: string]: any}).elementId = hash.replace('#', '');
     if (isScrollTarget(parsed)) { return parsed; }
   }
   return null;

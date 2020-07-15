@@ -1,4 +1,5 @@
 import { Location } from 'history';
+import queryString from 'querystring';
 import { Params } from '../content/types';
 import { AppServices, AppState, MiddlewareAPI } from '../types';
 import { locationChange } from './actions';
@@ -6,11 +7,13 @@ import { AnyMatch, AnyRoute } from './types';
 import {
   findPathForParams,
   findRouteMatch,
+  getScrollTargetFromQuery,
   getUrlRegexParams,
   injectParamsToBaseUrl,
+  isScrollTarget,
   matchSearch,
   matchUrl,
-  routeHook
+  routeHook,
 } from './utils';
 
 const routes = [
@@ -239,5 +242,49 @@ describe('matchSearch', () => {
         ''
       )
     ).toEqual('url3%3Farchive=https%3A%2F%2Farchive-content03.cnx.org');
+  });
+});
+
+describe('isScrollTarget', () => {
+  it('return true if passed object is vali scroll target', () => {
+    expect(isScrollTarget({ type: 'some-type', elementId: 'elem' })).toEqual(true);
+  });
+
+  it('return false if passed object does not have elementId or type or has wrong type', () => {
+    expect(isScrollTarget({ elementId: '' })).toEqual(false);
+    expect(isScrollTarget({ notType: 'some-type', elementId: 'elem' })).toEqual(false);
+    expect(isScrollTarget({ type: 1, elementId: 'elem' })).toEqual(false);
+    expect(isScrollTarget({ type: 'type', elementId: 1 })).toEqual(false);
+  });
+});
+
+describe('getScrollTargetFromQuery', () => {
+  it('return valid scroll target from query', () => {
+    const scrollTarget = { type: 'search', index: 0, elementId: 'elId' };
+    expect(getScrollTargetFromQuery(
+      queryString.parse('target={"type": "search", "index": 0}'),
+      'elId'
+    )).toEqual(scrollTarget);
+  });
+
+  it('returns null if could not parse target as JSON', () => {
+    expect(getScrollTargetFromQuery(
+      queryString.parse('target={//}'),
+      'elId'
+    )).toEqual(null);
+  });
+
+  it('returns null if parsed target is not an object', () => {
+    expect(getScrollTargetFromQuery(
+      queryString.parse('target=[1,2]'),
+      'elId'
+    )).toEqual(null);
+  });
+
+  it('returns null if parsed target is not valid scroll target', () => {
+    expect(getScrollTargetFromQuery(
+      queryString.parse('target={"prop": "not-scroll-target"}'),
+      'elId'
+    )).toEqual(null);
   });
 });
