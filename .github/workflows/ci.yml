@@ -85,31 +85,26 @@ jobs:
         path: node_modules
         key: node_modules
     - run: yarn install
-    - run: echo "::set-env name=failed::0"
     - run: |
         node script/entry.js domVisitor errorsExist \
           --bookId="$BOOK_ID" \
           --bookVersion="$BOOK_VERSION" \
           --rootUrl "$BASE_URL" \
-          --queryString="validateLinks" || failed=1
-        echo "::set-env name=failed::$failed" && exit "$failed"
-      continue-on-error: true
+          --queryString="validateLinks"
       env:
         BOOK_ID: ${{ matrix.book_id }}
         BOOK_VERSION: ${{ matrix.book_version }}
-    - run: |
+    - if: ${{ always() }}
+      run: |
         node script/entry.js urlChecker \
           --rootUrl="https://openstax.org" \
           --bookId="$BOOK_ID" \
           --bookVersion="$BOOK_VERSION" \
-          --useUnversionedUrls || failed=1
-        echo "::set-env name=failed::$failed" && exit "$failed"
-      continue-on-error: true
+          --useUnversionedUrls
       env:
         BOOK_ID: ${{ matrix.book_id }}
         BOOK_VERSION: ${{ matrix.book_version }}
         BASE_URL: ${{ needs.deploy.outputs.url }}
-    - run: exit "$failed"
 
   test:
     name: Test
@@ -133,6 +128,7 @@ jobs:
     - run: yarn install
     - run: yarn test:${{ matrix.suite }}
     - uses: actions/upload-artifact@v2
+      if: ${{ failure() }}
       with:
         name: diff output
         path: "**/__diff_output__/*"
