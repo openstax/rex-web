@@ -113,7 +113,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [unit, browser, screenshots, build]
+        suite: [unit, browser, build]
     env:
       CI: true
     steps:
