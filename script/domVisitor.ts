@@ -116,7 +116,8 @@ function makePageErrorDetector(page: puppeteer.Page): ObservePageErrors {
     if ([200, 304].includes(response.status())) {
       return;
     }
-    if (response.url().includes('/accounts/api/user')) {
+    // accounts endpoint always 403s when logged out
+    if (response.status() === 403 && response.url().includes('/accounts/api/user')) {
       return;
     }
     observer(`response: ${response.status()} ${response.url()}`);
