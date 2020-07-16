@@ -17,7 +17,6 @@ describe('content', () => {
   it('looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
-    await page.emulateMediaType(null);
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
       CI: {
