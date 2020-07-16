@@ -1,7 +1,16 @@
 import { Element, EventListenerOptions, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import curry from 'lodash/fp/curry';
 import React from 'react';
 import { isHtmlElement } from '../../../../guards';
 import { assertDocument, assertWindow } from '../../../../utils';
+
+const targetBelongsToElement = curry((event: MouseEvent, el: React.RefObject<HTMLElement> | HTMLElement): boolean =>
+  isHtmlElement(el)
+    ? el.contains(event.target as Element)
+    : el.current
+      ? el.current.contains(event.target as Element)
+      : false
+);
 
 const onClickOutside = (
   element: React.RefObject<HTMLElement> | Array<React.RefObject<HTMLElement> | HTMLElement>,
@@ -16,14 +25,9 @@ const onClickOutside = (
   const ifOutside = (e: MouseEvent) => {
     if (!(e.target instanceof assertWindow().Element)) {
       return;
-    }
-    if (Array.isArray(element)) {
-      const targetBelongsToElementList = element.some(
-        (el) => isHtmlElement(el)
-          ? el.contains(e.target as Element)
-          : el.current && el.current.contains(e.target as Element));
-      if (targetBelongsToElementList) { return; }
-    } else if (!Array.isArray(element) && (!element.current || element.current.contains(e.target))) {
+    } else if (Array.isArray(element) && element.some(targetBelongsToElement(e))) {
+      return;
+    } else if (!Array.isArray(element) && targetBelongsToElement(e, element)) {
       return;
     }
     cb(e);
