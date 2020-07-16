@@ -71,7 +71,7 @@
     "test:screenshots": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)screenshotspec\\.tsx?\" -i",
     "test:build": "REACT_APP_ENV=test npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "REACT_APP_ENV=test node ./script/verifySourcemaps.js",
-    "test:prerender": "npm run-script test:prerender:setup && npm run-script test:prerender:specs && npm run-script test:prerender:browser && npm run-script test:prerender:screenshots",
+    "test:prerender": "npm run-script test:prerender:setup && npm run-script test:prerender:specs && npm run-script test:prerender:browser",
     "test:prerender:setup": "REACT_APP_ENV=test npm run-script prerender && npm run-script pretest:sims",
     "test:prerender:specs": "REACT_APP_ENV=test SERVER_MODE=built jest --testPathPattern=\"(\\.|/)prerenderspec\\.tsx?\"",
     "test:prerender:browser": "REACT_APP_ENV=test SERVER_MODE=built jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" -i",
