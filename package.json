@@ -65,7 +65,7 @@
     "coverage-report": "open coverage/index.html",
     "pretest:sims": "./script/build-simulations.bash",
     "pretest": "npm run-script build:css",
-    "test": "npm run-script test:unit && npm run-script test:browser && npm run-script test:screenshots && npm run-script lint && npm run-script test:build && tsc",
+    "test": "npm run-script test:unit && npm run-script test:browser && npm run-script lint && npm run-script test:build && tsc",
     "test:unit": "REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)spec\\.tsx?\"",
     "test:browser": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" -i",
     "test:screenshots": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)screenshotspec\\.tsx?\" -i",
