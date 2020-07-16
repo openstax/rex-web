@@ -3,7 +3,7 @@ import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { receiveLoggedOut } from './auth/actions';
-import { recordError } from './errors/actions';
+import { recordError, showErrorDialog } from './errors/actions';
 import { isPlainObject } from './guards';
 import {
   ActionHookBody,
@@ -48,6 +48,7 @@ const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
   }
   Sentry.captureException(e);
   dispatch(recordError(e));
+  dispatch(showErrorDialog());
 };
 
 // from https://github.com/facebook/react/issues/13029#issuecomment-445480443
