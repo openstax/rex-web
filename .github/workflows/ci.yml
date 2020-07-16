@@ -79,6 +79,7 @@ jobs:
       env:
         BOOK_ID: ${{ matrix.book_id }}
         BOOK_VERSION: ${{ matrix.book_version }}
+        BASE_URL: ${{ needs.setup.outputs.deployment-url }}
     - if: ${{ always() }}
       run: |
         node script/entry.js urlChecker \
@@ -89,7 +90,6 @@ jobs:
       env:
         BOOK_ID: ${{ matrix.book_id }}
         BOOK_VERSION: ${{ matrix.book_version }}
-        BASE_URL: ${{ needs.setup.outputs.deployment-url }}
 
   test:
     name: Test
