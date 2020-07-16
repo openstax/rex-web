@@ -1,32 +1,33 @@
 # this dockerfile is not for production, its for QA and CI
-FROM debian:buster as CI
+FROM debian:buster
 
+# general utils
 RUN apt-get update && apt-get install -y \
-  # CI utils
   git \
   procps \
-  # / CI utils
-  # CLI utils
   curl \
   jq \
-  # / CLI utils
-  # deps for shellcheck
-  xz-utils \
-  # / deps for shellcheck
-  # deps for aws
+  && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y \
   unzip \
-  # / deps for aws
   && rm -rf /var/lib/apt/lists/*
 
 # AWS CLI
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+RUN apt-get update && apt-get install -y \
+  unzip && \
+  rm -rf /var/lib/apt/lists/* && \
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
   unzip awscliv2.zip && \
   ./aws/install && \
   rm -rf awscliv2.zip aws
 
 # ShellCheck (apt version is very old)
 # includes crazy hack around some linking issue from https://github.com/koalaman/shellcheck/issues/1053#issuecomment-357816927
-RUN curl -Ls https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar -Jxf - --strip-components=1 -C $HOME shellcheck-stable/shellcheck && \
+RUN apt-get update && apt-get install -y \
+  xz-utils && \
+  rm -rf /var/lib/apt/lists/* && \
+  curl -Ls https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar -Jxf - --strip-components=1 -C $HOME shellcheck-stable/shellcheck && \
   touch /tmp/libc.so.6 && \
   echo "LD_LIBRARY_PATH=/tmp $HOME/shellcheck \"\$@\"" > /usr/bin/shellcheck && \
   chmod a+x /usr/bin/shellcheck
@@ -43,10 +44,8 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | b
 
 ENV PATH /usr/local/node-bin:$PATH
 
-FROM CI as CHROME
-
+# debian deps from https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch
 RUN apt-get update && apt-get install -y \
-  # debian deps from https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch
   ca-certificates \
   fonts-liberation \
   gconf-service \
