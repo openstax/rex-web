@@ -116,7 +116,7 @@ function makePageErrorDetector(page: puppeteer.Page): ObservePageErrors {
     if ([200, 304].includes(response.status())) {
       return;
     }
-    if (response.url() === 'https://rex-web-update-content--z57zgg.herokuapp.com/accounts/api/user') {
+    if (response.url().includes('/accounts/api/user')) {
       return;
     }
     observer(`response: ${response.status()} ${response.url()}`);
