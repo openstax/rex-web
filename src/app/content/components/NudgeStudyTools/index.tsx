@@ -121,9 +121,12 @@ const NoopForPrerenderingAndForHiddenState = () => {
       trackOpen();
       dispatch(openNudgeStudyTools());
     }
-  }, [show, hasStudyGuides, trackOpen, dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show, hasStudyGuides]);
 
-  if (typeof document === 'undefined' || typeof window === 'undefined' || !show ) { return null; }
+  if (!show ) {
+    return null;
+  }
 
   return <NudgeStudyTools />;
 };
