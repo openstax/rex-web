@@ -11,17 +11,15 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const AllOrNone = ({className, onAll, onNone, disabled}: Props) => {
-  return <div className={className}>
-    <FormattedMessage id='i18n:highlighting:filters:all'>
-      {(msg: Element | string) => <ButtonLink disabled={disabled} decorated onClick={onAll}>{msg}</ButtonLink>}
-    </FormattedMessage>
-    <span>|</span>
-    <FormattedMessage id='i18n:highlighting:filters:none'>
-      {(msg: Element | string) => <ButtonLink disabled={disabled} decorated onClick={onNone}>{msg}</ButtonLink>}
-    </FormattedMessage>
-  </div>;
-};
+const AllOrNone = ({className, onAll, onNone, disabled}: Props) => <div className={className}>
+  <FormattedMessage id='i18n:highlighting:filters:all'>
+    {(msg: Element | string) => <ButtonLink disabled={disabled} decorated onClick={onAll}>{msg}</ButtonLink>}
+  </FormattedMessage>
+  <span>|</span>
+  <FormattedMessage id='i18n:highlighting:filters:none'>
+    {(msg: Element | string) => <ButtonLink disabled={disabled} decorated onClick={onNone}>{msg}</ButtonLink>}
+  </FormattedMessage>
+</div>;
 
 export default styled(AllOrNone)`
   &,

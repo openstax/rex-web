@@ -12,7 +12,7 @@ import * as selectors from '../selectors';
 import ColorKey from './ColorKey';
 
 // tslint:disable-next-line:variable-name
-export const ConnectedChapterFilter = connect(
+const ConnectedChapterFilter = connect(
   (state: AppState) => ({
     locationFilters: selectors.studyGuidesLocationFilters(state),
     locationFiltersWithContent: selectors.studyGuidesLocationFiltersWithContent(state),
@@ -24,7 +24,7 @@ export const ConnectedChapterFilter = connect(
 )(ChapterFilter);
 
 // tslint:disable-next-line:variable-name
-export const ConnectedFilterList = connect(
+const ConnectedFilterList = connect(
   (state: AppState) => ({
     locationFilters: selectors.studyGuidesLocationFilters(state),
     selectedLocationFilters: selectors.summaryLocationFilters(state),

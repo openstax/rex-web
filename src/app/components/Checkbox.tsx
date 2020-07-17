@@ -18,7 +18,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-export const CustomCheckbox = styled(
+const CustomCheckbox = styled(
   ({className}: {className?: string}) => <span className={className}><CheckIcon /></span>
 )`
   height: 1.6rem;
@@ -32,7 +32,7 @@ export const CustomCheckbox = styled(
   }
 
   input:checked + & {
-    background-color: ${(props) => props.disabled ? theme.color.primary.gray.base : theme.color.primary.orange.darkest};
+    background-color: ${theme.color.primary.orange.darkest};
   }
 
   input:checked + & ${CheckIcon} {
@@ -43,7 +43,7 @@ export const CustomCheckbox = styled(
 // tslint:disable-next-line:variable-name
 const Checkbox = ({children, className, ...props}: React.PropsWithChildren<Props>) => <label className={className}>
   <input type='checkbox' {...props} />
-  <CustomCheckbox disabled={props.disabled}/>
+  <CustomCheckbox />
   {children}
 </label>;
 

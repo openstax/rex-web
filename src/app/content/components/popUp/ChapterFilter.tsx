@@ -69,7 +69,6 @@ const ChapterFilter = ({
   selectedLocationFilters,
   setFilters,
 }: Props) => {
-
   const setSelectedChapters = (ids: string[]) => {
     setFilters({locationIds: ids});
   };
