@@ -11,12 +11,12 @@ describe('content', () => {
   it('doesn\'t modify the markup on page load', async() => {
     const getHtml = () => {
       if (!document) {
-        return null;
+        return '';
       }
       const root = document.getElementById('root');
 
       if (!root) {
-        return null;
+        return '';
       }
 
       // these elements are intended to be changed on page load
@@ -72,7 +72,7 @@ describe('content', () => {
     const links: string[] = await page.evaluate(() =>
       document
         ? Array.from(document.querySelectorAll('#main-content a'))
-          .map((element) => element.getAttribute('href'))
+          .map((element) => element.getAttribute('href') as string)
         : []
     );
 
