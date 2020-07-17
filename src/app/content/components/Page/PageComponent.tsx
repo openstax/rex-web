@@ -1,6 +1,7 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
+import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import SearchFailure from '../../../notifications/components/SearchFailure';
@@ -18,6 +19,7 @@ import PageContent from './PageContent';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
+import { validateDOMContent } from './validateDOMContent';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -48,6 +50,10 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     const parsedContent = parser.parseFromString(cleanContent, 'text/html');
 
     transformContent(parsedContent, parsedContent.body, this.props.intl);
+
+    if (APP_ENV !== 'production') {
+      validateDOMContent(parsedContent, parsedContent.body);
+    }
 
     return parsedContent.body.innerHTML;
   };
