@@ -27,7 +27,6 @@ export const StudyGuidesCTAWrapper = styled.div`
 // tslint:disable-next-line: variable-name
 export const StudyGuidesCTAInnerWrapper = styled.div`
   display: contents;
-
   ${theme.breakpoints.mobile(css`
     display: flex;
     max-width: 34rem;

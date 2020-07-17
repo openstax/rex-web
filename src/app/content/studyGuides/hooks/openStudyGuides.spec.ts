@@ -7,8 +7,12 @@ import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { loadMoreStudyGuides, openStudyGuides, receiveStudyGuidesTotalCounts,
-  setDefaultSummaryFilters } from '../actions';
+import {
+  loadMoreStudyGuides,
+  openStudyGuides,
+  receiveStudyGuidesTotalCounts,
+  setDefaultSummaryFilters
+} from '../actions';
 
 jest.mock('./loadMore', () => ({
   loadMore: jest.fn(),
