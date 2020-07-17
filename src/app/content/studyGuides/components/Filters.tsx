@@ -37,15 +37,15 @@ const ConnectedFilterList = connect(
 // tslint:disable-next-line:variable-name
 const ConnectedPrintButton = connect(
   (state: AppState) => ({
-    disabled:  selectors.summaryIsLoading(state),
+    disabled: selectors.summaryIsLoading(state),
     loading: selectors.summaryIsLoading(state),
     shouldFetchMore: selectors.hasMoreResults(state),
   }),
   (dispatch: Dispatch) => ({
-    loadHighlightsAndPrint:  flow(printStudyGuides, dispatch),
+    loadHighlightsAndPrint: flow(printStudyGuides, dispatch),
   }),
   (stateProps, dispatchProps, ownProps) => {
-    const {shouldFetchMore,  loadHighlightsAndPrint, ...props} = {
+    const {shouldFetchMore, loadHighlightsAndPrint, ...props} = {
       ...stateProps,
       ...dispatchProps,
       ...ownProps,
@@ -70,7 +70,7 @@ export default () => {
     </FilterDropdown>
     {!userLoggedOut && <>
       <ColorKey />
-      <ConnectedPrintButton studyGuidesButton={true}/>
+      <ConnectedPrintButton studyGuidesButton />
       <ConnectedFilterList />
     </>}
   </Filters>;
