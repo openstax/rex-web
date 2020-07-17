@@ -6,15 +6,16 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { receiveLoggedOut } from '../../../auth/actions';
+import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
 import { DropdownToggle } from '../../../components/Dropdown';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
+import FiltersList from '../../components/popUp/FiltersList';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { printStudyGuides, receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides } from '../actions';
-import Filters, { ConnectedFilterList } from './Filters';
+import Filters from './Filters';
 
 jest.mock('../../components/popUp/ChapterFilter', () => (props: any) => <div mock-chapter-filter {...props} />);
 
@@ -64,6 +65,25 @@ describe('Filters', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('does renders ConnectedFilterList if user is logged in', () => {
+    store.dispatch(receiveUser({} as any));
+    const pageId = stripIdVersion(book.tree.contents[0].id);
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      [pageId]: {
+        [HighlightColorEnum.Green]: 1,
+        [HighlightColorEnum.Yellow]: 1,
+      },
+    }));
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Filters />
+      </MessageProvider>
+    </Provider>);
+
+    expect(() => component.root.findByType(FiltersList)).not.toThrow();
+  });
+
   it('does not render ConnectedFilterList if user is logged out', () => {
     store.dispatch(receiveLoggedOut());
     const pageId = stripIdVersion(book.tree.contents[0].id);
@@ -80,7 +100,7 @@ describe('Filters', () => {
       </MessageProvider>
     </Provider>);
 
-    expect(() => component.root.findByType(ConnectedFilterList)).toThrow();
+    expect(() => component.root.findByType(FiltersList)).toThrow();
   });
 
   describe('PrintButton', () => {
