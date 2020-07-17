@@ -13,7 +13,6 @@ import {
   requestSearch,
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
-import NudgeStudyTools from '../NudgeStudyTools';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
 import PrintButton from './PrintButton';
@@ -123,7 +122,6 @@ class Toolbar extends React.Component<Props, State> {
           <HighlightButton />
         </Styled.NudgeElementTarget>
         <PrintButton />
-        <NudgeStudyTools />
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />

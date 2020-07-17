@@ -1,6 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
@@ -56,48 +55,45 @@ const NudgeStudyTools = () => {
 
   if (!positions) { return null; }
 
-  return ReactDOM.createPortal(
-    <NudgeWrapper data-analytics-region='Nudge Study Tools'>
-      <NudgeArrow
-        src={isMobile ? arrowMobile : arrowDesktop}
-        alt=''
-        top={positions.arrowTopOffset}
-        left={positions.arrowLeft}
-      />
-      <NudgeCloseButton
-        tabIndex={2}
-        top={positions.closeButtonTopOffset}
-        left={positions.closeButtonLeft}
-        onClick={() => dispatch(closeNudgeStudyTools())}
-        data-analytics-label='close'
+  return <NudgeWrapper data-analytics-region='Nudge Study Tools'>
+    <NudgeArrow
+      src={isMobile ? arrowMobile : arrowDesktop}
+      alt=''
+      top={positions.arrowTopOffset}
+      left={positions.arrowLeft}
+    />
+    <NudgeCloseButton
+      tabIndex={2}
+      top={positions.closeButtonTopOffset}
+      left={positions.closeButtonLeft}
+      onClick={() => dispatch(closeNudgeStudyTools())}
+      data-analytics-label='close'
+    >
+      <NudgeCloseIcon />
+    </NudgeCloseButton>
+    <FormattedMessage id='i18n:nudge:study-tools:aria-label'>
+      {(msg: string) => <NudgeContentWrapper
+        ref={wrapperRef}
+        tabIndex={1}
+        aria-label={msg}
+        top={positions.contentWrapperTopOffset}
+        right={positions.contentWrapperRight}
       >
-        <NudgeCloseIcon />
-      </NudgeCloseButton>
-      <FormattedMessage id='i18n:nudge:study-tools:aria-label'>
-        {(msg: string) => <NudgeContentWrapper
-          ref={wrapperRef}
-          tabIndex={1}
-          aria-label={msg}
-          top={positions.contentWrapperTopOffset}
-          right={positions.contentWrapperRight}
-        >
-          <NudgeContent>
-            <NudgeHeading />
-            <NudgeText />
-          </NudgeContent>
-        </NudgeContentWrapper>}
-      </FormattedMessage>
-      <NudgeBackground>
-        <NudgeSpotlight
-          top={positions.spotlightTopOffset}
-          left={positions.spotlightLeftOffset}
-          height={positions.spotlightHeight}
-          width={positions.spotlightWidth}
-        />
-      </NudgeBackground>
-    </NudgeWrapper>,
-    document.body
-  );
+        <NudgeContent>
+          <NudgeHeading />
+          <NudgeText />
+        </NudgeContent>
+      </NudgeContentWrapper>}
+    </FormattedMessage>
+    <NudgeBackground>
+      <NudgeSpotlight
+        top={positions.spotlightTopOffset}
+        left={positions.spotlightLeftOffset}
+        height={positions.spotlightHeight}
+        width={positions.spotlightWidth}
+      />
+    </NudgeBackground>
+  </NudgeWrapper>;
 };
 
 // Do not render <NudgeStudyTools/> if it is hidden so scroll listener is not attached

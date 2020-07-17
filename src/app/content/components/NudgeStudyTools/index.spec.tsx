@@ -17,11 +17,6 @@ import { NudgeArrow, NudgeBackground, NudgeCloseButton,
   NudgeContentWrapper, NudgeSpotlight, NudgeWrapper } from './styles';
 import * as utils from './utils';
 
-jest.mock('react-dom', () => ({
-  ...jest.requireActual('react-dom'),
-  createPortal: (component: any) => component,
-}));
-
 describe('NudgeStudyTools', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
