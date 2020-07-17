@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import * as Cookies from 'js-cookie';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDebouncedWindowSize, useOnScrollTopOffset } from '../../../reactUtils';
 import { assertDocument, remsToPx } from '../../../utils';
@@ -135,7 +135,9 @@ export const getPageCounterCookie = () => {
 
 export const incrementPageCounterCookie = () => {
   const counter = getPageCounterCookie();
-  Cookies.set(cookieNudge.pageCounter, (counter + 1).toString());
+  const newValue = counter + 1;
+  Cookies.set(cookieNudge.pageCounter, newValue.toString());
+  return newValue;
 };
 
 export const shouldDisplayNudgeStudyTools = (): boolean => {
@@ -158,8 +160,14 @@ export const setNudgeStudyToolsCookies = () => {
 
 export const useIncrementPageCounter = () => {
   const page = useSelector(pageSelector);
-  return React.useEffect(() => {
-    const counter = getPageCounterCookie();
-    if (page && counter <= nudgeStudyToolsMinPageLimit) { incrementPageCounterCookie(); }
+  const [counter, updateCounter] = useState<number>(getPageCounterCookie());
+
+  React.useEffect(() => {
+    if (page && counter <= nudgeStudyToolsMinPageLimit) {
+      updateCounter(incrementPageCounterCookie());
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  return counter;
 };

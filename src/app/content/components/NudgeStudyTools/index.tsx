@@ -108,8 +108,7 @@ const NoopForPrerenderingAndForHiddenState = () => {
   const show = useSelector(showNudgeStudyTools);
   const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
   const dispatch = useDispatch();
-
-  useIncrementPageCounter();
+  const counter = useIncrementPageCounter();
 
   React.useEffect(() => {
     if (
@@ -122,7 +121,7 @@ const NoopForPrerenderingAndForHiddenState = () => {
       dispatch(openNudgeStudyTools());
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [show, hasStudyGuides]);
+  }, [show, counter, hasStudyGuides]);
 
   if (!show ) {
     return null;
