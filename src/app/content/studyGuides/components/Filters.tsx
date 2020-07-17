@@ -68,10 +68,8 @@ export default () => {
     >
       <ConnectedChapterFilter disabled={userLoggedOut}/>
     </FilterDropdown>
-    {!userLoggedOut && <>
-      <ColorKey />
-      <ConnectedPrintButton studyGuidesButton />
-      <ConnectedFilterList />
-    </>}
+    <ColorKey />
+    <ConnectedPrintButton studyGuidesButton />
+    {!userLoggedOut && <ConnectedFilterList />}
   </Filters>;
 };
