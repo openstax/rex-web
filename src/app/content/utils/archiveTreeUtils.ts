@@ -1,3 +1,4 @@
+import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
@@ -70,27 +71,34 @@ export const splitTitleParts = (str: string) => {
 export const getArchiveTreeSectionNumber = (section: ArchiveTreeSection) => splitTitleParts(section.title)[0];
 export const getArchiveTreeSectionTitle = (section: ArchiveTreeSection) => splitTitleParts(section.title)[1];
 
-export const findArchiveTreeNode = (
+export const findArchiveTreeNode = curry((
+  matcher: (node: LinkedArchiveTreeNode | LinkedArchiveTreeSection) => boolean,
+  tree: ArchiveTree
+): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
+  flattenArchiveTree(tree).find(matcher)
+);
+
+export const findArchiveTreeNodeById = (
   tree: ArchiveTree,
   nodeId: string
 ): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(tree).find(nodeMatcher(nodeId));
+  findArchiveTreeNode(nodeMatcher(nodeId), tree);
 
 export const findArchiveTreeNodeByPageParam = (
   tree: ArchiveTree,
   pageParam: Params['page']
-): LinkedArchiveTree | LinkedArchiveTreeSection | undefined => {
-  return findTreePages(tree).find((node) =>
-    'uuid' in pageParam
+): LinkedArchiveTree | LinkedArchiveTreeSection | undefined => findArchiveTreeNode(
+  (node) => archiveTreeSectionIsPage(node) &&
+    ('uuid' in pageParam
       ? node.id === pageParam.uuid
-      : node.slug.toLowerCase() === pageParam.slug.toLowerCase()
-  );
-};
+      : node.slug.toLowerCase() === pageParam.slug.toLowerCase()),
+  tree
+);
 
 export const archiveTreeContainsNode = (
   tree: ArchiveTree,
   nodeId: string
-): boolean => !!findArchiveTreeNode(tree, nodeId);
+): boolean => !!findArchiveTreeNodeById(tree, nodeId);
 
 interface Sections {
   prev?: LinkedArchiveTreeSection | undefined;
@@ -123,18 +131,3 @@ export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): sec
   && !archiveTreeSectionIsBook(section)
   && getArchiveTreeSectionNumber(section) !== null
 ;
-
-/**
- * If @param idA is before @param idB then return -1
- * If @param idB is before @param idA then return 1
- * In any other case return 0
- */
-export const comparePositionsOfNodes = (tree: LinkedArchiveTree, idA: string, idB: string) => {
-  if (idA === idB) { return 0; }
-  const flatTree = flattenArchiveTree(tree);
-  for (const node of flatTree) {
-    if (node.id === idA) { return -1; }
-    if (node.id === idB) { return 1; }
-  }
-  throw new Error('provided ids were not found in the book tree');
-};

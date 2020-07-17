@@ -1,6 +1,8 @@
 import { loggedOut } from '../../../auth/selectors';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
+import * as selectContent from '../../selectors';
+import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { loadMoreStudyGuides, openStudyGuides, setDefaultSummaryFilters } from '../actions';
 import * as select from '../selectors';
 
@@ -10,11 +12,12 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const currentFilters = select.summaryLocationFilters(state);
   const defaultFilter = select.defaultLocationFilter(state);
   const notLoggedIn = loggedOut(state);
-  const locationFilters = select.studyGuidesLocationFiltersWithContent(state);
-  const firstChapter = Array.from(locationFilters)[0];
 
-  if (notLoggedIn && firstChapter && !currentFilters.has(firstChapter)) {
-    services.dispatch(setDefaultSummaryFilters({ locationIds: [firstChapter] }));
+  const book = selectContent.book(state);
+  const firstChapter = book && findArchiveTreeNode(archiveTreeSectionIsChapter, book.tree);
+
+  if (notLoggedIn && firstChapter && !currentFilters.has(firstChapter.id)) {
+    services.dispatch(setDefaultSummaryFilters({ locationIds: [firstChapter.id] }));
   } else if (!notLoggedIn && !filtersHaveBeenSet && defaultFilter && !currentFilters.has(defaultFilter.id)) {
     services.dispatch(setDefaultSummaryFilters({locationIds: [defaultFilter.id]}));
   } else {

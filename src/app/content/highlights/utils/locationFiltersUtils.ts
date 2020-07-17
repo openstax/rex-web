@@ -4,7 +4,6 @@ import { highlightStyles } from '../../constants';
 import {
   ArchiveBook,
   Book,
-  BookWithOSWebData,
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
   LinkedArchiveTreeSection,
@@ -15,8 +14,7 @@ import {
   archiveTreeSectionIsChapter,
   archiveTreeSectionIsPage,
   archiveTreeSectionIsUnit,
-  comparePositionsOfNodes,
-  findArchiveTreeNode,
+  findArchiveTreeNodeById,
   flattenArchiveTree,
 } from '../../utils/archiveTreeUtils';
 import { CountsPerSource, HighlightLocationFilters } from '../types';
@@ -48,7 +46,7 @@ export const getHighlightLocationFilterForPage = (
 
   if (!location) {
     for (const section of locationFilters.values()) {
-      if (archiveTreeSectionIsChapter(section) && findArchiveTreeNode(section, pageId)) {
+      if (archiveTreeSectionIsChapter(section) && findArchiveTreeNodeById(section, pageId)) {
         location = section;
         break;
       }
@@ -59,11 +57,10 @@ export const getHighlightLocationFilterForPage = (
 };
 
 export const getHighlightLocationFiltersWithContent = (
-  locationFilters: HighlightLocationFilters,
-  totalCounts: CountsPerSource,
-  sortInBookOrder?: BookWithOSWebData | ArchiveBook
+  locationFilters: HighlightLocationFilters, totalCounts: CountsPerSource
 ) => {
-  const locationIds = Object.entries(totalCounts).reduce((result, [pageId]) => {
+
+  return Object.entries(totalCounts).reduce((result, [pageId]) => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageId);
 
     if (location && !result.has(location.id)) {
@@ -72,14 +69,6 @@ export const getHighlightLocationFiltersWithContent = (
 
     return result;
   }, new Set<string>());
-
-  const sortedLocationIds = sortInBookOrder
-    ? Array.from(locationIds).sort((idA: string, idB: string) => {
-      return comparePositionsOfNodes(sortInBookOrder.tree, idA, idB);
-    })
-    : null;
-
-  return sortedLocationIds ? new Set(sortedLocationIds) : locationIds;
 };
 
 export const getHighlightColorFiltersWithContent = (locationsWithContent: CountsPerSource) => {
