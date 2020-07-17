@@ -13,25 +13,8 @@ set -ex
 
 yarn
 
-export ARCHIVE_URL="https://archive.cnx.org"
-
-node script/entry update-content-versions
-
-mv src/config.books.js src/config.books.new.js
-git checkout src/config.books.js
-
-book_ids=$(node -e "$(cat <<script
-  const oldBooks = require('./src/config.books.js');
-  const newBooks = require('./src/config.books.new.js');
-  Object.keys(newBooks).forEach((key) => {
-    if (newBooks[key].defaultVersion !== oldBooks[key].defaultVersion) {
-      console.log(key);
-    }
-  });
-script
-)")
-
-rm src/config.books.new.js
+approved_books=$(curl -sL https://github.com/openstax/content-manager-approved-books/raw/master/approved-books.json)
+book_ids=$(jq -r '.[].uuid' <<< "$approved_books")
 
 git remote set-branches origin 'update-content-*'
 git remote set-branches origin --add master
@@ -43,21 +26,35 @@ for book_id in $book_ids; do
   git checkout src/config.books.js
   (git checkout "$branch" && git merge origin/master --no-edit -X theirs) || git checkout -b "$branch"
 
-  node script/entry update-content-versions --only "$book_id"
+  # extra [0] in here because at this time there is a dupe book in the config
+  desired_version=$(jq -r --arg uuid "$book_id" '[.[]|select(.uuid==$uuid)][0].version' <<< "$approved_books")
+  current_version=$(jq -r --arg uuid "$book_id" '.[$uuid].defaultVersion' < src/config.books.json)
 
-  git add src/config.books.js
+  # approved book format has a "1." on the front of every version
+  desired_version=${desired_version:2}
+
+  if [ "$desired_version" == "$current_version" ]; then
+    echo "$book_id alredy at desired version."
+    continue
+  fi
+
+  jq \
+    --arg version "$desired_version" \
+    --arg uuid "$book_id" \
+    '.[$uuid].defaultVersion = $version' < src/config.books.json > src/config.books.json.new
+
+  mv src/config.books.json.new src/config.books.json
+
+  git add src/config.books.json
   git commit -m "update content" || true
   git push --set-upstream origin "$branch"
 
   book_title=$(node script/entry.js book-info "$book_id" --field title)
-
   curl -s -X POST -H "Authorization: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/repos/openstax/rex-web/pulls" --data-binary @- << JSON
     {
       "title": "$book_title updates",
       "head": "$branch",
-      "base": "master",
-      "draft": true
+      "base": "master"
     }
 JSON
-
 done
