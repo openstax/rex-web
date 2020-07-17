@@ -2,7 +2,6 @@ import fs from 'fs';
 import { JSDOM } from 'jsdom';
 import path from 'path';
 import { basename } from 'path';
-import ProgressBar from 'progress';
 import puppeteer from 'puppeteer';
 import { argv } from 'yargs';
 import { Book } from '../src/app/content/types';
@@ -10,6 +9,7 @@ import { getBookPageUrlAndParams } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { assertDefined } from '../src/app/utils';
 import { findBooks } from './utils/bookUtils';
+import progressBar from './utils/progressBar';
 
 (global as any).DOMParser = new JSDOM().window.DOMParser;
 
@@ -58,7 +58,7 @@ async function visitPages(
   audit: Audit
 ) {
   let anyFailures = false;
-  const bar = new ProgressBar('visiting [:bar] :current/:total (:etas ETA) ', {
+  const bar = progressBar('visiting [:bar] :current/:total (:etas ETA) ', {
     complete: '=',
     incomplete: ' ',
     total: bookPages.length,
@@ -116,7 +116,8 @@ function makePageErrorDetector(page: puppeteer.Page): ObservePageErrors {
     if ([200, 304].includes(response.status())) {
       return;
     }
-    if (response.url() === 'https://rex-web-update-content--z57zgg.herokuapp.com/accounts/api/user') {
+    // accounts endpoint always 403s when logged out
+    if (response.status() === 403 && response.url().includes('/accounts/api/user')) {
       return;
     }
     observer(`response: ${response.status()} ${response.url()}`);
@@ -137,8 +138,7 @@ function makePageErrorDetector(page: puppeteer.Page): ObservePageErrors {
 async function run() {
   const audit = (await import(auditPath)).default;
   const browser = await puppeteer.launch({
-    // from https://github.com/puppeteer/puppeteer/blob/master/docs/troubleshooting.md#running-on-alpine
-    args: ['--no-sandbox', '--disable-dev-shm-usage'],
+    args: ['--no-sandbox'],
     devtools: devTools,
     headless: showBrowser === undefined,
   });
