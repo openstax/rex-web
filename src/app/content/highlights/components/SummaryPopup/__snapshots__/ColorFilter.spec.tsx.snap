@@ -9,7 +9,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     className="AllOrNone-sc-7m1y94-0 divvKQ"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 gpSxlQ"
+      className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
       onClick={[Function]}
     >
       All
@@ -18,7 +18,7 @@ exports[`ColorFilter matches snapshot 1`] = `
       |
     </span>
     <button
-      className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 gpSxlQ"
+      className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
       onClick={[Function]}
     >
       None
@@ -111,7 +111,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     green
   </label>
   <label
-    className="Checkbox-f0dje9-2 dfcJwl"
+    className="Checkbox-f0dje9-2 gEkNQh"
   >
     <input
       checked={false}
@@ -120,7 +120,7 @@ exports[`ColorFilter matches snapshot 1`] = `
       type="checkbox"
     />
     <span
-      className="Checkbox__CustomCheckbox-f0dje9-1 hiDaBp"
+      className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
     >
       <svg
         aria-hidden="true"
@@ -154,7 +154,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     blue
   </label>
   <label
-    className="Checkbox-f0dje9-2 dfcJwl"
+    className="Checkbox-f0dje9-2 gEkNQh"
   >
     <input
       checked={false}
@@ -163,7 +163,7 @@ exports[`ColorFilter matches snapshot 1`] = `
       type="checkbox"
     />
     <span
-      className="Checkbox__CustomCheckbox-f0dje9-1 hiDaBp"
+      className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
     >
       <svg
         aria-hidden="true"

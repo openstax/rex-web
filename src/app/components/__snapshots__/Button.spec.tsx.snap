@@ -47,19 +47,19 @@ exports[`Button matches snapshot - small 1`] = `
 
 exports[`ButtonLink matches snapshot (decorated) 1`] = `
 <button
-  className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 gpSxlQ"
+  className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
 />
 `;
 
 exports[`ButtonLink matches snapshot (disabled) 1`] = `
 <button
-  className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 hjtxZV"
+  className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 cXLkqS"
   disabled={true}
 />
 `;
 
 exports[`ButtonLink matches snapshot 1`] = `
 <button
-  className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 eUGfjw"
+  className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 cXLkqS"
 />
 `;
