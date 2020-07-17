@@ -158,7 +158,7 @@ describe('setHead hook', () => {
 
       const node = archiveUtils.findArchiveTreeNodeById(book.tree, pageId);
       node!.slug = 'new-id';
-      const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNode')
+      const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNodeById')
         .mockReturnValueOnce(node);
 
       const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);

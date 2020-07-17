@@ -10,7 +10,6 @@ import { formatBookData } from '../../utils';
 import {
   loadMoreStudyGuides,
   openStudyGuides,
-  receiveStudyGuidesTotalCounts,
   setDefaultSummaryFilters
 } from '../actions';
 
@@ -66,18 +65,10 @@ describe('openStudyGuides', () => {
     store.dispatch(receiveLoggedOut());
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
-    store.dispatch(receiveStudyGuidesTotalCounts({
-      // page from the second chapter
-      'testbook1-testpage3-uuid': { blue: 1, },
-      // page from first chapter
-      // tslint:disable-next-line: object-literal-sort-keys
-      'testbook1-testchapter10': { blue: 1, },
-    }));
 
     await hook(openStudyGuides());
-    // It should take first location filter according to the book order
     expect(dispatch).toHaveBeenCalledWith(
-      setDefaultSummaryFilters({locationIds: ['testbook1-testchapter10']})
+      setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']})
     );
   });
 });

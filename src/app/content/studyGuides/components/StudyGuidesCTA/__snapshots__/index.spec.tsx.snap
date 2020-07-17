@@ -23,6 +23,7 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
       >
         <a
           className="Button-ayg7nk-0 styles__StudyGuidesCTAButton-dthmzf-5 bzUNmz"
+          data-analytics-label="signup"
           href="/accounts/signup?r=/"
         >
           Sign Up
@@ -37,6 +38,7 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
           </span>
           <a
             className="styles__StudyGuidesCTALink-dthmzf-8 hLoOdb"
+            data-analytics-label="login"
             href="/accounts/login?r=/"
           >
             Log in
