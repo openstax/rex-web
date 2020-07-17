@@ -1,6 +1,7 @@
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
+import { loggedOut } from '../../../auth/selectors';
 import { AppState, Dispatch } from '../../../types';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown } from '../../components/popUp/Filters';
@@ -57,15 +58,18 @@ const ConnectedPrintButton = connect(
   }
 )(PrintButton);
 
-export default () =>
-  <Filters>
+export default () => {
+  const userLoggedOut = useSelector(loggedOut);
+
+  return <Filters>
     <FilterDropdown
       label='i18n:highlighting:filters:chapters'
       ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
     >
-      <ConnectedChapterFilter />
+      <ConnectedChapterFilter disabled={userLoggedOut}/>
     </FilterDropdown>
     <ColorKey />
-    <ConnectedPrintButton studyGuidesButton={true}/>
-    <ConnectedFilterList />
+    <ConnectedPrintButton studyGuidesButton />
+    {!userLoggedOut && <ConnectedFilterList />}
   </Filters>;
+};
