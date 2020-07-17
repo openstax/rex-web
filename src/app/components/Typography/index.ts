@@ -1,9 +1,14 @@
 import { css } from 'styled-components/macro';
-import theme from '../../theme';
 import { textStyle } from './base';
 
 export * from './base';
 export * from './headings';
+
+export const disabledStyle = css`
+  ${textStyle}
+  cursor: not-allowed;
+  opacity: 0.4;
+`;
 
 const linkColor = '#027EB5';
 export const linkHover = '#0064A0';
@@ -26,6 +31,14 @@ export const decoratedLinkStyle = css`
     text-decoration: underline;
     color: ${linkHover};
   }
+
+  ${(props: {disabled?: boolean}) => props.disabled && css`
+    &,
+    :hover,
+    :focus {
+      ${disabledStyle}
+    }
+  `}
 `;
 
 export const textRegularLineHeight = 2.5;
@@ -52,17 +65,4 @@ export const labelStyle = css`
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
-`;
-
-export const disabledStyle = css`
-  cursor: not-allowed;
-  color: ${theme.color.primary.gray.lighter};
-  text-decoration: none;
-
-  :hover,
-  :focus {
-    underline: none;
-    color: ${theme.color.primary.gray.lighter};
-    text-decoration: none;
-  }
 `;

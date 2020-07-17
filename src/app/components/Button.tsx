@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { isDefined } from '../guards';
 import theme, { ColorSet } from '../theme';
-import { decoratedLinkStyle, disabledStyle, linkStyle } from './Typography';
+import { decoratedLinkStyle, linkStyle } from './Typography';
 import { textStyle } from './Typography/base';
 
 const applyColor = (color: ColorSet) => `
@@ -111,7 +111,6 @@ export const ButtonLink = styled(PlainButton)`
   outline: none;
   ${textStyle}
   ${(props: {decorated: boolean}) => props.decorated ? decoratedLinkStyle : linkStyle}
-  ${(props: {disabled: boolean}) => props.disabled && disabledStyle}
 `;
 
 export default Button;
