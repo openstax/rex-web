@@ -44,11 +44,9 @@ it('clears search input without affecting search results sidebar', async() => {
 
   const searchInput = await page.$(selectSearchInputDesktop);
   if (searchInput) {
-    let inputValue = await searchInput.getProperty('value');
-    inputValue = await inputValue.jsonValue();
-    expect(await inputValue).toBe('');
+    const inputValue = await (await searchInput.getProperty('value')).jsonValue();
+    expect(inputValue).toBe('');
   }
-
 });
 
 it('closes the search results sidebar without affecting search input', async() => {
@@ -63,8 +61,7 @@ it('closes the search results sidebar without affecting search input', async() =
 
   const searchInput = await page.$(selectSearchInputDesktop);
   if (searchInput) {
-    let inputValue = await searchInput.getProperty('value');
-    inputValue = await inputValue.jsonValue();
+    const inputValue = await (await searchInput.getProperty('value')).jsonValue();
     expect(await inputValue).toBe('moon');
   }
 
