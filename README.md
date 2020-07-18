@@ -82,6 +82,10 @@ To run a single test file, install the Jest CLI (`yarn global add jest-cli`) the
 $> jest ./src/app/navigation/selectors.spec.ts
 ```
 
+#### Running the linter
+
+`yarn lint` will run the linter, but note that you may need to install `shellcheck` which is used in the linting (e.g. `brew install shellcheck`).
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br>

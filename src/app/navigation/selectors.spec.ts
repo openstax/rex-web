@@ -4,6 +4,7 @@ import * as selectors from './selectors';
 const initialState = {
   hash: '',
   pathname: '',
+  query: {},
   search: '',
   state: {},
 };
@@ -28,12 +29,13 @@ describe('pathname', () => {
 
 describe('query', () => {
   it('returns query', () => {
-    const rootState = {navigation: {
-      ...initialState,
-      pathname: 'foobar',
-      query: { "foo": "bar" }
-    }} as AppState;
+    const rootState = ({
+      navigation: {
+        ...initialState,
+        query: { foo: 'bar' },
+      },
+    } as any) as AppState;
 
-    expect(selectors.query(rootState)).toEqual({"foo": "bar"});
+    expect(selectors.query(rootState)).toEqual({foo: 'bar'});
   });
 });

@@ -54,20 +54,20 @@ class PendingCommand {
 }
 
 class CampaignData {
-  readonly source: string | undefined;
-  readonly name: string | undefined;
-  readonly medium: string | undefined;
-  readonly id: string | undefined;
-  readonly keyword: string | undefined;
-  readonly content: string| undefined;
+  public readonly source: string | undefined;
+  public readonly name: string | undefined;
+  public readonly medium: string | undefined;
+  public readonly id: string | undefined;
+  public readonly keyword: string | undefined;
+  public readonly content: string | undefined;
 
   constructor(query: { [key: string]: string; }) {
-    this.source = query["utm_source"];
-    this.name = query["utm_campaign"];
-    this.medium = query["utm_medium"];
-    this.id = query["utm_id"];
-    this.keyword = query["utm_term"];
-    this.content = query["utm_content"];
+    this.source = query.utm_source;
+    this.name = query.utm_campaign;
+    this.medium = query.utm_medium;
+    this.id = query.utm_id;
+    this.keyword = query.utm_term;
+    this.content = query.utm_content;
 
     // A Campaign ID is used as a shorthand for source, name, and medium.  (you have to
     // tell GA through the console what this mapping is). When the ID is specified, you
@@ -80,27 +80,27 @@ class CampaignData {
     // mean is that you must set at least medium and source otherwise none of them are
     // recorded. Ref: https://support.google.com/analytics/answer/1033863?hl=en
     //
-    // We don't always have real values to put in all three fields, so here we provide
-    // defaults for the missing ones when the campaign ID is not set.
+    // We don't always have real values to put in both fields, so here we provide
+    // defaults for the missing one when the campaign ID is not set.
 
     if (!this.id && (this.source || this.medium)) {
-      this.source = this.source || "unset";
-      this.medium = this.medium || "unset";
+      this.source = this.source || 'unset';
+      this.medium = this.medium || 'unset';
     }
   }
 
   public asSetCommands(): ReadonlyArray<Command> {
-    let payloads: SetPayload[] = [];
+    const payloads: SetPayload[] = [];
 
-    if (this.id) payloads.push({campaignId: this.id});
-    if (this.source) payloads.push({campaignSource: this.source});
-    if (this.medium) payloads.push({campaignMedium: this.medium});
-    if (this.name) payloads.push({campaignName: this.name});
-    if (this.keyword) payloads.push({campaignKeyword: this.keyword});
-    if (this.content) payloads.push({campaignContent: this.content});
+    if (this.id)      { payloads.push({campaignId: this.id}); }
+    if (this.source)  { payloads.push({campaignSource: this.source}); }
+    if (this.medium)  { payloads.push({campaignMedium: this.medium}); }
+    if (this.name)    { payloads.push({campaignName: this.name}); }
+    if (this.keyword) { payloads.push({campaignKeyword: this.keyword}); }
+    if (this.content) { payloads.push({campaignContent: this.content}); }
 
     return payloads.map((payload: SetPayload) => {
-      return {name: 'set', payload: payload};
+      return {name: 'set', payload};
     });
   }
 }
@@ -118,7 +118,7 @@ class GoogleAnalyticsClient {
   }
 
   public bulkGaProxy(commands: ReadonlyArray<Command>) {
-    commands.forEach((command: Command) => { this.gaProxy(command) });
+    commands.forEach((command: Command) => { this.gaProxy(command); });
   }
 
   public getPendingCommands(): ReadonlyArray<PendingCommand> {

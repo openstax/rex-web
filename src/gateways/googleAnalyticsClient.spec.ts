@@ -1,5 +1,5 @@
 import * as Utils from '../app/utils';
-import { GoogleAnalyticsClient, GoogleAnalyticsCampaignData } from './googleAnalyticsClient';
+import { GoogleAnalyticsCampaignData, GoogleAnalyticsClient } from './googleAnalyticsClient';
 
 declare const window: Window;
 
@@ -10,43 +10,43 @@ function sleep(ms: number) {
 describe('GoogleAnalyticsCampaignData', () => {
   describe('defaults', () => {
     it('provides defaults for medium medium when source set but ID is not', async() => {
-      let data = new GoogleAnalyticsCampaignData({"utm_source": "foo"});
-      expect(data.source).toEqual("foo")
-      expect(data.medium).toEqual("unset")
+      const data = new GoogleAnalyticsCampaignData({utm_source: 'foo'});
+      expect(data.source).toEqual('foo');
+      expect(data.medium).toEqual('unset');
     });
 
     it('provides no defaults for medium when ID and source are set', async() => {
-      let data = new GoogleAnalyticsCampaignData({"utm_source": "foo", "utm_id": "bar"});
+      const data = new GoogleAnalyticsCampaignData({utm_source: 'foo', utm_id: 'bar'});
       expect(data.medium).toBeUndefined();
     });
   });
 
   describe('asSetCommands', () => {
     it('returns all query campaign fields as commands', async() => {
-      let data = new GoogleAnalyticsCampaignData({
-        "utm_source": "source",
-        "utm_campaign": "campaign",
-        "utm_medium": "medium",
-        "utm_id": "id",
-        "utm_term": "term",
-        "utm_content": "content"
+      const data = new GoogleAnalyticsCampaignData({
+        utm_campaign: 'campaign',
+        utm_content: 'content',
+        utm_id: 'id',
+        utm_medium: 'medium',
+        utm_source: 'source',
+        utm_term: 'term',
       });
 
-      let commands = data.asSetCommands();
-      let expectedPayloads = [
-        { campaignSource: "source" },
-        { campaignName: "campaign" },
-        { campaignMedium: "medium" },
-        { campaignId: "id" },
-        { campaignKeyword: "term" },
-        { campaignContent: "content" }
-      ]
+      const commands = data.asSetCommands();
+      const expectedPayloads = [
+        { campaignSource: 'source' },
+        { campaignName: 'campaign' },
+        { campaignMedium: 'medium' },
+        { campaignId: 'id' },
+        { campaignKeyword: 'term' },
+        { campaignContent: 'content' },
+      ];
 
       expectedPayloads.forEach((payload) => {
         expect(commands).toContainEqual(
-          expect.objectContaining({name: 'set', payload: payload})
+          expect.objectContaining({name: 'set', payload})
         );
-      })
+      });
     });
   });
 });
@@ -147,8 +147,8 @@ describe('GoogleAnalyticsClient', () => {
     describe('when campaign parameters are provided in the query', () => {
       it('sends them', async() => {
         client.setTrackingIds(['foo']);
-        client.trackPageView('/some/path', { "utm_source": "source" });
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', { campaignSource: "source" });
+        client.trackPageView('/some/path', { utm_source: 'source' });
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', { campaignSource: 'source' });
       });
     });
   });
