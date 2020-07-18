@@ -111,7 +111,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     green
   </label>
   <label
-    className="Checkbox-f0dje9-2 dfcJwl"
+    className="Checkbox-f0dje9-2 gEkNQh"
   >
     <input
       checked={false}
@@ -154,7 +154,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     blue
   </label>
   <label
-    className="Checkbox-f0dje9-2 dfcJwl"
+    className="Checkbox-f0dje9-2 gEkNQh"
   >
     <input
       checked={false}
