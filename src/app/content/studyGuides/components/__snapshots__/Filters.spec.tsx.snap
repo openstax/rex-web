@@ -31,6 +31,7 @@ exports[`Filters matches snapshot 1`] = `
       </div>
     </button>
     <div
+      disabled={false}
       locationFilters={Map {}}
       locationFiltersWithContent={Set {}}
       mock-chapter-filter={true}
