@@ -65,7 +65,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 dfcJwl"
+        className="Checkbox-f0dje9-2 gEkNQh"
       >
         <input
           checked={false}
@@ -99,7 +99,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 dfcJwl"
+        className="Checkbox-f0dje9-2 gEkNQh"
       >
         <input
           checked={false}
@@ -133,7 +133,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 dfcJwl"
+        className="Checkbox-f0dje9-2 gEkNQh"
       >
         <input
           checked={false}
@@ -167,7 +167,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 dfcJwl"
+        className="Checkbox-f0dje9-2 gEkNQh"
       >
         <input
           checked={false}
@@ -201,7 +201,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 dfcJwl"
+        className="Checkbox-f0dje9-2 gEkNQh"
       >
         <input
           checked={false}
@@ -235,7 +235,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 dfcJwl"
+        className="Checkbox-f0dje9-2 gEkNQh"
       >
         <input
           checked={false}
@@ -269,7 +269,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 dfcJwl"
+        className="Checkbox-f0dje9-2 gEkNQh"
       >
         <input
           checked={false}
@@ -303,7 +303,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 dfcJwl"
+        className="Checkbox-f0dje9-2 gEkNQh"
       >
         <input
           checked={false}
@@ -337,7 +337,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 dfcJwl"
+        className="Checkbox-f0dje9-2 gEkNQh"
       >
         <input
           checked={false}
@@ -371,7 +371,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 dfcJwl"
+        className="Checkbox-f0dje9-2 gEkNQh"
       >
         <input
           checked={false}
