@@ -17,11 +17,11 @@ describe('print media', () => {
   });
 
   afterEach(async() => {
-    await page.emulateMedia(null);
+    await page.emulateMediaType(null);
   });
 
   it('only shows the content', async() => {
-    await page.emulateMedia('print');
+    await page.emulateMediaType('print');
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -33,7 +33,7 @@ describe('print media', () => {
 
   it('only shows the content when ToC is collapsed', async() => {
     await page.click(closeToc);
-    await page.emulateMedia('print');
+    await page.emulateMediaType('print');
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -47,7 +47,7 @@ describe('print media', () => {
     await page.click(closeToc);
     await page.waitForSelector(openToc);
     await page.click(openToc);
-    await page.emulateMedia('print');
+    await page.emulateMediaType('print');
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
       CI: {
