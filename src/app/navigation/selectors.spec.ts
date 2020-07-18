@@ -25,3 +25,15 @@ describe('pathname', () => {
     expect(selectors.pathname(rootState)).toEqual('foobar');
   });
 });
+
+describe('query', () => {
+  it('returns query', () => {
+    const rootState = {navigation: {
+      ...initialState,
+      pathname: 'foobar',
+      query: { "foo": "bar" }
+    }} as AppState;
+
+    expect(selectors.query(rootState)).toEqual({"foo": "bar"});
+  });
+});

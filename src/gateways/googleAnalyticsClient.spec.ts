@@ -1,11 +1,55 @@
 import * as Utils from '../app/utils';
-import { GoogleAnalyticsClient } from './googleAnalyticsClient';
+import { GoogleAnalyticsClient, GoogleAnalyticsCampaignData } from './googleAnalyticsClient';
 
 declare const window: Window;
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+describe('GoogleAnalyticsCampaignData', () => {
+  describe('defaults', () => {
+    it('provides defaults for medium medium when source set but ID is not', async() => {
+      let data = new GoogleAnalyticsCampaignData({"utm_source": "foo"});
+      expect(data.source).toEqual("foo")
+      expect(data.medium).toEqual("unset")
+    });
+
+    it('provides no defaults for medium when ID and source are set', async() => {
+      let data = new GoogleAnalyticsCampaignData({"utm_source": "foo", "utm_id": "bar"});
+      expect(data.medium).toBeUndefined();
+    });
+  });
+
+  describe('asSetCommands', () => {
+    it('returns all query campaign fields as commands', async() => {
+      let data = new GoogleAnalyticsCampaignData({
+        "utm_source": "source",
+        "utm_campaign": "campaign",
+        "utm_medium": "medium",
+        "utm_id": "id",
+        "utm_term": "term",
+        "utm_content": "content"
+      });
+
+      let commands = data.asSetCommands();
+      let expectedPayloads = [
+        { campaignSource: "source" },
+        { campaignName: "campaign" },
+        { campaignMedium: "medium" },
+        { campaignId: "id" },
+        { campaignKeyword: "term" },
+        { campaignContent: "content" }
+      ]
+
+      expectedPayloads.forEach((payload) => {
+        expect(commands).toContainEqual(
+          expect.objectContaining({name: 'set', payload: payload})
+        );
+      })
+    });
+  });
+});
 
 describe('GoogleAnalyticsClient', () => {
   let client: GoogleAnalyticsClient;
@@ -97,6 +141,14 @@ describe('GoogleAnalyticsClient', () => {
         expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/some/path'});
         expect(mockGa).toHaveBeenCalledWith('tbar.set', 'queueTime', 0);
         expect(mockGa).toHaveBeenCalledWith('tbar.send', {hitType: 'pageview', page: '/some/path'});
+      });
+    });
+
+    describe('when campaign parameters are provided in the query', () => {
+      it('sends them', async() => {
+        client.setTrackingIds(['foo']);
+        client.trackPageView('/some/path', { "utm_source": "source" });
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', { campaignSource: "source" });
       });
     });
   });
