@@ -1,6 +1,7 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
+import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import SearchFailure from '../../../notifications/components/SearchFailure';
@@ -49,7 +50,12 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     const parsedContent = parser.parseFromString(cleanContent, 'text/html');
 
     transformContent(parsedContent, parsedContent.body, this.props.intl);
-    validateDOMContent(parsedContent, parsedContent.body);
+
+    /* this will be removed when all the books are in good order */
+    /* istanbul ignore else */
+    if (APP_ENV !== 'production') {
+      validateDOMContent(parsedContent, parsedContent.body);
+    }
 
     return parsedContent.body.innerHTML;
   };
