@@ -53,6 +53,7 @@ const chunk = <T extends any>(sections: T[]) => {
 
 interface Props {
   className?: string;
+  disabled?: boolean;
   locationFilters: HighlightLocationFilters;
   locationFiltersWithContent: Set<string>;
   selectedLocationFilters: Set<string>;
@@ -62,6 +63,7 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const ChapterFilter = ({
   className,
+  disabled,
   locationFilters,
   locationFiltersWithContent,
   selectedLocationFilters,
@@ -83,13 +85,14 @@ const ChapterFilter = ({
     <AllOrNone
       onNone={() => setSelectedChapters([])}
       onAll={() => setSelectedChapters(Array.from(locationFiltersWithContent))}
+      disabled={disabled}
     />
     <Row>
       {chunk(Array.from(locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((location) => <Checkbox
           key={location.id}
           checked={selectedLocationFilters.has(location.id)}
-          disabled={!locationFiltersWithContent.has(location.id)}
+          disabled={disabled || !locationFiltersWithContent.has(location.id)}
           onChange={() => handleChange(location.id)}
         >
           <ChapterTitle dangerouslySetInnerHTML={{__html: location.title}} />
