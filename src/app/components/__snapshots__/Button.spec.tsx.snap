@@ -45,6 +45,13 @@ exports[`Button matches snapshot - small 1`] = `
 />
 `;
 
+exports[`ButtonLink matches snapshot (decorated and disabled) 1`] = `
+<button
+  className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 Rtfaq"
+  disabled={true}
+/>
+`;
+
 exports[`ButtonLink matches snapshot (decorated) 1`] = `
 <button
   className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
