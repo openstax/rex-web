@@ -12,7 +12,7 @@ describe('content', () => {
   it('looks right', async() => {
     setDesktopViewport(page);
     await navigate(page, TEST_PAGE_URL);
-    await page.emulateMedia('print');
+    await page.emulateMediaType('print');
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
       CI: {
@@ -25,7 +25,7 @@ describe('content', () => {
   it('looks right on mobile', async() => {
     setMobileViewport(page);
     await navigate(page, TEST_PAGE_URL);
-    await page.emulateMedia('print');
+    await page.emulateMediaType('print');
     const screen = await fullPageScreenshot(page);
     expect(screen).toMatchImageSnapshot({
       CI: {
