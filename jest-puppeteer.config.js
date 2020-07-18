@@ -14,7 +14,7 @@ module.exports = {
         '--no-sandbox',
       ] : []),
       // https://github.com/GoogleChrome/puppeteer/issues/2410
-      '--font-render-hinting=medium',
+      '--font-render-hinting=none',
     ],
     devtools: PUPPETEER_DEBUG,
   },
