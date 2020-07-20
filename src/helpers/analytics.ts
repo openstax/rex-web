@@ -14,6 +14,7 @@ import * as showCreate from './analyticsEvents/highlighting/showCreate';
 import * as showHelpInfo from './analyticsEvents/highlighting/showHelpInfo';
 import * as showLogin from './analyticsEvents/highlighting/showLogin';
 import * as openCloseMH from './analyticsEvents/highlighting/summaryPopup/openClose';
+import * as openNudgeStudyTools from './analyticsEvents/openNudgeStudyTools';
 import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
@@ -56,6 +57,7 @@ const analytics = {
   editNoteColor: mapEventType(highlightingEditColor),
   openCloseMH: mapEventType(openCloseMH),
   openCloseStudyGuides: mapEventType(openCloseStudyGuides),
+  openNudgeStudyTools: mapEventType(openNudgeStudyTools),
   pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),
