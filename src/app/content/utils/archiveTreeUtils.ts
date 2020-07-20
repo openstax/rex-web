@@ -1,3 +1,4 @@
+import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
@@ -77,27 +78,34 @@ export const splitTitleParts = (str: string) => {
 export const getArchiveTreeSectionNumber = (section: ArchiveTreeSection) => splitTitleParts(section.title)[0];
 export const getArchiveTreeSectionTitle = (section: ArchiveTreeSection) => splitTitleParts(section.title)[1];
 
-export const findArchiveTreeNode = (
+export const findArchiveTreeNode = curry((
+  matcher: (node: LinkedArchiveTreeNode | LinkedArchiveTreeSection) => boolean,
+  tree: ArchiveTree
+): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
+  flattenArchiveTree(tree).find(matcher)
+);
+
+export const findArchiveTreeNodeById = (
   tree: ArchiveTree,
   nodeId: string
 ): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(tree).find(nodeMatcher(nodeId));
+  findArchiveTreeNode(nodeMatcher(nodeId), tree);
 
 export const findArchiveTreeNodeByPageParam = (
   tree: ArchiveTree,
   pageParam: Params['page']
-): LinkedArchiveTree | LinkedArchiveTreeSection | undefined => {
-  return findTreePages(tree).find((node) =>
-    'uuid' in pageParam
+): LinkedArchiveTree | LinkedArchiveTreeSection | undefined => findArchiveTreeNode(
+  (node) => archiveTreeSectionIsPage(node) &&
+    ('uuid' in pageParam
       ? node.id === pageParam.uuid
-      : node.slug.toLowerCase() === pageParam.slug.toLowerCase()
-  );
-};
+      : node.slug.toLowerCase() === pageParam.slug.toLowerCase()),
+  tree
+);
 
 export const archiveTreeContainsNode = (
   tree: ArchiveTree,
   nodeId: string
-): boolean => !!findArchiveTreeNode(tree, nodeId);
+): boolean => !!findArchiveTreeNodeById(tree, nodeId);
 
 interface Sections {
   prev?: LinkedArchiveTreeSection | undefined;

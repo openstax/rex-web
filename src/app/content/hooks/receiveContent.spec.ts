@@ -160,9 +160,9 @@ describe('setHead hook', () => {
       const pageId = page.id;
       CANONICAL_MAP[bookId] = [ [bookId, { [pageId]: 'new-id' }] ];
 
-      const node = archiveUtils.findArchiveTreeNode(book.tree, pageId);
+      const node = archiveUtils.findArchiveTreeNodeById(book.tree, pageId);
       node!.slug = 'new-id';
-      const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNode')
+      const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNodeById')
         .mockReturnValueOnce(node);
 
       const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
