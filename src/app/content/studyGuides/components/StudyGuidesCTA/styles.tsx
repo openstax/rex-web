@@ -14,6 +14,7 @@ export const StudyGuidesCTAWrapper = styled.div`
   overflow: hidden;
 
   strong {
+    white-space: nowrap;
     color: ${theme.color.secondary.deepGreen.base};
   }
 

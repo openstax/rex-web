@@ -2,7 +2,7 @@
 
 exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
 <div
-  className="styles__StudyGuidesCTAWrapper-dthmzf-0 hMTOib"
+  className="styles__StudyGuidesCTAWrapper-dthmzf-0 daxjmW"
 >
   <div
     className="styles__StudyGuidesCTAInnerWrapper-dthmzf-1 ekANVM"
