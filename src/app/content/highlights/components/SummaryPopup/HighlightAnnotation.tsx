@@ -77,7 +77,7 @@ const HighlightAnnotation = (
           {annotation}
         </HighlightNoteAnnotation>
       </React.Fragment>
-      }
+    }
     {isEditing && <HighlightEditButtons>
       <FormattedMessage id='i18n:highlighting:button:save'>
         {(msg: Element | string) => <Button
@@ -95,7 +95,7 @@ const HighlightAnnotation = (
           data-analytics-label='cancel'
           data-testid='cancel'
           aria-label={msg}
-          onClick={onCancel}
+          onClick={() => {onCancel(); setAnno(annotation);}}
         >{msg}</Button>}
       </FormattedMessage>
     </HighlightEditButtons>}
