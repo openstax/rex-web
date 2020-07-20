@@ -76,11 +76,7 @@ CI runs on ubuntu, and because of minor rendering differences between platforms 
 
 #### Running individual tests
 
-To run a single test file, install the Jest CLI (`yarn global add jest-cli`) then at the command prompt:
-
-```bash
-$> jest ./src/app/navigation/selectors.spec.ts
-```
+To run a single test file, `yarn jest <file>`.
 
 #### Running the linter
 

@@ -1,4 +1,6 @@
 // tslint:disable:max-classes-per-file
+import pickBy from 'lodash/fp/pickBy';
+import startsWith from 'lodash/fp/startsWith';
 import { assertWindow, referringHostName } from '../app/utils';
 
 interface PageView {
@@ -54,20 +56,20 @@ class PendingCommand {
 }
 
 class CampaignData {
-  public readonly source: string | undefined;
-  public readonly name: string | undefined;
-  public readonly medium: string | undefined;
-  public readonly id: string | undefined;
-  public readonly keyword: string | undefined;
-  public readonly content: string | undefined;
+  public readonly campaignSource?: string;
+  public readonly campaignName?: string;
+  public readonly campaignMedium?: string;
+  public readonly campaignId?: string;
+  public readonly campaignKeyword?: string;
+  public readonly campaignContent?: string;
 
   constructor(query: { [key: string]: string; }) {
-    this.source = query.utm_source;
-    this.name = query.utm_campaign;
-    this.medium = query.utm_medium;
-    this.id = query.utm_id;
-    this.keyword = query.utm_term;
-    this.content = query.utm_content;
+    this.campaignSource = query.utm_source;
+    this.campaignName = query.utm_campaign;
+    this.campaignMedium = query.utm_medium;
+    this.campaignId = query.utm_id;
+    this.campaignKeyword = query.utm_term;
+    this.campaignContent = query.utm_content;
 
     // A Campaign ID is used as a shorthand for source, name, and medium.  (you have to
     // tell GA through the console what this mapping is). When the ID is specified, you
@@ -83,25 +85,17 @@ class CampaignData {
     // We don't always have real values to put in both fields, so here we provide
     // defaults for the missing one when the campaign ID is not set.
 
-    if (!this.id && (this.source || this.medium)) {
-      this.source = this.source || 'unset';
-      this.medium = this.medium || 'unset';
+    if (!this.campaignId && (this.campaignSource || this.campaignMedium)) {
+      this.campaignSource = this.campaignSource || 'unset';
+      this.campaignMedium = this.campaignMedium || 'unset';
     }
   }
 
-  public asSetCommands(): ReadonlyArray<Command> {
-    const payloads: SetPayload[] = [];
-
-    if (this.id)      { payloads.push({campaignId: this.id}); }
-    if (this.source)  { payloads.push({campaignSource: this.source}); }
-    if (this.medium)  { payloads.push({campaignMedium: this.medium}); }
-    if (this.name)    { payloads.push({campaignName: this.name}); }
-    if (this.keyword) { payloads.push({campaignKeyword: this.keyword}); }
-    if (this.content) { payloads.push({campaignContent: this.content}); }
-
-    return payloads.map((payload: SetPayload) => {
-      return {name: 'set', payload};
-    });
+  public asSetCommand(): SetCommand {
+    const payload: SetPayload = pickBy((value, key) => {
+      return startsWith('campaign', key) && value;
+    })(this);
+    return {name: 'set', payload};
   }
 }
 
@@ -115,10 +109,6 @@ class GoogleAnalyticsClient {
     } else {
       this.saveCommandForLater(command);
     }
-  }
-
-  public bulkGaProxy(commands: ReadonlyArray<Command>) {
-    commands.forEach((command: Command) => { this.gaProxy(command); });
   }
 
   public getPendingCommands(): ReadonlyArray<PendingCommand> {
@@ -140,7 +130,7 @@ class GoogleAnalyticsClient {
   }
 
   public trackPageView(path: string, query = {}) {
-    this.bulkGaProxy((new CampaignData(query).asSetCommands()));
+    this.gaProxy((new CampaignData(query).asSetCommand()));
 
     this.gaProxy({name: 'send', payload: {
       hitType: 'pageview',

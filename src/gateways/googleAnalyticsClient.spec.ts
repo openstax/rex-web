@@ -11,13 +11,13 @@ describe('GoogleAnalyticsCampaignData', () => {
   describe('defaults', () => {
     it('provides defaults for medium medium when source set but ID is not', async() => {
       const data = new GoogleAnalyticsCampaignData({utm_source: 'foo'});
-      expect(data.source).toEqual('foo');
-      expect(data.medium).toEqual('unset');
+      expect(data.campaignSource).toEqual('foo');
+      expect(data.campaignMedium).toEqual('unset');
     });
 
     it('provides no defaults for medium when ID and source are set', async() => {
       const data = new GoogleAnalyticsCampaignData({utm_source: 'foo', utm_id: 'bar'});
-      expect(data.medium).toBeUndefined();
+      expect(data.campaignMedium).toBeUndefined();
     });
   });
 
@@ -32,20 +32,18 @@ describe('GoogleAnalyticsCampaignData', () => {
         utm_term: 'term',
       });
 
-      const commands = data.asSetCommands();
-      const expectedPayloads = [
-        { campaignSource: 'source' },
-        { campaignName: 'campaign' },
-        { campaignMedium: 'medium' },
-        { campaignId: 'id' },
-        { campaignKeyword: 'term' },
-        { campaignContent: 'content' },
-      ];
+      const command = data.asSetCommand();
 
-      expectedPayloads.forEach((payload) => {
-        expect(commands).toContainEqual(
-          expect.objectContaining({name: 'set', payload})
-        );
+      expect(command).toMatchObject({
+        name: 'set',
+        payload: {
+          campaignContent: 'content',
+          campaignId: 'id',
+          campaignKeyword: 'term',
+          campaignMedium: 'medium',
+          campaignName: 'campaign',
+          campaignSource: 'source',
+        },
       });
     });
   });
@@ -122,7 +120,7 @@ describe('GoogleAnalyticsClient', () => {
         const sleepMs: number = 5;
         await sleep(sleepMs);
 
-        expect(client.getPendingCommands().length).toBe(1);
+        expect(client.getPendingCommands().length).toBe(2);
 
         client.setTrackingIds(['foo']);
         expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'queueTime', expect.any(Number));
@@ -148,7 +146,7 @@ describe('GoogleAnalyticsClient', () => {
       it('sends them', async() => {
         client.setTrackingIds(['foo']);
         client.trackPageView('/some/path', { utm_source: 'source' });
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', { campaignSource: 'source' });
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', { campaignMedium: 'unset', campaignSource: 'source' });
       });
     });
   });
