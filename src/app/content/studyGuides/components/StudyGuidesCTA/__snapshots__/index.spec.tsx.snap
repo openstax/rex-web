@@ -11,7 +11,7 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
       className="styles__StudyGuidesCTAContent-dthmzf-2 hZLeDx"
     >
       <h2
-        className="styles__StudyGuidesCTATitle-dthmzf-3 jEdCPi"
+        className="styles__StudyGuidesCTATitle-dthmzf-3 igvIfZ"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Expert-created study guides. <strong>100% free!</strong>",
@@ -19,7 +19,7 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
         }
       />
       <div
-        className="styles__StudyGuidesCTAButtons-dthmzf-4 kchdVc"
+        className="styles__StudyGuidesCTAButtons-dthmzf-4 bESOcY"
       >
         <a
           className="Button-ayg7nk-0 styles__StudyGuidesCTAButton-dthmzf-5 bzUNmz"
@@ -47,10 +47,10 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
       </div>
     </div>
     <div
-      className="styles__StudyGuidesCTAInfoWrapper-dthmzf-9 kVfvue"
+      className="styles__StudyGuidesCTAInfoWrapper-dthmzf-9 iGpeCA"
     >
       <div
-        className="styles__StudyGuidesCTAInfo-dthmzf-10 kYVnvh"
+        className="styles__StudyGuidesCTAInfo-dthmzf-10 dKsjzx"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Like this guide? <br>We've got study guides for every chapter. <strong>Free forever.</strong>",
@@ -64,7 +64,7 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
       />
       <img
         alt=""
-        className="styles__StudyGuidesCTAArrowMobile-dthmzf-12 fMCjiC"
+        className="styles__StudyGuidesCTAArrowMobile-dthmzf-12 itsJER"
         src="arrow-mobile.svg"
       />
     </div>
