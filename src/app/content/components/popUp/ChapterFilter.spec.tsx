@@ -5,7 +5,9 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { receiveLoggedOut } from '../../../auth/actions';
 import AllOrNone from '../../../components/AllOrNone';
+import { ButtonLink } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
@@ -14,7 +16,9 @@ import { receiveBook, receivePage } from '../../actions';
 import { receiveHighlightsTotalCounts } from '../../highlights/actions';
 import { ConnectedChapterFilter } from '../../highlights/components/SummaryPopup/Filters';
 import { HighlightLocationFilters } from '../../highlights/types';
-import { formatBookData } from '../../utils';
+import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
+import Filters from '../../studyGuides/components/Filters';
+import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 
 describe('ChapterFilter', () => {
@@ -199,5 +203,25 @@ describe('ChapterFilter', () => {
 
     expect(box1.props.disabled).toBe(false);
     expect(otherBoxes.every((box) => box.props.disabled)).toBe(true);
+  });
+
+  it('disables all or none when logged out user', () => {
+    store.dispatch(receiveLoggedOut());
+    const pageId = stripIdVersion(book.tree.contents[0].id);
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      [pageId]: {
+        [HighlightColorEnum.Green]: 1,
+        [HighlightColorEnum.Yellow]: 1,
+      },
+    }));
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Filters />
+      </MessageProvider>
+    </Provider>);
+
+    const [...allOrNoneButtons] = component.root.findAllByType(ButtonLink);
+    expect(allOrNoneButtons.every((button) => button.props.disabled)).toBe(true);
   });
 });
