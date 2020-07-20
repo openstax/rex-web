@@ -95,7 +95,10 @@ const HighlightAnnotation = (
           data-analytics-label='cancel'
           data-testid='cancel'
           aria-label={msg}
-          onClick={() => {onCancel(); setAnno(annotation);}}
+          onClick={() => {
+            onCancel(); 
+            setAnno(annotation);
+          }}
         >{msg}</Button>}
       </FormattedMessage>
     </HighlightEditButtons>}
