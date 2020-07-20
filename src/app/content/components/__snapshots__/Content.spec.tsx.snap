@@ -3,7 +3,7 @@
 exports[`content matches snapshot 1`] = `
 Array [
   <a
-    className="HiddenLink-wwwegq-0 fRIsRu"
+    className="HiddenLink-wwwegq-0 kZsmVR"
     href="#main-content"
     onClick={[Function]}
   >
@@ -193,22 +193,27 @@ Array [
             </button>
           </form>
         </div>
-        <button
-          aria-label="My highlights"
-          className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 ieTRLD"
-          onClick={[Function]}
+        <div
+          className="styled__NudgeElementTarget-sc-1119auh-18 kJPvUC"
+          id="nudge-study-tools"
         >
-          <img
-            aria-hidden="true"
-            className="HighlightButton__MyHighlightsIcon-fxks7p-1 iZcVEd"
-            src="highlightIcon.svg"
-          />
-          <span
-            className="HighlightButton__MyHighlightsText-fxks7p-2 fJSRKO"
+          <button
+            aria-label="My highlights"
+            className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 ieTRLD"
+            onClick={[Function]}
           >
-            My highlights
-          </span>
-        </button>
+            <img
+              aria-hidden="true"
+              className="HighlightButton__MyHighlightsIcon-fxks7p-1 iZcVEd"
+              src="highlightIcon.svg"
+            />
+            <span
+              className="HighlightButton__MyHighlightsText-fxks7p-2 fJSRKO"
+            >
+              My highlights
+            </span>
+          </button>
+        </div>
         <button
           aria-label="print"
           className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
@@ -1309,7 +1314,7 @@ Array [
 exports[`content renders empty state 1`] = `
 Array [
   <a
-    className="HiddenLink-wwwegq-0 fRIsRu"
+    className="HiddenLink-wwwegq-0 kZsmVR"
     href="#main-content"
     onClick={[Function]}
   >
@@ -1429,22 +1434,27 @@ Array [
             </button>
           </form>
         </div>
-        <button
-          aria-label="My highlights"
-          className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 ieTRLD"
-          onClick={[Function]}
+        <div
+          className="styled__NudgeElementTarget-sc-1119auh-18 kJPvUC"
+          id="nudge-study-tools"
         >
-          <img
-            aria-hidden="true"
-            className="HighlightButton__MyHighlightsIcon-fxks7p-1 iZcVEd"
-            src="highlightIcon.svg"
-          />
-          <span
-            className="HighlightButton__MyHighlightsText-fxks7p-2 fJSRKO"
+          <button
+            aria-label="My highlights"
+            className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 ieTRLD"
+            onClick={[Function]}
           >
-            My highlights
-          </span>
-        </button>
+            <img
+              aria-hidden="true"
+              className="HighlightButton__MyHighlightsIcon-fxks7p-1 iZcVEd"
+              src="highlightIcon.svg"
+            />
+            <span
+              className="HighlightButton__MyHighlightsText-fxks7p-2 fJSRKO"
+            >
+              My highlights
+            </span>
+          </button>
+        </div>
         <button
           aria-label="print"
           className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
