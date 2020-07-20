@@ -21,6 +21,7 @@ export const initialState = {
   params: null,
   references: [],
   search: initialSearchState,
+  showNudgeStudyTools: null,
   studyGuides: initialStudyGuidesState,
   tocOpen: null,
 };
@@ -93,6 +94,12 @@ function reduceContent(state: State, action: AnyAction) {
 
       // book and page are the same, probably on page navigation like hash changing
       return {...state, params: action.payload.match.params};
+    }
+    case getType(actions.openNudgeStudyTools): {
+      return {...state, showNudgeStudyTools: true };
+    }
+    case getType(actions.closeNudgeStudyTools): {
+      return {...state, showNudgeStudyTools: false };
     }
     default:
       return state;
