@@ -96,7 +96,7 @@ const HighlightAnnotation = (
           data-testid='cancel'
           aria-label={msg}
           onClick={() => {
-            onCancel(); 
+            onCancel();
             setAnno(annotation);
           }}
         >{msg}</Button>}
