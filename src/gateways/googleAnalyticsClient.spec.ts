@@ -1,5 +1,5 @@
 import * as Utils from '../app/utils';
-import { GoogleAnalyticsCampaignData, GoogleAnalyticsClient } from './googleAnalyticsClient';
+import { campaignFromQuery, GoogleAnalyticsClient } from './googleAnalyticsClient';
 
 declare const window: Window;
 
@@ -7,44 +7,37 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-describe('GoogleAnalyticsCampaignData', () => {
+describe('campaignFromQuery', () => {
   describe('defaults', () => {
     it('provides defaults for medium medium when source set but ID is not', async() => {
-      const data = new GoogleAnalyticsCampaignData({utm_source: 'foo'});
+      const data = campaignFromQuery({utm_source: 'foo'});
       expect(data.campaignSource).toEqual('foo');
       expect(data.campaignMedium).toEqual('unset');
     });
 
     it('provides no defaults for medium when ID and source are set', async() => {
-      const data = new GoogleAnalyticsCampaignData({utm_source: 'foo', utm_id: 'bar'});
+      const data = campaignFromQuery({utm_source: 'foo', utm_id: 'bar'});
       expect(data.campaignMedium).toBeUndefined();
     });
   });
 
-  describe('asSetCommands', () => {
-    it('returns all query campaign fields as commands', async() => {
-      const data = new GoogleAnalyticsCampaignData({
-        utm_campaign: 'campaign',
-        utm_content: 'content',
-        utm_id: 'id',
-        utm_medium: 'medium',
-        utm_source: 'source',
-        utm_term: 'term',
-      });
+  it('returns all query campaign fields', async() => {
+    const data = campaignFromQuery({
+      utm_campaign: 'campaign',
+      utm_content: 'content',
+      utm_id: 'id',
+      utm_medium: 'medium',
+      utm_source: 'source',
+      utm_term: 'term',
+    });
 
-      const command = data.asSetCommand();
-
-      expect(command).toMatchObject({
-        name: 'set',
-        payload: {
-          campaignContent: 'content',
-          campaignId: 'id',
-          campaignKeyword: 'term',
-          campaignMedium: 'medium',
-          campaignName: 'campaign',
-          campaignSource: 'source',
-        },
-      });
+    expect(data).toMatchObject({
+      campaignContent: 'content',
+      campaignId: 'id',
+      campaignKeyword: 'term',
+      campaignMedium: 'medium',
+      campaignName: 'campaign',
+      campaignSource: 'source',
     });
   });
 });

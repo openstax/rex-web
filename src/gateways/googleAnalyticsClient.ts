@@ -1,7 +1,8 @@
 // tslint:disable:max-classes-per-file
+import flow from 'lodash/fp/flow';
+import identity from 'lodash/fp/identity';
 import isEmpty from 'lodash/fp/isEmpty';
 import pickBy from 'lodash/fp/pickBy';
-import startsWith from 'lodash/fp/startsWith';
 import { assertWindow, referringHostName } from '../app/utils';
 
 interface PageView {
@@ -42,6 +43,8 @@ interface SetPayload {
 
 type Command = SetCommand | SendCommand;
 
+interface Query {[key: string]: string; }
+
 class PendingCommand {
   public command: Command;
   public savedAt: Date;
@@ -56,49 +59,43 @@ class PendingCommand {
   }
 }
 
-class CampaignData {
-  public readonly campaignSource?: string;
-  public readonly campaignName?: string;
-  public readonly campaignMedium?: string;
-  public readonly campaignId?: string;
-  public readonly campaignKeyword?: string;
-  public readonly campaignContent?: string;
+const mapUTMFieldNames = (query: Query): SetPayload => ({
+  campaignContent: query.utm_content,
+  campaignId: query.utm_id,
+  campaignKeyword: query.utm_term,
+  campaignMedium: query.utm_medium,
+  campaignName: query.utm_campaign,
+  campaignSource: query.utm_source,
+});
 
-  constructor(query: { [key: string]: string; }) {
-    this.campaignSource = query.utm_source;
-    this.campaignName = query.utm_campaign;
-    this.campaignMedium = query.utm_medium;
-    this.campaignId = query.utm_id;
-    this.campaignKeyword = query.utm_term;
-    this.campaignContent = query.utm_content;
+// A Campaign ID is used as a shorthand for source, name, and medium.  (you have to
+// tell GA through the console what this mapping is). When the ID is specified, you
+// can override any of these values in this mapping by explicitly setting one or more
+// of source, name, or medium.
+// Ref: https://developers.google.com/analytics/solutions/data-import-campaign#tag
+//
+// When a Campaign ID is not set, Google says that "When you add parameters to
+// a URL, you should always use utm_source, utm_medium, and utm_campaign."  What they
+// mean is that you must set at least medium and source otherwise none of them are
+// recorded. Ref: https://support.google.com/analytics/answer/1033863?hl=en
+//
+// We don't always have real values to put in both fields, so here we provide
+// defaults for the missing one when the campaign ID is not set.
+const defaultCampaignFields = (payload: SetPayload): SetPayload => {
+  const defaults = {campaignSource: 'unset', campaignMedium: 'unset'};
 
-    // A Campaign ID is used as a shorthand for source, name, and medium.  (you have to
-    // tell GA through the console what this mapping is). When the ID is specified, you
-    // can override any of these values in this mapping by explicitly setting one or more
-    // of source, name, or medium.
-    // Ref: https://developers.google.com/analytics/solutions/data-import-campaign#tag
-    //
-    // When a Campaign ID is not set, Google says that "When you add parameters to
-    // a URL, you should always use utm_source, utm_medium, and utm_campaign."  What they
-    // mean is that you must set at least medium and source otherwise none of them are
-    // recorded. Ref: https://support.google.com/analytics/answer/1033863?hl=en
-    //
-    // We don't always have real values to put in both fields, so here we provide
-    // defaults for the missing one when the campaign ID is not set.
-
-    if (!this.campaignId && (this.campaignSource || this.campaignMedium)) {
-      this.campaignSource = this.campaignSource || 'unset';
-      this.campaignMedium = this.campaignMedium || 'unset';
-    }
+  if (!payload.campaignId && (payload.campaignSource || payload.campaignMedium)) {
+    return {...defaults, ...payload};
   }
 
-  public asSetCommand(): SetCommand {
-    const payload: SetPayload = pickBy((value, key) => {
-      return startsWith('campaign', key) && value;
-    })(this);
-    return {name: 'set', payload};
-  }
-}
+  return payload;
+};
+
+export const campaignFromQuery: (query: Query) => SetPayload = flow(
+  mapUTMFieldNames,
+  pickBy(identity),
+  defaultCampaignFields
+);
 
 class GoogleAnalyticsClient {
   private trackerNames: string[] = [];
@@ -135,7 +132,7 @@ class GoogleAnalyticsClient {
   }
 
   public trackPageView(path: string, query = {}) {
-    this.gaProxy(new CampaignData(query).asSetCommand());
+    this.gaProxy({name: 'set', payload: campaignFromQuery(query)});
 
     this.gaProxy({name: 'send', payload: {
       hitType: 'pageview',
@@ -213,5 +210,5 @@ class GoogleAnalyticsClient {
 
 const singleton = new GoogleAnalyticsClient();
 
-export { GoogleAnalyticsClient, CampaignData as GoogleAnalyticsCampaignData };
+export { GoogleAnalyticsClient };
 export default singleton;
