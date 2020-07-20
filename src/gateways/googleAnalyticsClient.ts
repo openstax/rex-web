@@ -1,4 +1,5 @@
 // tslint:disable:max-classes-per-file
+import isEmpty from 'lodash/fp/isEmpty';
 import pickBy from 'lodash/fp/pickBy';
 import startsWith from 'lodash/fp/startsWith';
 import { assertWindow, referringHostName } from '../app/utils';
@@ -104,6 +105,10 @@ class GoogleAnalyticsClient {
   private pendingCommands: PendingCommand[] = [];
 
   public gaProxy(command: Command) {
+    if (isEmpty(command.payload)) {
+      return;
+    }
+
     if (this.isReadyForCommands()) {
       this.commandEachTracker(command);
     } else {
@@ -130,7 +135,7 @@ class GoogleAnalyticsClient {
   }
 
   public trackPageView(path: string, query = {}) {
-    this.gaProxy((new CampaignData(query).asSetCommand()));
+    this.gaProxy(new CampaignData(query).asSetCommand());
 
     this.gaProxy({name: 'send', payload: {
       hitType: 'pageview',

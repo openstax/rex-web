@@ -120,7 +120,7 @@ describe('GoogleAnalyticsClient', () => {
         const sleepMs: number = 5;
         await sleep(sleepMs);
 
-        expect(client.getPendingCommands().length).toBe(2);
+        expect(client.getPendingCommands().length).toBe(1);
 
         client.setTrackingIds(['foo']);
         expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'queueTime', expect.any(Number));
