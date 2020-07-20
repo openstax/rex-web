@@ -45,6 +45,7 @@ export const StudyGuidesCTAContent = styled.div`
 
 // tslint:disable-next-line: variable-name
 export const StudyGuidesCTATitle = styled.h2`
+  overflow: hidden;
   font-size: 2.4rem;
   margin: 0 0 1rem 0;
   ${theme.breakpoints.mobile(css`
@@ -56,6 +57,7 @@ export const StudyGuidesCTATitle = styled.h2`
 
 // tslint:disable-next-line: variable-name
 export const StudyGuidesCTAButtons = styled.div`
+  overflow: hidden;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -122,7 +124,7 @@ export const StudyGuidesCTAInfoWrapper = styled.div`
   overflow: visible;
   position: relative;
   ${theme.breakpoints.mobile(css`
-    justify-content: flex-end;
+    justify-content: flex-start;
   `)}
 `;
 
@@ -142,8 +144,7 @@ export const StudyGuidesCTAInfo = styled.div`
     width: 10rem;
     font-size: 1.2rem;
     line-height: 1.7rem;
-    margin-top: 1.6rem;
-    margin-right: 3.4rem;
+    margin-left: 2rem;
   `)}
 `;
 
@@ -158,7 +159,7 @@ export const StudyGuidesCTAArrowDesktop = styled.img`
 // tslint:disable-next-line: variable-name
 export const StudyGuidesCTAArrowMobile = styled.img`
   position: absolute;
-  right: -2.5rem;
+  left: -4rem;
   display: none;
   ${theme.breakpoints.mobile(css`
     display: block;
