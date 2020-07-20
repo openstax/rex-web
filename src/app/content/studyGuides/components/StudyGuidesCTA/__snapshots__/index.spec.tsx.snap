@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
+<div
+  className="styles__StudyGuidesCTAWrapper-dthmzf-0 daxjmW"
+>
+  <div
+    className="styles__StudyGuidesCTAInnerWrapper-dthmzf-1 ekANVM"
+  >
+    <div
+      className="styles__StudyGuidesCTAContent-dthmzf-2 hZLeDx"
+    >
+      <h2
+        className="styles__StudyGuidesCTATitle-dthmzf-3 igvIfZ"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Expert-created study guides. <strong>100% free!</strong>",
+          }
+        }
+      />
+      <div
+        className="styles__StudyGuidesCTAButtons-dthmzf-4 bESOcY"
+      >
+        <a
+          className="Button-ayg7nk-0 styles__StudyGuidesCTAButton-dthmzf-5 bzUNmz"
+          data-analytics-label="signup"
+          href="/accounts/signup?r=/"
+        >
+          Sign Up
+        </a>
+        <div
+          className="styles__StudyGuidesCTAButtonsSecondary-dthmzf-6 dSPDZh"
+        >
+          <span
+            className="styles__StudyGuidesCTASeparator-dthmzf-7 bXhklW"
+          >
+            or
+          </span>
+          <a
+            className="styles__StudyGuidesCTALink-dthmzf-8 hLoOdb"
+            data-analytics-label="login"
+            href="/accounts/login?r=/"
+          >
+            Log in
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="styles__StudyGuidesCTAInfoWrapper-dthmzf-9 iGpeCA"
+    >
+      <div
+        className="styles__StudyGuidesCTAInfo-dthmzf-10 dKsjzx"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Like this guide? <br>We've got study guides for every chapter. <strong>Free forever.</strong>",
+          }
+        }
+      />
+      <img
+        alt=""
+        className="styles__StudyGuidesCTAArrowDesktop-dthmzf-11 cKiziA"
+        src="arrow-desktop.svg"
+      />
+      <img
+        alt=""
+        className="styles__StudyGuidesCTAArrowMobile-dthmzf-12 itsJER"
+        src="arrow-mobile.svg"
+      />
+    </div>
+  </div>
+</div>
+`;
