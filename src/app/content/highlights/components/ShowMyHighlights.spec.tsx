@@ -19,7 +19,7 @@ import { assertDefined, assertWindow } from '../../../utils';
 import { receiveBook } from '../../actions';
 import { highlightStyles } from '../../constants';
 import { formatBookData } from '../../utils';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import {
   loadMoreSummaryHighlights,
   openMyHighlights,
@@ -139,8 +139,12 @@ describe('Show my highlights', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 2},
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
     }, new Map([
-      ['testbook1-testpage1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), '')],
-      ['testbook1-testchapter1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testchapter1-uuid'), '')],
+      ['testbook1-testpage1-uuid',
+        assertDefined( findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+      ],
+      ['testbook1-testchapter1-uuid',
+        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), ''),
+      ],
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
@@ -212,8 +216,12 @@ describe('Show my highlights', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 2},
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
     }, new Map([
-      ['testbook1-testpage1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), '')],
-      ['testbook1-testchapter1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testchapter1-uuid'), '')],
+      ['testbook1-testpage1-uuid',
+        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+      ],
+      ['testbook1-testchapter1-uuid',
+        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), ''),
+      ],
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
