@@ -8,7 +8,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
   loadMoreSummaryHighlights,
@@ -151,7 +151,7 @@ describe('filtersChange', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 1},
     }, new Map([
-      [pageId, assertDefined(findArchiveTreeNode(book.tree, pageId), '')],
+      [pageId, assertDefined(findArchiveTreeNodeById(book.tree, pageId), '')],
     ])));
 
     const state = store.getState();
@@ -199,7 +199,7 @@ describe('filtersChange', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageInChapter.id]: {[HighlightColorEnum.Green]: 1},
     }, new Map([
-      [chapterIdForPageInChapter, assertDefined(findArchiveTreeNode(book.tree, chapterIdForPageInChapter), '')],
+      [chapterIdForPageInChapter, assertDefined(findArchiveTreeNodeById(book.tree, chapterIdForPageInChapter), '')],
     ])));
 
     const state = store.getState();
