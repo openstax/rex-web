@@ -12,7 +12,7 @@ import {
   mobilePaddingSides,
 } from '../styles/PopupConstants';
 import { popupBodyPadding, popupPadding } from '../styles/PopupStyles';
-import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../utils/archiveTreeUtils';
+import { archiveTreeSectionIsChapter, findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
 
 // tslint:disable-next-line:variable-name
@@ -110,7 +110,7 @@ const SectionHighlights = (
       {pages.map(({pageId, highlights}) => {
         const page = assertDefined(
           archiveTreeSectionIsChapter(location)
-            ? findArchiveTreeNode(location, stripIdVersion(pageId))
+            ? findArchiveTreeNodeById(location, stripIdVersion(pageId))
             : location,
           `Page is undefined in SectionHighlights`
         );
