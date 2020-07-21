@@ -14,7 +14,7 @@ import {
   archiveTreeSectionIsChapter,
   archiveTreeSectionIsPage,
   archiveTreeSectionIsUnit,
-  findArchiveTreeNode,
+  findArchiveTreeNodeById,
   flattenArchiveTree,
 } from '../../utils/archiveTreeUtils';
 import { CountsPerSource, HighlightLocationFilters } from '../types';
@@ -46,7 +46,7 @@ export const getHighlightLocationFilterForPage = (
 
   if (!location) {
     for (const section of locationFilters.values()) {
-      if (archiveTreeSectionIsChapter(section) && findArchiveTreeNode(section, pageId)) {
+      if (archiveTreeSectionIsChapter(section) && findArchiveTreeNodeById(section, pageId)) {
         location = section;
         break;
       }
