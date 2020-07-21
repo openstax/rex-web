@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="468px" height="185px" viewBox="0 0 468 185" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M1025.82688,2016 L1025.8261,2047.79198 L1130.99079,2047.79298 C1132.63732,2047.79298 1134.17325,2048.59828 1135.10601,2049.93738 L1135.23511,2050.13229 C1136.66178,2052.39965 1136.03283,2055.36867 1133.84689,2056.87704 L1133.64998,2057.00628 L905.658861,2199.23904 C904.103199,2200.20954 902.145638,2200.25174 900.555028,2199.36562 L900.340474,2199.23904 L672.349352,2057.00628 C670.887614,2056.09437 670,2054.49767 670,2052.78011 C670,2050.09828 672.125934,2047.91085 674.791285,2047.79758 L675.008545,2047.79298 L784.714723,2047.79198 L784.715502,2016" id="path-1"></path>
+        <filter x="-1.2%" y="-2.7%" width="102.4%" height="105.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="4" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="2" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="FINAL-SPECS---Non-logged" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="REX//-StudyGuide_NL_Desktop//-V1.0" transform="translate(-669.000000, -2016.000000)">
+            <g id="Arrow">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use stroke="#0C9372" stroke-width="1" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>
