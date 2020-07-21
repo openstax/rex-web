@@ -1,7 +1,7 @@
 import { APP_ENV, BOOKS } from '../../../config';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
-import { findArchiveTreeNode, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
+import { findArchiveTreeNodeById, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
 export function bookDetailsUrl(book: BookWithOSWebData) {
@@ -49,7 +49,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
     return getUrlParamForPageIdCache.get(cacheKey);
   }
 
-  const treeSection = findArchiveTreeNode(book.tree, pageId);
+  const treeSection = findArchiveTreeNodeById(book.tree, pageId);
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
