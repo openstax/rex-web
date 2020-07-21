@@ -26,6 +26,11 @@ export const buyBookLink = createSelector(
   (data) => hasOSWebData(data) ? data.amazon_link : ''
 );
 
+export const showNudgeStudyTools = createSelector(
+  localState,
+  (state) => state.showNudgeStudyTools
+);
+
 export const contentReferences = createSelector(
   localState,
   (state) => state.references
