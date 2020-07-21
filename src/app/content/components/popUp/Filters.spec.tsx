@@ -15,7 +15,7 @@ import { receiveHighlightsTotalCounts, setSummaryFilters } from '../../highlight
 import Filters from '../../highlights/components/SummaryPopup/Filters';
 import { ArchiveTree } from '../../types';
 import { formatBookData } from '../../utils';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { FiltersListChapter, FiltersListColor, StyledPlainButton } from './FiltersList';
 
@@ -97,8 +97,8 @@ describe('Filters', () => {
         [HighlightColorEnum.Purple]: 1,
       },
     }, new Map([
-      [pageId, assertDefined(findArchiveTreeNode(book.tree, pageId), '')],
-      [chapterId, assertDefined(findArchiveTreeNode(book.tree, chapterId), '')],
+      [pageId, assertDefined(findArchiveTreeNodeById(book.tree, pageId), '')],
+      [chapterId, assertDefined(findArchiveTreeNodeById(book.tree, chapterId), '')],
     ])));
     store.dispatch(setSummaryFilters({
       locationIds: [],
@@ -144,7 +144,7 @@ describe('Filters', () => {
       },
     }, new Map([[
       'testbook1-testchapter5-uuid',
-      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testchapter5-uuid'), ''),
+      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter5-uuid'), ''),
     ]])));
 
     dispatch.mockClear();
