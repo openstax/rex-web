@@ -1,4 +1,8 @@
 // tslint:disable:max-classes-per-file
+import flow from 'lodash/fp/flow';
+import identity from 'lodash/fp/identity';
+import isEmpty from 'lodash/fp/isEmpty';
+import pickBy from 'lodash/fp/pickBy';
 import { assertWindow, referringHostName } from '../app/utils';
 
 interface PageView {
@@ -23,13 +27,23 @@ interface SendCommand {
 
 interface SetCommand {
   name: 'set';
-  payload: {
-    userId?: string | undefined;
-    dimension3?: string | undefined;
-  };
+  payload: SetPayload;
+}
+
+interface SetPayload {
+  userId?: string | undefined;
+  dimension3?: string | undefined;
+  campaignSource?: string | undefined;
+  campaignMedium?: string | undefined;
+  campaignName?: string | undefined;
+  campaignId?: string | undefined;
+  campaignKeyword?: string | undefined;
+  campaignContent?: string | undefined;
 }
 
 type Command = SetCommand | SendCommand;
+
+interface Query {[key: string]: string; }
 
 class PendingCommand {
   public command: Command;
@@ -45,11 +59,53 @@ class PendingCommand {
   }
 }
 
+const mapUTMFieldNames = (query: Query): SetPayload => ({
+  campaignContent: query.utm_content,
+  campaignId: query.utm_id,
+  campaignKeyword: query.utm_term,
+  campaignMedium: query.utm_medium,
+  campaignName: query.utm_campaign,
+  campaignSource: query.utm_source,
+});
+
+// A Campaign ID is used as a shorthand for source, name, and medium.  (you have to
+// tell GA through the console what this mapping is). When the ID is specified, you
+// can override any of these values in this mapping by explicitly setting one or more
+// of source, name, or medium.
+// Ref: https://developers.google.com/analytics/solutions/data-import-campaign#tag
+//
+// When a Campaign ID is not set, Google says that "When you add parameters to
+// a URL, you should always use utm_source, utm_medium, and utm_campaign."  What they
+// mean is that you must set at least medium and source otherwise none of them are
+// recorded. Ref: https://support.google.com/analytics/answer/1033863?hl=en
+//
+// We don't always have real values to put in both fields, so here we provide
+// defaults for the missing one when the campaign ID is not set.
+const defaultCampaignFields = (payload: SetPayload): SetPayload => {
+  const defaults = {campaignSource: 'unset', campaignMedium: 'unset'};
+
+  if (!payload.campaignId && (payload.campaignSource || payload.campaignMedium)) {
+    return {...defaults, ...payload};
+  }
+
+  return payload;
+};
+
+export const campaignFromQuery: (query: Query) => SetPayload = flow(
+  mapUTMFieldNames,
+  pickBy(identity),
+  defaultCampaignFields
+);
+
 class GoogleAnalyticsClient {
   private trackerNames: string[] = [];
   private pendingCommands: PendingCommand[] = [];
 
   public gaProxy(command: Command) {
+    if (isEmpty(command.payload)) {
+      return;
+    }
+
     if (this.isReadyForCommands()) {
       this.commandEachTracker(command);
     } else {
@@ -75,7 +131,9 @@ class GoogleAnalyticsClient {
     this.gaProxy({name: 'set', payload: {userId: undefined}});
   }
 
-  public trackPageView(path: string) {
+  public trackPageView(path: string, query = {}) {
+    this.gaProxy({name: 'set', payload: campaignFromQuery(query)});
+
     this.gaProxy({name: 'send', payload: {
       hitType: 'pageview',
       page: path,
