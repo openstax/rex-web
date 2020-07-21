@@ -5,7 +5,7 @@ import { assertDefined } from '../../utils';
 import { hasOSWebData } from '../guards';
 import { Book } from '../types';
 import { makeUnifiedBookLoader } from '../utils';
-import { findArchiveTreeNode } from './archiveTreeUtils';
+import { findArchiveTreeNodeById } from './archiveTreeUtils';
 
 export async function getCanonicalUrlParams(
   archiveLoader: AppServices['archiveLoader'],
@@ -26,7 +26,7 @@ export async function getCanonicalUrlParams(
     const version = BOOKS[id].defaultVersion;
     const canonicalBook = book.id === id  && hasOSWebData(book) ? book : await getBook(id, version);
     const mappedPageId = CANONICAL_PAGES_MAP[pageId] || pageId;
-    const treeSection = findArchiveTreeNode(canonicalBook.tree, mappedPageId);
+    const treeSection = findArchiveTreeNodeById(canonicalBook.tree, mappedPageId);
 
     if (treeSection) {
       const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
