@@ -18,8 +18,9 @@ import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
   mobileSearchContainerMargin,
-  toolbalHrHeight,
+  toolbarButtonMargin,
   toolbarDesktopHeight,
+  toolbarHrHeight,
   toolbarIconColor,
   toolbarMobileHeight,
   toolbarMobileSearchWrapperHeight,
@@ -72,7 +73,7 @@ export const toolbarDefaultButton = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 2rem;
+  margin-right: ${toolbarButtonMargin}rem;
   height: auto;
   ${theme.breakpoints.mobile(css`
     margin-right: 0;
@@ -247,7 +248,7 @@ export const BarWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const Hr = styled.hr`
   border: none;
-  border-top: ${toolbalHrHeight}rem solid #efeff1;
+  border-top: ${toolbarHrHeight}rem solid #efeff1;
   display: none;
   margin: 0;
   ${theme.breakpoints.mobile(css`
@@ -321,4 +322,9 @@ export const SidebarControl = styled(OpenSidebarControl)`
   ${theme.breakpoints.mobile(css`
     margin-right: unset;
   `)}
+`;
+
+// tslint:disable-next-line: variable-name
+export const NudgeElementTarget = styled.div`
+  display: contents;
 `;
