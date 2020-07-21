@@ -3,7 +3,7 @@ import { Book, LinkedArchiveTreeNode, Page } from '../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
-  findArchiveTreeNode,
+  findArchiveTreeNodeById,
   getArchiveTreeSectionNumber,
   getArchiveTreeSectionTitle,
   splitTitleParts,
@@ -26,7 +26,10 @@ const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string => {
 };
 
 export const createTitle = (page: Page, book: Book): string => {
-  const node = assertDefined(findArchiveTreeNode(book.tree, page.id), `couldn't find node for a page id: ${page.id}`);
+  const node = assertDefined(
+    findArchiveTreeNodeById(book.tree, page.id),
+    `couldn't find node for a page id: ${page.id}`
+  );
   const [nodeNumber, nodeTitle] = splitTitleParts(node.title);
   const title = `${nodeTitle} - ${book.title} | OpenStax`;
 

@@ -16,7 +16,7 @@ import { openToc, receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
 import { openMobileToolbar } from '../search/actions';
 import { formatBookData } from '../utils';
-import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import BuyBook from './BuyBook';
 import Content from './Content';
 import { TableOfContents } from './TableOfContents';
@@ -53,7 +53,7 @@ describe('content', () => {
               slug: bookState.slug,
             },
             page: {
-              slug: findArchiveTreeNode(bookState.tree, shortPage.id)!.slug,
+              slug: findArchiveTreeNodeById(bookState.tree, shortPage.id)!.slug,
             },
           },
           route: content,
