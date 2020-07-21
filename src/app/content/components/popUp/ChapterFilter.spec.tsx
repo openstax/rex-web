@@ -19,7 +19,7 @@ import { HighlightLocationFilters } from '../../highlights/types';
 import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
 import Filters from '../../studyGuides/components/Filters';
 import { formatBookData, stripIdVersion } from '../../utils';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 
 describe('ChapterFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
@@ -38,7 +38,7 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, new Map([[
       'testbook1-testpage1-uuid',
-      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
     ]])));
 
     const component = renderer.create(<Provider store={store}>
@@ -70,11 +70,11 @@ describe('ChapterFilter', () => {
     }, new Map([
       [
         'testbook1-testpage1-uuid',
-        assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
       ],
       [
         'testbook1-testchapter3-uuid',
-        assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testchapter3-uuid'), ''),
+        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter3-uuid'), ''),
       ],
     ])));
 
@@ -99,7 +99,7 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, new Map([[
       'testbook1-testpage1-uuid',
-      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
     ]])));
 
     const component = renderer.create(<Provider store={store}>
@@ -131,7 +131,7 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, new Map([[
       'testbook1-testpage1-uuid',
-      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
     ]])));
 
     const component = renderer.create(<Provider store={store}>
