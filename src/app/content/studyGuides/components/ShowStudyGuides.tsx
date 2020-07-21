@@ -12,6 +12,7 @@ import { loadMoreStudyGuides } from '../actions';
 import * as select from '../selectors';
 import Filters from './Filters';
 import StudyGuides from './StudyGuides';
+import StudyGuidesCTA from './StudyGuidesCTA';
 
 // tslint:disable-next-line:variable-name
 export const StudyGuidesBody = styled(PopupBody)`
@@ -66,6 +67,7 @@ const ShowStudyGuides = () => {
       data-testid='show-studyguides-body'
       data-analytics-region='SG popup'
     >
+      <StudyGuidesCTA />
       <Filters />
       <StudyGuides />
       {showGoToTop && <GoToTopButton
