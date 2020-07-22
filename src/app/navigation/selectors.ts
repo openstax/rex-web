@@ -16,6 +16,11 @@ export const pathname = createSelector(
   (state) => state.pathname
 );
 
+export const query = createSelector(
+  localState,
+  (state) => state.query
+);
+
 export const hash = createSelector(
   localState,
   (state) => state.hash
