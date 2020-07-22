@@ -4,6 +4,7 @@ import * as selectors from './selectors';
 const initialState = {
   hash: '',
   pathname: '',
+  query: {},
   search: '',
   state: {},
 };
@@ -23,5 +24,18 @@ describe('pathname', () => {
     }} as AppState;
 
     expect(selectors.pathname(rootState)).toEqual('foobar');
+  });
+});
+
+describe('query', () => {
+  it('returns query', () => {
+    const rootState = ({
+      navigation: {
+        ...initialState,
+        query: { foo: 'bar' },
+      },
+    } as any) as AppState;
+
+    expect(selectors.query(rootState)).toEqual({foo: 'bar'});
   });
 });
