@@ -11,8 +11,9 @@ import resolveContent from './resolveContent';
 const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
   const state = services.getState();
   const pathname = selectNavigation.pathname(state);
+  const query = selectNavigation.query(state);
 
-  googleAnalyticsClient.trackPageView(pathname);
+  googleAnalyticsClient.trackPageView(pathname, query);
 
   await resolveContent(services, action.match);
   const search = syncSearch(services)(action);
