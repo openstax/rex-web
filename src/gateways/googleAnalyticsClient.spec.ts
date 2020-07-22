@@ -1,11 +1,46 @@
 import * as Utils from '../app/utils';
-import { GoogleAnalyticsClient } from './googleAnalyticsClient';
+import { campaignFromQuery, GoogleAnalyticsClient } from './googleAnalyticsClient';
 
 declare const window: Window;
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+describe('campaignFromQuery', () => {
+  describe('defaults', () => {
+    it('provides defaults for medium medium when source set but ID is not', async() => {
+      const data = campaignFromQuery({utm_source: 'foo'});
+      expect(data.campaignSource).toEqual('foo');
+      expect(data.campaignMedium).toEqual('unset');
+    });
+
+    it('provides no defaults for medium when ID and source are set', async() => {
+      const data = campaignFromQuery({utm_source: 'foo', utm_id: 'bar'});
+      expect(data.campaignMedium).toBeUndefined();
+    });
+  });
+
+  it('returns all query campaign fields', async() => {
+    const data = campaignFromQuery({
+      utm_campaign: 'campaign',
+      utm_content: 'content',
+      utm_id: 'id',
+      utm_medium: 'medium',
+      utm_source: 'source',
+      utm_term: 'term',
+    });
+
+    expect(data).toMatchObject({
+      campaignContent: 'content',
+      campaignId: 'id',
+      campaignKeyword: 'term',
+      campaignMedium: 'medium',
+      campaignName: 'campaign',
+      campaignSource: 'source',
+    });
+  });
+});
 
 describe('GoogleAnalyticsClient', () => {
   let client: GoogleAnalyticsClient;
@@ -97,6 +132,14 @@ describe('GoogleAnalyticsClient', () => {
         expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/some/path'});
         expect(mockGa).toHaveBeenCalledWith('tbar.set', 'queueTime', 0);
         expect(mockGa).toHaveBeenCalledWith('tbar.send', {hitType: 'pageview', page: '/some/path'});
+      });
+    });
+
+    describe('when campaign parameters are provided in the query', () => {
+      it('sends them', async() => {
+        client.setTrackingIds(['foo']);
+        client.trackPageView('/some/path', { utm_source: 'source' });
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', { campaignMedium: 'unset', campaignSource: 'source' });
       });
     });
   });
