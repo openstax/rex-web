@@ -1,5 +1,6 @@
 import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
+import { assertDefined } from '../../utils';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
   ArchiveTree,
@@ -16,7 +17,7 @@ import { getIdVersion, stripIdVersion } from './idUtils';
 export const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
 export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
   if (CACHED_FLATTENED_TREES.has(tree.id)) {
-    return CACHED_FLATTENED_TREES.get(tree.id)!;
+    return assertDefined(CACHED_FLATTENED_TREES.get(tree.id), `we've already checkf for .has(tree.id)`);
   }
   const flattened = [tree, ...flatten(tree.contents.map((section) =>
     flatten(isArchiveTree(section)

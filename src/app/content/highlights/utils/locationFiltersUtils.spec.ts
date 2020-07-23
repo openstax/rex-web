@@ -1,6 +1,10 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { book, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
-import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage } from '../../utils/archiveTreeUtils';
+import {
+  archiveTreeSectionIsChapter,
+  archiveTreeSectionIsPage,
+  CACHED_FLATTENED_TREES,
+} from '../../utils/archiveTreeUtils';
 import { getHighlightLocationFilterForPage, getHighlightLocationFilters } from './';
 import { getHighlightColorFiltersWithContent, sectionIsHighlightLocationFitler } from './locationFiltersUtils';
 
@@ -29,6 +33,10 @@ describe('getHighlightLocationFilters', () => {
 });
 
 describe('getHighlightLocationFilterForPage', () => {
+  beforeEach(() => {
+    CACHED_FLATTENED_TREES.clear();
+  });
+
   it('should not return anything for page which is not in book', () => {
     const locationFilters = getHighlightLocationFilters(sectionIsHighlightLocationFitler)(book);
     const location = getHighlightLocationFilterForPage(locationFilters, {...pageInChapter, id: 'not-in-book' });

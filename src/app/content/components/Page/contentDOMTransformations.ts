@@ -212,16 +212,17 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
 }
 
 const setLinksAttributes = (rootEl: HTMLElement) => {
-  for (const a of Array.from(rootEl.querySelectorAll('a'))) {
-    const href = a.getAttribute('href') || '';
+  rootEl.querySelectorAll('a').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (!href) { return; }
     if (href.startsWith('https://') || href.startsWith('http://') || href.startsWith('//')) {
       // target blank and add `rel` to links that begin with: http:// https:// //
       a.setAttribute('target', '_blank');
       a.setAttribute('rel', 'noopener nofollow');
     } else if (href.startsWith('../')) {
-      // target blank and allow indexing links to relative content
+      // target blank and allow indexing links to other books
       a.setAttribute('target', '_blank');
       a.removeAttribute('rel');
     }
-  }
+  });
 };
