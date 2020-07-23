@@ -14,7 +14,8 @@ import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
-import { HighlightData } from '../../highlights/types';
+import { HighlightData, HighlightScrollTarget } from '../../highlights/types';
+import { Page } from '../../types';
 import highlightManager from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
 
@@ -208,6 +209,118 @@ describe('highlightManager', () => {
 
     expect(focus).toHaveBeenCalledTimes(1);
     expect(focus).toHaveBeenCalledWith();
+  });
+
+  it('focuses scroll target highlight', () => {
+    const mockHighlights = [
+      createMockHighlight(),
+      createMockHighlight(),
+    ];
+    const {update} = highlightManager(element, () => prop);
+
+    prop.scrollTarget = {
+      elementId: 'does-not-matter',
+      id: mockHighlights[1].id,
+      type: 'highlight',
+    } as HighlightScrollTarget;
+
+    const highlightFocus = jest.spyOn(mockHighlights[1], 'focus');
+    const focus = jest.spyOn(prop, 'focus');
+
+    Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
+    Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
+
+    update(prevProp);
+
+    expect(highlightFocus).toHaveBeenCalledTimes(1);
+    expect(focus).toHaveBeenCalledWith(mockHighlights[1].id);
+  });
+
+  it('calls options.clearError if highlightsLoaded === true', () => {
+    const mockHighlights = [
+      createMockHighlight(),
+      createMockHighlight(),
+    ];
+    const {update} = highlightManager(element, () => prop);
+
+    prop.scrollTarget = {
+      elementId: 'does-not-matter',
+      id: mockHighlights[1].id,
+      type: 'highlight',
+    } as HighlightScrollTarget;
+
+    Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
+    Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
+
+    const options = {
+      clearError: jest.fn(),
+      setError: jest.fn(),
+    };
+
+    update(prevProp, options);
+
+    expect(options.clearError).toHaveBeenCalledTimes(1);
+    expect(options.setError).not.toHaveBeenCalled();
+  });
+
+  it('calls options.clearError if highlightsLoaded === false but user is loggedOut and page is fetched', () => {
+    const mockHighlights = [
+      createMockHighlight(),
+      createMockHighlight(),
+    ];
+    const {update} = highlightManager(element, () => prop);
+
+    prop.highlightsLoaded = false;
+    prop.loggedOut = true;
+    prop.page = { id: 'mock-page' } as any as Page;
+    prop.scrollTarget = {
+      elementId: 'does-not-matter',
+      id: mockHighlights[1].id,
+      type: 'highlight',
+    } as HighlightScrollTarget;
+
+    Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
+    Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
+
+    const options = {
+      clearError: jest.fn(),
+      setError: jest.fn(),
+    };
+
+    update(prevProp, options);
+
+    expect(options.clearError).toHaveBeenCalledTimes(1);
+    expect(options.setError).not.toHaveBeenCalled();
+  });
+
+  it('calls options.setError', () => {
+    const mockHighlights = [
+      createMockHighlight(),
+      createMockHighlight(),
+    ];
+    const {update} = highlightManager(element, () => prop);
+
+    prop.scrollTarget = {
+      elementId: 'does-not-matter',
+      id: 'this-id-does-not-exists',
+      type: 'highlight',
+    } as HighlightScrollTarget;
+
+    Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
+    Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
+
+    const options = {
+      clearError: jest.fn(),
+      setError: jest.fn(),
+    };
+
+    update(prevProp, options);
+
+    expect(options.clearError).not.toHaveBeenCalled();
+    expect(options.setError).toHaveBeenCalledWith(
+      prop.scrollTarget.id,
+      'i18n:notification:scroll-to-highlight-failure'
+    );
   });
 
   it('umounts', () => {
