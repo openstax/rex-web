@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
+import htmlMessage from '../../../components/htmlMessage';
 import { useMatchMobileQuery } from '../../../reactUtils';
 import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
@@ -19,7 +20,7 @@ import {
   NudgeContentWrapper,
   NudgeHeading,
   NudgeSpotlight,
-  NudgeText,
+  NudgeTextStyles,
   NudgeWrapper,
 } from './styles';
 import {
@@ -31,6 +32,7 @@ import {
 
 // tslint:disable-next-line: variable-name
 const NudgeStudyTools = () => {
+  const hasStudyGuides = useSelector(hasStudyGuidesSelector);
   const document = assertDocument();
   const wrapperRef = React.useRef<HTMLElement>(null);
   const isMobile = useMatchMobileQuery();
@@ -55,6 +57,17 @@ const NudgeStudyTools = () => {
 
   if (!positions) { return null; }
 
+  const ariaLabelKey = hasStudyGuides
+    ? 'i18n:nudge:study-tools:aria-label:with-study-guides'
+    : 'i18n:nudge:study-tools:aria-label:only-highlighting';
+
+  const messageKey = hasStudyGuides
+    ? 'i18n:nudge:study-tools:text:with-study-guides'
+    : 'i18n:nudge:study-tools:text:only-highlighting';
+
+  // tslint:disable-next-line: variable-name
+  const NudgeText = htmlMessage(messageKey, NudgeTextStyles);
+
   return <NudgeWrapper data-analytics-region='Nudge Study Tools'>
     <NudgeArrow
       src={isMobile ? arrowMobile : arrowDesktop}
@@ -71,7 +84,7 @@ const NudgeStudyTools = () => {
     >
       <NudgeCloseIcon />
     </NudgeCloseButton>
-    <FormattedMessage id='i18n:nudge:study-tools:aria-label'>
+    <FormattedMessage id={ariaLabelKey}>
       {(msg: string) => <NudgeContentWrapper
         ref={wrapperRef}
         tabIndex={1}
@@ -100,7 +113,6 @@ const NudgeStudyTools = () => {
 // to the DOM and do not render if document or window is undefined which may happen for prerendering.
 // tslint:disable-next-line: variable-name
 const NoopForPrerenderingAndForHiddenState = () => {
-  const hasStudyGuides = useSelector(hasStudyGuidesSelector);
   const show = useSelector(showNudgeStudyTools);
   const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
   const dispatch = useDispatch();
@@ -109,7 +121,6 @@ const NoopForPrerenderingAndForHiddenState = () => {
   React.useEffect(() => {
     if (
       show === null
-      && hasStudyGuides
       && shouldDisplayNudgeStudyTools()
     ) {
       setNudgeStudyToolsCookies();
@@ -117,7 +128,7 @@ const NoopForPrerenderingAndForHiddenState = () => {
       dispatch(openNudgeStudyTools());
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [show, counter, hasStudyGuides]);
+  }, [show, counter]);
 
   if (!show ) {
     return null;

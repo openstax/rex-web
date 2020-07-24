@@ -56,7 +56,7 @@ const NudgeHeadingStyles = styled.h2`
 export const NudgeHeading = htmlMessage('i18n:nudge:study-tools:heading', NudgeHeadingStyles);
 
 // tslint:disable-next-line: variable-name
-const NudgeTextStyles = styled.div`
+export const NudgeTextStyles = styled.div`
   font-size: 2.4rem;
   font-weight: 400;
   line-height: 1.1;
@@ -71,9 +71,6 @@ const NudgeTextStyles = styled.div`
     padding: 0 2rem;
   `)}
 `;
-
-// tslint:disable-next-line: variable-name
-export const NudgeText = htmlMessage('i18n:nudge:study-tools:text', NudgeTextStyles);
 
 // tslint:disable-next-line: variable-name
 export const NudgeArrow = styled.img`
