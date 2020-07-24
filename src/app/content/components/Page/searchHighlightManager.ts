@@ -47,7 +47,6 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
     return;
   }
   if (!options.forceRedraw && previous.selectedResult === current.selectedResult) {
-    options.clearError();
     return;
   }
 
