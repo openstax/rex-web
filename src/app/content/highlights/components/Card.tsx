@@ -5,7 +5,6 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { scrollTarget } from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
@@ -20,7 +19,7 @@ import {
   focusHighlight,
   setAnnotationChangesPending,
 } from '../actions';
-import { HighlightData, HighlightScrollTarget } from '../types';
+import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
@@ -46,7 +45,6 @@ export interface CardProps {
   zIndex: number;
   topOffset?: number;
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
-  scrollTarget: HighlightScrollTarget;
 }
 
 // tslint:disable-next-line:variable-name
@@ -162,7 +160,6 @@ export default connect(
     hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
     isTocOpen: contentSelect.tocOpen(state),
-    scrollTarget: scrollTarget(state),
   }),
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),
