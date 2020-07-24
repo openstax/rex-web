@@ -5,7 +5,9 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { receiveLoggedOut } from '../../../auth/actions';
 import AllOrNone from '../../../components/AllOrNone';
+import { ButtonLink } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
@@ -14,8 +16,10 @@ import { receiveBook, receivePage } from '../../actions';
 import { receiveHighlightsTotalCounts } from '../../highlights/actions';
 import { ConnectedChapterFilter } from '../../highlights/components/SummaryPopup/Filters';
 import { HighlightLocationFilters } from '../../highlights/types';
-import { formatBookData } from '../../utils';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
+import Filters from '../../studyGuides/components/Filters';
+import { formatBookData, stripIdVersion } from '../../utils';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 
 describe('ChapterFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
@@ -34,7 +38,7 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, new Map([[
       'testbook1-testpage1-uuid',
-      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
     ]])));
 
     const component = renderer.create(<Provider store={store}>
@@ -66,11 +70,11 @@ describe('ChapterFilter', () => {
     }, new Map([
       [
         'testbook1-testpage1-uuid',
-        assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
       ],
       [
         'testbook1-testchapter3-uuid',
-        assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testchapter3-uuid'), ''),
+        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter3-uuid'), ''),
       ],
     ])));
 
@@ -95,7 +99,7 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, new Map([[
       'testbook1-testpage1-uuid',
-      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
     ]])));
 
     const component = renderer.create(<Provider store={store}>
@@ -127,7 +131,7 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, new Map([[
       'testbook1-testpage1-uuid',
-      assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
     ]])));
 
     const component = renderer.create(<Provider store={store}>
@@ -199,5 +203,25 @@ describe('ChapterFilter', () => {
 
     expect(box1.props.disabled).toBe(false);
     expect(otherBoxes.every((box) => box.props.disabled)).toBe(true);
+  });
+
+  it('disables all or none when logged out user', () => {
+    store.dispatch(receiveLoggedOut());
+    const pageId = stripIdVersion(book.tree.contents[0].id);
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      [pageId]: {
+        [HighlightColorEnum.Green]: 1,
+        [HighlightColorEnum.Yellow]: 1,
+      },
+    }));
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Filters />
+      </MessageProvider>
+    </Provider>);
+
+    const [...allOrNoneButtons] = component.root.findAllByType(ButtonLink);
+    expect(allOrNoneButtons.every((button) => button.props.disabled)).toBe(true);
   });
 });

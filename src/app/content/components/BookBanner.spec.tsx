@@ -6,12 +6,12 @@ import { renderToDom } from '../../../test/reactutils';
 import { resetModules } from '../../../test/utils';
 import { assertWindow } from '../../utils';
 import { formatBookData } from '../utils';
-import { findArchiveTreeNode } from '../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import { BarWrapper, PropTypes } from './BookBanner';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const bookWithoutOsWebData = formatBookData(archiveBook, undefined);
-const pageNode = findArchiveTreeNode(archiveBook.tree, shortPage.id)!;
+const pageNode = findArchiveTreeNodeById(archiveBook.tree, shortPage.id)!;
 
 describe('BookBanner', () => {
   let window: Window;

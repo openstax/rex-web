@@ -8,7 +8,7 @@ import { actionHook, assertDefined } from '../../../utils';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
@@ -64,7 +64,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 
   const targetPageId = selectedResult.result.source.pageId;
   const targetPage = assertDefined(
-    findArchiveTreeNode(book.tree, targetPageId),
+    findArchiveTreeNodeById(book.tree, targetPageId),
     'search result pointed to page that wasn\'t in book'
   );
   const navigation = {
