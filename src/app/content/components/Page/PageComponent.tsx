@@ -95,14 +95,14 @@ export default class PageComponent extends Component<PagePropTypes> {
     if (!shouldUpdateHighlights) { return; }
 
     const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
-      clearError: () => this.clearError('highlight'),
-      setError: (id: string, msgKey: string) => this.setError(id, msgKey, 'highlight'),
+      clearError: this.clearError,
+      setError: this.setError,
     });
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
-      clearError: () => this.clearError('search'),
+      clearError: this.clearError,
       forceRedraw: highlightsAddedOrRemoved,
-      setError: (id: string, msgKey: string) => this.setError(id, msgKey, 'search'),
+      setError: this.setError,
     });
   }
 

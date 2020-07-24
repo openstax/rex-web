@@ -90,8 +90,8 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
 };
 
 interface UpdateOptions {
-  clearError: () => void;
-  setError: (id: string, messageKey: string) => void;
+  clearError: (type: 'highlight') => void;
+  setError: (id: string, messageKey: string, type: 'highlight') => void;
 }
 
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
@@ -183,9 +183,9 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 
       if (options && stateEstablished) {
         if (scrollTargetHighlight) {
-          options.clearError();
+          options.clearError('highlight');
         } else if (highlightScrollTarget && !scrollTargetHighlight) {
-          options.setError(highlightScrollTarget.id, 'i18n:notification:scroll-to-highlight-failure');
+          options.setError(highlightScrollTarget.id, 'i18n:notification:scroll-to-highlight-failure', 'highlight');
         }
       }
 

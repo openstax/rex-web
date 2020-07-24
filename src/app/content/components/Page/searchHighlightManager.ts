@@ -28,8 +28,8 @@ export type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
 
 interface Options {
   forceRedraw: boolean;
-  clearError: () => void;
-  setError: (id: string, messageKey: string) => void;
+  clearError: (type: 'search') => void;
+  setError: (id: string, messageKey: string, type: 'search') => void;
 }
 
 const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
@@ -43,7 +43,7 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
 
 const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
   if (!current.selectedResult) {
-    options.clearError();
+    options.clearError('search');
     return;
   }
   if (!options.forceRedraw && previous.selectedResult === current.selectedResult) {
@@ -60,10 +60,10 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
 
   if (firstSelectedHighlight) {
     firstSelectedHighlight.focus();
-    options.clearError();
+    options.clearError('search');
   } else {
     const currentResultId = `${current.selectedResult.highlight}-${current.selectedResult.result.source.pageId}`;
-    options.setError(currentResultId, 'i18n:notification:search-failure');
+    options.setError(currentResultId, 'i18n:notification:search-failure', 'search');
   }
 
   if (firstSelectedHighlight && previous.selectedResult !== current.selectedResult) {
