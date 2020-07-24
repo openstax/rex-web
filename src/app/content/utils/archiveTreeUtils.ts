@@ -13,9 +13,10 @@ import {
 } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
-// This is exported so it can be cleared for tests cases
-export const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
+const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
 export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
+  // Cache is disabled for testing
+  /* istanbul ignore next */
   if (CACHED_FLATTENED_TREES.has(tree.id)) {
     return assertDefined(CACHED_FLATTENED_TREES.get(tree.id), `we've already checkf for .has(tree.id)`);
   }
@@ -35,7 +36,11 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
       parent: section.parent,
     }),
   }));
-  CACHED_FLATTENED_TREES.set(tree.id, flattened);
+  // Cache is disabled for testing
+  /* istanbul ignore next */
+  if (process.env.NODE_ENV !== 'test') {
+    CACHED_FLATTENED_TREES.set(tree.id, flattened);
+  }
   return flattened;
 }
 
