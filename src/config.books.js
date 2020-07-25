@@ -41,7 +41,7 @@ const books = {
   /* Principles of Microeconomics 2e */ '5c09762c-b540-47d3-9541-dda1f44f16e5': {defaultVersion: '13.5'},
   /* Statistics (High School) */ '394a1101-fd8f-4875-84fa-55f15b06ba66': {defaultVersion: '8.6'},
   /* US History */ 'a7ba2fb8-8925-4987-b182-5f4429d48daa': {defaultVersion: '10.7'},
-  /* University Physics vol 1 */ 'd50f6e32-0fda-46ef-a362-9bd36ca7c97d': {defaultVersion: '16.16'},
+  /* University Physics vol 1 */ 'd50f6e32-0fda-46ef-a362-9bd36ca7c97d': {defaultVersion: '17.1'},
   /* University Physics vol 2 */ '7a0f9770-1c44-4acd-9920-1cd9a99f2a1e': {defaultVersion: '17.1'},
   /* University Physics vol 3 */ 'af275420-6050-4707-995c-57b9cc13c358': {defaultVersion: '13.1'},
 };
