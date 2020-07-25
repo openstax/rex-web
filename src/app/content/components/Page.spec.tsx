@@ -191,7 +191,12 @@ describe('Page', () => {
 
     it('adds (target="_blank" rel="noopener nofollow") to external links', async() => {
       expect(await htmlHelper('<a href="https://openstax.org/external-url">external-link</a>'))
-      .toEqual('<a target="_blank" rel="noopener nofollow" href="https://openstax.org/external-url">external-link</a>');
+      .toEqual('<a href="https://openstax.org/external-url" target="_blank" rel="noopener nofollow">external-link</a>');
+    });
+
+    it('adds target="_blank" and removes rel attribute for relative links', async() => {
+      expect(await htmlHelper('<a href="../relative/url" rel="noopener nofollow">relative</a>'))
+      .toEqual('<a href="../relative/url" target="_blank">relative</a>');
     });
 
     it('numbers lists that have a start attribute', async() => {
