@@ -1,5 +1,6 @@
 import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
+import { assertDefined } from '../../utils';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
   ArchiveTree,
@@ -12,8 +13,14 @@ import {
 } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
+const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
 export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
-  return [tree, ...flatten(tree.contents.map((section) =>
+  // Cache is disabled for testing
+  /* istanbul ignore next */
+  if (CACHED_FLATTENED_TREES.has(tree.id)) {
+    return assertDefined(CACHED_FLATTENED_TREES.get(tree.id), `we've already checkf for .has(tree.id)`);
+  }
+  const flattened = [tree, ...flatten(tree.contents.map((section) =>
     flatten(isArchiveTree(section)
       ? flattenArchiveTree({...section, parent: tree})
       : [{...section, parent: tree}])
@@ -29,6 +36,12 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
       parent: section.parent,
     }),
   }));
+  // Cache is disabled for testing
+  /* istanbul ignore next */
+  if (process.env.NODE_ENV !== 'test') {
+    CACHED_FLATTENED_TREES.set(tree.id, flattened);
+  }
+  return flattened;
 }
 
 export const linkArchiveTree = (tree: ArchiveTree): LinkedArchiveTree =>
