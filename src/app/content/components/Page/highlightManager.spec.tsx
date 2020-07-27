@@ -290,7 +290,6 @@ describe('highlightManager', () => {
     update(prevProp, options);
 
     expect(options.clearError).toHaveBeenCalledTimes(1);
-    expect(options.clearError).toHaveBeenCalledWith('highlight');
     expect(options.setError).not.toHaveBeenCalled();
   });
 
@@ -318,11 +317,7 @@ describe('highlightManager', () => {
     update(prevProp, options);
 
     expect(options.clearError).not.toHaveBeenCalled();
-    expect(options.setError).toHaveBeenCalledWith(
-      prop.scrollTarget.id,
-      'i18n:notification:scroll-to-highlight-failure',
-      'highlight'
-    );
+    expect(options.setError).toHaveBeenCalledWith(prop.scrollTarget.id);
   });
 
   it('umounts', () => {

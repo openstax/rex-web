@@ -7,7 +7,7 @@ import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
-import { RouteState } from '../../navigation/types';
+import { RouteState, ScrollTarget } from '../../navigation/types';
 import { AppState, Dispatch } from '../../types';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
@@ -32,8 +32,8 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  search: RouteState<typeof content>['search'];
-  scrollTarget?: Exclude<ReturnType<typeof selectNavigation.scrollTarget>, null>;
+  search: Exclude<RouteState<typeof content>['search'], undefined>;
+  scrollTarget?: ScrollTarget;
   className?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
 }
@@ -76,21 +76,14 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         onClick();
       }
 
-      const optionsParams: { hash?: string, search?: { [key: string]: string } } = {};
-      if (search && search.query) {
-        // Leave a search query when navigating
-        optionsParams.search = { query: search.query };
-      }
-      if (scrollTarget) {
-        // Add a scroll target to the url if it was provided as a direct prop (not from the redux state)
-        optionsParams.search = { ...optionsParams.search, target: JSON.stringify(omit('elementId', scrollTarget)) };
-        optionsParams.hash = scrollTarget.elementId;
-      }
       // Add options only if linking to the same book
       const options = currentBook && currentBook.id === bookUid
         ? {
-            hash: optionsParams.hash,
-            search: optionsParams.search ? queryString.stringify(optionsParams.search) : undefined,
+            hash: scrollTarget ? scrollTarget.elementId : undefined,
+            search: queryString.stringify({
+              ...search,
+              target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
+            }),
           }
         : undefined;
 

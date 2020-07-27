@@ -250,9 +250,12 @@ describe('isScrollTarget', () => {
     expect(isScrollTarget({ type: 'some-type', elementId: 'elem' })).toEqual(true);
   });
 
-  it('return false if passed object does not have elementId or type or has wrong type', () => {
+  it('return false if passed object does not have elementId or type', () => {
     expect(isScrollTarget({ elementId: '' })).toEqual(false);
     expect(isScrollTarget({ notType: 'some-type', elementId: 'elem' })).toEqual(false);
+  });
+
+  it('return false if elementId or type has wrong type', () => {
     expect(isScrollTarget({ type: 1, elementId: 'elem' })).toEqual(false);
     expect(isScrollTarget({ type: 'type', elementId: 1 })).toEqual(false);
   });

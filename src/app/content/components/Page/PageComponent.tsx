@@ -94,18 +94,18 @@ export default class PageComponent extends Component<PagePropTypes> {
     if (!shouldUpdateHighlights) { return; }
 
     const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
-      clearError: this.clearError,
-      setError: this.setError,
+      clearError: this.clearError('highlight'),
+      setError: this.setError('highlight', 'i18n:notification:scroll-to-highlight-failure'),
     });
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
-      clearError: this.clearError,
+      clearError: this.clearError('search'),
       forceRedraw: highlightsAddedOrRemoved,
-      setError: this.setError,
+      setError: this.setError('search', 'i18n:notification:search-failure'),
     });
   }
 
-  public setError = (id: string, messageKey: string, type: 'highlight' | 'search') => {
+  public setError = (type: 'highlight' | 'search', messageKey: string) => (id: string) => {
     if (this.state.flashMessageErrorId === id) { return; }
     this.setState({
       flashMessageError: type,
@@ -114,7 +114,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     });
   };
 
-  public clearError = (type: 'highlight' | 'search') => {
+  public clearError = (type: 'highlight' | 'search') => () => {
     if (this.state.flashMessageError !== type) { return; }
     this.setState({
       flashMessageError: null,

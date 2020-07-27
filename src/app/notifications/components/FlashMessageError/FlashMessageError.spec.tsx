@@ -182,7 +182,7 @@ describe('FlashMessageError', () => {
           messageKey='i18n:notification:search-failure'
           dismiss={dismiss}
           mobileToolbarOpen={false}
-          uniqueId={{} as any}
+          uniqueId='different-id'
         />
       </MessageProvider>);
     });
