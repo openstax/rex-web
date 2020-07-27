@@ -143,8 +143,8 @@ export default class PageComponent extends Component<PagePropTypes> {
       <this.highlightManager.CardList />
       {flashMessageError && flashMessageErrorKey
         ? <FlashMessageError
-            dismiss={() => this.clearError(flashMessageError)}
-            messageKey={flashMessageErrorKey!}
+            dismiss={this.clearError(flashMessageError)}
+            messageKey={flashMessageErrorKey}
             uniqueId={flashMessageErrorId}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
           />

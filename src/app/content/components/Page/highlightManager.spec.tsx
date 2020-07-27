@@ -320,6 +320,27 @@ describe('highlightManager', () => {
     expect(options.setError).toHaveBeenCalledWith(prop.scrollTarget.id);
   });
 
+  it('does not call options.setError or options.clearError if scrollTarget was not provided', () => {
+    const mockHighlights = [
+      createMockHighlight(),
+      createMockHighlight(),
+    ];
+    const {update} = highlightManager(element, () => prop);
+
+    Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
+    Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
+
+    const options = {
+      clearError: jest.fn(),
+      setError: jest.fn(),
+    };
+
+    update(prevProp, options);
+
+    expect(options.clearError).not.toHaveBeenCalled();
+    expect(options.setError).not.toHaveBeenCalled();
+  });
+
   it('umounts', () => {
     const manager = highlightManager(element, () => prop);
 
