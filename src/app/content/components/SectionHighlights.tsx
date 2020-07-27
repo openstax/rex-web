@@ -42,6 +42,12 @@ const HighlightsChapter = styled.div`
     padding: 0;
     background: white;
   }
+
+  > .os-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
