@@ -88,7 +88,7 @@ describe('usePositions', () => {
   it('returns different positions depends on isMobile and windowWidth', () => {
     // Default values
     expect(utils.getPositions(target, false, 1900)).toEqual({
-      arrowLeft: 951,
+      arrowLeft: 952,
       arrowTopOffset: 248,
       closeButtonLeft: 1253,
       closeButtonTopOffset: 348,
@@ -102,7 +102,7 @@ describe('usePositions', () => {
 
     // Change of windowWidth affects only contentWrapperRight
     expect(utils.getPositions(target, false, 1200)).toEqual({
-      arrowLeft: 951,
+      arrowLeft: 952,
       arrowTopOffset: 248,
       closeButtonLeft: 1253,
       closeButtonTopOffset: 348,
@@ -117,7 +117,7 @@ describe('usePositions', () => {
 
     // Values when isMobile prop is passed (since we are not changing windowWidth only some of the values will change)
     expect(utils.getPositions(target, true, 1900)).toEqual({
-      arrowLeft: 951,
+      arrowLeft: 1050,
       arrowTopOffset: 248,
       closeButtonLeft: 1253,
       // Close button adjusted to contentWrapperTopOffset

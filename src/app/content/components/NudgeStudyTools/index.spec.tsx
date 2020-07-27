@@ -41,8 +41,6 @@ describe('NudgeStudyTools', () => {
   });
 
   it('sets cookies, opens nudge and track opening if all requirement passes', () => {
-    jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
-      .mockReturnValue(true);
     jest.spyOn(utils, 'shouldDisplayNudgeStudyTools')
       .mockReturnValue(true);
     const spySetCookies = jest.spyOn(utils, 'setNudgeStudyToolsCookies');
@@ -112,6 +110,30 @@ describe('NudgeStudyTools', () => {
     expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
     expect(() => component.root.findByType(NudgeBackground)).not.toThrow();
     expect(() => component.root.findByType(NudgeSpotlight)).not.toThrow();
+    expect(() => component.root.findByProps({
+      id: 'i18n:nudge:study-tools:aria-label:only-highlighting',
+    })).not.toThrow();
+    expect(() => component.root.findByProps({
+      id: 'i18n:nudge:study-tools:text:only-highlighting',
+    })).not.toThrow();
+
+    jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
+      .mockReturnValue(true);
+
+    component.update(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NudgeStudyTools/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(() => component.root.findByProps({
+      id: 'i18n:nudge:study-tools:aria-label:with-study-guides',
+    })).not.toThrow();
+    expect(() => component.root.findByProps({
+      id: 'i18n:nudge:study-tools:text:with-study-guides',
+    })).not.toThrow();
   });
 
   it('dispatches action on clicking close button and tests if body has overflow style set to hidden', () => {

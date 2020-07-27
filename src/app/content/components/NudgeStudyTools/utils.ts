@@ -8,8 +8,10 @@ import { page as pageSelector } from '../../selectors';
 import { hasStudyGuides, studyGuidesEnabled } from '../../studyGuides/selectors';
 import {
   arrowDesktopHeight,
+  arrowDesktopWidth,
   arrowLeftMargin,
   arrowMobileHeight,
+  arrowMobileWidth,
   arrowTopMargin,
   closeButtonDistanceFromContent,
   contentMarginTop,
@@ -42,7 +44,11 @@ export const getPositions = (target: HTMLElement, isMobile: boolean, windowWidth
   const spotlightHeight = height + (padding * 2);
   const spotlightWidth = width + (padding * 2);
   const arrowTopOffset = spotlightTopOffset + spotlightHeight + remsToPx(arrowTopMargin);
-  const arrowLeft = spotlightLeftOffset + remsToPx(arrowLeftMargin);
+  // right edge of arrow image should be on the middle of the spotlight (adjusted for a margin)
+  const centerPoint = spotlightLeftOffset + (spotlightWidth / 2);
+  const arrowWidth = remsToPx(isMobile ? arrowMobileWidth : arrowDesktopWidth);
+  const arrowLeft = centerPoint - arrowWidth + remsToPx(arrowLeftMargin);
+
   const contentWrapperTopOffset = arrowTopOffset
     + remsToPx(isMobile ? arrowMobileHeight : arrowDesktopHeight)
     + remsToPx(contentMarginTop);
