@@ -7,6 +7,7 @@ import reducer, { initialState } from './reducer';
 import {
   CountsPerSource,
   HighlightData,
+  SummaryFilters,
   SummaryHighlights,
 } from './types';
 
@@ -405,6 +406,36 @@ describe('highlight reducer', () => {
 
       expect(state.summary.highlights).toMatchObject(highlights);
       expect(state.summary.loading).toEqual(false);
+    });
+
+    it('noops for receive summary highlights with stale filters', () => {
+      const highlights: SummaryHighlights = {
+        chapter_id: {
+          page_id: [
+            {id: 'highlight'} as HighlightData,
+          ],
+        },
+      };
+
+      const mockState = {
+        ...initialState,
+        summary: {
+          ...initialState.summary,
+          filters: {
+            colors: [HighlightColorEnum.Green],
+            locationIds: ['id'],
+          },
+          loading: true,
+        },
+      };
+
+      const staleFilters = {} as any as SummaryFilters;
+
+      const state = reducer(
+        mockState,
+        actions.receiveSummaryHighlights(highlights, {pagination: null, filters: staleFilters }));
+
+      expect(state).toEqual(mockState);
     });
   });
 
