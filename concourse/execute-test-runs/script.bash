@@ -4,11 +4,12 @@ set -e -u
 base_dir=$(pwd)
 failed=0
 
+
+cloudfront_environment=$(< cloudfront-environment/version.txt)
+
 cd rex-web
 
-release_number=$(< release-issue/number.txt)
-env_name="release-$release_number"
-export BASE_URL="https://$env_name.sandbox.openstax.org"
+export BASE_URL="https://$cloudfront_environment"
 
 echo "checking for runs using $BASE_URL"
 
