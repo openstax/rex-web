@@ -44,9 +44,7 @@ const HighlightsChapter = styled.div`
   }
 
   > .os-text {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    white-space: break-spaces;
   }
 `;
 
