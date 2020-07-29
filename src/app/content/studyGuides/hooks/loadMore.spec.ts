@@ -15,6 +15,7 @@ import {
   setDefaultSummaryFilters,
 } from '../actions';
 import { allColors } from '../constants';
+import { summaryFilters } from '../selectors';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
@@ -113,7 +114,7 @@ describe('loadMore', () => {
       },
     };
 
-    let filters = store.getState().content.studyGuides.summary.filters;
+    let filters = summaryFilters(store.getState());
     await hook(loadMoreStudyGuides());
 
     expect(highlightClient).lastCalledWith(expect.objectContaining({
@@ -161,7 +162,7 @@ describe('loadMore', () => {
       }))
     ;
 
-    filters = store.getState().content.studyGuides.summary.filters;
+    filters = summaryFilters(store.getState());
     await hook(store.dispatch(loadMoreStudyGuides()));
 
     const response2: SummaryHighlights = {
@@ -206,7 +207,7 @@ describe('loadMore', () => {
       },
     };
 
-    const filters = store.getState().content.studyGuides.summary.filters;
+    const filters = summaryFilters(store.getState());
     await hook(store.dispatch(loadMoreStudyGuides()));
 
     expect(loadingSpy).toHaveBeenCalledWith(expect.objectContaining({

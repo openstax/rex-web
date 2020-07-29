@@ -42,7 +42,7 @@ export const hookBody: ActionHookBody<
   typeof actions.loadMoreStudyGuides
 > =
   (services) => async() => {
-    const { content: { studyGuides: { summary: { filters } } } } = services.getState();
+    const filters = select.summaryFilters(services.getState());
     const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
     services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
   };

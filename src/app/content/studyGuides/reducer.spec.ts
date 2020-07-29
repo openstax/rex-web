@@ -3,7 +3,6 @@ import { studyGuidesFeatureFlag } from '../constants';
 import { HighlightData, SummaryHighlights } from '../highlights/types';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
-import { StudyGuidesSummaryFilters } from './types';
 
 describe('study guides reducer', () => {
   it('receive study guides', () => {
@@ -50,7 +49,10 @@ describe('study guides reducer', () => {
       },
     };
 
-    const staleFilters = {} as any as StudyGuidesSummaryFilters;
+    const staleFilters = {
+      default: !initialState.summary.filters.default,
+      locationIds: [],
+    };
 
     const state = reducer(
       initialState,

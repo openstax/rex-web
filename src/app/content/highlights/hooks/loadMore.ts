@@ -35,7 +35,7 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
 
 export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =
   (services) => async() => {
-    const { content: { highlights: { summary: { filters }}} } = services.getState();
+    const filters = select.summaryFilters(services.getState());
     const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
     services.dispatch(receiveSummaryHighlights(formattedHighlights, {pagination, filters}));
   };

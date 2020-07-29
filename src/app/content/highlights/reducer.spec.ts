@@ -7,7 +7,6 @@ import reducer, { initialState } from './reducer';
 import {
   CountsPerSource,
   HighlightData,
-  SummaryFilters,
   SummaryHighlights,
 } from './types';
 
@@ -429,7 +428,10 @@ describe('highlight reducer', () => {
         },
       };
 
-      const staleFilters = {} as any as SummaryFilters;
+      const staleFilters = {
+        colors: [],
+        locationIds: [],
+      };
 
       const state = reducer(
         mockState,

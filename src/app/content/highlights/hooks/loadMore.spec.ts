@@ -16,7 +16,7 @@ import {
   receiveSummaryHighlights,
   setSummaryFilters
 } from '../actions';
-import { summaryColorFilters, summaryLocationFilters } from '../selectors';
+import { summaryColorFilters, summaryFilters, summaryLocationFilters } from '../selectors';
 import { HighlightData, SummaryHighlights } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -80,7 +80,7 @@ describe('filtersChange', () => {
 
     const locationIds = ['testbook1-testpage1-uuid', 'testbook1-testchapter1-uuid'];
     await hook(store.dispatch(setSummaryFilters({locationIds})));
-    let filters = store.getState().content.highlights.summary.filters;
+    const filters = summaryFilters(store.getState());
 
     const response: SummaryHighlights = {
       'testbook1-testchapter1-uuid': {
@@ -132,7 +132,6 @@ describe('filtersChange', () => {
       }))
     ;
 
-    filters = store.getState().content.highlights.summary.filters;
     await hook(store.dispatch(loadMoreSummaryHighlights()));
 
     const response2: SummaryHighlights = {
@@ -181,7 +180,7 @@ describe('filtersChange', () => {
 
     const locationIds = [pageId];
     await hook(store.dispatch(setSummaryFilters({locationIds})));
-    const filters = store.getState().content.highlights.summary.filters;
+    const filters = summaryFilters(store.getState());
 
     const response: SummaryHighlights = {
       [stripIdVersion(pageId)]: {
@@ -230,7 +229,7 @@ describe('filtersChange', () => {
 
     const locationIds = [chapterIdForPageInChapter];
     await hook(store.dispatch(setSummaryFilters({locationIds})));
-    const filters = store.getState().content.highlights.summary.filters;
+    const filters = summaryFilters(store.getState());
 
     const response: SummaryHighlights = {
       [chapterIdForPageInChapter]: {
@@ -249,7 +248,7 @@ describe('filtersChange', () => {
       colors: [],
       locationIds: [],
     })));
-    const filters = store.getState().content.highlights.summary.filters;
+    const filters = summaryFilters(store.getState());
     expect(helpers.highlightClient.getHighlights).not.toBeCalled();
     expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null, filters}));
   });
@@ -263,7 +262,7 @@ describe('filtersChange', () => {
       locationIds: [],
     })));
 
-    const filters = store.getState().content.highlights.summary.filters;
+    const filters = summaryFilters(store.getState());
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
@@ -281,7 +280,7 @@ describe('filtersChange', () => {
       locationIds: ['testbook1-testchapter1-uuid'],
     })));
 
-    const filters = store.getState().content.highlights.summary.filters;
+    const filters = summaryFilters(store.getState());
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
