@@ -111,6 +111,9 @@ describe('NudgeStudyTools', () => {
     expect(() => component.root.findByType(NudgeBackground)).not.toThrow();
     expect(() => component.root.findByType(NudgeSpotlight)).not.toThrow();
     expect(() => component.root.findByProps({
+      id: 'i18n:nudge:study-tools:aria-label:with-study-guides',
+    })).toThrow();
+    expect(() => component.root.findByProps({
       id: 'i18n:nudge:study-tools:aria-label:only-highlighting',
     })).not.toThrow();
     expect(() => component.root.findByProps({
@@ -128,6 +131,9 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
+    expect(() => component.root.findByProps({
+      id: 'i18n:nudge:study-tools:aria-label:only-highlighting',
+    })).toThrow();
     expect(() => component.root.findByProps({
       id: 'i18n:nudge:study-tools:aria-label:with-study-guides',
     })).not.toThrow();
