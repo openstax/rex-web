@@ -114,7 +114,7 @@ describe('loadMore', () => {
       },
     };
 
-    let filters = summaryFilters(store.getState());
+    const filters = summaryFilters(store.getState());
     await hook(loadMoreStudyGuides());
 
     expect(highlightClient).lastCalledWith(expect.objectContaining({
@@ -162,7 +162,6 @@ describe('loadMore', () => {
       }))
     ;
 
-    filters = summaryFilters(store.getState());
     await hook(store.dispatch(loadMoreStudyGuides()));
 
     const response2: SummaryHighlights = {
