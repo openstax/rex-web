@@ -9,7 +9,9 @@ import * as reactUtils from '../../../reactUtils';
 import { AppServices, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
+import { openMyHighlights } from '../../highlights/actions';
 import * as contentSelect from '../../selectors';
+import { openStudyGuides } from '../../studyGuides/actions';
 import * as studyGuidesSelect from '../../studyGuides/selectors';
 import NudgeStudyTools from './';
 import arrowMobile from './assets/arrowMobile.svg';
@@ -35,6 +37,8 @@ describe('NudgeStudyTools', () => {
   };
 
   beforeEach(() => {
+    jest.restoreAllMocks();
+
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
     services = createTestServices();
@@ -210,5 +214,49 @@ describe('NudgeStudyTools', () => {
     renderer.act(() => {});
 
     expect(assertDocument().body.style.overflow).toEqual('');
+  });
+
+  it('closes when StudyGuides are opened ', () => {
+    store.dispatch(openNudgeStudyTools());
+
+    jest.spyOn(utils, 'usePositions').mockReturnValue(mockPositions);
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NudgeStudyTools/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
+
+    renderer.act(() => {
+      store.dispatch(openStudyGuides());
+    });
+
+    expect(() => component.root.findByType(NudgeContentWrapper)).toThrow();
+  });
+
+  it('closes when MyHighlights are opened ', () => {
+    store.dispatch(openNudgeStudyTools());
+
+    jest.spyOn(utils, 'usePositions').mockReturnValue(mockPositions);
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NudgeStudyTools/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
+
+    renderer.act(() => {
+      store.dispatch(openMyHighlights());
+    });
+
+    expect(() => component.root.findByType(NudgeContentWrapper)).toThrow();
   });
 });
