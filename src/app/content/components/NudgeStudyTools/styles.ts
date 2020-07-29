@@ -131,6 +131,7 @@ export const NudgeBackground = styled.div`
   opacity: 0.9;
   background-color: ${theme.color.black};
   mix-blend-mode: hard-light;
+  pointer-events: none;
 `;
 
 interface NudgeSpotlightProps {
@@ -144,6 +145,7 @@ interface NudgeSpotlightProps {
 export const NudgeSpotlight = styled.div`
   position: fixed;
   background-color: gray;
+  pointer-events: none;
   ${(props: NudgeSpotlightProps) => `
     top: ${props.top}px;
     left: ${props.left}px;
