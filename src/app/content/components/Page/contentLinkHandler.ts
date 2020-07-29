@@ -27,7 +27,6 @@ export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) =
 export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
   navigate: flow(push, dispatch),
 });
-
 export type ContentLinkProp =
   ReturnType<typeof mapStateToContentLinkProp> & ReturnType<typeof mapDispatchToContentLinkProp>;
 
