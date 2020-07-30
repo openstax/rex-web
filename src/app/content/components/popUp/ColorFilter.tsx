@@ -1,31 +1,34 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import AllOrNone from '../../../../components/AllOrNone';
-import Checkbox from '../../../../components/Checkbox';
-import { textStyle } from '../../../../components/Typography/base';
-import { match, not } from '../../../../fpUtils';
-import theme from '../../../../theme';
-import { highlightStyles } from '../../../constants';
-import { filters } from '../../../styles/PopupConstants';
-import { setSummaryFilters } from '../../actions';
-import { highlightColorFiltersWithContent, summaryColorFilters } from '../../selectors';
-import ColorIndicator from '../ColorIndicator';
+import AllOrNone from '../../../components/AllOrNone';
+import Checkbox from '../../../components/Checkbox';
+import { textStyle } from '../../../components/Typography/base';
+import { match, not } from '../../../fpUtils';
+import theme from '../../../theme';
+import { highlightStyles } from '../../constants';
+import ColorIndicator from '../../highlights/components/ColorIndicator';
+import { SummaryFilters } from '../../highlights/types';
+import { filters } from '../../styles/PopupConstants';
 
 interface Props {
   className?: string;
+  selectedColorFilters: Set<HighlightColorEnum>;
+  colorFiltersWithContent: Set<HighlightColorEnum>;
+  setSummaryFilters: (filters: Partial<SummaryFilters>) => void;
 }
 
 // tslint:disable-next-line:variable-name
-const ColorFilter = ({className}: Props) => {
-  const selectedColorFilters = useSelector(summaryColorFilters);
-  const colorFiltersWithContent = useSelector(highlightColorFiltersWithContent);
-  const dispatch = useDispatch();
+const ColorFilter = ({
+  className,
+  selectedColorFilters,
+  colorFiltersWithContent,
+  setSummaryFilters,
+}: Props) => {
 
   const setSelectedColors = (colors: HighlightColorEnum[]) => {
-    dispatch(setSummaryFilters({colors}));
+    setSummaryFilters({colors});
   };
 
   const handleChange = (label: HighlightColorEnum) => {

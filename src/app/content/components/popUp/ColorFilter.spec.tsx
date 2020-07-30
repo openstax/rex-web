@@ -2,16 +2,16 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestStore from '../../../../../test/createTestStore';
-import { book as archiveBook } from '../../../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
-import AllOrNone from '../../../../components/AllOrNone';
-import Checkbox from '../../../../components/Checkbox';
-import MessageProvider from '../../../../MessageProvider';
-import { Store } from '../../../../types';
-import { receiveBook } from '../../../actions';
-import { formatBookData } from '../../../utils';
-import { receiveHighlightsTotalCounts } from '../../actions';
+import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import AllOrNone from '../../../components/AllOrNone';
+import Checkbox from '../../../components/Checkbox';
+import MessageProvider from '../../../MessageProvider';
+import { Store } from '../../../types';
+import { receiveBook } from '../../actions';
+import { receiveHighlightsTotalCounts } from '../../highlights/actions';
+import { formatBookData } from '../../utils';
 import ColorFilter from './ColorFilter';
 
 describe('ColorFilter', () => {

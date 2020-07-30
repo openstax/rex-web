@@ -3,12 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../../types';
 import ChapterFilter from '../../../components/popUp/ChapterFilter';
+import ColorFilter from '../../../components/popUp/ColorFilter';
 import Filters, { FilterDropdown } from '../../../components/popUp/Filters';
 import FiltersList from '../../../components/popUp/FiltersList';
 import PrintButton from '../../../components/popUp/PrintButton';
 import { printSummaryHighlights, setSummaryFilters } from '../../actions';
 import * as select from '../../selectors';
-import ColorFilter from './ColorFilter';
 
 // tslint:disable-next-line:variable-name
 export const ConnectedChapterFilter = connect(
@@ -21,6 +21,17 @@ export const ConnectedChapterFilter = connect(
     setFilters: flow(setSummaryFilters, dispatch),
   })
 )(ChapterFilter);
+
+// tslint:disable-next-line: variable-name
+export const ConnectedColorFilter = connect(
+  (state: AppState) => ({
+    colorFiltersWithContent: select.highlightColorFiltersWithContent(state),
+    selectedColorFilters: select.summaryColorFilters(state),
+  }),
+  (dispatch: Dispatch) => ({
+    setSummaryFilters: flow(setSummaryFilters, dispatch),
+  })
+)(ColorFilter);
 
 // tslint:disable-next-line:variable-name
 export const ConnectedFilterList = connect(
@@ -70,7 +81,7 @@ export default () =>
       label='i18n:highlighting:filters:colors'
       ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
     >
-      <ColorFilter />
+      <ConnectedColorFilter />
     </FilterDropdown>
     <ConnectedPrintButton />
     <ConnectedFilterList />
