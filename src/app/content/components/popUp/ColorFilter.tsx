@@ -10,21 +10,33 @@ import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { SummaryFilters } from '../../highlights/types';
-import { filters } from '../../styles/PopupConstants';
+import { filters, mobilePaddingSides } from '../../styles/PopupConstants';
+
+// tslint:disable-next-line: variable-name
+const ColorLabel = styled.span`
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
 
 interface Props {
   className?: string;
+  styles: typeof highlightStyles;
   selectedColorFilters: Set<HighlightColorEnum>;
   colorFiltersWithContent: Set<HighlightColorEnum>;
   setSummaryFilters: (filters: Partial<SummaryFilters>) => void;
+  labelKey: (label: HighlightColorEnum) => string;
 }
 
 // tslint:disable-next-line:variable-name
 const ColorFilter = ({
   className,
+  styles,
   selectedColorFilters,
   colorFiltersWithContent,
   setSummaryFilters,
+  labelKey,
 }: Props) => {
 
   const setSelectedColors = (colors: HighlightColorEnum[]) => {
@@ -44,16 +56,18 @@ const ColorFilter = ({
       onNone={() => setSelectedColors([])}
       onAll={() => setSelectedColors(Array.from(colorFiltersWithContent))}
     />
-    {highlightStyles.map((style) => <Checkbox
+    {styles.map((style) => <Checkbox
       key={style.label}
       checked={selectedColorFilters.has(style.label)}
       disabled={!colorFiltersWithContent.has(style.label)}
       onChange={() => handleChange(style.label)}
     >
       <ColorIndicator style={style} size='small'/>
-      <FormattedMessage id={`i18n:highlighting:colors:${style.label}`}>
-        {(msg: Element | string) => msg}
-      </FormattedMessage>
+      <ColorLabel>
+        <FormattedMessage id={labelKey(style.label)}>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
+      </ColorLabel>
     </Checkbox>)}
   </div>;
 };
@@ -67,6 +81,8 @@ export default styled(ColorFilter)`
   padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
   outline: none;
   z-index: 1;
+  /* 12rem is a width of Chapter button and then we add one side padding */
+  max-width: calc(100vw - ${12 + mobilePaddingSides / 2}rem);
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;

@@ -4,8 +4,9 @@ import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
-import { highlightStyles, studyGuidesFeatureFlag } from '../constants';
+import { studyGuidesFeatureFlag } from '../constants';
 import * as actions from './actions';
+import { highlightStyles } from './constants';
 import { State } from './types';
 
 export const initialState: State = {

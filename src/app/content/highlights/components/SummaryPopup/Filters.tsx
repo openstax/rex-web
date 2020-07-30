@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -7,6 +8,7 @@ import ColorFilter from '../../../components/popUp/ColorFilter';
 import Filters, { FilterDropdown } from '../../../components/popUp/Filters';
 import FiltersList from '../../../components/popUp/FiltersList';
 import PrintButton from '../../../components/popUp/PrintButton';
+import { highlightStyles } from '../../../constants';
 import { printSummaryHighlights, setSummaryFilters } from '../../actions';
 import * as select from '../../selectors';
 
@@ -81,7 +83,10 @@ export default () =>
       label='i18n:highlighting:filters:colors'
       ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
     >
-      <ConnectedColorFilter />
+      <ConnectedColorFilter
+        styles={highlightStyles}
+        labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+      />
     </FilterDropdown>
     <ConnectedPrintButton />
     <ConnectedFilterList />
