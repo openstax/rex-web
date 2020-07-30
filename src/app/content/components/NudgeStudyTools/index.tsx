@@ -91,7 +91,7 @@ const NudgeStudyTools = () => {
       >
         <NudgeContent>
           <NudgeHeading />
-          <NudgeText id={messageKey} />
+          <NudgeText messageKey={messageKey} />
         </NudgeContent>
       </NudgeContentWrapper>}
     </FormattedMessage>
