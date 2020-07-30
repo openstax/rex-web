@@ -36,7 +36,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bjHUkM"
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bGbMuP"
         >
           hl1
         </div>
@@ -59,7 +59,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bjHUkM"
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bGbMuP"
         >
           hl
         </div>
@@ -82,7 +82,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bjHUkM"
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bGbMuP"
         >
           hl
         </div>
@@ -105,7 +105,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bjHUkM"
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bGbMuP"
         >
           hl
         </div>
@@ -128,7 +128,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bjHUkM"
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bGbMuP"
         />
         <div
           className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-3 iZJlhi"
@@ -175,7 +175,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bjHUkM"
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bGbMuP"
         >
           hl1
         </div>
@@ -198,7 +198,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bjHUkM"
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 bGbMuP"
         >
           hl
         </div>
