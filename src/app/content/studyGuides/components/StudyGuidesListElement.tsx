@@ -36,7 +36,6 @@ const HighlightAnnotation = styled.div`
   padding: 1.2rem 0;
   color: ${theme.color.text.black};
   white-space: pre-wrap;
-  overflow-wrap: break-word;
   ${theme.breakpoints.mobile`
     padding: 1rem;
   `}
