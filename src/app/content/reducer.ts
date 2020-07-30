@@ -100,7 +100,6 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(actions.openNudgeStudyTools): {
       return {...state, showNudgeStudyTools: true };
     }
-
     case getType(openMyHighlights):
     case getType(openStudyGuides):
     case getType(actions.closeNudgeStudyTools): {
