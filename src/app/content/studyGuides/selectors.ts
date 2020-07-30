@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { getHighlightLocationFilterForPage } from '../highlights/utils';
+import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
@@ -85,6 +85,17 @@ const summaryFilters = createSelector(
 const rawSummaryLocationFilters = createSelector(
   summaryFilters,
   (filters) => filters.locationIds
+);
+
+export const highlightColorFiltersWithContent = createSelector(
+  totalCountsPerPageOrEmpty,
+  (totalCounts) => getHighlightColorFiltersWithContent(totalCounts)
+);
+
+export const summaryColorFilters = createSelector(
+  summaryFilters,
+  highlightColorFiltersWithContent,
+  (filters, withContent) => new Set(filters.colors.filter((color) => withContent.has(color)))
 );
 
 export const studyGuidesLocationFiltersWithContent = createSelector(

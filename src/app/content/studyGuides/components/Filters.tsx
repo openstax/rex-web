@@ -4,6 +4,7 @@ import { connect, useSelector } from 'react-redux';
 import { loggedOut } from '../../../auth/selectors';
 import { AppState, Dispatch } from '../../../types';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
+import ColorFilter from '../../components/popUp/ColorFilter';
 import Filters, { FilterDropdown } from '../../components/popUp/Filters';
 import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
@@ -22,6 +23,17 @@ const ConnectedChapterFilter = connect(
     setFilters: flow(setSummaryFilters, dispatch),
   })
 )(ChapterFilter);
+
+// tslint:disable-next-line: variable-name
+const ConnectedColorFilter = connect(
+  (state: AppState) => ({
+    colorFiltersWithContent: selectors.highlightColorFiltersWithContent(state),
+    selectedColorFilters: selectors.summaryColorFilters(state),
+  }),
+  (dispatch: Dispatch) => ({
+    setSummaryFilters: flow(setSummaryFilters, dispatch),
+  })
+)(ColorFilter);
 
 // tslint:disable-next-line:variable-name
 const ConnectedFilterList = connect(
@@ -67,6 +79,12 @@ export default () => {
       ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
     >
       <ConnectedChapterFilter disabled={userLoggedOut}/>
+    </FilterDropdown>
+    <FilterDropdown
+      label='i18n:highlighting:filters:colors'
+      ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+    >
+      <ConnectedColorFilter />
     </FilterDropdown>
     <ColorKey />
     <ConnectedPrintButton studyGuidesButton />
