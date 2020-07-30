@@ -1,6 +1,6 @@
 const books = {
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c': {defaultVersion: '21.30'},
-  /* Am Gov 2e */ '9d8df601-4f12-4ac1-8224-b450bf739e5f': {defaultVersion: '6.3'},
+  /* Am Gov 2e */ '9d8df601-4f12-4ac1-8224-b450bf739e5f': {defaultVersion: '6.4'},
   /* Anatomy & Physiology */ '14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22': {defaultVersion: '17.8'},
   /* Astronomy */ '2e737be8-ea65-48c3-aa0a-9f35b4c6a966': {defaultVersion: '22.11'},
   /* Biology 2e */ '8d50a0af-948b-4204-a71d-4826cba765b8': {defaultVersion: '16.27'},
