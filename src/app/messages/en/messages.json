@@ -73,7 +73,7 @@
   "i18n:notification:cookies:ok": "Got it!",
   "i18n:notification:update:body": "Click below to use the most recent version of this software.",
   "i18n:notification:update:header": "Updates Available",
-  "i18n:notification:update:reload": "Reload",
+  "i18n:notification:update:reload": "Update",
   "i18n:notification:scroll-to-highlight-failure": "We're unable to find that highlight. Please try another.",
   "i18n:notification:search-failure": "We're unable to find that search result. Please try another.",
   "i18n:nudge:study-tools:heading": "The study tools you need. <strong>100% FREE!</strong>",
