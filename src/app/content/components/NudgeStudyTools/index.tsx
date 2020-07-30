@@ -61,10 +61,6 @@ const NudgeStudyTools = () => {
     ? 'i18n:nudge:study-tools:aria-label:with-study-guides'
     : 'i18n:nudge:study-tools:aria-label:only-highlighting';
 
-  const messageKey = hasStudyGuides
-    ? 'i18n:nudge:study-tools:text:with-study-guides'
-    : 'i18n:nudge:study-tools:text:only-highlighting';
-
   return <NudgeWrapper data-analytics-region='Nudge Study Tools'>
     <NudgeArrow
       src={isMobile ? arrowMobile : arrowDesktop}
@@ -91,7 +87,7 @@ const NudgeStudyTools = () => {
       >
         <NudgeContent>
           <NudgeHeading />
-          <NudgeText messageKey={messageKey} />
+          {hasStudyGuides ? <NudgeTextWithStudyGuides /> : <NudgeTextOnlyHighlights />}
         </NudgeContent>
       </NudgeContentWrapper>}
     </FormattedMessage>
@@ -107,7 +103,9 @@ const NudgeStudyTools = () => {
 };
 
 // tslint:disable-next-line: variable-name
-const NudgeText = htmlMessage('i18n:nudge:study-tools:text:with-study-guides', NudgeTextStyles);
+const NudgeTextWithStudyGuides = htmlMessage('i18n:nudge:study-tools:text:with-study-guides', NudgeTextStyles);
+// tslint:disable-next-line: variable-name
+const NudgeTextOnlyHighlights = htmlMessage('i18n:nudge:study-tools:text:only-highlighting', NudgeTextStyles);
 
 // Do not render <NudgeStudyTools/> if it is hidden so scroll listener is not attached
 // to the DOM and do not render if document or window is undefined which may happen for prerendering.
