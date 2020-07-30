@@ -16,7 +16,7 @@ import * as studyGuidesSelect from '../../studyGuides/selectors';
 import NudgeStudyTools from './';
 import arrowMobile from './assets/arrowMobile.svg';
 import { NudgeArrow, NudgeBackground, NudgeCloseButton,
-  NudgeContentWrapper, NudgeSpotlight, NudgeWrapper } from './styles';
+  NudgeContentWrapper, NudgeWrapper } from './styles';
 import * as utils from './utils';
 
 describe('NudgeStudyTools', () => {
@@ -115,7 +115,6 @@ describe('NudgeStudyTools', () => {
     expect(() => component.root.findByType(NudgeCloseButton)).not.toThrow();
     expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
     expect(() => component.root.findByType(NudgeBackground)).not.toThrow();
-    expect(() => component.root.findByType(NudgeSpotlight)).not.toThrow();
   });
 
   it('dispatches action on clicking close button and tests if body has overflow style set to hidden', () => {
