@@ -44,13 +44,14 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
 
-    const cleanContent = getCleanContent(book, page, services.archiveLoader,
-      contentLinks.reduceReferences(this.props.contentLinks)
-    );
+    const cleanContent = getCleanContent(book, page, services.archiveLoader);
     const parsedContent = parser.parseFromString(cleanContent, 'text/html');
+    contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
 
     transformContent(parsedContent, parsedContent.body, this.props.intl);
 
+    /* this will be removed when all the books are in good order */
+    /* istanbul ignore else */
     if (APP_ENV !== 'production') {
       validateDOMContent(parsedContent, parsedContent.body);
     }

@@ -1,4 +1,6 @@
+import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
+import { assertDefined } from '../../utils';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
   ArchiveTree,
@@ -11,8 +13,14 @@ import {
 } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
+const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
 export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
-  return [tree, ...flatten(tree.contents.map((section) =>
+  // Cache is disabled for testing
+  /* istanbul ignore next */
+  if (CACHED_FLATTENED_TREES.has(tree.id)) {
+    return assertDefined(CACHED_FLATTENED_TREES.get(tree.id), `we've already checkf for .has(tree.id)`);
+  }
+  const flattened = [tree, ...flatten(tree.contents.map((section) =>
     flatten(isArchiveTree(section)
       ? flattenArchiveTree({...section, parent: tree})
       : [{...section, parent: tree}])
@@ -28,6 +36,12 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
       parent: section.parent,
     }),
   }));
+  // Cache is disabled for testing
+  /* istanbul ignore next */
+  if (process.env.NODE_ENV !== 'test') {
+    CACHED_FLATTENED_TREES.set(tree.id, flattened);
+  }
+  return flattened;
 }
 
 export const linkArchiveTree = (tree: ArchiveTree): LinkedArchiveTree =>
@@ -70,27 +84,34 @@ export const splitTitleParts = (str: string) => {
 export const getArchiveTreeSectionNumber = (section: ArchiveTreeSection) => splitTitleParts(section.title)[0];
 export const getArchiveTreeSectionTitle = (section: ArchiveTreeSection) => splitTitleParts(section.title)[1];
 
-export const findArchiveTreeNode = (
+export const findArchiveTreeNode = curry((
+  matcher: (node: LinkedArchiveTreeNode | LinkedArchiveTreeSection) => boolean,
+  tree: ArchiveTree
+): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
+  flattenArchiveTree(tree).find(matcher)
+);
+
+export const findArchiveTreeNodeById = (
   tree: ArchiveTree,
   nodeId: string
 ): LinkedArchiveTree | LinkedArchiveTreeSection | undefined =>
-  flattenArchiveTree(tree).find(nodeMatcher(nodeId));
+  findArchiveTreeNode(nodeMatcher(nodeId), tree);
 
 export const findArchiveTreeNodeByPageParam = (
   tree: ArchiveTree,
   pageParam: Params['page']
-): LinkedArchiveTree | LinkedArchiveTreeSection | undefined => {
-  return findTreePages(tree).find((node) =>
-    'uuid' in pageParam
+): LinkedArchiveTree | LinkedArchiveTreeSection | undefined => findArchiveTreeNode(
+  (node) => archiveTreeSectionIsPage(node) &&
+    ('uuid' in pageParam
       ? node.id === pageParam.uuid
-      : node.slug.toLowerCase() === pageParam.slug.toLowerCase()
-  );
-};
+      : node.slug.toLowerCase() === pageParam.slug.toLowerCase()),
+  tree
+);
 
 export const archiveTreeContainsNode = (
   tree: ArchiveTree,
   nodeId: string
-): boolean => !!findArchiveTreeNode(tree, nodeId);
+): boolean => !!findArchiveTreeNodeById(tree, nodeId);
 
 interface Sections {
   prev?: LinkedArchiveTreeSection | undefined;
