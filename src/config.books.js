@@ -4,7 +4,7 @@ const books = {
   /* Anatomy & Physiology */ '14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22': {defaultVersion: '17.8'},
   /* Astronomy */ '2e737be8-ea65-48c3-aa0a-9f35b4c6a966': {defaultVersion: '22.11'},
   /* Biology 2e */ '8d50a0af-948b-4204-a71d-4826cba765b8': {defaultVersion: '16.27'},
-  /* Biology for AP Courses */ '6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2': {defaultVersion: '23.3'},
+  /* Biology for AP Courses */ '6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2': {defaultVersion: '24.2'},
   /* Business Ethics */ '914ac66e-e1ec-486d-8a9c-97b0f7a99774': {defaultVersion: '5.1'},
   /* Business statistics */ 'b56bb9e9-5eb8-48ef-9939-88b1b12ce22f': {defaultVersion: '36.3'},
   /* Business in Law I */ '464a3fba-68c1-426a-99f9-597e739dc911': {defaultVersion: '6.5'},
