@@ -353,7 +353,40 @@ exports[`Filters matches snapshot when open color filters 1`] = `
       </div>
     </button>
     <div
+      colorFiltersWithContent={Set {}}
+      labelKey={[Function]}
       mock-color-filter={true}
+      selectedColorFilters={Set {}}
+      setSummaryFilters={[Function]}
+      styles={
+        Array [
+          Object {
+            "focused": "#fed200",
+            "label": "yellow",
+            "passive": "#ffff8a",
+          },
+          Object {
+            "focused": "#92d101",
+            "label": "green",
+            "passive": "#def99f",
+          },
+          Object {
+            "focused": "#00c3ed",
+            "label": "blue",
+            "passive": "#c8f5ff",
+          },
+          Object {
+            "focused": "#545ec8",
+            "label": "purple",
+            "passive": "#cbcfff",
+          },
+          Object {
+            "focused": "#de017e",
+            "label": "pink",
+            "passive": "#ffc5e1",
+          },
+        ]
+      }
     />
   </div>
   <button
