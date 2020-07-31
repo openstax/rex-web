@@ -86,7 +86,9 @@ const color = {
   white: '#fff',
 };
 
+const mobileSmallBreak = 30;
 const mobileBreak = 75;
+const mobileSmallQuery = `(max-width: ${mobileSmallBreak}em)`;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
 
 export default {
@@ -98,6 +100,13 @@ export default {
     `,
     mobileBreak,
     mobileQuery,
+    mobileSmall: (style: FlattenSimpleInterpolation) => css`
+      @media screen and ${mobileSmallQuery} {
+        ${style}
+      }
+    `,
+    mobileSmallBreak,
+    mobileSmallQuery,
   },
   color,
   padding,
