@@ -22,6 +22,7 @@ const ColorLabel = styled.span`
 
 interface Props {
   className?: string;
+  disabled?: boolean;
   styles: typeof highlightStyles;
   selectedColorFilters: Set<HighlightColorEnum>;
   colorFiltersWithContent: Set<HighlightColorEnum>;
@@ -32,6 +33,7 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const ColorFilter = ({
   className,
+  disabled,
   styles,
   selectedColorFilters,
   colorFiltersWithContent,
@@ -55,11 +57,12 @@ const ColorFilter = ({
     <AllOrNone
       onNone={() => setSelectedColors([])}
       onAll={() => setSelectedColors(Array.from(colorFiltersWithContent))}
+      disabled={disabled}
     />
     {styles.map((style) => <Checkbox
       key={style.label}
       checked={selectedColorFilters.has(style.label)}
-      disabled={!colorFiltersWithContent.has(style.label)}
+      disabled={disabled || !colorFiltersWithContent.has(style.label)}
       onChange={() => handleChange(style.label)}
     >
       <ColorIndicator style={style} size='small'/>

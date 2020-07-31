@@ -55,6 +55,7 @@ const ConnectedColorFilter = connect(
 const ConnectedFilterList = connect(
   (state: AppState) => ({
     locationFilters: selectors.studyGuidesLocationFilters(state),
+    selectedColorFilters: selectors.summaryColorFilters(state),
     selectedLocationFilters: selectors.summaryLocationFilters(state),
   }),
   (dispatch: Dispatch) => ({
@@ -101,6 +102,7 @@ export default () => {
       ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
     >
       <ConnectedColorFilter
+        disabled={userLoggedOut}
         styles={highlightStyles}
         labelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
       />
