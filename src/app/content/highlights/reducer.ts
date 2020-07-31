@@ -1,5 +1,4 @@
 import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
-import equals from 'lodash/fp/equals';
 import omit from 'lodash/fp/omit';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
@@ -240,7 +239,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.receiveSummaryHighlights): {
       // Check if filters wasn't updated while we were loading response.
       // It may happen if user with slow network connection change filters very fast.
-      if (action.meta.filters && !equals(state.summary.filters, action.meta.filters)) { return state; }
+      if (action.meta.filters && state.summary.filters !== action.meta.filters) { return state; }
 
       return {
         ...state,
