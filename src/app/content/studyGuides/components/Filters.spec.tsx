@@ -18,6 +18,7 @@ import { printStudyGuides, receiveStudyGuidesTotalCounts, receiveSummaryStudyGui
 import Filters from './Filters';
 
 jest.mock('../../components/popUp/ChapterFilter', () => (props: any) => <div mock-chapter-filter {...props} />);
+jest.mock('../../components/popUp/ColorFilter', () => (props: any) => <div mock-color-filter {...props} />);
 
 describe('Filters', () => {
   let store: Store;
@@ -57,8 +58,9 @@ describe('Filters', () => {
     </Provider>);
 
     renderer.act(() => {
-      const chapterFilterToggle = component.root.findByType(DropdownToggle);
+      const [chapterFilterToggle, colorFilterToggle] = component.root.findAllByType(DropdownToggle);
       chapterFilterToggle.props.onClick();
+      colorFilterToggle.props.onClick();
     });
 
     const tree = component.toJSON();
