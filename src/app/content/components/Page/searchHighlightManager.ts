@@ -3,6 +3,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
+import { memoizeStateToProps } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
 import allImagesLoaded from '../utils/allImagesLoaded';
@@ -13,7 +14,7 @@ interface Services {
   searchResultMap: ReturnType<typeof highlightResults>;
 }
 
-export const mapStateToSearchHighlightProp = (state: AppState) => {
+export const mapStateToSearchHighlightProp = memoizeStateToProps((state: AppState) => {
   const searchResults = selectSearch.currentPageResults(state);
   const selectedResult = selectSearch.selectedResult(state);
 
@@ -23,7 +24,7 @@ export const mapStateToSearchHighlightProp = (state: AppState) => {
       ? selectedResult
       : null,
   };
-};
+});
 export type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
 export type OptionsCallback = ({
   current,
