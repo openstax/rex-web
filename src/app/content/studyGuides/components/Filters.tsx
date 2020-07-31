@@ -109,6 +109,9 @@ export default () => {
     </FilterDropdown>
     <ColorKey />
     <ConnectedPrintButton studyGuidesButton />
-    {!userLoggedOut && <ConnectedFilterList />}
+    {!userLoggedOut && <ConnectedFilterList
+      colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
+      colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
+    />}
   </Filters>;
 };
