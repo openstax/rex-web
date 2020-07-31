@@ -9,7 +9,7 @@ const books = {
   /* Business statistics */ 'b56bb9e9-5eb8-48ef-9939-88b1b12ce22f': {defaultVersion: '36.3'},
   /* Business in Law I */ '464a3fba-68c1-426a-99f9-597e739dc911': {defaultVersion: '6.5'},
   /* Calculus vol 1 */ '8b89d172-2927-466f-8661-01abc7ccdba4': {defaultVersion: '12.1' },
-  /* Calculus vol 2 */ '1d39a348-071f-4537-85b6-c98912458c3c': {defaultVersion: '12.2'},
+  /* Calculus vol 2 */ '1d39a348-071f-4537-85b6-c98912458c3c': {defaultVersion: '12.3'},
   /* Calculus vol 3 */ 'a31cd793-2162-4e9e-acb5-6e6bbd76a5fa': {defaultVersion: '11.1' },
   /* Chemistry 2e */ '7fccc9cf-9b71-44f6-800b-f9457fd64335': {defaultVersion: '11.3'},
   /* Chemistry: Atoms First 2e */ 'd9b85ee6-c57f-4861-8208-5ddf261e9c5f': {defaultVersion: '9.6'},
