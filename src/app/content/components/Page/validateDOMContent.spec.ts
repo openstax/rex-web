@@ -1,13 +1,21 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { assertDocument } from '../../../utils';
+import { PagePropTypes } from './connector';
 import { validateDOMContent } from './validateDOMContent';
 
 describe('validateDOMContent', () => {
   const document = assertDocument();
   let container: HTMLElement;
+  let pageProps: PagePropTypes;
+  let warnSpy: jest.SpyInstance;
 
   beforeEach(() => {
     container = document.createElement('div');
+    pageProps = {
+      navigationQuery: {},
+    } as PagePropTypes;
+
+    warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => null);
   });
 
   it('does not throw on valid link', () => {
@@ -16,14 +24,24 @@ describe('validateDOMContent', () => {
       <a href="https://othersite.com">asdf</a>
     `;
 
-    expect(() => validateDOMContent(document, container)).not.toThrow();
+    expect(() => validateDOMContent(document, container, pageProps)).not.toThrow();
   });
 
-  it('throws on invalid link', () => {
-    container.innerHTML = `
-      <a href="/m123">asdf</a>
-    `;
+  describe('on invalid link', () => {
+    beforeEach(() => {
+      container.innerHTML = `
+        <a href="/m123">asdf</a>
+      `;
+    });
 
-    expect(() => validateDOMContent(document, container)).toThrow();
+    it('throws if validateLinks query param is present', () => {
+      Object.defineProperty(pageProps.navigationQuery, 'validateLinks', {});
+      expect(() => validateDOMContent(document, container, pageProps)).toThrow();
+    });
+
+    it('warns if validateLinks query param is missing', () => {
+      expect(() => validateDOMContent(document, container, pageProps)).not.toThrow();
+      expect(warnSpy).toHaveBeenCalled();
+    });
   });
 });
