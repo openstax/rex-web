@@ -2,13 +2,16 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
+import styled, { css } from 'styled-components/macro';
 import { loggedOut } from '../../../auth/selectors';
+import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import ColorFilter from '../../components/popUp/ColorFilter';
 import Filters, { FilterDropdown } from '../../components/popUp/Filters';
 import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
+import { mobileMarginSides } from '../../styles/PopupConstants';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
@@ -27,6 +30,17 @@ const ConnectedChapterFilter = connect(
 )(ChapterFilter);
 
 // tslint:disable-next-line: variable-name
+const StyledColorFilter = styled(ColorFilter)`
+  min-width: 29rem;
+
+  ${theme.breakpoints.mobileSmall(css`
+    /* 12.1 is a width of Chapter button */
+    left: calc(-12.1rem) !important;
+    width: calc(100vw - ${mobileMarginSides * 2}rem);
+  `)}
+`;
+
+// tslint:disable-next-line: variable-name
 const ConnectedColorFilter = connect(
   (state: AppState) => ({
     colorFiltersWithContent: selectors.highlightColorFiltersWithContent(state),
@@ -35,7 +49,7 @@ const ConnectedColorFilter = connect(
   (dispatch: Dispatch) => ({
     setSummaryFilters: flow(setSummaryFilters, dispatch),
   })
-)(ColorFilter);
+)(StyledColorFilter);
 
 // tslint:disable-next-line:variable-name
 const ConnectedFilterList = connect(

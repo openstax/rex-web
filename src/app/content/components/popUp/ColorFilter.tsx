@@ -10,7 +10,7 @@ import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { SummaryFilters } from '../../highlights/types';
-import { filters, mobilePaddingSides } from '../../styles/PopupConstants';
+import { filters } from '../../styles/PopupConstants';
 
 // tslint:disable-next-line: variable-name
 const ColorLabel = styled.span`
@@ -81,8 +81,6 @@ export default styled(ColorFilter)`
   padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
   outline: none;
   z-index: 1;
-  /* 12rem is a width of Chapter button and then we add one side padding */
-  max-width: calc(100vw - ${12 + mobilePaddingSides / 2}rem);
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;
