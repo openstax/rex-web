@@ -32,7 +32,7 @@ const books = {
   /* Prealgebra 2e */ 'f0fa90be-fca8-43c9-9aad-715c0a2cee2b': {defaultVersion: '6.2'},
   /* Precalculus */ 'fd53eae1-fa23-47c7-bb1b-972349835c3c': {defaultVersion: '13.30'},
   /* Principles of Accounting Vol 1 */ '9ab4ba6d-1e48-486d-a2de-38ae1617ca84': {defaultVersion: '5.2'},
-  /* Principles of Accounting Vol 2 */ '920d1c8a-606c-4888-bfd4-d1ee27ce1795': {defaultVersion: '15.3'},
+  /* Principles of Accounting Vol 2 */ '920d1c8a-606c-4888-bfd4-d1ee27ce1795': {defaultVersion: '15.4'},
   /* Principles of MicroEcon for AP courses 2e */ '636cbfd9-4e37-4575-83ab-9dec9029ca4e': {defaultVersion: '9.2'},
   /* Principles of MacroEcon for AP courses 2e */ '9117cf8c-a8a3-4875-8361-9cb0f1fc9362': {defaultVersion: '9.1'},
   /* Principles of Economics 2e */ 'bc498e1f-efe9-43a0-8dea-d3569ad09a82': {defaultVersion: '8.7'},
