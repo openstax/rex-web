@@ -128,7 +128,7 @@ const ColorKey = () => {
     setOpen((state) => !state);
   };
 
-  const closeColorKey = () => { setOpen(false); };
+  const closeColorKey = React.useCallback(() => { setOpen(false); }, []);
 
   useOnClickOutside(colorKeyRef, true, closeColorKey);
 
