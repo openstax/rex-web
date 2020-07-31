@@ -1,3 +1,4 @@
+import { Highlight } from '@openstax/highlighter';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -10,7 +11,6 @@ import { assertDocument, assertWindow } from '../../../utils';
 import { openToc } from '../../actions';
 import { highlightStyles } from '../../constants';
 import { requestSearch } from '../../search/actions';
-import { HighlightData } from '../types';
 import Confirmation from './Confirmation';
 import DisplayNote, { DisplayNoteProps } from './DisplayNote';
 import TruncatedText from './TruncatedText';
@@ -28,6 +28,7 @@ describe('DisplayNote', () => {
     store = createTestStore();
     displayNoteProps = {
       focus: jest.fn(),
+      highlight: { elements: [] } as any as Highlight,
       onBlur: jest.fn(),
       onEdit: doNothing,
       onHeightChange: jest.fn(),
@@ -222,8 +223,9 @@ describe('DisplayNote', () => {
 
   it('focuses after click on DropdownToggle', () => {
     const highlight = {
+      elements: [],
       id: 'asdf',
-    } as HighlightData;
+    } as any as Highlight;
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
@@ -240,7 +242,7 @@ describe('DisplayNote', () => {
   });
 
   it('calls onHeightChange on open toc, search sidebar or window resize', () => {
-    const highlight = { id: 'asdf' } as HighlightData;
+    const highlight = { id: 'asdf', elements: [] } as any as Highlight;
 
     renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
@@ -269,7 +271,7 @@ describe('DisplayNote', () => {
   });
 
   it('does not throw after unmout', () => {
-    const highlight = { id: 'asdf' } as HighlightData;
+    const highlight = { id: 'asdf', elements: [] } as any as Highlight;
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
