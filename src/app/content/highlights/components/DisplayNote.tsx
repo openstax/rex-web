@@ -17,7 +17,7 @@ import { cardPadding, cardWidth } from '../constants';
 import Confirmation from './Confirmation';
 import MenuToggle, { MenuIcon } from './MenuToggle';
 import TruncatedText from './TruncatedText';
-import { useOnClickOutside } from './utils/onClickOutside';
+import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
 
 // tslint:disable-next-line:variable-name
 const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
@@ -66,9 +66,14 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     }
   };
 
+  const elements = React.useMemo(
+    () => [element, ...highlight.elements].filter(isElementForOnClickOutside),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [element.current, highlight]);
+
   // Change Event phase so when clicking on another Card,
   // onBlur is called before this Card calls focus.
-  useOnClickOutside(element, isFocused, onBlur, { capture: true });
+  useOnClickOutside(elements, isFocused, onBlur, { capture: true });
 
   React.useEffect(() => {
     if (!isFocused) {
