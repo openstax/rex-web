@@ -10,6 +10,7 @@ import {
   AnyAction,
   AnyActionCreator,
   AppServices,
+  AppState,
   Dispatch,
   Middleware
 } from './types';
@@ -191,5 +192,30 @@ export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 
     ),
   }), {}),
 });
+
+export const shallowEqual = <T extends object>(objA: T, objB: T) => {
+  const keysOfA = Object.keys(objA) as Array<keyof T>;
+  const keysOfB = Object.keys(objB) as Array<keyof T>;
+
+  if (keysOfA.length !== keysOfB.length) { return false; }
+
+  return keysOfA.every((key) => {
+    return objB.hasOwnProperty(key) && objB[key] === objA[key];
+  });
+};
+
+export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => T) => {
+  let prev = {} as T;
+
+  return (state: AppState) => {
+    const current = fun(state);
+
+    if (shallowEqual(current, prev)) {
+      return prev;
+    }
+    prev = current;
+    return current;
+  };
+};
 
 export class UnauthenticatedError extends Error {}
