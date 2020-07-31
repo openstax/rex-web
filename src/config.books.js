@@ -35,7 +35,7 @@ const books = {
   /* Principles of Accounting Vol 2 */ '920d1c8a-606c-4888-bfd4-d1ee27ce1795': {defaultVersion: '15.1'},
   /* Principles of MicroEcon for AP courses 2e */ '636cbfd9-4e37-4575-83ab-9dec9029ca4e': {defaultVersion: '9.2'},
   /* Principles of MacroEcon for AP courses 2e */ '9117cf8c-a8a3-4875-8361-9cb0f1fc9362': {defaultVersion: '9.1'},
-  /* Principles of Economics 2e */ 'bc498e1f-efe9-43a0-8dea-d3569ad09a82': {defaultVersion: '8.15'},
+  /* Principles of Economics 2e */ 'bc498e1f-efe9-43a0-8dea-d3569ad09a82': {defaultVersion: '8.16'},
   /* Principles of Macroeconomics 2e */ '27f59064-990e-48f1-b604-5188b9086c29': {defaultVersion: '10.7'},
   /* Principles of Management */ 'c3acb2ab-7d5c-45ad-b3cd-e59673fedd4e': {defaultVersion: '10.2'},
   /* Principles of Microeconomics 2e */ '5c09762c-b540-47d3-9541-dda1f44f16e5': {defaultVersion: '13.5'},
