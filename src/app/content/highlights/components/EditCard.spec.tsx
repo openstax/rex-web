@@ -556,8 +556,8 @@ describe('EditCard', () => {
   });
 
   it('blurs when clicking outside', () => {
-    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
-    onClickOutside.mockReturnValue(() => () => null);
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
+    onClickOutside.mockReturnValue();
 
     const component = renderer.create(
       <Provider store={store}>
@@ -579,8 +579,8 @@ describe('EditCard', () => {
   it('doesn\'t blur when clicking outside and editing', () => {
     highlight.getStyle.mockReturnValue('red');
 
-    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
-    onClickOutside.mockReturnValue(() => () => null);
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
+    onClickOutside.mockReturnValue();
 
     const component = renderer.create(
       <Provider store={store}>
