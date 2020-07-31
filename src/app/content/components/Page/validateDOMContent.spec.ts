@@ -41,7 +41,7 @@ describe('validateDOMContent', () => {
 
     it('warns if validateLinks query param is missing', () => {
       expect(() => validateDOMContent(document, container, pageProps)).not.toThrow();
-      expect(warnSpy).toHaveBeenCalled();
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/^found invalid links/));
     });
   });
 });
