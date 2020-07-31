@@ -5,7 +5,7 @@ import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
-import { assertNotNull, assertWindow } from '../../../utils';
+import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
 import { hasOSWebData } from '../../guards';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import { focused, hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
@@ -15,7 +15,7 @@ import { Book, PageReferenceMap } from '../../types';
 import { isClickWithModifierKeys } from '../../utils/domUtils';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
 
-export const mapStateToContentLinkProp = (state: AppState) => ({
+export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) => ({
   book: select.book(state),
   currentPath: selectNavigation.pathname(state),
   focusedHighlight: focused(state),
@@ -23,7 +23,7 @@ export const mapStateToContentLinkProp = (state: AppState) => ({
   locationState: selectNavigation.locationState(state),
   page: select.page(state),
   references: select.contentReferences(state),
-});
+}));
 export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
   navigate: flow(push, dispatch),
 });
