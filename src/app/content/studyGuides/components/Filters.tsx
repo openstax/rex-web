@@ -15,7 +15,6 @@ import { mobileMarginSides } from '../../styles/PopupConstants';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
-import ColorKey from './ColorKey';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -32,7 +31,6 @@ const ConnectedChapterFilter = connect(
 // tslint:disable-next-line: variable-name
 const StyledColorFilter = styled(ColorFilter)`
   min-width: 29rem;
-
   ${theme.breakpoints.mobileSmall(css`
     /* 12.1 is a width of Chapter button */
     left: calc(-12.1rem) !important;
@@ -107,7 +105,6 @@ export default () => {
         labelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
       />
     </FilterDropdown>
-    <ColorKey />
     <ConnectedPrintButton studyGuidesButton />
     {!userLoggedOut && <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}

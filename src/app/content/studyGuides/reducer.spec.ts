@@ -27,6 +27,7 @@ describe('study guides reducer', () => {
       summary: {
         ...initialState.summary,
         filters: {
+          colors: [],
           default: false,
           locationIds: [],
         },
