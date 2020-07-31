@@ -7,15 +7,12 @@ describe('validateDOMContent', () => {
   const document = assertDocument();
   let container: HTMLElement;
   let pageProps: PagePropTypes;
-  let warnSpy: jest.SpyInstance;
 
   beforeEach(() => {
     container = document.createElement('div');
     pageProps = {
       navigationQuery: {},
     } as PagePropTypes;
-
-    warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => null);
   });
 
   it('does not throw on valid link', () => {
@@ -40,6 +37,8 @@ describe('validateDOMContent', () => {
     });
 
     it('warns if validateLinks query param is missing', () => {
+      const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => null);
+
       expect(() => validateDOMContent(document, container, pageProps)).not.toThrow();
       expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/^found invalid links/));
     });
