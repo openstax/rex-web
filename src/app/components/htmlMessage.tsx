@@ -5,17 +5,14 @@ import { assertString } from '../utils';
 type Props = Pick<React.ComponentProps<typeof FormattedHTMLMessage>, 'values'>;
 
 // tslint:disable-next-line:variable-name
-type Type = <T extends any>(msgKey: string, Component: ComponentType<HTMLAttributes<T>>) =>
+type Type = <T extends any>(messageKey: string, Component: ComponentType<HTMLAttributes<T>>) =>
   ComponentType<Props & HTMLAttributes<T>>;
 
 // tslint:disable-next-line:variable-name
-const htmlMessage: Type = (msgKey, Component) => ({values, ...props}) =>
-  <FormattedHTMLMessage id={msgKey} values={values ? values : {}}>
+const htmlMessage: Type = (messageKey, Component) => ({values, ...props}) =>
+  <FormattedHTMLMessage id={messageKey} values={values ? values : {}}>
     {(msg: string | Element) =>
-      <Component
-        dangerouslySetInnerHTML={{__html: assertString(msg, `${msgKey} must be a string`)}}
-        {...props}
-      />
+      <Component dangerouslySetInnerHTML={{__html: assertString(msg, `${messageKey} must be a string`)}} {...props} />
     }
   </FormattedHTMLMessage>
 ;
