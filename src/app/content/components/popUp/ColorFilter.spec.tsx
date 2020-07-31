@@ -5,14 +5,16 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { receiveUser } from '../../../auth/actions';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { receiveBook } from '../../actions';
+import { highlightStyles } from '../../constants';
 import { receiveHighlightsTotalCounts } from '../../highlights/actions';
+import { ConnectedColorFilter } from '../../highlights/components/SummaryPopup/Filters';
 import { formatBookData } from '../../utils';
-import ColorFilter from './ColorFilter';
 
 describe('ColorFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
@@ -31,7 +33,10 @@ describe('ColorFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ColorFilter />
+        <ConnectedColorFilter
+          styles={highlightStyles}
+          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+        />
       </MessageProvider>
     </Provider>);
 
@@ -47,7 +52,10 @@ describe('ColorFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ColorFilter />
+        <ConnectedColorFilter
+          styles={highlightStyles}
+          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+        />
       </MessageProvider>
     </Provider>);
 
@@ -72,7 +80,10 @@ describe('ColorFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ColorFilter />
+        <ConnectedColorFilter
+          styles={highlightStyles}
+          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+        />
       </MessageProvider>
     </Provider>);
 
@@ -107,7 +118,10 @@ describe('ColorFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ColorFilter />
+        <ConnectedColorFilter
+          styles={highlightStyles}
+          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+        />
       </MessageProvider>
     </Provider>);
 
@@ -134,7 +148,10 @@ describe('ColorFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ColorFilter />
+        <ConnectedColorFilter
+          styles={highlightStyles}
+          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+        />
       </MessageProvider>
     </Provider>);
 

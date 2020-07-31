@@ -2,7 +2,7 @@
 
 exports[`ColorFilter matches snapshot 1`] = `
 <div
-  className="ColorFilter-sc-1rb80m9-0 hSgVHh"
+  className="ColorFilter-sc-1ic50x3-1 ixgFwE"
   tabIndex={-1}
 >
   <div
@@ -65,7 +65,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </svg>
     </div>
-    yellow
+    <span
+      className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+    >
+      yellow
+    </span>
   </label>
   <label
     className="Checkbox-f0dje9-2 ksczzL"
@@ -108,7 +112,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </svg>
     </div>
-    green
+    <span
+      className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+    >
+      green
+    </span>
   </label>
   <label
     className="Checkbox-f0dje9-2 gEkNQh"
@@ -151,7 +159,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </svg>
     </div>
-    blue
+    <span
+      className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+    >
+      blue
+    </span>
   </label>
   <label
     className="Checkbox-f0dje9-2 gEkNQh"
@@ -194,7 +206,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </svg>
     </div>
-    purple
+    <span
+      className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+    >
+      purple
+    </span>
   </label>
   <label
     className="Checkbox-f0dje9-2 ksczzL"
@@ -237,7 +253,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </svg>
     </div>
-    pink
+    <span
+      className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+    >
+      pink
+    </span>
   </label>
 </div>
 `;
