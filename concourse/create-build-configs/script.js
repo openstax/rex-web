@@ -14,8 +14,13 @@ const handleErr = err => {
 };
 
 fs.readFile(versionFile, 'utf8', function(err, commit) {
-  const date = new Date().toISOString().split('T')[0];
-  const releaseId = `${date}/${commit}`;
+  // the v3 gives an easy way to detect very old releases, this
+  // is the third time i've changed the release id format:
+  //  - initially `master/${commit}` became wrong when we started building from non-master places
+  //  - `${date}/${commit}` had some nice aspects but creates duplicate releases in the new system
+  //    where the pipeline can be triggered by non-rex changes
+  //  - v3 is arbitrary but now it will be easy to check for the older releases and delete them
+  const releaseId = `v3/${commit}`;
   const args = {
     PUBLIC_URL: `/rex/releases/${releaseId}`,
     REACT_APP_CODE_VERSION: commit,
