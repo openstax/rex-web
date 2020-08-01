@@ -9,7 +9,7 @@ image_resource:
 inputs:
 - name: rex-web
 - name: test-plans
-- name: unified-issues-milestones
+- name: cloudfront-environment
 
 params:
   TR_PROJECT_ID: ((testrail-project-id))
