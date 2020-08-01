@@ -1,5 +1,5 @@
 # this dockerfile is not for production, its for QA and CI
-FROM debian:buster
+FROM debian:buster as utils
 
 # general utils
 RUN apt-get update && apt-get install -y \
@@ -7,10 +7,6 @@ RUN apt-get update && apt-get install -y \
   procps \
   curl \
   jq \
-  && rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && apt-get install -y \
-  unzip \
   && rm -rf /var/lib/apt/lists/*
 
 # AWS CLI
@@ -21,16 +17,6 @@ RUN apt-get update && apt-get install -y \
   unzip awscliv2.zip && \
   ./aws/install && \
   rm -rf awscliv2.zip aws
-
-# ShellCheck (apt version is very old)
-# includes crazy hack around some linking issue from https://github.com/koalaman/shellcheck/issues/1053#issuecomment-357816927
-RUN apt-get update && apt-get install -y \
-  xz-utils && \
-  rm -rf /var/lib/apt/lists/* && \
-  curl -Ls https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar -Jxf - --strip-components=1 -C $HOME shellcheck-stable/shellcheck && \
-  touch /tmp/libc.so.6 && \
-  echo "LD_LIBRARY_PATH=/tmp $HOME/shellcheck \"\$@\"" > /usr/bin/shellcheck && \
-  chmod a+x /usr/bin/shellcheck
 
 # node
 # this is really excessively complicated logic just so the .nvmrc can be
@@ -43,6 +29,18 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | b
   ln -s $(dirname $(which node)) /usr/local/node-bin
 
 ENV PATH /usr/local/node-bin:$PATH
+
+from utils as CI
+
+# shellcheck (apt version is very old)
+# includes crazy hack around some linking issue from https://github.com/koalaman/shellcheck/issues/1053#issuecomment-357816927
+run apt-get update && apt-get install -y \
+  xz-utils && \
+  rm -rf /var/lib/apt/lists/* && \
+  curl -Ls https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar -Jxf - --strip-components=1 -C $HOME shellcheck-stable/shellcheck && \
+  touch /tmp/libc.so.6 && \
+  echo "LD_LIBRARY_PATH=/tmp $HOME/shellcheck \"\$@\"" > /usr/bin/shellcheck && \
+  chmod a+x /usr/bin/shellcheck
 
 # debian deps from https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch
 RUN apt-get update && apt-get install -y \
