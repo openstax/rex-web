@@ -29,7 +29,7 @@ const books = {
   /* Physics (High School) */ 'cce64fde-f448-43b8-ae88-27705cceb0da': {defaultVersion: '13.9'},
   /* Psychology 1e */ '4abf04bf-93a0-45c3-9cbc-2cefd46e68cc': {defaultVersion: '12.2'},
   /* Psychology 2e */ '06aba565-9432-40f6-97ee-b8a361f118a8': {defaultVersion: '4.1'},
-  /* Prealgebra 2e */ 'f0fa90be-fca8-43c9-9aad-715c0a2cee2b': {defaultVersion: '7.1'},
+  /* Prealgebra 2e */ 'f0fa90be-fca8-43c9-9aad-715c0a2cee2b': {defaultVersion: '7.2'},
   /* Precalculus */ 'fd53eae1-fa23-47c7-bb1b-972349835c3c': {defaultVersion: '13.30'},
   /* Principles of Accounting Vol 1 */ '9ab4ba6d-1e48-486d-a2de-38ae1617ca84': {defaultVersion: '5.2'},
   /* Principles of Accounting Vol 2 */ '920d1c8a-606c-4888-bfd4-d1ee27ce1795': {defaultVersion: '15.1'},
