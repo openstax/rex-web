@@ -42,6 +42,10 @@ const HighlightsChapter = styled.div`
     padding: 0;
     background: white;
   }
+
+  > .os-text {
+    white-space: break-spaces;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
