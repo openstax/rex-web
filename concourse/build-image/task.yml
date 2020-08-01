@@ -1,0 +1,24 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source:
+    repository: vito/oci-build-task
+    tag: master
+
+params:
+  UNPACK_ROOTFS: true
+
+inputs:
+- name: rex-web
+  path: .
+
+outputs:
+- name: image
+
+caches:
+- path: cache
+
+run:
+  path: build
