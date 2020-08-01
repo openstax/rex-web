@@ -15,7 +15,7 @@ const books = {
   /* Chemistry: Atoms First 2e */ 'd9b85ee6-c57f-4861-8208-5ddf261e9c5f': {defaultVersion: '9.6'},
   /* College Algebra */ '9b08c294-057f-4201-9f48-5d6ad992740d': {defaultVersion: '19.32'},
   /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': {defaultVersion: '20.15'},
-  /* College Physics for AP */ '8d04a686-d5e8-4798-a27d-c608e4d0e187': {defaultVersion: '32.4'},
+  /* College Physics for AP */ '8d04a686-d5e8-4798-a27d-c608e4d0e187': {defaultVersion: '32.7'},
   /* College Success */ 'e8668a14-9a7d-4d74-b58c-3681f8351224': {defaultVersion: '7.7'},
   /* Concepts of Biology */ 'b3c1e1d2-839c-42b0-a314-e119a8aafbdd': {defaultVersion: '16.4'},
   /* Elementary Algebra 2e */ '55931856-c627-418b-a56f-1dd0007683a8': {defaultVersion: '4.5'},
