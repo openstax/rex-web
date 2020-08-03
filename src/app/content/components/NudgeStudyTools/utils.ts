@@ -5,11 +5,13 @@ import { useSelector } from 'react-redux';
 import { useDebouncedWindowSize, useOnScrollTopOffset } from '../../../reactUtils';
 import { assertDocument, remsToPx } from '../../../utils';
 import { page as pageSelector } from '../../selectors';
-import { hasStudyGuides, studyGuidesEnabled } from '../../studyGuides/selectors';
+import { hasStudyGuides } from '../../studyGuides/selectors';
 import {
   arrowDesktopHeight,
+  arrowDesktopWidth,
   arrowLeftMargin,
   arrowMobileHeight,
+  arrowMobileWidth,
   arrowTopMargin,
   closeButtonDistanceFromContent,
   contentMarginTop,
@@ -42,7 +44,11 @@ export const getPositions = (target: HTMLElement, isMobile: boolean, windowWidth
   const spotlightHeight = height + (padding * 2);
   const spotlightWidth = width + (padding * 2);
   const arrowTopOffset = spotlightTopOffset + spotlightHeight + remsToPx(arrowTopMargin);
-  const arrowLeft = spotlightLeftOffset + remsToPx(arrowLeftMargin);
+  // right edge of arrow image should be on the middle of the spotlight (adjusted for a margin)
+  const centerPoint = spotlightLeftOffset + (spotlightWidth / 2);
+  const arrowWidth = remsToPx(isMobile ? arrowMobileWidth : arrowDesktopWidth);
+  const arrowLeft = centerPoint - arrowWidth + remsToPx(arrowLeftMargin);
+
   const contentWrapperTopOffset = arrowTopOffset
     + remsToPx(isMobile ? arrowMobileHeight : arrowDesktopHeight)
     + remsToPx(contentMarginTop);
@@ -90,12 +96,11 @@ export const usePositions = (isMobile: boolean) => {
   const scrollTopOffset = useOnScrollTopOffset();
   const [positions, setPositions] = React.useState<Positions | null>(null);
   const studyGuides = useSelector(hasStudyGuides);
-  const isEnabled = useSelector(studyGuidesEnabled);
 
   React.useEffect(() => {
     const document = assertDocument();
     const target = document.querySelector(`#${nudgeStudyToolsTargetId}`) as HTMLElement | null;
-    if (isEnabled && target) {
+    if (target) {
       // Make sure that we calculate positions with body overflow set to hidden
       // because it causes scrollbar to hide which results in different positions.
       const prevOverflow = document.body.style.overflow;
@@ -107,7 +112,7 @@ export const usePositions = (isMobile: boolean) => {
       document.body.style.overflow = prevOverflow;
     }
     return () => setPositions(null);
-  }, [scrollTopOffset, studyGuides, isEnabled, windowWidth, isMobile]);
+  }, [scrollTopOffset, studyGuides, windowWidth, isMobile]);
 
   return positions;
 };
