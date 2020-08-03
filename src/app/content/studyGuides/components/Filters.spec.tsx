@@ -18,7 +18,6 @@ import { printStudyGuides, receiveStudyGuidesTotalCounts, receiveSummaryStudyGui
 import Filters from './Filters';
 
 jest.mock('../../components/popUp/ChapterFilter', () => (props: any) => <div mock-chapter-filter {...props} />);
-jest.mock('../../components/popUp/ColorFilter', () => (props: any) => <div mock-color-filter {...props} />);
 
 describe('Filters', () => {
   let store: Store;
@@ -65,6 +64,37 @@ describe('Filters', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('renders correct label keys for color dropdown', () => {
+    const pageId = stripIdVersion(book.tree.contents[0].id);
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      [pageId]: {
+        [HighlightColorEnum.Green]: 1,
+        [HighlightColorEnum.Yellow]: 1,
+        [HighlightColorEnum.Blue]: 1,
+        [HighlightColorEnum.Pink]: 1,
+        [HighlightColorEnum.Purple]: 1,
+      },
+    }));
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Filters />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    const labelBlueKey = component.root.findByProps({ id: 'i18n:studyguides:popup:filters:blue' });
+    const labelGreenKey = component.root.findByProps({ id: 'i18n:studyguides:popup:filters:green' });
+    const labelPurpleKey = component.root.findByProps({ id: 'i18n:studyguides:popup:filters:purple' });
+    const labelYellowKey = component.root.findByProps({ id: 'i18n:studyguides:popup:filters:yellow' });
+
+    expect(labelBlueKey).toBeTruthy();
+    expect(labelGreenKey).toBeTruthy();
+    expect(labelPurpleKey).toBeTruthy();
+    expect(labelYellowKey).toBeTruthy();
   });
 
   it('does renders ConnectedFilterList if user is logged in', () => {
