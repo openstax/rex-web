@@ -29,6 +29,9 @@ describe('content', () => {
   });
 
   it('a11y lighthouse check', async() => {
+    const closeNudgeButton = `[data-analytics-region="Nudge Study Tools"] [data-analytics-label="close"]`;
+    await page.waitForSelector(closeNudgeButton);
+    await page.click(closeNudgeButton);
     await checkLighthouse(browser, TEST_LONG_PAGE_URL);
   });
 
