@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDebouncedWindowSize, useOnScrollTopOffset } from '../../../reactUtils';
 import { assertDocument, remsToPx } from '../../../utils';
 import { page as pageSelector } from '../../selectors';
-import { hasStudyGuides, studyGuidesEnabled } from '../../studyGuides/selectors';
+import { hasStudyGuides } from '../../studyGuides/selectors';
 import {
   arrowDesktopHeight,
   arrowDesktopWidth,
@@ -96,12 +96,11 @@ export const usePositions = (isMobile: boolean) => {
   const scrollTopOffset = useOnScrollTopOffset();
   const [positions, setPositions] = React.useState<Positions | null>(null);
   const studyGuides = useSelector(hasStudyGuides);
-  const isEnabled = useSelector(studyGuidesEnabled);
 
   React.useEffect(() => {
     const document = assertDocument();
     const target = document.querySelector(`#${nudgeStudyToolsTargetId}`) as HTMLElement | null;
-    if (isEnabled && target) {
+    if (target) {
       // Make sure that we calculate positions with body overflow set to hidden
       // because it causes scrollbar to hide which results in different positions.
       const prevOverflow = document.body.style.overflow;
@@ -113,7 +112,7 @@ export const usePositions = (isMobile: boolean) => {
       document.body.style.overflow = prevOverflow;
     }
     return () => setPositions(null);
-  }, [scrollTopOffset, studyGuides, isEnabled, windowWidth, isMobile]);
+  }, [scrollTopOffset, studyGuides, windowWidth, isMobile]);
 
   return positions;
 };

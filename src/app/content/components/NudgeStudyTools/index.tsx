@@ -8,7 +8,11 @@ import { useMatchMobileQuery } from '../../../reactUtils';
 import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
 import { showNudgeStudyTools } from '../../selectors';
-import { hasStudyGuides as hasStudyGuidesSelector } from '../../studyGuides/selectors';
+import {
+  hasStudyGuides as hasStudyGuidesSelector,
+  studyGuidesEnabled as studyGuidesEnabledSelector,
+  totalCountsPerPage as totalCountsPerPageSelector,
+} from '../../studyGuides/selectors';
 import arrowDesktop from './assets/arrowDesktop.svg';
 import arrowMobile from './assets/arrowMobile.svg';
 import {
@@ -111,6 +115,8 @@ const NudgeTextOnlyHighlights = htmlMessage('i18n:nudge:study-tools:text:only-hi
 // to the DOM and do not render if document or window is undefined which may happen for prerendering.
 // tslint:disable-next-line: variable-name
 const NoopForPrerenderingAndForHiddenState = () => {
+  const studyGuidesEnabled = useSelector(studyGuidesEnabledSelector);
+  const totalCountsPerPage = useSelector(totalCountsPerPageSelector);
   const show = useSelector(showNudgeStudyTools);
   const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
   const dispatch = useDispatch();
@@ -118,7 +124,10 @@ const NoopForPrerenderingAndForHiddenState = () => {
 
   React.useEffect(() => {
     if (
-      show === null
+      // If SG is enabled then show only when we've established state for study guides
+      // to make sure we are showing correct nudge version
+      (!studyGuidesEnabled || studyGuidesEnabled && totalCountsPerPage !== null)
+      && show === null
       && shouldDisplayNudgeStudyTools()
     ) {
       setNudgeStudyToolsCookies();
@@ -126,7 +135,7 @@ const NoopForPrerenderingAndForHiddenState = () => {
       dispatch(openNudgeStudyTools());
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [show, counter]);
+  }, [show, counter, totalCountsPerPage, studyGuidesEnabled]);
 
   if (!show ) {
     return null;
