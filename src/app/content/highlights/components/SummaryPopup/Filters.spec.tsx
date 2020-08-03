@@ -18,7 +18,6 @@ import Filters from './Filters';
 describe('Filters', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
-  let dispatch: jest.SpyInstance;
   const window = assertWindow();
   const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -28,8 +27,6 @@ describe('Filters', () => {
     services = createTestServices();
 
     window.print = jest.fn();
-
-    dispatch = jest.spyOn(store, 'dispatch');
   });
 
   it('matches snapshot and renders proper aria labels', () => {
