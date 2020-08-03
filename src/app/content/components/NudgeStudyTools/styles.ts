@@ -45,6 +45,7 @@ const NudgeHeadingStyles = styled.h2`
   strong {
     color: ${theme.color.primary.yellow.base};
     font-weight: 600;
+    white-space: nowrap;
   }
 
   ${theme.breakpoints.mobile(css`
