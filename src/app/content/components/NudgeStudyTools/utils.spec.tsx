@@ -5,9 +5,8 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { shortPage } from '../../../../test/mocks/archiveLoader';
-import * as reactUtils from '../../../reactUtils';
 import { Store } from '../../../types';
-import { assertDocument } from '../../../utils';
+import { assertDocument, assertWindow } from '../../../utils';
 import { receivePage } from '../../actions';
 import * as studyGuidesSelect from '../../studyGuides/selectors';
 import * as constants from './constants';
@@ -57,8 +56,9 @@ describe('usePositions', () => {
     jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
       .mockReturnValue(true);
 
-    jest.spyOn(reactUtils, 'useDebouncedWindowSize')
-      .mockReturnValue([1900]);
+    Object.defineProperty(assertWindow(), 'innerWidth', {
+      value: 1900,
+    });
 
     const component = renderer.create(<Provider store={store}>
       <Component isMobile={false} />
