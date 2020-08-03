@@ -126,7 +126,7 @@ const NoopForPrerenderingAndForHiddenState = () => {
     if (
       // If SG is enabled then show only when we've established state for study guides
       // to make sure we are showing correct nudge version
-      (!studyGuidesEnabled || studyGuidesEnabled && totalCountsPerPage !== null)
+      (!studyGuidesEnabled || (studyGuidesEnabled && totalCountsPerPage !== null))
       && show === null
       && shouldDisplayNudgeStudyTools()
     ) {

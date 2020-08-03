@@ -3,13 +3,16 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { receiveFeatureFlags } from '../../../actions';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import * as reactUtils from '../../../reactUtils';
 import { AppServices, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
+import { studyGuidesFeatureFlag } from '../../constants';
 import * as contentSelect from '../../selectors';
+import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
 import * as studyGuidesSelect from '../../studyGuides/selectors';
 import NudgeStudyTools from './';
 import arrowMobile from './assets/arrowMobile.svg';
@@ -40,9 +43,34 @@ describe('NudgeStudyTools', () => {
     services = createTestServices();
   });
 
-  it('sets cookies, opens nudge and track opening if all requirement passes', () => {
+  it('sets cookies, opens nudge and track opening for books without SG', () => {
     jest.spyOn(utils, 'shouldDisplayNudgeStudyTools')
       .mockReturnValue(true);
+    const spySetCookies = jest.spyOn(utils, 'setNudgeStudyToolsCookies');
+    const spyTrack = jest.spyOn(services.analytics.openNudgeStudyTools, 'track');
+
+    renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NudgeStudyTools/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    // Call useEffect hooks
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    expect(spySetCookies).toHaveBeenCalled();
+    expect(spyTrack).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(openNudgeStudyTools());
+  });
+
+  it('sets cookies, opens nudge and track opening for books with SG', () => {
+    jest.spyOn(utils, 'shouldDisplayNudgeStudyTools')
+      .mockReturnValue(true);
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+    store.dispatch(receiveStudyGuidesTotalCounts({}));
     const spySetCookies = jest.spyOn(utils, 'setNudgeStudyToolsCookies');
     const spyTrack = jest.spyOn(services.analytics.openNudgeStudyTools, 'track');
 

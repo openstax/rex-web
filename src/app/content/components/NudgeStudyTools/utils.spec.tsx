@@ -57,9 +57,6 @@ describe('usePositions', () => {
     jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
       .mockReturnValue(true);
 
-    jest.spyOn(studyGuidesSelect, 'studyGuidesEnabled')
-      .mockReturnValue(true);
-
     jest.spyOn(reactUtils, 'useDebouncedWindowSize')
       .mockReturnValue([1900]);
 
