@@ -23,7 +23,7 @@ const books = {
   /* Intermediate Algebra 2e */ '4664c267-cd62-4a99-8b28-1cb9b3aee347': {defaultVersion: '3.5'},
   /* Introduction to Business */ '4e09771f-a8aa-40ce-9063-aa58cc24e77f': {defaultVersion: '9.3'},
   /* Introduction to Sociology 2e */ '02040312-72c8-441e-a685-20e9333f3e1d': {defaultVersion: '14.1'},
-  /* Introductory Statistics */ '30189442-6998-4686-ac05-ed152b91b9de': {defaultVersion: '24.4'},
+  /* Introductory Statistics */ '30189442-6998-4686-ac05-ed152b91b9de': {defaultVersion: '24.5'},
   /* Microbiology */ 'e42bd376-624b-4c0f-972f-e0c57998e765': {defaultVersion: '8.6'},
   /* Organizational Behavior */ '2d941ab9-ac5b-4eb8-b21c-965d36a4f296': {defaultVersion: '7.2'},
   /* Physics (High School) */ 'cce64fde-f448-43b8-ae88-27705cceb0da': {defaultVersion: '13.9'},
