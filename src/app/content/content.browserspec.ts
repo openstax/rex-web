@@ -5,6 +5,7 @@ import {
   h1Content,
   navigate,
 } from '../../test/browserutils';
+import { cookieNudge } from './components/NudgeStudyTools/constants';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_LONG_PAGE_NAME = '2-test-page-3';
@@ -29,6 +30,10 @@ describe('content', () => {
   });
 
   it('a11y lighthouse check', async() => {
+    await page.setCookie({
+      name: cookieNudge.date,
+      value: new Date().toString(),
+    });
     await checkLighthouse(browser, TEST_LONG_PAGE_URL);
   });
 
