@@ -28,17 +28,19 @@ if (typeof(document) !== 'undefined') {
 const parser = new DOMParser();
 
 interface PageState {
-  flashMessageError: 'highlight' | 'search' | null;
+  flashMessageError: boolean;
   flashMessageErrorId: string | null;
   flashMessageErrorKey: string | null;
+  flashMessageErrorType: 'highlight' | 'search' | null;
 }
 
 export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
   public state: PageState = {
-    flashMessageError: null,
+    flashMessageError: false,
     flashMessageErrorId: null,
     flashMessageErrorKey: null,
+    flashMessageErrorType: null,
   };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
@@ -88,7 +90,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
 
     const shouldUpdateHighlights = prevProps !== this.props ||
-      (prevState.flashMessageError === this.state.flashMessageError &&
+      (prevState.flashMessageErrorType === this.state.flashMessageErrorType &&
         prevState.flashMessageErrorId === this.state.flashMessageErrorId);
 
     if (!shouldUpdateHighlights) { return; }
@@ -108,19 +110,16 @@ export default class PageComponent extends Component<PagePropTypes> {
   public setError = (type: 'highlight' | 'search', messageKey: string) => (id: string) => {
     if (this.state.flashMessageErrorId === id) { return; }
     this.setState({
-      flashMessageError: type,
+      flashMessageError: true,
       flashMessageErrorId: id,
       flashMessageErrorKey: messageKey,
+      flashMessageErrorType: type,
     });
   };
 
   public clearError = (type: 'highlight' | 'search') => () => {
-    if (this.state.flashMessageError !== type) { return; }
-    this.setState({
-      flashMessageError: null,
-      flashMessageErrorId: null,
-      flashMessageErrorKey: null,
-    });
+    if (this.state.flashMessageErrorType !== type) { return; }
+    this.setState({ flashMessageError: false });
   };
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
@@ -137,13 +136,13 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public render() {
-    const { flashMessageError, flashMessageErrorKey, flashMessageErrorId } = this.state;
+    const { flashMessageError, flashMessageErrorKey, flashMessageErrorId, flashMessageErrorType } = this.state;
 
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      {flashMessageError && flashMessageErrorKey
+      {flashMessageError && flashMessageErrorType && flashMessageErrorKey
         ? <FlashMessageError
-            dismiss={this.clearError(flashMessageError)}
+            dismiss={this.clearError(flashMessageErrorType)}
             messageKey={flashMessageErrorKey}
             uniqueId={flashMessageErrorId}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
