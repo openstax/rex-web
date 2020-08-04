@@ -11,12 +11,12 @@ describe('content', () => {
   it('doesn\'t modify the markup on page load', async() => {
     const getHtml = () => {
       if (!document) {
-        return '';
+        return 'no document';
       }
       const root = document.getElementById('root');
 
       if (!root) {
-        return '';
+        return 'no root';
       }
 
       // these elements are intended to be changed on page load
@@ -89,36 +89,16 @@ describe('content', () => {
       window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
     );
 
-    expect(pendingEvents).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "command": Object {
-            "name": "send",
-            "payload": Object {
-              "hitType": "pageview",
-              "page": "/books/book-slug-1/pages/2-test-page-3",
-            },
-          },
-          "savedAt": Object {},
+    expect(pendingEvents).toContainEqual({
+      command: {
+        name: 'send',
+        payload: {
+          hitType: 'pageview',
+          page: '/books/book-slug-1/pages/2-test-page-3',
         },
-        Object {
-          "command": Object {
-            "name": "set",
-            "payload": Object {
-              "dimension3": "not embedded",
-            },
-          },
-          "savedAt": Object {},
-        },
-        Object {
-          "command": Object {
-            "name": "set",
-            "payload": Object {},
-          },
-          "savedAt": Object {},
-        },
-      ]
-    `);
+      },
+      savedAt: expect.anything(),
+    });
   });
 
   it('triggers google analytics pageview after navigating again', async() => {
