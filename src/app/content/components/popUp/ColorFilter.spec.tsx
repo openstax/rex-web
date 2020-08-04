@@ -1,62 +1,62 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestStore from '../../../../test/createTestStore';
-import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
+import { match, not } from '../../../fpUtils';
 import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
-import { receiveBook } from '../../actions';
 import { highlightStyles } from '../../constants';
-import { receiveHighlightsTotalCounts } from '../../highlights/actions';
-import { ConnectedColorFilter } from '../../highlights/components/SummaryPopup/Filters';
-import { formatBookData } from '../../utils';
+import ColorFilter, { ColorFilterProps } from './ColorFilter';
 
 describe('ColorFilter', () => {
-  const book = formatBookData(archiveBook, mockCmsBook);
-  let store: Store;
+  let props: ColorFilterProps;
 
   beforeEach(() => {
-    store = createTestStore();
-    store.dispatch(receiveBook(book));
+    props = {
+      colorFiltersWithContent: new Set([
+        HighlightColorEnum.Blue,
+        HighlightColorEnum.Green,
+        HighlightColorEnum.Pink,
+        HighlightColorEnum.Purple,
+        HighlightColorEnum.Yellow,
+      ]),
+      labelKey: (label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`,
+      selectedColorFilters: new Set([
+        HighlightColorEnum.Blue,
+        HighlightColorEnum.Green,
+        HighlightColorEnum.Pink,
+        HighlightColorEnum.Purple,
+        HighlightColorEnum.Yellow,
+      ]),
+      setSummaryFilters: jest.fn(),
+      styles: highlightStyles,
+    };
   });
 
   it('matches snapshot', () => {
-    store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': { pink: 2, green: 3 },
-      'testbook1-testpage3-uuid': { yellow: 2 },
-    }, new Map()));
+    const colorFiltersWithContent = new Set([
+      HighlightColorEnum.Pink,
+      HighlightColorEnum.Green,
+      HighlightColorEnum.Yellow,
+    ]);
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedColorFilter
-          styles={highlightStyles}
-          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
-        />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<MessageProvider>
+      <ColorFilter {...props} colorFiltersWithContent={colorFiltersWithContent} />
+    </MessageProvider>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('unchecks colors', () => {
-    store.dispatch(receiveHighlightsTotalCounts({
-      'preface': {[HighlightColorEnum.Green]: 3},
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Yellow]: 1},
-    }, new Map()));
+    const colorFiltersWithContent = new Set([
+      HighlightColorEnum.Green,
+      HighlightColorEnum.Yellow,
+    ]);
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedColorFilter
-          styles={highlightStyles}
-          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
-        />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<MessageProvider>
+      <ColorFilter {...props} colorFiltersWithContent={colorFiltersWithContent} />
+    </MessageProvider>);
 
     const [box1, box2] = component.root.findAllByType(Checkbox);
 
@@ -67,62 +67,50 @@ describe('ColorFilter', () => {
       box1.props.onChange();
     });
 
-    expect(box1.props.checked).toBe(false);
-    expect(box2.props.checked).toBe(true);
+    expect(props.setSummaryFilters).toHaveBeenCalledWith({
+      colors: Array.from(props.selectedColorFilters).filter(not(match(highlightStyles[0].label))),
+    });
   });
 
   it('checks colors', () => {
-    store.dispatch(receiveHighlightsTotalCounts({
-      'preface': {[HighlightColorEnum.Green]: 3},
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Yellow]: 1},
-    }, new Map()));
+    const colorFiltersWithContent = new Set([
+      HighlightColorEnum.Green,
+      HighlightColorEnum.Yellow,
+    ]);
+    const selectedColorFilters = new Set(highlightStyles.slice(2, 5).map((style) => style.label));
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedColorFilter
-          styles={highlightStyles}
-          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
-        />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<MessageProvider>
+      <ColorFilter
+        {...props}
+        colorFiltersWithContent={colorFiltersWithContent}
+        selectedColorFilters={selectedColorFilters}
+      />
+    </MessageProvider>);
 
-    const [box1, box2] = component.root.findAllByType(Checkbox);
-
-    expect(box1.props.checked).toBe(true);
-    expect(box2.props.checked).toBe(true);
-
-    renderer.act(() => {
-      box1.props.onChange();
-    });
-    renderer.act(() => {
-      box2.props.onChange();
-    });
+    const [box1, box2, box3] = component.root.findAllByType(Checkbox);
 
     expect(box1.props.checked).toBe(false);
     expect(box2.props.checked).toBe(false);
+    expect(box3.props.checked).toBe(true);
 
     renderer.act(() => {
       box1.props.onChange();
     });
 
-    expect(box1.props.checked).toBe(true);
-    expect(box2.props.checked).toBe(false);
+    expect(props.setSummaryFilters).toHaveBeenCalledWith({
+      colors: [...Array.from(selectedColorFilters), highlightStyles[0].label],
+    });
   });
 
   it('selects none', () => {
-    store.dispatch(receiveHighlightsTotalCounts({
-      'preface': {[HighlightColorEnum.Green]: 3},
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Yellow]: 1},
-    }, new Map()));
+    const colorFiltersWithContent = new Set([
+      HighlightColorEnum.Green,
+      HighlightColorEnum.Yellow,
+    ]);
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedColorFilter
-          styles={highlightStyles}
-          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
-        />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<MessageProvider>
+      <ColorFilter {...props} colorFiltersWithContent={colorFiltersWithContent} />
+    </MessageProvider>);
 
     const [box1, box2] = component.root.findAllByType(Checkbox);
     const allOrNone = component.root.findByType(AllOrNone);
@@ -134,32 +122,25 @@ describe('ColorFilter', () => {
       allOrNone.props.onNone();
     });
 
-    expect(box1.props.checked).toBe(false);
-    expect(box2.props.checked).toBe(false);
+    expect(props.setSummaryFilters).toHaveBeenCalledWith({ colors: []});
   });
 
   it('selects all selects only colors witch have highlights', () => {
-    store.dispatch(receiveBook(book));
-    store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testchapter3-uuid': {[HighlightColorEnum.Green]: 3},
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Yellow]: 1},
-    }, new Map()));
+    const colorFiltersWithContent = new Set([
+      HighlightColorEnum.Green,
+      HighlightColorEnum.Yellow,
+    ]);
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedColorFilter
-          styles={highlightStyles}
-          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
-        />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<MessageProvider>
+      <ColorFilter
+        {...props}
+        colorFiltersWithContent={colorFiltersWithContent}
+        selectedColorFilters={new Set()}
+      />
+    </MessageProvider>);
 
     const [yellow, green, blue, purple, pink] = component.root.findAllByType(Checkbox);
     const allOrNone = component.root.findByType(AllOrNone);
-
-    renderer.act(() => {
-      allOrNone.props.onNone();
-    });
 
     expect(blue.props.checked).toBe(false);
     expect(green.props.checked).toBe(false);
@@ -171,10 +152,6 @@ describe('ColorFilter', () => {
       allOrNone.props.onAll();
     });
 
-    expect(blue.props.checked).toBe(false);
-    expect(green.props.checked).toBe(true);
-    expect(pink.props.checked).toBe(false);
-    expect(purple.props.checked).toBe(false);
-    expect(yellow.props.checked).toBe(true);
+    expect(props.setSummaryFilters).toHaveBeenCalledWith({ colors: Array.from(colorFiltersWithContent) });
   });
 });

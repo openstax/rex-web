@@ -57,7 +57,7 @@ interface Props {
   locationFilters: HighlightLocationFilters;
   locationFiltersWithContent: Set<string>;
   selectedLocationFilters: Set<string>;
-  setFilters: (filters: Partial<SummaryFilters>) => void;
+  setFilters: (filters: Pick<SummaryFilters, 'locationIds'>) => void;
 }
 
 // tslint:disable-next-line:variable-name

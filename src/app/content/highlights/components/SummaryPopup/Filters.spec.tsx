@@ -10,7 +10,6 @@ import { DropdownToggle } from '../../../../components/Dropdown';
 import * as Services from '../../../../context/Services';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
-import { assertWindow } from '../../../../utils';
 import { formatBookData, stripIdVersion } from '../../../utils';
 import { receiveHighlightsTotalCounts } from '../../actions';
 import Filters from './Filters';
@@ -18,15 +17,12 @@ import Filters from './Filters';
 describe('Filters', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
-  const window = assertWindow();
   const book = formatBookData(archiveBook, mockCmsBook);
 
   beforeEach(() => {
     services = createTestServices();
     store = createTestStore();
     services = createTestServices();
-
-    window.print = jest.fn();
   });
 
   it('matches snapshot and renders proper aria labels', () => {

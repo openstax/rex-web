@@ -94,7 +94,7 @@ const rawSummaryLocationFilters = createSelector(
 
 export const highlightColorFiltersWithContent = createSelector(
   totalCountsPerPageOrEmpty,
-  (totalCounts) => getHighlightColorFiltersWithContent(totalCounts)
+  getHighlightColorFiltersWithContent
 );
 
 export const summaryColorFilters = createSelector(

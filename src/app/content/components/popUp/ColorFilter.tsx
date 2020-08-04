@@ -20,13 +20,13 @@ const ColorLabel = styled.span`
   white-space: nowrap;
 `;
 
-interface Props {
+export interface ColorFilterProps {
   className?: string;
   disabled?: boolean;
   styles: typeof highlightStyles;
   selectedColorFilters: Set<HighlightColorEnum>;
   colorFiltersWithContent: Set<HighlightColorEnum>;
-  setSummaryFilters: (filters: Partial<SummaryFilters>) => void;
+  setSummaryFilters: (filters: Pick<SummaryFilters, 'colors'>) => void;
   labelKey: (label: HighlightColorEnum) => string;
 }
 
@@ -39,7 +39,7 @@ const ColorFilter = ({
   colorFiltersWithContent,
   setSummaryFilters,
   labelKey,
-}: Props) => {
+}: ColorFilterProps) => {
 
   const setSelectedColors = (colors: HighlightColorEnum[]) => {
     setSummaryFilters({colors});

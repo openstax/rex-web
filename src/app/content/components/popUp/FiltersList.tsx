@@ -100,7 +100,7 @@ interface FiltersListProps {
   className?: string;
   locationFilters: HighlightLocationFilters;
   selectedLocationFilters: Set<string>;
-  selectedColorFilters?: Set<HighlightColorEnum>;
+  selectedColorFilters: Set<HighlightColorEnum>;
   setFilters: (filters: Partial<SummaryFilters>) => void;
   colorAriaLabelKey: (color: HighlightColorEnum) => string;
   colorLabelKey: (color: HighlightColorEnum) => string;
