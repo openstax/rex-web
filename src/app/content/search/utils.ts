@@ -3,7 +3,6 @@ import { SearchResult, SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
-import { ScrollTarget } from '../../navigation/types';
 import { getAllRegexMatches } from '../../utils';
 import attachHighlight from '../components/utils/attachHighlight';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
@@ -172,9 +171,4 @@ export const findSearchResultHit = (
   target: SearchScrollTarget
 ): SearchResultHit | undefined => {
   return results.find((result) => result.source.elementId === target.elementId);
-};
-
-export const isSearchScrollTarget = (target: ScrollTarget): target is SearchScrollTarget => {
-  if (target.type === 'search' && typeof target.index === 'number') { return true; }
-  return false;
 };

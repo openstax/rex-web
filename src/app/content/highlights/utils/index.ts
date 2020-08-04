@@ -17,5 +17,3 @@ export {
   updateSummaryHighlightsDependOnFilters,
   getSortedSummaryHighlights
 } from './summaryHighlightsUtils';
-
-export { default as isHighlightScrollTarget } from './isHighlightScrollTarget';

@@ -1,4 +1,4 @@
-import isHighlightScrollTarget from './isHighlightScrollTarget';
+import { isHighlightScrollTarget } from './guards';
 
 describe('isHighlightScrollTarget', () => {
   it('return true if passed valid data', () => {

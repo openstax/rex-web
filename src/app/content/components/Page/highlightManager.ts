@@ -14,9 +14,9 @@ import {
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
+import { isHighlightScrollTarget } from '../../highlights/guards';
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
-import { isHighlightScrollTarget } from '../../highlights/utils';
 import * as select from '../../selectors';
 import attachHighlight from '../utils/attachHighlight';
 import { erase, highlightData, insertPendingCardInOrder, isUnknownHighlightData, updateStyle } from './highlightUtils';
@@ -184,7 +184,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       if (options && stateEstablished) {
         if (scrollTargetHighlight) {
           options.clearError();
-        } else if (highlightScrollTarget && !scrollTargetHighlight) {
+        } else if (highlightScrollTarget) {
           options.setError(highlightScrollTarget.id);
         }
       }
@@ -195,7 +195,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       } else if (
         !pendingHighlight
         && !prevProps.focused
-        && highlightScrollTarget
         && scrollTargetHighlight
       ) {
         toFocus = scrollTargetHighlight;

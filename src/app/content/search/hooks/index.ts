@@ -12,8 +12,9 @@ import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
+import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
-import { findSearchResultHit, getFirstResult, getIndexData, isSearchScrollTarget } from '../utils';
+import { findSearchResultHit, getFirstResult, getIndexData } from '../utils';
 import trackSearch from './trackSearch';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
@@ -100,7 +101,7 @@ export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc
 // composed in /content/locationChange hook because it needs to happen after book load
 export const syncSearch: RouteHookBody<typeof content> = (services) => async() => {
   const state = services.getState();
-  const navigationQuery = selectNavigation.localState(state).query.query;
+  const navigationQuery = selectNavigation.query(state).query;
   const searchQuery = select.query(state);
   const scrollTarget = selectNavigation.scrollTarget(state);
   const searchScrollTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? scrollTarget : null;

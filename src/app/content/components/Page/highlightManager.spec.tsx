@@ -1,5 +1,6 @@
 import UntypedHighlighter, {
-  SerializedHighlight as UntypedSerializedHighlight
+  Highlight,
+  SerializedHighlight as UntypedSerializedHighlight,
 } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
@@ -60,7 +61,7 @@ describe('highlightManager', () => {
       page,
       scrollTarget: null,
     };
-    prevProp = prop;
+    prevProp = {...prop};
     store = createTestStore();
   });
 
@@ -225,7 +226,6 @@ describe('highlightManager', () => {
     } as HighlightScrollTarget;
 
     const highlightFocus = jest.spyOn(mockHighlights[1], 'focus');
-    const focus = jest.spyOn(prop, 'focus');
 
     Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
     Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
@@ -233,10 +233,10 @@ describe('highlightManager', () => {
     update(prevProp);
 
     expect(highlightFocus).toHaveBeenCalledTimes(1);
-    expect(focus).toHaveBeenCalledWith(mockHighlights[1].id);
+    expect(prop.focus).toHaveBeenCalledWith(mockHighlights[1].id);
   });
 
-  it('calls options.clearError if highlightsLoaded === true', () => {
+  it('calls options.clearError if highlightsLoaded === true and there is valid scroll target', () => {
     const mockHighlights = [
       createMockHighlight(),
       createMockHighlight(),
@@ -263,11 +263,8 @@ describe('highlightManager', () => {
     expect(options.setError).not.toHaveBeenCalled();
   });
 
-  it('calls options.clearError if highlightsLoaded === false but user is loggedOut and page is fetched', () => {
-    const mockHighlights = [
-      createMockHighlight(),
-      createMockHighlight(),
-    ];
+  it('calls options.setError if user is loggedOut, page is fetched and there is scroll target', () => {
+    const mockHighlights = [] as Highlight[];
     const {update} = highlightManager(element, () => prop);
 
     prop.highlightsLoaded = false;
@@ -275,7 +272,7 @@ describe('highlightManager', () => {
     prop.page = { id: 'mock-page' } as any as Page;
     prop.scrollTarget = {
       elementId: 'does-not-matter',
-      id: mockHighlights[1].id,
+      id: 'asdf',
       type: 'highlight',
     } as HighlightScrollTarget;
 
@@ -289,11 +286,11 @@ describe('highlightManager', () => {
 
     update(prevProp, options);
 
-    expect(options.clearError).toHaveBeenCalledTimes(1);
-    expect(options.setError).not.toHaveBeenCalled();
+    expect(options.setError).toHaveBeenCalledTimes(1);
+    expect(options.clearError).not.toHaveBeenCalled();
   });
 
-  it('calls options.setError', () => {
+  it(`calls options.setError if highlight from scroll target was not found`, () => {
     const mockHighlights = [
       createMockHighlight(),
       createMockHighlight(),
