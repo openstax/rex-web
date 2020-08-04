@@ -8,7 +8,7 @@ export default styled(PrintButton)`
   cursor: ${({loading}) => loading ? 'wait' : 'pointer'};
   min-width: auto;
   height: max-content;
-  margin-left: ${({studyGuidesButton}) => studyGuidesButton ? '0' : 'auto'};
+  margin-left: auto;
   padding-right: ${filters.dropdownToggle.sides.desktop}rem;
   ${theme.breakpoints.mobile(css`
     padding-right: ${filters.dropdownToggle.sides.mobile}rem;
