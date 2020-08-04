@@ -13,7 +13,6 @@ import {
 } from '../highlights/utils/selectorsUtils';
 import * as parentSelectors from '../selectors';
 import { archiveTreeSectionIsChapter } from '../utils/archiveTreeUtils';
-import { allColors } from './constants';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -134,7 +133,8 @@ const selectedStudyGuidesLocationFilters = createSelector(
 export const filteredCountsPerPage = createSelector(
   totalCountsPerPageOrEmpty,
   selectedStudyGuidesLocationFilters,
-  (counts, locationFilers) => filterCounts(counts, locationFilers, new Set(allColors))
+  summaryColorFilters,
+  filterCounts
 );
 
 export const hasMoreResults = createSelector(
