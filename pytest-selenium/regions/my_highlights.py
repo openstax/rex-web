@@ -334,25 +334,30 @@ class MyHighlights(Region):
         page.wait_for_page_to_load()
         return page
 
+    @property
+    def filterbar(self) -> MyHighlights.FilterBar:
+        return self.FilterBar(self)
+
     class FilterBar(Region):
         """The filter selection and control for My Highlights and Notes."""
 
-        _active_filter_locator = (
+        _active_filter_tag_locator = (
             By.CSS_SELECTOR, "ul li")
-        _chapter_filters_locator = (
+        _chapter_dropdown_locator = (
             By.CSS_SELECTOR, "[class*=Toggle] ~ [class*=ChapterFilter]")
-        _chapter_filter_toggle_locator = (
+        _chapter_dropdown_toggle_locator = (
             By.CSS_SELECTOR, ":first-child button[class*=Dropdown]")
-        _color_filters_locator = (
+        _color_dropdown_locator = (
             By.CSS_SELECTOR, "[class*=Toggle] ~ [class*=ColorFilter]")
-        _color_filter_toggle_locator = (
-            By.CSS_SELECTOR, ":nth-child(2) button[class*=Dropdown]")
+        # _color_dropdown_toggle_locator = (
+        #     By.CSS_SELECTOR, ":nth-child(2) button[class*=Dropdown]")
+        _color_dropdown_toggle_locator = (By.CSS_SELECTOR, "button[aria-label*=Color]")
         _print_locator = (
             By.CSS_SELECTOR, "[aria-label=print]")
 
         @property
-        def active_filters(self) -> List[MyHighlights.FilterBar.Filter]:
-            """Access the list of active highlight filters.
+        def active_filter_tags(self) -> List[MyHighlights.FilterBar.Filter]:
+            """Access the list of active highlight filter tags.
 
             :return: the list of filters currently active on the My Highlights
                 and Notes modal
@@ -361,7 +366,7 @@ class MyHighlights(Region):
             """
             return [self.Filter(self, selection)
                     for selection
-                    in self.find_elements(*self._active_filter_locator)]
+                    in self.find_elements(*self._active_filter_tag_locator)]
 
         @property
         def chapter_filters(self) -> MyHighlights.FilterBar.ChapterFilters:
@@ -372,11 +377,11 @@ class MyHighlights(Region):
 
             """
             filter_menu_root = self.find_element(
-                *self._chapter_filters_locator)
+                *self._chapter_dropdown_locator)
             return self.ChapterFilters(self, filter_menu_root)
 
         @property
-        def chapter_filters_open(self) -> bool:
+        def chapter_dropdown_open(self) -> bool:
             """Return True if the filter by chapter pane is open.
 
             :return: ``True`` if the chapter filter pane is found
@@ -397,11 +402,11 @@ class MyHighlights(Region):
 
             """
             filter_menu_root = self.find_element(
-                *self._color_filters_locator)
+                *self._color_dropdown_locator)
             return self.ChapterFilters(self, filter_menu_root)
 
         @property
-        def color_filters_open(self) -> bool:
+        def color_dropdown_open(self) -> bool:
             """Return True if the filter by highlight color pane is open.
 
             :return: ``True`` if the highlight color filter pane is found
@@ -418,15 +423,19 @@ class MyHighlights(Region):
             button = self.find_element(*self._print_locator)
             Utilities.click_option(self.driver, element=button)
 
-        def toggle_chapter_filters_menu(self):
+        def toggle_chapter_dropdown_menu(self):
             """Click the Chapter filter menu toggle."""
-            button = self.find_element(*self._chapter_filter_toggle_locator)
+            button = self.find_element(*self._chapter_dropdown_toggle_locator)
             Utilities.click_option(self.driver, element=button)
 
-        def toggle_color_filters_menu(self):
+        def toggle_color_dropdown_menu(self):
             """Click the Color filter menu toggle."""
-            button = self.find_element(*self._color_filter_toggle_locator)
+            button = self.find_element(*self._color_dropdown_toggle_locator)
             Utilities.click_option(self.driver, element=button)
+
+        # @property
+        # def filter(self) -> MyHighlights.FilterBar.Filter:
+        #     return self.Filter(self)
 
         class ChapterFilters(FilterSelection):
             """Filter displayed highlights by one or more book chapters."""
@@ -434,7 +443,7 @@ class MyHighlights(Region):
             @property
             def chapters(self) \
                     -> List[MyHighlights.FilterBar.ChapterFilters.Chapter]:
-                r"""Access the book chapter filters.
+                """Access the book chapter filters.
 
                 :return: the list of available book chapters and other
                     sections to filter displayed highlights
@@ -496,7 +505,7 @@ class MyHighlights(Region):
 
             _color_locator = (
                 By.CSS_SELECTOR, "span")
-            _remove_filter_button_locator = (
+            _remove_filter_tag_locator = (
                 By.CSS_SELECTOR, "button")
 
             @property
@@ -508,12 +517,12 @@ class MyHighlights(Region):
                 :rtype: str
 
                 """
-                if self.is_a_color_filter:
+                if self.is_a_color_tag:
                     return self.find_element(*self._color_locator).text
                 return ""
 
             @property
-            def is_a_chapter_filter(self) -> bool:
+            def is_a_chapter_tag(self) -> bool:
                 """Return True if the filter is for a book chapter.
 
                 :return: ``True`` if the filter affects a book chapter, not a
@@ -524,7 +533,7 @@ class MyHighlights(Region):
                 return bool(self.find_elements(*self._title_locator))
 
             @property
-            def is_a_color_filter(self) -> bool:
+            def is_a_color_tag(self) -> bool:
                 """Return True if the filter is for a highlight color.
 
                 :return: ``True`` if the filter affects a highlight color, not
@@ -532,16 +541,16 @@ class MyHighlights(Region):
                 :rtype: bool
 
                 """
-                return not self.is_a_chapter_filter
+                return not self.is_a_chapter_tag
 
-            def remove_filter(self) -> MyHighlights:
+            def remove_tag(self) -> MyHighlights:
                 """Click the remove filter 'x' button.
 
                 :return: the My Highlights and Notes modal
                 :rtype: :py:class:`~MyHighlights`
 
                 """
-                button = self.find_element(*self._remove_filter_button_locator)
+                button = self.find_element(*self._remove_filter_tag_locator)
                 Utilities.click_option(self.driver, element=button)
                 return self.page.page
 
@@ -550,6 +559,7 @@ class MyHighlights(Region):
 
         _chapter_locator = (By.XPATH, "//div[@data-testid='chapter-title']")
         _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
+        _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
 
         @property
         def chapters(self) -> List[MyHighlights.Highlights.Chapter]:
@@ -576,6 +586,13 @@ class MyHighlights(Region):
             return [self.Section(self, option)
                     for option
                     in self.find_elements(*self._section_locator)]
+
+        @property
+        def no_results_message(self):
+            try:
+                return self.find_element(*self._no_results_message_locator).get_attribute("textContent")
+            except NoSuchElementException:
+                return ""
 
         class Chapter(ChapterData):
             """A book chapter with highlights.
