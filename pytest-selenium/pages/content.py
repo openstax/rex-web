@@ -48,6 +48,7 @@ class Content(Page):
     _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
     _order_print_copy_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
     _discard_modal_locator = (By.CSS_SELECTOR, "[class*='CardWrapper']")
+    _nudge_locator = (By.CSS_SELECTOR, "[class*='Nudge']")
 
     @property
     def loaded(self) -> bool:
@@ -148,6 +149,14 @@ class Content(Page):
         """
         sleep(0.25)
         return bool(self.find_elements(*self._notification_pop_up_locator))
+
+    @property
+    def nudge(self) -> Content.Nudge:
+        """Access a highlight/SG nudge overlay."""
+        if not self.error_shown():
+            box_root = self.find_element(*self._nudge_locator)
+            return self.Notification(self, box_root)
+        raise ContentError(f"Error modal displayed: {self.error.heading}")
 
     @property
     def discard_modal(self) -> Content.DiscardModal:
@@ -1625,6 +1634,32 @@ class Content(Page):
             return self.page
 
         got_it = click
+
+    class Nudge(Region):
+        """Highlighting/SG nudge overlay."""
+
+        _close_button_locator = (By.CSS_SELECTOR, "button")
+
+        @property
+        def button(self) -> WebElement:
+            """Return the nudge close button.
+
+            :return: the nudge close button
+            :rtype: WebElement
+
+            """
+            return self.find_element(*self._close_button_locator)
+
+        def close(self) -> Page:
+            """Click close button on the nudge overlay.
+
+            :return: the parent page
+            :rtype: Page
+
+            """
+            Utilities.click_option(self.driver, element=self.button)
+            self.wait.until(expected.staleness_of(self.root))
+            return self.page
 
     class DiscardModal(Region):
         """Unsaved notes discard modal."""
