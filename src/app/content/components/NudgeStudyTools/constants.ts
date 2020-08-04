@@ -1,5 +1,7 @@
 export const arrowDesktopHeight = 13;
+export const arrowDesktopWidth = 15;
 export const arrowMobileHeight = 6.2;
+export const arrowMobileWidth = 5.2;
 export const arrowLeftMargin = 1;
 export const arrowTopMargin = 1;
 
