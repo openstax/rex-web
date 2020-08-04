@@ -5,9 +5,8 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { shortPage } from '../../../../test/mocks/archiveLoader';
-import * as reactUtils from '../../../reactUtils';
 import { Store } from '../../../types';
-import { assertDocument } from '../../../utils';
+import { assertDocument, assertWindow } from '../../../utils';
 import { receivePage } from '../../actions';
 import * as studyGuidesSelect from '../../studyGuides/selectors';
 import * as constants from './constants';
@@ -57,11 +56,9 @@ describe('usePositions', () => {
     jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
       .mockReturnValue(true);
 
-    jest.spyOn(studyGuidesSelect, 'studyGuidesEnabled')
-      .mockReturnValue(true);
-
-    jest.spyOn(reactUtils, 'useDebouncedWindowSize')
-      .mockReturnValue([1900]);
+    Object.defineProperty(assertWindow(), 'innerWidth', {
+      value: 1900,
+    });
 
     const component = renderer.create(<Provider store={store}>
       <Component isMobile={false} />
@@ -88,7 +85,7 @@ describe('usePositions', () => {
   it('returns different positions depends on isMobile and windowWidth', () => {
     // Default values
     expect(utils.getPositions(target, false, 1900)).toEqual({
-      arrowLeft: 951,
+      arrowLeft: 952,
       arrowTopOffset: 248,
       closeButtonLeft: 1253,
       closeButtonTopOffset: 348,
@@ -102,7 +99,7 @@ describe('usePositions', () => {
 
     // Change of windowWidth affects only contentWrapperRight
     expect(utils.getPositions(target, false, 1200)).toEqual({
-      arrowLeft: 951,
+      arrowLeft: 952,
       arrowTopOffset: 248,
       closeButtonLeft: 1253,
       closeButtonTopOffset: 348,
@@ -117,7 +114,7 @@ describe('usePositions', () => {
 
     // Values when isMobile prop is passed (since we are not changing windowWidth only some of the values will change)
     expect(utils.getPositions(target, true, 1900)).toEqual({
-      arrowLeft: 951,
+      arrowLeft: 1050,
       arrowTopOffset: 248,
       closeButtonLeft: 1253,
       // Close button adjusted to contentWrapperTopOffset
