@@ -7,7 +7,7 @@ import * as selectAuth from '../../../auth/selectors';
 import { isDefined } from '../../../guards';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
-import { assertWindow } from '../../../utils';
+import { assertWindow, memoizeStateToProps } from '../../../utils';
 import {
   clearFocusedHighlight,
   focusHighlight,
@@ -29,7 +29,7 @@ export interface HighlightManagerServices {
   container: HTMLElement;
 }
 
-export const mapStateToHighlightProp = (state: AppState) => ({
+export const mapStateToHighlightProp = memoizeStateToProps((state: AppState) => ({
   focused: selectHighlights.focused(state),
   hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
@@ -37,7 +37,7 @@ export const mapStateToHighlightProp = (state: AppState) => ({
   loggedOut: selectAuth.loggedOut(state),
   page: select.page(state),
   scrollTarget: selectNavigation.scrollTarget(state),
-});
+}));
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
   focus: flow(focusHighlight, dispatch),
