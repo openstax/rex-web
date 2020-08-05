@@ -45,6 +45,11 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     const {book, page, services} = this.props;
 
     const cleanContent = getCleanContent(book, page, services.archiveLoader);
+
+    if (!cleanContent) {
+      return '';
+    }
+
     const parsedContent = parser.parseFromString(cleanContent, 'text/html');
     contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
 
