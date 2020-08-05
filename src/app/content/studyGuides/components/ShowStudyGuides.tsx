@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import GoToTopButton from '../../../components/GoToTopButton';
 import theme from '../../../theme';
-import { assertNotNull } from '../../../utils';
 import FiltersList from '../../components/popUp/FiltersList';
 import { loadMoreDistanceFromBottom } from '../../constants';
 import { PopupBody } from '../../styles/PopupStyles';
@@ -40,7 +39,13 @@ const ShowStudyGuides = () => {
   const hasMoreResults = useSelector(select.hasMoreResults);
 
   const goToTop = () => {
-    assertNotNull(ref.current, 'Expected ref to be not null').scrollTop = 0;
+    const refElement = ref.current;
+
+    if (!refElement) {
+      return;
+    }
+
+    refElement.scrollTop = 0;
     setShowGoToTop(false);
   };
 
@@ -63,7 +68,11 @@ const ShowStudyGuides = () => {
     <StudyGuidesBody
       ref={ref}
       onScroll={() => {
-        const refElement = assertNotNull(ref.current, 'Scroll event on a non existing DOM node');
+        const refElement = ref.current;
+
+        if (!refElement) {
+          return;
+        }
 
         updateBackToTop(refElement);
         fetchMoreStudyGuides(refElement);
