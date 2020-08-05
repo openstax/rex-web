@@ -3,6 +3,7 @@ from __future__ import annotations
 from time import sleep
 from math import ceil as round_up
 from typing import Tuple
+from datetime import datetime
 
 import pypom
 from selenium.webdriver.remote.webelement import WebElement
@@ -28,6 +29,15 @@ class Page(pypom.Page):
 
     _math_equation_locator = (By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
     _title_locator = (By.TAG_NAME, "title")
+
+    def open(self):
+        super().open()
+        now = datetime.now()
+        current_date = now.strftime("%B %d, %Y")
+        self.driver.add_cookie({"name": "nudge_study_guides_counter", "value": "1"})
+        self.driver.add_cookie({"name": "nudge_study_guides_page_counter", "value": "1"})
+        self.driver.add_cookie({"name": "nudge_study_guides_date", "value": current_date})
+        return self
 
     @property
     def loaded(self) -> bool:
