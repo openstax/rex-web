@@ -57,6 +57,11 @@ export interface PropTypes {
   hasUnsavedHighlight?: boolean;
 }
 
+interface BookBannerState {
+  scrollTransition: boolean;
+  tabbableBanner: 'mini' | 'big';
+}
+
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   width: 100%;
@@ -178,9 +183,10 @@ export const BarWrapper = styled.div<BarWrapperProps>`
 `;
 
 // tslint:disable-next-line:variable-name
-export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}> {
-  public state = {
+export class BookBanner extends Component<PropTypes, BookBannerState> {
+  public state: BookBannerState = {
     scrollTransition: false,
+    tabbableBanner: 'big',
   };
   private miniBanner = React.createRef<HTMLDivElement>();
   private bigBanner = React.createRef<HTMLDivElement>();
@@ -194,6 +200,14 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       });
     }
   };
+
+  public componentDidUpdate(_: PropTypes, prevState: BookBannerState) {
+    if (prevState.scrollTransition !== this.state.scrollTransition) {
+      this.setState((prev) => ({
+        tabbableBanner: prev.tabbableBanner === 'mini' ? 'big' : 'mini',
+      }));
+    }
+  }
 
   public handleLinkClick = async(e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
     if (isClickWithModifierKeys(e) || !this.props.hasUnsavedHighlight) {
@@ -248,6 +262,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
             this.handleLinkClick(e, bookUrl);
           }}
+          {...(this.state.tabbableBanner !== 'big' && {tabIndex: -1})}
         >
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>
@@ -270,6 +285,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
             this.handleLinkClick(e, bookUrl);
           }}
+          {...(this.state.tabbableBanner !== 'mini' && {tabIndex: -1})}
         >
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>

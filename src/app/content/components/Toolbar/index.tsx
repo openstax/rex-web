@@ -13,6 +13,7 @@ import {
   requestSearch,
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
+import { tocOpen } from '../../selectors';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
 import PrintButton from './PrintButton';
@@ -26,6 +27,7 @@ interface Props {
   openSearchResults: () => void;
   openMobileToolbar: () => void;
   mobileToolbarOpen: boolean;
+  tocOpen: boolean | null;
   searchSidebarOpen: boolean;
   hasSearchResults: boolean;
 }
@@ -86,9 +88,12 @@ class Toolbar extends React.Component<Props, State> {
 
     const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
 
+    const hideFromFocus = this.props.tocOpen === true
+      || (this.props.tocOpen === null && !this.props.searchSidebarOpen);
+
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
-        <Styled.SidebarControl hideMobileText={true} />
+        <Styled.SidebarControl hideMobileText={true} {...(hideFromFocus && {tabIndex: -1})} />
         <Styled.SearchPrintWrapper>
           <Styled.SearchInputWrapper
             active={this.props.mobileToolbarOpen}
@@ -160,6 +165,7 @@ export default connect(
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     query: selectSearch.query(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
+    tocOpen: tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
     clearSearch: flow(clearSearch, dispatch),
