@@ -49,10 +49,6 @@ const ShowStudyGuides = () => {
     setShowGoToTop(false);
   };
 
-  const updateBackToTop = (refElement: HTMLElement) => {
-    setShowGoToTop(refElement.scrollTop > 0);
-  };
-
   const fetchMoreStudyGuides = (refElement: HTMLElement) => {
     if (isLoading || !hasMoreResults) {
       return;
@@ -74,7 +70,7 @@ const ShowStudyGuides = () => {
           return;
         }
 
-        updateBackToTop(refElement);
+        setShowGoToTop(refElement.scrollTop > 0);
         fetchMoreStudyGuides(refElement);
       }}
       data-testid='show-studyguides-body'
