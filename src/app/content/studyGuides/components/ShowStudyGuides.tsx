@@ -63,7 +63,7 @@ const ShowStudyGuides = () => {
     <StudyGuidesBody
       ref={ref}
       onScroll={() => {
-        const refElement = assertNotNull(ref.current, 'Scroll event before on non existing dom node');
+        const refElement = assertNotNull(ref.current, 'Scroll event on a non existing DOM node');
 
         updateBackToTop(refElement);
         fetchMoreStudyGuides(refElement);
