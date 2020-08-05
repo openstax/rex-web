@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { renderToDom } from '../../../../test/reactutils';
 import GoToTopButton from '../../../components/GoToTopButton';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
@@ -28,8 +27,10 @@ describe('ShowStudyGuides', () => {
 
   it('doesn\'t request more if not at bottom', () => {
     const container = window.document.createElement('div');
-
     const dispatch = jest.spyOn(store, 'dispatch');
+
+    jest.spyOn(selectors, 'hasMoreResults')
+      .mockReturnValue(true);
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
@@ -54,11 +55,10 @@ describe('ShowStudyGuides', () => {
 
   it('dispatch loadMoreStudyGuides when scrolling down', () => {
     const container = window.document.createElement('div');
+    const dispatch = jest.spyOn(store, 'dispatch');
 
     jest.spyOn(selectors, 'hasMoreResults')
       .mockReturnValue(true);
-
-    const dispatch = jest.spyOn(store, 'dispatch');
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -198,10 +198,7 @@ describe('ShowStudyGuides', () => {
     });
 
     const backToTop = component.root.findByType(GoToTopButton);
-
-    if (!backToTop) {
-      return expect(backToTop).toBeTruthy();
-    }
+    expect(backToTop).toBeTruthy();
 
     ReactDOM.unmountComponentAtNode(container);
 
@@ -209,7 +206,7 @@ describe('ShowStudyGuides', () => {
       backToTop.props.onClick();
     });
 
-    expect(container.scrollTop).toBe(10)
+    expect(container.scrollTop).toBe(10);
     expect(() => component.root.findByType(GoToTopButton)).toThrow();
   });
 });
