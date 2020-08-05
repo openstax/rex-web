@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
@@ -173,40 +172,7 @@ describe('ShowStudyGuides', () => {
       backToTop.props.onClick();
     });
 
-    expect(container.scrollTop).toBe(0)
-    expect(() => component.root.findByType(GoToTopButton)).toThrow();
-  });
-
-  it('does not scroll to top without ref', () => {
-    const container = window.document.createElement('div');
-
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services} >
-        <MessageProvider>
-          <ShowStudyGuides />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, { createNodeMock: () => container });
-
-    Object.defineProperty(container, 'height', { value: 1000 });
-    Object.defineProperty(container, 'scrollTop', { value: 10, writable: true });
-
-    const sgWrapper = component.root.findByType(StudyGuidesBody);
-
-    renderer.act(() => {
-      sgWrapper.props.onScroll();
-    });
-
-    const backToTop = component.root.findByType(GoToTopButton);
-    expect(backToTop).toBeTruthy();
-
-    ReactDOM.unmountComponentAtNode(container);
-
-    renderer.act(() => {
-      backToTop.props.onClick();
-    });
-
-    expect(container.scrollTop).toBe(10);
+    expect(container.scrollTop).toBe(0);
     expect(() => component.root.findByType(GoToTopButton)).toThrow();
   });
 });
