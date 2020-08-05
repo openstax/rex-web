@@ -44,22 +44,30 @@ const ShowStudyGuides = () => {
     setShowGoToTop(false);
   };
 
-  const fetchMoreHighlights = React.useCallback(() => {
-    if (isLoading || !ref.current) { return; }
-    const scrollBottom = ref.current.scrollHeight - ref.current.offsetHeight - ref.current.scrollTop;
-    if (scrollBottom <= loadMoreDistanceFromBottom && hasMoreResults) {
-      dispatch(loadMoreStudyGuides());
-    }
-  }, [ref, dispatch, isLoading, hasMoreResults]);
+  React.useEffect(() => {
+    const refElement = ref.current;
+    if (!refElement) { return; }
+
+    const scrollHandler = () => setShowGoToTop(refElement.scrollTop > 0);
+
+    refElement.addEventListener('scroll', scrollHandler);
+    return () => refElement.removeEventListener('scroll', scrollHandler);
+  }, [setShowGoToTop]);
 
   React.useEffect(() => {
     const refElement = ref.current;
-    if (refElement) {
-      setShowGoToTop(refElement.scrollTop > 0);
-      refElement.addEventListener('scroll', fetchMoreHighlights);
-    }
-    return () => refElement ? refElement.removeEventListener('scroll', fetchMoreHighlights) : undefined;
-  }, [fetchMoreHighlights]);
+    if (!refElement || isLoading) { return; }
+
+    const scrollHandler = () => {
+      const scrollBottom = refElement.scrollHeight - refElement.offsetHeight - refElement.scrollTop;
+      if (scrollBottom <= loadMoreDistanceFromBottom && hasMoreResults) {
+        dispatch(loadMoreStudyGuides());
+      }
+    };
+
+    refElement.addEventListener('scroll', scrollHandler);
+    return () => refElement.removeEventListener('scroll', scrollHandler);
+  }, [isLoading, hasMoreResults, dispatch]);
 
   return (
     <StudyGuidesBody
