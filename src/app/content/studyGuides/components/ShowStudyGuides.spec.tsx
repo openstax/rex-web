@@ -12,7 +12,7 @@ import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { loadMoreStudyGuides } from '../actions';
 import * as selectors from '../selectors';
-import ShowStudyGuides from './ShowStudyGuides';
+import ShowStudyGuides, { StudyGuidesBody } from './ShowStudyGuides';
 
 describe('ShowStudyGuides', () => {
   let store: Store;
@@ -158,7 +158,6 @@ describe('ShowStudyGuides', () => {
   });
 
   it('shows back to top button on scroll and works on click', async() => {
-    let backToTop: renderer.ReactTestInstance | null;
     const container = window.document.createElement('div');
 
     const component = renderer.create(<Provider store={store}>
@@ -172,20 +171,17 @@ describe('ShowStudyGuides', () => {
     Object.defineProperty(container, 'height', { value: 1000 });
     Object.defineProperty(container, 'scrollTop', { value: 10, writable: true });
 
-    const scrollEvent = window.document.createEvent('UIEvents');
-    scrollEvent.initEvent('scroll', true, false);
+    const sgWrapper = component.root.findByType(StudyGuidesBody);
     renderer.act(() => {
-      container.dispatchEvent(scrollEvent);
+      sgWrapper.props.onScroll();
     });
 
-    backToTop = component.root.findByType(GoToTopButton);
-    if (!backToTop) {
-      return expect(backToTop).toBeTruthy();
-    }
+    const backToTop = component.root.findByType(GoToTopButton);
+    // this assertion isn't really necessary but makes the test intentions easier to read
+    expect(backToTop).toBeTruthy();
 
     renderer.act(() => {
-      backToTop!.props.onClick();
-      container.dispatchEvent(scrollEvent);
+      backToTop.props.onClick();
     });
 
     expect(() => component.root.findByType(GoToTopButton)).toThrow();

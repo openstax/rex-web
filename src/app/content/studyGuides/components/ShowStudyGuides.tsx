@@ -44,34 +44,32 @@ const ShowStudyGuides = () => {
     setShowGoToTop(false);
   };
 
-  React.useEffect(() => {
-    const refElement = ref.current;
-    if (!refElement) { return; }
+  const updateBackToTop = (refElement: HTMLElement) => {
+    setShowGoToTop(refElement.scrollTop > 0);
+  };
 
-    const scrollHandler = () => setShowGoToTop(refElement.scrollTop > 0);
-
-    refElement.addEventListener('scroll', scrollHandler);
-    return () => refElement.removeEventListener('scroll', scrollHandler);
-  }, [setShowGoToTop]);
-
-  React.useEffect(() => {
-    const refElement = ref.current;
-    if (!refElement || isLoading) { return; }
-
-    const scrollHandler = () => {
-      const scrollBottom = refElement.scrollHeight - refElement.offsetHeight - refElement.scrollTop;
-      if (scrollBottom <= loadMoreDistanceFromBottom && hasMoreResults) {
-        dispatch(loadMoreStudyGuides());
-      }
-    };
-
-    refElement.addEventListener('scroll', scrollHandler);
-    return () => refElement.removeEventListener('scroll', scrollHandler);
-  }, [isLoading, hasMoreResults, dispatch]);
+  const fetchMoreStudyGuides = (refElement: HTMLElement) => {
+    const scrollBottom = refElement.scrollHeight - refElement.offsetHeight - refElement.scrollTop;
+    if (scrollBottom <= loadMoreDistanceFromBottom && hasMoreResults) {
+      dispatch(loadMoreStudyGuides());
+    }
+  };
 
   return (
     <StudyGuidesBody
       ref={ref}
+      onScroll={() => {
+        const refElement = ref.current;
+        if (!refElement) {
+          return;
+        }
+
+        updateBackToTop(refElement);
+
+        if (!isLoading) {
+          fetchMoreStudyGuides(refElement);
+        }
+      }}
       data-testid='show-studyguides-body'
       data-analytics-region='SG popup'
     >
