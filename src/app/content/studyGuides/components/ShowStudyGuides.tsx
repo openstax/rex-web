@@ -49,8 +49,12 @@ const ShowStudyGuides = () => {
   };
 
   const fetchMoreStudyGuides = (refElement: HTMLElement) => {
+    if (isLoading || !hasMoreResults) {
+      return;
+    }
+
     const scrollBottom = refElement.scrollHeight - refElement.offsetHeight - refElement.scrollTop;
-    if (scrollBottom <= loadMoreDistanceFromBottom && hasMoreResults) {
+    if (scrollBottom <= loadMoreDistanceFromBottom) {
       dispatch(loadMoreStudyGuides());
     }
   };
@@ -65,10 +69,7 @@ const ShowStudyGuides = () => {
         }
 
         updateBackToTop(refElement);
-
-        if (!isLoading) {
-          fetchMoreStudyGuides(refElement);
-        }
+        fetchMoreStudyGuides(refElement);
       }}
       data-testid='show-studyguides-body'
       data-analytics-region='SG popup'
