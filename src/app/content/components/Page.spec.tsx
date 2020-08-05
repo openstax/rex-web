@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
+import renderer, { act } from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
@@ -34,6 +34,7 @@ import * as highlightUtils from './Page/highlightUtils';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
+jest.mock('./utils/attachHighlight', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
@@ -904,9 +905,11 @@ describe('Page', () => {
 
     highlightResults.mockReturnValue([]);
 
-    store.dispatch(requestSearch('asdf'));
-    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
-    store.dispatch(selectSearchResult(searchResultToSelect));
+    act(() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+      store.dispatch(selectSearchResult(searchResultToSelect));
+    });
 
     // page lifecycle hooks
     await Promise.resolve();
@@ -925,14 +928,21 @@ describe('Page', () => {
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
 
-    const highlightData = jest.spyOn(highlightUtils, 'highlightData').mockReturnValueOnce(() => undefined);
+    const highlightData = jest.spyOn(highlightUtils, 'highlightData').mockReturnValueOnce(() => ({} as any));
 
     // normally, search result selection handler would noop if the
     // search result is the same. This makes it think that a new highlight was
     // added and will force reselection
 
+    const helpers = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
+    const hook = (require('../highlights/hooks/createHighlight').hookBody)(helpers);
+    await hook(createHighlight({locationStrategies: [{type: 'TextPositionSelector'}]} as any, {} as any));
+
     renderer.act(() => {
-      store.dispatch(createHighlight({} as any, {} as any));
       store.dispatch(selectSearchResult(searchResultToSelect));
     });
 
@@ -941,7 +951,9 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
+    root.querySelector('[data-testid=banner-body]');
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
+
     highlightData.mockRestore();
     highlightResults.mockRestore();
   });
