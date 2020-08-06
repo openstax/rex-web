@@ -197,17 +197,10 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
       this.setState({
         scrollTransition: miniRect.top === 0 &&
           this.bigBanner.current.offsetTop + this.bigBanner.current.clientHeight > window.scrollY,
+        tabbableBanner: miniRect.top === 0 ? 'mini' : 'big',
       });
     }
   };
-
-  public componentDidUpdate(_: PropTypes, prevState: BookBannerState) {
-    if (prevState.scrollTransition !== this.state.scrollTransition) {
-      this.setState((prev) => ({
-        tabbableBanner: prev.tabbableBanner === 'mini' ? 'big' : 'mini'
-      }));
-    }
-  }
 
   public handleLinkClick = async(e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
     if (isClickWithModifierKeys(e) || !this.props.hasUnsavedHighlight) {
