@@ -58,7 +58,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     /* this will be removed when all the books are in good order */
     /* istanbul ignore else */
     if (APP_ENV !== 'production') {
-      validateDOMContent(parsedContent, parsedContent.body, this.props);
+      validateDOMContent(parsedContent, parsedContent.body);
     }
 
     return parsedContent.body.innerHTML;

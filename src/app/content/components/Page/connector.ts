@@ -20,7 +20,6 @@ export interface PagePropTypes {
   mobileToolbarOpen: boolean;
   contentLinks: ContentLinkProp;
   locationState: ReturnType<typeof selectNavigation.locationState>;
-  navigationQuery: ReturnType<typeof selectNavigation.query>;
   query: string | null;
   scrollTarget: ReturnType<typeof mapStateToScrollTargetProp>;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
@@ -35,7 +34,6 @@ export default connect(
     currentPath: selectNavigation.pathname(state),
     highlights: mapStateToHighlightProp(state),
     mobileToolbarOpen: mobileToolbarOpen(state),
-    navigationQuery: selectNavigation.query(state),
     page: select.page(state),
     query: query(state),
     scrollTarget: mapStateToScrollTargetProp(state),

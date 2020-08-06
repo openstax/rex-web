@@ -1,11 +1,11 @@
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
-import { PagePropTypes } from './connector';
+import config from '../../../../config';
 
-export const validateDOMContent = (_document: Document, rootEl: HTMLElement, pageProps: PagePropTypes) => {
-  validateLinks(rootEl, pageProps.navigationQuery);
+export const validateDOMContent = (_document: Document, rootEl: HTMLElement) => {
+  validateLinks(rootEl);
 };
 
-const validateLinks = (rootEl: HTMLElement, query: PagePropTypes['navigationQuery']) => {
+const validateLinks = (rootEl: HTMLElement) => {
 
   /*
    * all links in the content should be relative links to other pages
@@ -20,10 +20,9 @@ const validateLinks = (rootEl: HTMLElement, query: PagePropTypes['navigationQuer
     return;
   }
 
-  const throwOnInvalidLink = 'validateLinks' in query;
   const message = ['found invalid links in content: ', ...urls].join('\n');
 
-  if (throwOnInvalidLink) {
+  if (config.UNLIMITED_CONTENT) {
     throw new Error(message);
   } else {
     // tslint:disable:no-console
