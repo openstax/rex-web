@@ -26,8 +26,13 @@ for book_id in $book_ids; do
   git checkout src/config.books.js
   (git checkout "$branch" && git merge origin/master --no-edit -X theirs) || git checkout -b "$branch"
 
-  # extra [0] in here because at this time there is a dupe book in the config
-  desired_version=$(jq -r --arg uuid "$book_id" '[.[]|select(.uuid==$uuid)][0].version' <<< "$approved_books")
+  # there may be multiple approved versions for supporting different products, historical support, etc 
+  approved_versions=$(jq -r --arg uuid "e42bd376-624b-4c0f-972f-e0c57998e765" '[.[]|select(.uuid==$uuid)][].version' <<< "$approved_books")
+
+  # in general we want the most recent one, in the future we'll have to filter this by which ones
+  # are available for the recipe code version REX supports
+  desired_version=$(sort --version-sort -r <<< "$approved_versions" | head -n 1)
+
   current_version=$(jq -r --arg uuid "$book_id" '.[$uuid].defaultVersion' < src/config.books.json)
 
   # approved book format has a "1." on the front of every version
