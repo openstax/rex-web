@@ -28,13 +28,16 @@ describe('validateDOMContent', () => {
       }));
     });
 
-    it('throws on invalid link', () => {
+    it('warns on invalid link', () => {
       container.innerHTML = `
         <a href="/m123">asdf</a>
       `;
 
       const validateDOMContent = require('./validateDOMContent').validateDOMContent;
-      expect(() => validateDOMContent(document, container)).toThrow();
+      const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => null);
+
+      expect(() => validateDOMContent(document, container)).not.toThrow();
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/^found invalid links/));
     });
   });
 
@@ -46,16 +49,13 @@ describe('validateDOMContent', () => {
       }));
     });
 
-    it('warns on invalid link', () => {
+    it('throws on invalid link', () => {
       container.innerHTML = `
         <a href="/m123">asdf</a>
       `;
 
       const validateDOMContent = require('./validateDOMContent').validateDOMContent;
-      const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => null);
-
-      expect(() => validateDOMContent(document, container)).not.toThrow();
-      expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/^found invalid links/));
+      expect(() => validateDOMContent(document, container)).toThrow();
     });
   });
 });

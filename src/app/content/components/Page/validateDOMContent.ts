@@ -23,9 +23,9 @@ const validateLinks = (rootEl: HTMLElement) => {
   const message = ['found invalid links in content: ', ...urls].join('\n');
 
   if (config.UNLIMITED_CONTENT) {
-    throw new Error(message);
-  } else {
     // tslint:disable:no-console
     console.warn(message);
+  } else {
+    throw new Error(message);
   }
 };
