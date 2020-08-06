@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 from time import sleep
+from math import ceil as round_up
 from typing import Tuple
+from datetime import datetime
+
 
 import pypom
 from selenium.webdriver.remote.webelement import WebElement
@@ -18,6 +21,8 @@ from selenium.webdriver.support import expected_conditions as expected
 
 from tests.conftest import DESKTOP, MOBILE
 
+BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
+
 
 class Page(pypom.Page):
     def __init__(self, driver, base_url=None, timeout=30, **url_kwargs):
@@ -25,6 +30,15 @@ class Page(pypom.Page):
 
     _math_equation_locator = (By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
     _title_locator = (By.TAG_NAME, "title")
+
+    def open(self):
+        super().open()
+        now = datetime.now()
+        current_date = now.strftime("%B %d, %Y")
+        self.driver.add_cookie({"name": "nudge_study_guides_counter", "value": "1"})
+        self.driver.add_cookie({"name": "nudge_study_guides_page_counter", "value": "1"})
+        self.driver.add_cookie({"name": "nudge_study_guides_date", "value": current_date})
+        return self
 
     @property
     def loaded(self) -> bool:
@@ -204,3 +218,30 @@ class Page(pypom.Page):
         """Get the username of a logged in user."""
 
         return element.get_attribute("textContent")
+
+    def element_in_viewport(self, target: WebElement):
+        """verifies if target element is within viewport."""
+
+        boundry = self.driver.execute_script(BOUNDING_RECTANGLE, target)
+
+        target_left_bound = round_up(boundry.get("left"))
+        target_right_bound = round_up(boundry.get("right"))
+        target_height = round_up(boundry.get("height"))
+        target_top_bound = target.location.get("y")
+        target_lower_bound = target_top_bound + target_height
+
+        win_upper_bound = self.driver.execute_script("return window.pageYOffset")
+        win_left_bound = self.driver.execute_script("return window.pageXOffset")
+        win_width = self.driver.execute_script("return document.documentElement.clientWidth")
+        win_height = self.driver.execute_script("return document.documentElement.clientHeight")
+        win_right_bound = win_left_bound + win_width
+        win_lower_bound = win_upper_bound + win_height
+
+        return all(
+            (
+                win_left_bound <= target_left_bound,
+                win_right_bound >= target_right_bound,
+                win_upper_bound <= target_top_bound,
+                win_lower_bound >= target_lower_bound,
+            )
+        )

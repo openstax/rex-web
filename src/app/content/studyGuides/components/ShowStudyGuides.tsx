@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import GoToTopButton from '../../../components/GoToTopButton';
 import theme from '../../../theme';
-import { assertNotNull } from '../../../utils';
 import FiltersList from '../../components/popUp/FiltersList';
 import { loadMoreDistanceFromBottom } from '../../constants';
 import { PopupBody } from '../../styles/PopupStyles';
@@ -12,6 +11,7 @@ import { loadMoreStudyGuides } from '../actions';
 import * as select from '../selectors';
 import Filters from './Filters';
 import StudyGuides from './StudyGuides';
+import StudyGuidesCTA from './StudyGuidesCTA';
 
 // tslint:disable-next-line:variable-name
 export const StudyGuidesBody = styled(PopupBody)`
@@ -39,33 +39,44 @@ const ShowStudyGuides = () => {
   const hasMoreResults = useSelector(select.hasMoreResults);
 
   const goToTop = () => {
-    assertNotNull(ref.current, 'Expected ref to be not null').scrollTop = 0;
+    const refElement = ref.current;
+
+    if (!refElement) {
+      return;
+    }
+
+    refElement.scrollTop = 0;
     setShowGoToTop(false);
   };
 
-  const fetchMoreHighlights = React.useCallback(() => {
-    if (isLoading || !ref.current) { return; }
-    const scrollBottom = ref.current.scrollHeight - ref.current.offsetHeight - ref.current.scrollTop;
-    if (scrollBottom <= loadMoreDistanceFromBottom && hasMoreResults) {
+  const fetchMoreStudyGuides = (refElement: HTMLElement) => {
+    if (isLoading || !hasMoreResults) {
+      return;
+    }
+
+    const scrollBottom = refElement.scrollHeight - refElement.offsetHeight - refElement.scrollTop;
+    if (scrollBottom <= loadMoreDistanceFromBottom) {
       dispatch(loadMoreStudyGuides());
     }
-  }, [ref, dispatch, isLoading, hasMoreResults]);
-
-  React.useEffect(() => {
-    const refElement = ref.current;
-    if (refElement) {
-      setShowGoToTop(refElement.scrollTop > 0);
-      refElement.addEventListener('scroll', fetchMoreHighlights);
-    }
-    return () => refElement ? refElement.removeEventListener('scroll', fetchMoreHighlights) : undefined;
-  }, [fetchMoreHighlights]);
+  };
 
   return (
     <StudyGuidesBody
       ref={ref}
+      onScroll={() => {
+        const refElement = ref.current;
+
+        if (!refElement) {
+          return;
+        }
+
+        setShowGoToTop(refElement.scrollTop > 0);
+        fetchMoreStudyGuides(refElement);
+      }}
       data-testid='show-studyguides-body'
       data-analytics-region='SG popup'
     >
+      <StudyGuidesCTA />
       <Filters />
       <StudyGuides />
       {showGoToTop && <GoToTopButton
