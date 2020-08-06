@@ -204,7 +204,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
   public componentDidUpdate(_: PropTypes, prevState: BookBannerState) {
     if (prevState.scrollTransition !== this.state.scrollTransition) {
       this.setState((prev) => ({
-        tabbableBanner: prev.tabbableBanner === 'mini' ? 'big' : 'mini',
+        tabbableBanner: prev.tabbableBanner === 'mini' ? 'big' : 'mini'
       }));
     }
   }
