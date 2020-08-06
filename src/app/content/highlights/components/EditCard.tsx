@@ -4,7 +4,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as selectAuth from '../../../auth/selectors';
 import Button, { ButtonGroup } from '../../../components/Button';
@@ -233,8 +233,4 @@ export default styled(EditCard)`
   ${ButtonGroup} {
     margin-top: ${cardPadding}rem;
   }
-
-  ${theme.breakpoints.mobile(css`
-    visibility: hidden;
-  `)}
 `;

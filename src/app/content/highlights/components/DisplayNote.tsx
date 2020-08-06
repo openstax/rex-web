@@ -29,9 +29,6 @@ const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusab
   position: absolute;
   top: 0;
   right: 0;
-  ${theme.breakpoints.mobile(css`
-    display: block;
- `)}
 `;
 
 export interface DisplayNoteProps {
@@ -150,16 +147,4 @@ export default styled(DisplayNote)`
       color: ${theme.color.primary.gray.base};
     }
   }
-
-  ${theme.breakpoints.mobile(css`
-    width: unset;
-
-    > label {
-      display: block;
-    }
-
-    ${Dropdown} {
-      display: none;
-    }
- `)}
 `;
