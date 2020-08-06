@@ -54,7 +54,6 @@ const NudgeStudyTools = () => {
 
   React.useEffect(() => {
     const element = wrapperRef.current;
-
     if (positions && element) {
      element.focus();
     }
