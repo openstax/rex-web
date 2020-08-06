@@ -5,6 +5,8 @@ import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions';
+import { openMyHighlights } from '../content/highlights/actions';
+import { openStudyGuides } from '../content/studyGuides/actions';
 import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
@@ -98,6 +100,8 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(actions.openNudgeStudyTools): {
       return {...state, showNudgeStudyTools: true };
     }
+    case getType(openMyHighlights):
+    case getType(openStudyGuides):
     case getType(actions.closeNudgeStudyTools): {
       return {...state, showNudgeStudyTools: false };
     }
