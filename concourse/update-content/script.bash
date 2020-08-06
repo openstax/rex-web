@@ -26,7 +26,7 @@ for book_id in $book_ids; do
   git checkout src/config.books.js
   (git checkout "$branch" && git merge origin/master --no-edit -X theirs) || git checkout -b "$branch"
 
-  # there may be multiple approved versions for supporting different products, historical support, etc 
+  # there may be multiple approved versions for supporting different products, historical support, etc
   approved_versions=$(jq -r --arg uuid "e42bd376-624b-4c0f-972f-e0c57998e765" '[.[]|select(.uuid==$uuid)][].version' <<< "$approved_books")
 
   # in general we want the most recent one, in the future we'll have to filter this by which ones
