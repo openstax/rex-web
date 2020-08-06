@@ -51,6 +51,7 @@ Array [
         data-testid="details-link-collapsed"
         href="/details/books/book-slug-1"
         onClick={[Function]}
+        tabIndex={-1}
       >
         <svg
           aria-hidden="true"
@@ -129,6 +130,7 @@ Array [
         data-testid="details-link-collapsed"
         href="/errors/404"
         onClick={[Function]}
+        tabIndex={-1}
       >
         <svg
           aria-hidden="true"

@@ -81,6 +81,7 @@ Array [
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
@@ -117,6 +118,7 @@ Array [
           aria-label="Click to open the Table of Contents"
           className="styled__SidebarControl-sc-1119auh-17 DBTIW SidebarControl__ToCButton-sdjc7-2 tGPhq"
           onClick={[Function]}
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
@@ -1358,6 +1360,7 @@ Array [
           aria-label="Click to open the Table of Contents"
           className="styled__SidebarControl-sc-1119auh-17 DBTIW SidebarControl__ToCButton-sdjc7-2 tGPhq"
           onClick={[Function]}
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
