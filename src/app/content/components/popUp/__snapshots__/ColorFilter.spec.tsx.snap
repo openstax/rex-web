@@ -122,7 +122,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     className="Checkbox-f0dje9-2 gEkNQh"
   >
     <input
-      checked={true}
+      checked={false}
       disabled={true}
       onChange={[Function]}
       type="checkbox"
@@ -169,7 +169,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     className="Checkbox-f0dje9-2 gEkNQh"
   >
     <input
-      checked={true}
+      checked={false}
       disabled={true}
       onChange={[Function]}
       type="checkbox"

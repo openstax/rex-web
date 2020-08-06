@@ -86,8 +86,8 @@ const color = {
   white: '#fff',
 };
 
-const mobileSmallBreak = 30;
-const mobileBreak = 75;
+const mobileSmallBreak = 30; // 480px
+const mobileBreak = 75; // 1200 px
 const mobileSmallQuery = `(max-width: ${mobileSmallBreak}em)`;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
 

@@ -110,11 +110,6 @@ export default styled(ChapterFilter)`
   outline: none;
   overflow: auto;
   z-index: 1;
-  ${theme.breakpoints.mobile(css`
-    &&& {
-      max-width: calc(100vw - ${filters.valueToSubstractFromVW}rem);
-    }
-  `)}
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;

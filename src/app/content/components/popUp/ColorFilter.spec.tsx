@@ -41,7 +41,15 @@ describe('ColorFilter', () => {
     ]);
 
     const component = renderer.create(<MessageProvider>
-      <ColorFilter {...props} colorFiltersWithContent={colorFiltersWithContent} />
+      <ColorFilter
+        {...props}
+        selectedColorFilters={new Set([
+          HighlightColorEnum.Green,
+          HighlightColorEnum.Pink,
+          HighlightColorEnum.Yellow,
+        ])}
+        colorFiltersWithContent={colorFiltersWithContent}
+      />
     </MessageProvider>);
 
     const tree = component.toJSON();

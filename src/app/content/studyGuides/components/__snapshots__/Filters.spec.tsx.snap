@@ -2,309 +2,313 @@
 
 exports[`Filters matches snapshot 1`] = `
 <div
-  className="Filters-sc-1fn81fx-2 cJUIZf"
+  className="Filters-sc-1fn81fx-3 fbrNe"
 >
   <div
-    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+    className="Filters__FiltersTopBar-sc-1fn81fx-2 gkFqYl"
   >
-    <button
-      aria-label="Filter study guides by Chapter"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 dpyUXV Button__PlainButton-ayg7nk-2 chgswm"
-      onClick={[Function]}
-    >
-      <div
-        tabIndex={-1}
-      >
-        Chapter
-        <svg
-          aria-hidden="true"
-          className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
-          fill="currentColor"
-          focusable="false"
-          viewBox="0 0 320 512"
-        >
-          <path
-            d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-    </button>
     <div
-      disabled={false}
-      locationFilters={Map {}}
-      locationFiltersWithContent={Set {}}
-      mock-chapter-filter={true}
-      selectedLocationFilters={Set {}}
-      setFilters={[Function]}
-    />
-  </div>
-  <div
-    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
-  >
-    <button
-      aria-label="Filter study guides by Color"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 dpyUXV Button__PlainButton-ayg7nk-2 chgswm"
-      onClick={[Function]}
+      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
     >
+      <button
+        aria-label="Filter study guides by Chapter"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 dpyUXV Button__PlainButton-ayg7nk-2 chgswm"
+        onClick={[Function]}
+      >
+        <div
+          tabIndex={-1}
+        >
+          Chapter
+          <svg
+            aria-hidden="true"
+            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 320 512"
+          >
+            <path
+              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </button>
       <div
-        tabIndex={-1}
-      >
-        Color
-        <svg
-          aria-hidden="true"
-          className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
-          fill="currentColor"
-          focusable="false"
-          viewBox="0 0 320 512"
-        >
-          <path
-            d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-    </button>
-    <div
-      className="ColorFilter-sc-1ic50x3-1 Filters__StyledColorFilter-hr7yu8-0 bAVGXw"
-      tabIndex={-1}
-    >
-      <div
-        className="AllOrNone-sc-7m1y94-0 divvKQ"
-      >
-        <button
-          className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
-          disabled={false}
-          onClick={[Function]}
-        >
-          All
-        </button>
-        <span>
-          |
-        </span>
-        <button
-          className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
-          disabled={false}
-          onClick={[Function]}
-        >
-          None
-        </button>
-      </div>
-      <label
-        className="Checkbox-f0dje9-2 ksczzL"
-      >
-        <input
-          checked={true}
-          disabled={false}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
-        >
-          <svg
-            aria-hidden="true"
-            className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
-        <div
-          className="ColorIndicator-sc-1w5zl7g-1 kBHzhz"
-        >
-          <svg
-            aria-hidden="true"
-            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-        <span
-          className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
-        >
-          Key Terms
-        </span>
-      </label>
-      <label
-        className="Checkbox-f0dje9-2 ksczzL"
-      >
-        <input
-          checked={true}
-          disabled={false}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
-        >
-          <svg
-            aria-hidden="true"
-            className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
-        <div
-          className="ColorIndicator-sc-1w5zl7g-1 dSRHOr"
-        >
-          <svg
-            aria-hidden="true"
-            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-        <span
-          className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
-        >
-          Connections & Relationships
-        </span>
-      </label>
-      <label
-        className="Checkbox-f0dje9-2 ksczzL"
-      >
-        <input
-          checked={true}
-          disabled={false}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
-        >
-          <svg
-            aria-hidden="true"
-            className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
-        <div
-          className="ColorIndicator-sc-1w5zl7g-1 eibKCM"
-        >
-          <svg
-            aria-hidden="true"
-            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-        <span
-          className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
-        >
-          Important Concepts
-        </span>
-      </label>
-      <label
-        className="Checkbox-f0dje9-2 ksczzL"
-      >
-        <input
-          checked={true}
-          disabled={false}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
-        >
-          <svg
-            aria-hidden="true"
-            className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
-        <div
-          className="ColorIndicator-sc-1w5zl7g-1 ekjDWZ"
-        >
-          <svg
-            aria-hidden="true"
-            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-        <span
-          className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
-        >
-          Enrichment
-        </span>
-      </label>
-    </div>
-  </div>
-  <button
-    aria-label="print"
-    className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 jBnoSm styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
-    data-testid="print"
-    disabled={false}
-    onClick={[Function]}
-  >
-    <svg
-      aria-hidden="true"
-      className="styled__PrintIcon-sc-1119auh-3 iKTgDK StyledIconBase-sc-bdy9j4 cCvWXa"
-      fill="currentColor"
-      focusable="false"
-      viewBox="0 0 512 512"
-    >
-      <path
-        d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
-        fill="currentColor"
+        disabled={false}
+        locationFilters={Map {}}
+        locationFiltersWithContent={Set {}}
+        mock-chapter-filter={true}
+        selectedLocationFilters={Set {}}
+        setFilters={[Function]}
       />
-    </svg>
-    <span
-      className="styled__PrintOptions-sc-1119auh-2 bRCGrc"
+    </div>
+    <div
+      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
     >
-      Print
-    </span>
-  </button>
+      <button
+        aria-label="Filter study guides by Color"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 dpyUXV Button__PlainButton-ayg7nk-2 chgswm"
+        onClick={[Function]}
+      >
+        <div
+          tabIndex={-1}
+        >
+          Color
+          <svg
+            aria-hidden="true"
+            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 320 512"
+          >
+            <path
+              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </button>
+      <div
+        className="ColorFilter-sc-1ic50x3-1 sc-bdVaJa bjUBYu"
+        tabIndex={-1}
+      >
+        <div
+          className="AllOrNone-sc-7m1y94-0 divvKQ"
+        >
+          <button
+            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            disabled={false}
+            onClick={[Function]}
+          >
+            All
+          </button>
+          <span>
+            |
+          </span>
+          <button
+            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            disabled={false}
+            onClick={[Function]}
+          >
+            None
+          </button>
+        </div>
+        <label
+          className="Checkbox-f0dje9-2 ksczzL"
+        >
+          <input
+            checked={true}
+            disabled={false}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+          >
+            <svg
+              aria-hidden="true"
+              className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
+              fill="currentColor"
+              focusable="false"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <div
+            className="ColorIndicator-sc-1w5zl7g-1 kBHzhz"
+          >
+            <svg
+              aria-hidden="true"
+              className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+              fill="currentColor"
+              focusable="false"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <span
+            className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+          >
+            Key Terms
+          </span>
+        </label>
+        <label
+          className="Checkbox-f0dje9-2 ksczzL"
+        >
+          <input
+            checked={true}
+            disabled={false}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+          >
+            <svg
+              aria-hidden="true"
+              className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
+              fill="currentColor"
+              focusable="false"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <div
+            className="ColorIndicator-sc-1w5zl7g-1 dSRHOr"
+          >
+            <svg
+              aria-hidden="true"
+              className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+              fill="currentColor"
+              focusable="false"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <span
+            className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+          >
+            Connections & Relationships
+          </span>
+        </label>
+        <label
+          className="Checkbox-f0dje9-2 ksczzL"
+        >
+          <input
+            checked={true}
+            disabled={false}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+          >
+            <svg
+              aria-hidden="true"
+              className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
+              fill="currentColor"
+              focusable="false"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <div
+            className="ColorIndicator-sc-1w5zl7g-1 eibKCM"
+          >
+            <svg
+              aria-hidden="true"
+              className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+              fill="currentColor"
+              focusable="false"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <span
+            className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+          >
+            Important Concepts
+          </span>
+        </label>
+        <label
+          className="Checkbox-f0dje9-2 ksczzL"
+        >
+          <input
+            checked={true}
+            disabled={false}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+          >
+            <svg
+              aria-hidden="true"
+              className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
+              fill="currentColor"
+              focusable="false"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <div
+            className="ColorIndicator-sc-1w5zl7g-1 ekjDWZ"
+          >
+            <svg
+              aria-hidden="true"
+              className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+              fill="currentColor"
+              focusable="false"
+              viewBox="0 0 512 512"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <span
+            className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+          >
+            Enrichment
+          </span>
+        </label>
+      </div>
+    </div>
+    <button
+      aria-label="print"
+      className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 bFAPDz styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+      data-testid="print"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <svg
+        aria-hidden="true"
+        className="styled__PrintIcon-sc-1119auh-3 iKTgDK StyledIconBase-sc-bdy9j4 cCvWXa"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+          fill="currentColor"
+        />
+      </svg>
+      <span
+        className="styled__PrintOptions-sc-1119auh-2 bRCGrc"
+      >
+        Print
+      </span>
+    </button>
+  </div>
   <ul
     className="FiltersList-sc-1sdnk9e-3 fQoHdD"
   >

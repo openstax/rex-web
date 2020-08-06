@@ -2,16 +2,14 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components';
 import { loggedOut } from '../../../auth/selectors';
-import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import ColorFilter from '../../components/popUp/ColorFilter';
-import Filters, { FilterDropdown } from '../../components/popUp/Filters';
+import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
 import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
-import { mobileMarginSides } from '../../styles/PopupConstants';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
@@ -31,11 +29,6 @@ const ConnectedChapterFilter = connect(
 // tslint:disable-next-line: variable-name
 const StyledColorFilter = styled(ColorFilter)`
   min-width: 29rem;
-  ${theme.breakpoints.mobileSmall(css`
-    /* 12.1 is a width of Chapter button */
-    left: calc(-12.1rem) !important;
-    width: calc(100vw - ${mobileMarginSides * 2}rem);
-  `)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -89,23 +82,25 @@ export default () => {
   const userLoggedOut = useSelector(loggedOut);
 
   return <Filters>
-    <FilterDropdown
-      label='i18n:highlighting:filters:chapters'
-      ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
-    >
-      <ConnectedChapterFilter disabled={userLoggedOut}/>
-    </FilterDropdown>
-    <FilterDropdown
-      label='i18n:highlighting:filters:colors'
-      ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
-    >
-      <ConnectedColorFilter
-        disabled={userLoggedOut}
-        styles={highlightStyles}
-        labelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
-      />
-    </FilterDropdown>
-    <ConnectedPrintButton studyGuidesButton />
+    <FiltersTopBar>
+      <FilterDropdown
+        label='i18n:highlighting:filters:chapters'
+        ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+      >
+        <ConnectedChapterFilter disabled={userLoggedOut}/>
+      </FilterDropdown>
+      <FilterDropdown
+        label='i18n:highlighting:filters:colors'
+        ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+      >
+        <ConnectedColorFilter
+          disabled={userLoggedOut}
+          styles={highlightStyles}
+          labelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
+        />
+      </FilterDropdown>
+      <ConnectedPrintButton studyGuidesButton />
+    </FiltersTopBar>
     {!userLoggedOut && <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
       colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
