@@ -100,7 +100,7 @@ describe('BookBanner', () => {
       expect(linkCollapsed.props.tabIndex).toBe(-1);
     });
 
-    it('sets tab indexes on banner links according to scroll' , async() => {
+    it('sets tab indexes on banner links according to scroll', () => {
       const expandedBannerNode = assertDocument().createElement('div');
       const collapsedBannerNode = assertDocument().createElement('div');
 
