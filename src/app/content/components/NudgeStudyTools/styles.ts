@@ -118,20 +118,7 @@ export const NudgeCloseButton = styled(PlainButton)`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
-export const NudgeBackground = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: ${theme.zIndex.nudgeOverlay};
-  inset: 0px;
-  opacity: 0.9;
-  background-color: ${theme.color.black};
-  mix-blend-mode: hard-light;
-`;
-
-interface NudgeSpotlightProps {
+interface NudgeSpotlightPlacement {
   top: number;
   left: number;
   height: number;
@@ -139,13 +126,35 @@ interface NudgeSpotlightProps {
 }
 
 // tslint:disable-next-line: variable-name
-export const NudgeSpotlight = styled.div`
+export const NudgeBackground = styled.div`
   position: fixed;
-  background-color: gray;
-  ${(props: NudgeSpotlightProps) => `
-    top: ${props.top}px;
-    left: ${props.left}px;
-    width: ${props.width}px;
-    height: ${props.height}px;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: ${theme.zIndex.nudgeOverlay};
+  pointer-events: none;
+
+  display: grid;
+  ${(props: NudgeSpotlightPlacement) => `
+    grid-template: ${props.top}px ${props.height}px 1fr / ${props.left}px ${props.width}px 1fr;
+    grid-template-areas:
+      'top       top       top'
+      'left   spotlight   right'
+      'bottom   bottom   bottom';
   `}
+`;
+
+interface ClickBlockerProps {
+  area: 'top' | 'right' | 'bottom' | 'left';
+}
+
+// tslint:disable-next-line: variable-name
+export const ClickBlocker = styled.div`
+  width: 100%;
+  height: 100%;
+  pointer-events: all;
+  background-color: ${theme.color.black};
+  opacity: 0.9;
+
+  grid-area: ${({area}: ClickBlockerProps) => area};
 `;
