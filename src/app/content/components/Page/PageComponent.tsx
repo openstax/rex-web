@@ -113,10 +113,10 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     const selectedResult = assertNotNull(current.selectedResult, 'Current result cannot be null after its selection');
 
     // fails with random id
-    const currentResultId = Math.random().toString()
+    // const currentResultId = Math.random().toString()
 
     // doesn't with a proper one
-    //const currentResultId = `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`;
+    const currentResultId = `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`;
 
     if (currentResultId === this.state.selectedSearchResultId) { return; }
 

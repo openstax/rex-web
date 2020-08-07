@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import renderer, { act } from 'react-test-renderer';
+import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
@@ -81,6 +81,7 @@ describe('Page', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
+
     dispatch = jest.spyOn(store, 'dispatch');
     archiveLoader = testServices.archiveLoader;
   });
@@ -905,9 +906,11 @@ describe('Page', () => {
 
     highlightResults.mockReturnValue([]);
 
-    store.dispatch(requestSearch('asdf'));
-    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
-    store.dispatch(selectSearchResult(searchResultToSelect));
+    renderer.act(() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+      store.dispatch(selectSearchResult(searchResultToSelect));
+    });
 
     // page lifecycle hooks
     await Promise.resolve();
@@ -926,14 +929,17 @@ describe('Page', () => {
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
 
-    const highlightData = jest.spyOn(highlightUtils, 'highlightData').mockReturnValueOnce(() => ({} as any));
-
     // normally, search result selection handler would noop if the
     // search result is the same. This makes it think that a new highlight was
     // added and will force reselection
 
+    const highlightData = jest.spyOn(highlightUtils, 'highlightData').mockReturnValueOnce(() => ({} as any));
     renderer.act(() => {
-      store.dispatch(createHighlight({} as any, {} as any));
+      store.dispatch(createHighlight({
+        anchor: 'anchor',
+        highlightedContent: 'highlight',
+        locationStrategies: [{type: 'XpathRangeSelector'}],
+      } as any, {} as any));
       store.dispatch(selectSearchResult(searchResultToSelect));
     });
 
@@ -946,7 +952,6 @@ describe('Page', () => {
     highlightData.mockRestore();
     highlightResults.mockRestore();
   });
-
 
   it('mounts, updates, and unmounts without a dom', () => {
     const element = renderer.create(
