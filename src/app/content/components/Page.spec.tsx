@@ -943,8 +943,12 @@ describe('Page', () => {
       store.dispatch(selectSearchResult(searchResultToSelect));
     });
 
-    expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
 
+    expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
     highlightData.mockRestore();
     highlightResults.mockRestore();
   });
