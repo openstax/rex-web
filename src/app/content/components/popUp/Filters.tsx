@@ -139,8 +139,7 @@ export default styled(Filters)`
         }
       `)}
     }
-  `}
-  ${css`
+
     ${ChapterFilter}, ${ColorFilter} {
       ${theme.breakpoints.mobileSmall(css`
         width: calc(100vw - ${mobileMarginSides * 2}rem);
