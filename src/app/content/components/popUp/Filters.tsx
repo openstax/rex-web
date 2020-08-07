@@ -6,10 +6,8 @@ import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownToggle } from '../../../components/Dropdown';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
-import { filters, mobileMarginSides } from '../../styles/PopupConstants';
+import { filters } from '../../styles/PopupConstants';
 import { disablePrint } from '../utils/disablePrint';
-import ChapterFilter from './ChapterFilter';
-import ColorFilter from './ColorFilter';
 import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name
@@ -137,12 +135,6 @@ export default styled(Filters)`
           top: auto;
           margin-top: -${filters.border}rem;
         }
-      `)}
-    }
-
-    ${ChapterFilter}, ${ColorFilter} {
-      ${theme.breakpoints.mobileSmall(css`
-        width: calc(100vw - ${mobileMarginSides * 2}rem);
       `)}
     }
   `}
