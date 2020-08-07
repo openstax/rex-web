@@ -2,7 +2,7 @@
 
 exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 <div
-  className="Filters-sc-1fn81fx-3 jVWqRs"
+  className="Filters-sc-1fn81fx-3 qzTyg"
 >
   <div
     className="Filters__FiltersTopBar-sc-1fn81fx-2 gkFqYl"
@@ -34,7 +34,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-3 kQpFEr"
+        className="ChapterFilter-tcdlu-3 hkHmTL"
         tabIndex={-1}
       >
         <div
@@ -88,7 +88,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </div>
       </button>
       <div
-        className="ColorFilter-sc-1ic50x3-1 ixgFwE"
+        className="ColorFilter-sc-1ic50x3-1 duhSOX"
         tabIndex={-1}
       >
         <div

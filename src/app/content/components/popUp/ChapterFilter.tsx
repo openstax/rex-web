@@ -7,7 +7,7 @@ import { match, not } from '../../../fpUtils';
 import theme from '../../../theme';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { HighlightLocationFilters, SummaryFilters } from '../../highlights/types';
-import { filters } from '../../styles/PopupConstants';
+import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 
 // tslint:disable-next-line:variable-name
 const Row = styled.div`
@@ -122,4 +122,8 @@ export default styled(ChapterFilter)`
   ${ColorIndicator} {
     margin: 0 1.6rem 0 1.6rem;
   }
+
+  ${theme.breakpoints.mobileSmall(css`
+    width: calc(100vw - ${mobileMarginSides * 2}rem);
+  `)}
 `;

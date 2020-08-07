@@ -2,7 +2,7 @@
 
 exports[`Filters matches snapshot 1`] = `
 <div
-  className="Filters-sc-1fn81fx-3 fbrNe"
+  className="Filters-sc-1fn81fx-3 qzTyg"
 >
   <div
     className="Filters__FiltersTopBar-sc-1fn81fx-2 gkFqYl"
@@ -69,7 +69,7 @@ exports[`Filters matches snapshot 1`] = `
         </div>
       </button>
       <div
-        className="ColorFilter-sc-1ic50x3-1 Filters__StyledColorFilter-hr7yu8-0 dTrqPP"
+        className="ColorFilter-sc-1ic50x3-1 Filters__StyledColorFilter-hr7yu8-0 bFcjpm"
         tabIndex={-1}
       >
         <div

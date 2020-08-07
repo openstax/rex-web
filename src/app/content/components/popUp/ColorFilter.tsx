@@ -1,7 +1,7 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
@@ -10,7 +10,7 @@ import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { SummaryFilters } from '../../highlights/types';
-import { filters } from '../../styles/PopupConstants';
+import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 
 // tslint:disable-next-line: variable-name
 const ColorLabel = styled.span`
@@ -97,4 +97,8 @@ export default styled(ColorFilter)`
   ${ColorIndicator} {
     margin: 0 1.6rem 0 1.6rem;
   }
+
+  ${theme.breakpoints.mobileSmall(css`
+    width: calc(100vw - ${mobileMarginSides * 2}rem);
+  `)}
 `;
