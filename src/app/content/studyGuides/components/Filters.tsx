@@ -2,7 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { loggedOut } from '../../../auth/selectors';
 import { AppState, Dispatch } from '../../../types';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
