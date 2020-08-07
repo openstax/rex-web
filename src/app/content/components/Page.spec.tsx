@@ -905,11 +905,9 @@ describe('Page', () => {
 
     highlightResults.mockReturnValue([]);
 
-    act(() => {
-      store.dispatch(requestSearch('asdf'));
-      store.dispatch(receiveSearchResults(makeSearchResults([hit])));
-      store.dispatch(selectSearchResult(searchResultToSelect));
-    });
+    store.dispatch(requestSearch('asdf'));
+    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+    store.dispatch(selectSearchResult(searchResultToSelect));
 
     // page lifecycle hooks
     await Promise.resolve();
@@ -934,15 +932,8 @@ describe('Page', () => {
     // search result is the same. This makes it think that a new highlight was
     // added and will force reselection
 
-    const helpers = {
-      ...createTestServices(),
-      dispatch: store.dispatch,
-      getState: store.getState,
-    };
-    const hook = (require('../highlights/hooks/createHighlight').hookBody)(helpers);
-    await hook(createHighlight({locationStrategies: [{type: 'TextPositionSelector'}]} as any, {} as any));
-
     renderer.act(() => {
+      store.dispatch(createHighlight({} as any, {} as any));
       store.dispatch(selectSearchResult(searchResultToSelect));
     });
 
@@ -951,12 +942,11 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    root.querySelector('[data-testid=banner-body]');
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
-
     highlightData.mockRestore();
     highlightResults.mockRestore();
   });
+
 
   it('mounts, updates, and unmounts without a dom', () => {
     const element = renderer.create(
