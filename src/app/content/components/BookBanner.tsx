@@ -255,7 +255,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
             this.handleLinkClick(e, bookUrl);
           }}
-          {...(this.state.tabbableBanner !== 'big' && {tabIndex: -1})}
+          tabIndex={this.state.tabbableBanner !== 'big' ? -1 : undefined}
         >
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>
@@ -278,7 +278,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
             this.handleLinkClick(e, bookUrl);
           }}
-          {...(this.state.tabbableBanner !== 'mini' && {tabIndex: -1})}
+          tabIndex={this.state.tabbableBanner !== 'mini' ? -1 : undefined}
         >
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>
