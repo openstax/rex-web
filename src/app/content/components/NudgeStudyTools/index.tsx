@@ -16,6 +16,7 @@ import {
 import arrowDesktop from './assets/arrowDesktop.svg';
 import arrowMobile from './assets/arrowMobile.svg';
 import {
+  ClickBlocker,
   NudgeArrow,
   NudgeBackground,
   NudgeCloseButton,
@@ -23,7 +24,6 @@ import {
   NudgeContent,
   NudgeContentWrapper,
   NudgeHeading,
-  NudgeSpotlight,
   NudgeTextStyles,
   NudgeWrapper,
 } from './styles';
@@ -95,13 +95,16 @@ const NudgeStudyTools = () => {
         </NudgeContent>
       </NudgeContentWrapper>}
     </FormattedMessage>
-    <NudgeBackground>
-      <NudgeSpotlight
-        top={positions.spotlightTopOffset}
-        left={positions.spotlightLeftOffset}
-        height={positions.spotlightHeight}
-        width={positions.spotlightWidth}
-      />
+    <NudgeBackground
+      top={positions.spotlightTopOffset}
+      left={positions.spotlightLeftOffset}
+      height={positions.spotlightHeight}
+      width={positions.spotlightWidth}
+    >
+      <ClickBlocker area={'top'} />
+      <ClickBlocker area={'right'} />
+      <ClickBlocker area={'bottom'} />
+      <ClickBlocker area={'left'} />
     </NudgeBackground>
   </NudgeWrapper>;
 };
