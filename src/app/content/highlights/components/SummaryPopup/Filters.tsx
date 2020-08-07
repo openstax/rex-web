@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../../types';
 import ChapterFilter from '../../../components/popUp/ChapterFilter';
 import ColorFilter from '../../../components/popUp/ColorFilter';
-import Filters, { FilterDropdown, FiltersTopBar } from '../../../components/popUp/Filters';
+import Filters, { FilterDropdown } from '../../../components/popUp/Filters';
 import FiltersList from '../../../components/popUp/FiltersList';
 import PrintButton from '../../../components/popUp/PrintButton';
 import { highlightStyles } from '../../../constants';
@@ -73,24 +73,22 @@ export const ConnectedPrintButton = connect(
 
 export default () =>
   <Filters>
-    <FiltersTopBar>
-      <FilterDropdown
-        label='i18n:highlighting:filters:chapters'
-        ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
-      >
-        <ConnectedChapterFilter />
-      </FilterDropdown>
-      <FilterDropdown
-        label='i18n:highlighting:filters:colors'
-        ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
-      >
-        <ConnectedColorFilter
-          styles={highlightStyles}
-          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
-        />
-      </FilterDropdown>
-      <ConnectedPrintButton />
-    </FiltersTopBar>
+    <FilterDropdown
+      label='i18n:highlighting:filters:chapters'
+      ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+    >
+      <ConnectedChapterFilter />
+    </FilterDropdown>
+    <FilterDropdown
+      label='i18n:highlighting:filters:colors'
+      ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+    >
+      <ConnectedColorFilter
+        styles={highlightStyles}
+        labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+      />
+    </FilterDropdown>
+    <ConnectedPrintButton />
     <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:highlighting:filters:remove:color'}
       colorLabelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
