@@ -72,6 +72,7 @@ Array [
     <div
       className="BookBanner__BarWrapper-sc-1avy0c0-4 gZpRfI"
       data-analytics-region="book-banner-collapsed"
+      data-testid="bookbanner-collapsed"
     >
       <div
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"

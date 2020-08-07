@@ -105,12 +105,12 @@ describe('BookBanner', () => {
       const collapsedBannerNode = assertDocument().createElement('div');
 
       const createNodeMock = (element: any) => {
-        const analyticsRegion = element.props['data-analytics-region'];
+        const analyticsRegion = element.props['data-testid'];
 
-        if (analyticsRegion === 'book-banner-expanded') {
+        if (analyticsRegion === 'bookbanner') {
           return expandedBannerNode;
         }
-        if (analyticsRegion === 'book-banner-collapsed') {
+        if (analyticsRegion === 'bookbanner-collapsed') {
           return collapsedBannerNode;
         }
 
