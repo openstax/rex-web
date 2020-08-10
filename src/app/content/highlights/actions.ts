@@ -45,6 +45,7 @@ export const receiveSummaryHighlights = createStandardAction('Content/Highlights
   SummaryHighlights,
   {
     pagination: SummaryHighlightsPagination,
+    filters?: SummaryFilters,
     isStillLoading?: boolean
   }
 >();
