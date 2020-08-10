@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { linkStyle } from '../../../components/Typography';
 import { textStyle } from '../../../components/Typography/base';
+import theme from '../../../theme';
 import { cardPadding } from '../constants';
 
 interface Props {
@@ -74,4 +75,10 @@ export default styled(NoteText)`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   `}
+
+  ${theme.breakpoints.mobile(css`
+    padding: ${cardPadding}rem ${cardPadding * 2}rem;
+    height: 15.2rem;
+    overflow: auto;
+  `)}
 `;

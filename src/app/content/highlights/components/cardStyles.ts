@@ -68,6 +68,20 @@ const rightSideDisplay = css`
   `}
 `;
 
+const mobileDisplay = css`
+  ${(props: CardProps) => !!props.isFocused && css`
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    position: fixed;
+    padding: 0;
+  `}
+  ${(props: CardProps) => !props.isFocused && css`
+    display: none;
+  `}
+`;
+
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -121,6 +135,15 @@ export const mainCardStyles = css`
         width: ${cardPadding / 2}rem;
         background-color: ${style.focused};
       }
+      ${theme.breakpoints.mobile(css`
+        ::before {
+          border-radius: 0.4rem 0.4rem 0 0;
+          right: 0;
+          bottom: unset;
+          width: unset;
+          height: ${cardPadding / 2}rem;
+        }
+     `)}
     `;
   }}
 
@@ -150,6 +173,11 @@ export const mainCardStyles = css`
     animation: none;
     ${overlapDisplay}
   }
+
+  ${theme.breakpoints.mobile(css`
+    animation: none;
+    ${mobileDisplay}
+  `)}
 `;
 
 export const mainWrapperStyles = css`
