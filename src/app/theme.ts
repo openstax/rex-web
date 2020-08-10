@@ -100,8 +100,10 @@ export default {
     mobileBreak,
     mobileQuery,
     touchDeviceQuery: (style: FlattenSimpleInterpolation) => css`
-      @media screen and ${touchDeviceQuery} {
-        ${style}
+      @media screen and ${mobileQuery} {
+        @media ${touchDeviceQuery} {
+          ${style}
+        }
       }
   `,
   },

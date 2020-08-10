@@ -2,7 +2,7 @@
 
 exports[`TruncatedText matches snapshot 1`] = `
 <p
-  className="TruncatedText-sc-7sqw62-1 VILdM"
+  className="TruncatedText-sc-7sqw62-1 fqcHRh"
 >
   asdf
 </p>
@@ -10,7 +10,7 @@ exports[`TruncatedText matches snapshot 1`] = `
 
 exports[`TruncatedText matches snapshot when focused 1`] = `
 <p
-  className="TruncatedText-sc-7sqw62-1 gbbsvF"
+  className="TruncatedText-sc-7sqw62-1 epSSBR"
 >
   asdf
 </p>
