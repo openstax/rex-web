@@ -43,7 +43,7 @@ describe('validateDOMContent', () => {
 
   describe('without unlimited content', () => {
     beforeEach(() => {
-      jest.mock( '../../../../config', () => ({
+      jest.doMock( '../../../../config', () => ({
         ...jest.requireActual( '../../../../config'),
         UNLIMITED_CONTENT: false,
       }));
