@@ -90,7 +90,6 @@ export const FiltersTopBar = styled.div`
   display: flex;
   align-items: center;
   overflow: visible;
-  max-height: 5.2rem;
 `;
 
 interface Props {

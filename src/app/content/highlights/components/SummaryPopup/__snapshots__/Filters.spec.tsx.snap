@@ -5,7 +5,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   className="Filters-sc-1fn81fx-3 qzTyg"
 >
   <div
-    className="Filters__FiltersTopBar-sc-1fn81fx-2 gkFqYl"
+    className="Filters__FiltersTopBar-sc-1fn81fx-2 ctBLHc"
   >
     <div
       className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
