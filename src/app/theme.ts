@@ -88,6 +88,7 @@ const color = {
 
 const mobileBreak = 75;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
+const touchDeviceQuery = `not all and (pointer: fine), not all and (hover: hover)`;
 
 export default {
   breakpoints: {
@@ -98,6 +99,11 @@ export default {
     `,
     mobileBreak,
     mobileQuery,
+    touchDeviceQuery: (style: FlattenSimpleInterpolation) => css`
+      @media screen and ${touchDeviceQuery} {
+        ${style}
+      }
+  `,
   },
   color,
   padding,
