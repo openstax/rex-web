@@ -2,7 +2,7 @@
 
 exports[`EditCard matches snapshot when editing 1`] = `
 <form
-  className="EditCard-sc-1kvvj32-0 kgllEV"
+  className="EditCard-sc-1kvvj32-0 iPFreb"
   data-analytics-region="edit-note"
 >
   <div
@@ -50,7 +50,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
 
 exports[`EditCard matches snapshot when focused 1`] = `
 <form
-  className="EditCard-sc-1kvvj32-0 kgllEV"
+  className="EditCard-sc-1kvvj32-0 iPFreb"
   data-analytics-region="edit-note"
 >
   <div
@@ -79,7 +79,7 @@ exports[`EditCard matches snapshot when focused 1`] = `
 
 exports[`EditCard matches snapshot with data 1`] = `
 <form
-  className="EditCard-sc-1kvvj32-0 kgllEV"
+  className="EditCard-sc-1kvvj32-0 iPFreb"
   data-analytics-region="edit-note"
 >
   <div
@@ -107,7 +107,7 @@ exports[`EditCard matches snapshot with data 1`] = `
 
 exports[`EditCard matches snapshot without data 1`] = `
 <form
-  className="EditCard-sc-1kvvj32-0 kgllEV"
+  className="EditCard-sc-1kvvj32-0 iPFreb"
   data-analytics-region="edit-note"
 >
   <div
