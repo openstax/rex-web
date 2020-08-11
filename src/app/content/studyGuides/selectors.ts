@@ -82,7 +82,7 @@ export const loadedCountsPerSource = createSelector(
   getLoadedCountsPerSource
 );
 
-const summaryFilters = createSelector(
+export const summaryFilters = createSelector(
   localState,
   (state) => state.summary.filters
 );
