@@ -16,7 +16,7 @@ import {
   receiveSummaryHighlights,
   setSummaryFilters
 } from '../actions';
-import { summaryColorFilters, summaryLocationFilters } from '../selectors';
+import { summaryColorFilters, summaryFilters, summaryLocationFilters } from '../selectors';
 import { HighlightData, SummaryHighlights } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -80,6 +80,7 @@ describe('filtersChange', () => {
 
     const locationIds = ['testbook1-testpage1-uuid', 'testbook1-testchapter1-uuid'];
     await hook(store.dispatch(setSummaryFilters({locationIds})));
+    const filters = summaryFilters(store.getState());
 
     const response: SummaryHighlights = {
       'testbook1-testchapter1-uuid': {
@@ -94,6 +95,7 @@ describe('filtersChange', () => {
       page: 1,
     }));
     expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, {
+      filters,
       pagination: {
         page: 1,
         perPage: 20,
@@ -140,7 +142,7 @@ describe('filtersChange', () => {
     };
 
     expect(highlightClient).toHaveBeenCalledTimes(3);
-    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response2, {pagination: null}));
+    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response2, {pagination: null, filters}));
   });
 
   it('receive summary data for selected page', async() => {
@@ -178,6 +180,7 @@ describe('filtersChange', () => {
 
     const locationIds = [pageId];
     await hook(store.dispatch(setSummaryFilters({locationIds})));
+    const filters = summaryFilters(store.getState());
 
     const response: SummaryHighlights = {
       [stripIdVersion(pageId)]: {
@@ -188,7 +191,7 @@ describe('filtersChange', () => {
       },
     };
 
-    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, {pagination: null}));
+    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, {pagination: null, filters}));
   });
 
   it('receive summary data for selected page in chapter', async() => {
@@ -226,6 +229,7 @@ describe('filtersChange', () => {
 
     const locationIds = [chapterIdForPageInChapter];
     await hook(store.dispatch(setSummaryFilters({locationIds})));
+    const filters = summaryFilters(store.getState());
 
     const response: SummaryHighlights = {
       [chapterIdForPageInChapter]: {
@@ -236,7 +240,7 @@ describe('filtersChange', () => {
       },
     };
 
-    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, {pagination: null}));
+    expect(dispatch).lastCalledWith(receiveSummaryHighlights(response, {pagination: null, filters}));
   });
 
   it('noops without book', async() => {
@@ -244,9 +248,9 @@ describe('filtersChange', () => {
       colors: [],
       locationIds: [],
     })));
-
+    const filters = summaryFilters(store.getState());
     expect(helpers.highlightClient.getHighlights).not.toBeCalled();
-    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null}));
+    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null, filters}));
   });
 
   it('return before api call when there are no filters', async() => {
@@ -258,11 +262,13 @@ describe('filtersChange', () => {
       locationIds: [],
     })));
 
+    const filters = summaryFilters(store.getState());
+
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
 
     expect(helpers.highlightClient.getHighlights).not.toBeCalled();
-    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null}));
+    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null, filters}));
   });
 
   it('handle case for no highlights.data', async() => {
@@ -274,9 +280,11 @@ describe('filtersChange', () => {
       locationIds: ['testbook1-testchapter1-uuid'],
     })));
 
+    const filters = summaryFilters(store.getState());
+
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockReturnValue(Promise.resolve({}));
 
-    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null}));
+    expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null, filters}));
   });
 });
