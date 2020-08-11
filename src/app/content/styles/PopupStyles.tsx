@@ -5,8 +5,9 @@ import { PlainButton } from '../../components/Button';
 import { H3 } from '../../components/Typography/headings';
 import theme from '../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../components/constants';
-import { applyBannerGradient, applyBookTextColor } from '../components/utils/bookThemeUtils';
+import { applyBookTextColor } from '../components/utils/applyBookTextColor';
 import { disablePrint } from '../components/utils/disablePrint';
+import { BookWithOSWebData } from '../types';
 import {
   mobileMarginSides,
   mobileMarginTopBottom,
@@ -37,10 +38,9 @@ export const PopupWrapper = styled.div`
 export const Header = styled(H3)`
   ${disablePrint}
   ${applyBookTextColor}
-  /* ${applyBannerGradient} */
-  background: ${({colorSchema}) => {
-    return (theme.color.primary as any)[colorSchema].base
-  }};
+  background: ${({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) =>
+    theme.color.primary[colorSchema].base
+  };
   padding: ${popupPadding}rem;
   display: flex;
   justify-content: space-between;
@@ -104,12 +104,17 @@ export const CloseIconWrapper = styled(PlainButton)`
 
 // tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
-  ${applyBookTextColor}
-  cursor: pointer;
+  ${({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => {
+    const color = theme.color.primary[colorSchema].foreground;
+    return css`
+      color: ${color}
 
-  :hover {
-    color: ${toolbarIconColor.base};
-  }
+      :hover {
+        color: ${color === theme.color.text.white ? toolbarIconColor.base : toolbarIconColor.lighter}
+      }
+    `;
+  }}
+  cursor: pointer;
 
   ${disablePrint}
 `;

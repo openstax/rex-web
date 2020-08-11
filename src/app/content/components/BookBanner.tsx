@@ -9,7 +9,7 @@ import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../
 import { notFound } from '../../errors/routes';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertWindow } from '../../utils';
+import { assertDefined, assertWindow } from '../../utils';
 import { hasOSWebData } from '../guards';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import { hasUnsavedHighlight } from '../highlights/selectors';
@@ -24,8 +24,19 @@ import {
   bookBannerMobileMiniHeight,
   contentTextWidth,
 } from './constants';
-import { applyBannerGradient, applyBookTextColor } from './utils/bookThemeUtils';
+import { applyBookTextColor } from './utils/applyBookTextColor';
 import { disablePrint } from './utils/disablePrint';
+
+const gradients: {[key in BookWithOSWebData['theme']]: string} = {
+  'blue': '#004aa2',
+  'deep-green': '#12A28C',
+  'gray': '#97999b',
+  'green': '#9cd14a',
+  'light-blue': '#1EE1F0',
+  'orange': '#FAA461',
+  'red': '#E34361',
+  'yellow': '#faea36',
+};
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
@@ -137,7 +148,15 @@ export const BarWrapper = styled.div<BarWrapperProps>`
   position: ${ifMiniNav('sticky', 'relative' /* stay above mini nav */)};
   z-index: ${ifMiniNav(theme.zIndex.navbar - 2, theme.zIndex.navbar - 1)};
   overflow: hidden;
-  ${applyBannerGradient};
+  ${(props: {colorSchema: BookWithOSWebData['theme'] | undefined }) => props.colorSchema && css`
+    background: linear-gradient(to right,
+      ${assertDefined(
+        theme.color.primary[props.colorSchema], `Could not find values for theme named "${props.colorSchema}"`
+      ).base},
+      ${assertDefined(
+        gradients[props.colorSchema], `theme ${props.colorSchema} needs gradient defined in BookBanner.tsx`
+      )});
+  `}
 
   ${(props) => props.up && css`
     transform: translateY(-${bookBannerDesktopMiniHeight}rem);
