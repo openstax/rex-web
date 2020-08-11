@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
@@ -14,8 +16,13 @@ import { Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
+import { formatBookData } from '../../utils';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import HighlightsPopUp from './HighlightsPopUp';
+import { BookWithOSWebData } from '../../types';
+import { receiveBook } from '../../actions';
+import theme from '../../../theme';
+
 
 // this is a hack because useEffect is currently not called
 // when using jsdom? https://github.com/facebook/react/issues/14050
@@ -220,5 +227,36 @@ describe('MyHighlights button and PopUp', () => {
 
     expect(track).toHaveBeenCalled();
 
+  });
+
+  it('changes colors based on book theme', () => {
+    const book = formatBookData(archiveBook, mockCmsBook);
+
+    store.dispatch(receiveUser(user));
+    store.dispatch(receiveBook(book));
+    store.dispatch(openMyHighlights());
+
+    const focus = jest.fn();
+    const addEventListener = jest.fn();
+    const querySelectorAll = jest.fn(() => []);
+    const createNodeMock = () => ({focus, addEventListener, querySelectorAll});
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsPopUp />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>, {createNodeMock});
+
+    expect(component.toJSON()).toMatchSnapshot();
+
+    renderer.act(() => {
+      store.dispatch(closeMyHighlights());
+      store.dispatch(receiveBook({...book, theme: 'yellow'}));
+      store.dispatch(openMyHighlights());
+    });
+
+    expect(component.toJSON()).toMatchSnapshot();
   });
 });
