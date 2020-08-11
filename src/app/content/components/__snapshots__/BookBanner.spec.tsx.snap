@@ -81,7 +81,7 @@ Array [
 exports[`BookBanner without unsaved changes renders correctly without osweb data 1`] = `
 Array [
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-4 kLMCbe"
+    className="BookBanner__BarWrapper-sc-1avy0c0-4 eIPJBY"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
@@ -89,14 +89,14 @@ Array [
       className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
       <a
-        className="BookBanner__BookTitle-sc-1avy0c0-2 chgKtU"
+        className="BookBanner__BookTitle-sc-1avy0c0-2 gEhfIa"
         data-testid="details-link-expanded"
         href="/errors/404"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="BookBanner__LeftArrow-sc-1avy0c0-0 fDYqjq StyledIconBase-sc-bdy9j4 jbPeIR"
+          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -108,7 +108,7 @@ Array [
         Test Book 1
       </a>
       <h1
-        className="BookBanner__BookChapter-sc-1avy0c0-3 grqfYI"
+        className="BookBanner__BookChapter-sc-1avy0c0-3 iAENeF"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -118,21 +118,21 @@ Array [
     </div>
   </div>,
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-4 cCWlCm"
+    className="BookBanner__BarWrapper-sc-1avy0c0-4 gZpRfI"
     data-analytics-region="book-banner-collapsed"
   >
     <div
       className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
       <a
-        className="BookBanner__BookTitle-sc-1avy0c0-2 frIzau"
+        className="BookBanner__BookTitle-sc-1avy0c0-2 QwZke"
         data-testid="details-link-collapsed"
         href="/errors/404"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="BookBanner__LeftArrow-sc-1avy0c0-0 fDYqjq StyledIconBase-sc-bdy9j4 jbPeIR"
+          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -144,7 +144,7 @@ Array [
         Test Book 1
       </a>
       <span
-        className="BookBanner__BookChapter-sc-1avy0c0-3 jZeIYz"
+        className="BookBanner__BookChapter-sc-1avy0c0-3 dBZzyN"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
