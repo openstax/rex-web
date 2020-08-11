@@ -5,6 +5,7 @@ import {
   SummaryHighlights,
   SummaryHighlightsPagination
 } from '../highlights/types';
+import { StudyGuidesSummaryFilters } from './types';
 
 export const receiveSummaryStudyGuides = createStandardAction(
   'Content/StudyGuides/Summary/receive'
@@ -12,6 +13,7 @@ export const receiveSummaryStudyGuides = createStandardAction(
 SummaryHighlights,
   {
     pagination: SummaryHighlightsPagination,
+    filters?: StudyGuidesSummaryFilters,
     isStillLoading?: boolean
   }
 >();
