@@ -237,6 +237,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.receiveSummaryHighlights): {
+      // Check if filters wasn't updated while we were loading response.
+      // It may happen if user with slow network connection change filters very fast.
+      if (action.meta.filters && state.summary.filters !== action.meta.filters) { return state; }
+
       return {
         ...state,
         summary: {
