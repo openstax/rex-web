@@ -103,18 +103,19 @@ export const CloseIconWrapper = styled(PlainButton)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
-  ${({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => {
-    const color = theme.color.primary[colorSchema].foreground;
-    return css`
-      color: ${color}
+export const CloseIcon = styled(({colorSchema: _, ...props}) =>
+  <Times {...props} aria-hidden='true' focusable='true' />)`
+    ${({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => {
+      const color = theme.color.primary[colorSchema].foreground;
+      return css`
+        color: ${color}
 
-      :hover {
-        color: ${color === theme.color.text.white ? toolbarIconColor.base : toolbarIconColor.lighter}
-      }
-    `;
-  }}
-  cursor: pointer;
+        :hover {
+          color: ${color === theme.color.text.white ? toolbarIconColor.base : toolbarIconColor.lighter}
+        }
+      `;
+    }}
+    cursor: pointer;
 
-  ${disablePrint}
-`;
+    ${disablePrint}
+  `;

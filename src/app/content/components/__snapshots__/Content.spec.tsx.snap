@@ -41,14 +41,14 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitle-sc-1avy0c0-2 fRzrrt"
+          className="BookBanner__BookTitle-sc-1avy0c0-2 gEhfIa"
           data-testid="details-link-expanded"
           href="/details/books/book-slug-1"
           onClick={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="BookBanner__LeftArrow-sc-1avy0c0-0 eRQNag StyledIconBase-sc-bdy9j4 jbPeIR"
+            className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 24 24"
@@ -60,7 +60,7 @@ Array [
           Test Book 1
         </a>
         <h1
-          className="BookBanner__BookChapter-sc-1avy0c0-3 dMXgkT"
+          className="BookBanner__BookChapter-sc-1avy0c0-3 iAENeF"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -77,14 +77,14 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitle-sc-1avy0c0-2 kplCmc"
+          className="BookBanner__BookTitle-sc-1avy0c0-2 QwZke"
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="BookBanner__LeftArrow-sc-1avy0c0-0 eRQNag StyledIconBase-sc-bdy9j4 jbPeIR"
+            className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 24 24"
@@ -96,7 +96,7 @@ Array [
           Test Book 1
         </a>
         <span
-          className="BookBanner__BookChapter-sc-1avy0c0-3 fVxHGG"
+          className="BookBanner__BookChapter-sc-1avy0c0-3 dBZzyN"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
