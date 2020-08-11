@@ -15,14 +15,11 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
+import { receiveBook } from '../../actions';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { formatBookData } from '../../utils';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import HighlightsPopUp from './HighlightsPopUp';
-import { BookWithOSWebData } from '../../types';
-import { receiveBook } from '../../actions';
-import theme from '../../../theme';
-
 
 // this is a hack because useEffect is currently not called
 // when using jsdom? https://github.com/facebook/react/issues/14050
