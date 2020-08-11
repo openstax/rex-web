@@ -88,7 +88,7 @@ const color = {
 
 const mobileBreak = 75;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
-const touchDeviceQuery = `not all and (pointer: fine), not all and (hover: hover)`;
+const touchDeviceQuery = `not all and (pointer: fine), (hover: none)`;
 
 export default {
   breakpoints: {
