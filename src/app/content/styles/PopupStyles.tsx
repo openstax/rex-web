@@ -20,6 +20,17 @@ export const popupBodyPadding = 2.4;
 export const headerHeight = 7.2;
 export const topBottomMargin = headerHeight + popupBodyPadding;
 
+const swapColors = ({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => {
+  const color = theme.color.primary[colorSchema].foreground;
+  return css`
+    color: ${color};
+
+    &:hover {
+      color: ${color === theme.color.text.white ? toolbarIconColor.base : toolbarIconColor.lighter};
+    }
+  `;
+};
+
 // tslint:disable-next-line:variable-name
 export const PopupWrapper = styled.div`
   display: flex;
@@ -38,9 +49,7 @@ export const PopupWrapper = styled.div`
 export const Header = styled(H3)`
   ${disablePrint}
   ${applyBookTextColor}
-  background: ${({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) =>
-    theme.color.primary[colorSchema].base
-  };
+  background: ${({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => theme.color.primary[colorSchema].base};
   padding: ${popupPadding}rem;
   display: flex;
   justify-content: space-between;
@@ -105,17 +114,7 @@ export const CloseIconWrapper = styled(PlainButton)`
 // tslint:disable-next-line:variable-name
 export const CloseIcon = styled(({colorSchema: _, ...props}) =>
   <Times {...props} aria-hidden='true' focusable='true' />)`
-    ${({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => {
-      const color = theme.color.primary[colorSchema].foreground;
-      return css`
-        color: ${color}
-
-        :hover {
-          color: ${color === theme.color.text.white ? toolbarIconColor.base : toolbarIconColor.lighter}
-        }
-      `;
-    }}
+    ${swapColors}
     cursor: pointer;
-
     ${disablePrint}
   `;
