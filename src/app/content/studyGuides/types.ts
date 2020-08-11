@@ -4,13 +4,15 @@ import {
   SummaryHighlightsPagination,
 } from '../highlights/types';
 
+export interface StudyGuidesSummaryFilters {
+  default: boolean;
+  locationIds: string[];
+}
+
 export interface State {
   isEnabled: boolean;
   summary: {
-    filters: {
-      locationIds: string[];
-      default: boolean;
-    },
+    filters: StudyGuidesSummaryFilters,
     loading: boolean,
     open: boolean,
     pagination: SummaryHighlightsPagination,
