@@ -5,6 +5,7 @@ import { PlainButton } from '../../components/Button';
 import { H3 } from '../../components/Typography/headings';
 import theme from '../../theme';
 import { contentWrapperMaxWidth, toolbarIconColor } from '../components/constants';
+import { applyBannerGradient, applyBookTextColor } from '../components/utils/bookThemeUtils';
 import { disablePrint } from '../components/utils/disablePrint';
 import {
   mobileMarginSides,
@@ -35,8 +36,11 @@ export const PopupWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const Header = styled(H3)`
   ${disablePrint}
-  background: #002569;
-  color: ${theme.color.neutral.base};
+  ${applyBookTextColor}
+  /* ${applyBannerGradient} */
+  background: ${({colorSchema}) => {
+    return (theme.color.primary as any)[colorSchema].base
+  }};
   padding: ${popupPadding}rem;
   display: flex;
   justify-content: space-between;
@@ -100,7 +104,7 @@ export const CloseIconWrapper = styled(PlainButton)`
 
 // tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
-  color: ${theme.color.neutral.base};
+  ${applyBookTextColor}
   cursor: pointer;
 
   :hover {

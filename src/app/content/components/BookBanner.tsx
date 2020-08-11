@@ -9,7 +9,7 @@ import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../
 import { notFound } from '../../errors/routes';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertDefined, assertWindow } from '../../utils';
+import { assertWindow } from '../../utils';
 import { hasOSWebData } from '../guards';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import { hasUnsavedHighlight } from '../highlights/selectors';
@@ -17,30 +17,15 @@ import * as select from '../selectors';
 import { ArchiveTreeSection , Book, BookWithOSWebData } from '../types';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
-import { defaultTheme } from './constants';
 import {
   bookBannerDesktopBigHeight,
   bookBannerDesktopMiniHeight,
   bookBannerMobileBigHeight,
   bookBannerMobileMiniHeight,
-  contentTextWidth
+  contentTextWidth,
 } from './constants';
+import { applyBannerGradient, applyBookTextColor } from './utils/bookThemeUtils';
 import { disablePrint } from './utils/disablePrint';
-
-const gradients: {[key in BookWithOSWebData['theme']]: string} = {
-  'blue': '#004aa2',
-  'deep-green': '#12A28C',
-  'gray': '#97999b',
-  'green': '#9cd14a',
-  'light-blue': '#1EE1F0',
-  'orange': '#FAA461',
-  'red': '#E34361',
-  'yellow': '#faea36',
-};
-
-const applyBookTextColor = (props: {colorSchema: BookWithOSWebData['theme'] } ) => props.colorSchema && css`
-  color: ${theme.color.primary[props.colorSchema].foreground};
-`;
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
@@ -55,6 +40,7 @@ export interface PropTypes {
   pageNode?: ArchiveTreeSection;
   book?: Book;
   hasUnsavedHighlight?: boolean;
+  bookTheme: BookWithOSWebData['theme'];
 }
 
 // tslint:disable-next-line:variable-name
@@ -151,15 +137,7 @@ export const BarWrapper = styled.div<BarWrapperProps>`
   position: ${ifMiniNav('sticky', 'relative' /* stay above mini nav */)};
   z-index: ${ifMiniNav(theme.zIndex.navbar - 2, theme.zIndex.navbar - 1)};
   overflow: hidden;
-  ${(props: {colorSchema: BookWithOSWebData['theme'] | undefined }) => props.colorSchema && css`
-    background: linear-gradient(to right,
-      ${assertDefined(
-        theme.color.primary[props.colorSchema], `Could not find values for theme named "${props.colorSchema}"`
-      ).base},
-      ${assertDefined(
-        gradients[props.colorSchema], `theme ${props.colorSchema} needs gradient defined in BookBanner.tsx`
-      )});
-  `}
+  ${applyBannerGradient};
 
   ${(props) => props.up && css`
     transform: translateY(-${bookBannerDesktopMiniHeight}rem);
@@ -216,7 +194,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
   }
 
   public render() {
-    const { pageNode, book } = this.props;
+    const { pageNode, book, bookTheme } = this.props;
 
     if (!book || !pageNode) {
       return <BarWrapper colorSchema={undefined} up={false} />;
@@ -224,7 +202,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
 
     const bookUrl = hasOSWebData(book) ? bookDetailsUrl(book) : notFound.getUrl();
 
-    return this.renderBars({theme: defaultTheme, ...book}, bookUrl, pageNode);
+    return this.renderBars({theme: bookTheme, ...book}, bookUrl, pageNode);
   }
 
   private renderBars = (
@@ -282,6 +260,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
+    bookTheme: select.bookTheme(state),
     hasUnsavedHighlight: hasUnsavedHighlight(state),
     pageNode: select.pageNode(state),
   })

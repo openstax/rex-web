@@ -43,3 +43,14 @@ export const maxContentGutter = 6;
 export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth + maxContentGutter * 2;
 
 export const defaultTheme = 'blue' as BookWithOSWebData['theme'];
+
+export const bannerGradients: {[key in BookWithOSWebData['theme']]: string} = {
+  'blue': '#004aa2',
+  'deep-green': '#12A28C',
+  'gray': '#97999b',
+  'green': '#9cd14a',
+  'light-blue': '#1EE1F0',
+  'orange': '#FAA461',
+  'red': '#E34361',
+  'yellow': '#faea36',
+};
