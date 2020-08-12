@@ -14,7 +14,10 @@ import {
 interface Props {
   dismiss: () => void;
   mobileToolbarOpen: boolean;
-  selectedHighlight: null | string;
+}
+
+interface ModalRef {
+  resetError: () => void;
 }
 
 const initialState = {
@@ -33,7 +36,7 @@ export const syncState = (prevState: typeof initialState) => {
 // fail again, it will refresh the error instead
 
 // tslint:disable-next-line:variable-name
-const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props) => {
+const SearchFailure = React.forwardRef<ModalRef, Props>(({ dismiss, mobileToolbarOpen }, ref) => {
   const window = assertWindow();
   const [fadeOutState, setFadeOutState] = React.useState(initialState);
 
@@ -52,12 +55,13 @@ const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props)
   );
   const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
 
-  React.useLayoutEffect(() => {
-    resetErrorClearing();
-    resetAutoDismiss();
-    setFadeOutState(initialState);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedHighlight]);
+  React.useImperativeHandle(ref, () => ({
+    resetError: () => {
+      resetErrorClearing();
+      resetAutoDismiss();
+      setFadeOutState(initialState);
+    },
+  }), [resetAutoDismiss, resetErrorClearing]);
 
   return (
     <BannerBodyWrapper
@@ -76,6 +80,6 @@ const SearchFailure = ({ dismiss, mobileToolbarOpen, selectedHighlight }: Props)
       </BannerBody>
     </BannerBodyWrapper>
   );
-};
+});
 
 export default SearchFailure;
