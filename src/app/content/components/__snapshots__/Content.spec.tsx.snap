@@ -72,6 +72,7 @@ Array [
     <div
       className="BookBanner__BarWrapper-sc-1avy0c0-4 gZpRfI"
       data-analytics-region="book-banner-collapsed"
+      data-testid="bookbanner-collapsed"
     >
       <div
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
@@ -81,6 +82,7 @@ Array [
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
@@ -117,6 +119,7 @@ Array [
           aria-label="Click to open the Table of Contents"
           className="styled__SidebarControl-sc-1119auh-17 DBTIW SidebarControl__ToCButton-sdjc7-2 tGPhq"
           onClick={[Function]}
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
@@ -1358,6 +1361,7 @@ Array [
           aria-label="Click to open the Table of Contents"
           className="styled__SidebarControl-sc-1119auh-17 DBTIW SidebarControl__ToCButton-sdjc7-2 tGPhq"
           onClick={[Function]}
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
