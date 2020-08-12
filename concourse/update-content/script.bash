@@ -13,18 +13,21 @@ set -ex
 
 yarn
 
-approved_books=$(curl -sL https://github.com/openstax/content-manager-approved-books/raw/master/approved-books.json)
+approved_books_default_branch=$(curl -s https://api.github.com/repos/openstax/content-manager-approved-books | jq -r .default_branch)
+rex_default_branch=$(curl -s https://api.github.com/repos/openstax/rex-web | jq -r .default_branch)
+
+approved_books=$(curl -sL "https://github.com/openstax/content-manager-approved-books/raw/$approved_books_default_branch/approved-books.json")
 book_ids=$(jq -r '.[].uuid' <<< "$approved_books")
 
 git remote set-branches origin 'update-content-*'
-git remote set-branches origin --add master
+git remote set-branches origin --add "$rex_default_branch"
 
 for book_id in $book_ids; do
   branch="update-content-$book_id"
   git fetch
-  git checkout master
+  git checkout "$rex_default_branch"
   git checkout src/config.books.js
-  (git checkout "$branch" && git merge origin/master --no-edit -X theirs) || git checkout -b "$branch"
+  (git checkout "$branch" && git merge "origin/$rex_default_branch" --no-edit -X theirs) || git checkout -b "$branch"
 
   # there may be multiple approved versions for supporting different products, historical support, etc
   approved_versions=$(jq -r --arg uuid "$book_id" '[.[]|select(.uuid==$uuid)][].version' <<< "$approved_books")
@@ -59,7 +62,7 @@ for book_id in $book_ids; do
     {
       "title": "$book_title updates",
       "head": "$branch",
-      "base": "master"
+      "base": "$rex_default_branch"
     }
 JSON
 done
