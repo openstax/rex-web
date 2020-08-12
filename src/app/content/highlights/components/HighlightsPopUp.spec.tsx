@@ -248,7 +248,7 @@ describe('MyHighlights button and PopUp', () => {
     </Provider>, {createNodeMock});
 
     const header = component.root.findByType(Header);
-    const closeIcon = component.root.findByType(CloseIcon)
+    const closeIcon = component.root.findByType(CloseIcon);
 
     expect(header.props.colorSchema).toBe(book.theme);
     expect(closeIcon.props.colorSchema).toBe(book.theme);
