@@ -42,8 +42,9 @@ export const hookBody: ActionHookBody<
   typeof actions.loadMoreStudyGuides
 > =
   (services) => async() => {
+    const filters = select.summaryFilters(services.getState());
     const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
-    services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination}));
+    services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
   };
 
 export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);

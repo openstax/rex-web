@@ -5,14 +5,16 @@ import {
   SummaryHighlightsPagination,
 } from '../highlights/types';
 
+export interface StudyGuidesSummaryFilters {
+  colors: HighlightColorEnum[];
+  default: boolean;
+  locationIds: string[];
+}
+
 export interface State {
   isEnabled: boolean;
   summary: {
-    filters: {
-      colors: HighlightColorEnum[];
-      locationIds: string[];
-      default: boolean;
-    },
+    filters: StudyGuidesSummaryFilters,
     loading: boolean,
     open: boolean,
     pagination: SummaryHighlightsPagination,

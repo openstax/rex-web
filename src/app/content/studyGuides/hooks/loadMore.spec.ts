@@ -14,6 +14,7 @@ import {
   receiveSummaryStudyGuides,
   setDefaultSummaryFilters,
 } from '../actions';
+import { summaryFilters } from '../selectors';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
@@ -112,6 +113,7 @@ describe('loadMore', () => {
       },
     };
 
+    const filters = summaryFilters(store.getState());
     await hook(loadMoreStudyGuides());
 
     expect(highlightClient).lastCalledWith(expect.objectContaining({
@@ -120,6 +122,7 @@ describe('loadMore', () => {
       sourceIds: ['testbook1-testpage2-uuid', 'testbook1-testpage11-uuid'],
     }));
     expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response, {
+      filters,
       pagination: {
         page: 1,
         perPage: maxHighlightsApiPageSize,
@@ -169,7 +172,7 @@ describe('loadMore', () => {
 
     expect(loadingSpy).toHaveBeenCalled();
     expect(highlightClient).toHaveBeenCalledTimes(3);
-    expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, {pagination: null}));
+    expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, {pagination: null, filters}));
   });
 
   it('calls loadUntilPageSize with correct parameters', async() => {
@@ -202,6 +205,7 @@ describe('loadMore', () => {
       },
     };
 
+    const filters = summaryFilters(store.getState());
     await hook(store.dispatch(loadMoreStudyGuides()));
 
     expect(loadingSpy).toHaveBeenCalledWith(expect.objectContaining({
@@ -210,6 +214,6 @@ describe('loadMore', () => {
       sets: [GetHighlightsSetsEnum.Curatedopenstax],
     }));
     expect(highlightClient).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null}));
+    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null, filters}));
   });
 });
