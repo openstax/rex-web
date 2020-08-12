@@ -6,12 +6,17 @@ import { AnyAction } from '../../types';
 import { merge } from '../../utils';
 import { studyGuidesFeatureFlag } from '../constants';
 import * as actions from './actions';
+import { highlightStyles } from './constants';
 import { State } from './types';
 
 export const initialState: State = {
   isEnabled: false,
   summary: {
-    filters: {locationIds: [], default: true},
+    filters: {
+      colors: highlightStyles.map(({label}) => label),
+      default: true,
+      locationIds: [],
+    },
     loading: false,
     open: false,
     pagination: null,
@@ -68,6 +73,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         },
       };
     case getType(actions.receiveSummaryStudyGuides): {
+      // Check if filters wasn't updated while we were loading response.
+      // It may happen if user with slow network connection change filters very fast.
+      if (action.meta.filters && state.summary.filters !== action.meta.filters) { return state; }
+
       return {
         ...state,
         summary: {
