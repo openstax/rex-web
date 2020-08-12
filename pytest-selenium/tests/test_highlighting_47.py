@@ -7,10 +7,9 @@ from utils.utility import Highlight
 
 
 @markers.test_case("C593151")
-@markers.desktop_only
 @markers.parametrize("book_slug,page_slug", [("microbiology", "4-introduction")])
 def test_no_results_message_in_MH_dropdown_filter(selenium, base_url, book_slug, page_slug):
-    """No results message when selecting None in either or both chapter & color filters or removing filter tags."""
+    """No results message when selecting None in either or both chapter & color filters."""
 
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -76,10 +75,9 @@ def test_no_results_message_in_MH_dropdown_filter(selenium, base_url, book_slug,
 
 
 @markers.test_case("C593153")
-@markers.desktop_only
 @markers.parametrize("book_slug,page_slug", [("microbiology", "4-introduction")])
 def test_no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, page_slug):
-    """No results message when selecting None in either or both chapter & color filters or removing filter tags."""
+    """No results message when removing filter tags."""
 
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()

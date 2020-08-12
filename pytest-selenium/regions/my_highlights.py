@@ -349,8 +349,6 @@ class MyHighlights(Region):
             By.CSS_SELECTOR, ":first-child button[class*=Dropdown]")
         _color_dropdown_locator = (
             By.CSS_SELECTOR, "[class*=Toggle] ~ [class*=ColorFilter]")
-        # _color_dropdown_toggle_locator = (
-        #     By.CSS_SELECTOR, ":nth-child(2) button[class*=Dropdown]")
         _color_dropdown_toggle_locator = (By.CSS_SELECTOR, "button[aria-label*=Color]")
         _print_locator = (
             By.CSS_SELECTOR, "[aria-label=print]")
