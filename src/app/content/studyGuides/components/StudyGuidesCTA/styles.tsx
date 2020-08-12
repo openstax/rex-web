@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components/macro';
 import Button from '../../../../components/Button';
 import theme from '../../../../theme';
+import { disablePrint } from '../../../components/utils/disablePrint';
 
 // tslint:disable-next-line: variable-name
 export const StudyGuidesCTAWrapper = styled.div`
@@ -23,6 +24,8 @@ export const StudyGuidesCTAWrapper = styled.div`
     padding: 0 1.6rem;
     justify-content: center;
   `)}
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line: variable-name
