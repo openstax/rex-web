@@ -86,7 +86,6 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     if (prevProps.page !== this.props.page) {
       await this.postProcess();
     }
-    console.log(this.props === prevProps)
 
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 

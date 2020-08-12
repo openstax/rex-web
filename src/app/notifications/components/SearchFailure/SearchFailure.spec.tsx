@@ -13,8 +13,6 @@ jest.mock('react', () => {
   return { ...react, useEffect: react.useLayoutEffect };
 });
 
-const selectedHighlight = {} as any;
-
 describe('SearchFailure', () => {
   let window: Window;
   let addEventListener: jest.SpyInstance;
@@ -35,7 +33,7 @@ describe('SearchFailure', () => {
 
   it('matches snapshot', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight} />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -49,7 +47,7 @@ describe('SearchFailure', () => {
 
   it('matches snapshot when mobile toolbar is open', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={true} selectedHighlight={selectedHighlight}  />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={true}  />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -63,7 +61,7 @@ describe('SearchFailure', () => {
 
   it('manages timeouts', async() => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
     </MessageProvider>);
 
     expect(setTimeout).toHaveBeenCalledWith(expect.anything(), clearErrorAfter);
@@ -92,7 +90,7 @@ describe('SearchFailure', () => {
 
   it('dismisses on animation end', () => {
     const {root} = renderToDom(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
     </MessageProvider>);
     const wrapper = root.querySelector('[data-testid=banner-body]');
 
@@ -107,7 +105,7 @@ describe('SearchFailure', () => {
 
   it('dismisses notification on click', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} />
     </MessageProvider>);
 
     renderer.act(() => {
@@ -128,8 +126,10 @@ describe('SearchFailure', () => {
   });
 
   it('resets when selected highlight changes', () => {
+    const ref = React.createRef<{resetError: () => void}>();
+
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} ref={ref} />
     </MessageProvider>);
 
     renderer.act(() => {
@@ -146,10 +146,13 @@ describe('SearchFailure', () => {
 
     expect(bannerBody.props.isFadingOut).toBe(true);
 
+    const {current} = ref;
+    if (!current) {
+      return expect(current).toBeTruthy();
+    }
+
     renderer.act(() => {
-      component.update(<MessageProvider>
-        <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={{} as any}  />
-      </MessageProvider>);
+      current.resetError();
     });
 
     expect(bannerBody.props.isFadingOut).toBe(false);
