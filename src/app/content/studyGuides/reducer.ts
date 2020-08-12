@@ -6,12 +6,17 @@ import { AnyAction } from '../../types';
 import { merge } from '../../utils';
 import { studyGuidesFeatureFlag } from '../constants';
 import * as actions from './actions';
+import { highlightStyles } from './constants';
 import { State } from './types';
 
 export const initialState: State = {
   isEnabled: false,
   summary: {
-    filters: {locationIds: [], default: true},
+    filters: {
+      colors: highlightStyles.map(({label}) => label),
+      default: true,
+      locationIds: [],
+    },
     loading: false,
     open: false,
     pagination: null,
