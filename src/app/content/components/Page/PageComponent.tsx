@@ -1,4 +1,5 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import isEqual from 'lodash/fp/isEqual';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
@@ -110,8 +111,12 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
 
       return;
     }
+
     const selectedResult = assertNotNull(current.selectedResult, 'Current result cannot be null after its selection');
-    const currentResultId = `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`;
+    const hitIndex = current.searchResults.findIndex(isEqual(selectedResult.result));
+
+    const currentResultId =
+      `${selectedResult.highlight}-${hitIndex}-${this.props.query}-${selectedResult.result.source.pageId}`;
 
     if (currentResultId === this.state.selectedSearchResultId) { return; }
 
