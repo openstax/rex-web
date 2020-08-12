@@ -101,7 +101,7 @@ describe('BookBanner', () => {
     });
 
     it('defaults tab indexes on banner links', () => {
-      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} />);
+      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} bookTheme={book.theme} />);
 
       const linkExpanded = component.root.findByProps({'data-testid': 'details-link-expanded'});
       const linkCollapsed = component.root.findByProps({'data-testid': 'details-link-collapsed'});
@@ -132,7 +132,7 @@ describe('BookBanner', () => {
         .mockReturnValueOnce({top: 50} as DOMRect);
 
       const component = renderer.create(
-        <BookBanner pageNode={pageNode} book={book} />,
+        <BookBanner pageNode={pageNode} book={book} bookTheme={book.theme}/>,
         {createNodeMock}
       );
 
