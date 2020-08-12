@@ -17,6 +17,7 @@ const workingSearchText = 'moon\n';
 const openAndTriggerSearchDesktop = async(text: string) => {
   await page.waitForSelector(selectSearchInputDesktop);
   await page.type(selectSearchInputDesktop, text);
+  await page.keyboard.press('Enter');
   await finishRender(page);
 };
 
