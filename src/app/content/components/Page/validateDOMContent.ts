@@ -1,4 +1,5 @@
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
+import config from '../../../../config';
 
 export const validateDOMContent = (_document: Document, rootEl: HTMLElement) => {
   validateLinks(rootEl);
@@ -15,7 +16,16 @@ const validateLinks = (rootEl: HTMLElement) => {
   const urls = Array.from(rootEl.querySelectorAll('a[href^="/"]'))
     .map((element) => element.getAttribute('href'));
 
-  if (urls.length > 0) {
-    throw new Error(['found invalid links in content: ', ...urls].join('\n'));
+  if (urls.length === 0) {
+    return;
+  }
+
+  const message = ['found invalid links in content: ', ...urls].join('\n');
+
+  if (config.UNLIMITED_CONTENT) {
+    // tslint:disable:no-console
+    console.warn(message);
+  } else {
+    throw new Error(message);
   }
 };
