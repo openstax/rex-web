@@ -51,7 +51,7 @@ export interface PropTypes {
   pageNode?: ArchiveTreeSection;
   book?: Book;
   hasUnsavedHighlight?: boolean;
-  bookTheme?: BookWithOSWebData['theme'];
+  bookTheme: BookWithOSWebData['theme'];
 }
 
 // tslint:disable-next-line:variable-name
@@ -215,7 +215,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
   public render() {
     const { pageNode, book, bookTheme } = this.props;
 
-    if (!book || !pageNode || !bookTheme) {
+    if (!book || !pageNode) {
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 

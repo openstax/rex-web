@@ -48,7 +48,7 @@ describe('BookBanner', () => {
     });
 
     it('renders empty state with no page or book', () => {
-      const component = renderer.create(<BookBanner />);
+      const component = renderer.create(<BookBanner bookTheme={defaultTheme} />);
 
       const tree = component.toJSON();
       expect(tree).toMatchSnapshot();
