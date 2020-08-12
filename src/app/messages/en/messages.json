@@ -105,6 +105,8 @@
   "i18n:studyguides:popup:filters:filter-by:aria-label": "Filter study guides by {filter}",
   "i18n:studyguides:popup:no-highlights": "No results.",
   "i18n:studyguides:popup:no-highlights-tip": "Try selecting a different <strong>chapter filter</strong> to see different results.",
+  "i18n:studyguides:popup:using-this-guide": "Using This Guide",
+  "i18n:studyguides:popup:using-this-guide:alt": "The image presents the structure of study guides. The first element of each block summarizes, clarifies, or enriches key content. The second element is taken directly from the book. On the left side, there is a color label depending on the content.",
   "i18n:toc:title": "Table of Contents",
   "i18n:toc:toggle:closed": "Click to open the Table of Contents",
   "i18n:toc:toggle:opened": "Click to close the Table of Contents",

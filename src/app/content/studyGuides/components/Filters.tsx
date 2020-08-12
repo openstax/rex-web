@@ -10,6 +10,8 @@ import PrintButton from '../../components/popUp/PrintButton';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import * as selectors from '../selectors';
 import ColorKey from './ColorKey';
+import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
+import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -60,16 +62,27 @@ const ConnectedPrintButton = connect(
 
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
+  const [UTGopen, setUTGopen] = React.useState(false);
 
-  return <Filters>
-    <FilterDropdown
-      label='i18n:highlighting:filters:chapters'
-      ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
-    >
-      <ConnectedChapterFilter disabled={userLoggedOut}/>
-    </FilterDropdown>
-    <ColorKey />
-    <ConnectedPrintButton studyGuidesButton />
-    {!userLoggedOut && <ConnectedFilterList />}
-  </Filters>;
+  const toggleUsingThisGuide = () => {
+    setUTGopen((state) => !state);
+  };
+
+  const closeUsingThisGuide = React.useCallback(() => { setUTGopen(false); }, []);
+
+  return <React.Fragment>
+    <Filters>
+      <FilterDropdown
+        label='i18n:highlighting:filters:chapters'
+        ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+      >
+        <ConnectedChapterFilter disabled={userLoggedOut}/>
+      </FilterDropdown>
+      <ColorKey />
+      <UsingThisGuideButton onClick={toggleUsingThisGuide} open={UTGopen}/>
+      <ConnectedPrintButton studyGuidesButton />
+      {!userLoggedOut && <ConnectedFilterList />}
+    </Filters>
+    {UTGopen && <UsingThisGuideBanner onClick={closeUsingThisGuide}/>}
+  </React.Fragment>;
 };
