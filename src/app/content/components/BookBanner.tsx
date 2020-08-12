@@ -47,13 +47,6 @@ const LeftArrow = styled(ChevronLeft)`
   ${applyBookTextColor}
 `;
 
-export interface PropTypes {
-  pageNode?: ArchiveTreeSection;
-  book?: Book;
-  hasUnsavedHighlight?: boolean;
-  bookTheme: BookWithOSWebData['theme'];
-}
-
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   width: 100%;
@@ -174,10 +167,23 @@ export const BarWrapper = styled.div<BarWrapperProps>`
   ${ifMiniNav(`margin-top: -${bookBannerDesktopMiniHeight}rem`)}
 `;
 
+export interface PropTypes {
+  pageNode?: ArchiveTreeSection;
+  book?: Book;
+  hasUnsavedHighlight?: boolean;
+  bookTheme: BookWithOSWebData['theme'];
+}
+
+interface BookBannerState {
+  scrollTransition: boolean;
+  tabbableBanner: 'mini' | 'big';
+}
+
 // tslint:disable-next-line:variable-name
-export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}> {
-  public state = {
+export class BookBanner extends Component<PropTypes, BookBannerState> {
+  public state: BookBannerState = {
     scrollTransition: false,
+    tabbableBanner: 'big',
   };
   private miniBanner = React.createRef<HTMLDivElement>();
   private bigBanner = React.createRef<HTMLDivElement>();
@@ -188,6 +194,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       this.setState({
         scrollTransition: miniRect.top === 0 &&
           this.bigBanner.current.offsetTop + this.bigBanner.current.clientHeight > window.scrollY,
+        tabbableBanner: miniRect.top === 0 ? 'mini' : 'big',
       });
     }
   };
@@ -245,6 +252,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
             this.handleLinkClick(e, bookUrl);
           }}
+          tabIndex={this.state.tabbableBanner === 'big' ? undefined : -1}
         >
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>
@@ -256,6 +264,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       variant='mini'
       key='mini-nav'
       ref={this.miniBanner}
+      data-testid='bookbanner-collapsed'
       data-analytics-region='book-banner-collapsed'
     >
       <TopBar>
@@ -267,6 +276,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
             this.handleLinkClick(e, bookUrl);
           }}
+          tabIndex={this.state.tabbableBanner === 'mini' ? undefined : -1}
         >
           <LeftArrow colorSchema={book.theme} />{book.tree.title}
         </BookTitle>
