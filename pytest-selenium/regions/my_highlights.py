@@ -433,10 +433,6 @@ class MyHighlights(Region):
             button = self.find_element(*self._color_dropdown_toggle_locator)
             Utilities.click_option(self.driver, element=button)
 
-        # @property
-        # def filter(self) -> MyHighlights.FilterBar.Filter:
-        #     return self.Filter(self)
-
         class ChapterFilters(FilterSelection):
             """Filter displayed highlights by one or more book chapters."""
 

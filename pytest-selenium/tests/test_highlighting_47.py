@@ -11,6 +11,7 @@ from utils.utility import Highlight
 @markers.parametrize("book_slug,page_slug", [("microbiology", "4-introduction")])
 def test_no_results_message_in_MH(selenium, base_url, book_slug, page_slug):
     """No results message when selecting None in either or both chapter & color filters or removing filter tags."""
+
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
@@ -27,71 +28,86 @@ def test_no_results_message_in_MH(selenium, base_url, book_slug, page_slug):
     # AND: Highlight 1 paragraph
     paragraphs = random.sample(book.content.paragraphs, 1)
     book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE)
-    # id_1 = list(set(book.content.highlight_ids))[0]
 
     my_highlights = book.toolbar.my_highlights()
 
     # WHEN: Select None in Chapter filter
     filterbar = my_highlights.filterbar
     filterbar.toggle_chapter_dropdown_menu()
-
     filterbar.chapter_filters.select_none()
     filterbar.toggle_chapter_dropdown_menu()
 
+    # THEN: No results message is displayed
     assert (
         my_highlights.highlights.no_results_message
         == "No results.Try selecting different chapter or color filters to see different results."
-    ), "message not displayed or incorrect message"
-
-    # THEN: No results messsage is displayed
+    ), "message not displayed or incorrect message when None is selected in chapter filter"
 
     # WHEN: Select None in Color filter
-
     selenium.refresh()
     my_highlights = book.toolbar.my_highlights()
     filterbar.toggle_color_dropdown_menu()
-
     filterbar.color_filters.select_none()
     filterbar.toggle_color_dropdown_menu()
 
+    # THEN: No results message is displayed
     assert (
         my_highlights.highlights.no_results_message
         == "No results.Try selecting different chapter or color filters to see different results."
-    ), "message not displayed or incorrect message"
+    ), "message not displayed or incorrect message when None is selected in Color filter"
 
     # WHEN: Select None in both filters
     selenium.refresh()
     my_highlights = book.toolbar.my_highlights()
 
     filterbar.toggle_chapter_dropdown_menu()
-
     filterbar.chapter_filters.select_none()
     filterbar.toggle_chapter_dropdown_menu()
 
     filterbar.toggle_color_dropdown_menu()
-
     filterbar.color_filters.select_none()
     filterbar.toggle_color_dropdown_menu()
 
+    # THEN: No results message is displayed
     assert (
         my_highlights.highlights.no_results_message
         == "No results.Try selecting different chapter or color filters to see different results."
-    ), "message not displayed or incorrect message"
+    ), "message not displayed or incorrect message when None is selected in both filters"
 
     # WHEN: Remove the chapter tag
     selenium.refresh()
     my_highlights = book.toolbar.my_highlights()
-
     x = filterbar.active_filter_tags
-    print(x)
-    print(x[0])
-    # print(x[0].get_attribute("aria-label"))
-    x[0].remove_tag()
+    x[2].remove_tag()
 
-    from time import sleep
-
-    sleep(2)
+    # THEN: No results message is displayed
+    assert (
+        my_highlights.highlights.no_results_message
+        == "No results.Try selecting different chapter or color filters to see different results."
+    ), "message not displayed or incorrect message when chapter tag is removed"
 
     # WHEN: Remove the color tag
+    selenium.refresh()
+    my_highlights = book.toolbar.my_highlights()
+    x = filterbar.active_filter_tags
+    x[3].remove_tag()
+
+    # THEN: No results message is displayed
+    assert (
+        my_highlights.highlights.no_results_message
+        == "No results.Try selecting different chapter or color filters to see different results."
+    ), "message not displayed or incorrect message when color tag is removed"
 
     # WHEN: Remove both tags
+    selenium.refresh()
+    my_highlights = book.toolbar.my_highlights()
+
+    x = filterbar.active_filter_tags
+    x[2].remove_tag()
+    x[3].remove_tag()
+
+    # THEN: No results message is displayed
+    assert (
+        my_highlights.highlights.no_results_message
+        == "No results.Try selecting different chapter or color filters to see different results."
+    ), "message not displayed or incorrect message when both tags are removed"
