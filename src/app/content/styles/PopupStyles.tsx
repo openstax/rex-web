@@ -4,7 +4,7 @@ import Times from '../../../../src/app/components/Times';
 import { PlainButton } from '../../components/Button';
 import { H3 } from '../../components/Typography/headings';
 import theme from '../../theme';
-import { contentWrapperMaxWidth, toolbarIconColor } from '../components/constants';
+import { contentWrapperMaxWidth } from '../components/constants';
 import { applyBookTextColor } from '../components/utils/applyBookTextColor';
 import { disablePrint } from '../components/utils/disablePrint';
 import { BookWithOSWebData } from '../types';
@@ -21,12 +21,12 @@ export const headerHeight = 7.2;
 export const topBottomMargin = headerHeight + popupBodyPadding;
 
 const swapColors = ({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => {
-  const color = theme.color.primary[colorSchema].foreground;
+  const color = theme.color.primary[colorSchema];
   return css`
-    color: ${color};
+    color: ${color.foreground};
 
     &:hover {
-      color: ${color === theme.color.text.white ? toolbarIconColor.base : toolbarIconColor.lighter};
+      color: ${color.foregroundHover};
     }
   `;
 };
