@@ -17,6 +17,7 @@ import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
 import { receiveBook } from '../../actions';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
+import { CloseIcon, Header } from '../../styles/PopupStyles';
 import { formatBookData } from '../../utils';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import HighlightsPopUp from './HighlightsPopUp';
@@ -246,7 +247,11 @@ describe('MyHighlights button and PopUp', () => {
       </Services.Provider>
     </Provider>, {createNodeMock});
 
-    expect(component.toJSON()).toMatchSnapshot();
+    const header = component.root.findByType(Header);
+    const closeIcon = component.root.findByType(CloseIcon)
+
+    expect(header.props.colorSchema).toBe(book.theme);
+    expect(closeIcon.props.colorSchema).toBe(book.theme);
 
     renderer.act(() => {
       store.dispatch(closeMyHighlights());
@@ -254,6 +259,7 @@ describe('MyHighlights button and PopUp', () => {
       store.dispatch(openMyHighlights());
     });
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(header.props.colorSchema).toBe('yellow');
+    expect(closeIcon.props.colorSchema).toBe('yellow');
   });
 });
