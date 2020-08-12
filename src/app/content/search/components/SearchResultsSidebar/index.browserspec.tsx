@@ -57,7 +57,7 @@ it('closes the search results sidebar without affecting search input', async() =
   await openAndTriggerSearchDesktop(workingSearchText);
   await closeSearchSidebarDesktop();
 
-  expect(await page.waitForSelector(searchSidebarSelector, {hidden: true})).toBeTruthy();
+  expect(await page.waitForSelector(searchSidebarSelector, {hidden: false})).toBeTruthy();
 
   const searchInput = await page.$(selectSearchInputDesktop);
   if (searchInput) {
