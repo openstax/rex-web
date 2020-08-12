@@ -102,7 +102,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     });
   }
 
-  public onHighlightSelect: OptionsCallback = ({current, selectedHighlight}) => {
+  public onHighlightSelect: OptionsCallback = ({selectedHighlight}) => {
     if (selectedHighlight) {
       this.setState({
         hasSearchError: false,
@@ -112,17 +112,9 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       return;
     }
 
-    const selectedResult = assertNotNull(current.selectedResult, 'Current result cannot be null after its selection');
-    const hitIndex = current.searchResults.findIndex(isEqual(selectedResult.result));
-
-    const currentResultId =
-      `${selectedResult.highlight}-${hitIndex}-${this.props.query}-${selectedResult.result.source.pageId}`;
-
-    if (currentResultId === this.state.selectedSearchResultId) { return; }
-
     this.setState({
       hasSearchError: true,
-      selectedSearchResultId: currentResultId,
+      selectedSearchResultId: Math.random().toString(),
     });
   };
 
