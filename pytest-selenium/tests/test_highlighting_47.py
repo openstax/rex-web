@@ -9,7 +9,7 @@ from utils.utility import Highlight
 @markers.test_case("C593151")
 @markers.desktop_only
 @markers.parametrize("book_slug,page_slug", [("microbiology", "4-introduction")])
-def test_no_results_message_in_MH(selenium, base_url, book_slug, page_slug):
+def test_no_results_message_in_MH_dropdown_filter(selenium, base_url, book_slug, page_slug):
     """No results message when selecting None in either or both chapter & color filters or removing filter tags."""
 
     # GIVEN: Login book page
@@ -74,9 +74,34 @@ def test_no_results_message_in_MH(selenium, base_url, book_slug, page_slug):
         == "No results.Try selecting different chapter or color filters to see different results."
     ), "message not displayed or incorrect message when None is selected in both filters"
 
-    # WHEN: Remove the chapter tag
-    selenium.refresh()
+
+@markers.test_case("C593153")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("microbiology", "4-introduction")])
+def test_no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, page_slug):
+    """No results message when selecting None in either or both chapter & color filters or removing filter tags."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # AND: Highlight 1 paragraph
+    paragraphs = random.sample(book.content.paragraphs, 1)
+    book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE)
+
     my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filterbar
+
+    # WHEN: Remove the chapter tag
     x = filterbar.active_filter_tags
     x[2].remove_tag()
 
