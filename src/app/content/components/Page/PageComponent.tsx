@@ -87,6 +87,8 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       await this.postProcess();
     }
 
+    if (prevProps === this.props) { return; }
+
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
