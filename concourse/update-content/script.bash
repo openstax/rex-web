@@ -13,51 +13,56 @@ set -ex
 
 yarn
 
-export ARCHIVE_URL="https://archive.cnx.org"
+approved_books_default_branch=$(curl -s https://api.github.com/repos/openstax/content-manager-approved-books | jq -r .default_branch)
+rex_default_branch=$(curl -s https://api.github.com/repos/openstax/rex-web | jq -r .default_branch)
 
-node script/entry update-content-versions
-
-mv src/config.books.js src/config.books.new.js
-git checkout src/config.books.js
-
-book_ids=$(node -e "$(cat <<script
-  const oldBooks = require('./src/config.books.js');
-  const newBooks = require('./src/config.books.new.js');
-  Object.keys(newBooks).forEach((key) => {
-    if (newBooks[key].defaultVersion !== oldBooks[key].defaultVersion) {
-      console.log(key);
-    }
-  });
-script
-)")
-
-rm src/config.books.new.js
+approved_books=$(curl -sL "https://github.com/openstax/content-manager-approved-books/raw/$approved_books_default_branch/approved-books.json")
+book_ids=$(jq -r '.[].uuid' <<< "$approved_books")
 
 git remote set-branches origin 'update-content-*'
-git remote set-branches origin --add master
+git remote set-branches origin --add "$rex_default_branch"
 
 for book_id in $book_ids; do
   branch="update-content-$book_id"
   git fetch
-  git checkout master
+  git checkout "$rex_default_branch"
   git checkout src/config.books.js
-  (git checkout "$branch" && git merge origin/master --no-edit -X theirs) || git checkout -b "$branch"
+  (git checkout "$branch" && git merge "origin/$rex_default_branch" --no-edit -X theirs) || git checkout -b "$branch"
 
-  node script/entry update-content-versions --only "$book_id"
+  # there may be multiple approved versions for supporting different products, historical support, etc
+  approved_versions=$(jq -r --arg uuid "$book_id" '[.[]|select(.uuid==$uuid)][].version' <<< "$approved_books")
 
-  git add src/config.books.js
+  # in general we want the most recent one, in the future we'll have to filter this by which ones
+  # are available for the recipe code version REX supports
+  desired_version=$(sort --version-sort -r <<< "$approved_versions" | head -n 1)
+
+  current_version=$(jq -r --arg uuid "$book_id" '.[$uuid].defaultVersion' < src/config.books.json)
+
+  # approved book format has a "1." on the front of every version
+  desired_version=${desired_version:2}
+
+  if [ "$desired_version" == "$current_version" ]; then
+    echo "$book_id alredy at desired version."
+    continue
+  fi
+
+  jq \
+    --arg version "$desired_version" \
+    --arg uuid "$book_id" \
+    '.[$uuid].defaultVersion = $version' < src/config.books.json > src/config.books.json.new
+
+  mv src/config.books.json.new src/config.books.json
+
+  git add src/config.books.json
   git commit -m "update content" || true
   git push --set-upstream origin "$branch"
 
   book_title=$(node script/entry.js book-info "$book_id" --field title)
-
   curl -s -X POST -H "Authorization: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/repos/openstax/rex-web/pulls" --data-binary @- << JSON
     {
       "title": "$book_title updates",
       "head": "$branch",
-      "base": "master",
-      "draft": true
+      "base": "$rex_default_branch"
     }
 JSON
-
 done
