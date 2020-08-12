@@ -115,6 +115,20 @@ describe('onClickOutside', () => {
     expect(cb).not.toHaveBeenCalled();
   });
 
+  // This is for test coverage. It should never happen since typescript will prevent us from doing this
+  it('invoking event with broken ref calls callback', () => {
+    const cb = jest.fn();
+    const notChild = documentBack.createElement('div');
+
+    onClickOutside([{ notCurrent: 'not-ref' } as any], true, cb)();
+
+    addEventListener.mock.calls[0][1]({
+      target: notChild,
+    });
+
+    expect(cb).toHaveBeenCalled();
+  });
+
   it('invoking event with target that is not child of one of elements calls callback', () => {
     const cb = jest.fn();
     const container = documentBack.createElement('div');

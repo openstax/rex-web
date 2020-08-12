@@ -53,20 +53,22 @@ const FilterListItem = styled.li`
 
 interface FiltersListColorProps {
   color: HighlightColorEnum;
+  ariaLabelKey: (color: HighlightColorEnum) => string;
+  labelKey: (color: HighlightColorEnum) => string;
   onRemove: () => void;
 }
 
 // tslint:disable-next-line: variable-name
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <FilterListItem>
-    <FormattedMessage id='i18n:highlighting:filters:remove:color' values={{filterValue: props.color}}>
+    <FormattedMessage id={props.ariaLabelKey(props.color)} values={{filterValue: props.color}}>
       {(msg: string) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
         <Times />
       </StyledPlainButton>}
     </FormattedMessage>
 
     <ItemLabel>
-      <FormattedMessage id={`i18n:highlighting:colors:${props.color}`}>
+      <FormattedMessage id={props.labelKey(props.color)}>
         {(msg: string) => msg}
       </FormattedMessage>
     </ItemLabel>
@@ -98,8 +100,10 @@ interface FiltersListProps {
   className?: string;
   locationFilters: HighlightLocationFilters;
   selectedLocationFilters: Set<string>;
-  selectedColorFilters?: Set<HighlightColorEnum>;
+  selectedColorFilters: Set<HighlightColorEnum>;
   setFilters: (filters: Partial<SummaryFilters>) => void;
+  colorAriaLabelKey: (color: HighlightColorEnum) => string;
+  colorLabelKey: (color: HighlightColorEnum) => string;
 }
 
 // tslint:disable-next-line: variable-name
@@ -109,6 +113,8 @@ const FiltersList = ({
   selectedColorFilters,
   selectedLocationFilters,
   setFilters,
+  colorAriaLabelKey,
+  colorLabelKey,
 }: FiltersListProps) => {
 
   const onRemoveChapter = (locationId: string) => {
@@ -135,6 +141,8 @@ const FiltersList = ({
       key={color}
       color={color}
       onRemove={() => onRemoveColor(color)}
+      ariaLabelKey={colorAriaLabelKey}
+      labelKey={colorLabelKey}
     />)}
   </ul>;
 };
