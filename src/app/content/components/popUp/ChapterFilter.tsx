@@ -7,7 +7,7 @@ import { match, not } from '../../../fpUtils';
 import theme from '../../../theme';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { HighlightLocationFilters, SummaryFilters } from '../../highlights/types';
-import { filters } from '../../styles/PopupConstants';
+import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 
 // tslint:disable-next-line:variable-name
 const Row = styled.div`
@@ -57,7 +57,7 @@ interface Props {
   locationFilters: HighlightLocationFilters;
   locationFiltersWithContent: Set<string>;
   selectedLocationFilters: Set<string>;
-  setFilters: (filters: Partial<SummaryFilters>) => void;
+  setFilters: (filters: Pick<SummaryFilters, 'locationIds'>) => void;
 }
 
 // tslint:disable-next-line:variable-name
@@ -110,11 +110,6 @@ export default styled(ChapterFilter)`
   outline: none;
   overflow: auto;
   z-index: 1;
-  ${theme.breakpoints.mobile(css`
-    &&& {
-      max-width: calc(100vw - ${filters.valueToSubstractFromVW}rem);
-    }
-  `)}
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;
@@ -127,4 +122,8 @@ export default styled(ChapterFilter)`
   ${ColorIndicator} {
     margin: 0 1.6rem 0 1.6rem;
   }
+
+  ${theme.breakpoints.mobileSmall(css`
+    width: calc(100vw - ${mobileMarginSides * 2}rem);
+  `)}
 `;
