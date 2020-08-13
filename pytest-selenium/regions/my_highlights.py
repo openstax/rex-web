@@ -437,7 +437,7 @@ class MyHighlights(Region):
             @property
             def chapters(self) \
                     -> List[MyHighlights.FilterBar.ChapterFilters.Chapter]:
-                """Access the book chapter filters.
+                r"""Access the book chapter filters.
 
                 :return: the list of available book chapters and other
                     sections to filter displayed highlights
