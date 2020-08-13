@@ -37,6 +37,7 @@ const MobileBanner = styled.img`
   display: none;
   ${theme.breakpoints.mobile(css`
     display: block;
+    padding: 0 5.6rem 0.2rem;
   `)}
 `;
 
