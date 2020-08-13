@@ -142,8 +142,8 @@ export const getScrollTargetFromQuery = (
 };
 
 export const createNavigationOptions = (
-  scrollTarget?: ScrollTarget,
-  search: { query?: string | null } = {}
+  search: { query?: string | null },
+  scrollTarget?: ScrollTarget
 ) => ({
   hash: scrollTarget ? scrollTarget.elementId : undefined,
   search: queryString.stringify({

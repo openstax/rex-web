@@ -77,7 +77,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       // Add options only if linking to the same book
       const options = currentBook && currentBook.id === bookUid
-        ? createNavigationOptions(scrollTarget, search)
+        ? createNavigationOptions(search, scrollTarget)
         : undefined;
 
       navigate({
