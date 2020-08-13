@@ -19,13 +19,12 @@ describe('searchHighlightManager', () => {
     makeSearchResultHit({book, page, highlights: ['highlight <strong>number</strong> 3']}),
   ];
 
-  let container: HTMLElement;
   let attachedManager: ReturnType<typeof searchHighlightManager>;
   let onHighlightSelect: jest.Mock;
   let selectedSearchResult: SelectedResult | null;
 
   beforeEach(() => {
-    container = assertDocument().createElement('div');
+    const container = assertDocument().createElement('div');
 
     attachedManager = searchHighlightManager(container);
     selectedSearchResult = null;
