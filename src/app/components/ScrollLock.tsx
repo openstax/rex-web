@@ -1,4 +1,3 @@
-import Color from 'color';
 import React from 'react';
 import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
 import { sidebarTransitionTime, toolbarDesktopHeight } from '../content/components/constants';
@@ -40,7 +39,7 @@ const fadeIn = keyframes`
 // tslint:disable-next-line:variable-name
 export const Overlay = styled.div`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
-  background-color: ${Color(theme.color.primary.gray.base).alpha(0.75).string()};
+  background-color: rgba(0,0,0,0.8);
   ${(props: {zIndex?: number}) => props.zIndex && css`
     z-index: ${props.zIndex};
   `}
