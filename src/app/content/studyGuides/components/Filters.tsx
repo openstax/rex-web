@@ -1,15 +1,18 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
+import styled from 'styled-components/macro';
 import { loggedOut } from '../../../auth/selectors';
 import { AppState, Dispatch } from '../../../types';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
-import Filters, { FilterDropdown } from '../../components/popUp/Filters';
+import ColorFilter from '../../components/popUp/ColorFilter';
+import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
 import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
 import { printStudyGuides, setSummaryFilters } from '../actions';
+import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
-import ColorKey from './ColorKey';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -23,10 +26,27 @@ const ConnectedChapterFilter = connect(
   })
 )(ChapterFilter);
 
+// tslint:disable-next-line: variable-name
+const StyledColorFilter = styled(ColorFilter)`
+  min-width: 29rem;
+`;
+
+// tslint:disable-next-line: variable-name
+const ConnectedColorFilter = connect(
+  (state: AppState) => ({
+    colorFiltersWithContent: selectors.highlightColorFiltersWithContent(state),
+    selectedColorFilters: selectors.summaryColorFilters(state),
+  }),
+  (dispatch: Dispatch) => ({
+    setSummaryFilters: flow(setSummaryFilters, dispatch),
+  })
+)(StyledColorFilter);
+
 // tslint:disable-next-line:variable-name
 const ConnectedFilterList = connect(
   (state: AppState) => ({
     locationFilters: selectors.studyGuidesLocationFilters(state),
+    selectedColorFilters: selectors.summaryColorFilters(state),
     selectedLocationFilters: selectors.summaryLocationFilters(state),
   }),
   (dispatch: Dispatch) => ({
@@ -62,14 +82,28 @@ export default () => {
   const userLoggedOut = useSelector(loggedOut);
 
   return <Filters>
-    <FilterDropdown
-      label='i18n:highlighting:filters:chapters'
-      ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
-    >
-      <ConnectedChapterFilter disabled={userLoggedOut}/>
-    </FilterDropdown>
-    <ColorKey />
-    <ConnectedPrintButton studyGuidesButton />
-    {!userLoggedOut && <ConnectedFilterList />}
+    <FiltersTopBar>
+      <FilterDropdown
+        label='i18n:highlighting:filters:chapters'
+        ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+      >
+        <ConnectedChapterFilter disabled={userLoggedOut}/>
+      </FilterDropdown>
+      <FilterDropdown
+        label='i18n:highlighting:filters:colors'
+        ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+      >
+        <ConnectedColorFilter
+          disabled={userLoggedOut}
+          styles={highlightStyles}
+          labelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
+        />
+      </FilterDropdown>
+      <ConnectedPrintButton studyGuidesButton />
+    </FiltersTopBar>
+    {!userLoggedOut && <ConnectedFilterList
+      colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
+      colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
+    />}
   </Filters>;
 };

@@ -1,16 +1,20 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import {
   CountsPerSource,
   SummaryHighlights,
   SummaryHighlightsPagination,
 } from '../highlights/types';
 
+export interface StudyGuidesSummaryFilters {
+  colors: HighlightColorEnum[];
+  default: boolean;
+  locationIds: string[];
+}
+
 export interface State {
   isEnabled: boolean;
   summary: {
-    filters: {
-      locationIds: string[];
-      default: boolean;
-    },
+    filters: StudyGuidesSummaryFilters,
     loading: boolean,
     open: boolean,
     pagination: SummaryHighlightsPagination,
