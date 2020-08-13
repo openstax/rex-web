@@ -3,7 +3,7 @@ import { Action, Location } from 'history';
 import curry from 'lodash/fp/curry';
 import omit from 'lodash/fp/omit';
 import pathToRegexp, { Key, parse } from 'path-to-regexp';
-import { OutputParams } from 'query-string';
+import queryString, { OutputParams } from 'query-string';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
 import { isPlainObject } from '../guards';
@@ -146,7 +146,7 @@ export const createNavigationOptions = (
   search: { query?: string | null } = {}
 ) => ({
   hash: scrollTarget ? scrollTarget.elementId : undefined,
-  search: querystring.stringify({
+  search: queryString.stringify({
     ...search,
     target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
   }),
