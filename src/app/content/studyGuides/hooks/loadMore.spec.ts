@@ -14,7 +14,6 @@ import {
   receiveSummaryStudyGuides,
   setDefaultSummaryFilters,
 } from '../actions';
-import { allColors } from '../constants';
 import { summaryFilters } from '../selectors';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -211,7 +210,7 @@ describe('loadMore', () => {
 
     expect(loadingSpy).toHaveBeenCalledWith(expect.objectContaining({
       book,
-      colors: allColors,
+      colors: [HighlightColorEnum.Green],
       sets: [GetHighlightsSetsEnum.Curatedopenstax],
     }));
     expect(highlightClient).toHaveBeenCalled();
