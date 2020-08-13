@@ -5,10 +5,10 @@ import { PlainButton } from '../../../../components/Button';
 import theme from '../../../../theme';
 import { toolbarDefaultText } from '../../../components/Toolbar/styled';
 import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
-import { mobilePaddingSides } from '../../../styles/PopupConstants';
+import { mobilePaddingSides, barHeight } from '../../../styles/PopupConstants';
 
-const UTGButton = {
-  height: 6,
+export const UTGButton = {
+  height: barHeight,
   marginBottom: 0.6,
   negativeMarginBottom: 0.1
 }

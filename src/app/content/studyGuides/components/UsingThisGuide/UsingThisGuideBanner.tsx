@@ -15,6 +15,7 @@ const bannerStyles = css`
 // tslint:disable-next-line: variable-name
 const BannerWrapper = styled.div`
   background: ${theme.color.black};
+  margin-bottom: 1rem;
   padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
   ${theme.breakpoints.mobile(css`
     padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
@@ -45,7 +46,7 @@ const UsingThisGuideTitle = styled(H2)`
   color: ${theme.color.white};
   ${theme.breakpoints.mobile(h4MobileStyle)}
   ${theme.breakpoints.mobile(css`
-  color: ${theme.color.white};
+    color: ${theme.color.white};
   `)}
 `;
 
