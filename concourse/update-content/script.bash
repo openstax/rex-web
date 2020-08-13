@@ -26,7 +26,7 @@ for book_id in $book_ids; do
   branch="update-content-$book_id"
   git fetch
   git checkout "$rex_default_branch"
-  git checkout src/config.books.js
+  git checkout src/config.books.json
   (git checkout "$branch" && git merge "origin/$rex_default_branch" --no-edit -X theirs) || git checkout -b "$branch"
 
   # there may be multiple approved versions for supporting different products, historical support, etc
