@@ -1,10 +1,11 @@
+import { DOMRect } from '@openstax/types/lib.dom';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { book as archiveBook, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { resetModules } from '../../../test/utils';
-import { assertWindow } from '../../utils';
+import { assertDocument, assertWindow } from '../../utils';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import { BarWrapper, PropTypes } from './BookBanner';
@@ -87,6 +88,67 @@ describe('BookBanner', () => {
     it('wrapper transition matches snapshot', () => {
       const component = renderer.create(<BarWrapper colorSchema='blue' up={true} />);
       expect(component.toJSON()).toMatchSnapshot();
+    });
+
+    it('defaults tab indexes on banner links', () => {
+      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} />);
+
+      const linkExpanded = component.root.findByProps({'data-testid': 'details-link-expanded'});
+      const linkCollapsed = component.root.findByProps({'data-testid': 'details-link-collapsed'});
+
+      expect(linkExpanded.props.tabIndex).toBe(undefined);
+      expect(linkCollapsed.props.tabIndex).toBe(-1);
+    });
+
+    it('sets tab indexes on banner links according to scroll', () => {
+      const expandedBannerNode = assertDocument().createElement('div');
+      const collapsedBannerNode = assertDocument().createElement('div');
+
+      const createNodeMock = (element: any) => {
+        const analyticsRegion = element.props['data-testid'];
+
+        if (analyticsRegion === 'bookbanner') {
+          return expandedBannerNode;
+        }
+        if (analyticsRegion === 'bookbanner-collapsed') {
+          return collapsedBannerNode;
+        }
+
+        return null;
+      };
+
+      // scroll handler also gets called on component did mount
+      const rectSpy = jest.spyOn(collapsedBannerNode, 'getBoundingClientRect')
+        .mockReturnValueOnce({top: 50} as DOMRect);
+
+      const component = renderer.create(
+        <BookBanner pageNode={pageNode} book={book} />,
+        {createNodeMock}
+      );
+
+      const linkExpanded = component.root.findByProps({'data-testid': 'details-link-expanded'});
+      const linkCollapsed = component.root.findByProps({'data-testid': 'details-link-collapsed'});
+
+      const scrollEvent = window.document.createEvent('UIEvents');
+      scrollEvent.initEvent('scroll', true, false);
+
+      // first scroll
+      rectSpy.mockReturnValueOnce({top: 0} as DOMRect);
+      renderer.act(() => {
+        window.document.dispatchEvent(scrollEvent);
+      });
+
+      expect(linkExpanded.props.tabIndex).toBe(-1);
+      expect(linkCollapsed.props.tabIndex).toBe(undefined);
+
+      // second scroll
+      rectSpy.mockReturnValueOnce({top: 50} as DOMRect);
+      renderer.act(() => {
+        window.document.dispatchEvent(scrollEvent);
+      });
+
+      expect(linkExpanded.props.tabIndex).toBe(undefined);
+      expect(linkCollapsed.props.tabIndex).toBe(-1);
     });
   });
 
