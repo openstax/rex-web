@@ -140,3 +140,14 @@ export const getScrollTargetFromQuery = (
   }
   return null;
 };
+
+export const createNavigationOptions = (
+  scrollTarget?: ScrollTarget,
+  search: { query?: string | null } = {}
+) => ({
+  hash: scrollTarget ? scrollTarget.elementId : undefined,
+  search: querystring.stringify({
+    ...search,
+    target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
+  }),
+});

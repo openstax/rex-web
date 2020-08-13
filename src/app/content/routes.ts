@@ -18,7 +18,6 @@ interface State {
   bookUid: string;
   bookVersion: string;
   pageUid: string;
-  search?: {query: string | null};
 }
 
 export const content: Route<Params, State> = {

@@ -1,13 +1,12 @@
 import flow from 'lodash/fp/flow';
-import omit from 'lodash/fp/omit';
-import queryString from 'query-string';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
-import { RouteState, ScrollTarget } from '../../navigation/types';
+import { ScrollTarget } from '../../navigation/types';
+import { createNavigationOptions } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
@@ -32,7 +31,7 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  search: Exclude<RouteState<typeof content>['search'], undefined>;
+  search: { query: string | null };
   scrollTarget?: ScrollTarget;
   className?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
@@ -78,13 +77,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       // Add options only if linking to the same book
       const options = currentBook && currentBook.id === bookUid
-        ? {
-            hash: scrollTarget ? scrollTarget.elementId : undefined,
-            search: queryString.stringify({
-              ...search,
-              target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
-            }),
-          }
+        ? createNavigationOptions(scrollTarget, search)
         : undefined;
 
       navigate({
@@ -105,7 +98,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState, ownProps: {search?: Partial<RouteState<typeof content>['search']>}) => ({
+  (state: AppState, ownProps: {search?: { query?: string | null }}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),

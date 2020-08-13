@@ -89,6 +89,19 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
   return highlighter;
 };
 
+const getHighlightToFocus = (
+  focused?: Highlight | null,
+  prevFocusedId?: string,
+  pendingHighlight?: Highlight,
+  scrollTargetHighlight?: Highlight | null
+) => {
+  if (focused) { return focused; }
+  if (!pendingHighlight && !prevFocusedId && scrollTargetHighlight) {
+    return scrollTargetHighlight;
+  }
+  return null;
+};
+
 interface UpdateOptions {
   clearError: () => void;
   setError: (id: string) => void;
@@ -189,17 +202,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         }
       }
 
-      let toFocus: Highlight | null = null;
-      if (focused) {
-        toFocus = focused;
-      } else if (
-        !pendingHighlight
-        && !prevProps.focused
-        && scrollTargetHighlight
-      ) {
-        toFocus = scrollTargetHighlight;
-      }
-
+      const toFocus = getHighlightToFocus(focused, prevProps.focused, pendingHighlight, scrollTargetHighlight);
       if (toFocus) {
         toFocus.focus();
         if (toFocus.id !== focusedId) {
