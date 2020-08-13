@@ -1,3 +1,4 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import {
   CountsPerSource,
   SummaryHighlights,
@@ -5,6 +6,7 @@ import {
 } from '../highlights/types';
 
 export interface StudyGuidesSummaryFilters {
+  colors: HighlightColorEnum[];
   default: boolean;
   locationIds: string[];
 }
