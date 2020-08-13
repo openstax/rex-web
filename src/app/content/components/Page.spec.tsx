@@ -29,7 +29,6 @@ import { receiveSearchResults, requestSearch, selectSearchResult } from '../sear
 import * as searchUtils from '../search/utils';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
-import * as highlightUtils from './Page/highlightUtils';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
