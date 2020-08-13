@@ -980,13 +980,7 @@ describe('Page', () => {
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
 
-    const highlightData = jest.spyOn(highlightUtils, 'highlightData').mockReturnValueOnce(() => ({} as any));
     renderer.act(() => {
-      store.dispatch(createHighlight({
-        anchor: 'anchor',
-        highlightedContent: 'highlight',
-        locationStrategies: [{type: 'XpathRangeSelector'}],
-      } as any, {} as any));
       store.dispatch(selectSearchResult(searchResultToSelect));
     });
 
@@ -997,7 +991,6 @@ describe('Page', () => {
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
     highlightResults.mockRestore();
-    highlightData.mockRestore();
   });
 
   it('mounts, updates, and unmounts without a dom', () => {

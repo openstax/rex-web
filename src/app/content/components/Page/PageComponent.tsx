@@ -106,8 +106,10 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       return;
     }
 
-    if (this.state.hasSearchError && this.errorModalRef.current) {
-      this.errorModalRef.current.resetError();
+    const {current: errorModal} = this.errorModalRef;
+
+    if (this.state.hasSearchError && errorModal) {
+      errorModal.resetError();
     } else {
       this.setState({
         hasSearchError: true,
