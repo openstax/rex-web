@@ -16,6 +16,7 @@ const bannerStyles = css`
 const BannerWrapper = styled.div`
   background: ${theme.color.black};
   margin-bottom: 1rem;
+  width: 100%;
   padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
   ${theme.breakpoints.mobile(css`
     padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
