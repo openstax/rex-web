@@ -26,6 +26,7 @@ const BannerWrapper = styled.div`
 // tslint:disable-next-line: variable-name
 const DesktopBanner = styled.img`
   ${bannerStyles}
+  padding: 0 4.2rem 4.9rem;
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
