@@ -16,7 +16,7 @@ interface Props {
   mobileToolbarOpen: boolean;
 }
 
-interface ModalRef {
+export interface ModalRef {
   resetError: () => void;
 }
 

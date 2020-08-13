@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
-import SearchFailure, { syncState } from '.';
+import SearchFailure, { ModalRef, syncState } from '.';
 import { renderToDom } from '../../../../test/reactutils';
 import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
@@ -126,7 +126,7 @@ describe('SearchFailure', () => {
   });
 
   it('resets when selected highlight changes', () => {
-    const ref = React.createRef<{resetError: () => void}>();
+    const ref = React.createRef<ModalRef>();
 
     const component = renderer.create(<MessageProvider>
       <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} ref={ref} />

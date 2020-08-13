@@ -4,7 +4,7 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import SearchFailure from '../../../notifications/components/SearchFailure';
+import SearchFailure, { ModalRef } from '../../../notifications/components/SearchFailure';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -33,7 +33,7 @@ interface PageState {
 
 export default class PageComponent extends Component<PagePropTypes, PageState> {
   public container = React.createRef<HTMLDivElement>();
-  public errorModalRef = React.createRef<{resetError: () => void}>();
+  public errorModalRef = React.createRef<ModalRef>();
   public state = { hasSearchError: false };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;

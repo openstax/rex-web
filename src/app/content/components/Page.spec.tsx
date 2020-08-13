@@ -23,15 +23,18 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
+import { createHighlight } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
 import * as searchUtils from '../search/utils';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
+import * as highlightUtils from './Page/highlightUtils';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
+jest.mock('./utils/attachHighlight', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
@@ -977,7 +980,13 @@ describe('Page', () => {
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
 
+    const highlightData = jest.spyOn(highlightUtils, 'highlightData').mockReturnValueOnce(() => ({} as any));
     renderer.act(() => {
+      store.dispatch(createHighlight({
+        anchor: 'anchor',
+        highlightedContent: 'highlight',
+        locationStrategies: [{type: 'XpathRangeSelector'}],
+      } as any, {} as any));
       store.dispatch(selectSearchResult(searchResultToSelect));
     });
 
@@ -988,6 +997,7 @@ describe('Page', () => {
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
     highlightResults.mockRestore();
+    highlightData.mockRestore();
   });
 
   it('mounts, updates, and unmounts without a dom', () => {
