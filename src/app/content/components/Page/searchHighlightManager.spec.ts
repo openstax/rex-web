@@ -1,10 +1,7 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import { makeSearchResultHit } from '../../../../test/searchResults';
 import { assertDocument } from '../../../utils';
-import { SelectedResult } from '../../search/types';
 import searchHighlightManager from './searchHighlightManager';
-import { selectSearchResult } from '../../search/actions';
 
 describe('searchHighlightManager', () => {
   const searchResults = [
@@ -21,19 +18,16 @@ describe('searchHighlightManager', () => {
 
   let attachedManager: ReturnType<typeof searchHighlightManager>;
   let onHighlightSelect: jest.Mock;
-  let selectedSearchResult: SelectedResult | null;
 
   beforeEach(() => {
     const container = assertDocument().createElement('div');
-
     attachedManager = searchHighlightManager(container);
-    selectedSearchResult = null;
 
     onHighlightSelect = jest.fn();
   });
 
-  it('doesn\'t call onHighlightSelect when selecting the same highlight again', () => {
-    selectedSearchResult = {highlight: 0, result: searchResults[0]};
+  it('calls highlight select callback only when a new highlight is selected', () => {
+    const selectedSearchResult = {highlight: 0, result: searchResults[0]};
 
     attachedManager.update(
       {searchResults, selectedResult: null },
@@ -50,5 +44,13 @@ describe('searchHighlightManager', () => {
     );
 
     expect(onHighlightSelect).toHaveBeenCalledTimes(1);
+
+    attachedManager.update(
+      {searchResults, selectedResult: selectedSearchResult},
+      {searchResults, selectedResult: {highlight: 0, result: searchResults[1]}},
+      {forceRedraw: true, onSelect: onHighlightSelect}
+    );
+
+    expect(onHighlightSelect).toHaveBeenCalledTimes(2);
   });
 });
