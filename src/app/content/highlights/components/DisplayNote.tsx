@@ -29,7 +29,7 @@ const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusab
   position: absolute;
   top: 0;
   right: 0;
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.touchDeviceQuery(css`
     display: block;
  `)}
 `;
@@ -151,7 +151,7 @@ export default styled(DisplayNote)`
     }
   }
 
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.touchDeviceQuery(css`
     width: unset;
 
     > label {
