@@ -4,8 +4,10 @@ import Times from '../../../../src/app/components/Times';
 import { PlainButton } from '../../components/Button';
 import { H3 } from '../../components/Typography/headings';
 import theme from '../../theme';
-import { contentWrapperMaxWidth, toolbarIconColor } from '../components/constants';
+import { contentWrapperMaxWidth } from '../components/constants';
+import { applyBookTextColor } from '../components/utils/applyBookTextColor';
 import { disablePrint } from '../components/utils/disablePrint';
+import { BookWithOSWebData } from '../types';
 import {
   mobileMarginSides,
   mobileMarginTopBottom,
@@ -17,6 +19,17 @@ export const popupPadding = 3.2;
 export const popupBodyPadding = 2.4;
 export const headerHeight = 7.2;
 export const topBottomMargin = headerHeight + popupBodyPadding;
+
+const swapColors = ({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => {
+  const color = theme.color.primary[colorSchema];
+  return css`
+    color: ${color.foreground};
+
+    &:hover {
+      color: ${color.foregroundHover};
+    }
+  `;
+};
 
 // tslint:disable-next-line:variable-name
 export const PopupWrapper = styled.div`
@@ -35,8 +48,8 @@ export const PopupWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const Header = styled(H3)`
   ${disablePrint}
-  background: #002569;
-  color: ${theme.color.neutral.base};
+  ${applyBookTextColor}
+  background: ${({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => theme.color.primary[colorSchema].base};
   padding: ${popupPadding}rem;
   display: flex;
   justify-content: space-between;
@@ -99,13 +112,9 @@ export const CloseIconWrapper = styled(PlainButton)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='true' />)`
-  color: ${theme.color.neutral.base};
-  cursor: pointer;
-
-  :hover {
-    color: ${toolbarIconColor.base};
-  }
-
-  ${disablePrint}
-`;
+export const CloseIcon = styled(({colorSchema: _, ...props}) =>
+  <Times {...props} aria-hidden='true' focusable='true' />)`
+    ${swapColors}
+    cursor: pointer;
+    ${disablePrint}
+  `;
