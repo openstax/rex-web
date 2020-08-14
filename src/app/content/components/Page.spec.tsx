@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import { SearchResult } from '@openstax/open-search-client';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
@@ -539,8 +540,11 @@ describe('Page', () => {
     }));
   });
 
-  it('passes search when clicking content links to same book', async() => {
-    state.navigation.state = {search: {query: 'asdf'}};
+  it('does not reset search results when clicking content links to same book', async() => {
+    const mockSearchResults = { hits: { hits: [] } } as any as SearchResult;
+    store.dispatch(receiveSearchResults(mockSearchResults));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -572,16 +576,19 @@ describe('Page', () => {
         bookUid: 'book',
         bookVersion: 'version',
         pageUid: 'page',
-        search: expect.objectContaining({query: 'asdf'}),
       },
     }, {
       hash: '',
       search: '',
     }));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
   });
 
-  it('passes search when clicking hash links', async() => {
-    state.navigation.state = {search: {query: 'asdf'}};
+  it('does not reset search results when clicking hash links', async() => {
+    const mockSearchResults = { hits: { hits: [] } } as any as SearchResult;
+    store.dispatch(receiveSearchResults(mockSearchResults));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -603,13 +610,12 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledWith(push({
       params: expect.anything(),
       route: routes.content,
-      state: expect.objectContaining({
-        search: expect.objectContaining({query: 'asdf'}),
-      }),
+      state: expect.anything(),
     }, {
       hash: '#hash',
       search: '',
     }));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
   });
 
   it('passes search when clicking archive links', async() => {
