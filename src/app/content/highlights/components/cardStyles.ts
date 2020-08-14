@@ -68,7 +68,7 @@ const rightSideDisplay = css`
   `}
 `;
 
-const mobileDisplay = css`
+const touchScreenDisplay = css`
   ${(props: CardProps) => !!props.isFocused && css`
     left: 0;
     right: 0;
@@ -135,7 +135,7 @@ export const mainCardStyles = css`
         width: ${cardPadding / 2}rem;
         background-color: ${style.focused};
       }
-      ${theme.breakpoints.mobile(css`
+      ${theme.breakpoints.touchDeviceQuery(css`
         ::before {
           border-radius: 0.4rem 0.4rem 0 0;
           right: 0;
@@ -174,9 +174,9 @@ export const mainCardStyles = css`
     ${overlapDisplay}
   }
 
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.touchDeviceQuery(css`
     animation: none;
-    ${mobileDisplay}
+    ${touchScreenDisplay}
   `)}
 `;
 
