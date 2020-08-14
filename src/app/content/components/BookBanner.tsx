@@ -17,7 +17,6 @@ import * as select from '../selectors';
 import { ArchiveTreeSection , Book, BookWithOSWebData } from '../types';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
-import { defaultTheme } from './constants';
 import {
   bookBannerDesktopBigHeight,
   bookBannerDesktopMiniHeight,
@@ -25,6 +24,7 @@ import {
   bookBannerMobileMiniHeight,
   contentTextWidth
 } from './constants';
+import { applyBookTextColor } from './utils/applyBookTextColor';
 import { disablePrint } from './utils/disablePrint';
 
 const gradients: {[key in BookWithOSWebData['theme']]: string} = {
@@ -37,10 +37,6 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'red': '#E34361',
   'yellow': '#faea36',
 };
-
-const applyBookTextColor = (props: {colorSchema: BookWithOSWebData['theme'] } ) => props.colorSchema && css`
-  color: ${theme.color.primary[props.colorSchema].foreground};
-`;
 
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
@@ -175,6 +171,7 @@ export interface PropTypes {
   pageNode?: ArchiveTreeSection;
   book?: Book;
   hasUnsavedHighlight?: boolean;
+  bookTheme: BookWithOSWebData['theme'];
 }
 
 interface BookBannerState {
@@ -223,7 +220,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
   }
 
   public render() {
-    const { pageNode, book } = this.props;
+    const { pageNode, book, bookTheme } = this.props;
 
     if (!book || !pageNode) {
       return <BarWrapper colorSchema={undefined} up={false} />;
@@ -231,7 +228,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
 
     const bookUrl = hasOSWebData(book) ? bookDetailsUrl(book) : notFound.getUrl();
 
-    return this.renderBars({theme: defaultTheme, ...book}, bookUrl, pageNode);
+    return this.renderBars({theme: bookTheme, ...book}, bookUrl, pageNode);
   }
 
   private renderBars = (
@@ -292,6 +289,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
+    bookTheme: select.bookTheme(state),
     hasUnsavedHighlight: hasUnsavedHighlight(state),
     pageNode: select.pageNode(state),
   })
