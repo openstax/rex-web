@@ -101,13 +101,6 @@ export default {
     `,
     mobileBreak,
     mobileQuery,
-    touchDeviceQuery: (style: FlattenSimpleInterpolation) => css`
-      @media screen and ${mobileQuery} {
-        @media ${touchDeviceQuery} {
-          ${style}
-        }
-      }
-    `,
     mobileSmall: (style: FlattenSimpleInterpolation) => css`
       @media screen and ${mobileSmallQuery} {
         ${style}
@@ -115,6 +108,13 @@ export default {
     `,
     mobileSmallBreak,
     mobileSmallQuery,
+    touchDeviceQuery: (style: FlattenSimpleInterpolation) => css`
+      @media screen and ${mobileQuery} {
+        @media ${touchDeviceQuery} {
+          ${style}
+        }
+      }
+    `,
   },
   color,
   padding,
