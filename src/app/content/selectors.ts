@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
+import { defaultTheme } from './components/constants';
 import { hasOSWebData } from './guards';
 import {
   findArchiveTreeNodeByPageParam,
@@ -24,6 +25,11 @@ export const book = createSelector(
 export const buyBookLink = createSelector(
   book,
   (data) => hasOSWebData(data) ? data.amazon_link : ''
+);
+
+export const bookTheme = createSelector(
+  book,
+  (currentBook) => hasOSWebData(currentBook) ? currentBook.theme : defaultTheme
 );
 
 export const showNudgeStudyTools = createSelector(
