@@ -76,7 +76,7 @@ export default styled(NoteText)`
     -webkit-line-clamp: 3;
   `}
 
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.touchDeviceQuery(css`
     padding: ${cardPadding}rem ${cardPadding * 2}rem;
     height: 15.2rem;
     overflow: auto;
