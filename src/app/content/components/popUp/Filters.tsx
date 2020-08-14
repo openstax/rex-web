@@ -85,6 +85,13 @@ export const FilterDropdown = ({label, ariaLabelId, children}:
       </Dropdown>}
     </FormattedMessage>;
 
+// tslint:disable-next-line: variable-name
+export const FiltersTopBar = styled.div`
+  display: flex;
+  align-items: center;
+  overflow: visible;
+`;
+
 interface Props {
   className?: string;
 }
@@ -119,6 +126,15 @@ export default styled(Filters)`
           max-height: calc(100vh - ${filters.valueToSubstractFromVH.mobile}rem);
         `)}
       }
+
+      ${theme.breakpoints.mobileSmall(css`
+        position: initial;
+
+        & > *:not(${DropdownToggle}) {
+          top: auto;
+          margin-top: -${filters.border}rem;
+        }
+      `)}
     }
   `}
 

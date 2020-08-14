@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { getHighlightLocationFilterForPage } from '../highlights/utils';
+import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
@@ -13,7 +13,6 @@ import {
 } from '../highlights/utils/selectorsUtils';
 import * as parentSelectors from '../selectors';
 import { archiveTreeSectionIsChapter } from '../utils/archiveTreeUtils';
-import { allColors } from './constants';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -92,6 +91,17 @@ const rawSummaryLocationFilters = createSelector(
   (filters) => filters.locationIds
 );
 
+export const highlightColorFiltersWithContent = createSelector(
+  totalCountsPerPageOrEmpty,
+  getHighlightColorFiltersWithContent
+);
+
+export const summaryColorFilters = createSelector(
+  summaryFilters,
+  highlightColorFiltersWithContent,
+  (filters, withContent) => new Set(filters.colors.filter((color) => withContent.has(color)))
+);
+
 export const studyGuidesLocationFiltersWithContent = createSelector(
   studyGuidesLocationFilters,
   totalCountsPerPageOrEmpty,
@@ -123,7 +133,8 @@ const selectedStudyGuidesLocationFilters = createSelector(
 export const filteredCountsPerPage = createSelector(
   totalCountsPerPageOrEmpty,
   selectedStudyGuidesLocationFilters,
-  (counts, locationFilers) => filterCounts(counts, locationFilers, new Set(allColors))
+  summaryColorFilters,
+  filterCounts
 );
 
 export const hasMoreResults = createSelector(

@@ -42,7 +42,4 @@ export const filters = {
       ).toFixed(1),
     };
   },
-  get valueToSubstractFromVW() {
-    return Number((mobileMarginSides * 2) + this.dropdownContent.minimumWhiteSpace).toFixed(1);
-  },
 };

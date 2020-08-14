@@ -86,7 +86,9 @@ const color = {
   white: '#fff',
 };
 
-const mobileBreak = 75;
+const mobileSmallBreak = 30; // 480px
+const mobileBreak = 75; // 1200 px
+const mobileSmallQuery = `(max-width: ${mobileSmallBreak}em)`;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
 const touchDeviceQuery = `not all and (pointer: fine), (hover: none)`;
 
@@ -105,7 +107,14 @@ export default {
           ${style}
         }
       }
-  `,
+    `,
+    mobileSmall: (style: FlattenSimpleInterpolation) => css`
+      @media screen and ${mobileSmallQuery} {
+        ${style}
+      }
+    `,
+    mobileSmallBreak,
+    mobileSmallQuery,
   },
   color,
   padding,
