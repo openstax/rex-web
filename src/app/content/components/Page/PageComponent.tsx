@@ -123,8 +123,9 @@ export default class PageComponent extends Component<PagePropTypes> {
   };
 
   public clearError = (type: 'highlight' | 'search') => () => {
-    if (this.state.flashMessageErrorType !== type) { return; }
-    this.setState({ flashMessageError: false });
+    if (this.state.flashMessageError && this.state.flashMessageErrorType === type) {
+      this.setState({ flashMessageError: false });
+    }
   };
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
