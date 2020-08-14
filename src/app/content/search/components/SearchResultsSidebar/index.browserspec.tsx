@@ -4,6 +4,7 @@ import {
   navigate,
   setDesktopViewport
 } from '../../../../../test/browserutils';
+import { cookieNudge } from '../../../components/NudgeStudyTools/constants';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
@@ -50,6 +51,10 @@ it('clears search input without affecting search results sidebar', async() => {
 });
 
 it('closes the search results sidebar without affecting search input', async() => {
+  await page.setCookie({
+    name: cookieNudge.date,
+    value: new Date().toString(),
+  });
   setDesktopViewport(page);
   await navigate(page, TEST_PAGE_URL);
   await finishRender(page);
