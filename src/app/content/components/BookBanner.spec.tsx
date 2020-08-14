@@ -9,6 +9,7 @@ import { assertDocument, assertWindow } from '../../utils';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import { BarWrapper, PropTypes } from './BookBanner';
+import { defaultTheme } from './constants';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const bookWithoutOsWebData = formatBookData(archiveBook, undefined);
@@ -48,28 +49,37 @@ describe('BookBanner', () => {
     });
 
     it('renders empty state with no page or book', () => {
-      const component = renderer.create(<BookBanner />);
+      const component = renderer.create(<BookBanner bookTheme={defaultTheme} />);
 
       const tree = component.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('renders correctly when you pass a page and book', () => {
-      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} />);
+      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} bookTheme={book.theme} />);
 
       const tree = component.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('renders correctly without osweb data', () => {
-      const component = renderer.create(<BookBanner pageNode={pageNode} book={bookWithoutOsWebData} />);
+      const component = renderer.create(<BookBanner
+        pageNode={pageNode}
+        book={bookWithoutOsWebData}
+        bookTheme={defaultTheme}
+      />);
 
       const tree = component.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('does not stop default navigation event', async() => {
-      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} hasUnsavedHighlight={false} />);
+      const component = renderer.create(<BookBanner
+        pageNode={pageNode}
+        book={book}
+        bookTheme={book.theme}
+        hasUnsavedHighlight={false}
+      />);
 
       const link = component.root.findByProps({'data-testid': 'details-link-expanded'});
 
@@ -82,7 +92,7 @@ describe('BookBanner', () => {
     });
 
     it('mounts in a dom', () => {
-      expect(() => renderToDom(<BookBanner pageNode={pageNode} book={book} />)).not.toThrow();
+      expect(() => renderToDom(<BookBanner pageNode={pageNode} book={book} bookTheme={book.theme} />)).not.toThrow();
     });
 
     it('wrapper transition matches snapshot', () => {
@@ -91,7 +101,7 @@ describe('BookBanner', () => {
     });
 
     it('defaults tab indexes on banner links', () => {
-      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} />);
+      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} bookTheme={book.theme} />);
 
       const linkExpanded = component.root.findByProps({'data-testid': 'details-link-expanded'});
       const linkCollapsed = component.root.findByProps({'data-testid': 'details-link-collapsed'});
@@ -122,7 +132,7 @@ describe('BookBanner', () => {
         .mockReturnValueOnce({top: 50} as DOMRect);
 
       const component = renderer.create(
-        <BookBanner pageNode={pageNode} book={book} />,
+        <BookBanner pageNode={pageNode} book={book} bookTheme={book.theme}/>,
         {createNodeMock}
       );
 
@@ -167,7 +177,12 @@ describe('BookBanner', () => {
     });
 
     it('redirects if users chooses to discard', async() => {
-      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} hasUnsavedHighlight={true} />);
+      const component = renderer.create(<BookBanner
+        pageNode={pageNode}
+        book={book}
+        bookTheme={book.theme}
+        hasUnsavedHighlight={true}
+      />);
 
       const link = component.root.findByProps({'data-testid': 'details-link-expanded'});
 
@@ -181,7 +196,12 @@ describe('BookBanner', () => {
     });
 
     it('noops if users chooses not to discard', async() => {
-      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} hasUnsavedHighlight={true} />);
+      const component = renderer.create(<BookBanner
+        pageNode={pageNode}
+        book={book}
+        bookTheme={book.theme}
+        hasUnsavedHighlight={true}
+      />);
 
       const link = component.root.findByProps({'data-testid': 'details-link-collapsed'});
 
