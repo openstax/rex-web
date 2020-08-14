@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
@@ -13,7 +15,10 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
+import { receiveBook } from '../../actions';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
+import { CloseIcon, Header } from '../../styles/PopupStyles';
+import { formatBookData } from '../../utils';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import HighlightsPopUp from './HighlightsPopUp';
 
@@ -220,5 +225,41 @@ describe('MyHighlights button and PopUp', () => {
 
     expect(track).toHaveBeenCalled();
 
+  });
+
+  it('changes colors based on book theme', () => {
+    const book = formatBookData(archiveBook, mockCmsBook);
+
+    store.dispatch(receiveUser(user));
+    store.dispatch(receiveBook(book));
+    store.dispatch(openMyHighlights());
+
+    const focus = jest.fn();
+    const addEventListener = jest.fn();
+    const querySelectorAll = jest.fn(() => []);
+    const createNodeMock = () => ({focus, addEventListener, querySelectorAll});
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <HighlightsPopUp />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>, {createNodeMock});
+
+    const header = component.root.findByType(Header);
+    const closeIcon = component.root.findByType(CloseIcon);
+
+    expect(header.props.colorSchema).toBe(book.theme);
+    expect(closeIcon.props.colorSchema).toBe(book.theme);
+
+    renderer.act(() => {
+      store.dispatch(closeMyHighlights());
+      store.dispatch(receiveBook({...book, theme: 'yellow'}));
+      store.dispatch(openMyHighlights());
+    });
+
+    expect(header.props.colorSchema).toBe('yellow');
+    expect(closeIcon.props.colorSchema).toBe('yellow');
   });
 });

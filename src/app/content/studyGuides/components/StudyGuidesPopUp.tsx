@@ -6,6 +6,7 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
+import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header, Modal, PopupWrapper } from '../../styles/PopupStyles';
 import { closeStudyGuides } from '../actions';
 import { studyGuidesOpen } from '../selectors';
@@ -18,6 +19,7 @@ const StudyguidesPopUp = () => {
   const popUpRef = React.useRef<HTMLElement>(null);
   const trackOpenCloseSG = useAnalyticsEvent('openCloseStudyGuides');
   const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
+  const bookTheme = useSelector(bookThemeSelector);
 
   const closeAndTrack = () => {
     dispatch(closeStudyGuides());
@@ -54,7 +56,7 @@ const StudyguidesPopUp = () => {
         tabIndex='-1'
         data-testid='studyguides-popup-wrapper'
       >
-        <Header>
+        <Header colorSchema={bookTheme}>
           <FormattedMessage id='i18n:toolbar:studyguides:popup:heading'>
             {(msg: Element | string) => msg}
           </FormattedMessage>
@@ -68,7 +70,7 @@ const StudyguidesPopUp = () => {
                   trackOpenCloseSG('button');
                 }}
               >
-                <CloseIcon />
+                <CloseIcon colorSchema={bookTheme} />
               </CloseIconWrapper>
             )}
           </FormattedMessage>
