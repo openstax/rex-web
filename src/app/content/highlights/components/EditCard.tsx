@@ -234,7 +234,7 @@ export default styled(EditCard)`
     margin-top: ${cardPadding}rem;
   }
 
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.touchDeviceQuery(css`
     visibility: hidden;
   `)}
 `;
