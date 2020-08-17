@@ -5,6 +5,7 @@ import { bodyCopyRegularStyle, textRegularStyle } from '../../../components/Typo
 import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
 import { popupPadding } from '../../styles/PopupStyles';
+import addTargetBlankToLinks from '../../utils/addTargetBlankToLinks';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -94,7 +95,7 @@ const HighlightListElement = ({ highlight }: HighlightListElementProps) => <High
     <HighlightContent
       className='summary-highlight-content'
       data-highlight-id={highlight.id}
-      dangerouslySetInnerHTML={{ __html: highlight.highlightedContent }}
+      dangerouslySetInnerHTML={{ __html: addTargetBlankToLinks(highlight.highlightedContent) }}
     />
   </HighlightContentWrapper>
 </HighlightOuterWrapper>;

@@ -55,7 +55,7 @@ describe('StudyGuides', () => {
     const summaryHighlights = {
       [firstLocation.id]: {
         [pageInChapter.id]: [
-          hlBlue,
+          {...hlBlue, highlightedContent: '<a href="link">Link</a>'},
           hlGreen,
           hlPink,
           hlPurple,

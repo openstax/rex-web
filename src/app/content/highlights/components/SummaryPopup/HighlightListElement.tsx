@@ -7,6 +7,7 @@ import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { highlightStyles } from '../../../constants';
 import { popupBodyPadding } from '../../../styles/PopupStyles';
+import addTargetBlankToLinks from '../../../utils/addTargetBlankToLinks';
 import { deleteHighlight, updateHighlight } from '../../actions';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
@@ -138,7 +139,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       <HighlightContent
         className='summary-highlight-content'
         data-highlight-id={highlight.id}
-        dangerouslySetInnerHTML={{ __html: highlight.highlightedContent }}
+        dangerouslySetInnerHTML={{ __html: addTargetBlankToLinks(highlight.highlightedContent) }}
       />
       <HighlightAnnotation
         annotation={highlight.annotation || ''}
