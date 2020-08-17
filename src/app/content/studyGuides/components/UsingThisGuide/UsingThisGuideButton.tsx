@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../../components/Button';
+import { disablePrint } from '../../../components/utils/disablePrint';
 import theme from '../../../../theme';
 import { toolbarDefaultText } from '../../../components/Toolbar/styled';
 import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
@@ -35,7 +36,7 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideText = styled.span`
-  ${toolbarDefaultText}; 
+  ${toolbarDefaultText};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -45,6 +46,7 @@ const UsingThisGuideWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     margin-right: ${mobilePaddingSides}rem;
   `)}
+  ${disablePrint}
 `;
 
 interface Props {

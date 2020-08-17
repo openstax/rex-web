@@ -19,6 +19,7 @@ import * as pageFocus from './analyticsEvents/pageFocus';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
 import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClosePopUp';
+import * as openUTG from './analyticsEvents/studyGuides/openUTG';
 import * as unload from './analyticsEvents/unload';
 
 type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
@@ -58,6 +59,7 @@ const analytics = {
   openCloseMH: mapEventType(openCloseMH),
   openCloseStudyGuides: mapEventType(openCloseStudyGuides),
   openNudgeStudyTools: mapEventType(openNudgeStudyTools),
+  openUTG: mapEventType(openUTG),
   pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),

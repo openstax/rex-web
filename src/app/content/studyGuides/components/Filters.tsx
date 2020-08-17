@@ -1,4 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import * as Cookies from 'js-cookie';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
@@ -16,6 +17,7 @@ import * as selectors from '../selectors';
 import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
 import { barHeight } from '../../styles/PopupConstants';
+import { cookieUTG } from './UsingThisGuide/constants';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -40,6 +42,7 @@ const RightButtonsWrapper = styled.div`
   display: flex;
   align-items: center;
   height: ${barHeight}rem;
+  overflow: visible;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -91,7 +94,8 @@ const ConnectedPrintButton = connect(
 
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
-  const [UTGopen, setUTGopen] = React.useState(false);
+  const showUTGInitially = React.useMemo(() => !Cookies.get(cookieUTG), []);
+  const [UTGopen, setUTGopen] = React.useState(showUTGInitially);
 
   const toggleUsingThisGuide = () => {
     setUTGopen((state) => !state);
@@ -117,12 +121,16 @@ export default () => {
           labelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
         />
       </FilterDropdown>
-      <RightButtonsWrapper>
-        <UsingThisGuideButton onClick={toggleUsingThisGuide} open={UTGopen}/>
+      <RightButtonsWrapper tabIndex={-1}>
+        <UsingThisGuideButton onClick={toggleUsingThisGuide} open={UTGopen} />
         <ConnectedPrintButton studyGuidesButton />
       </RightButtonsWrapper>
     </FiltersTopBar>
-    {UTGopen && <UsingThisGuideBanner onClick={closeUsingThisGuide}/>}
+    <UsingThisGuideBanner
+      onClick={closeUsingThisGuide}
+      show={UTGopen}
+      isOpenedForTheFirstTime={showUTGInitially}
+    />
     {!userLoggedOut && <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
       colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
