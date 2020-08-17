@@ -24,7 +24,7 @@ export const filters = {
     },
     sides: {
       desktop: 2.4,
-      mobile: 2,
+      mobile: 1.6,
     },
     topBottom: {
       desktop: 2,

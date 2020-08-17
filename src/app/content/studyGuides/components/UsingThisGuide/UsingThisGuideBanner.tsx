@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import theme from '../../../../theme';
+import theme, { mobileLargeQuery } from '../../../../theme';
 import desktopBanner from './assets/banner.png';
 import mobileBanner from './assets/banner_mobile.png';
 import { filters } from '../../../styles/PopupConstants';
@@ -10,6 +10,7 @@ import { Times } from 'styled-icons/fa-solid/Times';
 
 const bannerStyles = css`
   width: 100%;
+  margin: auto;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -18,7 +19,7 @@ const BannerWrapper = styled.div`
   margin-bottom: 1rem;
   width: 100%;
   padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileSmall(css`
     padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
   `)}
 `;
@@ -26,19 +27,10 @@ const BannerWrapper = styled.div`
 // tslint:disable-next-line: variable-name
 const DesktopBanner = styled.img`
   ${bannerStyles}
-  padding: 0 4.2rem 4.9rem;
+  padding: 0 4.2rem;
   ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
-`;
-
-// tslint:disable-next-line: variable-name
-const MobileBanner = styled.img`
-  ${bannerStyles}
-  display: none;
-  ${theme.breakpoints.mobile(css`
-    display: block;
-    padding: 0 5.6rem 0.2rem;
+    max-width: 30rem;
+    padding: 0;
   `)}
 `;
 
@@ -47,14 +39,16 @@ const UsingThisGuideTitle = styled(H2)`
   text-align: center;
   width: 100%;
   color: ${theme.color.white};
-  ${theme.breakpoints.mobile(h4MobileStyle)}
   ${theme.breakpoints.mobile(css`
+    ${h4MobileStyle}
     color: ${theme.color.white};
   `)}
 `;
 
 // tslint:disable-next-line:variable-name
 const CloseIcon = styled(Times)`
+  position: absolute;
+  right: 0;
   background: ${theme.color.white};
   color: ${theme.color.black};
   height: 2.8rem;
@@ -72,7 +66,13 @@ const CloseIcon = styled(Times)`
 const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  position: relative;
+`;
+
+// tslint:disable-next-line: variable-name
+const BodyWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 interface Props {
@@ -88,12 +88,14 @@ const UsingThisGuideBanner = (props: Props) => {
       </FormattedMessage>
       <CloseIcon onClick={props.onClick} />
     </HeaderWrapper>
-    <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
-      {(msg: Element | string) => <React.Fragment>
-        <DesktopBanner src={desktopBanner} alt={msg}/>
-        <MobileBanner src={mobileBanner} alt={msg}/>
-      </React.Fragment>}
-    </FormattedMessage>
+    <BodyWrapper>
+      <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
+        {(msg: Element | string) => <picture>
+          <source media={mobileLargeQuery} srcSet={mobileBanner} />
+          <DesktopBanner src={desktopBanner} alt={msg}/> 
+        </picture>}
+      </FormattedMessage>
+    </BodyWrapper>
   </BannerWrapper>;
 };
 

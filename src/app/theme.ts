@@ -87,8 +87,10 @@ const color = {
 };
 
 const mobileSmallBreak = 30; // 480px
+const mobileLargerBreak = 50; // 800px
 const mobileBreak = 75; // 1200 px
 const mobileSmallQuery = `(max-width: ${mobileSmallBreak}em)`;
+export const mobileLargeQuery = `(max-width: ${mobileLargerBreak}em)`;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
 
 export default {
@@ -107,6 +109,11 @@ export default {
     `,
     mobileSmallBreak,
     mobileSmallQuery,
+    mobileLarge: (style: FlattenSimpleInterpolation) => css`
+      @media screen and ${mobileLargeQuery} {
+        ${style}
+      }
+    `,
   },
   color,
   padding,
