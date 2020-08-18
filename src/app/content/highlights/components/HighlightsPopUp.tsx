@@ -11,7 +11,9 @@ import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
+import { bookTheme } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header, Modal, PopupBody, PopupWrapper } from '../../styles/PopupStyles';
+import { BookWithOSWebData } from '../../types';
 import { closeMyHighlights } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
@@ -80,6 +82,7 @@ const LoginForHighlights = () => {
 
 interface Props {
   myHighlightsOpen: boolean;
+  bookTheme: BookWithOSWebData['theme'];
   closeMyHighlights: () => void;
   user?: User;
   loggedOut: boolean;
@@ -118,7 +121,7 @@ const HighlightsPopUp = ({ ...props }: Props) => {
         tabIndex='-1'
         data-testid='highlights-popup-wrapper'
       >
-        <Header>
+        <Header colorSchema={props.bookTheme}>
           <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
             {(msg: Element | string) => msg}
           </FormattedMessage>
@@ -132,7 +135,7 @@ const HighlightsPopUp = ({ ...props }: Props) => {
                  trackOpenCloseMH('button');
                }}
               >
-                <CloseIcon />
+                <CloseIcon colorSchema={props.bookTheme}/>
               </CloseIconWrapper>
             )}
           </FormattedMessage>
@@ -146,6 +149,7 @@ const HighlightsPopUp = ({ ...props }: Props) => {
 
 export default connect(
   (state: AppState) => ({
+    bookTheme: bookTheme(state),
     loggedOut: authSelect.loggedOut(state),
     myHighlightsOpen: selectors.myHighlightsOpen(state),
     user: authSelect.user(state),
