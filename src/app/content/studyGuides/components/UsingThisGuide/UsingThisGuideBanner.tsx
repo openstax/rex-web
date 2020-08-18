@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import theme, { mobileLargeQuery } from '../../../../theme';
+import theme from '../../../../theme';
 import desktopBanner from './assets/banner.png';
 import mobileBanner from './assets/banner_mobile.png';
 import { filters } from '../../../styles/PopupConstants';
@@ -46,7 +46,7 @@ const UsingThisGuideTitle = styled(H2)`
 `;
 
 // tslint:disable-next-line:variable-name
-const CloseIcon = styled(Times)`
+export const CloseIcon = styled(Times)`
   position: absolute;
   right: 0;
   background: ${theme.color.white};
@@ -91,7 +91,7 @@ const UsingThisGuideBanner = (props: Props) => {
     <BodyWrapper>
       <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
         {(msg: Element | string) => <picture>
-          <source media={mobileLargeQuery} srcSet={mobileBanner} />
+          <source media={theme.breakpoints.mobileLargeQuery} srcSet={mobileBanner} />
           <DesktopBanner src={desktopBanner} alt={msg}/> 
         </picture>}
       </FormattedMessage>

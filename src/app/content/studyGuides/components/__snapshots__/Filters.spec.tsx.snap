@@ -12,7 +12,7 @@ exports[`Filters matches snapshot 1`] = `
     >
       <button
         aria-label="Filter study guides by Chapter"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 dpyUXV Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 crJtZo Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -47,7 +47,7 @@ exports[`Filters matches snapshot 1`] = `
     >
       <button
         aria-label="Filter study guides by Color"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 dpyUXV Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 crJtZo Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -287,16 +287,16 @@ exports[`Filters matches snapshot 1`] = `
       className="Filters__RightButtonsWrapper-hr7yu8-1 lfviyl"
     >
       <div
-        className="UsingThisGuideButton__UsingThisGuideWrapper-bu0xmw-3 eHjhkf"
+        className="UsingThisGuideButton__UsingThisGuideButtonBackground-bu0xmw-1 jNGTIR"
       >
         <button
           aria-label="Using This Guide"
-          className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-1 fTisnp"
+          className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 gRybYJ"
           onClick={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="UsingThisGuideButton__QuestionIcon-bu0xmw-0 hrjHGl StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="UsingThisGuideButton__QuestionIcon-bu0xmw-0 dgoHN StyledIconBase-sc-bdy9j4 cCvWXa"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -307,7 +307,7 @@ exports[`Filters matches snapshot 1`] = `
             />
           </svg>
           <span
-            className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-2 jFOwWV"
+            className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 dATeEI"
           >
             Using This Guide
           </span>
@@ -315,7 +315,7 @@ exports[`Filters matches snapshot 1`] = `
       </div>
       <button
         aria-label="print"
-        className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 jBnoSm styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+        className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 iIYjST styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
         data-testid="print"
         disabled={false}
         onClick={[Function]}
