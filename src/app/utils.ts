@@ -47,7 +47,7 @@ const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
     return;
   } else if (e instanceof BookNotFoundError) {
     Sentry.captureException(e);
-    assertWindow().location.href = 'https://openstax.org/error/404';
+    assertWindow().location.replace('https://openstax.org/error/404');
     return;
   }
   Sentry.captureException(e);

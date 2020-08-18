@@ -1,12 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
-import htmlMessage from '../../../components/htmlMessage';
 import theme from '../../../theme';
 import { SidebarControl } from '../Toolbar/styled';
-
-// tslint:disable-next-line: variable-name
-const SecondTextMessage = htmlMessage('i18n:page-not-found:text-after-button', (props) => <span {...props} />);
 
 // tslint:disable-next-line: variable-name
 const PageNotFoundWrapper = styled.div`
@@ -34,12 +30,12 @@ const PageNotFoundText = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const ToCButton = styled(SidebarControl)`
+export const ToCButton = styled(SidebarControl)`
   margin-left: 0.5rem !important; /* Important because this style is overriden by #main-content button */
 `;
 
 // tslint:disable-next-line: variable-name
-const FirstTextMessage = styled.span`
+const TextMessage = styled.span`
   display: flex;
   align-items: center;
 `;
@@ -52,13 +48,12 @@ const PageNotFound = () => <PageNotFoundWrapper>
     </FormattedMessage>
   </PageNotFoundTitle>
   <PageNotFoundText>
-    <FirstTextMessage>
+    <TextMessage>
       <FormattedMessage id='i18n:page-not-found:text-before-button'>
         {(msg: string) => msg}
       </FormattedMessage>
       <ToCButton />
-    </FirstTextMessage>
-    <SecondTextMessage />
+    </TextMessage>
   </PageNotFoundText>
 </PageNotFoundWrapper>;
 

@@ -108,6 +108,26 @@ describe('actionHook', () => {
     expect(hookSpy).toHaveBeenCalled();
     jest.resetAllMocks();
   });
+
+  it('handle error if it is instace of BookNotFoundError', () => {
+    const hookSpy = jest.fn(async() => Promise.reject(new utils.BookNotFoundError('asd')));
+    const mockReplace = jest.fn();
+    jest.spyOn(utils.assertWindow().location, 'replace')
+      .mockImplementation(mockReplace);
+    const helpers = ({
+      dispatch: jest.fn(),
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any) as MiddlewareAPI & AppServices;
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+
+    expect(hookSpy).toHaveBeenCalled();
+    expect(Sentry.captureException).toHaveBeenCalled();
+    expect(mockReplace).toHaveBeenCalledWith('https://openstax.org/error/404');
+    expect(helpers.dispatch).not.toHaveBeenCalled();
+    jest.resetAllMocks();
+  });
 });
 
 describe('assertDefined', () => {

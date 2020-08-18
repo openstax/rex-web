@@ -160,6 +160,70 @@ Array [
 ]
 `;
 
+exports[`BookBanner without unsaved changes renders correctly without pageNode 1`] = `
+Array [
+  <div
+    className="BookBanner__BarWrapper-sc-1avy0c0-4 eIPJBY"
+    data-analytics-region="book-banner-expanded"
+    data-testid="bookbanner"
+  >
+    <div
+      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+    >
+      <a
+        className="BookBanner__BookTitle-sc-1avy0c0-2 gEhfIa"
+        data-testid="details-link-expanded"
+        href="/details/books/book-slug-1"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden="true"
+          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+          />
+        </svg>
+        Test Book 1
+      </a>
+    </div>
+  </div>,
+  <div
+    className="BookBanner__BarWrapper-sc-1avy0c0-4 gZpRfI"
+    data-analytics-region="book-banner-collapsed"
+    data-testid="bookbanner-collapsed"
+  >
+    <div
+      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+    >
+      <a
+        className="BookBanner__BookTitle-sc-1avy0c0-2 QwZke"
+        data-testid="details-link-collapsed"
+        href="/details/books/book-slug-1"
+        onClick={[Function]}
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+          />
+        </svg>
+        Test Book 1
+      </a>
+    </div>
+  </div>,
+]
+`;
+
 exports[`BookBanner without unsaved changes renders empty state with no page or book 1`] = `
 <div
   className="BookBanner__BarWrapper-sc-1avy0c0-4 kLMCbe"
