@@ -14,6 +14,14 @@ const textColors = {
   white: '#fff',
 };
 
+const greyColors = {
+  base: '#5e6062',
+  darker: '#424242',
+  foreground: textColors.white,
+  foregroundHover: '#424242',
+  lighter: '#818181',
+};
+
 const padding = {
   page: {
     desktop: 3.2,
@@ -36,38 +44,40 @@ const color = {
     'blue': {
       base: '#002468',
       foreground: textColors.white,
+      foregroundHover: greyColors.darker,
     },
     'deep-green': {
       base: '#067056',
       foreground: textColors.white,
+      foregroundHover: greyColors.darker,
     },
-    'gray': {
-      base: '#5e6062',
-      darker: '#424242',
-      foreground: textColors.white,
-      lighter: '#818181',
-    },
+    'gray': greyColors,
     'green': {
       base: '#63a524',
       foreground: textColors.black,
+      foregroundHover: greyColors.lighter,
     },
     'light-blue': {
       base: '#0DC0DC',
       foreground: textColors.black,
+      foregroundHover: greyColors.lighter,
     },
     'orange': {
       base: '#f36b32',
       darker: '#e96128',
       darkest: '#df571e',
       foreground: textColors.white,
+      foregroundHover: greyColors.darker,
     },
     'red': {
       base: '#C22032',
       foreground: textColors.white,
+      foregroundHover: greyColors.darker,
     },
     'yellow': {
       base: '#f4d019',
       foreground: textColors.black,
+      foregroundHover: greyColors.lighter,
     },
   },
   secondary: {
@@ -90,6 +100,7 @@ const mobileSmallBreak = 30; // 480px
 const mobileBreak = 75; // 1200 px
 const mobileSmallQuery = `(max-width: ${mobileSmallBreak}em)`;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
+const touchDeviceQuery = `not all and (pointer: fine), (hover: none)`;
 
 export default {
   breakpoints: {
@@ -107,6 +118,13 @@ export default {
     `,
     mobileSmallBreak,
     mobileSmallQuery,
+    touchDeviceQuery: (style: FlattenSimpleInterpolation) => css`
+      @media screen and ${mobileQuery} {
+        @media ${touchDeviceQuery} {
+          ${style}
+        }
+      }
+    `,
   },
   color,
   padding,
