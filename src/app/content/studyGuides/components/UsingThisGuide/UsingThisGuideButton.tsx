@@ -38,7 +38,6 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
   position: relative;
   margin-top: ${buttonMarginTop}rem;
   padding: ${mobilePaddingSides - buttonMarginTop}rem ${mobilePaddingSides}rem ${mobilePaddingSides}rem;
-
   ${({isOpen}) => isOpen && css`
     color: ${theme.color.white};
 
@@ -60,7 +59,7 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideText = styled.span`
-  ${toolbarDefaultText}; 
+  ${toolbarDefaultText}
   z-index: 2;
 `;
 
