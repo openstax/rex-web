@@ -2,8 +2,8 @@ import isEqual from 'lodash/fp/isEqual';
 import { APP_ENV, BOOKS, UNLIMITED_CONTENT } from '../../../../config';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
-import { assertDefined } from '../../../utils';
-import { receiveBook, receivePage, requestBook, requestPage } from '../../actions';
+import { assertDefined, BookNotFoundError } from '../../../utils';
+import { receiveBook, receivePage, receivePageNotFound, requestBook, requestPage } from '../../actions';
 import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
@@ -11,6 +11,7 @@ import { ArchivePage, Book, PageReferenceMap } from '../../types';
 import {
   formatBookData,
   getContentPageReferences,
+  getIdFromPageParam,
   getPageIdFromUrlParam,
 } from '../../utils';
 import { archiveTreeContainsNode, archiveTreeSectionIsBook } from '../../utils/archiveTreeUtils';
@@ -92,7 +93,7 @@ export const resolveBookReference = async(
       : await osWebLoader.getBookIdFromSlug(match.params.book.slug);
 
   if (!bookUid) {
-    throw new Error(`Could not resolve uuid for slug: ${bookSlug}`);
+    throw new BookNotFoundError(`Could not resolve uuid for slug: ${bookSlug}`);
   }
 
   const bookVersion = 'version' in match.params.book
@@ -127,19 +128,15 @@ const resolvePage = async(
   book: Book,
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>
 ) => {
-  const {getState} = services;
+  const {dispatch, getState} = services;
   const state = getState();
   const pageId = match.state && match.state.pageUid
     ? match.state.pageUid
     : getPageIdFromUrlParam(book, match.params.page);
 
   if (!pageId) {
-    // TODO - 404 handling
-    // content links within the content are audited before they're clicked
-    // and other content links come from the ToC, so if we've gotten
-    // this far and the page is not found an exception is probably fine.
-    // maybe just a _better_ exception
-    throw new Error('Page not found');
+    dispatch(receivePageNotFound(getIdFromPageParam(match.params.page)));
+    return;
   }
 
   const loadingPage = select.loadingPage(state);

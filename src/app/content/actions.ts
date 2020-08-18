@@ -19,6 +19,7 @@ export const requestPage = createStandardAction('Content/requestPage')<Params['p
 export const receivePage = createStandardAction('Content/receivePage')<
   ArchivePage & {references: State['references']}
 >();
+export const receivePageNotFound = createStandardAction('Content/receivePageNotFound')<string>();
 
 export const openNudgeStudyTools = createStandardAction('Content/openNudgeStudyTools')();
 export const closeNudgeStudyTools = createStandardAction('Content/closeNudgeStudyTools')();

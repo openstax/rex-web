@@ -14,6 +14,7 @@ import { mapStateToSearchHighlightProp } from './searchHighlightManager';
 export interface PagePropTypes {
   intl: IntlShape;
   page: State['page'];
+  pageNotFound: ReturnType<typeof select.pageNotFound>;
   book: State['book'];
   currentPath: string;
   className?: string;
@@ -35,6 +36,8 @@ export default connect(
     highlights: mapStateToHighlightProp(state),
     mobileToolbarOpen: mobileToolbarOpen(state),
     page: select.page(state),
+    pageNotFound: select.pageNotFound(state),
+    pageParam: select.pageParam(state),
     query: query(state),
     scrollTarget: mapStateToScrollTargetProp(state),
     searchHighlights: mapStateToSearchHighlightProp(state),

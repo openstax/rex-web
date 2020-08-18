@@ -11,7 +11,7 @@ interface VersionedSlugParams extends SlugParams {
   version: string;
 }
 
-interface UuidParams {
+export interface UuidParams {
   uuid: string;
 }
 interface VersionedUuidParams extends UuidParams {
@@ -25,6 +25,7 @@ export interface Params {
 
 export interface State {
   tocOpen: boolean | null;
+  pageNotFound: string | null;
   params: Params | null;
   loading: Partial<Params>;
   search: SearchState;

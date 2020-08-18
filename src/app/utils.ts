@@ -45,6 +45,10 @@ const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
   if (e instanceof UnauthenticatedError) {
     dispatch(receiveLoggedOut());
     return;
+  } else if (e instanceof BookNotFoundError) {
+    Sentry.captureException(e);
+    assertWindow().location.href = 'https://openstax.org/error/404';
+    return;
   }
   Sentry.captureException(e);
   dispatch(recordError(e));
@@ -219,3 +223,6 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
 };
 
 export class UnauthenticatedError extends Error {}
+
+// tslint:disable-next-line: max-classes-per-file
+export class BookNotFoundError extends Error {}
