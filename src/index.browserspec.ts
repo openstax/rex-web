@@ -47,13 +47,13 @@ describe('Browser sanity tests', () => {
   it('loads the 404 page', async() => {
     const heading = await (page.evaluate(() => {
       if (document) {
-        const el = document.querySelector('#root > h1');
+        const el = document.querySelector('h1');
         if (el) {
           return el.textContent;
         }
       }
     })) as string | null;
-    expect(heading).toBe('page not found');
+    expect(heading).toBe(`Uh oh, we can't find the page you requested.`);
   });
 });
 
