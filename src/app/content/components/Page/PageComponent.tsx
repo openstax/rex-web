@@ -152,9 +152,11 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
           />
         : null}
       <RedoPadding>
-        {this.props.page ? this.renderContent() : null}
-        {!this.props.page && !this.props.pageNotFound ? this.renderLoading() : null}
-        {this.props.pageNotFound ? this.renderPageNotFound() : null}
+        {this.props.pageNotFound
+          ? this.renderPageNotFound()
+          : this.props.page
+            ? this.renderContent()
+            : this.renderLoading()}
       </RedoPadding>
     </MinPageHeight>;
   }
@@ -180,14 +182,12 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     <Loader large delay={1500} />
   </PageContent>;
 
-  private renderPageNotFound = () => {
-    return <PageContent
-      key='main-content'
-      ref={this.container}
-    >
-      <notFound.component/>
-    </PageContent>;
-  };
+  private renderPageNotFound = () => <PageContent
+    key='main-content'
+    ref={this.container}
+  >
+    <notFound.component/>
+  </PageContent>;
 
   private getPrerenderedContent() {
     if (
