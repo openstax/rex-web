@@ -4,6 +4,7 @@ import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { receiveLoggedOut } from './auth/actions';
 import { recordError, showErrorDialog } from './errors/actions';
+import { notFound } from './errors/routes';
 import { isPlainObject } from './guards';
 import {
   ActionHookBody,
@@ -47,7 +48,7 @@ const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
     return;
   } else if (e instanceof BookNotFoundError) {
     Sentry.captureException(e);
-    assertWindow().location.replace('https://openstax.org/error/404');
+    assertWindow().location.replace(notFound.getFullUrl());
     return;
   }
   Sentry.captureException(e);
