@@ -28,7 +28,7 @@ const BannerWrapper = styled.div`
 const DesktopBanner = styled.img`
   ${bannerStyles}
   padding: 0 4.2rem;
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     max-width: 30rem;
     padding: 0;
   `)}
@@ -91,7 +91,7 @@ const UsingThisGuideBanner = (props: Props) => {
     <BodyWrapper>
       <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
         {(msg: Element | string) => <picture>
-          <source media={theme.breakpoints.mobileLargeQuery} srcSet={mobileBanner} />
+          <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
           <DesktopBanner src={desktopBanner} alt={msg}/> 
         </picture>}
       </FormattedMessage>
