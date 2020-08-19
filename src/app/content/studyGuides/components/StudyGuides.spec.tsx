@@ -22,11 +22,11 @@ import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides, setSummaryFil
 import { studyGuidesLocationFilters } from '../selectors';
 import StudyGuides, { NoStudyGuidesTip } from './StudyGuides';
 
-const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
-const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
-const hlPink = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl' };
-const hlPurple = { id: 'hl4', color: HighlightColorEnum.Purple, annotation: 'hl' };
-const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow };
+const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1', highlightedContent: 'content' };
+const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl', highlightedContent: 'content' };
+const hlPink = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl', highlightedContent: 'content' };
+const hlPurple = { id: 'hl4', color: HighlightColorEnum.Purple, annotation: 'hl', highlightedContent: 'content' };
+const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow, highlightedContent: 'content' };
 
 describe('StudyGuides', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
