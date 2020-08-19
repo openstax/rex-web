@@ -20,7 +20,7 @@ import { State } from './types';
 export const initialState = {
   highlights: initialHighlightState,
   loading: {},
-  pageNotFound: null,
+  pageNotFoundId: null,
   params: null,
   references: [],
   search: initialSearchState,
@@ -75,9 +75,9 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(actions.receivePage): {
       return reduceReceivePage(state, action);
     }
-    case getType(actions.receivePageNotFound): {
+    case getType(actions.receivePageNotFoundId): {
       const loading = omit('page', state.loading);
-      return {...omit(['page', 'references'], state), loading, pageNotFound: action.payload};
+      return {...omit(['page', 'references'], state), loading, pageNotFoundId: action.payload};
     }
     case getType(locationChange): {
       if (!matchForRoute(content, action.payload.match)) {

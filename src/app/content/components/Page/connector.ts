@@ -37,7 +37,6 @@ export default connect(
     mobileToolbarOpen: mobileToolbarOpen(state),
     page: select.page(state),
     pageNotFound: select.pageNotFound(state),
-    pageParam: select.pageParam(state),
     query: query(state),
     scrollTarget: mapStateToScrollTargetProp(state),
     searchHighlights: mapStateToSearchHighlightProp(state),

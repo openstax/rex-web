@@ -71,7 +71,7 @@ export const pageParam = createSelector(
 export const pageNotFound = createSelector(
   localState,
   pageParam,
-  (state, param) => getIdFromPageParam(param) === state.pageNotFound
+  (state, param) => getIdFromPageParam(param) === state.pageNotFoundId
 );
 
 export const pageNode = createSelector(

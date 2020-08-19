@@ -3,7 +3,7 @@ import { APP_ENV, BOOKS, UNLIMITED_CONTENT } from '../../../../config';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined, BookNotFoundError } from '../../../utils';
-import { receiveBook, receivePage, receivePageNotFound, requestBook, requestPage } from '../../actions';
+import { receiveBook, receivePage, receivePageNotFoundId, requestBook, requestPage } from '../../actions';
 import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
@@ -135,7 +135,7 @@ const resolvePage = async(
     : getPageIdFromUrlParam(book, match.params.page);
 
   if (!pageId) {
-    dispatch(receivePageNotFound(getIdFromPageParam(match.params.page)));
+    dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
     return;
   }
 

@@ -147,12 +147,12 @@ describe('locationChange', () => {
     }]})}));
   });
 
-  it('disptaches receivePageNotFound for unknown id', async() => {
+  it('disptaches receivePageNotFoundId for unknown id', async() => {
     (payload.match.params.page as SlugParams).slug = 'garbage';
 
     await hook(payload);
 
-    expect(dispatch).toHaveBeenCalledWith(actions.receivePageNotFound('garbage'));
+    expect(dispatch).toHaveBeenCalledWith(actions.receivePageNotFoundId('garbage'));
   });
 
   it('loads book details from osweb', async() => {

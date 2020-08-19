@@ -25,7 +25,7 @@ export interface Params {
 
 export interface State {
   tocOpen: boolean | null;
-  pageNotFound: string | null;
+  pageNotFoundId: string | null;
   params: Params | null;
   loading: Partial<Params>;
   search: SearchState;
