@@ -16,6 +16,7 @@ import { cookieUTG } from './constants';
 
 const bannerStyles = css`
   width: 100%;
+  margin: auto;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -30,7 +31,7 @@ const BannerWrapper = styled.div`
     top: 4.6rem;
     right: 3.2rem;
   }
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileSmall(css`
     padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
     ${PlainButton} {
       top: 1.5rem;
@@ -44,19 +45,10 @@ const BannerWrapper = styled.div`
 // tslint:disable-next-line: variable-name
 const DesktopBanner = styled.img`
   ${bannerStyles}
-  padding: 0 4.2rem 4.9rem;
+  padding: 0 4.2rem;
   ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
-`;
-
-// tslint:disable-next-line: variable-name
-const MobileBanner = styled.img`
-  ${bannerStyles}
-  display: none;
-  ${theme.breakpoints.mobile(css`
-    display: block;
-    padding: 0 5.6rem 0.2rem;
+    max-width: 30rem;
+    padding: 0;
   `)}
 `;
 
@@ -65,14 +57,16 @@ const UsingThisGuideTitle = styled(H2)`
   text-align: center;
   width: 100%;
   color: ${theme.color.white};
-  ${theme.breakpoints.mobile(h4MobileStyle)}
   ${theme.breakpoints.mobile(css`
+    ${h4MobileStyle}
     color: ${theme.color.white};
   `)}
 `;
 
 // tslint:disable-next-line:variable-name
-const CloseIcon = styled(Times)`
+export const CloseIcon = styled(Times)`
+  position: absolute;
+  right: 0;
   background: ${theme.color.white};
   color: ${theme.color.black};
   height: 2.8rem;
@@ -100,7 +94,6 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const UsingThisGuideBanner = (props: Props) => {
   const desktopBannerRef = React.useRef<HTMLImageElement>(null);
-  const mobileBannerRef = React.useRef<HTMLImageElement>(null);
   const toggleCounter = React.useRef(0);
   const trackOpenUTG = useAnalyticsEvent('openUTG');
 
@@ -113,15 +106,14 @@ const UsingThisGuideBanner = (props: Props) => {
     if (props.show && (!props.isOpenedForTheFirstTime || toggleCounter.current > 1)) {
       trackOpenUTG();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.show]);
 
   React.useEffect(() => {
     // Do not focus image if banner was opened initially
     if (props.isOpenedForTheFirstTime && toggleCounter.current <= 1) { return; }
-    if (desktopBannerRef.current && desktopBannerRef.current.style.display !== 'none') {
+    if (desktopBannerRef.current && desktopBannerRef.current) {
       desktopBannerRef.current.focus();
-    } else if (mobileBannerRef.current && mobileBannerRef.current.style.display !== 'none') {
-      mobileBannerRef.current.focus();
     }
   }, [props.isOpenedForTheFirstTime, props.show]);
 
@@ -134,10 +126,10 @@ const UsingThisGuideBanner = (props: Props) => {
       </FormattedMessage>
     </HeaderWrapper>
     <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
-      {(msg: Element | string) => <React.Fragment>
-        <DesktopBanner src={desktopBanner} alt={msg} ref={desktopBannerRef} tabIndex={0} />
-        <MobileBanner src={mobileBanner} alt={msg} ref={mobileBannerRef} tabIndex={0} />
-      </React.Fragment>}
+      {(msg: Element | string) => <picture>
+        <source media={theme.breakpoints.mobileLargeQuery} srcSet={mobileBanner} />
+        <DesktopBanner src={desktopBanner} alt={msg} ref={desktopBannerRef} tabIndex={-1} />
+      </picture>}
     </FormattedMessage>
     <FormattedMessage id='i18n:studyguides:popup:using-this-guide:close:aria-label'>
       {(msg: string) => <PlainButton onClick={props.onClick} aria-label={msg}>
