@@ -27,7 +27,6 @@ const UsingThisGuideButtonInnerStyles = styled.div`
   position: relative;
   padding: ${filters.dropdownToggle.topBottom.desktop - buttonPaddingTopDesktop}rem ${mobilePaddingSides}rem ${mobilePaddingSides}rem;
   outline: none;
-  
   ${({isOpen}) => isOpen && css`
     color: ${theme.color.white};
     background: ${theme.color.black};
@@ -53,7 +52,6 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
   &:focus > ${UsingThisGuideButtonInnerStyles} {
     outline: -webkit-focus-ring-color auto 1px;
   }
-  
   ${theme.breakpoints.mobile(css`
     margin-right: 0.8rem;
     padding-top: ${buttonPaddingTopMobile}rem;
