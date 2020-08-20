@@ -93,7 +93,7 @@ Array [
       <a
         className="BookBanner__BookTitle-sc-1avy0c0-2 gEhfIa"
         data-testid="details-link-expanded"
-        href="/errors/404"
+        href="/error/404"
         onClick={[Function]}
       >
         <svg
@@ -130,7 +130,7 @@ Array [
       <a
         className="BookBanner__BookTitle-sc-1avy0c0-2 QwZke"
         data-testid="details-link-collapsed"
-        href="/errors/404"
+        href="/error/404"
         onClick={[Function]}
         tabIndex={-1}
       >

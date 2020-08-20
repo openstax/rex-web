@@ -4,7 +4,6 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import { notFound } from '../../../errors/routes';
 import SearchFailure from '../../../notifications/components/SearchFailure';
 import { assertNotNull, assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
@@ -17,6 +16,7 @@ import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
+import PageNotFound from './PageNotFound';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
@@ -186,7 +186,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     key='main-content'
     ref={this.container}
   >
-    <notFound.component/>
+    <PageNotFound />
   </PageContent>;
 
   private getPrerenderedContent() {

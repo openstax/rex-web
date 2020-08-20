@@ -17,7 +17,6 @@ import { resetModules } from '../../../test/utils';
 import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
-import { notFound } from '../../errors/routes';
 import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
@@ -33,6 +32,7 @@ import * as select from '../selectors';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import * as highlightUtils from './Page/highlightUtils';
+import PageNotFound from './Page/PageNotFound';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
@@ -1270,7 +1270,7 @@ describe('Page', () => {
         </MessageProvider>
       </Provider>);
 
-    expect(component.root.findByType(notFound.component)).toBeTruthy();
+    expect(component.root.findByType(PageNotFound)).toBeTruthy();
   });
 
   describe('with prerendered state', () => {

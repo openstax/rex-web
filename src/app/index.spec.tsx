@@ -105,6 +105,7 @@ describe('create app', () => {
       const newLocation = {
         ...window.location,
         pathname: notFound.getUrl(),
+        replace: jest.fn(),
       };
       delete window.location;
       window.location = newLocation;
@@ -121,6 +122,7 @@ describe('create app', () => {
         .create(<app.container />)
         .toJSON();
       expect(tree).toMatchSnapshot();
+      expect(newLocation.replace).toHaveBeenCalledWith(notFound.getUrl());
     });
   });
 });

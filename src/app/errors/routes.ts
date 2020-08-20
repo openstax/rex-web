@@ -1,17 +1,18 @@
 import Loadable from 'react-loadable';
 import { Route } from '../navigation/types';
+import { assertWindow } from '../utils';
 
 const CATCH_ALL = '/(.*)';
 
-export const notFound: Route<undefined> & { getFullUrl: () => string } = {
+export const notFound: Route<undefined> & { redirect: () => void } = {
   component: Loadable({
-    loader: () => import(/* webpackChunkName: "PageNotFound" */ './components/PageNotFound'),
+    loader: () => import(/* webpackChunkName: "LoaderCentered" */ './components/LoaderCentered'),
     loading: () => null,
-    modules: ['PageNotFound'],
-    webpack: /* istanbul ignore next */ () => [(require as any).resolveWeak('./components/PageNotFound')],
+    modules: ['LoaderCentered'],
+    webpack: /* istanbul ignore next */ () => [(require as any).resolveWeak('./components/LoaderCentered')],
   }),
-  getFullUrl: () => 'https://openstax.org/error/404',
-  getUrl: () => '/errors/404',
+  getUrl: () => '/error/404',
   name: 'NotFound',
   paths: [CATCH_ALL],
+  redirect: () => assertWindow().location.replace(notFound.getUrl()),
 };

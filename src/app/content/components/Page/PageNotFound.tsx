@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
-import { SidebarControl } from '../../content/components/Toolbar/styled';
-import theme from '../../theme';
+import theme from '../../../theme';
+import { SidebarControl } from '../Toolbar/styled';
 
 // tslint:disable-next-line: variable-name
 const PageNotFoundWrapper = styled.div`

@@ -48,7 +48,7 @@ const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
     return;
   } else if (e instanceof BookNotFoundError) {
     Sentry.captureException(e);
-    assertWindow().location.replace(notFound.getFullUrl());
+    notFound.redirect();
     return;
   }
   Sentry.captureException(e);

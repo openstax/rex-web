@@ -1,12 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestStore from '../../../test/createTestStore';
-import { openToc } from '../../content/actions';
-import { SidebarControl } from '../../content/components/Toolbar/styled';
-import { tocOpen } from '../../content/selectors';
-import MessageProvider from '../../MessageProvider';
-import { Store } from '../../types';
+import createTestStore from '../../../../test/createTestStore';
+import MessageProvider from '../../../MessageProvider';
+import { Store } from '../../../types';
+import { openToc } from '../../actions';
+import { tocOpen } from '../../selectors';
+import { SidebarControl } from '../Toolbar/styled';
 import PageNotFound from './PageNotFound';
 
 describe('PageNotFound', () => {
