@@ -44,6 +44,10 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
   margin-right: 3.2rem;
   padding-top: ${buttonPaddingTopDesktop}rem;
   outline: none;
+  ${theme.breakpoints.mobile(css`
+    margin-right: 0.8rem;
+    padding-top: ${buttonPaddingTopMobile}rem;
+  `)}
 
   &.focus > ${UsingThisGuideButtonInnerStyles} {
     outline: -webkit-focus-ring-color auto 1px;
@@ -52,10 +56,6 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
   &:focus > ${UsingThisGuideButtonInnerStyles} {
     outline: -webkit-focus-ring-color auto 1px;
   }
-  ${theme.breakpoints.mobile(css`
-    margin-right: 0.8rem;
-    padding-top: ${buttonPaddingTopMobile}rem;
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name
