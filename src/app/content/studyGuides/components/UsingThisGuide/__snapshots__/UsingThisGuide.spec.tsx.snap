@@ -49,11 +49,11 @@ exports[`Using this guide renders using this guide banner correctly 1`] = `
 exports[`Using this guide renders using this guide button correctly (when banner closed) 1`] = `
 <button
   aria-label="Using This Guide"
-  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 hNBGuU"
+  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 kEtArt"
   onClick={[MockFunction]}
 >
   <div
-    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 cVhRox"
+    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 ieSgsu"
     tabIndex={-1}
   >
     <svg
@@ -80,11 +80,11 @@ exports[`Using this guide renders using this guide button correctly (when banner
 exports[`Using this guide renders using this guide button correctly (when banner open) 1`] = `
 <button
   aria-label="Using This Guide"
-  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 hNBGuU"
+  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 kEtArt"
   onClick={[MockFunction]}
 >
   <div
-    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 jOVPQn"
+    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 cTqCfd"
     tabIndex={-1}
   >
     <svg

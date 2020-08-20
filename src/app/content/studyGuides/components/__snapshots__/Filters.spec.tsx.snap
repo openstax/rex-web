@@ -288,11 +288,11 @@ exports[`Filters matches snapshot 1`] = `
     >
       <button
         aria-label="Using This Guide"
-        className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 hNBGuU"
+        className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 kEtArt"
         onClick={[Function]}
       >
         <div
-          className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 cVhRox"
+          className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 ieSgsu"
           tabIndex={-1}
         >
           <svg
