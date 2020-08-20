@@ -16,7 +16,6 @@ import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
 import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
-import { barHeight } from '../../styles/PopupConstants';
 import { cookieUTG } from './UsingThisGuide/constants';
 
 // tslint:disable-next-line:variable-name
@@ -41,7 +40,6 @@ const RightButtonsWrapper = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
-  height: ${barHeight}rem;
   overflow: visible;
 `;
 

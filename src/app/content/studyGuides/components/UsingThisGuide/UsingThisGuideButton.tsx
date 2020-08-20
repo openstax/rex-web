@@ -6,15 +6,15 @@ import { disablePrint } from '../../../components/utils/disablePrint';
 import theme from '../../../../theme';
 import { toolbarDefaultText } from '../../../components/Toolbar/styled';
 import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
-import { mobilePaddingSides } from '../../../styles/PopupConstants';
+import { mobilePaddingSides, filters } from '../../../styles/PopupConstants';
 
-const buttonMarginTop = 0.7;
+const buttonPaddingTopDesktop = 0.7;
+const buttonPaddingTopMobile = 0.5;
 
 // tslint:disable-next-line:variable-name
 const QuestionIcon = styled(QuestionCircle)`
-  height: 1.6rem;
-  width: 1.6rem;
-  z-index: 2;
+  height: 1.7rem;
+  width: 1.7rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -22,8 +22,10 @@ export const UsingThisGuideButtonBackground = styled.div`
   position: relative;
   height: 100%;
   margin-right: 3.2rem;
+  padding-top: ${buttonPaddingTopDesktop}rem;
   ${theme.breakpoints.mobile(css`
     margin-right: 0.8rem;
+    padding-top: ${buttonPaddingTopMobile}rem;
   `)}
 `;
 
@@ -35,26 +37,16 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
   margin-left: auto;
   overflow: visible;
   color: ${theme.color.primary.gray.base};
-  height: calc(100% - ${buttonMarginTop}rem);
   position: relative;
-  margin-top: ${buttonMarginTop}rem;
-  padding: ${mobilePaddingSides - buttonMarginTop}rem ${mobilePaddingSides}rem ${mobilePaddingSides}rem;
+  padding: ${filters.dropdownToggle.topBottom.desktop - buttonPaddingTopDesktop}rem ${mobilePaddingSides}rem ${mobilePaddingSides}rem;
   ${({isOpen}) => isOpen && css`
     color: ${theme.color.white};
-
-    ::after {
-      width: 100%;
-      bottom: 0rem;
-      content: "";
-      background: ${theme.color.black};
-      position: absolute;
-      z-index: 1;
-      height: 100%;
-    }
+    background: ${theme.color.black};
+    outline: none;
   `}
 
   ${theme.breakpoints.mobile(css`
-    padding: ${mobilePaddingSides - buttonMarginTop}rem ${mobilePaddingSides - 0.2}rem ${mobilePaddingSides}rem;
+    padding: ${mobilePaddingSides - (buttonPaddingTopMobile/2)}rem ${mobilePaddingSides - 0.2}rem ${mobilePaddingSides + (buttonPaddingTopMobile/2)}rem;
   `)}
   ${disablePrint}
 `;
@@ -62,7 +54,6 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
 // tslint:disable-next-line:variable-name
 const UsingThisGuideText = styled.span`
   ${toolbarDefaultText}
-  z-index: 2;
 `;
 
 interface Props {

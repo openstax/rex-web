@@ -36,7 +36,7 @@ exports[`Using this guide renders using this guide banner correctly 1`] = `
       />
       <img
         alt="The image presents the structure of study guides. The first element of each block summarizes, clarifies, or enriches key content. The second element is taken directly from the book. On the left side, there is a color label depending on the content."
-        className="UsingThisGuideBanner__DesktopBanner-adj8ti-1 fSsLhq"
+        className="UsingThisGuideBanner__DesktopBanner-adj8ti-1 hGXcYS"
         src="banner.png"
       />
     </picture>
@@ -46,16 +46,16 @@ exports[`Using this guide renders using this guide banner correctly 1`] = `
 
 exports[`Using this guide renders using this guide button correctly (when banner closed) 1`] = `
 <div
-  className="UsingThisGuideButton__UsingThisGuideButtonBackground-bu0xmw-1 jNGTIR"
+  className="UsingThisGuideButton__UsingThisGuideButtonBackground-bu0xmw-1 eAxqhy"
 >
   <button
     aria-label="Using This Guide"
-    className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 gRybYJ"
+    className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 heQxCS"
     onClick={[Function]}
   >
     <svg
       aria-hidden="true"
-      className="UsingThisGuideButton__QuestionIcon-bu0xmw-0 dgoHN StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="UsingThisGuideButton__QuestionIcon-bu0xmw-0 hHPBbh StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -66,7 +66,7 @@ exports[`Using this guide renders using this guide button correctly (when banner
       />
     </svg>
     <span
-      className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 dATeEI"
+      className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 gvyQvY"
     >
       Using This Guide
     </span>
@@ -76,16 +76,16 @@ exports[`Using this guide renders using this guide button correctly (when banner
 
 exports[`Using this guide renders using this guide button correctly (when banner open) 1`] = `
 <div
-  className="UsingThisGuideButton__UsingThisGuideButtonBackground-bu0xmw-1 jNGTIR"
+  className="UsingThisGuideButton__UsingThisGuideButtonBackground-bu0xmw-1 eAxqhy"
 >
   <button
     aria-label="Using This Guide"
-    className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 bNsuMJ"
+    className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 enUwkp"
     onClick={[Function]}
   >
     <svg
       aria-hidden="true"
-      className="UsingThisGuideButton__QuestionIcon-bu0xmw-0 dgoHN StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="UsingThisGuideButton__QuestionIcon-bu0xmw-0 hHPBbh StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -96,7 +96,7 @@ exports[`Using this guide renders using this guide button correctly (when banner
       />
     </svg>
     <span
-      className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 dATeEI"
+      className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 gvyQvY"
     >
       Using This Guide
     </span>
