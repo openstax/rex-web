@@ -44,16 +44,8 @@ describe('Browser sanity tests', () => {
     expect(infoMessages).toContain(str.join(''));
   });
 
-  it('loads the 404 page', async() => {
-    const heading = await (page.evaluate(() => {
-      if (document) {
-        const el = document.querySelector('h1');
-        if (el) {
-          return el.textContent;
-        }
-      }
-    })) as string | null;
-    expect(heading).toBe(`Uh oh, we can't find the page you requested.`);
+  it('redirects to the https://openstax.org/error/404', async() => {
+    expect(page.url()).toBe('https://openstax.org/error/404');
   });
 });
 

@@ -14,5 +14,5 @@ export const notFound: Route<undefined> & { redirect: () => void } = {
   getUrl: () => '/error/404',
   name: 'NotFound',
   paths: [CATCH_ALL],
-  redirect: () => assertWindow().location.replace(notFound.getUrl()),
+  redirect: () => assertWindow().location.replace('https://openstax.org' + notFound.getUrl()),
 };
