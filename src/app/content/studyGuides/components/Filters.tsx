@@ -13,8 +13,8 @@ import PrintButton from '../../components/popUp/PrintButton';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
-import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
+import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -89,6 +89,7 @@ const ConnectedPrintButton = connect(
 
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
+  // tslint:disable-next-line: variable-name
   const [UTGopen, setUTGopen] = React.useState(false);
 
   const toggleUsingThisGuide = () => {

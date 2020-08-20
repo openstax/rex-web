@@ -2,8 +2,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import MessageProvider from '../../../../MessageProvider';
-import UsingThisGuideButton from './UsingThisGuideButton';
 import UsingThisGuideBanner from './UsingThisGuideBanner';
+import UsingThisGuideButton from './UsingThisGuideButton';
 
 describe('Using this guide', () => {
   const onclickFn = jest.fn();
@@ -37,5 +37,4 @@ describe('Using this guide', () => {
 
     expect(component.toJSON()).toMatchSnapshot();
   });
-  
 });

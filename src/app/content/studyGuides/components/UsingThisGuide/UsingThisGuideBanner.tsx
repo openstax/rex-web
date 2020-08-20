@@ -1,12 +1,12 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
+import { Times } from 'styled-icons/fa-solid/Times';
+import { H2, h4MobileStyle } from '../../../../components/Typography/headings';
 import theme from '../../../../theme';
+import { filters } from '../../../styles/PopupConstants';
 import desktopBanner from './assets/banner.png';
 import mobileBanner from './assets/banner_mobile.png';
-import { filters } from '../../../styles/PopupConstants';
-import { FormattedMessage } from 'react-intl';
-import { H2, h4MobileStyle } from '../../../../components/Typography/headings';
-import { Times } from 'styled-icons/fa-solid/Times';
 
 // tslint:disable-next-line: variable-name
 const BannerWrapper = styled.div`
@@ -87,7 +87,7 @@ const UsingThisGuideBanner = (props: Props) => {
       <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
         {(msg: Element | string) => <picture>
           <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
-          <DesktopBanner src={desktopBanner} alt={msg}/> 
+          <DesktopBanner src={desktopBanner} alt={msg}/>
         </picture>}
       </FormattedMessage>
     </BodyWrapper>

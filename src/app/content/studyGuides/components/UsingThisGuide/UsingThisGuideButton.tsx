@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
+import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
 import { PlainButton } from '../../../../components/Button';
 import theme from '../../../../theme';
 import { toolbarDefaultText } from '../../../components/Toolbar/styled';
-import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
-import { mobilePaddingSides, filters } from '../../../styles/PopupConstants';
+import { filters, mobilePaddingSides } from '../../../styles/PopupConstants';
 
 const buttonPaddingTopDesktop = 0.7;
 const buttonPaddingTopMobile = 0.5;
@@ -25,7 +25,9 @@ const UsingThisGuideButtonInnerStyles = styled.div`
   overflow: visible;
   color: ${theme.color.primary.gray.base};
   position: relative;
-  padding: ${filters.dropdownToggle.topBottom.desktop - buttonPaddingTopDesktop}rem ${mobilePaddingSides}rem ${mobilePaddingSides}rem;
+  padding:
+    ${filters.dropdownToggle.topBottom.desktop - buttonPaddingTopDesktop}rem
+    ${mobilePaddingSides}rem ${mobilePaddingSides}rem;
   outline: none;
   ${({isOpen}) => isOpen && css`
     color: ${theme.color.white};
@@ -33,7 +35,8 @@ const UsingThisGuideButtonInnerStyles = styled.div`
   `}
 
   ${theme.breakpoints.mobile(css`
-    padding: ${mobilePaddingSides - (buttonPaddingTopMobile/2)}rem ${mobilePaddingSides - 0.2}rem ${mobilePaddingSides + (buttonPaddingTopMobile/2)}rem;
+    padding: ${mobilePaddingSides - (buttonPaddingTopMobile / 2)}rem
+      ${mobilePaddingSides - 0.2}rem ${mobilePaddingSides + (buttonPaddingTopMobile / 2)}rem;
   `)}
 `;
 
