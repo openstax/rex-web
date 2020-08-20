@@ -122,7 +122,7 @@ describe('create app', () => {
         .create(<app.container />)
         .toJSON();
       expect(tree).toMatchSnapshot();
-      expect(newLocation.replace).toHaveBeenCalledWith(notFound.getUrl());
+      expect(newLocation.replace).toHaveBeenCalledWith(notFound.getFullUrl());
     });
   });
 });

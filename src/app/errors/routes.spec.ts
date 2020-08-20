@@ -13,4 +13,8 @@ describe('notFound', () => {
   it('produces a relative url', () => {
     expect(notFound.getUrl()).toEqual('/error/404');
   });
+
+  it('produces a full url', () => {
+    expect(notFound.getFullUrl()).toEqual('https://openstax.org/error/404');
+  });
 });

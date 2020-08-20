@@ -126,7 +126,7 @@ describe('actionHook', () => {
 
     expect(hookSpy).toHaveBeenCalled();
     expect(Sentry.captureException).toHaveBeenCalled();
-    expect(mockReplace).toHaveBeenCalledWith(notFound.getUrl());
+    expect(mockReplace).toHaveBeenCalledWith(notFound.getFullUrl());
     expect(helpers.dispatch).not.toHaveBeenCalled();
     jest.resetAllMocks();
   });
