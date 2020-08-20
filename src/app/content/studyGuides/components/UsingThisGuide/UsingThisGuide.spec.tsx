@@ -6,7 +6,7 @@ import UsingThisGuideButton from './UsingThisGuideButton';
 import UsingThisGuideBanner from './UsingThisGuideBanner';
 
 describe('Using this guide', () => {
-  const onclickFn = jest.fn;
+  const onclickFn = jest.fn();
 
   it('renders using this guide button correctly (when banner closed)', () => {
     const component = renderer.create(

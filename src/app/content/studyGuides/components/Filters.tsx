@@ -95,8 +95,6 @@ export default () => {
     setUTGopen((state) => !state);
   };
 
-  const closeUsingThisGuide = React.useCallback(() => { setUTGopen(false); }, []);
-
   return <Filters>
     <FiltersTopBar>
       <FilterDropdown
@@ -120,7 +118,7 @@ export default () => {
         <ConnectedPrintButton studyGuidesButton />
       </RightButtonsWrapper>
     </FiltersTopBar>
-    {UTGopen && <UsingThisGuideBanner onClick={closeUsingThisGuide}/>}
+    {UTGopen && <UsingThisGuideBanner onClick={toggleUsingThisGuide}/>}
     {!userLoggedOut && <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
       colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}

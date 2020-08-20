@@ -3,6 +3,7 @@
 exports[`Using this guide renders using this guide banner correctly 1`] = `
 <div
   className="UsingThisGuideBanner__BannerWrapper-adj8ti-0 dIIqnR"
+  tabIndex={0}
 >
   <div
     className="UsingThisGuideBanner__HeaderWrapper-adj8ti-4 cfkUgZ"
@@ -17,7 +18,8 @@ exports[`Using this guide renders using this guide banner correctly 1`] = `
       className="UsingThisGuideBanner__CloseIcon-adj8ti-3 fRONZk StyledIconBase-sc-bdy9j4 cCvWXa"
       fill="currentColor"
       focusable="false"
-      onClick={[Function]}
+      onClick={[MockFunction]}
+      tabIndex={0}
       viewBox="0 0 352 512"
     >
       <path
@@ -36,7 +38,7 @@ exports[`Using this guide renders using this guide banner correctly 1`] = `
       />
       <img
         alt="The image presents the structure of study guides. The first element of each block summarizes, clarifies, or enriches key content. The second element is taken directly from the book. On the left side, there is a color label depending on the content."
-        className="UsingThisGuideBanner__DesktopBanner-adj8ti-1 hGXcYS"
+        className="UsingThisGuideBanner__DesktopBanner-adj8ti-1 jgKXhE"
         src="banner.png"
       />
     </picture>
@@ -45,13 +47,14 @@ exports[`Using this guide renders using this guide banner correctly 1`] = `
 `;
 
 exports[`Using this guide renders using this guide button correctly (when banner closed) 1`] = `
-<div
-  className="UsingThisGuideButton__UsingThisGuideButtonBackground-bu0xmw-1 eAxqhy"
+<button
+  aria-label="Using This Guide"
+  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 hNBGuU"
+  onClick={[MockFunction]}
 >
-  <button
-    aria-label="Using This Guide"
-    className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 heQxCS"
-    onClick={[Function]}
+  <div
+    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 cVhRox"
+    tabIndex={-1}
   >
     <svg
       aria-hidden="true"
@@ -70,18 +73,19 @@ exports[`Using this guide renders using this guide button correctly (when banner
     >
       Using This Guide
     </span>
-  </button>
-</div>
+  </div>
+</button>
 `;
 
 exports[`Using this guide renders using this guide button correctly (when banner open) 1`] = `
-<div
-  className="UsingThisGuideButton__UsingThisGuideButtonBackground-bu0xmw-1 eAxqhy"
+<button
+  aria-label="Using This Guide"
+  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 hNBGuU"
+  onClick={[MockFunction]}
 >
-  <button
-    aria-label="Using This Guide"
-    className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 enUwkp"
-    onClick={[Function]}
+  <div
+    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 jOVPQn"
+    tabIndex={-1}
   >
     <svg
       aria-hidden="true"
@@ -100,6 +104,6 @@ exports[`Using this guide renders using this guide button correctly (when banner
     >
       Using This Guide
     </span>
-  </button>
-</div>
+  </div>
+</button>
 `;

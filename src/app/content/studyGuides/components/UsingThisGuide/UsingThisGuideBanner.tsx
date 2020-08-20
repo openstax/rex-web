@@ -8,11 +8,6 @@ import { FormattedMessage } from 'react-intl';
 import { H2, h4MobileStyle } from '../../../../components/Typography/headings';
 import { Times } from 'styled-icons/fa-solid/Times';
 
-const bannerStyles = css`
-  width: 100%;
-  margin: auto;
-`;
-
 // tslint:disable-next-line: variable-name
 const BannerWrapper = styled.div`
   background: ${theme.color.black};
@@ -26,7 +21,7 @@ const BannerWrapper = styled.div`
 
 // tslint:disable-next-line: variable-name
 const DesktopBanner = styled.img`
-  ${bannerStyles}
+  width: 100%;
   padding: 0 4.2rem;
   ${theme.breakpoints.mobileMedium(css`
     max-width: 30rem;
@@ -81,12 +76,12 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideBanner = (props: Props) => {
-  return <BannerWrapper>
+  return <BannerWrapper tabIndex={0}>
     <HeaderWrapper>
       <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
         {(msg: Element | string) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
       </FormattedMessage>
-      <CloseIcon onClick={props.onClick} />
+      <CloseIcon onClick={props.onClick} tabIndex={0} />
     </HeaderWrapper>
     <BodyWrapper>
       <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>

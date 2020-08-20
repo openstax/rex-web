@@ -286,13 +286,14 @@ exports[`Filters matches snapshot 1`] = `
     <div
       className="Filters__RightButtonsWrapper-hr7yu8-1 idemZv"
     >
-      <div
-        className="UsingThisGuideButton__UsingThisGuideButtonBackground-bu0xmw-1 eAxqhy"
+      <button
+        aria-label="Using This Guide"
+        className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 hNBGuU"
+        onClick={[Function]}
       >
-        <button
-          aria-label="Using This Guide"
-          className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 heQxCS"
-          onClick={[Function]}
+        <div
+          className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 cVhRox"
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
@@ -311,8 +312,8 @@ exports[`Filters matches snapshot 1`] = `
           >
             Using This Guide
           </span>
-        </button>
-      </div>
+        </div>
+      </button>
       <button
         aria-label="print"
         className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 iIYjST styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
