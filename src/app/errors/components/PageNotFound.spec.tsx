@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import { openToc } from '../../content/actions';
 import { SidebarControl } from '../../content/components/Toolbar/styled';
+import { tocOpen } from '../../content/selectors';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import PageNotFound from './PageNotFound';
@@ -52,11 +53,14 @@ describe('PageNotFound', () => {
       </MessageProvider>
     </Provider>);
 
+    expect(tocOpen(store.getState())).toEqual(null);
+
     renderer.act(() => {
       component.root.findByProps({ 'data-testid': 'toc-button' }).props.onClick();
     });
 
     expect(dispatch).toHaveBeenCalledWith(openToc());
+    expect(tocOpen(store.getState())).toEqual(true);
 
     renderer.act(() => {
       component.root.findByProps({ 'data-testid': 'toc-button' }).props.onClick();
@@ -64,5 +68,6 @@ describe('PageNotFound', () => {
 
     expect(dispatch).toHaveBeenCalledTimes(2);
     expect(dispatch).toHaveBeenCalledWith(openToc());
+    expect(tocOpen(store.getState())).toEqual(true);
   });
 });
