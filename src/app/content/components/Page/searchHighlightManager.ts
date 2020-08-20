@@ -81,7 +81,7 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
   options.onSelect({
     current,
     previous,
-    selectedHighlight: firstSelectedHighlight,
+    selectedHighlight: undefined && firstSelectedHighlight,
   });
 };
 
