@@ -117,6 +117,7 @@ export const SearchResultsBar = styled.div`
   `)}
 
   > ${NavOl} {
+    flex: 1;
     ::before {
       display: none;
     }
