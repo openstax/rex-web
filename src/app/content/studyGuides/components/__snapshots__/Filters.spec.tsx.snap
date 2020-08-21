@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Filters matches snapshot 1`] = `
+exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = `
 <div
-  className="Filters-sc-1fn81fx-3 qzTyg"
+  className="Filters-sc-1fn81fx-3 gZlQQL"
 >
   <div
     className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
@@ -12,7 +12,7 @@ exports[`Filters matches snapshot 1`] = `
     >
       <button
         aria-label="Filter study guides by Chapter"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 crJtZo Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 jcorgy Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -47,7 +47,7 @@ exports[`Filters matches snapshot 1`] = `
     >
       <button
         aria-label="Filter study guides by Color"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 crJtZo Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 jcorgy Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -284,7 +284,7 @@ exports[`Filters matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="Filters__RightButtonsWrapper-hr7yu8-1 idemZv"
+      className="Filters__RightButtonsWrapper-hr7yu8-1 CIVxB"
     >
       <button
         aria-label="Using This Guide"
@@ -292,7 +292,7 @@ exports[`Filters matches snapshot 1`] = `
         onClick={[Function]}
       >
         <div
-          className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 ieSgsu"
+          className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 hAryOE"
           tabIndex={-1}
         >
           <svg
@@ -340,6 +340,46 @@ exports[`Filters matches snapshot 1`] = `
         </span>
       </button>
     </div>
+  </div>
+  <div
+    className="UsingThisGuideBanner__BannerWrapper-adj8ti-0 VanZp"
+  >
+    <h2
+      className="headings__H2-sc-1xfiggv-1 UsingThisGuideBanner__UsingThisGuideTitle-adj8ti-2 cFNEOU"
+    >
+      Using This Guide
+    </h2>
+    <picture>
+      <source
+        media="(max-width: 50em)"
+        srcSet="banner_mobile.png"
+      />
+      <img
+        alt="The image presents the structure of study guides. The first element of each block summarizes, clarifies, or enriches key content. The second element is taken directly from the book. On the left side, there is a color label depending on the content."
+        className="UsingThisGuideBanner__DesktopBanner-adj8ti-1 jgKXhE"
+        src="banner.png"
+        tabIndex={-1}
+      />
+    </picture>
+    <button
+      aria-label="Close"
+      className="Button__PlainButton-ayg7nk-2 chgswm"
+      data-testid="close-utg"
+      onClick={[Function]}
+    >
+      <svg
+        aria-hidden="true"
+        className="UsingThisGuideBanner__CloseIcon-adj8ti-3 fRONZk StyledIconBase-sc-bdy9j4 cCvWXa"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 352 512"
+      >
+        <path
+          d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
   </div>
   <ul
     className="FiltersList-sc-1sdnk9e-3 fQoHdD"

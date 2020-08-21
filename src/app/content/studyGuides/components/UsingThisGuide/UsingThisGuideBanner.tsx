@@ -42,7 +42,7 @@ const BannerWrapper = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const DesktopBanner = styled.img`
+export const DesktopBanner = styled.img`
   width: 100%;
   padding: 0 4.2rem;
   ${theme.breakpoints.mobileMedium(css`
@@ -106,7 +106,7 @@ const UsingThisGuideBanner = (props: Props) => {
   React.useEffect(() => {
     // Do not focus image if banner was opened initially
     if (props.isOpenedForTheFirstTime && toggleCounter.current <= 1) { return; }
-    if (desktopBannerRef.current && desktopBannerRef.current) {
+    if (desktopBannerRef.current) {
       desktopBannerRef.current.focus();
     }
   }, [props.isOpenedForTheFirstTime, props.show]);
@@ -124,7 +124,7 @@ const UsingThisGuideBanner = (props: Props) => {
       </picture>}
     </FormattedMessage>
     <FormattedMessage id='i18n:studyguides:popup:using-this-guide:close:aria-label'>
-      {(msg: string) => <PlainButton onClick={props.onClick} aria-label={msg}>
+      {(msg: string) => <PlainButton onClick={props.onClick} aria-label={msg} data-testid='close-utg'>
         <CloseIcon />
       </PlainButton>}
     </FormattedMessage>
