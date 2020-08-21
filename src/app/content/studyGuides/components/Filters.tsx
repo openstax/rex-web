@@ -14,9 +14,9 @@ import PrintButton from '../../components/popUp/PrintButton';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
-import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
-import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
 import { cookieUTG } from './UsingThisGuide/constants';
+import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
+import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -93,13 +93,12 @@ const ConnectedPrintButton = connect(
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
   const showUTGInitially = React.useMemo(() => !Cookies.get(cookieUTG), []);
+  // tslint:disable-next-line: variable-name
   const [UTGopen, setUTGopen] = React.useState(showUTGInitially);
 
   const toggleUsingThisGuide = () => {
     setUTGopen((state) => !state);
   };
-
-  const closeUsingThisGuide = React.useCallback(() => { setUTGopen(false); }, []);
 
   return <Filters>
     <FiltersTopBar>
@@ -119,13 +118,13 @@ export default () => {
           labelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
         />
       </FilterDropdown>
-      <RightButtonsWrapper tabIndex={-1}>
+      <RightButtonsWrapper>
         <UsingThisGuideButton onClick={toggleUsingThisGuide} open={UTGopen} />
         <ConnectedPrintButton studyGuidesButton />
       </RightButtonsWrapper>
     </FiltersTopBar>
     <UsingThisGuideBanner
-      onClick={closeUsingThisGuide}
+      onClick={toggleUsingThisGuide}
       show={UTGopen}
       isOpenedForTheFirstTime={showUTGInitially}
     />

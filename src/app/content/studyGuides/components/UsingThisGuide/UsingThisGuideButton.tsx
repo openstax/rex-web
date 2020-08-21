@@ -1,12 +1,12 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
+import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
 import { PlainButton } from '../../../../components/Button';
-import { disablePrint } from '../../../components/utils/disablePrint';
 import theme from '../../../../theme';
 import { toolbarDefaultText } from '../../../components/Toolbar/styled';
-import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
-import { mobilePaddingSides, filters } from '../../../styles/PopupConstants';
+import { disablePrint } from '../../../components/utils/disablePrint';
+import { filters, mobilePaddingSides } from '../../../styles/PopupConstants';
 
 const buttonPaddingTopDesktop = 0.7;
 const buttonPaddingTopMobile = 0.5;
@@ -18,19 +18,7 @@ const QuestionIcon = styled(QuestionCircle)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const UsingThisGuideButtonBackground = styled.div`
-  position: relative;
-  height: 100%;
-  margin-right: 3.2rem;
-  padding-top: ${buttonPaddingTopDesktop}rem;
-  ${theme.breakpoints.mobile(css`
-    margin-right: 0.8rem;
-    padding-top: ${buttonPaddingTopMobile}rem;
-  `)}
-`;
-
-// tslint:disable-next-line:variable-name
-export const UsingThisGuideButtonWrapper = styled(PlainButton)`
+const UsingThisGuideButtonInnerStyles = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,17 +26,41 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
   overflow: visible;
   color: ${theme.color.primary.gray.base};
   position: relative;
-  padding: ${filters.dropdownToggle.topBottom.desktop - buttonPaddingTopDesktop}rem ${mobilePaddingSides}rem ${mobilePaddingSides}rem;
+  padding:
+    ${filters.dropdownToggle.topBottom.desktop - buttonPaddingTopDesktop}rem
+    ${mobilePaddingSides}rem ${mobilePaddingSides}rem;
+  outline: none;
   ${({isOpen}) => isOpen && css`
     color: ${theme.color.white};
     background: ${theme.color.black};
-    outline: none;
   `}
 
   ${theme.breakpoints.mobile(css`
-    padding: ${mobilePaddingSides - (buttonPaddingTopMobile/2)}rem ${mobilePaddingSides - 0.2}rem ${mobilePaddingSides + (buttonPaddingTopMobile/2)}rem;
+    padding: ${mobilePaddingSides - (buttonPaddingTopMobile / 2)}rem
+      ${mobilePaddingSides - 0.2}rem ${mobilePaddingSides + (buttonPaddingTopMobile / 2)}rem;
   `)}
   ${disablePrint}
+`;
+
+// tslint:disable-next-line:variable-name
+export const UsingThisGuideButtonWrapper = styled(PlainButton)`
+  position: relative;
+  height: 100%;
+  margin-right: 3.2rem;
+  padding-top: ${buttonPaddingTopDesktop}rem;
+  outline: none;
+  ${theme.breakpoints.mobile(css`
+    margin-right: 0.8rem;
+    padding-top: ${buttonPaddingTopMobile}rem;
+  `)}
+
+  &.focus > ${UsingThisGuideButtonInnerStyles} {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
+
+  &:focus > ${UsingThisGuideButtonInnerStyles} {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -63,16 +75,16 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideButton = (props: Props) => {
-  return <UsingThisGuideButtonBackground>
-    <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
+  return <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
       {(msg: Element | string) =>
-        <UsingThisGuideButtonWrapper onClick={props.onClick} aria-label={msg} isOpen={props.open}>
-          <QuestionIcon/>
-          <UsingThisGuideText>{msg}</UsingThisGuideText>
+        <UsingThisGuideButtonWrapper aria-label={msg} onClick={props.onClick}>
+          <UsingThisGuideButtonInnerStyles isOpen={props.open} tabIndex={-1}>
+            <QuestionIcon/>
+            <UsingThisGuideText>{msg}</UsingThisGuideText>
+          </UsingThisGuideButtonInnerStyles>
         </UsingThisGuideButtonWrapper>
       }
-    </FormattedMessage>
-  </UsingThisGuideButtonBackground>;
+    </FormattedMessage>;
 };
 
 export default UsingThisGuideButton;

@@ -1,23 +1,18 @@
 import { HTMLImageElement } from '@openstax/types/lib.dom';
 import * as Cookies from 'js-cookie';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
+import { Times } from 'styled-icons/fa-solid/Times';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { PlainButton } from '../../../../components/Button';
+import { H2, h4MobileStyle } from '../../../../components/Typography/headings';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
+import { filters } from '../../../styles/PopupConstants';
 import desktopBanner from './assets/banner.png';
 import mobileBanner from './assets/banner_mobile.png';
-import { filters } from '../../../styles/PopupConstants';
-import { FormattedMessage } from 'react-intl';
-import { H2, h4MobileStyle } from '../../../../components/Typography/headings';
-import { Times } from 'styled-icons/fa-solid/Times';
 import { cookieUTG } from './constants';
-
-const bannerStyles = css`
-  width: 100%;
-  margin: auto;
-`;
 
 // tslint:disable-next-line: variable-name
 const BannerWrapper = styled.div`
@@ -25,13 +20,17 @@ const BannerWrapper = styled.div`
   background: ${theme.color.black};
   margin-bottom: 1rem;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
+
   ${PlainButton} {
     position: absolute;
     top: 4.6rem;
     right: 3.2rem;
   }
-  ${theme.breakpoints.mobileSmall(css`
+
+  ${theme.breakpoints.mobile(css`
     padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
     ${PlainButton} {
       top: 1.5rem;
@@ -44,7 +43,7 @@ const BannerWrapper = styled.div`
 
 // tslint:disable-next-line: variable-name
 const DesktopBanner = styled.img`
-  ${bannerStyles}
+  width: 100%;
   padding: 0 4.2rem;
   ${theme.breakpoints.mobileMedium(css`
     max-width: 30rem;
@@ -78,11 +77,6 @@ export const CloseIcon = styled(Times)`
     height: 1.6rem;
     width: 1.6rem;
   `)}
-`;
-
-// tslint:disable-next-line: variable-name
-const HeaderWrapper = styled.div`
-  text-align: center;
 `;
 
 interface Props {
@@ -120,11 +114,9 @@ const UsingThisGuideBanner = (props: Props) => {
   if (!props.show) { return null; }
 
   return <BannerWrapper>
-    <HeaderWrapper>
-      <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
-        {(msg: Element | string) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
-      </FormattedMessage>
-    </HeaderWrapper>
+    <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
+      {(msg: Element | string) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
+    </FormattedMessage>
     <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
       {(msg: Element | string) => <picture>
         <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
