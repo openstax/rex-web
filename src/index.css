@@ -12,6 +12,14 @@ html {
   text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
 }
 
+/*
+  Make sure that ChromeVox is not reading <noscript> tag.
+  This is fix proposed in https://github.com/chromium/chromium/pull/31
+*/
+noscript {
+  display: none;
+}
+
 @media screen {
   body, #root, html {
     min-height: 100%;
