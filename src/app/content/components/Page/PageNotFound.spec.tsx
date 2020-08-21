@@ -44,7 +44,7 @@ describe('PageNotFound', () => {
     expect(dispatch).toHaveBeenCalledWith(openToc());
   });
 
-  it('clicking multiple times on the button does not call closeToc', () => {
+  it('clicking multiple times on the button does not close toc', () => {
     const dispatch = jest.spyOn(store, 'dispatch');
 
     const component = renderer.create(<Provider store={store}>
@@ -66,8 +66,6 @@ describe('PageNotFound', () => {
       component.root.findByProps({ 'data-testid': 'toc-button' }).props.onClick();
     });
 
-    expect(dispatch).toHaveBeenCalledTimes(2);
-    expect(dispatch).toHaveBeenCalledWith(openToc());
     expect(tocOpen(store.getState())).toEqual(true);
   });
 });
