@@ -145,12 +145,14 @@ body {
   }
 }
 
+/*
+  Chrome and Firefox differently interpret nested styles. We want to unify this behavior.
+  https://github.com/openstax/unified/issues/829
+*/
 #main-content {
+  /* 100vw - padding for two sides */
+  max-width: calc(100vw - 3.2rem);
   .os-table {
-    /*
-      Chrome and Firefox differently interpret nested styles. We want to unify this behavior.
-      https://github.com/openstax/unified/issues/829
-    */
     overflow-x: initial;
   }
 }
