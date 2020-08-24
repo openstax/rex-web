@@ -31,7 +31,7 @@ describe('Using this guide', () => {
   it('renders using this guide banner correctly', () => {
     const component = renderer.create(
       <MessageProvider>
-        <UsingThisGuideBanner onClick={onclickFn}/>
+        <UsingThisGuideBanner onClick={onclickFn} isUTGopen={true}/>
       </MessageProvider>
     );
 

@@ -16,7 +16,7 @@ import FiltersList from '../../components/popUp/FiltersList';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { printStudyGuides, receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides } from '../actions';
 import Filters from './Filters';
-import UsingThisGuideBanner, { CloseIcon as UTGCloseIcon } from './UsingThisGuide/UsingThisGuideBanner';
+import UsingThisGuideBanner, { CloseIconButton } from './UsingThisGuide/UsingThisGuideBanner';
 import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
 jest.mock('../../components/popUp/ChapterFilter', () => (props: any) => <div mock-chapter-filter {...props} />);
@@ -179,7 +179,14 @@ describe('Filters', () => {
   });
 
   describe('Using This Guide Button', () => {
-    it('renders button and banner when button is clicked and closes correctly', () => {
+    beforeAll(() => {
+      jest.mock('react', () => {
+        const react = (jest as any).requireActual('react');
+        return { ...react, useEffect: react.useLayoutEffect };
+      });
+    });
+
+    it('renders button and banner when button is clicked and closes correctly', async() => {
       const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider>
@@ -196,7 +203,7 @@ describe('Filters', () => {
 
       expect(component.root.findByType(UsingThisGuideBanner)).toBeTruthy();
 
-      const uTGcloseButton = component.root.findByType(UTGCloseIcon);
+      const uTGcloseButton = component.root.findByType(CloseIconButton);
 
       renderer.act(() => {
         uTGcloseButton.props.onClick();

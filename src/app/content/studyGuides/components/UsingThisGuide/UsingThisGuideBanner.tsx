@@ -1,7 +1,9 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { Times } from 'styled-icons/fa-solid/Times';
+import { PlainButton } from '../../../../components/Button';
 import { H2, h4MobileStyle } from '../../../../components/Typography/headings';
 import theme from '../../../../theme';
 import { filters } from '../../../styles/PopupConstants';
@@ -10,13 +12,15 @@ import mobileBanner from './assets/banner_mobile.png';
 
 // tslint:disable-next-line: variable-name
 const BannerWrapper = styled.div`
+  outline: none;
+  position: relative;
+  padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
+  width: 100%;
   background: ${theme.color.black};
   margin-bottom: 1rem;
-  width: 100%;
-  padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
   ${theme.breakpoints.mobileSmall(css`
     padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
-  `)}
+  `)};
 `;
 
 // tslint:disable-next-line: variable-name
@@ -41,16 +45,27 @@ const UsingThisGuideTitle = styled(H2)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIcon = styled(Times)`
+export const CloseIconButton = styled(PlainButton)`
   position: absolute;
-  right: 0;
+  border-radius: 50%;
   background: ${theme.color.white};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: ${filters.dropdownToggle.topBottom.desktop}rem;
+  right: ${filters.dropdownToggle.sides.desktop}rem;
+  ${theme.breakpoints.mobileSmall(css`
+    top: ${filters.dropdownToggle.topBottom.mobile}rem;
+    right: ${filters.dropdownToggle.sides.mobile}rem;
+  `)};
+`;
+
+// tslint:disable-next-line:variable-name
+export const CloseIcon = styled(Times)`
   color: ${theme.color.black};
   height: 2.8rem;
   width: 2.8rem;
-  border-radius: 50%;
   padding: 0.4rem;
-  cursor: pointer;
   ${theme.breakpoints.mobile(css`
     height: 1.6rem;
     width: 1.6rem;
@@ -61,7 +76,6 @@ export const CloseIcon = styled(Times)`
 const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
-  position: relative;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -72,26 +86,39 @@ const BodyWrapper = styled.div`
 
 interface Props {
   onClick: () => void;
+  isUTGopen: boolean;
 }
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideBanner = (props: Props) => {
-  return <BannerWrapper tabIndex={0}>
-    <HeaderWrapper>
-      <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
-        {(msg: Element | string) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
-      </FormattedMessage>
-      <CloseIcon onClick={props.onClick} tabIndex={0} />
-    </HeaderWrapper>
-    <BodyWrapper>
-      <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
-        {(msg: Element | string) => <picture>
-          <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
-          <DesktopBanner src={desktopBanner} alt={msg}/>
-        </picture>}
-      </FormattedMessage>
-    </BodyWrapper>
-  </BannerWrapper>;
+  const bannerRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const banner = bannerRef.current as unknown as HTMLElement;
+    console.log(banner);
+    if (banner) {
+      banner.focus();
+    }
+  }, [] );
+
+  return <BannerWrapper tabIndex={-1}>
+      <HeaderWrapper>
+        <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
+          {(msg: Element | string) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
+        </FormattedMessage>
+      </HeaderWrapper>
+      <BodyWrapper>
+        <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
+          {(msg: Element | string) => <picture>
+            <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
+            <DesktopBanner src={desktopBanner} alt={msg} ref={bannerRef} tabIndex={0}/>
+          </picture>}
+        </FormattedMessage>
+      </BodyWrapper>
+      <CloseIconButton onClick={props.onClick}>
+        <CloseIcon/>
+      </CloseIconButton>
+    </BannerWrapper>;
 };
 
 export default UsingThisGuideBanner;

@@ -45,20 +45,11 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
   position: relative;
   height: 100%;
   margin-right: 3.2rem;
-  padding-top: ${buttonPaddingTopDesktop}rem;
-  outline: none;
+  margin-top: ${buttonPaddingTopDesktop}rem;
   ${theme.breakpoints.mobile(css`
     margin-right: 0.8rem;
     padding-top: ${buttonPaddingTopMobile}rem;
   `)}
-
-  &.focus > ${UsingThisGuideButtonInnerStyles} {
-    outline: -webkit-focus-ring-color auto 1px;
-  }
-
-  &:focus > ${UsingThisGuideButtonInnerStyles} {
-    outline: -webkit-focus-ring-color auto 1px;
-  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -72,10 +63,10 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const UsingThisGuideButton = (props: Props) => {
+const UsingThisGuideButton =  React.forwardRef<HTMLElement, Props>(({...props}, ref) => {
   return <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
       {(msg: Element | string) =>
-        <UsingThisGuideButtonWrapper aria-label={msg} onClick={props.onClick}>
+        <UsingThisGuideButtonWrapper aria-label={msg} onClick={props.onClick} ref={ref}>
           <UsingThisGuideButtonInnerStyles isOpen={props.open} tabIndex={-1}>
             <QuestionIcon/>
             <UsingThisGuideText>{msg}</UsingThisGuideText>
@@ -83,6 +74,6 @@ const UsingThisGuideButton = (props: Props) => {
         </UsingThisGuideButtonWrapper>
       }
     </FormattedMessage>;
-};
+});
 
 export default UsingThisGuideButton;

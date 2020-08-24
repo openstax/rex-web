@@ -2,34 +2,20 @@
 
 exports[`Using this guide renders using this guide banner correctly 1`] = `
 <div
-  className="UsingThisGuideBanner__BannerWrapper-adj8ti-0 dIIqnR"
-  tabIndex={0}
+  className="UsingThisGuideBanner__BannerWrapper-adj8ti-0 drJPMf"
+  tabIndex={-1}
 >
   <div
-    className="UsingThisGuideBanner__HeaderWrapper-adj8ti-4 cfkUgZ"
+    className="UsingThisGuideBanner__HeaderWrapper-adj8ti-5 fwRgqU"
   >
     <h2
       className="headings__H2-sc-1xfiggv-1 UsingThisGuideBanner__UsingThisGuideTitle-adj8ti-2 cFNEOU"
     >
       Using This Guide
     </h2>
-    <svg
-      aria-hidden="true"
-      className="UsingThisGuideBanner__CloseIcon-adj8ti-3 fRONZk StyledIconBase-sc-bdy9j4 cCvWXa"
-      fill="currentColor"
-      focusable="false"
-      onClick={[MockFunction]}
-      tabIndex={0}
-      viewBox="0 0 352 512"
-    >
-      <path
-        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
-        fill="currentColor"
-      />
-    </svg>
   </div>
   <div
-    className="UsingThisGuideBanner__BodyWrapper-adj8ti-5 djwonX"
+    className="UsingThisGuideBanner__BodyWrapper-adj8ti-6 gienZp"
   >
     <picture>
       <source
@@ -40,16 +26,34 @@ exports[`Using this guide renders using this guide banner correctly 1`] = `
         alt="The image presents the structure of study guides. The first element of each block summarizes, clarifies, or enriches key content. The second element is taken directly from the book. On the left side, there is a color label depending on the content."
         className="UsingThisGuideBanner__DesktopBanner-adj8ti-1 jgKXhE"
         src="banner.png"
+        tabIndex={0}
       />
     </picture>
   </div>
+  <button
+    className="Button__PlainButton-ayg7nk-2 UsingThisGuideBanner__CloseIconButton-adj8ti-3 KeBBm"
+    onClick={[MockFunction]}
+  >
+    <svg
+      aria-hidden="true"
+      className="UsingThisGuideBanner__CloseIcon-adj8ti-4 jtVjLX StyledIconBase-sc-bdy9j4 cCvWXa"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 352 512"
+    >
+      <path
+        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+        fill="currentColor"
+      />
+    </svg>
+  </button>
 </div>
 `;
 
 exports[`Using this guide renders using this guide button correctly (when banner closed) 1`] = `
 <button
   aria-label="Using This Guide"
-  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 kEtArt"
+  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 fmXAxY"
   onClick={[MockFunction]}
 >
   <div
@@ -80,7 +84,7 @@ exports[`Using this guide renders using this guide button correctly (when banner
 exports[`Using this guide renders using this guide button correctly (when banner open) 1`] = `
 <button
   aria-label="Using This Guide"
-  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 kEtArt"
+  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 fmXAxY"
   onClick={[MockFunction]}
 >
   <div

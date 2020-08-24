@@ -1,6 +1,7 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { loggedOut } from '../../../auth/selectors';
@@ -89,8 +90,16 @@ const ConnectedPrintButton = connect(
 
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
-  // tslint:disable-next-line: variable-name
-  const [UTGopen, setUTGopen] = React.useState(false);
+  const [isUTGopen, setUTGopen] = React.useState(false);
+  const usingThisGuideButtonRef = useRef(null);
+
+  useEffect(() => {
+    const uTGButton = usingThisGuideButtonRef.current as unknown as HTMLElement;
+
+    if (uTGButton && !isUTGopen) {
+      uTGButton.focus();
+    }
+  }, [isUTGopen] );
 
   const toggleUsingThisGuide = () => {
     setUTGopen((state) => !state);
@@ -115,11 +124,11 @@ export default () => {
         />
       </FilterDropdown>
       <RightButtonsWrapper>
-        <UsingThisGuideButton onClick={toggleUsingThisGuide} open={UTGopen}/>
+        <UsingThisGuideButton onClick={toggleUsingThisGuide} open={isUTGopen} ref={usingThisGuideButtonRef}/>
         <ConnectedPrintButton studyGuidesButton />
       </RightButtonsWrapper>
     </FiltersTopBar>
-    {UTGopen && <UsingThisGuideBanner onClick={toggleUsingThisGuide}/>}
+    { isUTGopen && <UsingThisGuideBanner onClick={toggleUsingThisGuide} isUTGopen={isUTGopen}/> }
     {!userLoggedOut && <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
       colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
