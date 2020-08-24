@@ -140,7 +140,7 @@ const NoopForPrerenderingAndForHiddenState = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show, counter, totalCountsPerPage, studyGuidesEnabled]);
 
-  if (!show ) {
+  if (!show || typeof document === 'undefined' || typeof window === 'undefined' ) {
     return null;
   }
 
