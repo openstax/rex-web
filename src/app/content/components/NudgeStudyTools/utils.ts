@@ -107,7 +107,6 @@ export const usePositions = (isMobile: boolean) => {
       const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       setPositions(getPositions(target, isMobile, windowWidth));
-
       // Resets to the value from before calculations. We want this style change to be handled
       // directly in the component.
       document.body.style.overflow = prevOverflow;
