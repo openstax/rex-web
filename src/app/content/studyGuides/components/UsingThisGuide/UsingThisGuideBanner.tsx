@@ -95,7 +95,6 @@ const UsingThisGuideBanner = (props: Props) => {
 
   React.useEffect(() => {
     const banner = bannerRef.current as unknown as HTMLElement;
-    console.log(banner);
     if (banner) {
       banner.focus();
     }
