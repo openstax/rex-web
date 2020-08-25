@@ -1,7 +1,7 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { loggedOut } from '../../../auth/selectors';
@@ -91,10 +91,10 @@ const ConnectedPrintButton = connect(
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
   const [isUTGopen, setUTGopen] = React.useState(false);
-  const usingThisGuideButtonRef = useRef(null);
+  const usingThisGuideButtonRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const uTGButton = usingThisGuideButtonRef.current as unknown as HTMLElement;
+    const uTGButton = usingThisGuideButtonRef.current;
 
     if (uTGButton && !isUTGopen) {
       uTGButton.focus();

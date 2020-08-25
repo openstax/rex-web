@@ -24,7 +24,7 @@ const BannerWrapper = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const DesktopBanner = styled.img`
+export const DesktopBanner = styled.img`
   width: 100%;
   padding: 0 4.2rem;
   ${theme.breakpoints.mobileMedium(css`
@@ -91,10 +91,10 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideBanner = (props: Props) => {
-  const bannerRef = React.useRef(null);
+  const bannerRef = React.useRef<HTMLElement>(null);
 
   React.useEffect(() => {
-    const banner = bannerRef.current as unknown as HTMLElement;
+    const banner = bannerRef.current;
     if (banner) {
       banner.focus();
     }
