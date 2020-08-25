@@ -56,7 +56,7 @@ exports[`Using this guide renders using this guide button correctly (when banner
   onClick={[MockFunction]}
 >
   <div
-    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 ifJwOB"
+    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 ljzZvv"
     tabIndex={-1}
   >
     <svg
@@ -87,7 +87,7 @@ exports[`Using this guide renders using this guide button correctly (when banner
   onClick={[MockFunction]}
 >
   <div
-    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 cggGuY"
+    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 fkhdsg"
     tabIndex={-1}
   >
     <svg

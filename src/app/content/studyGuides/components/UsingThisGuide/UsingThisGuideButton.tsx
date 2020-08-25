@@ -5,10 +5,11 @@ import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
 import { PlainButton } from '../../../../components/Button';
 import theme from '../../../../theme';
 import { toolbarDefaultText } from '../../../components/Toolbar/styled';
-import { filters, mobilePaddingSides } from '../../../styles/PopupConstants';
+import { mobilePaddingSides } from '../../../styles/PopupConstants';
 
-const buttonPaddingTopDesktop = 0.6;
-const buttonPaddingTopMobile = 0.5;
+const buttonMarginTopDesktop = 0.6;
+const buttonPaddingTopDesktop = 1.2;
+const buttonPaddingBottomDesktop = 1.8;
 
 // tslint:disable-next-line:variable-name
 const QuestionIcon = styled(QuestionCircle)`
@@ -25,16 +26,13 @@ const UsingThisGuideButtonInnerStyles = styled.div`
   overflow: visible;
   color: ${theme.color.primary.gray.base};
   position: relative;
-  padding:
-    ${filters.dropdownToggle.topBottom.desktop - buttonPaddingTopDesktop}rem
-    ${mobilePaddingSides}rem ${mobilePaddingSides}rem;
+  padding: ${buttonPaddingTopDesktop}rem ${mobilePaddingSides}rem ${buttonPaddingBottomDesktop}rem;
   outline: none;
   ${({isOpen}) => isOpen && css`
     color: ${theme.color.white};
   `}
   ${theme.breakpoints.mobile(css`
-    padding: ${mobilePaddingSides - (buttonPaddingTopMobile / 2)}rem
-      ${mobilePaddingSides - 0.2}rem ${mobilePaddingSides + (buttonPaddingTopMobile / 2)}rem;
+    padding: ${buttonPaddingTopDesktop}rem 1.4rem ${buttonPaddingBottomDesktop}rem;
   `)}
 `;
 
@@ -43,7 +41,7 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
   position: relative;
   height: 100%;
   margin-right: 3.2rem;
-  margin-top: ${buttonPaddingTopDesktop}rem;
+  margin-top: ${buttonMarginTopDesktop}rem;
   ${({isOpen}) => isOpen && css`
     background: ${theme.color.black};
   `}
