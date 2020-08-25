@@ -180,17 +180,13 @@ describe('Filters', () => {
 
   describe('Using This Guide Button', () => {
     it('renders button and banner when button is clicked and closes correctly', () => {
-      const mockNode = {
-        focus: jest.fn(),
-      };
-
       const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider>
             <Filters />
           </MessageProvider>
         </Services.Provider>
-      </Provider>, {createNodeMock: () => mockNode});
+      </Provider>);
 
       const uTGbutton = component.root.findByType(UsingThisGuideButton);
 
@@ -207,24 +203,6 @@ describe('Filters', () => {
       });
 
       expect(() => { component.root.findByType(UsingThisGuideBanner); }).toThrow();
-    });
-
-    it('does not throw if ref for banner is not given', () => {
-      const component = renderer.create(<Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Filters />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>);
-
-      const uTGbutton = component.root.findByType(UsingThisGuideButton);
-
-      renderer.act(() => {
-        uTGbutton.props.onClick();
-      });
-
-      expect(component.root.findByType(UsingThisGuideBanner)).toBeTruthy();
     });
   });
 });

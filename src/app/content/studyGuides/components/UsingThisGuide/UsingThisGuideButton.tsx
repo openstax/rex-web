@@ -7,7 +7,7 @@ import theme from '../../../../theme';
 import { toolbarDefaultText } from '../../../components/Toolbar/styled';
 import { filters, mobilePaddingSides } from '../../../styles/PopupConstants';
 
-const buttonPaddingTopDesktop = 0.7;
+const buttonPaddingTopDesktop = 0.6;
 const buttonPaddingTopMobile = 0.5;
 
 // tslint:disable-next-line:variable-name
@@ -31,9 +31,7 @@ const UsingThisGuideButtonInnerStyles = styled.div`
   outline: none;
   ${({isOpen}) => isOpen && css`
     color: ${theme.color.white};
-    background: ${theme.color.black};
   `}
-
   ${theme.breakpoints.mobile(css`
     padding: ${mobilePaddingSides - (buttonPaddingTopMobile / 2)}rem
       ${mobilePaddingSides - 0.2}rem ${mobilePaddingSides + (buttonPaddingTopMobile / 2)}rem;
@@ -46,9 +44,11 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
   height: 100%;
   margin-right: 3.2rem;
   margin-top: ${buttonPaddingTopDesktop}rem;
+  ${({isOpen}) => isOpen && css`
+    background: ${theme.color.black};
+  `}
   ${theme.breakpoints.mobile(css`
     margin-right: 0.8rem;
-    padding-top: ${buttonPaddingTopMobile}rem;
   `)}
 `;
 
@@ -63,10 +63,10 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const UsingThisGuideButton =  React.forwardRef<HTMLElement, Props>(({...props}, ref) => {
+const UsingThisGuideButton = (props: Props) => {
   return <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
       {(msg: Element | string) =>
-        <UsingThisGuideButtonWrapper aria-label={msg} onClick={props.onClick} ref={ref}>
+        <UsingThisGuideButtonWrapper aria-label={msg} onClick={props.onClick} isOpen={props.open}>
           <UsingThisGuideButtonInnerStyles isOpen={props.open} tabIndex={-1}>
             <QuestionIcon/>
             <UsingThisGuideText>{msg}</UsingThisGuideText>
@@ -74,6 +74,6 @@ const UsingThisGuideButton =  React.forwardRef<HTMLElement, Props>(({...props}, 
         </UsingThisGuideButtonWrapper>
       }
     </FormattedMessage>;
-});
+};
 
 export default UsingThisGuideButton;

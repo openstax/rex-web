@@ -1,4 +1,3 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
@@ -91,33 +90,24 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideBanner = (props: Props) => {
-  const bannerRef = React.useRef<HTMLElement>(null);
-
-  React.useEffect(() => {
-    const banner = bannerRef.current;
-    if (banner) {
-      banner.focus();
-    }
-  }, [] );
-
-  return <BannerWrapper tabIndex={-1}>
-      <HeaderWrapper>
-        <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
-          {(msg: Element | string) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
-        </FormattedMessage>
-      </HeaderWrapper>
-      <BodyWrapper>
-        <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
-          {(msg: Element | string) => <picture>
-            <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
-            <DesktopBanner src={desktopBanner} alt={msg} ref={bannerRef} tabIndex={0}/>
-          </picture>}
-        </FormattedMessage>
-      </BodyWrapper>
-      <CloseIconButton onClick={props.onClick}>
-        <CloseIcon/>
-      </CloseIconButton>
-    </BannerWrapper>;
+  return <BannerWrapper>
+    <HeaderWrapper>
+      <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
+        {(msg: Element | string) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
+      </FormattedMessage>
+    </HeaderWrapper>
+    <BodyWrapper>
+      <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
+        {(msg: Element | string) => <picture>
+          <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
+          <DesktopBanner src={desktopBanner} alt={msg} tabIndex={0}/>
+        </picture>}
+      </FormattedMessage>
+    </BodyWrapper>
+    <CloseIconButton onClick={props.onClick}>
+      <CloseIcon/>
+    </CloseIconButton>
+  </BannerWrapper>;
 };
 
 export default UsingThisGuideBanner;
