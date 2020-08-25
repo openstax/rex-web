@@ -38,6 +38,7 @@ const RightButtonsWrapper = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
+  overflow: visible;
 `;
 
 // tslint:disable-next-line: variable-name

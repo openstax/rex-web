@@ -284,7 +284,7 @@ exports[`Filters matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="Filters__RightButtonsWrapper-hr7yu8-1 idemZv"
+      className="Filters__RightButtonsWrapper-hr7yu8-1 CIVxB"
     >
       <button
         aria-label="print"
@@ -317,7 +317,7 @@ exports[`Filters matches snapshot 1`] = `
         onClick={[Function]}
       >
         <div
-          className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 ljzZvv"
+          className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 eCaHHT"
           tabIndex={-1}
         >
           <svg

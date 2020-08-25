@@ -32,7 +32,8 @@ const UsingThisGuideButtonInnerStyles = styled.div`
     color: ${theme.color.white};
   `}
   ${theme.breakpoints.mobile(css`
-    padding: ${buttonPaddingTopDesktop}rem 1.4rem ${buttonPaddingBottomDesktop}rem;
+    padding-right: 1.4rem;
+    padding-left: 1.4rem;
   `)}
 `;
 
