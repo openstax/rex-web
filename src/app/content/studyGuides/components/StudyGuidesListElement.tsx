@@ -5,6 +5,7 @@ import { bodyCopyRegularStyle, textRegularStyle } from '../../../components/Typo
 import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
 import { popupPadding } from '../../styles/PopupStyles';
+import addTargetBlankToLinks from '../../utils/addTargetBlankToLinks';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -86,17 +87,23 @@ interface HighlightListElementProps {
 }
 
 // tslint:disable-next-line:variable-name
-const HighlightListElement = ({ highlight }: HighlightListElementProps) => <HighlightOuterWrapper>
-  <HighlightAnnotation>
-    {highlight.annotation}
-  </HighlightAnnotation>
-  <HighlightContentWrapper color={highlight.color}>
-    <HighlightContent
-      className='summary-highlight-content'
-      data-highlight-id={highlight.id}
-      dangerouslySetInnerHTML={{ __html: highlight.highlightedContent }}
-    />
-  </HighlightContentWrapper>
-</HighlightOuterWrapper>;
+const HighlightListElement = ({ highlight }: HighlightListElementProps) => {
+  const content = React.useMemo(
+    () => addTargetBlankToLinks(highlight.highlightedContent),
+    [highlight.highlightedContent]);
+
+  return <HighlightOuterWrapper>
+    <HighlightAnnotation>
+      {highlight.annotation}
+    </HighlightAnnotation>
+    <HighlightContentWrapper color={highlight.color}>
+      <HighlightContent
+        className='summary-highlight-content'
+        data-highlight-id={highlight.id}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </HighlightContentWrapper>
+  </HighlightOuterWrapper>;
+};
 
 export default HighlightListElement;
