@@ -20,7 +20,7 @@ export default (url: string) => {
       return Promise.resolve(cache.get(id));
     }
 
-    return archiveFetch<ArchiveContent>(`${url}/contents/${id}`)
+    return archiveFetch<ArchiveContent>(`${url}/contents/${id}.json`)
       .then((response) => {
         cache.set(id, response);
         return response;
@@ -34,7 +34,7 @@ export default (url: string) => {
       return Promise.resolve(extrasCache.get(pageId));
     }
 
-    return archiveFetch<Extras>(`${url}/extras/${pageId}`)
+    return archiveFetch<Extras>(`${url}/extras/${pageId}.json`)
       .then(({books}) => books.map(({ident_hash}) => {
         return {
           bookVersion: getIdVersion(ident_hash),

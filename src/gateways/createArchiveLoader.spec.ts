@@ -29,13 +29,13 @@ describe('archiveLoader', () => {
       it('requests data from archive url for book', () => {
         archiveLoader.book('coolid', undefined).load();
 
-        expect(fetch).toHaveBeenCalledWith('url/contents/coolid');
+        expect(fetch).toHaveBeenCalledWith('url/contents/coolid.json');
       });
 
       it('requests data from archive url for page', () => {
         archiveLoader.book('coolid', undefined).page('coolpageid').load();
 
-        expect(fetch).toHaveBeenCalledWith('url/contents/coolid:coolpageid');
+        expect(fetch).toHaveBeenCalledWith('url/contents/coolid:coolpageid.json');
       });
 
       it('returns cached book data', async() => {
@@ -57,13 +57,13 @@ describe('archiveLoader', () => {
       it('returns versioned book data', async() => {
         await archiveLoader.book('coolid', 'version').load();
 
-        expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version');
+        expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version.json');
       });
 
       it('returns versioned page data', async() => {
         await archiveLoader.book('coolid', 'version').page('pageid').load();
 
-        expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version:pageid');
+        expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version:pageid.json');
       });
 
       it('memoizes requests', async() => {
@@ -89,7 +89,7 @@ describe('archiveLoader', () => {
       }
 
       if (error) {
-        expect(error.message).toEqual('Error response from archive "url/contents/coolid" 404: not found');
+        expect(error.message).toEqual('Error response from archive "url/contents/coolid.json" 404: not found');
       } else {
         expect(error).toBeTruthy();
       }
@@ -103,7 +103,7 @@ describe('archiveLoader', () => {
 
     it('makes request to archive', async() => {
       await archiveLoader.getBookIdsForPage('pageId');
-      expect(fetch).toHaveBeenCalledWith('url/extras/pageId');
+      expect(fetch).toHaveBeenCalledWith('url/extras/pageId.json');
     });
 
     it('returns the ids', async() => {
