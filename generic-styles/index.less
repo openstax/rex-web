@@ -120,6 +120,10 @@ body {
     content: " ";
   }
 
+  .os-table {
+    overflow-x: auto;
+  }
+
   .coreq-skills {
     padding: 0 3rem 3rem 3rem;
     border: 1px solid #dcdcdc;
@@ -142,17 +146,5 @@ body {
   }
   dt {
     font-weight: 700;
-  }
-}
-
-/*
-  Chrome and Firefox differently interpret nested styles. We want to unify this behavior.
-  https://github.com/openstax/unified/issues/829
-*/
-#main-content {
-  /* 100vw - padding for two sides */
-  max-width: calc(100vw - 3.2rem);
-  .os-table {
-    overflow-x: initial;
   }
 }
