@@ -93,8 +93,7 @@ const ConnectedPrintButton = connect(
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
   const showUTGInitially = React.useMemo(() => !Cookies.get(cookieUTG), []);
-  // tslint:disable-next-line: variable-name
-  const [UTGopen, setUTGopen] = React.useState(showUTGInitially);
+  const [isUTGopen, setUTGopen] = React.useState(showUTGInitially);
 
   const toggleUsingThisGuide = () => {
     setUTGopen((state) => !state);
@@ -119,13 +118,13 @@ export default () => {
         />
       </FilterDropdown>
       <RightButtonsWrapper>
-        <UsingThisGuideButton onClick={toggleUsingThisGuide} open={UTGopen} />
         <ConnectedPrintButton studyGuidesButton />
+        <UsingThisGuideButton onClick={toggleUsingThisGuide} open={isUTGopen}/>
       </RightButtonsWrapper>
     </FiltersTopBar>
     <UsingThisGuideBanner
       onClick={toggleUsingThisGuide}
-      show={UTGopen}
+      show={isUTGopen}
       isOpenedForTheFirstTime={showUTGInitially}
     />
     {!userLoggedOut && <ConnectedFilterList

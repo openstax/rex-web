@@ -25,7 +25,7 @@ describe('Using this guide', () => {
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
-          <UsingThisGuideButton open={false} onClick={onclickFn}/>
+          <UsingThisGuideBanner isOpenedForTheFirstTime={false} show={false} onClick={onclickFn}/>
         </MessageProvider>
       </Services.Provider>
     </Provider>);

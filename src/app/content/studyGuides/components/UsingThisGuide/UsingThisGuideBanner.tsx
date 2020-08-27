@@ -16,28 +16,15 @@ import { cookieUTG } from './constants';
 
 // tslint:disable-next-line: variable-name
 const BannerWrapper = styled.div`
+  outline: none;
   position: relative;
+  padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
+  width: 100%;
   background: ${theme.color.black};
   margin-bottom: 1rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
-
-  ${PlainButton} {
-    position: absolute;
-    top: 4.6rem;
-    right: 3.2rem;
-  }
-
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileSmall(css`
     padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
-    ${PlainButton} {
-      top: 1.5rem;
-      right: 1.6rem;
-    }
-  `)}
-
+  `)};
   ${disablePrint}
 `;
 
@@ -63,22 +50,44 @@ const UsingThisGuideTitle = styled(H2)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIcon = styled(Times)`
+export const CloseIconButton = styled(PlainButton)`
   position: absolute;
-  right: 0;
+  border-radius: 50%;
   background: ${theme.color.white};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: ${filters.dropdownToggle.topBottom.desktop}rem;
+  right: ${filters.dropdownToggle.sides.desktop}rem;
+  ${theme.breakpoints.mobileSmall(css`
+    top: ${filters.dropdownToggle.topBottom.mobile}rem;
+    right: ${filters.dropdownToggle.sides.mobile}rem;
+  `)};
+`;
+
+// tslint:disable-next-line:variable-name
+export const CloseIcon = styled(Times)`
   color: ${theme.color.black};
   height: 2.8rem;
   width: 2.8rem;
-  border-radius: 50%;
   padding: 0.4rem;
-  cursor: pointer;
   ${theme.breakpoints.mobile(css`
     height: 1.6rem;
     width: 1.6rem;
   `)}
 `;
 
+// tslint:disable-next-line: variable-name
+const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+// tslint:disable-next-line: variable-name
+const BodyWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 interface Props {
   onClick: () => void;
   show: boolean;
@@ -114,19 +123,23 @@ const UsingThisGuideBanner = (props: Props) => {
   if (!props.show) { return null; }
 
   return <BannerWrapper>
-    <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
-      {(msg: Element | string) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
-    </FormattedMessage>
-    <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
-      {(msg: Element | string) => <picture>
-        <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
-        <DesktopBanner src={desktopBanner} alt={msg} ref={desktopBannerRef} tabIndex={-1} />
-      </picture>}
-    </FormattedMessage>
+    <HeaderWrapper>
+      <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
+        {(msg: Element | string) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
+      </FormattedMessage>
+    </HeaderWrapper>
+    <BodyWrapper>
+      <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
+        {(msg: Element | string) => <picture>
+          <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
+          <DesktopBanner src={desktopBanner} alt={msg} tabIndex={0} ref={desktopBannerRef}/>
+        </picture>}
+      </FormattedMessage>
+    </BodyWrapper>
     <FormattedMessage id='i18n:studyguides:popup:using-this-guide:close:aria-label'>
-      {(msg: string) => <PlainButton onClick={props.onClick} aria-label={msg} data-testid='close-utg'>
-        <CloseIcon />
-      </PlainButton>}
+      {(msg: string) => <CloseIconButton onClick={props.onClick} aria-label={msg} data-testid='close-utg'>
+        <CloseIcon/>
+      </CloseIconButton>}
     </FormattedMessage>
   </BannerWrapper>;
 };
