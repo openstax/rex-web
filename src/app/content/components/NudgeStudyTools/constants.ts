@@ -24,6 +24,8 @@ export const cookieNudge = {
 // Show nudge only for users which opened at least 2 pages
 export const nudgeStudyToolsMinPageLimit = 2;
 
+export const daysUntilCookieExpires = 365 * 20;
+
 // Show nudge every 4 weeks: 4 * 7 days * 24 hours * 60 minutes * 60 seconds * 1000 ms
 export const timeIntervalBetweenShowingNudgeInMs = 4 * 7 * 24 * 60 * 60 * 1000;
 // Show nudge max 3 times
