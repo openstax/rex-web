@@ -16,6 +16,7 @@ import {
   closeButtonDistanceFromContent,
   contentMarginTop,
   cookieNudge,
+  daysUntilCookieExpires,
   nudgeStudyToolsMinPageLimit,
   nudgeStudyToolsShowLimit,
   nudgeStudyToolsTargetId,
@@ -141,7 +142,7 @@ export const getPageCounterCookie = () => {
 export const incrementPageCounterCookie = () => {
   const counter = getPageCounterCookie();
   const newValue = counter + 1;
-  Cookies.set(cookieNudge.pageCounter, newValue.toString());
+  Cookies.set(cookieNudge.pageCounter, newValue.toString(), {expires: daysUntilCookieExpires});
   return newValue;
 };
 
@@ -158,8 +159,8 @@ export const shouldDisplayNudgeStudyTools = (): boolean => {
 export const setNudgeStudyToolsCookies = () => {
   const now = new Date();
   const counter = getCounterCookie();
-  Cookies.set(cookieNudge.counter, (counter + 1).toString());
-  Cookies.set(cookieNudge.date, now.toString());
+  Cookies.set(cookieNudge.counter, (counter + 1).toString(), {expires: daysUntilCookieExpires});
+  Cookies.set(cookieNudge.date, now.toString(), {expires: daysUntilCookieExpires});
   Cookies.remove(cookieNudge.pageCounter);
 };
 
