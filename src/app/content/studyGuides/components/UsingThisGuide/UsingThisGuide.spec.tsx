@@ -7,7 +7,6 @@ import createTestStore from '../../../../../test/createTestStore';
 import * as Services from '../../../../context/Services';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
-import { assertDocument } from '../../../../utils';
 import UsingThisGuideBanner from './UsingThisGuideBanner';
 import UsingThisGuideButton from './UsingThisGuideButton';
 
