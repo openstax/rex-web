@@ -112,14 +112,6 @@ const UsingThisGuideBanner = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.show]);
 
-  React.useEffect(() => {
-    // Do not focus image if banner was opened initially
-    if (props.isOpenedForTheFirstTime && toggleCounter.current <= 1) { return; }
-    if (desktopBannerRef.current) {
-      desktopBannerRef.current.focus();
-    }
-  }, [props.isOpenedForTheFirstTime, props.show]);
-
   if (!props.show) { return null; }
 
   return <BannerWrapper>

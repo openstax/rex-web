@@ -56,42 +56,4 @@ describe('Using this guide', () => {
 
     expect(component.toJSON()).toMatchSnapshot();
   });
-
-  it('does not set focus on the image if it is opened for the first time', () => {
-    const image = assertDocument().createElement('div');
-    const spyFocus = jest.spyOn(image, 'focus');
-
-    renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <UsingThisGuideBanner isOpenedForTheFirstTime={true} show={true} onClick={onclickFn}/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, { createNodeMock: () => image });
-
-    // call hooks
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
-
-    expect(spyFocus).not.toHaveBeenCalled();
-  });
-
-  it('sets focus on the image when opened not for the first time', () => {
-    const image = assertDocument().createElement('div');
-    const spyFocus = jest.spyOn(image, 'focus');
-
-    renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <UsingThisGuideBanner isOpenedForTheFirstTime={false} show={true} onClick={onclickFn}/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, { createNodeMock: () => image });
-
-    // call hooks
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
-
-    expect(spyFocus).toHaveBeenCalled();
-  });
 });
