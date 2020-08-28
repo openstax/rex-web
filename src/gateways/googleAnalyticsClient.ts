@@ -203,7 +203,7 @@ class GoogleAnalyticsClient {
 
   // The real, low-level Google Analytics function
   private ga(commandName: string, ...params: any[]) {
-    console.log(commandName, params)
+    assertWindow().alert(commandName + ' ' + JSON.stringify(params))
     return assertWindow().ga(commandName, ...params);
   }
 
