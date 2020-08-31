@@ -16,5 +16,5 @@ module.exports = {
 
   PORT: 8000,
 
-  UNLIMITED_CONTENT: false
+  UNLIMITED_CONTENT: true
 };
