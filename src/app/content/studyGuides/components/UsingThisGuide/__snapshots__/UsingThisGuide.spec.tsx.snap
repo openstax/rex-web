@@ -2,7 +2,7 @@
 
 exports[`Using this guide renders using this guide banner correctly 1`] = `
 <div
-  className="UsingThisGuideBanner__BannerWrapper-adj8ti-0 drJPMf"
+  className="UsingThisGuideBanner__BannerWrapper-adj8ti-0 emXAxP"
 >
   <div
     className="UsingThisGuideBanner__HeaderWrapper-adj8ti-5 fwRgqU"
@@ -30,7 +30,7 @@ exports[`Using this guide renders using this guide banner correctly 1`] = `
     </picture>
   </div>
   <button
-    className="Button__PlainButton-ayg7nk-2 UsingThisGuideBanner__CloseIconButton-adj8ti-3 KeBBm"
+    className="Button__PlainButton-ayg7nk-2 UsingThisGuideBanner__CloseIconButton-adj8ti-3 epowhA"
     onClick={[MockFunction]}
   >
     <svg
