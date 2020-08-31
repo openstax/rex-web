@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Using this guide renders using this guide banner correctly 1`] = `
+<div
+  className="UsingThisGuideBanner__BannerWrapper-adj8ti-0 emXAxP"
+>
+  <div
+    className="UsingThisGuideBanner__HeaderWrapper-adj8ti-5 fwRgqU"
+  >
+    <h2
+      className="headings__H2-sc-1xfiggv-1 UsingThisGuideBanner__UsingThisGuideTitle-adj8ti-2 cFNEOU"
+    >
+      Using This Guide
+    </h2>
+  </div>
+  <div
+    className="UsingThisGuideBanner__BodyWrapper-adj8ti-6 gienZp"
+  >
+    <picture>
+      <source
+        media="(max-width: 50em)"
+        srcSet="banner_mobile.png"
+      />
+      <img
+        alt="The image presents the structure of study guides. The first element of each block summarizes, clarifies, or enriches key content. The second element is taken directly from the book. On the left side, there is a color label depending on the content."
+        className="UsingThisGuideBanner__DesktopBanner-adj8ti-1 jgKXhE"
+        src="banner.png"
+        tabIndex={0}
+      />
+    </picture>
+  </div>
+  <button
+    className="Button__PlainButton-ayg7nk-2 UsingThisGuideBanner__CloseIconButton-adj8ti-3 epowhA"
+    onClick={[MockFunction]}
+  >
+    <svg
+      aria-hidden="true"
+      className="UsingThisGuideBanner__CloseIcon-adj8ti-4 jtVjLX StyledIconBase-sc-bdy9j4 cCvWXa"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 352 512"
+    >
+      <path
+        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+        fill="currentColor"
+      />
+    </svg>
+  </button>
+</div>
+`;
+
+exports[`Using this guide renders using this guide button correctly (when banner closed) 1`] = `
+<button
+  aria-label="Using This Guide"
+  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 hHwOGT"
+  onClick={[MockFunction]}
+>
+  <div
+    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 eCaHHT"
+    tabIndex={-1}
+  >
+    <svg
+      aria-hidden="true"
+      className="UsingThisGuideButton__QuestionIcon-bu0xmw-0 hHPBbh StyledIconBase-sc-bdy9j4 cCvWXa"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm107.244-255.2c0 67.052-72.421 68.084-72.421 92.863V300c0 6.627-5.373 12-12 12h-45.647c-6.627 0-12-5.373-12-12v-8.659c0-35.745 27.1-50.034 47.579-61.516 17.561-9.845 28.324-16.541 28.324-29.579 0-17.246-21.999-28.693-39.784-28.693-23.189 0-33.894 10.977-48.942 29.969-4.057 5.12-11.46 6.071-16.666 2.124l-27.824-21.098c-5.107-3.872-6.251-11.066-2.644-16.363C184.846 131.491 214.94 112 261.794 112c49.071 0 101.45 38.304 101.45 88.8zM298 368c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42z"
+        fill="currentColor"
+      />
+    </svg>
+    <span
+      className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 gvyQvY"
+    >
+      Using This Guide
+    </span>
+  </div>
+</button>
+`;
+
+exports[`Using this guide renders using this guide button correctly (when banner open) 1`] = `
+<button
+  aria-label="Using This Guide"
+  className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 gdZrfW"
+  onClick={[MockFunction]}
+>
+  <div
+    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 dvKfRU"
+    tabIndex={-1}
+  >
+    <svg
+      aria-hidden="true"
+      className="UsingThisGuideButton__QuestionIcon-bu0xmw-0 hHPBbh StyledIconBase-sc-bdy9j4 cCvWXa"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm107.244-255.2c0 67.052-72.421 68.084-72.421 92.863V300c0 6.627-5.373 12-12 12h-45.647c-6.627 0-12-5.373-12-12v-8.659c0-35.745 27.1-50.034 47.579-61.516 17.561-9.845 28.324-16.541 28.324-29.579 0-17.246-21.999-28.693-39.784-28.693-23.189 0-33.894 10.977-48.942 29.969-4.057 5.12-11.46 6.071-16.666 2.124l-27.824-21.098c-5.107-3.872-6.251-11.066-2.644-16.363C184.846 131.491 214.94 112 261.794 112c49.071 0 101.45 38.304 101.45 88.8zM298 368c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42z"
+        fill="currentColor"
+      />
+    </svg>
+    <span
+      className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 gvyQvY"
+    >
+      Using This Guide
+    </span>
+  </div>
+</button>
+`;
