@@ -102,7 +102,7 @@ const UsingThisGuideBanner = (props: Props) => {
     if (props.show && isCookieSet) {
       trackOpenUTG();
     } else if (props.show) {
-      Cookies.set(cookieUTG, 'true');
+      Cookies.set(cookieUTG, 'true', {expires: 365 * 20});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.show]);
