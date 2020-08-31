@@ -1,5 +1,6 @@
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import config from '../../../../config';
+import { assertNotNull } from '../../../utils';
 
 export const validateDOMContent = (_document: Document, rootEl: HTMLElement) => {
   validateLinks(rootEl);
@@ -25,6 +26,11 @@ const validateLinks = (rootEl: HTMLElement) => {
   if (config.UNLIMITED_CONTENT) {
     // tslint:disable:no-console
     console.warn(message);
+    Array.from(rootEl.querySelectorAll('a[href^="/"]')).forEach((element) => {
+      const href = assertNotNull(element.getAttribute('href'), 'href was null');
+      element.setAttribute('data-broken-href', href);
+      element.removeAttribute('href');
+    });
   } else {
     throw new Error(message);
   }
