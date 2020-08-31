@@ -19,7 +19,7 @@ const BannerWrapper = styled.div`
   margin-bottom: 1rem;
   ${theme.breakpoints.mobileSmall(css`
     padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
-  `)};
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -56,7 +56,7 @@ export const CloseIconButton = styled(PlainButton)`
   ${theme.breakpoints.mobileSmall(css`
     top: ${filters.dropdownToggle.topBottom.mobile}rem;
     right: ${filters.dropdownToggle.sides.mobile}rem;
-  `)};
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
