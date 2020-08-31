@@ -314,6 +314,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       <button
         aria-label="Using This Guide"
         className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 gdZrfW"
+        data-analytics-disable-track={true}
         onClick={[Function]}
       >
         <div
@@ -372,6 +373,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     <button
       aria-label="Closes the image describing the structure of study guides."
       className="Button__PlainButton-ayg7nk-2 UsingThisGuideBanner__CloseIconButton-adj8ti-3 bnGaoD"
+      data-analytics-disable-track={true}
       data-testid="close-utg"
       onClick={[Function]}
     >

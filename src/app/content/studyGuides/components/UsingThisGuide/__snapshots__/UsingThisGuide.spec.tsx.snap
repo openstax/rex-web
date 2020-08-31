@@ -32,6 +32,7 @@ exports[`Using this guide renders using this guide banner correctly 1`] = `
   <button
     aria-label="Closes the image describing the structure of study guides."
     className="Button__PlainButton-ayg7nk-2 UsingThisGuideBanner__CloseIconButton-adj8ti-3 bnGaoD"
+    data-analytics-disable-track={true}
     data-testid="close-utg"
     onClick={[MockFunction]}
   >
@@ -55,6 +56,7 @@ exports[`Using this guide renders using this guide button correctly (when banner
 <button
   aria-label="Using This Guide"
   className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 hHwOGT"
+  data-analytics-disable-track={true}
   onClick={[MockFunction]}
 >
   <div
@@ -86,6 +88,7 @@ exports[`Using this guide renders using this guide button correctly (when banner
 <button
   aria-label="Using This Guide"
   className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 gdZrfW"
+  data-analytics-disable-track={true}
   onClick={[MockFunction]}
 >
   <div

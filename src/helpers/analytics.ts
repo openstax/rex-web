@@ -88,6 +88,10 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
 
     const button = findFirstAncestorOrSelfOfType(e.target, window.HTMLButtonElement);
     if (button) {
+      const disableTrack = button.getAttribute('data-analytics-disable-track');
+      if ( disableTrack ) {
+        return;
+      }
       analytics.clickButton.track(analytics.clickButton.selector(store.getState()), button);
     }
   });

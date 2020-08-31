@@ -124,7 +124,13 @@ const UsingThisGuideBanner = (props: Props) => {
       </FormattedMessage>
     </BodyWrapper>
     <FormattedMessage id='i18n:studyguides:popup:using-this-guide:close:aria-label'>
-      {(msg: string) => <CloseIconButton onClick={props.onClick} aria-label={msg} data-testid='close-utg'>
+      {(msg: string) =>
+        <CloseIconButton
+          onClick={props.onClick}
+          aria-label={msg}
+          data-testid='close-utg'
+          data-analytics-disable-track={true}
+        >
         <CloseIcon/>
       </CloseIconButton>}
     </FormattedMessage>
