@@ -103,7 +103,7 @@ describe('archiveLoader', () => {
 
     it('makes request to archive', async() => {
       await archiveLoader.getBookIdsForPage('pageId');
-      expect(fetch).toHaveBeenCalledWith('url/extras/pageId.json');
+      expect(fetch).toHaveBeenCalledWith('url/extras/pageId');
     });
 
     it('returns the ids', async() => {
