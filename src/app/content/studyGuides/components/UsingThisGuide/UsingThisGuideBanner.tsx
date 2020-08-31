@@ -1,4 +1,3 @@
-import { HTMLImageElement } from '@openstax/types/lib.dom';
 import * as Cookies from 'js-cookie';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -95,7 +94,6 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideBanner = (props: Props) => {
-  const desktopBannerRef = React.useRef<HTMLImageElement>(null);
   const trackOpenUTG = useAnalyticsEvent('openUTG');
 
   React.useEffect(() => {
@@ -103,6 +101,8 @@ const UsingThisGuideBanner = (props: Props) => {
     const isCookieSet = Cookies.get(cookieUTG) === 'true';
     if (props.show && isCookieSet) {
       trackOpenUTG();
+    } else if (props.show) {
+      Cookies.set(cookieUTG, 'true');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.show]);
@@ -119,7 +119,7 @@ const UsingThisGuideBanner = (props: Props) => {
       <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
         {(msg: Element | string) => <picture>
           <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
-          <BannerImage src={desktopBanner} alt={msg} tabIndex={0} ref={desktopBannerRef}/>
+          <BannerImage src={desktopBanner} alt={msg} tabIndex={0} />
         </picture>}
       </FormattedMessage>
     </BodyWrapper>

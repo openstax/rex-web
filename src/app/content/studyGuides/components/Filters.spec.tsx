@@ -234,7 +234,7 @@ describe('Filters', () => {
 
       const banner = component.root.findByType(UsingThisGuideBanner);
       expect(banner.props.show).toEqual(true);
-      expect(Cookies.get(cookieUTG)).toBe(undefined);
+      expect(Cookies.get(cookieUTG)).toBe('true');
       expect(spyTrack).not.toHaveBeenCalled();
     });
 
