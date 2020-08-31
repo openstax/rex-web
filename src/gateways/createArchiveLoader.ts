@@ -34,7 +34,7 @@ export default (url: string) => {
       return Promise.resolve(extrasCache.get(pageId));
     }
 
-    return archiveFetch<Extras>(`${url}/extras/${pageId}.json`)
+    return archiveFetch<Extras>(`${url}/extras/${pageId}`)
       .then(({books}) => books.map(({ident_hash}) => {
         return {
           bookVersion: getIdVersion(ident_hash),
