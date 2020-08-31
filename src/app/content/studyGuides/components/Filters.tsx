@@ -92,8 +92,7 @@ const ConnectedPrintButton = connect(
 
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
-  const showUTGInitially = React.useMemo(() => !Cookies.get(cookieUTG), []);
-  const [isUTGopen, setUTGopen] = React.useState(showUTGInitially);
+  const [isUTGopen, setUTGopen] = React.useState(!Cookies.get(cookieUTG));
 
   const toggleUsingThisGuide = () => {
     setUTGopen((state) => !state);
@@ -125,7 +124,6 @@ export default () => {
     <UsingThisGuideBanner
       onClick={toggleUsingThisGuide}
       show={isUTGopen}
-      isOpenedForTheFirstTime={showUTGInitially}
     />
     {!userLoggedOut && <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}

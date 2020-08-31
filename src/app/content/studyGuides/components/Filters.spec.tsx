@@ -186,6 +186,9 @@ describe('Filters', () => {
 
   describe('Using This Guide Button', () => {
     it('renders button and banner when button is clicked and closes correctly', () => {
+      // If cookie is set then banner will be closed initially
+      Cookies.set(cookieUTG, 'true');
+
       const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider>
@@ -200,7 +203,7 @@ describe('Filters', () => {
         uTGbutton.props.onClick();
       });
 
-      expect(component.root.findByType(UsingThisGuideBanner).props.show).toBeTruthy();
+      expect(component.root.findByType(UsingThisGuideBanner).props.show).toBe(true);
 
       const uTGcloseButton = component.root.findByProps({ 'data-testid': 'close-utg' });
 
@@ -208,7 +211,7 @@ describe('Filters', () => {
         uTGcloseButton.props.onClick();
       });
 
-      expect(component.root.findByType(UsingThisGuideBanner).props.show).toBeFalsy();
+      expect(component.root.findByType(UsingThisGuideBanner).props.show).toBe(false);
     });
 
     it('does not send ga event if it was opened initialy but set cookie', () => {
@@ -231,28 +234,26 @@ describe('Filters', () => {
 
       const banner = component.root.findByType(UsingThisGuideBanner);
       expect(banner.props.show).toEqual(true);
-      expect(banner.props.isOpenedForTheFirstTime).toEqual(true);
+      expect(Cookies.get(cookieUTG)).toBe(undefined);
       expect(spyTrack).not.toHaveBeenCalled();
-      expect(Cookies.get(cookieUTG)).toEqual('true');
     });
 
     it('send ga event when opened', () => {
+      const spyTrack = jest.spyOn(services.analytics.openUTG, 'track');
       // If cookie is set then banner will be closed initially
       Cookies.set(cookieUTG, 'true');
 
-      const spyTrack = jest.spyOn(services.analytics.openUTG, 'track');
-
       const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Filters />
-        </MessageProvider>
-      </Services.Provider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Filters />
+          </MessageProvider>
+        </Services.Provider>
       </Provider>);
 
       const banner = component.root.findByType(UsingThisGuideBanner);
       expect(banner.props.show).toEqual(false);
-      expect(banner.props.isOpenedForTheFirstTime).toEqual(false);
+      expect(Cookies.get(cookieUTG)).toEqual('true');
       expect(spyTrack).not.toHaveBeenCalled();
 
       const toggleButton = component.root.findByType(UsingThisGuideButton);

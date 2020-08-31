@@ -24,12 +24,12 @@ const BannerWrapper = styled.div`
   margin-bottom: 1rem;
   ${theme.breakpoints.mobileSmall(css`
     padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
-  `)};
+  `)}
   ${disablePrint}
 `;
 
 // tslint:disable-next-line: variable-name
-export const DesktopBanner = styled.img`
+export const BannerImage = styled.img`
   width: 100%;
   padding: 0 4.2rem;
   ${theme.breakpoints.mobileMedium(css`
@@ -62,7 +62,7 @@ export const CloseIconButton = styled(PlainButton)`
   ${theme.breakpoints.mobileSmall(css`
     top: ${filters.dropdownToggle.topBottom.mobile}rem;
     right: ${filters.dropdownToggle.sides.mobile}rem;
-  `)};
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -91,22 +91,17 @@ const BodyWrapper = styled.div`
 interface Props {
   onClick: () => void;
   show: boolean;
-  isOpenedForTheFirstTime: boolean;
 }
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideBanner = (props: Props) => {
   const desktopBannerRef = React.useRef<HTMLImageElement>(null);
-  const toggleCounter = React.useRef(0);
   const trackOpenUTG = useAnalyticsEvent('openUTG');
 
   React.useEffect(() => {
-    if (props.show) {
-      toggleCounter.current += 1;
-      Cookies.set(cookieUTG, 'true');
-    }
-    // Send GA event when banner is open, except when it is opened initially.
-    if (props.show && (!props.isOpenedForTheFirstTime || toggleCounter.current > 1)) {
+    // Send GA event except when banner is open by default (cookie is set to 'true').
+    const isCookieSet = Cookies.get(cookieUTG) === 'true';
+    if (props.show && isCookieSet) {
       trackOpenUTG();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,7 +119,7 @@ const UsingThisGuideBanner = (props: Props) => {
       <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
         {(msg: Element | string) => <picture>
           <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
-          <DesktopBanner src={desktopBanner} alt={msg} tabIndex={0} ref={desktopBannerRef}/>
+          <BannerImage src={desktopBanner} alt={msg} tabIndex={0} ref={desktopBannerRef}/>
         </picture>}
       </FormattedMessage>
     </BodyWrapper>
