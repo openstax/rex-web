@@ -13,6 +13,8 @@ import PrintButton from '../../components/popUp/PrintButton';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
+import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
+import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -29,6 +31,14 @@ const ConnectedChapterFilter = connect(
 // tslint:disable-next-line: variable-name
 const StyledColorFilter = styled(ColorFilter)`
   min-width: 29rem;
+`;
+
+// tslint:disable-next-line: variable-name
+const RightButtonsWrapper = styled.div`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  overflow: visible;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -80,6 +90,11 @@ const ConnectedPrintButton = connect(
 
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
+  const [isUTGopen, setUTGopen] = React.useState(false);
+
+  const toggleUsingThisGuide = () => {
+    setUTGopen((state) => !state);
+  };
 
   return <Filters>
     <FiltersTopBar>
@@ -99,8 +114,12 @@ export default () => {
           labelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
         />
       </FilterDropdown>
-      <ConnectedPrintButton studyGuidesButton />
+      <RightButtonsWrapper>
+        <ConnectedPrintButton studyGuidesButton />
+        <UsingThisGuideButton onClick={toggleUsingThisGuide} open={isUTGopen}/>
+      </RightButtonsWrapper>
     </FiltersTopBar>
+    { isUTGopen && <UsingThisGuideBanner onClick={toggleUsingThisGuide} isUTGopen={isUTGopen}/> }
     {!userLoggedOut && <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
       colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
