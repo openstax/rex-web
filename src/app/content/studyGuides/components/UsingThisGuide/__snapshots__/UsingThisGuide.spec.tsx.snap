@@ -2,7 +2,7 @@
 
 exports[`Using this guide renders using this guide banner correctly 1`] = `
 <div
-  className="UsingThisGuideBanner__BannerWrapper-adj8ti-0 emXAxP"
+  className="UsingThisGuideBanner__BannerWrapper-adj8ti-0 fqaMxX"
 >
   <div
     className="UsingThisGuideBanner__HeaderWrapper-adj8ti-5 fwRgqU"
@@ -23,14 +23,17 @@ exports[`Using this guide renders using this guide banner correctly 1`] = `
       />
       <img
         alt="The image presents the structure of study guides. The first element of each block summarizes, clarifies, or enriches key content. The second element is taken directly from the book. On the left side, there is a color label depending on the content."
-        className="UsingThisGuideBanner__DesktopBanner-adj8ti-1 jgKXhE"
+        className="UsingThisGuideBanner__BannerImage-adj8ti-1 lebSIh"
         src="banner.png"
         tabIndex={0}
       />
     </picture>
   </div>
   <button
-    className="Button__PlainButton-ayg7nk-2 UsingThisGuideBanner__CloseIconButton-adj8ti-3 epowhA"
+    aria-label="Closes the image describing the structure of study guides."
+    className="Button__PlainButton-ayg7nk-2 UsingThisGuideBanner__CloseIconButton-adj8ti-3 bnGaoD"
+    data-analytics-disable-track={true}
+    data-testid="close-utg"
     onClick={[MockFunction]}
   >
     <svg
@@ -53,10 +56,11 @@ exports[`Using this guide renders using this guide button correctly (when banner
 <button
   aria-label="Using This Guide"
   className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 hHwOGT"
+  data-analytics-disable-track={true}
   onClick={[MockFunction]}
 >
   <div
-    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 eCaHHT"
+    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 iGMoSS"
     tabIndex={-1}
   >
     <svg
@@ -84,10 +88,11 @@ exports[`Using this guide renders using this guide button correctly (when banner
 <button
   aria-label="Using This Guide"
   className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 gdZrfW"
+  data-analytics-disable-track={true}
   onClick={[MockFunction]}
 >
   <div
-    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 dvKfRU"
+    className="UsingThisGuideButton__UsingThisGuideButtonInnerStyles-bu0xmw-1 doDlsO"
     tabIndex={-1}
   >
     <svg
