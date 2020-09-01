@@ -1,13 +1,17 @@
+import * as Cookies from 'js-cookie';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { Times } from 'styled-icons/fa-solid/Times';
+import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { PlainButton } from '../../../../components/Button';
 import { H2, h4MobileStyle } from '../../../../components/Typography/headings';
 import theme from '../../../../theme';
+import { disablePrint } from '../../../components/utils/disablePrint';
 import { filters } from '../../../styles/PopupConstants';
 import desktopBanner from './assets/banner.png';
 import mobileBanner from './assets/banner_mobile.png';
+import { cookieUTG } from './constants';
 
 // tslint:disable-next-line: variable-name
 const BannerWrapper = styled.div`
@@ -20,10 +24,11 @@ const BannerWrapper = styled.div`
   ${theme.breakpoints.mobileSmall(css`
     padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
   `)}
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line: variable-name
-export const DesktopBanner = styled.img`
+export const BannerImage = styled.img`
   width: 100%;
   padding: 0 4.2rem;
   ${theme.breakpoints.mobileMedium(css`
@@ -82,14 +87,28 @@ const BodyWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
-
 interface Props {
   onClick: () => void;
-  isUTGopen: boolean;
+  show: boolean;
 }
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideBanner = (props: Props) => {
+  const trackOpenUTG = useAnalyticsEvent('openUTG');
+
+  React.useEffect(() => {
+    // Send GA event except when banner is open by default (cookie is set to 'true').
+    const isCookieSet = Cookies.get(cookieUTG) === 'true';
+    if (props.show && isCookieSet) {
+      trackOpenUTG();
+    } else if (props.show) {
+      Cookies.set(cookieUTG, 'true', {expires: 365 * 20});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.show]);
+
+  if (!props.show) { return null; }
+
   return <BannerWrapper>
     <HeaderWrapper>
       <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
@@ -100,13 +119,21 @@ const UsingThisGuideBanner = (props: Props) => {
       <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
         {(msg: Element | string) => <picture>
           <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
-          <DesktopBanner src={desktopBanner} alt={msg} tabIndex={0}/>
+          <BannerImage src={desktopBanner} alt={msg} tabIndex={0} />
         </picture>}
       </FormattedMessage>
     </BodyWrapper>
-    <CloseIconButton onClick={props.onClick}>
-      <CloseIcon/>
-    </CloseIconButton>
+    <FormattedMessage id='i18n:studyguides:popup:using-this-guide:close:aria-label'>
+      {(msg: string) =>
+        <CloseIconButton
+          onClick={props.onClick}
+          aria-label={msg}
+          data-testid='close-utg'
+          data-analytics-disable-track={true}
+        >
+        <CloseIcon/>
+      </CloseIconButton>}
+    </FormattedMessage>
   </BannerWrapper>;
 };
 
