@@ -1,12 +1,10 @@
 import Highlighter from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
-import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
 import { memoizeStateToProps } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
-import allImagesLoaded from '../utils/allImagesLoaded';
 
 interface Services {
   highlighter: Highlighter;
@@ -68,15 +66,14 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
   }
 
   if (firstSelectedHighlight && previous.selectedResult !== current.selectedResult) {
-    allImagesLoaded(services.container).then(
-      () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
-    );
+    return {scrollTarget: firstSelectedHighlight.elements[0]};
   }
+  return {};
 };
 
 const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {
   updateResults(services, previous, current, options);
-  selectResult(services, previous, current, options);
+  return selectResult(services, previous, current, options);
 };
 
 const searchHighlightManager = (container: HTMLElement) => {
@@ -98,5 +95,5 @@ export default searchHighlightManager;
 
 export const stubManager: ReturnType<typeof searchHighlightManager> = {
   unmount: (): void => undefined,
-  update: (): void => undefined,
+  update: (): {scrollTarget?: HTMLElement} => ({}),
 };

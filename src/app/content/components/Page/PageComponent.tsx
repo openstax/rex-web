@@ -81,35 +81,30 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.scrollTargetManager = scrollTargetManager(this.container.current);
   }
 
-  public async componentDidUpdate(prevProps: PagePropTypes, prevState: PageState) {
+  public async componentDidUpdate(prevProps: PagePropTypes) {
     // if there is a previous processing job, wait for it to finish.
     // this is mostly only relevant for initial load to ensure search results
     // are not highlighted before math is done typesetting, but may also
     // be relevant if there are rapid page navigations.
     await this.processing;
 
-    this.scrollTargetManager(prevProps.scrollTarget, this.props.scrollTarget);
-
     if (prevProps.page !== this.props.page) {
       await this.postProcess();
     }
 
-    const shouldUpdateHighlights = prevProps !== this.props ||
-      (prevState.flashMessageErrorType === this.state.flashMessageErrorType &&
-        prevState.flashMessageErrorId === this.state.flashMessageErrorId);
+    const shouldUpdateHighlights = prevProps !== this.props;
 
     if (!shouldUpdateHighlights) { return; }
 
-    const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
-      clearError: this.clearError('highlight'),
-      setError: this.setError('highlight', 'i18n:notification:scroll-to-highlight-failure'),
-    });
+    const highlightsAddedOrRemoved = this.highlightManager.update();
 
-    this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
+    const scrollTarget = this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
       clearError: this.clearError('search'),
       forceRedraw: highlightsAddedOrRemoved,
       setError: this.setError('search', 'i18n:notification:search-failure'),
     });
+
+    await this.scrollTargetManager({...this.props.scrollTarget, htmlNode: scrollTarget});
   }
 
   public setError = (type: 'highlight' | 'search', messageKey: string) => (id: string) => {

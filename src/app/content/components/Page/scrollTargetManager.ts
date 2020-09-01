@@ -10,21 +10,20 @@ export const mapStateToScrollTargetProp = memoizeStateToProps((state: AppState) 
   hash: selectNavigation.hash(state),
   page: select.page(state),
 }));
-type ScrollTargetProp = ReturnType<typeof mapStateToScrollTargetProp>;
+type ScrollTargetProp = ReturnType<typeof mapStateToScrollTargetProp> & {htmlNode?: HTMLElement};
 
-const scrollToTarget = (container: HTMLElement | null, hash: string) => {
+const scrollToTarget = async(container: HTMLElement | null, hash: string) => {
   const target = getScrollTarget(container, hash);
 
   if (target && container) {
-    allImagesLoaded(container).then(
-      () => scrollTo(target)
-    );
+    await allImagesLoaded(container);
+    scrollTo(target);
   }
 };
 
-const scrollToTargetOrTop = (container: HTMLElement | null, hash: string) => {
+const scrollToTargetOrTop = async(container: HTMLElement | null, hash: string) => {
   if (getScrollTarget(container, hash)) {
-    scrollToTarget(container, hash);
+    await scrollToTarget(container, hash);
   } else {
     scrollToTop();
   }
@@ -42,14 +41,27 @@ const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLEleme
     : null;
 };
 
-const scrollTargetManager = (container: HTMLElement) => (previous: ScrollTargetProp, current: ScrollTargetProp) => {
-  if (previous.page !== current.page) {
-    scrollToTargetOrTop(container, current.hash);
-  } else if (previous.hash !== current.hash) {
-    scrollToTarget(container, current.hash);
-  }
+const scrollTargetManager = (container: HTMLElement) => {
+  let lastScrolledTo: ScrollTargetProp = {
+    hash: '',
+    htmlNode: undefined,
+    page: undefined,
+  };
+
+  return async(prop: ScrollTargetProp) => {
+    if (lastScrolledTo.page !== prop.page) {
+      await scrollToTargetOrTop(container, prop.hash);
+    }
+    if (lastScrolledTo.hash !== prop.hash) {
+      await scrollToTarget(container, prop.hash);
+    }
+    if (prop.htmlNode && lastScrolledTo.htmlNode !== prop.htmlNode ) {
+      scrollTo(prop.htmlNode);
+    }
+    lastScrolledTo = prop;
+  };
 };
 
 export default scrollTargetManager;
 
-export const stubScrollTargetManager: ReturnType<typeof scrollTargetManager> = () => stubScrollTargetManager;
+export const stubScrollTargetManager: ReturnType<typeof scrollTargetManager> = () => stubScrollTargetManager as any;
