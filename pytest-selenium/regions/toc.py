@@ -2,6 +2,8 @@ from selenium.webdriver.common.by import By
 
 from regions.base import Region
 
+TEST = "return document.querySelector('{selector}').setAttribute('open', '1');"
+
 
 class TableOfContents(Region):
 
@@ -9,6 +11,9 @@ class TableOfContents(Region):
 
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
+    _chapter_link_locator = (By.XPATH, ".//ol/li//summary")
+    # _chapter_link_locator = (By.CSS_SELECTOR, "ol li details")
+    # _chapter_link_locator = (By.TAG_NAME, "details")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 
     @property
@@ -29,6 +34,13 @@ class TableOfContents(Region):
         ]
 
     @property
+    def chapters(self):
+        return [
+            self.ContentPage(self.page, chapter_link)
+            for chapter_link in self.find_elements(*self._chapter_link_locator)
+        ]
+
+    @property
     def first_section(self):
         return self.sections[0]
 
@@ -38,6 +50,7 @@ class TableOfContents(Region):
 
     class ContentPage(Region):
         _is_active_locator = (By.XPATH, "./..")
+        _expand_locator = (By.XPATH, "./..")
 
         def click(self):
             self.page.click_and_wait_for_load(self.root)
@@ -48,11 +61,17 @@ class TableOfContents(Region):
 
         @property
         def is_active(self):
-            html = (self.find_element(*self._is_active_locator)
-                    .get_attribute("outerHTML"))
+            html = self.find_element(*self._is_active_locator).get_attribute("outerHTML")
             try:
                 assert "Current Page" in html
             except AssertionError:
                 return False
             else:
                 return True
+
+        def expand_chapter(self):
+            # x = self._expand_locator
+
+            # self.driver.execute_script("return arguments[0].setAttribute('open', '1');", x)
+
+            self.driver.execute_script(TEST.format(selector=self._expand_locator))

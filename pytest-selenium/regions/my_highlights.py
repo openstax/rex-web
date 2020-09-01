@@ -9,6 +9,7 @@ from pypom import Page
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expect
+from selenium.webdriver.remote.webelement import WebElement
 
 from pages.accounts import Login
 from regions.base import Region
@@ -554,6 +555,7 @@ class MyHighlights(Region):
         _chapter_locator = (By.XPATH, "//div[@data-testid='chapter-title']")
         _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
         _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
+        _highlight_locator = (By.CSS_SELECTOR, "[class*=summary-highlight]")
 
         @property
         def chapters(self) -> List[MyHighlights.Highlights.Chapter]:
@@ -587,6 +589,21 @@ class MyHighlights(Region):
                 return self.find_element(*self._no_results_message_locator).get_attribute("textContent")
             except NoSuchElementException:
                 return ""
+
+        @property
+        def highlights(self) -> List[WebElement]:
+            return list(set(self.find_elements(*self._highlight_locator)))
+
+        @property
+        def mh_highlight_ids(self) -> List[str]:
+            """Return the list of highlight ID numbers.
+
+            :return: the unique list of highlight ``data-highlight-id``s in MH page
+            :rtype: list(str)
+
+            """
+            return list(
+                set([highlight.get_attribute("data-highlight-id") for highlight in self.highlights]))
 
         class Chapter(ChapterData):
             """A book chapter with highlights.
