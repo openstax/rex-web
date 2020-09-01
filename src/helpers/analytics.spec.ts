@@ -43,13 +43,23 @@ describe('registerGlobalAnalytics', () => {
     expect(clickButton).not.toHaveBeenCalled();
   });
 
-  it('reports button clicks', () => {
+  it('reports button clicks or skips if requested', () => {
     const button = document.createElement('button');
     document.body.append(button);
     button.dispatchEvent(makeEvent(document));
 
     expect(clickLink).not.toHaveBeenCalled();
     expect(clickButton).toHaveBeenCalled();
+  });
+
+  it('Skips reporting button clicks if requested', () => {
+    const button = document.createElement('button');
+    button.setAttribute('data-analytics-disable-track', 'true');
+    document.body.append(button);
+    button.dispatchEvent(makeEvent(document));
+
+    expect(clickLink).not.toHaveBeenCalled();
+    expect(clickButton).not.toHaveBeenCalled();
   });
 
   it('reports unload', () => {

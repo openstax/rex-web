@@ -2,7 +2,7 @@
 
 exports[`Filters matches snapshot 1`] = `
 <div
-  className="Filters-sc-1fn81fx-3 qzTyg"
+  className="Filters-sc-1fn81fx-3 gZlQQL"
 >
   <div
     className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
@@ -12,7 +12,7 @@ exports[`Filters matches snapshot 1`] = `
     >
       <button
         aria-label="Filter highlights by Chapter"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 czakHx Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -39,7 +39,7 @@ exports[`Filters matches snapshot 1`] = `
     >
       <button
         aria-label="Filter highlights by Color"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 czakHx Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -301,7 +301,7 @@ exports[`Filters matches snapshot 1`] = `
 
 exports[`Filters matches snapshot when open color filters 1`] = `
 <div
-  className="Filters-sc-1fn81fx-3 qzTyg"
+  className="Filters-sc-1fn81fx-3 gZlQQL"
 >
   <div
     className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
@@ -311,7 +311,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     >
       <button
         aria-label="Filter highlights by Chapter"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 czakHx Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -338,7 +338,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     >
       <button
         aria-label="Filter highlights by Color"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 crJtZo Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 jcorgy Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
