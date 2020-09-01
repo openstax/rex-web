@@ -28,7 +28,7 @@ export const filters = {
     },
     topBottom: {
       desktop: 2,
-      mobile: 1.6,
+      mobile: 1,
     },
   },
   get valueToSubstractFromVH() {
