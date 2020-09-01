@@ -179,16 +179,14 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         clearPendingHighlight();
       }
 
+      const target = focused ? {scrollTarget: focused.elements[0] as HTMLElement} : {};
+
       if (addedOrRemoved || newHighlights.length > 0 || removedHighlights.length > 0) {
         setListHighlights(highlighter.getOrderedHighlights());
-        return focused
-          ? {scrollTarget: focused.elements[0], addedOrRemoved: true}
-          : {addedOrRemoved: true};
+        return { ...target, addedOrRemoved: true };
       }
 
-      return focused
-        ? {scrollTarget: focused.elements[0], addedOrRemoved: false}
-        : {addedOrRemoved: false};
+      return { ...target, addedOrRemoved: false};
     },
   };
 };
@@ -196,5 +194,5 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 export const stubHighlightManager = ({
   CardList: (() => null) as React.FC,
   unmount: (): void => undefined,
-  update: (): boolean => false,
+  update: (): {scrollTarget?: HTMLElement, addedOrRemoved: boolean} => ({addedOrRemoved: false}),
 });

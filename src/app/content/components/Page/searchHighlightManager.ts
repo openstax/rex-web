@@ -24,6 +24,9 @@ export const mapStateToSearchHighlightProp = memoizeStateToProps((state: AppStat
   };
 });
 export type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
+interface UpdateResult {
+  scrollTarget?: HTMLElement;
+}
 
 interface Options {
   forceRedraw: boolean;
@@ -40,13 +43,18 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
-const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
+const selectResult = (
+  services: Services,
+  previous: HighlightProp,
+  current: HighlightProp,
+  options: Options
+): UpdateResult => {
   if (!current.selectedResult) {
     options.clearError();
-    return;
+    return {};
   }
   if (!options.forceRedraw && previous.selectedResult === current.selectedResult) {
-    return;
+    return {};
   }
 
   const {selectedResult} = current;
@@ -66,14 +74,14 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
   }
 
   if (firstSelectedHighlight && previous.selectedResult !== current.selectedResult) {
-    return {scrollTarget: firstSelectedHighlight.elements[0]};
+    return {scrollTarget: firstSelectedHighlight.elements[0] as HTMLElement};
   }
   return {};
 };
 
 const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {
   updateResults(services, previous, current, options);
-  return selectResult(services, previous, current, options);
+  return selectResult(services, previous, current, options) as {scrollTarget?: HTMLElement};
 };
 
 const searchHighlightManager = (container: HTMLElement) => {

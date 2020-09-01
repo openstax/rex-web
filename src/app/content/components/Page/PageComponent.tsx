@@ -6,6 +6,8 @@ import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import FlashMessageError from '../../../notifications/components/FlashMessageError';
 import { assertWindow } from '../../../utils';
+import { isHighlightScrollTarget } from '../../highlights/guards';
+import { isSearchScrollTarget } from '../../search/guards';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
@@ -96,15 +98,23 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     if (!shouldUpdateHighlights) { return; }
 
-    const highlightsAddedOrRemoved = this.highlightManager.update();
+    const highlightUpdate = this.highlightManager.update();
 
-    const scrollTarget = this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
+    const searchUpdate = this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
       clearError: this.clearError('search'),
-      forceRedraw: highlightsAddedOrRemoved,
+      forceRedraw: highlightUpdate.addedOrRemoved,
       setError: this.setError('search', 'i18n:notification:search-failure'),
     });
 
-    await this.scrollTargetManager({...this.props.scrollTarget, htmlNode: scrollTarget});
+    const { urlScrollTarget, ...scrollManagerProps } = this.props.scrollTarget;
+
+    const scrollTarget = isHighlightScrollTarget(urlScrollTarget)
+      ? highlightUpdate.scrollTarget
+      : isSearchScrollTarget(urlScrollTarget)
+        ? searchUpdate.scrollTarget
+        : undefined;
+
+    await this.scrollTargetManager({...scrollManagerProps, htmlNode: scrollTarget});
   }
 
   public setError = (type: 'highlight' | 'search', messageKey: string) => (id: string) => {

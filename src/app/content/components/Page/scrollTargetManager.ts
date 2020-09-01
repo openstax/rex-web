@@ -4,13 +4,14 @@ import * as selectNavigation from '../../../navigation/selectors';
 import { AppState } from '../../../types';
 import { assertWindow, memoizeStateToProps, resetTabIndex } from '../../../utils';
 import * as select from '../../selectors';
+import { Page } from '../../types';
 import allImagesLoaded from '../utils/allImagesLoaded';
 
 export const mapStateToScrollTargetProp = memoizeStateToProps((state: AppState) => ({
   hash: selectNavigation.hash(state),
   page: select.page(state),
+  urlScrollTarget: selectNavigation.scrollTarget(state),
 }));
-type ScrollTargetProp = ReturnType<typeof mapStateToScrollTargetProp> & {htmlNode?: HTMLElement};
 
 const scrollToTarget = async(container: HTMLElement | null, hash: string) => {
   const target = getScrollTarget(container, hash);
@@ -41,24 +42,32 @@ const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLEleme
     : null;
 };
 
+interface ScrollTargets {
+  hash: string;
+  htmlNode: HTMLElement | undefined;
+  page: Page | undefined;
+}
+
 const scrollTargetManager = (container: HTMLElement) => {
-  let lastScrolledTo: ScrollTargetProp = {
+  let lastScrolledTo: ScrollTargets = {
     hash: '',
     htmlNode: undefined,
     page: undefined,
   };
 
-  return async(prop: ScrollTargetProp) => {
-    if (lastScrolledTo.page !== prop.page) {
-      await scrollToTargetOrTop(container, prop.hash);
+  return async(targets: ScrollTargets) => {
+    const {page, hash, htmlNode} = targets;
+
+    if (lastScrolledTo.page !== page) {
+      await scrollToTargetOrTop(container, hash);
     }
-    if (lastScrolledTo.hash !== prop.hash) {
-      await scrollToTarget(container, prop.hash);
+    if (lastScrolledTo.hash !== hash) {
+      await scrollToTarget(container, hash);
     }
-    if (prop.htmlNode && lastScrolledTo.htmlNode !== prop.htmlNode ) {
-      scrollTo(prop.htmlNode);
+    if (htmlNode && lastScrolledTo.htmlNode !== htmlNode ) {
+      scrollTo(htmlNode);
     }
-    lastScrolledTo = prop;
+    lastScrolledTo = targets;
   };
 };
 

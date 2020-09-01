@@ -32,12 +32,10 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     searchStrategy: 's1',
   });
 
-  console.log("in request search")
   services.dispatch(receiveSearchResults(results, meta));
 };
 
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
-  
   const state = services.getState();
   const {page, book} = selectContent.bookAndPage(state);
   const query = select.query(state);
@@ -86,7 +84,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
   });
   const hash = selectedResult.result.source.elementId;
-  console.log("in receive search")
   services.dispatch(action(navigation, { hash, search }));
 };
 
