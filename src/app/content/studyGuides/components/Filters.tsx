@@ -1,4 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import * as Cookies from 'js-cookie';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
@@ -13,6 +14,7 @@ import PrintButton from '../../components/popUp/PrintButton';
 import { printStudyGuides, setSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
+import { cookieUTG } from './UsingThisGuide/constants';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
 import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
@@ -90,7 +92,7 @@ const ConnectedPrintButton = connect(
 
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
-  const [isUTGopen, setUTGopen] = React.useState(false);
+  const [isUTGopen, setUTGopen] = React.useState(!Cookies.get(cookieUTG));
 
   const toggleUsingThisGuide = () => {
     setUTGopen((state) => !state);
@@ -119,7 +121,10 @@ export default () => {
         <UsingThisGuideButton onClick={toggleUsingThisGuide} open={isUTGopen}/>
       </RightButtonsWrapper>
     </FiltersTopBar>
-    { isUTGopen && <UsingThisGuideBanner onClick={toggleUsingThisGuide} isUTGopen={isUTGopen}/> }
+    <UsingThisGuideBanner
+      onClick={toggleUsingThisGuide}
+      show={isUTGopen}
+    />
     {!userLoggedOut && <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
       colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}

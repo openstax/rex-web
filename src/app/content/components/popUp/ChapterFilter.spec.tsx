@@ -2,6 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
@@ -9,6 +10,7 @@ import { receiveLoggedOut } from '../../../auth/actions';
 import AllOrNone from '../../../components/AllOrNone';
 import { ButtonLink } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
+import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDefined } from '../../../utils';
@@ -25,9 +27,11 @@ describe('ChapterFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   const locationIds = new Map() as HighlightLocationFilters;
   let store: Store;
+  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     store = createTestStore();
+    services = createTestServices();
 
     store.dispatch(receivePage({...page, references: []}));
   });
@@ -216,10 +220,12 @@ describe('ChapterFilter', () => {
     }));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Filters />
-      </MessageProvider>
-    </Provider>);
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Filters />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>);
 
     const [...allOrNoneButtons] = component.root.findAllByType(ButtonLink);
     expect(allOrNoneButtons.every((button) => button.props.disabled)).toBe(true);

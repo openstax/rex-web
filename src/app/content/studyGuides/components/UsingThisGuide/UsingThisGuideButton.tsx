@@ -5,6 +5,7 @@ import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
 import { PlainButton } from '../../../../components/Button';
 import theme from '../../../../theme';
 import { toolbarDefaultText } from '../../../components/Toolbar/styled';
+import { disablePrint } from '../../../components/utils/disablePrint';
 import { mobilePaddingSides } from '../../../styles/PopupConstants';
 
 const buttonMarginTopDesktop = 0.6;
@@ -35,6 +36,7 @@ const UsingThisGuideButtonInnerStyles = styled.div`
     padding-right: 1.4rem;
     padding-left: 1.4rem;
   `)}
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -65,7 +67,12 @@ interface Props {
 const UsingThisGuideButton = (props: Props) => {
   return <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
       {(msg: Element | string) =>
-        <UsingThisGuideButtonWrapper aria-label={msg} onClick={props.onClick} isOpen={props.open}>
+        <UsingThisGuideButtonWrapper
+          aria-label={msg}
+          onClick={props.onClick}
+          isOpen={props.open}
+          data-analytics-disable-track={true}
+        >
           <UsingThisGuideButtonInnerStyles isOpen={props.open} tabIndex={-1}>
             <QuestionIcon/>
             <UsingThisGuideText>{msg}</UsingThisGuideText>
