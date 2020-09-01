@@ -6,7 +6,7 @@ cffi==1.14.2
 cfgv==3.2.0
 chardet==3.0.4
 chromedriver-binary==85.0.4183.87.0
-cryptography==3.0
+cryptography==3.1
 Faker==4.1.1
 identify==1.4.25
 idna==2.10
