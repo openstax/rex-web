@@ -212,8 +212,6 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
     if book.is_mobile:
         toolbar.click_toc_toggle_button()
 
-    # book.offscreen_click(toc.chapters[0].root)
-    # toc.chapters[0].click()
     toc.chapters[0].expand_chapter()
     toc.sections[4].click()
     my_highlights = book.toolbar.my_highlights()

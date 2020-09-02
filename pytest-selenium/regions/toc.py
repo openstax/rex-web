@@ -10,10 +10,8 @@ class TableOfContents(Region):
     _root_locator = (By.CSS_SELECTOR, "ol")
 
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
-    _section_link_locator = (By.CSS_SELECTOR, "ol li a")
-    _chapter_link_locator = (By.XPATH, ".//ol/li//summary")
-    # _chapter_link_locator = (By.CSS_SELECTOR, "ol li details")
-    # _chapter_link_locator = (By.TAG_NAME, "details")
+    _section_link_locator = (By.CSS_SELECTOR, "li a")
+    _chapter_link_locator = (By.CSS_SELECTOR, "li")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 
     @property
@@ -50,7 +48,7 @@ class TableOfContents(Region):
 
     class ContentPage(Region):
         _is_active_locator = (By.XPATH, "./..")
-        _expand_locator = (By.XPATH, "./..")
+        _expand_locator = (By.CSS_SELECTOR, "details")
 
         def click(self):
             self.page.click_and_wait_for_load(self.root)
@@ -70,8 +68,4 @@ class TableOfContents(Region):
                 return True
 
         def expand_chapter(self):
-            # x = self._expand_locator
-
-            # self.driver.execute_script("return arguments[0].setAttribute('open', '1');", x)
-
-            self.driver.execute_script(TEST.format(selector=self._expand_locator))
+            self.driver.execute_script(TEST.format(selector=self._expand_locator[1]))
