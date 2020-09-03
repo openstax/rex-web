@@ -117,7 +117,6 @@ const ContextMenu = ({
 }: ContextMenuProps) => {
   const editMessage = hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note';
   const deleteMessage = 'i18n:highlighting:dropdown:delete';
-
   return <StyledContextMenu>
     <Dropdown
       toggle={<HighlightDropdownMenu />}

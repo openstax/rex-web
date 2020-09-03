@@ -3,9 +3,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import * as selectAuth from '../../../auth/selectors';
 import { isDefined } from '../../../guards';
-import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow, memoizeStateToProps } from '../../../utils';
 import {
@@ -32,10 +30,7 @@ export const mapStateToHighlightProp = memoizeStateToProps((state: AppState) => 
   focused: selectHighlights.focused(state),
   hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
-  highlightsLoaded: selectHighlights.highlightsLoaded(state),
-  loggedOut: selectAuth.loggedOut(state),
   page: select.page(state),
-  scrollTarget: selectNavigation.scrollTarget(state),
 }));
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
@@ -170,7 +165,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       highlighter.clearFocus();
       const focusedId = getProp().focused;
       const focused = focusedId && highlighter.getHighlight(focusedId);
-
       if (focused) {
         focused.focus();
       }

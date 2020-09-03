@@ -227,7 +227,6 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
     }
 
     const bookUrl = hasOSWebData(book) ? bookDetailsUrl(book) : notFound.getUrl();
-
     return this.renderBars({theme: bookTheme, ...book}, bookUrl, pageNode);
   }
 

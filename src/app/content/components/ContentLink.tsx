@@ -98,12 +98,13 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState) => ({
+  (state: AppState, ownProps: {search?: { query?: string | null }}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     search: ({
       query: selectSearch.query(state),
+      ...(ownProps.search ? ownProps.search : {}),
     }),
   }),
   (dispatch: Dispatch) => ({

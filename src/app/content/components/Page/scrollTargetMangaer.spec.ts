@@ -15,8 +15,18 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
+const createScrollTarget = (container: HTMLElement, id: string) => {
+  const target = assertWindow().document.createElement('div');
+  target.setAttribute('id', id);
+
+  container.append(target);
+
+  return target;
+};
+
 describe('scrollTargetManager', () => {
   let window: Window;
+  let windowScrollSpy: jest.SpyInstance;
   let element: HTMLElement;
   let manager: ReturnType<typeof scrollTargetManager>;
 
@@ -24,33 +34,74 @@ describe('scrollTargetManager', () => {
     window = assertWindow();
     element = window.document.createElement('div');
     manager = scrollTargetManager(element);
+
+    windowScrollSpy = jest.spyOn(window, 'scrollTo');
   });
 
-  it('scrolls to hash when it changes', async() => {
+  it('scrolls gradually', async() => {
+    const container = createScrollTarget(element, 'container');
+    const target = createScrollTarget(container, 'inner');
 
-    const target = window.document.createElement('div');
-    target.setAttribute('id', 'qwer');
+    manager({page, hash: '#container', htmlNode: target});
 
-    element.append(target);
+    expect(windowScrollSpy).toHaveBeenCalled();
 
-    manager({hash: '#asdf', page}, {hash: '#qwer', page});
+    // wait for images
+    await Promise.resolve();
+    // wait for first scrollToTarget
+    await Promise.resolve();
 
+    expect(scrollTo).toHaveBeenCalledWith(container);
+    expect(scrollTo).not.toHaveBeenCalledWith(target);
+
+    // wait for images again
+    await Promise.resolve();
+    // wait for second scrollToTarget
     await Promise.resolve();
 
     expect(scrollTo).toHaveBeenCalledWith(target);
   });
 
-  it('doesn\'t scroll to anything if hash changes to something that doesn\'t exist', async() => {
+  it('doesn\'t scroll to elements that don\'t exist', async() => {
+    createScrollTarget(element, 'wolololo');
 
-    const target = window.document.createElement('div');
-    target.setAttribute('id', 'wolololo');
-
-    element.append(target);
-
-    manager({hash: '#asdf', page}, {hash: '#qwer', page});
+    manager({page, hash: '#asdf', htmlNode: undefined});
 
     await Promise.resolve();
+    await Promise.resolve();
 
+    expect(windowScrollSpy).toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
+  });
+
+  it('scrolls only if things change', async() => {
+    const targetA = createScrollTarget(element, 'targetA');
+    const targetB = createScrollTarget(element, 'targetB');
+
+    manager({page, hash: '#targetA', htmlNode: undefined});
+    expect(windowScrollSpy).toHaveBeenCalled();
+
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(scrollTo).toHaveBeenCalledWith(targetA);
+    windowScrollSpy.mockClear();
+
+    manager({page, hash: '#targetB', htmlNode: undefined});
+    expect(windowScrollSpy).not.toHaveBeenCalled();
+
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(scrollTo).toHaveBeenCalledWith(targetB);
+    expect(scrollTo).toHaveBeenCalledTimes(2);
+
+    manager({page, hash: '#targetB', htmlNode: undefined});
+    expect(windowScrollSpy).not.toHaveBeenCalled();
+
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(scrollTo).toHaveBeenCalledTimes(2);
   });
 });

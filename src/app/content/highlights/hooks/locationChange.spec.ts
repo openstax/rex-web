@@ -8,12 +8,13 @@ import { resetModules } from '../../../../test/utils';
 import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
-import { locationChange } from '../../../navigation/actions';
+import { locationChange, push } from '../../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { receiveHighlights } from '../actions';
+import { receiveHighlights, focusHighlight } from '../actions';
 import { HighlightData } from '../types';
+import { createNavigationOptions } from '../../../navigation/utils';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -144,5 +145,36 @@ describe('locationChange', () => {
     await hook();
 
     expect(dispatch).toHaveBeenCalledWith(receiveHighlights({highlights, pageId: page.id}));
+  });
+
+  it('focuses scroll target highlight', async() => {
+    const scrollTarget = {
+      elementId: 'doesntmatter',
+      id: 'cool-id',
+      type: 'highlight',
+    };
+
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        hash: 'hash',
+        pathname: '',
+        search: createNavigationOptions({}, scrollTarget).search,
+        state: {},
+      },
+    }));
+
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+    const highlights = [{id: scrollTarget.id} as HighlightData];
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockReturnValue(Promise.resolve({data: highlights, meta: {perPage: 1, page: 1, totalCount: 1}}));
+
+    await hook();
+
+    expect(dispatch).toHaveBeenCalledWith(focusHighlight('cool-id'));
   });
 });
