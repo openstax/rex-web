@@ -4,8 +4,8 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import SearchFailure from '../../../notifications/components/SearchFailure';
-import { assertNotNull, assertWindow } from '../../../utils';
+import ToastNotifications from '../../../notifications/components/ToastNotifications';
+import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
@@ -27,14 +27,8 @@ if (typeof(document) !== 'undefined') {
 
 const parser = new DOMParser();
 
-interface PageState {
-  hasSearchError: boolean;
-  selectedSearchResultId: null | string;
-}
-
-export default class PageComponent extends Component<PagePropTypes, PageState> {
+export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
-  public state = { hasSearchError: false, selectedSearchResultId: null };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -74,7 +68,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     this.scrollTargetManager = scrollTargetManager(this.container.current);
   }
 
-  public async componentDidUpdate(prevProps: PagePropTypes, prevState: PageState) {
+  public async componentDidUpdate(prevProps: PagePropTypes) {
     // if there is a previous processing job, wait for it to finish.
     // this is mostly only relevant for initial load to ensure search results
     // are not highlighted before math is done typesetting, but may also
@@ -87,12 +81,6 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       await this.postProcess();
     }
 
-    const shouldUpdateHighlights = prevProps !== this.props ||
-      (prevState.hasSearchError === this.state.hasSearchError &&
-        prevState.selectedSearchResultId === this.state.selectedSearchResultId);
-
-    if (!shouldUpdateHighlights) { return; }
-
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
@@ -101,30 +89,10 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     });
   }
 
-  public onHighlightSelect: OptionsCallback = ({current, selectedHighlight}) => {
-    if (selectedHighlight) {
-      this.setState({
-        hasSearchError: false,
-        selectedSearchResultId: null,
-      });
-
-      return;
+  public onHighlightSelect: OptionsCallback = ({selectedHighlight}) => {
+    if (!selectedHighlight) {
+      this.props.showToast('i18n:notification:toast:search:highlight-not-found');
     }
-    const selectedResult = assertNotNull(current.selectedResult, 'Current result cannot be null after its selection');
-    const currentResultId = `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`;
-
-    if (currentResultId === this.state.selectedSearchResultId) { return; }
-
-    this.setState({
-      hasSearchError: true,
-      selectedSearchResultId: currentResultId,
-    });
-  };
-
-  public dismissError = () => {
-    this.setState({
-      hasSearchError: false,
-    });
   };
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
@@ -143,16 +111,10 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      {this.state.hasSearchError
-        ? <SearchFailure
-            dismiss={this.dismissError}
-            selectedHighlight={this.state.selectedSearchResultId}
-            mobileToolbarOpen={this.props.mobileToolbarOpen}
-          />
-        : null}
-      <RedoPadding>
-        {this.props.page ? this.renderContent() : this.renderLoading()}
-      </RedoPadding>
+        <ToastNotifications />
+        <RedoPadding>
+          {this.props.page ? this.renderContent() : this.renderLoading()}
+        </RedoPadding>
     </MinPageHeight>;
   }
 

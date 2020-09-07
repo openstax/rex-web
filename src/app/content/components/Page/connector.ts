@@ -1,6 +1,8 @@
+import flow from 'lodash/fp/flow';
 import { IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import * as selectNavigation from '../../../navigation/selectors';
+import { addToast } from '../../../notifications/actions';
 import { AppServices, AppState } from '../../../types';
 import { merge } from '../../../utils';
 import { mobileToolbarOpen, query } from '../../search/selectors';
@@ -25,6 +27,7 @@ export interface PagePropTypes {
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   highlights: HighlightProp;
   services: AppServices;
+  showToast: (message: string) => void;
 }
 
 export default connect(
@@ -42,6 +45,7 @@ export default connect(
   (dispatch) => ({
     contentLinks: mapDispatchToContentLinkProp(dispatch),
     highlights: mapDispatchToHighlightProp(dispatch),
+    showToast: flow(addToast, dispatch),
   }),
   merge
 );

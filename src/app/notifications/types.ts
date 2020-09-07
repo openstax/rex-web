@@ -17,7 +17,17 @@ export interface AppMessageNotification {
 
 export type Messages = Message[];
 
-export type AnyNotification = ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >>
+export type ModalNotification = ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >>
   | AppMessageNotification;
 
-export type State = AnyNotification[];
+export interface ToastNotification {
+  message: string;
+  timestamp: number;
+}
+
+export type AnyNotification = ModalNotification | ToastNotification;
+
+export interface State {
+  modalNotifications: ModalNotification[];
+  toastNotifications: ToastNotification[];
+}
