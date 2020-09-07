@@ -98,7 +98,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     if (!shouldUpdateHighlights) { return; }
 
-    const highlightUpdate = this.highlightManager.update();
+    const highlightUpdate = this.highlightManager.update(this.props.scrollTarget.urlScrollTarget);
 
     const searchUpdate = this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
       clearError: this.clearError('search'),

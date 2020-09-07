@@ -4,6 +4,7 @@ import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { isDefined } from '../../../guards';
+import { ScrollTarget } from '../../../navigation/types';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow, memoizeStateToProps } from '../../../utils';
 import {
@@ -12,6 +13,7 @@ import {
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
+import { isHighlightScrollTarget } from '../../highlights/guards';
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
@@ -133,7 +135,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       });
     },
     unmount: (): void => highlighter && highlighter.unmount(),
-    update: () => {
+    update: (scrollTarget: ScrollTarget | null) => {
       let addedOrRemoved = false;
 
       const matchHighlightId = (id: string) => (search: HighlightData | Highlight) => search.id === id;
@@ -173,7 +175,11 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         clearPendingHighlight();
       }
 
-      const target = focused ? {scrollTarget: focused.elements[0] as HTMLElement} : {};
+      const target = focused
+        && isHighlightScrollTarget(scrollTarget)
+        && scrollTarget.id === focused.id
+          ? {scrollTarget: focused.elements[0] as HTMLElement}
+          : {};
 
       if (addedOrRemoved || newHighlights.length > 0 || removedHighlights.length > 0) {
         setListHighlights(highlighter.getOrderedHighlights());
@@ -188,5 +194,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 export const stubHighlightManager = ({
   CardList: (() => null) as React.FC,
   unmount: (): void => undefined,
-  update: (): {scrollTarget?: HTMLElement, addedOrRemoved: boolean} => ({addedOrRemoved: false}),
+  update: (_scrollTarget: ScrollTarget | null): {scrollTarget?: HTMLElement, addedOrRemoved: boolean} => ({
+    addedOrRemoved: false,
+  }),
 });
