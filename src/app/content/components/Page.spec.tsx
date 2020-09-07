@@ -1,3 +1,4 @@
+import { Highlight } from '@openstax/highlighter';
 import { SearchResult } from '@openstax/open-search-client';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
@@ -20,7 +21,7 @@ import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
-import { assertWindow } from '../../utils';
+import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
 import { createHighlight } from '../highlights/actions';
@@ -761,6 +762,142 @@ describe('Page', () => {
     expect(root.querySelector('[data-testid=banner-body] button')).toBeFalsy();
   });
 
+  it('scrolls to search result when selected', async() => {
+    renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit = makeSearchResultHit({book, page});
+
+    const highlightElement = assertDocument().createElement('span');
+    const mockHighlight = {
+      elements: [highlightElement],
+      focus: jest.fn(),
+    } as any as Highlight;
+
+    highlightResults.mockReturnValue([
+      {
+        highlights: {0: [mockHighlight]},
+        result: hit,
+      },
+    ]);
+
+    store.dispatch(requestSearch('asdf'));
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(scrollTo).toHaveBeenCalledWith(highlightElement);
+  });
+
+  it('doesn\'t scroll to search result when selected but unchanged', async() => {
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit1 = makeSearchResultHit({book, page});
+    const hit2 = makeSearchResultHit({book, page});
+
+    const highlightElement = assertDocument().createElement('span');
+    const focus = jest.fn();
+    const mockHighlight = {
+      elements: [highlightElement],
+      focus,
+    } as any as Highlight;
+
+    highlightResults.mockReturnValue([
+      {
+        highlights: {0: [mockHighlight]},
+        result: hit1,
+      },
+      {
+        highlights: {},
+        result: hit2,
+      },
+    ]);
+
+    store.dispatch(requestSearch('asdf'));
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+    store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+
+    renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    focus.mockClear();
+    (scrollTo as any).mockClear();
+
+    store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
+
+    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(scrollTo).not.toHaveBeenCalled();
+  });
+
+  it('scrolls to search result when selected before page navigation', async() => {
+    renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit = makeSearchResultHit({book, page: shortPage});
+
+    const highlightElement = assertDocument().createElement('span');
+    const mockHighlight = {
+      elements: [highlightElement],
+      focus: jest.fn(),
+    } as any as Highlight;
+
+    highlightResults.mockReturnValue([
+      {
+        highlights: {},
+        result: hit,
+      },
+    ]);
+
+    store.dispatch(requestSearch('asdf'));
+    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    // make sure nothing happened
+    expect(highlightResults).toHaveBeenCalledWith(expect.anything(), []);
+    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(scrollTo).not.toHaveBeenCalled();
+
+    // do navigation
+    highlightResults.mockReturnValue([
+      {
+        highlights: {0: [mockHighlight]},
+        result: hit,
+      },
+    ]);
+    store.dispatch(receivePage({...shortPage, references: []}));
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // previous processing
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(scrollTo).toHaveBeenCalledWith(highlightElement);
+  });
+
   it('doesn\'t render error modal for the same result twice', async() => {
     const {root} = renderDomWithReferences();
 
@@ -840,6 +977,42 @@ describe('Page', () => {
     renderDomWithReferences();
     expect(typesetMath).toHaveBeenCalled();
     typesetMath.mockRestore();
+  });
+
+  it('scrolls to top on new content', async() => {
+    if (!window) {
+      return expect(window).toBeTruthy();
+    }
+
+    const spy = jest.spyOn(window, 'scrollTo');
+    spy.mockImplementation(() => null);
+
+    renderToDom(
+      <Provider store={store}>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
+      </Provider>
+    );
+
+    store.dispatch(actions.receivePage({
+      abstract: '',
+      content: 'some other content',
+      id: 'adsfasdf',
+      references: [],
+      revised: '2018-07-30T15:58:45Z',
+      shortId: 'asdf',
+      title: 'qerqwer',
+      version: '0',
+    }));
+
+    await Promise.resolve();
+
+    expect(spy).toHaveBeenCalledWith(0, 0);
   });
 
   it('waits for images to load before scrolling to a target element', async() => {
