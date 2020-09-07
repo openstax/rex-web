@@ -90,6 +90,7 @@ export const FiltersTopBar = styled.div`
   display: flex;
   align-items: center;
   overflow: visible;
+  width: 100%;
 `;
 
 interface Props {
