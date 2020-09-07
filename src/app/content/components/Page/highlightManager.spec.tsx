@@ -11,7 +11,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { Store } from '../../../types';
-import { assertWindow } from '../../../utils';
+import { assertDocument, assertWindow } from '../../../utils';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import { HighlightData } from '../../highlights/types';
@@ -74,7 +74,7 @@ describe('highlightManager', () => {
 
   it('CardList is rendered after update', () => {
     const {CardList, update} = highlightManager(element, () => prop);
-    update();
+    update(null);
     const component = renderer.create(<Provider store={store}>
       <CardList/>
     </Provider>);
@@ -95,7 +95,7 @@ describe('highlightManager', () => {
     </Provider>);
 
     renderer.act(() => {
-      update();
+      update(null);
     });
 
     expect(component.root.findAllByType(Card).length).toEqual(0);
@@ -116,7 +116,7 @@ describe('highlightManager', () => {
     Highlighter.mock.instances[0].getOrderedHighlights.mockReturnValue([mockHighlight]);
 
     renderer.act(() => {
-      update();
+      update(null);
     });
 
     expect(component.root.findAllByType(Card).length).toEqual(1);
@@ -149,7 +149,7 @@ describe('highlightManager', () => {
 
     fromApiResponse.mockReturnValue(mockHighlight);
 
-    update();
+    update(null);
 
     expect(fromApiResponse).toHaveBeenCalledTimes(1);
     expect(fromApiResponse).toHaveBeenCalledWith(mockHighlightData);
@@ -178,7 +178,7 @@ describe('highlightManager', () => {
       .mockReturnValueOnce(mockHighlight2)
     ;
 
-    update();
+    update(null);
 
     expect(erase).toHaveBeenCalledTimes(1);
     expect(erase).toHaveBeenCalledWith(mockHighlight2);
@@ -199,10 +199,32 @@ describe('highlightManager', () => {
     Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
     Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
 
-    update();
+    update(null);
 
     expect(focus).toHaveBeenCalledTimes(1);
     expect(focus).toHaveBeenCalledWith();
+  });
+
+  it('return scrollTarget on update if focused id matches url scroll target', () => {
+    const mockHighlights = [
+      createMockHighlight(),
+      createMockHighlight(),
+    ];
+    mockHighlights[0].elements.push(assertDocument().createElement('div'));
+    const {update} = highlightManager(element, () => prop);
+
+    prop.focused = mockHighlights[0].id;
+    prop.highlights = mockHighlights.map(({id}) => ({id} as HighlightData));
+
+    const focus = jest.spyOn(mockHighlights[0], 'focus');
+
+    Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
+    Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
+
+    const data = update({ elementId: 'does-not-matter', id: mockHighlights[0].id, type: 'highlight' });
+
+    expect(focus).toHaveBeenCalledTimes(1);
+    expect(data).toEqual({ scrollTarget: mockHighlights[0].elements[0], addedOrRemoved: false });
   });
 
   it('umounts', () => {
@@ -236,7 +258,7 @@ describe('highlightManager', () => {
 
       it('shows create card when there aren\'t any highlights in selection', async() => {
         const mockHighlight = createMockHighlight();
-        manager.update();
+        manager.update(null);
         const component = renderer.create(<Provider store={store}>
           <manager.CardList/>
         </Provider>);
@@ -275,7 +297,7 @@ describe('highlightManager', () => {
         fromApiResponse.mockReturnValue(existingHighlight);
 
         renderer.act(() => {
-          manager.update();
+          manager.update(null);
         });
 
         expect(component.root.findAllByType(Card).length).toEqual(1);
@@ -299,7 +321,7 @@ describe('highlightManager', () => {
           .mockReturnValueOnce([existingHighlight]);
 
         renderer.act(() => {
-          manager.update();
+          manager.update(null);
         });
 
         expect(component.root.findAllByType(Card).length).toEqual(1);
@@ -307,7 +329,7 @@ describe('highlightManager', () => {
 
       it('clears pending highlight when it is removed from state before element is mounted', async() => {
         const mockHighlight = createMockHighlight();
-        manager.update();
+        manager.update(null);
 
         await renderer.act(() => {
           Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
@@ -316,7 +338,7 @@ describe('highlightManager', () => {
 
         Highlighter.mock.instances[0].getHighlights.mockReturnValue([mockHighlight]);
         renderer.act(() => {
-          manager.update();
+          manager.update(null);
         });
 
         const component = renderer.create(<Provider store={store}>
@@ -327,7 +349,7 @@ describe('highlightManager', () => {
 
       it('loads pending highlight when selected before component mount', async() => {
         const mockHighlight = createMockHighlight();
-        manager.update();
+        manager.update(null);
 
         Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
 
@@ -352,7 +374,7 @@ describe('highlightManager', () => {
 
         prop.focused = 'random id';
         prop.hasUnsavedHighlight = true;
-        manager.update();
+        manager.update(null);
       });
 
       it('noops if user decides not to discard changes', async() => {
@@ -390,7 +412,7 @@ describe('highlightManager', () => {
       prop.focused = 'random id';
       prop.hasUnsavedHighlight = true;
 
-      manager.update();
+      manager.update(null);
 
       Highlighter.mock.calls[0][1].onClick({});
       await new Promise((resolve) => defer(resolve));

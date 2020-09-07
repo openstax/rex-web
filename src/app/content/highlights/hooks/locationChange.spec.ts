@@ -8,13 +8,13 @@ import { resetModules } from '../../../../test/utils';
 import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
-import { locationChange, push } from '../../../navigation/actions';
+import { locationChange } from '../../../navigation/actions';
+import { createNavigationOptions } from '../../../navigation/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { receiveHighlights, focusHighlight } from '../actions';
+import { focusHighlight, receiveHighlights } from '../actions';
 import { HighlightData } from '../types';
-import { createNavigationOptions } from '../../../navigation/utils';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},

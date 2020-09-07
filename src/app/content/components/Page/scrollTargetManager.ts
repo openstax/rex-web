@@ -53,18 +53,23 @@ const scrollTargetManager = (container: HTMLElement) => {
   const getScrollTarget = makeScopedTargetFinder(container);
 
   return async(targets: ScrollTargets) => {
+    console.log('start')
     const {page, hash, htmlNode} = targets;
 
     if (lastScrolledTo.page !== page) {
       scrollToTop();
+      console.log('scrolled to top')
     }
     if (lastScrolledTo.hash !== hash) {
       await scrollToTarget(getScrollTarget(hash));
+      console.log('scrolled to hash', hash)
     }
     if (htmlNode && lastScrolledTo.htmlNode !== htmlNode ) {
       await scrollToTarget(htmlNode);
+      console.log('scrolled to htmlNode', htmlNode)
     }
     lastScrolledTo = targets;
+    console.log('end')
   };
 };
 
