@@ -25,8 +25,6 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
     const matches = checkActionType(actionCreator);
 
     return (next: Dispatch) => (action: AnyAction) => {
-      const result = next(action);
-
       if (matches(action)) {
         try {
           const promise = boundHook(action);
@@ -37,7 +35,8 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
           catchError(e);
         }
       }
-      return result;
+
+      return next(action);
     };
   };
 

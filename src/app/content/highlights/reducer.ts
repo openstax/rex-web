@@ -1,5 +1,6 @@
 import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
+import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { receiveLoggedOut } from '../../auth/actions';
@@ -143,7 +144,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       const newSummaryHighlights = state.summary.highlights
         ? removeSummaryHighlight(state.summary.highlights, {
-          ...action.meta,
+          ...pick(['locationFilterId', 'pageId'], action.meta),
           id: action.payload,
         })
         : state.summary.highlights

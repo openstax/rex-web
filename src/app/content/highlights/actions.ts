@@ -16,10 +16,12 @@ export const createHighlight = createStandardAction('Content/Highlights/create')
   pageId: string,
 }>();
 export const deleteHighlight = createStandardAction('Content/Highlights/delete')<string, {
+  failedToSave?: boolean,
   locationFilterId: string,
   pageId: string,
 }>();
 export const updateHighlight = createStandardAction('Content/Highlights/update')<UpdateHighlightRequest, {
+  failedToSave?: boolean,
   locationFilterId: string,
   pageId: string,
 }>();
