@@ -62,6 +62,7 @@ const Toast = ({ dismiss, notification }: ToastProps) => {
     <BannerBodyWrapper
       onAnimationEnd={dismiss}
       isFadingOut={fadeOutState.isFadingOut}
+      data-testid='banner-body'
     >
       <BannerBody>
         <FormattedMessage id={notification.message}>

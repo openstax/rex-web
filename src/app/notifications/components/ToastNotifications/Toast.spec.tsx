@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
-import SearchFailure, { syncState } from '.';
+import Toast, { syncState } from './Toast';
 import { renderToDom } from '../../../../test/reactutils';
 import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
@@ -13,7 +13,10 @@ jest.mock('react', () => {
   return { ...react, useEffect: react.useLayoutEffect };
 });
 
-const selectedHighlight = {} as any;
+const toast = {
+  message: 'i18n:notification:toast:highlights:create-failure',
+  timestamp: Date.now(),
+}
 
 describe('SearchFailure', () => {
   let window: Window;
@@ -35,21 +38,7 @@ describe('SearchFailure', () => {
 
   it('matches snapshot', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight} />
-    </MessageProvider>);
-
-    const tree = component.toJSON();
-    component.unmount();
-    expect(tree).toMatchSnapshot();
-
-    renderer.act(() => {
-      jest.runAllTimers();
-    });
-  });
-
-  it('matches snapshot when mobile toolbar is open', () => {
-    const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={true} selectedHighlight={selectedHighlight}  />
+      <Toast dismiss={dismiss} notification={toast} />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -63,7 +52,7 @@ describe('SearchFailure', () => {
 
   it('manages timeouts', async() => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <Toast dismiss={dismiss} notification={toast} />
     </MessageProvider>);
 
     expect(setTimeout).toHaveBeenCalledWith(expect.anything(), clearErrorAfter);
@@ -92,7 +81,7 @@ describe('SearchFailure', () => {
 
   it('dismisses on animation end', () => {
     const {root} = renderToDom(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <Toast dismiss={dismiss} notification={toast} />
     </MessageProvider>);
     const wrapper = root.querySelector('[data-testid=banner-body]');
 
@@ -107,7 +96,7 @@ describe('SearchFailure', () => {
 
   it('dismisses notification on click', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <Toast dismiss={dismiss} notification={toast} />
     </MessageProvider>);
 
     renderer.act(() => {
@@ -127,9 +116,9 @@ describe('SearchFailure', () => {
     component.unmount();
   });
 
-  it('resets when selected highlight changes', () => {
+  it('resets when notification\'s timestamp changes', () => {
     const component = renderer.create(<MessageProvider>
-      <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={selectedHighlight}  />
+      <Toast dismiss={dismiss} notification={toast} />
     </MessageProvider>);
 
     renderer.act(() => {
@@ -148,7 +137,7 @@ describe('SearchFailure', () => {
 
     renderer.act(() => {
       component.update(<MessageProvider>
-        <SearchFailure dismiss={dismiss} mobileToolbarOpen={false} selectedHighlight={{} as any}  />
+        <Toast dismiss={dismiss} notification={{...toast, timestamp: Date.now() + 10}} />
       </MessageProvider>);
     });
 
