@@ -74,6 +74,7 @@
   "i18n:notification:update:header": "Updates Available",
   "i18n:notification:update:reload": "Update",
   "i18n:notification:toast:search:highlight-not-found": "We're unable to find that search result. Please try another.",
+  "i18n:notification:toast:highlights:failure": "Sorry, the changes could not be made to the highlight. Please try again.",
   "i18n:notification:toast:highlights:create-failure": "The highlight could not be saved. Please try again",
   "i18n:notification:toast:highlights:delete-failure": "The highlight could not be deleted. Please try again",
   "i18n:notification:toast:highlights:update-failure": "The highlight could not be updated. Please try again",

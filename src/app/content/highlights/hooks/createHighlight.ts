@@ -13,7 +13,7 @@ export const hookBody: ActionHookBody<typeof createHighlight> =
     } catch (error) {
       Sentry.captureException(error);
 
-      dispatch(addToast('i18n:notification:toast:highlights:create-failure'));
+      dispatch(addToast('i18n:notification:toast:highlights:failure'));
       dispatch(deleteHighlight(payload.id, {...meta, failedToSave: true}));
     }
   };
