@@ -125,6 +125,10 @@ class Attribution extends Component<Props> {
 
   public render() {
     const {book} = this.props;
+    // different attribution text for Physics and Statistics
+    const specialCases = ['cce64fde-f448-43b8-ae88-27705cceb0da', '394a1101-fd8f-4875-84fa-55f15b06ba66'];
+    const attributionTextId = (book && specialCases.includes(book.id)) ? 'i18n:attribution:tea-text'
+      : 'i18n:attribution:default-text';
 
     return hasOSWebData(book) ? <AttributionDetails
       ref={this.container}
@@ -138,7 +142,7 @@ class Attribution extends Component<Props> {
           <span>{msg}</span>
         </AttributionSummary>}
       </FormattedMessage>
-      <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
+      <FormattedHTMLMessage id={attributionTextId} values={this.getValues(book)}>
         {(html) => <Content
           dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:attribution:text must return a string')}}
         ></Content>}
