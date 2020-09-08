@@ -1,10 +1,9 @@
 import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { addToast } from '../../../notifications/actions';
+import { toastNotifications } from '../../../notifications/selectors';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { createHighlight, deleteHighlight } from '../actions';
-import { toastNotifications } from '../../../notifications/selectors';
 
 jest.mock('../../../../helpers/Sentry');
 

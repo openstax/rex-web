@@ -3,8 +3,8 @@ import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions';
 import { AnyAction } from '../types';
 import * as actions from './actions';
-import { Message, State } from './types';
 import { isToastNotification } from './guards';
+import { Message, State } from './types';
 
 export const initialState: State = {
   modalNotifications: [],

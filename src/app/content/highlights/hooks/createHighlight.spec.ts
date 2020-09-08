@@ -66,7 +66,7 @@ describe('createHighlight', () => {
 
   it('deletes a highlight that failed to create', async() => {
     const error = {} as any;
-    const meta = {locationFilterId: 'id', pageId: 'id'}
+    const meta = {locationFilterId: 'id', pageId: 'id'};
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
