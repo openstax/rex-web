@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
-import Toast, { syncState } from './Toast';
 import { renderToDom } from '../../../../test/reactutils';
 import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
 import { assertDocument, assertWindow } from '../../../utils';
 import { clearErrorAfter, shouldAutoDismissAfter } from './constants';
+import Toast, { syncState } from './Toast';
 
 jest.mock('react', () => {
   const react = (jest as any).requireActual('react');
