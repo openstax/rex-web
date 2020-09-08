@@ -20,8 +20,10 @@ import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
 import { push } from '../../navigation/actions';
+import * as selectNavigation from '../../navigation/selectors';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
+import * as utils from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
 import { createHighlight } from '../highlights/actions';
@@ -762,12 +764,7 @@ describe('Page', () => {
     expect(root.querySelector('[data-testid=banner-body] button')).toBeFalsy();
   });
 
-  it('scrolls to search result when selected', async() => {
-    renderDomWithReferences();
-
-    // page lifecycle hooks
-    await Promise.resolve();
-
+  it('scrolls to search result when selected reuslt is in url as a scroll target', async() => {
     const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
     const hit = makeSearchResultHit({book, page});
 
@@ -784,8 +781,15 @@ describe('Page', () => {
       },
     ]);
 
-    store.dispatch(requestSearch('asdf'));
+    const spySelectNavigation = jest.spyOn(selectNavigation, 'scrollTarget')
+      .mockReturnValue({ type: 'search', elementId: 'does-not-matter', index: 0 });
 
+    renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    store.dispatch(requestSearch('asdf'));
     store.dispatch(receiveSearchResults(makeSearchResults([hit])));
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
@@ -796,6 +800,28 @@ describe('Page', () => {
 
     expect(mockHighlight.focus).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
+    spySelectNavigation.mockRestore();
+  });
+
+  it('doesn\'t scroll to highlight scroll target if it was not returned from highlight manager', async() => {
+    const spySelectNavigation = jest.spyOn(selectNavigation, 'scrollTarget')
+      .mockReturnValue({ type: 'highlight', elementId: 'some-anchor', id: 'some-id' });
+
+    renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    // dispatch some action to rerender page
+    store.dispatch(requestSearch('asdf'));
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(scrollTo).not.toHaveBeenCalled();
+    spySelectNavigation.mockRestore();
   });
 
   it('doesn\'t scroll to search result when selected but unchanged', async() => {
@@ -879,6 +905,9 @@ describe('Page', () => {
     expect(scrollTo).not.toHaveBeenCalled();
 
     // do navigation
+    const spySelectNavigation = jest.spyOn(selectNavigation, 'scrollTarget')
+      .mockReturnValue({ type: 'search', elementId: 'does-not-matter', index: 0 });
+
     highlightResults.mockReturnValue([
       {
         highlights: {0: [mockHighlight]},
@@ -896,6 +925,7 @@ describe('Page', () => {
 
     expect(mockHighlight.focus).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
+    spySelectNavigation.mockRestore();
   });
 
   it('doesn\'t render error modal for the same result twice', async() => {
@@ -984,8 +1014,9 @@ describe('Page', () => {
       return expect(window).toBeTruthy();
     }
 
-    const spy = jest.spyOn(window, 'scrollTo');
-    spy.mockImplementation(() => null);
+    const spyScrollTo = jest.fn();
+    const spyAssertWindow = jest.spyOn(utils, 'assertWindow')
+      .mockImplementation(() => ({ ...window, scrollTo: spyScrollTo } as any));
 
     renderToDom(
       <Provider store={store}>
@@ -1011,8 +1042,10 @@ describe('Page', () => {
     }));
 
     await Promise.resolve();
+    await Promise.resolve();
 
-    expect(spy).toHaveBeenCalledWith(0, 0);
+    expect(spyScrollTo).toHaveBeenCalledWith(0, 0);
+    spyAssertWindow.mockRestore();
   });
 
   it('waits for images to load before scrolling to a target element', async() => {

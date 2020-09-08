@@ -74,16 +74,19 @@ describe('scrollTargetManager', () => {
     expect(scrollTo).not.toHaveBeenCalled();
   });
 
-  it('doesn\'t scroll to hash if it is empty string', async() => {
-    createScrollTarget(element, 'wolololo');
+  it('doesn\'t scroll to hash if it is changed to empty string', async() => {
+    const target = createScrollTarget(element, 'wolololo');
+
+    manager({page, hash: '#wolololo', htmlNode: undefined});
+
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(scrollTo).toHaveBeenCalledWith(target);
 
     manager({page, hash: '', htmlNode: undefined});
 
-    await Promise.resolve();
-    await Promise.resolve();
-
-    expect(windowScrollSpy).toHaveBeenCalled();
-    expect(scrollTo).not.toHaveBeenCalled();
+    expect(scrollTo).toHaveBeenCalledTimes(1);
   });
 
   it('scrolls only if things change', async() => {
