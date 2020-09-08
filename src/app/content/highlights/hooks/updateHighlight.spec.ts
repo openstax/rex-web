@@ -2,10 +2,9 @@ import { NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist
 import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { toastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { createHighlight, updateHighlight } from '../actions';
-import { addToast } from '../../../notifications/actions';
-import { toastNotifications } from '../../../notifications/selectors';
 
 jest.mock('../../../../helpers/Sentry');
 
@@ -38,7 +37,8 @@ describe('updateHighlight', () => {
   beforeEach(() => {
     store = createTestStore();
 
-    dispatch = jest.spyOn(store, 'dispatch');
+    highlight = mockHighlight();
+    store.dispatch(createHighlight(highlight, meta));
 
     helpers = {
       ...createTestServices(),
@@ -46,8 +46,7 @@ describe('updateHighlight', () => {
       getState: store.getState,
     };
 
-    highlight = mockHighlight();
-    store.dispatch(createHighlight(highlight, meta));
+    dispatch = jest.spyOn(helpers, 'dispatch');
 
     hook = (require('./updateHighlight').hookBody)(helpers);
   });
@@ -97,9 +96,9 @@ describe('updateHighlight', () => {
       expect.objectContaining({failedToSave: true}))
     );
 
-    const hasErrorToast = toastNotifications(store.getState())
-      .some((notification) => notification.message === 'i18n:notification:toast:highlights:failure');
+    const hasAdequateErrorToast = toastNotifications(store.getState())
+      .some((notification) => notification.message === 'i18n:notification:toast:highlights:update-failure');
 
-    expect(hasErrorToast).toBe(true);
+    expect(hasAdequateErrorToast).toBe(true);
   });
 });

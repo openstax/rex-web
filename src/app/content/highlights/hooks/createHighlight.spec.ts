@@ -1,12 +1,13 @@
+import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
+import { toastNotifications } from '../../../notifications/selectors';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { createHighlight } from '../actions';
+import { createHighlight, deleteHighlight } from '../actions';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
@@ -14,6 +15,7 @@ const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
 } as {[key: string]: {defaultVersion: string}}};
 
+jest.mock('../../../../helpers/Sentry');
 jest.doMock('../../../../config', () => mockConfig);
 
 const createMockHighlight = () => ({
@@ -24,9 +26,9 @@ describe('createHighlight', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./createHighlight').hookBody>;
+  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
 
     helpers = {
@@ -34,6 +36,8 @@ describe('createHighlight', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
+
+    dispatch = jest.spyOn(helpers, 'dispatch');
 
     hook = (require('./createHighlight').hookBody)(helpers);
   });
@@ -47,5 +51,40 @@ describe('createHighlight', () => {
     await hook(createHighlight(mock, {locationFilterId: 'id', pageId: 'id'}));
 
     expect(createHighlightClient).toHaveBeenCalledWith({highlight: mock});
+  });
+
+  it('doesn\'t call highlightClient when reverting deletion', async() => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'addHighlight');
+    const mock = createMockHighlight();
+
+    await hook(createHighlight(mock, {locationFilterId: 'id', pageId: 'id', failedToSave: true}));
+
+    expect(createHighlightClient).not.toHaveBeenCalled();
+  });
+
+  it('deletes a highlight that failed to create', async() => {
+    const error = {} as any;
+    const meta = {locationFilterId: 'id', pageId: 'id'}
+
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+
+    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'addHighlight')
+      .mockRejectedValue(error);
+    const mock = createMockHighlight();
+
+    await hook(createHighlight(mock, meta));
+
+    expect(createHighlightClient).toHaveBeenCalledWith({highlight: mock});
+    expect(Sentry.captureException).toHaveBeenCalledWith(error);
+
+    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(mock.id, {...meta, failedToSave: true}));
+
+    const hasAdequateErrorToast = toastNotifications(store.getState())
+      .some((notification) => notification.message === 'i18n:notification:toast:highlights:create-failure');
+
+    expect(hasAdequateErrorToast).toBe(true);
   });
 });

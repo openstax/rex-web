@@ -18,7 +18,7 @@ export const hookBody: ActionHookBody<typeof updateHighlight> =
     highlightClient.updateHighlight(payload).catch((error) => {
       Sentry.captureException(error);
 
-      dispatch(addToast('i18n:notification:toast:highlights:failure'));
+      dispatch(addToast('i18n:notification:toast:highlights:update-failure'));
       dispatch(updateHighlight(
         {
           highlight: {

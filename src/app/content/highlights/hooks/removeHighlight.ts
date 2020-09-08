@@ -18,7 +18,7 @@ export const hookBody: ActionHookBody<typeof deleteHighlight> =
     highlightClient.deleteHighlight({id: payload}).catch((err) => {
       Sentry.captureException(err);
 
-      dispatch(addToast('i18n:notification:toast:highlights:failure'));
+      dispatch(addToast('i18n:notification:toast:highlights:delete-failure'));
       dispatch(createHighlight({
         ...oldHighlight,
         color: oldHighlight.color as unknown as NewHighlight['color'],
