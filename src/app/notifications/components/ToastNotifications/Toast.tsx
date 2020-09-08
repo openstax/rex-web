@@ -60,9 +60,7 @@ const Toast = ({ dismiss, notification }: ToastProps) => {
 
   return (
     <BannerBodyWrapper
-      data-testid='banner-body'
       onAnimationEnd={dismiss}
-      mobileToolbarOpen={false}
       isFadingOut={fadeOutState.isFadingOut}
     >
       <BannerBody>

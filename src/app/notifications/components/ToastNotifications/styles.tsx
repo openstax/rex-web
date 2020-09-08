@@ -25,18 +25,32 @@ const fadeOut = keyframes`
 `;
 
 // tslint:disable-next-line:variable-name
-export const BannerBodyWrapper = styled.div`
+export const ToastContainerWrapper = styled.div`
   width: 100%;
-  margin: 0;
-  height: 0;
-  z-index: ${theme.zIndex.contentNotifications - 1};
-  overflow: visible;
   position: sticky;
+  overflow: visible;
+  z-index: ${theme.zIndex.contentNotifications - 1};
   top: ${desktopSearchFailureTop}rem;
+
   ${theme.breakpoints.mobile(css`
     z-index: ${theme.zIndex.contentNotifications + 1};
     top: ${getMobileSearchFailureTop}rem;
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+export const ToastsContainer = styled.div`
+  width: 100%;
+  position: absolute;
+`;
+
+// tslint:disable-next-line:variable-name
+export const BannerBodyWrapper = styled.div`
+  width: 100%;
+  margin: 0;
+
+  overflow: visible;
+  position: sticky;
 
   ${(props) => props.isFadingOut && css`
     animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
@@ -48,7 +62,6 @@ export const BannerBodyWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const BannerBody = styled.div`
   width: 100%;
-  position: absolute;
   display: flex;
   padding: 0.5rem 1rem;
   align-items: center;
