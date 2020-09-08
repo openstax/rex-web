@@ -157,13 +157,13 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
     book.content.show_solutions()
 
     content_highlight_ids = book.content.highlight_ids
-
     my_highlights = book.toolbar.my_highlights()
     mh_highlight_ids = my_highlights.highlights.mh_highlight_ids
 
+    # AND: Highlights are present in different chapter pages
     page_slug = [
         "1-3-types-of-microorganisms",
-        "3-1-spontaneous-generation",
+        "2-4-staining-microscopic-specimens",
         "4-2-proteobacteria",
         "5-introduction",
     ]
@@ -187,19 +187,21 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
     print("content", content_highlight_ids)
     print("MH", mh_highlight_ids)
 
+    # THEN: MH page displays all the content highlights
     assert content_highlight_ids == mh_highlight_ids
 
-    my_highlights = book.toolbar.my_highlights()
-
     # WHEN: Change the MH chapter filters to remove 2 chapters
+    my_highlights = book.toolbar.my_highlights()
     filterbar = my_highlights.filterbar
 
+    # Use chapter dropdown to remove one chapter
     filterbar.toggle_chapter_dropdown_menu()
-    filterbar.chapter_filters.chapters[4].click()
+    filterbar.chapter_filters.chapters[2].click()
     filterbar.toggle_chapter_dropdown_menu()
 
+    # Use filter tag to remove one chapter
     x = filterbar.active_filter_tags
-    x[3].remove_tag()
+    x[4].remove_tag()
 
     my_highlights = book.toolbar.my_highlights()
     mh_filtered_list = my_highlights.highlights.mh_highlight_ids
@@ -208,30 +210,35 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
 
     my_highlights.close()
 
-    # AND open MH page from a chapter that does have highlights
+    # AND: Open MH page from a chapter page that has highlights
     if book.is_mobile:
         toolbar.click_toc_toggle_button()
 
-    toc.chapters[0].expand_chapter()
-    toc.sections[4].click()
+    toc.expand_chapter(2)
+    toc.sections[14].click()
     my_highlights = book.toolbar.my_highlights()
-    mh_filtered_list_different_chapter_with_highlights = my_highlights.highlights.mh_highlight_ids
-
-    assert mh_filtered_list_different_chapter_with_highlights == mh_filtered_list
-
-    # AND open MH page from a different chapter that does not have highlights
-    if book.is_mobile:
-        toolbar.click_toc_toggle_button()
-
-    toc.sections[-30].click()
-    my_highlights = book.toolbar.my_highlights()
-
-    mh_filtered_list_different_chapter_without_highlights = (
-        my_highlights.highlights.mh_highlight_ids
-    )
-
-    assert mh_filtered_list_different_chapter_without_highlights == mh_filtered_list
-
-    print("mh_l3", mh_filtered_list_different_chapter_without_highlights)
+    mh_list_from_chapter_with_highlights = my_highlights.highlights.mh_highlight_ids
 
     # THEN: Filter changes made earlier are retained
+    assert mh_list_from_chapter_with_highlights == mh_filtered_list
+
+    # WHEN: Open MH page from a chapter that does not have highlights
+    if book.is_mobile:
+        toolbar.click_toc_toggle_button()
+
+    toc.expand_chapter(-3)
+    toc.sections[-40].click()
+
+    my_highlights = book.toolbar.my_highlights()
+    mh_list_from_chapter_without_highlights = my_highlights.highlights.mh_highlight_ids
+
+    # THEN: Filter changes made earlier are retained
+    assert mh_list_from_chapter_without_highlights == mh_filtered_list
+
+    print("mh_l3", mh_list_from_chapter_without_highlights)
+
+    # WHEN: Reload the page
+    book.reload()
+
+    # THEN: MH filter resets to display highlights from all the chapters
+    assert mh_highlight_ids == content_highlight_ids

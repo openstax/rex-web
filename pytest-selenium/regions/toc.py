@@ -2,8 +2,6 @@ from selenium.webdriver.common.by import By
 
 from regions.base import Region
 
-TEST = "return document.querySelector('{selector}').setAttribute('open', '1');"
-
 
 class TableOfContents(Region):
 
@@ -11,7 +9,7 @@ class TableOfContents(Region):
 
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
     _section_link_locator = (By.CSS_SELECTOR, "li a")
-    _chapter_link_locator = (By.CSS_SELECTOR, "li")
+    _chapter_link_locator = (By.CSS_SELECTOR, "li details")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 
     @property
@@ -31,12 +29,17 @@ class TableOfContents(Region):
             for section_link in self.find_elements(*self._section_link_locator)
         ]
 
-    @property
-    def chapters(self):
-        return [
-            self.ContentPage(self.page, chapter_link)
-            for chapter_link in self.find_elements(*self._chapter_link_locator)
-        ]
+    def expand_chapter(self, n):
+        """Expand a chapter from TOC.
+
+        :param n: chapter number -> int
+        """
+        x = self.driver.execute_script(
+            ("return document.querySelectorAll('{selector}');").format(
+                selector=self._chapter_link_locator[1]
+            )
+        )
+        self.driver.execute_script(("return arguments[0].setAttribute('open', '1');"), x[n])
 
     @property
     def first_section(self):
@@ -48,7 +51,6 @@ class TableOfContents(Region):
 
     class ContentPage(Region):
         _is_active_locator = (By.XPATH, "./..")
-        _expand_locator = (By.CSS_SELECTOR, "details")
 
         def click(self):
             self.page.click_and_wait_for_load(self.root)
@@ -66,6 +68,3 @@ class TableOfContents(Region):
                 return False
             else:
                 return True
-
-        def expand_chapter(self):
-            self.driver.execute_script(TEST.format(selector=self._expand_locator[1]))
