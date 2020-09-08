@@ -8,7 +8,7 @@ class TableOfContents(Region):
     _root_locator = (By.CSS_SELECTOR, "ol")
 
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
-    _section_link_locator = (By.CSS_SELECTOR, "li a")
+    _section_link_locator = (By.CSS_SELECTOR, "ol li a")
     _chapter_link_locator = (By.CSS_SELECTOR, "li details")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 

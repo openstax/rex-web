@@ -335,10 +335,6 @@ class MyHighlights(Region):
         page.wait_for_page_to_load()
         return page
 
-    @property
-    def filterbar(self) -> MyHighlights.FilterBar:
-        return self.FilterBar(self)
-
     class FilterBar(Region):
         """The filter selection and control for My Highlights and Notes."""
 
