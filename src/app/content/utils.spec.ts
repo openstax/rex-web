@@ -3,6 +3,7 @@ import { resetModules } from '../../test/utils';
 import { ArchiveBook, ArchiveTree, Book } from './types';
 import {
   getContentPageReferences,
+  getIdFromPageParam,
   getPageIdFromUrlParam,
   parseBookTree,
   stripIdVersion,
@@ -236,5 +237,19 @@ describe('parseBookTree', () => {
       '<span class="os-divider"> </span>' +
       '<span data-type="" itemprop="" class="os-text">Book title</span>',
     }]);
+  });
+});
+
+describe('getIdFromPageParam', () => {
+  it('gets id from SlugParams', () => {
+    expect(getIdFromPageParam({ slug: 'slug-id' })).toEqual('slug-id');
+  });
+
+  it('gets id from UuidParams', () => {
+    expect(getIdFromPageParam({ uuid: 'uuid-id' })).toEqual('uuid-id');
+  });
+
+  it('return empty string for null', () => {
+    expect(getIdFromPageParam(null)).toEqual('');
   });
 });

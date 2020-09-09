@@ -28,9 +28,11 @@ import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
 import * as searchUtils from '../search/utils';
+import * as select from '../selectors';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import * as highlightUtils from './Page/highlightUtils';
+import PageNotFound from './Page/PageNotFound';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
@@ -1251,6 +1253,24 @@ describe('Page', () => {
       const spyFocus = jest.spyOn(mainContent, 'focus');
       expect(spyFocus).toHaveBeenCalledTimes(0);
     }
+  });
+
+  it('renders <PageNotFound> component', () => {
+    jest.spyOn(select, 'pageNotFound')
+      .mockReturnValue(true);
+
+    const component = renderer.create(
+      <Provider store={store}>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
+      </Provider>);
+
+    expect(component.root.findByType(PageNotFound)).toBeTruthy();
   });
 
   describe('with prerendered state', () => {
