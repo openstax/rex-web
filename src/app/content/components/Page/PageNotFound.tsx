@@ -18,6 +18,7 @@ const PageNotFoundWrapper = styled.div`
 const PageNotFoundTitle = styled.h1`
   font-weight: bold;
   padding: 1rem 0;
+  line-height: 1;
 `;
 
 // tslint:disable-next-line: variable-name
