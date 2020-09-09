@@ -5,6 +5,7 @@ import omit from 'lodash/fp/omit';
 import pathToRegexp, { Key, parse } from 'path-to-regexp';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
+import { notFound } from '../errors/routes';
 import { pathTokenIsKey } from '../navigation/guards';
 import { actionHook } from '../utils';
 import * as actions from './actions';
@@ -72,6 +73,10 @@ export const matchUrl = (action: AnyMatch) => hasParams(action)
 
 export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, location: Location, action: Action) => {
   const match = findRouteMatch(routes, location);
+  if (match && match.route.name === notFound.name) {
+    notFound.redirect();
+    return;
+  }
   dispatch(actions.locationChange({location, match, action}));
 });
 
