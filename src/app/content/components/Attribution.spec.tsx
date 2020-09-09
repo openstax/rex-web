@@ -177,5 +177,27 @@ describe('Attribution', () => {
 
       expect(details.children[1].innerHTML).toMatch(`Authors: Jhon Doe, Jonny Doe`);
     });
+
+    it('renders special licensing and attribution for HS Physics', async() => {
+
+      const { node } = renderToDom(render());
+      const details = node;
+
+      if (!document) {
+        return expect(document).toBeTruthy();
+      }
+
+      details.setAttribute('open', '');
+
+      store.dispatch(
+        actions.receiveBook({...formatBookData(book, mockCmsBook), id: 'cce64fde-f448-43b8-ae88-27705cceb0da'})
+      );
+
+      expect(details.children[1].innerHTML).toMatch(`you must attribute “Texas Education Agency (TEA)."`);
+
+      // clear scrollTo that happens on toggle before finishing the test
+      // or there are errors
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
   });
 });
