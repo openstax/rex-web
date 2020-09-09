@@ -10,7 +10,11 @@ describe('notFound', () => {
     expect(re.exec('/books/book/pages/page')).not.toEqual(null);
   });
 
-  it('produces a url', () => {
-    expect(notFound.getUrl()).toEqual('/errors/404');
+  it('produces a relative url', () => {
+    expect(notFound.getUrl()).toEqual('/error/404');
+  });
+
+  it('produces a full url', () => {
+    expect(notFound.getFullUrl()).toEqual('https://openstax.org/error/404');
   });
 });
