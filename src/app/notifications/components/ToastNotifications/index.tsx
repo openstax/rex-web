@@ -17,7 +17,7 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const ToastNotifications = (props: Props) => {
-  return <ToastContainerWrapper mobileToolbarOpen={props.mobileToolbarOpen}>
+  return props.toasts.length ? <ToastContainerWrapper mobileToolbarOpen={props.mobileToolbarOpen}>
     <ToastsContainer>
       {props.toasts.map((toast) => <Toast
         key={toast.message}
@@ -25,7 +25,7 @@ const ToastNotifications = (props: Props) => {
         notification={toast}
       />)}
     </ToastsContainer>
-  </ToastContainerWrapper>;
+  </ToastContainerWrapper> : null;
 };
 
 export default connect(

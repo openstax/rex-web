@@ -3,14 +3,14 @@ import * as actions from './actions';
 import reducer, { appMessageType, initialState } from './reducer';
 
 describe('notifications reducer', () => {
-
   it('adds update available notification', () => {
     const newState = reducer(initialState, actions.updateAvailable());
-    expect(newState).toContainEqual(actions.updateAvailable());
+    expect(newState.modalNotifications).toContainEqual(actions.updateAvailable());
+    expect(newState.toastNotifications).toEqual([]);
   });
 
   it('doesn\'t duplicate update available notification', () => {
-    const state = [actions.updateAvailable()];
+    const state = {...initialState, modalNotifications: [actions.updateAvailable()]};
     const newState = reducer(state, actions.updateAvailable());
     expect(newState).toBe(state);
   });
@@ -53,12 +53,13 @@ describe('notifications reducer', () => {
         type: appMessageType,
       },
     ];
-    const newState = reducer(messages, actions.receiveMessages([
+    const newState = reducer({...initialState, modalNotifications: messages}, actions.receiveMessages([
       ...messages.slice(1).map(({payload}) => payload),
       ...newMessages.map(({payload}) => payload),
     ]));
-    expect(newState.length).toBe(3);
-    expect(newState).toEqual([...messages, ...newMessages]);
+    expect(newState.modalNotifications.length).toBe(3);
+    expect(newState.modalNotifications).toEqual([...messages, ...newMessages]);
+    expect(newState.toastNotifications).toEqual([]);
   });
 
   it('dismissesNotification', () => {
@@ -70,11 +71,13 @@ describe('notifications reducer', () => {
       (state) => reducer(state, actions.dismissNotification(acceptCookiesNotification))
     )(initialState);
 
-    expect(newState).not.toContainEqual(actions.acceptCookies());
+    expect(newState.modalNotifications).not.toContainEqual(actions.acceptCookies());
+    expect(newState.toastNotifications).toEqual([]);
   });
 
   it('reduces acceptCookies', () => {
     const newState = reducer(initialState, actions.acceptCookies());
-    expect(newState).toContainEqual(actions.acceptCookies());
+    expect(newState.modalNotifications).toContainEqual(actions.acceptCookies());
+    expect(newState.toastNotifications).toEqual([]);
   });
 });
