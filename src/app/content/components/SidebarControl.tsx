@@ -89,6 +89,7 @@ const connector = connect(
 const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
   connector((props: MiddleProps) => <Control
     {...props}
+    data-testid='toc-button'
     message={isOpen ? openMessage : closedMessage}
     onClick={isOpen ? props.closeToc : props.openToc}
   />);
