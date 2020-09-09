@@ -16,6 +16,7 @@ import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
+import PageNotFound from './PageNotFound';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
@@ -151,7 +152,11 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
           />
         : null}
       <RedoPadding>
-        {this.props.page ? this.renderContent() : this.renderLoading()}
+        {this.props.pageNotFound
+          ? this.renderPageNotFound()
+          : this.props.page
+            ? this.renderContent()
+            : this.renderLoading()}
       </RedoPadding>
     </MinPageHeight>;
   }
@@ -175,6 +180,13 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     ref={this.container}
   >
     <Loader large delay={1500} />
+  </PageContent>;
+
+  private renderPageNotFound = () => <PageContent
+    key='main-content'
+    ref={this.container}
+  >
+    <PageNotFound />
   </PageContent>;
 
   private getPrerenderedContent() {
