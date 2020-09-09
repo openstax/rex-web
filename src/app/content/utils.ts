@@ -2,7 +2,7 @@ import { HTMLElement, HTMLSpanElement } from '@openstax/types/lib.dom';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
 import { hasOSWebData } from './guards';
-import { ArchiveBook, BookWithOSWebData } from './types';
+import { ArchiveBook, BookWithOSWebData, Params, SlugParams, UuidParams } from './types';
 import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
@@ -86,3 +86,8 @@ export const preloadedPageIdIs = (window: Window, id: string) => window.__PRELOA
   && window.__PRELOADED_STATE__.content
   && window.__PRELOADED_STATE__.content.page
   && window.__PRELOADED_STATE__.content.page.id === id;
+
+export const getIdFromPageParam = (param: Params['page'] | null) => {
+  if (!param) { return ''; }
+  return (param as SlugParams).slug || (param as UuidParams).uuid;
+};
