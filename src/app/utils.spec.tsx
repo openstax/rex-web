@@ -6,6 +6,7 @@ import { mockCmsBook } from '../test/mocks/osWebLoader';
 import * as actions from './content/actions';
 import * as selectors from './content/selectors';
 import { formatBookData } from './content/utils';
+import { notFound } from './errors/routes';
 import { AppServices, AppState, MiddlewareAPI, Store } from './types';
 import * as utils from './utils';
 import { assertDocument, UnauthenticatedError } from './utils';
@@ -106,6 +107,27 @@ describe('actionHook', () => {
 
     expect(Sentry.captureException).not.toHaveBeenCalled();
     expect(hookSpy).toHaveBeenCalled();
+    jest.resetAllMocks();
+  });
+
+  it('handle error if it is instace of BookNotFoundError', async() => {
+    const hookSpy = jest.fn(async() => Promise.reject(new utils.BookNotFoundError('asd')));
+    const mockReplace = jest.fn();
+    jest.spyOn(utils.assertWindow().location, 'replace')
+      .mockImplementation(mockReplace);
+    const helpers = ({
+      dispatch: jest.fn(),
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any) as MiddlewareAPI & AppServices;
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+    await Promise.resolve();
+
+    expect(hookSpy).toHaveBeenCalled();
+    expect(Sentry.captureException).toHaveBeenCalled();
+    expect(mockReplace).toHaveBeenCalledWith(notFound.getFullUrl());
+    expect(helpers.dispatch).not.toHaveBeenCalled();
     jest.resetAllMocks();
   });
 });
