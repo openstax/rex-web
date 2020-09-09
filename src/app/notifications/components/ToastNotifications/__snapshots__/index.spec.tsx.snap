@@ -18,7 +18,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
         <div
           className="Card__Header-sc-1o7sacr-3 jGwlNH"
         >
-          The highlight could not be saved. Please try again
+          The highlight could not be deleted. Please try again
         </div>
         <button
           className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-5 eYgUmx"
@@ -67,7 +67,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
         <div
           className="Card__Header-sc-1o7sacr-3 jGwlNH"
         >
-          The highlight could not be deleted. Please try again
+          The highlight could not be saved. Please try again
         </div>
         <button
           className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-5 eYgUmx"

@@ -43,21 +43,12 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         modalNotifications: [...state.modalNotifications, ...processAppMessages(state, action)],
       };
     case getType(actions.addToast): {
-      const toastExist = state.toastNotifications.find((toast) => toast.message === action.payload.message);
-
-      if (toastExist) {
-        return {
-          ...state,
-          toastNotifications: [
-            action.payload,
-            ...state.toastNotifications.filter((toast) => toast.message !== action.payload.message),
-          ],
-        };
-      }
-
       return {
         ...state,
-        toastNotifications: [...state.toastNotifications, action.payload],
+        toastNotifications: [
+          action.payload,
+          ...state.toastNotifications.filter((toast) => toast.message !== action.payload.message),
+        ],
       };
     }
     case getType(actions.dismissNotification): {
