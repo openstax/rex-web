@@ -1,6 +1,7 @@
 import flow from 'lodash/fp/flow';
 import * as actions from './actions';
 import reducer, { appMessageType, initialState } from './reducer';
+import { ToastNotification } from './types';
 
 describe('notifications reducer', () => {
   it('adds update available notification', () => {
@@ -79,5 +80,53 @@ describe('notifications reducer', () => {
     const newState = reducer(initialState, actions.acceptCookies());
     expect(newState.modalNotifications).toContainEqual(actions.acceptCookies());
     expect(newState.toastNotifications).toEqual([]);
+  });
+
+  describe('toast notifications', () => {
+    it('reduces toasts', () => {
+      const newState = flow(
+        (state) => reducer(state, actions.addToast('mytoast')),
+        (state) => reducer(state, actions.addToast('myothertoast'))
+      )(initialState);
+
+      expect(newState.modalNotifications).toEqual([]);
+      expect(newState.toastNotifications).toContainEqual(expect.objectContaining({message: 'mytoast'}));
+      expect(newState.toastNotifications).toContainEqual(expect.objectContaining({message: 'myothertoast'}));
+    });
+
+    it('refreshes the timestamp if a toast with the same message appears', async() => {
+      const newState = reducer(initialState, actions.addToast('mytoast'));
+      const toast = newState.toastNotifications.find((notification) => notification.message === 'mytoast');
+
+      if (!toast) {
+        return expect(toast).toBeTruthy();
+      }
+      await new Promise((res) => setTimeout(res, 10));
+
+      const initialTimestamp = toast.timestamp;
+      const state = reducer(newState, actions.addToast('mytoast'));
+
+      expect(state.toastNotifications).toContainEqual(expect.objectContaining({message: 'mytoast'}));
+      expect(state.toastNotifications.length).toBe(1);
+      expect(state.toastNotifications).not.toContainEqual(expect.objectContaining({timestamp: initialTimestamp}));
+    });
+
+    it('keeps the toasts in correct order', () => {
+      const isPreceededByNewerOrNothing = (toast: ToastNotification, index: number, toasts: ToastNotification[]) =>
+        toasts[index - 1] === undefined || toasts[index - 1].timestamp >= toast.timestamp;
+
+      const newState = flow(
+        (state) => reducer(state, actions.addToast('mytoast')),
+        (state) => reducer(state, actions.addToast('myothertoast')),
+        (state) => reducer(state, actions.addToast('myamazingtoast')),
+        (state) => reducer(state, actions.addToast('mytoast')),
+        (state) => reducer(state, actions.addToast('myothertoast'))
+      )(initialState);
+
+      const [newest] = newState.toastNotifications;
+
+      expect(newState.toastNotifications.every(isPreceededByNewerOrNothing)).toBe(true);
+      expect(newest.message).toBe('myothertoast');
+    });
   });
 });

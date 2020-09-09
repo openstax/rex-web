@@ -16,7 +16,7 @@ jest.mock('react', () => {
 const toast = {
   message: 'i18n:notification:toast:highlights:create-failure',
   timestamp: Date.now(),
-}
+};
 
 describe('SearchFailure', () => {
   let window: Window;
