@@ -125,6 +125,7 @@ function reduceReceiveBook(state: State, action: ActionType<typeof actions.recei
     'publish_date',
     'revised',
     'amazon_link',
+    'book_state',
   ], action.payload);
   return {...state, loading, book};
 }
