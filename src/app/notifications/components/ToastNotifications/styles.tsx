@@ -31,7 +31,6 @@ export const ToastContainerWrapper = styled.div`
   overflow: visible;
   z-index: ${theme.zIndex.contentNotifications - 1};
   top: ${desktopSearchFailureTop}rem;
-
   ${theme.breakpoints.mobile(css`
     z-index: ${theme.zIndex.contentNotifications + 1};
     top: ${getMobileSearchFailureTop}rem;
@@ -48,10 +47,8 @@ export const ToastsContainer = styled.div`
 export const BannerBodyWrapper = styled.div`
   width: 100%;
   margin: 0;
-
   overflow: visible;
   position: sticky;
-
   ${(props) => props.isFadingOut && css`
     animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
   `}
