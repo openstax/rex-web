@@ -258,11 +258,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
       <TopBar>
         {
           book.book_state === 'retired'
-            ? <BookTitle
-              data-testid='book-title-expanded'
-              colorSchema={book.theme}
-              tabIndex={this.state.tabbableBanner === 'big' ? undefined : -1}
-            >
+            ? <BookTitle data-testid='book-title-expanded' colorSchema={book.theme}>
               {book.tree.title}
             </BookTitle>
             : <BookTitleLink
