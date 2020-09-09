@@ -118,6 +118,7 @@ Array [
         <button
           aria-label="Click to open the Table of Contents"
           className="styled__SidebarControl-sc-1119auh-17 DBTIW SidebarControl__ToCButton-sdjc7-2 tGPhq"
+          data-testid="toc-button"
           onClick={[Function]}
           tabIndex={-1}
         >
@@ -265,6 +266,7 @@ Array [
               <button
                 aria-label="Click to close the Table of Contents"
                 className="wrapper__SidebarHeaderButton-sc-1nl0jy-3 fBHtqL SidebarControl__ToCButton-sdjc7-2 tGPhq"
+                data-testid="toc-button"
                 onClick={[Function]}
               >
                 <svg
@@ -1360,6 +1362,7 @@ Array [
         <button
           aria-label="Click to open the Table of Contents"
           className="styled__SidebarControl-sc-1119auh-17 DBTIW SidebarControl__ToCButton-sdjc7-2 tGPhq"
+          data-testid="toc-button"
           onClick={[Function]}
           tabIndex={-1}
         >
@@ -1507,6 +1510,7 @@ Array [
               <button
                 aria-label="Click to close the Table of Contents"
                 className="wrapper__SidebarHeaderButton-sc-1nl0jy-3 fBHtqL SidebarControl__ToCButton-sdjc7-2 tGPhq"
+                data-testid="toc-button"
                 onClick={[Function]}
               >
                 <svg
