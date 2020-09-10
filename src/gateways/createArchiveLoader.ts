@@ -20,7 +20,7 @@ export default (url: string) => {
       return Promise.resolve(cache.get(id));
     }
 
-    return archiveFetch<ArchiveContent>(`${url}/contents/${id}`)
+    return archiveFetch<ArchiveContent>(`${url}/contents/${id}.json`)
       .then((response) => {
         cache.set(id, response);
         return response;
