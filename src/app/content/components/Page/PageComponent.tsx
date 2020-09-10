@@ -4,8 +4,8 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import SearchFailure from '../../../notifications/components/SearchFailure';
-import { assertNotNull, assertWindow } from '../../../utils';
+import SearchFailure, { ModalRef } from '../../../notifications/components/SearchFailure';
+import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
@@ -30,12 +30,12 @@ const parser = new DOMParser();
 
 interface PageState {
   hasSearchError: boolean;
-  selectedSearchResultId: null | string;
 }
 
 export default class PageComponent extends Component<PagePropTypes, PageState> {
   public container = React.createRef<HTMLDivElement>();
-  public state = { hasSearchError: false, selectedSearchResultId: null };
+  public errorModalRef = React.createRef<ModalRef>();
+  public state = { hasSearchError: false };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -75,7 +75,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     this.scrollTargetManager = scrollTargetManager(this.container.current);
   }
 
-  public async componentDidUpdate(prevProps: PagePropTypes, prevState: PageState) {
+  public async componentDidUpdate(prevProps: PagePropTypes) {
     // if there is a previous processing job, wait for it to finish.
     // this is mostly only relevant for initial load to ensure search results
     // are not highlighted before math is done typesetting, but may also
@@ -88,11 +88,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       await this.postProcess();
     }
 
-    const shouldUpdateHighlights = prevProps !== this.props ||
-      (prevState.hasSearchError === this.state.hasSearchError &&
-        prevState.selectedSearchResultId === this.state.selectedSearchResultId);
-
-    if (!shouldUpdateHighlights) { return; }
+    if (prevProps === this.props) { return; }
 
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 
@@ -102,24 +98,24 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
     });
   }
 
-  public onHighlightSelect: OptionsCallback = ({current, selectedHighlight}) => {
+  public onHighlightSelect: OptionsCallback = ({selectedHighlight}) => {
     if (selectedHighlight) {
       this.setState({
         hasSearchError: false,
-        selectedSearchResultId: null,
       });
 
       return;
     }
-    const selectedResult = assertNotNull(current.selectedResult, 'Current result cannot be null after its selection');
-    const currentResultId = `${selectedResult.highlight}-${this.props.query}-${selectedResult.result.source.pageId}`;
 
-    if (currentResultId === this.state.selectedSearchResultId) { return; }
+    const {current: errorModal} = this.errorModalRef;
 
-    this.setState({
-      hasSearchError: true,
-      selectedSearchResultId: currentResultId,
-    });
+    if (this.state.hasSearchError && errorModal) {
+      errorModal.resetError();
+    } else {
+      this.setState({
+        hasSearchError: true,
+      });
+    }
   };
 
   public dismissError = () => {
@@ -146,8 +142,8 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       <this.highlightManager.CardList />
       {this.state.hasSearchError
         ? <SearchFailure
+            ref={this.errorModalRef}
             dismiss={this.dismissError}
-            selectedHighlight={this.state.selectedSearchResultId}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
           />
         : null}
