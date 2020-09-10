@@ -232,7 +232,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
   public render() {
     const { pageNode, book, bookTheme } = this.props;
 
-    if (!book || !pageNode) {
+    if (!book) {
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
@@ -245,7 +245,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
   private renderBars = (
     book: Book & {theme: BookWithOSWebData['theme'], book_state: BookWithOSWebData['book_state'] | undefined},
     bookUrl: string,
-    treeSection: ArchiveTreeSection) =>
+    treeSection?: ArchiveTreeSection) =>
   ([
     <BarWrapper
       colorSchema={book.theme}
@@ -273,7 +273,12 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
               <LeftArrow colorSchema={book.theme} />{book.tree.title}
             </BookTitleLink>
         }
-        <BookChapter colorSchema={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}} />
+        {treeSection
+          ? <BookChapter
+            colorSchema={book.theme}
+            dangerouslySetInnerHTML={{__html: treeSection.title}}
+          />
+          : null}
       </TopBar>
     </BarWrapper>,
     <BarWrapper
@@ -303,7 +308,14 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
             <LeftArrow colorSchema={book.theme} />{book.tree.title}
           </BookTitleLink>
         }
-        <BookChapter colorSchema={book.theme} variant='mini' dangerouslySetInnerHTML={{__html: treeSection.title}} />
+        {treeSection
+          ? <BookChapter
+            colorSchema={book.theme}
+            variant='mini'
+            dangerouslySetInnerHTML={{__html: treeSection.title}}
+          />
+          : null
+        }
       </TopBar>
     </BarWrapper>,
   ]);

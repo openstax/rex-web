@@ -86,6 +86,13 @@ describe('BookBanner', () => {
       expect(tree).toMatchSnapshot();
     });
 
+    it('renders correctly without pageNode', () => {
+      const component = renderer.create(<BookBanner book={book} bookTheme={defaultTheme} />);
+
+      const tree = component.toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+
     it('does not stop default navigation event', async() => {
       const component = renderer.create(<BookBanner
         pageNode={pageNode}
