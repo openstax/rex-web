@@ -27,7 +27,7 @@ export interface PagePropTypes {
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   highlights: HighlightProp;
   services: AppServices;
-  showToast: (message: string) => void;
+  addToast: (message: string) => void;
 }
 
 export default connect(
@@ -43,9 +43,9 @@ export default connect(
     searchHighlights: mapStateToSearchHighlightProp(state),
   }),
   (dispatch) => ({
+    addToast: flow(addToast, dispatch),
     contentLinks: mapDispatchToContentLinkProp(dispatch),
     highlights: mapDispatchToHighlightProp(dispatch),
-    showToast: flow(addToast, dispatch),
   }),
   merge
 );

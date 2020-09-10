@@ -50,7 +50,7 @@ describe('removeHighlight', () => {
   it('doesn\'t call highlightClient when reverting creation', async() => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight');
 
-    hook(deleteHighlight(highlight.id, {...meta, failedToSave: true}));
+    hook(deleteHighlight(highlight.id, {...meta, revertingAfterFailure: true}));
     await Promise.resolve();
 
     expect(deleteHighlightClient).not.toHaveBeenCalled();
@@ -68,10 +68,10 @@ describe('removeHighlight', () => {
     expect(deleteHighlightClient).toHaveBeenCalled();
     expect(Sentry.captureException).toHaveBeenCalledWith(error);
 
-    expect(dispatch).toHaveBeenCalledWith(createHighlight(highlight, {...meta, failedToSave: true}));
+    expect(dispatch).toHaveBeenCalledWith(createHighlight(highlight, {...meta, revertingAfterFailure: true}));
 
     const hasAdequateErrorToast = toastNotifications(store.getState())
-      .some((notification) => notification.message === 'i18n:notification:toast:highlights:delete-failure');
+      .some((notification) => notification.messageKey === 'i18n:notification:toast:highlights:delete-failure');
 
     expect(hasAdequateErrorToast).toBe(true);
   });

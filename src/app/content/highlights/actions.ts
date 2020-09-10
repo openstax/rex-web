@@ -12,17 +12,17 @@ import {
 export const focusHighlight = createStandardAction('Content/Highlights/focus')<string>();
 export const clearFocusedHighlight = createStandardAction('Content/Highlights/clear')();
 export const createHighlight = createStandardAction('Content/Highlights/create')<NewHighlight & {id: string}, {
-  failedToSave?: boolean,
+  revertingAfterFailure?: boolean,
   locationFilterId: string,
   pageId: string,
 }>();
 export const deleteHighlight = createStandardAction('Content/Highlights/delete')<string, {
-  failedToSave?: boolean,
+  revertingAfterFailure?: boolean,
   locationFilterId: string,
   pageId: string,
 }>();
 export const updateHighlight = createStandardAction('Content/Highlights/update')<UpdateHighlightRequest, {
-  failedToSave?: boolean,
+  revertingAfterFailure?: boolean,
   locationFilterId: string,
   pageId: string,
 }>();

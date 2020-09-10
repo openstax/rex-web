@@ -47,7 +47,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...state,
         toastNotifications: [
           action.payload,
-          ...state.toastNotifications.filter((toast) => toast.message !== action.payload.message),
+          ...state.toastNotifications.filter((toast) => toast.messageKey !== action.payload.messageKey),
         ],
       };
     }
@@ -58,7 +58,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         return {
           ...state,
           toastNotifications: state.toastNotifications.filter((toast) =>
-            toast.message !== notificationToDelete.message
+            toast.messageKey !== notificationToDelete.messageKey
           ),
         };
       }

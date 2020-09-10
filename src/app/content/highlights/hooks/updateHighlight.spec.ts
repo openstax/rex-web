@@ -69,7 +69,7 @@ describe('updateHighlight', () => {
 
     hook(updateHighlight(
       highlightUpdatePayload(highlight.id, {color: 'red', annotation: 'new'}),
-      {...meta, failedToSave: true}
+      {...meta, revertingAfterFailure: true}
     ));
 
     await Promise.resolve();
@@ -93,11 +93,11 @@ describe('updateHighlight', () => {
 
     expect(dispatch).toHaveBeenCalledWith(updateHighlight(
       expect.objectContaining({highlight}),
-      expect.objectContaining({failedToSave: true}))
+      expect.objectContaining({revertingAfterFailure: true}))
     );
 
     const hasAdequateErrorToast = toastNotifications(store.getState())
-      .some((notification) => notification.message === 'i18n:notification:toast:highlights:update-failure');
+      .some((notification) => notification.messageKey === 'i18n:notification:toast:highlights:update-failure');
 
     expect(hasAdequateErrorToast).toBe(true);
   });

@@ -65,7 +65,7 @@ const Toast = ({ dismiss, notification }: ToastProps) => {
       data-testid='banner-body'
     >
       <BannerBody>
-        <FormattedMessage id={notification.message}>
+        <FormattedMessage id={notification.messageKey}>
           {(txt) =>  <Header>{txt}</Header>}
         </FormattedMessage>
         <CloseButton onClick={dismiss}>

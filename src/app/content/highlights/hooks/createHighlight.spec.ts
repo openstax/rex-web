@@ -59,7 +59,7 @@ describe('createHighlight', () => {
     const createHighlightClient = jest.spyOn(helpers.highlightClient, 'addHighlight');
     const mock = createMockHighlight();
 
-    await hook(createHighlight(mock, {locationFilterId: 'id', pageId: 'id', failedToSave: true}));
+    await hook(createHighlight(mock, {locationFilterId: 'id', pageId: 'id', revertingAfterFailure: true}));
 
     expect(createHighlightClient).not.toHaveBeenCalled();
   });
@@ -80,10 +80,10 @@ describe('createHighlight', () => {
     expect(createHighlightClient).toHaveBeenCalledWith({highlight: mock});
     expect(Sentry.captureException).toHaveBeenCalledWith(error);
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(mock.id, {...meta, failedToSave: true}));
+    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(mock.id, {...meta, revertingAfterFailure: true}));
 
     const hasAdequateErrorToast = toastNotifications(store.getState())
-      .some((notification) => notification.message === 'i18n:notification:toast:highlights:create-failure');
+      .some((notification) => notification.messageKey === 'i18n:notification:toast:highlights:create-failure');
 
     expect(hasAdequateErrorToast).toBe(true);
   });

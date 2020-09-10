@@ -90,23 +90,23 @@ describe('notifications reducer', () => {
       )(initialState);
 
       expect(newState.modalNotifications).toEqual([]);
-      expect(newState.toastNotifications).toContainEqual(expect.objectContaining({message: 'mytoast'}));
-      expect(newState.toastNotifications).toContainEqual(expect.objectContaining({message: 'myothertoast'}));
+      expect(newState.toastNotifications).toContainEqual(expect.objectContaining({messageKey: 'mytoast'}));
+      expect(newState.toastNotifications).toContainEqual(expect.objectContaining({messageKey: 'myothertoast'}));
     });
 
     it('refreshes the timestamp if a toast with the same message appears', async() => {
       const newState = reducer(initialState, actions.addToast('mytoast'));
-      const toast = newState.toastNotifications.find((notification) => notification.message === 'mytoast');
+      const toast = newState.toastNotifications.find((notification) => notification.messageKey === 'mytoast');
 
       if (!toast) {
         return expect(toast).toBeTruthy();
       }
-      await new Promise((res) => setTimeout(res, 10));
+      await new Promise((res) => setTimeout(res, 5));
 
       const initialTimestamp = toast.timestamp;
       const state = reducer(newState, actions.addToast('mytoast'));
 
-      expect(state.toastNotifications).toContainEqual(expect.objectContaining({message: 'mytoast'}));
+      expect(state.toastNotifications).toContainEqual(expect.objectContaining({messageKey: 'mytoast'}));
       expect(state.toastNotifications.length).toBe(1);
       expect(state.toastNotifications).not.toContainEqual(expect.objectContaining({timestamp: initialTimestamp}));
     });
@@ -126,7 +126,7 @@ describe('notifications reducer', () => {
       const [newest] = newState.toastNotifications;
 
       expect(newState.toastNotifications.every(isPreceededByNewerOrNothing)).toBe(true);
-      expect(newest.message).toBe('myothertoast');
+      expect(newest.messageKey).toBe('myothertoast');
     });
   });
 });

@@ -9,7 +9,7 @@ import { findHighlight } from '../utils/reducerUtils';
 
 export const hookBody: ActionHookBody<typeof updateHighlight> =
   ({highlightClient, getState, dispatch}) => ({payload, meta}) => {
-    if (meta.failedToSave) { return; }
+    if (meta.revertingAfterFailure) { return; }
 
     const oldHighlight = assertDefined(
       findHighlight(highlightsLocalState(getState()), payload.id), 'Can\'t update a highlight that doesn\'t exist'
@@ -27,7 +27,7 @@ export const hookBody: ActionHookBody<typeof updateHighlight> =
           },
           id: payload.id,
         },
-        {...meta, failedToSave: true}
+        {...meta, revertingAfterFailure: true}
       ));
     });
   };

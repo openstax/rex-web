@@ -4,7 +4,7 @@ import { AnyNotification, Message } from './types';
 export const updateAvailable = createStandardAction('Notification/updateAvailable')();
 export const acceptCookies = createStandardAction('Notification/acceptCookies')();
 export const addToast = createStandardAction('Notification/toasts/add')
-  .map((message: string) => ({payload: {message, timestamp: Date.now()}}));
+  .map((messageKey: string) => ({payload: {messageKey, timestamp: Date.now()}}));
 
 export const receiveMessages = createStandardAction('Notification/receiveMessages')<Message[]>();
 

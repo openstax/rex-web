@@ -20,7 +20,7 @@ const ToastNotifications = (props: Props) => {
   return props.toasts.length ? <ToastContainerWrapper mobileToolbarOpen={props.mobileToolbarOpen}>
     <ToastsContainer>
       {props.toasts.map((toast) => <Toast
-        key={toast.message}
+        key={toast.messageKey}
         dismiss={() => props.dismiss(toast)}
         notification={toast}
       />)}
