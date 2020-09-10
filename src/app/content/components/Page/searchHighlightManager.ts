@@ -70,7 +70,9 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
     firstSelectedHighlight.focus();
   }
 
-  if (firstSelectedHighlight && previous.selectedResult !== current.selectedResult) {
+  if (previous.selectedResult === current.selectedResult) { return; }
+
+  if (firstSelectedHighlight) {
     allImagesLoaded(services.container).then(
       () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
     );
