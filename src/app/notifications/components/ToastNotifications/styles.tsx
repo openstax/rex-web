@@ -7,6 +7,7 @@ import theme from '../../../theme';
 import { inlineDisplayBreak } from '../../theme';
 import { Header } from '../Card';
 import { desktopSearchFailureTop, fadeOutDuration, getMobileSearchFailureTop } from './constants';
+import { ToastProps } from './Toast';
 
 const bannerBackground = '#F8E8EB';
 const errorBorderColor = '#E297A0';
@@ -43,12 +44,28 @@ export const ToastsContainer = styled.div`
   position: absolute;
 `;
 
+interface BannerProps {
+  isFadingIn: boolean;
+  isFadingOut: boolean;
+  positionProps: ToastProps['positionProps'];
+}
+
 // tslint:disable-next-line:variable-name
 export const BannerBodyWrapper = styled.div`
   width: 100%;
   margin: 0;
   overflow: visible;
   position: sticky;
+  ${(props: BannerProps) => {
+    const {isFadingIn, positionProps} = props;
+
+    return css`
+      transition: transform 0.5s ${positionProps.index * 0.2}s;
+      z-index: ${positionProps.totalToastCount - positionProps.index};
+      transform: translateY(${isFadingIn ? 0 : (positionProps.index + 3) * 100 * -1}%);
+    `;
+  }};
+
   ${(props) => props.isFadingOut && css`
     animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
   `}

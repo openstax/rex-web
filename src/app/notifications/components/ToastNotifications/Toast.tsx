@@ -21,9 +21,13 @@ export const syncState = (prevState: typeof initialState) => {
   return prevState.shouldAutoDismiss ? {...prevState, isFadingOut: true} : prevState;
 };
 
-interface ToastProps {
+export interface ToastProps {
   dismiss: () => void;
   notification: ToastNotification;
+  positionProps: {
+    index: number,
+    totalToastCount: number
+  };
 }
 
 // It's meant to not be dismissable before shouldAutoDismissAfter elapses
@@ -32,9 +36,10 @@ interface ToastProps {
 // fail again, it will refresh the error instead
 
 // tslint:disable-next-line:variable-name
-const Toast = ({ dismiss, notification }: ToastProps) => {
+const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
   const window = assertWindow();
   const [fadeOutState, setFadeOutState] = React.useState(initialState);
+  const [isFadingIn, startFadeIn] = React.useState(false);
 
   const startFadeOut = () => {
     setFadeOutState(syncState);
@@ -50,6 +55,7 @@ const Toast = ({ dismiss, notification }: ToastProps) => {
     () => setFadeOutState({...initialState, shouldAutoDismiss: true})
   );
   const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
+  useTimeout(5, () => startFadeIn(true));
 
   React.useLayoutEffect(() => {
     resetErrorClearing();
@@ -61,6 +67,8 @@ const Toast = ({ dismiss, notification }: ToastProps) => {
   return (
     <BannerBodyWrapper
       onAnimationEnd={dismiss}
+      positionProps={positionProps}
+      isFadingIn={isFadingIn}
       isFadingOut={fadeOutState.isFadingOut}
       data-testid='banner-body'
     >

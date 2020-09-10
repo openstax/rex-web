@@ -2,6 +2,7 @@ import { flow } from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { mobileToolbarOpen } from '../../../content/search/selectors';
+import { useServices } from '../../../context/Services';
 import { AppState } from '../../../types';
 import { dismissNotification } from '../../actions';
 import * as select from '../../selectors';
@@ -17,12 +18,20 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const ToastNotifications = (props: Props) => {
-  return props.toasts.length ? <ToastContainerWrapper mobileToolbarOpen={props.mobileToolbarOpen}>
+  const [shouldRender, setShouldRender] = React.useState(false);
+  const services = useServices();
+
+  React.useEffect(() => {
+    services.promiseCollector.calm().then(() => setShouldRender(true));
+  }, [services]);
+
+  return shouldRender && props.toasts.length ? <ToastContainerWrapper mobileToolbarOpen={props.mobileToolbarOpen}>
     <ToastsContainer>
-      {props.toasts.map((toast) => <Toast
+      {props.toasts.map((toast, index) => <Toast
         key={toast.messageKey}
         dismiss={() => props.dismiss(toast)}
         notification={toast}
+        positionProps={{index, totalToastCount: props.toasts.length}}
       />)}
     </ToastsContainer>
   </ToastContainerWrapper> : null;
