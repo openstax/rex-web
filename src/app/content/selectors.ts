@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
 import { defaultTheme } from './components/constants';
 import { hasOSWebData } from './guards';
+import { getIdFromPageParam } from './utils';
 import {
   findArchiveTreeNodeByPageParam,
   prevNextBookPage,
@@ -65,6 +66,12 @@ export const loadingPage = createSelector(
 export const pageParam = createSelector(
   localState,
   (state) => state.params ? state.params.page : null
+);
+
+export const pageNotFound = createSelector(
+  localState,
+  pageParam,
+  (state, param) => getIdFromPageParam(param) === state.pageNotFoundId
 );
 
 export const pageNode = createSelector(
