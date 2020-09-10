@@ -77,8 +77,8 @@ Array [
       <div
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
-        <span
-          className="BookBanner__BookTitle-sc-1avy0c0-2 jvAwFk"
+        <a
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -96,7 +96,7 @@ Array [
             />
           </svg>
           Test Book 1
-        </span>
+        </a>
         <span
           className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
           dangerouslySetInnerHTML={

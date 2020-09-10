@@ -69,7 +69,10 @@ describe('BookBanner', () => {
         bookTheme={book.theme}
       />);
 
-      expect(() => component.root.findByProps({ 'data-testid': 'book-title-expanded' })).not.toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'book-title-expanded'})).not.toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'book-title-collapsed'})).not.toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'details-link-expanded'})).toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'details-link-collapsed'})).toThrow();
     });
 
     it('renders correctly without osweb data', () => {

@@ -285,18 +285,24 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
       data-analytics-region='book-banner-collapsed'
     >
       <TopBar>
-        <BookTitle
-          data-testid='details-link-collapsed'
-          href={bookUrl}
-          variant='mini'
-          colorSchema={book.theme}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-            this.handleLinkClick(e, bookUrl);
-          }}
-          tabIndex={this.state.tabbableBanner === 'mini' ? undefined : -1}
-        >
-          <LeftArrow colorSchema={book.theme} />{book.tree.title}
-        </BookTitle>
+        {
+          book.book_state === 'retired'
+            ? <BookTitle data-testid='book-title-collapsed' colorSchema={book.theme}>
+              {book.tree.title}
+            </BookTitle>
+            : <BookTitleLink
+              data-testid='details-link-collapsed'
+              href={bookUrl}
+              variant='mini'
+              colorSchema={book.theme}
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                this.handleLinkClick(e, bookUrl);
+              }}
+              tabIndex={this.state.tabbableBanner === 'mini' ? undefined : -1}
+            >
+            <LeftArrow colorSchema={book.theme} />{book.tree.title}
+          </BookTitleLink>
+        }
         <BookChapter colorSchema={book.theme} variant='mini' dangerouslySetInnerHTML={{__html: treeSection.title}} />
       </TopBar>
     </BarWrapper>,
