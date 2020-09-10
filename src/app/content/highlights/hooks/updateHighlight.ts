@@ -15,15 +15,25 @@ export const hookBody: ActionHookBody<typeof updateHighlight> =
       findHighlight(highlightsLocalState(getState()), payload.id), 'Can\'t update a highlight that doesn\'t exist'
     );
 
+    const oldColor = oldHighlight.color as unknown as HighlightUpdate['color'];
+    const oldAnnotation = oldHighlight.annotation;
+
     highlightClient.updateHighlight(payload).catch((error) => {
       Sentry.captureException(error);
 
-      dispatch(addToast('i18n:notification:toast:highlights:update-failure'));
+      if (oldColor === payload.highlight.color && oldAnnotation === payload.highlight.annotation) { return; }
+
+      if (oldColor !== payload.highlight.color) {
+        dispatch(addToast('i18n:notification:toast:highlights:update-failure:color'));
+      } else {
+        dispatch(addToast('i18n:notification:toast:highlights:update-failure:annotation'));
+      }
+
       dispatch(updateHighlight(
         {
           highlight: {
             ...oldHighlight,
-            color: oldHighlight.color as unknown as HighlightUpdate['color'],
+            color: oldColor,
           },
           id: payload.id,
         },
