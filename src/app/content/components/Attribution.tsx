@@ -131,7 +131,7 @@ class Attribution extends Component<Props> {
     const {book} = this.props;
     if (!hasOSWebData(book)) { return null; }
 
-    const attributionTextId = (book && this.bookIdsWithTEAAttributionText.includes(book.id))
+    const attributionTextId = this.bookIdsWithTEAAttributionText.includes(book.id)
       ? 'i18n:attribution:tea-text'
       : 'i18n:attribution:default-text';
 

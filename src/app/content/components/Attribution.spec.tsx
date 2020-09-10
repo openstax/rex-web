@@ -182,16 +182,8 @@ describe('Attribution', () => {
       store.dispatch(
         actions.receiveBook({...formatBookData(book, mockCmsBook), id: 'cce64fde-f448-43b8-ae88-27705cceb0da'})
       );
-      const { node: details } = renderToDom(render());
-      details.setAttribute('open', '');
-
-      const matchTEAText = 'you must attribute “Texas Education Agency (TEA)."';
-
-      expect(details.children[1].innerHTML).toMatch(matchTEAText);
-
-      // clear scrollTo that happens on toggle before finishing the test
-      // or there are errors
-      await new Promise((resolve) => setTimeout(resolve, 0));
+      const component = renderer.create(render());
+      expect(component.root.findByProps({ id: 'i18n:attribution:tea-text' })).toBeDefined();
     });
   });
 });
