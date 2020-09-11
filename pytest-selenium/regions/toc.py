@@ -9,6 +9,7 @@ class TableOfContents(Region):
 
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
+    _chapter_link_locator = (By.CSS_SELECTOR, "li details")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 
     @property
@@ -27,6 +28,18 @@ class TableOfContents(Region):
             self.ContentPage(self.page, section_link)
             for section_link in self.find_elements(*self._section_link_locator)
         ]
+
+    def expand_chapter(self, n):
+        """Expand a chapter from TOC.
+
+        :param n: chapter number -> int
+        """
+        x = self.driver.execute_script(
+            ("return document.querySelectorAll('{selector}');").format(
+                selector=self._chapter_link_locator[1]
+            )
+        )
+        self.driver.execute_script(("return arguments[0].setAttribute('open', '1');"), x[n])
 
     @property
     def first_section(self):
@@ -48,8 +61,7 @@ class TableOfContents(Region):
 
         @property
         def is_active(self):
-            html = (self.find_element(*self._is_active_locator)
-                    .get_attribute("outerHTML"))
+            html = self.find_element(*self._is_active_locator).get_attribute("outerHTML")
             try:
                 assert "Current Page" in html
             except AssertionError:
