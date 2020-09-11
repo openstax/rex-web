@@ -4,6 +4,10 @@ import reducer, { appMessageType, initialState } from './reducer';
 import { ToastNotification } from './types';
 
 describe('notifications reducer', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('adds update available notification', () => {
     const newState = reducer(initialState, actions.updateAvailable());
     expect(newState.modalNotifications).toContainEqual(actions.updateAvailable());
@@ -95,13 +99,15 @@ describe('notifications reducer', () => {
     });
 
     it('refreshes the timestamp if a toast with the same message appears', async() => {
+      const mockDate = jest.spyOn(Date, 'now').mockReturnValueOnce(1);
+
       const newState = reducer(initialState, actions.addToast('mytoast'));
       const toast = newState.toastNotifications.find((notification) => notification.messageKey === 'mytoast');
 
       if (!toast) {
         return expect(toast).toBeTruthy();
       }
-      await new Promise((res) => setTimeout(res, 5));
+      mockDate.mockReturnValueOnce(2);
 
       const initialTimestamp = toast.timestamp;
       const state = reducer(newState, actions.addToast('mytoast'));
