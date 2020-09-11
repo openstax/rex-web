@@ -61,7 +61,7 @@ export const BannerBodyWrapper = styled.div`
     const {isFadingIn, positionProps} = props;
 
     return css`
-      transition: transform 0.6s ${positionProps.index * 0.25}s;
+      transition: transform 0.6s;
       z-index: ${positionProps.totalToastCount - positionProps.index};
       transform: translateY(${isFadingIn ? (positionProps.index) * 100 : -100}%);
     `;

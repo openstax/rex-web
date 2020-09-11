@@ -1,9 +1,11 @@
-import { flow } from 'lodash';
+import flow from 'lodash/fp/flow';
+import orderBy from 'lodash/orderBy';
 import React from 'react';
 import { connect } from 'react-redux';
 import { mobileToolbarOpen } from '../../../content/search/selectors';
 import { useServices } from '../../../context/Services';
 import { AppState } from '../../../types';
+import { assertDefined } from '../../../utils';
 import { dismissNotification } from '../../actions';
 import * as select from '../../selectors';
 import { ToastNotification } from '../../types';
@@ -25,13 +27,18 @@ const ToastNotifications = (props: Props) => {
     services.promiseCollector.calm().then(() => setShouldRender(true));
   }, [services]);
 
+  const realIndexes = new Map(orderBy(props.toasts, ['timestamp'], ['desc']).map((toast, index) => [toast, index]));
+
   return shouldRender && props.toasts.length ? <ToastContainerWrapper mobileToolbarOpen={props.mobileToolbarOpen}>
     <ToastsContainer>
-      {props.toasts.map((toast, index) => <Toast
+      {props.toasts.map((toast) => <Toast
         key={toast.messageKey}
         dismiss={() => props.dismiss(toast)}
         notification={toast}
-        positionProps={{index, totalToastCount: props.toasts.length}}
+        positionProps={{
+          index: assertDefined(realIndexes.get(toast), 'Notification dissapeared'),
+          totalToastCount: props.toasts.length,
+        }}
       />)}
     </ToastsContainer>
   </ToastContainerWrapper> : null;

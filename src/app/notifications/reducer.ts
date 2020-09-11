@@ -43,11 +43,22 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         modalNotifications: [...state.modalNotifications, ...processAppMessages(state, action)],
       };
     case getType(actions.addToast): {
+      const sameToast = state.toastNotifications.find((toast) => toast.messageKey === action.payload.messageKey);
+
+      if (sameToast) {
+        return {
+          ...state,
+          toastNotifications: state.toastNotifications.map(
+            (toast) => toast === sameToast ? {...toast, timestamp: action.payload.timestamp} : toast
+          ),
+        };
+      }
+
       return {
         ...state,
         toastNotifications: [
+          ...state.toastNotifications,
           action.payload,
-          ...state.toastNotifications.filter((toast) => toast.messageKey !== action.payload.messageKey),
         ],
       };
     }
