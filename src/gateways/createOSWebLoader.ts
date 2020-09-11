@@ -60,7 +60,7 @@ export default (prefix: string) => {
 
   const slugLoader = loader((slug: string) => `${baseUrl}?type=books.Book&fields=${fields}&slug=${slug}`);
   const idLoader = loader((id: string) => `${baseUrl}?type=books.Book&fields=${fields}&cnx_id=${id}`);
-
+  console.log('temp')
   return {
     getBookFromId: (id: string) => idLoader(id),
     getBookFromSlug: (slug: string) => slugLoader(slug),
