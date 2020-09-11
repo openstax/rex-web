@@ -62,7 +62,7 @@ describe('BookBanner', () => {
       expect(tree).toMatchSnapshot();
     });
 
-    it('renders without link to the details page for retired books', () => {
+    it('renders BookTitle instead of BookTitleLink with a link to details page for retired books', () => {
       const component = renderer.create(<BookBanner
         pageNode={pageNode}
         book={{...book, book_state: 'retired'}}
