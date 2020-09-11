@@ -158,7 +158,7 @@ describe('Attribution', () => {
       expect(message).toEqual('BUG: Could not find publication date');
     });
 
-    it('displays first two contributing authors when no senior authors were found', async() => {
+    it('displays first two contributing authors when no senior authors were found', () => {
       const newState = (cloneDeep({
         content: {
           ...initialState,
@@ -176,6 +176,14 @@ describe('Attribution', () => {
       details.setAttribute('open', '');
 
       expect(details.children[1].innerHTML).toMatch(`Authors: Jhon Doe, Jonny Doe`);
+    });
+
+    it('renders special licensing and attribution for HS Physics', async() => {
+      store.dispatch(
+        actions.receiveBook({...formatBookData(book, mockCmsBook), id: 'cce64fde-f448-43b8-ae88-27705cceb0da'})
+      );
+      const component = renderer.create(render());
+      expect(component.root.findByProps({ id: 'i18n:attribution:tea-text' })).toBeDefined();
     });
   });
 });
