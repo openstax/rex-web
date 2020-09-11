@@ -42,6 +42,7 @@ export const ToastContainerWrapper = styled.div`
 export const ToastsContainer = styled.div`
   width: 100%;
   position: absolute;
+  overflow: visible;
 `;
 
 interface BannerProps {
@@ -55,14 +56,14 @@ export const BannerBodyWrapper = styled.div`
   width: 100%;
   margin: 0;
   overflow: visible;
-  position: sticky;
+  position: absolute;
   ${(props: BannerProps) => {
     const {isFadingIn, positionProps} = props;
 
     return css`
-      transition: transform 0.5s ${positionProps.index * 0.2}s;
+      transition: transform 0.6s ${positionProps.index * 0.25}s;
       z-index: ${positionProps.totalToastCount - positionProps.index};
-      transform: translateY(${isFadingIn ? 0 : (positionProps.index + 3) * 100 * -1}%);
+      transform: translateY(${isFadingIn ? (positionProps.index) * 100 : -100}%);
     `;
   }};
 

@@ -55,7 +55,12 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
     () => setFadeOutState({...initialState, shouldAutoDismiss: true})
   );
   const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
-  useTimeout(5, () => startFadeIn(true));
+  const restartFadeIn = useTimeout(5, () => startFadeIn(true));
+
+  React.useLayoutEffect(() => {
+    startFadeIn(false);
+    restartFadeIn();
+  }, [positionProps.index]);
 
   React.useLayoutEffect(() => {
     resetErrorClearing();
