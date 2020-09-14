@@ -62,12 +62,6 @@ export const treeWithUnits = {
     {
       contents: [
         {
-          id: 'preface@1',
-          shortId: 'prefaceshortid@1',
-          slug: 'preface',
-          title: '<span class="os-divider"> </span><span class="os-text">preface</span>',
-        },
-        {
           contents: [
             {
               id: 'page1@1',

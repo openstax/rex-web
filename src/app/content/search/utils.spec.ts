@@ -111,7 +111,7 @@ describe('getFormattedSearchResults', () => {
     it('collapses unit structure', () => {
       const chapterHit = makeSearchResultHit({
         book: {...mockArchive.book, tree: treeWithUnits},
-        page: treeWithUnits.contents[0].contents[1].contents![0] as unknown as ArchivePage,
+        page: treeWithUnits.contents[0].contents[0].contents![0] as unknown as ArchivePage,
       });
       const searchResults: SearchResult = makeSearchResults([
         chapterHit,
@@ -120,11 +120,11 @@ describe('getFormattedSearchResults', () => {
       expect(getFormattedSearchResults(treeWithUnits, searchResults)).toContainEqual(expect.objectContaining({
         contents: [
           expect.objectContaining({
-            id: treeWithUnits.contents[0].contents[1].contents![0].id,
+            id: treeWithUnits.contents[0].contents[0].contents![0].id,
             results: [chapterHit],
           }),
         ],
-        id: treeWithUnits.contents[0].contents[1].id,
+        id: treeWithUnits.contents[0].contents[0].id,
       }));
     });
   });

@@ -66,11 +66,11 @@ describe('splitTitleParts', () => {
 
 describe('findArchiveTreeNodeByPageParam', () => {
   it('finds node by id', () => {
-    expect(findArchiveTreeNodeByPageParam(treeWithUnits, {uuid: 'preface' })).toBeDefined();
+    expect(findArchiveTreeNodeByPageParam(treeWithUnits, {uuid: 'page1' })).toBeDefined();
   });
   it('matches only page nodes', () => {
     const unit = treeWithUnits.contents[0];
-    const chapter = unit.contents[1];
+    const chapter = unit.contents[0];
     const pageToFind = findArchiveTreeNodeById(treeWithUnits, 'page1');
 
     if (!pageToFind) {

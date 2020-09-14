@@ -142,5 +142,6 @@ export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
 export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
   isLinkedArchiveTree(section)
   && !archiveTreeSectionIsBook(section)
+  && getArchiveTreeSectionNumber(section) !== null
   && section.contents.some((node) => (node as LinkedArchiveTree).contents === undefined)
 ;

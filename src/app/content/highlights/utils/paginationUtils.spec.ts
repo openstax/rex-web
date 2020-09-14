@@ -73,17 +73,14 @@ describe('filterCountsPerSourceByLocationFilter', () => {
   it('filters by pages outside chapter', () => {
     expect(filterCountsPerSourceByLocationFilter(
       new Map([
-        ['chapter1', findArchiveTreeNodeById(treeWithUnits, 'chapter1')!],
-        ['preface', findArchiveTreeNodeById(treeWithUnits, 'preface')!]]
+        ['chapter1', findArchiveTreeNodeById(treeWithUnits, 'chapter1')!]]
       ),
       {
         page1: {[HighlightColorEnum.Green]: 2},
-        preface: {[HighlightColorEnum.Pink]: 3},
       }
     )).toEqual(
       {
         page1: {[HighlightColorEnum.Green]: 2},
-        preface: {[HighlightColorEnum.Pink]: 3},
       }
     );
   });
