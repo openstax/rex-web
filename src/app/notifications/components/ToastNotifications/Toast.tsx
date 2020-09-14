@@ -12,7 +12,7 @@ import {
   CloseIcon,
 } from './styles';
 
-const initialState = {
+export const initialState = {
   isFadingIn: false,
   isFadingOut: false,
   shouldAutoDismiss: false,
@@ -21,7 +21,7 @@ const initialState = {
 type State = typeof initialState;
 type AnimationEvents = 'start_fade_in' | 'start_fade_out' | 'reset_duration' | 'reposition' | 'allow_auto_dismiss';
 
-export const syncAnimationState = (prevState: State, event: AnimationEvents): State => {
+export const manageAnimationState = (prevState: State, event: AnimationEvents): State => {
   switch (event) {
     case 'start_fade_in':
       return {
@@ -65,7 +65,7 @@ export interface ToastProps {
 // tslint:disable-next-line:variable-name
 const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
   const window = assertWindow();
-  const [state, dispatch] = React.useReducer(syncAnimationState, initialState);
+  const [state, dispatch] = React.useReducer(manageAnimationState, initialState);
 
   const startFadeOut = () => {
     dispatch('start_fade_out');

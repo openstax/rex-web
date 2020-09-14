@@ -6,7 +6,7 @@ import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
 import { assertDocument, assertWindow } from '../../../utils';
 import { clearErrorAfter, shouldAutoDismissAfter } from './constants';
-import Toast, { syncState } from './Toast';
+import Toast, { initialState, manageAnimationState } from './Toast';
 
 jest.mock('react', () => {
   const react = (jest as any).requireActual('react');
@@ -55,7 +55,7 @@ describe('SearchFailure', () => {
     });
   });
 
-  it.only('manages timeouts', async() => {
+  it('manages timeouts', () => {
     const component = renderer.create(<MessageProvider>
       <Toast dismiss={dismiss} notification={toast} positionProps={position} />
     </MessageProvider>);
@@ -150,10 +150,9 @@ describe('SearchFailure', () => {
     component.unmount();
   });
 
-  describe('syncState', () => {
-    it('doesn\'t allow to fade out if error is not ready to be dimissed', () => {
-      const state = { isFadingOut: false, shouldAutoDismiss: false};
-      expect(syncState(state)).toBe(state);
+  describe('syncAnimationState', () => {
+    it('doesn\'t allow to fade out if toast is not ready to be dimissed', () => {
+      expect(manageAnimationState(initialState, 'start_fade_out')).toBe(initialState);
     });
   });
 });

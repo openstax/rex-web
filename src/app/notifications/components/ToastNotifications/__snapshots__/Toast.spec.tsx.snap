@@ -2,7 +2,7 @@
 
 exports[`SearchFailure matches snapshot 1`] = `
 <div
-  className="styles__BannerBodyWrapper-zqr5u1-2 ioFLSC"
+  className="styles__BannerBodyWrapper-zqr5u1-2 flZanL"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >
@@ -12,7 +12,7 @@ exports[`SearchFailure matches snapshot 1`] = `
     <div
       className="Card__Header-sc-1o7sacr-3 jGwlNH"
     >
-      The highlight could not be saved. Please try again
+      The highlight could not be saved. Please check your connection and try again.
     </div>
     <button
       className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-5 eYgUmx"
