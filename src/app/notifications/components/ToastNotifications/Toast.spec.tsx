@@ -154,5 +154,9 @@ describe('SearchFailure', () => {
     it('doesn\'t allow to fade out if toast is not ready to be dimissed', () => {
       expect(manageAnimationState(initialState, 'start_fade_out')).toBe(initialState);
     });
+
+    it('returns unchanged state for unknown event', () => {
+      expect(manageAnimationState(initialState, 'anything goes' as any)).toBe(initialState);
+    });
   });
 });
