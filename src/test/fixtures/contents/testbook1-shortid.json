@@ -10,6 +10,7 @@
     "name": "Sweet License"
   },
   "revised": "2012-06-21",
+  "book_state": "live",
   "tree": {
     "shortId": "testbook1-shortid@1.0",
     "id": "testbook1-uuid@1.0",
