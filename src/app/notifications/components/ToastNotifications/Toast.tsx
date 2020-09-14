@@ -60,6 +60,7 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
   React.useLayoutEffect(() => {
     startFadeIn(false);
     restartFadeIn();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [positionProps.index]);
 
   React.useLayoutEffect(() => {

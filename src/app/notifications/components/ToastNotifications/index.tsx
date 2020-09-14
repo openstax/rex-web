@@ -3,7 +3,6 @@ import orderBy from 'lodash/orderBy';
 import React from 'react';
 import { connect } from 'react-redux';
 import { mobileToolbarOpen } from '../../../content/search/selectors';
-import { useServices } from '../../../context/Services';
 import { AppState } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { dismissNotification } from '../../actions';
@@ -20,16 +19,9 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const ToastNotifications = (props: Props) => {
-  const [shouldRender, setShouldRender] = React.useState(false);
-  const services = useServices();
-
-  React.useEffect(() => {
-    services.promiseCollector.calm().then(() => setShouldRender(true));
-  }, [services]);
-
   const realIndexes = new Map(orderBy(props.toasts, ['timestamp'], ['desc']).map((toast, index) => [toast, index]));
 
-  return shouldRender && props.toasts.length ? <ToastContainerWrapper mobileToolbarOpen={props.mobileToolbarOpen}>
+  return props.toasts.length ? <ToastContainerWrapper mobileToolbarOpen={props.mobileToolbarOpen}>
     <ToastsContainer>
       {props.toasts.map((toast) => <Toast
         key={toast.messageKey}
