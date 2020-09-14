@@ -47,7 +47,7 @@ export interface PageReference {
 }
 
 export interface BookWithOSWebData extends ArchiveBook {
-  book_state: 'coming_soon' | 'deprecated' | 'live' | 'retired';
+  book_state: 'coming_soon' | 'deprecated' | 'live' | 'new_edition_available' | 'retired';
   theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
   slug: string;
   publish_date: string;
