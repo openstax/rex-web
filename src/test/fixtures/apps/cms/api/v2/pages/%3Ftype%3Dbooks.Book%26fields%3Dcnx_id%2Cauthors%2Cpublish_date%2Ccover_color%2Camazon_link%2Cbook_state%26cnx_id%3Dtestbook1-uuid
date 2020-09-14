@@ -1,1 +1,19 @@
-%3Ftype%3Dbooks.Book%26fields%3Dcnx_id%2Cauthors%2Cpublish_date%2Ccover_color%2Camazon_link%26slug%2Cbook_state%3Dbook-slug-1
+{
+    "meta": {
+        "total_count": 1
+    },
+    "items": [
+        {
+            "id": 1,
+            "meta": {
+                "slug": "book-slug-1"
+            },
+            "title": "Test Book 1",
+            "cnx_id": "testbook1-uuid",
+            "cover_color": "blue",
+            "authors": [{"value": {"name": "Bam Bammerson"}}],
+            "publish_date": "2012-06-21",
+            "book_state": "live"
+        }
+    ]
+}
