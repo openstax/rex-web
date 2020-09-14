@@ -8,7 +8,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
     className="styles__ToastsContainer-zqr5u1-1 ckbOio"
   >
     <div
-      className="styles__BannerBodyWrapper-zqr5u1-2 gymfBi"
+      className="styles__BannerBodyWrapper-zqr5u1-2 fgVonK"
       data-testid="banner-body"
       onAnimationEnd={[Function]}
     >
@@ -57,7 +57,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
       </div>
     </div>
     <div
-      className="styles__BannerBodyWrapper-zqr5u1-2 fgVonK"
+      className="styles__BannerBodyWrapper-zqr5u1-2 gymfBi"
       data-testid="banner-body"
       onAnimationEnd={[Function]}
     >
