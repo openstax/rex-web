@@ -9,6 +9,7 @@ import { Store } from '../../../types';
 import { addToast, dismissNotification } from '../../actions';
 import { toastNotifications } from '../../selectors';
 import { BannerBodyWrapper, CloseButton } from './styles';
+import Toast from './Toast';
 
 jest.mock('react', () => {
   const react = (jest as any).requireActual('react');
@@ -89,5 +90,47 @@ describe('ToastNotifications', () => {
 
     expect(dispatch).toHaveBeenCalledWith(dismissNotification(secondNotification));
     expect(root.findAllByType(BannerBodyWrapper)).toHaveLength(0);
+  });
+
+  it('sorts notification in descending order based on timestamp', () => {
+    const firstNotificationMessage = 'i18n:notification:toast:highlights:create-failure';
+    const secondNotificationMessage = 'i18n:notification:toast:highlights:delete-failure';
+
+    jest.spyOn(Date, 'now')
+      .mockReturnValueOnce(1)
+      .mockReturnValueOnce(2)
+      .mockReturnValueOnce(3);
+
+    const firstNotification = addToast(firstNotificationMessage);
+    const secondNotification = addToast(secondNotificationMessage);
+
+    store.dispatch(firstNotification);
+    store.dispatch(secondNotification);
+
+    const {root} = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <ToastNotifications />
+      </MessageProvider>
+    </Provider>);
+
+    let [firstToast, secondToast] = root.findAllByType(Toast);
+
+    expect(firstToast.props.notification.messageKey).toBe(firstNotificationMessage);
+    expect(firstToast.props.positionProps.index).toBe(1);
+
+    expect(secondToast.props.notification.messageKey).toBe(secondNotificationMessage);
+    expect(secondToast.props.positionProps.index).toBe(0);
+
+    renderer.act(() => {
+      store.dispatch(addToast(firstNotificationMessage));
+    });
+
+    [firstToast, secondToast] = root.findAllByType(Toast);
+
+    expect(firstToast.props.notification.messageKey).toBe(firstNotificationMessage);
+    expect(firstToast.props.positionProps.index).toBe(0);
+
+    expect(secondToast.props.notification.messageKey).toBe(secondNotificationMessage);
+    expect(secondToast.props.positionProps.index).toBe(1);
   });
 });
