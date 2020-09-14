@@ -4,7 +4,7 @@ import { useOnDOMEvent, useTimeout } from '../../../reactUtils';
 import { assertWindow } from '../../../utils';
 import { ToastNotification } from '../../types';
 import { Header } from '../Card';
-import { clearErrorAfter, shouldAutoDismissAfter } from './constants';
+import { clearErrorAfter, shouldAutoDismissAfter, timeUntilFadeIn } from './constants';
 import {
   BannerBody,
   BannerBodyWrapper,
@@ -13,12 +13,39 @@ import {
 } from './styles';
 
 const initialState = {
+  isFadingIn: false,
   isFadingOut: false,
   shouldAutoDismiss: false,
 };
 
-export const syncState = (prevState: typeof initialState) => {
-  return prevState.shouldAutoDismiss ? {...prevState, isFadingOut: true} : prevState;
+type State = typeof initialState;
+type AnimationEvents = 'start_fade_in' | 'start_fade_out' | 'reset_duration' | 'reposition' | 'allow_auto_dismiss';
+
+export const syncAnimationState = (prevState: State, event: AnimationEvents): State => {
+  switch (event) {
+    case 'start_fade_in':
+      return {
+        ...initialState,
+        isFadingIn: true,
+      };
+    case 'allow_auto_dismiss':
+      return {
+        ...prevState,
+        isFadingOut: false,
+        shouldAutoDismiss: true,
+      };
+    case 'start_fade_out':
+      if (!prevState.shouldAutoDismiss) {
+        return prevState;
+      }
+      return {...prevState, isFadingOut: true};
+    case 'reposition':
+      return {...prevState, isFadingIn: false};
+    case 'reset_duration':
+      return {...prevState, isFadingOut: false, shouldAutoDismiss: false};
+    default:
+      return initialState;
+  }
 };
 
 export interface ToastProps {
@@ -38,35 +65,31 @@ export interface ToastProps {
 // tslint:disable-next-line:variable-name
 const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
   const window = assertWindow();
-  const [fadeOutState, setFadeOutState] = React.useState(initialState);
-  const [isFadingIn, startFadeIn] = React.useState(false);
+  const [state, dispatch] = React.useReducer(syncAnimationState, initialState);
 
   const startFadeOut = () => {
-    setFadeOutState(syncState);
+    dispatch('start_fade_out');
   };
 
-  const handlersEnabled = !fadeOutState.isFadingOut && fadeOutState.shouldAutoDismiss;
+  const handlersEnabled = !state.isFadingOut && state.shouldAutoDismiss;
 
   useOnDOMEvent(window, handlersEnabled, 'click', startFadeOut);
   useOnDOMEvent(window, handlersEnabled, 'scroll', startFadeOut);
 
-  const resetAutoDismiss = useTimeout(
-    shouldAutoDismissAfter,
-    () => setFadeOutState({...initialState, shouldAutoDismiss: true})
-  );
+  const resetAutoDismiss = useTimeout(shouldAutoDismissAfter, () => dispatch('allow_auto_dismiss'));
   const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
-  const restartFadeIn = useTimeout(5, () => startFadeIn(true));
+  const restartFadeIn = useTimeout(timeUntilFadeIn, () => dispatch('start_fade_in'));
 
   React.useLayoutEffect(() => {
-    startFadeIn(false);
     restartFadeIn();
+    dispatch('reposition');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [positionProps.index]);
 
   React.useLayoutEffect(() => {
     resetErrorClearing();
     resetAutoDismiss();
-    setFadeOutState(initialState);
+    dispatch('reset_duration');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notification.timestamp]);
 
@@ -74,8 +97,8 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
     <BannerBodyWrapper
       onAnimationEnd={dismiss}
       positionProps={positionProps}
-      isFadingIn={isFadingIn}
-      isFadingOut={fadeOutState.isFadingOut}
+      isFadingIn={state.isFadingIn}
+      isFadingOut={state.isFadingOut}
       data-testid='banner-body'
     >
       <BannerBody>

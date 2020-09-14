@@ -18,6 +18,11 @@ const toast = {
   timestamp: Date.now(),
 };
 
+const position = {
+  index: 1,
+  totalToastCount: 1,
+};
+
 describe('SearchFailure', () => {
   let window: Window;
   let addEventListener: jest.SpyInstance;
@@ -38,7 +43,7 @@ describe('SearchFailure', () => {
 
   it('matches snapshot', () => {
     const component = renderer.create(<MessageProvider>
-      <Toast dismiss={dismiss} notification={toast} />
+      <Toast dismiss={dismiss} notification={toast} positionProps={position} />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -50,9 +55,9 @@ describe('SearchFailure', () => {
     });
   });
 
-  it('manages timeouts', async() => {
+  it.only('manages timeouts', async() => {
     const component = renderer.create(<MessageProvider>
-      <Toast dismiss={dismiss} notification={toast} />
+      <Toast dismiss={dismiss} notification={toast} positionProps={position} />
     </MessageProvider>);
 
     expect(setTimeout).toHaveBeenCalledWith(expect.anything(), clearErrorAfter);
@@ -81,7 +86,7 @@ describe('SearchFailure', () => {
 
   it('dismisses on animation end', () => {
     const {root} = renderToDom(<MessageProvider>
-      <Toast dismiss={dismiss} notification={toast} />
+      <Toast dismiss={dismiss} notification={toast} positionProps={position}/>
     </MessageProvider>);
     const wrapper = root.querySelector('[data-testid=banner-body]');
 
@@ -96,7 +101,7 @@ describe('SearchFailure', () => {
 
   it('dismisses notification on click', () => {
     const component = renderer.create(<MessageProvider>
-      <Toast dismiss={dismiss} notification={toast} />
+      <Toast dismiss={dismiss} notification={toast} positionProps={position} />
     </MessageProvider>);
 
     renderer.act(() => {
@@ -118,7 +123,7 @@ describe('SearchFailure', () => {
 
   it('resets when notification\'s timestamp changes', () => {
     const component = renderer.create(<MessageProvider>
-      <Toast dismiss={dismiss} notification={toast} />
+      <Toast dismiss={dismiss} notification={toast} positionProps={position} />
     </MessageProvider>);
 
     renderer.act(() => {
@@ -137,7 +142,7 @@ describe('SearchFailure', () => {
 
     renderer.act(() => {
       component.update(<MessageProvider>
-        <Toast dismiss={dismiss} notification={{...toast, timestamp: Date.now() + 10}} />
+        <Toast dismiss={dismiss} notification={{...toast, timestamp: Date.now() + 10}} positionProps={position} />
       </MessageProvider>);
     });
 
