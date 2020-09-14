@@ -117,9 +117,11 @@ describe('notifications reducer', () => {
       expect(state.toastNotifications).not.toContainEqual(expect.objectContaining({timestamp: initialTimestamp}));
     });
 
-    it('keeps the toasts in correct order', () => {
-      const isPreceededByNewerOrNothing = (toast: ToastNotification, index: number, toasts: ToastNotification[]) =>
-        toasts[index - 1] === undefined || toasts[index - 1].timestamp >= toast.timestamp;
+    it('keeps toasts in the order they originally appeared', () => {
+      const isInOrder = (order: string[]) => (toast: ToastNotification, index: number) =>
+        toast.messageKey === order[index];
+
+      const toastsOrder = ['mytoast', 'myothertoast', 'myamazingtoast'];
 
       const newState = flow(
         (state) => reducer(state, actions.addToast('mytoast')),
@@ -131,8 +133,18 @@ describe('notifications reducer', () => {
 
       const [newest] = newState.toastNotifications;
 
-      expect(newState.toastNotifications.every(isPreceededByNewerOrNothing)).toBe(true);
-      expect(newest.messageKey).toBe('myothertoast');
+      expect(newState.toastNotifications.every(isInOrder(toastsOrder))).toBe(true);
+      expect(newest.messageKey).toBe(toastsOrder[0]);
+
+      const toastToDismiss = newState.toastNotifications[1];
+      const newOrder = ['mytoast', 'myamazingtoast', 'myothertoast'];
+
+      const afterReappearing  = flow(
+        (state) => reducer(state, actions.dismissNotification(toastToDismiss)),
+        (state) => reducer(state, actions.addToast(toastToDismiss.messageKey))
+      )(newState);
+
+      expect(afterReappearing.toastNotifications.every(isInOrder(newOrder))).toBe(true);
     });
   });
 });
