@@ -4,11 +4,7 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-<<<<<<< HEAD
 import ToastNotifications from '../../../notifications/components/ToastNotifications';
-=======
-import SearchFailure, { ModalRef } from '../../../notifications/components/SearchFailure';
->>>>>>> master
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
