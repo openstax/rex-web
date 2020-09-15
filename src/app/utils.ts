@@ -4,6 +4,7 @@ import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { receiveLoggedOut } from './auth/actions';
 import { recordError, showErrorDialog } from './errors/actions';
+import { notFound } from './errors/routes';
 import { isPlainObject } from './guards';
 import {
   ActionHookBody,
@@ -43,6 +44,10 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
 const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
   if (e instanceof UnauthenticatedError) {
     dispatch(receiveLoggedOut());
+    return;
+  } else if (e instanceof BookNotFoundError) {
+    Sentry.captureException(e);
+    notFound.redirect();
     return;
   }
   Sentry.captureException(e);
@@ -218,3 +223,6 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
 };
 
 export class UnauthenticatedError extends Error {}
+
+// tslint:disable-next-line: max-classes-per-file
+export class BookNotFoundError extends Error {}

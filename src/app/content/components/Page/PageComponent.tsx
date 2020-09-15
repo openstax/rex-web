@@ -4,7 +4,11 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
+<<<<<<< HEAD
 import ToastNotifications from '../../../notifications/components/ToastNotifications';
+=======
+import SearchFailure, { ModalRef } from '../../../notifications/components/SearchFailure';
+>>>>>>> master
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -16,6 +20,7 @@ import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
+import PageNotFound from './PageNotFound';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
@@ -27,8 +32,19 @@ if (typeof(document) !== 'undefined') {
 
 const parser = new DOMParser();
 
+<<<<<<< HEAD
 export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
+=======
+interface PageState {
+  hasSearchError: boolean;
+}
+
+export default class PageComponent extends Component<PagePropTypes, PageState> {
+  public container = React.createRef<HTMLDivElement>();
+  public errorModalRef = React.createRef<ModalRef>();
+  public state = { hasSearchError: false };
+>>>>>>> master
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -81,6 +97,8 @@ export default class PageComponent extends Component<PagePropTypes> {
       await this.postProcess();
     }
 
+    if (prevProps === this.props) { return; }
+
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
@@ -111,10 +129,14 @@ export default class PageComponent extends Component<PagePropTypes> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-        <ToastNotifications />
-        <RedoPadding>
-          {this.props.page ? this.renderContent() : this.renderLoading()}
-        </RedoPadding>
+      <ToastNotifications />
+      <RedoPadding>
+        {this.props.pageNotFound
+          ? this.renderPageNotFound()
+          : this.props.page
+            ? this.renderContent()
+            : this.renderLoading()}
+      </RedoPadding>
     </MinPageHeight>;
   }
 
@@ -137,6 +159,13 @@ export default class PageComponent extends Component<PagePropTypes> {
     ref={this.container}
   >
     <Loader large delay={1500} />
+  </PageContent>;
+
+  private renderPageNotFound = () => <PageContent
+    key='main-content'
+    ref={this.container}
+  >
+    <PageNotFound />
   </PageContent>;
 
   private getPrerenderedContent() {
