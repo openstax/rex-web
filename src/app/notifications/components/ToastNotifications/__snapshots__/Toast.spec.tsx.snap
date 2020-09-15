@@ -2,7 +2,7 @@
 
 exports[`SearchFailure matches snapshot 1`] = `
 <div
-  className="styles__BannerBodyWrapper-zqr5u1-2 flZanL"
+  className="styles__BannerBodyWrapper-zqr5u1-2 lafMpi"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >

@@ -1,47 +1,34 @@
-import flow from 'lodash/fp/flow';
 import orderBy from 'lodash/orderBy';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { mobileToolbarOpen } from '../../../content/search/selectors';
-import { AppState } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { dismissNotification } from '../../actions';
 import * as select from '../../selectors';
-import { ToastNotification } from '../../types';
 import { ToastContainerWrapper, ToastsContainer } from './styles';
 import Toast from './Toast';
 
-interface Props {
-  dismiss: (toast: ToastNotification) => void;
-  toasts: ToastNotification[];
-  mobileToolbarOpen: boolean;
-}
-
 // tslint:disable-next-line:variable-name
-const ToastNotifications = (props: Props) => {
-  const realIndexes = new Map(orderBy(props.toasts, ['timestamp'], ['desc']).map((toast, index) => [toast, index]));
+const ToastNotifications = () => {
+  const dispatch = useDispatch();
+  const toolbarOpen = useSelector(mobileToolbarOpen);
+  const toasts = useSelector(select.toastNotifications);
 
-  return props.toasts.length ? <ToastContainerWrapper mobileToolbarOpen={props.mobileToolbarOpen}>
+  const sortedToasts = new Map(orderBy(toasts, ['timestamp'], ['desc']).map((toast, index) => [toast, index]));
+
+  return toasts.length ? <ToastContainerWrapper mobileToolbarOpen={toolbarOpen}>
     <ToastsContainer>
-      {props.toasts.map((toast) => <Toast
+      {toasts.map((toast) => <Toast
         key={toast.messageKey}
-        dismiss={() => props.dismiss(toast)}
+        dismiss={() => dispatch(dismissNotification(toast))}
         notification={toast}
         positionProps={{
-          index: assertDefined(realIndexes.get(toast), 'Notification dissapeared'),
-          totalToastCount: props.toasts.length,
+          index: assertDefined(sortedToasts.get(toast), 'Notification dissapeared'),
+          totalToastCount: toasts.length,
         }}
       />)}
     </ToastsContainer>
   </ToastContainerWrapper> : null;
 };
 
-export default connect(
-  (state: AppState) => ({
-    mobileToolbarOpen: mobileToolbarOpen(state),
-    toasts: select.toastNotifications(state),
-  }),
-  (dispatch) => ({
-    dismiss: flow(dismissNotification, dispatch),
-  })
-)(ToastNotifications);
+export default ToastNotifications;
