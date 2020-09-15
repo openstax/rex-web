@@ -32,19 +32,8 @@ if (typeof(document) !== 'undefined') {
 
 const parser = new DOMParser();
 
-<<<<<<< HEAD
 export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
-=======
-interface PageState {
-  hasSearchError: boolean;
-}
-
-export default class PageComponent extends Component<PagePropTypes, PageState> {
-  public container = React.createRef<HTMLDivElement>();
-  public errorModalRef = React.createRef<ModalRef>();
-  public state = { hasSearchError: false };
->>>>>>> master
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
