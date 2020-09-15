@@ -96,7 +96,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     // because highlights will be already cleared and this function will try to run
     // before page changes.
     if (!position) { return; }
-    prevFocusedHighlights.current = focusedHighlight;
     const topOffset = getTopOffsetForHighlight(focusedHighlight);
 
     if (position > topOffset) {
@@ -110,6 +109,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     // to the highlights or highlights' data has changed.
     // focusedHighlight.elements[0] will be undefined for pendingHighlight
     if (!equals(focusedHighlight, prevFocusedHighlights.current) && focusedHighlight.elements[0]) {
+      prevFocusedHighlights.current = focusedHighlight;
       scrollIntoView(focusedHighlight.elements[0] as HTMLElement);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
