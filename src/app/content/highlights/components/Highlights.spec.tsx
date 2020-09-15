@@ -1,4 +1,4 @@
-import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -280,6 +280,7 @@ describe('Highlights', () => {
     }, {
       locationFilterId: pageId,
       pageId,
+      preUpdateData: {id: hlBlue.id, highlight: {annotation: hlBlue.annotation, color: hlBlue.color as any}},
     }));
 
     renderer.act(() => {
@@ -344,6 +345,7 @@ describe('Highlights', () => {
     }, {
       locationFilterId: pageId,
       pageId,
+      preUpdateData: {id: hlBlue.id, highlight: {annotation: hlBlue.annotation, color: hlBlue.color as any}},
     }));
   });
 
@@ -394,7 +396,7 @@ describe('Highlights', () => {
       secondDeleteWrapper.props.onCancel();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(hlBlue.id, {
+    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(hlBlue as Highlight, {
       locationFilterId: pageId,
       pageId,
     }));

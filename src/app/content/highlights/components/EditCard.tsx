@@ -24,6 +24,30 @@ import Confirmation from './Confirmation';
 import Note from './Note';
 import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
 
+const generateUpdatePayload =
+  (oldData: HighlightData, update: {color?: HighlightColorEnum, annotation?: string, id: string }) => {
+    const oldColor = oldData.color as string as HighlightUpdateColorEnum;
+    const newColor = update.color as string as HighlightUpdateColorEnum;
+
+    const updatePayload = {
+      highlight: {
+        annotation: update.annotation !== undefined ? update.annotation : oldData.annotation,
+        color: newColor,
+      },
+      id: update.id,
+    };
+
+    const preUpdateData = {
+      highlight: {
+        annotation: oldData.annotation,
+        color: oldColor,
+      },
+      id: update.id,
+    };
+
+    return {updatePayload, preUpdateData}
+  };
+
 export interface EditCardProps {
   isFocused: boolean;
   hasUnsavedHighlight: boolean;
@@ -101,15 +125,12 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
     props.highlight.setStyle(color);
     if (props.data) {
-      dispatch(updateHighlight({
-        highlight: {
-          annotation: props.data.annotation,
-          color: color as string as HighlightUpdateColorEnum,
-        },
-        id: props.data.id,
-      }, {
+      const {updatePayload, preUpdateData} = generateUpdatePayload(props.data, {color, id: props.data.id});
+
+      dispatch(updateHighlight(updatePayload, {
         locationFilterId: props.locationFilterId,
         pageId: props.pageId,
+        preUpdateData,
       }));
       trackEditNoteColor(color);
     } else {
@@ -120,17 +141,16 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   };
 
   const saveAnnotation = (toSave: HighlightData) => {
-    const addedNote = (props.data && props.data.annotation === undefined) ? true : false;
+    const data  = assertDefined(props.data, 'Can\'t update highlight that doesn\'t exist');
 
-    dispatch(updateHighlight({
-      highlight: {
-        annotation: pendingAnnotation,
-        color: toSave.color as string as HighlightUpdateColorEnum,
-      },
-      id: toSave.id,
-    }, {
+    const addedNote = (data.annotation === undefined) ? true : false;
+    const {updatePayload, preUpdateData} =
+      generateUpdatePayload(data, {id: toSave.id, annotation: pendingAnnotation, color: toSave.color});
+
+    dispatch(updateHighlight(updatePayload, {
       locationFilterId: props.locationFilterId,
       pageId: props.pageId,
+      preUpdateData,
     }));
     trackEditAnnotation(addedNote, toSave.color);
     props.onCancel();

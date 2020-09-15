@@ -1,3 +1,4 @@
+import { Highlight } from '@openstax/highlighter/dist/api';
 import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
@@ -80,7 +81,9 @@ describe('createHighlight', () => {
     expect(createHighlightClient).toHaveBeenCalledWith({highlight: mock});
     expect(Sentry.captureException).toHaveBeenCalledWith(error);
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(mock.id, {...meta, revertingAfterFailure: true}));
+    expect(dispatch).toHaveBeenCalledWith(
+      deleteHighlight(mock as unknown as Highlight, {...meta, revertingAfterFailure: true})
+    );
 
     const hasAdequateErrorToast = toastNotifications(store.getState())
       .some((notification) => notification.messageKey === 'i18n:notification:toast:highlights:create-failure');

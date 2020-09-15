@@ -1,3 +1,4 @@
+import { Highlight } from '@openstax/highlighter/dist/api';
 import Sentry from '../../../../helpers/Sentry';
 import { addToast } from '../../../notifications/actions';
 import { ActionHookBody } from '../../../types';
@@ -14,7 +15,7 @@ export const hookBody: ActionHookBody<typeof createHighlight> =
       Sentry.captureException(error);
 
       dispatch(addToast('i18n:notification:toast:highlights:create-failure'));
-      dispatch(deleteHighlight(payload.id, {...meta, revertingAfterFailure: true}));
+      dispatch(deleteHighlight(payload as unknown as Highlight, {...meta, revertingAfterFailure: true}));
     }
   };
 

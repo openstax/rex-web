@@ -101,6 +101,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
     }, {
       locationFilterId,
       pageId,
+      preUpdateData: {id: highlight.id, highlight: {annotation: highlight.annotation}},
     }));
     trackEditAnnotation(addedNote, highlight.color, true);
     setIsEditing(false);
@@ -113,12 +114,13 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
     }, {
       locationFilterId,
       pageId,
+      preUpdateData: {id: highlight.id, highlight: {color: highlight.color as string as HighlightUpdateColorEnum}},
     }));
     trackEditNoteColor(color, true);
   };
 
   const confirmDelete = () => {
-    dispatch(deleteHighlight(highlight.id, {
+    dispatch(deleteHighlight(highlight, {
       locationFilterId,
       pageId,
     }));

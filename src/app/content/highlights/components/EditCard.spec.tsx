@@ -275,6 +275,13 @@ describe('EditCard', () => {
     }, {
       locationFilterId: 'locationId',
       pageId: 'pageId',
+      preUpdateData: {
+        highlight: {
+          annotation: highlightData.annotation,
+          color: highlightData.style as any,
+        },
+        id: highlightData.id,
+      },
     }));
     expect(editCardProps.onBlur).not.toHaveBeenCalled();
     expect(component.root.findAllByType('button').length).toBe(0);
@@ -359,6 +366,13 @@ describe('EditCard', () => {
     }, {
       locationFilterId: 'locationId',
       pageId: 'pageId',
+      preUpdateData: {
+        highlight: {
+          annotation: highlightData.annotation,
+          color: highlightData.style as any,
+        },
+        id: highlightData.id,
+      },
     }));
     expect(editCardProps.onBlur).not.toHaveBeenCalled();
     expect(editCardProps.onCancel).toHaveBeenCalled();
@@ -491,6 +505,13 @@ describe('EditCard', () => {
     }, {
       locationFilterId: 'locationId',
       pageId: 'pageId',
+      preUpdateData: {
+        highlight: {
+          annotation: highlightData.annotation,
+          color: highlightData.style as any,
+        },
+        id: highlightData.id,
+      },
     }));
   });
 

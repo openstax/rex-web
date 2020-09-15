@@ -1,4 +1,4 @@
-import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { assertNotNull } from '../../utils';
@@ -71,7 +71,7 @@ describe('highlight reducer', () => {
     const state = reducer({
       ...initialState,
       currentPage: {...initialState.currentPage, highlights: [mockHighlight], focused: 'asdf'},
-    }, actions.deleteHighlight(mockHighlight.id, {
+    }, actions.deleteHighlight(mockHighlight, {
       locationFilterId: 'highlightChapter',
       pageId: 'highlightSource',
     }));
@@ -140,7 +140,7 @@ describe('highlight reducer', () => {
     it('noops with no highlights', () => {
       const state = reducer({
         ...initialState,
-      }, actions.deleteHighlight('asdf', {
+      }, actions.deleteHighlight({id: 'asdf'} as Highlight, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
@@ -163,7 +163,7 @@ describe('highlight reducer', () => {
             highlightSource: {[HighlightColorEnum.Green]: 1},
           },
         },
-      }, actions.deleteHighlight(mockHighlight.id, {
+      }, actions.deleteHighlight({id: 'asdf'} as Highlight, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
@@ -188,6 +188,7 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: 'asdf', highlight: {annotation: 'asdf'}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: 'asdf', highlight: {}},
       }));
 
       expect(state.currentPage.highlights).toBe(null);
@@ -214,6 +215,7 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: mock1.id, highlight: {annotation: 'asdf'}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: mock1.id, highlight: {annotation: mock1.annotation, color: mock1.annotation as any}},
       }));
 
       if (!(state.currentPage.highlights instanceof Array)) {
@@ -241,6 +243,7 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: mock1.id, highlight: {annotation: mock1.annotation, color: mock1.color as any}},
       }));
 
       expect(state.currentPage.hasUnsavedHighlight).toBe(true);
@@ -265,6 +268,7 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: mock1.id, highlight: {annotation: mock1.annotation, color: mock1.color as any}},
       }));
 
       expect(state.summary.highlights).toBe(null);
@@ -294,6 +298,7 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: mock1.id, highlight: {annotation: mock1.annotation, color: mock1.color as any}},
       }));
 
       if (!(state.currentPage.highlights instanceof Array)) {
@@ -330,6 +335,7 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Blue}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: mock1.id, highlight: {annotation: mock1.annotation, color: mock1.color as any}},
       }));
 
       if (!(state.currentPage.highlights instanceof Array)) {
@@ -353,6 +359,7 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: 'id-not-exists', highlight: {color: HighlightUpdateColorEnum.Blue}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: 'id-not-exists', highlight: {}},
       }));
 
       expect(state).toMatchObject(state);

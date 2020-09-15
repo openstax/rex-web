@@ -32,13 +32,24 @@ describe('updateHighlight', () => {
   let hook: ReturnType<typeof import ('./updateHighlight').hookBody>;
   let highlight: ReturnType<typeof mockHighlight>;
   let dispatch: jest.SpyInstance;
-
-  const meta = {locationFilterId: 'id', pageId: 'id'};
+  let meta: ReturnType<typeof updateHighlight>['meta'];
 
   beforeEach(() => {
     store = createTestStore();
 
     highlight = mockHighlight();
+    meta = {
+      locationFilterId: 'id',
+      pageId: 'id',
+      preUpdateData: {
+        highlight: {
+          annotation: highlight.annotation,
+          color: highlight.color as any,
+        },
+        id: highlight.id,
+      }
+    };
+
     store.dispatch(createHighlight(highlight, meta));
 
     helpers = {

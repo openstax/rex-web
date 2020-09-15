@@ -76,6 +76,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.currentPage,
           hasUnsavedHighlight: false,
           highlights: [...state.currentPage.highlights || [], highlight],
+          revertableHighlight: highlight,
         },
         summary: {
           ...state.summary,
@@ -127,6 +128,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.currentPage,
           hasUnsavedHighlight,
           highlights: newHighlights,
+          revertableHighlight: oldHighlight,
         },
         summary: {
           ...state.summary,
@@ -136,7 +138,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.deleteHighlight): {
-      const highlightToRemove = findHighlight(state, action.payload);
+      const highlightToRemove = findHighlight(state, action.payload.id);
 
       if (!state.currentPage.highlights || !highlightToRemove) {
         return state;
@@ -145,7 +147,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const newSummaryHighlights = state.summary.highlights
         ? removeSummaryHighlight(state.summary.highlights, {
           ...pick(['locationFilterId', 'pageId'], action.meta),
-          id: action.payload,
+          id: action.payload.id,
         })
         : state.summary.highlights
       ;
@@ -158,9 +160,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         currentPage: {
           ...state.currentPage,
-          focused: state.currentPage.focused === action.payload ? undefined : state.currentPage.focused,
+          focused: state.currentPage.focused === action.payload.id ? undefined : state.currentPage.focused,
           hasUnsavedHighlight: false,
-          highlights: state.currentPage.highlights.filter(({id}) => id !== action.payload),
+          highlights: state.currentPage.highlights.filter(({id}) => id !== action.payload.id),
+          revertableHighlight: highlightToRemove,
         },
         summary: {
           ...state.summary,
