@@ -1,6 +1,5 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import equals from 'lodash/fp/equals';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -34,7 +33,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const focusedHighlight = React.useMemo(
     () => highlights.find((highlight) => highlight.id === focusedId),
     [focusedId, highlights]);
-  const prevFocusedHighlights = React.useRef(focusedHighlight);
+  const prevFocusedHighlightId = React.useRef(focusedId);
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
@@ -103,13 +102,13 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
         .style.transform = `translateY(-${position - topOffset}px)`;
     }
 
-    // Check for prevFocusedHighlights.current is required so we do not scroll to the
+    // Check for prevFocusedHighlightId.current is required so we do not scroll to the
     // focused highlight after user switches between the browser tabs - in this case
     // highlights are refetched and it trigers cardPositions to be updated since reference
     // to the highlights or highlights' data has changed.
     // focusedHighlight.elements[0] will be undefined for pendingHighlight
-    if (!equals(focusedHighlight, prevFocusedHighlights.current) && focusedHighlight.elements[0]) {
-      prevFocusedHighlights.current = focusedHighlight;
+    if (focusedHighlight.id !== prevFocusedHighlightId.current && focusedHighlight.elements[0]) {
+      prevFocusedHighlightId.current = focusedHighlight.id;
       scrollIntoView(focusedHighlight.elements[0] as HTMLElement);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
