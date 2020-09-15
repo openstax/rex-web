@@ -151,8 +151,13 @@ describe('SearchFailure', () => {
   });
 
   describe('syncAnimationState', () => {
-    it('doesn\'t allow to fade out if toast is not ready to be dimissed', () => {
+    it('doesn\'t allow to fade out if toast is not ready to be dismissed', () => {
       expect(manageAnimationState(initialState, 'start_fade_out')).toBe(initialState);
+    });
+
+    it('allows dismissing if component is ready', () => {
+      const newState = manageAnimationState(initialState, 'allow_auto_dismiss');
+      expect(manageAnimationState(newState, 'start_fade_out').isFadingOut).toBe(true);
     });
 
     it('returns unchanged state for unknown event', () => {
