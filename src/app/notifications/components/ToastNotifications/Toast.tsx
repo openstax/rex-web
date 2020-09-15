@@ -25,7 +25,7 @@ export const manageAnimationState = (prevState: State, event: AnimationEvents): 
   switch (event) {
     case 'start_fade_in':
       return {
-        ...initialState,
+        ...prevState,
         isFadingIn: true,
       };
     case 'allow_auto_dismiss':
