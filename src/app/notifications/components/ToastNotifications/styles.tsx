@@ -45,6 +45,12 @@ export const ToastsContainer = styled.div`
   overflow: visible;
 `;
 
+const setTransitionStyles = ({positionProps, isFadingIn}: BannerProps) => css`
+  transition: transform 0.6s;
+  z-index: ${positionProps.totalToastCount - positionProps.index};
+  transform: translateY(${isFadingIn ? (positionProps.index) * 100 : -100}%);
+`;
+
 interface BannerProps {
   isFadingIn: boolean;
   isFadingOut: boolean;
@@ -57,17 +63,8 @@ export const BannerBodyWrapper = styled.div`
   margin: 0;
   overflow: visible;
   position: absolute;
-  ${(props: BannerProps) => {
-    const {isFadingIn, positionProps} = props;
-
-    return css`
-      transition: transform 0.6s;
-      z-index: ${positionProps.totalToastCount - positionProps.index};
-      transform: translateY(${isFadingIn ? (positionProps.index) * 100 : -100}%);
-    `;
-  }};
-
-  ${(props) => props.isFadingOut && css`
+  ${setTransitionStyles};
+  ${(props: BannerProps) => props.isFadingOut && css`
     animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
   `}
 
