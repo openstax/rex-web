@@ -12,7 +12,146 @@ export const CANONICAL_MAP: ObjectLiteral<Array<[string, ObjectLiteral<string | 
     /* Principles of Management */['c3acb2ab-7d5c-45ad-b3cd-e59673fedd4e', {}],
   ],
   /* College Algebra with Corequisite Support */ '507feb1e-cfff-4b54-bc07-d52636cecfe3': [
-    /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
+    /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {
+      /* Preface to the same module in College Alg */
+      'd7efb6f6-d662-4f44-8589-02f4da32e995': '88a0b1d1-c1cf-4561-81b9-a13079be0dde',
+      /* 1.0 Prerequisites to the same modules in College Alg*/
+        /* Chapter Review */
+          /* Key Terms */
+          'ae193e1d-cbd5-5430-93d9-72ae5ec13c05': '3d0db1c5-5543-530b-a4d4-7cb6df3ea9e6',
+          /* Key Equations */
+          'a0c6f44e-2e74-5ae3-93ef-c0127d06f765': '77c0d00b-9f8c-5fb0-88ef-5a0f5153da24',
+          /* Key Concepts */
+          'e64b3534-85ed-55d6-bade-0169501ff4e8': '159a9296-3a86-5609-a636-b0b3c12a3511',
+        /* Exercises */
+          /* 1.0 Prerequisites review exercises to the same modules in College Alg */
+          '5c953c63-4492-55e0-9eda-cba9c124bb78': 'f3b6f2dc-c8f8-5ef8-bd4f-a33569e0200d',
+          /* 1.0 Prerequisites practice test to the same module in College Alg */
+          '573953fb-11ff-5271-b481-16fc61507d99': 'd19a283e-13bd-5229-a4e5-88456cf0aefe',
+      /* 2.0 Equations and Inequalities to the same modules in College Alg */
+        /* Chapter Review */
+          /* Key Terms */
+          '4e4519b7-a162-5fef-a256-019b2ac76ea8': 'e7732fb1-c747-5477-8fa1-78793332cdb6',
+          /* Key Equations */
+          'd1a0f9cf-e788-5977-97c8-bf65a07ddc5b': 'f90cf3c3-3390-5c00-abac-f918046deca9',
+          /* Key Concepts */
+          '1fa97c87-724f-572e-bf24-b23e6cdd6e54': 'ca896db0-2137-5951-9449-bd7d256268e8',
+        /* Exercises */
+          /* Review exercises */
+          '86844ad9-3a5b-5416-ba18-fd30c8e237f7': 'f3b6f2dc-c8f8-5ef8-bd4f-a33569e0200d',
+          /* Practice test */
+          'e5bfcb8f-e3a8-50e6-979c-4f0f08cec571': 'd19a283e-13bd-5229-a4e5-88456cf0aefe',
+      /* 3.0 Functions to the same modules in College Alg */
+        /* Chapter Review */
+          /* Key Terms */
+          '50f447f8-6d7c-5a10-bcf6-5b3efe4c69d1': '6e13f07c-4bf9-5249-a680-5e4c6c7356a9',
+          /* Key Equations */
+          'e31d65f1-bee6-513a-8bd8-d2dd55ba9be2': 'b2835962-b712-5e18-a7a3-69a0b45db229',
+          /* Key Concepts */
+          '0bf2c15d-6f13-55c1-a6fd-6557df42699e': '2377f977-10d1-5307-b21e-5e1135f9cc8a',
+        /* Exercises */
+          /* Review exercises */
+          '5f4f26ab-5963-56b1-b1d6-8b9149b0f5a6': '231f4e55-7d30-59e5-9d1e-1d78a3cbb6f7',
+          /* Practice test */
+          '68e6d170-9a55-5f41-a536-cc784b203d1a': 'e0393123-8609-5c43-9198-323773c62314',
+      /* 4.0 Linear Functions to the same modules in College Alg */
+        /* Chapter Review */
+          /* Key Terms */
+          'b515fa42-754f-5f4e-a47a-21a163903dac': '828a4495-5aab-5138-91d0-1a429fd2c4d5',
+          /* Key Concepts */
+          '9beea070-e44d-510b-8c29-855b52e32346': '077c8360-da08-59c1-a369-593c91b19d19',
+        /* Exercises */
+          /* Review exercises */
+          'd0cac85e-fdcd-58ff-ba38-a73aa7101cf3': '66aad631-4bd3-5647-b10f-6f06061dceb7',
+          /* Practice test */
+          '4036b660-82ea-5a88-a56e-68276a7b4aa3': 'de7868b8-217d-5d28-a971-545bd2a65f95',
+      /* 5.0 Polynomial and Rational Functions to the same modules in College Alg */
+        /* Chapter Review */
+          /* Key Terms */
+          '710feca1-2f2c-5323-9480-2fd0e6fc057b': '2e03c343-ac78-5eb5-85b0-0d49be3beb5f',
+          /* Key Equations */
+          '3650ca53-8c4a-5b0f-9571-7fcec18156cc': '2d25ac01-6858-540e-9961-7b2497033c18',
+          /* Key Concepts */
+          '15c7412d-9924-5384-946f-51920ac026ca': '51c3b5ae-f4e0-5176-9774-0bbeee8a39a7',
+        /* Exercises */
+          /* Review exercises */
+          '0928d974-c497-5b9c-96db-f6d06373698c': '9ef75475-8c5d-58b1-bf9b-239daa24e632',
+          /* Practice test */
+          'd52c1526-d49e-57fb-81a4-023bb8b8471a': '07f097cc-97dc-5458-8a59-34a3e5eb54f8',
+      /* 6.0 Exponential and Logarithmic Functions to the same modules in College Alg */
+        /* Chapter Review */
+          /* Key Terms */
+          '04139c63-cebf-5cbd-b3c9-46c671c71586': '0fbc1b65-4b10-5ca9-87f9-4d45abab4066',
+          /* Key Equations */
+          '762d5a05-0640-5eed-bc49-093d50bf8ff1': 'e77f52b3-68fb-56fe-81ec-e302b629f554',
+          /* Key Concepts */
+          '88848931-d36c-5007-b983-01db2f9ab9a4': 'ccb8a762-1bf3-579c-9691-f4520b6b687e',
+        /* Exercises */
+          /* Review exercises */
+          '5a8409c6-5102-5a2a-89a6-e189a17f6a37': '86021cbb-c8d1-5d2a-bef4-8fb50e82a77b',
+          /* Practice test */
+          '8334a414-e607-508f-b2f1-f53cb610d8dd': '6891c131-7dce-59d5-b208-ed4c9c4efdda',
+      /* 7.0 Systems of Equations and Inequalities to the same modules in College Alg */
+        /* Chapter Review */
+          /* Key Terms */
+          '20788461-f905-56e2-8d6f-187f4d5e5bdc': '7568b96a-f064-5cf0-8bdb-2fdd0b15e4f1',
+          /* Key Equations */
+          '48771f0d-e22b-5a6c-b78f-696392c2ad87': 'd3ac67a5-e517-5a07-bf94-65a01afc8301',
+          /* Key Concepts */
+          '3fe7166d-3b8d-524a-9b01-c9de61fd0094': 'a9d9a031-6a4a-5c23-b765-32ab563d3da3',
+        /* Exercises */
+          /* Review exercises */
+          '1bd3a8c0-6e3b-55f7-80e8-86a74bbf8a85': '041e4645-eeb7-5a84-b032-44674f578a0d',
+          /* Practice test */
+          '454f02e7-35f8-5c94-a95c-a4189c53a8ca': 'a63b3508-3018-591f-88b5-c4386a536a02',
+      /* 8.0 Analytic Geometry to the same modules in College Alg */
+        /* Chapter Review */
+          /* Key Terms */
+          '82b24865-76c2-59d5-91c9-ee2d6f67a389': '93737da0-3cfc-57a1-a728-6c19b3bc50ef',
+          /* Key Equations */
+          '896e36d5-63be-58d1-b183-60616c5d5796': '4978e202-5a54-571a-9e4b-8fbdc5bb5456',
+          /* Key Concepts */
+          'f9e149f7-8df3-5a5b-aeae-33352e88d0db': 'e32d6118-fd12-522f-b72a-47b03415b87d',
+        /* Exercises */
+          /* Review exercises */
+          '6cb14f88-f070-5ece-8182-9c23a0d4d6f6': '87725180-e64a-5275-82b6-7967912093cc',
+          /* Practice test */
+          'b35ad8fc-83b0-5be0-9b62-e53804589abb': 'e9be0cd2-a402-524b-b2e6-7ba1d8b3b355',
+      /* 9.0 Sequences, Probability, and Counting Theory to the same modules in College Alg */
+        /* Chapter Review */
+          /* Key Terms */
+          '536aea78-629f-582f-99a7-06b4c74150c5': 'a1e6490b-86a3-538e-b731-51a13bfd40dc',
+          /* Key Equations */
+          '0cf161d1-8151-5b97-b570-4600394197c9': '8e7390d0-212c-5f90-97ad-3da887950905',
+          /* Key Concepts */
+          '20a302f0-f081-5e04-89cd-cfde71dcd4be': 'c4a3b107-36f3-5ae6-9afd-aa0a8c8f21dd',
+        /* Exercises */
+          /* Review exercises */
+          '3f5f8e87-985a-539e-b294-c3ccdc38c4a6': '0bdd8fe5-c1b1-519d-9159-ced34064a849',
+          /* Practice test */
+          'a576ec62-765f-56ee-ad26-c7e0381c21c3': 'fb1fa4d1-2cd5-5a08-a9af-d6a37a0fdaaa',
+      /* Answer key to the same modules in College Alg */
+        /* Chapter 1 */
+        'cdbf7ab4-7a5b-54d9-af79-60df7fcba056': '5195702e-38ee-562f-91e2-2c6368e1b34d',
+        /* Chapter 2 */
+        '86ee7757-1cc2-5ffc-b4aa-f4b73d096195': '7d25ffee-f27a-5bd3-a397-8515145816d1',
+        /* Chapter 3 */
+        '0a51ec0e-8ea8-50ae-828f-e214f5fe6d5f': 'cf596052-50f7-5870-ba6f-8634298c223e',
+        /* Chapter 4 */
+        '3d83de75-d89a-591c-9540-437d2bfbeec6': '0824815d-2db2-5ade-accb-8f9795126e37',
+        /* Chapter 5 */
+        'cbf6a766-037e-5b85-a5f7-838dbd754558': '8d7336d5-b858-5d42-b3a7-c6304672691d',
+        /* Chapter 6 */
+        '4d4acaf3-f7dd-5c07-aa8b-a7b7bc15b870': '4eb8ce77-2b38-5ead-8717-3633b78ce144',
+        /* Chapter 7 */
+        'c883d1fc-271d-5421-a8f8-782557ddc597': 'fd83dc17-7b5f-5d02-ac76-00d52167d1db',
+        /* Chapter 8 */
+        '7c4f00fc-2d48-521b-81ea-d7fcc4142652': '778ae338-3fd8-5953-b4e1-228781107bcb',
+        /* Chapter 9 */
+        '89cf6a48-0c48-5240-9966-40c0f305caee': '6d18e389-035b-56ee-8083-43b8fae34005',
+      /* Index to the same modules in College Alg */
+      '28e217e8-b083-5257-b198-66b03d7a5373': '153cbe29-6e8e-5d62-a568-2f64d9efb95c',
+    }],
   ],
   /* Psychology */ '4abf04bf-93a0-45c3-9cbc-2cefd46e68cc' : [
     /* Psychology 2e */ ['06aba565-9432-40f6-97ee-b8a361f118a8', {
