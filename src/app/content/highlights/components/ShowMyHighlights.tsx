@@ -12,6 +12,7 @@ import * as select from '../selectors';
 import Highlights from './Highlights';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
+import { HighlightToastNotifications } from './SummaryPopup/styles';
 
 interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
@@ -80,6 +81,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         data-testid='show-myhighlights-body'
         data-analytics-region='MH popup'
       >
+        <HighlightToastNotifications />
         <Filters />
         <Highlights />
         {this.state.showGoToTop && <GoToTopButton

@@ -4,7 +4,6 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import ToastNotifications from '../../../notifications/components/ToastNotifications';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -20,6 +19,7 @@ import PageNotFound from './PageNotFound';
 import RedoPadding from './RedoPadding';
 import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
 import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
+import ToastNotifications from './ToastNotifications';
 import { validateDOMContent } from './validateDOMContent';
 
 if (typeof(document) !== 'undefined') {
