@@ -1,7 +1,10 @@
 import {
   GetHighlightsSummarySetsEnum,
   GetHighlightsSummarySourceTypeEnum,
+  HighlightsSummary,
 } from '@openstax/highlighter/dist/api';
+import Sentry from '../../../../helpers/Sentry';
+import { addToast } from '../../../notifications/actions';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { extractTotalCounts } from '../../highlights/utils/paginationUtils';
@@ -19,11 +22,19 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   if (!isEnabled || !book || !page || hasCurrentStudyGuides) { return; }
 
-  const studyGuidesSummary = await services.highlightClient.getHighlightsSummary({
-    scopeId: book.id,
-    sets: [GetHighlightsSummarySetsEnum.Curatedopenstax],
-    sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
-  });
+  let studyGuidesSummary: HighlightsSummary | undefined;
+  try {
+    studyGuidesSummary = await services.highlightClient.getHighlightsSummary({
+      scopeId: book.id,
+      sets: [GetHighlightsSummarySetsEnum.Curatedopenstax],
+      sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
+    });
+  } catch (error) {
+    Sentry.captureException(error);
+    services.dispatch(addToast('i18n:notification:toast:study-guides:load-failure'));
+  }
+  if (!studyGuidesSummary) { return; }
+
   const countsPerSource = assertDefined(studyGuidesSummary.countsPerSource, 'summary response is invalid');
   const totalCounts = extractTotalCounts(countsPerSource);
 

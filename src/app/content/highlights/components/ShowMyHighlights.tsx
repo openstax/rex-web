@@ -6,13 +6,13 @@ import GoToTopButton from '../../../components/GoToTopButton';
 import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
 import { AppServices, AppState, Dispatch } from '../../../types';
+import ToastNotifications from '../../components/popUp/ToastNotifications';
 import { loadMoreDistanceFromBottom } from '../../constants';
 import { loadMoreSummaryHighlights } from '../actions';
 import * as select from '../selectors';
 import Highlights from './Highlights';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
-import { HighlightToastNotifications } from './SummaryPopup/styles';
 
 interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
@@ -81,7 +81,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         data-testid='show-myhighlights-body'
         data-analytics-region='MH popup'
       >
-        <HighlightToastNotifications />
+        <ToastNotifications />
         <Filters />
         <Highlights />
         {this.state.showGoToTop && <GoToTopButton
