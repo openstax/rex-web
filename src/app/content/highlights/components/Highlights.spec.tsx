@@ -280,7 +280,10 @@ describe('Highlights', () => {
     }, {
       locationFilterId: pageId,
       pageId,
-      preUpdateData: {id: hlBlue.id, highlight: {annotation: hlBlue.annotation, color: hlBlue.color as any}},
+      preUpdateData: {
+        highlight: {annotation: hlBlue.annotation, color: hlBlue.color as string as HighlightUpdateColorEnum},
+        id: hlBlue.id,
+      },
     }));
 
     renderer.act(() => {
@@ -345,7 +348,10 @@ describe('Highlights', () => {
     }, {
       locationFilterId: pageId,
       pageId,
-      preUpdateData: {id: hlBlue.id, highlight: {annotation: hlBlue.annotation, color: hlBlue.color as any}},
+      preUpdateData: {
+        highlight: {annotation: hlBlue.annotation, color: hlBlue.color as HighlightUpdateColorEnum},
+        id: hlBlue.id,
+      },
     }));
   });
 
