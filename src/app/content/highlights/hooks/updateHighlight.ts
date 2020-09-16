@@ -5,10 +5,12 @@ import { actionHook } from '../../../utils';
 import { updateHighlight } from '../actions';
 
 export const hookBody: ActionHookBody<typeof updateHighlight> =
-  ({highlightClient, dispatch}) => ({payload, meta}) => {
+  ({highlightClient, dispatch}) => async({payload, meta}) => {
     if (meta.revertingAfterFailure) { return; }
 
-    highlightClient.updateHighlight(payload).catch((error) => {
+    try {
+      await highlightClient.updateHighlight(payload);
+    } catch (error) {
       Sentry.captureException(error);
 
       const oldColor = meta.preUpdateData.highlight.color;
@@ -23,7 +25,8 @@ export const hookBody: ActionHookBody<typeof updateHighlight> =
       }
 
       dispatch(updateHighlight(meta.preUpdateData, {...meta, revertingAfterFailure: true}));
-    });
+
+    }
   };
 
 export default actionHook(updateHighlight, hookBody);

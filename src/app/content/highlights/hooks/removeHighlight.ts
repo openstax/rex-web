@@ -6,11 +6,13 @@ import { actionHook } from '../../../utils';
 import { createHighlight, deleteHighlight } from '../actions';
 
 export const hookBody: ActionHookBody<typeof deleteHighlight> =
-  ({highlightClient, dispatch}) => ({meta, payload}) => {
+  ({highlightClient, dispatch}) => async({meta, payload}) => {
     if (meta.revertingAfterFailure) { return; }
 
-    highlightClient.deleteHighlight({id: payload.id}).catch((err) => {
-      Sentry.captureException(err);
+    try {
+      await highlightClient.deleteHighlight({id: payload.id});
+    } catch (error) {
+      Sentry.captureException(error);
 
       dispatch(addToast('i18n:notification:toast:highlights:delete-failure'));
       dispatch(createHighlight({
@@ -18,7 +20,7 @@ export const hookBody: ActionHookBody<typeof deleteHighlight> =
         id: payload.id,
       },
       {...meta, revertingAfterFailure: true}));
-    });
+    }
   };
 
 export default actionHook(deleteHighlight, hookBody);
