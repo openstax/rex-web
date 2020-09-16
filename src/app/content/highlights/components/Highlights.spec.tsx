@@ -349,7 +349,7 @@ describe('Highlights', () => {
       locationFilterId: pageId,
       pageId,
       preUpdateData: {
-        highlight: {annotation: hlBlue.annotation, color: hlBlue.color as HighlightUpdateColorEnum},
+        highlight: {annotation: hlBlue.annotation, color: hlBlue.color as string as HighlightUpdateColorEnum},
         id: hlBlue.id,
       },
     }));
