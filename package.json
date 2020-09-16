@@ -140,7 +140,7 @@
     "less": "^3.9.0",
     "lighthouse": "^5.1.0",
     "md5-file": "^4.0.0",
-    "node-fetch": "^2.3.0",
+    "node-fetch": "^2.6.1",
     "pify": "^4.0.1",
     "portfinder": "^1.0.19",
     "prettier": "^1.16.4",
