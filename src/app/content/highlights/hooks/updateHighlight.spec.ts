@@ -1,4 +1,4 @@
-import { NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
+import { HighlightUpdateColorEnum, NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
@@ -44,10 +44,10 @@ describe('updateHighlight', () => {
       preUpdateData: {
         highlight: {
           annotation: highlight.annotation,
-          color: highlight.color as any,
+          color: highlight.color as string as HighlightUpdateColorEnum,
         },
         id: highlight.id,
-      }
+      },
     };
 
     store.dispatch(createHighlight(highlight, meta));
@@ -107,9 +107,9 @@ describe('updateHighlight', () => {
     expect(Sentry.captureException).toHaveBeenCalledWith(error);
 
     expect(dispatch).not.toHaveBeenCalledWith(updateHighlight(
-      expect.objectContaining({highlight}),
-      expect.objectContaining({revertingAfterFailure: true}))
-    );
+      meta.preUpdateData,
+      {...meta, revertingAfterFailure: true}
+    ));
 
     expect(toastNotifications(store.getState())).toEqual([]);
   });
@@ -119,6 +119,7 @@ describe('updateHighlight', () => {
 
     const updateHighlightClient = jest.spyOn(helpers.highlightClient, 'updateHighlight')
       .mockRejectedValue(error);
+
     const updatePayload = highlightUpdatePayload(highlight.id, {color: 'red', annotation: 'new'});
 
     hook(updateHighlight(updatePayload, meta));
@@ -127,10 +128,7 @@ describe('updateHighlight', () => {
     expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
     expect(Sentry.captureException).toHaveBeenCalledWith(error);
 
-    expect(dispatch).toHaveBeenCalledWith(updateHighlight(
-      expect.objectContaining({highlight}),
-      expect.objectContaining({revertingAfterFailure: true}))
-    );
+    expect(dispatch).toHaveBeenCalledWith(updateHighlight(meta.preUpdateData, {...meta, revertingAfterFailure: true}));
   });
 
   it('shows appropriate toast after failure', async() => {

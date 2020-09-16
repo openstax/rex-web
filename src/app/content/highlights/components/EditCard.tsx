@@ -25,7 +25,7 @@ import Note from './Note';
 import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
 
 const generateUpdatePayload =
-  (oldData: HighlightData, update: {color?: HighlightColorEnum, annotation?: string, id: string }) => {
+  (oldData: HighlightData, update: {color: HighlightColorEnum, annotation?: string, id: string }) => {
     const oldColor = oldData.color as string as HighlightUpdateColorEnum;
     const newColor = update.color as string as HighlightUpdateColorEnum;
 
@@ -45,7 +45,7 @@ const generateUpdatePayload =
       id: update.id,
     };
 
-    return {updatePayload, preUpdateData}
+    return {updatePayload, preUpdateData};
   };
 
 export interface EditCardProps {

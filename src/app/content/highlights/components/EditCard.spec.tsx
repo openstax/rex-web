@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -278,7 +279,7 @@ describe('EditCard', () => {
       preUpdateData: {
         highlight: {
           annotation: highlightData.annotation,
-          color: highlightData.style as any,
+          color: highlightData.style as HighlightUpdateColorEnum,
         },
         id: highlightData.id,
       },
@@ -368,8 +369,8 @@ describe('EditCard', () => {
       pageId: 'pageId',
       preUpdateData: {
         highlight: {
-          annotation: highlightData.annotation,
-          color: highlightData.style as any,
+          annotation: data.annotation,
+          color: data.style as HighlightUpdateColorEnum,
         },
         id: highlightData.id,
       },
@@ -508,7 +509,7 @@ describe('EditCard', () => {
       preUpdateData: {
         highlight: {
           annotation: highlightData.annotation,
-          color: highlightData.style as any,
+          color: highlightData.style as HighlightUpdateColorEnum,
         },
         id: highlightData.id,
       },
