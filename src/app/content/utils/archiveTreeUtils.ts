@@ -137,11 +137,11 @@ export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)
   && !!section.parent
   && archiveTreeSectionIsBook(section.parent)
-  && section.contents.every((node) => (node as LinkedArchiveTree).contents !== undefined)
+  && section.contents.every(isArchiveTree)
 ;
 export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
   isLinkedArchiveTree(section)
   && !archiveTreeSectionIsBook(section)
   && getArchiveTreeSectionNumber(section) !== null
-  && section.contents.some((node) => (node as LinkedArchiveTree).contents === undefined)
+  && section.contents.some((node) => !isArchiveTree(node))
 ;
