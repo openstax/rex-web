@@ -41,6 +41,10 @@ describe('ToastNotifications', () => {
   });
 
   it('matches snapshot for few notifications', () => {
+    jest.spyOn(Date, 'now')
+      .mockReturnValueOnce(1)
+      .mockReturnValueOnce(2);
+
     store.dispatch(addToast('i18n:notification:toast:highlights:create-failure'));
     store.dispatch(addToast('i18n:notification:toast:highlights:delete-failure'));
 
