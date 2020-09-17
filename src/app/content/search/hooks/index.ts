@@ -54,6 +54,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     findArchiveTreeNodeById(book.tree, targetPageId),
     'search result pointed to page that wasn\'t in book'
   );
+  // currentPage may by undefined when user started a search from the 404 page
   const page = currentPage || targetPage;
 
   const savedQuery = savedSearch ? savedSearch.query : null;
