@@ -284,6 +284,10 @@ class Library(object):
         },
         "physics": {"default_page": "1-introduction", "search_term": "linear relationship"},
         "statistics": {"default_page": "1-introduction", "search_term": "memoryless property"},
+        "college-algebra-corequisite-support": {
+            "default_page": "1-introduction-to-prerequisites",
+            "search_term": "commutative property of addition",
+        },
     }
 
     def random_book_slug(self):
