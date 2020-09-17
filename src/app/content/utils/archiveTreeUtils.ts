@@ -131,11 +131,11 @@ export const prevNextBookPage = (
   };
 };
 
-export const archiveTreeSectionIsBook = (section: LinkedArchiveTreeNode | undefined) => section && !section.parent;
+export const archiveTreeSectionIsBook = (
+  section: LinkedArchiveTreeNode | undefined) => Boolean(section && !section.parent);
 export const archiveTreeSectionIsPage = isLinkedArchiveTreeSection;
 export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)
-  && !!section.parent
   && archiveTreeSectionIsBook(section.parent)
   && section.contents.every(isArchiveTree)
 ;
