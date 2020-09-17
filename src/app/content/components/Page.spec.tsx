@@ -23,7 +23,6 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
-import { createHighlight } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
@@ -31,7 +30,6 @@ import * as searchUtils from '../search/utils';
 import * as select from '../selectors';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
-import * as highlightUtils from './Page/highlightUtils';
 import PageNotFound from './Page/PageNotFound';
 import allImagesLoaded from './utils/allImagesLoaded';
 
@@ -896,6 +894,58 @@ describe('Page', () => {
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
+  it('renders error modal for different search results', async() => {
+    const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit1 = makeSearchResultHit({book, page});
+    const hit2 = makeSearchResultHit({book, page});
+
+    highlightResults.mockReturnValue([]);
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+      store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
+
+    if (!errorModalCloseButton) {
+      return expect(errorModalCloseButton).toBeTruthy();
+    }
+
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(errorModalCloseButton);
+    });
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
+
+    renderer.act(() => {
+      store.dispatch(selectSearchResult({result: hit2, highlight: 0}));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(errorModalCloseButton);
+    });
+
+    highlightResults.mockRestore();
+  });
+
   it('doesn\'t render error modal for the same result twice', async() => {
     const {root} = renderDomWithReferences();
 
@@ -931,17 +981,7 @@ describe('Page', () => {
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
 
-    // normally, search result selection handler would noop if the
-    // search result is the same. This makes it think that a new highlight was
-    // added and will force reselection
-
-    const highlightData = jest.spyOn(highlightUtils, 'highlightData').mockReturnValueOnce(() => ({} as any));
     renderer.act(() => {
-      store.dispatch(createHighlight({
-        anchor: 'anchor',
-        highlightedContent: 'highlight',
-        locationStrategies: [{type: 'XpathRangeSelector'}],
-      } as any, {} as any));
       store.dispatch(selectSearchResult(searchResultToSelect));
     });
 
@@ -951,7 +991,6 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
-    highlightData.mockRestore();
     highlightResults.mockRestore();
   });
 
