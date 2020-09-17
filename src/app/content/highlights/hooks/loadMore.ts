@@ -48,7 +48,7 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
       services.dispatch(receiveSummaryHighlights(formattedHighlights, {pagination, filters}));
     } catch (error) {
       Sentry.captureException(error);
-      services.dispatch(addToast('i18n:notification:toast:highlights:load-failure'));
+      services.dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:load-failure'}));
       services.dispatch(toggleSummaryHighlightsLoading(false));
     }
   };

@@ -50,7 +50,7 @@ export const hookBody: ActionHookBody<
       services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
     } catch (error) {
       Sentry.captureException(error);
-      services.dispatch(addToast('i18n:notification:toast:study-guides:load-failure'));
+      services.dispatch(addToast({messageKey: 'i18n:notification:toast:study-guides:load-failure'}));
       services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));
     }
   };

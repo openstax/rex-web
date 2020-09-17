@@ -41,8 +41,8 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
   } catch (error) {
     Sentry.captureException(error);
 
-    if (!pageFocusIn) {
-      dispatch(addToast('i18n:notification:toast:highlights:load-failure'));
+    if (action && action.type !== getType(receivePageFocus)) {
+      dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:load-failure', shouldAutoDismiss: false}));
     }
   }
 };

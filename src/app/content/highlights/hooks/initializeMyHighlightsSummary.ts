@@ -32,7 +32,7 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
     });
   } catch (error) {
     Sentry.captureException(error);
-    dispatch(addToast('i18n:notification:toast:highlights:load-failure'));
+    dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:load-failure'}));
     dispatch(toggleSummaryHighlightsLoading(false));
   }
 
