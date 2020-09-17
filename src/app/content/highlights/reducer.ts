@@ -76,7 +76,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.currentPage,
           hasUnsavedHighlight: false,
           highlights: [...state.currentPage.highlights || [], highlight],
-          revertableHighlight: highlight,
         },
         summary: {
           ...state.summary,
@@ -128,7 +127,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.currentPage,
           hasUnsavedHighlight,
           highlights: newHighlights,
-          revertableHighlight: oldHighlight,
         },
         summary: {
           ...state.summary,
@@ -163,7 +161,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           focused: state.currentPage.focused === action.payload.id ? undefined : state.currentPage.focused,
           hasUnsavedHighlight: false,
           highlights: state.currentPage.highlights.filter(({id}) => id !== action.payload.id),
-          revertableHighlight: highlightToRemove,
         },
         summary: {
           ...state.summary,

@@ -25,7 +25,6 @@ export const hookBody: ActionHookBody<typeof updateHighlight> =
       }
 
       dispatch(updateHighlight(meta.preUpdateData, {...meta, revertingAfterFailure: true}));
-
     }
   };
 
