@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components/macro';
 import GoToTopButton from '../../../components/GoToTopButton';
 import theme from '../../../theme';
 import FiltersList from '../../components/popUp/FiltersList';
-import ToastNotifications from '../../components/popUp/ToastNotifications'
 import { loadMoreDistanceFromBottom } from '../../constants';
 import { PopupBody } from '../../styles/PopupStyles';
 import { loadMoreStudyGuides } from '../actions';
@@ -77,7 +76,6 @@ const ShowStudyGuides = () => {
       data-testid='show-studyguides-body'
       data-analytics-region='SG popup'
     >
-      <ToastNotifications />
       <StudyGuidesCTA />
       <Filters />
       <StudyGuides />

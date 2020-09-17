@@ -1,8 +1,6 @@
 import {
   GetHighlightsColorsEnum, GetHighlightsSetsEnum,
 } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
-import { addToast } from '../../../notifications/actions';
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
@@ -45,14 +43,8 @@ export const hookBody: ActionHookBody<
 > =
   (services) => async() => {
     const filters = select.summaryFilters(services.getState());
-    try {
-      const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
-      services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
-    } catch (error) {
-      Sentry.captureException(error);
-      services.dispatch(addToast({messageKey: 'i18n:notification:toast:study-guides:load-failure'}));
-      services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));
-    }
+    const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
+    services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
   };
 
 export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);

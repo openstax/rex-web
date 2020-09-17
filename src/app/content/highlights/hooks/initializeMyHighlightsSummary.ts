@@ -1,16 +1,9 @@
-import { GetHighlightsSummarySourceTypeEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
-import { addToast } from '../../../notifications/actions';
+import { GetHighlightsSummarySourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { ActionHookBody } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import * as selectContent from '../../selectors';
-import {
-  initializeMyHighlightsSummary,
-  receiveHighlightsTotalCounts,
-  receiveSummaryHighlights,
-  toggleSummaryHighlightsLoading,
-} from '../actions';
+import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts, receiveSummaryHighlights } from '../actions';
 import { highlightLocationFilters } from '../selectors';
 import { extractTotalCounts } from '../utils/paginationUtils';
 import { loadMore } from './loadMore';
@@ -23,20 +16,10 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   const book = assertDefined(selectContent.book(state), 'book should be defined');
   const locationFilters = highlightLocationFilters(state);
 
-  let totalCounts: HighlightsSummary | undefined;
-
-  try {
-    totalCounts = await highlightClient.getHighlightsSummary({
-      scopeId: book.id,
-      sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
-    });
-  } catch (error) {
-    Sentry.captureException(error);
-    dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:load-failure'}));
-    dispatch(toggleSummaryHighlightsLoading(false));
-  }
-
-  if (!totalCounts) { return; }
+  const totalCounts = await highlightClient.getHighlightsSummary({
+    scopeId: book.id,
+    sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
+  });
 
   const countsPerSource = assertDefined(totalCounts.countsPerSource, 'summary response is invalid');
 
