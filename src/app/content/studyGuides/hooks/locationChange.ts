@@ -1,7 +1,10 @@
 import {
   GetHighlightsSummarySetsEnum,
   GetHighlightsSummarySourceTypeEnum,
+  HighlightsSummary,
 } from '@openstax/highlighter/dist/api';
+import Sentry from '../../../../helpers/Sentry';
+import { addToast } from '../../../notifications/actions';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { extractTotalCounts } from '../../highlights/utils/paginationUtils';

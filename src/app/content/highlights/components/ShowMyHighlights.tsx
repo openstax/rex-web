@@ -12,7 +12,6 @@ import * as select from '../selectors';
 import Highlights from './Highlights';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
-import { HighlightToastNotifications } from './SummaryPopup/styles';
 
 interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
@@ -81,10 +80,6 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         data-testid='show-myhighlights-body'
         data-analytics-region='MH popup'
       >
-<<<<<<< HEAD
-=======
-        <HighlightToastNotifications />
->>>>>>> parent of b546b582... showing errors in sg and mh
         <Filters />
         <Highlights />
         {this.state.showGoToTop && <GoToTopButton

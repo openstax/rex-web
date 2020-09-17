@@ -4,12 +4,15 @@ import { book, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { receiveFeatureFlags } from '../../../actions';
+import { addToast } from '../../../notifications/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { CountsPerSource } from '../../highlights/types';
 import { formatBookData } from '../../utils';
 import { receiveStudyGuidesTotalCounts } from '../actions';
+
+jest.doMock('../../../../helpers/Sentry');
 
 describe('locationChange', () => {
   let store: Store;
@@ -101,5 +104,30 @@ describe('locationChange', () => {
     expect(dispatch).not.toHaveBeenCalledWith(
       receiveStudyGuidesTotalCounts(mockSummaryResponse.countsPerSource)
     );
+  });
+
+  describe('error handling', () => {
+    it('shows a toast on fetch failure', async() => {
+      jest.spyOn(Date, 'now')
+        .mockReturnValue(1);
+
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({...shortPage, references: []}));
+      store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+
+      jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+        .mockRejectedValueOnce({});
+
+      dispatch.mockClear();
+
+      jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+        .mockRejectedValueOnce({});
+
+      await hook();
+
+      expect(dispatch).toHaveBeenCalledWith(
+        addToast({messageKey: 'i18n:notification:toast:study-guides:load-failure', shouldAutoDismiss: false})
+      );
+    });
   });
 });
