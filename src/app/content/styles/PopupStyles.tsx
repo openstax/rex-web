@@ -56,8 +56,6 @@ export const Header = styled(H3)`
   align-items: center;
   height: ${headerHeight}rem;
   overflow: hidden;
-  position:relative;
-  z-index: 5;
   ${theme.breakpoints.mobile(css`
     padding: ${mobilePaddingSides}rem;
   `)}

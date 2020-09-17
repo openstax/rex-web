@@ -6,7 +6,7 @@ import { disablePrint } from '../../../content/components/utils/disablePrint';
 import theme from '../../../theme';
 import { inlineDisplayBreak } from '../../theme';
 import { Header } from '../Card';
-import { fadeOutDuration } from './constants';
+import { desktopSearchFailureTop, fadeOutDuration, getMobileSearchFailureTop } from './constants';
 import { ToastProps } from './Toast';
 
 const bannerBackground = '#F8E8EB';
@@ -23,6 +23,19 @@ const fadeOut = keyframes`
   to {
     opacity: 0;
   }
+`;
+
+// tslint:disable-next-line:variable-name
+export const ToastContainerWrapper = styled.div`
+  width: 100%;
+  position: sticky;
+  overflow: visible;
+  z-index: ${theme.zIndex.contentNotifications - 1};
+  top: ${desktopSearchFailureTop}rem;
+  ${theme.breakpoints.mobile(css`
+    z-index: ${theme.zIndex.contentNotifications + 1};
+    top: ${getMobileSearchFailureTop}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name

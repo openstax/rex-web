@@ -81,7 +81,6 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         data-testid='show-myhighlights-body'
         data-analytics-region='MH popup'
       >
-        <ToastNotifications />
         <Filters />
         <Highlights />
         {this.state.showGoToTop && <GoToTopButton
