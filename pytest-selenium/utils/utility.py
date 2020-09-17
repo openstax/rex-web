@@ -272,6 +272,18 @@ class Library(object):
             "search_term": "positive externality",
         },
         "prealgebra-2e": {"default_page": "1-introduction", "search_term": "Whole Numbers"},
+        "psychology-2e": {"default_page": "1-introduction", "search_term": "event schema"},
+        "college-success": {"default_page": "1-introduction", "search_term": "Shira’s career path"},
+        "elementary-algebra-2e": {
+            "default_page": "1-introduction",
+            "search_term": "common denominator",
+        },
+        "intermediate-algebra-2e": {
+            "default_page": "1-introduction",
+            "search_term": "quadratic equations and functions",
+        },
+        "physics": {"default_page": "1-introduction", "search_term": "linear relationship"},
+        "statistics": {"default_page": "1-introduction", "search_term": "memoryless property"},
     }
 
     def random_book_slug(self):
