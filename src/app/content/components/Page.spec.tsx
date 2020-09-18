@@ -80,7 +80,6 @@ describe('Page', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
-
     dispatch = jest.spyOn(store, 'dispatch');
     archiveLoader = testServices.archiveLoader;
   });
