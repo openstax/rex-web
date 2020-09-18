@@ -1,4 +1,5 @@
 import { setHead } from '../../head/actions';
+import { pathname } from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { receivePage } from '../actions';
@@ -47,6 +48,8 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
+  const currentPath = pathname(state);
+
   dispatch(setHead({
     links: canonicalUrl ? [
       {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`},
@@ -55,7 +58,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
       {name: 'description', content: description},
       {property: 'og:description', content: description},
       {property: 'og:title', content: title},
-      {property: 'og:url', content: `https://openstax.org${canonicalUrl}`},
+      {property: 'og:url', content: `https://openstax.org${currentPath}`},
       {name: 'theme-color', content: bookTheme},
     ],
     title,
