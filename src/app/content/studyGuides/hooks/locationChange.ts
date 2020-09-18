@@ -24,7 +24,6 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
     sets: [GetHighlightsSummarySetsEnum.Curatedopenstax],
     sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
   });
-
   const countsPerSource = assertDefined(studyGuidesSummary.countsPerSource, 'summary response is invalid');
   const totalCounts = extractTotalCounts(countsPerSource);
 
