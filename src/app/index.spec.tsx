@@ -46,16 +46,8 @@ describe('create app', () => {
   });
 
   describe('inside the browser', () => {
-    const windowBackup = window;
     jest.unmock('../helpers/Sentry');
-
-    beforeEach(() => {
-      (global as any).window = windowBackup;
-    });
-
-    afterEach(() => {
-      delete (global as any).window;
-    });
+    (global as any).window = window;
 
     it('adds sentry middleware when enabled', () => {
       jest.mock('../config', () => ({
