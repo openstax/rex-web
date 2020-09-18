@@ -45,6 +45,32 @@ describe('create app', () => {
     expect(app.history.location.state).toEqual('asdf');
   });
 
+  describe('inside the browser', () => {
+    const windowBackup = window;
+    jest.unmock('../helpers/Sentry');
+
+    beforeEach(() => {
+      (global as any).window = windowBackup;
+    });
+
+    afterEach(() => {
+      delete (global as any).window;
+    });
+
+    it('adds sentry middleware when enabled', () => {
+      jest.mock('../config', () => ({
+        DEPLOYED_ENV: 'test',
+        RELEASE_ID: '1234',
+        SENTRY_ENABLED: true,
+      }));
+
+      const initializeWithMiddleware = jest.spyOn(require('../helpers/Sentry').default, 'initializeWithMiddleware');
+      createApp = require('./index').default;
+      createApp({services});
+      expect(initializeWithMiddleware).toHaveBeenCalled();
+    });
+  });
+
   describe('outside the browser', () => {
     const windowBackup = window;
 
