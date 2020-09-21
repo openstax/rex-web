@@ -18,6 +18,7 @@ XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'highlight'
 
 @markers.test_case("C602210")
 @markers.desktop_only
+@markers.smoke_test
 @markers.parametrize("book_slug,page_slug", [("microbiology", "4-introduction")])
 def test_modal_for_unsaved_notes_appears_on_clicking_another_highlight(
     selenium, base_url, book_slug, page_slug
