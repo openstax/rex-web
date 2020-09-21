@@ -6,6 +6,7 @@ import pathToRegexp, { Key, parse } from 'path-to-regexp';
 import queryString, { OutputParams } from 'query-string';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
+import { notFound } from '../errors/routes';
 import { isPlainObject } from '../guards';
 import { pathTokenIsKey } from '../navigation/guards';
 import { actionHook } from '../utils';
@@ -74,6 +75,10 @@ export const matchUrl = (action: AnyMatch) => hasParams(action)
 
 export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, location: Location, action: Action) => {
   const match = findRouteMatch(routes, location);
+  if (match && match.route.name === notFound.name) {
+    notFound.redirect();
+    return;
+  }
   dispatch(actions.locationChange({location, match, action}));
 });
 

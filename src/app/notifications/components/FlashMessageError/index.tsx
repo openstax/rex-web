@@ -15,7 +15,10 @@ interface Props {
   messageKey: string;
   dismiss: () => void;
   mobileToolbarOpen: boolean;
-  uniqueId: null | string;
+}
+
+export interface ModalRef {
+  resetError: () => void;
 }
 
 const initialState = {
@@ -33,7 +36,7 @@ export const syncState = (prevState: typeof initialState) => {
 // then it will refresh the error
 
 // tslint:disable-next-line:variable-name
-const FlashMessageError = ({ messageKey, dismiss, mobileToolbarOpen, uniqueId }: Props) => {
+const FlashMessageError = React.forwardRef<ModalRef, Props>(({ messageKey, dismiss, mobileToolbarOpen }, ref) => {
   const window = assertWindow();
   const [fadeOutState, setFadeOutState] = React.useState(initialState);
 
@@ -52,12 +55,13 @@ const FlashMessageError = ({ messageKey, dismiss, mobileToolbarOpen, uniqueId }:
   );
   const resetErrorClearing = useTimeout(clearErrorAfter, startFadeOut);
 
-  React.useLayoutEffect(() => {
-    resetErrorClearing();
-    resetAutoDismiss();
-    setFadeOutState(initialState);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uniqueId]);
+  React.useImperativeHandle(ref, () => ({
+    resetError: () => {
+      resetErrorClearing();
+      resetAutoDismiss();
+      setFadeOutState(initialState);
+    },
+  }), [resetAutoDismiss, resetErrorClearing]);
 
   return (
     <BannerBodyWrapper
@@ -76,6 +80,6 @@ const FlashMessageError = ({ messageKey, dismiss, mobileToolbarOpen, uniqueId }:
       </BannerBody>
     </BannerBodyWrapper>
   );
-};
+});
 
 export default FlashMessageError;

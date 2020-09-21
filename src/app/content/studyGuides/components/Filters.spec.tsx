@@ -1,4 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import * as Cookies from 'js-cookie';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -16,6 +17,9 @@ import FiltersList from '../../components/popUp/FiltersList';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { printStudyGuides, receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides } from '../actions';
 import Filters from './Filters';
+import { cookieUTG } from './UsingThisGuide/constants';
+import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
+import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
 jest.mock('../../components/popUp/ChapterFilter', () => (props: any) => <div mock-chapter-filter {...props} />);
 
@@ -36,7 +40,7 @@ describe('Filters', () => {
     dispatch = jest.spyOn(store, 'dispatch');
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot with UTG banner open (opened initially)', () => {
     const pageId = stripIdVersion(book.tree.contents[0].id);
     store.dispatch(receiveStudyGuidesTotalCounts({
       [pageId]: {
@@ -108,9 +112,11 @@ describe('Filters', () => {
     }));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Filters />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Filters />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     expect(() => component.root.findByType(FiltersList)).not.toThrow();
@@ -127,9 +133,11 @@ describe('Filters', () => {
     }));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Filters />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Filters />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     expect(() => component.root.findByType(FiltersList)).toThrow();
@@ -173,6 +181,106 @@ describe('Filters', () => {
       });
 
       expect(dispatch).toHaveBeenCalledWith(printStudyGuides());
+    });
+  });
+
+  describe('Using This Guide Button', () => {
+    it('renders button and banner when button is clicked and closes correctly', () => {
+      // If cookie is set then banner will be closed initially
+      Cookies.set(cookieUTG, 'true');
+
+      const component = renderer.create(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Filters />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>);
+
+      const uTGbutton = component.root.findByType(UsingThisGuideButton);
+
+      renderer.act(() => {
+        uTGbutton.props.onClick();
+      });
+
+      expect(component.root.findByType(UsingThisGuideBanner).props.show).toBe(true);
+
+      const uTGcloseButton = component.root.findByProps({ 'data-testid': 'close-utg' });
+
+      renderer.act(() => {
+        uTGcloseButton.props.onClick();
+      });
+
+      expect(component.root.findByType(UsingThisGuideBanner).props.show).toBe(false);
+    });
+
+    it('does not send ga event if it was opened initialy but set cookie', () => {
+      // If cookie is not set then banner will be opened initially
+      Cookies.remove(cookieUTG);
+
+      const spyTrack = jest.spyOn(services.analytics.openUTG, 'track');
+
+      const component = renderer.create(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Filters />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>);
+
+      // wait for hooks
+      // tslint:disable-next-line: no-empty
+      renderer.act(() => {});
+
+      const banner = component.root.findByType(UsingThisGuideBanner);
+      expect(banner.props.show).toEqual(true);
+      expect(Cookies.get(cookieUTG)).toBe('true');
+      expect(spyTrack).not.toHaveBeenCalled();
+    });
+
+    it('send ga event when opened', () => {
+      const spyTrack = jest.spyOn(services.analytics.openUTG, 'track');
+      // If cookie is set then banner will be closed initially
+      Cookies.set(cookieUTG, 'true');
+
+      const component = renderer.create(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Filters />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>);
+
+      const banner = component.root.findByType(UsingThisGuideBanner);
+      expect(banner.props.show).toEqual(false);
+      expect(Cookies.get(cookieUTG)).toEqual('true');
+      expect(spyTrack).not.toHaveBeenCalled();
+
+      const toggleButton = component.root.findByType(UsingThisGuideButton);
+
+      // open banner
+      renderer.act(() => {
+        toggleButton.props.onClick();
+      });
+
+      expect(banner.props.show).toEqual(true);
+      expect(spyTrack).toHaveBeenCalledTimes(1);
+
+      // close banner
+      renderer.act(() => {
+        toggleButton.props.onClick();
+      });
+
+      expect(banner.props.show).toEqual(false);
+      expect(spyTrack).toHaveBeenCalledTimes(1); // do not send ga event on close
+
+      // open banner again
+      renderer.act(() => {
+        toggleButton.props.onClick();
+      });
+
+      expect(banner.props.show).toEqual(true);
+      expect(spyTrack).toHaveBeenCalledTimes(2); // send ga event every time when opening
     });
   });
 });

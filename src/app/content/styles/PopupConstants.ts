@@ -6,6 +6,7 @@ export const mobilePaddingSides = 1.6;
 export const mobilePaddingTopBottom = 1.4;
 export const mobileMarginSides = 0.8;
 export const mobileMarginTopBottom = 2;
+export const barHeight = 6;
 
 export const filters = {
   border: 0.1,
@@ -23,11 +24,11 @@ export const filters = {
     },
     sides: {
       desktop: 2.4,
-      mobile: 2,
+      mobile: 1.6,
     },
     topBottom: {
       desktop: 2,
-      mobile: 1.6,
+      mobile: 1,
     },
   },
   get valueToSubstractFromVH() {

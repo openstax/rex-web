@@ -4,7 +4,7 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import FlashMessageError from '../../../notifications/components/FlashMessageError';
+import FlashMessageError, { ModalRef } from '../../../notifications/components/FlashMessageError';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -16,6 +16,7 @@ import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
+import PageNotFound from './PageNotFound';
 import RedoPadding from './RedoPadding';
 import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scrollToTopOrHashManager';
 import searchHighlightManager, { stubManager } from './searchHighlightManager';
@@ -42,6 +43,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     flashMessageErrorKey: null,
     flashMessageErrorType: null,
   };
+  public errorModalRef = React.createRef<ModalRef>();
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -113,7 +115,18 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public setError = (type: 'highlight' | 'search', messageKey: string) => (id: string) => {
+    // This implementation is messy but it doesn't really matter because it will be changed
+    // when https://github.com/openstax/rex-web/pull/822 is merged
     if (this.state.flashMessageErrorId === id) { return; }
+    if (
+      this.state.flashMessageError
+      && this.state.flashMessageErrorType === type
+      && this.errorModalRef.current
+    ) {
+      this.setState({ flashMessageErrorId: id });
+      this.errorModalRef.current.resetError();
+      return;
+    }
     this.setState({
       flashMessageError: true,
       flashMessageErrorId: id,
@@ -142,20 +155,24 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public render() {
-    const { flashMessageError, flashMessageErrorKey, flashMessageErrorId, flashMessageErrorType } = this.state;
+    const { flashMessageError, flashMessageErrorKey, flashMessageErrorType } = this.state;
 
     return <MinPageHeight>
       <this.highlightManager.CardList />
       {flashMessageError && flashMessageErrorType && flashMessageErrorKey
         ? <FlashMessageError
+            ref={this.errorModalRef}
             dismiss={this.clearError(flashMessageErrorType)}
             messageKey={flashMessageErrorKey}
-            uniqueId={flashMessageErrorId}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
           />
         : null}
       <RedoPadding>
-        {this.props.page ? this.renderContent() : this.renderLoading()}
+        {this.props.pageNotFound
+          ? this.renderPageNotFound()
+          : this.props.page
+            ? this.renderContent()
+            : this.renderLoading()}
       </RedoPadding>
     </MinPageHeight>;
   }
@@ -179,6 +196,13 @@ export default class PageComponent extends Component<PagePropTypes> {
     ref={this.container}
   >
     <Loader large delay={1500} />
+  </PageContent>;
+
+  private renderPageNotFound = () => <PageContent
+    key='main-content'
+    ref={this.container}
+  >
+    <PageNotFound />
   </PageContent>;
 
   private getPrerenderedContent() {

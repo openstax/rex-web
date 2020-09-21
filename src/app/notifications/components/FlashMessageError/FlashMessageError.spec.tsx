@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
-import FlashMessageError, { syncState } from '.';
+import FlashMessageError, { ModalRef, syncState } from '.';
 import { renderToDom } from '../../../../test/reactutils';
 import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
@@ -12,8 +12,6 @@ jest.mock('react', () => {
   const react = (jest as any).requireActual('react');
   return { ...react, useEffect: react.useLayoutEffect };
 });
-
-const uniqueId = 'id';
 
 describe('FlashMessageError', () => {
   let window: Window;
@@ -39,7 +37,6 @@ describe('FlashMessageError', () => {
         messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={false}
-        uniqueId={uniqueId}
       />
     </MessageProvider>);
 
@@ -58,7 +55,6 @@ describe('FlashMessageError', () => {
         messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={true}
-        uniqueId={uniqueId}
       />
     </MessageProvider>);
 
@@ -77,7 +73,6 @@ describe('FlashMessageError', () => {
         messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={false}
-        uniqueId={uniqueId}
       />
     </MessageProvider>);
 
@@ -111,7 +106,6 @@ describe('FlashMessageError', () => {
         messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={false}
-        uniqueId={uniqueId}
       />
     </MessageProvider>);
     const wrapper = root.querySelector('[data-testid=banner-body]');
@@ -131,7 +125,6 @@ describe('FlashMessageError', () => {
         messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={false}
-        uniqueId={uniqueId}
       />
     </MessageProvider>);
 
@@ -153,12 +146,14 @@ describe('FlashMessageError', () => {
   });
 
   it('resets when selected highlight changes', () => {
+    const ref = React.createRef<ModalRef>();
+
     const component = renderer.create(<MessageProvider>
       <FlashMessageError
+        ref={ref}
         messageKey='i18n:notification:search-failure'
         dismiss={dismiss}
         mobileToolbarOpen={false}
-        uniqueId={uniqueId}
       />
     </MessageProvider>);
 
@@ -176,15 +171,13 @@ describe('FlashMessageError', () => {
 
     expect(bannerBody.props.isFadingOut).toBe(true);
 
+    const {current} = ref;
+    if (!current) {
+      return expect(current).toBeTruthy();
+    }
+
     renderer.act(() => {
-      component.update(<MessageProvider>
-        <FlashMessageError
-          messageKey='i18n:notification:search-failure'
-          dismiss={dismiss}
-          mobileToolbarOpen={false}
-          uniqueId='different-id'
-        />
-      </MessageProvider>);
+      current.resetError();
     });
 
     expect(bannerBody.props.isFadingOut).toBe(false);
