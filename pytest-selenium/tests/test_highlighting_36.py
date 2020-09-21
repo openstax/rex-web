@@ -994,6 +994,7 @@ def test_clicking_outside_edit_box_doesnt_close_when_note_not_saved(
 
 
 @markers.test_case("C591698")
+@markers.skip_test(reason="mobile requirements changed - changing screen resolution does not help")
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -1130,7 +1131,7 @@ def test_read_only_display_card_closes_when_clicking_content_in_mobile(
 
 
 @markers.test_case("C591700")
-@markers.smoke_test
+@markers.skip_test(reason="mobile requirements changed - changing screen resolution does not help")
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
