@@ -8,7 +8,7 @@ import * as select from '../../selectors';
 import { State } from '../../types';
 import { ContentLinkProp, mapDispatchToContentLinkProp, mapStateToContentLinkProp } from './contentLinkHandler';
 import { HighlightProp, mapDispatchToHighlightProp, mapStateToHighlightProp } from './highlightManager';
-import { mapStateToScrollTargetProp } from './scrollTargetManager';
+import { mapStateToScrollToTopOrHashProp } from './scrollToTopOrHashManager';
 import { mapStateToSearchHighlightProp } from './searchHighlightManager';
 
 export interface PagePropTypes {
@@ -21,7 +21,7 @@ export interface PagePropTypes {
   contentLinks: ContentLinkProp;
   locationState: ReturnType<typeof selectNavigation.locationState>;
   query: string | null;
-  scrollTarget: ReturnType<typeof mapStateToScrollTargetProp>;
+  scrollToTopOrHash: ReturnType<typeof mapStateToScrollToTopOrHashProp>;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   highlights: HighlightProp;
   services: AppServices;
@@ -36,7 +36,7 @@ export default connect(
     mobileToolbarOpen: mobileToolbarOpen(state),
     page: select.page(state),
     query: query(state),
-    scrollTarget: mapStateToScrollTargetProp(state),
+    scrollToTopOrHash: mapStateToScrollToTopOrHashProp(state),
     searchHighlights: mapStateToSearchHighlightProp(state),
   }),
   (dispatch) => ({

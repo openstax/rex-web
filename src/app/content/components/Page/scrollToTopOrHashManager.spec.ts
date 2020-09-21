@@ -2,7 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import { page } from '../../../../test/mocks/archiveLoader';
 import { scrollTo } from '../../../domUtils';
 import { assertWindow } from '../../../utils';
-import scrollTargetManager from './scrollTargetManager';
+import scrollToTopOrHashManager from './scrollToTopOrHashManager';
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
 jest.mock('../../../domUtils', () => ({
@@ -15,15 +15,15 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 
-describe('scrollTargetManager', () => {
+describe('scrollToTopOrHashManager', () => {
   let window: Window;
   let element: HTMLElement;
-  let manager: ReturnType<typeof scrollTargetManager>;
+  let manager: ReturnType<typeof scrollToTopOrHashManager>;
 
   beforeEach(() => {
     window = assertWindow();
     element = window.document.createElement('div');
-    manager = scrollTargetManager(element);
+    manager = scrollToTopOrHashManager(element);
   });
 
   it('scrolls to hash when it changes', async() => {

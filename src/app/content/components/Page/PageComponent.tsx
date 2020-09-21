@@ -17,7 +17,7 @@ import highlightManager, { stubHighlightManager } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
 import RedoPadding from './RedoPadding';
-import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
+import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scrollToTopOrHashManager';
 import searchHighlightManager, { stubManager } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
 
@@ -45,7 +45,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
-  private scrollTargetManager = stubScrollTargetManager;
+  private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Promise<void> = Promise.resolve();
 
   public getTransformedContent = () => {
@@ -78,7 +78,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current);
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights);
-    this.scrollTargetManager = scrollTargetManager(this.container.current);
+    this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes, prevState: PageState) {
@@ -88,7 +88,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     // be relevant if there are rapid page navigations.
     await this.processing;
 
-    this.scrollTargetManager(prevProps.scrollTarget, this.props.scrollTarget);
+    this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
     if (prevProps.page !== this.props.page) {
       await this.postProcess();
