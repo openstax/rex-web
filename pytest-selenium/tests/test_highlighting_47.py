@@ -141,6 +141,8 @@ def test_no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, pag
 
 
 @markers.test_case("C594028")
+@markers.smoke_test
+@markers.desktop_only
 @markers.parametrize("book_slug,page_slug", [("microbiology", "1-introduction")])
 def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug, page_slug):
     """Filter state is preserved throughout the session irrespective of chapter/section navigation."""
