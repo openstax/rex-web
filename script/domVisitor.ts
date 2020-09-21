@@ -1,7 +1,6 @@
 import fs from 'fs';
 import { JSDOM } from 'jsdom';
 import path from 'path';
-import { basename } from 'path';
 import puppeteer from 'puppeteer';
 import { argv } from 'yargs';
 import { Book } from '../src/app/content/types';
@@ -17,10 +16,12 @@ const {
   archiveUrl,
   bookId,
   bookVersion,
+  quiet,
   queryString,
   rootUrl,
   showBrowser,
 } = argv as {
+  quiet?: string;
   archiveUrl?: string;
   bookId?: string;
   bookVersion?: string;
@@ -65,7 +66,9 @@ async function visitPages(
   });
 
   observePageErrors((message) => {
-    bar.interrupt(message);
+    if (quiet !== undefined) {
+      bar.interrupt(message);
+    }
   });
 
   for (const pageUrl of bookPages) {
@@ -81,11 +84,11 @@ async function visitPages(
 
       if (matches.length > 0) {
         anyFailures = true;
-        bar.interrupt(`- (${matches.length}) ${basename(pageUrl)}#${matches[0]}`);
+        bar.interrupt(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
       }
     } catch (e) {
       anyFailures = true;
-      bar.interrupt(`- (error loading) ${basename(pageUrl)}`);
+      bar.interrupt(`- (error loading) ${pageUrl}`);
       if (e.message) {
         bar.interrupt(e.message);
       }
