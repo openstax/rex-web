@@ -220,7 +220,7 @@ describe('setHead hook', () => {
       }));
     });
 
-    it('adds a correct og:url', async() => {
+    it('og:url depends on pathname', async() => {
       const bookId = book.id;
       CANONICAL_MAP[bookId] = [ [bookId, {}] ];
 
@@ -228,7 +228,7 @@ describe('setHead hook', () => {
         action: 'PUSH',
         location: {
           hash: '',
-          pathname: content.getUrl({book: {slug: combinedBook.slug}, page: {slug: 'mypage'}}),
+          pathname: content.getUrl({book: {slug: 'coolbook'}, page: {slug: 'coolpage'}}),
           search: '',
           state: {
             bookUid: bookId,
@@ -245,7 +245,7 @@ describe('setHead hook', () => {
       expect(dispatch).toHaveBeenCalledWith(setHead({
         links: [{rel: 'canonical', href: 'https://openstax.org/books/book-slug-1/pages/test-page-1'}],
         meta: expect.arrayContaining([
-          {property: 'og:url', content: 'https://openstax.org/books/book-slug-1/pages/mypage'},
+          {property: 'og:url', content: 'https://openstax.org/books/coolbook/pages/coolpage'},
         ]),
         title: expect.anything(),
       }));
