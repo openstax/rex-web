@@ -104,7 +104,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...action.payload.highlight,
       } as Highlight;
 
-      const newHighlights = highlights
+      const newCurrentPageHighlights = highlights
         ? highlights.map((highlight) => {
             if (highlight.id === oldHighlight.id) { return newHighlight; }
             return highlight;
@@ -128,7 +128,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         currentPage: {
           ...state.currentPage,
           hasUnsavedHighlight,
-          highlights: newHighlights,
+          highlights: newCurrentPageHighlights,
         },
         summary: {
           ...state.summary,
@@ -145,7 +145,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         return state;
       }
 
-      const newHighlights = highlights
+      const newCurrentPageHighlights = highlights
         ? highlights.filter(({id}) => id !== action.payload)
         : null;
 
@@ -167,7 +167,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.currentPage,
           focused: state.currentPage.focused === action.payload ? undefined : state.currentPage.focused,
           hasUnsavedHighlight: false,
-          highlights: newHighlights,
+          highlights: newCurrentPageHighlights,
         },
         summary: {
           ...state.summary,
