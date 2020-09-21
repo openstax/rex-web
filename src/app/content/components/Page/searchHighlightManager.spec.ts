@@ -17,40 +17,61 @@ describe('searchHighlightManager', () => {
   ];
 
   let attachedManager: ReturnType<typeof searchHighlightManager>;
-  let onHighlightSelect: jest.Mock;
+  let onClearError: jest.Mock;
+  let onSetError: jest.Mock;
 
   beforeEach(() => {
     const container = assertDocument().createElement('div');
+    for (const hit of searchResults) {
+      const highlight = assertDocument().createElement('p');
+      for (const str of hit.highlight.visibleContent) {
+        const span = assertDocument().createElement('span');
+        span.innerHTML = str;
+        highlight.append(str);
+      }
+      highlight.setAttribute('id', hit.source.elementId);
+      container.append(highlight);
+    }
     attachedManager = searchHighlightManager(container);
 
-    onHighlightSelect = jest.fn();
+    onClearError = jest.fn();
+    onSetError = jest.fn();
   });
 
-  it('calls highlight select callback only when a new highlight is selected', () => {
+  it('calls onClearError callback when there is no current.selectedResult', () => {
     const selectedSearchResult = {highlight: 0, result: searchResults[0]};
 
     attachedManager.update(
+      {searchResults, selectedResult: selectedSearchResult },
+      {searchResults, selectedResult: null},
+      {forceRedraw: true, setError: onSetError, clearError: onClearError}
+    );
+
+    expect(onClearError).toHaveBeenCalledTimes(1);
+  });
+
+  it.only('calls onClearError callback when found first selected highlight', () => {
+    const selectedSearchResult = {highlight: 0, result: searchResults[0]};
+    console.log('searchResults', searchResults)
+    attachedManager.update(
       {searchResults, selectedResult: null },
       {searchResults, selectedResult: selectedSearchResult},
-      {forceRedraw: true, onSelect: onHighlightSelect}
+      {forceRedraw: true, setError: onSetError, clearError: onClearError}
     );
 
-    expect(onHighlightSelect).toHaveBeenCalledTimes(1);
+    expect(onClearError).toHaveBeenCalledTimes(1);
+  });
+
+  it('noop if selectedResult did not changed', () => {
+    const selectedSearchResult = {highlight: 0, result: searchResults[0]};
 
     attachedManager.update(
+      {searchResults, selectedResult: selectedSearchResult },
       {searchResults, selectedResult: selectedSearchResult},
-      {searchResults, selectedResult: selectedSearchResult},
-      {forceRedraw: true, onSelect: onHighlightSelect}
+      {forceRedraw: true, setError: onSetError, clearError: onClearError}
     );
 
-    expect(onHighlightSelect).toHaveBeenCalledTimes(1);
-
-    attachedManager.update(
-      {searchResults, selectedResult: selectedSearchResult},
-      {searchResults, selectedResult: {highlight: 0, result: searchResults[1]}},
-      {forceRedraw: true, onSelect: onHighlightSelect}
-    );
-
-    expect(onHighlightSelect).toHaveBeenCalledTimes(2);
+    expect(onSetError).toHaveBeenCalledTimes(0);
+    expect(onClearError).toHaveBeenCalledTimes(0);
   });
 });
