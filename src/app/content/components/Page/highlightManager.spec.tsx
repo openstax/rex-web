@@ -191,7 +191,7 @@ describe('highlightManager', () => {
     expect(erase).toHaveBeenCalledWith(mockHighlight2);
   });
 
-  it('focuses highlights', () => {
+  it('focuses highlights without scrolling to them', () => {
     const mockHighlights = [
       createMockHighlight(),
       createMockHighlight(),
@@ -202,6 +202,10 @@ describe('highlightManager', () => {
     prop.highlights = mockHighlights.map(({id}) => ({id} as HighlightData));
 
     const focus = jest.spyOn(mockHighlights[0], 'focus');
+    const highlightScrollIntoView = jest.fn();
+    mockHighlights[1].elements.push({
+      scrollIntoView: highlightScrollIntoView,
+    } as any as HTMLElement);
 
     Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
     Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
@@ -209,10 +213,11 @@ describe('highlightManager', () => {
     update(prevProp);
 
     expect(focus).toHaveBeenCalledTimes(1);
+    expect(highlightScrollIntoView).toHaveBeenCalledTimes(0);
     expect(focus).toHaveBeenCalledWith();
   });
 
-  it('focuses scroll target highlight', () => {
+  it('focuses scroll target highlight and scrolls it into view', () => {
     const mockHighlights = [
       createMockHighlight(),
       createMockHighlight(),
@@ -226,6 +231,10 @@ describe('highlightManager', () => {
     } as HighlightScrollTarget;
 
     const highlightFocus = jest.spyOn(mockHighlights[1], 'focus');
+    const highlightScrollIntoView = jest.fn();
+    mockHighlights[1].elements.push({
+      scrollIntoView: highlightScrollIntoView,
+    } as any as HTMLElement);
 
     Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
     Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
@@ -233,6 +242,7 @@ describe('highlightManager', () => {
     update(prevProp);
 
     expect(highlightFocus).toHaveBeenCalledTimes(1);
+    expect(highlightScrollIntoView).toHaveBeenCalledTimes(1);
     expect(prop.focus).toHaveBeenCalledWith(mockHighlights[1].id);
   });
 
@@ -241,6 +251,10 @@ describe('highlightManager', () => {
       createMockHighlight(),
       createMockHighlight(),
     ];
+    mockHighlights[1].elements.push({
+      scrollIntoView: jest.fn(),
+    } as any as HTMLElement);
+
     const {update} = highlightManager(element, () => prop);
 
     prop.scrollTarget = {

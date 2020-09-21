@@ -207,6 +207,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         toFocus.focus();
         if (toFocus.id !== focusedId) {
           focus(toFocus.id);
+          (toFocus.elements[0] as HTMLElement).scrollIntoView();
         }
       }
 
