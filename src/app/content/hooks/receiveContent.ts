@@ -29,6 +29,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   const page = select.page(state);
   const loadingBook = select.loadingBook(state);
   const loadingPage = select.loadingPage(state);
+  const currentPath = pathname(state);
 
   if (!page || !book) {
     return;
@@ -48,7 +49,6 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
-  const currentPath = pathname(state);
 
   dispatch(setHead({
     links: canonicalUrl ? [
