@@ -8,7 +8,6 @@ from tests import markers
 
 
 @markers.test_case("C477326", "C477327")
-@markers.smoke_test
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, password):
@@ -130,6 +129,7 @@ def test_rex_login_state_when_redirected_from_osweb(
 
 
 @markers.test_case("C546508")
+@markers.smoke_test
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_cookie_notice_accepted_in_rex_not_displayed_in_osweb(
