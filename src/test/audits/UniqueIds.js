@@ -30,7 +30,7 @@ module.exports = class UniqueIds extends Gatherer {
       const elementsWithId = document.querySelectorAll('[id]');
       return [...elementsWithId]
         .map(el => el.getAttribute('id'))
-        // empty ids are not vaid, but some GTM scripts are adding them
+        // empty ids are not valid, but some GTM scripts are adding them
         // that should be looked into and this should be removed
         .filter(id => !!id)
       ;
