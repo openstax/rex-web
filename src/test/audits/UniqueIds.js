@@ -28,7 +28,12 @@ module.exports = class UniqueIds extends Gatherer {
   async afterPass({ driver }) {
     const fn = () => {
       const elementsWithId = document.querySelectorAll('[id]');
-      return [...elementsWithId].map(el => el.getAttribute('id'))
+      return [...elementsWithId]
+        .map(el => el.getAttribute('id'))
+        // empty ids are not valid, but some GTM scripts are adding them
+        // that should be looked into and this should be removed
+        .filter(id => !!id)
+      ;
     };
     return driver.evaluateAsync(`((${fn.toString()}) ())`);
   }
