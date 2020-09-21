@@ -46,12 +46,11 @@ describe('create app', () => {
   });
 
   it('adds sentry middleware when enabled', () => {
-    const actualSentry = jest.requireActual('../helpers/Sentry').default;
     const mockedSentry = require('../helpers/Sentry').default;
     mockedSentry.shouldCollectErrors = true;
 
     const initializeWithMiddleware = jest.spyOn(mockedSentry, 'initializeWithMiddleware');
-    initializeWithMiddleware.mockReturnValue(actualSentry.initializeWithMiddleware());
+    initializeWithMiddleware.mockReturnValue(mockedSentry.initializeWithMiddleware);
 
     createApp = require('./index').default;
     createApp({services});
