@@ -7,7 +7,7 @@ import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResu
 import { push, replace } from '../../navigation/actions';
 import { AppServices, ArgumentTypes, MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
-import { receiveBook, receivePage, } from '../actions';
+import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
 import * as selectors from '../selectors';
 import { formatBookData } from '../utils';
