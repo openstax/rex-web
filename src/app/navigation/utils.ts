@@ -147,7 +147,7 @@ export const createNavigationOptions = (
 ) => ({
   hash: scrollTarget ? scrollTarget.elementId : undefined,
   search: queryString.stringify({
-    ...search,
+    ...(search.query === null ? {} : search),
     target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
   }),
 });
