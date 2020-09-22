@@ -3,6 +3,8 @@ import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
 import { resetModules } from './utils';
 
+jest.mock('../helpers/Sentry');
+
 declare global {
   namespace jest {
     interface Matchers<R> {
