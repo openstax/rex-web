@@ -69,8 +69,8 @@ const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
     props.variant === 'mini' ? miniStyle : bigStyle;
 
 const bookTitleMiniNavDestkopWidth = 27;
-// tslint:disable-next-line:variable-name
-const BookTitle = styled.a`
+
+const bookTitleStyles = css`
   ${h4Style}
   ${bookBannerTextStyle}
   display: ${ifMiniNav('inline-block', 'block')};
@@ -79,9 +79,6 @@ const BookTitle = styled.a`
   text-decoration: none;
   margin: 0;
 
-  :hover {
-    text-decoration: underline;
-  }
   ${theme.breakpoints.mobile(css`
     ${bookBannerTextStyle}
   `)}
@@ -93,6 +90,19 @@ const BookTitle = styled.a`
       display: none;
     `)}
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const BookTitle = styled.span`
+  ${bookTitleStyles}
+`;
+
+// tslint:disable-next-line:variable-name
+const BookTitleLink = styled.a`
+  ${bookTitleStyles}
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -227,12 +237,13 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
     }
 
     const bookUrl = hasOSWebData(book) ? bookDetailsUrl(book) : notFound.getUrl();
+    const bookState = hasOSWebData(book) ? book.book_state : undefined;
 
-    return this.renderBars({theme: bookTheme, ...book}, bookUrl, pageNode);
+    return this.renderBars({theme: bookTheme, book_state: bookState, ...book}, bookUrl, pageNode);
   }
 
   private renderBars = (
-    book: Book & {theme: BookWithOSWebData['theme']},
+    book: Book & {theme: BookWithOSWebData['theme'], book_state: BookWithOSWebData['book_state'] | undefined},
     bookUrl: string,
     treeSection?: ArchiveTreeSection) =>
   ([
@@ -245,17 +256,23 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
       data-analytics-region='book-banner-expanded'
     >
       <TopBar>
-        <BookTitle
-          data-testid='details-link-expanded'
-          href={bookUrl}
-          colorSchema={book.theme}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-            this.handleLinkClick(e, bookUrl);
-          }}
-          tabIndex={this.state.tabbableBanner === 'big' ? undefined : -1}
-        >
-          <LeftArrow colorSchema={book.theme} />{book.tree.title}
-        </BookTitle>
+        {
+          book.book_state === 'retired'
+            ? <BookTitle data-testid='book-title-expanded' colorSchema={book.theme}>
+              {book.tree.title}
+            </BookTitle>
+            : <BookTitleLink
+              data-testid='details-link-expanded'
+              href={bookUrl}
+              colorSchema={book.theme}
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                this.handleLinkClick(e, bookUrl);
+              }}
+              tabIndex={this.state.tabbableBanner === 'big' ? undefined : -1}
+            >
+              <LeftArrow colorSchema={book.theme} />{book.tree.title}
+            </BookTitleLink>
+        }
         {treeSection
           ? <BookChapter
             colorSchema={book.theme}
@@ -273,18 +290,24 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
       data-analytics-region='book-banner-collapsed'
     >
       <TopBar>
-        <BookTitle
-          data-testid='details-link-collapsed'
-          href={bookUrl}
-          variant='mini'
-          colorSchema={book.theme}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-            this.handleLinkClick(e, bookUrl);
-          }}
-          tabIndex={this.state.tabbableBanner === 'mini' ? undefined : -1}
-        >
-          <LeftArrow colorSchema={book.theme} />{book.tree.title}
-        </BookTitle>
+        {
+          book.book_state === 'retired'
+            ? <BookTitle data-testid='book-title-collapsed' colorSchema={book.theme} variant='mini'>
+              {book.tree.title}
+            </BookTitle>
+            : <BookTitleLink
+              data-testid='details-link-collapsed'
+              href={bookUrl}
+              variant='mini'
+              colorSchema={book.theme}
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                this.handleLinkClick(e, bookUrl);
+              }}
+              tabIndex={this.state.tabbableBanner === 'mini' ? undefined : -1}
+            >
+            <LeftArrow colorSchema={book.theme} />{book.tree.title}
+          </BookTitleLink>
+        }
         {treeSection
           ? <BookChapter
             colorSchema={book.theme}
