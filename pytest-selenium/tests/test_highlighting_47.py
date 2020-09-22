@@ -263,3 +263,95 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
     my_highlights = book.toolbar.my_highlights()
     mh_list_after_reload = my_highlights.highlights.mh_highlight_ids
     assert set(mh_list_after_reload) == set(content_highlight_ids)
+
+
+@markers.test_case("C594029")
+@markers.parametrize("book_slug,page_slug", [("microbiology", "1-introduction")])
+def test_filter_state_not_preserved_for_MH_in_new_tab(selenium, base_url, book_slug, page_slug):
+    """Filter state is not preserved if MH page is opened in a new tab."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    toolbar = book.toolbar
+    toc = book.sidebar.toc
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    content_highlight_ids = book.content.highlight_ids
+    my_highlights = book.toolbar.my_highlights()
+    mh_highlight_ids = my_highlights.highlights.mh_highlight_ids
+
+    # AND: Highlights are present in different chapter pages
+    page_slug = [
+        "1-3-types-of-microorganisms",
+        "2-4-staining-microscopic-specimens",
+        "4-2-proteobacteria",
+        "5-introduction",
+    ]
+
+    for page in page_slug:
+        book = Content(selenium, base_url, book_slug=book_slug, page_slug=page).open()
+        paragraphs = random.sample(book.content.paragraphs, 1)
+        book.content.highlight(
+            target=paragraphs[0], offset=Highlight.ENTIRE, color=Highlight.random_color()
+        )
+
+        content_highlight_ids = content_highlight_ids + list(
+            set(book.content.highlight_ids) - set(content_highlight_ids)
+        )
+
+        my_highlights = book.toolbar.my_highlights()
+        mh_highlight_ids = mh_highlight_ids + list(
+            set(my_highlights.highlights.mh_highlight_ids) - set(mh_highlight_ids)
+        )
+
+    # THEN: MH page displays all the content highlights
+    assert mh_highlight_ids == content_highlight_ids
+
+    # WHEN: Change the MH chapter filters to remove 2 chapters
+    my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filter_bar
+
+    # Use chapter dropdown to remove one chapter
+    filterbar.toggle_chapter_dropdown_menu()
+    filterbar.chapter_filters.chapters[2].click()
+    filterbar.toggle_chapter_dropdown_menu()
+
+    # Use filter tag to remove one chapter
+    x = filterbar.active_filter_tags
+    x[1].remove_tag()
+
+    my_highlights = book.toolbar.my_highlights()
+    mh_filtered_list = my_highlights.highlights.mh_highlight_ids
+    my_highlights.close()
+
+    # AND: Open MH page from a chapter that does not have highlights
+    if book.is_mobile:
+        toolbar.click_toc_toggle_button()
+    toc.expand_chapter(-3)
+    toc.sections[-40].click()
+
+    my_highlights = book.toolbar.my_highlights()
+    mh_list_from_chapter_without_highlights = my_highlights.highlights.mh_highlight_ids
+
+    # THEN: Filter changes made earlier are retained
+    assert set(mh_list_from_chapter_without_highlights) == set(mh_filtered_list)
+
+    # WHEN: Open MH page in new tab
+    book.open_new_tab()
+    book.switch_to_window(1)
+    page_slug = "2-4-staining-microscopic-specimens"
+    book1 = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    my_highlights_1 = book1.toolbar.my_highlights()
+
+    # THEN: MH page in the new tab displays highlights from all the chapters
+    mh_list_in_new_tab = my_highlights_1.highlights.mh_highlight_ids
+    assert set(mh_list_in_new_tab) == set(content_highlight_ids)
