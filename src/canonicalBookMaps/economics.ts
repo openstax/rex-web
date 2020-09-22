@@ -4,7 +4,7 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  '69619d2b-68f0-44b0-b074-a9b2bf90b2c6': [
+   /* Principles of Economics */ '69619d2b-68f0-44b0-b074-a9b2bf90b2c6': [
     /* Principles of Economics 2e */ ['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {
       /* Preface to the same module in 2e */
       '7a6f73c5-5378-408b-986f-e54416e12ad0': '44954322-6754-4a69-aa9c-948e3ea86102',

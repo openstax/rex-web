@@ -4,7 +4,7 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  'ea2f225e-6063-41ca-bcd8-36482e15ef65': [
+  /* Principles of Microeconomics */ 'ea2f225e-6063-41ca-bcd8-36482e15ef65': [
     /* Principles of Microeconomics 2e */ ['5c09762c-b540-47d3-9541-dda1f44f16e5', {
       /* Preface to the same module in 2e */
       '6c8ec574-1c2f-46ba-916a-ef0c49133708': '56a73627-b4de-41d1-964e-f6ccafbd0da0',

@@ -4,7 +4,7 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  '33076054-ec1d-4417-8824-ce354efe42d0': [
+  /* Principles of Macroeconomics for AP Courses */ '33076054-ec1d-4417-8824-ce354efe42d0': [
     /* Principles of Macroeconomics for AP Courses 2e */ ['9117cf8c-a8a3-4875-8361-9cb0f1fc9362', {
       /* Preface to the same module in 2e */
       '06980ed3-d51c-45c7-a91a-f180b22207f9': 'eb2ec6fd-e50e-47c3-ab90-2791b770d2e7',
