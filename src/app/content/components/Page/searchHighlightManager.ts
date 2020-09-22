@@ -55,14 +55,9 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
 
   services.highlighter.clearFocus();
 
-  console.log('services.searchResultMap', services.searchResultMap)
   const elementHighlights = services.searchResultMap.find((map) => isEqual(map.result, selectedResult.result));
-  console.log('elementHighlights', elementHighlights)
-  console.log('selectedResult.highlight', selectedResult.highlight)
-  console.log('elementHighlights.highlights', elementHighlights ? elementHighlights.highlights : null)
   const selectedHighlights = elementHighlights && elementHighlights.highlights[selectedResult.highlight];
   const firstSelectedHighlight = selectedHighlights && selectedHighlights[0];
-  console.log('firstSelectedHighlight', firstSelectedHighlight)
 
   if (firstSelectedHighlight) {
     firstSelectedHighlight.focus();

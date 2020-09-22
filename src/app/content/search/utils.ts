@@ -148,7 +148,6 @@ export const highlightResults = (
           attachHighlight(highlight, highlighter, () =>
             `Search result failed to highlight on page ${hit.source.pageId}`
           );
-
           return highlight;
         })
         .filter((highlight) => highlight.elements && highlight.elements.length > 0)

@@ -934,7 +934,7 @@ describe('Page', () => {
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
 
     renderer.act(() => {
-      store.dispatch(selectSearchResult({result: hit2, highlight: 0}));
+      store.dispatch(selectSearchResult({result: hit2, highlight: 1}));
     });
 
     // page lifecycle hooks
