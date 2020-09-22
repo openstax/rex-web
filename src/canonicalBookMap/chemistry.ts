@@ -4,8 +4,8 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  '85abf193-2bd2-4908-8563-90b8a7ac8df6': [
-    ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {
+  /* Chemistry */ '85abf193-2bd2-4908-8563-90b8a7ac8df6': [
+    /* Chemistry 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {
       /* Preface to the same module in 2e */
       '6f7f5abe-61aa-4f4c-b44e-870de2f9925b': '138634ed-6ed0-4edb-b13d-b78d388028b0',
       /* 1.0 Introduction to the same module in 2e */

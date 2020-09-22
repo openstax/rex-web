@@ -5,7 +5,7 @@ import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
   /* Chemistry: Atoms First */ '4539ae23-1ccc-421e-9b25-843acbb6c4b0': [
-    /* Cehmistry: Atoms First 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {
+    /* Chemistry: Atoms First 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {
       /* Preface to the same module in 2e */
       'f47f9c6a-e937-4e8f-a817-c11d4f8eff59 ': '541d7d79-a70e-42c2-b765-d55586648390',
       /* 1.0 Introduction to the same module in 2e */
