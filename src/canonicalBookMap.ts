@@ -1,6 +1,18 @@
 // tslint:disable: object-literal-sort-keys
 // from https://docs.google.com/spreadsheets/d/1Hj5vm2AbEiLgxgcbNRi550InzFTLvBOv16-Fw6P-c5E/edit#gid=2066350488
-export const CANONICAL_MAP: ObjectLiteral<Array<[string, ObjectLiteral<string | undefined>]> | undefined> = {
+
+import economics from './canonicalBookMaps/economics';
+import macroeconomics from './canonicalBookMaps/macroeconomics';
+import macroeconomicsAP from './canonicalBookMaps/macroeconomicsAP';
+import microeconomics from './canonicalBookMaps/microeconomics';
+import microeconomicsAP from './canonicalBookMaps/microeconomicsAP';
+
+export const CANONICAL_MAP: CanonicalBookMap = {
+  ...economics,
+  ...macroeconomics,
+  ...macroeconomicsAP,
+  ...microeconomics,
+  ...microeconomicsAP,
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c' : [
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
     /* Precalculus */ ['fd53eae1-fa23-47c7-bb1b-972349835c3c', {}],
@@ -388,6 +400,8 @@ export const CANONICAL_MAP: ObjectLiteral<Array<[string, ObjectLiteral<string | 
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
   ],
 };
+
+export type CanonicalBookMap = ObjectLiteral<Array<[string, ObjectLiteral<string | undefined>]> | undefined>;
 
 export interface ObjectLiteral<V> {
   [key: string]: V;
