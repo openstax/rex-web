@@ -5,6 +5,7 @@ import config from '../config';
 import createTestStore from '../test/createTestStore';
 import Sentry, { onBeforeSend } from './Sentry';
 
+jest.unmock('./Sentry');
 jest.mock('../config', () => ({
   DEPLOYED_ENV: 'test',
   RELEASE_ID: '1234',
