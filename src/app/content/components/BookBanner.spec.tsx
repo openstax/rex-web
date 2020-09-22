@@ -62,6 +62,19 @@ describe('BookBanner', () => {
       expect(tree).toMatchSnapshot();
     });
 
+    it('renders BookTitle instead of BookTitleLink with a link to details page for retired books', () => {
+      const component = renderer.create(<BookBanner
+        pageNode={pageNode}
+        book={{...book, book_state: 'retired'}}
+        bookTheme={book.theme}
+      />);
+
+      expect(() => component.root.findByProps({ 'data-testid': 'book-title-expanded'})).not.toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'book-title-collapsed'})).not.toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'details-link-expanded'})).toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'details-link-collapsed'})).toThrow();
+    });
+
     it('renders correctly without osweb data', () => {
       const component = renderer.create(<BookBanner
         pageNode={pageNode}
