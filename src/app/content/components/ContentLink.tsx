@@ -22,7 +22,6 @@ interface Props {
   book: Book;
   page: {
     id: string;
-    shortId: string;
     title: string;
   };
   currentBook: Book | undefined;
