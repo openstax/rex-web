@@ -5,7 +5,7 @@ import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
   'ca344e2d-6731-43cd-b851-a7b3aa0b37aa': [
-    ['636cbfd9-4e37-4575-83ab-9dec9029ca4e', {
+    /* Principles of Microeconomics for AP Courses 2e */ ['636cbfd9-4e37-4575-83ab-9dec9029ca4e', {
       /* Preface to the same module in 2e */
       '5a04a1ba-389c-4ab3-bc6c-c55ecb93da63': '0c512537-0e6c-4d5c-89d0-3bdc0138ab4b ',
       /* 1.0 Introduction to the same module in 2e */

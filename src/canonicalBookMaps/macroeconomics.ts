@@ -5,7 +5,7 @@ import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
   '33076054-ec1d-4417-8824-ce354efe42d0': [
-    ['27f59064-990e-48f1-b604-5188b9086c29', {
+    /* Principles of Macroeconomics 2e */ ['27f59064-990e-48f1-b604-5188b9086c29', {
       /* Preface to the same module in 2e */
       '2d204057-3418-43ca-a63b-fd998037ef83': '6b77457d-1ba4-4d9c-828b-1baa3bb3191d',
       /* 1.0 Introduction to the same module in 2e */
