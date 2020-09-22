@@ -201,6 +201,7 @@ describe('locationChange', () => {
     const mockCmsOtherBook: OSWebBook = {
       amazon_link: '',
       authors: [{value: {name: 'different author', senior_author: true}}],
+      book_state: 'live',
       cnx_id: 'newbookid',
       cover_color: 'blue',
       meta: {
