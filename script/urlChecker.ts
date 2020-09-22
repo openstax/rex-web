@@ -72,7 +72,7 @@ const getUrl = (book: Book) => useUnversionedUrls
         book: {
           slug: (book as BookWithOSWebData).slug,
         },
-        page: getUrlParamForPageId(book, treeSection.shortId),
+        page: getUrlParamForPageId(book, treeSection.id),
       })
   : (treeSection: LinkedArchiveTreeSection) => getBookPageUrlAndParams(book, treeSection).url;
 
