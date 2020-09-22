@@ -12,6 +12,7 @@ export interface OSWebBook {
       senior_author: boolean;
     }
   }>;
+  book_state: BookWithOSWebData['book_state'];
   cover_color: BookWithOSWebData['theme'];
   cnx_id: string;
   amazon_link: string;
@@ -24,7 +25,7 @@ interface OSWebResponse {
   items: OSWebBook[];
 }
 
-export const fields = 'cnx_id,authors,publish_date,cover_color,amazon_link';
+export const fields = 'cnx_id,authors,publish_date,cover_color,amazon_link,book_state';
 
 export default (prefix: string) => {
   const baseUrl = `${prefix}/v2/pages`;
