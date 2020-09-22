@@ -78,13 +78,11 @@ describe('getUrlParamForPageId', () => {
         contents: [
           {
             id: 'pagelongid@1',
-            shortId: 'page@1',
             slug: 'preface',
             title: '<span class="os-text">Preface</span>',
           },
         ],
         id: 'booklongid@1',
-        shortId: 'book@1',
         title: 'book',
       },
     }) as Book;
@@ -118,13 +116,11 @@ describe('getPageIdFromUrlParam', () => {
         contents: [
           {
             id: 'pagelongid@1',
-            shortId: 'page@1',
             slug: 'preface',
             title: '<span class="os-text">Preface</span>',
           },
         ],
         id: 'booklongid@1',
-        shortId: 'book@1',
         slug: 'book-slug',
         title: 'book',
       },
