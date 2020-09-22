@@ -88,7 +88,6 @@ export default () => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
       localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push({
         id: `${newPage.id}@${newPage.version}`,
-        shortId: `${newPage.shortId}@${newPage.version}`,
         slug: pageSlug,
         title: newPage.title,
       });
