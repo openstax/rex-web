@@ -119,7 +119,6 @@ function reduceReceiveBook(state: State, action: ActionType<typeof actions.recei
   const loading = omit(['book'], state.loading);
   const book = pick([
     'id',
-    'shortId',
     'title',
     'version',
     'tree',
@@ -130,12 +129,13 @@ function reduceReceiveBook(state: State, action: ActionType<typeof actions.recei
     'publish_date',
     'revised',
     'amazon_link',
+    'book_state',
   ], action.payload);
   return {...state, loading, book};
 }
 
 function reduceReceivePage(state: State, action: ActionType<typeof actions.receivePage>) {
   const loading = omit('page', state.loading);
-  const page = pick(['abstract', 'id', 'shortId', 'title', 'version'], action.payload);
+  const page = pick(['abstract', 'id', 'title', 'version'], action.payload);
   return {...state, loading, page, references: action.payload.references};
 }
