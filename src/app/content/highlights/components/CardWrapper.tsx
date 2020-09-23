@@ -33,6 +33,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const focusedHighlight = React.useMemo(
     () => highlights.find((highlight) => highlight.id === focusedId),
     [focusedId, highlights]);
+  const prevFocusedHighlightId = React.useRef(focusedId);
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
@@ -90,7 +91,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   React.useEffect(() => {
     if (!focusedHighlight) { return; }
     const position = cardsPositions.get(focusedHighlight.id);
-    // This may be undefined in case of changing a page when highlight is focused
+    // position may be undefined in case of changing a page when highlight is focused
     // because highlights will be already cleared and this function will try to run
     // before page changes.
     if (!position) { return; }
@@ -101,8 +102,13 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
         .style.transform = `translateY(-${position - topOffset}px)`;
     }
 
-    // This will be undefined for pendingHighlight
-    if (focusedHighlight.elements[0]) {
+    // Check for prevFocusedHighlightId.current is required so we do not scroll to the
+    // focused highlight after user switches between the browser tabs - in this case
+    // highlights are refetched and it trigers cardPositions to be updated since reference
+    // to the highlights or highlights' data has changed.
+    // focusedHighlight.elements[0] will be undefined for pendingHighlight
+    if (focusedHighlight.id !== prevFocusedHighlightId.current && focusedHighlight.elements[0]) {
+      prevFocusedHighlightId.current = focusedHighlight.id;
       scrollIntoView(focusedHighlight.elements[0] as HTMLElement);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
