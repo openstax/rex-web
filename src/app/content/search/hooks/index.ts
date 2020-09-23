@@ -34,11 +34,12 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
 
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
   const state = services.getState();
-  const {page, book} = selectContent.bookAndPage(state);
+  const {page: currentPage, book} = selectContent.bookAndPage(state);
+  const pageIsLoading = selectContent.loadingPage(state);
   const query = select.query(state);
   const savedSearch = getSearchFromLocation(services.history.location);
 
-  if (!page || !book) {
+  if (pageIsLoading || !book) {
     return; // book changed while query was in the air
   }
 
@@ -53,6 +54,8 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     findArchiveTreeNodeById(book.tree, targetPageId),
     'search result pointed to page that wasn\'t in book'
   );
+  // currentPage may by undefined when user started a search from the 404 page
+  const page = currentPage || targetPage;
 
   const savedQuery = savedSearch ? savedSearch.query : null;
   if (
