@@ -92,6 +92,45 @@ describe('CardWrapper', () => {
     expect(scrollIntoView).not.toHaveBeenCalled();
   });
 
+  it('do not scroll to focused card after rerender if focused highlight is the same', () => {
+    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+    scrollIntoView.mockImplementation(() => null);
+
+    const highlight = {
+      ...createMockHighlight(),
+      elements: ['something'],
+    };
+    const highlight2 = {
+      ...createMockHighlight(),
+      elements: ['else'],
+    };
+    const highlight3 = {
+      ...createMockHighlight(),
+      elements: ['woops'],
+    };
+
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper highlights={[highlight, highlight2]} />
+    </Provider>);
+
+    renderer.act(() => {
+      store.dispatch(focusHighlight(highlight.id));
+    });
+
+    expect(scrollIntoView).toHaveBeenCalled();
+    scrollIntoView.mockClear();
+
+    component.update(<Provider store={store}>
+      <CardWrapper highlights={[highlight, highlight2, highlight3]} />
+    </Provider>);
+
+    // make sure that useEffect is called
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
+
+    expect(scrollIntoView).not.toHaveBeenCalled();
+  });
+
   it('updates top offset for main wrapper if it is required', () => {
     const div = assertDocument().createElement('div');
     const createNodeMock = () => div;
