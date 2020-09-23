@@ -4,8 +4,10 @@ import createTestStore from '../../../test/createTestStore';
 import { book, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { setHead } from '../../head/actions';
+import { locationChange } from '../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../types';
 import { receiveBook, receivePage, requestBook, requestPage } from '../actions';
+import { content } from '../routes';
 import { formatBookData } from '../utils';
 import * as archiveUtils from '../utils/archiveTreeUtils';
 import * as seoUtils from '../utils/seoUtils';
@@ -214,6 +216,37 @@ describe('setHead hook', () => {
       expect(dispatch).toHaveBeenCalledWith(setHead({
         links: [{rel: 'canonical', href: 'https://openstax.org/books/book-slug-1/pages/test-page-1'}],
         meta: expect.anything(),
+        title: expect.anything(),
+      }));
+    });
+
+    it('og:url depends on pathname', async() => {
+      const bookId = book.id;
+      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+
+      store.dispatch(locationChange({
+        action: 'PUSH',
+        location: {
+          hash: '',
+          pathname: content.getUrl({book: {slug: 'coolbook'}, page: {slug: 'coolpage'}}),
+          search: '',
+          state: {
+            bookUid: bookId,
+            bookVersion: book.version,
+            pageUid: page.id,
+          },
+        },
+      }));
+      store.dispatch(receiveBook(combinedBook));
+      store.dispatch(receivePage({...page, references: []}));
+
+      await hook(receivePage({...page, references: []}));
+
+      expect(dispatch).toHaveBeenCalledWith(setHead({
+        links: [{rel: 'canonical', href: 'https://openstax.org/books/book-slug-1/pages/test-page-1'}],
+        meta: expect.arrayContaining([
+          {property: 'og:url', content: 'https://openstax.org/books/coolbook/pages/coolpage'},
+        ]),
         title: expect.anything(),
       }));
     });
