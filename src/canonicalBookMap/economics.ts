@@ -149,7 +149,7 @@ export default {
       /* 15.3 Immigration to 15.3 The Safety Net in 2e */
       'cc3ded8f-be95-4f94-a275-a96d1f853410': '73b2e5d1-9ffd-4d23-a4f2-01bd849fd8ba',
       /* 16.0 Introduction to Information, Risk, and Insurance to the same module in 2e */
-      'd7fc6555-b899-4506-89d8-450c3d9e904c': 'c8b7d919-8a74-478d-a1d2-935ab6bb1db0',
+      'b7fa3002-fb84-4251-85f0-83ec686abc19': 'c8b7d919-8a74-478d-a1d2-935ab6bb1db0',
       /* 16.1 The Problem of Imperfect Information and Asymmetric Information to the same module in 2e */
       '3694565a-4bef-42d2-9652-c602c78870d4': '44502b4c-daab-4a40-b961-f03e1c9923af',
       /* 16.2 Insurance and Imperfect Information to the same module in 2e */
