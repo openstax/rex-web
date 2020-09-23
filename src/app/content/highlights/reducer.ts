@@ -89,8 +89,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, summary: { ...state.summary, open: false }};
     case getType(actions.updateHighlight): {
       const oldHighlight = findHighlight(state, action.payload.id);
+      const highlights = state.currentPage.highlights;
 
-      if (!state.currentPage.highlights || !oldHighlight) {
+      if (!oldHighlight) {
         return state;
       }
 
@@ -103,10 +104,12 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...action.payload.highlight,
       } as Highlight;
 
-      const newHighlights = state.currentPage.highlights.map((highlight) => {
-        if (highlight.id === oldHighlight.id) { return newHighlight; }
-        return highlight;
-      });
+      const newCurrentPageHighlights = highlights
+        ? highlights.map((highlight) => {
+            if (highlight.id === oldHighlight.id) { return newHighlight; }
+            return highlight;
+          })
+        : null;
 
       const newSummaryHighlights = state.summary.highlights
         ? updateSummaryHighlightsDependOnFilters(
@@ -125,7 +128,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         currentPage: {
           ...state.currentPage,
           hasUnsavedHighlight,
-          highlights: newHighlights,
+          highlights: newCurrentPageHighlights,
         },
         summary: {
           ...state.summary,
@@ -136,10 +139,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.deleteHighlight): {
       const highlightToRemove = findHighlight(state, action.payload);
+      const highlights = state.currentPage.highlights;
 
-      if (!state.currentPage.highlights || !highlightToRemove) {
+      if (!highlightToRemove) {
         return state;
       }
+
+      const newCurrentPageHighlights = highlights
+        ? highlights.filter(({id}) => id !== action.payload)
+        : null;
 
       const newSummaryHighlights = state.summary.highlights
         ? removeSummaryHighlight(state.summary.highlights, {
@@ -159,7 +167,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.currentPage,
           focused: state.currentPage.focused === action.payload ? undefined : state.currentPage.focused,
           hasUnsavedHighlight: false,
-          highlights: state.currentPage.highlights.filter(({id}) => id !== action.payload),
+          highlights: newCurrentPageHighlights,
         },
         summary: {
           ...state.summary,
