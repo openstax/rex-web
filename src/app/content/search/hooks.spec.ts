@@ -9,6 +9,7 @@ import { AppServices, ArgumentTypes, MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
+import * as selectors from '../selectors';
 import { formatBookData } from '../utils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
 import { clearSearchHook, receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
@@ -254,6 +255,15 @@ describe('hooks', () => {
       expect(dispatch).not.toHaveBeenCalled();
     });
 
+    it('noops if page is loading', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      const mock = jest.spyOn(selectors, 'loadingPage')
+        .mockReturnValue({ slug: 'any' });
+      go([hit]);
+      expect(dispatch).not.toHaveBeenCalled();
+      mock.mockReset();
+    });
+
     it('noops if book is different than initiated the search', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
@@ -304,6 +314,24 @@ describe('hooks', () => {
     it('dispatches REPLACE with search query when page is the same', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('asdf'));
+      go([hit]);
+      expect(dispatch).toHaveBeenCalledWith(
+        replace({
+          params: expect.anything(),
+          route: content,
+          state: {
+            bookUid: book.id,
+            bookVersion: book.version,
+            pageUid: page.id,
+            search: expect.objectContaining({query: 'asdf'}),
+          },
+        })
+      );
+    });
+
+    it('dispatches REPLACE with search query when page is undefined', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(requestSearch('asdf'));
       go([hit]);
       expect(dispatch).toHaveBeenCalledWith(
