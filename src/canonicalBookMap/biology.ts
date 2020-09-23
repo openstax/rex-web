@@ -4,7 +4,7 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  /* Biology */ '185cbf87-c72e-48f5-b51e-f14f21b5eabd' : [
+  /* Biology 1e */ '185cbf87-c72e-48f5-b51e-f14f21b5eabd' : [
     /* Biology 2e */ ['8d50a0af-948b-4204-a71d-4826cba765b8', {
       /* Preface to the same module in 2e */
       '7d501ff3-7b18-4b9e-99fd-2f596024f3a1': 'db36053c-5281-42f4-90ec-afcc21ab28c3 ',
