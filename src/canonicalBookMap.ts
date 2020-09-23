@@ -1,11 +1,11 @@
 // tslint:disable: object-literal-sort-keys
 // from https://docs.google.com/spreadsheets/d/1Hj5vm2AbEiLgxgcbNRi550InzFTLvBOv16-Fw6P-c5E/edit#gid=2066350488
 
-import economics from './canonicalBookMaps/economics';
-import macroeconomics from './canonicalBookMaps/macroeconomics';
-import macroeconomicsAP from './canonicalBookMaps/macroeconomicsAP';
-import microeconomics from './canonicalBookMaps/microeconomics';
-import microeconomicsAP from './canonicalBookMaps/microeconomicsAP';
+import economics from './canonicalBookMap/economics';
+import macroeconomics from './canonicalBookMap/macroeconomics';
+import macroeconomicsAP from './canonicalBookMap/macroeconomicsAP';
+import microeconomics from './canonicalBookMap/microeconomics';
+import microeconomicsAP from './canonicalBookMap/microeconomicsAP';
 
 export const CANONICAL_MAP: CanonicalBookMap = {
   ...economics,
