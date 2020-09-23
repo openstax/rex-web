@@ -1,5 +1,4 @@
 // tslint:disable: object-literal-sort-keys
-// tslint:disable: max-line-length
 
 import biology from './canonicalBookMap/biology';
 
