@@ -4,7 +4,7 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  /* Chemistry */ '85abf193-2bd2-4908-8563-90b8a7ac8df6': [
+  /* Chemistry 1e */ '85abf193-2bd2-4908-8563-90b8a7ac8df6': [
     /* Chemistry 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {
       /* Preface to the same module in 2e */
       '6f7f5abe-61aa-4f4c-b44e-870de2f9925b': '138634ed-6ed0-4edb-b13d-b78d388028b0',
@@ -160,7 +160,7 @@ export default {
       '983d7203-f8ee-4745-ab98-816466e7bacc': '5e902df9-c745-4aa6-a971-669706f327a2',
       /* 12.7 Catalysis to the same module in 2e */
       '7938344b-9ba7-4288-a745-81725248babb': 'a6400a57-a040-4768-8222-61705d4fff83',
-      /* 13.0 Opener to 13.0 Introduction in 2e */
+      /* 13.0 Introduction to the same module in 2e */
       'b32a005b-8368-47a6-8a47-a3797b204bc2': '907ae180-6648-46e3-9f76-1c2f7919bbe4',
       /* 13.1 Chemical Equilibria to the same module in 2e */
       '9308a05c-f27a-405f-94b9-8a2a16c52903': '50ab1072-cc18-4529-96d7-87efc091087f',
@@ -232,19 +232,19 @@ export default {
       'be8687a3-00c2-40ab-89e2-e2481af602a8': '0d29d8b1-83b0-49c3-961f-7f622017873e',
       /* 18.5 Occurrence, Preparation, and Compounds of Hydrogen to the same module in 2e */
       '54eb0e77-ce1f-4b62-91a6-a486e35eedf4': '04b97d13-490d-4732-8eb9-221fe8062387',
-      /* 18.6 Structure and General Properties of the Carbonates to 18.6 Occurrence, Preparation, and Properties of Carbonates in 2e */
+      /* 18.6 Structure and General Properties of the Carbonates to the same module in 2e */
       '3f2884a2-eb44-4b9f-a1f0-ca6668581551': '9832ddaa-8e9b-4b71-a979-b6e815242dd8',
-      /* 18.11 Occurrence, Preparation, and Properties of Nitrogen to 18.7 Occurrence, Preparation, and Properties of Nitrogen in 2e */
+      /* 18.7 Occurrence, Preparation, and Properties of Nitrogen to the same module in 2e */
       '1481832b-c3f3-4f7f-8102-1ba498666b1c': 'fa6592b5-4723-4955-816d-2a0d46641b8c',
-      /* 18.12 Occurrence, Preparation, and Properties of Phosphorus to 18.8 Occurrence, Preparation, and Properties of Phosphorus in 2e */
+      /* 18.8 Occurrence, Preparation, and Properties of Phosphorus to the same module in 2e */
       'ed2e0a48-dbf9-4004-b45d-b7e56bff34fa': '4121db69-abc4-44ab-b659-373f244a35bc',
-      /* 18.10 Occurrence, Preparation, and Compounds of Oxygen to 18.9 Occurrence, Preparation, and Compounds of Oxygen in 2e */
+      /* 18.9 Occurrence, Preparation, and Compounds of Oxygen to the same module in 2e */
       'dffe8fcc-9597-4dca-9e7b-4cc78fc3f50c ': 'a8895b18-d450-4bf2-a847-ccfab75780ec',
-      /* 18.13 Occurrence, Preparation, and Properties of Sulfur to 18.10 Occurrence, Preparation, and Properties of Sulfur in 2e */
+      /* 18.10 Occurrence, Preparation, and Properties of Sulfur to the same module in 2e */
       '4e6ea39b-0a6b-48a3-8fe8-da1f83179ef5 ': '03b0d669-3f4e-450d-a7be-1108051b9f47',
-      /* 18.14 Occurrence, Preparation, and Properties of Halogens to 18.11 Occurrence, Preparation, and Properties of Halogens in 2e */
+      /* 18.11 Occurrence, Preparation, and Properties of Halogens to 18.11 the same module in 2e */
       '3ea75b92-7e42-4f74-b7da-144cab31538d': '8868d0bc-22c9-4dff-abcd-28ed4c40aae2',
-      /* 18.15 Occurrence, Preparation, and Properties of the Noble Gases to 18.12 Occurrence, Preparation, and Properties of the Noble Gases in 2e */
+      /* 18.12 Occurrence, Preparation, and Properties of the Noble Gases to the same module in 2e */
       '15b0d34d-3a2d-495e-a477-8f947338866f': '06383b4a-d41b-4bfe-b776-b4431f8c446a',
       /* 19.0 Introduction to the same module in 2e */
       'b08273af-7ebe-4998-be20-3d67dcbbb51b': 'ab46f6de-1fc7-46c5-93e2-7b8fc2159976',
@@ -278,11 +278,11 @@ export default {
       '7ce1efca-b8fa-41c8-97ca-5367480c123e': '15be4435-4470-4cb9-b6ce-fdb871aba9f1',
       /* 21.6 Biological Effects of Radiation to the same module in 2e */
       '9664a115-e0d6-4bfb-b90f-65eb1de7d7f6': 'f2f866c2-bcfb-434a-b3f4-918cbd2c61de',
-      /* The Periodic Table of Elements to The Periodic Table in 2e */
+      /* The Periodic Table to the same module in 2e */
       'abe37363-0fb4-4018-868f-8ccc3ce7cad0': 'dff91a60-20dc-4c42-9824-1c616ee6a1c6',
       /* Essential Mathematics to the same module in 2e */
       '9e30ec42-520e-49d8-ab8b-177801a7dfae': '75fe9b6d-533d-4833-ba91-a70d2a794b2a',
-      /* Unit and Conversion Factors to Units and Conversion Factors in 2e */
+      /* Unit and Conversion Factors to the same module in 2e */
       '5b86fa37-ce91-485e-9da5-554eb69fbea7': 'eeaf98f0-ce83-4e1c-ae20-dd05515645b4',
       /* Fundamental Physical Constants to the same module in 2e */
       'ac3c6063-c724-481e-8868-ab093e116d60': '89acae8f-68fd-4f9e-88e3-e545c290c96c',
@@ -290,7 +290,7 @@ export default {
       '6c88b20d-e0cd-4a3a-8c9a-365ee1a74aab': '99f9a1dc-5a53-4300-af88-5529ddcd7fd1',
       /* Composition of Commercial Acids and Bases to the same module in 2e */
       '95d44348-7dcc-4a2c-9cc1-d1dd30068fee': '6bf34cfc-a0bd-44e3-b418-27e44b50baf3',
-      /* Standard Enthalpies of Formation, Standard Free Energies of Formation, and Absolute Standard Entropies to Standard Thermodynamic Properties of Selected Substances in 2e */
+      /* Standard Thermodynamic Properties of Selected Substances to the same module in 2e */
       'da076442-9614-4d57-92ab-d045b9331829': '667adccf-f900-4d86-a13d-409c014086ea',
       /* Ionization Constants of Weak Acids to the same module in 2e */
       '6bb1b6bb-d9ee-4a4d-870b-7cbb426a694d': '648466ce-e59f-49d4-9b54-3bb68cb15801',

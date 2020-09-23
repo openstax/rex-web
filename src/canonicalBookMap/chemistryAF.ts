@@ -4,7 +4,7 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  /* Chemistry: Atoms First */ '4539ae23-1ccc-421e-9b25-843acbb6c4b0': [
+  /* Chemistry: Atoms First 1e */ '4539ae23-1ccc-421e-9b25-843acbb6c4b0': [
     /* Chemistry: Atoms First 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {
       /* Preface to the same module in 2e */
       'f47f9c6a-e937-4e8f-a817-c11d4f8eff59 ': '541d7d79-a70e-42c2-b765-d55586648390',
@@ -60,7 +60,7 @@ export default {
       'bafa441e-6217-478e-bf89-356295080cb5': '5b667ac9-afd2-4a51-b96b-9a86d58beef7',
       /* 4.5 Formal Charges and Resonance to the same module in 2e */
       '5bfd0328-d151-45b7-8c22-455aa0c36157': 'bdd8ac14-71e8-4a87-9cc7-361f0a3157c2',
-      /* 4.6 Molecular Structure and Polarity to Ch 04 Chemical Bonding and Molecular Geometry: 4.6 Molecular Structure and Parity in 2e */
+      /* 4.6 Molecular Structure and Polarity to the same module in 2e */
       '1a7fcf57-8f3a-430a-a1bf-cdbdea263263': 'ff774d31-ee45-4f0d-a362-fdd00c5f17da',
       /* 5.0 Introduction to the same module in 2e */
       '1322482c-0b50-42ba-9df3-aa2e04a7ccba': '5ed46911-a4b7-4944-b746-f224f5031db4',
@@ -194,7 +194,7 @@ export default {
       'f17f0b23-0f90-4794-a5a9-8d06c5bb2ba2': '254840ff-5389-46ad-a965-7cf28005829a',
       /* 16.2 Galvanic Cells to the same module in 2e */
       'c5276fa4-ad96-4af7-8a14-aa887169de1f': '0c42f90c-4ac9-4e47-aab3-9beca85e4687',
-      /* 16.3 Standard Reduction Potentials to Ch 16 Electrochemistry: 16.3 E;ectrode and Cell Potentials in 2e */
+      /* 16.3 Standard Reduction Potentials to Ch 16 Electrochemistry: 16.3 Electrode and Cell Potentials in 2e */
       'e1174d7a-cf56-4722-9e86-8e3fac4a67ac': '377d0ae5-0579-4942-8213-ff54fe1ae112',
       /* 16.4 The Nernst Equation to Ch 16 Electrochemistry: 16.4 Potential, Free Energy, and Equilibrium in 2e */
       'cf7f3322-a268-4266-9bc8-78d9cc443984': '8027ad43-75a9-47d8-8ee6-da2125ceb96f',
@@ -224,28 +224,28 @@ export default {
       'e86d2342-1ecb-4a9c-85c9-a69ec77bd1bc': 'aa4dab2c-4908-4a31-bc42-1af345c323c6',
       /* 18.1 Periodicity to the same module in 2e */
       'a64c6bc7-5ab1-4cf7-a23f-c40c1c35eb73': 'f7224d2a-76cb-49f8-91ba-915271b912af',
-      /* 18.2 Occurrence and Preparation of the Representative Metals to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.10 Occurrence, Preparation, and Properties of Sulfur in 2e */
-      'a12b5c95-857c-4b5f-898f-533d96d14a4f': '03b0d669-3f4e-450d-a7be-1108051b9f47',
-      /* 18.3 Structure and General Properties of the Metalloids to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.11 Occurrence, Preparation, and Properties of Halogens in 2e */
-      'a9254810-9f64-4982-9419-c562bed791b7': '8868d0bc-22c9-4dff-abcd-28ed4c40aae2',
-      /* 18.4 Structure and General Properties of the Nonmetals to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.12 Occurrence, Preparation, and Properties of the Noble Gases in 2e */
-      'be8687a3-00c2-40ab-89e2-e2481af602a8': '06383b4a-d41b-4bfe-b776-b4431f8c446a',
-      /* 18.5 Occurrence, Preparation, and Compounds of Hydrogen to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.2 Occurrence and Preparation of the Representative Metals in 2e */
-      '54eb0e77-ce1f-4b62-91a6-a486e35eedf4': 'bc580803-a608-4004-95be-e5c48156136c',
-      /* 18.6 Occurrence, Preparation, and Properties of Carbonates to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.3 Structure and General Properties of the Metalloids in 2e */
-      '3f2884a2-eb44-4b9f-a1f0-ca6668581551': '204b5ad5-26eb-46d5-8e6c-3c224a904235',
-      /* 18.7 Occurrence, Preparation, and Properties of Nitrogen to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.4 Structure and General Properties of the Nonmetals in 2e */
-      '1481832b-c3f3-4f7f-8102-1ba498666b1c': '0d29d8b1-83b0-49c3-961f-7f622017873e',
-      /* 18.8 Occurrence, Preparation, and Properties of Phosphorus to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.5 Occurrence, Preparation, and Compounds of Hydrogen in 2e */
-      'ed2e0a48-dbf9-4004-b45d-b7e56bff34fa': '04b97d13-490d-4732-8eb9-221fe8062387',
-      /* 18.9 Occurrence, Preparation, and Compounds of Oxygen to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.6 Occurrence, Preparation, and Properties of Carbonates in 2e */
-      'dffe8fcc-9597-4dca-9e7b-4cc78fc3f50c': '9832ddaa-8e9b-4b71-a979-b6e815242dd8',
-      /* 18.10 Occurrence, Preparation, and Properties of Sulfur to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.7 Occurrence, Preparation, and Properties of Nitrogen in 2e */
-      '4e6ea39b-0a6b-48a3-8fe8-da1f83179ef5': 'fa6592b5-4723-4955-816d-2a0d46641b8c',
-      /* 18.11 Occurrence, Preparation, and Properties of Halogens to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.8 Occurrence, Preparation, and Properties of Phosphorus in 2e */
-      '3ea75b92-7e42-4f74-b7da-144cab31538d': '4121db69-abc4-44ab-b659-373f244a35bc',
-      /* 18.12 Occurrence, Preparation, and Properties of the Noble Gases to Ch 18 Representative Metals, Metalloids, and Nonmetals: 18.9 Occurrence, Preparation, and Compounds of Oxygen in 2e */
-      '15b0d34d-3a2d-495e-a477-8f947338866f': 'a8895b18-d450-4bf2-a847-ccfab75780ec',
+      /* 18.2 Occurrence and Preparation of the Representative Metals to the same module in 2e */
+      'a12b5c95-857c-4b5f-898f-533d96d14a4f': 'bc580803-a608-4004-95be-e5c48156136c',
+      /* 18.3 Structure and General Properties of the Metalloids to the same module in 2e */
+      'a9254810-9f64-4982-9419-c562bed791b7': '204b5ad5-26eb-46d5-8e6c-3c224a904235',
+      /* 18.4 Structure and General Properties of the Nonmetals to the same module in 2e */
+      'be8687a3-00c2-40ab-89e2-e2481af602a8': '0d29d8b1-83b0-49c3-961f-7f622017873e',
+      /* 18.5 Occurrence, Preparation, and Compounds of Hydrogen to the same module in 2e */
+      '54eb0e77-ce1f-4b62-91a6-a486e35eedf4': '04b97d13-490d-4732-8eb9-221fe8062387',
+      /* 18.6 Occurrence, Preparation, and Properties of Carbonates to the same module in 2e */
+      '3f2884a2-eb44-4b9f-a1f0-ca6668581551': '9832ddaa-8e9b-4b71-a979-b6e815242dd8',
+      /* 18.7 Occurrence, Preparation, and Properties of Nitrogen to the same module in 2e */
+      '1481832b-c3f3-4f7f-8102-1ba498666b1c': 'fa6592b5-4723-4955-816d-2a0d46641b8c',
+      /* 18.8 Occurrence, Preparation, and Properties of Phosphorus to the same module in 2e */
+      'ed2e0a48-dbf9-4004-b45d-b7e56bff34fa': '4121db69-abc4-44ab-b659-373f244a35bc',
+      /* 18.9 Occurrence, Preparation, and Compounds of Oxygen to the same module in 2e */
+      'dffe8fcc-9597-4dca-9e7b-4cc78fc3f50c': 'a8895b18-d450-4bf2-a847-ccfab75780ec',
+      /* 18.10 Occurrence, Preparation, and Properties of Sulfur to the same module in 2e */
+      '4e6ea39b-0a6b-48a3-8fe8-da1f83179ef5': '03b0d669-3f4e-450d-a7be-1108051b9f47',
+      /* 18.11 Occurrence, Preparation, and Properties of Halogens to the same module in 2e */
+      '3ea75b92-7e42-4f74-b7da-144cab31538d': '8868d0bc-22c9-4dff-abcd-28ed4c40aae2',
+      /* 18.12 Occurrence, Preparation, and Properties of the Noble Gases to the same module in 2e */
+      '15b0d34d-3a2d-495e-a477-8f947338866f': '06383b4a-d41b-4bfe-b776-b4431f8c446a',
       /* 19.0 Introduction to the same module in 2e */
       'b08273af-7ebe-4998-be20-3d67dcbbb51b': 'ab46f6de-1fc7-46c5-93e2-7b8fc2159976',
       /* 19.1 Occurrence, Preparation, and Properties of Transition Metals and Their Compounds to the same module in 2e */
