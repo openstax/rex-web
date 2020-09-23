@@ -4,7 +4,7 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  /* American Government */ '5bcc0e59-7345-421d-8507-a1e4608685e8': [
+  /* American Government 1e */ '5bcc0e59-7345-421d-8507-a1e4608685e8': [
     /* Amercian Government 2e */ ['9d8df601-4f12-4ac1-8224-b450bf739e5f', {
       /* Preface to the same module in 2e */
       '63509fa8-58ee-479c-b8d8-686908ddd971': 'c4926429-a48a-4355-8292-dea184b74340',
