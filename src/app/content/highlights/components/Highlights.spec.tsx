@@ -404,6 +404,6 @@ describe('Highlights', () => {
       pageId,
     }));
 
-    expect(component.root.findAllByType(HighlightDeleteWrapper).length).toEqual(1);
+    expect(component.root.findAllByType(HighlightDeleteWrapper).length).toEqual(0);
   });
 });
