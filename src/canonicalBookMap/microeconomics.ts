@@ -110,7 +110,7 @@ export default {
       '86b607a4-c4d5-4dc2-b912-a8a97860305d': 'b24e1b03-1451-403c-9cb9-c49147f63fe0',
       /* 12.2 Command-and-Control Regulation to the same module in 2e */
       'e2a930e1-9b55-479a-82f9-f15c556d5f0d': 'de3e0efc-e173-4fc1-8961-842e828d6291',
-      /* 12.3 Market-Orientated Environmental Tools to 12.3 Market-Oriented Environmental Tools in 2e */
+      /* 12.3 Market-Oriented Environmental Tools to the same module in 2e */
       '6e6ba498-0799-45d5-b1ab-033bc75987e4': 'ff3b9a64-5f31-40c3-96bf-2ff034f2eadf',
       /* 12.4 The Benefits and Costs of U.S. Environmental Laws to the same module in 2e */
       '0c0c2dde-d5f4-4bbb-ac31-c1476178859c': 'a3ef7d42-e399-4516-82f6-ad8eb1c3502e',
@@ -168,27 +168,27 @@ export default {
       'f0db4e9b-bcef-4fa5-b518-f23a1f85ac87': 'bf119972-948e-45d3-81b8-c38969770f67',
       /* 18.3 Flaws in the Democratic System of Government to the same module in 2e */
       'd22fec32-6b22-42cc-b5b9-2e59fd462030': '6d2760f9-0909-4464-8a7c-103db44ebad3',
-      /* 19.0 Introduction to International Trade to 33.0 Introduction to International Trade in 2e */
+      /* 19.0 Introduction to International Trade to the same module in 2e */
       '4dcaa061-a5a1-47be-8e95-3a5f42797b95': '6cfb9bda-7891-417a-98fd-ece6e32f5cf4',
-      /* 19.1 Absolute and Comparative Advantage to 33.1 Absolute and Comparative Advantage in 2e */
+      /* 19.1 Absolute and Comparative Advantage to the same module in 2e */
       'b1b03421-0bfa-4a77-9145-92c6c8df0d5a': 'ecd73abe-5bdb-406f-989c-044b4064eb0b',
-      /* 19.2 What Happens When a Country Has Absolute Advantage in All Goods to 33.2 What Happens When a Country Has an Absolute Advantage in All Goods in 2e */
+      /* 19.2 What Happens When a Country Has Absolute Advantage in All Goods to the same module in 2e */
       'f567ceb9-aeb6-4cb8-b13f-99ddd4b37c7c': 'd69ead69-7fb3-4c76-a1d8-4c74ea4bbe73',
-      /* 19.3 Intra-industry Trade between Similar Economies to 33.3 Intra-industry Trade between Similar Economies in 2e */
+      /* 19.3 Intra-industry Trade between Similar Economies to the same module in 2e */
       'b8fafee4-3e49-4f8c-a21b-aab80a0f1735': '0b9e9bce-a199-4c1f-928d-87193391bfe9',
-      /* 19.4 The Benefits of Reducing Barries to International Trade to 33.4 The Benefits of Reducing Barriers to International Trade in 2e */
+      /* 19.4 The Benefits of Reducing Barries to International Trade to the same module in 2e */
       '9117be2b-45b9-4f28-a6f2-e3c1b2cf9f10': '4606e970-96b8-425b-b81f-a3263899b07a',
-      /* 20.0 Introduction to Globalization and Protectionism to 34.0 Introduction to Globalization and Protectionism in 2e */
+      /* 20.0 Introduction to Globalization and Protectionism to the same module in 2e */
       '724958cc-bee2-41a7-929c-62622b4a0f68': '19cf7176-5ab4-40b2-8b16-ee3cea886609',
-      /* 20.1 Protectionism: An Indirect Subsidy from Consumers to Producers to 34.1 Protectionism: An Indirect Subsidy from Consumers to Producers in 2e */
+      /* 20.1 Protectionism: An Indirect Subsidy from Consumers to Producers to the same module in 2e */
       'b24c8a1b-62fd-4fc3-b6f7-372793f34896': '74d22bab-1680-419d-a2a2-889be24769d0',
-      /* 20.2 International Trade and Its Effects on Jobs, Wages, and Working Conditions to 34.2 International Trade and Its Effects on Jobs, Wages, and Working Conditions in 2e */
+      /* 20.2 International Trade and Its Effects on Jobs, Wages, and Working Conditions to the same module in 2e */
       'ed3e6427-8cfe-49e3-80b0-4beb7f96a8b6': 'cab8ed16-981e-4a33-a9ea-79304d69f3ac',
-      /* 20.3 Arguments in Support of Restricting Imports to 34.3 Arguments in Support of Restricting Imports in 2e */
+      /* 20.3 Arguments in Support of Restricting Imports to the same module in 2e */
       'ef4a775a-2737-4181-975f-22f49d9071cb': '9485f8e5-30ab-4549-84af-29d053950b0b',
-      /* 20.4 How Trade Policy Is Enacted: Globally, Regionally, and Nationally to 34.4 How Trade Policy Is Enacted: Globally, Regionally, and Nationally in 2e */
+      /* 20.4 How Trade Policy Is Enacted: Globally, Regionally, and Nationally to the same module in 2e */
       'b10b00c2-c727-4d40-bbe4-75048df0bd11': '08a3fbae-a2ba-4ba9-bf33-24f71e10d9fb',
-      /* 20.5 The Tradeoffs of Trade Policy to 34.5 The Tradeoffs of Trade Policy in 2e */
+      /* 20.5 The Tradeoffs of Trade Policy to the same module in 2e */
       '5d09494c-3feb-4274-8e97-6386c5be0f93': 'a60d4dac-9445-4798-a811-f2cd703f6bd3',
       /* The Use of Mathematics in Principles of Economics to the same module in 2e */
       '36286f6b-c879-48bd-b550-47f07b1c8b32': 'a4078b03-0419-4c50-9fb8-eb3e7f129ce6',

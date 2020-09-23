@@ -4,7 +4,7 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  /* Principles of Macroeconomics */ '33076054-ec1d-4417-8824-ce354efe42d0': [
+  /* Principles of Macroeconomics 1e */ '4061c832-098e-4b3c-a1d9-7eb593a2cb31': [
     /* Principles of Macroeconomics 2e */ ['27f59064-990e-48f1-b604-5188b9086c29', {
       /* Preface to the same module in 2e */
       '2d204057-3418-43ca-a63b-fd998037ef83': '6b77457d-1ba4-4d9c-828b-1baa3bb3191d',
@@ -126,7 +126,7 @@ export default {
       '755db132-d36d-4c36-ab70-06dece75a32c': 'b2dc180a-cae6-401c-b034-36c70487179c',
       /* 11.5 How the AD/AS Model Incorporates Growth, Unemployment, and Inflation to the same module in 2e */
       '9aa7c914-1f69-466f-a72d-8ecf86a72ade': 'b6045d85-c79b-4252-aaae-028a18cb7590',
-      /* 11.6 Keynes' Law and Say's Law in the AD/AS Model to 11.6 Keynes’ Law and Say’s Law in the AD/AS Model in 2e */
+      /* 11.6 Keynes' Law and Say's Law in the AD/AS Model to the same module in 2e */
       '2370a7c3-960b-4058-ab9c-eb13e3b3a97d': 'fb69d553-cf11-4f47-9acf-a6394cc3ca74',
       /* 12.0 Introduction to the Keynesian Perspective to the same module in 2e */
       'c35c478b-b844-4d1e-967f-756fe636116a': '0c51ee41-91a1-4834-a55b-1e06b54cbfb8',
@@ -138,7 +138,7 @@ export default {
       '06001366-18b0-4756-84b6-8ca098394dfb': '1ffb30b6-e7a9-482e-9ff9-0588c32f4142',
       /* 12.4 The Keynesian Perspective on Market Forces to the same module in 2e */
       'c5701cce-b8d5-48ef-b2a0-0ca38394334b': '6dfa8538-fa74-4564-9490-4dec1c533e5d',
-      /* 13.0 The Neoclassical Perspective to 13.0 Introduction to the Neoclassical Perspective in 2e */
+      /* 13.0 Introduction to the Neoclassical Perspective to the same module in 2e */
       'b04ca56b-fe77-4e47-92da-7fdd40701de1': '212c8034-df03-4139-b1b8-fe8ac825151d',
       /* 13.1 The Building Blocks of Neoclassical Analysis to the same module in 2e */
       'c70f8933-4eff-4151-a4af-c77e853ae75c': '8c77a828-3fb6-4de9-b3da-4fca607dfe28',
@@ -208,7 +208,7 @@ export default {
       'e791ea8c-1a5e-4e8d-b74a-a3043620a9b8': '686dabb3-1a2a-4375-a64d-28a8b1ac2d58',
       /* 19.1 The Diversity of Countries and Economies across the World to the same module in 2e */
       'a092541a-6b32-4e08-b20c-33d3cdc15916': 'b6bc4294-e385-443a-87d7-4fc02e32f0ce',
-      /* 19.2 Improving Countries' Standards of Living to 19.2 Improving Countries’ Standards of Living in 2e */
+      /* 19.2 Improving Countries' Standards of Living to the same module in 2e */
       'f4eb3243-1796-492d-b97b-7a0be4a74978': 'f3a16586-4b8e-4beb-85e3-298adafaca01',
       /* 19.3 Causes of Unemployment around the World to the same module in 2e */
       '0fdba540-4ce6-4e5e-9d47-80a88a7ad784': '5daf511c-4f2d-4a64-b813-a01cfabab9d8',
@@ -220,11 +220,11 @@ export default {
       '4dcaa061-a5a1-47be-8e95-3a5f42797b95': '6cfb9bda-7891-417a-98fd-ece6e32f5cf4',
       /* 20.1 Absolute and Comparative Advantage to the same module in 2e */
       'b1b03421-0bfa-4a77-9145-92c6c8df0d5a': 'ecd73abe-5bdb-406f-989c-044b4064eb0b',
-      /* 20.2 What Happens When a Country Has Absolute Advantage in All Goods to 20.2 What Happens When a Country Has an Absolute Advantage in All Goods in 2e */
+      /* 20.2 What Happens When a Country Has an Absolute Advantage in All Goods to the same module in 2e */
       'f567ceb9-aeb6-4cb8-b13f-99ddd4b37c7c': 'd69ead69-7fb3-4c76-a1d8-4c74ea4bbe73',
       /* 20.3 Intra-industry Trade between Similar Economies to the same module in 2e */
       'b8fafee4-3e49-4f8c-a21b-aab80a0f1735': '0b9e9bce-a199-4c1f-928d-87193391bfe9',
-      /* 20.4 The Benefits of Reducing Barries to International Trade to 20.4 The Benefits of Reducing Barriers to International Trade in 2e */
+      /* 20.4 The Benefits of Reducing Barriers to International Trade to the same module in 2e */
       '9117be2b-45b9-4f28-a6f2-e3c1b2cf9f10': '4606e970-96b8-425b-b81f-a3263899b07a',
       /* 21.0 Introduction to Globalization and Protectionism to the same module in 2e */
       '724958cc-bee2-41a7-929c-62622b4a0f68': '19cf7176-5ab4-40b2-8b16-ee3cea886609',

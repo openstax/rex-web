@@ -10,7 +10,7 @@ export default {
       '5a04a1ba-389c-4ab3-bc6c-c55ecb93da63': '0c512537-0e6c-4d5c-89d0-3bdc0138ab4b ',
       /* 1.0 Introduction to the same module in 2e */
       '0920969f-c95c-457d-b5ec-ee6360ffacab': 'dd99525b-50bb-40ff-ba1e-dd9e345183b4',
-      /* 1.1 What Is Economics, and Why Is It Important? to 1.1 What Economics Is and Why It's Important in 2e */
+      /* 1.1 What Is Economics, and Why Is It Important? to the same module in 2e */
       'bc48ebc8-7793-460c-80d7-53f1b5304a5c': '99d340b7-1345-4b77-87b4-747a7e2f5964',
       /* 1.2 Microeconomics and Macroeconomics to the same module in 2e */
       'a668080c-7705-4b80-81eb-5851585e8f82': 'd70b25fe-374a-4553-b47e-a21422a6e1b4',
@@ -24,7 +24,7 @@ export default {
       '9c40655d-5b9e-4341-905d-37aab20fe4d6': 'b7c7a31d-06b1-41d4-9d0b-ca54ffb97261',
       /* 2.2 The Production Possibilities Frontier and Social Choices to the same module in 2e */
       '3377e0d7-d8b8-4282-b81a-416bebcc61f0': '071a0776-6f06-4209-aac6-522aa9229b85',
-      /* 2.3 Confronting Objections to the Economics Approach to 2.3 Confronting Objections to the Economic Approach in 2e */
+      /* 2.3 Confronting Objections to the Economic Approach to the same module in 2e */
       '28a69b4f-6e7e-42e3-9595-b6dd4800a545': '7e364e3b-4eee-4844-95c2-0a40683d665f',
       /* 3.0 Introduction to Demand and Supply to the same module in 2e */
       '109e65a0-11d0-47a2-84f4-e57c9ea88fa5': 'a0bffdda-92e3-4f18-9546-0c595e948718',
@@ -44,7 +44,7 @@ export default {
       'bab70fbe-7ae4-431b-8a64-feb58cff7f23': '76a1b250-eb1b-40c5-82a5-8ed88234697f',
       /* 4.2 Demand and Supply in Financial Markets to the same module in 2e */
       '5e43e920-8353-43e5-9772-1f47b78ac934': '7b97db6e-33c4-4eed-a6ac-c9cd17f5121e',
-      /* 4.3 The Market System as an Efficient Mechanism for Information  to 4.3 The Market System as an Efficient Mechanism for Information in 2e */
+      /* 4.3 The Market System as an Efficient Mechanism for Information to the same module in 2e */
       '032d5869-78fa-461c-a1d7-4d3d81994ebc': 'f037d414-0834-458a-8216-4638dcf92483',
       /* 5.0 Introduction to Elasticity to the same module in 2e */
       'd734aee0-45b5-448f-8e56-74fdfc599ac8': '8735d814-2b1c-4c46-9452-cbb2b6ee9704',
@@ -80,11 +80,11 @@ export default {
       'dd94f50b-469c-42f7-bd95-9ad82cbf2f46': 'd72c1e29-0dbd-42a5-b94f-8d5996112349',
       /* 8.2 How Perfectly Competitive Firms Make Output Decisions to the same module in 2e */
       '0947e660-9d58-49d4-90c9-7383e2201bf3': '12464b69-d2a1-45ed-b7b1-a2d366d6174b',
-      /* 8.3 Entry and Exit Decisions in the Long Run  to 8.3 Entry and Exit Decisions in the Long Run in 2e */
+      /* 8.3 Entry and Exit Decisions in the Long Run to the same module in 2e */
       'da8e08e0-fd7f-43fa-86be-4d0c48707fb2': '581e2629-6cb4-4033-85b4-79fbf1cd0d88',
       /* 8.4 Efficiency in Perfectly Competitive Markets to the same module in 2e */
       'bc38ca5c-cebf-48a8-9360-c784eab9c28f': '72995f71-eee3-4d31-a2f7-78bf67b2675c',
-      /* 9.0 Introduction to Monopoly to 9.0 Introduction to a Monopoly in 2e */
+      /* 9.0 Introduction to a Monopoly to the same module in 2e */
       '9d9d5e4b-d371-4984-a43a-495f685772fd': '7294c0d7-9289-4ac7-9b49-5bb347b88ae8',
       /* 9.1 How Monopolies Form: Barriers to Entry to the same module in 2e */
       '0e6e27f7-0ff5-49fc-b15c-aae11869d7fa': '42bd9a06-0261-4ce9-9be1-3da2c5cdb699',
@@ -98,7 +98,7 @@ export default {
       'e385cdae-103b-4422-af3e-35bef232b58b': '2dd513d0-556c-41e7-ae28-b5de3ead6f8a',
       /* 11.0 Introduction to Monopoly and Antitrust Policy to the same module in 2e */
       '546e6f68-3fed-4100-93d6-d3372c846301': '091a524f-3f05-4fde-918a-d95f3a0cce68',
-      /* 11.1 Coporate Mergers to 11.1 Corporate Mergers in 2e */
+      /* 11.1 Corporate Mergers to the same module in 2e */
       '106b7d96-e607-4787-b8ed-45179d3a6152': '3b31cfcb-c061-4644-bff7-fe77e9881c78',
       /* 11.2 Regulating Anticompetitive Behavior to the same module in 2e */
       '571c958d-c004-4407-92a3-4b96fb4e47c3': 'ced9b334-de09-47ff-8eae-162f5a6d9753',
@@ -108,7 +108,7 @@ export default {
       'ab5e6352-f572-4f41-a626-1d752e260c6e': 'ca35cb8e-579a-4440-8ac7-5fcc70429895',
       /* 12.0 Introduction to Environmental Protection and Negative Externalities to the same module in 2e */
       'e3af44f9-4260-4a82-b34c-41082b88656a': 'df0c49f6-91af-4213-80f5-be200084d8b5',
-      /* 12.1 The Economics of Pollution  to 12.1 The Economics of Pollution in 2e */
+      /* 12.1 The Economics of Pollution to the same module in 2e */
       'c8c4154c-4150-46d8-9791-796520ba6fef': 'b24e1b03-1451-403c-9cb9-c49147f63fe0',
       /* 12.2 Command-and-Control Regulation to the same module in 2e */
       '9f99d2f6-2613-4454-8507-dff4724854e3': 'de3e0efc-e173-4fc1-8961-842e828d6291',
@@ -128,25 +128,25 @@ export default {
       '172a2167-0977-487c-a51e-a27050a769c8': '2e7a5ac4-f4ad-432b-b694-58fce538f1a8',
       /* 13.3 Public Goods to the same module in 2e */
       'cb62440f-7df4-4a0f-b565-577a4c6e7294': '15202d03-f65b-4db0-8640-48ef46c98ab5',
-      /* 14.0 Introduction to Poverty and Economic Inequality to 15.0 Introduction to Poverty and Economic Inequality in 2e */
+      /* 14.0 Introduction to Poverty and Economic Inequality to the same module in 2e */
       '99014a4d-b0b1-4b61-ae99-c7cce72bf853': '50a3e7ce-6a7f-4560-8442-f3e9f078e78f',
-      /* 14.1 Drawing the Poverty Line to 15.1 Drawing the Poverty Line in 2e */
+      /* 14.1 Drawing the Poverty Line to the same module in 2e */
       'af342ae0-0973-4ebb-a208-67d7a3d19e99': '2c838703-dd93-490a-ab8e-b9799b8ec78c',
-      /* 14.2 The Poverty Trap to 15.2 The Poverty Trap in 2e */
+      /* 14.2 The Poverty Trap to the same moduleTrap in 2e */
       'e29b40ed-e837-46e6-b492-fabdc268a69a': '603a8e36-7ebb-4ab9-908e-6453b3c76f71',
-      /* 14.3 The Safety Net to 15.3 The Safety Net in 2e */
+      /* 14.3 The Safety Net to the same module in 2e */
       'b8c3ccd3-e532-4564-9117-6f2d748b49bb': '73b2e5d1-9ffd-4d23-a4f2-01bd849fd8ba',
-      /* 14.4 Income Inequality: Measurement and Causes to 15.4 Income Inequality: Measurement and Causes in 2e */
+      /* 14.4 Income Inequality: Measurement and Causes to the same module in 2e */
       '48d4b0f2-0c11-46ad-9e06-83a50d586900': 'f758d452-f68f-4fbf-879e-9ec292566c6b',
-      /* 14.5 Government Policies to Reduce Income Inequality to 15.5 Government Policies to Reduce Income Inequality in 2e */
+      /* 14.5 Government Policies to Reduce Income Inequality to the same module in 2e */
       '116f44cd-f09e-4079-b79d-c508d5dbd3ef': '4b2bf15f-c68b-432e-818e-1e314e22dfa9',
-      /* 15.0 Introduction to Issues in Labor Markets: Unions, Discrimination, Immigration to 14.0 Introduction to Labor Markets and Income in 2e */
+      /* 15.0 Introduction to Issues in Labor Markets: Unions, Discrimination, Immigration to 15.0 Introduction to Labor Markets and Income in 2e */
       '3eb95e7a-37bc-42af-8b32-dafc2dadd3eb': '555a325b-15d3-48aa-98cf-05bba6ff089b',
       /* 15.1 Unions to 14.3 Market Power on the Supply Side of Labor Markets: Unions in 2e */
       'd0f57572-dda4-4c72-aab8-7655eeb2c1c2': '65f0f332-29a3-4a54-a982-7d8ab30dd0f9',
-      /* 15.2 Employment Discrimination to 14.5 Employment Discrimination in 2e */
+      /* 15.2 Employment Discrimination to the same module in 2e */
       'c4682561-fc04-47d7-a9a1-71c90ebc18e1': '227f2aa4-af66-4cdb-bd5b-d9d761879fbe',
-      /* 15.3 Immigration to 14.6 Immigration in 2e */
+      /* 15.3 Immigration to the same module in 2e */
       '5c114a0a-6ba0-4e33-a501-53b174146a9c': 'e9e8c445-4906-49a5-a6ed-cfa4d2666cec',
       /* 16.0 Introduction to Information, Risk, and Insurance to the same module in 2e */
       '29a77596-df37-476f-adb8-55b793655983': 'c8b7d919-8a74-478d-a1d2-935ab6bb1db0',
@@ -172,27 +172,27 @@ export default {
       '9b5e8909-fbe8-4949-b03a-9ffc7c022cfc': '6d2760f9-0909-4464-8a7c-103db44ebad3',
       /* 33.0 Introduction to International Trade to the same module in 2e */
       '1f4933b1-1d91-4e34-a416-0c0d4608f64a': '6cfb9bda-7891-417a-98fd-ece6e32f5cf4',
-      /* 19.1 Absolute and Comparative Advantage  to 33.1 Absolute and Comparative Advantage in 2e */
+      /* 19.1 Absolute and Comparative Advantage  to the same module in 2e */
       'be43d184-7ce7-47e9-adde-8b2a9ef5c833': 'ecd73abe-5bdb-406f-989c-044b4064eb0b',
-      /* 19.2 What Happens When a Country Has an Absolute Advantage in All Goods to 33.2 What Happens When a Country Has an Absolute Advantage in All Goods in 2e */
+      /* 19.2 What Happens When a Country Has an Absolute Advantage in All Goods to the same module in 2e */
       'dfd701c4-a650-41d8-84fd-2f85ee56eca0': 'd69ead69-7fb3-4c76-a1d8-4c74ea4bbe73',
-      /* 19.3 Intra-industry Trade between Similar Economies to 33.3 Intra-industry Trade between Similar Economies in 2e */
+      /* 19.3 Intra-industry Trade between Similar Economies to the same module in 2e */
       '39a2b09d-c092-4767-b9d2-28d67355ac6c': '0b9e9bce-a199-4c1f-928d-87193391bfe9',
-      /* 19.4 The Benefits of Reducing Barriers to International Trade to 33.4 The Benefits of Reducing Barriers to International Trade in 2e */
+      /* 19.4 The Benefits of Reducing Barriers to International Trade to the same module in 2e */
       'ec21ff67-63e4-456b-bea7-1b72f8d63d77': '4606e970-96b8-425b-b81f-a3263899b07a',
-      /* 20.0 Introduction to Globalization and Protectionism to 34.0 Introduction to Globalization and Protectionism in 2e */
+      /* 20.0 Introduction to Globalization and Protectionism to the same module in 2e */
       '1e325274-8f38-40cc-b775-45a1656cbc62': '19cf7176-5ab4-40b2-8b16-ee3cea886609',
-      /* 20.1 Protectionism: An Indirect Subsidy from Consumers to Producers to 34.1 Protectionism: An Indirect Subsidy from Consumers to Producers in 2e */
+      /* 20.1 Protectionism: An Indirect Subsidy from Consumers to Producers to the same module in 2e */
       '6f8dd957-46a9-44ec-b352-d77e906ca9f8': '74d22bab-1680-419d-a2a2-889be24769d0',
-      /* 20.2 International Trade and Its Effects on Jobs, Wages, and Working Conditions to 34.2 International Trade and Its Effects on Jobs, Wages, and Working Conditions in 2e */
+      /* 20.2 International Trade and Its Effects on Jobs, Wages, and Working Conditions to the same module in 2e */
       '70c0cbeb-e313-4c5f-840f-45b76df3d221': 'cab8ed16-981e-4a33-a9ea-79304d69f3ac',
-      /* 20.3 Arguments in Support of Restricting Imports to 34.3 Arguments in Support of Restricting Imports in 2e */
+      /* 20.3 Arguments in Support of Restricting Imports to the same module in 2e */
       '2de73753-93a7-45aa-a9e4-9cc4937a9517': '9485f8e5-30ab-4549-84af-29d053950b0b',
-      /* 20.4 How Trade Policy Is Enacted: Globally, Regionally, and Nationally to 34.4 How Trade Policy Is Enacted: Globally, Regionally, and Nationally in 2e */
+      /* 20.4 How Trade Policy Is Enacted: Globally, Regionally, and Nationally to 20.4 How Governments Enact Trade Policy: Globally, Regionally, and Nationally in 2e */
       '96901c6f-9cf1-4070-a391-a580d1207431': '08a3fbae-a2ba-4ba9-bf33-24f71e10d9fb',
-      /* 20.5 The Tradeoffs of Trade Policy to 34.5 The Tradeoffs of Trade Policy in 2e */
+      /* 20.5 The Tradeoffs of Trade Policy to the same module in 2e */
       '77daba3d-6502-48e0-aa01-17f2c2011661': 'a60d4dac-9445-4798-a811-f2cd703f6bd3',
-      /* The Use of Mathematics in Principles of Economics  to The Use of Mathematics in Principles of Economics in 2e */
+      /* The Use of Mathematics in Principles of Economics to the same module in 2e */
       '490600d7-8fbc-4b86-a95f-da8a2d4f7e23': 'a4078b03-0419-4c50-9fb8-eb3e7f129ce6',
       /* Indifference Curves to the same module in 2e */
       'dbe22164-f38d-413f-b88f-945d6426403b': '2ac731b5-3c9a-433f-8ccb-20c5035de1b9',
