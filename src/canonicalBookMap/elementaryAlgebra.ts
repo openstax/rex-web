@@ -4,8 +4,8 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  /* Elementary Algebra 1e */ '8b89d172-2927-466f-8661-01abc7ccdba4': [
-    /* Elementary Algebra 2e */ ['0889907c-f0ef-496a-bcb8-2a5bb121717f', {
+  /* Elementary Algebra 1e */ '0889907c-f0ef-496a-bcb8-2a5bb121717f': [
+    /* Elementary Algebra 2e */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {
       /* Preface to the same module in 2e */
       '4b5aaf32-1de1-419b-bdc0-4e0a7f6daf0f' :	'4b5aaf32-1de1-419b-bdc0-4e0a7f6daf0f',
       /* 1.0 Introduction	to the same module in 2e */
