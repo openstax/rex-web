@@ -52,12 +52,12 @@ export const treeWithoutUnits = {
 export const treeWithUnits = {
   contents: [
     {
+      id: 'preface@1',
+      slug: 'preface',
+      title: '<span class="os-divider"> </span><span class="os-text">preface</span>',
+    },
+    {
       contents: [
-        {
-          id: 'preface@1',
-          slug: 'preface',
-          title: '<span class="os-divider"> </span><span class="os-text">preface</span>',
-        },
         {
           contents: [
             {
