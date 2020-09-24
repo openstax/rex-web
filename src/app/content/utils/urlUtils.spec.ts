@@ -53,21 +53,14 @@ describe('getUrlParamForPageId', () => {
         contents: [
           {
             id: 'pagelongid@1',
-            shortId: 'page@1',
             slug: 'preface',
             title: '<span class="os-text">Preface</span>',
           },
         ],
         id: 'booklongid@1',
-        shortId: 'book@1',
         title: 'book',
       },
     }) as Book;
-  });
-
-  it('finds title in book tree using the short id', () => {
-    expect(getUrlParamForPageId(book, 'page')).toEqual({slug: 'preface'});
-    expect(getUrlParamForPageId(book, 'page@1')).toEqual({slug: 'preface'});
   });
 
   it('finds title in book tree using the long id', () => {
@@ -119,13 +112,11 @@ describe('getPageIdFromUrlParam', () => {
         contents: [
           {
             id: 'pagelongid@1',
-            shortId: 'page@1',
             slug: 'preface',
             title: '<span class="os-text">Preface</span>',
           },
         ],
         id: 'booklongid@1',
-        shortId: 'book@1',
         slug: 'book-slug',
         title: 'book',
       },
