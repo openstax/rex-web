@@ -4,8 +4,8 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  /* Pre Algebra 1e */ 'f0fa90be-fca8-43c9-9aad-715c0a2cee2b': [
-    /* Pre Algebra 2e */ ['caa57dab-41c7-455e-bd6f-f443cda5519c', {
+  /* Pre Algebra 1e */ 'caa57dab-41c7-455e-bd6f-f443cda5519c': [
+    /* Pre Algebra 2e */ ['f0fa90be-fca8-43c9-9aad-715c0a2cee2b', {
       /* Preface to the same module in 2e */
       '17639dba-bc07-45a2-8d8d-d1baa2a639b7' : '7ea0090a-b888-4600-9893-596127c769cc',
       /* 1.0 Introduction	to the same module in 2e */
