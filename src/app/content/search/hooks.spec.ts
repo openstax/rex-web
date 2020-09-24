@@ -313,7 +313,7 @@ describe('hooks', () => {
       );
     });
 
-    it.only('dispatches REPLACE with search query when page is undefined', () => {
+    it('dispatches REPLACE with search query when page is undefined', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(requestSearch('asdf'));
       go([hit]);
