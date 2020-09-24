@@ -129,16 +129,17 @@ export const prevNextBookPage = (
   };
 };
 
-export const archiveTreeSectionIsBook = (section: LinkedArchiveTreeNode | undefined) => section && !section.parent;
+export const archiveTreeSectionIsBook = (
+  section: LinkedArchiveTreeNode | undefined) => Boolean(section && !section.parent);
 export const archiveTreeSectionIsPage = isLinkedArchiveTreeSection;
 export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)
-  && !!section.parent
   && archiveTreeSectionIsBook(section.parent)
-  && getArchiveTreeSectionNumber(section) === null
+  && section.contents.every(isArchiveTree)
 ;
 export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
   isLinkedArchiveTree(section)
   && !archiveTreeSectionIsBook(section)
   && getArchiveTreeSectionNumber(section) !== null
+  && section.contents.some((node) => !isArchiveTree(node))
 ;
