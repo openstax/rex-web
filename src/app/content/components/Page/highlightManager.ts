@@ -110,6 +110,7 @@ interface UpdateOptions {
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
+  let scrollTargetHighlightIdThatWasHandled: string;
   let setListHighlighter = (_highlighter: Highlighter): void => undefined;
   let setListHighlights = (_highlights: Highlight[]): void => undefined;
   let setListPendingHighlight: ((highlight: Highlight | undefined) => void) | undefined;
@@ -205,9 +206,12 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       const toFocus = getHighlightToFocus(focused, prevProps.focused, pendingHighlight, scrollTargetHighlight);
       if (toFocus) {
         toFocus.focus();
-        if (toFocus.id !== focusedId) {
+        if (toFocus.id !== focusedId && toFocus.id !== scrollTargetHighlightIdThatWasHandled) {
           focus(toFocus.id);
           (toFocus.elements[0] as HTMLElement).scrollIntoView();
+          if (scrollTargetHighlight && toFocus.id === scrollTargetHighlight.id) {
+            scrollTargetHighlightIdThatWasHandled = scrollTargetHighlight.id;
+          }
         }
       }
 
