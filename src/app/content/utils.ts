@@ -1,8 +1,8 @@
 import { HTMLElement, HTMLSpanElement } from '@openstax/types/lib.dom';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
-import { hasOSWebData } from './guards';
-import { ArchiveBook, BookWithOSWebData, Params, SlugParams, UuidParams } from './types';
+import { hasOSWebData, isArchiveTree } from './guards';
+import { ArchiveBook, ArchiveTree, ArchiveTreeNode, BookWithOSWebData, Params, SlugParams, UuidParams } from './types';
 import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
@@ -33,15 +33,23 @@ const parseTitleNode = (titleNode: HTMLElement) => {
   extra.remove();
 };
 
-export const parseBookTree = (archiveBook: ArchiveBook) => {
-  const domParser = new DOMParser();
-  archiveBook.tree.contents = archiveBook.tree.contents.map((subtree) => {
+const domParser = new DOMParser();
+const parseContents = (contents: Array<ArchiveTree | ArchiveTreeNode>) => {
+  contents.map((subtree) => {
     const domNode = domParser.parseFromString(`<div id="container">${subtree.title}</div>`, 'text/html');
     const container = domNode.getElementById('container');
     parseTitleNode(container);
     subtree.title = container.innerHTML;
+    if (isArchiveTree(subtree)) {
+      subtree.contents = parseContents(subtree.contents);
+    }
     return subtree;
   });
+  return contents;
+};
+
+export const parseBookTree = (archiveBook: ArchiveBook) => {
+  archiveBook.tree.contents = parseContents(archiveBook.tree.contents);
   return archiveBook;
 };
 
