@@ -65,12 +65,12 @@ export const defaultText = `
 export const teaText = `
 <p>
   Want to cite, share, or modify this book? This book is
-  <a href="https://creativecommons.org/licenses/by/4.0/">
+  <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by/4.0/">
    {bookLicenseName} {bookLicenseVersion}
   </a>
-  and you must attribute “Texas Education Agency (TEA)." The original material is available
-  at: <a href="https://www.texasgateway.org/book/tea-physics">https://www.texasgateway.org/book/tea-physics</a>.
-  Changes were made to the original material, including updates to art, structure, and other content updates.
+  and you must attribute “Texas Education Agency (TEA)." The original material is available at: <a target="_blank"
+  rel="noopener" href="https://www.texasgateway.org/book/tea-physics">https://www.texasgateway.org/book/tea-physics
+  </a>. Changes were made to the original material, including updates to art, structure, and other content updates.
 </p>
 
 <strong>Attribution information</strong>
