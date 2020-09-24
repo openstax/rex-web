@@ -4,6 +4,7 @@ import { AnyAction } from '../../types';
 import { openToc } from '../actions';
 import * as actions from './actions';
 import { State } from './types';
+import { locationChange } from '../../navigation/actions';
 
 export const initialState: State = {
   loading: false,
@@ -38,6 +39,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.closeSearchResultsMobile): {
       return {...state, sidebarOpen: false};
+    }
+    case getType(locationChange): {
+      if (action.payload.location.search === '') {
+        // Clear selectedResult when clicking for example on figure link
+        return {...state, selectedResult: null};
+      }
+      return state;
     }
     default:
       return state;
