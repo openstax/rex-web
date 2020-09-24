@@ -4,8 +4,8 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  /* Intermediate Algebra 1e */ '4664c267-cd62-4a99-8b28-1cb9b3aee347': [
-    /* Intermediate Algebra 2e */ ['02776133-d49d-49cb-bfaa-67c7f61b25a1', {
+  /* Intermediate Algebra 1e */ '02776133-d49d-49cb-bfaa-67c7f61b25a1': [
+    /* Intermediate Algebra 2e */ ['4664c267-cd62-4a99-8b28-1cb9b3aee347', {
       /* Preface to the same module in 2e */
       '301d5176-9ace-4219-b44b-85dcf781e1e3' : '8299e5c9-9342-4802-96c4-5c9cc0b69482',
       /* 1.0  Introduction	to the same module in 2e */
