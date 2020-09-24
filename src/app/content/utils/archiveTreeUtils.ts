@@ -27,7 +27,6 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
   ))].map((section) => ({
     ...section,
     id: stripIdVersion(section.id),
-    shortId: stripIdVersion(section.shortId),
     version: getIdVersion(section.id),
     ...(isLinkedArchiveTree(section) ? {
       contents: section.contents,
@@ -64,8 +63,7 @@ export const findDefaultBookPage = (book: {tree: ArchiveTree}) => {
 };
 
 export const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
-  stripIdVersion(node.shortId) === stripIdVersion(nodeId)
-  || stripIdVersion(node.id) === stripIdVersion(nodeId);
+  stripIdVersion(node.id) === stripIdVersion(nodeId);
 
 export const nodeHasId = (nodeId: string, node: ArchiveTreeNode) => nodeMatcher(nodeId)(node);
 
@@ -131,16 +129,17 @@ export const prevNextBookPage = (
   };
 };
 
-export const archiveTreeSectionIsBook = (section: LinkedArchiveTreeNode | undefined) => section && !section.parent;
+export const archiveTreeSectionIsBook = (
+  section: LinkedArchiveTreeNode | undefined) => Boolean(section && !section.parent);
 export const archiveTreeSectionIsPage = isLinkedArchiveTreeSection;
 export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)
-  && !!section.parent
   && archiveTreeSectionIsBook(section.parent)
-  && getArchiveTreeSectionNumber(section) === null
+  && section.contents.every(isArchiveTree)
 ;
 export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
   isLinkedArchiveTree(section)
   && !archiveTreeSectionIsBook(section)
   && getArchiveTreeSectionNumber(section) !== null
+  && section.contents.some((node) => !isArchiveTree(node))
 ;
