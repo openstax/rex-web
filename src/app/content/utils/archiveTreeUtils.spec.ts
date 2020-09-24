@@ -2,7 +2,7 @@ import { book } from '../../../test/mocks/archiveLoader';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
-import { ArchiveTree } from '../types';
+import { ArchiveTree, LinkedArchiveTree } from '../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
@@ -66,11 +66,11 @@ describe('splitTitleParts', () => {
 
 describe('findArchiveTreeNodeByPageParam', () => {
   it('finds node by id', () => {
-    expect(findArchiveTreeNodeByPageParam(treeWithUnits, {uuid: 'preface' })).toBeDefined();
+    expect(findArchiveTreeNodeByPageParam(treeWithUnits, {uuid: 'page1' })).toBeDefined();
   });
   it('matches only page nodes', () => {
-    const unit = treeWithUnits.contents[0];
-    const chapter = unit.contents[1];
+    const unit = treeWithUnits.contents[1] as LinkedArchiveTree;
+    const chapter = unit.contents[0];
     const pageToFind = findArchiveTreeNodeById(treeWithUnits, 'page1');
 
     if (!pageToFind) {
