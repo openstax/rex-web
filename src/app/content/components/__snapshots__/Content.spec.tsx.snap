@@ -456,7 +456,7 @@ Array [
                         className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span></span>",
+                            "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
                           }
                         }
                         href="1-1-physics-an-introduction"
@@ -470,7 +470,7 @@ Array [
                         className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span></span>",
+                            "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
                           }
                         }
                         href="23-12-rlc-series-ac-circuits"
