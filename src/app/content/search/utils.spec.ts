@@ -8,7 +8,7 @@ import { mockRange } from '../../../test/mocks/rangy';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { assertDocument } from '../../utils';
-import { ArchivePage } from '../types';
+import { ArchivePage, LinkedArchiveTree } from '../types';
 import { getFirstResult, getFormattedSearchResults, highlightResults } from './utils';
 
 jest.mock('@openstax/highlighter/dist/Highlight', () => ({
@@ -109,9 +109,12 @@ describe('getFormattedSearchResults', () => {
 
   describe('treeWithUnits', () => {
     it('collapses unit structure', () => {
+      const unit = treeWithUnits.contents[1] as LinkedArchiveTree;
+      const chapter = unit.contents[0] as LinkedArchiveTree;
+
       const chapterHit = makeSearchResultHit({
         book: {...mockArchive.book, tree: treeWithUnits},
-        page: treeWithUnits.contents[0].contents[1].contents![0] as unknown as ArchivePage,
+        page: chapter.contents![0] as unknown as ArchivePage,
       });
       const searchResults: SearchResult = makeSearchResults([
         chapterHit,
@@ -120,11 +123,11 @@ describe('getFormattedSearchResults', () => {
       expect(getFormattedSearchResults(treeWithUnits, searchResults)).toContainEqual(expect.objectContaining({
         contents: [
           expect.objectContaining({
-            id: treeWithUnits.contents[0].contents[1].contents![0].id,
+            id: chapter.contents![0].id,
             results: [chapterHit],
           }),
         ],
-        id: treeWithUnits.contents[0].contents[1].id,
+        id: unit.contents[0].id,
       }));
     });
   });
