@@ -1,10 +1,10 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
+import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { openToc } from '../actions';
 import * as actions from './actions';
 import { State } from './types';
-import { locationChange } from '../../navigation/actions';
 
 export const initialState: State = {
   loading: false,
