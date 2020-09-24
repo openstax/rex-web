@@ -9,6 +9,7 @@ import { locationChange as navigationLocationChange, push, replace } from '../..
 import { AppServices, ArgumentTypes, MiddlewareAPI, Store } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
+import * as selectors from '../selectors';
 import { formatBookData } from '../utils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
 import { clearSearchHook, receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
@@ -220,6 +221,15 @@ describe('hooks', () => {
       expect(dispatch).not.toHaveBeenCalled();
     });
 
+    it('noops if page is loading', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      const mock = jest.spyOn(selectors, 'loadingPage')
+        .mockReturnValue({ slug: 'any' });
+      go([hit]);
+      expect(dispatch).not.toHaveBeenCalled();
+      mock.mockReset();
+    });
+
     it('noops if book is different than initiated the search', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
@@ -281,6 +291,31 @@ describe('hooks', () => {
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
 
+      go([hit]);
+
+      const search = queryString.stringify({
+        query: 'asdf',
+        target: JSON.stringify({ type: 'search', index: 0 }),
+      });
+      expect(dispatch).toHaveBeenCalledWith(
+        replace({
+          params: expect.anything(),
+          route: content,
+          state: {
+            bookUid: book.id,
+            bookVersion: book.version,
+            pageUid: page.id,
+          },
+        }, {
+          hash: hit.source.elementId,
+          search,
+        })
+      );
+    });
+
+    it.only('dispatches REPLACE with search query when page is undefined', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(requestSearch('asdf'));
       go([hit]);
 
       const search = queryString.stringify({
