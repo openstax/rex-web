@@ -137,7 +137,7 @@ describe('highlight reducer', () => {
 
   describe('deleteHighlight', () => {
 
-    it('noops with no highlights', () => {
+    it('noops when highlight doesn\'t exist', () => {
       const state = reducer({
         ...initialState,
       }, actions.deleteHighlight({id: 'asdf'} as Highlight, {
@@ -145,6 +145,36 @@ describe('highlight reducer', () => {
         pageId: 'highlightSource',
       }));
 
+      expect(state.currentPage.highlights).toBe(null);
+      expect(state.summary.highlights).toBe(initialState.summary.highlights);
+    });
+
+    it('deletes from summary even if there are no highlights on the current page', () => {
+      const state = reducer({
+        ...initialState,
+        summary: {
+          ...initialState.summary,
+          highlights: {
+            highlightChapter: {
+              highlightSource: [{...mockHighlight, sourceId: 'highlightSource'}],
+              otherHighlightSource: [mockHighlight],
+            },
+          },
+          totalCountsPerPage: {
+            highlightSource: {[HighlightColorEnum.Green]: 1},
+          },
+        },
+      }, actions.deleteHighlight(mockHighlight, {
+        locationFilterId: 'highlightChapter',
+        pageId: 'highlightSource',
+      }));
+
+      const summaryHighlights = state.summary.highlights;
+      if (!summaryHighlights) {
+        return expect(summaryHighlights).toBeTruthy();
+      }
+
+      expect(summaryHighlights.highlightChapter.highlightSource).toBeUndefined();
       expect(state.currentPage.highlights).toBe(null);
     });
 
@@ -182,7 +212,7 @@ describe('highlight reducer', () => {
 
   describe('updateHighlight', () => {
 
-    it('noops if there are no highlgihts', () => {
+    it('noops when highlight doesn\'t exist', () => {
       const state = reducer({
         ...initialState,
       }, actions.updateHighlight({id: 'asdf', highlight: {annotation: 'asdf'}}, {
@@ -191,6 +221,46 @@ describe('highlight reducer', () => {
         preUpdateData: {id: 'asdf', highlight: {}},
       }));
 
+      expect(state.currentPage.highlights).toBe(null);
+      expect(state.summary.highlights).toBe(initialState.summary.highlights);
+    });
+
+    it('updates the highlight in summary even if there are no highlights on the current page', () => {
+      const toUpdate = {...mockHighlight, sourceId: 'highlightSource', id: 'xyz'};
+
+      const state = reducer({
+        ...initialState,
+        summary: {
+          ...initialState.summary,
+          filters: {
+            ...initialState.summary.filters,
+            locationIds: ['highlightChapter'],
+          },
+          highlights: {
+            highlightChapter: {
+              highlightSource: [toUpdate, mockHighlight],
+            },
+          },
+        },
+      }, actions.updateHighlight({id: toUpdate.id, highlight: {annotation: 'asdf'}}, {
+        locationFilterId: 'highlightChapter',
+        pageId: 'highlightSource',
+        preUpdateData: {
+          highlight: {
+            annotation: mockHighlight.annotation,
+            color: mockHighlight.color as string as HighlightUpdateColorEnum,
+          },
+          id: 'yxz',
+        },
+      }));
+
+      const summaryHighlights = state.summary.highlights;
+      if (!summaryHighlights) {
+        return expect(summaryHighlights).toBeTruthy();
+      }
+
+      expect(summaryHighlights.highlightChapter.highlightSource[0].annotation).toEqual('asdf');
+      expect(summaryHighlights.highlightChapter.highlightSource[1]).toEqual(mockHighlight);
       expect(state.currentPage.highlights).toBe(null);
     });
 
