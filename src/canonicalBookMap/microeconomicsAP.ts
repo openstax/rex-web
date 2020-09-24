@@ -70,10 +70,10 @@ export default {
       'ce25f862-2006-459e-86aa-fa6bb6da2deb': '4a598317-a4c4-4945-8977-0a07d042418e',
       /* 7.1 Explicit and Implicit Costs, and Accounting and Economic Profit to the same module in 2e */
       '3304d112-cd4c-4dd7-a35e-07f69bf72a78': 'ee726a9f-f39a-4d4c-8226-98b5e035c2f8',
-      /* 7.2 The Structure of Costs in the Short Run to 7.2 Production in the Short Run in 2e */
-      'd1aee2f9-b621-4702-a851-0c54446ebea3': '992fe9d7-917e-4ac5-bd37-bd65edb96600',
-      /* 7.3 The Structure of Costs in the Long Run to 7.3 Costs in the Short Run in 2e */
-      '5a08a0d9-167b-49ca-8e6f-70c8dc11d821': '9039ac3e-b3c9-40b4-9cfa-77b2d16741e2',
+      /* 7.2 The Structure of Costs in the Short Run to 7.3 Costs in the Short Run in 2e */
+      'd1aee2f9-b621-4702-a851-0c54446ebea3': '9039ac3e-b3c9-40b4-9cfa-77b2d16741e2',
+      /* 7.3 The Structure of Costs in the Long Run to 7.5 Costs in the Long Run in 2e */
+      '5a08a0d9-167b-49ca-8e6f-70c8dc11d821': 'f5253c5d-9a8b-49ab-9dc2-7772c02b014b',
       /* 8.0 Introduction to Perfect Competition to the same module in 2e */
       '1b303ff5-7e10-4396-9b3f-95104906d166': '442a67c0-b89d-4fca-961d-dba95d664a93',
       /* 8.1 Perfect Competition and Why It Matters to the same module in 2e */

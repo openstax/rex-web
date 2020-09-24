@@ -126,26 +126,26 @@ export default {
       '1dfa262c-03e6-45b1-bc9b-8b15850e4939': '2e7a5ac4-f4ad-432b-b694-58fce538f1a8',
       /* 13.3 Public Goods to the same module in 2e */
       '4b8246e4-bd24-455d-a21e-ee4107c28617': '15202d03-f65b-4db0-8640-48ef46c98ab5',
-      /* 14.0 Introduction to Poverty and Economic Inequality to 14.0 Introduction to Labor Markets and Income in 2e */
-      'a60ab1bb-237a-44a6-829e-d67c222f1ff1': '555a325b-15d3-48aa-98cf-05bba6ff089b',
-      /* 14.1 Drawing the Poverty Line to 14.1 The Theory of Labor Markets  in 2e */
-      '79327788-9cb7-4b2c-9ccf-0c46d0c153d3': '42c23482-b04a-4ceb-88d1-4671fc1333e8',
-      /* 14.2 The Poverty Trap to 14.2 Wages and Employment in an Imperfectly Competitive Labor Market in 2e */
-      '1027e9bb-3622-454f-8679-59b60e95b8f1': 'df0edc13-4e59-469e-be16-80a4bd7fe0a7',
-      /* 14.3 The Safety Net to 14.3 Market Power on the Supply Side of Labor Markets: Unions in 2e */
-      '5e3e77d8-db2f-48ea-a728-32b098c2e243': '65f0f332-29a3-4a54-a982-7d8ab30dd0f9',
-      /* 14.4 Income Inequality: Measurement and Causes to 14.4 Bilateral Monopoly in 2e */
-      '1640eec3-0cc6-42f8-896c-b13c99ff82f3': '2ca8e6bb-c54b-4a58-9909-005e5c4abb75',
-      /* 14.5 Government Policies to Reduce Income Inequality to 14.5 Employment Discrimination in 2e */
-      'b60a59fd-00ea-4a5f-a581-63700fd97a0c': '227f2aa4-af66-4cdb-bd5b-d9d761879fbe',
-      /* 15.0 Issues in Labor Markets: Unions, Discrimination, Immigration to 15.0 Introduction to Poverty and Economic Inequality in 2e */
-      'd7fc6555-b899-4506-89d8-450c3d9e904c': '50a3e7ce-6a7f-4560-8442-f3e9f078e78f',
-      /* 15.1 Unions to 15.1 Drawing the Poverty Line in 2e */
-      'de64ecef-bbb0-4aa3-8e9f-08076c0b5e67': '2c838703-dd93-490a-ab8e-b9799b8ec78c',
-      /* 15.2 Employment Discrimination to 15.2 The Poverty Trap in 2e */
-      '3a8e2f3b-57c9-4b92-be9c-6f24e4794cf8 ': '603a8e36-7ebb-4ab9-908e-6453b3c76f71',
-      /* 15.3 Immigration to 15.3 The Safety Net in 2e */
-      'cc3ded8f-be95-4f94-a275-a96d1f853410': '73b2e5d1-9ffd-4d23-a4f2-01bd849fd8ba',
+      /* 14.0 Introduction to Poverty and Economic Inequality to 15.0 Introduction in 2e */
+      'a60ab1bb-237a-44a6-829e-d67c222f1ff1': '50a3e7ce-6a7f-4560-8442-f3e9f078e78f ',
+      /* 14.1 Drawing the Poverty Line to 15.1 Drawing the Poverty Line in 2e */
+      '79327788-9cb7-4b2c-9ccf-0c46d0c153d3': '2c838703-dd93-490a-ab8e-b9799b8ec78c',
+      /* 14.2 The Poverty Trap to 15.2 The Poverty Trap in 2e */
+      '1027e9bb-3622-454f-8679-59b60e95b8f1': '603a8e36-7ebb-4ab9-908e-6453b3c76f71',
+      /* 14.3 The Safety Net to 15.3 The Safety Net in 2e */
+      '5e3e77d8-db2f-48ea-a728-32b098c2e243': '73b2e5d1-9ffd-4d23-a4f2-01bd849fd8ba',
+      /* 14.4 Income Inequality: Measurement and Causes to 15.4 Income Inequality: Measurement and Causes in 2e */
+      '1640eec3-0cc6-42f8-896c-b13c99ff82f3': 'f758d452-f68f-4fbf-879e-9ec292566c6b',
+      /* 14.5 Government Policies to Reduce Income Inequality to 15.5 Government Policies to Reduce Income Inequality in 2e */
+      'b60a59fd-00ea-4a5f-a581-63700fd97a0c': '4b2bf15f-c68b-432e-818e-1e314e22dfa9',
+      /* 15.0 Issues in Labor Markets: Unions, Discrimination, Immigration to 14.0 Introduction to Labor Markets and Income in 2e */
+      'd7fc6555-b899-4506-89d8-450c3d9e904c': '555a325b-15d3-48aa-98cf-05bba6ff089b',
+      /* 15.1 Unions to 14.3 Market Power on the Supply Side of Labor Markets: Unions in 2e */
+      'de64ecef-bbb0-4aa3-8e9f-08076c0b5e67': '65f0f332-29a3-4a54-a982-7d8ab30dd0f9',
+      /* 15.2 Employment Discrimination to 14.5 Employment Discrimination in 2e */
+      '3a8e2f3b-57c9-4b92-be9c-6f24e4794cf8 ': '227f2aa4-af66-4cdb-bd5b-d9d761879fbe',
+      /* 15.3 Immigration to 14.6 Immigration in 2e */
+      'cc3ded8f-be95-4f94-a275-a96d1f853410': 'e9e8c445-4906-49a5-a6ed-cfa4d2666cec',
       /* 16.0 Introduction to Information, Risk, and Insurance to the same module in 2e */
       'b7fa3002-fb84-4251-85f0-83ec686abc19': 'c8b7d919-8a74-478d-a1d2-935ab6bb1db0',
       /* 16.1 The Problem of Imperfect Information and Asymmetric Information to the same module in 2e */
