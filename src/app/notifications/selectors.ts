@@ -1,29 +1,29 @@
 import { createSelector } from 'reselect';
-import { getType } from 'typesafe-actions';
 import { pathname } from '../navigation/selectors';
 import * as parentSelectors from '../selectors';
-import { acceptCookies, updateAvailable } from './actions';
+import { messagePriority } from './constants';
 import { isAppMessage } from './guards';
-import { appMessageType } from './reducer';
-import { AnyNotification } from './types';
+import { ModalNotification } from './types';
 
 export const localState = createSelector(
   parentSelectors.localState,
   (parentState) => parentState.notifications
 );
 
-export const notifications = localState;
+export const modalNotifications = createSelector(
+  localState,
+  (notifications) => notifications.modalNotifications
+);
 
-const messagePriority = [
-  getType(updateAvailable),
-  appMessageType,
-  getType(acceptCookies),
-];
+export const toastNotifications = createSelector(
+  localState,
+  (notifications) => notifications.toastNotifications
+);
 
-export const notificationForDisplay = createSelector(
-  notifications,
+export const modalNotificationToDisplay = createSelector(
+  modalNotifications,
   pathname,
-  (messages, url): AnyNotification | undefined => messages
+  (messages, url): ModalNotification | undefined => messages
     .filter((message) => {
       if (isAppMessage(message) && message.payload.url_regex) {
         return url.match(message.payload.url_regex);
