@@ -4,7 +4,7 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import SearchFailure, { ModalRef } from '../../../notifications/components/SearchFailure';
+import ToastNotifications from '../../../notifications/components/ToastNotifications';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -28,14 +28,8 @@ if (typeof(document) !== 'undefined') {
 
 const parser = new DOMParser();
 
-interface PageState {
-  hasSearchError: boolean;
-}
-
-export default class PageComponent extends Component<PagePropTypes, PageState> {
+export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
-  public errorModalRef = React.createRef<ModalRef>();
-  public state = { hasSearchError: false };
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -88,8 +82,6 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
       await this.postProcess();
     }
 
-    if (prevProps === this.props) { return; }
-
     const highlgihtsAddedOrRemoved = this.highlightManager.update();
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
@@ -99,29 +91,9 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   }
 
   public onHighlightSelect: OptionsCallback = ({selectedHighlight}) => {
-    if (selectedHighlight) {
-      this.setState({
-        hasSearchError: false,
-      });
-
-      return;
+    if (!selectedHighlight) {
+      this.props.addToast('i18n:notification:toast:search:highlight-not-found');
     }
-
-    const {current: errorModal} = this.errorModalRef;
-
-    if (this.state.hasSearchError && errorModal) {
-      errorModal.resetError();
-    } else {
-      this.setState({
-        hasSearchError: true,
-      });
-    }
-  };
-
-  public dismissError = () => {
-    this.setState({
-      hasSearchError: false,
-    });
   };
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
@@ -140,13 +112,7 @@ export default class PageComponent extends Component<PagePropTypes, PageState> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      {this.state.hasSearchError
-        ? <SearchFailure
-            ref={this.errorModalRef}
-            dismiss={this.dismissError}
-            mobileToolbarOpen={this.props.mobileToolbarOpen}
-          />
-        : null}
+      <ToastNotifications />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()
