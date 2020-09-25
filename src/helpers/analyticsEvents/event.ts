@@ -12,5 +12,5 @@ export const getAnalyticsRegion = (element: HTMLElement) => {
 };
 
 export interface AnalyticsEvent {
-  getGoogleAnalyticsPayload: () => FirstArgumentType<GoogleAnalyticsClient['trackEventPayload']>;
+  getGoogleAnalyticsPayload?: () => FirstArgumentType<GoogleAnalyticsClient['trackEventPayload']>;
 }
