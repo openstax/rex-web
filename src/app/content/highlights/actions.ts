@@ -1,4 +1,4 @@
-import { NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
+import { Highlight, NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import { createStandardAction } from 'typesafe-actions';
 import {
   CountsPerSource,
@@ -12,14 +12,18 @@ import {
 export const focusHighlight = createStandardAction('Content/Highlights/focus')<string>();
 export const clearFocusedHighlight = createStandardAction('Content/Highlights/clear')();
 export const createHighlight = createStandardAction('Content/Highlights/create')<NewHighlight & {id: string}, {
+  revertingAfterFailure?: boolean,
   locationFilterId: string,
   pageId: string,
 }>();
-export const deleteHighlight = createStandardAction('Content/Highlights/delete')<string, {
+export const deleteHighlight = createStandardAction('Content/Highlights/delete')<Highlight, {
+  revertingAfterFailure?: boolean,
   locationFilterId: string,
   pageId: string,
 }>();
 export const updateHighlight = createStandardAction('Content/Highlights/update')<UpdateHighlightRequest, {
+  revertingAfterFailure?: boolean,
+  preUpdateData: UpdateHighlightRequest,
   locationFilterId: string,
   pageId: string,
 }>();
