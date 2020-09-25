@@ -61,7 +61,7 @@ describe('Notifications', () => {
   });
 
   it('matches snapshot for unknown notification', () => {
-    store.getState().notifications.push({type: 'foobar'} as any);
+    store.getState().notifications.modalNotifications.push({type: 'foobar'} as any);
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>

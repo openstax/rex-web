@@ -1,5 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
-import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -19,6 +19,7 @@ import {
 } from '../actions';
 import { cardPadding } from '../constants';
 import { HighlightData } from '../types';
+import { generateUpdatePayload } from './cardUtils';
 import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
 import Note from './Note';
@@ -101,15 +102,12 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
     props.highlight.setStyle(color);
     if (props.data) {
-      dispatch(updateHighlight({
-        highlight: {
-          annotation: props.data.annotation,
-          color: color as string as HighlightUpdateColorEnum,
-        },
-        id: props.data.id,
-      }, {
+      const {updatePayload, preUpdateData} = generateUpdatePayload(props.data, {color, id: props.data.id});
+
+      dispatch(updateHighlight(updatePayload, {
         locationFilterId: props.locationFilterId,
         pageId: props.pageId,
+        preUpdateData,
       }));
       trackEditNoteColor(color);
     } else {
@@ -120,17 +118,16 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   };
 
   const saveAnnotation = (toSave: HighlightData) => {
-    const addedNote = (props.data && props.data.annotation === undefined) ? true : false;
+    const data  = assertDefined(props.data, 'Can\'t update highlight that doesn\'t exist');
 
-    dispatch(updateHighlight({
-      highlight: {
-        annotation: pendingAnnotation,
-        color: toSave.color as string as HighlightUpdateColorEnum,
-      },
-      id: toSave.id,
-    }, {
+    const addedNote = data.annotation === undefined;
+    const {updatePayload, preUpdateData} =
+      generateUpdatePayload(data, {id: toSave.id, annotation: pendingAnnotation});
+
+    dispatch(updateHighlight(updatePayload, {
       locationFilterId: props.locationFilterId,
       pageId: props.pageId,
+      preUpdateData,
     }));
     trackEditAnnotation(addedNote, toSave.color);
     props.onCancel();

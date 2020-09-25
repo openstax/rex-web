@@ -206,16 +206,16 @@ describe('Card', () => {
   });
 
   it('removes when DisplayNote calls onRemove', () => {
+    const currentHighlight = {
+      annotation: 'adsf',
+      color: highlightStyles[0].label,
+      id: highlightData.id,
+    } as HighlightData;
+
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights({
-      highlights: [
-        {
-          annotation: 'adsf',
-          color: highlightStyles[0].label,
-          id: highlightData.id,
-        },
-      ] as HighlightData[],
+      highlights: [currentHighlight],
       pageId: '123',
     }));
 
@@ -232,7 +232,7 @@ describe('Card', () => {
       picker.props.onRemove();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(highlight.id, {
+    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(currentHighlight, {
       locationFilterId: location!.id,
       pageId: page.id,
     }));
