@@ -4,7 +4,7 @@ import { Store } from '../types';
 import { assertWindow } from '../utils';
 import { receiveMessages } from './actions';
 import { appMessageType } from './reducer';
-import { notificationForDisplay } from './selectors';
+import { modalNotificationToDisplay } from './selectors';
 
 describe('notifications', () => {
   let store: Store;
@@ -60,7 +60,7 @@ describe('notifications', () => {
       ...matchingMessages,
     ]));
 
-    expect(notificationForDisplay(store.getState())).toEqual(
+    expect(modalNotificationToDisplay(store.getState())).toEqual(
       matchingMessages.map((payload) => ({payload, type: appMessageType}))[0]
     );
   });
