@@ -1,5 +1,6 @@
 import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
+import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { receiveLoggedOut } from '../../auth/actions';
@@ -138,7 +139,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.deleteHighlight): {
-      const highlightToRemove = findHighlight(state, action.payload);
+      const highlightToRemove = findHighlight(state, action.payload.id);
       const highlights = state.currentPage.highlights;
 
       if (!highlightToRemove) {
@@ -146,13 +147,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       }
 
       const newCurrentPageHighlights = highlights
-        ? highlights.filter(({id}) => id !== action.payload)
+        ? highlights.filter(({id}) => id !== action.payload.id)
         : null;
 
       const newSummaryHighlights = state.summary.highlights
         ? removeSummaryHighlight(state.summary.highlights, {
-          ...action.meta,
-          id: action.payload,
+          ...pick(['locationFilterId', 'pageId'], action.meta),
+          id: action.payload.id,
         })
         : state.summary.highlights
       ;
@@ -165,7 +166,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         currentPage: {
           ...state.currentPage,
-          focused: state.currentPage.focused === action.payload ? undefined : state.currentPage.focused,
+          focused: state.currentPage.focused === action.payload.id ? undefined : state.currentPage.focused,
           hasUnsavedHighlight: false,
           highlights: newCurrentPageHighlights,
         },
