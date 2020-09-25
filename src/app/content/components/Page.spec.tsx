@@ -998,6 +998,45 @@ describe('Page', () => {
     highlightResults.mockRestore();
   });
 
+  // For now this test is only for test coverage, but when https://github.com/openstax/rex-web/pull/822
+  // is merged we should make sure that it is also expecting specific actions to be sent
+  it('refresh error modal for different search results if they are of the same type', async() => {
+    const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit1 = makeSearchResultHit({book, page});
+    const hit2 = makeSearchResultHit({book, page});
+
+    highlightResults.mockReturnValue([]);
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+      store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    renderer.act(() => {
+      store.dispatch(selectSearchResult({result: hit2, highlight: 1}));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
+
+    highlightResults.mockRestore();
+  });
+
   it('mounts, updates, and unmounts without a dom', () => {
     const element = renderer.create(
       <Provider store={store}>
