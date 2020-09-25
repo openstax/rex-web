@@ -198,9 +198,9 @@ describe('Attribution', () => {
         .root.querySelector('a[href="https://www.texasgateway.org/book/tea-statistics"]');
 
       if (!link) {
-        expect(link).toBeTruthy();
+        return expect(link).toBeTruthy();
       }
-      expect(link.textContent).toBe(link.getAttribute('href'));
+      expect(link.textContent.trim()).toBe(link.getAttribute('href'));
       ReactDOM.unmountComponentAtNode(node);
 
       store.dispatch(actions.receiveBook(physics));
@@ -208,9 +208,9 @@ describe('Attribution', () => {
         .root.querySelector('a[href="https://www.texasgateway.org/book/tea-physics"]');
 
       if (!link) {
-        expect(link).toBeTruthy();
+        return expect(link).toBeTruthy();
       }
-      expect(link.textContent).toBe(link.getAttribute('href'));
+      expect(link.textContent.trim()).toBe(link.getAttribute('href'));
       ReactDOM.unmountComponentAtNode(node);
     });
   });
