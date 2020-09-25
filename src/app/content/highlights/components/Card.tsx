@@ -96,7 +96,7 @@ const Card = (props: CardProps) => {
 
   const onRemove = () => {
     if (props.data) {
-      props.remove(props.data.id, {
+      props.remove(props.data, {
         locationFilterId,
         pageId: page.id,
       });

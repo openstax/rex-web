@@ -7,6 +7,7 @@ import theme from '../../../theme';
 import { inlineDisplayBreak } from '../../theme';
 import { Header } from '../Card';
 import { desktopSearchFailureTop, fadeOutDuration, getMobileSearchFailureTop } from './constants';
+import { ToastProps } from './Toast';
 
 const bannerBackground = '#F8E8EB';
 const errorBorderColor = '#E297A0';
@@ -25,20 +26,45 @@ const fadeOut = keyframes`
 `;
 
 // tslint:disable-next-line:variable-name
-export const BannerBodyWrapper = styled.div`
+export const ToastContainerWrapper = styled.div`
   width: 100%;
-  margin: 0;
-  height: 0;
-  z-index: ${theme.zIndex.contentNotifications - 1};
-  overflow: visible;
   position: sticky;
+  overflow: visible;
+  z-index: ${theme.zIndex.contentNotifications - 1};
   top: ${desktopSearchFailureTop}rem;
   ${theme.breakpoints.mobile(css`
     z-index: ${theme.zIndex.contentNotifications + 1};
     top: ${getMobileSearchFailureTop}rem;
   `)}
+`;
 
-  ${(props) => props.isFadingOut && css`
+// tslint:disable-next-line:variable-name
+export const ToastsContainer = styled.div`
+  width: 100%;
+  position: absolute;
+  overflow: visible;
+`;
+
+const setTransitionStyles = ({positionProps, isFadingIn}: BannerProps) => css`
+  transition: transform 0.6s;
+  z-index: ${positionProps.totalToastCount - positionProps.index};
+  transform: translateY(${isFadingIn ? (positionProps.index) * 100 : -100}%);
+`;
+
+interface BannerProps {
+  isFadingIn: boolean;
+  isFadingOut: boolean;
+  positionProps: ToastProps['positionProps'];
+}
+
+// tslint:disable-next-line:variable-name
+export const BannerBodyWrapper = styled.div`
+  width: 100%;
+  margin: 0;
+  overflow: visible;
+  position: absolute;
+  ${setTransitionStyles};
+  ${(props: BannerProps) => props.isFadingOut && css`
     animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
   `}
 
@@ -48,7 +74,6 @@ export const BannerBodyWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const BannerBody = styled.div`
   width: 100%;
-  position: absolute;
   display: flex;
   padding: 0.5rem 1rem;
   align-items: center;
