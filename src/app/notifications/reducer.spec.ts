@@ -1,16 +1,21 @@
 import flow from 'lodash/fp/flow';
 import * as actions from './actions';
 import reducer, { appMessageType, initialState } from './reducer';
+import { ToastNotification } from './types';
 
 describe('notifications reducer', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   it('adds update available notification', () => {
     const newState = reducer(initialState, actions.updateAvailable());
-    expect(newState).toContainEqual(actions.updateAvailable());
+    expect(newState.modalNotifications).toContainEqual(actions.updateAvailable());
+    expect(newState.toastNotifications).toEqual([]);
   });
 
   it('doesn\'t duplicate update available notification', () => {
-    const state = [actions.updateAvailable()];
+    const state = {...initialState, modalNotifications: [actions.updateAvailable()]};
     const newState = reducer(state, actions.updateAvailable());
     expect(newState).toBe(state);
   });
@@ -53,12 +58,13 @@ describe('notifications reducer', () => {
         type: appMessageType,
       },
     ];
-    const newState = reducer(messages, actions.receiveMessages([
+    const newState = reducer({...initialState, modalNotifications: messages}, actions.receiveMessages([
       ...messages.slice(1).map(({payload}) => payload),
       ...newMessages.map(({payload}) => payload),
     ]));
-    expect(newState.length).toBe(3);
-    expect(newState).toEqual([...messages, ...newMessages]);
+    expect(newState.modalNotifications.length).toBe(3);
+    expect(newState.modalNotifications).toEqual([...messages, ...newMessages]);
+    expect(newState.toastNotifications).toEqual([]);
   });
 
   it('dismissesNotification', () => {
@@ -70,11 +76,75 @@ describe('notifications reducer', () => {
       (state) => reducer(state, actions.dismissNotification(acceptCookiesNotification))
     )(initialState);
 
-    expect(newState).not.toContainEqual(actions.acceptCookies());
+    expect(newState.modalNotifications).not.toContainEqual(actions.acceptCookies());
+    expect(newState.toastNotifications).toEqual([]);
   });
 
   it('reduces acceptCookies', () => {
     const newState = reducer(initialState, actions.acceptCookies());
-    expect(newState).toContainEqual(actions.acceptCookies());
+    expect(newState.modalNotifications).toContainEqual(actions.acceptCookies());
+    expect(newState.toastNotifications).toEqual([]);
+  });
+
+  describe('toast notifications', () => {
+    it('reduces toasts', () => {
+      const newState = flow(
+        (state) => reducer(state, actions.addToast('mytoast')),
+        (state) => reducer(state, actions.addToast('myothertoast'))
+      )(initialState);
+
+      expect(newState.modalNotifications).toEqual([]);
+      expect(newState.toastNotifications).toContainEqual(expect.objectContaining({messageKey: 'mytoast'}));
+      expect(newState.toastNotifications).toContainEqual(expect.objectContaining({messageKey: 'myothertoast'}));
+    });
+
+    it('refreshes the timestamp if a toast with the same message appears', async() => {
+      const mockDate = jest.spyOn(Date, 'now').mockReturnValueOnce(1);
+
+      const newState = reducer(initialState, actions.addToast('mytoast'));
+      const toast = newState.toastNotifications.find((notification) => notification.messageKey === 'mytoast');
+
+      if (!toast) {
+        return expect(toast).toBeTruthy();
+      }
+      mockDate.mockReturnValueOnce(2);
+
+      const initialTimestamp = toast.timestamp;
+      const state = reducer(newState, actions.addToast('mytoast'));
+
+      expect(state.toastNotifications).toContainEqual(expect.objectContaining({messageKey: 'mytoast'}));
+      expect(state.toastNotifications.length).toBe(1);
+      expect(state.toastNotifications).not.toContainEqual(expect.objectContaining({timestamp: initialTimestamp}));
+    });
+
+    it('keeps toasts in the order they originally appeared', () => {
+      const isInOrder = (order: string[]) => (toast: ToastNotification, index: number) =>
+        toast.messageKey === order[index];
+
+      const toastsOrder = ['mytoast', 'myothertoast', 'myamazingtoast'];
+
+      const newState = flow(
+        (state) => reducer(state, actions.addToast('mytoast')),
+        (state) => reducer(state, actions.addToast('myothertoast')),
+        (state) => reducer(state, actions.addToast('myamazingtoast')),
+        (state) => reducer(state, actions.addToast('mytoast')),
+        (state) => reducer(state, actions.addToast('myothertoast'))
+      )(initialState);
+
+      const [newest] = newState.toastNotifications;
+
+      expect(newState.toastNotifications.every(isInOrder(toastsOrder))).toBe(true);
+      expect(newest.messageKey).toBe(toastsOrder[0]);
+
+      const toastToDismiss = newState.toastNotifications[1];
+      const newOrder = ['mytoast', 'myamazingtoast', 'myothertoast'];
+
+      const afterReappearing  = flow(
+        (state) => reducer(state, actions.dismissNotification(toastToDismiss)),
+        (state) => reducer(state, actions.addToast(toastToDismiss.messageKey))
+      )(newState);
+
+      expect(afterReappearing.toastNotifications.every(isInOrder(newOrder))).toBe(true);
+    });
   });
 });
