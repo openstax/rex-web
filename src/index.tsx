@@ -103,3 +103,18 @@ serviceWorker.register()
   .catch((e) => {
     Sentry.captureException(e);
   });
+
+(window as any).__DEBUG_HIGHLIGHT = async(id: string) => {
+  const data = await window.__APP_SERVICES.highlightClient.getHighlight({id});
+  const path = `/books/${data.scopeId}@latest/pages/${data.sourceId}`;
+  window.__APP_SERVICES.history.push(path, {});
+
+  // not sure if this is required or not, the highlights seem to be loading
+  // with it here, but it might be bypassing some race condition that caused
+  // the user issues
+  await window.__APP_SERVICES.promiseCollector.calm();
+
+  window.__APP_STORE.dispatch(
+    {type: 'Content/Highlights/receive', payload: {highlights: [data], pageId: data.sourceId}}
+  );
+};
