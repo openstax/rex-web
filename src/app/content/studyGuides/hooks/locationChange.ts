@@ -13,7 +13,7 @@ import { receiveStudyGuidesTotalCounts } from '../actions';
 import { hasStudyGuides, studyGuidesEnabled } from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
-const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+const loadSummary = async(services: MiddlewareAPI & AppServices) => {
   const {dispatch, getState, highlightClient} = services;
 
   const state = getState();
@@ -24,23 +24,29 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   if (!isEnabled || !book || !page || hasCurrentStudyGuides) { return; }
 
-  let studyGuidesSummary: HighlightsSummary | undefined;
   try {
-    studyGuidesSummary = await highlightClient.getHighlightsSummary({
+    const summary = await highlightClient.getHighlightsSummary({
       scopeId: book.id,
       sets: [GetHighlightsSummarySetsEnum.Curatedopenstax],
       sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
     });
+
+    return summary;
   } catch (error) {
     Sentry.captureException(error);
     dispatch(addToast({messageKey: 'i18n:notification:toast:study-guides:load-failure', shouldAutoDismiss: false}));
   }
+};
+
+const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+  const studyGuidesSummary = await loadSummary(services);
+
   if (!studyGuidesSummary) { return; }
 
   const countsPerSource = assertDefined(studyGuidesSummary.countsPerSource, 'summary response is invalid');
   const totalCounts = extractTotalCounts(countsPerSource);
 
-  dispatch(receiveStudyGuidesTotalCounts(totalCounts));
+  services.dispatch(receiveStudyGuidesTotalCounts(totalCounts));
 };
 
 export default hookBody;

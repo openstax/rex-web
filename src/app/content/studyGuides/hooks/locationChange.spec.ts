@@ -12,8 +12,6 @@ import { CountsPerSource } from '../../highlights/types';
 import { formatBookData } from '../../utils';
 import { receiveStudyGuidesTotalCounts } from '../actions';
 
-jest.doMock('../../../../helpers/Sentry');
-
 describe('locationChange', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;

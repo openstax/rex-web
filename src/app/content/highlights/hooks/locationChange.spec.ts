@@ -21,7 +21,6 @@ const mockConfig = {BOOKS: {
 } as {[key: string]: {defaultVersion: string}}};
 
 jest.doMock('../../../../config', () => mockConfig);
-jest.doMock('../../../../helpers/Sentry');
 
 describe('locationChange', () => {
   let store: Store;
