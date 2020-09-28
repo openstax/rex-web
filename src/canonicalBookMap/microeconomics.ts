@@ -127,7 +127,7 @@ export default {
       /* 13.3 Public Goods to the same module in 2e */
       '4b8246e4-bd24-455d-a21e-ee4107c28617': '15202d03-f65b-4db0-8640-48ef46c98ab5',
       /* 14.0 Introduction to Poverty and Economic Inequality to 15.0 Introduction in 2e */
-      'a60ab1bb-237a-44a6-829e-d67c222f1ff1': '50a3e7ce-6a7f-4560-8442-f3e9f078e78f ',
+      'a60ab1bb-237a-44a6-829e-d67c222f1ff1': '50a3e7ce-6a7f-4560-8442-f3e9f078e78f',
       /* 14.1 Drawing the Poverty Line to 15.1 Drawing the Poverty Line in 2e */
       '79327788-9cb7-4b2c-9ccf-0c46d0c153d3': '2c838703-dd93-490a-ab8e-b9799b8ec78c',
       /* 14.2 The Poverty Trap to 15.2 The Poverty Trap in 2e */
@@ -143,7 +143,7 @@ export default {
       /* 15.1 Unions to 14.3 Market Power on the Supply Side of Labor Markets: Unions in 2e */
       'de64ecef-bbb0-4aa3-8e9f-08076c0b5e67': '65f0f332-29a3-4a54-a982-7d8ab30dd0f9',
       /* 15.2 Employment Discrimination to 14.5 Employment Discrimination in 2e */
-      '3a8e2f3b-57c9-4b92-be9c-6f24e4794cf8 ': '227f2aa4-af66-4cdb-bd5b-d9d761879fbe',
+      '3a8e2f3b-57c9-4b92-be9c-6f24e4794cf8': '227f2aa4-af66-4cdb-bd5b-d9d761879fbe',
       /* 15.3 Immigration to 14.6 Immigration in 2e */
       'cc3ded8f-be95-4f94-a275-a96d1f853410': 'e9e8c445-4906-49a5-a6ed-cfa4d2666cec',
       /* 16.0 Introduction to Information, Risk, and Insurance to the same module in 2e */
