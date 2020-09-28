@@ -3,6 +3,7 @@ import { Store } from 'redux';
 import scrollTo from 'scroll-to-element';
 import createTestServices from '../test/createTestServices';
 import createTestStore from '../test/createTestStore';
+import { receivePageFocus } from './actions';
 import * as domUtils from './domUtils';
 import { onPageFocusChange } from './domUtils';
 import { AppServices } from './types';
@@ -134,11 +135,13 @@ describe('focus on tab change', () => {
   let store: Store;
   let services: AppServices;
   let pageFocus: jest.SpyInstance;
+  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
     services = createTestServices();
     pageFocus = jest.spyOn(services.analytics.pageFocus, 'track');
+    dispatch = jest.spyOn(store, 'dispatch');
   });
 
   afterEach(() => {
@@ -147,12 +150,16 @@ describe('focus on tab change', () => {
 
   it('reports focusin', async() => {
     onPageFocusChange(true, {services, store})();
-    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), true);
+    expect(dispatch).toHaveBeenCalledWith(receivePageFocus(true));
+    // Disable page focus tracking https://github.com/openstax/unified/issues/1313
+    // expect(pageFocus).toHaveBeenCalledWith(expect.anything(), true);
   });
 
   it('reports focusout', () => {
     onPageFocusChange(false, {services, store})();
-    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), false);
+    expect(dispatch).toHaveBeenCalledWith(receivePageFocus(false));
+    // Disable page focus tracking https://github.com/openstax/unified/issues/1313
+    // expect(pageFocus).toHaveBeenCalledWith(expect.anything(), false);
   });
 });
 
