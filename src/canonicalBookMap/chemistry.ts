@@ -239,9 +239,9 @@ export default {
       /* 18.8 Occurrence, Preparation, and Properties of Phosphorus to the same module in 2e */
       'ed2e0a48-dbf9-4004-b45d-b7e56bff34fa': '4121db69-abc4-44ab-b659-373f244a35bc',
       /* 18.9 Occurrence, Preparation, and Compounds of Oxygen to the same module in 2e */
-      'dffe8fcc-9597-4dca-9e7b-4cc78fc3f50c ': 'a8895b18-d450-4bf2-a847-ccfab75780ec',
+      'dffe8fcc-9597-4dca-9e7b-4cc78fc3f50c': 'a8895b18-d450-4bf2-a847-ccfab75780ec',
       /* 18.10 Occurrence, Preparation, and Properties of Sulfur to the same module in 2e */
-      '4e6ea39b-0a6b-48a3-8fe8-da1f83179ef5 ': '03b0d669-3f4e-450d-a7be-1108051b9f47',
+      '4e6ea39b-0a6b-48a3-8fe8-da1f83179ef5': '03b0d669-3f4e-450d-a7be-1108051b9f47',
       /* 18.11 Occurrence, Preparation, and Properties of Halogens to 18.11 the same module in 2e */
       '3ea75b92-7e42-4f74-b7da-144cab31538d': '8868d0bc-22c9-4dff-abcd-28ed4c40aae2',
       /* 18.12 Occurrence, Preparation, and Properties of the Noble Gases to the same module in 2e */
