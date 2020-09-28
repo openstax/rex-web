@@ -2,7 +2,6 @@ import { createSelector } from 'reselect';
 import * as selectNavigation from '../../app/navigation/selectors';
 import { AnalyticsEvent } from './event';
 
-// @ts-ignore
 const eventName = 'REX page focus';
 
 export const selector = createSelector(
@@ -11,11 +10,15 @@ export const selector = createSelector(
 );
 
 export const track = (
-  // @ts-ignore
   {pathname}: ReturnType<typeof selector>,
-  // @ts-ignore
   focused: boolean
 ): AnalyticsEvent | void => {
   return {
+    getGoogleAnalyticsPayload: () => ({
+      eventAction: focused ? 'focused' : 'unfocused',
+      eventCategory: eventName,
+      eventLabel: pathname,
+      nonInteraction: true,
+    }),
   };
 };
