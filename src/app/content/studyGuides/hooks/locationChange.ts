@@ -1,7 +1,6 @@
 import {
   GetHighlightsSummarySetsEnum,
   GetHighlightsSummarySourceTypeEnum,
-  HighlightsSummary,
 } from '@openstax/highlighter/dist/api';
 import Sentry from '../../../../helpers/Sentry';
 import { addToast } from '../../../notifications/actions';
