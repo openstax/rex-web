@@ -28,11 +28,7 @@ export interface PagePropTypes {
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   highlights: HighlightProp;
   services: AppServices;
-<<<<<<< HEAD
   addToast: (toast: {messageKey: string}) => void;
-=======
-  addToast: (message: string) => void;
->>>>>>> master
 }
 
 export default connect(
