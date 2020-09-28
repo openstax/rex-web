@@ -209,8 +209,9 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
             scrollTargetHighlightIdThatWasHandled = scrollTargetHighlight.id;
           }
         }
-      } else if (options && stateEstablished && highlightScrollTarget) {
+      } else if (options && stateEstablished && highlightScrollTarget && !scrollTargetHighlightIdThatWasHandled) {
         options.onSelect(null);
+        scrollTargetHighlightIdThatWasHandled = highlightScrollTarget.id;
       }
 
       if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {

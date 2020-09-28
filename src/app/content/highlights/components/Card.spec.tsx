@@ -273,11 +273,12 @@ describe('Card', () => {
     expect(navigationState.search).toEqual(mockScrollTarget);
 
     const picker = component.root.findByType(DisplayNote);
+    const highlightToDelete = picker.props.highlight;
     renderer.act(() => {
       picker.props.onRemove();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(highlight.id, {
+    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(highlightToDelete, {
       locationFilterId: location!.id,
       pageId: page.id,
     }));

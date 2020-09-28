@@ -236,48 +236,22 @@ describe('highlightManager', () => {
       scrollIntoView: highlightScrollIntoView,
     } as any as HTMLElement);
 
+    const options = {
+      onSelect: jest.fn(),
+    };
+
     Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
     Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
 
-    update(prevProp);
+    update(prevProp, options);
 
     expect(highlightFocus).toHaveBeenCalledTimes(1);
     expect(highlightScrollIntoView).toHaveBeenCalledTimes(1);
     expect(prop.focus).toHaveBeenCalledWith(mockHighlights[1].id);
+    expect(options.onSelect).toHaveBeenCalledWith(mockHighlights[1]);
   });
 
-  it('calls options.clearError if highlightsLoaded === true and there is valid scroll target', () => {
-    const mockHighlights = [
-      createMockHighlight(),
-      createMockHighlight(),
-    ];
-    mockHighlights[1].elements.push({
-      scrollIntoView: jest.fn(),
-    } as any as HTMLElement);
-
-    const {update} = highlightManager(element, () => prop);
-
-    prop.scrollTarget = {
-      elementId: 'does-not-matter',
-      id: mockHighlights[1].id,
-      type: 'highlight',
-    } as HighlightScrollTarget;
-
-    Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
-    Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
-
-    const options = {
-      clearError: jest.fn(),
-      setError: jest.fn(),
-    };
-
-    update(prevProp, options);
-
-    expect(options.clearError).toHaveBeenCalledTimes(1);
-    expect(options.setError).not.toHaveBeenCalled();
-  });
-
-  it('calls options.setError if user is loggedOut, page is fetched and there is scroll target', () => {
+  it('calls options.onSelect with null if user is loggedOut, page is fetched and there is scroll target', () => {
     const mockHighlights = [] as Highlight[];
     const {update} = highlightManager(element, () => prop);
 
@@ -294,17 +268,15 @@ describe('highlightManager', () => {
     Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
 
     const options = {
-      clearError: jest.fn(),
-      setError: jest.fn(),
+      onSelect: jest.fn(),
     };
 
     update(prevProp, options);
 
-    expect(options.setError).toHaveBeenCalledTimes(1);
-    expect(options.clearError).not.toHaveBeenCalled();
+    expect(options.onSelect).toHaveBeenCalledWith(null);
   });
 
-  it(`calls options.setError if highlight from scroll target was not found`, () => {
+  it(`calls options.onSelect with null if highlight from scroll target was not found`, () => {
     const mockHighlights = [
       createMockHighlight(),
       createMockHighlight(),
@@ -321,35 +293,12 @@ describe('highlightManager', () => {
     Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
 
     const options = {
-      clearError: jest.fn(),
-      setError: jest.fn(),
+      onSelect: jest.fn(),
     };
 
     update(prevProp, options);
 
-    expect(options.clearError).not.toHaveBeenCalled();
-    expect(options.setError).toHaveBeenCalledWith(prop.scrollTarget.id);
-  });
-
-  it('does not call options.setError or options.clearError if scrollTarget was not provided', () => {
-    const mockHighlights = [
-      createMockHighlight(),
-      createMockHighlight(),
-    ];
-    const {update} = highlightManager(element, () => prop);
-
-    Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
-    Highlighter.mock.instances[0].getHighlight.mockImplementation((id: string) => keyBy('id', mockHighlights)[id]);
-
-    const options = {
-      clearError: jest.fn(),
-      setError: jest.fn(),
-    };
-
-    update(prevProp, options);
-
-    expect(options.clearError).not.toHaveBeenCalled();
-    expect(options.setError).not.toHaveBeenCalled();
+    expect(options.onSelect).toHaveBeenCalledWith(null);
   });
 
   it('umounts', () => {
