@@ -102,9 +102,8 @@ const getHighlightToFocus = (
   return null;
 };
 
-interface UpdateOptions {
-  clearError: () => void;
-  setError: (id: string) => void;
+export interface UpdateOptions {
+  onSelect: (highlight: Highlight | null) => void;
 }
 
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
@@ -195,17 +194,14 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       const highlightScrollTarget = scrollTarget && isHighlightScrollTarget(scrollTarget) ? scrollTarget : null;
       const scrollTargetHighlight = highlightScrollTarget && highlighter.getHighlight(highlightScrollTarget.id);
 
-      if (options && stateEstablished) {
-        if (scrollTargetHighlight) {
-          options.clearError();
-        } else if (highlightScrollTarget) {
-          options.setError(highlightScrollTarget.id);
-        }
-      }
-
       const toFocus = getHighlightToFocus(focused, prevProps.focused, pendingHighlight, scrollTargetHighlight);
       if (toFocus) {
         toFocus.focus();
+
+        if (options) {
+          options.onSelect(toFocus);
+        }
+
         if (toFocus.id !== focusedId && toFocus.id !== scrollTargetHighlightIdThatWasHandled) {
           focus(toFocus.id);
           (toFocus.elements[0] as HTMLElement).scrollIntoView();
@@ -213,6 +209,8 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
             scrollTargetHighlightIdThatWasHandled = scrollTargetHighlight.id;
           }
         }
+      } else if (options && stateEstablished && highlightScrollTarget) {
+        options.onSelect(null);
       }
 
       if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {

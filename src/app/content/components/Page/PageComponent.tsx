@@ -4,7 +4,7 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import FlashMessageError, { ModalRef } from '../../../notifications/components/FlashMessageError';
+import ToastNotifications from '../../../notifications/components/ToastNotifications';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -13,13 +13,13 @@ import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
-import highlightManager, { stubHighlightManager } from './highlightManager';
+import highlightManager, { stubHighlightManager, UpdateOptions } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
 import PageNotFound from './PageNotFound';
 import RedoPadding from './RedoPadding';
 import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scrollToTopOrHashManager';
-import searchHighlightManager, { stubManager } from './searchHighlightManager';
+import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
 
 if (typeof(document) !== 'undefined') {
@@ -28,22 +28,8 @@ if (typeof(document) !== 'undefined') {
 
 const parser = new DOMParser();
 
-interface PageState {
-  flashMessageError: boolean;
-  flashMessageErrorId: string | null;
-  flashMessageErrorKey: string | null;
-  flashMessageErrorType: 'highlight' | 'search' | null;
-}
-
 export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
-  public state: PageState = {
-    flashMessageError: false,
-    flashMessageErrorId: null,
-    flashMessageErrorKey: null,
-    flashMessageErrorType: null,
-  };
-  public errorModalRef = React.createRef<ModalRef>();
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
@@ -83,7 +69,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
   }
 
-  public async componentDidUpdate(prevProps: PagePropTypes, prevState: PageState) {
+  public async componentDidUpdate(prevProps: PagePropTypes) {
     // if there is a previous processing job, wait for it to finish.
     // this is mostly only relevant for initial load to ensure search results
     // are not highlighted before math is done typesetting, but may also
@@ -96,48 +82,31 @@ export default class PageComponent extends Component<PagePropTypes> {
       await this.postProcess();
     }
 
-    const shouldUpdateHighlights = prevProps !== this.props ||
-      (prevState.flashMessageErrorType === this.state.flashMessageErrorType &&
-        prevState.flashMessageErrorId === this.state.flashMessageErrorId);
+    // const shouldUpdateHighlights = prevProps !== this.props ||
+    //   (prevState.flashMessageErrorType === this.state.flashMessageErrorType &&
+    //     prevState.flashMessageErrorId === this.state.flashMessageErrorId);
 
-    if (!shouldUpdateHighlights) { return; }
+    // if (!shouldUpdateHighlights) { return; }
 
     const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
-      clearError: this.clearError('highlight'),
-      setError: this.setError('highlight', 'i18n:notification:scroll-to-highlight-failure'),
+      onSelect: this.onHighlightSelect,
     });
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
-      clearError: this.clearError('search'),
       forceRedraw: highlightsAddedOrRemoved,
-      setError: this.setError('search', 'i18n:notification:search-failure'),
+      onSelect: this.onSearchHighlightSelect,
     });
   }
 
-  public setError = (type: 'highlight' | 'search', messageKey: string) => (id: string) => {
-    // This implementation is messy but it doesn't really matter because it will be changed
-    // when https://github.com/openstax/rex-web/pull/822 is merged
-    if (this.state.flashMessageErrorId === id) { return; }
-    if (
-      this.state.flashMessageError
-      && this.state.flashMessageErrorType === type
-      && this.errorModalRef.current
-    ) {
-      this.setState({ flashMessageErrorId: id });
-      this.errorModalRef.current.resetError();
-      return;
+  public onHighlightSelect: UpdateOptions['onSelect'] = (selectedHighlight) => {
+    if (!selectedHighlight) {
+      this.props.addToast('i18n:notification:toast:highlights:highlight-not-found');
     }
-    this.setState({
-      flashMessageError: true,
-      flashMessageErrorId: id,
-      flashMessageErrorKey: messageKey,
-      flashMessageErrorType: type,
-    });
   };
 
-  public clearError = (type: 'highlight' | 'search') => () => {
-    if (this.state.flashMessageError && this.state.flashMessageErrorType === type) {
-      this.setState({ flashMessageError: false });
+  public onSearchHighlightSelect: OptionsCallback = ({selectedHighlight}) => {
+    if (!selectedHighlight) {
+      this.props.addToast('i18n:notification:toast:search:highlight-not-found');
     }
   };
 
@@ -155,18 +124,9 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public render() {
-    const { flashMessageError, flashMessageErrorKey, flashMessageErrorType } = this.state;
-
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      {flashMessageError && flashMessageErrorType && flashMessageErrorKey
-        ? <FlashMessageError
-            ref={this.errorModalRef}
-            dismiss={this.clearError(flashMessageErrorType)}
-            messageKey={flashMessageErrorKey}
-            mobileToolbarOpen={this.props.mobileToolbarOpen}
-          />
-        : null}
+      <ToastNotifications />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()

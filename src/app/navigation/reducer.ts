@@ -21,7 +21,7 @@ export default (location: Location): Reducer<State, AnyAction> => (state = addQu
       return addQuery(action.payload.location);
     case getType(deleteHighlight): {
       const scrollTarget = getScrollTargetFromQuery(state.query, state.hash);
-      if (scrollTarget && isHighlightScrollTarget(scrollTarget) && scrollTarget.id === action.payload) {
+      if (scrollTarget && isHighlightScrollTarget(scrollTarget) && scrollTarget.id === action.payload.id) {
         const window = assertWindow();
         window.history.replaceState(null, '', window.location.origin + window.location.pathname);
         return {...state, search: '', hash: '', query: {}};
