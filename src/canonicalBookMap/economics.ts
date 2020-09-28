@@ -129,7 +129,7 @@ export default {
       /* 13.3 Public Goods to the same module in 2e */
       '4b8246e4-bd24-455d-a21e-ee4107c28617': '15202d03-f65b-4db0-8640-48ef46c98ab5',
       /* 14.0 Introduction to 15.0 Introduction in 2e */
-      'a60ab1bb-237a-44a6-829e-d67c222f1ff1': '50a3e7ce-6a7f-4560-8442-f3e9f078e78f ',
+      'a60ab1bb-237a-44a6-829e-d67c222f1ff1': '50a3e7ce-6a7f-4560-8442-f3e9f078e78f',
       /* 14.1 Drawing the Poverty Line to 15.1 Drawing the Poverty Line in 2e */
       '79327788-9cb7-4b2c-9ccf-0c46d0c153d3': '2c838703-dd93-490a-ab8e-b9799b8ec78c',
       /* 14.2 The Poverty Trap to 15.2 The Poverty Trap in in 2e */
@@ -141,7 +141,7 @@ export default {
       /* 14.5 Government Policies to Reduce Income Inequality to 15.5 Government Policies to Reduce Income Inequality in 2e */
       'b60a59fd-00ea-4a5f-a581-63700fd97a0c': '4b2bf15f-c68b-432e-818e-1e314e22dfa9',
       /* 15.0 Introduction to Issues in Labor Markets: Unions, Discrimination, Immigration to 14.0 Introduction to Labor Markets and Income in 2e */
-      'd7fc6555-b899-4506-89d8-450c3d9e904c': '555a325b-15d3-48aa-98cf-05bba6ff089b ',
+      'd7fc6555-b899-4506-89d8-450c3d9e904c': '555a325b-15d3-48aa-98cf-05bba6ff089b',
       /* 15.1 Unions to 14.3 Market Power on the Supply Side of Labor Markets: Unions in 2e */
       'de64ecef-bbb0-4aa3-8e9f-08076c0b5e67': '65f0f332-29a3-4a54-a982-7d8ab30dd0f9',
       /* 15.2 Employment Discrimination to 14.5 Employment Discrimination in 2e */
@@ -359,7 +359,7 @@ export default {
       /* Present Discounted Value to the same module in 2e */
       '10ea1d2e-b170-4a26-b3d1-ef619e315185': '2ded13b0-6c7a-4350-9e83-1de5fbd452c0',
       /* The Expenditure-Output Model to the same module in 2e */
-      '2c962197-8004-45c5-8c65-0eb785cbe09b ': 'd9c67d2b-ab69-4317-82a2-f0aeb1e4dcaf',
+      '2c962197-8004-45c5-8c65-0eb785cbe09b': 'd9c67d2b-ab69-4317-82a2-f0aeb1e4dcaf',
     }],
   ],
 } as CanonicalBookMap;
