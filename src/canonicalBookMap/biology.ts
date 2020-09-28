@@ -7,7 +7,7 @@ export default {
   /* Biology 1e */ '185cbf87-c72e-48f5-b51e-f14f21b5eabd' : [
     /* Biology 2e */ ['8d50a0af-948b-4204-a71d-4826cba765b8', {
       /* Preface to the same module in 2e */
-      '7d501ff3-7b18-4b9e-99fd-2f596024f3a1': 'db36053c-5281-42f4-90ec-afcc21ab28c3 ',
+      '7d501ff3-7b18-4b9e-99fd-2f596024f3a1': 'db36053c-5281-42f4-90ec-afcc21ab28c3',
       /* 1.0 Introduction to the same module in 2e */
       'ad9b9d37-a5cf-4a0d-b8c1-083fcc4d3b0c': '2230ab90-3137-4dcb-b6bd-72630222948c',
       /* 1.1 The Science of Biology to the same module in 2e */
@@ -515,11 +515,11 @@ export default {
       /* 47.4 Preserving Biodiversity to the same module in 2e */
       'aaf2ab73-1c53-4518-9a03-63e238421f59': '0f8688d8-b025-4e07-a37b-ac12b85399ba',
       /* Periodic Table of Elements to the same module in 2e */
-      '85876150-cd23-42ac-ab49-a6002a43a5c8 ': '1094eff5-9302-4bf4-b599-3cb3703642d6',
+      '85876150-cd23-42ac-ab49-a6002a43a5c8': '1094eff5-9302-4bf4-b599-3cb3703642d6',
       /* Geological Time to the same module in 2e */
-      'aebd6cfc-39e6-4b33-ad78-604d5de78dfd ': '7f9cdc1f-a1a3-4353-9fa4-901681da97dc',
+      'aebd6cfc-39e6-4b33-ad78-604d5de78dfd': '7f9cdc1f-a1a3-4353-9fa4-901681da97dc',
       /* Measurements and the Metric System to the same module in 2e */
-      'fa9fa6f3-941c-45b2-927b-4a0ae10b0e07 ': '461abba6-4236-4913-9ab4-17328dcda078',
+      'fa9fa6f3-941c-45b2-927b-4a0ae10b0e07': '461abba6-4236-4913-9ab4-17328dcda078',
     }],
   ],
 } as CanonicalBookMap;
