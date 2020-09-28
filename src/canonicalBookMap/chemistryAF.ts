@@ -7,7 +7,7 @@ export default {
   /* Chemistry: Atoms First 1e */ '4539ae23-1ccc-421e-9b25-843acbb6c4b0': [
     /* Chemistry: Atoms First 2e */ ['d9b85ee6-c57f-4861-8208-5ddf261e9c5f', {
       /* Preface to the same module in 2e */
-      'f47f9c6a-e937-4e8f-a817-c11d4f8eff59 ': '541d7d79-a70e-42c2-b765-d55586648390',
+      'f47f9c6a-e937-4e8f-a817-c11d4f8eff59': '541d7d79-a70e-42c2-b765-d55586648390',
       /* 1.0 Introduction to the same module in 2e */
       'b9783491-46be-4295-827c-3f3b1c5c7ded': '0d8fa7a1-89a1-46a8-b340-aa25a6093908',
       /* 1.1 Chemistry in Context to the same module in 2e */
