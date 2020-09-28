@@ -24,7 +24,7 @@ const position = {
   totalToastCount: 1,
 };
 
-describe('SearchFailure', () => {
+describe('Toast', () => {
   let window: Window;
   let addEventListener: jest.SpyInstance;
   let removeEventListener: jest.SpyInstance;

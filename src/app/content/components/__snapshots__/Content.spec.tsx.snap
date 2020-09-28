@@ -33,7 +33,7 @@ Array [
     className="Content__Background-sc-1f451g1-0 gEoQaE"
   >
     <div
-      className="BookBanner__BarWrapper-sc-1avy0c0-4 eIPJBY"
+      className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
       data-analytics-region="book-banner-expanded"
       data-testid="bookbanner"
     >
@@ -41,7 +41,7 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitle-sc-1avy0c0-2 gEhfIa"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
           data-testid="details-link-expanded"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -60,7 +60,7 @@ Array [
           Test Book 1
         </a>
         <h1
-          className="BookBanner__BookChapter-sc-1avy0c0-3 iAENeF"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -70,7 +70,7 @@ Array [
       </div>
     </div>
     <div
-      className="BookBanner__BarWrapper-sc-1avy0c0-4 gZpRfI"
+      className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
       data-analytics-region="book-banner-collapsed"
       data-testid="bookbanner-collapsed"
     >
@@ -78,7 +78,7 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitle-sc-1avy0c0-2 QwZke"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -98,7 +98,7 @@ Array [
           Test Book 1
         </a>
         <span
-          className="BookBanner__BookChapter-sc-1avy0c0-3 dBZzyN"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -456,7 +456,7 @@ Array [
                         className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span></span>",
+                            "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
                           }
                         }
                         href="1-1-physics-an-introduction"
@@ -470,7 +470,7 @@ Array [
                         className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span></span>",
+                            "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
                           }
                         }
                         href="23-12-rlc-series-ac-circuits"
@@ -1349,7 +1349,7 @@ Array [
     className="Content__Background-sc-1f451g1-0 gEoQaE"
   >
     <div
-      className="BookBanner__BarWrapper-sc-1avy0c0-4 kLMCbe"
+      className="BookBanner__BarWrapper-sc-1avy0c0-5 blPrsP"
     />
     <div
       className="styled__BarWrapper-sc-1119auh-9 iBpta"
