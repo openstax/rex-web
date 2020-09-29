@@ -1,31 +1,20 @@
-// Disable page focus tracking https://github.com/openstax/unified/issues/1313
-/* istanbul ignore file */
-
 import { createSelector } from 'reselect';
 import * as selectNavigation from '../../app/navigation/selectors';
 import { AnalyticsEvent } from './event';
 
+// @ts-ignore
 const eventName = 'REX page focus';
 
 export const selector = createSelector(
   selectNavigation.pathname,
-  // Disable page focus tracking https://github.com/openstax/unified/issues/1313
-  /* istanbul ignore next */
   (pathname) => ({pathname})
 );
 
 export const track = (
+  // @ts-ignore
   {pathname}: ReturnType<typeof selector>,
+  // @ts-ignore
   focused: boolean
 ): AnalyticsEvent | void => {
-  // Disable page focus tracking https://github.com/openstax/unified/issues/1313
-  /* istanbul ignore next */
-  return {
-    getGoogleAnalyticsPayload: () => ({
-      eventAction: focused ? 'focused' : 'unfocused',
-      eventCategory: eventName,
-      eventLabel: pathname,
-      nonInteraction: true,
-    }),
-  };
+  return {};
 };
