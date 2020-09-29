@@ -9,8 +9,6 @@ import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { locationChange } from '../../../navigation/actions';
-import { localState } from '../../../navigation/selectors';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { openToc, receiveBook, receivePage } from '../../actions';
@@ -238,54 +236,6 @@ describe('Card', () => {
       locationFilterId: location!.id,
       pageId: page.id,
     }));
-  });
-
-  it('removes a highlight that was a scroll target highlight and clears navigations\'s state', () => {
-    const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: highlightData.id })}`;
-    store.dispatch(locationChange({
-      action: 'REPLACE',
-      location: { hash: 'does-not-matter', search: mockScrollTarget },
-    } as any));
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveHighlights({
-      highlights: [
-        {
-          annotation: 'adsf',
-          color: highlightStyles[0].label,
-          id: highlightData.id,
-        },
-      ] as HighlightData[],
-      pageId: '123',
-    }));
-
-    const locationFilters = highlightLocationFilters(store.getState());
-    const location = getHighlightLocationFilterForPage(locationFilters, page);
-    expect(location).toBeDefined();
-
-    const component = renderer.create(<Provider store={store}>
-      <Card {...cardProps} />
-    </Provider>);
-
-    let navigationState = localState(store.getState());
-    expect(navigationState.hash).toEqual('does-not-matter');
-    expect(navigationState.query.target).toEqual(JSON.stringify({ type: 'highlight', id: highlightData.id }));
-    expect(navigationState.search).toEqual(mockScrollTarget);
-
-    const picker = component.root.findByType(DisplayNote);
-    const highlightToDelete = picker.props.highlight;
-    renderer.act(() => {
-      picker.props.onRemove();
-    });
-
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(highlightToDelete, {
-      locationFilterId: location!.id,
-      pageId: page.id,
-    }));
-    navigationState = localState(store.getState());
-    expect(navigationState.hash).toEqual('');
-    expect(navigationState.query).toEqual({});
-    expect(navigationState.search).toEqual('');
   });
 
   it('noops when remove is called but there isn\'t anything to remove', () => {
