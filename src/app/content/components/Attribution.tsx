@@ -97,10 +97,10 @@ interface Props {
 
 class Attribution extends Component<Props> {
   public container = React.createRef<HTMLDetailsElement>();
-  private bookIdsWithTEAAttributionText = [
-    'cce64fde-f448-43b8-ae88-27705cceb0da',
-    '394a1101-fd8f-4875-84fa-55f15b06ba66',
-  ];
+  private bookIdsWithTEAAttributionText: {[key: string]: string} = {
+    '394a1101-fd8f-4875-84fa-55f15b06ba66': 'tea-statistics',
+    'cce64fde-f448-43b8-ae88-27705cceb0da': 'tea-physics',
+  };
   private toggleHandler: undefined | (() => void);
 
   public componentDidMount() {
@@ -131,7 +131,7 @@ class Attribution extends Component<Props> {
     const {book} = this.props;
     if (!hasOSWebData(book)) { return null; }
 
-    const attributionTextId = this.bookIdsWithTEAAttributionText.includes(book.id)
+    const attributionTextId = book.id in this.bookIdsWithTEAAttributionText
       ? 'i18n:attribution:tea-text'
       : 'i18n:attribution:default-text';
 
@@ -183,6 +183,7 @@ class Attribution extends Component<Props> {
       bookTitle: book.title,
       currentPath: this.props.currentPath,
       introPageUrl,
+      teaBookName: this.bookIdsWithTEAAttributionText[book.id],
     };
   };
 }
