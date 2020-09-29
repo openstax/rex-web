@@ -4,6 +4,7 @@ import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../test/utils';
 import { AppState, Store } from '../../types';
+import { assertDocument } from '../../utils';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
@@ -184,6 +185,33 @@ describe('Attribution', () => {
       );
       const component = renderer.create(render());
       expect(component.root.findByProps({ id: 'i18n:attribution:tea-text' })).toBeDefined();
+    });
+
+    it('renders correct links to TEA', () => {
+      const node = assertDocument().createElement('div');
+
+      const statistics = {...formatBookData(book, mockCmsBook), id: '394a1101-fd8f-4875-84fa-55f15b06ba66'};
+      const physics = {...formatBookData(book, mockCmsBook), id: 'cce64fde-f448-43b8-ae88-27705cceb0da'};
+
+      store.dispatch(actions.receiveBook(statistics));
+      let link = renderToDom(render(), node)
+        .root.querySelector('a[href="https://www.texasgateway.org/book/tea-statistics"]');
+
+      if (!link) {
+        return expect(link).toBeTruthy();
+      }
+      expect(link.textContent.trim()).toBe(link.getAttribute('href'));
+      ReactDOM.unmountComponentAtNode(node);
+
+      store.dispatch(actions.receiveBook(physics));
+      link = renderToDom(render(), node)
+        .root.querySelector('a[href="https://www.texasgateway.org/book/tea-physics"]');
+
+      if (!link) {
+        return expect(link).toBeTruthy();
+      }
+      expect(link.textContent.trim()).toBe(link.getAttribute('href'));
+      ReactDOM.unmountComponentAtNode(node);
     });
   });
 });
