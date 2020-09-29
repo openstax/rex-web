@@ -19,11 +19,12 @@ import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
-import { push } from '../../navigation/actions';
+import { locationChange, push } from '../../navigation/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
+import { receiveHighlights } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
@@ -998,8 +999,6 @@ describe('Page', () => {
     highlightResults.mockRestore();
   });
 
-  // For now this test is only for test coverage, but when https://github.com/openstax/rex-web/pull/822
-  // is merged we should make sure that it is also expecting specific actions to be sent
   it('refresh error modal for different search results if they are of the same type', async() => {
     const {root} = renderDomWithReferences();
 
@@ -1023,6 +1022,16 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
+    // This could expect addToast('i18n:notification:toast:search:highlight-not-found')
+    // but this function is adding a timestamp with Date.now()
+    expect(dispatch).toHaveBeenCalledWith({
+      payload: {
+        messageKey: 'i18n:notification:toast:search:highlight-not-found',
+        timestamp: expect.anything(),
+      },
+      type: 'Notification/toasts/add',
+    });
+
     renderer.act(() => {
       store.dispatch(selectSearchResult({result: hit2, highlight: 1}));
     });
@@ -1033,8 +1042,68 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
+    expect(dispatch).toHaveBeenCalledWith({
+      payload: {
+        messageKey: 'i18n:notification:toast:search:highlight-not-found',
+        timestamp: expect.anything(),
+      },
+      type: 'Notification/toasts/add',
+    });
 
     highlightResults.mockRestore();
+  });
+
+  it('renders error modal for highlight scroll target when it cant find a highlight - only once', async() => {
+    const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'some-id' })}`;
+
+    const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    renderer.act(() => {
+      store.dispatch(locationChange({
+        action: 'REPLACE',
+        location: { hash: 'does-not-matter', search: mockScrollTarget },
+      } as any));
+      store.dispatch(receiveHighlights({ highlights: [], pageId: page.id, }));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    // This could expect addToast('i18n:notification:toast:highlights:highlight-not-found')
+    // but this function is adding a timestamp with Date.now()
+    expect(dispatch).toHaveBeenCalledWith({
+      payload: {
+        messageKey: 'i18n:notification:toast:highlights:highlight-not-found',
+        timestamp: expect.anything(),
+      },
+      type: 'Notification/toasts/add',
+    });
+    dispatch.mockClear();
+
+    const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
+
+    if (!errorModalCloseButton) {
+      return expect(errorModalCloseButton).toBeTruthy();
+    }
+
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(errorModalCloseButton);
+      store.dispatch(receiveHighlights({ highlights: [], pageId: page.id, }));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    expect(dispatch).not.toHaveBeenCalledWith({
+      payload: {
+        messageKey: 'i18n:notification:toast:highlights:highlight-not-found',
+        timestamp: expect.anything(),
+      },
+      type: 'Notification/toasts/add',
+    });
   });
 
   it('mounts, updates, and unmounts without a dom', () => {

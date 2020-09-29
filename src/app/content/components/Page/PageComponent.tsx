@@ -82,12 +82,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       await this.postProcess();
     }
 
-    // const shouldUpdateHighlights = prevProps !== this.props ||
-    //   (prevState.flashMessageErrorType === this.state.flashMessageErrorType &&
-    //     prevState.flashMessageErrorId === this.state.flashMessageErrorId);
-
-    // if (!shouldUpdateHighlights) { return; }
-
     const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
       onSelect: this.onHighlightSelect,
     });
