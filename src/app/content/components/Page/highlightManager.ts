@@ -202,12 +202,14 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
           options.onSelect(toFocus);
         }
 
-        if (toFocus.id !== focusedId && toFocus.id !== scrollTargetHighlightIdThatWasHandled) {
+        if (
+          scrollTargetHighlight
+          && toFocus.id === scrollTargetHighlight.id
+          && toFocus.id !== focusedId
+          && toFocus.id !== scrollTargetHighlightIdThatWasHandled) {
           focus(toFocus.id);
           (toFocus.elements[0] as HTMLElement).scrollIntoView();
-          if (scrollTargetHighlight && toFocus.id === scrollTargetHighlight.id) {
-            scrollTargetHighlightIdThatWasHandled = scrollTargetHighlight.id;
-          }
+          scrollTargetHighlightIdThatWasHandled = scrollTargetHighlight.id;
         }
       } else if (options && stateEstablished && highlightScrollTarget && !scrollTargetHighlightIdThatWasHandled) {
         options.onSelect(null);
