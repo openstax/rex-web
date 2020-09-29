@@ -2,8 +2,7 @@ import { createSelector } from 'reselect';
 import * as selectNavigation from '../../app/navigation/selectors';
 import { AnalyticsEvent } from './event';
 
-// @ts-ignore
-const eventName = 'REX page focus';
+// const eventName = 'REX page focus';
 
 export const selector = createSelector(
   selectNavigation.pathname,
