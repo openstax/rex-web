@@ -17,11 +17,11 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
 
   const state = getState();
 
-  const {book, page} = bookAndPage(state);
+  const {book} = bookAndPage(state);
   const isEnabled = studyGuidesEnabled(state);
   const hasCurrentStudyGuides = hasStudyGuides(state);
 
-  if (!isEnabled || !book || !page || hasCurrentStudyGuides) { return; }
+  if (!isEnabled || !book || hasCurrentStudyGuides) { return; }
 
   try {
     const summary = await highlightClient.getHighlightsSummary({
