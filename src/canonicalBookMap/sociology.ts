@@ -7,7 +7,7 @@ export default {
   /* Introduction to Sociology 1e */ 'afe4332a-c97f-4fc4-be27-4e4d384a32d8': [
     /* Introduction to Sociology 2e */ ['02040312-72c8-441e-a685-20e9333f3e1d', {
       /* Preface to the Preface */
-      '29931d89-4928-4595-9055-5c79d84a0541': '325e4afd-80b6-44dd-87b6-35aff4f40eac  ',
+      '29931d89-4928-4595-9055-5c79d84a0541': '325e4afd-80b6-44dd-87b6-35aff4f40eac',
       /* Introduction to Socioloty to the 1.0 Introduction to Sociology */
       'ffdef1d6-b02f-4ca0-8bd8-89ee41813aea': '4eb21133-cf0a-4ea7-81f5-b1e47698ec30',
       /* What is Sociology? to the 1.1 What Is Sociology? */
