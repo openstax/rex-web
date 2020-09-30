@@ -8,6 +8,7 @@ import loadHighlights from './locationChange';
 import { openMyHighlightsHook } from './openMyHighlights';
 import { printHighlightsHook } from './printHighlights';
 import removeHighlight from './removeHighlight';
+import requestRemoveHighlight from './requestRemoveHighlight';
 import updateHighlight from './updateHighlight';
 
 export { loadHighlights };
@@ -15,6 +16,7 @@ export { loadHighlights };
 export default [
   createHighlight,
   removeHighlight,
+  requestRemoveHighlight,
   updateHighlight,
   initializeMyHighlightsSummaryHook,
   setSummaryFiltersHook,

@@ -15,10 +15,16 @@ import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { locationChange } from '../../navigation/actions';
 import { scrollTarget } from '../../navigation/selectors';
-import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import { receivePage } from '../actions';
-import { clearFocusedHighlight, deleteHighlight, focusHighlight, receiveHighlights } from '../highlights/actions';
+import {
+  clearFocusedHighlight,
+  focusHighlight,
+  receiveDeleteHighlight,
+  receiveHighlights,
+  requestDeleteHighlight,
+} from '../highlights/actions';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
@@ -46,13 +52,16 @@ const fromApiResponse = UntypedSerializedHighlight.fromApiResponse = jest.fn();
 
 describe('Page', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
-  let state: AppState;
   let store: Store;
+  let dispatch: jest.SpyInstance;
   let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
     resetModules();
     jest.resetAllMocks();
+
+    // scrollIntoView is not implemented in jsdom
+    (assertWindow() as any).HTMLElement.prototype.scrollIntoView = () => jest.fn();
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
 
@@ -63,7 +72,7 @@ describe('Page', () => {
         page,
       },
     });
-    state = store.getState();
+    dispatch = jest.spyOn(store, 'dispatch');
 
     const testServices = createTestServices();
 
@@ -126,7 +135,11 @@ describe('Page', () => {
   };
 
   it('removes a highlight that was a scroll target highlight and clears navigations\'s state', async() => {
+    const window = assertWindow();
+    const spyReplaceState = jest.spyOn(window.history, 'replaceState');
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'scroll-target-id' })}`;
+    const deleteHighlightClient = jest.spyOn(services.highlightClient, 'deleteHighlight')
+      .mockResolvedValue({} as any);
 
     renderDomWithReferences();
 
@@ -166,21 +179,21 @@ describe('Page', () => {
       type: 'highlight',
     });
 
+    dispatch.mockClear();
+
     renderer.act(() => {
-      store.dispatch(deleteHighlight(mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }));
+      store.dispatch(
+        requestDeleteHighlight(mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }));
     });
 
-    // page lifecycle hooks
-    await Promise.resolve();
-
+    expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(mockHighlights[0], expect.anything()));
+    expect(spyReplaceState).toHaveBeenCalledWith(null, '', window.location.origin + window.location.pathname);
+    expect(deleteHighlightClient).toHaveBeenCalledWith({id: 'scroll-target-id'});
     expect(scrollTarget(store.getState())).toEqual(null);
   });
 
   // tslint:disable-next-line: max-line-length
   it('scrolls to the Highlight Scroll Target > select another highlight > refresh > do not scroll to the HST again', async() => {
-    // scrollIntoView is not implemented in jsdom
-    (assertWindow() as any).HTMLElement.prototype.scrollIntoView = () => jest.fn();
-
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'scroll-target-id' })}`;
 
     renderDomWithReferences();

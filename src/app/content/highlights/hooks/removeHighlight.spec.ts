@@ -4,7 +4,7 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { toastNotifications } from '../../../notifications/selectors';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
-import { createHighlight, deleteHighlight } from '../actions';
+import { createHighlight, receiveDeleteHighlight } from '../actions';
 
 jest.mock('../../../../helpers/Sentry');
 
@@ -42,7 +42,7 @@ describe('removeHighlight', () => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
       .mockResolvedValue({} as any);
 
-    hook(deleteHighlight(highlight as unknown as Highlight, meta));
+    hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
     await Promise.resolve();
 
     expect(deleteHighlightClient).toHaveBeenCalledWith({id: highlight.id});
@@ -51,7 +51,7 @@ describe('removeHighlight', () => {
   it('doesn\'t call highlightClient when reverting creation', async() => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight');
 
-    hook(deleteHighlight(highlight as unknown as Highlight, {...meta, revertingAfterFailure: true}));
+    hook(receiveDeleteHighlight(highlight as unknown as Highlight, {...meta, revertingAfterFailure: true}));
     await Promise.resolve();
 
     expect(deleteHighlightClient).not.toHaveBeenCalled();
@@ -63,7 +63,7 @@ describe('removeHighlight', () => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
       .mockRejectedValue(error);
 
-    hook(deleteHighlight(highlight as unknown as Highlight, meta));
+    hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
     await Promise.resolve();
 
     expect(deleteHighlightClient).toHaveBeenCalled();

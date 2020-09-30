@@ -9,7 +9,7 @@ import { highlightStyles } from '../../../constants';
 import { book as bookSelector } from '../../../selectors';
 import { popupBodyPadding } from '../../../styles/PopupStyles';
 import addTargetBlankToLinks from '../../../utils/addTargetBlankToLinks';
-import { deleteHighlight, updateHighlight } from '../../actions';
+import { requestDeleteHighlight, updateHighlight } from '../../actions';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
@@ -136,7 +136,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   };
 
   const confirmDelete = () => {
-    dispatch(deleteHighlight(highlight, {
+    dispatch(requestDeleteHighlight(highlight, {
       locationFilterId,
       pageId,
     }));

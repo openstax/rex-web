@@ -15,9 +15,9 @@ import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
-  deleteHighlight,
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
+  requestDeleteHighlight,
   setSummaryFilters,
   updateHighlight,
 } from '../actions';
@@ -407,7 +407,7 @@ describe('Highlights', () => {
       secondDeleteWrapper.props.onCancel();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(hlBlue as Highlight, {
+    expect(dispatch).toHaveBeenCalledWith(requestDeleteHighlight(hlBlue as Highlight, {
       locationFilterId: pageId,
       pageId,
     }));
