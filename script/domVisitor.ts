@@ -1,5 +1,4 @@
 import fs from 'fs';
-import { JSDOM } from 'jsdom';
 import path from 'path';
 import puppeteer from 'puppeteer';
 import { argv } from 'yargs';
@@ -9,8 +8,6 @@ import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { assertDefined } from '../src/app/utils';
 import { findBooks } from './utils/bookUtils';
 import progressBar from './utils/progressBar';
-
-(global as any).DOMParser = new JSDOM().window.DOMParser;
 
 const {
   archiveUrl,
