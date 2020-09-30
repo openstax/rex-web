@@ -1,7 +1,8 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { bodyCopyRegularStyle, textRegularStyle } from '../../../components/Typography';
+import ContentExcerpt, { HighlightContent } from '../../../components/ContentExcerpt';
+import { textRegularStyle } from '../../../components/Typography';
 import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
 import { popupPadding } from '../../styles/PopupStyles';
@@ -41,16 +42,6 @@ const HighlightAnnotation = styled.div`
   ${theme.breakpoints.mobile`
     padding: 1rem;
   `}
-`;
-
-// tslint:disable-next-line:variable-name
-const HighlightContent = styled.div`
-  ${bodyCopyRegularStyle}
-  overflow: auto;
-
-  * {
-    overflow: initial;
-  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -97,10 +88,10 @@ const HighlightListElement = ({ highlight }: HighlightListElementProps) => {
       {highlight.annotation}
     </HighlightAnnotation>
     <HighlightContentWrapper color={highlight.color}>
-      <HighlightContent
+      <ContentExcerpt
         className='summary-highlight-content'
-        data-highlight-id={highlight.id}
-        dangerouslySetInnerHTML={{ __html: content }}
+        highlight={highlight}
+        content={content}
       />
     </HighlightContentWrapper>
   </HighlightOuterWrapper>;

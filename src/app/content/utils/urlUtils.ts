@@ -98,5 +98,18 @@ export const toRelativeUrl = (from: string, to: string) => {
   const commonParts = getCommonParts(parsedFrom, parsedTo.slice(0, -1));
 
   return '../'.repeat(Math.max(0, parsedFrom.length - commonParts.length - 1))
-    + parsedTo.slice(commonParts.length).join('/');
+  + parsedTo.slice(commonParts.length).join('/');
+};
+
+export const fromRelativeUrl = (from: string, to: string) => {
+  if (!window) { return null; }
+  const base = new URL( window.location.origin);
+
+  if (from.startsWith('#')) {
+    base.pathname = to;
+    base.hash = from;
+    return base;
+  }
+
+  return from;
 };

@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
-import { bodyCopyRegularStyle } from '../../../../components/Typography';
+import ContentExcerpt, { HighlightContent } from '../../../../components/ContentExcerpt';
 import theme from '../../../../theme';
 import { highlightStyles } from '../../../constants';
 import { popupBodyPadding } from '../../../styles/PopupStyles';
@@ -29,16 +29,6 @@ const HighlightOuterWrapper = styled.div`
     position: relative;
     page-break-inside: avoid;
     background: white;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-const HighlightContent = styled.div`
-  ${bodyCopyRegularStyle}
-  overflow: auto;
-
-  * {
-    overflow: initial;
   }
 `;
 
@@ -154,10 +144,10 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       onColorChange={updateColor}
     />}
     <HighlightContentWrapper color={highlight.color}>
-      <HighlightContent
+      <ContentExcerpt
         className='summary-highlight-content'
-        data-highlight-id={highlight.id}
-        dangerouslySetInnerHTML={{ __html: content }}
+        highlight={highlight}
+        content={content}
       />
       <HighlightAnnotation
         annotation={highlight.annotation || ''}
