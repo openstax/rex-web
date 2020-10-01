@@ -12,6 +12,8 @@ describe('print', () => {
       const result = track({book, pathname: 'asdf'});
       if (!result) {
         return expect(result).toBeTruthy();
+      } else if (!result.getGoogleAnalyticsPayload) {
+        return expect(result.getGoogleAnalyticsPayload).toBeTruthy();
       }
       expect(result.getGoogleAnalyticsPayload().eventAction).toEqual(book.slug);
     });
