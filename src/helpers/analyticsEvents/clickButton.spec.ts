@@ -18,6 +18,8 @@ describe('clickLink', () => {
       const result = track({pathname: 'asdf'}, button);
       if (!result) {
         return expect(result).toBeTruthy();
+      } else if (!result.getGoogleAnalyticsPayload) {
+        return expect(result.getGoogleAnalyticsPayload).toBeTruthy();
       }
       expect(result.getGoogleAnalyticsPayload().eventAction).toEqual('foo');
     });
@@ -29,6 +31,8 @@ describe('clickLink', () => {
       const result = track({pathname: 'asdf'}, button);
       if (!result) {
         return expect(result).toBeTruthy();
+      } else if (!result.getGoogleAnalyticsPayload) {
+        return expect(result.getGoogleAnalyticsPayload).toBeTruthy();
       }
       expect(result.getGoogleAnalyticsPayload().eventCategory).toEqual('REX Button (foo)');
     });
