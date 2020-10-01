@@ -7,7 +7,6 @@ import ContentExcerpt, { HighlightContent } from '../../../../components/Content
 import theme from '../../../../theme';
 import { highlightStyles } from '../../../constants';
 import { popupBodyPadding } from '../../../styles/PopupStyles';
-import addTargetBlankToLinks from '../../../utils/addTargetBlankToLinks';
 import { deleteHighlight, updateHighlight } from '../../actions';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
@@ -131,10 +130,6 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
 
   const hasAnnotation = Boolean(highlight.annotation);
 
-  const content = React.useMemo(
-    () => addTargetBlankToLinks(highlight.highlightedContent),
-    [highlight.highlightedContent]);
-
   return <HighlightOuterWrapper>
     {!isEditing && <ContextMenu
       color={highlight.color}
@@ -147,7 +142,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       <ContentExcerpt
         className='summary-highlight-content'
         highlight={highlight}
-        content={content}
+        content={highlight.highlightedContent}
       />
       <HighlightAnnotation
         annotation={highlight.annotation || ''}

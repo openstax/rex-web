@@ -6,7 +6,6 @@ import { textRegularStyle } from '../../../components/Typography';
 import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
 import { popupPadding } from '../../styles/PopupStyles';
-import addTargetBlankToLinks from '../../utils/addTargetBlankToLinks';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -79,10 +78,6 @@ interface HighlightListElementProps {
 
 // tslint:disable-next-line:variable-name
 const HighlightListElement = ({ highlight }: HighlightListElementProps) => {
-  const content = React.useMemo(
-    () => addTargetBlankToLinks(highlight.highlightedContent),
-    [highlight.highlightedContent]);
-
   return <HighlightOuterWrapper>
     <HighlightAnnotation>
       {highlight.annotation}
@@ -91,7 +86,7 @@ const HighlightListElement = ({ highlight }: HighlightListElementProps) => {
       <ContentExcerpt
         className='summary-highlight-content'
         highlight={highlight}
-        content={content}
+        content={highlight.highlightedContent}
       />
     </HighlightContentWrapper>
   </HighlightOuterWrapper>;
