@@ -1,12 +1,7 @@
-import { JSDOM } from 'jsdom';
 import fetch from 'node-fetch';
 import { argv } from 'yargs';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL } from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
-
-// archiveLoader does some dom manipulation on the tree response
-// that depends on this
-(global as any).DOMParser = new JSDOM().window.DOMParser;
 
 const {
   field,
