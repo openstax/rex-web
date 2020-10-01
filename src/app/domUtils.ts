@@ -113,8 +113,7 @@ export const scrollIntoView = (elem: HTMLElement) => {
 };
 
 export const onPageFocusChange = (focus: boolean, app: {services: AppServices, store: Store}) => () => {
-  // Disable page focus tracking https://github.com/openstax/unified/issues/1313
-  // app.services.analytics.pageFocus.track(app.services.analytics.pageFocus.selector(app.store.getState()), focus);
+  app.services.analytics.pageFocus.track(app.services.analytics.pageFocus.selector(app.store.getState()), focus);
   app.store.dispatch(receivePageFocus(focus));
 };
 
