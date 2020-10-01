@@ -3,12 +3,16 @@ import { scrollTo } from '../../../domUtils';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState } from '../../../types';
 import { assertWindow, memoizeStateToProps, resetTabIndex } from '../../../utils';
+import { isSearchScrollTarget } from '../../search/guards';
+import { selectedResult } from '../../search/selectors';
 import * as select from '../../selectors';
 import allImagesLoaded from '../utils/allImagesLoaded';
 
 export const mapStateToScrollToTopOrHashProp = memoizeStateToProps((state: AppState) => ({
   hash: selectNavigation.hash(state),
   page: select.page(state),
+  scrollTarget: selectNavigation.scrollTarget(state),
+  selectedResult: selectedResult(state),
 }));
 type ScrollTargetProp = ReturnType<typeof mapStateToScrollToTopOrHashProp>;
 
@@ -45,6 +49,15 @@ const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLEleme
 const scrollToTopOrHashManager = (
   container: HTMLElement
 ) => (previous: ScrollTargetProp, current: ScrollTargetProp) => {
+  if (
+    current.scrollTarget
+    && isSearchScrollTarget(current.scrollTarget)
+    && current.selectedResult
+    && current.scrollTarget.elementId === current.selectedResult.result.source.elementId
+    && current.scrollTarget.index === current.selectedResult.highlight
+  ) {
+    return;
+  }
   if (previous.page !== current.page) {
     scrollToTargetOrTop(container, current.hash);
   } else if (previous.hash !== current.hash) {

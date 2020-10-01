@@ -2,6 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import { page } from '../../../../test/mocks/archiveLoader';
 import { scrollTo } from '../../../domUtils';
 import { assertWindow } from '../../../utils';
+import { SearchScrollTarget, SelectedResult } from '../../search/types';
 import scrollToTopOrHashManager from './scrollToTopOrHashManager';
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
@@ -33,7 +34,9 @@ describe('scrollToTopOrHashManager', () => {
 
     element.append(target);
 
-    manager({hash: '#asdf', page}, {hash: '#qwer', page});
+    manager(
+      {hash: '#asdf', page, scrollTarget: null, selectedResult: null},
+      {hash: '#qwer', page, scrollTarget: null, selectedResult: null});
 
     await Promise.resolve();
 
@@ -47,7 +50,38 @@ describe('scrollToTopOrHashManager', () => {
 
     element.append(target);
 
-    manager({hash: '#asdf', page}, {hash: '#qwer', page});
+    manager(
+      {hash: '#asdf', page, scrollTarget: null, selectedResult: null},
+      {hash: '#qwer', page, scrollTarget: null, selectedResult: null});
+
+    await Promise.resolve();
+
+    expect(scrollTo).not.toHaveBeenCalled();
+  });
+
+  it('noops if there is a scroll target that is matching current selected result', async() => {
+    const target = window.document.createElement('div');
+    target.setAttribute('id', 'qwer');
+
+    element.append(target);
+
+    const scrollTarget: SearchScrollTarget = {
+      elementId: 'search-results-el',
+      index: 0,
+      type: 'search',
+    };
+    const selectedResult = {
+      highlight: scrollTarget.index,
+      result: {
+        source: {
+          elementId: scrollTarget.elementId,
+        },
+      },
+    } as any as SelectedResult;
+
+    manager(
+      {hash: '#asdf', page, scrollTarget: null, selectedResult: null},
+      {hash: '#qwer', page, scrollTarget, selectedResult});
 
     await Promise.resolve();
 
