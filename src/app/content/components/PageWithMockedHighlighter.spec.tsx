@@ -25,6 +25,7 @@ import {
   receiveHighlights,
   requestDeleteHighlight,
 } from '../highlights/actions';
+import * as requestRemoveHighlight from '../highlights/hooks/requestRemoveHighlight';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
@@ -138,8 +139,6 @@ describe('Page', () => {
     const window = assertWindow();
     const spyReplaceState = jest.spyOn(window.history, 'replaceState');
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'scroll-target-id' })}`;
-    const deleteHighlightClient = jest.spyOn(services.highlightClient, 'deleteHighlight')
-      .mockResolvedValue({} as any);
 
     renderDomWithReferences();
 
@@ -179,16 +178,15 @@ describe('Page', () => {
       type: 'highlight',
     });
 
-    dispatch.mockClear();
-
     renderer.act(() => {
       store.dispatch(
+        requestDeleteHighlight(mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }));
+      requestRemoveHighlight.hookBody({...services, getState: store.getState, dispatch: store.dispatch})(
         requestDeleteHighlight(mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }));
     });
 
     expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(mockHighlights[0], expect.anything()));
     expect(spyReplaceState).toHaveBeenCalledWith(null, '', window.location.origin + window.location.pathname);
-    expect(deleteHighlightClient).toHaveBeenCalledWith({id: 'scroll-target-id'});
     expect(scrollTarget(store.getState())).toEqual(null);
   });
 

@@ -21,6 +21,7 @@ import {
   setSummaryFilters,
   updateHighlight,
 } from '../actions';
+import * as requestRemoveHighlight from '../hooks/requestRemoveHighlight';
 import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
@@ -405,6 +406,13 @@ describe('Highlights', () => {
       const [firstDeleteWrapper, secondDeleteWrapper] = component.root.findAllByType(HighlightDeleteWrapper);
       firstDeleteWrapper.props.onDelete();
       secondDeleteWrapper.props.onCancel();
+
+      requestRemoveHighlight.hookBody({...services, getState: store.getState, dispatch: store.dispatch})(
+        requestDeleteHighlight(hlBlue as Highlight, {
+          locationFilterId: pageId,
+          pageId,
+        }
+      ));
     });
 
     expect(dispatch).toHaveBeenCalledWith(requestDeleteHighlight(hlBlue as Highlight, {
