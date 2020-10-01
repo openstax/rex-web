@@ -29,7 +29,7 @@ interface Event {track: EventConstructor; selector: Selector; }
 const triggerEvent = <E extends Event>(event: E): E['track'] => (...args) => {
   const analyticsEvent = event.track(...args);
 
-  if (analyticsEvent) {
+  if (analyticsEvent && analyticsEvent.getGoogleAnalyticsPayload) {
     googleAnalyticsClient.trackEventPayload(analyticsEvent.getGoogleAnalyticsPayload());
   }
 };
