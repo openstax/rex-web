@@ -216,4 +216,20 @@ describe('loadMore', () => {
     expect(highlightClient).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null, filters}));
   });
+
+  it('doesn\'t explode without a page', async() => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
+    }));
+
+    const filters = summaryFilters(store.getState());
+    const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights');
+
+    await hook(store.dispatch(loadMoreStudyGuides()));
+
+    expect(highlightClient).not.toHaveBeenCalled();
+    expect(filters.locationIds).toEqual([]);
+    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides({}, {pagination: null, filters}));
+  });
 });
