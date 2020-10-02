@@ -1,8 +1,17 @@
-import { HTMLElement, HTMLSpanElement } from '@openstax/types/lib.dom';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
 import { hasOSWebData, isArchiveTree } from './guards';
-import { ArchiveBook, ArchiveTree, ArchiveTreeNode, BookWithOSWebData, Params, SlugParams, UuidParams } from './types';
+import {
+  ArchiveBook,
+  ArchiveTree,
+  ArchiveTreeNode,
+  Book,
+  BookWithOSWebData,
+  Params,
+  SlugParams,
+  UuidParams,
+} from './types';
+import { getTitleFromArchiveNode } from './utils/archiveTreeUtils';
 import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
@@ -21,27 +30,11 @@ export const getContentPageReferences = (content: string) =>
       };
     });
 
-const parseTitleNode = (titleNode: HTMLElement) => {
-  const extra = titleNode.querySelector<HTMLSpanElement>('.os-part-text');
-  const divider = titleNode.querySelector<HTMLSpanElement>('.os-divider');
-  if (!divider || !extra) { return; }
-
-  if (/appendix/i.test(extra.innerHTML)) {
-    divider.innerHTML = ' | ';
-  }
-
-  extra.remove();
-};
-
-const domParser = new DOMParser();
-const parseContents = (contents: Array<ArchiveTree | ArchiveTreeNode>) => {
+const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
   contents.map((subtree) => {
-    const domNode = domParser.parseFromString(`<div id="container">${subtree.title}</div>`, 'text/html');
-    const container = domNode.getElementById('container');
-    parseTitleNode(container);
-    subtree.title = container.innerHTML;
+    subtree.title = getTitleFromArchiveNode(book, subtree);
     if (isArchiveTree(subtree)) {
-      subtree.contents = parseContents(subtree.contents);
+      subtree.contents = parseContents(book, subtree.contents);
     }
     return subtree;
   });
@@ -49,7 +42,7 @@ const parseContents = (contents: Array<ArchiveTree | ArchiveTreeNode>) => {
 };
 
 export const parseBookTree = (archiveBook: ArchiveBook) => {
-  archiveBook.tree.contents = parseContents(archiveBook.tree.contents);
+  archiveBook.tree.contents = parseContents(archiveBook, archiveBook.tree.contents);
   return archiveBook;
 };
 
