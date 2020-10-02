@@ -93,10 +93,16 @@ const getHighlightToFocus = (
   focused?: Highlight | null,
   prevFocusedId?: string,
   pendingHighlight?: Highlight,
-  scrollTargetHighlight?: Highlight | null
+  scrollTargetHighlight?: Highlight | null,
+  scrollTargetHighlightIdThatWasHandled?: string | null
 ) => {
   if (focused) { return focused; }
-  if (!pendingHighlight && !prevFocusedId && scrollTargetHighlight) {
+  if (
+    !pendingHighlight
+    && !prevFocusedId
+    && scrollTargetHighlight
+    && scrollTargetHighlight.id !== scrollTargetHighlightIdThatWasHandled
+  ) {
     return scrollTargetHighlight;
   }
   return null;
@@ -194,7 +200,8 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       const highlightScrollTarget = scrollTarget && isHighlightScrollTarget(scrollTarget) ? scrollTarget : null;
       const scrollTargetHighlight = highlightScrollTarget && highlighter.getHighlight(highlightScrollTarget.id);
 
-      const toFocus = getHighlightToFocus(focused, prevProps.focused, pendingHighlight, scrollTargetHighlight);
+      const toFocus = getHighlightToFocus(
+        focused, prevProps.focused, pendingHighlight, scrollTargetHighlight, scrollTargetHighlightIdThatWasHandled);
       if (toFocus) {
         toFocus.focus();
 
