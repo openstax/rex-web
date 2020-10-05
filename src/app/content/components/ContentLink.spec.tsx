@@ -114,7 +114,7 @@ describe('ContentLink', () => {
     });
 
     it('dispatches navigation action with scroll target data and search if scroll target is passed', async() => {
-      const scrollTarget = { type: 'search', index: 1, elementId: 'anchor' } as SearchScrollTarget;
+      const scrollTarget: SearchScrollTarget = { type: 'search', index: 1, elementId: 'anchor' };
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveBook(book));
       const component = renderer.create(<Provider store={store}>

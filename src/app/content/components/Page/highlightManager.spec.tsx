@@ -203,7 +203,7 @@ describe('highlightManager', () => {
 
     const focus = jest.spyOn(mockHighlights[0], 'focus');
     const highlightScrollIntoView = jest.fn();
-    mockHighlights[1].elements.push({
+    mockHighlights[0].elements.push({
       scrollIntoView: highlightScrollIntoView,
     } as any as HTMLElement);
 

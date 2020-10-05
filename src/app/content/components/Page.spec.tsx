@@ -20,6 +20,7 @@ import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
 import { locationChange, push } from '../../navigation/actions';
+import { addToast } from '../../notifications/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
@@ -1002,6 +1003,9 @@ describe('Page', () => {
   it('refresh error modal for different search results if they are of the same type', async() => {
     const {root} = renderDomWithReferences();
 
+    const dateMock = jest.spyOn(Date, 'now')
+      .mockReturnValue(1);
+
     // page lifecycle hooks
     await Promise.resolve();
 
@@ -1022,15 +1026,8 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    // This could expect addToast('i18n:notification:toast:search:highlight-not-found')
-    // but this function is adding a timestamp with Date.now()
-    expect(dispatch).toHaveBeenCalledWith({
-      payload: {
-        messageKey: 'i18n:notification:toast:search:highlight-not-found',
-        timestamp: expect.anything(),
-      },
-      type: 'Notification/toasts/add',
-    });
+    expect(dispatch).toHaveBeenCalledWith(addToast('i18n:notification:toast:search:highlight-not-found'));
+    dispatch.mockClear();
 
     renderer.act(() => {
       store.dispatch(selectSearchResult({result: hit2, highlight: 1}));
@@ -1042,19 +1039,17 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
-    expect(dispatch).toHaveBeenCalledWith({
-      payload: {
-        messageKey: 'i18n:notification:toast:search:highlight-not-found',
-        timestamp: expect.anything(),
-      },
-      type: 'Notification/toasts/add',
-    });
+    expect(dispatch).toHaveBeenCalledWith(addToast('i18n:notification:toast:search:highlight-not-found'));
 
     highlightResults.mockRestore();
+    dateMock.mockRestore();
   });
 
   it('renders error modal for highlight scroll target when it cant find a highlight - only once', async() => {
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'some-id' })}`;
+
+    const dateMock = jest.spyOn(Date, 'now')
+      .mockReturnValue(1);
 
     const {root} = renderDomWithReferences();
 
@@ -1072,15 +1067,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
 
-    // This could expect addToast('i18n:notification:toast:highlights:highlight-not-found')
-    // but this function is adding a timestamp with Date.now()
-    expect(dispatch).toHaveBeenCalledWith({
-      payload: {
-        messageKey: 'i18n:notification:toast:highlights:highlight-not-found',
-        timestamp: expect.anything(),
-      },
-      type: 'Notification/toasts/add',
-    });
+    expect(dispatch).toHaveBeenCalledWith(addToast('i18n:notification:toast:highlights:highlight-not-found'));
     dispatch.mockClear();
 
     const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
@@ -1097,13 +1084,9 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
 
-    expect(dispatch).not.toHaveBeenCalledWith({
-      payload: {
-        messageKey: 'i18n:notification:toast:highlights:highlight-not-found',
-        timestamp: expect.anything(),
-      },
-      type: 'Notification/toasts/add',
-    });
+    expect(dispatch).not.toHaveBeenCalledWith(addToast('i18n:notification:toast:highlights:highlight-not-found'));
+
+    dateMock.mockRestore();
   });
 
   it('mounts, updates, and unmounts without a dom', () => {

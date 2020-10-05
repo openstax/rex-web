@@ -2,8 +2,7 @@ import flow from 'lodash/fp/flow';
 import { IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import * as selectNavigation from '../../../navigation/selectors';
-import { addToast, dismissNotification } from '../../../notifications/actions';
-import { AnyNotification } from '../../../notifications/types';
+import { addToast } from '../../../notifications/actions';
 import { AppServices, AppState } from '../../../types';
 import { merge } from '../../../utils';
 import { mobileToolbarOpen, query } from '../../search/selectors';
@@ -30,7 +29,6 @@ export interface PagePropTypes {
   highlights: HighlightProp;
   services: AppServices;
   addToast: (message: string) => void;
-  removeToast: (notification: AnyNotification) => void;
 }
 
 export default connect(
@@ -50,7 +48,6 @@ export default connect(
     addToast: flow(addToast, dispatch),
     contentLinks: mapDispatchToContentLinkProp(dispatch),
     highlights: mapDispatchToHighlightProp(dispatch),
-    removeToast: flow(dismissNotification, dispatch),
   }),
   merge
 );

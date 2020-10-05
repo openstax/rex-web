@@ -134,6 +134,39 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     }
   };
 
+  const focusAndScrollToHighlight = (prevProps: HighlightProp, props: HighlightProp, options?: UpdateOptions) => {
+    const { scrollTarget, focus, focused: focusedId, highlightsLoaded, loggedOut, page } = props;
+    const focused = focusedId ? highlighter.getHighlight(focusedId) : null;
+    const stateEstablished = (highlightsLoaded || (loggedOut && page));
+
+    const highlightScrollTarget = scrollTarget && isHighlightScrollTarget(scrollTarget) ? scrollTarget : null;
+    const scrollTargetHighlight = highlightScrollTarget && highlighter.getHighlight(highlightScrollTarget.id);
+
+    const toFocus = getHighlightToFocus(
+      focused, prevProps.focused, pendingHighlight, scrollTargetHighlight, scrollTargetHighlightIdThatWasHandled);
+
+    if (toFocus) {
+      toFocus.focus();
+
+      if (options) {
+        options.onSelect(toFocus);
+      }
+
+      if (
+        scrollTargetHighlight
+        && toFocus.id === scrollTargetHighlight.id
+        && toFocus.id !== focusedId
+        && toFocus.id !== scrollTargetHighlightIdThatWasHandled) {
+        focus(toFocus.id);
+        (toFocus.elements[0] as HTMLElement).scrollIntoView();
+        scrollTargetHighlightIdThatWasHandled = scrollTargetHighlight.id;
+      }
+    } else if (options && stateEstablished && highlightScrollTarget && !scrollTargetHighlightIdThatWasHandled) {
+      options.onSelect(null);
+      scrollTargetHighlightIdThatWasHandled = highlightScrollTarget.id;
+    }
+  };
+
   const services = {
     clearPendingHighlight,
     container,
@@ -193,35 +226,8 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         ;
 
       highlighter.clearFocus();
-      const { scrollTarget, focus, focused: focusedId, highlightsLoaded, loggedOut, page } = getProp();
-      const focused = focusedId ? highlighter.getHighlight(focusedId) : null;
-      const stateEstablished = (highlightsLoaded || (loggedOut && page));
 
-      const highlightScrollTarget = scrollTarget && isHighlightScrollTarget(scrollTarget) ? scrollTarget : null;
-      const scrollTargetHighlight = highlightScrollTarget && highlighter.getHighlight(highlightScrollTarget.id);
-
-      const toFocus = getHighlightToFocus(
-        focused, prevProps.focused, pendingHighlight, scrollTargetHighlight, scrollTargetHighlightIdThatWasHandled);
-      if (toFocus) {
-        toFocus.focus();
-
-        if (options) {
-          options.onSelect(toFocus);
-        }
-
-        if (
-          scrollTargetHighlight
-          && toFocus.id === scrollTargetHighlight.id
-          && toFocus.id !== focusedId
-          && toFocus.id !== scrollTargetHighlightIdThatWasHandled) {
-          focus(toFocus.id);
-          (toFocus.elements[0] as HTMLElement).scrollIntoView();
-          scrollTargetHighlightIdThatWasHandled = scrollTargetHighlight.id;
-        }
-      } else if (options && stateEstablished && highlightScrollTarget && !scrollTargetHighlightIdThatWasHandled) {
-        options.onSelect(null);
-        scrollTargetHighlightIdThatWasHandled = highlightScrollTarget.id;
-      }
+      focusAndScrollToHighlight(prevProps, getProp(), options);
 
       if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {
         clearPendingHighlight();

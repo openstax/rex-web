@@ -13,13 +13,13 @@ import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
-import highlightManager, { stubHighlightManager, UpdateOptions } from './highlightManager';
+import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
 import PageNotFound from './PageNotFound';
 import RedoPadding from './RedoPadding';
 import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scrollToTopOrHashManager';
-import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
+import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
 
 if (typeof(document) !== 'undefined') {
@@ -92,13 +92,13 @@ export default class PageComponent extends Component<PagePropTypes> {
     });
   }
 
-  public onHighlightSelect: UpdateOptions['onSelect'] = (selectedHighlight) => {
+  public onHighlightSelect: HighlightUpdateOptions['onSelect'] = (selectedHighlight) => {
     if (!selectedHighlight) {
       this.props.addToast('i18n:notification:toast:highlights:highlight-not-found');
     }
   };
 
-  public onSearchHighlightSelect: OptionsCallback = ({selectedHighlight}) => {
+  public onSearchHighlightSelect: SearchUpdateOptions['onSelect'] = (selectedHighlight) => {
     if (!selectedHighlight) {
       this.props.addToast('i18n:notification:toast:search:highlight-not-found');
     }
