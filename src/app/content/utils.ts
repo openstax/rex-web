@@ -43,8 +43,8 @@ const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode
 
 export const parseBookTree = (archiveBook: ArchiveBook) => {
   archiveBook.tree.contents = parseContents(archiveBook, archiveBook.tree.contents);
-  // getTitleFromArchiveNode is using `flattenArchiveTree` utils that is caching wrong titles
-  // so we clear this cache after transforming titles
+  // getTitleFromArchiveNode is using `flattenArchiveTree` util that is caching old titles
+  // so we have to clear this cache after transforming titles
   CACHED_FLATTENED_TREES.clear();
   return archiveBook;
 };
