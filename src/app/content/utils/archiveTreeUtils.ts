@@ -6,6 +6,7 @@ import {
   ArchiveTree,
   ArchiveTreeNode,
   ArchiveTreeSection,
+  Book,
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
   LinkedArchiveTreeSection,
@@ -13,7 +14,9 @@ import {
 } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
-const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
+const domParser = new DOMParser();
+
+export const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
 export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
   // Cache is disabled for testing
   /* istanbul ignore next */
@@ -68,8 +71,7 @@ export const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
 export const nodeHasId = (nodeId: string, node: ArchiveTreeNode) => nodeMatcher(nodeId)(node);
 
 export const splitTitleParts = (str: string) => {
-
-  const domNode = new DOMParser().parseFromString(str, 'text/html');
+  const domNode = domParser.parseFromString(str, 'text/html');
   const titleNode = domNode.querySelector('.os-text');
   const numNode = domNode.querySelector('.os-number');
 
@@ -127,6 +129,27 @@ export const prevNextBookPage = (
     next: flattenTree[index + 1],
     prev: flattenTree[index - 1],
   };
+};
+
+export const getTitleFromArchiveNode = (book: Book, node: ArchiveTree | ArchiveTreeSection): string => {
+  const domNode = domParser.parseFromString(`<div id="container">${node.title}</div>`, 'text/html');
+  const container = domNode.getElementById('container');
+
+  const extra = container.querySelector<HTMLSpanElement>('.os-part-text');
+  const divider = container.querySelector<HTMLSpanElement>('.os-divider');
+  const number = container.querySelector<HTMLSpanElement>('.os-number');
+  const section = findArchiveTreeNodeById(book.tree, node.id);
+
+  if (section && archiveTreeSectionIsUnit(section)) {
+    if (number) { number.remove(); }
+    if (divider) { divider.remove(); }
+  } else if (section && archiveTreeSectionIsPage(section) && extra && /appendix/i.test(extra.innerHTML)) {
+    divider.innerHTML = ' | ';
+  }
+
+  if (extra) { extra.remove(); }
+
+  return container.innerHTML;
 };
 
 export const archiveTreeSectionIsBook = (
