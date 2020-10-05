@@ -11,7 +11,7 @@ import {
   SlugParams,
   UuidParams,
 } from './types';
-import { getTitleFromArchiveNode } from './utils/archiveTreeUtils';
+import { CACHED_FLATTENED_TREES, getTitleFromArchiveNode } from './utils/archiveTreeUtils';
 import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
@@ -43,6 +43,9 @@ const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode
 
 export const parseBookTree = (archiveBook: ArchiveBook) => {
   archiveBook.tree.contents = parseContents(archiveBook, archiveBook.tree.contents);
+  // getTitleFromArchiveNode is using `flattenArchiveTree` utils that is caching wrong titles
+  // so we clear this cache after transforming titles
+  CACHED_FLATTENED_TREES.clear();
   return archiveBook;
 };
 

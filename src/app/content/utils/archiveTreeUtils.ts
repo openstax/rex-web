@@ -16,7 +16,7 @@ import { getIdVersion, stripIdVersion } from './idUtils';
 
 const domParser = new DOMParser();
 
-const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
+export const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
 export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
   // Cache is disabled for testing
   /* istanbul ignore next */
