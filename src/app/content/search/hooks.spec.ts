@@ -108,17 +108,16 @@ describe('hooks', () => {
 
   describe('syncSearch', () => {
     let hook: ReturnType<typeof syncSearch>;
-    const mockSearchScrollTarget = `${JSON.stringify({ type: 'search', index: 0 })}`;
+    const searchScrollTarget: SearchScrollTarget = { type: 'search', index: 0, elementId: 'elementId' };
+    const searchScrollTargetStringified = `${JSON.stringify({ type: 'search', index: 0 })}`;
 
     beforeEach(() => {
       hook = syncSearch(helpers);
     });
 
     it('searches if there is search scroll target in the URL', () => {
-      const searchScrollTarget = { type: 'search', index: 0, elementId: 'elementId' } as SearchScrollTarget;
-
       store.dispatch(navigationLocationChange({
-        location: { hash: 'elementId', search: `?query=asdf&target=${mockSearchScrollTarget}` },
+        location: { hash: 'elementId', search: `?query=asdf&target=${searchScrollTargetStringified}` },
       } as any));
 
       hook({} as any);
@@ -152,9 +151,8 @@ describe('hooks', () => {
 
     it('selects search result', () => {
       const hit = makeSearchResultHit({book, page});
-      const searchScrollTarget = { type: 'search', index: 0 } as SearchScrollTarget;
       store.dispatch(navigationLocationChange({
-        location: { hash: hit.source.elementId, search: `?query=asdf&target=${JSON.stringify(searchScrollTarget)}` },
+        location: { hash: hit.source.elementId, search: `?query=asdf&target=${searchScrollTargetStringified}` },
       } as any));
 
       store.dispatch(requestSearch('asdf'));
@@ -168,9 +166,8 @@ describe('hooks', () => {
 
     it('noops if current selected result is the same as navigation selected result', () => {
       const hit = makeSearchResultHit({book, page});
-      const searchScrollTarget = { type: 'search', index: 0 } as SearchScrollTarget;
       store.dispatch(navigationLocationChange({
-        location: { hash: hit.source.elementId, search: `?query=asdf&target=${JSON.stringify(searchScrollTarget)}` },
+        location: { hash: hit.source.elementId, search: `?query=asdf&target=${searchScrollTargetStringified}` },
       } as any));
 
       store.dispatch(requestSearch('asdf'));

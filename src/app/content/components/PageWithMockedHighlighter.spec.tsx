@@ -25,7 +25,7 @@ import {
   receiveHighlights,
   requestDeleteHighlight,
 } from '../highlights/actions';
-import * as requestRemoveHighlight from '../highlights/hooks/requestRemoveHighlight';
+import * as requestDeleteHighlightHook from '../highlights/hooks/requestDeleteHighlight';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 import ConnectedPage from './Page';
@@ -181,7 +181,7 @@ describe('Page', () => {
     renderer.act(() => {
       store.dispatch(
         requestDeleteHighlight(mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }));
-      requestRemoveHighlight.hookBody({...services, getState: store.getState, dispatch: store.dispatch})(
+      requestDeleteHighlightHook.hookBody({...services, getState: store.getState, dispatch: store.dispatch})(
         requestDeleteHighlight(mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }));
     });
 

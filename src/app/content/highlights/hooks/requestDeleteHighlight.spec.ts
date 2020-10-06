@@ -8,12 +8,12 @@ import { createHighlight, receiveDeleteHighlight, requestDeleteHighlight } from 
 
 const createMockHighlight = () => ({
   id: Math.random().toString(36).substring(7),
-}) as FirstArgumentType<typeof createHighlight>;
+}) as Highlight;
 
-describe('requestRemoveHighlights', () => {
+describe('requestDeleteHighlight', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let hook: ReturnType<typeof import ('./requestRemoveHighlight').hookBody>;
+  let hook: ReturnType<typeof import ('./requestDeleteHighlight').hookBody>;
   let highlight: ReturnType<typeof createMockHighlight>;
   let dispatch: jest.SpyInstance;
 
@@ -23,7 +23,7 @@ describe('requestRemoveHighlights', () => {
     store = createTestStore();
 
     highlight = createMockHighlight();
-    store.dispatch(createHighlight(highlight, meta));
+    store.dispatch(createHighlight(highlight as any as FirstArgumentType<typeof createHighlight>, meta));
 
     helpers = {
       ...createTestServices(),
@@ -33,18 +33,17 @@ describe('requestRemoveHighlights', () => {
 
     dispatch = jest.spyOn(helpers, 'dispatch');
 
-    hook = (require('./requestRemoveHighlight').hookBody)(helpers);
+    hook = (require('./requestDeleteHighlight').hookBody)(helpers);
   });
 
-  it('calls receiveDeleteHighlight', async() => {
-    hook(requestDeleteHighlight(highlight as unknown as Highlight, meta));
-    await Promise.resolve();
+  it('calls receiveDeleteHighlight', () => {
+    hook(requestDeleteHighlight(highlight, meta));
 
-    expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
+    expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(highlight, meta));
   });
 
-  it('calls receiveDeleteHighlight and clears scroll target', async() => {
-    const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'scroll-target-id' })}`;
+  it('calls receiveDeleteHighlight and clears scroll target', () => {
+    const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: highlight.id })}`;
     store.dispatch(locationChange({
       action: 'REPLACE',
       location: { hash: 'hash-of-scroll-target', search: mockScrollTarget },
@@ -52,15 +51,9 @@ describe('requestRemoveHighlights', () => {
 
     expect(scrollTarget(store.getState())).toBeTruthy();
 
-    const scrollTargetHighlight = {
-      ...highlight,
-      id: 'scroll-target-id',
-    };
+    hook(requestDeleteHighlight(highlight, meta));
 
-    hook(requestDeleteHighlight(scrollTargetHighlight as unknown as Highlight, meta));
-    await Promise.resolve();
-
-    expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(scrollTargetHighlight as unknown as Highlight, meta));
+    expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(highlight, meta));
     expect(scrollTarget(store.getState())).toEqual(null);
   });
 });

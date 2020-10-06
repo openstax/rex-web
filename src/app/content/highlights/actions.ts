@@ -17,7 +17,6 @@ export const createHighlight = createStandardAction('Content/Highlights/create')
   pageId: string,
 }>();
 export const requestDeleteHighlight = createStandardAction('Content/Highlights/requestDelete')<Highlight, {
-  revertingAfterFailure?: boolean,
   locationFilterId: string,
   pageId: string,
 }>();

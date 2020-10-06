@@ -12,10 +12,10 @@ const createMockHighlight = () => ({
   id: Math.random().toString(36).substring(7),
 }) as FirstArgumentType<typeof createHighlight>;
 
-describe('removeHighlight', () => {
+describe('receiveDeleteHighlight', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let hook: ReturnType<typeof import ('./removeHighlight').hookBody>;
+  let hook: ReturnType<typeof import ('./receiveDeleteHighlight').hookBody>;
   let highlight: ReturnType<typeof createMockHighlight>;
   let dispatch: jest.SpyInstance;
 
@@ -35,7 +35,7 @@ describe('removeHighlight', () => {
 
     dispatch = jest.spyOn(helpers, 'dispatch');
 
-    hook = (require('./removeHighlight').hookBody)(helpers);
+    hook = (require('./receiveDeleteHighlight').hookBody)(helpers);
   });
 
   it('deletes highlight', async() => {

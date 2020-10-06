@@ -6,7 +6,7 @@ import { isHighlightScrollTarget } from '../guards';
 
 export const hookBody: ActionHookBody<typeof requestDeleteHighlight> =
   ({dispatch, getState}) => ({meta, payload}) => {
-    const scrollTarget = scrollTargetSelector( getState());
+    const scrollTarget = scrollTargetSelector(getState());
     if (scrollTarget && isHighlightScrollTarget(scrollTarget) && scrollTarget.id === payload.id) {
       const window = assertWindow();
       window.history.replaceState(null, '', window.location.origin + window.location.pathname);
