@@ -13,11 +13,11 @@ import { hasStudyGuides, studyGuidesEnabled } from '../selectors';
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const state = services.getState();
 
-  const {book, page} = bookAndPage(state);
+  const {book} = bookAndPage(state);
   const isEnabled = studyGuidesEnabled(state);
   const hasCurrentStudyGuides = hasStudyGuides(state);
 
-  if (!isEnabled || !book || !page || hasCurrentStudyGuides) { return; }
+  if (!isEnabled || !book || hasCurrentStudyGuides) { return; }
 
   const studyGuidesSummary = await services.highlightClient.getHighlightsSummary({
     scopeId: book.id,

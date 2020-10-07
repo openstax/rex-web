@@ -1,8 +1,17 @@
-import { HTMLElement, HTMLSpanElement } from '@openstax/types/lib.dom';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
-import { hasOSWebData } from './guards';
-import { ArchiveBook, BookWithOSWebData, Params, SlugParams, UuidParams } from './types';
+import { hasOSWebData, isArchiveTree } from './guards';
+import {
+  ArchiveBook,
+  ArchiveTree,
+  ArchiveTreeNode,
+  Book,
+  BookWithOSWebData,
+  Params,
+  SlugParams,
+  UuidParams,
+} from './types';
+import { CACHED_FLATTENED_TREES, getTitleFromArchiveNode } from './utils/archiveTreeUtils';
 import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
@@ -21,27 +30,22 @@ export const getContentPageReferences = (content: string) =>
       };
     });
 
-const parseTitleNode = (titleNode: HTMLElement) => {
-  const extra = titleNode.querySelector<HTMLSpanElement>('.os-part-text');
-  const divider = titleNode.querySelector<HTMLSpanElement>('.os-divider');
-  if (!divider || !extra) { return; }
-
-  if (/appendix/i.test(extra.innerHTML)) {
-    divider.innerHTML = ' | ';
-  }
-
-  extra.remove();
+const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
+  contents.map((subtree) => {
+    subtree.title = getTitleFromArchiveNode(book, subtree);
+    if (isArchiveTree(subtree)) {
+      subtree.contents = parseContents(book, subtree.contents);
+    }
+    return subtree;
+  });
+  return contents;
 };
 
 export const parseBookTree = (archiveBook: ArchiveBook) => {
-  const domParser = new DOMParser();
-  archiveBook.tree.contents = archiveBook.tree.contents.map((subtree) => {
-    const domNode = domParser.parseFromString(`<div id="container">${subtree.title}</div>`, 'text/html');
-    const container = domNode.getElementById('container');
-    parseTitleNode(container);
-    subtree.title = container.innerHTML;
-    return subtree;
-  });
+  archiveBook.tree.contents = parseContents(archiveBook, archiveBook.tree.contents);
+  // getTitleFromArchiveNode is using `flattenArchiveTree` util that is caching old titles
+  // so we have to clear this cache after transforming titles
+  CACHED_FLATTENED_TREES.clear();
   return archiveBook;
 };
 
