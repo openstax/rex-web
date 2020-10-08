@@ -50,9 +50,7 @@ const overlapDisplay = css`
   ${(props: CardProps) => !!props.isFocused && css`
     left: unset;
     right: ${cardMinWindowMargin}rem;
-    top: ${() => {
-      return getHighlightBottomOffset(props.container, props.highlight) || 0;
-    }}px;
+    top: ${props.bottomOffset || 0}px;
   `}
   ${(props: CardProps) => !props.isFocused && css`
     display: none;
