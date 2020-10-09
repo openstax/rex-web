@@ -1,10 +1,19 @@
 import { GetHighlightsColorsEnum } from '@openstax/highlighter/dist/api';
-import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
+import Sentry from '../../../../helpers/Sentry';
+import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { book as bookSelector } from '../../selectors';
-import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
+import {
+  loadMoreSummaryHighlights,
+  receiveSummaryHighlights,
+  setSummaryFilters,
+  toggleSummaryHighlightsLoading
+} from '../actions';
 import * as select from '../selectors';
+
 import { formatReceivedHighlights, loadUntilPageSize } from '../utils/highlightLoadingUtils';
 
 export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: number) => {
@@ -32,11 +41,24 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
     pagination,
   };
 };
+export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
 export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =
-  (services) => async() => {
-    const filters = select.summaryFilters(services.getState());
-    const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
+(services) => async() => {
+  const filters = select.summaryFilters(services.getState());
+
+    let response: Unpromisify<LoadMoreResponse>;
+
+    try {
+      response = await loadMore(services, summaryPageSize);
+    } catch (error) {
+      Sentry.captureException(error);
+      services.dispatch(addToast(toastMessageKeys.higlights.popUp.failure.load, {destination: 'myHighlights'}));
+      services.dispatch(toggleSummaryHighlightsLoading(false));
+      return;
+    }
+
+    const {formattedHighlights, pagination} = response;
     services.dispatch(receiveSummaryHighlights(formattedHighlights, {pagination, filters}));
   };
 
