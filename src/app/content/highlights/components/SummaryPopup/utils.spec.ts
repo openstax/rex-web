@@ -17,7 +17,7 @@ describe('createHighlightLink', () => {
 
   it('creates valid link for highlight', () => {
     const data = {
-      target: JSON.stringify({ id: mockHighlight.id, type: 'highlight', elementId: mockHighlight.anchor }),
+      target: JSON.stringify({ id: mockHighlight.id, type: 'highlight' }),
     };
     const target = queryString.stringify(data) + `#${mockHighlight.anchor}`;
     expect(createHighlightLink(mockHighlight, book))
@@ -26,7 +26,7 @@ describe('createHighlightLink', () => {
 
   it('creates link when book is not passed for highlight', () => {
     const data = {
-      target: JSON.stringify({ id: mockHighlight.id, type: 'highlight', elementId: mockHighlight.anchor }),
+      target: JSON.stringify({ id: mockHighlight.id, type: 'highlight' }),
     };
     const target = queryString.stringify(data) + `#${mockHighlight.anchor}`;
     expect(createHighlightLink(mockHighlight)).toEqual(`?${target}`);
