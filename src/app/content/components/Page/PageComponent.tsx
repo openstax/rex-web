@@ -4,6 +4,7 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
@@ -92,7 +93,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public onHighlightSelect: OptionsCallback = ({selectedHighlight}) => {
     if (!selectedHighlight) {
-      this.props.addToast('i18n:notification:toast:search:highlight-not-found');
+      this.props.addToast(toastMessageKeys.search.failure.nodeNotFound);
     }
   };
 

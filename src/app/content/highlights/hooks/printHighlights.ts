@@ -14,7 +14,7 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
     response = await loadMore(services);
   } catch (error) {
     Sentry.captureException(error);
-    services.dispatch(addToast(toastMessageKeys.higlights.popUp.failure.print, {destination: 'myHighlights'}));
+    services.dispatch(addToast(toastMessageKeys.higlights.failure.popUp.print, {destination: 'myHighlights'}));
     services.dispatch(toggleSummaryHighlightsLoading(false));
     return;
   }

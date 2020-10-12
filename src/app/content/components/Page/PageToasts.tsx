@@ -8,6 +8,7 @@ import {
   toolbarMobileHeight,
   toolbarMobileSearchWrapperHeight
 } from '../../../content/components/constants';
+import { addToast } from '../../../notifications/actions';
 import ToastNotifications from '../../../notifications/components/ToastNotifications';
 import { groupedToastNotifications } from '../../../notifications/selectors';
 import theme from '../../../theme';
@@ -16,6 +17,8 @@ export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + toolbarDesk
 export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
   ? bookBannerMobileMiniHeight + toolbarMobileHeight + toolbarMobileSearchWrapperHeight
   : bookBannerMobileMiniHeight + toolbarMobileHeight;
+
+export const addToastToPage = (messageKey: string) => addToast(messageKey, {destination: 'page'});
 
 // tslint:disable-next-line:variable-name
 export const ToastContainerWrapper = styled.div`
@@ -37,6 +40,6 @@ const PageToasts = () => {
   return <ToastContainerWrapper>
     <ToastNotifications toasts={toasts} />
   </ToastContainerWrapper>;
-}
+};
 
 export default PageToasts;

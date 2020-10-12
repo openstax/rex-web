@@ -44,24 +44,23 @@ export const hookBody: ActionHookBody<
   typeof actions.setDefaultSummaryFilters |
   typeof actions.setSummaryFilters |
   typeof actions.loadMoreStudyGuides
-> =
-  (services) => async() => {
-    const filters = select.summaryFilters(services.getState());
+> = (services) => async() => {
+  const filters = select.summaryFilters(services.getState());
 
-    let response: Unpromisify<LoadMoreResponse>;
+  let response: Unpromisify<LoadMoreResponse>;
 
-    try {
-      response = await loadMore(services, summaryPageSize)
-    } catch (error) {
-      Sentry.captureException(error);
-      services.dispatch(addToast(toastMessageKeys.studyGuides.popUp.failure.load, {destination: 'studyGuides'}));
-      services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));
-      return;
-    }
+  try {
+    response = await loadMore(services, summaryPageSize);
+  } catch (error) {
+    Sentry.captureException(error);
+    services.dispatch(addToast(toastMessageKeys.studyGuides.failure.popUp.load, {destination: 'studyGuides'}));
+    services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));
+    return;
+  }
 
-    const {formattedHighlights, pagination} = response;
-    services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
-  };
+  const {formattedHighlights, pagination} = response;
+  services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
+};
 
 export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);
 export const setSummaryFiltersHook = actionHook(actions.setSummaryFilters, hookBody);

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro'
+import styled from 'styled-components/macro';
 import ToastNotifications from '../../../notifications/components/ToastNotifications';
 import { ToastNotification } from '../../../notifications/types';
 

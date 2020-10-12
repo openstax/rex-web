@@ -87,10 +87,12 @@ describe('notifications reducer', () => {
   });
 
   describe('toast notifications', () => {
+    const destination = 'page';
+
     it('reduces toasts', () => {
       const newState = flow(
-        (state) => reducer(state, actions.addToast('mytoast')),
-        (state) => reducer(state, actions.addToast('myothertoast'))
+        (state) => reducer(state, actions.addToast('mytoast', {destination})),
+        (state) => reducer(state, actions.addToast('myothertoast', {destination}))
       )(initialState);
 
       expect(newState.modalNotifications).toEqual([]);
@@ -101,7 +103,7 @@ describe('notifications reducer', () => {
     it('refreshes the timestamp if a toast with the same message appears', async() => {
       const mockDate = jest.spyOn(Date, 'now').mockReturnValueOnce(1);
 
-      const newState = reducer(initialState, actions.addToast('mytoast'));
+      const newState = reducer(initialState, actions.addToast('mytoast', {destination}));
       const toast = newState.toastNotifications.find((notification) => notification.messageKey === 'mytoast');
 
       if (!toast) {
@@ -110,7 +112,7 @@ describe('notifications reducer', () => {
       mockDate.mockReturnValueOnce(2);
 
       const initialTimestamp = toast.timestamp;
-      const state = reducer(newState, actions.addToast('mytoast'));
+      const state = reducer(newState, actions.addToast('mytoast', {destination}));
 
       expect(state.toastNotifications).toContainEqual(expect.objectContaining({messageKey: 'mytoast'}));
       expect(state.toastNotifications.length).toBe(1);
@@ -124,11 +126,11 @@ describe('notifications reducer', () => {
       const toastsOrder = ['mytoast', 'myothertoast', 'myamazingtoast'];
 
       const newState = flow(
-        (state) => reducer(state, actions.addToast('mytoast')),
-        (state) => reducer(state, actions.addToast('myothertoast')),
-        (state) => reducer(state, actions.addToast('myamazingtoast')),
-        (state) => reducer(state, actions.addToast('mytoast')),
-        (state) => reducer(state, actions.addToast('myothertoast'))
+        (state) => reducer(state, actions.addToast('mytoast', {destination})),
+        (state) => reducer(state, actions.addToast('myothertoast', {destination})),
+        (state) => reducer(state, actions.addToast('myamazingtoast', {destination})),
+        (state) => reducer(state, actions.addToast('mytoast', {destination})),
+        (state) => reducer(state, actions.addToast('myothertoast', {destination}))
       )(initialState);
 
       const [newest] = newState.toastNotifications;
@@ -141,7 +143,7 @@ describe('notifications reducer', () => {
 
       const afterReappearing  = flow(
         (state) => reducer(state, actions.dismissNotification(toastToDismiss)),
-        (state) => reducer(state, actions.addToast(toastToDismiss.messageKey))
+        (state) => reducer(state, actions.addToast(toastToDismiss.messageKey, {destination}))
       )(newState);
 
       expect(afterReappearing.toastNotifications.every(isInOrder(newOrder))).toBe(true);

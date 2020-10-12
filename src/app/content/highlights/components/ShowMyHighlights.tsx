@@ -10,9 +10,9 @@ import { loadMoreDistanceFromBottom } from '../../constants';
 import { loadMoreSummaryHighlights } from '../actions';
 import * as select from '../selectors';
 import Highlights from './Highlights';
+import ToastNotifications from './HighlightsToasts';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
-import ToastNotifications from './HighlightsToasts'
 
 interface ShowMyHighlightsProps {
   hasMoreResults: boolean;

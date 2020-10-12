@@ -10,6 +10,7 @@ import * as select from '../../selectors';
 import { State } from '../../types';
 import { ContentLinkProp, mapDispatchToContentLinkProp, mapStateToContentLinkProp } from './contentLinkHandler';
 import { HighlightProp, mapDispatchToHighlightProp, mapStateToHighlightProp } from './highlightManager';
+import { addToastToPage } from './PageToasts';
 import { mapStateToScrollTargetProp } from './scrollTargetManager';
 import { mapStateToSearchHighlightProp } from './searchHighlightManager';
 
@@ -28,7 +29,7 @@ export interface PagePropTypes {
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   highlights: HighlightProp;
   services: AppServices;
-  addToast: (message: string) => void;
+  addToast: (messageKey: string) => void;
 }
 
 export default connect(
@@ -45,7 +46,7 @@ export default connect(
     searchHighlights: mapStateToSearchHighlightProp(state),
   }),
   (dispatch) => ({
-    addToast: flow(addToast, dispatch),
+    addToast: flow(addToastToPage, dispatch),
     contentLinks: mapDispatchToContentLinkProp(dispatch),
     highlights: mapDispatchToHighlightProp(dispatch),
   }),

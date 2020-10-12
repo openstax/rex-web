@@ -44,8 +44,8 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
 export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
 export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =
-(services) => async() => {
-  const filters = select.summaryFilters(services.getState());
+  (services) => async() => {
+    const filters = select.summaryFilters(services.getState());
 
     let response: Unpromisify<LoadMoreResponse>;
 
@@ -53,7 +53,7 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
       response = await loadMore(services, summaryPageSize);
     } catch (error) {
       Sentry.captureException(error);
-      services.dispatch(addToast(toastMessageKeys.higlights.popUp.failure.load, {destination: 'myHighlights'}));
+      services.dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
       services.dispatch(toggleSummaryHighlightsLoading(false));
       return;
     }

@@ -14,7 +14,7 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices) => {
     response = await loadMore(services);
   } catch (error) {
     Sentry.captureException(error);
-    services.dispatch(addToast(toastMessageKeys.studyGuides.popUp.failure.print, {destination: 'studyGuides'}));
+    services.dispatch(addToast(toastMessageKeys.studyGuides.failure.popUp.print, {destination: 'studyGuides'}));
     services.dispatch(toggleStudyGuidesSummaryLoading(false));
     return;
   }

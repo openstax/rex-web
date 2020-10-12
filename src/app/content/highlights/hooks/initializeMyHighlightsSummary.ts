@@ -33,7 +33,7 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
     });
   } catch (error) {
     Sentry.captureException(error);
-    dispatch(addToast(toastMessageKeys.higlights.popUp.failure.load, {destination: 'myHighlights'}));
+    dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
     dispatch(toggleSummaryHighlightsLoading(false));
     return;
   }
@@ -51,7 +51,7 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
     response = await loadMore(services, summaryPageSize);
   } catch (error) {
     Sentry.captureException(error);
-    dispatch(addToast(toastMessageKeys.higlights.popUp.failure.load, {destination: 'myHighlights'}));
+    dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
     dispatch(toggleSummaryHighlightsLoading(false));
     return;
   }
