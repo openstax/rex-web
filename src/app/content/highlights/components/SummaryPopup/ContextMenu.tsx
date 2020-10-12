@@ -146,6 +146,7 @@ const ContextMenu = ({
           />
           <DropdownItem
             data-testid='go-to-highlight'
+            dataAnalyticsRegion='MH gotohighlight'
             message='i18n:highlighting:dropdown:go-to-highlight'
             prefix={<StyledLinkIcon/>}
             href={linkToHighlight}

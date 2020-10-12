@@ -241,6 +241,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         </li>
         <li>
           <a
+            data-analytics-region="MH gotohighlight"
             href="/link/to/highlight"
             target="_blank"
           >
