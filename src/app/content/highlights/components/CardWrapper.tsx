@@ -123,7 +123,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           key={highlight.id}
           container={container}
           topOffset={cardsPositions.get(highlight.id)}
-          bottomOffset={offsets.has(highlight.id) ? offsets.get(highlight.id)!.bottom : undefined}
+          highlightOffsets={offsets.get(highlight.id)}
           onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
           zIndex={highlights.length - index}
         />

@@ -44,7 +44,7 @@ export interface CardProps {
   className: string;
   zIndex: number;
   topOffset?: number;
-  bottomOffset?: number;
+  highlightOffsets?: { top: number, bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
 }
 

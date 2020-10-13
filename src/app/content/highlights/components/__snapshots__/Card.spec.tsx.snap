@@ -108,7 +108,7 @@ exports[`Card matches snapshot without data 1`] = `
   onClick={[Function]}
 >
   <div
-    className="sc-bdVaJa gzGMZl"
+    className="sc-bdVaJa gMTzhi"
     hasUnsavedHighlight={false}
     highlight={
       Object {
@@ -124,8 +124,24 @@ exports[`Card matches snapshot without data 1`] = `
           "getBoundingClientRect": [MockFunction] {
             "calls": Array [
               Array [],
+              Array [],
+              Array [],
             ],
             "results": Array [
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
+              },
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
+              },
               Object {
                 "type": "return",
                 "value": Object {
