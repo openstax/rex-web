@@ -47,10 +47,10 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
   (services) => async() => {
     const filters = select.summaryFilters(services.getState());
 
-    let response: Unpromisify<LoadMoreResponse>;
+    let highlights: Unpromisify<LoadMoreResponse>;
 
     try {
-      response = await loadMore(services, summaryPageSize);
+      highlights = await loadMore(services, summaryPageSize);
     } catch (error) {
       Sentry.captureException(error);
       services.dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
@@ -58,7 +58,7 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
       return;
     }
 
-    const {formattedHighlights, pagination} = response;
+    const {formattedHighlights, pagination} = highlights;
     services.dispatch(receiveSummaryHighlights(formattedHighlights, {pagination, filters}));
   };
 
