@@ -3,7 +3,7 @@ import random
 from pages.accounts import Signup
 from pages.content import Content
 from tests import markers
-from utils.utility import Highlight
+from utils.utility import Highlight, Color
 
 
 @markers.test_case("C593151")
@@ -355,3 +355,73 @@ def test_filter_state_not_preserved_for_MH_in_new_tab(selenium, base_url, book_s
     # THEN: MH page in the new tab displays highlights from all the chapters
     mh_list_in_new_tab = my_highlights_1.highlights.mh_highlight_ids
     assert set(mh_list_in_new_tab) == set(content_highlight_ids)
+
+
+@markers.test_case("C593145")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("microbiology", "6-introduction")])
+def test_chapter_filter_collapses_on_clicking_color_filter(
+    selenium, base_url, book_slug, page_slug
+):
+    """Clicking on a filter dropdown will close the other filter dropdown if open."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    my_highlights = book.toolbar.my_highlights()
+    mh_highlight_ids = my_highlights.highlights.mh_highlight_ids
+
+    # AND: Highlights are present in different chapter pages
+    data = [
+        ("1-3-types-of-microorganisms", Color.GREEN),
+        ("2-4-staining-microscopic-specimens", Color.BLUE),
+        ("4-2-proteobacteria", Color.YELLOW),
+        ("5-introduction", Color.PINK),
+    ]
+
+    for page, colors in data:
+        book = Content(selenium, base_url, book_slug=book_slug, page_slug=page).open()
+        paragraphs = random.sample(book.content.paragraphs, 1)
+        book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE, color=colors)
+
+        my_highlights = book.toolbar.my_highlights()
+        mh_highlight_ids = mh_highlight_ids + list(
+            set(my_highlights.highlights.mh_highlight_ids) - set(mh_highlight_ids)
+        )
+
+    filterbar = my_highlights.filter_bar
+
+    # AND: Open chapter dropdown to remove two chapters
+    filterbar.toggle_chapter_dropdown_menu()
+    filterbar.chapter_filters.chapters[2].click()
+    filterbar.chapter_filters.chapters[1].click()
+
+    from time import sleep
+
+    # AND: Do not close the chapter dropdown
+    assert filterbar.chapter_dropdown_open
+    sleep(2)
+
+    # WHEN: Open color dropdown
+    filterbar.toggle_color_dropdown_menu()
+    sleep(2)
+
+    # THEN: Color dropdown is opened
+    assert filterbar.color_dropdown_open
+    sleep(2)
+
+    # AND: Chapter dropdown is closed automatically
+    assert not filterbar.chapter_dropdown_open
+    sleep(2)
+
+    # AND: The selections made in the chapter filter are applied to the highlight list
