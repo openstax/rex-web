@@ -2,12 +2,13 @@
 
 import americanGovernment from './canonicalBookMap/americanGovernment';
 import biology from './canonicalBookMap/biology';
+import chemistry from './canonicalBookMap/chemistry';
 import preAlgebra from './canonicalBookMap/preAlgebra';
 
-// from https://docs.google.com/spreadsheets/d/1Hj5vm2AbEiLgxgcbNRi550InzFTLvBOv16-Fw6P-c5E/edit#gid=2066350488
 export const CANONICAL_MAP: CanonicalBookMap = {
   ...americanGovernment,
   ...biology,
+  ...chemistry,
   ...preAlgebra,
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c' : [
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
