@@ -1,10 +1,20 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { groupedToastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { closeStudyGuides, printStudyGuides, receiveSummaryStudyGuides } from '../actions';
+import { receiveBook, receivePage } from '../../actions';
+import { formatBookData } from '../../utils';
+import { closeStudyGuides, printStudyGuides, receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides, setDefaultSummaryFilters } from '../actions';
 import { initialState } from '../reducer';
+
+const book = formatBookData(archiveBook, mockCmsBook);
+const page = {...archivePage, references: []};
 
 describe('printStudyGuides', () => {
   const formattedHighlights = {};
@@ -54,6 +64,25 @@ describe('printStudyGuides', () => {
   it('doesn\'t return a promise', () => {
     expect(hook(printStudyGuides())).toBe(undefined);
     expect(loadMore).toHaveBeenCalled();
+  });
+
+  it.only('adds a toast on request error', async() => {
+    const error = {} as any;
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockRejectedValueOnce(error);
+
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
+    }));
+    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']}));
+
+    await hook(store.dispatch(printStudyGuides()));
+
+    expect(groupedToastNotifications(store.getState()).studyGuides)
+      .toEqual([expect.objectContaining({messageKey: toastMessageKeys.studyGuides.failure.popUp.print})]);
   });
 
   it('waits for promiseCollector.calm', async() => {
