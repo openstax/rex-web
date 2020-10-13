@@ -1,9 +1,11 @@
 // tslint:disable: object-literal-sort-keys
 
 import americanGovernment from './canonicalBookMap/americanGovernment';
+import chemistry from './canonicalBookMap/chemistry';
 
 export const CANONICAL_MAP: CanonicalBookMap = {
   ...americanGovernment,
+  ...chemistry
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c' : [
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
     /* Precalculus */ ['fd53eae1-fa23-47c7-bb1b-972349835c3c', {}],
