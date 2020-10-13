@@ -10,10 +10,10 @@ import sociology from './canonicalBookMap/sociology';
 
 export const CANONICAL_MAP: CanonicalBookMap = {
   ...americanGovernment,
-  ...intermediateAlgebra,
   ...biology,
   ...chemistry,
   ...chemistryAF,
+  ...intermediateAlgebra,
   ...preAlgebra,
   ...sociology,
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c' : [
