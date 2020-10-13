@@ -1,12 +1,12 @@
 {
   "13ac107a-f15f-49d2-97e8-60ab2e3b519c": {
-    "defaultVersion": "21.30"
+    "defaultVersion": "27.1"
   },
   "9d8df601-4f12-4ac1-8224-b450bf739e5f": {
     "defaultVersion": "6.5"
   },
   "14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22": {
-    "defaultVersion": "17.21"
+    "defaultVersion": "22.2"
   },
   "2e737be8-ea65-48c3-aa0a-9f35b4c6a966": {
     "defaultVersion": "22.16"
@@ -42,7 +42,7 @@
     "defaultVersion": "13.1"
   },
   "9b08c294-057f-4201-9f48-5d6ad992740d": {
-    "defaultVersion": "19.32"
+    "defaultVersion": "28.1"
   },
   "031da8d3-b525-429c-80cf-6c8ed997733a": {
     "defaultVersion": "23.1"
@@ -54,7 +54,7 @@
     "defaultVersion": "10.1"
   },
   "b3c1e1d2-839c-42b0-a314-e119a8aafbdd": {
-    "defaultVersion": "16.8"
+    "defaultVersion": "17.6"
   },
   "55931856-c627-418b-a56f-1dd0007683a8": {
     "defaultVersion": "7.1"
@@ -81,7 +81,7 @@
     "defaultVersion": "9.1"
   },
   "cce64fde-f448-43b8-ae88-27705cceb0da": {
-    "defaultVersion": "13.13"
+    "defaultVersion": "14.1"
   },
   "4abf04bf-93a0-45c3-9cbc-2cefd46e68cc": {
     "defaultVersion": "13.1"
@@ -93,7 +93,7 @@
     "defaultVersion": "9.1"
   },
   "fd53eae1-fa23-47c7-bb1b-972349835c3c": {
-    "defaultVersion": "13.30"
+    "defaultVersion": "19.1"
   },
   "9ab4ba6d-1e48-486d-a2de-38ae1617ca84": {
     "defaultVersion": "7.1"
@@ -136,5 +136,11 @@
   },
   "507feb1e-cfff-4b54-bc07-d52636cecfe3": {
     "defaultVersion": "9.2"
+  },
+  "5bcc0e59-7345-421d-8507-a1e4608685e8": {
+    "defaultVersion": "19.1"
+  },
+  "afe4332a-c97f-4fc4-be27-4e4d384a32d8": {
+    "defaultVersion": "18.1"
   }
 }

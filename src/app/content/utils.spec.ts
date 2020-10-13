@@ -189,45 +189,84 @@ describe('toRelativeUrl', () => {
 });
 
 describe('parseBookTree', () => {
-  const html = '<span class="os-number">' +
+  const appendixHtml = '<span class="os-number">' +
     '<span class="os-part-text">Appendix </span>' +
     'D' +
   '</span>' +
   '<span class="os-divider"> </span>' +
   '<span data-type="" itemprop="" class="os-text">Book title</span>';
+  const unitHtml = '<span class="os-number">1</span>' +
+    '<span class="os-divider"> </span>' +
+    '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>';
+  const unit2Html = '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>';
+  const chapterHtml = '<span class="os-number">1</span>' +
+    '<span class="os-divider"> </span>' +
+    '<span data-type="" itemprop="" class="os-text">The Study of Life</span>';
+  const chapter2Html = '<span class="os-number">2</span>' +
+    '<span class="os-divider"> </span>' +
+    '<span data-type="" itemprop="" class="os-text">The Chemical Foundation of Life</span>';
+  const pageHtml = '<span class="os-number">1.1</span>' +
+    '<span class="os-divider"> </span>' +
+    '<span data-type="" itemprop="" class="os-text">The Science of Biology</span>';
 
   let book: ArchiveBook;
 
   beforeEach(() => {
     book = {
       tree: {
-        contents: [{title: html}],
+        contents: [
+          {id: 'appendix@sth', title: appendixHtml},
+          {
+            contents: [
+              {id: 'chapter@sth', title: chapterHtml, contents: [{id: 'page@sth', title: pageHtml}]},
+            ],
+            id: 'unit@unit',
+            title: unitHtml,
+          },
+          {
+            contents: [
+              {id: 'chapter2@sth', title: chapter2Html, contents: [{id: 'page2@sth', title: pageHtml}]},
+            ],
+            id: 'unit2@unit',
+            title: unit2Html,
+          },
+        ],
+        id: 'book@sth',
       },
     } as ArchiveBook;
   });
 
   it('removes .os-part-text', () => {
-    expect(parseBookTree(book).tree.contents).toMatchObject([{
-      title: '<span class="os-number">' +
+    expect(parseBookTree(book).tree.contents[0].title).toEqual(
+      '<span class="os-number">' +
         'D' +
       '</span>' +
       '<span class="os-divider"> | </span>' +
-      '<span data-type="" itemprop="" class="os-text">Book title</span>',
-    }]);
+      '<span data-type="" itemprop="" class="os-text">Book title</span>');
+  });
+
+  it('removes .os-number and .os-divider if section is an unit', () => {
+    expect(parseBookTree(book).tree.contents[1].title).toEqual(
+      '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>');
+  });
+
+  it('handles unit that does not have .os-number and .os-divider', () => {
+    expect(parseBookTree(book).tree.contents[2].title).toEqual(
+      '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>');
   });
 
   it('doesn\'t add divider if it\'s not an appendix', () => {
-    book.tree.contents = book.tree.contents.map(({title}) => ({
+    book.tree.contents = book.tree.contents.map(({title, ...rest}) => ({
+      ...rest,
       title: title.replace(/appendix/i, 'something else'),
     })) as ArchiveTree['contents'];
 
-    expect(parseBookTree(book).tree.contents).toMatchObject([{
-      title: '<span class="os-number">' +
+    expect(parseBookTree(book).tree.contents[0].title).toEqual(
+      '<span class="os-number">' +
         'D' +
       '</span>' +
       '<span class="os-divider"> </span>' +
-      '<span data-type="" itemprop="" class="os-text">Book title</span>',
-    }]);
+      '<span data-type="" itemprop="" class="os-text">Book title</span>');
   });
 });
 
