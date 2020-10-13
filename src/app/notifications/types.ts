@@ -23,6 +23,7 @@ export type ModalNotification = ActionType<Pick<typeof actions, 'updateAvailable
 export interface ToastNotification {
   messageKey: string;
   timestamp: number;
+  shouldAutoDismiss: boolean;
 }
 
 export type AnyNotification = ModalNotification | ToastNotification;
