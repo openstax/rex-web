@@ -1,7 +1,10 @@
 import flow from 'lodash/fp/flow';
+import { closeMyHighlights } from '../content/highlights/actions';
+import { closeStudyGuides } from '../content/studyGuides/actions';
 import * as actions from './actions';
 import reducer, { appMessageType, initialState } from './reducer';
 import { ToastNotification } from './types';
+import { groupToasts } from './utils';
 
 describe('notifications reducer', () => {
   beforeEach(() => {
@@ -147,6 +150,35 @@ describe('notifications reducer', () => {
       )(newState);
 
       expect(afterReappearing.toastNotifications.every(isInOrder(newOrder))).toBe(true);
+    });
+
+    it('closing modal clears its notifications', () => {
+      const newState = flow(
+        (state) => reducer(state, actions.addToast('mytoast', {destination: 'myHighlights'})),
+        (state) => reducer(state, actions.addToast('mytoast2', {destination: 'myHighlights'})),
+        (state) => reducer(state, actions.addToast('myothertoast', {destination: 'studyGuides'}))
+      )(initialState);
+
+      let groupedToasts = groupToasts(newState.toastNotifications);
+
+      expect(groupedToasts.myHighlights)
+        .toContainEqual(expect.objectContaining({messageKey: 'mytoast'}));
+      expect(groupedToasts.myHighlights)
+        .toContainEqual(expect.objectContaining({messageKey: 'mytoast2'}));
+      expect(groupedToasts.studyGuides)
+        .toContainEqual(expect.objectContaining({messageKey: 'myothertoast'}));
+
+      const afterClosingMH = reducer(newState, closeMyHighlights());
+      groupedToasts = groupToasts(afterClosingMH.toastNotifications);
+
+      expect(groupedToasts.myHighlights).toBe(undefined);
+      expect(groupedToasts.studyGuides)
+        .toContainEqual(expect.objectContaining({messageKey: 'myothertoast'}));
+
+      const afterClosingSG = reducer(afterClosingMH, closeStudyGuides());
+      groupedToasts = groupToasts(afterClosingSG.toastNotifications);
+
+      expect(groupedToasts.studyGuides).toBe(undefined);
     });
   });
 });
