@@ -206,6 +206,12 @@ const DropdownItemContent = ({
     'data-analytics-label': dataAnalyticsLabel,
     'data-analytics-region': dataAnalyticsRegion,
   }, isUndefined);
+  if (href) {
+    console.log('href', href)
+    console.log('onClick', onClick)
+    console.log('dataAnalyticsRegion', dataAnalyticsRegion)
+    console.log('target', target)
+  }
   return <FormattedMessage id={message}>
     {(msg: Element | string) => href
       ? <a href={href} onClick={onClick} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
