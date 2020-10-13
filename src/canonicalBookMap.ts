@@ -4,11 +4,13 @@ import americanGovernment from './canonicalBookMap/americanGovernment';
 import biology from './canonicalBookMap/biology';
 import chemistry from './canonicalBookMap/chemistry';
 import chemistryAF from './canonicalBookMap/chemistryAF';
+import elementaryAlgebra from './canonicalBookMap/elementaryAlgebra';
 import preAlgebra from './canonicalBookMap/preAlgebra';
 import sociology from './canonicalBookMap/sociology';
 
 export const CANONICAL_MAP: CanonicalBookMap = {
   ...americanGovernment,
+  ...elementaryAlgebra,
   ...biology,
   ...chemistry,
   ...chemistryAF,
