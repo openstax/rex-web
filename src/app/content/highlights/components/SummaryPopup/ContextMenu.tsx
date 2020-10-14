@@ -7,7 +7,6 @@ import { ExternalLinkAlt as LinkIcon } from 'styled-icons/fa-solid/ExternalLinkA
 import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
 import Dropdown, { DropdownItem, DropdownList } from '../../../../components/Dropdown';
 import theme from '../../../../theme';
-import { assertWindow } from '../../../../utils';
 import { disablePrint } from '../../../components/utils/disablePrint';
 import ColorPicker from '../ColorPicker';
 import MenuToggle, { MenuIcon } from '../MenuToggle';
