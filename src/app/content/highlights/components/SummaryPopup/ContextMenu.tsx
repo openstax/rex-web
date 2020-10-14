@@ -120,8 +120,6 @@ const ContextMenu = ({
   const deleteMessage = 'i18n:highlighting:dropdown:delete';
 
   return <StyledContextMenu>
-    <a href={linkToHighlight} target='_blank'>go to highlight</a> <br/>
-    <a href={`${assertWindow().origin}${linkToHighlight}`} target='_blank'>go to highlight 2</a>
     <Dropdown
       toggle={<HighlightDropdownMenu />}
       transparentTab={true}

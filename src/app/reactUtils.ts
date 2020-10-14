@@ -20,17 +20,12 @@ export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
 
 export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => () => {
   const el = ref && ref.current;
-  console.log('el', el)
   if (!el) { return; }
 
   const handler = (event: FocusEvent) => {
     const relatedTarget = event.relatedTarget;
-console.log(
-  'relatedTarget', relatedTarget,
-  '!isElement(relatedTarget)', !isElement(relatedTarget),
-  '!ref.current!.contains(relatedTarget)', !ref.current!.contains(relatedTarget as any))
+
     if (!isElement(relatedTarget) || !ref.current!.contains(relatedTarget)) {
-      console.log('cb', cb)
       cb();
     }
   };

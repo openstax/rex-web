@@ -64,10 +64,7 @@ const TabHiddenDropDown = styled(({toggle, children, className, onToggle}: Props
   const container = React.useRef<HTMLElement>(null);
   const toggleElement = React.useRef<HTMLElement>(null);
 
-  useFocusLost(container, open, () => {
-    console.log('focus lost')
-    setOpen(false)
-  });
+  useFocusLost(container, open, () => setOpen(false));
   useOnEsc(container, open, () => {
     setOpen(false);
     if (toggleElement.current) { toggleElement.current.focus(); }
@@ -211,7 +208,7 @@ const DropdownItemContent = ({
   }, isUndefined);
   return <FormattedMessage id={message}>
     {(msg: Element | string) => href
-      ? <a href={href} tabIndex={0} onClick={(e) => {console.log('e', e)}} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
+      ? <a href={href} tabIndex={0} onClick={onClick} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
       /*
         this should be a button but Safari and firefox don't support focusing buttons
         which breaks the tab transparent dropdown
