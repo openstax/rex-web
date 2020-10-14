@@ -68,7 +68,9 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
   const [state, dispatch] = React.useReducer(manageAnimationState, initialState);
 
   const startFadeOut = () => {
-    dispatch('start_fade_out');
+    if (notification.shouldAutoDismiss) {
+      dispatch('start_fade_out');
+    }
   };
 
   const handlersEnabled = !state.isFadingOut && state.shouldAutoDismiss;

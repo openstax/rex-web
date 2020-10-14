@@ -1026,7 +1026,7 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    expect(dispatch).toHaveBeenCalledWith(addToast('i18n:notification:toast:search:highlight-not-found'));
+    expect(dispatch).toHaveBeenCalledWith(addToast({messageKey: 'i18n:notification:toast:search:highlight-not-found'}));
     dispatch.mockClear();
 
     renderer.act(() => {
@@ -1039,7 +1039,7 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
-    expect(dispatch).toHaveBeenCalledWith(addToast('i18n:notification:toast:search:highlight-not-found'));
+    expect(dispatch).toHaveBeenCalledWith(addToast({messageKey: 'i18n:notification:toast:search:highlight-not-found'}));
 
     highlightResults.mockRestore();
     dateMock.mockRestore();
@@ -1067,7 +1067,8 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
 
-    expect(dispatch).toHaveBeenCalledWith(addToast('i18n:notification:toast:highlights:highlight-not-found'));
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast({messageKey: 'i18n:notification:toast:highlights:highlight-not-found'}));
     dispatch.mockClear();
 
     const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
@@ -1084,7 +1085,8 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
 
-    expect(dispatch).not.toHaveBeenCalledWith(addToast('i18n:notification:toast:highlights:highlight-not-found'));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      addToast({messageKey: 'i18n:notification:toast:highlights:highlight-not-found'}));
 
     dateMock.mockRestore();
   });
