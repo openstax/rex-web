@@ -33,10 +33,12 @@ describe('ToastNotifications', () => {
     const toasts = [{
       destination: 'highlights' as ToastNotification['destination'],
       messageKey: toastMessageKeys.higlights.failure.delete,
+      shouldAutoDismiss: true,
       timestamp: 1,
     }, {
       destination: 'highlights' as ToastNotification['destination'],
       messageKey: toastMessageKeys.higlights.failure.update.annotation,
+      shouldAutoDismiss: true,
       timestamp: 2,
     }];
 

@@ -2,7 +2,6 @@ import flow from 'lodash/fp/flow';
 import { IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import * as selectNavigation from '../../../navigation/selectors';
-import { addToast } from '../../../notifications/actions';
 import { AppServices, AppState } from '../../../types';
 import { merge } from '../../../utils';
 import { mobileToolbarOpen, query } from '../../search/selectors';

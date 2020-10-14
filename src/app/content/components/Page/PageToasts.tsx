@@ -12,7 +12,7 @@ import { addToast } from '../../../notifications/actions';
 import ToastNotifications from '../../../notifications/components/ToastNotifications';
 import { groupedToastNotifications } from '../../../notifications/selectors';
 import theme from '../../../theme';
-import { mobileToolbarOpen as mobileToolbarOpenSelector} from '../../search/selectors';
+import { mobileToolbarOpen as mobileToolbarOpenSelector } from '../../search/selectors';
 
 export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + toolbarDesktopHeight;
 export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen

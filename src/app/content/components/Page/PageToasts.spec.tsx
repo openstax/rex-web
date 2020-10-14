@@ -7,7 +7,6 @@ import MessageProvider from '../../../MessageProvider';
 import { addToast } from '../../../notifications/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { groupedToastNotifications } from '../../../notifications/selectors';
-import { ToastNotification } from '../../../notifications/types';
 import { Store } from '../../../types';
 import { openMobileToolbar } from '../../search/actions';
 import ToastNotifications from './PageToasts';

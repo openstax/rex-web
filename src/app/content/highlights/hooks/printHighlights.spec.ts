@@ -86,7 +86,7 @@ describe('printHighlights', () => {
       store.dispatch(setSummaryFilters({locationIds}));
     });
 
-    it('adds a toast on request failure', async () => {
+    it('adds a toast on request failure', async() => {
       const error = {} as any;
 
       jest.spyOn(helpers.highlightClient, 'getHighlights')

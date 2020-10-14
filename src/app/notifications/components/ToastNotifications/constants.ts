@@ -22,7 +22,7 @@ export const toastMessageKeys = {
   search: {
     failure: {
       nodeNotFound: 'i18n:notification:toast:search:highlight-not-found',
-    }
+    },
   },
   studyGuides: {
     failure: {

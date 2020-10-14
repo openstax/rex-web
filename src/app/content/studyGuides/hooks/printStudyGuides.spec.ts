@@ -1,20 +1,12 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { groupedToastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { receiveBook, receivePage } from '../../actions';
-import { formatBookData } from '../../utils';
-import { closeStudyGuides, printStudyGuides, receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides, setDefaultSummaryFilters } from '../actions';
+import { closeStudyGuides, printStudyGuides, receiveSummaryStudyGuides } from '../actions';
 import { initialState } from '../reducer';
-
-const book = formatBookData(archiveBook, mockCmsBook);
-const page = {...archivePage, references: []};
 
 describe('printStudyGuides', () => {
   const formattedHighlights = {};
