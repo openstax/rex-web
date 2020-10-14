@@ -12,6 +12,7 @@ import { addToast } from '../../../notifications/actions';
 import ToastNotifications from '../../../notifications/components/ToastNotifications';
 import { groupedToastNotifications } from '../../../notifications/selectors';
 import theme from '../../../theme';
+import { mobileToolbarOpen as mobileToolbarOpenSelector} from '../../search/selectors';
 
 export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + toolbarDesktopHeight;
 export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
@@ -36,8 +37,9 @@ export const ToastContainerWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 const PageToasts = () => {
   const toasts = useSelector(groupedToastNotifications).page || [];
+  const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);
 
-  return <ToastContainerWrapper>
+  return <ToastContainerWrapper mobileToolbarOpen={mobileToolbarOpen}>
     <ToastNotifications toasts={toasts} />
   </ToastContainerWrapper>;
 };

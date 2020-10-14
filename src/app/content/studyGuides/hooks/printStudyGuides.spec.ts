@@ -66,20 +66,13 @@ describe('printStudyGuides', () => {
     expect(loadMore).toHaveBeenCalled();
   });
 
-  it.only('adds a toast on request error', async() => {
+  it('adds a toast on request error', async() => {
     const error = {} as any;
 
-    jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockRejectedValueOnce(error);
+    loadMore.mockRejectedValueOnce(error);
 
-    store.dispatch(receiveBook(book));
-    store.dispatch(receivePage(page));
-    store.dispatch(receiveStudyGuidesTotalCounts({
-      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
-    }));
-    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']}));
-
-    await hook(store.dispatch(printStudyGuides()));
+    hook(printStudyGuides());
+    await Promise.resolve();
 
     expect(groupedToastNotifications(store.getState()).studyGuides)
       .toEqual([expect.objectContaining({messageKey: toastMessageKeys.studyGuides.failure.popUp.print})]);
