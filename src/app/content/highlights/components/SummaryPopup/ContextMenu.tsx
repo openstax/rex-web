@@ -150,6 +150,7 @@ const ContextMenu = ({
             message='i18n:highlighting:dropdown:go-to-highlight'
             prefix={<StyledLinkIcon/>}
             href={linkToHighlight}
+            target='_blank'
           />
         </StyledDropdownList>
       </HighlightToggleEditContent>
