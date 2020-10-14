@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchFailure matches snapshot 1`] = `
+exports[`Toast matches snapshot 1`] = `
 <div
   className="styles__BannerBodyWrapper-zqr5u1-1 ivdFWh"
   data-testid="banner-body"

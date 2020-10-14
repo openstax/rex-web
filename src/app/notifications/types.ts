@@ -24,6 +24,7 @@ export interface ToastNotification {
   messageKey: string;
   timestamp: number;
   destination: 'studyGuides' | 'myHighlights' | 'page';
+  shouldAutoDismiss: boolean;
 }
 
 export type AnyNotification = ModalNotification | ToastNotification;

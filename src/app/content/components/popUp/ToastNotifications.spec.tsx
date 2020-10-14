@@ -9,7 +9,7 @@ import { ToastNotification } from '../../../notifications/types';
 import { Store } from '../../../types';
 import ToastNotifications from './ToastNotifications';
 
-describe('HighlightsPrintButton', () => {
+describe('ToastNotifications', () => {
   let store: Store;
 
   beforeEach(() => {

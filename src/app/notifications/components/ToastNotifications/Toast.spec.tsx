@@ -17,6 +17,7 @@ jest.mock('react', () => {
 const toast: ToastNotification = {
   destination: 'page',
   messageKey: 'i18n:notification:toast:highlights:create-failure',
+  shouldAutoDismiss: true,
   timestamp: Date.now(),
 };
 
@@ -25,7 +26,7 @@ const position = {
   totalToastCount: 1,
 };
 
-describe('SearchFailure', () => {
+describe('Toast', () => {
   let window: Window;
   let addEventListener: jest.SpyInstance;
   let removeEventListener: jest.SpyInstance;
@@ -82,6 +83,22 @@ describe('SearchFailure', () => {
     const bannerBody = component.root.findByProps({'data-testid': 'banner-body'});
 
     expect(bannerBody.props.isFadingOut).toBe(true);
+
+    component.unmount();
+  });
+
+  it('handles notifications which need to be dismissed manually', () => {
+    const component = renderer.create(<MessageProvider>
+      <Toast dismiss={dismiss} notification={{...toast, shouldAutoDismiss: false}} positionProps={position} />
+    </MessageProvider>);
+
+    renderer.act(() => {
+      jest.runAllTimers();
+    });
+
+    const bannerBody = component.root.findByProps({'data-testid': 'banner-body'});
+
+    expect(bannerBody.props.isFadingOut).toBe(false);
 
     component.unmount();
   });
