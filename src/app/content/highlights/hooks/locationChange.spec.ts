@@ -181,7 +181,7 @@ describe('locationChange', () => {
       await hook(locationChange({} as any));
 
       expect(dispatch).toHaveBeenCalledWith(
-        addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights', shouldAutoDismiss: false})
+        addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false})
       );
     });
   });

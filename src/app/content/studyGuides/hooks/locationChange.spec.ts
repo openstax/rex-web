@@ -5,6 +5,7 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { receiveFeatureFlags } from '../../../actions';
 import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
@@ -124,7 +125,7 @@ describe('locationChange', () => {
       await hook();
 
       expect(dispatch).toHaveBeenCalledWith(
-        addToast({messageKey: 'i18n:notification:toast:study-guides:load-failure', shouldAutoDismiss: false})
+        addToast(toastMessageKeys.studyGuides.failure.load, {destination: 'page', shouldAutoDismiss: false})
       );
     });
   });

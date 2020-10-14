@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HighlightsPrintButton matches snapshot 1`] = `null`;
+exports[`ToastNotifications matches snapshot 1`] = `null`;
 
-exports[`HighlightsPrintButton matches snapshots with toasts 1`] = `
+exports[`ToastNotifications matches snapshots with toasts 1`] = `
 <div
   className="ToastNotifications__PopUpToastNotificationsWrapper-sc-1q33jgi-0 ibHJtN"
 >
