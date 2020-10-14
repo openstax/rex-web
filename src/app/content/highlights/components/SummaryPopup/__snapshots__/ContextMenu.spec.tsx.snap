@@ -243,6 +243,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           <a
             data-analytics-region="MH gotohighlight"
             href="/link/to/highlight"
+            tabIndex={0}
             target="_blank"
           >
             <svg

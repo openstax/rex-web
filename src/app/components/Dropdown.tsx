@@ -208,7 +208,7 @@ const DropdownItemContent = ({
   }, isUndefined);
   return <FormattedMessage id={message}>
     {(msg: Element | string) => href
-      ? <a href={href} onClick={onClick} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
+      ? <a href={href} tabIndex={0} onClick={onClick} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
       /*
         this should be a button but Safari and firefox don't support focusing buttons
         which breaks the tab transparent dropdown
