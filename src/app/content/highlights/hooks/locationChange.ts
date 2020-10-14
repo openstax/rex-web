@@ -1,6 +1,9 @@
+import { Highlight } from '@openstax/highlighter/dist/api';
 import { getType } from 'typesafe-actions';
+import Sentry from '../../../../helpers/Sentry';
 import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
+import { addToast } from '../../../notifications/actions';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
@@ -29,11 +32,21 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
     return;
   }
 
-  const highlights = await loadAllHighlights({
-    book,
-    highlightClient,
-    pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
-  });
+  let highlights: Highlight[];
+  try {
+    highlights = await loadAllHighlights({
+      book,
+      highlightClient,
+      pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
+    });
+  } catch (error) {
+    Sentry.captureException(error);
+
+    if (action && action.type !== getType(receivePageFocus)) {
+      dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:load-failure', shouldAutoDismiss: false}));
+    }
+    return;
+  }
 
   dispatch(receiveHighlights({highlights, pageId: page.id}));
 };
