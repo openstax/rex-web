@@ -121,7 +121,7 @@ const ContextMenu = ({
   return <StyledContextMenu>
     <Dropdown
       toggle={<HighlightDropdownMenu />}
-      transparentTab={true}
+      transparentTab={false}
     >
       <HighlightToggleEditContent>
         <ColorPicker
