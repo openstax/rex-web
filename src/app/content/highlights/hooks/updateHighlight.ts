@@ -19,9 +19,9 @@ export const hookBody: ActionHookBody<typeof updateHighlight> =
       if (oldColor === payload.highlight.color && oldAnnotation === payload.highlight.annotation) { return; }
 
       if (oldColor !== payload.highlight.color) {
-        dispatch(addToast('i18n:notification:toast:highlights:update-failure:color'));
+        dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:update-failure:color'}));
       } else {
-        dispatch(addToast('i18n:notification:toast:highlights:update-failure:annotation'));
+        dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:update-failure:annotation'}));
       }
 
       dispatch(updateHighlight(meta.preUpdateData, {...meta, revertingAfterFailure: true}));

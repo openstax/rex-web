@@ -92,7 +92,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public onHighlightSelect: OptionsCallback = ({selectedHighlight}) => {
     if (!selectedHighlight) {
-      this.props.addToast('i18n:notification:toast:search:highlight-not-found');
+      this.props.addToast({messageKey: 'i18n:notification:toast:search:highlight-not-found'});
     }
   };
 
