@@ -140,7 +140,25 @@
   "5bcc0e59-7345-421d-8507-a1e4608685e8": {
     "defaultVersion": "19.1"
   },
-  "ea2f225e-6063-41ca-bcd8-36482e15ef65": {
-    "defaultVersion": "12.1"
+  "02776133-d49d-49cb-bfaa-67c7f61b25a1": {
+    "defaultVersion": "14.1"
+  },
+  "0889907c-f0ef-496a-bcb8-2a5bb121717f": {
+    "defaultVersion": "9.1"
+  },
+  "caa57dab-41c7-455e-bd6f-f443cda5519c": {
+    "defaultVersion": "21.1"
+  },
+  "185cbf87-c72e-48f5-b51e-f14f21b5eabd": {
+    "defaultVersion": "14.1"
+  },
+  "85abf193-2bd2-4908-8563-90b8a7ac8df6": {
+    "defaultVersion": "13.1"
+  },
+  "4539ae23-1ccc-421e-9b25-843acbb6c4b0": {
+    "defaultVersion": "10.1"
+  },
+  "afe4332a-c97f-4fc4-be27-4e4d384a32d8": {
+    "defaultVersion": "18.1"
   }
 }
