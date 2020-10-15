@@ -16,7 +16,7 @@ import * as selectSearch from '../../search/selectors';
 import { tocOpen } from '../../selectors';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
-import PracticeQuestionsButton from './PracticeQuestions';
+import PracticeQuestionsButton from './PracticeQuestionsButton';
 import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
