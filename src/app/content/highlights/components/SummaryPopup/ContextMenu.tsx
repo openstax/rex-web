@@ -1,8 +1,9 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
+import { ExternalLinkAlt as LinkIcon } from 'styled-icons/fa-solid/ExternalLinkAlt';
 import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
 import Dropdown, { DropdownItem, DropdownList } from '../../../../components/Dropdown';
 import theme from '../../../../theme';
@@ -72,6 +73,14 @@ const StyledTrashAltIcon = styled(TrashAltIcon)`
   color: ${theme.color.text.default};
 `;
 
+// tslint:disable-next-line: variable-name
+const StyledLinkIcon = styled(LinkIcon)`
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  color: ${theme.color.text.default};
+`;
+
 // tslint:disable-next-line:variable-name
 const HighlightToggleEditContent = styled.div`
   z-index: 2;
@@ -88,8 +97,8 @@ const HighlightDropdownMenu = React.forwardRef((props, ref) => {
 });
 
 interface ContextMenuProps {
-  color: HighlightColorEnum;
-  hasAnnotation?: boolean;
+  highlight: Highlight;
+  linkToHighlight: string;
   onDelete: () => void;
   onEdit: () => void;
   onColorChange: (color: HighlightColorEnum) => void;
@@ -97,14 +106,18 @@ interface ContextMenuProps {
 
 // tslint:disable-next-line:variable-name
 const ContextMenu = ({
-  color,
-  hasAnnotation,
+  highlight: {
+    color,
+    annotation: hasAnnotation,
+  },
+  linkToHighlight,
   onColorChange,
   onEdit,
   onDelete,
 }: ContextMenuProps) => {
   const editMessage = hasAnnotation ? 'i18n:highlighting:dropdown:edit' : 'i18n:highlighting:dropdown:add-note';
   const deleteMessage = 'i18n:highlighting:dropdown:delete';
+
   return <StyledContextMenu>
     <Dropdown
       toggle={<HighlightDropdownMenu />}
@@ -130,6 +143,14 @@ const ContextMenu = ({
             message={deleteMessage}
             prefix={<StyledTrashAltIcon/>}
             onClick={() => onDelete()}
+          />
+          <DropdownItem
+            data-testid='go-to-highlight'
+            dataAnalyticsRegion='MH gotohighlight'
+            message='i18n:highlighting:dropdown:go-to-highlight'
+            prefix={<StyledLinkIcon/>}
+            href={linkToHighlight}
+            target='_blank'
           />
         </StyledDropdownList>
       </HighlightToggleEditContent>

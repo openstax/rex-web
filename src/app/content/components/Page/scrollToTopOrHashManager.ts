@@ -3,14 +3,18 @@ import { scrollTo } from '../../../domUtils';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState } from '../../../types';
 import { assertWindow, memoizeStateToProps, resetTabIndex } from '../../../utils';
+import { isSearchScrollTarget } from '../../search/guards';
+import { selectedResult } from '../../search/selectors';
 import * as select from '../../selectors';
 import allImagesLoaded from '../utils/allImagesLoaded';
 
-export const mapStateToScrollTargetProp = memoizeStateToProps((state: AppState) => ({
+export const mapStateToScrollToTopOrHashProp = memoizeStateToProps((state: AppState) => ({
   hash: selectNavigation.hash(state),
   page: select.page(state),
+  scrollTarget: selectNavigation.scrollTarget(state),
+  selectedResult: selectedResult(state),
 }));
-type ScrollTargetProp = ReturnType<typeof mapStateToScrollTargetProp>;
+type ScrollTargetProp = ReturnType<typeof mapStateToScrollToTopOrHashProp>;
 
 const scrollToTarget = (container: HTMLElement | null, hash: string) => {
   const target = getScrollTarget(container, hash);
@@ -42,7 +46,18 @@ const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLEleme
     : null;
 };
 
-const scrollTargetManager = (container: HTMLElement) => (previous: ScrollTargetProp, current: ScrollTargetProp) => {
+const scrollToTopOrHashManager = (
+  container: HTMLElement
+) => (previous: ScrollTargetProp, current: ScrollTargetProp) => {
+  if (
+    current.scrollTarget
+    && isSearchScrollTarget(current.scrollTarget)
+    && current.selectedResult
+    && current.scrollTarget.elementId === current.selectedResult.result.source.elementId
+    && current.scrollTarget.index === current.selectedResult.highlight
+  ) {
+    return;
+  }
   if (previous.page !== current.page) {
     scrollToTargetOrTop(container, current.hash);
   } else if (previous.hash !== current.hash) {
@@ -50,6 +65,7 @@ const scrollTargetManager = (container: HTMLElement) => (previous: ScrollTargetP
   }
 };
 
-export default scrollTargetManager;
+export default scrollToTopOrHashManager;
 
-export const stubScrollTargetManager: ReturnType<typeof scrollTargetManager> = () => stubScrollTargetManager;
+export const stubScrollToTopOrHashManager: ReturnType<typeof scrollToTopOrHashManager> =
+  () => stubScrollToTopOrHashManager;

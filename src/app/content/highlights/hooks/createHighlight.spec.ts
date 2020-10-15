@@ -8,7 +8,7 @@ import { toastNotifications } from '../../../notifications/selectors';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
-import { createHighlight, deleteHighlight } from '../actions';
+import { createHighlight, receiveDeleteHighlight } from '../actions';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
@@ -82,7 +82,7 @@ describe('createHighlight', () => {
     expect(Sentry.captureException).toHaveBeenCalledWith(error);
 
     expect(dispatch).toHaveBeenCalledWith(
-      deleteHighlight(mock as unknown as Highlight, {...meta, revertingAfterFailure: true})
+      receiveDeleteHighlight(mock as unknown as Highlight, {...meta, revertingAfterFailure: true})
     );
 
     const hasAdequateErrorToast = toastNotifications(store.getState())
