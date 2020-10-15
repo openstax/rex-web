@@ -1,5 +1,6 @@
 import { SearchResult } from '@openstax/open-search-client';
 import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
+import { ScrollTarget } from '../../navigation/types';
 import { ArchiveTree, ArchiveTreeSection } from '../types';
 
 export interface State {
@@ -25,3 +26,8 @@ export type SearchResultChapter = ArchiveTree & {
 };
 
 export type SearchResultContainer = SearchResultPage | SearchResultChapter;
+
+export interface SearchScrollTarget extends ScrollTarget {
+  type: 'search';
+  index: number;
+}

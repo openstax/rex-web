@@ -17,9 +17,9 @@ import { requestSearch } from '../../search/actions';
 import { formatBookData } from '../../utils';
 import {
   createHighlight,
-  deleteHighlight,
   focusHighlight,
   receiveHighlights,
+  requestDeleteHighlight,
   setAnnotationChangesPending,
 } from '../actions';
 import { highlightLocationFilters } from '../selectors';
@@ -232,7 +232,7 @@ describe('Card', () => {
       picker.props.onRemove();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(currentHighlight, {
+    expect(dispatch).toHaveBeenCalledWith(requestDeleteHighlight(currentHighlight, {
       locationFilterId: location!.id,
       pageId: page.id,
     }));

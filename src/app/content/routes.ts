@@ -4,7 +4,6 @@ import { REACT_APP_ARCHIVE_URL } from '../../config';
 import { Route } from '../navigation/types';
 import { findPathForParams, getUrlRegexParams, injectParamsToBaseUrl } from '../navigation/utils';
 import { assertDefined } from '../utils';
-import { SelectedResult } from './search/types';
 import { Params } from './types';
 
 const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}';
@@ -19,7 +18,6 @@ interface State {
   bookUid: string;
   bookVersion: string;
   pageUid: string;
-  search?: {query: string | null, selectedResult: SelectedResult | null};
 }
 
 export const content: Route<Params, State> = {
