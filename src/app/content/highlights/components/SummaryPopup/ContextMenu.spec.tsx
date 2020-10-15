@@ -1,4 +1,4 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -11,6 +11,10 @@ import ContextMenu from './ContextMenu';
 
 describe('ContextMenu', () => {
   let store: Store;
+  const highlight = {
+    color: HighlightColorEnum.Blue,
+    id: 'hlid',
+  } as Highlight;
 
   beforeEach(() => {
     store = createTestStore();
@@ -20,7 +24,8 @@ describe('ContextMenu', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ContextMenu
-          color={HighlightColorEnum.Blue}
+          highlight={highlight}
+          linkToHighlight='/link/to/highlight'
           // tslint:disable-next-line: no-empty
           onEdit={() => {}}
           // tslint:disable-next-line: no-empty
@@ -39,7 +44,8 @@ describe('ContextMenu', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ContextMenu
-          color={HighlightColorEnum.Blue}
+          highlight={highlight}
+          linkToHighlight='/link/to/highlight'
           // tslint:disable-next-line: no-empty
           onEdit={() => {}}
           // tslint:disable-next-line: no-empty
@@ -66,7 +72,8 @@ describe('ContextMenu', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ContextMenu
-          color={HighlightColorEnum.Blue}
+          highlight={highlight}
+          linkToHighlight='/link/to/highlight'
           onEdit={() => { editClicked = true; }}
           onDelete={() => { deleteClicked = true; }}
           // tslint:disable-next-line: no-empty
@@ -97,7 +104,8 @@ describe('ContextMenu', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ContextMenu
-          color={color}
+          highlight={highlight}
+          linkToHighlight='/link/to/highlight'
           // tslint:disable-next-line: no-empty
           onEdit={() => {}}
           // tslint:disable-next-line: no-empty

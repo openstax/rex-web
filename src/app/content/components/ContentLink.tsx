@@ -5,7 +5,8 @@ import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
-import { RouteState } from '../../navigation/types';
+import { ScrollTarget } from '../../navigation/types';
+import { createNavigationOptions } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
@@ -29,7 +30,8 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  search: RouteState<typeof content>['search'];
+  search: { query: string | null };
+  scrollTarget?: ScrollTarget;
   className?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
 }
@@ -42,6 +44,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     currentBook,
     currentPath,
     search,
+    scrollTarget,
     navigate,
     onClick,
     children,
@@ -70,6 +73,12 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
       if (onClick) {
         onClick();
       }
+
+      // Add options only if linking to the same book
+      const options = currentBook && currentBook.id === bookUid
+        ? createNavigationOptions(search, scrollTarget)
+        : undefined;
+
       navigate({
         params,
         route: content,
@@ -77,12 +86,9 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
           bookUid,
           bookVersion: book.version,
           pageUid: stripIdVersion(page.id),
-          ...(currentBook && currentBook.id === bookUid && search && Object.values(search).filter((x) => !!x).length > 0
-            ? {search}
-            : {}
-          ),
         },
-      });
+      },
+      options);
     }}
     href={relativeUrl}
     {...anchorProps}
@@ -91,13 +97,12 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState, ownProps: {search?: Partial<RouteState<typeof content>['search']>}) => ({
+  (state: AppState, ownProps: {search?: { query?: string | null }}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     search: ({
       query: selectSearch.query(state),
-      selectedResult: selectSearch.selectedResult(state),
       ...(ownProps.search ? ownProps.search : {}),
     }),
   }),

@@ -71,7 +71,7 @@ describe('highlight reducer', () => {
     const state = reducer({
       ...initialState,
       currentPage: {...initialState.currentPage, highlights: [mockHighlight], focused: 'asdf'},
-    }, actions.deleteHighlight(mockHighlight, {
+    }, actions.receiveDeleteHighlight(mockHighlight, {
       locationFilterId: 'highlightChapter',
       pageId: 'highlightSource',
     }));
@@ -140,7 +140,7 @@ describe('highlight reducer', () => {
     it('noops when highlight doesn\'t exist', () => {
       const state = reducer({
         ...initialState,
-      }, actions.deleteHighlight({id: 'asdf'} as Highlight, {
+      }, actions.receiveDeleteHighlight({id: 'asdf'} as Highlight, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
@@ -164,7 +164,7 @@ describe('highlight reducer', () => {
             highlightSource: {[HighlightColorEnum.Green]: 1},
           },
         },
-      }, actions.deleteHighlight(mockHighlight, {
+      }, actions.receiveDeleteHighlight(mockHighlight, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
@@ -193,7 +193,7 @@ describe('highlight reducer', () => {
             highlightSource: {[HighlightColorEnum.Green]: 1},
           },
         },
-      }, actions.deleteHighlight({id: 'asdf'} as Highlight, {
+      }, actions.receiveDeleteHighlight({id: 'asdf'} as Highlight, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));

@@ -5,9 +5,9 @@ import { toastMessageKeys } from '../../../notifications/components/ToastNotific
 import { getHighlightToastDesination } from '../../../notifications/utils';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
-import { createHighlight, deleteHighlight } from '../actions';
+import { createHighlight, receiveDeleteHighlight } from '../actions';
 
-export const hookBody: ActionHookBody<typeof deleteHighlight> =
+export const hookBody: ActionHookBody<typeof receiveDeleteHighlight> =
   ({highlightClient, dispatch, getState}) => async({meta, payload}) => {
     if (meta.revertingAfterFailure) { return; }
 
@@ -27,4 +27,4 @@ export const hookBody: ActionHookBody<typeof deleteHighlight> =
     }
   };
 
-export default actionHook(deleteHighlight, hookBody);
+export default actionHook(receiveDeleteHighlight, hookBody);

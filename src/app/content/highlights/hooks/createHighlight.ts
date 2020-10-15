@@ -5,7 +5,7 @@ import { toastMessageKeys } from '../../../notifications/components/ToastNotific
 import { getHighlightToastDesination } from '../../../notifications/utils';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
-import { createHighlight, deleteHighlight } from '../actions';
+import { createHighlight, receiveDeleteHighlight } from '../actions';
 
 export const hookBody: ActionHookBody<typeof createHighlight> =
   ({highlightClient, dispatch, getState}) => async({payload, meta}) => {
@@ -19,7 +19,7 @@ export const hookBody: ActionHookBody<typeof createHighlight> =
       Sentry.captureException(error);
 
       dispatch(addToast(toastMessageKeys.higlights.failure.create, {destination}));
-      dispatch(deleteHighlight(payload as unknown as Highlight, {...meta, revertingAfterFailure: true}));
+      dispatch(receiveDeleteHighlight(payload as unknown as Highlight, {...meta, revertingAfterFailure: true}));
     }
   };
 
