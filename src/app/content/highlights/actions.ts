@@ -16,7 +16,11 @@ export const createHighlight = createStandardAction('Content/Highlights/create')
   locationFilterId: string,
   pageId: string,
 }>();
-export const deleteHighlight = createStandardAction('Content/Highlights/delete')<Highlight, {
+export const requestDeleteHighlight = createStandardAction('Content/Highlights/requestDelete')<Highlight, {
+  locationFilterId: string,
+  pageId: string,
+}>();
+export const receiveDeleteHighlight = createStandardAction('Content/Highlights/receiveDelete')<Highlight, {
   revertingAfterFailure?: boolean,
   locationFilterId: string,
   pageId: string,
