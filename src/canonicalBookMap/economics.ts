@@ -75,9 +75,9 @@ export default {
       /* 7.3 The Structure of Costs in the Long Run to 7.3 Costs in the Short Run in 2e */
       '31f57a2e-8dbf-4b08-b42c-c3e340f1310d': '9039ac3e-b3c9-40b4-9cfa-77b2d16741e2',
       /* 8.0 Introduction to Perfect Competition to the same module in 2e */
-      'b60b59a6-edd0-4679-8a5e-f4f76e8991c2': '442a67c0-b89d-4fca-961d-dba95d664a93',
+      '22042969-7683-4595-8baa-ed379c261a26': '442a67c0-b89d-4fca-961d-dba95d664a93',
       /* 8.1 Perfect Competition and Why It Matters to the same module in 2e */
-      '290599b4-ecdb-4057-ae9e-640ac8e0f3c3': 'd72c1e29-0dbd-42a5-b94f-8d5996112349',
+      'cd7d7eb6-23d0-4494-97df-eb9b38f0e8f8': 'd72c1e29-0dbd-42a5-b94f-8d5996112349',
       /* 8.2 How Perfectly Competitive Firms Make Output Decisions to the same module in 2e */
       'f40095a9-d022-420c-ac1b-e9b08715aaf5': '12464b69-d2a1-45ed-b7b1-a2d366d6174b',
       /* 8.3 Entry and Exit Decisions in the Long Run to the same module in 2e */
