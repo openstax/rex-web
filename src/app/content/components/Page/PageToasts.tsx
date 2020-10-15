@@ -33,12 +33,12 @@ export const ToastContainerWrapper = styled.div`
 
 // tslint:disable-next-line:variable-name
 const PageToasts = () => {
-  const toasts = useSelector(groupedToastNotifications).page || [];
+  const toasts = useSelector(groupedToastNotifications).page;
   const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);
 
-  return <ToastContainerWrapper mobileToolbarOpen={mobileToolbarOpen}>
+  return toasts ? <ToastContainerWrapper mobileToolbarOpen={mobileToolbarOpen}>
     <ToastNotifications toasts={toasts} />
-  </ToastContainerWrapper>;
+  </ToastContainerWrapper> : null;
 };
 
 export default PageToasts;

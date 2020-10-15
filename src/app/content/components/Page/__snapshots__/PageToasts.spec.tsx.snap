@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PageToasts matches snapshot 1`] = `
-<div
-  className="PageToasts__ToastContainerWrapper-ey1bvc-0 hnEzOM"
-/>
-`;
+exports[`PageToasts matches snapshot 1`] = `null`;
 
 exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`] = `
 <div
