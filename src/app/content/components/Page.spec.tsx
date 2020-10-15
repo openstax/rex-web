@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import { SearchResult } from '@openstax/open-search-client';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
@@ -18,11 +19,13 @@ import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
-import { push } from '../../navigation/actions';
+import { locationChange, push } from '../../navigation/actions';
+import { addToast } from '../../notifications/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
+import { receiveHighlights } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
@@ -539,8 +542,11 @@ describe('Page', () => {
     }));
   });
 
-  it('passes search when clicking content links to same book', async() => {
-    state.navigation.state = {search: {query: 'asdf'}};
+  it('does not reset search results when clicking content links to same book', async() => {
+    const mockSearchResults = { hits: { hits: [] } } as any as SearchResult;
+    store.dispatch(receiveSearchResults(mockSearchResults));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -572,16 +578,19 @@ describe('Page', () => {
         bookUid: 'book',
         bookVersion: 'version',
         pageUid: 'page',
-        search: expect.objectContaining({query: 'asdf'}),
       },
     }, {
       hash: '',
       search: '',
     }));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
   });
 
-  it('passes search when clicking hash links', async() => {
-    state.navigation.state = {search: {query: 'asdf'}};
+  it('does not reset search results when clicking hash links', async() => {
+    const mockSearchResults = { hits: { hits: [] } } as any as SearchResult;
+    store.dispatch(receiveSearchResults(mockSearchResults));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -603,13 +612,12 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledWith(push({
       params: expect.anything(),
       route: routes.content,
-      state: expect.objectContaining({
-        search: expect.objectContaining({query: 'asdf'}),
-      }),
+      state: expect.anything(),
     }, {
       hash: '#hash',
       search: '',
     }));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
   });
 
   it('passes search when clicking archive links', async() => {
@@ -990,6 +998,97 @@ describe('Page', () => {
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
     highlightResults.mockRestore();
+  });
+
+  it('refresh error modal for different search results if they are of the same type', async() => {
+    const {root} = renderDomWithReferences();
+
+    const dateMock = jest.spyOn(Date, 'now')
+      .mockReturnValue(1);
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit1 = makeSearchResultHit({book, page});
+    const hit2 = makeSearchResultHit({book, page});
+
+    highlightResults.mockReturnValue([]);
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+      store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(dispatch).toHaveBeenCalledWith(addToast({messageKey: 'i18n:notification:toast:search:highlight-not-found'}));
+    dispatch.mockClear();
+
+    renderer.act(() => {
+      store.dispatch(selectSearchResult({result: hit2, highlight: 0}));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
+    expect(dispatch).toHaveBeenCalledWith(addToast({messageKey: 'i18n:notification:toast:search:highlight-not-found'}));
+
+    highlightResults.mockRestore();
+    dateMock.mockRestore();
+  });
+
+  it('renders error modal for highlight scroll target when it cant find a highlight - only once', async() => {
+    const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'some-id' })}`;
+
+    const dateMock = jest.spyOn(Date, 'now')
+      .mockReturnValue(1);
+
+    const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    renderer.act(() => {
+      store.dispatch(locationChange({
+        action: 'REPLACE',
+        location: { hash: 'does-not-matter', search: mockScrollTarget },
+      } as any));
+      store.dispatch(receiveHighlights({ highlights: [], pageId: page.id, }));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast({messageKey: 'i18n:notification:toast:highlights:highlight-not-found'}));
+    dispatch.mockClear();
+
+    const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
+
+    if (!errorModalCloseButton) {
+      return expect(errorModalCloseButton).toBeTruthy();
+    }
+
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(errorModalCloseButton);
+      store.dispatch(receiveHighlights({ highlights: [], pageId: page.id, }));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    expect(dispatch).not.toHaveBeenCalledWith(
+      addToast({messageKey: 'i18n:notification:toast:highlights:highlight-not-found'}));
+
+    dateMock.mockRestore();
   });
 
   it('mounts, updates, and unmounts without a dom', () => {
