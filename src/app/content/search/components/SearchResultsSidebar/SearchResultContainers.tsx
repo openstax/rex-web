@@ -10,7 +10,8 @@ import { Book, Page } from '../../../types';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { closeSearchResultsMobile, selectSearchResult } from '../../actions';
 import { isSearchResultChapter } from '../../guards';
-import { SearchResultChapter, SearchResultContainer, SearchResultPage, SelectedResult } from '../../types';
+import { SearchResultChapter, SearchResultContainer,
+  SearchResultPage, SearchScrollTarget, SelectedResult } from '../../types';
 import * as Styled from './styled';
 
 interface SearchResultContainersProps {
@@ -76,13 +77,19 @@ const SearchResult = (props: {
       hit.highlight.visibleContent.map((highlight: string, index: number) => {
         const thisResult = {result: hit, highlight: index};
         const isSelected = isEqual(props.selectedResult, thisResult);
+        const target: SearchScrollTarget = {
+          elementId: thisResult.result.source.elementId,
+          index,
+          type: 'search',
+        };
         return <Styled.SectionContentPreview
           selectedResult={isSelected}
           data-testid='search-result'
           key={index}
           book={props.book}
           page={props.page}
-          search={{selectedResult: thisResult}}
+          result={thisResult}
+          scrollTarget={target}
           onClick={() => props.selectResult(thisResult)}
           {...isSelected ?  {ref: props.activeSectionRef} : {}}
         >

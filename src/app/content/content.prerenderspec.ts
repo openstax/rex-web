@@ -119,32 +119,29 @@ describe('content', () => {
       (event: any) => !initialEvents.find(equals(event))
     );
 
-    expect(newEvents).toMatchInlineSnapshot(`
-            Array [
-              Object {
-                "command": Object {
-                  "name": "send",
-                  "payload": Object {
-                    "eventAction": "next",
-                    "eventCategory": "REX Link (prev-next)",
-                    "eventLabel": "/books/book-slug-1/pages/2-test-page-3",
-                    "hitType": "event",
-                    "transport": "beacon",
-                  },
-                },
-                "savedAt": Object {},
-              },
-              Object {
-                "command": Object {
-                  "name": "send",
-                  "payload": Object {
-                    "hitType": "pageview",
-                    "page": "/books/book-slug-1/pages/3-test-page-4",
-                  },
-                },
-                "savedAt": Object {},
-              },
-            ]
-        `);
+    expect(newEvents).toContainEqual({
+      command: {
+        name: 'send',
+        payload: {
+          eventAction: 'next',
+          eventCategory: 'REX Link (prev-next)',
+          eventLabel: '/books/book-slug-1/pages/2-test-page-3',
+          hitType: 'event',
+          transport: 'beacon',
+        },
+      },
+      savedAt: expect.anything(),
+    });
+
+    expect(newEvents).toContainEqual({
+      command: {
+        name: 'send',
+        payload: {
+          hitType: 'pageview',
+          page: '/books/book-slug-1/pages/3-test-page-4',
+        },
+      },
+      savedAt: expect.anything(),
+    });
   });
 });

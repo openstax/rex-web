@@ -17,6 +17,7 @@ import { getHighlightLocationFilterForPage } from '../../utils';
 import MenuToggle from '../MenuToggle';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightListElement from './HighlightListElement';
+import * as utils from './utils';
 
 describe('HighlightDeleteWrapper', () => {
   let store: Store;
@@ -114,6 +115,9 @@ describe('Highlight annotation', () => {
 
     const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
+
+    jest.spyOn(utils, 'createHighlightLink')
+      .mockReturnValue('/link/to/highlight');
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>

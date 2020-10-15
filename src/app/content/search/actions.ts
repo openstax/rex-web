@@ -1,10 +1,10 @@
 import { createAction, createStandardAction } from 'typesafe-actions';
-import { SelectedResult, State } from './types';
+import { SearchScrollTarget, SelectedResult, State } from './types';
 
 export const receiveSearchResults = createAction('Content/Search/receiveResults', (action) =>
   (
     results: Exclude<State['results'], null>,
-    meta?: {selectedResult?: SelectedResult | null}
+    meta?: {searchScrollTarget?: SearchScrollTarget}
   ) => action(results, meta)
 );
 
@@ -13,7 +13,7 @@ export const requestSearch = createAction('Content/Search/request', (action) =>
     query: string,
     meta?: {
       isResultReload: boolean,
-      selectedResult?: SelectedResult | null,
+      searchScrollTarget?: SearchScrollTarget,
     }
   ) => action(query, meta)
 );
