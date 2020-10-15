@@ -17,7 +17,6 @@ import { tocOpen } from '../../selectors';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestions';
-import PrintButton from './PrintButton';
 import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
@@ -128,7 +127,6 @@ class Toolbar extends React.Component<Props, State> {
           <StudyGuidesButton />
           <HighlightButton />
         </Styled.NudgeElementTarget>
-        <PrintButton />
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />

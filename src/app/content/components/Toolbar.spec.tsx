@@ -1,4 +1,3 @@
-import noop from 'lodash/fp/noop';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -9,7 +8,7 @@ import { makeSearchResults } from '../../../test/searchResults';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
-import { assertDocument, assertWindow } from '../../utils';
+import { assertDocument } from '../../utils';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -18,37 +17,6 @@ import {
   requestSearch
 } from '../search/actions';
 import Toolbar from './Toolbar';
-
-describe('print button', () => {
-  let store: Store;
-  let services: ReturnType<typeof createTestServices>;
-  let print: jest.SpyInstance;
-
-  beforeEach(() => {
-    store = createTestStore();
-    services = createTestServices();
-    print = jest.spyOn(assertWindow(), 'print');
-    print.mockImplementation(noop);
-  });
-
-  it('prints', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Toolbar />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
-
-    const event = {
-      preventDefault: jest.fn(),
-    };
-
-    component.root.findByProps({'data-testid': 'print'}).props.onClick(event);
-
-    expect(print).toHaveBeenCalled();
-  });
-});
 
 describe('search', () => {
   let store: Store;
