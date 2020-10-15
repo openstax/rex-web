@@ -1,3 +1,5 @@
+import omit from 'lodash/fp/omit';
+import queryString from 'query-string';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -10,6 +12,7 @@ import { receiveBook } from '../actions';
 import { setAnnotationChangesPending } from '../highlights/actions';
 import { content } from '../routes';
 import { requestSearch } from '../search/actions';
+import { SearchScrollTarget } from '../search/types';
 import { formatBookData } from '../utils';
 
 const BOOK_SLUG = 'book-slug-1';
@@ -81,8 +84,61 @@ describe('ContentLink', () => {
           bookUid: 'testbook1-uuid',
           bookVersion: '1.0',
           pageUid: 'testbook1-testpage1-uuid',
-          search: expect.objectContaining({query: 'asdf'}),
         },
+      }, { search: 'query=asdf' }));
+      expect(event.preventDefault).toHaveBeenCalled();
+    });
+
+    it('search passed as prop overwrites search from the redux state', async() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveBook(book));
+      const mockSearch = {
+        query: 'search-from-direct-prop',
+      };
+      const component = renderer.create(<Provider store={store}>
+        <ConnectedContentLink book={book} page={page} search={mockSearch} />
+      </Provider>);
+
+      const event = await click(component);
+
+      expect(dispatch).toHaveBeenCalledWith(push({
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        route: content,
+        state: {
+          bookUid: 'testbook1-uuid',
+          bookVersion: '1.0',
+          pageUid: 'testbook1-testpage1-uuid',
+        },
+      }, { search: `query=${mockSearch.query}` }));
+      expect(event.preventDefault).toHaveBeenCalled();
+    });
+
+    it('dispatches navigation action with scroll target data and search if scroll target is passed', async() => {
+      const scrollTarget: SearchScrollTarget = { type: 'search', index: 1, elementId: 'anchor' };
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveBook(book));
+      const component = renderer.create(<Provider store={store}>
+        <ConnectedContentLink book={book} page={page} scrollTarget={scrollTarget} />
+      </Provider>);
+
+      dispatch.mockClear();
+
+      const event = await click(component);
+
+      expect(dispatch).toHaveBeenCalledWith(push({
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        route: content,
+        state: {
+          bookUid: 'testbook1-uuid',
+          bookVersion: '1.0',
+          pageUid: 'testbook1-testpage1-uuid',
+        },
+      }, {
+        hash: scrollTarget.elementId,
+        search: queryString.stringify({
+          query: 'asdf',
+          target: JSON.stringify(omit('elementId', scrollTarget)),
+        }),
       }));
       expect(event.preventDefault).toHaveBeenCalled();
     });
