@@ -15,12 +15,13 @@ import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
-  deleteHighlight,
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
+  requestDeleteHighlight,
   setSummaryFilters,
   updateHighlight,
 } from '../actions';
+import * as requestDeleteHighlightHook from '../hooks/requestDeleteHighlight';
 import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
@@ -29,6 +30,11 @@ import ContextMenu from './SummaryPopup/ContextMenu';
 import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';
 import HighlightDeleteWrapper from './SummaryPopup/HighlightDeleteWrapper';
 import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
+
+jest.mock('./SummaryPopup/utils', () => ({
+  ...jest.requireActual('./SummaryPopup/utils'),
+  createHighlightLink: (highlight: Highlight) => `/link/to/highlight/${highlight.id}`,
+}));
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
 const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
@@ -400,9 +406,16 @@ describe('Highlights', () => {
       const [firstDeleteWrapper, secondDeleteWrapper] = component.root.findAllByType(HighlightDeleteWrapper);
       firstDeleteWrapper.props.onDelete();
       secondDeleteWrapper.props.onCancel();
+
+      requestDeleteHighlightHook.hookBody({...services, getState: store.getState, dispatch: store.dispatch})(
+        requestDeleteHighlight(hlBlue as Highlight, {
+          locationFilterId: pageId,
+          pageId,
+        }
+      ));
     });
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(hlBlue as Highlight, {
+    expect(dispatch).toHaveBeenCalledWith(requestDeleteHighlight(hlBlue as Highlight, {
       locationFilterId: pageId,
       pageId,
     }));

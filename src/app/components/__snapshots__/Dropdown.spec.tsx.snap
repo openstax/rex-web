@@ -29,6 +29,7 @@ exports[`Dropdown matches snapshot 1`] = `
         <a
           href="/wooo"
           onClick={[Function]}
+          tabIndex={0}
         >
           Edit
         </a>
@@ -85,6 +86,7 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
       <a
         href="/wooo"
         onClick={[Function]}
+        tabIndex={0}
       >
         Edit
       </a>

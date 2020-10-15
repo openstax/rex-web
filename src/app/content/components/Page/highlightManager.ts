@@ -3,7 +3,9 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
+import * as selectAuth from '../../../auth/selectors';
 import { isDefined } from '../../../guards';
+import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow, memoizeStateToProps } from '../../../utils';
 import {
@@ -12,6 +14,7 @@ import {
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
+import { isHighlightScrollTarget } from '../../highlights/guards';
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
@@ -30,7 +33,10 @@ export const mapStateToHighlightProp = memoizeStateToProps((state: AppState) => 
   focused: selectHighlights.focused(state),
   hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   highlights: selectHighlights.highlights(state),
+  highlightsLoaded: selectHighlights.highlightsLoaded(state),
+  loggedOut: selectAuth.loggedOut(state),
   page: select.page(state),
+  scrollTarget: selectNavigation.scrollTarget(state),
 }));
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
@@ -83,9 +89,33 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
   return highlighter;
 };
 
+const getHighlightToFocus = (
+  focused?: Highlight | null,
+  prevFocusedId?: string,
+  pendingHighlight?: Highlight,
+  scrollTargetHighlight?: Highlight | null,
+  scrollTargetHighlightIdThatWasHandled?: string | null
+) => {
+  if (focused) { return focused; }
+  if (
+    !pendingHighlight
+    && !prevFocusedId
+    && scrollTargetHighlight
+    && scrollTargetHighlight.id !== scrollTargetHighlightIdThatWasHandled
+  ) {
+    return scrollTargetHighlight;
+  }
+  return null;
+};
+
+export interface UpdateOptions {
+  onSelect: (highlight: Highlight | null) => void;
+}
+
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
+  let scrollTargetHighlightIdThatWasHandled: string;
   let setListHighlighter = (_highlighter: Highlighter): void => undefined;
   let setListHighlights = (_highlights: Highlight[]): void => undefined;
   let setListPendingHighlight: ((highlight: Highlight | undefined) => void) | undefined;
@@ -101,6 +131,39 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     pendingHighlight = highlight;
     if (setListPendingHighlight) {
       setListPendingHighlight(highlight);
+    }
+  };
+
+  const focusAndScrollToHighlight = (prevProps: HighlightProp, props: HighlightProp, options?: UpdateOptions) => {
+    const { scrollTarget, focus, focused: focusedId, highlightsLoaded, loggedOut, page } = props;
+    const focused = focusedId ? highlighter.getHighlight(focusedId) : null;
+    const stateEstablished = (highlightsLoaded || (loggedOut && page));
+
+    const highlightScrollTarget = scrollTarget && isHighlightScrollTarget(scrollTarget) ? scrollTarget : null;
+    const scrollTargetHighlight = highlightScrollTarget && highlighter.getHighlight(highlightScrollTarget.id);
+
+    const toFocus = getHighlightToFocus(
+      focused, prevProps.focused, pendingHighlight, scrollTargetHighlight, scrollTargetHighlightIdThatWasHandled);
+
+    if (toFocus) {
+      toFocus.focus();
+
+      if (options) {
+        options.onSelect(toFocus);
+      }
+
+      if (
+        scrollTargetHighlight
+        && toFocus.id === scrollTargetHighlight.id
+        && toFocus.id !== focusedId
+        && toFocus.id !== scrollTargetHighlightIdThatWasHandled) {
+        focus(toFocus.id);
+        (toFocus.elements[0] as HTMLElement).scrollIntoView();
+        scrollTargetHighlightIdThatWasHandled = scrollTargetHighlight.id;
+      }
+    } else if (options && stateEstablished && highlightScrollTarget && !scrollTargetHighlightIdThatWasHandled) {
+      options.onSelect(null);
+      scrollTargetHighlightIdThatWasHandled = highlightScrollTarget.id;
     }
   };
 
@@ -133,7 +196,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       });
     },
     unmount: (): void => highlighter && highlighter.unmount(),
-    update: () => {
+    update: (prevProps: HighlightProp, options?: UpdateOptions) => {
       let addedOrRemoved = false;
 
       const matchHighlightId = (id: string) => (search: HighlightData | Highlight) => search.id === id;
@@ -163,11 +226,8 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         ;
 
       highlighter.clearFocus();
-      const focusedId = getProp().focused;
-      const focused = focusedId && highlighter.getHighlight(focusedId);
-      if (focused) {
-        focused.focus();
-      }
+
+      focusAndScrollToHighlight(prevProps, getProp(), options);
 
       if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {
         clearPendingHighlight();
@@ -186,5 +246,5 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
 export const stubHighlightManager = ({
   CardList: (() => null) as React.FC,
   unmount: (): void => undefined,
-  update: (): boolean => false,
+  update: (_prevProps: HighlightProp, _options?: UpdateOptions): boolean => false,
 });
