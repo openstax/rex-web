@@ -151,15 +151,13 @@ describe('focus on tab change', () => {
   it('reports focusin', async() => {
     onPageFocusChange(true, {services, store})();
     expect(dispatch).toHaveBeenCalledWith(receivePageFocus(true));
-    // Disable page focus tracking https://github.com/openstax/unified/issues/1313
-    // expect(pageFocus).toHaveBeenCalledWith(expect.anything(), true);
+    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), true);
   });
 
   it('reports focusout', () => {
     onPageFocusChange(false, {services, store})();
     expect(dispatch).toHaveBeenCalledWith(receivePageFocus(false));
-    // Disable page focus tracking https://github.com/openstax/unified/issues/1313
-    // expect(pageFocus).toHaveBeenCalledWith(expect.anything(), false);
+    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), false);
   });
 });
 

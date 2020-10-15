@@ -45,8 +45,8 @@ describe('ToastNotifications', () => {
       .mockReturnValueOnce(1)
       .mockReturnValueOnce(2);
 
-    store.dispatch(addToast('i18n:notification:toast:highlights:create-failure'));
-    store.dispatch(addToast('i18n:notification:toast:highlights:delete-failure'));
+    store.dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:create-failure'}));
+    store.dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:delete-failure'}));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -61,7 +61,7 @@ describe('ToastNotifications', () => {
     const firstNotificationMessage = 'i18n:notification:toast:highlights:create-failure';
     const secondNotificationMessage = 'i18n:notification:toast:highlights:delete-failure';
 
-    store.dispatch(addToast(firstNotificationMessage));
+    store.dispatch(addToast({messageKey: firstNotificationMessage}));
 
     const {root} = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -72,7 +72,7 @@ describe('ToastNotifications', () => {
     expect(root.findAllByType(BannerBodyWrapper)).toHaveLength(1);
 
     renderer.act(() => {
-      store.dispatch(addToast(secondNotificationMessage));
+      store.dispatch(addToast({messageKey: secondNotificationMessage}));
     });
 
     expect(root.findAllByType(BannerBodyWrapper)).toHaveLength(2);
@@ -105,8 +105,8 @@ describe('ToastNotifications', () => {
       .mockReturnValueOnce(2)
       .mockReturnValueOnce(3);
 
-    const firstNotification = addToast(firstNotificationMessage);
-    const secondNotification = addToast(secondNotificationMessage);
+    const firstNotification = addToast({messageKey: firstNotificationMessage});
+    const secondNotification = addToast({messageKey: secondNotificationMessage});
 
     store.dispatch(firstNotification);
     store.dispatch(secondNotification);
@@ -126,7 +126,7 @@ describe('ToastNotifications', () => {
     expect(secondToast.props.positionProps.index).toBe(0);
 
     renderer.act(() => {
-      store.dispatch(addToast(firstNotificationMessage));
+      store.dispatch(addToast({messageKey: firstNotificationMessage}));
     });
 
     [firstToast, secondToast] = root.findAllByType(Toast);
