@@ -16,6 +16,7 @@ import * as selectSearch from '../../search/selectors';
 import { tocOpen } from '../../selectors';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
+import PracticeQuestionsButton from './PracticeQuestions';
 import PrintButton from './PrintButton';
 import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
@@ -122,6 +123,7 @@ class Toolbar extends React.Component<Props, State> {
             }
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
+        <PracticeQuestionsButton />
         <Styled.NudgeElementTarget id={nudgeStudyToolsTargetId}>
           <StudyGuidesButton />
           <HighlightButton />

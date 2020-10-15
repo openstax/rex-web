@@ -12,6 +12,7 @@ import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
 import * as actions from './actions';
 import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
+import practiceQuestionsReducer, {initialState as initialPracticeQuestionsState } from './practiceQuestions/reducer';
 import { content } from './routes';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';
 import studyGuidesReducer, {initialState as initialStudyGuidesState } from './studyGuides/reducer';
@@ -22,6 +23,7 @@ export const initialState = {
   loading: {},
   pageNotFoundId: null,
   params: null,
+  practiceQuestions: initialPracticeQuestionsState,
   references: [],
   search: initialSearchState,
   showNudgeStudyTools: null,
@@ -42,6 +44,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const highlights = highlightReducer(contentState.highlights, action);
       if (contentState.highlights !== highlights) {
         return {...contentState, highlights};
+      }
+      return contentState;
+    },
+    (contentState) => {
+      const practiceQuestions = practiceQuestionsReducer(contentState.practiceQuestions, action);
+      if (contentState.practiceQuestions !== practiceQuestions) {
+        return {...contentState, practiceQuestions};
       }
       return contentState;
     },
