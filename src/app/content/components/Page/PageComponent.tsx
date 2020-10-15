@@ -95,7 +95,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public onHighlightSelect: HighlightUpdateOptions['onSelect'] = (selectedHighlight) => {
     if (!selectedHighlight) {
-      this.props.addToast({messageKey: 'i18n:notification:toast:highlights:highlight-not-found'});
+      this.props.addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'});
     }
   };
 

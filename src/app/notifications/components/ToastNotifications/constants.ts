@@ -13,6 +13,7 @@ export const toastMessageKeys = {
         load: 'i18n:notification:toast:highlights:popup:load-failure',
         print: 'i18n:notification:toast:highlights:popup:print-failure',
       },
+      search: 'i18n:notification:toast:search:highlight-not-found',
       update: {
         annotation: 'i18n:notification:toast:highlights:update-failure:annotation',
         color: 'i18n:notification:toast:highlights:update-failure:color',
