@@ -6,6 +6,7 @@ import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import Toast from '../../../notifications/components/ToastNotifications/Toast';
+import { ToastNotification } from '../../../notifications/types';
 import { Store } from '../../../types';
 import ToastNotifications from './ToastNotifications';
 
@@ -32,13 +33,13 @@ describe('ToastNotifications', () => {
   });
 
   it('matches snapshots with toasts', () => {
-    const toasts = [{
-      destination: 'myHighlights' as const,
+    const toasts: ToastNotification[] = [{
+      destination: 'myHighlights',
       messageKey: toastMessageKeys.higlights.failure.delete,
       shouldAutoDismiss: true,
       timestamp: 1,
     }, {
-      destination: 'myHighlights' as const,
+      destination: 'myHighlights',
       messageKey: toastMessageKeys.higlights.failure.update.annotation,
       shouldAutoDismiss: true,
       timestamp: 2,
