@@ -6,7 +6,6 @@ import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import Toast from '../../../notifications/components/ToastNotifications/Toast';
-import { ToastNotification } from '../../../notifications/types';
 import { Store } from '../../../types';
 import ToastNotifications from './ToastNotifications';
 
