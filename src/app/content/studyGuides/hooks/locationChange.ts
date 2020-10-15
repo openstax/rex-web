@@ -2,6 +2,8 @@ import {
   GetHighlightsSummarySetsEnum,
   GetHighlightsSummarySourceTypeEnum,
 } from '@openstax/highlighter/dist/api';
+import Sentry from '../../../../helpers/Sentry';
+import { addToast } from '../../../notifications/actions';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { extractTotalCounts } from '../../highlights/utils/paginationUtils';
@@ -10,20 +12,36 @@ import { receiveStudyGuidesTotalCounts } from '../actions';
 import { hasStudyGuides, studyGuidesEnabled } from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
-const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
-  const state = services.getState();
+const loadSummary = async(services: MiddlewareAPI & AppServices) => {
+  const {dispatch, getState, highlightClient} = services;
 
-  const {book, page} = bookAndPage(state);
+  const state = getState();
+
+  const {book} = bookAndPage(state);
   const isEnabled = studyGuidesEnabled(state);
   const hasCurrentStudyGuides = hasStudyGuides(state);
 
-  if (!isEnabled || !book || !page || hasCurrentStudyGuides) { return; }
+  if (!isEnabled || !book || hasCurrentStudyGuides) { return; }
 
-  const studyGuidesSummary = await services.highlightClient.getHighlightsSummary({
-    scopeId: book.id,
-    sets: [GetHighlightsSummarySetsEnum.Curatedopenstax],
-    sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
-  });
+  try {
+    const summary = await highlightClient.getHighlightsSummary({
+      scopeId: book.id,
+      sets: [GetHighlightsSummarySetsEnum.Curatedopenstax],
+      sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
+    });
+
+    return summary;
+  } catch (error) {
+    Sentry.captureException(error);
+    dispatch(addToast({messageKey: 'i18n:notification:toast:study-guides:load-failure', shouldAutoDismiss: false}));
+  }
+};
+
+const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+  const studyGuidesSummary = await loadSummary(services);
+
+  if (!studyGuidesSummary) { return; }
+
   const countsPerSource = assertDefined(studyGuidesSummary.countsPerSource, 'summary response is invalid');
   const totalCounts = extractTotalCounts(countsPerSource);
 
