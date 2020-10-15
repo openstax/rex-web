@@ -5,7 +5,8 @@ import { ToastNotification } from '../../../notifications/types';
 
 // tslint:disable-next-line:variable-name
 const PopUpToastNotificationsWrapper = styled.div`
-  position: absolute;
+  position: sticky;
+  top: 0;
   overflow: visible;
   z-index: 3;
   width: 100%;

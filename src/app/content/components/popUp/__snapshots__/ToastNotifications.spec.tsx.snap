@@ -4,7 +4,7 @@ exports[`ToastNotifications matches snapshot 1`] = `null`;
 
 exports[`ToastNotifications matches snapshots with toasts 1`] = `
 <div
-  className="ToastNotifications__PopUpToastNotificationsWrapper-sc-1q33jgi-0 ibHJtN"
+  className="ToastNotifications__PopUpToastNotificationsWrapper-sc-1q33jgi-0 kruHEC"
 >
   <div
     className="styles__ToastsContainer-zqr5u1-0 clxXiP"

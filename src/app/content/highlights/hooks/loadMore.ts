@@ -13,7 +13,6 @@ import {
   toggleSummaryHighlightsLoading
 } from '../actions';
 import * as select from '../selectors';
-
 import { formatReceivedHighlights, loadUntilPageSize } from '../utils/highlightLoadingUtils';
 
 export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: number) => {

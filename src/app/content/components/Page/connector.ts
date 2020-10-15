@@ -2,6 +2,7 @@ import flow from 'lodash/fp/flow';
 import { IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import * as selectNavigation from '../../../navigation/selectors';
+import { addToast } from '../../../notifications/actions';
 import { AppServices, AppState } from '../../../types';
 import { merge } from '../../../utils';
 import { mobileToolbarOpen, query } from '../../search/selectors';
@@ -9,7 +10,6 @@ import * as select from '../../selectors';
 import { State } from '../../types';
 import { ContentLinkProp, mapDispatchToContentLinkProp, mapStateToContentLinkProp } from './contentLinkHandler';
 import { HighlightProp, mapDispatchToHighlightProp, mapStateToHighlightProp } from './highlightManager';
-import { addToastToPage } from './PageToasts';
 import { mapStateToScrollTargetProp } from './scrollTargetManager';
 import { mapStateToSearchHighlightProp } from './searchHighlightManager';
 
@@ -28,7 +28,7 @@ export interface PagePropTypes {
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   highlights: HighlightProp;
   services: AppServices;
-  addToast: (messageKey: string) => void;
+  addToast: typeof addToast;
 }
 
 export default connect(
@@ -45,7 +45,7 @@ export default connect(
     searchHighlights: mapStateToSearchHighlightProp(state),
   }),
   (dispatch) => ({
-    addToast: flow(addToastToPage, dispatch),
+    addToast: flow(addToast, dispatch),
     contentLinks: mapDispatchToContentLinkProp(dispatch),
     highlights: mapDispatchToHighlightProp(dispatch),
   }),

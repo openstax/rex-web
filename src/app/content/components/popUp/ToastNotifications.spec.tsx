@@ -5,6 +5,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import Toast from '../../../notifications/components/ToastNotifications/Toast';
 import { ToastNotification } from '../../../notifications/types';
 import { Store } from '../../../types';
 import ToastNotifications from './ToastNotifications';
@@ -26,17 +27,19 @@ describe('ToastNotifications', () => {
     </Provider>);
 
     const tree = component.toJSON();
+
+    expect(component.root.findAllByType(Toast).length).toBe(0);
     expect(tree).toMatchSnapshot();
   });
 
   it('matches snapshots with toasts', () => {
     const toasts = [{
-      destination: 'highlights' as ToastNotification['destination'],
+      destination: 'myHighlights' as const,
       messageKey: toastMessageKeys.higlights.failure.delete,
       shouldAutoDismiss: true,
       timestamp: 1,
     }, {
-      destination: 'highlights' as ToastNotification['destination'],
+      destination: 'myHighlights' as const,
       messageKey: toastMessageKeys.higlights.failure.update.annotation,
       shouldAutoDismiss: true,
       timestamp: 2,
@@ -49,6 +52,8 @@ describe('ToastNotifications', () => {
     </Provider>);
 
     const tree = component.toJSON();
+
+    expect(component.root.findAllByType(Toast).length).toBe(2);
     expect(tree).toMatchSnapshot();
   });
 });

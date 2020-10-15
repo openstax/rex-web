@@ -6,7 +6,7 @@ exports[`PageToasts matches snapshot 1`] = `
 />
 `;
 
-exports[`PageToasts matches snapshot with toasts on mobile resolutions 1`] = `
+exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`] = `
 <div
   className="PageToasts__ToastContainerWrapper-ey1bvc-0 cJJVUI"
 >

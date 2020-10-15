@@ -110,6 +110,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
       await hook(initializeMyHighlightsSummary());
 
       expect(Sentry.captureException).toHaveBeenCalledWith(error);
+      expect(selectors.summaryIsLoading(store.getState())).toBe(false);
       expect(groupedToastNotifications(store.getState()).myHighlights)
         .toEqual([expect.objectContaining({messageKey: toastMessageKeys.higlights.failure.popUp.load})]);
     });

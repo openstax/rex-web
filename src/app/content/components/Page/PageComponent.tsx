@@ -9,7 +9,7 @@ import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
-import ToastNotifications from '../Page/PageToasts';
+import PageToasts from '../Page/PageToasts';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
@@ -93,7 +93,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public onHighlightSelect: OptionsCallback = ({selectedHighlight}) => {
     if (!selectedHighlight) {
-      this.props.addToast(toastMessageKeys.search.failure.nodeNotFound);
+      this.props.addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'});
     }
   };
 
@@ -113,7 +113,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      <ToastNotifications />
+      <PageToasts />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()

@@ -6,6 +6,7 @@ import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
 import { addToast } from '../../../notifications/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import Toast from '../../../notifications/components/ToastNotifications/Toast';
 import { groupedToastNotifications } from '../../../notifications/selectors';
 import { Store } from '../../../types';
 import { openMobileToolbar } from '../../search/actions';
@@ -45,13 +46,13 @@ describe('PageToasts', () => {
       </MessageProvider>
     </Provider>);
 
-    expect(component.root.findByProps({notification: toasts[0]})).toBeTruthy();
+    expect(component.root.findAllByType(Toast).length).toBe(1);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('matches snapshot with toasts on mobile resolutions', () => {
+  it('matches snapshot with toasts when mobile toolbar is open', () => {
     store.dispatch(addToast(toastMessageKeys.higlights.failure.create, {destination: 'page'}));
     store.dispatch(openMobileToolbar());
 
