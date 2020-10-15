@@ -137,10 +137,6 @@
   "507feb1e-cfff-4b54-bc07-d52636cecfe3": {
     "defaultVersion": "9.2"
   },
-<<<<<<< HEAD
-  "69619d2b-68f0-44b0-b074-a9b2bf90b2c6": {
-    "defaultVersion": "12.1"
-=======
   "5bcc0e59-7345-421d-8507-a1e4608685e8": {
     "defaultVersion": "19.1"
   },
@@ -166,7 +162,6 @@
     "defaultVersion": "18.1"
   },
   "69619d2b-68f0-44b0-b074-a9b2bf90b2c6": {
-    "defaultVersion": "12.2"
->>>>>>> a9e950ec46509c4379eee1bb47c49b354aa14a0e
+    "defaultVersion": "12.1"
   }
 }
