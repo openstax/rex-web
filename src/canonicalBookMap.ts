@@ -6,6 +6,7 @@ import chemistry from './canonicalBookMap/chemistry';
 import chemistryAF from './canonicalBookMap/chemistryAF';
 import elementaryAlgebra from './canonicalBookMap/elementaryAlgebra';
 import intermediateAlgebra from './canonicalBookMap/intermediateAlgebra';
+import microeconomics from './canonicalBookMap/microeconomics';
 import preAlgebra from './canonicalBookMap/preAlgebra';
 import sociology from './canonicalBookMap/sociology';
 
@@ -16,6 +17,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   ...chemistry,
   ...chemistryAF,
   ...intermediateAlgebra,
+  ...microeconomics,
   ...preAlgebra,
   ...sociology,
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c' : [
