@@ -48,7 +48,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
             dangerouslySetInnerHTML={
               Object {
-                "__html": "<a href=\\"link\\" target=\\"_blank\\">Link</a>",
+                "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
               }
             }
             data-highlight-id="hl1"
