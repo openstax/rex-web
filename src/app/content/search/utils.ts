@@ -1,18 +1,15 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { SearchResult, SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { Location } from 'history';
 import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
-import { RouteState } from '../../navigation/types';
 import { getAllRegexMatches } from '../../utils';
 import attachHighlight from '../components/utils/attachHighlight';
-import { content } from '../routes';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
 import { isSearchResultChapter } from './guards';
-import { SearchResultContainer, SearchResultPage, SelectedResult } from './types';
+import { SearchResultContainer, SearchResultPage, SearchScrollTarget, SelectedResult } from './types';
 
 export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult): SelectedResult | null => {
   const [result] = getFormattedSearchResults(book.tree, results);
@@ -87,9 +84,6 @@ export const countTotalHighlights = (results: SearchResultHit[]) => {
   return results.reduce((count, hit) => count + hit.highlight.visibleContent.length, 0);
 };
 
-export const getSearchFromLocation = (location: Location): RouteState<typeof content>['search'] =>
-  location.state && location.state.search;
-
 const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);
 
 const getHighlightRanges = (element: HTMLElement, highlight: string): RangyRange[] => {
@@ -154,7 +148,6 @@ export const highlightResults = (
           attachHighlight(highlight, highlighter, () =>
             `Search result failed to highlight on page ${hit.source.pageId}`
           );
-
           return highlight;
         })
         .filter((highlight) => highlight.elements && highlight.elements.length > 0)
@@ -171,3 +164,10 @@ export const highlightResults = (
     return {result: hit, highlights: hitHighlights};
   })
   ;
+
+export const findSearchResultHit = (
+  results: SearchResultHit[],
+  target: SearchScrollTarget
+): SearchResultHit | undefined => {
+  return results.find((result) => result.source.elementId === target.elementId);
+};

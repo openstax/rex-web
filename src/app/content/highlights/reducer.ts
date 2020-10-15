@@ -138,7 +138,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         },
       };
     }
-    case getType(actions.deleteHighlight): {
+    case getType(actions.receiveDeleteHighlight): {
       const highlightToRemove = findHighlight(state, action.payload.id);
       const highlights = state.currentPage.highlights;
 
