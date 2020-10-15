@@ -1,17 +1,19 @@
 import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { highlightStyles } from '../../../constants';
+import { book as bookSelector } from '../../../selectors';
 import { popupBodyPadding } from '../../../styles/PopupStyles';
 import addTargetBlankToLinks from '../../../utils/addTargetBlankToLinks';
-import { deleteHighlight, updateHighlight } from '../../actions';
+import { requestDeleteHighlight, updateHighlight } from '../../actions';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
+import { createHighlightLink } from './utils';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -84,7 +86,9 @@ interface HighlightListElementProps {
 const HighlightListElement = ({ highlight, locationFilterId, pageId }: HighlightListElementProps) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
+  const book = useSelector(bookSelector);
   const dispatch = useDispatch();
+  const linkToHighlight = React.useMemo(() => createHighlightLink(highlight, book), [highlight, book]);
 
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
@@ -132,14 +136,12 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   };
 
   const confirmDelete = () => {
-    dispatch(deleteHighlight(highlight, {
+    dispatch(requestDeleteHighlight(highlight, {
       locationFilterId,
       pageId,
     }));
     trackDeleteHighlight(highlight.color, true);
   };
-
-  const hasAnnotation = Boolean(highlight.annotation);
 
   const content = React.useMemo(
     () => addTargetBlankToLinks(highlight.highlightedContent),
@@ -147,8 +149,8 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
 
   return <HighlightOuterWrapper>
     {!isEditing && <ContextMenu
-      color={highlight.color}
-      hasAnnotation={hasAnnotation}
+      highlight={highlight}
+      linkToHighlight={linkToHighlight}
       onDelete={() => setIsDeleting(true)}
       onEdit={() => setIsEditing(true)}
       onColorChange={updateColor}
@@ -167,7 +169,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       />
     </HighlightContentWrapper>
     {isDeleting && <HighlightDeleteWrapper
-      hasAnnotation={hasAnnotation}
+      hasAnnotation={Boolean(highlight.annotation)}
       onCancel={() => setIsDeleting(false)}
       onDelete={confirmDelete}
     />}

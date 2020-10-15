@@ -26,22 +26,13 @@ export const mapStateToSearchHighlightProp = memoizeStateToProps((state: AppStat
   };
 });
 export type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
-export type OptionsCallback = ({
-  current,
-  previous,
-  selectedHighlight,
-}: {
-  current: HighlightProp,
-  previous: HighlightProp,
-  selectedHighlight?: Highlight
-}) => void;
 
-interface Options {
+export interface UpdateOptions {
   forceRedraw: boolean;
-  onSelect: OptionsCallback;
+  onSelect: (selectedHighlight?: Highlight) => void;
 }
 
-const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
+const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: UpdateOptions) => {
   if (!options.forceRedraw && previous.searchResults === current.searchResults) {
     return;
   }
@@ -50,7 +41,7 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
-const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
+const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: UpdateOptions) => {
   if (!current.selectedResult) {
     return;
   }
@@ -78,14 +69,14 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
     );
   }
 
-  options.onSelect({
-    current,
-    previous,
-    selectedHighlight: firstSelectedHighlight,
-  });
+  options.onSelect(firstSelectedHighlight);
 };
 
-const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {
+const handleUpdate = (services: Services) => (
+  previous: HighlightProp,
+  current: HighlightProp,
+  options: UpdateOptions
+) => {
   updateResults(services, previous, current, options);
   selectResult(services, previous, current, options);
 };
