@@ -93,7 +93,6 @@ describe('Toast', () => {
     </MessageProvider>);
 
     renderer.act(() => {
-
       jest.runAllTimers();
     });
 
