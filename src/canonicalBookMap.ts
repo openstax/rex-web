@@ -8,9 +8,9 @@ import economics from './canonicalBookMap/economics';
 import elementaryAlgebra from './canonicalBookMap/elementaryAlgebra';
 import intermediateAlgebra from './canonicalBookMap/intermediateAlgebra';
 import macroeconomics from './canonicalBookMap/macroeconomics';
+import macroeconomicsAP from './canonicalBookMap/macroeconomicsAP';
 import microeconomics from './canonicalBookMap/microeconomics';
 import microeconomicsAP from './canonicalBookMap/microeconomicsAP';
-import macroeconomicsAP from './canonicalBookMap/macroeconomicsAP';
 import preAlgebra from './canonicalBookMap/preAlgebra';
 import sociology from './canonicalBookMap/sociology';
 
