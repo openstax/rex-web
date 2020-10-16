@@ -1,23 +1,15 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
-import theme from '../../../theme';
 import { practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
 import { toolbarIconStyles } from './iconStyles';
-import { PlainButton, toolbarDefaultText } from './styled';
+import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
 
 // tslint:disable-next-line:variable-name
 export const PracticeQuestionsWrapper = styled(PlainButton)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 2rem;
-  height: auto;
-  ${theme.breakpoints.mobile(css`
-    margin-right: 0;
-  `)}
+  ${toolbarDefaultButton}
 `;
 
 // tslint:disable-next-line:variable-name

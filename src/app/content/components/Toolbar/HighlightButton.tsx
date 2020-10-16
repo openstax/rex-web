@@ -19,6 +19,7 @@ interface Props {
 const MyHighlightsWrapper = styled(PlainButton)`
   ${toolbarDefaultButton}
   height: auto;
+  margin-right: 0;
 `;
 
 // tslint:disable-next-line:variable-name
