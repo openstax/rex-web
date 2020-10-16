@@ -4,20 +4,24 @@ import americanGovernment from './canonicalBookMap/americanGovernment';
 import biology from './canonicalBookMap/biology';
 import chemistry from './canonicalBookMap/chemistry';
 import chemistryAF from './canonicalBookMap/chemistryAF';
+import economics from './canonicalBookMap/economics';
 import elementaryAlgebra from './canonicalBookMap/elementaryAlgebra';
 import intermediateAlgebra from './canonicalBookMap/intermediateAlgebra';
 import microeconomicsAP from './canonicalBookMap/microeconomicsAP';
+import macroeconomicsAP from './canonicalBookMap/macroeconomicsAP';
 import preAlgebra from './canonicalBookMap/preAlgebra';
 import sociology from './canonicalBookMap/sociology';
 
 export const CANONICAL_MAP: CanonicalBookMap = {
   ...americanGovernment,
+  ...economics,
   ...elementaryAlgebra,
   ...biology,
   ...chemistry,
   ...chemistryAF,
   ...intermediateAlgebra,
   ...microeconomicsAP,
+  ...macroeconomicsAP,
   ...preAlgebra,
   ...sociology,
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c' : [
