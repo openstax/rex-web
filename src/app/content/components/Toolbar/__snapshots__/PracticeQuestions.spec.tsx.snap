@@ -10,7 +10,7 @@ exports[`practice questions button render if feature flag is enabled 1`] = `
 >
   <img
     aria-hidden="true"
-    className="PracticeQuestionsButton__PracticeQuestionsIcon-vyu0p6-1 jsVJsa"
+    className="PracticeQuestionsButton__PracticeQuestionsIcon-vyu0p6-1 jjDwhv"
     src="practiceQuestionsIcon.svg"
   />
   <span

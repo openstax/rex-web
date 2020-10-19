@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
 import { practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
-import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
 
 // tslint:disable-next-line:variable-name
@@ -14,7 +13,6 @@ export const PracticeQuestionsWrapper = styled(PlainButton)`
 
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsIcon = styled.img`
-  ${toolbarIconStyles}
   padding: 0.2rem;
 `;
 
