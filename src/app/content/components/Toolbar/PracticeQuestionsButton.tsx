@@ -1,8 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
+import { openPracticeQuestions } from '../../practiceQuestions/actions';
 import { practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
@@ -25,12 +26,13 @@ const PracticeQuestionsText = styled.span`
 
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsButton = () => {
+  const dispatch = useDispatch();
   const isEnabled = useSelector(practiceQuestionsEnabled);
 
   if (!isEnabled) { return null; }
 
   const openPracticeQuestionsSummary = () => {
-    // Noop for now
+    dispatch(openPracticeQuestions());
   };
 
   return <FormattedMessage id='i18n:toolbar:practice-questions:button:text'>
