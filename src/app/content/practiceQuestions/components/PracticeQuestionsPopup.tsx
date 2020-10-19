@@ -12,15 +12,6 @@ import { closePracticeQuestions } from '../actions';
 import { practiceQuestionsOpen } from '../selectors';
 import ShowPracticeQuestions from './ShowPracticeQuestions';
 
-// this is a hack because useEffect is currently not called
-// when using jsdom? https://github.com/facebook/react/issues/14050
-// seems to work better in react-test-renderer but
-// i need the ref here
-jest.mock('react', () => {
-  const react = (jest as any).requireActual('react');
-  return { ...react, useEffect: react.useLayoutEffect };
-});
-
 // tslint:disable-next-line: variable-name
 const PracticeQuestionsPopup = () => {
   const dispatch = useDispatch();

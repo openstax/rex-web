@@ -12,6 +12,15 @@ import { assertNotNull, assertWindow } from '../../../utils';
 import { closePracticeQuestions, openPracticeQuestions } from '../actions';
 import PracticeQuestionsPopup from './PracticeQuestionsPopup';
 
+// this is a hack because useEffect is currently not called
+// when using jsdom? https://github.com/facebook/react/issues/14050
+// seems to work better in react-test-renderer but
+// i need the ref here
+jest.mock('react', () => {
+  const react = (jest as any).requireActual('react');
+  return { ...react, useEffect: react.useLayoutEffect };
+});
+
 describe('PracticeQuestions', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
