@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
+import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { openPracticeQuestions } from '../../practiceQuestions/actions';
 import { practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
 import { toolbarIconStyles } from './iconStyles';
@@ -28,11 +29,13 @@ const PracticeQuestionsText = styled.span`
 const PracticeQuestionsButton = () => {
   const dispatch = useDispatch();
   const isEnabled = useSelector(practiceQuestionsEnabled);
+  const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
 
   if (!isEnabled) { return null; }
 
   const openPracticeQuestionsSummary = () => {
     dispatch(openPracticeQuestions());
+    trackOpenClose();
   };
 
   return <FormattedMessage id='i18n:toolbar:practice-questions:button:text'>

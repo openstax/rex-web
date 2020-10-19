@@ -8,15 +8,18 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { practiceQuestionsFeatureFlag } from '../../constants';
+import { openPracticeQuestions } from '../../practiceQuestions/actions';
 import PracticeQuestionsButton, { PracticeQuestionsWrapper } from './PracticeQuestionsButton';
 
 describe('practice questions button', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
+  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
     services = createTestServices();
+    dispatch = jest.spyOn(store, 'dispatch');
   });
 
   it('does not render if feature flag is not enabled', () => {
@@ -47,7 +50,9 @@ describe('practice questions button', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('clicking button works', () => {
+  it('clicking button opens modal', () => {
+    const spyTrack = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
+
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 
     const component = renderer.create(<Provider store={store}>
@@ -63,6 +68,7 @@ describe('practice questions button', () => {
       button.props.onClick();
     });
 
-    // TODO: Add here something to expect in another PR
+    expect(dispatch).toHaveBeenLastCalledWith(openPracticeQuestions());
+    expect(spyTrack).toHaveBeenCalled();
   });
 });
