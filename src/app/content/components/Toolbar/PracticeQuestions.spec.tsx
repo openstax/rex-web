@@ -13,22 +13,24 @@ import PracticeQuestionsButton, { PracticeQuestionsWrapper } from './PracticeQue
 describe('practice questions button', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
+  let render: () => JSX.Element;
 
   beforeEach(() => {
     store = createTestStore();
     services = createTestServices();
-  });
-
-  it('does not render if feature flag is not enabled', () => {
-    store.dispatch(receiveFeatureFlags([]));
-
-    const component = renderer.create(<Provider store={store}>
+    render = () => <Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
           <PracticeQuestionsButton />
         </MessageProvider>
       </Services.Provider>
-    </Provider>);
+    </Provider>;
+  });
+
+  it('does not render if feature flag is not enabled', () => {
+    store.dispatch(receiveFeatureFlags([]));
+
+    const component = renderer.create(render());
 
     expect(component.toJSON()).toMatchSnapshot();
   });
@@ -36,13 +38,7 @@ describe('practice questions button', () => {
   it('render if feature flag is enabled', () => {
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <PracticeQuestionsButton />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(render());
 
     expect(component.toJSON()).toMatchSnapshot();
   });
@@ -50,13 +46,7 @@ describe('practice questions button', () => {
   it('clicking button works', () => {
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <PracticeQuestionsButton />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(render());
 
     renderer.act(() => {
       const button = component.root.findByType(PracticeQuestionsWrapper);
