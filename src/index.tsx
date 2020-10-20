@@ -99,6 +99,7 @@ serviceWorker.register()
     if (registration && registration.waiting && registration.waiting.state === 'installed') {
       app.store.dispatch(updateAvailable());
     }
+    // This change doesn't matter
   })
   .catch((e) => {
     Sentry.captureException(e);
