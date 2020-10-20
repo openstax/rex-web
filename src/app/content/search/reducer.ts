@@ -34,16 +34,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearSearch): {
       return initialState;
     }
-    case getType(locationChange): {
-      return action.payload.action === 'PUSH' && !action.payload.location.state.search
-        ? initialState
-        : state;
-    }
     case getType(actions.openSearchResultsMobile): {
       return {...state, sidebarOpen: true};
     }
     case getType(actions.closeSearchResultsMobile): {
       return {...state, sidebarOpen: false};
+    }
+    case getType(locationChange): {
+      if (action.payload.location.search === '') {
+        // Clear selectedResult when clicking for example on figure link
+        return {...state, selectedResult: null};
+      }
+      return state;
     }
     default:
       return state;

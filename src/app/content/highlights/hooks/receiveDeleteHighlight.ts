@@ -3,9 +3,9 @@ import Sentry from '../../../../helpers/Sentry';
 import { addToast } from '../../../notifications/actions';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
-import { createHighlight, deleteHighlight } from '../actions';
+import { createHighlight, receiveDeleteHighlight } from '../actions';
 
-export const hookBody: ActionHookBody<typeof deleteHighlight> =
+export const hookBody: ActionHookBody<typeof receiveDeleteHighlight> =
   ({highlightClient, dispatch}) => async({meta, payload}) => {
     if (meta.revertingAfterFailure) { return; }
 
@@ -14,7 +14,7 @@ export const hookBody: ActionHookBody<typeof deleteHighlight> =
     } catch (error) {
       Sentry.captureException(error);
 
-      dispatch(addToast('i18n:notification:toast:highlights:delete-failure'));
+      dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:delete-failure'}));
       dispatch(createHighlight({
         ...payload as unknown as NewHighlight,
         id: payload.id,
@@ -23,4 +23,4 @@ export const hookBody: ActionHookBody<typeof deleteHighlight> =
     }
   };
 
-export default actionHook(deleteHighlight, hookBody);
+export default actionHook(receiveDeleteHighlight, hookBody);
