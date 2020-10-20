@@ -6,7 +6,7 @@ exports[`Card matches snapshot when focused without note 1`] = `
   onClick={[Function]}
 >
   <div
-    className="sc-bdVaJa eUMgjS"
+    className="sc-bdVaJa fFmtjP"
     data={
       Object {
         "color": "yellow",
@@ -28,24 +28,8 @@ exports[`Card matches snapshot when focused without note 1`] = `
           "getBoundingClientRect": [MockFunction] {
             "calls": Array [
               Array [],
-              Array [],
-              Array [],
             ],
             "results": Array [
-              Object {
-                "type": "return",
-                "value": Object {
-                  "bottom": 200,
-                  "top": 100,
-                },
-              },
-              Object {
-                "type": "return",
-                "value": Object {
-                  "bottom": 200,
-                  "top": 100,
-                },
-              },
               Object {
                 "type": "return",
                 "value": Object {
