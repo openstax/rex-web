@@ -7,7 +7,7 @@ import { modalQueryParameterName } from '../../../constants';
 import { bookAndPage } from '../../../selectors';
 import { openMyHighlights } from '../../actions';
 import { modalUrlName } from '../../constants';
-import { highlightsLoaded } from '../../selectors';
+import { highlightsLoaded, myHighlightsOpen } from '../../selectors';
 
 const hookBody: ActionHookBody<typeof locationChange> = ({
   dispatch, getState,
@@ -16,18 +16,20 @@ const hookBody: ActionHookBody<typeof locationChange> = ({
 
   const authenticated = user(state);
   const loaded = highlightsLoaded(state);
+  const opened = myHighlightsOpen(state);
   const { page } = bookAndPage(state);
 
   const stateEstablished = loaded || (!authenticated && page);
 
   if (
-    !stateEstablished
+    opened
+    || !stateEstablished
     || action.payload.action !== 'POP'
     || getParamFromQuery(action.payload.location.search, modalQueryParameterName) !== modalUrlName) {
     return;
   }
 
-  dispatch(openMyHighlights());
+  dispatch(openMyHighlights(true));
 };
 
 export const syncModalWithUrlHook = actionHook(locationChange, hookBody);
