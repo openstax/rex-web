@@ -12,7 +12,7 @@ import { cardMarginBottom } from '../constants';
 import { focused } from '../selectors';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
-import { getHighlightTopOffset } from './cardUtils';
+import { getHighlightOffset } from './cardUtils';
 
 export interface WrapperProps {
   hasQuery: boolean;
@@ -28,7 +28,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const element = React.useRef<HTMLElement>(null);
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
-  const [topOffsets, setTopOffsets] = React.useState<Map<string, number>>(new Map());
+  const [offsets, setOffsets] = React.useState<Map<string, { top: number, bottom: number }>>(new Map());
   const focusedId = useSelector(focused);
   const focusedHighlight = React.useMemo(
     () => highlights.find((highlight) => highlight.id === focusedId),
@@ -42,16 +42,16 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
   };
 
-  const getTopOffsetForHighlight = (highlight: Highlight) => {
-    if (topOffsets.has(highlight.id)) {
-      return assertDefined(topOffsets.get(highlight.id), 'this has to be defined');
+  const getOffsetsForHighlight = (highlight: Highlight) => {
+    if (offsets.has(highlight.id)) {
+      return assertDefined(offsets.get(highlight.id), 'this has to be defined');
     } else {
-      const offset = assertDefined(
-        getHighlightTopOffset(container, highlight),
-        `Couldn't get top offset for highlight with an id: ${highlight.id}`
+      const newOffsets = assertDefined(
+        getHighlightOffset(container, highlight),
+        `Couldn't get offsets for highlight with an id: ${highlight.id}`
       );
-      setTopOffsets((state) => new Map(state).set(highlight.id, offset));
-      return offset;
+      setOffsets((state) => new Map(state).set(highlight.id, newOffsets));
+      return newOffsets;
     }
   };
 
@@ -62,7 +62,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     let lastVisibleCardHeight = 0;
 
     for (const [index, highlight] of highlights.entries()) {
-      const topOffset = getTopOffsetForHighlight(highlight);
+      const topOffset = getOffsetsForHighlight(highlight).top;
 
       const stackedTopOffset = Math.max(topOffset, lastVisibleCardPosition
         + lastVisibleCardHeight
@@ -95,7 +95,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     // because highlights will be already cleared and this function will try to run
     // before page changes.
     if (!position) { return; }
-    const topOffset = getTopOffsetForHighlight(focusedHighlight);
+    const topOffset = getOffsetsForHighlight(focusedHighlight).top;
 
     if (position > topOffset) {
       assertNotNull(element.current, 'element.current can\'t be null')
@@ -123,6 +123,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           key={highlight.id}
           container={container}
           topOffset={cardsPositions.get(highlight.id)}
+          highlightOffsets={offsets.get(highlight.id)}
           onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
           zIndex={highlights.length - index}
         />
