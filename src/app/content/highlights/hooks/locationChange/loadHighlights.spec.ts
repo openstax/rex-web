@@ -1,20 +1,20 @@
-import createTestServices from '../../../../test/createTestServices';
-import createTestStore from '../../../../test/createTestStore';
-import { book, page } from '../../../../test/mocks/archiveLoader';
-import mockHighlight from '../../../../test/mocks/highlight';
-import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { testAccountsUser } from '../../../../test/mocks/userLoader';
-import { resetModules } from '../../../../test/utils';
-import { receivePageFocus } from '../../../actions';
-import { receiveUser } from '../../../auth/actions';
-import { formatUser } from '../../../auth/utils';
-import { locationChange } from '../../../navigation/actions';
-import { addToast } from '../../../notifications/actions';
-import { MiddlewareAPI, Store } from '../../../types';
-import { receiveBook, receivePage } from '../../actions';
-import { formatBookData } from '../../utils';
-import { receiveHighlights } from '../actions';
-import { HighlightData } from '../types';
+import createTestServices from '../../../../../test/createTestServices';
+import createTestStore from '../../../../../test/createTestStore';
+import { book, page } from '../../../../../test/mocks/archiveLoader';
+import mockHighlight from '../../../../../test/mocks/highlight';
+import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
+import { testAccountsUser } from '../../../../../test/mocks/userLoader';
+import { resetModules } from '../../../../../test/utils';
+import { receivePageFocus } from '../../../../actions';
+import { receiveUser } from '../../../../auth/actions';
+import { formatUser } from '../../../../auth/utils';
+import { locationChange } from '../../../../navigation/actions';
+import { addToast } from '../../../../notifications/actions';
+import { MiddlewareAPI, Store } from '../../../../types';
+import { receiveBook, receivePage } from '../../../actions';
+import { formatBookData } from '../../../utils';
+import { receiveHighlights } from '../../actions';
+import { HighlightData } from '../../types';
 
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
@@ -26,7 +26,7 @@ describe('locationChange', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let hook: ReturnType<typeof import ('./locationChange').default>;
+  let hook: ReturnType<typeof import ('./loadHighlights').default>;
 
   beforeEach(() => {
     resetModules();
