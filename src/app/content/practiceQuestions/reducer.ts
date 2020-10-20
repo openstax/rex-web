@@ -8,7 +8,7 @@ import { State } from './types';
 
 export const initialState: State = {
   isEnabled: false,
-  open: false,
+  open: true,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
