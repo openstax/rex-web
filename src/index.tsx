@@ -96,10 +96,9 @@ serviceWorker.register()
   .then((registration) => {
     app.services.serviceWorker = registration;
 
-    if (registration && registration.waiting && registration.waiting.state === 'installed') {
+    if (registration && (registration.waiting || registration.installing)) {
       app.store.dispatch(updateAvailable());
     }
-    // This change doesn't matter
   })
   .catch((e) => {
     Sentry.captureException(e);
