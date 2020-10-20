@@ -54,6 +54,7 @@ describe('Card', () => {
     cardProps = {
       blur: jest.fn(),
       highlight: highlight as unknown as Highlight,
+      highlightOffsets: { top: 0, bottom: 0 },
       onHeightChange: () => null,
     };
   });
@@ -123,6 +124,7 @@ describe('Card', () => {
     store.dispatch(focusHighlight(highlight.id));
     store.dispatch(openToc()); // added for css coverage
     store.dispatch(requestSearch('asd')); // added for css coverage
+    cardProps.highlightOffsets = undefined; // added for css coverage
     const container = assertDocument().createElement('div');
     highlight.range.getBoundingClientRect.mockReturnValue({
       bottom: 200,
