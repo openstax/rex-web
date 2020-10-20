@@ -15,7 +15,7 @@ jest.mock('./Card', () => (props: any) => <span data-mock-card {...props} />);
 
 jest.mock('./cardUtils', () => ({
   ...jest.requireActual('./cardUtils'),
-  getHighlightTopOffset: jest.fn(() => 100),
+  getHighlightOffset: jest.fn(() => ({ top: 100, bottom: 100 })),
 }));
 
 describe('CardWrapper', () => {
