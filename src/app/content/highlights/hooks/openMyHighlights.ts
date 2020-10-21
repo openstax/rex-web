@@ -6,7 +6,8 @@ import { ActionHookBody } from '../../../types';
 import { actionHook, assertNotNull } from '../../../utils';
 import { modalQueryParameterName } from '../../constants';
 import { content } from '../../routes';
-import { contentParams } from '../../selectors';
+import { bookAndPage, contentParams } from '../../selectors';
+import { getBookPageUrlAndParams } from '../../utils';
 import { initializeMyHighlightsSummary, openMyHighlights } from '../actions';
 import { modalUrlName } from '../constants';
 import * as select from '../selectors';
@@ -18,15 +19,18 @@ export const hookBody: ActionHookBody<typeof openMyHighlights> = ({
   const authenticated = user(state);
 
   const currentParams = assertNotNull(contentParams(state), 'Opened modal before location was processed');
+  const { book, page } = bookAndPage(state);
   const currentLocationState = locationState(state);
 
   const summaryNeedsInitialization = () => select.summaryHighlights(state) === null
     && select.summaryIsLoading(state) === false;
 
   dispatch(push({
-      params: currentParams,
+    params: currentParams,
       route: content,
-      state: currentLocationState,
+      state: book && page && !currentLocationState
+        ? getBookPageUrlAndParams(book, page).state
+        : currentLocationState,
     }, {
       search: getQueryForParam(modalQueryParameterName, modalUrlName),
     }
