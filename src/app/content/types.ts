@@ -1,5 +1,6 @@
 import { RouteParams, RouteState } from '../navigation/types';
 import { State as HighlightState } from './highlights/types';
+import { State as PracticeQuestionsState } from './practiceQuestions/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
 import { State as StudyGuidesState } from './studyGuides/types';
@@ -27,6 +28,7 @@ export interface State {
   tocOpen: boolean | null;
   pageNotFoundId: string | null;
   params: Params | null;
+  practiceQuestions: PracticeQuestionsState;
   loading: Partial<Params>;
   search: SearchState;
   showNudgeStudyTools: boolean | null;
