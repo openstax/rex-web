@@ -1,6 +1,7 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 
 export const studyGuidesFeatureFlag = 'studyGuidesEnabled';
+export const practiceQuestionsFeatureFlag = 'practiceQuestionsEnabled';
 
 export const maxHighlightsApiPageSize = 200;
 export const maxResourcesPerFetch = 10;
