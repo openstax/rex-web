@@ -69,7 +69,6 @@ export const PopupBody = styled.div`
   height: calc(100% - ${headerHeight}rem);
   background: ${theme.color.neutral.base};
   z-index: ${popupHeaderZIndex - 1};
-  position: relative;
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;
