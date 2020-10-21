@@ -4,8 +4,12 @@ import { book as archiveBook, shortPage } from '../../../../test/mocks/archiveLo
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
+import { initialState as initialContentState } from '../../reducer';
+import { query } from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
+import { modalQueryParameterName } from '../../constants';
+import { modalUrlName } from '../../highlights/constants';
 import { formatBookData } from '../../utils';
 import {
   loadMoreStudyGuides,
@@ -26,7 +30,15 @@ describe('openStudyGuides', () => {
 
   beforeEach(() => {
     resetModules();
-    store = createTestStore();
+    store = createTestStore({
+      content: {
+        ...initialContentState,
+        params: {
+          book: { slug: 'book' },
+          page: { slug: 'page'},
+        },
+      },
+    });
 
     helpers = {
       ...createTestServices(),
@@ -44,10 +56,16 @@ describe('openStudyGuides', () => {
     expect(dispatch).toHaveBeenCalledWith(loadMoreStudyGuides());
   });
 
+  it.only('adds query parameter for study guides modal', async() => {
+    await hook(openStudyGuides());
+    console.log(query(store.getState()))
+    expect(query(store.getState())[modalQueryParameterName]).toBe(modalUrlName);
+  });
+
   it('noops if study guides are being/were initialized', async() => {
     store.dispatch(loadMoreStudyGuides());
     await hook(openStudyGuides());
-    expect(dispatch).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setDefaultSummaryFilters(expect.anything()));
   });
 
   it('sets current chapter filter to the current page when user is logged in', async() => {
