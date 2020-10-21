@@ -38,7 +38,7 @@ export const setAnnotationChangesPending = createStandardAction('Content/Highlig
   boolean
 >();
 
-export const openMyHighlights = createStandardAction('Content/Highlights/Summary/open')<boolean | void>();
+export const openMyHighlights = createStandardAction('Content/Highlights/Summary/open')<void>();
 export const closeMyHighlights = createStandardAction('Content/Highlights/Summary/close')<void>();
 export const initializeMyHighlightsSummary = createStandardAction('Content/Highlights/Summary/init')<void>();
 

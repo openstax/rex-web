@@ -13,9 +13,7 @@ import * as select from '../selectors';
 
 export const hookBody: ActionHookBody<typeof openMyHighlights> = ({
   dispatch, getState,
-}) => async(action) => {
-  if (action.payload) { return; }
-
+}) => async() => {
   const state = getState();
   const authenticated = user(state);
 
