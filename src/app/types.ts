@@ -11,6 +11,7 @@ import { actions } from '.';
 import createArchiveLoader from '../gateways/createArchiveLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
 import createOSWebLoader from '../gateways/createOSWebLoader';
+import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../gateways/createSearchClient';
 import createUserLoader from '../gateways/createUserLoader';
 import analytics from '../helpers/analytics';
@@ -44,6 +45,7 @@ export interface AppServices {
   promiseCollector: PromiseCollector;
   searchClient: ReturnType<typeof createSearchClient>;
   userLoader: ReturnType<typeof createUserLoader>;
+  practiceQuestionsLoader: ReturnType<typeof createPracticeQuestionsLoader>;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };

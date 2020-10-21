@@ -14,10 +14,12 @@ const {
   SEARCH_URL,
   HIGHLIGHTS_URL,
   ACCOUNTS_URL,
+  PRACTICE_QUESTIONS_URL,
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_SEARCH_URL,
   REACT_APP_HIGHLIGHTS_URL,
-  REACT_APP_OS_WEB_API_URL
+  REACT_APP_OS_WEB_API_URL,
+  REACT_APP_PRACTICE_QUESTIONS_URL,
 } = require('./config');
 
 const archivePaths = [
@@ -139,6 +141,14 @@ function highlightsProxy(app) {
   }));
 }
 
+function practiceQuestionsProxy(app) {
+  app.use(proxy(REACT_APP_PRACTICE_QUESTIONS_URL, {
+    target: PRACTICE_QUESTIONS_URL,
+    changeOrigin: true,
+    autoRewrite: true,
+  }));
+}
+
 function osWebApiProxy(app) {
   app.use(proxy(REACT_APP_OS_WEB_API_URL, {
     target: OS_WEB_URL,
@@ -174,6 +184,7 @@ function setupProxy(app) {
   accountsProxy(app);
   searchProxy(app);
   highlightsProxy(app);
+  practiceQuestionsProxy(app);
   osWebApiProxy(app);
   stubEnvironment(app);
 

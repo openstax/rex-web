@@ -11,6 +11,7 @@ import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
+import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoader';
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import { registerGlobalAnalytics } from './helpers/analytics';
@@ -35,6 +36,8 @@ if (window.top === window.self) {
 const archiveUrl = assertDefined(config.REACT_APP_ARCHIVE_URL, 'REACT_APP_ARCHIVE_URL must be defined');
 if (!config.REACT_APP_OS_WEB_API_URL) { throw new Error('REACT_APP_OS_WEB_API_URL must be defined'); }
 const accountsUrl = assertDefined(config.REACT_APP_ACCOUNTS_URL, 'REACT_APP_ACCOUNTS_URL must be defined');
+const practiceQuestionsUrl = assertDefined(
+  config.REACT_APP_PRACTICE_QUESTIONS_URL, 'REACT_APP_PRACTICE_QUESTIONS_URL must be defined');
 const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_URL must be defined');
 const highlightsUrl = assertDefined(config.REACT_APP_HIGHLIGHTS_URL, 'REACT_APP_HIGHLIGHTS_URL must be defined');
 const mainContent = document.getElementById('main-content');
@@ -45,6 +48,7 @@ const app = createApp({
     archiveLoader: createArchiveLoader(archiveUrl),
     highlightClient: createHighlightClient(highlightsUrl),
     osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),
+    practiceQuestionsLoader: createPracticeQuestionsLoader(practiceQuestionsUrl),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
     searchClient: createSearchClient(searchUrl),
     userLoader: createUserLoader(accountsUrl),
