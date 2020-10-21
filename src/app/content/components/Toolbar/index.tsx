@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument, assertString } from '../../../utils';
+import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
 import {
   clearSearch,
   openMobileToolbar,
@@ -17,6 +18,7 @@ import { tocOpen } from '../../selectors';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
+import PrintButton from './PrintButton';
 import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
@@ -30,6 +32,7 @@ interface Props {
   tocOpen: boolean | null;
   searchSidebarOpen: boolean;
   hasSearchResults: boolean;
+  practiceQuestionsEnabled: boolean;
 }
 
 interface State {
@@ -127,6 +130,7 @@ class Toolbar extends React.Component<Props, State> {
           <StudyGuidesButton />
           <HighlightButton />
         </Styled.NudgeElementTarget>
+        { !this.props.practiceQuestionsEnabled ? <PrintButton /> : null }
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />
@@ -163,6 +167,7 @@ export default connect(
   (state: AppState) => ({
     hasSearchResults: selectSearch.hasResults(state),
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
+    practiceQuestionsEnabled: practiceQuestionsEnabledSelector(state),
     query: selectSearch.query(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
     tocOpen: tocOpen(state),

@@ -1,3 +1,4 @@
+import { noop } from 'lodash/fp';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -5,10 +6,12 @@ import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } from '../../../test/reactutils';
 import { makeSearchResults } from '../../../test/searchResults';
+import { receiveFeatureFlags } from '../../actions';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
-import { assertDocument } from '../../utils';
+import { assertDocument, assertWindow } from '../../utils';
+import { practiceQuestionsFeatureFlag } from '../constants';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -17,6 +20,51 @@ import {
   requestSearch
 } from '../search/actions';
 import Toolbar from './Toolbar';
+
+describe('print button', () => {
+  let store: Store;
+  let services: ReturnType<typeof createTestServices>;
+  let print: jest.SpyInstance;
+
+  beforeEach(() => {
+    store = createTestStore();
+    services = createTestServices();
+    print = jest.spyOn(assertWindow(), 'print');
+    print.mockImplementation(noop);
+  });
+
+  it('prints', () => {
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Toolbar />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    const event = {
+      preventDefault: jest.fn(),
+    };
+
+    component.root.findByProps({'data-testid': 'print'}).props.onClick(event);
+
+    expect(print).toHaveBeenCalled();
+  });
+
+  it('does not render print button if practice questions fleature flag is enabled', () => {
+    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Toolbar />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(() => component.root.findByProps({'data-testid': 'print'})).toThrow();
+  });
+});
 
 describe('search', () => {
   let store: Store;
