@@ -2,14 +2,14 @@ import {
   GetHighlightsSummarySetsEnum,
   GetHighlightsSummarySourceTypeEnum,
 } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../../helpers/Sentry';
-import { addToast } from '../../../../notifications/actions';
-import { AppServices, MiddlewareAPI } from '../../../../types';
-import { assertDefined } from '../../../../utils';
-import { extractTotalCounts } from '../../../highlights/utils/paginationUtils';
-import { bookAndPage } from '../../../selectors';
-import { receiveStudyGuidesTotalCounts } from '../../actions';
-import { hasStudyGuides, studyGuidesEnabled } from '../../selectors';
+import Sentry from '../../../../helpers/Sentry';
+import { addToast } from '../../../notifications/actions';
+import { AppServices, MiddlewareAPI } from '../../../types';
+import { assertDefined } from '../../../utils';
+import { extractTotalCounts } from '../../highlights/utils/paginationUtils';
+import { bookAndPage } from '../../selectors';
+import { receiveStudyGuidesTotalCounts } from '../actions';
+import { hasStudyGuides, studyGuidesEnabled } from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
 const loadSummary = async(services: MiddlewareAPI & AppServices) => {

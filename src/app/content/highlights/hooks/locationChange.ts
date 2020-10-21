@@ -1,15 +1,19 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
 import { getType } from 'typesafe-actions';
-import Sentry from '../../../../../helpers/Sentry';
-import { receivePageFocus } from '../../../../actions';
-import { user } from '../../../../auth/selectors';
-import { addToast } from '../../../../notifications/actions';
-import { AnyAction, AppServices, MiddlewareAPI } from '../../../../types';
-import { maxHighlightsApiPageSize } from '../../../constants';
-import { bookAndPage } from '../../../selectors';
-import { receiveHighlights } from '../../actions';
-import * as select from '../../selectors';
-import { loadAllHighlights } from '../../utils/highlightLoadingUtils';
+import Sentry from '../../../../helpers/Sentry';
+import { receivePageFocus } from '../../../actions';
+import { user } from '../../../auth/selectors';
+import { locationChange } from '../../../navigation/actions';
+import { getParamFromQuery } from '../../../navigation/utils';
+import { addToast } from '../../../notifications/actions';
+import { ActionHookBody, AnyAction, AppServices, MiddlewareAPI } from '../../../types';
+import { actionHook } from '../../../utils';
+import { maxHighlightsApiPageSize, modalQueryParameterName } from '../../constants';
+import { bookAndPage } from '../../selectors';
+import { openMyHighlights, receiveHighlights } from '../actions';
+import { modalUrlName } from '../constants';
+import * as select from '../selectors';
+import { loadAllHighlights } from '../utils/highlightLoadingUtils';
 
 const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAction) => {
   const {dispatch, getState, highlightClient} = services;
@@ -50,5 +54,17 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
 
   dispatch(receiveHighlights({highlights, pageId: page.id}));
 };
+
+const hook2: ActionHookBody<typeof locationChange> = ({
+  dispatch, getState,
+}) => async(action) => {
+  const summaryOpen = select.myHighlightsOpen(getState());
+
+  if (!summaryOpen && getParamFromQuery(action.payload.location.search, modalQueryParameterName) === modalUrlName) {
+    dispatch(openMyHighlights());
+  }
+};
+
+export const doStuff = actionHook(locationChange, hook2);
 
 export default hookBody;

@@ -21,18 +21,13 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const currentLocationState = locationState(state);
   const notLoggedIn = loggedOut(state);
 
-  const {book, page} = selectContent.bookAndPage(state);
-
-  if (!book || !page) {
-    return;
-  }
-
+  const book = selectContent.book(state);
   const firstChapter = book && findArchiveTreeNode(archiveTreeSectionIsChapter, book.tree);
 
   services.dispatch(push({
       params: currentParams,
       route: content,
-      state: currentLocationState || {bookUid: book.id, bookVersion: book.version, pageUid: page.id},
+      state: currentLocationState,
     }, {
       search: getQueryForParam(modalQueryParameterName, modalUrlName),
     }

@@ -5,7 +5,8 @@ import { closeMyHighlightsHook } from './closeMyHighlights';
 import createHighlight from './createHighlight';
 import { initializeMyHighlightsSummaryHook } from './initializeMyHighlightsSummary';
 import { loadMoreHook, setSummaryFiltersHook } from './loadMore';
-import { loadHighlights, syncModalWithUrlHook } from './locationChange';
+import loadHighlights from './locationChange';
+import { doStuff } from './locationChange';
 import { openMyHighlightsHook } from './openMyHighlights';
 import { printHighlightsHook } from './printHighlights';
 import receiveDeleteHighlight from './receiveDeleteHighlight';
@@ -23,7 +24,7 @@ export default [
   setSummaryFiltersHook,
   openMyHighlightsHook,
   closeMyHighlightsHook,
-  syncModalWithUrlHook,
+  doStuff,
   printHighlightsHook,
   loadMoreHook,
   actionHook(receiveUser, loadHighlights),

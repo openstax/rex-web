@@ -1,22 +1,22 @@
-import createTestServices from '../../../../../test/createTestServices';
-import createTestStore from '../../../../../test/createTestStore';
-import { book, shortPage } from '../../../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../../test/utils';
-import { receiveFeatureFlags } from '../../../../actions';
-import { addToast } from '../../../../notifications/actions';
-import { MiddlewareAPI, Store } from '../../../../types';
-import { receiveBook, receivePage } from '../../../actions';
-import { studyGuidesFeatureFlag } from '../../../constants';
-import { CountsPerSource } from '../../../highlights/types';
-import { formatBookData } from '../../../utils';
-import { receiveStudyGuidesTotalCounts } from '../../actions';
+import createTestServices from '../../../../test/createTestServices';
+import createTestStore from '../../../../test/createTestStore';
+import { book, shortPage } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { resetModules } from '../../../../test/utils';
+import { receiveFeatureFlags } from '../../../actions';
+import { addToast } from '../../../notifications/actions';
+import { MiddlewareAPI, Store } from '../../../types';
+import { receiveBook, receivePage } from '../../actions';
+import { studyGuidesFeatureFlag } from '../../constants';
+import { CountsPerSource } from '../../highlights/types';
+import { formatBookData } from '../../utils';
+import { receiveStudyGuidesTotalCounts } from '../actions';
 
 describe('locationChange', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let hook: ReturnType<typeof import ('./loadStudyGuides').default>;
+  let hook: ReturnType<typeof import ('./locationChange').default>;
   let mockSummaryResponse: { countsPerSource: CountsPerSource };
 
   beforeEach(() => {

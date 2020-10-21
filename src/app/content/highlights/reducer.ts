@@ -46,11 +46,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
       const summaryShouldBeOpen =
         getParamFromQuery(action.payload.location.search, modalQueryParameterName) === modalUrlName
-        && action.payload.action === 'PUSH';
+        && state.summary.open;
 
       const currentPageId = state.currentPage.pageId;
       const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
-
       return {
         currentPage: currentPageId && actionPageId === currentPageId
           ? omit('focused', {...state.currentPage, hasUnsavedHighlight: false})
