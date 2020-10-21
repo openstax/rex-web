@@ -3,6 +3,7 @@
   "messages": [],
   "configs": {
     "feature_flags": [
+      "practiceQuestionsEnabled",
       "studyGuidesEnabled"
     ]
   }
