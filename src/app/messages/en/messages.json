@@ -142,6 +142,7 @@
   "i18n:toolbar:highlights:popup:heading:no-highlights-tip": "Try selecting different <strong>chapter or color filters</strong> to see different results.",
   "i18n:toolbar:highlights:popup:help-info": "Need help? Visit the <a data-testid='support-link' data-analytics-label='support-link' target=\"_blank\" href=\"https://openstax.secure.force.com/help/articles/FAQ/Using-the-highlighting-and-note-taking-feature-on-mobile-or-tablet?search=highlighting\">Support Center</a>",
   "i18n:toolbar:highlights:text": "My highlights",
+  "i18n:toolbar:practice-questions:button:text": "Practice",
   "i18n:toolbar:print:aria-label": "print",
   "i18n:toolbar:print:text": "Print",
   "i18n:toolbar:search:placeholder": "Search this book",
