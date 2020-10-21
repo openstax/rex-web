@@ -24,7 +24,7 @@ export const hookBody: ActionHookBody<typeof updateHighlight> =
 
       if (payload.highlight.color && oldColor !== payload.highlight.color) {
         dispatch(addToast(toastMessageKeys.higlights.failure.update.color, {destination}));
-      } else if (oldAnnotation !== payload.highlight.annotation) {
+      } else {
         dispatch(addToast(toastMessageKeys.higlights.failure.update.annotation, {destination}));
       }
 
