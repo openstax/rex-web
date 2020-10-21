@@ -19,7 +19,7 @@ export const hasPracticeQuestions = createSelector(
 
 const practiceQuestionsSummary = createSelector(
   localState,
-  (state) => state.summary,
+  (state) => state.summary
 );
 
 export const practiceQuestionsLocationFilters = createSelector(

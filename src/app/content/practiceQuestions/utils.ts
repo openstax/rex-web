@@ -5,10 +5,8 @@ import { stripIdVersion } from '../utils/idUtils';
 import { PracticeQuestionsSummary } from './types';
 
 export const pageHasPracticeQuestions = (pageId: string, summary: PracticeQuestionsSummary) => {
-  for (const key in summary) {
-    if (stripIdVersion(key) === stripIdVersion(pageId)) {
-      return true;
-    }
+  for (const key in summary.countsPerSource) {
+    if (key === pageId) { return true; }
   }
   return false;
 };
@@ -25,7 +23,8 @@ export const getPracticeQuestionsLocationFilters = (
 
   for (const node of tree) {
     if (isLinkedArchiveTreeSection(node) && summary.countsPerSource[stripIdVersion(node.id)]) {
-      locationFilters.set(node.parent.id, [...locationFilters.get(node.parent.id) || [], node]);
+      const parentId = stripIdVersion(node.parent.id);
+      locationFilters.set(parentId, [...locationFilters.get(parentId) || [], node]);
     }
   }
 
@@ -33,12 +32,12 @@ export const getPracticeQuestionsLocationFilters = (
 };
 
 const flattenLocationFilters = (locationFilters: Map<string, LinkedArchiveTreeSection[]>) => {
-  const flattened: LinkedArchiveTreeSection[] = [];
+  let flattened: LinkedArchiveTreeSection[] = [];
   for (const sections of locationFilters.values()) {
-    flattened.concat(sections);
+    flattened = flattened.concat(sections);
   }
   return flattened;
-}
+};
 
 export const getNextPageWithPracticeQuestions = (
   nodeId: string, locationFilters: Map<string, LinkedArchiveTreeSection[]>, book: Book | undefined
@@ -54,7 +53,7 @@ export const getNextPageWithPracticeQuestions = (
   const nodeIndex = flatTree.findIndex((search) => search.id === node.id);
 
   for (let i = nodeIndex + 1; i < flatTree.length; i++) {
-    if (flatLocationFilters.find((section) => section.id === flatTree[i].id)) {
+    if (flatLocationFilters.find((section) => section.id === stripIdVersion(flatTree[i].id))) {
       return flatTree[i] as LinkedArchiveTreeSection;
     }
   }
