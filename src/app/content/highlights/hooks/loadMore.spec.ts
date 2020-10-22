@@ -4,6 +4,8 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage, pageInChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { groupedToastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
@@ -286,5 +288,27 @@ describe('filtersChange', () => {
       .mockReturnValue(Promise.resolve({}));
 
     expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null, filters}));
+  });
+
+  it('adds toast on request error', async() => {
+    const error = {} as any;
+    const pageId = 'testbook1-testpage9-uuid';
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockRejectedValueOnce(error);
+
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 1},
+    }, new Map([
+      [pageId, assertDefined(findArchiveTreeNodeById(book.tree, pageId), '')],
+    ])));
+
+    const locationIds = [pageId];
+    await hook(store.dispatch(setSummaryFilters({locationIds})));
+
+    expect(groupedToastNotifications(store.getState()).myHighlights)
+      .toEqual([expect.objectContaining({messageKey: toastMessageKeys.higlights.failure.popUp.load})]);
   });
 });

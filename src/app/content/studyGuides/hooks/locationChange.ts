@@ -4,6 +4,7 @@ import {
 } from '@openstax/highlighter/dist/api';
 import Sentry from '../../../../helpers/Sentry';
 import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { extractTotalCounts } from '../../highlights/utils/paginationUtils';
@@ -33,7 +34,7 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
     return summary;
   } catch (error) {
     Sentry.captureException(error);
-    dispatch(addToast({messageKey: 'i18n:notification:toast:study-guides:load-failure', shouldAutoDismiss: false}));
+    dispatch(addToast(toastMessageKeys.studyGuides.failure.load, {destination: 'page', shouldAutoDismiss: false}));
   }
 };
 
