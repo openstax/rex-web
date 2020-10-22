@@ -15,8 +15,8 @@ import { stripIdVersion } from '../../utils/idUtils';
 import {
   clearFocusedHighlight,
   createHighlight,
-  deleteHighlight,
   focusHighlight,
+  requestDeleteHighlight,
   setAnnotationChangesPending,
 } from '../actions';
 import { HighlightData } from '../types';
@@ -37,13 +37,14 @@ export interface CardProps {
   highlight: Highlight;
   create: typeof createHighlight;
   focus: typeof focusHighlight;
-  remove: typeof deleteHighlight;
+  remove: typeof requestDeleteHighlight;
   blur: typeof clearFocusedHighlight;
   setAnnotationChangesPending: typeof setAnnotationChangesPending;
   data?: HighlightData;
   className: string;
   zIndex: number;
   topOffset?: number;
+  highlightOffsets?: { top: number, bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
 }
 
@@ -165,7 +166,7 @@ export default connect(
     blur: flow(clearFocusedHighlight, dispatch),
     create: flow(createHighlight, dispatch),
     focus: flow(focusHighlight, dispatch),
-    remove: flow(deleteHighlight, dispatch),
+    remove: flow(requestDeleteHighlight, dispatch),
     setAnnotationChangesPending: flow(setAnnotationChangesPending, dispatch),
   })
 )(StyledCard);

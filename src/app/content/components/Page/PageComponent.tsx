@@ -4,22 +4,23 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import ToastNotifications from '../../../notifications/components/ToastNotifications';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
+import PageToasts from '../Page/PageToasts';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
-import highlightManager, { stubHighlightManager } from './highlightManager';
+import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
 import PageNotFound from './PageNotFound';
 import RedoPadding from './RedoPadding';
-import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
-import searchHighlightManager, { OptionsCallback, stubManager } from './searchHighlightManager';
+import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scrollToTopOrHashManager';
+import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
 
 if (typeof(document) !== 'undefined') {
@@ -33,7 +34,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
-  private scrollTargetManager = stubScrollTargetManager;
+  private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Promise<void> = Promise.resolve();
 
   public getTransformedContent = () => {
@@ -66,7 +67,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current);
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights);
-    this.scrollTargetManager = scrollTargetManager(this.container.current);
+    this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
@@ -76,23 +77,31 @@ export default class PageComponent extends Component<PagePropTypes> {
     // be relevant if there are rapid page navigations.
     await this.processing;
 
-    this.scrollTargetManager(prevProps.scrollTarget, this.props.scrollTarget);
+    this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
     if (prevProps.page !== this.props.page) {
       await this.postProcess();
     }
 
-    const highlgihtsAddedOrRemoved = this.highlightManager.update();
+    const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
+      onSelect: this.onHighlightSelect,
+    });
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
-      forceRedraw: highlgihtsAddedOrRemoved,
-      onSelect: this.onHighlightSelect,
+      forceRedraw: highlightsAddedOrRemoved,
+      onSelect: this.onSearchHighlightSelect,
     });
   }
 
-  public onHighlightSelect: OptionsCallback = ({selectedHighlight}) => {
+  public onHighlightSelect: HighlightUpdateOptions['onSelect'] = (selectedHighlight) => {
     if (!selectedHighlight) {
-      this.props.addToast('i18n:notification:toast:search:highlight-not-found');
+      this.props.addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'});
+    }
+  };
+
+  public onSearchHighlightSelect: SearchUpdateOptions['onSelect'] = (selectedHighlight) => {
+    if (!selectedHighlight) {
+      this.props.addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'});
     }
   };
 
@@ -112,7 +121,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      <ToastNotifications />
+      <PageToasts />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()

@@ -9,6 +9,8 @@ import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
 import { locationChange } from '../../../navigation/actions';
+import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
@@ -144,5 +146,43 @@ describe('locationChange', () => {
     await hook();
 
     expect(dispatch).toHaveBeenCalledWith(receiveHighlights({highlights, pageId: page.id}));
+  });
+
+  describe('error handling', () => {
+    it('doesn\'t show a toast if hook ran because of page\'s focus changing', async() => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({...page, references: []}));
+      store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+      dispatch.mockClear();
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce({});
+
+      await hook(receivePageFocus(true));
+      await hook(receivePageFocus(false));
+
+      expect(dispatch).not.toHaveBeenCalled();
+    });
+
+    it('shows a toast on fetch failure', async() => {
+      jest.spyOn(Date, 'now')
+        .mockReturnValue(1);
+
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({...page, references: []}));
+      store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+      dispatch.mockClear();
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce({});
+
+      await hook(locationChange({} as any));
+
+      expect(dispatch).toHaveBeenCalledWith(
+        addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false})
+      );
+    });
   });
 });
