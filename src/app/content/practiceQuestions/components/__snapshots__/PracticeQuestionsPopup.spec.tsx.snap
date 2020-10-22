@@ -17,7 +17,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
     tabIndex="-1"
   >
     <h3
-      className="headings__H3-sc-1xfiggv-2 PopupStyles__Header-w0z1hl-1 jRmTqB"
+      className="headings__H3-sc-1xfiggv-2 PopupStyles__Header-w0z1hl-1 kFaPzE"
     >
       Practice Questions
       <button
@@ -58,7 +58,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       </button>
     </h3>
     <div
-      className="PopupStyles__PopupBody-w0z1hl-2 ShowPracticeQuestions__ShowPracticeQuestionsBody-sc-1hq8omx-0 fMZTcd"
+      className="PopupStyles__PopupBody-w0z1hl-2 ShowPracticeQuestions__ShowPracticeQuestionsBody-sc-1hq8omx-0 dXopye"
       data-analytics-region="PQ popup"
       data-testid="show-practice-questions-body"
     />
