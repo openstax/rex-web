@@ -88,6 +88,8 @@
   "i18n:nudge:study-tools:aria-label:only-highlighting": "Image points to the My Highlights button in the toolbar. The study tools you need. 100% free. Highlight, take notes, and make your own study guides. To close image, navigate to or click the x button.",
   "i18n:page-not-found:heading": "Uh oh, we can't find the page you requested.",
   "i18n:page-not-found:text-before-button": "Try another page in the",
+  "i18n:practice-questions:popup:close": "Click to close Practice Questions modal",
+  "i18n:practice-questions:popup:heading": "Practice Questions",
   "i18n:prevnext:next:aria-label": "Next Page",
   "i18n:prevnext:next:text": "Next",
   "i18n:prevnext:prev:aria-label": "Previous Page",
