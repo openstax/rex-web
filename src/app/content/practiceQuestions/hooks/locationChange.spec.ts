@@ -3,7 +3,6 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
 import { receiveFeatureFlags } from '../../../actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
@@ -20,7 +19,6 @@ describe('locationChange', () => {
   let mockSummaryResponse: PracticeQuestionsSummary;
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
 
     helpers = {
@@ -91,7 +89,7 @@ describe('locationChange', () => {
     expect(dispatch).not.toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
   });
 
-  describe.only('error handling', () => {
+  describe('error handling', () => {
     it('call sentry on fetch failure', async() => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({...shortPage, references: []}));

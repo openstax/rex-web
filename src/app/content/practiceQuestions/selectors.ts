@@ -17,14 +17,14 @@ export const practiceQuestionsOpen = createSelector(
   (state) => state.open
 );
 
-export const hasPracticeQuestions = createSelector(
-  localState,
-  (state) => state.summary && Object.keys(state.summary).length > 0
-);
-
 const practiceQuestionsSummary = createSelector(
   localState,
   (state) => state.summary
+);
+
+export const hasPracticeQuestions = createSelector(
+  practiceQuestionsSummary,
+  (summary) => summary && Object.keys(summary).length > 0
 );
 
 export const practiceQuestionsLocationFilters = createSelector(
