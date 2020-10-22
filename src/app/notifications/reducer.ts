@@ -1,6 +1,8 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions';
+import { closeMyHighlights } from '../content/highlights/actions';
+import { closeStudyGuides } from '../content/studyGuides/actions';
 import { AnyAction } from '../types';
 import * as actions from './actions';
 import { isToastNotification } from './guards';
@@ -43,7 +45,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         modalNotifications: [...state.modalNotifications, ...processAppMessages(state, action)],
       };
     case getType(actions.addToast): {
-      const sameToast = state.toastNotifications.find((toast) => toast.messageKey === action.payload.messageKey);
+      const sameToast = state.toastNotifications.find((toast) =>
+        toast.messageKey === action.payload.messageKey && toast.destination === action.payload.destination
+      );
 
       if (sameToast) {
         return {
@@ -60,6 +64,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.toastNotifications,
           action.payload,
         ],
+      };
+    }
+    case getType(closeStudyGuides): {
+      return {
+        ...state,
+        toastNotifications: state.toastNotifications.filter((toast) => toast.destination !== 'studyGuides'),
+      };
+    }
+    case getType(closeMyHighlights): {
+      return {
+        ...state,
+        toastNotifications: state.toastNotifications.filter((toast) => toast.destination !== 'myHighlights'),
       };
     }
     case getType(actions.dismissNotification): {

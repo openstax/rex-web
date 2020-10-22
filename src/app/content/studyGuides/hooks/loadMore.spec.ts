@@ -4,6 +4,8 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { groupedToastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { HighlightData, SummaryHighlights } from '../../highlights/types';
@@ -215,6 +217,25 @@ describe('loadMore', () => {
     }));
     expect(highlightClient).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null, filters}));
+  });
+
+  it('adds a toast on request error', async() => {
+    const error = {} as any;
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockRejectedValueOnce(error);
+
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
+    }));
+    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']}));
+
+    await hook(store.dispatch(loadMoreStudyGuides()));
+
+    expect(groupedToastNotifications(store.getState()).studyGuides)
+      .toEqual([expect.objectContaining({messageKey: toastMessageKeys.studyGuides.failure.popUp.load})]);
   });
 
   it('doesn\'t explode without a page', async() => {

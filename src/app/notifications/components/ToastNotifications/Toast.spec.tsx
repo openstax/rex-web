@@ -5,6 +5,7 @@ import { renderToDom } from '../../../../test/reactutils';
 import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
 import { assertDocument, assertWindow } from '../../../utils';
+import { ToastNotification } from '../../types';
 import { clearErrorAfter, shouldAutoDismissAfter } from './constants';
 import Toast, { initialState, manageAnimationState } from './Toast';
 
@@ -13,7 +14,8 @@ jest.mock('react', () => {
   return { ...react, useEffect: react.useLayoutEffect };
 });
 
-const toast = {
+const toast: ToastNotification = {
+  destination: 'page',
   messageKey: 'i18n:notification:toast:highlights:create-failure',
   shouldAutoDismiss: true,
   timestamp: Date.now(),

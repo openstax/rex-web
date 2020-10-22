@@ -4,6 +4,7 @@ import * as parentSelectors from '../selectors';
 import { messagePriority } from './constants';
 import { isAppMessage } from './guards';
 import { ModalNotification } from './types';
+import { groupToasts } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -18,6 +19,11 @@ export const modalNotifications = createSelector(
 export const toastNotifications = createSelector(
   localState,
   (notifications) => notifications.toastNotifications
+);
+
+export const groupedToastNotifications = createSelector(
+  toastNotifications,
+  groupToasts
 );
 
 export const modalNotificationToDisplay = createSelector(
