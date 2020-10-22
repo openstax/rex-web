@@ -78,6 +78,8 @@ describe('HighlightDeleteWrapper', () => {
       </MessageProvider>
     </Provider>);
 
+    renderer.act(() => { return; });
+
     renderer.act(() => {
       const textarea = component.root.findByProps({ value: annotation });
       textarea.props.onChange({

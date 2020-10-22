@@ -10,6 +10,7 @@ import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
 import { locationChange } from '../../../navigation/actions';
 import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
@@ -180,7 +181,7 @@ describe('locationChange', () => {
       await hook(locationChange({} as any));
 
       expect(dispatch).toHaveBeenCalledWith(
-        addToast({messageKey: 'i18n:notification:toast:highlights:load-failure', shouldAutoDismiss: false})
+        addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false})
       );
     });
   });
