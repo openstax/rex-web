@@ -1,6 +1,8 @@
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { resetModules } from '../../../../test/utils';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { groupedToastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { closeStudyGuides, printStudyGuides, receiveSummaryStudyGuides } from '../actions';
@@ -54,6 +56,18 @@ describe('printStudyGuides', () => {
   it('doesn\'t return a promise', () => {
     expect(hook(printStudyGuides())).toBe(undefined);
     expect(loadMore).toHaveBeenCalled();
+  });
+
+  it('adds a toast on request error', async() => {
+    const error = {} as any;
+
+    loadMore.mockRejectedValueOnce(error);
+
+    hook(printStudyGuides());
+    await Promise.resolve();
+
+    expect(groupedToastNotifications(store.getState()).studyGuides)
+      .toEqual([expect.objectContaining({messageKey: toastMessageKeys.studyGuides.failure.popUp.print})]);
   });
 
   it('waits for promiseCollector.calm', async() => {
