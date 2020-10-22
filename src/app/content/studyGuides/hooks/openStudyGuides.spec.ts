@@ -4,12 +4,13 @@ import { book as archiveBook, shortPage } from '../../../../test/mocks/archiveLo
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
-import { initialState as initialContentState } from '../../reducer';
+import { push } from '../../../navigation/actions';
 import { query } from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { modalQueryParameterName } from '../../constants';
 import { modalUrlName } from '../../highlights/constants';
+import { initialState as initialContentState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import {
   loadMoreStudyGuides,
@@ -56,10 +57,11 @@ describe('openStudyGuides', () => {
     expect(dispatch).toHaveBeenCalledWith(loadMoreStudyGuides());
   });
 
-  it.only('adds query parameter for study guides modal', async() => {
+  it('adds query parameter for study guides modal', async() => {
     await hook(openStudyGuides());
-    console.log(query(store.getState()))
-    expect(query(store.getState())[modalQueryParameterName]).toBe(modalUrlName);
+    expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
+      payload: expect.objectContaining({search: 'modal=SG'}),
+    }));
   });
 
   it('noops if study guides are being/were initialized', async() => {

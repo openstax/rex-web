@@ -9,18 +9,15 @@ import * as actions from './actions';
 import { State } from './types';
 import { getScrollTargetFromQuery } from './utils';
 
-const addQuery = (location: Location) => {
-  return ({
-    ...location,
-    query: queryString.parse(location.search),
-  })
-};
+const addQuery = (location: Location) => ({
+  ...location,
+  query: queryString.parse(location.search),
+});
 
 export default (location: Location): Reducer<State, AnyAction> => (state = addQuery(location), action) => {
-  console.log(action)
+
   switch (action.type) {
     case getType(actions.locationChange):
-      console.log(action.payload.location, '-----')
       return addQuery(action.payload.location);
     case getType(receiveDeleteHighlight): {
       const scrollTarget = getScrollTargetFromQuery(state.query, state.hash);

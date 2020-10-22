@@ -1,11 +1,13 @@
 import { loggedOut } from '../../../auth/selectors';
-import { locationChange } from '../../../navigation/actions';
-import { location } from '../../../navigation/selectors';
+import { push } from '../../../navigation/actions';
+import { locationState } from '../../../navigation/selectors';
 import { getQueryForParam } from '../../../navigation/utils';
 import { ActionHookBody } from '../../../types';
-import { actionHook } from '../../../utils';
+import { actionHook, assertNotNull } from '../../../utils';
 import { modalQueryParameterName } from '../../constants';
+import { content } from '../../routes';
 import * as selectContent from '../../selectors';
+import { getBookPageUrlAndParams } from '../../utils';
 import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
 import { loadMoreStudyGuides, openStudyGuides, setDefaultSummaryFilters } from '../actions';
 import { modalUrlName } from '../constants';
@@ -16,18 +18,20 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const filtersHaveBeenSet = select.filtersHaveBeenSet(state);
   const currentFilters = select.summaryLocationFilters(state);
   const defaultFilter = select.defaultLocationFilter(state);
-  const currentLocation = location(state);
+  const currentParams = assertNotNull(selectContent.contentParams(state), 'Opened modal before location was processed');
   const notLoggedIn = loggedOut(state);
-
-  const book = selectContent.book(state);
+  const currentLocationState = locationState(state);
+  const { book, page } = selectContent.bookAndPage(state);
   const firstChapter = book && findArchiveTreeNode(archiveTreeSectionIsChapter, book.tree);
 
-  services.dispatch(locationChange({
-    action: 'PUSH',
-    location: {
-      ...currentLocation,
-      search: getQueryForParam(modalQueryParameterName, modalUrlName),
-    },
+  services.dispatch(push({
+    params: currentParams,
+    route: content,
+    state: book && page && !currentLocationState
+      ? getBookPageUrlAndParams(book, page).state
+      : currentLocationState,
+  }, {
+    search: getQueryForParam(modalQueryParameterName, modalUrlName),
   }));
 
   if (notLoggedIn && firstChapter && !currentFilters.has(firstChapter.id)) {

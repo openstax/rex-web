@@ -3,7 +3,9 @@ import createTestStore from '../../../../test/createTestStore';
 import { testAccountsUser } from '../../../../test/mocks/userLoader';
 import * as authSelectors from '../../../auth/selectors';
 import { formatUser } from '../../../auth/utils';
+import { push } from '../../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../../types';
+import { initialState as initialContentState } from '../../reducer';
 import { initializeMyHighlightsSummary, openMyHighlights } from '../actions';
 import * as selectors from '../selectors';
 
@@ -14,7 +16,15 @@ describe('openMyHighlightsHook', () => {
   let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
-    store = createTestStore();
+    store = createTestStore({
+      content: {
+        ...initialContentState,
+        params: {
+          book: { slug: 'book' },
+          page: { slug: 'page' },
+        },
+      },
+    });
 
     helpers = {
       ...createTestServices(),
@@ -35,6 +45,13 @@ describe('openMyHighlightsHook', () => {
     await hook(openMyHighlights());
 
     expect(dispatch).toHaveBeenCalledWith(initializeMyHighlightsSummary());
+  });
+
+  it('adds query parameter for my highlights modal', async() => {
+    await hook(openMyHighlights());
+    expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
+      payload: expect.objectContaining({search: 'modal=MH'}),
+    }));
   });
 
   it('doesn\'t dispatch init if not authenticated', async() => {
