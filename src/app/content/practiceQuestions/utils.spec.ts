@@ -2,7 +2,11 @@ import { book } from '../../../test/mocks/archiveLoader';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import { PracticeQuestionsSummary } from './types';
-import { getNextPageWithPracticeQuestions, getPracticeQuestionsLocationFilters, pageHasPracticeQuestions } from './utils';
+import {
+  getNextPageWithPracticeQuestions,
+  getPracticeQuestionsLocationFilters,
+  pageHasPracticeQuestions,
+} from './utils';
 
 describe('pageHasPracticeQuestions', () => {
   it('returns true', () => {
