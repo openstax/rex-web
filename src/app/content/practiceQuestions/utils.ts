@@ -48,12 +48,7 @@ export const getNextPageWithPracticeQuestions = (
   const flatLocationFilters = flattenLocationFilters(locationFilters);
   const flatTree = flattenArchiveTree(book.tree);
   const nodeIndex = flatTree.findIndex((search) => search.id === node.id);
+  const remainingNodes = flatTree.slice(nodeIndex + 1).map((section) => stripIdVersion(section.id));
 
-  for (let i = nodeIndex + 1; i < flatTree.length; i++) {
-    if (flatLocationFilters.find((section) => section.id === stripIdVersion(flatTree[i].id))) {
-      return flatTree[i] as LinkedArchiveTreeSection;
-    }
-  }
-
-  return undefined;
+  return flatLocationFilters.find((filter) => remainingNodes.includes(filter.id));
 };
