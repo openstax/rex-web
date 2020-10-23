@@ -4,11 +4,12 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-import ToastNotifications from '../../../notifications/components/ToastNotifications';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
+import PageToasts from '../Page/PageToasts';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
@@ -94,13 +95,13 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public onHighlightSelect: HighlightUpdateOptions['onSelect'] = (selectedHighlight) => {
     if (!selectedHighlight) {
-      this.props.addToast({messageKey: 'i18n:notification:toast:highlights:highlight-not-found'});
+      this.props.addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'});
     }
   };
 
   public onSearchHighlightSelect: SearchUpdateOptions['onSelect'] = (selectedHighlight) => {
     if (!selectedHighlight) {
-      this.props.addToast({messageKey: 'i18n:notification:toast:search:highlight-not-found'});
+      this.props.addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'});
     }
   };
 
@@ -120,7 +121,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      <ToastNotifications />
+      <PageToasts />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()
