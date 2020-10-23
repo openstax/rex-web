@@ -49,6 +49,7 @@ async function render() {
   const renderHelpers = {archiveLoader, osWebLoader, userLoader, searchClient, highlightClient};
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
+
   for (const {loader, book} of books) {
     const bookPages = await prepareBookPages(loader, book);
 
