@@ -158,7 +158,7 @@ export const prepareBookPages = (book: BookWithOSWebData) => asyncPool(20, findT
 
 export const renderPages = async(services: AppOptions['services'], pages: Pages) => {
   const renderPage = makeRenderPage(services);
-  return await asyncPool(50, pages, renderPage);
+  return await asyncPool(10, pages, renderPage);
 };
 
 interface Options {
