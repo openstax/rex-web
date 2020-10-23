@@ -27,10 +27,10 @@ export const hookBody: ActionHookBody<typeof openMyHighlights> = ({
 
   dispatch(push({
     params: currentParams,
-      route: content,
-      state: book && page && !currentLocationState
-        ? getBookPageUrlAndParams(book, page).state
-        : currentLocationState,
+    route: content,
+    state: book && page && !currentLocationState
+      ? getBookPageUrlAndParams(book, page).state
+      : currentLocationState,
     }, {
       search: getQueryForParam(modalQueryParameterName, modalUrlName),
     }

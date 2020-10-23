@@ -1,13 +1,18 @@
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { testAccountsUser } from '../../../../test/mocks/userLoader';
 import * as authSelectors from '../../../auth/selectors';
 import { formatUser } from '../../../auth/utils';
-import { push } from '../../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../../types';
+import { receiveBook, receivePage } from '../../actions';
 import { initialState as initialContentState } from '../../reducer';
+import { formatBookData } from '../../utils';
 import { initializeMyHighlightsSummary, openMyHighlights } from '../actions';
 import * as selectors from '../selectors';
+
+const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('openMyHighlightsHook', () => {
   let store: Store;
@@ -47,10 +52,16 @@ describe('openMyHighlightsHook', () => {
     expect(dispatch).toHaveBeenCalledWith(initializeMyHighlightsSummary());
   });
 
-  it('adds query parameter for my highlights modal', async() => {
+  it('PUSHes correct location', async() => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage({...page, references: []}));
+
     await hook(openMyHighlights());
     expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
-      payload: expect.objectContaining({search: 'modal=MH'}),
+      payload: expect.objectContaining({
+        search: 'modal=MH',
+        state: expect.objectContaining({bookUid: book.id, pageUid: page.id}),
+      }),
     }));
   });
 

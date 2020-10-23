@@ -3,7 +3,6 @@ import { getType } from 'typesafe-actions';
 import Sentry from '../../../../helpers/Sentry';
 import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
-import { locationChange } from '../../../navigation/actions';
 import { addToast } from '../../../notifications/actions';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
 import { maxHighlightsApiPageSize } from '../../constants';
@@ -21,7 +20,6 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
   const highlightsPageId = select.highlightsPageId(state);
 
   const pageFocusIn = action && action.type === getType(receivePageFocus) && action.payload;
-  const locationState = action && action.type === getType(locationChange) ? action.payload.location.state : null;
 
   if (
     !authenticated
@@ -30,7 +28,6 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
     || typeof(window) === 'undefined'
     || (loaded && !pageFocusIn)
     || (!pageFocusIn && highlightsPageId === page.id)
-    || (locationState && locationState.pageUid === highlightsPageId)
   ) {
     return;
   }

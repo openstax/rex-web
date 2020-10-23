@@ -4,12 +4,8 @@ import { book as archiveBook, shortPage } from '../../../../test/mocks/archiveLo
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
-import { push } from '../../../navigation/actions';
-import { query } from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import { modalQueryParameterName } from '../../constants';
-import { modalUrlName } from '../../highlights/constants';
 import { initialState as initialContentState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import {

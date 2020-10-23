@@ -7,6 +7,7 @@ import { AnyMatch, AnyRoute } from './types';
 import {
   findPathForParams,
   findRouteMatch,
+  getQueryForParam,
   getScrollTargetFromQuery,
   getUrlRegexParams,
   injectParamsToBaseUrl,
@@ -289,5 +290,16 @@ describe('getScrollTargetFromQuery', () => {
       queryString.parse('target={"prop": "not-scroll-target"}'),
       'elId'
     )).toEqual(null);
+  });
+});
+
+describe('getQueryForParam', () => {
+  it('returns a query string for a parameter', () => {
+    expect(getQueryForParam('myParameter', 'whatever'))
+      .toBe('myParameter=whatever');
+  });
+  it('adds parameters to an existing query', () => {
+    expect(getQueryForParam('myParameter', 'whatever', 'a=1&b=3'))
+      .toBe('a=1&b=3&myParameter=whatever');
   });
 });
