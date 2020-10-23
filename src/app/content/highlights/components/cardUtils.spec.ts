@@ -1,10 +1,19 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import createMockHighlight from '../../../../test/mocks/highlight';
+import { assertDocument } from '../../../utils';
 import { generateUpdatePayload, getHighlightTopOffset } from './cardUtils';
 
 describe('cardUtils', () => {
   it('returns undefined if passed container is undefined', () => {
     expect(getHighlightTopOffset(undefined, { id: 'asd' } as Highlight)).toBeUndefined();
+  });
+
+  it('returns top offset for a highlight', () => {
+    expect(getHighlightTopOffset(
+        assertDocument().createElement('div'),
+        createMockHighlight() as any as Highlight)
+      ).toEqual(0);
   });
 });
 

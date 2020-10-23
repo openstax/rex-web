@@ -1,6 +1,7 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
 import { getIdVersion } from '../app/content/utils/idUtils';
+import createCache from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 
 interface Extras {
@@ -14,10 +15,11 @@ export default (url: string) => {
     .then(acceptStatus(200, (status, message) => `Error response from archive "${fetchUrl}" ${status}: ${message}`))
     .then((response) => response.json() as Promise<T>);
 
-  const cache = new Map();
+  const cache = createCache<string, ArchiveContent>({maxRecords: 20});
   const contentsLoader = (id: string) => {
-    if (cache.has(id)) {
-      return Promise.resolve(cache.get(id));
+    const cached = cache.get(id);
+    if (cached) {
+      return Promise.resolve(cached);
     }
 
     return archiveFetch<ArchiveContent>(`${url}/contents/${id}.json`)
@@ -27,11 +29,12 @@ export default (url: string) => {
       });
   };
 
-  const extrasCache = new Map();
-  const getBookIdsForPage: (pageId: string) => Promise<Array<{id: string, bookVersion: string | undefined}>> =
-    (pageId) => {
-    if (extrasCache.has(pageId)) {
-      return Promise.resolve(extrasCache.get(pageId));
+  interface BookReference {id: string; bookVersion: string | undefined; }
+  const extrasCache = createCache<string, BookReference[]>({maxRecords: 20});
+  const getBookIdsForPage: (pageId: string) => Promise<BookReference[]> = (pageId) => {
+    const cached = extrasCache.get(pageId);
+    if (cached) {
+      return Promise.resolve(cached);
     }
 
     return archiveFetch<Extras>(`${url}/extras/${pageId}`)
