@@ -15,7 +15,6 @@ const addQuery = (location: Location) => ({
 });
 
 export default (location: Location): Reducer<State, AnyAction> => (state = addQuery(location), action) => {
-
   switch (action.type) {
     case getType(actions.locationChange):
       return addQuery(action.payload.location);
