@@ -7,7 +7,8 @@ const StyledItemWrapper = styled.span`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
-  &:after {
+
+  &::after {
     content: "";
     display: block;
     height: 0.1rem;
@@ -19,13 +20,15 @@ const StyledItemWrapper = styled.span`
       }
     }}
   }
+
   &:last-child {
-    &:after {
+    &::after {
       content: none;
     }
   }
+
   ${theme.breakpoints.mobile(css`
-    &:after {
+    &::after {
       width: 3.3rem;
     }
   `)}
