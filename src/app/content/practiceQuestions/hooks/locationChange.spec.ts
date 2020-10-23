@@ -43,7 +43,7 @@ describe('locationChange', () => {
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
-      .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
+      .mockResolvedValue(mockSummaryResponse);
 
     await hook();
 
@@ -55,7 +55,7 @@ describe('locationChange', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
-    .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
+      .mockResolvedValue(mockSummaryResponse);
 
     await hook();
 
@@ -67,7 +67,7 @@ describe('locationChange', () => {
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
-      .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
+      .mockResolvedValue(mockSummaryResponse);
 
     await hook();
 
@@ -81,7 +81,7 @@ describe('locationChange', () => {
     store.dispatch(receivePracticeQuestionsSummary({ countsPerSource: { asd: 1 } }));
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
-      .mockReturnValue(new Promise((res) => res(mockSummaryResponse)));
+      .mockResolvedValue(mockSummaryResponse);
 
     await hook();
 
@@ -95,17 +95,15 @@ describe('locationChange', () => {
       store.dispatch(receivePage({...shortPage, references: []}));
       store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 
-      const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => null);
-
       const mockError = new Error('asdf');
 
       const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
-        .mockReturnValue(new Promise((_res, rej) => rej(mockError)));
+        .mockRejectedValue(mockError);
 
       await hook();
 
       expect(getSummary).toHaveBeenCalled();
-      expect(captureException).toHaveBeenCalledWith(mockError);
+      expect(Sentry.captureException).toHaveBeenCalledWith(mockError);
     });
   });
 });

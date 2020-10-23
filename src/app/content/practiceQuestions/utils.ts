@@ -5,10 +5,7 @@ import { stripIdVersion } from '../utils/idUtils';
 import { PracticeQuestionsSummary } from './types';
 
 export const pageHasPracticeQuestions = (pageId: string, summary: PracticeQuestionsSummary) => {
-  for (const key in summary.countsPerSource) {
-    if (key === pageId) { return true; }
-  }
-  return false;
+  return Boolean(summary.countsPerSource[pageId]);
 };
 
 export const getPracticeQuestionsLocationFilters = (

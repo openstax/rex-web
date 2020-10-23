@@ -20,19 +20,19 @@ describe('pageHasPracticeQuestions', () => {
 
 describe('getPracticeQuestionsLocationFilters', () => {
   it('returns empty map if book or summary is not truthy', () => {
-    expect(getPracticeQuestionsLocationFilters(null, {} as any)).toEqual(new Map());
-    expect(getPracticeQuestionsLocationFilters({} as any, undefined)).toEqual(new Map());
+    expect(getPracticeQuestionsLocationFilters(null, book)).toEqual(new Map());
+    expect(getPracticeQuestionsLocationFilters({ countsPerSource: {} }, undefined)).toEqual(new Map());
   });
 
   it('returns location filters for practice questions', () => {
-    const page1 = (book as any).tree.contents[1].contents[0].contents[0];
-    const linkedPage1 = findArchiveTreeNodeById(book.tree, page1.id);
-    const page2 = (book as any).tree.contents[1].contents[1];
-    const linkedPage2 = findArchiveTreeNodeById(book.tree, page2.id);
-    const page3 = (book as any).tree.contents[1].contents[2];
-    const linkedPage3 = findArchiveTreeNodeById(book.tree, page3.id);
-    const page4 = (book as any).tree.contents[2].contents[0];
-    const linkedPage4 = findArchiveTreeNodeById(book.tree, page4.id);
+    const page1 = (book as any).tree.contents[1].contents[0].contents[0]; // testbook1-testpage2-uuid
+    const linkedPage1 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage2-uuid');
+    const page2 = (book as any).tree.contents[1].contents[1]; // testbook1-testpage11-uuid
+    const linkedPage2 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage11-uuid');
+    const page3 = (book as any).tree.contents[1].contents[2]; // testbook1-testpage8-uuid
+    const linkedPage3 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage8-uuid');
+    const page4 = (book as any).tree.contents[2].contents[0]; // testbook1-testpage3-uuid
+    const linkedPage4 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage3-uuid');
     const summary: PracticeQuestionsSummary = {
       countsPerSource: {
         [stripIdVersion(page1.id)]: 2,
@@ -62,11 +62,11 @@ describe('getNextPageWithPracticeQuestions', () => {
   });
 
   it('finds next section with practice questions or undefined if there are no more sections', () => {
-    const page1 = (book as any).tree.contents[1].contents[0].contents[0];
-    const page3 = (book as any).tree.contents[1].contents[2];
-    const linkedPage3 = findArchiveTreeNodeById(book.tree, page3.id);
-    const page4 = (book as any).tree.contents[2].contents[0];
-    const linkedPage4 = findArchiveTreeNodeById(book.tree, page4.id);
+    const page1 = (book as any).tree.contents[1].contents[0].contents[0]; // testbook1-testpage2-uuid
+    const page3 = (book as any).tree.contents[1].contents[2]; // testbook1-testpage8-uuid
+    const linkedPage3 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage8-uuid');
+    const page4 = (book as any).tree.contents[2].contents[0]; // testbook1-testpage3-uuid
+    const linkedPage4 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage3-uuid');
     const summary: PracticeQuestionsSummary = {
       countsPerSource: {
         [stripIdVersion(page1.id)]: 2,
