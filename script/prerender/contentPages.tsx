@@ -4,6 +4,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Loadable from 'react-loadable';
 import { EnumChangefreq } from 'sitemap';
+import { SitemapItemOptions } from 'sitemap';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
 import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
@@ -25,13 +26,10 @@ import FontCollector from '../../src/helpers/FontCollector';
 import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils';
 
 export async function prepareContentPage(
-  bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
   book: BookWithOSWebData,
   pageId: string,
   pageSlug: string
 ) {
-  const page = await bookLoader.page(pageId).load();
-
   const action: Match<typeof content> = {
     params: {
       book: {
@@ -45,11 +43,9 @@ export async function prepareContentPage(
     state: {
       bookUid: book.id,
       bookVersion: book.version,
-      pageUid: page.id,
+      pageUid: pageId,
     },
   };
-
-  console.info(`prepared ${matchUrl(action)}`); // tslint:disable-line:no-console
 
   return action;
 }
@@ -113,10 +109,10 @@ export const getStats = () => {
 };
 
 type MakeRenderPage = (services: AppOptions['services']) =>
-  ({code, page}: {page: AnyMatch, code: number}) => Promise<void>;
+  ({code, route}: {route: AnyMatch, code: number}) => Promise<SitemapItemOptions>;
 
-const makeRenderPage: MakeRenderPage = (services) => async({code, page}) => {
-  const {app, styles, state, url} = await prepareApp(services, page, code);
+const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
+  const {app, styles, state, url} = await prepareApp(services, route, code);
   console.info(`rendering ${url}`); // tslint:disable-line:no-console
   const html = await renderHtml(styles, app, state);
 
@@ -127,64 +123,42 @@ const makeRenderPage: MakeRenderPage = (services) => async({code, page}) => {
   } else {
     writeAssetFile(url, html);
   }
-};
 
-export const prepareBooks = async(
-  archiveLoader: AppServices['archiveLoader'],
-  osWebLoader: AppServices['osWebLoader']
-): Promise<Array<{
-  book: BookWithOSWebData,
-  loader: ReturnType<AppServices['archiveLoader']['book']>
-}>> => {
-  return Promise.all(Object.entries(BOOKS).map(async([bookId, {defaultVersion}]) => {
-    const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
-
-    return {
-      book: await bookLoader(bookId, defaultVersion),
-      loader: archiveLoader.book(bookId, defaultVersion),
-    };
-  }));
-};
-
-export type Pages = Array<{code: number, page: AnyMatch}>;
-
-export const prepareBookPages = (
-  bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
-  book: BookWithOSWebData
-) => asyncPool(20, findTreePages(book.tree), (section) =>
-  prepareContentPage(bookLoader, book, stripIdVersion(section.id),
-    assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`)
-  )
-    .then((page) => ({code: 200, page}))
-);
-
-export const getBookSitemap = (
-  bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
-  pages: Array<{page: Match<typeof content>}>
-) => pages.map((record) => {
-  const matchState = assertDefined(
-    record.page.state,
-    'match state wasn\'t defined, it should have been'
-  );
+  const {book, page} = state.content;
   const archivePage = assertDefined(
-    bookLoader.page(matchState.pageUid).cached(),
+    book && page && app.services.archiveLoader.book(book.id, book.version).page(page.id).cached(),
     'page wasn\'t cached, it should have been'
   );
 
   return {
     changefreq: EnumChangefreq.MONTHLY,
     lastmod: dateFns.format(archivePage.revised, 'YYYY-MM-DD'),
-    url: matchUrl(record.page),
+    url: matchUrl(route),
   };
-});
+};
 
-type RenderPages = (
-  services: AppOptions['services'],
-  pages: Pages
-) => Promise<void>;
-export const renderPages: RenderPages = async(services, pages) => {
+export const prepareBooks = async(
+  archiveLoader: AppServices['archiveLoader'],
+  osWebLoader: AppServices['osWebLoader']
+): Promise<BookWithOSWebData[]> => {
+  return Promise.all(Object.entries(BOOKS).map(async([bookId, {defaultVersion}]) => {
+    const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
+    return await bookLoader(bookId, defaultVersion);
+  }));
+};
+
+export type Pages = Array<{code: number, route: AnyMatch}>;
+
+export const prepareBookPages = (book: BookWithOSWebData) => asyncPool(20, findTreePages(book.tree), (section) =>
+  prepareContentPage(book, stripIdVersion(section.id),
+    assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`)
+  )
+    .then((route) => ({code: 200, route}))
+);
+
+export const renderPages = async(services: AppOptions['services'], pages: Pages) => {
   const renderPage = makeRenderPage(services);
-  await asyncPool(50, pages, renderPage);
+  return await asyncPool(50, pages, renderPage);
 };
 
 interface Options {
