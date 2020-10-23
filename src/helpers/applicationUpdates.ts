@@ -63,8 +63,13 @@ export const activateSwAndReload = (sw: ServiceWorkerRegistration | undefined) =
 
   if (waiting) {
     whenState(waiting, 'activating', forceReload);
-    waiting.postMessage({type:  'SKIP_WAITING'});
+    waiting.postMessage({type: 'SKIP_WAITING'});
   } else {
     forceReload();
   }
+
+  // we need to push something to trigger a build
+  fake();
 };
+
+const fake = () => null;
