@@ -113,9 +113,10 @@ export const getStats = () => {
 };
 
 type MakeRenderPage = (services: AppOptions['services']) =>
-  (action: AnyMatch, expectedCode: number) => Promise<void>;
-const makeRenderPage: MakeRenderPage = (services) => async(action, expectedCode) => {
-  const {app, styles, state, url} = await prepareApp(services, action, expectedCode);
+  ({code, page}: {page: AnyMatch, code: number}) => Promise<void>;
+
+const makeRenderPage: MakeRenderPage = (services) => async({code, page}) => {
+  const {app, styles, state, url} = await prepareApp(services, page, code);
   console.info(`rendering ${url}`); // tslint:disable-line:no-console
   const html = await renderHtml(styles, app, state);
 
@@ -131,7 +132,10 @@ const makeRenderPage: MakeRenderPage = (services) => async(action, expectedCode)
 export const prepareBooks = async(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
-): Promise<Array<{book: BookWithOSWebData, loader: ReturnType<AppServices['archiveLoader']['book']>}>> => {
+): Promise<Array<{
+  book: BookWithOSWebData,
+  loader: ReturnType<AppServices['archiveLoader']['book']>
+}>> => {
   return Promise.all(Object.entries(BOOKS).map(async([bookId, {defaultVersion}]) => {
     const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
@@ -180,7 +184,7 @@ type RenderPages = (
 ) => Promise<void>;
 export const renderPages: RenderPages = async(services, pages) => {
   const renderPage = makeRenderPage(services);
-  await asyncPool(50, pages, ({code, page}) => renderPage(page, code));
+  await asyncPool(50, pages, renderPage);
 };
 
 interface Options {
