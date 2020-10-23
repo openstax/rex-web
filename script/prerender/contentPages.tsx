@@ -109,9 +109,20 @@ export const getStats = () => {
 };
 
 type MakeRenderPage = (services: AppOptions['services']) =>
-  ({code, route}: {route: AnyMatch, code: number}) => Promise<SitemapItemOptions>;
+  ({code, route}: {route: Match<typeof content>, code: number}) => Promise<SitemapItemOptions>;
 
 const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
+
+  const matchState = assertDefined(
+    route.state,
+    'match state wasn\'t defined, it should have been'
+  );
+  const {bookUid, bookVersion, pageUid} = matchState;
+  const archivePage = assertDefined(
+    await services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load(),
+    'page wasn\'t cached, it should have been'
+  );
+
   const {app, styles, state, url} = await prepareApp(services, route, code);
   console.info(`rendering ${url}`); // tslint:disable-line:no-console
   const html = await renderHtml(styles, app, state);
@@ -123,12 +134,6 @@ const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
   } else {
     writeAssetFile(url, html);
   }
-
-  const {book, page} = state.content;
-  const archivePage = assertDefined(
-    book && page && app.services.archiveLoader.book(book.id, book.version).page(page.id).cached(),
-    'page wasn\'t cached, it should have been'
-  );
 
   return {
     changefreq: EnumChangefreq.MONTHLY,
@@ -147,7 +152,7 @@ export const prepareBooks = async(
   }));
 };
 
-export type Pages = Array<{code: number, route: AnyMatch}>;
+export type Pages = Array<{code: number, route: Match<typeof content>}>;
 
 export const prepareBookPages = (book: BookWithOSWebData) => asyncPool(20, findTreePages(book.tree), (section) =>
   prepareContentPage(book, stripIdVersion(section.id),
@@ -158,7 +163,7 @@ export const prepareBookPages = (book: BookWithOSWebData) => asyncPool(20, findT
 
 export const renderPages = async(services: AppOptions['services'], pages: Pages) => {
   const renderPage = makeRenderPage(services);
-  return await asyncPool(50, pages, renderPage);
+  return await asyncPool(10, pages, renderPage);
 };
 
 interface Options {
