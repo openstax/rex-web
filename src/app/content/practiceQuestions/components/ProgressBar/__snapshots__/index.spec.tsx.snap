@@ -5,7 +5,7 @@ exports[`ProgressBar displays properly 1`] = `
   className="ProgressBar__ProgressBarWrapper-sc-12ssvtu-0 hVMttS"
 >
   <span
-    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 jJQGud"
+    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 IySic"
   >
     <span
       className="ProgressBarItem__StyledItem-sc-1d02vnm-1 bipRWq"
@@ -14,7 +14,7 @@ exports[`ProgressBar displays properly 1`] = `
     </span>
   </span>
   <span
-    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 kSrrBy"
+    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 hnxurH"
   >
     <span
       className="ProgressBarItem__StyledItem-sc-1d02vnm-1 cDzQrA"
@@ -23,7 +23,7 @@ exports[`ProgressBar displays properly 1`] = `
     </span>
   </span>
   <span
-    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 kSrrBy"
+    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 hnxurH"
   >
     <span
       className="ProgressBarItem__StyledItem-sc-1d02vnm-1 eTJmgx"

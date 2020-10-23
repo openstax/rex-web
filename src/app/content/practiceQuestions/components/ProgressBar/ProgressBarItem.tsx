@@ -14,8 +14,8 @@ const StyledItemWrapper = styled.span`
     height: 0.1rem;
     width: 5.6rem;
     background-color: ${theme.color.primary.gray.base};
-    ${(props: { isLight: boolean }) => {
-      if (props.isLight) {
+    ${(props: { isActiveOrDisabled: boolean }) => {
+      if (props.isActiveOrDisabled) {
         return 'background-color: #F1F1F1;';
       }
     }}
@@ -71,7 +71,7 @@ interface ProgressBarItemProps {
 
 // tslint:disable-next-line: variable-name
 const ProgressBarItem = ({ value, isActive, isDisabled }: ProgressBarItemProps) => (
-  <StyledItemWrapper isLight={isDisabled || isActive}>
+  <StyledItemWrapper isActiveOrDisabled={isDisabled || isActive}>
     <StyledItem isActive={isActive} isDisabled={isDisabled}>
       {value}
     </StyledItem>
