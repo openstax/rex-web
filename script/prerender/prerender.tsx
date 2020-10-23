@@ -18,7 +18,6 @@ import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
 import { startServer } from '../server';
 import {
-  getBookSitemap,
   getStats,
   prepareBookPages,
   prepareBooks,
@@ -50,11 +49,12 @@ async function render() {
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
 
-  for (const {loader, book} of books) {
-    const bookPages = await prepareBookPages(loader, book);
+  for (const book of books) {
+    const bookPages = await prepareBookPages(book);
 
-    renderSitemap(book.slug, await getBookSitemap(loader, bookPages));
-    await renderPages(renderHelpers, bookPages);
+    const sitemap = await renderPages(renderHelpers, bookPages);
+
+    renderSitemap(book.slug, sitemap);
   }
 
   await renderSitemapIndex();
