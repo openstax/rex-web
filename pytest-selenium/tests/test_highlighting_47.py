@@ -1,4 +1,5 @@
 import random
+from time import sleep
 
 from pages.accounts import Signup
 from pages.content import Content
@@ -364,6 +365,7 @@ def test_chapter_filter_collapses_on_clicking_color_filter(
     selenium, base_url, book_slug, page_slug
 ):
     """Clicking on a filter dropdown will close the other filter dropdown if open."""
+    sections = [("4.2", "Proteobacteria"), ("", "Introduction")]
 
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -400,28 +402,35 @@ def test_chapter_filter_collapses_on_clicking_color_filter(
         )
 
     filterbar = my_highlights.filter_bar
+    last_two_highlights = (mh_highlight_ids[2], mh_highlight_ids[3])
 
-    # AND: Open chapter dropdown to remove two chapters
+    # AND: Open chapter dropdown to remove one chapter
     filterbar.toggle_chapter_dropdown_menu()
     filterbar.chapter_filters.chapters[2].click()
-    filterbar.chapter_filters.chapters[1].click()
-
-    from time import sleep
 
     # AND: Do not close the chapter dropdown
     assert filterbar.chapter_dropdown_open
-    sleep(2)
 
     # WHEN: Open color dropdown
     filterbar.toggle_color_dropdown_menu()
-    sleep(2)
 
     # THEN: Color dropdown is opened
     assert filterbar.color_dropdown_open
-    sleep(2)
 
     # AND: Chapter dropdown is closed automatically
     assert not filterbar.chapter_dropdown_open
-    sleep(2)
 
-    # AND: The selections made in the chapter filter are applied to the highlight list
+    # WHEN: Remove one color from color dropdown
+    filterbar.color_filters.colors[1].click()
+    sleep(0.25)
+
+    # THEN: The selections made in the filters are applied to the highlight list immediately
+    highlight_sections = [
+        (section.number, section.title) for section in my_highlights.highlights.sections
+    ]
+    assert set(highlight_sections) == set(sections), "mismatched section numbers and/or names"
+    assert len(my_highlights.all_highlights) == 2, (
+        "unexpected number of highlights found on the summary page ("
+        f"found {len(my_highlights.all_highlights)}"
+    )
+    assert set(my_highlights.highlights.mh_highlight_ids) == set(last_two_highlights)
