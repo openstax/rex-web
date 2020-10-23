@@ -1,4 +1,5 @@
 import { book } from '../../../test/mocks/archiveLoader';
+import { assertDefined } from '../../utils';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
 import { PracticeQuestionsSummary } from './types';
@@ -25,20 +26,16 @@ describe('getPracticeQuestionsLocationFilters', () => {
   });
 
   it('returns location filters for practice questions', () => {
-    const page1 = (book as any).tree.contents[1].contents[0].contents[0]; // testbook1-testpage2-uuid
-    const linkedPage1 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage2-uuid');
-    const page2 = (book as any).tree.contents[1].contents[1]; // testbook1-testpage11-uuid
-    const linkedPage2 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage11-uuid');
-    const page3 = (book as any).tree.contents[1].contents[2]; // testbook1-testpage8-uuid
-    const linkedPage3 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage8-uuid');
-    const page4 = (book as any).tree.contents[2].contents[0]; // testbook1-testpage3-uuid
-    const linkedPage4 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage3-uuid');
+    const linkedPage1 = assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage2-uuid'), 'error');
+    const linkedPage2 = assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage11-uuid'), 'error');
+    const linkedPage3 = assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage8-uuid'), 'error');
+    const linkedPage4 = assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage3-uuid'), 'error');
     const summary: PracticeQuestionsSummary = {
       countsPerSource: {
-        [stripIdVersion(page1.id)]: 2,
-        [stripIdVersion(page2.id)]: 2,
-        [stripIdVersion(page3.id)]: 3,
-        [stripIdVersion(page4.id)]: 1,
+        [stripIdVersion(linkedPage1.id)]: 2,
+        [stripIdVersion(linkedPage2.id)]: 2,
+        [stripIdVersion(linkedPage3.id)]: 3,
+        [stripIdVersion(linkedPage4.id)]: 1,
       },
     };
 
@@ -62,22 +59,20 @@ describe('getNextPageWithPracticeQuestions', () => {
   });
 
   it('finds next section with practice questions or undefined if there are no more sections', () => {
-    const page1 = (book as any).tree.contents[1].contents[0].contents[0]; // testbook1-testpage2-uuid
-    const page3 = (book as any).tree.contents[1].contents[2]; // testbook1-testpage8-uuid
-    const linkedPage3 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage8-uuid');
-    const page4 = (book as any).tree.contents[2].contents[0]; // testbook1-testpage3-uuid
-    const linkedPage4 = findArchiveTreeNodeById(book.tree, 'testbook1-testpage3-uuid');
+    const linkedPage1 = assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage2-uuid'), 'error');
+    const linkedPage3 = assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage8-uuid'), 'error');
+    const linkedPage4 = assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage3-uuid'), 'error');
     const summary: PracticeQuestionsSummary = {
       countsPerSource: {
-        [stripIdVersion(page1.id)]: 2,
-        [stripIdVersion(page3.id)]: 3,
-        [stripIdVersion(page4.id)]: 1,
+        [stripIdVersion(linkedPage1.id)]: 2,
+        [stripIdVersion(linkedPage3.id)]: 3,
+        [stripIdVersion(linkedPage4.id)]: 1,
       },
     };
     const locationFilters = getPracticeQuestionsLocationFilters(summary, book);
 
-    expect(getNextPageWithPracticeQuestions(page1.id, locationFilters, book)).toEqual(linkedPage3);
-    expect(getNextPageWithPracticeQuestions(page3.id, locationFilters, book)).toEqual(linkedPage4);
-    expect(getNextPageWithPracticeQuestions(page4.id, locationFilters, book)).toEqual(undefined);
+    expect(getNextPageWithPracticeQuestions(linkedPage1.id, locationFilters, book)).toEqual(linkedPage3);
+    expect(getNextPageWithPracticeQuestions(linkedPage3.id, locationFilters, book)).toEqual(linkedPage4);
+    expect(getNextPageWithPracticeQuestions(linkedPage4.id, locationFilters, book)).toEqual(undefined);
   });
 });
