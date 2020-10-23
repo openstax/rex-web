@@ -60,6 +60,7 @@ async function render() {
   };
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
+
   for (const {loader, book} of books) {
     const bookPages = await prepareBookPages(loader, book);
 
