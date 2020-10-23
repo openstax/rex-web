@@ -19,6 +19,7 @@ export const popupPadding = 3.2;
 export const popupBodyPadding = 2.4;
 export const headerHeight = 7.2;
 export const topBottomMargin = headerHeight + popupBodyPadding;
+export const popupHeaderZIndex = 5;
 
 const swapColors = ({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => {
   const color = theme.color.primary[colorSchema];
@@ -56,6 +57,7 @@ export const Header = styled(H3)`
   align-items: center;
   height: ${headerHeight}rem;
   overflow: hidden;
+  z-index: ${popupHeaderZIndex};
   ${theme.breakpoints.mobile(css`
     padding: ${mobilePaddingSides}rem;
   `)}
@@ -66,6 +68,7 @@ export const PopupBody = styled.div`
   -webkit-overflow-scrolling: touch;
   height: calc(100% - ${headerHeight}rem);
   background: ${theme.color.neutral.base};
+  z-index: ${popupHeaderZIndex - 1};
   ${theme.breakpoints.mobile(css`
     text-align: center;
     padding: 8rem 3.2rem;
