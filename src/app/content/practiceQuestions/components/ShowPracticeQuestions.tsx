@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import theme from '../../../theme';
 import { PopupBody } from '../../styles/PopupStyles';
-import ProgressBar from './ProgressBar';
 
 // tslint:disable-next-line:variable-name
 export const ShowPracticeQuestionsBody = styled(PopupBody)`
@@ -20,7 +19,6 @@ const ShowPracticeQuestions = () => {
       data-testid='show-practice-questions-body'
       data-analytics-region='PQ popup'
     >
-      <ProgressBar total={15} activeIndex={2} />
     </ShowPracticeQuestionsBody>
   );
 };

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProgressBar displays properly 1`] = `
+<div
+  className="ProgressBar__ProgressBarWrapper-sc-12ssvtu-0 hVMttS"
+>
+  <span
+    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 jJQGud"
+  >
+    <span
+      className="ProgressBarItem__StyledItem-sc-1d02vnm-1 bipRWq"
+    >
+      1
+    </span>
+  </span>
+  <span
+    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 kSrrBy"
+  >
+    <span
+      className="ProgressBarItem__StyledItem-sc-1d02vnm-1 cDzQrA"
+    >
+      2
+    </span>
+  </span>
+  <span
+    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 kSrrBy"
+  >
+    <span
+      className="ProgressBarItem__StyledItem-sc-1d02vnm-1 eTJmgx"
+    >
+      3
+    </span>
+  </span>
+</div>
+`;

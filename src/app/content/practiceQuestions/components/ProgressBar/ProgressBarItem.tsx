@@ -1,6 +1,35 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import theme from '../../../../theme';
+
+// tslint:disable-next-line: variable-name
+const StyledItemWrapper = styled.span`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  &:after {
+    content: "";
+    display: block;
+    height: 0.1rem;
+    width: 5.6rem;
+    background-color: ${theme.color.primary.gray.base};
+    ${(props: { isLight: boolean }) => {
+      if (props.isLight) {
+        return 'background-color: #F1F1F1;';
+      }
+    }}
+  }
+  &:last-child {
+    &:after {
+      content: none;
+    }
+  }
+  ${theme.breakpoints.mobile(css`
+    &:after {
+      width: 3.3rem;
+    }
+  `)}
+`;
 
 // tslint:disable-next-line: variable-name
 const StyledItem = styled.span`
@@ -39,9 +68,11 @@ interface ProgressBarItemProps {
 
 // tslint:disable-next-line: variable-name
 const ProgressBarItem = ({ value, isActive, isDisabled }: ProgressBarItemProps) => (
-  <StyledItem isActive={isActive} isDisabled={isDisabled}>
-    {value}
-  </StyledItem>
+  <StyledItemWrapper isLight={isDisabled || isActive}>
+    <StyledItem isActive={isActive} isDisabled={isDisabled}>
+      {value}
+    </StyledItem>
+  </StyledItemWrapper>
 );
 
 export default ProgressBarItem;
