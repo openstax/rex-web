@@ -7,7 +7,7 @@ import { modalQueryParameterName } from '../../constants';
 import { getContentParams } from '../../utils/urlUtils';
 import { closeStudyGuides } from '../actions';
 
-export const hookBody: ActionHookBody<typeof closeStudyGuides> = (services) => async() => {
+export const hookBody: ActionHookBody<typeof closeStudyGuides> = (services) => () => {
   const state = services.getState();
   const existingQuery = query(state);
 

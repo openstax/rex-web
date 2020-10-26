@@ -9,7 +9,7 @@ import { closeMyHighlights } from '../actions';
 
 export const hookBody: ActionHookBody<typeof closeMyHighlights> = ({
   dispatch, getState,
-}) => async() => {
+}) => () => {
   const state = getState();
   const existingQuery = query(state);
 

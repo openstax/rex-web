@@ -117,10 +117,7 @@ export const findPathForParams = (params: object, paths: string[]) => {
   });
 };
 
-export const getParamFromQuery = (param: string, query: string | OutputParams) => typeof query === 'string'
-  ? queryString.parse(query)[param]
-  : query[param];
-
+export const getParamFromQuery = (param: string, query: string) => queryString.parse(query)[param];
 export const removeParamFromQuery = (param: string, query: string | OutputParams) => {
   const parsed = omit(
     [param],
