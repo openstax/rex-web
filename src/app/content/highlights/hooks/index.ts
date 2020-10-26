@@ -1,6 +1,7 @@
 import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { actionHook } from '../../../utils';
+import { closeMyHighlightsHook } from './closeMyHighlights';
 import createHighlight from './createHighlight';
 import { initializeMyHighlightsSummaryHook } from './initializeMyHighlightsSummary';
 import { loadMoreHook, setSummaryFiltersHook } from './loadMore';
@@ -21,6 +22,7 @@ export default [
   initializeMyHighlightsSummaryHook,
   setSummaryFiltersHook,
   openMyHighlightsHook,
+  closeMyHighlightsHook,
   printHighlightsHook,
   loadMoreHook,
   actionHook(receiveUser, loadHighlights),

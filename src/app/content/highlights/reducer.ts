@@ -45,7 +45,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       if (action.payload.action === 'REPLACE') { return state; }
 
       const summaryShouldBeOpen =
-        getParamFromQuery(action.payload.location.search, modalQueryParameterName) === modalUrlName
+        getParamFromQuery(modalQueryParameterName, action.payload.location.search) === modalUrlName
         && action.payload.action === 'PUSH';
 
       const currentPageId = state.currentPage.pageId;

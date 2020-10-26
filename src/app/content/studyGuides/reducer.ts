@@ -30,7 +30,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
       const summaryShouldBeOpen =
-        getParamFromQuery(action.payload.location.search, modalQueryParameterName) === modalUrlName
+        getParamFromQuery(modalQueryParameterName, action.payload.location.search) === modalUrlName
         && action.payload.action === 'PUSH';
 
       return {...state, summary: {...state.summary, open: summaryShouldBeOpen}};

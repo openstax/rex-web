@@ -21,7 +21,7 @@ export const hookBody: ActionHookBody<typeof openMyHighlights> = ({
     && select.summaryIsLoading(state) === false;
 
   dispatch(push(getContentParams(state), {
-    search: getQueryForParam(modalQueryParameterName, modalUrlName, existingQuery)
+    search: getQueryForParam(modalQueryParameterName, modalUrlName, existingQuery),
   }));
 
   if (authenticated && summaryNeedsInitialization()) {
