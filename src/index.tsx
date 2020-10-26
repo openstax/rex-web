@@ -94,9 +94,11 @@ startMathJax();
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()
   .then((registration) => {
+    console.log('register')
     app.services.serviceWorker = registration;
 
     if (registration && (registration.waiting || registration.installing)) {
+      console.log('register', registration.waiting, registration.installing)
       app.store.dispatch(updateAvailable());
     }
   })
