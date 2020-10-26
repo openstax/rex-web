@@ -1,6 +1,6 @@
 import createPracticeQuestionsLoader from './createPracticeQuestionsLoader';
 
-import mockData from '../test/fixtures/practice/cce64fde-f448-43b8-ae88-27705cceb0da.json';
+import mockData from '../../data/practice/summary/cce64fde-f448-43b8-ae88-27705cceb0da.json';
 
 describe('createPracticeQuestionsLoader', () => {
   it('returns json if it exists', async() => {
