@@ -19,7 +19,7 @@ const services = () => ({
   highlightClient: createHighlightClient('asdf'),
   history: createMemoryHistory(),
   osWebLoader: mockOsWebLoader(),
-  practiceQuestionsLoader: createPracticeQuestionsLoader('asdf'),
+  practiceQuestionsLoader: createPracticeQuestionsLoader(),
   promiseCollector: new PromiseCollector(),
   searchClient: new SearchApi(),
   userLoader: mockUserLoader(),

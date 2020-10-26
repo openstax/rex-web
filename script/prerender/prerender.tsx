@@ -8,7 +8,6 @@ import {
   REACT_APP_ARCHIVE_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
-  REACT_APP_PRACTICE_QUESTIONS_URL,
   REACT_APP_SEARCH_URL,
   RELEASE_ID
 } from '../../src/config';
@@ -46,8 +45,7 @@ async function render() {
   const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
   const searchClient = createSearchClient(`http://localhost:${port}${REACT_APP_SEARCH_URL}`);
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
-  const practiceQuestionsLoader = createPracticeQuestionsLoader(
-    `http://localhost:${port}${REACT_APP_PRACTICE_QUESTIONS_URL}`);
+  const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const {server} = await startServer({port, onlyProxy: true});
   const renderHelpers = {
     archiveLoader,

@@ -8,7 +8,6 @@ interface Config {
   REACT_APP_OS_WEB_API_URL: string;
   REACT_APP_SEARCH_URL: string;
   REACT_APP_HIGHLIGHTS_URL: string;
-  REACT_APP_PRACTICE_QUESTIONS_URL: string;
   DEPLOYED_ENV: string;
   CODE_VERSION: string;
   RELEASE_ID: string;
