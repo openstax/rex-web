@@ -15,8 +15,7 @@ const loadSummary = async(services: MiddlewareAPI & AppServices): Promise<Practi
   if (!isEnabled || !book || hasCurrentPQ) { return; }
 
   try {
-    const summary = await services.practiceQuestionsLoader.getPracticeQuestionsBookSummary(book.id);
-    return summary;
+    return await services.practiceQuestionsLoader.getPracticeQuestionsBookSummary(book.id);
   } catch (error) {
     Sentry.captureException(error);
   }
