@@ -59,6 +59,7 @@ const processReleaseId = (store: Store, environment: Environment) => {
     (trustRelease() && releaseId !== RELEASE_ID)
     || (previousObservedReleaseId && previousObservedReleaseId !== releaseId)
   ) {
+    console.log('processReleaseId', processReleaseId, trustRelease(), releaseId, RELEASE_ID, previousObservedReleaseId)
     store.dispatch(updateAvailable());
   }
 

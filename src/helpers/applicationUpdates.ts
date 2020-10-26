@@ -11,9 +11,9 @@ export const serviceWorkerNeedsUpdate = (
     console.log('serviceWorkerNeedsUpdate', 1)
     return false;
   }
-  // if there is already a waiting service worker, don't try to udpate it.
+  // if there is already a waiting or installing service worker, don't try to udpate it.
   // it'll still be activated by activateSwAndReload
-  if (sw.waiting) {
+  if (sw.waiting || sw.installing) {
     console.log('serviceWorkerNeedsUpdate', 2)
     return false;
   }
@@ -33,15 +33,15 @@ export const whenState = (sw: ServiceWorker, state: string, callback: () => void
 
 export const findAndInstallServiceWorkerUpdate = (sw: ServiceWorkerRegistration | undefined, callback: () => void) => {
   console.log('findAndInstallServiceWorkerUpdate')
-  if (!serviceWorkerNeedsUpdate(sw)) {
+  if (sw && sw.installing) {
     console.log('findAndInstallServiceWorkerUpdate', 1)
-    callback();
+    whenState(sw.installing, 'installed', callback);
     return;
   }
 
-  if (sw.installing) {
+  if (!serviceWorkerNeedsUpdate(sw)) {
     console.log('findAndInstallServiceWorkerUpdate', 2)
-    whenState(sw.installing, 'installed', callback);
+    callback();
     return;
   }
 
