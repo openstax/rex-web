@@ -26,7 +26,7 @@ exports[`ProgressBar displays properly 1`] = `
     className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 hnxurH"
   >
     <span
-      className="ProgressBarItem__StyledItem-sc-1d02vnm-1 ProgressBarItem__StyledDisabledItem-sc-1d02vnm-3 izehWs"
+      className="ProgressBarItem__StyledItem-sc-1d02vnm-1 ProgressBarItem__StyledDisabledItem-sc-1d02vnm-3 ldibSe"
     >
       3
     </span>

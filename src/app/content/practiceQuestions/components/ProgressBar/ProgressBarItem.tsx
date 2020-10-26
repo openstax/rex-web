@@ -57,9 +57,9 @@ const StyledActiveItem = styled(StyledItem)`
 
 // tslint:disable-next-line: variable-name
 const StyledDisabledItem = styled(StyledItem)`
-  color: #C1C1C1;
-  background-color: #F1F1F1;
-  border-color: #F1F1F1;
+  color: #c1c1c1;
+  background-color: #f1f1f1;
+  border-color: #f1f1f1;
 `;
 
 interface ProgressBarItemProps {
