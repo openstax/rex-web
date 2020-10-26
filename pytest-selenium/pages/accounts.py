@@ -8,9 +8,7 @@ from pypom import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as expect
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as expected
+from selenium.webdriver.support.ui import Select, WebDriverWait
 
 from utils.restmail import RestMail
 from utils.utility import Utilities
@@ -150,7 +148,7 @@ class Signup(Page):
 
         """
         WebDriverWait(self.driver, 1).until(
-            expected.visibility_of_element_located(self._new_accounts_flow_locator))
+            expect.visibility_of_element_located(self._new_accounts_flow_locator))
         return bool(self.find_elements(*self._new_accounts_flow_locator))
 
     def complete(self):
@@ -292,7 +290,7 @@ class Signup(Page):
         """Click the sign up link."""
 
         WebDriverWait(self.driver, 1).until(
-            expected.visibility_of_element_located(self._signup_link_or_tab_locator))
+            expect.visibility_of_element_located(self._signup_link_or_tab_locator))
         signup_link = self.find_element(*self._signup_link_or_tab_locator)
         Utilities.click_option(self.driver, element=signup_link)
 # fmt: on
