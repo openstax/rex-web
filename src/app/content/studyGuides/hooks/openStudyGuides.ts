@@ -1,5 +1,6 @@
 import { loggedOut } from '../../../auth/selectors';
 import { push } from '../../../navigation/actions';
+import { query } from '../../../navigation/selectors';
 import { getQueryForParam } from '../../../navigation/utils';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
@@ -17,10 +18,13 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const currentFilters = select.summaryLocationFilters(state);
   const defaultFilter = select.defaultLocationFilter(state);
   const notLoggedIn = loggedOut(state);
+  const existingQuery = query(state);
   const book = selectContent.book(state);
   const firstChapter = book && findArchiveTreeNode(archiveTreeSectionIsChapter, book.tree);
 
-  services.dispatch(push(getContentParams(state), {search: getQueryForParam(modalQueryParameterName, modalUrlName)}));
+  services.dispatch(push(getContentParams(state), {
+    search: getQueryForParam(modalQueryParameterName, modalUrlName, existingQuery),
+  }));
 
   if (notLoggedIn && firstChapter && !currentFilters.has(firstChapter.id)) {
     services.dispatch(setDefaultSummaryFilters({ locationIds: [firstChapter.id] }));
