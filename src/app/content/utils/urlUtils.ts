@@ -1,5 +1,9 @@
 import { APP_ENV, BOOKS } from '../../../config';
+import { locationState } from '../../navigation/selectors';
+import { AppState } from '../../types';
+import { assertNotNull } from '../../utils';
 import { content as contentRoute } from '../routes';
+import { bookAndPage, contentParams } from '../selectors';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNodeById, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
@@ -37,6 +41,29 @@ export const getUrlParamsForBook = (
       : {slug: book.slug, version: book.version};
   } else {
     return {uuid: book.id, version: book.version};
+  }
+};
+
+export const getContentParams = (appState: AppState) => {
+  const { book, page } = bookAndPage(appState);
+
+  if (book && page) {
+    const {params, state} = getBookPageUrlAndParams(book, page);
+
+    return {
+      params,
+      route: contentRoute,
+      state,
+    };
+  } else {
+    const params = assertNotNull(contentParams(appState), 'Can\'t get params before processing ');
+    const state = locationState(appState);
+
+    return {
+      params,
+      route: contentRoute,
+      state,
+    };
   }
 };
 
