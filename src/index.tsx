@@ -98,7 +98,7 @@ serviceWorker.register()
 
     console.log('register', registration)
     if (registration && (registration.waiting || registration.installing)) {
-      console.log('register', registration.waiting, registration.installing)
+      console.log('register 2', registration.waiting, registration.installing)
       app.store.dispatch(updateAvailable());
     }
   })
