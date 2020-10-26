@@ -96,10 +96,17 @@ serviceWorker.register()
   .then((registration) => {
     app.services.serviceWorker = registration;
 
-    console.log('register', registration)
+    console.log('register', registration.waiting, registration.installing, registration)
+
     if (registration && (registration.waiting || registration.installing)) {
       console.log('register 2', registration.waiting, registration.installing)
       app.store.dispatch(updateAvailable());
+    } else if (registration) {
+      console.log('register 3')
+      registration.addEventListener('updatefound', () => {
+        console.log('register 4')
+        app.store.dispatch(updateAvailable());
+      });
     }
   })
   .catch((e) => {
