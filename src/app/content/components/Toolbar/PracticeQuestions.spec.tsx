@@ -9,6 +9,7 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import { openPracticeQuestions } from '../../practiceQuestions/actions';
+import * as selectors from '../../practiceQuestions/selectors';
 import PracticeQuestionsButton, { PracticeQuestionsWrapper } from './PracticeQuestionsButton';
 
 describe('practice questions button', () => {
@@ -48,6 +49,7 @@ describe('practice questions button', () => {
 
   it('clicking button opens modal', () => {
     const spyTrack = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
+    jest.spyOn(selectors, 'hasPracticeQuestions').mockReturnValue(true);
 
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 

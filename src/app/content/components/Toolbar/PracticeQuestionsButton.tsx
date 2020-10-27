@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { openPracticeQuestions } from '../../practiceQuestions/actions';
-import { practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
+import { hasPracticeQuestions, practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
 import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
 
 // tslint:disable-next-line:variable-name
@@ -28,8 +28,9 @@ const PracticeQuestionsButton = () => {
   const dispatch = useDispatch();
   const isEnabled = useSelector(practiceQuestionsEnabled);
   const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
+  const hasPracticeQs = useSelector(hasPracticeQuestions);
 
-  if (!isEnabled) { return null; }
+  if (!isEnabled || !hasPracticeQs) { return null; }
 
   const openPracticeQuestionsSummary = () => {
     dispatch(openPracticeQuestions());
