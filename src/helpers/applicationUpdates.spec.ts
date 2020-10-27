@@ -13,9 +13,9 @@ describe('serviceWorkerNeedsUpdate', () => {
     expect(helpers.serviceWorkerNeedsUpdate(sw)).toBe(false);
   });
 
-  it('says yes if there is already one installed', () => {
+  it('says no if there is already one installed', () => {
     const sw = {installing: {}} as ServiceWorkerRegistration;
-    expect(helpers.serviceWorkerNeedsUpdate(sw)).toBe(true);
+    expect(helpers.serviceWorkerNeedsUpdate(sw)).toBe(false);
   });
 
   it('says yes to other cases', () => {
