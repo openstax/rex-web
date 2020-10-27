@@ -3,12 +3,14 @@ import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
 import { AnyAction } from '../../types';
 import { practiceQuestionsFeatureFlag } from '../constants';
+import { receivePracticeQuestionsSummary } from './actions';
 import { closePracticeQuestions, openPracticeQuestions } from './actions';
 import { State } from './types';
 
 export const initialState: State = {
   isEnabled: false,
   open: false,
+  summary: null,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
@@ -19,6 +21,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, open: true};
     case getType(closePracticeQuestions):
       return {...state, open: false};
+    case getType(receivePracticeQuestionsSummary):
+      return {...state, summary: action.payload};
     default:
       return state;
   }
