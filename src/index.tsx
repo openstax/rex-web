@@ -104,10 +104,7 @@ serviceWorker.register()
       // For Chrome and Edge registration.waiting and registration.installing
       // is still null for some time after .register()
       registration.addEventListener('updatefound', () => {
-        if (registration.waiting || registration.installing) {
-          console.log('test')
-          app.store.dispatch(updateAvailable());
-        }
+        app.store.dispatch(updateAvailable());
       });
     }
   })
