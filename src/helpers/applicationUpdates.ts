@@ -28,15 +28,13 @@ export const whenState = (sw: ServiceWorker, state: string, callback: () => void
 };
 
 export const findAndInstallServiceWorkerUpdate = (sw: ServiceWorkerRegistration | undefined, callback: () => void) => {
-  console.log('some console log')
   if (sw && sw.installing) {
     whenState(sw.installing, 'installed', callback);
     return;
   }
 
   if (!serviceWorkerNeedsUpdate(sw)) {
-  console.log('some console log')
-  callback();
+    callback();
     return;
   }
 

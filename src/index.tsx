@@ -99,10 +99,8 @@ serviceWorker.register()
     app.services.serviceWorker = registration;
 
     if (registration && (registration.waiting || registration.installing)) {
-      console.log('some console log')
       app.store.dispatch(updateAvailable());
     } else if (registration) {
-      console.log('some console log')
       // For Chrome and Edge registration.waiting and registration.installing
       // is still null for some time after .register()
       registration.addEventListener('updatefound', () => {
