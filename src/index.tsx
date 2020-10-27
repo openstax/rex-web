@@ -105,6 +105,7 @@ serviceWorker.register()
       // is still null for some time after .register()
       registration.addEventListener('updatefound', () => {
         if (registration.waiting || registration.installing) {
+          console.log('test')
           app.store.dispatch(updateAvailable());
         }
       });
