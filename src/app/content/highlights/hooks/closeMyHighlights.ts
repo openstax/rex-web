@@ -16,7 +16,6 @@ export const hookBody: ActionHookBody<typeof closeMyHighlights> = ({
   dispatch(push(getContentParams(state), {
     search: removeParamFromQuery(modalQueryParameterName, existingQuery),
   }));
-
 };
 
 export const closeMyHighlightsHook = actionHook(closeMyHighlights, hookBody);
