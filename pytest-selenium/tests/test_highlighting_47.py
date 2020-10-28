@@ -612,3 +612,46 @@ def test_keyboard_navigation_for_MH_dropdown_filters(selenium, base_url, book_sl
 
     # AND: Color dropdown is closed
     assert not filterbar.color_dropdown_open
+
+
+@markers.test_case("C593156")
+@markers.parametrize("book_slug,page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+@markers.desktop_only
+def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, page_slug):
+    """Keyboard navigation for the MH filter tags."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # AND: Highlight 1 paragraph
+    paragraphs = random.sample(book.content.paragraphs, 1)
+    book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE, color=Color.YELLOW)
+
+    # AND: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filter_bar
+
+    # WHEN: Hit tab to focus the first filter tag and hit the return key - remove chapter tag
+    (ActionChains(selenium).send_keys(Keys.TAB * 5).send_keys(Keys.RETURN).perform())
+
+    # THEN: No results message is displayed
+    assert (
+        my_highlights.highlights.no_results_message
+        == "No results.Try selecting different chapter or color filters to see different results."
+    ), "message not displayed or incorrect message when both tags are removed"
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: The 'x' button of color filter tag is focussed
+    assert selenium.switch_to.active_element == filterbar.active_filter_tags[0].remove_tag_icon
