@@ -19,6 +19,7 @@ exports[`CardWrapper matches snapshot 1`] = `
         },
         "serialize": [Function],
         "setStyle": [MockFunction],
+        "sourceId": "testbook1-testpage1-uuid",
       }
     }
     onHeightChange={[Function]}
