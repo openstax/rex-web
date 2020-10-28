@@ -1,0 +1,250 @@
+[
+  {
+    "uuid": "0e1d41f5-f972-4e3c-b054-358edb8a6562",
+    "stem_html": "If you and a friend are standing side-by-side watching a soccer game, would you both view the motion from the same reference frame?",
+    "id": 91802,
+    "answers": [
+      {
+        "id": 374182,
+        "content_html": "Yes, we would both view the motion from the same reference point because both of us are at rest in Earth’s frame of reference.",
+        "correctness": "0.0",
+        "feedback_html": "Even though both are at rest in Earth’s frame of reference, the point from where the motion of the soccer game is observed, is different. For example, if the ball is right in front of one person, then for the other person, the ball will be seen at an angle."
+      },
+      {
+        "id": 374183,
+        "content_html": "Yes, we would both view the motion from the same reference point because both of us are observing the motion from two points on the same straight line.",
+        "correctness": "0.0",
+        "feedback_html": "The reference frames are similar but not same. The two reference frames are located at two different points, hence the motion described by each frame will be slightly different."
+      },
+      {
+        "id": 374185,
+        "content_html": "No, we would both view the motion from different reference points because motion is viewed from two different points; the reference frames are similar but not the same.",
+        "correctness": "1.0",
+        "feedback_html": "The motions observed are different since the reference frames are located at two different points."
+      },
+      {
+        "id": 374184,
+        "content_html": "No, we would both view the motion from different reference points because response times may be different; so, the motion observed by both of us would be different.",
+        "correctness": "0.0",
+        "feedback_html": "The response times may be different, but they have nothing to do with thereference frames."
+      }
+    ]
+  },
+  {
+    "uuid": "b7beb305-d8af-49eb-a4b1-40f2f959138e",
+    "stem_html": "What is the difference between distance and displacement?",
+    "id": 91803,
+    "answers": [
+      {
+        "id": 374186,
+        "content_html": "Distance has both magnitude and direction, while displacement has magnitude but no direction.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the definition of distances and displacements. Think again which one has direction and magnitude both."
+      },
+      {
+        "id": 374189,
+        "content_html": "Distance has magnitude but no direction, while displacement has both magnitude and direction.",
+        "correctness": "1.0",
+        "feedback_html": "Distance is a physical quantity that has magnitude only and no direction, while displacement is a physical quantity that has magnitude as well as direction."
+      },
+      {
+        "id": 374187,
+        "content_html": "Distance has magnitude but no direction, while displacement has only direction.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that distances have magnitude only and no direction, but displacement does not only have direction."
+      },
+      {
+        "id": 374188,
+        "content_html": "There is no difference. Both distance and displacement have magnitude and direction.",
+        "correctness": "0.0",
+        "feedback_html": "Distance and displacement are not the same. Recall their definition."
+      }
+    ]
+  },
+  {
+    "uuid": "34f61ebf-46e5-4d43-bda3-b679d1c43327",
+    "stem_html": "Which situation correctly identifies a race car’s distance traveled and the magnitude of displacement during a one-lap car race?",
+    "id": 101021,
+    "answers": [
+      {
+        "id": 410247,
+        "content_html": "The perimeter of the race track is the distance, and the shortest distance between the start line and the finish line is the magnitude of displacement.",
+        "correctness": "1.0",
+        "feedback_html": "Distance is total length of the path, and magnitude of displacement is shortest distance between start and finish lines."
+      },
+      {
+        "id": 410248,
+        "content_html": "The perimeter of the race track is the magnitude of displacement, and the shortest distance between the start and finish line is the distance.",
+        "correctness": "0.0",
+        "feedback_html": "Perimeter of the tract is the total path length and hence it is the distance covered by a race car in one lap."
+      },
+      {
+        "id": 410249,
+        "content_html": "The perimeter of the race track is both the distance and magnitude of displacement.",
+        "correctness": "0.0",
+        "feedback_html": "Magnitude of displacement and distance are not the same physical quantity."
+      },
+      {
+        "id": 410250,
+        "content_html": "The shortest distance between the start line and the finish line is both the distance and magnitude of displacement.",
+        "correctness": "0.0",
+        "feedback_html": "The shortest distance between the start and the finish line is the magnitude of the magnitude of displacement."
+      }
+    ]
+  },
+  {
+    "uuid": "3fefe0c4-90de-4665-a7a0-f5d248b3f78e",
+    "stem_html": "Can one-dimensional motion have zero distance but a nonzero displacement? What about zero displacement but a nonzero distance?",
+    "id": 91805,
+    "answers": [
+      {
+        "id": 374196,
+        "content_html": "One-dimensional motion can have zero distance with a nonzero displacement. Displacement has both magnitude and direction, and it can also have zero displacement with nonzero distance because distance has only magnitude.",
+        "correctness": "0.0",
+        "feedback_html": "Zero distance with nonzero displacement is never possible. Any motion of the object will be a distance the object moves. Zero displacement is possible with nonzero distance as displacement is a vector quantity."
+      },
+      {
+        "id": 374195,
+        "content_html": "One-dimensional motion can have zero distance with a nonzero displacement. Displacement has both magnitude and direction, but it cannot have zero displacement with nonzero distance because distance has only magnitude.",
+        "correctness": "0.0",
+        "feedback_html": "Any motion of the object will contribute a nonzero distance. So if an object moves, there will be a nonzero distance covered and any other movement in any direction will get added to this distance. There can be zero displacement with nonzero distance because motion in the opposite direction gets subtracted from the initial displacement."
+      },
+      {
+        "id": 374197,
+        "content_html": "One-dimensional motion cannot have zero distance with a nonzero displacement. Displacement has both magnitude and direction, but it can have zero displacement with nonzero distance because distance has only magnitude and any motion will be the distance it moves.",
+        "correctness": "1.0",
+        "feedback_html": "Distance covered will go on increasing with each movement irrespective of the direction in which the object moves, as distance has only magnitude and no direction. Displacement, on the other hand, can decrease if the motion takes place in the opposite direction,because displacement has both magnitude and direction associated with it."
+      },
+      {
+        "id": 374194,
+        "content_html": "One-dimensional motion cannot have zero distance with a nonzero displacement. Displacement has both magnitude and direction, and it cannot have zero displacement with nonzero distance because distance has only magnitude.",
+        "correctness": "0.0",
+        "feedback_html": "You are partially correct! There can be zero displacement with nonzero distance. If you think about one complete revolution of Earth around the Sun, there is nonzero distance and a zero displacement covered."
+      }
+    ]
+  },
+  {
+    "uuid": "ad4455b9-689d-4fdb-aad6-b330ad736285",
+    "stem_html": "Boat A and Boat B are traveling at a constant speed in opposite directions when they pass each other. If a person in each boat describes motion based on the boat’s own reference frame, will the description by a person in Boat A of Boat B’s motion be the same as the description by a person in Boat B of Boat A’s motion?",
+    "id": 91806,
+    "answers": [
+      {
+        "id": 374198,
+        "content_html": "Yes, both persons will describe the same motion because motion is independent of the frame of reference.",
+        "correctness": "0.0",
+        "feedback_html": "Yes, the motion described will be the same but the reason specified is wrong. Motion depends on the frame of reference, as motion is a relative quantity."
+      },
+      {
+        "id": 374201,
+        "content_html": "Yes, both persons will describe the same motion because they will perceive the other as moving in the backward direction.",
+        "correctness": "1.0",
+        "feedback_html": "Motion depends on the frame of reference from which it is observed. The person in Boat A and the person in Boat B will see a boat moving past them in the opposite direction."
+      },
+      {
+        "id": 374199,
+        "content_html": "No, the motion described by each of them will be different because motion is a relative term.",
+        "correctness": "0.0",
+        "feedback_html": "Motion is a relative term but here both of them (person in Boat A and person in Boat B) observes the same thing, which is a boat moving past them in the opposite direction."
+      },
+      {
+        "id": 374200,
+        "content_html": "No, the motion described by each of them will be different because the motion perceived by each will be opposite to each other.",
+        "correctness": "0.0",
+        "feedback_html": "The description provided by each person is the same. They both see a boat traveling past them."
+      }
+    ]
+  },
+  {
+    "uuid": "cead242a-f7b0-47b0-b860-91b1f2781b09",
+    "stem_html": "Why should you specify a reference frame when describing motion?",
+    "id": 91807,
+    "answers": [
+      {
+        "id": 374205,
+        "content_html": "a description of motion depends on the reference frame",
+        "correctness": "1.0",
+        "feedback_html": "The reference frame is the coordinate system from which the position of the moving object is described."
+      },
+      {
+        "id": 374202,
+        "content_html": "motion appears the same in all reference frames",
+        "correctness": "0.0",
+        "feedback_html": "Remember, motion appears different, not the same, in all reference frames."
+      },
+      {
+        "id": 374203,
+        "content_html": "reference frames affect the motion of an object",
+        "correctness": "0.0",
+        "feedback_html": "Reference frames do not have any effect on the physics of an object."
+      },
+      {
+        "id": 374204,
+        "content_html": "you can see motion better from certain reference frames",
+        "correctness": "0.0",
+        "feedback_html": "A certain reference frame does make motion appear simpler, but that is not the sole reason to specify a reference frame."
+      }
+    ]
+  },
+  {
+    "uuid": "11a34741-ab98-47b7-926a-579d7178a1a6",
+    "stem_html": "If a biker rides west for 50 miles from his starting position, then turns and bikes back east 80 miles. What is his net displacement?",
+    "id": 50026,
+    "answers": [
+      {
+        "id": 208777,
+        "content_html": "130 miles",
+        "correctness": "0.0",
+        "feedback_html": "When calculating displacement, do not forget to consider the direction of motion."
+      },
+      {
+        "id": 208778,
+        "content_html": "30 miles east",
+        "correctness": "1.0",
+        "feedback_html": "The net movement of the biker will be towards the east."
+      },
+      {
+        "id": 208776,
+        "content_html": "30 miles west",
+        "correctness": "0.0",
+        "feedback_html": "The magnitude towards the east is greater than the magnitude towards the west. So the net displacement will be towards the east."
+      },
+      {
+        "id": 208775,
+        "content_html": "Cannot be determined from the information given",
+        "correctness": "0.0",
+        "feedback_html": "Displacement can be easily calculated from the given data as both magnitude and direction are provided in the question."
+      }
+    ]
+  },
+  {
+    "uuid": "cf7d9fed-ab6a-4950-9f99-6e0f3b1706d4",
+    "stem_html": "Maud sends her bowling ball straight down the center of the lane, getting a strike. The ball is brought back to the holder mechanically. What are the ball’s net displacement and distance traveled?",
+    "id": 50028,
+    "answers": [
+      {
+        "id": 208785,
+        "content_html": "Displacement of the ball is twice the length of the lane, while the distance is zero.",
+        "correctness": "0.0",
+        "feedback_html": "After covering the path back and forth, the ball cannot have covered zero distance. Recall that displacement is the shortest distance between initial and final point."
+      },
+      {
+        "id": 208786,
+        "content_html": "Displacement of the ball is zero, while the distance is twice the length of the lane.",
+        "correctness": "1.0",
+        "feedback_html": "Displacement is the shortest distance between the initial and final positions, and distance is the total path covered by the ball during its back-and-forth motion."
+      },
+      {
+        "id": 208784,
+        "content_html": "Both the displacement and distance for the ball are equal to zero.",
+        "correctness": "0.0",
+        "feedback_html": "The ball traveled a back-and-forth path in its motion. So the distance can never be zero."
+      },
+      {
+        "id": 208783,
+        "content_html": "Both the displacement and distance for the ball are twice the length of the lane.",
+        "correctness": "0.0",
+        "feedback_html": "The ball reached its initial position after covering a certain path. Rethink about its displacement."
+      }
+    ]
+  }
+]
