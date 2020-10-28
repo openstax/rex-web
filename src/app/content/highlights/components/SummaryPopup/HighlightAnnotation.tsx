@@ -50,6 +50,10 @@ const HighlightAnnotation = (
 ) => {
   const [anno, setAnno] = React.useState(annotation);
 
+  React.useEffect(() => {
+    setAnno(annotation);
+  }, [annotation]);
+
   if (anno.length === 0 && !isEditing) { return null; }
 
   return <HighlightNote>

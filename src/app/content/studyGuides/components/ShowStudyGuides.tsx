@@ -12,6 +12,7 @@ import * as select from '../selectors';
 import Filters from './Filters';
 import StudyGuides from './StudyGuides';
 import StudyGuidesCTA from './StudyGuidesCTA';
+import StudyGuidesToasts from './StudyGuidesToasts';
 
 // tslint:disable-next-line:variable-name
 export const StudyGuidesBody = styled(PopupBody)`
@@ -76,6 +77,7 @@ const ShowStudyGuides = () => {
       data-testid='show-studyguides-body'
       data-analytics-region='SG popup'
     >
+      <StudyGuidesToasts />
       <StudyGuidesCTA />
       <Filters />
       <StudyGuides />

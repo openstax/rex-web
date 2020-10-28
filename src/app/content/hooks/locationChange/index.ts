@@ -3,6 +3,7 @@ import { locationChange } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { loadHighlights } from '../../highlights/hooks';
+import { loadPracticeQuestions } from '../../practiceQuestions/hooks';
 import { content } from '../../routes';
 import { syncSearch } from '../../search/hooks';
 import { loadStudyGuides } from '../../studyGuides/hooks';
@@ -19,8 +20,9 @@ const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
   const search = syncSearch(services)(action);
   const highlights = loadHighlights(services)(locationChange(action));
   const studyGuides = loadStudyGuides(services)();
+  const practiceQuestions = loadPracticeQuestions(services)();
 
-  await Promise.all([search, highlights, studyGuides]);
+  await Promise.all([search, highlights, studyGuides, practiceQuestions]);
 };
 
 export default hookBody;
