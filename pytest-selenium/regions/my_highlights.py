@@ -127,7 +127,7 @@ class Highlight(Region):
 
     _highlight_color_locator = (By.XPATH, "./../..//div[@color]")
     _highlight_note_content_locator = (
-        By.CSS_SELECTOR, ".summary-highlight-content ~ div")
+        By.CSS_SELECTOR, ".content-excerpt ~ div")
 
     @property
     def color(self) -> Color:

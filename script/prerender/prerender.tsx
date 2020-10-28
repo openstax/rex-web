@@ -14,6 +14,7 @@ import {
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
+import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
 import { startServer } from '../server';
@@ -44,8 +45,16 @@ async function render() {
   const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
   const searchClient = createSearchClient(`http://localhost:${port}${REACT_APP_SEARCH_URL}`);
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
+  const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const {server} = await startServer({port, onlyProxy: true});
-  const renderHelpers = {archiveLoader, osWebLoader, userLoader, searchClient, highlightClient};
+  const renderHelpers = {
+    archiveLoader,
+    highlightClient,
+    osWebLoader,
+    practiceQuestionsLoader,
+    searchClient,
+    userLoader,
+  };
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
 
