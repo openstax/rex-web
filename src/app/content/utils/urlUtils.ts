@@ -100,3 +100,9 @@ export const toRelativeUrl = (from: string, to: string) => {
   return '../'.repeat(Math.max(0, parsedFrom.length - commonParts.length - 1))
     + parsedTo.slice(commonParts.length).join('/');
 };
+
+export const fromRelativeUrl = (base: string, to: string) => {
+  // this hostname is required by the URL constructor but we ignore it in our response, the value is irrelevant
+  const urlBase = new URL(to, `https://openstax.org${base}`);
+  return urlBase.pathname + urlBase.search + urlBase.hash;
+};
