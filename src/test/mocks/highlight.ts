@@ -17,5 +17,6 @@ export default (id: string = Math.random().toString(36).substring(7)) => {
       getApiPayload: () => ({id} as ReturnType<SerializedHighlight['getApiPayload']>),
     }),
     setStyle: jest.fn(),
+    sourceId: 'testbook1-testpage1-uuid',
   };
 };

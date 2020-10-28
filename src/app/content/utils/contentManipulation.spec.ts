@@ -1,5 +1,4 @@
-import addTargetBlankToLinks from './addTargetBlankToLinks';
-
+import { addTargetBlankToLinks, fixRelativeURLs } from '../utils/contentManipulation';
 describe('addTargetBlankToLinks', () => {
   it('adds target _blank to all <a> tags' , () => {
     const input = '<div class="test">'
@@ -45,5 +44,16 @@ describe('addTargetBlankToLinks', () => {
     const input = '123 asdas d';
 
     expect(addTargetBlankToLinks(input)).toEqual(input);
+  });
+});
+
+describe('fixRelativeUrl', () => {
+  it('does not modify ansolute paths' , () => {
+    const input = '<div class="test">'
+      + '<a href="http://some/link" target="_blank">First link</a>'
+      + '<a href="/some/link" target="_blank">Second link</a>'
+      + '</div>';
+
+    expect(fixRelativeURLs(input)).toEqual(input);
   });
 });
