@@ -398,7 +398,7 @@ class MyHighlights(Region):
             """
             filter_menu_root = self.find_element(
                 *self._color_dropdown_locator)
-            return self.ChapterFilters(self, filter_menu_root)
+            return self.ColorFilters(self, filter_menu_root)
 
         @property
         def color_dropdown_open(self) -> bool:
