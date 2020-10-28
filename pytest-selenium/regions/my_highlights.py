@@ -413,10 +413,13 @@ class MyHighlights(Region):
             except NoSuchElementException:
                 return False
 
+        @property
         def print(self):
+            return self.find_element(*self._print_locator)
+
+        def click_print(self):
             """Click the Print button."""
-            button = self.find_element(*self._print_locator)
-            Utilities.click_option(self.driver, element=button)
+            Utilities.click_option(self.driver, element=self.print)
 
         def toggle_chapter_dropdown_menu(self):
             """Click the Chapter filter menu toggle."""
