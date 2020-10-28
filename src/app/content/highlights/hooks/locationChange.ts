@@ -4,6 +4,7 @@ import Sentry from '../../../../helpers/Sentry';
 import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
 import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
@@ -43,7 +44,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
     Sentry.captureException(error);
 
     if (action && action.type !== getType(receivePageFocus)) {
-      dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:load-failure', shouldAutoDismiss: false}));
+      dispatch(addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false}));
     }
     return;
   }

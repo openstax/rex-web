@@ -11,6 +11,7 @@ import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
+import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoader';
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import { registerGlobalAnalytics } from './helpers/analytics';
@@ -45,6 +46,7 @@ const app = createApp({
     archiveLoader: createArchiveLoader(archiveUrl),
     highlightClient: createHighlightClient(highlightsUrl),
     osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),
+    practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
     searchClient: createSearchClient(searchUrl),
     userLoader: createUserLoader(accountsUrl),
@@ -96,8 +98,14 @@ serviceWorker.register()
   .then((registration) => {
     app.services.serviceWorker = registration;
 
-    if (registration && registration.waiting && registration.waiting.state === 'installed') {
+    if (registration && (registration.waiting || registration.installing)) {
       app.store.dispatch(updateAvailable());
+    } else if (registration) {
+      // For Chrome and Edge registration.waiting and registration.installing
+      // is still null for some time after .register()
+      registration.addEventListener('updatefound', () => {
+        app.store.dispatch(updateAvailable());
+      });
     }
   })
   .catch((e) => {

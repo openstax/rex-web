@@ -21,6 +21,7 @@ import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
 import { locationChange, push } from '../../navigation/actions';
 import { addToast } from '../../notifications/actions';
+import { toastMessageKeys } from '../../notifications/components/ToastNotifications/constants';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
@@ -1026,7 +1027,9 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    expect(dispatch).toHaveBeenCalledWith(addToast({messageKey: 'i18n:notification:toast:search:highlight-not-found'}));
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'})
+    );
     dispatch.mockClear();
 
     renderer.act(() => {
@@ -1039,7 +1042,9 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
-    expect(dispatch).toHaveBeenCalledWith(addToast({messageKey: 'i18n:notification:toast:search:highlight-not-found'}));
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'})
+    );
 
     highlightResults.mockRestore();
     dateMock.mockRestore();
@@ -1068,7 +1073,7 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(dispatch).toHaveBeenCalledWith(
-      addToast({messageKey: 'i18n:notification:toast:highlights:highlight-not-found'}));
+      addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
     dispatch.mockClear();
 
     const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
@@ -1086,7 +1091,7 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(dispatch).not.toHaveBeenCalledWith(
-      addToast({messageKey: 'i18n:notification:toast:highlights:highlight-not-found'}));
+      addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
 
     dateMock.mockRestore();
   });
