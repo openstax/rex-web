@@ -1,0 +1,343 @@
+[
+  {
+    "uuid": "c6cb2f26-a8b4-4f3c-a1e6-16bf4138e6b1",
+    "stem_html": "Identify some advantages of metric units.",
+    "id": 49918,
+    "answers": [
+      {
+        "id": 208350,
+        "content_html": "Conversion between units is easier in metric units.",
+        "correctness": "1.0",
+        "feedback_html": "Since all units are based on factors of 10, the conversion becomes easier in metric units."
+      },
+      {
+        "id": 208349,
+        "content_html": "Comparison of physical quantities is easy in metric units.",
+        "correctness": "0.0",
+        "feedback_html": "Comparison of physical quantities is easier because the conversion of units is easier in metric units."
+      },
+      {
+        "id": 208348,
+        "content_html": "Metric units are more modern than English units.",
+        "correctness": "0.0",
+        "feedback_html": "That in itself would not be any advantage."
+      },
+      {
+        "id": 208347,
+        "content_html": "Metric units are based on powers of 2.",
+        "correctness": "0.0",
+        "feedback_html": "Metric units are based on powers of 10. Different units are related to each other by different powers of 10."
+      }
+    ]
+  },
+  {
+    "uuid": "0e6956ea-2120-47a6-b0a1-55c812450e3c",
+    "stem_html": "The length of an American football field is <span data-math=\"100\\,\\text{yd}\">100\\,\\text{yd}</span>, excluding the end zones. How long is the field in meters? Round to the nearest <span data-math=\"0.1\\,\\text{m}\">0.1\\,\\text{m}</span>.",
+    "id": 49919,
+    "answers": [
+      {
+        "id": 208353,
+        "content_html": "<span data-math=\"10.2\\,\\text{m}\">10.2\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "A yard is a bigger unit than a foot. One yard is equal to three feet."
+      },
+      {
+        "id": 208354,
+        "content_html": "<span data-math=\"91.4\\,\\text{m}\">91.4\\,\\text{m}</span>",
+        "correctness": "1.0",
+        "feedback_html": "<span data-math=\"1\">1</span> yard is made up of <span data-math=\"3\">3</span> feet and <span data-math=\"3.281\">3.281</span> feet makes <span data-math=\"1\">1</span> meter. Convert yards to feet and then make the conversion of length to meters."
+      },
+      {
+        "id": 208352,
+        "content_html": "<span data-math=\"109.4\\,\\text{m}\">109.4\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Remember that a yard is a larger unit than feet and meters are larger than yards."
+      },
+      {
+        "id": 208351,
+        "content_html": "<span data-math=\"328.1\\,\\text{m}\">328.1\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Use the relation between yards and feet to convert the length into feet and then use feet-meter relation to obtain the length in meters."
+      }
+    ]
+  },
+  {
+    "uuid": "55a41c72-0700-420e-a48b-876acdbd6597",
+    "stem_html": "Which of the following does not contribute to the uncertainty?",
+    "id": 58113,
+    "answers": [
+      {
+        "id": 240100,
+        "content_html": "the limitations of the measuring device",
+        "correctness": "0.0",
+        "feedback_html": "The limited accuracy of the device could be a source of uncertainty."
+      },
+      {
+        "id": 240101,
+        "content_html": "the skill of the person making the measurement",
+        "correctness": "0.0",
+        "feedback_html": "The skill of the person, or lack of adequate skill, could affect the uncertainty in measurement."
+      },
+      {
+        "id": 240103,
+        "content_html": "the regularities in the object being measured",
+        "correctness": "1.0",
+        "feedback_html": "Regularities in what is being measured would reduce, not increase, uncertainty."
+      },
+      {
+        "id": 240102,
+        "content_html": "other factors that affect the outcome (depending on the situation)",
+        "correctness": "0.0",
+        "feedback_html": "Other factors not listed could contribute to the uncertainly."
+      }
+    ]
+  },
+  {
+    "uuid": "3cb35423-826a-4fdf-bdbc-663b1838e81b",
+    "stem_html": "<p>What could you conclude about these two lines?</p>\n\n<ol>\n  <li>Line A has a slope of <span data-math=\"{-4.7}\">{-4.7}</span>\n</li>\n  <li>Line B has a slope of <span data-math=\"12.0\">12.0</span>\n</li>\n</ol>\n",
+    "id": 91781,
+    "answers": [
+      {
+        "id": 374102,
+        "content_html": "Line A is a decreasing line while line B is an increasing line, with line A being much steeper than line B.",
+        "correctness": "0.0",
+        "feedback_html": "Line A is decreasing and line B is increasing, but are you sure about the rates of change?"
+      },
+      {
+        "id": 374103,
+        "content_html": "Line A is a decreasing line while line B is an increasing line, with line B being much steeper than line A.",
+        "correctness": "1.0",
+        "feedback_html": "The line A decreases at a much faster rate than line B increases."
+      },
+      {
+        "id": 374101,
+        "content_html": "Line B is a decreasing line while line A is an increasing line, with line A being much steeper than line B.",
+        "correctness": "0.0",
+        "feedback_html": "What do signs and magnitudes mean for slopes of lines?"
+      },
+      {
+        "id": 374100,
+        "content_html": "Line B is a decreasing line while line A is an increasing line, with line B being much steeper than line A.",
+        "correctness": "0.0",
+        "feedback_html": "What does the sign of the slope mean? The magnitude of the slope determines the steepness of line."
+      }
+    ]
+  },
+  {
+    "uuid": "daae62d4-2b23-4735-a787-b3a67b10cd5c",
+    "stem_html": "<p>A marathon runner completes a <span data-math=\"42.188\\,\\text{km}\">42.188\\,\\text{km}</span> course in <span data-math=\"2\\,\\text{h}\">2\\,\\text{h}</span>, <span data-math=\"30\\,\\text{min}\">30\\,\\text{min}</span>, and <span data-math=\"12\\,\\text{s}\">12\\,\\text{s}</span>. There is an uncertainty of <span data-math=\"25\\,\\text{m}\">25\\,\\text{m}</span> in the distance traveled and an uncertainty of <span data-math=\"1\\,\\text{s}\">1\\,\\text{s}</span> in the elapsed time.</p>\n\n<ol>\n  <li>Calculate the percent uncertainty in the distance.</li>\n  <li>Calculate the uncertainty in the elapsed time.</li>\n  <li>What is the average speed in meters per second?</li>\n  <li>What is the uncertainty in the average speed?</li>\n</ol>\n",
+    "id": 49926,
+    "answers": [
+      {
+        "id": 208381,
+        "content_html": "<span data-math=\"0.059\\,\\%\">0.059\\,\\%</span>, <span data-math=\"0.01\\,\\%\">0.01\\,\\%</span>, <span data-math=\"0.468\\text{m/s}\">0.468\\text{m/s}</span>, <span data-math=\"0.0003\\text{m/s}\">0.0003\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The conversion factor for kilometers to meters could be the problem here. Recall that <span data-math=\"1000\\,\\text{m}\">1000\\,\\text{m}</span> makes <span data-math=\"1\\,\\text{km}\">1\\,\\text{km}</span>."
+      },
+      {
+        "id": 208380,
+        "content_html": "<span data-math=\"0.059\\,\\%\">0.059\\,\\%</span>, <span data-math=\"0.01\\,\\%\">0.01\\,\\%</span>, <span data-math=\"0.468\\,\\text{m/s}\">0.468\\,\\text{m/s}</span>, <span data-math=\"0.07\\,\\text{m/s}\">0.07\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The uncertainty percent in speed is <span data-math=\"0.07\\,\\%\">0.07\\,\\%</span>. So uncertainty in speed will be <span data-math=\"0.07\\,\\%\">0.07\\,\\%</span> of <span data-math=\"4.681\\,\\text{m/s}\">4.681\\,\\text{m/s}</span>."
+      },
+      {
+        "id": 208379,
+        "content_html": "<span data-math=\"0.59\\,\\%\">0.59\\,\\%</span>, <span data-math=\"8.33\\,\\%\">8.33\\,\\%</span>, <span data-math=\"4.681\\,\\text{m/s}\">4.681\\,\\text{m/s}</span>, <span data-math=\"0.003\\,\\text{m/s}\">0.003\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recheck the calculation for percent uncertainty in distance. Also, the percent uncertainly in time will be the ratios of <span data-math=\"1\">1</span> second by total time in seconds."
+      },
+      {
+        "id": 208382,
+        "content_html": "<span data-math=\"0.059\\,\\%\">0.059\\,\\%</span>, <span data-math=\"0.01\\,\\%\">0.01\\,\\%</span>, <span data-math=\"4.681\\,\\text{m/s}\">4.681\\,\\text{m/s}</span>, <span data-math=\"0.003\\,\\text{m/s}\">0.003\\,\\text{m/s}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Percent uncertainty is the ratio of uncertainty in measurement upon total measure."
+      }
+    ]
+  },
+  {
+    "uuid": "1a47b41e-032c-454e-b99f-7c11667e2ca6",
+    "stem_html": "<p>What would be the slope for a line passing through the two points below?</p>\n\n<p>Point 1: (1, 0.1)\nPoint 2: (7, 26.8)</p>\n",
+    "id": 91783,
+    "answers": [
+      {
+        "id": 374110,
+        "content_html": "<span data-math=\"2.4\">2.4</span>",
+        "correctness": "0.0",
+        "feedback_html": "Find the slope by taking the difference in two extreme y-values and divide it by the corresponding difference in x-value."
+      },
+      {
+        "id": 374111,
+        "content_html": "<span data-math=\"4.5\">4.5</span>",
+        "correctness": "1.0",
+        "feedback_html": "The rate of change of the <span data-math=\"y\">y</span> value per unit change in the <span data-math=\"x\">x</span> value is <span data-math=\"4.5\">4.5</span>."
+      },
+      {
+        "id": 374109,
+        "content_html": "<span data-math=\"6.2\">6.2</span>",
+        "correctness": "0.0",
+        "feedback_html": "The slope can be found by the ratio of change in the <span data-math=\"y\">y</span> value by corresponding change in the <span data-math=\"x\">x</span> value."
+      },
+      {
+        "id": 374108,
+        "content_html": "<span data-math=\"6.8\">6.8</span>",
+        "correctness": "0.0",
+        "feedback_html": "Subtract the two <span data-math=\"y\">y</span> values, subtract the two <span data-math=\"x\">x</span> values and take the ratio <span data-math=\"\\frac{\\Delta y}{\\Delta x}\">\\frac{\\Delta y}{\\Delta x}</span>."
+      }
+    ]
+  },
+  {
+    "uuid": "2be73a45-41fd-4355-a74b-fb0b5e7ab3e6",
+    "stem_html": "Which of the following would describe a length that is <span data-math=\"2.0 \\times 10^{-3}\">2.0 \\times 10^{-3}</span> of a meter?",
+    "id": 49929,
+    "answers": [
+      {
+        "id": 208393,
+        "content_html": "<span data-math=\"2.0\">2.0</span> kilometers",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"1\">1</span> kilometer is equal to <span data-math=\"1000\">1000</span> meters."
+      },
+      {
+        "id": 208392,
+        "content_html": "<span data-math=\"2.0\">2.0</span> megameters",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"1\">1</span> megameter is equal to the <span data-math=\"{10^6}\">{10^6}</span> meters."
+      },
+      {
+        "id": 208394,
+        "content_html": "<span data-math=\"2.0\">2.0</span> millimeters",
+        "correctness": "1.0",
+        "feedback_html": "Yes, <span data-math=\"2.0 \\times 10^{-3}\\,\\text{m}\">2.0 \\times 10^{-3}\\,\\text{m}</span> is <span data-math=\"2.0\">2.0</span> millimeters because <span data-math=\"1\">1</span> millimeter is equal to <span data-math=\"10^{-3}\">10^{-3}</span> meters."
+      },
+      {
+        "id": 208391,
+        "content_html": "<span data-math=\"2.0\">2.0</span> micrometers",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"1\">1</span> micrometer is equal to <span data-math=\"10^{-6}\">10^{-6}</span> meters."
+      }
+    ]
+  },
+  {
+    "uuid": "85ef7708-f524-4831-91e8-3f6614f341ae",
+    "stem_html": "Which of the following best describes a variable?",
+    "id": 43749,
+    "answers": [
+      {
+        "id": 185080,
+        "content_html": "a trend that shows an exponential relationship",
+        "correctness": "0.0",
+        "feedback_html": "A variable is a mathematical entity whose value can change over multiple measurements, and is not fixed."
+      },
+      {
+        "id": 185083,
+        "content_html": "something whose value can change over multiple measurements",
+        "correctness": "1.0",
+        "feedback_html": "The variable is defined as a mathematical quantity whose value can change over multiple measurements, and is not fixed, that is, it is not a constant."
+      },
+      {
+        "id": 185081,
+        "content_html": "a measure of how much a plot line changes along the y-axis",
+        "correctness": "0.0",
+        "feedback_html": "Variable is a mathematical quantity, whose value changes over multiple measurements and does not have any fixed value."
+      },
+      {
+        "id": 185082,
+        "content_html": "something that remains constant over multiple measurements",
+        "correctness": "0.0",
+        "feedback_html": "It is incorrect that the variable remains constant over multiple measurements. Variable is a mathematical quantity whose value changes over multiple measurements and does not have any fixed value."
+      }
+    ]
+  },
+  {
+    "uuid": "18b0a842-49d1-44e6-ab03-72d36c1b38e7",
+    "stem_html": "The speed of sound is measured at <span data-math=\"342\\,\\text{m/s}\">342\\,\\text{m/s}</span> on a certain day. What is this in <span data-math=\"\\text{km/h}\">\\text{km/h}</span>? Report your answer in scientific notation.",
+    "id": 49931,
+    "answers": [
+      {
+        "id": 208401,
+        "content_html": "<span data-math=\"1.23 \\times 10^4\\,\\text{km/h}\">1.23 \\times 10^4\\,\\text{km/h}</span>",
+        "correctness": "0.0",
+        "feedback_html": "You may have wrongly assumed <span data-math=\"1\\,\\text{km}\">1\\,\\text{km}</span> is <span data-math=\"100\\,\\text{m}\">100\\,\\text{m}</span>. The prefix kilo indicates <span data-math=\"1000\">1000</span>. Use <span data-math=\"1000\\,\\text{m} = 1\\,\\text{m}\">1000\\,\\text{m} = 1\\,\\text{m}</span> and convert."
+      },
+      {
+        "id": 208402,
+        "content_html": "<span data-math=\"1.23 \\times 10^3\\,\\text{km/h}\">1.23 \\times 10^3\\,\\text{km/h}</span>",
+        "correctness": "1.0",
+        "feedback_html": "<span data-math=\"342\\,\\text{m/s}\">342\\,\\text{m/s}</span> is equivalent to <span data-math=\"1.23 \\times 10^3\\,\\text{km/h}\">1.23 \\times 10^3\\,\\text{km/h}</span>."
+      },
+      {
+        "id": 208400,
+        "content_html": "<span data-math=\"9.5 \\times 10^1\\,\\text{km/h}\">9.5 \\times 10^1\\,\\text{km/h}</span>",
+        "correctness": "0.0",
+        "feedback_html": "To convert speed from <span data-math=\"\\text{m/s}\">\\text{m/s}</span> to <span data-math=\"\\text{km/h}\">\\text{km/h}</span>, just multiply the speed given in <span data-math=\"\\text{m/s}\">\\text{m/s}</span> by <span data-math=\"3.6\">3.6</span>."
+      },
+      {
+        "id": 208399,
+        "content_html": "<span data-math=\"2.05 \\times 10^{-1}\\,\\text{km/h}\">2.05 \\times 10^{-1}\\,\\text{km/h}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The conversion factor for converting seconds to hours should be used carefully. Recall that <span data-math=\"60\">60</span> seconds make <span data-math=\"1\">1</span> minute and <span data-math=\"60\">60</span> minutes make <span data-math=\"1\">1</span> hour."
+      }
+    ]
+  },
+  {
+    "uuid": "5acddeb1-b0ad-4603-a14d-9f11d31fcad6",
+    "stem_html": "An infant’s pulse rate is measured to be <span data-math=\"130 \\pm 5\\,\\text{beats/min}\">130 \\pm 5\\,\\text{beats/min}</span>. What is the percent uncertainty in this measurement?",
+    "id": 49933,
+    "answers": [
+      {
+        "id": 208409,
+        "content_html": "<span data-math=\"2\\%\">2\\%</span>",
+        "correctness": "0.0",
+        "feedback_html": "There is an uncertainty of <span data-math=\"5\">5</span> beats per minute in the pulse rate. Find the percent uncertainty by multiplying the ratio of uncertainty in the measurement by <span data-math=\"100\">100</span>."
+      },
+      {
+        "id": 208408,
+        "content_html": "<span data-math=\"3\\%\">3\\%</span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"5\">5</span> out of <span data-math=\"130\">130</span> is the uncertainty fraction, convert this into a percentage."
+      },
+      {
+        "id": 208410,
+        "content_html": "<span data-math=\"4\\%\">4\\%</span>",
+        "correctness": "1.0",
+        "feedback_html": "An uncertainty of <span data-math=\"5\">5</span> out of <span data-math=\"130\">130</span> is equivalent to around <span data-math=\"4\\%\">4\\%</span> of <span data-math=\"130\">130</span>."
+      },
+      {
+        "id": 208407,
+        "content_html": "<span data-math=\"5\\%\">5\\%</span>",
+        "correctness": "0.0",
+        "feedback_html": "Multiply the fraction <span data-math=\"\\frac{5}{130}\">\\frac{5}{130}</span> with <span data-math=\"100\">100</span> and then round off to the nearest integer."
+      }
+    ]
+  },
+  {
+    "uuid": "e2ed1b30-9858-4c02-968a-eb1f4db8b983",
+    "stem_html": "Describe all of the characteristics that can be determined about a straight line with a slope of <span data-math=\"{-3}\">{-3}</span> and a y-intercept of <span data-math=\"50\">50</span> on a graph.",
+    "id": 91784,
+    "answers": [
+      {
+        "id": 374112,
+        "content_html": "Based on the information, the line has a negative slope. Because its y-intercept is 50 and its slope is negative, this line gradually rises on the graph as the x-value increases.",
+        "correctness": "0.0",
+        "feedback_html": "The line has a negative slope but it does not gradually rise as the x-value increases."
+      },
+      {
+        "id": 374115,
+        "content_html": "Based on the information, the line has a negative slope. Because its y-intercept is 50 and its slope is negative, this line gradually moves downward on the graph as the x-value increases.",
+        "correctness": "1.0",
+        "feedback_html": "Based on this information, one could tell that the line moves downward because it has a negative slope. In addition, because the y-intercept is 50 and the slope is negative 3, this line gradually moves downward as the x-values increases."
+      },
+      {
+        "id": 374113,
+        "content_html": "Based on the information, the line has a positive slope. Because its y-intercept is 50 and its slope is positive, this line gradually rises on the graph as the x-value increases.",
+        "correctness": "0.0",
+        "feedback_html": "The line does not have a positive slope. Also, the y-value on the line does not gradually increase as the x-value increases."
+      },
+      {
+        "id": 374114,
+        "content_html": "Based on the information, the line has a positive slope. Because its y-intercept is 50 and its slope is positive, this line gradually moves downward on the graph as the x-value increases.",
+        "correctness": "0.0",
+        "feedback_html": "The line does not have a positive slope."
+      }
+    ]
+  }
+]
