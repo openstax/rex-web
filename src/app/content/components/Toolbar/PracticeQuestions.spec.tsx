@@ -9,6 +9,7 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import { openPracticeQuestions } from '../../practiceQuestions/actions';
+import * as selectors from '../../practiceQuestions/selectors';
 import PracticeQuestionsButton, { PracticeQuestionsWrapper } from './PracticeQuestionsButton';
 
 describe('practice questions button', () => {
@@ -30,15 +31,14 @@ describe('practice questions button', () => {
     </Provider>;
   });
 
-  it('does not render if feature flag is not enabled', () => {
-    store.dispatch(receiveFeatureFlags([]));
-
+  it('does not render if feature flag is not enabled and there are no practice questions', () => {
     const component = renderer.create(render());
 
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('render if feature flag is enabled', () => {
+  it('renders if feature flag is enabled and there are practice questions', () => {
+    jest.spyOn(selectors, 'hasPracticeQuestions').mockReturnValue(true);
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 
     const component = renderer.create(render());
@@ -48,6 +48,7 @@ describe('practice questions button', () => {
 
   it('clicking button opens modal', () => {
     const spyTrack = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
+    jest.spyOn(selectors, 'hasPracticeQuestions').mockReturnValue(true);
 
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 
