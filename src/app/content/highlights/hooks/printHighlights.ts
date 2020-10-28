@@ -1,11 +1,25 @@
-import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
+import Sentry from '../../../../helpers/Sentry';
+import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook, assertWindow } from '../../../utils';
 import { printSummaryHighlights, receiveSummaryHighlights, toggleSummaryHighlightsLoading } from '../actions';
 import { myHighlightsOpen } from '../selectors';
-import { loadMore } from './loadMore';
+import { loadMore, LoadMoreResponse } from './loadMore';
 
 export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
-  const {formattedHighlights} = await loadMore(services);
+  let response: Unpromisify<LoadMoreResponse>;
+
+  try {
+    response = await loadMore(services);
+  } catch (error) {
+    Sentry.captureException(error);
+    services.dispatch(addToast(toastMessageKeys.higlights.failure.popUp.print, {destination: 'myHighlights'}));
+    services.dispatch(toggleSummaryHighlightsLoading(false));
+    return;
+  }
+
+  const {formattedHighlights} = response;
   services.dispatch(receiveSummaryHighlights(formattedHighlights, {
     isStillLoading: true,
     pagination: null,

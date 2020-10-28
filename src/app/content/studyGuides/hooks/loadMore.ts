@@ -1,7 +1,10 @@
 import {
   GetHighlightsColorsEnum, GetHighlightsSetsEnum,
 } from '@openstax/highlighter/dist/api';
-import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
+import Sentry from '../../../../helpers/Sentry';
+import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { formatReceivedHighlights, loadUntilPageSize } from '../../highlights/utils/highlightLoadingUtils';
@@ -35,17 +38,29 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
     pagination,
   };
 };
+export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
 export const hookBody: ActionHookBody<
   typeof actions.setDefaultSummaryFilters |
   typeof actions.setSummaryFilters |
   typeof actions.loadMoreStudyGuides
-> =
-  (services) => async() => {
-    const filters = select.summaryFilters(services.getState());
-    const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
-    services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
-  };
+> = (services) => async() => {
+  const filters = select.summaryFilters(services.getState());
+
+  let response: Unpromisify<LoadMoreResponse>;
+
+  try {
+    response = await loadMore(services, summaryPageSize);
+  } catch (error) {
+    Sentry.captureException(error);
+    services.dispatch(addToast(toastMessageKeys.studyGuides.failure.popUp.load, {destination: 'studyGuides'}));
+    services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));
+    return;
+  }
+
+  const {formattedHighlights, pagination} = response;
+  services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
+};
 
 export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);
 export const setSummaryFiltersHook = actionHook(actions.setSummaryFilters, hookBody);

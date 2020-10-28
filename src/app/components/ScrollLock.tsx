@@ -39,7 +39,7 @@ const fadeIn = keyframes`
 // tslint:disable-next-line:variable-name
 export const Overlay = styled.div`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   ${(props: {zIndex?: number}) => props.zIndex && css`
     z-index: ${props.zIndex};
   `}

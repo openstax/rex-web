@@ -11,6 +11,6 @@ export const bottomText = `
 `;
 
 export const missionText = `
-  It's our mission to give every student the tools they need to be successful in the classroom.
-  Help our cause by <a href="/give" target="_blank">donating</a> today.
+  OpenStax is part of Rice University, which is a 501(c)(3) nonprofit.
+  <a href="/give" target="_blank">Give today</a> and help us reach more students.
 `;

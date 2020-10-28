@@ -1,6 +1,7 @@
 import { SearchApi } from '@openstax/open-search-client';
 import { createMemoryHistory } from 'history';
 import createHighlightClient from '../gateways/createHighlightClient';
+import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import analytics from '../helpers/analytics';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
@@ -18,6 +19,7 @@ const services = () => ({
   highlightClient: createHighlightClient('asdf'),
   history: createMemoryHistory(),
   osWebLoader: mockOsWebLoader(),
+  practiceQuestionsLoader: createPracticeQuestionsLoader(),
   promiseCollector: new PromiseCollector(),
   searchClient: new SearchApi(),
   userLoader: mockUserLoader(),

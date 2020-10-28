@@ -11,6 +11,7 @@ import { actions } from '.';
 import createArchiveLoader from '../gateways/createArchiveLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
 import createOSWebLoader from '../gateways/createOSWebLoader';
+import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../gateways/createSearchClient';
 import createUserLoader from '../gateways/createUserLoader';
 import analytics from '../helpers/analytics';
@@ -44,6 +45,7 @@ export interface AppServices {
   promiseCollector: PromiseCollector;
   searchClient: ReturnType<typeof createSearchClient>;
   userLoader: ReturnType<typeof createUserLoader>;
+  practiceQuestionsLoader: ReturnType<typeof createPracticeQuestionsLoader>;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };
@@ -72,3 +74,4 @@ export type ActionHookBody<C extends AnyActionCreator> = (helpers: MiddlewareAPI
 // helpers
 export type ArgumentTypes<F> = F extends (...args: infer A) => any ? A : never;
 export type FirstArgumentType<F> = F extends (first: infer A, ...args: any) => any ? A : never;
+export type Unpromisify<F> = F extends Promise<infer T> ? T : never;
