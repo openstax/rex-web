@@ -153,7 +153,7 @@ describe('Show my highlights', () => {
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': [{id: 'id'} as HighlightData],
+        'testbook1-testpage1-uuid': [{id: 'id', sourceId: 'testbook1-testpage1-uuid'} as HighlightData],
       },
     }, {pagination: null}));
 
@@ -230,7 +230,7 @@ describe('Show my highlights', () => {
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': [{ id: 'asd' } as HighlightData],
+        'testbook1-testpage1-uuid': [{ id: 'asd', sourceId: 'testbook1-testpage1-uuid' } as HighlightData],
       },
     }, {pagination: null}));
 
