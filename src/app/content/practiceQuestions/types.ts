@@ -9,3 +9,19 @@ export interface PracticeQuestionsSummary {
     [key: string]: number;
   };
 }
+
+interface PracticeAnswer {
+  id: number;
+  content_html: string;
+  correctness: '0.0' | '1.0';
+  feedback_html: string;
+}
+
+interface PracticeQuestion {
+  uuid: string;
+  stem_html: string;
+  id: number;
+  answers: PracticeAnswer[];
+}
+
+export type PracticeQuestions = PracticeQuestion[];
