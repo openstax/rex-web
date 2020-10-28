@@ -43,6 +43,7 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
   transition:
     transform ${sidebarTransitionTime}ms ease-in-out,
+    opacity ${sidebarTransitionTime}ms ease-in-out,
     box-shadow ${sidebarTransitionTime}ms ease-in-out;
   background-color: ${theme.color.neutral.darker};
   z-index: ${theme.zIndex.sidebar};
