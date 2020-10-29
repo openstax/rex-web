@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components/macro';
 import { navDesktopHeight, navMobileHeight } from '../../../../components/NavBar';
 import Times from '../../../../components/Times';
 import theme from '../../../../theme';
@@ -21,13 +21,42 @@ import { styleWhenSidebarClosed } from '../../utils/sidebar';
 
 const sidebarPadding = 1.8;
 
+/* const sidebarHideAnimation = keyframes`
+  0% {
+    transform: translateX(100%);
+  }
+
+  50% {
+    transform: translateX(0);
+  }
+
+  100% {
+    visibility: hidden;
+    transform: translateX(0);
+  }
+`; */
+
+const slideOutLeft = keyframes`
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+  }
+`;
+
 const sidebarClosedStyle = css`
-  overflow-y: hidden;
+  /* overflow-y: hidden;
   transform: translateX(-${sidebarDesktopWidth}rem);
   box-shadow: none;
   background-color: transparent;
   pointer-events: none;
-  visibility: hidden;
+  visibility: hidden; */
+  animation: ${slideOutLeft} 800ms forwards;
 
   > * {
     opacity: 0;
