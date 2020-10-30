@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { getPracticeQuestionsLocationFilters } from './utils';
+import { getPracticeQuestionsLocationFilters, pageHasPracticeQuestions } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -31,4 +31,25 @@ export const practiceQuestionsLocationFilters = createSelector(
   practiceQuestionsSummary,
   parentSelectors.book,
   getPracticeQuestionsLocationFilters
+);
+
+export const selectedSection = createSelector(
+  localState,
+  (state) => state.selectedSection
+);
+
+export const questions = createSelector(
+  localState,
+  (state) => state.questions
+);
+
+export const currentQuestionIndex = createSelector(
+  localState,
+  (state) => state.currentQuestionIndex
+);
+
+export const selectedSectionHasPracticeQuestions = createSelector(
+  selectedSection,
+  practiceQuestionsSummary,
+  (section, summary) => Boolean(section && summary && pageHasPracticeQuestions(section.id, summary))
 );
