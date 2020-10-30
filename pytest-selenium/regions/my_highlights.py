@@ -558,6 +558,7 @@ class MyHighlights(Region):
         _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
         _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
         _highlight_locator = (By.CSS_SELECTOR, "[class*=summary-highlight]")
+        _empty_state_nudge_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
 
         @property
         def chapters(self) -> List[MyHighlights.Highlights.Chapter]:
@@ -589,6 +590,15 @@ class MyHighlights(Region):
         def no_results_message(self):
             try:
                 return self.find_element(*self._no_results_message_locator).get_attribute("textContent")
+            except NoSuchElementException:
+                return ""
+
+        logged_in_user_empty_state_message = no_results_message
+
+        @property
+        def logged_in_user_empty_state_nudge(self):
+            try:
+                return self.find_element(*self._empty_state_nudge_locator).get_attribute("textContent")
             except NoSuchElementException:
                 return ""
 

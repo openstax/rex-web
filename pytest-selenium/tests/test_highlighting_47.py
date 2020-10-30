@@ -655,3 +655,53 @@ def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, p
 
     # THEN: The 'x' button of color filter tag is focussed
     assert selenium.switch_to.active_element == filterbar.active_filter_tags[0].remove_tag_icon
+
+
+@markers.test_case("C592628")
+@markers.parametrize("book_slug,page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+@markers.desktop_only
+def test_MH_empty_state_logged_in_user(selenium, base_url, book_slug, page_slug):
+    """Logged in user empty state for MH page."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # WHEN: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filter_bar
+
+    # THEN: MH page Empty state message for logged in user is displayed
+    assert (
+        my_highlights.highlights.logged_in_user_empty_state_message
+        == "You have no highlights in this book"
+    ), "message not displayed or incorrect message"
+
+    # AND: Empty state nudge is displayed
+    assert (
+        my_highlights.highlights.logged_in_user_empty_state_nudge
+        == "Make a highlight and add a noteThen use this page to create your own study guide"
+    ), "nudge not displayed or incorrect message"
+
+    # AND: Chapter & color filter options are disabled
+    filterbar.toggle_chapter_dropdown_menu()
+    for n in filterbar.chapter_filters.chapters:
+        assert not n.has_highlights, f"Highlights present in chapter {n.number}," f"{n.title}"
+
+    # my_highlights = book.toolbar.my_highlights()
+    # filterbar = my_highlights.filter_bar
+    # filterbar.toggle_color_dropdown_menu()
+    # for n in filterbar.color_filters.colors:
+    #     assert not n.has_highlights, f"Highlights present for the color {n.color},"
+
+    # AND: Print button is displayed
+    assert filterbar.print.is_displayed
