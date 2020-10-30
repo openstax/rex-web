@@ -1,18 +1,11 @@
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { testAccountsUser } from '../../../../test/mocks/userLoader';
 import * as authSelectors from '../../../auth/selectors';
 import { formatUser } from '../../../auth/utils';
 import { MiddlewareAPI, Store } from '../../../types';
-import { receiveBook, receivePage } from '../../actions';
-import { initialState as initialContentState } from '../../reducer';
-import { formatBookData } from '../../utils';
 import { initializeMyHighlightsSummary, openMyHighlights } from '../actions';
 import * as selectors from '../selectors';
-
-const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('openMyHighlightsHook', () => {
   let store: Store;
@@ -21,15 +14,7 @@ describe('openMyHighlightsHook', () => {
   let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
-    store = createTestStore({
-      content: {
-        ...initialContentState,
-        params: {
-          book: { slug: 'book' },
-          page: { slug: 'page' },
-        },
-      },
-    });
+    store = createTestStore();
 
     helpers = {
       ...createTestServices(),
@@ -50,19 +35,6 @@ describe('openMyHighlightsHook', () => {
     await hook(openMyHighlights());
 
     expect(dispatch).toHaveBeenCalledWith(initializeMyHighlightsSummary());
-  });
-
-  it('PUSHes correct location', async() => {
-    store.dispatch(receiveBook(book));
-    store.dispatch(receivePage({...page, references: []}));
-
-    await hook(openMyHighlights());
-    expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
-      payload: expect.objectContaining({
-        search: 'modal=MH',
-        state: expect.objectContaining({bookUid: book.id, pageUid: page.id}),
-      }),
-    }));
   });
 
   it('doesn\'t dispatch init if not authenticated', async() => {

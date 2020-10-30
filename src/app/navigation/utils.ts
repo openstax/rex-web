@@ -118,15 +118,6 @@ export const findPathForParams = (params: object, paths: string[]) => {
 };
 
 export const getParamFromQuery = (param: string, query: string) => queryString.parse(query)[param];
-export const removeParamFromQuery = (param: string, query: string | OutputParams) => {
-  const parsed = omit(
-    [param],
-    typeof query === 'string' ? queryString.parse(query) : query
-  );
-
-  return queryString.stringify(parsed);
-};
-
 export const getQueryForParam = (param: string, value: string, existingQuery?: string | OutputParams) => {
   if (existingQuery) {
     const parsedExistingQuery = typeof existingQuery === 'string'

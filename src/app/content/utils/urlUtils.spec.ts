@@ -1,12 +1,16 @@
 import cloneDeep from 'lodash/cloneDeep';
+import createTestStore from '../../../test/createTestStore';
 import { book as mockArchiveBook, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../test/utils';
+import { initialState as contentInitialState } from '../reducer';
+import { content } from '../routes';
 import { Book } from '../types';
 import { formatBookData } from '../utils';
 import {
   fromRelativeUrl,
   getBookPageUrlAndParams,
+  getContentParams,
   getPageIdFromUrlParam,
   toRelativeUrl
 } from './urlUtils';
@@ -100,6 +104,59 @@ describe('getUrlParamForPageId', () => {
       ).toThrowErrorMatchingInlineSnapshot(
         `"could not find page slug for \\"pagelongid@1\\" in undefined"`
       );
+    });
+  });
+});
+
+describe('getContentParams', () => {
+  const book = formatBookData(mockArchiveBook, mockCmsBook);
+
+  it('returns params based on book and page', () => {
+    const store = createTestStore({
+      content: {
+        ...contentInitialState,
+        book,
+        page,
+      }
+    });
+
+    expect(getContentParams(store.getState())).toEqual({
+      params: {
+        book: {slug: 'book-slug-1'},
+        page: {slug: 'test-page-1'},
+      },
+      route: content,
+      state: expect.objectContaining({
+        bookUid: book.id,
+        pageUid: page.id,
+      }),
+    });
+  });
+
+  it('returns params based on navigation state if book or page is missing', () => {
+    const navigationState = {};
+
+    const store = createTestStore({
+      content: {
+        ...contentInitialState,
+        params: {
+          book: {slug: 'cool_book'},
+          page: {slug: 'cool_page'},
+        },
+      },
+      navigation: {
+        ...({} as any),
+        state: navigationState,
+      }
+    });
+
+    expect(getContentParams(store.getState())).toEqual({
+      params: {
+        book: {slug: 'cool_book'},
+        page: {slug: 'cool_page'},
+      },
+      route: content,
+      state: navigationState,
     });
   });
 });

@@ -6,7 +6,6 @@ import { resetModules } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import { initialState as initialContentState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import {
   loadMoreStudyGuides,
@@ -27,15 +26,7 @@ describe('openStudyGuides', () => {
 
   beforeEach(() => {
     resetModules();
-    store = createTestStore({
-      content: {
-        ...initialContentState,
-        params: {
-          book: { slug: 'book' },
-          page: { slug: 'page'},
-        },
-      },
-    });
+    store = createTestStore();
 
     helpers = {
       ...createTestServices(),
@@ -51,13 +42,6 @@ describe('openStudyGuides', () => {
   it('loads highlights if study guides haven\'t been initialized', async() => {
     await hook(openStudyGuides());
     expect(dispatch).toHaveBeenCalledWith(loadMoreStudyGuides());
-  });
-
-  it('adds query parameter for study guides modal', async() => {
-    await hook(openStudyGuides());
-    expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
-      payload: expect.objectContaining({search: 'modal=SG'}),
-    }));
   });
 
   it('noops if study guides are being/were initialized', async() => {

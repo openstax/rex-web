@@ -56,7 +56,7 @@ export const getContentParams = (appState: AppState) => {
       state,
     };
   } else {
-    const params = assertNotNull(contentParams(appState), 'Can\'t get params before processing ');
+    const params = assertNotNull(contentParams(appState), 'Can\'t get params before processing the route');
     const state = locationState(appState);
 
     return {

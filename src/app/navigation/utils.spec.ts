@@ -14,7 +14,6 @@ import {
   isScrollTarget,
   matchSearch,
   matchUrl,
-  removeParamFromQuery,
   routeHook,
 } from './utils';
 
@@ -302,12 +301,5 @@ describe('getQueryForParam', () => {
   it('adds parameters to an existing query', () => {
     expect(getQueryForParam('myParameter', 'whatever', 'a=1&b=3'))
       .toBe('a=1&b=3&myParameter=whatever');
-  });
-});
-
-describe('removeParamFromQuery', () => {
-  it('removes only the specified parameter', () => {
-    expect(removeParamFromQuery('myParameter', 'a=1&myParameter=3&b=4'))
-      .toBe('a=1&b=4');
   });
 });
