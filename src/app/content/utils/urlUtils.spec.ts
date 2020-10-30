@@ -117,7 +117,7 @@ describe('getContentParams', () => {
         ...contentInitialState,
         book,
         page,
-      }
+      },
     });
 
     expect(getContentParams(store.getState())).toEqual({
@@ -147,7 +147,7 @@ describe('getContentParams', () => {
       navigation: {
         ...({} as any),
         state: navigationState,
-      }
+      },
     });
 
     expect(getContentParams(store.getState())).toEqual({
