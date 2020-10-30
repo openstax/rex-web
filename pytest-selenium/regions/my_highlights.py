@@ -598,7 +598,8 @@ class MyHighlights(Region):
         @property
         def logged_in_user_empty_state_nudge(self):
             try:
-                return self.find_element(*self._empty_state_nudge_locator).get_attribute("textContent")
+                return self.find_element(*self._empty_state_nudge_locator).get_attribute("textContent") \
+                    if self.page.page.is_desktop else ""
             except NoSuchElementException:
                 return ""
 

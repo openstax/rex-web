@@ -659,7 +659,6 @@ def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, p
 
 @markers.test_case("C592628")
 @markers.parametrize("book_slug,page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
-@markers.desktop_only
 def test_MH_empty_state_logged_in_user(selenium, base_url, book_slug, page_slug):
     """Logged in user empty state for MH page."""
 
@@ -686,22 +685,28 @@ def test_MH_empty_state_logged_in_user(selenium, base_url, book_slug, page_slug)
         == "You have no highlights in this book"
     ), "message not displayed or incorrect message"
 
-    # AND: Empty state nudge is displayed
-    assert (
-        my_highlights.highlights.logged_in_user_empty_state_nudge
-        == "Make a highlight and add a noteThen use this page to create your own study guide"
-    ), "nudge not displayed or incorrect message"
+    # AND: Empty state nudge is displayed in desktop
+    if book.is_desktop:
+        assert (
+            my_highlights.highlights.logged_in_user_empty_state_nudge
+            == "Make a highlight and add a noteThen use this page to create your own study guide"
+        ), "nudge not displayed or incorrect message"
 
-    # AND: Chapter & color filter options are disabled
+    # AND: No empty state nudge is displayed in mobile
+    else:
+        assert my_highlights.highlights.logged_in_user_empty_state_nudge == ""
+
+    # AND: All chapter dropdown options are disabled
     filterbar.toggle_chapter_dropdown_menu()
-    for n in filterbar.chapter_filters.chapters:
-        assert not n.has_highlights, f"Highlights present in chapter {n.number}," f"{n.title}"
+    for chapter in filterbar.chapter_filters.chapters:
+        assert not chapter.has_highlights, (
+            f"Highlights present in chapter {chapter.number}," f"{chapter.title}"
+        )
 
-    # my_highlights = book.toolbar.my_highlights()
-    # filterbar = my_highlights.filter_bar
-    # filterbar.toggle_color_dropdown_menu()
-    # for n in filterbar.color_filters.colors:
-    #     assert not n.has_highlights, f"Highlights present for the color {n.color},"
+    # AND: All color dropdown options are disabled
+    filterbar.toggle_color_dropdown_menu()
+    for color in filterbar.color_filters.colors:
+        assert not color.is_checked, f"Highlights present for the color {color.color},"
 
     # AND: Print button is displayed
     assert filterbar.print.is_displayed
