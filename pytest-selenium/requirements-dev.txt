@@ -11,7 +11,7 @@ Faker==4.14.0
 identify==1.5.6
 idna==2.10
 importlib-metadata==2.0.0
-more-itertools==8.5.0
+more-itertools==8.6.0
 nodeenv==1.5.0
 packaging==20.4
 pluggy==0.13.1
