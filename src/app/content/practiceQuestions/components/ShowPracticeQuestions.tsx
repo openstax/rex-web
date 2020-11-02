@@ -25,7 +25,7 @@ export const ShowPracticeQuestionsBody = styled(PopupBody)`
 `;
 
 // tslint:disable-next-line: variable-name
-const SectionTitle = styled.h2`
+export const SectionTitle = styled.h2`
   font-size: 1.8rem;
   line-height: 2.5rem;
   color: ${theme.color.text.default};
@@ -38,7 +38,7 @@ const SectionTitle = styled.h2`
 `;
 
 // tslint:disable-next-line: variable-name
-const QuestionsWrapper = styled.div`
+export const QuestionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -46,7 +46,7 @@ const QuestionsWrapper = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const QuestionsHeader = styled.div`
+export const QuestionsHeader = styled.div`
   font-size: 1.4rem;
   font-weight: bold;
   color: ${theme.color.text.default};
@@ -59,7 +59,7 @@ const QuestionsHeader = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const StyledContentLink = styled(ContentLink)`
+export const StyledContentLink = styled(ContentLink)`
   display: block;
   font-size: 1.4rem;
   color: #929292;
