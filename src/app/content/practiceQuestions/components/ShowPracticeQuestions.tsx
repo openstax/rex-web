@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { linkColor } from '../../../components/Typography';
 import theme from '../../../theme';
 import ContentLink from '../../components/ContentLink';
 import * as contentSelectors from '../../selectors';
@@ -27,7 +28,7 @@ export const ShowPracticeQuestionsBody = styled(PopupBody)`
 const SectionTitle = styled.h2`
   font-size: 1.8rem;
   line-height: 2.5rem;
-  color: #424242;
+  color: ${theme.color.text.default};
   margin-top: 0;
   margin-bottom: 3rem;
   ${theme.breakpoints.mobile(css`
@@ -41,15 +42,15 @@ const QuestionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  border: 1px solid #E5E5E5;
+  border: 1px solid ${theme.color.neutral.darkest};
 `;
 
 // tslint:disable-next-line: variable-name
 const QuestionsHeader = styled.div`
   font-size: 1.4rem;
   font-weight: bold;
-  color: #424242;
-  background-color: #E5E5E5;
+  color: ${theme.color.text.default};
+  background-color: ${theme.color.neutral.darkest};
   height: 3.2rem;
   width: 100%;
   padding: 0 3.2rem;
@@ -64,13 +65,15 @@ const StyledContentLink = styled(ContentLink)`
   color: #929292;
   margin-top: 2.5rem;
   text-decoration: none;
+
   > span {
-    color: #027EB5;
+    color: ${linkColor};
 
     &::before {
       content: " ";
     }
   }
+
   ${theme.breakpoints.mobile(css`
     margin: 1.2rem;
   `)}
@@ -104,11 +107,11 @@ const ShowPracticeQuestions = () => {
       </QuestionsWrapper>
       {
         book && section
-          ? <StyledContentLink book={book} page={section}>
+          ? <StyledContentLink book={book} page={section} data-analytics-label='Read'>
             <FormattedMessage id='i18n:practice-questions:popup:read'>
               {(msg: string) => msg}
             </FormattedMessage>
-            <span dangerouslySetInnerHTML={{ __html: section ? section.title : '' }} />
+            <span dangerouslySetInnerHTML={{ __html: section.title }} />
           </StyledContentLink>
           : null
       }

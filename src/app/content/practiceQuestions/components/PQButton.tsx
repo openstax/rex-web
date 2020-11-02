@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
+import { linkColor } from '../../../components/Typography';
 import theme from '../../../theme';
 
 interface PQButtonProps {
@@ -18,7 +19,7 @@ const PQButton = styled(PlainButton)`
     if (props.withoutBackground) {
       return `
         background-color: transparent;
-        color: #027eb5;
+        color: ${linkColor};
       `;
     }
   }}

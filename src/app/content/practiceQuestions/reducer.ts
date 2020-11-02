@@ -34,7 +34,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(setQuestions):
       return {...state, questions: action.payload};
     case getType(locationChange):
-      return {...state, selectedSection: null, questions: []};
+      return {...state, open: false, selectedSection: null, questions: []};
     default:
       return state;
   }
