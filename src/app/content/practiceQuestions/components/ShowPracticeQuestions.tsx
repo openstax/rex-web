@@ -3,6 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import theme from '../../../theme';
+import ContentLink from '../../components/ContentLink';
+import * as contentSelectors from '../../selectors';
 import { PopupBody } from '../../styles/PopupStyles';
 import * as pqSelectors from '../selectors';
 import IntroScreen from './IntroScreen';
@@ -10,8 +12,11 @@ import ProgressBar from './ProgressBar';
 
 // tslint:disable-next-line:variable-name
 export const ShowPracticeQuestionsBody = styled(PopupBody)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: ${theme.color.neutral.darker};
-  padding: 2rem 3.2rem;
+  padding: 2rem 3.2rem 2.5rem 3.2rem;
   ${theme.breakpoints.mobile(css`
     text-align: left;
     padding: 0;
@@ -23,21 +28,20 @@ const SectionTitle = styled.h2`
   font-size: 1.8rem;
   line-height: 2.5rem;
   color: #424242;
+  margin-top: 0;
   margin-bottom: 3rem;
+  ${theme.breakpoints.mobile(css`
+    font-size: 1.6rem;
+    margin: 1.4rem;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
 const QuestionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
   border: 1px solid #E5E5E5;
-
-  ${ProgressBar} {
-    margin: 6.4rem 3.2rem;
-    ${theme.breakpoints.mobile(css`
-      margin: 1rem;
-    `)}
-  }
 `;
 
 // tslint:disable-next-line: variable-name
@@ -54,7 +58,27 @@ const QuestionsHeader = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
+const StyledContentLink = styled(ContentLink)`
+  display: block;
+  font-size: 1.4rem;
+  color: #929292;
+  margin-top: 2.5rem;
+  text-decoration: none;
+  > span {
+    color: #027EB5;
+
+    &::before {
+      content: " ";
+    }
+  }
+  ${theme.breakpoints.mobile(css`
+    margin: 1.2rem;
+  `)}
+`;
+
+// tslint:disable-next-line: variable-name
 const ShowPracticeQuestions = () => {
+  const book = useSelector(contentSelectors.book);
   const section = useSelector(pqSelectors.selectedSection);
   const questions = useSelector(pqSelectors.questions);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
@@ -64,7 +88,7 @@ const ShowPracticeQuestions = () => {
       data-testid='show-practice-questions-body'
       data-analytics-region='PQ popup'
     >
-      {section ? <SectionTitle dangerouslySetInnerHtml={{ __html: section.title }} /> : null}
+      {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
       <QuestionsWrapper>
         <QuestionsHeader>
           <FormattedMessage id='i18n:practice-questions:popup:questions'>
@@ -78,6 +102,16 @@ const ShowPracticeQuestions = () => {
             : null
         }
       </QuestionsWrapper>
+      {
+        book && section
+          ? <StyledContentLink book={book} page={section}>
+            <FormattedMessage id='i18n:practice-questions:popup:read'>
+              {(msg: string) => msg}
+            </FormattedMessage>
+            <span dangerouslySetInnerHTML={{ __html: section ? section.title : '' }} />
+          </StyledContentLink>
+          : null
+      }
     </ShowPracticeQuestionsBody>
   );
 };

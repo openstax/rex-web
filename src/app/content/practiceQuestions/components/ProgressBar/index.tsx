@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
+import theme from '../../../../theme';
 import ProgressBarItem from './ProgressBarItem';
 
 // tslint:disable-next-line: variable-name
@@ -7,6 +8,10 @@ const ProgressBarWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin: 3.2rem;
+  ${theme.breakpoints.mobile(css`
+    margin: 1rem;
+  `)}
 `;
 
 interface ProgressBarProps {

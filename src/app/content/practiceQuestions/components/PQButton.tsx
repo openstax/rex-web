@@ -2,23 +2,26 @@ import styled from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import theme from '../../../theme';
 
-interface ButtonProps {
+interface PQButtonProps {
   withoutBackground: boolean;
 }
 
-export default styled(PlainButton)`
-  backgrouond-color: ${theme.color.primary.orange.base};
+// tslint:disable-next-line: variable-name
+const PQButton = styled(PlainButton)`
+  background-color: ${theme.color.primary.orange.base};
   color: ${theme.color.text.white};
   font-size: 1.6rem;
   font-weight: bold;
   height: 5rem;
   padding: 0 3rem;
-  ${(props: ButtonProps) => {
+  ${(props: PQButtonProps) => {
     if (props.withoutBackground) {
       return `
-        backgrouond-color: transparent;
+        background-color: transparent;
         color: #027eb5;
       `;
     }
   }}
 `;
+
+export default PQButton;

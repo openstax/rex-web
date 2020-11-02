@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import * as pqSelectors from '../selectors';
-import Button from './Button';
+import PQButton from './PQButton';
 
 // tslint:disable-next-line: variable-name
 const IntroScreenWrapper = styled.div`
@@ -12,11 +12,16 @@ const IntroScreenWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  ${PQButton} {
+    margin: 2rem 0;
+  }
 `;
 
 // tslint:disable-next-line: variable-name
 const IntroScreenMessage = styled.span`
-  padding: 2rem 0;
+  font-family: inherit;
+  font-size: 1.6rem;
+  margin: 2rem 0;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -29,11 +34,11 @@ const IntroScreen = () => {
         {(msg: string) => msg}
       </FormattedMessage>
     </IntroScreenMessage>
-    <Button>
+    <PQButton>
       <FormattedMessage id='i18n:practice-questions:popup:intro:start'>
         {(msg: string) => msg}
       </FormattedMessage>
-    </Button>
+    </PQButton>
   </IntroScreenWrapper>;
 };
 
