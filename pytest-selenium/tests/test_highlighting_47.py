@@ -762,3 +762,34 @@ def test_keyboard_navigation_MH_empty_state_logged_in_user(
 
     # THEN: Print icon is focussed
     assert selenium.switch_to.active_element == filterbar.print
+
+
+@markers.test_case("C592645")
+@markers.parametrize("book_slug,page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+@markers.desktop_only
+def test_keyboard_navigation_MH_empty_state_non_logged_in_user(
+    selenium, base_url, book_slug, page_slug
+):
+    """Keyboard navigation for non-logged in user empty state MH page."""
+
+    # GIVEN: Open book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # WHEN: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+
+    # AND: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Close icon is focussed
+    assert selenium.switch_to.active_element == my_highlights.close_icon
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Log in link is focussed
+    assert selenium.switch_to.active_element == my_highlights.log_in_link

@@ -325,6 +325,10 @@ class MyHighlights(Region):
         self.wait.until(expect.staleness_of(self.root))
         return self.page
 
+    @property
+    def log_in_link(self):
+        return self.find_element(*self._log_in_link_locator)
+
     def log_in(self) -> Login:
         """Click the 'Log in' link.
 
@@ -332,8 +336,7 @@ class MyHighlights(Region):
         :rtype: :py:class:`~pages.accounts.Login`
 
         """
-        link = self.find_element(*self._log_in_link_locator)
-        Utilities.click_option(self.driver, element=link)
+        Utilities.click_option(self.driver, element=self.log_in_link)
         page = Login(self.driver)
         page.wait_for_page_to_load()
         return page
