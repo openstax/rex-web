@@ -710,3 +710,55 @@ def test_MH_empty_state_logged_in_user(selenium, base_url, book_slug, page_slug)
 
     # AND: Print button is displayed
     assert filterbar.print.is_displayed
+
+
+@markers.test_case("C592644")
+@markers.parametrize("book_slug,page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+@markers.desktop_only
+def test_keyboard_navigation_MH_empty_state_logged_in_user(
+    selenium, base_url, book_slug, page_slug
+):
+    """Keyboard navigation for logged in user empty state MH page."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # WHEN: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filter_bar
+
+    # AND: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Close icon is focussed
+    assert selenium.switch_to.active_element == my_highlights.close_icon
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Chapter dropdown is focussed
+    assert selenium.switch_to.active_element == filterbar.chapter_dropdown
+    assert filterbar.chapter_dropdown.get_attribute("aria-label") == "Filter highlights by Chapter"
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Color dropdown is focussed
+    assert selenium.switch_to.active_element == filterbar.color_dropdown
+    assert filterbar.color_dropdown.get_attribute("aria-label") == "Filter highlights by Color"
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Print icon is focussed
+    assert selenium.switch_to.active_element == filterbar.print

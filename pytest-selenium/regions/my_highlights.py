@@ -310,6 +310,10 @@ class MyHighlights(Region):
             sleep(0.33)
             return self
 
+    @property
+    def close_icon(self):
+        return self.find_element(*self._close_x_button_locator)
+
     def close(self) -> Page:
         """Click the close 'x' button.
 
@@ -317,8 +321,7 @@ class MyHighlights(Region):
         :rtype: :py:class:`~pypom.Page`
 
         """
-        button = self.find_element(*self._close_x_button_locator)
-        Utilities.click_option(self.driver, element=button)
+        Utilities.click_option(self.driver, element=self.close_icon)
         self.wait.until(expect.staleness_of(self.root))
         return self.page
 
@@ -421,15 +424,21 @@ class MyHighlights(Region):
             """Click the Print button."""
             Utilities.click_option(self.driver, element=self.print)
 
+        @property
+        def chapter_dropdown(self):
+            return self.find_element(*self._chapter_dropdown_toggle_locator)
+
         def toggle_chapter_dropdown_menu(self):
             """Click the Chapter filter menu toggle."""
-            button = self.find_element(*self._chapter_dropdown_toggle_locator)
-            Utilities.click_option(self.driver, element=button)
+            Utilities.click_option(self.driver, element=self.chapter_dropdown)
+
+        @property
+        def color_dropdown(self):
+            return self.find_element(*self._color_dropdown_toggle_locator)
 
         def toggle_color_dropdown_menu(self):
             """Click the Color filter menu toggle."""
-            button = self.find_element(*self._color_dropdown_toggle_locator)
-            Utilities.click_option(self.driver, element=button)
+            Utilities.click_option(self.driver, element=self.color_dropdown)
 
         class ChapterFilters(FilterSelection):
             """Filter displayed highlights by one or more book chapters."""
