@@ -1,5 +1,6 @@
+import { closeModal } from '../../../navigation/hooks/closeModalHook';
+import { openModal } from '../../../navigation/hooks/openModalHook';
 import { actionHook } from '../../../utils';
-import { closeModal, openModal } from '../../highlights/hooks/sharedHooks';
 import { closeStudyGuides, openStudyGuides } from '../actions';
 import { modalUrlName } from '../constants';
 import { loadMoreHook, setDefaultSummaryFiltersHook, setSummaryFiltersHook } from './loadMore';

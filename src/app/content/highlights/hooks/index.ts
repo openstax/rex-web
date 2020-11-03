@@ -1,5 +1,7 @@
 import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
+import { closeModal } from '../../../navigation/hooks/closeModalHook';
+import { openModal } from '../../../navigation/hooks/openModalHook';
 import { actionHook } from '../../../utils';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import { modalUrlName } from '../constants';
@@ -11,7 +13,6 @@ import { openMyHighlightsHook } from './openMyHighlights';
 import { printHighlightsHook } from './printHighlights';
 import receiveDeleteHighlight from './receiveDeleteHighlight';
 import requestDeleteHighlight from './requestDeleteHighlight';
-import { closeModal, openModal } from './sharedHooks';
 import updateHighlight from './updateHighlight';
 
 export { loadHighlights };

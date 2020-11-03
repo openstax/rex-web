@@ -9,7 +9,6 @@ export const hookBody: ActionHookBody<typeof openMyHighlights> = ({
 }) => async() => {
   const state = getState();
   const authenticated = user(state);
-
   const summaryNeedsInitialization = () => select.summaryHighlights(state) === null
     && select.summaryIsLoading(state) === false;
 
