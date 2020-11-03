@@ -83,8 +83,9 @@ export const StyledContentLink = styled(ContentLink)`
 const ShowPracticeQuestions = () => {
   const book = useSelector(contentSelectors.book);
   const section = useSelector(pqSelectors.selectedSection);
-  const questions = useSelector(pqSelectors.questions);
+  const questionsCount = useSelector(pqSelectors.questionsCount);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
+  const selectedSectionHasPracticeQuestions = useSelector(pqSelectors.selectedSectionHasPracticeQuestions);
 
   return (
     <ShowPracticeQuestionsBody
@@ -98,9 +99,9 @@ const ShowPracticeQuestions = () => {
             {(msg: string) => msg}
           </FormattedMessage>
         </QuestionsHeader>
-        <ProgressBar total={questions.length} activeIndex={currentQuestionIndex} />
+        <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
         {
-          section && questions.length && currentQuestionIndex === null
+          selectedSectionHasPracticeQuestions && currentQuestionIndex === null
             ? <IntroScreen />
             : null
         }

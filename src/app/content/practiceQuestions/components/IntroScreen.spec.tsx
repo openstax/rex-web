@@ -6,7 +6,7 @@ import createTestStore from '../../../../test/createTestStore';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
-import { setQuestionIndex, setQuestions } from '../actions';
+import { nextQuestion, setQuestions } from '../actions';
 import { PracticeQuestions } from '../types';
 import IntroScreen from './IntroScreen';
 import PQButton from './PQButton';
@@ -51,6 +51,6 @@ describe('IntroScreen', () => {
       button.props.onClick();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(setQuestionIndex(0));
+    expect(dispatch).toHaveBeenCalledWith(nextQuestion());
   });
 });

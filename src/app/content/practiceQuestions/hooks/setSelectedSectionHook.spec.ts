@@ -8,7 +8,7 @@ import { LinkedArchiveTreeSection } from '../../types';
 import { formatBookData } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { setQuestions, setSelectedSection } from '../actions';
-import { PracticeQuestions, PracticeQuestionsSummary } from '../types';
+import { PracticeQuestions } from '../types';
 
 const section = findArchiveTreeNodeById(book.tree, pageInChapter.id) as LinkedArchiveTreeSection;
 
@@ -17,7 +17,6 @@ describe('setSelectedSectionHook', () => {
   let dispatch: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./setSelectedSectionHook').hookBody>;
-  let mockSummaryResponse: PracticeQuestionsSummary;
 
   beforeEach(() => {
     store = createTestStore();
@@ -26,12 +25,6 @@ describe('setSelectedSectionHook', () => {
       ...createTestServices(),
       dispatch: store.dispatch,
       getState: store.getState,
-    };
-
-    mockSummaryResponse = {
-      countsPerSource: {
-        pageId: 2,
-      },
     };
 
     dispatch = jest.spyOn(helpers, 'dispatch');

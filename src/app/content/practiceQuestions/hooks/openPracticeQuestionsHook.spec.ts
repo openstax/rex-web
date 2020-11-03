@@ -8,14 +8,12 @@ import { LinkedArchiveTreeSection } from '../../types';
 import { formatBookData } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { openPracticeQuestions, receivePracticeQuestionsSummary, setSelectedSection } from '../actions';
-import { PracticeQuestionsSummary } from '../types';
 
 describe('openPracticeQuestionsHook', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hook: ReturnType<typeof import ('./openPracticeQuestionsHook').hookBody>;
-  let mockSummaryResponse: PracticeQuestionsSummary;
 
   beforeEach(() => {
     store = createTestStore();
@@ -24,12 +22,6 @@ describe('openPracticeQuestionsHook', () => {
       ...createTestServices(),
       dispatch: store.dispatch,
       getState: store.getState,
-    };
-
-    mockSummaryResponse = {
-      countsPerSource: {
-        pageId: 2,
-      },
     };
 
     dispatch = jest.spyOn(helpers, 'dispatch');

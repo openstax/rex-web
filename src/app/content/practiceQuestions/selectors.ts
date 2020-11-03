@@ -38,9 +38,9 @@ export const selectedSection = createSelector(
   (state) => state.selectedSection
 );
 
-export const questions = createSelector(
+export const questionsCount = createSelector(
   localState,
-  (state) => state.questions
+  (state) => state.questions.length
 );
 
 export const currentQuestionIndex = createSelector(

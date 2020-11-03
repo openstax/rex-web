@@ -1,11 +1,6 @@
 import styled from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
-import { linkColor } from '../../../components/Typography';
 import theme from '../../../theme';
-
-interface PQButtonProps {
-  withoutBackground: boolean;
-}
 
 // tslint:disable-next-line: variable-name
 const PQButton = styled(PlainButton)`
@@ -15,14 +10,6 @@ const PQButton = styled(PlainButton)`
   font-weight: bold;
   height: 5rem;
   padding: 0 3rem;
-  ${(props: PQButtonProps) => {
-    if (props.withoutBackground) {
-      return `
-        background-color: transparent;
-        color: ${linkColor};
-      `;
-    }
-  }}
 `;
 
 export default PQButton;

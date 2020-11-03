@@ -9,7 +9,7 @@ export const setSelectedSection = createStandardAction(
   'Content/PracticeQuestions/setSelectedSection'
 )<LinkedArchiveTreeSection | null>();
 export const setQuestions = createStandardAction('Content/PracticeQuestions/setQuestions')<PracticeQuestion[]>();
-export const setQuestionIndex = createStandardAction('Content/PracticeQuestions/setQuestionIndex')<number | null>();
+export const nextQuestion = createStandardAction('Content/PracticeQuestions/nextQuestion')<void>();
 
 export const receivePracticeQuestionsSummary = createStandardAction(
   'Content/PracticeQuestions/Summary/receive'
