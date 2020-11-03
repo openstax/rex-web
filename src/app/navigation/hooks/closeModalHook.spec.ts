@@ -4,7 +4,6 @@ import { MiddlewareAPI } from '../../types';
 describe('closeModal', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hookFactory: typeof import ('./closeModalHook').closeModal;
-  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     helpers = {
@@ -15,8 +14,6 @@ describe('closeModal', () => {
         goBack: jest.fn(),
       } as any,
     };
-
-    dispatch = jest.spyOn(helpers, 'dispatch');
 
     hookFactory = (require('./closeModalHook').closeModal);
   });
