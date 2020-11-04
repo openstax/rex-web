@@ -310,6 +310,10 @@ class MyHighlights(Region):
             sleep(0.33)
             return self
 
+    @property
+    def close_icon(self):
+        return self.find_element(*self._close_x_button_locator)
+
     def close(self) -> Page:
         """Click the close 'x' button.
 
@@ -317,10 +321,13 @@ class MyHighlights(Region):
         :rtype: :py:class:`~pypom.Page`
 
         """
-        button = self.find_element(*self._close_x_button_locator)
-        Utilities.click_option(self.driver, element=button)
+        Utilities.click_option(self.driver, element=self.close_icon)
         self.wait.until(expect.staleness_of(self.root))
         return self.page
+
+    @property
+    def log_in_link(self):
+        return self.find_element(*self._log_in_link_locator)
 
     def log_in(self) -> Login:
         """Click the 'Log in' link.
@@ -329,8 +336,7 @@ class MyHighlights(Region):
         :rtype: :py:class:`~pages.accounts.Login`
 
         """
-        link = self.find_element(*self._log_in_link_locator)
-        Utilities.click_option(self.driver, element=link)
+        Utilities.click_option(self.driver, element=self.log_in_link)
         page = Login(self.driver)
         page.wait_for_page_to_load()
         return page
@@ -421,15 +427,21 @@ class MyHighlights(Region):
             """Click the Print button."""
             Utilities.click_option(self.driver, element=self.print)
 
+        @property
+        def chapter_dropdown(self):
+            return self.find_element(*self._chapter_dropdown_toggle_locator)
+
         def toggle_chapter_dropdown_menu(self):
             """Click the Chapter filter menu toggle."""
-            button = self.find_element(*self._chapter_dropdown_toggle_locator)
-            Utilities.click_option(self.driver, element=button)
+            Utilities.click_option(self.driver, element=self.chapter_dropdown)
+
+        @property
+        def color_dropdown(self):
+            return self.find_element(*self._color_dropdown_toggle_locator)
 
         def toggle_color_dropdown_menu(self):
             """Click the Color filter menu toggle."""
-            button = self.find_element(*self._color_dropdown_toggle_locator)
-            Utilities.click_option(self.driver, element=button)
+            Utilities.click_option(self.driver, element=self.color_dropdown)
 
         class ChapterFilters(FilterSelection):
             """Filter displayed highlights by one or more book chapters."""
@@ -558,6 +570,7 @@ class MyHighlights(Region):
         _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
         _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
         _highlight_locator = (By.CSS_SELECTOR, "[class*=summary-highlight]")
+        _empty_state_nudge_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
 
         @property
         def chapters(self) -> List[MyHighlights.Highlights.Chapter]:
@@ -589,6 +602,16 @@ class MyHighlights(Region):
         def no_results_message(self):
             try:
                 return self.find_element(*self._no_results_message_locator).get_attribute("textContent")
+            except NoSuchElementException:
+                return ""
+
+        logged_in_user_empty_state_message = no_results_message
+
+        @property
+        def logged_in_user_empty_state_nudge(self):
+            try:
+                return self.find_element(*self._empty_state_nudge_locator).get_attribute("textContent") \
+                    if self.page.page.is_desktop else ""
             except NoSuchElementException:
                 return ""
 
