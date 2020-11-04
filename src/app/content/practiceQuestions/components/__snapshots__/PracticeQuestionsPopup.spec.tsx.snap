@@ -58,10 +58,23 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       </button>
     </h3>
     <div
-      className="PopupStyles__PopupBody-w0z1hl-2 ShowPracticeQuestions__ShowPracticeQuestionsBody-sc-1hq8omx-0 dXopye"
+      className="PopupStyles__PopupBody-w0z1hl-2 ShowPracticeQuestions__ShowPracticeQuestionsBody-sc-1hq8omx-0 iOcTbR"
       data-analytics-region="PQ popup"
       data-testid="show-practice-questions-body"
-    />
+    >
+      <div
+        className="ShowPracticeQuestions__QuestionsWrapper-sc-1hq8omx-2 lfKPUt"
+      >
+        <div
+          className="ShowPracticeQuestions__QuestionsHeader-sc-1hq8omx-3 bcZXeX"
+        >
+          Questions
+        </div>
+        <div
+          className="ProgressBar__ProgressBarWrapper-sc-12ssvtu-0 kleYmF"
+        />
+      </div>
+    </div>
   </div>
 </div>
 `;
