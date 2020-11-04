@@ -2,28 +2,25 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import { textRegularSize } from '../../../components/Typography';
 import { nextQuestion } from '../actions';
 import * as pqSelectors from '../selectors';
 import PQButton from './PQButton';
 
 // tslint:disable-next-line: variable-name
 const IntroScreenWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  text-align: center;
 
   ${PQButton} {
-    margin: 2rem 0;
+    display: block;
+    margin: 2rem auto;
   }
 `;
 
 // tslint:disable-next-line: variable-name
 const IntroScreenMessage = styled.span`
-  font-family: inherit;
-  font-size: 1.6rem;
-  margin: 2rem 0;
+  ${textRegularSize}
+  margin: 4rem 0;
 `;
 
 // tslint:disable-next-line: variable-name

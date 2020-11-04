@@ -11,7 +11,7 @@ import { PracticeQuestions } from '../types';
 import IntroScreen from './IntroScreen';
 import PQButton from './PQButton';
 
-describe('IntroScreen', () => {
+describe('IntroScreen for practice questions', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let services: ReturnType<typeof createTestServices>;

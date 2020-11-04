@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IntroScreen renders properly for 1 question 1`] = `
+exports[`IntroScreen for practice questions renders properly for 1 question 1`] = `
 <div
-  className="IntroScreen__IntroScreenWrapper-h8gm9y-0 bsGjos"
+  className="IntroScreen__IntroScreenWrapper-h8gm9y-0 lptNDr"
 >
   <span
-    className="IntroScreen__IntroScreenMessage-h8gm9y-1 hubyCw"
+    className="IntroScreen__IntroScreenMessage-h8gm9y-1 dwmRhb"
   >
     2 questions in this section
   </span>
   <button
-    className="Button__PlainButton-ayg7nk-2 PQButton-ypamof-0 dWFayQ"
+    className="Button__PlainButton-ayg7nk-2 PQButton-ypamof-0 gVmNzz"
     data-analytics-label="Start now"
     onClick={[Function]}
   >
@@ -19,17 +19,17 @@ exports[`IntroScreen renders properly for 1 question 1`] = `
 </div>
 `;
 
-exports[`IntroScreen renders properly for 2 questions 1`] = `
+exports[`IntroScreen for practice questions renders properly for 2 questions 1`] = `
 <div
-  className="IntroScreen__IntroScreenWrapper-h8gm9y-0 bsGjos"
+  className="IntroScreen__IntroScreenWrapper-h8gm9y-0 lptNDr"
 >
   <span
-    className="IntroScreen__IntroScreenMessage-h8gm9y-1 hubyCw"
+    className="IntroScreen__IntroScreenMessage-h8gm9y-1 dwmRhb"
   >
     2 questions in this section
   </span>
   <button
-    className="Button__PlainButton-ayg7nk-2 PQButton-ypamof-0 dWFayQ"
+    className="Button__PlainButton-ayg7nk-2 PQButton-ypamof-0 gVmNzz"
     data-analytics-label="Start now"
     onClick={[Function]}
   >

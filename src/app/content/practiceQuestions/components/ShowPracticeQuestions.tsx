@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { linkColor } from '../../../components/Typography';
+import { h4Style, linkColor } from '../../../components/Typography';
 import theme from '../../../theme';
 import ContentLink from '../../components/ContentLink';
 import * as contentSelectors from '../../selectors';
@@ -25,15 +25,16 @@ export const ShowPracticeQuestionsBody = styled(PopupBody)`
 `;
 
 // tslint:disable-next-line: variable-name
-export const SectionTitle = styled.h2`
-  font-size: 1.8rem;
-  line-height: 2.5rem;
-  color: ${theme.color.text.default};
+export const SectionTitle = styled.div`
+  ${h4Style}
+  font-weight: bold;
+  padding: 0;
   margin-top: 0;
   margin-bottom: 3rem;
+  color: ${theme.color.text.default};
   ${theme.breakpoints.mobile(css`
-    font-size: 1.6rem;
     margin: 1.4rem;
+    padding: 0;
   `)}
 `;
 
