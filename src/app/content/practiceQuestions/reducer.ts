@@ -1,10 +1,13 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
+import { locationChange } from '../../navigation/actions';
+import { getParamFromQuery } from '../../navigation/utils';
 import { AnyAction } from '../../types';
-import { practiceQuestionsFeatureFlag } from '../constants';
+import { modalQueryParameterName, practiceQuestionsFeatureFlag } from '../constants';
 import { receivePracticeQuestionsSummary } from './actions';
 import { closePracticeQuestions, openPracticeQuestions } from './actions';
+import { modalUrlName } from './constants';
 import { State } from './types';
 
 export const initialState: State = {
@@ -15,6 +18,12 @@ export const initialState: State = {
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
+    case getType(locationChange):
+      const shouldBeOpen =
+        getParamFromQuery(modalQueryParameterName, action.payload.location.search) === modalUrlName
+          && action.payload.action === 'PUSH';
+
+      return {...state, open: shouldBeOpen};
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(practiceQuestionsFeatureFlag)};
     case getType(openPracticeQuestions):
