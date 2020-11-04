@@ -1,7 +1,12 @@
+import { LinkedArchiveTreeSection } from '../types';
+
 export interface State {
   isEnabled: boolean;
   summary: PracticeQuestionsSummary | null;
   open: boolean;
+  selectedSection: LinkedArchiveTreeSection | null;
+  currentQuestionIndex: number | null;
+  questions: PracticeQuestion[];
 }
 
 export interface PracticeQuestionsSummary {
@@ -17,7 +22,7 @@ interface PracticeAnswer {
   feedback_html: string;
 }
 
-interface PracticeQuestion {
+export interface PracticeQuestion {
   uuid: string;
   stem_html: string;
   id: number;
