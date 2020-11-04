@@ -655,3 +655,141 @@ def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, p
 
     # THEN: The 'x' button of color filter tag is focussed
     assert selenium.switch_to.active_element == filterbar.active_filter_tags[0].remove_tag_icon
+
+
+@markers.test_case("C592628")
+@markers.parametrize("book_slug,page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+def test_MH_empty_state_logged_in_user(selenium, base_url, book_slug, page_slug):
+    """Logged in user empty state for MH page."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # WHEN: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filter_bar
+
+    # THEN: MH page Empty state message for logged in user is displayed
+    assert (
+        my_highlights.highlights.logged_in_user_empty_state_message
+        == "You have no highlights in this book"
+    ), "message not displayed or incorrect message"
+
+    # AND: Empty state nudge is displayed in desktop
+    if book.is_desktop:
+        assert (
+            my_highlights.highlights.logged_in_user_empty_state_nudge
+            == "Make a highlight and add a noteThen use this page to create your own study guide"
+        ), "nudge not displayed or incorrect message"
+
+    # AND: No empty state nudge is displayed in mobile
+    else:
+        assert my_highlights.highlights.logged_in_user_empty_state_nudge == ""
+
+    # AND: All chapter dropdown options are disabled
+    filterbar.toggle_chapter_dropdown_menu()
+    for chapter in filterbar.chapter_filters.chapters:
+        assert not chapter.has_highlights, (
+            f"Highlights present in chapter {chapter.number}," f"{chapter.title}"
+        )
+
+    # AND: All color dropdown options are disabled
+    filterbar.toggle_color_dropdown_menu()
+    for color in filterbar.color_filters.colors:
+        assert not color.is_checked, f"Highlights present for the color {color.color},"
+
+    # AND: Print button is displayed
+    assert filterbar.print.is_displayed
+
+
+@markers.test_case("C592644")
+@markers.parametrize("book_slug,page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+@markers.desktop_only
+def test_keyboard_navigation_MH_empty_state_logged_in_user(
+    selenium, base_url, book_slug, page_slug
+):
+    """Keyboard navigation for logged in user empty state MH page."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # WHEN: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filter_bar
+
+    # AND: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Close icon is focussed
+    assert selenium.switch_to.active_element == my_highlights.close_icon
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Chapter dropdown is focussed
+    assert selenium.switch_to.active_element == filterbar.chapter_dropdown
+    assert filterbar.chapter_dropdown.get_attribute("aria-label") == "Filter highlights by Chapter"
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Color dropdown is focussed
+    assert selenium.switch_to.active_element == filterbar.color_dropdown
+    assert filterbar.color_dropdown.get_attribute("aria-label") == "Filter highlights by Color"
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Print icon is focussed
+    assert selenium.switch_to.active_element == filterbar.print
+
+
+@markers.test_case("C592645")
+@markers.parametrize("book_slug,page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+@markers.desktop_only
+def test_keyboard_navigation_MH_empty_state_non_logged_in_user(
+    selenium, base_url, book_slug, page_slug
+):
+    """Keyboard navigation for non-logged in user empty state MH page."""
+
+    # GIVEN: Open book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # WHEN: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+
+    # AND: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Close icon is focussed
+    assert selenium.switch_to.active_element == my_highlights.close_icon
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Log in link is focussed
+    assert selenium.switch_to.active_element == my_highlights.log_in_link
