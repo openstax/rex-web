@@ -1,12 +1,10 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
-import { book as archiveBook, page } from '../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { initialState as initialContentState } from '../../content/reducer';
-import { formatBookData } from '../../content/utils';
+import { content } from '../../content/routes';
 import { MiddlewareAPI, Store } from '../../types';
-
-const book = formatBookData(archiveBook, mockCmsBook);
+import { assertWindow } from '../../utils';
+import { locationChange } from '../actions';
 
 describe('openModal', () => {
   let store: Store;
@@ -16,15 +14,7 @@ describe('openModal', () => {
 
   beforeEach(() => {
     store = createTestStore({
-      content: {
-        ...initialContentState,
-        book,
-        page,
-        params: {
-          book: {slug: 'book'},
-          page: {slug: 'page'},
-        },
-      },
+      content: initialContentState,
     });
 
     helpers = {
@@ -38,7 +28,22 @@ describe('openModal', () => {
     hookFactory = (require('./openModalHook').openModal);
   });
 
-  it('sets correct location', () => {
+  it('sets correct location if there was match in the navigation state', () => {
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        pathname: '/books/book-slug-1/pages/doesnotmatter',
+        state: {},
+      },
+      match: {
+        params: {
+          book: { slug: 'book' },
+          page: { slug: 'page' },
+        },
+        route: content,
+      },
+    }));
     const hook = hookFactory('myModalName')(helpers);
 
     hook();
@@ -46,8 +51,36 @@ describe('openModal', () => {
     expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
       payload: expect.objectContaining({
         search: 'modal=myModalName',
-        state: expect.objectContaining({bookUid: book.id, pageUid: page.id}),
       }),
     }));
+  });
+
+  it('noops if match wansn\'t in the navigation state', () => {
+    const hook = hookFactory('myModalName')(helpers);
+
+    hook();
+
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('noops if match was in the navigation state but didn\'t have params', () => {
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        pathname: '/books/book-slug-1/pages/doesnotmatter',
+        state: {},
+      },
+      match: {
+        route: content,
+      },
+    }));
+    dispatch.mockClear();
+
+    const hook = hookFactory('myModalName')(helpers);
+
+    hook();
+
+    expect(dispatch).not.toHaveBeenCalled();
   });
 });

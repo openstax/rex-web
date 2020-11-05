@@ -5,8 +5,7 @@ import { locationChange } from '../../navigation/actions';
 import { getParamFromQuery } from '../../navigation/utils';
 import { AnyAction } from '../../types';
 import { modalQueryParameterName, practiceQuestionsFeatureFlag } from '../constants';
-import { receivePracticeQuestionsSummary } from './actions';
-import { closePracticeQuestions, openPracticeQuestions } from './actions';
+import { closePracticeQuestions, openPracticeQuestions, receivePracticeQuestionsSummary } from './actions';
 import { modalUrlName } from './constants';
 import { State } from './types';
 
