@@ -2,7 +2,6 @@ import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
-import { getParamFromQuery } from '../../navigation/utils';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
 import { modalQueryParameterName, studyGuidesFeatureFlag } from '../constants';
@@ -29,8 +28,7 @@ export const initialState: State = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
-      const summaryShouldBeOpen =
-        getParamFromQuery(modalQueryParameterName, action.payload.location.search) === modalUrlName
+      const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
         && action.payload.action === 'PUSH';
 
       return {...state, summary: {...state.summary, open: summaryShouldBeOpen}};

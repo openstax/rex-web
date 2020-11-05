@@ -98,7 +98,7 @@ describe('routeHook', () => {
 
     middleware(helpers)(helpers)((action) => action)(locationChange(payload));
 
-    expect(hookSpy).toHaveBeenCalledWith(payload);
+    expect(hookSpy).toHaveBeenCalledWith({...payload, query: {}});
   });
 
   it('doens\'t hook into other routes', () => {

@@ -5,7 +5,6 @@ import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
-import { getParamFromQuery } from '../../navigation/utils';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
 import { highlightStyles, modalQueryParameterName } from '../constants';
@@ -44,8 +43,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       // Noops for locationChange dispatched when search query changes
       if (action.payload.action === 'REPLACE') { return state; }
 
-      const summaryShouldBeOpen =
-        getParamFromQuery(modalQueryParameterName, action.payload.location.search) === modalUrlName
+      const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
         && action.payload.action === 'PUSH';
 
       const currentPageId = state.currentPage.pageId;
