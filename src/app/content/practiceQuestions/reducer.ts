@@ -4,13 +4,16 @@ import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { modalQueryParameterName, practiceQuestionsFeatureFlag } from '../constants';
-import { closePracticeQuestions, openPracticeQuestions, receivePracticeQuestionsSummary } from './actions';
+import * as actions from './actions';
 import { modalUrlName } from './constants';
 import { State } from './types';
 
 export const initialState: State = {
+  currentQuestionIndex: null,
   isEnabled: false,
   open: false,
+  questions: [],
+  selectedSection: null,
   summary: null,
 };
 
@@ -20,15 +23,21 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const shouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
         && action.payload.action === 'PUSH';
 
-      return {...state, open: shouldBeOpen};
+      return {...state, open: shouldBeOpen, selectedSection: null, questions: []};
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(practiceQuestionsFeatureFlag)};
-    case getType(openPracticeQuestions):
+    case getType(actions.openPracticeQuestions):
       return {...state, open: true};
-    case getType(closePracticeQuestions):
-      return {...state, open: false};
-    case getType(receivePracticeQuestionsSummary):
+    case getType(actions.closePracticeQuestions):
+      return {...state, open: false, selectedSection: null, questions: [], currentQuestionIndex: null};
+    case getType(actions.receivePracticeQuestionsSummary):
       return {...state, summary: action.payload};
+    case getType(actions.setSelectedSection):
+      return {...state, selectedSection: action.payload, currentQuestionIndex: null, questions: []};
+    case getType(actions.nextQuestion):
+      return {...state, currentQuestionIndex: state.currentQuestionIndex === null ? 0 : state.currentQuestionIndex + 1};
+    case getType(actions.setQuestions):
+      return {...state, questions: action.payload};
     default:
       return state;
   }

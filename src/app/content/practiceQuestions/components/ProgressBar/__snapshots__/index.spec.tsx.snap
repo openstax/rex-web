@@ -2,7 +2,7 @@
 
 exports[`ProgressBar displays properly 1`] = `
 <div
-  className="ProgressBar__ProgressBarWrapper-sc-12ssvtu-0 hVMttS"
+  className="ProgressBar__ProgressBarWrapper-sc-12ssvtu-0 kleYmF"
 >
   <span
     className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 IySic"
