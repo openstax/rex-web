@@ -25,9 +25,9 @@ const sidebarClosedStyle = css`
   overflow-y: hidden;
   transform: translateX(-${sidebarDesktopWidth}rem);
   box-shadow: none;
-  background-color: transparent;
   pointer-events: none;
   visibility: hidden;
+  opacity: 0;
 
   > * {
     opacity: 0;
@@ -42,10 +42,10 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
-  animation: ${sidebarTransitionTime}ms ease 0s 1;
-  animation-direction: normal;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
+  transition:
+    transform ${sidebarTransitionTime}ms ease-in-out,
+    opacity ${sidebarTransitionTime}ms ease-in-out,
+    box-shadow ${sidebarTransitionTime}ms ease-in-out;
   background-color: ${theme.color.neutral.darker};
   z-index: ${theme.zIndex.sidebar};
   margin-left: -50vw;
