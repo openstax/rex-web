@@ -1,8 +1,9 @@
+import { assertDefined } from '../../utils';
 import { isLinkedArchiveTreeSection } from '../guards';
 import { Book, LinkedArchiveTreeSection } from '../types';
 import { findArchiveTreeNodeById, flattenArchiveTree } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
-import { PracticeQuestionsSummary } from './types';
+import { PracticeQuestionsLocationFilters, PracticeQuestionsSummary } from './types';
 
 export const pageHasPracticeQuestions = (pageId: string, summary: PracticeQuestionsSummary) => {
   return Boolean(summary.countsPerSource[pageId]);
@@ -12,7 +13,7 @@ export const getPracticeQuestionsLocationFilters = (
   summary: PracticeQuestionsSummary | null, book: Book | undefined
 ) => {
   // key is an id of a parent of sections stored in a value
-  const locationFilters: Map<string, LinkedArchiveTreeSection[]> = new Map();
+  const locationFilters: PracticeQuestionsLocationFilters = new Map();
 
   if (!book || !summary) { return locationFilters; }
 
@@ -21,23 +22,26 @@ export const getPracticeQuestionsLocationFilters = (
   for (const node of tree) {
     if (isLinkedArchiveTreeSection(node) && summary.countsPerSource[stripIdVersion(node.id)]) {
       const parentId = stripIdVersion(node.parent.id);
-      locationFilters.set(parentId, [...locationFilters.get(parentId) || [], node]);
+      const currentSections = locationFilters.has(parentId)
+        ? assertDefined(locationFilters.get(parentId), 'node has to be there').sections
+        : [];
+      locationFilters.set(parentId, { chapter: node.parent, sections: [...currentSections, node] });
     }
   }
 
   return locationFilters;
 };
 
-const flattenLocationFilters = (locationFilters: Map<string, LinkedArchiveTreeSection[]>) => {
+const flattenLocationFilters = (locationFilters: PracticeQuestionsLocationFilters) => {
   let flattened: LinkedArchiveTreeSection[] = [];
-  for (const sections of locationFilters.values()) {
+  for (const { sections } of locationFilters.values()) {
     flattened = flattened.concat(sections);
   }
   return flattened;
 };
 
 export const getNextPageWithPracticeQuestions = (
-  nodeId: string, locationFilters: Map<string, LinkedArchiveTreeSection[]>, book: Book | undefined
+  nodeId: string, locationFilters: PracticeQuestionsLocationFilters, book: Book | undefined
 ) => {
   if (!book) { return; }
 
