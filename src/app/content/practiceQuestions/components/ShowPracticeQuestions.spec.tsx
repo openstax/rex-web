@@ -9,7 +9,6 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { receiveBook } from '../../actions';
-import ContentLink from '../../components/ContentLink';
 import { content } from '../../routes';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
@@ -24,7 +23,6 @@ import ShowPracticeQuestions, {
 } from './ShowPracticeQuestions';
 
 jest.mock('./IntroScreen', () => (props: any) => <div data-mock-intro-section {...props} />);
-jest.mock('../../components/ContentLink', () => (props: any) => <a data-mock-content-link {...props} />);
 
 describe('ShowPracticeQuestions', () => {
   let store: Store;
@@ -54,7 +52,7 @@ describe('ShowPracticeQuestions', () => {
     const component = renderer.create(render());
 
     expect(() => component.root.findByType(SectionTitle)).toThrow();
-    expect(() => component.root.findByType(ContentLink)).toThrow();
+    expect(() => component.root.findByProps({ target: '_blank' })).toThrow();
     expect(() => component.root.findByType(QuestionsWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionsHeader)).not.toThrow();
     expect(() => component.root.findByType(ProgressBar)).not.toThrow();
@@ -69,7 +67,7 @@ describe('ShowPracticeQuestions', () => {
     expect(() => component.root.findByType(SectionTitle)).not.toThrow();
     expect(() => component.root.findByType(QuestionsWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionsHeader)).not.toThrow();
-    expect(() => component.root.findByType(ContentLink)).not.toThrow();
+    expect(() => component.root.findByProps({ target: '_blank' })).not.toThrow();
     expect(() => component.root.findByType(ProgressBar)).not.toThrow();
   });
 
@@ -88,7 +86,7 @@ describe('ShowPracticeQuestions', () => {
     expect(() => component.root.findByType(SectionTitle)).not.toThrow();
     expect(() => component.root.findByType(QuestionsWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionsHeader)).not.toThrow();
-    expect(() => component.root.findByType(ContentLink)).not.toThrow();
+    expect(() => component.root.findByProps({ target: '_blank' })).not.toThrow();
     expect(() => component.root.findByType(ProgressBar)).not.toThrow();
   });
 });
