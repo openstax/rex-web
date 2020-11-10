@@ -96,6 +96,8 @@
   "i18n:practice-questions:popup:heading": "Practice Questions",
   "i18n:practice-questions:popup:questions": "Questions",
   "i18n:practice-questions:popup:read": "Read",
+  "i18n:practice-questions:popup:filters:chapters": "Chapter & Section",
+  "i18n:practice-questions:popup:filters:filter-by:aria-label": "Show practice questions for {filter}",
   "i18n:practice-questions:popup:intro:message": "{questions, plural, one {1 question in this section} other {{questions} questions in this section}}",
   "i18n:practice-questions:popup:intro:start": "Start now",
   "i18n:prevnext:next:aria-label": "Next Page",

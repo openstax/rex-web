@@ -8,15 +8,20 @@ import ContentLink from '../../components/ContentLink';
 import * as contentSelectors from '../../selectors';
 import { PopupBody } from '../../styles/PopupStyles';
 import * as pqSelectors from '../selectors';
+import Filters from './Filters';
 import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
 
 // tslint:disable-next-line:variable-name
 export const ShowPracticeQuestionsBody = styled(PopupBody)`
+  background: ${theme.color.neutral.darker};
+`;
+
+// tslint:disable-next-line: variable-name
+export const ShowPracitceQuestionsContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: ${theme.color.neutral.darker};
   padding: 2rem 3.2rem 2.5rem 3.2rem;
   ${theme.breakpoints.mobile(css`
     text-align: left;
@@ -93,30 +98,33 @@ const ShowPracticeQuestions = () => {
       data-testid='show-practice-questions-body'
       data-analytics-region='PQ popup'
     >
-      {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
-      <QuestionsWrapper>
-        <QuestionsHeader>
-          <FormattedMessage id='i18n:practice-questions:popup:questions'>
-            {(msg: string) => msg}
-          </FormattedMessage>
-        </QuestionsHeader>
-        <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-        {
-          selectedSectionHasPracticeQuestions && currentQuestionIndex === null
-            ? <IntroScreen />
-            : null
-        }
-      </QuestionsWrapper>
-      {
-        book && section
-          ? <StyledContentLink book={book} page={section} data-analytics-label='Read'>
-            <FormattedMessage id='i18n:practice-questions:popup:read'>
+      <Filters />
+      <ShowPracitceQuestionsContent>
+        {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
+        <QuestionsWrapper>
+          <QuestionsHeader>
+            <FormattedMessage id='i18n:practice-questions:popup:questions'>
               {(msg: string) => msg}
             </FormattedMessage>
-            <span dangerouslySetInnerHTML={{ __html: section.title }} />
-          </StyledContentLink>
-          : null
-      }
+          </QuestionsHeader>
+          <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+          {
+            selectedSectionHasPracticeQuestions && currentQuestionIndex === null
+              ? <IntroScreen />
+              : null
+          }
+        </QuestionsWrapper>
+        {
+          book && section
+            ? <StyledContentLink book={book} page={section} data-analytics-label='Read'>
+              <FormattedMessage id='i18n:practice-questions:popup:read'>
+                {(msg: string) => msg}
+              </FormattedMessage>
+              <span dangerouslySetInnerHTML={{ __html: section.title }} />
+            </StyledContentLink>
+            : null
+        }
+      </ShowPracitceQuestionsContent>
     </ShowPracticeQuestionsBody>
   );
 };
