@@ -5,7 +5,7 @@ import { routes } from '../';
 import { AnyAction, AppServices, MiddlewareAPI } from '../types';
 
 export type State = Location & {
-  match?: GenericMatch
+  match?: MatchWithParams<AnyRoute>
   query: OutputParams
 };
 

@@ -6,6 +6,7 @@ import { receiveDeleteHighlight } from '../content/highlights/actions';
 import { isHighlightScrollTarget } from '../content/highlights/guards';
 import { AnyAction } from '../types';
 import * as actions from './actions';
+import { isMatchWithParams } from './guards';
 import { State } from './types';
 import { getScrollTargetFromQuery } from './utils';
 
@@ -17,10 +18,13 @@ const addQuery = (location: Location) => ({
 export default (location: Location): Reducer<State, AnyAction> => (state = addQuery(location), action) => {
   switch (action.type) {
     case getType(actions.locationChange):
+      const match = action.payload.match && isMatchWithParams(action.payload.match)
+        ? action.payload.match
+        : undefined;
       return {
         ...state,
         ...action.payload.location,
-        match: action.payload.match,
+        match,
         query: action.payload.query,
       };
     case getType(receiveDeleteHighlight): {
