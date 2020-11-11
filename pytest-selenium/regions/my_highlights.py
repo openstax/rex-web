@@ -209,9 +209,6 @@ class MyHighlights(Region):
         """
         return not bool(self.find_elements(*self._loading_animation_locator))
 
-    def wait_for_load(self):
-        return self.wait.until(lambda _: self.loaded)
-
     @property
     def all_highlights(self) -> List[Highlight]:
         """Access the page highlights.
@@ -572,7 +569,7 @@ class MyHighlights(Region):
         _chapter_locator = (By.XPATH, "//div[@data-testid='chapter-title']")
         _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
         _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
-        _highlight_locator = (By.CSS_SELECTOR, "[class*=summary-highlight]")
+        _highlight_locator = (By.CSS_SELECTOR, "[class*=content-excerpt]")
         _empty_state_nudge_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
 
         @property

@@ -189,7 +189,6 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
         )
 
         my_highlights = book.toolbar.my_highlights()
-        my_highlights.wait_for_load()
         mh_highlight_ids = mh_highlight_ids + list(
             set(my_highlights.highlights.mh_highlight_ids) - set(mh_highlight_ids)
         )
@@ -211,7 +210,6 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
     x[1].remove_tag()
 
     my_highlights = book.toolbar.my_highlights()
-    my_highlights.wait_for_load()
     mh_filtered_list = my_highlights.highlights.mh_highlight_ids
     my_highlights.close()
 
@@ -221,7 +219,6 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
     toc.expand_chapter(2)
     toc.sections[14].click()
     my_highlights = book.toolbar.my_highlights()
-    my_highlights.wait_for_load()
     mh_list_from_chapter_with_highlights = my_highlights.highlights.mh_highlight_ids
 
     # THEN: Filter changes made earlier are retained
@@ -236,7 +233,6 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
     toc.sections[-40].click()
 
     my_highlights = book.toolbar.my_highlights()
-    my_highlights.wait_for_load()
     mh_list_from_chapter_without_highlights = my_highlights.highlights.mh_highlight_ids
 
     # THEN: Filter changes made earlier are retained
@@ -259,7 +255,6 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
 
     # THEN: The MH list is updated with the highlight from re-added chapter
     my_highlights = book.toolbar.my_highlights()
-    my_highlights.wait_for_load()
     mh_list_after_page_navigation = my_highlights.highlights.mh_highlight_ids
 
     assert set(mh_list_after_page_navigation) == set(mh_updated_filtered_list)
@@ -269,7 +264,6 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
 
     # THEN: MH filters resets to display highlights from all the chapters
     my_highlights = book.toolbar.my_highlights()
-    my_highlights.wait_for_load()
     mh_list_after_reload = my_highlights.highlights.mh_highlight_ids
     assert set(mh_list_after_reload) == set(content_highlight_ids)
 

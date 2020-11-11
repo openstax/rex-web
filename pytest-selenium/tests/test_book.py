@@ -1,6 +1,6 @@
 # flake8: noqa
 import pytest
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 from tests import markers
 from pages.content import Content
@@ -67,48 +67,45 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
             ), "amazon print option present in rex but not present in osweb"
 
 
-@markers.test_case("C613212")
+@markers.test_case("C613211")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_book_error(selenium, base_url, book_slug, page_slug):
+def test_redirect_to_osweb_404_when_book_is_incorrect(selenium, base_url, book_slug, page_slug):
+    """User is redirected to osweb 404 page when book slug doesn't exist"""
 
-    # GIVEN: A page is loaded
-    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.wait_for_load()
-    toolbar = book.toolbar
-    sidebar = book.sidebar
+    # WHEN: A page is loaded with incorrect book slug
+    try:
+        Content(selenium, base_url, book_slug=f"{book_slug}{'test'}", page_slug=page_slug).open()
+    except TimeoutException:
+        pass
 
-    from time import sleep
-
-    x = book.current_url
-    print(x)
-    y = "testing"
-    z = f"{x}{y}"
-    print(z)
-
-    selenium.get(z)
-
-    # book(selenium, base_url, book_slug=book_slug, page_slug="xfjfycj").open()
-    book.wait_for_load()
-
-    assert book.content.page_error_displayed
+    # THEN: osweb 404 page is displayed
+    osweb = WebBase(selenium)
+    assert osweb.osweb_404_displayed
     assert (
-        book.content.page_error
-        == "Uh oh, we can't find the page you requested.Try another page in theTable of contents"
+        osweb.osweb_404_error
+        == "Uh-oh, no page hereKudos on your desire to explore! Unfortunately, we don't have a page to go with that particular location."
     )
-    sleep(3)
 
-    # AND TOC is displayed
-    if book.is_desktop:
-        sidebar.header.click_toc_toggle_button()
-        assert not sidebar.header.is_displayed
 
-        book.content.click_page_error_toc_button()
+@markers.test_case("C614212")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_redirect_to_osweb_404_when_page_is_incorrect_in_first_session(
+    selenium, base_url, book_slug, page_slug
+):
+    """Rex 404 page is displayed when user opens incorrect page in the first session"""
 
-    if book.is_mobile:
-        book.content.click_page_error_toc_button()
+    # WHEN: A page is loaded with incorrect page slug in the first session
+    try:
+        Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
+    except TimeoutException:
+        pass
 
-        assert sidebar.header.is_displayed
-        toolbar.click_toc_toggle_button()
-    sleep(3)
-    # AND Links in TOC, citation, footer, navbar, toolbar, bookbanner all work as usual
+    # THEN: osweb 404 page is displayed
+    osweb = WebBase(selenium)
+    assert osweb.osweb_404_displayed
+    assert (
+        osweb.osweb_404_error
+        == "Uh-oh, no page hereKudos on your desire to explore! Unfortunately, we don't have a page to go with that particular location."
+    )

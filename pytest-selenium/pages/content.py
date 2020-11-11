@@ -405,17 +405,20 @@ class Content(Page):
 
         @property
         def page_error_displayed(self) -> bool:
+            """Return true if rex 404 error is displayed"""
             return bool(self.wait.until(lambda _: self.find_element(*self._page_error_locator)))
 
         @property
         def page_error(self):
+            """Return the rex 404 error text"""
             return self.find_element(*self._page_error_locator).get_attribute("textContent")
 
         @property
-        def page_error_toc_button(self):
+        def page_error_toc_button(self) -> WebElement:
             return self.find_element(*self._page_error_toc_button_locator)
 
         def click_page_error_toc_button(self):
+            """Click the TOC icon in the rex 404 error page"""
             return Utilities.click_option(self.driver, element=self.page_error_toc_button)
 
         @property
