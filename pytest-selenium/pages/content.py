@@ -53,9 +53,6 @@ class Content(Page):
     def loaded(self) -> bool:
         return bool(self.find_element(*self._body_locator).get_attribute("data-rex-loaded"))
 
-    def wait_for_load(self):
-        return self.wait.until(lambda _: self.loaded)
-
     @property
     def attribution(self) -> Content.Attribution:
         return self.Attribution(self)
