@@ -53,6 +53,9 @@ class Content(Page):
     def loaded(self) -> bool:
         return bool(self.find_element(*self._body_locator).get_attribute("data-rex-loaded"))
 
+    def wait_for_load(self):
+        return self.wait.until(lambda _: self.loaded)
+
     @property
     def attribution(self) -> Content.Attribution:
         return self.Attribution(self)
@@ -397,6 +400,23 @@ class Content(Page):
             ":not([data-bullet-style]):not([type]), "
             "p[id^='eip'], p[id^='import-auto']",
         )  # Phys
+        _page_error_locator = (By.CSS_SELECTOR, "[class*=PageNotFoundWrapper]")
+        _page_error_toc_button_locator = (By.CSS_SELECTOR, "[data-testid = toc-button]")
+
+        @property
+        def page_error_displayed(self) -> bool:
+            return bool(self.wait.until(lambda _: self.find_element(*self._page_error_locator)))
+
+        @property
+        def page_error(self):
+            return self.find_element(*self._page_error_locator).get_attribute("textContent")
+
+        @property
+        def page_error_toc_button(self):
+            return self.find_element(*self._page_error_toc_button_locator)
+
+        def click_page_error_toc_button(self):
+            return Utilities.click_option(self.driver, element=self.page_error_toc_button)
 
         @property
         def captions(self) -> List[WebElement]:

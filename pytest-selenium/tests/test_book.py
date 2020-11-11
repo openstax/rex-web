@@ -65,3 +65,50 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
             assert (
                 not rex.order_print_copy
             ), "amazon print option present in rex but not present in osweb"
+
+
+@markers.test_case("C613212")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_book_error(selenium, base_url, book_slug, page_slug):
+
+    # GIVEN: A page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    book.wait_for_load()
+    toolbar = book.toolbar
+    sidebar = book.sidebar
+
+    from time import sleep
+
+    x = book.current_url
+    print(x)
+    y = "testing"
+    z = f"{x}{y}"
+    print(z)
+
+    selenium.get(z)
+
+    # book(selenium, base_url, book_slug=book_slug, page_slug="xfjfycj").open()
+    book.wait_for_load()
+
+    assert book.content.page_error_displayed
+    assert (
+        book.content.page_error
+        == "Uh oh, we can't find the page you requested.Try another page in theTable of contents"
+    )
+    sleep(3)
+
+    # AND TOC is displayed
+    if book.is_desktop:
+        sidebar.header.click_toc_toggle_button()
+        assert not sidebar.header.is_displayed
+
+        book.content.click_page_error_toc_button()
+
+    if book.is_mobile:
+        book.content.click_page_error_toc_button()
+
+        assert sidebar.header.is_displayed
+        toolbar.click_toc_toggle_button()
+    sleep(3)
+    # AND Links in TOC, citation, footer, navbar, toolbar, bookbanner all work as usual

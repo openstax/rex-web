@@ -209,6 +209,9 @@ class MyHighlights(Region):
         """
         return not bool(self.find_elements(*self._loading_animation_locator))
 
+    def wait_for_load(self):
+        return self.wait.until(lambda _: self.loaded)
+
     @property
     def all_highlights(self) -> List[Highlight]:
         """Access the page highlights.
