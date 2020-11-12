@@ -15,6 +15,9 @@ import ProgressBar from './ProgressBar';
 // tslint:disable-next-line:variable-name
 export const ShowPracticeQuestionsBody = styled(PopupBody)`
   background: ${theme.color.neutral.darker};
+  ${theme.breakpoints.mobile(css`
+    padding: 0;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name

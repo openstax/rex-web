@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
+import { PlainButton } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
 import { match, not } from '../../../fpUtils';
@@ -10,6 +11,8 @@ import { HighlightLocationFilters, SummaryFilters } from '../../highlights/types
 import { PracticeQuestionsLocationFilters } from '../../practiceQuestions/types';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 import { LinkedArchiveTreeSection } from '../../types';
+import { stripIdVersion } from '../../utils/idUtils';
+import { DownIcon } from './Filters';
 
 // tslint:disable-next-line:variable-name
 const Row = styled.div`
@@ -25,6 +28,7 @@ const Row = styled.div`
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -120,19 +124,23 @@ const StyledDetails = styled.details`
   width: 400px;
   cursor: pointer;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
+  ${theme.breakpoints.mobileSmall(css`
+    width: 100%;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
 const StyledSummary = styled.summary`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 1.6rem;
   height: 4rem;
-  outline: none;
   &::marker {
     content: "";
   }
   ${ChapterTitle} {
-    margin-left: 1.6rem;
+    margin-left: 0;
   }
 `;
 
@@ -143,10 +151,12 @@ const StyledSectionsWrapper = styled.ul`
 `;
 
 // tslint:disable-next-line: variable-name
-const StyledSectionItem = styled.li`
+const StyledSectionItem = styled(PlainButton)`
   display: flex;
   align-items: center;
   height: 4rem;
+  width: 100%;
+  text-align: left;
   ${(props: { isSelected: boolean }) => {
     if (props.isSelected) {
       return 'color: #027eb5;';
@@ -156,14 +166,15 @@ const StyledSectionItem = styled.li`
     background-color: ${theme.color.neutral.pageBackground};
   }
   ${ChapterTitle} {
-    padding-left: 2rem;
+    padding-left: 2.5rem;
+    width: 95%;
   }
 `;
 
 // tslint:disable-next-line: variable-name
 const ChapterFilterWithToggling = (props: ChapterFilterWithTogglingProps) => {
   const [isOpenChapterId, setIsOpenChapterId] = React.useState<string | null>(
-    props.selectedSection ? props.selectedSection.parent.id : null
+    props.selectedSection ? stripIdVersion(props.selectedSection.parent.id) : null
   );
 
   return <div className={props.className} tabIndex={-1}>
@@ -171,13 +182,19 @@ const ChapterFilterWithToggling = (props: ChapterFilterWithTogglingProps) => {
       <Column>
         {Array.from(props.locationFilters.entries()).map(([chapterId, data]) => {
           return <StyledDetails key={chapterId} open={isOpenChapterId === chapterId}>
-            <StyledSummary onClick={() => setIsOpenChapterId(chapterId)}>
+            <StyledSummary onClick={(e: any) => {
+              e.preventDefault();
+              setIsOpenChapterId((current) => current === chapterId ? null : chapterId)
+            }}>
               <ChapterTitle dangerouslySetInnerHTML={{__html: data.chapter.title}} />
+              <DownIcon rotate={isOpenChapterId === chapterId} />
             </StyledSummary>
             <StyledSectionsWrapper>
               {data.sections.map((section) => {
                 return <StyledSectionItem
+                  key={section.id}
                   onClick={() => props.setFilters(section)}
+                  onSelect={() => props.setFilters(section)}
                   isSelected={props.selectedSection && props.selectedSection.id === section.id}
                   tabIndex={0}
                 >
@@ -215,6 +232,12 @@ export default styled(ChapterFilter)`
 
   ${ColorIndicator} {
     margin: 0 1.6rem 0 1.6rem;
+  }
+
+  ${StyledDetails} {
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
   ${theme.breakpoints.mobileSmall(css`
