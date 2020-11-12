@@ -3,6 +3,8 @@ import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
 import { resetModules } from './utils';
 
+jest.mock('../helpers/Sentry');
+
 declare global {
   namespace jest {
     interface Matchers<R> {
@@ -20,17 +22,22 @@ const ignoreConsoleErrorMessages = [
    * error messages. the styles are valid, jsdom's css parser
    * is incomplete, so hide these messages
    */
-  'Error: Could not parse CSS stylesheet',
+  /Error: Could not parse CSS stylesheet/,
   /*
    * jsdom doesn't implement scrolling
    */
-  'Error: Not implemented: window.scrollTo',
+  /Error: Not implemented: window.scrollTo/,
+  /*
+   * complains about not having compenent that throw before render
+   * not being wrapped in <ErrorBoundary>
+  */
+  /(.*)Consider adding an error boundary to your tree to customize error handling behavior.(.*)/,
 ];
 
 const originalConsoleError = console.error;  // tslint:disable-line:no-console
 console.error = (msg: unknown) => {  // tslint:disable-line:no-console
   const shouldIgnore = !!ignoreConsoleErrorMessages.find(
-    (ignore) => typeof msg === 'string' && msg.indexOf(ignore) === 0
+    (ignore) => typeof msg === 'string' && msg.match(ignore)
   );
 
   if (shouldIgnore) {

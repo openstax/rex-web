@@ -1,21 +1,18 @@
-import flow from 'lodash/fp/flow';
-import mapValues from 'lodash/fp/mapValues';
-import merge from 'lodash/fp/merge';
-import omit from 'lodash/fp/omit';
-import reduce from 'lodash/fp/reduce';
-import size from 'lodash/fp/size';
-import values from 'lodash/fp/values';
 import { createSelector } from 'reselect';
-import { assertDefined } from '../../utils';
 import * as parentSelectors from '../selectors';
-import { HighlightLocationFilters } from './types';
 import {
   getHighlightColorFiltersWithContent,
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
-  getSortedSummaryHighlights
+  getSortedSummaryHighlights,
+  sectionIsHighlightLocationFitler
 } from './utils';
-import { filterCountsPerSourceByColorFilter, filterCountsPerSourceByLocationFilter } from './utils/paginationUtils';
+import {
+  checkIfHasMoreResults,
+  filterCounts,
+  getLoadedCountsPerSource,
+  getSelectedHighlightsLocationFilters
+} from './utils/selectorsUtils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -24,12 +21,17 @@ export const localState = createSelector(
 
 export const highlightsLoaded = createSelector(
   localState,
-  (state) => state.highlights !== null
+  (state) => state.currentPage.highlights !== null
+);
+
+export const highlightsPageId = createSelector(
+  localState,
+  (state) => state.currentPage.pageId
 );
 
 export const highlights = createSelector(
   localState,
-  (state) => state.highlights || []
+  (state) => state.currentPage.highlights || []
 );
 
 export const totalCountsPerPage = createSelector(
@@ -44,17 +46,17 @@ const totalCountsPerPageOrEmpty = createSelector(
 
 export const focused = createSelector(
   localState,
-  (state) => state.focused
+  (state) => state.currentPage.focused
 );
 
 export const hasUnsavedHighlight = createSelector(
   localState,
-  (state) => state.hasUnsavedHighlight
+  (state) => state.currentPage.hasUnsavedHighlight
 );
 
 export const myHighlightsOpen = createSelector(
   localState,
-  (state) => state.myHighlightsOpen
+  (state) => state.summary.open
 );
 
 export const summaryIsLoading = createSelector(
@@ -74,9 +76,7 @@ export const summaryPagination = createSelector(
 
 export const highlightLocationFilters = createSelector(
   parentSelectors.book,
-  (book) => book
-    ? getHighlightLocationFilters(book)
-    : new Map() as HighlightLocationFilters
+  getHighlightLocationFilters(sectionIsHighlightLocationFitler)
 );
 
 export const orderedSummaryHighlights = createSelector(
@@ -100,14 +100,10 @@ export const highlightColorFiltersWithContent = createSelector(
 
 export const loadedCountsPerSource = createSelector(
   summaryHighlights,
-  flow(
-    values,
-    reduce(merge, {}),
-    mapValues(size)
-  )
+  getLoadedCountsPerSource
 );
 
-const summaryFilters = createSelector(
+export const summaryFilters = createSelector(
   localState,
   (state) => state.summary.filters
 );
@@ -139,26 +135,19 @@ export const summaryColorFilters = createSelector(
 const selectedHighlightLocationFilters = createSelector(
   highlightLocationFilters,
   summaryLocationFilters,
- (locationFilters, selectedIds) => [...selectedIds].reduce((result, selectedId) =>
-   result.set(selectedId, assertDefined(locationFilters.get(selectedId), 'location filter id not found'))
- , new Map() as HighlightLocationFilters)
+  getSelectedHighlightsLocationFilters
 );
 
 export const filteredCountsPerPage = createSelector(
   totalCountsPerPageOrEmpty,
   selectedHighlightLocationFilters,
   summaryColorFilters,
-  (totalCounts, locationFilters, colorFilters) => flow(
-    (counts) => filterCountsPerSourceByLocationFilter(locationFilters, counts),
-    (counts) => filterCountsPerSourceByColorFilter([...colorFilters], counts)
-  )(totalCounts)
+  filterCounts
 );
 
 export const hasMoreResults = createSelector(
   loadedCountsPerSource,
   filteredCountsPerPage,
   summaryPagination,
-  (loaded, filteredCounts, pagination) => {
-    return !!(pagination || Object.keys(omit(Object.keys(loaded), filteredCounts)).length);
-  }
+  checkIfHasMoreResults
 );

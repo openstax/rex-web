@@ -17,7 +17,6 @@ import * as select from '../selectors';
 import { ArchiveTreeSection , Book, BookWithOSWebData } from '../types';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
-import { defaultTheme } from './constants';
 import {
   bookBannerDesktopBigHeight,
   bookBannerDesktopMiniHeight,
@@ -25,6 +24,7 @@ import {
   bookBannerMobileMiniHeight,
   contentTextWidth
 } from './constants';
+import { applyBookTextColor } from './utils/applyBookTextColor';
 import { disablePrint } from './utils/disablePrint';
 
 const gradients: {[key in BookWithOSWebData['theme']]: string} = {
@@ -38,10 +38,6 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'yellow': '#faea36',
 };
 
-const applyBookTextColor = (props: {colorSchema: BookWithOSWebData['theme'] } ) => props.colorSchema && css`
-  color: ${theme.color.primary[props.colorSchema].foreground};
-`;
-
 // tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
   margin-top: -0.25rem;
@@ -50,12 +46,6 @@ const LeftArrow = styled(ChevronLeft)`
   width: 3rem;
   ${applyBookTextColor}
 `;
-
-export interface PropTypes {
-  pageNode?: ArchiveTreeSection;
-  book?: Book;
-  hasUnsavedHighlight?: boolean;
-}
 
 // tslint:disable-next-line:variable-name
 const TopBar = styled.div`
@@ -79,8 +69,8 @@ const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
     props.variant === 'mini' ? miniStyle : bigStyle;
 
 const bookTitleMiniNavDestkopWidth = 27;
-// tslint:disable-next-line:variable-name
-const BookTitle = styled.a`
+
+const bookTitleStyles = css`
   ${h4Style}
   ${bookBannerTextStyle}
   display: ${ifMiniNav('inline-block', 'block')};
@@ -89,9 +79,6 @@ const BookTitle = styled.a`
   text-decoration: none;
   margin: 0;
 
-  :hover {
-    text-decoration: underline;
-  }
   ${theme.breakpoints.mobile(css`
     ${bookBannerTextStyle}
   `)}
@@ -103,6 +90,19 @@ const BookTitle = styled.a`
       display: none;
     `)}
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+const BookTitle = styled.span`
+  ${bookTitleStyles}
+`;
+
+// tslint:disable-next-line:variable-name
+const BookTitleLink = styled.a`
+  ${bookTitleStyles}
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -177,10 +177,23 @@ export const BarWrapper = styled.div<BarWrapperProps>`
   ${ifMiniNav(`margin-top: -${bookBannerDesktopMiniHeight}rem`)}
 `;
 
+export interface PropTypes {
+  pageNode?: ArchiveTreeSection;
+  book?: Book;
+  hasUnsavedHighlight?: boolean;
+  bookTheme: BookWithOSWebData['theme'];
+}
+
+interface BookBannerState {
+  scrollTransition: boolean;
+  tabbableBanner: 'mini' | 'big';
+}
+
 // tslint:disable-next-line:variable-name
-export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}> {
-  public state = {
+export class BookBanner extends Component<PropTypes, BookBannerState> {
+  public state: BookBannerState = {
     scrollTransition: false,
+    tabbableBanner: 'big',
   };
   private miniBanner = React.createRef<HTMLDivElement>();
   private bigBanner = React.createRef<HTMLDivElement>();
@@ -191,6 +204,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       this.setState({
         scrollTransition: miniRect.top === 0 &&
           this.bigBanner.current.offsetTop + this.bigBanner.current.clientHeight > window.scrollY,
+        tabbableBanner: miniRect.top === 0 ? 'mini' : 'big',
       });
     }
   };
@@ -216,21 +230,22 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
   }
 
   public render() {
-    const { pageNode, book } = this.props;
+    const { pageNode, book, bookTheme } = this.props;
 
-    if (!book || !pageNode) {
+    if (!book) {
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
     const bookUrl = hasOSWebData(book) ? bookDetailsUrl(book) : notFound.getUrl();
+    const bookState = hasOSWebData(book) ? book.book_state : undefined;
 
-    return this.renderBars({theme: defaultTheme, ...book}, bookUrl, pageNode);
+    return this.renderBars({theme: bookTheme, book_state: bookState, ...book}, bookUrl, pageNode);
   }
 
   private renderBars = (
-    book: Book & {theme: BookWithOSWebData['theme']},
+    book: Book & {theme: BookWithOSWebData['theme'], book_state: BookWithOSWebData['book_state'] | undefined},
     bookUrl: string,
-    treeSection: ArchiveTreeSection) =>
+    treeSection?: ArchiveTreeSection) =>
   ([
     <BarWrapper
       colorSchema={book.theme}
@@ -241,17 +256,29 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       data-analytics-region='book-banner-expanded'
     >
       <TopBar>
-        <BookTitle
-          data-testid='details-link-expanded'
-          href={bookUrl}
-          colorSchema={book.theme}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-            this.handleLinkClick(e, bookUrl);
-          }}
-        >
-          <LeftArrow colorSchema={book.theme} />{book.tree.title}
-        </BookTitle>
-        <BookChapter colorSchema={book.theme} dangerouslySetInnerHTML={{__html: treeSection.title}} />
+        {
+          book.book_state === 'retired'
+            ? <BookTitle data-testid='book-title-expanded' colorSchema={book.theme}>
+              {book.tree.title}
+            </BookTitle>
+            : <BookTitleLink
+              data-testid='details-link-expanded'
+              href={bookUrl}
+              colorSchema={book.theme}
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                this.handleLinkClick(e, bookUrl);
+              }}
+              tabIndex={this.state.tabbableBanner === 'big' ? undefined : -1}
+            >
+              <LeftArrow colorSchema={book.theme} />{book.tree.title}
+            </BookTitleLink>
+        }
+        {treeSection
+          ? <BookChapter
+            colorSchema={book.theme}
+            dangerouslySetInnerHTML={{__html: treeSection.title}}
+          />
+          : null}
       </TopBar>
     </BarWrapper>,
     <BarWrapper
@@ -259,21 +286,36 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
       variant='mini'
       key='mini-nav'
       ref={this.miniBanner}
+      data-testid='bookbanner-collapsed'
       data-analytics-region='book-banner-collapsed'
     >
       <TopBar>
-        <BookTitle
-          data-testid='details-link-collapsed'
-          href={bookUrl}
-          variant='mini'
-          colorSchema={book.theme}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-            this.handleLinkClick(e, bookUrl);
-          }}
-        >
-          <LeftArrow colorSchema={book.theme} />{book.tree.title}
-        </BookTitle>
-        <BookChapter colorSchema={book.theme} variant='mini' dangerouslySetInnerHTML={{__html: treeSection.title}} />
+        {
+          book.book_state === 'retired'
+            ? <BookTitle data-testid='book-title-collapsed' colorSchema={book.theme} variant='mini'>
+              {book.tree.title}
+            </BookTitle>
+            : <BookTitleLink
+              data-testid='details-link-collapsed'
+              href={bookUrl}
+              variant='mini'
+              colorSchema={book.theme}
+              onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                this.handleLinkClick(e, bookUrl);
+              }}
+              tabIndex={this.state.tabbableBanner === 'mini' ? undefined : -1}
+            >
+            <LeftArrow colorSchema={book.theme} />{book.tree.title}
+          </BookTitleLink>
+        }
+        {treeSection
+          ? <BookChapter
+            colorSchema={book.theme}
+            variant='mini'
+            dangerouslySetInnerHTML={{__html: treeSection.title}}
+          />
+          : null
+        }
       </TopBar>
     </BarWrapper>,
   ]);
@@ -282,6 +324,7 @@ export class BookBanner extends Component<PropTypes, {scrollTransition: boolean}
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
+    bookTheme: select.bookTheme(state),
     hasUnsavedHighlight: hasUnsavedHighlight(state),
     pageNode: select.pageNode(state),
   })

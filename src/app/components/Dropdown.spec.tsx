@@ -135,4 +135,25 @@ describe('Dropdown', () => {
 
     useOnEscSpy.mockClear();
   });
+
+  it(`items have onClick function even if it wasn't passed as prop`, () => {
+    const mockEv = { preventDefault: jest.fn() };
+
+    const component = renderer.create(<MessageProvider>
+      <Dropdown toggle={<button>show more</button>}>
+        <DropdownList>
+          <DropdownItem message='i18n:highlighting:dropdown:delete' />
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
+        </DropdownList>
+      </Dropdown>
+    </MessageProvider>);
+
+    renderer.act(() => {
+      const [button1, button2] = component.root.findAllByType('a');
+      button1.props.onClick(mockEv);
+      button2.props.onClick(mockEv);
+    });
+
+    expect(mockEv.preventDefault).toHaveBeenCalledTimes(2);
+  });
 });

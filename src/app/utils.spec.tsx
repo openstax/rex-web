@@ -1,7 +1,13 @@
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
+import createTestStore from '../test/createTestStore';
+import { book } from '../test/mocks/archiveLoader';
+import { mockCmsBook } from '../test/mocks/osWebLoader';
 import * as actions from './content/actions';
-import { AppServices, AppState, MiddlewareAPI } from './types';
+import * as selectors from './content/selectors';
+import { formatBookData } from './content/utils';
+import { notFound } from './errors/routes';
+import { AppServices, AppState, MiddlewareAPI, Store } from './types';
 import * as utils from './utils';
 import { assertDocument, UnauthenticatedError } from './utils';
 
@@ -101,6 +107,27 @@ describe('actionHook', () => {
 
     expect(Sentry.captureException).not.toHaveBeenCalled();
     expect(hookSpy).toHaveBeenCalled();
+    jest.resetAllMocks();
+  });
+
+  it('handle error if it is instace of BookNotFoundError', async() => {
+    const hookSpy = jest.fn(async() => Promise.reject(new utils.BookNotFoundError('asd')));
+    const mockReplace = jest.fn();
+    jest.spyOn(utils.assertWindow().location, 'replace')
+      .mockImplementation(mockReplace);
+    const helpers = ({
+      dispatch: jest.fn(),
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any) as MiddlewareAPI & AppServices;
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+    await Promise.resolve();
+
+    expect(hookSpy).toHaveBeenCalled();
+    expect(Sentry.captureException).toHaveBeenCalled();
+    expect(mockReplace).toHaveBeenCalledWith(notFound.getFullUrl());
+    expect(helpers.dispatch).not.toHaveBeenCalled();
     jest.resetAllMocks();
   });
 });
@@ -236,6 +263,48 @@ describe('remsToPx', () => {
   });
 });
 
+describe('referringHostName', () => {
+  const window = Object.create(null);
+
+  describe('when rex is not embedded in an iframe', () => {
+    beforeEach(() => {
+      window.location = { href: 'foo'};
+      window.parent = { location: window.location };
+    });
+
+    it('it returns the host name of not embedded', async() => {
+      const hostName = utils.referringHostName(window);
+      expect(hostName).toBe('not embedded');
+    });
+  });
+
+  describe('when embedded you get the host name', () => {
+    beforeEach(() => {
+      window.document = { referrer: 'http://somewhereelse.com'};
+      window.location = { href: 'foo'};
+      window.parent = { location: {href: 'foox'} };
+    });
+
+    it('returns the correct hostname', async() => {
+      const hostName = utils.referringHostName(window);
+      expect(hostName).toBe('somewhereelse.com');
+    });
+  });
+
+  describe('when host is unknown', () => {
+    beforeEach(() => {
+      window.document = { referrer: undefined };
+      window.location = { href: 'foo'};
+      window.parent = { location: {href: 'foox'} };
+    });
+
+    it('returns unknown', async() => {
+      const hostName = utils.referringHostName(window);
+      expect(hostName).toBe('unknown');
+    });
+  });
+});
+
 describe('getAllRegexMatches', () => {
   it('works with no matches', () => {
     const matcher = utils.getAllRegexMatches(/asdf/g);
@@ -313,5 +382,103 @@ describe('preventDefault', () => {
     const event = {preventDefault: jest.fn()} as any;
     utils.preventDefault(event);
     expect(event.preventDefault).toHaveBeenCalled();
+  });
+});
+
+describe('shallowEqual', () => {
+  describe('eveluates to true', () => {
+    it('for the same object', () => {
+      const obj = {};
+      expect(utils.shallowEqual(obj, obj)).toBe(true);
+    });
+
+    it('for objects with primitive values', () => {
+      const objA = {prop1: 1, prop2: 'string', prop3: null, prop4: false, prop5: undefined};
+      const objB = {...objA};
+      expect(utils.shallowEqual(objA, objB)).toBe(true);
+    });
+
+    it('for object with the same references as their properties', () => {
+      const nested = {prop: 1};
+
+      const objA = {propA: false, propB: nested};
+      const objB = {propA: false, propB: nested};
+
+      expect(utils.shallowEqual(objA, objB)).toBe(true);
+    });
+
+    it('for objects with properties in different order', () => {
+      const objA = {propA: 1, propB: 'string'};
+      const objB = {propB: 'string', propA: 1};
+
+      expect(utils.shallowEqual(objA, objB)).toBe(true);
+    });
+  });
+
+  describe('evaluates to false', () => {
+    it('for objects with missing keys', () => {
+      const objA = {propA: 1, propB: 'string'};
+      const objB = {propA: 1};
+
+      expect(utils.shallowEqual(objA, objB)).toBe(false);
+      expect(utils.shallowEqual(objB, objA)).toBe(false);
+    });
+
+    it('for objects with different top level values', () => {
+      const objA = {propA: 1, propB: 'string'};
+      const objB = {propA: 1, propB: 'another string'};
+
+      expect(utils.shallowEqual(objA, objB)).toBe(false);
+    });
+
+    it('for objects with different property references', () => {
+      const objA = {propA: 1, propB: {}};
+      const objB = {propA: 1, propB: {}};
+
+      expect(utils.shallowEqual(objA, objB)).toBe(false);
+    });
+  });
+});
+
+describe('memoizeStateToProps', () => {
+  const customStateToProps = (state: AppState) => ({
+    book: selectors.book(state),
+    page: selectors.page(state),
+  });
+
+  let store: Store;
+
+  beforeEach(() => {
+    store = createTestStore();
+  });
+
+  it('memoizes custom state mapping functions', () => {
+    const memoized = utils.memoizeStateToProps(customStateToProps);
+
+    const mapStateToPropsWithMemoization = (state: AppState) => ({
+      bookAndPage: customStateToProps(state),
+      memoizedBookAndPage: memoized(state),
+      tocOpen: selectors.tocOpen(state),
+    });
+
+    const stateA = mapStateToPropsWithMemoization(store.getState());
+    const stateB = mapStateToPropsWithMemoization(store.getState());
+
+    expect(stateA.bookAndPage).not.toBe(stateB.bookAndPage);
+    expect(stateA.memoizedBookAndPage).toBe(stateB.memoizedBookAndPage);
+  });
+
+  it('return new values after state changes', () => {
+    const memoized = utils.memoizeStateToProps(customStateToProps);
+
+    const mapStateToProps = (state: AppState) => ({
+      bookAndPage: memoized(state),
+    });
+    const stateA = mapStateToProps(store.getState());
+
+    store.dispatch(actions.receiveBook(formatBookData(book, mockCmsBook)));
+    const stateB = mapStateToProps(store.getState());
+
+    expect(stateA.bookAndPage).not.toBe(stateB.bookAndPage);
   });
 });

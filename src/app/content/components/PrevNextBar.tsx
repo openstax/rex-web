@@ -62,7 +62,7 @@ const BarWrapper = styled.div`
   height: 4rem;
   display: flex;
   align-items: center;
-  margin: 5rem auto 4rem auto;
+  margin: 5rem auto 3rem auto;
   border-top: solid 0.1rem ${theme.color.neutral.darkest};
   border-bottom: solid 0.1rem ${theme.color.neutral.darkest};
 
@@ -72,7 +72,7 @@ const BarWrapper = styled.div`
   }
 
   ${theme.breakpoints.mobile(css`
-    margin: 3.5rem auto 3.7rem auto;
+    margin: 3.5rem auto 3rem auto;
     border: 0;
   `)}
 `;

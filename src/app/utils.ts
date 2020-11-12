@@ -3,13 +3,15 @@ import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import Sentry from '../helpers/Sentry';
 import { receiveLoggedOut } from './auth/actions';
-import { recordError } from './errors/actions';
+import { recordError, showErrorDialog } from './errors/actions';
+import { notFound } from './errors/routes';
 import { isPlainObject } from './guards';
 import {
   ActionHookBody,
   AnyAction,
   AnyActionCreator,
   AppServices,
+  AppState,
   Dispatch,
   Middleware
 } from './types';
@@ -44,9 +46,14 @@ const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
   if (e instanceof UnauthenticatedError) {
     dispatch(receiveLoggedOut());
     return;
+  } else if (e instanceof BookNotFoundError) {
+    Sentry.captureException(e);
+    notFound.redirect();
+    return;
   }
   Sentry.captureException(e);
   dispatch(recordError(e));
+  dispatch(showErrorDialog());
 };
 
 // from https://github.com/facebook/react/issues/13029#issuecomment-445480443
@@ -126,6 +133,18 @@ export const remsToPx = (rems: number) => {
   return rems * bodyFontSize;
 };
 
+export const referringHostName = (window: Window) => {
+  let hostName = 'unknown';
+
+  if (window.location === window.parent.location) {
+    hostName = 'not embedded';
+  } else if (window.document.referrer) {
+    const {host} = new URL(window.document.referrer);
+    hostName = host;
+  }
+  return hostName;
+};
+
 export const getAllRegexMatches = (regex: RegExp) => {
   if (!regex.global) {
     throw new Error('getAllRegexMatches must be used with the global flag');
@@ -179,4 +198,32 @@ export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 
   }), {}),
 });
 
+export const shallowEqual = <T extends object>(objA: T, objB: T) => {
+  const keysOfA = Object.keys(objA) as Array<keyof T>;
+  const keysOfB = Object.keys(objB) as Array<keyof T>;
+
+  if (keysOfA.length !== keysOfB.length) { return false; }
+
+  return keysOfA.every((key) => {
+    return objB.hasOwnProperty(key) && objB[key] === objA[key];
+  });
+};
+
+export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => T) => {
+  let prev = {} as T;
+
+  return (state: AppState) => {
+    const current = fun(state);
+
+    if (shallowEqual(current, prev)) {
+      return prev;
+    }
+    prev = current;
+    return current;
+  };
+};
+
 export class UnauthenticatedError extends Error {}
+
+// tslint:disable-next-line: max-classes-per-file
+export class BookNotFoundError extends Error {}

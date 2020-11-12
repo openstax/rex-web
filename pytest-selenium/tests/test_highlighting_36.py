@@ -247,7 +247,6 @@ def test_highlight_stays_on_navigation(
 
 
 @markers.test_case("C591514")
-@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("astronomy",
@@ -315,7 +314,6 @@ def test_search_term_colored_within_a_highlight(
 
 
 @markers.test_case("C591515")
-@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("astronomy",
@@ -996,6 +994,7 @@ def test_clicking_outside_edit_box_doesnt_close_when_note_not_saved(
 
 
 @markers.test_case("C591698")
+@markers.skip_test(reason="mobile requirements changed - changing screen resolution does not help")
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -1132,7 +1131,7 @@ def test_read_only_display_card_closes_when_clicking_content_in_mobile(
 
 
 @markers.test_case("C591700")
-@markers.smoke_test
+@markers.skip_test(reason="mobile requirements changed - changing screen resolution does not help")
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -1277,7 +1276,6 @@ def test_open_note_card_after_searching_for_term_in_highlight(
 
 
 @markers.test_case("C591702")
-@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",

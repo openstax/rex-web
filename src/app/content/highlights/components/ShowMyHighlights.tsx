@@ -1,15 +1,16 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import GoToTopButton from '../../../components/GoToTopButton';
 import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
 import { AppServices, AppState, Dispatch } from '../../../types';
+import { loadMoreDistanceFromBottom } from '../../constants';
 import { loadMoreSummaryHighlights } from '../actions';
-import { loadMoreDistanceFromBottom } from '../constants';
 import * as select from '../selectors';
 import Highlights from './Highlights';
+import HighlightsToasts from './HighlightsToasts';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
 
@@ -80,23 +81,14 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         data-testid='show-myhighlights-body'
         data-analytics-region='MH popup'
       >
+        <HighlightsToasts />
         <Filters />
         <Highlights />
-        {this.state.showGoToTop && (
-          <FormattedMessage id='i18n:toolbar:highlights:popup:button:back-to-top'>
-            {(msg: string) => (
-              <Styled.GoToTopWrapper
-                onClick={this.scrollToTop}
-                data-testid='back-to-top-highlights'
-                aria-label={msg}
-              >
-                <Styled.GoToTop>
-                  <Styled.GoToTopIcon />
-                </Styled.GoToTop>
-              </Styled.GoToTopWrapper>
-            )}
-          </FormattedMessage>
-        )}
+        {this.state.showGoToTop && <GoToTopButton
+          i18nAriaLabel='i18n:toolbar:highlights:popup:button:back-to-top'
+          onClick={this.scrollToTop}
+          data-testid='back-to-top-highlights'
+        />}
       </Styled.ShowMyHighlightsBody>
     );
   }

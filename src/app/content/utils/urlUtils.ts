@@ -1,7 +1,7 @@
 import { APP_ENV, BOOKS } from '../../../config';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
-import { findArchiveTreeNode, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
+import { findArchiveTreeNodeById, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 
 export function bookDetailsUrl(book: BookWithOSWebData) {
@@ -10,11 +10,11 @@ export function bookDetailsUrl(book: BookWithOSWebData) {
 
 export const getBookPageUrlAndParams = (
   book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>,
-  page: Pick<Page, 'id' | 'shortId' | 'title'>
+  page: Pick<Page, 'id' | 'title'>
 ) => {
   const params: Params = {
     book: getUrlParamsForBook(book),
-    page: getUrlParamForPageId(book, page.shortId),
+    page: getUrlParamForPageId(book, page.id),
   };
   const state = {
     bookUid: book.id,
@@ -49,7 +49,7 @@ export const getUrlParamForPageId = (book: Pick<Book, 'id' | 'tree' | 'title'>, 
     return getUrlParamForPageIdCache.get(cacheKey);
   }
 
-  const treeSection = findArchiveTreeNode(book.tree, pageId);
+  const treeSection = findArchiveTreeNodeById(book.tree, pageId);
   if (!treeSection) {
     throw new Error(`BUG: could not find page "${pageId}" in ${book.title}`);
   }
@@ -99,4 +99,10 @@ export const toRelativeUrl = (from: string, to: string) => {
 
   return '../'.repeat(Math.max(0, parsedFrom.length - commonParts.length - 1))
     + parsedTo.slice(commonParts.length).join('/');
+};
+
+export const fromRelativeUrl = (base: string, to: string) => {
+  // this hostname is required by the URL constructor but we ignore it in our response, the value is irrelevant
+  const urlBase = new URL(to, `https://openstax.org${base}`);
+  return urlBase.pathname + urlBase.search + urlBase.hash;
 };

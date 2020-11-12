@@ -99,6 +99,8 @@ export const scrollTo = (elem: HTMLElement | Element | string) => {
 
 export const scrollIntoView = (elem: HTMLElement) => {
   const window = assertWindow();
+  if (!window.document.body.contains(elem)) { return; }
+
   const {top, bottom} = elem.getBoundingClientRect();
   const below = bottom > window.innerHeight;
   const above = top < Math.abs(getScrollPadding());
@@ -108,17 +110,6 @@ export const scrollIntoView = (elem: HTMLElement) => {
   } else if (above) {
     scrollTo(elem);
   }
-};
-
-export const elementDescendantOf = (element: Element, ancestor: Element): boolean => {
-  if (element === ancestor) {
-    return true;
-  }
-  if (!element.parentNode || !(element.parentNode instanceof assertWindow().Element)) {
-    return false;
-  }
-
-  return elementDescendantOf(element.parentNode, ancestor);
 };
 
 export const onPageFocusChange = (focus: boolean, app: {services: AppServices, store: Store}) => () => {
@@ -134,6 +125,11 @@ type EventTypeMap = typeof eventTypeMap;
 // change the names we can use the interface direcly here.
 type EventTypeFromMap<S extends keyof EventTypeMap> = (typeof dom)[EventTypeMap[S]]['prototype'];
 
+/*
+ * typescript actually does this by default, the actual problem
+ * is that our lib.dom.d.ts file is out of date and doesn't have
+ * focusout in it
+ */
 export const addSafeEventListener = <S extends keyof EventTypeMap>(
   element: HTMLElement,
   eventString: S,

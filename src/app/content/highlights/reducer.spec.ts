@@ -1,5 +1,6 @@
-import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import { receiveLoggedOut } from '../../auth/actions';
+import { locationChange } from '../../navigation/actions';
 import { assertNotNull } from '../../utils';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
@@ -16,26 +17,65 @@ const mockHighlight = {
 
 describe('highlight reducer', () => {
 
+  it('locationChange - keeps pageId and highlights if called with current pageUid', () => {
+    const state = reducer(
+      {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'}},
+      locationChange({location: {state: {pageUid: '123'}}} as any));
+    expect(state.currentPage.pageId).toEqual('123');
+    expect(state.currentPage.highlights).toEqual([mockHighlight]);
+  });
+
+  it('locationChange - reset pageId and highlights if called with different pageUid', () => {
+    const state = reducer(
+      {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'}},
+      locationChange({location: {state: {pageUid: 'asdf'}}} as any));
+    expect(state.currentPage.pageId).toEqual(null);
+    expect(state.currentPage.highlights).toEqual(initialState.currentPage.highlights);
+  });
+
+  it('locationChange - reset hasUnsavedHighlight and focused', () => {
+    const state = reducer(
+      {
+        ...initialState,
+        currentPage: {...initialState.currentPage, pageId: 'asdf', hasUnsavedHighlight: true, focused: 'asd'},
+      },
+      locationChange({location: {state: {pageUid: 'asdf'}}} as any));
+    expect(state.currentPage.hasUnsavedHighlight).toEqual(false);
+    expect(state.currentPage.focused).toBeUndefined();
+  });
+
+  it('locationChange - noops for REPLACE action', () => {
+    const mockState = {
+      ...initialState,
+      currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'},
+    };
+    const state = reducer(
+      mockState,
+      locationChange({action: 'REPLACE', location: {state: {pageUid: 'asdf'}}} as any));
+    expect(state).toEqual(mockState);
+  });
+
   it('focuses highlight', () => {
     const state = reducer(undefined, actions.focusHighlight('asdf'));
-    expect(state.focused).toEqual('asdf');
+    expect(state.currentPage.focused).toEqual('asdf');
   });
 
   it('clears focused highlight', () => {
-    const state = reducer({...initialState, focused: 'asdf'}, actions.clearFocusedHighlight());
-    expect(state.focused).toEqual(undefined);
+    const state = reducer(
+      {...initialState, currentPage: {...initialState.currentPage, focused: 'asdf'}},
+      actions.clearFocusedHighlight());
+    expect(state.currentPage.focused).toEqual(undefined);
   });
 
   it('removing the focused highlight also clears focus', () => {
     const state = reducer({
       ...initialState,
-      focused: 'asdf',
-      highlights: [mockHighlight],
-    }, actions.deleteHighlight(mockHighlight.id, {
+      currentPage: {...initialState.currentPage, highlights: [mockHighlight], focused: 'asdf'},
+    }, actions.receiveDeleteHighlight(mockHighlight, {
       locationFilterId: 'highlightChapter',
       pageId: 'highlightSource',
     }));
-    expect(state.focused).toEqual(undefined);
+    expect(state.currentPage.focused).toEqual(undefined);
   });
 
   it('receive total counts', () => {
@@ -84,11 +124,11 @@ describe('highlight reducer', () => {
       pageId: 'highlightSource',
     }));
 
-    if (!(state.highlights instanceof Array)) {
-      return expect(state.highlights).toBe(expect.any(Array));
+    if (!(state.currentPage.highlights instanceof Array)) {
+      return expect(state.currentPage.highlights).toBe(expect.any(Array));
     }
-    expect(state.highlights.length).toEqual(1);
-    expect(state.highlights[0].id).toEqual('asdf');
+    expect(state.currentPage.highlights.length).toEqual(1);
+    expect(state.currentPage.highlights[0].id).toEqual('asdf');
     expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: {blue: 1} });
     const highlights = assertNotNull(state.summary.highlights, '').highlightChapter.highlightSource;
     expect(highlights.length).toEqual(1);
@@ -97,21 +137,21 @@ describe('highlight reducer', () => {
 
   describe('deleteHighlight', () => {
 
-    it('noops with no highlights', () => {
+    it('noops when highlight doesn\'t exist', () => {
       const state = reducer({
         ...initialState,
-      }, actions.deleteHighlight('asdf', {
+      }, actions.receiveDeleteHighlight({id: 'asdf'} as Highlight, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
-      expect(state.highlights).toBe(null);
+      expect(state.currentPage.highlights).toBe(null);
+      expect(state.summary.highlights).toBe(initialState.summary.highlights);
     });
 
-    it('deletes', () => {
+    it('deletes from summary even if there are no highlights on the current page', () => {
       const state = reducer({
         ...initialState,
-        highlights: [mockHighlight],
         summary: {
           ...initialState.summary,
           highlights: {
@@ -124,16 +164,45 @@ describe('highlight reducer', () => {
             highlightSource: {[HighlightColorEnum.Green]: 1},
           },
         },
-      }, actions.deleteHighlight(mockHighlight.id, {
+      }, actions.receiveDeleteHighlight(mockHighlight, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
 
-      if (!(state.highlights instanceof Array)) {
-        return expect(state.highlights).toBe(expect.any(Array));
+      const summaryHighlights = state.summary.highlights;
+      if (!summaryHighlights) {
+        return expect(summaryHighlights).toBeTruthy();
       }
 
-      expect(state.highlights.length).toEqual(0);
+      expect(summaryHighlights.highlightChapter.highlightSource).toBeUndefined();
+      expect(state.currentPage.highlights).toBe(null);
+    });
+
+    it('deletes', () => {
+      const state = reducer({
+        currentPage: {...initialState.currentPage, highlights: [mockHighlight]},
+        summary: {
+          ...initialState.summary,
+          highlights: {
+            highlightChapter: {
+              highlightSource: [{...mockHighlight, sourceId: 'highlightSource'}],
+              otherHighlightSource: [mockHighlight],
+            },
+          },
+          totalCountsPerPage: {
+            highlightSource: {[HighlightColorEnum.Green]: 1},
+          },
+        },
+      }, actions.receiveDeleteHighlight({id: 'asdf'} as Highlight, {
+        locationFilterId: 'highlightChapter',
+        pageId: 'highlightSource',
+      }));
+
+      if (!(state.currentPage.highlights instanceof Array)) {
+        return expect(state.currentPage.highlights).toBe(expect.any(Array));
+      }
+
+      expect(state.currentPage.highlights.length).toEqual(0);
       expect(state.summary.totalCountsPerPage).toEqual({ highlightSource: {green: 1} });
       const chapterHighlights = assertNotNull(state.summary.highlights, '').highlightChapter;
       expect(Object.keys(chapterHighlights).length).toEqual(1);
@@ -143,15 +212,56 @@ describe('highlight reducer', () => {
 
   describe('updateHighlight', () => {
 
-    it('noops if there are no highlgihts', () => {
+    it('noops when highlight doesn\'t exist', () => {
       const state = reducer({
         ...initialState,
       }, actions.updateHighlight({id: 'asdf', highlight: {annotation: 'asdf'}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: 'asdf', highlight: {}},
       }));
 
-      expect(state.highlights).toBe(null);
+      expect(state.currentPage.highlights).toBe(null);
+      expect(state.summary.highlights).toBe(initialState.summary.highlights);
+    });
+
+    it('updates the highlight in summary even if there are no highlights on the current page', () => {
+      const toUpdate = {...mockHighlight, sourceId: 'highlightSource', id: 'xyz'};
+
+      const state = reducer({
+        ...initialState,
+        summary: {
+          ...initialState.summary,
+          filters: {
+            ...initialState.summary.filters,
+            locationIds: ['highlightChapter'],
+          },
+          highlights: {
+            highlightChapter: {
+              highlightSource: [toUpdate, mockHighlight],
+            },
+          },
+        },
+      }, actions.updateHighlight({id: toUpdate.id, highlight: {annotation: 'asdf'}}, {
+        locationFilterId: 'highlightChapter',
+        pageId: 'highlightSource',
+        preUpdateData: {
+          highlight: {
+            annotation: mockHighlight.annotation,
+            color: mockHighlight.color as string as HighlightUpdateColorEnum,
+          },
+          id: 'yxz',
+        },
+      }));
+
+      const summaryHighlights = state.summary.highlights;
+      if (!summaryHighlights) {
+        return expect(summaryHighlights).toBeTruthy();
+      }
+
+      expect(summaryHighlights.highlightChapter.highlightSource[0].annotation).toEqual('asdf');
+      expect(summaryHighlights.highlightChapter.highlightSource[1]).toEqual(mockHighlight);
+      expect(state.currentPage.highlights).toBe(null);
     });
 
     it('updates', () => {
@@ -159,8 +269,7 @@ describe('highlight reducer', () => {
       const mock3 = {...mockHighlight, id: 'qwer'};
 
       const state = reducer({
-        ...initialState,
-        highlights: [mock1, mock3],
+        currentPage: {...initialState.currentPage, highlights: [mock1, mock3]},
         summary: {
           ...initialState.summary,
           filters: {
@@ -176,14 +285,15 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: mock1.id, highlight: {annotation: 'asdf'}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: mock1.id, highlight: {annotation: mock1.annotation, color: mock1.annotation as any}},
       }));
 
-      if (!(state.highlights instanceof Array)) {
-        return expect(state.highlights).toBe(expect.any(Array));
+      if (!(state.currentPage.highlights instanceof Array)) {
+        return expect(state.currentPage.highlights).toBe(expect.any(Array));
       }
 
-      expect(state.highlights[0].annotation).toEqual('asdf');
-      expect(state.highlights[1]).toEqual(mock3);
+      expect(state.currentPage.highlights[0].annotation).toEqual('asdf');
+      expect(state.currentPage.highlights[1]).toEqual(mock3);
       const highlights = assertNotNull(state.summary.highlights, '').highlightChapter.highlightSource;
       expect(highlights[0].annotation).toEqual('asdf');
       expect(highlights[1]).toEqual(mock3);
@@ -195,14 +305,18 @@ describe('highlight reducer', () => {
 
       const state = reducer({
         ...initialState,
-        hasUnsavedHighlight: true,
-        highlights: [mock1, mock3],
+        currentPage: {
+          ...initialState.currentPage,
+          hasUnsavedHighlight: true,
+          highlights: [mock1, mock3],
+        },
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: mock1.id, highlight: {annotation: mock1.annotation, color: mock1.color as any}},
       }));
 
-      expect(state.hasUnsavedHighlight).toBe(true);
+      expect(state.currentPage.hasUnsavedHighlight).toBe(true);
     });
 
     it('does not modify summary highlights if they haven\'t been loaded', () => {
@@ -210,8 +324,7 @@ describe('highlight reducer', () => {
       const mock3 = {...mockHighlight, id: 'qwer', sourceId: 'highlightSource'};
 
       const state = reducer({
-        ...initialState,
-        highlights: [mock1, mock3],
+        currentPage: {...initialState.currentPage, highlights: [mock1, mock3]},
         summary: {
           ...initialState.summary,
           filters: {
@@ -225,6 +338,7 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: mock1.id, highlight: {annotation: mock1.annotation, color: mock1.color as any}},
       }));
 
       expect(state.summary.highlights).toBe(null);
@@ -235,8 +349,7 @@ describe('highlight reducer', () => {
       const mock3 = {...mockHighlight, id: 'qwer', sourceId: 'highlightSource'};
 
       const state = reducer({
-        ...initialState,
-        highlights: [mock1, mock3],
+        currentPage: {...initialState.currentPage, highlights: [mock1, mock3]},
         summary: {
           ...initialState.summary,
           filters: {
@@ -255,14 +368,15 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Green}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: mock1.id, highlight: {annotation: mock1.annotation, color: mock1.color as any}},
       }));
 
-      if (!(state.highlights instanceof Array)) {
-        return expect(state.highlights).toBe(expect.any(Array));
+      if (!(state.currentPage.highlights instanceof Array)) {
+        return expect(state.currentPage.highlights).toBe(expect.any(Array));
       }
 
-      expect(state.highlights[0].color).toEqual(HighlightColorEnum.Green);
-      expect(state.highlights[1]).toEqual(mock3);
+      expect(state.currentPage.highlights[0].color).toEqual(HighlightColorEnum.Green);
+      expect(state.currentPage.highlights[1]).toEqual(mock3);
       const highlights = assertNotNull(state.summary.highlights, '').highlightChapter.highlightSource;
       expect(highlights.length).toEqual(1);
       expect(highlights[0]).toEqual(mock3);
@@ -275,8 +389,7 @@ describe('highlight reducer', () => {
       const mock3 = {...mockHighlight, id: 'qwer'};
 
       const state = reducer({
-        ...initialState,
-        highlights: [mock1, mock3],
+        currentPage: {...initialState.currentPage, highlights: [mock1, mock3]},
         summary: {
           ...initialState.summary,
           filters: {
@@ -292,14 +405,15 @@ describe('highlight reducer', () => {
       }, actions.updateHighlight({id: mock1.id, highlight: {color: HighlightUpdateColorEnum.Blue}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: mock1.id, highlight: {annotation: mock1.annotation, color: mock1.color as any}},
       }));
 
-      if (!(state.highlights instanceof Array)) {
-        return expect(state.highlights).toBe(expect.any(Array));
+      if (!(state.currentPage.highlights instanceof Array)) {
+        return expect(state.currentPage.highlights).toBe(expect.any(Array));
       }
 
-      expect(state.highlights[0].color).toEqual(HighlightColorEnum.Blue);
-      expect(state.highlights[1]).toEqual(mock3);
+      expect(state.currentPage.highlights[0].color).toEqual(HighlightColorEnum.Blue);
+      expect(state.currentPage.highlights[1]).toEqual(mock3);
       const highlights = assertNotNull(state.summary.highlights, '').highlightChapter.highlightSource;
       expect(highlights.length).toEqual(1);
       expect(highlights[0].color).toEqual(HighlightUpdateColorEnum.Blue);
@@ -311,10 +425,11 @@ describe('highlight reducer', () => {
 
       const state = reducer({
         ...initialState,
-        highlights: [mock1, mock3],
+        currentPage: {...initialState.currentPage, highlights: [mock1, mock3]},
       }, actions.updateHighlight({id: 'id-not-exists', highlight: {color: HighlightUpdateColorEnum.Blue}}, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
+        preUpdateData: {id: 'id-not-exists', highlight: {}},
       }));
 
       expect(state).toMatchObject(state);
@@ -367,6 +482,39 @@ describe('highlight reducer', () => {
 
       expect(state.summary.highlights).toMatchObject(highlights);
       expect(state.summary.loading).toEqual(false);
+    });
+
+    it('noops for receive summary highlights with stale filters', () => {
+      const highlights: SummaryHighlights = {
+        chapter_id: {
+          page_id: [
+            {id: 'highlight'} as HighlightData,
+          ],
+        },
+      };
+
+      const mockState = {
+        ...initialState,
+        summary: {
+          ...initialState.summary,
+          filters: {
+            colors: [HighlightColorEnum.Green],
+            locationIds: ['id'],
+          },
+          loading: true,
+        },
+      };
+
+      const staleFilters = {
+        colors: [],
+        locationIds: [],
+      };
+
+      const state = reducer(
+        mockState,
+        actions.receiveSummaryHighlights(highlights, {pagination: null, filters: staleFilters }));
+
+      expect(state).toEqual(mockState);
     });
   });
 

@@ -1,7 +1,7 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { treeWithUnits } from '../../../../test/trees';
 import { resetModules } from '../../../../test/utils';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import {
   filterCountsPerSourceByColorFilter,
   filterCountsPerSourceByLocationFilter,
@@ -44,7 +44,7 @@ describe('getNextPageSources', () => {
 
   describe('over resource limit', () => {
     it('respects resource limit', () => {
-      jest.mock('../constants', () => ({maxResourcesPerFetch: 1}));
+      jest.mock('../../constants', () => ({maxResourcesPerFetch: 1}));
       const {getNextPageSources} = require('./paginationUtils');
 
       expect(getNextPageSources({
@@ -58,7 +58,7 @@ describe('getNextPageSources', () => {
 describe('filterCountsPerSourceByLocationFilter', () => {
   it('filters by chapters', () => {
     expect(filterCountsPerSourceByLocationFilter(
-      new Map([['chapter1', findArchiveTreeNode(treeWithUnits, 'chapter1')!]]),
+      new Map([['chapter1', findArchiveTreeNodeById(treeWithUnits, 'chapter1')!]]),
       {
         page1: {[HighlightColorEnum.Green]: 2},
         preface: {[HighlightColorEnum.Pink]: 3},
@@ -73,8 +73,8 @@ describe('filterCountsPerSourceByLocationFilter', () => {
   it('filters by pages outside chapter', () => {
     expect(filterCountsPerSourceByLocationFilter(
       new Map([
-        ['chapter1', findArchiveTreeNode(treeWithUnits, 'chapter1')!],
-        ['preface', findArchiveTreeNode(treeWithUnits, 'preface')!]]
+        ['chapter1', findArchiveTreeNodeById(treeWithUnits, 'chapter1')!],
+        ['preface', findArchiveTreeNodeById(treeWithUnits, 'preface')!]]
       ),
       {
         page1: {[HighlightColorEnum.Green]: 2},

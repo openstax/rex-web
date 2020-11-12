@@ -1,3 +1,5 @@
-pytest-selenium/* @openstax/unified-integration-testing
-
 * @openstax/rex
+
+src/config.books.json @openstax/rex-content
+
+pytest-selenium/ @openstax/unified-integration-testing

@@ -1,5 +1,5 @@
 """OpenStax Accounts helper workflows for user log in and registration."""
-
+# fmt: off
 import string
 from random import randint
 from typing import Tuple, Union
@@ -8,7 +8,7 @@ from pypom import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as expect
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import Select, WebDriverWait
 
 from utils.restmail import RestMail
 from utils.utility import Utilities
@@ -57,33 +57,43 @@ class Login(Page):
         return self.find_element(*self._password_field_locator)
 
     def enter_user_email(self, username):
+        """Enter username in the Accounts login screen.
+
+        :param username: random user email from secure store -> str
+        """
+
         self.wait.until(
             expect.visibility_of_element_located(
                 self._user_field_locator))
         self.user_field.send_keys(username)
 
     def enter_password(self, password):
-        self.wait.until(
-            expect.visibility_of_element_located(
-                self._password_field_locator))
-        self.password_field.send_keys(password)
-        return self
+        """Enter password in the Accounts login screen.
 
-    def click_next(self):
+        :param password: password from secure store -> str
+        """
+        self.password_field.send_keys(password)
+
+    def click_continue(self):
+        """Click Continue button"""
+
         self.find_element(*self._login_submit_button_locator) \
             .send_keys(Keys.ENTER)
         return self
 
-    click_login = click_next
-
     def login(self, email, password):
+        """Login as existing user.
+
+        :param email: random user email from secure store -> str
+        :param password: random user password from secure store -> str
+
+        """
         self.enter_user_email(email)
-        self.click_next()
         self.enter_password(password)
         self.wait.until(
             expect.visibility_of_element_located(
                 self._login_submit_button_locator))
-        self.click_login()
+        self.click_continue()
         self.wait.until(
             expect.invisibility_of_element_located(
                 self._login_submit_button_locator))
@@ -137,6 +147,8 @@ class Signup(Page):
         :rtype: bool
 
         """
+        WebDriverWait(self.driver, 1).until(
+            expect.visibility_of_element_located(self._new_accounts_flow_locator))
         return bool(self.find_elements(*self._new_accounts_flow_locator))
 
     def complete(self):
@@ -276,5 +288,9 @@ class Signup(Page):
 
     def sign_up(self):
         """Click the sign up link."""
+
+        WebDriverWait(self.driver, 1).until(
+            expect.visibility_of_element_located(self._signup_link_or_tab_locator))
         signup_link = self.find_element(*self._signup_link_or_tab_locator)
         Utilities.click_option(self.driver, element=signup_link)
+# fmt: on

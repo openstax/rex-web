@@ -1,15 +1,20 @@
-import { GetHighlightsSummarySourceTypeEnum } from '@openstax/highlighter/dist/api';
-import mapValues from 'lodash/fp/mapValues';
-import pickBy from 'lodash/fp/pickBy';
-import { isDefined } from '../../../guards';
-import { ActionHookBody } from '../../../types';
+import { GetHighlightsSummarySourceTypeEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
+import Sentry from '../../../../helpers/Sentry';
+import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { ActionHookBody, Unpromisify } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
+import { summaryPageSize } from '../../constants';
 import * as selectContent from '../../selectors';
-import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts, receiveSummaryHighlights } from '../actions';
-import { summaryPageSize } from '../constants';
-import * as select from '../selectors';
-import { CountsPerSource } from '../types';
-import { loadMore } from './loadMore';
+import {
+  initializeMyHighlightsSummary,
+  receiveHighlightsTotalCounts,
+  receiveSummaryHighlights,
+  toggleSummaryHighlightsLoading
+} from '../actions';
+import { highlightLocationFilters } from '../selectors';
+import { extractTotalCounts } from '../utils/paginationUtils';
+import { loadMore, LoadMoreResponse } from './loadMore';
 
 export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (services) => async() => {
   const { dispatch, getState, highlightClient } = services;
@@ -17,21 +22,42 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
 
   // this can only be undefined in dev if you press the MH button before book is loaded, whatever
   const book = assertDefined(selectContent.book(state), 'book should be defined');
-  const locationFilters = select.highlightLocationFilters(state);
+  const locationFilters = highlightLocationFilters(state);
 
-  const totalCounts = await highlightClient.getHighlightsSummary({
-    scopeId: book.id,
-    sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
-  });
+  let totalCounts: HighlightsSummary;
+
+  try {
+    totalCounts = await highlightClient.getHighlightsSummary({
+      scopeId: book.id,
+      sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
+    });
+  } catch (error) {
+    Sentry.captureException(error);
+    dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
+    dispatch(toggleSummaryHighlightsLoading(false));
+    return;
+  }
 
   const countsPerSource = assertDefined(totalCounts.countsPerSource, 'summary response is invalid');
 
   dispatch(receiveHighlightsTotalCounts(
-    mapValues(pickBy<CountsPerSource>(isDefined), countsPerSource),
+    extractTotalCounts(countsPerSource),
     locationFilters
   ));
 
-  const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
+  let highlights: Unpromisify<LoadMoreResponse>;
+
+  try {
+    highlights = await loadMore(services, summaryPageSize);
+  } catch (error) {
+    Sentry.captureException(error);
+    dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
+    dispatch(toggleSummaryHighlightsLoading(false));
+    return;
+  }
+
+  const {formattedHighlights, pagination} = highlights;
+
   dispatch(receiveSummaryHighlights(formattedHighlights, {pagination}));
 };
 

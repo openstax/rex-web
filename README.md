@@ -74,6 +74,14 @@ CI runs on ubuntu, and because of minor rendering differences between platforms 
 
 **NOTE:** the `CI=true` flag makes it so screenshots will match if they are not quite exactly the same. this is included because there are still some things like math typesetting that are not 10000% deterministic in their rendering. if you want to make sure you get the updates you need for a minor change, you may have to remove the `CI=true` to see it, but you will probably also get some false positives.
 
+#### Running individual tests
+
+To run a single test file, `yarn jest <file>`.
+
+#### Running the linter
+
+`yarn lint` will run the linter, but note that you may need to install `shellcheck` which is used in the linting (e.g. `brew install shellcheck`).
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br>

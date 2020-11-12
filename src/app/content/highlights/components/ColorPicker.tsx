@@ -3,7 +3,8 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import { match, not } from '../../../fpUtils';
-import { cardPadding, highlightStyles } from '../constants';
+import { highlightStyles } from '../../constants';
+import { cardPadding } from '../constants';
 import ColorIndicator from './ColorIndicator';
 
 interface SingleSelectProps {

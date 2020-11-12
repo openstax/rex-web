@@ -1,6 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import * as domUtils from '../../../../domUtils';
 import { assertDocument } from '../../../../utils';
 import onClickOutside from './onClickOutside';
 
@@ -53,10 +52,9 @@ describe('onClickOutside', () => {
     const cb = jest.fn();
     const container = documentBack.createElement('div');
     const child = documentBack.createElement('div');
-    const elementDescendantOf = jest.spyOn(domUtils, 'elementDescendantOf');
+    container.appendChild(child);
 
     (ref as any).current = container;
-    elementDescendantOf.mockReturnValue(true);
 
     onClickOutside(ref, true, cb)();
 
@@ -70,16 +68,79 @@ describe('onClickOutside', () => {
   it('invoking event with target that is not child of container calls callback', () => {
     const cb = jest.fn();
     const container = documentBack.createElement('div');
-    const child = documentBack.createElement('div');
-    const elementDescendantOf = jest.spyOn(domUtils, 'elementDescendantOf');
+    const notChild = documentBack.createElement('div');
 
     (ref as any).current = container;
-    elementDescendantOf.mockReturnValue(false);
 
     onClickOutside(ref, true, cb)();
 
     addEventListener.mock.calls[0][1]({
+      target: notChild,
+    });
+
+    expect(cb).toHaveBeenCalled();
+  });
+
+  it('invoking event with target that is child of one of elements does nothing', () => {
+    const cb = jest.fn();
+    const container = documentBack.createElement('div');
+    const container2 = documentBack.createElement('div');
+    const child = documentBack.createElement('div');
+    container2.appendChild(child);
+
+    onClickOutside([container, container2], true, cb)();
+
+    addEventListener.mock.calls[0][1]({
       target: child,
+    });
+
+    expect(cb).not.toHaveBeenCalled();
+  });
+
+  it('invoking event with target that is child of one of refs does nothing', () => {
+    const cb = jest.fn();
+    const container = documentBack.createElement('div');
+    const container2 = documentBack.createElement('div');
+    const child = documentBack.createElement('div');
+    container2.appendChild(child);
+
+    const mockRef = { current: container } as React.RefObject<HTMLElement>;
+    const mockRef2 = { current: container2 } as React.RefObject<HTMLElement>;
+    onClickOutside([mockRef, mockRef2], true, cb)();
+
+    addEventListener.mock.calls[0][1]({
+      target: child,
+    });
+
+    expect(cb).not.toHaveBeenCalled();
+  });
+
+  // This is for test coverage. It should never happen since typescript will prevent us from doing this
+  it('invoking event with broken ref calls callback', () => {
+    const cb = jest.fn();
+    const notChild = documentBack.createElement('div');
+
+    onClickOutside([{ notCurrent: 'not-ref' } as any], true, cb)();
+
+    addEventListener.mock.calls[0][1]({
+      target: notChild,
+    });
+
+    expect(cb).toHaveBeenCalled();
+  });
+
+  it('invoking event with target that is not child of one of elements calls callback', () => {
+    const cb = jest.fn();
+    const container = documentBack.createElement('div');
+    const container2 = documentBack.createElement('div');
+    const child = documentBack.createElement('div');
+    container2.appendChild(child);
+    const notChild = documentBack.createElement('div');
+
+    onClickOutside([container, container2], true, cb)();
+
+    addEventListener.mock.calls[0][1]({
+      target: notChild,
     });
 
     expect(cb).toHaveBeenCalled();

@@ -13,5 +13,5 @@ export const developerHome: Route<undefined, undefined> = {
   }),
   getUrl: (): string => pathToRegexp.compile(ROUTES_PATH)(),
   name: 'Developer Home',
-  paths: [ROUTES_PATH],
+  paths: [ROUTES_PATH, '/books/list'],
 };

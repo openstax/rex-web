@@ -1,5 +1,46 @@
 # this dockerfile is not for production, its for QA and CI
-FROM node:10.15-jessie as puppeteer
+FROM debian:buster as utils
+
+# general utils
+RUN apt-get update && apt-get install -y \
+  git \
+  procps \
+  curl \
+  jq \
+  && rm -rf /var/lib/apt/lists/*
+
+# AWS CLI
+RUN apt-get update && apt-get install -y \
+  unzip && \
+  rm -rf /var/lib/apt/lists/* && \
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+  unzip awscliv2.zip && \
+  ./aws/install && \
+  rm -rf awscliv2.zip aws
+
+# node
+# this is really excessively complicated logic just so the .nvmrc can be
+# the source of truth about our supported node version
+COPY .nvmrc /root/.
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && \
+  NVM_DIR="$HOME/.nvm" && . $HOME/.nvm/nvm.sh && \
+  cd && nvm install && \
+  npm install -g yarn && \
+  ln -s $(dirname $(which node)) /usr/local/node-bin
+
+ENV PATH /usr/local/node-bin:$PATH
+
+from utils as CI
+
+# shellcheck (apt version is very old)
+# includes crazy hack around some linking issue from https://github.com/koalaman/shellcheck/issues/1053#issuecomment-357816927
+run apt-get update && apt-get install -y \
+  xz-utils && \
+  rm -rf /var/lib/apt/lists/* && \
+  curl -Ls https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar -Jxf - --strip-components=1 -C $HOME shellcheck-stable/shellcheck && \
+  touch /tmp/libc.so.6 && \
+  echo "LD_LIBRARY_PATH=/tmp $HOME/shellcheck \"\$@\"" > /usr/bin/shellcheck && \
+  chmod a+x /usr/bin/shellcheck
 
 # debian deps from https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#chrome-headless-doesnt-launch
 RUN apt-get update && apt-get install -y \
@@ -16,6 +57,7 @@ RUN apt-get update && apt-get install -y \
   libdbus-1-3 \
   libexpat1 \
   libfontconfig1 \
+  libgbm1 \
   libgcc1 \
   libgconf-2-4 \
   libgdk-pixbuf2.0-0 \
@@ -40,39 +82,6 @@ RUN apt-get update && apt-get install -y \
   libxss1 \
   libxtst6 \
   lsb-release \
-  shellcheck \
   wget \
   xdg-utils \
   && rm -rf /var/lib/apt/lists/*
-
-FROM puppeteer as slim
-
-WORKDIR /code
-
-COPY package.json yarn.lock ./
-COPY ./script ./script
-COPY ./src/config*js ./src/
-
-RUN yarn install
-
-COPY . .
-
-EXPOSE 8000
-
-CMD ["yarn", "run", "server"]
-
-FROM slim as built
-
-ARG PUBLIC_URL
-ARG REACT_APP_CODE_VERSION
-ARG REACT_APP_RELEASE_ID
-ARG REACT_APP_BOOKS
-
-ENV PUBLIC_URL=$PUBLIC_URL
-ENV REACT_APP_CODE_VERSION=$REACT_APP_CODE_VERSION
-ENV REACT_APP_RELEASE_ID=$REACT_APP_RELEASE_ID
-ENV REACT_APP_BOOKS=$REACT_APP_BOOKS
-
-ENV REACT_APP_ENV=production
-
-RUN yarn run build

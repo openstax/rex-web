@@ -1,17 +1,20 @@
 import isEqual from 'lodash/fp/isEqual';
+import queryString from 'query-string';
 import { push, replace } from '../../../navigation/actions';
+import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
+import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
-import { getFirstResult, getIndexData, getSearchFromLocation } from '../utils';
+import { findSearchResultHit, getFirstResult, getIndexData } from '../utils';
 import trackSearch from './trackSearch';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
@@ -34,40 +37,41 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
 
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
   const state = services.getState();
-  const {page, book} = selectContent.bookAndPage(state);
+  const {page: currentPage, book} = selectContent.bookAndPage(state);
+  const pageIsLoading = selectContent.loadingPage(state);
   const query = select.query(state);
-  const savedSearch = getSearchFromLocation(services.history.location);
+  const results = select.hits(state) || [];
 
-  if (!page || !book) {
+  if (pageIsLoading || !book) {
     return; // book changed while query was in the air
   }
 
-  const selectedResult = meta && meta.selectedResult ? meta.selectedResult : getFirstResult(book, payload);
+  const searchResultHit = meta && meta.searchScrollTarget && findSearchResultHit(results, meta.searchScrollTarget);
+  const selectedResult = searchResultHit && meta.searchScrollTarget
+    ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
+    : getFirstResult(book, payload);
 
-  if (!selectedResult) {
-    return;
-  }
-
-  const targetPageId = selectedResult.result.source.pageId;
-  const targetPage = assertDefined(
-    findArchiveTreeNode(book.tree, targetPageId),
-    'search result pointed to page that wasn\'t in book'
-  );
-
-  const savedQuery = savedSearch ? savedSearch.query : null;
   if (
-    savedQuery === query &&
-    page.id === stripIdVersion(targetPage.id) &&
-    isEqual(select.selectedResult(state), selectedResult)
+    // selectedResult may equal to null if api did not return any results
+    !selectedResult
+    // We are clearing selected result when requesting a new search so in the theory this should never happen
+    || isEqual(select.selectedResult(state), selectedResult)
+    // selectedResult bookId data is different than current book id
+    || book.id !== getIndexData(selectedResult.result.index).bookId
   ) {
-    return; // if search and page match current history record, noop
-  }
-
-  if (book.id !== getIndexData(selectedResult.result.index).bookId) {
     return;
   }
 
   services.dispatch(selectSearchResult(selectedResult));
+
+  const targetPageId = selectedResult.result.source.pageId;
+  const targetPage = assertDefined(
+    findArchiveTreeNodeById(book.tree, targetPageId),
+    'search result pointed to page that wasn\'t in book'
+  );
+
+  // currentPage may by undefined when user started a search from the 404 page
+  const page = currentPage || targetPage;
 
   const navigation = {
     params: getBookPageUrlAndParams(book, targetPage).params,
@@ -76,46 +80,53 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
       bookUid: book.id,
       bookVersion: book.version,
       pageUid: stripIdVersion(targetPage.id),
-      search: {query, selectedResult},
     },
   };
 
   const action = stripIdVersion(page.id) === stripIdVersion(targetPage.id) ? replace : push;
+  const search = queryString.stringify({
+    query,
+    target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
+  });
+  const hash = selectedResult.result.source.elementId;
 
-  services.dispatch(action(navigation));
+  services.dispatch(action(navigation, { hash, search }));
 };
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
-  if (services.history.location.state && services.history.location.state.search) {
+  const scrollTarget = selectNavigation.scrollTarget(services.getState());
+  if (scrollTarget && isSearchScrollTarget(scrollTarget)) {
     services.history.replace({
-      state: {
-        ...services.history.location.state,
-        search: null,
-      },
+      hash: '',
+      search: '',
     });
   }
 };
 
 // composed in /content/locationChange hook because it needs to happen after book load
-export const syncSearch: RouteHookBody<typeof content> = (services) => async(locationChange) => {
-  const query = select.query(services.getState());
-  const selectedResult = select.selectedResult(services.getState());
-  const savedSearch = getSearchFromLocation(locationChange.location);
+export const syncSearch: RouteHookBody<typeof content> = (services) => async() => {
+  const state = services.getState();
+  const navigationQuery = selectNavigation.query(state).query;
+  const searchQuery = select.query(state);
+  const scrollTarget = selectNavigation.scrollTarget(state);
+  const searchScrollTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? scrollTarget : null;
+  const searchHits = select.hits(state) || [];
+  const targettedHit = searchScrollTarget && findSearchResultHit(searchHits, searchScrollTarget);
+  const navigationSelectedResult = targettedHit && searchScrollTarget
+    ? { result: targettedHit, highlight: searchScrollTarget.index }
+    : null;
+  const currentSelectedResult = select.selectedResult(state);
 
-  if (savedSearch && savedSearch.query && savedSearch.query !== query) {
-    services.dispatch(
-      requestSearch(
-        savedSearch.query,
-        savedSearch.selectedResult ? {
-          isResultReload: true,
-          selectedResult: savedSearch.selectedResult,
-        } : undefined
-      )
-    );
-  } else if (savedSearch && savedSearch.selectedResult && !isEqual(savedSearch.selectedResult, selectedResult)) {
-    services.dispatch(selectSearchResult(savedSearch.selectedResult));
-  } else if ((!savedSearch || !savedSearch.query) && query) {
-    services.dispatch(clearSearch());
+  if (typeof navigationQuery === 'string' && navigationQuery !== searchQuery) {
+    services.dispatch(requestSearch(
+      navigationQuery,
+      searchScrollTarget ? { isResultReload: true, searchScrollTarget } : undefined
+    ));
+  } else if (
+    navigationSelectedResult
+    && (!currentSelectedResult || !isEqual(navigationSelectedResult, currentSelectedResult))
+  ) {
+    services.dispatch(selectSearchResult(navigationSelectedResult));
   }
 };
 

@@ -1,13 +1,14 @@
 import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
+import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
+import { highlightStyles } from '../constants';
 import * as actions from './actions';
-import { highlightStyles } from './constants';
 import { State } from './types';
 import {
   addToTotalCounts,
@@ -20,13 +21,16 @@ import { findHighlight } from './utils/reducerUtils';
 
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
-  hasUnsavedHighlight: false,
-  highlights: null,
-  myHighlightsOpen: false,
+  currentPage: {
+    hasUnsavedHighlight: false,
+    highlights: null,
+    pageId: null,
+  },
   summary: {
     filters: {colors: defaultColors, locationIds: []},
     highlights: null,
     loading: false,
+    open: false,
     pagination: null,
     totalCountsPerPage: null,
   },
@@ -35,8 +39,18 @@ export const initialState: State = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
-      return {...initialState, myHighlightsOpen: false,
-        summary: {...state.summary},
+      // Noops for locationChange dispatched when search query changes
+      if (action.payload.action === 'REPLACE') { return state; }
+      const currentPageId = state.currentPage.pageId;
+      const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
+      return {
+        currentPage: currentPageId && actionPageId === currentPageId
+          ? omit('focused', {...state.currentPage, hasUnsavedHighlight: false})
+          : initialState.currentPage,
+        summary: {
+          ...state.summary,
+          open: false,
+        },
       };
     }
     case getType(actions.createHighlight): {
@@ -58,9 +72,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         : state.summary.totalCountsPerPage;
 
       return {
-        ...state,
-        hasUnsavedHighlight: false,
-        highlights: [...state.highlights || [], highlight],
+        currentPage: {
+          ...state.currentPage,
+          hasUnsavedHighlight: false,
+          highlights: [...state.currentPage.highlights || [], highlight],
+        },
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights || state.summary.highlights,
@@ -69,29 +85,32 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.openMyHighlights):
-      return {...state, myHighlightsOpen: true};
+      return {...state, summary: { ...state.summary, open: true }};
     case getType(actions.closeMyHighlights):
-      return {...state, myHighlightsOpen: false};
+      return {...state, summary: { ...state.summary, open: false }};
     case getType(actions.updateHighlight): {
       const oldHighlight = findHighlight(state, action.payload.id);
+      const highlights = state.currentPage.highlights;
 
-      if (!state.highlights || !oldHighlight) {
+      if (!oldHighlight) {
         return state;
       }
 
       const hasUnsavedHighlight =
         oldHighlight.annotation === action.payload.highlight.annotation
-        && state.hasUnsavedHighlight;
+        && state.currentPage.hasUnsavedHighlight;
 
       const newHighlight = {
         ...oldHighlight,
         ...action.payload.highlight,
       } as Highlight;
 
-      const newHighlights = state.highlights.map((highlight) => {
-        if (highlight.id === oldHighlight.id) { return newHighlight; }
-        return highlight;
-      });
+      const newCurrentPageHighlights = highlights
+        ? highlights.map((highlight) => {
+            if (highlight.id === oldHighlight.id) { return newHighlight; }
+            return highlight;
+          })
+        : null;
 
       const newSummaryHighlights = state.summary.highlights
         ? updateSummaryHighlightsDependOnFilters(
@@ -107,9 +126,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       ;
 
       return {
-        ...state,
-        hasUnsavedHighlight: Boolean(hasUnsavedHighlight),
-        highlights: newHighlights,
+        currentPage: {
+          ...state.currentPage,
+          hasUnsavedHighlight,
+          highlights: newCurrentPageHighlights,
+        },
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
@@ -117,17 +138,22 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         },
       };
     }
-    case getType(actions.deleteHighlight): {
-      const highlightToRemove = findHighlight(state, action.payload);
+    case getType(actions.receiveDeleteHighlight): {
+      const highlightToRemove = findHighlight(state, action.payload.id);
+      const highlights = state.currentPage.highlights;
 
-      if (!state.highlights || !highlightToRemove) {
+      if (!highlightToRemove) {
         return state;
       }
 
+      const newCurrentPageHighlights = highlights
+        ? highlights.filter(({id}) => id !== action.payload.id)
+        : null;
+
       const newSummaryHighlights = state.summary.highlights
         ? removeSummaryHighlight(state.summary.highlights, {
-          ...action.meta,
-          id: action.payload,
+          ...pick(['locationFilterId', 'pageId'], action.meta),
+          id: action.payload.id,
         })
         : state.summary.highlights
       ;
@@ -138,10 +164,12 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       ;
 
       return {
-        ...state,
-        focused: state.focused === action.payload ? undefined : state.focused,
-        hasUnsavedHighlight: false,
-        highlights: state.highlights.filter(({id}) => id !== action.payload),
+        currentPage: {
+          ...state.currentPage,
+          focused: state.currentPage.focused === action.payload.id ? undefined : state.currentPage.focused,
+          hasUnsavedHighlight: false,
+          highlights: newCurrentPageHighlights,
+        },
         summary: {
           ...state.summary,
           highlights: newSummaryHighlights,
@@ -150,23 +178,28 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.receiveHighlights): {
-      return {...state, highlights: action.payload,
+      return {
+        currentPage: {
+          ...state.currentPage,
+          highlights: action.payload.highlights,
+          pageId: action.payload.pageId,
+        },
         summary: {...state.summary},
       };
     }
     case getType(actions.focusHighlight): {
-      return {...state, focused: action.payload, hasUnsavedHighlight: false };
+      return {...state, currentPage: { ...state.currentPage, hasUnsavedHighlight: false, focused: action.payload }};
     }
     case getType(actions.clearFocusedHighlight): {
-      return {
-        ...omit('focused', state),
-        hasUnsavedHighlight: false,
-      };
+      return {...state, currentPage: omit('focused', {...state.currentPage, hasUnsavedHighlight: false})};
     }
     case getType(actions.setAnnotationChangesPending): {
       return {
         ...state,
-        hasUnsavedHighlight: action.payload,
+        currentPage: {
+          ...state.currentPage,
+          hasUnsavedHighlight: action.payload,
+        },
       };
     }
     case getType(actions.printSummaryHighlights): {
@@ -213,6 +246,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.receiveSummaryHighlights): {
+      // Check if filters wasn't updated while we were loading response.
+      // It may happen if user with slow network connection change filters very fast.
+      if (action.meta.filters && state.summary.filters !== action.meta.filters) { return state; }
+
       return {
         ...state,
         summary: {

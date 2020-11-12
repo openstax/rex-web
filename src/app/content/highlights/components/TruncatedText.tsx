@@ -11,6 +11,7 @@ interface Props {
   text: string;
   isFocused: boolean;
   className?: string;
+  onChange: () => void;
 }
 
 // tslint:disable-next-line:variable-name
@@ -28,7 +29,7 @@ const Link = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-const NoteText = ({text, isFocused, className}: Props) => {
+const NoteText = ({text, isFocused, className, onChange }: Props) => {
   const noteTextRef = React.useRef<HTMLElement>(null);
   const [showLink, setShowLink] = React.useState<boolean>(false);
 
@@ -38,6 +39,8 @@ const NoteText = ({text, isFocused, className}: Props) => {
     } else {
       setShowLink(false);
     }
+    onChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
   return <React.Fragment>
@@ -68,13 +71,12 @@ export default styled(NoteText)`
     text-overflow: ellipsis;
     overflow: hidden;
     max-height: ${lineHeight * 3}rem;
-    white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   `}
 
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.touchDeviceQuery(css`
     padding: ${cardPadding}rem ${cardPadding * 2}rem;
     height: 15.2rem;
     overflow: auto;

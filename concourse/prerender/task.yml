@@ -3,8 +3,12 @@ platform: linux
 
 inputs:
 - name: rex-web
+- name: build-configs
 outputs:
 - name: release
+
+caches:
+- path: rex-web/node_modules
 
 run:
   path: rex-web/concourse/prerender/script.bash

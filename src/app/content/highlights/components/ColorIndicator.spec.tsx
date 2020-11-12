@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { highlightStyles } from '../constants';
+import { highlightStyles } from '../../constants';
 import ColorIndicator from './ColorIndicator';
 
 describe('ColorIndicator', () => {

@@ -10,12 +10,13 @@ export default (id: string = Math.random().toString(36).substring(7)) => {
     isAttached: jest.fn(() => true),
     range: {
       commonAncestorContainer: null as null | HTMLElement,
-      getBoundingClientRect: jest.fn(),
+      getBoundingClientRect: jest.fn(() => ({ top: 0, bottom: 0 })),
     },
     serialize: () => ({
       data: {id} as SerializedHighlight['data'],
       getApiPayload: () => ({id} as ReturnType<SerializedHighlight['getApiPayload']>),
     }),
     setStyle: jest.fn(),
+    sourceId: 'testbook1-testpage1-uuid',
   };
 };

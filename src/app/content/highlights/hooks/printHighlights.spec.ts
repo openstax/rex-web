@@ -5,9 +5,12 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { groupedToastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
+import { maxHighlightsApiPageSize } from '../../constants';
 import { formatBookData } from '../../utils';
 import {
   closeMyHighlights,
@@ -18,7 +21,6 @@ import {
   setSummaryFilters,
   toggleSummaryHighlightsLoading,
 } from '../actions';
-import { maxHighlightsApiPageSize } from '../constants';
 import { HighlightData, SummaryHighlights } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -82,6 +84,18 @@ describe('printHighlights', () => {
         'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
       }, new Map()));
       store.dispatch(setSummaryFilters({locationIds}));
+    });
+
+    it('adds a toast on request failure', async() => {
+      const error = {} as any;
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce(error);
+
+      await asyncHelper(helpers);
+
+      expect(groupedToastNotifications(store.getState()).myHighlights)
+        .toEqual([expect.objectContaining({messageKey: toastMessageKeys.higlights.failure.popUp.print})]);
     });
 
     it('fetches all highlights before print', async() => {

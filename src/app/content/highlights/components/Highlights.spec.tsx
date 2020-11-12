@@ -1,4 +1,4 @@
-import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -10,30 +10,33 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
+import SectionHighlights, { HighlightSection } from '../../components/SectionHighlights';
+import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
-  deleteHighlight,
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
+  requestDeleteHighlight,
   setSummaryFilters,
   updateHighlight,
 } from '../actions';
+import * as requestDeleteHighlightHook from '../hooks/requestDeleteHighlight';
 import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
-import Highlights, { SectionHighlights } from './Highlights';
-import { HighlightSection, LoaderWrapper } from './ShowMyHighlightsStyles';
+import Highlights from './Highlights';
 import ContextMenu from './SummaryPopup/ContextMenu';
 import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';
 import HighlightDeleteWrapper from './SummaryPopup/HighlightDeleteWrapper';
 import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
 
-const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
-const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
-const hlPink = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl' };
-const hlPurple = { id: 'hl4', color: HighlightColorEnum.Purple, annotation: 'hl' };
-const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow };
+const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1', sourceId: 'testbook1-testpage1-uuid' };
+const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl', sourceId: 'testbook1-testpage1-uuid' };
+const hlPink = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl', sourceId: 'testbook1-testpage1-uuid' };
+const hlPurple = { annotation: 'hl', color: HighlightColorEnum.Purple,
+  id: 'hl4', sourceId: 'testbook1-testpage1-uuid' };
+const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow, sourceId: 'testbook1-testpage1-uuid' };
 
 describe('Highlights', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
@@ -279,6 +282,10 @@ describe('Highlights', () => {
     }, {
       locationFilterId: pageId,
       pageId,
+      preUpdateData: {
+        highlight: {annotation: hlBlue.annotation, color: hlBlue.color as string as HighlightUpdateColorEnum},
+        id: hlBlue.id,
+      },
     }));
 
     renderer.act(() => {
@@ -343,6 +350,10 @@ describe('Highlights', () => {
     }, {
       locationFilterId: pageId,
       pageId,
+      preUpdateData: {
+        highlight: {annotation: hlBlue.annotation, color: hlBlue.color as string as HighlightUpdateColorEnum},
+        id: hlBlue.id,
+      },
     }));
   });
 
@@ -391,13 +402,20 @@ describe('Highlights', () => {
       const [firstDeleteWrapper, secondDeleteWrapper] = component.root.findAllByType(HighlightDeleteWrapper);
       firstDeleteWrapper.props.onDelete();
       secondDeleteWrapper.props.onCancel();
+
+      requestDeleteHighlightHook.hookBody({...services, getState: store.getState, dispatch: store.dispatch})(
+        requestDeleteHighlight(hlBlue as Highlight, {
+          locationFilterId: pageId,
+          pageId,
+        }
+      ));
     });
 
-    expect(dispatch).toHaveBeenCalledWith(deleteHighlight(hlBlue.id, {
+    expect(dispatch).toHaveBeenCalledWith(requestDeleteHighlight(hlBlue as Highlight, {
       locationFilterId: pageId,
       pageId,
     }));
 
-    expect(component.root.findAllByType(HighlightDeleteWrapper).length).toEqual(1);
+    expect(component.root.findAllByType(HighlightDeleteWrapper).length).toEqual(0);
   });
 });

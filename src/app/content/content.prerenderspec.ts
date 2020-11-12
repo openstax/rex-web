@@ -1,4 +1,5 @@
 /** @jest-environment puppeteer */
+import equals from 'lodash/fp/equals';
 import pretty from 'pretty';
 import { finishRender, navigate } from '../../test/browserutils';
 
@@ -10,12 +11,12 @@ describe('content', () => {
   it('doesn\'t modify the markup on page load', async() => {
     const getHtml = () => {
       if (!document) {
-        return null;
+        return 'no document';
       }
       const root = document.getElementById('root');
 
       if (!root) {
-        return null;
+        return 'no root';
       }
 
       // these elements are intended to be changed on page load
@@ -71,12 +72,76 @@ describe('content', () => {
     const links: string[] = await page.evaluate(() =>
       document
         ? Array.from(document.querySelectorAll('#main-content a'))
-          .map((element) => element.getAttribute('href'))
+          .map((element) => element.getAttribute('href') as string)
         : []
     );
 
     expect(links).toEqual([
       'test-page-1',
     ]);
+  });
+
+  it('triggers google analytics pageview initially', async() => {
+    await page.setJavaScriptEnabled(true);
+    await navigate(page, TEST_PAGE_WITHOUT_MATH);
+
+    const pendingEvents = await page.evaluate(() =>
+      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+    );
+
+    expect(pendingEvents).toContainEqual({
+      command: {
+        name: 'send',
+        payload: {
+          hitType: 'pageview',
+          page: '/books/book-slug-1/pages/2-test-page-3',
+        },
+      },
+      savedAt: expect.anything(),
+    });
+  });
+
+  it('triggers google analytics pageview after navigating again', async() => {
+    await page.setJavaScriptEnabled(true);
+    await navigate(page, TEST_PAGE_WITHOUT_MATH);
+
+    const initialEvents = await page.evaluate(() =>
+      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+    );
+
+    await page.click('a[data-analytics-label="next"]');
+
+    const pendingEvents = await page.evaluate(() =>
+      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+    );
+
+    const newEvents = pendingEvents.filter(
+      (event: any) => !initialEvents.find(equals(event))
+    );
+
+    expect(newEvents).toContainEqual({
+      command: {
+        name: 'send',
+        payload: {
+          eventAction: 'next',
+          eventCategory: 'REX Link (prev-next)',
+          eventLabel: '/books/book-slug-1/pages/2-test-page-3',
+          hitType: 'event',
+          transport: 'beacon',
+        },
+      },
+      savedAt: expect.anything(),
+    });
+
+    expect(newEvents).toContainEqual({
+      command: {
+        name: 'send',
+        payload: {
+          hitType: 'pageview',
+          page: '/books/book-slug-1/pages/3-test-page-4',
+        },
+      },
+      savedAt: expect.anything(),
+    });
   });
 });

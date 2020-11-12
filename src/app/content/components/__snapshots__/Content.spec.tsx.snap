@@ -33,7 +33,7 @@ Array [
     className="Content__Background-sc-1f451g1-0 gEoQaE"
   >
     <div
-      className="BookBanner__BarWrapper-sc-1avy0c0-4 eIPJBY"
+      className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
       data-analytics-region="book-banner-expanded"
       data-testid="bookbanner"
     >
@@ -41,14 +41,14 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitle-sc-1avy0c0-2 fRzrrt"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
           data-testid="details-link-expanded"
           href="/details/books/book-slug-1"
           onClick={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="BookBanner__LeftArrow-sc-1avy0c0-0 eRQNag StyledIconBase-sc-bdy9j4 jbPeIR"
+            className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 24 24"
@@ -60,7 +60,7 @@ Array [
           Test Book 1
         </a>
         <h1
-          className="BookBanner__BookChapter-sc-1avy0c0-3 dMXgkT"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -70,21 +70,23 @@ Array [
       </div>
     </div>
     <div
-      className="BookBanner__BarWrapper-sc-1avy0c0-4 gZpRfI"
+      className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
       data-analytics-region="book-banner-collapsed"
+      data-testid="bookbanner-collapsed"
     >
       <div
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitle-sc-1avy0c0-2 kplCmc"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
-            className="BookBanner__LeftArrow-sc-1avy0c0-0 eRQNag StyledIconBase-sc-bdy9j4 jbPeIR"
+            className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 24 24"
@@ -96,7 +98,7 @@ Array [
           Test Book 1
         </a>
         <span
-          className="BookBanner__BookChapter-sc-1avy0c0-3 fVxHGG"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -115,8 +117,10 @@ Array [
       >
         <button
           aria-label="Click to open the Table of Contents"
-          className="styled__SidebarControl-sc-1119auh-18 goLnIL SidebarControl__ToCButton-sdjc7-2 tGPhq"
+          className="styled__SidebarControl-sc-1119auh-17 DBTIW SidebarControl__ToCButton-sdjc7-2 tGPhq"
+          data-testid="toc-button"
           onClick={[Function]}
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
@@ -193,22 +197,27 @@ Array [
             </button>
           </form>
         </div>
-        <button
-          aria-label="My highlights"
-          className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 gcvHTS"
-          onClick={[Function]}
+        <div
+          className="styled__NudgeElementTarget-sc-1119auh-18 kJPvUC"
+          id="nudge-study-tools"
         >
-          <img
-            aria-hidden="true"
-            className="HighlightButton__MyHighlightsIcon-fxks7p-1 iZcVEd"
-            src="highlightIcon.svg"
-          />
-          <span
-            className="HighlightButton__MyHighlightsText-fxks7p-2 fJSRKO"
+          <button
+            aria-label="My highlights"
+            className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 ieTRLD"
+            onClick={[Function]}
           >
-            My highlights
-          </span>
-        </button>
+            <img
+              aria-hidden="true"
+              className="HighlightButton__MyHighlightsIcon-fxks7p-1 iZcVEd"
+              src="highlightIcon.svg"
+            />
+            <span
+              className="HighlightButton__MyHighlightsText-fxks7p-2 fJSRKO"
+            >
+              My highlights
+            </span>
+          </button>
+        </div>
         <button
           aria-label="print"
           className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
@@ -246,7 +255,7 @@ Array [
         >
           <div
             aria-label="Table of Contents"
-            className="wrapper__SidebarBody-sc-1nl0jy-0 dRvuDj"
+            className="wrapper__SidebarBody-sc-1nl0jy-0 fRdwcf"
             data-analytics-region="toc"
             data-testid="toc"
           >
@@ -257,6 +266,7 @@ Array [
               <button
                 aria-label="Click to close the Table of Contents"
                 className="wrapper__SidebarHeaderButton-sc-1nl0jy-3 fBHtqL SidebarControl__ToCButton-sdjc7-2 tGPhq"
+                data-testid="toc-button"
                 onClick={[Function]}
               >
                 <svg
@@ -446,7 +456,7 @@ Array [
                         className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span></span>",
+                            "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
                           }
                         }
                         href="1-1-physics-an-introduction"
@@ -460,7 +470,7 @@ Array [
                         className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span></span>",
+                            "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
                           }
                         }
                         href="23-12-rlc-series-ac-circuits"
@@ -809,7 +819,7 @@ Array [
                   className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span></a>",
+                      "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
                     }
                   }
                   href="a-atomic-masses"
@@ -823,7 +833,7 @@ Array [
                   className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span></a>",
+                      "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
                     }
                   }
                   href="d-glossary-of-key-symbols-and-notation"
@@ -856,10 +866,10 @@ Array [
                 className="Content__MainContentWrapper-sc-1f451g1-4 hGEkST"
               >
                 <div
-                  className="MinPageHeight-sc-1i28xs0-0 hlmbEu"
+                  className="MinPageHeight-sc-1i28xs0-0 hxgCaZ"
                 >
                   <div
-                    className="RedoPadding-sc-1rj2rww-0 gXEqJK"
+                    className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
                       className="PageContent-ny9bj0-0 iapMdy"
@@ -877,7 +887,7 @@ Array [
                       />
                     </div>
                     <div
-                      className="PrevNextBar__BarWrapper-sc-13m2i12-3 fiSglB"
+                      className="PrevNextBar__BarWrapper-sc-13m2i12-3 fEZPiF"
                       data-analytics-region="prev-next"
                     >
                       <a
@@ -924,7 +934,7 @@ Array [
                   </div>
                 </div>
                 <details
-                  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 iABWOM"
+                  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
                   data-analytics-region="attribution"
                   data-testid="attribution-details"
                 >
@@ -1049,15 +1059,15 @@ Array [
                           className="styled__Heading-y5hgq4-8 kYpDrD"
                           role="heading"
                         >
-                          OpenStax is part of Rice University, which is a 501(c)(3) nonprofit charitable corporation.
+                          Our mission is to improve educational access and learning for everyone.
                         </div>
                         <div
                           className="styled__Mission-y5hgq4-9 hHuCFj"
                           dangerouslySetInnerHTML={
                             Object {
                               "__html": "
-  It's our mission to give every student the tools they need to be successful in the classroom.
-  Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
+  OpenStax is part of Rice University, which is a 501(c)(3) nonprofit.
+  <a href=\\"/give\\" target=\\"_blank\\">Give today</a> and help us reach more students.
 ",
                             }
                           }
@@ -1339,7 +1349,7 @@ Array [
     className="Content__Background-sc-1f451g1-0 gEoQaE"
   >
     <div
-      className="BookBanner__BarWrapper-sc-1avy0c0-4 kLMCbe"
+      className="BookBanner__BarWrapper-sc-1avy0c0-5 blPrsP"
     />
     <div
       className="styled__BarWrapper-sc-1119auh-9 iBpta"
@@ -1351,8 +1361,10 @@ Array [
       >
         <button
           aria-label="Click to open the Table of Contents"
-          className="styled__SidebarControl-sc-1119auh-18 goLnIL SidebarControl__ToCButton-sdjc7-2 tGPhq"
+          className="styled__SidebarControl-sc-1119auh-17 DBTIW SidebarControl__ToCButton-sdjc7-2 tGPhq"
+          data-testid="toc-button"
           onClick={[Function]}
+          tabIndex={-1}
         >
           <svg
             aria-hidden="true"
@@ -1429,22 +1441,27 @@ Array [
             </button>
           </form>
         </div>
-        <button
-          aria-label="My highlights"
-          className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 gcvHTS"
-          onClick={[Function]}
+        <div
+          className="styled__NudgeElementTarget-sc-1119auh-18 kJPvUC"
+          id="nudge-study-tools"
         >
-          <img
-            aria-hidden="true"
-            className="HighlightButton__MyHighlightsIcon-fxks7p-1 iZcVEd"
-            src="highlightIcon.svg"
-          />
-          <span
-            className="HighlightButton__MyHighlightsText-fxks7p-2 fJSRKO"
+          <button
+            aria-label="My highlights"
+            className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 ieTRLD"
+            onClick={[Function]}
           >
-            My highlights
-          </span>
-        </button>
+            <img
+              aria-hidden="true"
+              className="HighlightButton__MyHighlightsIcon-fxks7p-1 iZcVEd"
+              src="highlightIcon.svg"
+            />
+            <span
+              className="HighlightButton__MyHighlightsText-fxks7p-2 fJSRKO"
+            >
+              My highlights
+            </span>
+          </button>
+        </div>
         <button
           aria-label="print"
           className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
@@ -1482,7 +1499,7 @@ Array [
         >
           <div
             aria-label="Table of Contents"
-            className="wrapper__SidebarBody-sc-1nl0jy-0 dRvuDj"
+            className="wrapper__SidebarBody-sc-1nl0jy-0 fRdwcf"
             data-analytics-region="toc"
             data-testid="toc"
           >
@@ -1493,6 +1510,7 @@ Array [
               <button
                 aria-label="Click to close the Table of Contents"
                 className="wrapper__SidebarHeaderButton-sc-1nl0jy-3 fBHtqL SidebarControl__ToCButton-sdjc7-2 tGPhq"
+                data-testid="toc-button"
                 onClick={[Function]}
               >
                 <svg
@@ -1554,10 +1572,10 @@ Array [
                 className="Content__MainContentWrapper-sc-1f451g1-4 hGEkST"
               >
                 <div
-                  className="MinPageHeight-sc-1i28xs0-0 hlmbEu"
+                  className="MinPageHeight-sc-1i28xs0-0 hxgCaZ"
                 >
                   <div
-                    className="RedoPadding-sc-1rj2rww-0 gXEqJK"
+                    className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
                       className="PageContent-ny9bj0-0 iapMdy"
@@ -1660,15 +1678,15 @@ Array [
                           className="styled__Heading-y5hgq4-8 kYpDrD"
                           role="heading"
                         >
-                          OpenStax is part of Rice University, which is a 501(c)(3) nonprofit charitable corporation.
+                          Our mission is to improve educational access and learning for everyone.
                         </div>
                         <div
                           className="styled__Mission-y5hgq4-9 hHuCFj"
                           dangerouslySetInnerHTML={
                             Object {
                               "__html": "
-  It's our mission to give every student the tools they need to be successful in the classroom.
-  Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
+  OpenStax is part of Rice University, which is a 501(c)(3) nonprofit.
+  <a href=\\"/give\\" target=\\"_blank\\">Give today</a> and help us reach more students.
 ",
                             }
                           }

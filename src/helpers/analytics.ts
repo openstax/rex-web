@@ -14,10 +14,13 @@ import * as showCreate from './analyticsEvents/highlighting/showCreate';
 import * as showHelpInfo from './analyticsEvents/highlighting/showHelpInfo';
 import * as showLogin from './analyticsEvents/highlighting/showLogin';
 import * as openCloseMH from './analyticsEvents/highlighting/summaryPopup/openClose';
+import * as openNudgeStudyTools from './analyticsEvents/openNudgeStudyTools';
 import * as pageFocus from './analyticsEvents/pageFocus';
+import * as openClosePracticeQuestions from './analyticsEvents/practiceQuestions/openClosePopUp';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
-import * as signupCTA from './analyticsEvents/signupCTA';
+import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClosePopUp';
+import * as openUTG from './analyticsEvents/studyGuides/openUTG';
 import * as unload from './analyticsEvents/unload';
 
 type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
@@ -27,7 +30,7 @@ interface Event {track: EventConstructor; selector: Selector; }
 const triggerEvent = <E extends Event>(event: E): E['track'] => (...args) => {
   const analyticsEvent = event.track(...args);
 
-  if (analyticsEvent) {
+  if (analyticsEvent && analyticsEvent.getGoogleAnalyticsPayload) {
     googleAnalyticsClient.trackEventPayload(analyticsEvent.getGoogleAnalyticsPayload());
   }
 };
@@ -55,13 +58,16 @@ const analytics = {
   editAnnotation: mapEventType(highlightingEditAnnotation),
   editNoteColor: mapEventType(highlightingEditColor),
   openCloseMH: mapEventType(openCloseMH),
+  openClosePracticeQuestions: mapEventType(openClosePracticeQuestions),
+  openCloseStudyGuides: mapEventType(openCloseStudyGuides),
+  openNudgeStudyTools: mapEventType(openNudgeStudyTools),
+  openUTG: mapEventType(openUTG),
   pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),
   showCreate: mapEventType(showCreate),
   showHelpInfo: mapEventType(showHelpInfo),
   showLogin: mapEventType(showLogin),
-  signupCTA: mapEventType(signupCTA),
   unload: mapEventType(unload),
 };
 
@@ -84,6 +90,10 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
 
     const button = findFirstAncestorOrSelfOfType(e.target, window.HTMLButtonElement);
     if (button) {
+      const disableTrack = button.getAttribute('data-analytics-disable-track');
+      if ( disableTrack ) {
+        return;
+      }
       analytics.clickButton.track(analytics.clickButton.selector(store.getState()), button);
     }
   });
@@ -93,6 +103,10 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
       analytics.print.track(analytics.print.selector(store.getState()));
     }
   });
+
+  googleAnalyticsClient.setCustomDimensionForSession();
+
+  return {googleAnalyticsClient};
 };
 
 export const useAnalyticsEvent = <T extends keyof typeof analytics>(eventType: T) => {

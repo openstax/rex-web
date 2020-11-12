@@ -5,18 +5,18 @@ import { AppState } from '../../types';
 import * as actions from '../actions';
 import { appMessageType } from '../reducer';
 import * as select from '../selectors';
-import { AnyNotification } from '../types';
+import { ModalNotification } from '../types';
 import AcceptCookies from './AcceptCookies';
 import AppMessage from './AppMessage';
 import UpdatesAvailable from './UpdatesAvailable';
 
 interface Props {
-  notification?: AnyNotification | undefined;
+  notification?: ModalNotification | undefined;
   className?: string;
 }
 
-const renderNotification = (
-  notification: AnyNotification,
+const renderNotificationModal = (
+  notification: ModalNotification,
   className?: string
 ) => {
   switch (notification.type) {
@@ -39,10 +39,10 @@ const renderNotification = (
 export class Notifications extends Component<Props> {
   public render() {
     const { notification, className } = this.props;
-    return notification ? renderNotification(notification, className) : null;
+    return notification ? renderNotificationModal(notification, className) : null;
   }
 }
 
 export default connect((state: AppState) => ({
-  notification: select.notificationForDisplay(state),
+  notification: select.modalNotificationToDisplay(state),
 }))(Notifications);

@@ -3,11 +3,12 @@ import { SearchResult } from '@openstax/open-search-client/dist/models/SearchRes
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import * as mockArchive from '../../..//test/mocks/archiveLoader';
 import * as rangyHelpers from '../../../helpers/rangy';
+import Sentry from '../../../helpers/Sentry';
 import { mockRange } from '../../../test/mocks/rangy';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { assertDocument } from '../../utils';
-import { ArchivePage } from '../types';
+import { ArchivePage, LinkedArchiveTree } from '../types';
 import { getFirstResult, getFormattedSearchResults, highlightResults } from './utils';
 
 jest.mock('@openstax/highlighter/dist/Highlight', () => ({
@@ -108,9 +109,12 @@ describe('getFormattedSearchResults', () => {
 
   describe('treeWithUnits', () => {
     it('collapses unit structure', () => {
+      const unit = treeWithUnits.contents[1] as LinkedArchiveTree;
+      const chapter = unit.contents[0] as LinkedArchiveTree;
+
       const chapterHit = makeSearchResultHit({
         book: {...mockArchive.book, tree: treeWithUnits},
-        page: treeWithUnits.contents[0].contents[1].contents![0] as unknown as ArchivePage,
+        page: chapter.contents![0] as unknown as ArchivePage,
       });
       const searchResults: SearchResult = makeSearchResults([
         chapterHit,
@@ -119,11 +123,11 @@ describe('getFormattedSearchResults', () => {
       expect(getFormattedSearchResults(treeWithUnits, searchResults)).toContainEqual(expect.objectContaining({
         contents: [
           expect.objectContaining({
-            id: treeWithUnits.contents[0].contents[1].contents![0].id,
+            id: chapter.contents![0].id,
             results: [chapterHit],
           }),
         ],
-        id: treeWithUnits.contents[0].contents[1].id,
+        id: unit.contents[0].id,
       }));
     });
   });
@@ -132,6 +136,7 @@ describe('getFormattedSearchResults', () => {
 describe('highlightResults', () => {
   let findTextInRange: jest.SpyInstance;
   let highlight: jest.SpyInstance;
+  let captureException: jest.SpyInstance;
   let highlighter: Highlighter;
   let container: HTMLDivElement;
 
@@ -141,77 +146,114 @@ describe('highlightResults', () => {
 
     container = assertDocument().createElement('div');
     highlighter = new Highlighter(container);
-    highlight = jest.spyOn(highlighter, 'highlight').mockImplementation(() => null);
+
+    captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => null);
   });
 
-  it('highlights a result', () => {
-    const results = [
-      makeSearchResultHit({
-        book: mockArchive.book,
-        highlights: ['asdf <strong>qwer</strong> foo'],
-        page: mockArchive.page,
-      }),
-    ];
+  describe('without errors' , () => {
+    beforeEach(() => {
+      highlight = jest.spyOn(highlighter, 'highlight').mockImplementation((hl: any) => {
+        hl.elements = [{}];
+      });
+    });
 
-    const element = assertDocument().createElement('p');
-    element.id = results[0].source.elementId;
-    container.append(element);
+    it('highlights a result', () => {
+      const results = [
+        makeSearchResultHit({
+          book: mockArchive.book,
+          highlights: ['asdf <strong>qwer</strong> foo'],
+          page: mockArchive.page,
+        }),
+      ];
 
-    highlightResults(highlighter, results);
+      const element = assertDocument().createElement('p');
+      element.id = results[0].source.elementId;
+      container.append(element);
 
-    expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'qwer'});
+      highlightResults(highlighter, results);
+
+      expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'qwer'});
+    });
+
+    it('works on sections with no matches', () => {
+      const results = [
+        makeSearchResultHit({
+          book: mockArchive.book,
+          highlights: ['asdf foo … <strong>asdf</strong>'],
+          page: mockArchive.page,
+        }),
+      ];
+
+      const element = assertDocument().createElement('p');
+      element.id = results[0].source.elementId;
+      container.append(element);
+
+      highlightResults(highlighter, results);
+
+      expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'asdf'});
+    });
+
+    it('falls back on whole element if text can\'t be found', () => {
+      const results = [
+        makeSearchResultHit({
+          book: mockArchive.book,
+          highlights: ['asdf <strong>qwer</strong> foo'],
+          page: mockArchive.page,
+        }),
+      ];
+
+      findTextInRange.mockReturnValue([]);
+
+      const element = assertDocument().createElement('p');
+      element.textContent = 'Asdfasdf asdfklj adlk fasd;lfk ajsdf';
+      element.id = results[0].source.elementId;
+      container.append(element);
+
+      highlightResults(highlighter, results);
+
+      expect(highlight.mock.calls[0][0]!.data).toEqual({content: element.textContent});
+    });
+
+    it('works if element is not found', () => {
+      const results = [
+        makeSearchResultHit({
+          book: mockArchive.book,
+          highlights: ['asdf <strong>qwer</strong> foo'],
+          page: mockArchive.page,
+        }),
+      ];
+
+      highlightResults(highlighter, results);
+
+      expect(highlight).not.toBeCalled();
+    });
   });
 
-  it('works on sections with no matches', () => {
-    const results = [
-      makeSearchResultHit({
-        book: mockArchive.book,
-        highlights: ['asdf foo … <strong>asdf</strong>'],
-        page: mockArchive.page,
-      }),
-    ];
+  describe('with errors' , () => {
+    beforeEach(() => {
+      highlight = jest.spyOn(highlighter, 'highlight').mockImplementation(() => {
+        throw new Error('error');
+      });
+    });
 
-    const element = assertDocument().createElement('p');
-    element.id = results[0].source.elementId;
-    container.append(element);
+    it('calls Sentry after highlighting error', () => {
+      const results = [
+        makeSearchResultHit({
+          book: mockArchive.book,
+          highlights: ['asdf foo … <strong>asdf</strong>'],
+          page: mockArchive.page,
+        }),
+      ];
 
-    highlightResults(highlighter, results);
+      const element = assertDocument().createElement('p');
+      element.id = results[0].source.elementId;
+      container.append(element);
 
-    expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'asdf'});
-  });
+      highlightResults(highlighter, results);
 
-  it('falls back on whole element if text can\'t be found', () => {
-    const results = [
-      makeSearchResultHit({
-        book: mockArchive.book,
-        highlights: ['asdf <strong>qwer</strong> foo'],
-        page: mockArchive.page,
-      }),
-    ];
+      expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'asdf'});
 
-    findTextInRange.mockReturnValue([]);
-
-    const element = assertDocument().createElement('p');
-    element.textContent = 'Asdfasdf asdfklj adlk fasd;lfk ajsdf';
-    element.id = results[0].source.elementId;
-    container.append(element);
-
-    highlightResults(highlighter, results);
-
-    expect(highlight.mock.calls[0][0]!.data).toEqual({content: element.textContent});
-  });
-
-  it('works if element is not found', () => {
-    const results = [
-      makeSearchResultHit({
-        book: mockArchive.book,
-        highlights: ['asdf <strong>qwer</strong> foo'],
-        page: mockArchive.page,
-      }),
-    ];
-
-    highlightResults(highlighter, results);
-
-    expect(highlight).not.toBeCalled();
+      expect(captureException).toHaveBeenCalled();
+    });
   });
 });

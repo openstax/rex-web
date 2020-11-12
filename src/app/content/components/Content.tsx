@@ -8,12 +8,13 @@ import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
+import PracticeQuestionsPopup from '../practiceQuestions/components/PracticeQuestionsPopup';
 import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
+import StudyguidesPopUp from '../studyGuides/components/StudyGuidesPopUp';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
-import CallToActionPopup from './CallToActionPopup';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -27,6 +28,7 @@ import {
   toolbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
+import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
 import TableOfContents from './TableOfContents';
 import Toolbar from './Toolbar';
@@ -180,8 +182,10 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
     <BookBanner />
     <ErrorBoundary>
       <HighlightsPopUp />
+      <StudyguidesPopUp />
+      <PracticeQuestionsPopup />
+      <NudgeStudyTools />
       <Toolbar />
-      <CallToActionPopup />
       <OuterWrapper>
         <SearchResultsSidebar/>
         <Wrapper>

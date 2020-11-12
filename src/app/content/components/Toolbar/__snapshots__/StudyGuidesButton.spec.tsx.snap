@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`study guides button does not render if feature flag is enabled but book does not have study guide 1`] = `null`;
+
+exports[`study guides button does not render if feature flag is not enabled 1`] = `null`;
+
+exports[`study guides button render if feature flag is enabled and book has study guide 1`] = `
+<button
+  aria-label="Study guides"
+  className="styled__PlainButton-sc-1119auh-0 StudyGuidesButton__StudyGuidesWrapper-sc-1gy68g-0 hpciZn"
+  onClick={[Function]}
+>
+  <img
+    aria-hidden="true"
+    className="StudyGuidesButton__StudyGuidesIcon-sc-1gy68g-1 dSnxKt"
+    src="studyGuidesIcon.svg"
+  />
+  <span
+    className="StudyGuidesButton__StudyGuidesText-sc-1gy68g-2 inDjaA"
+  >
+    Study guides
+  </span>
+</button>
+`;

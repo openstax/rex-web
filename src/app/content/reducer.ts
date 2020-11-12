@@ -5,22 +5,29 @@ import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions';
+import { openMyHighlights } from '../content/highlights/actions';
+import { openStudyGuides } from '../content/studyGuides/actions';
 import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
 import * as actions from './actions';
 import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
+import practiceQuestionsReducer, {initialState as initialPracticeQuestionsState } from './practiceQuestions/reducer';
 import { content } from './routes';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';
+import studyGuidesReducer, {initialState as initialStudyGuidesState } from './studyGuides/reducer';
 import { State } from './types';
 
 export const initialState = {
   highlights: initialHighlightState,
   loading: {},
+  pageNotFoundId: null,
   params: null,
+  practiceQuestions: initialPracticeQuestionsState,
   references: [],
   search: initialSearchState,
-  showCallToActionPopup: null,
+  showNudgeStudyTools: null,
+  studyGuides: initialStudyGuidesState,
   tocOpen: null,
 };
 
@@ -37,6 +44,20 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const highlights = highlightReducer(contentState.highlights, action);
       if (contentState.highlights !== highlights) {
         return {...contentState, highlights};
+      }
+      return contentState;
+    },
+    (contentState) => {
+      const practiceQuestions = practiceQuestionsReducer(contentState.practiceQuestions, action);
+      if (contentState.practiceQuestions !== practiceQuestions) {
+        return {...contentState, practiceQuestions};
+      }
+      return contentState;
+    },
+    (contentState) => {
+      const studyGuides = studyGuidesReducer(contentState.studyGuides, action);
+      if (contentState.studyGuides !== studyGuides) {
+        return {...contentState, studyGuides};
       }
       return contentState;
     }
@@ -63,6 +84,10 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(actions.receivePage): {
       return reduceReceivePage(state, action);
     }
+    case getType(actions.receivePageNotFoundId): {
+      const loading = omit('page', state.loading);
+      return {...omit(['page', 'references'], state), loading, pageNotFoundId: action.payload};
+    }
     case getType(locationChange): {
       if (!matchForRoute(content, action.payload.match)) {
         return initialState;
@@ -86,11 +111,13 @@ function reduceContent(state: State, action: AnyAction) {
       // book and page are the same, probably on page navigation like hash changing
       return {...state, params: action.payload.match.params};
     }
-    case getType(actions.openCallToActionPopup): {
-      return {...state, showCallToActionPopup: true };
+    case getType(actions.openNudgeStudyTools): {
+      return {...state, showNudgeStudyTools: true };
     }
-    case getType(actions.closeCallToActionPopup): {
-      return {...state, showCallToActionPopup: false };
+    case getType(openMyHighlights):
+    case getType(openStudyGuides):
+    case getType(actions.closeNudgeStudyTools): {
+      return {...state, showNudgeStudyTools: false };
     }
     default:
       return state;
@@ -101,7 +128,6 @@ function reduceReceiveBook(state: State, action: ActionType<typeof actions.recei
   const loading = omit(['book'], state.loading);
   const book = pick([
     'id',
-    'shortId',
     'title',
     'version',
     'tree',
@@ -112,12 +138,13 @@ function reduceReceiveBook(state: State, action: ActionType<typeof actions.recei
     'publish_date',
     'revised',
     'amazon_link',
+    'book_state',
   ], action.payload);
   return {...state, loading, book};
 }
 
 function reduceReceivePage(state: State, action: ActionType<typeof actions.receivePage>) {
   const loading = omit('page', state.loading);
-  const page = pick(['abstract', 'id', 'shortId', 'title', 'version'], action.payload);
+  const page = pick(['abstract', 'id', 'title', 'version'], action.payload);
   return {...state, loading, page, references: action.payload.references};
 }

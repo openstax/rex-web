@@ -5,6 +5,13 @@ const script = process.argv[2];
 const scriptPath = `./${script}`;
 const extensions = ['.ts', '.tsx'];
 
+// lots of stuff relies on this
+const JSDOM = require('jsdom').JSDOM;
+global.DOMParser = new JSDOM().window.DOMParser;
+
+const URL = require('url');
+global.URL = URL;
+
 if (!script) {
   console.error('script argument is required');
   process.exit(1);

@@ -1,9 +1,11 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { resetModules } from '../../test/utils';
-import { Book } from './types';
+import { ArchiveBook, ArchiveTree, Book } from './types';
 import {
   getContentPageReferences,
+  getIdFromPageParam,
   getPageIdFromUrlParam,
+  parseBookTree,
   stripIdVersion,
   toRelativeUrl,
 } from './utils';
@@ -76,21 +78,14 @@ describe('getUrlParamForPageId', () => {
         contents: [
           {
             id: 'pagelongid@1',
-            shortId: 'page@1',
             slug: 'preface',
             title: '<span class="os-text">Preface</span>',
           },
         ],
         id: 'booklongid@1',
-        shortId: 'book@1',
         title: 'book',
       },
     }) as Book;
-  });
-
-  it('finds title in book tree using the short id', () => {
-    expect(getUrlParamForPageId(book, 'page')).toEqual({slug: 'preface'});
-    expect(getUrlParamForPageId(book, 'page@1')).toEqual({slug: 'preface'});
   });
 
   it('finds title in book tree using the long id', () => {
@@ -116,13 +111,11 @@ describe('getPageIdFromUrlParam', () => {
         contents: [
           {
             id: 'pagelongid@1',
-            shortId: 'page@1',
             slug: 'preface',
             title: '<span class="os-text">Preface</span>',
           },
         ],
         id: 'booklongid@1',
-        shortId: 'book@1',
         slug: 'book-slug',
         title: 'book',
       },
@@ -192,5 +185,101 @@ describe('toRelativeUrl', () => {
   it('when not in a book and not at the root', () => {
     const url = toRelativeUrl('/doesnotmatter/doesnotmatter', PAGE_URL);
     expect(url).toMatchInlineSnapshot(`"../books/book1/pages/page1"`);
+  });
+});
+
+describe('parseBookTree', () => {
+  const appendixHtml = '<span class="os-number">' +
+    '<span class="os-part-text">Appendix </span>' +
+    'D' +
+  '</span>' +
+  '<span class="os-divider"> </span>' +
+  '<span data-type="" itemprop="" class="os-text">Book title</span>';
+  const unitHtml = '<span class="os-number">1</span>' +
+    '<span class="os-divider"> </span>' +
+    '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>';
+  const unit2Html = '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>';
+  const chapterHtml = '<span class="os-number">1</span>' +
+    '<span class="os-divider"> </span>' +
+    '<span data-type="" itemprop="" class="os-text">The Study of Life</span>';
+  const chapter2Html = '<span class="os-number">2</span>' +
+    '<span class="os-divider"> </span>' +
+    '<span data-type="" itemprop="" class="os-text">The Chemical Foundation of Life</span>';
+  const pageHtml = '<span class="os-number">1.1</span>' +
+    '<span class="os-divider"> </span>' +
+    '<span data-type="" itemprop="" class="os-text">The Science of Biology</span>';
+
+  let book: ArchiveBook;
+
+  beforeEach(() => {
+    book = {
+      tree: {
+        contents: [
+          {id: 'appendix@sth', title: appendixHtml},
+          {
+            contents: [
+              {id: 'chapter@sth', title: chapterHtml, contents: [{id: 'page@sth', title: pageHtml}]},
+            ],
+            id: 'unit@unit',
+            title: unitHtml,
+          },
+          {
+            contents: [
+              {id: 'chapter2@sth', title: chapter2Html, contents: [{id: 'page2@sth', title: pageHtml}]},
+            ],
+            id: 'unit2@unit',
+            title: unit2Html,
+          },
+        ],
+        id: 'book@sth',
+      },
+    } as ArchiveBook;
+  });
+
+  it('removes .os-part-text', () => {
+    expect(parseBookTree(book).tree.contents[0].title).toEqual(
+      '<span class="os-number">' +
+        'D' +
+      '</span>' +
+      '<span class="os-divider"> | </span>' +
+      '<span data-type="" itemprop="" class="os-text">Book title</span>');
+  });
+
+  it('removes .os-number and .os-divider if section is an unit', () => {
+    expect(parseBookTree(book).tree.contents[1].title).toEqual(
+      '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>');
+  });
+
+  it('handles unit that does not have .os-number and .os-divider', () => {
+    expect(parseBookTree(book).tree.contents[2].title).toEqual(
+      '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>');
+  });
+
+  it('doesn\'t add divider if it\'s not an appendix', () => {
+    book.tree.contents = book.tree.contents.map(({title, ...rest}) => ({
+      ...rest,
+      title: title.replace(/appendix/i, 'something else'),
+    })) as ArchiveTree['contents'];
+
+    expect(parseBookTree(book).tree.contents[0].title).toEqual(
+      '<span class="os-number">' +
+        'D' +
+      '</span>' +
+      '<span class="os-divider"> </span>' +
+      '<span data-type="" itemprop="" class="os-text">Book title</span>');
+  });
+});
+
+describe('getIdFromPageParam', () => {
+  it('gets id from SlugParams', () => {
+    expect(getIdFromPageParam({ slug: 'slug-id' })).toEqual('slug-id');
+  });
+
+  it('gets id from UuidParams', () => {
+    expect(getIdFromPageParam({ uuid: 'uuid-id' })).toEqual('uuid-id');
+  });
+
+  it('return empty string for null', () => {
+    expect(getIdFromPageParam(null)).toEqual('');
   });
 });

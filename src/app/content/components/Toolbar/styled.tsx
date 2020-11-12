@@ -18,8 +18,9 @@ import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
   mobileSearchContainerMargin,
-  toolbalHrHeight,
+  toolbarButtonMargin,
   toolbarDesktopHeight,
+  toolbarHrHeight,
   toolbarIconColor,
   toolbarMobileHeight,
   toolbarMobileSearchWrapperHeight,
@@ -65,6 +66,17 @@ const barPadding = css`
   width: calc(100% - ${theme.padding.page.desktop}rem * 2);
   ${theme.breakpoints.mobile(css`
     width: calc(100% - ${theme.padding.page.mobile}rem * 2);
+  `)}
+`;
+
+export const toolbarDefaultButton = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: ${toolbarButtonMargin}rem;
+  height: auto;
+  ${theme.breakpoints.mobile(css`
+    margin-right: 0;
   `)}
 `;
 
@@ -236,7 +248,7 @@ export const BarWrapper = styled.div`
 // tslint:disable-next-line:variable-name
 export const Hr = styled.hr`
   border: none;
-  border-top: ${toolbalHrHeight}rem solid #efeff1;
+  border-top: ${toolbarHrHeight}rem solid #efeff1;
   display: none;
   margin: 0;
   ${theme.breakpoints.mobile(css`
@@ -305,11 +317,6 @@ export const InnerText = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const BuyBookIcon = styled.img`
-  ${toolbarIconStyles}
-`;
-
-// tslint:disable-next-line:variable-name
 export const SidebarControl = styled(OpenSidebarControl)`
   margin-right: auto;
   ${theme.breakpoints.mobile(css`
@@ -317,16 +324,7 @@ export const SidebarControl = styled(OpenSidebarControl)`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
-export const BuyBookWrapper = styled.a`
-  min-width: ${buttonMinWidth};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${toolbarIconColor.base};
-  margin-left: 2rem;
-  text-decoration: none;
-  ${theme.breakpoints.mobile(css`
-    margin: 0;
-  `)}
+// tslint:disable-next-line: variable-name
+export const NudgeElementTarget = styled.div`
+  display: contents;
 `;

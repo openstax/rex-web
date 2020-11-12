@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument, assertString } from '../../../utils';
+import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
 import {
   clearSearch,
   openMobileToolbar,
@@ -13,9 +14,12 @@ import {
   requestSearch,
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
-import BuyBook from './BuyBook';
+import { tocOpen } from '../../selectors';
+import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
+import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
+import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
 interface Props {
@@ -25,8 +29,10 @@ interface Props {
   openSearchResults: () => void;
   openMobileToolbar: () => void;
   mobileToolbarOpen: boolean;
+  tocOpen: boolean | null;
   searchSidebarOpen: boolean;
   hasSearchResults: boolean;
+  practiceQuestionsEnabled: boolean;
 }
 
 interface State {
@@ -85,9 +91,12 @@ class Toolbar extends React.Component<Props, State> {
 
     const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
 
+    const hideFromFocus = this.props.tocOpen === true
+      || (this.props.tocOpen === null && !this.props.searchSidebarOpen);
+
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
-        <Styled.SidebarControl hideMobileText={true} />
+        <Styled.SidebarControl hideMobileText={true} tabIndex={hideFromFocus ? -1 : undefined} />
         <Styled.SearchPrintWrapper>
           <Styled.SearchInputWrapper
             active={this.props.mobileToolbarOpen}
@@ -116,9 +125,12 @@ class Toolbar extends React.Component<Props, State> {
             }
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
-        <HighlightButton/>
-        <PrintButton />
-        <BuyBook />
+        <PracticeQuestionsButton />
+        <Styled.NudgeElementTarget id={nudgeStudyToolsTargetId}>
+          <StudyGuidesButton />
+          <HighlightButton />
+        </Styled.NudgeElementTarget>
+        { !this.props.practiceQuestionsEnabled ? <PrintButton /> : null }
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />
@@ -155,8 +167,10 @@ export default connect(
   (state: AppState) => ({
     hasSearchResults: selectSearch.hasResults(state),
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
+    practiceQuestionsEnabled: practiceQuestionsEnabledSelector(state),
     query: selectSearch.query(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
+    tocOpen: tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
     clearSearch: flow(clearSearch, dispatch),

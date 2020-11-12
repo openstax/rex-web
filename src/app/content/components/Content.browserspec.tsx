@@ -19,11 +19,7 @@ describe('Content', () => {
       beforeEach(async() => {
         const setViewport = TEST_CASES[testCase];
         await setViewport(page);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // chrome does weird when changing the hash manually on the current page
-        await navigate(page, 'chrome://bookmarks/');
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       });
 
       it('scrolls correctly to all elements', async() => {

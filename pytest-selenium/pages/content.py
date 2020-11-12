@@ -1,5 +1,5 @@
 """A Reading Experience book content page."""
-
+# flake8: noqa
 from __future__ import annotations
 
 from math import ceil as round_up
@@ -48,6 +48,8 @@ class Content(Page):
     _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
     _buy_book_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
     _highlight_CTA_locator = (By.CSS_SELECTOR, "[class*=CTAWrapper]")
+    _order_print_copy_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
+    _discard_modal_locator = (By.CSS_SELECTOR, "[class*='CardWrapper']")
 
     @property
     def loaded(self) -> bool:
@@ -171,6 +173,26 @@ class Content(Page):
         sleep(5)
         return bool(self.find_elements(*self._highlight_CTA_locator))
 
+    def discard_modal(self) -> Content.DiscardModal:
+        """Access the unsaved notes discard modal.
+
+        :return: the discard modal
+        :rtype: Content.DiscardModal
+
+        """
+        discard_modal = self.find_element(*self._discard_modal_locator)
+        return self.DiscardModal(self, discard_modal)
+
+    @property
+    def discard_changes_modal_displayed(self) -> bool:
+        """Return True if unsaved notes discard modal is found.
+
+        :return: ``True`` when a pop up unsaved notes discard modal
+        :rtype: bool
+
+        """
+        return bool(self.find_elements(*self._discard_modal_locator))
+
     @property
     def previous_link(self) -> WebElement:
         return self.find_element(*self._previous_locator)
@@ -187,8 +209,8 @@ class Content(Page):
         return self.find_element(*self._print_locator)
 
     @property
-    def buy_book(self) -> WebElement:
-        return self.find_element(*self._buy_book_locator)
+    def order_print_copy(self) -> WebElement:
+        return self.find_element(*self._order_print_copy_locator)
 
     @property
     def search_sidebar(self) -> SearchSidebar:
@@ -372,16 +394,15 @@ class Content(Page):
         _figure_container_locator = (By.CSS_SELECTOR, ".os-figure")
         _figure_locator = (By.CSS_SELECTOR, "figure")
         _footnote_locator = (By.CSS_SELECTOR, "[data-type=footnote-ref]")
-        _highlight_box_locator = (
-            By.CSS_SELECTOR,
-            "form[class*=StyledCard], div[class*=StyledCard]",
-        )
+        _highlight_box_locator = (By.CSS_SELECTOR, "form[class*=EditCard], div[class*=DisplayNote]")
         _highlighted_element_locator = (By.CSS_SELECTOR, ".highlight")
-        _highlight_note_locator = (By.CSS_SELECTOR, "div[class*=StyledCard]")
+        _highlight_note_locator = (By.CSS_SELECTOR, "div[class*=DisplayNote]")
         _image_locator = (By.CSS_SELECTOR, "img")
         _link_locator = (
             By.CSS_SELECTOR,
-            ":not([class*=PrevNextBar])" ":not(sup):not([id*=footnote]) > a",
+            ":not([class*=PrevNextBar])"
+            ":not([class*=BuyBook])"
+            ":not(sup):not([id*=footnote]) > a",
         )
         _list_locator = (
             By.CSS_SELECTOR,
@@ -399,6 +420,26 @@ class Content(Page):
             ":not([data-bullet-style]):not([type]), "
             "p[id^='eip'], p[id^='import-auto']",
         )  # Phys
+        _page_error_locator = (By.CSS_SELECTOR, "[class*=PageNotFoundWrapper]")
+        _page_error_toc_button_locator = (By.CSS_SELECTOR, "[data-testid = toc-button]")
+
+        @property
+        def page_error_displayed(self) -> bool:
+            """Return true if rex 404 error is displayed"""
+            return bool(self.wait.until(lambda _: self.find_element(*self._page_error_locator)))
+
+        @property
+        def page_error(self):
+            """Return the rex 404 error text"""
+            return self.find_element(*self._page_error_locator).get_attribute("textContent")
+
+        @property
+        def page_error_toc_button(self) -> WebElement:
+            return self.find_element(*self._page_error_toc_button_locator)
+
+        def click_page_error_toc_button(self):
+            """Click the TOC icon in the rex 404 error page"""
+            return Utilities.click_option(self.driver, element=self.page_error_toc_button)
 
         @property
         def captions(self) -> List[WebElement]:
@@ -787,7 +828,7 @@ class Content(Page):
             # Scroll the page to bring the element into view then shift due to
             # the top bars
             self.driver.execute_script("arguments[0].scrollIntoView();", target)
-            self.driver.execute_script("window.scrollBy(0, -130);")
+            self.driver.execute_script("window.scrollBy(0, -150);")
 
             # Compute the start and end offsets for the mouse movement
             start, end = self._compute_offsets(target, offset)
@@ -812,6 +853,35 @@ class Content(Page):
             if close_box:
                 # Click outside of the box and highlight to close the box
                 self.close_edit_note_box()
+
+        def select(
+            self, target: WebElement, offset: Union[Highlight.Offset, str] = Highlight.RANDOM
+        ):
+            """Select a page element.
+
+            .. note::
+               ActionChain's move by offset does not work as expected in Safari
+
+            :param target: the specific element to select
+            :param offset: (optional) what or how much of the element to
+                highlight; may be an X/Y offset, a randomized quantity, or the
+                entire element
+                default: randomized
+            :type target: WebElement
+            :type offset: tuple(int, int), int
+            :return: None
+
+            """
+            # Scroll the page to bring the element into view then shift due to
+            # the top bars
+            self.driver.execute_script("arguments[0].scrollIntoView();", target)
+            self.driver.execute_script("window.scrollBy(0, -150);")
+
+            # Compute the start and end offsets for the mouse movement
+            start, end = self._compute_offsets(target, offset)
+
+            # Select the element
+            self._select_section(target, start, end)
 
         def show_solutions(self):
             """Open each closed solution then return to the top of the page."""
@@ -938,10 +1008,33 @@ class Content(Page):
                 sleep(0.1)
                 (actions.move_to_element_with_offset(target, *retag).click().perform())
 
+        def _select_section(
+            self, target: WebElement, start: Highlight.Offset, stop: Highlight.Offset
+        ):
+            """Select an element using the mouse.
+
+            :param target: the book content parent element to select
+            :param start: the beginning of the click and drag (top left)
+            :param stop: the end of the click and drag (bottom right)
+            :type target: WebElement
+            :type start: tuple(int, int)
+            :type stop: tuple(int, int)
+            :return: None
+
+            """
+            actions = ActionChains(self.driver)
+            (
+                actions.move_to_element_with_offset(target, *start)
+                .click_and_hold()
+                .move_by_offset(*stop)
+                .release()
+                .perform()
+            )
+
         class HighlightBox(Region):
             """The highlight color and annotation box."""
 
-            _alter_menu_toggle_locator = (By.CSS_SELECTOR, "[class*=Focus] [class*=MenuToggle]")
+            _alter_menu_toggle_locator = (By.CSS_SELECTOR, "[class*=MenuToggle]")
             _annotation_textbox_locator = (By.CSS_SELECTOR, "textarea")
             _cancel_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=cancel]")
             _close_x_button_locator = (By.CSS_SELECTOR, "[class*=CloseIcon]")
@@ -1486,6 +1579,10 @@ class Content(Page):
             return self.find_element(*self._login_locator)
 
         @property
+        def user_nav_toggle(self):
+            return self.find_element(*self._user_nav_toggle_locator)
+
+        @property
         def user_is_not_logged_in(self) -> bool:
             try:
                 self.wait.until(expected.visibility_of_element_located(self._login_locator))
@@ -1579,6 +1676,61 @@ class Content(Page):
 
         got_it = click
 
+    class DiscardModal(Region):
+        """Unsaved notes discard modal."""
+
+        _content_text_locator = (By.CSS_SELECTOR, "[class*=BodyHeading]")
+        _title_text_locator = (By.CSS_SELECTOR, "[class*=Heading]")
+        _discard_button_locator = (By.CSS_SELECTOR, "[data-testid*='discard-changes']")
+        _cancel_button_locator = (By.CSS_SELECTOR, "[data-testid*='cancel-discard']")
+
+        @property
+        def content(self) -> str:
+            """Return the modal content text.
+
+            :return: the modal body text
+            :rtype: str
+
+            """
+            return (
+                self.find_element(*self._content_text_locator).get_attribute("textContent").strip()
+            )
+
+        @property
+        def title(self) -> str:
+            """Return the modal title.
+
+            :return: the modal title
+            :rtype: str
+
+            """
+            return self.find_element(*self._title_text_locator).text
+
+        @property
+        def discard_button(self):
+            return self.find_element(*self._discard_button_locator)
+
+        def click_discard_changes(self):
+            """Click the Discard Changes button & close the modal.
+
+            :return: the parent content page
+            :rtype: Content
+
+            """
+            Utilities.click_option(self.driver, element=self.discard_button)
+            self.wait.until(expected.staleness_of(self.root))
+
+        def click_cancel_changes(self):
+            """Click the cancel button & close the modal.
+
+            :return: the parent content page
+            :rtype: Content
+
+            """
+            button = self.find_element(*self._cancel_button_locator)
+            Utilities.click_option(self.driver, element=button)
+            self.wait.until(expected.staleness_of(self.root))
+
     class SideBar(Region):
 
         _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
@@ -1620,7 +1772,7 @@ class Content(Page):
         _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
         _toc_toggle_button_locator = (By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
-        _my_highlights_selector = "[class*=HighlightStyles__PopupWrapper]"
+        _my_highlights_selector = "[data-testid=highlights-popup-wrapper]"
 
         @property
         def my_highlights_button(self) -> WebElement:

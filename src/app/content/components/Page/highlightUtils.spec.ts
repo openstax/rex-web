@@ -1,5 +1,6 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertDocument } from '../../../utils';
 import { HighlightData } from '../../highlights/types';
 import * as utils from './highlightUtils';
@@ -35,5 +36,28 @@ describe('updateStyle', () => {
 
     expect(getHighlight).toHaveBeenCalledWith('coolid');
     expect(setStyle).not.toHaveBeenCalled();
+  });
+
+  it('inserts pending highlight in correct order', async() => {
+    const mockHighlight1 = createMockHighlight('id1') as any as Highlight;
+    const pendingHighlight = createMockHighlight('pending') as any as Highlight;
+    const mockHighlight2 = createMockHighlight('id2') as any as Highlight;
+
+    jest.spyOn(highlighter, 'getHighlightBefore')
+      .mockReturnValueOnce(mockHighlight1)
+      .mockReturnValueOnce(mockHighlight1)
+      .mockReturnValueOnce(undefined)
+    ;
+
+    const highlights = [mockHighlight1, mockHighlight2];
+
+    expect(utils.insertPendingCardInOrder(highlighter, highlights, pendingHighlight))
+      .toEqual([mockHighlight1, pendingHighlight, mockHighlight2]);
+
+    expect(utils.insertPendingCardInOrder(highlighter, [...highlights, pendingHighlight], pendingHighlight))
+      .toEqual([mockHighlight1, pendingHighlight, mockHighlight2]);
+
+    expect(utils.insertPendingCardInOrder(highlighter, highlights, pendingHighlight))
+      .toEqual([pendingHighlight, mockHighlight1, mockHighlight2]);
   });
 });

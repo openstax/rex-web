@@ -1,7 +1,10 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import Sentry from '../../../helpers/Sentry';
+import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../MessageProvider';
+import { Store } from '../../types';
 import ErrorBoundary from './ErrorBoundary';
 
 jest.mock('../../../helpers/Sentry', () => ({
@@ -15,19 +18,27 @@ const Buggy: React.SFC = () => {
 
 describe('ErrorBoundary', () => {
   let consoleError: jest.SpyInstance;
+  let store: Store;
+
   beforeEach(() => {
+    store = createTestStore();
     consoleError = jest
       .spyOn(console, 'error')
       .mockImplementation((msg) => msg);
   });
+
   afterEach(() => {
     consoleError.mockRestore();
   });
 
   it('matches snapshot', () => {
     const tree = renderer
-      .create(<MessageProvider><ErrorBoundary><Buggy /></ErrorBoundary></MessageProvider>)
+      .create(<MessageProvider><Provider store={store}>
+          <ErrorBoundary><Buggy /></ErrorBoundary>
+        </Provider></MessageProvider>
+      )
       .toJSON();
+
     expect(tree).toMatchSnapshot();
     expect(consoleError).toHaveBeenCalledWith(
       expect.stringMatching(/error occurred in the <Buggy> component/)

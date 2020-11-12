@@ -8,4 +8,8 @@ export default styled.div`
     display: flex;
     flex-direction: column;
   }
+
+  :focus-within {
+    overflow: visible;
+  }
 `;

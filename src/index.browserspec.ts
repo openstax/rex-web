@@ -1,6 +1,9 @@
 /** @jest-environment puppeteer */
 import { checkLighthouse, navigate } from './test/browserutils';
 
+const TEST_PAGE_NAME = '2-test-page-3';
+const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
+
 describe('Browser sanity tests', () => {
 
   let consoleMessages: Array<{type: 'debug' | 'error' | 'info' | 'log' | 'warning', message: string}> = [];
@@ -41,19 +44,11 @@ describe('Browser sanity tests', () => {
     expect(infoMessages).toContain(str.join(''));
   });
 
-  it('loads the 404 page', async() => {
-    const heading = await (page.evaluate(() => {
-      if (document) {
-        const el = document.querySelector('#root > h1');
-        if (el) {
-          return el.textContent;
-        }
-      }
-    })) as string | null;
-    expect(heading).toBe('page not found');
+  it('redirects to the https://openstax.org/error/404', async() => {
+    expect(page.url()).toBe('https://openstax.org/error/404');
   });
+});
 
-  it('a11y lighthouse check', async() => {
-    await checkLighthouse(browser, '/errors/404');
-  });
+it('a11y lighthouse check', async() => {
+  await checkLighthouse(browser, TEST_PAGE_URL);
 });

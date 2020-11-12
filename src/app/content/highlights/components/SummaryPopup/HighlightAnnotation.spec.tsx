@@ -17,6 +17,7 @@ import { getHighlightLocationFilterForPage } from '../../utils';
 import MenuToggle from '../MenuToggle';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightListElement from './HighlightListElement';
+import * as utils from './utils';
 
 describe('HighlightDeleteWrapper', () => {
   let store: Store;
@@ -77,6 +78,8 @@ describe('HighlightDeleteWrapper', () => {
       </MessageProvider>
     </Provider>);
 
+    renderer.act(() => { return; });
+
     renderer.act(() => {
       const textarea = component.root.findByProps({ value: annotation });
       textarea.props.onChange({
@@ -115,14 +118,17 @@ describe('Highlight annotation', () => {
     const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
 
+    jest.spyOn(utils, 'createHighlightLink')
+      .mockReturnValue('/link/to/highlight');
+
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
-            <HighlightListElement
-              highlight={highlight as unknown as HighlightData}
-              locationFilterId={location!.id}
-              pageId={page.id}
-            />)}
+          <HighlightListElement
+            highlight={highlight as unknown as HighlightData}
+            locationFilterId={location!.id}
+            pageId={page.id}
+          />
         </MessageProvider>
       </Services.Provider>
     </Provider>);

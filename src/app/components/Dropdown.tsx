@@ -1,4 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import { isUndefined, omitBy } from 'lodash';
 import flow from 'lodash/fp/flow';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -54,10 +55,11 @@ const visuallyHidden = css`
 type Props = React.PropsWithChildren<{
   toggle: React.ReactNode;
   className?: string;
+  onToggle?: () => void;
 }>;
 
 // tslint:disable-next-line:variable-name
-const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
+const TabHiddenDropDown = styled(({toggle, children, className, onToggle}: Props) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const container = React.useRef<HTMLElement>(null);
   const toggleElement = React.useRef<HTMLElement>(null);
@@ -72,7 +74,10 @@ const TabHiddenDropDown = styled(({toggle, children, className}: Props) => {
     <DropdownToggle
       ref={toggleElement}
       component={toggle}
-      onClick={() => setOpen(!open)}
+      onClick={() => {
+        setOpen((state) => !state);
+        if (onToggle) { onToggle(); }
+      }}
       isOpen={open}
     />
     {open && children}
@@ -186,15 +191,24 @@ interface DropdownItemProps {
   message: string;
   ariaMessage?: string;
   href?: string;
+  target?: string;
   prefix?: ReactNode;
   onClick?: () => void;
+  dataAnalyticsRegion?: string;
+  dataAnalyticsLabel?: string;
 }
 
 // tslint:disable-next-line:variable-name
-const DropdownItemContent = ({message, href, prefix, onClick}: Omit<DropdownItemProps, 'ariaMessage'>) => {
+const DropdownItemContent = ({
+  message, href, target, prefix, onClick, dataAnalyticsRegion, dataAnalyticsLabel,
+}: Omit<DropdownItemProps, 'ariaMessage'>) => {
+  const analyticsDataProps = omitBy({
+    'data-analytics-label': dataAnalyticsLabel,
+    'data-analytics-region': dataAnalyticsRegion,
+  }, isUndefined);
   return <FormattedMessage id={message}>
     {(msg: Element | string) => href
-      ? <a href={href} onClick={onClick}>{prefix}{msg}</a>
+      ? <a href={href} tabIndex={0} onClick={onClick} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
       /*
         this should be a button but Safari and firefox don't support focusing buttons
         which breaks the tab transparent dropdown
@@ -202,7 +216,14 @@ const DropdownItemContent = ({message, href, prefix, onClick}: Omit<DropdownItem
         https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
       */
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      : <a tabIndex={0} href='' onClick={onClick ? flow(preventDefault, onClick) : preventDefault}>{prefix}{msg}</a>
+      : <a
+        tabIndex={0}
+        href=''
+        onClick={onClick ? flow(preventDefault, onClick) : preventDefault}
+        {...analyticsDataProps}
+      >
+        {prefix}{msg}
+      </a>
     }
   </FormattedMessage>;
 };

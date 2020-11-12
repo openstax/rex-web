@@ -14,15 +14,14 @@ import {
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
+import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
 import { startServer } from '../server';
 import {
-  getBookSitemap,
   getStats,
   prepareBookPages,
   prepareBooks,
-  prepareErrorPages,
   renderPages
 } from './contentPages';
 import { writeAssetFile } from './fileUtils';
@@ -46,17 +45,25 @@ async function render() {
   const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
   const searchClient = createSearchClient(`http://localhost:${port}${REACT_APP_SEARCH_URL}`);
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
+  const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const {server} = await startServer({port, onlyProxy: true});
-  const renderHelpers = {archiveLoader, osWebLoader, userLoader, searchClient, highlightClient};
-
-  await renderPages(renderHelpers, await prepareErrorPages());
+  const renderHelpers = {
+    archiveLoader,
+    highlightClient,
+    osWebLoader,
+    practiceQuestionsLoader,
+    searchClient,
+    userLoader,
+  };
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
-  for (const {loader, book} of books) {
-    const bookPages = await prepareBookPages(loader, book);
 
-    renderSitemap(book.slug, await getBookSitemap(loader, bookPages));
-    await renderPages(renderHelpers, bookPages);
+  for (const book of books) {
+    const bookPages = await prepareBookPages(book);
+
+    const sitemap = await renderPages(renderHelpers, bookPages);
+
+    renderSitemap(book.slug, sitemap);
   }
 
   await renderSitemapIndex();

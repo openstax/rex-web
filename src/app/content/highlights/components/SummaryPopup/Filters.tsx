@@ -1,151 +1,98 @@
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import flow from 'lodash/fp/flow';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
-import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
-import { PlainButton } from '../../../../components/Button';
-import Dropdown, { DropdownToggle } from '../../../../components/Dropdown';
-import { textStyle } from '../../../../components/Typography/base';
-import theme from '../../../../theme';
-import { disablePrint } from '../../../components/utils/disablePrint';
-import ChapterFilter from './ChapterFilter';
-import ColorFilter from './ColorFilter';
-import { filters } from './constants';
-import FiltersList from './FiltersList';
-import HighlightsPrintButton from './HighlightsPrintButton';
+import { connect } from 'react-redux';
+import { AppState, Dispatch } from '../../../../types';
+import ChapterFilter from '../../../components/popUp/ChapterFilter';
+import ColorFilter from '../../../components/popUp/ColorFilter';
+import Filters, { FilterDropdown, FiltersTopBar } from '../../../components/popUp/Filters';
+import FiltersList from '../../../components/popUp/FiltersList';
+import PrintButton from '../../../components/popUp/PrintButton';
+import { highlightStyles } from '../../../constants';
+import { printSummaryHighlights, setSummaryFilters } from '../../actions';
+import * as select from '../../selectors';
 
 // tslint:disable-next-line:variable-name
-const DownIcon = styled(AngleDown)`
-  color: ${theme.color.primary.gray.base};
-  width: ${filters.dropdownToggle.icon.width}rem;
-  height: ${filters.dropdownToggle.icon.height}rem;
-  margin-left: 0.8rem;
-  padding-top: 0.2rem;
-`;
+export const ConnectedChapterFilter = connect(
+  (state: AppState) => ({
+    locationFilters: select.highlightLocationFilters(state),
+    locationFiltersWithContent: select.highlightLocationFiltersWithContent(state),
+    selectedLocationFilters: select.summaryLocationFilters(state),
+  }),
+  (dispatch: Dispatch) => ({
+    setFilters: flow(setSummaryFilters, dispatch),
+  })
+)(ChapterFilter);
+
+// tslint:disable-next-line: variable-name
+export const ConnectedColorFilter = connect(
+  (state: AppState) => ({
+    colorFiltersWithContent: select.highlightColorFiltersWithContent(state),
+    selectedColorFilters: select.summaryColorFilters(state),
+  }),
+  (dispatch: Dispatch) => ({
+    setSummaryFilters: flow(setSummaryFilters, dispatch),
+  })
+)(ColorFilter);
 
 // tslint:disable-next-line:variable-name
-const StyledHighlightsPrintButton = styled(HighlightsPrintButton)`
-  min-width: auto;
-  height: max-content;
-  margin-left: auto;
-  padding-right: ${filters.dropdownToggle.sides.desktop}rem;
-  ${theme.breakpoints.mobile(css`
-    padding-right: ${filters.dropdownToggle.sides.mobile}rem;
-  `)}
-`;
-
-interface ToggleProps {
-  label: string;
-  isOpen: boolean;
-}
+export const ConnectedFilterList = connect(
+  (state: AppState) => ({
+    locationFilters: select.highlightLocationFilters(state),
+    selectedColorFilters: select.summaryColorFilters(state),
+    selectedLocationFilters: select.summaryLocationFilters(state),
+  }),
+  (dispatch: Dispatch) => ({
+    setFilters: flow(setSummaryFilters, dispatch),
+  })
+)(FiltersList);
 
 // tslint:disable-next-line:variable-name
-const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
-  ({label, isOpen, ...props}, ref) => (
-    <FormattedMessage id='i18n:highlighting:filters:filter-by:aria-label' values={{filter: label}}>
-      {(msg: string) => <PlainButton ref={ref} {...props} aria-label={msg}>
-        <div tabIndex={-1}>
-          {label}
-          <DownIcon />
-        </div>
-      </PlainButton>}
-    </FormattedMessage>
-  )
-))`
-  position: relative;
-  border-left: ${filters.border}rem solid transparent;
-  border-right: ${filters.border}rem solid transparent;
-  ${(props: ToggleProps) => props.isOpen
-    ? css`
-      z-index: 2;
-      box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-      clip-path: inset(0 -0.6rem 0px -0.6rem);
-      background-color: ${theme.color.white};
-      border-left: ${filters.border}rem solid ${theme.color.neutral.formBorder};
-      border-right: ${filters.border}rem solid ${theme.color.neutral.formBorder};
+export const ConnectedPrintButton = connect(
+  (state: AppState) => ({
+    disabled: select.summaryIsLoading(state),
+    loading: select.summaryIsLoading(state),
+    shouldFetchMore: select.hasMoreResults(state),
+  }),
+  (dispatch: Dispatch) => ({
+    loadHighlightsAndPrint: flow(printSummaryHighlights, dispatch),
+  }),
+  (stateProps, dispatchProps, ownProps) => {
+    const {shouldFetchMore, loadHighlightsAndPrint, ...props} = {
+      ...stateProps,
+      ...dispatchProps,
+      ...ownProps,
+    };
 
-      ${DownIcon} {
-        transform: rotate(180deg);
-        padding-top: 0;
-        padding-bottom: 0.2rem;
-      }
-    `
-    : null
+    return shouldFetchMore
+      ? {...props, onClick: loadHighlightsAndPrint}
+      : props
+    ;
   }
-  > div {
-    padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
-    ${theme.breakpoints.mobile(css`
-      padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
-    `)}
-    outline: none;
-    ${textStyle}
-    font-size: 1.6rem;
-    color: ${theme.color.primary.gray.base};
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-  }
-`;
+)(PrintButton);
 
-interface Props {
-  className?: string;
-}
-
-// tslint:disable-next-line:variable-name
-const Filters = ({className}: Props) => <div className={className}>
-  <FormattedMessage id='i18n:highlighting:filters:chapters'>
-    {(msg: Element | string) => <Dropdown
-      toggle={<Toggle label={msg} />}
-      transparentTab={false}
-    >
-      <ChapterFilter />
-    </Dropdown>}
-  </FormattedMessage>
-  <FormattedMessage id='i18n:highlighting:filters:colors'>
-    {(msg: Element | string) => <Dropdown
-      toggle={<Toggle label={msg} />}
-      transparentTab={false}
-    >
-      <ColorFilter />
-    </Dropdown>}
-  </FormattedMessage>
-  <StyledHighlightsPrintButton />
-  <FiltersList />
-</div>;
-
-export default styled(Filters)`
-  position: relative;
-  z-index: 2;
-  overflow: visible;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  background: ${theme.color.neutral.base};
-  border-bottom: ${filters.border}rem solid ${theme.color.neutral.formBorder};
-  ${css`
-    ${DropdownToggle} {
-      font-weight: bold;
-    }
-
-    ${Dropdown} {
-      & > *:not(${DropdownToggle}) {
-        top: calc(100% - ${filters.border}rem);
-        box-shadow: 0 0 0.6rem 0 rgba(0, 0, 0, 0.2);
-        max-height: calc(100vh - ${filters.valueToSubstractFromVH.desktop}rem);
-        ${theme.breakpoints.mobile(css`
-          max-height: calc(100vh - ${filters.valueToSubstractFromVH.mobile}rem);
-        `)}
-      }
-    }
-  `}
-
-  @media print {
-    padding-left: 0;
-  }
-
-  ${css`
-    > *:not(${FiltersList}) {
-      ${disablePrint}
-    }
-  `}
-`;
+export default () =>
+  <Filters>
+    <FiltersTopBar>
+      <FilterDropdown
+        label='i18n:highlighting:filters:chapters'
+        ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+      >
+        <ConnectedChapterFilter />
+      </FilterDropdown>
+      <FilterDropdown
+        label='i18n:highlighting:filters:colors'
+        ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+      >
+        <ConnectedColorFilter
+          styles={highlightStyles}
+          labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+        />
+      </FilterDropdown>
+      <ConnectedPrintButton />
+    </FiltersTopBar>
+    <ConnectedFilterList
+      colorAriaLabelKey={() => 'i18n:highlighting:filters:remove:color'}
+      colorLabelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+    />
+  </Filters>;

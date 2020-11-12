@@ -1,4 +1,4 @@
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
@@ -17,8 +17,9 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDefined, assertWindow } from '../../../utils';
 import { receiveBook } from '../../actions';
+import { highlightStyles } from '../../constants';
 import { formatBookData } from '../../utils';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import {
   loadMoreSummaryHighlights,
   openMyHighlights,
@@ -26,13 +27,17 @@ import {
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
 } from '../actions';
-import { highlightStyles } from '../constants';
 import { hasMoreResults } from '../selectors';
 import { HighlightData } from '../types';
 import HighlightsPopUp from './HighlightsPopUp';
 import ShowMyHighlights from './ShowMyHighlights';
 import { ShowMyHighlightsBody } from './ShowMyHighlightsStyles';
 import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
+
+jest.mock('./SummaryPopup/utils', () => ({
+  ...jest.requireActual('./SummaryPopup/utils'),
+  createHighlightLink: (highlight: Highlight) => `/link/to/highlight/${highlight.id}`,
+}));
 
 describe('Show my highlights', () => {
   let store: Store;
@@ -53,16 +58,19 @@ describe('Show my highlights', () => {
   it('renders through pop up with user Highlights', async() => {
     act(() => {
       store.dispatch(receiveUser(user));
-      store.dispatch(receiveHighlights([
-        {
-          annotation: 'asdf',
-          color: highlightStyles[0].label,
-          id: highlight1.id,
-        },
-        {
-          id: highlight2.id,
-        },
-      ] as HighlightData[]));
+      store.dispatch(receiveHighlights({
+        highlights: [
+          {
+            annotation: 'asdf',
+            color: highlightStyles[0].label,
+            id: highlight1.id,
+          },
+          {
+            id: highlight2.id,
+          },
+        ] as HighlightData[],
+        pageId: '123',
+      }));
     });
 
     const component = renderer.create(<Provider store={store}>
@@ -88,7 +96,7 @@ describe('Show my highlights', () => {
   it('does not render show my highlights without highlights', async() => {
     act(() => {
       store.dispatch(receiveUser(user));
-      store.dispatch(receiveHighlights([]));
+      store.dispatch(receiveHighlights({highlights: [], pageId: '123'}));
     });
 
     const render = () => {
@@ -136,12 +144,16 @@ describe('Show my highlights', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 2},
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
     }, new Map([
-      ['testbook1-testpage1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), '')],
-      ['testbook1-testchapter1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testchapter1-uuid'), '')],
+      ['testbook1-testpage1-uuid',
+        assertDefined( findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+      ],
+      ['testbook1-testchapter1-uuid',
+        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), ''),
+      ],
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': [{id: 'id'} as HighlightData],
+        'testbook1-testpage1-uuid': [{id: 'id', sourceId: 'testbook1-testpage1-uuid'} as HighlightData],
       },
     }, {pagination: null}));
 
@@ -209,12 +221,16 @@ describe('Show my highlights', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 2},
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
     }, new Map([
-      ['testbook1-testpage1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), '')],
-      ['testbook1-testchapter1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testchapter1-uuid'), '')],
+      ['testbook1-testpage1-uuid',
+        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+      ],
+      ['testbook1-testchapter1-uuid',
+        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), ''),
+      ],
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': [{ id: 'asd' } as HighlightData],
+        'testbook1-testpage1-uuid': [{ id: 'asd', sourceId: 'testbook1-testpage1-uuid' } as HighlightData],
       },
     }, {pagination: null}));
 
@@ -256,16 +272,19 @@ describe('Show my highlights', () => {
 
     act(() => {
       store.dispatch(receiveUser(user));
-      store.dispatch(receiveHighlights([
-        {
-          annotation: 'asdf',
-          color: highlightStyles[0].label,
-          id: highlight1.id,
-        },
-        {
-          id: highlight2.id,
-        },
-      ] as HighlightData[]));
+      store.dispatch(receiveHighlights({
+        highlights: [
+          {
+            annotation: 'asdf',
+            color: highlightStyles[0].label,
+            id: highlight1.id,
+          },
+          {
+            id: highlight2.id,
+          },
+        ] as HighlightData[],
+        pageId: '123',
+      }));
     });
 
     const {root} = renderToDom(<Provider store={store}>
@@ -313,16 +332,19 @@ describe('Show my highlights', () => {
 
     act(() => {
       store.dispatch(receiveUser(user));
-      store.dispatch(receiveHighlights([
-        {
-          annotation: 'asdf',
-          color: highlightStyles[0].label,
-          id: highlight1.id,
-        },
-        {
-          id: highlight2.id,
-        },
-      ] as HighlightData[]));
+      store.dispatch(receiveHighlights({
+        highlights: [
+          {
+            annotation: 'asdf',
+            color: highlightStyles[0].label,
+            id: highlight1.id,
+          },
+          {
+            id: highlight2.id,
+          },
+        ] as HighlightData[],
+        pageId: '123',
+      }));
     });
 
     const {root} = renderToDom(<Provider store={store}>
@@ -369,16 +391,19 @@ describe('Show my highlights', () => {
   it('unmounts without refs', async() => {
     act(() => {
       store.dispatch(receiveUser(user));
-      store.dispatch(receiveHighlights([
-        {
-          annotation: 'asdf',
-          color: highlightStyles[0].label,
-          id: highlight1.id,
-        },
-        {
-          id: highlight2.id,
-        },
-      ] as HighlightData[]));
+      store.dispatch(receiveHighlights({
+        highlights: [
+          {
+            annotation: 'asdf',
+            color: highlightStyles[0].label,
+            id: highlight1.id,
+          },
+          {
+            id: highlight2.id,
+          },
+        ] as HighlightData[],
+        pageId: '123',
+      }));
     });
 
     const component = renderer.create(<Provider store={store}>

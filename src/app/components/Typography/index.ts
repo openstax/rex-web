@@ -4,7 +4,13 @@ import { textStyle } from './base';
 export * from './base';
 export * from './headings';
 
-const linkColor = '#027EB5';
+export const disabledStyle = css`
+  ${textStyle}
+  cursor: not-allowed;
+  opacity: 0.4;
+`;
+
+export const linkColor = '#027EB5';
 export const linkHover = '#0064A0';
 export const linkStyle = css`
   color: ${linkColor};
@@ -25,6 +31,14 @@ export const decoratedLinkStyle = css`
     text-decoration: underline;
     color: ${linkHover};
   }
+
+  ${(props: {disabled?: boolean}) => props.disabled && css`
+    &,
+    :hover,
+    :focus {
+      ${disabledStyle}
+    }
+  `}
 `;
 
 export const textRegularLineHeight = 2.5;

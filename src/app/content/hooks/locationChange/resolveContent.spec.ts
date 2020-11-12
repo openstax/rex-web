@@ -40,12 +40,10 @@ describe('locationChange', () => {
     id: 'newbookid',
     license: {name: '', version: ''},
     revised: '2012-06-21',
-    shortId: 'newbookshortid',
     title: 'newbook',
     tree: {
       contents: [],
       id: 'newbookid@0',
-      shortId: 'newbookshortid@0',
       slug: 'newbook',
       title: 'newbook',
     },
@@ -56,7 +54,6 @@ describe('locationChange', () => {
     content: 'dope content bruh',
     id: 'newbookpageid',
     revised: '2018-07-30T15:58:45Z',
-    shortId: 'newbookpageshortid',
     title: 'page in a new book',
     version: '0',
   };

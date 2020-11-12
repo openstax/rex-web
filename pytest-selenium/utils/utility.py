@@ -172,10 +172,7 @@ class Library(object):
         "biology-2e": {"default_page": "1-introduction", "search_term": "evolution theory"},
         "biology-ap-courses": {"default_page": "1-introduction", "search_term": "Virus"},
         "chemistry-2e": {"default_page": "1-introduction", "search_term": "molecule"},
-        "chemistry-atoms-first-2e": {
-            "default_page": "1-introduction",
-            "search_term": "Thermal Equilibrium",
-        },
+        "chemistry-atoms-first-2e": {"default_page": "1-introduction", "search_term": "coffee"},
         "college-physics": {
             "default_page": "1-introduction-to-science-and-the-realm-of-"
             "physics-physical-quantities-and-units",
@@ -186,7 +183,7 @@ class Library(object):
             "search_term": "kinetic energy",
         },
         "concepts-biology": {"default_page": "1-introduction", "search_term": "Cell"},
-        "microbiology": {"default_page": "1-introduction", "search_term": "fungus"},
+        "microbiology": {"default_page": "1-introduction", "search_term": "ecosystems"},
         "calculus-volume-1": {
             "default_page": "1-introduction",
             "search_term": "summation notation",
@@ -278,6 +275,22 @@ class Library(object):
             "search_term": "positive externality",
         },
         "prealgebra-2e": {"default_page": "1-introduction", "search_term": "Whole Numbers"},
+        "psychology-2e": {"default_page": "1-introduction", "search_term": "event schema"},
+        "college-success": {"default_page": "1-introduction", "search_term": "Shira’s career path"},
+        "elementary-algebra-2e": {
+            "default_page": "1-introduction",
+            "search_term": "common denominator",
+        },
+        "intermediate-algebra-2e": {
+            "default_page": "1-introduction",
+            "search_term": "quadratic equations and functions",
+        },
+        "physics": {"default_page": "1-introduction", "search_term": "linear relationship"},
+        "statistics": {"default_page": "1-introduction", "search_term": "memoryless property"},
+        "college-algebra-corequisite-support": {
+            "default_page": "1-introduction-to-prerequisites",
+            "search_term": "commutative property of addition",
+        },
     }
 
     def random_book_slug(self):

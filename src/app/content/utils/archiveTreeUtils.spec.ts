@@ -2,13 +2,13 @@ import { book } from '../../../test/mocks/archiveLoader';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
-import { ArchiveTree } from '../types';
+import { ArchiveTree, LinkedArchiveTree } from '../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
   archiveTreeSectionIsPage,
   archiveTreeSectionIsUnit,
-  findArchiveTreeNode,
+  findArchiveTreeNodeById,
   findArchiveTreeNodeByPageParam,
   findDefaultBookPage,
   getArchiveTreeSectionNumber,
@@ -66,7 +66,27 @@ describe('splitTitleParts', () => {
 
 describe('findArchiveTreeNodeByPageParam', () => {
   it('finds node by id', () => {
-    expect(findArchiveTreeNodeByPageParam(treeWithUnits, {uuid: 'preface' })).toBeDefined();
+    expect(findArchiveTreeNodeByPageParam(treeWithUnits, {uuid: 'page1' })).toBeDefined();
+  });
+  it('matches only page nodes', () => {
+    const unit = treeWithUnits.contents[1] as LinkedArchiveTree;
+    const chapter = unit.contents[0];
+    const pageToFind = findArchiveTreeNodeById(treeWithUnits, 'page1');
+
+    if (!pageToFind) {
+      return expect(pageToFind).toBeTruthy();
+    }
+
+    unit.slug = pageToFind.slug;
+    chapter.slug = pageToFind.slug;
+
+    const foundNode = findArchiveTreeNodeByPageParam(treeWithUnits, {slug: pageToFind.slug});
+
+    if (!foundNode) {
+      return expect(foundNode).toBeTruthy();
+    }
+
+    expect(foundNode.id).toEqual(pageToFind.id);
   });
 });
 
@@ -105,7 +125,7 @@ describe('tree section identifiers', () => {
   });
 
   it('identifies the preface', () => {
-    const preface = findArchiveTreeNode(treeWithoutUnits, 'preface');
+    const preface = findArchiveTreeNodeById(treeWithoutUnits, 'preface');
 
     if (!preface) {
       return expect(preface).toBeTruthy();
@@ -118,7 +138,7 @@ describe('tree section identifiers', () => {
   });
 
   it('identifies chapters', () => {
-    const chapter = findArchiveTreeNode(treeWithoutUnits, 'chapter1');
+    const chapter = findArchiveTreeNodeById(treeWithoutUnits, 'chapter1');
 
     if (!chapter) {
       return expect(chapter).toBeTruthy();
@@ -131,7 +151,7 @@ describe('tree section identifiers', () => {
   });
 
   it('identifies units', () => {
-    const unit = findArchiveTreeNode(treeWithUnits, 'unitid');
+    const unit = findArchiveTreeNodeById(treeWithUnits, 'unitid');
 
     if (!unit) {
       return expect(unit).toBeTruthy();

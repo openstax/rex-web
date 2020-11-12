@@ -28,6 +28,7 @@ const TextArea = styled.textarea`
   ${textStyle}
   color: ${theme.color.text.label};
   font-size: 1.4rem;
+  font-family: inherit;
   line-height: 2rem;
   font-weight: normal;
 `;

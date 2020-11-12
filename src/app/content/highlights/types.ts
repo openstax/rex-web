@@ -1,4 +1,5 @@
 import { Highlight, HighlightColorEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
+import { ScrollTarget } from '../../navigation/types';
 import { LinkedArchiveTree, LinkedArchiveTreeNode, LinkedArchiveTreeSection } from '../types';
 
 export type HighlightData = Highlight;
@@ -29,11 +30,14 @@ export type SummaryHighlightsPagination = null | {
 };
 
 export interface State {
-  myHighlightsOpen: boolean;
-  focused?: string;
-  hasUnsavedHighlight: boolean;
-  highlights: null | HighlightData[];
+  currentPage: {
+    pageId: string | null,
+    highlights: null | HighlightData[];
+    hasUnsavedHighlight: boolean;
+    focused?: string;
+  };
   summary: {
+    open: boolean,
     pagination: SummaryHighlightsPagination,
     totalCountsPerPage: CountsPerSource | null;
     filters: SummaryFilters,
@@ -43,3 +47,8 @@ export interface State {
 }
 
 export type HighlightLocationFilters = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;
+
+export interface HighlightScrollTarget extends ScrollTarget {
+  type: 'highlight';
+  id: string;
+}

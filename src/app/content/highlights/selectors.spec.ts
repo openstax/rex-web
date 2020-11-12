@@ -2,11 +2,6 @@ import { treeWithoutUnits } from '../../../test/trees';
 import { book } from '../selectors';
 import * as select from './selectors';
 
-jest.mock('./constants', () => ({
-  enabledForBooks: ['enabledbook'],
-  highlightStyles: (jest as any).requireActual('./constants').highlightStyles,
-}));
-
 const mockBook = book as any as jest.SpyInstance;
 
 jest.mock('../selectors', () => ({
@@ -16,7 +11,7 @@ jest.mock('../selectors', () => ({
 
 describe('focused', () => {
   it('gets focused highlight id', () => {
-    expect(select.focused({focused: 'asdf'} as any)).toEqual('asdf');
+    expect(select.focused({currentPage: {focused: 'asdf'}} as any)).toEqual('asdf');
   });
 });
 

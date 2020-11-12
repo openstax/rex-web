@@ -3,7 +3,7 @@
 exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-3 cWcjbz"
+  className="styled__SearchResultsBar-as3fh1-3 llsXIP"
   data-testid="search-results-sidebar"
 >
   <div>
@@ -67,11 +67,11 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-3 cWcjbz"
+  className="styled__SearchResultsBar-as3fh1-3 llsXIP"
   data-testid="search-results-sidebar"
 >
   <div
-    className="styled__SearchQueryWrapper-as3fh1-5 fDgRJf"
+    className="styled__SearchQueryWrapper-as3fh1-5 bsqVfh"
   >
     <div
       className="styled__SearchQuery-as3fh1-4 hPLPan"
@@ -138,7 +138,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
     </div>
   </div>
   <ol
-    className="styled__NavOl-as3fh1-2 jFOGwC"
+    className="styled__NavOl-as3fh1-2 jPrtty"
   >
     <li
       className="styled__NavItem-as3fh1-14 bzTfHo"
@@ -160,6 +160,26 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         data-testid="search-result"
         href="books/book-slug-1/pages/test-page-1"
         onClick={[Function]}
+        result={
+          Object {
+            "highlight": 0,
+            "result": Object {
+              "highlight": Object {
+                "visibleContent": Array [
+                  "cool <strong>highlight</strong> bruh",
+                ],
+              },
+              "index": "testbook1-uuid@1.0_i1",
+              "score": 2,
+              "source": Object {
+                "elementId": "fs-id1544727",
+                "elementType": "paragraph",
+                "pageId": "testbook1-testpage1-uuid@1.0",
+                "pagePosition": 60,
+              },
+            },
+          }
+        }
       >
         <div
           dangerouslySetInnerHTML={
@@ -244,6 +264,26 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               data-testid="search-result"
               href="books/book-slug-1/pages/10-test-page-6"
               onClick={[Function]}
+              result={
+                Object {
+                  "highlight": 0,
+                  "result": Object {
+                    "highlight": Object {
+                      "visibleContent": Array [
+                        "cool <strong>highlight</strong> bruh",
+                      ],
+                    },
+                    "index": "testbook1-uuid@1.0_i1",
+                    "score": 2,
+                    "source": Object {
+                      "elementId": "fs-id1544727",
+                      "elementType": "paragraph",
+                      "pageId": "testbook1-testpage6-uuid@1.0",
+                      "pagePosition": 60,
+                    },
+                  },
+                }
+              }
             >
               <div
                 dangerouslySetInnerHTML={
@@ -330,6 +370,26 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               data-testid="search-result"
               href="books/book-slug-1/pages/12-test-page-7"
               onClick={[Function]}
+              result={
+                Object {
+                  "highlight": 0,
+                  "result": Object {
+                    "highlight": Object {
+                      "visibleContent": Array [
+                        "cool <strong>highlight</strong> bruh",
+                      ],
+                    },
+                    "index": "testbook1-uuid@1.0_i1",
+                    "score": 2,
+                    "source": Object {
+                      "elementId": "fs-id1544727",
+                      "elementType": "paragraph",
+                      "pageId": "testbook1-testpage7-uuid@1.0",
+                      "pagePosition": 60,
+                    },
+                  },
+                }
+              }
             >
               <div
                 dangerouslySetInnerHTML={
@@ -351,7 +411,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 exports[`SearchResultsSidebar shows sidebar with loading state if there is a search 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-3 cWcjbz"
+  className="styled__SearchResultsBar-as3fh1-3 llsXIP"
   data-testid="search-results-sidebar"
 >
   <div

@@ -1,10 +1,13 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import Color from 'color';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import { labelStyle } from '../../../components/Typography';
+import { useDrawFocus } from '../../../reactUtils';
 import theme from '../../../theme';
+import { mergeRefs } from '../../../utils';
 import { cardPadding } from '../constants';
 import { cardBorder } from './style';
 
@@ -45,9 +48,12 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, onConfirm, ...props}: Props) => {
-
+const Confirmation = React.forwardRef<HTMLElement, Props>((
+  {message, confirmMessage, confirmLink, always, onCancel, onConfirm, ...props}: Props,
+  ref
+) => {
   return <Overlay
+    ref={mergeRefs(ref, useDrawFocus())}
     tabIndex={-1}
     {...props['data-analytics-region']
       ? {'data-analytics-region': props['data-analytics-region']}
@@ -98,6 +104,6 @@ const Confirmation = ({message, confirmMessage, confirmLink, always, onCancel, o
       </FormattedMessage>
     </ButtonGroup>
   </Overlay>;
-};
+});
 
 export default Confirmation;

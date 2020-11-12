@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Check } from 'styled-icons/fa-solid/Check';
 import theme from '../theme';
+import { disabledStyle } from './Typography';
 
 // tslint:disable-next-line:variable-name
 const CheckIcon = styled(Check)`
@@ -52,10 +53,7 @@ export default styled(Checkbox)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  ${(props) => props.disabled ? `
-    opacity: 0.4;
-    cursor: not-allowed;
-  ` : null}
+  ${(props) => props.disabled ? disabledStyle : null}
 
   input {
     position: absolute;

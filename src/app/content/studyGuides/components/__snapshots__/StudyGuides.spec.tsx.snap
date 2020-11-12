@@ -1,0 +1,223 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudyGuides properly display summary highlights 1`] = `
+<div
+  className="StudyGuides-sc-1d60zwp-0 cAwzzu"
+>
+  <div
+    className="HighlightsWrapper-vefi0f-0 kuspas"
+  >
+    <div
+      className="SectionHighlights__HighlightsChapterWrapper-c51y19-0 kARwht"
+    >
+      <div
+        className="SectionHighlights__HighlightsChapter-c51y19-1 HowFS"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+          }
+        }
+        data-testid="chapter-title"
+      />
+    </div>
+    <div
+      className="SectionHighlights__HighlightWrapper-c51y19-2 gFcHNj"
+    >
+      <div
+        className="SectionHighlights__HighlightSection-c51y19-3 cYxWVd"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<span class=\\"os-text\\">Test Page 6</span>",
+          }
+        }
+        data-testid="section-title"
+      />
+      <div
+        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+      >
+        <div
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+        >
+          hl1
+        </div>
+        <div
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 lbsMtc"
+          color="blue"
+        >
+          <div
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
+              }
+            }
+            data-highlight-id="hl1"
+          />
+        </div>
+      </div>
+      <div
+        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+      >
+        <div
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+        >
+          hl
+        </div>
+        <div
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 jQASvQ"
+          color="green"
+        >
+          <div
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "content",
+              }
+            }
+            data-highlight-id="hl2"
+          />
+        </div>
+      </div>
+      <div
+        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+      >
+        <div
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+        >
+          hl
+        </div>
+        <div
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 kuhHtd"
+          color="pink"
+        >
+          <div
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "content",
+              }
+            }
+            data-highlight-id="hl3"
+          />
+        </div>
+      </div>
+      <div
+        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+      >
+        <div
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+        >
+          hl
+        </div>
+        <div
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 fMEUWV"
+          color="purple"
+        >
+          <div
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "content",
+              }
+            }
+            data-highlight-id="hl4"
+          />
+        </div>
+      </div>
+      <div
+        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+      >
+        <div
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+        />
+        <div
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 cjhgbG"
+          color={null}
+        >
+          <div
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "content",
+              }
+            }
+            data-highlight-id="hl5"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="SectionHighlights__HighlightsChapterWrapper-c51y19-0 kARwht"
+    >
+      <div
+        className="SectionHighlights__HighlightsChapter-c51y19-1 HowFS"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+          }
+        }
+        data-testid="chapter-title"
+      />
+    </div>
+    <div
+      className="SectionHighlights__HighlightWrapper-c51y19-2 gFcHNj"
+    >
+      <div
+        className="SectionHighlights__HighlightSection-c51y19-3 cYxWVd"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<span class=\\"os-text\\">Test Page 7</span>",
+          }
+        }
+        data-testid="section-title"
+      />
+      <div
+        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+      >
+        <div
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+        >
+          hl1
+        </div>
+        <div
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 lbsMtc"
+          color="blue"
+        >
+          <div
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "content",
+              }
+            }
+            data-highlight-id="hl1"
+          />
+        </div>
+      </div>
+      <div
+        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+      >
+        <div
+          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+        >
+          hl
+        </div>
+        <div
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 jQASvQ"
+          color="green"
+        >
+          <div
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "content",
+              }
+            }
+            data-highlight-id="hl2"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

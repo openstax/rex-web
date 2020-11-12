@@ -1,34 +1,31 @@
 import fs from 'fs';
-import { JSDOM } from 'jsdom';
-import fetch from 'node-fetch';
 import path from 'path';
-import { basename } from 'path';
-import ProgressBar from 'progress';
 import puppeteer from 'puppeteer';
 import { argv } from 'yargs';
 import { Book } from '../src/app/content/types';
-import { getBookPageUrlAndParams, makeUnifiedBookLoader } from '../src/app/content/utils';
+import { getBookPageUrlAndParams } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { assertDefined } from '../src/app/utils';
-import config from '../src/config';
-import createArchiveLoader from '../src/gateways/createArchiveLoader';
-import createOSWebLoader from '../src/gateways/createOSWebLoader';
-
-(global as any).DOMParser = new JSDOM().window.DOMParser;
+import { findBooks } from './utils/bookUtils';
+import progressBar from './utils/progressBar';
 
 const {
-  rootUrl,
+  archiveUrl,
   bookId,
   bookVersion,
+  quiet,
   queryString,
+  rootUrl,
+  showBrowser,
 } = argv as {
-  rootUrl?: string;
+  quiet?: string;
+  archiveUrl?: string;
   bookId?: string;
   bookVersion?: string;
   queryString?: string;
+  rootUrl?: string;
+  showBrowser?: string;
 };
-
-assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port');
 
 const devTools = false;
 const auditName = argv._[1];
@@ -49,74 +46,131 @@ const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
   }
 });
 
-async function visitPages(page: puppeteer.Page, bookPages: string[], audit: Audit) {
-  const bar = new ProgressBar('visiting [:bar] :current/:total (:etas ETA) ', {
+type PageErrorObserver = (message: string) => void;
+type ObservePageErrors = (newObserver: PageErrorObserver) => void;
+
+async function visitPages(
+  page: puppeteer.Page,
+  observePageErrors: ObservePageErrors,
+  bookPages: string[],
+  audit: Audit
+) {
+  let anyFailures = false;
+  const bar = progressBar('visiting [:bar] :current/:total (:etas ETA) ', {
     complete: '=',
     incomplete: ' ',
     total: bookPages.length,
   });
 
+  observePageErrors((message) => {
+    if (quiet !== undefined) {
+      bar.interrupt(message);
+    }
+  });
+
   for (const pageUrl of bookPages) {
     try {
-      await page.goto(`${rootUrl}${pageUrl}${queryString ? `?${queryString}` : ''}`);
+      const appendQueryString =
+        queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`)
+                    : archiveUrl ? `?archive=${archiveUrl}` : '';
+      await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
       await page.waitForSelector('body[data-rex-loaded="true"]');
       await calmHooks(page);
 
       const matches = await page.evaluate(audit);
 
       if (matches.length > 0) {
-        bar.interrupt(`- (${matches.length}) ${basename(pageUrl)}#${matches[0]}`);
+        anyFailures = true;
+        bar.interrupt(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
       }
     } catch (e) {
-      bar.interrupt(`- (error loading) ${basename(pageUrl)}`);
+      anyFailures = true;
+      bar.interrupt(`- (error loading) ${pageUrl}`);
+      if (e.message) {
+        bar.interrupt(e.message);
+      }
     }
 
     bar.tick();
   }
+
+  return anyFailures;
+}
+
+function makePageErrorDetector(page: puppeteer.Page): ObservePageErrors {
+  let observer: PageErrorObserver = () => null;
+
+  page.on('console', (message) => {
+    if (['info'].includes(message.type())) {
+      return;
+    }
+    if (message.text() === 'Failed to load resource: the server responded with a status of 403 (Forbidden)') {
+      return;
+    }
+    observer(`console: ${message.type().substr(0, 3).toUpperCase()} ${message.text()}`);
+  });
+
+  page.on('pageerror', ({ message }) => observer('ERR: ' + message));
+
+  page.on('response', (response) => {
+    if ([200, 304].includes(response.status())) {
+      return;
+    }
+    // accounts endpoint always 403s when logged out
+    if (response.status() === 403 && response.url().includes('/accounts/api/user')) {
+      return;
+    }
+    observer(`response: ${response.status()} ${response.url()}`);
+  });
+
+  page.on('requestfailed', (request) => {
+    const failure = request.failure();
+    const text = failure ? failure.errorText : 'failed';
+    if (text === 'net::ERR_ABORTED' && request.url().includes('/resources/')) {
+      return;
+    }
+    observer(`requestfailed: ${text} ${request.url()}`);
+  });
+
+  return (newObserver: PageErrorObserver) => observer = newObserver;
 }
 
 async function run() {
   const audit = (await import(auditPath)).default;
   const browser = await puppeteer.launch({
+    args: ['--no-sandbox'],
     devtools: devTools,
+    headless: showBrowser === undefined,
   });
-  const books = await findBooks();
+  const books = await findBooks({
+    archiveUrl,
+    bookId,
+    bookVersion,
+    rootUrl: assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port'),
+  });
+
+  let anyFailures = false;
 
   const page = await browser.newPage();
   page.setDefaultNavigationTimeout(60 * 1000);
 
+  const errorDetector = makePageErrorDetector(page);
+
   for (const book of books) {
-    await visitPages(page, findBookPages(book), audit);
+    anyFailures = await visitPages(page, errorDetector, findBookPages(book), audit) || anyFailures;
   }
 
   await browser.close();
+
+  if (anyFailures) {
+    process.exit(1);
+  }
 }
 
 run().then(null, (err) => {
   console.error(err); // tslint:disable-line:no-console
   process.exit(1);
 });
-
-async function findBooks() {
-  // Get the book config whether the server is prerendered or dev mode
-  const bookConfig: typeof config.BOOKS = await fetch(`${rootUrl}/rex/release.json`)
-    .then((response) => response.json())
-    .then((json) => json.books)
-    .catch(() => config.BOOKS)
-  ;
-
-  (global as any).fetch = fetch;
-  const archiveLoader = createArchiveLoader(`${rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
-  const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
-  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
-
-  const bookInfo = bookId
-    ? [{id: bookId, version: bookVersion || assertDefined(bookConfig[bookId], '').defaultVersion}]
-    : Object.entries(bookConfig).map(([id, {defaultVersion}]) => ({id, version: defaultVersion}))
-  ;
-
-  return await Promise.all(bookInfo.map(({id, version}) => bookLoader(id, version)));
-}
 
 function findBookPages(book: Book) {
   const pages = findTreePages(book.tree);

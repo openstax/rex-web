@@ -25,7 +25,7 @@ export class Dropdown extends React.Component<{user: User, currentPath: string}>
     return <OnScroll callback={this.blockScroll}>
       <Styled.DropdownOverlay tabIndex='-1' ref={this.overlay}>
         <FormattedMessage id='i18n:nav:logo:alt'>
-          {(msg: Element | string) => <a aria-hidden='true' href='/'>
+          {(msg: Element | string) => <a aria-hidden='true' tabIndex={-1} href='/'>
             <Styled.OverlayLogo
               src={openstaxLogo}
               alt={assertString(msg, 'alt text must be a string')}

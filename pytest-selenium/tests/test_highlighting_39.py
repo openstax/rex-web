@@ -170,7 +170,6 @@ def test_open_my_highlights_for_non_logged_in_users_on_mobile(
 
 
 @markers.test_case("C592633")
-@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("introductory-statistics",
@@ -243,6 +242,7 @@ def test_clicking_on_the_note_indicator_opens_the_note_card(
 
 
 @markers.test_case("C592634")
+@markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
         ("biology-2e",

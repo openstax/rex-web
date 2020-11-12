@@ -18,7 +18,7 @@ import { contentTextStyle } from './Page/PageContent';
 import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
 
-const detailsMarginTop = 2;
+const detailsMarginTop = 3;
 const desktopSpacing = 1.8;
 const mobileSpacing = 0.8;
 export const desktopAttributionHeight = detailsMarginTop + textRegularLineHeight + desktopSpacing * 2;
@@ -97,6 +97,10 @@ interface Props {
 
 class Attribution extends Component<Props> {
   public container = React.createRef<HTMLDetailsElement>();
+  private bookIdsWithTEAAttributionText: {[key: string]: string} = {
+    '394a1101-fd8f-4875-84fa-55f15b06ba66': 'tea-statistics',
+    'cce64fde-f448-43b8-ae88-27705cceb0da': 'tea-physics',
+  };
   private toggleHandler: undefined | (() => void);
 
   public componentDidMount() {
@@ -125,8 +129,13 @@ class Attribution extends Component<Props> {
 
   public render() {
     const {book} = this.props;
+    if (!hasOSWebData(book)) { return null; }
 
-    return hasOSWebData(book) ? <AttributionDetails
+    const attributionTextId = book.id in this.bookIdsWithTEAAttributionText
+      ? 'i18n:attribution:tea-text'
+      : 'i18n:attribution:default-text';
+
+    return <AttributionDetails
       ref={this.container}
       data-testid='attribution-details'
       data-analytics-region='attribution'
@@ -138,12 +147,12 @@ class Attribution extends Component<Props> {
           <span>{msg}</span>
         </AttributionSummary>}
       </FormattedMessage>
-      <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
+      <FormattedHTMLMessage id={attributionTextId} values={this.getValues(book)}>
         {(html) => <Content
           dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:attribution:text must return a string')}}
         ></Content>}
       </FormattedHTMLMessage>
-    </AttributionDetails> : null;
+    </AttributionDetails>;
   }
 
   private getValues = (book: BookWithOSWebData) => {
@@ -174,6 +183,7 @@ class Attribution extends Component<Props> {
       bookTitle: book.title,
       currentPath: this.props.currentPath,
       introPageUrl,
+      teaBookName: this.bookIdsWithTEAAttributionText[book.id],
     };
   };
 }

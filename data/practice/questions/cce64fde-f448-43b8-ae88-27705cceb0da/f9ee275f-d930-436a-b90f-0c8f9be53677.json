@@ -1,0 +1,95 @@
+[
+  {
+    "uuid": "eefc30d9-727d-4c88-b031-c8792d74bceb",
+    "stem_html": "What information could you obtain by looking at a velocity vs. time graph?",
+    "id": 91856,
+    "answers": [
+      {
+        "id": 374396,
+        "content_html": "acceleration",
+        "correctness": "1.0",
+        "feedback_html": "The slope of the velocity vs. time curve is acceleration."
+      },
+      {
+        "id": 374393,
+        "content_html": "direction of motion",
+        "correctness": "0.0",
+        "feedback_html": "A velocity vs. time graph does not indicate the direction of motion of the object. For that, a frame of reference would be required. As an example, moving to the right on the graph is the positive direction."
+      },
+      {
+        "id": 374394,
+        "content_html": "reference frame of the motion",
+        "correctness": "0.0",
+        "feedback_html": "It is not possible to find out the reference frame from the velocity vs. time graph."
+      },
+      {
+        "id": 374395,
+        "content_html": "shortest path",
+        "correctness": "0.0",
+        "feedback_html": "The area under the velocity vs. time graph tells us the displacement, but not the shortest path between two points."
+      }
+    ]
+  },
+  {
+    "uuid": "1d590232-4e73-4877-a19b-c292bd1863e9",
+    "stem_html": "How would you use a position vs. time graph to construct a velocity vs. time graph and vice versa?",
+    "id": 91857,
+    "answers": [
+      {
+        "id": 374397,
+        "content_html": "Slope of position vs. time curve is used to construct velocity vs. time curve, and slope of velocity vs. time curve is used to construct position vs. time curve.",
+        "correctness": "0.0",
+        "feedback_html": "Yes, the slope of a position vs. time curve is used to construct a velocity vs. time curve, but constructing a position vs. time curve from the slope of a velocity vs. time curve is not possible."
+      },
+      {
+        "id": 374400,
+        "content_html": "Slope of position vs. time curve is used to construct velocity vs. time curve, and area of velocity vs. time curve is used to construct position vs. time curve.",
+        "correctness": "1.0",
+        "feedback_html": "The velocity can be calculated from the slope of the position vs. time graph, and displacement can be calculated from the area under the curve of velocity vs. time graph."
+      },
+      {
+        "id": 374398,
+        "content_html": "Area of position vs. time curve is used to construct velocity vs. time curve, and slope of velocity vs. time curve is used to construct position vs. time curve.",
+        "correctness": "0.0",
+        "feedback_html": "The slope of velocity/time curve will not give you displacement."
+      },
+      {
+        "id": 374399,
+        "content_html": "Area of position/time curve is used to construct velocity vs. time curve, and area of velocity vs. time curve is used to construct position vs. time curve.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that area under the curve for a velocity vs. time graph will give displacement, but constructing a velocity vs. time curve from the area under the position vs. time curve is not possible."
+      }
+    ]
+  },
+  {
+    "uuid": "370141bb-f931-4daa-8eea-70e775b8f7b2",
+    "stem_html": "An object is moving along a straight path with constant acceleration. A velocity vs. time graph starts at <span data-math=\"0\">0</span> and ends at <span data-math=\"10\\,\\text{m/s}\">10\\,\\text{m/s}</span>, stretching over a time-span of <span data-math=\"15\\,\\text{s}\">15\\,\\text{s}</span>. What is the object’s net displacement?",
+    "id": 102300,
+    "answers": [
+      {
+        "id": 415292,
+        "content_html": "<span data-math=\"75\\,\\text{m}\">75\\,\\text{m}</span>",
+        "correctness": "1.0",
+        "feedback_html": "It can be calculated from the area of the velocity vs. time graph."
+      },
+      {
+        "id": 415293,
+        "content_html": "<span data-math=\"130\\,\\text{m}\">130\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Try to calculate the area under the velocity vs. time graph."
+      },
+      {
+        "id": 415294,
+        "content_html": "<span data-math=\"150\\,\\text{m}\">150\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall the formula for the area of a triangle and apply it in this question to calculate the net displacement."
+      },
+      {
+        "id": 415295,
+        "content_html": "cannot be determined from the information given",
+        "correctness": "0.0",
+        "feedback_html": "The displacement can be calculated from the area under the velocity vs. time graph."
+      }
+    ]
+  }
+]

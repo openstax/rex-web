@@ -2,177 +2,173 @@
 
 exports[`Card matches snapshot when focused without note 1`] = `
 <div
-  authenticated={false}
-  className="Card__StyledCard-tfcdux-0 bDxQRt"
-  data={
-    Object {
-      "color": "yellow",
-      "id": "asdf",
+  data-testid="card"
+  onClick={[Function]}
+>
+  <div
+    className="sc-bdVaJa fFmtjP"
+    data={
+      Object {
+        "color": "yellow",
+        "id": "asdf",
+      }
     }
-  }
-  hasUnsavedHighlight={false}
-  highlight={
-    Object {
-      "elements": Array [
-        <span />,
-      ],
-      "focus": [MockFunction],
-      "getStyle": [MockFunction],
-      "id": "asdf",
-      "isAttached": [MockFunction],
-      "range": Object {
-        "commonAncestorContainer": null,
-        "getBoundingClientRect": [MockFunction] {
-          "calls": Array [
-            Array [],
-            Array [],
-            Array [],
-            Array [],
-          ],
-          "results": Array [
-            Object {
-              "type": "return",
-              "value": Object {
-                "bottom": 200,
-                "top": 100,
+    hasUnsavedHighlight={false}
+    highlight={
+      Object {
+        "elements": Array [
+          <span />,
+        ],
+        "focus": [MockFunction],
+        "getStyle": [MockFunction],
+        "id": "asdf",
+        "isAttached": [MockFunction],
+        "range": Object {
+          "commonAncestorContainer": null,
+          "getBoundingClientRect": [MockFunction] {
+            "calls": Array [
+              Array [],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
               },
-            },
-            Object {
-              "type": "return",
-              "value": Object {
-                "bottom": 200,
-                "top": 100,
-              },
-            },
-            Object {
-              "type": "return",
-              "value": Object {
-                "bottom": 200,
-                "top": 100,
-              },
-            },
-            Object {
-              "type": "return",
-              "value": Object {
-                "bottom": 200,
-                "top": 100,
-              },
-            },
-          ],
+            ],
+          },
         },
-      },
-      "serialize": [Function],
-      "setStyle": [MockFunction],
+        "serialize": [Function],
+        "setStyle": [MockFunction],
+        "sourceId": "testbook1-testpage1-uuid",
+      }
     }
-  }
-  isFocused={true}
-  locationFilterId="testbook1-testpage1-uuid"
-  loginLink="/accounts/login?r=/"
-  mock-edit={true}
-  onBlur={[Function]}
-  onCancel={[Function]}
-  onCreate={[Function]}
-  onRemove={[Function]}
-  onSave={[Function]}
-  pageId="testbook1-testpage1-uuid"
-  setAnnotationChangesPending={[Function]}
-/>
+    isFocused={true}
+    locationFilterId="testbook1-testpage1-uuid"
+    mock-edit={true}
+    onBlur={[Function]}
+    onCancel={[Function]}
+    onCreate={[Function]}
+    onHeightChange={[Function]}
+    onRemove={[Function]}
+    pageId="testbook1-testpage1-uuid"
+    setAnnotationChangesPending={[Function]}
+  />
+</div>
 `;
 
 exports[`Card matches snapshot when passed data without note 1`] = `
 <div
-  authenticated={false}
-  className="Card__StyledCard-tfcdux-0 dWtRUS"
-  data={
-    Object {
-      "id": "asdf",
+  data-testid="card"
+  onClick={[Function]}
+>
+  <div
+    className="sc-bdVaJa iAXzkr"
+    data={
+      Object {
+        "id": "asdf",
+      }
     }
-  }
-  hasUnsavedHighlight={false}
-  highlight={
-    Object {
-      "elements": Array [
-        <span />,
-      ],
-      "focus": [MockFunction],
-      "getStyle": [MockFunction],
-      "id": "asdf",
-      "isAttached": [MockFunction],
-      "range": Object {
-        "commonAncestorContainer": null,
-        "getBoundingClientRect": [MockFunction],
-      },
-      "serialize": [Function],
-      "setStyle": [MockFunction],
+    hasUnsavedHighlight={false}
+    highlight={
+      Object {
+        "elements": Array [
+          <span />,
+        ],
+        "focus": [MockFunction],
+        "getStyle": [MockFunction],
+        "id": "asdf",
+        "isAttached": [MockFunction],
+        "range": Object {
+          "commonAncestorContainer": null,
+          "getBoundingClientRect": [MockFunction],
+        },
+        "serialize": [Function],
+        "setStyle": [MockFunction],
+        "sourceId": "testbook1-testpage1-uuid",
+      }
     }
-  }
-  isFocused={false}
-  locationFilterId="testbook1-testpage1-uuid"
-  loginLink="/accounts/login?r=/"
-  mock-edit={true}
-  onBlur={[Function]}
-  onCancel={[Function]}
-  onCreate={[Function]}
-  onRemove={[Function]}
-  onSave={[Function]}
-  pageId="testbook1-testpage1-uuid"
-  setAnnotationChangesPending={[Function]}
-/>
+    isFocused={true}
+    locationFilterId="testbook1-testpage1-uuid"
+    mock-edit={true}
+    onBlur={[Function]}
+    onCancel={[Function]}
+    onCreate={[Function]}
+    onHeightChange={[Function]}
+    onRemove={[Function]}
+    pageId="testbook1-testpage1-uuid"
+    setAnnotationChangesPending={[Function]}
+  />
+</div>
 `;
 
 exports[`Card matches snapshot without data 1`] = `
 <div
-  authenticated={false}
-  className="Card__StyledCard-tfcdux-0 iSsidk"
-  hasUnsavedHighlight={false}
-  highlight={
-    Object {
-      "elements": Array [
-        <span />,
-      ],
-      "focus": [MockFunction],
-      "getStyle": [MockFunction],
-      "id": "asdf",
-      "isAttached": [MockFunction],
-      "range": Object {
-        "commonAncestorContainer": null,
-        "getBoundingClientRect": [MockFunction] {
-          "calls": Array [
-            Array [],
-            Array [],
-          ],
-          "results": Array [
-            Object {
-              "type": "return",
-              "value": Object {
-                "bottom": 200,
-                "top": 100,
+  data-testid="card"
+  onClick={[Function]}
+>
+  <div
+    className="sc-bdVaJa gMTzhi"
+    hasUnsavedHighlight={false}
+    highlight={
+      Object {
+        "elements": Array [
+          <span />,
+        ],
+        "focus": [MockFunction],
+        "getStyle": [MockFunction],
+        "id": "asdf",
+        "isAttached": [MockFunction],
+        "range": Object {
+          "commonAncestorContainer": null,
+          "getBoundingClientRect": [MockFunction] {
+            "calls": Array [
+              Array [],
+              Array [],
+              Array [],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
               },
-            },
-            Object {
-              "type": "return",
-              "value": Object {
-                "bottom": 200,
-                "top": 100,
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
               },
-            },
-          ],
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
+              },
+            ],
+          },
         },
-      },
-      "serialize": [Function],
-      "setStyle": [MockFunction],
+        "serialize": [Function],
+        "setStyle": [MockFunction],
+        "sourceId": "testbook1-testpage1-uuid",
+      }
     }
-  }
-  isFocused={false}
-  locationFilterId="testbook1-testpage1-uuid"
-  loginLink="/accounts/login?r=/"
-  mock-edit={true}
-  onBlur={[Function]}
-  onCancel={[Function]}
-  onCreate={[Function]}
-  onRemove={[Function]}
-  onSave={[Function]}
-  pageId="testbook1-testpage1-uuid"
-  setAnnotationChangesPending={[Function]}
-/>
+    isFocused={true}
+    locationFilterId="testbook1-testpage1-uuid"
+    mock-edit={true}
+    onBlur={[Function]}
+    onCancel={[Function]}
+    onCreate={[Function]}
+    onHeightChange={[Function]}
+    onRemove={[Function]}
+    pageId="testbook1-testpage1-uuid"
+    setAnnotationChangesPending={[Function]}
+  />
+</div>
 `;

@@ -1,7 +1,17 @@
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
-import { hasOSWebData } from './guards';
-import { ArchiveBook, BookWithOSWebData } from './types';
+import { hasOSWebData, isArchiveTree } from './guards';
+import {
+  ArchiveBook,
+  ArchiveTree,
+  ArchiveTreeNode,
+  Book,
+  BookWithOSWebData,
+  Params,
+  SlugParams,
+  UuidParams,
+} from './types';
+import { CACHED_FLATTENED_TREES, getTitleFromArchiveNode } from './utils/archiveTreeUtils';
 import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
@@ -20,19 +30,39 @@ export const getContentPageReferences = (content: string) =>
       };
     });
 
+const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
+  contents.map((subtree) => {
+    subtree.title = getTitleFromArchiveNode(book, subtree);
+    if (isArchiveTree(subtree)) {
+      subtree.contents = parseContents(book, subtree.contents);
+    }
+    return subtree;
+  });
+  return contents;
+};
+
+export const parseBookTree = (archiveBook: ArchiveBook) => {
+  archiveBook.tree.contents = parseContents(archiveBook, archiveBook.tree.contents);
+  // getTitleFromArchiveNode is using `flattenArchiveTree` util that is caching old titles
+  // so we have to clear this cache after transforming titles
+  CACHED_FLATTENED_TREES.clear();
+  return archiveBook;
+};
+
 export const formatBookData = <O extends OSWebBook | undefined>(
   archiveBook: ArchiveBook,
   osWebBook: O
 ): O extends OSWebBook ? BookWithOSWebData : ArchiveBook => {
   if (osWebBook === undefined) {
     // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    return archiveBook as ArchiveBook as any;
+    return parseBookTree(archiveBook) as ArchiveBook as any;
   }
 
   return {
-      ...archiveBook,
+      ...parseBookTree(archiveBook),
       amazon_link: osWebBook.amazon_link,
       authors: osWebBook.authors,
+      book_state: osWebBook.book_state,
       publish_date: osWebBook.publish_date,
       slug: osWebBook.meta.slug,
       theme: osWebBook.cover_color,
@@ -61,3 +91,8 @@ export const preloadedPageIdIs = (window: Window, id: string) => window.__PRELOA
   && window.__PRELOADED_STATE__.content
   && window.__PRELOADED_STATE__.content.page
   && window.__PRELOADED_STATE__.content.page.id === id;
+
+export const getIdFromPageParam = (param: Params['page'] | null) => {
+  if (!param) { return ''; }
+  return (param as SlugParams).slug || (param as UuidParams).uuid;
+};

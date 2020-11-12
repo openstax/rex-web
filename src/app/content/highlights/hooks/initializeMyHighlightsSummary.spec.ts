@@ -1,13 +1,17 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { groupedToastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
+import { receiveBook } from '../../actions';
 import * as contentSelectors from '../../selectors';
 import { formatBookData } from '../../utils';
-import { findArchiveTreeNode } from '../../utils/archiveTreeUtils';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts, receiveSummaryHighlights } from '../actions';
 import * as selectors from '../selectors';
 import { HighlightData } from '../types';
@@ -49,7 +53,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
     jest.spyOn(selectors, 'summaryIsLoading').mockReturnValue(false);
     jest.spyOn(selectors, 'filteredCountsPerPage').mockReturnValue(totalCountsPerPage);
     jest.spyOn(selectors, 'highlightLocationFilters').mockReturnValue(new Map([[
-      'testbook1-testpage1-uuid', assertDefined(findArchiveTreeNode(book.tree, 'testbook1-testpage1-uuid'), ''),
+      'testbook1-testpage1-uuid', assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
     ]]));
 
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
@@ -76,5 +80,39 @@ describe('initializeMyHighlightsSummaryHook', () => {
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryHighlights(
       expect.anything(), {pagination: null}
     ));
+  });
+
+  describe('error handling', () => {
+    let error: any;
+    beforeEach(() => {
+      error = {};
+      store.dispatch(receiveBook(book));
+    });
+
+    it('adds a toast when summary request fails', async() => {
+      jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+        .mockRejectedValueOnce(error);
+
+      await hook(initializeMyHighlightsSummary());
+
+      expect(Sentry.captureException).toHaveBeenCalledWith(error);
+      expect(groupedToastNotifications(store.getState()).myHighlights)
+        .toEqual([expect.objectContaining({messageKey: toastMessageKeys.higlights.failure.popUp.load})]);
+    });
+
+    it('adds a toast when highlights request fails', async() => {
+      jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+        .mockResolvedValueOnce({countsPerSource: {}});
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce(error);
+
+      await hook(initializeMyHighlightsSummary());
+
+      expect(Sentry.captureException).toHaveBeenCalledWith(error);
+      expect(selectors.summaryIsLoading(store.getState())).toBe(false);
+      expect(groupedToastNotifications(store.getState()).myHighlights)
+        .toEqual([expect.objectContaining({messageKey: toastMessageKeys.higlights.failure.popUp.load})]);
+    });
   });
 });

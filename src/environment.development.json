@@ -3,7 +3,8 @@
   "messages": [],
   "configs": {
     "feature_flags": [
-      "enableHighlighting"
+      "practiceQuestionsEnabled",
+      "studyGuidesEnabled"
     ]
   }
 }

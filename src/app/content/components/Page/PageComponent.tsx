@@ -1,21 +1,27 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
+import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
+import BuyBook from '../BuyBook';
+import PageToasts from '../Page/PageToasts';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
-import highlightManager, { stubHighlightManager } from './highlightManager';
+import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
+import PageNotFound from './PageNotFound';
 import RedoPadding from './RedoPadding';
-import scrollTargetManager, { stubScrollTargetManager } from './scrollTargetManager';
-import searchHighlightManager, { stubManager } from './searchHighlightManager';
+import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scrollToTopOrHashManager';
+import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
+import { validateDOMContent } from './validateDOMContent';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -28,18 +34,28 @@ export default class PageComponent extends Component<PagePropTypes> {
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
-  private scrollTargetManager = stubScrollTargetManager;
+  private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Promise<void> = Promise.resolve();
 
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
 
-    const cleanContent = getCleanContent(book, page, services.archiveLoader,
-      contentLinks.reduceReferences(this.props.contentLinks)
-    );
+    const cleanContent = getCleanContent(book, page, services.archiveLoader);
+
+    if (!cleanContent) {
+      return '';
+    }
+
     const parsedContent = parser.parseFromString(cleanContent, 'text/html');
+    contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
 
     transformContent(parsedContent, parsedContent.body, this.props.intl);
+
+    /* this will be removed when all the books are in good order */
+    /* istanbul ignore else */
+    if (APP_ENV !== 'production') {
+      validateDOMContent(parsedContent, parsedContent.body);
+    }
 
     return parsedContent.body.innerHTML;
   };
@@ -51,7 +67,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current);
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights);
-    this.scrollTargetManager = scrollTargetManager(this.container.current);
+    this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
@@ -61,17 +77,33 @@ export default class PageComponent extends Component<PagePropTypes> {
     // be relevant if there are rapid page navigations.
     await this.processing;
 
-    this.scrollTargetManager(prevProps.scrollTarget, this.props.scrollTarget);
+    this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
     if (prevProps.page !== this.props.page) {
       await this.postProcess();
     }
 
-    const highlgihtsAddedOrRemoved = this.highlightManager.update();
+    const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
+      onSelect: this.onHighlightSelect,
+    });
+
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
-      forceRedraw: highlgihtsAddedOrRemoved,
+      forceRedraw: highlightsAddedOrRemoved,
+      onSelect: this.onSearchHighlightSelect,
     });
   }
+
+  public onHighlightSelect: HighlightUpdateOptions['onSelect'] = (selectedHighlight) => {
+    if (!selectedHighlight) {
+      this.props.addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'});
+    }
+  };
+
+  public onSearchHighlightSelect: SearchUpdateOptions['onSelect'] = (selectedHighlight) => {
+    if (!selectedHighlight) {
+      this.props.addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'});
+    }
+  };
 
   public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
     if (prevProps.page !== this.props.page) {
@@ -89,9 +121,13 @@ export default class PageComponent extends Component<PagePropTypes> {
   public render() {
     return <MinPageHeight>
       <this.highlightManager.CardList />
+      <PageToasts />
       <RedoPadding>
-        {this.props.page ? this.renderContent() : this.renderLoading()}
-        <PrevNextBar />
+        {this.props.pageNotFound
+          ? this.renderPageNotFound()
+          : this.props.page
+            ? this.renderContent()
+            : this.renderLoading()}
       </RedoPadding>
     </MinPageHeight>;
   }
@@ -99,11 +135,15 @@ export default class PageComponent extends Component<PagePropTypes> {
   private renderContent = () => {
     const html = this.getTransformedContent() || this.getPrerenderedContent();
 
-    return <PageContent
-      key='main-content'
-      ref={this.container}
-      dangerouslySetInnerHTML={{ __html: html}}
-    />;
+    return <React.Fragment>
+      <PageContent
+        key='main-content'
+        ref={this.container}
+        dangerouslySetInnerHTML={{ __html: html}}
+      />
+      <PrevNextBar />
+      <BuyBook />
+    </React.Fragment>;
   };
 
   private renderLoading = () => <PageContent
@@ -111,6 +151,13 @@ export default class PageComponent extends Component<PagePropTypes> {
     ref={this.container}
   >
     <Loader large delay={1500} />
+  </PageContent>;
+
+  private renderPageNotFound = () => <PageContent
+    key='main-content'
+    ref={this.container}
+  >
+    <PageNotFound />
   </PageContent>;
 
   private getPrerenderedContent() {

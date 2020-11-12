@@ -29,6 +29,7 @@ const HighlightNoteAnnotation = styled.div`
 // tslint:disable-next-line:variable-name
 const Textarea = styled.textarea`
   ${textRegularStyle}
+  font-family: inherit;
   flex: 1;
   letter-spacing: 0;
   line-height: 20px;
@@ -48,6 +49,10 @@ const HighlightAnnotation = (
   { annotation, isEditing, onSave, onCancel }: HighlightAnnotationProps
 ) => {
   const [anno, setAnno] = React.useState(annotation);
+
+  React.useEffect(() => {
+    setAnno(annotation);
+  }, [annotation]);
 
   if (anno.length === 0 && !isEditing) { return null; }
 
@@ -76,7 +81,7 @@ const HighlightAnnotation = (
           {annotation}
         </HighlightNoteAnnotation>
       </React.Fragment>
-      }
+    }
     {isEditing && <HighlightEditButtons>
       <FormattedMessage id='i18n:highlighting:button:save'>
         {(msg: Element | string) => <Button
@@ -94,7 +99,10 @@ const HighlightAnnotation = (
           data-analytics-label='cancel'
           data-testid='cancel'
           aria-label={msg}
-          onClick={onCancel}
+          onClick={() => {
+            onCancel();
+            setAnno(annotation);
+          }}
         >{msg}</Button>}
       </FormattedMessage>
     </HighlightEditButtons>}

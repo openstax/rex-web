@@ -9,6 +9,8 @@ import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
 import { locationChange } from '../../../navigation/actions';
+import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
@@ -71,7 +73,7 @@ describe('locationChange', () => {
 
     const mock = mockHighlight();
     const highlights = [{id: mock.id} as HighlightData];
-    store.dispatch(receiveHighlights(highlights));
+    store.dispatch(receiveHighlights({highlights, pageId: page.id}));
 
     hook(locationChange({} as any));
 
@@ -86,11 +88,25 @@ describe('locationChange', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveUser(formatUser(testAccountsUser)));
-    store.dispatch(receiveHighlights(highlights));
+    store.dispatch(receiveHighlights({highlights, pageId: page.id}));
 
     const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
     hook(receivePageFocus(false));
+
+    expect(getHighlights).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('noops when highlights for specific page are already loading', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveUser(formatUser(testAccountsUser)));
+    store.dispatch(receiveHighlights({highlights: [], pageId: page.id}));
+
+    const getHighlights = jest.spyOn(helpers.highlightClient, 'getHighlights');
+
+    await hook();
 
     expect(getHighlights).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
@@ -109,7 +125,7 @@ describe('locationChange', () => {
 
     await hook();
 
-    expect(dispatch).toHaveBeenCalledWith(receiveHighlights(highlights));
+    expect(dispatch).toHaveBeenCalledWith(receiveHighlights({highlights, pageId: page.id}));
   });
 
   it('receives multiple pages of highlights', async() => {
@@ -129,6 +145,44 @@ describe('locationChange', () => {
 
     await hook();
 
-    expect(dispatch).toHaveBeenCalledWith(receiveHighlights(highlights));
+    expect(dispatch).toHaveBeenCalledWith(receiveHighlights({highlights, pageId: page.id}));
+  });
+
+  describe('error handling', () => {
+    it('doesn\'t show a toast if hook ran because of page\'s focus changing', async() => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({...page, references: []}));
+      store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+      dispatch.mockClear();
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce({});
+
+      await hook(receivePageFocus(true));
+      await hook(receivePageFocus(false));
+
+      expect(dispatch).not.toHaveBeenCalled();
+    });
+
+    it('shows a toast on fetch failure', async() => {
+      jest.spyOn(Date, 'now')
+        .mockReturnValue(1);
+
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({...page, references: []}));
+      store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+      dispatch.mockClear();
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce({});
+
+      await hook(locationChange({} as any));
+
+      expect(dispatch).toHaveBeenCalledWith(
+        addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false})
+      );
+    });
   });
 });

@@ -1,17 +1,19 @@
 import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
+import queryString from 'querystring';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
-import { push, replace } from '../../navigation/actions';
+import { locationChange as navigationLocationChange, push, replace } from '../../navigation/actions';
 import { AppServices, ArgumentTypes, MiddlewareAPI, Store } from '../../types';
-import { assertWindow } from '../../utils';
 import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
+import * as selectors from '../selectors';
 import { formatBookData } from '../utils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
 import { clearSearchHook, receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
+import { SearchScrollTarget } from './types';
 
 describe('hooks', () => {
   let store: Store;
@@ -69,20 +71,34 @@ describe('hooks', () => {
       hook = clearSearchHook(helpers);
     });
 
-    it('clears search state', () => {
-      helpers.history.replace({
-        state: {
-          search: {query: 'foo'},
-        },
-      });
+    it('clears hash and search if there was a search scroll target', () => {
+      const mockSearchScrollTarget = `target=${JSON.stringify({ type: 'search', index: 0 })}`;
+      const spy = jest.spyOn(helpers.history, 'replace');
+
+      store.dispatch(navigationLocationChange({
+        location: { hash: 'elementId', search: mockSearchScrollTarget },
+      } as any));
 
       hook(clearSearch());
 
-      expect(helpers.history.location.state.search).toBe(null);
+      expect(spy).toHaveBeenCalledWith({ hash: '', search: '' });
     });
 
-    it('clears search state', () => {
+    it('noops if there was no scroll target or if it wasn\'t search scroll target', () => {
+      const mockNOTSearchScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'asd' })}`;
       const spy = jest.spyOn(helpers.history, 'replace');
+
+      store.dispatch(navigationLocationChange({
+        location: { hash: '', search: '' },
+      } as any));
+
+      hook(clearSearch());
+
+      expect(spy).not.toHaveBeenCalled();
+
+      store.dispatch(navigationLocationChange({
+        location: { hash: 'elementId', search: mockNOTSearchScrollTarget },
+      } as any));
 
       hook(clearSearch());
 
@@ -92,132 +108,81 @@ describe('hooks', () => {
 
   describe('syncSearch', () => {
     let hook: ReturnType<typeof syncSearch>;
+    const searchScrollTarget: SearchScrollTarget = { type: 'search', index: 0, elementId: 'elementId' };
+    const searchScrollTargetStringified = `${JSON.stringify({ type: 'search', index: 0 })}`;
 
     beforeEach(() => {
       hook = syncSearch(helpers);
     });
 
-    it('doesn\'t dispatch for REPLACE actions', () => {
-      hook({
-        action: 'REPLACE',
-        location: {
-          ...assertWindow().location,
-          state: {},
-        },
-        match: {} as any,
-      });
-      hook({
-        action: 'REPLACE',
-        location: {
-          ...assertWindow().location,
-          state: {
-            search: 'asdf',
-          },
-        },
-        match: {} as any,
-      });
+    it('searches if there is search scroll target in the URL', () => {
+      store.dispatch(navigationLocationChange({
+        location: { hash: 'elementId', search: `?query=asdf&target=${searchScrollTargetStringified}` },
+      } as any));
 
-      expect(dispatch).not.toHaveBeenCalled();
+      hook({} as any);
+
+      expect(dispatch).toHaveBeenCalledWith(requestSearch('asdf', { isResultReload: true, searchScrollTarget }));
     });
 
-    it('doesn\'t dispatch for PUSH actions', () => {
-      hook({
-        action: 'PUSH',
-        location: {
-          ...assertWindow().location,
-          state: {},
-        },
-        match: {} as any,
-      });
-      hook({
-        action: 'PUSH',
-        location: {
-          ...assertWindow().location,
-          state: {
-            search: 'asdf',
-          },
-        },
-        match: {} as any,
-      });
+    it('searches if there is only search query in the URL', () => {
+      store.dispatch(navigationLocationChange({
+        location: { hash: 'elementId', search: `?query=asdf` },
+      } as any));
 
-      expect(dispatch).not.toHaveBeenCalled();
+      hook({} as any);
+
+      expect(dispatch).toHaveBeenCalledWith(requestSearch('asdf'));
     });
 
-    it('searches for saved query on POP if it is differet from current query', () => {
-      store.dispatch(requestSearch('asdf'));
+    it('noops if search query is the same', () => {
+      store.dispatch(navigationLocationChange({
+        location: { hash: 'elementId', search: `?query=asdf` },
+      } as any));
 
-      hook({
-        action: 'POP',
-        location: {
-          ...assertWindow().location,
-          state: { search: {query: 'qwer'} },
-        },
-        match: {} as any,
-      });
+      hook({} as any);
 
-      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer'));
+      dispatch.mockClear();
+
+      hook({} as any);
+
+      expect(dispatch).not.toHaveBeenCalledWith();
     });
 
-    it('searches for saved query with selectedResult on POP if it is differet from current query', () => {
-      store.dispatch(requestSearch('asdf'));
-
+    it('selects search result', () => {
       const hit = makeSearchResultHit({book, page});
-      const selectedResult = {result: hit, highlight: 0};
-      hook({
-        action: 'POP',
-        location: {
-          ...assertWindow().location,
-          state: { search: {query: 'qwer', selectedResult}},
-        },
-        match: {} as any,
-      });
+      store.dispatch(navigationLocationChange({
+        location: { hash: hit.source.elementId, search: `?query=asdf&target=${searchScrollTargetStringified}` },
+      } as any));
 
-      expect(dispatch).toHaveBeenCalledWith(requestSearch('qwer', {isResultReload: true, selectedResult}));
-    });
-
-    it('dispatches selectSearchResult if query and page are the same', () => {
       store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults({ hits: { hits: [hit] } } as any));
 
-      const hit = makeSearchResultHit({book, page});
       const selectedResult = {result: hit, highlight: 0};
-      hook({
-        action: 'POP',
-        location: {
-          ...assertWindow().location,
-          state: { search: {query: 'asdf', selectedResult}},
-        },
-        match: {} as any,
-      });
+      hook({} as any);
 
       expect(dispatch).toHaveBeenCalledWith(selectSearchResult(selectedResult));
     });
 
-    it('doesn\'t dispatch on POP if saved query is same as current query', () => {
-      store.dispatch(requestSearch('asdf'));
+    it('noops if current selected result is the same as navigation selected result', () => {
+      const hit = makeSearchResultHit({book, page});
+      store.dispatch(navigationLocationChange({
+        location: { hash: hit.source.elementId, search: `?query=asdf&target=${searchScrollTargetStringified}` },
+      } as any));
 
-      hook({
-        action: 'POP',
-        location: {
-          ...assertWindow().location,
-          state: { search: {query: 'asdf'} },
-        },
-        match: {} as any,
-      });
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults({ hits: { hits: [hit] } } as any));
+
+      const selectedResult = {result: hit, highlight: 0};
+      hook({} as any);
+
+      expect(dispatch).toHaveBeenCalledWith(selectSearchResult(selectedResult));
+
+      dispatch.mockClear();
+
+      hook({} as any);
+
       expect(dispatch).not.toHaveBeenCalled();
-    });
-
-    it('clears search on POP if saved query is empty and curren\'t query isn\'t', () => {
-      store.dispatch(requestSearch('asdf'));
-
-      hook({
-        action: 'POP',
-        location: {
-          ...assertWindow().location,
-          state: { search: {query: ''} },
-        },
-        match: {} as any,
-      });
-      expect(dispatch).toHaveBeenCalledWith(clearSearch());
     });
   });
 
@@ -244,14 +209,22 @@ describe('hooks', () => {
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
       store.dispatch(selectSearchResult({result: hit, highlight: 0}));
-      helpers.history.replace({ state: { search: {query: 'asdf'} } });
-      go([hit]);
+      go([hit], { searchScrollTarget: { type: 'search', index: 0, elementId: hit.source.elementId }});
       expect(dispatch).not.toHaveBeenCalled();
     });
 
     it('noops if there is no book or page selected', () => {
       go([hit]);
       expect(dispatch).not.toHaveBeenCalled();
+    });
+
+    it('noops if page is loading', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      const mock = jest.spyOn(selectors, 'loadingPage')
+        .mockReturnValue({ slug: 'any' });
+      go([hit]);
+      expect(dispatch).not.toHaveBeenCalled();
+      mock.mockReset();
     });
 
     it('noops if book is different than initiated the search', () => {
@@ -286,7 +259,14 @@ describe('hooks', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...shortPage, references: [] }));
       store.dispatch(requestSearch('asdf'));
+
       go([hit]);
+      expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit, highlight: 0 }));
+
+      const search = queryString.stringify({
+        query: 'asdf',
+        target: JSON.stringify({ type: 'search', index: 0 }),
+      });
       expect(dispatch).toHaveBeenCalledWith(
         push({
           params: expect.anything(),
@@ -295,8 +275,10 @@ describe('hooks', () => {
             bookUid: book.id,
             bookVersion: book.version,
             pageUid: page.id,
-            search: expect.objectContaining({query: 'asdf'}),
           },
+        }, {
+          hash: hit.source.elementId,
+          search,
         })
       );
     });
@@ -305,7 +287,13 @@ describe('hooks', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
+
       go([hit]);
+
+      const search = queryString.stringify({
+        query: 'asdf',
+        target: JSON.stringify({ type: 'search', index: 0 }),
+      });
       expect(dispatch).toHaveBeenCalledWith(
         replace({
           params: expect.anything(),
@@ -314,18 +302,23 @@ describe('hooks', () => {
             bookUid: book.id,
             bookVersion: book.version,
             pageUid: page.id,
-            search: expect.objectContaining({query: 'asdf'}),
           },
+        }, {
+          hash: hit.source.elementId,
+          search,
         })
       );
     });
 
-    it('uses the provided selectedResult', () => {
+    it('dispatches REPLACE with search query when page is undefined', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
-      const selectedResult = {result: hit, highlight: 0};
-      go([hit], {selectedResult});
+      go([hit]);
+
+      const search = queryString.stringify({
+        query: 'asdf',
+        target: JSON.stringify({ type: 'search', index: 0 }),
+      });
       expect(dispatch).toHaveBeenCalledWith(
         replace({
           params: expect.anything(),
@@ -334,8 +327,41 @@ describe('hooks', () => {
             bookUid: book.id,
             bookVersion: book.version,
             pageUid: page.id,
-            search: expect.objectContaining({selectedResult}),
           },
+        }, {
+          hash: hit.source.elementId,
+          search,
+        })
+      );
+    });
+
+    it('uses the provided search scroll target', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('asdf'));
+      const hit2 = makeSearchResultHit({book, page});
+      store.dispatch(receiveSearchResults({ hits: { hits: [hit, hit2] } } as any));
+      Object.defineProperty(hit2.source, 'elementId', { value: 'elem' });
+
+      go([hit, hit2], {searchScrollTarget: { type: 'search', index: 1, elementId: hit2.source.elementId }});
+      expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit2, highlight: 1 }));
+
+      const search = queryString.stringify({
+        query: 'asdf',
+        target: JSON.stringify({ type: 'search', index: 1 }),
+      });
+      expect(dispatch).toHaveBeenCalledWith(
+        replace({
+          params: expect.anything(),
+          route: content,
+          state: {
+            bookUid: book.id,
+            bookVersion: book.version,
+            pageUid: page.id,
+          },
+        }, {
+          hash: hit2.source.elementId,
+          search,
         })
       );
     });

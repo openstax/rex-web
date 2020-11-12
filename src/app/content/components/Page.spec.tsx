@@ -1,4 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
+import { SearchResult } from '@openstax/open-search-client';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
@@ -18,17 +19,22 @@ import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
-import { push } from '../../navigation/actions';
+import { locationChange, push } from '../../navigation/actions';
+import { addToast } from '../../notifications/actions';
+import { toastMessageKeys } from '../../notifications/components/ToastNotifications/constants';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
+import { receiveHighlights } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
 import * as searchUtils from '../search/utils';
+import * as select from '../selectors';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
+import PageNotFound from './Page/PageNotFound';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
@@ -89,7 +95,7 @@ describe('Page', () => {
         some text
         <a href="/content/link">some link</a>
         some more text
-        <a href="/rando/link">another link</a>
+        <a href="./rando/link">another link</a>
         some more text
         text
         <button>asdf</button>
@@ -189,7 +195,12 @@ describe('Page', () => {
 
     it('adds (target="_blank" rel="noopener nofollow") to external links', async() => {
       expect(await htmlHelper('<a href="https://openstax.org/external-url">external-link</a>'))
-      .toEqual('<a target="_blank" rel="noopener nofollow" href="https://openstax.org/external-url">external-link</a>');
+      .toEqual('<a href="https://openstax.org/external-url" target="_blank" rel="noopener nofollow">external-link</a>');
+    });
+
+    it('adds target="_blank" and removes rel attribute for relative links', async() => {
+      expect(await htmlHelper('<a href="../relative/url" rel="noopener nofollow">relative</a>'))
+      .toEqual('<a href="../relative/url" target="_blank">relative</a>');
     });
 
     it('numbers lists that have a start attribute', async() => {
@@ -315,11 +326,17 @@ describe('Page', () => {
             <div data-type="problem" id="problem1"><div class="os-problem-container">
               <p id="paragraph1">blah blah blah</p>
             </div></div>
-            <div data-type="solution" id="fs-id2913818" data-print-placement="here" aria-label="show solution">
+            <div `
+              + `data-type="solution" `
+              + `id="fs-id2913818" `
+              + `data-print-placement="here" `
+              + `aria-label="show solution" `
+              + `aria-expanded="false"`
+            + `>
       <div class="ui-toggle-wrapper">
         <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
       </div>
-      <section class="ui-body" role="alert">
+      <section class="ui-body" role="alert" style="display: block; overflow: hidden; height: 0px">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
               <div class="os-solution-container">
                 <p id="paragraph2">answer answer answer.</p>
@@ -360,6 +377,37 @@ describe('Page', () => {
         expect(solution.matches('.ui-solution-visible')).toBe(false);
       });
 
+      it('doesn\'t use display none to hide solutions', async() => {
+        if (!window) {
+          return expect(window).toBeTruthy();
+        }
+
+        await htmlHelper(`
+          <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
+            <h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
+            <div data-type="problem" id="problem1"><div class="os-problem-container">
+              <p id="paragraph1">blah blah blah</p>
+            </div></div>
+            <div data-type="solution" id="fs-id2913818" data-print-placement="here">
+              <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
+              <div class="os-solution-container">
+                <p id="paragraph2">answer answer answer.</p>
+              </div>
+            </div>
+          </div>
+        `);
+
+        const solutionSection = pageElement.querySelector('#exercise1 .ui-body');
+
+        if (!solutionSection) {
+          return expect(solutionSection).toBeTruthy();
+        }
+
+        // one of the checks that rangy does when skipping text
+        // https://github.com/timdown/rangy/wiki/Text-Range-Module#visible-text
+        expect(window.getComputedStyle(solutionSection).display).toBe('block');
+      });
+
       it('doesn\'t throw when badly formatted', async() => {
         await htmlHelper(`
           <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
@@ -389,6 +437,35 @@ describe('Page', () => {
         expect(() => button.dispatchEvent(makeEvent(pageElement.ownerDocument!))).not.toThrow();
       });
     });
+
+    it('moves footnotes from the content to the bottom of page', async() => {
+      const input = await htmlHelper('<div id="content">' +
+        '<p>Some text <a href="#1" role="doc-noteref">1</a></p>' +
+        '<aside id="1" role="doc-footnote">' +
+          '<p><span data-type="footnote-number">1</span>Footnote text</p>' +
+        '</aside>' +
+      '</div>');
+      const expectedOutput = '<div id="content">' +
+        '<p>' +
+          'Some text ' +
+          '<sup id="footnote-ref1" data-type="footnote-number">' +
+            '<a href="#1" role="doc-noteref" data-type="footnote-link">1</a>' +
+          '</sup>' +
+        '</p>' +
+      '</div>' +
+      '<div data-type="footnote-refs">' +
+        '<h3 data-type="footnote-refs-title">Footnotes</h3>' +
+        '<ul data-list-type="bulleted" data-bullet-style="none">' +
+          '<li id="1" data-type="footnote-ref">' +
+            '<a role="doc-backlink" href="#footnote-ref1">1</a>' +
+            '<span data-type="footnote-ref-content">' +
+              '<p>Footnote text</p>' +
+            '</span>' +
+          '</li>' +
+        '</ul>' +
+      '</div>';
+      expect(input).toEqual(expectedOutput);
+    });
   });
 
   it('updates content link with new hrefs', async() => {
@@ -405,7 +482,7 @@ describe('Page', () => {
     }
 
     expect(firstLink.getAttribute('href')).toEqual('books/book-slug-1/pages/page-title');
-    expect(secondLink.getAttribute('href')).toEqual('/rando/link');
+    expect(secondLink.getAttribute('href')).toEqual('./rando/link');
   });
 
   it('interceptes clicking content links', async() => {
@@ -466,8 +543,11 @@ describe('Page', () => {
     }));
   });
 
-  it('passes search when clicking content links to same book', async() => {
-    state.navigation.state = {search: {query: 'asdf'}};
+  it('does not reset search results when clicking content links to same book', async() => {
+    const mockSearchResults = { hits: { hits: [] } } as any as SearchResult;
+    store.dispatch(receiveSearchResults(mockSearchResults));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -499,16 +579,19 @@ describe('Page', () => {
         bookUid: 'book',
         bookVersion: 'version',
         pageUid: 'page',
-        search: expect.objectContaining({query: 'asdf'}),
       },
     }, {
       hash: '',
       search: '',
     }));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
   });
 
-  it('passes search when clicking hash links', async() => {
-    state.navigation.state = {search: {query: 'asdf'}};
+  it('does not reset search results when clicking hash links', async() => {
+    const mockSearchResults = { hits: { hits: [] } } as any as SearchResult;
+    store.dispatch(receiveSearchResults(mockSearchResults));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -530,13 +613,12 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledWith(push({
       params: expect.anything(),
       route: routes.content,
-      state: expect.objectContaining({
-        search: expect.objectContaining({query: 'asdf'}),
-      }),
+      state: expect.anything(),
     }, {
       hash: '#hash',
       search: '',
     }));
+    expect(store.getState().content.search.results).toEqual(mockSearchResults);
   });
 
   it('passes search when clicking archive links', async() => {
@@ -653,7 +735,7 @@ describe('Page', () => {
   });
 
   it('doesn\'t break when selecting a highlight that failed to highlight', async() => {
-    renderDomWithReferences();
+    const {root} = renderDomWithReferences();
 
     const hit = makeSearchResultHit({book, page});
 
@@ -665,7 +747,22 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
+    // click again for selectedSearchResult to update
+    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+
     expect(scrollTo).not.toHaveBeenCalled();
+
+    const button = root.querySelector('[data-testid=banner-body] button');
+
+    if (!button) {
+      return expect(button).toBeTruthy();
+    }
+
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(button);
+    });
+
+    expect(root.querySelector('[data-testid=banner-body] button')).toBeFalsy();
   });
 
   it('scrolls to search result when selected', async() => {
@@ -804,6 +901,201 @@ describe('Page', () => {
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
+  it('renders error modal for different search results', async() => {
+    const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit1 = makeSearchResultHit({book, page});
+    const hit2 = makeSearchResultHit({book, page});
+
+    highlightResults.mockReturnValue([]);
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+      store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
+
+    if (!errorModalCloseButton) {
+      return expect(errorModalCloseButton).toBeTruthy();
+    }
+
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(errorModalCloseButton);
+    });
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
+
+    renderer.act(() => {
+      store.dispatch(selectSearchResult({result: hit2, highlight: 0}));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(errorModalCloseButton);
+    });
+
+    highlightResults.mockRestore();
+  });
+
+  it('doesn\'t render error modal for the same result twice', async() => {
+    const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit = makeSearchResultHit({book, page});
+    const searchResultToSelect = {result: hit, highlight: 0};
+
+    highlightResults.mockReturnValue([]);
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+      store.dispatch(selectSearchResult(searchResultToSelect));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
+
+    if (!errorModalCloseButton) {
+      return expect(errorModalCloseButton).toBeTruthy();
+    }
+
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(errorModalCloseButton);
+    });
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
+
+    renderer.act(() => {
+      store.dispatch(selectSearchResult(searchResultToSelect));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
+    highlightResults.mockRestore();
+  });
+
+  it('refresh error modal for different search results if they are of the same type', async() => {
+    const {root} = renderDomWithReferences();
+
+    const dateMock = jest.spyOn(Date, 'now')
+      .mockReturnValue(1);
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
+    const hit1 = makeSearchResultHit({book, page});
+    const hit2 = makeSearchResultHit({book, page});
+
+    highlightResults.mockReturnValue([]);
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+      store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'})
+    );
+    dispatch.mockClear();
+
+    renderer.act(() => {
+      store.dispatch(selectSearchResult({result: hit2, highlight: 0}));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+    // after images are loaded
+    await Promise.resolve();
+
+    expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'})
+    );
+
+    highlightResults.mockRestore();
+    dateMock.mockRestore();
+  });
+
+  it('renders error modal for highlight scroll target when it cant find a highlight - only once', async() => {
+    const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'some-id' })}`;
+
+    const dateMock = jest.spyOn(Date, 'now')
+      .mockReturnValue(1);
+
+    const {root} = renderDomWithReferences();
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    renderer.act(() => {
+      store.dispatch(locationChange({
+        action: 'REPLACE',
+        location: { hash: 'does-not-matter', search: mockScrollTarget },
+      } as any));
+      store.dispatch(receiveHighlights({ highlights: [], pageId: page.id, }));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
+    dispatch.mockClear();
+
+    const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
+
+    if (!errorModalCloseButton) {
+      return expect(errorModalCloseButton).toBeTruthy();
+    }
+
+    renderer.act(() => {
+      ReactTestUtils.Simulate.click(errorModalCloseButton);
+      store.dispatch(receiveHighlights({ highlights: [], pageId: page.id, }));
+    });
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    expect(dispatch).not.toHaveBeenCalledWith(
+      addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
+
+    dateMock.mockRestore();
+  });
+
   it('mounts, updates, and unmounts without a dom', () => {
     const element = renderer.create(
       <Provider store={store}>
@@ -857,7 +1149,6 @@ describe('Page', () => {
       id: 'adsfasdf',
       references: [],
       revised: '2018-07-30T15:58:45Z',
-      shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
     }));
@@ -877,7 +1168,6 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
-      shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
     };
@@ -937,7 +1227,6 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
-      shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
     };
@@ -975,7 +1264,6 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
-      shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
     };
@@ -1047,7 +1335,6 @@ describe('Page', () => {
       content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
-      shortId: 'asdf',
       title: 'qerqwer',
       version: '0',
     };
@@ -1109,6 +1396,24 @@ describe('Page', () => {
       const spyFocus = jest.spyOn(mainContent, 'focus');
       expect(spyFocus).toHaveBeenCalledTimes(0);
     }
+  });
+
+  it('renders <PageNotFound> component', () => {
+    jest.spyOn(select, 'pageNotFound')
+      .mockReturnValue(true);
+
+    const component = renderer.create(
+      <Provider store={store}>
+        <MessageProvider>
+          <SkipToContentWrapper>
+            <Services.Provider value={services}>
+              <ConnectedPage />
+            </Services.Provider>
+          </SkipToContentWrapper>
+        </MessageProvider>
+      </Provider>);
+
+    expect(component.root.findByType(PageNotFound)).toBeTruthy();
   });
 
   describe('with prerendered state', () => {

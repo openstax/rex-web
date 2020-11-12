@@ -1,8 +1,9 @@
-import Highlighter from '@openstax/highlighter';
+import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
+import { memoizeStateToProps } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
 import allImagesLoaded from '../utils/allImagesLoaded';
@@ -13,7 +14,7 @@ interface Services {
   searchResultMap: ReturnType<typeof highlightResults>;
 }
 
-export const mapStateToSearchHighlightProp = (state: AppState) => {
+export const mapStateToSearchHighlightProp = memoizeStateToProps((state: AppState) => {
   const searchResults = selectSearch.currentPageResults(state);
   const selectedResult = selectSearch.selectedResult(state);
 
@@ -23,14 +24,15 @@ export const mapStateToSearchHighlightProp = (state: AppState) => {
       ? selectedResult
       : null,
   };
-};
-type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
+});
+export type HighlightProp = ReturnType<typeof mapStateToSearchHighlightProp>;
 
-interface Options {
+export interface UpdateOptions {
   forceRedraw: boolean;
+  onSelect: (selectedHighlight?: Highlight) => void;
 }
 
-const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
+const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: UpdateOptions) => {
   if (!options.forceRedraw && previous.searchResults === current.searchResults) {
     return;
   }
@@ -39,7 +41,7 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
-const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: Options) => {
+const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: UpdateOptions) => {
   if (!current.selectedResult) {
     return;
   }
@@ -59,14 +61,22 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
     firstSelectedHighlight.focus();
   }
 
-  if (firstSelectedHighlight && previous.selectedResult !== current.selectedResult) {
+  if (previous.selectedResult === current.selectedResult) { return; }
+
+  if (firstSelectedHighlight) {
     allImagesLoaded(services.container).then(
       () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
     );
   }
+
+  options.onSelect(firstSelectedHighlight);
 };
 
-const handleUpdate = (services: Services) => (previous: HighlightProp, current: HighlightProp, options: Options) => {
+const handleUpdate = (services: Services) => (
+  previous: HighlightProp,
+  current: HighlightProp,
+  options: UpdateOptions
+) => {
   updateResults(services, previous, current, options);
   selectResult(services, previous, current, options);
 };

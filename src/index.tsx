@@ -4,18 +4,21 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
 import { onPageFocusChange } from './app/domUtils';
+import { updateAvailable } from './app/notifications/actions';
 import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
+import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoader';
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
 import pollUpdates from './helpers/pollUpdates';
+import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
@@ -43,6 +46,7 @@ const app = createApp({
     archiveLoader: createArchiveLoader(archiveUrl),
     highlightClient: createHighlightClient(highlightsUrl),
     osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),
+    practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
     searchClient: createSearchClient(searchUrl),
     userLoader: createUserLoader(accountsUrl),
@@ -83,13 +87,27 @@ function doneRendering() {
 window.onblur = onPageFocusChange(false, app);
 window.onfocus = onPageFocusChange(true, app);
 
-registerGlobalAnalytics(window, app.store);
+window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
 
 // start long running processes
 pollUpdates(app.store);
 startMathJax();
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register()
+  .then((registration) => {
+    app.services.serviceWorker = registration;
+
+    if (registration && (registration.waiting || registration.installing)) {
+      app.store.dispatch(updateAvailable());
+    } else if (registration) {
+      // For Chrome and Edge registration.waiting and registration.installing
+      // is still null for some time after .register()
+      registration.addEventListener('updatefound', () => {
+        app.store.dispatch(updateAvailable());
+      });
+    }
+  })
+  .catch((e) => {
+    Sentry.captureException(e);
+  });

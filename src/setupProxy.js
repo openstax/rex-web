@@ -17,7 +17,7 @@ const {
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_SEARCH_URL,
   REACT_APP_HIGHLIGHTS_URL,
-  REACT_APP_OS_WEB_API_URL
+  REACT_APP_OS_WEB_API_URL,
 } = require('./config');
 
 const archivePaths = [
@@ -147,7 +147,7 @@ function osWebApiProxy(app) {
 }
 
 function osWebProxy(app) {
-  app.use(proxy((path) => !path.match(/^\/((books\/.*?\/pages\/.*)|static.*|errors.*|rex.*|manifest.json|service-worker.js|precache-manifest.*|index.html|\/)?$/) , {
+  app.use(proxy((path) => !path.match(/^\/((books\/.*)|static.*|errors.*|rex.*|manifest.json|precache-manifest.*|index.html|\/)?$/) , {
     target: OS_WEB_URL,
     changeOrigin: true,
   }));

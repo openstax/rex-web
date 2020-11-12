@@ -105,7 +105,6 @@ describe('locationChange', () => {
       content: 'rando content',
       id: 'rando-page-id',
       revised: '2018-07-30T15:58:45Z',
-      shortId: 'rando-page-shortid',
       title: 'rando page',
       version: '0',
     }, 'rando-page');
@@ -114,7 +113,6 @@ describe('locationChange', () => {
       content: 'some <a href="/contents/rando-page-id"></a> content',
       id: 'asdfasfasdfasdf',
       revised: '2018-07-30T15:58:45Z',
-      shortId: 'asdf',
       title: 'qwerqewrqwer',
       version: '0',
     }, 'qwerqewrqwer');
@@ -147,17 +145,12 @@ describe('locationChange', () => {
     }]})}));
   });
 
-  it('throws on unknown id', async() => {
+  it('disptaches receivePageNotFoundId for unknown id', async() => {
     (payload.match.params.page as SlugParams).slug = 'garbage';
-    let message: string | undefined;
 
-    try {
-      await hook(payload);
-    } catch (e) {
-      message = e.message;
-    }
+    await hook(payload);
 
-    expect(message).toEqual('Page not found');
+    expect(dispatch).toHaveBeenCalledWith(actions.receivePageNotFoundId('garbage'));
   });
 
   it('loads book details from osweb', async() => {
@@ -183,12 +176,10 @@ describe('locationChange', () => {
       id: 'newbookid',
       license: {name: '', version: ''},
       revised: '2012-06-21',
-      shortId: 'newbookshortid',
       title: 'newbook',
       tree: {
         contents: [],
         id: 'newbookid@0',
-        shortId: 'newbookshortid@0',
         slug: 'newbook',
         title: 'newbook',
       },
@@ -199,13 +190,13 @@ describe('locationChange', () => {
       content: 'dope content bruh',
       id: 'newbookpageid',
       revised: '2018-07-30T15:58:45Z',
-      shortId: 'newbookpageshortid',
       title: 'page in a new book',
       version: '0',
     };
     const mockCmsOtherBook: OSWebBook = {
       amazon_link: '',
       authors: [{value: {name: 'different author', senior_author: true}}],
+      book_state: 'live',
       cnx_id: 'newbookid',
       cover_color: 'blue',
       meta: {
@@ -224,7 +215,6 @@ describe('locationChange', () => {
         content: 'some <a href="/contents/newbookpageid"></a> content',
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',
-        shortId: 'pageshortid',
         title: 'page referencing different book',
         version: '0',
       }, 'page-referencing-different-book');
@@ -291,12 +281,10 @@ describe('locationChange', () => {
         id: 'garbagebookid',
         license: {name: '', version: ''},
         revised: '2012-06-21',
-        shortId: 'garbagebookshortid',
         title: 'book without the page you\'re looking for',
         tree: {
           contents: [],
           id: 'garbagebookid@0',
-          shortId: 'garbagebookshortid@0',
           slug: 'garbage-book',
           title: 'garbage book',
         },
