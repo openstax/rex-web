@@ -17,7 +17,6 @@ export const DownIcon = styled(AngleDown)`
   height: ${filters.dropdownToggle.icon.height}rem;
   margin-left: 0.8rem;
   padding-top: 0.2rem;
-
   ${(props: { rotate: boolean }) => {
     if (props.rotate) {
       return `

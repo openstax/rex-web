@@ -136,18 +136,14 @@ export const StyledSummary = styled.summary`
   justify-content: space-between;
   padding: 0 1.6rem;
   height: 4rem;
+
   &::marker {
     content: "";
   }
+
   ${ChapterTitle} {
     margin-left: 0;
   }
-`;
-
-// tslint:disable-next-line: variable-name
-const StyledSectionsWrapper = styled.ul`
-  margin: 0;
-  padding: 0;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -162,9 +158,11 @@ export const StyledSectionItem = styled(PlainButton)`
       return 'color: #027eb5;';
     }
   }}
+
   &:hover {
     background-color: ${theme.color.neutral.pageBackground};
   }
+
   ${ChapterTitle} {
     padding-left: 2.5rem;
     width: 95%;
@@ -189,7 +187,7 @@ const ChapterFilterWithToggling = (props: ChapterFilterWithTogglingProps) => {
               <ChapterTitle dangerouslySetInnerHTML={{__html: data.chapter.title}} />
               <DownIcon rotate={isOpenChapterId === chapterId} />
             </StyledSummary>
-            <StyledSectionsWrapper>
+            <div>
               {data.sections.map((section) => {
                 return <StyledSectionItem
                   key={section.id}
@@ -199,7 +197,7 @@ const ChapterFilterWithToggling = (props: ChapterFilterWithTogglingProps) => {
                   <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
                 </StyledSectionItem>;
               })}
-            </StyledSectionsWrapper>
+            </div>
           </StyledDetails>;
         })}
       </Column>
@@ -211,11 +209,16 @@ export default styled(ChapterFilter)`
   ${textStyle}
   background: ${theme.color.white};
   font-size: 1.4rem;
-  padding: ${(props: ChapterFilterWithCheckboxesProps | ChapterFilterWithTogglingProps) => {
-    return 'locationFiltersWithContent' in props
-      ? `${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem`
-      : '0';
-  }};
+  ${(props: ChapterFilterWithCheckboxesProps | ChapterFilterWithTogglingProps) => {
+    if ('locationFiltersWithContent' in props) {
+      return `
+        padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
+      `;
+    }
+    return `
+      padding: 0;
+    `;
+  }}
   outline: none;
   overflow: auto;
   z-index: 1;

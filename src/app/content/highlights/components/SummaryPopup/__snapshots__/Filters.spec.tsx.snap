@@ -35,7 +35,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-7 bJwQzB"
+        className="ChapterFilter-tcdlu-6 yVSPQ"
         tabIndex={-1}
       >
         <div
