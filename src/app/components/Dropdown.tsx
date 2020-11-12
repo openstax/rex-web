@@ -70,7 +70,10 @@ const TabHiddenDropDown = styled(({toggle, children, className, closeWhenThisPro
     setOpen(false);
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
-  React.useEffect(() => setOpen(false), [closeWhenThisPropChange]);
+  React.useEffect(() => {
+    // Do not close it on initial render
+    return () => setOpen(false);
+  }, [closeWhenThisPropChange]);
 
   return <div className={className} ref={container}>
     <DropdownToggle
