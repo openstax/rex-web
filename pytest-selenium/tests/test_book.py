@@ -1,6 +1,6 @@
 # flake8: noqa
 import pytest
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 from tests import markers
 from pages.content import Content
@@ -65,3 +65,47 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
             assert (
                 not rex.order_print_copy
             ), "amazon print option present in rex but not present in osweb"
+
+
+@markers.test_case("C613211")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_redirect_to_osweb_404_when_book_is_incorrect(selenium, base_url, book_slug, page_slug):
+    """User is redirected to osweb 404 page when book slug doesn't exist"""
+
+    # WHEN: A page is loaded with incorrect book slug
+    try:
+        Content(selenium, base_url, book_slug=f"{book_slug}{'test'}", page_slug=page_slug).open()
+    except TimeoutException:
+        pass
+
+    # THEN: osweb 404 page is displayed
+    osweb = WebBase(selenium)
+    assert osweb.osweb_404_displayed
+    assert (
+        osweb.osweb_404_error
+        == "Uh-oh, no page hereKudos on your desire to explore! Unfortunately, we don't have a page to go with that particular location."
+    )
+
+
+@markers.test_case("C614212")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_redirect_to_osweb_404_when_page_is_incorrect_in_first_session(
+    selenium, base_url, book_slug, page_slug
+):
+    """Rex 404 page is displayed when user opens incorrect page in the first session"""
+
+    # WHEN: A page is loaded with incorrect page slug in the first session
+    try:
+        Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
+    except TimeoutException:
+        pass
+
+    # THEN: osweb 404 page is displayed
+    osweb = WebBase(selenium)
+    assert osweb.osweb_404_displayed
+    assert (
+        osweb.osweb_404_error
+        == "Uh-oh, no page hereKudos on your desire to explore! Unfortunately, we don't have a page to go with that particular location."
+    )

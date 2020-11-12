@@ -29,9 +29,10 @@ class WebBase(Page):
     _dialog_locator = (By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
     _dialog_title_locator = (By.CSS_SELECTOR, "#dialog-title")
     _got_it_button_locator = (By.CSS_SELECTOR, ".cookie-notice button")
-    _print_copy_locator = (By.CSS_SELECTOR, ".show-print-submenu")
+    _print_copy_locator = (By.XPATH, "//*[contains(text(), 'Order a print copy')]/..")
     _order_on_amazon_locator = (By.CSS_SELECTOR, '[class="btn primary"]')
     _close_locator = (By.CSS_SELECTOR, '[class="put-away"]')
+    _osweb_404_locator = (By.CSS_SELECTOR, '[class*="not-found"]')
 
     @property
     def loaded(self):
@@ -50,6 +51,15 @@ class WebBase(Page):
 
     def wait_for_load(self):
         return self.wait.until(lambda _: self.loaded)
+
+    def osweb_404_displayed(self) -> bool:
+        """Return true if osweb 404 error is displayed"""
+        return bool(self.wait.until(lambda _: self.find_element(*self._osweb_404_locator)))
+
+    @property
+    def osweb_404_error(self):
+        """Return the 404 error text"""
+        return self.find_element(*self._osweb_404_locator).get_attribute("textContent")
 
     @property
     def login(self):
