@@ -120,7 +120,7 @@ const ChapterFilterWithCheckboxes = (props: ChapterFilterWithCheckboxesProps) =>
 };
 
 // tslint:disable-next-line: variable-name
-const StyledDetails = styled.details`
+export const StyledDetails = styled.details`
   width: 400px;
   cursor: pointer;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
@@ -130,7 +130,7 @@ const StyledDetails = styled.details`
 `;
 
 // tslint:disable-next-line: variable-name
-const StyledSummary = styled.summary`
+export const StyledSummary = styled.summary`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -151,7 +151,7 @@ const StyledSectionsWrapper = styled.ul`
 `;
 
 // tslint:disable-next-line: variable-name
-const StyledSectionItem = styled(PlainButton)`
+export const StyledSectionItem = styled(PlainButton)`
   display: flex;
   align-items: center;
   height: 4rem;
@@ -182,9 +182,9 @@ const ChapterFilterWithToggling = (props: ChapterFilterWithTogglingProps) => {
       <Column>
         {Array.from(props.locationFilters.entries()).map(([chapterId, data]) => {
           return <StyledDetails key={chapterId} open={isOpenChapterId === chapterId}>
-            <StyledSummary onClick={(e: any) => {
+            <StyledSummary onClick={(e: React.MouseEvent) => {
               e.preventDefault();
-              setIsOpenChapterId((current) => current === chapterId ? null : chapterId)
+              setIsOpenChapterId((current) => current === chapterId ? null : chapterId);
             }}>
               <ChapterTitle dangerouslySetInnerHTML={{__html: data.chapter.title}} />
               <DownIcon rotate={isOpenChapterId === chapterId} />

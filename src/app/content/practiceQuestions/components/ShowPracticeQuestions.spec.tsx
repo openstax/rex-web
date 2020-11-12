@@ -15,6 +15,7 @@ import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { receivePracticeQuestionsSummary, setQuestions, setSelectedSection } from '../actions';
 import { PracticeQuestion } from '../types';
+import Filters from './Filters';
 import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
 import ShowPracticeQuestions, {
@@ -55,6 +56,7 @@ describe('ShowPracticeQuestions', () => {
 
     expect(() => component.root.findByType(SectionTitle)).toThrow();
     expect(() => component.root.findByType(ContentLink)).toThrow();
+    expect(() => component.root.findByType(Filters)).not.toThrow();
     expect(() => component.root.findByType(QuestionsWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionsHeader)).not.toThrow();
     expect(() => component.root.findByType(ProgressBar)).not.toThrow();
@@ -66,6 +68,7 @@ describe('ShowPracticeQuestions', () => {
 
     const component = renderer.create(render());
 
+    expect(() => component.root.findByType(Filters)).not.toThrow();
     expect(() => component.root.findByType(SectionTitle)).not.toThrow();
     expect(() => component.root.findByType(QuestionsWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionsHeader)).not.toThrow();
@@ -85,6 +88,7 @@ describe('ShowPracticeQuestions', () => {
 
     expect(() => component.root.findByType(IntroScreen)).not.toThrow();
 
+    expect(() => component.root.findByType(Filters)).not.toThrow();
     expect(() => component.root.findByType(SectionTitle)).not.toThrow();
     expect(() => component.root.findByType(QuestionsWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionsHeader)).not.toThrow();
