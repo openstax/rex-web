@@ -194,9 +194,7 @@ const ChapterFilterWithToggling = (props: ChapterFilterWithTogglingProps) => {
                 return <StyledSectionItem
                   key={section.id}
                   onClick={() => props.setFilters(section)}
-                  onSelect={() => props.setFilters(section)}
                   isSelected={props.selectedSection && props.selectedSection.id === section.id}
-                  tabIndex={0}
                 >
                   <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
                 </StyledSectionItem>;
