@@ -1,31 +1,31 @@
-import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect } from 'react-redux';
-import { AppState, Dispatch } from '../../../types';
+import { useDispatch, useSelector } from 'react-redux';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
+import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import * as selectors from '../selectors';
 
-// tslint:disable-next-line:variable-name
-const ConnectedChapterFilter = connect(
-  (state: AppState) => ({
-    locationFilters: selectors.practiceQuestionsLocationFilters(state),
-    selectedSection: selectors.selectedSection(state),
-  }),
-  (dispatch: Dispatch) => ({
-    setFilters: flow(setSelectedSection, dispatch),
-  })
-)(ChapterFilter);
-
 export default () => {
+  const locationFilters = useSelector(selectors.practiceQuestionsLocationFilters);
+  const selectedSection = useSelector(selectors.selectedSection);
+  const dispatch = useDispatch();
+  const setFilters = React.useCallback((section: LinkedArchiveTreeSection) => {
+    dispatch(setSelectedSection(section));
+  }, [dispatch]);
+
   return <Filters>
     <FiltersTopBar>
       <FilterDropdown
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+        closeWhenThisPropChange={selectedSection}
       >
-        <ConnectedChapterFilter />
+        <ChapterFilter
+          locationFilters={locationFilters}
+          selectedSection={selectedSection}
+          setFilters={setFilters}
+        />
       </FilterDropdown>
     </FiltersTopBar>
   </Filters>;

@@ -78,12 +78,13 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
 `;
 
 // tslint:disable-next-line:variable-name
-export const FilterDropdown = ({label, ariaLabelId, children}:
-  React.PropsWithChildren<{label: string, ariaLabelId: string}>) =>
+export const FilterDropdown = ({label, ariaLabelId, children, closeWhenThisPropChange}:
+  React.PropsWithChildren<{label: string, ariaLabelId: string, closeWhenThisPropChange?: any}>) =>
     <FormattedMessage id={label}>
       {(msg: Element | string) => <Dropdown
         toggle={<Toggle label={msg} ariaLabelId={ariaLabelId} />}
         transparentTab={false}
+        closeWhenThisPropChange={closeWhenThisPropChange}
       >
         {children}
       </Dropdown>}

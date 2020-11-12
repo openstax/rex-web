@@ -56,10 +56,11 @@ type Props = React.PropsWithChildren<{
   toggle: React.ReactNode;
   className?: string;
   onToggle?: () => void;
+  closeWhenThisPropChange?: any;
 }>;
 
 // tslint:disable-next-line:variable-name
-const TabHiddenDropDown = styled(({toggle, children, className, onToggle}: Props) => {
+const TabHiddenDropDown = styled(({toggle, children, className, closeWhenThisPropChange, onToggle}: Props) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const container = React.useRef<HTMLElement>(null);
   const toggleElement = React.useRef<HTMLElement>(null);
@@ -69,6 +70,7 @@ const TabHiddenDropDown = styled(({toggle, children, className, onToggle}: Props
     setOpen(false);
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
+  React.useEffect(() => setOpen(false), [closeWhenThisPropChange]);
 
   return <div className={className} ref={container}>
     <DropdownToggle
