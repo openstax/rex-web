@@ -96,7 +96,7 @@ describe('routeHook', () => {
       },
     };
 
-    middleware(helpers)(helpers)((action) => action)(locationChange(payload));
+    middleware(helpers)(helpers)((action) => action)(locationChange(payload as any));
 
     expect(hookSpy).toHaveBeenCalledWith({...payload, query: {}});
   });
@@ -113,7 +113,7 @@ describe('routeHook', () => {
       },
     };
 
-    middleware(helpers)(helpers)((action) => action)(locationChange(payload));
+    middleware(helpers)(helpers)((action) => action)(locationChange(payload as any));
 
     expect(hookSpy).not.toHaveBeenCalled();
   });

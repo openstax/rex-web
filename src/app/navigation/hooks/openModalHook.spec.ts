@@ -74,7 +74,7 @@ describe('openModal', () => {
       match: {
         route: content,
       },
-    }));
+    } as any));
     dispatch.mockClear();
 
     const hook = hookFactory('myModalName')(helpers);
