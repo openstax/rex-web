@@ -110,7 +110,7 @@ const ShowPracticeQuestions = () => {
       </QuestionsWrapper>
       {
         section && linkToTheSection
-          ? <StyledContentLink href={linkToTheSection} target='_blank' data-analytics-label='Read' >
+          ? <StyledContentLink href={linkToTheSection} target='_blank' data-analytics-label='Go to link' >
             <FormattedMessage id='i18n:practice-questions:popup:read'>
               {(msg: string) => msg}
             </FormattedMessage>
