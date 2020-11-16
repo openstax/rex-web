@@ -106,19 +106,21 @@ const ShowPracticeQuestions = () => {
       {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
       {questionsCount === 0 && nextSection
         ? <EmptyScreen nextSection={nextSection} />
-        : <QuestionsWrapper>
-          <QuestionsHeader>
-            <FormattedMessage id='i18n:practice-questions:popup:questions'>
-              {(msg: string) => msg}
-            </FormattedMessage>
-          </QuestionsHeader>
-          <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-          {
-            selectedSectionHasPracticeQuestions && currentQuestionIndex === null
-              ? <IntroScreen />
-              : null
-          }
-        </QuestionsWrapper>
+        : (
+          <QuestionsWrapper>
+            <QuestionsHeader>
+              <FormattedMessage id='i18n:practice-questions:popup:questions'>
+                {(msg: string) => msg}
+              </FormattedMessage>
+            </QuestionsHeader>
+            <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+            {
+              selectedSectionHasPracticeQuestions && currentQuestionIndex === null
+                ? <IntroScreen />
+                : null
+            }
+          </QuestionsWrapper>
+        )
       }
       {
         section && linkToTheSection
