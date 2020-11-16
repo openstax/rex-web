@@ -72,14 +72,14 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
             className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
           >
             <button
-              aria-label="Filter study guides by Chapter"
+              aria-label="Filter PQ by Chapter & Section"
               className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
               onClick={[Function]}
             >
               <div
                 tabIndex={-1}
               >
-                Chapter
+                Chapter & Section
                 <svg
                   aria-hidden="true"
                   className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"

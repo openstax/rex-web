@@ -17,8 +17,8 @@ export default () => {
   return <Filters>
     <FiltersTopBar>
       <FilterDropdown
-        label='i18n:highlighting:filters:chapters'
-        ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+        label='i18n:practice-questions:popup:filters:chapters'
+        ariaLabelId='i18n:practice-questions:popup:filters:filter-by:aria-label'
         closeWhenThisPropChange={selectedSection}
       >
         <ChapterFilter
