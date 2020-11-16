@@ -2,9 +2,11 @@
 
 exports[`EmptyScreen for practice questions renders properly and dispatches action on click 1`] = `
 <div
-  className="EmptyScreen__StyledEmptyScreen-sc-1mb50p9-0 jHxBTh"
+  className="EmptyScreen__StyledEmptyScreen-sc-1mb50p9-0 dClYB"
 >
-  <span>
+  <span
+    className="EmptyScreen__StyledText-sc-1mb50p9-1 gZiREd"
+  >
     There are no questions for this chapter/section.
   </span>
   <div

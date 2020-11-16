@@ -17,10 +17,11 @@ const StyledEmptyScreen = styled.div`
   flex: 1;
   text-align: center;
   ${textRegularStyle}
+`;
 
-  > span {
-    margin-bottom: 3rem;
-  }
+// tslint:disable-next-line: variable-name
+const StyledText = styled.span`
+  margin-bottom: 3rem;
 `;
 
 interface EmptyScreenProps {
@@ -32,11 +33,11 @@ const EmptyScreen = ({ nextSection }: EmptyScreenProps) => {
   const dispatch = useDispatch();
 
   return <StyledEmptyScreen>
-    <span>
+    <StyledText>
       <FormattedMessage id='i18n:practice-questions:popup:empty:message'>
         {(msg: string) => msg}
       </FormattedMessage>
-    </span>
+    </StyledText>
     <NextSectionMessage
       nextSection={nextSection}
       messageKey='i18n:practice-questions:popup:empty:next-section'
