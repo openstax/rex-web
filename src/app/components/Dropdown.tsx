@@ -52,15 +52,21 @@ const visuallyHidden = css`
   clip: rect(1px, 1px, 1px, 1px);
 `;
 
-type Props = React.PropsWithChildren<{
+export interface ControlledProps {
+  open?: boolean;
+  setOpen?: (value: boolean) => void;
+}
+
+interface Props extends ControlledProps {
   toggle: React.ReactNode;
   className?: string;
   onToggle?: () => void;
-  closeWhenThisPropChange?: any;
-}>;
+}
 
 // tslint:disable-next-line:variable-name
-const TabHiddenDropDown = styled(({toggle, children, className, closeWhenThisPropChange, onToggle}: Props) => {
+const TabHiddenDropDown = styled((
+  {toggle, children, className, onToggle, ...props}: React.PropsWithChildren<Props>
+) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const container = React.useRef<HTMLElement>(null);
   const toggleElement = React.useRef<HTMLElement>(null);
@@ -70,22 +76,22 @@ const TabHiddenDropDown = styled(({toggle, children, className, closeWhenThisPro
     setOpen(false);
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
-  React.useEffect(() => {
-    // Do not close it on initial render
-    return () => setOpen(false);
-  }, [closeWhenThisPropChange]);
 
   return <div className={className} ref={container}>
     <DropdownToggle
       ref={toggleElement}
       component={toggle}
       onClick={() => {
-        setOpen((state) => !state);
+        if (props.setOpen) {
+          props.setOpen(!props.open);
+        } else {
+          setOpen((state) => !state);
+        }
         if (onToggle) { onToggle(); }
       }}
-      isOpen={open}
+      isOpen={props.open !== undefined ? props.open : open}
     />
-    {open && children}
+    {(props.open || open) && children}
   </div>;
 })`
   ${css`
@@ -106,7 +112,9 @@ export const DropdownFocusWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const TabTransparentDropdown = styled(({toggle, children, className}: Props) => <div className={className}>
+const TabTransparentDropdown = styled((
+  {toggle, children, className}: React.PropsWithChildren<Props>
+) => <div className={className}>
   <DropdownFocusWrapper>
     <DropdownToggle tabIndex={0} component={toggle} />
     {children}

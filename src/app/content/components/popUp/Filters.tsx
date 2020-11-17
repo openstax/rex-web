@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../components/Button';
-import Dropdown, { DropdownToggle } from '../../../components/Dropdown';
+import Dropdown, { ControlledProps, DropdownToggle } from '../../../components/Dropdown';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { filters } from '../../styles/PopupConstants';
@@ -11,14 +11,14 @@ import { disablePrint } from '../utils/disablePrint';
 import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name
-export const DownIcon = styled(AngleDown)`
+export const AngleIcon = styled(AngleDown)`
   color: ${theme.color.primary.gray.base};
   width: ${filters.dropdownToggle.icon.width}rem;
   height: ${filters.dropdownToggle.icon.height}rem;
   margin-left: 0.8rem;
   padding-top: 0.2rem;
-  ${(props: { rotate: boolean }) => {
-    if (props.rotate) {
+  ${({ direction }: { direction: 'up' | 'down' }) => {
+    if (direction === 'up') {
       return `
         transform: rotate(180deg);
         padding-top: 0;
@@ -40,7 +40,7 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
       {(msg: string) => <PlainButton ref={ref} {...props} aria-label={msg}>
         <div tabIndex={-1}>
           {label}
-          <DownIcon rotate={isOpen} />
+          <AngleIcon direction={isOpen ? 'up' : 'down'} />
         </div>
       </PlainButton>}
     </FormattedMessage>
@@ -76,14 +76,19 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   }
 `;
 
+interface FilterDropdownProps extends ControlledProps {
+  label: string;
+  ariaLabelId: string;
+}
+
 // tslint:disable-next-line:variable-name
-export const FilterDropdown = ({label, ariaLabelId, children, closeWhenThisPropChange}:
-  React.PropsWithChildren<{label: string, ariaLabelId: string, closeWhenThisPropChange?: any}>) =>
+export const FilterDropdown = ({label, ariaLabelId, children, ...props}:
+  React.PropsWithChildren<FilterDropdownProps>) =>
     <FormattedMessage id={label}>
       {(msg: Element | string) => <Dropdown
         toggle={<Toggle label={msg} ariaLabelId={ariaLabelId} />}
         transparentTab={false}
-        closeWhenThisPropChange={closeWhenThisPropChange}
+        {...props}
       >
         {children}
       </Dropdown>}

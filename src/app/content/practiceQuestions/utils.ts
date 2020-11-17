@@ -1,4 +1,3 @@
-import { assertDefined } from '../../utils';
 import { isLinkedArchiveTreeSection } from '../guards';
 import { Book, LinkedArchiveTreeSection } from '../types';
 import { findArchiveTreeNodeById, flattenArchiveTree } from '../utils/archiveTreeUtils';
@@ -22,9 +21,8 @@ export const getPracticeQuestionsLocationFilters = (
   for (const node of tree) {
     if (isLinkedArchiveTreeSection(node) && summary.countsPerSource[stripIdVersion(node.id)]) {
       const parentId = stripIdVersion(node.parent.id);
-      const currentSections = locationFilters.has(parentId)
-        ? assertDefined(locationFilters.get(parentId), 'node has to be there').sections
-        : [];
+      const parentFilters = locationFilters.get(parentId);
+      const currentSections = parentFilters ? parentFilters.sections : [];
       locationFilters.set(parentId, { chapter: node.parent, sections: [...currentSections, node] });
     }
   }

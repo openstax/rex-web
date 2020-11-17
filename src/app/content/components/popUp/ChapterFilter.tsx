@@ -12,7 +12,7 @@ import { PracticeQuestionsLocationFilters } from '../../practiceQuestions/types'
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 import { LinkedArchiveTreeSection } from '../../types';
 import { stripIdVersion } from '../../utils/idUtils';
-import { DownIcon } from './Filters';
+import { AngleIcon } from './Filters';
 
 // tslint:disable-next-line:variable-name
 const Row = styled.div`
@@ -185,7 +185,7 @@ const ChapterFilterWithToggling = (props: ChapterFilterWithTogglingProps) => {
               setIsOpenChapterId((current) => current === chapterId ? null : chapterId);
             }}>
               <ChapterTitle dangerouslySetInnerHTML={{__html: data.chapter.title}} />
-              <DownIcon rotate={isOpenChapterId === chapterId} />
+              <AngleIcon direction={isOpenChapterId === chapterId ? 'up' : 'down'} />
             </StyledSummary>
             <div>
               {data.sections.map((section) => {

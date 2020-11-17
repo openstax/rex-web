@@ -7,11 +7,13 @@ import { setSelectedSection } from '../actions';
 import * as selectors from '../selectors';
 
 export default () => {
+  const [open, setOpen] = React.useState(false);
   const locationFilters = useSelector(selectors.practiceQuestionsLocationFilters);
   const selectedSection = useSelector(selectors.selectedSection);
   const dispatch = useDispatch();
   const setFilters = React.useCallback((section: LinkedArchiveTreeSection) => {
     dispatch(setSelectedSection(section));
+    setOpen(false);
   }, [dispatch]);
 
   return <Filters>
@@ -19,7 +21,8 @@ export default () => {
       <FilterDropdown
         label='i18n:practice-questions:popup:filters:chapters'
         ariaLabelId='i18n:practice-questions:popup:filters:filter-by:aria-label'
-        closeWhenThisPropChange={selectedSection}
+        open={open}
+        setOpen={setOpen}
       >
         <ChapterFilter
           locationFilters={locationFilters}

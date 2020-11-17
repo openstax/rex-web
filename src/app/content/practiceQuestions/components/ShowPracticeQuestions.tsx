@@ -2,14 +2,13 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { h4Style, linkColor } from '../../../components/Typography';
+import { h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
-import * as contentSelectors from '../../selectors';
 import { PopupBody } from '../../styles/PopupStyles';
-import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import * as pqSelectors from '../selectors';
 import Filters from './Filters';
 import IntroScreen from './IntroScreen';
+import LinkToSection from './LinkToSection';
 import ProgressBar from './ProgressBar';
 
 // tslint:disable-next-line:variable-name
@@ -71,36 +70,11 @@ export const QuestionsHeader = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const StyledContentLink = styled.a`
-  display: block;
-  font-size: 1.4rem;
-  color: #929292;
-  margin-top: 2.5rem;
-  text-decoration: none;
-
-  > span {
-    color: ${linkColor};
-
-    &::before {
-      content: " ";
-    }
-  }
-
-  ${theme.breakpoints.mobile(css`
-    margin: 1.2rem;
-  `)}
-`;
-
-// tslint:disable-next-line: variable-name
 const ShowPracticeQuestions = () => {
-  const book = useSelector(contentSelectors.book);
   const section = useSelector(pqSelectors.selectedSection);
   const questionsCount = useSelector(pqSelectors.questionsCount);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
   const selectedSectionHasPracticeQuestions = useSelector(pqSelectors.selectedSectionHasPracticeQuestions);
-  const linkToTheSection = React.useMemo(() => {
-    return book && section ? getBookPageUrlAndParams(book, section).url : null;
-  }, [book, section]);
 
   return (
     <ShowPracticeQuestionsBody
@@ -123,16 +97,7 @@ const ShowPracticeQuestions = () => {
               : null
           }
         </QuestionsWrapper>
-        {
-          section && linkToTheSection
-            ? <StyledContentLink href={linkToTheSection} target='_blank' data-analytics-label='Read' >
-              <FormattedMessage id='i18n:practice-questions:popup:read'>
-                {(msg: string) => msg}
-              </FormattedMessage>
-              <span dangerouslySetInnerHTML={{ __html: section.title }} />
-            </StyledContentLink>
-            : null
-        }
+        <LinkToSection section={section} />
       </ShowPracitceQuestionsContent>
     </ShowPracticeQuestionsBody>
   );
