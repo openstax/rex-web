@@ -53,8 +53,6 @@ export const SectionTitle = styled.div`
 
 // tslint:disable-next-line: variable-name
 export const QuestionsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   flex: 1;
   border: 1px solid ${theme.color.neutral.darkest};
 `;

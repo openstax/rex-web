@@ -102,7 +102,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
         className="ShowPracticeQuestions__ShowPracitceQuestionsContent-sc-1hq8omx-1 jhhKHn"
       >
         <div
-          className="ShowPracticeQuestions__QuestionsWrapper-sc-1hq8omx-3 EbGNt"
+          className="ShowPracticeQuestions__QuestionsWrapper-sc-1hq8omx-3 gRvzBK"
         >
           <div
             className="ShowPracticeQuestions__QuestionsHeader-sc-1hq8omx-4 iGUqHG"
