@@ -54,17 +54,9 @@ const chunk = <T extends any>(sections: T[]) => {
   return [sections.slice(0, cutoff), sections.slice(cutoff)].filter((arr) => arr.length > 0);
 };
 
-interface DataForToggleSection {
-  chapter: LinkedArchiveTree;
-  sections: LinkedArchiveTreeSection[];
-}
-
-const hasDataForToggleSection = (obj: { [key: string]: any }): obj is DataForToggleSection =>
-  Boolean(obj.sections && obj.chapter);
-
-type LocationFilters = Map<
+export type LocationFilters = Map<
   string,
-  LinkedArchiveTree | { chapter: LinkedArchiveTree, sections: LinkedArchiveTreeSection[] }
+  { section: LinkedArchiveTree | LinkedArchiveTreeSection, children?: LinkedArchiveTreeSection[] }
 >;
 
 interface ChapterFilterProps {
@@ -73,6 +65,7 @@ interface ChapterFilterProps {
   locationFilters: LocationFilters;
   locationFiltersWithContent: Set<string>;
   selectedLocationFilters: Set<string>;
+  multiselect: boolean;
   isOpenChapterId?: string;
   hideAllOrNone?: boolean;
   onChapterToggleClick?: (chapterId: string) => void;
@@ -93,6 +86,10 @@ const ChapterFilter = (props: ChapterFilterProps) => {
     }
   };
 
+  const values = Array.from(props.locationFilters.values());
+  const hasFiltersWithChildren = Boolean(values.find((filter) => filter.children));
+  const sectionChunks = hasFiltersWithChildren ? [values] : chunk(values);
+
   return <div className={props.className} tabIndex={-1}>
     {props.hideAllOrNone
       ? null
@@ -104,39 +101,40 @@ const ChapterFilter = (props: ChapterFilterProps) => {
         />
       )}
     <Row>
-      {chunk(Array.from(props.locationFilters.values())).map((sectionChunk, index) => <Column key={index}>
+      {sectionChunks.map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((location) => {
-          if (!hasDataForToggleSection(location)) {
-            return <Checkbox
-              key={location.id}
-              checked={props.selectedLocationFilters.has(location.id)}
-              disabled={props.disabled || !props.locationFiltersWithContent.has(location.id)}
-              onChange={() => handleChange(location.id)}
-            >
-              <ChapterTitle dangerouslySetInnerHTML={{__html: location.title}} />
-            </Checkbox>;
+          const { section, children } = location;
+          if (!children) {
+            return <ChapterFilterItem
+              key={section.id}
+              selected={props.selectedLocationFilters.has(section.id)}
+              disabled={props.disabled || !props.locationFiltersWithContent.has(section.id)}
+              multiselect={Boolean(props.multiselect)}
+              title={section.title}
+              onChange={() => handleChange(section.id)}
+            />;
           } else {
-            const { chapter, sections } = location;
-            return <StyledDetails key={chapter.id} open={props.isOpenChapterId === chapter.id}>
+            return <StyledDetails key={section.id} open={props.isOpenChapterId === section.id}>
               <StyledSummary onClick={(e: React.MouseEvent) => {
                 if (props.onChapterToggleClick) {
                   e.preventDefault();
-                  props.onChapterToggleClick(chapter.id);
+                  props.onChapterToggleClick(section.id);
                 }
               }}>
-                <ChapterTitle dangerouslySetInnerHTML={{__html: chapter.title}} />
-                <AngleIcon direction={props.isOpenChapterId === chapter.id ? 'up' : 'down'} />
+                <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
+                <AngleIcon direction={props.isOpenChapterId === section.id ? 'up' : 'down'} />
               </StyledSummary>
               <div>
-                {sections.map((section) => {
-                  return <StyledSectionItem
-                    key={section.id}
-                    onClick={() => setSelectedChapters([section.id])}
-                    isSelected={props.selectedLocationFilters.has(section.id)}
-                  >
-                    <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
-                  </StyledSectionItem>;
-                })}
+                {children.map((child) => (
+                  <ChapterFilterItem
+                    key={child.id}
+                    selected={props.selectedLocationFilters.has(child.id)}
+                    disabled={false}
+                    multiselect={props.multiselect}
+                    title={child.title}
+                    onChange={() => setSelectedChapters([child.id])}
+                  />
+                ))}
               </div>
             </StyledDetails>;
           }
@@ -144,6 +142,34 @@ const ChapterFilter = (props: ChapterFilterProps) => {
       </Column>)}
     </Row>
   </div>;
+};
+
+interface ChapterFilterItemProps {
+  selected: boolean;
+  disabled: boolean;
+  multiselect: boolean;
+  title: string;
+  onChange: () => void;
+}
+
+// tslint:disable-next-line: variable-name
+const ChapterFilterItem = (props: ChapterFilterItemProps) => {
+  if (props.multiselect) {
+    return <Checkbox
+      checked={props.selected}
+      disabled={props.disabled}
+      onChange={props.onChange}
+    >
+      <ChapterTitle dangerouslySetInnerHTML={{__html: props.title}} />
+    </Checkbox>;
+  }
+
+  return <StyledSectionItem
+    onClick={props.onChange}
+    isSelected={props.selected}
+  >
+    <ChapterTitle dangerouslySetInnerHTML={{__html: props.title}} />
+  </StyledSectionItem>;
 };
 
 // tslint:disable-next-line: variable-name

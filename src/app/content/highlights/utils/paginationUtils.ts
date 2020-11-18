@@ -87,7 +87,7 @@ export const filterCountsPerSourceByLocationFilter = (
   locationFilters: HighlightLocationFilters,
   counts: CountsPerSource
 ): CountsPerSource => {
-  const chapterFilters = Array.from(locationFilters.values()).filter(isArchiveTree);
+  const chapterFilters = Array.from(locationFilters.values()).map((location) => location.section).filter(isArchiveTree);
 
   const someChapterContainsNode = (sourceId: string) => chapterFilters.find(
     (location) => archiveTreeContainsNode(location, sourceId)

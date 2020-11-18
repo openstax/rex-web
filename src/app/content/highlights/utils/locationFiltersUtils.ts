@@ -26,7 +26,7 @@ const getLocationFilterSectionsForBook = (book: Book | ArchiveBook | undefined) 
   : [];
 
 const sectionsToLocationFilters = (sections: LocationFilterSection[]): HighlightLocationFilters =>
-  new Map(sections.map((section) => [section.id, section]));
+  new Map(sections.map((section) => [section.id, { section }]));
 
 export const getHighlightLocationFilters = (filterBy: (section: LocationFilterSection) => boolean) => flow(
   getLocationFilterSectionsForBook,
@@ -45,15 +45,15 @@ export const getHighlightLocationFilterForPage = (
   let location = locationFilters.get(pageId);
 
   if (!location) {
-    for (const section of locationFilters.values()) {
-      if (archiveTreeSectionIsChapter(section) && findArchiveTreeNodeById(section, pageId)) {
-        location = section;
+    for (const filter of locationFilters.values()) {
+      if (archiveTreeSectionIsChapter(filter.section) && findArchiveTreeNodeById(filter.section, pageId)) {
+        location = filter;
         break;
       }
     }
   }
 
-  return location;
+  return location ? location.section : undefined;
 };
 
 export const getHighlightLocationFiltersWithContent = (

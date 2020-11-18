@@ -22,8 +22,8 @@ export const getPracticeQuestionsLocationFilters = (
     if (isLinkedArchiveTreeSection(node) && summary.countsPerSource[stripIdVersion(node.id)]) {
       const parentId = stripIdVersion(node.parent.id);
       const parentFilters = locationFilters.get(parentId);
-      const currentSections = parentFilters ? parentFilters.sections : [];
-      locationFilters.set(parentId, { chapter: node.parent, sections: [...currentSections, node] });
+      const currentSections = parentFilters && parentFilters.children ? parentFilters.children : [];
+      locationFilters.set(parentId, { section: node.parent, children: [...currentSections, node] });
     }
   }
 
@@ -32,8 +32,8 @@ export const getPracticeQuestionsLocationFilters = (
 
 const flattenLocationFilters = (locationFilters: PracticeQuestionsLocationFilters) => {
   let flattened: LinkedArchiveTreeSection[] = [];
-  for (const { sections } of locationFilters.values()) {
-    flattened = flattened.concat(sections);
+  for (const { children } of locationFilters.values()) {
+    flattened = flattened.concat(children || []);
   }
   return flattened;
 };

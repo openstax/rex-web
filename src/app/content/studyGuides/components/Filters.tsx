@@ -104,7 +104,7 @@ export default () => {
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
       >
-        <ConnectedChapterFilter disabled={userLoggedOut}/>
+        <ConnectedChapterFilter disabled={userLoggedOut} multiselect={true} />
       </FilterDropdown>
       <FilterDropdown
         label='i18n:highlighting:filters:colors'

@@ -1,6 +1,7 @@
 import { Highlight, HighlightColorEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
 import { ScrollTarget } from '../../navigation/types';
-import { LinkedArchiveTree, LinkedArchiveTreeNode, LinkedArchiveTreeSection } from '../types';
+import { LocationFilters } from '../components/popUp/ChapterFilter';
+import { LinkedArchiveTreeNode } from '../types';
 
 export type HighlightData = Highlight;
 export interface SummaryHighlights {
@@ -46,7 +47,7 @@ export interface State {
   };
 }
 
-export type HighlightLocationFilters = Map<string, LinkedArchiveTree | LinkedArchiveTreeSection>;
+export type HighlightLocationFilters = LocationFilters;
 
 export interface HighlightScrollTarget extends ScrollTarget {
   type: 'highlight';

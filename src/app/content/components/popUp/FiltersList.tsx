@@ -133,7 +133,7 @@ const FiltersList = ({
     {Array.from(locationFilters).map(([locationId, location]) => selectedLocationFilters.has(locationId) &&
     <FiltersListChapter
       key={locationId}
-      title={location.title}
+      title={location.section.title}
       locationId={locationId}
       onRemove={() => onRemoveChapter(locationId)}
     />)}

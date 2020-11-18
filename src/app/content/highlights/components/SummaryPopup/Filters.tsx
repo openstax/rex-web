@@ -78,7 +78,7 @@ export default () =>
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
       >
-        <ConnectedChapterFilter />
+        <ConnectedChapterFilter multiselect={true} />
       </FilterDropdown>
       <FilterDropdown
         label='i18n:highlighting:filters:colors'

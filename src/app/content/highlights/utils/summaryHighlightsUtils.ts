@@ -81,9 +81,9 @@ export const getSortedSummaryHighlights =
         return previousLocations;
       }
 
-      if (!archiveTreeSectionIsChapter(location)) {
+      if (!archiveTreeSectionIsChapter(location.section)) {
         return [...previousLocations, {
-          location,
+          location: location.section,
           pages: [{
             highlights: summaryHighlights[locationID][locationID],
             pageId: locationID,
@@ -91,7 +91,7 @@ export const getSortedSummaryHighlights =
         }];
       }
 
-      const orderedPages = findTreePages(location);
+      const orderedPages = findTreePages(location.section);
 
       const pages: OrderedSummaryHighlights[0]['pages'] = [];
 
@@ -106,7 +106,7 @@ export const getSortedSummaryHighlights =
       return [
         ...previousLocations,
         {
-          location,
+          location: location.section,
           pages,
         },
       ];
