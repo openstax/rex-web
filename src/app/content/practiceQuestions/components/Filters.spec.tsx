@@ -3,12 +3,15 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { book } from '../../../../test/mocks/archiveLoader';
 import { DropdownToggle } from '../../../components/Dropdown';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
+import { receiveBook } from '../../actions';
 import { StyledDetails, StyledSectionItem, StyledSummary } from '../../components/popUp/ChapterFilter';
 import { LinkedArchiveTreeSection } from '../../types';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { setSelectedSection } from '../actions';
 import * as selectors from '../selectors';
 import { PracticeQuestionsLocationFilters } from '../types';
@@ -20,13 +23,16 @@ describe('Filters', () => {
   let dispatch: jest.SpyInstance;
   let render: () => JSX.Element;
   const mockLocationFilters = new Map([
-    ['chapterId', {
-      children: [{ id: 'section1', title: 'section1' }, { id: 'section2', title: 'section2' }],
-      section: { id: 'chapterId', title: 'chapterId' },
+    ['testbook1-testchapter1-uuid', {
+      children: [
+        { id: 'testbook1-testpage11-uuid', title: 'section1' },
+        { id: 'testbook1-testpage8-uuid', title: 'section2' },
+      ],
+      section: { id: 'testbook1-testchapter1-uuid', title: 'chapterId' },
     }],
-    ['chapterId2', {
-      children: [{ id: 'section21', title: 'section21' }, { id: 'section22', title: 'section22' }],
-      section: { id: 'chapterId2', title: 'chapterId2' },
+    ['testbook1-testchapter2-uuid', {
+      children: [{ id: 'testbook1-testpage3-uuid', title: 'section21' }],
+      section: { id: 'testbook1-testchapter2-uuid', title: 'chapterId2' },
     }],
   ]) as PracticeQuestionsLocationFilters;
 
@@ -43,7 +49,7 @@ describe('Filters', () => {
     </Provider>;
   });
 
-  it('ChapterFilterWithToggling matches snapshot when it is closed', () => {
+  it('ChapterFilter matches snapshot when it is closed', () => {
     const mockFilters = jest.spyOn(selectors, 'practiceQuestionsLocationFilters')
       .mockReturnValue(mockLocationFilters);
     const mockSection = jest.spyOn(selectors, 'selectedSection')
@@ -57,7 +63,7 @@ describe('Filters', () => {
     mockSection.mockReset();
   });
 
-  it('ChapterFilterWithToggling matches snapshot when open without selected section', () => {
+  it('ChapterFilter matches snapshot when open without selected section', () => {
     const mockFilters = jest.spyOn(selectors, 'practiceQuestionsLocationFilters')
       .mockReturnValue(mockLocationFilters);
 
@@ -73,11 +79,14 @@ describe('Filters', () => {
     mockFilters.mockReset();
   });
 
-  it('ChapterFilterWithToggling matches snapshot when open with selected section', () => {
+  it('ChapterFilter matches snapshot when open with selected section', () => {
     const mockFilters = jest.spyOn(selectors, 'practiceQuestionsLocationFilters')
       .mockReturnValue(mockLocationFilters);
     const mockSection = jest.spyOn(selectors, 'selectedSection')
-      .mockReturnValue({ id: 'section21', parent: { id: 'chapterId2' } } as LinkedArchiveTreeSection);
+      .mockReturnValue({
+        id: 'testbook1-testpage3-uuid',
+        parent: { id: 'testbook1-testchapter2-uuid' },
+      } as LinkedArchiveTreeSection);
 
     const component = renderer.create(render());
 
@@ -93,10 +102,14 @@ describe('Filters', () => {
   });
 
   it('ChapterFilter with chapters and sections works properly', () => {
+    store.dispatch(receiveBook(book));
     const mockFilters = jest.spyOn(selectors, 'practiceQuestionsLocationFilters')
       .mockReturnValue(mockLocationFilters);
     const mockSection = jest.spyOn(selectors, 'selectedSection')
-      .mockReturnValue({ id: 'section21', parent: { id: 'chapterId2' } } as LinkedArchiveTreeSection);
+      .mockReturnValue({
+        id: 'testbook1-testpage3-uuid',
+        parent: { id: 'testbook1-testchapter2-uuid' },
+      } as LinkedArchiveTreeSection);
 
     const component = renderer.create(render());
 
@@ -133,7 +146,92 @@ describe('Filters', () => {
       section1.props.onClick();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(setSelectedSection({ id: 'section1', title: 'section1' } as any));
+    const expectedSection = findArchiveTreeNodeById(book.tree, 'testbook1-testpage11-uuid');
+
+    expect(dispatch).toHaveBeenCalledWith(setSelectedSection(expectedSection as any));
+
+    mockFilters.mockReset();
+    mockSection.mockReset();
+  });
+
+  it('ChapterFilter dispatches setSelectedSection with null if section wasnt found in the book', () => {
+    store.dispatch(receiveBook(book));
+    const mockFilters = jest.spyOn(selectors, 'practiceQuestionsLocationFilters')
+      .mockReturnValue(new Map([
+        ['doesnt-matter', {
+          children: [
+            { id: 'this will not be found in the book', title: 'section1' },
+          ],
+          section: { id: 'doesnt-matter', title: 'chapterId' },
+        }],
+      ]) as PracticeQuestionsLocationFilters);
+    const mockSection = jest.spyOn(selectors, 'selectedSection')
+      .mockReturnValue({
+        id: 'this will not be found in the book',
+        parent: { id: 'doesnt-matter' },
+      } as LinkedArchiveTreeSection);
+
+    const component = renderer.create(render());
+
+    renderer.act(() => {
+      const chapterFilterToggle = component.root.findByType(DropdownToggle);
+      chapterFilterToggle.props.onClick();
+    });
+
+    const [details1] = component.root.findAllByType(StyledDetails);
+
+    renderer.act(() => {
+      const summary = details1.findByType(StyledSummary);
+      summary.props.onClick({ preventDefault: jest.fn() });
+    });
+
+    renderer.act(() => {
+      const [section1] = details1.findAllByType(StyledSectionItem);
+      section1.props.onClick();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(setSelectedSection(null));
+
+    mockFilters.mockReset();
+    mockSection.mockReset();
+  });
+
+  it('ChapterFilter dispatches setSelectedSection with null if there is no book', () => {
+    const mockFilters = jest.spyOn(selectors, 'practiceQuestionsLocationFilters')
+      .mockReturnValue(new Map([
+        ['doesnt-matter', {
+          children: [
+            { id: 'this will not be found in the book', title: 'section1' },
+          ],
+          section: { id: 'doesnt-matter', title: 'chapterId' },
+        }],
+      ]) as PracticeQuestionsLocationFilters);
+    const mockSection = jest.spyOn(selectors, 'selectedSection')
+      .mockReturnValue({
+        id: 'this will not be found in the book',
+        parent: { id: 'doesnt-matter' },
+      } as LinkedArchiveTreeSection);
+
+    const component = renderer.create(render());
+
+    renderer.act(() => {
+      const chapterFilterToggle = component.root.findByType(DropdownToggle);
+      chapterFilterToggle.props.onClick();
+    });
+
+    const [details1] = component.root.findAllByType(StyledDetails);
+
+    renderer.act(() => {
+      const summary = details1.findByType(StyledSummary);
+      summary.props.onClick({ preventDefault: jest.fn() });
+    });
+
+    renderer.act(() => {
+      const [section1] = details1.findAllByType(StyledSectionItem);
+      section1.props.onClick();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(setSelectedSection(null));
 
     mockFilters.mockReset();
     mockSection.mockReset();

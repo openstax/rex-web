@@ -82,10 +82,10 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
                 Chapter & Section
                 <svg
                   aria-hidden="true"
-                  className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  direction="down"
                   fill="currentColor"
                   focusable="false"
-                  rotate={false}
                   viewBox="0 0 320 512"
                 >
                   <path

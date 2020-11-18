@@ -21,10 +21,10 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           Chapter
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 gghNKN StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
-            rotate={true}
             viewBox="0 0 320 512"
           >
             <path
@@ -39,6 +39,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         locationFilters={Map {}}
         locationFiltersWithContent={Set {}}
         mock-chapter-filter={true}
+        multiselect={true}
         selectedLocationFilters={Set {}}
         setFilters={[Function]}
       />
@@ -57,10 +58,10 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           Color
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 gghNKN StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
-            rotate={true}
             viewBox="0 0 320 512"
           >
             <path

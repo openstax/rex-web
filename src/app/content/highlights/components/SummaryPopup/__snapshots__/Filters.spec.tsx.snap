@@ -21,10 +21,10 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 gghNKN StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
-            rotate={true}
             viewBox="0 0 320 512"
           >
             <path
@@ -76,10 +76,10 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 gghNKN StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
-            rotate={true}
             viewBox="0 0 320 512"
           >
             <path

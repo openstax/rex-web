@@ -33,7 +33,7 @@ export const getPracticeQuestionsLocationFilters = (
 const flattenLocationFilters = (locationFilters: PracticeQuestionsLocationFilters) => {
   let flattened: LinkedArchiveTreeSection[] = [];
   for (const { children } of locationFilters.values()) {
-    flattened = flattened.concat(children || []);
+    flattened = flattened.concat(children);
   }
   return flattened;
 };

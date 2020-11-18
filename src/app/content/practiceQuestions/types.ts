@@ -1,5 +1,4 @@
-import { LocationFilters } from '../components/popUp/ChapterFilter';
-import { LinkedArchiveTreeSection } from '../types';
+import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 
 export interface State {
   isEnabled: boolean;
@@ -32,4 +31,7 @@ export interface PracticeQuestion {
 
 export type PracticeQuestions = PracticeQuestion[];
 
-export type PracticeQuestionsLocationFilters = LocationFilters;
+export type PracticeQuestionsLocationFilters = Map<
+  string,
+  { section: LinkedArchiveTree, children: LinkedArchiveTreeSection[] }
+>;

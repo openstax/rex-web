@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Filters ChapterFilterWithToggling matches snapshot when it is closed 1`] = `
+exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
 <div
   className="Filters-sc-1fn81fx-3 gZlQQL"
 >
@@ -21,10 +21,10 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when it is closed 1`
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="down"
             fill="currentColor"
             focusable="false"
-            rotate={false}
             viewBox="0 0 320 512"
           >
             <path
@@ -39,7 +39,7 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when it is closed 1`
 </div>
 `;
 
-exports[`Filters ChapterFilterWithToggling matches snapshot when open with selected section 1`] = `
+exports[`Filters ChapterFilter matches snapshot when open with selected section 1`] = `
 <div
   className="Filters-sc-1fn81fx-3 gZlQQL"
 >
@@ -60,10 +60,10 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when open with selec
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 gghNKN StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
-            rotate={true}
             viewBox="0 0 320 512"
           >
             <path
@@ -101,10 +101,10 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when open with selec
                 />
                 <svg
                   aria-hidden="true"
-                  className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  direction="down"
                   fill="currentColor"
                   focusable="false"
-                  rotate={false}
                   viewBox="0 0 320 512"
                 >
                   <path
@@ -160,10 +160,10 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when open with selec
                 />
                 <svg
                   aria-hidden="true"
-                  className="Filters__DownIcon-sc-1fn81fx-0 gghNKN StyledIconBase-sc-bdy9j4 cCvWXa"
+                  className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+                  direction="up"
                   fill="currentColor"
                   focusable="false"
-                  rotate={true}
                   viewBox="0 0 320 512"
                 >
                   <path
@@ -186,19 +186,6 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when open with selec
                     }
                   />
                 </button>
-                <button
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 fQHjjn"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "section22",
-                      }
-                    }
-                  />
-                </button>
               </div>
             </details>
           </div>
@@ -209,7 +196,7 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when open with selec
 </div>
 `;
 
-exports[`Filters ChapterFilterWithToggling matches snapshot when open without selected section 1`] = `
+exports[`Filters ChapterFilter matches snapshot when open without selected section 1`] = `
 <div
   className="Filters-sc-1fn81fx-3 gZlQQL"
 >
@@ -230,10 +217,10 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when open without se
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 gghNKN StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
-            rotate={true}
             viewBox="0 0 320 512"
           >
             <path
@@ -271,10 +258,10 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when open without se
                 />
                 <svg
                   aria-hidden="true"
-                  className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  direction="down"
                   fill="currentColor"
                   focusable="false"
-                  rotate={false}
                   viewBox="0 0 320 512"
                 >
                   <path
@@ -330,10 +317,10 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when open without se
                 />
                 <svg
                   aria-hidden="true"
-                  className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  direction="down"
                   fill="currentColor"
                   focusable="false"
-                  rotate={false}
                   viewBox="0 0 320 512"
                 >
                   <path
@@ -352,19 +339,6 @@ exports[`Filters ChapterFilterWithToggling matches snapshot when open without se
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "section21",
-                      }
-                    }
-                  />
-                </button>
-                <button
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 fQHjjn"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "section22",
                       }
                     }
                   />

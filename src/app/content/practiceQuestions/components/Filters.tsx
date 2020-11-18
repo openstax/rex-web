@@ -2,8 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
+import { isLinkedArchiveTreeSection } from '../../guards';
 import * as contentSelectors from '../../selectors';
-import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { setSelectedSection } from '../actions';
 import * as selectors from '../selectors';
@@ -16,9 +16,10 @@ export default () => {
   const [isOpenChapterId, setIsOpenChapterId] = React.useState(selectedSection ? selectedSection.parent.id : null);
   const dispatch = useDispatch();
   const setFilters = React.useCallback(({ locationIds }: { locationIds: string[] }) => {
-    const section = book && locationIds.length
-      ? findArchiveTreeNodeById(book.tree, locationIds[0]) as LinkedArchiveTreeSection
+    const search = book && locationIds.length
+      ? findArchiveTreeNodeById(book.tree, locationIds[0])
       : null;
+    const section = search && isLinkedArchiveTreeSection(search) ? search : null;
     dispatch(setSelectedSection(section));
     setOpen(false);
   }, [book, dispatch]);
