@@ -14,7 +14,7 @@ import { AppState, Dispatch } from '../../../types';
 import { bookTheme } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header, Modal, PopupBody, PopupWrapper } from '../../styles/PopupStyles';
 import { BookWithOSWebData } from '../../types';
-import { closeMyHighlights } from '../actions';
+import { closeMyHighlights as closeMyHighlightsAction } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
 import ShowMyHighlights from './ShowMyHighlights';
@@ -89,16 +89,16 @@ interface Props {
 }
 
 // tslint:disable-next-line: variable-name
-const HighlightsPopUp = ({ ...props }: Props) => {
+const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
   const popUpRef = React.useRef<HTMLElement>(null);
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
 
-  const closeAndTrack = () => {
-    props.closeMyHighlights();
-    trackOpenCloseMH('esc');
-  };
+  const closeAndTrack = React.useCallback((method: string) => () => {
+    closeMyHighlights();
+    trackOpenCloseMH(method);
+  }, [closeMyHighlights, trackOpenCloseMH]);
 
-  useOnEsc(popUpRef, props.myHighlightsOpen, closeAndTrack);
+  useOnEsc(popUpRef, props.myHighlightsOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;
@@ -114,7 +114,7 @@ const HighlightsPopUp = ({ ...props }: Props) => {
         overlay={true}
         mobileOnly={false}
         zIndex={theme.zIndex.highlightSummaryPopup}
-        onClick={() => { props.closeMyHighlights(); trackOpenCloseMH('overlay'); }}
+        onClick={closeAndTrack('overlay')}
       />
       <Modal
         ref={popUpRef}
@@ -130,10 +130,7 @@ const HighlightsPopUp = ({ ...props }: Props) => {
               <CloseIconWrapper
                data-testid='close-highlights-popup'
                aria-label={msg}
-               onClick={() => {
-                 props.closeMyHighlights();
-                 trackOpenCloseMH('button');
-               }}
+               onClick={closeAndTrack('button')}
               >
                 <CloseIcon colorSchema={props.bookTheme}/>
               </CloseIconWrapper>
@@ -155,6 +152,6 @@ export default connect(
     user: authSelect.user(state),
   }),
   (dispatch: Dispatch) => ({
-    closeMyHighlights: () => dispatch(closeMyHighlights()),
+    closeMyHighlights: () => dispatch(closeMyHighlightsAction()),
   })
 )(HighlightsPopUp);

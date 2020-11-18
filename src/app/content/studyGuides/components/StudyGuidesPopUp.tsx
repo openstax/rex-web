@@ -21,16 +21,12 @@ const StudyguidesPopUp = () => {
   const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
   const bookTheme = useSelector(bookThemeSelector);
 
-  const closeAndTrack = () => {
+  const closeAndTrack = React.useCallback((method: string) => () => {
     dispatch(closeStudyGuides());
-    trackOpenCloseSG('esc');
-  };
+    trackOpenCloseSG(method);
+  }, [dispatch, trackOpenCloseSG]);
 
-  const closeStudyGuidesPopUp = () => {
-    dispatch(closeStudyGuides());
-  };
-
-  useOnEsc(popUpRef, isStudyGuidesOpen, closeAndTrack);
+  useOnEsc(popUpRef, isStudyGuidesOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;
@@ -46,10 +42,7 @@ const StudyguidesPopUp = () => {
         overlay={true}
         mobileOnly={false}
         zIndex={theme.zIndex.highlightSummaryPopup}
-        onClick={() => {
-          closeStudyGuidesPopUp();
-          trackOpenCloseSG('overlay');
-        }}
+        onClick={closeAndTrack('overlay')}
       />
       <Modal
         ref={popUpRef}
@@ -65,10 +58,7 @@ const StudyguidesPopUp = () => {
               <CloseIconWrapper
                 data-testid='close-studyguides-popup'
                 aria-label={msg}
-                onClick={() => {
-                  closeStudyGuidesPopUp();
-                  trackOpenCloseSG('button');
-                }}
+                onClick={closeAndTrack('button')}
               >
                 <CloseIcon colorSchema={bookTheme} />
               </CloseIconWrapper>

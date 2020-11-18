@@ -4,8 +4,11 @@ import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
+import * as contentSelectors from '../../selectors';
 import { PopupBody } from '../../styles/PopupStyles';
 import * as pqSelectors from '../selectors';
+import { getNextPageWithPracticeQuestions } from '../utils';
+import EmptyScreen from './EmptyScreen';
 import Filters from './Filters';
 import IntroScreen from './IntroScreen';
 import LinkToSection from './LinkToSection';
@@ -71,10 +74,16 @@ export const QuestionsHeader = styled.div`
 
 // tslint:disable-next-line: variable-name
 const ShowPracticeQuestions = () => {
+  const {book, page} = useSelector(contentSelectors.bookAndPage);
   const section = useSelector(pqSelectors.selectedSection);
   const questionsCount = useSelector(pqSelectors.questionsCount);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
   const selectedSectionHasPracticeQuestions = useSelector(pqSelectors.selectedSectionHasPracticeQuestions);
+  const locationFilters = useSelector(pqSelectors.practiceQuestionsLocationFilters);
+  const nextSection = React.useMemo(() => {
+    const currentSectionId = section ? section.id : page ? page.id : null;
+    return currentSectionId ? getNextPageWithPracticeQuestions(currentSectionId, locationFilters, book) : undefined;
+  }, [book, page, section, locationFilters]);
 
   return (
     <ShowPracticeQuestionsBody
@@ -84,19 +93,24 @@ const ShowPracticeQuestions = () => {
       <Filters />
       <ShowPracitceQuestionsContent>
         {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
-        <QuestionsWrapper>
-          <QuestionsHeader>
-            <FormattedMessage id='i18n:practice-questions:popup:questions'>
-              {(msg: string) => msg}
-            </FormattedMessage>
-          </QuestionsHeader>
-          <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-          {
-            selectedSectionHasPracticeQuestions && currentQuestionIndex === null
-              ? <IntroScreen />
-              : null
-          }
-        </QuestionsWrapper>
+        {questionsCount === 0 && nextSection
+          ? <EmptyScreen nextSection={nextSection} />
+          : (
+            <QuestionsWrapper>
+              <QuestionsHeader>
+                <FormattedMessage id='i18n:practice-questions:popup:questions'>
+                  {(msg: string) => msg}
+                </FormattedMessage>
+              </QuestionsHeader>
+              <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+              {
+                selectedSectionHasPracticeQuestions && currentQuestionIndex === null
+                  ? <IntroScreen />
+                  : null
+              }
+            </QuestionsWrapper>
+          )
+        }
         <LinkToSection section={section} />
       </ShowPracitceQuestionsContent>
     </ShowPracticeQuestionsBody>

@@ -130,7 +130,7 @@ export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: b
 };
 
 export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled]);
+  React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled, cb]);
 };
 
 export const useMatchMobileQuery = () => {
