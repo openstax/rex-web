@@ -42,8 +42,6 @@ export const SectionTitle = styled.div`
 
 // tslint:disable-next-line: variable-name
 export const QuestionsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   flex: 1;
   border: 1px solid ${theme.color.neutral.darkest};
 `;
@@ -124,7 +122,7 @@ const ShowPracticeQuestions = () => {
       }
       {
         section && linkToTheSection
-          ? <StyledContentLink href={linkToTheSection} target='_blank' data-analytics-label='Read' >
+          ? <StyledContentLink href={linkToTheSection} target='_blank' data-analytics-label='Go to link' >
             <FormattedMessage id='i18n:practice-questions:popup:read'>
               {(msg: string) => msg}
             </FormattedMessage>
