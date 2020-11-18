@@ -23,7 +23,7 @@ describe('getHighlightLocationFilters', () => {
     )(book);
 
     const onlyPagesAndChapters = Array.from(locationFilters.values())
-      .every((location) => archiveTreeSectionIsChapter(location) || archiveTreeSectionIsPage(location));
+      .every((location) => archiveTreeSectionIsChapter(location.section) || archiveTreeSectionIsPage(location.section));
     expect(onlyPagesAndChapters).toEqual(true);
   });
 });

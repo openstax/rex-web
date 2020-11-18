@@ -21,12 +21,12 @@ describe('Filters', () => {
   let render: () => JSX.Element;
   const mockLocationFilters = new Map([
     ['chapterId', {
-      chapter: { id: 'chapterId', title: 'chapterId' },
-      sections: [{ id: 'section1', title: 'section1' }, { id: 'section2', title: 'section2' }],
+      children: [{ id: 'section1', title: 'section1' }, { id: 'section2', title: 'section2' }],
+      section: { id: 'chapterId', title: 'chapterId' },
     }],
     ['chapterId2', {
-      chapter: { id: 'chapterId2', title: 'chapterId2' },
-      sections: [{ id: 'section21', title: 'section21' }, { id: 'section22', title: 'section22' }],
+      children: [{ id: 'section21', title: 'section21' }, { id: 'section22', title: 'section22' }],
+      section: { id: 'chapterId2', title: 'chapterId2' },
     }],
   ]) as PracticeQuestionsLocationFilters;
 

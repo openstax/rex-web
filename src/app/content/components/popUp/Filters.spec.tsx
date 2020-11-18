@@ -96,8 +96,8 @@ describe('Filters', () => {
         [HighlightColorEnum.Purple]: 1,
       },
     }, new Map([
-      [pageId, assertDefined(findArchiveTreeNodeById(book.tree, pageId), '')],
-      [chapterId, assertDefined(findArchiveTreeNodeById(book.tree, chapterId), '')],
+      [pageId, { section: assertDefined(findArchiveTreeNodeById(book.tree, pageId), '') }],
+      [chapterId, { section: assertDefined(findArchiveTreeNodeById(book.tree, chapterId), '') }],
     ])));
     store.dispatch(setSummaryFilters({
       locationIds: [],
@@ -143,7 +143,7 @@ describe('Filters', () => {
       },
     }, new Map([[
       'testbook1-testchapter5-uuid',
-      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter5-uuid'), ''),
+      { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter5-uuid'), '') },
     ]])));
 
     dispatch.mockClear();
