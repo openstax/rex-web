@@ -1,5 +1,4 @@
 import loadPracticeQuestions from './locationChange';
-import { openPracticeQuestionsHook } from './openPracticeQuestionsHook';
 import { setSelectedSectionHook } from './setSelectedSectionHook';
 
 export {
@@ -7,6 +6,5 @@ export {
 };
 
 export default [
-  openPracticeQuestionsHook,
   setSelectedSectionHook,
 ];

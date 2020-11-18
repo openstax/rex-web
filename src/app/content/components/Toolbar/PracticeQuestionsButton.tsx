@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { openPracticeQuestions } from '../../practiceQuestions/actions';
+import { isLinkedArchiveTreeSection } from '../../guards';
+import { openPracticeQuestions, setSelectedSection } from '../../practiceQuestions/actions';
 import { hasPracticeQuestions, practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
+import { bookAndPage } from '../../selectors';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
 
 // tslint:disable-next-line:variable-name
@@ -26,6 +29,7 @@ const PracticeQuestionsText = styled.span`
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsButton = () => {
   const dispatch = useDispatch();
+  const {book, page} = useSelector(bookAndPage);
   const isEnabled = useSelector(practiceQuestionsEnabled);
   const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
   const hasPracticeQs = useSelector(hasPracticeQuestions);
@@ -33,8 +37,12 @@ const PracticeQuestionsButton = () => {
   if (!isEnabled || !hasPracticeQs) { return null; }
 
   const openPracticeQuestionsSummary = () => {
-    dispatch(openPracticeQuestions());
-    trackOpenClose();
+    const section = book && page ? findArchiveTreeNodeById(book.tree, page.id) : null;
+    if (section && isLinkedArchiveTreeSection(section)) {
+      dispatch(setSelectedSection(section));
+      dispatch(openPracticeQuestions());
+      trackOpenClose();
+    }
   };
 
   return <FormattedMessage id='i18n:toolbar:practice-questions:button:text'>
