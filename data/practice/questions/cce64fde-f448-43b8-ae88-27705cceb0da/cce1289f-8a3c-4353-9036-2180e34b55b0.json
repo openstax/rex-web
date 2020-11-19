@@ -1,0 +1,98 @@
+[
+  {
+    "answers": [
+      {
+        "id": 391359,
+        "content_html": "<span data-math=\"49.61^{\\circ}\">49.61^{\\circ}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The calculation part is incorrect."
+      },
+      {
+        "id": 391360,
+        "content_html": "<span data-math=\"20.19^{\\circ}\">20.19^{\\circ}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The equation that expresses the relation between radians and degrees is <span data-math=\"x\\,\\text{degrees} = \\frac{\\pi}{180} \\times x\\,\\text{radians}.\">x\\,\\text{degrees} = \\frac{\\pi}{180} \\times x\\,\\text{radians}.</span>"
+      },
+      {
+        "id": 391361,
+        "content_html": "<span data-math=\"0.6479\\,\\text{rad}\">0.6479\\,\\text{rad}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The solution is incomplete. The inverse of sine of this value is not calculated."
+      },
+      {
+        "id": 391362,
+        "content_html": "<span data-math=\"0.7048\\,\\text{rad}\">0.7048\\,\\text{rad}</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "The value of the critical angle for a ray of light going from crystalline quartz into air is <span data-math=\"40.38^{\\circ}\">40.38^{\\circ}</span>, or <span data-math=\"0.7048\\,\\text{rad}\">0.7048\\,\\text{rad}</span>."
+      }
+    ],
+    "group_uuid": "a35908db-88b1-44a1-a133-7f9b32264de5",
+    "stem_html": "The refractive index of air is <span data-math=\"1.0003\">1.0003</span> and the refractive index of crystalline quartz is <span data-math=\"1.544\">1.544</span>. What is the critical angle for a ray of light going from crystalline quartz into air?",
+    "tags": "a35908db-88b1-44a1-a133-7f9b32264de5",
+    "uid": "11211@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 470309,
+        "content_html": "adhesive properties",
+        "correctness": "0.0",
+        "feedback_html": "Recall that adhesion is an attraction between water molecules or other molecules not directly related to heat dispersion."
+      },
+      {
+        "id": 470310,
+        "content_html": "surface tension",
+        "correctness": "0.0",
+        "feedback_html": "Surface tension is the amount that water’s surface can withstand pressure. This is not directly related to heat dispersion."
+      },
+      {
+        "id": 470311,
+        "content_html": "heat of vaporization",
+        "correctness": "0.0",
+        "feedback_html": "Heat of vaporization is the amount of heat needed for water to move from a liquid to a gas. Water is always a liquid within the bodies of organisms."
+      },
+      {
+        "id": 470312,
+        "content_html": "specific heat capacity",
+        "correctness": "1.0",
+        "feedback_html": "The specific heat of water is 1 calorie/gram, which is higher than any other common substance."
+      }
+    ],
+    "group_uuid": "5b7a89a2-3d86-45f8-adb0-6d9f1c5169d7",
+    "stem_html": "Why can water be a good insulator within the body of endothermic (warm-blooded) animals?",
+    "tags": "5b7a89a2-3d86-45f8-adb0-6d9f1c5169d7",
+    "uid": "64@10"
+  },
+  {
+    "answers": [
+      {
+        "id": 391395,
+        "content_html": "The light bends away from the normal because the index of refraction of water is greater than that of air.",
+        "correctness": "0.0",
+        "feedback_html": "A ray of light bends toward the normal when the index of refraction of the incident medium (from where the light enters) is less than the index of refraction of the refracted medium (which receives the light)."
+      },
+      {
+        "id": 391396,
+        "content_html": "The light bends away from the normal because the index of refraction of air is greater than that of water.",
+        "correctness": "0.0",
+        "feedback_html": "The index of refraction of water is greater than the index of refraction of air."
+      },
+      {
+        "id": 391398,
+        "content_html": "The light bends toward the normal because the index of refraction of water is greater than that of air.",
+        "correctness": "1.0",
+        "feedback_html": "A ray of light bends toward the normal when it enters from air to water."
+      },
+      {
+        "id": 391397,
+        "content_html": "The light bends toward the normal because the index of refraction of air is greater than that of water.",
+        "correctness": "0.0",
+        "feedback_html": "The refractive index of water is greater than the refractive index of air."
+      }
+    ],
+    "group_uuid": "e141be43-61f9-43d3-b041-67fb84b93e31",
+    "stem_html": "Does light change direction toward or away from the normal when it goes from air to water? Explain.",
+    "tags": "e141be43-61f9-43d3-b041-67fb84b93e31",
+    "uid": "11220@5"
+  }
+]

@@ -1,39 +1,5 @@
 [
   {
-    "uuid": "b768fce1-742f-4d18-9209-38038238df15",
-    "stem_html": "Explain why scientists sometimes use a model rather than trying to analyze the behavior of the real system.",
-    "id": 49890,
-    "answers": [
-      {
-        "id": 208238,
-        "content_html": "Models are simpler to analyze.",
-        "correctness": "1.0",
-        "feedback_html": "A model is a simpler system, analogous to the real system, and is used to get information because it is simpler."
-      },
-      {
-        "id": 208237,
-        "content_html": "Models give more accurate results.",
-        "correctness": "0.0",
-        "feedback_html": "Since it is not the real system, it will give less accurate results."
-      },
-      {
-        "id": 208236,
-        "content_html": "Models provide more reliable predictions.",
-        "correctness": "0.0",
-        "feedback_html": "Since it is not the real system, it will give less reliable results."
-      },
-      {
-        "id": 208235,
-        "content_html": "Models do not require any computer calculations.",
-        "correctness": "0.0",
-        "feedback_html": "Analyzing a model can involve computer calculations, especially when the model is complex."
-      }
-    ]
-  },
-  {
-    "uuid": "ba124de2-b86c-423b-8b59-04259151983f",
-    "stem_html": "Describe the difference between a question, generated through observation, and a hypothesis.",
-    "id": 49891,
     "answers": [
       {
         "id": 208241,
@@ -59,105 +25,45 @@
         "correctness": "0.0",
         "feedback_html": "That would be a theory."
       }
-    ]
+    ],
+    "group_uuid": "cb3c9a65-a43c-43b4-93f4-62d65fa38801",
+    "stem_html": "Describe the difference between a question, generated through observation, and a hypothesis.",
+    "tags": "cb3c9a65-a43c-43b4-93f4-62d65fa38801",
+    "uid": "1683@4"
   },
   {
-    "uuid": "12c69f74-058e-4e83-80e5-ffd7a25e3696",
-    "stem_html": "What is a scientific model and how is it useful?",
-    "id": 49892,
     "answers": [
       {
-        "id": 208245,
-        "content_html": "A scientific model is a representation of something that can be easily studied directly. It is useful for studying things that can be easily analyzed by humans.",
+        "id": 346884,
+        "content_html": "publication",
         "correctness": "0.0",
-        "feedback_html": "If something can be easily studied directly there would be no need to use a model."
+        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
       },
       {
-        "id": 208246,
-        "content_html": "A scientific model is a representation of something that is often too difficult to study directly. It is useful for studying a complex system or systems that humans cannot observe directly.",
+        "id": 346885,
+        "content_html": "public speaking",
+        "correctness": "0.0",
+        "feedback_html": "Public speaking does not ensure originality and significance of a work."
+      },
+      {
+        "id": 346887,
+        "content_html": "peer review",
         "correctness": "1.0",
-        "feedback_html": "A scientific model is a representation of something that is often too difficult, or impossible, to study directly. It is useful when the real system is too complex to be analyzed easily."
+        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
       },
       {
-        "id": 208244,
-        "content_html": "A scientific model is a representation of scientific equipment. It is useful for studying working principles of scientific equipment.",
+        "id": 346886,
+        "content_html": "the scientific method",
         "correctness": "0.0",
-        "feedback_html": "Models are used for studying systems of interest, not the equipment used to observe the systems."
-      },
-      {
-        "id": 208243,
-        "content_html": "A scientific model is a representation of a laboratory where experiments are performed. It is useful for studying requirements needed inside the laboratory.",
-        "correctness": "0.0",
-        "feedback_html": "Models are used for studying systems of interest, not usually laboratories."
+        "feedback_html": "The scientific method is the method employed to carry out research."
       }
-    ]
+    ],
+    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
+    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "uid": "5@8"
   },
   {
-    "uuid": "55620900-1966-4434-92b0-05b9524e46af",
-    "stem_html": "Which of the following statements is correct about the hypothesis?",
-    "id": 49893,
-    "answers": [
-      {
-        "id": 208250,
-        "content_html": "The hypothesis must be validated by scientific experiments.",
-        "correctness": "1.0",
-        "feedback_html": "Scientific experiments will provide us sufficient evidence to prove the hypothesis."
-      },
-      {
-        "id": 208249,
-        "content_html": "The hypothesis must not include any physical quantity.",
-        "correctness": "0.0",
-        "feedback_html": "The measurement of the physical quantity can provide us data to validate the hypothesis."
-      },
-      {
-        "id": 208248,
-        "content_html": "The hypothesis must be a short and concise statement.",
-        "correctness": "0.0",
-        "feedback_html": "The hypothesis should be a broad explanation of the events."
-      },
-      {
-        "id": 208247,
-        "content_html": "The hypothesis must apply to all the situations in the universe.",
-        "correctness": "0.0",
-        "feedback_html": "The hypothesis is an educated guess and need not be applicable to all the situations in the universe."
-      }
-    ]
-  },
-  {
-    "uuid": "df949d93-7483-41ec-ae56-1136e2730c92",
-    "stem_html": "What is a scientific theory?",
-    "id": 49894,
-    "answers": [
-      {
-        "id": 208254,
-        "content_html": "A scientific theory is an explanation of natural phenomena that is supported by evidence.",
-        "correctness": "1.0",
-        "feedback_html": "A scientific theory is an explanation for patterns in nature that is supported by much scientific evidence and verified multiple times by multiple researchers. It is a common misconception among both students and the general public that scientific theories are nothing more than educated guesses."
-      },
-      {
-        "id": 208253,
-        "content_html": "A scientific theory is an explanation of natural phenomena without the support of evidence.",
-        "correctness": "0.0",
-        "feedback_html": "A scientific theory is an explanation of the natural phenomenon, but it is one that is supported by extensive evidence."
-      },
-      {
-        "id": 208252,
-        "content_html": "A scientific theory is an educated guess about the natural phenomena occurring in nature.",
-        "correctness": "0.0",
-        "feedback_html": "This is the definition of a hypothesis."
-      },
-      {
-        "id": 208251,
-        "content_html": "A scientific theory is an uneducated guess about natural phenomena occurring in nature.",
-        "correctness": "0.0",
-        "feedback_html": "Even a hypothesis is an educated guess. In contrast, a theory is supported by extensive evidence, making it neither a hypothesis nor a guess."
-      }
-    ]
-  },
-  {
-    "uuid": "17c92e9e-a98f-4f76-a048-0ce87aa18adf",
-    "stem_html": "Compare and contrast a hypothesis and a scientific theory.",
-    "id": 49895,
     "answers": [
       {
         "id": 208257,
@@ -183,105 +89,109 @@
         "correctness": "0.0",
         "feedback_html": "A hypothesis is a tentative statement intended to be tested. A theory is not experimental evidence itself, but rather is a well-developed explanation."
       }
-    ]
+    ],
+    "group_uuid": "b744afd9-d6f2-4e46-a133-ed98ff00cbdc",
+    "stem_html": "Compare and contrast a hypothesis and a scientific theory.",
+    "tags": "b744afd9-d6f2-4e46-a133-ed98ff00cbdc",
+    "uid": "1687@4"
   },
   {
-    "uuid": "256212b0-1ce9-47d8-94b4-11327b33a09e",
-    "stem_html": "Describe how modeling is useful in studying the structure of the atom.",
-    "id": 49897,
     "answers": [
       {
-        "id": 208266,
-        "content_html": "Modeling replaces the real system by something similar but easier to examine.",
+        "id": 474301,
+        "content_html": "deoxyribose and adenine",
+        "correctness": "0.0",
+        "feedback_html": "The pentose sugar in RNA is ribose."
+      },
+      {
+        "id": 474300,
+        "content_html": "fructose and thymine",
+        "correctness": "0.0",
+        "feedback_html": "Fructose is not present in any of the nucleic acids."
+      },
+      {
+        "id": 474299,
+        "content_html": "glucose and quinine",
+        "correctness": "0.0",
+        "feedback_html": "Quinine is not present in nucleic acids."
+      },
+      {
+        "id": 474302,
+        "content_html": "ribose and uracil",
         "correctness": "1.0",
-        "feedback_html": "A model is a different system that has crucial features in common with the real system but is easier to analyze."
-      },
-      {
-        "id": 208265,
-        "content_html": "Modeling replaces the real system by something more interesting to examine.",
-        "correctness": "0.0",
-        "feedback_html": "Models are not useful merely by being interesting to analyze."
-      },
-      {
-        "id": 208264,
-        "content_html": "Modeling replaces the real system by something with more realistic properties.",
-        "correctness": "0.0",
-        "feedback_html": "It is impossible for anything to be more realistic than the real system itself."
-      },
-      {
-        "id": 208263,
-        "content_html": "Modeling includes more details than are present in the real system.",
-        "correctness": "0.0",
-        "feedback_html": "Models are generally simplified systems, and have less realistic detail than the actual system."
+        "feedback_html": "The nucleotide molecule RNA consists of ribose sugar. Also, in RNA, uracil replaces thymine and pairs with adenine (U-A)."
       }
-    ]
+    ],
+    "group_uuid": "781169f7-23bf-42fe-b92c-df2ba720808a",
+    "stem_html": "What is found in RNA that is not in DNA?",
+    "tags": "781169f7-23bf-42fe-b92c-df2ba720808a",
+    "uid": "165@8"
   },
   {
-    "uuid": "07f416d7-9cbb-48f8-bc5d-03efcbe00e6a",
-    "stem_html": "The free-electron model of metals explains some of the important behaviors of metals by assuming the metal’s electrons move freely through the metal without repelling one another. In what sense is the free-electron theory based on a model?",
-    "id": 49902,
     "answers": [
       {
-        "id": 208285,
-        "content_html": "Its use requires constructing replicas of the metal wire in the lab.",
+        "id": 418058,
+        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
         "correctness": "0.0",
-        "feedback_html": "Making a replica of the metal wire won’t simplify the system to make studies on it."
+        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
       },
       {
-        "id": 208286,
-        "content_html": "It involves analyzing an imaginary system simpler than the real wire it resembles.",
+        "id": 418059,
+        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
         "correctness": "1.0",
-        "feedback_html": "Making models can simplify the system such that predictions can be made on the system under study."
+        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
       },
       {
-        "id": 208284,
-        "content_html": "It examines a model, or ideal, behavior that other metals should imitate.",
+        "id": 418060,
+        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
         "correctness": "0.0",
-        "feedback_html": "The free-electron model involves assumptions; it does not examine the behavior of other metals."
+        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
       },
       {
-        "id": 208283,
-        "content_html": "It attempts to examine the metal in a very realistic, or model, way.",
+        "id": 418061,
+        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
         "correctness": "0.0",
-        "feedback_html": "It does not give a realistic picture of motion of electrons in metal wire."
+        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
       }
-    ]
+    ],
+    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
+    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
+    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
+    "uid": "1@7"
   },
   {
-    "uuid": "82fd0189-2c74-464b-806d-ffc902c8155e",
-    "stem_html": "When a large body of experimental evidence supports a hypothesis, what may the hypothesis eventually be considered?",
-    "id": 49904,
     "answers": [
       {
-        "id": 208293,
-        "content_html": "observation",
+        "id": 476023,
+        "content_html": "anaphase I",
         "correctness": "0.0",
-        "feedback_html": "Observations can be a part of hypothesis testing."
+        "feedback_html": "The homologous chromosomes separate, while sister chromatids remain associated at their centromeres in anaphase I. Genetic variation has already occurred and no new variation is introduced."
       },
       {
-        "id": 208292,
-        "content_html": "insight",
-        "correctness": "0.0",
-        "feedback_html": "A hypothesis may eventually turn into insight after there is experimental evidence to support it."
-      },
-      {
-        "id": 208291,
-        "content_html": "conclusion",
-        "correctness": "0.0",
-        "feedback_html": "Conclusion is the final step of an experiment; it may accept or reject a hypothesis."
-      },
-      {
-        "id": 208294,
-        "content_html": "law",
+        "id": 476026,
+        "content_html": "metaphase I",
         "correctness": "1.0",
-        "feedback_html": "An experimentally-supported hypothesis becomes a law."
+        "feedback_html": "The random assortment of homologous chromosomes at the metaphase plate is the second mechanism that introduces variation into the gametes or spores."
+      },
+      {
+        "id": 476024,
+        "content_html": "prophase II",
+        "correctness": "0.0",
+        "feedback_html": "There is no genetic variation introduced during meiosis II, when the chromosome pairs duplicate."
+      },
+      {
+        "id": 476025,
+        "content_html": "Genetic variation only occurs during prophase I.",
+        "correctness": "0.0",
+        "feedback_html": "Genetic variation occurs at two different phases of meiosis I."
       }
-    ]
+    ],
+    "group_uuid": "c58ef04c-be6a-44fd-8437-377570890363",
+    "stem_html": "During which phase does the second round of genetic variation occur during meiosis?",
+    "tags": "c58ef04c-be6a-44fd-8437-377570890363",
+    "uid": "811@9"
   },
   {
-    "uuid": "843f7087-a8e9-4057-aabc-6d3b4e1a6a66",
-    "stem_html": "Design an experiment that will test the following hypothesis: driving on a gravel road causes greater damage to a car than driving on a dirt road.",
-    "id": 49906,
     "answers": [
       {
         "id": 208301,
@@ -307,99 +217,106 @@
         "correctness": "0.0",
         "feedback_html": "It is testable. Consider what you have to compare to test it."
       }
-    ]
+    ],
+    "group_uuid": "ecd26aa5-ac4b-4288-b7c9-728ede222ed1",
+    "stem_html": "Design an experiment that will test the following hypothesis: driving on a gravel road causes greater damage to a car than driving on a dirt road.",
+    "tags": "ecd26aa5-ac4b-4288-b7c9-728ede222ed1",
+    "uid": "1698@4"
   },
   {
-    "uuid": "d9faf6d1-9fed-41a4-9b45-4ec5550fbf38",
-    "stem_html": "How does a scientific law compare to a local law, such as that governing parking at your school, in terms of whether or not laws can be changed, and how universal a law is?",
-    "id": 49910,
     "answers": [
       {
-        "id": 208318,
-        "content_html": "A local law applies only in a specific area, but a scientific law is applicable throughout the universe. Both the local law and the scientific law can change.",
+        "id": 469230,
+        "content_html": "All living organisms have mitochondria that produce energy.",
+        "correctness": "0.0",
+        "feedback_html": "All living organisms do not have mitochondria."
+      },
+      {
+        "id": 469233,
+        "content_html": "All living organisms store genetic material in DNA/RNA.",
         "correctness": "1.0",
-        "feedback_html": "Both scientific and local laws can be changed but they differ in their universality. A local law applies only in a specific area, such as in a city or a single school. Scientific laws apply throughout the universe."
+        "feedback_html": "Correct! All living organisms store genetic information using the same molecules: DNA and RNA."
       },
       {
-        "id": 208317,
-        "content_html": "A local law applies only in a specific area, but a scientific law is applicable throughout the universe. A local law can change, but a scientific law cannot be changed.",
+        "id": 469231,
+        "content_html": "All living organisms use the energy from sunlight",
         "correctness": "0.0",
-        "feedback_html": "A scientific law, just like a local law, can change if new evidence calls for the change."
+        "feedback_html": "All living organisms do not obtain energy from sunlight."
       },
       {
-        "id": 208316,
-        "content_html": "A local law applies throughout the universe but a scientific law is applicable only in a specific area. Both the local and the scientific law can change.",
+        "id": 469232,
+        "content_html": "All living organisms have a nucleus.",
         "correctness": "0.0",
-        "feedback_html": "A local law does not apply throughout the universe, a scientific law is not applicable to only a specific area only, and a law can change if new evidence calls for the change."
-      },
-      {
-        "id": 208315,
-        "content_html": "A local law applies throughout the universe, but a scientific law is applicable only in a specific area. A local law can change, but a scientific law cannot be changed.",
-        "correctness": "0.0",
-        "feedback_html": "A local law does not apply throughout the universe, a scientific law is not applicable to only a specific area and a law can change if new evidence calls for the change."
+        "feedback_html": "All living organisms do not have a nucleus."
       }
-    ]
+    ],
+    "group_uuid": "fcbab308-e932-4b29-8a17-faef18eeb759",
+    "stem_html": "Which of the following structures is conserved in all living organisms and points to a common origin?",
+    "tags": "fcbab308-e932-4b29-8a17-faef18eeb759",
+    "uid": "22@9"
   },
   {
-    "uuid": "5acf7482-c46c-49a4-b225-6598a728637c",
-    "stem_html": "You wish to perform an experiment on the stopping distance of your new car. Create a specific experiment to measure the distance. Be sure to specifically state how you will set up and take data during your experiment.",
-    "id": 49911,
     "answers": [
       {
-        "id": 208321,
-        "content_html": "Drive the car at exactly 50 mph and then press harder on the accelerator pedal until the velocity reaches the speed 60 mph and record the distance this takes.",
-        "correctness": "0.0",
-        "feedback_html": "This tests how the car speeds up, not how far it takes to stop."
-      },
-      {
-        "id": 208322,
-        "content_html": "Drive the car at exactly 50 mph and then apply the brakes until it stops and record the distance this takes.",
+        "id": 347059,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"6\">6</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
         "correctness": "1.0",
-        "feedback_html": "The car will come to stop because of the application of the brakes. The experiment measures the distance required."
+        "feedback_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"6\">6</span>, respectively. While, that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively."
       },
       {
-        "id": 208320,
-        "content_html": "Drive the car at exactly 50 mph and then apply the brakes until it stops and record the time it takes.",
+        "id": 347056,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"12\">12</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
         "correctness": "0.0",
-        "feedback_html": "The experiment needs to measure distance, not time."
+        "feedback_html": "The atomic number of carbon-13 is not <span data-math=\"12\">12</span>."
       },
       {
-        "id": 208319,
-        "content_html": "Drive the car at exactly 50 mph and then apply the accelerator until it reaches the speed of 60 mph and record the time it takes.",
+        "id": 347057,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"13\">13</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
         "correctness": "0.0",
-        "feedback_html": "The experiment needs to measure distance to stop, not time to speed up."
+        "feedback_html": "The mass number and atomic number of carbon-13 are not the same for this isotope of carbon."
+      },
+      {
+        "id": 347058,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"12\">12</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"12\">12</span>, respectively.",
+        "correctness": "0.0",
+        "feedback_html": "The atomic number of carbon, and all of its isotopes, is not <span data-math=\"12\">12</span>."
       }
-    ]
+    ],
+    "group_uuid": "7b96c761-af83-4b1b-be9b-a0a7455ba2fb",
+    "stem_html": "List the mass number and atomic number of carbon-12 and carbon-13, respectively.",
+    "tags": "7b96c761-af83-4b1b-be9b-a0a7455ba2fb",
+    "uid": "53@5"
   },
   {
-    "uuid": "a92dac00-d7a4-49ff-ab66-6078dfecf33e",
-    "stem_html": "What would play the most important role in leading to an experiment in the scientific world becoming a scientific law?",
-    "id": 49913,
     "answers": [
       {
-        "id": 208330,
-        "content_html": "Further testing would need to show it is a universally followed rule.",
+        "id": 479673,
+        "content_html": "The change will definitely not be sufficient to have any effect on the function and structure of the protein.",
+        "correctness": "0.0",
+        "feedback_html": "The amino acid substitution may or may not affect the structure and function of protein"
+      },
+      {
+        "id": 479674,
+        "content_html": "The amino acid may not show any significant effect the protein structure and function or it may have a significant effect, as in the case of hemoglobin in individuals with sickle cell trait.",
         "correctness": "1.0",
-        "feedback_html": "A law is a pattern in nature, not a simple one-time observation that is supported by all available evidence."
+        "feedback_html": "There could either be no effect on the protein if the amino acids position was not critical to the tertiary structure of the protein, or it may cause an extra bond being made or not made that would significantly alter the functional structure. A classic example of a single amino acid change that significantly changes the function of a protein is in the case of sickle cell hemoglobin."
       },
       {
-        "id": 208329,
-        "content_html": "The observation would have to be described in a published scientific article.",
+        "id": 479672,
+        "content_html": "These changes would increase the possibility of having extra bends and loops in the proteins as in Leber congenital disease.",
         "correctness": "0.0",
-        "feedback_html": "While this would help to have the law generally recognized, it is not the basis for a statement being a law."
+        "feedback_html": "Leber congenital disease is a multigene defect in the development or retinal receptor cells of the eye. It is not a simple defect of extra bands and loops."
       },
       {
-        "id": 208328,
-        "content_html": "The experiment would have to be repeated once or twice.",
+        "id": 479671,
+        "content_html": "These changes would modify the structures of proteins making them nonfunctional.",
         "correctness": "0.0",
-        "feedback_html": "The experiment would also have to be part of a generally observed pattern or rule in nature, not a single observation, and be supported by all available evidence."
-      },
-      {
-        "id": 208327,
-        "content_html": "The observer would need to be a well-known scientist whose authority was accepted.",
-        "correctness": "0.0",
-        "feedback_html": "Scientific issues are ultimately settled on the basis of experiment and observation, not personal authority."
+        "feedback_html": "The position of the amino acid substituted is critical and may or may not lead to a defect."
       }
-    ]
+    ],
+    "group_uuid": "4a96afa9-6716-4fa6-be34-c26751c23294",
+    "stem_html": "What would happen if even one amino acid is substituted for another in a polypeptide? What would be an example? ",
+    "tags": "4a96afa9-6716-4fa6-be34-c26751c23294",
+    "uid": "159@11"
   }
 ]

@@ -1,0 +1,98 @@
+[
+  {
+    "answers": [
+      {
+        "id": 375470,
+        "content_html": "<span data-math=\"1.0\\,\\text{m}\">1.0\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "While solving for resultant vector, one should also consider the direction of the initial vectors."
+      },
+      {
+        "id": 375473,
+        "content_html": "<span data-math=\"5.3\\,\\text{m}\">5.3\\,\\text{m}</span>",
+        "correctness": "1.0",
+        "feedback_html": "You can calculate the magnitude of the resultant vector by applying the graphical law of vector addition."
+      },
+      {
+        "id": 375471,
+        "content_html": "<span data-math=\"5.9\\,\\text{m}\">5.9\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "You can apply the law of vector addition to solve it, but first think about what the angle between these two vectors will be."
+      },
+      {
+        "id": 375472,
+        "content_html": "<span data-math=\"6.0\\,\\text{m}\">6.0\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "This is the simple addition of scalar quantities. Vector quantities cannot be added like scalar quantities."
+      }
+    ],
+    "group_uuid": "ce39cb1d-9fc7-4298-88c5-28789ae969c1",
+    "stem_html": "Vector <span data-math=\"\\overrightarrow{\\text{A}}\">\\overrightarrow{\\text{A}}</span>, having magnitude <span data-math=\"2.5\\,\\text{m}\">2.5\\,\\text{m}</span>, pointing <span data-math=\"37^\\circ\\!\">37^\\circ\\!</span> south of east and vector <span data-math=\"\\overrightarrow{\\text{B}}\">\\overrightarrow{\\text{B}}</span> having magnitude <span data-math=\"3.5\\,\\text{m}\">3.5\\,\\text{m}</span>, pointing <span data-math=\"20^\\circ\\!\">20^\\circ\\!</span> north of east are added. What is the magnitude of the resultant vector?",
+    "tags": "ce39cb1d-9fc7-4298-88c5-28789ae969c1",
+    "uid": "2201@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 346911,
+        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "correctness": "1.0",
+        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+      },
+      {
+        "id": 346910,
+        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+      },
+      {
+        "id": 346909,
+        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+      },
+      {
+        "id": 346908,
+        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+      }
+    ],
+    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
+    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "uid": "2@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 375508,
+        "content_html": "108 cm, <span data-math=\"\\theta = 119.1^\\circ\">\\theta = 119.1^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "The magnitude and direction can be calculated by applying graphical law of vector addition."
+      },
+      {
+        "id": 375509,
+        "content_html": "108 cm, <span data-math=\"\\theta = 201.8^\\circ\">\\theta = 201.8^\\circ</span>",
+        "correctness": "1.0",
+        "feedback_html": "This is the resultant vector obtained by applying the graphical law of vector addition."
+      },
+      {
+        "id": 375507,
+        "content_html": "232 cm, <span data-math=\"\\theta = 119.1^\\circ\">\\theta = 119.1^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "One cannot find correct value of resultant vector by applying scalar algebraic operations. Use graphical law of vector addition."
+      },
+      {
+        "id": 375506,
+        "content_html": "232 cm, <span data-math=\"\\theta = 201.8^\\circ\">\\theta = 201.8^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "One cannot add two vector quantities like scalar quantities. Use the vector law of addition."
+      }
+    ],
+    "group_uuid": "fecb927d-4ce3-40f2-ac0f-1baa85dd66da",
+    "stem_html": "Find <span data-math=\"\\overrightarrow{\\text{A}} + \\overrightarrow{\\text{B}}\">\\overrightarrow{\\text{A}} + \\overrightarrow{\\text{B}}</span> for the following vectors:\n<span data-math=\"\\overrightarrow{\\text{A}} = (122\\,\\text{cm}, \\angle\\,145^\\circ)\">\\overrightarrow{\\text{A}} = (122\\,\\text{cm}, \\angle\\,145^\\circ)</span>\n<span data-math=\"\\overrightarrow{\\text{B}} = (110\\,\\text{cm}, \\angle\\,270^\\circ)\">\\overrightarrow{\\text{B}} = (110\\,\\text{cm}, \\angle\\,270^\\circ)</span>",
+    "tags": "fecb927d-4ce3-40f2-ac0f-1baa85dd66da",
+    "uid": "2213@7"
+  }
+]

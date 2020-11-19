@@ -1,0 +1,322 @@
+[
+  {
+    "answers": [
+      {
+        "id": 484562,
+        "content_html": "Elements of group 1 need to lose one electron, elements of group 14 need to gain 4 electrons, and elements of group 17 need to gain 1 electron",
+        "correctness": "1.0",
+        "feedback_html": "Elements of group 1 have one valence electron, so in order to attain the stable configuration they need to lose one electron. Group 14 and 17 have four and seven electrons, respectively, in their valence shell. To attain stable configuration, they need to gain four and one electron respectively."
+      },
+      {
+        "id": 484563,
+        "content_html": "Elements of group 1 need to lose 4 electrons while elements of group 14 and 17 need to gain 1 electron each.",
+        "correctness": "0.0",
+        "feedback_html": "Elements of group 1 do not need to lose four electrons and elements of group 14 do not need to gain one electron to attain stable configuration."
+      },
+      {
+        "id": 484564,
+        "content_html": "Elements of group 1 need to lose 2 electrons, elements of group 14 need to gain 4 electrons and elements of group 17 need to gain 1 electron.",
+        "correctness": "0.0",
+        "feedback_html": "Elements of group 1 cannot lose 2 electrons because they have only 1 electron in their valence shell."
+      },
+      {
+        "id": 484565,
+        "content_html": "Elements of group 1 need to gain 1 electron while, elements of group 14 need to lose 4 electrons and elements of group 17 need to lose 1 electron.",
+        "correctness": "0.0",
+        "feedback_html": "Check the valence electrons present in elements of group 14 and group 17. Also, calculate the number of electrons each should gain to attain stable configuration."
+      }
+    ],
+    "group_uuid": "a8878450-ca17-4b3b-9bd2-99cf3e6bb90e",
+    "stem_html": "<p>An atom may give, take, or share electrons with another atom to achieve a full valence shell, the most stable electron configuration. Looking at this figure, how many electrons do elements in group 1 need to lose in order to achieve a stable electron configuration? How many electrons do elements in groups 14 and 17 need to gain to achieve a stable configuration?</p>",
+    "tags": "a8878450-ca17-4b3b-9bd2-99cf3e6bb90e",
+    "uid": "45@10"
+  },
+  {
+    "answers": [
+      {
+        "id": 346880,
+        "content_html": "discovery",
+        "correctness": "0.0",
+        "feedback_html": "A discovery is not a testable explanation for an event."
+      },
+      {
+        "id": 346883,
+        "content_html": "hypothesis",
+        "correctness": "1.0",
+        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+      },
+      {
+        "id": 346881,
+        "content_html": "scientific method",
+        "correctness": "0.0",
+        "feedback_html": "The scientific method is a method of research with defined steps."
+      },
+      {
+        "id": 346882,
+        "content_html": "theory",
+        "correctness": "0.0",
+        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+      }
+    ],
+    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
+    "stem_html": "What is a suggested and testable explanation for an event called?",
+    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
+    "uid": "3@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 347171,
+        "content_html": "Carbon can form up to four covalent bonds, allowing it to form long chains.",
+        "correctness": "1.0",
+        "feedback_html": "Carbon is found in all living things because it can form up to four covalent bonds. These strong covalent bonds allow the formation of long chains that combine to form proteins and DNA"
+      },
+      {
+        "id": 347168,
+        "content_html": "Carbon can form more than four covalent bonds, allowing it to form long chains.",
+        "correctness": "0.0",
+        "feedback_html": "Carbon cannot form more than four covalent bonds with any molecule"
+      },
+      {
+        "id": 347169,
+        "content_html": "Carbon can form more than four covalent bonds, but can only form short chains.",
+        "correctness": "0.0",
+        "feedback_html": "Carbon cannot form more than four covalent bonds with any molecule and it can also form long chains."
+      },
+      {
+        "id": 347170,
+        "content_html": "Carbon can form up to four covalent bonds, but can only form short chains.",
+        "correctness": "0.0",
+        "feedback_html": "Carbon can also form long chains."
+      }
+    ],
+    "group_uuid": "4a04cbd4-47a3-4a09-a675-a3262cd23ae5",
+    "stem_html": "<p>What property of carbon makes it essential for organic life?</p>\n",
+    "tags": "4a04cbd4-47a3-4a09-a675-a3262cd23ae5",
+    "uid": "72@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 349961,
+        "content_html": "<span data-math=\"\\text{G}_0\">\\text{G}_0</span> phase",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"\\text{G}_0\">\\text{G}_0</span> phase is considered the resting phase in the cell cycle. It is present in both mitotic interphase and meiosis interkinesis."
+      },
+      {
+        "id": 349960,
+        "content_html": "<span data-math=\"\\text{G}_1\">\\text{G}_1</span> phase",
+        "correctness": "0.0",
+        "feedback_html": "Both meiotic interkinesis and mitotic interphase have a <span data-math=\"\\text{G}_1\">\\text{G}_1</span> phase, which is focused on cell growth."
+      },
+      {
+        "id": 349959,
+        "content_html": "<span data-math=\"\\text{G}_2\">\\text{G}_2</span> phase",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"\\text{G}_2\">\\text{G}_2</span> phase is the second gap phase where the cell undergoes preparation for meiosis. It is present in both interphase and interkinesis."
+      },
+      {
+        "id": 349962,
+        "content_html": "S-phase",
+        "correctness": "1.0",
+        "feedback_html": "The S-phase, or synthesis phase, is where the DNA of the chromosomes is replicated. It is not present in interkinesis, which is a brief interlude between meiosis I and II in some species."
+      }
+    ],
+    "group_uuid": "f0980a39-3865-455c-8daa-a587e53db911",
+    "stem_html": "What phase(s) of mitotic interphase is missing from meiotic interkinesis?",
+    "tags": "f0980a39-3865-455c-8daa-a587e53db911",
+    "uid": "808@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 347082,
+        "content_html": "Water is polar.",
+        "correctness": "0.0",
+        "feedback_html": "There is a distribution of charges in the structure of the water molecule creating a dipole."
+      },
+      {
+        "id": 347081,
+        "content_html": "Water can stabilize the temperature of nearby air.",
+        "correctness": "0.0",
+        "feedback_html": "Water can absorb or store more heat than air. Therefore, water can stabilize the temperature of nearby air masses."
+      },
+      {
+        "id": 347080,
+        "content_html": "Water is essential for life.",
+        "correctness": "0.0",
+        "feedback_html": "Water is essential for most life on Earth."
+      },
+      {
+        "id": 347083,
+        "content_html": "Water is the most abundant molecule in the Earth’s atmosphere.",
+        "correctness": "1.0",
+        "feedback_html": "Water is not the most abundant molecule in Earth’s atmosphere. Nitrogen is the most abundant gas in earth’s atmosphere, making up 78% of the total composition."
+      }
+    ],
+    "group_uuid": "49025aa5-c00f-4e8d-a597-60e32bdb8334",
+    "stem_html": "Which of the following statements is not true?",
+    "tags": "49025aa5-c00f-4e8d-a597-60e32bdb8334",
+    "uid": "58@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 272981,
+        "content_html": "During their invention, both the Standard Model and the periodic table organized material by mass.",
+        "correctness": "1.0",
+        "feedback_html": "During their invention, both the Standard Model and the periodic table sought to bring structure to the perceived fundamental particles of their era. Both the model and the table organize material by mass and other important properties of their respective times."
+      },
+      {
+        "id": 272982,
+        "content_html": "At the times of their invention, both the Standard Model and the periodic table organized material by charge.",
+        "correctness": "0.0",
+        "feedback_html": "Think about what you know about the periodic table."
+      },
+      {
+        "id": 272983,
+        "content_html": "At the times of their invention, both the Standard Model and the periodic table organized material by interaction with other available particles.",
+        "correctness": "0.0",
+        "feedback_html": "Think about what you know about the periodic table."
+      },
+      {
+        "id": 272984,
+        "content_html": "At the times of their invention, both the Standard Model and the periodic table organized material by size.",
+        "correctness": "0.0",
+        "feedback_html": "Think about what you know about the periodic table."
+      }
+    ],
+    "group_uuid": "ab9f8a9b-2fdf-481e-af99-76c8ef63d925",
+    "stem_html": "What similarities exist between the Standard Model and the periodic table of elements?",
+    "tags": "ab9f8a9b-2fdf-481e-af99-76c8ef63d925",
+    "uid": "11704@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 272499,
+        "content_html": "There is a smaller amount of antimatter than matter in the universe; antimatter is quickly annihilated by its matter analogue.",
+        "correctness": "1.0",
+        "feedback_html": "Antimatter is annihilated as soon as it comes in contact with its matter analogue."
+      },
+      {
+        "id": 272500,
+        "content_html": "There is a smaller amount of matter than antimatter in the universe; matter is annihilated by its antimatter analogue.",
+        "correctness": "0.0",
+        "feedback_html": "The amount of matter is more than the amount of antimatter in the universe."
+      },
+      {
+        "id": 272501,
+        "content_html": "There is a smaller amount of antimatter than matter in universe; antimatter and its matter analogue coexist.",
+        "correctness": "0.0",
+        "feedback_html": "Antimatter and matter cannot coexist."
+      },
+      {
+        "id": 272502,
+        "content_html": "There is a smaller amount of matter than antimatter in the universe; matter and its antimatter analogue coexist.",
+        "correctness": "0.0",
+        "feedback_html": "Matter and its antimatter analogue do not coexist."
+      }
+    ],
+    "group_uuid": "d938ffe2-3c83-4462-9b81-1d389e4ca045",
+    "stem_html": "If antimatter exists, why is it so difficult to find?",
+    "tags": "d938ffe2-3c83-4462-9b81-1d389e4ca045",
+    "uid": "11719@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 207953,
+        "content_html": "The four fundamental forces are represented by their carrier particles, the electrons.",
+        "correctness": "0.0",
+        "feedback_html": "Electrons are leptons, not carrier particles."
+      },
+      {
+        "id": 207954,
+        "content_html": "The four fundamental forces are represented by their carrier particles, the gauge bosons.",
+        "correctness": "1.0",
+        "feedback_html": "Fundamental forces of nature are mediated by bosons."
+      },
+      {
+        "id": 207952,
+        "content_html": "The four fundamental forces are represented by their carrier particles, the leptons.",
+        "correctness": "0.0",
+        "feedback_html": "Leptons do not interact with strong nuclear forces."
+      },
+      {
+        "id": 207951,
+        "content_html": "The four fundamental forces are represented by their carrier particles, the quarks.",
+        "correctness": "0.0",
+        "feedback_html": "Quarks form substructures of hadrons."
+      }
+    ],
+    "group_uuid": "719027de-e0a3-4d53-a44d-bee2478ee87d",
+    "stem_html": "How are the four fundamental forces incorporated into the Standard Model of the atom?",
+    "tags": "719027de-e0a3-4d53-a44d-bee2478ee87d",
+    "uid": "11721@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 207962,
+        "content_html": "The Higgs field slows down passing particles; the decrease in kinetic energy is transferred to the particle’s mass.",
+        "correctness": "1.0",
+        "feedback_html": "The reduction in kinetic energy of a particle passing through the Higgs field is transferred to the particle’s mass."
+      },
+      {
+        "id": 207961,
+        "content_html": "The Higgs field accelerates passing particles; the decrease in kinetic energy is transferred to the particle’s mass.",
+        "correctness": "0.0",
+        "feedback_html": "The Higgs field slows down particles passing through it."
+      },
+      {
+        "id": 207960,
+        "content_html": "The Higgs field slows down passing particles; the increase in kinetic energy is transferred to the particle’s mass.",
+        "correctness": "0.0",
+        "feedback_html": "The kinetic energy of a particle decreases as its speed decreases."
+      },
+      {
+        "id": 207959,
+        "content_html": "The Higgs field accelerates passing particles; the increase in kinetic energy is transferred to the particle’s mass.",
+        "correctness": "0.0",
+        "feedback_html": "The Higgs field slows down passing particles. It is responsible for particles having mass."
+      }
+    ],
+    "group_uuid": "fb1d8c31-7581-4d0e-98eb-78c3ab520d5c",
+    "stem_html": "How can a particle gain mass by traveling through the Higgs field?",
+    "tags": "fb1d8c31-7581-4d0e-98eb-78c3ab520d5c",
+    "uid": "11723@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 273041,
+        "content_html": "If the velocity of the neutrino is known, then the upper limit on mass of the neutrino can be set.",
+        "correctness": "0.0",
+        "feedback_html": "Think about how you would perform this calculation."
+      },
+      {
+        "id": 273042,
+        "content_html": "If only the kinetic energy of the neutrino is known, then the upper limit on mass of the neutrino can be set.",
+        "correctness": "0.0",
+        "feedback_html": "Think about how you would perform this calculation."
+      },
+      {
+        "id": 273043,
+        "content_html": "If either the velocity or the kinetic energy is known, then the upper limit on the mass of the neutrino can be set.",
+        "correctness": "0.0",
+        "feedback_html": "Think about how you would perform this calculation."
+      },
+      {
+        "id": 273044,
+        "content_html": "If both the kinetic energy and the velocity of the neutrino are known, then the upper limit on the mass of the neutrino can be set.",
+        "correctness": "1.0",
+        "feedback_html": "The equation <span data-math=\"\\text{KE}_{\\text{rel}} = \\left(\\gamma - 1\\right)mc^{2}\">\\text{KE}_{\\text{rel}} = \\left(\\gamma - 1\\right)mc^{2}</span> can be used to calculate the mass of the neutrino, if the kinetic energy and velocity of the neutrino are known."
+      }
+    ],
+    "group_uuid": "b06bd5bb-2e0c-4c08-b763-edb0d4efb280",
+    "stem_html": "When a star erupts in a supernova explosion, huge numbers of electron neutrinos are formed in nuclear reactions. Such neutrinos from the 1987A supernova in the relatively nearby Magellanic Cloud were observed within hours of the initial brightening, indicating that they traveled to earth at approximately the speed of light. Explain how this data can be used to set an upper limit on the mass of the neutrino.",
+    "tags": "b06bd5bb-2e0c-4c08-b763-edb0d4efb280",
+    "uid": "11728@6"
+  }
+]
