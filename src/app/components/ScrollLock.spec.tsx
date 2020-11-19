@@ -3,6 +3,11 @@ import { ComponentType } from 'react';
 import rendererType from 'react-test-renderer';
 import { reactAndFriends, resetModules } from '../../test/utils';
 
+jest.mock('../reactUtils', () => ({
+  ...jest.requireActual('../reactUtils'),
+  useDisableContentTabbing: () => null,
+}));
+
 describe('MobileScrollLock', () => {
   let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
   let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];

@@ -1,12 +1,13 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
-import { assertWindow } from '../../../utils';
+import { assertDocument, assertWindow } from '../../../utils';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header, Modal, PopupWrapper } from '../../styles/PopupStyles';
 import { closePracticeQuestions } from '../actions';
@@ -42,7 +43,7 @@ const PracticeQuestionsPopup = () => {
     }
   }, [isPracticeQuestionsOpen]);
 
-  return isPracticeQuestionsOpen ? (
+  return isPracticeQuestionsOpen ? createPortal(
     <PopupWrapper>
       <ScrollLock
         overlay={true}
@@ -73,7 +74,8 @@ const PracticeQuestionsPopup = () => {
         </Header>
         <ShowPracticeQuestions />
       </Modal>
-    </PopupWrapper>
+    </PopupWrapper>,
+    assertDocument().body
   ) : null;
 };
 

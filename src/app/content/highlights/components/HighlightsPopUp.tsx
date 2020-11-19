@@ -1,5 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { FormattedMessage } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
 import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
@@ -11,6 +12,7 @@ import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
+import { assertDocument } from '../../../utils';
 import { bookTheme } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header, Modal, PopupBody, PopupWrapper } from '../../styles/PopupStyles';
 import { BookWithOSWebData } from '../../types';
@@ -108,7 +110,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
     }
   }, [props.myHighlightsOpen]);
 
-  return props.myHighlightsOpen ? (
+  return props.myHighlightsOpen ? createPortal(
     <PopupWrapper>
       <ScrollLock
         overlay={true}
@@ -140,7 +142,8 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
         {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
       </Modal>
       <HighlightsHelpInfo />
-    </PopupWrapper>
+    </PopupWrapper>,
+    assertDocument().body
   ) : null;
 };
 

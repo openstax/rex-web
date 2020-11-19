@@ -24,6 +24,11 @@ jest.mock('react', () => {
   return { ...react, useEffect: react.useLayoutEffect };
 });
 
+jest.mock('react-dom', () => ({
+  ...jest.requireActual('react-dom'),
+  createPortal: (children: any) => children,
+}));
+
 describe('Study Guides button and PopUp', () => {
   let dispatch: jest.SpyInstance;
   let store: Store;

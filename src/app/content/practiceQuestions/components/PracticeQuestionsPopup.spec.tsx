@@ -21,6 +21,11 @@ jest.mock('react', () => {
   return { ...react, useEffect: react.useLayoutEffect };
 });
 
+jest.mock('react-dom', () => ({
+  ...jest.requireActual('react-dom'),
+  createPortal: (children: any) => children,
+}));
+
 describe('PracticeQuestions', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;

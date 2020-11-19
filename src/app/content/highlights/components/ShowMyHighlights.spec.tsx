@@ -39,6 +39,11 @@ jest.mock('./SummaryPopup/utils', () => ({
   createHighlightLink: (highlight: Highlight) => `/link/to/highlight/${highlight.id}`,
 }));
 
+jest.mock('react-dom', () => ({
+  ...jest.requireActual('react-dom'),
+  createPortal: (children: any) => children,
+}));
+
 describe('Show my highlights', () => {
   let store: Store;
   let user: User;
