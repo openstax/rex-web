@@ -154,7 +154,7 @@ describe('Filters', () => {
     mockSection.mockReset();
   });
 
-  it('ChapterFilter dispatches setSelectedSection with null if section wasnt found in the book', () => {
+  it('ChapterFilter does not dispatch setSelectedSection if clicked on already selected section', () => {
     store.dispatch(receiveBook(book));
     const mockFilters = jest.spyOn(selectors, 'practiceQuestionsLocationFilters')
       .mockReturnValue(new Map([
@@ -170,6 +170,8 @@ describe('Filters', () => {
         id: 'this will not be found in the book',
         parent: { id: 'doesnt-matter' },
       } as LinkedArchiveTreeSection);
+
+    dispatch.mockClear();
 
     const component = renderer.create(render());
 
@@ -190,7 +192,7 @@ describe('Filters', () => {
       section1.props.onClick();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(setSelectedSection(null));
+    expect(dispatch).not.toHaveBeenCalled();
 
     mockFilters.mockReset();
     mockSection.mockReset();
@@ -207,10 +209,9 @@ describe('Filters', () => {
         }],
       ]) as PracticeQuestionsLocationFilters);
     const mockSection = jest.spyOn(selectors, 'selectedSection')
-      .mockReturnValue({
-        id: 'this will not be found in the book',
-        parent: { id: 'doesnt-matter' },
-      } as LinkedArchiveTreeSection);
+      .mockReturnValue(null);
+
+    dispatch.mockClear();
 
     const component = renderer.create(render());
 

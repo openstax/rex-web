@@ -241,16 +241,12 @@ describe('ChapterFilter', () => {
       },
     ]]);
 
-    let isOpenChapterId = '';
-
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
         <ChapterFilter
           locationFilters={locationFilters}
           locationFiltersWithContent={new Set()}
           selectedLocationFilters={new Set()}
-          isOpenChapterId={isOpenChapterId}
-          onChapterToggleClick={(id: string) => isOpenChapterId = id}
         />
       </MessageProvider>
     </Provider>);
@@ -269,48 +265,10 @@ describe('ChapterFilter', () => {
           locationFilters={locationFilters}
           locationFiltersWithContent={new Set()}
           selectedLocationFilters={new Set()}
-          isOpenChapterId={isOpenChapterId}
-          onChapterToggleClick={(id: string) => isOpenChapterId = id}
         />
       </MessageProvider>
     </Provider>);
 
     expect(details.props.open).toEqual(true);
-  });
-
-  it('noops if clicked on <summary> if handler function wasn\'t passed', () => {
-    store.dispatch(receiveBook(book));
-    store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
-    }, new Map([[
-      'testbook1-testpage1-uuid',
-      { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
-    ]])));
-
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ChapterFilter
-          locationFilters={new Map([[
-            'testbook1-testchapter2-uuid',
-            {
-              children: [{ id: 'testbook1-testpage3-uuid', title: 'page' }],
-              section: { id: 'testbook1-testchapter2-uuid', title: 'chapter' },
-            },
-          ]])}
-          locationFiltersWithContent={new Set()}
-          selectedLocationFilters={new Set()}
-        />
-      </MessageProvider>
-    </Provider>);
-
-    const [details] = component.root.findAllByType(StyledDetails);
-    const [summary] = details.findAllByType(StyledSummary);
-    expect(details.props.open).toEqual(false);
-
-    renderer.act(() => {
-      summary.props.onClick();
-    });
-
-    expect(details.props.open).toEqual(false);
   });
 });
