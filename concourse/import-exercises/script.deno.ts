@@ -23,24 +23,25 @@ const Authorization = assertDefined(Deno.env.get('EXERCISES_AUTHORIZATION'), 'EX
 const csvPath = assertDefined(Deno.env.get('CSV_FILE'), 'CSV_FILE environment variable must be set');
 
 // only physics has practice right now, probably add this to the csv in the future
-const bookId = 'cce64fde-f448-43b8-ae88-27705cceb0da';
+const stubBookId = 'cce64fde-f448-43b8-ae88-27705cceb0da';
 
 const f = await Deno.open(csvPath);
 
-const pages: {[key: string]: any[]} = {};
+const sources: {[key: string]: {[key: string]: any[]}} = {};
 
 for await (const row of readCSVObjects(f)) {
   console.log(`fetching ${row.group_uuid}`);
 
   const exercise = await fetch(`https://exercises.openstax.org/api/exercises/${row.group_uuid}`, {
-    headers: {
-      Authorization,
-    },
+    headers: {Authorization},
   })
     .then((response) => response.json())
   ;
 
-  (pages[row.source_page] = pages[row.source_page] || []).push({
+  const bookSources = sources[stubBookId] = sources[stubBookId] || {};
+  const sourceProblems = bookSources[row.source_page] = bookSources[row.source_page] || [];
+
+  sourceProblems.push({
     answers: exercise.questions[0].answers,
     group_uuid: exercise.group_uuid,
     stem_html: exercise.questions[0].stem_html,
@@ -52,11 +53,24 @@ for await (const row of readCSVObjects(f)) {
 
 f.close();
 
-for (const [sourceId, problems] of Object.entries(pages)) {
-  console.log(`writing ${sourceId}`);
+Object.entries(sources).forEach(([bookId, bookSources]) => {
+
+  const bookSummary = Object.fromEntries(Object.entries(bookSources).map(([sourceId, problems]) => {
+    console.log(`writing ${sourceId}`);
+
+    // side effect in a map, i don't want to talk about it. trying to avoid multiple iterations
+    Deno.writeTextFileSync(
+      `data/practice/questions/${bookId}/${sourceId}.json`,
+      JSON.stringify(problems, null, 2)
+    );
+
+    return [sourceId, problems.length];
+  }));
+
+  console.log(`writing sumary ${bookId}`);
 
   Deno.writeTextFileSync(
-    `data/practice/questions/${bookId}/${sourceId}.json`,
-    JSON.stringify(problems, null, 2)
+    `data/practice/summary/${bookId}.json`,
+    JSON.stringify({countsPerSource: bookSummary}, null, 2)
   );
-}
+});
