@@ -13,6 +13,7 @@ export const initialState: State = {
   isEnabled: false,
   open: false,
   questions: [],
+  questionsAndAnswers: new Map(),
   selectedSection: null,
   summary: null,
 };

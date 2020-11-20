@@ -53,3 +53,14 @@ export const selectedSectionHasPracticeQuestions = createSelector(
   practiceQuestionsSummary,
   (section, summary) => Boolean(section && summary && pageHasPracticeQuestions(section.id, summary))
 );
+
+export const questionsAndAnswers = createSelector(
+  localState,
+  (state) => state.questionsAndAnswers
+);
+
+export const isFinalQuestion = createSelector(
+  questionsCount,
+  currentQuestionIndex,
+  (count, index) => count - 1 === index
+);

@@ -12,6 +12,7 @@ import { getNextPageWithPracticeQuestions } from '../utils';
 import EmptyScreen from './EmptyScreen';
 import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
+import QuestionNavigation from './QuestionNavigation';
 
 // tslint:disable-next-line:variable-name
 export const ShowPracticeQuestionsBody = styled(PopupBody)`
@@ -117,6 +118,7 @@ const ShowPracticeQuestions = () => {
                 ? <IntroScreen />
                 : null
             }
+            <QuestionNavigation />
           </QuestionsWrapper>
         )
       }

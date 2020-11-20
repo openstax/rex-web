@@ -7,6 +7,7 @@ export interface State {
   selectedSection: LinkedArchiveTreeSection | null;
   currentQuestionIndex: number | null;
   questions: PracticeQuestion[];
+  questionsAndAnswers: QuestionsAndAnswers;
 }
 
 export interface PracticeQuestionsSummary {
@@ -15,7 +16,7 @@ export interface PracticeQuestionsSummary {
   };
 }
 
-interface PracticeAnswer {
+export interface PracticeAnswer {
   id: number;
   content_html: string;
   correctness: '0.0' | '1.0';
@@ -30,3 +31,5 @@ export interface PracticeQuestion {
 }
 
 export type PracticeQuestions = PracticeQuestion[];
+
+export type QuestionsAndAnswers = Map<number, PracticeAnswer | null>;
