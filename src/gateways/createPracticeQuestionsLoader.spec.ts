@@ -36,9 +36,9 @@ describe('createPracticeQuestionsLoader', () => {
     }
 
     expect(questions.length).toEqual(2);
-    expect(questions[0].id).toEqual(103040);
+    expect(questions[0].uid).toEqual(103040);
     expect(questions[0].answers.length).toEqual(2);
-    expect(questions[1].id).toEqual(91840);
+    expect(questions[1].uid).toEqual(91840);
     expect(questions[1].answers.length).toEqual(2);
   });
 
