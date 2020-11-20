@@ -13,11 +13,16 @@ export default () => {
   const locationFilters = useSelector(selectors.practiceQuestionsLocationFilters);
   const selectedSection = useSelector(selectors.selectedSection);
   const book = useSelector(contentSelectors.book);
-  const [isOpenChapterId, setIsOpenChapterId] = React.useState(selectedSection ? selectedSection.parent.id : null);
   const dispatch = useDispatch();
   const setFilters = React.useCallback(({ locationIds }: { locationIds: string[] }) => {
+    const clickedSectionId = locationIds.pop();
+    if (!clickedSectionId) {
+      // user clicked on the selected section
+      setOpen(false);
+      return;
+    }
     const search = book && locationIds.length
-      ? findArchiveTreeNodeById(book.tree, locationIds[0])
+      ? findArchiveTreeNodeById(book.tree, clickedSectionId)
       : null;
     const section = search && isLinkedArchiveTreeSection(search) ? search : null;
     dispatch(setSelectedSection(section));
@@ -33,15 +38,13 @@ export default () => {
         label='i18n:practice-questions:popup:filters:chapters'
         ariaLabelId='i18n:practice-questions:popup:filters:filter-by:aria-label'
         open={open}
-        setOpen={setOpen}
+        setOpen={(isOpen: boolean) => setOpen(isOpen)}
       >
         <ChapterFilter
           locationFilters={locationFilters}
           selectedLocationFilters={selectedLocationFilters}
           setFilters={setFilters}
-          hideAllOrNone={true}
-          isOpenChapterId={isOpenChapterId}
-          onChapterToggleClick={(id: string) => setIsOpenChapterId((prev) => prev === id ? null : id)}
+          multiselect={false}
         />
       </FilterDropdown>
     </FiltersTopBar>

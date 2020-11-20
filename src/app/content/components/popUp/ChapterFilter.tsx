@@ -66,14 +66,26 @@ interface ChapterFilterProps {
   locationFiltersWithContent: Set<string>;
   selectedLocationFilters: Set<string>;
   multiselect: boolean;
-  isOpenChapterId?: string;
-  hideAllOrNone?: boolean;
-  onChapterToggleClick?: (chapterId: string) => void;
   setFilters: (filters: { locationIds: string[] }) => void;
 }
 
 // tslint:disable-next-line:variable-name
 const ChapterFilter = (props: ChapterFilterProps) => {
+  const [isOpenChapterId, setIsOpenChapterId] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const selectedSectionId = Array.from(props.selectedLocationFilters).pop();
+    if (selectedSectionId) {
+      const filterWithSelectedSection = Array.from(props.locationFilters.values()).find(({ children }) => {
+        return children && children.find((section) => section.id === selectedSectionId);
+      });
+      if (filterWithSelectedSection) {
+        setIsOpenChapterId(filterWithSelectedSection.section.id);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const setSelectedChapters = (ids: string[]) => {
     props.setFilters({locationIds: ids});
   };
@@ -91,15 +103,15 @@ const ChapterFilter = (props: ChapterFilterProps) => {
   const sectionChunks = hasFiltersWithChildren ? [values] : chunk(values);
 
   return <div className={props.className} tabIndex={-1}>
-    {props.hideAllOrNone
-      ? null
-      : (
+    {props.multiselect
+      ? (
         <AllOrNone
           onNone={() => setSelectedChapters([])}
           onAll={() => setSelectedChapters(Array.from(props.locationFiltersWithContent))}
           disabled={props.disabled}
         />
-      )}
+      )
+      : null}
     <Row>
       {sectionChunks.map((sectionChunk, index) => <Column key={index}>
         {sectionChunk.map((location) => {
@@ -114,15 +126,13 @@ const ChapterFilter = (props: ChapterFilterProps) => {
               onChange={() => handleChange(section.id)}
             />;
           } else {
-            return <StyledDetails key={section.id} open={props.isOpenChapterId === section.id}>
-              <StyledSummary onClick={(e: React.MouseEvent) => {
-                if (props.onChapterToggleClick) {
-                  e.preventDefault();
-                  props.onChapterToggleClick(section.id);
-                }
+            return <StyledDetails key={section.id} open={isOpenChapterId === section.id}>
+              <StyledSummary onClick={(ev: React.MouseEvent) => {
+                ev.preventDefault();
+                setIsOpenChapterId((currentId) => currentId !== section.id ? section.id : null);
               }}>
                 <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
-                <AngleIcon direction={props.isOpenChapterId === section.id ? 'up' : 'down'} />
+                <AngleIcon direction={isOpenChapterId === section.id ? 'up' : 'down'} />
               </StyledSummary>
               <div>
                 {children.map((child) => (
@@ -132,7 +142,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
                     disabled={false}
                     multiselect={props.multiselect}
                     title={child.title}
-                    onChange={() => setSelectedChapters([child.id])}
+                    onChange={() => handleChange(child.id)}
                   />
                 ))}
               </div>

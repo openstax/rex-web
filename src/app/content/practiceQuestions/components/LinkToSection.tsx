@@ -9,7 +9,7 @@ import { LinkedArchiveTreeSection } from '../../types';
 import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 
 // tslint:disable-next-line: variable-name
-export const StyledContentLink = styled.a`
+export const StyledLink = styled.a`
   display: block;
   font-size: 1.4rem;
   color: #929292;
@@ -43,12 +43,12 @@ const LinkToSection = ({ section }: LinkToSectionProps) => {
 
   if (!section || !linkToTheSection) { return null; }
 
-  return <StyledContentLink href={linkToTheSection} target='_blank' data-analytics-label='Go to link' >
+  return <StyledLink href={linkToTheSection} target='_blank' data-analytics-label='Go to link' >
     <FormattedMessage id='i18n:practice-questions:popup:read'>
       {(msg: string) => msg}
     </FormattedMessage>
     <span dangerouslySetInnerHTML={{ __html: section.title }} />
-  </StyledContentLink>;
+  </StyledLink>;
 };
 
 export default LinkToSection;

@@ -52,12 +52,12 @@ const visuallyHidden = css`
   clip: rect(1px, 1px, 1px, 1px);
 `;
 
-export interface ControlledProps {
-  open?: boolean;
-  setOpen?: (value: boolean) => void;
+interface ControlledProps {
+  open: boolean;
+  setOpen: (value: boolean) => void;
 }
 
-interface Props extends ControlledProps {
+interface Props {
   toggle: React.ReactNode;
   className?: string;
   onToggle?: () => void;
@@ -65,8 +65,9 @@ interface Props extends ControlledProps {
 
 // tslint:disable-next-line:variable-name
 const TabHiddenDropDown = styled((
-  {toggle, children, className, onToggle, ...props}: React.PropsWithChildren<Props>
+  {toggle, children, className, onToggle, ...props}: React.PropsWithChildren<Props | Props & ControlledProps>
 ) => {
+  const { open: controlledOpen, setOpen: controlledSetOpen } = props as Props & ControlledProps;
   const [open, setOpen] = React.useState<boolean>(false);
   const container = React.useRef<HTMLElement>(null);
   const toggleElement = React.useRef<HTMLElement>(null);
@@ -82,16 +83,16 @@ const TabHiddenDropDown = styled((
       ref={toggleElement}
       component={toggle}
       onClick={() => {
-        if (props.setOpen) {
-          props.setOpen(!props.open);
+        if (controlledSetOpen) {
+          controlledSetOpen(!controlledOpen);
         } else {
           setOpen((state) => !state);
         }
         if (onToggle) { onToggle(); }
       }}
-      isOpen={props.open !== undefined ? props.open : open}
+      isOpen={controlledOpen !== undefined ? controlledOpen : open}
     />
-    {(props.open || open) && children}
+    {(controlledOpen !== undefined ? controlledOpen : open) && children}
   </div>;
 })`
   ${css`
@@ -250,10 +251,18 @@ export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) 
     : <li><DropdownItemContent {...contentProps} /></li>;
 };
 
+interface CommonDropdownProps {
+  transparentTab?: boolean;
+}
+
+type TabTransparentDropdownProps = CommonDropdownProps & Props;
+export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & ControlledProps);
+
 // tslint:disable-next-line:variable-name
-const Dropdown = ({transparentTab, ...props}: {transparentTab?: boolean} & Props) => transparentTab !== false
-  ? <TabTransparentDropdown {...props} />
-  : <TabHiddenDropDown {...props} />;
+const Dropdown = ({transparentTab, ...props}: TabTransparentDropdownProps | TabHiddenDropdownProps) =>
+  transparentTab !== false
+    ? <TabTransparentDropdown {...props} />
+    : <TabHiddenDropDown {...props} />;
 
 export default styled(Dropdown)`
   overflow: visible;

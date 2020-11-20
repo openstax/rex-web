@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../components/Button';
-import Dropdown, { ControlledProps, DropdownToggle } from '../../../components/Dropdown';
+import Dropdown, { DropdownToggle, TabHiddenDropdownProps } from '../../../components/Dropdown';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { filters } from '../../styles/PopupConstants';
@@ -76,10 +76,10 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   }
 `;
 
-interface FilterDropdownProps extends ControlledProps {
+type FilterDropdownProps = {
   label: string;
   ariaLabelId: string;
-}
+} & Partial<TabHiddenDropdownProps>;
 
 // tslint:disable-next-line:variable-name
 export const FilterDropdown = ({label, ariaLabelId, children, ...props}:
