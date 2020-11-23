@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { linkColor } from '../../../components/Typography';
 import theme from '../../../theme';
+import ContentLink from '../../components/ContentLink';
 import * as contentSelectors from '../../selectors';
 import { LinkedArchiveTreeSection } from '../../types';
-import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 
 // tslint:disable-next-line: variable-name
-export const StyledLink = styled.a`
+export const StyledLink = styled(ContentLink)`
   display: block;
   font-size: 1.4rem;
   color: #929292;
@@ -37,13 +37,9 @@ interface LinkToSectionProps {
 const LinkToSection = ({ section }: LinkToSectionProps) => {
   const book = useSelector(contentSelectors.book);
 
-  const linkToTheSection = React.useMemo(() => {
-    return book && section ? getBookPageUrlAndParams(book, section).url : null;
-  }, [book, section]);
+  if (!section) { return null; }
 
-  if (!section || !linkToTheSection) { return null; }
-
-  return <StyledLink href={linkToTheSection} target='_blank' data-analytics-label='Go to link' >
+  return <StyledLink book={book} page={section} target='_blank' data-analytics-label='Go to link' >
     <FormattedMessage id='i18n:practice-questions:popup:read'>
       {(msg: string) => msg}
     </FormattedMessage>

@@ -33,6 +33,7 @@ interface Props {
   search: { query: string | null };
   scrollTarget?: ScrollTarget;
   className?: string;
+  target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
 }
 
@@ -60,7 +61,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ref={myForwardedRef}
     onClick={async(e) => {
 
-      if (isClickWithModifierKeys(e)) {
+      if (isClickWithModifierKeys(e) || anchorProps.target === '_blank') {
         return;
       }
 
