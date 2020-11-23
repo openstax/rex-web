@@ -23,9 +23,9 @@ interface PracticeAnswer {
 }
 
 export interface PracticeQuestion {
-  uuid: string;
+  group_uuid: string;
+  uid: string;
   stem_html: string;
-  id: number;
   answers: PracticeAnswer[];
 }
 

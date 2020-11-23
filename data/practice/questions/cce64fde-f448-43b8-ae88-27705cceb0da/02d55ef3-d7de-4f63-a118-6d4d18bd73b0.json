@@ -1,0 +1,66 @@
+[
+  {
+    "answers": [
+      {
+        "id": 375060,
+        "content_html": "Inertia is an object’s tendency to maintain its mass.",
+        "correctness": "0.0",
+        "feedback_html": "Is the inertia of an object related to its mass? Is it not related to the motion of the object?"
+      },
+      {
+        "id": 375061,
+        "content_html": "Inertia is an object’s tendency to remain at rest.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that the inertia of an object is its tendency to remain at rest unless acted on by an external force, but what about the case when the object is in a state of motion?"
+      },
+      {
+        "id": 375062,
+        "content_html": "Inertia is an object’s tendency to remain in motion",
+        "correctness": "0.0",
+        "feedback_html": "Yes, the inertia of an object is its tendency to maintain its state of motion unless acted on by an external force, but what about the case when the object is at rest?"
+      },
+      {
+        "id": 375063,
+        "content_html": "Inertia is an object’s tendency to remain at rest or, if moving, to remain in motion.",
+        "correctness": "1.0",
+        "feedback_html": "Inertia is an object’s tendency to remain at rest or, if moving, to remain in motion at a constant velocity. Inertia may also be described as the tendency of objects to maintain their state of motion."
+      }
+    ],
+    "group_uuid": "5583b4e2-cf57-4769-834d-4a96a370caa2",
+    "stem_html": "What is inertia?",
+    "tags": "5583b4e2-cf57-4769-834d-4a96a370caa2",
+    "uid": "2079@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 397410,
+        "content_html": "astronomy",
+        "correctness": "0.0",
+        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+      },
+      {
+        "id": 397411,
+        "content_html": "biology",
+        "correctness": "0.0",
+        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+      },
+      {
+        "id": 397412,
+        "content_html": "computer science",
+        "correctness": "1.0",
+        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+      },
+      {
+        "id": 397413,
+        "content_html": "physics",
+        "correctness": "0.0",
+        "feedback_html": "Physics is a branch of natural science that studies matter."
+      }
+    ],
+    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "stem_html": "Which of the following sciences is not considered a natural science?",
+    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "uid": "4@7"
+  }
+]

@@ -1,0 +1,194 @@
+[
+  {
+    "answers": [
+      {
+        "id": 390712,
+        "content_html": "<span data-math=\"3.0\\,\\text{kHz}\">3.0\\,\\text{kHz}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The observed frequency will be greater than the actual frequency of the sound from the source that is moving towards the observer."
+      },
+      {
+        "id": 390711,
+        "content_html": "<span data-math=\"3.5\\,\\text{kHz}\">3.5\\,\\text{kHz}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The applied formula is incorrect. Use the correct formula, <span data-math=\"f_{obs}=f_s\\left(\\frac{v_w}{v_w-v_s}\\right)\">f_{obs}=f_s\\left(\\frac{v_w}{v_w-v_s}\\right)</span>."
+      },
+      {
+        "id": 390713,
+        "content_html": "<span data-math=\"2.3\\,\\text{kHz}\">2.3\\,\\text{kHz}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This could be the observed frequency if the source was moving away from the observer rather than towards the observer."
+      },
+      {
+        "id": 390714,
+        "content_html": "<span data-math=\"4.3\\,\\text{kHz}\">4.3\\,\\text{kHz}</span>",
+        "correctness": "1.0",
+        "feedback_html": "This is the observed frequency of the sound."
+      }
+    ],
+    "group_uuid": "fd464e58-54d2-482d-b593-d48200d7dd57",
+    "stem_html": "What is the observed frequency when the source having frequency <span data-math=\"3.0\\,\\text{kHz}\">3.0\\,\\text{kHz}</span> is moving towards the observer at a speed of <span data-math=\"1.0\\times 10^2\\,\\text{m}/\\text{s}\">1.0\\times 10^2\\,\\text{m}/\\text{s}</span> and the speed of sound is <span data-math=\"331\\,\\text{m/s}\">331\\,\\text{m/s}</span>?",
+    "tags": "fd464e58-54d2-482d-b593-d48200d7dd57",
+    "uid": "10973@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 476231,
+        "content_html": "All the contents of the cell have been doubled.",
+        "correctness": "0.0",
+        "feedback_html": "All the components do not get doubled during S-phase."
+      },
+      {
+        "id": 476234,
+        "content_html": "The DNA content of the cell has doubled.",
+        "correctness": "1.0",
+        "feedback_html": "Sample B shows the S-phase: the DNA content has been doubled."
+      },
+      {
+        "id": 476232,
+        "content_html": "Two cells have been fused.",
+        "correctness": "0.0",
+        "feedback_html": "Two cells cannot get fused to show a greater DNA content."
+      },
+      {
+        "id": 476233,
+        "content_html": "The cells are showing the semiconservative mechanism of cell division.",
+        "correctness": "0.0",
+        "feedback_html": "The experiment does not depict the semiconservative replication of DNA."
+      }
+    ],
+    "group_uuid": "c9755210-e283-462c-81ff-08572085d312",
+    "stem_html": "<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_62687d601e0929de59970ee94e6b9af7b008f301d531763d57e47efc8c6c98b2.png\" alt=\"A bar graph is shown. The vertical axis is labeled &quot;Relative DNA content&quot; with a scale from zero to two. The bar for sample A stops at 1. The bar for samples B, C, and D stop at two.\"></p>\n\n<p>In a study on cell division, researchers culture synchronously dividing human cells with thymidine. This causes the cells to arrest at the <span data-math=\"\\text{G}_1\">\\text{G}_1</span> boundary. The cells are then placed in medium lacking thymidine, which releases the block, and the cells begin to divide again. Starting with Sample A and ending with Sample D, the DNA content of the cells is measured at different times after thymidine is removed. Results for four samples (A-D) are shown in the graph. Explain what is happening in terms of the cell cycle and DNA content in sample B.</p>\n",
+    "tags": "c9755210-e283-462c-81ff-08572085d312",
+    "uid": "753@16"
+  },
+  {
+    "answers": [
+      {
+        "id": 474853,
+        "content_html": "They are identical in all bacterial species.",
+        "correctness": "0.0",
+        "feedback_html": "They are not identical. Check if these promoters have any resemblance amongst each other."
+      },
+      {
+        "id": 474854,
+        "content_html": "They are similar in all bacterial species.",
+        "correctness": "1.0",
+        "feedback_html": "At the -10 and -35 regions upstream of the initiation site, there are two promoter consensus sequences, or regions that are similar across all promoters and across various bacterial species."
+      },
+      {
+        "id": 474852,
+        "content_html": "They exist in all organisms.",
+        "correctness": "0.0",
+        "feedback_html": "They do not exist in eukaryotes and are present only in prokaryotes."
+      },
+      {
+        "id": 474851,
+        "content_html": "They have the same function in all organisms.",
+        "correctness": "0.0",
+        "feedback_html": "These promoters have resemblance amongst each other and are characteristic of prokaryotes only."
+      }
+    ],
+    "group_uuid": "8ef392a5-b8da-499c-b432-8a30612afdb4",
+    "stem_html": "Why are the <span data-math=\"{-10}\">{-10}</span> and <span data-math=\"{-35}\">{-35}</span> regions of prokaryotic promoters called consensus sequences?",
+    "tags": "8ef392a5-b8da-499c-b432-8a30612afdb4",
+    "uid": "1094@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 470198,
+        "content_html": "electric sparks occurred to catalyze the reaction",
+        "correctness": "0.0",
+        "feedback_html": "An electric spark was used as the energy source in the experiment but organic molecules would have been created as a result of lightning."
+      },
+      {
+        "id": 470199,
+        "content_html": "the composition of the gases in the atmosphere",
+        "correctness": "1.0",
+        "feedback_html": "Urey and Miller assumed the types and concentrations of atmospheric gases."
+      },
+      {
+        "id": 470197,
+        "content_html": "there was sufficient oxygen for creating life",
+        "correctness": "0.0",
+        "feedback_html": "There was no oxygen in the early atmosphere of the Earth."
+      },
+      {
+        "id": 470196,
+        "content_html": "it produced water-soluble organic molecules",
+        "correctness": "0.0",
+        "feedback_html": "The resulting organic molecules were predominantly water soluble, but this is not a significant assumption relative to the experiment."
+      }
+    ],
+    "group_uuid": "f70d4266-0e84-44ae-a699-8ea25a68367d",
+    "stem_html": "Urey and Miller constructed an experiment to illustrate the early atmosphere of the Earth and possible development of organic molecules in the absence of living cells. Which assumption did Urey and Miller make regarding conditions on Earth?",
+    "tags": "f70d4266-0e84-44ae-a699-8ea25a68367d",
+    "uid": "99@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 397402,
+        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "correctness": "1.0",
+        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+      },
+      {
+        "id": 397403,
+        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology."
+      },
+      {
+        "id": 397404,
+        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      },
+      {
+        "id": 397405,
+        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      }
+    ],
+    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
+    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "uid": "6@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 479223,
+        "content_html": "condensation",
+        "correctness": "0.0",
+        "feedback_html": "Condensation is a type of reaction in which two molecules become covalently bonded with the loss of a small molecule, which may be a water molecule."
+      },
+      {
+        "id": 479222,
+        "content_html": "covalent bond",
+        "correctness": "0.0",
+        "feedback_html": "A covalent bond is broken in the breakdown of polymers."
+      },
+      {
+        "id": 479221,
+        "content_html": "dehydration",
+        "correctness": "0.0",
+        "feedback_html": "Dehydration synthesis, a type of condensation reaction, is the process of forming of polymers."
+      },
+      {
+        "id": 479224,
+        "content_html": "hydrolysis",
+        "correctness": "1.0",
+        "feedback_html": "Hydrolysis is a reaction in which a water molecule is used during the breakdown of another compound or a polymer."
+      }
+    ],
+    "group_uuid": "0641463f-f62c-4c00-90ea-ada8920bd038",
+    "stem_html": "During the breakdown of polymers, which of the following reactions takes place?",
+    "tags": "0641463f-f62c-4c00-90ea-ada8920bd038",
+    "uid": "95@8"
+  }
+]

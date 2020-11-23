@@ -1,0 +1,26 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: hayd/deno
+    password: ((dockerhub-password))
+    username: ((dockerhub-username))
+
+inputs:
+- name: rex-web
+
+params:
+  EXERCISES_AUTHORIZATION: ((exercises-authorization))
+  CSV_FILE:
+
+run:
+  path: /bin/deno
+  args:
+    - run
+    - --allow-read
+    - --allow-write
+    - --allow-net
+    - --allow-env
+    - rex-web/concourse/import-exercises/script.deno.ts

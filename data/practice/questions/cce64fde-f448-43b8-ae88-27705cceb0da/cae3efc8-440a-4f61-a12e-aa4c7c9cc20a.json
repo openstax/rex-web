@@ -1,0 +1,66 @@
+[
+  {
+    "answers": [
+      {
+        "id": 379784,
+        "content_html": "When two objects in contact with each other are at the same pressure, they are said to be in thermal equilibrium.",
+        "correctness": "0.0",
+        "feedback_html": "For thermal equilibrium, two objects must be in thermal contact with each other."
+      },
+      {
+        "id": 379785,
+        "content_html": "When two objects in contact with each other are at different temperatures, they are said to be in thermal equilibrium.",
+        "correctness": "0.0",
+        "feedback_html": "If two objects are not at the same temperature, they are not said to be in thermal equilibrium."
+      },
+      {
+        "id": 379787,
+        "content_html": "When two objects in contact with each other are at the same temperature, they are said to be in thermal equilibrium.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, when two objects in contact with each other are at the same temperature, the net thermal energy exchanged between them is zero, and they are said to be in thermal equilibrium."
+      },
+      {
+        "id": 379786,
+        "content_html": "When two objects not in contact with each other are at the same pressure, they are said to be in thermal equilibrium.",
+        "correctness": "0.0",
+        "feedback_html": "When two objects in contact with each other are at the same temperature, they are said to be in thermal equilibrium."
+      }
+    ],
+    "group_uuid": "9304747b-2db5-4c68-bf31-66dc0aa12987",
+    "stem_html": "What is thermal equilibrium?",
+    "tags": "9304747b-2db5-4c68-bf31-66dc0aa12987",
+    "uid": "6645@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 470441,
+        "content_html": "growth",
+        "correctness": "0.0",
+        "feedback_html": "Growth is a characteristic shared by all living organisms."
+      },
+      {
+        "id": 470442,
+        "content_html": "metabolism",
+        "correctness": "0.0",
+        "feedback_html": "Metabolism is a characteristic of all living organisms."
+      },
+      {
+        "id": 470444,
+        "content_html": "photosynthesis",
+        "correctness": "1.0",
+        "feedback_html": "Only some living organisms have the capability to photosynthesize. Therefore, photosynthesis doesn’t represent a characteristic shared by all living organisms."
+      },
+      {
+        "id": 470443,
+        "content_html": "reproduction",
+        "correctness": "0.0",
+        "feedback_html": "All living organisms reproduce."
+      }
+    ],
+    "group_uuid": "98b10070-156e-454a-8bc9-b3d801c9fe84",
+    "stem_html": "Which of the following statements does not represent a characteristic shared by all living organisms?",
+    "tags": "98b10070-156e-454a-8bc9-b3d801c9fe84",
+    "uid": "34@7"
+  }
+]

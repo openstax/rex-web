@@ -1,0 +1,66 @@
+[
+  {
+    "answers": [
+      {
+        "id": 397410,
+        "content_html": "astronomy",
+        "correctness": "0.0",
+        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+      },
+      {
+        "id": 397411,
+        "content_html": "biology",
+        "correctness": "0.0",
+        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+      },
+      {
+        "id": 397412,
+        "content_html": "computer science",
+        "correctness": "1.0",
+        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+      },
+      {
+        "id": 397413,
+        "content_html": "physics",
+        "correctness": "0.0",
+        "feedback_html": "Physics is a branch of natural science that studies matter."
+      }
+    ],
+    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "stem_html": "Which of the following sciences is not considered a natural science?",
+    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "uid": "4@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 347195,
+        "content_html": "4",
+        "correctness": "1.0",
+        "feedback_html": "The carbon atom has four electrons in its valence shell. Therefore, bonding four more electrons will complete its octet, allowing it to attain a stable configuration. Carbon molecule can thus bond with a maximum of four other atoms."
+      },
+      {
+        "id": 347192,
+        "content_html": "1",
+        "correctness": "0.0",
+        "feedback_html": "Carbon can bond with more than one molecule or atom"
+      },
+      {
+        "id": 347193,
+        "content_html": "6",
+        "correctness": "0.0",
+        "feedback_html": "Carbon cannot form this many bonds. Review carbon’s number of valence electrons"
+      },
+      {
+        "id": 347194,
+        "content_html": "2",
+        "correctness": "0.0",
+        "feedback_html": "Carbon can form more than two bonds"
+      }
+    ],
+    "group_uuid": "10a59557-e42d-4def-ae8a-1af817185a32",
+    "stem_html": "What is the maximum number of atoms or molecules a single carbon atom can bond with?",
+    "tags": "10a59557-e42d-4def-ae8a-1af817185a32",
+    "uid": "68@5"
+  }
+]
