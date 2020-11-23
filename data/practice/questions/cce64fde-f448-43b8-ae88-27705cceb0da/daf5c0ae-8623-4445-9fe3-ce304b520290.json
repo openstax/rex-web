@@ -1,0 +1,162 @@
+[
+  {
+    "answers": [
+      {
+        "id": 346911,
+        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "correctness": "1.0",
+        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+      },
+      {
+        "id": 346910,
+        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+      },
+      {
+        "id": 346909,
+        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+      },
+      {
+        "id": 346908,
+        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+      }
+    ],
+    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
+    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "uid": "2@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 397410,
+        "content_html": "astronomy",
+        "correctness": "0.0",
+        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+      },
+      {
+        "id": 397411,
+        "content_html": "biology",
+        "correctness": "0.0",
+        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+      },
+      {
+        "id": 397412,
+        "content_html": "computer science",
+        "correctness": "1.0",
+        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+      },
+      {
+        "id": 397413,
+        "content_html": "physics",
+        "correctness": "0.0",
+        "feedback_html": "Physics is a branch of natural science that studies matter."
+      }
+    ],
+    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "stem_html": "Which of the following sciences is not considered a natural science?",
+    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "uid": "4@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 375566,
+        "content_html": "<span data-math=\"1.0\\,\\text{units}\">1.0\\,\\text{units}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Try to recall the equation for the x-component of a vector."
+      },
+      {
+        "id": 375567,
+        "content_html": "<span data-math=\"2.0\\,\\text{units}\">2.0\\,\\text{units}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The magnitude of the vector and its x-component will not be same in this instance."
+      },
+      {
+        "id": 375568,
+        "content_html": "<span data-math=\"2.3\\,\\text{units}\">2.3\\,\\text{units}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The direction of the vector and its x-component is already given. Apply correct method to calculate the magnitude of the vector."
+      },
+      {
+        "id": 375569,
+        "content_html": "<span data-math=\"4.0\\,\\text{units}\">4.0\\,\\text{units}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The magnitude of the vector can be calculated from the equation for the x-component of a vector."
+      }
+    ],
+    "group_uuid": "d76cfe88-faef-4717-9f95-9b6f7126d291",
+    "stem_html": "What is the magnitude of a vector whose x-component is <span data-math=\"2\\,\\text{units}\">2\\,\\text{units}</span> and whose angle is <span data-math=\"60^\\circ\">60^\\circ</span>?",
+    "tags": "d76cfe88-faef-4717-9f95-9b6f7126d291",
+    "uid": "2231@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 241400,
+        "content_html": "<span data-math=\"R_x + R_y = 0\">R_x + R_y = 0</span>",
+        "correctness": "0.0",
+        "feedback_html": "The sum of the resultant vector between its x-component and its y-component will not be zero in this case."
+      },
+      {
+        "id": 241401,
+        "content_html": "<span data-math=\"A_x + A_y = \\overrightarrow{\\text{A}}\">A_x + A_y = \\overrightarrow{\\text{A}}</span>",
+        "correctness": "0.0",
+        "feedback_html": "One cannot add the x-component and y-component of the vectors like scalar quantities."
+      },
+      {
+        "id": 241402,
+        "content_html": "<span data-math=\"A_x + B_y = B_x + A_y\">A_x + B_y = B_x + A_y</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall the concept of how to add different components of two dimensional vectors."
+      },
+      {
+        "id": 241403,
+        "content_html": "<span data-math=\"A_x + B_x = R_x\">A_x + B_x = R_x</span>",
+        "correctness": "1.0",
+        "feedback_html": "This is the answer you get when the x-component of one vector is added to the x-component of the other vector."
+      }
+    ],
+    "group_uuid": "df9b2937-e9c1-48f2-b152-d74a66e4baee",
+    "stem_html": "The resultant vector of the addition of vectors <span data-math=\"\\overrightarrow{\\text{a}}\">\\overrightarrow{\\text{a}}</span> and <span data-math=\"\\overrightarrow{\\text{b}}\">\\overrightarrow{\\text{b}}</span> is <span data-math=\"\\overrightarrow{\\text{r}}\">\\overrightarrow{\\text{r}}</span>. The magnitudes of <span data-math=\"\\overrightarrow{\\text{a}}\">\\overrightarrow{\\text{a}}</span>, <span data-math=\"\\overrightarrow{\\text{b}}\">\\overrightarrow{\\text{b}}</span>, and <span data-math=\"\\overrightarrow{\\text{r}}\">\\overrightarrow{\\text{r}}</span> are <span data-math=\"A\">A</span>, <span data-math=\"B\">B</span>, and <span data-math=\"R\">R</span>, respectively. Which of the following is true?",
+    "tags": "df9b2937-e9c1-48f2-b152-d74a66e4baee",
+    "uid": "2234@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 249743,
+        "content_html": "<span data-math=\"R_y = \\frac{A_y}{B_y}\">R_y = \\frac{A_y}{B_y}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Read the given vector equation carefully. Apply the correct formula."
+      },
+      {
+        "id": 249744,
+        "content_html": "<span data-math=\"R_y = \\frac{B_y}{A_y}\">R_y = \\frac{B_y}{A_y}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The algebraic operation between these vector components is given in the question. There is no need to divide these components to find the result."
+      },
+      {
+        "id": 249745,
+        "content_html": "<span data-math=\"R_y = A_y + B_y\">R_y = A_y + B_y</span>",
+        "correctness": "0.0",
+        "feedback_html": "One needs to find the difference instead of the sum of the vector components."
+      },
+      {
+        "id": 249746,
+        "content_html": "<span data-math=\"R_y = A_y - B_y\">R_y = A_y - B_y</span>",
+        "correctness": "1.0",
+        "feedback_html": "The resultant vector components can be obtained by calculating the difference between both the vector components."
+      }
+    ],
+    "group_uuid": "ba8013b8-45cc-4d72-97ad-b8c699623110",
+    "stem_html": "Consider <span data-math=\"\\overrightarrow{\\text{A}} - \\overrightarrow{\\text{B}} = \\overrightarrow{\\text{R}}\">\\overrightarrow{\\text{A}} - \\overrightarrow{\\text{B}} = \\overrightarrow{\\text{R}}</span>. What is <span data-math=\"R_y\">R_y</span> in terms of <span data-math=\"A_y\">A_y</span> and <span data-math=\"B_y\">B_y</span>?",
+    "tags": "ba8013b8-45cc-4d72-97ad-b8c699623110",
+    "uid": "2239@5"
+  }
+]

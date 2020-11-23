@@ -1,0 +1,66 @@
+[
+  {
+    "answers": [
+      {
+        "id": 479541,
+        "content_html": "the number of fatty acids",
+        "correctness": "0.0",
+        "feedback_html": "The number of fatty acids determines whether the molecule is a mono, di, or triglyceride; but, it does not makes them saturated or unsaturated."
+      },
+      {
+        "id": 479540,
+        "content_html": "the length of the fatty acids",
+        "correctness": "0.0",
+        "feedback_html": "The length of a fatty acid gives it some chemical characteristics, but does not differentiate between saturated and unsaturated fats."
+      },
+      {
+        "id": 479542,
+        "content_html": "the number of hydrogen atoms on the triglycerides",
+        "correctness": "1.0",
+        "feedback_html": "The saturated fat has more hydrogen atoms as it has all single bonds between carbons, versus unsaturated fatty acids, which have fewer hydrogen atoms due to the presence of double bonds between carbons."
+      },
+      {
+        "id": 479539,
+        "content_html": "the ester bonds between the fatty acids and glycerol",
+        "correctness": "0.0",
+        "feedback_html": "These bonds are the same in both the saturated and unsaturated fats."
+      }
+    ],
+    "group_uuid": "18cfb811-d3ba-43d2-9529-a81097fea4aa",
+    "stem_html": "What is the difference between saturated and unsaturated fats?",
+    "tags": "18cfb811-d3ba-43d2-9529-a81097fea4aa",
+    "uid": "197@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 397402,
+        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "correctness": "1.0",
+        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+      },
+      {
+        "id": 397403,
+        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology."
+      },
+      {
+        "id": 397404,
+        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      },
+      {
+        "id": 397405,
+        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      }
+    ],
+    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
+    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "uid": "6@7"
+  }
+]

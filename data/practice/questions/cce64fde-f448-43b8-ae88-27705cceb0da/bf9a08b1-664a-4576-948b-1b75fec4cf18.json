@@ -1,0 +1,130 @@
+[
+  {
+    "answers": [
+      {
+        "id": 215938,
+        "content_html": "An electric motor transforms electrical energy into mechanical energy.",
+        "correctness": "1.0",
+        "feedback_html": "An electric motor converts electrical energy into mechanical energy."
+      },
+      {
+        "id": 215937,
+        "content_html": "An electric motor transforms mechanical energy into electrical energy.",
+        "correctness": "0.0",
+        "feedback_html": "Mechanical energy is transformed into electrical energy by a generator."
+      },
+      {
+        "id": 215936,
+        "content_html": "An electric motor transforms chemical energy into mechanical energy.",
+        "correctness": "0.0",
+        "feedback_html": "A mechanical engine transforms chemical energy of petrol into mechanical energy."
+      },
+      {
+        "id": 215935,
+        "content_html": "An electric motor transforms mechanical energy into chemical energy.",
+        "correctness": "0.0",
+        "feedback_html": "A generator does not convert mechanical energy into chemical energy."
+      }
+    ],
+    "group_uuid": "e896b73a-6913-4946-acd5-66671e911d8e",
+    "stem_html": "What is an electric motor?",
+    "tags": "e896b73a-6913-4946-acd5-66671e911d8e",
+    "uid": "7483@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 215945,
+        "content_html": "A step-up transformer decreases the current to transmit power over short distance with minimum loss.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, a step-up transformer increases the voltage to transmit power over long distances with minimum loss."
+      },
+      {
+        "id": 215944,
+        "content_html": "A step-up transformer increases the current to transmit power over short distance with minimum loss.",
+        "correctness": "0.0",
+        "feedback_html": "a step-up transformer increases the voltage to transmit power over long distances with minimum loss"
+      },
+      {
+        "id": 215946,
+        "content_html": "A step-up transformer increases voltage to transmit power over long distance with minimum loss.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, High voltage results in low transmission current thereby minimizing the power lost during transmission."
+      },
+      {
+        "id": 215943,
+        "content_html": "A step-up transformer decreases voltage to transmit power over short distance with minimum loss.",
+        "correctness": "0.0",
+        "feedback_html": "A step-up transformer increases voltage to transmit power over long distance with minimum loss"
+      }
+    ],
+    "group_uuid": "b75a8ae1-77b2-4709-bd36-814788f46550",
+    "stem_html": "What is a step-up transformer?",
+    "tags": "b75a8ae1-77b2-4709-bd36-814788f46550",
+    "uid": "7485@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 397410,
+        "content_html": "astronomy",
+        "correctness": "0.0",
+        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+      },
+      {
+        "id": 397411,
+        "content_html": "biology",
+        "correctness": "0.0",
+        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+      },
+      {
+        "id": 397412,
+        "content_html": "computer science",
+        "correctness": "1.0",
+        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+      },
+      {
+        "id": 397413,
+        "content_html": "physics",
+        "correctness": "0.0",
+        "feedback_html": "Physics is a branch of natural science that studies matter."
+      }
+    ],
+    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "stem_html": "Which of the following sciences is not considered a natural science?",
+    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "uid": "4@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 418058,
+        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
+        "correctness": "0.0",
+        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
+      },
+      {
+        "id": 418059,
+        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "correctness": "1.0",
+        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+      },
+      {
+        "id": 418060,
+        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "correctness": "0.0",
+        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
+      },
+      {
+        "id": 418061,
+        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
+        "correctness": "0.0",
+        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+      }
+    ],
+    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
+    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
+    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
+    "uid": "1@7"
+  }
+]

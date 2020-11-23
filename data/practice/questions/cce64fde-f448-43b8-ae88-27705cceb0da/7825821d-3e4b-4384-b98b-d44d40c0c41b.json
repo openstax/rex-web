@@ -1,0 +1,130 @@
+[
+  {
+    "answers": [
+      {
+        "id": 376752,
+        "content_html": "Kepler’s laws are purely descriptive.",
+        "correctness": "1.0",
+        "feedback_html": "Kepler’s laws are descriptive and do not contain any causal information. Newton’s law shows the cause."
+      },
+      {
+        "id": 376749,
+        "content_html": "Kepler’s laws are purely causal.",
+        "correctness": "0.0",
+        "feedback_html": "Kepler’s laws are not causal in nature. They don’t give information about the cause of planetary motion."
+      },
+      {
+        "id": 376750,
+        "content_html": "Kepler’s laws are descriptive as well as causal.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that Kepler’s laws are descriptive in nature. But they do not explain the cause of planetary motion."
+      },
+      {
+        "id": 376751,
+        "content_html": "Kepler’s laws are neither descriptive nor causal.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that Kepler’s laws do not explain the cause of planetary motion. But they do provide a description of planetary motion."
+      }
+    ],
+    "group_uuid": "c9341e26-53fe-4204-b4ea-9535cb6ebd91",
+    "stem_html": "Are Kepler’s laws purely descriptive, or do they contain causal information?",
+    "tags": "c9341e26-53fe-4204-b4ea-9535cb6ebd91",
+    "uid": "2575@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 346880,
+        "content_html": "discovery",
+        "correctness": "0.0",
+        "feedback_html": "A discovery is not a testable explanation for an event."
+      },
+      {
+        "id": 346883,
+        "content_html": "hypothesis",
+        "correctness": "1.0",
+        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+      },
+      {
+        "id": 346881,
+        "content_html": "scientific method",
+        "correctness": "0.0",
+        "feedback_html": "The scientific method is a method of research with defined steps."
+      },
+      {
+        "id": 346882,
+        "content_html": "theory",
+        "correctness": "0.0",
+        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+      }
+    ],
+    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
+    "stem_html": "What is a suggested and testable explanation for an event called?",
+    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
+    "uid": "3@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 376779,
+        "content_html": "The mass of the parent body must be much less than that of the satellite.",
+        "correctness": "0.0",
+        "feedback_html": "Consider the fact that the satellite revolves around the parent body, which means the parent body must be stationary to apply Kepler’s laws."
+      },
+      {
+        "id": 376782,
+        "content_html": "The mass of the parent body must be much greater than that of the satellite.",
+        "correctness": "1.0",
+        "feedback_html": "To apply Kepler’s laws of planetary motion, the mass of the parent body must be much larger than that of the satellite."
+      },
+      {
+        "id": 376780,
+        "content_html": "The mass of the parent body must be equal to the mass of the satellite.",
+        "correctness": "0.0",
+        "feedback_html": "It is not necessary for the masses to be equal to apply Kepler’s law."
+      },
+      {
+        "id": 376781,
+        "content_html": "There is no specific relationship between the masses for applying Kepler’s laws of planetary motion.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that there is a specific relationship between the mass of the parent body and the satellite in Kepler’s laws of planetary motion. Consider the fact that the satellite revolves around the parent body."
+      }
+    ],
+    "group_uuid": "9847a140-98ac-4573-a93d-364151d62d12",
+    "stem_html": "Explain how the masses of a satellite and its parent body must compare in order to apply Kepler’s laws of planetary motion.",
+    "tags": "9847a140-98ac-4573-a93d-364151d62d12",
+    "uid": "2583@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376787,
+        "content_html": "An ellipse is an open curve wherein the sum of the distance from the foci to any point on the curve is constant.",
+        "correctness": "0.0",
+        "feedback_html": "Review the definition of an ellipse. It is not an open curve."
+      },
+      {
+        "id": 376790,
+        "content_html": "An ellipse is a closed curve wherein the sum of the distance from the foci to any point on the curve is constant.",
+        "correctness": "1.0",
+        "feedback_html": "This is the correct definition of an ellipse."
+      },
+      {
+        "id": 376788,
+        "content_html": "An ellipse is an open curve wherein the distances from the two foci to any point on the curve are equal.",
+        "correctness": "0.0",
+        "feedback_html": "An ellipse is not an open curve. Also, in an ellipse distances from the two foci to any point on the curve are not always equal."
+      },
+      {
+        "id": 376789,
+        "content_html": "An ellipse is a closed curve wherein the distances from the two foci to any point on the curve are equal.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that an ellipse is a closed curve. But you need to review the second part of the definition of an ellipse."
+      }
+    ],
+    "group_uuid": "7587114d-e021-4b88-bb20-d02c120dbb61",
+    "stem_html": "The orbits of satellites are elliptical. Define an ellipse.",
+    "tags": "7587114d-e021-4b88-bb20-d02c120dbb61",
+    "uid": "2585@5"
+  }
+]

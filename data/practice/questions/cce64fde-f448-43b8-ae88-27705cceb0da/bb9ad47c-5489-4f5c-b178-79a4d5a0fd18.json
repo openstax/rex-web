@@ -1,0 +1,34 @@
+[
+  {
+    "answers": [
+      {
+        "id": 391867,
+        "content_html": "White light and an emission spectrum are different varieties of continuous distribution of frequencies.",
+        "correctness": "0.0",
+        "feedback_html": "An emission spectrum is a series of discrete frequencies."
+      },
+      {
+        "id": 391866,
+        "content_html": "White light and an emission spectrum are different series of discrete frequencies.",
+        "correctness": "0.0",
+        "feedback_html": "White light is a continuous distribution of frequencies."
+      },
+      {
+        "id": 391868,
+        "content_html": "White light is a continuous distribution of frequencies, and an emission spectrum is a series of discrete frequencies.",
+        "correctness": "1.0",
+        "feedback_html": "Recall the composition of white light and the composition of an emission spectrum."
+      },
+      {
+        "id": 391865,
+        "content_html": "White light is a series of discrete frequencies, and an emission spectrum is a continuous distribution of frequencies.",
+        "correctness": "0.0",
+        "feedback_html": "Descriptions of white light and emission spectrum are exchanged."
+      }
+    ],
+    "group_uuid": "fbabcd3d-77eb-417b-9de9-2dffa6c2f4fd",
+    "stem_html": "Why does the emission spectrum of an isolated gas differ from the emission spectrum created by a white light?",
+    "tags": "fbabcd3d-77eb-417b-9de9-2dffa6c2f4fd",
+    "uid": "11571@6"
+  }
+]
