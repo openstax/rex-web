@@ -5,7 +5,8 @@ import { routes } from '../';
 import { AnyAction, AppServices, MiddlewareAPI } from '../types';
 
 export type State = Location & {
-  query: OutputParams
+  match?: AnyMatch;
+  query: OutputParams;
 };
 
 export type RouteParams<R> = R extends Route<infer P> ? P : never;
@@ -14,25 +15,25 @@ export type RouteState<R> = R extends Route<any, infer S> ? S : never;
 type UnionRouteMatches<R> = R extends AnyRoute ? Match<R> : never;
 type UnionHistoryActions<R> = R extends AnyRoute ? HistoryAction<R> : never;
 
-interface MatchWithoutParams<R extends AnyRoute> {
+export interface BasicMatch<R> {
   route: R;
 }
-export interface MatchWithParams<R extends AnyRoute> extends MatchWithoutParams<R> {
+export interface MatchWithParams<R extends AnyRoute> extends BasicMatch<R> {
   params: RouteParams<R>;
 }
-export interface MatchWithState<R extends AnyRoute> extends MatchWithoutParams<R> {
+export interface MatchWithState<R extends AnyRoute> extends BasicMatch<R> {
   state?: RouteState<R>;
 }
 
-export type GenericMatch = MatchWithParams<AnyRoute> | MatchWithoutParams<AnyRoute>;
-
-export type Match<R extends AnyRoute> =
-  (RouteParams<R> extends undefined
-    ? MatchWithoutParams<R> | MatchWithParams<R>
-    : MatchWithParams<R>)
-  & (RouteState<R> extends undefined
-    ? {}
-    : MatchWithState<R>);
+export type Match<R> = R extends AnyRoute
+  ?
+    (RouteParams<R> extends undefined
+      ? BasicMatch<R>
+      : MatchWithParams<R>)
+    & (RouteState<R> extends undefined
+      ? BasicMatch<R>
+      : MatchWithState<R>)
+  : never;
 
 export type HistoryAction<R extends AnyRoute = AnyRoute> = Match<R> & {
   method: 'push' | 'replace';
@@ -54,7 +55,7 @@ export interface Route<P, S = undefined> {
   component: ComponentType;
 }
 
-export interface LocationChange<M = GenericMatch> {
+export interface LocationChange<M = AnyMatch> {
   location: Location;
   match?: M;
   action: Action;
@@ -62,6 +63,9 @@ export interface LocationChange<M = GenericMatch> {
 
 export type AnyRoute = typeof routes[number];
 export type AnyMatch = UnionRouteMatches<AnyRoute>;
+
+export type MatchesWithParams<A = AnyMatch> =
+  A extends any ? A extends {params: any} ? A : never : never;
 
 export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>
   (locationChange: Required<LocationChange<Match<R>>>) =>

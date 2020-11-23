@@ -11,13 +11,13 @@ import { isPlainObject } from '../guards';
 import { pathTokenIsKey } from '../navigation/guards';
 import { actionHook } from '../utils';
 import * as actions from './actions';
-import { hasParams } from './guards';
-import { AnyMatch, AnyRoute, GenericMatch,
+import { isMatchWithParams } from './guards';
+import { AnyMatch, AnyRoute,
   LocationChange, Match, RouteHookBody, RouteState, ScrollTarget } from './types';
 
 const delimiter = '_';
 
-export const matchForRoute = <R extends AnyRoute>(route: R, match: GenericMatch | undefined): match is Match<R> =>
+export const matchForRoute = <R extends AnyRoute>(route: R, match: AnyMatch | undefined): match is Match<R> =>
   !!match && match.route.name === route.name;
 
 export const locationChangeForRoute = <R extends AnyRoute>(
@@ -58,7 +58,7 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
 export const matchSearch = (action: AnyMatch, search: string | undefined) => {
   const previous = querystring.parse(search || '');
 
-  const route = querystring.parse(hasParams(action)
+  const route = querystring.parse(isMatchWithParams(action)
     ? action.route.getSearch ? action.route.getSearch(action.params) : ''
     : action.route.getSearch ? action.route.getSearch() : ''
   );
@@ -69,7 +69,7 @@ export const matchSearch = (action: AnyMatch, search: string | undefined) => {
   });
 };
 
-export const matchUrl = (action: AnyMatch) => hasParams(action)
+export const matchUrl = (action: AnyMatch) => isMatchWithParams(action)
   ? action.route.getUrl(action.params)
   : action.route.getUrl();
 
@@ -115,6 +115,18 @@ export const findPathForParams = (params: object, paths: string[]) => {
     return paramsInPath.length === paramKeys.length &&
       paramsInPath.every(({name}) => paramKeys.includes(name.toString()));
   });
+};
+
+export const getQueryForParam = (param: string, value: string, existingQuery?: string | OutputParams) => {
+  if (existingQuery) {
+    const parsedExistingQuery = typeof existingQuery === 'string'
+      ? queryString.parse(existingQuery)
+      : existingQuery;
+
+    return queryString.stringify({...parsedExistingQuery, [param]: value});
+  }
+
+  return queryString.stringify({[param]: value});
 };
 
 export const isScrollTarget = (
