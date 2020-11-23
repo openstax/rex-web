@@ -1,0 +1,162 @@
+[
+  {
+    "answers": [
+      {
+        "id": 375594,
+        "content_html": "<span data-math=\"{-100}\\,\\text{m}\">{-100}\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Consider the fact that the velocity of the object is positive. So, displacement will not be negative."
+      },
+      {
+        "id": 375593,
+        "content_html": "<span data-math=\"{-4}\\,\\text{m}\">{-4}\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Consider the definition of displacement correctly. It is not defined as the ratio of time interval to the velocity of the object."
+      },
+      {
+        "id": 375592,
+        "content_html": "<span data-math=\"4\\,\\text{m}\">4\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Displacement is not defined as the ratio of the time interval to the velocity of the object. Recall the definition of displacement."
+      },
+      {
+        "id": 375595,
+        "content_html": "<span data-math=\"100\\,\\text{m}\">100\\,\\text{m}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Displacement is defined as the product of the time interval and the velocity of the object (if the velocity, including direction, is constant, or if referring to the average velocity)."
+      }
+    ],
+    "group_uuid": "c3551565-1f71-4a24-9326-dff3f7f4ce0b",
+    "stem_html": "If an object is thrown horizontally, travels with an average x-component of its velocity equal to <span data-math=\"5\\,\\text{m/s}\">5\\,\\text{m/s}</span>, and does not hit the ground, what will be the x-component of the displacement after <span data-math=\"20\\,\\text{s}\">20\\,\\text{s}</span>?",
+    "tags": "c3551565-1f71-4a24-9326-dff3f7f4ce0b",
+    "uid": "2248@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 375607,
+        "content_html": "Projectile motion is the motion of an object projected into the air, which moves under the influence of gravity.",
+        "correctness": "1.0",
+        "feedback_html": "Projectile motion is defined as the motion of an object projected into the air which moves under the influence of gravity."
+      },
+      {
+        "id": 375604,
+        "content_html": "Projectile motion is the motion of an object projected into the air which moves independently of gravity.",
+        "correctness": "0.0",
+        "feedback_html": "The projectile motion of an object is not independent of the gravity."
+      },
+      {
+        "id": 375605,
+        "content_html": "Projectile motion is the motion of an object projected vertically upward into the air which moves under the influence of gravity.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that projectile motion is motion of an object in the air, which moves under the influence of gravity but consider the fact that the projectile can have horizontal motion as well."
+      },
+      {
+        "id": 375606,
+        "content_html": "Projectile motion is the motion of an object projected horizontally into the air which moves independently of gravity.",
+        "correctness": "0.0",
+        "feedback_html": "Consider the definition of projectile motion correctly. The definition of projectile motion is not independent of the gravity. Also, consider the fact that the projectile can have vertical velocity as well."
+      }
+    ],
+    "group_uuid": "37658fb5-1548-4dc1-80e1-ac94cfb41cb9",
+    "stem_html": "What is projectile motion?",
+    "tags": "37658fb5-1548-4dc1-80e1-ac94cfb41cb9",
+    "uid": "2251@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 397418,
+        "content_html": "botany",
+        "correctness": "0.0",
+        "feedback_html": "Botany or plant biology is a branch of natural sciences."
+      },
+      {
+        "id": 397419,
+        "content_html": "mathematics",
+        "correctness": "1.0",
+        "feedback_html": "The mathematics department is not associated with natural sciences."
+      },
+      {
+        "id": 397420,
+        "content_html": "microbiology",
+        "correctness": "0.0",
+        "feedback_html": "Microbiology is the branch of science that deals with the study of microorganisms. It constitutes a part of natural sciences."
+      },
+      {
+        "id": 397421,
+        "content_html": "physics",
+        "correctness": "0.0",
+        "feedback_html": "Physics is a branch of natural sciences."
+      }
+    ],
+    "group_uuid": "1dbc35c7-53ab-406c-a8db-d92cdd122aa3",
+    "stem_html": "Which of the following subject areas is not considered a natural science?",
+    "tags": "1dbc35c7-53ab-406c-a8db-d92cdd122aa3",
+    "uid": "29@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 347186,
+        "content_html": "carbonyl",
+        "correctness": "0.0",
+        "feedback_html": "Carbonyl groups contain a carbon atom double-bonded to an oxygen atom."
+      },
+      {
+        "id": 347185,
+        "content_html": "hydroxyl",
+        "correctness": "0.0",
+        "feedback_html": "Hydroxyl groups bonds with carbon to form alcohols."
+      },
+      {
+        "id": 347184,
+        "content_html": "phosphate",
+        "correctness": "0.0",
+        "feedback_html": "Phosphate groups bond with carbon atoms on molecules such as ATP."
+      },
+      {
+        "id": 347187,
+        "content_html": "sodium",
+        "correctness": "1.0",
+        "feedback_html": "Sodium is not a functional group, it is an element. Thus, it does not bond with carbon as a functional group."
+      }
+    ],
+    "group_uuid": "e9a6490c-d4b2-4d62-84c7-c64c40155c73",
+    "stem_html": "Which of the following is not a functional group that can bond with carbon?",
+    "tags": "e9a6490c-d4b2-4d62-84c7-c64c40155c73",
+    "uid": "70@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 347028,
+        "content_html": "A Bohr model would have 2 electron rings, and a Bohr model would not give information about atomic mass",
+        "correctness": "0.0",
+        "feedback_html": "A Bohr model would show that atomic mass of fluorine is <span data-math=\"19\">19</span>."
+      },
+      {
+        "id": 347029,
+        "content_html": "A Bohr model would have one electron ring, and a Bohr model would not show the sub-shells of first ring",
+        "correctness": "0.0",
+        "feedback_html": "A Bohr model would show two electron rings."
+      },
+      {
+        "id": 347031,
+        "content_html": "A Bohr model would have 2 electron rings, and a Bohr model would not show the sub-shell of second ring",
+        "correctness": "1.0",
+        "feedback_html": "A Bohr model would not show the sub-shells of the second ring."
+      },
+      {
+        "id": 347030,
+        "content_html": "A Bohr model would have one electron ring, and a Bohr model would not give information about number of electron in each ring",
+        "correctness": "0.0",
+        "feedback_html": "A Bohr model would have two electron rings. The first ring has two electrons and second has seven electrons."
+      }
+    ],
+    "group_uuid": "f528978d-2ef4-4b30-b48d-86d18c4f88a3",
+    "stem_html": "Use the periodic table to describe what a Bohr model of Fluorine (F) would look like and explain why the Bohr model is not an accurate representation of the electron orbitals in fluorine.",
+    "tags": "f528978d-2ef4-4b30-b48d-86d18c4f88a3",
+    "uid": "46@7"
+  }
+]

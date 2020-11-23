@@ -1,0 +1,162 @@
+[
+  {
+    "answers": [
+      {
+        "id": 479380,
+        "content_html": "disaccharides",
+        "correctness": "0.0",
+        "feedback_html": "Cellulose and starch contain many sugars and are polysaccharides"
+      },
+      {
+        "id": 479381,
+        "content_html": "lipids",
+        "correctness": "0.0",
+        "feedback_html": "Lipids are not carbohydrates."
+      },
+      {
+        "id": 479382,
+        "content_html": "monosaccharides",
+        "correctness": "0.0",
+        "feedback_html": "Monosaccharides are used to form polysaccharides."
+      },
+      {
+        "id": 479383,
+        "content_html": "polysaccharides",
+        "correctness": "1.0",
+        "feedback_html": "A long chain of monosaccharides linked by glycosidic bonds is known as a polysaccharide and contains different types of monosaccharides. Starch is the stored form of sugars in plants and is made up of a mixture of amylose and amylopectin, while cellulose is made up of glucose monomers that are linked by <span data-math=\"\\unicode[Arial]{x3B2}\">\\unicode[Arial]{x3B2}</span>-1,4 glycosidic bonds."
+      }
+    ],
+    "group_uuid": "ce282426-0775-4a7a-83da-bbfbe096be18",
+    "stem_html": "Cellulose and starch are examples of ________.",
+    "tags": "ce282426-0775-4a7a-83da-bbfbe096be18",
+    "uid": "110@11"
+  },
+  {
+    "answers": [
+      {
+        "id": 390295,
+        "content_html": "Rarefaction is the high-pressure region created in a medium when a longitudinal wave passes through it.",
+        "correctness": "0.0",
+        "feedback_html": "It is the low-pressure region created in a medium when a longitudinal wave passes through it."
+      },
+      {
+        "id": 390298,
+        "content_html": "Rarefaction is the low-pressure region created in a medium when a longitudinal wave passes through it.",
+        "correctness": "1.0",
+        "feedback_html": "Rarefaction is the low-pressure region created in a medium when a longitudinal wave passes through it."
+      },
+      {
+        "id": 390296,
+        "content_html": "Rarefaction is the highest point of amplitude of a sound wave.",
+        "correctness": "0.0",
+        "feedback_html": "The highest point of amplitude is known as the crest of a wave."
+      },
+      {
+        "id": 390297,
+        "content_html": "Rarefaction is the lowest point of amplitude of a sound wave.",
+        "correctness": "0.0",
+        "feedback_html": "The lowest point of amplitude is known as the trough of a wave."
+      }
+    ],
+    "group_uuid": "335941ee-6e4e-47fe-9949-254b21a16733",
+    "stem_html": "What is a rarefaction?",
+    "tags": "335941ee-6e4e-47fe-9949-254b21a16733",
+    "uid": "10860@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 469659,
+        "content_html": "at the base",
+        "correctness": "0.0",
+        "feedback_html": "Recently evolved organisms are not placed at the base."
+      },
+      {
+        "id": 469660,
+        "content_html": "at the nodes",
+        "correctness": "0.0",
+        "feedback_html": "Nodes connect branches. Recently evolved organisms are not placed at the nodes."
+      },
+      {
+        "id": 469662,
+        "content_html": "at the branch tips",
+        "correctness": "1.0",
+        "feedback_html": "The tips of the tree branches represent the recently evolved taxa."
+      },
+      {
+        "id": 469661,
+        "content_html": "within the branches",
+        "correctness": "0.0",
+        "feedback_html": "Organisms within the branches are not the most recently evolved."
+      }
+    ],
+    "group_uuid": "56e18d88-2144-429c-985f-6b0e2fb1155a",
+    "stem_html": "Where in a phylogenetic tree would you expect to find the organism that had evolved most recently?",
+    "tags": "56e18d88-2144-429c-985f-6b0e2fb1155a",
+    "uid": "17@9"
+  },
+  {
+    "answers": [
+      {
+        "id": 390412,
+        "content_html": "<span data-math=\"5960\\,\\text{m}/\\text{s}\">5960\\,\\text{m}/\\text{s}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This is the speed of sound in steel. Such high speeds are not possible in water."
+      },
+      {
+        "id": 390413,
+        "content_html": "<span data-math=\"1540\\,\\text{m}/\\text{s}\">1540\\,\\text{m}/\\text{s}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This is the speed of sound in sea water."
+      },
+      {
+        "id": 390414,
+        "content_html": "<span data-math=\"331\\,\\text{m}/\\text{s}\">331\\,\\text{m}/\\text{s}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This is the speed of sound in air."
+      },
+      {
+        "id": 390415,
+        "content_html": "<span data-math=\"1480\\,\\text{m}/\\text{s}\">1480\\,\\text{m}/\\text{s}</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "Speed of sound in water is higher than that in air but lower than that in solids."
+      }
+    ],
+    "group_uuid": "f6049b0e-f224-4e1d-9828-ab8622c8c41d",
+    "stem_html": "What is the speed of sound in fresh water at <span data-math=\"20\">20</span> degrees Celsius?",
+    "tags": "f6049b0e-f224-4e1d-9828-ab8622c8c41d",
+    "uid": "10891@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390445,
+        "content_html": "The density of iron is greater than that of air. However, the rigidity of iron is much greater than that of air. Hence, sound travels faster in it.",
+        "correctness": "1.0",
+        "feedback_html": "Density of iron is greater than that of air, and the rigidity of iron is much greater than that of air. Hence, sound travels faster in it."
+      },
+      {
+        "id": 390442,
+        "content_html": "The density of iron is greater than that of air. However, the rigidity of iron is much less than that of air. Hence, sound travels faster in it.",
+        "correctness": "0.0",
+        "feedback_html": "The rigidity of iron is much less than that of air. However, the rigidity of iron is much greater than that of air. Hence, sound travels faster in it."
+      },
+      {
+        "id": 390443,
+        "content_html": "The density of iron is greater than that of air. However, the rigidity of iron is equal to that of air. Hence, sound travels faster in it.",
+        "correctness": "0.0",
+        "feedback_html": "The rigidity of iron is much greater than that of air."
+      },
+      {
+        "id": 390444,
+        "content_html": "The mass of iron is much less than that of air and the rigidity of iron is much greater than that of air. Hence, sound travels faster in it.",
+        "correctness": "0.0",
+        "feedback_html": "The density of iron is greater than that of air. However, the rigidity of iron is much greater than that of air."
+      }
+    ],
+    "group_uuid": "2511125e-f434-4010-88d5-f9276213c19c",
+    "stem_html": "Why does sound travel faster in iron than in air even though iron is denser than air?",
+    "tags": "2511125e-f434-4010-88d5-f9276213c19c",
+    "uid": "10900@5"
+  }
+]

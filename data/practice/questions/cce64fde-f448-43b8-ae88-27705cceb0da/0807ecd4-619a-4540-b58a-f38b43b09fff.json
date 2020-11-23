@@ -1,0 +1,226 @@
+[
+  {
+    "answers": [
+      {
+        "id": 347059,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"6\">6</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
+        "correctness": "1.0",
+        "feedback_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"6\">6</span>, respectively. While, that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively."
+      },
+      {
+        "id": 347056,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"12\">12</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
+        "correctness": "0.0",
+        "feedback_html": "The atomic number of carbon-13 is not <span data-math=\"12\">12</span>."
+      },
+      {
+        "id": 347057,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"13\">13</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
+        "correctness": "0.0",
+        "feedback_html": "The mass number and atomic number of carbon-13 are not the same for this isotope of carbon."
+      },
+      {
+        "id": 347058,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"12\">12</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"12\">12</span>, respectively.",
+        "correctness": "0.0",
+        "feedback_html": "The atomic number of carbon, and all of its isotopes, is not <span data-math=\"12\">12</span>."
+      }
+    ],
+    "group_uuid": "7b96c761-af83-4b1b-be9b-a0a7455ba2fb",
+    "stem_html": "List the mass number and atomic number of carbon-12 and carbon-13, respectively.",
+    "tags": "7b96c761-af83-4b1b-be9b-a0a7455ba2fb",
+    "uid": "53@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 347186,
+        "content_html": "carbonyl",
+        "correctness": "0.0",
+        "feedback_html": "Carbonyl groups contain a carbon atom double-bonded to an oxygen atom."
+      },
+      {
+        "id": 347185,
+        "content_html": "hydroxyl",
+        "correctness": "0.0",
+        "feedback_html": "Hydroxyl groups bonds with carbon to form alcohols."
+      },
+      {
+        "id": 347184,
+        "content_html": "phosphate",
+        "correctness": "0.0",
+        "feedback_html": "Phosphate groups bond with carbon atoms on molecules such as ATP."
+      },
+      {
+        "id": 347187,
+        "content_html": "sodium",
+        "correctness": "1.0",
+        "feedback_html": "Sodium is not a functional group, it is an element. Thus, it does not bond with carbon as a functional group."
+      }
+    ],
+    "group_uuid": "e9a6490c-d4b2-4d62-84c7-c64c40155c73",
+    "stem_html": "Which of the following is not a functional group that can bond with carbon?",
+    "tags": "e9a6490c-d4b2-4d62-84c7-c64c40155c73",
+    "uid": "70@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 376389,
+        "content_html": "It is the rotational equivalent of a force.",
+        "correctness": "1.0",
+        "feedback_html": "Torque is the turning effectiveness of the applied force."
+      },
+      {
+        "id": 376388,
+        "content_html": "It is the force that affects linear motion.",
+        "correctness": "0.0",
+        "feedback_html": "Torque is a rotational quantity. It is the turning effectiveness of the applied force."
+      },
+      {
+        "id": 376387,
+        "content_html": "It is the rotational equivalent of acceleration.",
+        "correctness": "0.0",
+        "feedback_html": "Torque is the rotational equivalent of force. Acceleration in rotational mechanics is called angular acceleration."
+      },
+      {
+        "id": 376386,
+        "content_html": "It is the acceleration that affects linear motion.",
+        "correctness": "0.0",
+        "feedback_html": "Torque is not acceleration. Torque is the rotational equivalent of force."
+      }
+    ],
+    "group_uuid": "3369bfb2-fc0e-4245-9150-84b8363043c1",
+    "stem_html": "Which of the following best describes torque?",
+    "tags": "3369bfb2-fc0e-4245-9150-84b8363043c1",
+    "uid": "2477@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 347195,
+        "content_html": "4",
+        "correctness": "1.0",
+        "feedback_html": "The carbon atom has four electrons in its valence shell. Therefore, bonding four more electrons will complete its octet, allowing it to attain a stable configuration. Carbon molecule can thus bond with a maximum of four other atoms."
+      },
+      {
+        "id": 347192,
+        "content_html": "1",
+        "correctness": "0.0",
+        "feedback_html": "Carbon can bond with more than one molecule or atom"
+      },
+      {
+        "id": 347193,
+        "content_html": "6",
+        "correctness": "0.0",
+        "feedback_html": "Carbon cannot form this many bonds. Review carbon’s number of valence electrons"
+      },
+      {
+        "id": 347194,
+        "content_html": "2",
+        "correctness": "0.0",
+        "feedback_html": "Carbon can form more than two bonds"
+      }
+    ],
+    "group_uuid": "10a59557-e42d-4def-ae8a-1af817185a32",
+    "stem_html": "What is the maximum number of atoms or molecules a single carbon atom can bond with?",
+    "tags": "10a59557-e42d-4def-ae8a-1af817185a32",
+    "uid": "68@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 397402,
+        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "correctness": "1.0",
+        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+      },
+      {
+        "id": 397403,
+        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology."
+      },
+      {
+        "id": 397404,
+        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      },
+      {
+        "id": 397405,
+        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      }
+    ],
+    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
+    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "uid": "6@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 376442,
+        "content_html": "By applying the force at different points of the lever arm along the length of the lever or by changing the angle between the lever arm and the applied force.",
+        "correctness": "1.0",
+        "feedback_html": "The torque is defined as the product of the radial vector, the applied force, and the sine of the angle between them. Therefore, different torque can be produced for the same force by applying the force at different points of the lever arm along the length of the lever or by changing the angle between the lever arm and the applied force."
+      },
+      {
+        "id": 376441,
+        "content_html": "By applying the force at the same point of the lever arm along the length of the lever or by changing the angle between the lever arm and the applied force.",
+        "correctness": "0.0",
+        "feedback_html": "The torque remains the same when the force is applied at the same point of lever."
+      },
+      {
+        "id": 376440,
+        "content_html": "By applying the force at different points of the lever arm along the length of the lever or by maintaining the same angle between the lever arm and the applied force.",
+        "correctness": "0.0",
+        "feedback_html": "The torque does not change when the angle between the radial vector and the applied force is same."
+      },
+      {
+        "id": 376439,
+        "content_html": "By applying the force at the same point of the lever arm along the length of the lever or by maintaining the same angle between the lever arm and the applied force.",
+        "correctness": "0.0",
+        "feedback_html": "The torque changes with the change in the length of the radial vector or with the change in the angle between the radial vector and the applied force."
+      }
+    ],
+    "group_uuid": "34460c83-80d3-4de3-83f2-66759cdf8c51",
+    "stem_html": "How can the same force applied to a lever produce different torques?",
+    "tags": "34460c83-80d3-4de3-83f2-66759cdf8c51",
+    "uid": "2492@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 376443,
+        "content_html": "The force should be applied perpendicularly to the lever arm as close as possible from the pivot point.",
+        "correctness": "0.0",
+        "feedback_html": "Remember that torque is directly proportional to the distance from the point of application of force to the pivot."
+      },
+      {
+        "id": 376446,
+        "content_html": "The force should be applied perpendicularly to the lever arm as far as possible from the pivot point.",
+        "correctness": "1.0",
+        "feedback_html": "Since the applied force is the same, torque can be increased by increasing the distance from the point of application of the force to the pivot."
+      },
+      {
+        "id": 376444,
+        "content_html": "The force should be applied parallel to the lever arm as far as possible from the pivot point.",
+        "correctness": "0.0",
+        "feedback_html": "If force is parallel to the lever arm, then torque will be zero."
+      },
+      {
+        "id": 376445,
+        "content_html": "The force should be applied parallel to the lever arm as close as possible from the pivot point.",
+        "correctness": "0.0",
+        "feedback_html": "When the force is parallel to the lever arm, the angle made by the force will be zero and the torque will be zero."
+      }
+    ],
+    "group_uuid": "bbe33bbd-f59a-4e5e-b290-1074830ef02a",
+    "stem_html": "How can you maximize the torque applied to a given lever arm without applying more force?",
+    "tags": "bbe33bbd-f59a-4e5e-b290-1074830ef02a",
+    "uid": "2494@5"
+  }
+]

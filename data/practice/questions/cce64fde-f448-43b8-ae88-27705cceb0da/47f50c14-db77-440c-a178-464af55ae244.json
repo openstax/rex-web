@@ -1,0 +1,66 @@
+[
+  {
+    "answers": [
+      {
+        "id": 209685,
+        "content_html": "Kinematics is the study of motion.",
+        "correctness": "1.0",
+        "feedback_html": "The motion of a body is studied under kinematics."
+      },
+      {
+        "id": 209684,
+        "content_html": "Kinematics is the study of the cause of motion.",
+        "correctness": "0.0",
+        "feedback_html": "Force and its effects are studied under dynamics."
+      },
+      {
+        "id": 209683,
+        "content_html": "Kinematics is the study of dimensions.",
+        "correctness": "0.0",
+        "feedback_html": "Dimensions are studied under theoretical physics, not classical mechanics."
+      },
+      {
+        "id": 209682,
+        "content_html": "Kinematics is the study of atomic structures.",
+        "correctness": "0.0",
+        "feedback_html": "Atomic structure is studied under atomic physics, not classical mechanics."
+      }
+    ],
+    "group_uuid": "17140a07-5142-4988-95b2-fb1a5526394a",
+    "stem_html": "What is kinematics?",
+    "tags": "17140a07-5142-4988-95b2-fb1a5526394a",
+    "uid": "2060@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 375024,
+        "content_html": "Force is a scalar quantity.",
+        "correctness": "0.0",
+        "feedback_html": "Scalar quantities have magnitude but lack a direction."
+      },
+      {
+        "id": 375027,
+        "content_html": "Force is a vector quantity.",
+        "correctness": "1.0",
+        "feedback_html": "Force is a vector quantity because it has direction and magnitude."
+      },
+      {
+        "id": 375025,
+        "content_html": "Force is both a vector quantity and a scalar quantity.",
+        "correctness": "0.0",
+        "feedback_html": "Vector quantities have both direction and magnitude while scalar quantities lack a direction. Therefore a quantity cannot be both a vector and a scalar."
+      },
+      {
+        "id": 375026,
+        "content_html": "Force is neither a vector nor a scalar quantity.",
+        "correctness": "0.0",
+        "feedback_html": "In physics all quantities are either vector or scalar. Vector quantities are those with direction and magnitude while scalar quantities have magnitude only."
+      }
+    ],
+    "group_uuid": "a76456ed-a7cc-4e25-9daa-e500be29ffb5",
+    "stem_html": "What kind of physical quantity is force?",
+    "tags": "a76456ed-a7cc-4e25-9daa-e500be29ffb5",
+    "uid": "2062@5"
+  }
+]

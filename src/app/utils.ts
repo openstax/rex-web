@@ -16,6 +16,9 @@ import {
   Middleware
 } from './types';
 
+export * from './utils/assertions';
+export * from './utils/browser-assertions';
+
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
   (action: AnyAction): action is ReturnType<C> => action.type === getType(actionCreator);
 
@@ -65,62 +68,6 @@ export const mergeRefs = <T>(...refs: Array<Ref<T> | undefined>) => (ref: T) => 
       (resolvableRef as any).current = ref;
     }
   });
-};
-
-/*
- * util for dealing with array and object index signatures
- * don't include undefined
- *
- * ref: https://github.com/Microsoft/TypeScript/issues/13778
- */
-export const assertDefined = <X>(x: X, message: string) => {
-  if (x === undefined) {
-    throw new Error(message);
-  }
-
-  return x as Exclude<X, undefined>;
-};
-
-export const assertNotNull = <X>(x: X, message: string) => {
-  if (x === null) {
-    throw new Error(message);
-  }
-
-  return x as Exclude<X, null>;
-};
-
-export const assertString = <X>(x: X, message: string): string => {
-  if (typeof x !== 'string') {
-    throw new Error(message);
-  }
-
-  return x;
-};
-
-export const assertWindow = (message: string = 'BUG: Window is undefined') => {
-  if (typeof(window) === 'undefined') {
-    throw new Error(message);
-  }
-
-  return window;
-};
-
-export const assertDocument = (message: string = 'BUG: Document is undefined') => {
-  if (typeof(document) === 'undefined') {
-    throw new Error(message);
-  }
-
-  return document;
-};
-
-export const assertDocumentElement = (message: string = 'BUG: Document Element is null') => {
-  const documentElement = assertDocument().documentElement;
-
-  if (documentElement === null) {
-    throw new Error(message);
-  }
-
-  return documentElement;
 };
 
 export const remsToEms = (rems: number) => rems * 10 / 16;
