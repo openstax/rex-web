@@ -1,0 +1,98 @@
+[
+  {
+    "answers": [
+      {
+        "id": 205668,
+        "content_html": "The wavelength increases.",
+        "correctness": "0.0",
+        "feedback_html": "The wavelength of EM waves decreases as the frequency increases."
+      },
+      {
+        "id": 205667,
+        "content_html": "The wavelength first increases and then decreases.",
+        "correctness": "0.0",
+        "feedback_html": "Frequency is inversely proportional to the wavelength of an EM wave."
+      },
+      {
+        "id": 205666,
+        "content_html": "The wavelength first decreases and then increases.",
+        "correctness": "0.0",
+        "feedback_html": "As the frequency of an EM wave increases, the wavelength decreases."
+      },
+      {
+        "id": 205669,
+        "content_html": "The wavelength decreases.",
+        "correctness": "1.0",
+        "feedback_html": "The wavelength is inversely proportional to the frequency of an EM wave."
+      }
+    ],
+    "group_uuid": "c2280ffc-5515-4760-91f2-1482c15a2cbc",
+    "stem_html": "How does wavelength change as frequency increases across the EM spectrum?",
+    "tags": "c2280ffc-5515-4760-91f2-1482c15a2cbc",
+    "uid": "11101@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 205736,
+        "content_html": "They are perpendicular to and out of phase with each other.",
+        "correctness": "0.0",
+        "feedback_html": "They are in phase with each other."
+      },
+      {
+        "id": 205737,
+        "content_html": "They are perpendicular to and in phase with each other.",
+        "correctness": "1.0",
+        "feedback_html": "Electromagnetic waves consist of electric and magnetic fields that are perpendicular to and in phase with each other."
+      },
+      {
+        "id": 205735,
+        "content_html": "They are parallel to and out of phase with each other.",
+        "correctness": "0.0",
+        "feedback_html": "They are not parallel and are always in phase with each other."
+      },
+      {
+        "id": 205734,
+        "content_html": "They are parallel to and in phase with each other.",
+        "correctness": "0.0",
+        "feedback_html": "The magnetic and electric fields in an electromagnetic wave are perpendicular to each other."
+      }
+    ],
+    "group_uuid": "ed9fa8ef-01be-4f44-9074-233867be5f13",
+    "stem_html": "Describe the electric and magnetic fields that make up an electromagnetic wave in terms of their orientation relative to each other and their phases.",
+    "tags": "ed9fa8ef-01be-4f44-9074-233867be5f13",
+    "uid": "11122@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 192275,
+        "content_html": "Sunlight is converted into chemical energy by plants; this energy is released when we digest food.",
+        "correctness": "1.0",
+        "feedback_html": "Plants convert sunlight into chemical energy by photosynthesis. This chemical energy is absorbed by humans when they digest food."
+      },
+      {
+        "id": 192272,
+        "content_html": "Sunlight is converted into chemical energy by animals; this energy is released when we digest food.",
+        "correctness": "0.0",
+        "feedback_html": "Animals cannot convert sunlight directly into chemical energy."
+      },
+      {
+        "id": 192273,
+        "content_html": "Sunlight is converted into chemical energy by fish; this energy is released when we digest food.",
+        "correctness": "0.0",
+        "feedback_html": "Sunlight cannot be utilized by fish to produce any by-product."
+      },
+      {
+        "id": 192274,
+        "content_html": "Sunlight is converted into chemical energy by humans; this energy is released when we digest food.",
+        "correctness": "0.0",
+        "feedback_html": "Humans can produce some vitamins by absorbing light but cannot produce any other substantial form of chemical energy."
+      }
+    ],
+    "group_uuid": "ec9e664d-8331-4ad5-826a-957138cab35a",
+    "stem_html": "Explain how sunlight is the original source of the energy in the food we eat.",
+    "tags": "ec9e664d-8331-4ad5-826a-957138cab35a",
+    "uid": "11124@3"
+  }
+]

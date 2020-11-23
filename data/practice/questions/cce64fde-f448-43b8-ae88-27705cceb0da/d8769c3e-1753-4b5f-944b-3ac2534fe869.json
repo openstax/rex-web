@@ -1,0 +1,380 @@
+[
+  {
+    "answers": [
+      {
+        "id": 390484,
+        "content_html": "Intensity is the energy per unit area carried by a wave.",
+        "correctness": "0.0",
+        "feedback_html": "Intensity is not considered as energy per unit area."
+      },
+      {
+        "id": 390485,
+        "content_html": "Intensity is the energy per unit volume carried by a wave.",
+        "correctness": "0.0",
+        "feedback_html": "Intensity is not considered as energy per unit area."
+      },
+      {
+        "id": 390487,
+        "content_html": "Intensity is the power per unit area carried by a wave.",
+        "correctness": "1.0",
+        "feedback_html": "Power per unit area carried by a wave is called intensity."
+      },
+      {
+        "id": 390486,
+        "content_html": "Intensity is the power per unit volume carried by a wave.",
+        "correctness": "0.0",
+        "feedback_html": "Intensity is not considered as per unit volume."
+      }
+    ],
+    "group_uuid": "595672b5-9c20-464d-9578-d8fae7887f13",
+    "stem_html": "What is sound intensity?",
+    "tags": "595672b5-9c20-464d-9578-d8fae7887f13",
+    "uid": "10912@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 346911,
+        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "correctness": "1.0",
+        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+      },
+      {
+        "id": 346910,
+        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+      },
+      {
+        "id": 346909,
+        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+      },
+      {
+        "id": 346908,
+        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+      }
+    ],
+    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
+    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "uid": "2@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 390561,
+        "content_html": "Timbre is the quality of the sound that distinguishes it from other sound",
+        "correctness": "1.0",
+        "feedback_html": "Timbre is our perception of the combinations of sound frequencies and intensities that make up a musical note. It is the quality of a musical note."
+      },
+      {
+        "id": 390560,
+        "content_html": "Timbre is the loudness of the sound that distinguishes it from other sound.",
+        "correctness": "0.0",
+        "feedback_html": "Timbre does not distinguish it from other sound only on the basis of loudness."
+      },
+      {
+        "id": 390559,
+        "content_html": "Timbre is the pitch of the sound that distinguishes it from other sound.",
+        "correctness": "0.0",
+        "feedback_html": "Timbre does not distinguish it from other sound only on the basis of pitch."
+      },
+      {
+        "id": 390558,
+        "content_html": "Timbre is the wavelength of the sound that distinguishes it from other sound.",
+        "correctness": "0.0",
+        "feedback_html": "Timbre does not distinguish it from other sound on the basis of wavelength."
+      }
+    ],
+    "group_uuid": "1692887a-92a0-459b-bd4b-37844f67e4ed",
+    "stem_html": "What is “timbre” of sound?",
+    "tags": "1692887a-92a0-459b-bd4b-37844f67e4ed",
+    "uid": "10932@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 346974,
+        "content_html": "Astrology is a natural science as it indirectly influences human affairs and the natural world.",
+        "correctness": "0.0",
+        "feedback_html": "Astrology is not natural science."
+      },
+      {
+        "id": 346975,
+        "content_html": "Astronomy is a natural science as it deals with observations and prediction of events in the sky, which is based on the laws of physics.",
+        "correctness": "1.0",
+        "feedback_html": "Astronomy is a natural science that deals with the study of celestial objects such as stars, galaxies, planets, moons, asteroids, comets and nebulae. It helps in the prediction of events in the sky and encompasses the laws of physics."
+      },
+      {
+        "id": 346973,
+        "content_html": "Astrology is a natural science as it deals with observations and prediction of events in the sky, influences human affairs and the natural world.",
+        "correctness": "0.0",
+        "feedback_html": "Astrology does not deal with the prediction of events in the sky."
+      },
+      {
+        "id": 346972,
+        "content_html": "Astrology is a natural science as it deals with the study of asteroids and comets, which is based on the laws of natural sciences.",
+        "correctness": "0.0",
+        "feedback_html": "Astronomy is a natural science not astrology."
+      }
+    ],
+    "group_uuid": "adbd46e0-690a-4118-8438-72fd2c4e6375",
+    "stem_html": "Both astronomy and astrology study the stars. Which one is considered a natural science? Explain your reasoning.",
+    "tags": "adbd46e0-690a-4118-8438-72fd2c4e6375",
+    "uid": "21@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 390593,
+        "content_html": "Humming can trigger those two muscles in the outer ear that react to intense sound produced while shooting and reduce the force transmitted to the cochlea.",
+        "correctness": "0.0",
+        "feedback_html": "The muscles that can reduce the force transmitted to cochlea are present in the middle ear."
+      },
+      {
+        "id": 390594,
+        "content_html": "Humming can trigger those three muscles in the outer ear that react to intense sound produced while shooting and reduce the force transmitted to the cochlea.",
+        "correctness": "0.0",
+        "feedback_html": "There are two muscles that react to intense sound and are present in the middle ear, not the outer ear."
+      },
+      {
+        "id": 390596,
+        "content_html": "Humming can trigger those two muscles in the middle ear that react to intense sound produced while shooting and reduce the force transmitted to the cochlea.",
+        "correctness": "1.0",
+        "feedback_html": "Two muscles in the middle ear react to intense sound in a few milliseconds and reduce the force transmitted to the cochlea. This protective reaction can also be triggered by your own voice, so that humming while shooting a gun can reduce noise damage."
+      },
+      {
+        "id": 390595,
+        "content_html": "Humming can trigger those three muscles in the middle ear that react to intense sound produced while shooting and reduce the force transmitted to the cochlea.",
+        "correctness": "0.0",
+        "feedback_html": "There are only two muscles present in the middle ear that react to the intense sound."
+      }
+    ],
+    "group_uuid": "42393cf3-f93b-4d9d-bee2-9f771cf76e3a",
+    "stem_html": "How can humming while shooting a gun reduce ear damage?",
+    "tags": "42393cf3-f93b-4d9d-bee2-9f771cf76e3a",
+    "uid": "10941@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 390652,
+        "content_html": "<span data-math=\"5\\,\\text{dB}\">5\\,\\text{dB}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "See detailed solution."
+      },
+      {
+        "id": 390653,
+        "content_html": "<span data-math=\"6\\,\\text{dB}\">6\\,\\text{dB}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "See detailed solution."
+      },
+      {
+        "id": 390654,
+        "content_html": "<span data-math=\"7\\,\\text{dB}\">7\\,\\text{dB}</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "See detailed solution."
+      }
+    ],
+    "group_uuid": "b06689ef-9e56-44d8-97c1-5f4cc767241e",
+    "stem_html": "If a particular sound S1 is <span data-math=\"5\">5</span> times more intense than another sound S2, then what is the difference in sound intensity levels in dB for these two sounds?",
+    "tags": "b06689ef-9e56-44d8-97c1-5f4cc767241e",
+    "uid": "10956@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390665,
+        "content_html": "The intensity is inversely proportional to the power transmitted by the wave, for a constant area.",
+        "correctness": "0.0",
+        "feedback_html": "The intensity of the sound wave increases with an increase in the power transmitted."
+      },
+      {
+        "id": 390664,
+        "content_html": "The intensity is inversely proportional to the square of the power transmitted by the wave, for a constant area. \n <span data-math=\"I=\\frac{1}{P^2}\">I=\\frac{1}{P^2}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The intensity of the sound increases with an increase in the power transmitted."
+      },
+      {
+        "id": 390663,
+        "content_html": "The intensity is directly proportional to the square of the power transmitted by the wave, for a constant area. <span data-math=\"I = \\text{P}^2\">I = \\text{P}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "For a constant area, the intensity increases linearly with the power transmitted."
+      },
+      {
+        "id": 390666,
+        "content_html": "The intensity is directly proportional to the power transmitted by the wave, for a constant area. <span data-math=\"I=\\frac{P}{A}\">I=\\frac{P}{A}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Yes, for constant area, intensity is directly proportional to the power transmitted by the wave.\n <span data-math=\"I=\\frac{P}{A}\">I=\\frac{P}{A}</span>"
+      }
+    ],
+    "group_uuid": "fbe58a4e-710f-42fa-8f05-f4f82ec729d4",
+    "stem_html": "For a constant area, what is the relationship between intensity of a sound wave and power?",
+    "tags": "fbe58a4e-710f-42fa-8f05-f4f82ec729d4",
+    "uid": "10959@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 346911,
+        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "correctness": "1.0",
+        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+      },
+      {
+        "id": 346910,
+        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+      },
+      {
+        "id": 346909,
+        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+      },
+      {
+        "id": 346908,
+        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+      }
+    ],
+    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
+    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "uid": "2@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 471302,
+        "content_html": "It accepts energy from chemical reactions.",
+        "correctness": "0.0",
+        "feedback_html": "ATP, being the energy currency of the cell, powers chemical reactions."
+      },
+      {
+        "id": 471301,
+        "content_html": "It holds energy at the site of release from substrates.",
+        "correctness": "0.0",
+        "feedback_html": "Energy released from the hydrolysis of ATP is used to power cellular activities."
+      },
+      {
+        "id": 471300,
+        "content_html": "It is a protein.",
+        "correctness": "0.0",
+        "feedback_html": "ATP is a nucleotide molecule which consists of a five-carbon sugar, the nitrogenous base adenine, and three phosphate groups."
+      },
+      {
+        "id": 471303,
+        "content_html": "It can transport energy to locations within the cell.",
+        "correctness": "1.0",
+        "feedback_html": "The hydrolysis of ATP releases free energy which is used to perform cellular work, such as pumping a solute across a cell membrane in active transport."
+      }
+    ],
+    "group_uuid": "447fc8b0-c660-4790-b6cc-e1c3d631a54b",
+    "stem_html": "Why is ATP considered the energy currency of the cell?",
+    "tags": "447fc8b0-c660-4790-b6cc-e1c3d631a54b",
+    "uid": "438@11"
+  },
+  {
+    "answers": [
+      {
+        "id": 390690,
+        "content_html": "Smaller instruments produce sounds with shorter wavelengths, and thus higher frequencies.",
+        "correctness": "1.0",
+        "feedback_html": "Shorter wavelengths are produced in the resonance chambers of smaller instruments, which means the sounds have higher frequencies."
+      },
+      {
+        "id": 390687,
+        "content_html": "Smaller instruments produce longer wavelength, and thus higher amplitude, sounds.",
+        "correctness": "0.0",
+        "feedback_html": "Smaller instruments producer shorter, not longer, wavelengths of sound."
+      },
+      {
+        "id": 390688,
+        "content_html": "Smaller instruments produce lower amplitude, and thus longer wavelength sounds.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude of a sound is not related to its frequency or pitch."
+      },
+      {
+        "id": 390689,
+        "content_html": "Smaller instruments produce higher amplitude, and thus lower frequency, sounds.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude of a sound is not related to its frequency or pitch."
+      }
+    ],
+    "group_uuid": "c74a5cd4-6a17-4b6c-8407-b4fb7a17cb08",
+    "stem_html": "Why do some smaller instruments, such as piccolos, produce higher-pitched sounds than larger instruments, such as tubas?",
+    "tags": "c74a5cd4-6a17-4b6c-8407-b4fb7a17cb08",
+    "uid": "10965@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 470457,
+        "content_html": "Lithops reproduce and are heterotrophic.",
+        "correctness": "0.0",
+        "feedback_html": "Lithops are autotrophic and not heterotrophic."
+      },
+      {
+        "id": 470458,
+        "content_html": "Lithops are lithotrophic and they reproduce.",
+        "correctness": "0.0",
+        "feedback_html": "Lithops are not lithotrophic, they are autotrophic."
+      },
+      {
+        "id": 470459,
+        "content_html": "Lithops are succulent plants and show a heterotrophic mode of nutrition.",
+        "correctness": "0.0",
+        "feedback_html": "Lithops are succulent plants, but they do not show a heterotrophic mode of nutrition."
+      },
+      {
+        "id": 470460,
+        "content_html": "Lithops are autotrophic. They show growth and reproduction.",
+        "correctness": "1.0",
+        "feedback_html": "Lithops are succulent plants which can photosynthesize their own food and produce seeds."
+      }
+    ],
+    "group_uuid": "bc5873a1-d9a6-44de-9683-8cfc6be2a421",
+    "stem_html": "Some plants called lithops grow in the South African desert and look like stones. How were scientists able to determine they are living organisms?",
+    "tags": "bc5873a1-d9a6-44de-9683-8cfc6be2a421",
+    "uid": "40@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 390701,
+        "content_html": "<span data-math=\"1.2\\,\\text{dB}\">1.2\\,\\text{dB}</span>",
+        "correctness": "0.0",
+        "feedback_html": ""
+      },
+      {
+        "id": 390700,
+        "content_html": "<span data-math=\"6.0\\,\\text{dB}\">6.0\\,\\text{dB}</span>",
+        "correctness": "0.0",
+        "feedback_html": ""
+      },
+      {
+        "id": 390699,
+        "content_html": "<span data-math=\"0.60\\,\\text{dB}\">0.60\\,\\text{dB}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": ""
+      },
+      {
+        "id": 390702,
+        "content_html": "<span data-math=\"12\\,\\text{dB}\">12\\,\\text{dB}</span>",
+        "correctness": "1.0",
+        "feedback_html": ""
+      }
+    ],
+    "group_uuid": "eab77f47-b900-48ee-b1bd-efd7541d8772",
+    "stem_html": "The ratio of the pressure amplitudes of two sound waves traveling through water at <span data-math=\"0^{\\circ}\\text{C}\">0^{\\circ}\\text{C}</span> is <span data-math=\"4.0\">4.0</span>. What will be the difference in their sound intensity levels in dB?",
+    "tags": "eab77f47-b900-48ee-b1bd-efd7541d8772",
+    "uid": "10968@7"
+  }
+]

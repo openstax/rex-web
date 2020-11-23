@@ -1,0 +1,194 @@
+[
+  {
+    "answers": [
+      {
+        "id": 380501,
+        "content_html": "A wave is a force that propagates from the place where it was created.",
+        "correctness": "0.0",
+        "feedback_html": "A wave is not a force."
+      },
+      {
+        "id": 380502,
+        "content_html": "A wave is a disturbance that propagates from the place where it was created.",
+        "correctness": "1.0",
+        "feedback_html": "A wave is a disturbance that propagates from the place where it was created."
+      },
+      {
+        "id": 380500,
+        "content_html": "A wave is matter that provides volume to an object.",
+        "correctness": "0.0",
+        "feedback_html": "A wave does not provide volume to an object. A wave is the movement of molecules."
+      },
+      {
+        "id": 380499,
+        "content_html": "A wave is matter that provides mass to an object.",
+        "correctness": "0.0",
+        "feedback_html": "A wave is not matter."
+      }
+    ],
+    "group_uuid": "38069b38-c0f4-4001-9b43-82d133571e2e",
+    "stem_html": "What is a wave?",
+    "tags": "38069b38-c0f4-4001-9b43-82d133571e2e",
+    "uid": "6831@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 418058,
+        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
+        "correctness": "0.0",
+        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
+      },
+      {
+        "id": 418059,
+        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "correctness": "1.0",
+        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+      },
+      {
+        "id": 418060,
+        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "correctness": "0.0",
+        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
+      },
+      {
+        "id": 418061,
+        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
+        "correctness": "0.0",
+        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+      }
+    ],
+    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
+    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
+    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
+    "uid": "1@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 346880,
+        "content_html": "discovery",
+        "correctness": "0.0",
+        "feedback_html": "A discovery is not a testable explanation for an event."
+      },
+      {
+        "id": 346883,
+        "content_html": "hypothesis",
+        "correctness": "1.0",
+        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+      },
+      {
+        "id": 346881,
+        "content_html": "scientific method",
+        "correctness": "0.0",
+        "feedback_html": "The scientific method is a method of research with defined steps."
+      },
+      {
+        "id": 346882,
+        "content_html": "theory",
+        "correctness": "0.0",
+        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+      }
+    ],
+    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
+    "stem_html": "What is a suggested and testable explanation for an event called?",
+    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
+    "uid": "3@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 380634,
+        "content_html": "Waves that force the particles of the medium to follow a linear path from the crest to the trough",
+        "correctness": "0.0",
+        "feedback_html": "Recall the definition of orbital progressive wave."
+      },
+      {
+        "id": 380635,
+        "content_html": "Waves that force the particles of the medium to follow a circular path from the crest to the trough",
+        "correctness": "1.0",
+        "feedback_html": "Orbital progressive waves force the particles of the medium to follow a circular path from the crest to the trough."
+      },
+      {
+        "id": 380633,
+        "content_html": "Waves that force the particles of the medium to follow a zigzag path from the crest to the trough",
+        "correctness": "0.0",
+        "feedback_html": "Recall the definition of orbital progressive wave."
+      },
+      {
+        "id": 380632,
+        "content_html": "Waves that force the particles of the medium to follow a random path from the crest to the trough",
+        "correctness": "0.0",
+        "feedback_html": "Recall the definition of orbital progressive wave."
+      }
+    ],
+    "group_uuid": "c855f3cf-4add-43a4-adcf-f722bb45d04b",
+    "stem_html": "What are orbital progressive waves?",
+    "tags": "c855f3cf-4add-43a4-adcf-f722bb45d04b",
+    "uid": "6874@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 397402,
+        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "correctness": "1.0",
+        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+      },
+      {
+        "id": 397403,
+        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology."
+      },
+      {
+        "id": 397404,
+        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      },
+      {
+        "id": 397405,
+        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      }
+    ],
+    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
+    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "uid": "6@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 380644,
+        "content_html": "Sound waves in solids are transverse, whereas in air, they are longitudinal.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that sound waves in solids can be both longitudinal and transverse"
+      },
+      {
+        "id": 380645,
+        "content_html": "Sound waves in solids are longitudinal, whereas in air, they are transverse.",
+        "correctness": "0.0",
+        "feedback_html": "It is incorrect to say that sound waves in solids are only longitudinal."
+      },
+      {
+        "id": 380647,
+        "content_html": "Sound waves in solids can be both longitudinal and transverse, whereas in air, they are longitudinal.",
+        "correctness": "1.0",
+        "feedback_html": "Sound waves in solids can be both longitudinal and transverse, while in air, they are longitudinal only."
+      },
+      {
+        "id": 380646,
+        "content_html": "Sound waves in solids are longitudinal, whereas in air, they can be both longitudinal and transverse.",
+        "correctness": "0.0",
+        "feedback_html": "It is not correct to say that sound waves in solids are longitudinal only. Sound waves in solids can be both longitudinal and transverse. Also, sound waves in air are longitudinal only."
+      }
+    ],
+    "group_uuid": "da09ab45-afb5-486f-a57d-3b2b08a73bf4",
+    "stem_html": "How is the propagation of sound in solids different from that in air?",
+    "tags": "da09ab45-afb5-486f-a57d-3b2b08a73bf4",
+    "uid": "6878@5"
+  }
+]
