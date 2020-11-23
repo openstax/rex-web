@@ -63,9 +63,14 @@ export const loadingPage = createSelector(
   (slugs) => slugs.page
 );
 
-export const pageParam = createSelector(
+export const contentParams = createSelector(
   localState,
-  (state) => state.params ? state.params.page : null
+  (state) => state.params
+);
+
+export const pageParam = createSelector(
+  contentParams,
+  (params) => params ? params.page : null
 );
 
 export const pageNotFound = createSelector(
