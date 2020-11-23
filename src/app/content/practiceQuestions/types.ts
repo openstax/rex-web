@@ -30,3 +30,11 @@ export interface PracticeQuestion {
 }
 
 export type PracticeQuestions = PracticeQuestion[];
+
+export interface PracticeQuestionStyles {
+  label: string;
+  passive: string;
+  focused: string;
+  fontColor: string;
+  hovered?: string;
+}
