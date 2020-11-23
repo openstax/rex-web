@@ -1,8 +1,9 @@
+import { LocationFiltersWithChildren } from '../components/popUp/types';
 import { isLinkedArchiveTreeSection } from '../guards';
 import { Book, LinkedArchiveTreeSection } from '../types';
 import { findArchiveTreeNodeById, flattenArchiveTree } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
-import { PracticeQuestionsLocationFilters, PracticeQuestionsSummary } from './types';
+import { PracticeQuestionsSummary } from './types';
 
 export const pageHasPracticeQuestions = (pageId: string, summary: PracticeQuestionsSummary) => {
   return Boolean(summary.countsPerSource[pageId]);
@@ -12,7 +13,7 @@ export const getPracticeQuestionsLocationFilters = (
   summary: PracticeQuestionsSummary | null, book: Book | undefined
 ) => {
   // key is an id of a parent of sections stored in a value
-  const locationFilters: PracticeQuestionsLocationFilters = new Map();
+  const locationFilters: LocationFiltersWithChildren = new Map();
 
   if (!book || !summary) { return locationFilters; }
 
@@ -30,7 +31,7 @@ export const getPracticeQuestionsLocationFilters = (
   return locationFilters;
 };
 
-const flattenLocationFilters = (locationFilters: PracticeQuestionsLocationFilters) => {
+const flattenLocationFilters = (locationFilters: LocationFiltersWithChildren) => {
   let flattened: LinkedArchiveTreeSection[] = [];
   for (const { children } of locationFilters.values()) {
     flattened = flattened.concat(children);
@@ -39,7 +40,7 @@ const flattenLocationFilters = (locationFilters: PracticeQuestionsLocationFilter
 };
 
 export const getNextPageWithPracticeQuestions = (
-  nodeId: string, locationFilters: PracticeQuestionsLocationFilters, book: Book | undefined
+  nodeId: string, locationFilters: LocationFiltersWithChildren, book: Book | undefined
 ) => {
   if (!book) { return; }
 

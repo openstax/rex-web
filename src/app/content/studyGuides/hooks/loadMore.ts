@@ -43,6 +43,7 @@ export type LoadMoreResponse = ReturnType<typeof loadMore>;
 export const hookBody: ActionHookBody<
   typeof actions.setDefaultSummaryFilters |
   typeof actions.setSummaryFilters |
+  typeof actions.updateSummaryFilters |
   typeof actions.loadMoreStudyGuides
 > = (services) => async() => {
   const filters = select.summaryFilters(services.getState());

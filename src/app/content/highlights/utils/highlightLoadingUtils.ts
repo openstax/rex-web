@@ -7,10 +7,11 @@ import {
 import omit from 'lodash/fp/omit';
 import { AppServices } from '../../../types';
 import { assertDefined } from '../../../utils';
+import { LocationFilters } from '../../components/popUp/types';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { Book } from '../../types';
 import { stripIdVersion } from '../../utils/idUtils';
-import { CountsPerSource, HighlightData, HighlightLocationFilters, SummaryHighlightsPagination } from '../types';
+import { CountsPerSource, HighlightData, SummaryHighlightsPagination } from '../types';
 import { addSummaryHighlight, getHighlightLocationFilterForPage } from './';
 import { getNextPageSources, incrementPage } from './paginationUtils';
 
@@ -43,7 +44,7 @@ const getNewSources = (
 
 export const formatReceivedHighlights = (
   highlights: Highlight[],
-  locationFilters: HighlightLocationFilters
+  locationFilters: LocationFilters
 ) => highlights.reduce((result, highlight) => {
   const pageId = stripIdVersion(highlight.sourceId);
   const location = assertDefined(

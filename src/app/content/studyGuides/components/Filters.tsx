@@ -11,7 +11,9 @@ import ColorFilter from '../../components/popUp/ColorFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
 import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
-import { printStudyGuides, setSummaryFilters } from '../actions';
+import { FiltersChange } from '../../components/popUp/types';
+import { LinkedArchiveTreeNode } from '../../types';
+import { printStudyGuides, updateSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
 import { cookieUTG } from './UsingThisGuide/constants';
@@ -26,7 +28,7 @@ const ConnectedChapterFilter = connect(
     selectedLocationFilters: selectors.summaryLocationFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setFilters: flow(setSummaryFilters, dispatch),
+    setFilters: flow(updateSummaryFilters, dispatch),
   })
 )(ChapterFilter);
 
@@ -50,7 +52,8 @@ const ConnectedColorFilter = connect(
     selectedColorFilters: selectors.summaryColorFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setSummaryFilters: flow(setSummaryFilters, dispatch),
+    updateSummaryFilters: (change: FiltersChange<LinkedArchiveTreeNode>) =>
+      dispatch(updateSummaryFilters({ locations: change })),
   })
 )(StyledColorFilter);
 
@@ -62,7 +65,7 @@ const ConnectedFilterList = connect(
     selectedLocationFilters: selectors.summaryLocationFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setFilters: flow(setSummaryFilters, dispatch),
+    setFilters: (change: FiltersChange<HighlightColorEnum>) => dispatch(updateSummaryFilters({ colors: change })),
   })
 )(FiltersList);
 

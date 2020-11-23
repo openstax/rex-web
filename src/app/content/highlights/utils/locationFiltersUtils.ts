@@ -1,5 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
+import { LocationFilters } from '../../components/popUp/types';
 import { highlightStyles } from '../../constants';
 import {
   ArchiveBook,
@@ -17,7 +18,7 @@ import {
   findArchiveTreeNodeById,
   flattenArchiveTree,
 } from '../../utils/archiveTreeUtils';
-import { CountsPerSource, HighlightLocationFilters } from '../types';
+import { CountsPerSource } from '../types';
 
 type LocationFilterSection = LinkedArchiveTree | LinkedArchiveTreeSection;
 
@@ -25,7 +26,7 @@ const getLocationFilterSectionsForBook = (book: Book | ArchiveBook | undefined) 
   ? flattenArchiveTree(book.tree)
   : [];
 
-const sectionsToLocationFilters = (sections: LocationFilterSection[]): HighlightLocationFilters =>
+const sectionsToLocationFilters = (sections: LocationFilterSection[]): LocationFilters =>
   new Map(sections.map((section) => [section.id, { section }]));
 
 export const getHighlightLocationFilters = (filterBy: (section: LocationFilterSection) => boolean) => flow(
@@ -39,7 +40,7 @@ export const sectionIsHighlightLocationFitler = (section: LocationFilterSection)
   || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section));
 
 export const getHighlightLocationFilterForPage = (
-  locationFilters: HighlightLocationFilters, page: Page | LinkedArchiveTreeNode | string
+  locationFilters: LocationFilters, page: Page | LinkedArchiveTreeNode | string
 ) => {
   const pageId = typeof page === 'string' ? page : page.id;
   let location = locationFilters.get(pageId);
@@ -57,18 +58,18 @@ export const getHighlightLocationFilterForPage = (
 };
 
 export const getHighlightLocationFiltersWithContent = (
-  locationFilters: HighlightLocationFilters, totalCounts: CountsPerSource
+  locationFilters: LocationFilters, totalCounts: CountsPerSource
 ) => {
 
   return Object.entries(totalCounts).reduce((result, [pageId]) => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageId);
 
     if (location && !result.has(location.id)) {
-      result.add(location.id);
+      result.set(location.id, location);
     }
 
     return result;
-  }, new Set<string>());
+  }, new Map<string, LinkedArchiveTreeNode>());
 };
 
 export const getHighlightColorFiltersWithContent = (locationsWithContent: CountsPerSource) => {

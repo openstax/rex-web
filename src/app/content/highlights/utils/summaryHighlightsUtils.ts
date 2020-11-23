@@ -6,11 +6,11 @@ import {
 } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import partition from 'lodash/fp/partition';
+import { LocationFilters } from '../../components/popUp/types';
 import { archiveTreeSectionIsChapter, findTreePages } from '../../utils/archiveTreeUtils';
 import {
   CountsPerSource,
   HighlightData,
-  HighlightLocationFilters,
   OrderedSummaryHighlights,
   SummaryFilters,
   SummaryHighlights,
@@ -71,7 +71,7 @@ export const addSummaryHighlight = (summaryHighlights: SummaryHighlights, data: 
 };
 
 export const getSortedSummaryHighlights =
-  (summaryHighlights: SummaryHighlights | null, locationFilters: HighlightLocationFilters ) => {
+  (summaryHighlights: SummaryHighlights | null, locationFilters: LocationFilters ) => {
     if (!summaryHighlights) {
       return  null;
     }

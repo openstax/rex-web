@@ -10,11 +10,11 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { receiveBook } from '../../actions';
 import { StyledDetails, StyledSectionItem, StyledSummary } from '../../components/popUp/ChapterFilter';
+import { LocationFiltersWithChildren } from '../../components/popUp/types';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { setSelectedSection } from '../actions';
 import * as selectors from '../selectors';
-import { PracticeQuestionsLocationFilters } from '../types';
 import Filters from './Filters';
 
 describe('Filters', () => {
@@ -34,7 +34,7 @@ describe('Filters', () => {
       children: [{ id: 'testbook1-testpage3-uuid', title: 'section21' }],
       section: { id: 'testbook1-testchapter2-uuid', title: 'chapterId2' },
     }],
-  ]) as PracticeQuestionsLocationFilters;
+  ]) as LocationFiltersWithChildren;
 
   beforeEach(() => {
     store = createTestStore();
@@ -164,7 +164,7 @@ describe('Filters', () => {
           ],
           section: { id: 'doesnt-matter', title: 'chapterId' },
         }],
-      ]) as PracticeQuestionsLocationFilters);
+      ]) as LocationFiltersWithChildren);
     const mockSection = jest.spyOn(selectors, 'selectedSection')
       .mockReturnValue({
         id: 'this will not be found in the book',
@@ -207,7 +207,7 @@ describe('Filters', () => {
           ],
           section: { id: 'doesnt-matter', title: 'chapterId' },
         }],
-      ]) as PracticeQuestionsLocationFilters);
+      ]) as LocationFiltersWithChildren);
     const mockSection = jest.spyOn(selectors, 'selectedSection')
       .mockReturnValue(null);
 

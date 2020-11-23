@@ -245,6 +245,36 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         },
       };
     }
+    case getType(actions.updateSummaryFilters): {
+      const newFilters = { ...state.summary.filters };
+      const { colors: colorsChange, locations: locationsChange } = action.payload;
+
+      if (colorsChange) {
+        newFilters.colors = [
+          ...state.summary.filters.colors.filter((color) => !colorsChange.remove.includes(color)),
+          ...colorsChange.new,
+        ];
+      }
+
+      if (locationsChange) {
+        newFilters.locationIds = [
+          ...state.summary.filters.locationIds.filter(
+            (id) => locationsChange.remove.find((location) => id !== location.id)),
+          ...locationsChange.new.map((location) => location.id),
+        ];
+      }
+
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          filters: newFilters,
+          highlights: {},
+          loading: true,
+          pagination: null,
+        },
+      };
+    }
     case getType(actions.receiveSummaryHighlights): {
       // Check if filters wasn't updated while we were loading response.
       // It may happen if user with slow network connection change filters very fast.

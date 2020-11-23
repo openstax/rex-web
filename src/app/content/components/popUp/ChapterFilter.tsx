@@ -4,12 +4,12 @@ import AllOrNone from '../../../components/AllOrNone';
 import { PlainButton } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
-import { match, not } from '../../../fpUtils';
 import theme from '../../../theme';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
-import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../../types';
+import { LinkedArchiveTreeNode } from '../../types';
 import { AngleIcon } from './Filters';
+import { FiltersChange, LocationFilters } from './types';
 
 // tslint:disable-next-line:variable-name
 const Row = styled.div`
@@ -54,24 +54,19 @@ const chunk = <T extends any>(sections: T[]) => {
   return [sections.slice(0, cutoff), sections.slice(cutoff)].filter((arr) => arr.length > 0);
 };
 
-export type LocationFilters = Map<
-  string,
-  { section: LinkedArchiveTree | LinkedArchiveTreeSection, children?: LinkedArchiveTreeSection[] }
->;
-
 interface ChapterFilterProps {
   className?: string;
   disabled?: boolean;
   locationFilters: LocationFilters;
-  locationFiltersWithContent: Set<string>;
+  locationFiltersWithContent: Map<string, LinkedArchiveTreeNode>;
   selectedLocationFilters: Set<string>;
   multiselect: boolean;
-  setFilters: (filters: { locationIds: string[] }) => void;
+  setFilters: (filters: FiltersChange<LinkedArchiveTreeNode>) => void;
 }
 
 // tslint:disable-next-line:variable-name
 const ChapterFilter = (props: ChapterFilterProps) => {
-  const [isOpenChapterId, setIsOpenChapterId] = React.useState<string | null>(null);
+  const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const selectedSectionId = Array.from(props.selectedLocationFilters).pop();
@@ -80,21 +75,21 @@ const ChapterFilter = (props: ChapterFilterProps) => {
         return children && children.find((section) => section.id === selectedSectionId);
       });
       if (filterWithSelectedSection) {
-        setIsOpenChapterId(filterWithSelectedSection.section.id);
+        setOpenChapterId(filterWithSelectedSection.section.id);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const setSelectedChapters = (ids: string[]) => {
-    props.setFilters({locationIds: ids});
+  const setSelectedChapters = (change: FiltersChange<LinkedArchiveTreeNode>) => {
+    props.setFilters(change);
   };
 
-  const handleChange = (id: string) => {
-    if (props.selectedLocationFilters.has(id)) {
-      setSelectedChapters([...props.selectedLocationFilters].filter(not(match(id))));
+  const handleChange = (section: LinkedArchiveTreeNode) => {
+    if (props.selectedLocationFilters.has(section.id)) {
+      setSelectedChapters({ remove: [section], new: [] });
     } else {
-      setSelectedChapters([...props.selectedLocationFilters, id]);
+      setSelectedChapters({ remove: [], new: [section] });
     }
   };
 
@@ -106,8 +101,8 @@ const ChapterFilter = (props: ChapterFilterProps) => {
     {props.multiselect
       ? (
         <AllOrNone
-          onNone={() => setSelectedChapters([])}
-          onAll={() => setSelectedChapters(Array.from(props.locationFiltersWithContent))}
+          onNone={() => setSelectedChapters({ remove: Array.from(props.locationFiltersWithContent.values()), new: [] })}
+          onAll={() => setSelectedChapters({ remove: [], new: Array.from(props.locationFiltersWithContent.values()) })}
           disabled={props.disabled}
         />
       )
@@ -123,16 +118,16 @@ const ChapterFilter = (props: ChapterFilterProps) => {
               disabled={props.disabled || !props.locationFiltersWithContent.has(section.id)}
               multiselect={Boolean(props.multiselect)}
               title={section.title}
-              onChange={() => handleChange(section.id)}
+              onChange={() => handleChange(section)}
             />;
           } else {
-            return <StyledDetails key={section.id} open={isOpenChapterId === section.id}>
+            return <StyledDetails key={section.id} open={openChapterId === section.id}>
               <StyledSummary onClick={(ev: React.MouseEvent) => {
                 ev.preventDefault();
-                setIsOpenChapterId((currentId) => currentId !== section.id ? section.id : null);
+                setOpenChapterId((currentId) => currentId !== section.id ? section.id : null);
               }}>
                 <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
-                <AngleIcon direction={isOpenChapterId === section.id ? 'up' : 'down'} />
+                <AngleIcon direction={openChapterId === section.id ? 'up' : 'down'} />
               </StyledSummary>
               <div>
                 {children.map((child) => (
@@ -142,7 +137,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
                     disabled={false}
                     multiselect={props.multiselect}
                     title={child.title}
-                    onChange={() => handleChange(child.id)}
+                    onChange={() => handleChange(child)}
                   />
                 ))}
               </div>
@@ -236,16 +231,7 @@ export default styled(ChapterFilter)`
   ${textStyle}
   background: ${theme.color.white};
   font-size: 1.4rem;
-  ${(props: ChapterFilterProps) => {
-    if ('locationFiltersWithContent' in props) {
-      return `
-        padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
-      `;
-    }
-    return `
-      padding: 0;
-    `;
-  }}
+  padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
   outline: none;
   overflow: auto;
   z-index: 1;

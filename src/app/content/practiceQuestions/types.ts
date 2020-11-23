@@ -1,4 +1,4 @@
-import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
+import { LinkedArchiveTreeSection } from '../types';
 
 export interface State {
   isEnabled: boolean;
@@ -30,8 +30,3 @@ export interface PracticeQuestion {
 }
 
 export type PracticeQuestions = PracticeQuestion[];
-
-export type PracticeQuestionsLocationFilters = Map<
-  string,
-  { section: LinkedArchiveTree, children: LinkedArchiveTreeSection[] }
->;

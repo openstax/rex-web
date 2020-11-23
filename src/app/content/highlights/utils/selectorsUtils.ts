@@ -7,9 +7,9 @@ import reduce from 'lodash/fp/reduce';
 import size from 'lodash/fp/size';
 import values from 'lodash/fp/values';
 import { assertDefined } from '../../../utils';
+import { LocationFilters } from '../../components/popUp/types';
 import {
   CountsPerSource,
-  HighlightLocationFilters,
   SummaryHighlights,
   SummaryHighlightsPagination
 } from '../types';
@@ -20,7 +20,7 @@ import {
 
 export const filterCounts = (
   totalCounts: CountsPerSource,
-  locationFilters: HighlightLocationFilters,
+  locationFilters: LocationFilters,
   colorFilters: Set<HighlightColorEnum>
 ) => {
   return flow(
@@ -30,11 +30,11 @@ export const filterCounts = (
 };
 
 export const getSelectedHighlightsLocationFilters = (
-  locationFilters: HighlightLocationFilters,
+  locationFilters: LocationFilters,
   selectedIds: Set<string>
   ) => [...selectedIds].reduce((result, selectedId) =>
   result.set(selectedId, assertDefined(locationFilters.get(selectedId), 'location filter id not found'))
-, new Map() as HighlightLocationFilters);
+, new Map() as LocationFilters);
 
 export const getLoadedCountsPerSource = (sources: SummaryHighlights | null) => flow(
   values,
