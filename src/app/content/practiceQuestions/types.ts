@@ -15,7 +15,7 @@ export interface PracticeQuestionsSummary {
   };
 }
 
-interface PracticeAnswer {
+export interface PracticeAnswer {
   id: number;
   content_html: string;
   correctness: '0.0' | '1.0';
