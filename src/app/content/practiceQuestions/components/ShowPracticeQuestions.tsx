@@ -8,6 +8,7 @@ import * as contentSelectors from '../../selectors';
 import { PopupBody } from '../../styles/PopupStyles';
 import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import * as pqSelectors from '../selectors';
+import { PracticeAnswer, PracticeQuestion } from '../types';
 import { getNextPageWithPracticeQuestions } from '../utils';
 import EmptyScreen from './EmptyScreen';
 import IntroScreen from './IntroScreen';
@@ -118,7 +119,15 @@ const ShowPracticeQuestions = () => {
                 ? <IntroScreen />
                 : null
             }
-            <QuestionNavigation />
+            <QuestionNavigation
+              question={question}
+              selectedAnswer={answer}
+              onSkip={() => null}
+              onSubmit={() => null}
+              onShowAnswer={() => null}
+              onNext={() => null}
+              onFinish={() => null}
+            />
           </QuestionsWrapper>
         )
       }
@@ -137,3 +146,42 @@ const ShowPracticeQuestions = () => {
 };
 
 export default ShowPracticeQuestions;
+
+const question = {
+  "uuid": "0e1d41f5-f972-4e3c-b054-358edb8a6562",
+  "stem_html": "If you and a friend are standing side-by-side watching a soccer game, would you both view the motion from the same reference frame?",
+  "id": 91802,
+  "answers": [
+    {
+      "id": 374182,
+      "content_html": "Yes, we would both view the motion from the same reference point because both of us are at rest in Earth’s frame of reference.",
+      "correctness": "0.0",
+      "feedback_html": "Even though both are at rest in Earth’s frame of reference, the point from where the motion of the soccer game is observed, is different. For example, if the ball is right in front of one person, then for the other person, the ball will be seen at an angle."
+    },
+    {
+      "id": 374183,
+      "content_html": "Yes, we would both view the motion from the same reference point because both of us are observing the motion from two points on the same straight line.",
+      "correctness": "0.0",
+      "feedback_html": "The reference frames are similar but not same. The two reference frames are located at two different points, hence the motion described by each frame will be slightly different."
+    },
+    {
+      "id": 374185,
+      "content_html": "No, we would both view the motion from different reference points because motion is viewed from two different points; the reference frames are similar but not the same.",
+      "correctness": "1.0",
+      "feedback_html": "The motions observed are different since the reference frames are located at two different points."
+    },
+    {
+      "id": 374184,
+      "content_html": "No, we would both view the motion from different reference points because response times may be different; so, the motion observed by both of us would be different.",
+      "correctness": "0.0",
+      "feedback_html": "The response times may be different, but they have nothing to do with thereference frames."
+    }
+  ]
+} as PracticeQuestion;
+
+const answer = {
+  "id": 374183,
+  "content_html": "Yes, we would both view the motion from the same reference point because both of us are observing the motion from two points on the same straight line.",
+  "correctness": "0.0",
+  "feedback_html": "The reference frames are similar but not same. The two reference frames are located at two different points, hence the motion described by each frame will be slightly different."
+} as PracticeAnswer;
