@@ -192,6 +192,9 @@ export const useOnScrollTopOffset = () => {
   return topOffset;
 };
 
+// This list is based on the comment from
+// https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus/30753870#30753870
+// and https://allyjs.io/data-tables/focusable.html
 const tabbableElementsSelector = [
   'a[href]',
   'area[href]',

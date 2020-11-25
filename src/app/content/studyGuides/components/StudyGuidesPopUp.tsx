@@ -1,15 +1,13 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { createPortal } from 'react-dom';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
-import { assertDocument } from '../../../utils';
+import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
-import { CloseIcon, CloseIconWrapper, Header, Modal, PopupWrapper } from '../../styles/PopupStyles';
+import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
 import { closeStudyGuides } from '../actions';
 import { studyGuidesOpen } from '../selectors';
 import ShowStudyGuides from './ShowStudyGuides';
@@ -38,40 +36,37 @@ const StudyguidesPopUp = () => {
     }
   }, [isStudyGuidesOpen]);
 
-  return isStudyGuidesOpen ? createPortal(
-    <PopupWrapper>
-      <ScrollLock
-        overlay={true}
-        mobileOnly={false}
-        zIndex={theme.zIndex.highlightSummaryPopup}
-        onClick={closeAndTrack('overlay')}
-      />
-      <Modal
-        ref={popUpRef}
-        tabIndex='-1'
-        data-testid='studyguides-popup-wrapper'
-      >
-        <Header colorSchema={bookTheme}>
-          <FormattedMessage id='i18n:toolbar:studyguides:popup:heading'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-          <FormattedMessage id='i18n:toolbar:studyguides:popup:close-button:aria-label'>
-            {(msg: string) => (
-              <CloseIconWrapper
-                data-testid='close-studyguides-popup'
-                aria-label={msg}
-                onClick={closeAndTrack('button')}
-              >
-                <CloseIcon colorSchema={bookTheme} />
-              </CloseIconWrapper>
-            )}
-          </FormattedMessage>
-        </Header>
-        <ShowStudyGuides />
-      </Modal>
-    </PopupWrapper>,
-    assertDocument().body
-  ) : null;
+  return isStudyGuidesOpen ?
+    <Modal
+      ref={popUpRef}
+      tabIndex='-1'
+      data-testid='studyguides-popup-wrapper'
+      scrollLockProps={{
+        mobileOnly: false,
+        onClick: closeAndTrack('overlay'),
+        overlay: true,
+        zIndex: theme.zIndex.highlightSummaryPopup,
+      }}
+    >
+      <Header colorSchema={bookTheme}>
+        <FormattedMessage id='i18n:toolbar:studyguides:popup:heading'>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
+        <FormattedMessage id='i18n:toolbar:studyguides:popup:close-button:aria-label'>
+          {(msg: string) => (
+            <CloseIconWrapper
+              data-testid='close-studyguides-popup'
+              aria-label={msg}
+              onClick={closeAndTrack('button')}
+            >
+              <CloseIcon colorSchema={bookTheme} />
+            </CloseIconWrapper>
+          )}
+        </FormattedMessage>
+      </Header>
+      <ShowStudyGuides />
+    </Modal>
+    : null;
 };
 
 export default StudyguidesPopUp;

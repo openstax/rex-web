@@ -43,9 +43,9 @@ interface OverlayProps {
 }
 
 // tslint:disable-next-line:variable-name
-export const Overlay = styled(({ className, ...otherProps }: OverlayProps) => {
+export const Overlay = styled((props: OverlayProps) => {
   useDisableContentTabbing();
-  return <div className={className} {...otherProps} />;
+  return <div {...props} />;
 })`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
   background-color: rgba(0, 0, 0, 0.8);

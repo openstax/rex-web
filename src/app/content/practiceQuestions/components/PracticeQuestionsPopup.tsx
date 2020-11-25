@@ -1,15 +1,14 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { createPortal } from 'react-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
-import { assertDocument, assertWindow } from '../../../utils';
+import { assertWindow } from '../../../utils';
+import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
-import { CloseIcon, CloseIconWrapper, Header, Modal, PopupWrapper } from '../../styles/PopupStyles';
+import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
 import { closePracticeQuestions } from '../actions';
 import * as pqSelectors from '../selectors';
 import ShowPracticeQuestions from './ShowPracticeQuestions';
@@ -43,40 +42,37 @@ const PracticeQuestionsPopup = () => {
     }
   }, [isPracticeQuestionsOpen]);
 
-  return isPracticeQuestionsOpen ? createPortal(
-    <PopupWrapper>
-      <ScrollLock
-        overlay={true}
-        mobileOnly={false}
-        zIndex={theme.zIndex.highlightSummaryPopup}
-        onClick={closeAndTrack('overlay')}
-      />
-      <Modal
-        ref={popUpRef}
-        tabIndex='-1'
-        data-testid='practice-questions-popup-wrapper'
-      >
-        <Header colorSchema={bookTheme}>
-          <FormattedMessage id='i18n:practice-questions:popup:heading'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-          <FormattedMessage id='i18n:practice-questions:popup:close'>
-            {(msg: string) => (
-              <CloseIconWrapper
-                data-testid='close-practice-questions-popup'
-                aria-label={msg}
-                onClick={closeAndTrack('button')}
-              >
-                <CloseIcon colorSchema={bookTheme} />
-              </CloseIconWrapper>
-            )}
-          </FormattedMessage>
-        </Header>
-        <ShowPracticeQuestions />
-      </Modal>
-    </PopupWrapper>,
-    assertDocument().body
-  ) : null;
+  return isPracticeQuestionsOpen ?
+    <Modal
+      ref={popUpRef}
+      tabIndex='-1'
+      data-testid='practice-questions-popup-wrapper'
+      scrollLockProps={{
+        mobileOnly: false,
+        onClick: closeAndTrack('overlay'),
+        overlay: true,
+        zIndex: theme.zIndex.highlightSummaryPopup,
+      }}
+    >
+      <Header colorSchema={bookTheme}>
+        <FormattedMessage id='i18n:practice-questions:popup:heading'>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
+        <FormattedMessage id='i18n:practice-questions:popup:close'>
+          {(msg: string) => (
+            <CloseIconWrapper
+              data-testid='close-practice-questions-popup'
+              aria-label={msg}
+              onClick={closeAndTrack('button')}
+            >
+              <CloseIcon colorSchema={bookTheme} />
+            </CloseIconWrapper>
+          )}
+        </FormattedMessage>
+      </Header>
+      <ShowPracticeQuestions />
+    </Modal>
+  : null;
 };
 
 export default PracticeQuestionsPopup;

@@ -32,6 +32,7 @@ const slideInAnimation = css`
 const Wrapper = styled.div`
   position: fixed;
   bottom: 0;
+  left: 0;
   z-index: ${theme.zIndex.highlightsHelpInfoMobile};
   ${bodyCopyRegularStyle}
   display: flex;

@@ -1,6 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { createPortal } from 'react-dom';
 import { FormattedMessage } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
 import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
@@ -8,13 +7,12 @@ import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as authSelect from '../../../auth/selectors';
 import { User } from '../../../auth/types';
-import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { assertDocument } from '../../../utils';
+import Modal from '../../components/Modal';
 import { bookTheme } from '../../selectors';
-import { CloseIcon, CloseIconWrapper, Header, Modal, PopupBody, PopupWrapper } from '../../styles/PopupStyles';
+import { CloseIcon, CloseIconWrapper, Header, PopupBody } from '../../styles/PopupStyles';
 import { BookWithOSWebData } from '../../types';
 import { closeMyHighlights as closeMyHighlightsAction } from '../actions';
 import * as selectors from '../selectors';
@@ -110,41 +108,38 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
     }
   }, [props.myHighlightsOpen]);
 
-  return props.myHighlightsOpen ? createPortal(
-    <PopupWrapper>
-      <ScrollLock
-        overlay={true}
-        mobileOnly={false}
-        zIndex={theme.zIndex.highlightSummaryPopup}
-        onClick={closeAndTrack('overlay')}
-      />
-      <Modal
-        ref={popUpRef}
-        tabIndex='-1'
-        data-testid='highlights-popup-wrapper'
-      >
-        <Header colorSchema={props.bookTheme}>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:close-button:aria-label'>
-            {(msg: string) => (
-              <CloseIconWrapper
-               data-testid='close-highlights-popup'
-               aria-label={msg}
-               onClick={closeAndTrack('button')}
-              >
-                <CloseIcon colorSchema={props.bookTheme}/>
-              </CloseIconWrapper>
-            )}
-          </FormattedMessage>
-        </Header>
-        {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
-      </Modal>
+  return props.myHighlightsOpen ?
+    <Modal
+      ref={popUpRef}
+      tabIndex='-1'
+      data-testid='highlights-popup-wrapper'
+      scrollLockProps={{
+        mobileOnly: false,
+        onClick: closeAndTrack('overlay'),
+        overlay: true,
+        zIndex: theme.zIndex.highlightSummaryPopup,
+      }}
+    >
+      <Header colorSchema={props.bookTheme}>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:close-button:aria-label'>
+          {(msg: string) => (
+            <CloseIconWrapper
+              data-testid='close-highlights-popup'
+              aria-label={msg}
+              onClick={closeAndTrack('button')}
+            >
+              <CloseIcon colorSchema={props.bookTheme}/>
+            </CloseIconWrapper>
+          )}
+        </FormattedMessage>
+      </Header>
+      {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
       <HighlightsHelpInfo />
-    </PopupWrapper>,
-    assertDocument().body
-  ) : null;
+    </Modal>
+    : null;
 };
 
 export default connect(
