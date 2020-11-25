@@ -12,7 +12,6 @@ interface QuestionProps {
   isSubmitted?: boolean;
   showCorrect?: boolean;
   source: LinkedArchiveTreeSection;
-  onSelectAnswer?: (answer: PracticeAnswer) => void;
 }
 
 // tslint:disable-next-line: variable-name
@@ -36,6 +35,10 @@ const AnswersWrapper = styled.form`
   margin-top: ${theme.padding.page.desktop}rem;
 `;
 
+const getChoiceLetter = (value: number) => {
+  return (value + 10).toString(36);
+};
+
 // tslint:disable-next-line: variable-name
 const Question = (props: QuestionProps) => {
   const [selectedAnswer, setSelectedAnswer] = React.useState<PracticeAnswer | null>(null);
@@ -44,10 +47,17 @@ const Question = (props: QuestionProps) => {
     <QuestionContent content={props.question.stem_html} source={props.source} />
     <AnswersWrapper>
       { props.question.answers.map((answer, index) =>
-        <Answer key={index} answer={answer} index={index} source={props.source} isSubmitted={false}
+        <Answer
+          key={index}
+          answer={answer}
+          choiceIndicator={getChoiceLetter(index)}
+          source={props.source}
+          isSubmitted={false}
+          showCorrect={false}
           isSelected={ Boolean(selectedAnswer && selectedAnswer.id === answer.id) }
-          onSelect={ () => setSelectedAnswer(answer) }/>)
-      }
+          onSelect={ () => setSelectedAnswer(answer) }
+        />
+      ) }
     </AnswersWrapper>
   </QuestionWrapper>;
 };

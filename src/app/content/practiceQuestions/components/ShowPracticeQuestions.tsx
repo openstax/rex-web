@@ -12,7 +12,6 @@ import { PracticeQuestion } from '../types';
 import { getNextPageWithPracticeQuestions } from '../utils';
 import EmptyScreen from './EmptyScreen';
 import IntroScreen from './IntroScreen';
-import MockQuestionData from './MockQuestionData.json';
 import ProgressBar from './ProgressBar';
 import Question from './Question';
 
@@ -119,7 +118,7 @@ const ShowPracticeQuestions = () => {
               selectedSectionHasPracticeQuestions && currentQuestionIndex === null
                 ? <IntroScreen />
                 : typeof currentQuestionIndex === 'number' && section &&
-                  <Question question={MockQuestionData as PracticeQuestion} source={section}/>
+                  <Question question={{} as PracticeQuestion} source={section}/>
             }
           </QuestionsWrapper>
         )

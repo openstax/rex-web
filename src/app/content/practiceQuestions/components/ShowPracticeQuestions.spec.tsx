@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
+import renderer, { act } from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book } from '../../../../test/mocks/archiveLoader';
@@ -12,11 +12,12 @@ import { receiveBook, receivePage } from '../../actions';
 import { content } from '../../routes';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
-import { receivePracticeQuestionsSummary, setQuestions, setSelectedSection } from '../actions';
+import { nextQuestion, receivePracticeQuestionsSummary, setQuestions, setSelectedSection } from '../actions';
 import { PracticeQuestion } from '../types';
 import EmptyScreen from './EmptyScreen';
 import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
+import Question from './Question';
 import ShowPracticeQuestions, {
   QuestionsHeader,
   QuestionsWrapper,
@@ -128,5 +129,24 @@ describe('ShowPracticeQuestions', () => {
 
     expect(() => component.root.findByType(EmptyScreen)).not.toThrow();
     expect(() => component.root.findByType(IntroScreen)).toThrow();
+  });
+
+  it('renders Practice Question screen after intro screen', () => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(receivePracticeQuestionsSummary({
+      countsPerSource: { [linkedArchiveTreeSection.id]: 3 },
+    }));
+    store.dispatch(setQuestions([{id: 'asd'} as any as PracticeQuestion]));
+
+    const component = renderer.create(render());
+
+    expect(() => component.root.findByType(IntroScreen)).not.toThrow();
+
+    act(() => {
+      store.dispatch(nextQuestion());
+    });
+
+    expect(() => component.root.findByType(Question)).not.toThrow();
   });
 });
