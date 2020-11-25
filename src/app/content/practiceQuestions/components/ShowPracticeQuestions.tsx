@@ -8,12 +8,10 @@ import * as contentSelectors from '../../selectors';
 import { PopupBody } from '../../styles/PopupStyles';
 import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import * as pqSelectors from '../selectors';
-import { PracticeQuestion } from '../types';
 import { getNextPageWithPracticeQuestions } from '../utils';
 import EmptyScreen from './EmptyScreen';
 import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
-import Question from './Question';
 
 // tslint:disable-next-line:variable-name
 export const ShowPracticeQuestionsBody = styled(PopupBody)`
@@ -117,8 +115,7 @@ const ShowPracticeQuestions = () => {
             {
               selectedSectionHasPracticeQuestions && currentQuestionIndex === null
                 ? <IntroScreen />
-                : typeof currentQuestionIndex === 'number' && section &&
-                  <Question question={{} as PracticeQuestion} source={section}/>
+                : null
             }
           </QuestionsWrapper>
         )

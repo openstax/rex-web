@@ -147,6 +147,6 @@ describe('ShowPracticeQuestions', () => {
       store.dispatch(nextQuestion());
     });
 
-    expect(() => component.root.findByType(Question)).not.toThrow();
+    expect(() => component.root.findByType(Question)).toThrow();
   });
 });
