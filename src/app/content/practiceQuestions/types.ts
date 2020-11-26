@@ -15,7 +15,7 @@ export interface PracticeQuestionsSummary {
   };
 }
 
-interface PracticeAnswer {
+export interface PracticeAnswer {
   id: number;
   content_html: string;
   correctness: '0.0' | '1.0';
@@ -30,3 +30,11 @@ export interface PracticeQuestion {
 }
 
 export type PracticeQuestions = PracticeQuestion[];
+
+export interface PracticeQuestionStyles {
+  label: string;
+  passive: string;
+  focused: string;
+  fontColor: string;
+  hovered?: string;
+}

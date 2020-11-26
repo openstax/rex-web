@@ -86,7 +86,7 @@ const HighlightListElement = ({ highlight }: HighlightListElementProps) =>
       <ContentExcerpt
         data-highlight-id={highlight.id}
         content={highlight.highlightedContent}
-        sourcePageId={highlight.sourceId}
+        source={highlight.sourceId}
       />
     </HighlightContentWrapper>
   </HighlightOuterWrapper>;
