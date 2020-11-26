@@ -144,7 +144,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       <ContentExcerpt
         data-highlight-id={highlight.id}
         content={highlight.highlightedContent}
-        sourcePageId={highlight.sourceId}
+        source={highlight.sourceId}
       />
       <HighlightAnnotation
         annotation={highlight.annotation || ''}
