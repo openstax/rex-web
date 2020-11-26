@@ -19,6 +19,7 @@ interface QuestionNavigationProps {
   onSkip: () => void;
   onSubmit: () => void;
   onShowAnswer: () => void;
+  hideShowAnswerButton: boolean;
   onNext: () => void;
   onFinish: () => void;
 }
@@ -27,9 +28,9 @@ interface QuestionNavigationProps {
 const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavigationProps) => {
   const questionsAndAnswers = useSelector(pqSelectors.questionsAndAnswers);
   const isFinalQuestion = useSelector(pqSelectors.isFinalQuestion);
-  const showSkipAndSubmit = !questionsAndAnswers.has(question.id);
-  const submittedAnswer = questionsAndAnswers.get(question.id);
-  const showShowAnswer = submittedAnswer && submittedAnswer.correctness === '0.0';
+  const showSkipAndSubmit = !questionsAndAnswers.has(question.uid);
+  const submittedAnswer = questionsAndAnswers.get(question.uid);
+  const showShowAnswer = !props.hideShowAnswerButton && submittedAnswer && submittedAnswer.correctness === '0.0';
   const showNext = Boolean(submittedAnswer && !isFinalQuestion);
   const showFinish = Boolean(submittedAnswer && isFinalQuestion);
 

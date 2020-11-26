@@ -48,6 +48,12 @@ export const currentQuestionIndex = createSelector(
   (state) => state.currentQuestionIndex
 );
 
+export const question = createSelector(
+  localState,
+  currentQuestionIndex,
+  (state, index) => index === null ? undefined : state.questions[index]
+);
+
 export const selectedSectionHasPracticeQuestions = createSelector(
   selectedSection,
   practiceQuestionsSummary,

@@ -32,7 +32,12 @@ export interface PracticeQuestion {
 
 export type PracticeQuestions = PracticeQuestion[];
 
-export type QuestionsAndAnswers = Map<number, PracticeAnswer | null>;
+export type QuestionsAndAnswers = Map<string, PracticeAnswer | null>;
+
+export interface SetPracticeAnswer {
+  questionId: string;
+  answer: PracticeAnswer | null;
+}
 
 export interface PracticeQuestionStyles {
   label: string;

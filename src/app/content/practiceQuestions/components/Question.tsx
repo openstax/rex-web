@@ -1,18 +1,14 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
 import ContentExcerpt from '../../components/ContentExcerpt';
-import { LinkedArchiveTreeSection } from '../../types';
-import { PracticeAnswer, PracticeQuestion } from '../types';
+import { nextQuestion, setAnswer } from '../actions';
+import * as pqSelectors from '../selectors';
+import { PracticeAnswer } from '../types';
 import Answer from './Answer';
-
-interface QuestionProps {
-  question: PracticeQuestion;
-  isSubmitted?: boolean;
-  showCorrect?: boolean;
-  source: LinkedArchiveTreeSection;
-}
+import QuestionNavigation from './QuestionNavigation';
 
 // tslint:disable-next-line: variable-name
 const QuestionWrapper = styled.div`
@@ -40,25 +36,52 @@ const getChoiceLetter = (value: number) => {
 };
 
 // tslint:disable-next-line: variable-name
-const Question = (props: QuestionProps) => {
+const Question = () => {
   const [selectedAnswer, setSelectedAnswer] = React.useState<PracticeAnswer | null>(null);
+  const [showCorrect, setShowCorrect] = React.useState(false);
+  const question = useSelector(pqSelectors.question);
+  const section = useSelector(pqSelectors.selectedSection);
+  const questionsAndAnswers = useSelector(pqSelectors.questionsAndAnswers);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    setSelectedAnswer(null);
+    setShowCorrect(false);
+  }, [question]);
+
+  if (!section || !question) { return null; }
+
+  const isSubmitted = questionsAndAnswers.has(question.uid);
 
   return <QuestionWrapper>
-    <QuestionContent content={props.question.stem_html} source={props.source} />
+    <QuestionContent content={question.stem_html} source={section} />
     <AnswersWrapper>
-      { props.question.answers.map((answer, index) =>
+      {question.answers.map((answer, index) =>
         <Answer
           key={index}
           answer={answer}
           choiceIndicator={getChoiceLetter(index)}
-          source={props.source}
-          isSubmitted={false}
-          showCorrect={false}
-          isSelected={ Boolean(selectedAnswer && selectedAnswer.id === answer.id) }
-          onSelect={ () => setSelectedAnswer(answer) }
+          source={section}
+          isSubmitted={isSubmitted}
+          showCorrect={showCorrect}
+          isSelected={Boolean(selectedAnswer && selectedAnswer.id === answer.id)}
+          onSelect={() => isSubmitted ? null : setSelectedAnswer(answer)}
         />
-      ) }
+      )}
     </AnswersWrapper>
+    <QuestionNavigation
+      question={question}
+      selectedAnswer={selectedAnswer}
+      onSkip={() => {
+        dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
+        dispatch(nextQuestion());
+      }}
+      onSubmit={() => dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }))}
+      onShowAnswer={() => setShowCorrect(true)}
+      hideShowAnswerButton={showCorrect}
+      onNext={() => dispatch(nextQuestion())}
+      onFinish={() => null}
+    />
   </QuestionWrapper>;
 };
 

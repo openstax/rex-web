@@ -39,6 +39,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, currentQuestionIndex: state.currentQuestionIndex === null ? 0 : state.currentQuestionIndex + 1};
     case getType(actions.setQuestions):
       return {...state, questions: action.payload};
+    case getType(actions.setAnswer):
+      const { questionId, answer } = action.payload;
+      return {...state, questionsAndAnswers: new Map(state.questionsAndAnswers).set(questionId, answer) };
     default:
       return state;
   }

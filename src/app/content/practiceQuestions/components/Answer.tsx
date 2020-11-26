@@ -47,7 +47,7 @@ const AnswerLabel = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: ${(props: {isSubmitted: boolean}) => props.isSubmitted ? 'not-allowed' : 'pointer'};
   color: ${(props: {style: PracticeQuestionStyles}) => props.style.fontColor};
 
   input {
@@ -63,13 +63,15 @@ export const AnswerBlock = styled.div`
   padding: 0 2rem 2.4rem;
   display: flex;
   align-items: flex-start;
-  cursor: pointer;
+  cursor: ${(props: {isSubmitted: boolean}) => props.isSubmitted ? 'not-allowed' : 'pointer'};
 
-  &:hover {
-    ${AnswerLabel} {
-      border-color: ${(props: {style: PracticeQuestionStyles}) => props.style.hovered};
+  ${({ isSubmitted }: {isSubmitted: boolean}) => isSubmitted ? null : css`
+    &:hover {
+      ${AnswerLabel} {
+        border-color: ${(props: {style: PracticeQuestionStyles}) => props.style.hovered};
+      }
     }
-  }
+  `}
 
   ${theme.breakpoints.mobile(css`
     padding: 0 1rem 2.4rem;
@@ -81,28 +83,44 @@ export const AnswerBlock = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const Answer = (props: AnswerProps) => {
-  const answerStyle = props.isSelected ? contants.selectedAnswerStyle : contants.unselectedAnswerStyle;
+const Answer = ({
+  answer,
+  showCorrect,
+  choiceIndicator,
+  isSubmitted,
+  isSelected,
+  onSelect,
+}: AnswerProps) => {
+  const isCorrect = answer.correctness === '1.0';
+  const answerStyle = showCorrect && isCorrect
+    ? contants.correctAnswerStyle
+    : isSubmitted && isSelected
+      ? isCorrect
+        ? contants.correctAnswerStyle
+        : contants.incorrectAnswerStyle
+    : isSelected
+      ? contants.selectedAnswerStyle
+      : contants.unselectedAnswerStyle;
 
-  return <AnswerBlock style={answerStyle} onClick={props.onSelect}>
+  return <AnswerBlock style={answerStyle} isSubmitted={isSubmitted} onClick={onSelect}>
     <FormattedMessage
       id='i18n:practice-questions:popup:answers:choice'
-      values={{choiceIndicator: props.choiceIndicator.toUpperCase()}}
+      values={{choiceIndicator: choiceIndicator.toUpperCase()}}
     >{(msg: string) =>
-      <AnswerLabel style={answerStyle} htmlFor={props.answer.id} aria-label={msg}>
-        {props.choiceIndicator}
+      <AnswerLabel style={answerStyle} isSubmitted={isSubmitted} aria-label={msg}>
+        {choiceIndicator}
         <input
           type='radio'
-          id={`${props.answer.id}`}
-          name={props.choiceIndicator}
-          checked={props.isSelected}
-          onChange={props.onSelect}
+          name={choiceIndicator}
+          checked={isSelected}
+          disabled={isSubmitted}
+          onChange={onSelect}
         />
       </AnswerLabel>
     }</FormattedMessage>
     <AnswerAlignment>
       <AnswerContent>
-        <AnswerExcerpt>{props.answer.content_html}</AnswerExcerpt>
+        <AnswerExcerpt>{answer.content_html}</AnswerExcerpt>
       </AnswerContent>
     </AnswerAlignment>
   </AnswerBlock>;
