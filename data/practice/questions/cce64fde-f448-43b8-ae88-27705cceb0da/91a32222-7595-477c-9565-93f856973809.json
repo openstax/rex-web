@@ -1,0 +1,162 @@
+[
+  {
+    "answers": [
+      {
+        "id": 346911,
+        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "correctness": "1.0",
+        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+      },
+      {
+        "id": 346910,
+        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+      },
+      {
+        "id": 346909,
+        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+      },
+      {
+        "id": 346908,
+        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+      }
+    ],
+    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
+    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "uid": "2@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 347174,
+        "content_html": "Hydrocarbon consisting of closed rings of carbon atoms",
+        "correctness": "0.0",
+        "feedback_html": "This defines a wide diversity of compounds, but has nothing to do with defining an enantiomer."
+      },
+      {
+        "id": 347173,
+        "content_html": "Isomers with similar bonding patterns differing in the placement of atoms along a double covalent bond.",
+        "correctness": "0.0",
+        "feedback_html": "This defines cis-trans isomerism."
+      },
+      {
+        "id": 347175,
+        "content_html": "Molecules that share the same chemical bonds but are mirror images of each other.",
+        "correctness": "1.0",
+        "feedback_html": "Enantiomers share the same chemical structure and chemical bonds but differ in the three dimensional placements of atoms, so that they are mirror images of each other."
+      },
+      {
+        "id": 347172,
+        "content_html": "Molecules with the same chemical formula but differ in the placement of their chemical bonds",
+        "correctness": "0.0",
+        "feedback_html": "Enantiomers share the same chemical bonds."
+      }
+    ],
+    "group_uuid": "506040c2-9358-40b3-804e-f044868c892e",
+    "stem_html": "What are enantiomers?",
+    "tags": "506040c2-9358-40b3-804e-f044868c892e",
+    "uid": "86@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 346911,
+        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "correctness": "1.0",
+        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+      },
+      {
+        "id": 346910,
+        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+      },
+      {
+        "id": 346909,
+        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+      },
+      {
+        "id": 346908,
+        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+      }
+    ],
+    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
+    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "uid": "2@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 380461,
+        "content_html": "The evaporator converts gaseous refrigerant into liquid.",
+        "correctness": "0.0",
+        "feedback_html": "The evaporator causes liquid refrigerant to evaporate by taking energy from the room by means of heat."
+      },
+      {
+        "id": 380460,
+        "content_html": "The evaporator converts solid refrigerant into liquid.",
+        "correctness": "0.0",
+        "feedback_html": "Solid refrigerants are rarely used, and do not undergo this conversion in the evaporator."
+      },
+      {
+        "id": 380459,
+        "content_html": "The evaporator converts solid refrigerant into gas.",
+        "correctness": "0.0",
+        "feedback_html": "Gaseous refrigerant is produced in the evaporator, but from liquid form."
+      },
+      {
+        "id": 380462,
+        "content_html": "The evaporator converts liquid refrigerant into gas.",
+        "correctness": "1.0",
+        "feedback_html": "The evaporator causes liquid refrigerant to evaporate into gas."
+      }
+    ],
+    "group_uuid": "b4639cc7-7b81-4087-973b-8e2450528e91",
+    "stem_html": "In a refrigerator, what is the function of an evaporator?",
+    "tags": "b4639cc7-7b81-4087-973b-8e2450528e91",
+    "uid": "6820@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 380475,
+        "content_html": "<span data-math=\"Eff = \\frac{Q_{\\text{h}}}{Q_{\\text{h}} - Q_{\\text{c}}}\">Eff = \\frac{Q_{\\text{h}}}{Q_{\\text{h}} - Q_{\\text{c}}}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The above formula always gives an efficiency that is equal to or greater than <span data-math=\"100\\%\">100\\,\\%</span>, which is not physically possible."
+      },
+      {
+        "id": 380476,
+        "content_html": "<span data-math=\"Eff = \\frac{Q_{\\text{h}}}{Q_{\\text{c}}}\">Eff = \\frac{Q_{\\text{h}}}{Q_{\\text{c}}}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Efficiency is defined as the proportion of the heat input that is used to perform work."
+      },
+      {
+        "id": 380477,
+        "content_html": "<span data-math=\"Eff = \\frac{Q_{\\text{c}}}{Q_{\\text{h}}}\">Eff = \\frac{Q_{\\text{c}}}{Q_{\\text{h}}}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The ratio of work done to heat input is defined as efficiency."
+      },
+      {
+        "id": 380478,
+        "content_html": "<span data-math=\"Eff = \\frac{Q_{\\text{h}} - Q_{\\text{c}}}{Q_{\\text{h}}}\">Eff = \\frac{Q_{\\text{h}} - Q_{\\text{c}}}{Q_{\\text{h}}}</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "This is the correct formula for efficiency."
+      }
+    ],
+    "group_uuid": "f26b3e90-c5bc-4d78-867b-872567338483",
+    "stem_html": "How can you mathematically express thermal efficiency in terms of <span data-math=\"Q_{\\text{h}}\">Q_{\\text{h}}</span> and <span data-math=\"Q_{\\text{c}}\">Q_{\\text{c}}</span>?",
+    "tags": "f26b3e90-c5bc-4d78-867b-872567338483",
+    "uid": "6824@6"
+  }
+]

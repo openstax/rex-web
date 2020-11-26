@@ -24,12 +24,20 @@ export interface PracticeAnswer {
 }
 
 export interface PracticeQuestion {
-  uuid: string;
+  group_uuid: string;
+  uid: string;
   stem_html: string;
-  id: number;
   answers: PracticeAnswer[];
 }
 
 export type PracticeQuestions = PracticeQuestion[];
 
 export type QuestionsAndAnswers = Map<number, PracticeAnswer | null>;
+
+export interface PracticeQuestionStyles {
+  label: string;
+  passive: string;
+  focused: string;
+  fontColor: string;
+  hovered?: string;
+}

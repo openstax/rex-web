@@ -1,0 +1,124 @@
+[
+  {
+    "answers": [
+      {
+        "id": 375675,
+        "content_html": "Friction is an internal force that opposes the relative motion of an object.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that friction opposes the relative motion of an object, but it is not an internal force. Try to differentiate between internal and external forces."
+      },
+      {
+        "id": 375674,
+        "content_html": "Friction is an internal force that accelerates an object’s relative motion.",
+        "correctness": "0.0",
+        "feedback_html": "Friction is not an internal force. Review the definition of friction."
+      },
+      {
+        "id": 375676,
+        "content_html": "Friction is an external force that opposes the relative motion of an object.",
+        "correctness": "1.0",
+        "feedback_html": "Friction is an external force that opposes the motion of an object."
+      },
+      {
+        "id": 375673,
+        "content_html": "Friction is an external force that increases the velocity of the relative motion of an object.",
+        "correctness": "0.0",
+        "feedback_html": "Yes, friction is an external force, but it acts in opposition to the relative motion. Try to explain how an object comes to rest."
+      }
+    ],
+    "group_uuid": "242492f6-29a9-480f-b81c-6c7cbef67693",
+    "stem_html": "What is friction?",
+    "tags": "242492f6-29a9-480f-b81c-6c7cbef67693",
+    "uid": "2271@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 397410,
+        "content_html": "astronomy",
+        "correctness": "0.0",
+        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+      },
+      {
+        "id": 397411,
+        "content_html": "biology",
+        "correctness": "0.0",
+        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+      },
+      {
+        "id": 397412,
+        "content_html": "computer science",
+        "correctness": "1.0",
+        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+      },
+      {
+        "id": 397413,
+        "content_html": "physics",
+        "correctness": "0.0",
+        "feedback_html": "Physics is a branch of natural science that studies matter."
+      }
+    ],
+    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "stem_html": "Which of the following sciences is not considered a natural science?",
+    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "uid": "4@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 375706,
+        "content_html": "It increases with the increase in the relative motion.",
+        "correctness": "0.0",
+        "feedback_html": "The coefficient of kinetic friction, which is a property of matter, cannot change with the change in the relative motion between the two surfaces."
+      },
+      {
+        "id": 375705,
+        "content_html": "It decreases with the increase in the relative motion.",
+        "correctness": "0.0",
+        "feedback_html": "Consider the fact that the coefficient of kinetic friction is related to the property of matter and is independent of the dynamics of the object and surfaces."
+      },
+      {
+        "id": 375707,
+        "content_html": "It remains constant and is independent of the relative motion.",
+        "correctness": "1.0",
+        "feedback_html": "The coefficient of kinetic friction is independent of the relative motion of the two surfaces and remains constant."
+      }
+    ],
+    "group_uuid": "7244610a-ee68-4e70-b0bf-d01802da2437",
+    "stem_html": "Two surfaces in contact are moving slowly past each other. As the relative speed between the two surfaces in contact increases, what happens to the magnitude of their coefficient of kinetic friction?",
+    "tags": "7244610a-ee68-4e70-b0bf-d01802da2437",
+    "uid": "2280@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 347052,
+        "content_html": "Ions",
+        "correctness": "0.0",
+        "feedback_html": "Ions are charged particles and not a neutral molecule."
+      },
+      {
+        "id": 347055,
+        "content_html": "Isotopes",
+        "correctness": "1.0",
+        "feedback_html": "Isotopes are atoms that have the same number of protons, but differ in the number of neutrons."
+      },
+      {
+        "id": 347053,
+        "content_html": "Isobars",
+        "correctness": "0.0",
+        "feedback_html": "Isobars are elements which have the same number of neutrons."
+      },
+      {
+        "id": 347054,
+        "content_html": "Neutral atoms",
+        "correctness": "0.0",
+        "feedback_html": "Neutral atoms do not have different number of neutrons."
+      }
+    ],
+    "group_uuid": "ba5df333-6979-4af2-9623-5cd0e2c1af6c",
+    "stem_html": "What are atoms that vary in the number of neutrons found in their nuclei called?",
+    "tags": "ba5df333-6979-4af2-9623-5cd0e2c1af6c",
+    "uid": "49@5"
+  }
+]

@@ -1,0 +1,194 @@
+[
+  {
+    "answers": [
+      {
+        "id": 470440,
+        "content_html": "hydrogen atom, water molecule, skin cell, liver, elephant, wolf pack, tropical rainforest, planet Earth",
+        "correctness": "1.0",
+        "feedback_html": "Hydrogen atom, water molecule, skin cell, liver, elephant, wolf pack, tropical rainforest, planet Earth is the correct order from smallest level of organization to most encompassing."
+      },
+      {
+        "id": 470437,
+        "content_html": "hydrogen atom, skin cell, water molecule, liver, elephant, wolf pack, tropical rainforest, planet Earth",
+        "correctness": "0.0",
+        "feedback_html": "A skin cell is more encompassing than a water molecule."
+      },
+      {
+        "id": 470438,
+        "content_html": "hydrogen atom, skin cell, water molecule, liver, wolf pack, elephant, tropical rainforest, planet Earth",
+        "correctness": "0.0",
+        "feedback_html": "Try to carefully visualize the list given and arrange them from the smallest to the longst level of organization."
+      },
+      {
+        "id": 470439,
+        "content_html": "water molecule, hydrogen atom, skin cell, liver, elephant, wolf pack, tropical rainforest, planet Earth",
+        "correctness": "0.0",
+        "feedback_html": "A water molecule is not the smallest level of organization, hydrogen atom is."
+      }
+    ],
+    "group_uuid": "947cb522-a69c-461a-bef5-1d7025418d3b",
+    "stem_html": "Consider the levels of organization of the biological world and place each of these items in order from smallest level of organization to most encompassing: skin cell, elephant, water molecule, planet Earth, tropical rainforest, hydrogen atom, wolf pack, liver.",
+    "tags": "947cb522-a69c-461a-bef5-1d7025418d3b",
+    "uid": "19@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 391467,
+        "content_html": "Negative magnification means the image is erect and real.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the meaning of negative magnification."
+      },
+      {
+        "id": 391466,
+        "content_html": "Negative magnification means the image is erect and virtual.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the meaning of negative magnification."
+      },
+      {
+        "id": 391465,
+        "content_html": "Negative magnification means the image is inverted and virtual.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the meaning of negative magnification."
+      },
+      {
+        "id": 391468,
+        "content_html": "Negative magnification means the image is inverted and real.",
+        "correctness": "1.0",
+        "feedback_html": "Recall the meaning of negative magnification."
+      }
+    ],
+    "group_uuid": "b7ce5382-d28c-4a0e-b1be-0958b59c2238",
+    "stem_html": "A lens has a magnification that is negative. What is the orientation of the image?",
+    "tags": "b7ce5382-d28c-4a0e-b1be-0958b59c2238",
+    "uid": "11251@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 471524,
+        "content_html": "These large cells show invaginations to increase the surface-to-volume ratio.",
+        "correctness": "1.0",
+        "feedback_html": "These cells display numerous invaginations of the cytoplasmic membrane, are unusually flat, or have large vacuoles or other organelles, which effectively reduce the volume of the cytoplasm, making their survival possible even with a large volume."
+      },
+      {
+        "id": 471523,
+        "content_html": "The large cells shut off their ion pumps and maintain a stable concentration gradient to avoid diffusion.",
+        "correctness": "0.0",
+        "feedback_html": ""
+      },
+      {
+        "id": 471522,
+        "content_html": "These cells have an intracellular mechanism to compensate for the constant diffusion taking place.",
+        "correctness": "0.0",
+        "feedback_html": ""
+      },
+      {
+        "id": 471521,
+        "content_html": "These cells have an extra capsule surrounding the cell membrane to avoid excess diffusion.",
+        "correctness": "0.0",
+        "feedback_html": ""
+      }
+    ],
+    "group_uuid": "e1c94378-95f9-4212-839a-e58c9ded5cbe",
+    "stem_html": "Some unusually large cells do exist. How might such cells solve the problem of diffusion?",
+    "tags": "e1c94378-95f9-4212-839a-e58c9ded5cbe",
+    "uid": "304@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 278547,
+        "content_html": "The shape of the lens was changed by the sclera, and thus its focal length was also changed, so that each of the images focused on the retina.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, the shape of the lens is changed by muscles. The sclera is not responsible for changing the shape of the lens."
+      },
+      {
+        "id": 278548,
+        "content_html": "The shape of the lens was changed by the choroid, and thus its focal length was also changed, so that each of the images focused on the retina.",
+        "correctness": "0.0",
+        "feedback_html": "The choroid is not responsible for changing the shape of the lens. The shape of lens is changed by muscles."
+      },
+      {
+        "id": 278549,
+        "content_html": "The shape of the lens was changed by the iris, and thus its focal length was also changed, so that each of the images focused on the retina.",
+        "correctness": "0.0",
+        "feedback_html": "The iris is not responsible for changing the shape of the lens."
+      },
+      {
+        "id": 278550,
+        "content_html": "The shape of the lens was changed by the muscles, and thus its focal length was also changed, so that each of the images focused on the retina.",
+        "correctness": "1.0",
+        "feedback_html": "This answer is correct. The shape of the lens was changed by muscles. This change in shape caused a change in focal length, which allowed each of the images to be focused on the retina."
+      }
+    ],
+    "group_uuid": "38610384-c923-4d6a-b9e6-87c23a5536b9",
+    "stem_html": "A person timing the moonrise looks at her watch and then at the rising moon. Describe what happened inside her eyes that allowed her to see her watch clearly one second and then see the moon clearly.",
+    "tags": "38610384-c923-4d6a-b9e6-87c23a5536b9",
+    "uid": "11264@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 206310,
+        "content_html": "The eyes of a nearsighted person have focal points beyond the retina. A farsighted person has eyes with focal points between the lens and the retina.",
+        "correctness": "0.0",
+        "feedback_html": "For a nearsighted person, the eyes have focal points between the lens and the retina."
+      },
+      {
+        "id": 206313,
+        "content_html": "A nearsighted person has eyes with focal points between the lens and the retina. A farsighted person has eyes with focal points beyond the retina.",
+        "correctness": "1.0",
+        "feedback_html": "This answer is correct. The focal points in the eyes of a nearsighted person lie between the lens and the retina. The focal points in the eyes of a farsighted person lie beyond the retina."
+      },
+      {
+        "id": 206311,
+        "content_html": "A nearsighted person has eyes with focal points between the lens and the choroid. A farsighted person has eyes with focal points beyond the choroid.",
+        "correctness": "0.0",
+        "feedback_html": "A nearsighted person has eyes with focal points between the lens and the retina, not the choroid."
+      },
+      {
+        "id": 206312,
+        "content_html": "A nearsighted person has eyes with focal points between the lens and the retina. A farsighted person has eyes with focal points on the retina.",
+        "correctness": "0.0",
+        "feedback_html": "The focal points in the eyes of a farsighted person do not lie on the retina.For a farsighted person, the focal point is beyond the retina."
+      }
+    ],
+    "group_uuid": "f7183941-5d5b-41f0-ae88-dc939655525d",
+    "stem_html": "Compare nearsightedness (myopia) and farsightedness (hyperopia) in terms of focal point.",
+    "tags": "f7183941-5d5b-41f0-ae88-dc939655525d",
+    "uid": "11286@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 206320,
+        "content_html": "<div data-math=\"f = \\frac{d_\\text{o} + d_\\text{i}}{d_\\text{o} d_\\text{i}}\">f = \\frac{d_\\text{o} + d_\\text{i}}{d_\\text{o} d_\\text{i}}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The equation has not been solved correctly."
+      },
+      {
+        "id": 206321,
+        "content_html": "<div data-math=\"f = \\frac{d_\\text{o} d_\\text{i}}{d_\\text{i} + d_\\text{o}}\">f = \\frac{d_\\text{o} d_\\text{i}}{d_\\text{i} + d_\\text{o}}</div>\n",
+        "correctness": "1.0",
+        "feedback_html": "The derivation for focal length is correct."
+      },
+      {
+        "id": 206319,
+        "content_html": "<div data-math=\"f = \\left( d_\\text{i} + d_\\text{o} \\right)\">f = \\left( d_\\text{i} + d_\\text{o} \\right)</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The equation has not been solved correctly."
+      },
+      {
+        "id": 206318,
+        "content_html": "<span data-math=\"\\text{f} = \\text{d}_\\text{o} \\text{d}_\\text{i}\">\\text{f} = \\text{d}_\\text{o} \\text{d}_\\text{i}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The equation has not been solved correctly."
+      }
+    ],
+    "group_uuid": "cacc607f-7480-4dd5-8e2e-c020d2a3803f",
+    "stem_html": "Solve the equation <span data-math=\"\\frac{1}{d_\\text{o}} + \\frac{1}{d_\\text{i}} = \\frac{1}{f}\">\\frac{1}{d_\\text{o}} + \\frac{1}{d_\\text{i}} = \\frac{1}{f}</span> for <span data-math=\"f\">f</span> in such a way that it is not expressed as a reciprocal.",
+    "tags": "cacc607f-7480-4dd5-8e2e-c020d2a3803f",
+    "uid": "11288@4"
+  }
+]

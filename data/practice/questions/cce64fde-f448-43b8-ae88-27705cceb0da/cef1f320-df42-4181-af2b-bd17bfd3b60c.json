@@ -1,0 +1,162 @@
+[
+  {
+    "answers": [
+      {
+        "id": 376835,
+        "content_html": "<span data-math=\"5.94\\times10^{17}\\,\\text{kg}\">5.94\\times10^{17}\\,\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Convert all the given values in SI units to obtain the mass in <span data-math=\"\\text{kg}\">\\text{kg}</span>."
+      },
+      {
+        "id": 376838,
+        "content_html": "<span data-math=\"5.94\\times10^{24}\\text{kg}\">5.94\\times10^{24}\\text{kg}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The mass of Earth with the given values of radius and acceleration due to gravity comes out to be <span data-math=\"5.94\\times10^{24}\\text{kg}\">5.94\\times10^{24}\\text{kg}</span> ."
+      },
+      {
+        "id": 376836,
+        "content_html": "<span data-math=\"9.36\\times10^{17}\\text{kg}\">9.36\\times10^{17}\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall that the radius of Earth is squared in the expression. The correct expression is <span data-math=\"M = \\frac{gr^2\\!}{\\text{G}}\">M = \\frac{gr^2\\!}{\\text{G}}</span>."
+      },
+      {
+        "id": 376837,
+        "content_html": "<span data-math=\"9.36\\times10^{24}\\text{kg}\">9.36\\times10^{24}\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Acceleration due to gravity is given by the expression <span data-math=\"g = \\text{G}\\frac{M}{r^2\\!}\">g = \\text{G}\\frac{M}{r^2\\!}</span>."
+      }
+    ],
+    "group_uuid": "a5254375-bb95-4a90-86df-43071ae4b3a9",
+    "stem_html": "Calculate Earth’s mass given that the acceleration due to gravity at the North Pole is <span data-math=\"9.830\\text{m/s}^2\\!\">9.830\\text{m/s}^2\\!</span> and the radius of the Earth is <span data-math=\"6371\\,\\text{km}\">6371\\,\\text{km}</span> from pole to center.",
+    "tags": "a5254375-bb95-4a90-86df-43071ae4b3a9",
+    "uid": "2597@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376843,
+        "content_html": "Gravitational force between two objects is directly proportional to the sum of the squares of their masses and inversely proportional to the square of the distance between them.",
+        "correctness": "0.0",
+        "feedback_html": "Gravitational force is not directly proportional to the sum of the squares of the masses."
+      },
+      {
+        "id": 376846,
+        "content_html": "Gravitational force between two objects is directly proportional to the product of their masses and inversely proportional to the square of the distance between them.",
+        "correctness": "1.0",
+        "feedback_html": "Gravitational force is proportional to the product of the two masses and inversely proportional to the square of the distance between the objects."
+      },
+      {
+        "id": 376844,
+        "content_html": "Gravitational force between two objects is directly proportional to the sum of the squares of their masses and inversely proportional to the distance between them.",
+        "correctness": "0.0",
+        "feedback_html": "Gravitational force follows the inverse square law, which means that it is inversely proportional to the square of the distance between the objects. Also, it is directly proportional to the product of the masses, not to the sum of the squares of the masses."
+      },
+      {
+        "id": 376845,
+        "content_html": "Gravitational force between two objects is directly proportional to the product of their masses and inversely proportional to the distance between them.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that, in the expression for gravitational force, the denominator has a distance squared. Thus, this force is inversely proportional to the square of the distance between the objects."
+      }
+    ],
+    "group_uuid": "5624484d-f7d7-4828-b46b-d4b40f47e70e",
+    "stem_html": "State the law of universal gravitation in words only.",
+    "tags": "5624484d-f7d7-4828-b46b-d4b40f47e70e",
+    "uid": "2599@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376853,
+        "content_html": "Gravity and velocity have the same effect and cannot be distinguished from each other. An acceptable illustration of this is any description of the feeling of constant velocity in a situation where no outside frame of reference is considered.",
+        "correctness": "0.0",
+        "feedback_html": "Consider the postulates of Einstein’s theory of general relativity. One cannot feel motion while moving at a constant velocity if no outside frame of reference is considered."
+      },
+      {
+        "id": 376852,
+        "content_html": "Gravity and velocity have different effects and can be distinguished from each other. An acceptable illustration of this is any description of the feeling of constant velocity in a situation where no outside frame of reference is considered.",
+        "correctness": "0.0",
+        "feedback_html": "One cannot feel motion while moving at a constant velocity if no outside frame of reference is considered. Consider the postulates of Einstein’s theory of general relativity."
+      },
+      {
+        "id": 376854,
+        "content_html": "Gravity and acceleration have the same effect and cannot be distinguished from each other. An acceptable illustration of this is any description of the feeling of acceleration in a situation where no outside frame of reference is considered.",
+        "correctness": "1.0",
+        "feedback_html": "Gravity and acceleration have the same effect and cannot be distinguished from each other. An acceptable illustration of this is any description of the feeling of acceleration in a situation where no outside frame of reference shows that velocity, rather than gravity, is changing."
+      },
+      {
+        "id": 376851,
+        "content_html": "Gravity and acceleration have different effects and can be distinguished from each other. An acceptable illustration of this is any description of the feeling of acceleration in a situation where no outside frame of reference is considered.",
+        "correctness": "0.0",
+        "feedback_html": "It is not possible to distinguish between gravity and acceleration if no outside reference frame is considered. Consider the postulates of the general theory of relativity correctly."
+      }
+    ],
+    "group_uuid": "fe65eb4e-82e3-470d-9081-791cada299f7",
+    "stem_html": "Describe the postulate on which Einstein based the theory of general relativity and describe an everyday experience that illustrates this postulate.",
+    "tags": "fe65eb4e-82e3-470d-9081-791cada299f7",
+    "uid": "2601@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 420622,
+        "content_html": "<span data-math=\"0.810\\,\\text{m/s}^2\">0.810\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "The value of gravitational acceleration cannot be determined correctly if the mass of the body is divided by the weight of the same body."
+      },
+      {
+        "id": 420623,
+        "content_html": "<span data-math=\"1.23\\,\\text{m/s}^2\">1.23\\,\\text{m/s}^2</span>",
+        "correctness": "1.0",
+        "feedback_html": "The value of the gravitational acceleration can be determined after dividing the weight of the body by the mass of the same body."
+      },
+      {
+        "id": 420624,
+        "content_html": "<span data-math=\"539\\,\\text{m/s}^2\">539\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "The correct expression to find the value of the acceleration due to gravity is <span data-math=\"g = W/m\">g = W/m</span>."
+      },
+      {
+        "id": 420625,
+        "content_html": "<span data-math=\"3735\\,\\text{m/s}^2\">3735\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "The product of mass and weight cannot give the correct value of acceleration due to gravity."
+      }
+    ],
+    "group_uuid": "a5376763-21fe-482b-a3dd-893b555369ee",
+    "stem_html": "You have a mass of <span data-math=\"55\\,\\text{kg}\">55\\,\\text{kg}</span> and you have just landed on one of the moons of Jupiter where you have a weight of <span data-math=\"67.9\\,\\text{N}\">67.9\\,\\text{N}</span>. What is the acceleration due to gravity, <span data-math=\"g\">g</span>, on the moon you are visiting?",
+    "tags": "a5376763-21fe-482b-a3dd-893b555369ee",
+    "uid": "2605@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 346911,
+        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "correctness": "1.0",
+        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+      },
+      {
+        "id": 346910,
+        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+      },
+      {
+        "id": 346909,
+        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+      },
+      {
+        "id": 346908,
+        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+      }
+    ],
+    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
+    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "uid": "2@7"
+  }
+]

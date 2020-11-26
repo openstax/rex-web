@@ -8,7 +8,9 @@ import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { receiveBook } from '../actions';
+import { LinkedArchiveTreeSection } from '../types';
 import { formatBookData } from '../utils';
+import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import * as contentManipulation from '../utils/contentManipulation';
 import ContentExcerpt from './ContentExcerpt';
 
@@ -19,15 +21,19 @@ describe('ContentExcerpt', () => {
     store = createTestStore();
   });
 
-  const render = (sourcePage: string, content: string) => renderer.create(<Provider store={store}>
-    <MessageProvider>
-      <ContentExcerpt
-        content={content}
-        sourcePageId={sourcePage}
-        className='class1'
-      />
-    </MessageProvider>
-  </Provider>);
+  const mockSection = findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid') as LinkedArchiveTreeSection;
+
+  const render = (sourcePage: string | LinkedArchiveTreeSection, content: string) => renderer.create(
+    <Provider store={store}>
+      <MessageProvider>
+        <ContentExcerpt
+          content={content}
+          source={sourcePage}
+          className='class1'
+        />
+      </MessageProvider>
+    </Provider>
+  );
 
   it('fixes urls in content using addTargetBlank and fixRelative', () => {
     const originalHtml = '<a href="#hello"></a>';
@@ -44,7 +50,7 @@ describe('ContentExcerpt', () => {
       '<a href="/book/book1/page/testbook1-testpage1-uuid#hello" target="_blank"></a>'
     );
 
-    render('testbook1-testpage1-uuid', originalHtml);
+    render(mockSection, originalHtml);
 
     expect(getUrlSpy).toHaveBeenCalled();
     expect(addTargetBlankToLinksMock).toHaveBeenCalledWith(originalHtml);
@@ -54,7 +60,7 @@ describe('ContentExcerpt', () => {
 
   it('throws error when book is not loaded', () => {
     expect(() => {
-      render('testbook1-testpage1-uuid', '<a href="#hello"></a>');
+      render(mockSection, '<a href="#hello"></a>');
     }).toThrowError(new Error('book not loaded'));
   });
 

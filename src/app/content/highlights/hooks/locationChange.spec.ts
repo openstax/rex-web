@@ -75,7 +75,7 @@ describe('locationChange', () => {
     const highlights = [{id: mock.id} as HighlightData];
     store.dispatch(receiveHighlights({highlights, pageId: page.id}));
 
-    hook(locationChange({} as any));
+    hook(locationChange({action: 'PUSH', location: {} as any}));
 
     expect(getHighlights).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
@@ -178,7 +178,7 @@ describe('locationChange', () => {
       jest.spyOn(helpers.highlightClient, 'getHighlights')
         .mockRejectedValueOnce({});
 
-      await hook(locationChange({} as any));
+      await hook(locationChange({action: 'PUSH', location: {} as any}));
 
       expect(dispatch).toHaveBeenCalledWith(
         addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false})

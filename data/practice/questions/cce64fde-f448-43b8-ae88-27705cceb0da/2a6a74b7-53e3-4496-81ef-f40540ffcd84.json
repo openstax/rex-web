@@ -1,0 +1,130 @@
+[
+  {
+    "answers": [
+      {
+        "id": 272157,
+        "content_html": "The rate of voltage oscillation increases as the particle travels faster and faster on each loop.",
+        "correctness": "1.0",
+        "feedback_html": "The rate of voltage oscillation increases as the particle travels faster and faster on each loop."
+      },
+      {
+        "id": 272158,
+        "content_html": "The rate of voltage oscillation decreases as the particle travels faster and faster on each loop.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of voltage oscillation does not decrease, as the particle travels faster and faster on each loop."
+      },
+      {
+        "id": 272159,
+        "content_html": "The rate of voltage oscillation remains the same each time the particle completes a loop.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of voltage oscillation does not remain the same, as the particle travels faster and faster on each loop."
+      },
+      {
+        "id": 272160,
+        "content_html": "The rate of voltage oscillation first increases and then remains constant each time the particle completes a loop.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of voltage oscillation increases, but it does not remain constant."
+      }
+    ],
+    "group_uuid": "e7dd79bd-53ac-44b0-a65d-8b05b2453bc0",
+    "stem_html": "What happens to the rate of voltage oscillation within a synchrotron each time the particle completes a loop?",
+    "tags": "e7dd79bd-53ac-44b0-a65d-8b05b2453bc0",
+    "uid": "11627@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 346868,
+        "content_html": "No, it is not a natural science because it is not used in the study of the natural world.",
+        "correctness": "0.0",
+        "feedback_html": "Mathematics is used in the study of the natural world, but that does not explain whether it is a natural science."
+      },
+      {
+        "id": 346871,
+        "content_html": "No, it is not a natural science. Mathematics focuses on understanding mathematical relations and calculations, which is useful in natural sciences but which is distinct.",
+        "correctness": "1.0",
+        "feedback_html": "Mathematics is not a natural science as it does not use chemical and physical measurements like other fields in natural sciences."
+      },
+      {
+        "id": 346869,
+        "content_html": "Yes, it is a natural science. Mathematics deals with verifying the experimental data.",
+        "correctness": "0.0",
+        "feedback_html": "Mathematics does not use the chemical and physical measurements, therefore it is not natural science."
+      },
+      {
+        "id": 346870,
+        "content_html": "Yes, it is a natural science. It uses chemical and physical measurements.",
+        "correctness": "0.0",
+        "feedback_html": "Mathematics does not use chemical and physical measurements."
+      }
+    ],
+    "group_uuid": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
+    "stem_html": "Is mathematics a natural science? Explain your reasoning.",
+    "tags": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
+    "uid": "7@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 271965,
+        "content_html": "Carrier particles carry mass from one location to another within a force field.",
+        "correctness": "0.0",
+        "feedback_html": "Mass is not necessarily carried by carrier particles."
+      },
+      {
+        "id": 271966,
+        "content_html": "Carrier particles carry force from one location to another within a force field.",
+        "correctness": "1.0",
+        "feedback_html": "Carrier particles carry force from one location to another within a force field."
+      },
+      {
+        "id": 271967,
+        "content_html": "Carrier particles carry charge from one location to another within a force field.",
+        "correctness": "0.0",
+        "feedback_html": "Charge is not always carried by carrier particles"
+      },
+      {
+        "id": 271968,
+        "content_html": "Carrier particles carry volume from one location to another within a force field.",
+        "correctness": "0.0",
+        "feedback_html": "Volume is not carried by carrier particles."
+      }
+    ],
+    "group_uuid": "a1f8a1ec-e863-4223-a629-d8910dfb2849",
+    "stem_html": "How do carrier particles relate to the concept of a force field?",
+    "tags": "a1f8a1ec-e863-4223-a629-d8910dfb2849",
+    "uid": "11643@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 346884,
+        "content_html": "publication",
+        "correctness": "0.0",
+        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
+      },
+      {
+        "id": 346885,
+        "content_html": "public speaking",
+        "correctness": "0.0",
+        "feedback_html": "Public speaking does not ensure originality and significance of a work."
+      },
+      {
+        "id": 346887,
+        "content_html": "peer review",
+        "correctness": "1.0",
+        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
+      },
+      {
+        "id": 346886,
+        "content_html": "the scientific method",
+        "correctness": "0.0",
+        "feedback_html": "The scientific method is the method employed to carry out research."
+      }
+    ],
+    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
+    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "uid": "5@8"
+  }
+]

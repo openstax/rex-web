@@ -7,6 +7,7 @@ import { AnyMatch, AnyRoute } from './types';
 import {
   findPathForParams,
   findRouteMatch,
+  getQueryForParam,
   getScrollTargetFromQuery,
   getUrlRegexParams,
   injectParamsToBaseUrl,
@@ -95,9 +96,9 @@ describe('routeHook', () => {
       },
     };
 
-    middleware(helpers)(helpers)((action) => action)(locationChange(payload));
+    middleware(helpers)(helpers)((action) => action)(locationChange(payload as any));
 
-    expect(hookSpy).toHaveBeenCalledWith(payload);
+    expect(hookSpy).toHaveBeenCalledWith({...payload, query: {}});
   });
 
   it('doens\'t hook into other routes', () => {
@@ -112,7 +113,7 @@ describe('routeHook', () => {
       },
     };
 
-    middleware(helpers)(helpers)((action) => action)(locationChange(payload));
+    middleware(helpers)(helpers)((action) => action)(locationChange(payload as any));
 
     expect(hookSpy).not.toHaveBeenCalled();
   });
@@ -289,5 +290,16 @@ describe('getScrollTargetFromQuery', () => {
       queryString.parse('target={"prop": "not-scroll-target"}'),
       'elId'
     )).toEqual(null);
+  });
+});
+
+describe('getQueryForParam', () => {
+  it('returns a query string for a parameter', () => {
+    expect(getQueryForParam('myParameter', 'whatever'))
+      .toBe('myParameter=whatever');
+  });
+  it('adds parameters to an existing query', () => {
+    expect(getQueryForParam('myParameter', 'whatever', 'a=1&b=3'))
+      .toBe('a=1&b=3&myParameter=whatever');
   });
 });

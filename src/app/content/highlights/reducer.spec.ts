@@ -20,7 +20,7 @@ describe('highlight reducer', () => {
   it('locationChange - keeps pageId and highlights if called with current pageUid', () => {
     const state = reducer(
       {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'}},
-      locationChange({location: {state: {pageUid: '123'}}} as any));
+      locationChange({location: {state: {pageUid: '123'}, search: ''}} as any));
     expect(state.currentPage.pageId).toEqual('123');
     expect(state.currentPage.highlights).toEqual([mockHighlight]);
   });
@@ -28,7 +28,7 @@ describe('highlight reducer', () => {
   it('locationChange - reset pageId and highlights if called with different pageUid', () => {
     const state = reducer(
       {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'}},
-      locationChange({location: {state: {pageUid: 'asdf'}}} as any));
+      locationChange({location: {state: {pageUid: 'asdf'}, search: ''}} as any));
     expect(state.currentPage.pageId).toEqual(null);
     expect(state.currentPage.highlights).toEqual(initialState.currentPage.highlights);
   });
@@ -39,7 +39,7 @@ describe('highlight reducer', () => {
         ...initialState,
         currentPage: {...initialState.currentPage, pageId: 'asdf', hasUnsavedHighlight: true, focused: 'asd'},
       },
-      locationChange({location: {state: {pageUid: 'asdf'}}} as any));
+      locationChange({location: {state: {pageUid: 'asdf'}, search: ''}} as any));
     expect(state.currentPage.hasUnsavedHighlight).toEqual(false);
     expect(state.currentPage.focused).toBeUndefined();
   });
@@ -51,8 +51,20 @@ describe('highlight reducer', () => {
     };
     const state = reducer(
       mockState,
-      locationChange({action: 'REPLACE', location: {state: {pageUid: 'asdf'}}} as any));
+      locationChange({action: 'REPLACE', location: {state: {pageUid: 'asdf'}, search: ''}} as any));
     expect(state).toEqual(mockState);
+  });
+
+  it('locationChange - keeps summary open if query parameter is present' , () => {
+    const mockState = {
+      currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'},
+      summary: {...initialState.summary, open: true},
+    };
+
+    const state = reducer(
+      mockState,
+      locationChange({action: 'PUSH', location: {state: {pageUid: 'asdf'}, search: '?modal=MH'}} as any));
+    expect(state.summary.open).toBe(true);
   });
 
   it('focuses highlight', () => {

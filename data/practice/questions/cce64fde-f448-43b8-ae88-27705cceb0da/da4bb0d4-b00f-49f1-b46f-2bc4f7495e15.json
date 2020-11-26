@@ -1,0 +1,162 @@
+[
+  {
+    "answers": [
+      {
+        "id": 391543,
+        "content_html": "<div data-math=\"51.5\\,\\text{nm}\">51.5\\,\\text{nm}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The calculation part is incorrect."
+      },
+      {
+        "id": 391542,
+        "content_html": "<div data-math=\"77.3\\,\\text{nm}\">77.3\\,\\text{nm}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The unit conversion is incorrect."
+      },
+      {
+        "id": 391544,
+        "content_html": "<div data-math=\"515\\,\\text{nm}\">515\\,\\text{nm}</div>\n",
+        "correctness": "1.0",
+        "feedback_html": "The wavelength is inversely proportional to value of <span data-math=\"m\">m</span>."
+      },
+      {
+        "id": 391541,
+        "content_html": "<div data-math=\"773\\,\\text{nm}\">773\\,\\text{nm}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The value of <span data-math=\"m\">m</span> is incorrect."
+      }
+    ],
+    "group_uuid": "5186532f-4998-4997-95d4-0c21d14bf3b5",
+    "stem_html": "Monochromatic light from a laser passes through two slits separated by <span data-math=\"0.00500\\,\\text{mm}\">0.00500\\,\\text{mm}</span>. The third bright line on a screen is formed at an angle of <span data-math=\"18.0^{\\circ}\">18.0^{\\circ}</span> relative to the incident beam. What is the wavelength of the light?",
+    "tags": "5186532f-4998-4997-95d4-0c21d14bf3b5",
+    "uid": "11296@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 347947,
+        "content_html": "a cell that secretes enzymes",
+        "correctness": "0.0",
+        "feedback_html": "Smooth endoplasmic reticulum does not produce or secrete enzymes."
+      },
+      {
+        "id": 347948,
+        "content_html": "a cell that destroys pathogens",
+        "correctness": "0.0",
+        "feedback_html": "Smooth endoplasmic reticulum does not have a role to play in destroying pathogens."
+      },
+      {
+        "id": 347950,
+        "content_html": "a cell that makes steroid hormones",
+        "correctness": "1.0",
+        "feedback_html": "Steroid-secreting cells are characterized by abundant SER. These cells synthesize cholesterol as a precursor for steroid hormones or take up this substrate from plasma lipoproteins. Many of the enzymes for sterol and steroid synthesis are localized in the SER."
+      },
+      {
+        "id": 347949,
+        "content_html": "a cell that engages in photosynthesis",
+        "correctness": "0.0",
+        "feedback_html": "smooth endoplasmic reticulum is not involved in the process of photosynthesis."
+      }
+    ],
+    "group_uuid": "87016318-f3e4-4431-a934-fd3dce6fe686",
+    "stem_html": "Which of the following is most likely to have the greatest concentration of smooth endoplasmic reticulum (SER)?",
+    "tags": "87016318-f3e4-4431-a934-fd3dce6fe686",
+    "uid": "272@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 391617,
+        "content_html": "The bands would be closer together.",
+        "correctness": "0.0",
+        "feedback_html": "In the diffraction pattern, the bands would spread apart farther if the slits were closer."
+      },
+      {
+        "id": 391620,
+        "content_html": "The bands would spread farther apart.",
+        "correctness": "1.0",
+        "feedback_html": "As the slit distance is decreased the band spacing increases."
+      },
+      {
+        "id": 391618,
+        "content_html": "The bands would remain stationary.",
+        "correctness": "0.0",
+        "feedback_html": "If the distance between the slits were changed, then the band spacing would also change."
+      },
+      {
+        "id": 391619,
+        "content_html": "The bands would fade and eventually disappear.",
+        "correctness": "0.0",
+        "feedback_html": "The bands would not fade away as long there was a light source to produce the pattern."
+      }
+    ],
+    "group_uuid": "ef49721c-48e2-428a-b8ce-8dde2532082e",
+    "stem_html": "Light passing through double slits creates a diffraction pattern. How would the spacing of the bands in the pattern change if the slits were closer together?",
+    "tags": "ef49721c-48e2-428a-b8ce-8dde2532082e",
+    "uid": "11322@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 391625,
+        "content_html": "<span data-math=\"667\\,\\text{nm}\">667\\,\\text{nm}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The angle used for calculating the wavelength of the light is incorrect."
+      },
+      {
+        "id": 391626,
+        "content_html": "<span data-math=\"471\\,\\text{nm}\">471\\,\\text{nm}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The angle used for calculating the wavelength of the light is incorrect."
+      },
+      {
+        "id": 391627,
+        "content_html": "<span data-math=\"333\\,\\text{nm}\">333\\,\\text{nm}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The third-order maximum is at an angle of <span data-math=\"60.0^\\circ\">60.0^\\circ</span>."
+      },
+      {
+        "id": 391628,
+        "content_html": "<span data-math=\"577\\,\\text{nm}\">577\\,\\text{nm}</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "The wavelength of the light is calculated correctly."
+      }
+    ],
+    "group_uuid": "458122c4-b169-4767-8b88-c0ba122743f3",
+    "stem_html": "What is the wavelength of light falling on double slits separated by <span data-math=\"2.00\\,\\mu\\text{m}\">2.00\\,\\mu\\text{m}</span> if the third-order maximum is at an angle of <span data-math=\"60.0^{\\circ}\">60.0^{\\circ}</span>?",
+    "tags": "458122c4-b169-4767-8b88-c0ba122743f3",
+    "uid": "11324@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 477649,
+        "content_html": "Yeasts are prokaryotes. They have a short life cycle, easy to grow, and share similarities with humans in certain regulating mechanisms.",
+        "correctness": "0.0",
+        "feedback_html": "Yeasts are eukaryotes and not prokaryotes."
+      },
+      {
+        "id": 477652,
+        "content_html": "Yeasts are eukaryotes. They have a short life cycle, easy to grow, and share similarities with humans in certain regulating mechanisms.",
+        "correctness": "1.0",
+        "feedback_html": "Yeasts are single celled eukaryotic organisms that have short generation time and are easy to grow. They share similarities with humans in regulating mechanisms."
+      },
+      {
+        "id": 477650,
+        "content_html": "Yeasts are multicellular organisms. They have a short life cycle, easy to grow, and share similarities with humans in certain regulating mechanisms.",
+        "correctness": "0.0",
+        "feedback_html": "Yeasts are single celled organisms."
+      },
+      {
+        "id": 477651,
+        "content_html": "Yeasts are single celled organisms. They have a complex life cycle like that of humans and share similarities in regulating mechanisms.",
+        "correctness": "0.0",
+        "feedback_html": "Yeasts have a simpler life cycle than that of humans and are easily used as model organisms as a result."
+      }
+    ],
+    "group_uuid": "2d45d0c4-3a75-473c-ac84-68b927eff6c6",
+    "stem_html": "What characteristics make yeast a good model for learning about signaling in humans?",
+    "tags": "2d45d0c4-3a75-473c-ac84-68b927eff6c6",
+    "uid": "700@11"
+  }
+]
