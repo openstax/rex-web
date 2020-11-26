@@ -8,7 +8,7 @@ exports[`Practice questions screen renders and styles properly on selecting an a
     className="content-excerpt ContentExcerpt-sc-16hg3lt-0 Question__QuestionContent-vvov7z-1 flVGpI"
     dangerouslySetInnerHTML={
       Object {
-        "__html": "If you and a friend are standing side-by-side watching a soccer game, would you both view the motion from the same reference frame?",
+        "__html": "If you and a friend are standing side-by-side watching a soccer game...?",
       }
     }
   />
@@ -29,6 +29,7 @@ exports[`Practice questions screen renders and styles properly on selecting an a
       }
     >
       <label
+        aria-label="Choice A"
         className="Answer__AnswerLabel-n9titu-3 iVdJUb"
         htmlFor={374182}
         style={
@@ -59,7 +60,7 @@ exports[`Practice questions screen renders and styles properly on selecting an a
           <span
             className="Answer__AnswerExcerpt-n9titu-0 ecRPCq"
           >
-            Yes, we would both view the motion from the same reference point because both of us are at rest in Earth’s frame of reference.
+            Yes, we would both view the motion from...
           </span>
         </div>
       </div>
@@ -78,6 +79,7 @@ exports[`Practice questions screen renders and styles properly on selecting an a
       }
     >
       <label
+        aria-label="Choice B"
         className="Answer__AnswerLabel-n9titu-3 gieTOT"
         htmlFor={374183}
         style={
@@ -108,105 +110,7 @@ exports[`Practice questions screen renders and styles properly on selecting an a
           <span
             className="Answer__AnswerExcerpt-n9titu-0 ecRPCq"
           >
-            Yes, we would both view the motion from the same reference point because both of us are observing the motion from two points on the same straight line.
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
-      className="Answer__AnswerBlock-n9titu-4 jDhlJD"
-      onClick={[Function]}
-      style={
-        Object {
-          "focused": "#fff",
-          "fontColor": "#606163",
-          "hovered": "#0dc0dc",
-          "label": "unselected",
-          "passive": "#C6C6C6",
-        }
-      }
-    >
-      <label
-        className="Answer__AnswerLabel-n9titu-3 gieTOT"
-        htmlFor={374185}
-        style={
-          Object {
-            "focused": "#fff",
-            "fontColor": "#606163",
-            "hovered": "#0dc0dc",
-            "label": "unselected",
-            "passive": "#C6C6C6",
-          }
-        }
-      >
-        c
-        <input
-          checked={false}
-          id="374185"
-          name="c"
-          onChange={[Function]}
-          type="radio"
-        />
-      </label>
-      <div
-        className="Answer__AnswerAlignment-n9titu-1 kPLngI"
-      >
-        <div
-          className="Answer__AnswerContent-n9titu-2 dcoaiH"
-        >
-          <span
-            className="Answer__AnswerExcerpt-n9titu-0 ecRPCq"
-          >
-            No, we would both view the motion from different reference points because motion is viewed from two different points; the reference frames are similar but not the same.
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
-      className="Answer__AnswerBlock-n9titu-4 jDhlJD"
-      onClick={[Function]}
-      style={
-        Object {
-          "focused": "#fff",
-          "fontColor": "#606163",
-          "hovered": "#0dc0dc",
-          "label": "unselected",
-          "passive": "#C6C6C6",
-        }
-      }
-    >
-      <label
-        className="Answer__AnswerLabel-n9titu-3 gieTOT"
-        htmlFor={374184}
-        style={
-          Object {
-            "focused": "#fff",
-            "fontColor": "#606163",
-            "hovered": "#0dc0dc",
-            "label": "unselected",
-            "passive": "#C6C6C6",
-          }
-        }
-      >
-        d
-        <input
-          checked={false}
-          id="374184"
-          name="d"
-          onChange={[Function]}
-          type="radio"
-        />
-      </label>
-      <div
-        className="Answer__AnswerAlignment-n9titu-1 kPLngI"
-      >
-        <div
-          className="Answer__AnswerContent-n9titu-2 dcoaiH"
-        >
-          <span
-            className="Answer__AnswerExcerpt-n9titu-0 ecRPCq"
-          >
-            No, we would both view the motion from different reference points because response times may be different; so, the motion observed by both of us would be different.
+            Yes, we would both view the motion...
           </span>
         </div>
       </div>

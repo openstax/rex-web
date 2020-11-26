@@ -35,9 +35,9 @@ describe('Practice questions screen', () => {
         id: 374183,
       },
     ],
-    id: 91802,
+    group_uuid: '0e1d41f5-f972-4e3c-b054-358edb8a6562',
     stem_html: 'If you and a friend are standing side-by-side watching a soccer game...?',
-    uuid: '0e1d41f5-f972-4e3c-b054-358edb8a6562',
+    uid: '91802',
   };
 
   beforeEach(() => {
