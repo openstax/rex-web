@@ -10,7 +10,7 @@ exports[`IntroScreen for practice questions renders properly for 1 question 1`] 
     2 questions in this section
   </span>
   <button
-    className="Button__PlainButton-ayg7nk-2 PQButton-ypamof-0 gVmNzz"
+    className="Button__PlainButton-ayg7nk-2 PQButton-ypamof-0 llmxPV"
     data-analytics-label="Start now"
     onClick={[Function]}
   >
@@ -29,7 +29,7 @@ exports[`IntroScreen for practice questions renders properly for 2 questions 1`]
     2 questions in this section
   </span>
   <button
-    className="Button__PlainButton-ayg7nk-2 PQButton-ypamof-0 gVmNzz"
+    className="Button__PlainButton-ayg7nk-2 PQButton-ypamof-0 llmxPV"
     data-analytics-label="Start now"
     onClick={[Function]}
   >

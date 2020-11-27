@@ -185,7 +185,7 @@ exports[`Question renders properly 1`] = `
     className="Question__AnswersWrapper-vvov7z-2 hNPliY"
   >
     <div
-      className="Answer__AnswerBlock-n9titu-4 evBqvi"
+      className="Answer__AnswerBlock-n9titu-4 iWxXwB"
       onClick={[Function]}
       style={
         Object {
@@ -234,7 +234,7 @@ exports[`Question renders properly 1`] = `
       </div>
     </div>
     <div
-      className="Answer__AnswerBlock-n9titu-4 evBqvi"
+      className="Answer__AnswerBlock-n9titu-4 iWxXwB"
       onClick={[Function]}
       style={
         Object {
