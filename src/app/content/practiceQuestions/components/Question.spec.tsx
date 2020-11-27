@@ -86,6 +86,31 @@ describe('Question', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
+  it('renders properly with selected and submitted answer', () => {
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(setQuestions([mockQuestion]));
+    store.dispatch(nextQuestion());
+
+    const component = renderer.create(render());
+
+    // Run initial useEffect hook
+    // tslint:disable-next-line: no-empty
+    act(() => {});
+
+    const [, secondAnswer] = component.root.findAllByType(Answer);
+    const input = secondAnswer.findByProps({ type: 'radio' });
+
+    act(() => {
+      input.props.onChange();
+    });
+
+    const form = component.root.findByProps({ 'data-testid': 'question-form' });
+    const preventDefault = jest.fn();
+    form.props.onSubmit({ preventDefault });
+
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
   it('submit is active after selecting an answer', () => {
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
     store.dispatch(setQuestions([mockQuestion]));
@@ -171,5 +196,66 @@ describe('Question', () => {
 
     expect(() => secondAnswer.findByProps({ id: 'i18n:practice-questions:popup:correct' })).not.toThrow();
     expect(() => component.root.findByProps({ value: 'Show answer' })).toThrow();
+  });
+
+  it('handles clicking on Next button', () => {
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(setQuestions([mockQuestion, {...mockQuestion, uid: '213'}]));
+    store.dispatch(nextQuestion());
+    dispatch.mockClear();
+
+    const component = renderer.create(render());
+
+    // Run initial useEffect hook
+    // tslint:disable-next-line: no-empty
+    act(() => {});
+
+    const [firstAnswer] = component.root.findAllByType(Answer);
+    const input = firstAnswer.findByProps({ type: 'radio' });
+
+    act(() => {
+      input.props.onChange();
+    });
+
+    const form = component.root.findByProps({ 'data-testid': 'question-form' });
+    const preventDefault = jest.fn();
+    form.props.onSubmit({ preventDefault });
+
+    const next = component.root.findByProps({ value: 'Next' })!;
+    act(() => {
+      next.props.onClick();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(nextQuestion());
+  });
+
+  it('clicking on submitted answer does nothing', () => {
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(setQuestions([mockQuestion]));
+    store.dispatch(nextQuestion());
+
+    const component = renderer.create(render());
+
+    // Run initial useEffect hook
+    // tslint:disable-next-line: no-empty
+    act(() => {});
+
+    const [, secondAnswer] = component.root.findAllByType(Answer);
+    const input = secondAnswer.findByProps({ type: 'radio' });
+
+    act(() => {
+      input.props.onChange();
+    });
+    expect(input.props.checked).toEqual(true);
+
+    const form = component.root.findByProps({ 'data-testid': 'question-form' });
+    const preventDefault = jest.fn();
+    form.props.onSubmit({ preventDefault });
+
+    act(() => {
+      input.props.onChange();
+    });
+
+    expect(input.props.checked).toEqual(true);
   });
 });

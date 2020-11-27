@@ -302,3 +302,308 @@ exports[`Question renders properly 1`] = `
   </div>
 </form>
 `;
+
+exports[`Question renders properly with selected and submitted answer 1`] = `
+<form
+  className="Question__QuestionWrapper-vvov7z-0 cUpLsP"
+  data-testid="question-form"
+  onSubmit={[Function]}
+>
+  <div
+    className="Question__QuestionContent-vvov7z-1 LbXMr"
+    content="What is the atomic number of the most strongly bound nuclide?"
+    data-mock-content-excerpt={true}
+    source={
+      Object {
+        "id": "testbook1-testpage2-uuid",
+        "parent": Object {
+          "contents": Array [
+            Object {
+              "id": "testbook1-testpage2-uuid@1.0",
+              "slug": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
+              "title": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
+            },
+          ],
+          "id": "testbook1-testchapter10@1.0",
+          "parent": Object {
+            "contents": Array [
+              Object {
+                "contents": Array [
+                  Object {
+                    "id": "testbook1-testpage2-uuid@1.0",
+                    "slug": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
+                    "title": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
+                  },
+                ],
+                "id": "testbook1-testchapter10@1.0",
+                "slug": "testchapter10-slug",
+                "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+              },
+              Object {
+                "id": "testbook1-testpage11-uuid@1.0",
+                "slug": "1-1-physics-an-introduction",
+                "title": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span></span>",
+              },
+              Object {
+                "id": "testbook1-testpage8-uuid@1.0",
+                "slug": "23-12-rlc-series-ac-circuits",
+                "title": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span></span>",
+              },
+            ],
+            "id": "testbook1-testchapter1-uuid@1.0",
+            "parent": Object {
+              "contents": Array [
+                Object {
+                  "id": "testbook1-testpage1-uuid@1.0",
+                  "slug": "test-page-1",
+                  "title": "<span class=\\"os-text\\">Test Page 1</span>",
+                },
+                Object {
+                  "contents": Array [
+                    Object {
+                      "contents": Array [
+                        Object {
+                          "id": "testbook1-testpage2-uuid@1.0",
+                          "slug": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
+                          "title": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
+                        },
+                      ],
+                      "id": "testbook1-testchapter10@1.0",
+                      "slug": "testchapter10-slug",
+                      "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+                    },
+                    Object {
+                      "id": "testbook1-testpage11-uuid@1.0",
+                      "slug": "1-1-physics-an-introduction",
+                      "title": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span></span>",
+                    },
+                    Object {
+                      "id": "testbook1-testpage8-uuid@1.0",
+                      "slug": "23-12-rlc-series-ac-circuits",
+                      "title": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span></span>",
+                    },
+                  ],
+                  "id": "testbook1-testchapter1-uuid@1.0",
+                  "slug": "testchapter1-slug",
+                  "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+                },
+                Object {
+                  "contents": Array [
+                    Object {
+                      "id": "testbook1-testpage3-uuid@1.0",
+                      "slug": "2-test-page-3",
+                      "title": "<span class=\\"os-text\\">Test Page 3</span>",
+                    },
+                  ],
+                  "id": "testbook1-testchapter2-uuid@1.0",
+                  "slug": "testchapter2-slug",
+                  "title": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+                },
+                Object {
+                  "contents": Array [
+                    Object {
+                      "id": "testbook1-testpage4-uuid@1.0",
+                      "slug": "3-test-page-4",
+                      "title": "<span class=\\"os-text\\">Test Page 4</span>",
+                    },
+                  ],
+                  "id": "testbook1-testchapter3-uuid@1.0",
+                  "slug": "testchapter3-slug",
+                  "title": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+                },
+                Object {
+                  "contents": Array [
+                    Object {
+                      "id": "testbook1-testpage5-uuid@1.0",
+                      "slug": "4-test-page-5",
+                      "title": "<span class=\\"os-text\\">Test Page 5</span>",
+                    },
+                  ],
+                  "id": "testbook1-testchapter4-uuid@1.0",
+                  "slug": "testchapter4-slug",
+                  "title": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+                },
+                Object {
+                  "contents": Array [
+                    Object {
+                      "id": "testbook1-testpage6-uuid@1.0",
+                      "slug": "10-test-page-6",
+                      "title": "<span class=\\"os-text\\">Test Page 6</span>",
+                    },
+                  ],
+                  "id": "testbook1-testchapter5-uuid@1.0",
+                  "slug": "testchapter5-slug",
+                  "title": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+                },
+                Object {
+                  "contents": Array [
+                    Object {
+                      "id": "testbook1-testpage7-uuid@1.0",
+                      "slug": "12-test-page-7",
+                      "title": "<span class=\\"os-text\\">Test Page 7</span>",
+                    },
+                  ],
+                  "id": "testbook1-testchapter6-uuid@1.0",
+                  "slug": "testchapter6-slug",
+                  "title": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+                },
+                Object {
+                  "id": "testbook1-testpage9-uuid@1.0",
+                  "slug": "a-atomic-masses",
+                  "title": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
+                },
+                Object {
+                  "id": "testbook1-testpage10-uuid@1.0",
+                  "slug": "d-glossary-of-key-symbols-and-notation",
+                  "title": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
+                },
+                Object {
+                  "id": "testbook1-testpage12-uuid@1.0",
+                  "slug": "test-page-for-generic-styles",
+                  "title": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
+                },
+              ],
+              "id": "testbook1-uuid@1.0",
+              "slug": "testbook1-slug",
+              "title": "Test Book 1",
+            },
+            "slug": "testchapter1-slug",
+            "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+          },
+          "slug": "testchapter10-slug",
+          "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+        },
+        "slug": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
+        "title": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
+        "version": undefined,
+      }
+    }
+    tabIndex={0}
+  />
+  <div
+    className="Question__AnswersWrapper-vvov7z-2 hNPliY"
+  >
+    <div
+      className="Answer__AnswerBlock-n9titu-4 bwvwhX"
+      onClick={[Function]}
+      style={
+        Object {
+          "focused": "#fff",
+          "fontColor": "#606163",
+          "hovered": "#0dc0dc",
+          "label": "unselected",
+          "passive": "#C6C6C6",
+        }
+      }
+    >
+      <label
+        aria-label="Choice A"
+        className="Answer__AnswerLabel-n9titu-3 ixlgrC"
+        style={
+          Object {
+            "focused": "#fff",
+            "fontColor": "#606163",
+            "hovered": "#0dc0dc",
+            "label": "unselected",
+            "passive": "#C6C6C6",
+          }
+        }
+      >
+        a
+        <input
+          checked={false}
+          disabled={true}
+          name="a"
+          onChange={[Function]}
+          type="radio"
+        />
+      </label>
+      <div
+        className="Answer__AnswerAlignment-n9titu-1 kPLngI"
+      >
+        <div
+          className="Answer__AnswerContent-n9titu-2 dcoaiH"
+        >
+          <span
+            className="Answer__AnswerExcerpt-n9titu-0 ecRPCq"
+          >
+            &lt;span data-math='25'&gt;25&lt;/span&gt;
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="Answer__AnswerBlock-n9titu-4 jsZTEF"
+      onClick={[Function]}
+      style={
+        Object {
+          "focused": "#77AF42",
+          "fontColor": "#fff",
+          "hovered": "#77AF42",
+          "label": "correct",
+          "passive": "#77AF42",
+        }
+      }
+    >
+      <label
+        aria-label="Choice B"
+        className="Answer__AnswerLabel-n9titu-3 jtSueT"
+        style={
+          Object {
+            "focused": "#77AF42",
+            "fontColor": "#fff",
+            "hovered": "#77AF42",
+            "label": "correct",
+            "passive": "#77AF42",
+          }
+        }
+      >
+        b
+        <input
+          checked={true}
+          disabled={true}
+          name="b"
+          onChange={[Function]}
+          type="radio"
+        />
+      </label>
+      <div
+        className="Answer__AnswerAlignment-n9titu-1 kPLngI"
+      >
+        <div
+          className="Answer__AnswerContent-n9titu-2 dcoaiH"
+        >
+          <span
+            className="Answer__AnswerExcerpt-n9titu-0 ecRPCq"
+          >
+            &lt;span data-math='26'&gt;26&lt;/span&gt;
+          </span>
+          <div
+            className="Answer__AnswerResult-n9titu-5 hvFXIS"
+            style={
+              Object {
+                "focused": "#77AF42",
+                "fontColor": "#fff",
+                "hovered": "#77AF42",
+                "label": "correct",
+                "passive": "#77AF42",
+              }
+            }
+          >
+            Correct
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="QuestionNavigation__Wrapper-sc-32mlh3-0 haPgDl"
+  >
+    <input
+      className="PQButton__PQInput-ypamof-1 cMnTJF"
+      type="submit"
+      value="Finish"
+    />
+  </div>
+</form>
+`;
