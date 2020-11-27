@@ -15,11 +15,6 @@ const sharedStyles = css`
 // tslint:disable-next-line: variable-name
 const PQButton = styled(PlainButton)`
   ${sharedStyles}
-  ${(props: { withoutBg?: boolean }) => props.withoutBg && `
-    background-color: transparent;
-    color: ${linkColor};
-    font-weight: normal;
-  `}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -31,6 +26,11 @@ export const PQInput = styled.input`
     background-color: #f1f1f1;
     color: #c1c1c1;
     cursor: not-allowed;
+  `}
+  ${(props: { withoutBg?: boolean }) => props.withoutBg && `
+    background-color: transparent;
+    color: ${linkColor};
+    font-weight: normal;
   `}
 `;
 

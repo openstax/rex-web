@@ -11,7 +11,7 @@ import Answer from './Answer';
 import QuestionNavigation from './QuestionNavigation';
 
 // tslint:disable-next-line: variable-name
-const QuestionWrapper = styled.div`
+const QuestionWrapper = styled.form`
   padding: 0 ${theme.padding.page.desktop}rem;
   ${theme.breakpoints.mobile(css`
     padding: 0 ${theme.padding.page.mobile}rem;
@@ -27,7 +27,7 @@ const QuestionContent = styled(ContentExcerpt)`
 `;
 
 // tslint:disable-next-line: variable-name
-const AnswersWrapper = styled.form`
+const AnswersWrapper = styled.div`
   margin-top: ${theme.padding.page.desktop}rem;
 `;
 
@@ -53,8 +53,14 @@ const Question = () => {
 
   const isSubmitted = questionsAndAnswers.has(question.uid);
 
-  return <QuestionWrapper>
-    <QuestionContent content={question.stem_html} source={section} />
+  const onSubmit = (e: React.FormEvent) => {
+    // TODO: Add support for handling Finish button
+    e.preventDefault();
+    dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
+  };
+
+  return <QuestionWrapper onSubmit={onSubmit}>
+    <QuestionContent tabIndex={0} content={question.stem_html} source={section} />
     <AnswersWrapper>
       {question.answers.map((answer, index) =>
         <Answer
@@ -76,11 +82,9 @@ const Question = () => {
         dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
         dispatch(nextQuestion());
       }}
-      onSubmit={() => dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }))}
       onShowAnswer={() => setShowCorrect(true)}
       hideShowAnswerButton={showCorrect}
       onNext={() => dispatch(nextQuestion())}
-      onFinish={() => null}
     />
   </QuestionWrapper>;
 };

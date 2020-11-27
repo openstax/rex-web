@@ -83,6 +83,12 @@ export const AnswerBlock = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
+const AnswerResult = styled.div`
+  ${textRegularStyle}
+  color: ${(props: {style: PracticeQuestionStyles}) => props.style.passive};
+`;
+
+// tslint:disable-next-line: variable-name
 const Answer = ({
   answer,
   showCorrect,
@@ -101,6 +107,13 @@ const Answer = ({
     : isSelected
       ? contants.selectedAnswerStyle
       : contants.unselectedAnswerStyle;
+  const showCorrectResult = (showCorrect && isCorrect)
+    || (isSubmitted && isSelected && isCorrect);
+  const showIncorrectResults = isSubmitted && isSelected && !isCorrect;
+  const showResult = showCorrectResult || showIncorrectResults;
+  const resultMsgKey = showCorrectResult
+    ? 'i18n:practice-questions:popup:correct'
+    : 'i18n:practice-questions:popup:incorrect';
 
   return <AnswerBlock style={answerStyle} isSubmitted={isSubmitted} onClick={onSelect}>
     <FormattedMessage
@@ -121,6 +134,11 @@ const Answer = ({
     <AnswerAlignment>
       <AnswerContent>
         <AnswerExcerpt>{answer.content_html}</AnswerExcerpt>
+        {showResult && <AnswerResult style={answerStyle}>
+          <FormattedMessage id={resultMsgKey}>
+            {(msg: string) => msg}
+          </FormattedMessage>
+        </AnswerResult>}
       </AnswerContent>
     </AnswerAlignment>
   </AnswerBlock>;
