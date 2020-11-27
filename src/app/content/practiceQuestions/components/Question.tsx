@@ -59,7 +59,7 @@ const Question = () => {
     dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
   };
 
-  return <QuestionWrapper onSubmit={onSubmit}>
+  return <QuestionWrapper onSubmit={onSubmit} data-testid='question-form'>
     <QuestionContent tabIndex={0} content={question.stem_html} source={section} />
     <AnswersWrapper>
       {question.answers.map((answer, index) =>
