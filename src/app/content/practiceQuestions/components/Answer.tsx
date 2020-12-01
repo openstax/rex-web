@@ -64,7 +64,6 @@ export const AnswerBlock = styled.div`
   display: flex;
   align-items: flex-start;
   cursor: ${(props: {isSubmitted: boolean}) => props.isSubmitted ? 'not-allowed' : 'pointer'};
-
   ${({ isSubmitted }: {isSubmitted: boolean}) => isSubmitted ? null : css`
     &:hover {
       ${AnswerLabel} {
