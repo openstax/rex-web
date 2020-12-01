@@ -5,7 +5,7 @@ certifi==2020.11.8
 cffi==1.14.4
 cfgv==3.2.0
 chardet==3.0.4
-chromedriver-binary==86.0.4240.22.0
+chromedriver-binary==87.0.4280.20.0
 cryptography==3.2.1
 Faker==4.14.0
 identify==1.5.6
