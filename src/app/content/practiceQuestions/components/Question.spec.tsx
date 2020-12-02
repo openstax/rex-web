@@ -13,7 +13,7 @@ import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { nextQuestion, setAnswer, setQuestions, setSelectedSection } from '../actions';
 import { PracticeQuestion } from '../types';
 import Answer from './Answer';
-import Question from './Question';
+import Question, { AnswersWrapper, QuestionContent, QuestionWrapper } from './Question';
 
 jest.mock('../../components/ContentExcerpt', () => (props: any) => <div data-mock-content-excerpt {...props} />);
 
@@ -76,14 +76,17 @@ describe('Question', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('renders properly', () => {
+  it('renders all components', () => {
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
     store.dispatch(setQuestions([mockQuestion]));
     store.dispatch(nextQuestion());
 
     const component = renderer.create(render());
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(() => component.root.findByType(QuestionWrapper)).not.toThrow();
+    expect(() => component.root.findByType(QuestionContent)).not.toThrow();
+    expect(() => component.root.findByType(AnswersWrapper)).not.toThrow();
+    expect(component.root.findAllByType(Answer).length).toEqual(mockQuestion.answers.length);
   });
 
   it('renders properly with selected and submitted answer', () => {
@@ -97,18 +100,31 @@ describe('Question', () => {
     // tslint:disable-next-line: no-empty
     act(() => {});
 
-    const [, secondAnswer] = component.root.findAllByType(Answer);
+    expect(() => component.root.findByType(QuestionWrapper)).not.toThrow();
+    expect(() => component.root.findByType(QuestionContent)).not.toThrow();
+    expect(() => component.root.findByType(AnswersWrapper)).not.toThrow();
+
+    const answers = component.root.findAllByType(Answer);
+    const [fristAnswer, secondAnswer] = answers;
+    expect(answers.length).toEqual(mockQuestion.answers.length);
+    expect(fristAnswer.props.isSelected).toEqual(false);
+    expect(secondAnswer.props.isSelected).toEqual(false);
+
     const input = secondAnswer.findByProps({ type: 'radio' });
 
     act(() => {
       input.props.onChange();
     });
 
+    expect(fristAnswer.props.isSelected).toEqual(false);
+    expect(secondAnswer.props.isSelected).toEqual(true);
+
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
     form.props.onSubmit({ preventDefault });
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(fristAnswer.props.isSubmitted).toEqual(true);
+    expect(secondAnswer.props.isSubmitted).toEqual(true);
   });
 
   it('submit is active after selecting an answer', () => {

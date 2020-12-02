@@ -11,7 +11,7 @@ import Answer from './Answer';
 import QuestionNavigation from './QuestionNavigation';
 
 // tslint:disable-next-line: variable-name
-const QuestionWrapper = styled.form`
+export const QuestionWrapper = styled.form`
   padding: 0 ${theme.padding.page.desktop}rem;
   ${theme.breakpoints.mobile(css`
     padding: 0 ${theme.padding.page.mobile}rem;
@@ -19,7 +19,7 @@ const QuestionWrapper = styled.form`
 `;
 
 // tslint:disable-next-line: variable-name
-const QuestionContent = styled(ContentExcerpt)`
+export const QuestionContent = styled(ContentExcerpt)`
   ${h4Style}
   font-weight: bold;
   color: ${theme.color.primary.gray.base};
@@ -27,7 +27,7 @@ const QuestionContent = styled(ContentExcerpt)`
 `;
 
 // tslint:disable-next-line: variable-name
-const AnswersWrapper = styled.div`
+export const AnswersWrapper = styled.div`
   margin-top: ${theme.padding.page.desktop}rem;
 `;
 
