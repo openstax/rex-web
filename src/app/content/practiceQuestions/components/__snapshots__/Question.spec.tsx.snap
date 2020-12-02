@@ -185,30 +185,12 @@ exports[`Question renders properly 1`] = `
     className="Question__AnswersWrapper-vvov7z-2 hNPliY"
   >
     <div
-      className="Answer__AnswerBlock-n9titu-4 iWxXwB"
+      className="Answer__AnswerBlock-n9titu-4 drAqHa"
       onClick={[Function]}
-      style={
-        Object {
-          "focused": "#fff",
-          "fontColor": "#606163",
-          "hovered": "#0dc0dc",
-          "label": "unselected",
-          "passive": "#C6C6C6",
-        }
-      }
     >
       <label
         aria-label="Choice A"
-        className="Answer__AnswerLabel-n9titu-3 gieTOT"
-        style={
-          Object {
-            "focused": "#fff",
-            "fontColor": "#606163",
-            "hovered": "#0dc0dc",
-            "label": "unselected",
-            "passive": "#C6C6C6",
-          }
-        }
+        className="Answer__AnswerLabel-n9titu-3 iHlaqN"
       >
         a
         <input
@@ -234,30 +216,12 @@ exports[`Question renders properly 1`] = `
       </div>
     </div>
     <div
-      className="Answer__AnswerBlock-n9titu-4 iWxXwB"
+      className="Answer__AnswerBlock-n9titu-4 ispckw"
       onClick={[Function]}
-      style={
-        Object {
-          "focused": "#fff",
-          "fontColor": "#606163",
-          "hovered": "#0dc0dc",
-          "label": "unselected",
-          "passive": "#C6C6C6",
-        }
-      }
     >
       <label
         aria-label="Choice B"
-        className="Answer__AnswerLabel-n9titu-3 gieTOT"
-        style={
-          Object {
-            "focused": "#fff",
-            "fontColor": "#606163",
-            "hovered": "#0dc0dc",
-            "label": "unselected",
-            "passive": "#C6C6C6",
-          }
-        }
+        className="Answer__AnswerLabel-n9titu-3 iHlaqN"
       >
         b
         <input
@@ -484,30 +448,12 @@ exports[`Question renders properly with selected and submitted answer 1`] = `
     className="Question__AnswersWrapper-vvov7z-2 hNPliY"
   >
     <div
-      className="Answer__AnswerBlock-n9titu-4 bwvwhX"
+      className="Answer__AnswerBlock-n9titu-4 iBKAdu"
       onClick={[Function]}
-      style={
-        Object {
-          "focused": "#fff",
-          "fontColor": "#606163",
-          "hovered": "#0dc0dc",
-          "label": "unselected",
-          "passive": "#C6C6C6",
-        }
-      }
     >
       <label
         aria-label="Choice A"
-        className="Answer__AnswerLabel-n9titu-3 ixlgrC"
-        style={
-          Object {
-            "focused": "#fff",
-            "fontColor": "#606163",
-            "hovered": "#0dc0dc",
-            "label": "unselected",
-            "passive": "#C6C6C6",
-          }
-        }
+        className="Answer__AnswerLabel-n9titu-3 iHlaqN"
       >
         a
         <input
@@ -533,30 +479,12 @@ exports[`Question renders properly with selected and submitted answer 1`] = `
       </div>
     </div>
     <div
-      className="Answer__AnswerBlock-n9titu-4 jsZTEF"
+      className="Answer__AnswerBlock-n9titu-4 ksdaVI"
       onClick={[Function]}
-      style={
-        Object {
-          "focused": "#77AF42",
-          "fontColor": "#fff",
-          "hovered": "#77AF42",
-          "label": "correct",
-          "passive": "#77AF42",
-        }
-      }
     >
       <label
         aria-label="Choice B"
-        className="Answer__AnswerLabel-n9titu-3 jtSueT"
-        style={
-          Object {
-            "focused": "#77AF42",
-            "fontColor": "#fff",
-            "hovered": "#77AF42",
-            "label": "correct",
-            "passive": "#77AF42",
-          }
-        }
+        className="Answer__AnswerLabel-n9titu-3 iHlaqN"
       >
         b
         <input
@@ -579,16 +507,7 @@ exports[`Question renders properly with selected and submitted answer 1`] = `
             &lt;span data-math='26'&gt;26&lt;/span&gt;
           </span>
           <div
-            className="Answer__AnswerResult-n9titu-5 hvFXIS"
-            style={
-              Object {
-                "focused": "#77AF42",
-                "fontColor": "#fff",
-                "hovered": "#77AF42",
-                "label": "correct",
-                "passive": "#77AF42",
-              }
-            }
+            className="Answer__StyledAnswerResult-n9titu-5 hoApVR"
           >
             Correct
           </div>
