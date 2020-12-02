@@ -30,7 +30,7 @@ export const rebaseRelativeResources = (htmlString: string, sourceUrl: string) =
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   domNode.querySelectorAll('img,iframe').forEach((element: HTMLAnchorElement) => {
     const srcValue = element.getAttribute('src');
-    if (srcValue && !isAbsoluteUrl(srcValue) && sourceUrl ) {
+    if (srcValue && !isAbsoluteUrl(srcValue) && sourceUrl) {
       element.setAttribute('src', fromRelativeUrl(sourceUrl, srcValue));
     }
   });

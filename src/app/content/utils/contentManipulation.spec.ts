@@ -52,7 +52,7 @@ describe('addTargetBlankToLinks', () => {
   });
 });
 
-describe('ResolveRelativeUrl', () => {
+describe('rebaseRelativeContentLinks', () => {
   it('does not modify absolute paths', () => {
     const input = '<div class="test">'
       + '<a href="http://some/link" target="_blank">First link</a>'
@@ -61,12 +61,28 @@ describe('ResolveRelativeUrl', () => {
 
     expect(rebaseRelativeContentLinks(input, '')).toEqual(input);
   });
+});
 
-  it('modifies img elements', () => {
+describe('rebaseRelativeResources', () => {
+  it('modifies resource elements', () => {
     const input = '<div class="test">'
       + '<img src="../some/link">'
       + '</div>'
-      + '<iframe src="../url" title="description"></iframe>';
+      + '<iframe src="./url" title="description"></iframe>';
+
+    const output = '<div class="test">'
+      + '<img src="/some/link">'
+      + '</div>'
+      + '<iframe src="/content/url" title="description"></iframe>';
+
+    expect(rebaseRelativeResources(input, '/content')).toEqual(output);
+  });
+
+  it.only('doesnt modify img elements when not relative', () => {
+    const input = '<div class="test">'
+      + '<img src="/some/link">'
+      + '</div>'
+      + '<iframe src="/url" title="description"></iframe>';
 
     const output = '<div class="test">'
       + '<img src="/some/link">'

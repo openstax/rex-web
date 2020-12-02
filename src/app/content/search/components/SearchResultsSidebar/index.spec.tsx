@@ -37,14 +37,6 @@ import {
 } from '../../actions';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
-jest.mock('../../../../../config', () => {
-  const config = jest.requireActual('../../../../../config');
-  return {
-    ...config,
-    REACT_APP_ARCHIVE_URL: '',
-  };
-});
-
 describe('SearchResultsSidebar', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
