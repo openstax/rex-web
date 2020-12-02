@@ -14,14 +14,6 @@ import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import * as contentManipulation from '../utils/contentManipulation';
 import ContentExcerpt from './ContentExcerpt';
 
-jest.mock('../../../config', () => {
-  const config = jest.requireActual('../../../config');
-  return {
-    ...config,
-    REACT_APP_ARCHIVE_URL: null,
-  };
-});
-
 describe('ContentExcerpt', () => {
   let store: Store;
 

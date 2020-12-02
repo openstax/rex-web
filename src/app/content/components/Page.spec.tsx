@@ -14,7 +14,6 @@ import mockArchiveLoader, { book, page, shortPage } from '../../../test/mocks/ar
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
-import { resetModules } from '../../../test/utils';
 import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
@@ -47,14 +46,6 @@ jest.mock('../../domUtils', () => ({
   scrollTo: jest.fn(),
 }));
 
-jest.mock('../../../config', () => {
-  const config = jest.requireActual('../../../config');
-  return {
-    ...config,
-    REACT_APP_ARCHIVE_URL: '',
-  };
-});
-
 const makeEvent = (doc: Document) => {
   const event = doc.createEvent('MouseEvents');
   event.initEvent('click', true, false);
@@ -71,7 +62,6 @@ describe('Page', () => {
   let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
-    resetModules();
     jest.resetAllMocks();
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
