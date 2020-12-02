@@ -3,7 +3,12 @@ import { openModal } from '../../../navigation/hooks/openModalHook';
 import { actionHook } from '../../../utils';
 import { closeStudyGuides, openStudyGuides } from '../actions';
 import { modalUrlName } from '../constants';
-import { loadMoreHook, setDefaultSummaryFiltersHook, setSummaryFiltersHook } from './loadMore';
+import {
+  loadMoreHook,
+  setDefaultSummaryFiltersHook,
+  setSummaryFiltersHook,
+  updateSummaryFiltersHook,
+} from './loadMore';
 import loadStudyGuides from './locationChange';
 import { openStudyGuidesHook } from './openStudyGuides';
 import { printStudyGuidesHook } from './printStudyGuides';
@@ -18,6 +23,7 @@ export default [
   openStudyGuidesHook,
   setSummaryFiltersHook,
   setDefaultSummaryFiltersHook,
+  updateSummaryFiltersHook,
   actionHook(openStudyGuides, openModal(modalUrlName)),
   actionHook(closeStudyGuides, closeModal),
 ];

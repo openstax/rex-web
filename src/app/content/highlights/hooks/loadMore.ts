@@ -68,3 +68,4 @@ export const hookBody: ActionHookBody<
 
 export const loadMoreHook = actionHook(loadMoreSummaryHighlights, hookBody);
 export const setSummaryFiltersHook = actionHook(setSummaryFilters, hookBody);
+export const updateFiltersHook = actionHook(updateSummaryFilters, hookBody);
