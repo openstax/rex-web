@@ -19,7 +19,7 @@ export const rebaseRelativeContentLinks = (htmlString: string, sourceUrl: string
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   domNode.querySelectorAll('a').forEach((element: HTMLAnchorElement) => {
     const hrefValue = element.getAttribute('href');
-    if (hrefValue && !isAbsoluteUrl(hrefValue) &&  sourceUrl) {
+    if (hrefValue && !isAbsoluteUrl(hrefValue) && sourceUrl) {
       element.setAttribute('href', fromRelativeUrl(sourceUrl, hrefValue));
     }
   });

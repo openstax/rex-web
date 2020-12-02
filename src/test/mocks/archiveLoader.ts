@@ -76,7 +76,7 @@ export default () => {
       page: (pageId: string) => ({
         cached: () => cachedPage(bookId, bookVersion, pageId),
         load: () => loadPage(bookId, bookVersion, pageId),
-        url: () => '',
+        url: () => '/someUrl',
       }),
     }),
     getBookIdsForPage,

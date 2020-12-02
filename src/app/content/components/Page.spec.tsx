@@ -219,7 +219,7 @@ describe('Page', () => {
 
     it('updates content self closing tags', async() => {
       expect(await htmlHelper(`<strong data-somethin="asdf"/>asdf<iframe src="someplace"/>`)).toEqual(
-        '<strong data-somethin="asdf"></strong>asdf<iframe src="someplace"></iframe>'
+        '<strong data-somethin="asdf"></strong>asdf<iframe src="/someplace"></iframe>'
       );
     });
 

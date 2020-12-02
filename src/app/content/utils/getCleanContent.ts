@@ -14,9 +14,11 @@ export default function getCleanContent(
     archiveLoader.book(book.id, book.version).page(page.id).cached()
   ;
 
-  const pageContent = cachedPage ? cachedPage.content : '';
+  const contentUrl = book && page && archiveLoader.book(book.id, book.version).page(page.id).url();
 
-  const contentUrl = (book && page && archiveLoader.book(book.id, book.version).page(page.id).url()) || '';
+  if (!cachedPage || !contentUrl) {
+    return '';
+  }
 
   const replacements = (content: string) => content
     // remove body and surrounding content
@@ -31,5 +33,5 @@ export default function getCleanContent(
 
   const resolveResourceUrls = (content: string) => rebaseRelativeResources(content, contentUrl);
 
-  return flow(replacements, resolveResourceUrls, transformer)(pageContent);
+  return flow(replacements, resolveResourceUrls, transformer)(cachedPage.content);
 }

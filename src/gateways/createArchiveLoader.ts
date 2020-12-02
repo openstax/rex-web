@@ -36,11 +36,6 @@ export default (url: string) => {
   const pageCache = createCache<string, ArchivePage>({maxRecords: 20});
   const pageLoader = contentsLoader<ArchivePage>(pageCache);
 
-  const bookAndPageRef = (bookRef: string, pageId: string) => {
-    const bookAndPageUrl = `${bookRef}:${pageId}`;
-    return bookAndPageUrl;
-  };
-
   interface BookReference {id: string; bookVersion: string | undefined; }
   const extrasCache = createCache<string, BookReference[]>({maxRecords: 20});
   const getBookIdsForPage: (pageId: string) => Promise<BookReference[]> = (pageId) => {
@@ -70,11 +65,14 @@ export default (url: string) => {
         cached: () => bookCache.get(bookRef),
         load: () => bookLoader(bookRef),
 
-        page: (pageId: string) => ({
-          cached: () => pageCache.get(bookAndPageRef(bookRef, pageId)),
-          load: () => pageLoader(bookAndPageRef(bookRef, pageId)),
-          url: () => `${contentUrl}${bookAndPageRef(bookRef, pageId)}`,
-        }),
+        page: (pageId: string) => {
+          const bookAndPageUrl = `${bookRef}:${pageId}`;
+          return {
+            cached: () => pageCache.get(bookAndPageUrl),
+            load: () => pageLoader(bookAndPageUrl),
+            url: () => `${contentUrl}${bookAndPageUrl}`,
+          };
+        },
       };
     },
     getBookIdsForPage,
