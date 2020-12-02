@@ -340,29 +340,23 @@ class Content(Page):
             self.offscreen_click(self.attribution_link)
             self.page.attribution.wait_for_region_to_display()
 
+        def click_book_url(self):
+            self.offscreen_click(self.find_element(*self._book_url_locator))
+
     class BookBanner(Region):
 
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
 
         _book_title_locator = (By.CSS_SELECTOR, "div > a")
-        _chapter_section_locator = (By.CSS_SELECTOR, "div > h1 > span.os-number")
-        _chapter_title_locator = (By.CSS_SELECTOR, "div > h1 > span.os-text")
+        _section_title_locator = (By.CSS_SELECTOR, "div > h1")
 
         @property
         def book_title(self) -> WebElement:
             return self.find_element(*self._book_title_locator)
 
         @property
-        def chapter_title(self) -> str:
-            return self.find_element(*self._chapter_title_locator).text
-
-        @property
-        def chapter_section(self) -> Union[str, None]:
-            # The section isn't always included on the page so we return None
-            try:
-                return self.find_element(*self._chapter_section_locator).text
-            except NoSuchElementException:
-                return None
+        def section_title(self) -> str:
+            return self.find_element(*self._section_title_locator).text
 
     class Content(Region):
         """The main content for the book section."""
@@ -403,7 +397,10 @@ class Content(Page):
         @property
         def page_error_displayed(self) -> bool:
             """Return true if rex 404 error is displayed"""
-            return bool(self.wait.until(lambda _: self.find_element(*self._page_error_locator)))
+            try:
+                return bool(self.wait.until(lambda _: self.find_element(*self._page_error_locator)))
+            except TimeoutException:
+                return False
 
         @property
         def page_error(self):

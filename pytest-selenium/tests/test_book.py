@@ -6,6 +6,7 @@ from tests import markers
 from pages.content import Content
 from pages.osweb import WebBase
 from utils.utility import Utilities
+from pages.accounts import Login
 
 
 @markers.test_case("C476808")
@@ -109,3 +110,92 @@ def test_redirect_to_osweb_404_when_page_is_incorrect_in_first_session(
         osweb.osweb_404_error
         == "Uh-oh, no page hereKudos on your desire to explore! Unfortunately, we don't have a page to go with that particular location."
     )
+
+
+@markers.test_case("C613212")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
+    selenium, base_url, book_slug, page_slug, email, password
+):
+    """Rex 404 page is displayed when user opens incorrect page in an existing session."""
+
+    # GIVEN: A page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    book.wait_for_service_worker_to_install()
+
+    # WHEN: User loads an incorrect page in the same session
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
+    toolbar = book.toolbar
+    sidebar = book.sidebar
+    book_banner = book.bookbanner
+    toc = book.sidebar.toc
+    attribution = book.attribution
+    user_nav = book.navbar
+
+    # THEN: Rex 404 page is displayed
+    assert book.content.page_error_displayed
+    assert (
+        book.content.page_error
+        == "Uh oh, we can't find the page you requested.Try another page in theTable of contents"
+    )
+
+    # AND: Next & Previous links are not displayed
+    assert not book.next_link_is_displayed
+    assert not book.previous_link_is_displayed
+
+    # AND: TOC is displayed in the sidebar
+    assert sidebar.header.is_displayed
+
+    # AND: TOC toggle works
+    sidebar.header.click_toc_toggle_button()
+    assert not sidebar.header.is_displayed
+    toolbar.click_toc_toggle_button()
+    assert sidebar.header.is_displayed
+
+    # AND: Page title is not displayed in the book banner
+    with pytest.raises(NoSuchElementException):
+        assert (
+            not book_banner.section_title
+        ), "section title is displayed in the book banner when rex 404 is displayed"
+
+    # AND: Clicking a TOC link loads the content and not the rex 404
+    toc.sections[-1].click()
+    assert toc.sections[-1].is_active
+    assert not book.content.page_error_displayed
+
+    # Trigger the rex 404 page
+    Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
+
+    # AND: Clicking book url link in attribution works
+    attribution.click_attribution_link()
+    attribution.click_book_url()
+    assert toc.sections[1].is_active
+
+    assert not book.content.page_error_displayed
+
+    # AND: Clicking book title in book banner opens the osweb book details page
+    book_banner.book_title.click()
+    osweb = WebBase(selenium)
+    osweb.wait_for_page_to_load()
+    expected_page_url = base_url + "/details/books/" + book_slug
+    assert expected_page_url == osweb.current_url
+
+    # AND: Navigating back to rex does not display the rex 404 page
+    book.click_and_wait_for_load(osweb.view_online)
+    assert toc.sections[1].is_active
+    assert not book.content.page_error_displayed
+
+    # Trigger the rex 404 page
+    Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
+
+    # AND: Login does not change the rex 404 status
+    page_url_before_login = selenium.current_url
+    user_nav.click_login()
+    Login(selenium).login(email, password)
+    assert user_nav.user_is_logged_in
+    assert page_url_before_login == selenium.current_url
+    assert book.content.page_error_displayed
+
+    # AND: Links in footer all work as usual
