@@ -36,6 +36,11 @@ export default (url: string) => {
   const pageCache = createCache<string, ArchivePage>({maxRecords: 20});
   const pageLoader = contentsLoader<ArchivePage>(pageCache);
 
+  const bookAndPageRef = (bookRef: string, pageId: string) => {
+    const bookAndPageUrl = `${bookRef}:${pageId}`;
+    return bookAndPageUrl;
+  };
+
   interface BookReference {id: string; bookVersion: string | undefined; }
   const extrasCache = createCache<string, BookReference[]>({maxRecords: 20});
   const getBookIdsForPage: (pageId: string) => Promise<BookReference[]> = (pageId) => {
@@ -60,16 +65,15 @@ export default (url: string) => {
   return {
     book: (bookId: string, bookVersion?: string) => {
       const bookRef = bookVersion ? `${stripIdVersion(bookId)}@${bookVersion}` : stripIdVersion(bookId);
-      const bookAndPageRef = (pageId: string) => `${bookRef}:${pageId}`;
 
       return {
         cached: () => bookCache.get(bookRef),
         load: () => bookLoader(bookRef),
 
         page: (pageId: string) => ({
-          cached: () => pageCache.get(bookAndPageRef(pageId)),
-          load: () => pageLoader(bookAndPageRef(pageId)),
-          url: () => `${contentUrl}${bookAndPageRef(pageId)}`,
+          cached: () => pageCache.get(bookAndPageRef(bookRef, pageId)),
+          load: () => pageLoader(bookAndPageRef(bookRef, pageId)),
+          url: () => `${contentUrl}${bookAndPageRef(bookRef, pageId)}`,
         }),
       };
     },

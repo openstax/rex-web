@@ -59,7 +59,7 @@ describe('ResolveRelativeUrl', () => {
       + '<a href="/some/link" target="_blank">Second link</a>'
       + '</div>';
 
-    expect(rebaseRelativeContentLinks(input)).toEqual(input);
+    expect(rebaseRelativeContentLinks(input, '')).toEqual(input);
   });
 
   it('modifies img elements', () => {

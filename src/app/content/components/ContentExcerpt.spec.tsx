@@ -18,7 +18,7 @@ jest.mock('../../../config', () => {
   const config = jest.requireActual('../../../config');
   return {
     ...config,
-    REACT_APP_ARCHIVE_URL: '',
+    REACT_APP_ARCHIVE_URL: null,
   };
 });
 
@@ -44,7 +44,6 @@ describe('ContentExcerpt', () => {
   );
 
   it('fixes urls in content using addTargetBlank and resolveRelative', () => {
-    // routes.content.getSearch = jest.fn().mockReturnValue('archive=some-content');
     const originalHtml = '<a href="#hello"></a>';
     const htmlWithTargetBlank = '<a href="#hello" target="_blank"></a>';
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
@@ -55,15 +54,14 @@ describe('ContentExcerpt', () => {
     const addTargetBlankToLinksMock = jest.spyOn(contentManipulation, 'addTargetBlankToLinks')
       .mockReturnValueOnce(htmlWithTargetBlank);
 
-    const resolveRelativeURLsMock = jest.spyOn(contentManipulation, 'rebaseRelativeContentLinks').mockReturnValueOnce(
-      '<a href="/book/book1/page/testbook1-testpage1-uuid#hello" target="_blank"></a>'
-    );
+    const rebaseRelativeContentLinksMock = jest.spyOn(contentManipulation, 'rebaseRelativeContentLinks')
+      .mockReturnValueOnce('<a href="/book/book1/page/testbook1-testpage1-uuid#hello" target="_blank"></a>');
 
     render(mockSection, originalHtml);
 
     expect(getUrlSpy).toHaveBeenCalled();
     expect(addTargetBlankToLinksMock).toHaveBeenCalledWith(originalHtml);
-    expect(resolveRelativeURLsMock)
+    expect(rebaseRelativeContentLinksMock)
       .toHaveBeenCalledWith(htmlWithTargetBlank, '/book/book1/page/testbook1-testpage1-uuid');
   });
 

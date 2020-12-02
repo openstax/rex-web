@@ -16,7 +16,7 @@ export default function getCleanContent(
 
   const pageContent = cachedPage ? cachedPage.content : '';
 
-  const contentUrl = (book && page && archiveLoader.book(book.id, book.version).page(page.id).url());
+  const contentUrl = (book && page && archiveLoader.book(book.id, book.version).page(page.id).url()) || '';
 
   const replacements = (content: string) => content
     // remove body and surrounding content

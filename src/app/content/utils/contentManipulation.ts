@@ -15,26 +15,23 @@ export const isAbsoluteUrl = (url: string) => {
   return aux;
 };
 
-export const rebaseRelativeContentLinks = (htmlString: string, sourceUrl?: string) => {
+export const rebaseRelativeContentLinks = (htmlString: string, sourceUrl: string) => {
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   domNode.querySelectorAll('a').forEach((element: HTMLAnchorElement) => {
     const hrefValue = element.getAttribute('href');
     if (hrefValue && !isAbsoluteUrl(hrefValue) &&  sourceUrl) {
-      const resolvedUrl = fromRelativeUrl(sourceUrl, hrefValue);
-      element.setAttribute('href', resolvedUrl);
+      element.setAttribute('href', fromRelativeUrl(sourceUrl, hrefValue));
     }
   });
   return domNode.body.innerHTML;
 };
 
-export const rebaseRelativeResources = (htmlString: string, sourceUrl?: string) => {
+export const rebaseRelativeResources = (htmlString: string, sourceUrl: string) => {
   const domNode = domParser.parseFromString(htmlString, 'text/html');
-
-  domNode.querySelectorAll('img, iframe').forEach((element: HTMLAnchorElement) => {
+  domNode.querySelectorAll('img,iframe').forEach((element: HTMLAnchorElement) => {
     const srcValue = element.getAttribute('src');
     if (srcValue && !isAbsoluteUrl(srcValue) && sourceUrl ) {
-      const resolvedUrl = fromRelativeUrl(sourceUrl, srcValue);
-      element.setAttribute('src', resolvedUrl);
+      element.setAttribute('src', fromRelativeUrl(sourceUrl, srcValue));
     }
   });
 
