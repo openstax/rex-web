@@ -34,8 +34,8 @@ const unselectedAnswerStyle: PracticeQuestionStyles = {
 };
 
 export default {
-  correctAnswerStyle,
-  incorrectAnswerStyle,
-  selectedAnswerStyle,
-  unselectedAnswerStyle,
+  correct: correctAnswerStyle,
+  incorrect: incorrectAnswerStyle,
+  selected: selectedAnswerStyle,
+  unselected: unselectedAnswerStyle,
 };

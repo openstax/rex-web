@@ -40,7 +40,7 @@ export interface SetPracticeAnswer {
 }
 
 export interface PracticeQuestionStyles {
-  label: string;
+  label: 'correct' | 'incorrect' | 'selected' | 'unselected';
   passive: string;
   focused: string;
   fontColor: string;
