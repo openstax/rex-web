@@ -14,6 +14,14 @@ import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import * as contentManipulation from '../utils/contentManipulation';
 import ContentExcerpt from './ContentExcerpt';
 
+jest.mock('../../../config', () => {
+  const config = jest.requireActual('../../../config');
+  return {
+    ...config,
+    REACT_APP_ARCHIVE_URL: '',
+  };
+});
+
 describe('ContentExcerpt', () => {
   let store: Store;
 
@@ -35,7 +43,8 @@ describe('ContentExcerpt', () => {
     </Provider>
   );
 
-  it('fixes urls in content using addTargetBlank and fixRelative', () => {
+  it('fixes urls in content using addTargetBlank and resolveRelative', () => {
+    // routes.content.getSearch = jest.fn().mockReturnValue('archive=some-content');
     const originalHtml = '<a href="#hello"></a>';
     const htmlWithTargetBlank = '<a href="#hello" target="_blank"></a>';
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
@@ -46,7 +55,7 @@ describe('ContentExcerpt', () => {
     const addTargetBlankToLinksMock = jest.spyOn(contentManipulation, 'addTargetBlankToLinks')
       .mockReturnValueOnce(htmlWithTargetBlank);
 
-    const fixRelativeURLsMock = jest.spyOn(contentManipulation, 'fixRelativeURLs').mockReturnValueOnce(
+    const resolveRelativeURLsMock = jest.spyOn(contentManipulation, 'rebaseRelativeContentLinks').mockReturnValueOnce(
       '<a href="/book/book1/page/testbook1-testpage1-uuid#hello" target="_blank"></a>'
     );
 
@@ -54,7 +63,7 @@ describe('ContentExcerpt', () => {
 
     expect(getUrlSpy).toHaveBeenCalled();
     expect(addTargetBlankToLinksMock).toHaveBeenCalledWith(originalHtml);
-    expect(fixRelativeURLsMock)
+    expect(resolveRelativeURLsMock)
       .toHaveBeenCalledWith(htmlWithTargetBlank, '/book/book1/page/testbook1-testpage1-uuid');
   });
 

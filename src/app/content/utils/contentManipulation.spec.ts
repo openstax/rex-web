@@ -1,4 +1,9 @@
-import { addTargetBlankToLinks, fixRelativeURLs } from '../utils/contentManipulation';
+import {
+  addTargetBlankToLinks,
+  rebaseRelativeContentLinks,
+  rebaseRelativeResources,
+} from '../utils/contentManipulation';
+
 describe('addTargetBlankToLinks', () => {
   it('adds target _blank to all <a> tags' , () => {
     const input = '<div class="test">'
@@ -47,13 +52,27 @@ describe('addTargetBlankToLinks', () => {
   });
 });
 
-describe('fixRelativeUrl', () => {
-  it('does not modify ansolute paths' , () => {
+describe('ResolveRelativeUrl', () => {
+  it('does not modify absolute paths', () => {
     const input = '<div class="test">'
       + '<a href="http://some/link" target="_blank">First link</a>'
       + '<a href="/some/link" target="_blank">Second link</a>'
       + '</div>';
 
-    expect(fixRelativeURLs(input)).toEqual(input);
+    expect(rebaseRelativeContentLinks(input)).toEqual(input);
+  });
+
+  it('modifies img elements', () => {
+    const input = '<div class="test">'
+      + '<img src="../some/link">'
+      + '</div>'
+      + '<iframe src="../url" title="description"></iframe>';
+
+    const output = '<div class="test">'
+      + '<img src="/some/link">'
+      + '</div>'
+      + '<iframe src="/url" title="description"></iframe>';
+
+    expect(rebaseRelativeResources(input, '/content')).toEqual(output);
   });
 });

@@ -47,6 +47,14 @@ jest.mock('../../domUtils', () => ({
   scrollTo: jest.fn(),
 }));
 
+jest.mock('../../../config', () => {
+  const config = jest.requireActual('../../../config');
+  return {
+    ...config,
+    REACT_APP_ARCHIVE_URL: '',
+  };
+});
+
 const makeEvent = (doc: Document) => {
   const event = doc.createEvent('MouseEvents');
   event.initEvent('click', true, false);
@@ -146,6 +154,7 @@ describe('Page', () => {
         ...page,
         content: html,
       }));
+
       const {root} = renderToDom(
         <Provider store={store}>
           <MessageProvider>

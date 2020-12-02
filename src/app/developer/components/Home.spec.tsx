@@ -7,6 +7,14 @@ import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import Home from './Home';
 
+jest.mock('../../../config', () => {
+  const config = jest.requireActual('../../../config');
+  return {
+    ...config,
+    REACT_APP_ARCHIVE_URL: '',
+  };
+});
+
 describe('Home', () => {
   let services: ReturnType<typeof createTestServices>;
 
