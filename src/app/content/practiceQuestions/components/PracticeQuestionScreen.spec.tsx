@@ -79,7 +79,7 @@ describe('Practice questions screen', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('adds promises to the promiseCollector', () => {
+  it('adds typesetMath promise to the promiseCollector', () => {
     store.dispatch(receiveBook(archiveBook));
     store.dispatch(setSelectedSection(source));
     store.dispatch(receivePracticeQuestionsSummary({
