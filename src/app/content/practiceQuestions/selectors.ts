@@ -62,7 +62,13 @@ export const selectedSectionHasPracticeQuestions = createSelector(
 
 export const questionsAndAnswers = createSelector(
   localState,
-  (state) => state.questionsAndAnswers
+  (state) => new Map(Object.entries(state.questionsAndAnswers))
+);
+
+export const isCurrentQuestionSubmitted = createSelector(
+  questionsAndAnswers,
+  question,
+  (questionsAnswers, currentQuestion) => Boolean(currentQuestion && questionsAnswers.has(currentQuestion.uid))
 );
 
 export const isFinalQuestion = createSelector(

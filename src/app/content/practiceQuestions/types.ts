@@ -32,7 +32,9 @@ export interface PracticeQuestion {
 
 export type PracticeQuestions = PracticeQuestion[];
 
-export type QuestionsAndAnswers = Map<string, PracticeAnswer | null>;
+export interface QuestionsAndAnswers {
+  [key: string]: PracticeAnswer | null;
+}
 
 export interface SetPracticeAnswer {
   questionId: string;

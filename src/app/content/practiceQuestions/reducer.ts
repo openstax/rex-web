@@ -13,7 +13,7 @@ export const initialState: State = {
   isEnabled: false,
   open: false,
   questions: [],
-  questionsAndAnswers: new Map(),
+  questionsAndAnswers: {},
   selectedSection: null,
   summary: null,
 };
@@ -41,7 +41,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...state, questions: action.payload};
     case getType(actions.setAnswer):
       const { questionId, answer } = action.payload;
-      return {...state, questionsAndAnswers: new Map(state.questionsAndAnswers).set(questionId, answer) };
+      return {
+        ...state,
+        questionsAndAnswers: {
+          ...state.questionsAndAnswers,
+          [questionId]: answer,
+        },
+      };
     default:
       return state;
   }

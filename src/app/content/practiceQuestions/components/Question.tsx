@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/macro';
 import { h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
 import ContentExcerpt from '../../components/ContentExcerpt';
-import { nextQuestion, setAnswer } from '../actions';
+import { setAnswer } from '../actions';
 import * as pqSelectors from '../selectors';
 import { PracticeAnswer } from '../types';
 import Answer from './Answer';
@@ -41,17 +41,17 @@ const Question = () => {
   const [showCorrect, setShowCorrect] = React.useState(false);
   const question = useSelector(pqSelectors.question);
   const section = useSelector(pqSelectors.selectedSection);
-  const questionsAndAnswers = useSelector(pqSelectors.questionsAndAnswers);
+  const isSubmitted = useSelector(pqSelectors.isCurrentQuestionSubmitted);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    setSelectedAnswer(null);
-    setShowCorrect(false);
+    return () => {
+      setSelectedAnswer(null);
+      setShowCorrect(false);
+    };
   }, [question]);
 
   if (!section || !question) { return null; }
-
-  const isSubmitted = questionsAndAnswers.has(question.uid);
 
   const onSubmit = (e: React.FormEvent) => {
     // TODO: Add support for handling Finish button
@@ -78,13 +78,8 @@ const Question = () => {
     <QuestionNavigation
       question={question}
       selectedAnswer={selectedAnswer}
-      onSkip={() => {
-        dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
-        dispatch(nextQuestion());
-      }}
       onShowAnswer={() => setShowCorrect(true)}
       hideShowAnswerButton={showCorrect}
-      onNext={() => dispatch(nextQuestion())}
     />
   </QuestionWrapper>;
 };

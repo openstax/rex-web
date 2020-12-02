@@ -1,7 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import { nextQuestion, setAnswer } from '../../actions';
 import * as pqSelectors from '../../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
 import { PQInput } from '../PQButton';
@@ -16,16 +17,15 @@ const Wrapper = styled.div`
 interface QuestionNavigationProps {
   question: PracticeQuestion;
   selectedAnswer: PracticeAnswer | null;
-  onSkip: () => void;
   onShowAnswer: () => void;
   hideShowAnswerButton: boolean;
-  onNext: () => void;
 }
 
 // tslint:disable-next-line: variable-name
 const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavigationProps) => {
   const questionsAndAnswers = useSelector(pqSelectors.questionsAndAnswers);
   const isFinalQuestion = useSelector(pqSelectors.isFinalQuestion);
+  const dispatch = useDispatch();
   const showSkipAndSubmit = !questionsAndAnswers.has(question.uid);
   const submittedAnswer = questionsAndAnswers.get(question.uid);
   const showShowAnswer = !props.hideShowAnswerButton && submittedAnswer && submittedAnswer.correctness === '0.0';
@@ -40,7 +40,10 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
             type='button'
             value={msg}
             withoutBg={true}
-            onClick={props.onSkip}
+            onClick={() => {
+              dispatch(setAnswer({ answer: null, questionId: question.uid }));
+              dispatch(nextQuestion());
+            }}
           />
         )}
       </FormattedMessage>
@@ -71,7 +74,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
         <PQInput
           type='button'
           value={msg}
-          onClick={props.onNext}
+          onClick={() => dispatch(nextQuestion())}
         />
       )}
     </FormattedMessage>}
