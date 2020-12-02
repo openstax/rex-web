@@ -11,6 +11,8 @@ interface Extras {
 }
 
 export default (url: string) => {
+  const contentUrl = `${url}/contents/`;
+
   const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
     .then(acceptStatus(200, (status, message) => `Error response from archive "${fetchUrl}" ${status}: ${message}`))
     .then((response) => response.json() as Promise<T>);
@@ -21,7 +23,7 @@ export default (url: string) => {
       return Promise.resolve(cached);
     }
 
-    return archiveFetch<C>(`${url}/contents/${id}.json`)
+    return archiveFetch<C>(`${contentUrl}${id}.json`)
       .then((response) => {
         cache.set(id, response);
         return response;
@@ -58,14 +60,16 @@ export default (url: string) => {
   return {
     book: (bookId: string, bookVersion?: string) => {
       const bookRef = bookVersion ? `${stripIdVersion(bookId)}@${bookVersion}` : stripIdVersion(bookId);
+      const bookAndPageRef = (pageId: string) => `${bookRef}:${pageId}`;
 
       return {
         cached: () => bookCache.get(bookRef),
         load: () => bookLoader(bookRef),
 
         page: (pageId: string) => ({
-          cached: () => pageCache.get(`${bookRef}:${pageId}`),
-          load: () => pageLoader(`${bookRef}:${pageId}`),
+          cached: () => pageCache.get(bookAndPageRef(pageId)),
+          load: () => pageLoader(bookAndPageRef(pageId)),
+          url: () => `${contentUrl}${bookAndPageRef(pageId)}`,
         }),
       };
     },

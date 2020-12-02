@@ -1,6 +1,8 @@
+import flow from 'lodash/fp/flow';
 import identity from 'lodash/fp/identity';
 import createArchiveLoader from '../../../gateways/createArchiveLoader';
 import { Book, Page } from '../types';
+import { rebaseRelativeResources } from './contentManipulation';
 
 export default function getCleanContent(
   book: Book | undefined,
@@ -14,7 +16,9 @@ export default function getCleanContent(
 
   const pageContent = cachedPage ? cachedPage.content : '';
 
-  return transformer(pageContent)
+  const contentUrl = (book && page && archiveLoader.book(book.id, book.version).page(page.id).url());
+
+  const replacements = (content: string) => content
     // remove body and surrounding content
     .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
     // fix assorted self closing tags
@@ -24,4 +28,8 @@ export default function getCleanContent(
     // move (first-child) figure and table ids up to the parent div
     .replace(/(<div[^>]*)(>[^<]*<(?:figure|table)[^>]*?) (id=[^\s>]*)/g, '$1 $3$2 data-$3')
   ;
+
+  const resolveResourceUrls = (content: string) => rebaseRelativeResources(content, contentUrl);
+
+  return flow(replacements, resolveResourceUrls, transformer)(pageContent);
 }

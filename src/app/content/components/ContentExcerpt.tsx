@@ -7,7 +7,11 @@ import { assertDefined } from '../../utils';
 import { book } from '../selectors';
 import { LinkedArchiveTreeSection } from '../types';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
-import { addTargetBlankToLinks, fixRelativeURLs } from '../utils/contentManipulation';
+import {
+  addTargetBlankToLinks,
+  rebaseRelativeContentLinks,
+  rebaseRelativeResources,
+} from '../utils/contentManipulation';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
 
 interface Props {
@@ -37,7 +41,8 @@ const ContentExcerpt = styled((props: Props) => {
 
   const fixedContent = React.useMemo(() => flow(
     addTargetBlankToLinks,
-    (newContent) => fixRelativeURLs(newContent, excerptSource.url)
+    (newContent) => rebaseRelativeContentLinks(newContent, excerptSource.url),
+    (newContent) => rebaseRelativeResources(newContent, excerptSource.url)
   )(props.content), [props.content, excerptSource.url]);
 
   return <div
