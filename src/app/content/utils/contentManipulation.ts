@@ -15,13 +15,25 @@ export const isAbsoluteUrl = (url: string) => {
   return aux;
 };
 
-export function fixRelativeURLs(htmlString: string, sourceUrl?: string): string {
+export const rebaseRelativeContentLinks = (htmlString: string, sourceUrl: string) => {
   const domNode = domParser.parseFromString(htmlString, 'text/html');
-  domNode.querySelectorAll('a').forEach((a: HTMLAnchorElement) => {
-    const hrefValue = a.getAttribute('href');
+  domNode.querySelectorAll('a').forEach((element: HTMLAnchorElement) => {
+    const hrefValue = element.getAttribute('href');
     if (hrefValue && !isAbsoluteUrl(hrefValue) && sourceUrl) {
-      a.setAttribute('href', fromRelativeUrl(sourceUrl, hrefValue));
+      element.setAttribute('href', fromRelativeUrl(sourceUrl, hrefValue));
     }
   });
   return domNode.body.innerHTML;
-}
+};
+
+export const rebaseRelativeResources = (htmlString: string, sourceUrl: string) => {
+  const domNode = domParser.parseFromString(htmlString, 'text/html');
+  domNode.querySelectorAll('img,iframe').forEach((element: HTMLAnchorElement) => {
+    const srcValue = element.getAttribute('src');
+    if (srcValue && !isAbsoluteUrl(srcValue) && sourceUrl) {
+      element.setAttribute('src', fromRelativeUrl(sourceUrl, srcValue));
+    }
+  });
+
+  return domNode.body.innerHTML;
+};
