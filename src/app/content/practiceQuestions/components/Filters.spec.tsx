@@ -12,7 +12,6 @@ import { receiveBook } from '../../actions';
 import { StyledDetails, StyledSectionItem, StyledSummary } from '../../components/popUp/ChapterFilter';
 import { LocationFiltersWithChildren } from '../../components/popUp/types';
 import { LinkedArchiveTreeSection } from '../../types';
-import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { setSelectedSection } from '../actions';
 import * as selectors from '../selectors';
 import Filters from './Filters';
@@ -146,7 +145,7 @@ describe('Filters', () => {
       section1.props.onClick();
     });
 
-    const expectedSection = findArchiveTreeNodeById(book.tree, 'testbook1-testpage11-uuid');
+    const expectedSection = { id: 'testbook1-testpage11-uuid', title: 'section1' };
 
     expect(dispatch).toHaveBeenCalledWith(setSelectedSection(expectedSection as any));
 
@@ -193,46 +192,6 @@ describe('Filters', () => {
     });
 
     expect(dispatch).not.toHaveBeenCalled();
-
-    mockFilters.mockReset();
-    mockSection.mockReset();
-  });
-
-  it('ChapterFilter dispatches setSelectedSection with null if there is no book', () => {
-    const mockFilters = jest.spyOn(selectors, 'practiceQuestionsLocationFilters')
-      .mockReturnValue(new Map([
-        ['doesnt-matter', {
-          children: [
-            { id: 'this will not be found in the book', title: 'section1' },
-          ],
-          section: { id: 'doesnt-matter', title: 'chapterId' },
-        }],
-      ]) as LocationFiltersWithChildren);
-    const mockSection = jest.spyOn(selectors, 'selectedSection')
-      .mockReturnValue(null);
-
-    dispatch.mockClear();
-
-    const component = renderer.create(render());
-
-    renderer.act(() => {
-      const chapterFilterToggle = component.root.findByType(DropdownToggle);
-      chapterFilterToggle.props.onClick();
-    });
-
-    const [details1] = component.root.findAllByType(StyledDetails);
-
-    renderer.act(() => {
-      const summary = details1.findByType(StyledSummary);
-      summary.props.onClick({ preventDefault: jest.fn() });
-    });
-
-    renderer.act(() => {
-      const [section1] = details1.findAllByType(StyledSectionItem);
-      section1.props.onClick();
-    });
-
-    expect(dispatch).toHaveBeenCalledWith(setSelectedSection(null));
 
     mockFilters.mockReset();
     mockSection.mockReset();
