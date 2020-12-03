@@ -108,9 +108,7 @@ export const AnswerBlock = styled.div`
   display: flex;
   align-items: flex-start;
   cursor: ${(props: AnswerBlockProps) => props.isSubmitted ? 'not-allowed' : 'pointer'};
-
   ${flow(getAnswerTheme, getAnswerThemeCss)}
-
   ${theme.breakpoints.mobile(css`
     padding: 0 1rem 2.4rem;
 

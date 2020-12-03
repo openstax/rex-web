@@ -13,6 +13,7 @@ import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { nextQuestion, setAnswer, setQuestions, setSelectedSection } from '../actions';
 import { PracticeQuestion } from '../types';
 import Answer from './Answer';
+import PQButton from './PQButton';
 import Question, { AnswersWrapper, QuestionContent, QuestionWrapper } from './Question';
 
 jest.mock('../../components/ContentExcerpt', () => (props: any) => <div data-mock-content-excerpt {...props} />);
@@ -163,10 +164,10 @@ describe('Question', () => {
     // tslint:disable-next-line: no-empty
     act(() => {});
 
-    const skip = component.root.findByProps({ value: 'Skip' });
+    const [skip] = component.root.findAllByType(PQButton);
 
     act(() => {
-      skip.props.onClick();
+      skip.props.onClick({ preventDefault: jest.fn() });
     });
 
     expect(dispatch).toHaveBeenCalledWith(setAnswer({ questionId: mockQuestion.uid, answer: null }));
@@ -204,10 +205,10 @@ describe('Question', () => {
     expect(() => firstAnswer.findByProps({ id: 'i18n:practice-questions:popup:incorrect' })).not.toThrow();
     expect(() => secondAnswer.findByProps({ id: 'i18n:practice-questions:popup:correct' })).toThrow();
 
-    const showAnswer = component.root.findByProps({ value: 'Show answer' })!;
+    const [showAnswer] = component.root.findAllByType(PQButton);
 
     act(() => {
-      showAnswer.props.onClick();
+      showAnswer.props.onClick({ preventDefault: jest.fn() });
     });
 
     expect(() => secondAnswer.findByProps({ id: 'i18n:practice-questions:popup:correct' })).not.toThrow();
@@ -239,7 +240,7 @@ describe('Question', () => {
 
     const next = component.root.findByProps({ value: 'Next' })!;
     act(() => {
-      next.props.onClick();
+      next.props.onClick({ preventDefault: jest.fn() });
     });
 
     expect(dispatch).toHaveBeenCalledWith(nextQuestion());
