@@ -1,7 +1,11 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
+import { typesetMath } from '../../../../helpers/mathjax';
 import { h4Style } from '../../../components/Typography';
+import { useServices } from '../../../context/Services';
 import theme from '../../../theme';
+import { assertWindow } from '../../../utils/browser-assertions';
 import ContentExcerpt from '../../components/ContentExcerpt';
 import { LinkedArchiveTreeSection } from '../../types';
 import { PracticeAnswer, PracticeQuestion } from '../types';
@@ -41,9 +45,19 @@ const getChoiceLetter = (value: number) => {
 
 // tslint:disable-next-line: variable-name
 const Question = (props: QuestionProps) => {
+  const container = React.useRef<HTMLElement | null>(null);
+  const services = useServices();
+
   const [selectedAnswer, setSelectedAnswer] = React.useState<PracticeAnswer | null>(null);
 
-  return <QuestionWrapper>
+  React.useLayoutEffect(() => {
+    if (container.current) {
+      services.promiseCollector.add(typesetMath(container.current, assertWindow()));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
+  }, [props.question]);
+
+  return <QuestionWrapper ref={container}>
     <QuestionContent content={props.question.stem_html} source={props.source} />
     <AnswersWrapper>
       { props.question.answers.map((answer, index) =>
