@@ -1,4 +1,4 @@
-import { match, not } from './fpUtils';
+import { ifUndefined, match, not } from './fpUtils';
 
 describe('not', () => {
   it('inverts the passed functions return value', () => {
@@ -27,5 +27,17 @@ describe('match', () => {
     expect(matcher('asdf')).toBe(true);
     expect(matcher('qwer')).toBe(false);
     expect(matcher({} as any)).toBe(false);
+  });
+});
+
+describe('ifUndefined', () => {
+  it('returns first value when not undefined', () => {
+    const thing = 'asdf' as string | undefined;
+    expect(ifUndefined(thing, 'qewr')).toEqual('asdf');
+  });
+
+  it('returns second value when undefined', () => {
+    const thing = undefined as string | undefined;
+    expect(ifUndefined(thing, 'qewr')).toEqual('qewr');
   });
 });

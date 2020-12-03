@@ -1,6 +1,7 @@
 import { Document, HTMLButtonElement, HTMLElement, HTMLImageElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
-import { REACT_APP_ARCHIVE_URL } from '../../../../config';
+import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../../../../config';
+import { ifUndefined } from '../../../fpUtils';
 import { assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
@@ -144,7 +145,7 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
 
 function prefixResources(rootEl: HTMLElement) {
   rootEl.querySelectorAll<HTMLImageElement>('img[src^="/resources/"]').forEach(
-    (el) => el.src = REACT_APP_ARCHIVE_URL + el.getAttribute('src')
+    (el) => el.src = ifUndefined(REACT_APP_ARCHIVE_URL_OVERRIDE, '') + el.getAttribute('src')
   );
 }
 
