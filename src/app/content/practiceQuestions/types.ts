@@ -7,7 +7,7 @@ export interface State {
   selectedSection: LinkedArchiveTreeSection | null;
   currentQuestionIndex: number | null;
   questions: PracticeQuestion[];
-  questionsAndAnswers: QuestionsAndAnswers;
+  questionAnswers: QuestionAnswers;
 }
 
 export interface PracticeQuestionsSummary {
@@ -32,7 +32,7 @@ export interface PracticeQuestion {
 
 export type PracticeQuestions = PracticeQuestion[];
 
-export interface QuestionsAndAnswers {
+export interface QuestionAnswers {
   [key: string]: PracticeAnswer | null;
 }
 
@@ -43,8 +43,9 @@ export interface SetPracticeAnswer {
 
 export interface PracticeQuestionStyles {
   label: 'correct' | 'incorrect' | 'selected' | 'unselected';
-  passive: string;
-  focused: string;
+  background: string;
+  border: string;
+  borderHovered: string;
   fontColor: string;
-  hovered?: string;
+  fontColorActive: string;
 }

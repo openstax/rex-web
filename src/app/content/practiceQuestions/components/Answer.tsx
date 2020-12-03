@@ -6,7 +6,7 @@ import theme from '../../../theme';
 import ContentExcerpt from '../../components/ContentExcerpt';
 import { LinkedArchiveTreeSection } from '../../types';
 import { PracticeAnswer, PracticeQuestionStyles } from '../types';
-import practiceQuestionStyles from './contants';
+import pqStyles from './contants';
 
 // tslint:disable-next-line: variable-name
 const AnswerExcerpt = styled.span`
@@ -74,18 +74,16 @@ export const AnswerBlock = styled.div`
 
     return css`
       ${AnswerLabel} {
-        color: ${practiceQuestionStyles[variant].fontColor};
-        background-color: ${practiceQuestionStyles[variant].focused};
-        border: 1.5px solid ${practiceQuestionStyles[variant].passive};
+        color: ${pqStyles[variant].fontColor};
+        background-color: ${pqStyles[variant].background};
+        border: 1.5px solid ${pqStyles[variant].border};
       }
 
-      ${({ isSubmitted }: AnswerBlockProps) => isSubmitted ? null : css`
-        &:hover {
-          ${AnswerLabel} {
-            border-color: ${practiceQuestionStyles[variant].hovered};
-          }
+      &:hover {
+        ${AnswerLabel} {
+          border-color: ${pqStyles[variant].borderHovered};
         }
-      `}
+      }
     `;
   }}
 
@@ -101,7 +99,7 @@ export const AnswerBlock = styled.div`
 // tslint:disable-next-line: variable-name
 const StyledAnswerResult = styled.div`
   ${textRegularStyle}
-  color: ${(props: {variant: PracticeQuestionStyles['label']}) => practiceQuestionStyles[props.variant].passive};
+  color: ${(props: {variant: PracticeQuestionStyles['label']}) => pqStyles[props.variant].fontColorActive};
 `;
 
 interface AnswerResultProps {
@@ -116,21 +114,19 @@ const AnswerResult = ({ showCorrect, isSelected, isSubmitted, isCorrect }: Answe
   const resultMsgKey = isCorrect
     ? 'i18n:practice-questions:popup:correct'
     : 'i18n:practice-questions:popup:incorrect';
-  let variant: PracticeQuestionStyles['label'] | null = null;
 
-  if (isSubmitted && isSelected) {
-    variant = isCorrect ? 'correct' : 'incorrect';
-  } else if (isSubmitted && showCorrect && isCorrect) {
-    variant = 'correct';
+  if (
+    !(isSubmitted && isSelected)
+    && !(isSubmitted && showCorrect && isCorrect)
+  ) {
+    return null;
   }
 
-  return variant
-    ? <StyledAnswerResult variant={variant}>
-      <FormattedMessage id={resultMsgKey}>
-        {(msg: string) => msg}
-      </FormattedMessage>
-    </StyledAnswerResult>
-    : null;
+  return <StyledAnswerResult variant={isCorrect ? 'correct' : 'incorrect'}>
+    <FormattedMessage id={resultMsgKey}>
+      {(msg: string) => msg}
+    </FormattedMessage>
+  </StyledAnswerResult>;
 };
 
 interface AnswerProps {

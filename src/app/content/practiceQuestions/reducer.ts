@@ -12,13 +12,13 @@ export const initialState: State = {
   currentQuestionIndex: null,
   isEnabled: false,
   open: false,
+  questionAnswers: {},
   questions: [],
-  questionsAndAnswers: {},
   selectedSection: null,
   summary: null,
 };
 
-const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
+const reducer: Reducer<State, AnyAction> = (state = initialState, action): State => {
   switch (action.type) {
     case getType(locationChange):
       const shouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
@@ -43,8 +43,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const { questionId, answer } = action.payload;
       return {
         ...state,
-        questionsAndAnswers: {
-          ...state.questionsAndAnswers,
+        questionAnswers: {
+          ...state.questionAnswers,
           [questionId]: answer,
         },
       };

@@ -60,15 +60,15 @@ export const selectedSectionHasPracticeQuestions = createSelector(
   (section, summary) => Boolean(section && summary && pageHasPracticeQuestions(section.id, summary))
 );
 
-export const questionsAndAnswers = createSelector(
+export const questionAnswers = createSelector(
   localState,
-  (state) => new Map(Object.entries(state.questionsAndAnswers))
+  (state) => new Map(Object.entries(state.questionAnswers))
 );
 
 export const isCurrentQuestionSubmitted = createSelector(
-  questionsAndAnswers,
+  questionAnswers,
   question,
-  (questionsAnswers, currentQuestion) => Boolean(currentQuestion && questionsAnswers.has(currentQuestion.uid))
+  (answers, currentQuestion) => Boolean(currentQuestion && answers.has(currentQuestion.uid))
 );
 
 export const isFinalQuestion = createSelector(

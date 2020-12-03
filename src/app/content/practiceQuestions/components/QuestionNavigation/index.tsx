@@ -23,11 +23,11 @@ interface QuestionNavigationProps {
 
 // tslint:disable-next-line: variable-name
 const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavigationProps) => {
-  const questionsAndAnswers = useSelector(pqSelectors.questionsAndAnswers);
+  const questionAnswers = useSelector(pqSelectors.questionAnswers);
   const isFinalQuestion = useSelector(pqSelectors.isFinalQuestion);
   const dispatch = useDispatch();
-  const showSkipAndSubmit = !questionsAndAnswers.has(question.uid);
-  const submittedAnswer = questionsAndAnswers.get(question.uid);
+  const showSkipAndSubmit = !questionAnswers.has(question.uid);
+  const submittedAnswer = questionAnswers.get(question.uid);
   const showShowAnswer = !props.hideShowAnswerButton && submittedAnswer && submittedAnswer.correctness === '0.0';
   const showNext = Boolean(submittedAnswer && !isFinalQuestion);
   const showFinish = Boolean(submittedAnswer && isFinalQuestion);

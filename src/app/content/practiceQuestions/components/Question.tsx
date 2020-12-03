@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { h4Style } from '../../../components/Typography';
+import { match } from '../../../fpUtils';
 import theme from '../../../theme';
 import ContentExcerpt from '../../components/ContentExcerpt';
 import { setAnswer } from '../actions';
@@ -37,7 +38,7 @@ const getChoiceLetter = (value: number) => {
 
 // tslint:disable-next-line: variable-name
 const Question = () => {
-  const [selectedAnswer, setSelectedAnswer] = React.useState<PracticeAnswer | null>(null);
+  const [selectedAnswerState, setSelectedAnswer] = React.useState<PracticeAnswer | null>(null);
   const [showCorrect, setShowCorrect] = React.useState(false);
   const question = useSelector(pqSelectors.question);
   const section = useSelector(pqSelectors.selectedSection);
@@ -52,6 +53,8 @@ const Question = () => {
   }, [question]);
 
   if (!section || !question) { return null; }
+
+  const selectedAnswer = question.answers.find(match(selectedAnswerState)) || null;
 
   const onSubmit = (e: React.FormEvent) => {
     // TODO: Add support for handling Finish button
