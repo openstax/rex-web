@@ -4,7 +4,6 @@ import renderer, { act } from 'react-test-renderer';
 import * as mathjaxHelpers from '../../../../helpers/mathjax';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { book as archiveBook, shortPage } from '../../../../test/mocks/archiveLoader';
 import { book } from '../../../../test/mocks/archiveLoader';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
@@ -47,7 +46,6 @@ describe('Question', () => {
     tags: 'd95384f2-1330-4582-9d81-1af0eae17b48',
     uid: '11591@5',
   } as PracticeQuestion;
-  let source: LinkedArchiveTreeSection;
 
   beforeEach(() => {
     store = createTestStore();
@@ -64,7 +62,6 @@ describe('Question', () => {
       findArchiveTreeNodeById(book.tree, 'testbook1-testpage2-uuid'),
       'mock file has been changed'
     ) as LinkedArchiveTreeSection;
-    source = findArchiveTreeNodeById(archiveBook.tree, shortPage.id) as LinkedArchiveTreeSection;
   });
 
   it('renders null if there is no current question', () => {
