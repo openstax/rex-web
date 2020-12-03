@@ -8,6 +8,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
+import Checkbox from '../../../components/Checkbox';
 import { DropdownToggle } from '../../../components/Dropdown';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
@@ -15,7 +16,12 @@ import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import FiltersList from '../../components/popUp/FiltersList';
 import { formatBookData, stripIdVersion } from '../../utils';
-import { printStudyGuides, receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides } from '../actions';
+import {
+  printStudyGuides,
+  receiveStudyGuidesTotalCounts,
+  receiveSummaryStudyGuides,
+  updateSummaryFilters,
+} from '../actions';
 import Filters from './Filters';
 import { cookieUTG } from './UsingThisGuide/constants';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
@@ -141,6 +147,47 @@ describe('Filters', () => {
     </Provider>);
 
     expect(() => component.root.findByType(FiltersList)).toThrow();
+  });
+
+  it('dispatches updateSummaryFilters action', () => {
+    const pageId = stripIdVersion(book.tree.contents[0].id);
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      [pageId]: {
+        [HighlightColorEnum.Green]: 1,
+        [HighlightColorEnum.Yellow]: 1,
+      },
+    }));
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Filters />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    renderer.act(() => {
+      const [, colorFilterToggle] = component.root.findAllByType(DropdownToggle);
+      colorFilterToggle.props.onClick();
+    });
+
+    const [yellowCheckbox] = component.root.findAllByType(Checkbox);
+
+    renderer.act(() => {
+      yellowCheckbox.props.onChange();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(updateSummaryFilters({
+      colors: { new: [], remove: [HighlightColorEnum.Yellow] },
+    }));
+
+    renderer.act(() => {
+      yellowCheckbox.props.onChange();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(updateSummaryFilters({
+      colors: { new: [HighlightColorEnum.Yellow], remove: [] },
+    }));
   });
 
   describe('PrintButton', () => {

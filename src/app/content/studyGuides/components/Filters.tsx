@@ -12,7 +12,6 @@ import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/F
 import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
 import { FiltersChange } from '../../components/popUp/types';
-import { LinkedArchiveTreeNode } from '../../types';
 import { printStudyGuides, updateSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
@@ -52,8 +51,8 @@ const ConnectedColorFilter = connect(
     selectedColorFilters: selectors.summaryColorFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    updateSummaryFilters: (change: FiltersChange<LinkedArchiveTreeNode>) =>
-      dispatch(updateSummaryFilters({ locations: change })),
+    updateSummaryFilters: (change: FiltersChange<HighlightColorEnum>) =>
+      dispatch(updateSummaryFilters({ colors: change })),
   })
 )(StyledColorFilter);
 
