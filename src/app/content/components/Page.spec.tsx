@@ -39,6 +39,13 @@ import allImagesLoaded from './utils/allImagesLoaded';
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 
+jest.mock('../../../config', () => {
+  const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
+  return {BOOKS: {
+   [mockBook.id]: {defaultVersion: mockBook.version},
+  }};
+});
+
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
 jest.mock('../../domUtils', () => ({
   // remove cast to any when the jest type is updated to include requireActual()
@@ -218,7 +225,7 @@ describe('Page', () => {
     });
 
     it('updates content self closing tags', async() => {
-      expect(await htmlHelper(`<strong data-somethin="asdf"/>asdf<iframe src="someplace"/>`)).toEqual(
+      expect(await htmlHelper(`<strong data-somethin="asdf"/>asdf<iframe src="/someplace"/>`)).toEqual(
         '<strong data-somethin="asdf"></strong>asdf<iframe src="/someplace"></iframe>'
       );
     });
