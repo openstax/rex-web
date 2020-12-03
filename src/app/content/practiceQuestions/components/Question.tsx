@@ -1,9 +1,13 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import { typesetMath } from '../../../../helpers/mathjax';
 import { h4Style } from '../../../components/Typography';
+import { useServices } from '../../../context/Services';
 import { match } from '../../../fpUtils';
 import theme from '../../../theme';
+import { assertWindow } from '../../../utils/browser-assertions';
 import ContentExcerpt from '../../components/ContentExcerpt';
 import { setAnswer } from '../actions';
 import * as pqSelectors from '../selectors';
@@ -40,11 +44,19 @@ const getChoiceLetter = (value: number) => {
 const Question = () => {
   const [selectedAnswerState, setSelectedAnswer] = React.useState<PracticeAnswer | null>(null);
   const [showCorrectState, setShowCorrect] = React.useState<PracticeQuestion | null>(null);
-
+  const container = React.useRef<HTMLElement>(null);
+  const services = useServices();
   const question = useSelector(pqSelectors.question);
   const section = useSelector(pqSelectors.selectedSection);
   const isSubmitted = useSelector(pqSelectors.isCurrentQuestionSubmitted);
   const dispatch = useDispatch();
+
+  React.useLayoutEffect(() => {
+    if (container.current) {
+      services.promiseCollector.add(typesetMath(container.current, assertWindow()));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
+  }, [question]);
 
   if (!section || !question) { return null; }
 
@@ -57,7 +69,7 @@ const Question = () => {
     dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
   };
 
-  return <QuestionWrapper onSubmit={onSubmit} data-testid='question-form'>
+  return <QuestionWrapper ref={container} onSubmit={onSubmit} data-testid='question-form'>
     <QuestionContent tabIndex={0} content={question.stem_html} source={section} />
     <AnswersWrapper>
       {question.answers.map((answer, index) =>

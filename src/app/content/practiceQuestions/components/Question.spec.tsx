@@ -1,13 +1,16 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
+import * as mathjaxHelpers from '../../../../helpers/mathjax';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook, shortPage } from '../../../../test/mocks/archiveLoader';
 import { book } from '../../../../test/mocks/archiveLoader';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDefined } from '../../../utils';
+import { assertDocument, assertWindow } from '../../../utils/browser-assertions';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { nextQuestion, setAnswer, setQuestions, setSelectedSection } from '../actions';
@@ -44,6 +47,7 @@ describe('Question', () => {
     tags: 'd95384f2-1330-4582-9d81-1af0eae17b48',
     uid: '11591@5',
   } as PracticeQuestion;
+  let source: LinkedArchiveTreeSection;
 
   beforeEach(() => {
     store = createTestStore();
@@ -60,6 +64,7 @@ describe('Question', () => {
       findArchiveTreeNodeById(book.tree, 'testbook1-testpage2-uuid'),
       'mock file has been changed'
     ) as LinkedArchiveTreeSection;
+    source = findArchiveTreeNodeById(archiveBook.tree, shortPage.id) as LinkedArchiveTreeSection;
   });
 
   it('renders null if there is no current question', () => {
@@ -274,5 +279,18 @@ describe('Question', () => {
     });
 
     expect(input.props.checked).toEqual(true);
+  });
+
+  it('adds typesetMath promise to the promiseCollector', () => {
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(setQuestions([mockQuestion]));
+    store.dispatch(nextQuestion());
+
+    const spyPromiseCollectorAdd = jest.spyOn(services.promiseCollector, 'add');
+
+    const container = assertDocument().createElement('div');
+    renderer.create(render(), { createNodeMock: () => container });
+
+    expect(spyPromiseCollectorAdd).toHaveBeenCalledWith(mathjaxHelpers.typesetMath(container, assertWindow()));
   });
 });
