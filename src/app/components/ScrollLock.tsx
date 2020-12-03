@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
 import { sidebarTransitionTime, toolbarDesktopHeight } from '../content/components/constants';
 import { disablePrint } from '../content/components/utils/disablePrint';
+import { useDisableContentTabbing } from '../reactUtils';
 import theme from '../theme';
 import OnScroll, { OnTouchMoveCallback } from './OnScroll';
 
@@ -36,8 +37,16 @@ const fadeIn = keyframes`
   }
 `;
 
+interface OverlayProps {
+  className?: string;
+  [key: string]: any;
+}
+
 // tslint:disable-next-line:variable-name
-export const Overlay = styled.div`
+export const Overlay = styled((props: OverlayProps) => {
+  useDisableContentTabbing();
+  return <div {...props} />;
+})`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
   background-color: rgba(0, 0, 0, 0.8);
   ${(props: {zIndex?: number}) => props.zIndex && css`
