@@ -1,6 +1,8 @@
 # flake8: noqa
 import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
+import random
+from selenium.webdriver.common.by import By
 
 from tests import markers
 from pages.content import Content
@@ -116,7 +118,7 @@ def test_redirect_to_osweb_404_when_page_is_incorrect_in_first_session(
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
-    selenium, base_url, book_slug, page_slug, email, password
+    selenium, base_url, book_slug, page_slug
 ):
     """Rex 404 page is displayed when user opens incorrect page in an existing session."""
 
@@ -125,55 +127,79 @@ def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
 
     book.wait_for_service_worker_to_install()
 
-    # WHEN: User loads an incorrect page in the same session
+    # AND: User loads an incorrect page in the same session
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
     toolbar = book.toolbar
     sidebar = book.sidebar
-    book_banner = book.bookbanner
     toc = book.sidebar.toc
-    attribution = book.attribution
-    user_nav = book.navbar
 
-    # THEN: Rex 404 page is displayed
+    # WHEN: Rex 404 page is displayed
     assert book.content.page_error_displayed
     assert (
         book.content.page_error
         == "Uh oh, we can't find the page you requested.Try another page in theTable of contents"
     )
 
-    # AND: Next & Previous links are not displayed
+    # THEN: Next & Previous links are not displayed
     assert not book.next_link_is_displayed
     assert not book.previous_link_is_displayed
 
-    # AND: TOC is displayed in the sidebar
-    assert sidebar.header.is_displayed
+    if book.is_desktop:
+        # AND: TOC is displayed in the sidebar
+        assert sidebar.header.is_displayed
 
-    # AND: TOC toggle works
-    sidebar.header.click_toc_toggle_button()
-    assert not sidebar.header.is_displayed
-    toolbar.click_toc_toggle_button()
-    assert sidebar.header.is_displayed
+        # AND: TOC toggle works
+        sidebar.header.click_toc_toggle_button()
+        assert not sidebar.header.is_displayed
+        toolbar.click_toc_toggle_button()
+        assert sidebar.header.is_displayed
 
-    # AND: Page title is not displayed in the book banner
+        # AND: Clicking a TOC link loads the content and not the rex 404
+        toc.sections[-1].click()
+        assert toc.sections[-1].is_active
+        assert not book.content.page_error_displayed
+
+    else:
+        # AND: TOC is closed by default for mobile
+        assert not sidebar.header.is_displayed
+
+        # AND: TOC toggle works
+        toolbar.click_toc_toggle_button()
+        assert sidebar.header.is_displayed
+        sidebar.header.click_toc_toggle_button()
+        assert not sidebar.header.is_displayed
+
+        # AND: Clicking a TOC link loads the content and not the rex 404
+        toolbar.click_toc_toggle_button()
+        toc.sections[-1].click()
+        assert toc.sections[-1].is_active
+        assert not book.content.page_error_displayed
+
+
+@markers.test_case("C619386")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_bookbanner_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
+    """On a rex 404 page, book title is displayed but page title is not displayed."""
+
+    # GIVEN: A page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    book.wait_for_service_worker_to_install()
+
+    # WHEN: User loads an incorrect page in the same session
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
+    book_banner = book.bookbanner
+    toc = book.sidebar.toc
+
+    # WHEN: Rex 404 page is displayed
+    assert book.content.page_error_displayed
+
+    # THEN: Page title is not displayed in the book banner
     with pytest.raises(NoSuchElementException):
         assert (
             not book_banner.section_title
-        ), "section title is displayed in the book banner when rex 404 is displayed"
-
-    # AND: Clicking a TOC link loads the content and not the rex 404
-    toc.sections[-1].click()
-    assert toc.sections[-1].is_active
-    assert not book.content.page_error_displayed
-
-    # Trigger the rex 404 page
-    Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
-
-    # AND: Clicking book url link in attribution works
-    attribution.click_attribution_link()
-    attribution.click_book_url()
-    assert toc.sections[1].is_active
-
-    assert not book.content.page_error_displayed
+        ), "Page title is displayed in the book banner when rex 404 is displayed"
 
     # AND: Clicking book title in book banner opens the osweb book details page
     book_banner.book_title.click()
@@ -187,15 +213,108 @@ def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
     assert toc.sections[1].is_active
     assert not book.content.page_error_displayed
 
-    # Trigger the rex 404 page
-    Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
 
-    # AND: Login does not change the rex 404 status
+@markers.test_case("C619384")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_attribution_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
+    """On a rex 404 page, attribution can be expanded and the attribution links work as usual."""
+
+    # GIVEN: A page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    book.wait_for_service_worker_to_install()
+
+    # WHEN: User loads an incorrect page in the same session
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
+    toc = book.sidebar.toc
+    attribution = book.attribution
+
+    # WHEN: Rex 404 page is displayed
+    assert book.content.page_error_displayed
+
+    # THEN: Attribution can be expanded
+    attribution.click_attribution_link()
+
+    # AND: Clicking book url link in attribution works
+    attribution.click_book_url()
+    assert toc.sections[1].is_active
+
+    # AND: Rex 404 page is not displayed
+    assert not book.content.page_error_displayed
+
+
+@markers.test_case("C619385")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_navbar_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug, email, password):
+    """On a rex 404 page, login/logout does not change rex 404 status."""
+
+    # GIVEN: A page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    book.wait_for_service_worker_to_install()
+
+    # AND: User loads an incorrect page in the same session
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
+    user_nav = book.navbar
+
+    # WHEN: Rex 404 page is displayed
+    assert book.content.page_error_displayed
+
+    # THEN: User can login
     page_url_before_login = selenium.current_url
     user_nav.click_login()
     Login(selenium).login(email, password)
     assert user_nav.user_is_logged_in
-    assert page_url_before_login == selenium.current_url
+
+    # AND: Login does not change the rex 404 status
+    assert selenium.current_url == page_url_before_login
     assert book.content.page_error_displayed
 
-    # AND: Links in footer all work as usual
+    # AND: Logout does not change the rex 404 status
+    user_nav.click_logout()
+    assert user_nav.user_is_not_logged_in
+    assert selenium.current_url == page_url_before_login
+    assert book.content.page_error_displayed
+
+
+@markers.test_case("C619387")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_footer_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
+    """On a rex 404 page, footer links work as usual."""
+
+    # GIVEN: A page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    book.wait_for_service_worker_to_install()
+
+    # AND: User loads an incorrect page in the same session
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
+    footer = book.footer
+
+    # WHEN: Rex 404 page is displayed
+    assert book.content.page_error_displayed
+
+    # THEN: Links in footer work as usual
+    url_before_clicking_footer_link = selenium.current_url
+
+    footer_link = random.sample(footer.internal_footer_links, 1)
+    footer_link_text = footer_link[0].text
+    print(footer_link_text)
+    Utilities.click_option(selenium, element=footer_link[0])
+
+    assert not selenium.current_url == url_before_clicking_footer_link
+    footer_source = selenium.execute_script(
+        ("return document.querySelector('{selector}');").format(
+            selector=(By.CSS_SELECTOR, "footer")[1]
+        )
+    )
+    selenium.execute_script("arguments[0].remove();", footer_source)
+
+    print(selenium.page_source)
+    from time import sleep
+
+    sleep(1)
+    assert footer_link_text in selenium.page_source
