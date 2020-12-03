@@ -121,14 +121,26 @@ describe('content route', () => {
       [book.id]: {defaultVersion: book.version},
     } as {[key: string]: {defaultVersion: string}}};
 
-    beforeEach(() => {
-      jest.doMock('../../config', () => ({...mockConfig, REACT_APP_ARCHIVE_URL: 'some-content'}));
+    it('doesnt set archive url on getSearch when there is only a default archive url', () => {
       resetModules();
+      jest.doMock('../../config', () => ({...mockConfig, REACT_APP_ARCHIVE_URL: 'some-content'}));
+      expect(require('./routes').content.getSearch()).toEqual('');
     });
 
-    it('sets archive url on getSearch', () => {
+    it('sets archive url on getSearch when there is an archive url override and no default', () => {
+      resetModules();
+      jest.doMock('../../config', () => ({...mockConfig, REACT_APP_ARCHIVE_URL_OVERRIDE: 'some-content'}));
       expect(require('./routes').content.getSearch()).toEqual('archive=some-content');
     });
 
+    it('sets archive url on getSearch when there is an archive url override and a default', () => {
+      resetModules();
+      jest.doMock('../../config', () => ({
+        ...mockConfig,
+        REACT_APP_ARCHIVE_URL: 'asdf',
+        REACT_APP_ARCHIVE_URL_OVERRIDE: 'some-content',
+      }));
+      expect(require('./routes').content.getSearch()).toEqual('archive=some-content');
+    });
   });
 });
