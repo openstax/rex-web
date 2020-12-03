@@ -368,7 +368,6 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         labelKey={[Function]}
         mock-color-filter={true}
         selectedColorFilters={Set {}}
-        setSummaryFilters={[Function]}
         styles={
           Array [
             Object {
@@ -398,6 +397,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
             },
           ]
         }
+        updateSummaryFilters={[Function]}
       />
     </div>
     <button
