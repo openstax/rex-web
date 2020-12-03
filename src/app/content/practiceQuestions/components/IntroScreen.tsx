@@ -34,7 +34,12 @@ const IntroScreen = () => {
         {(msg: string) => msg}
       </FormattedMessage>
     </IntroScreenMessage>
-    <PQButton onClick={() => dispatch(nextQuestion())} data-analytics-label='Start now'>
+    <PQButton
+      variant='primary'
+      size='large'
+      onClick={() => dispatch(nextQuestion())}
+      data-analytics-label='Start now'
+    >
       <FormattedMessage id='i18n:practice-questions:popup:intro:start'>
         {(msg: string) => msg}
       </FormattedMessage>

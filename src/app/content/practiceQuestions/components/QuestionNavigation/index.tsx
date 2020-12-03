@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import { nextQuestion, setAnswer } from '../../actions';
 import * as pqSelectors from '../../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
-import { PQInput } from '../PQButton';
+import PQButton from '../PQButton';
 
 // tslint:disable-next-line: variable-name
 const Wrapper = styled.div`
@@ -36,50 +36,65 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
     {showSkipAndSubmit && <React.Fragment>
       <FormattedMessage id='i18n:practice-questions:popup:navigation:skip'>
         {(msg: string) => (
-          <PQInput
-            type='button'
-            value={msg}
+          <PQButton
+            size='large'
             withoutBg={true}
-            onClick={() => {
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault();
               dispatch(setAnswer({ answer: null, questionId: question.uid }));
               dispatch(nextQuestion());
             }}
-          />
+          >
+            {msg}
+          </PQButton>
         )}
       </FormattedMessage>
       <FormattedMessage id='i18n:practice-questions:popup:navigation:submit'>
         {(msg: string) => (
-          <PQInput
-            type='submit'
-            value={msg}
-            default={true}
+          <PQButton
+            variant='primary'
+            size='large'
             disabled={selectedAnswer ? false : true}
+            component={<input type='submit' value={msg} />}
           />
         )}
       </FormattedMessage>
     </React.Fragment>}
     {showShowAnswer && <FormattedMessage id='i18n:practice-questions:popup:navigation:show-answer'>
       {(msg: string) => (
-        <PQInput
-          type='button'
-          value={msg}
+        <PQButton
+          size='large'
           withoutBg={true}
           default={true}
-          onClick={props.onShowAnswer}
-        />
+          onClick={(e: React.MouseEvent) => {
+            e.preventDefault();
+            props.onShowAnswer();
+          }}
+        >
+          {msg}
+        </PQButton>
       )}
     </FormattedMessage>}
     {showNext && <FormattedMessage id='i18n:practice-questions:popup:navigation:next'>
       {(msg: string) => (
-        <PQInput
-          type='button'
+        <PQButton
+          variant='primary'
+          size='large'
           value={msg}
-          onClick={() => dispatch(nextQuestion())}
-        />
+          onClick={(e: React.MouseEvent) => {
+            e.preventDefault();
+            dispatch(nextQuestion());
+          }}
+        >
+          {msg}
+        </PQButton>
       )}
     </FormattedMessage>}
     {showFinish && <FormattedMessage id='i18n:practice-questions:popup:navigation:finish'>
-      {(msg: string) => <PQInput type='submit' value={msg} />}
+      {(msg: string) => <PQButton
+        size='large'
+        component={<input type='submit' value={msg} />}
+      />}
     </FormattedMessage>}
   </Wrapper>;
 };
