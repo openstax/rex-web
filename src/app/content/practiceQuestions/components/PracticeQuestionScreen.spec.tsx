@@ -2,12 +2,14 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { routes } from '../..';
+import * as mathjaxHelpers from '../../../../helpers/mathjax';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, shortPage } from '../../../../test/mocks/archiveLoader';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
+import { assertDocument, assertWindow } from '../../../utils/browser-assertions';
 import { receiveBook } from '../../actions';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
@@ -75,5 +77,23 @@ describe('Practice questions screen', () => {
     });
 
     expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('adds typesetMath promise to the promiseCollector', () => {
+    store.dispatch(receiveBook(archiveBook));
+    store.dispatch(setSelectedSection(source));
+    store.dispatch(receivePracticeQuestionsSummary({
+      countsPerSource: { [source.id]: 1 },
+    }));
+    store.dispatch(setQuestions([mockQuestionData] as PracticeQuestions));
+
+    jest.spyOn(routes.content, 'getUrl').mockReturnValue('/book/book1/page/testbook1-testpage1-uuid');
+
+    const spyPromiseCollectorAdd = jest.spyOn(services.promiseCollector, 'add');
+
+    const container = assertDocument().createElement('div');
+    renderer.create(render(), { createNodeMock: () => container });
+
+    expect(spyPromiseCollectorAdd).toHaveBeenCalledWith(mathjaxHelpers.typesetMath(container, assertWindow()));
   });
 });
