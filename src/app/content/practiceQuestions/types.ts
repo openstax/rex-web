@@ -40,12 +40,3 @@ export interface SetPracticeAnswer {
   questionId: string;
   answer: PracticeAnswer | null;
 }
-
-export interface PracticeQuestionStyles {
-  label: 'correct' | 'incorrect' | 'selected' | 'unselected';
-  background: string;
-  border: string;
-  borderHovered: string;
-  fontColor: string;
-  fontColorActive: string;
-}

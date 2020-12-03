@@ -7,7 +7,7 @@ import theme from '../../../theme';
 import ContentExcerpt from '../../components/ContentExcerpt';
 import { setAnswer } from '../actions';
 import * as pqSelectors from '../selectors';
-import { PracticeAnswer } from '../types';
+import { PracticeAnswer, PracticeQuestion } from '../types';
 import Answer from './Answer';
 import QuestionNavigation from './QuestionNavigation';
 
@@ -39,22 +39,17 @@ const getChoiceLetter = (value: number) => {
 // tslint:disable-next-line: variable-name
 const Question = () => {
   const [selectedAnswerState, setSelectedAnswer] = React.useState<PracticeAnswer | null>(null);
-  const [showCorrect, setShowCorrect] = React.useState(false);
+  const [showCorrectState, setShowCorrect] = React.useState<PracticeQuestion | null>(null);
+
   const question = useSelector(pqSelectors.question);
   const section = useSelector(pqSelectors.selectedSection);
   const isSubmitted = useSelector(pqSelectors.isCurrentQuestionSubmitted);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    return () => {
-      setSelectedAnswer(null);
-      setShowCorrect(false);
-    };
-  }, [question]);
-
   if (!section || !question) { return null; }
 
   const selectedAnswer = question.answers.find(match(selectedAnswerState)) || null;
+  const showCorrect = showCorrectState === question;
 
   const onSubmit = (e: React.FormEvent) => {
     // TODO: Add support for handling Finish button
@@ -81,7 +76,7 @@ const Question = () => {
     <QuestionNavigation
       question={question}
       selectedAnswer={selectedAnswer}
-      onShowAnswer={() => setShowCorrect(true)}
+      onShowAnswer={() => setShowCorrect(question)}
       hideShowAnswerButton={showCorrect}
     />
   </QuestionWrapper>;
