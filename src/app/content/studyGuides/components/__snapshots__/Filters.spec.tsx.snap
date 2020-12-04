@@ -35,14 +35,34 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </div>
       </button>
       <div
-        disabled={false}
-        locationFilters={Map {}}
-        locationFiltersWithContent={Map {}}
-        mock-chapter-filter={true}
-        multiselect={true}
-        selectedLocationFilters={Set {}}
-        setFilters={[Function]}
-      />
+        className="ChapterFilter-tcdlu-6 kvUJlJ"
+        tabIndex={-1}
+      >
+        <div
+          className="AllOrNone-sc-7m1y94-0 divvKQ"
+        >
+          <button
+            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            disabled={false}
+            onClick={[Function]}
+          >
+            All
+          </button>
+          <span>
+            |
+          </span>
+          <button
+            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            disabled={false}
+            onClick={[Function]}
+          >
+            None
+          </button>
+        </div>
+        <div
+          className="ChapterFilter__Row-tcdlu-0 nqIYu"
+        />
+      </div>
     </div>
     <div
       className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"

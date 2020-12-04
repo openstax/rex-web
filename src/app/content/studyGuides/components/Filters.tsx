@@ -12,6 +12,8 @@ import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/F
 import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
 import { FiltersChange } from '../../components/popUp/types';
+import { SummaryFiltersUpdate } from '../../highlights/types';
+import { LinkedArchiveTreeNode } from '../../types';
 import { printStudyGuides, updateSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
@@ -27,7 +29,7 @@ const ConnectedChapterFilter = connect(
     selectedLocationFilters: selectors.summaryLocationFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setFilters: flow(updateSummaryFilters, dispatch),
+    setFilters: (change: FiltersChange<LinkedArchiveTreeNode>) => dispatch(updateSummaryFilters({ locations: change })),
   })
 )(ChapterFilter);
 
@@ -64,7 +66,7 @@ const ConnectedFilterList = connect(
     selectedLocationFilters: selectors.summaryLocationFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setFilters: (change: FiltersChange<HighlightColorEnum>) => dispatch(updateSummaryFilters({ colors: change })),
+    setFilters: (change: SummaryFiltersUpdate) => dispatch(updateSummaryFilters(change)),
   })
 )(FiltersList);
 
