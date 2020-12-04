@@ -10,12 +10,16 @@ const applyColor = (color: ColorSet) => `
   color: ${color.foreground};
   background-color: ${color.base};
 
-  :hover {
-    background-color: ${color.darker};
-  }
-  :active {
-    background-color: ${color.darkest};
-  }
+  ${color.darker && css`
+    :hover {
+      background-color: ${color.darker};
+    }
+  `}
+  ${color.darkest && css`
+    :active {
+      background-color: ${color.darkest};
+    }
+  `}
 `;
 
 type Variant = 'primary' | 'secondary' | 'transparent' | 'default';
@@ -92,7 +96,7 @@ const Button = styled(ButtonHoc)`
     font-weight: regular;
   `}
   ${(props) => props.disabled && `
-    ${applyColor(theme.color.secondary.disabled)}
+    ${applyColor(theme.color.disabled)}
     cursor: not-allowed;
   `}
 `;

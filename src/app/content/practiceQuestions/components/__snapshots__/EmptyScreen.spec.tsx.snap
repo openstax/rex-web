@@ -30,7 +30,7 @@ exports[`EmptyScreen for practice questions renders properly and dispatches acti
       />
     </div>
     <button
-      className="Button-ayg7nk-0 fsYAHJ"
+      className="Button-ayg7nk-0 crGJLq"
       onClick={[Function]}
     >
       Continue
