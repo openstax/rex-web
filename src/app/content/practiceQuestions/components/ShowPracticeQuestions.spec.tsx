@@ -25,6 +25,7 @@ import ShowPracticeQuestions, {
 } from './ShowPracticeQuestions';
 
 jest.mock('./IntroScreen', () => (props: any) => <div data-mock-intro-section {...props} />);
+jest.mock('./Question', () => (props: any) => <div data-mock-quesiton {...props} />);
 
 describe('ShowPracticeQuestions', () => {
   let store: Store;
@@ -138,15 +139,16 @@ describe('ShowPracticeQuestions', () => {
       countsPerSource: { [linkedArchiveTreeSection.id]: 3 },
     }));
     store.dispatch(setQuestions([{id: 'asd'} as any as PracticeQuestion]));
+    store.dispatch(nextQuestion());
 
     const component = renderer.create(render());
 
-    expect(() => component.root.findByType(IntroScreen)).not.toThrow();
+    expect(() => component.root.findByType(IntroScreen)).toThrow();
 
     act(() => {
       store.dispatch(nextQuestion());
     });
 
-    expect(() => component.root.findByType(Question)).toThrow();
+    expect(() => component.root.findByType(Question)).not.toThrow();
   });
 });

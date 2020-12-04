@@ -3,13 +3,13 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import Button from '../../../components/Button';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import EmptyScreen from './EmptyScreen';
-import PQButton from './PQButton';
 
 describe('EmptyScreen for practice questions', () => {
   let store: Store;
@@ -33,7 +33,7 @@ describe('EmptyScreen for practice questions', () => {
       </Services.Provider>
     </Provider>);
 
-    const button = component.root.findByType(PQButton);
+    const button = component.root.findByType(Button);
 
     renderer.act(() => {
       button.props.onClick();
