@@ -1,7 +1,9 @@
 import { HTMLAnchorElement } from '@openstax/types/lib.dom';
-import { fromRelativeUrl } from './urlUtils';
+import { and, not } from '../../fpUtils';
+import { fromRelativeUrl, isAbsolutePath, isAbsoluteUrl } from './urlUtils';
 
 const domParser = new DOMParser();
+const isRelativeUrl = not(and(isAbsoluteUrl, isAbsolutePath));
 
 export function addTargetBlankToLinks(htmlString: string): string  {
   const domNode = domParser.parseFromString(htmlString, 'text/html');
@@ -9,17 +11,11 @@ export function addTargetBlankToLinks(htmlString: string): string  {
   return domNode.body.innerHTML;
 }
 
-export const isAbsoluteUrl = (url: string) => {
-  const pattern = /^((https?:)?\/)?\//i;
-  const aux = pattern.test(url);
-  return aux;
-};
-
 export const rebaseRelativeContentLinks = (htmlString: string, sourceUrl: string) => {
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   domNode.querySelectorAll('a').forEach((element: HTMLAnchorElement) => {
     const hrefValue = element.getAttribute('href');
-    if (hrefValue && !isAbsoluteUrl(hrefValue) && sourceUrl) {
+    if (hrefValue && isRelativeUrl(hrefValue) && sourceUrl) {
       element.setAttribute('href', fromRelativeUrl(sourceUrl, hrefValue));
     }
   });
@@ -30,7 +26,7 @@ export const rebaseRelativeResources = (htmlString: string, sourceUrl: string) =
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   domNode.querySelectorAll('img,iframe').forEach((element: HTMLAnchorElement) => {
     const srcValue = element.getAttribute('src');
-    if (srcValue && !isAbsoluteUrl(srcValue) && sourceUrl) {
+    if (srcValue && isRelativeUrl(srcValue) && sourceUrl) {
       element.setAttribute('src', fromRelativeUrl(sourceUrl, srcValue));
     }
   });

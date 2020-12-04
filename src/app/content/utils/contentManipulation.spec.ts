@@ -101,4 +101,18 @@ describe('rebaseRelativeResources', () => {
 
     expect(rebaseRelativeResources(input, '/content')).toEqual(output);
   });
+
+  it('doesnt modify absolute url sources', () => {
+    const input = '<div class="test">'
+      + '<img src="https://openstax.org/some/link">'
+      + '</div>'
+      + '<iframe src="/url" title="description"></iframe>';
+
+    const output = '<div class="test">'
+      + '<img src="https://openstax.org/some/link">'
+      + '</div>'
+      + '<iframe src="/url" title="description"></iframe>';
+
+    expect(rebaseRelativeResources(input, '')).toEqual(output);
+  });
 });
