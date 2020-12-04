@@ -1,12 +1,14 @@
 import { FlattenSimpleInterpolation } from 'styled-components';
 import { css } from 'styled-components/macro';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
+
 export interface ColorSet {
   base: string;
   foreground: string;
-  darker: string;
-  darkest: string;
+  darker?: string;
+  darkest?: string;
 }
+
 const textColors = {
   black: '#000',
   default: '#424242',
@@ -31,6 +33,10 @@ const padding = {
 
 const color = {
   black: '#000',
+  disabled: {
+    base: '#f1f1f1',
+    foreground: '#c1c1c1',
+  },
   neutral: {
     base: '#fff',
     darker: '#fafafa',

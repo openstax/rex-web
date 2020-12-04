@@ -22,7 +22,7 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
         className="styles__StudyGuidesCTAButtons-dthmzf-4 bESOcY"
       >
         <a
-          className="Button-ayg7nk-0 styles__StudyGuidesCTAButton-dthmzf-5 bzUNmz"
+          className="Button-ayg7nk-0 styles__StudyGuidesCTAButton-dthmzf-5 eJTKPl"
           data-analytics-label="signup"
           href="/accounts/signup?r=/"
         >
