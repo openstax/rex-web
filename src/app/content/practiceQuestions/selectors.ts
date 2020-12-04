@@ -76,3 +76,8 @@ export const isFinalQuestion = createSelector(
   currentQuestionIndex,
   (count, index) => count - 1 === index
 );
+
+export const questionsInProggress = createSelector(
+  currentQuestionIndex,
+  (index) => index !== null
+);
