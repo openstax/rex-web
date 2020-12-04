@@ -18,7 +18,7 @@ const applyColor = (color: ColorSet) => `
   }
 `;
 
-type Variant = 'primary' | 'secondary' | 'default';
+type Variant = 'primary' | 'secondary' | 'transparent' | 'default';
 type Size = 'large' | 'medium' | 'small';
 
 type ComponentType = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
