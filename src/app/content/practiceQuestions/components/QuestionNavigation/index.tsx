@@ -2,10 +2,10 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import Button from '../../../../components/Button';
 import { nextQuestion, setAnswer } from '../../actions';
 import * as pqSelectors from '../../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
-import PQButton from '../PQButton';
 
 // tslint:disable-next-line: variable-name
 const Wrapper = styled.div`
@@ -36,9 +36,9 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
     {showSkipAndSubmit && <React.Fragment>
       <FormattedMessage id='i18n:practice-questions:popup:navigation:skip'>
         {(msg: string) => (
-          <PQButton
+          <Button
             size='large'
-            withoutBg={true}
+            variant='transparent'
             onClick={(e: React.MouseEvent) => {
               e.preventDefault();
               dispatch(setAnswer({ answer: null, questionId: question.uid }));
@@ -46,12 +46,12 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
             }}
           >
             {msg}
-          </PQButton>
+          </Button>
         )}
       </FormattedMessage>
       <FormattedMessage id='i18n:practice-questions:popup:navigation:submit'>
         {(msg: string) => (
-          <PQButton
+          <Button
             variant='primary'
             size='large'
             disabled={selectedAnswer ? false : true}
@@ -62,9 +62,9 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
     </React.Fragment>}
     {showShowAnswer && <FormattedMessage id='i18n:practice-questions:popup:navigation:show-answer'>
       {(msg: string) => (
-        <PQButton
+        <Button
           size='large'
-          withoutBg={true}
+          variant='transparent'
           default={true}
           onClick={(e: React.MouseEvent) => {
             e.preventDefault();
@@ -72,12 +72,12 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
           }}
         >
           {msg}
-        </PQButton>
+        </Button>
       )}
     </FormattedMessage>}
     {showNext && <FormattedMessage id='i18n:practice-questions:popup:navigation:next'>
       {(msg: string) => (
-        <PQButton
+        <Button
           variant='primary'
           size='large'
           value={msg}
@@ -87,11 +87,11 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
           }}
         >
           {msg}
-        </PQButton>
+        </Button>
       )}
     </FormattedMessage>}
     {showFinish && <FormattedMessage id='i18n:practice-questions:popup:navigation:finish'>
-      {(msg: string) => <PQButton
+      {(msg: string) => <Button
         size='large'
         component={<input type='submit' value={msg} />}
       />}

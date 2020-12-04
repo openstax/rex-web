@@ -1,13 +1,13 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
+import Button from '../../../components/Button';
 import { textRegularStyle } from '../../../components/Typography';
 import { LinkedArchiveTreeSection } from '../../types';
-import PQButton from './PQButton';
 
 // tslint:disable-next-line: variable-name
 const StyledNextSectionMessage = styled.div`
-  ${PQButton} {
+  ${Button} {
     margin: 4rem auto;
   }
 `;
@@ -44,7 +44,7 @@ const NextSectionMessage = ({ nextSection, messageKey, onClick }: NextSectionMes
       </StyledMessageText>
       <StyledSectionTitle dangerouslySetInnerHTML={{ __html: nextSection.title }} />
     </StyledMessage>
-    <PQButton
+    <Button
       variant='primary'
       size='large'
       onClick={onClick}
@@ -52,7 +52,7 @@ const NextSectionMessage = ({ nextSection, messageKey, onClick }: NextSectionMes
       <FormattedMessage id='i18n:practice-questions:popup:continue'>
         {(msg: string) => msg}
       </FormattedMessage>
-    </PQButton>
+    </Button>
   </StyledNextSectionMessage>
 );
 

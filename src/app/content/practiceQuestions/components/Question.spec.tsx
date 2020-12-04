@@ -5,6 +5,7 @@ import * as mathjaxHelpers from '../../../../helpers/mathjax';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book } from '../../../../test/mocks/archiveLoader';
+import Button from '../../../components/Button';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
@@ -15,7 +16,6 @@ import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { nextQuestion, setAnswer, setQuestions, setSelectedSection } from '../actions';
 import { PracticeQuestion } from '../types';
 import Answer from './Answer';
-import PQButton from './PQButton';
 import Question, { AnswersWrapper, QuestionContent, QuestionWrapper } from './Question';
 
 jest.mock('../../components/ContentExcerpt', () => (props: any) => <div data-mock-content-excerpt {...props} />);
@@ -166,7 +166,7 @@ describe('Question', () => {
     // tslint:disable-next-line: no-empty
     act(() => {});
 
-    const [skip] = component.root.findAllByType(PQButton);
+    const [skip] = component.root.findAllByType(Button);
 
     act(() => {
       skip.props.onClick({ preventDefault: jest.fn() });
@@ -207,7 +207,7 @@ describe('Question', () => {
     expect(() => firstAnswer.findByProps({ id: 'i18n:practice-questions:popup:incorrect' })).not.toThrow();
     expect(() => secondAnswer.findByProps({ id: 'i18n:practice-questions:popup:correct' })).toThrow();
 
-    const [showAnswer] = component.root.findAllByType(PQButton);
+    const [showAnswer] = component.root.findAllByType(Button);
 
     act(() => {
       showAnswer.props.onClick({ preventDefault: jest.fn() });

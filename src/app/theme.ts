@@ -82,6 +82,12 @@ const color = {
   },
   secondary: {
     deepGreen: {base: '#0c9372'},
+    disabled: {
+      base: '#f1f1f1',
+      darker: '#f1f1f1',
+      darkest: '#f1f1f1',
+      foreground: '#c1c1c1',
+    },
     gold: {base: '#fdbd3e'},
     lightBlue: {base: '#0dc0dc'},
     lightGray: {

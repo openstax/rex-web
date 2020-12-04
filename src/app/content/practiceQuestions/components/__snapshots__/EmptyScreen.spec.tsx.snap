@@ -10,7 +10,7 @@ exports[`EmptyScreen for practice questions renders properly and dispatches acti
     There are no questions for this chapter/section.
   </span>
   <div
-    className="NextSectionMessage__StyledNextSectionMessage-qtwzgn-0 WMiZX"
+    className="NextSectionMessage__StyledNextSectionMessage-qtwzgn-0 kiJnGk"
   >
     <div
       className="NextSectionMessage__StyledMessage-qtwzgn-1 TEURJ"
@@ -30,7 +30,7 @@ exports[`EmptyScreen for practice questions renders properly and dispatches acti
       />
     </div>
     <button
-      className="Button-ayg7nk-0 PQButton-ypamof-0 junFOC"
+      className="Button-ayg7nk-0 fsYAHJ"
       onClick={[Function]}
     >
       Continue

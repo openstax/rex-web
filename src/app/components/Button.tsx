@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { isDefined } from '../guards';
 import theme, { ColorSet } from '../theme';
-import { decoratedLinkStyle, linkStyle } from './Typography';
+import { decoratedLinkStyle, linkColor, linkStyle } from './Typography';
 import { textStyle } from './Typography/base';
 
 const applyColor = (color: ColorSet) => `
@@ -24,6 +24,7 @@ type Size = 'large' | 'medium' | 'small';
 type ComponentType = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 
 interface ButtonProps<T extends ComponentType | undefined> {
+  disabled?: boolean;
   variant?: Variant;
   size?: Size;
   className?: string;
@@ -76,6 +77,12 @@ const Button = styled(ButtonHoc)`
     font-weight: bold;
     border: none;
   `}
+  ${(props) => props.variant === 'transparent' && `
+    border: none;
+    background-color: transparent;
+    color: ${linkColor};
+    font-weight: normal;
+  `}
   ${(props) => (props.variant === 'default' || props.variant === undefined) && `
     ${applyColor({
       ...theme.color.neutral,
@@ -83,6 +90,10 @@ const Button = styled(ButtonHoc)`
     })}
     border: 1px solid #d5d5d5;
     font-weight: regular;
+  `}
+  ${(props) => props.disabled && `
+    ${applyColor(theme.color.secondary.disabled)}
+    cursor: not-allowed;
   `}
 `;
 
