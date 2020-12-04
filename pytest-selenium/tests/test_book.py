@@ -2,6 +2,7 @@
 import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import random
+import re
 from selenium.webdriver.common.by import By
 
 from tests import markers
@@ -277,44 +278,3 @@ def test_navbar_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slu
     assert user_nav.user_is_not_logged_in
     assert selenium.current_url == page_url_before_login
     assert book.content.page_error_displayed
-
-
-@markers.test_case("C619387")
-@markers.parametrize("page_slug", ["preface"])
-@markers.nondestructive
-def test_footer_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
-    """On a rex 404 page, footer links work as usual."""
-
-    # GIVEN: A page is loaded
-    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-
-    book.wait_for_service_worker_to_install()
-
-    # AND: User loads an incorrect page in the same session
-    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
-    footer = book.footer
-
-    # WHEN: Rex 404 page is displayed
-    assert book.content.page_error_displayed
-
-    # THEN: Links in footer work as usual
-    url_before_clicking_footer_link = selenium.current_url
-
-    footer_link = random.sample(footer.internal_footer_links, 1)
-    footer_link_text = footer_link[0].text
-    print(footer_link_text)
-    Utilities.click_option(selenium, element=footer_link[0])
-
-    assert not selenium.current_url == url_before_clicking_footer_link
-    footer_source = selenium.execute_script(
-        ("return document.querySelector('{selector}');").format(
-            selector=(By.CSS_SELECTOR, "footer")[1]
-        )
-    )
-    selenium.execute_script("arguments[0].remove();", footer_source)
-
-    print(selenium.page_source)
-    from time import sleep
-
-    sleep(1)
-    assert footer_link_text in selenium.page_source
