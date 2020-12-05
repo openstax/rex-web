@@ -214,10 +214,6 @@ class Content(Page):
         return self.ToolBar(self)
 
     @property
-    def footer(self) -> Content.Footer:
-        return self.Footer(self)
-
-    @property
     def window_height(self) -> int:
         return int(self.height(self.sidebar.root)) + self.sidebar_height_offset
 
@@ -1804,19 +1800,3 @@ class Content(Page):
             self.page.search_sidebar.wait_for_region_to_display()
             sleep(0.25)
             return self.page.search_sidebar
-
-    class Footer(Region):
-        _root_locator = (By.TAG_NAME, "footer")
-
-        _internal_footer_link_locator = (By.CSS_SELECTOR, "footer a[target='_self']")
-
-        @property
-        def internal_footer_links(self) -> List[WebElement]:
-            """Return the list of internal links in the footer.
-
-            :return: the list of internal links within the footer
-            :rtype: list(WebElement)
-
-            """
-            links = [link for link in self.find_elements(*self._internal_footer_link_locator)]
-            return links
