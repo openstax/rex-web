@@ -402,3 +402,45 @@ describe('useOnScrollTopOffset', () => {
     spyAddListener.mockClear();
   });
 });
+
+describe('useDisableContentTabbing', () => {
+  const document = assertDocument();
+  const root = document.createElement('div');
+  root.setAttribute('id', 'root');
+  document.body.append(root);
+
+  const tabbableChild = document.createElement('a');
+  tabbableChild.setAttribute('href', 'something');
+  root.append(tabbableChild);
+
+  const notTabbablechild = document.createElement('span');
+  root.append(notTabbablechild);
+
+  const tabbableChildWithTabIndex = document.createElement('span');
+  tabbableChildWithTabIndex.setAttribute('tabindex', '2');
+  root.append(tabbableChildWithTabIndex);
+
+  const tabbableElementOutsideOfTheRoot = document.createElement('a');
+  tabbableElementOutsideOfTheRoot.setAttribute('href', 'asd');
+  document.body.append(tabbableElementOutsideOfTheRoot);
+
+  const reverse = utils.disableContentTabbingHandler();
+
+  if (!reverse) {
+    return expect(reverse).toBeTruthy();
+  }
+
+  expect(tabbableChild.getAttribute('tabindex')).toEqual('-1');
+  expect(notTabbablechild.getAttribute('tabindex')).toEqual(null);
+  expect(tabbableChildWithTabIndex.getAttribute('tabindex')).toEqual('-1');
+  expect(tabbableChildWithTabIndex.getAttribute('data-prev-tabindex')).toEqual('2');
+  expect(tabbableElementOutsideOfTheRoot.getAttribute('tabindex')).toEqual(null);
+
+  reverse();
+
+  expect(tabbableChild.getAttribute('tabindex')).toEqual(null);
+  expect(notTabbablechild.getAttribute('tabindex')).toEqual(null);
+  expect(tabbableChildWithTabIndex.getAttribute('tabindex')).toEqual('2');
+  expect(tabbableChildWithTabIndex.getAttribute('data-prev-tabindex')).toEqual(null);
+  expect(tabbableElementOutsideOfTheRoot.getAttribute('tabindex')).toEqual(null);
+});

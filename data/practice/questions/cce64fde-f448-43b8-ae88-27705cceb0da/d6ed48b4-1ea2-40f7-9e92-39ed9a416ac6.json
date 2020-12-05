@@ -1,0 +1,214 @@
+[
+  {
+    "answers": [
+      {
+        "id": 398906,
+        "content_html": "Group 1 and Group 17",
+        "correctness": "1.0",
+        "feedback_html": "Group 1 and group 17 would form strong ionic bonds. Group 1 will give an electron easily and group 17 will accept an electron to attain a more stable configuration. Therefore, compounds like NaCl and LiF will be formed."
+      },
+      {
+        "id": 398907,
+        "content_html": "Group 1 and Group 14",
+        "correctness": "0.0",
+        "feedback_html": "Group 1 elements are likely to form ionic bonds by giving up the one electron in its valence shell. However, group 14 elements are missing 4 electrons, and are more likely to share electrons with other elements through covalent bonds."
+      },
+      {
+        "id": 398908,
+        "content_html": "Group 14 and Group 18",
+        "correctness": "0.0",
+        "feedback_html": "Group 18 elements have a filled valence shell and will not likely form any bonds."
+      },
+      {
+        "id": 398909,
+        "content_html": "Group 1 and Group 18",
+        "correctness": "0.0",
+        "feedback_html": "Group18 elements have a filled valence shell and will not likely form any bonds."
+      }
+    ],
+    "group_uuid": "471a50ca-be39-46a5-8e1a-0b3ceadf2bb9",
+    "stem_html": "<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_181dfebc75c530fd0869288e36aea7165bead4c4b07b25997bff51573399bf90.png\" alt=\"Bohr diagrams of elements from groups 1, 14, 17 and 18, and periods 1, 2 and 3 are shown. Period 1, in which the 1n shell is filling, contains hydrogen and helium. Hydrogen, in group 1, has one valence electron. Helium, in group 18, has two valence electrons. The 1n shell holds a maximum of two electrons, so the shell is full and the electron configuration is stable. Period 2, in which the 2n shell is filling, contains lithium, carbon, fluorine, and neon. Lithium, in group 1, has 1 valence electron. Carbon, in group 14, has 4 valence electrons. Fluorine, in group 17, has 7 valence electrons. Neon, in group 18, has 8 valence electrons, a full octet. Period 3, in which the 3n shell is filling, contains sodium, silicon, chlorine, and argon. Sodium, in group 1, has 1 valence electron. Silicon, in group 14, has 4 valence electrons. Chlorine, in group 17, has 7 valence electrons. Argon, in group 18, has 8 valence electrons, a full octet.\"></p>\n\n<p>Looking at the above figure, can you infer which two groups together will form a strong ionic bond?</p>\n",
+    "tags": "471a50ca-be39-46a5-8e1a-0b3ceadf2bb9",
+    "uid": "79@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 347107,
+        "content_html": "Insects can walk on water because of its high surface tension.",
+        "correctness": "1.0",
+        "feedback_html": "Some insects can walk on water, although they are denser than water, because of the high surface tension of water. High surface tension results from high cohesion at the surface of a body of water."
+      },
+      {
+        "id": 347104,
+        "content_html": "Insects can walk on water because it is a polar solvent.",
+        "correctness": "0.0",
+        "feedback_html": "Recall whether the polarity of water has anything to do with insects walking on water."
+      },
+      {
+        "id": 347105,
+        "content_html": "Insects can walk on water because they are less dense than water.",
+        "correctness": "0.0",
+        "feedback_html": "Most insects are not less dense than water."
+      },
+      {
+        "id": 347106,
+        "content_html": "Insects can walk on water because they are denser than water.",
+        "correctness": "0.0",
+        "feedback_html": "Most insects are denser than water, but many of them can still be supported on the surface of water."
+      }
+    ],
+    "group_uuid": "97ffb587-bc4c-4c8a-8404-fa4ca3b9ca5e",
+    "stem_html": "Why can some insects walk on water?",
+    "tags": "97ffb587-bc4c-4c8a-8404-fa4ca3b9ca5e",
+    "uid": "62@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 475723,
+        "content_html": "p53",
+        "correctness": "0.0",
+        "feedback_html": "p53 has no ability to phosphorylate other proteins. Instead, p53, when phosphorylated, acts as a transcription factor to regulate the cell cycle."
+      },
+      {
+        "id": 475724,
+        "content_html": "Retinoblastoma protein (Rb)",
+        "correctness": "0.0",
+        "feedback_html": "Rb cannot phosphorylate proteins; it is bound to E2F and regulates its activity."
+      },
+      {
+        "id": 475725,
+        "content_html": "cyclin",
+        "correctness": "0.0",
+        "feedback_html": "Cyclins are regulatory proteins and regulate the functioning of Cdk’s."
+      },
+      {
+        "id": 475726,
+        "content_html": "Cyclin-dependent kinase (Cdk)",
+        "correctness": "1.0",
+        "feedback_html": "Cdk’s are protein kinases that have the ability to phosphorylate other proteins when activated with the help of cyclins."
+      }
+    ],
+    "group_uuid": "4cd3d500-5bb6-4ee0-a131-b7861cbd4dce",
+    "stem_html": "Which protein is a positive regulator that phosphorylates other proteins when activated?",
+    "tags": "4cd3d500-5bb6-4ee0-a131-b7861cbd4dce",
+    "uid": "756@9"
+  },
+  {
+    "answers": [
+      {
+        "id": 470308,
+        "content_html": "They are not made of cells.",
+        "correctness": "1.0",
+        "feedback_html": "They are made up of DNA or RNA and may have additional components."
+      },
+      {
+        "id": 470307,
+        "content_html": "Viruses do not have genetic material.",
+        "correctness": "0.0",
+        "feedback_html": "Viruses contain genetic material."
+      },
+      {
+        "id": 470306,
+        "content_html": "Viruses have DNA and RNA.",
+        "correctness": "0.0",
+        "feedback_html": "Viruses are made up or either DNA or RNA."
+      },
+      {
+        "id": 470305,
+        "content_html": "Viruses are obligate parasites and require a host.",
+        "correctness": "0.0",
+        "feedback_html": "While viruses are obligate parasites, some living organisms are as well."
+      }
+    ],
+    "group_uuid": "2c0dfa83-e89c-49e3-abd3-0add7051b8df",
+    "stem_html": "Why are viruses not considered living?",
+    "tags": "2c0dfa83-e89c-49e3-abd3-0add7051b8df",
+    "uid": "13@9"
+  },
+  {
+    "answers": [
+      {
+        "id": 380819,
+        "content_html": "The amplitude and the frequency of a wave are independent of each other.",
+        "correctness": "1.0",
+        "feedback_html": "We can change the amplitude of a wave without affecting its frequency."
+      },
+      {
+        "id": 380816,
+        "content_html": "The amplitude and the frequency of a wave are equal.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude and the frequency of a wave are not equal because they are two quantities of unequal dimension."
+      },
+      {
+        "id": 380817,
+        "content_html": "The amplitude decreases with an increase in the frequency of a wave.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency of a wave can be increased without affecting its amplitude.."
+      },
+      {
+        "id": 380818,
+        "content_html": "The amplitude increases with an increase in the frequency of a wave.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude of a wave can be increased without changing its frequency."
+      }
+    ],
+    "group_uuid": "a62703a4-9fd5-4002-b478-ba39760c5370",
+    "stem_html": "What is the relation between the amplitude and the frequency of a wave?",
+    "tags": "a62703a4-9fd5-4002-b478-ba39760c5370",
+    "uid": "6926@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 380824,
+        "content_html": "<span data-math=\"4\\,\\text{m}\"></span>",
+        "correctness": "0.0",
+        "feedback_html": "The wavelength will not be the product of the distance and the number of cycles."
+      },
+      {
+        "id": 380825,
+        "content_html": "<span data-math=\"2\\,\\text{m}\"></span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"2\\,\\text{m}\"></span> is the wavelength of a wave that is traveling distance of <span data-math=\"2\\,\\text{m}\"></span> in <span data-math=\"1\"></span> cycle."
+      },
+      {
+        "id": 380826,
+        "content_html": "<span data-math=\"0.5\\,\\text{m}\"></span>",
+        "correctness": "0.0",
+        "feedback_html": "This would have been the answer if the wave traveled <span data-math=\"1\\,\\text{m}\"></span> in <span data-math=\"2\"></span> cycles."
+      },
+      {
+        "id": 380827,
+        "content_html": "<span data-math=\"1\\,\\text{m}\"></span>",
+        "correctness": "1.0",
+        "feedback_html": "This is the right answer because the wavelength is the distance that the wave has covered in one cycle."
+      }
+    ],
+    "group_uuid": "e60c05d9-53b4-4f21-8328-b4b7491a9a42",
+    "stem_html": "A wave travels <span data-math=\"2\\,\\text{m}\"></span> every 2 cycles. What is its wavelength?",
+    "tags": "e60c05d9-53b4-4f21-8328-b4b7491a9a42",
+    "uid": "6928@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 380836,
+        "content_html": "In a good-quality speaker, sounds with high frequencies or short wavelengths are reproduced accurately by woofers, while sounds with low frequencies or long wavelengths are reproduced accurately by tweeters.",
+        "correctness": "0.0",
+        "feedback_html": "Sounds with shorts wavelengths cannot be accurately reproduced by woofers, and sounds with long wavelengths cannot be accurately reproduced by tweeters."
+      },
+      {
+        "id": 380837,
+        "content_html": "Sounds with high frequencies or short wavelengths are reproduced more accurately by tweeters, while sounds with low frequencies or long wavelengths are reproduced more accurately by woofers.",
+        "correctness": "1.0",
+        "feedback_html": "Small speakers or tweeters are best for reproducing sounds with short wavelengths. Large speakers or woofers are best for reproducing sounds with long wavelengths."
+      }
+    ],
+    "group_uuid": "e2520f0e-cf1a-416d-9f7b-2acc81c304ba",
+    "stem_html": "Why does a good-quality speaker have a woofer and a tweeter?",
+    "tags": "e2520f0e-cf1a-416d-9f7b-2acc81c304ba",
+    "uid": "6931@5"
+  }
+]

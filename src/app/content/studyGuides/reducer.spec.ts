@@ -1,10 +1,23 @@
 import { receiveFeatureFlags } from '../../actions';
+import { locationChange } from '../../navigation/actions';
 import { studyGuidesFeatureFlag } from '../constants';
 import { HighlightData, SummaryHighlights } from '../highlights/types';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
 
 describe('study guides reducer', () => {
+  it('keeps summary open on location change if modal query is present', () => {
+    const mockState = {
+      ...initialState,
+      summary: {...initialState.summary, open: true},
+    };
+
+    const state = reducer(
+      mockState,
+      locationChange({action: 'PUSH', location: {state: {pageUid: 'asdf'}, search: '?modal=SG'}} as any));
+    expect(state.summary.open).toBe(true);
+  });
+
   it('receive study guides', () => {
     const summary = {
       location: {

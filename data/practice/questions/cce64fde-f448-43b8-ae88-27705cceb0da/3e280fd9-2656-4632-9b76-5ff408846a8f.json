@@ -1,101 +1,37 @@
 [
   {
-    "uuid": "0e1d41f5-f972-4e3c-b054-358edb8a6562",
-    "stem_html": "If you and a friend are standing side-by-side watching a soccer game, would you both view the motion from the same reference frame?",
-    "id": 91802,
     "answers": [
       {
-        "id": 374182,
-        "content_html": "Yes, we would both view the motion from the same reference point because both of us are at rest in Earth’s frame of reference.",
+        "id": 475747,
+        "content_html": "active Cdk4",
         "correctness": "0.0",
-        "feedback_html": "Even though both are at rest in Earth’s frame of reference, the point from where the motion of the soccer game is observed, is different. For example, if the ball is right in front of one person, then for the other person, the ball will be seen at an angle."
+        "feedback_html": "The pathway shows the active Cdk4 is acting as an inhibitor."
       },
       {
-        "id": 374183,
-        "content_html": "Yes, we would both view the motion from the same reference point because both of us are observing the motion from two points on the same straight line.",
+        "id": 475748,
+        "content_html": "Cyclin D1",
         "correctness": "0.0",
-        "feedback_html": "The reference frames are similar but not same. The two reference frames are located at two different points, hence the motion described by each frame will be slightly different."
+        "feedback_html": "Cyclin D1 is controlling the activity of Cdk4. It is not following a negative feedback mechanism."
       },
       {
-        "id": 374185,
-        "content_html": "No, we would both view the motion from different reference points because motion is viewed from two different points; the reference frames are similar but not the same.",
+        "id": 475750,
+        "content_html": "Cyclin D1/Cdk4 complex",
         "correctness": "1.0",
-        "feedback_html": "The motions observed are different since the reference frames are located at two different points."
+        "feedback_html": "The Cdk4 bound to cyclin becomes active and this is responsible for inhibiting the Cyclin D1-Cdk4 complex."
       },
       {
-        "id": 374184,
-        "content_html": "No, we would both view the motion from different reference points because response times may be different; so, the motion observed by both of us would be different.",
+        "id": 475749,
+        "content_html": "IGF-1",
         "correctness": "0.0",
-        "feedback_html": "The response times may be different, but they have nothing to do with thereference frames."
+        "feedback_html": "IFG-1 is not regulated by negative feedback; it is a proliferation promoting signal molecule."
       }
-    ]
+    ],
+    "group_uuid": "7fa96edf-8a26-4def-a424-4c2d09690ea5",
+    "stem_html": "<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_c2246a6165950083b3e0cd5b5b51624f947cf56111aacf9c9571fbe3ece85da7.png\" alt=\"The image shows a flow chart starting with IGF-1, with an arrow pointing to a block containing Cyclin D1 gene expressed. An arrow from that block points to CyclinD1 with a block containing Cdk4 attached. An arrow goes from Cyclin D1 to Active Cdk4. From Cdk4, an arrow points to the phrase Cell cycle progressions through G1 phase. A line with a flat end goes from the block containing Active Cdk4 to the block containing Cyclin D1.\"></p>\n\n<p>The insulin growth factor (IGF-1) promotes cell proliferation as shown in the diagram. The expression of which protein in the diagram is controlled through negative feedback?</p>\n",
+    "tags": "7fa96edf-8a26-4def-a424-4c2d09690ea5",
+    "uid": "763@13"
   },
   {
-    "uuid": "b7beb305-d8af-49eb-a4b1-40f2f959138e",
-    "stem_html": "What is the difference between distance and displacement?",
-    "id": 91803,
-    "answers": [
-      {
-        "id": 374186,
-        "content_html": "Distance has both magnitude and direction, while displacement has magnitude but no direction.",
-        "correctness": "0.0",
-        "feedback_html": "Recall the definition of distances and displacements. Think again which one has direction and magnitude both."
-      },
-      {
-        "id": 374189,
-        "content_html": "Distance has magnitude but no direction, while displacement has both magnitude and direction.",
-        "correctness": "1.0",
-        "feedback_html": "Distance is a physical quantity that has magnitude only and no direction, while displacement is a physical quantity that has magnitude as well as direction."
-      },
-      {
-        "id": 374187,
-        "content_html": "Distance has magnitude but no direction, while displacement has only direction.",
-        "correctness": "0.0",
-        "feedback_html": "It is correct that distances have magnitude only and no direction, but displacement does not only have direction."
-      },
-      {
-        "id": 374188,
-        "content_html": "There is no difference. Both distance and displacement have magnitude and direction.",
-        "correctness": "0.0",
-        "feedback_html": "Distance and displacement are not the same. Recall their definition."
-      }
-    ]
-  },
-  {
-    "uuid": "34f61ebf-46e5-4d43-bda3-b679d1c43327",
-    "stem_html": "Which situation correctly identifies a race car’s distance traveled and the magnitude of displacement during a one-lap car race?",
-    "id": 101021,
-    "answers": [
-      {
-        "id": 410247,
-        "content_html": "The perimeter of the race track is the distance, and the shortest distance between the start line and the finish line is the magnitude of displacement.",
-        "correctness": "1.0",
-        "feedback_html": "Distance is total length of the path, and magnitude of displacement is shortest distance between start and finish lines."
-      },
-      {
-        "id": 410248,
-        "content_html": "The perimeter of the race track is the magnitude of displacement, and the shortest distance between the start and finish line is the distance.",
-        "correctness": "0.0",
-        "feedback_html": "Perimeter of the tract is the total path length and hence it is the distance covered by a race car in one lap."
-      },
-      {
-        "id": 410249,
-        "content_html": "The perimeter of the race track is both the distance and magnitude of displacement.",
-        "correctness": "0.0",
-        "feedback_html": "Magnitude of displacement and distance are not the same physical quantity."
-      },
-      {
-        "id": 410250,
-        "content_html": "The shortest distance between the start line and the finish line is both the distance and magnitude of displacement.",
-        "correctness": "0.0",
-        "feedback_html": "The shortest distance between the start and the finish line is the magnitude of the magnitude of displacement."
-      }
-    ]
-  },
-  {
-    "uuid": "3fefe0c4-90de-4665-a7a0-f5d248b3f78e",
-    "stem_html": "Can one-dimensional motion have zero distance but a nonzero displacement? What about zero displacement but a nonzero distance?",
-    "id": 91805,
     "answers": [
       {
         "id": 374196,
@@ -121,74 +57,77 @@
         "correctness": "0.0",
         "feedback_html": "You are partially correct! There can be zero displacement with nonzero distance. If you think about one complete revolution of Earth around the Sun, there is nonzero distance and a zero displacement covered."
       }
-    ]
+    ],
+    "group_uuid": "adfdde39-6f7e-4268-91e1-2ded860d1709",
+    "stem_html": "Can one-dimensional motion have zero distance but a nonzero displacement? What about zero displacement but a nonzero distance?",
+    "tags": "adfdde39-6f7e-4268-91e1-2ded860d1709",
+    "uid": "1823@6"
   },
   {
-    "uuid": "ad4455b9-689d-4fdb-aad6-b330ad736285",
-    "stem_html": "Boat A and Boat B are traveling at a constant speed in opposite directions when they pass each other. If a person in each boat describes motion based on the boat’s own reference frame, will the description by a person in Boat A of Boat B’s motion be the same as the description by a person in Boat B of Boat A’s motion?",
-    "id": 91806,
     "answers": [
       {
-        "id": 374198,
-        "content_html": "Yes, both persons will describe the same motion because motion is independent of the frame of reference.",
-        "correctness": "0.0",
-        "feedback_html": "Yes, the motion described will be the same but the reason specified is wrong. Motion depends on the frame of reference, as motion is a relative quantity."
-      },
-      {
-        "id": 374201,
-        "content_html": "Yes, both persons will describe the same motion because they will perceive the other as moving in the backward direction.",
+        "id": 397402,
+        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
         "correctness": "1.0",
-        "feedback_html": "Motion depends on the frame of reference from which it is observed. The person in Boat A and the person in Boat B will see a boat moving past them in the opposite direction."
+        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
       },
       {
-        "id": 374199,
-        "content_html": "No, the motion described by each of them will be different because motion is a relative term.",
+        "id": 397403,
+        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
         "correctness": "0.0",
-        "feedback_html": "Motion is a relative term but here both of them (person in Boat A and person in Boat B) observes the same thing, which is a boat moving past them in the opposite direction."
+        "feedback_html": "All of these are outside the realm of biology."
       },
       {
-        "id": 374200,
-        "content_html": "No, the motion described by each of them will be different because the motion perceived by each will be opposite to each other.",
+        "id": 397404,
+        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
         "correctness": "0.0",
-        "feedback_html": "The description provided by each person is the same. They both see a boat traveling past them."
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      },
+      {
+        "id": 397405,
+        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
       }
-    ]
+    ],
+    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
+    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "uid": "6@7"
   },
   {
-    "uuid": "cead242a-f7b0-47b0-b860-91b1f2781b09",
-    "stem_html": "Why should you specify a reference frame when describing motion?",
-    "id": 91807,
     "answers": [
       {
-        "id": 374205,
-        "content_html": "a description of motion depends on the reference frame",
+        "id": 413141,
+        "content_html": "We shiver when we are cold and sweat when we are hot.",
         "correctness": "1.0",
-        "feedback_html": "The reference frame is the coordinate system from which the position of the moving object is described."
+        "feedback_html": "Shivering and sweating are both ways that the body reacts to changing body temperatures, which are a result of changes in the temperature of the external environment."
       },
       {
-        "id": 374202,
-        "content_html": "motion appears the same in all reference frames",
+        "id": 413142,
+        "content_html": "We walk by putting our front leg forward and pushing off with our back leg.",
         "correctness": "0.0",
-        "feedback_html": "Remember, motion appears different, not the same, in all reference frames."
+        "feedback_html": "Walking is not a response to the external environment."
       },
       {
-        "id": 374203,
-        "content_html": "reference frames affect the motion of an object",
+        "id": 413143,
+        "content_html": "We are able to breath in and out unconsciously.",
         "correctness": "0.0",
-        "feedback_html": "Reference frames do not have any effect on the physics of an object."
+        "feedback_html": "Breathing occurs unconsciously regardless of changes in the external environment, as long as breathing can take place."
       },
       {
-        "id": 374204,
-        "content_html": "you can see motion better from certain reference frames",
+        "id": 413144,
+        "content_html": "Our hair and fingernails grow at a constant rate over time.",
         "correctness": "0.0",
-        "feedback_html": "A certain reference frame does make motion appear simpler, but that is not the sole reason to specify a reference frame."
+        "feedback_html": "These two processes continually occur without any input from the external environment."
       }
-    ]
+    ],
+    "group_uuid": "31630dd3-1d10-467b-a0fe-4681748ae167",
+    "stem_html": "Which example most clearly shows a way that humans can respond directly to a change in the environment?",
+    "tags": "31630dd3-1d10-467b-a0fe-4681748ae167",
+    "uid": "9@8"
   },
   {
-    "uuid": "11a34741-ab98-47b7-926a-579d7178a1a6",
-    "stem_html": "If a biker rides west for 50 miles from his starting position, then turns and bikes back east 80 miles. What is his net displacement?",
-    "id": 50026,
     "answers": [
       {
         "id": 208777,
@@ -214,12 +153,13 @@
         "correctness": "0.0",
         "feedback_html": "Displacement can be easily calculated from the given data as both magnitude and direction are provided in the question."
       }
-    ]
+    ],
+    "group_uuid": "b29491ce-c9c4-40d4-8835-4a90b3b7bafc",
+    "stem_html": "If a biker rides west for 50 miles from his starting position, then turns and bikes back east 80 miles. What is his net displacement?",
+    "tags": "b29491ce-c9c4-40d4-8835-4a90b3b7bafc",
+    "uid": "1829@4"
   },
   {
-    "uuid": "cf7d9fed-ab6a-4950-9f99-6e0f3b1706d4",
-    "stem_html": "Maud sends her bowling ball straight down the center of the lane, getting a strike. The ball is brought back to the holder mechanically. What are the ball’s net displacement and distance traveled?",
-    "id": 50028,
     "answers": [
       {
         "id": 208785,
@@ -245,6 +185,10 @@
         "correctness": "0.0",
         "feedback_html": "The ball reached its initial position after covering a certain path. Rethink about its displacement."
       }
-    ]
+    ],
+    "group_uuid": "48886e06-0469-41fc-9693-b74bb391e300",
+    "stem_html": "Maud sends her bowling ball straight down the center of the lane, getting a strike. The ball is brought back to the holder mechanically. What are the ball’s net displacement and distance traveled?",
+    "tags": "48886e06-0469-41fc-9693-b74bb391e300",
+    "uid": "1831@4"
   }
 ]

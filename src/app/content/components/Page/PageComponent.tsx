@@ -40,24 +40,20 @@ export default class PageComponent extends Component<PagePropTypes> {
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
 
-    const cleanContent = getCleanContent(book, page, services.archiveLoader);
+    return getCleanContent(book, page, services.archiveLoader, (content) => {
+      const parsedContent = parser.parseFromString(content, 'text/html');
+      contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
 
-    if (!cleanContent) {
-      return '';
-    }
+      transformContent(parsedContent, parsedContent.body, this.props.intl);
 
-    const parsedContent = parser.parseFromString(cleanContent, 'text/html');
-    contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
+      /* this will be removed when all the books are in good order */
+      /* istanbul ignore else */
+      if (APP_ENV !== 'production') {
+        validateDOMContent(parsedContent, parsedContent.body);
+      }
 
-    transformContent(parsedContent, parsedContent.body, this.props.intl);
-
-    /* this will be removed when all the books are in good order */
-    /* istanbul ignore else */
-    if (APP_ENV !== 'production') {
-      validateDOMContent(parsedContent, parsedContent.body);
-    }
-
-    return parsedContent.body.innerHTML;
+      return parsedContent.body.innerHTML;
+    });
   };
 
   public componentDidMount() {

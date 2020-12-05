@@ -13,7 +13,7 @@ exports[`Confirmation matches snapshot no selection 1`] = `
     className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
   >
     <button
-      className="Button-ayg7nk-0 bNgBJd"
+      className="Button-ayg7nk-0 bXETKb"
       data-analytics-label="confirm"
       data-testid="confirm"
       onClick={[Function]}
@@ -21,7 +21,7 @@ exports[`Confirmation matches snapshot no selection 1`] = `
       confirm
     </button>
     <button
-      className="Button-ayg7nk-0 hGjqhZ"
+      className="Button-ayg7nk-0 kWlfWJ"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}

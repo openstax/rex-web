@@ -33,4 +33,9 @@ export const scrollTarget = createSelector(
   getScrollTargetFromQuery
 );
 
+export const match = createSelector(
+  localState,
+  (state) => state.match
+);
+
 export const location = localState;

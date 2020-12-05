@@ -1,0 +1,348 @@
+[
+  {
+    "answers": [
+      {
+        "id": 380854,
+        "content_html": "Interference is a superposition of two waves to form a resultant wave with higher or lower frequency.",
+        "correctness": "0.0",
+        "feedback_html": "With the superposition of two waves, the frequency of the resultant wave does not change."
+      },
+      {
+        "id": 380855,
+        "content_html": "Interference is a superposition of two waves to form a wave of larger or smaller amplitude.",
+        "correctness": "1.0",
+        "feedback_html": "Interference results in a wave with longer or shorter amplitude."
+      },
+      {
+        "id": 380853,
+        "content_html": "Interference is a superposition of two waves to form a resultant wave with higher or lower velocity.",
+        "correctness": "0.0",
+        "feedback_html": "The superposition of two waves does not cause a change in velocity."
+      },
+      {
+        "id": 380852,
+        "content_html": "Interference is a superposition of two waves to form a resultant wave with longer or shorter wavelength.",
+        "correctness": "0.0",
+        "feedback_html": "Interference occurs between two waves with nearly equal wavelengths and the resultant wave will also have the same wavelength."
+      }
+    ],
+    "group_uuid": "ee40b150-c9e7-4843-8247-e944a38847f2",
+    "stem_html": "What is interference of waves?",
+    "tags": "ee40b150-c9e7-4843-8247-e944a38847f2",
+    "uid": "6936@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 346884,
+        "content_html": "publication",
+        "correctness": "0.0",
+        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
+      },
+      {
+        "id": 346885,
+        "content_html": "public speaking",
+        "correctness": "0.0",
+        "feedback_html": "Public speaking does not ensure originality and significance of a work."
+      },
+      {
+        "id": 346887,
+        "content_html": "peer review",
+        "correctness": "1.0",
+        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
+      },
+      {
+        "id": 346886,
+        "content_html": "the scientific method",
+        "correctness": "0.0",
+        "feedback_html": "The scientific method is the method employed to carry out research."
+      }
+    ],
+    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
+    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "uid": "5@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 472378,
+        "content_html": "Microbes do not decompose organic matter.",
+        "correctness": "0.0",
+        "feedback_html": "Some microbes decompose organic matter, which is important for nutrient cycling."
+      },
+      {
+        "id": 472379,
+        "content_html": "Many microbes are not harmful.",
+        "correctness": "0.0",
+        "feedback_html": "This is true, but does not explain how they may be beneficial."
+      },
+      {
+        "id": 472380,
+        "content_html": "Microbes aid in digestion.",
+        "correctness": "1.0",
+        "feedback_html": "Microbes in the human digestive tract are important for normal digestion and for access to certain nutrients. When these healthy microbes are disturbed, as during antibiotic treatment, it can allow pathogens to become established."
+      }
+    ],
+    "group_uuid": "d0d82573-f8e8-4b29-8570-509285cec896",
+    "stem_html": "How are some microbes beneficial?",
+    "tags": "d0d82573-f8e8-4b29-8570-509285cec896",
+    "uid": "299@10"
+  },
+  {
+    "answers": [
+      {
+        "id": 484474,
+        "content_html": "Phospholipids are amphipathic molecules. The polar head faces towards water and the nonpolar fatty acid tails face towards other fatty acid tails.",
+        "correctness": "1.0",
+        "feedback_html": "Phospholipids are amphipathic molecules and form a structure called micelles, which resemble a lipid bilayer."
+      },
+      {
+        "id": 484475,
+        "content_html": "Phospholipids are lipophilic molecules. The polar head faces towards water and the nonpolar fatty acid tails face towards other fatty acid tails",
+        "correctness": "0.0",
+        "feedback_html": "Phospholipids are amphipathic, not lipophilic."
+      },
+      {
+        "id": 484476,
+        "content_html": "Phospholipids are amphipathic molecules. The nonpolar head faces towards other fatty acid tails and the polar fatty acid tails face towards water.",
+        "correctness": "0.0",
+        "feedback_html": "The heads are made up of glycerol and phosphate, causing phospholipids to be polar."
+      },
+      {
+        "id": 484477,
+        "content_html": "Phospholipids are hydrophilic molecules. The polar head faces towards water and the nonpolar fatty acid tails face towards other fatty acid tails.",
+        "correctness": "0.0",
+        "feedback_html": "If phospholipids were only hydrophilic, no membrane would have been formed, which occurs due to the hydrophobic regions present."
+      }
+    ],
+    "group_uuid": "b3f8ff52-62e6-4ee2-a4c0-802bf69d98ff",
+    "stem_html": "Why do phospholipids tend to spontaneously orient themselves into something resembling a membrane such as the lipid-bilayer sphere, single-layer lipid sphere, and lipid-bilayer sheet?\n<img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_173b2af5932400e0ca956757e0d3710d283feceba1af858d7199f63b1172234e.png\" alt=\"\">",
+    "tags": "b3f8ff52-62e6-4ee2-a4c0-802bf69d98ff",
+    "uid": "339@10"
+  },
+  {
+    "answers": [
+      {
+        "id": 346911,
+        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "correctness": "1.0",
+        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+      },
+      {
+        "id": 346910,
+        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+      },
+      {
+        "id": 346909,
+        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+      },
+      {
+        "id": 346908,
+        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+      }
+    ],
+    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
+    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "uid": "2@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 414782,
+        "content_html": "1, 2, 3, 4, 5, 6",
+        "correctness": "0.0",
+        "feedback_html": "This is not the correct sequence."
+      },
+      {
+        "id": 414783,
+        "content_html": "2, 1, 3, 4, 5, 6",
+        "correctness": "0.0",
+        "feedback_html": "This is not the correct sequence."
+      },
+      {
+        "id": 414784,
+        "content_html": "2, 1, 5, 4, 6, 3",
+        "correctness": "1.0",
+        "feedback_html": "2, 1, 5, 4, 6, 3 is the correct sequence of the situation given."
+      },
+      {
+        "id": 414785,
+        "content_html": "2, 1, 5, 6, 3, 4",
+        "correctness": "0.0",
+        "feedback_html": "This is not the correct sequence."
+      }
+    ],
+    "group_uuid": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
+    "stem_html": "Although the scientific method is used by most of the sciences, it can also be applied to everyday situations. A situation is given below. Using the scientific method try to arrange the given steps in the correct order. \nSituation:\n<ol>\n  <li>If the car doesn’t start the problem might be in the battery.</li>\n  <li>Car doesn’t start.</li>\n  <li>After changing the battery. Car starts working.</li>\n  <li>The car should start after charging the battery or changing the battery.</li>\n  <li>The car doesn’t start because the battery is dead.</li>\n  <li>The car doesn’t start even after charging the battery, the battery must have stopped working.</li>\n</ol>\n",
+    "tags": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
+    "uid": "8@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 413141,
+        "content_html": "We shiver when we are cold and sweat when we are hot.",
+        "correctness": "1.0",
+        "feedback_html": "Shivering and sweating are both ways that the body reacts to changing body temperatures, which are a result of changes in the temperature of the external environment."
+      },
+      {
+        "id": 413142,
+        "content_html": "We walk by putting our front leg forward and pushing off with our back leg.",
+        "correctness": "0.0",
+        "feedback_html": "Walking is not a response to the external environment."
+      },
+      {
+        "id": 413143,
+        "content_html": "We are able to breath in and out unconsciously.",
+        "correctness": "0.0",
+        "feedback_html": "Breathing occurs unconsciously regardless of changes in the external environment, as long as breathing can take place."
+      },
+      {
+        "id": 413144,
+        "content_html": "Our hair and fingernails grow at a constant rate over time.",
+        "correctness": "0.0",
+        "feedback_html": "These two processes continually occur without any input from the external environment."
+      }
+    ],
+    "group_uuid": "31630dd3-1d10-467b-a0fe-4681748ae167",
+    "stem_html": "Which example most clearly shows a way that humans can respond directly to a change in the environment?",
+    "tags": "31630dd3-1d10-467b-a0fe-4681748ae167",
+    "uid": "9@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 397402,
+        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "correctness": "1.0",
+        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+      },
+      {
+        "id": 397403,
+        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology."
+      },
+      {
+        "id": 397404,
+        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      },
+      {
+        "id": 397405,
+        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      }
+    ],
+    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
+    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "uid": "6@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 346911,
+        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "correctness": "1.0",
+        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+      },
+      {
+        "id": 346910,
+        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+      },
+      {
+        "id": 346909,
+        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+      },
+      {
+        "id": 346908,
+        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+      }
+    ],
+    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
+    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "uid": "2@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 477523,
+        "content_html": "autocrine",
+        "correctness": "0.0",
+        "feedback_html": "In autocrine signaling, the signaling molecule acts on the cell from which it is produced. The mating factor does not act on the same yeast cell from which it is produced."
+      },
+      {
+        "id": 477522,
+        "content_html": "endocrine",
+        "correctness": "0.0",
+        "feedback_html": "Endocrine signaling helps communicate with distantly located cells. The yeast cells are present nearby and would not communicate through endocrine signaling."
+      },
+      {
+        "id": 477524,
+        "content_html": "paracrine",
+        "correctness": "1.0",
+        "feedback_html": "Paracrine signaling helps communicate with nearby cells. Yeast cell which are present in close proximity communicate through paracrine signaling."
+      },
+      {
+        "id": 477521,
+        "content_html": "gap junction",
+        "correctness": "0.0",
+        "feedback_html": "Signaling through gap junctions involves direct transmission of signals through connected plasma membranes of two cells. Yeast cells do not need to be in physical contact with each other to communicate via mating factor."
+      }
+    ],
+    "group_uuid": "e4aedd68-50b0-4a9d-88e3-1d6dc532d2b3",
+    "stem_html": "Yeast releasing mating factor can be classified as which type of signal?",
+    "tags": "e4aedd68-50b0-4a9d-88e3-1d6dc532d2b3",
+    "uid": "698@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 471527,
+        "content_html": "Chloroplasts, which capture light energy",
+        "correctness": "0.0",
+        "feedback_html": "Chloroplasts occupy space but not enough to make a difference."
+      },
+      {
+        "id": 471528,
+        "content_html": "A large vacuole, which reduces the volume of cytoplasm",
+        "correctness": "1.0",
+        "feedback_html": "The vacuoles occupy most the volume of the cell, so that the cytoplasmic volume available for diffusion is small."
+      },
+      {
+        "id": 471526,
+        "content_html": "Plasmodesmata, which holds the cell together.",
+        "correctness": "0.0",
+        "feedback_html": "Plasmodesmata are just the connections required for the transportation of molecules."
+      },
+      {
+        "id": 471525,
+        "content_html": "Rigid cell walls, which requires a larger cell to maintain.",
+        "correctness": "0.0",
+        "feedback_html": "Cell walls do not contribute to the size of the cell."
+      }
+    ],
+    "group_uuid": "7ea821a5-05b1-446f-995f-16de07658687",
+    "stem_html": "Which of the following structures allows a plant cell to be larger than an animal cell?",
+    "tags": "7ea821a5-05b1-446f-995f-16de07658687",
+    "uid": "307@8"
+  }
+]

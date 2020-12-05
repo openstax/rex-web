@@ -76,6 +76,11 @@ describe('archiveLoader', () => {
 
         expect(fetch).toHaveBeenCalledTimes(3);
       });
+
+      it('returns original content url', async() => {
+        expect(archiveLoader.book('coolid', 'version').page('pageid').url())
+          .toEqual('url/contents/coolid@version:pageid');
+      });
     });
 
     it('returns error', async() => {

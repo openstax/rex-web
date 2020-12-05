@@ -5,14 +5,19 @@ import styled from 'styled-components/macro';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import { assertDefined } from '../../utils';
 import { book } from '../selectors';
+import { LinkedArchiveTreeSection } from '../types';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
-import { addTargetBlankToLinks, fixRelativeURLs } from '../utils/contentManipulation';
+import {
+  addTargetBlankToLinks,
+  rebaseRelativeContentLinks,
+  rebaseRelativeResources,
+} from '../utils/contentManipulation';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
 
 interface Props {
   content: string;
   className: string;
-  sourcePageId: string;
+  source: string | LinkedArchiveTreeSection;
 }
 
 // tslint:disable-next-line:variable-name
@@ -20,12 +25,14 @@ const ContentExcerpt = styled((props: Props) => {
   const {
     content,
     className,
-    sourcePageId,
+    source,
     ...excerptProps
   } = props;
 
   const currentBook = assertDefined(useSelector(book), 'book not loaded');
-  const sourcePage = assertDefined(findArchiveTreeNodeById(currentBook.tree, sourcePageId), 'page not found in book');
+  const sourcePage = typeof source === 'string'
+    ? assertDefined(findArchiveTreeNodeById(currentBook.tree, source), 'page not found in book')
+    : source;
 
   const excerptSource = getBookPageUrlAndParams(
     currentBook,
@@ -34,7 +41,8 @@ const ContentExcerpt = styled((props: Props) => {
 
   const fixedContent = React.useMemo(() => flow(
     addTargetBlankToLinks,
-    (newContent) => fixRelativeURLs(newContent, excerptSource.url)
+    (newContent) => rebaseRelativeContentLinks(newContent, excerptSource.url),
+    (newContent) => rebaseRelativeResources(newContent, excerptSource.url)
   )(props.content), [props.content, excerptSource.url]);
 
   return <div

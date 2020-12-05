@@ -1,0 +1,130 @@
+[
+  {
+    "answers": [
+      {
+        "id": 483694,
+        "content_html": "The amplitude of a wave is equal to half of the height of the wave.",
+        "correctness": "1.0",
+        "feedback_html": "The amplitude of a wave is equal to half of the height of the wave."
+      },
+      {
+        "id": 483695,
+        "content_html": "The amplitude of a wave is equal to the height of the wave.",
+        "correctness": "0.0",
+        "feedback_html": "Review the definitions of amplitude and height."
+      },
+      {
+        "id": 483696,
+        "content_html": "The amplitude of a wave is equal to two times the height of the wave.",
+        "correctness": "0.0",
+        "feedback_html": "Review the definitions of amplitude and height."
+      },
+      {
+        "id": 483697,
+        "content_html": "The amplitude of a wave is equal to four times the height of the wave.",
+        "correctness": "0.0",
+        "feedback_html": "Review the definitions of amplitude and height."
+      }
+    ],
+    "group_uuid": "02173153-4782-47a3-a447-19971eb20a58",
+    "stem_html": "What is the relation between the amplitude and the height of a wave? Let the height of a transverse wave be defined as the vertical distance from a trough to a crest.",
+    "tags": "02173153-4782-47a3-a447-19971eb20a58",
+    "uid": "6898@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 418058,
+        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
+        "correctness": "0.0",
+        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
+      },
+      {
+        "id": 418059,
+        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "correctness": "1.0",
+        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+      },
+      {
+        "id": 418060,
+        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "correctness": "0.0",
+        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
+      },
+      {
+        "id": 418061,
+        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
+        "correctness": "0.0",
+        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+      }
+    ],
+    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
+    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
+    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
+    "uid": "1@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 391823,
+        "content_html": "A solar cell converts all photons that it absorbs to electrical energy using the photoelectric effect.",
+        "correctness": "0.0",
+        "feedback_html": "The efficiency of a solar cell is not <span data-math=\"100\\%\">100\\%</span>. The solar cell is not able to absorb all the photons. Only certain photons with enough energy are absorbed."
+      },
+      {
+        "id": 391822,
+        "content_html": "A solar cell converts all electrons that it absorbs to electrical energy using the photoelectric effect.",
+        "correctness": "0.0",
+        "feedback_html": "Light is composed of photons, not electrons."
+      },
+      {
+        "id": 391821,
+        "content_html": "A solar cell absorbs the photons with energy less than the energy gap of the material of the solar cell and converts it to electrical energy using the photoelectric effect.",
+        "correctness": "0.0",
+        "feedback_html": "Photons with energy less than the band gap energy of the material of the solar cell cannot be absorbed."
+      },
+      {
+        "id": 391824,
+        "content_html": "A solar cell absorbs the photons with energy greater than the energy gap of the material of the solar cell and converts it to electrical energy using the photoelectric effect.",
+        "correctness": "1.0",
+        "feedback_html": "Photons with energy greater than the energy gap of the material can be absorbed by the solar cell, which converts it to electrical energy using the photoelectric effect."
+      }
+    ],
+    "group_uuid": "74851683-05f5-4593-ab4c-9802b3924ff9",
+    "stem_html": "How do solar cells utilize the photoelectric effect?",
+    "tags": "74851683-05f5-4593-ab4c-9802b3924ff9",
+    "uid": "11497@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 472311,
+        "content_html": "bacteria",
+        "correctness": "0.0",
+        "feedback_html": "Bacteria do not have a membrane-enclosed nucleus."
+      },
+      {
+        "id": 472314,
+        "content_html": "eukaryotic cells",
+        "correctness": "1.0",
+        "feedback_html": "Eukaryotic cells contain a membrane bound nucleus."
+      },
+      {
+        "id": 472312,
+        "content_html": "all living organisms",
+        "correctness": "0.0",
+        "feedback_html": "Not all living organisms have a membrane-enclosed nucleus."
+      },
+      {
+        "id": 472313,
+        "content_html": "prokaryotic cells",
+        "correctness": "0.0",
+        "feedback_html": "Prokaryotic cells do not contain a membrane bound nucleus."
+      }
+    ],
+    "group_uuid": "d660f6a3-d8b7-4999-b634-4991c1bc1384",
+    "stem_html": "The presence of a membrane-enclosed nucleus is a characteristic of what?",
+    "tags": "d660f6a3-d8b7-4999-b634-4991c1bc1384",
+    "uid": "14@11"
+  }
+]

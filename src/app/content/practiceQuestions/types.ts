@@ -7,6 +7,7 @@ export interface State {
   selectedSection: LinkedArchiveTreeSection | null;
   currentQuestionIndex: number | null;
   questions: PracticeQuestion[];
+  questionAnswers: QuestionAnswers;
 }
 
 export interface PracticeQuestionsSummary {
@@ -15,7 +16,7 @@ export interface PracticeQuestionsSummary {
   };
 }
 
-interface PracticeAnswer {
+export interface PracticeAnswer {
   id: number;
   content_html: string;
   correctness: '0.0' | '1.0';
@@ -23,10 +24,19 @@ interface PracticeAnswer {
 }
 
 export interface PracticeQuestion {
-  uuid: string;
+  group_uuid: string;
+  uid: string;
   stem_html: string;
-  id: number;
   answers: PracticeAnswer[];
 }
 
 export type PracticeQuestions = PracticeQuestion[];
+
+export interface QuestionAnswers {
+  [key: string]: PracticeAnswer | null;
+}
+
+export interface SetPracticeAnswer {
+  questionId: string;
+  answer: PracticeAnswer | null;
+}

@@ -1,0 +1,130 @@
+[
+  {
+    "answers": [
+      {
+        "id": 346880,
+        "content_html": "discovery",
+        "correctness": "0.0",
+        "feedback_html": "A discovery is not a testable explanation for an event."
+      },
+      {
+        "id": 346883,
+        "content_html": "hypothesis",
+        "correctness": "1.0",
+        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+      },
+      {
+        "id": 346881,
+        "content_html": "scientific method",
+        "correctness": "0.0",
+        "feedback_html": "The scientific method is a method of research with defined steps."
+      },
+      {
+        "id": 346882,
+        "content_html": "theory",
+        "correctness": "0.0",
+        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+      }
+    ],
+    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
+    "stem_html": "What is a suggested and testable explanation for an event called?",
+    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
+    "uid": "3@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 189153,
+        "content_html": "The longitudinal nature of light waves implies this.",
+        "correctness": "0.0",
+        "feedback_html": "Light was considered to be a transverse wave rather than a longitudinal wave. In electromagnetic theory also, light is taken to be a transverse wave."
+      },
+      {
+        "id": 189154,
+        "content_html": "Light shows the phenomenon of diffraction.",
+        "correctness": "0.0",
+        "feedback_html": "Scientists discovered the diffraction of light much after the assumption of light travelling through a medium."
+      },
+      {
+        "id": 189155,
+        "content_html": "The speed of light is the maximum possible speed.",
+        "correctness": "0.0",
+        "feedback_html": "The speed of light was not a reason for believing that light needed a medium to travel. Scientists were convinced that light needed a medium to travel because there were no other waves which could travel through completely empty space."
+      },
+      {
+        "id": 189156,
+        "content_html": "All other wave energy needs a medium to travel.",
+        "correctness": "1.0",
+        "feedback_html": "Electromagnetic waves are the only type of waves that do not require any medium for their propagation."
+      }
+    ],
+    "group_uuid": "c786892e-c4aa-4c1f-91ae-0aa06d4574fe",
+    "stem_html": "Why was it once believed that light must travel through a medium and could not propagate across empty space?",
+    "tags": "c786892e-c4aa-4c1f-91ae-0aa06d4574fe",
+    "uid": "2866@3"
+  },
+  {
+    "answers": [
+      {
+        "id": 275833,
+        "content_html": "<span data-math=\"18 \\times 10^6\\,\\text{km}\">18 \\times 10^6\\,\\text{km}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The relation between speed, time, and distance is <span data-math=\"v = \\frac{d}{t}\">v = \\frac{d}{t}</span>. If the speed and time are given, the distance can be calculated easily."
+      },
+      {
+        "id": 275834,
+        "content_html": "<span data-math=\"18 \\times 10^8\\,\\text{km}\">18 \\times 10^8\\,\\text{km}</span>",
+        "correctness": "0.0",
+        "feedback_html": "If the speed and time are known, then distance can be easily found by their multiplication. Use the speed of light to find the distance between Venus and the sun."
+      },
+      {
+        "id": 275835,
+        "content_html": "<span data-math=\"1.08 \\times 10^{11}\\,\\text{km}\">1.08 \\times 10^{11}\\,\\text{km}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Find the time in seconds and then multiply by the speed of light in m/s to find the distance between the sun and Venus. Notice the unit of the answer obtained and the reported answer."
+      },
+      {
+        "id": 275836,
+        "content_html": "<span data-math=\"1.08 \\times 10^8\\,\\text{km}\">1.08 \\times 10^8\\,\\text{km}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The time light takes to reach Venus from the sun in seconds is <span data-math=\"360\\,\\text{s}\">360\\,\\text{s}</span>, and the speed of light is <span data-math=\"3.00 × 10^8\\,\\text{m/s}\">3.00 × 10^8\\,\\text{m/s}</span>."
+      }
+    ],
+    "group_uuid": "d891c7d1-24b2-4497-8f5b-b243ba8edbd7",
+    "stem_html": "It takes light <span data-math=\"6.0\\,\\text{minutes}\">6.0\\,\\text{minutes}</span> to travel from the sun to the planet Venus. How far is Venus from the sun?",
+    "tags": "d891c7d1-24b2-4497-8f5b-b243ba8edbd7",
+    "uid": "2868@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 414782,
+        "content_html": "1, 2, 3, 4, 5, 6",
+        "correctness": "0.0",
+        "feedback_html": "This is not the correct sequence."
+      },
+      {
+        "id": 414783,
+        "content_html": "2, 1, 3, 4, 5, 6",
+        "correctness": "0.0",
+        "feedback_html": "This is not the correct sequence."
+      },
+      {
+        "id": 414784,
+        "content_html": "2, 1, 5, 4, 6, 3",
+        "correctness": "1.0",
+        "feedback_html": "2, 1, 5, 4, 6, 3 is the correct sequence of the situation given."
+      },
+      {
+        "id": 414785,
+        "content_html": "2, 1, 5, 6, 3, 4",
+        "correctness": "0.0",
+        "feedback_html": "This is not the correct sequence."
+      }
+    ],
+    "group_uuid": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
+    "stem_html": "Although the scientific method is used by most of the sciences, it can also be applied to everyday situations. A situation is given below. Using the scientific method try to arrange the given steps in the correct order. \nSituation:\n<ol>\n  <li>If the car doesn’t start the problem might be in the battery.</li>\n  <li>Car doesn’t start.</li>\n  <li>After changing the battery. Car starts working.</li>\n  <li>The car should start after charging the battery or changing the battery.</li>\n  <li>The car doesn’t start because the battery is dead.</li>\n  <li>The car doesn’t start even after charging the battery, the battery must have stopped working.</li>\n</ol>\n",
+    "tags": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
+    "uid": "8@8"
+  }
+]

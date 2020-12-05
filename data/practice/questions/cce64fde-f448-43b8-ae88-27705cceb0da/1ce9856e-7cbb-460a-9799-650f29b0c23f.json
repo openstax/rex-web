@@ -1,0 +1,150 @@
+[
+  {
+    "answers": [
+      {
+        "id": 377029,
+        "content_html": "<span data-math=\"0.5\\,\\text{kg} \\cdot \\text{m/s}\">0.5\\,\\text{kg} \\cdot \\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Dividing mass by velocity will not give momentum."
+      },
+      {
+        "id": 377030,
+        "content_html": "<span data-math=\"2\\,\\text{kg} \\cdot \\text{m/s}\">2\\,\\text{kg} \\cdot \\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "When velocity is divided by mass, the resulting unit will be <span data-math=\"\\text{m/s} \\cdot \\text{kg}\">\\text{m/s} \\cdot \\text{kg}</span>. This is not the unit for momentum."
+      },
+      {
+        "id": 377031,
+        "content_html": "<span data-math=\"15\\,\\text{kg} \\cdot \\text{m/s}\">15\\,\\text{kg} \\cdot \\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Adding velocity with mass is not the correct way to find momentum."
+      },
+      {
+        "id": 377032,
+        "content_html": "<span data-math=\"50\\,\\text{kg} \\cdot \\text{m/s}\">50\\,\\text{kg} \\cdot \\text{m/s}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Momentum is the product of mass and velocity."
+      }
+    ],
+    "group_uuid": "b61cf1c7-7ca5-4f08-8923-d02d07fd5704",
+    "stem_html": "What is the momentum of a bowling ball with mass <span data-math=\"5\\,\\text{kg}\">5\\,\\text{kg}</span> and velocity <span data-math=\"10\\,\\text{m/s}\">10\\,\\text{m/s}</span>?",
+    "tags": "b61cf1c7-7ca5-4f08-8923-d02d07fd5704",
+    "uid": "2648@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 346884,
+        "content_html": "publication",
+        "correctness": "0.0",
+        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
+      },
+      {
+        "id": 346885,
+        "content_html": "public speaking",
+        "correctness": "0.0",
+        "feedback_html": "Public speaking does not ensure originality and significance of a work."
+      },
+      {
+        "id": 346887,
+        "content_html": "peer review",
+        "correctness": "1.0",
+        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
+      },
+      {
+        "id": 346886,
+        "content_html": "the scientific method",
+        "correctness": "0.0",
+        "feedback_html": "The scientific method is the method employed to carry out research."
+      }
+    ],
+    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
+    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "uid": "5@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 377077,
+        "content_html": "Scalar",
+        "correctness": "0.0",
+        "feedback_html": "The description of momentum is incomplete if its direction is not specified. Therefore, momentum is a vector quantity."
+      },
+      {
+        "id": 377078,
+        "content_html": "Vector",
+        "correctness": "1.0",
+        "feedback_html": "Momentum acts in the same direction as the velocity, and hence it is a vector quantity."
+      }
+    ],
+    "group_uuid": "52070de9-2815-4fe4-8066-e18bf22f003c",
+    "stem_html": "What kind of quantity is momentum?",
+    "tags": "52070de9-2815-4fe4-8066-e18bf22f003c",
+    "uid": "2660@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 377096,
+        "content_html": "It is zero, because the net force is equal to the rate of change of the momentum.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of change of the momentum will not be zero. Consider that the momentum of the object is increasing with respect to the time."
+      },
+      {
+        "id": 377095,
+        "content_html": "It is zero, because the net force is equal to the product of the momentum and the time interval.",
+        "correctness": "0.0",
+        "feedback_html": "It is incorrect that the net force acting on an object is equal to the product of the momentum and the time interval. Net force acting on the object is equal to the rate of change of the momentum."
+      },
+      {
+        "id": 377097,
+        "content_html": "It is nonzero, because the net force is equal to the rate of change of the momentum.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, the net force acting on the object would be non-zero because the momentum of the object is increasing with respect to the time. The net force on the object is equal to the rate of change of the momentum."
+      },
+      {
+        "id": 377094,
+        "content_html": "It is nonzero, because the net force is equal to the product of the momentum and the time interval.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of change of momentum of the object is equal to the net force acting on the object. It is incorrect to state that the net force is product of the momentum and the time interval."
+      }
+    ],
+    "group_uuid": "d1e3a65a-65b8-46e9-817f-9f769d257882",
+    "stem_html": "When the momentum of an object increases with respect to time, what is true of the net force acting on it?",
+    "tags": "d1e3a65a-65b8-46e9-817f-9f769d257882",
+    "uid": "2665@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 377117,
+        "content_html": "The softer surface increases the duration of the impact, thereby reducing the effect of the force.",
+        "correctness": "1.0",
+        "feedback_html": "The softer surface increases the duration of the impact, reducing the effect of the force. The impact of the force is elongated over the time interval, therefore, impact is minimal."
+      },
+      {
+        "id": 377116,
+        "content_html": "The softer surface decreases the duration of the impact, thereby reducing the effect of the force.",
+        "correctness": "0.0",
+        "feedback_html": "It is incorrect that the softer surface decreases the duration of impact. On a softer surface, the impact of the force is elongated over the time interval."
+      },
+      {
+        "id": 377115,
+        "content_html": "The softer surface increases the duration of the impact, thereby increasing the effect of the force.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that the softer surface increases the duration of the impact, but it is incorrect that it would result in an increased effect of the force. On a softer surface, the impact of the force is elongated over the time interval."
+      },
+      {
+        "id": 377114,
+        "content_html": "The softer surface decreases the duration of the impact, thereby increasing the effect of the force.",
+        "correctness": "0.0",
+        "feedback_html": "On a softer surface, the impact of the force is elongated over the time interval. It is incorrect that the softer surface decreases the duration of impact."
+      }
+    ],
+    "group_uuid": "744181b4-3793-4afe-9680-3217f024a62e",
+    "stem_html": "Why does it hurt less when you fall on a softer surface?",
+    "tags": "744181b4-3793-4afe-9680-3217f024a62e",
+    "uid": "2670@7"
+  }
+]

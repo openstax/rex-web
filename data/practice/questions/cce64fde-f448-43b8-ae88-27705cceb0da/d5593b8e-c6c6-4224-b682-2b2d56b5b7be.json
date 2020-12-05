@@ -1,0 +1,130 @@
+[
+  {
+    "answers": [
+      {
+        "id": 207201,
+        "content_html": "The effect of the momentum would increase due to the decreased inertia of the sails.",
+        "correctness": "0.0",
+        "feedback_html": "The statement is correct that the effect of momentum would increase due to decreased inertia of the sails. But here the solar sails are constructed of more massive materials and so there must be an increase in the inertia of the sails."
+      },
+      {
+        "id": 207202,
+        "content_html": "The effect of the momentum would reduce due to the decreased inertia of the sails.",
+        "correctness": "0.0",
+        "feedback_html": "An increase in mass would lead to an increase in inertia."
+      },
+      {
+        "id": 207203,
+        "content_html": "The effect of the momentum would increase due to the increased inertia of the sails.",
+        "correctness": "0.0",
+        "feedback_html": "No, an increase in inertia of the sail would reduce the effect of momentum."
+      },
+      {
+        "id": 207204,
+        "content_html": "The effect of the momentum would be reduced due to the increased inertia of the sails.",
+        "correctness": "1.0",
+        "feedback_html": "Due to increase in the mass of the sail, its inertia will increase, and this increase in inertia would reduce the effect of the momentum."
+      }
+    ],
+    "group_uuid": "d69e1f4c-ef40-424d-9714-4322dd18bc74",
+    "stem_html": "If solar sails were constructed with more massive materials, how would this influence their effectiveness?",
+    "tags": "d69e1f4c-ef40-424d-9714-4322dd18bc74",
+    "uid": "11517@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 414782,
+        "content_html": "1, 2, 3, 4, 5, 6",
+        "correctness": "0.0",
+        "feedback_html": "This is not the correct sequence."
+      },
+      {
+        "id": 414783,
+        "content_html": "2, 1, 3, 4, 5, 6",
+        "correctness": "0.0",
+        "feedback_html": "This is not the correct sequence."
+      },
+      {
+        "id": 414784,
+        "content_html": "2, 1, 5, 4, 6, 3",
+        "correctness": "1.0",
+        "feedback_html": "2, 1, 5, 4, 6, 3 is the correct sequence of the situation given."
+      },
+      {
+        "id": 414785,
+        "content_html": "2, 1, 5, 6, 3, 4",
+        "correctness": "0.0",
+        "feedback_html": "This is not the correct sequence."
+      }
+    ],
+    "group_uuid": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
+    "stem_html": "Although the scientific method is used by most of the sciences, it can also be applied to everyday situations. A situation is given below. Using the scientific method try to arrange the given steps in the correct order. \nSituation:\n<ol>\n  <li>If the car doesn’t start the problem might be in the battery.</li>\n  <li>Car doesn’t start.</li>\n  <li>After changing the battery. Car starts working.</li>\n  <li>The car should start after charging the battery or changing the battery.</li>\n  <li>The car doesn’t start because the battery is dead.</li>\n  <li>The car doesn’t start even after charging the battery, the battery must have stopped working.</li>\n</ol>\n",
+    "tags": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
+    "uid": "8@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 207340,
+        "content_html": "The frequency of the photon will drop to zero.",
+        "correctness": "0.0",
+        "feedback_html": "This is impractical, since the photon does not lose all of its energy in a collision."
+      },
+      {
+        "id": 207339,
+        "content_html": "The frequency of the photon will remain the same.",
+        "correctness": "0.0",
+        "feedback_html": "Frequency is proportional to the energy of the photon. Since energy of the photon decreases in a collision, so frequency will also decrease."
+      },
+      {
+        "id": 207338,
+        "content_html": "The frequency of the photon will increase.",
+        "correctness": "0.0",
+        "feedback_html": "Energy in a collision decreases."
+      },
+      {
+        "id": 207341,
+        "content_html": "The frequency of the photon will decrease.",
+        "correctness": "1.0",
+        "feedback_html": "Upon collision, the photon loses some energy and hence its frequency decreases."
+      }
+    ],
+    "group_uuid": "d3e1f0ca-0d24-4ae2-9d39-0f55b20d8214",
+    "stem_html": "Upon collision, what happens to the frequency of a photon?",
+    "tags": "d3e1f0ca-0d24-4ae2-9d39-0f55b20d8214",
+    "uid": "11556@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 346868,
+        "content_html": "No, it is not a natural science because it is not used in the study of the natural world.",
+        "correctness": "0.0",
+        "feedback_html": "Mathematics is used in the study of the natural world, but that does not explain whether it is a natural science."
+      },
+      {
+        "id": 346871,
+        "content_html": "No, it is not a natural science. Mathematics focuses on understanding mathematical relations and calculations, which is useful in natural sciences but which is distinct.",
+        "correctness": "1.0",
+        "feedback_html": "Mathematics is not a natural science as it does not use chemical and physical measurements like other fields in natural sciences."
+      },
+      {
+        "id": 346869,
+        "content_html": "Yes, it is a natural science. Mathematics deals with verifying the experimental data.",
+        "correctness": "0.0",
+        "feedback_html": "Mathematics does not use the chemical and physical measurements, therefore it is not natural science."
+      },
+      {
+        "id": 346870,
+        "content_html": "Yes, it is a natural science. It uses chemical and physical measurements.",
+        "correctness": "0.0",
+        "feedback_html": "Mathematics does not use chemical and physical measurements."
+      }
+    ],
+    "group_uuid": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
+    "stem_html": "Is mathematics a natural science? Explain your reasoning.",
+    "tags": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
+    "uid": "7@6"
+  }
+]

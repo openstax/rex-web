@@ -1,15 +1,16 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
+import { assertWindow } from '../../../utils';
+import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
-import { CloseIcon, CloseIconWrapper, Header, Modal, PopupWrapper } from '../../styles/PopupStyles';
+import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
 import { closePracticeQuestions } from '../actions';
-import { practiceQuestionsOpen } from '../selectors';
+import * as pqSelectors from '../selectors';
 import ShowPracticeQuestions from './ShowPracticeQuestions';
 
 // tslint:disable-next-line: variable-name
@@ -17,19 +18,21 @@ const PracticeQuestionsPopup = () => {
   const dispatch = useDispatch();
   const popUpRef = React.useRef<HTMLElement>(null);
   const trackOpenClosePQ = useAnalyticsEvent('openClosePracticeQuestions');
-  const isPracticeQuestionsOpen = useSelector(practiceQuestionsOpen);
+  const isPracticeQuestionsOpen = useSelector(pqSelectors.practiceQuestionsOpen);
+  const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
   const bookTheme = useSelector(bookThemeSelector);
+  const intl = useIntl();
 
-  const closeAndTrack = () => {
+  const closeAndTrack = React.useCallback((method: string) => () => {
+    if (currentQuestionIndex !== null) {
+      const message = intl.formatMessage({ id: 'i18n:practice-questions:popup:warning-before-close' });
+      if (!assertWindow().confirm(message)) { return; }
+    }
     dispatch(closePracticeQuestions());
-    trackOpenClosePQ('esc');
-  };
+    trackOpenClosePQ(method);
+  }, [dispatch, currentQuestionIndex, trackOpenClosePQ, intl]);
 
-  const closePracticeQuestionsPopUp = () => {
-    dispatch(closePracticeQuestions());
-  };
-
-  useOnEsc(popUpRef, isPracticeQuestionsOpen, closeAndTrack);
+  useOnEsc(popUpRef, isPracticeQuestionsOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;
@@ -39,45 +42,37 @@ const PracticeQuestionsPopup = () => {
     }
   }, [isPracticeQuestionsOpen]);
 
-  return isPracticeQuestionsOpen ? (
-    <PopupWrapper>
-      <ScrollLock
-        overlay={true}
-        mobileOnly={false}
-        zIndex={theme.zIndex.highlightSummaryPopup}
-        onClick={() => {
-          closePracticeQuestionsPopUp();
-          trackOpenClosePQ('overlay');
-        }}
-      />
-      <Modal
-        ref={popUpRef}
-        tabIndex='-1'
-        data-testid='practice-questions-popup-wrapper'
-      >
-        <Header colorSchema={bookTheme}>
-          <FormattedMessage id='i18n:practice-questions:popup:heading'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-          <FormattedMessage id='i18n:practice-questions:popup:close'>
-            {(msg: string) => (
-              <CloseIconWrapper
-                data-testid='close-practice-questions-popup'
-                aria-label={msg}
-                onClick={() => {
-                  closePracticeQuestionsPopUp();
-                  trackOpenClosePQ('button');
-                }}
-              >
-                <CloseIcon colorSchema={bookTheme} />
-              </CloseIconWrapper>
-            )}
-          </FormattedMessage>
-        </Header>
-        <ShowPracticeQuestions />
-      </Modal>
-    </PopupWrapper>
-  ) : null;
+  return isPracticeQuestionsOpen ?
+    <Modal
+      ref={popUpRef}
+      tabIndex='-1'
+      data-testid='practice-questions-popup-wrapper'
+      scrollLockProps={{
+        mobileOnly: false,
+        onClick: closeAndTrack('overlay'),
+        overlay: true,
+        zIndex: theme.zIndex.highlightSummaryPopup,
+      }}
+    >
+      <Header colorSchema={bookTheme}>
+        <FormattedMessage id='i18n:practice-questions:popup:heading'>
+          {(msg: Element | string) => msg}
+        </FormattedMessage>
+        <FormattedMessage id='i18n:practice-questions:popup:close'>
+          {(msg: string) => (
+            <CloseIconWrapper
+              data-testid='close-practice-questions-popup'
+              aria-label={msg}
+              onClick={closeAndTrack('button')}
+            >
+              <CloseIcon colorSchema={bookTheme} />
+            </CloseIconWrapper>
+          )}
+        </FormattedMessage>
+      </Header>
+      <ShowPracticeQuestions />
+    </Modal>
+  : null;
 };
 
 export default PracticeQuestionsPopup;
