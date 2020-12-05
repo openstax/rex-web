@@ -1,9 +1,6 @@
 # flake8: noqa
 import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
-import random
-import re
-from selenium.webdriver.common.by import By
 
 from tests import markers
 from pages.content import Content
