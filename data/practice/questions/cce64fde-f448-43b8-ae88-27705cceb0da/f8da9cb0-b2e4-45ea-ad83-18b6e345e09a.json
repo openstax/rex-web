@@ -1,0 +1,98 @@
+[
+  {
+    "answers": [
+      {
+        "id": 346888,
+        "content_html": "Most swimming animals use fins; therefore, fins are an adaptation to swimming.",
+        "correctness": "0.0",
+        "feedback_html": "No result can be predicted from this statement. Therefore, the reasoning is not deductive."
+      },
+      {
+        "id": 346889,
+        "content_html": "Mitochondria are inherited from the mother; therefore, maternally inherited traits are encoded by mitochondrial DNA",
+        "correctness": "0.0",
+        "feedback_html": "This is not an example of deductive approach."
+      },
+      {
+        "id": 346890,
+        "content_html": "Small animals lose more heat than larger animals. One would not expect to find wild mice in the poles.",
+        "correctness": "0.0",
+        "feedback_html": "This statement does not represent the deductive approach."
+      },
+      {
+        "id": 346891,
+        "content_html": "Water conservation is a major requirement to survive in the desert. Long leaves increase loss of water by evaporation. Therefore, desert plants should have smaller leaves.",
+        "correctness": "1.0",
+        "feedback_html": "The example given represents deductive reasoning because from a general premise, results are predicted."
+      }
+    ],
+    "group_uuid": "5d9483ba-69bf-4df6-8bf7-a730668d6960",
+    "stem_html": "Which of the following is an example of deductive reasoning?",
+    "tags": "5d9483ba-69bf-4df6-8bf7-a730668d6960",
+    "uid": "32@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 470572,
+        "content_html": "hemoglobin, red blood cells, blood, blood vessels, cardiovascular system",
+        "correctness": "1.0",
+        "feedback_html": "The correct ranking with respect to increasing complexity is hemoglobin, red blood cells, blood, blood vessels, cardiovascular system."
+      },
+      {
+        "id": 470569,
+        "content_html": "hemoglobin, red blood cells, blood, artery, cardiovascular system",
+        "correctness": "0.0",
+        "feedback_html": "Veins are a part of the cardiovascular system. Veins and arteries are both types of blood vessels."
+      },
+      {
+        "id": 470570,
+        "content_html": "red blood cells, hemoglobin, blood, blood vessels, cardiovascular system",
+        "correctness": "0.0",
+        "feedback_html": "Red blood cells have higher complexity than hemoglobin."
+      },
+      {
+        "id": 470571,
+        "content_html": "oxygen, carbon dioxide, red blood cells, hemoglobin, blood, artery, cardiovascular system",
+        "correctness": "0.0",
+        "feedback_html": "Oxygen and carbon dioxide are not part of the cardiovascular system."
+      }
+    ],
+    "group_uuid": "73de850f-3c64-4b61-97fd-5a79bf61b14b",
+    "stem_html": "Consider the cardiovascular system. Rank in order of increasing complexity all its levels of organization starting with the hemoglobin.",
+    "tags": "73de850f-3c64-4b61-97fd-5a79bf61b14b",
+    "uid": "41@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 192412,
+        "content_html": "<span data-math=\"1.22\\,\\text{m}\">1.22\\,\\text{m}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Surface area must be calculated using the square of the radius."
+      },
+      {
+        "id": 192413,
+        "content_html": "<span data-math=\"1.09\\,\\text{m}\">1.09\\,\\text{m}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The applied formula is incorrect."
+      },
+      {
+        "id": 192414,
+        "content_html": "<span data-math=\"0.96\\,\\text{m}\">0.96\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The calculation of surface area is not correct."
+      },
+      {
+        "id": 192415,
+        "content_html": "<span data-math=\"1.94\\,\\text{m}\">1.94\\,\\text{m}</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "The lighting fixture has to be lowered to the calculated height to provide the required illuminance."
+      }
+    ],
+    "group_uuid": "38369e63-c959-4b83-b435-d5f9149a01d1",
+    "stem_html": "The Occupational Safety and Health Administration (OSHA) recommends an illuminance of <span data-math=\"500\\,\\text{lx}\">500\\,\\text{lx}</span> for desktop lighting. An office space has lighting hung <span data-math=\"2.50\\,\\text{m}\">2.50\\,\\text{m}</span> above desktop level that provides only <span data-math=\"300\\,\\text{lx}\">300\\,\\text{lx}</span>. To what height would the lighting fixtures have to be lowered to provide <span data-math=\"500\\,\\text{lx}\">500\\,\\text{lx}</span> on desktops?",
+    "tags": "38369e63-c959-4b83-b435-d5f9149a01d1",
+    "uid": "11162@4"
+  }
+]

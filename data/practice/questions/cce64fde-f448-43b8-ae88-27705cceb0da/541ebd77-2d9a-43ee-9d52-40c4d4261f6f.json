@@ -1,0 +1,284 @@
+[
+  {
+    "answers": [
+      {
+        "id": 376163,
+        "content_html": "Circular motion is the motion of an object when it follows a linear path.",
+        "correctness": "0.0",
+        "feedback_html": "An object that follows a linear path is said to be moving in a straight line."
+      },
+      {
+        "id": 376162,
+        "content_html": "Circular motion is the motion of an object when it follows a zigzag path.",
+        "correctness": "0.0",
+        "feedback_html": "The object in a zigzag path moves in random directions. "
+      },
+      {
+        "id": 376164,
+        "content_html": "Circular motion is the motion of an object when it follows a circular path.",
+        "correctness": "1.0",
+        "feedback_html": "The circular motion of an object is a motion where the object moves in a circular path."
+      },
+      {
+        "id": 376161,
+        "content_html": "Circular motion is the movement of an object along the circumference of a circle or rotation along a circular path.",
+        "correctness": "0.0",
+        "feedback_html": "To and from motion is when an object performs a repeated motion about a point called the mean position. "
+      }
+    ],
+    "group_uuid": "b183f3c0-a286-4891-9582-3768bb2e4dda",
+    "stem_html": "What is circular motion?",
+    "tags": "b183f3c0-a286-4891-9582-3768bb2e4dda",
+    "uid": "2416@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 469286,
+        "content_html": "chloroplasts and mitochondria",
+        "correctness": "0.0",
+        "feedback_html": "Photosynthesis takes place in chloroplasts, whereas cellular respiration takes place in the mitochondria. Therefore, these processes do not occur in the same organelles."
+      },
+      {
+        "id": 469287,
+        "content_html": "Photosystems I and II",
+        "correctness": "0.0",
+        "feedback_html": "Photosystems I and II are only present in chloroplast thylakoid membranes and not in the mitochondria."
+      },
+      {
+        "id": 469289,
+        "content_html": "the cytochrome complex",
+        "correctness": "1.0",
+        "feedback_html": "Photosynthesis and cellular respiration both require the cytochrome complex for electron transport, but the roles in each process differ."
+      },
+      {
+        "id": 469288,
+        "content_html": "thylakoids",
+        "correctness": "0.0",
+        "feedback_html": "Thylakoids are only present in chloroplasts and not in mitochondria."
+      }
+    ],
+    "group_uuid": "409bd29c-7c90-4e45-8d29-cc79d2d8a912",
+    "stem_html": "Photosynthesis and cellular respiration are found throughout the eukaryotic world. They are complementary to each other because they each use products of the other process. What do the two pathways share?",
+    "tags": "409bd29c-7c90-4e45-8d29-cc79d2d8a912",
+    "uid": "586@9"
+  },
+  {
+    "answers": [
+      {
+        "id": 414977,
+        "content_html": "an artificial satellite orbiting the Earth, a race car moving in the circular race track, and a top spinning on its axis",
+        "correctness": "0.0",
+        "feedback_html": "A spinning top is an example of rotational motion, not circular motion."
+      },
+      {
+        "id": 414978,
+        "content_html": "an artificial satellite orbiting the Earth, a race car moving in the circular race track, and a ball tied to a string being swung in a circle around a person's head",
+        "correctness": "1.0",
+        "feedback_html": "In circular motion, the body moves in a circular path generally around a second stationary body."
+      },
+      {
+        "id": 414979,
+        "content_html": "Earth spinning on its own axis, a race car moving in the circular race track, and a ball tied to a string being swung in a circle around a person's head",
+        "correctness": "0.0",
+        "feedback_html": "Earth has two types of motion, which are rotational and circular motion. Spinning of Earth on its own axis is an example of rotational motion."
+      },
+      {
+        "id": 414980,
+        "content_html": "Earth spinning on its own axis, blades of a working ceiling fan, and a top spinning on its own axis",
+        "correctness": "0.0",
+        "feedback_html": "These are all examples of rotational motion. Recall the definition for circular motion."
+      }
+    ],
+    "group_uuid": "a1b44cc9-63a0-4273-9502-451ae5c65125",
+    "stem_html": "Identify three examples of an object in circular motion.",
+    "tags": "a1b44cc9-63a0-4273-9502-451ae5c65125",
+    "uid": "2420@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 291563,
+        "content_html": "<span data-math=\"1\\,\\text{rev} = \\pi\\,\\text{rad}=180^\\circ\">1\\,\\text{rev} = \\pi\\,\\text{rad}=180^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "One revolution is one complete cycle of rotation. "
+      },
+      {
+        "id": 291562,
+        "content_html": "<span data-math=\"1\\,\\text{rev} = \\pi\\,\\text{rad}=360^\\circ\\!\">1\\,\\text{rev} = \\pi\\,\\text{rad}=360^\\circ\\!</span>",
+        "correctness": "0.0",
+        "feedback_html": "One revolution is one complete cycle of rotation. "
+      },
+      {
+        "id": 291561,
+        "content_html": "<span data-math=\"1\\,\\text{rev} = 2\\pi\\,\\text{rad} = 180^\\circ\\!\">1\\,\\text{rev} = 2\\pi\\,\\text{rad} = 180^\\circ\\!</span>",
+        "correctness": "0.0",
+        "feedback_html": "One revolution is one complete cycle of rotation. "
+      },
+      {
+        "id": 291564,
+        "content_html": "<span data-math=\"1\\,\\text{rev} = 2\\pi\\,\\text{rad}=360^\\circ\">1\\,\\text{rev} = 2\\pi\\,\\text{rad}=360^\\circ</span>",
+        "correctness": "1.0",
+        "feedback_html": "The conversion factor for <span data-math=\"1\\,\\text{rev} = 2\\pi\\,\\text{rad} = 360^\\circ\">1\\,\\text{rev} = 2\\pi\\,\\text{rad} = 360^\\circ</span>"
+      }
+    ],
+    "group_uuid": "0b0f8766-a12d-4a85-9e7c-5520fc169d44",
+    "stem_html": "One revolution is equal to how many radians? Degrees?",
+    "tags": "0b0f8766-a12d-4a85-9e7c-5520fc169d44",
+    "uid": "2422@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 346974,
+        "content_html": "Astrology is a natural science as it indirectly influences human affairs and the natural world.",
+        "correctness": "0.0",
+        "feedback_html": "Astrology is not natural science."
+      },
+      {
+        "id": 346975,
+        "content_html": "Astronomy is a natural science as it deals with observations and prediction of events in the sky, which is based on the laws of physics.",
+        "correctness": "1.0",
+        "feedback_html": "Astronomy is a natural science that deals with the study of celestial objects such as stars, galaxies, planets, moons, asteroids, comets and nebulae. It helps in the prediction of events in the sky and encompasses the laws of physics."
+      },
+      {
+        "id": 346973,
+        "content_html": "Astrology is a natural science as it deals with observations and prediction of events in the sky, influences human affairs and the natural world.",
+        "correctness": "0.0",
+        "feedback_html": "Astrology does not deal with the prediction of events in the sky."
+      },
+      {
+        "id": 346972,
+        "content_html": "Astrology is a natural science as it deals with the study of asteroids and comets, which is based on the laws of natural sciences.",
+        "correctness": "0.0",
+        "feedback_html": "Astronomy is a natural science not astrology."
+      }
+    ],
+    "group_uuid": "adbd46e0-690a-4118-8438-72fd2c4e6375",
+    "stem_html": "Both astronomy and astrology study the stars. Which one is considered a natural science? Explain your reasoning.",
+    "tags": "adbd46e0-690a-4118-8438-72fd2c4e6375",
+    "uid": "21@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 376214,
+        "content_html": "<span data-math=\"\\text{m/s}\">\\text{m/s}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The tangential velocity is a linear velocity; so the units are <span data-math=\"\\text{m/s}\">\\text{m/s}</span>."
+      },
+      {
+        "id": 376213,
+        "content_html": "<span data-math=\"\\text{rad/s}\">\\text{rad/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The SI unit of angular velocity is <span data-math=\"\\text{rad/s}\">\\text{rad/s}</span>. The tangential velocity is a linear velocity defined at an instantaneous moment."
+      },
+      {
+        "id": 376212,
+        "content_html": "<span data-math=\"^\\circ\\text{/s}\">^\\circ\\text{/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"^\\circ\\text{/s}\">^\\circ\\text{/s}</span> is the unit for angular velocity. The tangential velocity is a linear velocity."
+      }
+    ],
+    "group_uuid": "81104b48-b79d-46bb-9687-35f2a44e7fde",
+    "stem_html": "What are possible units for tangential velocity?",
+    "tags": "81104b48-b79d-46bb-9687-35f2a44e7fde",
+    "uid": "2430@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 376225,
+        "content_html": "<span data-math=\"v = \\frac{\\omega}{r}\">v = \\frac{\\omega}{r}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The linear speed is angular speed times the radius of the rotating object."
+      },
+      {
+        "id": 376226,
+        "content_html": "<span data-math=\"v = r\\omega\">v = r\\omega</span>",
+        "correctness": "1.0",
+        "feedback_html": "The linear speed for a rotating object is <span data-math=\"v = r\\omega\">v = r\\omega</span> , where <span data-math=\"\\omega\">\\omega</span> is the angular speed."
+      },
+      {
+        "id": 376224,
+        "content_html": "<span data-math=\"v = \\frac{\\alpha}{r}\">v = \\frac{\\alpha}{r}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The units of each side of the equation <span data-math=\"v = \\frac{\\alpha}{r}\">v = \\frac{\\alpha}{r}</span> are not the same, so this is not possible. "
+      },
+      {
+        "id": 376223,
+        "content_html": "<span data-math=\"v = r\\alpha\">v = r\\alpha</span>",
+        "correctness": "0.0",
+        "feedback_html": "The linear speed is angular speed times the radius of the rotating object."
+      }
+    ],
+    "group_uuid": "42892674-69b9-4dd5-bba7-68f8093b2267",
+    "stem_html": "What is the equation that relates the linear speed of a point on a rotating object with the object's angular quantities?",
+    "tags": "42892674-69b9-4dd5-bba7-68f8093b2267",
+    "uid": "2433@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 474149,
+        "content_html": "<span data-math=\"\\text{H}^+\\!\">\\text{H}^+\\!</span> is pumped into the mitochondrial matrix.",
+        "correctness": "0.0",
+        "feedback_html": "Hydrogen ions are not pumped into the matrix."
+      },
+      {
+        "id": 474148,
+        "content_html": "<span data-math=\"\\text{FAD}^+\\!\">\\text{FAD}^+\\!</span> is reduced to <span data-math=\"\\text{FADH}_2\">\\text{FADH}_2</span>.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that in the electron transport chain, the electrons are transferred to the final acceptor, producing ATP in the process. Therefore, <span data-math=\"\\text{FADH}_2\">\\text{FADH}_2</span> is oxidized during the electron transport chain, but reduced during the Krebs cycle."
+      },
+      {
+        "id": 474147,
+        "content_html": "<span data-math=\"\\text{NAD}^+\\!\">\\text{NAD}^+\\!</span> is reduced to NADH.",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"\\text{NAD}^+\\!\">\\text{NAD}^+\\!</span> gets reduced to NADH during glycolysis, the formation of acetyl-CoA and the Krebs cycle. NADH is then oxidized during the electron transport chain."
+      },
+      {
+        "id": 474150,
+        "content_html": "Oxygen is reduced to form water.",
+        "correctness": "1.0",
+        "feedback_html": "The electrons donated by FADH and NADH are accepted by cytochromes of the electron transport chain present in the inner mitochondrial membrane. At the end of the chain, these electrons reduce oxygen to form water."
+      }
+    ],
+    "group_uuid": "e3e73e2c-bfb2-4736-9f33-8f83e1d9a302",
+    "stem_html": "Which of the following statements about the electron transport chain is true?",
+    "tags": "e3e73e2c-bfb2-4736-9f33-8f83e1d9a302",
+    "uid": "560@10"
+  },
+  {
+    "answers": [
+      {
+        "id": 376243,
+        "content_html": "The point near the center would have the greater angular velocity and the point near the outer edge would have the higher linear velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Angular velocity is same for both points."
+      },
+      {
+        "id": 376244,
+        "content_html": "The point near the edge would have the greater angular velocity and the point near the center would have the higher linear velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Angular velocity is same for both points. Also, the point with the greater radius would have the higher linear velocity."
+      },
+      {
+        "id": 376246,
+        "content_html": "Both have the same angular velocity and the point near the outer edge would have the higher linear velocity.",
+        "correctness": "1.0",
+        "feedback_html": "The angular velocity for both points is same and the point near the edge would have the higher linear velocity because it is at a larger radius than the inner point."
+      },
+      {
+        "id": 376245,
+        "content_html": "Both have the same angular velocity and the point near the center would have the higher linear velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Both points would have the same angular velocity, but the point near edge would have the higher linear velocity."
+      }
+    ],
+    "group_uuid": "0ec306e0-f8fc-4048-ab80-dd840a9f7d9b",
+    "stem_html": "Consider two pits on a CD, one close to the center and one close to the outer edge. For a given angular velocity of the CD, which pit has a higher angular velocity? Which has a higher tangential velocity?",
+    "tags": "0ec306e0-f8fc-4048-ab80-dd840a9f7d9b",
+    "uid": "2438@5"
+  }
+]

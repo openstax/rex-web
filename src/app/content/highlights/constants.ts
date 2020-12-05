@@ -1,3 +1,5 @@
+export const modalUrlName = 'MH';
+
 export const cardWidth = 20;
 export const cardPadding = 0.8;
 export const cardContentMargin = 3;

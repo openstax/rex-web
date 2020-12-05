@@ -1,0 +1,34 @@
+[
+  {
+    "answers": [
+      {
+        "id": 472315,
+        "content_html": "2 only",
+        "correctness": "0.0",
+        "feedback_html": "Prokaryotes also come under the domain Archaea."
+      },
+      {
+        "id": 472316,
+        "content_html": "3 only",
+        "correctness": "0.0",
+        "feedback_html": "Prokaryotes do not come under the domain Eukarya."
+      },
+      {
+        "id": 472318,
+        "content_html": "1 and 2",
+        "correctness": "1.0",
+        "feedback_html": "Both Archaea and Bacteria contains prokaryotes."
+      },
+      {
+        "id": 472317,
+        "content_html": "2 and 3",
+        "correctness": "0.0",
+        "feedback_html": "Bacteria contain prokaryotes. The prokaryotes cannot classify under the eukarya domain since they are enucleated."
+      }
+    ],
+    "group_uuid": "75375145-0f7c-4160-b895-4deb34497de0",
+    "stem_html": "<p>Which of the following domains contain prokaryotes?</p>\n\n<ol>\n  <li>Archaea</li>\n  <li>Bacteria</li>\n  <li>Eukarya</li>\n</ol>\n",
+    "tags": "75375145-0f7c-4160-b895-4deb34497de0",
+    "uid": "39@9"
+  }
+]

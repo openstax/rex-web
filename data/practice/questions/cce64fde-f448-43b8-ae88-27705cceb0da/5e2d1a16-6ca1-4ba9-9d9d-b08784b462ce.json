@@ -1,0 +1,98 @@
+[
+  {
+    "answers": [
+      {
+        "id": 391653,
+        "content_html": "Light is always polarized.",
+        "correctness": "0.0",
+        "feedback_html": "Light may or may not be polarized, but that does not affect its wavefront formation, which determines its nonparallel behavior."
+      },
+      {
+        "id": 391654,
+        "content_html": "Light is always reflected.",
+        "correctness": "0.0",
+        "feedback_html": "Light is reflected, but that is not the reason that the beam spreads out."
+      },
+      {
+        "id": 391655,
+        "content_html": "Light is always refracted.",
+        "correctness": "0.0",
+        "feedback_html": "Monochromatic light does not spread out due to refraction."
+      },
+      {
+        "id": 391656,
+        "content_html": "Light is always diffracted.",
+        "correctness": "1.0",
+        "feedback_html": "The beam of light spreads out because of diffraction of its wavefronts."
+      }
+    ],
+    "group_uuid": "b872eaff-f3d8-4e62-9c9b-a81fd23cf432",
+    "stem_html": "A beam of light always spreads out. Why can a beam not be produced with parallel rays to prevent spreading?",
+    "tags": "b872eaff-f3d8-4e62-9c9b-a81fd23cf432",
+    "uid": "11347@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 346868,
+        "content_html": "No, it is not a natural science because it is not used in the study of the natural world.",
+        "correctness": "0.0",
+        "feedback_html": "Mathematics is used in the study of the natural world, but that does not explain whether it is a natural science."
+      },
+      {
+        "id": 346871,
+        "content_html": "No, it is not a natural science. Mathematics focuses on understanding mathematical relations and calculations, which is useful in natural sciences but which is distinct.",
+        "correctness": "1.0",
+        "feedback_html": "Mathematics is not a natural science as it does not use chemical and physical measurements like other fields in natural sciences."
+      },
+      {
+        "id": 346869,
+        "content_html": "Yes, it is a natural science. Mathematics deals with verifying the experimental data.",
+        "correctness": "0.0",
+        "feedback_html": "Mathematics does not use the chemical and physical measurements, therefore it is not natural science."
+      },
+      {
+        "id": 346870,
+        "content_html": "Yes, it is a natural science. It uses chemical and physical measurements.",
+        "correctness": "0.0",
+        "feedback_html": "Mathematics does not use chemical and physical measurements."
+      }
+    ],
+    "group_uuid": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
+    "stem_html": "Is mathematics a natural science? Explain your reasoning.",
+    "tags": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
+    "uid": "7@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 476561,
+        "content_html": "complete dominance",
+        "correctness": "0.0",
+        "feedback_html": "If the color trait is completely dominant, the F1 generation would have been all red or all blue depending on the dominant allele, but here we obtained violet color flowers."
+      },
+      {
+        "id": 476560,
+        "content_html": "codominance",
+        "correctness": "0.0",
+        "feedback_html": "In codominance, both alleles of a gene express equally."
+      },
+      {
+        "id": 476562,
+        "content_html": "incomplete dominance",
+        "correctness": "1.0",
+        "feedback_html": "A cross between a blue (BB) flower and a red (RR) flower produces all violet (BR) flowers as a result of incomplete dominance. Both alleles when present produce intermediate inheritance, in which one allele for the trait is not completely expressed over its paired allele."
+      },
+      {
+        "id": 476559,
+        "content_html": "sex-linked",
+        "correctness": "0.0",
+        "feedback_html": "Try to recall the deviations from Mendelian inheritance."
+      }
+    ],
+    "group_uuid": "0edda2cf-7c52-40e4-89cf-7c5c6993cb0f",
+    "stem_html": "Petunias can be blue, red, or violet. When a blue flower is crossed with a red flower, all the resulting flowers are violet. When a violet flower is crossed with a red flower, about half of the flowers are violet and half are red. How do you characterize the color trait?",
+    "tags": "0edda2cf-7c52-40e4-89cf-7c5c6993cb0f",
+    "uid": "898@8"
+  }
+]

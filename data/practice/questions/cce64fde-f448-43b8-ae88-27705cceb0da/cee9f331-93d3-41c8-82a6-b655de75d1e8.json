@@ -1,0 +1,130 @@
+[
+  {
+    "answers": [
+      {
+        "id": 206697,
+        "content_html": "<span data-math=\"E = \\frac{hf}{n}\">E = \\frac{hf}{n}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This relation is dimensionally correct but energy is not inversely proportional to n."
+      },
+      {
+        "id": 206696,
+        "content_html": "<span data-math=\"E = \\frac{nh}{f}\">E = \\frac{nh}{f}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This relation is not dimensionally correct."
+      },
+      {
+        "id": 206695,
+        "content_html": "<span data-math=\"E = \\frac{{nf}}{h}\">E = \\frac{{nf}}{h}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This relation is not dimensionally correct."
+      },
+      {
+        "id": 206698,
+        "content_html": "<span data-math=\"E = nhf\">E = nhf</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "Energy is equal to n times the product of Planck’s constant and frequency."
+      }
+    ],
+    "group_uuid": "a0d52268-de7a-488a-8dd3-3b0e4aff34fc",
+    "stem_html": "What is the mathematical relationship linking the energy of a photon to its frequency?",
+    "tags": "a0d52268-de7a-488a-8dd3-3b0e4aff34fc",
+    "uid": "11384@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 347150,
+        "content_html": "Molecules with the formulas <span data-math=\"\\text{CH}_3\\text{CH}_2\\text{OH}\">\\text{CH}_3\\text{CH}_2\\text{OH}</span> and <span data-math=\"\\text{C}_3\\text{H}_6\\text{O}_2\">\\text{C}_3\\text{H}_6\\text{O}_2</span> could be structural isomers.",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"\\text{CH}_3\\text{CH}_2\\text{OH}\">\\text{CH}_3\\text{CH}_2\\text{OH}</span> is an alcohol while <span data-math=\"\\text{C}_3\\text{H}_6\\text{O}_2\">\\text{C}_3\\text{H}_6\\text{O}_2</span> is a carboxylic acid. Because they are different molecules with different numbers of atoms, they cannot be structural isomers."
+      },
+      {
+        "id": 347149,
+        "content_html": "Molecules must have a single bond to be cis-trans isomers.",
+        "correctness": "0.0",
+        "feedback_html": "Cis-trans isomers do not rotate around single bonds"
+      },
+      {
+        "id": 347148,
+        "content_html": "To be enantiomers, a molecule must have at least three different atoms or groups connected to a central carbon",
+        "correctness": "0.0",
+        "feedback_html": "Recall enantiomers have just three different atoms connected to central carbon atom, not more than that"
+      },
+      {
+        "id": 347151,
+        "content_html": "To be enantiomers, a molecule must have at least four different atoms or groups connected to a central carbon",
+        "correctness": "1.0",
+        "feedback_html": "To be an enantiomer, a molecule must have at least four different atoms attached to the central carbon atom"
+      }
+    ],
+    "group_uuid": "2b0e8e49-262a-4297-93d1-b557abaf0bed",
+    "stem_html": "Which of the following statements is true?",
+    "tags": "2b0e8e49-262a-4297-93d1-b557abaf0bed",
+    "uid": "69@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 338457,
+        "content_html": "The presence of limestone would not make a difference.",
+        "correctness": "0.0",
+        "feedback_html": "Calcium carbonate acts as a buffer that minimizes pH changes"
+      },
+      {
+        "id": 338458,
+        "content_html": "An environment rich in limestone would be more affected by acid rain.",
+        "correctness": "0.0",
+        "feedback_html": "Calcium carbonate acts as a buffer that minimizes pH changes."
+      },
+      {
+        "id": 338459,
+        "content_html": "An environment poor in limestone would be more affected by acid rain.",
+        "correctness": "1.0",
+        "feedback_html": "Calcium carbonate acts as a buffer that minimizes pH changes, so an area poor in limestone would be more affected by acid rain than an area rich in limestone."
+      },
+      {
+        "id": 338460,
+        "content_html": "The impact would depend on the type of vegetation present.",
+        "correctness": "0.0",
+        "feedback_html": "Some vegetation may be more sensitive to acid rain than others, but all vegetation would benefit from calcium carbonate buffering."
+      }
+    ],
+    "group_uuid": "db5ad74e-3b11-4689-ba6f-4e1928a4a2eb",
+    "stem_html": "Limestone is a naturally occurring mineral rich in calcium carbonate (<span data-math=\"\\text{CaCO}_3\">\\text{CaCO}_3</span>). In water, calcium carbonate dissolves to form carbonate <span data-math=\"({{\\text{CO}_3}}^{2-})\">({{\\text{CO}_3}{\\!}}^{2-})</span>, a weak base that acts as a buffer. Which would you expect to be more affected by acid rain, an environment rich in limestone or an environment poor in limestone?",
+    "tags": "db5ad74e-3b11-4689-ba6f-4e1928a4a2eb",
+    "uid": "74@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 347059,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"6\">6</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
+        "correctness": "1.0",
+        "feedback_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"6\">6</span>, respectively. While, that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively."
+      },
+      {
+        "id": 347056,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"12\">12</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
+        "correctness": "0.0",
+        "feedback_html": "The atomic number of carbon-13 is not <span data-math=\"12\">12</span>."
+      },
+      {
+        "id": 347057,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"13\">13</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
+        "correctness": "0.0",
+        "feedback_html": "The mass number and atomic number of carbon-13 are not the same for this isotope of carbon."
+      },
+      {
+        "id": 347058,
+        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"12\">12</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"12\">12</span>, respectively.",
+        "correctness": "0.0",
+        "feedback_html": "The atomic number of carbon, and all of its isotopes, is not <span data-math=\"12\">12</span>."
+      }
+    ],
+    "group_uuid": "7b96c761-af83-4b1b-be9b-a0a7455ba2fb",
+    "stem_html": "List the mass number and atomic number of carbon-12 and carbon-13, respectively.",
+    "tags": "7b96c761-af83-4b1b-be9b-a0a7455ba2fb",
+    "uid": "53@5"
+  }
+]

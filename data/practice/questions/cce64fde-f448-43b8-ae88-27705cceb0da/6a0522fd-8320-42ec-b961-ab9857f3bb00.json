@@ -1,0 +1,66 @@
+[
+  {
+    "answers": [
+      {
+        "id": 377551,
+        "content_html": "It reduces the input force and the output force.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that the simple machine reduces the input force but a reduced output force will not make work easier."
+      },
+      {
+        "id": 377554,
+        "content_html": "It reduces the input force and increases the output force.",
+        "correctness": "1.0",
+        "feedback_html": "Correct! The simple machine reduces the force that needs to be applied to do work."
+      },
+      {
+        "id": 377552,
+        "content_html": "It increases the input force and reduces the output force.",
+        "correctness": "0.0",
+        "feedback_html": "Increased input force and reduced output force will cause work more difficult."
+      },
+      {
+        "id": 377553,
+        "content_html": "It increases the input force and the output force.",
+        "correctness": "0.0",
+        "feedback_html": "Simple machine increases the output force at the same time reduces the input force also."
+      }
+    ],
+    "group_uuid": "c292c422-f995-418d-84c2-16dda9b24a7c",
+    "stem_html": "How does a simple machine make work easier?",
+    "tags": "c292c422-f995-418d-84c2-16dda9b24a7c",
+    "uid": "2798@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 377569,
+        "content_html": "<span data-math=\"2\">2</span>",
+        "correctness": "0.0",
+        "feedback_html": "This is the IMA divided by <span data-math=\"2\">2</span>. Recall the correct expression for IMA of a wedge."
+      },
+      {
+        "id": 377568,
+        "content_html": "<span data-math=\"3\">3</span>",
+        "correctness": "0.0",
+        "feedback_html": "This is just the thickness. IMA also depends on the length of the wedge."
+      },
+      {
+        "id": 377570,
+        "content_html": "<span data-math=\"4\">4</span>",
+        "correctness": "1.0",
+        "feedback_html": "IMA of a wedge is the ratio of length by thickness."
+      },
+      {
+        "id": 377567,
+        "content_html": "<span data-math=\"9\">9</span>",
+        "correctness": "0.0",
+        "feedback_html": "This is length minus thickness. Recall the correct expression for IMA."
+      }
+    ],
+    "group_uuid": "4044090a-2fb9-494d-aa86-fb83c9118edf",
+    "stem_html": "What is the IMA of a wedge that is <span data-math=\"12\\,\\text{cm}\">12\\,\\text{cm}</span> long and <span data-math=\"3\\,\\text{cm}\">3\\,\\text{cm}</span> thick?",
+    "tags": "4044090a-2fb9-494d-aa86-fb83c9118edf",
+    "uid": "2803@6"
+  }
+]

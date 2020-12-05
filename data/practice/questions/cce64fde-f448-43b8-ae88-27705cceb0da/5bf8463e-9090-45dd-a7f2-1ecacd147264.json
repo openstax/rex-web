@@ -1,0 +1,66 @@
+[
+  {
+    "answers": [
+      {
+        "id": 477691,
+        "content_html": "the amount of nutrient present",
+        "correctness": "0.0",
+        "feedback_html": "There are several mechanisms in bacteria that ensure sufficient availability of nutrients and regulating mechanisms used to avoid adverse conditions. Quorum sensing is a part of bacterial communication, not a method to check amount of nutrient present."
+      },
+      {
+        "id": 477690,
+        "content_html": "the temperature of the environment",
+        "correctness": "0.0",
+        "feedback_html": "Quorum sensing does not check adverse conditions like temperature of the environment."
+      },
+      {
+        "id": 477692,
+        "content_html": "the number of other cells present",
+        "correctness": "1.0",
+        "feedback_html": "The number of cells present in the environment, the cell density, is the determining factor for signaling. This signaling, through which bacterial cells communicate with each other to establish the density of the population, is called quorum sensing."
+      },
+      {
+        "id": 477689,
+        "content_html": "the level of oxygen present",
+        "correctness": "0.0",
+        "feedback_html": "Quorum sensing does not play a role in determining conditions for growth."
+      }
+    ],
+    "group_uuid": "d1d271bc-1369-4d15-87eb-16dd34dd5875",
+    "stem_html": "What do bacteria sense when they use quorum sensing?",
+    "tags": "d1d271bc-1369-4d15-87eb-16dd34dd5875",
+    "uid": "732@10"
+  },
+  {
+    "answers": [
+      {
+        "id": 382592,
+        "content_html": "No, because magnetic flux through the loop remains constant.",
+        "correctness": "1.0",
+        "feedback_html": "Since uniform magnetic field is perpendicular to the plane of a wire loop, the flux through the loop is zero. It means that there is no induced current."
+      },
+      {
+        "id": 382589,
+        "content_html": "No, because magnetic flux through the loop changes continuously.",
+        "correctness": "0.0",
+        "feedback_html": "Recall, if magnetic flux through the loop changes continuously ,it always produce an induced current"
+      },
+      {
+        "id": 382590,
+        "content_html": "Yes, because magnetic flux through the loop remains constant.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, uniform magnetic field is perpendicular to the plane of a wire loop so the flux through the loop is zero. It means that there is no induced current."
+      },
+      {
+        "id": 382591,
+        "content_html": "Yes, because magnetic flux through the loop changes continuously.",
+        "correctness": "0.0",
+        "feedback_html": "Uniform magnetic field is perpendicular to the plane of a wire loop so the flux through the loop does not change. So, induced current is zero."
+      }
+    ],
+    "group_uuid": "a0c4dd41-a30c-484c-b856-4136098c3170",
+    "stem_html": "A uniform magnetic field is perpendicular to the plane of a wire loop. If the loop accelerates in the direction of the field, will a current be induced in the loop? Explain why or why not.",
+    "tags": "a0c4dd41-a30c-484c-b856-4136098c3170",
+    "uid": "7475@5"
+  }
+]

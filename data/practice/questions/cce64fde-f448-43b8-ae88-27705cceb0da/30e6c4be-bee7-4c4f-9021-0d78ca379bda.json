@@ -1,0 +1,34 @@
+[
+  {
+    "answers": [
+      {
+        "id": 381335,
+        "content_html": "The force is proportional to the product of two charges.",
+        "correctness": "1.0",
+        "feedback_html": "Recall Coulomb’s law of electrostatics."
+      },
+      {
+        "id": 381332,
+        "content_html": "The force is inversely proportional to the product of two charges.",
+        "correctness": "0.0",
+        "feedback_html": "Recall Coulomb’s law of electrostatics, which states that force is directly proportional to the product of two charges."
+      },
+      {
+        "id": 381333,
+        "content_html": "The force is proportional to any one of the charges between which the force is acting.",
+        "correctness": "0.0",
+        "feedback_html": "Recall Coulomb’s law of electrostatics, which states that force is directly proportional to the product of two charges."
+      },
+      {
+        "id": 381334,
+        "content_html": "The force is inversely proportional to any one of the charges between which the force is acting.",
+        "correctness": "0.0",
+        "feedback_html": "Recall Coulomb’s law of electrostatics, which states that force is directly proportional to the product of two charges."
+      }
+    ],
+    "group_uuid": "dab313cf-afaa-4a82-a2e6-12a10049b6fa",
+    "stem_html": "How are electrostatic force and charge related?",
+    "tags": "dab313cf-afaa-4a82-a2e6-12a10049b6fa",
+    "uid": "7085@5"
+  }
+]

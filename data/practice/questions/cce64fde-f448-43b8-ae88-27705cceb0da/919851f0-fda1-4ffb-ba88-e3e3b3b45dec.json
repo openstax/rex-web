@@ -1,0 +1,98 @@
+[
+  {
+    "answers": [
+      {
+        "id": 346911,
+        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "correctness": "1.0",
+        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+      },
+      {
+        "id": 346910,
+        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+      },
+      {
+        "id": 346909,
+        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+      },
+      {
+        "id": 346908,
+        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "correctness": "0.0",
+        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+      }
+    ],
+    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
+    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
+    "uid": "2@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 381279,
+        "content_html": "<span data-math=\"-5\\,\\text{nC}\">-5\\,\\text{nC}</span>",
+        "correctness": "1.0",
+        "feedback_html": "To go from <span data-math=\"+ 2.0\\,\\text{nC}\">+ 2.0\\,\\text{nC}</span> to <span data-math=\"-3\\,\\text{nC}\">-3\\,\\text{nC}</span> requires transferring <span data-math=\"-5\\,\\text{nC}\">-5\\,\\text{nC}</span> of charge."
+      },
+      {
+        "id": 381276,
+        "content_html": "<div data-math=\"-3\\,\\text{nC}\">-3\\,\\text{nC}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The difference between the charges <span data-math=\"+2.0\\,\\text{C}\">+2.0\\,\\text{C}</span> and <span data-math=\"–3.0\\,\\text{nC}\">–3.0\\,\\text{nC}</span> is not <span data-math=\"–3.0\\,\\text{nC}\">–3.0\\,\\text{nC}</span>."
+      },
+      {
+        "id": 381277,
+        "content_html": "<div data-math=\"-1\\,\\text{nC}\">-1\\,\\text{nC}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "Addition of charges does not give the amount of charge transferred."
+      },
+      {
+        "id": 381278,
+        "content_html": "<div data-math=\"+ 2.0\\,\\text{nC}\">+ 2.0\\,\\text{nC}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "To go from <span data-math=\"+2.0\\,\\text{nC}\">+2.0\\,\\text{nC}</span> to <span data-math=\"-3\\,\\text{nC}\">-3\\,\\text{nC}</span> requires transferring <span data-math=\"-5\\,\\text{nC}\">-5\\,\\text{nC}</span> of charge."
+      }
+    ],
+    "group_uuid": "daad077e-214b-4f82-9c04-d31609d89f3f",
+    "stem_html": "An insulating rod carries <span data-math=\"+ 2.0\\,\\text{nC}\">+ 2.0\\,\\text{nC}</span> of charge. After rubbing it with a material, you find it carries <span data-math=\"-3\\,\\text{nC}\">-3\\,\\text{nC}</span> of charge. How much charge was transferred to it?",
+    "tags": "daad077e-214b-4f82-9c04-d31609d89f3f",
+    "uid": "7068@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 381291,
+        "content_html": "Many macroscopic objects would be charged, so we would experience the enormous force of electricity on a daily basis.",
+        "correctness": "1.0",
+        "feedback_html": "Macroscopic objects are neutral in general since the number of protons is equal to the number of electrons. But objects would become charged if the charge on the electron differed very slightly."
+      },
+      {
+        "id": 381288,
+        "content_html": "Many macroscopic objects would be charged, so we would experience the small force of electricity on a daily basis.",
+        "correctness": "0.0",
+        "feedback_html": "Due to charged macroscopic objects, we would experience the enormous force of electricity on a daily basis."
+      },
+      {
+        "id": 381289,
+        "content_html": "Many macroscopic objects would be charged, but it would not affect life on Earth and physics in general.",
+        "correctness": "0.0",
+        "feedback_html": "Charged macroscopic objects would affect life on Earth and physics in general."
+      },
+      {
+        "id": 381290,
+        "content_html": "Macroscopic objects would remain neutral, so it would not affect life on Earth and physics in general.",
+        "correctness": "0.0",
+        "feedback_html": "Macroscopic objects cannot be neutral when there are either excess protons or excess electrons in each atom."
+      }
+    ],
+    "group_uuid": "ec39d2d7-d09f-4a96-b49d-c9a121e75fef",
+    "stem_html": "Imagine that the magnitude of the charge on the electron differed very slightly from that of the proton. How would this affect life on Earth and physics in general?",
+    "tags": "ec39d2d7-d09f-4a96-b49d-c9a121e75fef",
+    "uid": "7071@5"
+  }
+]

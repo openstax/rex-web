@@ -1,0 +1,98 @@
+[
+  {
+    "answers": [
+      {
+        "id": 418066,
+        "content_html": "<img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_6baa85f95bbbed9db78d0730fa31557588028de76e62408128881baaaaea6315.png\" alt=\"\">",
+        "correctness": "0.0",
+        "feedback_html": "This is the circuit diagram for the two inductors connected in series."
+      },
+      {
+        "id": 418067,
+        "content_html": "<img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_f660770c0b4b148142311dc891ddba3cdd369aceec992ec95c28869684891210.png\" alt=\"\">",
+        "correctness": "1.0",
+        "feedback_html": "This is the circuit diagram for the two resistors connected in series."
+      },
+      {
+        "id": 418068,
+        "content_html": "<img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_49c98d63e45fd7b238d49628a5ee81ad248e202542af8a7b1207e7cf90884a3f.png\" alt=\"\">",
+        "correctness": "0.0",
+        "feedback_html": "This is the circuit diagram for the two capacitors connected in series."
+      },
+      {
+        "id": 418069,
+        "content_html": "<img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_4715c837d379430c74004e991323c683524adf5093b1ea289fb9e441319818f0.png\" alt=\"\">",
+        "correctness": "0.0",
+        "feedback_html": "This is the circuit diagram for the two batteries connected in series."
+      }
+    ],
+    "group_uuid": "28734ac3-92b6-45d8-bec8-6c95877b5c84",
+    "stem_html": "How would a diagram of two resistors connected in series appear?",
+    "tags": "28734ac3-92b6-45d8-bec8-6c95877b5c84",
+    "uid": "7296@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 418058,
+        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
+        "correctness": "0.0",
+        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
+      },
+      {
+        "id": 418059,
+        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "correctness": "1.0",
+        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+      },
+      {
+        "id": 418060,
+        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "correctness": "0.0",
+        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
+      },
+      {
+        "id": 418061,
+        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
+        "correctness": "0.0",
+        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+      }
+    ],
+    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
+    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
+    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
+    "uid": "1@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 346884,
+        "content_html": "publication",
+        "correctness": "0.0",
+        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
+      },
+      {
+        "id": 346885,
+        "content_html": "public speaking",
+        "correctness": "0.0",
+        "feedback_html": "Public speaking does not ensure originality and significance of a work."
+      },
+      {
+        "id": 346887,
+        "content_html": "peer review",
+        "correctness": "1.0",
+        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
+      },
+      {
+        "id": 346886,
+        "content_html": "the scientific method",
+        "correctness": "0.0",
+        "feedback_html": "The scientific method is the method employed to carry out research."
+      }
+    ],
+    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
+    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "uid": "5@8"
+  }
+]

@@ -48,8 +48,31 @@ export const currentQuestionIndex = createSelector(
   (state) => state.currentQuestionIndex
 );
 
+export const question = createSelector(
+  localState,
+  currentQuestionIndex,
+  (state, index) => index === null ? undefined : state.questions[index]
+);
+
 export const selectedSectionHasPracticeQuestions = createSelector(
   selectedSection,
   practiceQuestionsSummary,
   (section, summary) => Boolean(section && summary && pageHasPracticeQuestions(section.id, summary))
+);
+
+export const questionAnswers = createSelector(
+  localState,
+  (state) => new Map(Object.entries(state.questionAnswers))
+);
+
+export const isCurrentQuestionSubmitted = createSelector(
+  questionAnswers,
+  question,
+  (answers, currentQuestion) => Boolean(currentQuestion && answers.has(currentQuestion.uid))
+);
+
+export const isFinalQuestion = createSelector(
+  questionsCount,
+  currentQuestionIndex,
+  (count, index) => count - 1 === index
 );

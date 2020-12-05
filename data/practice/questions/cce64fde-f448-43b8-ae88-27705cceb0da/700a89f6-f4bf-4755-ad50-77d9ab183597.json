@@ -1,0 +1,130 @@
+[
+  {
+    "answers": [
+      {
+        "id": 398906,
+        "content_html": "Group 1 and Group 17",
+        "correctness": "1.0",
+        "feedback_html": "Group 1 and group 17 would form strong ionic bonds. Group 1 will give an electron easily and group 17 will accept an electron to attain a more stable configuration. Therefore, compounds like NaCl and LiF will be formed."
+      },
+      {
+        "id": 398907,
+        "content_html": "Group 1 and Group 14",
+        "correctness": "0.0",
+        "feedback_html": "Group 1 elements are likely to form ionic bonds by giving up the one electron in its valence shell. However, group 14 elements are missing 4 electrons, and are more likely to share electrons with other elements through covalent bonds."
+      },
+      {
+        "id": 398908,
+        "content_html": "Group 14 and Group 18",
+        "correctness": "0.0",
+        "feedback_html": "Group 18 elements have a filled valence shell and will not likely form any bonds."
+      },
+      {
+        "id": 398909,
+        "content_html": "Group 1 and Group 18",
+        "correctness": "0.0",
+        "feedback_html": "Group18 elements have a filled valence shell and will not likely form any bonds."
+      }
+    ],
+    "group_uuid": "471a50ca-be39-46a5-8e1a-0b3ceadf2bb9",
+    "stem_html": "<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_181dfebc75c530fd0869288e36aea7165bead4c4b07b25997bff51573399bf90.png\" alt=\"Bohr diagrams of elements from groups 1, 14, 17 and 18, and periods 1, 2 and 3 are shown. Period 1, in which the 1n shell is filling, contains hydrogen and helium. Hydrogen, in group 1, has one valence electron. Helium, in group 18, has two valence electrons. The 1n shell holds a maximum of two electrons, so the shell is full and the electron configuration is stable. Period 2, in which the 2n shell is filling, contains lithium, carbon, fluorine, and neon. Lithium, in group 1, has 1 valence electron. Carbon, in group 14, has 4 valence electrons. Fluorine, in group 17, has 7 valence electrons. Neon, in group 18, has 8 valence electrons, a full octet. Period 3, in which the 3n shell is filling, contains sodium, silicon, chlorine, and argon. Sodium, in group 1, has 1 valence electron. Silicon, in group 14, has 4 valence electrons. Chlorine, in group 17, has 7 valence electrons. Argon, in group 18, has 8 valence electrons, a full octet.\"></p>\n\n<p>Looking at the above figure, can you infer which two groups together will form a strong ionic bond?</p>\n",
+    "tags": "471a50ca-be39-46a5-8e1a-0b3ceadf2bb9",
+    "uid": "79@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 346884,
+        "content_html": "publication",
+        "correctness": "0.0",
+        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
+      },
+      {
+        "id": 346885,
+        "content_html": "public speaking",
+        "correctness": "0.0",
+        "feedback_html": "Public speaking does not ensure originality and significance of a work."
+      },
+      {
+        "id": 346887,
+        "content_html": "peer review",
+        "correctness": "1.0",
+        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
+      },
+      {
+        "id": 346886,
+        "content_html": "the scientific method",
+        "correctness": "0.0",
+        "feedback_html": "The scientific method is the method employed to carry out research."
+      }
+    ],
+    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
+    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
+    "uid": "5@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 346880,
+        "content_html": "discovery",
+        "correctness": "0.0",
+        "feedback_html": "A discovery is not a testable explanation for an event."
+      },
+      {
+        "id": 346883,
+        "content_html": "hypothesis",
+        "correctness": "1.0",
+        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+      },
+      {
+        "id": 346881,
+        "content_html": "scientific method",
+        "correctness": "0.0",
+        "feedback_html": "The scientific method is a method of research with defined steps."
+      },
+      {
+        "id": 346882,
+        "content_html": "theory",
+        "correctness": "0.0",
+        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+      }
+    ],
+    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
+    "stem_html": "What is a suggested and testable explanation for an event called?",
+    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
+    "uid": "3@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 397402,
+        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "correctness": "1.0",
+        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+      },
+      {
+        "id": 397403,
+        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology."
+      },
+      {
+        "id": 397404,
+        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      },
+      {
+        "id": 397405,
+        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "correctness": "0.0",
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+      }
+    ],
+    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
+    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "uid": "6@7"
+  }
+]

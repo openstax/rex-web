@@ -12,7 +12,6 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const currentFilters = select.summaryLocationFilters(state);
   const defaultFilter = select.defaultLocationFilter(state);
   const notLoggedIn = loggedOut(state);
-
   const book = selectContent.book(state);
   const firstChapter = book && findArchiveTreeNode(archiveTreeSectionIsChapter, book.tree);
 

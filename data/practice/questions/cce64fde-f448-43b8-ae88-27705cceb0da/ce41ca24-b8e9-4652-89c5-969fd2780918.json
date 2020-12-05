@@ -1,0 +1,98 @@
+[
+  {
+    "answers": [
+      {
+        "id": 397410,
+        "content_html": "astronomy",
+        "correctness": "0.0",
+        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+      },
+      {
+        "id": 397411,
+        "content_html": "biology",
+        "correctness": "0.0",
+        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+      },
+      {
+        "id": 397412,
+        "content_html": "computer science",
+        "correctness": "1.0",
+        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+      },
+      {
+        "id": 397413,
+        "content_html": "physics",
+        "correctness": "0.0",
+        "feedback_html": "Physics is a branch of natural science that studies matter."
+      }
+    ],
+    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "stem_html": "Which of the following sciences is not considered a natural science?",
+    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "uid": "4@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 377201,
+        "content_html": "The first person will gain more velocity as a result of recoil.",
+        "correctness": "1.0",
+        "feedback_html": "Momentum is directly proportional to mass, so the first person will gain more velocity than the second."
+      },
+      {
+        "id": 377198,
+        "content_html": "The second person will gain more velocity as a result of recoil.",
+        "correctness": "0.0",
+        "feedback_html": "Momentum of the second person will be less than the first person due to the difference in masses of the objects thrown."
+      },
+      {
+        "id": 377199,
+        "content_html": "Both people will gain the same velocity as a result of recoil.",
+        "correctness": "0.0",
+        "feedback_html": "Both people have the same mass, but the momentum of the object thrown is greater for the first person."
+      },
+      {
+        "id": 377200,
+        "content_html": "The velocity of both people will be zero as a result of recoil.",
+        "correctness": "0.0",
+        "feedback_html": "Recall conservation of linear momentum; will it remain constant if the recoil velocity is zero?"
+      }
+    ],
+    "group_uuid": "c38fbb47-72bb-4582-9804-5e7d04194fa6",
+    "stem_html": "Two people, who have the same mass, throw two different objects at the same velocity. If the first object is heavier than the second, compare the velocities gained by the two people as a result of recoil.",
+    "tags": "c38fbb47-72bb-4582-9804-5e7d04194fa6",
+    "uid": "2693@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 244852,
+        "content_html": "Momentum is the sum of mass and velocity. Impulse is the change in momentum.",
+        "correctness": "0.0",
+        "feedback_html": "Momentum is not the sum of mass and velocity."
+      },
+      {
+        "id": 244853,
+        "content_html": "Momentum is the sum of mass and velocity. Impulse is the rate of change in momentum.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the dimensions of momentum. Rate of change of momentum is force, not impulse."
+      },
+      {
+        "id": 244854,
+        "content_html": "Momentum is the product of mass and velocity. Impulse is the change in momentum.",
+        "correctness": "1.0",
+        "feedback_html": "The product of mass and velocity gives momentum, and the change in momentum is impulse."
+      },
+      {
+        "id": 244855,
+        "content_html": "Momentum is the product of mass and velocity. Impulse is the rate of change in momentum.",
+        "correctness": "0.0",
+        "feedback_html": "You are correct about the momentum, but impulse is not defined as the rate of change of momentum."
+      }
+    ],
+    "group_uuid": "b13452fb-c331-4e5b-b438-7a631de5374e",
+    "stem_html": "What is the difference between momentum and impulse?",
+    "tags": "b13452fb-c331-4e5b-b438-7a631de5374e",
+    "uid": "2699@6"
+  }
+]

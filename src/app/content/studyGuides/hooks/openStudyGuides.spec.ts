@@ -47,7 +47,7 @@ describe('openStudyGuides', () => {
   it('noops if study guides are being/were initialized', async() => {
     store.dispatch(loadMoreStudyGuides());
     await hook(openStudyGuides());
-    expect(dispatch).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setDefaultSummaryFilters(expect.anything()));
   });
 
   it('sets current chapter filter to the current page when user is logged in', async() => {

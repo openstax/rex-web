@@ -9,7 +9,7 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
-import { closePracticeQuestions, openPracticeQuestions } from '../actions';
+import { closePracticeQuestions, nextQuestion, openPracticeQuestions } from '../actions';
 import PracticeQuestionsPopup from './PracticeQuestionsPopup';
 
 // this is a hack because useEffect is currently not called
@@ -20,6 +20,11 @@ jest.mock('react', () => {
   const react = (jest as any).requireActual('react');
   return { ...react, useEffect: react.useLayoutEffect };
 });
+
+jest.mock('react-dom', () => ({
+  ...jest.requireActual('react-dom'),
+  createPortal: (children: any) => children,
+}));
 
 describe('PracticeQuestions', () => {
   let store: Store;
@@ -149,5 +154,68 @@ describe('PracticeQuestions', () => {
 
     expect(dispatch).toHaveBeenCalledWith(closePracticeQuestions());
     expect(track).toHaveBeenCalled();
+  });
+
+  it('show warning prompt and closes popup after confirm', async() => {
+    const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
+    const spyConfirm = jest.spyOn(assertWindow(), 'confirm')
+      .mockImplementation(() => true);
+
+    store.dispatch(openPracticeQuestions());
+    store.dispatch(nextQuestion());
+
+    const { node } = renderToDom(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <PracticeQuestionsPopup />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    const element = assertNotNull(node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');
+
+    const event = assertWindow().document.createEvent('MouseEvents');
+    event.initEvent('click', true, true);
+    const preventDefault = event.preventDefault = jest.fn();
+
+    element.dispatchEvent(event); // this checks for bindings using addEventListener
+    ReactTestUtils.Simulate.click(element, {preventDefault}); // this checks for react onClick prop
+
+    expect(spyConfirm)
+      .toHaveBeenCalledWith('Are you sure you want to exit this page? Your progress will not be saved.');
+    expect(dispatch).toHaveBeenCalledWith(closePracticeQuestions());
+    expect(track).toHaveBeenCalled();
+  });
+
+  it('show warning prompt and do not close popup after cancel', async() => {
+    const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
+    track.mockClear();
+    const spyConfirm = jest.spyOn(assertWindow(), 'confirm')
+      .mockImplementation(() => false);
+
+    store.dispatch(openPracticeQuestions());
+    store.dispatch(nextQuestion());
+
+    const { node } = renderToDom(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <PracticeQuestionsPopup />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    const element = assertNotNull(node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');
+
+    const event = assertWindow().document.createEvent('MouseEvents');
+    event.initEvent('click', true, true);
+    const preventDefault = event.preventDefault = jest.fn();
+
+    element.dispatchEvent(event); // this checks for bindings using addEventListener
+    ReactTestUtils.Simulate.click(element, {preventDefault}); // this checks for react onClick prop
+
+    expect(spyConfirm)
+      .toHaveBeenCalledWith('Are you sure you want to exit this page? Your progress will not be saved.');
+    expect(dispatch).not.toHaveBeenCalledWith(closePracticeQuestions());
+    expect(track).not.toHaveBeenCalled();
   });
 });

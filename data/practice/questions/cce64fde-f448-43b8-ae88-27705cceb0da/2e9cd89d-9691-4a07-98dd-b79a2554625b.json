@@ -1,0 +1,278 @@
+[
+  {
+    "answers": [
+      {
+        "id": 381752,
+        "content_html": "The current will double.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, this is correct because current is proportional to the voltage. As voltage doubles, current doubles."
+      },
+      {
+        "id": 381749,
+        "content_html": "The current will increase by half.",
+        "correctness": "0.0",
+        "feedback_html": "Current is proportional to the charge."
+      },
+      {
+        "id": 381750,
+        "content_html": "The current will decrease by half.",
+        "correctness": "0.0",
+        "feedback_html": "Current is proportional to the charge. How can the current through the circuit decrease when the voltage is increasing?"
+      },
+      {
+        "id": 381751,
+        "content_html": "The current will decrease by a factor of two.",
+        "correctness": "0.0",
+        "feedback_html": "The relationship between current and voltage is directly proportional."
+      }
+    ],
+    "group_uuid": "de288c11-a687-43a3-a10d-0fb69e84c0a8",
+    "stem_html": "If you double the voltage across an ohmic resistor, how does the current through the resistor change?",
+    "tags": "de288c11-a687-43a3-a10d-0fb69e84c0a8",
+    "uid": "7237@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 375952,
+        "content_html": "<span data-math=\"{-9.8}\\,\\text{m/s}\">{-9.8}\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that the y-component of the acceleration of an object experiencing projectile motion is acceleration due to gravity but consider the unit of acceleration correctly."
+      },
+      {
+        "id": 375953,
+        "content_html": "<span data-math=\"{-9.8}\\,\\text{m/s}^2\">{-9.8}\\,\\text{m/s}^2</span>",
+        "correctness": "1.0",
+        "feedback_html": "The y-component of the acceleration of an object experiencing projectile motion is <span data-math=\"{-9.8}\\,\\text{m/s}^2\">{-9.8}\\,\\text{m/s}^2</span>"
+      },
+      {
+        "id": 375951,
+        "content_html": "<span data-math=\"9.8\\,\\text{m/s}\">9.8\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Consider the unit of acceleration due to gravity correctly."
+      },
+      {
+        "id": 375950,
+        "content_html": "<span data-math=\"9.8\\,\\text{m/s}^2\">9.8\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "Consider the fact that the acceleration due to gravity is acting towards the Earth, in the direction opposite to the direction of motion."
+      }
+    ],
+    "group_uuid": "66944256-cac1-4d78-bd46-cbbd0f6675dc",
+    "stem_html": "Using the conventional choice for positive and negative axes described in the text, what is the y-component of the acceleration of an object experiencing projectile motion?",
+    "tags": "66944256-cac1-4d78-bd46-cbbd0f6675dc",
+    "uid": "2360@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 381781,
+        "content_html": "Direct current flows continuously in every direction whereas alternating current flows in one direction.",
+        "correctness": "0.0",
+        "feedback_html": "Direct current cannot change its direction."
+      },
+      {
+        "id": 381784,
+        "content_html": "Direct current flows continuously in one direction whereas alternating current reverses its direction at regular time intervals.",
+        "correctness": "1.0",
+        "feedback_html": "The direct current flows in one direction while alternating current changes its direction at regular interval of time."
+      },
+      {
+        "id": 381782,
+        "content_html": "Both direct and alternating current flow in one direction but the magnitude of direct current is fixed whereas the magnitude of alternating current changes at regular intervals of time.",
+        "correctness": "0.0",
+        "feedback_html": "No, alternating current changes its direction at regular interval of time."
+      },
+      {
+        "id": 381783,
+        "content_html": "Both direct and alternating current changes its direction of flow but the magnitude of direct current is fixed whereas the magnitude of alternating current changes at regular intervals of time.",
+        "correctness": "0.0",
+        "feedback_html": "No, direct current do not changes its direction of flow."
+      }
+    ],
+    "group_uuid": "a111da20-f58f-433c-babf-ec13be9d601f",
+    "stem_html": "What is the difference between direct current and alternating current?",
+    "tags": "a111da20-f58f-433c-babf-ec13be9d601f",
+    "uid": "7245@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 381840,
+        "content_html": "The electrons flow from the negative terminal of the battery to the positive terminal of the battery.",
+        "correctness": "1.0",
+        "feedback_html": "The positive charge flows from the positive terminal to the negative terminal of the battery. So electron flows from negative terminal of the battery to the positive terminal."
+      },
+      {
+        "id": 381839,
+        "content_html": "The electrons flow from the positive terminal of the battery to the negative terminal of the battery.",
+        "correctness": "0.0",
+        "feedback_html": "No, the positive charge flows from the positive terminal to the negative terminal of the battery."
+      }
+    ],
+    "group_uuid": "bc03aad9-fb4a-4714-9e98-4671ab0239d3",
+    "stem_html": "You connect a resistor across a battery. In which direction do the electrons flow?",
+    "tags": "bc03aad9-fb4a-4714-9e98-4671ab0239d3",
+    "uid": "7260@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 62513,
+        "content_html": "The reaction stops.",
+        "correctness": "0.0",
+        "feedback_html": "Enzymes are macromolecules that speed up the chemical reactions by lowering activation energy barrier. So if an enzyme is not working in a chemical reaction that needs it, then the reaction will eventually proceed very slowly, but not stop."
+      },
+      {
+        "id": 62514,
+        "content_html": "The reaction proceeds, but much more slowly.",
+        "correctness": "1.0",
+        "feedback_html": "If the enzyme needed for the reaction will not be available, then the reaction will occur slowly, potentially so slowly that an organism may die before the reaction is complete."
+      },
+      {
+        "id": 62512,
+        "content_html": "The reaction proceeds faster without the interference.",
+        "correctness": "0.0",
+        "feedback_html": "Check if a reaction can proceed without the interference of an enzyme that is needed in the reaction."
+      },
+      {
+        "id": 62511,
+        "content_html": "There is no change in the reaction rate.",
+        "correctness": "0.0",
+        "feedback_html": "The reaction will not proceed in a timely fashion if the enzyme needed by the reaction is not provided in the reaction."
+      }
+    ],
+    "group_uuid": "c21243d8-e560-4720-a3f4-292eafb9c807",
+    "stem_html": "What happens if an enzyme is not functioning in a chemical reaction in a living organism that needs it?",
+    "tags": "c21243d8-e560-4720-a3f4-292eafb9c807",
+    "uid": "4764@3"
+  },
+  {
+    "answers": [
+      {
+        "id": 381902,
+        "content_html": "Ohm’s law says that the current through a resistor equals the voltage across the resistor multiplied by the resistance of the resistor.",
+        "correctness": "0.0",
+        "feedback_html": "The mathematical expression for the Ohm’s law is <span data-math=\"\\text{V}=\\text{IR}\">\\text{V}=\\text{IR}</span>."
+      },
+      {
+        "id": 381903,
+        "content_html": "Ohm’s law says that the voltage across a resistor equals the current through the resistor multiplied by the resistance of the resistor.",
+        "correctness": "1.0",
+        "feedback_html": "The mathematical expression for the Ohm’s law is <span data-math=\"\\text{V}=\\text{IR}\">\\text{V}=\\text{IR}</span>."
+      },
+      {
+        "id": 381901,
+        "content_html": "Ohm’s law says that the resistance of the resistor equals the current through the resistor multiplied by the voltage across a resistor.",
+        "correctness": "0.0",
+        "feedback_html": "The mathematical expression for the Ohm’s law is <span data-math=\"\\text{V}=\\text{IR}\">\\text{V}=\\text{IR}</span>."
+      },
+      {
+        "id": 381900,
+        "content_html": "Ohm’s law says that the voltage across a resistor equals the square of the current through the resistor multiplied by the resistance of the resistor.",
+        "correctness": "0.0",
+        "feedback_html": "The mathematical expression for the Ohm’s law is <span data-math=\"\\text{V}=\\text{IR}\">\\text{V}=\\text{IR}</span>."
+      }
+    ],
+    "group_uuid": "e7388659-af2c-4753-8dc9-c46ec5043ae2",
+    "stem_html": "Give a verbal expression for Ohm’s law.",
+    "tags": "e7388659-af2c-4753-8dc9-c46ec5043ae2",
+    "uid": "7278@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 316448,
+        "content_html": "mRNA",
+        "correctness": "0.0",
+        "feedback_html": "mRNA contains more nucleotide sequences in comparison to the other RNA"
+      },
+      {
+        "id": 316449,
+        "content_html": "microRNA",
+        "correctness": "1.0",
+        "feedback_html": "microRNAs are the smallest RNA molecules and their role involves the regulation of gene expression."
+      },
+      {
+        "id": 316447,
+        "content_html": "rRNA",
+        "correctness": "0.0",
+        "feedback_html": "rRNA does not contain least number of molecules in nucleotide sequences."
+      },
+      {
+        "id": 316446,
+        "content_html": "tRNA",
+        "correctness": "0.0",
+        "feedback_html": "microRNA is smaller than tRNA"
+      }
+    ],
+    "group_uuid": "a361e994-f184-4475-b5fe-b90369c41e51",
+    "stem_html": "What is the smallest type of RNA?",
+    "tags": "a361e994-f184-4475-b5fe-b90369c41e51",
+    "uid": "4072@2"
+  },
+  {
+    "answers": [
+      {
+        "id": 381915,
+        "content_html": "Electric current is the charge that passes through a conductor per unit time. The direction of the current is defined to be the direction in which positive charge would flow.",
+        "correctness": "1.0",
+        "feedback_html": "Current is defined as charge flowing through a conductor per unit time and direction of current is defined to be the direction in which positive charges would flow."
+      },
+      {
+        "id": 381912,
+        "content_html": "Electric current is the charges that move in a conductor. The direction of the current is defined to be the direction in which positive charge would flow.",
+        "correctness": "0.0",
+        "feedback_html": "Charges that move in a conductor can produce current but the amount of current is defined as the charge that passes through a conductor per unit time."
+      },
+      {
+        "id": 381913,
+        "content_html": "Electric current is the charge that passes through a conductor per unit time. The direction of the current is defined to be the direction in which negative charge would flow.",
+        "correctness": "0.0",
+        "feedback_html": "No, the direction of current is defined to be the direction in which positive charge would flow."
+      },
+      {
+        "id": 381914,
+        "content_html": "Electric current is the charges that move in a conductor. The direction of the current is defined to be the direction in which negative charge would flow.",
+        "correctness": "0.0",
+        "feedback_html": "No, the direction of current is defined to be the direction in which positive charge would flow."
+      }
+    ],
+    "group_uuid": "c11eb2fe-a083-4208-98ad-f409c9ce5253",
+    "stem_html": "Describe the relationship between current and charge. Include an explanation of how the direction of the current is defined.",
+    "tags": "c11eb2fe-a083-4208-98ad-f409c9ce5253",
+    "uid": "7281@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 397410,
+        "content_html": "astronomy",
+        "correctness": "0.0",
+        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+      },
+      {
+        "id": 397411,
+        "content_html": "biology",
+        "correctness": "0.0",
+        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+      },
+      {
+        "id": 397412,
+        "content_html": "computer science",
+        "correctness": "1.0",
+        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+      },
+      {
+        "id": 397413,
+        "content_html": "physics",
+        "correctness": "0.0",
+        "feedback_html": "Physics is a branch of natural science that studies matter."
+      }
+    ],
+    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "stem_html": "Which of the following sciences is not considered a natural science?",
+    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "uid": "4@7"
+  }
+]

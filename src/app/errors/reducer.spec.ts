@@ -53,7 +53,7 @@ describe('error reducer', () => {
     const match = {
       params: {book: 'book', page: 'page'},
       route: content,
-    };
+    } as any;
     const newState = reducer(state, locationChange({location, match, action: 'POP'}));
 
     expect(newState.code).toEqual(200);

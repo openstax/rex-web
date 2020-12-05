@@ -1,0 +1,130 @@
+[
+  {
+    "answers": [
+      {
+        "id": 377493,
+        "content_html": "Kinetic energy is being transformed into potential energy.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that the two mechanical energies involved in transformation are the kinetic and the potential energy. But remember that with decreasing height of the skydiver the potential energy decreases."
+      },
+      {
+        "id": 377494,
+        "content_html": "Potential energy is being transformed into kinetic energy.",
+        "correctness": "1.0",
+        "feedback_html": "Potential energy due to height is being transformed into kinetic energy."
+      },
+      {
+        "id": 377492,
+        "content_html": "Work is being transformed into kinetic energy.",
+        "correctness": "0.0",
+        "feedback_html": "Work is not a form of mechanical energy."
+      },
+      {
+        "id": 377491,
+        "content_html": "Kinetic energy is being transformed into work.",
+        "correctness": "0.0",
+        "feedback_html": "Think in terms of kinetic and potential energy. Work is not a form of mechanical energy."
+      }
+    ],
+    "group_uuid": "e8b8bd87-db3e-4907-9562-2c588afa347c",
+    "stem_html": "Describe the transformation between forms of mechanical energy that is happening to a falling skydiver before his parachute opens.",
+    "tags": "e8b8bd87-db3e-4907-9562-2c588afa347c",
+    "uid": "2777@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 377513,
+        "content_html": "<span data-math=\"10\\,\\text{J}\">10\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"KE = \\frac{1}{2} mv^2\">KE = \\frac{1}{2} mv^2</span>. You didn't square <span data-math=\"v\">v</span>."
+      },
+      {
+        "id": 377514,
+        "content_html": "<span data-math=\"20\\,\\text{J}\">20\\,\\text{J}</span>",
+        "correctness": "1.0",
+        "feedback_html": "<span data-math=\"KE = \\frac{1}{2} mv^2\">KE = \\frac{1}{2} mv^2</span>"
+      },
+      {
+        "id": 377512,
+        "content_html": "<span data-math=\"40\\,\\text{J}\">40\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"KE = \\frac{1}{2} mv^2\">KE = \\frac{1}{2} mv^2</span>. You didn't divide by <span data-math=\"2\">2</span>."
+      },
+      {
+        "id": 377511,
+        "content_html": "<span data-math=\"100\\,\\text{J}\">100\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"KE = \\frac{1}{2} mv^2\">KE = \\frac{1}{2} mv^2</span>"
+      }
+    ],
+    "group_uuid": "f9f83419-daae-4049-ad91-385fc60be2a1",
+    "stem_html": "What is the kinetic energy of a <span data-math=\"10\\text{kg}\">10\\text{kg}</span> object moving at <span data-math=\"2.0\\,\\text{m/s}\">2.0\\,\\text{m/s}</span>?",
+    "tags": "f9f83419-daae-4049-ad91-385fc60be2a1",
+    "uid": "2784@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 347107,
+        "content_html": "Insects can walk on water because of its high surface tension.",
+        "correctness": "1.0",
+        "feedback_html": "Some insects can walk on water, although they are denser than water, because of the high surface tension of water. High surface tension results from high cohesion at the surface of a body of water."
+      },
+      {
+        "id": 347104,
+        "content_html": "Insects can walk on water because it is a polar solvent.",
+        "correctness": "0.0",
+        "feedback_html": "Recall whether the polarity of water has anything to do with insects walking on water."
+      },
+      {
+        "id": 347105,
+        "content_html": "Insects can walk on water because they are less dense than water.",
+        "correctness": "0.0",
+        "feedback_html": "Most insects are not less dense than water."
+      },
+      {
+        "id": 347106,
+        "content_html": "Insects can walk on water because they are denser than water.",
+        "correctness": "0.0",
+        "feedback_html": "Most insects are denser than water, but many of them can still be supported on the surface of water."
+      }
+    ],
+    "group_uuid": "97ffb587-bc4c-4c8a-8404-fa4ca3b9ca5e",
+    "stem_html": "Why can some insects walk on water?",
+    "tags": "97ffb587-bc4c-4c8a-8404-fa4ca3b9ca5e",
+    "uid": "62@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 397410,
+        "content_html": "astronomy",
+        "correctness": "0.0",
+        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+      },
+      {
+        "id": 397411,
+        "content_html": "biology",
+        "correctness": "0.0",
+        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+      },
+      {
+        "id": 397412,
+        "content_html": "computer science",
+        "correctness": "1.0",
+        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+      },
+      {
+        "id": 397413,
+        "content_html": "physics",
+        "correctness": "0.0",
+        "feedback_html": "Physics is a branch of natural science that studies matter."
+      }
+    ],
+    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "stem_html": "Which of the following sciences is not considered a natural science?",
+    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "uid": "4@7"
+  }
+]

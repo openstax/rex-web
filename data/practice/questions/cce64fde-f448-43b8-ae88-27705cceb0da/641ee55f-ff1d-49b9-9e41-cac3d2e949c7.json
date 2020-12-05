@@ -1,101 +1,37 @@
 [
   {
-    "uuid": "4db480d5-78dc-4c85-89ee-33eef210a729",
-    "stem_html": "Cassie walked to her friend’s house with an average speed of 1.40 m/s. The distance between the houses is 205 m. How long did the trip take her?",
-    "id": 91814,
     "answers": [
       {
-        "id": 374233,
-        "content_html": "146 s",
+        "id": 397402,
+        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
         "correctness": "1.0",
-        "feedback_html": "<div data-math=\"\\Delta t = {{\\Delta d} \\over {{v_{avg}}}} = {{205\\,m} \\over {1.40\\,m/s}} = 146\\,s\">\\Delta t = {{\\Delta d} \\over {{v_{avg}}}} = {{205\\,m} \\over {1.40\\,m/s}} = 146\\,s</div>\n"
+        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
       },
       {
-        "id": 374230,
-        "content_html": "0.01 s",
+        "id": 397403,
+        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
         "correctness": "0.0",
-        "feedback_html": "Cassie walks 1.40 m in 1 second. Think of how many seconds she will take to cover 205 m."
+        "feedback_html": "All of these are outside the realm of biology."
       },
       {
-        "id": 374231,
-        "content_html": "2.50 min",
+        "id": 397404,
+        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
         "correctness": "0.0",
-        "feedback_html": "Convert seconds into minutes and check significant figures correctly."
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
       },
       {
-        "id": 374232,
-        "content_html": "287 s",
+        "id": 397405,
+        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
         "correctness": "0.0",
-        "feedback_html": "Set up the equation appropriately. Time can be measured after dividing total distance by average speed."
+        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
       }
-    ]
+    ],
+    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
+    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
+    "uid": "6@7"
   },
   {
-    "uuid": "e43ca9e4-bbf7-48d1-8ef7-9bdf509826ea",
-    "stem_html": "A trucker drives along a straight highway for 0.25 h with a displacement of 16 km south. What is the trucker’s average velocity?",
-    "id": 91818,
-    "answers": [
-      {
-        "id": 374246,
-        "content_html": "4 km/h north",
-        "correctness": "0.0",
-        "feedback_html": "Consider the definition of average velocity correctly."
-      },
-      {
-        "id": 374247,
-        "content_html": "4 km/h south",
-        "correctness": "0.0",
-        "feedback_html": "Use the correct equation. Remember, average velocity is total displacement over total time."
-      },
-      {
-        "id": 374248,
-        "content_html": "64 km/h north",
-        "correctness": "0.0",
-        "feedback_html": "Take the direction correctly in your calculation."
-      },
-      {
-        "id": 374249,
-        "content_html": "64 km/h south",
-        "correctness": "1.0",
-        "feedback_html": "Average velocity is total displacement divided by total time taken."
-      }
-    ]
-  },
-  {
-    "uuid": "53bf0d57-bf80-4001-aadb-a46f55ca3d7c",
-    "stem_html": "Two runners travel along the same straight path. They start at the same time, and they end at the same time, but at the halfway mark, they have different instantaneous velocities. Is it possible for them to have the same average velocity for the trip?",
-    "id": 91821,
-    "answers": [
-      {
-        "id": 374261,
-        "content_html": "Yes, because average velocity depends on the net or total displacement.",
-        "correctness": "1.0",
-        "feedback_html": "Instantaneous velocities might change, but they do not have a bearing on the average velocity as it is the net displacement divided by total time."
-      },
-      {
-        "id": 374260,
-        "content_html": "Yes, because average velocity depends on the total distance traveled.",
-        "correctness": "0.0",
-        "feedback_html": "Distance and displacement are not the same quantity."
-      },
-      {
-        "id": 374259,
-        "content_html": "No, because the velocities of both runners must remain the exactly same throughout the journey.",
-        "correctness": "0.0",
-        "feedback_html": "Recall, average velocity is a function of two physical quantities, net displacement and total time taken."
-      },
-      {
-        "id": 374258,
-        "content_html": "No, because the instantaneous velocities of the runners must remain same midway but can be different elsewhere.",
-        "correctness": "0.0",
-        "feedback_html": "Recall, average velocity is a function of two physical quantities, net displacement and total time taken."
-      }
-    ]
-  },
-  {
-    "uuid": "06297704-8922-4648-84ec-00bdbbcf3218",
-    "stem_html": "Is it possible to determine a car’s instantaneous velocity from just the speedometer reading?",
-    "id": 91825,
     "answers": [
       {
         "id": 374277,
@@ -121,68 +57,106 @@
         "correctness": "0.0",
         "feedback_html": "The speedometer reading does not give the direction of the car."
       }
-    ]
+    ],
+    "group_uuid": "6853ab45-e937-4fe3-99e0-be88e566bb10",
+    "stem_html": "Is it possible to determine a car’s instantaneous velocity from just the speedometer reading?",
+    "tags": "6853ab45-e937-4fe3-99e0-be88e566bb10",
+    "uid": "1849@6"
   },
   {
-    "uuid": "c7575e11-2d2d-4c6c-a9f6-d47ffd3bdf5e",
-    "stem_html": "Rob drove to the nearest hospital with an average speed of v m/s in t seconds. In terms of t, if he drives home on the same path, but with an average speed of 3v m/s, how long is the return trip home?",
-    "id": 91829,
     "answers": [
       {
-        "id": 374292,
-        "content_html": "t/6",
+        "id": 397410,
+        "content_html": "astronomy",
         "correctness": "0.0",
-        "feedback_html": "Recall that the distance traveled is average speed multiplied by the time taken."
+        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
       },
       {
-        "id": 374293,
-        "content_html": "t/3",
+        "id": 397411,
+        "content_html": "biology",
+        "correctness": "0.0",
+        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+      },
+      {
+        "id": 397412,
+        "content_html": "computer science",
         "correctness": "1.0",
-        "feedback_html": "The time can be obtained using the fact that average speed <span data-math=\"v_{avg}\">v_{avg}</span> is given by <span data-math=\"v_{avg}\">v_{avg}</span> = distance/time."
+        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
       },
       {
-        "id": 374291,
-        "content_html": "3t",
+        "id": 397413,
+        "content_html": "physics",
         "correctness": "0.0",
-        "feedback_html": "The distance covered by Rob in both journeys is the same. So, if speed has increased by 3 times, then by how much should the time be reduced to make the distance constant."
-      },
-      {
-        "id": 374290,
-        "content_html": "6t",
-        "correctness": "0.0",
-        "feedback_html": "Distance is average speed multiplied by the time taken. Use this relation to obtain the time taken for the return journey."
+        "feedback_html": "Physics is a branch of natural science that studies matter."
       }
-    ]
+    ],
+    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "stem_html": "Which of the following sciences is not considered a natural science?",
+    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
+    "uid": "4@7"
   },
   {
-    "uuid": "5dc7bde5-41b2-4596-9b4b-02ee66555390",
-    "stem_html": "An object has an average speed of 7.4 km/h. Which of the following describes two ways you could increase the average speed of the object to 14.8 km/h?",
-    "id": 91831,
     "answers": [
       {
-        "id": 374298,
-        "content_html": "Reduce the distance that the object travels by half, keeping the time constant, or keep the distance constant and double the time.",
-        "correctness": "0.0",
-        "feedback_html": "Average speed is the distance traveled per unit time. So reducing distance by keeping time constant will decrease the average velocity. Similarly, increasing time by keeping distance constant will also decrease average speed."
-      },
-      {
-        "id": 374301,
-        "content_html": "Double the distance that the object travels, keeping the time constant, or keep the distance constant and reduce the time by half.",
+        "id": 471071,
+        "content_html": "Cells require energy to perform certain basic functions. Blocking glycolysis in RBCs causes imbalance in the membrane potential, leading to cell death.",
         "correctness": "1.0",
-        "feedback_html": "To double the average speed, double the distance and keep the time constant, or reduce the time by half and keep distance constant."
+        "feedback_html": "Cells require energy to carry out basic functions such as pumping ions across membranes. A red blood cell would lose its membrane potential if glycolysis was blocked, and it would eventually die."
       },
       {
-        "id": 374299,
-        "content_html": "Reduce the distance that the object travels to one-fourth, keeping the time constant, or keep the distance constant and increase the time by fourfold.",
+        "id": 471070,
+        "content_html": "Cells need energy to perform cell division. Blocking glycolysis in RBCs interrupts the process of mitosis leading to nondisjunction.",
         "correctness": "0.0",
-        "feedback_html": "Average speed is directly proportional to the distance covered if time is constant, and it is inversely proportional to time if distance is kept constant. So, reducing distance or increasing time decreases the average speed."
+        "feedback_html": "RBCs do not perform mitosis or meiosis and therefore cannot suffer from nondisjunction."
       },
       {
-        "id": 374300,
-        "content_html": "Increase the distance by fourfold, keeping the time constant, or keep the distance constant and reduce the time by one-fourth.",
+        "id": 471069,
+        "content_html": "Cells maintain the influx and efflux of organic substances using energy. Blocking glycolysis stops the binding of <span data-math=\"\\text{CO}_2\">\\text{CO}_2</span> to the RBCs, causing cell death.",
         "correctness": "0.0",
-        "feedback_html": "Average speed is directly proportional to the distance covered if time is constant, and it is inversely proportional to time if distance is kept constant. So, making the distance 4 times or reducing the time by one-fourth will make the average speed 4 times the initial value."
+        "feedback_html": "Stopping the binding of <span data-math=\"\\text{CO}_2\">\\text{CO}_2</span> would not likely cause cell death."
+      },
+      {
+        "id": 471068,
+        "content_html": "Cells require energy to recognize attacking pathogens. Blocked glycolysis inhibits the process of recognition, causing invasion of the RBCs by a pathogen.",
+        "correctness": "0.0",
+        "feedback_html": "There is no evidence given here that glycolysis is related to pathogen recognition."
       }
-    ]
+    ],
+    "group_uuid": "fd03b7ca-65e8-4026-8e67-64809d90104d",
+    "stem_html": "Red blood cells (RBCs) do not perform aerobic respiration, but they do perform glycolysis. Why do all cells need an energy source and what would happen if glycolysis were blocked in a red blood cell?",
+    "tags": "fd03b7ca-65e8-4026-8e67-64809d90104d",
+    "uid": "548@10"
+  },
+  {
+    "answers": [
+      {
+        "id": 470928,
+        "content_html": "anabolic",
+        "correctness": "1.0",
+        "feedback_html": "Anabolic process is the one in which simpler molecules combine to form complex molecules by using energy. Sucrose is a complex molecule formed by the polymerization of glucose and fructose, which are simple molecules."
+      },
+      {
+        "id": 470927,
+        "content_html": "catabolic",
+        "correctness": "0.0",
+        "feedback_html": "Catabolic process is the one in which complex molecules are broken down into simpler molecules."
+      },
+      {
+        "id": 470926,
+        "content_html": "hydrolysis",
+        "correctness": "0.0",
+        "feedback_html": "Hydrolysis is a reaction involving the breaking of a bond in a molecule using water."
+      },
+      {
+        "id": 470925,
+        "content_html": "transcription",
+        "correctness": "0.0",
+        "feedback_html": "Transcription is the process in which a segment of DNA is copied into RNA using RNA polymerase."
+      }
+    ],
+    "group_uuid": "451c2778-d0b9-4597-98f8-492d714e3702",
+    "stem_html": "The synthesis of sucrose is an example of what process?",
+    "tags": "451c2778-d0b9-4597-98f8-492d714e3702",
+    "uid": "458@10"
   }
 ]
