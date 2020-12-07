@@ -3,7 +3,7 @@ import { and, not } from '../../fpUtils';
 import { fromRelativeUrl, isAbsolutePath, isAbsoluteUrl } from './urlUtils';
 
 const domParser = new DOMParser();
-const isRelativeUrl = not(and(isAbsoluteUrl, isAbsolutePath));
+const isRelativeUrl = and(not(isAbsoluteUrl), not(isAbsolutePath));
 
 export function addTargetBlankToLinks(htmlString: string): string  {
   const domNode = domParser.parseFromString(htmlString, 'text/html');
