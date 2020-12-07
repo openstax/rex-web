@@ -7,6 +7,8 @@ import { LinkedArchiveTreeSection } from '../../types';
 
 // tslint:disable-next-line: variable-name
 const StyledNextSectionMessage = styled.div`
+  max-width: 38rem;
+  overflow: initial;
   ${Button} {
     margin: 4rem auto;
   }
