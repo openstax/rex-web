@@ -14,18 +14,30 @@ import {
 } from '../utils/contentManipulation';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
 
+// tslint:disable-next-line: variable-name
+const StyledContentExcerpt = styled.div`
+  ${bodyCopyRegularStyle}
+  overflow: auto;
+
+  * {
+    overflow: initial;
+  }
+`;
+
 interface Props {
   content: string;
-  className: string;
+  className?: string;
   source: string | LinkedArchiveTreeSection;
+  forwardedRef?: React.Ref<HTMLElement>;
 }
 
 // tslint:disable-next-line:variable-name
-const ContentExcerpt = styled((props: Props) => {
+const ContentExcerpt = (props: Props) => {
   const {
     content,
     className,
     source,
+    forwardedRef,
     ...excerptProps
   } = props;
 
@@ -45,18 +57,17 @@ const ContentExcerpt = styled((props: Props) => {
     (newContent) => rebaseRelativeResources(newContent, excerptSource.url)
   )(props.content), [props.content, excerptSource.url]);
 
-  return <div
+  return <StyledContentExcerpt
+    ref={forwardedRef}
     dangerouslySetInnerHTML={{ __html: fixedContent }}
     className={`content-excerpt ${className}`}
     {...excerptProps}
   />;
-})`
-  ${bodyCopyRegularStyle}
-  overflow: auto;
+};
 
-  * {
-    overflow: initial;
-  }
-`;
-
-export default ContentExcerpt;
+export default React.forwardRef<
+  HTMLElement,
+  Omit<React.ComponentProps<typeof ContentExcerpt>, 'forwardedRef'>
+>((props, ref) => (
+  <ContentExcerpt {...props} forwardedRef={ref} />
+));

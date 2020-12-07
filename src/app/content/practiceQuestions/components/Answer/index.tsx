@@ -63,7 +63,7 @@ const Answer = ({
       id='i18n:practice-questions:popup:answers:choice'
       values={{choiceIndicator: choiceIndicator.toUpperCase()}}
     >{(msg: string) =>
-      <AnswerLabel aria-label={msg}>
+      <AnswerLabel aria-label={msg} aria-selected={isSelected}>
         {choiceIndicator}
         <input
           type='radio'
