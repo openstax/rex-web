@@ -38,12 +38,15 @@ interface ButtonProps<T extends ComponentType | undefined> {
 }
 
 // tslint:disable-next-line:variable-name
-function ButtonHoc<T extends ComponentType | undefined>({variant, size, component, ...props}: ButtonProps<T>) {
+const ButtonHoc = React.forwardRef((
+  {variant, size, component, ...props}: ButtonProps<ComponentType | undefined>,
+  ref: React.Ref<HTMLButtonElement | ComponentType>
+) => {
   if (isDefined(component)) {
-    return React.cloneElement(component, props);
+    return React.cloneElement(component, {...props, ref});
   }
-  return <button {...props} />;
-}
+  return <button ref={ref} {...props} />;
+});
 
 // tslint:disable-next-line:variable-name
 const Button = styled(ButtonHoc)`
