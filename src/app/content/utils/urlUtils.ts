@@ -102,7 +102,7 @@ export const toRelativeUrl = (from: string, to: string) => {
 };
 
 export const fromRelativeUrl = (base: string, to: string) => {
-  if ( isAbsoluteUrl(base)) {
+  if (isAbsoluteUrl(base)) {
     return (new URL(to, base)).toString();
   } else {
     // this hostname is required by the URL constructor but we ignore it in our response, the value is irrelevant
