@@ -10,7 +10,7 @@ const JSDOM = require('jsdom').JSDOM;
 global.DOMParser = new JSDOM().window.DOMParser;
 
 const URL = require('url');
-global.URL = URL;
+global.URL = URL.URL;
 
 if (!script) {
   console.error('script argument is required');
