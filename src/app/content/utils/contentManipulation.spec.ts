@@ -1,7 +1,7 @@
 import {
   addTargetBlankToLinks,
   rebaseRelativeContentLinks,
-  rebaseRelativeResources,
+  resolveRelativeResources,
 } from '../utils/contentManipulation';
 
 describe('addTargetBlankToLinks', () => {
@@ -73,7 +73,7 @@ describe('rebaseRelativeContentLinks', () => {
   });
 });
 
-describe('rebaseRelativeResources', () => {
+describe('resolveRelativeResources', () => {
   it('modifies resource elements', () => {
     const input = '<div class="test">'
       + '<img src="../some/link">'
@@ -85,7 +85,7 @@ describe('rebaseRelativeResources', () => {
       + '</div>'
       + '<iframe src="/url" title="description"></iframe>';
 
-    expect(rebaseRelativeResources(input, '/content')).toEqual(output);
+    expect(resolveRelativeResources(input, '/content')).toEqual(output);
   });
 
   it('doesnt modify img elements when not relative', () => {
@@ -99,7 +99,7 @@ describe('rebaseRelativeResources', () => {
       + '</div>'
       + '<iframe src="/url" title="description"></iframe>';
 
-    expect(rebaseRelativeResources(input, '/content')).toEqual(output);
+    expect(resolveRelativeResources(input, '/content')).toEqual(output);
   });
 
   it('doesnt modify absolute url sources', () => {
@@ -113,6 +113,6 @@ describe('rebaseRelativeResources', () => {
       + '</div>'
       + '<iframe src="/url" title="description"></iframe>';
 
-    expect(rebaseRelativeResources(input, '')).toEqual(output);
+    expect(resolveRelativeResources(input, '')).toEqual(output);
   });
 });

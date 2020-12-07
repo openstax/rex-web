@@ -15,18 +15,18 @@ export const rebaseRelativeContentLinks = (htmlString: string, sourceUrl: string
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   domNode.querySelectorAll('a').forEach((element: HTMLAnchorElement) => {
     const hrefValue = element.getAttribute('href');
-    if (hrefValue && isRelativeUrl(hrefValue) && sourceUrl) {
+    if (hrefValue && isRelativeUrl(hrefValue)) {
       element.setAttribute('href', fromRelativeUrl(sourceUrl, hrefValue));
     }
   });
   return domNode.body.innerHTML;
 };
 
-export const rebaseRelativeResources = (htmlString: string, sourceUrl: string) => {
+export const resolveRelativeResources = (htmlString: string, sourceUrl: string) => {
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   domNode.querySelectorAll('img,iframe').forEach((element: HTMLAnchorElement) => {
     const srcValue = element.getAttribute('src');
-    if (srcValue && isRelativeUrl(srcValue) && sourceUrl) {
+    if (srcValue && isRelativeUrl(srcValue)) {
       element.setAttribute('src', fromRelativeUrl(sourceUrl, srcValue));
     }
   });
