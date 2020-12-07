@@ -11,6 +11,7 @@ import * as pqSelectors from '../selectors';
 import { getNextPageWithPracticeQuestions } from '../utils';
 import EmptyScreen from './EmptyScreen';
 import IntroScreen from './IntroScreen';
+import FinalScreen from './FinalScreen';
 import ProgressBar from './ProgressBar';
 import Question from './Question';
 
@@ -83,11 +84,10 @@ export const StyledContentLink = styled.a`
 
 // tslint:disable-next-line: variable-name
 const ShowPracticeQuestions = () => {
-  const {book, page} = useSelector(contentSelectors.bookAndPage);
+  const { book, page } = useSelector(contentSelectors.bookAndPage);
   const section = useSelector(pqSelectors.selectedSection);
   const questionsCount = useSelector(pqSelectors.questionsCount);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
-  const selectedSectionHasPracticeQuestions = useSelector(pqSelectors.selectedSectionHasPracticeQuestions);
   const locationFilters = useSelector(pqSelectors.practiceQuestionsLocationFilters);
   const linkToTheSection = React.useMemo(() => {
     return book && section ? getBookPageUrlAndParams(book, section).url : null;
@@ -96,6 +96,11 @@ const ShowPracticeQuestions = () => {
     const currentSectionId = section ? section.id : page ? page.id : null;
     return currentSectionId ? getNextPageWithPracticeQuestions(currentSectionId, locationFilters, book) : undefined;
   }, [book, page, section, locationFilters]);
+  const questionsInProggress = useSelector(pqSelectors.questionsInProggress);
+  const hasAnswers = useSelector(pqSelectors.hasAnswers);
+
+  console.log('hasAnswers: ', hasAnswers);
+  console.log('questionsInProggress: ', questionsInProggress);
 
   return (
     <ShowPracticeQuestionsBody
@@ -105,21 +110,29 @@ const ShowPracticeQuestions = () => {
       {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
       {questionsCount === 0 && nextSection
         ? <EmptyScreen nextSection={nextSection} />
-        : (
-          <QuestionsWrapper>
-            <QuestionsHeader>
-              <FormattedMessage id='i18n:practice-questions:popup:questions'>
-                {(msg: string) => msg}
-              </FormattedMessage>
-            </QuestionsHeader>
-            <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-            {
-              selectedSectionHasPracticeQuestions && currentQuestionIndex === null
-                ? <IntroScreen />
-                : <Question />
-            }
-          </QuestionsWrapper>
-        )
+        : questionsInProggress
+          ? (
+            <QuestionsWrapper>
+              <QuestionsHeader>
+                <FormattedMessage id='i18n:practice-questions:popup:questions'>
+                  {(msg: string) => msg}
+                </FormattedMessage>
+              </QuestionsHeader>
+              <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+              <Question />
+            </QuestionsWrapper>
+          )
+          : hasAnswers
+            ? <FinalScreen />
+            : <QuestionsWrapper>
+              <QuestionsHeader>
+                <FormattedMessage id='i18n:practice-questions:popup:questions'>
+                  {(msg: string) => msg}
+                </FormattedMessage>
+              </QuestionsHeader>
+              <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+              <IntroScreen />
+            </QuestionsWrapper>
       }
       {
         section && linkToTheSection
