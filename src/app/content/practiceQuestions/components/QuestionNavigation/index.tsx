@@ -92,6 +92,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
     </FormattedMessage>}
     {showFinish && <FormattedMessage id='i18n:practice-questions:popup:navigation:finish'>
       {(msg: string) => <Button
+        variant='primary'
         size='large'
         component={<input type='submit' value={msg} />}
       />}
