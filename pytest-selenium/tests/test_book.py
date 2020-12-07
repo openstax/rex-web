@@ -275,3 +275,42 @@ def test_navbar_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slu
     assert user_nav.user_is_not_logged_in
     assert selenium.current_url == page_url_before_login
     assert book.content.page_error_displayed
+
+
+@markers.test_case("C614422")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_search_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
+    """Search functionality works on rex 404 page."""
+
+    # GIVEN: A page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    book.wait_for_service_worker_to_install()
+
+    # AND: User loads an incorrect page in the same session
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
+    toolbar = content.toolbar
+    mobile = content.mobile_search_toolbar
+    toc_sidebar = content.sidebar
+    search_sidebar = content.search_sidebar
+
+    # AND: Rex 404 page is displayed
+    assert book.content.page_error_displayed
+
+    # WHEN: Search is triggered for a string
+    search_term = utility.get_search_term(book_slug)
+
+    if content.is_desktop:
+        toolbar.search_for(search_term)
+
+    if content.is_mobile:
+        mobile.search_for(search_term)
+
+    # THEN: Search sidebar is displayed
+    assert search_sidebar.is_displayed
+
+    # AND: Content page scrolls to the first search result
+
+    # AND: Rex 404 page is not displayed
+    assert not book.content.page_error_displayed
