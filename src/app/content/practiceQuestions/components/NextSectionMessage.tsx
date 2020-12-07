@@ -9,6 +9,7 @@ import { LinkedArchiveTreeSection } from '../../types';
 const StyledNextSectionMessage = styled.div`
   max-width: 38rem;
   overflow: initial;
+
   ${Button} {
     margin: 4rem auto;
   }
