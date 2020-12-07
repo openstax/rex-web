@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import Button from '../../../../components/Button';
-import { nextQuestion, setAnswer } from '../../actions';
+import { nextQuestion, setAnswer, finishQuestions } from '../../actions';
 import * as pqSelectors from '../../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
 
@@ -42,7 +42,11 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
             onClick={(e: React.MouseEvent) => {
               e.preventDefault();
               dispatch(setAnswer({ answer: null, questionId: question.uid }));
-              dispatch(nextQuestion());
+              if (!isFinalQuestion) {
+                dispatch(nextQuestion());
+              } else {
+                dispatch(finishQuestions());
+              }
             }}
           >
             {msg}

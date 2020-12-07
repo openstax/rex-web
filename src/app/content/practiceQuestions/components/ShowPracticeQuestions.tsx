@@ -99,9 +99,6 @@ const ShowPracticeQuestions = () => {
   const questionsInProggress = useSelector(pqSelectors.questionsInProggress);
   const hasAnswers = useSelector(pqSelectors.hasAnswers);
 
-  console.log('hasAnswers: ', hasAnswers);
-  console.log('questionsInProggress: ', questionsInProggress);
-
   return (
     <ShowPracticeQuestionsBody
       data-testid='show-practice-questions-body'
