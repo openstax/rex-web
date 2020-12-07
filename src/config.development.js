@@ -1,6 +1,6 @@
 const query = require('query-string');
 
-const REACT_APP_ARCHIVE_URL = typeof(window) === 'undefined'
+const REACT_APP_ARCHIVE_URL_OVERRIDE = typeof(window) === 'undefined'
   ? undefined
   : query.parse(window.location.search).archive
 ;
@@ -25,8 +25,7 @@ module.exports = {
   CODE_VERSION: 'development',
   DEPLOYED_ENV: 'development',
 
-  REACT_APP_ARCHIVE_URL: REACT_APP_ARCHIVE_URL || '',
-
+  REACT_APP_ARCHIVE_URL_OVERRIDE,
   ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://accounts-dev.openstax.org',
   OS_WEB_URL: process.env.OS_WEB_URL || 'https://cms-dev.openstax.org',
   HIGHLIGHTS_URL: 'https://highlights-hl-d4179a7.sandbox.openstax.org',

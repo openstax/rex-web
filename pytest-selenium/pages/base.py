@@ -245,3 +245,9 @@ class Page(pypom.Page):
                 win_lower_bound >= target_lower_bound,
             )
         )
+
+    def wait_for_service_worker_to_install(self):
+        """Add a delay to give some time for the service workers installation."""
+
+        sleep(3)
+        return None

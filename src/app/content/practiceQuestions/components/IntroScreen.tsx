@@ -2,16 +2,16 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import Button from '../../../components/Button';
 import { textRegularSize } from '../../../components/Typography';
 import { nextQuestion } from '../actions';
 import * as pqSelectors from '../selectors';
-import PQButton from './PQButton';
 
 // tslint:disable-next-line: variable-name
 const IntroScreenWrapper = styled.div`
   text-align: center;
 
-  ${PQButton} {
+  ${Button} {
     display: block;
     margin: 2rem auto;
   }
@@ -34,11 +34,16 @@ const IntroScreen = () => {
         {(msg: string) => msg}
       </FormattedMessage>
     </IntroScreenMessage>
-    <PQButton onClick={() => dispatch(nextQuestion())} data-analytics-label='Start now'>
+    <Button
+      variant='primary'
+      size='large'
+      onClick={() => dispatch(nextQuestion())}
+      data-analytics-label='Start now'
+    >
       <FormattedMessage id='i18n:practice-questions:popup:intro:start'>
         {(msg: string) => msg}
       </FormattedMessage>
-    </PQButton>
+    </Button>
   </IntroScreenWrapper>;
 };
 
