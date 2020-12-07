@@ -81,3 +81,8 @@ export const questionsInProggress = createSelector(
   currentQuestionIndex,
   (index) => index !== null
 );
+
+export const hasAnswers = createSelector(
+  questionAnswers,
+  (answers) => answers.size > 0 
+);
