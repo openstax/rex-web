@@ -55,6 +55,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
           [questionId]: answer,
         },
       };
+    case getType(actions.finishQuestions):
+      return {...state, currentQuestionIndex: null};
     default:
       return state;
   }

@@ -9,7 +9,7 @@ import { match } from '../../../fpUtils';
 import theme from '../../../theme';
 import { assertWindow } from '../../../utils/browser-assertions';
 import ContentExcerpt from '../../components/ContentExcerpt';
-import { setAnswer } from '../actions';
+import { setAnswer, finishQuestions } from '../actions';
 import * as pqSelectors from '../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../types';
 import Answer from './Answer';
@@ -49,6 +49,8 @@ const Question = () => {
   const question = useSelector(pqSelectors.question);
   const section = useSelector(pqSelectors.selectedSection);
   const isSubmitted = useSelector(pqSelectors.isCurrentQuestionSubmitted);
+  const isFinalQuestion = useSelector(pqSelectors.isFinalQuestion);
+
   const dispatch = useDispatch();
 
   React.useLayoutEffect(() => {
@@ -64,9 +66,12 @@ const Question = () => {
   const showCorrect = showCorrectState === question;
 
   const onSubmit = (e: React.FormEvent) => {
-    // TODO: Add support for handling Finish button
     e.preventDefault();
     dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
+    // handling Finish button
+    if (isFinalQuestion && isSubmitted) {
+      dispatch(finishQuestions());
+    }
   };
 
   return <QuestionWrapper ref={container} onSubmit={onSubmit} data-testid='question-form'>
