@@ -217,13 +217,19 @@ describe('Question', () => {
     expect(() => component.root.findByProps({ value: 'Show answer' })).toThrow();
   });
 
-  it('handles clicking on Next button', () => {
+  it('handles clicking on Next button when submitted answer was incorrect and focuses Show Answer', () => {
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
     store.dispatch(setQuestions([mockQuestion, {...mockQuestion, uid: '213'}]));
     store.dispatch(nextQuestion());
     dispatch.mockClear();
 
-    const component = renderer.create(render());
+    const mockShowAnswerButton = assertDocument().createElement('button');
+    const spyShowAnswerFocus = jest.spyOn(mockShowAnswerButton, 'focus');
+
+    const component = renderer.create(render(), { createNodeMock: (el: any) => {
+      if (el.props['data-testid'] === 'show-answer') { return mockShowAnswerButton; }
+      return undefined;
+    } });
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
@@ -240,12 +246,53 @@ describe('Question', () => {
     const preventDefault = jest.fn();
     form.props.onSubmit({ preventDefault });
 
-    const next = component.root.findByProps({ value: 'Next' })!;
+    expect(() => component.root.findByProps({
+      id: 'i18n:practice-questions:popup:navigation:show-answer:aria-label',
+    })).not.toThrow();
+
+    const next = component.root.findByProps({ 'data-testid': 'next' })!;
     act(() => {
       next.props.onClick({ preventDefault: jest.fn() });
     });
 
     expect(dispatch).toHaveBeenCalledWith(nextQuestion());
+    expect(spyShowAnswerFocus).toHaveBeenCalled();
+  });
+
+  it('after submitting correct answer the Next button is focused and proper aria label is set', () => {
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(setQuestions([mockQuestion, {...mockQuestion, uid: '213'}]));
+    store.dispatch(nextQuestion());
+    dispatch.mockClear();
+
+    const mockNextButton = assertDocument().createElement('button');
+    const spyNextFocus = jest.spyOn(mockNextButton, 'focus');
+
+    const component = renderer.create(render(), { createNodeMock: (el: any) => {
+      if (el.props['data-testid'] === 'next') { return mockNextButton; }
+      return undefined;
+    } });
+
+    // Run initial useEffect hook
+    // tslint:disable-next-line: no-empty
+    act(() => {});
+
+    const [, correctAnswer] = component.root.findAllByType(Answer);
+    const input = correctAnswer.findByProps({ type: 'radio' });
+
+    act(() => {
+      input.props.onChange();
+    });
+
+    const form = component.root.findByProps({ 'data-testid': 'question-form' });
+    const preventDefault = jest.fn();
+    form.props.onSubmit({ preventDefault });
+
+    expect(() => component.root.findByProps({ 'data-testid': 'next' })).not.toThrow();
+    expect(spyNextFocus).toHaveBeenCalled();
+    expect(() => component.root.findByProps({
+      id: 'i18n:practice-questions:popup:navigation:next:aria-label:after-correct',
+    })).not.toThrow();
   });
 
   it('clicking on submitted answer does nothing', () => {

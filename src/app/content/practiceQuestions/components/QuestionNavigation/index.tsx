@@ -89,6 +89,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
             variant='transparent'
             default={true}
             aria-label={ariaLabel}
+            data-testid='show-answer'
             onClick={(e: React.MouseEvent) => {
               e.preventDefault();
               props.onShowAnswer();
@@ -108,6 +109,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
             size='large'
             aria-label={ariaLabel}
             value={msg}
+            data-testid='next'
             onClick={(e: React.MouseEvent) => {
               e.preventDefault();
               dispatch(nextQuestion());
