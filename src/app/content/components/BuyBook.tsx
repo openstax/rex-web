@@ -17,7 +17,6 @@ const BuyBookAlignment = styled.div`
   max-width: ${contentTextWidth}rem;
   overflow: visible;
   ${disablePrint}
-
   ${theme.breakpoints.mobileSmall(css`
     flex-direction: column;
   `)}
@@ -46,7 +45,6 @@ const BuyPrintDisclosure = styled.p`
   ${textRegularStyle}
   font-size: 1.2rem;
   line-height: 1.7rem;
-
   ${theme.breakpoints.mobileSmall(css`
     align-self: stretch;
     margin: 1.6rem 0 0 0;
