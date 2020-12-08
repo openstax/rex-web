@@ -102,7 +102,21 @@ export const toRelativeUrl = (from: string, to: string) => {
 };
 
 export const fromRelativeUrl = (base: string, to: string) => {
-  // this hostname is required by the URL constructor but we ignore it in our response, the value is irrelevant
-  const urlBase = new URL(to, `https://openstax.org${base}`);
-  return urlBase.pathname + urlBase.search + urlBase.hash;
+  if (isAbsoluteUrl(base)) {
+    return (new URL(to, base)).toString();
+  } else {
+    // this hostname is required by the URL constructor but we ignore it in our response, the value is irrelevant
+    const urlBase = new URL(to, `https://openstax.org${base}`);
+    return urlBase.pathname + urlBase.search + urlBase.hash;
+  }
+};
+
+export const isAbsolutePath = (url: string) => {
+  const pattern = /^\/[^/]{1}/i;
+  return pattern.test(url);
+};
+
+export const isAbsoluteUrl = (url: string) => {
+  const pattern = /^(https?:)?\/\//i;
+  return pattern.test(url);
 };
