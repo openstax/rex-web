@@ -12,7 +12,10 @@ const loadBuyPrintConfig = (services: MiddlewareAPI & AppServices) => async() =>
     return;
   }
 
-  const config = (await buyPrintConfigLoader.load(book)).buy_urls[0];
+  const response = await buyPrintConfigLoader.load(book)
+    .catch(() => null);
+
+  const config = response ? response.buy_urls[0] : null;
 
   if (!config) {
     return;
