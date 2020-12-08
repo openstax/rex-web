@@ -41,7 +41,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
     case getType(actions.receivePracticeQuestionsSummary):
       return {...state, summary: action.payload};
     case getType(actions.setSelectedSection):
-      return {...state, selectedSection: action.payload, currentQuestionIndex: null, questions: []};
+      return {...state, selectedSection: action.payload, currentQuestionIndex: null, questions: [], questionAnswers: {}};
     case getType(actions.nextQuestion):
       return {...state, currentQuestionIndex: state.currentQuestionIndex === null ? 0 : state.currentQuestionIndex + 1};
     case getType(actions.setQuestions):

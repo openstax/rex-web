@@ -120,7 +120,7 @@ const ShowPracticeQuestions = () => {
             </QuestionsWrapper>
           )
           : hasAnswers
-            ? <FinalScreen />
+            ? <FinalScreen nextSection={nextSection}/>
             : <QuestionsWrapper>
               <QuestionsHeader>
                 <FormattedMessage id='i18n:practice-questions:popup:questions'>
