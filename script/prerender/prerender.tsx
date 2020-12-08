@@ -40,7 +40,7 @@ async function renderManifest() {
 async function render() {
   await Loadable.preloadAll();
   const port = await portfinder.getPortPromise();
-  const archiveLoader = createArchiveLoader(`http://localhost:${port}${REACT_APP_ARCHIVE_URL}`);
+  const archiveLoader = createArchiveLoader(`http://localhost:${port}${REACT_APP_ARCHIVE_URL}`, REACT_APP_ARCHIVE_URL);
   const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`);
   const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
   const searchClient = createSearchClient(`http://localhost:${port}${REACT_APP_SEARCH_URL}`);
