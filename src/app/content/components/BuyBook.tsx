@@ -1,24 +1,30 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
-import { textRegularSize } from '../../components/Typography';
+import styled, { css } from 'styled-components/macro';
+import { textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
-import { buyBookLink } from '../selectors';
+import { buyPrintConfig } from '../selectors';
 import { contentTextWidth } from './constants';
 import { disablePrint } from './utils/disablePrint';
 
 // tslint:disable-next-line:variable-name
 const BuyBookAlignment = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: row;
   margin: 0 auto;
   max-width: ${contentTextWidth}rem;
   overflow: visible;
   ${disablePrint}
+
+  ${theme.breakpoints.mobileSmall(css`
+    flex-direction: column;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
-const BuyBookWrapper = styled.a`
+const BuyBookLink = styled.a`
   ${textRegularSize};
   display: flex;
   align-items: center;
@@ -32,25 +38,41 @@ const BuyBookWrapper = styled.a`
   line-height: 1.9rem;
 `;
 
+// tslint:disable-next-line:variable-name
+const BuyPrintDisclosure = styled.p`
+  flex: 1;
+  align-self: center;
+  margin: 0 0 0 1.6rem;
+  ${textRegularStyle}
+  font-size: 1.2rem;
+  line-height: 1.7rem;
+
+  ${theme.breakpoints.mobileSmall(css`
+    align-self: stretch;
+    margin: 1.6rem 0 0 0;
+  `)}
+`;
+
 // tslint:disable-next-line: variable-name
 const BuyBook = () => {
-  const link = useSelector(buyBookLink);
+  const config = useSelector(buyPrintConfig);
 
-  if (!link) { return null; }
+  if (!config) { return null; }
 
   return <FormattedMessage id='i18n:toolbar:buy-book:aria-label:text'>
-    {(ariaLabel) => <BuyBookAlignment >
-      <BuyBookWrapper
+    {(ariaLabel) => <BuyBookAlignment>
+      <BuyBookLink
         aria-label={ariaLabel}
         target='_blank'
         rel='noopener'
-        href={link}
+        href={config.url}
         data-analytics-label='buy-book'
       >
         <FormattedMessage id='i18n:toolbar:buy-book:text'>
           {(msg) => msg}
         </FormattedMessage>
-      </BuyBookWrapper>
+      </BuyBookLink>
+      {config.disclosure && <BuyPrintDisclosure>{config.disclosure}</BuyPrintDisclosure>}
     </BuyBookAlignment>}
   </FormattedMessage>;
 };

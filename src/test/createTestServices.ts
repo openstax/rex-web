@@ -15,6 +15,7 @@ jest.mock('@openstax/highlighter/dist/api');
 const services = () => ({
   analytics,
   archiveLoader: mockArchiveLoader(),
+  buyPrintConfigLoader: {load: jest.fn()},
   fontCollector: new FontCollector(),
   highlightClient: createHighlightClient('asdf'),
   history: createMemoryHistory(),
