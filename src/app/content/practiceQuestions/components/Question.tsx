@@ -67,11 +67,11 @@ const Question = () => {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
-    // handling Finish button
     if (isFinalQuestion && isSubmitted) {
       dispatch(finishQuestions());
+      return;
     }
+    dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
   };
 
   return <QuestionWrapper ref={container} onSubmit={onSubmit} data-testid='question-form'>

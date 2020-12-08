@@ -24,11 +24,11 @@ const StyledText = styled.span`
   margin-bottom: 3rem;
 `;
 
-interface EmptyScreenProps {
-  nextSection: LinkedArchiveTreeSection | undefined;
+interface FinalScreenProps {
+  nextSection?: LinkedArchiveTreeSection;
 }
 
-const FinalScreen = ({ nextSection }: EmptyScreenProps) => {
+const FinalScreen = ({ nextSection }: FinalScreenProps) => {
   const dispatch = useDispatch();
 
   return <StyledFinalScreen>

@@ -42,10 +42,10 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
             onClick={(e: React.MouseEvent) => {
               e.preventDefault();
               dispatch(setAnswer({ answer: null, questionId: question.uid }));
-              if (!isFinalQuestion) {
-                dispatch(nextQuestion());
-              } else {
+              if (isFinalQuestion) {
                 dispatch(finishQuestions());
+              } else {
+                dispatch(nextQuestion());
               }
             }}
           >
