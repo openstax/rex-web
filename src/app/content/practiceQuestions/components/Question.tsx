@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { typesetMath } from '../../../../helpers/mathjax';
-import { h4Style } from '../../../components/Typography';
+// import { h4Style } from '../../../components/Typography';
 import { useServices } from '../../../context/Services';
 import { match } from '../../../fpUtils';
 import theme from '../../../theme';
@@ -24,12 +24,12 @@ export const QuestionWrapper = styled.form`
 `;
 
 // tslint:disable-next-line: variable-name
-export const QuestionContent = styled(ContentExcerpt)`
-  ${h4Style}
-  font-weight: bold;
-  color: ${theme.color.primary.gray.base};
-  padding: 0;
-`;
+// export const QuestionContent = styled(ContentExcerpt)`
+//   ${h4Style}
+//   font-weight: bold;
+//   color: ${theme.color.primary.gray.base};
+//   padding: 0;
+// `;
 
 // tslint:disable-next-line: variable-name
 export const AnswersWrapper = styled.div`
@@ -57,6 +57,7 @@ const Question = () => {
       services.promiseCollector.add(typesetMath(container.current, assertWindow()));
     }
 
+    console.log('questionContent.current', questionContent.current)
     if (questionContent.current) {
       questionContent.current.focus();
     }
@@ -75,7 +76,7 @@ const Question = () => {
   };
 
   return <QuestionWrapper ref={container} onSubmit={onSubmit} data-testid='question-form'>
-    <QuestionContent ref={questionContent} tabIndex={0} content={question.stem_html} source={section} />
+    <ContentExcerpt ref={questionContent} tabIndex={0} content={question.stem_html} source={section} />
     <AnswersWrapper>
       {question.answers.map((answer, index) =>
         <Answer
