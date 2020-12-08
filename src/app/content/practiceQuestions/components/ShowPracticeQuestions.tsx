@@ -119,9 +119,7 @@ const ShowPracticeQuestions = () => {
       {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
       {questionsCount === 0 && nextSection
         ? <EmptyScreen nextSection={nextSection} />
-        : questionsInProggress ? 
-        practiceQuestionsContent
-        : hasAnswers
+        : hasAnswers && !questionsInProggress
             ? <FinalScreen nextSection={nextSection} />
             : practiceQuestionsContent
       }
@@ -138,51 +136,5 @@ const ShowPracticeQuestions = () => {
     </ShowPracticeQuestionsBody>
   );
 };
-
-  // return (
-  //   <ShowPracticeQuestionsBody
-  //     data-testid='show-practice-questions-body'
-  //     data-analytics-region='PQ popup'
-  //   >
-  //     {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
-  //     {questionsCount === 0 && nextSection
-  //       ? <EmptyScreen nextSection={nextSection} />
-  //       : questionsInProggress
-  //         ? (
-  //           <QuestionsWrapper>
-  //             <QuestionsHeader>
-  //               <FormattedMessage id='i18n:practice-questions:popup:questions'>
-  //                 {(msg: string) => msg}
-  //               </FormattedMessage>
-  //             </QuestionsHeader>
-  //             <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-  //             <Question />
-  //           </QuestionsWrapper>
-  //         )
-  //         : hasAnswers
-  //           ? <FinalScreen nextSection={nextSection}/>
-  //           : <QuestionsWrapper>
-  //             <QuestionsHeader>
-  //               <FormattedMessage id='i18n:practice-questions:popup:questions'>
-  //                 {(msg: string) => msg}
-  //               </FormattedMessage>
-  //             </QuestionsHeader>
-  //             <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-  //             <IntroScreen />
-  //           </QuestionsWrapper>
-  //     }
-  //     {
-  //       section && linkToTheSection
-  //         ? <StyledContentLink href={linkToTheSection} target='_blank' data-analytics-label='Go to link' >
-  //           <FormattedMessage id='i18n:practice-questions:popup:read'>
-  //             {(msg: string) => msg}
-  //           </FormattedMessage>
-  //           <span dangerouslySetInnerHTML={{ __html: section.title }} />
-  //         </StyledContentLink>
-  //         : null
-  //     }
-  //   </ShowPracticeQuestionsBody>
-  // );
-// };
 
 export default ShowPracticeQuestions;
