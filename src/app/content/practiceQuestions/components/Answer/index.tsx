@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { LinkedArchiveTreeSection } from '../../../types';
@@ -50,7 +51,15 @@ const Answer = ({
   isSelected,
   onSelect,
 }: AnswerProps) => {
+  const answerRef = React.useRef<HTMLElement>(null);
   const isCorrect = answer.correctness === '1.0';
+
+  React.useEffect(() => {
+    if (showCorrect && isCorrect && answerRef.current) {
+      answerRef.current.focus();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showCorrect, isCorrect]);
 
   return <AnswerBlock
     showCorrect={showCorrect}
@@ -63,19 +72,21 @@ const Answer = ({
       id='i18n:practice-questions:popup:answers:choice'
       values={{choiceIndicator: choiceIndicator.toUpperCase()}}
     >{(msg: string) =>
-      <AnswerLabel aria-label={msg} aria-selected={isSelected}>
-        {choiceIndicator}
+      <React.Fragment>
         <input
+          id={choiceIndicator}
           type='radio'
           name={choiceIndicator}
           checked={isSelected}
           disabled={isSubmitted}
-          onChange={onSelect}
         />
-      </AnswerLabel>
+        <AnswerLabel ref={answerRef} aria-label={msg} for={choiceIndicator} tabIndex={-1}>
+          {choiceIndicator}
+        </AnswerLabel>
+      </React.Fragment>
     }</FormattedMessage>
     <AnswerAlignment>
-      <AnswerContent>
+      <AnswerContent tabIndex={0}>
         <AnswerExcerpt>{answer.content_html}</AnswerExcerpt>
         <AnswerResult
           showCorrect={showCorrect}

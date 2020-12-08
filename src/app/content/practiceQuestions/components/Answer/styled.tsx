@@ -116,6 +116,16 @@ export const AnswerBlock = styled.div`
       padding: 0;
     }
   `)}
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:focus + label {
+      outline: auto;
+    }
+  }
 `;
 
 // tslint:disable-next-line: variable-name
