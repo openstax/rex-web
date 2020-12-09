@@ -42,11 +42,6 @@ for await (const row of readCSVObjects(f)) {
   const bookSources = sources[stubBookId] = sources[stubBookId] || {};
   const sourceProblems = bookSources[row.source_page] = bookSources[row.source_page] || [];
 
-  if (row.group_uuid !== exercise.group_uuid) {
-    console.error(row, exercise);
-    Deno.exit();
-  }
-
   sourceProblems.push({
     answers: exercise.questions[0].answers,
     group_uuid: exercise.group_uuid,
