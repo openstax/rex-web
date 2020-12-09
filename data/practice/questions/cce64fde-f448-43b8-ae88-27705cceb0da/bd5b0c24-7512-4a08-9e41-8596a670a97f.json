@@ -28,7 +28,29 @@
     ],
     "group_uuid": "1a6cb5cb-86b1-49ee-b404-28909c40940a",
     "stem_html": "Which forces cause changes in the motion of a system?",
-    "tags": "1a6cb5cb-86b1-49ee-b404-28909c40940a",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch04",
+      "k12phys-ch04-s04",
+      "k12phys-ch04-s04-lo01",
+      "k12phys-ch04-ex061",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch04-ex061",
+      "context-cnxmod:d95c6525-6fcc-4947-bd43-044266f80e41",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "lo:stax-phys:4-3-1",
+      "context-cnxmod:920725c6-229b-4f50-870b-b87366ce4f9e",
+      "context-cnxmod:ddb573f3-3ef8-4bc7-8169-2bf9c35b7bad",
+      "aplo:stax-apphys:1.C.1.1"
+    ],
     "uid": "2120@6"
   }
 ]

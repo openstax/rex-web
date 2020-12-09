@@ -28,7 +28,28 @@
     ],
     "group_uuid": "39a8e9e1-94ab-4a1a-84d6-9575989bec76",
     "stem_html": "Why are different radiopharmaceuticals used to image different parts of the body?",
-    "tags": "39a8e9e1-94ab-4a1a-84d6-9575989bec76",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:medium",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:32-1-2",
+      "k12phys-ch22",
+      "k12phys-ch22-s05",
+      "k12phys-ch22-s05-lo01",
+      "k12phys-ch22-ex135",
+      "exid:k12phys-ch22-ex135",
+      "context-cnxmod:d0690c1d-0d29-4475-990c-75b13d4d6150",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:77d650fb-9d9b-4bb2-8289-adeef4196a5d",
+      "context-cnxmod:79ea9a77-e131-4b16-8f52-8b70c0a7993a"
+    ],
     "uid": "11596@5"
   }
 ]

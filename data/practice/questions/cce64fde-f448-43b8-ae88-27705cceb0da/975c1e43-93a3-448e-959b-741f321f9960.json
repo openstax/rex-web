@@ -28,7 +28,24 @@
     ],
     "group_uuid": "79a6513b-bda5-4bd6-93a9-e904650cac8c",
     "stem_html": "Describe time dilation and state under what conditions it becomes significant.",
-    "tags": "79a6513b-bda5-4bd6-93a9-e904650cac8c",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch10",
+      "k12phys-ch10-s02",
+      "k12phys-ch10-s02-lo01",
+      "k12phys-ch10-ex026",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "exid:k12phys-ch10-ex026",
+      "context-cnxmod:2f24f686-8d9e-4d0a-a2fe-c58f3dec6d03",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "lo:stax-phys:28-2-1"
+    ],
     "uid": "2883@5"
   },
   {
@@ -60,7 +77,28 @@
     ],
     "group_uuid": "41e61fe1-da60-415c-a88c-4c0b9a36f9ec",
     "stem_html": "A <span data-math=\"\\beta\">\\beta</span> particle (a free electron) is speeding around the track in a cyclotron, rapidly gaining speed. How will the particle’s momentum change as its speed approaches the speed of light? Explain.",
-    "tags": "41e61fe1-da60-415c-a88c-4c0b9a36f9ec",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch10",
+      "k12phys-ch10-s02",
+      "k12phys-ch10-s02-lo01",
+      "k12phys-ch10-ex028",
+      "time:short",
+      "dok:2",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:28-5-1",
+      "exid:k12phys-ch10-ex028",
+      "context-cnxmod:2f24f686-8d9e-4d0a-a2fe-c58f3dec6d03",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:a356793b-2555-4156-a939-1edfdf939fb1",
+      "context-cnxmod:e04079fc-76e4-4a39-ac45-70a5ce6f8f85"
+    ],
     "uid": "2885@4"
   }
 ]

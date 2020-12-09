@@ -28,7 +28,29 @@
     ],
     "group_uuid": "549e9f58-5ee9-43b7-a1b3-6659e5191b21",
     "stem_html": "Explain why an alpha particle can have a greater range in air than a beta particle in lead.",
-    "tags": "549e9f58-5ee9-43b7-a1b3-6659e5191b21",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:medium",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:31-1-2",
+      "k12phys-ch22",
+      "k12phys-ch22-s02",
+      "k12phys-ch22-s02-lo02",
+      "k12phys-ch22-ex067",
+      "exid:k12phys-ch22-ex067",
+      "context-cnxmod:6498e485-2889-44d1-bdb6-9369ec288575",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e4c006f1-efe1-437c-aed1-94210be0e07b",
+      "context-cnxmod:bed8d5ac-3c74-45bd-a60e-295cf2a8bb00",
+      "aplo:stax-apphys:5.G.1.1"
+    ],
     "uid": "11582@7"
   }
 ]

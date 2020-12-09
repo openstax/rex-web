@@ -51,7 +51,7 @@ for await (const row of readCSVObjects(f)) {
     answers: exercise.questions[0].answers,
     group_uuid: exercise.group_uuid,
     stem_html: exercise.questions[0].stem_html,
-    tags: exercise.group_uuid,
+    tags: exercise.tags,
     uid: exercise.uid,
   });
 
