@@ -99,18 +99,6 @@ const ShowPracticeQuestions = () => {
   const questionsInProggress = useSelector(pqSelectors.questionsInProggress);
   const hasAnswers = useSelector(pqSelectors.hasAnswers);
 
-  const practiceQuestionsContent = (
-    <QuestionsWrapper>
-      <QuestionsHeader>
-        <FormattedMessage id='i18n:practice-questions:popup:questions'>
-          {(msg: string) => msg}
-        </FormattedMessage>
-      </QuestionsHeader>
-      <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-      {questionsInProggress ? <Question /> : <IntroScreen />}
-    </QuestionsWrapper>
-  );
-
   return (
     <ShowPracticeQuestionsBody
       data-testid='show-practice-questions-body'
@@ -120,8 +108,18 @@ const ShowPracticeQuestions = () => {
       {questionsCount === 0 && nextSection
         ? <EmptyScreen nextSection={nextSection} />
         : hasAnswers && !questionsInProggress
-            ? <FinalScreen nextSection={nextSection} />
-            : practiceQuestionsContent
+          ? <FinalScreen nextSection={nextSection} />
+          : (
+            <QuestionsWrapper>
+              <QuestionsHeader>
+                <FormattedMessage id='i18n:practice-questions:popup:questions'>
+                  {(msg: string) => msg}
+                </FormattedMessage>
+              </QuestionsHeader>
+              <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+              {questionsInProggress ? <Question /> : <IntroScreen />}
+            </QuestionsWrapper>
+          )
       }
       {
         section && linkToTheSection
