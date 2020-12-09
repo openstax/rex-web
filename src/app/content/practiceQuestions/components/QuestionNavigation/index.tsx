@@ -63,6 +63,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
               dispatch(setAnswer({ answer: null, questionId: question.uid }));
               dispatch(nextQuestion());
             }}
+            data-analytics-label="Skip"
           >
             {msg}
           </Button>
@@ -75,7 +76,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
             size='large'
             disabled={selectedAnswer ? false : true}
             default={true}
-            component={<input type='submit' value={msg} />}
+            component={<input type='submit' value={msg} data-analytics-label="Submit" />}
           />
         )}
       </FormattedMessage>
@@ -90,6 +91,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
             default={true}
             aria-label={ariaLabel}
             data-testid='show-answer'
+            data-analytics-label="Show answer"
             onClick={(e: React.MouseEvent) => {
               e.preventDefault();
               props.onShowAnswer();
@@ -110,6 +112,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
             aria-label={ariaLabel}
             value={msg}
             data-testid='next'
+            data-analytics-label="Next"
             onClick={(e: React.MouseEvent) => {
               e.preventDefault();
               dispatch(nextQuestion());
@@ -125,7 +128,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
       {(msg: string) => <Button
         variant='primary'
         size='large'
-        component={<input type='submit' value={msg} />}
+        component={<input type='submit' value={msg} data-analytics-label="Finish" />}
       />}
     </FormattedMessage>}
   </Wrapper>;
