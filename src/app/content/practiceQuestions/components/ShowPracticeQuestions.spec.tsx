@@ -88,7 +88,7 @@ describe('ShowPracticeQuestions', () => {
     store.dispatch(receivePracticeQuestionsSummary({
       countsPerSource: { [linkedArchiveTreeSection.id]: 3 },
     }));
-    store.dispatch(setQuestions([{ id: 'asd' } as any as PracticeQuestion]));
+    store.dispatch(setQuestions([{id: 'asd'} as any as PracticeQuestion]));
 
     const component = renderer.create(render());
 
@@ -141,7 +141,7 @@ describe('ShowPracticeQuestions', () => {
     store.dispatch(receivePracticeQuestionsSummary({
       countsPerSource: { [linkedArchiveTreeSection.id]: 3 },
     }));
-    store.dispatch(setQuestions([{ id: 'asd' } as any as PracticeQuestion]));
+    store.dispatch(setQuestions([{id: 'asd'} as any as PracticeQuestion]));
     store.dispatch(nextQuestion());
 
     const component = renderer.create(render());
@@ -164,13 +164,9 @@ describe('ShowPracticeQuestions', () => {
 
     store.dispatch(setQuestions([{ id: 'asd' } as any as PracticeQuestion]));
     store.dispatch(setAnswer({ questionId: 'asd', answer: { id: 'qwe' } as any as PracticeAnswer }));
+    store.dispatch(finishQuestions());
 
-    store.dispatch(nextQuestion());
     const component = renderer.create(render());
-
-    act(() => {
-      store.dispatch(finishQuestions());
-    });
 
     expect(() => component.root.findByType(Question)).toThrow();
     expect(() => component.root.findByType(FinalScreen)).not.toThrow();

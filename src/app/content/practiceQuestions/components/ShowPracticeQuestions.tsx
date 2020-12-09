@@ -84,7 +84,7 @@ export const StyledContentLink = styled.a`
 
 // tslint:disable-next-line: variable-name
 const ShowPracticeQuestions = () => {
-  const { book, page } = useSelector(contentSelectors.bookAndPage);
+  const {book, page} = useSelector(contentSelectors.bookAndPage);
   const section = useSelector(pqSelectors.selectedSection);
   const questionsCount = useSelector(pqSelectors.questionsCount);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);

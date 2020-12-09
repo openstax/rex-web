@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import Button from '../../../../components/Button';
-import { finishQuestions, nextQuestion, setAnswer,  } from '../../actions';
+import { finishQuestions, nextQuestion, setAnswer } from '../../actions';
 import * as pqSelectors from '../../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
 

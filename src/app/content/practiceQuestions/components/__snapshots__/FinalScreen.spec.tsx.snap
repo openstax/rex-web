@@ -2,10 +2,10 @@
 
 exports[`FinalScreen for practice questions renders properly and dispatches action on click 1`] = `
 <div
-  className="FinalScreen__StyledFinalScreen-sc-131hu2n-0 kiGPLo"
+  className="FinalScreen__StyledFinalScreen-sc-131hu2n-0 cKeniE"
 >
   <span
-    className="FinalScreen__StyledText-sc-131hu2n-1 btWgbd"
+    className="FinalScreen__StyledText-sc-131hu2n-1 MXQtJ"
   >
     You've reached the end of this set
   </span>

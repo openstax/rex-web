@@ -101,7 +101,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => { });
+    act(() => {});
 
     expect(() => component.root.findByType(QuestionWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionContent)).not.toThrow();
@@ -139,7 +139,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => { });
+    act(() => {});
 
     const submit = component.root.findByProps({ value: 'Submit' });
     expect(submit.props.disabled).toEqual(true);
@@ -164,7 +164,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => { });
+    act(() => {});
 
     const [skip] = component.root.findAllByType(Button);
 
@@ -192,7 +192,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => { });
+    act(() => {});
 
     const submit = component.root.findByProps({ value: 'Submit' });
     expect(submit.props.disabled).toEqual(true);
@@ -225,7 +225,7 @@ describe('Question', () => {
 
   it('handles clicking on Next button', () => {
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
-    store.dispatch(setQuestions([mockQuestion, { ...mockQuestion, uid: '213' }]));
+    store.dispatch(setQuestions([mockQuestion, {...mockQuestion, uid: '213'}]));
     store.dispatch(nextQuestion());
     dispatch.mockClear();
 
@@ -233,7 +233,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => { });
+    act(() => {});
 
     const [firstAnswer] = component.root.findAllByType(Answer);
     const input = firstAnswer.findByProps({ type: 'radio' });
@@ -263,7 +263,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => { });
+    act(() => {});
 
     const [, secondAnswer] = component.root.findAllByType(Answer);
     const input = secondAnswer.findByProps({ type: 'radio' });
