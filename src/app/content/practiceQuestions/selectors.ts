@@ -54,12 +54,6 @@ export const question = createSelector(
   (state, index) => index === null ? undefined : state.questions[index]
 );
 
-export const selectedSectionHasPracticeQuestions = createSelector(
-  selectedSection,
-  practiceQuestionsSummary,
-  (section, summary) => Boolean(section && summary && pageHasPracticeQuestions(section.id, summary))
-);
-
 export const questionAnswers = createSelector(
   localState,
   (state) => new Map(Object.entries(state.questionAnswers))

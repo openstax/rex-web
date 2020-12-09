@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FinalScreen for practice questions renders properly and dispatches action on click 1`] = `
+<div
+  className="FinalScreen__StyledFinalScreen-sc-131hu2n-0 kiGPLo"
+>
+  <span
+    className="FinalScreen__StyledText-sc-131hu2n-1 btWgbd"
+  >
+    You've reached the end of this set
+  </span>
+  <div
+    className="NextSectionMessage__StyledNextSectionMessage-qtwzgn-0 kiJnGk"
+  >
+    <div
+      className="NextSectionMessage__StyledMessage-qtwzgn-1 TEURJ"
+    >
+      <span
+        className="NextSectionMessage__StyledMessageText-qtwzgn-2 iCtbqd"
+      >
+        Select a section from the dropdown above or continue to 
+      </span>
+      <span
+        className="NextSectionMessage__StyledSectionTitle-qtwzgn-3 cmlWLO"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "some title",
+          }
+        }
+      />
+    </div>
+    <button
+      className="Button-ayg7nk-0 crGJLq"
+      onClick={[Function]}
+    >
+      Continue
+    </button>
+  </div>
+</div>
+`;
