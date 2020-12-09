@@ -79,6 +79,7 @@ const Answer = ({
           name={choiceIndicator}
           checked={isSelected}
           disabled={isSubmitted}
+          onChange={onSelect}
         />
         <AnswerLabel ref={answerRef} aria-label={msg} for={choiceIndicator} tabIndex={-1}>
           {choiceIndicator}

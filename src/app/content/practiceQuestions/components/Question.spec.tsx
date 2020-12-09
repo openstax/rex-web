@@ -11,14 +11,14 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { assertDocument, assertWindow } from '../../../utils/browser-assertions';
+import { receiveBook } from '../../actions';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
+import * as bookPageUtils from '../../utils/urlUtils';
 import { nextQuestion, setAnswer, setQuestions, setSelectedSection } from '../actions';
 import { PracticeQuestion } from '../types';
 import Answer from './Answer';
 import Question, { AnswersWrapper, QuestionContent, QuestionWrapper } from './Question';
-
-jest.mock('../../components/ContentExcerpt', () => (props: any) => <div data-mock-content-excerpt {...props} />);
 
 describe('Question', () => {
   let store: Store;
@@ -49,8 +49,11 @@ describe('Question', () => {
 
   beforeEach(() => {
     store = createTestStore();
+    store.dispatch(receiveBook(book));
     services = createTestServices();
     dispatch = jest.spyOn(store, 'dispatch');
+    jest.spyOn(bookPageUtils, 'getBookPageUrlAndParams')
+      .mockReturnValue({ url: 'asdf' } as any);
     render = () => <Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
@@ -84,12 +87,20 @@ describe('Question', () => {
     store.dispatch(setQuestions([mockQuestion]));
     store.dispatch(nextQuestion());
 
-    const component = renderer.create(render());
+    const mockQuestionContainer = assertDocument().createElement('div');
+    const spyQuestionContainerFocus = jest.spyOn(mockQuestionContainer, 'focus');
+
+    const component = renderer.create(render(), { createNodeMock: () => mockQuestionContainer });
+
+    // Run initial useEffect hook
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
 
     expect(() => component.root.findByType(QuestionWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionContent)).not.toThrow();
     expect(() => component.root.findByType(AnswersWrapper)).not.toThrow();
     expect(component.root.findAllByType(Answer).length).toEqual(mockQuestion.answers.length);
+    expect(spyQuestionContainerFocus).toHaveBeenCalled();
   });
 
   it('renders properly with selected and submitted answer', () => {
