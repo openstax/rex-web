@@ -12,7 +12,7 @@ const StyledFinalScreen = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 38rem;
+  max-width: 100%;
   margin: 2rem auto;
   flex: 1;
   text-align: center;
@@ -22,6 +22,8 @@ const StyledFinalScreen = styled.div`
 // tslint:disable-next-line: variable-name
 const StyledText = styled.span`
   margin-bottom: 3rem;
+  max-width: 38rem;
+  overflow: initial;
 `;
 
 interface FinalScreenProps {
