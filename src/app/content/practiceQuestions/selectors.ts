@@ -84,5 +84,5 @@ export const questionsInProggress = createSelector(
 
 export const hasAnswers = createSelector(
   questionAnswers,
-  (answers) => answers.size > 0 
+  (answers) => answers.size > 0
 );

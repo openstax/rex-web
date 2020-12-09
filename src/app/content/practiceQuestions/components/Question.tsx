@@ -9,7 +9,7 @@ import { match } from '../../../fpUtils';
 import theme from '../../../theme';
 import { assertWindow } from '../../../utils/browser-assertions';
 import ContentExcerpt from '../../components/ContentExcerpt';
-import { setAnswer, finishQuestions } from '../actions';
+import { finishQuestions, setAnswer } from '../actions';
 import * as pqSelectors from '../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../types';
 import Answer from './Answer';

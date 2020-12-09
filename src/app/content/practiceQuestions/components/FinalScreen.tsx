@@ -28,6 +28,7 @@ interface FinalScreenProps {
   nextSection?: LinkedArchiveTreeSection;
 }
 
+// tslint:disable-next-line: variable-name
 const FinalScreen = ({ nextSection }: FinalScreenProps) => {
   const dispatch = useDispatch();
 
@@ -45,7 +46,7 @@ const FinalScreen = ({ nextSection }: FinalScreenProps) => {
         onClick={() => dispatch(setSelectedSection(nextSection))}
       />
     }
-  </StyledFinalScreen>
-}
+  </StyledFinalScreen>;
+};
 
 export default FinalScreen;

@@ -24,11 +24,11 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
       const shouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
         && action.payload.action === 'PUSH';
 
-      return {...state, open: shouldBeOpen, selectedSection: null, questions: [], questionAnswers: {}};
+      return { ...state, open: shouldBeOpen, selectedSection: null, questions: [], questionAnswers: {} };
     case getType(receiveFeatureFlags):
-      return {...state, isEnabled: action.payload.includes(practiceQuestionsFeatureFlag)};
+      return { ...state, isEnabled: action.payload.includes(practiceQuestionsFeatureFlag) };
     case getType(actions.openPracticeQuestions):
-      return {...state, open: true};
+      return { ...state, open: true };
     case getType(actions.closePracticeQuestions):
       return {
         ...state,
@@ -39,13 +39,22 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
         selectedSection: null,
       };
     case getType(actions.receivePracticeQuestionsSummary):
-      return {...state, summary: action.payload};
+      return { ...state, summary: action.payload };
     case getType(actions.setSelectedSection):
-      return {...state, selectedSection: action.payload, currentQuestionIndex: null, questions: [], questionAnswers: {}};
+      return {
+        ...state,
+        currentQuestionIndex: null,
+        questionAnswers: {},
+        questions: [],
+        selectedSection: action.payload,
+      };
     case getType(actions.nextQuestion):
-      return {...state, currentQuestionIndex: state.currentQuestionIndex === null ? 0 : state.currentQuestionIndex + 1};
+      return {
+        ...state,
+        currentQuestionIndex: state.currentQuestionIndex === null ? 0 : state.currentQuestionIndex + 1,
+      };
     case getType(actions.setQuestions):
-      return {...state, questions: action.payload};
+      return { ...state, questions: action.payload };
     case getType(actions.setAnswer):
       const { questionId, answer } = action.payload;
       return {
@@ -56,7 +65,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
         },
       };
     case getType(actions.finishQuestions):
-      return {...state, currentQuestionIndex: null};
+      return { ...state, currentQuestionIndex: null };
     default:
       return state;
   }
