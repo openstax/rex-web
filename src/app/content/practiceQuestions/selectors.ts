@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { getPracticeQuestionsLocationFilters, pageHasPracticeQuestions } from './utils';
+import { getPracticeQuestionsLocationFilters } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
