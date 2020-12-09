@@ -2,34 +2,34 @@
   {
     "answers": [
       {
-        "id": 347135,
-        "content_html": "Buffers absorb excess hydrogen and hydroxide ions to prevent increases or decrease in pH. An example is the bicarbonate system in human body.",
+        "id": 184601,
+        "content_html": "Natural philosophy included all aspects of nature including physics.",
         "correctness": "1.0",
-        "feedback_html": "Buffers absorb excess of hydrogen or hydroxide ions to prevent any changes in pH by bonding to them. The bicarbonate system in humans acts as a buffer and thus helps in the proper functioning of cells."
+        "feedback_html": "Natural philosophy dealt with all aspects of nature by lumping physics with other fields of sciences, such as chemistry and biology. Physics mainly describes the most fundamental aspect of our universe."
       },
       {
-        "id": 347134,
-        "content_html": "Buffers absorb extra hydrogen ions to prevent increases or decreases in pH. An example is the bicarbonate system in the human body.",
+        "id": 184598,
+        "content_html": "Natural philosophy included all aspects of nature excluding physics.",
         "correctness": "0.0",
-        "feedback_html": "Hydrogen ions are not the only ions absorbed to maintain the pH."
+        "feedback_html": "Natural philosophy included all aspects of nature, including physics."
       },
       {
-        "id": 347133,
-        "content_html": "Buffers absorb excess hydroxide ions to prevent increases or decreases in pH. An example of that is the bicarbonate system in the human body.",
+        "id": 184599,
+        "content_html": "Natural philosophy and physics are different.",
         "correctness": "0.0",
-        "feedback_html": "Recall if only hydroxide ions are absorbed to maintain the pH."
+        "feedback_html": "Physics is part of natural philosophy."
       },
       {
-        "id": 347132,
-        "content_html": "Buffers absorb excess hydrogen and hydroxide ions to prevent increases or decreases in pH. An example of that is carbonate system in human body.",
+        "id": 184600,
+        "content_html": "Natural philosophy and physics are essentially the same thing.",
         "correctness": "0.0",
-        "feedback_html": "Carbonate ions would likely increase the acidity and not act as a buffer."
+        "feedback_html": "Biology and chemistry are also part of natural philosophy, but not part of physics."
       }
     ],
-    "group_uuid": "1d825b0f-b246-48bf-86ef-4d22efb0786a",
-    "stem_html": "Discuss how buffers help prevent drastic swings in pH.",
-    "tags": "1d825b0f-b246-48bf-86ef-4d22efb0786a",
-    "uid": "63@4"
+    "group_uuid": "63a60000-ff6d-4fa7-90e7-fc1d677bb94c",
+    "stem_html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+    "tags": "63a60000-ff6d-4fa7-90e7-fc1d677bb94c",
+    "uid": "1663@3"
   },
   {
     "answers": [
@@ -98,34 +98,34 @@
   {
     "answers": [
       {
-        "id": 397402,
-        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "id": 208194,
+        "content_html": "Physics is involved in structural strength, dimensions, etc., of the room.",
         "correctness": "1.0",
-        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+        "feedback_html": "Physics explains the dynamics of the building, the space and the dimensions of the room."
       },
       {
-        "id": 397403,
-        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 208193,
+        "content_html": "Physics is involved in the air composition inside the room.",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology."
+        "feedback_html": "While physics would help explain the flow of air in the room, the chemical composition of the air is dealt with by chemistry."
       },
       {
-        "id": 397404,
-        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 208192,
+        "content_html": "Physics is involved in the desk arrangement inside the room.",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "The arrangement of items or beautification is a matter of art and personal taste rather than of physics."
       },
       {
-        "id": 397405,
-        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 208191,
+        "content_html": "Physics is involved in the behavior of living beings inside the room.",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "Social behavior of living beings is not addressed by physics."
       }
     ],
-    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
-    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "uid": "6@7"
+    "group_uuid": "6d03b2f1-5f1f-4ecf-86d2-9c0d29c5e7c6",
+    "stem_html": "What would be some ways in which physics was involved in building the features of the room you are in right now?",
+    "tags": "6d03b2f1-5f1f-4ecf-86d2-9c0d29c5e7c6",
+    "uid": "1668@4"
   },
   {
     "answers": [
@@ -162,66 +162,66 @@
   {
     "answers": [
       {
-        "id": 347082,
-        "content_html": "Water is polar.",
+        "id": 208201,
+        "content_html": "Physics explains how energy passes from one object to another.",
         "correctness": "0.0",
-        "feedback_html": "There is a distribution of charges in the structure of the water molecule creating a dipole."
+        "feedback_html": "The domain of physics is not limited to study of transfer of energy, but it goes beyond it and explains the basics principles behind energy transfer."
       },
       {
-        "id": 347081,
-        "content_html": "Water can stabilize the temperature of nearby air.",
+        "id": 208200,
+        "content_html": "Physics explains how gravity works.",
         "correctness": "0.0",
-        "feedback_html": "Water can absorb or store more heat than air. Therefore, water can stabilize the temperature of nearby air masses."
+        "feedback_html": "Physics not only explains how gravity works, but it also explains the fundamental principles behind the causes and effects of the gravity."
       },
       {
-        "id": 347080,
-        "content_html": "Water is essential for life.",
+        "id": 208199,
+        "content_html": "Physics explains the motion of objects that can be seen with the naked eye.",
         "correctness": "0.0",
-        "feedback_html": "Water is essential for most life on Earth."
+        "feedback_html": "Physics not only explains the motion of object, but it also explains the cause of motion."
       },
       {
-        "id": 347083,
-        "content_html": "Water is the most abundant molecule in the Earth’s atmosphere.",
+        "id": 208202,
+        "content_html": "Physics explains the fundamental aspects of the universe.",
         "correctness": "1.0",
-        "feedback_html": "Water is not the most abundant molecule in Earth’s atmosphere. Nitrogen is the most abundant gas in earth’s atmosphere, making up 78% of the total composition."
+        "feedback_html": "The fundamental laws of nature and the universe are studied under the branch of physics."
       }
     ],
-    "group_uuid": "49025aa5-c00f-4e8d-a597-60e32bdb8334",
-    "stem_html": "Which of the following statements is not true?",
-    "tags": "49025aa5-c00f-4e8d-a597-60e32bdb8334",
-    "uid": "58@4"
+    "group_uuid": "58ea7572-2e15-41dd-9569-329e80722a35",
+    "stem_html": "Which of the following best describes why knowledge of physics is necessary to understand all other sciences?",
+    "tags": "58ea7572-2e15-41dd-9569-329e80722a35",
+    "uid": "1671@4"
   },
   {
     "answers": [
       {
-        "id": 346880,
-        "content_html": "discovery",
-        "correctness": "0.0",
-        "feedback_html": "A discovery is not a testable explanation for an event."
-      },
-      {
-        "id": 346883,
-        "content_html": "hypothesis",
+        "id": 184613,
+        "content_html": "Physics aims to explain the fundamental aspects of our universe and how these aspects interact with one another.",
         "correctness": "1.0",
-        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+        "feedback_html": "Physics explains the laws and principles that govern the universe at a fundamental level."
       },
       {
-        "id": 346881,
-        "content_html": "scientific method",
+        "id": 184610,
+        "content_html": "Physics aims to explain the biological aspects of our universe and how these aspects interact with one another.",
         "correctness": "0.0",
-        "feedback_html": "The scientific method is a method of research with defined steps."
+        "feedback_html": "Biological aspects of universe and evolution of biological species are studied under the branch of biology."
       },
       {
-        "id": 346882,
-        "content_html": "theory",
+        "id": 184611,
+        "content_html": "Physics aims to explain the composition, structure and changes in matter occurring in the universe.",
         "correctness": "0.0",
-        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+        "feedback_html": "Chemical composition, structure and changes in matter,are studied under the various branches of chemistry."
+      },
+      {
+        "id": 184612,
+        "content_html": "Physics aims to explain the social behavior of living beings in the universe.",
+        "correctness": "0.0",
+        "feedback_html": "Social behavior of a living being is a part of sociology and anthropology."
       }
     ],
-    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "stem_html": "What is a suggested and testable explanation for an event called?",
-    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "uid": "3@6"
+    "group_uuid": "3a60b04e-c3a7-4e9b-bc8e-f71554ef5f24",
+    "stem_html": "Describe the aims of physics.",
+    "tags": "3a60b04e-c3a7-4e9b-bc8e-f71554ef5f24",
+    "uid": "1672@3"
   },
   {
     "answers": [

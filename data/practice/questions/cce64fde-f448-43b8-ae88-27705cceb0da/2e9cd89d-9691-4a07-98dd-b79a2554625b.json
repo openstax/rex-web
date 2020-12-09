@@ -34,34 +34,34 @@
   {
     "answers": [
       {
-        "id": 375952,
-        "content_html": "<span data-math=\"{-9.8}\\,\\text{m/s}\">{-9.8}\\,\\text{m/s}</span>",
+        "id": 381773,
+        "content_html": "Electric current is the electric charge that is at rest.",
         "correctness": "0.0",
-        "feedback_html": "It is correct that the y-component of the acceleration of an object experiencing projectile motion is acceleration due to gravity but consider the unit of acceleration correctly."
+        "feedback_html": "Electric charge at rest do not produces any current."
       },
       {
-        "id": 375953,
-        "content_html": "<span data-math=\"{-9.8}\\,\\text{m/s}^2\">{-9.8}\\,\\text{m/s}^2</span>",
+        "id": 381776,
+        "content_html": "Electric current is the electric charge that is moving.",
         "correctness": "1.0",
-        "feedback_html": "The y-component of the acceleration of an object experiencing projectile motion is <span data-math=\"{-9.8}\\,\\text{m/s}^2\">{-9.8}\\,\\text{m/s}^2</span>"
+        "feedback_html": "Any moving charge can produce current."
       },
       {
-        "id": 375951,
-        "content_html": "<span data-math=\"9.8\\,\\text{m/s}\">9.8\\,\\text{m/s}</span>",
+        "id": 381774,
+        "content_html": "Electric current is the electric charge that moves only from the positive terminal of a battery to the negative terminal.",
         "correctness": "0.0",
-        "feedback_html": "Consider the unit of acceleration due to gravity correctly."
+        "feedback_html": "This is not a requirement that the charge must have to move from the positive terminal to the negative terminal."
       },
       {
-        "id": 375950,
-        "content_html": "<span data-math=\"9.8\\,\\text{m/s}^2\">9.8\\,\\text{m/s}^2</span>",
+        "id": 381775,
+        "content_html": "Electric current is the electric charge that moves only from a region of lower potential to higher potential.",
         "correctness": "0.0",
-        "feedback_html": "Consider the fact that the acceleration due to gravity is acting towards the Earth, in the direction opposite to the direction of motion."
+        "feedback_html": "This is not a requirement that the charge must have to move from the positive terminal to the negative terminal. Positive charges move from higher potential to lower potential while electrons move from lower potential to higher potential."
       }
     ],
-    "group_uuid": "66944256-cac1-4d78-bd46-cbbd0f6675dc",
-    "stem_html": "Using the conventional choice for positive and negative axes described in the text, what is the y-component of the acceleration of an object experiencing projectile motion?",
-    "tags": "66944256-cac1-4d78-bd46-cbbd0f6675dc",
-    "uid": "2360@6"
+    "group_uuid": "2360b5c0-8a43-4bb5-bf3a-34d468474bfe",
+    "stem_html": "What is electric current?",
+    "tags": "2360b5c0-8a43-4bb5-bf3a-34d468474bfe",
+    "uid": "7243@5"
   },
   {
     "answers": [
@@ -118,34 +118,34 @@
   {
     "answers": [
       {
-        "id": 62513,
-        "content_html": "The reaction stops.",
+        "id": 381882,
+        "content_html": "<span data-math=\"\\text{C/m}\">\\text{C/m}</span>",
         "correctness": "0.0",
-        "feedback_html": "Enzymes are macromolecules that speed up the chemical reactions by lowering activation energy barrier. So if an enzyme is not working in a chemical reaction that needs it, then the reaction will eventually proceed very slowly, but not stop."
+        "feedback_html": "Only a single unit is needed to define resistance. Here, two units are used in a ratio."
       },
       {
-        "id": 62514,
-        "content_html": "The reaction proceeds, but much more slowly.",
+        "id": 381883,
+        "content_html": "<span data-math=\"\\text{C/s}\">\\text{C/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Only a single unit is needed to define resistance. Here, two units are used in a ratio."
+      },
+      {
+        "id": 381885,
+        "content_html": "<span data-math=\"\\Omega\">\\Omega</span>",
         "correctness": "1.0",
-        "feedback_html": "If the enzyme needed for the reaction will not be available, then the reaction will occur slowly, potentially so slowly that an organism may die before the reaction is complete."
+        "feedback_html": "Yes, the SI unit of resistance is <span data-math=\"\\Omega\">\\Omega</span>."
       },
       {
-        "id": 62512,
-        "content_html": "The reaction proceeds faster without the interference.",
+        "id": 381884,
+        "content_html": "<span data-math=\"\\Psi\">\\Psi</span>",
         "correctness": "0.0",
-        "feedback_html": "Check if a reaction can proceed without the interference of an enzyme that is needed in the reaction."
-      },
-      {
-        "id": 62511,
-        "content_html": "There is no change in the reaction rate.",
-        "correctness": "0.0",
-        "feedback_html": "The reaction will not proceed in a timely fashion if the enzyme needed by the reaction is not provided in the reaction."
+        "feedback_html": "This is not a SI unit."
       }
     ],
-    "group_uuid": "c21243d8-e560-4720-a3f4-292eafb9c807",
-    "stem_html": "What happens if an enzyme is not functioning in a chemical reaction in a living organism that needs it?",
-    "tags": "c21243d8-e560-4720-a3f4-292eafb9c807",
-    "uid": "4764@3"
+    "group_uuid": "4764dd8d-0755-463c-8428-90ab8642a04a",
+    "stem_html": "What is the SI unit for resistance?",
+    "tags": "4764dd8d-0755-463c-8428-90ab8642a04a",
+    "uid": "7273@7"
   },
   {
     "answers": [
@@ -182,34 +182,34 @@
   {
     "answers": [
       {
-        "id": 316448,
-        "content_html": "mRNA",
+        "id": 381910,
+        "content_html": "<span data-math=\"0.017\">0.017</span>",
         "correctness": "0.0",
-        "feedback_html": "mRNA contains more nucleotide sequences in comparison to the other RNA"
+        "feedback_html": "Resistance is inversely proportional to current."
       },
       {
-        "id": 316449,
-        "content_html": "microRNA",
+        "id": 381909,
+        "content_html": "1",
+        "correctness": "0.0",
+        "feedback_html": "The applied formula is incorrect."
+      },
+      {
+        "id": 381911,
+        "content_html": "60",
         "correctness": "1.0",
-        "feedback_html": "microRNAs are the smallest RNA molecules and their role involves the regulation of gene expression."
+        "feedback_html": "Recall the mathematical expression for the Ohm’s law."
       },
       {
-        "id": 316447,
-        "content_html": "rRNA",
+        "id": 381908,
+        "content_html": "120",
         "correctness": "0.0",
-        "feedback_html": "rRNA does not contain least number of molecules in nucleotide sequences."
-      },
-      {
-        "id": 316446,
-        "content_html": "tRNA",
-        "correctness": "0.0",
-        "feedback_html": "microRNA is smaller than tRNA"
+        "feedback_html": "Recall the mathematical expression for the Ohm’s law."
       }
     ],
-    "group_uuid": "a361e994-f184-4475-b5fe-b90369c41e51",
-    "stem_html": "What is the smallest type of RNA?",
-    "tags": "a361e994-f184-4475-b5fe-b90369c41e51",
-    "uid": "4072@2"
+    "group_uuid": "4072a32b-e301-4cf4-abfa-478472c48e0e",
+    "stem_html": "What resistance is required to produce <span data-math=\"0.15\\,\\text{A}\">0.15\\,\\text{A}</span> from a <span data-math=\"9.0\\,\\text{V}\">9.0\\,\\text{V}</span> battery?",
+    "tags": "4072a32b-e301-4cf4-abfa-478472c48e0e",
+    "uid": "7280@6"
   },
   {
     "answers": [
@@ -246,33 +246,33 @@
   {
     "answers": [
       {
-        "id": 397410,
-        "content_html": "astronomy",
+        "id": 381921,
+        "content_html": "<span data-math=\"\\frac{R}{10}\">\\frac{R}{10}</span>\n",
         "correctness": "0.0",
-        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+        "feedback_html": "Current and resistance are inversely proportional to each other. The amount of current after passing through each resistor will decrease and hence the resistance of the resistor will increase."
       },
       {
-        "id": 397411,
-        "content_html": "biology",
+        "id": 381920,
+        "content_html": "<span data-math=\"5\\,\\text{R}\">5\\,\\text{R}</span>",
         "correctness": "0.0",
-        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+        "feedback_html": "There are <span data-math=\"10\">10</span> resistors connected in series. The equivalent resistance of the resistors connected in series is the sum of individual resistances."
       },
       {
-        "id": 397412,
-        "content_html": "computer science",
+        "id": 381922,
+        "content_html": "<span data-math=\"\\frac{10}{R}\">\\frac{10}{R}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Current and resistance are inversely proportional to each other. The amount of current after passing through each resistor will decrease and hence the resistance of the resistor will increase."
+      },
+      {
+        "id": 381923,
+        "content_html": "<span data-math=\"10\\,\\text{R}\">10\\,\\text{R}</span>",
         "correctness": "1.0",
-        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
-      },
-      {
-        "id": 397413,
-        "content_html": "physics",
-        "correctness": "0.0",
-        "feedback_html": "Physics is a branch of natural science that studies matter."
+        "feedback_html": "There are <span data-math=\"10\">10</span> resistors connected in series. The equivalent resistance of the resistors connected in series is the sum of individual resistances."
       }
     ],
-    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "stem_html": "Which of the following sciences is not considered a natural science?",
-    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "uid": "4@7"
+    "group_uuid": "4e5b03d4-3c73-4b23-bfaf-5dafdd273ed6",
+    "stem_html": "You connect a single resistor <span data-math=\"R\">R</span> across a <span data-math=\"10\\text{-V}\">10\\text{-V}</span> battery and find that <span data-math=\"0.01\\,\\text{A}\">0.01\\,\\text{A}</span> flows through the circuit. You add another resistor <span data-math=\"R\">R</span> after the first resistor and find that <span data-math=\"0.005\\,\\text{A}\">0.005\\,\\text{A}</span> flows through the circuit. If you have <span data-math=\"10\">10</span> resistors <span data-math=\"R\">R</span> connected in a line one after the other, what would be their total resistance?",
+    "tags": "4e5b03d4-3c73-4b23-bfaf-5dafdd273ed6",
+    "uid": "7283@6"
   }
 ]

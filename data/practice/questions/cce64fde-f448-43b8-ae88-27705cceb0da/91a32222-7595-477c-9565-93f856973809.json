@@ -2,98 +2,98 @@
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 380308,
+        "content_html": "<span data-math=\"{-100}\\,\\text{J}\">{-100}\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Check the sign convention."
+      },
+      {
+        "id": 380309,
+        "content_html": "<span data-math=\"{-60}\\,\\text{J}\">{-60}\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The formula used is incorrect."
+      },
+      {
+        "id": 380310,
+        "content_html": "<span data-math=\"60\\,\\text{J}\">60\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Work done is defined as the difference of input heat and output heat."
+      },
+      {
+        "id": 380311,
+        "content_html": "<span data-math=\"100\\,\\text{J}\">100\\,\\text{J}</span>",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
-      },
-      {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
-      },
-      {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "The work done is calculated correctly."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2a3df17c-3d18-40f0-9299-2296fd570d59",
+    "stem_html": "A heat engine is given <span data-math=\"120\\,\\text{J}\">120\\,\\text{J}</span> by heat and releases <span data-math=\"20\\,\\text{J}\">20\\,\\text{J}</span> by heat to the environment. What is the amount of work done by the system?",
+    "tags": "2a3df17c-3d18-40f0-9299-2296fd570d59",
+    "uid": "6781@5"
   },
   {
     "answers": [
       {
-        "id": 347174,
-        "content_html": "Hydrocarbon consisting of closed rings of carbon atoms",
+        "id": 380330,
+        "content_html": "A heat engine converts mechanical energy into thermal energy.",
         "correctness": "0.0",
-        "feedback_html": "This defines a wide diversity of compounds, but has nothing to do with defining an enantiomer."
+        "feedback_html": "The thermal energy is converted into mechanical work by a heat engine."
       },
       {
-        "id": 347173,
-        "content_html": "Isomers with similar bonding patterns differing in the placement of atoms along a double covalent bond.",
-        "correctness": "0.0",
-        "feedback_html": "This defines cis-trans isomerism."
-      },
-      {
-        "id": 347175,
-        "content_html": "Molecules that share the same chemical bonds but are mirror images of each other.",
+        "id": 380331,
+        "content_html": "A heat engine converts thermal energy into mechanical energy.",
         "correctness": "1.0",
-        "feedback_html": "Enantiomers share the same chemical structure and chemical bonds but differ in the three dimensional placements of atoms, so that they are mirror images of each other."
+        "feedback_html": "The thermal energy produced by combustion of fuel is converted into mechanical energy."
       },
       {
-        "id": 347172,
-        "content_html": "Molecules with the same chemical formula but differ in the placement of their chemical bonds",
+        "id": 380328,
+        "content_html": "A heat engine converts thermal energy into electrical energy.",
         "correctness": "0.0",
-        "feedback_html": "Enantiomers share the same chemical bonds."
+        "feedback_html": "Thermal energy is converted into electrical energy by the combination of a heat engine and a generator."
+      },
+      {
+        "id": 380329,
+        "content_html": "A heat engine converts electrical energy into thermal energy.",
+        "correctness": "0.0",
+        "feedback_html": "An electric heater converts electrical energy into thermal energy."
       }
     ],
-    "group_uuid": "506040c2-9358-40b3-804e-f044868c892e",
-    "stem_html": "What are enantiomers?",
-    "tags": "506040c2-9358-40b3-804e-f044868c892e",
-    "uid": "86@4"
+    "group_uuid": "86b5863a-a488-4be3-aea8-2e1a40085c46",
+    "stem_html": "What is a heat engine?",
+    "tags": "86b5863a-a488-4be3-aea8-2e1a40085c46",
+    "uid": "6787@5"
   },
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 380336,
+        "content_html": "Thermal efficiency is the ratio of work input to the energy input.",
+        "correctness": "0.0",
+        "feedback_html": "Thermal efficiency depends on the amount of work done by heat engine, with respect to the total energy input."
+      },
+      {
+        "id": 380339,
+        "content_html": "Thermal efficiency is the ratio of work output to the energy input.",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+        "feedback_html": "Correct; the work output is a fraction of the total energy input, so that thermal efficiency can never be greater than unity."
       },
       {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "id": 380337,
+        "content_html": "Thermal efficiency is the ratio of work input to the energy output.",
         "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+        "feedback_html": "The energy input must be considered in calculating thermal efficiency."
       },
       {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "id": 380338,
+        "content_html": "Thermal efficiency is the ratio of work output to the energy output.",
         "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "To determine thermal efficiency, the total energy that goes into running a heat engine must be considered, and the work output is the fraction of the total energy that produces useful work. ."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2cfaa3fa-d471-48c3-ac82-c93c9f833f71",
+    "stem_html": "What is thermal efficiency?",
+    "tags": "2cfaa3fa-d471-48c3-ac82-c93c9f833f71",
+    "uid": "6789@5"
   },
   {
     "answers": [

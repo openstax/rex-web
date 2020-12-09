@@ -2,65 +2,65 @@
   {
     "answers": [
       {
-        "id": 479541,
-        "content_html": "the number of fatty acids",
+        "id": 381613,
+        "content_html": "The capacitance will remain same.",
         "correctness": "0.0",
-        "feedback_html": "The number of fatty acids determines whether the molecule is a mono, di, or triglyceride; but, it does not makes them saturated or unsaturated."
+        "feedback_html": "The capacitance is proportional to the area, so the capacitance doubles."
       },
       {
-        "id": 479540,
-        "content_html": "the length of the fatty acids",
-        "correctness": "0.0",
-        "feedback_html": "The length of a fatty acid gives it some chemical characteristics, but does not differentiate between saturated and unsaturated fats."
-      },
-      {
-        "id": 479542,
-        "content_html": "the number of hydrogen atoms on the triglycerides",
+        "id": 381616,
+        "content_html": "The capacitance will double.",
         "correctness": "1.0",
-        "feedback_html": "The saturated fat has more hydrogen atoms as it has all single bonds between carbons, versus unsaturated fatty acids, which have fewer hydrogen atoms due to the presence of double bonds between carbons."
+        "feedback_html": "The capacitance is proportional to the area, so the capacitance doubles."
       },
       {
-        "id": 479539,
-        "content_html": "the ester bonds between the fatty acids and glycerol",
+        "id": 381614,
+        "content_html": "The capacitance will increase four times.",
         "correctness": "0.0",
-        "feedback_html": "These bonds are the same in both the saturated and unsaturated fats."
+        "feedback_html": "The capacitance is proportional to the area, so the capacitance doubles."
+      },
+      {
+        "id": 381615,
+        "content_html": "The capacitance will increase eight times.",
+        "correctness": "0.0",
+        "feedback_html": "The capacitance is proportional to the area, so the capacitance doubles."
       }
     ],
-    "group_uuid": "18cfb811-d3ba-43d2-9529-a81097fea4aa",
-    "stem_html": "What is the difference between saturated and unsaturated fats?",
-    "tags": "18cfb811-d3ba-43d2-9529-a81097fea4aa",
-    "uid": "197@8"
+    "group_uuid": "197ec138-39ba-43ce-aafb-b81ac064bf0d",
+    "stem_html": "If the area of a parallel-plate capacitor doubles, how is the capacitance affected?",
+    "tags": "197ec138-39ba-43ce-aafb-b81ac064bf0d",
+    "uid": "7198@5"
   },
   {
     "answers": [
       {
-        "id": 397402,
-        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "id": 381685,
+        "content_html": "Stored energy will decrease two times.",
+        "correctness": "0.0",
+        "feedback_html": "Stored energy is directly proportional to the voltage squared."
+      },
+      {
+        "id": 381686,
+        "content_html": "Stored energy will decrease four times.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the relation between energy and voltage. Stored energy is directly proportional to the voltage squared."
+      },
+      {
+        "id": 381687,
+        "content_html": "Stored energy will increase two times.",
+        "correctness": "0.0",
+        "feedback_html": "Stored energy is directly proportional to the square of the voltage."
+      },
+      {
+        "id": 381688,
+        "content_html": "Stored energy will increase four times.",
         "correctness": "1.0",
-        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
-      },
-      {
-        "id": 397403,
-        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology."
-      },
-      {
-        "id": 397404,
-        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
-      },
-      {
-        "id": 397405,
-        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "Stored energy is directly proportional to the square of the voltage."
       }
     ],
-    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
-    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "uid": "6@7"
+    "group_uuid": "6ddcbad5-9158-4df5-afb5-473892b8e7ab",
+    "stem_html": "If you double the voltage across the plates of a capacitor, how is the stored energy affected?",
+    "tags": "6ddcbad5-9158-4df5-afb5-473892b8e7ab",
+    "uid": "7218@5"
   }
 ]

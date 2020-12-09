@@ -2,162 +2,150 @@
   {
     "answers": [
       {
-        "id": 484562,
-        "content_html": "Elements of group 1 need to lose one electron, elements of group 14 need to gain 4 electrons, and elements of group 17 need to gain 1 electron",
+        "id": 207708,
+        "content_html": "The existence of the charm quark was symmetrical with up and down quarks. Additionally, there were two known leptons at the time and only two quarks.",
+        "correctness": "0.0",
+        "feedback_html": "There were three known quarks at that time."
+      },
+      {
+        "id": 207711,
+        "content_html": "The strange particle lacked the symmetry that existed with the up and down quarks. Additionally, there were four known leptons at the time and only three quarks.",
         "correctness": "1.0",
-        "feedback_html": "Elements of group 1 have one valence electron, so in order to attain the stable configuration they need to lose one electron. Group 14 and 17 have four and seven electrons, respectively, in their valence shell. To attain stable configuration, they need to gain four and one electron respectively."
+        "feedback_html": "There were four known leptons at the time and only three quarks. Also, the strange particle lacked the symmetry that existed with the up and down quarks"
       },
       {
-        "id": 484563,
-        "content_html": "Elements of group 1 need to lose 4 electrons while elements of group 14 and 17 need to gain 1 electron each.",
+        "id": 207709,
+        "content_html": "The bottom particle lacked the symmetry that existed with the up and down quarks. Additionally, there were two known leptons at the time and only two quarks.",
         "correctness": "0.0",
-        "feedback_html": "Elements of group 1 do not need to lose four electrons and elements of group 14 do not need to gain one electron to attain stable configuration."
+        "feedback_html": "There were four known leptons at that time."
       },
       {
-        "id": 484564,
-        "content_html": "Elements of group 1 need to lose 2 electrons, elements of group 14 need to gain 4 electrons and elements of group 17 need to gain 1 electron.",
+        "id": 207710,
+        "content_html": "The existence of charm quarks was symmetrical with up and down quarks. Additionally, there were four known leptons at the time and only three quarks.",
         "correctness": "0.0",
-        "feedback_html": "Elements of group 1 cannot lose 2 electrons because they have only 1 electron in their valence shell."
-      },
-      {
-        "id": 484565,
-        "content_html": "Elements of group 1 need to gain 1 electron while, elements of group 14 need to lose 4 electrons and elements of group 17 need to lose 1 electron.",
-        "correctness": "0.0",
-        "feedback_html": "Check the valence electrons present in elements of group 14 and group 17. Also, calculate the number of electrons each should gain to attain stable configuration."
+        "feedback_html": "The strange particle lacked the symmetry that existed with the up and down quarks."
       }
     ],
-    "group_uuid": "a8878450-ca17-4b3b-9bd2-99cf3e6bb90e",
-    "stem_html": "<p>An atom may give, take, or share electrons with another atom to achieve a full valence shell, the most stable electron configuration. Looking at this figure, how many electrons do elements in group 1 need to lose in order to achieve a stable electron configuration? How many electrons do elements in groups 14 and 17 need to gain to achieve a stable configuration?</p>",
-    "tags": "a8878450-ca17-4b3b-9bd2-99cf3e6bb90e",
-    "uid": "45@10"
+    "group_uuid": "45e0fa5b-a0ad-4743-a48a-a83881cab4d6",
+    "stem_html": "Why was the existence of the charm quark speculated, even though no direct evidence of it existed?",
+    "tags": "45e0fa5b-a0ad-4743-a48a-a83881cab4d6",
+    "uid": "11654@5"
   },
   {
     "answers": [
       {
-        "id": 346880,
-        "content_html": "discovery",
+        "id": 272371,
+        "content_html": "Hadrons are constructed of at least three fundamental quark particles, while leptons are fundamental particles.",
         "correctness": "0.0",
-        "feedback_html": "A discovery is not a testable explanation for an event."
+        "feedback_html": "Remember, hadrons are constructed of at least two fundamental quark particles."
       },
       {
-        "id": 346883,
-        "content_html": "hypothesis",
+        "id": 272372,
+        "content_html": "Hadrons are constructed of at least three fundamental quark particles, while leptons are constructed of two fundamental particles.",
+        "correctness": "0.0",
+        "feedback_html": "Hadrons are constructed of at least two fundamental quark particles."
+      },
+      {
+        "id": 272373,
+        "content_html": "Hadrons are constructed of at least two fundamental quark particles, while leptons are constructed of three fundamental particles.",
+        "correctness": "0.0",
+        "feedback_html": "Leptons are present in the form of one fundamental particle."
+      },
+      {
+        "id": 272374,
+        "content_html": "Hadrons are constructed of at least two fundamental quark particles, while leptons are fundamental particles.",
         "correctness": "1.0",
-        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
-      },
-      {
-        "id": 346881,
-        "content_html": "scientific method",
-        "correctness": "0.0",
-        "feedback_html": "The scientific method is a method of research with defined steps."
-      },
-      {
-        "id": 346882,
-        "content_html": "theory",
-        "correctness": "0.0",
-        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+        "feedback_html": "Hadrons are constructed of at least two fundamental quark particles, while leptons are fundamental particles."
       }
     ],
-    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "stem_html": "What is a suggested and testable explanation for an event called?",
-    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "uid": "3@6"
+    "group_uuid": "3eec675d-9218-491d-ab85-aaa62702df96",
+    "stem_html": "How do the number of fundamental particles differ between hadrons and leptons?",
+    "tags": "3eec675d-9218-491d-ab85-aaa62702df96",
+    "uid": "11660@5"
   },
   {
     "answers": [
       {
-        "id": 347171,
-        "content_html": "Carbon can form up to four covalent bonds, allowing it to form long chains.",
+        "id": 207753,
+        "content_html": "The sum of the masses of an electron and a positron is equal to the mass of the photon before pair production. The sum of the charges on an electron and a positron is equal to the zero charge of the photon.",
+        "correctness": "0.0",
+        "feedback_html": "A photon is a massless particle. Hence, before pair production the total mass of the photon was zero."
+      },
+      {
+        "id": 207754,
+        "content_html": "The sum of the masses of an electron and a positron is equal to the mass of the photon before pair production. The sum of the same charges on an electron and a positron is equal to the charge on a photon.",
+        "correctness": "0.0",
+        "feedback_html": "Since photons are massless particles, the total mass of a photon before pair production is zero. The electron and positron are antiparticles."
+      },
+      {
+        "id": 207756,
+        "content_html": "During the particle production the total energy of the photon is converted to the mass of an electron and a positron. The sum of the opposite charges on the electron and positron is equal to the zero charge of the photon.",
         "correctness": "1.0",
-        "feedback_html": "Carbon is found in all living things because it can form up to four covalent bonds. These strong covalent bonds allow the formation of long chains that combine to form proteins and DNA"
+        "feedback_html": "The electron and positron have opposite charges, which add up to match the zero charge of the photon. While the mass of the combined electron and positron is not equal to the massless photon, the photon’s energy is converted to mass when it slows upon particle production."
       },
       {
-        "id": 347168,
-        "content_html": "Carbon can form more than four covalent bonds, allowing it to form long chains.",
+        "id": 207755,
+        "content_html": "During particle production, the total energy of the photon is converted to the mass of an electron and a positron. The sum of the same charges on an electron and a positron is equal to the charge on a photon.",
         "correctness": "0.0",
-        "feedback_html": "Carbon cannot form more than four covalent bonds with any molecule"
-      },
-      {
-        "id": 347169,
-        "content_html": "Carbon can form more than four covalent bonds, but can only form short chains.",
-        "correctness": "0.0",
-        "feedback_html": "Carbon cannot form more than four covalent bonds with any molecule and it can also form long chains."
-      },
-      {
-        "id": 347170,
-        "content_html": "Carbon can form up to four covalent bonds, but can only form short chains.",
-        "correctness": "0.0",
-        "feedback_html": "Carbon can also form long chains."
+        "feedback_html": "An electron and a positron are a pair of antiparticles. The sum of charges on an electron and a positron is zero."
       }
     ],
-    "group_uuid": "4a04cbd4-47a3-4a09-a675-a3262cd23ae5",
-    "stem_html": "<p>What property of carbon makes it essential for organic life?</p>\n",
-    "tags": "4a04cbd4-47a3-4a09-a675-a3262cd23ae5",
-    "uid": "72@5"
+    "group_uuid": "72e95f57-423b-4c17-b359-5f13d1e019fc",
+    "stem_html": "How does the deconstruction of a photon into an electron and a positron uphold the principles of mass and charge conservation?",
+    "tags": "72e95f57-423b-4c17-b359-5f13d1e019fc",
+    "uid": "11666@5"
   },
   {
     "answers": [
       {
-        "id": 349961,
-        "content_html": "<span data-math=\"\\text{G}_0\">\\text{G}_0</span> phase",
+        "id": 310946,
+        "content_html": "The leptons in the third and fourth rows do not have mass, but the gluons can interact between the quarks through gravity only.",
         "correctness": "0.0",
-        "feedback_html": "<span data-math=\"\\text{G}_0\">\\text{G}_0</span> phase is considered the resting phase in the cell cycle. It is present in both mitotic interphase and meiosis interkinesis."
+        "feedback_html": "Think about what force and charge gluons interact with."
       },
       {
-        "id": 349960,
-        "content_html": "<span data-math=\"\\text{G}_1\">\\text{G}_1</span> phase",
-        "correctness": "0.0",
-        "feedback_html": "Both meiotic interkinesis and mitotic interphase have a <span data-math=\"\\text{G}_1\">\\text{G}_1</span> phase, which is focused on cell growth."
-      },
-      {
-        "id": 349959,
-        "content_html": "<span data-math=\"\\text{G}_2\">\\text{G}_2</span> phase",
-        "correctness": "0.0",
-        "feedback_html": "<span data-math=\"\\text{G}_2\">\\text{G}_2</span> phase is the second gap phase where the cell undergoes preparation for meiosis. It is present in both interphase and interkinesis."
-      },
-      {
-        "id": 349962,
-        "content_html": "S-phase",
+        "id": 310947,
+        "content_html": "The leptons in the third and fourth rows do not have color, but the gluons can interact between quarks through color interactions only.",
         "correctness": "1.0",
-        "feedback_html": "The S-phase, or synthesis phase, is where the DNA of the chromosomes is replicated. It is not present in interkinesis, which is a brief interlude between meiosis I and II in some species."
+        "feedback_html": "Yes, gluons can interact between quarks through color interactions described by quantum chromodynamics. The leptons in the third and fourth rows do not have color."
+      },
+      {
+        "id": 310948,
+        "content_html": "The leptons in the third and fourth rows do not have spin, but the gluons can interact between quarks through spin interactions only.",
+        "correctness": "0.0",
+        "feedback_html": "Think about what force and charge gluons interact with."
+      },
+      {
+        "id": 310949,
+        "content_html": "The leptons in the third and fourth rows do not have charge, but the gluons can interact between quarks through charge interactions only.",
+        "correctness": "0.0",
+        "feedback_html": "The gluons do not interact between quarks through charge interactions only."
       }
     ],
-    "group_uuid": "f0980a39-3865-455c-8daa-a587e53db911",
-    "stem_html": "What phase(s) of mitotic interphase is missing from meiotic interkinesis?",
-    "tags": "f0980a39-3865-455c-8daa-a587e53db911",
-    "uid": "808@4"
+    "group_uuid": "808bda9c-0b69-4deb-9ec8-316139c12b8a",
+    "stem_html": "Why do gluons interact only with particles in the first two rows of the Standard Model?",
+    "tags": "808bda9c-0b69-4deb-9ec8-316139c12b8a",
+    "uid": "11672@6"
   },
   {
     "answers": [
       {
-        "id": 347082,
-        "content_html": "Water is polar.",
-        "correctness": "0.0",
-        "feedback_html": "There is a distribution of charges in the structure of the water molecule creating a dipole."
-      },
-      {
-        "id": 347081,
-        "content_html": "Water can stabilize the temperature of nearby air.",
-        "correctness": "0.0",
-        "feedback_html": "Water can absorb or store more heat than air. Therefore, water can stabilize the temperature of nearby air masses."
-      },
-      {
-        "id": 347080,
-        "content_html": "Water is essential for life.",
-        "correctness": "0.0",
-        "feedback_html": "Water is essential for most life on Earth."
-      },
-      {
-        "id": 347083,
-        "content_html": "Water is the most abundant molecule in the Earth’s atmosphere.",
+        "id": 272867,
+        "content_html": "More massive particles interact more with the Higgs field than the less massive particles.",
         "correctness": "1.0",
-        "feedback_html": "Water is not the most abundant molecule in Earth’s atmosphere. Nitrogen is the most abundant gas in earth’s atmosphere, making up 78% of the total composition."
+        "feedback_html": "The strength of interaction between the field and the particles differentiates more massive particles from less massive particles. A greater interaction is the result of larger masses."
+      },
+      {
+        "id": 272868,
+        "content_html": "More massive particles interact less with the Higgs field than the less massive particles.",
+        "correctness": "0.0",
+        "feedback_html": "The strength of the interaction is greater for more massive particles than for less massive particles."
       }
     ],
-    "group_uuid": "49025aa5-c00f-4e8d-a597-60e32bdb8334",
-    "stem_html": "Which of the following statements is not true?",
-    "tags": "49025aa5-c00f-4e8d-a597-60e32bdb8334",
-    "uid": "58@4"
+    "group_uuid": "58ecc350-ea4c-4f74-8668-b9971689d828",
+    "stem_html": "Considering the Higgs field, what differentiates more massive particles from less massive particles?",
+    "tags": "58ecc350-ea4c-4f74-8668-b9971689d828",
+    "uid": "11678@5"
   },
   {
     "answers": [

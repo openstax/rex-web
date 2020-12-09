@@ -2,34 +2,34 @@
   {
     "answers": [
       {
-        "id": 477691,
-        "content_html": "the amount of nutrient present",
+        "id": 382519,
+        "content_html": "An electric current is induced if a bar magnet is placed near the wire loop.",
         "correctness": "0.0",
-        "feedback_html": "There are several mechanisms in bacteria that ensure sufficient availability of nutrients and regulating mechanisms used to avoid adverse conditions. Quorum sensing is a part of bacterial communication, not a method to check amount of nutrient present."
+        "feedback_html": "The change in magnetic field or change in area vector of a wire loop induces electric current in the wire."
       },
       {
-        "id": 477690,
-        "content_html": "the temperature of the environment",
+        "id": 382520,
+        "content_html": "An electric current is induced if wire loop is wound around the bar magnet.",
         "correctness": "0.0",
-        "feedback_html": "Quorum sensing does not check adverse conditions like temperature of the environment."
+        "feedback_html": "If wire loop is wound around the bar magnet, it is not possible to make changes in flux. Hence there is no possibility of induced current."
       },
       {
-        "id": 477692,
-        "content_html": "the number of other cells present",
+        "id": 382522,
+        "content_html": "An electric current is induced if a bar magnet is moved through the wire loop.",
         "correctness": "1.0",
-        "feedback_html": "The number of cells present in the environment, the cell density, is the determining factor for signaling. This signaling, through which bacterial cells communicate with each other to establish the density of the population, is called quorum sensing."
+        "feedback_html": "If a bar magnet is moved through the wire loop, the magnetic flux changes which induces electric current in the wire."
       },
       {
-        "id": 477689,
-        "content_html": "the level of oxygen present",
+        "id": 382521,
+        "content_html": "An electric current is induced if a bar magnet is placed in contact with the wire loop.",
         "correctness": "0.0",
-        "feedback_html": "Quorum sensing does not play a role in determining conditions for growth."
+        "feedback_html": "Either change in magnetic field or change in area vector of a wire loop induces electric current in the wire."
       }
     ],
-    "group_uuid": "d1d271bc-1369-4d15-87eb-16dd34dd5875",
-    "stem_html": "What do bacteria sense when they use quorum sensing?",
-    "tags": "d1d271bc-1369-4d15-87eb-16dd34dd5875",
-    "uid": "732@10"
+    "group_uuid": "732e6b71-cbfe-4cad-825b-9a23c4c2539f",
+    "stem_html": "Given a bar magnet, how can you induce an electric current in a wire loop?",
+    "tags": "732e6b71-cbfe-4cad-825b-9a23c4c2539f",
+    "uid": "7455@5"
   },
   {
     "answers": [

@@ -2,34 +2,34 @@
   {
     "answers": [
       {
-        "id": 475747,
-        "content_html": "active Cdk4",
+        "id": 374186,
+        "content_html": "Distance has both magnitude and direction, while displacement has magnitude but no direction.",
         "correctness": "0.0",
-        "feedback_html": "The pathway shows the active Cdk4 is acting as an inhibitor."
+        "feedback_html": "Recall the definition of distances and displacements. Think again which one has direction and magnitude both."
       },
       {
-        "id": 475748,
-        "content_html": "Cyclin D1",
-        "correctness": "0.0",
-        "feedback_html": "Cyclin D1 is controlling the activity of Cdk4. It is not following a negative feedback mechanism."
-      },
-      {
-        "id": 475750,
-        "content_html": "Cyclin D1/Cdk4 complex",
+        "id": 374189,
+        "content_html": "Distance has magnitude but no direction, while displacement has both magnitude and direction.",
         "correctness": "1.0",
-        "feedback_html": "The Cdk4 bound to cyclin becomes active and this is responsible for inhibiting the Cyclin D1-Cdk4 complex."
+        "feedback_html": "Distance is a physical quantity that has magnitude only and no direction, while displacement is a physical quantity that has magnitude as well as direction."
       },
       {
-        "id": 475749,
-        "content_html": "IGF-1",
+        "id": 374187,
+        "content_html": "Distance has magnitude but no direction, while displacement has only direction.",
         "correctness": "0.0",
-        "feedback_html": "IFG-1 is not regulated by negative feedback; it is a proliferation promoting signal molecule."
+        "feedback_html": "It is correct that distances have magnitude only and no direction, but displacement does not only have direction."
+      },
+      {
+        "id": 374188,
+        "content_html": "There is no difference. Both distance and displacement have magnitude and direction.",
+        "correctness": "0.0",
+        "feedback_html": "Distance and displacement are not the same. Recall their definition."
       }
     ],
-    "group_uuid": "7fa96edf-8a26-4def-a424-4c2d09690ea5",
-    "stem_html": "<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_c2246a6165950083b3e0cd5b5b51624f947cf56111aacf9c9571fbe3ece85da7.png\" alt=\"The image shows a flow chart starting with IGF-1, with an arrow pointing to a block containing Cyclin D1 gene expressed. An arrow from that block points to CyclinD1 with a block containing Cdk4 attached. An arrow goes from Cyclin D1 to Active Cdk4. From Cdk4, an arrow points to the phrase Cell cycle progressions through G1 phase. A line with a flat end goes from the block containing Active Cdk4 to the block containing Cyclin D1.\"></p>\n\n<p>The insulin growth factor (IGF-1) promotes cell proliferation as shown in the diagram. The expression of which protein in the diagram is controlled through negative feedback?</p>\n",
-    "tags": "7fa96edf-8a26-4def-a424-4c2d09690ea5",
-    "uid": "763@13"
+    "group_uuid": "763c65e3-47ae-45cd-85c7-69349ec87531",
+    "stem_html": "What is the difference between distance and displacement?",
+    "tags": "763c65e3-47ae-45cd-85c7-69349ec87531",
+    "uid": "1821@5"
   },
   {
     "answers": [
@@ -66,66 +66,66 @@
   {
     "answers": [
       {
-        "id": 397402,
-        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "id": 374198,
+        "content_html": "Yes, both persons will describe the same motion because motion is independent of the frame of reference.",
+        "correctness": "0.0",
+        "feedback_html": "Yes, the motion described will be the same but the reason specified is wrong. Motion depends on the frame of reference, as motion is a relative quantity."
+      },
+      {
+        "id": 374201,
+        "content_html": "Yes, both persons will describe the same motion because they will perceive the other as moving in the backward direction.",
         "correctness": "1.0",
-        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+        "feedback_html": "Motion depends on the frame of reference from which it is observed. The person in Boat A and the person in Boat B will see a boat moving past them in the opposite direction."
       },
       {
-        "id": 397403,
-        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 374199,
+        "content_html": "No, the motion described by each of them will be different because motion is a relative term.",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology."
+        "feedback_html": "Motion is a relative term but here both of them (person in Boat A and person in Boat B) observes the same thing, which is a boat moving past them in the opposite direction."
       },
       {
-        "id": 397404,
-        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 374200,
+        "content_html": "No, the motion described by each of them will be different because the motion perceived by each will be opposite to each other.",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
-      },
-      {
-        "id": 397405,
-        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "The description provided by each person is the same. They both see a boat traveling past them."
       }
     ],
-    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
-    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "uid": "6@7"
+    "group_uuid": "6e5f63ab-3d00-49e0-9bfb-d96c27c91de0",
+    "stem_html": "Boat A and Boat B are traveling at a constant speed in opposite directions when they pass each other. If a person in each boat describes motion based on the boat’s own reference frame, will the description by a person in Boat A of Boat B’s motion be the same as the description by a person in Boat B of Boat A’s motion?",
+    "tags": "6e5f63ab-3d00-49e0-9bfb-d96c27c91de0",
+    "uid": "1824@5"
   },
   {
     "answers": [
       {
-        "id": 413141,
-        "content_html": "We shiver when we are cold and sweat when we are hot.",
+        "id": 374205,
+        "content_html": "a description of motion depends on the reference frame",
         "correctness": "1.0",
-        "feedback_html": "Shivering and sweating are both ways that the body reacts to changing body temperatures, which are a result of changes in the temperature of the external environment."
+        "feedback_html": "The reference frame is the coordinate system from which the position of the moving object is described."
       },
       {
-        "id": 413142,
-        "content_html": "We walk by putting our front leg forward and pushing off with our back leg.",
+        "id": 374202,
+        "content_html": "motion appears the same in all reference frames",
         "correctness": "0.0",
-        "feedback_html": "Walking is not a response to the external environment."
+        "feedback_html": "Remember, motion appears different, not the same, in all reference frames."
       },
       {
-        "id": 413143,
-        "content_html": "We are able to breath in and out unconsciously.",
+        "id": 374203,
+        "content_html": "reference frames affect the motion of an object",
         "correctness": "0.0",
-        "feedback_html": "Breathing occurs unconsciously regardless of changes in the external environment, as long as breathing can take place."
+        "feedback_html": "Reference frames do not have any effect on the physics of an object."
       },
       {
-        "id": 413144,
-        "content_html": "Our hair and fingernails grow at a constant rate over time.",
+        "id": 374204,
+        "content_html": "you can see motion better from certain reference frames",
         "correctness": "0.0",
-        "feedback_html": "These two processes continually occur without any input from the external environment."
+        "feedback_html": "A certain reference frame does make motion appear simpler, but that is not the sole reason to specify a reference frame."
       }
     ],
-    "group_uuid": "31630dd3-1d10-467b-a0fe-4681748ae167",
-    "stem_html": "Which example most clearly shows a way that humans can respond directly to a change in the environment?",
-    "tags": "31630dd3-1d10-467b-a0fe-4681748ae167",
-    "uid": "9@8"
+    "group_uuid": "9a091ff9-8a3a-4101-bd17-628542dee37b",
+    "stem_html": "Why should you specify a reference frame when describing motion?",
+    "tags": "9a091ff9-8a3a-4101-bd17-628542dee37b",
+    "uid": "1827@5"
   },
   {
     "answers": [

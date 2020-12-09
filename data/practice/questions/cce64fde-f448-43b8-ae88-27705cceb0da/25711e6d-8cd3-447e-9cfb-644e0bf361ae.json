@@ -2,66 +2,66 @@
   {
     "answers": [
       {
-        "id": 483694,
-        "content_html": "The amplitude of a wave is equal to half of the height of the wave.",
+        "id": 391753,
+        "content_html": "An increase in light intensity decreases the number of photons. However, no electrons are ejected.",
+        "correctness": "0.0",
+        "feedback_html": "How does light intensity relate to photon number and photon energy?"
+      },
+      {
+        "id": 391752,
+        "content_html": "Increase in light intensity increases the number of photons, so electrons with higher kinetic energy are ejected.",
+        "correctness": "0.0",
+        "feedback_html": "How does light intensity relate to photon number and photon energy?"
+      },
+      {
+        "id": 391751,
+        "content_html": "An increase in light intensity increases the number of photons, so electrons will be ejected.",
+        "correctness": "0.0",
+        "feedback_html": "How does light intensity relate to photon number and photon energy?"
+      },
+      {
+        "id": 391754,
+        "content_html": "An increase in light intensity increases the number of photons. However, no electrons are ejected.",
         "correctness": "1.0",
-        "feedback_html": "The amplitude of a wave is equal to half of the height of the wave."
-      },
-      {
-        "id": 483695,
-        "content_html": "The amplitude of a wave is equal to the height of the wave.",
-        "correctness": "0.0",
-        "feedback_html": "Review the definitions of amplitude and height."
-      },
-      {
-        "id": 483696,
-        "content_html": "The amplitude of a wave is equal to two times the height of the wave.",
-        "correctness": "0.0",
-        "feedback_html": "Review the definitions of amplitude and height."
-      },
-      {
-        "id": 483697,
-        "content_html": "The amplitude of a wave is equal to four times the height of the wave.",
-        "correctness": "0.0",
-        "feedback_html": "Review the definitions of amplitude and height."
+        "feedback_html": "No electrons will be ejected, since an increase in intensity only increases the number of photons striking the surface."
       }
     ],
-    "group_uuid": "02173153-4782-47a3-a447-19971eb20a58",
-    "stem_html": "What is the relation between the amplitude and the height of a wave? Let the height of a transverse wave be defined as the vertical distance from a trough to a crest.",
-    "tags": "02173153-4782-47a3-a447-19971eb20a58",
-    "uid": "6898@7"
+    "group_uuid": "6898a862-270e-4393-94e7-e3d1db75d213",
+    "stem_html": "Light is projected onto a semi-conductive surface. However, no electrons are ejected. What will happen when the light intensity is increased?",
+    "tags": "6898a862-270e-4393-94e7-e3d1db75d213",
+    "uid": "11463@7"
   },
   {
     "answers": [
       {
-        "id": 418058,
-        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
+        "id": 391807,
+        "content_html": "<span data-math=\"2.3\\,\\text{eV}\">2.3\\,\\text{eV}</span>",
         "correctness": "0.0",
-        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
+        "feedback_html": "Do you think that an electron is always launched with the same energy as its binding energy? Remember that some of the incoming energy is used to overcome the binding energy, and the remainder is converted to KE."
       },
       {
-        "id": 418059,
-        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "id": 391806,
+        "content_html": "<span data-math=\"7.3\\,\\text{eV}\">7.3\\,\\text{eV}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Do you think the supplied energy is added to the binding energy? Remember that some of the supplied energy is used to overcome the binding energy."
+      },
+      {
+        "id": 391805,
+        "content_html": "<span data-math=\"11.5\\,\\text{eV}\">11.5\\,\\text{eV}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Do you think the supplied energy is multiplied by the binding energy? Remember that some of the supplied energy is used to overcome the binding energy."
+      },
+      {
+        "id": 391808,
+        "content_html": "<span data-math=\"\\text{2.7}\\,\\text{eV}\">\\text{2.7}\\,\\text{eV}</span>",
         "correctness": "1.0",
-        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
-      },
-      {
-        "id": 418060,
-        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
-        "correctness": "0.0",
-        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
-      },
-      {
-        "id": 418061,
-        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
-        "correctness": "0.0",
-        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+        "feedback_html": "This is correct. Use <span data-math=\"E = KE + BE\">E = KE + BE</span>."
       }
     ],
-    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
-    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "uid": "1@7"
+    "group_uuid": "1f4c6da2-3a25-4b31-8f52-6af74ac2f149",
+    "stem_html": "If <span data-math=\"5\\,\\text{eV}\">5\\,\\text{eV}</span> of energy is supplied to an electron with a binding energy of <span data-math=\"2.3\\,\\text{eV}\">2.3\\,\\text{eV}</span>, with what kinetic energy will the electron be launched?",
+    "tags": "1f4c6da2-3a25-4b31-8f52-6af74ac2f149",
+    "uid": "11489@6"
   },
   {
     "answers": [
@@ -98,33 +98,33 @@
   {
     "answers": [
       {
-        "id": 472311,
-        "content_html": "bacteria",
-        "correctness": "0.0",
-        "feedback_html": "Bacteria do not have a membrane-enclosed nucleus."
-      },
-      {
-        "id": 472314,
-        "content_html": "eukaryotic cells",
+        "id": 391828,
+        "content_html": "The increased intensity increases the number of ejected electrons. The increased current is due to the increase in the number of electrons.",
         "correctness": "1.0",
-        "feedback_html": "Eukaryotic cells contain a membrane bound nucleus."
+        "feedback_html": "The number of ejected electrons increases with the increase in intensity of light. As a result, more electrons are moving to fill their ‘holes.’ This greater number of electrons moving is responsible for an increased current."
       },
       {
-        "id": 472312,
-        "content_html": "all living organisms",
+        "id": 391825,
+        "content_html": "The increased intensity decreases the number of ejected electrons. The increased current is due to the decrease in the number of electrons ejected.",
         "correctness": "0.0",
-        "feedback_html": "Not all living organisms have a membrane-enclosed nucleus."
+        "feedback_html": "The increase in intensity increases the number of electrons ejected from the metallic surface."
       },
       {
-        "id": 472313,
-        "content_html": "prokaryotic cells",
+        "id": 391826,
+        "content_html": "The increased intensity does not alter the number of electrons ejected. The increased current is due to the increase in the kinetic energy of electrons.",
         "correctness": "0.0",
-        "feedback_html": "Prokaryotic cells do not contain a membrane bound nucleus."
+        "feedback_html": "The intensity of light is proportionally related to the number of electrons ejected from the metallic surface."
+      },
+      {
+        "id": 391827,
+        "content_html": "The increased intensity alters the number of electrons ejected, but an increase in the current is due to an increase in the kinetic energy of electrons.",
+        "correctness": "0.0",
+        "feedback_html": "How can the increased velocity of electrons change the current? Increase in current means more electrons are moving. So, an increase in the number of electrons due to increased intensity of light is responsible for an increase in the current."
       }
     ],
-    "group_uuid": "d660f6a3-d8b7-4999-b634-4991c1bc1384",
-    "stem_html": "The presence of a membrane-enclosed nucleus is a characteristic of what?",
-    "tags": "d660f6a3-d8b7-4999-b634-4991c1bc1384",
-    "uid": "14@11"
+    "group_uuid": "14cf4bb9-b28f-420c-9060-ddcf4b1f7093",
+    "stem_html": "When increasing the intensity of light shining on a metallic surface, it is possible to increase the current created on that surface. Classical theorists would argue that this is evidence that intensity causes charge to move with a greater kinetic energy. Argue this logic from the perspective of a modern physicist.",
+    "tags": "14cf4bb9-b28f-420c-9060-ddcf4b1f7093",
+    "uid": "11499@5"
   }
 ]

@@ -66,65 +66,65 @@
   {
     "answers": [
       {
-        "id": 347107,
-        "content_html": "Insects can walk on water because of its high surface tension.",
+        "id": 377520,
+        "content_html": "Because kinetic energy is directly proportional to the square of the velocity.",
         "correctness": "1.0",
-        "feedback_html": "Some insects can walk on water, although they are denser than water, because of the high surface tension of water. High surface tension results from high cohesion at the surface of a body of water."
+        "feedback_html": "Doubling the velocity will cause kinetic energy to quadruple because KE is directly proportional to <span data-math=\"{v^2}\">{v^2}</span>."
       },
       {
-        "id": 347104,
-        "content_html": "Insects can walk on water because it is a polar solvent.",
+        "id": 377517,
+        "content_html": "Because kinetic energy is inversely proportional to the square of the velocity.",
         "correctness": "0.0",
-        "feedback_html": "Recall whether the polarity of water has anything to do with insects walking on water."
+        "feedback_html": "Kinetic energy cannot be inversely proportional to velocity because kinetic energy increases with increasing velocity."
       },
       {
-        "id": 347105,
-        "content_html": "Insects can walk on water because they are less dense than water.",
+        "id": 377518,
+        "content_html": "Because kinetic energy is directly proportional to the fourth power of the velocity.",
         "correctness": "0.0",
-        "feedback_html": "Most insects are not less dense than water."
+        "feedback_html": "Recall the correct expression for kinetic energy."
       },
       {
-        "id": 347106,
-        "content_html": "Insects can walk on water because they are denser than water.",
+        "id": 377519,
+        "content_html": "Because kinetic energy is inversely proportional to the fourth power of the velocity.",
         "correctness": "0.0",
-        "feedback_html": "Most insects are denser than water, but many of them can still be supported on the surface of water."
+        "feedback_html": "Remember that more kinetic energy implies more velocity."
       }
     ],
-    "group_uuid": "97ffb587-bc4c-4c8a-8404-fa4ca3b9ca5e",
-    "stem_html": "Why can some insects walk on water?",
-    "tags": "97ffb587-bc4c-4c8a-8404-fa4ca3b9ca5e",
-    "uid": "62@5"
+    "group_uuid": "62cd7c0b-e126-46ad-a164-09c5ac76eea9",
+    "stem_html": "Which statement best explains why accelerating a car from <span data-math=\"20\\,\\text{mph}\">20\\,\\text{mph}</span> to <span data-math=\"40\\,\\text{mph}\">40\\,\\text{mph}</span> quadruples its kinetic energy?",
+    "tags": "62cd7c0b-e126-46ad-a164-09c5ac76eea9",
+    "uid": "2786@5"
   },
   {
     "answers": [
       {
-        "id": 397410,
-        "content_html": "astronomy",
+        "id": 377527,
+        "content_html": "As the boulder rolls down the mountainside, KE is converted to PE. As the boulder rolls up the opposite slope, PE is converted to KE. The boulder rolls only partway up the ridge because some of the PE has been converted to thermal energy due to friction.",
         "correctness": "0.0",
-        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+        "feedback_html": "Recall the correct definition for kinetic and potential energy. Energy associated with position is potential energy while energy associated with motion is kinetic energy."
       },
       {
-        "id": 397411,
-        "content_html": "biology",
+        "id": 377528,
+        "content_html": "As the boulder rolls down the mountainside, KE is converted to PE. As the boulder rolls up the opposite slope, KE is converted to PE. The boulder rolls only partway up the ridge because some of the PE has been converted to thermal energy due to friction.",
         "correctness": "0.0",
-        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+        "feedback_html": "It is correct that when the boulder rolls up the opposite side, KE is converted to PE. But when it rolls down the mountainside, the height is decreasing so PE cannot increase."
       },
       {
-        "id": 397412,
-        "content_html": "computer science",
+        "id": 377529,
+        "content_html": "As the boulder rolls down the mountainside, PE is converted to KE. As the boulder rolls up the opposite slope, PE is converted to KE. The boulder rolls only partway up the ridge because some of the PE has been converted to thermal energy due to friction.",
+        "correctness": "0.0",
+        "feedback_html": "Yes, when the boulder rolls down the mountainside, PE is converted to KE. But when it rolls up the opposite side of the mountain the speed is decreasing and hence KE decreases."
+      },
+      {
+        "id": 377530,
+        "content_html": "As the boulder rolls down the mountainside, PE is converted to KE. As the boulder rolls up the opposite slope, KE is converted to PE. The boulder rolls only partway up the ridge because some of the PE has been converted to thermal energy due to friction.",
         "correctness": "1.0",
-        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
-      },
-      {
-        "id": 397413,
-        "content_html": "physics",
-        "correctness": "0.0",
-        "feedback_html": "Physics is a branch of natural science that studies matter."
+        "feedback_html": "This is the correct order of transformation of energy. Since there is friction, the mechanical energy will not be constant."
       }
     ],
-    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "stem_html": "Which of the following sciences is not considered a natural science?",
-    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "uid": "4@7"
+    "group_uuid": "4e90f840-6dbe-4d31-b5d4-8ab71e1c1b33",
+    "stem_html": "A boulder rolls from the top of a mountain, travels across a valley below, and rolls part way up the ridge on the opposite side. Describe all the energy transformations taking place during these events and identify when they happen.",
+    "tags": "4e90f840-6dbe-4d31-b5d4-8ab71e1c1b33",
+    "uid": "2790@5"
   }
 ]

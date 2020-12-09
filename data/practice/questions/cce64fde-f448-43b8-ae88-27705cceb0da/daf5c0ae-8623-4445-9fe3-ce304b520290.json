@@ -2,66 +2,66 @@
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 375548,
+        "content_html": "<span data-math=\"\\theta = \\cos^{-1}\\frac{A_y}{A_x}\">\\theta = \\cos^{-1}\\frac{A_y}{A_x}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall the concept of resolution of a vector into its components. Think about how to find the direction of a vector."
+      },
+      {
+        "id": 375547,
+        "content_html": "<span data-math=\"\\theta = \\cot^{-1}\\frac{A_y}{A_x}\">\\theta = \\cot^{-1}\\frac{A_y}{A_x}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Use the correct trigonometric identity to find the direction of the vector."
+      },
+      {
+        "id": 375546,
+        "content_html": "<span data-math=\"\\theta = \\sin^{-1}\\frac{A_y}{A_x}\">\\theta = \\sin^{-1}\\frac{A_y}{A_x}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Try to draw the vectors in graphical form and then apply the trigonometric identities."
+      },
+      {
+        "id": 375549,
+        "content_html": "<span data-math=\"\\theta = \\tan^{-1}\\frac{A_y}{A_x}\">\\theta = \\tan^{-1}\\frac{A_y}{A_x}</span>",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
-      },
-      {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
-      },
-      {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "This is the correct analytical method to find the direction of a vector if its components are given."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "02f585ab-ea0d-47af-a771-e934c479755f",
+    "stem_html": "How can we determine the global angle <span data-math=\"\\theta\">\\theta</span> (measured counter-clockwise from positive <span data-math=\"x\">x</span>) if we know <span data-math=\"A_x\">A_x</span> and <span data-math=\"A_y\">A_y</span>?",
+    "tags": "02f585ab-ea0d-47af-a771-e934c479755f",
+    "uid": "2225@8"
   },
   {
     "answers": [
       {
-        "id": 397410,
-        "content_html": "astronomy",
-        "correctness": "0.0",
-        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
-      },
-      {
-        "id": 397411,
-        "content_html": "biology",
-        "correctness": "0.0",
-        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
-      },
-      {
-        "id": 397412,
-        "content_html": "computer science",
+        "id": 375557,
+        "content_html": "The magnitude of the resultant vector will be zero.",
         "correctness": "1.0",
-        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+        "feedback_html": "Since both the vectors have equal magnitude but opposite direction, they will cancel each other out, resulting in the zero magnitude of the resultant vector."
       },
       {
-        "id": 397413,
-        "content_html": "physics",
+        "id": 375554,
+        "content_html": "The magnitude of resultant vector will be twice the magnitude of the original vector.",
         "correctness": "0.0",
-        "feedback_html": "Physics is a branch of natural science that studies matter."
+        "feedback_html": "Draw both these vectors on a graph and try to calculate the resultant vector using analytical method."
+      },
+      {
+        "id": 375555,
+        "content_html": "The magnitude of resultant vector will be same as magnitude of the original vector.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the concept of resultant vector. While calculating the magnitude of resultant vector we should take into account the given directions as well."
+      },
+      {
+        "id": 375556,
+        "content_html": "The magnitude of resultant vector will be half the magnitude of the original vector.",
+        "correctness": "0.0",
+        "feedback_html": "Try to calculate the magnitude of the resultant vector if both the vectors lie on the same axis and angle between them is <span data-math=\"180^\\circ\\!\">180^\\circ\\!</span>."
       }
     ],
-    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "stem_html": "Which of the following sciences is not considered a natural science?",
-    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "uid": "4@7"
+    "group_uuid": "4e1c44b4-e4f9-4b86-92d0-14e07162cce2",
+    "stem_html": "Two vectors are equal in magnitude and opposite in direction. What is the magnitude of their resultant vector?",
+    "tags": "4e1c44b4-e4f9-4b86-92d0-14e07162cce2",
+    "uid": "2228@5"
   },
   {
     "answers": [

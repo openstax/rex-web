@@ -66,65 +66,65 @@
   {
     "answers": [
       {
-        "id": 397410,
-        "content_html": "astronomy",
+        "id": 215996,
+        "content_html": "The peak emf from a generator can be maximized only by maximizing number of turns.",
         "correctness": "0.0",
-        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+        "feedback_html": "Peak emf from a generator can also be maximized by maximizing area of the wired loop or frequency."
       },
       {
-        "id": 397411,
-        "content_html": "biology",
+        "id": 215995,
+        "content_html": "The peak emf from a generator can be maximized only by maximizing area of the wired loop.",
         "correctness": "0.0",
-        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+        "feedback_html": "Peak emf from a generator can also be maximized by maximizing number of turns or frequency."
       },
       {
-        "id": 397412,
-        "content_html": "computer science",
+        "id": 215994,
+        "content_html": "The peak emf from a generator can be maximized only by maximizing frequency.",
+        "correctness": "0.0",
+        "feedback_html": "Peak emf from a generator can also be maximized by maximizing number of turns or area of the wired loop."
+      },
+      {
+        "id": 215997,
+        "content_html": "The peak emf from a generator can be maximized by maximizing number of turns, maximizing area of the wired loop or maximizing frequency.",
         "correctness": "1.0",
-        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
-      },
-      {
-        "id": 397413,
-        "content_html": "physics",
-        "correctness": "0.0",
-        "feedback_html": "Physics is a branch of natural science that studies matter."
+        "feedback_html": "Yes, any of the three can maximize the peak emf."
       }
     ],
-    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "stem_html": "Which of the following sciences is not considered a natural science?",
-    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "uid": "4@7"
+    "group_uuid": "4b260237-f038-4dce-9415-1ad5826c6f40",
+    "stem_html": "How can you maximize the peak emf from a generator?",
+    "tags": "4b260237-f038-4dce-9415-1ad5826c6f40",
+    "uid": "7500@4"
   },
   {
     "answers": [
       {
-        "id": 418058,
-        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
-        "correctness": "0.0",
-        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
-      },
-      {
-        "id": 418059,
-        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "id": 216023,
+        "content_html": "The output emf will be doubled.",
         "correctness": "1.0",
-        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "The emf is proportional to the frequency of rotation of coils"
       },
       {
-        "id": 418060,
-        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "id": 216022,
+        "content_html": "The output emf will be halved.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "There is a direct proportionality between the frequency of rotation coils and emf induced in them."
       },
       {
-        "id": 418061,
-        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
+        "id": 216021,
+        "content_html": "The output emf will be quadrupled.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+        "feedback_html": "If frequency is doubled then emf will be doubled."
+      },
+      {
+        "id": 216020,
+        "content_html": "The output emf will be tripled.",
+        "correctness": "0.0",
+        "feedback_html": "Emf is directly proportional to the frequency at which the coils rotate."
       }
     ],
-    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
-    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "uid": "1@7"
+    "group_uuid": "1a2e711b-e98c-4b3a-ab28-04ffc733b264",
+    "stem_html": "How is the output emf of a generator affected if you double the frequency of rotation of its coil?",
+    "tags": "1a2e711b-e98c-4b3a-ab28-04ffc733b264",
+    "uid": "7507@4"
   }
 ]

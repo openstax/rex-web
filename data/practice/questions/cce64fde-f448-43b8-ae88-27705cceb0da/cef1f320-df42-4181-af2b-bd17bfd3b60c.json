@@ -130,33 +130,33 @@
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 376877,
+        "content_html": "<span data-math=\"9.35\\times10^{17}\\,\\text{kg}\">9.35\\times10^{17}\\,\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall that the gravitational force follows the inverse square law."
+      },
+      {
+        "id": 376880,
+        "content_html": "<span data-math=\"5.96\\times10^{24}\\text{kg}\">5.96\\times10^{24}\\text{kg}</span>",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+        "feedback_html": "The mass of the Earth can be obtained by using the definition of the gravitational force due to Earth at a point."
       },
       {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "id": 376878,
+        "content_html": "<span data-math=\"3.79\\times10^{31}\\text{kg}\">3.79\\times10^{31}\\text{kg}</span>",
         "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+        "feedback_html": "The gravitational force does not vary inversely with the cube of the radius."
       },
       {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "id": 376879,
+        "content_html": "<span data-math=\"2.42\\times10^{38}\\text{kg}\">2.42\\times10^{38}\\text{kg}</span>",
         "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "Recall that the gravitational force follows the inverse square law."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2ef154b3-4aaf-41ff-b680-9d75c845d19c",
+    "stem_html": "The average radius of Earth is <span data-math=\"6.37\\times10^6\\,\\text{m}\">6.37\\times10^6\\,\\text{m}</span>. What is Earth’s mass?",
+    "tags": "2ef154b3-4aaf-41ff-b680-9d75c845d19c",
+    "uid": "2608@5"
   }
 ]

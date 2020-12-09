@@ -34,34 +34,34 @@
   {
     "answers": [
       {
-        "id": 346884,
-        "content_html": "publication",
+        "id": 377063,
+        "content_html": "The first object will acquire more momentum.",
         "correctness": "0.0",
-        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
+        "feedback_html": "Recall the impulse-momentum theorem and compare the change in momentum."
       },
       {
-        "id": 346885,
-        "content_html": "public speaking",
-        "correctness": "0.0",
-        "feedback_html": "Public speaking does not ensure originality and significance of a work."
-      },
-      {
-        "id": 346887,
-        "content_html": "peer review",
+        "id": 377064,
+        "content_html": "The second object will acquire more momentum.",
         "correctness": "1.0",
-        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
+        "feedback_html": "The second object will acquire more momentum because the duration over which the force acts is more for the second object."
       },
       {
-        "id": 346886,
-        "content_html": "the scientific method",
+        "id": 377062,
+        "content_html": "Both objects will acquire the same momentum.",
         "correctness": "0.0",
-        "feedback_html": "The scientific method is the method employed to carry out research."
+        "feedback_html": "Momentum acquired won’t be the same for the two objects, as the duration over which the force is acting on each object is different."
+      },
+      {
+        "id": 377061,
+        "content_html": "Neither object will experience a change in momentum.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that net force is the rate of change of momentum."
       }
     ],
-    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
-    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "uid": "5@8"
+    "group_uuid": "5b97bdea-ce4e-4fb2-8e50-458541a4e545",
+    "stem_html": "Consider two objects of the same mass. If a force of <span data-math=\"100\\,\\text{N}\">100\\,\\text{N}</span> acts on the first for a duration of <span data-math=\"1\\,\\text{s}\">1\\,\\text{s}</span> and on the other for a duration of <span data-math=\"2\\,\\text{s}\">2\\,\\text{s}</span>, which of the following statements is true?",
+    "tags": "5b97bdea-ce4e-4fb2-8e50-458541a4e545",
+    "uid": "2656@6"
   },
   {
     "answers": [

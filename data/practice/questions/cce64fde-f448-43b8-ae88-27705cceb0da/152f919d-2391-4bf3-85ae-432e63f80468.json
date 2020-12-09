@@ -98,33 +98,33 @@
   {
     "answers": [
       {
-        "id": 346868,
-        "content_html": "No, it is not a natural science because it is not used in the study of the natural world.",
+        "id": 375808,
+        "content_html": "It will increase because <span data-math=\"g\">g</span> on the Moon is less than <span data-math=\"g\">g</span> on Earth.",
         "correctness": "0.0",
-        "feedback_html": "Mathematics is used in the study of the natural world, but that does not explain whether it is a natural science."
+        "feedback_html": "Frequency is proportional to the square root of the acceleration due to gravity, so the frequency will decrease on the moon. "
       },
       {
-        "id": 346871,
-        "content_html": "No, it is not a natural science. Mathematics focuses on understanding mathematical relations and calculations, which is useful in natural sciences but which is distinct.",
+        "id": 375809,
+        "content_html": "It will decrease because <span data-math=\"g\">g</span> on the Moon is less than <span data-math=\"g\">g</span> on Earth.",
         "correctness": "1.0",
-        "feedback_html": "Mathematics is not a natural science as it does not use chemical and physical measurements like other fields in natural sciences."
+        "feedback_html": "Frequency is proportional to the square root of the acceleration due to gravity."
       },
       {
-        "id": 346869,
-        "content_html": "Yes, it is a natural science. Mathematics deals with verifying the experimental data.",
+        "id": 375807,
+        "content_html": "It will increase because <span data-math=\"g\">g</span> on the Moon is greater than <span data-math=\"g\">g</span> on Earth.",
         "correctness": "0.0",
-        "feedback_html": "Mathematics does not use the chemical and physical measurements, therefore it is not natural science."
+        "feedback_html": "The Moon has less gravity than Earth. Recall the equation for the frequency of a simple pendulum."
       },
       {
-        "id": 346870,
-        "content_html": "Yes, it is a natural science. It uses chemical and physical measurements.",
+        "id": 375806,
+        "content_html": "It will decrease because <span data-math=\"g\">g</span> on the Moon is greater than <span data-math=\"g\">g</span> on Earth.",
         "correctness": "0.0",
-        "feedback_html": "Mathematics does not use chemical and physical measurements."
+        "feedback_html": "Gravity on the Moon is less than that on the Earth."
       }
     ],
-    "group_uuid": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
-    "stem_html": "Is mathematics a natural science? Explain your reasoning.",
-    "tags": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
-    "uid": "7@6"
+    "group_uuid": "7eecc426-e6ec-469a-8a2e-1b461224d8ca",
+    "stem_html": "If a pendulum from earth is taken to the moon, will its frequency increase or decrease? Why?",
+    "tags": "7eecc426-e6ec-469a-8a2e-1b461224d8ca",
+    "uid": "2312@7"
   }
 ]

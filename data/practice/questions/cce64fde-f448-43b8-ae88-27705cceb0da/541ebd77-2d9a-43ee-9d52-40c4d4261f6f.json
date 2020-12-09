@@ -34,34 +34,34 @@
   {
     "answers": [
       {
-        "id": 469286,
-        "content_html": "chloroplasts and mitochondria",
+        "id": 376171,
+        "content_html": "Angular velocity is the rate of change of the diameter of the circular path.",
         "correctness": "0.0",
-        "feedback_html": "Photosynthesis takes place in chloroplasts, whereas cellular respiration takes place in the mitochondria. Therefore, these processes do not occur in the same organelles."
+        "feedback_html": "The diameter of the circular path in a circular motion is constant and does not change."
       },
       {
-        "id": 469287,
-        "content_html": "Photosystems I and II",
-        "correctness": "0.0",
-        "feedback_html": "Photosystems I and II are only present in chloroplast thylakoid membranes and not in the mitochondria."
-      },
-      {
-        "id": 469289,
-        "content_html": "the cytochrome complex",
+        "id": 376172,
+        "content_html": "Angular velocity is the rate of change of the angle subtended by the circular path.",
         "correctness": "1.0",
-        "feedback_html": "Photosynthesis and cellular respiration both require the cytochrome complex for electron transport, but the roles in each process differ."
+        "feedback_html": "The angular velocity <span data-math=\"\\omega\">\\omega</span> is the rate of change of the angle subtended by the circular path."
       },
       {
-        "id": 469288,
-        "content_html": "thylakoids",
+        "id": 376170,
+        "content_html": "Angular velocity is the rate of change of the area of the circular path.",
         "correctness": "0.0",
-        "feedback_html": "Thylakoids are only present in chloroplasts and not in mitochondria."
+        "feedback_html": "The units of the rate of change of area differ from those for angular velocity."
+      },
+      {
+        "id": 376169,
+        "content_html": "Angular velocity is the rate of change of the radius of the circular path.",
+        "correctness": "0.0",
+        "feedback_html": "The radius of the circular path is constant and does not change with time. "
       }
     ],
-    "group_uuid": "409bd29c-7c90-4e45-8d29-cc79d2d8a912",
-    "stem_html": "Photosynthesis and cellular respiration are found throughout the eukaryotic world. They are complementary to each other because they each use products of the other process. What do the two pathways share?",
-    "tags": "409bd29c-7c90-4e45-8d29-cc79d2d8a912",
-    "uid": "586@9"
+    "group_uuid": "586fc63f-1482-406c-a298-4afe47754dbe",
+    "stem_html": "What is angular velocity?",
+    "tags": "586fc63f-1482-406c-a298-4afe47754dbe",
+    "uid": "2418@6"
   },
   {
     "answers": [
@@ -130,34 +130,34 @@
   {
     "answers": [
       {
-        "id": 346974,
-        "content_html": "Astrology is a natural science as it indirectly influences human affairs and the natural world.",
+        "id": 376193,
+        "content_html": "<span data-math=\"2v\">2v</span>",
         "correctness": "0.0",
-        "feedback_html": "Astrology is not natural science."
+        "feedback_html": "The two velocities have the same magnitude and the opposite direction."
       },
       {
-        "id": 346975,
-        "content_html": "Astronomy is a natural science as it deals with observations and prediction of events in the sky, which is based on the laws of physics.",
+        "id": 376194,
+        "content_html": "<span data-math=\"\\frac{v}{2}\">\\frac{v}{2}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The two velocities point in opposite directions, so they can either sum to <span data-math=\"2v\">2v</span> or to <span data-math=\"0\">0</span>."
+      },
+      {
+        "id": 376195,
+        "content_html": "<span data-math=\"- v\">- v</span>",
+        "correctness": "0.0",
+        "feedback_html": "The two velocities have the same magnitude, so they cannot sum to <span data-math=\"-v\">-v</span>."
+      },
+      {
+        "id": 376196,
+        "content_html": "<span data-math=\"0\">0</span>",
         "correctness": "1.0",
-        "feedback_html": "Astronomy is a natural science that deals with the study of celestial objects such as stars, galaxies, planets, moons, asteroids, comets and nebulae. It helps in the prediction of events in the sky and encompasses the laws of physics."
-      },
-      {
-        "id": 346973,
-        "content_html": "Astrology is a natural science as it deals with observations and prediction of events in the sky, influences human affairs and the natural world.",
-        "correctness": "0.0",
-        "feedback_html": "Astrology does not deal with the prediction of events in the sky."
-      },
-      {
-        "id": 346972,
-        "content_html": "Astrology is a natural science as it deals with the study of asteroids and comets, which is based on the laws of natural sciences.",
-        "correctness": "0.0",
-        "feedback_html": "Astronomy is a natural science not astrology."
+        "feedback_html": "The two velocities have the same magnitude and the opposite direction, so they sum to zero."
       }
     ],
-    "group_uuid": "adbd46e0-690a-4118-8438-72fd2c4e6375",
-    "stem_html": "Both astronomy and astrology study the stars. Which one is considered a natural science? Explain your reasoning.",
-    "tags": "adbd46e0-690a-4118-8438-72fd2c4e6375",
-    "uid": "21@4"
+    "group_uuid": "21add253-4754-4040-a913-f9fc4fa68af2",
+    "stem_html": "Consider a CD spinning clockwise. What is the sum of the instantaneous velocities of two points on both ends of its diameter?",
+    "tags": "21add253-4754-4040-a913-f9fc4fa68af2",
+    "uid": "2425@5"
   },
   {
     "answers": [
@@ -220,34 +220,34 @@
   {
     "answers": [
       {
-        "id": 474149,
-        "content_html": "<span data-math=\"\\text{H}^+\\!\">\\text{H}^+\\!</span> is pumped into the mitochondrial matrix.",
+        "id": 376231,
+        "content_html": "<span data-math=\"\\omega = \\frac{v^2}{r}\">\\omega = \\frac{v^2}{r}</span>",
         "correctness": "0.0",
-        "feedback_html": "Hydrogen ions are not pumped into the matrix."
+        "feedback_html": "The angular speed is linearly dependent on the linear speed. That is, <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>."
       },
       {
-        "id": 474148,
-        "content_html": "<span data-math=\"\\text{FAD}^+\\!\">\\text{FAD}^+\\!</span> is reduced to <span data-math=\"\\text{FADH}_2\">\\text{FADH}_2</span>.",
-        "correctness": "0.0",
-        "feedback_html": "Recall that in the electron transport chain, the electrons are transferred to the final acceptor, producing ATP in the process. Therefore, <span data-math=\"\\text{FADH}_2\">\\text{FADH}_2</span> is oxidized during the electron transport chain, but reduced during the Krebs cycle."
-      },
-      {
-        "id": 474147,
-        "content_html": "<span data-math=\"\\text{NAD}^+\\!\">\\text{NAD}^+\\!</span> is reduced to NADH.",
-        "correctness": "0.0",
-        "feedback_html": "<span data-math=\"\\text{NAD}^+\\!\">\\text{NAD}^+\\!</span> gets reduced to NADH during glycolysis, the formation of acetyl-CoA and the Krebs cycle. NADH is then oxidized during the electron transport chain."
-      },
-      {
-        "id": 474150,
-        "content_html": "Oxygen is reduced to form water.",
+        "id": 376234,
+        "content_html": "<span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>",
         "correctness": "1.0",
-        "feedback_html": "The electrons donated by FADH and NADH are accepted by cytochromes of the electron transport chain present in the inner mitochondrial membrane. At the end of the chain, these electrons reduce oxygen to form water."
+        "feedback_html": "The angular speed is <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>, where <span data-math=\"v\">v</span> is linear speed and <span data-math=\"r\">r</span> is radius of the rotating body."
+      },
+      {
+        "id": 376232,
+        "content_html": "<span data-math=\"\\omega = rv\">\\omega = rv</span>",
+        "correctness": "0.0",
+        "feedback_html": "The linear speed is angular speed times the radius of the rotating object. Therefore, the correct relation is <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>."
+      },
+      {
+        "id": 376233,
+        "content_html": "<span data-math=\"\\omega = r{v^2}\">\\omega = r{v^2}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The angular speed is linearly dependent on the linear speed. The linear speed is angular speed times the radius of the rotating object. Therefore, the correct relation is <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>."
       }
     ],
-    "group_uuid": "e3e73e2c-bfb2-4736-9f33-8f83e1d9a302",
-    "stem_html": "Which of the following statements about the electron transport chain is true?",
-    "tags": "e3e73e2c-bfb2-4736-9f33-8f83e1d9a302",
-    "uid": "560@10"
+    "group_uuid": "560df8f7-fd86-44c8-8565-58d1b3805838",
+    "stem_html": "What is angular speed in terms of tangential speed and the radius?",
+    "tags": "560df8f7-fd86-44c8-8565-58d1b3805838",
+    "uid": "2435@5"
   },
   {
     "answers": [

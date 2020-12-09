@@ -34,34 +34,34 @@
   {
     "answers": [
       {
-        "id": 470309,
-        "content_html": "adhesive properties",
+        "id": 391385,
+        "content_html": "The formula for index of refraction, <span data-math=\"\\text{n}\">\\text{n}</span>, of a material is \n <span data-math=\"n = \\frac{\\text{speed of light in a material}}{\\text{speed of\n light in a vacuum}} = \\frac{v}{c},\">n = \\frac{\\text{speed of light in a material}}{\\text{speed of\n light in a vacuum}} = \\frac{v}{c},</span>\n where <span data-math=\"\\text{v} > \\text{c}\">\\text{v} &gt; \\text{c}</span>, so <span data-math=\"\\text{n}\">\\text{n}</span> is always greater than one.",
         "correctness": "0.0",
-        "feedback_html": "Recall that adhesion is an attraction between water molecules or other molecules not directly related to heat dispersion."
+        "feedback_html": "The given formula for <span data-math=\"n\">n</span> is not correct, because the speed of light in a vacuum is greater than the speed of light in any material."
       },
       {
-        "id": 470310,
-        "content_html": "surface tension",
-        "correctness": "0.0",
-        "feedback_html": "Surface tension is the amount that water’s surface can withstand pressure. This is not directly related to heat dispersion."
-      },
-      {
-        "id": 470311,
-        "content_html": "heat of vaporization",
-        "correctness": "0.0",
-        "feedback_html": "Heat of vaporization is the amount of heat needed for water to move from a liquid to a gas. Water is always a liquid within the bodies of organisms."
-      },
-      {
-        "id": 470312,
-        "content_html": "specific heat capacity",
+        "id": 391386,
+        "content_html": "The formula for index of refraction, <span data-math=\"\\text{n}\">\\text{n}</span>, of a material is \n <span data-math=\"n = \\frac{\\text{speed of light in a vacuum}}{\\text{speed of light\n in a material}} = \\frac{c}{v},\">n = \\frac{\\text{speed of light in a vacuum}}{\\text{speed of light\n in a material}} = \\frac{c}{v},</span>\n where <span data-math=\"\\text{c} > \\text{v}\">\\text{c} &gt; \\text{v}</span>, so <span data-math=\"\\text{n}\">\\text{n}</span> is always greater than one.",
         "correctness": "1.0",
-        "feedback_html": "The specific heat of water is 1 calorie/gram, which is higher than any other common substance."
+        "feedback_html": "The given formula and explanation is right."
+      },
+      {
+        "id": 391384,
+        "content_html": "The formula for index of refraction, <span data-math=\"\\text{n}\">\\text{n}</span>, of a material is \n <span data-math=\"n = \\text{speed of light in a vacuum} \\times \\text{speed of light in a materaial}\">n = \\text{speed of light in a vacuum} \\times \\text{speed of light in a materaial}</span>\n <span data-math=\"= c \\times v,\">= c \\times v,</span>\n where <span data-math=\"\\text{c}\">\\text{c}</span>, <span data-math=\"\\text{v} > 1\">\\text{v} &gt; 1</span>, so <span data-math=\"\\text{n}\">\\text{n}</span> is always greater than one.",
+        "correctness": "0.0",
+        "feedback_html": "The index of refraction of a material is the ratio of the speed of light in a vacuum and the speed of light in that material."
+      },
+      {
+        "id": 391383,
+        "content_html": "The formula for refractive index, <span data-math=\"\\text{n}\">\\text{n}</span>, of a material is \n <span data-math=\"n = \\frac{1}{\\text{speed of light in a vacuum} \\times \\text{speed\n of light in a material}} = \\frac{1}{c \\times v},\">n = \\frac{1}{\\text{speed of light in a vacuum} \\times \\text{speed\n of light in a material}} = \\frac{1}{c \\times v},</span> where <span data-math=\"% <![CDATA[\n\\text{c} < \\text{v} < 1 %]]>\">% </span>, so <span data-math=\"\\text{n}\">\\text{n}</span> is always greater than one.",
+        "correctness": "0.0",
+        "feedback_html": "The refractive index of a material is a ratio. Hence, it cannot have any dimensions."
       }
     ],
-    "group_uuid": "5b7a89a2-3d86-45f8-adb0-6d9f1c5169d7",
-    "stem_html": "Why can water be a good insulator within the body of endothermic (warm-blooded) animals?",
-    "tags": "5b7a89a2-3d86-45f8-adb0-6d9f1c5169d7",
-    "uid": "64@10"
+    "group_uuid": "64a0e529-97f2-4164-9f57-bd086cf15804",
+    "stem_html": "Explain why the index of refraction is always greater than or equal to one.",
+    "tags": "64a0e529-97f2-4164-9f57-bd086cf15804",
+    "uid": "11217@6"
   },
   {
     "answers": [

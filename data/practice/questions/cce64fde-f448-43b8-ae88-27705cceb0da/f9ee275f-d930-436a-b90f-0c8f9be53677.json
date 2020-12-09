@@ -34,33 +34,33 @@
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 415292,
+        "content_html": "<span data-math=\"75\\,\\text{m}\">75\\,\\text{m}</span>",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+        "feedback_html": "It can be calculated from the area of the velocity vs. time graph."
       },
       {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "id": 415293,
+        "content_html": "<span data-math=\"130\\,\\text{m}\">130\\,\\text{m}</span>",
         "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+        "feedback_html": "Try to calculate the area under the velocity vs. time graph."
       },
       {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "id": 415294,
+        "content_html": "<span data-math=\"150\\,\\text{m}\">150\\,\\text{m}</span>",
         "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "Recall the formula for the area of a triangle and apply it in this question to calculate the net displacement."
       },
       {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "id": 415295,
+        "content_html": "cannot be determined from the information given",
         "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "The displacement can be calculated from the area under the velocity vs. time graph."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2e2c23a2-dbb1-4e5f-88f6-51ae49b1c1d9",
+    "stem_html": "An object is moving along a straight path with constant acceleration. A velocity vs. time graph starts at <span data-math=\"0\">0</span> and ends at <span data-math=\"10\\,\\text{m/s}\">10\\,\\text{m/s}</span>, stretching over a time-span of <span data-math=\"15\\,\\text{s}\">15\\,\\text{s}</span>. What is the object’s net displacement?",
+    "tags": "2e2c23a2-dbb1-4e5f-88f6-51ae49b1c1d9",
+    "uid": "1891@6"
   }
 ]

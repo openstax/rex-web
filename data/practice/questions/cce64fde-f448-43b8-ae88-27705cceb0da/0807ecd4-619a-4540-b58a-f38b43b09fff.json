@@ -2,66 +2,66 @@
   {
     "answers": [
       {
-        "id": 347059,
-        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"6\">6</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
+        "id": 376372,
+        "content_html": "<span data-math=\"\\frac{1}{144}\\,\\text{N-m}\">\\frac{1}{144}\\,\\text{N-m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The torque produced by the person is <span data-math=\"\\tau = rF\\sin \\theta\">\\tau = rF\\sin \\theta</span>. It is incorrect that <span data-math=\"\\tau = \\frac{r\\sin\\theta }{F^2}\\!\">\\tau = \\frac{r\\sin\\theta }{F^2}\\!</span>."
+      },
+      {
+        "id": 376371,
+        "content_html": "<span data-math=\"\\frac{1}{12}\\,\\text{N-m}\">\\frac{1}{12}\\,\\text{N-m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "It is incorrect that <span data-math=\"\\tau = \\frac{r\\sin\\theta}{F}\">\\tau = \\frac{r\\sin\\theta}{F}</span> . The torque produced by the person is <span data-math=\"\\tau = rF\\!\\sin\\theta\">\\tau = rF\\!\\sin\\theta</span>."
+      },
+      {
+        "id": 376373,
+        "content_html": "<span data-math=\"12\\,\\text{N-m}\">12\\,\\text{N-m}</span>",
         "correctness": "1.0",
-        "feedback_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"6\">6</span>, respectively. While, that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively."
+        "feedback_html": "The torque produced by the person is <span data-math=\"\\tau = rF\\sin\\theta\">\\tau = rF\\sin\\theta</span>."
       },
       {
-        "id": 347056,
-        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"12\">12</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
+        "id": 376370,
+        "content_html": "<span data-math=\"144\\,\\text{N-m}\">144\\,\\text{N-m}</span>",
         "correctness": "0.0",
-        "feedback_html": "The atomic number of carbon-13 is not <span data-math=\"12\">12</span>."
-      },
-      {
-        "id": 347057,
-        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"13\">13</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
-        "correctness": "0.0",
-        "feedback_html": "The mass number and atomic number of carbon-13 are not the same for this isotope of carbon."
-      },
-      {
-        "id": 347058,
-        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"12\">12</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"12\">12</span>, respectively.",
-        "correctness": "0.0",
-        "feedback_html": "The atomic number of carbon, and all of its isotopes, is not <span data-math=\"12\">12</span>."
+        "feedback_html": "The torque produced by the person is directly proportional to the applied force. The torque produced is <span data-math=\"\\tau = rF\\sin \\theta\">\\tau = rF\\sin \\theta</span> It is incorrect that <span data-math=\"\\tau = r F^2 \\sin\\theta\">\\tau = r F^2 \\sin\\theta</span>."
       }
     ],
-    "group_uuid": "7b96c761-af83-4b1b-be9b-a0a7455ba2fb",
-    "stem_html": "List the mass number and atomic number of carbon-12 and carbon-13, respectively.",
-    "tags": "7b96c761-af83-4b1b-be9b-a0a7455ba2fb",
-    "uid": "53@5"
+    "group_uuid": "53a30083-9223-46cd-b720-565bd08cbd41",
+    "stem_html": "How much torque does a person produce if he applies a <span data-math=\"12\\,\\text{N}\">12\\,\\text{N}</span> force <span data-math=\"1.0\\,\\text{m}\">1.0\\,\\text{m}</span> away from the pivot point, perpendicularly to the lever arm?",
+    "tags": "53a30083-9223-46cd-b720-565bd08cbd41",
+    "uid": "2473@7"
   },
   {
     "answers": [
       {
-        "id": 347186,
-        "content_html": "carbonyl",
+        "id": 376380,
+        "content_html": "Angular acceleration is the rate of change of the angular displacement.",
         "correctness": "0.0",
-        "feedback_html": "Carbonyl groups contain a carbon atom double-bonded to an oxygen atom."
+        "feedback_html": "The rate of change of angular displacement is angular velocity. "
       },
       {
-        "id": 347185,
-        "content_html": "hydroxyl",
-        "correctness": "0.0",
-        "feedback_html": "Hydroxyl groups bonds with carbon to form alcohols."
-      },
-      {
-        "id": 347184,
-        "content_html": "phosphate",
-        "correctness": "0.0",
-        "feedback_html": "Phosphate groups bond with carbon atoms on molecules such as ATP."
-      },
-      {
-        "id": 347187,
-        "content_html": "sodium",
+        "id": 376381,
+        "content_html": "Angular acceleration is the rate of change of the angular velocity.",
         "correctness": "1.0",
-        "feedback_html": "Sodium is not a functional group, it is an element. Thus, it does not bond with carbon as a functional group."
+        "feedback_html": "The angular acceleration is the rate of change of the angular velocity."
+      },
+      {
+        "id": 376379,
+        "content_html": "Angular acceleration is the rate of change of the linear displacement.",
+        "correctness": "0.0",
+        "feedback_html": "Angular acceleration is a rotational quantity whereas the linear displacement is not. "
+      },
+      {
+        "id": 376378,
+        "content_html": "Angular acceleration is the rate of change of the linear velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Angular acceleration is a rotational quantity whereas linear velocity is not. "
       }
     ],
-    "group_uuid": "e9a6490c-d4b2-4d62-84c7-c64c40155c73",
-    "stem_html": "Which of the following is not a functional group that can bond with carbon?",
-    "tags": "e9a6490c-d4b2-4d62-84c7-c64c40155c73",
-    "uid": "70@4"
+    "group_uuid": "70ad0bb8-0e08-449c-890e-13bb09771c84",
+    "stem_html": "What is angular acceleration?",
+    "tags": "70ad0bb8-0e08-449c-890e-13bb09771c84",
+    "uid": "2475@6"
   },
   {
     "answers": [
@@ -98,66 +98,54 @@
   {
     "answers": [
       {
-        "id": 347195,
-        "content_html": "4",
+        "id": 376409,
+        "content_html": "It increases, because the torque is directly proportional to the mass of the body.",
         "correctness": "1.0",
-        "feedback_html": "The carbon atom has four electrons in its valence shell. Therefore, bonding four more electrons will complete its octet, allowing it to attain a stable configuration. Carbon molecule can thus bond with a maximum of four other atoms."
+        "feedback_html": "If the mass of the body increases, the torque must increase because the torque is directly proportional to the mass of the body. The torque acting on a body is <span data-math=\"\\tau = rF\\sin\\!\\theta\">\\tau = rF\\sin\\!\\theta</span> or <span data-math=\"\\tau = rma\\sin \\theta\">\\tau = rma\\sin \\theta</span> because <span data-math=\"F = ma\">F = ma</span>."
       },
       {
-        "id": 347192,
-        "content_html": "1",
+        "id": 376408,
+        "content_html": "It increases because the torque is inversely proportional to the mass of the body.",
         "correctness": "0.0",
-        "feedback_html": "Carbon can bond with more than one molecule or atom"
+        "feedback_html": "The torque is not inversely proportional to the mass of the body. The torque acting on a body is <span data-math=\"\\tau = rF\\!\\sin\\theta\">\\tau = rF\\!\\sin\\theta</span>, which can be rewritten as <span data-math=\"\\tau = rma\\sin\\theta\">\\tau = rma\\sin\\theta</span> because <span data-math=\"F = ma\">F = ma</span>."
       },
       {
-        "id": 347193,
-        "content_html": "6",
+        "id": 376407,
+        "content_html": "It decreases because the torque is directly proportional to the mass of the body.",
         "correctness": "0.0",
-        "feedback_html": "Carbon cannot form this many bonds. Review carbon’s number of valence electrons"
+        "feedback_html": "The torque acting on a body is <span data-math=\"\\tau = rF\\!\\sin\\theta\">\\tau = rF\\!\\sin\\theta</span>. It can be rewritten as <span data-math=\"\\tau = rma\\sin \\theta\">\\tau = rma\\sin \\theta</span> because <span data-math=\"F = ma\">F = ma</span>, so the torque must increase if the mass increases."
       },
       {
-        "id": 347194,
-        "content_html": "2",
+        "id": 376406,
+        "content_html": "It decreases, because the torque is inversely proportional to the mass of the body.",
         "correctness": "0.0",
-        "feedback_html": "Carbon can form more than two bonds"
+        "feedback_html": "The torque acting on a body must be directly proportional to the mass of the body. The torque acting on a body is <span data-math=\"\\tau = rF\\!\\sin\\theta\">\\tau = rF\\!\\sin\\theta</span>, which can be rewritten as <span data-math=\"\\tau = rma\\sin\\theta\">\\tau = rma\\sin\\theta</span> because <span data-math=\"F = ma\">F = ma</span>."
       }
     ],
-    "group_uuid": "10a59557-e42d-4def-ae8a-1af817185a32",
-    "stem_html": "What is the maximum number of atoms or molecules a single carbon atom can bond with?",
-    "tags": "10a59557-e42d-4def-ae8a-1af817185a32",
-    "uid": "68@5"
+    "group_uuid": "68f89d76-64bd-4c61-9391-729eb67856be",
+    "stem_html": "A person tries to lift a stone by using a lever. If the lever arm is constant and the mass of the stone increases, what is true of the torque necessary to lift it?",
+    "tags": "68f89d76-64bd-4c61-9391-729eb67856be",
+    "uid": "2482@6"
   },
   {
     "answers": [
       {
-        "id": 397402,
-        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "id": 376425,
+        "content_html": "Angular velocity is zero.",
+        "correctness": "0.0",
+        "feedback_html": "The net torque will be zero and so angular velocity is constant."
+      },
+      {
+        "id": 376426,
+        "content_html": "Angular acceleration is zero.",
         "correctness": "1.0",
-        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
-      },
-      {
-        "id": 397403,
-        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology."
-      },
-      {
-        "id": 397404,
-        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
-      },
-      {
-        "id": 397405,
-        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "Angular acceleration is zero when net torque acting on the system is zero."
       }
     ],
-    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
-    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "uid": "6@7"
+    "group_uuid": "06ce89fc-f2ae-42e8-9679-10d2410c2f82",
+    "stem_html": "What happens when two torques act equally in opposite directions?",
+    "tags": "06ce89fc-f2ae-42e8-9679-10d2410c2f82",
+    "uid": "2487@5"
   },
   {
     "answers": [

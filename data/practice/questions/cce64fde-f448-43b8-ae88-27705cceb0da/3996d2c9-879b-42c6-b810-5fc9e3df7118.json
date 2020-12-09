@@ -2,33 +2,33 @@
   {
     "answers": [
       {
-        "id": 472315,
-        "content_html": "2 only",
+        "id": 273163,
+        "content_html": "The different radiopharmaceuticals travel through different blood vessels.",
         "correctness": "0.0",
-        "feedback_html": "Prokaryotes also come under the domain Archaea."
+        "feedback_html": "The body determines where blood flows, not the identify of the chemicals."
       },
       {
-        "id": 472316,
-        "content_html": "3 only",
-        "correctness": "0.0",
-        "feedback_html": "Prokaryotes do not come under the domain Eukarya."
-      },
-      {
-        "id": 472318,
-        "content_html": "1 and 2",
+        "id": 273164,
+        "content_html": "The different radiopharmaceuticals travel to different parts of the body.",
         "correctness": "1.0",
-        "feedback_html": "Both Archaea and Bacteria contains prokaryotes."
+        "feedback_html": "Different chemicals travel to different parts of the body."
       },
       {
-        "id": 472317,
-        "content_html": "2 and 3",
+        "id": 273165,
+        "content_html": "The different radiopharmaceuticals are used to treat different diseases of the body.",
         "correctness": "0.0",
-        "feedback_html": "Bacteria contain prokaryotes. The prokaryotes cannot classify under the eukarya domain since they are enucleated."
+        "feedback_html": "Imaging uses radiopharmaceuticals that can be detected, not used to treat different diseases."
+      },
+      {
+        "id": 273166,
+        "content_html": "The different radiopharmaceuticals produce different amounts of ionizing radiation.",
+        "correctness": "0.0",
+        "feedback_html": "The radiopharmaceuticals would not likely produce ionizing radiation, which kills cells."
       }
     ],
-    "group_uuid": "75375145-0f7c-4160-b895-4deb34497de0",
-    "stem_html": "<p>Which of the following domains contain prokaryotes?</p>\n\n<ol>\n  <li>Archaea</li>\n  <li>Bacteria</li>\n  <li>Eukarya</li>\n</ol>\n",
-    "tags": "75375145-0f7c-4160-b895-4deb34497de0",
-    "uid": "39@9"
+    "group_uuid": "39a8e9e1-94ab-4a1a-84d6-9575989bec76",
+    "stem_html": "Why are different radiopharmaceuticals used to image different parts of the body?",
+    "tags": "39a8e9e1-94ab-4a1a-84d6-9575989bec76",
+    "uid": "11596@5"
   }
 ]

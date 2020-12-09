@@ -2,34 +2,34 @@
   {
     "answers": [
       {
-        "id": 470440,
-        "content_html": "hydrogen atom, water molecule, skin cell, liver, elephant, wolf pack, tropical rainforest, planet Earth",
+        "id": 206152,
+        "content_html": "The power of the lens is <span data-math=\"0.0400\\,\\text{D}\">0.0400\\,\\text{D}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The power of the lens is the reciprocal of the focal length."
+      },
+      {
+        "id": 206151,
+        "content_html": "The power of the lens is <span data-math=\"0.0800\\,\\text{D}\">0.0800\\,\\text{D}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The focal length of the lens should be in meters before calculating the power in <span data-math=\"\\text{D}\">\\text{D}</span>."
+      },
+      {
+        "id": 206150,
+        "content_html": "The power of the lens is <span data-math=\"4.00\\,\\text{D}\">4.00\\,\\text{D}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The power of the lens can be calculated by taking the reciprocal of the focal length."
+      },
+      {
+        "id": 206153,
+        "content_html": "The power of the lens is <span data-math=\"8.00\\,\\text{D}\">8.00\\,\\text{D}</span>.",
         "correctness": "1.0",
-        "feedback_html": "Hydrogen atom, water molecule, skin cell, liver, elephant, wolf pack, tropical rainforest, planet Earth is the correct order from smallest level of organization to most encompassing."
-      },
-      {
-        "id": 470437,
-        "content_html": "hydrogen atom, skin cell, water molecule, liver, elephant, wolf pack, tropical rainforest, planet Earth",
-        "correctness": "0.0",
-        "feedback_html": "A skin cell is more encompassing than a water molecule."
-      },
-      {
-        "id": 470438,
-        "content_html": "hydrogen atom, skin cell, water molecule, liver, wolf pack, elephant, tropical rainforest, planet Earth",
-        "correctness": "0.0",
-        "feedback_html": "Try to carefully visualize the list given and arrange them from the smallest to the longst level of organization."
-      },
-      {
-        "id": 470439,
-        "content_html": "water molecule, hydrogen atom, skin cell, liver, elephant, wolf pack, tropical rainforest, planet Earth",
-        "correctness": "0.0",
-        "feedback_html": "A water molecule is not the smallest level of organization, hydrogen atom is."
+        "feedback_html": "This is the correct answer. The power of the lens is <span data-math=\"8.00\\,\\text{D}\">8.00\\,\\text{D}</span>."
       }
     ],
-    "group_uuid": "947cb522-a69c-461a-bef5-1d7025418d3b",
-    "stem_html": "Consider the levels of organization of the biological world and place each of these items in order from smallest level of organization to most encompassing: skin cell, elephant, water molecule, planet Earth, tropical rainforest, hydrogen atom, wolf pack, liver.",
-    "tags": "947cb522-a69c-461a-bef5-1d7025418d3b",
-    "uid": "19@7"
+    "group_uuid": "19f35a6a-0a72-419e-b0cb-498c506efce2",
+    "stem_html": "A lens has a focal length of <span data-math=\"12.5\\,\\text{cm}\">12.5\\,\\text{cm}</span>. What is the power of the lens?",
+    "tags": "19f35a6a-0a72-419e-b0cb-498c506efce2",
+    "uid": "11245@4"
   },
   {
     "answers": [
@@ -66,34 +66,34 @@
   {
     "answers": [
       {
-        "id": 471524,
-        "content_html": "These large cells show invaginations to increase the surface-to-volume ratio.",
+        "id": 391477,
+        "content_html": "The image is real and erect.",
+        "correctness": "0.0",
+        "feedback_html": "The image is erect but it is virtual."
+      },
+      {
+        "id": 391478,
+        "content_html": "The image is real and inverted.",
+        "correctness": "0.0",
+        "feedback_html": "If an object is placed between the focal point and a convex lens, the image formed is virtual and erect."
+      },
+      {
+        "id": 391480,
+        "content_html": "The image is virtual and erect.",
         "correctness": "1.0",
-        "feedback_html": "These cells display numerous invaginations of the cytoplasmic membrane, are unusually flat, or have large vacuoles or other organelles, which effectively reduce the volume of the cytoplasm, making their survival possible even with a large volume."
+        "feedback_html": "A virtual, erect image is formed."
       },
       {
-        "id": 471523,
-        "content_html": "The large cells shut off their ion pumps and maintain a stable concentration gradient to avoid diffusion.",
+        "id": 391479,
+        "content_html": "The image is virtual and inverted.",
         "correctness": "0.0",
-        "feedback_html": ""
-      },
-      {
-        "id": 471522,
-        "content_html": "These cells have an intracellular mechanism to compensate for the constant diffusion taking place.",
-        "correctness": "0.0",
-        "feedback_html": ""
-      },
-      {
-        "id": 471521,
-        "content_html": "These cells have an extra capsule surrounding the cell membrane to avoid excess diffusion.",
-        "correctness": "0.0",
-        "feedback_html": ""
+        "feedback_html": "The image formed is virtual, but it is also erect."
       }
     ],
-    "group_uuid": "e1c94378-95f9-4212-839a-e58c9ded5cbe",
-    "stem_html": "Some unusually large cells do exist. How might such cells solve the problem of diffusion?",
-    "tags": "e1c94378-95f9-4212-839a-e58c9ded5cbe",
-    "uid": "304@8"
+    "group_uuid": "304a1663-0601-4591-9307-511c35556d19",
+    "stem_html": "An object is placed between the focal point and a convex lens. Describe the image that is formed in terms of its orientation, and whether the image is real or virtual.",
+    "tags": "304a1663-0601-4591-9307-511c35556d19",
+    "uid": "11257@5"
   },
   {
     "answers": [

@@ -34,315 +34,279 @@
   {
     "answers": [
       {
-        "id": 346884,
-        "content_html": "publication",
+        "id": 380864,
+        "content_html": "The reflection of a wave is the change in amplitude of a wave when it bounces off a barrier.",
         "correctness": "0.0",
-        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
+        "feedback_html": "Reflection does not always change the amplitude of a wave."
       },
       {
-        "id": 346885,
-        "content_html": "public speaking",
+        "id": 380865,
+        "content_html": "The reflection of a wave is the change in frequency of a wave when it bounces off a barrier.",
         "correctness": "0.0",
-        "feedback_html": "Public speaking does not ensure originality and significance of a work."
+        "feedback_html": "Reflection does not change the frequency of a wave."
       },
       {
-        "id": 346887,
-        "content_html": "peer review",
+        "id": 380866,
+        "content_html": "The reflection of a wave is the change in velocity of a wave when it bounces off a barrier.",
+        "correctness": "0.0",
+        "feedback_html": "The velocity of a wave remains same after reflection."
+      },
+      {
+        "id": 380867,
+        "content_html": "The reflection of a wave is the change in direction of a wave when it bounces off a barrier.",
         "correctness": "1.0",
-        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
-      },
-      {
-        "id": 346886,
-        "content_html": "the scientific method",
-        "correctness": "0.0",
-        "feedback_html": "The scientific method is the method employed to carry out research."
+        "feedback_html": "This is correct because after reflection, the direction of the wave changes."
       }
     ],
-    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
-    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "uid": "5@8"
+    "group_uuid": "5dca51a8-f703-41ad-a512-264ba8986941",
+    "stem_html": "What is the reflection of a wave?",
+    "tags": "5dca51a8-f703-41ad-a512-264ba8986941",
+    "uid": "6940@5"
   },
   {
     "answers": [
       {
-        "id": 472378,
-        "content_html": "Microbes do not decompose organic matter.",
+        "id": 380928,
+        "content_html": "True",
         "correctness": "0.0",
-        "feedback_html": "Some microbes decompose organic matter, which is important for nutrient cycling."
+        "feedback_html": "The amplitudes of waves add up whether or not the waves are propagating in the same line."
       },
       {
-        "id": 472379,
-        "content_html": "Many microbes are not harmful.",
-        "correctness": "0.0",
-        "feedback_html": "This is true, but does not explain how they may be beneficial."
-      },
-      {
-        "id": 472380,
-        "content_html": "Microbes aid in digestion.",
+        "id": 380929,
+        "content_html": "False",
         "correctness": "1.0",
-        "feedback_html": "Microbes in the human digestive tract are important for normal digestion and for access to certain nutrients. When these healthy microbes are disturbed, as during antibiotic treatment, it can allow pathogens to become established."
+        "feedback_html": "The amplitudes of the waves also add up when they are not propagating in same line."
       }
     ],
-    "group_uuid": "d0d82573-f8e8-4b29-8570-509285cec896",
-    "stem_html": "How are some microbes beneficial?",
-    "tags": "d0d82573-f8e8-4b29-8570-509285cec896",
-    "uid": "299@10"
+    "group_uuid": "299ab1a9-4fbe-46e4-8ebe-e221b91d9ea6",
+    "stem_html": "Is this statement true or false? The amplitudes of waves add up only if they are propagating in the same line.",
+    "tags": "299ab1a9-4fbe-46e4-8ebe-e221b91d9ea6",
+    "uid": "6958@6"
   },
   {
     "answers": [
       {
-        "id": 484474,
-        "content_html": "Phospholipids are amphipathic molecules. The polar head faces towards water and the nonpolar fatty acid tails face towards other fatty acid tails.",
+        "id": 380934,
+        "content_html": "The frequency depends on the propagation speed and the density of the string.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency of standing waves does not depend on the density of string."
+      },
+      {
+        "id": 380937,
+        "content_html": "The frequency depends on the propagation speed and the length of the string.",
         "correctness": "1.0",
-        "feedback_html": "Phospholipids are amphipathic molecules and form a structure called micelles, which resemble a lipid bilayer."
+        "feedback_html": "The frequency depends up the propagation speed because the length of string is fixed."
       },
       {
-        "id": 484475,
-        "content_html": "Phospholipids are lipophilic molecules. The polar head faces towards water and the nonpolar fatty acid tails face towards other fatty acid tails",
+        "id": 380935,
+        "content_html": "The frequency depends on the density and the length of the string.",
         "correctness": "0.0",
-        "feedback_html": "Phospholipids are amphipathic, not lipophilic."
+        "feedback_html": "The frequency depends on the length but not the density of the string."
       },
       {
-        "id": 484476,
-        "content_html": "Phospholipids are amphipathic molecules. The nonpolar head faces towards other fatty acid tails and the polar fatty acid tails face towards water.",
+        "id": 380936,
+        "content_html": "The frequency depends on the propagation speed, the density, and the length of the string.",
         "correctness": "0.0",
-        "feedback_html": "The heads are made up of glycerol and phosphate, causing phospholipids to be polar."
-      },
-      {
-        "id": 484477,
-        "content_html": "Phospholipids are hydrophilic molecules. The polar head faces towards water and the nonpolar fatty acid tails face towards other fatty acid tails.",
-        "correctness": "0.0",
-        "feedback_html": "If phospholipids were only hydrophilic, no membrane would have been formed, which occurs due to the hydrophobic regions present."
+        "feedback_html": "The frequency depends on the length and the speed but is independent of the density of the string."
       }
     ],
-    "group_uuid": "b3f8ff52-62e6-4ee2-a4c0-802bf69d98ff",
-    "stem_html": "Why do phospholipids tend to spontaneously orient themselves into something resembling a membrane such as the lipid-bilayer sphere, single-layer lipid sphere, and lipid-bilayer sheet?\n<img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_173b2af5932400e0ca956757e0d3710d283feceba1af858d7199f63b1172234e.png\" alt=\"\">",
-    "tags": "b3f8ff52-62e6-4ee2-a4c0-802bf69d98ff",
-    "uid": "339@10"
+    "group_uuid": "339a3f3a-9cb3-4136-8dea-1c112b5f764f",
+    "stem_html": "In standing waves on a string, what does the frequency depend on?",
+    "tags": "339a3f3a-9cb3-4136-8dea-1c112b5f764f",
+    "uid": "6960@5"
   },
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 380964,
+        "content_html": "<div data-math=\"\\frac{X}{2}\">\\frac{X}{2}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude will not get halved after pure constructive interference of waves."
+      },
+      {
+        "id": 380965,
+        "content_html": "<span data-math=\"X\">X</span>",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude will not remain same after pure constructive interference of waves."
+      },
+      {
+        "id": 380967,
+        "content_html": "<span data-math=\"2X\">2X</span>",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+        "feedback_html": "In pure constructive interference of waves, the amplitude of the resultant wave will be the sum of the amplitudes of the individual waves."
       },
       {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "id": 380966,
+        "content_html": "<span data-math=\"X^{2}\">X^{2}</span>",
         "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
-      },
-      {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "The amplitude of the resultant wave cannot be obtained by multiplying the amplitudes of the individual waves."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2c7bf29b-ba94-464f-8bfe-f3c5b968c136",
+    "stem_html": "Two identical waves with an amplitude <span data-math=\"X\">X</span> superimpose in a way that pure constructive interference occurs. What is the amplitude of the resultant wave?",
+    "tags": "2c7bf29b-ba94-464f-8bfe-f3c5b968c136",
+    "uid": "6971@5"
   },
   {
     "answers": [
       {
-        "id": 414782,
-        "content_html": "1, 2, 3, 4, 5, 6",
+        "id": 380972,
+        "content_html": "Conductivity",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "Conductivity is an ability of a material to conduct electric current and it is not a cause of refraction."
       },
       {
-        "id": 414783,
-        "content_html": "2, 1, 3, 4, 5, 6",
+        "id": 380973,
+        "content_html": "Opacity",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "Opacity only tells about the amount of light passing through a medium, so a change in opacity cannot assure refraction."
       },
       {
-        "id": 414784,
-        "content_html": "2, 1, 5, 4, 6, 3",
+        "id": 380974,
+        "content_html": "Ductility",
+        "correctness": "0.0",
+        "feedback_html": "Ductility is the property of a body by which it can be cast into the shape of wires; hence, it is not related to refraction of light."
+      },
+      {
+        "id": 380975,
+        "content_html": "Density",
         "correctness": "1.0",
-        "feedback_html": "2, 1, 5, 4, 6, 3 is the correct sequence of the situation given."
-      },
-      {
-        "id": 414785,
-        "content_html": "2, 1, 5, 6, 3, 4",
-        "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "A change in density of a material is the main cause of refraction of light."
       }
     ],
-    "group_uuid": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "stem_html": "Although the scientific method is used by most of the sciences, it can also be applied to everyday situations. A situation is given below. Using the scientific method try to arrange the given steps in the correct order. \nSituation:\n<ol>\n  <li>If the car doesn’t start the problem might be in the battery.</li>\n  <li>Car doesn’t start.</li>\n  <li>After changing the battery. Car starts working.</li>\n  <li>The car should start after charging the battery or changing the battery.</li>\n  <li>The car doesn’t start because the battery is dead.</li>\n  <li>The car doesn’t start even after charging the battery, the battery must have stopped working.</li>\n</ol>\n",
-    "tags": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "uid": "8@8"
+    "group_uuid": "8c4ba30b-5cf5-41c6-af41-b9002a3b8747",
+    "stem_html": "Which property of a medium causes refraction?",
+    "tags": "8c4ba30b-5cf5-41c6-af41-b9002a3b8747",
+    "uid": "6973@5"
   },
   {
     "answers": [
       {
-        "id": 413141,
-        "content_html": "We shiver when we are cold and sweat when we are hot.",
+        "id": 214186,
+        "content_html": "True",
         "correctness": "1.0",
-        "feedback_html": "Shivering and sweating are both ways that the body reacts to changing body temperatures, which are a result of changes in the temperature of the external environment."
+        "feedback_html": "Spherical waves can superimpose to give interference patterns."
       },
       {
-        "id": 413142,
-        "content_html": "We walk by putting our front leg forward and pushing off with our back leg.",
+        "id": 214185,
+        "content_html": "False",
         "correctness": "0.0",
-        "feedback_html": "Walking is not a response to the external environment."
-      },
-      {
-        "id": 413143,
-        "content_html": "We are able to breath in and out unconsciously.",
-        "correctness": "0.0",
-        "feedback_html": "Breathing occurs unconsciously regardless of changes in the external environment, as long as breathing can take place."
-      },
-      {
-        "id": 413144,
-        "content_html": "Our hair and fingernails grow at a constant rate over time.",
-        "correctness": "0.0",
-        "feedback_html": "These two processes continually occur without any input from the external environment."
+        "feedback_html": "Spherical waves can superimpose to give a resultant wave with a different amplitude."
       }
     ],
-    "group_uuid": "31630dd3-1d10-467b-a0fe-4681748ae167",
-    "stem_html": "Which example most clearly shows a way that humans can respond directly to a change in the environment?",
-    "tags": "31630dd3-1d10-467b-a0fe-4681748ae167",
-    "uid": "9@8"
+    "group_uuid": "9f1ad245-5c7b-4208-a244-f60a4a5edb87",
+    "stem_html": "Is this statement true or false? Spherical waves can superimpose.",
+    "tags": "9f1ad245-5c7b-4208-a244-f60a4a5edb87",
+    "uid": "6986@6"
   },
   {
     "answers": [
       {
-        "id": 397402,
-        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "id": 381019,
+        "content_html": "due to superposition with the reflected waves from the ends of the string",
         "correctness": "1.0",
-        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+        "feedback_html": "Waves reflected from the ends of the string are inverted; hence, they superimpose to give a standing wave."
       },
       {
-        "id": 397403,
-        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 381017,
+        "content_html": "due to superposition with the reflected waves from the walls of the room",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology."
+        "feedback_html": "Waves reflected from walls are not perfectly inverted and cannot form standing waves on superposition."
       },
       {
-        "id": 397404,
-        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 381018,
+        "content_html": "due to superposition with waves generated from the body of the guitar",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
-      },
-      {
-        "id": 397405,
-        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "Waves reflected from the guitar are not perfectly inverted and cannot form standing waves on superposition."
       }
     ],
-    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
-    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "uid": "6@7"
+    "group_uuid": "6d7c0104-4484-495a-b7a6-0ed947989e33",
+    "stem_html": "Why does a standing wave form on a guitar string?",
+    "tags": "6d7c0104-4484-495a-b7a6-0ed947989e33",
+    "uid": "6990@5"
   },
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 191224,
+        "content_html": "Because the pressure of water at the two ends of the pool is same",
+        "correctness": "0.0",
+        "feedback_html": "The constant pressure is not responsible for refraction of light."
+      },
+      {
+        "id": 191225,
+        "content_html": "Because the pressures of water at the two ends of the pool are different",
+        "correctness": "0.0",
+        "feedback_html": "The difference in pressure is not responsible for refraction of light."
+      },
+      {
+        "id": 191226,
+        "content_html": "Because the density of water at the two ends of the pool is same",
+        "correctness": "0.0",
+        "feedback_html": "Refraction does not occur at the interface of two media with same density"
+      },
+      {
+        "id": 191227,
+        "content_html": "Because the density of water at the two ends of the pool is different",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
-      },
-      {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
-      },
-      {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "The variation of density causes refraction of light."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2b5eb8b5-6f87-4605-adba-a9dcf093eb42",
+    "stem_html": "Why do water waves traveling from the deep end to the shallow end of a swimming pool experience refraction?",
+    "tags": "2b5eb8b5-6f87-4605-adba-a9dcf093eb42",
+    "uid": "6992@3"
   },
   {
     "answers": [
       {
-        "id": 477523,
-        "content_html": "autocrine",
+        "id": 214202,
+        "content_html": "The crests and the troughs of waves traveling in the same direction combine to form a criss-cross pattern.",
         "correctness": "0.0",
-        "feedback_html": "In autocrine signaling, the signaling molecule acts on the cell from which it is produced. The mating factor does not act on the same yeast cell from which it is produced."
+        "feedback_html": "Waves traveling in same direction will not form a criss-cross pattern."
       },
       {
-        "id": 477522,
-        "content_html": "endocrine",
-        "correctness": "0.0",
-        "feedback_html": "Endocrine signaling helps communicate with distantly located cells. The yeast cells are present nearby and would not communicate through endocrine signaling."
-      },
-      {
-        "id": 477524,
-        "content_html": "paracrine",
+        "id": 214203,
+        "content_html": "The crests and the troughs of waves traveling in different directions combine to form a criss-cross pattern.",
         "correctness": "1.0",
-        "feedback_html": "Paracrine signaling helps communicate with nearby cells. Yeast cell which are present in close proximity communicate through paracrine signaling."
-      },
-      {
-        "id": 477521,
-        "content_html": "gap junction",
-        "correctness": "0.0",
-        "feedback_html": "Signaling through gap junctions involves direct transmission of signals through connected plasma membranes of two cells. Yeast cells do not need to be in physical contact with each other to communicate via mating factor."
+        "feedback_html": "A criss-cross pattern will be formed when waves traveling in different directions superimposeresulting from constructive and destructive interference ."
       }
     ],
-    "group_uuid": "e4aedd68-50b0-4a9d-88e3-1d6dc532d2b3",
-    "stem_html": "Yeast releasing mating factor can be classified as which type of signal?",
-    "tags": "e4aedd68-50b0-4a9d-88e3-1d6dc532d2b3",
-    "uid": "698@8"
+    "group_uuid": "698af9b1-d498-42f8-ae6b-248c5c652cc9",
+    "stem_html": "Why do water waves sometimes appear like a complex criss-cross pattern?",
+    "tags": "698af9b1-d498-42f8-ae6b-248c5c652cc9",
+    "uid": "6994@4"
   },
   {
     "answers": [
       {
-        "id": 471527,
-        "content_html": "Chloroplasts, which capture light energy",
+        "id": 381027,
+        "content_html": "Destructive interference results in waves with greater amplitudes being formed in places farther away from the epicenter.",
         "correctness": "0.0",
-        "feedback_html": "Chloroplasts occupy space but not enough to make a difference."
+        "feedback_html": "Destructive interference cannot result in a wave with a greater amplitude."
       },
       {
-        "id": 471528,
-        "content_html": "A large vacuole, which reduces the volume of cytoplasm",
+        "id": 381030,
+        "content_html": "Constructive interference results in waves with greater amplitudes being formed in places farther away from the epicenter.",
         "correctness": "1.0",
-        "feedback_html": "The vacuoles occupy most the volume of the cell, so that the cytoplasmic volume available for diffusion is small."
+        "feedback_html": "Constructive interference results in waves with greater amplitudes; hence, it causes more damage farther away from the epicenter."
       },
       {
-        "id": 471526,
-        "content_html": "Plasmodesmata, which holds the cell together.",
+        "id": 381028,
+        "content_html": "The standing waves of great amplitudes are formed in places farther away from the epicenter.",
         "correctness": "0.0",
-        "feedback_html": "Plasmodesmata are just the connections required for the transportation of molecules."
+        "feedback_html": "Standing waves generally do not form in earthquakes."
       },
       {
-        "id": 471525,
-        "content_html": "Rigid cell walls, which requires a larger cell to maintain.",
+        "id": 381029,
+        "content_html": "The pulse waves of great amplitude are formed in places farther away from the epicenter.",
         "correctness": "0.0",
-        "feedback_html": "Cell walls do not contribute to the size of the cell."
+        "feedback_html": "Pulse waves are not generated during earthquakes."
       }
     ],
-    "group_uuid": "7ea821a5-05b1-446f-995f-16de07658687",
-    "stem_html": "Which of the following structures allows a plant cell to be larger than an animal cell?",
-    "tags": "7ea821a5-05b1-446f-995f-16de07658687",
-    "uid": "307@8"
+    "group_uuid": "307e752d-3afd-4186-a2c6-b9e2397dfdec",
+    "stem_html": "Occasionally, during earthquakes, areas near the epicenter are not damaged while those farther away are damaged. Why could this occur?",
+    "tags": "307e752d-3afd-4186-a2c6-b9e2397dfdec",
+    "uid": "6996@5"
   }
 ]

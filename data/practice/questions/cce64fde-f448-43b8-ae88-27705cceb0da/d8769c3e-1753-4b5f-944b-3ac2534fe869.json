@@ -34,34 +34,34 @@
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 428100,
+        "content_html": "20 Hz to 200,000 Hz",
+        "correctness": "0.0",
+        "feedback_html": "The higher limit of frequency that a human can hear is 20,000 Hz."
+      },
+      {
+        "id": 428101,
+        "content_html": "2 Hz to 50,000 Hz",
+        "correctness": "0.0",
+        "feedback_html": "The higher limit of frequency that a human can hear is 20,000 Hz."
+      },
+      {
+        "id": 428102,
+        "content_html": "2 Hz to 2,000 Hz",
+        "correctness": "0.0",
+        "feedback_html": "The range of frequency that humans are capable of hearing is 20 Hz to 20,000 Hz."
+      },
+      {
+        "id": 428103,
+        "content_html": "20 Hz to 20,000 Hz",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
-      },
-      {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
-      },
-      {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "The range of frequency that humans are capable of hearing is 20 Hz to 20,000 Hz."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2d5dfa7b-673b-4c8a-a05b-fe979c1a421e",
+    "stem_html": "What is the range frequencies that humans are capable of hearing?",
+    "tags": "2d5dfa7b-673b-4c8a-a05b-fe979c1a421e",
+    "uid": "10916@10"
   },
   {
     "answers": [
@@ -98,34 +98,34 @@
   {
     "answers": [
       {
-        "id": 346974,
-        "content_html": "Astrology is a natural science as it indirectly influences human affairs and the natural world.",
+        "id": 390585,
+        "content_html": "The frequency of the wave is related to the intensity of the sound. The larger-frequency oscillations indicate greater pressure maxima and minima, and the pressure is higher in greater-intensity sound.",
         "correctness": "0.0",
-        "feedback_html": "Astrology is not natural science."
+        "feedback_html": "The frequency of a sound affects the pitch of the sound, not the intensity."
       },
       {
-        "id": 346975,
-        "content_html": "Astronomy is a natural science as it deals with observations and prediction of events in the sky, which is based on the laws of physics.",
+        "id": 390586,
+        "content_html": "The wavelength of the wave is related to the intensity of the sound. The longer-wavelength oscillations indicate greater pressure maxima and minima, and the pressure is higher in greater-intensity sound.",
+        "correctness": "0.0",
+        "feedback_html": "The intensity of the sound is independent of the wavelength and frequency of the sound."
+      },
+      {
+        "id": 390588,
+        "content_html": "The amplitude of the wave is related to the intensity of the sound. The larger-amplitude oscillations indicate greater pressure maxima and minima, and the pressure is higher in greater-intensity sound.",
         "correctness": "1.0",
-        "feedback_html": "Astronomy is a natural science that deals with the study of celestial objects such as stars, galaxies, planets, moons, asteroids, comets and nebulae. It helps in the prediction of events in the sky and encompasses the laws of physics."
+        "feedback_html": "Yes, the more intense sound is produced by a source that has larger-amplitude oscillations and has greater pressure maxima and minima. Because pressures are higher in the greater-intensity sound, it can exert larger forces on the objects it encounters."
       },
       {
-        "id": 346973,
-        "content_html": "Astrology is a natural science as it deals with observations and prediction of events in the sky, influences human affairs and the natural world.",
+        "id": 390587,
+        "content_html": "The speed of the wave is related to the intensity of the sound. The higher-speed oscillations indicate greater pressure maxima and minima, and the pressure is higher in greater-intensity sound.",
         "correctness": "0.0",
-        "feedback_html": "Astrology does not deal with the prediction of events in the sky."
-      },
-      {
-        "id": 346972,
-        "content_html": "Astrology is a natural science as it deals with the study of asteroids and comets, which is based on the laws of natural sciences.",
-        "correctness": "0.0",
-        "feedback_html": "Astronomy is a natural science not astrology."
+        "feedback_html": "Remember, the intensity of a wave is related to its amplitude."
       }
     ],
-    "group_uuid": "adbd46e0-690a-4118-8438-72fd2c4e6375",
-    "stem_html": "Both astronomy and astrology study the stars. Which one is considered a natural science? Explain your reasoning.",
-    "tags": "adbd46e0-690a-4118-8438-72fd2c4e6375",
-    "uid": "21@4"
+    "group_uuid": "21e869f8-330c-499b-839f-fb6d2e442aaf",
+    "stem_html": "Which property of the wave is related to its intensity? How?",
+    "tags": "21e869f8-330c-499b-839f-fb6d2e442aaf",
+    "uid": "10939@5"
   },
   {
     "answers": [
@@ -220,66 +220,66 @@
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 390671,
+        "content_html": "The upper limit of human hearing is <span data-math=\"100\">100</span> decibels, i.e. <span data-math=\"\\beta = 100\\,\\text{dB}\">\\beta = 100\\,\\text{dB}</span>. For <span data-math=\"\\beta = 100\\,\\text{dB}\">\\beta = 100\\,\\text{dB}</span>, <span data-math=\"I_0 = 10^{-12}\\,\\text{W}/\\text{m}^2\">I_0 = 10^{-12}\\,\\text{W}/\\text{m}^2</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The reference intensity <span data-math=\"\\text{I0}\">\\text{I0}</span> does not corresponds to the upper limit of human hearing."
+      },
+      {
+        "id": 390673,
+        "content_html": "The lower threshold of human hearing is <span data-math=\"10\">10</span> decibels, i.e. <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>. For <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>, <span data-math=\"I_0=10^{-12}\\,\\text{W}/\\text{m}^{2}\">I_0=10^{-12}\\,\\text{W}/\\text{m}^{2}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The lower threshold of human hearing is not <span data-math=\"10\">10</span> decibels and for <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>, <span data-math=\"I_0\\ne 10^{-12}\\,\\text{W}/\\text{m}^2\">I_0\\ne 10^{-12}\\,\\text{W}/\\text{m}^2</span>."
+      },
+      {
+        "id": 390672,
+        "content_html": "The upper limit of human hearing is <span data-math=\"10\">10</span> decibels, i.e. <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>. For <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>, <span data-math=\"I_0 = 10^{-12}\\,\\text{W}/\\text{m}^2\">I_0 = 10^{-12}\\,\\text{W}/\\text{m}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "The reference intensity <span data-math=\"\\text{I0}\">\\text{I0}</span> corresponds to the lower threshold of human hearing. Also, for <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>, <span data-math=\"I_0\\ne 10^{-12}\\,\\text{W}/\\text{m}^2\">I_0\\ne 10^{-12}\\,\\text{W}/\\text{m}^2</span>."
+      },
+      {
+        "id": 390674,
+        "content_html": "The lower threshold of human hearing is <span data-math=\"0\">0</span> decibels, i.e., <span data-math=\"\\beta = 0\\,\\text{dB}\">\\beta = 0\\,\\text{dB}</span>. For <span data-math=\"\\beta = 0\\,\\text{dB}\">\\beta = 0\\,\\text{dB}</span>, <span data-math=\"I_0 = 10^{-12}\\,\\text{W}/\\text{m}^{2}\">I_0 = 10^{-12}\\,\\text{W}/\\text{m}^{2}</span>",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
-      },
-      {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
-      },
-      {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "Yes, the lower threshold of human hearing is <span data-math=\"0\">0</span> decibels, i.e. <span data-math=\"\\beta = 0\\,\\text{dB}\">\\beta = 0\\,\\text{dB}</span>. For <span data-math=\"\\beta = 0\\,\\text{dB}\">\\beta = 0\\,\\text{dB}</span>, <span data-math=\"I_0 = 10–12\\,\\text{W}/\\text{m}^2\\, \\text{as}\\, \\log_10 1 = 0\">I_0 = 10 –12\\,\\text{W}/\\text{m}^2\\, \\text{as}\\, \\log_10 1 = 0</span>."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2d3a2edd-fa60-4450-9cc1-cc76ef9f19c8",
+    "stem_html": "Why is the reference intensity <span data-math=\"I_0 = 10^{–12}\\,\\text{W}/\\text{m}^2\">I_0 = 10^{–12}\\,\\text{W}/\\text{m}^2</span>?",
+    "tags": "2d3a2edd-fa60-4450-9cc1-cc76ef9f19c8",
+    "uid": "10961@6"
   },
   {
     "answers": [
       {
-        "id": 471302,
-        "content_html": "It accepts energy from chemical reactions.",
+        "id": 390680,
+        "content_html": "<span data-math=\"0.734\\,\\text{Pa}\">0.734\\,\\text{Pa}</span>",
         "correctness": "0.0",
-        "feedback_html": "ATP, being the energy currency of the cell, powers chemical reactions."
+        "feedback_html": "The correct formula that can be used is, <span data-math=\"I=\\frac{\\left(\\Delta p\\right)^2}{2\\rho v}\">I=\\frac{\\left(\\Delta p\\right)^2}{2\\rho v}</span>, where is the pressure amplitude."
       },
       {
-        "id": 471301,
-        "content_html": "It holds energy at the site of release from substrates.",
+        "id": 390681,
+        "content_html": "<span data-math=\"3.67\\,\\text{Pa}\">3.67\\,\\text{Pa}</span>",
         "correctness": "0.0",
-        "feedback_html": "Energy released from the hydrolysis of ATP is used to power cellular activities."
+        "feedback_html": "The correct value of density of air at <span data-math=\"0^{\\circ}\\text{C}\">0^{\\circ}\\text{C}</span> is <span data-math=\"\\rho = 1.29\\,\\text{kg}/\\text{m}^3\">\\rho = 1.29\\,\\text{kg}/\\text{m}^3</span>, and speed of sound is <span data-math=\"v = 331\\,\\text{m}/\\text{s}\">v = 331\\,\\text{m}/\\text{s}</span>. Use these values in the correct formula."
       },
       {
-        "id": 471300,
-        "content_html": "It is a protein.",
+        "id": 390679,
+        "content_html": "<span data-math=\"0.135\\,\\text{Pa}\">0.135\\,\\text{Pa}</span>\n",
         "correctness": "0.0",
-        "feedback_html": "ATP is a nucleotide molecule which consists of a five-carbon sugar, the nitrogenous base adenine, and three phosphate groups."
+        "feedback_html": "This is the square of the pressure amplitude."
       },
       {
-        "id": 471303,
-        "content_html": "It can transport energy to locations within the cell.",
+        "id": 390682,
+        "content_html": "<span data-math=\"0.367\\,\\text{Pa}\">0.367\\,\\text{Pa}</span>\n",
         "correctness": "1.0",
-        "feedback_html": "The hydrolysis of ATP releases free energy which is used to perform cellular work, such as pumping a solute across a cell membrane in active transport."
+        "feedback_html": "The pressure amplitude is <span data-math=\"\\Delta p = 0.367\\,\\text{Pa}\">\\Delta p = 0.367\\,\\text{Pa}</span>."
       }
     ],
-    "group_uuid": "447fc8b0-c660-4790-b6cc-e1c3d631a54b",
-    "stem_html": "Why is ATP considered the energy currency of the cell?",
-    "tags": "447fc8b0-c660-4790-b6cc-e1c3d631a54b",
-    "uid": "438@11"
+    "group_uuid": "438bdfc0-5a03-4061-b59f-1ab748ddc84a",
+    "stem_html": "For a sound wave with intensity <span data-math=\"1.58 \\times 10^{-4}\\,\\text{W}/\\text{m}^2\">1.58 \\times 10^{-4}\\,\\text{W}/\\text{m}^2</span>, calculate the pressure amplitude given that the sound travels through air at <span data-math=\"0^{\\circ}\\text{C}\">0^{\\circ}\\text{C}</span>.",
+    "tags": "438bdfc0-5a03-4061-b59f-1ab748ddc84a",
+    "uid": "10963@6"
   },
   {
     "answers": [
@@ -316,34 +316,34 @@
   {
     "answers": [
       {
-        "id": 470457,
-        "content_html": "Lithops reproduce and are heterotrophic.",
+        "id": 390691,
+        "content_html": "The sound from the tire burst has higher pressure amplitudes, hence it can exert smaller force on the eardrum.",
         "correctness": "0.0",
-        "feedback_html": "Lithops are autotrophic and not heterotrophic."
+        "feedback_html": "The force exerted on the eardrums is not smaller, as higher pressure variation is created by the sound from the tire burst."
       },
       {
-        "id": 470458,
-        "content_html": "Lithops are lithotrophic and they reproduce.",
+        "id": 390692,
+        "content_html": "The sound from the tire burst has lower pressure amplitudes, hence it can exert smaller force on the eardrum.",
         "correctness": "0.0",
-        "feedback_html": "Lithops are not lithotrophic, they are autotrophic."
+        "feedback_html": "The force exerted on the eardrums is large due to the higher pressure variation by the sound from the tire burst."
       },
       {
-        "id": 470459,
-        "content_html": "Lithops are succulent plants and show a heterotrophic mode of nutrition.",
+        "id": 390693,
+        "content_html": "The sound from the tire burst has lower pressure amplitudes, hence it can exert larger force on the ear drum.",
         "correctness": "0.0",
-        "feedback_html": "Lithops are succulent plants, but they do not show a heterotrophic mode of nutrition."
+        "feedback_html": "The sound will be louder in that region where the pressure variation is higher."
       },
       {
-        "id": 470460,
-        "content_html": "Lithops are autotrophic. They show growth and reproduction.",
+        "id": 390694,
+        "content_html": "The sound from the tire burst has higher pressure amplitudes, hence it can exert larger force on the eardrum.",
         "correctness": "1.0",
-        "feedback_html": "Lithops are succulent plants which can photosynthesize their own food and produce seeds."
+        "feedback_html": "The sound from the tire burst has higher pressure variations and hence it can exert larger force on the objects it encounters. It is perceived louder by the eardrums as a larger force is exerted on them as well by the sound from the tire burst."
       }
     ],
-    "group_uuid": "bc5873a1-d9a6-44de-9683-8cfc6be2a421",
-    "stem_html": "Some plants called lithops grow in the South African desert and look like stones. How were scientists able to determine they are living organisms?",
-    "tags": "bc5873a1-d9a6-44de-9683-8cfc6be2a421",
-    "uid": "40@7"
+    "group_uuid": "40a615c5-88d2-49f1-b78f-90e1ad34ef5d",
+    "stem_html": "Why is the sound from a tire burst louder than that from a finger snap?",
+    "tags": "40a615c5-88d2-49f1-b78f-90e1ad34ef5d",
+    "uid": "10966@6"
   },
   {
     "answers": [

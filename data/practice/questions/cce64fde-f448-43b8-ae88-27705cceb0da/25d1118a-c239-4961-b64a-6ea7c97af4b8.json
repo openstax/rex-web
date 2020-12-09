@@ -2,98 +2,86 @@
   {
     "answers": [
       {
-        "id": 397410,
-        "content_html": "astronomy",
+        "id": 382357,
+        "content_html": "Either the south pole of magnet 1 is closer to the north pole of magnet 2 or the north pole of magnet 1 is closer to the south pole of magnet 2.",
         "correctness": "0.0",
-        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+        "feedback_html": "Repulsion always occurs between the same poles of two magnets."
       },
       {
-        "id": 397411,
-        "content_html": "biology",
-        "correctness": "0.0",
-        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
-      },
-      {
-        "id": 397412,
-        "content_html": "computer science",
+        "id": 382358,
+        "content_html": "Either the south poles of both the magnet 1 and magnet 2 are closer to each other or the north poles of both the magnet 1 and magnet 2 are closer to each other.",
         "correctness": "1.0",
-        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
-      },
-      {
-        "id": 397413,
-        "content_html": "physics",
-        "correctness": "0.0",
-        "feedback_html": "Physics is a branch of natural science that studies matter."
+        "feedback_html": "The north pole of a magnet is always repelled by the north pole of the other magnet, whereas the south pole of a magnet is always repelled by the south pole of the other magnet."
       }
     ],
-    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "stem_html": "Which of the following sciences is not considered a natural science?",
-    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "uid": "4@7"
+    "group_uuid": "4f60ece0-0e19-444c-9ca3-5966e19ecd34",
+    "stem_html": "If two magnets repel each other, what can you conclude about their relative orientation?",
+    "tags": "4f60ece0-0e19-444c-9ca3-5966e19ecd34",
+    "uid": "7402@5"
   },
   {
     "answers": [
       {
-        "id": 418058,
-        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
-        "correctness": "0.0",
-        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
-      },
-      {
-        "id": 418059,
-        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "id": 382366,
+        "content_html": "The directional lines present inside and outside the magnetic material that indicate the magnitude and direction of the magnetic force.",
         "correctness": "1.0",
-        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "The field lines flows in a proper direction which indicates the direction of magnetic force and the density of the field lines at a particular region indicates the magnitude of magnetic force at that region."
       },
       {
-        "id": 418060,
-        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "id": 382363,
+        "content_html": "The directional lines present inside and outside the magnetic material that indicate the magnitude of the magnetic force.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "Both the magnitude and direction of a magnet can be determined from its field lines."
       },
       {
-        "id": 418061,
-        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
+        "id": 382364,
+        "content_html": "The directional lines present inside the magnetic material that indicate the magnitude and the direction of the magnetic force.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+        "feedback_html": "The field lines are also present outside the magnetic material."
+      },
+      {
+        "id": 382365,
+        "content_html": "The directional lines present outside the magnetic material that indicate the magnitude and the direction of the magnetic force.",
+        "correctness": "0.0",
+        "feedback_html": "The field lines are also present inside the magnetic material."
       }
     ],
-    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
-    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "uid": "1@7"
+    "group_uuid": "01edcb33-1a76-4d4c-a244-46415a56e5f8",
+    "stem_html": "What is a magnetic field?",
+    "tags": "01edcb33-1a76-4d4c-a244-46415a56e5f8",
+    "uid": "7404@5"
   },
   {
     "answers": [
       {
-        "id": 347195,
-        "content_html": "4",
+        "id": 382411,
+        "content_html": "Yes, the magnetic fields from the two north poles will point in the same directions.",
+        "correctness": "0.0",
+        "feedback_html": "The magnetic fields from the two north poles will not point in the same direction."
+      },
+      {
+        "id": 382412,
+        "content_html": "Yes, the magnetic fields from the two north poles will point in opposite directions.",
+        "correctness": "0.0",
+        "feedback_html": "This would cause the needle to not be magnetized."
+      },
+      {
+        "id": 382414,
+        "content_html": "No, the magnetic fields from the two north poles will point in opposite directions.",
         "correctness": "1.0",
-        "feedback_html": "The carbon atom has four electrons in its valence shell. Therefore, bonding four more electrons will complete its octet, allowing it to attain a stable configuration. Carbon molecule can thus bond with a maximum of four other atoms."
+        "feedback_html": "As a result, the magnetic fields will cancel each other out and the needle will not be magnetized."
       },
       {
-        "id": 347192,
-        "content_html": "1",
+        "id": 382413,
+        "content_html": "No, the magnetic fields from the two north poles will point in the same directions.",
         "correctness": "0.0",
-        "feedback_html": "Carbon can bond with more than one molecule or atom"
-      },
-      {
-        "id": 347193,
-        "content_html": "6",
-        "correctness": "0.0",
-        "feedback_html": "Carbon cannot form this many bonds. Review carbon’s number of valence electrons"
-      },
-      {
-        "id": 347194,
-        "content_html": "2",
-        "correctness": "0.0",
-        "feedback_html": "Carbon can form more than two bonds"
+        "feedback_html": "The magnetic fields from the two north poles will not point in the same direction."
       }
     ],
-    "group_uuid": "10a59557-e42d-4def-ae8a-1af817185a32",
-    "stem_html": "What is the maximum number of atoms or molecules a single carbon atom can bond with?",
-    "tags": "10a59557-e42d-4def-ae8a-1af817185a32",
-    "uid": "68@5"
+    "group_uuid": "68f95c63-605f-4b0a-b7e1-cb0b21265ef3",
+    "stem_html": "If you place a small needle between the north poles of two bar magnets, will the needle become magnetized?",
+    "tags": "68f95c63-605f-4b0a-b7e1-cb0b21265ef3",
+    "uid": "7420@5"
   },
   {
     "answers": [

@@ -2,66 +2,66 @@
   {
     "answers": [
       {
-        "id": 346868,
-        "content_html": "No, it is not a natural science because it is not used in the study of the natural world.",
+        "id": 208353,
+        "content_html": "<span data-math=\"10.2\\,\\text{m}\">10.2\\,\\text{m}</span>",
         "correctness": "0.0",
-        "feedback_html": "Mathematics is used in the study of the natural world, but that does not explain whether it is a natural science."
+        "feedback_html": "A yard is a bigger unit than a foot. One yard is equal to three feet."
       },
       {
-        "id": 346871,
-        "content_html": "No, it is not a natural science. Mathematics focuses on understanding mathematical relations and calculations, which is useful in natural sciences but which is distinct.",
+        "id": 208354,
+        "content_html": "<span data-math=\"91.4\\,\\text{m}\">91.4\\,\\text{m}</span>",
         "correctness": "1.0",
-        "feedback_html": "Mathematics is not a natural science as it does not use chemical and physical measurements like other fields in natural sciences."
+        "feedback_html": "<span data-math=\"1\">1</span> yard is made up of <span data-math=\"3\">3</span> feet and <span data-math=\"3.281\">3.281</span> feet makes <span data-math=\"1\">1</span> meter. Convert yards to feet and then make the conversion of length to meters."
       },
       {
-        "id": 346869,
-        "content_html": "Yes, it is a natural science. Mathematics deals with verifying the experimental data.",
+        "id": 208352,
+        "content_html": "<span data-math=\"109.4\\,\\text{m}\">109.4\\,\\text{m}</span>",
         "correctness": "0.0",
-        "feedback_html": "Mathematics does not use the chemical and physical measurements, therefore it is not natural science."
+        "feedback_html": "Remember that a yard is a larger unit than feet and meters are larger than yards."
       },
       {
-        "id": 346870,
-        "content_html": "Yes, it is a natural science. It uses chemical and physical measurements.",
+        "id": 208351,
+        "content_html": "<span data-math=\"328.1\\,\\text{m}\">328.1\\,\\text{m}</span>",
         "correctness": "0.0",
-        "feedback_html": "Mathematics does not use chemical and physical measurements."
+        "feedback_html": "Use the relation between yards and feet to convert the length into feet and then use feet-meter relation to obtain the length in meters."
       }
     ],
-    "group_uuid": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
-    "stem_html": "Is mathematics a natural science? Explain your reasoning.",
-    "tags": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
-    "uid": "7@6"
+    "group_uuid": "7dff4e06-03b1-4a41-8a86-d9b7fec0bc41",
+    "stem_html": "The length of an American football field is <span data-math=\"100\\,\\text{yd}\">100\\,\\text{yd}</span>, excluding the end zones. How long is the field in meters? Round to the nearest <span data-math=\"0.1\\,\\text{m}\">0.1\\,\\text{m}</span>.",
+    "tags": "7dff4e06-03b1-4a41-8a86-d9b7fec0bc41",
+    "uid": "1711@4"
   },
   {
     "answers": [
       {
-        "id": 470575,
-        "content_html": "a community",
+        "id": 208357,
+        "content_html": "the limitations of the measuring device",
         "correctness": "0.0",
-        "feedback_html": "A community consists of all organisms of all different species in a particular geographic area."
+        "feedback_html": "The limited accuracy of the device could be a source of uncertainty."
       },
       {
-        "id": 470574,
-        "content_html": "an ecosystem",
+        "id": 208356,
+        "content_html": "the skill of the person making the measurement",
         "correctness": "0.0",
-        "feedback_html": "An ecosystem includes all the abiotic and biotic components, not just species belonging to a particular group."
+        "feedback_html": "The skill of the person, or lack of adequate skill, could affect the uncertainty in measurement."
       },
       {
-        "id": 470573,
-        "content_html": "a family",
-        "correctness": "0.0",
-        "feedback_html": "A family is a taxonomic rank."
-      },
-      {
-        "id": 470576,
-        "content_html": "a population",
+        "id": 208358,
+        "content_html": "the regularities in the object being measured",
         "correctness": "1.0",
-        "feedback_html": "A population consists of all of the individuals of a single species in a particular geographic area."
+        "feedback_html": "Regularities in what is being measured would reduce, not increase, uncertainty."
+      },
+      {
+        "id": 208355,
+        "content_html": "other factors that affect the outcome (depending on the situation)",
+        "correctness": "0.0",
+        "feedback_html": "Other factors not listed could contribute to the uncertainly."
       }
     ],
-    "group_uuid": "e4705878-af54-48f5-8539-f261f6c6061f",
-    "stem_html": "What is a group of individuals of the same species living in the same area called?",
-    "tags": "e4705878-af54-48f5-8539-f261f6c6061f",
-    "uid": "15@9"
+    "group_uuid": "15d34707-7cc2-43aa-bd1c-f1cecbc512b1",
+    "stem_html": "Which of the following does not contribute to the uncertainty?",
+    "tags": "15d34707-7cc2-43aa-bd1c-f1cecbc512b1",
+    "uid": "1712@4"
   },
   {
     "answers": [
@@ -98,66 +98,66 @@
   {
     "answers": [
       {
-        "id": 475134,
-        "content_html": "to make copies of DNA",
+        "id": 208381,
+        "content_html": "<span data-math=\"0.059\\,\\%\">0.059\\,\\%</span>, <span data-math=\"0.01\\,\\%\">0.01\\,\\%</span>, <span data-math=\"0.468\\text{m/s}\">0.468\\text{m/s}</span>, <span data-math=\"0.0003\\text{m/s}\">0.0003\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The conversion factor for kilometers to meters could be the problem here. Recall that <span data-math=\"1000\\,\\text{m}\">1000\\,\\text{m}</span> makes <span data-math=\"1\\,\\text{km}\">1\\,\\text{km}</span>."
+      },
+      {
+        "id": 208380,
+        "content_html": "<span data-math=\"0.059\\,\\%\">0.059\\,\\%</span>, <span data-math=\"0.01\\,\\%\">0.01\\,\\%</span>, <span data-math=\"0.468\\,\\text{m/s}\">0.468\\,\\text{m/s}</span>, <span data-math=\"0.07\\,\\text{m/s}\">0.07\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The uncertainty percent in speed is <span data-math=\"0.07\\,\\%\">0.07\\,\\%</span>. So uncertainty in speed will be <span data-math=\"0.07\\,\\%\">0.07\\,\\%</span> of <span data-math=\"4.681\\,\\text{m/s}\">4.681\\,\\text{m/s}</span>."
+      },
+      {
+        "id": 208379,
+        "content_html": "<span data-math=\"0.59\\,\\%\">0.59\\,\\%</span>, <span data-math=\"8.33\\,\\%\">8.33\\,\\%</span>, <span data-math=\"4.681\\,\\text{m/s}\">4.681\\,\\text{m/s}</span>, <span data-math=\"0.003\\,\\text{m/s}\">0.003\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recheck the calculation for percent uncertainty in distance. Also, the percent uncertainly in time will be the ratios of <span data-math=\"1\">1</span> second by total time in seconds."
+      },
+      {
+        "id": 208382,
+        "content_html": "<span data-math=\"0.059\\,\\%\">0.059\\,\\%</span>, <span data-math=\"0.01\\,\\%\">0.01\\,\\%</span>, <span data-math=\"4.681\\,\\text{m/s}\">4.681\\,\\text{m/s}</span>, <span data-math=\"0.003\\,\\text{m/s}\">0.003\\,\\text{m/s}</span>",
         "correctness": "1.0",
-        "feedback_html": "Plasmid transformation is a good way to make DNA copies."
-      },
-      {
-        "id": 475133,
-        "content_html": "to isolate a change in a single nucleotide",
-        "correctness": "0.0",
-        "feedback_html": "Southern blot could be used for this."
-      },
-      {
-        "id": 475132,
-        "content_html": "to separate DNA fragments",
-        "correctness": "0.0",
-        "feedback_html": "Gel electrophoresis is used for this."
-      },
-      {
-        "id": 475131,
-        "content_html": "to sequence DNA",
-        "correctness": "0.0",
-        "feedback_html": "Southern blot is used for this."
+        "feedback_html": "Percent uncertainty is the ratio of uncertainty in measurement upon total measure."
       }
     ],
-    "group_uuid": "68557d60-7d6b-4f26-928a-83c8948782d4",
-    "stem_html": "Which of the following would be a good application of plasmid transformation?",
-    "tags": "68557d60-7d6b-4f26-928a-83c8948782d4",
-    "uid": "991@8"
+    "group_uuid": "991f2fe6-31c0-4eda-985a-e2f1992761f8",
+    "stem_html": "<p>A marathon runner completes a <span data-math=\"42.188\\,\\text{km}\">42.188\\,\\text{km}</span> course in <span data-math=\"2\\,\\text{h}\">2\\,\\text{h}</span>, <span data-math=\"30\\,\\text{min}\">30\\,\\text{min}</span>, and <span data-math=\"12\\,\\text{s}\">12\\,\\text{s}</span>. There is an uncertainty of <span data-math=\"25\\,\\text{m}\">25\\,\\text{m}</span> in the distance traveled and an uncertainty of <span data-math=\"1\\,\\text{s}\">1\\,\\text{s}</span> in the elapsed time.</p>\n\n<ol>\n  <li>Calculate the percent uncertainty in the distance.</li>\n  <li>Calculate the uncertainty in the elapsed time.</li>\n  <li>What is the average speed in meters per second?</li>\n  <li>What is the uncertainty in the average speed?</li>\n</ol>\n",
+    "tags": "991f2fe6-31c0-4eda-985a-e2f1992761f8",
+    "uid": "1719@4"
   },
   {
     "answers": [
       {
-        "id": 474190,
-        "content_html": "NADPH and ATP molecules are produced during the light reactions and are used to power the light independent reactions.",
+        "id": 374110,
+        "content_html": "<span data-math=\"2.4\">2.4</span>",
+        "correctness": "0.0",
+        "feedback_html": "Find the slope by taking the difference in two extreme y-values and divide it by the corresponding difference in x-value."
+      },
+      {
+        "id": 374111,
+        "content_html": "<span data-math=\"4.5\">4.5</span>",
         "correctness": "1.0",
-        "feedback_html": "NADPH and ATP molecules are the end products of the light reactions. The free energy stored in ATP and NADPH is used to power the light independent reactions. PSII captures energy to create proton gradients to make ATP. While, PSI captures energy to reduce <span data-math=\"\\text{NADP}^+\">\\text{NADP}^+</span> to NADPH."
+        "feedback_html": "The rate of change of the <span data-math=\"y\">y</span> value per unit change in the <span data-math=\"x\">x</span> value is <span data-math=\"4.5\">4.5</span>."
       },
       {
-        "id": 474189,
-        "content_html": "NADPH and ATP molecules are produced during the light reactions, which are used to power the light dependent reactions.",
+        "id": 374109,
+        "content_html": "<span data-math=\"6.2\">6.2</span>",
         "correctness": "0.0",
-        "feedback_html": "NADPH and ATP power the light independent reactions."
+        "feedback_html": "The slope can be found by the ratio of change in the <span data-math=\"y\">y</span> value by corresponding change in the <span data-math=\"x\">x</span> value."
       },
       {
-        "id": 474188,
-        "content_html": "Sugar and ATP are produced during the light reactions, which are used to power the light independent reactions.",
+        "id": 374108,
+        "content_html": "<span data-math=\"6.8\">6.8</span>",
         "correctness": "0.0",
-        "feedback_html": "Sugar is the end product of the light independent reactions."
-      },
-      {
-        "id": 474187,
-        "content_html": "Carbon dioxide and NADPH are produced during the light reactions, which are used to power the light dependent reactions.",
-        "correctness": "0.0",
-        "feedback_html": "Carbon dioxide is a reactant of the Calvin cycle in photosynthesis."
+        "feedback_html": "Subtract the two <span data-math=\"y\">y</span> values, subtract the two <span data-math=\"x\">x</span> values and take the ratio <span data-math=\"\\frac{\\Delta y}{\\Delta x}\">\\frac{\\Delta y}{\\Delta x}</span>."
       }
     ],
-    "group_uuid": "60ceb276-c58a-4b56-98de-9af72972b87f",
-    "stem_html": "What is the overall outcome of the light reactions in photosynthesis?",
-    "tags": "60ceb276-c58a-4b56-98de-9af72972b87f",
-    "uid": "584@10"
+    "group_uuid": "584c59cf-3427-4cf6-a242-de206bda366f",
+    "stem_html": "<p>What would be the slope for a line passing through the two points below?</p>\n\n<p>Point 1: (1, 0.1)\nPoint 2: (7, 26.8)</p>\n",
+    "tags": "584c59cf-3427-4cf6-a242-de206bda366f",
+    "uid": "1721@6"
   },
   {
     "answers": [
@@ -194,34 +194,34 @@
   {
     "answers": [
       {
-        "id": 470325,
-        "content_html": "glucose",
+        "id": 185080,
+        "content_html": "a trend that shows an exponential relationship",
         "correctness": "0.0",
-        "feedback_html": "Glucose is synthesized from the photosynthesis process, using solar energy. It is also used in cellular respiration."
+        "feedback_html": "A variable is a mathematical entity whose value can change over multiple measurements, and is not fixed."
       },
       {
-        "id": 470326,
-        "content_html": "plants",
-        "correctness": "0.0",
-        "feedback_html": "Plants are autotrophs which synthesize their own food, using solar energy. They are consumed by only heterotrophs."
-      },
-      {
-        "id": 470327,
-        "content_html": "metabolic pathways",
-        "correctness": "0.0",
-        "feedback_html": "Metabolic pathways include catabolism and anabolism, which either utilize energy or produce energy."
-      },
-      {
-        "id": 470328,
-        "content_html": "the sun",
+        "id": 185083,
+        "content_html": "something whose value can change over multiple measurements",
         "correctness": "1.0",
-        "feedback_html": "The main source of energy for this planet is the Sun. Solar energy includes light, radio waves and X-rays, all of which provide energy on Earth."
+        "feedback_html": "The variable is defined as a mathematical quantity whose value can change over multiple measurements, and is not fixed, that is, it is not a constant."
+      },
+      {
+        "id": 185081,
+        "content_html": "a measure of how much a plot line changes along the y-axis",
+        "correctness": "0.0",
+        "feedback_html": "Variable is a mathematical quantity, whose value changes over multiple measurements and does not have any fixed value."
+      },
+      {
+        "id": 185082,
+        "content_html": "something that remains constant over multiple measurements",
+        "correctness": "0.0",
+        "feedback_html": "It is incorrect that the variable remains constant over multiple measurements. Variable is a mathematical quantity whose value changes over multiple measurements and does not have any fixed value."
       }
     ],
-    "group_uuid": "2da86c19-10a5-4543-bc33-67f7fa09ddae",
-    "stem_html": "What is the ultimate source of energy on this planet?",
-    "tags": "2da86c19-10a5-4543-bc33-67f7fa09ddae",
-    "uid": "417@7"
+    "group_uuid": "417f1fe2-2c23-40cd-a162-e8c55817a358",
+    "stem_html": "Which of the following best describes a variable?",
+    "tags": "417f1fe2-2c23-40cd-a162-e8c55817a358",
+    "uid": "1724@3"
   },
   {
     "answers": [
@@ -290,33 +290,33 @@
   {
     "answers": [
       {
-        "id": 472315,
-        "content_html": "2 only",
+        "id": 374112,
+        "content_html": "Based on the information, the line has a negative slope. Because its y-intercept is 50 and its slope is negative, this line gradually rises on the graph as the x-value increases.",
         "correctness": "0.0",
-        "feedback_html": "Prokaryotes also come under the domain Archaea."
+        "feedback_html": "The line has a negative slope but it does not gradually rise as the x-value increases."
       },
       {
-        "id": 472316,
-        "content_html": "3 only",
-        "correctness": "0.0",
-        "feedback_html": "Prokaryotes do not come under the domain Eukarya."
-      },
-      {
-        "id": 472318,
-        "content_html": "1 and 2",
+        "id": 374115,
+        "content_html": "Based on the information, the line has a negative slope. Because its y-intercept is 50 and its slope is negative, this line gradually moves downward on the graph as the x-value increases.",
         "correctness": "1.0",
-        "feedback_html": "Both Archaea and Bacteria contains prokaryotes."
+        "feedback_html": "Based on this information, one could tell that the line moves downward because it has a negative slope. In addition, because the y-intercept is 50 and the slope is negative 3, this line gradually moves downward as the x-values increases."
       },
       {
-        "id": 472317,
-        "content_html": "2 and 3",
+        "id": 374113,
+        "content_html": "Based on the information, the line has a positive slope. Because its y-intercept is 50 and its slope is positive, this line gradually rises on the graph as the x-value increases.",
         "correctness": "0.0",
-        "feedback_html": "Bacteria contain prokaryotes. The prokaryotes cannot classify under the eukarya domain since they are enucleated."
+        "feedback_html": "The line does not have a positive slope. Also, the y-value on the line does not gradually increase as the x-value increases."
+      },
+      {
+        "id": 374114,
+        "content_html": "Based on the information, the line has a positive slope. Because its y-intercept is 50 and its slope is positive, this line gradually moves downward on the graph as the x-value increases.",
+        "correctness": "0.0",
+        "feedback_html": "The line does not have a positive slope."
       }
     ],
-    "group_uuid": "75375145-0f7c-4160-b895-4deb34497de0",
-    "stem_html": "<p>Which of the following domains contain prokaryotes?</p>\n\n<ol>\n  <li>Archaea</li>\n  <li>Bacteria</li>\n  <li>Eukarya</li>\n</ol>\n",
-    "tags": "75375145-0f7c-4160-b895-4deb34497de0",
-    "uid": "39@9"
+    "group_uuid": "39f10161-fd36-4c95-8388-fc7c96b2cd6e",
+    "stem_html": "Describe all of the characteristics that can be determined about a straight line with a slope of <span data-math=\"{-3}\">{-3}</span> and a y-intercept of <span data-math=\"50\">50</span> on a graph.",
+    "tags": "39f10161-fd36-4c95-8388-fc7c96b2cd6e",
+    "uid": "1729@5"
   }
 ]

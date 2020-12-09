@@ -34,34 +34,34 @@
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 375480,
+        "content_html": "backward and to the left",
+        "correctness": "0.0",
+        "feedback_html": "Backward motion is conventionally considered as negative."
+      },
+      {
+        "id": 375479,
+        "content_html": "backward and to the right",
+        "correctness": "0.0",
+        "feedback_html": "Try it by drawing the positive and negative axes and think about the backward direction of motion. A common convention is that backward is negative."
+      },
+      {
+        "id": 375481,
+        "content_html": "forward and to the right",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+        "feedback_html": "Conventionally, forward motion is usually considered as moving in a positive direction. Movement towards the right is also considered as positive direction."
       },
       {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "id": 375478,
+        "content_html": "forward and to the left",
         "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
-      },
-      {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "A common convention is that motion to the left is negative."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2bb45327-43c1-4671-ae63-ced9f4bf7d34",
+    "stem_html": "While there is no single correct choice for the sign of axes, which of the following are conventionally considered positive?",
+    "tags": "2bb45327-43c1-4671-ae63-ced9f4bf7d34",
+    "uid": "2204@6"
   },
   {
     "answers": [

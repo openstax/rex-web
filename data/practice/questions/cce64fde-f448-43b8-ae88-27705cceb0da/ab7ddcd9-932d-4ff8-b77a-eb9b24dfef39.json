@@ -66,66 +66,66 @@
   {
     "answers": [
       {
-        "id": 471063,
-        "content_html": "oxidative phosphorylation",
+        "id": 379891,
+        "content_html": "It is the work that is done by the compression or expansion of a fluid.",
         "correctness": "1.0",
-        "feedback_html": "The <span data-math=\"\\text{NADH}\">\\text{NADH}</span> produced during glycolysis undergoes oxidative phosphorylation where it transfers its electrons to the electron transport chain. The <span data-math=\"\\text{H}^{+} {\\!}\">\\text{H}^{+} {\\!}</span> ions pumped as the electrons move are used to produce ATP with the help of ATP synthase."
+        "feedback_html": "Pressure-volume work is work that is done by the compression or expansion of a fluid."
       },
       {
-        "id": 471062,
-        "content_html": "substrate-level phosphorylation",
+        "id": 379888,
+        "content_html": "It is the work that is done by a force on an object to produce a certain displacement.",
         "correctness": "0.0",
-        "feedback_html": "Recall that, in substrate-level phosphorylation, one ATP is produced at a time. Also, the ADP phosphorylation is coupled with the exergonic breakdown of a high energy bond."
+        "feedback_html": "Pressure-volume work is work that is done by the compression or expansion of a fluid, which involves the area over which pressure is applied."
       },
       {
-        "id": 471061,
-        "content_html": "dephosphorylation of ATP",
+        "id": 379889,
+        "content_html": "It is the work that is done by the surface molecules of a fluid.",
         "correctness": "0.0",
-        "feedback_html": "Dephosphorylation breaks down ATP, rather than generates it."
+        "feedback_html": "All the molecules in a liquid contribute to the pressure-volume work."
       },
       {
-        "id": 471060,
-        "content_html": "hydrolysis of ATP",
+        "id": 379890,
+        "content_html": "It is the work that is done by the high-energy molecules of a fluid.",
         "correctness": "0.0",
-        "feedback_html": "Hydrolysis refers to the breakdown of a substance by the addition of water molecule. It does not produce ATP."
+        "feedback_html": "This work is related to the compression or expansion of an entire fluid, and not just the most energetic particles in the fluid."
       }
     ],
-    "group_uuid": "52ebccc0-ddf8-4e08-9a32-e63b38149b94",
-    "stem_html": "What biochemical process generates the most ATP during the breakdown of glucose?",
-    "tags": "52ebccc0-ddf8-4e08-9a32-e63b38149b94",
-    "uid": "545@10"
+    "group_uuid": "545cbb4e-1995-4a1e-a825-991366d920ff",
+    "stem_html": "What is pressure-volume work?",
+    "tags": "545cbb4e-1995-4a1e-a825-991366d920ff",
+    "uid": "6675@5"
   },
   {
     "answers": [
       {
-        "id": 346880,
-        "content_html": "discovery",
+        "id": 379896,
+        "content_html": "Transferring energy by heat is the only way to add energy to or remove energy from a system.",
         "correctness": "0.0",
-        "feedback_html": "A discovery is not a testable explanation for an event."
+        "feedback_html": "One can add or remove energy by doing work also."
       },
       {
-        "id": 346883,
-        "content_html": "hypothesis",
+        "id": 379897,
+        "content_html": "Doing compression work is the only way to add energy to or remove energy from a system.",
+        "correctness": "0.0",
+        "feedback_html": "One can transfer energy to or from a system by heat also."
+      },
+      {
+        "id": 379898,
+        "content_html": "Doing expansion work is the only way to add energy to or remove energy from a system.",
+        "correctness": "0.0",
+        "feedback_html": "This is not the only way to transfer energy to or from a system."
+      },
+      {
+        "id": 379899,
+        "content_html": "Transferring energy by heat or by doing work are the ways to add energy to or remove energy from a system.",
         "correctness": "1.0",
-        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
-      },
-      {
-        "id": 346881,
-        "content_html": "scientific method",
-        "correctness": "0.0",
-        "feedback_html": "The scientific method is a method of research with defined steps."
-      },
-      {
-        "id": 346882,
-        "content_html": "theory",
-        "correctness": "0.0",
-        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+        "feedback_html": "Transferring energy by heat or by doing work can each allow energy to be added to or removed from a system."
       }
     ],
-    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "stem_html": "What is a suggested and testable explanation for an event called?",
-    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "uid": "3@6"
+    "group_uuid": "03c36739-4a49-4570-8a6d-0f1b51d0e3ce",
+    "stem_html": "What are the ways to add energy to or remove energy from a system?",
+    "tags": "03c36739-4a49-4570-8a6d-0f1b51d0e3ce",
+    "uid": "6677@5"
   },
   {
     "answers": [
@@ -162,130 +162,130 @@
   {
     "answers": [
       {
-        "id": 347107,
-        "content_html": "Insects can walk on water because of its high surface tension.",
+        "id": 379996,
+        "content_html": "It is transferred back to its surroundings.",
+        "correctness": "0.0",
+        "feedback_html": "The difference in energy remains in the system."
+      },
+      {
+        "id": 379999,
+        "content_html": "It is stored in the system as internal energy.",
         "correctness": "1.0",
-        "feedback_html": "Some insects can walk on water, although they are denser than water, because of the high surface tension of water. High surface tension results from high cohesion at the surface of a body of water."
+        "feedback_html": "Yes, it is stored as internal energy."
       },
       {
-        "id": 347104,
-        "content_html": "Insects can walk on water because it is a polar solvent.",
+        "id": 379997,
+        "content_html": "It is stored in the system as potential energy.",
         "correctness": "0.0",
-        "feedback_html": "Recall whether the polarity of water has anything to do with insects walking on water."
+        "feedback_html": "Extra heat will contribute to the internal energy of the system, which is a measure of the kinetic energy of the system’s particles."
       },
       {
-        "id": 347105,
-        "content_html": "Insects can walk on water because they are less dense than water.",
+        "id": 379998,
+        "content_html": "It is stored in the system as entropy.",
         "correctness": "0.0",
-        "feedback_html": "Most insects are not less dense than water."
-      },
-      {
-        "id": 347106,
-        "content_html": "Insects can walk on water because they are denser than water.",
-        "correctness": "0.0",
-        "feedback_html": "Most insects are denser than water, but many of them can still be supported on the surface of water."
+        "feedback_html": "The entropy of the system will most likely change, but the energy is not stored as entropy; rather entropy is related to how the energy is stored."
       }
     ],
-    "group_uuid": "97ffb587-bc4c-4c8a-8404-fa4ca3b9ca5e",
-    "stem_html": "Why can some insects walk on water?",
-    "tags": "97ffb587-bc4c-4c8a-8404-fa4ca3b9ca5e",
-    "uid": "62@5"
+    "group_uuid": "62e53845-9a07-4900-87b5-9bd72caf3541",
+    "stem_html": "If more energy is transferred into the system by net heat as compared to the net work done by the system, what happens to the difference in energy?",
+    "tags": "62e53845-9a07-4900-87b5-9bd72caf3541",
+    "uid": "6702@5"
   },
   {
     "answers": [
       {
-        "id": 414782,
-        "content_html": "1, 2, 3, 4, 5, 6",
+        "id": 380050,
+        "content_html": "increasing internal energy",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "A system’s internal energy increases when work is done on a system."
       },
       {
-        "id": 414783,
-        "content_html": "2, 1, 3, 4, 5, 6",
+        "id": 380049,
+        "content_html": "compression",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "This is work done ON a system."
       },
       {
-        "id": 414784,
-        "content_html": "2, 1, 5, 4, 6, 3",
+        "id": 380051,
+        "content_html": "expansion",
         "correctness": "1.0",
-        "feedback_html": "2, 1, 5, 4, 6, 3 is the correct sequence of the situation given."
+        "feedback_html": "Expansion occurs when work is done by a system."
       },
       {
-        "id": 414785,
-        "content_html": "2, 1, 5, 6, 3, 4",
+        "id": 380048,
+        "content_html": "cooling",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "Cooling occurs when a system loses energy by heat."
       }
     ],
-    "group_uuid": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "stem_html": "Although the scientific method is used by most of the sciences, it can also be applied to everyday situations. A situation is given below. Using the scientific method try to arrange the given steps in the correct order. \nSituation:\n<ol>\n  <li>If the car doesn’t start the problem might be in the battery.</li>\n  <li>Car doesn’t start.</li>\n  <li>After changing the battery. Car starts working.</li>\n  <li>The car should start after charging the battery or changing the battery.</li>\n  <li>The car doesn’t start because the battery is dead.</li>\n  <li>The car doesn’t start even after charging the battery, the battery must have stopped working.</li>\n</ol>\n",
-    "tags": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "uid": "8@8"
+    "group_uuid": "8ac0cb73-94a5-4879-9005-67e64a3818d2",
+    "stem_html": "Which of the following involves work done BY a system?",
+    "tags": "8ac0cb73-94a5-4879-9005-67e64a3818d2",
+    "uid": "6716@6"
   },
   {
     "answers": [
       {
-        "id": 322029,
-        "content_html": "metagenomics",
+        "id": 484010,
+        "content_html": "<span data-math=\"20\\,\\text{J}\">20\\,\\text{J}</span>",
         "correctness": "0.0",
-        "feedback_html": "Metagenomics is the study and analysis of genetic material that are collected from the environment."
+        "feedback_html": "This is the work done by the system."
       },
       {
-        "id": 322030,
-        "content_html": "linkage analysis",
-        "correctness": "0.0",
-        "feedback_html": "Risk assessment of genetic diseases cannot be determined by linkage analysis. Linkage analysis is used to study linkage of two genes responsible for diseases."
-      },
-      {
-        "id": 322032,
-        "content_html": "genomics",
+        "id": 484011,
+        "content_html": "<span data-math=\"30\\,\\text{J}\">30\\,\\text{J}</span>",
         "correctness": "1.0",
-        "feedback_html": "Genomics can determine the chances of occurrence of genetic diseases in an individual’s children."
+        "feedback_html": "This is the difference between the net change in the system's internal energy\n and the work done by the system."
       },
       {
-        "id": 322031,
-        "content_html": "shotgun sequencing",
+        "id": 484012,
+        "content_html": "<span data-math=\"50\\,\\text{J}\">50\\,\\text{J}</span>",
         "correctness": "0.0",
-        "feedback_html": "Shotgun sequencing is used to sequence long strands of DNA."
+        "feedback_html": "This is the transferred from the system to the environment."
+      },
+      {
+        "id": 484013,
+        "content_html": "<span data-math=\"100\\,\\text{J}\">100\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "This is the energy added by heat to the system."
       }
     ],
-    "group_uuid": "c82cf7bd-a902-4c2a-b929-468a9a4e05f2",
-    "stem_html": "The risks of genetic diseases for an individual’s children can be determined through ____.",
-    "tags": "c82cf7bd-a902-4c2a-b929-468a9a4e05f2",
-    "uid": "4401@3"
+    "group_uuid": "4401b694-73dd-4f6f-a046-0a6ece03450c",
+    "stem_html": "What is the change in internal energy of a system  that does 20 J of work when <span data-math=\"Q_\\text{in} = 100\\,\\text{J}\">Q = 50\\,\\text{J}</span>  and  <span data-math=\"Q_\\text{out} = 50\\,\\text{J}\">Q = 20\\,\\text{J}</span>?",
+    "tags": "4401b694-73dd-4f6f-a046-0a6ece03450c",
+    "uid": "6718@8"
   },
   {
     "answers": [
       {
-        "id": 397402,
-        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "id": 380068,
+        "content_html": "pressure acting over the change in depth",
+        "correctness": "0.0",
+        "feedback_html": "Depth is not considered in calculating the work done by fluids."
+      },
+      {
+        "id": 380069,
+        "content_html": "pressure acting over the change in temperature",
+        "correctness": "0.0",
+        "feedback_html": "The work done is non-zero only when there is a change in volume of a gas."
+      },
+      {
+        "id": 380070,
+        "content_html": "temperature acting over the change in volume",
+        "correctness": "0.0",
+        "feedback_html": "The product of temperature and volume does not result in dimensions for work."
+      },
+      {
+        "id": 380071,
+        "content_html": "pressure acting over the change in volume",
         "correctness": "1.0",
-        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
-      },
-      {
-        "id": 397403,
-        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology."
-      },
-      {
-        "id": 397404,
-        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
-      },
-      {
-        "id": 397405,
-        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "The work done can be defined as the pressure acting over the change in volume."
       }
     ],
-    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
-    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "uid": "6@7"
+    "group_uuid": "6e748750-1856-4b98-96d4-36d45859a043",
+    "stem_html": "For fluids, what can work be defined as?",
+    "tags": "6e748750-1856-4b98-96d4-36d45859a043",
+    "uid": "6721@5"
   },
   {
     "answers": [

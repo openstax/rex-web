@@ -34,34 +34,34 @@
   {
     "answers": [
       {
-        "id": 347183,
-        "content_html": "Saturated triglycerides contain single bonds and are solids at room temperature, while unsaturated triglycerides contain double bonds and are liquids at room temperature.",
+        "id": 380144,
+        "content_html": "All the spontaneous processes result in decreased total entropy of a system.",
+        "correctness": "0.0",
+        "feedback_html": "The total entropy of a system never decreases in any spontaneous process."
+      },
+      {
+        "id": 380145,
+        "content_html": "All the spontaneous processes result in increased total entropy of a system.",
+        "correctness": "0.0",
+        "feedback_html": "The total entropy of a system may also remain constant in some spontaneous processes."
+      },
+      {
+        "id": 380146,
+        "content_html": "All the spontaneous processes result in decreased or constant total entropy of a system.",
+        "correctness": "0.0",
+        "feedback_html": "The total entropy of a system can remain the same, but never decreases in any spontaneous process."
+      },
+      {
+        "id": 380147,
+        "content_html": "All the spontaneous processes result in increased or constant total entropy of a system.",
         "correctness": "1.0",
-        "feedback_html": "Saturated triglycerides contain no double bonds between carbon atoms and are usually solids at room temperature. Unsaturated triglycerides contain at least one double bond between carbon atoms and are usually liquids at room temperature."
-      },
-      {
-        "id": 347182,
-        "content_html": "Saturated triglycerides contain double bonds and are solids at room temperature, while unsaturated triglycerides contain single bonds and are liquids at room temperature.",
-        "correctness": "0.0",
-        "feedback_html": "Saturated triglycerides do not consist of double bonds."
-      },
-      {
-        "id": 347181,
-        "content_html": "Saturated triglycerides contain single bonds and are liquids at room temperature, while unsaturated triglycerides contain double bonds and are solids at room temperature.",
-        "correctness": "0.0",
-        "feedback_html": "Recall if saturated triglycerides are liquids at room temperature."
-      },
-      {
-        "id": 347180,
-        "content_html": "Saturated triglycerides contain double bonds and are liquids at room temperature, while unsaturated triglycerides contain single bond and are solids at room temperature.",
-        "correctness": "0.0",
-        "feedback_html": "Unsaturated triglycerides contain double bonds."
+        "feedback_html": "The total entropy of a system either increases or remains constant in any spontaneous process; it never decreases."
       }
     ],
-    "group_uuid": "cb657755-b820-4d09-9533-c69e0a6c1329",
-    "stem_html": "Compare and contrast saturated and unsaturated triglycerides.",
-    "tags": "cb657755-b820-4d09-9533-c69e0a6c1329",
-    "uid": "90@4"
+    "group_uuid": "90b36eb9-8198-4b93-885c-19d1c479f843",
+    "stem_html": "What is the statement for the second law of thermodynamics?",
+    "tags": "90b36eb9-8198-4b93-885c-19d1c479f843",
+    "uid": "6740@5"
   },
   {
     "answers": [
@@ -194,33 +194,33 @@
   {
     "answers": [
       {
-        "id": 346868,
-        "content_html": "No, it is not a natural science because it is not used in the study of the natural world.",
-        "correctness": "0.0",
-        "feedback_html": "Mathematics is used in the study of the natural world, but that does not explain whether it is a natural science."
-      },
-      {
-        "id": 346871,
-        "content_html": "No, it is not a natural science. Mathematics focuses on understanding mathematical relations and calculations, which is useful in natural sciences but which is distinct.",
+        "id": 380299,
+        "content_html": "Melting converts the highly ordered solid structure into a disorderly liquid, thereby increasing entropy.",
         "correctness": "1.0",
-        "feedback_html": "Mathematics is not a natural science as it does not use chemical and physical measurements like other fields in natural sciences."
+        "feedback_html": "The ordered structure of a packed solid transforms into the more random molecular structure of a liquid."
       },
       {
-        "id": 346869,
-        "content_html": "Yes, it is a natural science. Mathematics deals with verifying the experimental data.",
+        "id": 380296,
+        "content_html": "Melting converts the highly ordered liquid into a disorderly solid structure, thereby increasing entropy.",
         "correctness": "0.0",
-        "feedback_html": "Mathematics does not use the chemical and physical measurements, therefore it is not natural science."
+        "feedback_html": "Liquid structure is not highly ordered."
       },
       {
-        "id": 346870,
-        "content_html": "Yes, it is a natural science. It uses chemical and physical measurements.",
+        "id": 380297,
+        "content_html": "Melting converts the highly ordered solid structure into a disorderly solid structure, thereby increasing entropy.",
         "correctness": "0.0",
-        "feedback_html": "Mathematics does not use chemical and physical measurements."
+        "feedback_html": "Solid structures are highly ordered, and have low randomness in their molecular structure or motion."
+      },
+      {
+        "id": 380298,
+        "content_html": "Melting converts the highly ordered liquid into a disorderly liquid, thereby increasing entropy.",
+        "correctness": "0.0",
+        "feedback_html": "Entropy increases when the randomness in the molecular structure and motions increases."
       }
     ],
-    "group_uuid": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
-    "stem_html": "Is mathematics a natural science? Explain your reasoning.",
-    "tags": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
-    "uid": "7@6"
+    "group_uuid": "7abc3dc6-8867-4f47-9d69-c22b7a66a455",
+    "stem_html": "Why does entropy increase when ice melts into water?",
+    "tags": "7abc3dc6-8867-4f47-9d69-c22b7a66a455",
+    "uid": "6778@5"
   }
 ]

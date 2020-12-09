@@ -2,34 +2,34 @@
   {
     "answers": [
       {
-        "id": 346880,
-        "content_html": "discovery",
+        "id": 189145,
+        "content_html": "A frame of reference is a graph plotted between distance and time.",
         "correctness": "0.0",
-        "feedback_html": "A discovery is not a testable explanation for an event."
+        "feedback_html": "Motion is a relative term, so in order to describe motion of any object one needs a reference point with which the speed is defined. This reference point is called the frame of reference."
       },
       {
-        "id": 346883,
-        "content_html": "hypothesis",
+        "id": 189146,
+        "content_html": "A frame of reference is a graph plotted between speed and time.",
+        "correctness": "0.0",
+        "feedback_html": "A frame of reference is not a type of graph. It is a point or a set of points which is used to describe motion."
+      },
+      {
+        "id": 189147,
+        "content_html": "A frame of reference is the velocity of an object through empty space without regard to its surroundings.",
+        "correctness": "0.0",
+        "feedback_html": "Velocity of an object is a relative term that cannot be measured without comparing it with something else."
+      },
+      {
+        "id": 189148,
+        "content_html": "A frame of reference is an arbitrarily fixed point with respect to which motion of other points is measured.",
         "correctness": "1.0",
-        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
-      },
-      {
-        "id": 346881,
-        "content_html": "scientific method",
-        "correctness": "0.0",
-        "feedback_html": "The scientific method is a method of research with defined steps."
-      },
-      {
-        "id": 346882,
-        "content_html": "theory",
-        "correctness": "0.0",
-        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+        "feedback_html": "A frame of reference is needed to describe motion because speed is a relative term."
       }
     ],
-    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "stem_html": "What is a suggested and testable explanation for an event called?",
-    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "uid": "3@6"
+    "group_uuid": "3c3b942b-dc77-49ad-b422-f0334f460506",
+    "stem_html": "Explain what is meant by a frame of reference.",
+    "tags": "3c3b942b-dc77-49ad-b422-f0334f460506",
+    "uid": "2864@3"
   },
   {
     "answers": [
@@ -98,33 +98,33 @@
   {
     "answers": [
       {
-        "id": 414782,
-        "content_html": "1, 2, 3, 4, 5, 6",
+        "id": 275849,
+        "content_html": "<span data-math=\"1.86 \\times 10^5\\,\\text{m/s}\">1.86 \\times 10^5\\,\\text{m/s}</span>",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "The value 1.86 × 10<sup>5</sup> is the speed of light in mi/s, not m/s."
       },
       {
-        "id": 414783,
-        "content_html": "2, 1, 3, 4, 5, 6",
-        "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
-      },
-      {
-        "id": 414784,
-        "content_html": "2, 1, 5, 4, 6, 3",
+        "id": 275850,
+        "content_html": "<span data-math=\"3.00 \\times 10^8\\,\\text{m/s}\">3.00 \\times 10^8\\,\\text{m/s}</span>",
         "correctness": "1.0",
-        "feedback_html": "2, 1, 5, 4, 6, 3 is the correct sequence of the situation given."
+        "feedback_html": "Speed of light in a vacuum is <span data-math=\"3.00 \\times 10^8\\,\\text{m/s}\">3.00 \\times 10^8\\,\\text{m/s}</span>."
       },
       {
-        "id": 414785,
-        "content_html": "2, 1, 5, 6, 3, 4",
+        "id": 275851,
+        "content_html": "<span data-math=\"6.71 \\times 10^8\\,\\text{m/s}\">6.71 \\times 10^8\\,\\text{m/s}</span>",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "The value 6.71 × 10<sup>8</sup> is the speed of light in mi/h, not m/s."
+      },
+      {
+        "id": 275852,
+        "content_html": "<span data-math=\"1.50 \\times 10^{11}\\,\\text{m/s}\">1.50 \\times 10^{11}\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The value 1.50 × 10<sup>11</sup> is the Earth-moon distance in km, not the speed of light in m/s."
       }
     ],
-    "group_uuid": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "stem_html": "Although the scientific method is used by most of the sciences, it can also be applied to everyday situations. A situation is given below. Using the scientific method try to arrange the given steps in the correct order. \nSituation:\n<ol>\n  <li>If the car doesn’t start the problem might be in the battery.</li>\n  <li>Car doesn’t start.</li>\n  <li>After changing the battery. Car starts working.</li>\n  <li>The car should start after charging the battery or changing the battery.</li>\n  <li>The car doesn’t start because the battery is dead.</li>\n  <li>The car doesn’t start even after charging the battery, the battery must have stopped working.</li>\n</ol>\n",
-    "tags": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "uid": "8@8"
+    "group_uuid": "008c3a6a-d221-4eac-8b1e-545f2f2a3525",
+    "stem_html": "What is the speed of light in a vacuum to three significant figures?",
+    "tags": "008c3a6a-d221-4eac-8b1e-545f2f2a3525",
+    "uid": "2871@5"
   }
 ]

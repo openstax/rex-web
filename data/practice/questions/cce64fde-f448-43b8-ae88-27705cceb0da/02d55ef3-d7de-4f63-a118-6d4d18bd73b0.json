@@ -34,33 +34,33 @@
   {
     "answers": [
       {
-        "id": 397410,
-        "content_html": "astronomy",
+        "id": 375102,
+        "content_html": "No, the balls will not necessarily travel the same distance because the gravitational force acting on them is different.",
         "correctness": "0.0",
-        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+        "feedback_html": "Is gravity nonuniform on the surface of the Earth where these balls are being thrown?"
       },
       {
-        "id": 397411,
-        "content_html": "biology",
-        "correctness": "0.0",
-        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
-      },
-      {
-        "id": 397412,
-        "content_html": "computer science",
+        "id": 375105,
+        "content_html": "No, the balls will not necessarily travel the same distance because the angle at which they are thrown may differ.",
         "correctness": "1.0",
-        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+        "feedback_html": "The trajectory of the two balls would be different if they were thrown with the same force but at different angles."
       },
       {
-        "id": 397413,
-        "content_html": "physics",
+        "id": 375103,
+        "content_html": "Yes, the balls will travel the same distance because the gravitational force acting on them is the same.",
         "correctness": "0.0",
-        "feedback_html": "Physics is a branch of natural science that studies matter."
+        "feedback_html": "What will happen if the balls are thrown at different angles? Will both balls travel the same distance?"
+      },
+      {
+        "id": 375104,
+        "content_html": "Yes, the balls will travel the same distance because the angle at which they are thrown may differ.",
+        "correctness": "0.0",
+        "feedback_html": "Are you sure that the two balls will travel the same distance if they are thrown at different angles?"
       }
     ],
-    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "stem_html": "Which of the following sciences is not considered a natural science?",
-    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "uid": "4@7"
+    "group_uuid": "4c19f84a-91cb-4919-be91-e12283fddf9c",
+    "stem_html": "Two people apply the same force to throw two identical balls in the air. Will the balls necessarily travel the same distance? Why or why not?",
+    "tags": "4c19f84a-91cb-4919-be91-e12283fddf9c",
+    "uid": "2091@5"
   }
 ]

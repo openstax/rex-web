@@ -34,34 +34,34 @@
   {
     "answers": [
       {
-        "id": 414782,
-        "content_html": "1, 2, 3, 4, 5, 6",
+        "id": 391843,
+        "content_html": "No, an interference pattern will not emerge because helium atoms will strike a variety of locations on the screen.",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "Consider whether wave particle duality applies to helium atoms."
       },
       {
-        "id": 414783,
-        "content_html": "2, 1, 3, 4, 5, 6",
+        "id": 391842,
+        "content_html": "No, an interference pattern will not emerge because helium atoms will strike at certain locations on the screen.",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "Consider whether wave particle duality applies to helium atoms."
       },
       {
-        "id": 414784,
-        "content_html": "2, 1, 5, 4, 6, 3",
+        "id": 391844,
+        "content_html": "Yes, an interference pattern will emerge because helium atoms will strike a variety of locations on the screen.",
         "correctness": "1.0",
-        "feedback_html": "2, 1, 5, 4, 6, 3 is the correct sequence of the situation given."
+        "feedback_html": "Yes, over time a pattern of helium atom strikes emerges as an interference pattern."
       },
       {
-        "id": 414785,
-        "content_html": "2, 1, 5, 6, 3, 4",
+        "id": 391841,
+        "content_html": "Yes, an interference pattern will emerge because helium atoms will strike at certain locations on the screen.",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "Consider whether wave particle duality applies to helium atoms."
       }
     ],
-    "group_uuid": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "stem_html": "Although the scientific method is used by most of the sciences, it can also be applied to everyday situations. A situation is given below. Using the scientific method try to arrange the given steps in the correct order. \nSituation:\n<ol>\n  <li>If the car doesn’t start the problem might be in the battery.</li>\n  <li>Car doesn’t start.</li>\n  <li>After changing the battery. Car starts working.</li>\n  <li>The car should start after charging the battery or changing the battery.</li>\n  <li>The car doesn’t start because the battery is dead.</li>\n  <li>The car doesn’t start even after charging the battery, the battery must have stopped working.</li>\n</ol>\n",
-    "tags": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "uid": "8@8"
+    "group_uuid": "8a96458b-e967-4f78-a475-4db17f02c28b",
+    "stem_html": "If a beam of helium atoms is projected through two slits and onto a screen, will an interference pattern emerge?",
+    "tags": "8a96458b-e967-4f78-a475-4db17f02c28b",
+    "uid": "11534@6"
   },
   {
     "answers": [
@@ -98,33 +98,33 @@
   {
     "answers": [
       {
-        "id": 346868,
-        "content_html": "No, it is not a natural science because it is not used in the study of the natural world.",
+        "id": 275243,
+        "content_html": "The release of light energy caused large-scale emission of electrons.",
         "correctness": "0.0",
-        "feedback_html": "Mathematics is used in the study of the natural world, but that does not explain whether it is a natural science."
+        "feedback_html": "There was not a large emission of electrons at the blast site. Think about what happens during Compton scattering."
       },
       {
-        "id": 346871,
-        "content_html": "No, it is not a natural science. Mathematics focuses on understanding mathematical relations and calculations, which is useful in natural sciences but which is distinct.",
+        "id": 275244,
+        "content_html": "The release of light energy caused large-scale emission of protons.",
+        "correctness": "0.0",
+        "feedback_html": "There was not a large emission of protons at the blast site. Think about what happens during Compton scattering."
+      },
+      {
+        "id": 275245,
+        "content_html": "The release of light energy caused large-scale emission of neutrons.",
+        "correctness": "0.0",
+        "feedback_html": "There was not a large emission of neutrons at the blast site. Think about what happens during Compton scattering."
+      },
+      {
+        "id": 275246,
+        "content_html": "The release of light energy caused large-scale emission of photons.",
         "correctness": "1.0",
-        "feedback_html": "Mathematics is not a natural science as it does not use chemical and physical measurements like other fields in natural sciences."
-      },
-      {
-        "id": 346869,
-        "content_html": "Yes, it is a natural science. Mathematics deals with verifying the experimental data.",
-        "correctness": "0.0",
-        "feedback_html": "Mathematics does not use the chemical and physical measurements, therefore it is not natural science."
-      },
-      {
-        "id": 346870,
-        "content_html": "Yes, it is a natural science. It uses chemical and physical measurements.",
-        "correctness": "0.0",
-        "feedback_html": "Mathematics does not use chemical and physical measurements."
+        "feedback_html": "The photons released struck large numbers of electrons in the atmosphere, thereby producing currents leaving the blast site."
       }
     ],
-    "group_uuid": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
-    "stem_html": "Is mathematics a natural science? Explain your reasoning.",
-    "tags": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
-    "uid": "7@6"
+    "group_uuid": "07acfd2b-fa7a-43a9-bba7-376035c44b44",
+    "stem_html": "When testing atomic bombs, scientists at Los Alamos recognized that huge releases of energy resulted in problems with power and communications systems in the area surrounding the blast site. Explain the possible tie to Compton scattering.",
+    "tags": "07acfd2b-fa7a-43a9-bba7-376035c44b44",
+    "uid": "11564@5"
   }
 ]

@@ -34,34 +34,34 @@
   {
     "answers": [
       {
-        "id": 346880,
-        "content_html": "discovery",
+        "id": 376775,
+        "content_html": "<span data-math=\"12,500\\,\\text{km}\">12,500\\,\\text{km}</span>",
         "correctness": "0.0",
-        "feedback_html": "A discovery is not a testable explanation for an event."
+        "feedback_html": "The length of the semi-major axis is not the product of the focal distance and eccentricity. It can be calculated by division of the focal distance by the eccentricity."
       },
       {
-        "id": 346883,
-        "content_html": "hypothesis",
+        "id": 376776,
+        "content_html": "<span data-math=\"100,000\\,\\text{km}\">100,000\\,\\text{km}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The length of the semi-major axis of an ellipse is given by the formula <span data-math=\"\\frac{f}{e}\">\\frac{f}{e}</span> and not  <span data-math=\"\\frac{f}{2e}\">\\frac{f}{2e}</span>."
+      },
+      {
+        "id": 376778,
+        "content_html": "<span data-math=\"200,000\\,\\text{km}\">200,000\\,\\text{km}</span>",
         "correctness": "1.0",
-        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+        "feedback_html": "If you divide focal distance by eccentricity, it gives the length of the semi-major axis of an ellipse."
       },
       {
-        "id": 346881,
-        "content_html": "scientific method",
+        "id": 376777,
+        "content_html": "<span data-math=\"400,000\\,\\text{km}\">400,000\\,\\text{km}</span>",
         "correctness": "0.0",
-        "feedback_html": "The scientific method is a method of research with defined steps."
-      },
-      {
-        "id": 346882,
-        "content_html": "theory",
-        "correctness": "0.0",
-        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+        "feedback_html": "The length of the semi-major axis of an ellipse is given by the formula <span data-math=\"f/e\">f/e</span> and not <span data-math=\"2f/e\">2f/e</span>."
       }
     ],
-    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "stem_html": "What is a suggested and testable explanation for an event called?",
-    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "uid": "3@6"
+    "group_uuid": "3beadc42-3e2e-445e-82cc-48c77dbb6a82",
+    "stem_html": "The focal point of the elliptical orbit of a moon is <span data-math=\"50,000\\,\\text{km}\">50,000\\,\\text{km}</span> from the center of the orbit. If the eccentricity of the orbit is <span data-math=\"0.25\">0.25</span>, what is the length of the semi-major axis?",
+    "tags": "3beadc42-3e2e-445e-82cc-48c77dbb6a82",
+    "uid": "2582@5"
   },
   {
     "answers": [
