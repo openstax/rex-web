@@ -28,72 +28,124 @@
     ],
     "group_uuid": "38069b38-c0f4-4001-9b43-82d133571e2e",
     "stem_html": "What is a wave?",
-    "tags": "38069b38-c0f4-4001-9b43-82d133571e2e",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:16-9-1",
+      "k12phys-ch13",
+      "k12phys-ch13-s01",
+      "k12phys-ch13-s01-lo01",
+      "k12phys-ch13-ex003",
+      "exid:k12phys-ch13-ex003",
+      "context-cnxmod:a5178865-641d-456e-88bd-e63f49269712",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:8e6e15f8-a69b-4895-8d27-23eeb265a31f",
+      "context-cnxmod:d57f8140-9072-40fb-abbb-4f1ded13bdcf",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
     "uid": "6831@6"
   },
   {
     "answers": [
       {
-        "id": 418058,
-        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
+        "id": 380509,
+        "content_html": "A pulse wave is a sudden disturbance with only one wave generated.",
         "correctness": "0.0",
-        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
+        "feedback_html": "Are you sure it is limited to one wave?"
       },
       {
-        "id": 418059,
-        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "id": 380510,
+        "content_html": "A pulse wave is a sudden disturbance with only one or a few waves generated.",
         "correctness": "1.0",
-        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "A sudden disturbance with only one or a few waves generated is called pulse wave."
       },
       {
-        "id": 418060,
-        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "id": 380508,
+        "content_html": "A pulse wave is a gradual disturbance with only one or a few waves generated.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "Are you sure that it is gradual?"
       },
       {
-        "id": 418061,
-        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
+        "id": 380507,
+        "content_html": "A pulse wave is a gradual disturbance with only one wave generated.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+        "feedback_html": "Reconsider the definition of a pulse wave."
       }
     ],
-    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
-    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "uid": "1@7"
+    "group_uuid": "1e08567c-be9d-4602-a0eb-7d42d1f3eb09",
+    "stem_html": "What is a pulse wave?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:16-9-1",
+      "k12phys-ch13",
+      "k12phys-ch13-s01",
+      "k12phys-ch13-s01-lo02",
+      "k12phys-ch13-ex005",
+      "exid:k12phys-ch13-ex005",
+      "context-cnxmod:a5178865-641d-456e-88bd-e63f49269712",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:8e6e15f8-a69b-4895-8d27-23eeb265a31f",
+      "context-cnxmod:d57f8140-9072-40fb-abbb-4f1ded13bdcf",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
+    "uid": "6833@6"
   },
   {
     "answers": [
       {
-        "id": 346880,
-        "content_html": "discovery",
-        "correctness": "0.0",
-        "feedback_html": "A discovery is not a testable explanation for an event."
-      },
-      {
-        "id": 346883,
-        "content_html": "hypothesis",
+        "id": 380559,
+        "content_html": "No, water waves transfer only energy from one place to another.",
         "correctness": "1.0",
-        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+        "feedback_html": "Water waves transfer only energy from one place to another; they do not transfer the water itself, which is a medium in this case."
       },
       {
-        "id": 346881,
-        "content_html": "scientific method",
+        "id": 380558,
+        "content_html": "Yes, water waves transfer water from one place to another.",
         "correctness": "0.0",
-        "feedback_html": "The scientific method is a method of research with defined steps."
-      },
-      {
-        "id": 346882,
-        "content_html": "theory",
-        "correctness": "0.0",
-        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+        "feedback_html": "Water waves transfer only energy from one place to another; they do not transfer particles of the material."
       }
     ],
-    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "stem_html": "What is a suggested and testable explanation for an event called?",
-    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "uid": "3@6"
+    "group_uuid": "3ea9aec0-8126-4d03-8288-aaa62e7e115e",
+    "stem_html": "Do water waves push water from one place to another? Explain.",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:16-9-1",
+      "k12phys-ch13",
+      "k12phys-ch13-s01",
+      "k12phys-ch13-s01-lo01",
+      "k12phys-ch13-ex009",
+      "exid:k12phys-ch13-ex009",
+      "context-cnxmod:a5178865-641d-456e-88bd-e63f49269712",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:8e6e15f8-a69b-4895-8d27-23eeb265a31f",
+      "context-cnxmod:d57f8140-9072-40fb-abbb-4f1ded13bdcf",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
+    "uid": "6849@5"
   },
   {
     "answers": [
@@ -124,40 +176,84 @@
     ],
     "group_uuid": "c855f3cf-4add-43a4-adcf-f722bb45d04b",
     "stem_html": "What are orbital progressive waves?",
-    "tags": "c855f3cf-4add-43a4-adcf-f722bb45d04b",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:16-9-1",
+      "k12phys-ch13",
+      "k12phys-ch13-s01",
+      "k12phys-ch13-s01-lo03",
+      "k12phys-ch13-ex022",
+      "exid:k12phys-ch13-ex022",
+      "context-cnxmod:a5178865-641d-456e-88bd-e63f49269712",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:8e6e15f8-a69b-4895-8d27-23eeb265a31f",
+      "context-cnxmod:d57f8140-9072-40fb-abbb-4f1ded13bdcf",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
     "uid": "6874@6"
   },
   {
     "answers": [
       {
-        "id": 397402,
-        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "id": 380643,
+        "content_html": "Sound waves are mechanical waves and require a medium to propagate. Light waves can travel through a vacuum.",
         "correctness": "1.0",
-        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+        "feedback_html": "Yes, all mechanical waves require a medium to travel through, but electromagnetic waves do not require a medium to travel through."
       },
       {
-        "id": 397403,
-        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 380640,
+        "content_html": "Sound waves are electromagnetic waves and require a medium to propagate. Light waves can travel through a vacuum.",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology."
+        "feedback_html": "Recall that sound waves are not electromagnetic waves."
       },
       {
-        "id": 397404,
-        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 380641,
+        "content_html": "Light waves are mechanical waves and do not require a medium to propagate; sound waves require a medium to propagate.",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "Light waves are not mechanical waves."
       },
       {
-        "id": 397405,
-        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 380642,
+        "content_html": "Light waves are longitudinal waves and do not require a medium to propagate; sound waves require a medium to propagate.",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "Light waves are electromagnetic waves."
       }
     ],
-    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
-    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "uid": "6@7"
+    "group_uuid": "6f8051e8-8fbd-47a2-95d2-acf945761286",
+    "stem_html": "Why can light travel through outer space while sound cannot?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:16-9-1",
+      "k12phys-ch13",
+      "k12phys-ch13-s01",
+      "k12phys-ch13-s01-lo01",
+      "k12phys-ch13-ex024",
+      "exid:k12phys-ch13-ex024",
+      "context-cnxmod:a5178865-641d-456e-88bd-e63f49269712",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:8e6e15f8-a69b-4895-8d27-23eeb265a31f",
+      "context-cnxmod:d57f8140-9072-40fb-abbb-4f1ded13bdcf",
+      "aplo:stax-apphys:6.A.2.2"
+    ],
+    "uid": "6876@5"
   },
   {
     "answers": [
@@ -188,7 +284,29 @@
     ],
     "group_uuid": "da09ab45-afb5-486f-a57d-3b2b08a73bf4",
     "stem_html": "How is the propagation of sound in solids different from that in air?",
-    "tags": "da09ab45-afb5-486f-a57d-3b2b08a73bf4",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s01",
+      "k12phys-ch13-s01-lo03",
+      "k12phys-ch13-ex026",
+      "lo:stax-phys:17-1-2",
+      "exid:k12phys-ch13-ex026",
+      "context-cnxmod:a5178865-641d-456e-88bd-e63f49269712",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0a187066-b005-470a-825f-a423a4a6a6e7",
+      "context-cnxmod:cd60ca75-63b0-4b28-8e10-a374eebfc382",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
     "uid": "6878@5"
   }
 ]
