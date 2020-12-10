@@ -1,0 +1,513 @@
+[
+  {
+    "answers": [
+      {
+        "id": 207708,
+        "content_html": "The existence of the charm quark was symmetrical with up and down quarks. Additionally, there were two known leptons at the time and only two quarks.",
+        "correctness": "0.0",
+        "feedback_html": "There were three known quarks at that time."
+      },
+      {
+        "id": 207711,
+        "content_html": "The strange particle lacked the symmetry that existed with the up and down quarks. Additionally, there were four known leptons at the time and only three quarks.",
+        "correctness": "1.0",
+        "feedback_html": "There were four known leptons at the time and only three quarks. Also, the strange particle lacked the symmetry that existed with the up and down quarks"
+      },
+      {
+        "id": 207709,
+        "content_html": "The bottom particle lacked the symmetry that existed with the up and down quarks. Additionally, there were two known leptons at the time and only two quarks.",
+        "correctness": "0.0",
+        "feedback_html": "There were four known leptons at that time."
+      },
+      {
+        "id": 207710,
+        "content_html": "The existence of charm quarks was symmetrical with up and down quarks. Additionally, there were four known leptons at the time and only three quarks.",
+        "correctness": "0.0",
+        "feedback_html": "The strange particle lacked the symmetry that existed with the up and down quarks."
+      }
+    ],
+    "group_uuid": "45e0fa5b-a0ad-4743-a48a-a83881cab4d6",
+    "stem_html": "Why was the existence of the charm quark speculated, even though no direct evidence of it existed?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:33-5-3",
+      "k12phys-ch23",
+      "k12phys-ch23-s02",
+      "k12phys-ch23-s02-lo01",
+      "k12phys-ch23-ex028",
+      "exid:k12phys-ch23-ex028",
+      "context-cnxmod:bd12958e-b4bb-47d4-80f4-546b961c29d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:6cd5137c-4c27-4175-a5e7-caf448561fd7",
+      "context-cnxmod:e2c852b6-a97f-45bc-898a-229aa2f10c8f"
+    ],
+    "uid": "11654@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 272371,
+        "content_html": "Hadrons are constructed of at least three fundamental quark particles, while leptons are fundamental particles.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, hadrons are constructed of at least two fundamental quark particles."
+      },
+      {
+        "id": 272372,
+        "content_html": "Hadrons are constructed of at least three fundamental quark particles, while leptons are constructed of two fundamental particles.",
+        "correctness": "0.0",
+        "feedback_html": "Hadrons are constructed of at least two fundamental quark particles."
+      },
+      {
+        "id": 272373,
+        "content_html": "Hadrons are constructed of at least two fundamental quark particles, while leptons are constructed of three fundamental particles.",
+        "correctness": "0.0",
+        "feedback_html": "Leptons are present in the form of one fundamental particle."
+      },
+      {
+        "id": 272374,
+        "content_html": "Hadrons are constructed of at least two fundamental quark particles, while leptons are fundamental particles.",
+        "correctness": "1.0",
+        "feedback_html": "Hadrons are constructed of at least two fundamental quark particles, while leptons are fundamental particles."
+      }
+    ],
+    "group_uuid": "3eec675d-9218-491d-ab85-aaa62702df96",
+    "stem_html": "How do the number of fundamental particles differ between hadrons and leptons?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:33-4-2",
+      "k12phys-ch23",
+      "k12phys-ch23-s02",
+      "k12phys-ch23-s02-lo02",
+      "k12phys-ch23-ex030",
+      "exid:k12phys-ch23-ex030",
+      "context-cnxmod:bd12958e-b4bb-47d4-80f4-546b961c29d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:5a0066ad-604d-48cc-b6c9-b3d06e154d7d",
+      "context-cnxmod:a6d9a6e0-b84d-4d7d-a00b-dc9ff0cf9a82"
+    ],
+    "uid": "11660@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 207753,
+        "content_html": "The sum of the masses of an electron and a positron is equal to the mass of the photon before pair production. The sum of the charges on an electron and a positron is equal to the zero charge of the photon.",
+        "correctness": "0.0",
+        "feedback_html": "A photon is a massless particle. Hence, before pair production the total mass of the photon was zero."
+      },
+      {
+        "id": 207754,
+        "content_html": "The sum of the masses of an electron and a positron is equal to the mass of the photon before pair production. The sum of the same charges on an electron and a positron is equal to the charge on a photon.",
+        "correctness": "0.0",
+        "feedback_html": "Since photons are massless particles, the total mass of a photon before pair production is zero. The electron and positron are antiparticles."
+      },
+      {
+        "id": 207756,
+        "content_html": "During the particle production the total energy of the photon is converted to the mass of an electron and a positron. The sum of the opposite charges on the electron and positron is equal to the zero charge of the photon.",
+        "correctness": "1.0",
+        "feedback_html": "The electron and positron have opposite charges, which add up to match the zero charge of the photon. While the mass of the combined electron and positron is not equal to the massless photon, the photon’s energy is converted to mass when it slows upon particle production."
+      },
+      {
+        "id": 207755,
+        "content_html": "During particle production, the total energy of the photon is converted to the mass of an electron and a positron. The sum of the same charges on an electron and a positron is equal to the charge on a photon.",
+        "correctness": "0.0",
+        "feedback_html": "An electron and a positron are a pair of antiparticles. The sum of charges on an electron and a positron is zero."
+      }
+    ],
+    "group_uuid": "72e95f57-423b-4c17-b359-5f13d1e019fc",
+    "stem_html": "How does the deconstruction of a photon into an electron and a positron uphold the principles of mass and charge conservation?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s02",
+      "k12phys-ch23-s02-lo03",
+      "k12phys-ch23-ex032",
+      "exid:k12phys-ch23-ex032",
+      "context-cnxmod:bd12958e-b4bb-47d4-80f4-546b961c29d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:5a0066ad-604d-48cc-b6c9-b3d06e154d7d",
+      "lo:stax-phys:33-4-1",
+      "context-cnxmod:a6d9a6e0-b84d-4d7d-a00b-dc9ff0cf9a82"
+    ],
+    "uid": "11666@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 310946,
+        "content_html": "The leptons in the third and fourth rows do not have mass, but the gluons can interact between the quarks through gravity only.",
+        "correctness": "0.0",
+        "feedback_html": "Think about what force and charge gluons interact with."
+      },
+      {
+        "id": 310947,
+        "content_html": "The leptons in the third and fourth rows do not have color, but the gluons can interact between quarks through color interactions only.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, gluons can interact between quarks through color interactions described by quantum chromodynamics. The leptons in the third and fourth rows do not have color."
+      },
+      {
+        "id": 310948,
+        "content_html": "The leptons in the third and fourth rows do not have spin, but the gluons can interact between quarks through spin interactions only.",
+        "correctness": "0.0",
+        "feedback_html": "Think about what force and charge gluons interact with."
+      },
+      {
+        "id": 310949,
+        "content_html": "The leptons in the third and fourth rows do not have charge, but the gluons can interact between quarks through charge interactions only.",
+        "correctness": "0.0",
+        "feedback_html": "The gluons do not interact between quarks through charge interactions only."
+      }
+    ],
+    "group_uuid": "808bda9c-0b69-4deb-9ec8-316139c12b8a",
+    "stem_html": "Why do gluons interact only with particles in the first two rows of the Standard Model?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "lo:stax-phys:33-6-4",
+      "k12phys-ch23",
+      "k12phys-ch23-s02",
+      "k12phys-ch23-s02-lo04",
+      "k12phys-ch23-ex034",
+      "exid:k12phys-ch23-ex034",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11672@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 272867,
+        "content_html": "More massive particles interact more with the Higgs field than the less massive particles.",
+        "correctness": "1.0",
+        "feedback_html": "The strength of interaction between the field and the particles differentiates more massive particles from less massive particles. A greater interaction is the result of larger masses."
+      },
+      {
+        "id": 272868,
+        "content_html": "More massive particles interact less with the Higgs field than the less massive particles.",
+        "correctness": "0.0",
+        "feedback_html": "The strength of the interaction is greater for more massive particles than for less massive particles."
+      }
+    ],
+    "group_uuid": "58ecc350-ea4c-4f74-8668-b9971689d828",
+    "stem_html": "Considering the Higgs field, what differentiates more massive particles from less massive particles?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s02",
+      "k12phys-ch23-s02-lo05",
+      "k12phys-ch23-ex036",
+      "exid:k12phys-ch23-ex036",
+      "context-cnxmod:bd12958e-b4bb-47d4-80f4-546b961c29d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "lo:stax-phys:33-6-1",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11678@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 272981,
+        "content_html": "During their invention, both the Standard Model and the periodic table organized material by mass.",
+        "correctness": "1.0",
+        "feedback_html": "During their invention, both the Standard Model and the periodic table sought to bring structure to the perceived fundamental particles of their era. Both the model and the table organize material by mass and other important properties of their respective times."
+      },
+      {
+        "id": 272982,
+        "content_html": "At the times of their invention, both the Standard Model and the periodic table organized material by charge.",
+        "correctness": "0.0",
+        "feedback_html": "Think about what you know about the periodic table."
+      },
+      {
+        "id": 272983,
+        "content_html": "At the times of their invention, both the Standard Model and the periodic table organized material by interaction with other available particles.",
+        "correctness": "0.0",
+        "feedback_html": "Think about what you know about the periodic table."
+      },
+      {
+        "id": 272984,
+        "content_html": "At the times of their invention, both the Standard Model and the periodic table organized material by size.",
+        "correctness": "0.0",
+        "feedback_html": "Think about what you know about the periodic table."
+      }
+    ],
+    "group_uuid": "ab9f8a9b-2fdf-481e-af99-76c8ef63d925",
+    "stem_html": "What similarities exist between the Standard Model and the periodic table of elements?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:medium",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:33-6-4",
+      "k12phys-ch23",
+      "k12phys-ch23-s02",
+      "k12phys-ch23-s02-lo04",
+      "k12phys-ch23-ex045",
+      "exid:k12phys-ch23-ex045",
+      "context-cnxmod:bd12958e-b4bb-47d4-80f4-546b961c29d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11704@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 272499,
+        "content_html": "There is a smaller amount of antimatter than matter in the universe; antimatter is quickly annihilated by its matter analogue.",
+        "correctness": "1.0",
+        "feedback_html": "Antimatter is annihilated as soon as it comes in contact with its matter analogue."
+      },
+      {
+        "id": 272500,
+        "content_html": "There is a smaller amount of matter than antimatter in the universe; matter is annihilated by its antimatter analogue.",
+        "correctness": "0.0",
+        "feedback_html": "The amount of matter is more than the amount of antimatter in the universe."
+      },
+      {
+        "id": 272501,
+        "content_html": "There is a smaller amount of antimatter than matter in universe; antimatter and its matter analogue coexist.",
+        "correctness": "0.0",
+        "feedback_html": "Antimatter and matter cannot coexist."
+      },
+      {
+        "id": 272502,
+        "content_html": "There is a smaller amount of matter than antimatter in the universe; matter and its antimatter analogue coexist.",
+        "correctness": "0.0",
+        "feedback_html": "Matter and its antimatter analogue do not coexist."
+      }
+    ],
+    "group_uuid": "d938ffe2-3c83-4462-9b81-1d389e4ca045",
+    "stem_html": "If antimatter exists, why is it so difficult to find?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s02",
+      "k12phys-ch23-s02-lo03",
+      "k12phys-ch23-ex056",
+      "exid:k12phys-ch23-ex056",
+      "context-cnxmod:bd12958e-b4bb-47d4-80f4-546b961c29d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5a0066ad-604d-48cc-b6c9-b3d06e154d7d",
+      "lo:stax-phys:33-4-1",
+      "context-cnxmod:a6d9a6e0-b84d-4d7d-a00b-dc9ff0cf9a82"
+    ],
+    "uid": "11719@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 207953,
+        "content_html": "The four fundamental forces are represented by their carrier particles, the electrons.",
+        "correctness": "0.0",
+        "feedback_html": "Electrons are leptons, not carrier particles."
+      },
+      {
+        "id": 207954,
+        "content_html": "The four fundamental forces are represented by their carrier particles, the gauge bosons.",
+        "correctness": "1.0",
+        "feedback_html": "Fundamental forces of nature are mediated by bosons."
+      },
+      {
+        "id": 207952,
+        "content_html": "The four fundamental forces are represented by their carrier particles, the leptons.",
+        "correctness": "0.0",
+        "feedback_html": "Leptons do not interact with strong nuclear forces."
+      },
+      {
+        "id": 207951,
+        "content_html": "The four fundamental forces are represented by their carrier particles, the quarks.",
+        "correctness": "0.0",
+        "feedback_html": "Quarks form substructures of hadrons."
+      }
+    ],
+    "group_uuid": "719027de-e0a3-4d53-a44d-bee2478ee87d",
+    "stem_html": "How are the four fundamental forces incorporated into the Standard Model of the atom?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:33-6-4",
+      "k12phys-ch23",
+      "k12phys-ch23-s02",
+      "k12phys-ch23-s02-lo04",
+      "k12phys-ch23-ex058",
+      "exid:k12phys-ch23-ex058",
+      "context-cnxmod:bd12958e-b4bb-47d4-80f4-546b961c29d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11721@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 207962,
+        "content_html": "The Higgs field slows down passing particles; the decrease in kinetic energy is transferred to the particle’s mass.",
+        "correctness": "1.0",
+        "feedback_html": "The reduction in kinetic energy of a particle passing through the Higgs field is transferred to the particle’s mass."
+      },
+      {
+        "id": 207961,
+        "content_html": "The Higgs field accelerates passing particles; the decrease in kinetic energy is transferred to the particle’s mass.",
+        "correctness": "0.0",
+        "feedback_html": "The Higgs field slows down particles passing through it."
+      },
+      {
+        "id": 207960,
+        "content_html": "The Higgs field slows down passing particles; the increase in kinetic energy is transferred to the particle’s mass.",
+        "correctness": "0.0",
+        "feedback_html": "The kinetic energy of a particle decreases as its speed decreases."
+      },
+      {
+        "id": 207959,
+        "content_html": "The Higgs field accelerates passing particles; the increase in kinetic energy is transferred to the particle’s mass.",
+        "correctness": "0.0",
+        "feedback_html": "The Higgs field slows down passing particles. It is responsible for particles having mass."
+      }
+    ],
+    "group_uuid": "fb1d8c31-7581-4d0e-98eb-78c3ab520d5c",
+    "stem_html": "How can a particle gain mass by traveling through the Higgs field?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s02",
+      "k12phys-ch23-s02-lo05",
+      "k12phys-ch23-ex060",
+      "exid:k12phys-ch23-ex060",
+      "context-cnxmod:bd12958e-b4bb-47d4-80f4-546b961c29d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "lo:stax-phys:33-6-1",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11723@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 273041,
+        "content_html": "If the velocity of the neutrino is known, then the upper limit on mass of the neutrino can be set.",
+        "correctness": "0.0",
+        "feedback_html": "Think about how you would perform this calculation."
+      },
+      {
+        "id": 273042,
+        "content_html": "If only the kinetic energy of the neutrino is known, then the upper limit on mass of the neutrino can be set.",
+        "correctness": "0.0",
+        "feedback_html": "Think about how you would perform this calculation."
+      },
+      {
+        "id": 273043,
+        "content_html": "If either the velocity or the kinetic energy is known, then the upper limit on the mass of the neutrino can be set.",
+        "correctness": "0.0",
+        "feedback_html": "Think about how you would perform this calculation."
+      },
+      {
+        "id": 273044,
+        "content_html": "If both the kinetic energy and the velocity of the neutrino are known, then the upper limit on the mass of the neutrino can be set.",
+        "correctness": "1.0",
+        "feedback_html": "The equation <span data-math=\"\\text{KE}_{\\text{rel}} = \\left(\\gamma - 1\\right)mc^{2}\">\\text{KE}_{\\text{rel}} = \\left(\\gamma - 1\\right)mc^{2}</span> can be used to calculate the mass of the neutrino, if the kinetic energy and velocity of the neutrino are known."
+      }
+    ],
+    "group_uuid": "b06bd5bb-2e0c-4c08-b763-edb0d4efb280",
+    "stem_html": "When a star erupts in a supernova explosion, huge numbers of electron neutrinos are formed in nuclear reactions. Such neutrinos from the 1987A supernova in the relatively nearby Magellanic Cloud were observed within hours of the initial brightening, indicating that they traveled to earth at approximately the speed of light. Explain how this data can be used to set an upper limit on the mass of the neutrino.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:33-6-4",
+      "k12phys-ch23",
+      "k12phys-ch23-s02",
+      "k12phys-ch23-s02-lo04",
+      "k12phys-ch23-ex065",
+      "exid:k12phys-ch23-ex065",
+      "context-cnxmod:bd12958e-b4bb-47d4-80f4-546b961c29d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11728@6"
+  }
+]

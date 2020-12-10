@@ -1,0 +1,215 @@
+[
+  {
+    "answers": [
+      {
+        "id": 272157,
+        "content_html": "The rate of voltage oscillation increases as the particle travels faster and faster on each loop.",
+        "correctness": "1.0",
+        "feedback_html": "The rate of voltage oscillation increases as the particle travels faster and faster on each loop."
+      },
+      {
+        "id": 272158,
+        "content_html": "The rate of voltage oscillation decreases as the particle travels faster and faster on each loop.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of voltage oscillation does not decrease, as the particle travels faster and faster on each loop."
+      },
+      {
+        "id": 272159,
+        "content_html": "The rate of voltage oscillation remains the same each time the particle completes a loop.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of voltage oscillation does not remain the same, as the particle travels faster and faster on each loop."
+      },
+      {
+        "id": 272160,
+        "content_html": "The rate of voltage oscillation first increases and then remains constant each time the particle completes a loop.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of voltage oscillation increases, but it does not remain constant."
+      }
+    ],
+    "group_uuid": "e7dd79bd-53ac-44b0-a65d-8b05b2453bc0",
+    "stem_html": "What happens to the rate of voltage oscillation within a synchrotron each time the particle completes a loop?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:33-3-2",
+      "k12phys-ch23",
+      "k12phys-ch23-s01",
+      "k12phys-ch23-s01-lo03",
+      "k12phys-ch23-ex010",
+      "exid:k12phys-ch23-ex010",
+      "context-cnxmod:4e6ebed4-c8ad-4998-8449-fcb7714b782c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:4c111ec0-8783-4adf-90f0-f4a274e77cc1",
+      "context-cnxmod:0c76efab-951f-4cc0-8b85-afc11c8a829c"
+    ],
+    "uid": "11627@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 207655,
+        "content_html": "It increases accelerating capacity.",
+        "correctness": "1.0",
+        "feedback_html": "Accelerating capacity increases with increasing electric potential for a Van de Graaff generator."
+      },
+      {
+        "id": 207654,
+        "content_html": "It decreases accelerating capacity.",
+        "correctness": "0.0",
+        "feedback_html": "Accelerating capacity decreases with decreasing electric potential for a Van de Graaff generator."
+      },
+      {
+        "id": 207653,
+        "content_html": "The accelerating capacity of a Van de Graaff generator is constant regardless of electric potential.",
+        "correctness": "0.0",
+        "feedback_html": "The electric potential is related to the accelerating capacity of the generator."
+      },
+      {
+        "id": 207652,
+        "content_html": "Van de Graaff generators do not have the capacity to accelerate particles.",
+        "correctness": "0.0",
+        "feedback_html": "Van de Graaff generators do accelerate particles."
+      }
+    ],
+    "group_uuid": "7d75beef-a5c1-4eee-b0be-57022c100764",
+    "stem_html": "What effect does an increase in electric potential have on the accelerating capacity of a Van de Graaff generator?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:33-3-3",
+      "k12phys-ch23",
+      "k12phys-ch23-s01",
+      "k12phys-ch23-s01-lo03",
+      "k12phys-ch23-ex016",
+      "exid:k12phys-ch23-ex016",
+      "context-cnxmod:4e6ebed4-c8ad-4998-8449-fcb7714b782c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:4c111ec0-8783-4adf-90f0-f4a274e77cc1",
+      "context-cnxmod:0c76efab-951f-4cc0-8b85-afc11c8a829c"
+    ],
+    "uid": "11640@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 271965,
+        "content_html": "Carrier particles carry mass from one location to another within a force field.",
+        "correctness": "0.0",
+        "feedback_html": "Mass is not necessarily carried by carrier particles."
+      },
+      {
+        "id": 271966,
+        "content_html": "Carrier particles carry force from one location to another within a force field.",
+        "correctness": "1.0",
+        "feedback_html": "Carrier particles carry force from one location to another within a force field."
+      },
+      {
+        "id": 271967,
+        "content_html": "Carrier particles carry charge from one location to another within a force field.",
+        "correctness": "0.0",
+        "feedback_html": "Charge is not always carried by carrier particles"
+      },
+      {
+        "id": 271968,
+        "content_html": "Carrier particles carry volume from one location to another within a force field.",
+        "correctness": "0.0",
+        "feedback_html": "Volume is not carried by carrier particles."
+      }
+    ],
+    "group_uuid": "a1f8a1ec-e863-4223-a629-d8910dfb2849",
+    "stem_html": "How do carrier particles relate to the concept of a force field?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:33-1-1",
+      "k12phys-ch23",
+      "k12phys-ch23-s01",
+      "k12phys-ch23-s01-lo02",
+      "k12phys-ch23-ex019",
+      "exid:k12phys-ch23-ex019",
+      "context-cnxmod:4e6ebed4-c8ad-4998-8449-fcb7714b782c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5c8c4ce8-bb26-4f80-a6d8-92d1fb6a96e3",
+      "context-cnxmod:d85b401c-83b6-48d7-9f7f-4622717b312a"
+    ],
+    "uid": "11643@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 391957,
+        "content_html": "By using a large radius, high particle velocities can be achieved using a large centripetal force created by large electromagnets.",
+        "correctness": "0.0",
+        "feedback_html": "The design strategy is to reduce, not utilize, centripetal force."
+      },
+      {
+        "id": 391960,
+        "content_html": "By using a large radius, high particle velocities can be achieved without a large centripetal force created by large electromagnets.",
+        "correctness": "1.0",
+        "feedback_html": "The high energies needed in a synchrotron can only be achieved by fast-moving particles, and centripetal force can be reduced with a larger radius."
+      },
+      {
+        "id": 391958,
+        "content_html": "By using a large radius, the velocities of particles can be reduced without a large centripetal force created by large electromagnets.",
+        "correctness": "0.0",
+        "feedback_html": "The purpose is not to reduce the velocities."
+      },
+      {
+        "id": 391959,
+        "content_html": "By using a large radius, the acceleration of particles can be decreased without a large centripetal force created by large electromagnets.",
+        "correctness": "0.0",
+        "feedback_html": "By using a large radius, high velocities can be achieved. This is possible only when acceleration increases."
+      }
+    ],
+    "group_uuid": "5d8974ca-6624-4284-ad64-2cf4a9201ba8",
+    "stem_html": "Why are synchrotrons constructed to be very large?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:33-3-2",
+      "k12phys-ch23",
+      "k12phys-ch23-s01",
+      "k12phys-ch23-s01-lo03",
+      "k12phys-ch23-ex025",
+      "exid:k12phys-ch23-ex025",
+      "context-cnxmod:4e6ebed4-c8ad-4998-8449-fcb7714b782c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:4c111ec0-8783-4adf-90f0-f4a274e77cc1",
+      "context-cnxmod:0c76efab-951f-4cc0-8b85-afc11c8a829c",
+      "aplo:stax-apphys:2.D.1.1"
+    ],
+    "uid": "11649@5"
+  }
+]

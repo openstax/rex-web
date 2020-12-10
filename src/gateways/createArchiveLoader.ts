@@ -10,7 +10,15 @@ interface Extras {
   }>;
 }
 
-export default (url: string) => {
+/*
+ * appUrl is reported to the app for the resolving of relative assets in the content.
+ * there are situatons such as pre-rendering using a local proxy where this is different
+ * from the actual url that is fetched from.
+ */
+export default (backendUrl: string, appUrl: string = backendUrl) => {
+
+  const contentUrl = (base: string, ref: string) => `${base}/contents/${ref}.json`;
+
   const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
     .then(acceptStatus(200, (status, message) => `Error response from archive "${fetchUrl}" ${status}: ${message}`))
     .then((response) => response.json() as Promise<T>);
@@ -21,7 +29,7 @@ export default (url: string) => {
       return Promise.resolve(cached);
     }
 
-    return archiveFetch<C>(`${url}/contents/${id}.json`)
+    return archiveFetch<C>(contentUrl(backendUrl, id))
       .then((response) => {
         cache.set(id, response);
         return response;
@@ -42,7 +50,7 @@ export default (url: string) => {
       return Promise.resolve(cached);
     }
 
-    return archiveFetch<Extras>(`${url}/extras/${pageId}`)
+    return archiveFetch<Extras>(`${backendUrl}/extras/${pageId}`)
       .then(({books}) => books.map(({ident_hash}) => {
         return {
           bookVersion: getIdVersion(ident_hash),
@@ -63,10 +71,14 @@ export default (url: string) => {
         cached: () => bookCache.get(bookRef),
         load: () => bookLoader(bookRef),
 
-        page: (pageId: string) => ({
-          cached: () => pageCache.get(`${bookRef}:${pageId}`),
-          load: () => pageLoader(`${bookRef}:${pageId}`),
-        }),
+        page: (pageId: string) => {
+          const bookAndPageUrl = `${bookRef}:${pageId}`;
+          return {
+            cached: () => pageCache.get(bookAndPageUrl),
+            load: () => pageLoader(bookAndPageUrl),
+            url: () => contentUrl(appUrl, bookAndPageUrl),
+          };
+        },
       };
     },
     getBookIdsForPage,

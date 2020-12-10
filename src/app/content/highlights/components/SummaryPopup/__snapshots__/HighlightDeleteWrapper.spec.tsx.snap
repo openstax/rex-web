@@ -13,7 +13,7 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
     className="styles__HighlightEditButtons-sc-1t1yajj-0 JvKbW"
   >
     <button
-      className="Button-ayg7nk-0 gkTzYh"
+      className="Button-ayg7nk-0 bBYlAl"
       data-analytics-label="delete"
       data-testid="delete"
       onClick={[Function]}
@@ -21,7 +21,7 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
       Delete
     </button>
     <button
-      className="Button-ayg7nk-0 cwXHAf"
+      className="Button-ayg7nk-0 bmzHbc"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}

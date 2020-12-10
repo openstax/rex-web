@@ -1,0 +1,54 @@
+[
+  {
+    "answers": [
+      {
+        "id": 273729,
+        "content_html": "<span data-math=\"25\">25</span>",
+        "correctness": "0.0",
+        "feedback_html": "The ratio of binding energy to atomic mass is high for an element with Z = 25, but the ratio is higher for another element."
+      },
+      {
+        "id": 273730,
+        "content_html": "<span data-math=\"26\">26</span>",
+        "correctness": "1.0",
+        "feedback_html": "Iron is most strongly bound nuclide."
+      },
+      {
+        "id": 273731,
+        "content_html": "<span data-math=\"27\">27</span>",
+        "correctness": "0.0",
+        "feedback_html": "The ratio of binding energy to atomic mass is high for an element with Z = 27, but the ratio is higher for another element."
+      },
+      {
+        "id": 273732,
+        "content_html": "<span data-math=\"28\">28</span>",
+        "correctness": "0.0",
+        "feedback_html": "The ratio of binding energy to atomic mass is high for an element with Z = 28, but the ratio is higher for another element."
+      }
+    ],
+    "group_uuid": "d95384f2-1330-4582-9d81-1af0eae17b48",
+    "stem_html": "What is the atomic number of the most strongly bound nuclide?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:medium",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "context-cnxmod:e12b60f5-72df-401e-a1b1-7f13fd61eee0",
+      "lo:stax-phys:31-3-5",
+      "k12phys-ch22",
+      "k12phys-ch22-s04",
+      "k12phys-ch22-s04-lo02",
+      "k12phys-ch22-ex114",
+      "exid:k12phys-ch22-ex114",
+      "context-cnxmod:be2fae46-de83-47a6-8685-be6f74b512bc",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice"
+    ],
+    "uid": "11591@5"
+  }
+]

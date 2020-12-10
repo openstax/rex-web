@@ -1,0 +1,219 @@
+[
+  {
+    "answers": [
+      {
+        "id": 375741,
+        "content_html": "<span data-math=\"1.93 \\times 10^4\\,\\text{N/m}\">1.93 \\times 10^4\\,\\text{N/m}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Using Hooke’s Law, the value of the force constant comes out to be <span data-math=\"1.93 \\times 10^4\\,\\text{N/m}\">1.93 \\times 10^4\\,\\text{N/m}</span>."
+      },
+      {
+        "id": 375738,
+        "content_html": "<span data-math=\"1.97 \\times 10^3\\,\\text{N/m}\">1.97 \\times 10^3\\,\\text{N/m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The force will be the weight of the <span data-math=\"65\\,\\text{kg}\">65\\,\\text{kg}</span> person sitting inside the car. Try to find weight when mass is given."
+      },
+      {
+        "id": 375739,
+        "content_html": "<span data-math=\"1.93 \\times 10^2\\,\\text{N/m}\">1.93 \\times 10^2\\,\\text{N/m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Be careful about the units. Keep all quantities in SI units, to obtain the force constant in <span data-math=\"\\text{N/m}\">\\text{N/m}</span>."
+      },
+      {
+        "id": 375740,
+        "content_html": "<span data-math=\"1.97 \\times 10^1\\,\\text{N/m}\">1.97 \\times 10^1\\,\\text{N/m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The force is mass times acceleration due to gravity. Also, convert the displacement of the suspension system given in centimeters to meters, so that the unit for the force constant is <span data-math=\"\\text{N/m}\">\\text{N/m}</span>."
+      }
+    ],
+    "group_uuid": "b80b96ed-3889-447f-a9df-d3a530d767eb",
+    "stem_html": "What is the force constant for the suspension system of a car that settles <span data-math=\"3.3\\,\\text{cm}\">3.3\\,\\text{cm}</span> when a <span data-math=\"65\\,\\text{kg}\">65\\,\\text{kg}</span> person gets in?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch05",
+      "k12phys-ch05-s05",
+      "k12phys-ch05-s05-lo03",
+      "k12phys-ch05-ex093",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch05-ex093",
+      "context-cnxmod:df240793-be71-40fd-a89a-32297997091e",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:7-4-2",
+      "context-cnxmod:5e6d343c-740b-41e5-9fd3-4539f5cf2fba",
+      "context-cnxmod:383e8423-1b6b-4a7d-8ced-39e7baaf235e",
+      "aplo:stax-apphys:4.C.1.2",
+      "aplo:stax-apphys:4.C.2.1",
+      "aplo:stax-apphys:5.B.4.2"
+    ],
+    "uid": "2289@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 375752,
+        "content_html": "The negative sign indicates that displacement decreases with increasing force.",
+        "correctness": "0.0",
+        "feedback_html": "Review Hooke’s law. Force is directly proportional to the displacement."
+      },
+      {
+        "id": 375751,
+        "content_html": "The negative sign indicates that the direction of the applied force is opposite to that of displacement.",
+        "correctness": "0.0",
+        "feedback_html": "Hooke’s law gives the equation <span data-math=\"F = {-k}x\">F = {-k}x</span>. Here, <span data-math=\"F\">F</span> is the restoring force, not the applied force."
+      },
+      {
+        "id": 375753,
+        "content_html": "The negative sign indicates that the direction of the restoring force is opposite to that of displacement.",
+        "correctness": "1.0",
+        "feedback_html": "The negative sign indicates that <span data-math=\"F\">F</span> and <span data-math=\"x\">x</span> must have opposite signs."
+      },
+      {
+        "id": 375750,
+        "content_html": "The negative sign indicates that the force constant must be negative.",
+        "correctness": "0.0",
+        "feedback_html": "Force constant is always a positive quantity."
+      }
+    ],
+    "group_uuid": "f4d4b751-f6a6-4af6-a7aa-435332272403",
+    "stem_html": "Why is there a negative sign in the equation for Hooke’s law?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch05",
+      "k12phys-ch05-s05",
+      "k12phys-ch05-s05-lo01",
+      "k12phys-ch05-ex099",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "context-cnxmod:a7c21260-3cf9-49cc-91f7-b631fa0c5d42",
+      "exid:k12phys-ch05-ex099",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:fd181570-802c-40cf-b217-441a935e2b65",
+      "lo:stax-phys:16-1-1",
+      "context-cnxmod:7607d20d-e471-4bea-8487-1092b5451930",
+      "aplo:stax-apphys:3.C.4.2"
+    ],
+    "uid": "2295@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 375773,
+        "content_html": "<span data-math=\"15^\\circ\">15^\\circ</span>",
+        "correctness": "1.0",
+        "feedback_html": "For larger angles, the motion is no longer governed by Hooke’s law."
+      },
+      {
+        "id": 375772,
+        "content_html": "<span data-math=\"45^\\circ\">45^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"45^\\circ\\!\">45^\\circ\\!</span> is one fourth of <span data-math=\"180^\\circ\\!\">180^\\circ\\!</span>. With this amplitude, the motion is not simple harmonic."
+      },
+      {
+        "id": 375771,
+        "content_html": "<span data-math=\"75^\\circ\">75^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "Think about how large this amplitude is; the motion of a simple pendulum is no longer a simple harmonic."
+      },
+      {
+        "id": 375770,
+        "content_html": "<span data-math=\"90^\\circ\">90^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "This amplitude is very large and the resulting motion won’t be simple harmonic in nature."
+      }
+    ],
+    "group_uuid": "b5a71574-96c0-42b6-be27-0fedce1e89d4",
+    "stem_html": "Up to approximately what angle is simple harmonic motion a good model for a pendulum?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch05",
+      "k12phys-ch05-s05",
+      "k12phys-ch05-s05-lo03",
+      "k12phys-ch05-ex107",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:16-3-1",
+      "exid:k12phys-ch05-ex107",
+      "context-cnxmod:df240793-be71-40fd-a89a-32297997091e",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:3cbdb423-0774-41fc-bec3-59c2f1480a86",
+      "context-cnxmod:c2680b92-cd9d-4395-9a63-fdca13379b71",
+      "aplo:stax-apphys:3.B.3.3"
+    ],
+    "uid": "2303@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 375808,
+        "content_html": "It will increase because <span data-math=\"g\">g</span> on the Moon is less than <span data-math=\"g\">g</span> on Earth.",
+        "correctness": "0.0",
+        "feedback_html": "Frequency is proportional to the square root of the acceleration due to gravity, so the frequency will decrease on the moon. "
+      },
+      {
+        "id": 375809,
+        "content_html": "It will decrease because <span data-math=\"g\">g</span> on the Moon is less than <span data-math=\"g\">g</span> on Earth.",
+        "correctness": "1.0",
+        "feedback_html": "Frequency is proportional to the square root of the acceleration due to gravity."
+      },
+      {
+        "id": 375807,
+        "content_html": "It will increase because <span data-math=\"g\">g</span> on the Moon is greater than <span data-math=\"g\">g</span> on Earth.",
+        "correctness": "0.0",
+        "feedback_html": "The Moon has less gravity than Earth. Recall the equation for the frequency of a simple pendulum."
+      },
+      {
+        "id": 375806,
+        "content_html": "It will decrease because <span data-math=\"g\">g</span> on the Moon is greater than <span data-math=\"g\">g</span> on Earth.",
+        "correctness": "0.0",
+        "feedback_html": "Gravity on the Moon is less than that on the Earth."
+      }
+    ],
+    "group_uuid": "7eecc426-e6ec-469a-8a2e-1b461224d8ca",
+    "stem_html": "If a pendulum from earth is taken to the moon, will its frequency increase or decrease? Why?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch05",
+      "k12phys-ch05-s05",
+      "k12phys-ch05-s05-lo03",
+      "k12phys-ch05-ex116",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:16-4-1",
+      "exid:k12phys-ch05-ex116",
+      "context-cnxmod:df240793-be71-40fd-a89a-32297997091e",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:10094ca7-1854-4ec5-94fb-d7de5fdd18d1",
+      "context-cnxmod:140ef9c3-f649-46c8-b7d6-d269231096c6",
+      "aplo:stax-apphys:3.B.3.1"
+    ],
+    "uid": "2312@7"
+  }
+]

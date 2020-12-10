@@ -1,0 +1,384 @@
+[
+  {
+    "answers": [
+      {
+        "id": 391981,
+        "content_html": "Quark Era, Grand Unification Epoch, Inflationary Epoch, Electroweak Epoch, Planck Epoch",
+        "correctness": "0.0",
+        "feedback_html": "After the Big Bang, the Planck Epoch is the earliest period."
+      },
+      {
+        "id": 391980,
+        "content_html": "Planck Epoch, Inflationary Epoch, Grand Unification Epoch, Electroweak Epoch, Quark Era",
+        "correctness": "0.0",
+        "feedback_html": "The Inflationary Epoch did not occur before the Grand Unification Epoch."
+      },
+      {
+        "id": 391979,
+        "content_html": "Planck Epoch, Electroweak Epoch, Grand Unification Epoch, Inflationary Epoch, Quark Era",
+        "correctness": "0.0",
+        "feedback_html": "Think about the relationship between the Grand Unification and Electroweak Epochs."
+      },
+      {
+        "id": 391982,
+        "content_html": "Planck Epoch, Grand Unification Epoch, Inflationary Epoch, Electroweak Epoch, Quark Era",
+        "correctness": "1.0",
+        "feedback_html": "The Quark Era was the period of evolution of the early universe."
+      }
+    ],
+    "group_uuid": "095f5d04-36ee-40fd-acdc-fc72377c646b",
+    "stem_html": "List the following eras in order of occurrence from the Big Bang: Electroweak Epoch, Grand Unification Epoch, Inflationary Epoch, Planck Epoch, Quark Era.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:34-1-1",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo02",
+      "k12phys-ch23-ex069",
+      "exid:k12phys-ch23-ex069",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:399cb4d1-0f14-44df-8a92-5c0d34ba3d57",
+      "context-cnxmod:410dda92-e868-4881-9695-965f05ea2df5",
+      "aplo:stax-apphys:5.B.4.1"
+    ],
+    "uid": "11736@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 208031,
+        "content_html": "No, there is not enough energy.",
+        "correctness": "1.0",
+        "feedback_html": "For GUT verification, the energy requirement is very high."
+      },
+      {
+        "id": 208030,
+        "content_html": "Yes, there is enough energy.",
+        "correctness": "0.0",
+        "feedback_html": "To unify the strong and electroweak forces, the energy required is very high."
+      }
+    ],
+    "group_uuid": "22863ce7-de03-423e-aebf-67b1d4dd5d53",
+    "stem_html": "Under current conditions, is it possible for scientists to use particle accelerators to verify the Grand Unified Theory?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo03",
+      "k12phys-ch23-ex071",
+      "exid:k12phys-ch23-ex071",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "lo:stax-phys:33-6-1",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11742@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 208055,
+        "content_html": "The unification of forces will help us understand fundamental structures of the universe.",
+        "correctness": "1.0",
+        "feedback_html": "The unification of fundamental forces provides further insight into the microscopic and macroscopic aspects of the universe."
+      },
+      {
+        "id": 208053,
+        "content_html": "The unification of forces will help in the proof of the graviton.",
+        "correctness": "0.0",
+        "feedback_html": "Discovery of the graviton will further imply the symmetry in fundamental forces."
+      },
+      {
+        "id": 208052,
+        "content_html": "The unification of forces will help in achieving a speed greater than the speed of light.",
+        "correctness": "0.0",
+        "feedback_html": "The speed of light is the maximum speed barrier beyond which no speed can be achieved."
+      },
+      {
+        "id": 208054,
+        "content_html": "The unification of forces will help in studying antimatter particles.",
+        "correctness": "0.0",
+        "feedback_html": "The unification of fundamental forces will provide further insight into the microscopic and macroscopic aspects of the universe."
+      }
+    ],
+    "group_uuid": "2fbe64b9-607a-4e25-bcbc-1f7bd8a56026",
+    "stem_html": "Why is the unification of fundamental forces important?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo01",
+      "k12phys-ch23-ex073",
+      "exid:k12phys-ch23-ex073",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "lo:stax-phys:33-6-1",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11748@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 208077,
+        "content_html": "Proton decay is a premise of a number of GUTs.",
+        "correctness": "1.0",
+        "feedback_html": "GUTs arrive at the conclusion that proton decay will take place."
+      },
+      {
+        "id": 208076,
+        "content_html": "Proton decay negates the validity of a number of GUTs.",
+        "correctness": "0.0",
+        "feedback_html": "Proton decay is a speculation of many GUTs."
+      }
+    ],
+    "group_uuid": "415686e1-4cd1-4cbb-adf9-572fb432ef15",
+    "stem_html": "What role does proton decay have in the search for GUTs?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo03",
+      "k12phys-ch23-ex075",
+      "exid:k12phys-ch23-ex075",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "lo:stax-phys:33-6-1",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11754@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 273108,
+        "content_html": "The electroweak force will have greater strength.",
+        "correctness": "0.0",
+        "feedback_html": "Will this necessarily lead to combination?"
+      },
+      {
+        "id": 273109,
+        "content_html": "The strong nuclear force and electroweak force will achieve the same strength.",
+        "correctness": "1.0",
+        "feedback_html": "The electroweak force will have same strength as the strong nuclear force at high energies."
+      },
+      {
+        "id": 273110,
+        "content_html": "The strong nuclear force will have greater strength.",
+        "correctness": "0.0",
+        "feedback_html": "Will this lead to combination?"
+      }
+    ],
+    "group_uuid": "6ed129e7-76bf-496f-8e80-04410a3edb09",
+    "stem_html": "Why do scientists believe that the strong nuclear force and the electroweak force will combine under high energies?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo01",
+      "k12phys-ch23-ex083",
+      "exid:k12phys-ch23-ex083",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "lo:stax-phys:33-6-1",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11767@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 392034,
+        "content_html": "<span data-math=\"10^{-43}\\, \\text{seconds}\">10^{-43}\\, \\text{seconds}</span>",
+        "correctness": "1.0",
+        "feedback_html": "All four forces would have existed as one force during the Planck Epoch, which lasted only <span data-math=\"10^{-43}\\, \\text{seconds}\">10^{-43}\\, \\text{seconds}</span> . This is the time between the beginning of the universe and the Big Bang."
+      },
+      {
+        "id": 392033,
+        "content_html": "<span data-math=\"10^{-41}\\, \\text{seconds}\">10^{-41}\\, \\text{seconds}</span>",
+        "correctness": "0.0",
+        "feedback_html": "All four forces would have existed as one force during the Planck Epoch."
+      },
+      {
+        "id": 392032,
+        "content_html": "<span data-math=\"10^{-39}\\, \\text{seconds}\">10^{-39}\\, \\text{seconds}</span>",
+        "correctness": "0.0",
+        "feedback_html": "All four forces would have existed as one force during the Planck Epoch."
+      },
+      {
+        "id": 392031,
+        "content_html": "<span data-math=\"10^{-38}\\, \\text{seconds}\">10^{-38}\\, \\text{seconds}</span>",
+        "correctness": "0.0",
+        "feedback_html": "All four forces would have existed as one force during the Planck Epoch."
+      }
+    ],
+    "group_uuid": "d344e5bf-c102-4161-9b23-17227e5e217a",
+    "stem_html": "While we can demonstrate the unification of certain forces within the laboratory, for how long were the four forces naturally unified within the universe?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:34-1-1",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo02",
+      "k12phys-ch23-ex085",
+      "exid:k12phys-ch23-ex085",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:399cb4d1-0f14-44df-8a92-5c0d34ba3d57",
+      "context-cnxmod:410dda92-e868-4881-9695-965f05ea2df5",
+      "aplo:stax-apphys:3.G.1.1"
+    ],
+    "uid": "11769@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 208140,
+        "content_html": "Proton decay is not a premise of all GUTs, and current GUTs can be amended in response to new findings.",
+        "correctness": "1.0",
+        "feedback_html": "Many GUTs do not have the premise of proton decay."
+      },
+      {
+        "id": 208139,
+        "content_html": "Proton decay is a premise of all GUTs, but current GUTs can be amended in response to new findings.",
+        "correctness": "0.0",
+        "feedback_html": "Not all GUTs have proton decay in their hypothesis."
+      }
+    ],
+    "group_uuid": "164b11a5-5580-47c9-8461-58c135126455",
+    "stem_html": "Why does finding proof that protons do not decay not disprove all GUTs?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:33-6-2",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo03",
+      "k12phys-ch23-ex087",
+      "exid:k12phys-ch23-ex087",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11771@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 310970,
+        "content_html": "The kinetic energy is converted into relativistic potential energy, governed by the equation <span data-math=\"E = \\lambda mch\">E = \\lambda mch</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The kinetic energy of accelerating particles is not converted into potential energy for subatomic particles."
+      },
+      {
+        "id": 310971,
+        "content_html": "The kinetic energy is converted into relativistic mass, governed by the equation <span data-math=\"E = \\lambda m^{2}c\">E = \\lambda m^{2}c</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The formula is incorrect for energy-mass conversion."
+      },
+      {
+        "id": 310972,
+        "content_html": "The kinetic energy is converted into relativistic potential energy, governed by the equation <span data-math=\"E = \\lambda mgh\">E = \\lambda mgh</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The kinetic energy is not converted into potential energy in the case of subatomic particles."
+      },
+      {
+        "id": 310973,
+        "content_html": "Their kinetic energy is converted into relativistic mass, governed by the equation <span data-math=\"E = \\lambda mc^{2}\">E = \\lambda mc^{2}</span>.",
+        "correctness": "1.0",
+        "feedback_html": "The kinetic energy of the particles is converted into mass, governed by Einstein’s equation."
+      }
+    ],
+    "group_uuid": "8fc1b55a-e51f-4470-b35c-ab193d11d594",
+    "stem_html": "Two pool balls collide head-on and stop. Their original kinetic energy is converted to heat and sound. Given that this is not possible for particles, what happens to their converted energy?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:medium",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:33-6-2",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo03",
+      "k12phys-ch23-ex091",
+      "exid:k12phys-ch23-ex091",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11775@6"
+  }
+]

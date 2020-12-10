@@ -1,0 +1,56 @@
+[
+  {
+    "answers": [
+      {
+        "id": 391867,
+        "content_html": "White light and an emission spectrum are different varieties of continuous distribution of frequencies.",
+        "correctness": "0.0",
+        "feedback_html": "An emission spectrum is a series of discrete frequencies."
+      },
+      {
+        "id": 391866,
+        "content_html": "White light and an emission spectrum are different series of discrete frequencies.",
+        "correctness": "0.0",
+        "feedback_html": "White light is a continuous distribution of frequencies."
+      },
+      {
+        "id": 391868,
+        "content_html": "White light is a continuous distribution of frequencies, and an emission spectrum is a series of discrete frequencies.",
+        "correctness": "1.0",
+        "feedback_html": "Recall the composition of white light and the composition of an emission spectrum."
+      },
+      {
+        "id": 391865,
+        "content_html": "White light is a series of discrete frequencies, and an emission spectrum is a continuous distribution of frequencies.",
+        "correctness": "0.0",
+        "feedback_html": "Descriptions of white light and emission spectrum are exchanged."
+      }
+    ],
+    "group_uuid": "fbabcd3d-77eb-417b-9de9-2dffa6c2f4fd",
+    "stem_html": "Why does the emission spectrum of an isolated gas differ from the emission spectrum created by a white light?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:medium",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:30-3-1",
+      "k12phys-ch22",
+      "k12phys-ch22-s01",
+      "k12phys-ch22-s01-lo02",
+      "k12phys-ch22-ex023",
+      "exid:k12phys-ch22-ex023",
+      "context-cnxmod:4b050135-8cff-43b0-b70b-dd8adea0bd37",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b31d1e59-ec8d-452f-bb0a-288af5338a46",
+      "context-cnxmod:3c5266a5-f611-4526-a101-f6328155a52b",
+      "aplo:stax-apphys:1.A.4.1"
+    ],
+    "uid": "11571@6"
+  }
+]

@@ -1,0 +1,214 @@
+[
+  {
+    "answers": [
+      {
+        "id": 207201,
+        "content_html": "The effect of the momentum would increase due to the decreased inertia of the sails.",
+        "correctness": "0.0",
+        "feedback_html": "The statement is correct that the effect of momentum would increase due to decreased inertia of the sails. But here the solar sails are constructed of more massive materials and so there must be an increase in the inertia of the sails."
+      },
+      {
+        "id": 207202,
+        "content_html": "The effect of the momentum would reduce due to the decreased inertia of the sails.",
+        "correctness": "0.0",
+        "feedback_html": "An increase in mass would lead to an increase in inertia."
+      },
+      {
+        "id": 207203,
+        "content_html": "The effect of the momentum would increase due to the increased inertia of the sails.",
+        "correctness": "0.0",
+        "feedback_html": "No, an increase in inertia of the sail would reduce the effect of momentum."
+      },
+      {
+        "id": 207204,
+        "content_html": "The effect of the momentum would be reduced due to the increased inertia of the sails.",
+        "correctness": "1.0",
+        "feedback_html": "Due to increase in the mass of the sail, its inertia will increase, and this increase in inertia would reduce the effect of the momentum."
+      }
+    ],
+    "group_uuid": "d69e1f4c-ef40-424d-9714-4322dd18bc74",
+    "stem_html": "If solar sails were constructed with more massive materials, how would this influence their effectiveness?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:4",
+      "book:stax-phys",
+      "k12phys-ch21",
+      "k12phys-ch21-s03",
+      "k12phys-ch21-s03-lo03",
+      "k12phys-ch21-ex076",
+      "exid:k12phys-ch21-ex076",
+      "context-cnxmod:ed71b8ba-ba66-40db-baf8-f7932a38371a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:c2b8ec86-d03a-46d9-9d42-49484a195ed8",
+      "lo:stax-phys:29-4-1",
+      "context-cnxmod:61a33ee4-2b3d-44b0-97cc-9d98d7d1ea94"
+    ],
+    "uid": "11517@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 391843,
+        "content_html": "No, an interference pattern will not emerge because helium atoms will strike a variety of locations on the screen.",
+        "correctness": "0.0",
+        "feedback_html": "Consider whether wave particle duality applies to helium atoms."
+      },
+      {
+        "id": 391842,
+        "content_html": "No, an interference pattern will not emerge because helium atoms will strike at certain locations on the screen.",
+        "correctness": "0.0",
+        "feedback_html": "Consider whether wave particle duality applies to helium atoms."
+      },
+      {
+        "id": 391844,
+        "content_html": "Yes, an interference pattern will emerge because helium atoms will strike a variety of locations on the screen.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, over time a pattern of helium atom strikes emerges as an interference pattern."
+      },
+      {
+        "id": 391841,
+        "content_html": "Yes, an interference pattern will emerge because helium atoms will strike at certain locations on the screen.",
+        "correctness": "0.0",
+        "feedback_html": "Consider whether wave particle duality applies to helium atoms."
+      }
+    ],
+    "group_uuid": "8a96458b-e967-4f78-a475-4db17f02c28b",
+    "stem_html": "If a beam of helium atoms is projected through two slits and onto a screen, will an interference pattern emerge?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:29-8-1",
+      "k12phys-ch21",
+      "k12phys-ch21-s03",
+      "k12phys-ch21-s03-lo04",
+      "k12phys-ch21-ex082",
+      "exid:k12phys-ch21-ex082",
+      "context-cnxmod:ed71b8ba-ba66-40db-baf8-f7932a38371a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:c00e454d-b6c2-4c78-ad85-ce2e91074590",
+      "context-cnxmod:9b0c944a-5226-4166-8872-d1b4bf8d05de",
+      "aplo:stax-apphys:6.G.2.1"
+    ],
+    "uid": "11534@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 207340,
+        "content_html": "The frequency of the photon will drop to zero.",
+        "correctness": "0.0",
+        "feedback_html": "This is impractical, since the photon does not lose all of its energy in a collision."
+      },
+      {
+        "id": 207339,
+        "content_html": "The frequency of the photon will remain the same.",
+        "correctness": "0.0",
+        "feedback_html": "Frequency is proportional to the energy of the photon. Since energy of the photon decreases in a collision, so frequency will also decrease."
+      },
+      {
+        "id": 207338,
+        "content_html": "The frequency of the photon will increase.",
+        "correctness": "0.0",
+        "feedback_html": "Energy in a collision decreases."
+      },
+      {
+        "id": 207341,
+        "content_html": "The frequency of the photon will decrease.",
+        "correctness": "1.0",
+        "feedback_html": "Upon collision, the photon loses some energy and hence its frequency decreases."
+      }
+    ],
+    "group_uuid": "d3e1f0ca-0d24-4ae2-9d39-0f55b20d8214",
+    "stem_html": "Upon collision, what happens to the frequency of a photon?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:29-4-2",
+      "k12phys-ch21",
+      "k12phys-ch21-s03",
+      "k12phys-ch21-s03-lo01",
+      "k12phys-ch21-ex092",
+      "exid:k12phys-ch21-ex092",
+      "context-cnxmod:ed71b8ba-ba66-40db-baf8-f7932a38371a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:c2b8ec86-d03a-46d9-9d42-49484a195ed8",
+      "context-cnxmod:61a33ee4-2b3d-44b0-97cc-9d98d7d1ea94"
+    ],
+    "uid": "11556@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 275243,
+        "content_html": "The release of light energy caused large-scale emission of electrons.",
+        "correctness": "0.0",
+        "feedback_html": "There was not a large emission of electrons at the blast site. Think about what happens during Compton scattering."
+      },
+      {
+        "id": 275244,
+        "content_html": "The release of light energy caused large-scale emission of protons.",
+        "correctness": "0.0",
+        "feedback_html": "There was not a large emission of protons at the blast site. Think about what happens during Compton scattering."
+      },
+      {
+        "id": 275245,
+        "content_html": "The release of light energy caused large-scale emission of neutrons.",
+        "correctness": "0.0",
+        "feedback_html": "There was not a large emission of neutrons at the blast site. Think about what happens during Compton scattering."
+      },
+      {
+        "id": 275246,
+        "content_html": "The release of light energy caused large-scale emission of photons.",
+        "correctness": "1.0",
+        "feedback_html": "The photons released struck large numbers of electrons in the atmosphere, thereby producing currents leaving the blast site."
+      }
+    ],
+    "group_uuid": "07acfd2b-fa7a-43a9-bba7-376035c44b44",
+    "stem_html": "When testing atomic bombs, scientists at Los Alamos recognized that huge releases of energy resulted in problems with power and communications systems in the area surrounding the blast site. Explain the possible tie to Compton scattering.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:29-4-2",
+      "k12phys-ch21",
+      "k12phys-ch21-s03",
+      "k12phys-ch21-s03-lo01",
+      "k12phys-ch21-ex100",
+      "exid:k12phys-ch21-ex100",
+      "context-cnxmod:ed71b8ba-ba66-40db-baf8-f7932a38371a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:c2b8ec86-d03a-46d9-9d42-49484a195ed8",
+      "context-cnxmod:61a33ee4-2b3d-44b0-97cc-9d98d7d1ea94"
+    ],
+    "uid": "11564@5"
+  }
+]

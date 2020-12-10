@@ -1,0 +1,270 @@
+[
+  {
+    "answers": [
+      {
+        "id": 390271,
+        "content_html": "<span data-math=\"5\\times 10^3\\,\\text{m}/\\text{s}\">5\\times 10^3\\,\\text{m}/\\text{s}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Frequency divided by wavelength is not equivalent to speed. The correct relationship is <span data-math=\"v = f\\lambda\">v = f\\lambda</span>."
+      },
+      {
+        "id": 390272,
+        "content_html": "<span data-math=\"3.2\\times 10^2\\,\\text{m}/\\text{s}\">3.2\\times 10^2\\,\\text{m}/\\text{s}<span>\n</span></span>",
+        "correctness": "0.0",
+        "feedback_html": "The applied formula is incorrect."
+      },
+      {
+        "id": 390273,
+        "content_html": "<span data-math=\"2 \\times 10^{-4}\\,\\text{m/s}\">2 \\times 10^{-4}\\,\\text{m/s}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Wavelength divided by frequency is not equivalent to speed."
+      },
+      {
+        "id": 390274,
+        "content_html": "<span data-math=\"8 \\times 10^2\\,\\text{m}/\\text{s}\">8 \\times 10^2\\,\\text{m}/\\text{s}</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "The speed of the sound wave is <span data-math=\"8\\times 10^2\\,\\text{m}/\\text{s}\">8\\times 10^2\\,\\text{m}/\\text{s}</span>."
+      }
+    ],
+    "group_uuid": "110b3e6c-f5ff-4ed6-a67d-da9f15aadd66",
+    "stem_html": "What is the speed of a sound wave with frequency <span data-math=\"2000\\,\\text{Hz}\">2000\\,\\text{Hz}</span> and wavelength <span data-math=\"0.4\\,\\text{m}\">0.4\\,\\text{m}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:1",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:17-2-2",
+      "k12phys-ch14",
+      "k12phys-ch14-s01",
+      "k12phys-ch14-s01-lo03",
+      "k12phys-ch14-ex005",
+      "exid:k12phys-ch14-ex005",
+      "context-cnxmod:e04c6e16-1d6d-4379-8c1e-085a8f054c42",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:085589bb-9ea4-443a-84c3-72c56f6b265d",
+      "context-cnxmod:177f95a9-8db4-4ede-a8e9-1838cc34e42d",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
+    "uid": "10853@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390295,
+        "content_html": "Rarefaction is the high-pressure region created in a medium when a longitudinal wave passes through it.",
+        "correctness": "0.0",
+        "feedback_html": "It is the low-pressure region created in a medium when a longitudinal wave passes through it."
+      },
+      {
+        "id": 390298,
+        "content_html": "Rarefaction is the low-pressure region created in a medium when a longitudinal wave passes through it.",
+        "correctness": "1.0",
+        "feedback_html": "Rarefaction is the low-pressure region created in a medium when a longitudinal wave passes through it."
+      },
+      {
+        "id": 390296,
+        "content_html": "Rarefaction is the highest point of amplitude of a sound wave.",
+        "correctness": "0.0",
+        "feedback_html": "The highest point of amplitude is known as the crest of a wave."
+      },
+      {
+        "id": 390297,
+        "content_html": "Rarefaction is the lowest point of amplitude of a sound wave.",
+        "correctness": "0.0",
+        "feedback_html": "The lowest point of amplitude is known as the trough of a wave."
+      }
+    ],
+    "group_uuid": "335941ee-6e4e-47fe-9949-254b21a16733",
+    "stem_html": "What is a rarefaction?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:17-1-2",
+      "k12phys-ch14",
+      "k12phys-ch14-s01",
+      "k12phys-ch14-s01-lo01",
+      "k12phys-ch14-ex008",
+      "exid:k12phys-ch14-ex008",
+      "context-cnxmod:e04c6e16-1d6d-4379-8c1e-085a8f054c42",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:0a187066-b005-470a-825f-a423a4a6a6e7",
+      "context-cnxmod:cd60ca75-63b0-4b28-8e10-a374eebfc382",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
+    "uid": "10860@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 390360,
+        "content_html": "It decreases with time.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency of a monotonous sound is constant."
+      },
+      {
+        "id": 390361,
+        "content_html": "It decreases with distance.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency of a monotonous sound does not change."
+      },
+      {
+        "id": 390362,
+        "content_html": "It increases with distance.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency of a monotonous sound does not change."
+      },
+      {
+        "id": 390363,
+        "content_html": "It remains constant.",
+        "correctness": "1.0",
+        "feedback_html": "The frequency of a monotonous sound does not change."
+      }
+    ],
+    "group_uuid": "17b33daf-5217-4d3d-82fd-0f94041f2c00",
+    "stem_html": "What can be said about the frequency of a monotonous sound?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:17-1-2",
+      "k12phys-ch14",
+      "k12phys-ch14-s01",
+      "k12phys-ch14-s01-lo01",
+      "k12phys-ch14-ex014",
+      "exid:k12phys-ch14-ex014",
+      "context-cnxmod:e04c6e16-1d6d-4379-8c1e-085a8f054c42",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0a187066-b005-470a-825f-a423a4a6a6e7",
+      "context-cnxmod:cd60ca75-63b0-4b28-8e10-a374eebfc382",
+      "aplo:stax-apphys:6.B.4.1"
+    ],
+    "uid": "10878@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390412,
+        "content_html": "<span data-math=\"5960\\,\\text{m}/\\text{s}\">5960\\,\\text{m}/\\text{s}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This is the speed of sound in steel. Such high speeds are not possible in water."
+      },
+      {
+        "id": 390413,
+        "content_html": "<span data-math=\"1540\\,\\text{m}/\\text{s}\">1540\\,\\text{m}/\\text{s}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This is the speed of sound in sea water."
+      },
+      {
+        "id": 390414,
+        "content_html": "<span data-math=\"331\\,\\text{m}/\\text{s}\">331\\,\\text{m}/\\text{s}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This is the speed of sound in air."
+      },
+      {
+        "id": 390415,
+        "content_html": "<span data-math=\"1480\\,\\text{m}/\\text{s}\">1480\\,\\text{m}/\\text{s}</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "Speed of sound in water is higher than that in air but lower than that in solids."
+      }
+    ],
+    "group_uuid": "f6049b0e-f224-4e1d-9828-ab8622c8c41d",
+    "stem_html": "What is the speed of sound in fresh water at <span data-math=\"20\">20</span> degrees Celsius?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s01",
+      "k12phys-ch14-s01-lo02",
+      "k12phys-ch14-ex019",
+      "exid:k12phys-ch14-ex019",
+      "context-cnxmod:e04c6e16-1d6d-4379-8c1e-085a8f054c42",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:17-2-3",
+      "context-cnxmod:085589bb-9ea4-443a-84c3-72c56f6b265d",
+      "context-cnxmod:177f95a9-8db4-4ede-a8e9-1838cc34e42d",
+      "aplo:stax-apphys:6.A.2.1"
+    ],
+    "uid": "10891@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390445,
+        "content_html": "The density of iron is greater than that of air. However, the rigidity of iron is much greater than that of air. Hence, sound travels faster in it.",
+        "correctness": "1.0",
+        "feedback_html": "Density of iron is greater than that of air, and the rigidity of iron is much greater than that of air. Hence, sound travels faster in it."
+      },
+      {
+        "id": 390442,
+        "content_html": "The density of iron is greater than that of air. However, the rigidity of iron is much less than that of air. Hence, sound travels faster in it.",
+        "correctness": "0.0",
+        "feedback_html": "The rigidity of iron is much less than that of air. However, the rigidity of iron is much greater than that of air. Hence, sound travels faster in it."
+      },
+      {
+        "id": 390443,
+        "content_html": "The density of iron is greater than that of air. However, the rigidity of iron is equal to that of air. Hence, sound travels faster in it.",
+        "correctness": "0.0",
+        "feedback_html": "The rigidity of iron is much greater than that of air."
+      },
+      {
+        "id": 390444,
+        "content_html": "The mass of iron is much less than that of air and the rigidity of iron is much greater than that of air. Hence, sound travels faster in it.",
+        "correctness": "0.0",
+        "feedback_html": "The density of iron is greater than that of air. However, the rigidity of iron is much greater than that of air."
+      }
+    ],
+    "group_uuid": "2511125e-f434-4010-88d5-f9276213c19c",
+    "stem_html": "Why does sound travel faster in iron than in air even though iron is denser than air?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:short",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s01",
+      "k12phys-ch14-s01-lo02",
+      "k12phys-ch14-ex028",
+      "exid:k12phys-ch14-ex028",
+      "context-cnxmod:e04c6e16-1d6d-4379-8c1e-085a8f054c42",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:17-2-3",
+      "context-cnxmod:085589bb-9ea4-443a-84c3-72c56f6b265d",
+      "context-cnxmod:177f95a9-8db4-4ede-a8e9-1838cc34e42d",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
+    "uid": "10900@5"
+  }
+]

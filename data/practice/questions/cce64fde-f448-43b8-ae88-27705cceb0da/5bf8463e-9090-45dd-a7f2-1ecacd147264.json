@@ -1,0 +1,109 @@
+[
+  {
+    "answers": [
+      {
+        "id": 382519,
+        "content_html": "An electric current is induced if a bar magnet is placed near the wire loop.",
+        "correctness": "0.0",
+        "feedback_html": "The change in magnetic field or change in area vector of a wire loop induces electric current in the wire."
+      },
+      {
+        "id": 382520,
+        "content_html": "An electric current is induced if wire loop is wound around the bar magnet.",
+        "correctness": "0.0",
+        "feedback_html": "If wire loop is wound around the bar magnet, it is not possible to make changes in flux. Hence there is no possibility of induced current."
+      },
+      {
+        "id": 382522,
+        "content_html": "An electric current is induced if a bar magnet is moved through the wire loop.",
+        "correctness": "1.0",
+        "feedback_html": "If a bar magnet is moved through the wire loop, the magnetic flux changes which induces electric current in the wire."
+      },
+      {
+        "id": 382521,
+        "content_html": "An electric current is induced if a bar magnet is placed in contact with the wire loop.",
+        "correctness": "0.0",
+        "feedback_html": "Either change in magnetic field or change in area vector of a wire loop induces electric current in the wire."
+      }
+    ],
+    "group_uuid": "732e6b71-cbfe-4cad-825b-9a23c4c2539f",
+    "stem_html": "Given a bar magnet, how can you induce an electric current in a wire loop?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch20",
+      "k12phys-ch20-s02",
+      "k12phys-ch20-s02-lo01",
+      "k12phys-ch20-ex040",
+      "lo:stax-phys:23-2-1",
+      "exid:k12phys-ch20-ex040",
+      "context-cnxmod:922543bd-6f59-434b-88bf-0a52854deb27",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:14a20783-3535-45f0-8df9-413d24882a89",
+      "context-cnxmod:371eb5e2-543f-425a-9c36-1042c342d326",
+      "aplo:stax-apphys:4.E.2.1"
+    ],
+    "uid": "7455@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 382592,
+        "content_html": "No, because magnetic flux through the loop remains constant.",
+        "correctness": "1.0",
+        "feedback_html": "Since uniform magnetic field is perpendicular to the plane of a wire loop, the flux through the loop is zero. It means that there is no induced current."
+      },
+      {
+        "id": 382589,
+        "content_html": "No, because magnetic flux through the loop changes continuously.",
+        "correctness": "0.0",
+        "feedback_html": "Recall, if magnetic flux through the loop changes continuously ,it always produce an induced current"
+      },
+      {
+        "id": 382590,
+        "content_html": "Yes, because magnetic flux through the loop remains constant.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, uniform magnetic field is perpendicular to the plane of a wire loop so the flux through the loop is zero. It means that there is no induced current."
+      },
+      {
+        "id": 382591,
+        "content_html": "Yes, because magnetic flux through the loop changes continuously.",
+        "correctness": "0.0",
+        "feedback_html": "Uniform magnetic field is perpendicular to the plane of a wire loop so the flux through the loop does not change. So, induced current is zero."
+      }
+    ],
+    "group_uuid": "a0c4dd41-a30c-484c-b856-4136098c3170",
+    "stem_html": "A uniform magnetic field is perpendicular to the plane of a wire loop. If the loop accelerates in the direction of the field, will a current be induced in the loop? Explain why or why not.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch20",
+      "k12phys-ch20-s02",
+      "k12phys-ch20-s02-lo01",
+      "k12phys-ch20-ex048",
+      "lo:stax-phys:23-3-1",
+      "exid:k12phys-ch20-ex048",
+      "context-cnxmod:922543bd-6f59-434b-88bf-0a52854deb27",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:db9df9d5-32ec-4cb1-83af-2d6cab03e26f",
+      "context-cnxmod:ffb8e180-6baa-4895-9b93-dcd49f0939fb",
+      "aplo:stax-apphys:4.E.2.1"
+    ],
+    "uid": "7475@5"
+  }
+]

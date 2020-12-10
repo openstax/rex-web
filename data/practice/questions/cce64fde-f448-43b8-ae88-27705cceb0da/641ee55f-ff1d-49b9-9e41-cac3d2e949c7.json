@@ -1,8 +1,5 @@
 [
   {
-    "uuid": "4db480d5-78dc-4c85-89ee-33eef210a729",
-    "stem_html": "Cassie walked to her friend’s house with an average speed of 1.40 m/s. The distance between the houses is 205 m. How long did the trip take her?",
-    "id": 91814,
     "answers": [
       {
         "id": 374233,
@@ -28,74 +25,35 @@
         "correctness": "0.0",
         "feedback_html": "Set up the equation appropriately. Time can be measured after dividing total distance by average speed."
       }
-    ]
+    ],
+    "group_uuid": "06cce743-c97c-466f-a6c4-4fbf69ba8b3a",
+    "stem_html": "Cassie walked to her friend’s house with an average speed of 1.40 m/s. The distance between the houses is 205 m. How long did the trip take her?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch02",
+      "os-practice-problems",
+      "k12phys-ch02-s02",
+      "k12phys-ch02-s02-lo01",
+      "k12phys-ch02-ex027",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch02-ex027",
+      "context-cnxmod:8ba12172-40c3-402b-bee4-264f9848b8a5",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:2-3-2",
+      "context-cnxmod:0530a45f-426f-4804-b22d-5d72704fa777",
+      "context-cnxmod:f6a98016-c865-4380-aea5-eb6578481242",
+      "aplo:stax-apphys:4.A.2.3",
+      "aplo:stax-apphys:4.A.2.1"
+    ],
+    "uid": "1837@5"
   },
   {
-    "uuid": "e43ca9e4-bbf7-48d1-8ef7-9bdf509826ea",
-    "stem_html": "A trucker drives along a straight highway for 0.25 h with a displacement of 16 km south. What is the trucker’s average velocity?",
-    "id": 91818,
-    "answers": [
-      {
-        "id": 374246,
-        "content_html": "4 km/h north",
-        "correctness": "0.0",
-        "feedback_html": "Consider the definition of average velocity correctly."
-      },
-      {
-        "id": 374247,
-        "content_html": "4 km/h south",
-        "correctness": "0.0",
-        "feedback_html": "Use the correct equation. Remember, average velocity is total displacement over total time."
-      },
-      {
-        "id": 374248,
-        "content_html": "64 km/h north",
-        "correctness": "0.0",
-        "feedback_html": "Take the direction correctly in your calculation."
-      },
-      {
-        "id": 374249,
-        "content_html": "64 km/h south",
-        "correctness": "1.0",
-        "feedback_html": "Average velocity is total displacement divided by total time taken."
-      }
-    ]
-  },
-  {
-    "uuid": "53bf0d57-bf80-4001-aadb-a46f55ca3d7c",
-    "stem_html": "Two runners travel along the same straight path. They start at the same time, and they end at the same time, but at the halfway mark, they have different instantaneous velocities. Is it possible for them to have the same average velocity for the trip?",
-    "id": 91821,
-    "answers": [
-      {
-        "id": 374261,
-        "content_html": "Yes, because average velocity depends on the net or total displacement.",
-        "correctness": "1.0",
-        "feedback_html": "Instantaneous velocities might change, but they do not have a bearing on the average velocity as it is the net displacement divided by total time."
-      },
-      {
-        "id": 374260,
-        "content_html": "Yes, because average velocity depends on the total distance traveled.",
-        "correctness": "0.0",
-        "feedback_html": "Distance and displacement are not the same quantity."
-      },
-      {
-        "id": 374259,
-        "content_html": "No, because the velocities of both runners must remain the exactly same throughout the journey.",
-        "correctness": "0.0",
-        "feedback_html": "Recall, average velocity is a function of two physical quantities, net displacement and total time taken."
-      },
-      {
-        "id": 374258,
-        "content_html": "No, because the instantaneous velocities of the runners must remain same midway but can be different elsewhere.",
-        "correctness": "0.0",
-        "feedback_html": "Recall, average velocity is a function of two physical quantities, net displacement and total time taken."
-      }
-    ]
-  },
-  {
-    "uuid": "06297704-8922-4648-84ec-00bdbbcf3218",
-    "stem_html": "Is it possible to determine a car’s instantaneous velocity from just the speedometer reading?",
-    "id": 91825,
     "answers": [
       {
         "id": 374277,
@@ -121,12 +79,36 @@
         "correctness": "0.0",
         "feedback_html": "The speedometer reading does not give the direction of the car."
       }
-    ]
+    ],
+    "group_uuid": "6853ab45-e937-4fe3-99e0-be88e566bb10",
+    "stem_html": "Is it possible to determine a car’s instantaneous velocity from just the speedometer reading?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch02",
+      "k12phys-ch02-s02",
+      "k12phys-ch02-s02-lo02",
+      "k12phys-ch02-ex039",
+      "time:medium",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "lo:stax-phys:2-3-1",
+      "exid:k12phys-ch02-ex039",
+      "context-cnxmod:8ba12172-40c3-402b-bee4-264f9848b8a5",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0530a45f-426f-4804-b22d-5d72704fa777",
+      "context-cnxmod:f6a98016-c865-4380-aea5-eb6578481242",
+      "aplo:stax-apphys:4.A.2.3",
+      "aplo:stax-apphys:4.A.2.1"
+    ],
+    "uid": "1849@6"
   },
   {
-    "uuid": "c7575e11-2d2d-4c6c-a9f6-d47ffd3bdf5e",
-    "stem_html": "Rob drove to the nearest hospital with an average speed of v m/s in t seconds. In terms of t, if he drives home on the same path, but with an average speed of 3v m/s, how long is the return trip home?",
-    "id": 91829,
     "answers": [
       {
         "id": 374292,
@@ -152,12 +134,36 @@
         "correctness": "0.0",
         "feedback_html": "Distance is average speed multiplied by the time taken. Use this relation to obtain the time taken for the return journey."
       }
-    ]
+    ],
+    "group_uuid": "04b8d4fa-753e-4c31-85fe-447840503263",
+    "stem_html": "Rob drove to the nearest hospital with an average speed of v m/s in t seconds. In terms of t, if he drives home on the same path, but with an average speed of 3v m/s, how long is the return trip home?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch02",
+      "k12phys-ch02-s02",
+      "k12phys-ch02-s02-lo01",
+      "k12phys-ch02-ex043",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:2-3-1",
+      "exid:k12phys-ch02-ex043",
+      "context-cnxmod:8ba12172-40c3-402b-bee4-264f9848b8a5",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0530a45f-426f-4804-b22d-5d72704fa777",
+      "context-cnxmod:f6a98016-c865-4380-aea5-eb6578481242",
+      "aplo:stax-apphys:4.A.2.3",
+      "aplo:stax-apphys:4.A.2.1"
+    ],
+    "uid": "1853@6"
   },
   {
-    "uuid": "5dc7bde5-41b2-4596-9b4b-02ee66555390",
-    "stem_html": "An object has an average speed of 7.4 km/h. Which of the following describes two ways you could increase the average speed of the object to 14.8 km/h?",
-    "id": 91831,
     "answers": [
       {
         "id": 374298,
@@ -183,6 +189,88 @@
         "correctness": "0.0",
         "feedback_html": "Average speed is directly proportional to the distance covered if time is constant, and it is inversely proportional to time if distance is kept constant. So, making the distance 4 times or reducing the time by one-fourth will make the average speed 4 times the initial value."
       }
-    ]
+    ],
+    "group_uuid": "548afa02-65a6-46e7-802e-b7c32d7962b4",
+    "stem_html": "An object has an average speed of 7.4 km/h. Which of the following describes two ways you could increase the average speed of the object to 14.8 km/h?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch02",
+      "k12phys-ch02-s02",
+      "k12phys-ch02-s02-lo01",
+      "k12phys-ch02-ex045",
+      "dok:2",
+      "time:medium",
+      "blooms:5",
+      "book:stax-phys",
+      "lo:stax-phys:2-3-1",
+      "exid:k12phys-ch02-ex045",
+      "context-cnxmod:8ba12172-40c3-402b-bee4-264f9848b8a5",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0530a45f-426f-4804-b22d-5d72704fa777",
+      "context-cnxmod:f6a98016-c865-4380-aea5-eb6578481242",
+      "aplo:stax-apphys:4.A.2.3",
+      "aplo:stax-apphys:4.A.2.1"
+    ],
+    "uid": "1855@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 374308,
+        "content_html": "Runner A will be <span data-math=\"72 \\times 10^3\">72 \\times 10^3</span> m away and Runner B will be <span data-math=\"59.5 \\times 10^3\">59.5 \\times 10^3</span> m away from the starting point.",
+        "correctness": "0.0",
+        "feedback_html": "The average speed of A and B is not correct."
+      },
+      {
+        "id": 374307,
+        "content_html": "Runner A will be <span data-math=\"1.2 \\times 10^2\">1.2 \\times 10^2</span> m away and runner B will be <span data-math=\"1.1 \\times 10^2\">1.1 \\times 10^2</span> m away from the starting point.",
+        "correctness": "0.0",
+        "feedback_html": "Check the distance of Runner B."
+      },
+      {
+        "id": 374309,
+        "content_html": "Runner A will be <span data-math=\"1.2 \\times 10^2\\,\\text{m}\">1.2 \\times 10^2\\,\\text{m}</span> away and Runner B will be <span data-math=\"1.3 \\times 10^2\\,\\text{m}\">1.3 \\times 10^2\\,\\text{m}</span> away from the starting point.",
+        "correctness": "1.0",
+        "feedback_html": "Average speed is distance covered per unit time and distance covered can be found by taking the product of average speed and time."
+      },
+      {
+        "id": 374306,
+        "content_html": "Runner A will be <span data-math=\"7.2 \\times 10^2\\,\\text{m}\">7.2 \\times 10^2\\,\\text{m}</span> away and Runner B will be <span data-math=\"1.3 \\times 10^2\\,\\text{m}\">1.3 \\times 10^2\\,\\text{m}</span> away from the starting point.",
+        "correctness": "0.0",
+        "feedback_html": "At time <span data-math=\"t = 45\\,\\text{s}\">t = 45\\,\\text{s}</span>, the time interval for Runner A will be <span data-math=\"45 - 0 = 45\\,\\text{s}\">45 - 0 = 45\\,\\text{s}</span> and the time interval for Runner B will be <span data-math=\"45 - 2.5 = 42.5\\,\\text{s}\">45 - 2.5 = 42.5\\,\\text{s}</span>. So, the distance covered by Runner A in this time interval will be <span data-math=\"2.6\\,\\text{m/s} \\times 45\\,\\text{s}\">2.6\\,\\text{m/s} \\times 45\\,\\text{s}</span>."
+      }
+    ],
+    "group_uuid": "458eac29-adc7-4f1c-ae7f-f87f4c08a9ea",
+    "stem_html": "Two runners start at the same point and jog at a constant speed along a straight path. Runner A starts at time t = 0 s, and Runner B starts at time t = 2.5 s. The runners both reach a distance 64 m from the starting point at time t = 25 s. If the runners continue at the same speeds, how far from the starting point will each be at time t = 45 s?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch02",
+      "k12phys-ch02-s02",
+      "k12phys-ch02-s02-lo01",
+      "k12phys-ch02-ex047",
+      "dok:3",
+      "time:long",
+      "blooms:5",
+      "book:stax-phys",
+      "exid:k12phys-ch02-ex047",
+      "context-cnxmod:8ba12172-40c3-402b-bee4-264f9848b8a5",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:2-3-2",
+      "context-cnxmod:0530a45f-426f-4804-b22d-5d72704fa777",
+      "context-cnxmod:f6a98016-c865-4380-aea5-eb6578481242",
+      "aplo:stax-apphys:4.A.2.3",
+      "aplo:stax-apphys:4.A.2.1"
+    ],
+    "uid": "1857@6"
   }
 ]

@@ -3,13 +3,13 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import Button from '../../../components/Button';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { nextQuestion, setQuestions } from '../actions';
 import { PracticeQuestions } from '../types';
 import IntroScreen from './IntroScreen';
-import PQButton from './PQButton';
 
 describe('IntroScreen for practice questions', () => {
   let store: Store;
@@ -45,7 +45,7 @@ describe('IntroScreen for practice questions', () => {
   it('dispatch action onClick', () => {
     const component = renderer.create(render());
 
-    const button = component.root.findByType(PQButton);
+    const button = component.root.findByType(Button);
 
     renderer.act(() => {
       button.props.onClick();

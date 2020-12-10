@@ -1,0 +1,109 @@
+[
+  {
+    "answers": [
+      {
+        "id": 379684,
+        "content_html": "It is the heat that must transfer energy to or from a system in order to cause a mass change with a slight change in the temperature of the system.",
+        "correctness": "0.0",
+        "feedback_html": "Latent heat is not responsible for mass change. It is responsible for phase change at constant temperature."
+      },
+      {
+        "id": 379683,
+        "content_html": "It is the heat that must transfer energy to or from a system in order to cause a mass change without a temperature change in the system.",
+        "correctness": "0.0",
+        "feedback_html": "Latent heat is not responsible for mass change. It is responsible for phase change at constant temperature."
+      },
+      {
+        "id": 379682,
+        "content_html": "It is the heat that must transfer energy to or from a system in order to cause a phase change with a slight change in the temperature of the system.",
+        "correctness": "0.0",
+        "feedback_html": "A phase change occurs without a temperature change in the system."
+      },
+      {
+        "id": 379685,
+        "content_html": "It is the heat that must transfer energy to or from a system in order to cause a phase change without a temperature change in the system.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, latent heat indicates the heat that must transfer energy to or from a system in order to cause a phase change, during which there is no temperature change in the system."
+      }
+    ],
+    "group_uuid": "d0a2530a-5847-462c-9fe2-8f23f537ba9c",
+    "stem_html": "What is latent heat?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:14-3-1",
+      "k12phys-ch11",
+      "k12phys-ch11-s03",
+      "k12phys-ch11-s03-lo01",
+      "k12phys-ch11-ex053",
+      "exid:k12phys-ch11-ex053",
+      "context-cnxmod:8352e252-8688-4497-bda6-a33690a9d874",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:787e54d3-7b8b-4cc9-bee3-9e9218e10109",
+      "context-cnxmod:4d3f6546-9e54-4a2c-ba76-671a8c427f5c",
+      "aplo:stax-apphys:5.B.7.1"
+    ],
+    "uid": "6618@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 379753,
+        "content_html": "<span data-math=\"\\text{J/kg}\">\\text{J/kg}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Latent heat is in <span data-math=\"\\text{SI}\">\\text{SI}</span> units of energy per mass."
+      },
+      {
+        "id": 379752,
+        "content_html": "<span data-math=\"\\text{J.kg}\">\\text{J.kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Latent heat is in <span data-math=\"\\text{SI}\">\\text{SI}</span> units of energy per mass. This is the product of energy and mass."
+      },
+      {
+        "id": 379751,
+        "content_html": "<span data-math=\"\\text{J/cal}\">\\text{J/cal}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Joules and calories are both units of energy, can calories are not <span data-math=\"\\text{SI}\">\\text{SI}</span>."
+      },
+      {
+        "id": 379750,
+        "content_html": "<span data-math=\"\\text{cal/kg}\">\\text{cal/kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "This is a possible unit for latent heat, but calories are not an <span data-math=\"\\text{SI}\">\\text{SI}</span> unit of energy."
+      }
+    ],
+    "group_uuid": "ad83c234-ec4d-430e-91a0-9e0b69471fbf",
+    "stem_html": "What are the SI units of latent heat?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:14-3-1",
+      "k12phys-ch11",
+      "k12phys-ch11-s03",
+      "k12phys-ch11-s03-lo01",
+      "k12phys-ch11-ex059",
+      "exid:k12phys-ch11-ex059",
+      "context-cnxmod:8352e252-8688-4497-bda6-a33690a9d874",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:787e54d3-7b8b-4cc9-bee3-9e9218e10109",
+      "context-cnxmod:4d3f6546-9e54-4a2c-ba76-671a8c427f5c",
+      "aplo:stax-apphys:5.B.7.1"
+    ],
+    "uid": "6636@6"
+  }
+]

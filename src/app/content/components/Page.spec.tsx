@@ -14,7 +14,6 @@ import mockArchiveLoader, { book, page, shortPage } from '../../../test/mocks/ar
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
-import { resetModules } from '../../../test/utils';
 import SkipToContentWrapper from '../../components/SkipToContentWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
@@ -40,6 +39,13 @@ import allImagesLoaded from './utils/allImagesLoaded';
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 
+jest.mock('../../../config', () => {
+  const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
+  return {BOOKS: {
+   [mockBook.id]: {defaultVersion: mockBook.version},
+  }};
+});
+
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
 jest.mock('../../domUtils', () => ({
   // remove cast to any when the jest type is updated to include requireActual()
@@ -63,7 +69,6 @@ describe('Page', () => {
   let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
-    resetModules();
     jest.resetAllMocks();
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
@@ -146,6 +151,7 @@ describe('Page', () => {
         ...page,
         content: html,
       }));
+
       const {root} = renderToDom(
         <Provider store={store}>
           <MessageProvider>
@@ -219,8 +225,8 @@ describe('Page', () => {
     });
 
     it('updates content self closing tags', async() => {
-      expect(await htmlHelper(`<strong data-somethin="asdf"/>asdf<iframe src="someplace"/>`)).toEqual(
-        '<strong data-somethin="asdf"></strong>asdf<iframe src="someplace"></iframe>'
+      expect(await htmlHelper(`<strong data-somethin="asdf"/>asdf<iframe src="/someplace"/>`)).toEqual(
+        '<strong data-somethin="asdf"></strong>asdf<iframe src="/someplace"></iframe>'
       );
     });
 

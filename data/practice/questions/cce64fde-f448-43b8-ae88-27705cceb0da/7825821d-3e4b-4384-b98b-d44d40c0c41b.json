@@ -1,0 +1,225 @@
+[
+  {
+    "answers": [
+      {
+        "id": 376752,
+        "content_html": "Kepler’s laws are purely descriptive.",
+        "correctness": "1.0",
+        "feedback_html": "Kepler’s laws are descriptive and do not contain any causal information. Newton’s law shows the cause."
+      },
+      {
+        "id": 376749,
+        "content_html": "Kepler’s laws are purely causal.",
+        "correctness": "0.0",
+        "feedback_html": "Kepler’s laws are not causal in nature. They don’t give information about the cause of planetary motion."
+      },
+      {
+        "id": 376750,
+        "content_html": "Kepler’s laws are descriptive as well as causal.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that Kepler’s laws are descriptive in nature. But they do not explain the cause of planetary motion."
+      },
+      {
+        "id": 376751,
+        "content_html": "Kepler’s laws are neither descriptive nor causal.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that Kepler’s laws do not explain the cause of planetary motion. But they do provide a description of planetary motion."
+      }
+    ],
+    "group_uuid": "c9341e26-53fe-4204-b4ea-9535cb6ebd91",
+    "stem_html": "Are Kepler’s laws purely descriptive, or do they contain causal information?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch07",
+      "k12phys-ch07-s01",
+      "k12phys-ch07-s01-lo01",
+      "k12phys-ch07-ex009",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:6-6-1",
+      "exid:k12phys-ch07-ex009",
+      "context-cnxmod:d5286023-47fb-413e-b1f9-fb08834dd6e5",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:af7be9fa-4c57-4d99-98c5-611e32962dfb",
+      "context-cnxmod:26a7134e-b428-46a7-97e2-3a06ca43222f",
+      "aplo:stax-apphys:1.C.3.1",
+      "aplo:stax-apphys:3.A.3.1",
+      "aplo:stax-apphys:3.C.1.2"
+    ],
+    "uid": "2575@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376775,
+        "content_html": "<span data-math=\"12,500\\,\\text{km}\">12,500\\,\\text{km}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The length of the semi-major axis is not the product of the focal distance and eccentricity. It can be calculated by division of the focal distance by the eccentricity."
+      },
+      {
+        "id": 376776,
+        "content_html": "<span data-math=\"100,000\\,\\text{km}\">100,000\\,\\text{km}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The length of the semi-major axis of an ellipse is given by the formula <span data-math=\"\\frac{f}{e}\">\\frac{f}{e}</span> and not  <span data-math=\"\\frac{f}{2e}\">\\frac{f}{2e}</span>."
+      },
+      {
+        "id": 376778,
+        "content_html": "<span data-math=\"200,000\\,\\text{km}\">200,000\\,\\text{km}</span>",
+        "correctness": "1.0",
+        "feedback_html": "If you divide focal distance by eccentricity, it gives the length of the semi-major axis of an ellipse."
+      },
+      {
+        "id": 376777,
+        "content_html": "<span data-math=\"400,000\\,\\text{km}\">400,000\\,\\text{km}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The length of the semi-major axis of an ellipse is given by the formula <span data-math=\"f/e\">f/e</span> and not <span data-math=\"2f/e\">2f/e</span>."
+      }
+    ],
+    "group_uuid": "3beadc42-3e2e-445e-82cc-48c77dbb6a82",
+    "stem_html": "The focal point of the elliptical orbit of a moon is <span data-math=\"50,000\\,\\text{km}\">50,000\\,\\text{km}</span> from the center of the orbit. If the eccentricity of the orbit is <span data-math=\"0.25\">0.25</span>, what is the length of the semi-major axis?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch07",
+      "k12phys-ch07-s01",
+      "k12phys-ch07-s01-lo02",
+      "k12phys-ch07-ex016",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:6-6-1",
+      "exid:k12phys-ch07-ex016",
+      "context-cnxmod:d5286023-47fb-413e-b1f9-fb08834dd6e5",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:af7be9fa-4c57-4d99-98c5-611e32962dfb",
+      "context-cnxmod:26a7134e-b428-46a7-97e2-3a06ca43222f",
+      "aplo:stax-apphys:1.C.3.1",
+      "aplo:stax-apphys:3.A.3.1",
+      "aplo:stax-apphys:3.C.1.2"
+    ],
+    "uid": "2582@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376779,
+        "content_html": "The mass of the parent body must be much less than that of the satellite.",
+        "correctness": "0.0",
+        "feedback_html": "Consider the fact that the satellite revolves around the parent body, which means the parent body must be stationary to apply Kepler’s laws."
+      },
+      {
+        "id": 376782,
+        "content_html": "The mass of the parent body must be much greater than that of the satellite.",
+        "correctness": "1.0",
+        "feedback_html": "To apply Kepler’s laws of planetary motion, the mass of the parent body must be much larger than that of the satellite."
+      },
+      {
+        "id": 376780,
+        "content_html": "The mass of the parent body must be equal to the mass of the satellite.",
+        "correctness": "0.0",
+        "feedback_html": "It is not necessary for the masses to be equal to apply Kepler’s law."
+      },
+      {
+        "id": 376781,
+        "content_html": "There is no specific relationship between the masses for applying Kepler’s laws of planetary motion.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that there is a specific relationship between the mass of the parent body and the satellite in Kepler’s laws of planetary motion. Consider the fact that the satellite revolves around the parent body."
+      }
+    ],
+    "group_uuid": "9847a140-98ac-4573-a93d-364151d62d12",
+    "stem_html": "Explain how the masses of a satellite and its parent body must compare in order to apply Kepler’s laws of planetary motion.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch07",
+      "k12phys-ch07-s01",
+      "k12phys-ch07-s01-lo01",
+      "k12phys-ch07-ex017",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:6-6-1",
+      "exid:k12phys-ch07-ex017",
+      "context-cnxmod:d5286023-47fb-413e-b1f9-fb08834dd6e5",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:af7be9fa-4c57-4d99-98c5-611e32962dfb",
+      "context-cnxmod:26a7134e-b428-46a7-97e2-3a06ca43222f",
+      "aplo:stax-apphys:1.C.3.1",
+      "aplo:stax-apphys:3.A.3.1",
+      "aplo:stax-apphys:3.C.1.2"
+    ],
+    "uid": "2583@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376787,
+        "content_html": "An ellipse is an open curve wherein the sum of the distance from the foci to any point on the curve is constant.",
+        "correctness": "0.0",
+        "feedback_html": "Review the definition of an ellipse. It is not an open curve."
+      },
+      {
+        "id": 376790,
+        "content_html": "An ellipse is a closed curve wherein the sum of the distance from the foci to any point on the curve is constant.",
+        "correctness": "1.0",
+        "feedback_html": "This is the correct definition of an ellipse."
+      },
+      {
+        "id": 376788,
+        "content_html": "An ellipse is an open curve wherein the distances from the two foci to any point on the curve are equal.",
+        "correctness": "0.0",
+        "feedback_html": "An ellipse is not an open curve. Also, in an ellipse distances from the two foci to any point on the curve are not always equal."
+      },
+      {
+        "id": 376789,
+        "content_html": "An ellipse is a closed curve wherein the distances from the two foci to any point on the curve are equal.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that an ellipse is a closed curve. But you need to review the second part of the definition of an ellipse."
+      }
+    ],
+    "group_uuid": "7587114d-e021-4b88-bb20-d02c120dbb61",
+    "stem_html": "The orbits of satellites are elliptical. Define an ellipse.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch07",
+      "k12phys-ch07-s01",
+      "k12phys-ch07-s01-lo01",
+      "k12phys-ch07-ex019",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "lo:stax-phys:6-6-1",
+      "exid:k12phys-ch07-ex019",
+      "context-cnxmod:d5286023-47fb-413e-b1f9-fb08834dd6e5",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:af7be9fa-4c57-4d99-98c5-611e32962dfb",
+      "context-cnxmod:26a7134e-b428-46a7-97e2-3a06ca43222f",
+      "aplo:stax-apphys:1.C.3.1",
+      "aplo:stax-apphys:3.A.3.1",
+      "aplo:stax-apphys:3.C.1.2"
+    ],
+    "uid": "2585@5"
+  }
+]

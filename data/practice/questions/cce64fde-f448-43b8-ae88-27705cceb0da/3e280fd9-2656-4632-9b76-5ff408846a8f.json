@@ -1,39 +1,5 @@
 [
   {
-    "uuid": "0e1d41f5-f972-4e3c-b054-358edb8a6562",
-    "stem_html": "If you and a friend are standing side-by-side watching a soccer game, would you both view the motion from the same reference frame?",
-    "id": 91802,
-    "answers": [
-      {
-        "id": 374182,
-        "content_html": "Yes, we would both view the motion from the same reference point because both of us are at rest in Earth’s frame of reference.",
-        "correctness": "0.0",
-        "feedback_html": "Even though both are at rest in Earth’s frame of reference, the point from where the motion of the soccer game is observed, is different. For example, if the ball is right in front of one person, then for the other person, the ball will be seen at an angle."
-      },
-      {
-        "id": 374183,
-        "content_html": "Yes, we would both view the motion from the same reference point because both of us are observing the motion from two points on the same straight line.",
-        "correctness": "0.0",
-        "feedback_html": "The reference frames are similar but not same. The two reference frames are located at two different points, hence the motion described by each frame will be slightly different."
-      },
-      {
-        "id": 374185,
-        "content_html": "No, we would both view the motion from different reference points because motion is viewed from two different points; the reference frames are similar but not the same.",
-        "correctness": "1.0",
-        "feedback_html": "The motions observed are different since the reference frames are located at two different points."
-      },
-      {
-        "id": 374184,
-        "content_html": "No, we would both view the motion from different reference points because response times may be different; so, the motion observed by both of us would be different.",
-        "correctness": "0.0",
-        "feedback_html": "The response times may be different, but they have nothing to do with thereference frames."
-      }
-    ]
-  },
-  {
-    "uuid": "b7beb305-d8af-49eb-a4b1-40f2f959138e",
-    "stem_html": "What is the difference between distance and displacement?",
-    "id": 91803,
     "answers": [
       {
         "id": 374186,
@@ -59,43 +25,35 @@
         "correctness": "0.0",
         "feedback_html": "Distance and displacement are not the same. Recall their definition."
       }
-    ]
+    ],
+    "group_uuid": "763c65e3-47ae-45cd-85c7-69349ec87531",
+    "stem_html": "What is the difference between distance and displacement?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo02",
+      "k12phys-ch02-ex011",
+      "dok:1",
+      "blooms:1",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:2-1-3",
+      "exid:k12phys-ch02-ex011",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:74c34e51-1968-4e5d-b1d3-e5df6a9be9fb",
+      "context-cnxmod:72169e9d-cba1-4d43-923c-41ae4d01b3cc",
+      "aplo:stax-apphys:3.A.1.1",
+      "aplo:stax-apphys:3.E.1.3"
+    ],
+    "uid": "1821@5"
   },
   {
-    "uuid": "34f61ebf-46e5-4d43-bda3-b679d1c43327",
-    "stem_html": "Which situation correctly identifies a race car’s distance traveled and the magnitude of displacement during a one-lap car race?",
-    "id": 101021,
-    "answers": [
-      {
-        "id": 410247,
-        "content_html": "The perimeter of the race track is the distance, and the shortest distance between the start line and the finish line is the magnitude of displacement.",
-        "correctness": "1.0",
-        "feedback_html": "Distance is total length of the path, and magnitude of displacement is shortest distance between start and finish lines."
-      },
-      {
-        "id": 410248,
-        "content_html": "The perimeter of the race track is the magnitude of displacement, and the shortest distance between the start and finish line is the distance.",
-        "correctness": "0.0",
-        "feedback_html": "Perimeter of the tract is the total path length and hence it is the distance covered by a race car in one lap."
-      },
-      {
-        "id": 410249,
-        "content_html": "The perimeter of the race track is both the distance and magnitude of displacement.",
-        "correctness": "0.0",
-        "feedback_html": "Magnitude of displacement and distance are not the same physical quantity."
-      },
-      {
-        "id": 410250,
-        "content_html": "The shortest distance between the start line and the finish line is both the distance and magnitude of displacement.",
-        "correctness": "0.0",
-        "feedback_html": "The shortest distance between the start and the finish line is the magnitude of the magnitude of displacement."
-      }
-    ]
-  },
-  {
-    "uuid": "3fefe0c4-90de-4665-a7a0-f5d248b3f78e",
-    "stem_html": "Can one-dimensional motion have zero distance but a nonzero displacement? What about zero displacement but a nonzero distance?",
-    "id": 91805,
     "answers": [
       {
         "id": 374196,
@@ -121,12 +79,36 @@
         "correctness": "0.0",
         "feedback_html": "You are partially correct! There can be zero displacement with nonzero distance. If you think about one complete revolution of Earth around the Sun, there is nonzero distance and a zero displacement covered."
       }
-    ]
+    ],
+    "group_uuid": "adfdde39-6f7e-4268-91e1-2ded860d1709",
+    "stem_html": "Can one-dimensional motion have zero distance but a nonzero displacement? What about zero displacement but a nonzero distance?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo02",
+      "k12phys-ch02-ex013",
+      "dok:2",
+      "time:medium",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:2-1-3",
+      "exid:k12phys-ch02-ex013",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:74c34e51-1968-4e5d-b1d3-e5df6a9be9fb",
+      "context-cnxmod:72169e9d-cba1-4d43-923c-41ae4d01b3cc",
+      "aplo:stax-apphys:3.A.1.1",
+      "aplo:stax-apphys:3.E.1.3"
+    ],
+    "uid": "1823@6"
   },
   {
-    "uuid": "ad4455b9-689d-4fdb-aad6-b330ad736285",
-    "stem_html": "Boat A and Boat B are traveling at a constant speed in opposite directions when they pass each other. If a person in each boat describes motion based on the boat’s own reference frame, will the description by a person in Boat A of Boat B’s motion be the same as the description by a person in Boat B of Boat A’s motion?",
-    "id": 91806,
     "answers": [
       {
         "id": 374198,
@@ -152,12 +134,36 @@
         "correctness": "0.0",
         "feedback_html": "The description provided by each person is the same. They both see a boat traveling past them."
       }
-    ]
+    ],
+    "group_uuid": "6e5f63ab-3d00-49e0-9bfb-d96c27c91de0",
+    "stem_html": "Boat A and Boat B are traveling at a constant speed in opposite directions when they pass each other. If a person in each boat describes motion based on the boat’s own reference frame, will the description by a person in Boat A of Boat B’s motion be the same as the description by a person in Boat B of Boat A’s motion?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo01",
+      "k12phys-ch02-ex014",
+      "time:medium",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "exid:k12phys-ch02-ex014",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:3639d684-af97-4ad8-9986-2b91609478bf",
+      "lo:stax-phys:6-4-1",
+      "context-cnxmod:6fc611ce-ed32-4456-b24c-39612ebc9304",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3"
+    ],
+    "uid": "1824@5"
   },
   {
-    "uuid": "cead242a-f7b0-47b0-b860-91b1f2781b09",
-    "stem_html": "Why should you specify a reference frame when describing motion?",
-    "id": 91807,
     "answers": [
       {
         "id": 374205,
@@ -183,12 +189,36 @@
         "correctness": "0.0",
         "feedback_html": "A certain reference frame does make motion appear simpler, but that is not the sole reason to specify a reference frame."
       }
-    ]
+    ],
+    "group_uuid": "9a091ff9-8a3a-4101-bd17-628542dee37b",
+    "stem_html": "Why should you specify a reference frame when describing motion?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo01",
+      "k12phys-ch02-ex017",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "exid:k12phys-ch02-ex017",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:3639d684-af97-4ad8-9986-2b91609478bf",
+      "lo:stax-phys:6-4-1",
+      "context-cnxmod:6fc611ce-ed32-4456-b24c-39612ebc9304",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3"
+    ],
+    "uid": "1827@5"
   },
   {
-    "uuid": "11a34741-ab98-47b7-926a-579d7178a1a6",
-    "stem_html": "If a biker rides west for 50 miles from his starting position, then turns and bikes back east 80 miles. What is his net displacement?",
-    "id": 50026,
     "answers": [
       {
         "id": 208777,
@@ -214,12 +244,34 @@
         "correctness": "0.0",
         "feedback_html": "Displacement can be easily calculated from the given data as both magnitude and direction are provided in the question."
       }
-    ]
+    ],
+    "group_uuid": "b29491ce-c9c4-40d4-8835-4a90b3b7bafc",
+    "stem_html": "If a biker rides west for 50 miles from his starting position, then turns and bikes back east 80 miles. What is his net displacement?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo03",
+      "k12phys-ch02-ex019",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch02-ex019",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:74c34e51-1968-4e5d-b1d3-e5df6a9be9fb",
+      "lo:stax-phys:2-1-4",
+      "context-cnxmod:72169e9d-cba1-4d43-923c-41ae4d01b3cc"
+    ],
+    "uid": "1829@4"
   },
   {
-    "uuid": "cf7d9fed-ab6a-4950-9f99-6e0f3b1706d4",
-    "stem_html": "Maud sends her bowling ball straight down the center of the lane, getting a strike. The ball is brought back to the holder mechanically. What are the ball’s net displacement and distance traveled?",
-    "id": 50028,
     "answers": [
       {
         "id": 208785,
@@ -245,6 +297,31 @@
         "correctness": "0.0",
         "feedback_html": "The ball reached its initial position after covering a certain path. Rethink about its displacement."
       }
-    ]
+    ],
+    "group_uuid": "48886e06-0469-41fc-9693-b74bb391e300",
+    "stem_html": "Maud sends her bowling ball straight down the center of the lane, getting a strike. The ball is brought back to the holder mechanically. What are the ball’s net displacement and distance traveled?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo02",
+      "k12phys-ch02-ex021",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:2-1-3",
+      "exid:k12phys-ch02-ex021",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:74c34e51-1968-4e5d-b1d3-e5df6a9be9fb",
+      "context-cnxmod:72169e9d-cba1-4d43-923c-41ae4d01b3cc"
+    ],
+    "uid": "1831@4"
   }
 ]

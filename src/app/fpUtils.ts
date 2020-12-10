@@ -1,5 +1,11 @@
 import { FirstArgumentType } from './types';
 
+export const and = <A extends any[]>(...predicates: Array<(...args: A) => boolean>) => (...args: A) =>
+  predicates.reduce((result, predicate) => result && predicate(...args), true);
+
+export const ifUndefined = <I, D>(item: I | undefined, defaultValue: D): I | D  =>
+  item === undefined ? defaultValue : item;
+
 /*
  * returns a function that inverts the result of the passed in function
  */

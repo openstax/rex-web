@@ -1,0 +1,279 @@
+[
+  {
+    "answers": [
+      {
+        "id": 376835,
+        "content_html": "<span data-math=\"5.94\\times10^{17}\\,\\text{kg}\">5.94\\times10^{17}\\,\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Convert all the given values in SI units to obtain the mass in <span data-math=\"\\text{kg}\">\\text{kg}</span>."
+      },
+      {
+        "id": 376838,
+        "content_html": "<span data-math=\"5.94\\times10^{24}\\text{kg}\">5.94\\times10^{24}\\text{kg}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The mass of Earth with the given values of radius and acceleration due to gravity comes out to be <span data-math=\"5.94\\times10^{24}\\text{kg}\">5.94\\times10^{24}\\text{kg}</span> ."
+      },
+      {
+        "id": 376836,
+        "content_html": "<span data-math=\"9.36\\times10^{17}\\text{kg}\">9.36\\times10^{17}\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall that the radius of Earth is squared in the expression. The correct expression is <span data-math=\"M = \\frac{gr^2\\!}{\\text{G}}\">M = \\frac{gr^2\\!}{\\text{G}}</span>."
+      },
+      {
+        "id": 376837,
+        "content_html": "<span data-math=\"9.36\\times10^{24}\\text{kg}\">9.36\\times10^{24}\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Acceleration due to gravity is given by the expression <span data-math=\"g = \\text{G}\\frac{M}{r^2\\!}\">g = \\text{G}\\frac{M}{r^2\\!}</span>."
+      }
+    ],
+    "group_uuid": "a5254375-bb95-4a90-86df-43071ae4b3a9",
+    "stem_html": "Calculate Earth’s mass given that the acceleration due to gravity at the North Pole is <span data-math=\"9.830\\text{m/s}^2\\!\">9.830\\text{m/s}^2\\!</span> and the radius of the Earth is <span data-math=\"6371\\,\\text{km}\">6371\\,\\text{km}</span> from pole to center.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch07",
+      "k12phys-ch07-s02",
+      "k12phys-ch07-s02-lo02",
+      "k12phys-ch07-ex031",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:6-5-1",
+      "exid:k12phys-ch07-ex031",
+      "context-cnxmod:f4dad665-7922-49c8-a359-dc8fd6bacd26",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
+      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
+      "aplo:stax-apphys:2.B.1.1",
+      "aplo:stax-apphys:2.B.2.1",
+      "aplo:stax-apphys:2.B.2.2"
+    ],
+    "uid": "2597@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376843,
+        "content_html": "Gravitational force between two objects is directly proportional to the sum of the squares of their masses and inversely proportional to the square of the distance between them.",
+        "correctness": "0.0",
+        "feedback_html": "Gravitational force is not directly proportional to the sum of the squares of the masses."
+      },
+      {
+        "id": 376846,
+        "content_html": "Gravitational force between two objects is directly proportional to the product of their masses and inversely proportional to the square of the distance between them.",
+        "correctness": "1.0",
+        "feedback_html": "Gravitational force is proportional to the product of the two masses and inversely proportional to the square of the distance between the objects."
+      },
+      {
+        "id": 376844,
+        "content_html": "Gravitational force between two objects is directly proportional to the sum of the squares of their masses and inversely proportional to the distance between them.",
+        "correctness": "0.0",
+        "feedback_html": "Gravitational force follows the inverse square law, which means that it is inversely proportional to the square of the distance between the objects. Also, it is directly proportional to the product of the masses, not to the sum of the squares of the masses."
+      },
+      {
+        "id": 376845,
+        "content_html": "Gravitational force between two objects is directly proportional to the product of their masses and inversely proportional to the distance between them.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that, in the expression for gravitational force, the denominator has a distance squared. Thus, this force is inversely proportional to the square of the distance between the objects."
+      }
+    ],
+    "group_uuid": "5624484d-f7d7-4828-b46b-d4b40f47e70e",
+    "stem_html": "State the law of universal gravitation in words only.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch07",
+      "k12phys-ch07-s02",
+      "k12phys-ch07-s02-lo01",
+      "k12phys-ch07-ex033",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:6-5-1",
+      "exid:k12phys-ch07-ex033",
+      "context-cnxmod:f4dad665-7922-49c8-a359-dc8fd6bacd26",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
+      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
+      "aplo:stax-apphys:2.B.1.1",
+      "aplo:stax-apphys:2.B.2.1",
+      "aplo:stax-apphys:2.B.2.2"
+    ],
+    "uid": "2599@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376853,
+        "content_html": "Gravity and velocity have the same effect and cannot be distinguished from each other. An acceptable illustration of this is any description of the feeling of constant velocity in a situation where no outside frame of reference is considered.",
+        "correctness": "0.0",
+        "feedback_html": "Consider the postulates of Einstein’s theory of general relativity. One cannot feel motion while moving at a constant velocity if no outside frame of reference is considered."
+      },
+      {
+        "id": 376852,
+        "content_html": "Gravity and velocity have different effects and can be distinguished from each other. An acceptable illustration of this is any description of the feeling of constant velocity in a situation where no outside frame of reference is considered.",
+        "correctness": "0.0",
+        "feedback_html": "One cannot feel motion while moving at a constant velocity if no outside frame of reference is considered. Consider the postulates of Einstein’s theory of general relativity."
+      },
+      {
+        "id": 376854,
+        "content_html": "Gravity and acceleration have the same effect and cannot be distinguished from each other. An acceptable illustration of this is any description of the feeling of acceleration in a situation where no outside frame of reference is considered.",
+        "correctness": "1.0",
+        "feedback_html": "Gravity and acceleration have the same effect and cannot be distinguished from each other. An acceptable illustration of this is any description of the feeling of acceleration in a situation where no outside frame of reference shows that velocity, rather than gravity, is changing."
+      },
+      {
+        "id": 376851,
+        "content_html": "Gravity and acceleration have different effects and can be distinguished from each other. An acceptable illustration of this is any description of the feeling of acceleration in a situation where no outside frame of reference is considered.",
+        "correctness": "0.0",
+        "feedback_html": "It is not possible to distinguish between gravity and acceleration if no outside reference frame is considered. Consider the postulates of the general theory of relativity correctly."
+      }
+    ],
+    "group_uuid": "fe65eb4e-82e3-470d-9081-791cada299f7",
+    "stem_html": "Describe the postulate on which Einstein based the theory of general relativity and describe an everyday experience that illustrates this postulate.",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch07",
+      "k12phys-ch07-s02",
+      "k12phys-ch07-s02-lo01",
+      "k12phys-ch07-ex035",
+      "time:medium",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:34-2-1",
+      "exid:k12phys-ch07-ex035",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
+      "context-cnxmod:a601f6db-2bcf-4764-adf5-5b22c15336cc",
+      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
+      "context-cnxmod:eb8fde82-4d56-49f6-b929-565d235dcf42",
+      "aplo:stax-apphys:4.A.2.2"
+    ],
+    "uid": "2601@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 420622,
+        "content_html": "<span data-math=\"0.810\\,\\text{m/s}^2\">0.810\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "The value of gravitational acceleration cannot be determined correctly if the mass of the body is divided by the weight of the same body."
+      },
+      {
+        "id": 420623,
+        "content_html": "<span data-math=\"1.23\\,\\text{m/s}^2\">1.23\\,\\text{m/s}^2</span>",
+        "correctness": "1.0",
+        "feedback_html": "The value of the gravitational acceleration can be determined after dividing the weight of the body by the mass of the same body."
+      },
+      {
+        "id": 420624,
+        "content_html": "<span data-math=\"539\\,\\text{m/s}^2\">539\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "The correct expression to find the value of the acceleration due to gravity is <span data-math=\"g = W/m\">g = W/m</span>."
+      },
+      {
+        "id": 420625,
+        "content_html": "<span data-math=\"3735\\,\\text{m/s}^2\">3735\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "The product of mass and weight cannot give the correct value of acceleration due to gravity."
+      }
+    ],
+    "group_uuid": "a5376763-21fe-482b-a3dd-893b555369ee",
+    "stem_html": "You have a mass of <span data-math=\"55\\,\\text{kg}\">55\\,\\text{kg}</span> and you have just landed on one of the moons of Jupiter where you have a weight of <span data-math=\"67.9\\,\\text{N}\">67.9\\,\\text{N}</span>. What is the acceleration due to gravity, <span data-math=\"g\">g</span>, on the moon you are visiting?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch07",
+      "k12phys-ch07-s02",
+      "k12phys-ch07-s02-lo02",
+      "k12phys-ch07-ex039",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch07-ex039",
+      "context-cnxmod:f4dad665-7922-49c8-a359-dc8fd6bacd26",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
+      "lo:stax-phys:6-5-2",
+      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
+      "aplo:stax-apphys:2.B.1.1",
+      "aplo:stax-apphys:2.B.2.1",
+      "aplo:stax-apphys:2.B.2.2"
+    ],
+    "uid": "2605@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 376877,
+        "content_html": "<span data-math=\"9.35\\times10^{17}\\,\\text{kg}\">9.35\\times10^{17}\\,\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall that the gravitational force follows the inverse square law."
+      },
+      {
+        "id": 376880,
+        "content_html": "<span data-math=\"5.96\\times10^{24}\\text{kg}\">5.96\\times10^{24}\\text{kg}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The mass of the Earth can be obtained by using the definition of the gravitational force due to Earth at a point."
+      },
+      {
+        "id": 376878,
+        "content_html": "<span data-math=\"3.79\\times10^{31}\\text{kg}\">3.79\\times10^{31}\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The gravitational force does not vary inversely with the cube of the radius."
+      },
+      {
+        "id": 376879,
+        "content_html": "<span data-math=\"2.42\\times10^{38}\\text{kg}\">2.42\\times10^{38}\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall that the gravitational force follows the inverse square law."
+      }
+    ],
+    "group_uuid": "2ef154b3-4aaf-41ff-b680-9d75c845d19c",
+    "stem_html": "The average radius of Earth is <span data-math=\"6.37\\times10^6\\,\\text{m}\">6.37\\times10^6\\,\\text{m}</span>. What is Earth’s mass?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch07",
+      "k12phys-ch07-s02",
+      "k12phys-ch07-s02-lo02",
+      "k12phys-ch07-ex042",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch07-ex042",
+      "context-cnxmod:f4dad665-7922-49c8-a359-dc8fd6bacd26",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
+      "lo:stax-phys:6-5-2",
+      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
+      "aplo:stax-apphys:2.B.1.1",
+      "aplo:stax-apphys:2.B.2.1",
+      "aplo:stax-apphys:2.B.2.2"
+    ],
+    "uid": "2608@5"
+  }
+]

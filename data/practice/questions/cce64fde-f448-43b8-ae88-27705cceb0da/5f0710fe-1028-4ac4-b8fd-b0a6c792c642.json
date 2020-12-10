@@ -1,8 +1,5 @@
 [
   {
-    "uuid": "054d3c8d-0da5-4fea-90e7-8b184dcfb88c",
-    "stem_html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
-    "id": 43628,
     "answers": [
       {
         "id": 184601,
@@ -28,12 +25,31 @@
         "correctness": "0.0",
         "feedback_html": "Biology and chemistry are also part of natural philosophy, but not part of physics."
       }
-    ]
+    ],
+    "group_uuid": "63a60000-ff6d-4fa7-90e7-fc1d677bb94c",
+    "stem_html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo01",
+      "k12phys-ch01-ex008",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex008",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual"
+    ],
+    "uid": "1663@3"
   },
   {
-    "uuid": "3ea59950-2e7f-4644-8ea9-5985056370d1",
-    "stem_html": "How could physics be useful in weather prediction?",
-    "id": 49876,
     "answers": [
       {
         "id": 208181,
@@ -59,12 +75,34 @@
         "correctness": "0.0",
         "feedback_html": "This is true, but its effects are not involved in day-to-day weather prediction."
       }
-    ]
+    ],
+    "group_uuid": "b9443b1a-75d6-459b-8509-18fa779451f3",
+    "stem_html": "How could physics be useful in weather prediction?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo03",
+      "concept",
+      "k12phys-ch01-ex010",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex010",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1665@4"
   },
   {
-    "uuid": "2a7537cd-9306-4c66-8e76-4ee4881c606f",
-    "stem_html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
-    "id": 91776,
     "answers": [
       {
         "id": 374083,
@@ -90,12 +128,35 @@
         "correctness": "0.0",
         "feedback_html": "While that is true, it is not the content of the theory of relativity."
       }
-    ]
+    ],
+    "group_uuid": "17516805-09b5-44ff-b5b6-076d876ff574",
+    "stem_html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo01",
+      "k12phys-ch01-ex011",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "dok:4",
+      "lo:stax-phys:28-1-1",
+      "exid:k12phys-ch01-ex011",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:a0aa151b-c104-49a6-a0a7-7d2cb965d23d",
+      "context-cnxmod:9c787d6e-6886-4098-a8cf-5dca13e9d470",
+      "aplo:stax-apphys:1.D.3.1"
+    ],
+    "uid": "1666@6"
   },
   {
-    "uuid": "0466c4f7-8241-457e-b476-cccc928b6ae7",
-    "stem_html": "What would be some ways in which physics was involved in building the features of the room you are in right now?",
-    "id": 49879,
     "answers": [
       {
         "id": 208194,
@@ -121,12 +182,34 @@
         "correctness": "0.0",
         "feedback_html": "Social behavior of living beings is not addressed by physics."
       }
-    ]
+    ],
+    "group_uuid": "6d03b2f1-5f1f-4ecf-86d2-9c0d29c5e7c6",
+    "stem_html": "What would be some ways in which physics was involved in building the features of the room you are in right now?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo03",
+      "k12phys-ch01-ex013",
+      "time:medium",
+      "blooms:4",
+      "book:stax-phys",
+      "dok:4",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex013",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1668@4"
   },
   {
-    "uuid": "d1a1c120-115e-4b3d-a13b-f62926970936",
-    "stem_html": "Modern physics could best be described as the combination of which theories?",
-    "id": 43630,
     "answers": [
       {
         "id": 184609,
@@ -152,12 +235,31 @@
         "correctness": "0.0",
         "feedback_html": "Relativity is a part of modern physics, but Newton’s laws are a part of classical physics."
       }
-    ]
+    ],
+    "group_uuid": "dad22ab3-ed46-4406-bdb0-2740b262e582",
+    "stem_html": "Modern physics could best be described as the combination of which theories?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo01",
+      "k12phys-ch01-ex014",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex014",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice"
+    ],
+    "uid": "1669@3"
   },
   {
-    "uuid": "39225664-dc4a-4d9b-b909-725d9aa3f27a",
-    "stem_html": "Which of the following best describes why knowledge of physics is necessary to understand all other sciences?",
-    "id": 49881,
     "answers": [
       {
         "id": 208201,
@@ -183,12 +285,34 @@
         "correctness": "1.0",
         "feedback_html": "The fundamental laws of nature and the universe are studied under the branch of physics."
       }
-    ]
+    ],
+    "group_uuid": "58ea7572-2e15-41dd-9569-329e80722a35",
+    "stem_html": "Which of the following best describes why knowledge of physics is necessary to understand all other sciences?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo03",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch01-ex016",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex016",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1671@4"
   },
   {
-    "uuid": "eb83cdb9-56f0-4b1a-a3dc-87c87227416e",
-    "stem_html": "Describe the aims of physics.",
-    "id": 43631,
     "answers": [
       {
         "id": 184613,
@@ -214,12 +338,31 @@
         "correctness": "0.0",
         "feedback_html": "Social behavior of a living being is a part of sociology and anthropology."
       }
-    ]
+    ],
+    "group_uuid": "3a60b04e-c3a7-4e9b-bc8e-f71554ef5f24",
+    "stem_html": "Describe the aims of physics.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo01",
+      "ost-test-prep",
+      "k12phys-ch01-ex017",
+      "short-answer",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex017",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice"
+    ],
+    "uid": "1672@3"
   },
   {
-    "uuid": "42332cfb-2e49-497c-87fd-382d094d49f0",
-    "stem_html": "Describe what two topics physicists are trying to unify with relativistic quantum mechanics. How will this unification create a greater understanding of our universe?",
-    "id": 66729,
     "answers": [
       {
         "id": 274649,
@@ -245,12 +388,34 @@
         "correctness": "0.0",
         "feedback_html": "Relativistic quantum mechanics unifies quantum mechanics, not classical mechanics, and Einstein’s theory of relativity."
       }
-    ]
+    ],
+    "group_uuid": "cc65debc-10f4-4484-94c5-b62cc21f673f",
+    "stem_html": "Describe what two topics physicists are trying to unify with relativistic quantum mechanics. How will this unification create a greater understanding of our universe?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo02",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-ex019",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:29-1-1",
+      "exid:k12phys-ch01-ex019",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:f78cdc22-37ab-42b8-b0a4-db74a8ae7a3f",
+      "context-cnxmod:cf5fb070-e0c7-4b8e-8241-c0b946450c78"
+    ],
+    "uid": "1674@5"
   },
   {
-    "uuid": "ae6efce2-df66-41de-ac5f-ea6ef11ec712",
-    "stem_html": "How could knowledge of physics help you find a faster way to drive from your house to your school?",
-    "id": 49885,
     "answers": [
       {
         "id": 208217,
@@ -276,37 +441,31 @@
         "correctness": "0.0",
         "feedback_html": "The closing of a particular street is a social factor which depends on the social reasoning for the closing of the street and does not involve physics."
       }
-    ]
-  },
-  {
-    "uuid": "75a2770e-c5de-4588-b72e-1d46e73935ec",
-    "stem_html": "How could knowledge of physics help you build a sound and energy-efficient house?",
-    "id": 49886,
-    "answers": [
-      {
-        "id": 208222,
-        "content_html": "An understanding of force, pressure, heat, electricity, etc., which all involve physics, will help me design a sound and energy-efficient house.",
-        "correctness": "1.0",
-        "feedback_html": "An understanding of force and pressure will help you design a structurally sound house, while knowledge of heat and electricity will help you build an energy-efficient house."
-      },
-      {
-        "id": 208221,
-        "content_html": "An understanding of the air composition, chemical composition of matter, etc., which all involves physics, will help me design a sound and energy-efficient house.",
-        "correctness": "0.0",
-        "feedback_html": "Air composition or chemical composition of matter involves chemistry rather than physics."
-      },
-      {
-        "id": 208220,
-        "content_html": "An understanding of material cost and economic factors involving physics will help me design a sound and energy-efficient house.",
-        "correctness": "0.0",
-        "feedback_html": "Economic factors of house construction are not about physics."
-      },
-      {
-        "id": 208219,
-        "content_html": "An understanding of geographical location and social environment which involves physics will help me design a sound and energy-efficient house.",
-        "correctness": "0.0",
-        "feedback_html": "Geographical location and social factors do not particularly involve physics."
-      }
-    ]
+    ],
+    "group_uuid": "b10c488f-1967-417f-8a9c-23881021983b",
+    "stem_html": "How could knowledge of physics help you find a faster way to drive from your house to your school?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo03",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-ex021",
+      "dok:2",
+      "blooms:4",
+      "time:long",
+      "book:stax-phys",
+      "lo:stax-phys:4-7-2",
+      "exid:k12phys-ch01-ex021",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:6b1832d7-c911-4f87-a18e-29e84c54c4e2",
+      "context-cnxmod:c8839816-3545-4281-8551-2eeee05afa78"
+    ],
+    "uid": "1676@4"
   }
 ]

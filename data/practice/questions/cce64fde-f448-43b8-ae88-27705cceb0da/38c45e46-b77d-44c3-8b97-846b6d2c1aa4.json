@@ -1,39 +1,5 @@
 [
   {
-    "uuid": "b768fce1-742f-4d18-9209-38038238df15",
-    "stem_html": "Explain why scientists sometimes use a model rather than trying to analyze the behavior of the real system.",
-    "id": 49890,
-    "answers": [
-      {
-        "id": 208238,
-        "content_html": "Models are simpler to analyze.",
-        "correctness": "1.0",
-        "feedback_html": "A model is a simpler system, analogous to the real system, and is used to get information because it is simpler."
-      },
-      {
-        "id": 208237,
-        "content_html": "Models give more accurate results.",
-        "correctness": "0.0",
-        "feedback_html": "Since it is not the real system, it will give less accurate results."
-      },
-      {
-        "id": 208236,
-        "content_html": "Models provide more reliable predictions.",
-        "correctness": "0.0",
-        "feedback_html": "Since it is not the real system, it will give less reliable results."
-      },
-      {
-        "id": 208235,
-        "content_html": "Models do not require any computer calculations.",
-        "correctness": "0.0",
-        "feedback_html": "Analyzing a model can involve computer calculations, especially when the model is complex."
-      }
-    ]
-  },
-  {
-    "uuid": "ba124de2-b86c-423b-8b59-04259151983f",
-    "stem_html": "Describe the difference between a question, generated through observation, and a hypothesis.",
-    "id": 49891,
     "answers": [
       {
         "id": 208241,
@@ -59,43 +25,33 @@
         "correctness": "0.0",
         "feedback_html": "That would be a theory."
       }
-    ]
+    ],
+    "group_uuid": "cb3c9a65-a43c-43b4-93f4-62d65fa38801",
+    "stem_html": "Describe the difference between a question, generated through observation, and a hypothesis.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "os-practice-concepts",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo01",
+      "k12phys-ch01-ex028",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex028",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1683@4"
   },
   {
-    "uuid": "12c69f74-058e-4e83-80e5-ffd7a25e3696",
-    "stem_html": "What is a scientific model and how is it useful?",
-    "id": 49892,
-    "answers": [
-      {
-        "id": 208245,
-        "content_html": "A scientific model is a representation of something that can be easily studied directly. It is useful for studying things that can be easily analyzed by humans.",
-        "correctness": "0.0",
-        "feedback_html": "If something can be easily studied directly there would be no need to use a model."
-      },
-      {
-        "id": 208246,
-        "content_html": "A scientific model is a representation of something that is often too difficult to study directly. It is useful for studying a complex system or systems that humans cannot observe directly.",
-        "correctness": "1.0",
-        "feedback_html": "A scientific model is a representation of something that is often too difficult, or impossible, to study directly. It is useful when the real system is too complex to be analyzed easily."
-      },
-      {
-        "id": 208244,
-        "content_html": "A scientific model is a representation of scientific equipment. It is useful for studying working principles of scientific equipment.",
-        "correctness": "0.0",
-        "feedback_html": "Models are used for studying systems of interest, not the equipment used to observe the systems."
-      },
-      {
-        "id": 208243,
-        "content_html": "A scientific model is a representation of a laboratory where experiments are performed. It is useful for studying requirements needed inside the laboratory.",
-        "correctness": "0.0",
-        "feedback_html": "Models are used for studying systems of interest, not usually laboratories."
-      }
-    ]
-  },
-  {
-    "uuid": "55620900-1966-4434-92b0-05b9524e46af",
-    "stem_html": "Which of the following statements is correct about the hypothesis?",
-    "id": 49893,
     "answers": [
       {
         "id": 208250,
@@ -121,43 +77,33 @@
         "correctness": "0.0",
         "feedback_html": "The hypothesis is an educated guess and need not be applicable to all the situations in the universe."
       }
-    ]
+    ],
+    "group_uuid": "5cd8a919-7c8e-4824-b661-599581ce2bea",
+    "stem_html": "Which of the following statements is correct about the hypothesis?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "os-practice-concepts",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo02",
+      "k12phys-ch01-ex030",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex030",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1685@4"
   },
   {
-    "uuid": "df949d93-7483-41ec-ae56-1136e2730c92",
-    "stem_html": "What is a scientific theory?",
-    "id": 49894,
-    "answers": [
-      {
-        "id": 208254,
-        "content_html": "A scientific theory is an explanation of natural phenomena that is supported by evidence.",
-        "correctness": "1.0",
-        "feedback_html": "A scientific theory is an explanation for patterns in nature that is supported by much scientific evidence and verified multiple times by multiple researchers. It is a common misconception among both students and the general public that scientific theories are nothing more than educated guesses."
-      },
-      {
-        "id": 208253,
-        "content_html": "A scientific theory is an explanation of natural phenomena without the support of evidence.",
-        "correctness": "0.0",
-        "feedback_html": "A scientific theory is an explanation of the natural phenomenon, but it is one that is supported by extensive evidence."
-      },
-      {
-        "id": 208252,
-        "content_html": "A scientific theory is an educated guess about the natural phenomena occurring in nature.",
-        "correctness": "0.0",
-        "feedback_html": "This is the definition of a hypothesis."
-      },
-      {
-        "id": 208251,
-        "content_html": "A scientific theory is an uneducated guess about natural phenomena occurring in nature.",
-        "correctness": "0.0",
-        "feedback_html": "Even a hypothesis is an educated guess. In contrast, a theory is supported by extensive evidence, making it neither a hypothesis nor a guess."
-      }
-    ]
-  },
-  {
-    "uuid": "17c92e9e-a98f-4f76-a048-0ce87aa18adf",
-    "stem_html": "Compare and contrast a hypothesis and a scientific theory.",
-    "id": 49895,
     "answers": [
       {
         "id": 208257,
@@ -183,12 +129,33 @@
         "correctness": "0.0",
         "feedback_html": "A hypothesis is a tentative statement intended to be tested. A theory is not experimental evidence itself, but rather is a well-developed explanation."
       }
-    ]
+    ],
+    "group_uuid": "b744afd9-d6f2-4e46-a133-ed98ff00cbdc",
+    "stem_html": "Compare and contrast a hypothesis and a scientific theory.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "os-practice-concepts",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo03",
+      "k12phys-ch01-ex032",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex032",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1687@4"
   },
   {
-    "uuid": "256212b0-1ce9-47d8-94b4-11327b33a09e",
-    "stem_html": "Describe how modeling is useful in studying the structure of the atom.",
-    "id": 49897,
     "answers": [
       {
         "id": 208266,
@@ -214,12 +181,34 @@
         "correctness": "0.0",
         "feedback_html": "Models are generally simplified systems, and have less realistic detail than the actual system."
       }
-    ]
+    ],
+    "group_uuid": "165e4fbb-0ab1-4adb-b439-67eba8077503",
+    "stem_html": "Describe how modeling is useful in studying the structure of the atom.",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "k12phys-ch01",
+      "concept",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo02",
+      "k12phys-ch01-ex034",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:30-1-1",
+      "exid:k12phys-ch01-ex034",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:7d3d1276-696a-4a41-ab53-c12804b57470",
+      "context-cnxmod:01f8a8c3-62d7-4103-a1a0-a736c79c24ba"
+    ],
+    "uid": "1689@4"
   },
   {
-    "uuid": "07f416d7-9cbb-48f8-bc5d-03efcbe00e6a",
-    "stem_html": "The free-electron model of metals explains some of the important behaviors of metals by assuming the metal’s electrons move freely through the metal without repelling one another. In what sense is the free-electron theory based on a model?",
-    "id": 49902,
     "answers": [
       {
         "id": 208285,
@@ -245,12 +234,34 @@
         "correctness": "0.0",
         "feedback_html": "It does not give a realistic picture of motion of electrons in metal wire."
       }
-    ]
+    ],
+    "group_uuid": "1eeaf811-f298-4547-935e-78926781bcad",
+    "stem_html": "The free-electron model of metals explains some of the important behaviors of metals by assuming the metal’s electrons move freely through the metal without repelling one another. In what sense is the free-electron theory based on a model?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo01",
+      "k12phys-ch01-ex039",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex039",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1694@4"
   },
   {
-    "uuid": "82fd0189-2c74-464b-806d-ffc902c8155e",
-    "stem_html": "When a large body of experimental evidence supports a hypothesis, what may the hypothesis eventually be considered?",
-    "id": 49904,
     "answers": [
       {
         "id": 208293,
@@ -276,12 +287,34 @@
         "correctness": "1.0",
         "feedback_html": "An experimentally-supported hypothesis becomes a law."
       }
-    ]
+    ],
+    "group_uuid": "811da3a4-3f25-4f91-ae2d-ef1c524a6c74",
+    "stem_html": "When a large body of experimental evidence supports a hypothesis, what may the hypothesis eventually be considered?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo03",
+      "k12phys-ch01-ex041",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex041",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "lo:stax-phys:1-1-1",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1696@4"
   },
   {
-    "uuid": "843f7087-a8e9-4057-aabc-6d3b4e1a6a66",
-    "stem_html": "Design an experiment that will test the following hypothesis: driving on a gravel road causes greater damage to a car than driving on a dirt road.",
-    "id": 49906,
     "answers": [
       {
         "id": 208301,
@@ -307,12 +340,34 @@
         "correctness": "0.0",
         "feedback_html": "It is testable. Consider what you have to compare to test it."
       }
-    ]
+    ],
+    "group_uuid": "ecd26aa5-ac4b-4288-b7c9-728ede222ed1",
+    "stem_html": "Design an experiment that will test the following hypothesis: driving on a gravel road causes greater damage to a car than driving on a dirt road.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo01",
+      "k12phys-ch01-ex043",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "blooms:6",
+      "exid:k12phys-ch01-ex043",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1698@4"
   },
   {
-    "uuid": "d9faf6d1-9fed-41a4-9b45-4ec5550fbf38",
-    "stem_html": "How does a scientific law compare to a local law, such as that governing parking at your school, in terms of whether or not laws can be changed, and how universal a law is?",
-    "id": 49910,
     "answers": [
       {
         "id": 208318,
@@ -338,12 +393,34 @@
         "correctness": "0.0",
         "feedback_html": "A local law does not apply throughout the universe, a scientific law is not applicable to only a specific area and a law can change if new evidence calls for the change."
       }
-    ]
+    ],
+    "group_uuid": "22b21b1a-e99a-4384-b1c9-ddea574e896c",
+    "stem_html": "How does a scientific law compare to a local law, such as that governing parking at your school, in terms of whether or not laws can be changed, and how universal a law is?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo03",
+      "k12phys-ch01-ex047",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex047",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "lo:stax-phys:1-1-1",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1702@4"
   },
   {
-    "uuid": "5acf7482-c46c-49a4-b225-6598a728637c",
-    "stem_html": "You wish to perform an experiment on the stopping distance of your new car. Create a specific experiment to measure the distance. Be sure to specifically state how you will set up and take data during your experiment.",
-    "id": 49911,
     "answers": [
       {
         "id": 208321,
@@ -369,12 +446,34 @@
         "correctness": "0.0",
         "feedback_html": "The experiment needs to measure distance to stop, not time to speed up."
       }
-    ]
+    ],
+    "group_uuid": "53c973ec-e858-4609-ab29-d536a7e7d413",
+    "stem_html": "You wish to perform an experiment on the stopping distance of your new car. Create a specific experiment to measure the distance. Be sure to specifically state how you will set up and take data during your experiment.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo01",
+      "k12phys-ch01-ex048",
+      "time:short",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "blooms:6",
+      "exid:k12phys-ch01-ex048",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1703@4"
   },
   {
-    "uuid": "a92dac00-d7a4-49ff-ab66-6078dfecf33e",
-    "stem_html": "What would play the most important role in leading to an experiment in the scientific world becoming a scientific law?",
-    "id": 49913,
     "answers": [
       {
         "id": 208330,
@@ -400,6 +499,31 @@
         "correctness": "0.0",
         "feedback_html": "Scientific issues are ultimately settled on the basis of experiment and observation, not personal authority."
       }
-    ]
+    ],
+    "group_uuid": "159bd249-674f-44f8-9d31-dc3be211b303",
+    "stem_html": "What would play the most important role in leading to an experiment in the scientific world becoming a scientific law?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo03",
+      "k12phys-ch01-ex050",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex050",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "lo:stax-phys:1-1-1",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1705@4"
   }
 ]

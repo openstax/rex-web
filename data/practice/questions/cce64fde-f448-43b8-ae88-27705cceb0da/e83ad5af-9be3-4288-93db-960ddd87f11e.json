@@ -1,0 +1,108 @@
+[
+  {
+    "answers": [
+      {
+        "id": 374894,
+        "content_html": "<span data-math=\"9.80\\,\\text{m/s}\">9.80\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The pebble is in free fall so the initial velocity will be zero and the acceleration will be <span data-math=\"9.80\\,\\text{m/s}^2\\!\">9.80\\,\\text{m/s}^2\\!</span>. What will the velocity be after <span data-math=\"2\\,\\text{s}\">2\\,\\text{s}</span>?"
+      },
+      {
+        "id": 374895,
+        "content_html": "<span data-math=\"10.0\\,\\text{m/s}\">10.0\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Acceleration due to gravity is acting on the pebble for <span data-math=\"2\\,\\text{s}\">2\\,\\text{s}</span>. The starting velocity is zero, so the velocity after <span data-math=\"2\\,\\text{s}\">2\\,\\text{s}</span> will be the product of acceleration and time."
+      },
+      {
+        "id": 374897,
+        "content_html": "<span data-math=\"19.6\\,\\text{m/s}\">19.6\\,\\text{m/s}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The formula <span data-math=\"v_f = v_0 + at\">v_f = v_0 + at</span> will give the velocity with which the pebble strikes the water as <span data-math=\"19.6\\,\\text{m/s}\">19.6\\,\\text{m/s}</span>."
+      },
+      {
+        "id": 374896,
+        "content_html": "<span data-math=\"20.0\\,\\text{m/s}\">20.0\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Use <span data-math=\"v_f = v_0 + at\">v_f = v_0 + at</span> with <span data-math=\"v_0 = 0\\,\\text{m/s}\">v_0 = 0\\,\\text{m/s}</span>, <span data-math=\"t = 2.00\\,\\text{s}\">t = 2.00\\,\\text{s}</span>, and <span data-math=\"a = 9.8\\,\\text{m/s}^2\\!\">a = 9.8\\,\\text{m/s}^2\\!</span>."
+      }
+    ],
+    "group_uuid": "4cd4e097-4b4e-4549-9705-c56f12369f1b",
+    "stem_html": "A girl drops a pebble from a high cliff into a lake far below. She sees the splash of the pebble hitting the water <span data-math=\"2.00\\,\\text{s}\">2.00\\,\\text{s}</span> later. How fast was the pebble going when it hit the water?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch03",
+      "k12phys-ch03-s02",
+      "k12phys-ch03-s02-lo02",
+      "k12phys-ch03-ex046",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:2-7-3",
+      "exid:k12phys-ch03-ex046",
+      "context-cnxmod:b4bd9f8c-e89c-42f6-b451-8612ada4b15b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e427f8f8-d6bf-4420-b690-bc28cc328cf8",
+      "context-cnxmod:34176c43-5a3b-4e21-950d-3b724e819b15",
+      "aplo:stax-apphys:3.A.1.1"
+    ],
+    "uid": "2027@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 374847,
+        "content_html": "Find the force acting on the body.",
+        "correctness": "0.0",
+        "feedback_html": "In kinematic equations, we are interested in the effect of the force, not the force itself."
+      },
+      {
+        "id": 374846,
+        "content_html": "Find the acceleration of a body.",
+        "correctness": "0.0",
+        "feedback_html": "Finding the acceleration is not always necessary. We choose a suitable kinematic equation to solve for the unknown quantity."
+      },
+      {
+        "id": 374845,
+        "content_html": "Find the initial velocity of a body.",
+        "correctness": "0.0",
+        "feedback_html": "It is not always necessary to obtain the initial velocity."
+      },
+      {
+        "id": 374848,
+        "content_html": "Find a suitable kinematic equation and then solve for the unknown quantity.",
+        "correctness": "1.0",
+        "feedback_html": "After listing all of the known variables, the kinematic equations will help in determining the unknown quantities."
+      }
+    ],
+    "group_uuid": "68a731d3-e065-4cf3-824d-c22b7afe6eca",
+    "stem_html": "Which of the following steps is always required to solve a kinematics problem?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch03",
+      "k12phys-ch03-s02",
+      "k12phys-ch03-s02-lo01",
+      "k12phys-ch03-ex033",
+      "time:short",
+      "dok:2",
+      "blooms:5",
+      "book:stax-phys",
+      "lo:stax-phys:2-6-1",
+      "exid:k12phys-ch03-ex033",
+      "context-cnxmod:b4bd9f8c-e89c-42f6-b451-8612ada4b15b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:3921ce75-f453-433d-84cc-b50dd486c27d",
+      "context-cnxmod:34cee680-d73d-40b1-99aa-db0f8bfbf28d",
+      "aplo:stax-apphys:3.A.1.1"
+    ],
+    "uid": "2014@6"
+  }
+]

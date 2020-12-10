@@ -1,0 +1,497 @@
+[
+  {
+    "answers": [
+      {
+        "id": 376163,
+        "content_html": "Circular motion is the motion of an object when it follows a linear path.",
+        "correctness": "0.0",
+        "feedback_html": "An object that follows a linear path is said to be moving in a straight line."
+      },
+      {
+        "id": 376162,
+        "content_html": "Circular motion is the motion of an object when it follows a zigzag path.",
+        "correctness": "0.0",
+        "feedback_html": "The object in a zigzag path moves in random directions. "
+      },
+      {
+        "id": 376164,
+        "content_html": "Circular motion is the motion of an object when it follows a circular path.",
+        "correctness": "1.0",
+        "feedback_html": "The circular motion of an object is a motion where the object moves in a circular path."
+      },
+      {
+        "id": 376161,
+        "content_html": "Circular motion is the movement of an object along the circumference of a circle or rotation along a circular path.",
+        "correctness": "0.0",
+        "feedback_html": "To and from motion is when an object performs a repeated motion about a point called the mean position. "
+      }
+    ],
+    "group_uuid": "b183f3c0-a286-4891-9582-3768bb2e4dda",
+    "stem_html": "What is circular motion?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch06",
+      "k12phys-ch06-s01",
+      "k12phys-ch06-s01-lo01",
+      "k12phys-ch06-ex007",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex007",
+      "context-cnxmod:daa0af29-7563-488e-aa62-b5c284bb28dd",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
+      "lo:stax-phys:6-1-1",
+      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.F.2.1",
+      "aplo:stax-apphys:4.D.1.1"
+    ],
+    "uid": "2416@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 376171,
+        "content_html": "Angular velocity is the rate of change of the diameter of the circular path.",
+        "correctness": "0.0",
+        "feedback_html": "The diameter of the circular path in a circular motion is constant and does not change."
+      },
+      {
+        "id": 376172,
+        "content_html": "Angular velocity is the rate of change of the angle subtended by the circular path.",
+        "correctness": "1.0",
+        "feedback_html": "The angular velocity <span data-math=\"\\omega\">\\omega</span> is the rate of change of the angle subtended by the circular path."
+      },
+      {
+        "id": 376170,
+        "content_html": "Angular velocity is the rate of change of the area of the circular path.",
+        "correctness": "0.0",
+        "feedback_html": "The units of the rate of change of area differ from those for angular velocity."
+      },
+      {
+        "id": 376169,
+        "content_html": "Angular velocity is the rate of change of the radius of the circular path.",
+        "correctness": "0.0",
+        "feedback_html": "The radius of the circular path is constant and does not change with time. "
+      }
+    ],
+    "group_uuid": "586fc63f-1482-406c-a298-4afe47754dbe",
+    "stem_html": "What is angular velocity?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch06",
+      "k12phys-ch06-s01",
+      "k12phys-ch06-s01-lo02",
+      "k12phys-ch06-ex009",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex009",
+      "context-cnxmod:daa0af29-7563-488e-aa62-b5c284bb28dd",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
+      "lo:stax-phys:6-1-1",
+      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.F.2.1",
+      "aplo:stax-apphys:4.D.1.1"
+    ],
+    "uid": "2418@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 414977,
+        "content_html": "an artificial satellite orbiting the Earth, a race car moving in the circular race track, and a top spinning on its axis",
+        "correctness": "0.0",
+        "feedback_html": "A spinning top is an example of rotational motion, not circular motion."
+      },
+      {
+        "id": 414978,
+        "content_html": "an artificial satellite orbiting the Earth, a race car moving in the circular race track, and a ball tied to a string being swung in a circle around a person's head",
+        "correctness": "1.0",
+        "feedback_html": "In circular motion, the body moves in a circular path generally around a second stationary body."
+      },
+      {
+        "id": 414979,
+        "content_html": "Earth spinning on its own axis, a race car moving in the circular race track, and a ball tied to a string being swung in a circle around a person's head",
+        "correctness": "0.0",
+        "feedback_html": "Earth has two types of motion, which are rotational and circular motion. Spinning of Earth on its own axis is an example of rotational motion."
+      },
+      {
+        "id": 414980,
+        "content_html": "Earth spinning on its own axis, blades of a working ceiling fan, and a top spinning on its own axis",
+        "correctness": "0.0",
+        "feedback_html": "These are all examples of rotational motion. Recall the definition for circular motion."
+      }
+    ],
+    "group_uuid": "a1b44cc9-63a0-4273-9502-451ae5c65125",
+    "stem_html": "Identify three examples of an object in circular motion.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch06",
+      "k12phys-ch06-s01",
+      "k12phys-ch06-s01-lo01",
+      "k12phys-ch06-ex011",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex011",
+      "context-cnxmod:daa0af29-7563-488e-aa62-b5c284bb28dd",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
+      "lo:stax-phys:6-1-1",
+      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.F.2.1",
+      "aplo:stax-apphys:4.D.1.1"
+    ],
+    "uid": "2420@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 291563,
+        "content_html": "<span data-math=\"1\\,\\text{rev} = \\pi\\,\\text{rad}=180^\\circ\">1\\,\\text{rev} = \\pi\\,\\text{rad}=180^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "One revolution is one complete cycle of rotation. "
+      },
+      {
+        "id": 291562,
+        "content_html": "<span data-math=\"1\\,\\text{rev} = \\pi\\,\\text{rad}=360^\\circ\\!\">1\\,\\text{rev} = \\pi\\,\\text{rad}=360^\\circ\\!</span>",
+        "correctness": "0.0",
+        "feedback_html": "One revolution is one complete cycle of rotation. "
+      },
+      {
+        "id": 291561,
+        "content_html": "<span data-math=\"1\\,\\text{rev} = 2\\pi\\,\\text{rad} = 180^\\circ\\!\">1\\,\\text{rev} = 2\\pi\\,\\text{rad} = 180^\\circ\\!</span>",
+        "correctness": "0.0",
+        "feedback_html": "One revolution is one complete cycle of rotation. "
+      },
+      {
+        "id": 291564,
+        "content_html": "<span data-math=\"1\\,\\text{rev} = 2\\pi\\,\\text{rad}=360^\\circ\">1\\,\\text{rev} = 2\\pi\\,\\text{rad}=360^\\circ</span>",
+        "correctness": "1.0",
+        "feedback_html": "The conversion factor for <span data-math=\"1\\,\\text{rev} = 2\\pi\\,\\text{rad} = 360^\\circ\">1\\,\\text{rev} = 2\\pi\\,\\text{rad} = 360^\\circ</span>"
+      }
+    ],
+    "group_uuid": "0b0f8766-a12d-4a85-9e7c-5520fc169d44",
+    "stem_html": "One revolution is equal to how many radians? Degrees?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch06",
+      "k12phys-ch06-s01",
+      "k12phys-ch06-s01-lo01",
+      "k12phys-ch06-ex013",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex013",
+      "context-cnxmod:daa0af29-7563-488e-aa62-b5c284bb28dd",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
+      "lo:stax-phys:6-1-1",
+      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.F.2.1",
+      "aplo:stax-apphys:4.D.1.1"
+    ],
+    "uid": "2422@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 376193,
+        "content_html": "<span data-math=\"2v\">2v</span>",
+        "correctness": "0.0",
+        "feedback_html": "The two velocities have the same magnitude and the opposite direction."
+      },
+      {
+        "id": 376194,
+        "content_html": "<span data-math=\"\\frac{v}{2}\">\\frac{v}{2}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The two velocities point in opposite directions, so they can either sum to <span data-math=\"2v\">2v</span> or to <span data-math=\"0\">0</span>."
+      },
+      {
+        "id": 376195,
+        "content_html": "<span data-math=\"- v\">- v</span>",
+        "correctness": "0.0",
+        "feedback_html": "The two velocities have the same magnitude, so they cannot sum to <span data-math=\"-v\">-v</span>."
+      },
+      {
+        "id": 376196,
+        "content_html": "<span data-math=\"0\">0</span>",
+        "correctness": "1.0",
+        "feedback_html": "The two velocities have the same magnitude and the opposite direction, so they sum to zero."
+      }
+    ],
+    "group_uuid": "21add253-4754-4040-a913-f9fc4fa68af2",
+    "stem_html": "Consider a CD spinning clockwise. What is the sum of the instantaneous velocities of two points on both ends of its diameter?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch06",
+      "k12phys-ch06-s01",
+      "k12phys-ch06-s01-lo02",
+      "k12phys-ch06-ex016",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex016",
+      "context-cnxmod:daa0af29-7563-488e-aa62-b5c284bb28dd",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
+      "lo:stax-phys:6-1-1",
+      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
+      "aplo:stax-apphys:3.F.2.1",
+      "aplo:stax-apphys:4.D.1.1",
+      "aplo:stax-apphys:4.D.1.2"
+    ],
+    "uid": "2425@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376214,
+        "content_html": "<span data-math=\"\\text{m/s}\">\\text{m/s}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The tangential velocity is a linear velocity; so the units are <span data-math=\"\\text{m/s}\">\\text{m/s}</span>."
+      },
+      {
+        "id": 376213,
+        "content_html": "<span data-math=\"\\text{rad/s}\">\\text{rad/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The SI unit of angular velocity is <span data-math=\"\\text{rad/s}\">\\text{rad/s}</span>. The tangential velocity is a linear velocity defined at an instantaneous moment."
+      },
+      {
+        "id": 376212,
+        "content_html": "<span data-math=\"^\\circ\\text{/s}\">^\\circ\\text{/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"^\\circ\\text{/s}\">^\\circ\\text{/s}</span> is the unit for angular velocity. The tangential velocity is a linear velocity."
+      }
+    ],
+    "group_uuid": "81104b48-b79d-46bb-9687-35f2a44e7fde",
+    "stem_html": "What are possible units for tangential velocity?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch06",
+      "k12phys-ch06-s01",
+      "k12phys-ch06-s01-lo03",
+      "k12phys-ch06-ex021",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex021",
+      "context-cnxmod:daa0af29-7563-488e-aa62-b5c284bb28dd",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
+      "lo:stax-phys:6-1-1",
+      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.F.2.1",
+      "aplo:stax-apphys:4.D.1.1"
+    ],
+    "uid": "2430@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 376225,
+        "content_html": "<span data-math=\"v = \\frac{\\omega}{r}\">v = \\frac{\\omega}{r}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The linear speed is angular speed times the radius of the rotating object."
+      },
+      {
+        "id": 376226,
+        "content_html": "<span data-math=\"v = r\\omega\">v = r\\omega</span>",
+        "correctness": "1.0",
+        "feedback_html": "The linear speed for a rotating object is <span data-math=\"v = r\\omega\">v = r\\omega</span> , where <span data-math=\"\\omega\">\\omega</span> is the angular speed."
+      },
+      {
+        "id": 376224,
+        "content_html": "<span data-math=\"v = \\frac{\\alpha}{r}\">v = \\frac{\\alpha}{r}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The units of each side of the equation <span data-math=\"v = \\frac{\\alpha}{r}\">v = \\frac{\\alpha}{r}</span> are not the same, so this is not possible. "
+      },
+      {
+        "id": 376223,
+        "content_html": "<span data-math=\"v = r\\alpha\">v = r\\alpha</span>",
+        "correctness": "0.0",
+        "feedback_html": "The linear speed is angular speed times the radius of the rotating object."
+      }
+    ],
+    "group_uuid": "42892674-69b9-4dd5-bba7-68f8093b2267",
+    "stem_html": "What is the equation that relates the linear speed of a point on a rotating object with the object's angular quantities?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch06",
+      "k12phys-ch06-s01",
+      "k12phys-ch06-s01-lo02",
+      "k12phys-ch06-ex024",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex024",
+      "context-cnxmod:daa0af29-7563-488e-aa62-b5c284bb28dd",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
+      "lo:stax-phys:6-1-1",
+      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.F.2.1",
+      "aplo:stax-apphys:4.D.1.1"
+    ],
+    "uid": "2433@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 376231,
+        "content_html": "<span data-math=\"\\omega = \\frac{v^2}{r}\">\\omega = \\frac{v^2}{r}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The angular speed is linearly dependent on the linear speed. That is, <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>."
+      },
+      {
+        "id": 376234,
+        "content_html": "<span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The angular speed is <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>, where <span data-math=\"v\">v</span> is linear speed and <span data-math=\"r\">r</span> is radius of the rotating body."
+      },
+      {
+        "id": 376232,
+        "content_html": "<span data-math=\"\\omega = rv\">\\omega = rv</span>",
+        "correctness": "0.0",
+        "feedback_html": "The linear speed is angular speed times the radius of the rotating object. Therefore, the correct relation is <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>."
+      },
+      {
+        "id": 376233,
+        "content_html": "<span data-math=\"\\omega = r{v^2}\">\\omega = r{v^2}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The angular speed is linearly dependent on the linear speed. The linear speed is angular speed times the radius of the rotating object. Therefore, the correct relation is <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>."
+      }
+    ],
+    "group_uuid": "560df8f7-fd86-44c8-8565-58d1b3805838",
+    "stem_html": "What is angular speed in terms of tangential speed and the radius?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch06",
+      "k12phys-ch06-s01",
+      "k12phys-ch06-s01-lo03",
+      "k12phys-ch06-ex026",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex026",
+      "context-cnxmod:daa0af29-7563-488e-aa62-b5c284bb28dd",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
+      "lo:stax-phys:6-1-1",
+      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.F.2.1",
+      "aplo:stax-apphys:4.D.1.1"
+    ],
+    "uid": "2435@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376243,
+        "content_html": "The point near the center would have the greater angular velocity and the point near the outer edge would have the higher linear velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Angular velocity is same for both points."
+      },
+      {
+        "id": 376244,
+        "content_html": "The point near the edge would have the greater angular velocity and the point near the center would have the higher linear velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Angular velocity is same for both points. Also, the point with the greater radius would have the higher linear velocity."
+      },
+      {
+        "id": 376246,
+        "content_html": "Both have the same angular velocity and the point near the outer edge would have the higher linear velocity.",
+        "correctness": "1.0",
+        "feedback_html": "The angular velocity for both points is same and the point near the edge would have the higher linear velocity because it is at a larger radius than the inner point."
+      },
+      {
+        "id": 376245,
+        "content_html": "Both have the same angular velocity and the point near the center would have the higher linear velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Both points would have the same angular velocity, but the point near edge would have the higher linear velocity."
+      }
+    ],
+    "group_uuid": "0ec306e0-f8fc-4048-ab80-dd840a9f7d9b",
+    "stem_html": "Consider two pits on a CD, one close to the center and one close to the outer edge. For a given angular velocity of the CD, which pit has a higher angular velocity? Which has a higher tangential velocity?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch06",
+      "k12phys-ch06-s01",
+      "k12phys-ch06-s01-lo02",
+      "k12phys-ch06-ex029",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex029",
+      "context-cnxmod:daa0af29-7563-488e-aa62-b5c284bb28dd",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
+      "lo:stax-phys:6-1-1",
+      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.F.2.1",
+      "aplo:stax-apphys:4.D.1.1"
+    ],
+    "uid": "2438@5"
+  }
+]

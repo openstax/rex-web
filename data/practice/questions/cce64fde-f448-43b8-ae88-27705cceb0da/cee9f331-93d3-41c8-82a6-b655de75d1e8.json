@@ -1,0 +1,213 @@
+[
+  {
+    "answers": [
+      {
+        "id": 206697,
+        "content_html": "<span data-math=\"E = \\frac{hf}{n}\">E = \\frac{hf}{n}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This relation is dimensionally correct but energy is not inversely proportional to n."
+      },
+      {
+        "id": 206696,
+        "content_html": "<span data-math=\"E = \\frac{nh}{f}\">E = \\frac{nh}{f}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This relation is not dimensionally correct."
+      },
+      {
+        "id": 206695,
+        "content_html": "<span data-math=\"E = \\frac{{nf}}{h}\">E = \\frac{{nf}}{h}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This relation is not dimensionally correct."
+      },
+      {
+        "id": 206698,
+        "content_html": "<span data-math=\"E = nhf\">E = nhf</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "Energy is equal to n times the product of Planck’s constant and frequency."
+      }
+    ],
+    "group_uuid": "a0d52268-de7a-488a-8dd3-3b0e4aff34fc",
+    "stem_html": "What is the mathematical relationship linking the energy of a photon to its frequency?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:29-3-1",
+      "k12phys-ch21",
+      "k12phys-ch21-s01",
+      "k12phys-ch21-s01-lo02",
+      "k12phys-ch21-ex007",
+      "exid:k12phys-ch21-ex007",
+      "context-cnxmod:945d741b-f25d-49bc-9f85-7f72db5e65ad",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:5ab359e7-b922-4b27-b86b-aff3cc82175e",
+      "context-cnxmod:3a247428-8d85-4d9d-9494-d8a75bc7bd66"
+    ],
+    "uid": "11384@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 206721,
+        "content_html": "The red flame is hotter because red light has lower frequency.",
+        "correctness": "0.0",
+        "feedback_html": "Red light has higher frequency."
+      },
+      {
+        "id": 206720,
+        "content_html": "The red flame is hotter because red light has higher frequency.",
+        "correctness": "0.0",
+        "feedback_html": "Red light has higher frequency."
+      },
+      {
+        "id": 206719,
+        "content_html": "The blue flame is hotter because blue light has lower frequency.",
+        "correctness": "0.0",
+        "feedback_html": "Blue light has higher frequency."
+      },
+      {
+        "id": 206722,
+        "content_html": "The blue flame is hotter because blue light has higher frequency.",
+        "correctness": "1.0",
+        "feedback_html": "The energy of light is directly proportional to frequency of the light. The blue flame is hotter because blue light has higher frequency."
+      }
+    ],
+    "group_uuid": "69b50180-3b76-4a02-a9bb-4e187947bc9a",
+    "stem_html": "Two flames are observed on a stove. One is red while the other is blue. Which flame is hotter?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:29-3-1",
+      "k12phys-ch21",
+      "k12phys-ch21-s01",
+      "k12phys-ch21-s01-lo04",
+      "k12phys-ch21-ex009",
+      "exid:k12phys-ch21-ex009",
+      "context-cnxmod:945d741b-f25d-49bc-9f85-7f72db5e65ad",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:5ab359e7-b922-4b27-b86b-aff3cc82175e",
+      "context-cnxmod:3a247428-8d85-4d9d-9494-d8a75bc7bd66"
+    ],
+    "uid": "11390@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 274697,
+        "content_html": "Planck recognized that energy is quantized, which was in sync with the classical physics concepts but not in agreement with modern physics concepts.",
+        "correctness": "0.0",
+        "feedback_html": "Modern physics concepts are based on the quantization of energy."
+      },
+      {
+        "id": 274698,
+        "content_html": "Planck recognized that energy is quantized, which was in sync with modern physics concepts but not in agreement with classical physics concepts.",
+        "correctness": "1.0",
+        "feedback_html": "Classical physics concepts were based on the continuous nature of energy."
+      },
+      {
+        "id": 274699,
+        "content_html": "Prior to Planck’s hypothesis, all the classical physics calculations were valid for subatomic particles, but quantum physics calculations were not valid.",
+        "correctness": "0.0",
+        "feedback_html": "Classical physics calculations are not valid for subatomic particles."
+      },
+      {
+        "id": 274700,
+        "content_html": "Prior to Planck’s hypothesis, all the classical physics calculations were not valid for macroscopic particles, but quantum physics calculations were valid.",
+        "correctness": "0.0",
+        "feedback_html": "Classical physics calculations are valid for macroscopic particles."
+      }
+    ],
+    "group_uuid": "74e97d6e-6ced-4790-84c5-2c539cf8d464",
+    "stem_html": "Why is Planck’s recognition of quantum particles considered the dividing line between classical and modern physics?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:29-1-1",
+      "k12phys-ch21",
+      "k12phys-ch21-s01",
+      "k12phys-ch21-s01-lo02",
+      "k12phys-ch21-ex026",
+      "exid:k12phys-ch21-ex026",
+      "context-cnxmod:945d741b-f25d-49bc-9f85-7f72db5e65ad",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:f78cdc22-37ab-42b8-b0a4-db74a8ae7a3f",
+      "context-cnxmod:cf5fb070-e0c7-4b8e-8241-c0b946450c78"
+    ],
+    "uid": "11427@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 391683,
+        "content_html": "Photons of gamma rays and X-rays carry with them less energy.",
+        "correctness": "0.0",
+        "feedback_html": "Consider how frequency, wavelength, and energy vary across the electromagnetic spectrum."
+      },
+      {
+        "id": 391682,
+        "content_html": "Photons of gamma rays and X-rays have longer wavelengths.",
+        "correctness": "0.0",
+        "feedback_html": "Consider how frequency, wavelength, and energy vary across the electromagnetic spectrum."
+      },
+      {
+        "id": 391681,
+        "content_html": "Photons of gamma rays and X-rays have lower frequencies.",
+        "correctness": "0.0",
+        "feedback_html": "Consider how frequency, wavelength, and energy vary across the electromagnetic spectrum."
+      },
+      {
+        "id": 391684,
+        "content_html": "Photons of gamma rays and X-rays carry with them more energy.",
+        "correctness": "1.0",
+        "feedback_html": "Photons of gamma rays and X-rays carry with them more energy; as a result, they have greater penetrating power."
+      }
+    ],
+    "group_uuid": "53ed8dde-fafe-47c5-a956-2d11e70a74aa",
+    "stem_html": "Why are photons of gamma rays and X-rays able to penetrate objects more successfully than ultraviolet radiation?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch21",
+      "k12phys-ch21-s01",
+      "k12phys-ch21-s01-lo04",
+      "k12phys-ch21-ex030",
+      "exid:k12phys-ch21-ex030",
+      "context-cnxmod:945d741b-f25d-49bc-9f85-7f72db5e65ad",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e4c006f1-efe1-437c-aed1-94210be0e07b",
+      "lo:stax-phys:31-1-4",
+      "context-cnxmod:bed8d5ac-3c74-45bd-a60e-295cf2a8bb00",
+      "aplo:stax-apphys:5.G.1.1"
+    ],
+    "uid": "11431@8"
+  }
+]

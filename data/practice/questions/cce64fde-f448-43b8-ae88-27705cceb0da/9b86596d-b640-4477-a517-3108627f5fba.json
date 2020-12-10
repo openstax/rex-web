@@ -1,0 +1,207 @@
+[
+  {
+    "answers": [
+      {
+        "id": 189145,
+        "content_html": "A frame of reference is a graph plotted between distance and time.",
+        "correctness": "0.0",
+        "feedback_html": "Motion is a relative term, so in order to describe motion of any object one needs a reference point with which the speed is defined. This reference point is called the frame of reference."
+      },
+      {
+        "id": 189146,
+        "content_html": "A frame of reference is a graph plotted between speed and time.",
+        "correctness": "0.0",
+        "feedback_html": "A frame of reference is not a type of graph. It is a point or a set of points which is used to describe motion."
+      },
+      {
+        "id": 189147,
+        "content_html": "A frame of reference is the velocity of an object through empty space without regard to its surroundings.",
+        "correctness": "0.0",
+        "feedback_html": "Velocity of an object is a relative term that cannot be measured without comparing it with something else."
+      },
+      {
+        "id": 189148,
+        "content_html": "A frame of reference is an arbitrarily fixed point with respect to which motion of other points is measured.",
+        "correctness": "1.0",
+        "feedback_html": "A frame of reference is needed to describe motion because speed is a relative term."
+      }
+    ],
+    "group_uuid": "3c3b942b-dc77-49ad-b422-f0334f460506",
+    "stem_html": "Explain what is meant by a frame of reference.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch10",
+      "k12phys-ch10-s01",
+      "k12phys-ch10-s01-lo01",
+      "k12phys-ch10-ex007",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "exid:k12phys-ch10-ex007",
+      "context-cnxmod:5980a2f2-1138-453a-be31-9e9a05127654",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall"
+    ],
+    "uid": "2864@3"
+  },
+  {
+    "answers": [
+      {
+        "id": 189153,
+        "content_html": "The longitudinal nature of light waves implies this.",
+        "correctness": "0.0",
+        "feedback_html": "Light was considered to be a transverse wave rather than a longitudinal wave. In electromagnetic theory also, light is taken to be a transverse wave."
+      },
+      {
+        "id": 189154,
+        "content_html": "Light shows the phenomenon of diffraction.",
+        "correctness": "0.0",
+        "feedback_html": "Scientists discovered the diffraction of light much after the assumption of light travelling through a medium."
+      },
+      {
+        "id": 189155,
+        "content_html": "The speed of light is the maximum possible speed.",
+        "correctness": "0.0",
+        "feedback_html": "The speed of light was not a reason for believing that light needed a medium to travel. Scientists were convinced that light needed a medium to travel because there were no other waves which could travel through completely empty space."
+      },
+      {
+        "id": 189156,
+        "content_html": "All other wave energy needs a medium to travel.",
+        "correctness": "1.0",
+        "feedback_html": "Electromagnetic waves are the only type of waves that do not require any medium for their propagation."
+      }
+    ],
+    "group_uuid": "c786892e-c4aa-4c1f-91ae-0aa06d4574fe",
+    "stem_html": "Why was it once believed that light must travel through a medium and could not propagate across empty space?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch10",
+      "k12phys-ch10-s01",
+      "k12phys-ch10-s01-lo01",
+      "k12phys-ch10-ex009",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "exid:k12phys-ch10-ex009",
+      "context-cnxmod:5980a2f2-1138-453a-be31-9e9a05127654",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual"
+    ],
+    "uid": "2866@3"
+  },
+  {
+    "answers": [
+      {
+        "id": 275833,
+        "content_html": "<span data-math=\"18 \\times 10^6\\,\\text{km}\">18 \\times 10^6\\,\\text{km}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The relation between speed, time, and distance is <span data-math=\"v = \\frac{d}{t}\">v = \\frac{d}{t}</span>. If the speed and time are given, the distance can be calculated easily."
+      },
+      {
+        "id": 275834,
+        "content_html": "<span data-math=\"18 \\times 10^8\\,\\text{km}\">18 \\times 10^8\\,\\text{km}</span>",
+        "correctness": "0.0",
+        "feedback_html": "If the speed and time are known, then distance can be easily found by their multiplication. Use the speed of light to find the distance between Venus and the sun."
+      },
+      {
+        "id": 275835,
+        "content_html": "<span data-math=\"1.08 \\times 10^{11}\\,\\text{km}\">1.08 \\times 10^{11}\\,\\text{km}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Find the time in seconds and then multiply by the speed of light in m/s to find the distance between the sun and Venus. Notice the unit of the answer obtained and the reported answer."
+      },
+      {
+        "id": 275836,
+        "content_html": "<span data-math=\"1.08 \\times 10^8\\,\\text{km}\">1.08 \\times 10^8\\,\\text{km}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The time light takes to reach Venus from the sun in seconds is <span data-math=\"360\\,\\text{s}\">360\\,\\text{s}</span>, and the speed of light is <span data-math=\"3.00 × 10^8\\,\\text{m/s}\">3.00 × 10^8\\,\\text{m/s}</span>."
+      }
+    ],
+    "group_uuid": "d891c7d1-24b2-4497-8f5b-b243ba8edbd7",
+    "stem_html": "It takes light <span data-math=\"6.0\\,\\text{minutes}\">6.0\\,\\text{minutes}</span> to travel from the sun to the planet Venus. How far is Venus from the sun?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "problem",
+      "k12phys-ch10",
+      "k12phys-ch10-s01",
+      "k12phys-ch10-s01-lo02",
+      "k12phys-ch10-ex011",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:28-1-1",
+      "exid:k12phys-ch10-ex011",
+      "context-cnxmod:5980a2f2-1138-453a-be31-9e9a05127654",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:a0aa151b-c104-49a6-a0a7-7d2cb965d23d",
+      "context-cnxmod:9c787d6e-6886-4098-a8cf-5dca13e9d470"
+    ],
+    "uid": "2868@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 275849,
+        "content_html": "<span data-math=\"1.86 \\times 10^5\\,\\text{m/s}\">1.86 \\times 10^5\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The value 1.86 × 10<sup>5</sup> is the speed of light in mi/s, not m/s."
+      },
+      {
+        "id": 275850,
+        "content_html": "<span data-math=\"3.00 \\times 10^8\\,\\text{m/s}\">3.00 \\times 10^8\\,\\text{m/s}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Speed of light in a vacuum is <span data-math=\"3.00 \\times 10^8\\,\\text{m/s}\">3.00 \\times 10^8\\,\\text{m/s}</span>."
+      },
+      {
+        "id": 275851,
+        "content_html": "<span data-math=\"6.71 \\times 10^8\\,\\text{m/s}\">6.71 \\times 10^8\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The value 6.71 × 10<sup>8</sup> is the speed of light in mi/h, not m/s."
+      },
+      {
+        "id": 275852,
+        "content_html": "<span data-math=\"1.50 \\times 10^{11}\\,\\text{m/s}\">1.50 \\times 10^{11}\\,\\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The value 1.50 × 10<sup>11</sup> is the Earth-moon distance in km, not the speed of light in m/s."
+      }
+    ],
+    "group_uuid": "008c3a6a-d221-4eac-8b1e-545f2f2a3525",
+    "stem_html": "What is the speed of light in a vacuum to three significant figures?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch10",
+      "k12phys-ch10-s01",
+      "k12phys-ch10-s01-lo02",
+      "k12phys-ch10-ex014",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:28-1-1",
+      "exid:k12phys-ch10-ex014",
+      "context-cnxmod:5980a2f2-1138-453a-be31-9e9a05127654",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:a0aa151b-c104-49a6-a0a7-7d2cb965d23d",
+      "context-cnxmod:9c787d6e-6886-4098-a8cf-5dca13e9d470"
+    ],
+    "uid": "2871@5"
+  }
+]

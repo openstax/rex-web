@@ -1,4 +1,9 @@
-import { addTargetBlankToLinks, fixRelativeURLs } from '../utils/contentManipulation';
+import {
+  addTargetBlankToLinks,
+  rebaseRelativeContentLinks,
+  resolveRelativeResources,
+} from '../utils/contentManipulation';
+
 describe('addTargetBlankToLinks', () => {
   it('adds target _blank to all <a> tags' , () => {
     const input = '<div class="test">'
@@ -47,13 +52,67 @@ describe('addTargetBlankToLinks', () => {
   });
 });
 
-describe('fixRelativeUrl', () => {
-  it('does not modify ansolute paths' , () => {
+describe('rebaseRelativeContentLinks', () => {
+  it('does modifies relative paths', () => {
     const input = '<div class="test">'
-      + '<a href="http://some/link" target="_blank">First link</a>'
-      + '<a href="/some/link" target="_blank">Second link</a>'
+      + '<a href="../some/link" target="_blank">First link</a>'
       + '</div>';
 
-    expect(fixRelativeURLs(input)).toEqual(input);
+    const output = '<div class="test">'
+      + '<a href="/some/link" target="_blank">First link</a>'
+      + '</div>';
+    expect(rebaseRelativeContentLinks(input, '/something')).toEqual(output);
+  });
+
+  it('does not modify absolute paths', () => {
+    const input = '<div class="test">'
+      + '<a href="/some/link" target="_blank">First link</a>'
+      + '</div>';
+
+    expect(rebaseRelativeContentLinks(input, '')).toEqual(input);
+  });
+});
+
+describe('resolveRelativeResources', () => {
+  it('modifies resource elements', () => {
+    const input = '<div class="test">'
+      + '<img src="../some/link">'
+      + '</div>'
+      + '<iframe src="./url" title="description"></iframe>';
+
+    const output = '<div class="test">'
+      + '<img src="/some/link">'
+      + '</div>'
+      + '<iframe src="/url" title="description"></iframe>';
+
+    expect(resolveRelativeResources(input, '/content')).toEqual(output);
+  });
+
+  it('doesnt modify img elements when not relative', () => {
+    const input = '<div class="test">'
+      + '<img src="/some/link">'
+      + '</div>'
+      + '<iframe src="/url" title="description"></iframe>';
+
+    const output = '<div class="test">'
+      + '<img src="/some/link">'
+      + '</div>'
+      + '<iframe src="/url" title="description"></iframe>';
+
+    expect(resolveRelativeResources(input, '/content')).toEqual(output);
+  });
+
+  it('doesnt modify absolute url sources', () => {
+    const input = '<div class="test">'
+      + '<img src="https://openstax.org/some/link">'
+      + '</div>'
+      + '<iframe src="/url" title="description"></iframe>';
+
+    const output = '<div class="test">'
+      + '<img src="https://openstax.org/some/link">'
+      + '</div>'
+      + '<iframe src="/url" title="description"></iframe>';
+
+    expect(resolveRelativeResources(input, '')).toEqual(output);
   });
 });

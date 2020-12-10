@@ -1,0 +1,163 @@
+[
+  {
+    "answers": [
+      {
+        "id": 418066,
+        "content_html": "<img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_6baa85f95bbbed9db78d0730fa31557588028de76e62408128881baaaaea6315.png\" alt=\"\">",
+        "correctness": "0.0",
+        "feedback_html": "This is the circuit diagram for the two inductors connected in series."
+      },
+      {
+        "id": 418067,
+        "content_html": "<img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_f660770c0b4b148142311dc891ddba3cdd369aceec992ec95c28869684891210.png\" alt=\"\">",
+        "correctness": "1.0",
+        "feedback_html": "This is the circuit diagram for the two resistors connected in series."
+      },
+      {
+        "id": 418068,
+        "content_html": "<img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_49c98d63e45fd7b238d49628a5ee81ad248e202542af8a7b1207e7cf90884a3f.png\" alt=\"\">",
+        "correctness": "0.0",
+        "feedback_html": "This is the circuit diagram for the two capacitors connected in series."
+      },
+      {
+        "id": 418069,
+        "content_html": "<img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_4715c837d379430c74004e991323c683524adf5093b1ea289fb9e441319818f0.png\" alt=\"\">",
+        "correctness": "0.0",
+        "feedback_html": "This is the circuit diagram for the two batteries connected in series."
+      }
+    ],
+    "group_uuid": "28734ac3-92b6-45d8-bec8-6c95877b5c84",
+    "stem_html": "How would a diagram of two resistors connected in series appear?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s02",
+      "k12phys-ch19-s02-lo01",
+      "k12phys-ch19-ex042",
+      "exid:k12phys-ch19-ex042",
+      "context-cnxmod:31ef6ca8-473e-43fe-b06a-f989c9fa9c11",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-1",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.2"
+    ],
+    "uid": "7296@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 418114,
+        "content_html": "All of the current flows through the left branch due to the open switch.",
+        "correctness": "0.0",
+        "feedback_html": "No current will flow in the left branch as it has an open switch."
+      },
+      {
+        "id": 418115,
+        "content_html": "All of the current flows through the right branch due to the open switch in the left branch.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, current flows in a closed circuit. Because of an open switch in the left branch of the circuit, no current will flow through it."
+      },
+      {
+        "id": 418116,
+        "content_html": "All of the current flows through the middle branch due to the open switch in the left branch",
+        "correctness": "0.0",
+        "feedback_html": "The current is generated in the middle branch as there is a battery and all of the current flows through the right branch because there is no current in the left branch."
+      },
+      {
+        "id": 418117,
+        "content_html": "There will be no current in any branch of the circuit due to the open switch.",
+        "correctness": "0.0",
+        "feedback_html": "The right branch is a closed circuit with a battery connected to it. So all current will go to the right branch."
+      }
+    ],
+    "group_uuid": "1f386ccb-4da1-48d7-9d98-28e9ab2ede62",
+    "stem_html": "<p>Through which branch in the circuit below does the most current flow?</p>\n<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_2a324c183c27e2a71fe6d390dc87fdf64b35c2b8b68cad248da631d8cd6ba26d.png\" alt=\"Circuit diagram with a $9\\text{-V}$ battery, two resistors $\\left(50\\,\\text{and}\\,50 \\times 10^{50}\\,\\Omega \\right)$, and a switch.\"></p>",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s02",
+      "k12phys-ch19-s02-lo01",
+      "k12phys-ch19-ex050",
+      "exid:k12phys-ch19-ex050",
+      "context-cnxmod:31ef6ca8-473e-43fe-b06a-f989c9fa9c11",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-1",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.5"
+    ],
+    "uid": "7316@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 418134,
+        "content_html": "<span data-math=\"0.028\\,\\Omega\">0.028\\,\\Omega</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Recall Ohm’s law which states that voltage drop across a resistor is equal to the product of current and resistance of the resistor."
+      },
+      {
+        "id": 418135,
+        "content_html": "<span data-math=\"2.25\\,\\Omega\">2.25\\,\\Omega</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Recall Ohm’s law. Resistance is not equal to the product of voltage and current."
+      },
+      {
+        "id": 418136,
+        "content_html": "<span data-math=\"36\\,\\Omega\">36\\,\\Omega</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "That’s right. Resistance of a resistor is equal to the voltage divided by the current through the resistor."
+      },
+      {
+        "id": 418137,
+        "content_html": "<span data-math=\"72\\,\\Omega\">72\\,\\Omega</span>",
+        "correctness": "0.0",
+        "feedback_html": "Check the formula used for calculating the resistance and recall the mathematical form of Ohm’s law."
+      }
+    ],
+    "group_uuid": "5d14b07a-95e8-4a58-b4fe-396152d59bb0",
+    "stem_html": "<p>What is the equivalent resistance for the circuit below if <span data-math=\"\\text{V} = 9.0\\,\\text{V}\">\\text{V} = 9.0\\,\\text{V}</span> and <span data-math=\"I = 0.25\\,\\text{A}\">I = 0.25\\,\\text{A}</span>?</p>\n\n<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_abeed08447f76afc22561b388c28d759f66855d198a77e50c317d7589bb875c8.png\" alt=\"Circuit diagram with a battery and three resistors.\"></p>\n\n\n",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s02",
+      "k12phys-ch19-s02-lo02",
+      "k12phys-ch19-ex052",
+      "exid:k12phys-ch19-ex052",
+      "context-cnxmod:31ef6ca8-473e-43fe-b06a-f989c9fa9c11",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-5",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.3"
+    ],
+    "uid": "7318@8"
+  }
+]

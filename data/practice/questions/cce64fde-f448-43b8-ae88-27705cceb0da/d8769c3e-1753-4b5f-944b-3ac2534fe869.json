@@ -1,0 +1,646 @@
+[
+  {
+    "answers": [
+      {
+        "id": 390484,
+        "content_html": "Intensity is the energy per unit area carried by a wave.",
+        "correctness": "0.0",
+        "feedback_html": "Intensity is not considered as energy per unit area."
+      },
+      {
+        "id": 390485,
+        "content_html": "Intensity is the energy per unit volume carried by a wave.",
+        "correctness": "0.0",
+        "feedback_html": "Intensity is not considered as energy per unit area."
+      },
+      {
+        "id": 390487,
+        "content_html": "Intensity is the power per unit area carried by a wave.",
+        "correctness": "1.0",
+        "feedback_html": "Power per unit area carried by a wave is called intensity."
+      },
+      {
+        "id": 390486,
+        "content_html": "Intensity is the power per unit volume carried by a wave.",
+        "correctness": "0.0",
+        "feedback_html": "Intensity is not considered as per unit volume."
+      }
+    ],
+    "group_uuid": "595672b5-9c20-464d-9578-d8fae7887f13",
+    "stem_html": "What is sound intensity?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo01",
+      "k12phys-ch14-ex036",
+      "exid:k12phys-ch14-ex036",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:5c130275-5283-49e9-8932-9dd427e28bf9",
+      "lo:stax-phys:17-3-1",
+      "context-cnxmod:a2e1a3a2-c3e5-41ba-9d29-62320ab4822e",
+      "aplo:stax-apphys:6.A.4.1"
+    ],
+    "uid": "10912@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 428100,
+        "content_html": "20 Hz to 200,000 Hz",
+        "correctness": "0.0",
+        "feedback_html": "The higher limit of frequency that a human can hear is 20,000 Hz."
+      },
+      {
+        "id": 428101,
+        "content_html": "2 Hz to 50,000 Hz",
+        "correctness": "0.0",
+        "feedback_html": "The higher limit of frequency that a human can hear is 20,000 Hz."
+      },
+      {
+        "id": 428102,
+        "content_html": "2 Hz to 2,000 Hz",
+        "correctness": "0.0",
+        "feedback_html": "The range of frequency that humans are capable of hearing is 20 Hz to 20,000 Hz."
+      },
+      {
+        "id": 428103,
+        "content_html": "20 Hz to 20,000 Hz",
+        "correctness": "1.0",
+        "feedback_html": "The range of frequency that humans are capable of hearing is 20 Hz to 20,000 Hz."
+      }
+    ],
+    "group_uuid": "2d5dfa7b-673b-4c8a-a05b-fe979c1a421e",
+    "stem_html": "What is the range frequencies that humans are capable of hearing?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:17-6-1",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo04",
+      "k12phys-ch14-ex040",
+      "exid:k12phys-ch14-ex040",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:297670bd-4d80-4d33-be7e-0c51adf40de6",
+      "context-cnxmod:2b48d397-f793-4ac7-845b-a99ddc4a0a4e",
+      "aplo:stax-apphys:6.D.3.2"
+    ],
+    "uid": "10916@10"
+  },
+  {
+    "answers": [
+      {
+        "id": 390561,
+        "content_html": "Timbre is the quality of the sound that distinguishes it from other sound",
+        "correctness": "1.0",
+        "feedback_html": "Timbre is our perception of the combinations of sound frequencies and intensities that make up a musical note. It is the quality of a musical note."
+      },
+      {
+        "id": 390560,
+        "content_html": "Timbre is the loudness of the sound that distinguishes it from other sound.",
+        "correctness": "0.0",
+        "feedback_html": "Timbre does not distinguish it from other sound only on the basis of loudness."
+      },
+      {
+        "id": 390559,
+        "content_html": "Timbre is the pitch of the sound that distinguishes it from other sound.",
+        "correctness": "0.0",
+        "feedback_html": "Timbre does not distinguish it from other sound only on the basis of pitch."
+      },
+      {
+        "id": 390558,
+        "content_html": "Timbre is the wavelength of the sound that distinguishes it from other sound.",
+        "correctness": "0.0",
+        "feedback_html": "Timbre does not distinguish it from other sound on the basis of wavelength."
+      }
+    ],
+    "group_uuid": "1692887a-92a0-459b-bd4b-37844f67e4ed",
+    "stem_html": "What is “timbre” of sound?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:17-6-1",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo04",
+      "k12phys-ch14-ex044",
+      "exid:k12phys-ch14-ex044",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:297670bd-4d80-4d33-be7e-0c51adf40de6",
+      "context-cnxmod:2b48d397-f793-4ac7-845b-a99ddc4a0a4e",
+      "aplo:stax-apphys:6.D.3.1"
+    ],
+    "uid": "10932@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390585,
+        "content_html": "The frequency of the wave is related to the intensity of the sound. The larger-frequency oscillations indicate greater pressure maxima and minima, and the pressure is higher in greater-intensity sound.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency of a sound affects the pitch of the sound, not the intensity."
+      },
+      {
+        "id": 390586,
+        "content_html": "The wavelength of the wave is related to the intensity of the sound. The longer-wavelength oscillations indicate greater pressure maxima and minima, and the pressure is higher in greater-intensity sound.",
+        "correctness": "0.0",
+        "feedback_html": "The intensity of the sound is independent of the wavelength and frequency of the sound."
+      },
+      {
+        "id": 390588,
+        "content_html": "The amplitude of the wave is related to the intensity of the sound. The larger-amplitude oscillations indicate greater pressure maxima and minima, and the pressure is higher in greater-intensity sound.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, the more intense sound is produced by a source that has larger-amplitude oscillations and has greater pressure maxima and minima. Because pressures are higher in the greater-intensity sound, it can exert larger forces on the objects it encounters."
+      },
+      {
+        "id": 390587,
+        "content_html": "The speed of the wave is related to the intensity of the sound. The higher-speed oscillations indicate greater pressure maxima and minima, and the pressure is higher in greater-intensity sound.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, the intensity of a wave is related to its amplitude."
+      }
+    ],
+    "group_uuid": "21e869f8-330c-499b-839f-fb6d2e442aaf",
+    "stem_html": "Which property of the wave is related to its intensity? How?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo01",
+      "k12phys-ch14-ex045",
+      "exid:k12phys-ch14-ex045",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5c130275-5283-49e9-8932-9dd427e28bf9",
+      "lo:stax-phys:17-3-1",
+      "context-cnxmod:a2e1a3a2-c3e5-41ba-9d29-62320ab4822e",
+      "aplo:stax-apphys:6.A.4.1"
+    ],
+    "uid": "10939@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 390593,
+        "content_html": "Humming can trigger those two muscles in the outer ear that react to intense sound produced while shooting and reduce the force transmitted to the cochlea.",
+        "correctness": "0.0",
+        "feedback_html": "The muscles that can reduce the force transmitted to cochlea are present in the middle ear."
+      },
+      {
+        "id": 390594,
+        "content_html": "Humming can trigger those three muscles in the outer ear that react to intense sound produced while shooting and reduce the force transmitted to the cochlea.",
+        "correctness": "0.0",
+        "feedback_html": "There are two muscles that react to intense sound and are present in the middle ear, not the outer ear."
+      },
+      {
+        "id": 390596,
+        "content_html": "Humming can trigger those two muscles in the middle ear that react to intense sound produced while shooting and reduce the force transmitted to the cochlea.",
+        "correctness": "1.0",
+        "feedback_html": "Two muscles in the middle ear react to intense sound in a few milliseconds and reduce the force transmitted to the cochlea. This protective reaction can also be triggered by your own voice, so that humming while shooting a gun can reduce noise damage."
+      },
+      {
+        "id": 390595,
+        "content_html": "Humming can trigger those three muscles in the middle ear that react to intense sound produced while shooting and reduce the force transmitted to the cochlea.",
+        "correctness": "0.0",
+        "feedback_html": "There are only two muscles present in the middle ear that react to the intense sound."
+      }
+    ],
+    "group_uuid": "42393cf3-f93b-4d9d-bee2-9f771cf76e3a",
+    "stem_html": "How can humming while shooting a gun reduce ear damage?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:17-6-3",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo04",
+      "k12phys-ch14-ex047",
+      "exid:k12phys-ch14-ex047",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:297670bd-4d80-4d33-be7e-0c51adf40de6",
+      "context-cnxmod:2b48d397-f793-4ac7-845b-a99ddc4a0a4e",
+      "aplo:stax-apphys:6.D.3.1"
+    ],
+    "uid": "10941@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 390652,
+        "content_html": "<span data-math=\"5\\,\\text{dB}\">5\\,\\text{dB}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "See detailed solution."
+      },
+      {
+        "id": 390653,
+        "content_html": "<span data-math=\"6\\,\\text{dB}\">6\\,\\text{dB}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "See detailed solution."
+      },
+      {
+        "id": 390654,
+        "content_html": "<span data-math=\"7\\,\\text{dB}\">7\\,\\text{dB}</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "See detailed solution."
+      }
+    ],
+    "group_uuid": "b06689ef-9e56-44d8-97c1-5f4cc767241e",
+    "stem_html": "If a particular sound S1 is <span data-math=\"5\">5</span> times more intense than another sound S2, then what is the difference in sound intensity levels in dB for these two sounds?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:17-3-2",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo03",
+      "k12phys-ch14-ex052",
+      "exid:k12phys-ch14-ex052",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5c130275-5283-49e9-8932-9dd427e28bf9",
+      "context-cnxmod:a2e1a3a2-c3e5-41ba-9d29-62320ab4822e",
+      "aplo:stax-apphys:6.A.4.1",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
+    "uid": "10956@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390665,
+        "content_html": "The intensity is inversely proportional to the power transmitted by the wave, for a constant area.",
+        "correctness": "0.0",
+        "feedback_html": "The intensity of the sound wave increases with an increase in the power transmitted."
+      },
+      {
+        "id": 390664,
+        "content_html": "The intensity is inversely proportional to the square of the power transmitted by the wave, for a constant area. \n <span data-math=\"I=\\frac{1}{P^2}\">I=\\frac{1}{P^2}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The intensity of the sound increases with an increase in the power transmitted."
+      },
+      {
+        "id": 390663,
+        "content_html": "The intensity is directly proportional to the square of the power transmitted by the wave, for a constant area. <span data-math=\"I = \\text{P}^2\">I = \\text{P}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "For a constant area, the intensity increases linearly with the power transmitted."
+      },
+      {
+        "id": 390666,
+        "content_html": "The intensity is directly proportional to the power transmitted by the wave, for a constant area. <span data-math=\"I=\\frac{P}{A}\">I=\\frac{P}{A}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Yes, for constant area, intensity is directly proportional to the power transmitted by the wave.\n <span data-math=\"I=\\frac{P}{A}\">I=\\frac{P}{A}</span>"
+      }
+    ],
+    "group_uuid": "fbe58a4e-710f-42fa-8f05-f4f82ec729d4",
+    "stem_html": "For a constant area, what is the relationship between intensity of a sound wave and power?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo01",
+      "k12phys-ch14-ex055",
+      "exid:k12phys-ch14-ex055",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5c130275-5283-49e9-8932-9dd427e28bf9",
+      "lo:stax-phys:17-3-1",
+      "context-cnxmod:a2e1a3a2-c3e5-41ba-9d29-62320ab4822e",
+      "aplo:stax-apphys:6.A.4.1",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
+    "uid": "10959@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390671,
+        "content_html": "The upper limit of human hearing is <span data-math=\"100\">100</span> decibels, i.e. <span data-math=\"\\beta = 100\\,\\text{dB}\">\\beta = 100\\,\\text{dB}</span>. For <span data-math=\"\\beta = 100\\,\\text{dB}\">\\beta = 100\\,\\text{dB}</span>, <span data-math=\"I_0 = 10^{-12}\\,\\text{W}/\\text{m}^2\">I_0 = 10^{-12}\\,\\text{W}/\\text{m}^2</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The reference intensity <span data-math=\"\\text{I0}\">\\text{I0}</span> does not corresponds to the upper limit of human hearing."
+      },
+      {
+        "id": 390673,
+        "content_html": "The lower threshold of human hearing is <span data-math=\"10\">10</span> decibels, i.e. <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>. For <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>, <span data-math=\"I_0=10^{-12}\\,\\text{W}/\\text{m}^{2}\">I_0=10^{-12}\\,\\text{W}/\\text{m}^{2}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The lower threshold of human hearing is not <span data-math=\"10\">10</span> decibels and for <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>, <span data-math=\"I_0\\ne 10^{-12}\\,\\text{W}/\\text{m}^2\">I_0\\ne 10^{-12}\\,\\text{W}/\\text{m}^2</span>."
+      },
+      {
+        "id": 390672,
+        "content_html": "The upper limit of human hearing is <span data-math=\"10\">10</span> decibels, i.e. <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>. For <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>, <span data-math=\"I_0 = 10^{-12}\\,\\text{W}/\\text{m}^2\">I_0 = 10^{-12}\\,\\text{W}/\\text{m}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "The reference intensity <span data-math=\"\\text{I0}\">\\text{I0}</span> corresponds to the lower threshold of human hearing. Also, for <span data-math=\"\\beta = 10\\,\\text{dB}\">\\beta = 10\\,\\text{dB}</span>, <span data-math=\"I_0\\ne 10^{-12}\\,\\text{W}/\\text{m}^2\">I_0\\ne 10^{-12}\\,\\text{W}/\\text{m}^2</span>."
+      },
+      {
+        "id": 390674,
+        "content_html": "The lower threshold of human hearing is <span data-math=\"0\">0</span> decibels, i.e., <span data-math=\"\\beta = 0\\,\\text{dB}\">\\beta = 0\\,\\text{dB}</span>. For <span data-math=\"\\beta = 0\\,\\text{dB}\">\\beta = 0\\,\\text{dB}</span>, <span data-math=\"I_0 = 10^{-12}\\,\\text{W}/\\text{m}^{2}\">I_0 = 10^{-12}\\,\\text{W}/\\text{m}^{2}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Yes, the lower threshold of human hearing is <span data-math=\"0\">0</span> decibels, i.e. <span data-math=\"\\beta = 0\\,\\text{dB}\">\\beta = 0\\,\\text{dB}</span>. For <span data-math=\"\\beta = 0\\,\\text{dB}\">\\beta = 0\\,\\text{dB}</span>, <span data-math=\"I_0 = 10–12\\,\\text{W}/\\text{m}^2\\, \\text{as}\\, \\log_10 1 = 0\">I_0 = 10 –12\\,\\text{W}/\\text{m}^2\\, \\text{as}\\, \\log_10 1 = 0</span>."
+      }
+    ],
+    "group_uuid": "2d3a2edd-fa60-4450-9cc1-cc76ef9f19c8",
+    "stem_html": "Why is the reference intensity <span data-math=\"I_0 = 10^{–12}\\,\\text{W}/\\text{m}^2\">I_0 = 10^{–12}\\,\\text{W}/\\text{m}^2</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:17-3-2",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo02",
+      "k12phys-ch14-ex057",
+      "exid:k12phys-ch14-ex057",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5c130275-5283-49e9-8932-9dd427e28bf9",
+      "context-cnxmod:a2e1a3a2-c3e5-41ba-9d29-62320ab4822e",
+      "aplo:stax-apphys:6.A.4.1",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
+    "uid": "10961@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390680,
+        "content_html": "<span data-math=\"0.734\\,\\text{Pa}\">0.734\\,\\text{Pa}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The correct formula that can be used is, <span data-math=\"I=\\frac{\\left(\\Delta p\\right)^2}{2\\rho v}\">I=\\frac{\\left(\\Delta p\\right)^2}{2\\rho v}</span>, where is the pressure amplitude."
+      },
+      {
+        "id": 390681,
+        "content_html": "<span data-math=\"3.67\\,\\text{Pa}\">3.67\\,\\text{Pa}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The correct value of density of air at <span data-math=\"0^{\\circ}\\text{C}\">0^{\\circ}\\text{C}</span> is <span data-math=\"\\rho = 1.29\\,\\text{kg}/\\text{m}^3\">\\rho = 1.29\\,\\text{kg}/\\text{m}^3</span>, and speed of sound is <span data-math=\"v = 331\\,\\text{m}/\\text{s}\">v = 331\\,\\text{m}/\\text{s}</span>. Use these values in the correct formula."
+      },
+      {
+        "id": 390679,
+        "content_html": "<span data-math=\"0.135\\,\\text{Pa}\">0.135\\,\\text{Pa}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This is the square of the pressure amplitude."
+      },
+      {
+        "id": 390682,
+        "content_html": "<span data-math=\"0.367\\,\\text{Pa}\">0.367\\,\\text{Pa}</span>\n",
+        "correctness": "1.0",
+        "feedback_html": "The pressure amplitude is <span data-math=\"\\Delta p = 0.367\\,\\text{Pa}\">\\Delta p = 0.367\\,\\text{Pa}</span>."
+      }
+    ],
+    "group_uuid": "438bdfc0-5a03-4061-b59f-1ab748ddc84a",
+    "stem_html": "For a sound wave with intensity <span data-math=\"1.58 \\times 10^{-4}\\,\\text{W}/\\text{m}^2\">1.58 \\times 10^{-4}\\,\\text{W}/\\text{m}^2</span>, calculate the pressure amplitude given that the sound travels through air at <span data-math=\"0^{\\circ}\\text{C}\">0^{\\circ}\\text{C}</span>.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:17-3-2",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo03",
+      "k12phys-ch14-ex059",
+      "exid:k12phys-ch14-ex059",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5c130275-5283-49e9-8932-9dd427e28bf9",
+      "context-cnxmod:a2e1a3a2-c3e5-41ba-9d29-62320ab4822e",
+      "aplo:stax-apphys:6.A.4.1",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
+    "uid": "10963@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390690,
+        "content_html": "Smaller instruments produce sounds with shorter wavelengths, and thus higher frequencies.",
+        "correctness": "1.0",
+        "feedback_html": "Shorter wavelengths are produced in the resonance chambers of smaller instruments, which means the sounds have higher frequencies."
+      },
+      {
+        "id": 390687,
+        "content_html": "Smaller instruments produce longer wavelength, and thus higher amplitude, sounds.",
+        "correctness": "0.0",
+        "feedback_html": "Smaller instruments producer shorter, not longer, wavelengths of sound."
+      },
+      {
+        "id": 390688,
+        "content_html": "Smaller instruments produce lower amplitude, and thus longer wavelength sounds.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude of a sound is not related to its frequency or pitch."
+      },
+      {
+        "id": 390689,
+        "content_html": "Smaller instruments produce higher amplitude, and thus lower frequency, sounds.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude of a sound is not related to its frequency or pitch."
+      }
+    ],
+    "group_uuid": "c74a5cd4-6a17-4b6c-8407-b4fb7a17cb08",
+    "stem_html": "Why do some smaller instruments, such as piccolos, produce higher-pitched sounds than larger instruments, such as tubas?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:17-6-1",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo04",
+      "k12phys-ch14-ex061",
+      "exid:k12phys-ch14-ex061",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:297670bd-4d80-4d33-be7e-0c51adf40de6",
+      "context-cnxmod:2b48d397-f793-4ac7-845b-a99ddc4a0a4e",
+      "aplo:stax-apphys:6.D.3.2"
+    ],
+    "uid": "10965@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 390691,
+        "content_html": "The sound from the tire burst has higher pressure amplitudes, hence it can exert smaller force on the eardrum.",
+        "correctness": "0.0",
+        "feedback_html": "The force exerted on the eardrums is not smaller, as higher pressure variation is created by the sound from the tire burst."
+      },
+      {
+        "id": 390692,
+        "content_html": "The sound from the tire burst has lower pressure amplitudes, hence it can exert smaller force on the eardrum.",
+        "correctness": "0.0",
+        "feedback_html": "The force exerted on the eardrums is large due to the higher pressure variation by the sound from the tire burst."
+      },
+      {
+        "id": 390693,
+        "content_html": "The sound from the tire burst has lower pressure amplitudes, hence it can exert larger force on the ear drum.",
+        "correctness": "0.0",
+        "feedback_html": "The sound will be louder in that region where the pressure variation is higher."
+      },
+      {
+        "id": 390694,
+        "content_html": "The sound from the tire burst has higher pressure amplitudes, hence it can exert larger force on the eardrum.",
+        "correctness": "1.0",
+        "feedback_html": "The sound from the tire burst has higher pressure variations and hence it can exert larger force on the objects it encounters. It is perceived louder by the eardrums as a larger force is exerted on them as well by the sound from the tire burst."
+      }
+    ],
+    "group_uuid": "40a615c5-88d2-49f1-b78f-90e1ad34ef5d",
+    "stem_html": "Why is the sound from a tire burst louder than that from a finger snap?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "dok:3",
+      "book:stax-phys",
+      "blooms:6",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo01",
+      "k12phys-ch14-ex062",
+      "exid:k12phys-ch14-ex062",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5c130275-5283-49e9-8932-9dd427e28bf9",
+      "lo:stax-phys:17-3-1",
+      "context-cnxmod:a2e1a3a2-c3e5-41ba-9d29-62320ab4822e",
+      "aplo:stax-apphys:6.A.4.1"
+    ],
+    "uid": "10966@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 390701,
+        "content_html": "<span data-math=\"1.2\\,\\text{dB}\">1.2\\,\\text{dB}</span>",
+        "correctness": "0.0",
+        "feedback_html": ""
+      },
+      {
+        "id": 390700,
+        "content_html": "<span data-math=\"6.0\\,\\text{dB}\">6.0\\,\\text{dB}</span>",
+        "correctness": "0.0",
+        "feedback_html": ""
+      },
+      {
+        "id": 390699,
+        "content_html": "<span data-math=\"0.60\\,\\text{dB}\">0.60\\,\\text{dB}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": ""
+      },
+      {
+        "id": 390702,
+        "content_html": "<span data-math=\"12\\,\\text{dB}\">12\\,\\text{dB}</span>",
+        "correctness": "1.0",
+        "feedback_html": ""
+      }
+    ],
+    "group_uuid": "eab77f47-b900-48ee-b1bd-efd7541d8772",
+    "stem_html": "The ratio of the pressure amplitudes of two sound waves traveling through water at <span data-math=\"0^{\\circ}\\text{C}\">0^{\\circ}\\text{C}</span> is <span data-math=\"4.0\">4.0</span>. What will be the difference in their sound intensity levels in dB?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:17-3-2",
+      "k12phys-ch14",
+      "k12phys-ch14-s02",
+      "k12phys-ch14-s02-lo03",
+      "k12phys-ch14-ex064",
+      "exid:k12phys-ch14-ex064",
+      "context-cnxmod:ee7c1f56-44a5-49d1-b67b-cb03518f6685",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5c130275-5283-49e9-8932-9dd427e28bf9",
+      "context-cnxmod:a2e1a3a2-c3e5-41ba-9d29-62320ab4822e",
+      "aplo:stax-apphys:6.A.4.1"
+    ],
+    "uid": "10968@7"
+  }
+]

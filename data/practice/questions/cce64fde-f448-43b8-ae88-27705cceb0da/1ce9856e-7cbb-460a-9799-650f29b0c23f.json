@@ -1,0 +1,269 @@
+[
+  {
+    "answers": [
+      {
+        "id": 377029,
+        "content_html": "<span data-math=\"0.5\\,\\text{kg} \\cdot \\text{m/s}\">0.5\\,\\text{kg} \\cdot \\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Dividing mass by velocity will not give momentum."
+      },
+      {
+        "id": 377030,
+        "content_html": "<span data-math=\"2\\,\\text{kg} \\cdot \\text{m/s}\">2\\,\\text{kg} \\cdot \\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "When velocity is divided by mass, the resulting unit will be <span data-math=\"\\text{m/s} \\cdot \\text{kg}\">\\text{m/s} \\cdot \\text{kg}</span>. This is not the unit for momentum."
+      },
+      {
+        "id": 377031,
+        "content_html": "<span data-math=\"15\\,\\text{kg} \\cdot \\text{m/s}\">15\\,\\text{kg} \\cdot \\text{m/s}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Adding velocity with mass is not the correct way to find momentum."
+      },
+      {
+        "id": 377032,
+        "content_html": "<span data-math=\"50\\,\\text{kg} \\cdot \\text{m/s}\">50\\,\\text{kg} \\cdot \\text{m/s}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Momentum is the product of mass and velocity."
+      }
+    ],
+    "group_uuid": "b61cf1c7-7ca5-4f08-8923-d02d07fd5704",
+    "stem_html": "What is the momentum of a bowling ball with mass <span data-math=\"5\\,\\text{kg}\">5\\,\\text{kg}</span> and velocity <span data-math=\"10\\,\\text{m/s}\">10\\,\\text{m/s}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch08",
+      "k12phys-ch08-s01",
+      "k12phys-ch08-s01-lo03",
+      "k12phys-ch08-ex005",
+      "dok:1",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch08-ex005",
+      "context-cnxmod:4925d40b-9aec-4c67-b182-fc78b6c73990",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:8-1-4",
+      "context-cnxmod:43dd126f-ae39-4d3b-91ce-73c84a8e80d4",
+      "context-cnxmod:5fe57a54-260a-40f1-a173-191fda3cb2e9",
+      "aplo:stax-apphys:3.D.2.1",
+      "aplo:stax-apphys:3.D.1.1",
+      "aplo:stax-apphys:4.B.1.2"
+    ],
+    "uid": "2648@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 377063,
+        "content_html": "The first object will acquire more momentum.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the impulse-momentum theorem and compare the change in momentum."
+      },
+      {
+        "id": 377064,
+        "content_html": "The second object will acquire more momentum.",
+        "correctness": "1.0",
+        "feedback_html": "The second object will acquire more momentum because the duration over which the force acts is more for the second object."
+      },
+      {
+        "id": 377062,
+        "content_html": "Both objects will acquire the same momentum.",
+        "correctness": "0.0",
+        "feedback_html": "Momentum acquired won’t be the same for the two objects, as the duration over which the force is acting on each object is different."
+      },
+      {
+        "id": 377061,
+        "content_html": "Neither object will experience a change in momentum.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that net force is the rate of change of momentum."
+      }
+    ],
+    "group_uuid": "5b97bdea-ce4e-4fb2-8e50-458541a4e545",
+    "stem_html": "Consider two objects of the same mass. If a force of <span data-math=\"100\\,\\text{N}\">100\\,\\text{N}</span> acts on the first for a duration of <span data-math=\"1\\,\\text{s}\">1\\,\\text{s}</span> and on the other for a duration of <span data-math=\"2\\,\\text{s}\">2\\,\\text{s}</span>, which of the following statements is true?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch08",
+      "k12phys-ch08-s01",
+      "k12phys-ch08-s01-lo01",
+      "k12phys-ch08-ex013",
+      "blooms:3",
+      "dok:3",
+      "time:long",
+      "book:stax-phys",
+      "exid:k12phys-ch08-ex013",
+      "context-cnxmod:4925d40b-9aec-4c67-b182-fc78b6c73990",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:28c27cce-e469-4552-b1d5-1958417de8c7",
+      "lo:stax-phys:8-2-1",
+      "context-cnxmod:dfc8e07c-be70-45ca-8326-aa6a1b7d8395",
+      "aplo:stax-apphys:3.D.2.1",
+      "aplo:stax-apphys:3.D.1.1",
+      "aplo:stax-apphys:4.B.1.2"
+    ],
+    "uid": "2656@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 377077,
+        "content_html": "Scalar",
+        "correctness": "0.0",
+        "feedback_html": "The description of momentum is incomplete if its direction is not specified. Therefore, momentum is a vector quantity."
+      },
+      {
+        "id": 377078,
+        "content_html": "Vector",
+        "correctness": "1.0",
+        "feedback_html": "Momentum acts in the same direction as the velocity, and hence it is a vector quantity."
+      }
+    ],
+    "group_uuid": "52070de9-2815-4fe4-8066-e18bf22f003c",
+    "stem_html": "What kind of quantity is momentum?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch08",
+      "k12phys-ch08-s01",
+      "k12phys-ch08-s01-lo01",
+      "k12phys-ch08-ex017",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:8-1-1",
+      "exid:k12phys-ch08-ex017",
+      "context-cnxmod:4925d40b-9aec-4c67-b182-fc78b6c73990",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:43dd126f-ae39-4d3b-91ce-73c84a8e80d4",
+      "context-cnxmod:5fe57a54-260a-40f1-a173-191fda3cb2e9",
+      "aplo:stax-apphys:3.D.2.1",
+      "aplo:stax-apphys:3.D.1.1",
+      "aplo:stax-apphys:4.B.1.2"
+    ],
+    "uid": "2660@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 377096,
+        "content_html": "It is zero, because the net force is equal to the rate of change of the momentum.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of change of the momentum will not be zero. Consider that the momentum of the object is increasing with respect to the time."
+      },
+      {
+        "id": 377095,
+        "content_html": "It is zero, because the net force is equal to the product of the momentum and the time interval.",
+        "correctness": "0.0",
+        "feedback_html": "It is incorrect that the net force acting on an object is equal to the product of the momentum and the time interval. Net force acting on the object is equal to the rate of change of the momentum."
+      },
+      {
+        "id": 377097,
+        "content_html": "It is nonzero, because the net force is equal to the rate of change of the momentum.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, the net force acting on the object would be non-zero because the momentum of the object is increasing with respect to the time. The net force on the object is equal to the rate of change of the momentum."
+      },
+      {
+        "id": 377094,
+        "content_html": "It is nonzero, because the net force is equal to the product of the momentum and the time interval.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of change of momentum of the object is equal to the net force acting on the object. It is incorrect to state that the net force is product of the momentum and the time interval."
+      }
+    ],
+    "group_uuid": "d1e3a65a-65b8-46e9-817f-9f769d257882",
+    "stem_html": "When the momentum of an object increases with respect to time, what is true of the net force acting on it?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch08",
+      "k12phys-ch08-s01",
+      "k12phys-ch08-s01-lo02",
+      "k12phys-ch08-ex022",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:8-1-2",
+      "exid:k12phys-ch08-ex022",
+      "context-cnxmod:4925d40b-9aec-4c67-b182-fc78b6c73990",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:43dd126f-ae39-4d3b-91ce-73c84a8e80d4",
+      "context-cnxmod:5fe57a54-260a-40f1-a173-191fda3cb2e9",
+      "aplo:stax-apphys:3.D.2.1",
+      "aplo:stax-apphys:3.D.1.1",
+      "aplo:stax-apphys:4.B.1.2"
+    ],
+    "uid": "2665@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 377117,
+        "content_html": "The softer surface increases the duration of the impact, thereby reducing the effect of the force.",
+        "correctness": "1.0",
+        "feedback_html": "The softer surface increases the duration of the impact, reducing the effect of the force. The impact of the force is elongated over the time interval, therefore, impact is minimal."
+      },
+      {
+        "id": 377116,
+        "content_html": "The softer surface decreases the duration of the impact, thereby reducing the effect of the force.",
+        "correctness": "0.0",
+        "feedback_html": "It is incorrect that the softer surface decreases the duration of impact. On a softer surface, the impact of the force is elongated over the time interval."
+      },
+      {
+        "id": 377115,
+        "content_html": "The softer surface increases the duration of the impact, thereby increasing the effect of the force.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that the softer surface increases the duration of the impact, but it is incorrect that it would result in an increased effect of the force. On a softer surface, the impact of the force is elongated over the time interval."
+      },
+      {
+        "id": 377114,
+        "content_html": "The softer surface decreases the duration of the impact, thereby increasing the effect of the force.",
+        "correctness": "0.0",
+        "feedback_html": "On a softer surface, the impact of the force is elongated over the time interval. It is incorrect that the softer surface decreases the duration of impact."
+      }
+    ],
+    "group_uuid": "744181b4-3793-4afe-9680-3217f024a62e",
+    "stem_html": "Why does it hurt less when you fall on a softer surface?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch08",
+      "k12phys-ch08-s01",
+      "k12phys-ch08-s01-lo02",
+      "k12phys-ch08-ex027",
+      "time:short",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:8-2-2",
+      "exid:k12phys-ch08-ex027",
+      "context-cnxmod:4925d40b-9aec-4c67-b182-fc78b6c73990",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:28c27cce-e469-4552-b1d5-1958417de8c7",
+      "context-cnxmod:dfc8e07c-be70-45ca-8326-aa6a1b7d8395",
+      "aplo:stax-apphys:3.D.2.1",
+      "aplo:stax-apphys:3.D.1.1",
+      "aplo:stax-apphys:4.B.1.2"
+    ],
+    "uid": "2670@7"
+  }
+]

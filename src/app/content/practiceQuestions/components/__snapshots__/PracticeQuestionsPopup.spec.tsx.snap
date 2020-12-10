@@ -9,7 +9,9 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   <div
     className="ScrollLock__Overlay-sc-1fi845b-0 gqkuDv"
     data-testid="scroll-lock-overlay"
+    mobileOnly={false}
     onClick={[Function]}
+    zIndex={80}
   />
   <div
     className="PopupStyles__Modal-w0z1hl-3 ZJcjg"
@@ -63,7 +65,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       data-testid="show-practice-questions-body"
     >
       <div
-        className="ShowPracticeQuestions__QuestionsWrapper-sc-1hq8omx-2 lfKPUt"
+        className="ShowPracticeQuestions__QuestionsWrapper-sc-1hq8omx-2 bPGDgA"
       >
         <div
           className="ShowPracticeQuestions__QuestionsHeader-sc-1hq8omx-3 bcZXeX"
@@ -73,6 +75,22 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
         <div
           className="ProgressBar__ProgressBarWrapper-sc-12ssvtu-0 kleYmF"
         />
+        <div
+          className="IntroScreen__IntroScreenWrapper-h8gm9y-0 eGmEow"
+        >
+          <span
+            className="IntroScreen__IntroScreenMessage-h8gm9y-1 dwmRhb"
+          >
+            0 questions in this section
+          </span>
+          <button
+            className="Button-ayg7nk-0 crGJLq"
+            data-analytics-label="Start now"
+            onClick={[Function]}
+          >
+            Start now
+          </button>
+        </div>
       </div>
     </div>
   </div>

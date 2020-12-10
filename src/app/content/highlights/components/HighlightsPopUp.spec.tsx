@@ -31,6 +31,11 @@ jest.mock('react', () => {
   return { ...react, useEffect: react.useLayoutEffect };
 });
 
+jest.mock('react-dom', () => ({
+  ...jest.requireActual('react-dom'),
+  createPortal: (children: any) => children,
+}));
+
 describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
   let store: Store;
@@ -103,8 +108,9 @@ describe('MyHighlights button and PopUp', () => {
   it('focus is on pop up content', async() => {
     const focus = jest.fn();
     const addEventListener = jest.fn();
+    const removeEventListener = jest.fn();
     const querySelectorAll = jest.fn(() => []);
-    const createNodeMock = () => ({focus, addEventListener, querySelectorAll});
+    const createNodeMock = () => ({focus, addEventListener, removeEventListener, querySelectorAll});
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -236,8 +242,9 @@ describe('MyHighlights button and PopUp', () => {
 
     const focus = jest.fn();
     const addEventListener = jest.fn();
+    const removeEventListener = jest.fn();
     const querySelectorAll = jest.fn(() => []);
-    const createNodeMock = () => ({focus, addEventListener, querySelectorAll});
+    const createNodeMock = () => ({focus, addEventListener, removeEventListener, querySelectorAll});
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>

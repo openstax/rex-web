@@ -236,4 +236,9 @@ describe('fromRelativeUrl', () => {
     const url = fromRelativeUrl('/books/somebook/pages/somepage', './somesecondpage');
     expect(url).toBe('/books/somebook/pages/somesecondpage');
   });
+
+  it('returns url if it is absolute', () => {
+    const url = fromRelativeUrl('https://openstax.org/books/somebook/pages/somepage', './somesecondpage');
+    expect(url).toBe('https://openstax.org/books/somebook/pages/somesecondpage');
+  });
 });

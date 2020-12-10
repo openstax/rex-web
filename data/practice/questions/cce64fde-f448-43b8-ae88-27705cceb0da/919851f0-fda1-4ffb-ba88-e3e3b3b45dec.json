@@ -1,0 +1,164 @@
+[
+  {
+    "answers": [
+      {
+        "id": 381194,
+        "content_html": "Most objects are neutral.",
+        "correctness": "1.0",
+        "feedback_html": "Most objects have the same number of positive and negative charges and hence they are neutral and don’t exhibit static electric effects."
+      },
+      {
+        "id": 381191,
+        "content_html": "Most objects have positive charge only.",
+        "correctness": "0.0",
+        "feedback_html": "Objects having positive charge exhibit static electric effects."
+      },
+      {
+        "id": 381192,
+        "content_html": "Most objects have negative charge only.",
+        "correctness": "0.0",
+        "feedback_html": "Objects having negative charge exhibit static electric effects."
+      },
+      {
+        "id": 381193,
+        "content_html": "Most objects have excess protons.",
+        "correctness": "0.0",
+        "feedback_html": "Objects having positive charge exhibit static electric effects."
+      }
+    ],
+    "group_uuid": "2eb4ea82-51d4-41ae-80dd-6ed33085a638",
+    "stem_html": "There are very large numbers of charged particles in most objects. Why, then, don’t most objects exhibit static electric effects?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch18",
+      "k12phys-ch18-s01",
+      "k12phys-ch18-s01-lo01",
+      "k12phys-ch18-ex020",
+      "exid:k12phys-ch18-ex020",
+      "context-cnxmod:bb798597-8d0c-4655-9612-1da712a9b458",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:bba99523-1af8-4cb6-8d42-d85c18b39c88",
+      "lo:stax-phys:18-1-1",
+      "context-cnxmod:2993cae4-b418-40e2-9d1f-df151d425d7e",
+      "aplo:stax-apphys:1.B.2.1"
+    ],
+    "uid": "7041@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 381279,
+        "content_html": "<span data-math=\"-5\\,\\text{nC}\">-5\\,\\text{nC}</span>",
+        "correctness": "1.0",
+        "feedback_html": "To go from <span data-math=\"+ 2.0\\,\\text{nC}\">+ 2.0\\,\\text{nC}</span> to <span data-math=\"-3\\,\\text{nC}\">-3\\,\\text{nC}</span> requires transferring <span data-math=\"-5\\,\\text{nC}\">-5\\,\\text{nC}</span> of charge."
+      },
+      {
+        "id": 381276,
+        "content_html": "<div data-math=\"-3\\,\\text{nC}\">-3\\,\\text{nC}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The difference between the charges <span data-math=\"+2.0\\,\\text{C}\">+2.0\\,\\text{C}</span> and <span data-math=\"–3.0\\,\\text{nC}\">–3.0\\,\\text{nC}</span> is not <span data-math=\"–3.0\\,\\text{nC}\">–3.0\\,\\text{nC}</span>."
+      },
+      {
+        "id": 381277,
+        "content_html": "<div data-math=\"-1\\,\\text{nC}\">-1\\,\\text{nC}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "Addition of charges does not give the amount of charge transferred."
+      },
+      {
+        "id": 381278,
+        "content_html": "<div data-math=\"+ 2.0\\,\\text{nC}\">+ 2.0\\,\\text{nC}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "To go from <span data-math=\"+2.0\\,\\text{nC}\">+2.0\\,\\text{nC}</span> to <span data-math=\"-3\\,\\text{nC}\">-3\\,\\text{nC}</span> requires transferring <span data-math=\"-5\\,\\text{nC}\">-5\\,\\text{nC}</span> of charge."
+      }
+    ],
+    "group_uuid": "daad077e-214b-4f82-9c04-d31609d89f3f",
+    "stem_html": "An insulating rod carries <span data-math=\"+ 2.0\\,\\text{nC}\">+ 2.0\\,\\text{nC}</span> of charge. After rubbing it with a material, you find it carries <span data-math=\"-3\\,\\text{nC}\">-3\\,\\text{nC}</span> of charge. How much charge was transferred to it?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:18-1-3",
+      "k12phys-ch18",
+      "k12phys-ch18-s01",
+      "k12phys-ch18-s01-lo02",
+      "k12phys-ch18-ex035",
+      "exid:k12phys-ch18-ex035",
+      "context-cnxmod:bb798597-8d0c-4655-9612-1da712a9b458",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:bba99523-1af8-4cb6-8d42-d85c18b39c88",
+      "context-cnxmod:2993cae4-b418-40e2-9d1f-df151d425d7e",
+      "aplo:stax-apphys:1.B.1.2"
+    ],
+    "uid": "7068@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 381291,
+        "content_html": "Many macroscopic objects would be charged, so we would experience the enormous force of electricity on a daily basis.",
+        "correctness": "1.0",
+        "feedback_html": "Macroscopic objects are neutral in general since the number of protons is equal to the number of electrons. But objects would become charged if the charge on the electron differed very slightly."
+      },
+      {
+        "id": 381288,
+        "content_html": "Many macroscopic objects would be charged, so we would experience the small force of electricity on a daily basis.",
+        "correctness": "0.0",
+        "feedback_html": "Due to charged macroscopic objects, we would experience the enormous force of electricity on a daily basis."
+      },
+      {
+        "id": 381289,
+        "content_html": "Many macroscopic objects would be charged, but it would not affect life on Earth and physics in general.",
+        "correctness": "0.0",
+        "feedback_html": "Charged macroscopic objects would affect life on Earth and physics in general."
+      },
+      {
+        "id": 381290,
+        "content_html": "Macroscopic objects would remain neutral, so it would not affect life on Earth and physics in general.",
+        "correctness": "0.0",
+        "feedback_html": "Macroscopic objects cannot be neutral when there are either excess protons or excess electrons in each atom."
+      }
+    ],
+    "group_uuid": "ec39d2d7-d09f-4a96-b49d-c9a121e75fef",
+    "stem_html": "Imagine that the magnitude of the charge on the electron differed very slightly from that of the proton. How would this affect life on Earth and physics in general?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "dok:3",
+      "time:long",
+      "blooms:5",
+      "book:stax-phys",
+      "k12phys-ch18",
+      "k12phys-ch18-s01",
+      "k12phys-ch18-s01-lo01",
+      "k12phys-ch18-ex038",
+      "exid:k12phys-ch18-ex038",
+      "context-cnxmod:bb798597-8d0c-4655-9612-1da712a9b458",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:bba99523-1af8-4cb6-8d42-d85c18b39c88",
+      "lo:stax-phys:18-1-1",
+      "context-cnxmod:2993cae4-b418-40e2-9d1f-df151d425d7e",
+      "aplo:stax-apphys:1.B.2.1"
+    ],
+    "uid": "7071@5"
+  }
+]
