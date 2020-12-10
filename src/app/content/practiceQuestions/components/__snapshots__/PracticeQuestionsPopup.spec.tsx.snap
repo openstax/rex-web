@@ -75,6 +75,22 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
         <div
           className="ProgressBar__ProgressBarWrapper-sc-12ssvtu-0 kleYmF"
         />
+        <div
+          className="IntroScreen__IntroScreenWrapper-h8gm9y-0 eGmEow"
+        >
+          <span
+            className="IntroScreen__IntroScreenMessage-h8gm9y-1 dwmRhb"
+          >
+            0 questions in this section
+          </span>
+          <button
+            className="Button-ayg7nk-0 crGJLq"
+            data-analytics-label="Start now"
+            onClick={[Function]}
+          >
+            Start now
+          </button>
+        </div>
       </div>
     </div>
   </div>
