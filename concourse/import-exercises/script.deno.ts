@@ -32,10 +32,11 @@ const sources: {[key: string]: {[key: string]: any[]}} = {};
 for await (const row of readCSVObjects(f)) {
   console.log(`fetching ${row.group_uuid}`);
 
-  const exercise = await fetch(`https://exercises.openstax.org/api/exercises/${row.group_uuid}`, {
+  const exercise = await fetch(`https://exercises.openstax.org/api/exercises?q=group_uuid:${row.group_uuid}`, {
     headers: {Authorization},
   })
     .then((response) => response.json())
+    .then((response) => response.items[0])
   ;
 
   const bookSources = sources[stubBookId] = sources[stubBookId] || {};
@@ -45,7 +46,7 @@ for await (const row of readCSVObjects(f)) {
     answers: exercise.questions[0].answers,
     group_uuid: exercise.group_uuid,
     stem_html: exercise.questions[0].stem_html,
-    tags: exercise.group_uuid,
+    tags: exercise.tags,
     uid: exercise.uid,
   });
 

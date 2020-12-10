@@ -28,40 +28,87 @@
     ],
     "group_uuid": "242492f6-29a9-480f-b81c-6c7cbef67693",
     "stem_html": "What is friction?",
-    "tags": "242492f6-29a9-480f-b81c-6c7cbef67693",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch05",
+      "k12phys-ch05-s04",
+      "k12phys-ch05-s04-lo01",
+      "k12phys-ch05-ex075",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:5-1-1",
+      "exid:k12phys-ch05-ex075",
+      "context-cnxmod:8a8a734e-23d4-4e5e-a04b-0cbe21e4f26d",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:a78a8432-5d68-4476-8fbb-5ae4bfe71d68",
+      "context-cnxmod:bda8a7a1-c582-428a-8cb8-c2d200624ed7",
+      "aplo:stax-apphys:3.A.3.3",
+      "aplo:stax-apphys:3.C.4.1",
+      "aplo:stax-apphys:3.C.4.2"
+    ],
     "uid": "2271@6"
   },
   {
     "answers": [
       {
-        "id": 397410,
-        "content_html": "astronomy",
+        "id": 375691,
+        "content_html": "<span data-math=\"\\mu_\\text{k} = 0\">\\mu_\\text{k} = 0</span>",
         "correctness": "0.0",
-        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+        "feedback_html": "The coefficient of kinetic friction cannot be zero. The zero coefficient of kinetic friction represents zero kinetic friction between the object and the surface which is not possible practically."
       },
       {
-        "id": 397411,
-        "content_html": "biology",
+        "id": 375692,
+        "content_html": "<span data-math=\"\\mu_\\text{k} = 0.2\">\\mu_\\text{k} = 0.2</span>",
         "correctness": "0.0",
-        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
+        "feedback_html": "Consider the fact that the magnitude of the kinetic friction is less than the maximum limiting static friction."
       },
       {
-        "id": 397412,
-        "content_html": "computer science",
+        "id": 375694,
+        "content_html": "<span data-math=\"\\mu_\\text{k} \\lt 0.2\">\\mu_\\text{k} \\lt 0.2</span>",
         "correctness": "1.0",
-        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+        "feedback_html": "The magnitude of the kinetic friction is less than that of the maximum limiting static friction."
       },
       {
-        "id": 397413,
-        "content_html": "physics",
+        "id": 375693,
+        "content_html": "<span data-math=\"\\mu_\\text{k} \\gt 0.2\">\\mu_\\text{k} \\gt 0.2</span>",
         "correctness": "0.0",
-        "feedback_html": "Physics is a branch of natural science that studies matter."
+        "feedback_html": "The magnitude of kinetic friction is not greater than that of the maximum limiting static friction. Recall the definition of kinetic friction."
       }
     ],
-    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "stem_html": "Which of the following sciences is not considered a natural science?",
-    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "uid": "4@7"
+    "group_uuid": "4ac85aab-71bf-4ccf-930c-3a6e9c27d908",
+    "stem_html": "A box weighing <span data-math=\"500\\,\\text{N}\">500\\,\\text{N}</span> is at rest on the floor. A person pushes against it and it starts moving when <span data-math=\"100\\,\\text{N}\">100\\,\\text{N}</span> force is applied to it. What can be said about the coefficient of kinetic friction between the box and the floor?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch05",
+      "k12phys-ch05-s04",
+      "k12phys-ch05-s04-lo01",
+      "k12phys-ch05-ex080",
+      "blooms:3",
+      "dok:3",
+      "time:long",
+      "book:stax-phys",
+      "lo:stax-phys:5-1-3",
+      "exid:k12phys-ch05-ex080",
+      "context-cnxmod:8a8a734e-23d4-4e5e-a04b-0cbe21e4f26d",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:a78a8432-5d68-4476-8fbb-5ae4bfe71d68",
+      "context-cnxmod:bda8a7a1-c582-428a-8cb8-c2d200624ed7",
+      "aplo:stax-apphys:3.A.3.3",
+      "aplo:stax-apphys:3.C.4.1",
+      "aplo:stax-apphys:3.C.4.2"
+    ],
+    "uid": "2276@5"
   },
   {
     "answers": [
@@ -86,39 +133,86 @@
     ],
     "group_uuid": "7244610a-ee68-4e70-b0bf-d01802da2437",
     "stem_html": "Two surfaces in contact are moving slowly past each other. As the relative speed between the two surfaces in contact increases, what happens to the magnitude of their coefficient of kinetic friction?",
-    "tags": "7244610a-ee68-4e70-b0bf-d01802da2437",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch05",
+      "k12phys-ch05-s04",
+      "k12phys-ch05-s04-lo01",
+      "k12phys-ch05-ex084",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:5-1-3",
+      "exid:k12phys-ch05-ex084",
+      "context-cnxmod:8a8a734e-23d4-4e5e-a04b-0cbe21e4f26d",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:a78a8432-5d68-4476-8fbb-5ae4bfe71d68",
+      "context-cnxmod:bda8a7a1-c582-428a-8cb8-c2d200624ed7",
+      "aplo:stax-apphys:3.A.3.3",
+      "aplo:stax-apphys:3.C.4.1",
+      "aplo:stax-apphys:3.C.4.2"
+    ],
     "uid": "2280@7"
   },
   {
     "answers": [
       {
-        "id": 347052,
-        "content_html": "Ions",
-        "correctness": "0.0",
-        "feedback_html": "Ions are charged particles and not a neutral molecule."
-      },
-      {
-        "id": 347055,
-        "content_html": "Isotopes",
+        "id": 375715,
+        "content_html": "<span data-math=\"0^\\circ\">0^\\circ</span>",
         "correctness": "1.0",
-        "feedback_html": "Isotopes are atoms that have the same number of protons, but differ in the number of neutrons."
+        "feedback_html": "At an inclination of <span data-math=\"0^\\circ\\!\">0^\\circ\\!</span>, the perpendicular component of the weight is maximum."
       },
       {
-        "id": 347053,
-        "content_html": "Isobars",
+        "id": 375714,
+        "content_html": "<span data-math=\"30^\\circ\">30^\\circ</span>",
         "correctness": "0.0",
-        "feedback_html": "Isobars are elements which have the same number of neutrons."
+        "feedback_html": "Consider the fact that the perpendicular component of the weight is the cosine component of the weight."
       },
       {
-        "id": 347054,
-        "content_html": "Neutral atoms",
+        "id": 375713,
+        "content_html": "<span data-math=\"60^\\circ\">60^\\circ</span>",
         "correctness": "0.0",
-        "feedback_html": "Neutral atoms do not have different number of neutrons."
+        "feedback_html": "The perpendicular component of the weight is not maximum when the angle of inclination of the plane is <span data-math=\"60^\\circ\\!\">60^\\circ\\!</span>. The perpendicular component of the weight is the cosine component of the weight."
+      },
+      {
+        "id": 375712,
+        "content_html": "<span data-math=\"90^\\circ\">90^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "The perpendicular component of the weight is not maximum at an angle of inclination of <span data-math=\"90^\\circ\\!\">90^\\circ\\!</span>. Consider the fact that the cosine of <span data-math=\"90^\\circ\\!\">90^\\circ\\!</span> is zero."
       }
     ],
-    "group_uuid": "ba5df333-6979-4af2-9623-5cd0e2c1af6c",
-    "stem_html": "What are atoms that vary in the number of neutrons found in their nuclei called?",
-    "tags": "ba5df333-6979-4af2-9623-5cd0e2c1af6c",
-    "uid": "49@5"
+    "group_uuid": "49ed4fa7-7be6-4d14-bf4b-734bbb535ea6",
+    "stem_html": "A box is sitting on an inclined plane. At what angle of incline is the perpendicular component of the box's weight at its maximum?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch05",
+      "k12phys-ch05-s04",
+      "k12phys-ch05-s04-lo02",
+      "k12phys-ch05-ex086",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "exid:k12phys-ch05-ex086",
+      "context-cnxmod:8a8a734e-23d4-4e5e-a04b-0cbe21e4f26d",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:533d782d-bcde-44b0-8913-a03b6470dae1",
+      "lo:stax-phys:4-5-3",
+      "context-cnxmod:7b751b5e-3f12-48f3-9c23-5add811fccd6",
+      "aplo:stax-apphys:4.A.2.2",
+      "aplo:stax-apphys:3.C.4.2"
+    ],
+    "uid": "2282@6"
   }
 ]

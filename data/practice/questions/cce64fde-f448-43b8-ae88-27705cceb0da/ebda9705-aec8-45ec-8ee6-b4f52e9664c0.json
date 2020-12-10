@@ -2,66 +2,105 @@
   {
     "answers": [
       {
-        "id": 414782,
-        "content_html": "1, 2, 3, 4, 5, 6",
+        "id": 376267,
+        "content_html": "<span data-math=\"6\\,\\text{m/s}\">6\\,\\text{m/s}</span>",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "equation for centripetal acceleration is <span data-math=\"\\frac{v^2}{r}\\!\">\\frac{v^2}{r}\\!</span>."
       },
       {
-        "id": 414783,
-        "content_html": "2, 1, 3, 4, 5, 6",
+        "id": 376268,
+        "content_html": "<span data-math=\"72\\,\\text{m/s}\">72\\,\\text{m/s}</span>",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "The unit of acceleration is <span data-math=\"\\text{m/s}^2\\!\">\\text{m/s}^2\\!</span>."
       },
       {
-        "id": 414784,
-        "content_html": "2, 1, 5, 4, 6, 3",
+        "id": 376269,
+        "content_html": "<span data-math=\"6\\,\\text{m/s}^2\">6\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "The equation for centripetal acceleration is <span data-math=\"\\frac{v^2\\!}{r}\">\\frac{v^2\\!}{r}</span>."
+      },
+      {
+        "id": 376270,
+        "content_html": "<span data-math=\"72\\,\\text{m/s}^2\\!\">72\\,\\text{m/s}^2\\!</span>",
         "correctness": "1.0",
-        "feedback_html": "2, 1, 5, 4, 6, 3 is the correct sequence of the situation given."
-      },
-      {
-        "id": 414785,
-        "content_html": "2, 1, 5, 6, 3, 4",
-        "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "The centripetal acceleration for the given object can be obtained by using the relation <span data-math=\"a_c = \\frac{v^2\\!}{r}\">a_c = \\frac{v^2\\!}{r}</span>."
       }
     ],
-    "group_uuid": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "stem_html": "Although the scientific method is used by most of the sciences, it can also be applied to everyday situations. A situation is given below. Using the scientific method try to arrange the given steps in the correct order. \nSituation:\n<ol>\n  <li>If the car doesn’t start the problem might be in the battery.</li>\n  <li>Car doesn’t start.</li>\n  <li>After changing the battery. Car starts working.</li>\n  <li>The car should start after charging the battery or changing the battery.</li>\n  <li>The car doesn’t start because the battery is dead.</li>\n  <li>The car doesn’t start even after charging the battery, the battery must have stopped working.</li>\n</ol>\n",
-    "tags": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "uid": "8@8"
+    "group_uuid": "8b8b75e3-bd66-4442-b599-bce97dd092d2",
+    "stem_html": "What is the centripetal acceleration of an object with speed <span data-math=\"12\\,\\text{m/s}\">12\\,\\text{m/s}</span> going along a path of radius <span data-math=\"2.0\\,\\text{m}\">2.0\\,\\text{m}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch06",
+      "k12phys-ch06-s02",
+      "k12phys-ch06-s02-lo03",
+      "k12phys-ch06-ex036",
+      "dok:1",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex036",
+      "context-cnxmod:9c6f5fc9-5c9f-499a-ab8d-1fc0384b3017",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
+      "lo:stax-phys:6-2-2",
+      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3"
+    ],
+    "uid": "2445@5"
   },
   {
     "answers": [
       {
-        "id": 346880,
-        "content_html": "discovery",
+        "id": 187639,
+        "content_html": "Uniform circular motion is when an object accelerates on a circular path at a constantly increasing velocity.",
         "correctness": "0.0",
-        "feedback_html": "A discovery is not a testable explanation for an event."
+        "feedback_html": "Uniform circular motion is a state when an object covers each revolution in equal time. An increasing velocity would shorten the time for each subsequent revolution."
       },
       {
-        "id": 346883,
-        "content_html": "hypothesis",
+        "id": 187640,
+        "content_html": "Uniform circular motion is when an object travels on a circular path at a variable acceleration.",
+        "correctness": "0.0",
+        "feedback_html": "At variable acceleration, the object’s speed changes so it covers each revolution in unequal time intervals."
+      },
+      {
+        "id": 187642,
+        "content_html": "Uniform circular motion is when an object travels on a circular path at a constant speed.",
         "correctness": "1.0",
-        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+        "feedback_html": "The object makes each revolution in equal time intervals so at constant speed."
       },
       {
-        "id": 346881,
-        "content_html": "scientific method",
+        "id": 187641,
+        "content_html": "Uniform circular motion is when an object travels on a circular path at a variable speed.",
         "correctness": "0.0",
-        "feedback_html": "The scientific method is a method of research with defined steps."
-      },
-      {
-        "id": 346882,
-        "content_html": "theory",
-        "correctness": "0.0",
-        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+        "feedback_html": "If the speed of the object varies, it would cover each revolution in unequal time intervals. Therefore, it would not represent a uniform circular motion."
       }
     ],
-    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "stem_html": "What is a suggested and testable explanation for an event called?",
-    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "uid": "3@6"
+    "group_uuid": "3aaa71df-5488-4fbf-8a5d-3c2fadfb9076",
+    "stem_html": "What is uniform circular motion?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch06",
+      "k12phys-ch06-s02",
+      "k12phys-ch06-s02-lo01",
+      "k12phys-ch06-ex038",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex038",
+      "context-cnxmod:9c6f5fc9-5c9f-499a-ab8d-1fc0384b3017",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall"
+    ],
+    "uid": "2447@3"
   },
   {
     "answers": [
@@ -92,7 +131,29 @@
     ],
     "group_uuid": "e3365d0c-592b-4644-8337-8fee1e78f873",
     "stem_html": "Is there a net force acting on an object in uniform circular motion?",
-    "tags": "e3365d0c-592b-4644-8337-8fee1e78f873",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch06",
+      "k12phys-ch06-s02",
+      "k12phys-ch06-s02-lo02",
+      "k12phys-ch06-ex040",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex040",
+      "context-cnxmod:9c6f5fc9-5c9f-499a-ab8d-1fc0384b3017",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
+      "lo:stax-phys:6-2-2",
+      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3"
+    ],
     "uid": "2449@6"
   },
   {
@@ -124,72 +185,141 @@
     ],
     "group_uuid": "edacd4bc-ddd5-4f2c-a601-464c7fd2c3f3",
     "stem_html": "How can you express centripetal force in terms of centripetal acceleration?",
-    "tags": "edacd4bc-ddd5-4f2c-a601-464c7fd2c3f3",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch06",
+      "k12phys-ch06-s02",
+      "k12phys-ch06-s02-lo02",
+      "k12phys-ch06-ex043",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex043",
+      "context-cnxmod:9c6f5fc9-5c9f-499a-ab8d-1fc0384b3017",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
+      "lo:stax-phys:6-2-2",
+      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3"
+    ],
     "uid": "2452@5"
   },
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 376299,
+        "content_html": "More force is required, because the force is inversely proportional to the radius of the circular orbit.",
+        "correctness": "0.0",
+        "feedback_html": "Less force is required to maintain the same speed because the net force is inversely proportional to the radius of the circular orbit, that is, <span data-math=\"F_c = \\frac{mv^2}{r}\\!\">F_c = \\frac{mv^2}{r}\\!</span>."
+      },
+      {
+        "id": 376300,
+        "content_html": "More force is required because the force is directly proportional to the radius of the circular orbit.",
+        "correctness": "0.0",
+        "feedback_html": "The force is inversely proportional to the radius of the circular orbit and is <span data-math=\"F_c = \\frac{mv^2\\!}{r}\">F_c = \\frac{mv^2\\!}{r}</span>."
+      },
+      {
+        "id": 376302,
+        "content_html": "Less force is required because the force is inversely proportional to the radius of the circular orbit.",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+        "feedback_html": "The force and the radius are related to each other by <span data-math=\"F_c= \\frac{mv^2\\!}{r}\">F_c= \\frac{mv^2\\!}{r}</span>. Therefore, when the radius is increased, less force is required to main the same speed."
       },
       {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "id": 376301,
+        "content_html": "Less force is required because the force is directly proportional to the radius of the circular orbit.",
         "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
-      },
-      {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "The force is not directly proportional to the radius of the circular orbit. The force and the radius are related to each other by <span data-math=\"F_c = \\frac{mv^2\\!}{r}\">F_c = \\frac{mv^2\\!}{r}</span>."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2d95d9bf-3e33-4335-ae93-789d63fe99b1",
+    "stem_html": "Suppose you have an object tied to a rope and are rotating it over your head in uniform circular motion. If you increase the length of the rope, would you have to apply more or less force to maintain the same speed?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch06",
+      "k12phys-ch06-s02",
+      "k12phys-ch06-s02-lo02",
+      "k12phys-ch06-ex045",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex045",
+      "context-cnxmod:9c6f5fc9-5c9f-499a-ab8d-1fc0384b3017",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
+      "lo:stax-phys:6-2-2",
+      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3"
+    ],
+    "uid": "2454@5"
   },
   {
     "answers": [
       {
-        "id": 475730,
-        "content_html": "p53",
+        "id": 376330,
+        "content_html": "<span data-math=\"0^\\circ\">0^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "The tangential velocity is directed along the path of the rotating body while the centripetal force is directed toward the center of the rotating body. Therefore, the physical quantities are perpendicular to each other."
+      },
+      {
+        "id": 376331,
+        "content_html": "<span data-math=\"30^\\circ\\!\">30^\\circ\\!</span>",
+        "correctness": "0.0",
+        "feedback_html": "It is incorrect that the centripetal force and the tangential velocity make an angle of <span data-math=\"30^\\circ\\!\">30^\\circ\\!</span> with each other. They both are perpendicular to each other in circular motion."
+      },
+      {
+        "id": 376333,
+        "content_html": "<span data-math=\"90^\\circ\">90^\\circ</span>",
         "correctness": "1.0",
-        "feedback_html": "p53 is the major negative regulatory molecule as it has the capacity to put the cell on halt or induce apoptosis during any DNA damage or if the damage cannot be repaired."
+        "feedback_html": "The centripetal force and the tangential velocity are perpendicular to each other in circular motion, that is, they make an angle of <span data-math=\"90^\\circ\\!\">90^\\circ\\!</span> with each other."
       },
       {
-        "id": 475727,
-        "content_html": "p21",
+        "id": 376332,
+        "content_html": "<span data-math=\"180^\\circ\">180^\\circ</span>",
         "correctness": "0.0",
-        "feedback_html": "p21 is a negative regulatory molecule, but it does not trigger apoptosis, it inhibits the Cdk/cyclin complex."
-      },
-      {
-        "id": 475728,
-        "content_html": "Retinoblastoma protein (Rb)",
-        "correctness": "0.0",
-        "feedback_html": "Rb, when active, remains bound to E2F protein - which is responsible for promotion of the cell cycle. It does not trigger apoptosis."
-      },
-      {
-        "id": 475729,
-        "content_html": "Cyclin-dependent kinase (Cdk)",
-        "correctness": "0.0",
-        "feedback_html": "With the help of cyclins, Cdk’s are protein kinases that have the ability to phosphorylate other proteins when activated."
+        "feedback_html": "The tangential velocity acts tangential to the circular path while the centripetal force acts in the direction perpendicular to it, that is, toward the center of the circular path."
       }
     ],
-    "group_uuid": "18693e9c-26e8-4d7e-8f8e-8136219c546f",
-    "stem_html": "Which negative regulatory molecule can trigger apoptosis if vital cell cycle events do not occur?",
-    "tags": "18693e9c-26e8-4d7e-8f8e-8136219c546f",
-    "uid": "757@9"
+    "group_uuid": "757ce749-089a-4bf5-9aac-90726d20acf9",
+    "stem_html": "What is the angle formed between the vectors of tangential velocity and centripetal force?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch06",
+      "k12phys-ch06-s02",
+      "k12phys-ch06-s02-lo02",
+      "k12phys-ch06-ex053",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex053",
+      "context-cnxmod:9c6f5fc9-5c9f-499a-ab8d-1fc0384b3017",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
+      "lo:stax-phys:6-2-2",
+      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3"
+    ],
+    "uid": "2462@5"
   },
   {
     "answers": [
@@ -220,7 +350,30 @@
     ],
     "group_uuid": "15770b1b-b540-4c8a-9ada-086212b62dfe",
     "stem_html": "Is an object in uniform circular motion accelerating? Why or why not?",
-    "tags": "15770b1b-b540-4c8a-9ada-086212b62dfe",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch06",
+      "k12phys-ch06-s02",
+      "k12phys-ch06-s02-lo01",
+      "k12phys-ch06-ex057",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:6-2-1",
+      "exid:k12phys-ch06-ex057",
+      "context-cnxmod:9c6f5fc9-5c9f-499a-ab8d-1fc0384b3017",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
+      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3"
+    ],
     "uid": "2466@6"
   },
   {
@@ -252,7 +405,30 @@
     ],
     "group_uuid": "0bfcffeb-8d58-4e53-83f9-32c2ac7ddfc5",
     "stem_html": "An object undergoes uniform circular motion. If the radius of curvature and mass of the object are constant, what is the centripetal force proportional to?",
-    "tags": "0bfcffeb-8d58-4e53-83f9-32c2ac7ddfc5",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch06",
+      "k12phys-ch06-s02",
+      "k12phys-ch06-s02-lo03",
+      "k12phys-ch06-ex059",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex059",
+      "context-cnxmod:9c6f5fc9-5c9f-499a-ab8d-1fc0384b3017",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
+      "lo:stax-phys:6-2-2",
+      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3"
+    ],
     "uid": "2468@5"
   }
 ]

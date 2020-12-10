@@ -2,66 +2,105 @@
   {
     "answers": [
       {
-        "id": 346888,
-        "content_html": "Most swimming animals use fins; therefore, fins are an adaptation to swimming.",
+        "id": 192368,
+        "content_html": "<span data-math=\"33.32\\,\\text{lx}\">33.32\\,\\text{lx}</span>\n",
         "correctness": "0.0",
-        "feedback_html": "No result can be predicted from this statement. Therefore, the reasoning is not deductive."
+        "feedback_html": "Surface area is calculated incorrectly without multiplying by four."
       },
       {
-        "id": 346889,
-        "content_html": "Mitochondria are inherited from the mother; therefore, maternally inherited traits are encoded by mitochondrial DNA",
+        "id": 192369,
+        "content_html": "<span data-math=\"26.15\\,\\text{lx}\">26.15\\,\\text{lx}</span>\n",
         "correctness": "0.0",
-        "feedback_html": "This is not an example of deductive approach."
+        "feedback_html": "<span data-math=\"\\pi\">\\pi</span> is not used in calculation of the surface area."
       },
       {
-        "id": 346890,
-        "content_html": "Small animals lose more heat than larger animals. One would not expect to find wild mice in the poles.",
+        "id": 192370,
+        "content_html": "<span data-math=\"2.77\\,\\text{lx}\">2.77\\,\\text{lx}</span>\n",
         "correctness": "0.0",
-        "feedback_html": "This statement does not represent the deductive approach."
+        "feedback_html": "The power of radius is taken incorrectly as three."
       },
       {
-        "id": 346891,
-        "content_html": "Water conservation is a major requirement to survive in the desert. Long leaves increase loss of water by evaporation. Therefore, desert plants should have smaller leaves.",
+        "id": 192371,
+        "content_html": "<span data-math=\"8.33\\,\\text{lx}\">8.33\\,\\text{lx}</span>\n",
         "correctness": "1.0",
-        "feedback_html": "The example given represents deductive reasoning because from a general premise, results are predicted."
+        "feedback_html": "Illuminance calculated correctly."
       }
     ],
-    "group_uuid": "5d9483ba-69bf-4df6-8bf7-a730668d6960",
-    "stem_html": "Which of the following is an example of deductive reasoning?",
-    "tags": "5d9483ba-69bf-4df6-8bf7-a730668d6960",
-    "uid": "32@5"
+    "group_uuid": "32e7a9bb-c46b-4006-930c-508810c59efe",
+    "stem_html": "A light bulb has a luminous flux of 942 lumens. What is the illuminance on a surface <span data-math=\"3.00\\,\\text{m}\">3.00\\,\\text{m}</span> from the bulb when it is lit?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch15",
+      "k12phys-ch15-s02",
+      "k12phys-ch15-s02-lo02",
+      "k12phys-ch15-ex027",
+      "exid:k12phys-ch15-ex027",
+      "context-cnxmod:b45511b3-d41a-4c86-852d-fa052f2c43c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice"
+    ],
+    "uid": "11134@4"
   },
   {
     "answers": [
       {
-        "id": 470572,
-        "content_html": "hemoglobin, red blood cells, blood, blood vessels, cardiovascular system",
+        "id": 391203,
+        "content_html": "The reflected light is polarized in the vertical direction.",
+        "correctness": "0.0",
+        "feedback_html": "The reflected light is polarized in the horizontal direction."
+      },
+      {
+        "id": 391206,
+        "content_html": "The reflected light is polarized in the horizontal direction.",
         "correctness": "1.0",
-        "feedback_html": "The correct ranking with respect to increasing complexity is hemoglobin, red blood cells, blood, blood vessels, cardiovascular system."
+        "feedback_html": "The light is very glaring due to polarization in the horizontal direction."
       },
       {
-        "id": 470569,
-        "content_html": "hemoglobin, red blood cells, blood, artery, cardiovascular system",
+        "id": 391204,
+        "content_html": "The reflected light has less intensity than the incident light.",
         "correctness": "0.0",
-        "feedback_html": "Veins are a part of the cardiovascular system. Veins and arteries are both types of blood vessels."
+        "feedback_html": "The glare from the snow is not the result of a change in the intensity of the light."
       },
       {
-        "id": 470570,
-        "content_html": "red blood cells, hemoglobin, blood, blood vessels, cardiovascular system",
+        "id": 391205,
+        "content_html": "The reflected light has triple the intensity of the incident light.",
         "correctness": "0.0",
-        "feedback_html": "Red blood cells have higher complexity than hemoglobin."
-      },
-      {
-        "id": 470571,
-        "content_html": "oxygen, carbon dioxide, red blood cells, hemoglobin, blood, artery, cardiovascular system",
-        "correctness": "0.0",
-        "feedback_html": "Oxygen and carbon dioxide are not part of the cardiovascular system."
+        "feedback_html": "The reflected light intensity must be less than the incident intensity, because of energy conservation."
       }
     ],
-    "group_uuid": "73de850f-3c64-4b61-97fd-5a79bf61b14b",
-    "stem_html": "Consider the cardiovascular system. Rank in order of increasing complexity all its levels of organization starting with the hemoglobin.",
-    "tags": "73de850f-3c64-4b61-97fd-5a79bf61b14b",
-    "uid": "41@8"
+    "group_uuid": "41a8cdef-b6f2-41b5-8915-bdc0fbd011a0",
+    "stem_html": "What is it about the nature of light reflected from snow that causes skiers to wear polarized sunglasses?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "lo:stax-phys:27-8-1",
+      "k12phys-ch15",
+      "k12phys-ch15-s02",
+      "k12phys-ch15-s02-lo01",
+      "k12phys-ch15-ex037",
+      "exid:k12phys-ch15-ex037",
+      "context-cnxmod:b45511b3-d41a-4c86-852d-fa052f2c43c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:07ee714e-e453-4866-ba35-3f2ec6916a4f",
+      "context-cnxmod:96ce9bca-db83-4378-bd70-07eaee3e440a",
+      "aplo:stax-apphys:6.A.1.3"
+    ],
+    "uid": "11158@5"
   },
   {
     "answers": [
@@ -92,7 +131,25 @@
     ],
     "group_uuid": "38369e63-c959-4b83-b435-d5f9149a01d1",
     "stem_html": "The Occupational Safety and Health Administration (OSHA) recommends an illuminance of <span data-math=\"500\\,\\text{lx}\">500\\,\\text{lx}</span> for desktop lighting. An office space has lighting hung <span data-math=\"2.50\\,\\text{m}\">2.50\\,\\text{m}</span> above desktop level that provides only <span data-math=\"300\\,\\text{lx}\">300\\,\\text{lx}</span>. To what height would the lighting fixtures have to be lowered to provide <span data-math=\"500\\,\\text{lx}\">500\\,\\text{lx}</span> on desktops?",
-    "tags": "38369e63-c959-4b83-b435-d5f9149a01d1",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "blooms:3",
+      "dok:3",
+      "time:long",
+      "book:stax-phys",
+      "k12phys-ch15",
+      "k12phys-ch15-s02",
+      "k12phys-ch15-s02-lo02",
+      "k12phys-ch15-ex041",
+      "exid:k12phys-ch15-ex041",
+      "context-cnxmod:b45511b3-d41a-4c86-852d-fa052f2c43c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice"
+    ],
     "uid": "11162@4"
   }
 ]
