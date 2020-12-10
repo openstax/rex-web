@@ -28,40 +28,82 @@
     ],
     "group_uuid": "5186532f-4998-4997-95d4-0c21d14bf3b5",
     "stem_html": "Monochromatic light from a laser passes through two slits separated by <span data-math=\"0.00500\\,\\text{mm}\">0.00500\\,\\text{mm}</span>. The third bright line on a screen is formed at an angle of <span data-math=\"18.0^{\\circ}\">18.0^{\\circ}</span> relative to the incident beam. What is the wavelength of the light?",
-    "tags": "5186532f-4998-4997-95d4-0c21d14bf3b5",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:27-4-1",
+      "k12phys-ch17",
+      "k12phys-ch17-s01",
+      "k12phys-ch17-s01-lo02",
+      "k12phys-ch17-ex005",
+      "exid:k12phys-ch17-ex005",
+      "context-cnxmod:5913f9bc-c5cd-484f-a00e-35f64fa6396a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b19892a9-a128-4a8f-8810-0505518daced",
+      "context-cnxmod:8b9cd656-1181-48e7-a9c3-30731b3b8e86",
+      "aplo:stax-apphys:6.C.3.1"
+    ],
     "uid": "11296@6"
   },
   {
     "answers": [
       {
-        "id": 347947,
-        "content_html": "a cell that secretes enzymes",
+        "id": 391565,
+        "content_html": "The wavelength first decreases and then increases.",
         "correctness": "0.0",
-        "feedback_html": "Smooth endoplasmic reticulum does not produce or secrete enzymes."
+        "feedback_html": "The wavelength of light is proportional to the speed of light in the medium."
       },
       {
-        "id": 347948,
-        "content_html": "a cell that destroys pathogens",
+        "id": 391566,
+        "content_html": "The wavelength first increases and then decreases.",
         "correctness": "0.0",
-        "feedback_html": "Smooth endoplasmic reticulum does not have a role to play in destroying pathogens."
+        "feedback_html": "If light enters a dense medium, the speed of light will decrease."
       },
       {
-        "id": 347950,
-        "content_html": "a cell that makes steroid hormones",
+        "id": 391567,
+        "content_html": "The wavelength increases.",
+        "correctness": "0.0",
+        "feedback_html": "The speed decreases when monochromatic light passes into water from a vacuum."
+      },
+      {
+        "id": 391568,
+        "content_html": "The wavelength decreases.",
         "correctness": "1.0",
-        "feedback_html": "Steroid-secreting cells are characterized by abundant SER. These cells synthesize cholesterol as a precursor for steroid hormones or take up this substrate from plasma lipoproteins. Many of the enzymes for sterol and steroid synthesis are localized in the SER."
-      },
-      {
-        "id": 347949,
-        "content_html": "a cell that engages in photosynthesis",
-        "correctness": "0.0",
-        "feedback_html": "smooth endoplasmic reticulum is not involved in the process of photosynthesis."
+        "feedback_html": "As the speed of light decreases, the wavelength also decreases."
       }
     ],
-    "group_uuid": "87016318-f3e4-4431-a934-fd3dce6fe686",
-    "stem_html": "Which of the following is most likely to have the greatest concentration of smooth endoplasmic reticulum (SER)?",
-    "tags": "87016318-f3e4-4431-a934-fd3dce6fe686",
-    "uid": "272@5"
+    "group_uuid": "272d520f-f671-49d9-961b-202f0b7da221",
+    "stem_html": "Which aspect of a beam of monochromatic light changes when it passes from a vacuum into water, and how does it change?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:27-2-3",
+      "k12phys-ch17",
+      "k12phys-ch17-s01",
+      "k12phys-ch17-s01-lo01",
+      "k12phys-ch17-ex007",
+      "exid:k12phys-ch17-ex007",
+      "context-cnxmod:5913f9bc-c5cd-484f-a00e-35f64fa6396a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:0b5ceb83-9942-4f31-97ea-e86ea0c335d5",
+      "context-cnxmod:56a51025-965a-4b65-bb99-f6ba210c6b57",
+      "aplo:stax-apphys:6.E.3.1"
+    ],
+    "uid": "11302@6"
   },
   {
     "answers": [
@@ -92,7 +134,29 @@
     ],
     "group_uuid": "ef49721c-48e2-428a-b8ce-8dde2532082e",
     "stem_html": "Light passing through double slits creates a diffraction pattern. How would the spacing of the bands in the pattern change if the slits were closer together?",
-    "tags": "ef49721c-48e2-428a-b8ce-8dde2532082e",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:27-4-1",
+      "k12phys-ch17",
+      "k12phys-ch17-s01",
+      "k12phys-ch17-s01-lo01",
+      "k12phys-ch17-ex015",
+      "exid:k12phys-ch17-ex015",
+      "context-cnxmod:5913f9bc-c5cd-484f-a00e-35f64fa6396a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b19892a9-a128-4a8f-8810-0505518daced",
+      "context-cnxmod:8b9cd656-1181-48e7-a9c3-30731b3b8e86",
+      "aplo:stax-apphys:6.C.3.1"
+    ],
     "uid": "11322@5"
   },
   {
@@ -124,39 +188,83 @@
     ],
     "group_uuid": "458122c4-b169-4767-8b88-c0ba122743f3",
     "stem_html": "What is the wavelength of light falling on double slits separated by <span data-math=\"2.00\\,\\mu\\text{m}\">2.00\\,\\mu\\text{m}</span> if the third-order maximum is at an angle of <span data-math=\"60.0^{\\circ}\">60.0^{\\circ}</span>?",
-    "tags": "458122c4-b169-4767-8b88-c0ba122743f3",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:27-4-1",
+      "k12phys-ch17",
+      "k12phys-ch17-s01",
+      "k12phys-ch17-s01-lo02",
+      "k12phys-ch17-ex017",
+      "exid:k12phys-ch17-ex017",
+      "context-cnxmod:5913f9bc-c5cd-484f-a00e-35f64fa6396a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b19892a9-a128-4a8f-8810-0505518daced",
+      "context-cnxmod:8b9cd656-1181-48e7-a9c3-30731b3b8e86",
+      "aplo:stax-apphys:6.C.3.1"
+    ],
     "uid": "11324@6"
   },
   {
     "answers": [
       {
-        "id": 477649,
-        "content_html": "Yeasts are prokaryotes. They have a short life cycle, easy to grow, and share similarities with humans in certain regulating mechanisms.",
-        "correctness": "0.0",
-        "feedback_html": "Yeasts are eukaryotes and not prokaryotes."
-      },
-      {
-        "id": 477652,
-        "content_html": "Yeasts are eukaryotes. They have a short life cycle, easy to grow, and share similarities with humans in certain regulating mechanisms.",
+        "id": 391636,
+        "content_html": "No, the color is determined by frequency. The magnitude of the angle decreases.",
         "correctness": "1.0",
-        "feedback_html": "Yeasts are single celled eukaryotic organisms that have short generation time and are easy to grow. They share similarities with humans in regulating mechanisms."
+        "feedback_html": "The color is determined by frequency, which does not change. The magnitude of the angle decreases with the increase in refractive index."
       },
       {
-        "id": 477650,
-        "content_html": "Yeasts are multicellular organisms. They have a short life cycle, easy to grow, and share similarities with humans in certain regulating mechanisms.",
+        "id": 391633,
+        "content_html": "No, the color is determined by wavelength. The magnitude of the angle decreases.",
         "correctness": "0.0",
-        "feedback_html": "Yeasts are single celled organisms."
+        "feedback_html": "The color is not determined by the wavelength."
       },
       {
-        "id": 477651,
-        "content_html": "Yeasts are single celled organisms. They have a complex life cycle like that of humans and share similarities in regulating mechanisms.",
+        "id": 391634,
+        "content_html": "Yes, the color is determined by frequency. The magnitude of the angle increases.",
         "correctness": "0.0",
-        "feedback_html": "Yeasts have a simpler life cycle than that of humans and are easily used as model organisms as a result."
+        "feedback_html": "The color does not change, as the frequency remains the same, and the angle decreases."
+      },
+      {
+        "id": 391635,
+        "content_html": "Yes, the color is determined by wavelength. The magnitude of the angle increases.",
+        "correctness": "0.0",
+        "feedback_html": "The angle decreases but the color remains the same."
       }
     ],
-    "group_uuid": "2d45d0c4-3a75-473c-ac84-68b927eff6c6",
-    "stem_html": "What characteristics make yeast a good model for learning about signaling in humans?",
-    "tags": "2d45d0c4-3a75-473c-ac84-68b927eff6c6",
-    "uid": "700@11"
+    "group_uuid": "700cbe47-aca1-4751-8f10-d7520d8ac40c",
+    "stem_html": "Suppose you use a double slit to perform Young’s double-slit experiment in air, and then repeat the experiment with the same double slit in water. Does the color of the light change? Do the angles to the same parts of the interference pattern get larger or smaller? Explain.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "dok:3",
+      "blooms:4",
+      "time:long",
+      "book:stax-phys",
+      "lo:stax-phys:27-3-2",
+      "k12phys-ch17",
+      "k12phys-ch17-s01",
+      "k12phys-ch17-s01-lo01",
+      "k12phys-ch17-ex019",
+      "exid:k12phys-ch17-ex019",
+      "context-cnxmod:5913f9bc-c5cd-484f-a00e-35f64fa6396a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0a9db352-56cc-40a3-a57c-296990f8ac42",
+      "context-cnxmod:e538a857-1730-441e-98c1-45207e2a2a05",
+      "aplo:stax-apphys:6.C.3.1"
+    ],
+    "uid": "11326@5"
   }
 ]

@@ -28,40 +28,82 @@
     ],
     "group_uuid": "a35908db-88b1-44a1-a133-7f9b32264de5",
     "stem_html": "The refractive index of air is <span data-math=\"1.0003\">1.0003</span> and the refractive index of crystalline quartz is <span data-math=\"1.544\">1.544</span>. What is the critical angle for a ray of light going from crystalline quartz into air?",
-    "tags": "a35908db-88b1-44a1-a133-7f9b32264de5",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:25-4-1",
+      "k12phys-ch16",
+      "k12phys-ch16-s02",
+      "k12phys-ch16-s02-lo02",
+      "k12phys-ch16-ex032",
+      "exid:k12phys-ch16-ex032",
+      "context-cnxmod:56553201-8a7c-4a66-bedf-71375edb532c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:bb69c740-3ff1-4594-be1f-a7e67e7feeba",
+      "context-cnxmod:d1df5bf8-e6f7-4e8c-a2af-8b3e8ff58e32",
+      "aplo:stax-apphys:6.E.3.2"
+    ],
     "uid": "11211@6"
   },
   {
     "answers": [
       {
-        "id": 470309,
-        "content_html": "adhesive properties",
+        "id": 391385,
+        "content_html": "The formula for index of refraction, <span data-math=\"\\text{n}\">\\text{n}</span>, of a material is \n <span data-math=\"n = \\frac{\\text{speed of light in a material}}{\\text{speed of\n light in a vacuum}} = \\frac{v}{c},\">n = \\frac{\\text{speed of light in a material}}{\\text{speed of\n light in a vacuum}} = \\frac{v}{c},</span>\n where <span data-math=\"\\text{v} > \\text{c}\">\\text{v} &gt; \\text{c}</span>, so <span data-math=\"\\text{n}\">\\text{n}</span> is always greater than one.",
         "correctness": "0.0",
-        "feedback_html": "Recall that adhesion is an attraction between water molecules or other molecules not directly related to heat dispersion."
+        "feedback_html": "The given formula for <span data-math=\"n\">n</span> is not correct, because the speed of light in a vacuum is greater than the speed of light in any material."
       },
       {
-        "id": 470310,
-        "content_html": "surface tension",
-        "correctness": "0.0",
-        "feedback_html": "Surface tension is the amount that water’s surface can withstand pressure. This is not directly related to heat dispersion."
-      },
-      {
-        "id": 470311,
-        "content_html": "heat of vaporization",
-        "correctness": "0.0",
-        "feedback_html": "Heat of vaporization is the amount of heat needed for water to move from a liquid to a gas. Water is always a liquid within the bodies of organisms."
-      },
-      {
-        "id": 470312,
-        "content_html": "specific heat capacity",
+        "id": 391386,
+        "content_html": "The formula for index of refraction, <span data-math=\"\\text{n}\">\\text{n}</span>, of a material is \n <span data-math=\"n = \\frac{\\text{speed of light in a vacuum}}{\\text{speed of light\n in a material}} = \\frac{c}{v},\">n = \\frac{\\text{speed of light in a vacuum}}{\\text{speed of light\n in a material}} = \\frac{c}{v},</span>\n where <span data-math=\"\\text{c} > \\text{v}\">\\text{c} &gt; \\text{v}</span>, so <span data-math=\"\\text{n}\">\\text{n}</span> is always greater than one.",
         "correctness": "1.0",
-        "feedback_html": "The specific heat of water is 1 calorie/gram, which is higher than any other common substance."
+        "feedback_html": "The given formula and explanation is right."
+      },
+      {
+        "id": 391384,
+        "content_html": "The formula for index of refraction, <span data-math=\"\\text{n}\">\\text{n}</span>, of a material is \n <span data-math=\"n = \\text{speed of light in a vacuum} \\times \\text{speed of light in a materaial}\">n = \\text{speed of light in a vacuum} \\times \\text{speed of light in a materaial}</span>\n <span data-math=\"= c \\times v,\">= c \\times v,</span>\n where <span data-math=\"\\text{c}\">\\text{c}</span>, <span data-math=\"\\text{v} > 1\">\\text{v} &gt; 1</span>, so <span data-math=\"\\text{n}\">\\text{n}</span> is always greater than one.",
+        "correctness": "0.0",
+        "feedback_html": "The index of refraction of a material is the ratio of the speed of light in a vacuum and the speed of light in that material."
+      },
+      {
+        "id": 391383,
+        "content_html": "The formula for refractive index, <span data-math=\"\\text{n}\">\\text{n}</span>, of a material is \n <span data-math=\"n = \\frac{1}{\\text{speed of light in a vacuum} \\times \\text{speed\n of light in a material}} = \\frac{1}{c \\times v},\">n = \\frac{1}{\\text{speed of light in a vacuum} \\times \\text{speed\n of light in a material}} = \\frac{1}{c \\times v},</span> where <span data-math=\"% <![CDATA[\n\\text{c} < \\text{v} < 1 %]]>\">% </span>, so <span data-math=\"\\text{n}\">\\text{n}</span> is always greater than one.",
+        "correctness": "0.0",
+        "feedback_html": "The refractive index of a material is a ratio. Hence, it cannot have any dimensions."
       }
     ],
-    "group_uuid": "5b7a89a2-3d86-45f8-adb0-6d9f1c5169d7",
-    "stem_html": "Why can water be a good insulator within the body of endothermic (warm-blooded) animals?",
-    "tags": "5b7a89a2-3d86-45f8-adb0-6d9f1c5169d7",
-    "uid": "64@10"
+    "group_uuid": "64a0e529-97f2-4164-9f57-bd086cf15804",
+    "stem_html": "Explain why the index of refraction is always greater than or equal to one.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:25-3-1",
+      "k12phys-ch16",
+      "k12phys-ch16-s02",
+      "k12phys-ch16-s02-lo01",
+      "k12phys-ch16-ex034",
+      "exid:k12phys-ch16-ex034",
+      "context-cnxmod:56553201-8a7c-4a66-bedf-71375edb532c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:25999bf2-d3b4-4763-b10b-86d9e977d218",
+      "context-cnxmod:c5086d6f-9d82-4f7a-803e-66da7f5d568e",
+      "aplo:stax-apphys:6.E.3.1"
+    ],
+    "uid": "11217@6"
   },
   {
     "answers": [
@@ -92,7 +134,29 @@
     ],
     "group_uuid": "e141be43-61f9-43d3-b041-67fb84b93e31",
     "stem_html": "Does light change direction toward or away from the normal when it goes from air to water? Explain.",
-    "tags": "e141be43-61f9-43d3-b041-67fb84b93e31",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "dok:1",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:25-3-1",
+      "k12phys-ch16",
+      "k12phys-ch16-s02",
+      "k12phys-ch16-s02-lo01",
+      "k12phys-ch16-ex035",
+      "exid:k12phys-ch16-ex035",
+      "context-cnxmod:56553201-8a7c-4a66-bedf-71375edb532c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:25999bf2-d3b4-4763-b10b-86d9e977d218",
+      "context-cnxmod:c5086d6f-9d82-4f7a-803e-66da7f5d568e",
+      "aplo:stax-apphys:6.E.3.3"
+    ],
     "uid": "11220@5"
   }
 ]

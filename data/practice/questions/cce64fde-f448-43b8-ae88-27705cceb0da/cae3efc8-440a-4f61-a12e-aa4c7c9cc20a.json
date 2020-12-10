@@ -28,39 +28,82 @@
     ],
     "group_uuid": "9304747b-2db5-4c68-bf31-66dc0aa12987",
     "stem_html": "What is thermal equilibrium?",
-    "tags": "9304747b-2db5-4c68-bf31-66dc0aa12987",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:13-1-3",
+      "k12phys-ch12",
+      "k12phys-ch12-s01",
+      "k12phys-ch12-s01-lo01",
+      "k12phys-ch12-ex002",
+      "exid:k12phys-ch12-ex002",
+      "context-cnxmod:e0c41445-c930-40e1-8785-437af0e0a644",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33",
+      "context-cnxmod:755b8a47-c7b5-4909-a302-81c9c05568a3",
+      "aplo:stax-apphys:1.A.5.1"
+    ],
     "uid": "6645@5"
   },
   {
     "answers": [
       {
-        "id": 470441,
-        "content_html": "growth",
+        "id": 379836,
+        "content_html": "An engine’s efficiency equals the sum of useful energy (work) and the input energy.",
         "correctness": "0.0",
-        "feedback_html": "Growth is a characteristic shared by all living organisms."
+        "feedback_html": "An engine’s efficiency is the proportion of useful energy (work) to the input energy."
       },
       {
-        "id": 470442,
-        "content_html": "metabolism",
-        "correctness": "0.0",
-        "feedback_html": "Metabolism is a characteristic of all living organisms."
-      },
-      {
-        "id": 470444,
-        "content_html": "photosynthesis",
+        "id": 379839,
+        "content_html": "An engine’s efficiency equals the proportion of useful energy (work) to the input energy.",
         "correctness": "1.0",
-        "feedback_html": "Only some living organisms have the capability to photosynthesize. Therefore, photosynthesis doesn’t represent a characteristic shared by all living organisms."
+        "feedback_html": "Yes, the ratio of useful energy (work) to the input energy defines an engine’s efficiency."
       },
       {
-        "id": 470443,
-        "content_html": "reproduction",
+        "id": 379837,
+        "content_html": "An engine’s efficiency equals the product of useful energy (work) and the input energy.",
         "correctness": "0.0",
-        "feedback_html": "All living organisms reproduce."
+        "feedback_html": "Remember, an engine’s efficiency cannot be greater than <span data-math=\"1\">1</span>, which would often result from the product of input and output energies."
+      },
+      {
+        "id": 379838,
+        "content_html": "An engine’s efficiency equals the difference between the useful energy (work) and the input energy.",
+        "correctness": "0.0",
+        "feedback_html": "Net energy (the difference between input energy and output energy) is not a measure of an engine’s efficiency."
       }
     ],
-    "group_uuid": "98b10070-156e-454a-8bc9-b3d801c9fe84",
-    "stem_html": "Which of the following statements does not represent a characteristic shared by all living organisms?",
-    "tags": "98b10070-156e-454a-8bc9-b3d801c9fe84",
-    "uid": "34@7"
+    "group_uuid": "34a3023e-6359-4911-8d4d-1736be4974b8",
+    "stem_html": "What is the meaning of efficiency in terms of a car engine?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:15-3-1",
+      "k12phys-ch12",
+      "k12phys-ch12-s01",
+      "k12phys-ch12-s01-lo01",
+      "k12phys-ch12-ex009",
+      "exid:k12phys-ch12-ex009",
+      "context-cnxmod:e0c41445-c930-40e1-8785-437af0e0a644",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:ed5a4287-94eb-4889-b028-69e3363eb378",
+      "context-cnxmod:03a8500e-2942-4b15-803b-525dd9e05192",
+      "aplo:stax-apphys:7.B.2.1"
+    ],
+    "uid": "6660@5"
   }
 ]

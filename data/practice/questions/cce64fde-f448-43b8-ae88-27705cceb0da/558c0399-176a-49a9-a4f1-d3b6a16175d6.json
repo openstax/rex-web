@@ -2,34 +2,55 @@
   {
     "answers": [
       {
-        "id": 469230,
-        "content_html": "All living organisms have mitochondria that produce energy.",
+        "id": 391227,
+        "content_html": "<div data-math=\"- 0.8\\,\\text{m}\">- 0.8\\,\\text{m}</div>\n",
         "correctness": "0.0",
-        "feedback_html": "All living organisms do not have mitochondria."
+        "feedback_html": "The applied formula is incorrect."
       },
       {
-        "id": 469233,
-        "content_html": "All living organisms store genetic material in DNA/RNA.",
+        "id": 391228,
+        "content_html": "<div data-math=\"- 0.4\\,\\text{m}\">- 0.4\\,\\text{m}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The sign convention for focal length is incorrect."
+      },
+      {
+        "id": 391230,
+        "content_html": "<div data-math=\"0.4\\,\\text{m}\">0.4\\,\\text{m}</div>\n",
         "correctness": "1.0",
-        "feedback_html": "Correct! All living organisms store genetic information using the same molecules: DNA and RNA."
+        "feedback_html": "The calculated focal length is correct."
       },
       {
-        "id": 469231,
-        "content_html": "All living organisms use the energy from sunlight",
+        "id": 391229,
+        "content_html": "<div data-math=\"0.8\\,\\text{m}\">0.8\\,\\text{m}</div>\n",
         "correctness": "0.0",
-        "feedback_html": "All living organisms do not obtain energy from sunlight."
-      },
-      {
-        "id": 469232,
-        "content_html": "All living organisms have a nucleus.",
-        "correctness": "0.0",
-        "feedback_html": "All living organisms do not have a nucleus."
+        "feedback_html": "The radius of curvature is not equal to focal length."
       }
     ],
-    "group_uuid": "fcbab308-e932-4b29-8a17-faef18eeb759",
-    "stem_html": "Which of the following structures is conserved in all living organisms and points to a common origin?",
-    "tags": "fcbab308-e932-4b29-8a17-faef18eeb759",
-    "uid": "22@9"
+    "group_uuid": "22b5e2f1-0629-40c2-ba65-0051595a5fc1",
+    "stem_html": "A concave mirror has a radius of curvature of <span data-math=\"0.8\\,\\text{m}\">0.8\\,\\text{m}</span>. What is the focal length of the mirror?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:25-7-3",
+      "k12phys-ch16",
+      "k12phys-ch16-s01",
+      "k12phys-ch16-s01-lo02",
+      "k12phys-ch16-ex007",
+      "exid:k12phys-ch16-ex007",
+      "context-cnxmod:e0341ce1-48d3-4aaa-ab7c-096493a522a1",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:c4cef576-059d-4369-9494-6484d1d6191c",
+      "context-cnxmod:ed675322-fbca-4fda-a451-3ba66c1c95cc",
+      "aplo:stax-apphys:6.E.4.2"
+    ],
+    "uid": "11169@5"
   },
   {
     "answers": [
@@ -60,39 +81,82 @@
     ],
     "group_uuid": "f234db5c-3a0c-4406-b9c1-bd1198d97865",
     "stem_html": "Why are diverging mirrors often used for rear-view mirrors in vehicles? What is the main disadvantage of using such a mirror compared with a flat one?",
-    "tags": "f234db5c-3a0c-4406-b9c1-bd1198d97865",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "blooms:2",
+      "time:medium",
+      "dok:3",
+      "book:stax-phys",
+      "k12phys-ch16",
+      "k12phys-ch16-s01",
+      "k12phys-ch16-s01-lo01",
+      "k12phys-ch16-ex012",
+      "exid:k12phys-ch16-ex012",
+      "context-cnxmod:e0341ce1-48d3-4aaa-ab7c-096493a522a1",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:c4cef576-059d-4369-9494-6484d1d6191c",
+      "lo:stax-phys:25-7-2",
+      "context-cnxmod:ed675322-fbca-4fda-a451-3ba66c1c95cc",
+      "aplo:stax-apphys:6.E.4.2"
+    ],
     "uid": "11184@6"
   },
   {
     "answers": [
       {
-        "id": 346880,
-        "content_html": "discovery",
-        "correctness": "0.0",
-        "feedback_html": "A discovery is not a testable explanation for an event."
-      },
-      {
-        "id": 346883,
-        "content_html": "hypothesis",
+        "id": 205973,
+        "content_html": "Light passing through air is partially reflected and refracted when it meets a glass surface. It is reflected because glass has a smooth surface; it is refracted while passing into the transparent glass.",
         "correctness": "1.0",
-        "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
+        "feedback_html": "The light is partially reflected by the glass surface and it is refracted while passing through the glass because of the difference in the refractive indices of glass and air."
       },
       {
-        "id": 346881,
-        "content_html": "scientific method",
+        "id": 205972,
+        "content_html": "Light passing through air is partially reflected and refracted when it meets a glass surface. It is reflected because glass has a rough surface, and it is refracted while passing into the opaque glass.",
         "correctness": "0.0",
-        "feedback_html": "The scientific method is a method of research with defined steps."
+        "feedback_html": "Light is reflected from glass because it has a smooth surface."
       },
       {
-        "id": 346882,
-        "content_html": "theory",
+        "id": 205971,
+        "content_html": "Light passing through air is partially reflected and refracted when it meets a glass surface. It is reflected because glass has a smooth surface; it is refracted while passing into the opaque glass.",
         "correctness": "0.0",
-        "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses."
+        "feedback_html": "Glass is normally a transparent material."
+      },
+      {
+        "id": 205970,
+        "content_html": "Light passing through air is partially reflected and refracted when it meets a glass surface. It is reflected because glass has a rough surface; it is refracted while passing into the transparent glass.",
+        "correctness": "0.0",
+        "feedback_html": "The smooth surface of glass reflects light."
       }
     ],
-    "group_uuid": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "stem_html": "What is a suggested and testable explanation for an event called?",
-    "tags": "8bfc9e38-9047-4698-bbdb-c57dc311bb0a",
-    "uid": "3@6"
+    "group_uuid": "3e23ccd6-4fdb-4144-ac86-881a40157ef3",
+    "stem_html": "Sometimes light may be both reflected and refracted as it meets the surface of a different medium. Identify a material with a surface that when light travels through the air it is both reflected and refracted. Explain how this is possible.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:25-3-1",
+      "k12phys-ch16",
+      "k12phys-ch16-s01",
+      "k12phys-ch16-s01-lo01",
+      "k12phys-ch16-ex018",
+      "exid:k12phys-ch16-ex018",
+      "context-cnxmod:e0341ce1-48d3-4aaa-ab7c-096493a522a1",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:25999bf2-d3b4-4763-b10b-86d9e977d218",
+      "context-cnxmod:c5086d6f-9d82-4f7a-803e-66da7f5d568e"
+    ],
+    "uid": "11196@4"
   }
 ]
