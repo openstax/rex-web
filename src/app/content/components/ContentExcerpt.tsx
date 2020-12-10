@@ -1,5 +1,5 @@
 import flow from 'lodash/fp/flow';
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { bodyCopyRegularStyle } from '../../components/Typography';
@@ -14,12 +14,11 @@ import {
 } from '../utils/contentManipulation';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   content: string;
   className?: string;
   source: string | LinkedArchiveTreeSection;
   forwardedRef?: React.Ref<HTMLElement>;
-  [key: string]: any;
 }
 
 // tslint:disable-next-line:variable-name
