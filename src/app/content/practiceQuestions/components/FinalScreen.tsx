@@ -12,7 +12,7 @@ const StyledFinalScreen = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 100%;
+  width: 100%;
   margin: 2rem auto;
   flex: 1;
   text-align: center;
