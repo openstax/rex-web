@@ -1,12 +1,13 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import Button from '../../../../components/Button';
-import { nextQuestion, setAnswer } from '../../actions';
 import * as pqSelectors from '../../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
+import FinishButton from './FinishButton';
+import NextButton from './NextButton';
+import ShowAnswerButton from './ShowAnswerButton';
+import SkipAndSubmitButtons from './SkipAndSubmitButtons';
 
 // tslint:disable-next-line: variable-name
 const Wrapper = styled.div`
@@ -28,19 +29,12 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
   const showAnswerButton = React.useRef<HTMLElement>(null);
   const questionAnswers = useSelector(pqSelectors.questionAnswers);
   const isFinalQuestion = useSelector(pqSelectors.isFinalQuestion);
-  const dispatch = useDispatch();
   const showSkipAndSubmit = !questionAnswers.has(question.uid);
   const submittedAnswer = questionAnswers.get(question.uid);
   const submittedAnswerIsCorrect = Boolean(submittedAnswer && submittedAnswer.correctness === '1.0');
   const showShowAnswer = !props.hideShowAnswerButton && submittedAnswer && !submittedAnswerIsCorrect;
   const showNext = Boolean(submittedAnswer && !isFinalQuestion);
   const showFinish = Boolean(submittedAnswer && isFinalQuestion);
-  const ariaLabelForNextButton = submittedAnswerIsCorrect
-    ? 'i18n:practice-questions:popup:navigation:next:aria-label:after-correct'
-    : 'i18n:practice-questions:popup:navigation:next';
-  const ariaLabelForShowAnswerButton = submittedAnswerIsCorrect
-    ? 'i18n:practice-questions:popup:navigation:show-answer'
-    : 'i18n:practice-questions:popup:navigation:show-answer:aria-label';
 
   React.useEffect(() => {
     if (!submittedAnswer) { return; }
@@ -52,89 +46,10 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
   }, [submittedAnswer, submittedAnswerIsCorrect]);
 
   return <Wrapper>
-    {showSkipAndSubmit && <React.Fragment>
-      <FormattedMessage id='i18n:practice-questions:popup:navigation:skip'>
-        {(msg: string) => (
-          <Button
-            size='large'
-            variant='transparent'
-            onClick={(e: React.MouseEvent) => {
-              e.preventDefault();
-              dispatch(setAnswer({ answer: null, questionId: question.uid }));
-              dispatch(nextQuestion());
-            }}
-            data-analytics-label='Skip'
-          >
-            {msg}
-          </Button>
-        )}
-      </FormattedMessage>
-      <FormattedMessage id='i18n:practice-questions:popup:navigation:submit'>
-        {(msg: string) => (
-          <Button
-            variant='primary'
-            size='large'
-            disabled={selectedAnswer ? false : true}
-            default={true}
-            value={msg}
-            data-analytics-label='Submit'
-            component={<input type='submit' />}
-          />
-        )}
-      </FormattedMessage>
-    </React.Fragment>}
-    {showShowAnswer && <FormattedMessage id={ariaLabelForShowAnswerButton}>
-      {(ariaLabel: string) => <FormattedMessage id='i18n:practice-questions:popup:navigation:show-answer'>
-        {(msg: string) => (
-          <Button
-            ref={showAnswerButton}
-            size='large'
-            variant='transparent'
-            default={true}
-            aria-label={ariaLabel}
-            data-testid='show-answer'
-            data-analytics-label='Show answer'
-            onClick={(e: React.MouseEvent) => {
-              e.preventDefault();
-              props.onShowAnswer();
-            }}
-          >
-            {msg}
-          </Button>
-        )}
-      </FormattedMessage>}
-    </FormattedMessage>}
-    {showNext && <FormattedMessage id={ariaLabelForNextButton}>
-      {(ariaLabel: string) => <FormattedMessage id='i18n:practice-questions:popup:navigation:next'>
-        {(msg: string) => (
-          <Button
-            ref={nextButton}
-            variant='primary'
-            size='large'
-            aria-label={ariaLabel}
-            value={msg}
-            data-testid='next'
-            data-analytics-label='Next'
-            onClick={(e: React.MouseEvent) => {
-              e.preventDefault();
-              dispatch(nextQuestion());
-            }}
-          >
-            {msg}
-          </Button>
-        )}
-    </FormattedMessage>
-    }
-    </FormattedMessage>}
-    {showFinish && <FormattedMessage id='i18n:practice-questions:popup:navigation:finish'>
-      {(msg: string) => <Button
-        variant='primary'
-        size='large'
-        value={msg}
-        data-analytics-label='Finish'
-        component={<input type='submit' />}
-      />}
-    </FormattedMessage>}
+    {showSkipAndSubmit && <SkipAndSubmitButtons disableSubmit={!selectedAnswer} question={question} />}
+    {showShowAnswer && <ShowAnswerButton ref={showAnswerButton} onClick={props.onShowAnswer} />}
+    {showNext && <NextButton ref={nextButton} submittedAnswerIsCorrect={submittedAnswerIsCorrect} />}
+    {showFinish && <FinishButton />}
   </Wrapper>;
 };
 

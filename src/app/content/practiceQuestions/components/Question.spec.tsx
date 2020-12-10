@@ -258,7 +258,7 @@ describe('Question', () => {
     form.props.onSubmit({ preventDefault });
 
     expect(() => component.root.findByProps({
-      id: 'i18n:practice-questions:popup:navigation:show-answer:aria-label',
+      id: 'i18n:practice-questions:popup:navigation:show-answer:after-submit-incorrect:aria-label',
     })).not.toThrow();
 
     const next = component.root.findByProps({ 'data-testid': 'next' })!;
@@ -302,7 +302,7 @@ describe('Question', () => {
     expect(() => component.root.findByProps({ 'data-testid': 'next' })).not.toThrow();
     expect(spyNextFocus).toHaveBeenCalled();
     expect(() => component.root.findByProps({
-      id: 'i18n:practice-questions:popup:navigation:next:aria-label:after-correct',
+      id: 'i18n:practice-questions:popup:navigation:next:after-submit-correct:aria-label',
     })).not.toThrow();
   });
 
