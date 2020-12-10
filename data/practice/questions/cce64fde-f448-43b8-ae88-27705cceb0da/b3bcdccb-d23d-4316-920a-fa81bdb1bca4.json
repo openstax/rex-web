@@ -28,71 +28,130 @@
     ],
     "group_uuid": "cc74b127-7b21-4306-bc4c-c7b01fc9e5af",
     "stem_html": "Explain in words the equation for power dissipated by a given resistance.",
-    "tags": "cc74b127-7b21-4306-bc4c-c7b01fc9e5af",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:20-4-1",
+      "k12phys-ch19",
+      "k12phys-ch19-s04",
+      "k12phys-ch19-s04-lo01",
+      "k12phys-ch19-ex085",
+      "exid:k12phys-ch19-ex085",
+      "context-cnxmod:2321103d-f61d-4fbf-a524-2f188cdf8bc0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:73962280-9abe-4429-b127-a1062b1b3fd5",
+      "context-cnxmod:7bd61dab-ae59-4a3b-a5b7-99be12a6f7d8",
+      "aplo:stax-apphys:5.B.9.8"
+    ],
     "uid": "7367@5"
   },
   {
     "answers": [
       {
-        "id": 346884,
-        "content_html": "publication",
-        "correctness": "0.0",
-        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
-      },
-      {
-        "id": 346885,
-        "content_html": "public speaking",
-        "correctness": "0.0",
-        "feedback_html": "Public speaking does not ensure originality and significance of a work."
-      },
-      {
-        "id": 346887,
-        "content_html": "peer review",
+        "id": 382291,
+        "content_html": "<div data-math=\"0.36\\,\\text{W}\">0.36\\,\\text{W}</div>\n",
         "correctness": "1.0",
-        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
+        "feedback_html": "Power is calculated as product of current and voltage"
       },
       {
-        "id": 346886,
-        "content_html": "the scientific method",
+        "id": 382288,
+        "content_html": "<span data-math=\"0.011\\,\\text{W}\">0.011\\,\\text{W}</span>",
         "correctness": "0.0",
-        "feedback_html": "The scientific method is the method employed to carry out research."
+        "feedback_html": "Electric power is not calculated from the correct formula."
+      },
+      {
+        "id": 382289,
+        "content_html": "Voltage drop across is <span data-math=\"5\\,\\text{V}\">5\\,\\text{V}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "Use the equation for electric power given the voltage and the current."
+      },
+      {
+        "id": 382290,
+        "content_html": "<span data-math=\"2.5\\,\\text{W}\">2.5\\,\\text{W}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Use the equation for electric power given the voltage and the current."
       }
     ],
-    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
-    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "uid": "5@8"
+    "group_uuid": "5c701a48-9653-45d9-a939-3cfbdd9a4f7a",
+    "stem_html": "What power is dissipated in a circuit through which <span data-math=\"0.12\\,\\text{A}\">0.12\\,\\text{A}</span> flows across a potential drop of <span data-math=\"3.0\\,\\text{V}\">3.0\\,\\text{V}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:20-4-1",
+      "k12phys-ch19",
+      "k12phys-ch19-s04",
+      "k12phys-ch19-s04-lo02",
+      "k12phys-ch19-ex091",
+      "exid:k12phys-ch19-ex091",
+      "context-cnxmod:2321103d-f61d-4fbf-a524-2f188cdf8bc0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:73962280-9abe-4429-b127-a1062b1b3fd5",
+      "context-cnxmod:7bd61dab-ae59-4a3b-a5b7-99be12a6f7d8",
+      "aplo:stax-apphys:5.B.9.8"
+    ],
+    "uid": "7381@5"
   },
   {
     "answers": [
       {
-        "id": 418058,
-        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
+        "id": 382304,
+        "content_html": "No, the power dissipated remain same.",
         "correctness": "0.0",
-        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
+        "feedback_html": "The power loss increases because extra power is dissipated by second resistor."
       },
       {
-        "id": 418059,
-        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "id": 382306,
+        "content_html": "Yes, the power dissipated increases.",
         "correctness": "1.0",
-        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "The battery supplies the extra power and the second resistor dissipates it."
       },
       {
-        "id": 418060,
-        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "id": 382305,
+        "content_html": "Yes, the power dissipated decreases.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
-      },
-      {
-        "id": 418061,
-        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
-        "correctness": "0.0",
-        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+        "feedback_html": "Remember that the battery supplies the extra power and the second resistor dissipates it."
       }
     ],
-    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
-    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "uid": "1@7"
+    "group_uuid": "1fa7d53d-3e54-45d8-848b-e7984915cfb3",
+    "stem_html": "A single resistor is connected across the terminals of a battery When you attach a second resistor in parallel with the first, does the power dissipated by the system change?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "lo:stax-phys:20-4-1",
+      "k12phys-ch19",
+      "k12phys-ch19-s04",
+      "k12phys-ch19-s04-lo01",
+      "k12phys-ch19-ex096",
+      "exid:k12phys-ch19-ex096",
+      "context-cnxmod:2321103d-f61d-4fbf-a524-2f188cdf8bc0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:73962280-9abe-4429-b127-a1062b1b3fd5",
+      "context-cnxmod:7bd61dab-ae59-4a3b-a5b7-99be12a6f7d8",
+      "aplo:stax-apphys:5.B.9.8"
+    ],
+    "uid": "7386@5"
   }
 ]

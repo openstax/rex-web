@@ -28,71 +28,136 @@
     ],
     "group_uuid": "28734ac3-92b6-45d8-bec8-6c95877b5c84",
     "stem_html": "How would a diagram of two resistors connected in series appear?",
-    "tags": "28734ac3-92b6-45d8-bec8-6c95877b5c84",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s02",
+      "k12phys-ch19-s02-lo01",
+      "k12phys-ch19-ex042",
+      "exid:k12phys-ch19-ex042",
+      "context-cnxmod:31ef6ca8-473e-43fe-b06a-f989c9fa9c11",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-1",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.2"
+    ],
     "uid": "7296@8"
   },
   {
     "answers": [
       {
-        "id": 418058,
-        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
+        "id": 418114,
+        "content_html": "All of the current flows through the left branch due to the open switch.",
         "correctness": "0.0",
-        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
+        "feedback_html": "No current will flow in the left branch as it has an open switch."
       },
       {
-        "id": 418059,
-        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "id": 418115,
+        "content_html": "All of the current flows through the right branch due to the open switch in the left branch.",
         "correctness": "1.0",
-        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "Yes, current flows in a closed circuit. Because of an open switch in the left branch of the circuit, no current will flow through it."
       },
       {
-        "id": 418060,
-        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "id": 418116,
+        "content_html": "All of the current flows through the middle branch due to the open switch in the left branch",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "The current is generated in the middle branch as there is a battery and all of the current flows through the right branch because there is no current in the left branch."
       },
       {
-        "id": 418061,
-        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
+        "id": 418117,
+        "content_html": "There will be no current in any branch of the circuit due to the open switch.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+        "feedback_html": "The right branch is a closed circuit with a battery connected to it. So all current will go to the right branch."
       }
     ],
-    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
-    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "uid": "1@7"
+    "group_uuid": "1f386ccb-4da1-48d7-9d98-28e9ab2ede62",
+    "stem_html": "<p>Through which branch in the circuit below does the most current flow?</p>\n<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_2a324c183c27e2a71fe6d390dc87fdf64b35c2b8b68cad248da631d8cd6ba26d.png\" alt=\"Circuit diagram with a $9\\text{-V}$ battery, two resistors $\\left(50\\,\\text{and}\\,50 \\times 10^{50}\\,\\Omega \\right)$, and a switch.\"></p>",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s02",
+      "k12phys-ch19-s02-lo01",
+      "k12phys-ch19-ex050",
+      "exid:k12phys-ch19-ex050",
+      "context-cnxmod:31ef6ca8-473e-43fe-b06a-f989c9fa9c11",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-1",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.5"
+    ],
+    "uid": "7316@7"
   },
   {
     "answers": [
       {
-        "id": 346884,
-        "content_html": "publication",
+        "id": 418134,
+        "content_html": "<span data-math=\"0.028\\,\\Omega\">0.028\\,\\Omega</span>\n",
         "correctness": "0.0",
-        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
+        "feedback_html": "Recall Ohm’s law which states that voltage drop across a resistor is equal to the product of current and resistance of the resistor."
       },
       {
-        "id": 346885,
-        "content_html": "public speaking",
+        "id": 418135,
+        "content_html": "<span data-math=\"2.25\\,\\Omega\">2.25\\,\\Omega</span>\n",
         "correctness": "0.0",
-        "feedback_html": "Public speaking does not ensure originality and significance of a work."
+        "feedback_html": "Recall Ohm’s law. Resistance is not equal to the product of voltage and current."
       },
       {
-        "id": 346887,
-        "content_html": "peer review",
+        "id": 418136,
+        "content_html": "<span data-math=\"36\\,\\Omega\">36\\,\\Omega</span>\n",
         "correctness": "1.0",
-        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
+        "feedback_html": "That’s right. Resistance of a resistor is equal to the voltage divided by the current through the resistor."
       },
       {
-        "id": 346886,
-        "content_html": "the scientific method",
+        "id": 418137,
+        "content_html": "<span data-math=\"72\\,\\Omega\">72\\,\\Omega</span>",
         "correctness": "0.0",
-        "feedback_html": "The scientific method is the method employed to carry out research."
+        "feedback_html": "Check the formula used for calculating the resistance and recall the mathematical form of Ohm’s law."
       }
     ],
-    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
-    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "uid": "5@8"
+    "group_uuid": "5d14b07a-95e8-4a58-b4fe-396152d59bb0",
+    "stem_html": "<p>What is the equivalent resistance for the circuit below if <span data-math=\"\\text{V} = 9.0\\,\\text{V}\">\\text{V} = 9.0\\,\\text{V}</span> and <span data-math=\"I = 0.25\\,\\text{A}\">I = 0.25\\,\\text{A}</span>?</p>\n\n<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_abeed08447f76afc22561b388c28d759f66855d198a77e50c317d7589bb875c8.png\" alt=\"Circuit diagram with a battery and three resistors.\"></p>\n\n\n",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s02",
+      "k12phys-ch19-s02-lo02",
+      "k12phys-ch19-ex052",
+      "exid:k12phys-ch19-ex052",
+      "context-cnxmod:31ef6ca8-473e-43fe-b06a-f989c9fa9c11",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-5",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.3"
+    ],
+    "uid": "7318@8"
   }
 ]

@@ -28,40 +28,87 @@
     ],
     "group_uuid": "b61cf1c7-7ca5-4f08-8923-d02d07fd5704",
     "stem_html": "What is the momentum of a bowling ball with mass <span data-math=\"5\\,\\text{kg}\">5\\,\\text{kg}</span> and velocity <span data-math=\"10\\,\\text{m/s}\">10\\,\\text{m/s}</span>?",
-    "tags": "b61cf1c7-7ca5-4f08-8923-d02d07fd5704",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch08",
+      "k12phys-ch08-s01",
+      "k12phys-ch08-s01-lo03",
+      "k12phys-ch08-ex005",
+      "dok:1",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch08-ex005",
+      "context-cnxmod:4925d40b-9aec-4c67-b182-fc78b6c73990",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:8-1-4",
+      "context-cnxmod:43dd126f-ae39-4d3b-91ce-73c84a8e80d4",
+      "context-cnxmod:5fe57a54-260a-40f1-a173-191fda3cb2e9",
+      "aplo:stax-apphys:3.D.2.1",
+      "aplo:stax-apphys:3.D.1.1",
+      "aplo:stax-apphys:4.B.1.2"
+    ],
     "uid": "2648@5"
   },
   {
     "answers": [
       {
-        "id": 346884,
-        "content_html": "publication",
+        "id": 377063,
+        "content_html": "The first object will acquire more momentum.",
         "correctness": "0.0",
-        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
+        "feedback_html": "Recall the impulse-momentum theorem and compare the change in momentum."
       },
       {
-        "id": 346885,
-        "content_html": "public speaking",
-        "correctness": "0.0",
-        "feedback_html": "Public speaking does not ensure originality and significance of a work."
-      },
-      {
-        "id": 346887,
-        "content_html": "peer review",
+        "id": 377064,
+        "content_html": "The second object will acquire more momentum.",
         "correctness": "1.0",
-        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
+        "feedback_html": "The second object will acquire more momentum because the duration over which the force acts is more for the second object."
       },
       {
-        "id": 346886,
-        "content_html": "the scientific method",
+        "id": 377062,
+        "content_html": "Both objects will acquire the same momentum.",
         "correctness": "0.0",
-        "feedback_html": "The scientific method is the method employed to carry out research."
+        "feedback_html": "Momentum acquired won’t be the same for the two objects, as the duration over which the force is acting on each object is different."
+      },
+      {
+        "id": 377061,
+        "content_html": "Neither object will experience a change in momentum.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that net force is the rate of change of momentum."
       }
     ],
-    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
-    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "uid": "5@8"
+    "group_uuid": "5b97bdea-ce4e-4fb2-8e50-458541a4e545",
+    "stem_html": "Consider two objects of the same mass. If a force of <span data-math=\"100\\,\\text{N}\">100\\,\\text{N}</span> acts on the first for a duration of <span data-math=\"1\\,\\text{s}\">1\\,\\text{s}</span> and on the other for a duration of <span data-math=\"2\\,\\text{s}\">2\\,\\text{s}</span>, which of the following statements is true?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch08",
+      "k12phys-ch08-s01",
+      "k12phys-ch08-s01-lo01",
+      "k12phys-ch08-ex013",
+      "blooms:3",
+      "dok:3",
+      "time:long",
+      "book:stax-phys",
+      "exid:k12phys-ch08-ex013",
+      "context-cnxmod:4925d40b-9aec-4c67-b182-fc78b6c73990",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:28c27cce-e469-4552-b1d5-1958417de8c7",
+      "lo:stax-phys:8-2-1",
+      "context-cnxmod:dfc8e07c-be70-45ca-8326-aa6a1b7d8395",
+      "aplo:stax-apphys:3.D.2.1",
+      "aplo:stax-apphys:3.D.1.1",
+      "aplo:stax-apphys:4.B.1.2"
+    ],
+    "uid": "2656@6"
   },
   {
     "answers": [
@@ -80,7 +127,31 @@
     ],
     "group_uuid": "52070de9-2815-4fe4-8066-e18bf22f003c",
     "stem_html": "What kind of quantity is momentum?",
-    "tags": "52070de9-2815-4fe4-8066-e18bf22f003c",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch08",
+      "k12phys-ch08-s01",
+      "k12phys-ch08-s01-lo01",
+      "k12phys-ch08-ex017",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:8-1-1",
+      "exid:k12phys-ch08-ex017",
+      "context-cnxmod:4925d40b-9aec-4c67-b182-fc78b6c73990",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:43dd126f-ae39-4d3b-91ce-73c84a8e80d4",
+      "context-cnxmod:5fe57a54-260a-40f1-a173-191fda3cb2e9",
+      "aplo:stax-apphys:3.D.2.1",
+      "aplo:stax-apphys:3.D.1.1",
+      "aplo:stax-apphys:4.B.1.2"
+    ],
     "uid": "2660@6"
   },
   {
@@ -112,7 +183,31 @@
     ],
     "group_uuid": "d1e3a65a-65b8-46e9-817f-9f769d257882",
     "stem_html": "When the momentum of an object increases with respect to time, what is true of the net force acting on it?",
-    "tags": "d1e3a65a-65b8-46e9-817f-9f769d257882",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch08",
+      "k12phys-ch08-s01",
+      "k12phys-ch08-s01-lo02",
+      "k12phys-ch08-ex022",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:8-1-2",
+      "exid:k12phys-ch08-ex022",
+      "context-cnxmod:4925d40b-9aec-4c67-b182-fc78b6c73990",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:43dd126f-ae39-4d3b-91ce-73c84a8e80d4",
+      "context-cnxmod:5fe57a54-260a-40f1-a173-191fda3cb2e9",
+      "aplo:stax-apphys:3.D.2.1",
+      "aplo:stax-apphys:3.D.1.1",
+      "aplo:stax-apphys:4.B.1.2"
+    ],
     "uid": "2665@7"
   },
   {
@@ -144,7 +239,31 @@
     ],
     "group_uuid": "744181b4-3793-4afe-9680-3217f024a62e",
     "stem_html": "Why does it hurt less when you fall on a softer surface?",
-    "tags": "744181b4-3793-4afe-9680-3217f024a62e",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch08",
+      "k12phys-ch08-s01",
+      "k12phys-ch08-s01-lo02",
+      "k12phys-ch08-ex027",
+      "time:short",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:8-2-2",
+      "exid:k12phys-ch08-ex027",
+      "context-cnxmod:4925d40b-9aec-4c67-b182-fc78b6c73990",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:28c27cce-e469-4552-b1d5-1958417de8c7",
+      "context-cnxmod:dfc8e07c-be70-45ca-8326-aa6a1b7d8395",
+      "aplo:stax-apphys:3.D.2.1",
+      "aplo:stax-apphys:3.D.1.1",
+      "aplo:stax-apphys:4.B.1.2"
+    ],
     "uid": "2670@7"
   }
 ]
