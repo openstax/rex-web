@@ -9,9 +9,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   <div
     className="ScrollLock__Overlay-sc-1fi845b-0 gqkuDv"
     data-testid="scroll-lock-overlay"
-    mobileOnly={false}
     onClick={[Function]}
-    zIndex={80}
   />
   <div
     className="PopupStyles__Modal-w0z1hl-3 ZJcjg"
