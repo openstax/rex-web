@@ -38,9 +38,9 @@ interface ButtonProps<T extends ComponentType | undefined> {
 }
 
 // tslint:disable-next-line:variable-name
-const ButtonHoc = React.forwardRef((
-  {variant, size, component, ...props}: ButtonProps<ComponentType | undefined>,
-  ref: React.Ref<HTMLButtonElement | ComponentType>
+const ButtonHoc = React.forwardRef(<T extends ComponentType | undefined>(
+  {variant, size, component, ...props}: ButtonProps<T>,
+  ref: React.Ref<Omit<HTMLButtonElement | T, 'undefined'>>
 ) => {
   if (isDefined(component)) {
     return React.cloneElement(component, {...props, ref});

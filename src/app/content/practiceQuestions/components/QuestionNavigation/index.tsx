@@ -76,7 +76,9 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
             size='large'
             disabled={selectedAnswer ? false : true}
             default={true}
-            component={<input type='submit' value={msg} data-analytics-label='Submit' />}
+            value={msg}
+            data-analytics-label='Submit'
+            component={<input type='submit' />}
           />
         )}
       </FormattedMessage>
@@ -128,7 +130,9 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
       {(msg: string) => <Button
         variant='primary'
         size='large'
-        component={<input type='submit' value={msg} data-analytics-label='Finish' />}
+        value={msg}
+        data-analytics-label='Finish'
+        component={<input type='submit' />}
       />}
     </FormattedMessage>}
   </Wrapper>;
