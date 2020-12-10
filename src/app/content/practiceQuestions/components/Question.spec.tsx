@@ -15,7 +15,7 @@ import { receiveBook } from '../../actions';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import * as bookPageUtils from '../../utils/urlUtils';
-import { nextQuestion, setAnswer, setQuestions, setSelectedSection } from '../actions';
+import { finishQuestions, nextQuestion, setAnswer, setQuestions, setSelectedSection } from '../actions';
 import { PracticeQuestion } from '../types';
 import Answer from './Answer';
 import Question, { AnswersWrapper, QuestionContent, QuestionWrapper } from './Question';
@@ -167,7 +167,7 @@ describe('Question', () => {
 
   it('clicking skip works', () => {
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
-    store.dispatch(setQuestions([mockQuestion]));
+    store.dispatch(setQuestions([mockQuestion, { ...mockQuestion, uid: '213' }]));
     store.dispatch(nextQuestion());
     dispatch.mockClear();
 
@@ -185,6 +185,12 @@ describe('Question', () => {
 
     expect(dispatch).toHaveBeenCalledWith(setAnswer({ questionId: mockQuestion.uid, answer: null }));
     expect(dispatch).toHaveBeenCalledWith(nextQuestion());
+
+    act(() => {
+      skip.props.onClick({ preventDefault: jest.fn() });
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(finishQuestions());
   });
 
   it('after submitting incorrect answer there is Show answer button that works', () => {
@@ -347,5 +353,35 @@ describe('Question', () => {
     renderer.create(render(), { createNodeMock: () => container });
 
     expect(spyPromiseCollectorAdd).toHaveBeenCalledWith(mathjaxHelpers.typesetMath(container, assertWindow()));
+  });
+
+  it('submits the form by pressing Submit and Finish buttons', () => {
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(setQuestions([mockQuestion]));
+    store.dispatch(nextQuestion());
+    dispatch.mockClear();
+
+    const component = renderer.create(render());
+
+    // Run initial useEffect hook
+    // tslint:disable-next-line: no-empty
+    act(() => { });
+
+    const [firstAnswer] = component.root.findAllByType(Answer);
+    const input = firstAnswer.findByProps({ type: 'radio' });
+
+    act(() => {
+      input.props.onChange();
+    });
+
+    const form = component.root.findByProps({ 'data-testid': 'question-form' });
+    const preventDefault = jest.fn();
+    form.props.onSubmit({ preventDefault });
+
+    expect(dispatch).toHaveBeenCalledWith(setAnswer({ questionId: mockQuestion.uid, answer: mockQuestion.answers[0] }));
+
+    form.props.onSubmit({ preventDefault });
+
+    expect(dispatch).toHaveBeenCalledWith(finishQuestions());
   });
 });

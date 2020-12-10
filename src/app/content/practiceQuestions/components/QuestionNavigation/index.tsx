@@ -46,7 +46,11 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
   }, [submittedAnswer, submittedAnswerIsCorrect]);
 
   return <Wrapper>
-    {showSkipAndSubmit && <SkipAndSubmitButtons disableSubmit={!selectedAnswer} question={question} />}
+    {showSkipAndSubmit && <SkipAndSubmitButtons
+      isFinalQuestion={isFinalQuestion}
+      disableSubmit={!selectedAnswer}
+      question={question}
+    />}
     {showShowAnswer && <ShowAnswerButton ref={showAnswerButton} onClick={props.onShowAnswer} />}
     {showNext && <NextButton ref={nextButton} submittedAnswerIsCorrect={submittedAnswerIsCorrect} />}
     {showFinish && <FinishButton />}
