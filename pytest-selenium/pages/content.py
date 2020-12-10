@@ -46,8 +46,6 @@ class Content(Page):
     _notification_pop_up_locator = (By.CSS_SELECTOR, "[class*=ContentNotifications]")
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
     _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
-    _buy_book_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
-    _highlight_CTA_locator = (By.CSS_SELECTOR, "[class*=CTAWrapper]")
     _order_print_copy_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
     _discard_modal_locator = (By.CSS_SELECTOR, "[class*='CardWrapper']")
 
@@ -152,27 +150,6 @@ class Content(Page):
         return bool(self.find_elements(*self._notification_pop_up_locator))
 
     @property
-    def highlighting_CTA(self) -> Content.Highlighting_CTA:
-        """Access the highlighting CTA."""
-        if not self.error_shown():
-            box_root = self.find_element(*self._highlight_CTA_locator)
-            return self.Notification(self, box_root)
-        raise ContentError(f"Error modal displayed: {self.error.heading}")
-
-    @property
-    def highlighting_CTA_present(self) -> bool:
-        """Return True if highlighting CTA is found.
-
-        Add 5 second delay to sync with the timing when CTA appears
-        and then check if the CTA appears.
-
-        :return: ``True`` when a highlighting CTA nudge is present
-        :rtype: bool
-
-        """
-        sleep(5)
-        return bool(self.find_elements(*self._highlight_CTA_locator))
-
     def discard_modal(self) -> Content.DiscardModal:
         """Access the unsaved notes discard modal.
 
