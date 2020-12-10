@@ -3,9 +3,10 @@
 from math import isclose
 from random import choice
 from string import digits, ascii_letters
-from pytest import approx
-from selenium.webdriver.common.by import By
 import re
+from time import sleep
+
+from selenium.webdriver.common.by import By
 
 from pages.content import Content
 from tests import markers
@@ -141,6 +142,8 @@ def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_slug):
+    """Opening TOC closes search sidebar and content stays in the same location"""
+
     # GIVEN: Book page is loaded
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
@@ -163,15 +166,23 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         assert search_sidebar.search_results_present
 
         # Loop through the words in search term and assert if atleast one of them is highlighted in the book
-        focussed_search_term = re.findall(r"\w+", search_term)
-        for x in focussed_search_term:
+        split_search_term = re.findall(r"\w+", search_term)
+        for x in split_search_term:
+            focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
             try:
-                assert book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
+                assert (
+                    focussed_search_term
+                ), f"the highlighted search term ('{x}') was not found on the page"
+                assert book.element_in_viewport(focussed_search_term[0])
             except AssertionError:
                 continue
+            except IndexError:
+                # Wait till the focussed search term is scrolled to the viewport
+                sleep(1)
+                assert book.element_in_viewport(focussed_search_term[0])
             break
 
-        initial_scroll_position = book.scroll_position
+        scroll_position_before_closing_search_sidebar = book.scroll_position
 
         # AND: TOC is opened
         toolbar.click_toc_toggle_button()
@@ -186,19 +197,42 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         assert toolbar.search_term_displayed_in_search_textbox == search_term
 
         # AND Content page stays in the same location
-        scroll_position_after_opening_TOC = book.scroll_position
+        scroll_position_after_closing_search_sidebar = book.scroll_position
 
-        # Perform approximate assert to accomodate the inconsistent content offset.
-        assert scroll_position_after_opening_TOC == approx(initial_scroll_position, abs=55)
+        within = scroll_position_before_closing_search_sidebar * 0.01
+        assert isclose(
+            scroll_position_before_closing_search_sidebar,
+            scroll_position_after_closing_search_sidebar,
+            rel_tol=within,
+        ), (
+            r"vertical position after closing search sidebar not within 1% of position "
+            "before closing search sidebar ({low} <= {target} <= {high})".format(
+                low=scroll_position_before_closing_search_sidebar - within,
+                high=scroll_position_before_closing_search_sidebar + within,
+                target=scroll_position_after_closing_search_sidebar,
+            )
+        )
 
         # WHEN TOC is closed
         toc_sidebar.header.click_toc_toggle_button()
+        scroll_position_after_closing_toc = book.scroll_position
 
         # THEN search sidebar does not re-appear
         assert search_sidebar.search_results_not_displayed
 
         # AND Content page still stays in the same location
-        assert book.scroll_position == approx(initial_scroll_position, abs=55)
+        assert isclose(
+            scroll_position_after_closing_toc,
+            scroll_position_before_closing_search_sidebar,
+            rel_tol=within,
+        ), (
+            r"vertical position after closing TOC not within 1% of position "
+            "before closing TOC ({low} <= {target} <= {high})".format(
+                low=scroll_position_after_closing_toc - within,
+                high=scroll_position_after_closing_toc + within,
+                target=scroll_position_before_closing_search_sidebar,
+            )
+        )
 
         # AND search string still stays in the search box
         assert toolbar.search_term_displayed_in_search_textbox == search_term
@@ -206,7 +240,6 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
     if book.is_mobile:
         # WHEN: Search sidebar is displayed with search results
         mobile.search_for(search_term)
-
         assert search_sidebar.search_results_present
 
         # For mobile, content is not visible when search results are displayed.
@@ -215,16 +248,23 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         Utilities.click_option(selenium, element=search_results[0])
 
         # Loop through the words in search term and assert if atleast one of them is highlighted in the book
-        focussed_search_term = re.findall(r"\w+", search_term)
-        for x in focussed_search_term:
+        split_search_term = re.findall(r"\w+", search_term)
+        for x in split_search_term:
+            focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
             try:
-                assert book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
-
+                assert (
+                    focussed_search_term
+                ), f"the highlighted search term ('{x}') was not found on the page"
+                assert book.element_in_viewport(focussed_search_term[0])
             except AssertionError:
                 continue
+            except IndexError:
+                # Wait till the focussed search term is scrolled to the viewport
+                sleep(1)
+                assert book.element_in_viewport(focussed_search_term[0])
             break
 
-        initial_scroll_position = book.scroll_position
+        search_result_scroll_position = book.scroll_position
 
         mobile.click_back_to_search_results_button()
 
@@ -244,8 +284,19 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         assert search_sidebar.search_results_not_displayed
 
         # AND Content page still stays in the same location
-        # Perform approximate assert to accomodate the inconsistent content offset in Chrome mainly due to the searchbar.
-        assert book.scroll_position == approx(initial_scroll_position, abs=55)
+        scroll_position_after_closing_search = book.scroll_position
+
+        within = search_result_scroll_position * 0.01
+        assert isclose(
+            search_result_scroll_position, scroll_position_after_closing_search, rel_tol=within
+        ), (
+            r"vertical position after closing search sidebar not within 1% of position "
+            "before closing search sidebar ({low} <= {target} <= {high})".format(
+                low=search_result_scroll_position - within,
+                high=search_result_scroll_position + within,
+                target=scroll_position_after_closing_search,
+            )
+        )
 
         # AND: search string still stays in the search box
         toolbar.click_search_icon()
