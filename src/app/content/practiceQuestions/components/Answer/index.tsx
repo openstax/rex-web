@@ -67,6 +67,8 @@ const Answer = ({
     isSubmitted={isSubmitted}
     isSelected={isSelected}
     onClick={onSelect}
+    tabIndex={0}
+    aria-selected={isSelected}
   >
     <FormattedMessage
       id='i18n:practice-questions:popup:answers:choice'
@@ -81,13 +83,13 @@ const Answer = ({
           disabled={isSubmitted}
           onChange={onSelect}
         />
-        <AnswerLabel ref={answerRef} aria-label={msg} for={choiceIndicator} tabIndex={-1}>
+        <AnswerLabel ref={answerRef} aria-label={msg} htmlFor={choiceIndicator} tabIndex={-1}>
           {choiceIndicator}
         </AnswerLabel>
       </React.Fragment>
     }</FormattedMessage>
     <AnswerAlignment>
-      <AnswerContent tabIndex={0}>
+      <AnswerContent>
         <AnswerExcerpt>{answer.content_html}</AnswerExcerpt>
         <AnswerResult
           showCorrect={showCorrect}
