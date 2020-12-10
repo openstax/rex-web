@@ -3,7 +3,7 @@ import React from 'react';
 // tslint:disable:max-line-length
 // tslint:disable-next-line:variable-name
 const SvgComponent = () => (
-  <svg width='17px' height='17px' viewBox='0 0 17 17' version='1.1'>
+  <svg width='17px' height='17px' viewBox='0 0 17 17' version='1.1' aria-hidden='true'>
     <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
       <g transform='translate(-1144.000000, -207.000000)'>
         <g transform='translate(1144.000000, 207.000000)'>

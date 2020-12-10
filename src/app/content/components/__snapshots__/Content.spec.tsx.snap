@@ -123,6 +123,7 @@ Array [
           tabIndex={-1}
         >
           <svg
+            aria-hidden="true"
             height="15px"
             version="1.1"
             viewBox="0 0 17 15"
@@ -177,6 +178,7 @@ Array [
               value="Search"
             >
               <svg
+                aria-hidden="true"
                 height="18px"
                 version="1.1"
                 viewBox="0 0 18 18"
@@ -205,6 +207,7 @@ Array [
               value="Search"
             >
               <svg
+                aria-hidden="true"
                 height="18px"
                 version="1.1"
                 viewBox="0 0 18 18"
@@ -240,6 +243,7 @@ Array [
             onClick={[Function]}
           >
             <svg
+              aria-hidden="true"
               height="17px"
               version="1.1"
               viewBox="0 0 17 17"
@@ -346,6 +350,7 @@ Array [
                 onClick={[Function]}
               >
                 <svg
+                  aria-hidden="true"
                   height="15px"
                   version="1.1"
                   viewBox="0 0 17 15"
@@ -1454,6 +1459,7 @@ Array [
           tabIndex={-1}
         >
           <svg
+            aria-hidden="true"
             height="15px"
             version="1.1"
             viewBox="0 0 17 15"
@@ -1508,6 +1514,7 @@ Array [
               value="Search"
             >
               <svg
+                aria-hidden="true"
                 height="18px"
                 version="1.1"
                 viewBox="0 0 18 18"
@@ -1536,6 +1543,7 @@ Array [
               value="Search"
             >
               <svg
+                aria-hidden="true"
                 height="18px"
                 version="1.1"
                 viewBox="0 0 18 18"
@@ -1571,6 +1579,7 @@ Array [
             onClick={[Function]}
           >
             <svg
+              aria-hidden="true"
               height="17px"
               version="1.1"
               viewBox="0 0 17 17"
@@ -1677,6 +1686,7 @@ Array [
                 onClick={[Function]}
               >
                 <svg
+                  aria-hidden="true"
                   height="15px"
                   version="1.1"
                   viewBox="0 0 17 15"
