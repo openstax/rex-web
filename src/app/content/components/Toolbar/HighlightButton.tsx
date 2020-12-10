@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import highlightIcon from '../../../../assets/highlightIcon.svg';
+import HighlightsIcon from '../../../../assets/HighlightsIcon';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { AppState, Dispatch } from '../../../types';
 import { openMyHighlights as openMyHighlightsAction } from '../../highlights/actions';
@@ -23,11 +23,10 @@ const MyHighlightsWrapper = styled(PlainButton)`
   ${(props: { practiceQuestionsEnabled: boolean }) => {
     if (props.practiceQuestionsEnabled) { return `margin-right: 0;`; }
   }}
-`;
 
-// tslint:disable-next-line:variable-name
-const MyHighlightsIcon = styled.img`
-  ${toolbarIconStyles}
+  > svg {
+    ${toolbarIconStyles}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -52,7 +51,7 @@ const HighlightButton = ({ openMyHighlights }: Props) => {
           aria-label={msg}
           practiceQuestionsEnabled={practiceQuestionsEnabled}
         >
-          <MyHighlightsIcon aria-hidden='true' src={highlightIcon} />
+          <HighlightsIcon />
           <MyHighlightsText>{msg}</MyHighlightsText>
         </MyHighlightsWrapper>
       }
