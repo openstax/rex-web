@@ -68,12 +68,14 @@ const TabHiddenDropDown = styled((
   {toggle, children, className, onToggle, ...props}: React.PropsWithChildren<Props | Props & ControlledProps>
 ) => {
   const { open: controlledOpen, setOpen: controlledSetOpen } = props as Props & ControlledProps;
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [open, setOpenState] = React.useState<boolean>(false);
+  const isOpen = controlledOpen !== undefined ? controlledOpen : open;
+  const setOpen = controlledSetOpen !== undefined ? controlledSetOpen : setOpenState;
   const container = React.useRef<HTMLElement>(null);
   const toggleElement = React.useRef<HTMLElement>(null);
 
-  useFocusLost(container, open, () => setOpen(false));
-  useOnEsc(container, open, () => {
+  useFocusLost(container, isOpen, () => setOpen(false));
+  useOnEsc(container, isOpen, () => {
     setOpen(false);
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
@@ -83,16 +85,12 @@ const TabHiddenDropDown = styled((
       ref={toggleElement}
       component={toggle}
       onClick={() => {
-        if (controlledSetOpen) {
-          controlledSetOpen(!controlledOpen);
-        } else {
-          setOpen((state) => !state);
-        }
+        setOpen(!isOpen);
         if (onToggle) { onToggle(); }
       }}
-      isOpen={controlledOpen !== undefined ? controlledOpen : open}
+      isOpen={isOpen}
     />
-    {(controlledOpen !== undefined ? controlledOpen : open) && children}
+    {(isOpen) && children}
   </div>;
 })`
   ${css`
