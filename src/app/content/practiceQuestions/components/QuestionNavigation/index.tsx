@@ -18,8 +18,6 @@ const Wrapper = styled.div`
   margin-bottom: 3.2rem;
 
   input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
   }
 
