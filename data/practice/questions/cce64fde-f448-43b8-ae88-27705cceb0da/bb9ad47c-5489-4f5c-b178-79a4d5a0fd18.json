@@ -28,7 +28,29 @@
     ],
     "group_uuid": "fbabcd3d-77eb-417b-9de9-2dffa6c2f4fd",
     "stem_html": "Why does the emission spectrum of an isolated gas differ from the emission spectrum created by a white light?",
-    "tags": "fbabcd3d-77eb-417b-9de9-2dffa6c2f4fd",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:medium",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:30-3-1",
+      "k12phys-ch22",
+      "k12phys-ch22-s01",
+      "k12phys-ch22-s01-lo02",
+      "k12phys-ch22-ex023",
+      "exid:k12phys-ch22-ex023",
+      "context-cnxmod:4b050135-8cff-43b0-b70b-dd8adea0bd37",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b31d1e59-ec8d-452f-bb0a-288af5338a46",
+      "context-cnxmod:3c5266a5-f611-4526-a101-f6328155a52b",
+      "aplo:stax-apphys:1.A.4.1"
+    ],
     "uid": "11571@6"
   }
 ]

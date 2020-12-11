@@ -10,7 +10,7 @@ import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import {
   addTargetBlankToLinks,
   rebaseRelativeContentLinks,
-  rebaseRelativeResources,
+  resolveRelativeResources,
 } from '../utils/contentManipulation';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
 
@@ -42,7 +42,7 @@ const ContentExcerpt = styled((props: Props) => {
   const fixedContent = React.useMemo(() => flow(
     addTargetBlankToLinks,
     (newContent) => rebaseRelativeContentLinks(newContent, excerptSource.url),
-    (newContent) => rebaseRelativeResources(newContent, excerptSource.url)
+    (newContent) => resolveRelativeResources(newContent, excerptSource.url)
   )(props.content), [props.content, excerptSource.url]);
 
   return <div

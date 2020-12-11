@@ -2,34 +2,55 @@
   {
     "answers": [
       {
-        "id": 397410,
-        "content_html": "astronomy",
+        "id": 377190,
+        "content_html": "Perfectly elastic collisions are not possible.",
         "correctness": "0.0",
-        "feedback_html": "Astronomy is a branch of natural science that studies the celestial objects and the phenomenon related to them."
+        "feedback_html": "It is not possible in everyday life, but it is possible in the case of subatomic particles."
       },
       {
-        "id": 397411,
-        "content_html": "biology",
-        "correctness": "0.0",
-        "feedback_html": "Biology is the study of life and living organisms. It is a branch of natural sciences."
-      },
-      {
-        "id": 397412,
-        "content_html": "computer science",
+        "id": 377193,
+        "content_html": "Perfectly elastic collisions are possible only with subatomic particles.",
         "correctness": "1.0",
-        "feedback_html": "Computer science is a practical and scientific approach to computation and its application. It is not considered a natural science."
+        "feedback_html": "Yes, because there is always some loss of internal energy in the form of heat and sound during collisions involving non-subatomic particles."
       },
       {
-        "id": 397413,
-        "content_html": "physics",
+        "id": 377191,
+        "content_html": "Perfectly elastic collisions are possible only when the objects stick together after impact.",
         "correctness": "0.0",
-        "feedback_html": "Physics is a branch of natural science that studies matter."
+        "feedback_html": "This type of collision is categorized as an inelastic collision as there is some loss of internal energy during collision."
+      },
+      {
+        "id": 377192,
+        "content_html": "Perfectly elastic collisions are possible if the objects and surfaces are nearly frictionless.",
+        "correctness": "0.0",
+        "feedback_html": "If the objects and surfaces are nearly frictionless, then the collision is almost elastic but not perfectly elastic."
       }
     ],
-    "group_uuid": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "stem_html": "Which of the following sciences is not considered a natural science?",
-    "tags": "1dff57ec-55b3-45ec-aefc-ec39db138ce7",
-    "uid": "4@7"
+    "group_uuid": "4e84672f-6763-4543-a145-4e345b1bfc0b",
+    "stem_html": "Are perfectly elastic collisions possible?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch08",
+      "k12phys-ch08-s03",
+      "k12phys-ch08-s03-lo01",
+      "k12phys-ch08-ex048",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:8-4-1",
+      "exid:k12phys-ch08-ex048",
+      "context-cnxmod:e5490032-0643-42c6-b19b-b0246bf09a9b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:a6f70d80-b66b-4a66-84f3-3853ee6e6906",
+      "context-cnxmod:0cdfe0ae-c1c9-4b0c-8b2c-b5c33308b63a",
+      "aplo:stax-apphys:5.D.1.1"
+    ],
+    "uid": "2691@5"
   },
   {
     "answers": [
@@ -60,7 +81,29 @@
     ],
     "group_uuid": "c38fbb47-72bb-4582-9804-5e7d04194fa6",
     "stem_html": "Two people, who have the same mass, throw two different objects at the same velocity. If the first object is heavier than the second, compare the velocities gained by the two people as a result of recoil.",
-    "tags": "c38fbb47-72bb-4582-9804-5e7d04194fa6",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch08",
+      "k12phys-ch08-s03",
+      "k12phys-ch08-s03-lo01",
+      "k12phys-ch08-ex050",
+      "blooms:3",
+      "dok:3",
+      "time:long",
+      "book:stax-phys",
+      "exid:k12phys-ch08-ex050",
+      "context-cnxmod:e5490032-0643-42c6-b19b-b0246bf09a9b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:8-4-4",
+      "context-cnxmod:a6f70d80-b66b-4a66-84f3-3853ee6e6906",
+      "context-cnxmod:0cdfe0ae-c1c9-4b0c-8b2c-b5c33308b63a",
+      "aplo:stax-apphys:5.D.1.1"
+    ],
     "uid": "2693@5"
   },
   {
@@ -92,7 +135,25 @@
     ],
     "group_uuid": "b13452fb-c331-4e5b-b438-7a631de5374e",
     "stem_html": "What is the difference between momentum and impulse?",
-    "tags": "b13452fb-c331-4e5b-b438-7a631de5374e",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch08",
+      "k12phys-ch08-s03",
+      "k12phys-ch08-s03-lo01",
+      "k12phys-ch08-ex056",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "exid:k12phys-ch08-ex056",
+      "context-cnxmod:e5490032-0643-42c6-b19b-b0246bf09a9b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:8-2-1"
+    ],
     "uid": "2699@6"
   }
 ]

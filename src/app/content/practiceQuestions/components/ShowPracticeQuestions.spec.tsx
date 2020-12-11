@@ -12,10 +12,12 @@ import { receiveBook, receivePage } from '../../actions';
 import { content } from '../../routes';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
-import { nextQuestion, receivePracticeQuestionsSummary, setQuestions, setSelectedSection } from '../actions';
-import { PracticeQuestion } from '../types';
+import { finishQuestions, nextQuestion, receivePracticeQuestionsSummary,
+  setAnswer, setQuestions, setSelectedSection } from '../actions';
+import { PracticeAnswer, PracticeQuestion } from '../types';
 import EmptyScreen from './EmptyScreen';
 import Filters from './Filters';
+import FinalScreen from './FinalScreen';
 import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
 import Question from './Question';
@@ -26,6 +28,8 @@ import ShowPracticeQuestions, {
 } from './ShowPracticeQuestions';
 
 jest.mock('./IntroScreen', () => (props: any) => <div data-mock-intro-section {...props} />);
+jest.mock('./Question', () => (props: any) => <div data-mock-quesiton {...props} />);
+jest.mock('./FinalScreen', () => (props: any) => <div data-mock-final-section {...props} />);
 
 describe('ShowPracticeQuestions', () => {
   let store: Store;
@@ -142,15 +146,33 @@ describe('ShowPracticeQuestions', () => {
       countsPerSource: { [linkedArchiveTreeSection.id]: 3 },
     }));
     store.dispatch(setQuestions([{id: 'asd'} as any as PracticeQuestion]));
+    store.dispatch(nextQuestion());
 
     const component = renderer.create(render());
 
-    expect(() => component.root.findByType(IntroScreen)).not.toThrow();
+    expect(() => component.root.findByType(IntroScreen)).toThrow();
 
     act(() => {
       store.dispatch(nextQuestion());
     });
 
+    expect(() => component.root.findByType(Question)).not.toThrow();
+  });
+
+  it('renders FinalScreen screen', () => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(receivePracticeQuestionsSummary({
+      countsPerSource: { [linkedArchiveTreeSection.id]: 3 },
+    }));
+
+    store.dispatch(setQuestions([{ id: 'asd' } as any as PracticeQuestion]));
+    store.dispatch(setAnswer({ questionId: 'asd', answer: { id: 'qwe' } as any as PracticeAnswer }));
+    store.dispatch(finishQuestions());
+
+    const component = renderer.create(render());
+
     expect(() => component.root.findByType(Question)).toThrow();
+    expect(() => component.root.findByType(FinalScreen)).not.toThrow();
   });
 });

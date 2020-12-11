@@ -2,34 +2,55 @@
   {
     "answers": [
       {
-        "id": 408401,
-        "content_html": "In NH<sub>2</sub>, the nitrogen atom acquires a partial positive charge and the hydrogen atoms acquire a partial negative charge.",
+        "id": 390892,
+        "content_html": "<span data-math=\"290\\,\\text{Hz}\">290\\,\\text{Hz}</span>\n",
         "correctness": "0.0",
-        "feedback_html": "Nitrogen, being an electronegative atom, acquires a partial negative charge."
+        "feedback_html": "The applied formula is incorrect.\n\n"
       },
       {
-        "id": 408402,
-        "content_html": "In H<sub>2</sub>O, the hydrogen atoms acquire a partial negative charge, and the oxygen atom acquires a partial positive charge.",
+        "id": 390893,
+        "content_html": "<span data-math=\"265\\,\\text{Hz}\">265\\,\\text{Hz}</span>\n",
         "correctness": "0.0",
-        "feedback_html": "Oxygen will give a partial negative charge because it is so electronegative."
+        "feedback_html": "The applied formula is incorrect."
       },
       {
-        "id": 408403,
-        "content_html": "In aqueous HCl, the hydrogen atom acquires a partial positive charge, and the chlorine atom acquires a partial negative charge.",
+        "id": 390894,
+        "content_html": "<span data-math=\"60\\,\\text{Hz}\">60\\,\\text{Hz}</span>\n",
         "correctness": "0.0",
-        "feedback_html": "Aqueous HCl is ionic in nature. Therefore, it does not share electrons and will not show partial charges on its atoms related to unequal electron sharing, as polar covalent compounds can."
+        "feedback_html": "The applied formula is incorrect."
       },
       {
-        "id": 408404,
-        "content_html": "In LiF, the lithium atom acquires a positive charge, and the fluorine atom acquires a negative charge.",
+        "id": 390895,
+        "content_html": "<span data-math=\"30\\,\\text{Hz}\">30\\,\\text{Hz}</span>\n",
         "correctness": "1.0",
-        "feedback_html": "Lithium and fluorine form an ionic bond."
+        "feedback_html": "Yes, <span data-math=\"30\\,\\text{Hz}\">30\\,\\text{Hz}</span> is the beat frequency produced by their superposition."
       }
     ],
-    "group_uuid": "7562442c-9b6e-41c6-a77e-4e0d03c4f877",
-    "stem_html": "<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_60ddc187c159cee8d57890e45cc23d80cd66b4acc381832bcef879d149aca934.png\" alt=\"Table showing the electronegativity of several elements. They are: nitrogen, 3.04. Hydrogen, 2.20. Chlorine, 3.16. Oxygen, 3.44. Lithium, 0.98. Fluorine, 3.98. \"></p>\n\n<p>Based on the information provided, which of the following statements is correct?</p>\n",
-    "tags": "7562442c-9b6e-41c6-a77e-4e0d03c4f877",
-    "uid": "78@13"
+    "group_uuid": "78bb9ae8-1769-42e8-aefd-ce816b70f03a",
+    "stem_html": "Two sound waves have frequencies <span data-math=\"250\\,\\text{Hz}\">250\\,\\text{Hz}</span> and <span data-math=\"280\\,\\text{Hz}\">280\\,\\text{Hz}</span>. What is the beat frequency produced by their superposition?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s04",
+      "k12phys-ch14-s04-lo04",
+      "k12phys-ch14-ex098",
+      "exid:k12phys-ch14-ex098",
+      "context-cnxmod:16dc1be5-2cd3-4bd3-9e8e-2f21ccc4b6d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5ca25b68-6908-432f-89f8-65d448065af9",
+      "lo:stax-phys:17-5-2",
+      "context-cnxmod:57c669ea-5957-41c2-8d2c-c667c8ae4441",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
+    "uid": "11025@6"
   },
   {
     "answers": [
@@ -60,40 +81,83 @@
     ],
     "group_uuid": "ff3bd035-5a41-41fa-9992-21479c07ec72",
     "stem_html": "What is damping?",
-    "tags": "ff3bd035-5a41-41fa-9992-21479c07ec72",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:16-8-2",
+      "k12phys-ch14",
+      "k12phys-ch14-s04",
+      "k12phys-ch14-s04-lo01",
+      "k12phys-ch14-ex100",
+      "exid:k12phys-ch14-ex100",
+      "context-cnxmod:16dc1be5-2cd3-4bd3-9e8e-2f21ccc4b6d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:9f4a4447-fa4b-4b3e-8904-e24bf1fa673b",
+      "context-cnxmod:e5ef8fb5-71f4-45a7-a32f-1ac0af202612",
+      "aplo:stax-apphys:3.B.3.4"
+    ],
     "uid": "11031@6"
   },
   {
     "answers": [
       {
-        "id": 418058,
-        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
-        "correctness": "0.0",
-        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
-      },
-      {
-        "id": 418059,
-        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "id": 391025,
+        "content_html": "If the tube is just the right length, the reflected sound arrives back at the tuning fork exactly half a cycle later, and it interferes constructively with the continuing sound produced by the tuning fork.",
         "correctness": "1.0",
-        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "The standing wave is formed by constructive interference of the wave reflected from the closed end of the tube and the wave from the tuning fork."
       },
       {
-        "id": 418060,
-        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "id": 391022,
+        "content_html": "If the tube is just the right length, the reflected sound arrives back at the tuning fork exactly half a cycle later, and it interferes destructively with the continuing sound produced by the tuning fork.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "If destructive interference takes place then no standing wave will be formed."
       },
       {
-        "id": 418061,
-        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
+        "id": 391023,
+        "content_html": "If the tube is just the right length, the reflected sound arrives back at the tuning fork exactly one full cycle later, and it interferes constructively with the continuing sound produced by the tuning fork.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+        "feedback_html": "The reflected sound arrives back half a cycle later."
+      },
+      {
+        "id": 391024,
+        "content_html": "If the tube is just the right length, the reflected sound arrives back at the tuning fork exactly one full cycle later, and it interferes destructively with the continuing sound produced by the tuning fork.",
+        "correctness": "0.0",
+        "feedback_html": "For a standing wave to be produced, the reflected sound needs to interfere constructively after returning half a cycle later."
       }
     ],
-    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
-    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "uid": "1@7"
+    "group_uuid": "1b7f9477-47b8-4c3b-ba65-972b3933fda1",
+    "stem_html": "How can a standing wave be formed with the help of a tuning fork and a closed-end tube of appropriate length?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s04",
+      "k12phys-ch14-s04-lo02",
+      "k12phys-ch14-ex110",
+      "exid:k12phys-ch14-ex110",
+      "context-cnxmod:16dc1be5-2cd3-4bd3-9e8e-2f21ccc4b6d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5ca25b68-6908-432f-89f8-65d448065af9",
+      "lo:stax-phys:17-5-3",
+      "context-cnxmod:57c669ea-5957-41c2-8d2c-c667c8ae4441",
+      "aplo:stax-apphys:6.D.3.1"
+    ],
+    "uid": "11059@6"
   },
   {
     "answers": [
@@ -124,7 +188,29 @@
     ],
     "group_uuid": "a323d413-1e26-42f4-87af-640fb23a9cee",
     "stem_html": "What is the beat frequency produced by the superposition of two waves with frequencies <span data-math=\"300\\,\\text{Hz}\">300\\,\\text{Hz}</span> and <span data-math=\"340\\,\\text{Hz}\">340\\,\\text{Hz}</span>?",
-    "tags": "a323d413-1e26-42f4-87af-640fb23a9cee",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s04",
+      "k12phys-ch14-s04-lo04",
+      "k12phys-ch14-ex117",
+      "exid:k12phys-ch14-ex117",
+      "context-cnxmod:16dc1be5-2cd3-4bd3-9e8e-2f21ccc4b6d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5ca25b68-6908-432f-89f8-65d448065af9",
+      "lo:stax-phys:17-5-2",
+      "context-cnxmod:57c669ea-5957-41c2-8d2c-c667c8ae4441",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
     "uid": "11076@6"
   },
   {
@@ -144,7 +230,29 @@
     ],
     "group_uuid": "d37602ad-9ad8-41d3-b25a-7c563040af08",
     "stem_html": "Can beats be produced through a phenomenon different from resonance? How?",
-    "tags": "d37602ad-9ad8-41d3-b25a-7c563040af08",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:16-10-2",
+      "k12phys-ch14",
+      "k12phys-ch14-s04",
+      "k12phys-ch14-s04-lo01",
+      "k12phys-ch14-ex119",
+      "exid:k12phys-ch14-ex119",
+      "context-cnxmod:16dc1be5-2cd3-4bd3-9e8e-2f21ccc4b6d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:c3c22e6d-abd4-4ebf-a134-9cb610d82374",
+      "context-cnxmod:42ac8683-b84b-4cd8-a84d-1b5670404cf1",
+      "aplo:stax-apphys:6.D.5.1"
+    ],
     "uid": "11078@8"
   },
   {
@@ -176,135 +284,245 @@
     ],
     "group_uuid": "c5abee36-6b89-473c-bdb4-79f72ddf7a05",
     "stem_html": "What is the possible number of nodes and antinodes along one full wavelength of a standing wave?",
-    "tags": "c5abee36-6b89-473c-bdb4-79f72ddf7a05",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:17-5-1",
+      "k12phys-ch14",
+      "k12phys-ch14-s04",
+      "k12phys-ch14-s04-lo02",
+      "k12phys-ch14-ex121",
+      "exid:k12phys-ch14-ex121",
+      "context-cnxmod:16dc1be5-2cd3-4bd3-9e8e-2f21ccc4b6d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5ca25b68-6908-432f-89f8-65d448065af9",
+      "context-cnxmod:57c669ea-5957-41c2-8d2c-c667c8ae4441",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
     "uid": "11080@6"
   },
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 391108,
+        "content_html": "<span data-math=\"240\\,\\text{cm}\">240\\,\\text{cm}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "This wavelength is incorrect."
+      },
+      {
+        "id": 391107,
+        "content_html": "<span data-math=\"180\\,\\text{cm}\">180\\,\\text{cm}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Maximum possible wavelength cannot be more than twice the length of the flute."
+      },
+      {
+        "id": 391106,
+        "content_html": "<span data-math=\"60\\,\\text{cm}\">60\\,\\text{cm}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The maximum wavelength of the wave will be twice the length of the flute."
+      },
+      {
+        "id": 391109,
+        "content_html": "<span data-math=\"120\\,\\text{cm}\">120\\,\\text{cm}</span>\n",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
-      },
-      {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
-      },
-      {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "This wavelength is correct."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2f246495-2f60-4bcc-a354-d49c27376b34",
+    "stem_html": "A flute is an open-pipe resonator. If a flute is <span data-math=\"60\\,\\text{cm}\">60\\,\\text{cm}</span> long, what is the longest wavelength it can produce?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s04",
+      "k12phys-ch14-s04-lo03",
+      "k12phys-ch14-ex123",
+      "exid:k12phys-ch14-ex123",
+      "context-cnxmod:16dc1be5-2cd3-4bd3-9e8e-2f21ccc4b6d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5ca25b68-6908-432f-89f8-65d448065af9",
+      "lo:stax-phys:17-5-3",
+      "context-cnxmod:57c669ea-5957-41c2-8d2c-c667c8ae4441",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
+    "uid": "11082@7"
   },
   {
     "answers": [
       {
-        "id": 469234,
-        "content_html": "A and B look alike.",
+        "id": 391114,
+        "content_html": "<span data-math=\"690\\,\\text{Hz}\">690\\,\\text{Hz}</span>",
         "correctness": "0.0",
-        "feedback_html": "Only using morphological similarity cannot be the basis for concluding that two organisms are closely related."
+        "feedback_html": "For speed of sound, <span data-math=\"331\\,\\text{m}/\\text{s}\">331\\,\\text{m}/\\text{s}</span> the length of the open pipe, is incorrectly calculated."
       },
       {
-        "id": 469235,
-        "content_html": "A and B live in the same ecosystem.",
+        "id": 391115,
+        "content_html": "<span data-math=\"470\\,\\text{Hz}\">470\\,\\text{Hz}</span>\n",
         "correctness": "0.0",
-        "feedback_html": "Ecosystem includes many species living together. Just because they share the same ecosystem does not mean the two organisms are closely related."
+        "feedback_html": "The calculation part is incorrect."
       },
       {
-        "id": 469236,
-        "content_html": "A and B use the same metabolic pathways.",
+        "id": 391116,
+        "content_html": "<span data-math=\"110\\,\\text{Hz}\">110\\,\\text{Hz}</span>\n",
         "correctness": "0.0",
-        "feedback_html": "Metabolic pathways of living organisms can be similar. This does not serve as basis to conclude that two organisms are closely related."
+        "feedback_html": "The calculation part is incorrect."
       },
       {
-        "id": 469237,
-        "content_html": "The DNA sequences of A and B are highly homologous.",
+        "id": 391117,
+        "content_html": "<span data-math=\"230\\,\\text{Hz}\">230\\,\\text{Hz}</span>\n",
         "correctness": "1.0",
-        "feedback_html": "If the DNA sequences of the two organisms share homology, then they can be closely related evolutionarily."
+        "feedback_html": "The calculated frequency is correct."
       }
     ],
-    "group_uuid": "9f6abf78-945b-4bc6-9b11-42cd33858fc6",
-    "stem_html": "Which of the following statements is the strongest argument in favor of two organisms, A and B, being closely related evolutionarily?",
-    "tags": "9f6abf78-945b-4bc6-9b11-42cd33858fc6",
-    "uid": "23@9"
+    "group_uuid": "23e8cc3e-f30a-4f83-80f4-a436d10d4993",
+    "stem_html": "An open-pipe resonator has a fundamental frequency of <span data-math=\"220\\,\\text{Hz}\">220\\,\\text{Hz}</span> when the speed of sound is <span data-math=\"331\\,\\text{m/s}\">331\\,\\text{m/s}</span>. What will its fundamental frequency be when the speed of sound is <span data-math=\"350\\,\\text{m/s}\">350\\,\\text{m/s}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:17-5-4",
+      "k12phys-ch14",
+      "k12phys-ch14-s04",
+      "k12phys-ch14-s04-lo04",
+      "k12phys-ch14-ex125",
+      "exid:k12phys-ch14-ex125",
+      "context-cnxmod:16dc1be5-2cd3-4bd3-9e8e-2f21ccc4b6d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5ca25b68-6908-432f-89f8-65d448065af9",
+      "context-cnxmod:57c669ea-5957-41c2-8d2c-c667c8ae4441",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
+    "uid": "11084@6"
   },
   {
     "answers": [
       {
-        "id": 484282,
-        "content_html": "The mitochondria will be the largest as the cell constantly requires energy to keep dividing.",
+        "id": 391124,
+        "content_html": "The frequency formed is a harmonic and first overtone so resonance will occur.",
         "correctness": "0.0",
-        "feedback_html": "In rapidly dividing cells, mitochondria do not have time to expand as the next round of division starts."
+        "feedback_html": "The frequency is the fourth overtone of the fundamental frequency."
       },
       {
-        "id": 484283,
-        "content_html": "The nucleus must be the largest as the cell starts to divide since it does not have time to expand.",
+        "id": 391123,
+        "content_html": "The frequency formed is a harmonic and second overtone so resonance will occur.",
+        "correctness": "0.0",
+        "feedback_html": "Fifth harmonic sound will be formed for <span data-math=\"\\lambda = 4L/9\">\\lambda = 4L/9</span>."
+      },
+      {
+        "id": 391122,
+        "content_html": "The frequency formed is a harmonic and third overtone so resonance will occur.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency is the fifth harmonic or fourth overtone of the fundamental frequency."
+      },
+      {
+        "id": 391125,
+        "content_html": "The frequency formed is a harmonic and fourth overtone so resonance will occur.",
         "correctness": "1.0",
-        "feedback_html": "The nucleus will remain the largest as it will contain the genetic material that constantly divides and cytoplasm will not have time to expand as the next round of division starts . This is typical of cancerous cells and rapidly dividing tissues."
-      },
-      {
-        "id": 484284,
-        "content_html": "The endoplasmic reticulum will be the largest as it will constantly provide the essential proteins for the division process.",
-        "correctness": "0.0",
-        "feedback_html": "The endoplasmic reticulum does not expand as protein synthesis is not the major activity."
-      },
-      {
-        "id": 484285,
-        "content_html": "The microtubules will the largest as they play a major role in cell division.",
-        "correctness": "0.0",
-        "feedback_html": "Microtubules are small in size and divide each time the cell divides. Other organelles bigger in size than microtubules are present."
+        "feedback_html": "For <span data-math=\"\\lambda = 4\\,L/9\">\\lambda = 4\\,L/9</span> the frequency will be the fifth harmonic."
       }
     ],
-    "group_uuid": "d63c88b1-6e6d-42b3-a5a7-fc176b349351",
-    "stem_html": "What organelle would be the largest in rapidly dividing cells?",
-    "tags": "d63c88b1-6e6d-42b3-a5a7-fc176b349351",
-    "uid": "318@12"
+    "group_uuid": "318cdf15-e34d-4485-aecc-af0ef8eb9aae",
+    "stem_html": "In the tuning fork and tube experiment, if resonance is formed for <span data-math=\"L = \\lambda /4\">L = \\lambda /4</span>, where <span data-math=\"L\">L</span> is the length of the tube and <span data-math=\"\\lambda\">\\lambda</span> is the wavelength of the sound wave, can resonance also be formed for a wavelength\n <span data-math=\"\\lambda = 4L/9\">\\lambda = 4L/9</span>? Why?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:short",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s04",
+      "k12phys-ch14-s04-lo02",
+      "k12phys-ch14-ex127",
+      "exid:k12phys-ch14-ex127",
+      "context-cnxmod:16dc1be5-2cd3-4bd3-9e8e-2f21ccc4b6d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5ca25b68-6908-432f-89f8-65d448065af9",
+      "lo:stax-phys:17-5-3",
+      "context-cnxmod:57c669ea-5957-41c2-8d2c-c667c8ae4441",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
+    "uid": "11086@7"
   },
   {
     "answers": [
       {
-        "id": 475614,
-        "content_html": "They inhibit cell division.",
+        "id": 391130,
+        "content_html": "<span data-math=\"0.31\\,\\text{m}\">0.31\\,\\text{m}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Distance of the second hole from the mouthpiece is <span data-math=\"0.31\\,\\text{m}\">0.31\\,\\text{m}</span>"
+      },
+      {
+        "id": 391129,
+        "content_html": "<span data-math=\"0.24\\,\\text{m}\">0.24\\,\\text{m}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The formula used is incorrect."
+      },
+      {
+        "id": 391128,
+        "content_html": "<span data-math=\"0.04\\,\\text{m}\">0.04\\,\\text{m}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "The applied formula is incorrect."
+      },
+      {
+        "id": 391131,
+        "content_html": "<span data-math=\"0.11\\,\\text{m}\">0.11\\,\\text{m}</span>\n",
         "correctness": "1.0",
-        "feedback_html": "Rb and other proteins negatively regulate the cell cycle."
-      },
-      {
-        "id": 475613,
-        "content_html": "They enhance the rate of cell division.",
-        "correctness": "0.0",
-        "feedback_html": "Tumor suppression means inhibition of cell division."
-      },
-      {
-        "id": 475612,
-        "content_html": "They start the cell cycle, thereby suppressing tumor formation.",
-        "correctness": "0.0",
-        "feedback_html": "Rb halts the cell cycle and prevents cell division."
-      },
-      {
-        "id": 475611,
-        "content_html": "These proteins, when phosphorylated, allow the cell cycle to proceed.",
-        "correctness": "0.0",
-        "feedback_html": "Unphosphorylated Rb binds to E2F and blocks transcription. Thus, the cell cycle does not proceed further."
+        "feedback_html": "This distance between the holes is correct."
       }
     ],
-    "group_uuid": "6d89afec-914b-49e4-b9f0-6604540d5f34",
-    "stem_html": "Rb and other proteins that negatively regulate the cell cycle are sometimes called tumor supressors. Why do you think the name tumor suppressor might be appropriate for these proteins?",
-    "tags": "6d89afec-914b-49e4-b9f0-6604540d5f34",
-    "uid": "759@12"
+    "group_uuid": "0759e63f-48b1-4f53-8670-aa13466197dc",
+    "stem_html": "A flute has finger holes for changing the length of the resonating air column, and therefore, the frequency of the note played. How far apart are two holes that, when closed, play two frequencies that are <span data-math=\"300.0\\,\\text{Hz}\">300.0\\,\\text{Hz}</span> apart, if the first hole is <span data-math=\"20.0\\,\\text{cm}\">20.0\\,\\text{cm}</span> away from the mouthpiece of the flute?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:17-5-4",
+      "k12phys-ch14",
+      "k12phys-ch14-s04",
+      "k12phys-ch14-s04-lo04",
+      "k12phys-ch14-ex129",
+      "exid:k12phys-ch14-ex129",
+      "context-cnxmod:16dc1be5-2cd3-4bd3-9e8e-2f21ccc4b6d4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:5ca25b68-6908-432f-89f8-65d448065af9",
+      "context-cnxmod:57c669ea-5957-41c2-8d2c-c667c8ae4441",
+      "aplo:stax-apphys:6.D.4.2"
+    ],
+    "uid": "11088@6"
   }
 ]

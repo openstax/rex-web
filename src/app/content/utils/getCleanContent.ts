@@ -2,7 +2,7 @@ import flow from 'lodash/fp/flow';
 import identity from 'lodash/fp/identity';
 import createArchiveLoader from '../../../gateways/createArchiveLoader';
 import { Book, Page } from '../types';
-import { rebaseRelativeResources } from './contentManipulation';
+import { resolveRelativeResources } from './contentManipulation';
 
 export default function getCleanContent(
   book: Book | undefined,
@@ -31,7 +31,7 @@ export default function getCleanContent(
     .replace(/(<div[^>]*)(>[^<]*<(?:figure|table)[^>]*?) (id=[^\s>]*)/g, '$1 $3$2 data-$3')
   ;
 
-  const resolveResourceUrls = (content: string) => rebaseRelativeResources(content, contentUrl);
+  const resolveResourceUrls = (content: string) => resolveRelativeResources(content, contentUrl);
 
   return flow(replacements, resolveResourceUrls, transformer)(cachedPage.content);
 }
