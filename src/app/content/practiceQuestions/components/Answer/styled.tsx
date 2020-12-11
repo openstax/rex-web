@@ -104,13 +104,13 @@ const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerT
 
 // tslint:disable-next-line: variable-name
 export const AnswerBlock = styled.div`
-  padding: 0 2rem 2.4rem;
+  padding: 1rem 2.4rem;
   display: flex;
   align-items: flex-start;
   cursor: ${(props: AnswerBlockProps) => props.isSubmitted ? 'not-allowed' : 'pointer'};
   ${flow(getAnswerTheme, getAnswerThemeCss)}
   ${theme.breakpoints.mobile(css`
-    padding: 0 1rem 2.4rem;
+    padding: 0.5rem 2.4rem;
 
     ${ContentExcerpt} {
       padding: 0;
