@@ -1496,8 +1496,8 @@ class Content(Page):
             return self.page
 
     class MobileSearchToolbar(Region):
-
         _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
+        _back_to_results_locator = (By.CSS_SELECTOR, "[data-testid='back-to-search-results']")
 
         @property
         def search_textbox(self) -> WebElement:
@@ -1519,8 +1519,15 @@ class Content(Page):
             self.search_textbox.send_keys(search_term)
             self.offscreen_click(self.search_textbox)
             self.page.search_sidebar.wait_for_region_to_display()
-            sleep(0.25)
+            sleep(0.5)
             return self.page.search_sidebar
+
+        @property
+        def back_to_results(self):
+            return self.find_element(*self._back_to_results_locator)
+
+        def click_back_to_search_results_button(self):
+            Utilities.click_option(self.driver, element=self.back_to_results)
 
     class NavBar(Region):
 
@@ -1757,6 +1764,10 @@ class Content(Page):
         @property
         def search_textbox(self) -> WebElement:
             return self.find_element(*self._search_textbox_desktop_locator)
+
+        @property
+        def search_term_displayed_in_search_textbox(self):
+            return self.search_textbox.get_attribute("value")
 
         @property
         def toc_toggle_button(self) -> WebElement:
