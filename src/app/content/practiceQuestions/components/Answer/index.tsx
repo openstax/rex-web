@@ -90,7 +90,7 @@ const Answer = ({
     }</FormattedMessage>
     <AnswerAlignment>
       <AnswerContent>
-        <AnswerExcerpt>{answer.content_html}</AnswerExcerpt>
+        <AnswerExcerpt dangerouslySetInnerHTML={{ __html: answer.content_html }} />
         <AnswerResult
           showCorrect={showCorrect}
           isSelected={isSelected}

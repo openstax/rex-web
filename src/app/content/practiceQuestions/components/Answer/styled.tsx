@@ -9,6 +9,11 @@ export const AnswerExcerpt = styled.span`
   ${textRegularStyle}
   width: 100%;
   padding: 0;
+  overflow: auto;
+
+  * {
+    overflow: initial;
+  }
 `;
 
 // tslint:disable-next-line: variable-name
