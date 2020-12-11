@@ -129,7 +129,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
                 <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
                 <AngleIcon direction={openChapterId === section.id ? 'up' : 'down'} />
               </StyledSummary>
-              <div>
+              <StyledChapterFilterItemWrapper>
                 {children.map((child) => (
                   <ChapterFilterItem
                     key={child.id}
@@ -140,7 +140,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
                     onChange={() => handleChange(child)}
                   />
                 ))}
-              </div>
+              </StyledChapterFilterItemWrapper>
             </StyledDetails>;
           }
         })}
@@ -182,6 +182,7 @@ export const StyledDetails = styled.details`
   width: 400px;
   cursor: pointer;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
+  overflow: visible;
   ${theme.breakpoints.mobileSmall(css`
     width: 100%;
   `)}
@@ -195,8 +196,10 @@ export const StyledSummary = styled.summary`
   padding: 0 1.6rem;
   height: 4rem;
 
-  &::marker {
+  &::marker,
+  &::-webkit-details-marker {
     content: "";
+    display: none;
   }
 
   ${ChapterTitle} {
@@ -217,7 +220,7 @@ export const StyledSectionItem = styled(PlainButton)`
     }
   }}
 
-  &:hover {
+  &:hover, &:focus  {
     background-color: ${theme.color.neutral.pageBackground};
   }
 
@@ -225,6 +228,11 @@ export const StyledSectionItem = styled(PlainButton)`
     padding-left: 2.5rem;
     width: 95%;
   }
+`;
+
+// tslint:disable-next-line: variable-name
+export const StyledChapterFilterItemWrapper = styled.div`
+  overflow: visible;
 `;
 
 export default styled(ChapterFilter)`
