@@ -74,7 +74,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-6 Filters__StyledChapterFilters-sc-1lvdmlz-0 jvrNgK"
+        className="ChapterFilter-tcdlu-7 Filters__StyledChapterFilters-sc-1lvdmlz-0 jvrNgK"
         tabIndex={-1}
       >
         <div
@@ -84,11 +84,11 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
             className="ChapterFilter__Column-tcdlu-1 dKPjiE"
           >
             <details
-              className="ChapterFilter__StyledDetails-tcdlu-3 kzZRsL"
+              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
               open={false}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 ieEWMq"
+                className="ChapterFilter__StyledSummary-tcdlu-4 iwLAbd"
                 onClick={[Function]}
               >
                 <span
@@ -113,9 +113,11 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                   />
                 </svg>
               </summary>
-              <div>
+              <div
+                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+              >
                 <button
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 fQHjjn"
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 iGNBQm"
                   onClick={[Function]}
                 >
                   <span
@@ -128,7 +130,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                   />
                 </button>
                 <button
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 fQHjjn"
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 iGNBQm"
                   onClick={[Function]}
                 >
                   <span
@@ -143,11 +145,11 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
               </div>
             </details>
             <details
-              className="ChapterFilter__StyledDetails-tcdlu-3 kzZRsL"
+              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
               open={true}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 ieEWMq"
+                className="ChapterFilter__StyledSummary-tcdlu-4 iwLAbd"
                 onClick={[Function]}
               >
                 <span
@@ -172,9 +174,11 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                   />
                 </svg>
               </summary>
-              <div>
+              <div
+                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+              >
                 <button
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 lhdDtN"
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 fVMEVI"
                   onClick={[Function]}
                 >
                   <span
@@ -231,7 +235,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-6 Filters__StyledChapterFilters-sc-1lvdmlz-0 jvrNgK"
+        className="ChapterFilter-tcdlu-7 Filters__StyledChapterFilters-sc-1lvdmlz-0 jvrNgK"
         tabIndex={-1}
       >
         <div
@@ -241,11 +245,11 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
             className="ChapterFilter__Column-tcdlu-1 dKPjiE"
           >
             <details
-              className="ChapterFilter__StyledDetails-tcdlu-3 kzZRsL"
+              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
               open={false}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 ieEWMq"
+                className="ChapterFilter__StyledSummary-tcdlu-4 iwLAbd"
                 onClick={[Function]}
               >
                 <span
@@ -270,9 +274,11 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                   />
                 </svg>
               </summary>
-              <div>
+              <div
+                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+              >
                 <button
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 fQHjjn"
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 iGNBQm"
                   onClick={[Function]}
                 >
                   <span
@@ -285,7 +291,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                   />
                 </button>
                 <button
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 fQHjjn"
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 iGNBQm"
                   onClick={[Function]}
                 >
                   <span
@@ -300,11 +306,11 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
               </div>
             </details>
             <details
-              className="ChapterFilter__StyledDetails-tcdlu-3 kzZRsL"
+              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
               open={false}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 ieEWMq"
+                className="ChapterFilter__StyledSummary-tcdlu-4 iwLAbd"
                 onClick={[Function]}
               >
                 <span
@@ -329,9 +335,11 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                   />
                 </svg>
               </summary>
-              <div>
+              <div
+                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+              >
                 <button
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 fQHjjn"
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 iGNBQm"
                   onClick={[Function]}
                 >
                   <span
