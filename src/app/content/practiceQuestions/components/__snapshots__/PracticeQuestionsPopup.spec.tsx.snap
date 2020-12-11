@@ -63,7 +63,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       data-testid="show-practice-questions-body"
     >
       <div
-        className="ShowPracticeQuestions__QuestionsWrapper-sc-1hq8omx-2 bPGDgA"
+        className="ShowPracticeQuestions__QuestionsWrapper-sc-1hq8omx-2 halIHL"
       >
         <div
           className="ShowPracticeQuestions__QuestionsHeader-sc-1hq8omx-3 bcZXeX"

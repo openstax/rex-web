@@ -46,6 +46,7 @@ export const SectionTitle = styled.div`
 export const QuestionsWrapper = styled.div`
   flex: 1;
   border: 1px solid ${theme.color.neutral.darkest};
+  background-color: ${theme.color.white};
 `;
 
 // tslint:disable-next-line: variable-name

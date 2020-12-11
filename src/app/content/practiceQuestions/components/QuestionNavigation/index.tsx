@@ -1,7 +1,8 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
+import theme from '../../../../theme';
 import * as pqSelectors from '../../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
 import FinishButton from './FinishButton';
@@ -14,6 +15,17 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-bottom: 3.2rem;
+
+  input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  ${theme.breakpoints.mobile(css`
+    margin-bottom: 1rem;
+  `)}
 `;
 
 interface QuestionNavigationProps {
