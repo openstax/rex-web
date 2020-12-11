@@ -220,7 +220,8 @@ export const StyledSectionItem = styled(PlainButton)`
     }
   }}
 
-  &:hover, &:focus  {
+  &:hover,
+  &:focus {
     background-color: ${theme.color.neutral.pageBackground};
   }
 
