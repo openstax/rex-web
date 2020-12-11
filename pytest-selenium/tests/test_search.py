@@ -151,9 +151,6 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
     while book.notification_present:
         book.notification.got_it()
 
-    while book.highlighting_CTA_present:
-        book.highlighting_CTA.got_it()
-
     toolbar = book.toolbar
     mobile = book.mobile_search_toolbar
     toc_sidebar = book.sidebar
