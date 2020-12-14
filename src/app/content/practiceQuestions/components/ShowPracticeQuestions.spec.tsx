@@ -149,7 +149,7 @@ describe('ShowPracticeQuestions', () => {
     expect(() => component.root.findByType(FinalScreen)).not.toThrow();
   });
 
-  it('renders FinalScreen screen if section has no questions', () => {
+  it('renders FinalScreen screen if section has no questions and there is no nextSection', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
 
