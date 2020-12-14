@@ -21,7 +21,7 @@ const StyledMessage = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const StyledMessageText = styled.span`
+export const StyledMessageText = styled.span`
   display: inline;
 `;
 
@@ -34,11 +34,12 @@ interface NextSectionMessageProps {
   nextSection: LinkedArchiveTreeSection;
   messageKey: string;
   onClick: () => void;
+  className?: string;
 }
 
 // tslint:disable-next-line: variable-name
-const NextSectionMessage = ({ nextSection, messageKey, onClick }: NextSectionMessageProps) => (
-  <StyledNextSectionMessage>
+const NextSectionMessage = ({ nextSection, messageKey, onClick, className }: NextSectionMessageProps) => (
+  <StyledNextSectionMessage className={className}>
     <StyledMessage>
       <StyledMessageText>
         <FormattedMessage id={messageKey}>
