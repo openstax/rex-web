@@ -3,7 +3,14 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { LinkedArchiveTreeSection } from '../../../types';
 import { PracticeAnswer } from '../../types';
-import { AnswerAlignment, AnswerBlock, AnswerContent, AnswerExcerpt, AnswerLabel, StyledAnswerResult } from './styled';
+import {
+  AnswerAlignment,
+  AnswerBlock,
+  AnswerContent,
+  AnswerExcerpt,
+  AnswerIndicator,
+  StyledAnswerResult,
+} from './styled';
 
 interface AnswerResultProps {
   showCorrect: boolean;
@@ -67,8 +74,9 @@ const Answer = ({
     isSubmitted={isSubmitted}
     isSelected={isSelected}
     onClick={onSelect}
+    ref={answerRef}
     tabIndex={0}
-    aria-selected={isSelected}
+    htmlFor={choiceIndicator}
   >
     <FormattedMessage
       id='i18n:practice-questions:popup:answers:choice'
@@ -81,11 +89,12 @@ const Answer = ({
           name={choiceIndicator}
           checked={isSelected}
           disabled={isSubmitted}
+          aria-label={msg}
           onChange={onSelect}
         />
-        <AnswerLabel ref={answerRef} aria-label={msg} htmlFor={choiceIndicator} tabIndex={-1}>
+        <AnswerIndicator aria-label={msg}>
           {choiceIndicator}
-        </AnswerLabel>
+        </AnswerIndicator>
       </React.Fragment>
     }</FormattedMessage>
     <AnswerAlignment>

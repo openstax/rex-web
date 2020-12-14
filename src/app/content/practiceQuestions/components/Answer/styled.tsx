@@ -29,7 +29,7 @@ export const AnswerContent = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const AnswerLabel = styled.label`
+export const AnswerIndicator = styled.span`
   min-width: 4rem;
   min-height: 4rem;
   border-radius: 50%;
@@ -94,21 +94,21 @@ const getAnswerTheme = (props: AnswerBlockProps) => {
 };
 
 const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerThemes]) => css`
-  ${AnswerLabel} {
+  ${AnswerIndicator} {
     color: ${answerTheme.fontColor};
     background-color: ${answerTheme.background};
     border: 1.5px solid ${answerTheme.border};
   }
 
   &:hover {
-    ${AnswerLabel} {
+    ${AnswerIndicator} {
       border-color: ${answerTheme.borderHovered};
     }
   }
 `;
 
 // tslint:disable-next-line: variable-name
-export const AnswerBlock = styled.div`
+export const AnswerBlock = styled.label`
   padding: 1rem 2.4rem;
   display: flex;
   align-items: flex-start;
@@ -127,7 +127,7 @@ export const AnswerBlock = styled.div`
     width: 0;
     height: 0;
 
-    &:focus + label {
+    &:focus + span {
       outline: auto;
     }
   }
