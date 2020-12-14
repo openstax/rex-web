@@ -40,12 +40,17 @@ const fadeIn = keyframes`
 interface OverlayProps {
   className?: string;
   [key: string]: any;
+  onClick?: () => void;
 }
 
 // tslint:disable-next-line:variable-name
 export const Overlay = styled((props: OverlayProps) => {
   useDisableContentTabbing();
-  return <div {...props} />;
+  return <div
+    className={props.className}
+    data-testid='scroll-lock-overlay'
+    onClick={props.onClick}
+  />;
 })`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
   background-color: rgba(0, 0, 0, 0.8);
@@ -82,7 +87,6 @@ export default class ScrollLock extends React.Component<Props> {
     return <OnScroll onTouchMove={this.blockScroll}>
       <ScrollLockBodyClass mobileOnly={this.props.mobileOnly}/>
       {this.props.overlay !== false && <Overlay
-        data-testid='scroll-lock-overlay'
         onClick={this.props.onClick}
         mobileOnly={this.props.mobileOnly}
         zIndex={this.props.zIndex}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
+import { routes } from '../..';
 import * as mathjaxHelpers from '../../../../helpers/mathjax';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
@@ -11,14 +12,13 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { assertDocument, assertWindow } from '../../../utils/browser-assertions';
+import { receiveBook } from '../../actions';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { finishQuestions, nextQuestion, setAnswer, setQuestions, setSelectedSection } from '../actions';
 import { PracticeQuestion } from '../types';
 import Answer from './Answer';
 import Question, { AnswersWrapper, QuestionContent, QuestionWrapper } from './Question';
-
-jest.mock('../../components/ContentExcerpt', () => (props: any) => <div data-mock-content-excerpt {...props} />);
 
 describe('Question', () => {
   let store: Store;
@@ -47,10 +47,14 @@ describe('Question', () => {
     uid: '11591@5',
   } as PracticeQuestion;
 
+  jest.spyOn(routes.content, 'getUrl')
+  .mockReturnValue('/book/book1/page/testbook1-testpage1-uuid');
+
   beforeEach(() => {
     store = createTestStore();
     services = createTestServices();
     dispatch = jest.spyOn(store, 'dispatch');
+    store.dispatch(receiveBook(book));
     render = () => <Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
@@ -124,7 +128,9 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     expect(fristAnswer.props.isSubmitted).toEqual(true);
     expect(secondAnswer.props.isSubmitted).toEqual(true);
@@ -206,7 +212,9 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     expect(preventDefault).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(setAnswer({ questionId: mockQuestion.uid, answer: mockQuestion.answers[0] }));
@@ -244,7 +252,9 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     const next = component.root.findByProps({ value: 'Next' })!;
     act(() => {
@@ -275,7 +285,9 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     act(() => {
       input.props.onChange();
@@ -318,11 +330,15 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     expect(dispatch).toHaveBeenCalledWith(setAnswer({ questionId: mockQuestion.uid, answer: mockQuestion.answers[0] }));
 
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     expect(dispatch).toHaveBeenCalledWith(finishQuestions());
   });
