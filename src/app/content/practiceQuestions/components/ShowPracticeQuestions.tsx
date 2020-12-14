@@ -105,8 +105,11 @@ const ShowPracticeQuestions = () => {
       data-analytics-region='PQ popup'
     >
       {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
-      {questionsCount === 0 && nextSection
-        ? <EmptyScreen nextSection={nextSection} />
+      {questionsCount === 0
+        ? (nextSection
+          ? <EmptyScreen nextSection={nextSection} />
+          : <FinalScreen />
+        )
         : hasAnswers && !questionsInProggress
           ? <FinalScreen nextSection={nextSection} />
           : (
