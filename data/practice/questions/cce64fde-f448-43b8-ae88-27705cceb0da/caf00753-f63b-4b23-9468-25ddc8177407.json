@@ -28,167 +28,284 @@
     ],
     "group_uuid": "fd464e58-54d2-482d-b593-d48200d7dd57",
     "stem_html": "What is the observed frequency when the source having frequency <span data-math=\"3.0\\,\\text{kHz}\">3.0\\,\\text{kHz}</span> is moving towards the observer at a speed of <span data-math=\"1.0\\times 10^2\\,\\text{m}/\\text{s}\">1.0\\times 10^2\\,\\text{m}/\\text{s}</span> and the speed of sound is <span data-math=\"331\\,\\text{m/s}\">331\\,\\text{m/s}</span>?",
-    "tags": "fd464e58-54d2-482d-b593-d48200d7dd57",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s03",
+      "k12phys-ch14-s03-lo03",
+      "k12phys-ch14-ex070",
+      "exid:k12phys-ch14-ex070",
+      "context-cnxmod:079e89ae-de07-426e-b7c1-1bef175b2af3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:919bd066-7964-4b5b-b352-bdf63ef6f5f8",
+      "lo:stax-phys:17-4-2",
+      "context-cnxmod:ad694f2e-8fcc-4a8b-8c68-3e5190ef41fb",
+      "aplo:stax-apphys:6.B.5.1"
+    ],
     "uid": "10973@6"
   },
   {
     "answers": [
       {
-        "id": 476231,
-        "content_html": "All the contents of the cell have been doubled.",
+        "id": 390735,
+        "content_html": "The Doppler effect is a change in the observed speed of a sound due to the relative motion between the source and the observer.",
         "correctness": "0.0",
-        "feedback_html": "All the components do not get doubled during S-phase."
+        "feedback_html": "The Doppler effect is a not a change in the observed speed of the sound, it is a change in observed frequency."
       },
       {
-        "id": 476234,
-        "content_html": "The DNA content of the cell has doubled.",
+        "id": 390738,
+        "content_html": "The Doppler effect is a change in the observed frequency of a sound due to the relative motion between the source and the observer.",
         "correctness": "1.0",
-        "feedback_html": "Sample B shows the S-phase: the DNA content has been doubled."
+        "feedback_html": "Yes, it is a change in the observed frequency of a sound due to the relative motion between the source and the observer."
       },
       {
-        "id": 476232,
-        "content_html": "Two cells have been fused.",
+        "id": 390736,
+        "content_html": "The Doppler effect is a change in the observed intensity of a sound due to the relative motion between the source and the observer.",
         "correctness": "0.0",
-        "feedback_html": "Two cells cannot get fused to show a greater DNA content."
+        "feedback_html": "It is a change in the observed frequency of the sound due to the relative motion between the source and the observer."
       },
       {
-        "id": 476233,
-        "content_html": "The cells are showing the semiconservative mechanism of cell division.",
+        "id": 390737,
+        "content_html": "The Doppler effect is a change in the observed timbre of a sound, due to the relative motion between the source and the observer.",
         "correctness": "0.0",
-        "feedback_html": "The experiment does not depict the semiconservative replication of DNA."
+        "feedback_html": "No, it is not the change in the observed timbre of a sound."
       }
     ],
-    "group_uuid": "c9755210-e283-462c-81ff-08572085d312",
-    "stem_html": "<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_62687d601e0929de59970ee94e6b9af7b008f301d531763d57e47efc8c6c98b2.png\" alt=\"A bar graph is shown. The vertical axis is labeled &quot;Relative DNA content&quot; with a scale from zero to two. The bar for sample A stops at 1. The bar for samples B, C, and D stop at two.\"></p>\n\n<p>In a study on cell division, researchers culture synchronously dividing human cells with thymidine. This causes the cells to arrest at the <span data-math=\"\\text{G}_1\">\\text{G}_1</span> boundary. The cells are then placed in medium lacking thymidine, which releases the block, and the cells begin to divide again. Starting with Sample A and ending with Sample D, the DNA content of the cells is measured at different times after thymidine is removed. Results for four samples (A-D) are shown in the graph. Explain what is happening in terms of the cell cycle and DNA content in sample B.</p>\n",
-    "tags": "c9755210-e283-462c-81ff-08572085d312",
-    "uid": "753@16"
+    "group_uuid": "753d8b8f-4e62-4b85-ba51-482f51b6b3fa",
+    "stem_html": "What is the Doppler effect?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:17-4-1",
+      "k12phys-ch14",
+      "k12phys-ch14-s03",
+      "k12phys-ch14-s03-lo01",
+      "k12phys-ch14-ex072",
+      "exid:k12phys-ch14-ex072",
+      "context-cnxmod:079e89ae-de07-426e-b7c1-1bef175b2af3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:919bd066-7964-4b5b-b352-bdf63ef6f5f8",
+      "context-cnxmod:ad694f2e-8fcc-4a8b-8c68-3e5190ef41fb",
+      "aplo:stax-apphys:6.B.5.1"
+    ],
+    "uid": "10979@5"
   },
   {
     "answers": [
       {
-        "id": 474853,
-        "content_html": "They are identical in all bacterial species.",
+        "id": 390743,
+        "content_html": "It is a destructive interference of sound created by an object moving faster than sound.",
         "correctness": "0.0",
-        "feedback_html": "They are not identical. Check if these promoters have any resemblance amongst each other."
+        "feedback_html": "It is not a destructive interference; it is a constructive interference of sound created by an object moving faster than sound."
       },
       {
-        "id": 474854,
-        "content_html": "They are similar in all bacterial species.",
+        "id": 390746,
+        "content_html": "It is a constructive interference of sound created by an object moving faster than sound.",
         "correctness": "1.0",
-        "feedback_html": "At the -10 and -35 regions upstream of the initiation site, there are two promoter consensus sequences, or regions that are similar across all promoters and across various bacterial species."
+        "feedback_html": "Yes, a sonic boom is constructive interference of sound created by an object moving faster than sound."
       },
       {
-        "id": 474852,
-        "content_html": "They exist in all organisms.",
+        "id": 390744,
+        "content_html": "It is a destructive interference of sound created by an object moving slower than sound.",
         "correctness": "0.0",
-        "feedback_html": "They do not exist in eukaryotes and are present only in prokaryotes."
+        "feedback_html": "A sonic boom is a constructive interference of sound created by an object moving faster than sound."
       },
       {
-        "id": 474851,
-        "content_html": "They have the same function in all organisms.",
+        "id": 390745,
+        "content_html": "It is a constructive interference of sound created by an object moving slower than sound.",
         "correctness": "0.0",
-        "feedback_html": "These promoters have resemblance amongst each other and are characteristic of prokaryotes only."
+        "feedback_html": "A constructive interference can occur if the source of sound is moving faster than the speed of the sound."
       }
     ],
-    "group_uuid": "8ef392a5-b8da-499c-b432-8a30612afdb4",
-    "stem_html": "Why are the <span data-math=\"{-10}\">{-10}</span> and <span data-math=\"{-35}\">{-35}</span> regions of prokaryotic promoters called consensus sequences?",
-    "tags": "8ef392a5-b8da-499c-b432-8a30612afdb4",
-    "uid": "1094@8"
+    "group_uuid": "1094f22a-3a49-4746-ae65-9e049caf7f0a",
+    "stem_html": "What is a sonic boom?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:17-4-1",
+      "k12phys-ch14",
+      "k12phys-ch14-s03",
+      "k12phys-ch14-s03-lo02",
+      "k12phys-ch14-ex074",
+      "exid:k12phys-ch14-ex074",
+      "context-cnxmod:079e89ae-de07-426e-b7c1-1bef175b2af3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:919bd066-7964-4b5b-b352-bdf63ef6f5f8",
+      "context-cnxmod:ad694f2e-8fcc-4a8b-8c68-3e5190ef41fb",
+      "aplo:stax-apphys:6.B.5.1"
+    ],
+    "uid": "10981@5"
   },
   {
     "answers": [
       {
-        "id": 470198,
-        "content_html": "electric sparks occurred to catalyze the reaction",
+        "id": 390781,
+        "content_html": "It approaches zero. This is because all wave crests are superimposed on one another through constructive interference.",
         "correctness": "0.0",
-        "feedback_html": "An electric spark was used as the energy source in the experiment but organic molecules would have been created as a result of lightning."
+        "feedback_html": "Due to constructive interference, the amplitude of the sound approaches infinity."
       },
       {
-        "id": 470199,
-        "content_html": "the composition of the gases in the atmosphere",
+        "id": 390784,
+        "content_html": "It approaches infinity. This is because all wave crests are superimposed on one another through constructive interference.",
         "correctness": "1.0",
-        "feedback_html": "Urey and Miller assumed the types and concentrations of atmospheric gases."
+        "feedback_html": "Yes, it approaches infinity because all wave crests are superimposed on one another through constructive interference."
       },
       {
-        "id": 470197,
-        "content_html": "there was sufficient oxygen for creating life",
+        "id": 390782,
+        "content_html": "It approaches zero, because all wave crests are superimposed on one another through destructive interference.",
         "correctness": "0.0",
-        "feedback_html": "There was no oxygen in the early atmosphere of the Earth."
+        "feedback_html": "When the speed of the source matches the speed of sound, then constructive interference occurs."
       },
       {
-        "id": 470196,
-        "content_html": "it produced water-soluble organic molecules",
+        "id": 390783,
+        "content_html": "It approaches infinity, because all wave crests are superimposed on one another through destructive interference.",
         "correctness": "0.0",
-        "feedback_html": "The resulting organic molecules were predominantly water soluble, but this is not a significant assumption relative to the experiment."
+        "feedback_html": "There will be constructive interference due to which the amplitude of the sound approaches infinity."
       }
     ],
-    "group_uuid": "f70d4266-0e84-44ae-a699-8ea25a68367d",
-    "stem_html": "Urey and Miller constructed an experiment to illustrate the early atmosphere of the Earth and possible development of organic molecules in the absence of living cells. Which assumption did Urey and Miller make regarding conditions on Earth?",
-    "tags": "f70d4266-0e84-44ae-a699-8ea25a68367d",
-    "uid": "99@8"
+    "group_uuid": "99b38b4d-94fb-4ed1-8529-b036512c1df7",
+    "stem_html": "When the speed of the source matches the speed of sound, what happens to the amplitude of the sound wave? Why?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch14",
+      "k12phys-ch14-s03",
+      "k12phys-ch14-s03-lo02",
+      "k12phys-ch14-ex077",
+      "exid:k12phys-ch14-ex077",
+      "context-cnxmod:079e89ae-de07-426e-b7c1-1bef175b2af3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:5ca25b68-6908-432f-89f8-65d448065af9",
+      "lo:stax-phys:17-5-2",
+      "context-cnxmod:57c669ea-5957-41c2-8d2c-c667c8ae4441",
+      "aplo:stax-apphys:6.B.5.1"
+    ],
+    "uid": "10992@5"
   },
   {
     "answers": [
       {
-        "id": 397402,
-        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "id": 390850,
+        "content_html": "speed of the source",
         "correctness": "1.0",
-        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+        "feedback_html": "A sonic boom occurs when the speed of the source approaches that of sound."
       },
       {
-        "id": 397403,
-        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 390847,
+        "content_html": "frequency of source",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology."
+        "feedback_html": "A sonic boom can occur with waves of any frequency."
       },
       {
-        "id": 397404,
-        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 390848,
+        "content_html": "amplitude of source",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "A sonic boom can occur with waves of any amplitude."
       },
       {
-        "id": 397405,
-        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 390849,
+        "content_html": "distance of observer from the source",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "Observers can experience sonic booms at various distances."
       }
     ],
-    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
-    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "uid": "6@7"
+    "group_uuid": "06d2501f-9e4a-4103-bdfc-445c4253c948",
+    "stem_html": "What does the occurrence of the sonic boom depend on?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:17-4-1",
+      "k12phys-ch14",
+      "k12phys-ch14-s03",
+      "k12phys-ch14-s03-lo02",
+      "k12phys-ch14-ex083",
+      "exid:k12phys-ch14-ex083",
+      "context-cnxmod:079e89ae-de07-426e-b7c1-1bef175b2af3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:919bd066-7964-4b5b-b352-bdf63ef6f5f8",
+      "context-cnxmod:ad694f2e-8fcc-4a8b-8c68-3e5190ef41fb",
+      "aplo:stax-apphys:6.B.5.1"
+    ],
+    "uid": "11010@7"
   },
   {
     "answers": [
       {
-        "id": 479223,
-        "content_html": "condensation",
+        "id": 390864,
+        "content_html": "No, a sonic boom is created only when the source exceeds the speed of sound.",
         "correctness": "0.0",
-        "feedback_html": "Condensation is a type of reaction in which two molecules become covalently bonded with the loss of a small molecule, which may be a water molecule."
+        "feedback_html": "An object travelling at supersonic speed will continually displace air and will, therefore, continually produce sonic booms."
       },
       {
-        "id": 479222,
-        "content_html": "covalent bond",
-        "correctness": "0.0",
-        "feedback_html": "A covalent bond is broken in the breakdown of polymers."
-      },
-      {
-        "id": 479221,
-        "content_html": "dehydration",
-        "correctness": "0.0",
-        "feedback_html": "Dehydration synthesis, a type of condensation reaction, is the process of forming of polymers."
-      },
-      {
-        "id": 479224,
-        "content_html": "hydrolysis",
+        "id": 390865,
+        "content_html": "Yes, sonic booms continue to be created when an object is traveling at supersonic speeds.",
         "correctness": "1.0",
-        "feedback_html": "Hydrolysis is a reaction in which a water molecule is used during the breakdown of another compound or a polymer."
+        "feedback_html": "Objects travelling at supersonic speeds continue to make sonic booms as they travel, because they are constantly displacing air."
       }
     ],
-    "group_uuid": "0641463f-f62c-4c00-90ea-ada8920bd038",
-    "stem_html": "During the breakdown of polymers, which of the following reactions takes place?",
-    "tags": "0641463f-f62c-4c00-90ea-ada8920bd038",
-    "uid": "95@8"
+    "group_uuid": "95bf21d2-b1e7-4813-8a5c-c08fd8718843",
+    "stem_html": "Do sonic booms continue to be created when an object is traveling at supersonic speeds?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:17-4-1",
+      "k12phys-ch14",
+      "k12phys-ch14-s03",
+      "k12phys-ch14-s03-lo02",
+      "k12phys-ch14-ex088",
+      "exid:k12phys-ch14-ex088",
+      "context-cnxmod:079e89ae-de07-426e-b7c1-1bef175b2af3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:919bd066-7964-4b5b-b352-bdf63ef6f5f8",
+      "context-cnxmod:ad694f2e-8fcc-4a8b-8c68-3e5190ef41fb",
+      "aplo:stax-apphys:6.B.5.1"
+    ],
+    "uid": "11015@5"
   }
 ]

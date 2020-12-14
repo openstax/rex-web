@@ -2,34 +2,55 @@
   {
     "answers": [
       {
-        "id": 479223,
-        "content_html": "condensation",
+        "id": 391981,
+        "content_html": "Quark Era, Grand Unification Epoch, Inflationary Epoch, Electroweak Epoch, Planck Epoch",
         "correctness": "0.0",
-        "feedback_html": "Condensation is a type of reaction in which two molecules become covalently bonded with the loss of a small molecule, which may be a water molecule."
+        "feedback_html": "After the Big Bang, the Planck Epoch is the earliest period."
       },
       {
-        "id": 479222,
-        "content_html": "covalent bond",
+        "id": 391980,
+        "content_html": "Planck Epoch, Inflationary Epoch, Grand Unification Epoch, Electroweak Epoch, Quark Era",
         "correctness": "0.0",
-        "feedback_html": "A covalent bond is broken in the breakdown of polymers."
+        "feedback_html": "The Inflationary Epoch did not occur before the Grand Unification Epoch."
       },
       {
-        "id": 479221,
-        "content_html": "dehydration",
+        "id": 391979,
+        "content_html": "Planck Epoch, Electroweak Epoch, Grand Unification Epoch, Inflationary Epoch, Quark Era",
         "correctness": "0.0",
-        "feedback_html": "Dehydration synthesis, a type of condensation reaction, is the process of forming of polymers."
+        "feedback_html": "Think about the relationship between the Grand Unification and Electroweak Epochs."
       },
       {
-        "id": 479224,
-        "content_html": "hydrolysis",
+        "id": 391982,
+        "content_html": "Planck Epoch, Grand Unification Epoch, Inflationary Epoch, Electroweak Epoch, Quark Era",
         "correctness": "1.0",
-        "feedback_html": "Hydrolysis is a reaction in which a water molecule is used during the breakdown of another compound or a polymer."
+        "feedback_html": "The Quark Era was the period of evolution of the early universe."
       }
     ],
-    "group_uuid": "0641463f-f62c-4c00-90ea-ada8920bd038",
-    "stem_html": "During the breakdown of polymers, which of the following reactions takes place?",
-    "tags": "0641463f-f62c-4c00-90ea-ada8920bd038",
-    "uid": "95@8"
+    "group_uuid": "095f5d04-36ee-40fd-acdc-fc72377c646b",
+    "stem_html": "List the following eras in order of occurrence from the Big Bang: Electroweak Epoch, Grand Unification Epoch, Inflationary Epoch, Planck Epoch, Quark Era.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:34-1-1",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo02",
+      "k12phys-ch23-ex069",
+      "exid:k12phys-ch23-ex069",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:399cb4d1-0f14-44df-8a92-5c0d34ba3d57",
+      "context-cnxmod:410dda92-e868-4881-9695-965f05ea2df5",
+      "aplo:stax-apphys:5.B.4.1"
+    ],
+    "uid": "11736@8"
   },
   {
     "answers": [
@@ -48,40 +69,81 @@
     ],
     "group_uuid": "22863ce7-de03-423e-aebf-67b1d4dd5d53",
     "stem_html": "Under current conditions, is it possible for scientists to use particle accelerators to verify the Grand Unified Theory?",
-    "tags": "22863ce7-de03-423e-aebf-67b1d4dd5d53",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo03",
+      "k12phys-ch23-ex071",
+      "exid:k12phys-ch23-ex071",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "lo:stax-phys:33-6-1",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
     "uid": "11742@4"
   },
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 208055,
+        "content_html": "The unification of forces will help us understand fundamental structures of the universe.",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+        "feedback_html": "The unification of fundamental forces provides further insight into the microscopic and macroscopic aspects of the universe."
       },
       {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "id": 208053,
+        "content_html": "The unification of forces will help in the proof of the graviton.",
         "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+        "feedback_html": "Discovery of the graviton will further imply the symmetry in fundamental forces."
       },
       {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "id": 208052,
+        "content_html": "The unification of forces will help in achieving a speed greater than the speed of light.",
         "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "The speed of light is the maximum speed barrier beyond which no speed can be achieved."
       },
       {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
+        "id": 208054,
+        "content_html": "The unification of forces will help in studying antimatter particles.",
         "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "The unification of fundamental forces will provide further insight into the microscopic and macroscopic aspects of the universe."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2fbe64b9-607a-4e25-bcbc-1f7bd8a56026",
+    "stem_html": "Why is the unification of fundamental forces important?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo01",
+      "k12phys-ch23-ex073",
+      "exid:k12phys-ch23-ex073",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "lo:stax-phys:33-6-1",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11748@5"
   },
   {
     "answers": [
@@ -100,40 +162,76 @@
     ],
     "group_uuid": "415686e1-4cd1-4cbb-adf9-572fb432ef15",
     "stem_html": "What role does proton decay have in the search for GUTs?",
-    "tags": "415686e1-4cd1-4cbb-adf9-572fb432ef15",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo03",
+      "k12phys-ch23-ex075",
+      "exid:k12phys-ch23-ex075",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "lo:stax-phys:33-6-1",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
     "uid": "11754@4"
   },
   {
     "answers": [
       {
-        "id": 397402,
-        "content_html": "diseases affecting humans, pollution affecting species habitat, calculating surface area of rectangular ground, functioning of planetary orbitals\n",
+        "id": 273108,
+        "content_html": "The electroweak force will have greater strength.",
+        "correctness": "0.0",
+        "feedback_html": "Will this necessarily lead to combination?"
+      },
+      {
+        "id": 273109,
+        "content_html": "The strong nuclear force and electroweak force will achieve the same strength.",
         "correctness": "1.0",
-        "feedback_html": "Diseases affecting humans and pollution affecting species habitat are the two topics that can be studied by biologists while calculating surface area of rectangular ground and the functioning of planetary orbitals are two topics that fall outside of the realm of biology."
+        "feedback_html": "The electroweak force will have same strength as the strong nuclear force at high energies."
       },
       {
-        "id": 397403,
-        "content_html": "calculating surface area of rectangular ground, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
+        "id": 273110,
+        "content_html": "The strong nuclear force will have greater strength.",
         "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology."
-      },
-      {
-        "id": 397404,
-        "content_html": "plant responses to external stimuli, functioning of planetary orbitals, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
-      },
-      {
-        "id": 397405,
-        "content_html": "plant responses to external stimuli, study of the shape and motion of physical objects, formation of metamorphic rocks, galaxy formation and evolution\n",
-        "correctness": "0.0",
-        "feedback_html": "All of these are outside the realm of biology except for plant responses to external stimuli."
+        "feedback_html": "Will this lead to combination?"
       }
     ],
-    "group_uuid": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "stem_html": "What are two topics that are likely to be studied by biologists and two areas of scientific study that would fall outside the realm of biology?",
-    "tags": "78f7846a-e339-4976-9b0a-d3d457669dc7",
-    "uid": "6@7"
+    "group_uuid": "6ed129e7-76bf-496f-8e80-04410a3edb09",
+    "stem_html": "Why do scientists believe that the strong nuclear force and the electroweak force will combine under high energies?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo01",
+      "k12phys-ch23-ex083",
+      "exid:k12phys-ch23-ex083",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "lo:stax-phys:33-6-1",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11767@5"
   },
   {
     "answers": [
@@ -164,71 +262,123 @@
     ],
     "group_uuid": "d344e5bf-c102-4161-9b23-17227e5e217a",
     "stem_html": "While we can demonstrate the unification of certain forces within the laboratory, for how long were the four forces naturally unified within the universe?",
-    "tags": "d344e5bf-c102-4161-9b23-17227e5e217a",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:34-1-1",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo02",
+      "k12phys-ch23-ex085",
+      "exid:k12phys-ch23-ex085",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:399cb4d1-0f14-44df-8a92-5c0d34ba3d57",
+      "context-cnxmod:410dda92-e868-4881-9695-965f05ea2df5",
+      "aplo:stax-apphys:3.G.1.1"
+    ],
     "uid": "11769@6"
   },
   {
     "answers": [
       {
-        "id": 474297,
-        "content_html": "a step ladder",
-        "correctness": "0.0",
-        "feedback_html": "A stepladder structure is straight and not helical, as found in DNA."
-      },
-      {
-        "id": 474298,
-        "content_html": "a double helix",
+        "id": 208140,
+        "content_html": "Proton decay is not a premise of all GUTs, and current GUTs can be amended in response to new findings.",
         "correctness": "1.0",
-        "feedback_html": "DNA has a double-helical structure with the two strands running in opposite directions (anti-parallel), connected by hydrogen bonds and complementary to each other."
+        "feedback_html": "Many GUTs do not have the premise of proton decay."
       },
       {
-        "id": 474296,
-        "content_html": "a tertiary protein-like structure",
+        "id": 208139,
+        "content_html": "Proton decay is a premise of all GUTs, but current GUTs can be amended in response to new findings.",
         "correctness": "0.0",
-        "feedback_html": "DNA consists of a double helix, which consists of two strands running in opposite structures."
-      },
-      {
-        "id": 474295,
-        "content_html": "barber pole",
-        "correctness": "0.0",
-        "feedback_html": "A barber pole is cylindrical, not like the structure of DNA."
+        "feedback_html": "Not all GUTs have proton decay in their hypothesis."
       }
     ],
-    "group_uuid": "ecb4116f-d570-4e66-a311-a0ea40d087b4",
-    "stem_html": "What is DNA’s structure described as?",
-    "tags": "ecb4116f-d570-4e66-a311-a0ea40d087b4",
-    "uid": "164@8"
+    "group_uuid": "164b11a5-5580-47c9-8461-58c135126455",
+    "stem_html": "Why does finding proof that protons do not decay not disprove all GUTs?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:33-6-2",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo03",
+      "k12phys-ch23-ex087",
+      "exid:k12phys-ch23-ex087",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11771@4"
   },
   {
     "answers": [
       {
-        "id": 414782,
-        "content_html": "1, 2, 3, 4, 5, 6",
+        "id": 310970,
+        "content_html": "The kinetic energy is converted into relativistic potential energy, governed by the equation <span data-math=\"E = \\lambda mch\">E = \\lambda mch</span>.",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "The kinetic energy of accelerating particles is not converted into potential energy for subatomic particles."
       },
       {
-        "id": 414783,
-        "content_html": "2, 1, 3, 4, 5, 6",
+        "id": 310971,
+        "content_html": "The kinetic energy is converted into relativistic mass, governed by the equation <span data-math=\"E = \\lambda m^{2}c\">E = \\lambda m^{2}c</span>.",
         "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "The formula is incorrect for energy-mass conversion."
       },
       {
-        "id": 414784,
-        "content_html": "2, 1, 5, 4, 6, 3",
+        "id": 310972,
+        "content_html": "The kinetic energy is converted into relativistic potential energy, governed by the equation <span data-math=\"E = \\lambda mgh\">E = \\lambda mgh</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The kinetic energy is not converted into potential energy in the case of subatomic particles."
+      },
+      {
+        "id": 310973,
+        "content_html": "Their kinetic energy is converted into relativistic mass, governed by the equation <span data-math=\"E = \\lambda mc^{2}\">E = \\lambda mc^{2}</span>.",
         "correctness": "1.0",
-        "feedback_html": "2, 1, 5, 4, 6, 3 is the correct sequence of the situation given."
-      },
-      {
-        "id": 414785,
-        "content_html": "2, 1, 5, 6, 3, 4",
-        "correctness": "0.0",
-        "feedback_html": "This is not the correct sequence."
+        "feedback_html": "The kinetic energy of the particles is converted into mass, governed by Einstein’s equation."
       }
     ],
-    "group_uuid": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "stem_html": "Although the scientific method is used by most of the sciences, it can also be applied to everyday situations. A situation is given below. Using the scientific method try to arrange the given steps in the correct order. \nSituation:\n<ol>\n  <li>If the car doesn’t start the problem might be in the battery.</li>\n  <li>Car doesn’t start.</li>\n  <li>After changing the battery. Car starts working.</li>\n  <li>The car should start after charging the battery or changing the battery.</li>\n  <li>The car doesn’t start because the battery is dead.</li>\n  <li>The car doesn’t start even after charging the battery, the battery must have stopped working.</li>\n</ol>\n",
-    "tags": "ee8cc0e1-3500-4713-9001-4aa057adcf01",
-    "uid": "8@8"
+    "group_uuid": "8fc1b55a-e51f-4470-b35c-ab193d11d594",
+    "stem_html": "Two pool balls collide head-on and stop. Their original kinetic energy is converted to heat and sound. Given that this is not possible for particles, what happens to their converted energy?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:medium",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:33-6-2",
+      "k12phys-ch23",
+      "k12phys-ch23-s03",
+      "k12phys-ch23-s03-lo03",
+      "k12phys-ch23-ex091",
+      "exid:k12phys-ch23-ex091",
+      "context-cnxmod:79ea455b-ecae-4abe-99c5-d1a0265dc2c3",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e304dd51-86de-4012-af91-8689a9eb4733",
+      "context-cnxmod:041ef802-788d-4c41-b2fe-8b8a2c31c10f"
+    ],
+    "uid": "11775@6"
   }
 ]

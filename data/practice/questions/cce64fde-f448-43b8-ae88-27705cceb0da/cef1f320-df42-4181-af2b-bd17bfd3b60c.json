@@ -28,7 +28,30 @@
     ],
     "group_uuid": "a5254375-bb95-4a90-86df-43071ae4b3a9",
     "stem_html": "Calculate Earth’s mass given that the acceleration due to gravity at the North Pole is <span data-math=\"9.830\\text{m/s}^2\\!\">9.830\\text{m/s}^2\\!</span> and the radius of the Earth is <span data-math=\"6371\\,\\text{km}\">6371\\,\\text{km}</span> from pole to center.",
-    "tags": "a5254375-bb95-4a90-86df-43071ae4b3a9",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch07",
+      "k12phys-ch07-s02",
+      "k12phys-ch07-s02-lo02",
+      "k12phys-ch07-ex031",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:6-5-1",
+      "exid:k12phys-ch07-ex031",
+      "context-cnxmod:f4dad665-7922-49c8-a359-dc8fd6bacd26",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
+      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
+      "aplo:stax-apphys:2.B.1.1",
+      "aplo:stax-apphys:2.B.2.1",
+      "aplo:stax-apphys:2.B.2.2"
+    ],
     "uid": "2597@5"
   },
   {
@@ -60,7 +83,30 @@
     ],
     "group_uuid": "5624484d-f7d7-4828-b46b-d4b40f47e70e",
     "stem_html": "State the law of universal gravitation in words only.",
-    "tags": "5624484d-f7d7-4828-b46b-d4b40f47e70e",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch07",
+      "k12phys-ch07-s02",
+      "k12phys-ch07-s02-lo01",
+      "k12phys-ch07-ex033",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:6-5-1",
+      "exid:k12phys-ch07-ex033",
+      "context-cnxmod:f4dad665-7922-49c8-a359-dc8fd6bacd26",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
+      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
+      "aplo:stax-apphys:2.B.1.1",
+      "aplo:stax-apphys:2.B.2.1",
+      "aplo:stax-apphys:2.B.2.2"
+    ],
     "uid": "2599@5"
   },
   {
@@ -92,7 +138,30 @@
     ],
     "group_uuid": "fe65eb4e-82e3-470d-9081-791cada299f7",
     "stem_html": "Describe the postulate on which Einstein based the theory of general relativity and describe an everyday experience that illustrates this postulate.",
-    "tags": "fe65eb4e-82e3-470d-9081-791cada299f7",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch07",
+      "k12phys-ch07-s02",
+      "k12phys-ch07-s02-lo01",
+      "k12phys-ch07-ex035",
+      "time:medium",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:34-2-1",
+      "exid:k12phys-ch07-ex035",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
+      "context-cnxmod:a601f6db-2bcf-4764-adf5-5b22c15336cc",
+      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
+      "context-cnxmod:eb8fde82-4d56-49f6-b929-565d235dcf42",
+      "aplo:stax-apphys:4.A.2.2"
+    ],
     "uid": "2601@6"
   },
   {
@@ -124,39 +193,87 @@
     ],
     "group_uuid": "a5376763-21fe-482b-a3dd-893b555369ee",
     "stem_html": "You have a mass of <span data-math=\"55\\,\\text{kg}\">55\\,\\text{kg}</span> and you have just landed on one of the moons of Jupiter where you have a weight of <span data-math=\"67.9\\,\\text{N}\">67.9\\,\\text{N}</span>. What is the acceleration due to gravity, <span data-math=\"g\">g</span>, on the moon you are visiting?",
-    "tags": "a5376763-21fe-482b-a3dd-893b555369ee",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch07",
+      "k12phys-ch07-s02",
+      "k12phys-ch07-s02-lo02",
+      "k12phys-ch07-ex039",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch07-ex039",
+      "context-cnxmod:f4dad665-7922-49c8-a359-dc8fd6bacd26",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
+      "lo:stax-phys:6-5-2",
+      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
+      "aplo:stax-apphys:2.B.1.1",
+      "aplo:stax-apphys:2.B.2.1",
+      "aplo:stax-apphys:2.B.2.2"
+    ],
     "uid": "2605@6"
   },
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 376877,
+        "content_html": "<span data-math=\"9.35\\times10^{17}\\,\\text{kg}\">9.35\\times10^{17}\\,\\text{kg}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall that the gravitational force follows the inverse square law."
+      },
+      {
+        "id": 376880,
+        "content_html": "<span data-math=\"5.96\\times10^{24}\\text{kg}\">5.96\\times10^{24}\\text{kg}</span>",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+        "feedback_html": "The mass of the Earth can be obtained by using the definition of the gravitational force due to Earth at a point."
       },
       {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "id": 376878,
+        "content_html": "<span data-math=\"3.79\\times10^{31}\\text{kg}\">3.79\\times10^{31}\\text{kg}</span>",
         "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
+        "feedback_html": "The gravitational force does not vary inversely with the cube of the radius."
       },
       {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
+        "id": 376879,
+        "content_html": "<span data-math=\"2.42\\times10^{38}\\text{kg}\">2.42\\times10^{38}\\text{kg}</span>",
         "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "Recall that the gravitational force follows the inverse square law."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2ef154b3-4aaf-41ff-b680-9d75c845d19c",
+    "stem_html": "The average radius of Earth is <span data-math=\"6.37\\times10^6\\,\\text{m}\">6.37\\times10^6\\,\\text{m}</span>. What is Earth’s mass?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch07",
+      "k12phys-ch07-s02",
+      "k12phys-ch07-s02-lo02",
+      "k12phys-ch07-ex042",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch07-ex042",
+      "context-cnxmod:f4dad665-7922-49c8-a359-dc8fd6bacd26",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
+      "lo:stax-phys:6-5-2",
+      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
+      "aplo:stax-apphys:2.B.1.1",
+      "aplo:stax-apphys:2.B.2.1",
+      "aplo:stax-apphys:2.B.2.2"
+    ],
+    "uid": "2608@5"
   }
 ]
