@@ -2,32 +2,32 @@
   {
     "answers": [
       {
-        "id": 379860,
-        "content_html": "<span data-math=\"0.15\\,\\text{J}\">0.15\\,\\text{J}</span>",
+        "id": 513977,
+        "content_html": "–0.15 J",
         "correctness": "0.0",
         "feedback_html": "Remember that pressure-volume work equals the product of change in volume and pressure."
       },
       {
-        "id": 379861,
-        "content_html": "<span data-math=\"6.7\\,\\text{J}\">6.7\\,\\text{J}</span>",
+        "id": 513978,
+        "content_html": "6.7 J",
         "correctness": "0.0",
         "feedback_html": "Work is not equal to the given pressure divided by the change in volume."
       },
       {
-        "id": 379862,
-        "content_html": "<span data-math=\"23\\,\\text{J}\">23\\,\\text{J}</span>",
+        "id": 513979,
+        "content_html": "–23 J",
         "correctness": "0.0",
         "feedback_html": "The sum of the given pressure and change in volume does not yield the value of work done."
       },
       {
-        "id": 379863,
-        "content_html": "<span data-math=\"60\\,\\text{J}\">60\\,\\text{J}</span>",
+        "id": 513980,
+        "content_html": "60 J",
         "correctness": "1.0",
         "feedback_html": "The product of the change in volume and pressure equals the pressure-volume work done by the system."
       }
     ],
     "group_uuid": "41383daf-36c8-4ecf-ae64-51a89cd88ba0",
-    "stem_html": "What is the pressure-volume work done by a system if a pressure of <span data-math=\"20\\,\\text{Pa}\">20\\,\\text{Pa}</span> causes a change in volume of <span data-math=\"3.0\\,\\text{m}^3\">3.0\\,\\text{m}^3</span>?",
+    "stem_html": "How much work is done by a gas under 20 Pa of pressure increasing in volume by 3.0 m<sup>3</sup>?",
     "tags": [
       "inbook-yes",
       "k12phys",
@@ -35,8 +35,6 @@
       "dok:1",
       "time:short",
       "blooms:3",
-      "book:stax-phys",
-      "lo:stax-phys:15-2-3",
       "k12phys-ch12",
       "k12phys-ch12-s02",
       "k12phys-ch12-s02-lo04",
@@ -44,13 +42,14 @@
       "exid:k12phys-ch12-ex016",
       "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:b9cca0fe-e685-4f2f-a485-f62e6735cf58",
       "context-cnxmod:d25883e8-2a6b-4afa-9f40-46f116461546",
-      "aplo:stax-apphys:5.B.5.5"
+      "aplo:stax-apphys:5.B.5.5",
+      "book:stax-apphys",
+      "science-practice:mathematical-routines"
     ],
-    "uid": "6667@5"
+    "uid": "6667@6"
   },
   {
     "answers": [

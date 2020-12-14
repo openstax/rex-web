@@ -111,32 +111,32 @@
   {
     "answers": [
       {
-        "id": 374198,
-        "content_html": "Yes, both persons will describe the same motion because motion is independent of the frame of reference.",
+        "id": 509104,
+        "content_html": "Each captain would describe other boat’s motion the same because motion is independent of reference frame.",
         "correctness": "0.0",
         "feedback_html": "Yes, the motion described will be the same but the reason specified is wrong. Motion depends on the frame of reference, as motion is a relative quantity."
       },
       {
-        "id": 374201,
-        "content_html": "Yes, both persons will describe the same motion because they will perceive the other as moving in the backward direction.",
+        "id": 509105,
+        "content_html": "Each captain will describe other boat’s motion as moving in the backward direction because they are in their own reference frames.",
         "correctness": "1.0",
         "feedback_html": "Motion depends on the frame of reference from which it is observed. The person in Boat A and the person in Boat B will see a boat moving past them in the opposite direction."
       },
       {
-        "id": 374199,
-        "content_html": "No, the motion described by each of them will be different because motion is a relative term.",
+        "id": 509106,
+        "content_html": "Each captain would describe the boats as moving differently because motion is a relative term.",
         "correctness": "0.0",
         "feedback_html": "Motion is a relative term but here both of them (person in Boat A and person in Boat B) observes the same thing, which is a boat moving past them in the opposite direction."
       },
       {
-        "id": 374200,
-        "content_html": "No, the motion described by each of them will be different because the motion perceived by each will be opposite to each other.",
+        "id": 509107,
+        "content_html": "Each captain would describe the other boat’s motion perpendicularly because they will perceive them as moving opposite to each other.",
         "correctness": "0.0",
         "feedback_html": "The description provided by each person is the same. They both see a boat traveling past them."
       }
     ],
     "group_uuid": "6e5f63ab-3d00-49e0-9bfb-d96c27c91de0",
-    "stem_html": "Boat A and Boat B are traveling at a constant speed in opposite directions when they pass each other. If a person in each boat describes motion based on the boat’s own reference frame, will the description by a person in Boat A of Boat B’s motion be the same as the description by a person in Boat B of Boat A’s motion?",
+    "stem_html": "Two boats are traveling at equal and opposite velocities when they pass each other. How would the captain of each boat describe the motion of the other boat?",
     "tags": [
       "inbook-yes",
       "ost-chapter-review",
@@ -146,22 +146,21 @@
       "k12phys-ch02-s01",
       "k12phys-ch02-s01-lo01",
       "k12phys-ch02-ex014",
-      "time:medium",
+      "time:short",
       "dok:3",
       "blooms:4",
-      "book:stax-phys",
       "exid:k12phys-ch02-ex014",
       "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:3639d684-af97-4ad8-9986-2b91609478bf",
-      "lo:stax-phys:6-4-1",
       "context-cnxmod:6fc611ce-ed32-4456-b24c-39612ebc9304",
       "aplo:stax-apphys:3.A.2.1",
-      "aplo:stax-apphys:3.B.1.3"
+      "aplo:stax-apphys:3.B.1.3",
+      "book:stax-apphys",
+      "science-practice:argumentation"
     ],
-    "uid": "1824@5"
+    "uid": "1824@6"
   },
   {
     "answers": [

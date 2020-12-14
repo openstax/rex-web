@@ -203,42 +203,40 @@
   {
     "answers": [
       {
-        "id": 381882,
-        "content_html": "<span data-math=\"\\text{C/m}\">\\text{C/m}</span>",
+        "id": 512796,
+        "content_html": "C/m",
         "correctness": "0.0",
         "feedback_html": "Only a single unit is needed to define resistance. Here, two units are used in a ratio."
       },
       {
-        "id": 381883,
-        "content_html": "<span data-math=\"\\text{C/s}\">\\text{C/s}</span>",
+        "id": 512797,
+        "content_html": "C/s\n",
         "correctness": "0.0",
         "feedback_html": "Only a single unit is needed to define resistance. Here, two units are used in a ratio."
       },
       {
-        "id": 381885,
-        "content_html": "<span data-math=\"\\Omega\">\\Omega</span>",
+        "id": 512798,
+        "content_html": "Ω",
         "correctness": "1.0",
         "feedback_html": "Yes, the SI unit of resistance is <span data-math=\"\\Omega\">\\Omega</span>."
       },
       {
-        "id": 381884,
-        "content_html": "<span data-math=\"\\Psi\">\\Psi</span>",
+        "id": 512799,
+        "content_html": "V",
         "correctness": "0.0",
         "feedback_html": "This is not a SI unit."
       }
     ],
     "group_uuid": "4764dd8d-0755-463c-8428-90ab8642a04a",
-    "stem_html": "What is the SI unit for resistance?",
+    "stem_html": "What quantity is used to describe the ability of a material to limit current flow?\n",
     "tags": [
       "inbook-yes",
       "k12phys",
       "ost-test-prep",
       "multiple-choice",
       "dok:1",
-      "blooms:1",
       "time:short",
-      "book:stax-phys",
-      "lo:stax-phys:20-2-1",
+      "blooms:2",
       "k12phys-ch19",
       "k12phys-ch19-s01",
       "k12phys-ch19-s01-lo02",
@@ -246,13 +244,15 @@
       "exid:k12phys-ch19-ex023",
       "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26",
       "context-cnxmod:cfb4cad4-0093-451c-82ed-f59c28b9ff24",
-      "aplo:stax-apphys:5.C.3.2"
+      "aplo:stax-apphys:4.E.4.1",
+      "aplo:stax-apphys:5.C.3.2",
+      "book:stax-apphys",
+      "science-practice:modeling"
     ],
-    "uid": "7273@7"
+    "uid": "7273@9"
   },
   {
     "answers": [
@@ -365,42 +365,40 @@
   {
     "answers": [
       {
-        "id": 381915,
-        "content_html": "Electric current is the charge that passes through a conductor per unit time. The direction of the current is defined to be the direction in which positive charge would flow.",
+        "id": 510457,
+        "content_html": "Current is the ratio of charge passing through a conductor per unit time. The current’s direction is the direction in which protons would flow.",
         "correctness": "1.0",
         "feedback_html": "Current is defined as charge flowing through a conductor per unit time and direction of current is defined to be the direction in which positive charges would flow."
       },
       {
-        "id": 381912,
-        "content_html": "Electric current is the charges that move in a conductor. The direction of the current is defined to be the direction in which positive charge would flow.",
+        "id": 510458,
+        "content_html": "Charge is the ratio of current passing through a conductor per unit time. The charge’s direction is the direction in which protons would flow.",
         "correctness": "0.0",
         "feedback_html": "Charges that move in a conductor can produce current but the amount of current is defined as the charge that passes through a conductor per unit time."
       },
       {
-        "id": 381913,
-        "content_html": "Electric current is the charge that passes through a conductor per unit time. The direction of the current is defined to be the direction in which negative charge would flow.",
+        "id": 510459,
+        "content_html": "Current is the product of charge passing through a conductor and the amount of time that passes. The current’s direction is the direction in which electrons would flow.",
         "correctness": "0.0",
         "feedback_html": "No, the direction of current is defined to be the direction in which positive charge would flow."
       },
       {
-        "id": 381914,
-        "content_html": "Electric current is the charges that move in a conductor. The direction of the current is defined to be the direction in which negative charge would flow.",
+        "id": 510460,
+        "content_html": "Charge is the product of current passing through a conductor and time. The charge’s direction is the direction in which electrons would flow.",
         "correctness": "0.0",
         "feedback_html": "No, the direction of current is defined to be the direction in which positive charge would flow."
       }
     ],
     "group_uuid": "c11eb2fe-a083-4208-98ad-f409c9ce5253",
-    "stem_html": "Describe the relationship between current and charge. Include an explanation of how the direction of the current is defined.",
+    "stem_html": "Explain how current and charge are related, including how direction is defined.\n",
     "tags": [
       "inbook-yes",
       "k12phys",
       "ost-test-prep",
       "extended-response",
-      "time:medium",
+      "time:short",
+      "blooms:2",
       "dok:3",
-      "blooms:4",
-      "book:stax-phys",
-      "lo:stax-phys:20-1-1",
       "k12phys-ch19",
       "k12phys-ch19-s01",
       "k12phys-ch19-s01-lo01",
@@ -408,13 +406,15 @@
       "exid:k12phys-ch19-ex031",
       "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:83b099ae-cc08-4970-bc1d-439a890ba764",
       "context-cnxmod:fde7ad33-0064-4c3f-beb2-fdc32faad777",
-      "aplo:stax-apphys:3.G.2.1"
+      "aplo:stax-apphys:3.G.2.1",
+      "aplo:stax-apphys:1.B.1.1",
+      "book:stax-apphys",
+      "science-practice:modeling"
     ],
-    "uid": "7281@5"
+    "uid": "7281@6"
   },
   {
     "answers": [

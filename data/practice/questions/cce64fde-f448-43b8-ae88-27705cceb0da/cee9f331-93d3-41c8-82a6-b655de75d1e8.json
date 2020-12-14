@@ -106,42 +106,40 @@
   {
     "answers": [
       {
-        "id": 274697,
-        "content_html": "Planck recognized that energy is quantized, which was in sync with the classical physics concepts but not in agreement with modern physics concepts.",
+        "id": 514126,
+        "content_html": "Planck’s constant is smaller than any previous discovered constant.",
         "correctness": "0.0",
         "feedback_html": "Modern physics concepts are based on the quantization of energy."
       },
       {
-        "id": 274698,
-        "content_html": "Planck recognized that energy is quantized, which was in sync with modern physics concepts but not in agreement with classical physics concepts.",
+        "id": 514127,
+        "content_html": "Planck hypothesized that energy is quantized rather than continuous.",
         "correctness": "1.0",
         "feedback_html": "Classical physics concepts were based on the continuous nature of energy."
       },
       {
-        "id": 274699,
-        "content_html": "Prior to Planck’s hypothesis, all the classical physics calculations were valid for subatomic particles, but quantum physics calculations were not valid.",
+        "id": 514128,
+        "content_html": "Planck’s theories meant that classical physics was no longer useful for any system.",
         "correctness": "0.0",
         "feedback_html": "Classical physics calculations are not valid for subatomic particles."
       },
       {
-        "id": 274700,
-        "content_html": "Prior to Planck’s hypothesis, all the classical physics calculations were not valid for macroscopic particles, but quantum physics calculations were valid.",
+        "id": 514129,
+        "content_html": "Plank discovered the blackbody radiation spectrum.",
         "correctness": "0.0",
         "feedback_html": "Classical physics calculations are valid for macroscopic particles."
       }
     ],
     "group_uuid": "74e97d6e-6ced-4790-84c5-2c539cf8d464",
-    "stem_html": "Why is Planck’s recognition of quantum particles considered the dividing line between classical and modern physics?",
+    "stem_html": "How did Planck’s work come to be regarded as a major dividing line between classical and modern physics?\n",
     "tags": [
       "inbook-yes",
       "k12phys",
       "ost-test-prep",
       "short-answer",
+      "time:short",
       "dok:2",
-      "time:medium",
-      "blooms:4",
-      "book:stax-phys",
-      "lo:stax-phys:29-1-1",
+      "blooms:2",
       "k12phys-ch21",
       "k12phys-ch21-s01",
       "k12phys-ch21-s01-lo02",
@@ -149,12 +147,15 @@
       "exid:k12phys-ch21-ex026",
       "context-cnxmod:945d741b-f25d-49bc-9f85-7f72db5e65ad",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:f78cdc22-37ab-42b8-b0a4-db74a8ae7a3f",
-      "context-cnxmod:cf5fb070-e0c7-4b8e-8241-c0b946450c78"
+      "context-cnxmod:cf5fb070-e0c7-4b8e-8241-c0b946450c78",
+      "aplo:stax-apphys:1.A.2.1",
+      "aplo:stax-apphys:5.B.8.1",
+      "book:stax-apphys",
+      "science-practice:argumentation"
     ],
-    "uid": "11427@5"
+    "uid": "11427@6"
   },
   {
     "answers": [

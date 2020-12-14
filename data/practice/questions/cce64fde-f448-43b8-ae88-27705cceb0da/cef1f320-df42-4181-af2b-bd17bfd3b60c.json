@@ -167,32 +167,32 @@
   {
     "answers": [
       {
-        "id": 420622,
-        "content_html": "<span data-math=\"0.810\\,\\text{m/s}^2\">0.810\\,\\text{m/s}^2</span>",
+        "id": 509299,
+        "content_html": "0.810 m/s<sup>2</sup>",
         "correctness": "0.0",
         "feedback_html": "The value of gravitational acceleration cannot be determined correctly if the mass of the body is divided by the weight of the same body."
       },
       {
-        "id": 420623,
-        "content_html": "<span data-math=\"1.23\\,\\text{m/s}^2\">1.23\\,\\text{m/s}^2</span>",
+        "id": 509300,
+        "content_html": "1.23 m/s<sup>2</sup>",
         "correctness": "1.0",
         "feedback_html": "The value of the gravitational acceleration can be determined after dividing the weight of the body by the mass of the same body."
       },
       {
-        "id": 420624,
-        "content_html": "<span data-math=\"539\\,\\text{m/s}^2\">539\\,\\text{m/s}^2</span>",
+        "id": 509301,
+        "content_html": "5.39 m/s<sup>2</sup>",
         "correctness": "0.0",
         "feedback_html": "The correct expression to find the value of the acceleration due to gravity is <span data-math=\"g = W/m\">g = W/m</span>."
       },
       {
-        "id": 420625,
-        "content_html": "<span data-math=\"3735\\,\\text{m/s}^2\">3735\\,\\text{m/s}^2</span>",
+        "id": 509302,
+        "content_html": "37.4 m/s<sup>2</sup>",
         "correctness": "0.0",
         "feedback_html": "The product of mass and weight cannot give the correct value of acceleration due to gravity."
       }
     ],
     "group_uuid": "a5376763-21fe-482b-a3dd-893b555369ee",
-    "stem_html": "You have a mass of <span data-math=\"55\\,\\text{kg}\">55\\,\\text{kg}</span> and you have just landed on one of the moons of Jupiter where you have a weight of <span data-math=\"67.9\\,\\text{N}\">67.9\\,\\text{N}</span>. What is the acceleration due to gravity, <span data-math=\"g\">g</span>, on the moon you are visiting?",
+    "stem_html": "You have a mass of 55 kg as measured by your bathroom scale, which is calibrated for Earth’s gravity. You take the scale with you from Earth to a moon of Jupiter. When you weigh yourself at your destination, you appear to weigh only 6.9 kg. What is the acceleration due to gravity on this moon?",
     "tags": [
       "inbook-yes",
       "k12phys",
@@ -203,22 +203,21 @@
       "k12phys-ch07-s02-lo02",
       "k12phys-ch07-ex039",
       "dok:1",
-      "time:short",
-      "blooms:3",
-      "book:stax-phys",
+      "time:medium",
+      "blooms:5",
       "exid:k12phys-ch07-ex039",
       "context-cnxmod:f4dad665-7922-49c8-a359-dc8fd6bacd26",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
-      "lo:stax-phys:6-5-2",
       "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
       "aplo:stax-apphys:2.B.1.1",
       "aplo:stax-apphys:2.B.2.1",
-      "aplo:stax-apphys:2.B.2.2"
+      "aplo:stax-apphys:2.B.2.2",
+      "book:stax-apphys",
+      "science-practice:mathematical-routines"
     ],
-    "uid": "2605@6"
+    "uid": "2605@7"
   },
   {
     "answers": [

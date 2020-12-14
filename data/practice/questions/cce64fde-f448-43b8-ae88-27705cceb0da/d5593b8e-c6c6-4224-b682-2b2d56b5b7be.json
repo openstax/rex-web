@@ -161,32 +161,32 @@
   {
     "answers": [
       {
-        "id": 275243,
-        "content_html": "The release of light energy caused large-scale emission of electrons.",
+        "id": 514584,
+        "content_html": "The large numbers of neutrons released may have absorbed the energy of nearby electrons.",
         "correctness": "0.0",
         "feedback_html": "There was not a large emission of electrons at the blast site. Think about what happens during Compton scattering."
       },
       {
-        "id": 275244,
-        "content_html": "The release of light energy caused large-scale emission of protons.",
-        "correctness": "0.0",
+        "id": 514585,
+        "content_html": "The large numbers of photons released may have dissipated some of their energy to nearby electrons.",
+        "correctness": "1.0",
         "feedback_html": "There was not a large emission of protons at the blast site. Think about what happens during Compton scattering."
       },
       {
-        "id": 275245,
-        "content_html": "The release of light energy caused large-scale emission of neutrons.",
+        "id": 514586,
+        "content_html": "The large numbers of neutrons released at high speeds may have caused nearby electrons to scatter. ",
         "correctness": "0.0",
         "feedback_html": "There was not a large emission of neutrons at the blast site. Think about what happens during Compton scattering."
       },
       {
-        "id": 275246,
-        "content_html": "The release of light energy caused large-scale emission of photons.",
-        "correctness": "1.0",
+        "id": 514587,
+        "content_html": "The large numbers of photons released may have caused those photons and nearby electrons to increase in velocity and change directions.",
+        "correctness": "0.0",
         "feedback_html": "The photons released struck large numbers of electrons in the atmosphere, thereby producing currents leaving the blast site."
       }
     ],
     "group_uuid": "07acfd2b-fa7a-43a9-bba7-376035c44b44",
-    "stem_html": "When testing atomic bombs, scientists at Los Alamos recognized that huge releases of energy resulted in problems with power and communications systems in the area surrounding the blast site. Explain the possible tie to Compton scattering.",
+    "stem_html": "Explain how Compton scattering may have caused large scale disruptions to communications systems after atomic weapons were tested near Los Alamos?\n",
     "tags": [
       "inbook-yes",
       "k12phys",
@@ -195,8 +195,6 @@
       "time:medium",
       "dok:3",
       "blooms:4",
-      "book:stax-phys",
-      "lo:stax-phys:29-4-2",
       "k12phys-ch21",
       "k12phys-ch21-s03",
       "k12phys-ch21-s03-lo01",
@@ -204,11 +202,14 @@
       "exid:k12phys-ch21-ex100",
       "context-cnxmod:ed71b8ba-ba66-40db-baf8-f7932a38371a",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:c2b8ec86-d03a-46d9-9d42-49484a195ed8",
-      "context-cnxmod:61a33ee4-2b3d-44b0-97cc-9d98d7d1ea94"
+      "context-cnxmod:61a33ee4-2b3d-44b0-97cc-9d98d7d1ea94",
+      "book:stax-apphys",
+      "science-practice:argumentation",
+      "aplo:stax-apphys:5.D.1.6",
+      "aplo:stax-apphys:5.D.1.7"
     ],
-    "uid": "11564@5"
+    "uid": "11564@6"
   }
 ]
