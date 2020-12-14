@@ -28,40 +28,85 @@
     ],
     "group_uuid": "ce39cb1d-9fc7-4298-88c5-28789ae969c1",
     "stem_html": "Vector <span data-math=\"\\overrightarrow{\\text{A}}\">\\overrightarrow{\\text{A}}</span>, having magnitude <span data-math=\"2.5\\,\\text{m}\">2.5\\,\\text{m}</span>, pointing <span data-math=\"37^\\circ\\!\">37^\\circ\\!</span> south of east and vector <span data-math=\"\\overrightarrow{\\text{B}}\">\\overrightarrow{\\text{B}}</span> having magnitude <span data-math=\"3.5\\,\\text{m}\">3.5\\,\\text{m}</span>, pointing <span data-math=\"20^\\circ\\!\">20^\\circ\\!</span> north of east are added. What is the magnitude of the resultant vector?",
-    "tags": "ce39cb1d-9fc7-4298-88c5-28789ae969c1",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch05",
+      "k12phys-ch05-s01",
+      "k12phys-ch05-s01-lo02",
+      "k12phys-ch05-ex005",
+      "dok:1",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:3-3-3",
+      "exid:k12phys-ch05-ex005",
+      "context-cnxmod:f8e66ee6-32a3-4a52-8895-3aae7335288d",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:26a3d0a5-c3b8-45b9-a763-f0047e12fd7d",
+      "context-cnxmod:b7a2885d-9d3c-4e64-b382-b1da2b70d587",
+      "aplo:stax-apphys:3.A.1.1",
+      "aplo:stax-apphys:3.E.1.3",
+      "aplo:stax-apphys:3.A.2.1"
+    ],
     "uid": "2201@5"
   },
   {
     "answers": [
       {
-        "id": 346911,
-        "content_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive",
+        "id": 375480,
+        "content_html": "backward and to the left",
+        "correctness": "0.0",
+        "feedback_html": "Backward motion is conventionally considered as negative."
+      },
+      {
+        "id": 375479,
+        "content_html": "backward and to the right",
+        "correctness": "0.0",
+        "feedback_html": "Try it by drawing the positive and negative axes and think about the backward direction of motion. A common convention is that backward is negative."
+      },
+      {
+        "id": 375481,
+        "content_html": "forward and to the right",
         "correctness": "1.0",
-        "feedback_html": "1- Inductive, 2- Deductive, 3- Deductive, 4- Inductive"
+        "feedback_html": "Conventionally, forward motion is usually considered as moving in a positive direction. Movement towards the right is also considered as positive direction."
       },
       {
-        "id": 346910,
-        "content_html": "1- Deductive, 2- Inductive, 3- Deductive, 4- Inductive",
+        "id": 375478,
+        "content_html": "forward and to the left",
         "correctness": "0.0",
-        "feedback_html": "Statement 1 is inductive and statement 2 is deductive."
-      },
-      {
-        "id": 346909,
-        "content_html": "1- Inductive, 2- Deductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 3 is deductive and statement 4 is inductive."
-      },
-      {
-        "id": 346908,
-        "content_html": "1- Inductive, 2-Inductive, 3- Inductive, 4- Deductive",
-        "correctness": "0.0",
-        "feedback_html": "Statement 2 is deductive, statement 3 is deductive and statement 4 is inductive."
+        "feedback_html": "A common convention is that motion to the left is negative."
       }
     ],
-    "group_uuid": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "stem_html": "Decide if each of the following is an example of inductive or deductive reasoning.\n\n<ol>\n  <li>All flying birds and insects have wings. Birds and insects flap their wings as they move through the air. Therefore, wings enable flight.</li>\n  <li>Insects generally survive mild winters better than harsh ones. Therefore, insect pests will become more problematic if global temperatures increase.</li>\n  <li>Chromosomes, the carriers of DNA, separate into daughter cells during cell division. Therefore, DNA is the genetic material.</li>\n  <li>Animals as diverse as insects and wolves all exhibit social behavior. Therefore, social behavior must have an evolutionary advantage for humans.</li>\n</ol>\n",
-    "tags": "d0eaea3a-b7ba-4f89-b19f-6e9656237f18",
-    "uid": "2@7"
+    "group_uuid": "2bb45327-43c1-4671-ae63-ced9f4bf7d34",
+    "stem_html": "While there is no single correct choice for the sign of axes, which of the following are conventionally considered positive?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch05",
+      "k12phys-ch05-s01",
+      "k12phys-ch05-s01-lo01",
+      "k12phys-ch05-ex008",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:3-2-1",
+      "exid:k12phys-ch05-ex008",
+      "context-cnxmod:f8e66ee6-32a3-4a52-8895-3aae7335288d",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:ffc5c46e-3da2-42be-b747-88b8641a844b",
+      "context-cnxmod:5b264795-329f-44e0-8972-0133f0c98af0",
+      "aplo:stax-apphys:3.E.1.3",
+      "aplo:stax-apphys:3.A.2.1"
+    ],
+    "uid": "2204@6"
   },
   {
     "answers": [
@@ -92,7 +137,30 @@
     ],
     "group_uuid": "fecb927d-4ce3-40f2-ac0f-1baa85dd66da",
     "stem_html": "Find <span data-math=\"\\overrightarrow{\\text{A}} + \\overrightarrow{\\text{B}}\">\\overrightarrow{\\text{A}} + \\overrightarrow{\\text{B}}</span> for the following vectors:\n<span data-math=\"\\overrightarrow{\\text{A}} = (122\\,\\text{cm}, \\angle\\,145^\\circ)\">\\overrightarrow{\\text{A}} = (122\\,\\text{cm}, \\angle\\,145^\\circ)</span>\n<span data-math=\"\\overrightarrow{\\text{B}} = (110\\,\\text{cm}, \\angle\\,270^\\circ)\">\\overrightarrow{\\text{B}} = (110\\,\\text{cm}, \\angle\\,270^\\circ)</span>",
-    "tags": "fecb927d-4ce3-40f2-ac0f-1baa85dd66da",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch05",
+      "k12phys-ch05-s01",
+      "k12phys-ch05-s01-lo01",
+      "k12phys-ch05-ex017",
+      "dok:2",
+      "blooms:3",
+      "time:long",
+      "book:stax-phys",
+      "lo:stax-phys:3-3-3",
+      "exid:k12phys-ch05-ex017",
+      "context-cnxmod:f8e66ee6-32a3-4a52-8895-3aae7335288d",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:26a3d0a5-c3b8-45b9-a763-f0047e12fd7d",
+      "context-cnxmod:b7a2885d-9d3c-4e64-b382-b1da2b70d587",
+      "aplo:stax-apphys:3.E.1.3",
+      "aplo:stax-apphys:3.A.2.1"
+    ],
     "uid": "2213@7"
   }
 ]

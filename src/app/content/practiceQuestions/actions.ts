@@ -11,6 +11,7 @@ export const setSelectedSection = createStandardAction(
 export const setQuestions = createStandardAction('Content/PracticeQuestions/setQuestions')<PracticeQuestion[]>();
 export const nextQuestion = createStandardAction('Content/PracticeQuestions/nextQuestion')<void>();
 export const setAnswer = createStandardAction('Content/PracticeQuestions/setAnswer')<SetPracticeAnswer>();
+export const finishQuestions = createStandardAction('Content/PracticeQuestions/finishQuestions')<void>();
 
 export const receivePracticeQuestionsSummary = createStandardAction(
   'Content/PracticeQuestions/Summary/receive'

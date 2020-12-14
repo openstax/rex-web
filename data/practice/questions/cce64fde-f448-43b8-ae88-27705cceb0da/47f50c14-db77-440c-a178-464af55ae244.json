@@ -28,7 +28,27 @@
     ],
     "group_uuid": "17140a07-5142-4988-95b2-fb1a5526394a",
     "stem_html": "What is kinematics?",
-    "tags": "17140a07-5142-4988-95b2-fb1a5526394a",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch04",
+      "k12phys-ch04-s01",
+      "k12phys-ch04-s01-lo01",
+      "k12phys-ch04-ex001",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:4-2-2",
+      "exid:k12phys-ch04-ex001",
+      "context-cnxmod:144d12ac-66f8-49b3-99f3-034118d0c858",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:b0ffd0a2-9c83-4d73-b899-7f2ade2acda6",
+      "context-cnxmod:abae927d-b545-4981-8e47-602c3fcb6ce5"
+    ],
     "uid": "2060@4"
   },
   {
@@ -60,7 +80,28 @@
     ],
     "group_uuid": "a76456ed-a7cc-4e25-9daa-e500be29ffb5",
     "stem_html": "What kind of physical quantity is force?",
-    "tags": "a76456ed-a7cc-4e25-9daa-e500be29ffb5",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch04",
+      "k12phys-ch04-s01",
+      "k12phys-ch04-s01-lo02",
+      "k12phys-ch04-ex003",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:4-1-1",
+      "exid:k12phys-ch04-ex003",
+      "context-cnxmod:144d12ac-66f8-49b3-99f3-034118d0c858",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:7344986b-3079-4db2-92b9-78e0644c8610",
+      "context-cnxmod:708c252a-d832-48ab-9d66-06590e607b89",
+      "aplo:stax-apphys:3.E.1.3"
+    ],
     "uid": "2062@5"
   }
 ]

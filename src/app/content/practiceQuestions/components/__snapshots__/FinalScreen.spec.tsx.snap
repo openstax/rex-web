@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EmptyScreen for practice questions renders properly and dispatches action on click 1`] = `
+exports[`FinalScreen for practice questions renders properly and dispatches action on click 1`] = `
 <div
-  className="EmptyScreen__StyledEmptyScreen-sc-1mb50p9-0 dClYB"
+  className="FinalScreen__StyledFinalScreen-sc-131hu2n-0 cKZyXt"
 >
   <span
-    className="EmptyScreen__StyledText-sc-1mb50p9-1 gZiREd"
+    className="FinalScreen__StyledText-sc-131hu2n-1 MXQtJ"
   >
-    There are no questions for this chapter/section.
+    You have reached the end of this set!
   </span>
   <div
-    className="NextSectionMessage__StyledNextSectionMessage-qtwzgn-0 gTWiOh"
+    className="FinalScreen__StyledNextSectionMessage-sc-131hu2n-2 hofvhY NextSectionMessage__StyledNextSectionMessage-qtwzgn-0 gTWiOh"
   >
     <div
       className="NextSectionMessage__StyledMessage-qtwzgn-1 TEURJ"
@@ -18,7 +18,7 @@ exports[`EmptyScreen for practice questions renders properly and dispatches acti
       <span
         className="NextSectionMessage__StyledMessageText-qtwzgn-2 iCtbqd"
       >
-        Select a section from the dropdown above or continue to 
+        Next section:
       </span>
       <span
         className="NextSectionMessage__StyledSectionTitle-qtwzgn-3 cmlWLO"

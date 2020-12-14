@@ -28,72 +28,137 @@
     ],
     "group_uuid": "a22954dc-3613-40be-b370-953a73a0aa87",
     "stem_html": "What is thermal energy?",
-    "tags": "a22954dc-3613-40be-b370-953a73a0aa87",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch11",
+      "k12phys-ch11-s01",
+      "k12phys-ch11-s01-lo01",
+      "k12phys-ch11-ex006",
+      "exid:k12phys-ch11-ex006",
+      "context-cnxmod:d61a2fdd-8ee1-46fe-a698-c3640159d33c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:c4a34aaa-5c48-4ed3-a41b-1658bd03276c",
+      "lo:stax-phys:13-4-2",
+      "context-cnxmod:954f3359-ec30-425c-962f-0d325de314f1",
+      "aplo:stax-apphys:7.A.2.1"
+    ],
     "uid": "6531@5"
   },
   {
     "answers": [
       {
-        "id": 347171,
-        "content_html": "Carbon can form up to four covalent bonds, allowing it to form long chains.",
+        "id": 379454,
+        "content_html": "<span data-math=\"1\">1</span> degree Celsius",
         "correctness": "1.0",
-        "feedback_html": "Carbon is found in all living things because it can form up to four covalent bonds. These strong covalent bonds allow the formation of long chains that combine to form proteins and DNA"
+        "feedback_html": "The temperature difference of <span data-math=\"1\\,\\text{K}\">1\\,\\text{K}</span> is the same as temperature difference of <span data-math=\"1\">1</span> degree Celsius."
       },
       {
-        "id": 347168,
-        "content_html": "Carbon can form more than four covalent bonds, allowing it to form long chains.",
+        "id": 379453,
+        "content_html": "<span data-math=\"1\">1</span> degree Fahrenheit",
         "correctness": "0.0",
-        "feedback_html": "Carbon cannot form more than four covalent bonds with any molecule"
+        "feedback_html": "A difference of <span data-math=\"1\\,\\text{K}\">1\\,\\text{K}</span> = a difference of <span data-math=\"1.8^\\circ\\text{F}\">1.8^\\circ\\text{F}</span>."
       },
       {
-        "id": 347169,
-        "content_html": "Carbon can form more than four covalent bonds, but can only form short chains.",
+        "id": 379452,
+        "content_html": "<span data-math=\"273.15\">273.15</span> degrees Celsius",
         "correctness": "0.0",
-        "feedback_html": "Carbon cannot form more than four covalent bonds with any molecule and it can also form long chains."
+        "feedback_html": "<span data-math=\"273.15\">273.15</span> degrees is the measure in kelvins of <span data-math=\"0^\\circ\\text{C}\">0^\\circ\\text{C}</span>."
       },
       {
-        "id": 347170,
-        "content_html": "Carbon can form up to four covalent bonds, but can only form short chains.",
+        "id": 379451,
+        "content_html": "<span data-math=\"273.15\">273.15</span> degrees Fahrenheit",
         "correctness": "0.0",
-        "feedback_html": "Carbon can also form long chains."
+        "feedback_html": "<span data-math=\"273.15\">273.15</span> degrees is the measure in kelvins of <span data-math=\"0^\\circ\\text{C}\">0^\\circ\\text{C}</span>."
       }
     ],
-    "group_uuid": "4a04cbd4-47a3-4a09-a675-a3262cd23ae5",
-    "stem_html": "<p>What property of carbon makes it essential for organic life?</p>\n",
-    "tags": "4a04cbd4-47a3-4a09-a675-a3262cd23ae5",
-    "uid": "72@5"
+    "group_uuid": "72a5b4ba-3f96-46c5-9a4d-beed373e95ef",
+    "stem_html": "The temperature difference of <span data-math=\"1\\,\\text{K}\">1\\,\\text{K}</span> is the same as",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:13-1-2",
+      "k12phys-ch11",
+      "k12phys-ch11-s01",
+      "k12phys-ch11-s01-lo02",
+      "k12phys-ch11-ex012",
+      "exid:k12phys-ch11-ex012",
+      "context-cnxmod:d61a2fdd-8ee1-46fe-a698-c3640159d33c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33",
+      "context-cnxmod:755b8a47-c7b5-4909-a302-81c9c05568a3",
+      "aplo:stax-apphys:1.A.5.1"
+    ],
+    "uid": "6549@7"
   },
   {
     "answers": [
       {
-        "id": 346884,
-        "content_html": "publication",
+        "id": 379467,
+        "content_html": "The Celsius scale derived on the planet will be the same as that on Earth, because the Celsius scale is independent of the freezing and boiling points of water.",
         "correctness": "0.0",
-        "feedback_html": "Publication refers to the act of releasing a scientist’s original research so that it is made publically accessible in print and electronic formats."
+        "feedback_html": "The Celsius scale is derived by using the freezing and boiling point of water. Since these are different from those on Earth, the scale will be different as well."
       },
       {
-        "id": 346885,
-        "content_html": "public speaking",
-        "correctness": "0.0",
-        "feedback_html": "Public speaking does not ensure originality and significance of a work."
-      },
-      {
-        "id": 346887,
-        "content_html": "peer review",
+        "id": 379470,
+        "content_html": "The Celsius scale derived on that planet will not be the same as that on Earth, because the Celsius scale is dependent and derived by using the freezing and boiling points of water.",
         "correctness": "1.0",
-        "feedback_html": "Peer review is the process in which scientific papers are reviewed by experts in the scientist’s field to ensure that a scientist’s research is original, significant, logical, and thorough."
+        "feedback_html": "The boiling point is different on the Earth and the planet. So, the Celsius scale that is derived on the planet will not be same as on the Earth."
       },
       {
-        "id": 346886,
-        "content_html": "the scientific method",
+        "id": 379468,
+        "content_html": "The Celsius scale derived on the planet will be the same as that on Earth, because the Celsius scale is an absolute temperature scale based on molecular motion, which is independent of pressure.",
         "correctness": "0.0",
-        "feedback_html": "The scientific method is the method employed to carry out research."
+        "feedback_html": "Although an absolute temperature scale would have the same reference temperature (absolute zero) as on Earth, the Kelvin scale, and not the Celsius scale, is an absolute temperature scale."
+      },
+      {
+        "id": 379469,
+        "content_html": "The Celsius scale derived on the planet will not be the same as that on Earth, but the Fahrenheit scale will be the same, because its reference temperatures are not based on the freezing and boiling points of water.",
+        "correctness": "0.0",
+        "feedback_html": "The Fahrenheit scale uses a chemical mixture for its reference temperature of <span data-math=\"0\">0</span> degrees; the temperature of such a mixture would be affected by atmospheric pressure, and so would not be the same as on Earth."
       }
     ],
-    "group_uuid": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "stem_html": "What is the name for the formal process through which scientific research is checked for originality, significance, and quality before being accepted into scientific literature?",
-    "tags": "5a3d67d5-2cde-4d20-be35-af0caa1b319f",
-    "uid": "5@8"
+    "group_uuid": "5b71f55f-cd8a-41af-9818-731a47d24b95",
+    "stem_html": "A planet’s atmospheric pressure is such that water there boils at a lower temperature than it does at sea level on Earth. If a Celsius scale is derived on this planet, will it be the same as that on Earth?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:13-1-2",
+      "k12phys-ch11",
+      "k12phys-ch11-s01",
+      "k12phys-ch11-s01-lo02",
+      "k12phys-ch11-ex016",
+      "exid:k12phys-ch11-ex016",
+      "context-cnxmod:d61a2fdd-8ee1-46fe-a698-c3640159d33c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33",
+      "context-cnxmod:755b8a47-c7b5-4909-a302-81c9c05568a3",
+      "aplo:stax-apphys:1.A.5.1"
+    ],
+    "uid": "6553@5"
   },
   {
     "answers": [
@@ -124,7 +189,29 @@
     ],
     "group_uuid": "c7bd5d66-e09f-429a-b677-fc407ba005dc",
     "stem_html": "What is the meaning of absolute zero?",
-    "tags": "c7bd5d66-e09f-429a-b677-fc407ba005dc",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch11",
+      "k12phys-ch11-s01",
+      "k12phys-ch11-s01-lo01",
+      "k12phys-ch11-ex018",
+      "exid:k12phys-ch11-ex018",
+      "context-cnxmod:d61a2fdd-8ee1-46fe-a698-c3640159d33c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33",
+      "lo:stax-phys:13-1-1",
+      "context-cnxmod:755b8a47-c7b5-4909-a302-81c9c05568a3",
+      "aplo:stax-apphys:1.A.5.1"
+    ],
     "uid": "6555@5"
   }
 ]
