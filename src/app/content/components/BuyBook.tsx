@@ -25,16 +25,16 @@ const BuyBookAlignment = styled.div`
 // tslint:disable-next-line:variable-name
 const BuyBookLink = styled.a`
   ${textRegularSize};
+  font-size: 1.9rem;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   height: 5rem;
-  width: 17.9rem;
+  width: 19rem;
   color: ${theme.color.primary.orange.base};
   border: solid 0.1rem;
-  font-weight: 600;
-  line-height: 1.9rem;
+  font-weight: 700;
 `;
 
 // tslint:disable-next-line:variable-name
