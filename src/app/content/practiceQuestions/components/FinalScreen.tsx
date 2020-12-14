@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import { textRegularStyle } from '../../../components/Typography';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
-import NextSectionMessage from './NextSectionMessage';
+import NextSectionMessage, { StyledMessageText } from './NextSectionMessage';
 
 // tslint:disable-next-line: variable-name
 const StyledFinalScreen = styled.div`
@@ -26,6 +26,13 @@ const StyledText = styled.span`
   overflow: initial;
 `;
 
+// tslint:disable-next-line: variable-name
+const StyledNextSectionMessage = styled(NextSectionMessage)`
+  ${StyledMessageText}{
+    display: block;
+  }
+`;
+
 interface FinalScreenProps {
   nextSection?: LinkedArchiveTreeSection;
 }
@@ -42,9 +49,9 @@ const FinalScreen = ({ nextSection }: FinalScreenProps) => {
     </StyledText>
     {
       nextSection &&
-      <NextSectionMessage
+      <StyledNextSectionMessage
         nextSection={nextSection}
-        messageKey='i18n:practice-questions:popup:empty:next-section'
+        messageKey='i18n:practice-questions:popup:final:next-section'
         onClick={() => dispatch(setSelectedSection(nextSection))}
       />
     }
