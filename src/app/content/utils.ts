@@ -30,7 +30,7 @@ export const getContentPageReferences = (content: string) =>
       };
     });
 
-const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
+export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
   contents.map((subtree) => {
     subtree.title = getTitleFromArchiveNode(book, subtree);
     if (isArchiveTree(subtree)) {
@@ -38,16 +38,25 @@ const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode
     }
     return subtree;
   });
+
+  CACHED_FLATTENED_TREES.clear();
+  // getTitleFromArchiveNode is using `flattenArchiveTree` util that is caching old titles
+  // so we have to clear this cache after transforming titles
+
   return contents;
 };
 
-export const parseBookTree = (archiveBook: ArchiveBook) => {
-  archiveBook.tree.contents = parseContents(archiveBook, archiveBook.tree.contents);
-  // getTitleFromArchiveNode is using `flattenArchiveTree` util that is caching old titles
-  // so we have to clear this cache after transforming titles
-  CACHED_FLATTENED_TREES.clear();
-  return archiveBook;
-};
+const pickArchvieFields = (archiveBook: ArchiveBook) => ({
+  id: archiveBook.id,
+  license: archiveBook.license,
+  revised: archiveBook.revised,
+  title: archiveBook.title,
+  tree: {
+    ...archiveBook.tree,
+    contents: parseContents(archiveBook, archiveBook.tree.contents),
+  },
+  version: archiveBook.version,
+});
 
 export const formatBookData = <O extends OSWebBook | undefined>(
   archiveBook: ArchiveBook,
@@ -55,19 +64,19 @@ export const formatBookData = <O extends OSWebBook | undefined>(
 ): O extends OSWebBook ? BookWithOSWebData : ArchiveBook => {
   if (osWebBook === undefined) {
     // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    return parseBookTree(archiveBook) as ArchiveBook as any;
+    return pickArchvieFields(archiveBook) as ArchiveBook as any;
   }
 
   return {
-      ...parseBookTree(archiveBook),
-      amazon_link: osWebBook.amazon_link,
-      authors: osWebBook.authors,
-      book_state: osWebBook.book_state,
-      publish_date: osWebBook.publish_date,
-      slug: osWebBook.meta.slug,
-      theme: osWebBook.cover_color,
-    // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    } as BookWithOSWebData as any;
+    ...pickArchvieFields(archiveBook),
+    amazon_link: osWebBook.amazon_link,
+    authors: osWebBook.authors,
+    book_state: osWebBook.book_state,
+    publish_date: osWebBook.publish_date,
+    slug: osWebBook.meta.slug,
+    theme: osWebBook.cover_color,
+  // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
+  } as BookWithOSWebData as any;
 };
 
 export const makeUnifiedBookLoader = (
