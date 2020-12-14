@@ -28,7 +28,7 @@ const StyledText = styled.span`
 
 // tslint:disable-next-line: variable-name
 const StyledNextSectionMessage = styled(NextSectionMessage)`
-  ${StyledMessageText}{
+  ${StyledMessageText} {
     display: block;
   }
 `;
