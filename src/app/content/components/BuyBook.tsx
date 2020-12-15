@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { buyPrintConfig } from '../selectors';
@@ -12,14 +12,11 @@ import { disablePrint } from './utils/disablePrint';
 const BuyBookAlignment = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 0 auto;
   max-width: ${contentTextWidth}rem;
   overflow: visible;
   ${disablePrint}
-  ${theme.breakpoints.mobileSmall(css`
-    flex-direction: column;
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -40,15 +37,11 @@ const BuyBookLink = styled.a`
 // tslint:disable-next-line:variable-name
 const BuyPrintDisclosure = styled.p`
   flex: 1;
-  align-self: center;
-  margin: 0 0 0 1.6rem;
+  align-self: stretch;
+  margin: 1.6rem 0 0 0;
   ${textRegularStyle}
   font-size: 1.2rem;
   line-height: 1.7rem;
-  ${theme.breakpoints.mobileSmall(css`
-    align-self: stretch;
-    margin: 1.6rem 0 0 0;
-  `)}
 `;
 
 // tslint:disable-next-line: variable-name
