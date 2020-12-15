@@ -6,7 +6,7 @@ exports[`BuyBook renders when config is available 1`] = `
 >
   <a
     aria-label="Buy book"
-    className="BuyBook__BuyBookLink-s2exzh-1 djWtBD"
+    className="BuyBook__BuyBookLink-s2exzh-1 hNBOXB"
     data-analytics-label="buy-book"
     href="https://example.com"
     rel="noopener"
