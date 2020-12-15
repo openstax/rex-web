@@ -48,7 +48,7 @@ describe('Question', () => {
   } as PracticeQuestion;
 
   jest.spyOn(routes.content, 'getUrl')
-  .mockReturnValue('/book/book1/page/testbook1-testpage1-uuid');
+    .mockReturnValue('/book/book1/page/testbook1-testpage1-uuid');
 
   beforeEach(() => {
     store = createTestStore();
