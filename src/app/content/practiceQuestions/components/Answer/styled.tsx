@@ -9,11 +9,6 @@ export const AnswerExcerpt = styled.span`
   ${textRegularStyle}
   width: 100%;
   padding: 0;
-  overflow: auto;
-
-  * {
-    overflow: initial;
-  }
 `;
 
 // tslint:disable-next-line: variable-name
@@ -21,6 +16,11 @@ export const AnswerAlignment = styled.div`
   display: flex;
   align-items: center;
   min-height: 4rem;
+  flex: 1;
+
+  * {
+    overflow: initial;
+  }
 `;
 
 // tslint:disable-next-line: variable-name
