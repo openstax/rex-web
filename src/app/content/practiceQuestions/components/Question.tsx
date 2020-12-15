@@ -29,6 +29,7 @@ export const QuestionContent = styled(ContentExcerpt)`
   font-weight: bold;
   color: ${theme.color.primary.gray.base};
   padding: 0;
+  overflow: initial;
 `;
 
 // tslint:disable-next-line: variable-name
