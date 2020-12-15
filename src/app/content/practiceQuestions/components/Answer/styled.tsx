@@ -22,10 +22,6 @@ export const AnswerAlignment = styled.div`
   align-items: center;
   min-height: 4rem;
   flex: 1;
-
-  // * {
-  //   overflow: initial;
-  // }
 `;
 
 // tslint:disable-next-line: variable-name
