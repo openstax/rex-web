@@ -2,7 +2,7 @@
 
 exports[`BuyBook renders when config is available 1`] = `
 <div
-  className="BuyBook__BuyBookAlignment-s2exzh-0 kkQmrq"
+  className="BuyBook__BuyBookAlignment-s2exzh-0 dsrSOQ"
 >
   <a
     aria-label="Buy book"
@@ -15,7 +15,7 @@ exports[`BuyBook renders when config is available 1`] = `
     Order a print copy
   </a>
   <p
-    className="BuyBook__BuyPrintDisclosure-s2exzh-2 eqriUR"
+    className="BuyBook__BuyPrintDisclosure-s2exzh-2 dPPdHn"
   >
     asdf
   </p>
