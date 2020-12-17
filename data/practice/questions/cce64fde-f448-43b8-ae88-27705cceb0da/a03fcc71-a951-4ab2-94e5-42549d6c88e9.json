@@ -55,25 +55,25 @@
   {
     "answers": [
       {
-        "id": 418114,
+        "id": 517842,
         "content_html": "All of the current flows through the left branch due to the open switch.",
         "correctness": "0.0",
         "feedback_html": "No current will flow in the left branch as it has an open switch."
       },
       {
-        "id": 418115,
+        "id": 517843,
         "content_html": "All of the current flows through the right branch due to the open switch in the left branch.",
         "correctness": "1.0",
         "feedback_html": "Yes, current flows in a closed circuit. Because of an open switch in the left branch of the circuit, no current will flow through it."
       },
       {
-        "id": 418116,
+        "id": 517841,
         "content_html": "All of the current flows through the middle branch due to the open switch in the left branch",
         "correctness": "0.0",
         "feedback_html": "The current is generated in the middle branch as there is a battery and all of the current flows through the right branch because there is no current in the left branch."
       },
       {
-        "id": 418117,
+        "id": 517840,
         "content_html": "There will be no current in any branch of the circuit due to the open switch.",
         "correctness": "0.0",
         "feedback_html": "The right branch is a closed circuit with a battery connected to it. So all current will go to the right branch."
@@ -101,10 +101,9 @@
       "type:practice",
       "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
       "lo:stax-phys:21-1-1",
-      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
       "aplo:stax-apphys:5.B.9.5"
     ],
-    "uid": "7316@7"
+    "uid": "7316@8"
   },
   {
     "answers": [

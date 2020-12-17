@@ -108,32 +108,32 @@
   {
     "answers": [
       {
-        "id": 207340,
-        "content_html": "The frequency of the photon will drop to zero.",
+        "id": 514688,
+        "content_html": "The photon’s wavelength will drop to zero.",
         "correctness": "0.0",
         "feedback_html": "This is impractical, since the photon does not lose all of its energy in a collision."
       },
       {
-        "id": 207339,
-        "content_html": "The frequency of the photon will remain the same.",
+        "id": 514689,
+        "content_html": "The photon’s wavelength will decrease.",
         "correctness": "0.0",
         "feedback_html": "Frequency is proportional to the energy of the photon. Since energy of the photon decreases in a collision, so frequency will also decrease."
       },
       {
-        "id": 207338,
-        "content_html": "The frequency of the photon will increase.",
-        "correctness": "0.0",
+        "id": 514690,
+        "content_html": "The photon’s wavelength will increase.",
+        "correctness": "1.0",
         "feedback_html": "Energy in a collision decreases."
       },
       {
-        "id": 207341,
-        "content_html": "The frequency of the photon will decrease.",
-        "correctness": "1.0",
+        "id": 514691,
+        "content_html": "The photon’s wavelength will be inverted.",
+        "correctness": "0.0",
         "feedback_html": "Upon collision, the photon loses some energy and hence its frequency decreases."
       }
     ],
     "group_uuid": "d3e1f0ca-0d24-4ae2-9d39-0f55b20d8214",
-    "stem_html": "Upon collision, what happens to the frequency of a photon?",
+    "stem_html": "Predict the effect on a photon’s wavelength of a collision with an electron.\n",
     "tags": [
       "inbook-yes",
       "k12phys",
@@ -141,9 +141,7 @@
       "short-answer",
       "time:short",
       "dok:2",
-      "blooms:2",
-      "book:stax-phys",
-      "lo:stax-phys:29-4-2",
+      "blooms:4",
       "k12phys-ch21",
       "k12phys-ch21-s03",
       "k12phys-ch21-s03-lo01",
@@ -151,12 +149,15 @@
       "exid:k12phys-ch21-ex092",
       "context-cnxmod:ed71b8ba-ba66-40db-baf8-f7932a38371a",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:c2b8ec86-d03a-46d9-9d42-49484a195ed8",
-      "context-cnxmod:61a33ee4-2b3d-44b0-97cc-9d98d7d1ea94"
+      "context-cnxmod:61a33ee4-2b3d-44b0-97cc-9d98d7d1ea94",
+      "aplo:stax-apphys:5.B.8.1",
+      "book:stax-apphys",
+      "science-practice:argumentation",
+      "aplo:stax-apphys:5.D.1.6"
     ],
-    "uid": "11556@6"
+    "uid": "11556@7"
   },
   {
     "answers": [

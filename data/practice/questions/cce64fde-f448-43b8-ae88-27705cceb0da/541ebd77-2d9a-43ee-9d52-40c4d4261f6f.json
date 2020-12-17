@@ -279,19 +279,19 @@
   {
     "answers": [
       {
-        "id": 376214,
+        "id": 516968,
         "content_html": "<span data-math=\"\\text{m/s}\">\\text{m/s}</span>",
         "correctness": "1.0",
         "feedback_html": "The tangential velocity is a linear velocity; so the units are <span data-math=\"\\text{m/s}\">\\text{m/s}</span>."
       },
       {
-        "id": 376213,
+        "id": 516966,
         "content_html": "<span data-math=\"\\text{rad/s}\">\\text{rad/s}</span>",
         "correctness": "0.0",
         "feedback_html": "The SI unit of angular velocity is <span data-math=\"\\text{rad/s}\">\\text{rad/s}</span>. The tangential velocity is a linear velocity defined at an instantaneous moment."
       },
       {
-        "id": 376212,
+        "id": 516967,
         "content_html": "<span data-math=\"^\\circ\\text{/s}\">^\\circ\\text{/s}</span>",
         "correctness": "0.0",
         "feedback_html": "<span data-math=\"^\\circ\\text{/s}\">^\\circ\\text{/s}</span> is the unit for angular velocity. The tangential velocity is a linear velocity."
@@ -319,35 +319,34 @@
       "type:practice",
       "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
       "lo:stax-phys:6-1-1",
-      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
       "aplo:stax-apphys:3.A.2.1",
       "aplo:stax-apphys:3.F.2.1",
       "aplo:stax-apphys:4.D.1.1"
     ],
-    "uid": "2430@6"
+    "uid": "2430@7"
   },
   {
     "answers": [
       {
-        "id": 376225,
+        "id": 516958,
         "content_html": "<span data-math=\"v = \\frac{\\omega}{r}\">v = \\frac{\\omega}{r}</span>",
         "correctness": "0.0",
         "feedback_html": "The linear speed is angular speed times the radius of the rotating object."
       },
       {
-        "id": 376226,
+        "id": 516961,
         "content_html": "<span data-math=\"v = r\\omega\">v = r\\omega</span>",
         "correctness": "1.0",
         "feedback_html": "The linear speed for a rotating object is <span data-math=\"v = r\\omega\">v = r\\omega</span> , where <span data-math=\"\\omega\">\\omega</span> is the angular speed."
       },
       {
-        "id": 376224,
+        "id": 516959,
         "content_html": "<span data-math=\"v = \\frac{\\alpha}{r}\">v = \\frac{\\alpha}{r}</span>",
         "correctness": "0.0",
         "feedback_html": "The units of each side of the equation <span data-math=\"v = \\frac{\\alpha}{r}\">v = \\frac{\\alpha}{r}</span> are not the same, so this is not possible. "
       },
       {
-        "id": 376223,
+        "id": 516960,
         "content_html": "<span data-math=\"v = r\\alpha\">v = r\\alpha</span>",
         "correctness": "0.0",
         "feedback_html": "The linear speed is angular speed times the radius of the rotating object."
@@ -375,35 +374,34 @@
       "type:practice",
       "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
       "lo:stax-phys:6-1-1",
-      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
       "aplo:stax-apphys:3.A.2.1",
       "aplo:stax-apphys:3.F.2.1",
       "aplo:stax-apphys:4.D.1.1"
     ],
-    "uid": "2433@6"
+    "uid": "2433@7"
   },
   {
     "answers": [
       {
-        "id": 376231,
+        "id": 516956,
         "content_html": "<span data-math=\"\\omega = \\frac{v^2}{r}\">\\omega = \\frac{v^2}{r}</span>",
         "correctness": "0.0",
         "feedback_html": "The angular speed is linearly dependent on the linear speed. That is, <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>."
       },
       {
-        "id": 376234,
+        "id": 516957,
         "content_html": "<span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>",
         "correctness": "1.0",
         "feedback_html": "The angular speed is <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>, where <span data-math=\"v\">v</span> is linear speed and <span data-math=\"r\">r</span> is radius of the rotating body."
       },
       {
-        "id": 376232,
+        "id": 516955,
         "content_html": "<span data-math=\"\\omega = rv\">\\omega = rv</span>",
         "correctness": "0.0",
         "feedback_html": "The linear speed is angular speed times the radius of the rotating object. Therefore, the correct relation is <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>."
       },
       {
-        "id": 376233,
+        "id": 516954,
         "content_html": "<span data-math=\"\\omega = r{v^2}\">\\omega = r{v^2}</span>",
         "correctness": "0.0",
         "feedback_html": "The angular speed is linearly dependent on the linear speed. The linear speed is angular speed times the radius of the rotating object. Therefore, the correct relation is <span data-math=\"\\omega = \\frac{v}{r}\">\\omega = \\frac{v}{r}</span>."
@@ -431,35 +429,34 @@
       "type:practice",
       "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
       "lo:stax-phys:6-1-1",
-      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
       "aplo:stax-apphys:3.A.2.1",
       "aplo:stax-apphys:3.F.2.1",
       "aplo:stax-apphys:4.D.1.1"
     ],
-    "uid": "2435@5"
+    "uid": "2435@6"
   },
   {
     "answers": [
       {
-        "id": 376243,
+        "id": 516952,
         "content_html": "The point near the center would have the greater angular velocity and the point near the outer edge would have the higher linear velocity.",
         "correctness": "0.0",
         "feedback_html": "Angular velocity is same for both points."
       },
       {
-        "id": 376244,
+        "id": 516951,
         "content_html": "The point near the edge would have the greater angular velocity and the point near the center would have the higher linear velocity.",
         "correctness": "0.0",
         "feedback_html": "Angular velocity is same for both points. Also, the point with the greater radius would have the higher linear velocity."
       },
       {
-        "id": 376246,
+        "id": 516953,
         "content_html": "Both have the same angular velocity and the point near the outer edge would have the higher linear velocity.",
         "correctness": "1.0",
         "feedback_html": "The angular velocity for both points is same and the point near the edge would have the higher linear velocity because it is at a larger radius than the inner point."
       },
       {
-        "id": 376245,
+        "id": 516950,
         "content_html": "Both have the same angular velocity and the point near the center would have the higher linear velocity.",
         "correctness": "0.0",
         "feedback_html": "Both points would have the same angular velocity, but the point near edge would have the higher linear velocity."
@@ -487,11 +484,10 @@
       "type:practice",
       "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
       "lo:stax-phys:6-1-1",
-      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
       "aplo:stax-apphys:3.A.2.1",
       "aplo:stax-apphys:3.F.2.1",
       "aplo:stax-apphys:4.D.1.1"
     ],
-    "uid": "2438@5"
+    "uid": "2438@6"
   }
 ]

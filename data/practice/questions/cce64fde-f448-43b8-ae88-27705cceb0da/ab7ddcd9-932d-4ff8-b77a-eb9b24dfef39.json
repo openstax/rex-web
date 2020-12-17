@@ -214,25 +214,25 @@
   {
     "answers": [
       {
-        "id": 379991,
+        "id": 517184,
         "content_html": "The average kinetic energy of the gas particles decreases, so the balloon becomes colder.",
         "correctness": "1.0",
         "feedback_html": "Temperature is a measure of the average kinetic energy of the gas particles, and is directly proportional to the volume of the gas if pressure is held constant. Therefore, as volume decreases, so does the temperature (i.e., average kinetic energy of the particles), and the balloon becomes colder."
       },
       {
-        "id": 379990,
+        "id": 517181,
         "content_html": "The average kinetic energy of the gas particles increases, so the balloon becomes hotter.",
         "correctness": "0.0",
         "feedback_html": "Remember, if pressure is constant, temperature is directly proportional to the volume, so for temperature (that is, the average kinetic energy of the gas particles) to increase, the volume must also increase, causing the balloon to become larger, not smaller in size."
       },
       {
-        "id": 379989,
+        "id": 517182,
         "content_html": "The average potential energy of the gas particles decreases, so the balloon becomes colder.",
         "correctness": "0.0",
         "feedback_html": "The potential energy of the gas particles does not affect temperature, which is changed because of the change in volume."
       },
       {
-        "id": 379988,
+        "id": 517183,
         "content_html": "The average potential energy of the gas particles increases, so the balloon becomes hotter.",
         "correctness": "0.0",
         "feedback_html": "Remember that temperature is directly proportional to volume when pressure is constant, and that the average kinetic energy of particles determines temperature."
@@ -260,10 +260,9 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:1ddf7960-d3c6-438e-a96e-ce0c5d3efd59",
-      "context-cnxmod:48fbbdd1-186c-4add-8b1e-44dabbf7c870",
       "aplo:stax-apphys:7.A.1.1"
     ],
-    "uid": "6700@7"
+    "uid": "6700@8"
   },
   {
     "answers": [
@@ -322,25 +321,25 @@
   {
     "answers": [
       {
-        "id": 380050,
+        "id": 517391,
         "content_html": "increasing internal energy",
         "correctness": "0.0",
         "feedback_html": "A system’s internal energy increases when work is done on a system."
       },
       {
-        "id": 380049,
+        "id": 517392,
         "content_html": "compression",
         "correctness": "0.0",
         "feedback_html": "This is work done ON a system."
       },
       {
-        "id": 380051,
+        "id": 517394,
         "content_html": "expansion",
         "correctness": "1.0",
         "feedback_html": "Expansion occurs when work is done by a system."
       },
       {
-        "id": 380048,
+        "id": 517393,
         "content_html": "cooling",
         "correctness": "0.0",
         "feedback_html": "Cooling occurs when a system loses energy by heat."
@@ -368,10 +367,9 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:b9cca0fe-e685-4f2f-a485-f62e6735cf58",
-      "context-cnxmod:d25883e8-2a6b-4afa-9f40-46f116461546",
       "aplo:stax-apphys:5.B.5.5"
     ],
-    "uid": "6716@6"
+    "uid": "6716@7"
   },
   {
     "answers": [
@@ -484,25 +482,25 @@
   {
     "answers": [
       {
-        "id": 380084,
+        "id": 517353,
         "content_html": "<span data-math=\"{-190}\\,\\text{J}\">{-190}\\,\\text{J}</span> ; this would change if heat added energy after the work was done",
         "correctness": "0.0",
         "feedback_html": "The energy added by heat is greater than the work done by the system, so the change in internal energy should be positive. The change in internal energy would also remain the same."
       },
       {
-        "id": 380085,
+        "id": 517352,
         "content_html": "<span data-math=\"190\\,\\text{J}\">190\\,\\text{J}</span>; this would change if heat added energy after the work was done",
         "correctness": "0.0",
         "feedback_html": "The change in internal energy would be the same even if the heat added energy after the work was done."
       },
       {
-        "id": 380086,
+        "id": 517351,
         "content_html": "<span data-math=\"{-190}\\,\\text{J}\">{-190}\\,\\text{J}</span>; this would not change even if heat added energy after the work was done",
         "correctness": "0.0",
         "feedback_html": "The work done is less than the energy added by heat. Hence, the change in internal energy should be positive."
       },
       {
-        "id": 380087,
+        "id": 517354,
         "content_html": "<span data-math=\"190\\,\\text{J}\">190\\,\\text{J}</span>; this would not change even if heat added energy after the work was done",
         "correctness": "1.0",
         "feedback_html": "The change in internal energy would be <span data-math=\"190\\,\\text{J}\">190\\,\\text{J}</span>. If heat added energy after the work was done, the change in internal energy would be the same."
@@ -530,9 +528,8 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:7e96b641-1efe-4920-9b39-2b72c6883215",
-      "context-cnxmod:2499fe6d-41be-4e32-83b0-d93bf558ae47",
       "aplo:stax-apphys:5.B.5.5"
     ],
-    "uid": "6725@5"
+    "uid": "6725@6"
   }
 ]

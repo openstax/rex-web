@@ -222,25 +222,25 @@
   {
     "answers": [
       {
-        "id": 376877,
+        "id": 517061,
         "content_html": "<span data-math=\"9.35\\times10^{17}\\,\\text{kg}\">9.35\\times10^{17}\\,\\text{kg}</span>",
         "correctness": "0.0",
         "feedback_html": "Recall that the gravitational force follows the inverse square law."
       },
       {
-        "id": 376880,
+        "id": 517062,
         "content_html": "<span data-math=\"5.96\\times10^{24}\\text{kg}\">5.96\\times10^{24}\\text{kg}</span>",
         "correctness": "1.0",
         "feedback_html": "The mass of the Earth can be obtained by using the definition of the gravitational force due to Earth at a point."
       },
       {
-        "id": 376878,
+        "id": 517060,
         "content_html": "<span data-math=\"3.79\\times10^{31}\\text{kg}\">3.79\\times10^{31}\\text{kg}</span>",
         "correctness": "0.0",
         "feedback_html": "The gravitational force does not vary inversely with the cube of the radius."
       },
       {
-        "id": 376879,
+        "id": 517059,
         "content_html": "<span data-math=\"2.42\\times10^{38}\\text{kg}\">2.42\\times10^{38}\\text{kg}</span>",
         "correctness": "0.0",
         "feedback_html": "Recall that the gravitational force follows the inverse square law."
@@ -268,11 +268,10 @@
       "type:practice",
       "context-cnxmod:206e7a16-29d9-4453-b60f-07272a7ffe5d",
       "lo:stax-phys:6-5-2",
-      "context-cnxmod:38cc5fae-340b-4ce3-b2ed-847ff2bd2d5f",
       "aplo:stax-apphys:2.B.1.1",
       "aplo:stax-apphys:2.B.2.1",
       "aplo:stax-apphys:2.B.2.2"
     ],
-    "uid": "2608@5"
+    "uid": "2608@6"
   }
 ]

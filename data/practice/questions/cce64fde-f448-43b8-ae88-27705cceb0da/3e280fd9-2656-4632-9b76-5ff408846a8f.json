@@ -220,25 +220,25 @@
   {
     "answers": [
       {
-        "id": 208777,
+        "id": 516592,
         "content_html": "130 miles",
         "correctness": "0.0",
         "feedback_html": "When calculating displacement, do not forget to consider the direction of motion."
       },
       {
-        "id": 208778,
+        "id": 516595,
         "content_html": "30 miles east",
         "correctness": "1.0",
         "feedback_html": "The net movement of the biker will be towards the east."
       },
       {
-        "id": 208776,
+        "id": 516593,
         "content_html": "30 miles west",
         "correctness": "0.0",
         "feedback_html": "The magnitude towards the east is greater than the magnitude towards the west. So the net displacement will be towards the east."
       },
       {
-        "id": 208775,
+        "id": 516594,
         "content_html": "Cannot be determined from the information given",
         "correctness": "0.0",
         "feedback_html": "Displacement can be easily calculated from the given data as both magnitude and direction are provided in the question."
@@ -265,10 +265,9 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:74c34e51-1968-4e5d-b1d3-e5df6a9be9fb",
-      "lo:stax-phys:2-1-4",
-      "context-cnxmod:72169e9d-cba1-4d43-923c-41ae4d01b3cc"
+      "lo:stax-phys:2-1-4"
     ],
-    "uid": "1829@4"
+    "uid": "1829@5"
   },
   {
     "answers": [

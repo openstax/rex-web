@@ -2,25 +2,25 @@
   {
     "answers": [
       {
-        "id": 381752,
+        "id": 517672,
         "content_html": "The current will double.",
         "correctness": "1.0",
         "feedback_html": "Yes, this is correct because current is proportional to the voltage. As voltage doubles, current doubles."
       },
       {
-        "id": 381749,
+        "id": 517671,
         "content_html": "The current will increase by half.",
         "correctness": "0.0",
         "feedback_html": "Current is proportional to the charge."
       },
       {
-        "id": 381750,
+        "id": 517670,
         "content_html": "The current will decrease by half.",
         "correctness": "0.0",
         "feedback_html": "Current is proportional to the charge. How can the current through the circuit decrease when the voltage is increasing?"
       },
       {
-        "id": 381751,
+        "id": 517669,
         "content_html": "The current will decrease by a factor of two.",
         "correctness": "0.0",
         "feedback_html": "The relationship between current and voltage is directly proportional."
@@ -47,10 +47,9 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26",
-      "context-cnxmod:cfb4cad4-0093-451c-82ed-f59c28b9ff24",
       "aplo:stax-apphys:5.C.3.2"
     ],
-    "uid": "7237@5"
+    "uid": "7237@6"
   },
   {
     "answers": [
@@ -419,25 +418,25 @@
   {
     "answers": [
       {
-        "id": 381921,
+        "id": 517650,
         "content_html": "<span data-math=\"\\frac{R}{10}\">\\frac{R}{10}</span>\n",
         "correctness": "0.0",
         "feedback_html": "Current and resistance are inversely proportional to each other. The amount of current after passing through each resistor will decrease and hence the resistance of the resistor will increase."
       },
       {
-        "id": 381920,
+        "id": 517651,
         "content_html": "<span data-math=\"5\\,\\text{R}\">5\\,\\text{R}</span>",
         "correctness": "0.0",
         "feedback_html": "There are <span data-math=\"10\">10</span> resistors connected in series. The equivalent resistance of the resistors connected in series is the sum of individual resistances."
       },
       {
-        "id": 381922,
+        "id": 517649,
         "content_html": "<span data-math=\"\\frac{10}{R}\">\\frac{10}{R}</span>\n",
         "correctness": "0.0",
         "feedback_html": "Current and resistance are inversely proportional to each other. The amount of current after passing through each resistor will decrease and hence the resistance of the resistor will increase."
       },
       {
-        "id": 381923,
+        "id": 517652,
         "content_html": "<span data-math=\"10\\,\\text{R}\">10\\,\\text{R}</span>",
         "correctness": "1.0",
         "feedback_html": "There are <span data-math=\"10\">10</span> resistors connected in series. The equivalent resistance of the resistors connected in series is the sum of individual resistances."
@@ -465,9 +464,8 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26",
-      "context-cnxmod:cfb4cad4-0093-451c-82ed-f59c28b9ff24",
       "aplo:stax-apphys:5.C.3.2"
     ],
-    "uid": "7283@6"
+    "uid": "7283@7"
   }
 ]

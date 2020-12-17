@@ -2,25 +2,25 @@
   {
     "answers": [
       {
-        "id": 374894,
+        "id": 516789,
         "content_html": "<span data-math=\"9.80\\,\\text{m/s}\">9.80\\,\\text{m/s}</span>",
         "correctness": "0.0",
         "feedback_html": "The pebble is in free fall so the initial velocity will be zero and the acceleration will be <span data-math=\"9.80\\,\\text{m/s}^2\\!\">9.80\\,\\text{m/s}^2\\!</span>. What will the velocity be after <span data-math=\"2\\,\\text{s}\">2\\,\\text{s}</span>?"
       },
       {
-        "id": 374895,
+        "id": 516788,
         "content_html": "<span data-math=\"10.0\\,\\text{m/s}\">10.0\\,\\text{m/s}</span>",
         "correctness": "0.0",
         "feedback_html": "Acceleration due to gravity is acting on the pebble for <span data-math=\"2\\,\\text{s}\">2\\,\\text{s}</span>. The starting velocity is zero, so the velocity after <span data-math=\"2\\,\\text{s}\">2\\,\\text{s}</span> will be the product of acceleration and time."
       },
       {
-        "id": 374897,
+        "id": 516790,
         "content_html": "<span data-math=\"19.6\\,\\text{m/s}\">19.6\\,\\text{m/s}</span>",
         "correctness": "1.0",
         "feedback_html": "The formula <span data-math=\"v_f = v_0 + at\">v_f = v_0 + at</span> will give the velocity with which the pebble strikes the water as <span data-math=\"19.6\\,\\text{m/s}\">19.6\\,\\text{m/s}</span>."
       },
       {
-        "id": 374896,
+        "id": 516787,
         "content_html": "<span data-math=\"20.0\\,\\text{m/s}\">20.0\\,\\text{m/s}</span>",
         "correctness": "0.0",
         "feedback_html": "Use <span data-math=\"v_f = v_0 + at\">v_f = v_0 + at</span> with <span data-math=\"v_0 = 0\\,\\text{m/s}\">v_0 = 0\\,\\text{m/s}</span>, <span data-math=\"t = 2.00\\,\\text{s}\">t = 2.00\\,\\text{s}</span>, and <span data-math=\"a = 9.8\\,\\text{m/s}^2\\!\">a = 9.8\\,\\text{m/s}^2\\!</span>."
@@ -47,10 +47,9 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:e427f8f8-d6bf-4420-b690-bc28cc328cf8",
-      "context-cnxmod:34176c43-5a3b-4e21-950d-3b724e819b15",
       "aplo:stax-apphys:3.A.1.1"
     ],
-    "uid": "2027@5"
+    "uid": "2027@6"
   },
   {
     "answers": [
