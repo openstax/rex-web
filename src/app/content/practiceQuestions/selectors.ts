@@ -17,7 +17,7 @@ export const practiceQuestionsOpen = createSelector(
   (state) => state.open
 );
 
-const practiceQuestionsSummary = createSelector(
+export const practiceQuestionsSummary = createSelector(
   localState,
   (state) => state.summary
 );

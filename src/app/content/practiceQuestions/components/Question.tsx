@@ -29,6 +29,7 @@ export const QuestionContent = styled(ContentExcerpt)`
   font-weight: bold;
   color: ${theme.color.primary.gray.base};
   padding: 0;
+  overflow: initial;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -45,6 +46,7 @@ const Question = () => {
   const [selectedAnswerState, setSelectedAnswer] = React.useState<PracticeAnswer | null>(null);
   const [showCorrectState, setShowCorrect] = React.useState<PracticeQuestion | null>(null);
   const container = React.useRef<HTMLElement>(null);
+  const questionContent = React.useRef<HTMLElement>(null);
   const services = useServices();
   const question = useSelector(pqSelectors.question);
   const section = useSelector(pqSelectors.selectedSection);
@@ -56,6 +58,10 @@ const Question = () => {
   React.useLayoutEffect(() => {
     if (container.current) {
       services.promiseCollector.add(typesetMath(container.current, assertWindow()));
+    }
+
+    if (questionContent.current) {
+      questionContent.current.focus();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
   }, [question]);
@@ -75,7 +81,7 @@ const Question = () => {
   };
 
   return <QuestionWrapper ref={container} onSubmit={onSubmit} data-testid='question-form'>
-    <QuestionContent tabIndex={0} content={question.stem_html} source={section} />
+    <QuestionContent ref={questionContent} tabIndex={0} content={question.stem_html} source={section} />
     <AnswersWrapper>
       {question.answers.map((answer, index) =>
         <Answer
