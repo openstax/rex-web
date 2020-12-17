@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useServices } from '../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
 import { AppState, Store } from '../app/types';
+import { captureEvent } from '../gateways/eventCaptureClient';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 import * as clickButton from './analyticsEvents/clickButton';
 import * as clickInput from './analyticsEvents/clickInput';
@@ -33,6 +34,9 @@ const triggerEvent = <E extends Event>(event: E): E['track'] => (...args) => {
 
   if (analyticsEvent && analyticsEvent.getGoogleAnalyticsPayload) {
     googleAnalyticsClient.trackEventPayload(analyticsEvent.getGoogleAnalyticsPayload());
+  }
+  if (analyticsEvent && analyticsEvent.getEventCapturePayload) {
+    captureEvent(analyticsEvent.getEventCapturePayload());
   }
 };
 

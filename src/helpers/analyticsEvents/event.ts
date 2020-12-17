@@ -1,6 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { findFirstAncestorOrSelf } from '../../app/domUtils';
 import { FirstArgumentType } from '../../app/types';
+import { captureEvent } from '../../gateways/eventCaptureClient';
 import { GoogleAnalyticsClient } from '../../gateways/googleAnalyticsClient';
 
 export const getAnalyticsRegion = (element: HTMLElement) => {
@@ -13,4 +14,5 @@ export const getAnalyticsRegion = (element: HTMLElement) => {
 
 export interface AnalyticsEvent {
   getGoogleAnalyticsPayload?: () => FirstArgumentType<GoogleAnalyticsClient['trackEventPayload']>;
+  getEventCapturePayload?: () => FirstArgumentType<typeof captureEvent>;
 }
