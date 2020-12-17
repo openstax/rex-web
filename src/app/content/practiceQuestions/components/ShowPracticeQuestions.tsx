@@ -48,6 +48,7 @@ export const QuestionsWrapper = styled.div`
   flex: 1 0;
   overflow: initial;
   border: 1px solid ${theme.color.neutral.darkest};
+  background-color: ${theme.color.white};
 `;
 
 // tslint:disable-next-line: variable-name

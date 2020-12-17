@@ -1,8 +1,16 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { LinkedArchiveTreeSection } from '../../../types';
 import { PracticeAnswer } from '../../types';
-import { AnswerAlignment, AnswerBlock, AnswerContent, AnswerExcerpt, AnswerLabel, StyledAnswerResult } from './styled';
+import {
+  AnswerAlignment,
+  AnswerBlock,
+  AnswerContent,
+  AnswerExcerpt,
+  AnswerIndicator,
+  StyledAnswerResult,
+} from './styled';
 
 interface AnswerResultProps {
   showCorrect: boolean;
@@ -50,7 +58,15 @@ const Answer = ({
   isSelected,
   onSelect,
 }: AnswerProps) => {
+  const answerRef = React.useRef<HTMLElement>(null);
   const isCorrect = answer.correctness === '1.0';
+
+  React.useEffect(() => {
+    if (showCorrect && isCorrect && answerRef.current) {
+      answerRef.current.focus();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showCorrect, isCorrect]);
 
   return <AnswerBlock
     showCorrect={showCorrect}
@@ -58,21 +74,28 @@ const Answer = ({
     isSubmitted={isSubmitted}
     isSelected={isSelected}
     onClick={onSelect}
+    ref={answerRef}
+    tabIndex={0}
+    htmlFor={choiceIndicator}
   >
     <FormattedMessage
       id='i18n:practice-questions:popup:answers:choice'
       values={{choiceIndicator: choiceIndicator.toUpperCase()}}
     >{(msg: string) =>
-      <AnswerLabel aria-label={msg}>
-        {choiceIndicator}
+      <React.Fragment>
         <input
+          id={choiceIndicator}
           type='radio'
           name={choiceIndicator}
           checked={isSelected}
           disabled={isSubmitted}
+          aria-label={msg}
           onChange={onSelect}
         />
-      </AnswerLabel>
+        <AnswerIndicator aria-label={msg}>
+          {choiceIndicator}
+        </AnswerIndicator>
+      </React.Fragment>
     }</FormattedMessage>
     <AnswerAlignment>
       <AnswerContent>

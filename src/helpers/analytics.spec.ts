@@ -11,9 +11,11 @@ const makeEvent = (doc: Document) => {
 
 describe('registerGlobalAnalytics', () => {
   const window = assertWindow();
-  const document = window.document; const store = createTestStore();
+  const document = window.document;
+  const store = createTestStore();
   let clickLink: jest.SpyInstance;
   let clickButton: jest.SpyInstance;
+  let clickInput: jest.SpyInstance;
   let print: jest.SpyInstance;
   let unload: jest.SpyInstance;
   const addListener = jest.fn();
@@ -26,11 +28,13 @@ describe('registerGlobalAnalytics', () => {
   beforeEach(() => {
     clickLink = jest.spyOn(analytics.clickLink, 'track');
     clickButton = jest.spyOn(analytics.clickButton, 'track');
+    clickInput = jest.spyOn(analytics.clickInput, 'track');
     print = jest.spyOn(analytics.print, 'track');
     unload = jest.spyOn(analytics.unload, 'track');
 
     clickLink.mockClear();
     clickButton.mockClear();
+    clickInput.mockClear();
     print.mockClear();
   });
 
@@ -94,5 +98,61 @@ describe('registerGlobalAnalytics', () => {
     expect(addListener).toHaveBeenCalledTimes(1);
     addListener.mock.calls[0][0]({matches: false});
     expect(print).not.toHaveBeenCalled();
+  });
+
+  it('reports input click for type button', () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'button');
+    document.body.append(input);
+    input.dispatchEvent(makeEvent(document));
+
+    expect(clickLink).not.toHaveBeenCalled();
+    expect(clickButton).not.toHaveBeenCalled();
+    expect(clickInput).toHaveBeenCalled();
+  });
+
+  it('reports input click for type submit', () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'submit');
+    document.body.append(input);
+    input.dispatchEvent(makeEvent(document));
+
+    expect(clickLink).not.toHaveBeenCalled();
+    expect(clickButton).not.toHaveBeenCalled();
+    expect(clickInput).toHaveBeenCalled();
+  });
+
+  it('reports input click for type button', () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'button');
+    document.body.append(input);
+    input.dispatchEvent(makeEvent(document));
+
+    expect(clickLink).not.toHaveBeenCalled();
+    expect(clickButton).not.toHaveBeenCalled();
+    expect(clickInput).toHaveBeenCalled();
+  });
+
+  it('noops for input with different type than button or submit', () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    document.body.append(input);
+    input.dispatchEvent(makeEvent(document));
+
+    expect(clickLink).not.toHaveBeenCalled();
+    expect(clickButton).not.toHaveBeenCalled();
+    expect(clickInput).not.toHaveBeenCalled();
+  });
+
+  it('Skips reporting input clicks if requested', () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'button');
+    input.setAttribute('data-analytics-disable-track', 'true');
+    document.body.append(input);
+    input.dispatchEvent(makeEvent(document));
+
+    expect(clickLink).not.toHaveBeenCalled();
+    expect(clickButton).not.toHaveBeenCalled();
+    expect(clickInput).not.toHaveBeenCalled();
   });
 });

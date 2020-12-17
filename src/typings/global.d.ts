@@ -28,6 +28,10 @@ declare global {
       prototype: dom.HTMLDetailsElement;
       new(): dom.HTMLDetailsElement;
     };
+    HTMLInputElement: {
+      prototype: dom.HTMLInputElement;
+      new(): dom.HTMLInputElement;
+    };
     Element: {
       prototype: dom.Element;
       new(): dom.Element;
