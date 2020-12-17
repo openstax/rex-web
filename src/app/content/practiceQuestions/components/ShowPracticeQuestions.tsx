@@ -67,6 +67,7 @@ export const QuestionsHeader = styled.div`
 export const StyledContentLink = styled.a`
   display: block;
   width: max-content;
+  max-width: 100%;
   flex-shrink: 0;
   font-size: 1.4rem;
   color: #929292;
