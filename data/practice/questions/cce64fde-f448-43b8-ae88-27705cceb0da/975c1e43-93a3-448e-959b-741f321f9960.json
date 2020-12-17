@@ -2,65 +2,103 @@
   {
     "answers": [
       {
-        "id": 398906,
-        "content_html": "Group 1 and Group 17",
+        "id": 244984,
+        "content_html": "When the speed of one frame of reference past another reaches the speed of light, a time interval between two events at the same location in one frame appears longer when measured from the second frame.",
+        "correctness": "0.0",
+        "feedback_html": "Time dilation is noticeable when speed is close to the speed of light."
+      },
+      {
+        "id": 244985,
+        "content_html": "When the speed of one frame of reference past another becomes comparable to the speed of light, a time interval between two events at the same location in one frame appears longer when measured from the second frame.",
         "correctness": "1.0",
-        "feedback_html": "Group 1 and group 17 would form strong ionic bonds. Group 1 will give an electron easily and group 17 will accept an electron to attain a more stable configuration. Therefore, compounds like NaCl and LiF will be formed."
+        "feedback_html": "The time interval between two events is shorter in the frame of reference where the events occur at the same location. In other words, the events are measured on a stationary clock rather than a clock that is moving with respect to the events."
       },
       {
-        "id": 398907,
-        "content_html": "Group 1 and Group 14",
+        "id": 244986,
+        "content_html": "When the speed of one frame of reference past another reaches the speed of light, a time interval between two events at the same location in one frame appears shorter when measured from the second frame.",
         "correctness": "0.0",
-        "feedback_html": "Group 1 elements are likely to form ionic bonds by giving up the one electron in its valence shell. However, group 14 elements are missing 4 electrons, and are more likely to share electrons with other elements through covalent bonds."
+        "feedback_html": "Even if the speed is less than the speed of light, time dilation is observable. The time interval between two events is shorter in the frame of reference where the events occur at the same location (i.e., the events are measured on a stationary clock rather than a clock that is moving with respect to the events)."
       },
       {
-        "id": 398908,
-        "content_html": "Group 14 and Group 18",
+        "id": 244987,
+        "content_html": "When the speed of one frame of reference past another becomes comparable to the speed of light, a time interval between two events at the same location in one frame appears shorter when measured from the second frame.",
         "correctness": "0.0",
-        "feedback_html": "Group 18 elements have a filled valence shell and will not likely form any bonds."
-      },
-      {
-        "id": 398909,
-        "content_html": "Group 1 and Group 18",
-        "correctness": "0.0",
-        "feedback_html": "Group18 elements have a filled valence shell and will not likely form any bonds."
+        "feedback_html": "The time interval between two events is shorter in the frame of reference where the events occur at the same location (i.e., the events are measured on a stationary clock rather than one that is moving with respect to the events.)"
       }
     ],
-    "group_uuid": "471a50ca-be39-46a5-8e1a-0b3ceadf2bb9",
-    "stem_html": "<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_181dfebc75c530fd0869288e36aea7165bead4c4b07b25997bff51573399bf90.png\" alt=\"Bohr diagrams of elements from groups 1, 14, 17 and 18, and periods 1, 2 and 3 are shown. Period 1, in which the 1n shell is filling, contains hydrogen and helium. Hydrogen, in group 1, has one valence electron. Helium, in group 18, has two valence electrons. The 1n shell holds a maximum of two electrons, so the shell is full and the electron configuration is stable. Period 2, in which the 2n shell is filling, contains lithium, carbon, fluorine, and neon. Lithium, in group 1, has 1 valence electron. Carbon, in group 14, has 4 valence electrons. Fluorine, in group 17, has 7 valence electrons. Neon, in group 18, has 8 valence electrons, a full octet. Period 3, in which the 3n shell is filling, contains sodium, silicon, chlorine, and argon. Sodium, in group 1, has 1 valence electron. Silicon, in group 14, has 4 valence electrons. Chlorine, in group 17, has 7 valence electrons. Argon, in group 18, has 8 valence electrons, a full octet.\"></p>\n\n<p>Looking at the above figure, can you infer which two groups together will form a strong ionic bond?</p>\n",
-    "tags": "471a50ca-be39-46a5-8e1a-0b3ceadf2bb9",
-    "uid": "79@7"
+    "group_uuid": "79a6513b-bda5-4bd6-93a9-e904650cac8c",
+    "stem_html": "Describe time dilation and state under what conditions it becomes significant.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch10",
+      "k12phys-ch10-s02",
+      "k12phys-ch10-s02-lo01",
+      "k12phys-ch10-ex026",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "exid:k12phys-ch10-ex026",
+      "context-cnxmod:2f24f686-8d9e-4d0a-a2fe-c58f3dec6d03",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "lo:stax-phys:28-2-1"
+    ],
+    "uid": "2883@5"
   },
   {
     "answers": [
       {
-        "id": 470572,
-        "content_html": "hemoglobin, red blood cells, blood, blood vessels, cardiovascular system",
+        "id": 212296,
+        "content_html": "The particle’s momentum will rapidly decrease.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that momentum of an object is given by <span data-math=\"p = \\gamma mv\">p = \\gamma mv</span>."
+      },
+      {
+        "id": 212297,
+        "content_html": "The particle’s momentum will rapidly increase.",
         "correctness": "1.0",
-        "feedback_html": "The correct ranking with respect to increasing complexity is hemoglobin, red blood cells, blood, blood vessels, cardiovascular system."
+        "feedback_html": "The particle’s momentum increases rapidly with increasing speed as <span data-math=\"\\gamma\">\\gamma</span> also increases, but the speed will never reach the speed of light because the particle cannot have infinite momentum."
       },
       {
-        "id": 470569,
-        "content_html": "hemoglobin, red blood cells, blood, artery, cardiovascular system",
+        "id": 212295,
+        "content_html": "The particle’s momentum will remain constant.",
         "correctness": "0.0",
-        "feedback_html": "Veins are a part of the cardiovascular system. Veins and arteries are both types of blood vessels."
+        "feedback_html": "The relativistic factor <span data-math=\"\\gamma\">\\gamma</span> increases with increasing speed. Recall that momentum of an object is given by <span data-math=\"p = \\gamma mv\">p = \\gamma mv</span>."
       },
       {
-        "id": 470570,
-        "content_html": "red blood cells, hemoglobin, blood, blood vessels, cardiovascular system",
+        "id": 212294,
+        "content_html": "The particle’s momentum will approach zero.",
         "correctness": "0.0",
-        "feedback_html": "Red blood cells have higher complexity than hemoglobin."
-      },
-      {
-        "id": 470571,
-        "content_html": "oxygen, carbon dioxide, red blood cells, hemoglobin, blood, artery, cardiovascular system",
-        "correctness": "0.0",
-        "feedback_html": "Oxygen and carbon dioxide are not part of the cardiovascular system."
+        "feedback_html": "The particle’s momentum will increase rapidly with increase in speed, and it will approach infinity as the speed approaches the speed of light."
       }
     ],
-    "group_uuid": "73de850f-3c64-4b61-97fd-5a79bf61b14b",
-    "stem_html": "Consider the cardiovascular system. Rank in order of increasing complexity all its levels of organization starting with the hemoglobin.",
-    "tags": "73de850f-3c64-4b61-97fd-5a79bf61b14b",
-    "uid": "41@8"
+    "group_uuid": "41e61fe1-da60-415c-a88c-4c0b9a36f9ec",
+    "stem_html": "A <span data-math=\"\\beta\">\\beta</span> particle (a free electron) is speeding around the track in a cyclotron, rapidly gaining speed. How will the particle’s momentum change as its speed approaches the speed of light? Explain.",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch10",
+      "k12phys-ch10-s02",
+      "k12phys-ch10-s02-lo01",
+      "k12phys-ch10-ex028",
+      "time:short",
+      "dok:2",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:28-5-1",
+      "exid:k12phys-ch10-ex028",
+      "context-cnxmod:2f24f686-8d9e-4d0a-a2fe-c58f3dec6d03",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:a356793b-2555-4156-a939-1edfdf939fb1",
+      "context-cnxmod:e04079fc-76e4-4a39-ac45-70a5ce6f8f85"
+    ],
+    "uid": "2885@4"
   }
 ]

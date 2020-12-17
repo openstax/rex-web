@@ -28,40 +28,73 @@
     ],
     "group_uuid": "ad564dd9-5e58-4919-bdc9-63d2b6dca2bc",
     "stem_html": "If a <span data-math=\"5\\text{-V}\">5\\text{-V}</span> drop occurs across <span data-math=\"R_1\">R_1</span>, and <span data-math=\"R_1\">R_1</span> is connected in parallel to <span data-math=\"R_2\">R_2</span>, what is the voltage drop across <span data-math=\"R_2\">R_2</span>?",
-    "tags": "ad564dd9-5e58-4919-bdc9-63d2b6dca2bc",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "grasp-check",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s03-lo02",
+      "k12phys-ch19-s03",
+      "k12phys-ch19-ex059",
+      "exid:k12phys-ch19-ex059",
+      "context-cnxmod:232923b9-d2ec-4422-b122-4cf826e2fb87",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "filter-type:import:has-context",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-2",
+      "context-cnxfeature:fs-id1169084983897",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.3"
+    ],
     "uid": "7329@6"
   },
   {
     "answers": [
       {
-        "id": 418058,
-        "content_html": "The original hypothesis is correct. There is something wrong with the electrical outlet and therefore the toaster doesn’t work.",
-        "correctness": "0.0",
-        "feedback_html": "The original hypothesis is incorrect because the toaster may be broken or was not turned on."
-      },
-      {
-        "id": 418059,
-        "content_html": "The original hypothesis is incorrect. Alternative hypothesis includes that toaster wasn’t turned on.",
+        "id": 382167,
+        "content_html": "No, because for parallel combination of resistors, the resistance through the remaining circuit increases.",
         "correctness": "1.0",
-        "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on."
+        "feedback_html": "For the parallel combination of resistors, the equivalent resistance increases if any of the resistors are removed."
       },
       {
-        "id": 418060,
-        "content_html": "The original hypothesis is correct. The coffee maker and the toaster do not work when plugged into the outlet.",
+        "id": 382166,
+        "content_html": "Yes, because for parallel combination of resistors, the resistance through the remaining circuit increases.",
         "correctness": "0.0",
-        "feedback_html": "The coffee maker works when plugged into the outlet, but the toaster doesn’t. Alternative hypothesis includes that the toaster wasn’t turned on."
-      },
-      {
-        "id": 418061,
-        "content_html": "The original hypothesis is incorrect. Alternative hypotheses includes that both coffee maker and toaster were broken.",
-        "correctness": "0.0",
-        "feedback_html": "The coffee maker works in the mentioned situation but the toaster doesn’t. Alternative hypotheses suggests that the toaster might be broken or was not working."
+        "feedback_html": "Consider, for the parallel combination of resistors, the equivalent resistance increases if any of the resistors is removed but in series combination of resistors, the equivalent resistance decreases if any of the resistors is removed."
       }
     ],
-    "group_uuid": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "stem_html": "<p>In the example below, the scientific method is used to solve an everyday problem. Order the scientific method steps (numbered items) with the process of solving the everyday problem (lettered items). Based on the results of the experiment, is the hypothesis correct? If it is incorrect, propose some alternative hypotheses.</p>\n\n<table class=\"unnumbered\">\n  <thead>\n    <tr>\n      <th style=\"text-align: center;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Scientific Method</th>\n      <th style=\"text-align: left;\">&nbsp;</th>\n      <th style=\"text-align: left;\">Everyday process</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"text-align: center;\">1</td>\n      <td style=\"text-align: left;\">Observation</td>\n      <td style=\"text-align: left;\">A</td>\n      <td style=\"text-align: left;\">There is something wrong with the electrical outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">2</td>\n      <td style=\"text-align: left;\">Question</td>\n      <td style=\"text-align: left;\">B</td>\n      <td style=\"text-align: left;\">If something is wrong with the outlet, my coffeemaker also won’t work when plugged into it.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">3</td>\n      <td style=\"text-align: left;\">Hypothesis (answer)</td>\n      <td style=\"text-align: left;\">C</td>\n      <td style=\"text-align: left;\">My toaster doesn’t toast my bread.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">4</td>\n      <td style=\"text-align: left;\">Prediction</td>\n      <td style=\"text-align: left;\">D</td>\n      <td style=\"text-align: left;\">I plug my coffee maker into the outlet.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">5</td>\n      <td style=\"text-align: left;\">Experiment</td>\n      <td style=\"text-align: left;\">E</td>\n      <td style=\"text-align: left;\">My coffeemaker works.</td>\n    </tr>\n    <tr>\n      <td style=\"text-align: center;\">6</td>\n      <td style=\"text-align: left;\">Result</td>\n      <td style=\"text-align: left;\">F</td>\n      <td style=\"text-align: left;\">What is preventing my toaster from working?</td>\n    </tr>\n  </tbody>\n</table>\n",
-    "tags": "186544a7-d2d0-4e62-ae3e-5fd97d297b35",
-    "uid": "1@7"
+    "group_uuid": "1aa88f13-0b23-47b1-89d7-e2b3ce4d4458",
+    "stem_html": "If you remove resistance from a circuit, does the total resistance of the circuit always decrease? Explain.",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s03",
+      "k12phys-ch19-s03-lo01",
+      "k12phys-ch19-ex069",
+      "exid:k12phys-ch19-ex069",
+      "context-cnxmod:232923b9-d2ec-4422-b122-4cf826e2fb87",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-4",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.5"
+    ],
+    "uid": "7349@5"
   },
   {
     "answers": [
@@ -92,7 +125,29 @@
     ],
     "group_uuid": "7660299b-450b-46be-b2d7-9f4742607c99",
     "stem_html": "Two identical resistors are connected in parallel across the terminals of a battery. If you increase the resistance of one of the resistors, what happens to the current through and the voltage across the other resistor?",
-    "tags": "7660299b-450b-46be-b2d7-9f4742607c99",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s03",
+      "k12phys-ch19-s03-lo01",
+      "k12phys-ch19-ex074",
+      "exid:k12phys-ch19-ex074",
+      "context-cnxmod:232923b9-d2ec-4422-b122-4cf826e2fb87",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-5",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.3"
+    ],
     "uid": "7354@5"
   }
 ]
