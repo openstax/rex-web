@@ -31,7 +31,7 @@ export const AnswerContent = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const AnswerLabel = styled.label`
+export const AnswerIndicator = styled.span`
   min-width: 4rem;
   min-height: 4rem;
   border-radius: 50%;
@@ -96,33 +96,43 @@ const getAnswerTheme = (props: AnswerBlockProps) => {
 };
 
 const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerThemes]) => css`
-  ${AnswerLabel} {
+  ${AnswerIndicator} {
     color: ${answerTheme.fontColor};
     background-color: ${answerTheme.background};
     border: 1.5px solid ${answerTheme.border};
   }
 
   &:hover {
-    ${AnswerLabel} {
+    ${AnswerIndicator} {
       border-color: ${answerTheme.borderHovered};
     }
   }
 `;
 
 // tslint:disable-next-line: variable-name
-export const AnswerBlock = styled.div`
-  padding: 0 2rem 2.4rem;
+export const AnswerBlock = styled.label`
+  padding: 1rem 2.4rem;
   display: flex;
   align-items: flex-start;
   cursor: ${(props: AnswerBlockProps) => props.isSubmitted ? 'not-allowed' : 'pointer'};
   ${flow(getAnswerTheme, getAnswerThemeCss)}
   ${theme.breakpoints.mobile(css`
-    padding: 0 1rem 2.4rem;
+    padding: 0.5rem 2.4rem;
 
     ${ContentExcerpt} {
       padding: 0;
     }
   `)}
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:focus + span {
+      outline: auto;
+    }
+  }
 `;
 
 // tslint:disable-next-line: variable-name
