@@ -216,7 +216,8 @@ const tabbableElementsSelector = [
   '[tabindex]',
 ].map((el) => el + `:not([tabindex='-1'])`).join(',');
 
-export const disableContentTabbingHandler = () => {
+export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
+  if (!isEnabled) { return; }
   const root = assertDocument().querySelector('#root');
   if (!root) { return; }
 
@@ -245,10 +246,6 @@ export const disableContentTabbingHandler = () => {
   };
 };
 
-export const useDisableContentTabbing = (disableTabbing: boolean) => {
-  React.useEffect(() => {
-    if (disableTabbing) {
-      disableContentTabbingHandler();
-    }
-  }, [disableTabbing]);
+export const useDisableContentTabbing = (isEnabled: boolean) => {
+  React.useEffect(disableContentTabbingHandler(isEnabled), [isEnabled]);
 };
