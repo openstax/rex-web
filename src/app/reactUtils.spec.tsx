@@ -424,7 +424,7 @@ describe('useDisableContentTabbing', () => {
   tabbableElementOutsideOfTheRoot.setAttribute('href', 'asd');
   document.body.append(tabbableElementOutsideOfTheRoot);
 
-  const reverse = utils.disableContentTabbingHandler();
+  const reverse = utils.disableContentTabbingHandler(true)();
 
   if (!reverse) {
     return expect(reverse).toBeTruthy();
