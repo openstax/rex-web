@@ -245,4 +245,10 @@ export const disableContentTabbingHandler = () => {
   };
 };
 
-export const useDisableContentTabbing = () => React.useEffect(disableContentTabbingHandler);
+export const useDisableContentTabbing = (disableTabbing: boolean) => {
+  React.useEffect(() => {
+    if (disableTabbing) {
+      disableContentTabbingHandler();
+    }
+  }, [disableTabbing]);
+};

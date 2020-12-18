@@ -46,10 +46,7 @@ interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
 
 // tslint:disable-next-line:variable-name
 export const Overlay = styled(({ mobileOnly, disableTabbing = true, zIndex, ...props}: OverlayProps) => {
-  if (disableTabbing) {
-    useDisableContentTabbing();
-  }
-
+  useDisableContentTabbing(disableTabbing);
   return <div {...props} />;
 })`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
