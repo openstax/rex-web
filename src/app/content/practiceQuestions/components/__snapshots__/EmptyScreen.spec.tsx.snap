@@ -18,7 +18,7 @@ exports[`EmptyScreen for practice questions renders properly and dispatches acti
       <span
         className="NextSectionMessage__StyledMessageText-qtwzgn-2 iCtbqd"
       >
-        Select a section from the dropdown above or continue to 
+        Continue to 
       </span>
       <span
         className="NextSectionMessage__StyledSectionTitle-qtwzgn-3 cmlWLO"
