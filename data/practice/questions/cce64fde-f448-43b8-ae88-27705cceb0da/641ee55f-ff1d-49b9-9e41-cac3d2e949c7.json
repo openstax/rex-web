@@ -2,25 +2,25 @@
   {
     "answers": [
       {
-        "id": 374233,
+        "id": 516677,
         "content_html": "146 s",
         "correctness": "1.0",
         "feedback_html": "<div data-math=\"\\Delta t = {{\\Delta d} \\over {{v_{avg}}}} = {{205\\,m} \\over {1.40\\,m/s}} = 146\\,s\">\\Delta t = {{\\Delta d} \\over {{v_{avg}}}} = {{205\\,m} \\over {1.40\\,m/s}} = 146\\,s</div>\n"
       },
       {
-        "id": 374230,
+        "id": 516676,
         "content_html": "0.01 s",
         "correctness": "0.0",
         "feedback_html": "Cassie walks 1.40 m in 1 second. Think of how many seconds she will take to cover 205 m."
       },
       {
-        "id": 374231,
+        "id": 516675,
         "content_html": "2.50 min",
         "correctness": "0.0",
         "feedback_html": "Convert seconds into minutes and check significant figures correctly."
       },
       {
-        "id": 374232,
+        "id": 516674,
         "content_html": "287 s",
         "correctness": "0.0",
         "feedback_html": "Set up the equation appropriately. Time can be measured after dividing total distance by average speed."
@@ -47,11 +47,10 @@
       "type:practice",
       "lo:stax-phys:2-3-2",
       "context-cnxmod:0530a45f-426f-4804-b22d-5d72704fa777",
-      "context-cnxmod:f6a98016-c865-4380-aea5-eb6578481242",
       "aplo:stax-apphys:4.A.2.3",
       "aplo:stax-apphys:4.A.2.1"
     ],
-    "uid": "1837@5"
+    "uid": "1837@6"
   },
   {
     "answers": [
@@ -111,25 +110,25 @@
   {
     "answers": [
       {
-        "id": 374292,
+        "id": 516658,
         "content_html": "t/6",
         "correctness": "0.0",
         "feedback_html": "Recall that the distance traveled is average speed multiplied by the time taken."
       },
       {
-        "id": 374293,
+        "id": 516661,
         "content_html": "t/3",
         "correctness": "1.0",
         "feedback_html": "The time can be obtained using the fact that average speed <span data-math=\"v_{avg}\">v_{avg}</span> is given by <span data-math=\"v_{avg}\">v_{avg}</span> = distance/time."
       },
       {
-        "id": 374291,
+        "id": 516659,
         "content_html": "3t",
         "correctness": "0.0",
         "feedback_html": "The distance covered by Rob in both journeys is the same. So, if speed has increased by 3 times, then by how much should the time be reduced to make the distance constant."
       },
       {
-        "id": 374290,
+        "id": 516660,
         "content_html": "6t",
         "correctness": "0.0",
         "feedback_html": "Distance is average speed multiplied by the time taken. Use this relation to obtain the time taken for the return journey."
@@ -157,34 +156,33 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:0530a45f-426f-4804-b22d-5d72704fa777",
-      "context-cnxmod:f6a98016-c865-4380-aea5-eb6578481242",
       "aplo:stax-apphys:4.A.2.3",
       "aplo:stax-apphys:4.A.2.1"
     ],
-    "uid": "1853@6"
+    "uid": "1853@7"
   },
   {
     "answers": [
       {
-        "id": 374298,
+        "id": 516656,
         "content_html": "Reduce the distance that the object travels by half, keeping the time constant, or keep the distance constant and double the time.",
         "correctness": "0.0",
         "feedback_html": "Average speed is the distance traveled per unit time. So reducing distance by keeping time constant will decrease the average velocity. Similarly, increasing time by keeping distance constant will also decrease average speed."
       },
       {
-        "id": 374301,
+        "id": 516657,
         "content_html": "Double the distance that the object travels, keeping the time constant, or keep the distance constant and reduce the time by half.",
         "correctness": "1.0",
         "feedback_html": "To double the average speed, double the distance and keep the time constant, or reduce the time by half and keep distance constant."
       },
       {
-        "id": 374299,
+        "id": 516655,
         "content_html": "Reduce the distance that the object travels to one-fourth, keeping the time constant, or keep the distance constant and increase the time by fourfold.",
         "correctness": "0.0",
         "feedback_html": "Average speed is directly proportional to the distance covered if time is constant, and it is inversely proportional to time if distance is kept constant. So, reducing distance or increasing time decreases the average speed."
       },
       {
-        "id": 374300,
+        "id": 516654,
         "content_html": "Increase the distance by fourfold, keeping the time constant, or keep the distance constant and reduce the time by one-fourth.",
         "correctness": "0.0",
         "feedback_html": "Average speed is directly proportional to the distance covered if time is constant, and it is inversely proportional to time if distance is kept constant. So, making the distance 4 times or reducing the time by one-fourth will make the average speed 4 times the initial value."
@@ -212,11 +210,10 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:0530a45f-426f-4804-b22d-5d72704fa777",
-      "context-cnxmod:f6a98016-c865-4380-aea5-eb6578481242",
       "aplo:stax-apphys:4.A.2.3",
       "aplo:stax-apphys:4.A.2.1"
     ],
-    "uid": "1855@5"
+    "uid": "1855@6"
   },
   {
     "answers": [

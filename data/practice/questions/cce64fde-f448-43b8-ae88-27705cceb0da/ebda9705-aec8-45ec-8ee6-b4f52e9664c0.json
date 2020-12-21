@@ -2,32 +2,32 @@
   {
     "answers": [
       {
-        "id": 376267,
-        "content_html": "<span data-math=\"6\\,\\text{m/s}\">6\\,\\text{m/s}</span>",
+        "id": 509064,
+        "content_html": "3 m/s<sup>2</sup>",
         "correctness": "0.0",
         "feedback_html": "equation for centripetal acceleration is <span data-math=\"\\frac{v^2}{r}\\!\">\\frac{v^2}{r}\\!</span>."
       },
       {
-        "id": 376268,
-        "content_html": "<span data-math=\"72\\,\\text{m/s}\">72\\,\\text{m/s}</span>",
+        "id": 509065,
+        "content_html": "6 m/s<sup>2</sup>",
         "correctness": "0.0",
         "feedback_html": "The unit of acceleration is <span data-math=\"\\text{m/s}^2\\!\">\\text{m/s}^2\\!</span>."
       },
       {
-        "id": 376269,
-        "content_html": "<span data-math=\"6\\,\\text{m/s}^2\">6\\,\\text{m/s}^2</span>",
+        "id": 509066,
+        "content_html": "36 m/s<sup>2</sup>",
         "correctness": "0.0",
         "feedback_html": "The equation for centripetal acceleration is <span data-math=\"\\frac{v^2\\!}{r}\">\\frac{v^2\\!}{r}</span>."
       },
       {
-        "id": 376270,
-        "content_html": "<span data-math=\"72\\,\\text{m/s}^2\\!\">72\\,\\text{m/s}^2\\!</span>",
+        "id": 509067,
+        "content_html": "72 m/s<sup>2</sup>",
         "correctness": "1.0",
         "feedback_html": "The centripetal acceleration for the given object can be obtained by using the relation <span data-math=\"a_c = \\frac{v^2\\!}{r}\">a_c = \\frac{v^2\\!}{r}</span>."
       }
     ],
     "group_uuid": "8b8b75e3-bd66-4442-b599-bce97dd092d2",
-    "stem_html": "What is the centripetal acceleration of an object with speed <span data-math=\"12\\,\\text{m/s}\">12\\,\\text{m/s}</span> going along a path of radius <span data-math=\"2.0\\,\\text{m}\">2.0\\,\\text{m}</span>?",
+    "stem_html": "What is the centripetal acceleration felt by the passengers of a car moving at 12 m/s along a curve with radius 2.0 m?",
     "tags": [
       "inbook-yes",
       "k12phys",
@@ -37,21 +37,20 @@
       "k12phys-ch06-s02-lo03",
       "k12phys-ch06-ex036",
       "dok:1",
-      "time:medium",
+      "time:short",
       "blooms:3",
-      "book:stax-phys",
       "exid:k12phys-ch06-ex036",
       "context-cnxmod:9c6f5fc9-5c9f-499a-ab8d-1fc0384b3017",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
-      "lo:stax-phys:6-2-2",
       "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
       "aplo:stax-apphys:3.A.2.1",
-      "aplo:stax-apphys:3.B.1.3"
+      "aplo:stax-apphys:3.B.1.3",
+      "book:stax-apphys",
+      "science-practice:mathematical-routines"
     ],
-    "uid": "2445@5"
+    "uid": "2445@6"
   },
   {
     "answers": [
@@ -214,25 +213,25 @@
   {
     "answers": [
       {
-        "id": 376299,
+        "id": 517025,
         "content_html": "More force is required, because the force is inversely proportional to the radius of the circular orbit.",
         "correctness": "0.0",
         "feedback_html": "Less force is required to maintain the same speed because the net force is inversely proportional to the radius of the circular orbit, that is, <span data-math=\"F_c = \\frac{mv^2}{r}\\!\">F_c = \\frac{mv^2}{r}\\!</span>."
       },
       {
-        "id": 376300,
+        "id": 517024,
         "content_html": "More force is required because the force is directly proportional to the radius of the circular orbit.",
         "correctness": "0.0",
         "feedback_html": "The force is inversely proportional to the radius of the circular orbit and is <span data-math=\"F_c = \\frac{mv^2\\!}{r}\">F_c = \\frac{mv^2\\!}{r}</span>."
       },
       {
-        "id": 376302,
+        "id": 517026,
         "content_html": "Less force is required because the force is inversely proportional to the radius of the circular orbit.",
         "correctness": "1.0",
         "feedback_html": "The force and the radius are related to each other by <span data-math=\"F_c= \\frac{mv^2\\!}{r}\">F_c= \\frac{mv^2\\!}{r}</span>. Therefore, when the radius is increased, less force is required to main the same speed."
       },
       {
-        "id": 376301,
+        "id": 517023,
         "content_html": "Less force is required because the force is directly proportional to the radius of the circular orbit.",
         "correctness": "0.0",
         "feedback_html": "The force is not directly proportional to the radius of the circular orbit. The force and the radius are related to each other by <span data-math=\"F_c = \\frac{mv^2\\!}{r}\">F_c = \\frac{mv^2\\!}{r}</span>."
@@ -260,34 +259,33 @@
       "type:practice",
       "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
       "lo:stax-phys:6-2-2",
-      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
       "aplo:stax-apphys:3.A.2.1",
       "aplo:stax-apphys:3.B.1.3"
     ],
-    "uid": "2454@5"
+    "uid": "2454@6"
   },
   {
     "answers": [
       {
-        "id": 376330,
+        "id": 517010,
         "content_html": "<span data-math=\"0^\\circ\">0^\\circ</span>",
         "correctness": "0.0",
         "feedback_html": "The tangential velocity is directed along the path of the rotating body while the centripetal force is directed toward the center of the rotating body. Therefore, the physical quantities are perpendicular to each other."
       },
       {
-        "id": 376331,
+        "id": 517009,
         "content_html": "<span data-math=\"30^\\circ\\!\">30^\\circ\\!</span>",
         "correctness": "0.0",
         "feedback_html": "It is incorrect that the centripetal force and the tangential velocity make an angle of <span data-math=\"30^\\circ\\!\">30^\\circ\\!</span> with each other. They both are perpendicular to each other in circular motion."
       },
       {
-        "id": 376333,
+        "id": 517011,
         "content_html": "<span data-math=\"90^\\circ\">90^\\circ</span>",
         "correctness": "1.0",
         "feedback_html": "The centripetal force and the tangential velocity are perpendicular to each other in circular motion, that is, they make an angle of <span data-math=\"90^\\circ\\!\">90^\\circ\\!</span> with each other."
       },
       {
-        "id": 376332,
+        "id": 517008,
         "content_html": "<span data-math=\"180^\\circ\">180^\\circ</span>",
         "correctness": "0.0",
         "feedback_html": "The tangential velocity acts tangential to the circular path while the centripetal force acts in the direction perpendicular to it, that is, toward the center of the circular path."
@@ -315,34 +313,33 @@
       "type:practice",
       "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
       "lo:stax-phys:6-2-2",
-      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
       "aplo:stax-apphys:3.A.2.1",
       "aplo:stax-apphys:3.B.1.3"
     ],
-    "uid": "2462@5"
+    "uid": "2462@6"
   },
   {
     "answers": [
       {
-        "id": 376349,
+        "id": 516999,
         "content_html": "Yes, because the velocity is not constant.",
         "correctness": "1.0",
         "feedback_html": "In uniform circular motion, the velocity changes because its direction changes. Thus, it accelerates."
       },
       {
-        "id": 376348,
+        "id": 516996,
         "content_html": "No, because the velocity is not constant.",
         "correctness": "0.0",
         "feedback_html": "The velocity is not constant, which means that there is a nonzero acceleration."
       },
       {
-        "id": 376347,
+        "id": 516997,
         "content_html": "Yes, because the velocity is constant.",
         "correctness": "0.0",
         "feedback_html": "A constant velocity means that the acceleration is zero."
       },
       {
-        "id": 376346,
+        "id": 516998,
         "content_html": "No, because the velocity is constant.",
         "correctness": "0.0",
         "feedback_html": "The velocity is not constant, which means that there is a nonzero acceleration."
@@ -370,34 +367,33 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
-      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
       "aplo:stax-apphys:3.A.2.1",
       "aplo:stax-apphys:3.B.1.3"
     ],
-    "uid": "2466@6"
+    "uid": "2466@7"
   },
   {
     "answers": [
       {
-        "id": 376354,
+        "id": 516990,
         "content_html": "<span data-math=\"F_c \\propto \\frac{1}{v}\">F_c \\propto \\frac{1}{v}</span>",
         "correctness": "0.0",
         "feedback_html": "The centripetal force is not inversely proportional to the velocity. The centripetal force is <span data-math=\"F_c = \\frac{mv^2}{r}\\!\">F_c = \\frac{mv^2}{r}\\!</span>."
       },
       {
-        "id": 376355,
+        "id": 516989,
         "content_html": "<span data-math=\"F_c \\propto \\frac{1}{v^2\\!}\">F_c \\propto \\frac{1}{v^2\\!}</span>",
         "correctness": "0.0",
         "feedback_html": "The centripetal force is <span data-math=\"F_c = \\frac{m v^2\\!}{r}\">F_c = \\frac{m v^2\\!}{r}</span>. The centripetal force is not inversely proportional to the square of the tangential velocity."
       },
       {
-        "id": 376356,
+        "id": 516988,
         "content_html": "<span data-math=\"F_c \\propto v\">F_c \\propto v</span>",
         "correctness": "0.0",
         "feedback_html": "The centripetal force is directly proportional to the square of the tangential velocity. The centripetal force is not directly proportional to the tangential velocity. The centripetal force is <span data-math=\"F_c = \\frac{mv^2\\!}{r}\">F_c = \\frac{mv^2\\!}{r}</span>."
       },
       {
-        "id": 376357,
+        "id": 516991,
         "content_html": "<span data-math=\"F_c \\propto v^2\">F_c \\propto v^2</span>",
         "correctness": "1.0",
         "feedback_html": "The centripetal force is directly proportional to the square of the tangential velocity. The centripetal force and the tangential velocity are related to each other by <span data-math=\"F_c = \\frac{mv^2\\!}{r}\">F_c = \\frac{mv^2\\!}{r}</span>."
@@ -425,10 +421,9 @@
       "type:practice",
       "context-cnxmod:ddaaf259-4556-45b0-8890-86c04aa1afa6",
       "lo:stax-phys:6-2-2",
-      "context-cnxmod:67e1ef42-16bb-45e4-b3ea-40a8d856e14e",
       "aplo:stax-apphys:3.A.2.1",
       "aplo:stax-apphys:3.B.1.3"
     ],
-    "uid": "2468@5"
+    "uid": "2468@6"
   }
 ]

@@ -109,19 +109,19 @@
   {
     "answers": [
       {
-        "id": 382304,
+        "id": 517726,
         "content_html": "No, the power dissipated remain same.",
         "correctness": "0.0",
         "feedback_html": "The power loss increases because extra power is dissipated by second resistor."
       },
       {
-        "id": 382306,
+        "id": 517727,
         "content_html": "Yes, the power dissipated increases.",
         "correctness": "1.0",
         "feedback_html": "The battery supplies the extra power and the second resistor dissipates it."
       },
       {
-        "id": 382305,
+        "id": 517725,
         "content_html": "Yes, the power dissipated decreases.",
         "correctness": "0.0",
         "feedback_html": "Remember that the battery supplies the extra power and the second resistor dissipates it."
@@ -149,9 +149,8 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:73962280-9abe-4429-b127-a1062b1b3fd5",
-      "context-cnxmod:7bd61dab-ae59-4a3b-a5b7-99be12a6f7d8",
       "aplo:stax-apphys:5.B.9.8"
     ],
-    "uid": "7386@5"
+    "uid": "7386@6"
   }
 ]
