@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { ListOl } from 'styled-icons/fa-solid/ListOl';
+import TocIcon from '../../../assets/TocIcon';
 import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
@@ -25,12 +25,6 @@ interface MiddleProps {
   closeToc: () => void;
   hideMobileText: boolean;
 }
-
-// tslint:disable-next-line:variable-name
-const ListIcon = styled(ListOl)`
-  ${toolbarIconStyles};
-  margin-right: 0.5rem;
-`;
 
 // tslint:disable-next-line:variable-name
 export const ToCButtonText = styled.span`
@@ -58,6 +52,11 @@ const ToCButton = styled.button`
   :hover {
     color: ${toolbarIconColor.darker};
   }
+
+  > svg {
+    ${toolbarIconStyles};
+    margin-right: 0.5rem;
+  }
 `;
 
 const closedMessage = 'i18n:toc:toggle:closed';
@@ -69,7 +68,8 @@ export const SidebarControl: React.SFC<InnerProps> = ({message, hideMobileText, 
     {(msg: Element | string) => {
       const txt = assertString(msg, 'Aria label only supports strings');
       return <ToCButton aria-label={txt} {...props}>
-        <ListIcon/><ToCButtonText hideMobileText={!!hideMobileText}>Table of contents</ToCButtonText>
+        <TocIcon />
+        <ToCButtonText hideMobileText={!!hideMobileText}>Table of contents</ToCButtonText>
         {children}
       </ToCButton>;
     }}
