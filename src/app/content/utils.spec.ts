@@ -5,7 +5,7 @@ import {
   getContentPageReferences,
   getIdFromPageParam,
   getPageIdFromUrlParam,
-  parseBookTree,
+  parseContents,
   stripIdVersion,
   toRelativeUrl,
 } from './utils';
@@ -188,7 +188,7 @@ describe('toRelativeUrl', () => {
   });
 });
 
-describe('parseBookTree', () => {
+describe('parseContents', () => {
   const appendixHtml = '<span class="os-number">' +
     '<span class="os-part-text">Appendix </span>' +
     'D' +
@@ -237,7 +237,7 @@ describe('parseBookTree', () => {
   });
 
   it('removes .os-part-text', () => {
-    expect(parseBookTree(book).tree.contents[0].title).toEqual(
+    expect(parseContents(book, book.tree.contents)[0].title).toEqual(
       '<span class="os-number">' +
         'D' +
       '</span>' +
@@ -246,12 +246,12 @@ describe('parseBookTree', () => {
   });
 
   it('removes .os-number and .os-divider if section is an unit', () => {
-    expect(parseBookTree(book).tree.contents[1].title).toEqual(
+    expect(parseContents(book, book.tree.contents)[1].title).toEqual(
       '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>');
   });
 
   it('handles unit that does not have .os-number and .os-divider', () => {
-    expect(parseBookTree(book).tree.contents[2].title).toEqual(
+    expect(parseContents(book, book.tree.contents)[2].title).toEqual(
       '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>');
   });
 
@@ -261,7 +261,7 @@ describe('parseBookTree', () => {
       title: title.replace(/appendix/i, 'something else'),
     })) as ArchiveTree['contents'];
 
-    expect(parseBookTree(book).tree.contents[0].title).toEqual(
+    expect(parseContents(book, book.tree.contents)[0].title).toEqual(
       '<span class="os-number">' +
         'D' +
       '</span>' +

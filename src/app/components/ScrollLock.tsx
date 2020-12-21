@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
 import { sidebarTransitionTime, toolbarDesktopHeight } from '../content/components/constants';
 import { disablePrint } from '../content/components/utils/disablePrint';
@@ -37,14 +37,15 @@ const fadeIn = keyframes`
   }
 `;
 
-interface OverlayProps {
+interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
-  [key: string]: any;
   onClick?: () => void;
+  mobileOnly?: boolean;
+  zIndex?: number;
 }
 
 // tslint:disable-next-line:variable-name
-export const Overlay = styled((props: OverlayProps) => {
+export const Overlay = styled(({ mobileOnly, zIndex, ...props}: OverlayProps) => {
   useDisableContentTabbing();
   return <div
     className={props.className}
