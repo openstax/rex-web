@@ -3,8 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
 import { Print } from 'styled-icons/fa-solid/Print';
-import { Search } from 'styled-icons/fa-solid/Search';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
+import SearchIcon from '../../../../assets/SearchIcon';
 import { maxNavWidth } from '../../../components/NavBar/styled';
 import {
   decoratedLinkStyle,
@@ -114,10 +114,14 @@ export const PrintOptions = styled.span`
 export const PrintIcon = styled(Print)`
   ${toolbarIconStyles}
 `;
+
 // tslint:disable-next-line:variable-name
-export const SearchButton = styled(({ desktop, mobile, ...props }) => <PlainButton {...props}><Search /></PlainButton>)`
+export const SearchButton = styled(
+  ({ desktop, mobile, ...props }) => <PlainButton {...props}><SearchIcon/></PlainButton>
+)`
   > svg {
     ${toolbarIconStyles}
+    vertical-align: middle;
   }
 
   ${(props) => props.desktop && theme.breakpoints.mobile(css`
@@ -132,7 +136,9 @@ export const SearchButton = styled(({ desktop, mobile, ...props }) => <PlainButt
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseButton = styled(({ desktop, ...props }) => <PlainButton {...props}><TimesCircle /></PlainButton>)`
+export const CloseButton = styled(
+  ({ desktop, ...props }) => <PlainButton {...props}><TimesCircle /></PlainButton>
+)`
   > svg {
     ${closeIconStyles}
   }
