@@ -4,9 +4,10 @@ services:
     command: bash -c "yarn install && yarn test"
     build:
       context: .
-      target: puppeteer
+      target: CI
     working_dir: /code
     volumes:
+      - ./data:/code/data
       - ./src:/code/src
       - ./yarn.lock:/code/yarn.lock
       - ./tslint.json:/code/tslint.json
