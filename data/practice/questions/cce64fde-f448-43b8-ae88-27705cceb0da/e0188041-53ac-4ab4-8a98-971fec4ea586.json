@@ -266,25 +266,25 @@
   {
     "answers": [
       {
-        "id": 379642,
+        "id": 517214,
         "content_html": "Water would reduce the metal’s temperature more, because water has a greater specific heat than ice.",
         "correctness": "1.0",
         "feedback_html": "Yes, water would reduce the metal’s temperature more."
       },
       {
-        "id": 379641,
+        "id": 517211,
         "content_html": "Water would reduce the metal’s temperature more, because water has a smaller specific heat than ice.",
         "correctness": "0.0",
         "feedback_html": "Water has a greater specific heat than ice, so more energy goes into the water for each <span data-math=\"1^\\circ\\,\\text{C}\">1^\\circ\\,\\text{C}</span>\n increase in the water’s temperature, and hence a greater decrease takes place in the temperature of the metal."
       },
       {
-        "id": 379640,
+        "id": 517212,
         "content_html": "Ice would reduce the metal’s temperature more, because ice has a smaller specific heat than water.",
         "correctness": "0.0",
         "feedback_html": "The smaller specific heat means that ice takes in less energy from the hot metal for each <span data-math=\"1^\\circ\\text{C}\">1^\\circ\\text{C}</span> increase in temperature than does water, and thus the ice cools the metal less efficiently."
       },
       {
-        "id": 379639,
+        "id": 517213,
         "content_html": "Ice would reduce the metal’s temperature more, because ice has a greater specific heat than water.",
         "correctness": "0.0",
         "feedback_html": "Recall that water has a greater specific heat than ice."
@@ -312,9 +312,8 @@
       "type:practice",
       "lo:stax-phys:14-2-2",
       "context-cnxmod:126dc167-76ef-41c9-a03f-4c8b1d0ac7cf",
-      "context-cnxmod:294d57ce-ebde-40fd-a751-c133630e1d45",
       "aplo:stax-apphys:5.B.7.1"
     ],
-    "uid": "6606@7"
+    "uid": "6606@8"
   }
 ]

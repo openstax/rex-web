@@ -55,25 +55,25 @@
   {
     "answers": [
       {
-        "id": 418114,
+        "id": 517842,
         "content_html": "All of the current flows through the left branch due to the open switch.",
         "correctness": "0.0",
         "feedback_html": "No current will flow in the left branch as it has an open switch."
       },
       {
-        "id": 418115,
+        "id": 517843,
         "content_html": "All of the current flows through the right branch due to the open switch in the left branch.",
         "correctness": "1.0",
         "feedback_html": "Yes, current flows in a closed circuit. Because of an open switch in the left branch of the circuit, no current will flow through it."
       },
       {
-        "id": 418116,
+        "id": 517841,
         "content_html": "All of the current flows through the middle branch due to the open switch in the left branch",
         "correctness": "0.0",
         "feedback_html": "The current is generated in the middle branch as there is a battery and all of the current flows through the right branch because there is no current in the left branch."
       },
       {
-        "id": 418117,
+        "id": 517840,
         "content_html": "There will be no current in any branch of the circuit due to the open switch.",
         "correctness": "0.0",
         "feedback_html": "The right branch is a closed circuit with a battery connected to it. So all current will go to the right branch."
@@ -101,49 +101,47 @@
       "type:practice",
       "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
       "lo:stax-phys:21-1-1",
-      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
       "aplo:stax-apphys:5.B.9.5"
     ],
-    "uid": "7316@7"
+    "uid": "7316@8"
   },
   {
     "answers": [
       {
-        "id": 418134,
-        "content_html": "<span data-math=\"0.028\\,\\Omega\">0.028\\,\\Omega</span>\n",
+        "id": 512388,
+        "content_html": "6.8 Ω",
         "correctness": "0.0",
         "feedback_html": "Recall Ohm’s law which states that voltage drop across a resistor is equal to the product of current and resistance of the resistor."
       },
       {
-        "id": 418135,
-        "content_html": "<span data-math=\"2.25\\,\\Omega\">2.25\\,\\Omega</span>\n",
+        "id": 512389,
+        "content_html": "12 Ω",
         "correctness": "0.0",
         "feedback_html": "Recall Ohm’s law. Resistance is not equal to the product of voltage and current."
       },
       {
-        "id": 418136,
-        "content_html": "<span data-math=\"36\\,\\Omega\">36\\,\\Omega</span>\n",
+        "id": 512390,
+        "content_html": "36 Ω",
         "correctness": "1.0",
         "feedback_html": "That’s right. Resistance of a resistor is equal to the voltage divided by the current through the resistor."
       },
       {
-        "id": 418137,
-        "content_html": "<span data-math=\"72\\,\\Omega\">72\\,\\Omega</span>",
+        "id": 512391,
+        "content_html": "72 Ω",
         "correctness": "0.0",
         "feedback_html": "Check the formula used for calculating the resistance and recall the mathematical form of Ohm’s law."
       }
     ],
     "group_uuid": "5d14b07a-95e8-4a58-b4fe-396152d59bb0",
-    "stem_html": "<p>What is the equivalent resistance for the circuit below if <span data-math=\"\\text{V} = 9.0\\,\\text{V}\">\\text{V} = 9.0\\,\\text{V}</span> and <span data-math=\"I = 0.25\\,\\text{A}\">I = 0.25\\,\\text{A}</span>?</p>\n\n<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_abeed08447f76afc22561b388c28d759f66855d198a77e50c317d7589bb875c8.png\" alt=\"Circuit diagram with a battery and three resistors.\"></p>\n\n\n",
+    "stem_html": "What is the resistance in the circuit below if the voltage source is a 9.0 V battery and the current is 0.25 A?\n<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_abeed08447f76afc22561b388c28d759f66855d198a77e50c317d7589bb875c8.png\" alt=\"\"></p>",
     "tags": [
       "inbook-yes",
       "k12phys",
       "ost-test-prep",
       "short-answer",
+      "time:short",
       "dok:2",
-      "time:medium",
-      "blooms:3",
-      "book:stax-phys",
+      "blooms:4",
       "k12phys-ch19",
       "k12phys-ch19-s02",
       "k12phys-ch19-s02-lo02",
@@ -151,13 +149,13 @@
       "exid:k12phys-ch19-ex052",
       "context-cnxmod:31ef6ca8-473e-43fe-b06a-f989c9fa9c11",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
-      "lo:stax-phys:21-1-5",
       "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
-      "aplo:stax-apphys:5.B.9.3"
+      "aplo:stax-apphys:5.B.9.3",
+      "book:stax-apphys",
+      "science-practice:data-analysis"
     ],
-    "uid": "7318@8"
+    "uid": "7318@9"
   }
 ]
