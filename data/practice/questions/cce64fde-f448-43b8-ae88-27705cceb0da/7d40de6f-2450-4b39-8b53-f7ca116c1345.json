@@ -56,25 +56,25 @@
   {
     "answers": [
       {
-        "id": 374763,
+        "id": 516772,
         "content_html": "(a) Push down on the accelerator and then (b) push down again on the accelerator a second time.",
         "correctness": "0.0",
         "feedback_html": "It is correct that when the driver pushes down on the accelerator the velocity and the acceleration vectors will point in same direction but what about both pointing in the opposite direction? Do you think both the vectors will point in the opposite direction if driver pushes down on the accelerator?"
       },
       {
-        "id": 374766,
+        "id": 516773,
         "content_html": "(a) Push down on the accelerator and then (b) push down on the brakes.",
         "correctness": "1.0",
         "feedback_html": "The acceleration and velocity vectors will point in the same direction when the driver pushes down on the accelerator and they will point in opposite direction when the brakes are applied."
       },
       {
-        "id": 374764,
+        "id": 516771,
         "content_html": "(a) Push down on the brakes and then (b) push down on the brakes a second time.",
         "correctness": "0.0",
         "feedback_html": "The velocity and acceleration vectors will point in the opposite direction if the brakes are applied."
       },
       {
-        "id": 374765,
+        "id": 516770,
         "content_html": "(a) Push down on the brakes and then (b) push down on the accelerator.",
         "correctness": "0.0",
         "feedback_html": "Are you sure that velocity and acceleration vectors will point in the same direction when the brakes are applied? Will they point in the opposite direction when the driver pushes down on the accelerator?"
@@ -102,10 +102,9 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:3921ce75-f453-433d-84cc-b50dd486c27d",
-      "context-cnxmod:34cee680-d73d-40b1-99aa-db0f8bfbf28d",
       "aplo:stax-apphys:3.A.1.1"
     ],
-    "uid": "1993@5"
+    "uid": "1993@6"
   },
   {
     "answers": [

@@ -216,25 +216,25 @@
   {
     "answers": [
       {
-        "id": 380268,
+        "id": 517505,
         "content_html": "Entropy depends on the change of phase of a system, but not on any other state conditions.",
         "correctness": "0.0",
         "feedback_html": "Entropy changes whenever there is a transfer of energy by heat, and does not vary only when there is a phase change."
       },
       {
-        "id": 380271,
+        "id": 517506,
         "content_html": "Entropy does not depend on how the final state is reached from the initial state.",
         "correctness": "1.0",
         "feedback_html": "Entropy of a system is a state function, and so does not depend on the path between the initial and final states."
       },
       {
-        "id": 380269,
+        "id": 517504,
         "content_html": "Entropy is least when the path between the initial state and the final state is the shortest.",
         "correctness": "0.0",
         "feedback_html": "Entropy does not increase when the path between the initial and final states is longer than the shortest path."
       },
       {
-        "id": 380270,
+        "id": 517503,
         "content_html": "Entropy is least when the path between the initial state and the final state is the longest.",
         "correctness": "0.0",
         "feedback_html": "The entropy of a system is not a path function."
@@ -262,33 +262,32 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:d4ad6259-16c3-49d5-8b98-a2ed6fac30cb",
-      "context-cnxmod:aa686082-7758-420b-81db-b76436e6456a",
       "aplo:stax-apphys:7.B.2.1"
     ],
-    "uid": "6771@5"
+    "uid": "6771@6"
   },
   {
     "answers": [
       {
-        "id": 380278,
+        "id": 517447,
         "content_html": "the first law of thermodynamics",
         "correctness": "0.0",
         "feedback_html": "The first law states that energy transferred by heat to or from a body changes the internal energy of the body and can be transformed into work done by or on the body."
       },
       {
-        "id": 380279,
+        "id": 517450,
         "content_html": "the second law of thermodynamics",
         "correctness": "1.0",
         "feedback_html": "The second law states that an object at lower temperature does not simultaneously transfer energy by heat to an object at higher temperature."
       },
       {
-        "id": 380277,
+        "id": 517448,
         "content_html": "the third law of thermodynamics",
         "correctness": "0.0",
         "feedback_html": "The third law states that the entropy of a system approaches a constant value (zero) at absolute zero."
       },
       {
-        "id": 380276,
+        "id": 517449,
         "content_html": "the zeroth law of thermodynamics",
         "correctness": "0.0",
         "feedback_html": "The zeroth law states that two bodies at the same temperature are in thermal equilibrium."
@@ -316,10 +315,9 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:ed5a4287-94eb-4889-b028-69e3363eb378",
-      "context-cnxmod:03a8500e-2942-4b15-803b-525dd9e05192",
       "aplo:stax-apphys:7.B.2.1"
     ],
-    "uid": "6773@6"
+    "uid": "6773@7"
   },
   {
     "answers": [
