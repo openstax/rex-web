@@ -1,4 +1,4 @@
-import { events } from '@openstax/event-capture-client';
+import { accessedStudyguide } from '@openstax/event-capture-client/events';
 import { createSelector } from 'reselect';
 import * as selectContent from '../../../app/content/selectors';
 import * as selectNavigation from '../../../app/navigation/selectors';
@@ -23,7 +23,7 @@ export const track = (
 ): AnalyticsEvent | void => {
   return {
     ...(page && book ? {
-      getEventCapturePayload: () => events.accessedStudyguide({pageId: page.id, bookId: book.id}),
+      getEventCapturePayload: () => accessedStudyguide({pageId: page.id, bookId: book.id}),
     } : {}),
     getGoogleAnalyticsPayload: () => ({
       eventAction: closeAction ? closeAction : 'button',
