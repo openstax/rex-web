@@ -154,32 +154,32 @@
   {
     "answers": [
       {
-        "id": 275849,
-        "content_html": "<span data-math=\"1.86 \\times 10^5\\,\\text{m/s}\">1.86 \\times 10^5\\,\\text{m/s}</span>",
+        "id": 513807,
+        "content_html": "5.09 × 10<sup>7</sup> m/s",
         "correctness": "0.0",
         "feedback_html": "The value 1.86 × 10<sup>5</sup> is the speed of light in mi/s, not m/s."
       },
       {
-        "id": 275850,
-        "content_html": "<span data-math=\"3.00 \\times 10^8\\,\\text{m/s}\">3.00 \\times 10^8\\,\\text{m/s}</span>",
-        "correctness": "1.0",
+        "id": 513808,
+        "content_html": "1.97 × 10<sup>8</sup> m/s",
+        "correctness": "0.0",
         "feedback_html": "Speed of light in a vacuum is <span data-math=\"3.00 \\times 10^8\\,\\text{m/s}\">3.00 \\times 10^8\\,\\text{m/s}</span>."
       },
       {
-        "id": 275851,
-        "content_html": "<span data-math=\"6.71 \\times 10^8\\,\\text{m/s}\">6.71 \\times 10^8\\,\\text{m/s}</span>",
-        "correctness": "0.0",
+        "id": 513809,
+        "content_html": "3.00 × 10<sup>8</sup> m/s",
+        "correctness": "1.0",
         "feedback_html": "The value 6.71 × 10<sup>8</sup> is the speed of light in mi/h, not m/s."
       },
       {
-        "id": 275852,
-        "content_html": "<span data-math=\"1.50 \\times 10^{11}\\,\\text{m/s}\">1.50 \\times 10^{11}\\,\\text{m/s}</span>",
+        "id": 513810,
+        "content_html": "1.78 x 10<sup>9</sup> m/s",
         "correctness": "0.0",
         "feedback_html": "The value 1.50 × 10<sup>11</sup> is the Earth-moon distance in km, not the speed of light in m/s."
       }
     ],
     "group_uuid": "008c3a6a-d221-4eac-8b1e-545f2f2a3525",
-    "stem_html": "What is the speed of light in a vacuum to three significant figures?",
+    "stem_html": "The dwarf planet Pluto is about 5.9 billion kilometers from the Sun. Estimate to three significant figures the speed of light arriving at Pluto from the Sun.\n",
     "tags": [
       "inbook-yes",
       "k12phys",
@@ -190,18 +190,18 @@
       "k12phys-ch10-s01-lo02",
       "k12phys-ch10-ex014",
       "dok:1",
-      "blooms:1",
       "time:short",
-      "book:stax-phys",
-      "lo:stax-phys:28-1-1",
+      "blooms:2",
       "exid:k12phys-ch10-ex014",
       "context-cnxmod:5980a2f2-1138-453a-be31-9e9a05127654",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:a0aa151b-c104-49a6-a0a7-7d2cb965d23d",
-      "context-cnxmod:9c787d6e-6886-4098-a8cf-5dca13e9d470"
+      "context-cnxmod:9c787d6e-6886-4098-a8cf-5dca13e9d470",
+      "aplo:stax-apphys:1.D.3.1",
+      "book:stax-apphys",
+      "science-practice:argumentation"
     ],
-    "uid": "2871@5"
+    "uid": "2871@6"
   }
 ]

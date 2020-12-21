@@ -99,25 +99,25 @@
   {
     "answers": [
       {
-        "id": 382182,
+        "id": 517792,
         "content_html": "The current and the voltage remain the same.",
         "correctness": "0.0",
         "feedback_html": "Remember, the current increases if resistance of second resistor is increased."
       },
       {
-        "id": 382183,
+        "id": 517791,
         "content_html": "The current decreases and the voltage remains the same.",
         "correctness": "0.0",
         "feedback_html": "The current increases if resistance of second resistor is increased."
       },
       {
-        "id": 382184,
+        "id": 517790,
         "content_html": "The current and the voltage increases.",
         "correctness": "0.0",
         "feedback_html": "It is correct that the current increases if resistance of second resistor is increased but voltage remains same."
       },
       {
-        "id": 382185,
+        "id": 517793,
         "content_html": "The current increases and the voltage remains the same.",
         "correctness": "1.0",
         "feedback_html": "Yes, the current increases and the voltage remains same."
@@ -145,9 +145,8 @@
       "type:practice",
       "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
       "lo:stax-phys:21-1-5",
-      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
       "aplo:stax-apphys:5.B.9.3"
     ],
-    "uid": "7354@5"
+    "uid": "7354@6"
   }
 ]
