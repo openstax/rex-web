@@ -215,42 +215,40 @@
   {
     "answers": [
       {
-        "id": 380475,
-        "content_html": "<span data-math=\"Eff = \\frac{Q_{\\text{h}}}{Q_{\\text{h}} - Q_{\\text{c}}}\">Eff = \\frac{Q_{\\text{h}}}{Q_{\\text{h}} - Q_{\\text{c}}}</span>\n",
+        "id": 514036,
+        "content_html": "<span data-math=\"\\frac{Q_{h} - Q_{c}}{Q_{h}}\">\\frac{Q_{h} - Q_{c}}{Q_{h}}</span>",
         "correctness": "0.0",
         "feedback_html": "The above formula always gives an efficiency that is equal to or greater than <span data-math=\"100\\%\">100\\,\\%</span>, which is not physically possible."
       },
       {
-        "id": 380476,
-        "content_html": "<span data-math=\"Eff = \\frac{Q_{\\text{h}}}{Q_{\\text{c}}}\">Eff = \\frac{Q_{\\text{h}}}{Q_{\\text{c}}}</span>\n",
-        "correctness": "0.0",
+        "id": 514037,
+        "content_html": "<span data-math=\"1 - \\frac{Q_{h} - Q_{c}}{Q_{h}}\">1 - \\frac{Q_{h} - Q_{c}}{Q_{h}}</span>",
+        "correctness": "1.0",
         "feedback_html": "Efficiency is defined as the proportion of the heat input that is used to perform work."
       },
       {
-        "id": 380477,
-        "content_html": "<span data-math=\"Eff = \\frac{Q_{\\text{c}}}{Q_{\\text{h}}}\">Eff = \\frac{Q_{\\text{c}}}{Q_{\\text{h}}}</span>\n",
+        "id": 514038,
+        "content_html": "<span data-math=\"\\frac{W - Q_{c}}{Q_{h}}\">\\frac{W - Q_{c}}{Q_{h}}</span>",
         "correctness": "0.0",
         "feedback_html": "The ratio of work done to heat input is defined as efficiency."
       },
       {
-        "id": 380478,
-        "content_html": "<span data-math=\"Eff = \\frac{Q_{\\text{h}} - Q_{\\text{c}}}{Q_{\\text{h}}}\">Eff = \\frac{Q_{\\text{h}} - Q_{\\text{c}}}{Q_{\\text{h}}}</span>\n",
-        "correctness": "1.0",
+        "id": 514039,
+        "content_html": "<span data-math=\"1 + \\frac{W - Q_{c}}{Q_{h}}\">1 + \\frac{W - Q_{c}}{Q_{h}}</span>",
+        "correctness": "0.0",
         "feedback_html": "This is the correct formula for efficiency."
       }
     ],
     "group_uuid": "f26b3e90-c5bc-4d78-867b-872567338483",
-    "stem_html": "How can you mathematically express thermal efficiency in terms of <span data-math=\"Q_{\\text{h}}\">Q_{\\text{h}}</span> and <span data-math=\"Q_{\\text{c}}\">Q_{\\text{c}}</span>?",
+    "stem_html": "How can you express the proportion of thermal energy lost by a heat engine?",
     "tags": [
       "inbook-yes",
       "k12phys",
       "ost-test-prep",
       "short-answer",
-      "blooms:1",
       "time:short",
       "dok:2",
-      "book:stax-phys",
-      "lo:stax-phys:15-3-2",
+      "blooms:4",
       "k12phys-ch12",
       "k12phys-ch12-s04",
       "k12phys-ch12-s04-lo03",
@@ -258,12 +256,13 @@
       "exid:k12phys-ch12-ex093",
       "context-cnxmod:257041f5-d07c-41b3-b7aa-c234e71c7749",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:ed5a4287-94eb-4889-b028-69e3363eb378",
       "context-cnxmod:03a8500e-2942-4b15-803b-525dd9e05192",
-      "aplo:stax-apphys:7.B.2.1"
+      "aplo:stax-apphys:7.B.2.1",
+      "book:stax-apphys",
+      "science-practice:mathematical-routines"
     ],
-    "uid": "6824@6"
+    "uid": "6824@7"
   }
 ]

@@ -481,25 +481,25 @@
   {
     "answers": [
       {
-        "id": 374112,
+        "id": 516864,
         "content_html": "Based on the information, the line has a negative slope. Because its y-intercept is 50 and its slope is negative, this line gradually rises on the graph as the x-value increases.",
         "correctness": "0.0",
         "feedback_html": "The line has a negative slope but it does not gradually rise as the x-value increases."
       },
       {
-        "id": 374115,
+        "id": 516865,
         "content_html": "Based on the information, the line has a negative slope. Because its y-intercept is 50 and its slope is negative, this line gradually moves downward on the graph as the x-value increases.",
         "correctness": "1.0",
         "feedback_html": "Based on this information, one could tell that the line moves downward because it has a negative slope. In addition, because the y-intercept is 50 and the slope is negative 3, this line gradually moves downward as the x-values increases."
       },
       {
-        "id": 374113,
+        "id": 516863,
         "content_html": "Based on the information, the line has a positive slope. Because its y-intercept is 50 and its slope is positive, this line gradually rises on the graph as the x-value increases.",
         "correctness": "0.0",
         "feedback_html": "The line does not have a positive slope. Also, the y-value on the line does not gradually increase as the x-value increases."
       },
       {
-        "id": 374114,
+        "id": 516862,
         "content_html": "Based on the information, the line has a positive slope. Because its y-intercept is 50 and its slope is positive, this line gradually moves downward on the graph as the x-value increases.",
         "correctness": "0.0",
         "feedback_html": "The line does not have a positive slope."
@@ -527,11 +527,10 @@
       "type:practice",
       "context-cnxmod:48eb4a92-e1e6-45e5-9f60-c4a3ae79199d",
       "lo:stax-phys:2-8-1",
-      "context-cnxmod:20986bfa-2c2a-47f1-a48a-786122b0c606",
       "aplo:stax-apphys:3.A.1.1",
       "aplo:stax-apphys:3.A.1.3",
       "aplo:stax-apphys:4.A.2.3"
     ],
-    "uid": "1729@5"
+    "uid": "1729@6"
   }
 ]
