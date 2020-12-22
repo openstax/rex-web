@@ -9,7 +9,7 @@ import { match } from '../../../fpUtils';
 import theme from '../../../theme';
 import { assertWindow } from '../../../utils/browser-assertions';
 import ContentExcerpt from '../../components/ContentExcerpt';
-import { setAnswer } from '../actions';
+import { finishQuestions, setAnswer } from '../actions';
 import * as pqSelectors from '../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../types';
 import Answer from './Answer';
@@ -29,6 +29,7 @@ export const QuestionContent = styled(ContentExcerpt)`
   font-weight: bold;
   color: ${theme.color.primary.gray.base};
   padding: 0;
+  overflow: initial;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -45,15 +46,22 @@ const Question = () => {
   const [selectedAnswerState, setSelectedAnswer] = React.useState<PracticeAnswer | null>(null);
   const [showCorrectState, setShowCorrect] = React.useState<PracticeQuestion | null>(null);
   const container = React.useRef<HTMLElement>(null);
+  const questionContent = React.useRef<HTMLElement>(null);
   const services = useServices();
   const question = useSelector(pqSelectors.question);
   const section = useSelector(pqSelectors.selectedSection);
   const isSubmitted = useSelector(pqSelectors.isCurrentQuestionSubmitted);
+  const isFinalQuestion = useSelector(pqSelectors.isFinalQuestion);
+
   const dispatch = useDispatch();
 
   React.useLayoutEffect(() => {
     if (container.current) {
       services.promiseCollector.add(typesetMath(container.current, assertWindow()));
+    }
+
+    if (questionContent.current) {
+      questionContent.current.focus();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
   }, [question]);
@@ -64,13 +72,16 @@ const Question = () => {
   const showCorrect = showCorrectState === question;
 
   const onSubmit = (e: React.FormEvent) => {
-    // TODO: Add support for handling Finish button
     e.preventDefault();
+    if (isFinalQuestion && isSubmitted) {
+      dispatch(finishQuestions());
+      return;
+    }
     dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
   };
 
   return <QuestionWrapper ref={container} onSubmit={onSubmit} data-testid='question-form'>
-    <QuestionContent tabIndex={0} content={question.stem_html} source={section} />
+    <QuestionContent ref={questionContent} tabIndex={0} content={question.stem_html} source={section} />
     <AnswersWrapper>
       {question.answers.map((answer, index) =>
         <Answer

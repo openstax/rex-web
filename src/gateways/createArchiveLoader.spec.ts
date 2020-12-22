@@ -79,7 +79,7 @@ describe('archiveLoader', () => {
 
       it('returns original content url', async() => {
         expect(archiveLoader.book('coolid', 'version').page('pageid').url())
-          .toEqual('url/contents/coolid@version:pageid');
+          .toEqual('url/contents/coolid@version:pageid.json');
       });
     });
 

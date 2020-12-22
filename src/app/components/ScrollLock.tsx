@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
 import { sidebarTransitionTime, toolbarDesktopHeight } from '../content/components/constants';
 import { disablePrint } from '../content/components/utils/disablePrint';
@@ -37,14 +37,16 @@ const fadeIn = keyframes`
   }
 `;
 
-interface OverlayProps {
+interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
-  [key: string]: any;
+  mobileOnly?: boolean;
+  disableTabbing?: boolean;
+  zIndex?: number;
 }
 
 // tslint:disable-next-line:variable-name
-export const Overlay = styled((props: OverlayProps) => {
-  useDisableContentTabbing();
+export const Overlay = styled(({ mobileOnly, disableTabbing = true, zIndex, ...props}: OverlayProps) => {
+  useDisableContentTabbing(disableTabbing);
   return <div {...props} />;
 })`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
@@ -73,6 +75,7 @@ interface Props {
   onClick?: () => void;
   overlay?: boolean;
   mobileOnly?: boolean | undefined;
+  disableTabbing?: boolean;
   zIndex?: number | undefined;
 }
 
@@ -85,6 +88,7 @@ export default class ScrollLock extends React.Component<Props> {
         data-testid='scroll-lock-overlay'
         onClick={this.props.onClick}
         mobileOnly={this.props.mobileOnly}
+        disableTabbing={this.props.disableTabbing}
         zIndex={this.props.zIndex}
       />}
     </OnScroll>;

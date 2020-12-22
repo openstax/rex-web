@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { getPracticeQuestionsLocationFilters, pageHasPracticeQuestions } from './utils';
+import { getPracticeQuestionsLocationFilters } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -17,7 +17,7 @@ export const practiceQuestionsOpen = createSelector(
   (state) => state.open
 );
 
-const practiceQuestionsSummary = createSelector(
+export const practiceQuestionsSummary = createSelector(
   localState,
   (state) => state.summary
 );
@@ -54,12 +54,6 @@ export const question = createSelector(
   (state, index) => index === null ? undefined : state.questions[index]
 );
 
-export const selectedSectionHasPracticeQuestions = createSelector(
-  selectedSection,
-  practiceQuestionsSummary,
-  (section, summary) => Boolean(section && summary && pageHasPracticeQuestions(section.id, summary))
-);
-
 export const questionAnswers = createSelector(
   localState,
   (state) => new Map(Object.entries(state.questionAnswers))
@@ -75,4 +69,14 @@ export const isFinalQuestion = createSelector(
   questionsCount,
   currentQuestionIndex,
   (count, index) => count - 1 === index
+);
+
+export const questionsInProggress = createSelector(
+  currentQuestionIndex,
+  (index) => index !== null
+);
+
+export const hasAnswers = createSelector(
+  questionAnswers,
+  (answers) => answers.size > 0
 );

@@ -1,12 +1,18 @@
 # flake8: noqa
 import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.webdriver.common.by import By
+
+import re
+from time import sleep
 
 from tests import markers
 from pages.content import Content
 from pages.osweb import WebBase
-from utils.utility import Utilities
+from utils.utility import Utilities, get_search_term
 from pages.accounts import Login
+
+XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-highlight first text last focus')]"
 
 
 @markers.test_case("C476808")
@@ -281,36 +287,77 @@ def test_navbar_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slu
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_search_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
-    """Search functionality works on rex 404 page."""
+    """On a rex 404 page, search functionality works as usual."""
 
     # GIVEN: A page is loaded
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-
     book.wait_for_service_worker_to_install()
 
-    # AND: User loads an incorrect page in the same session
-    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
-    toolbar = content.toolbar
-    mobile = content.mobile_search_toolbar
-    toc_sidebar = content.sidebar
-    search_sidebar = content.search_sidebar
-
     # AND: Rex 404 page is displayed
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}{'test'}").open()
     assert book.content.page_error_displayed
 
-    # WHEN: Search is triggered for a string
-    search_term = utility.get_search_term(book_slug)
+    toolbar = book.toolbar
+    mobile = book.mobile_search_toolbar
+    search_sidebar = book.search_sidebar
+    search_term = get_search_term(book_slug)
 
-    if content.is_desktop:
+    if book.is_desktop:
+        # WHEN: Search is performed
         toolbar.search_for(search_term)
 
-    if content.is_mobile:
+        # THEN: Search sidebar is displayed with results
+        assert search_sidebar.search_results_present
+
+        # AND: Content page scrolls to the first search result
+        # Loop through the words in search term and assert if atleast one of them is highlighted in the book
+        split_search_term = re.findall(r"\w+", search_term)
+        for x in split_search_term:
+            focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
+            try:
+                assert (
+                    focussed_search_term
+                ), f"the highlighted search term ('{x}') was not found on the page"
+                assert book.element_in_viewport(focussed_search_term[0])
+            except AssertionError:
+                continue
+            except IndexError:
+                # Wait till the focussed search term is scrolled to the viewport
+                sleep(1)
+                assert book.element_in_viewport(focussed_search_term[0])
+            break
+
+        # AND: Rex 404 page is not displayed
+        assert not book.content.page_error_displayed
+
+    if book.is_mobile:
+        # WHEN: Search is performed
         mobile.search_for(search_term)
 
-    # THEN: Search sidebar is displayed
-    assert search_sidebar.is_displayed
+        # THEN: Search sidebar is displayed with results
+        assert search_sidebar.search_results_present
 
-    # AND: Content page scrolls to the first search result
+        # For mobile, content is not visible when search results are displayed. So click on first search result
+        search_results = book.search_sidebar.search_results(search_term)
+        Utilities.click_option(selenium, element=search_results[0])
 
-    # AND: Rex 404 page is not displayed
-    assert not book.content.page_error_displayed
+        # AND: Content page scrolls to the selected search result
+        # Loop through the words in search term and assert if atleast one of them is highlighted in the book
+        split_search_term = re.findall(r"\w+", search_term)
+        for x in split_search_term:
+            focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
+            try:
+                assert (
+                    focussed_search_term
+                ), f"the highlighted search term ('{x}') was not found on the page"
+                assert book.element_in_viewport(focussed_search_term[0])
+            except AssertionError:
+                continue
+            except IndexError:
+                # Wait till the focussed search term is scrolled to the viewport
+                sleep(1)
+                assert book.element_in_viewport(focussed_search_term[0])
+            break
+
+        # AND: Rex 404 page is not displayed
+        assert not book.content.page_error_displayed

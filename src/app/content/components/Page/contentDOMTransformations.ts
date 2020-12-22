@@ -143,6 +143,9 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   });
 }
 
+/*
+ * when resources are relative this function will no longer be necessary
+ */
 function prefixResources(rootEl: HTMLElement) {
   rootEl.querySelectorAll<HTMLImageElement>('img[src^="/resources/"]').forEach(
     (el) => el.src = ifUndefined(REACT_APP_ARCHIVE_URL_OVERRIDE, '') + el.getAttribute('src')

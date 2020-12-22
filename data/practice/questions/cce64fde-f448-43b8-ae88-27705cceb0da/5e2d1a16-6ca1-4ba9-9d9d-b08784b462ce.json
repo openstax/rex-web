@@ -28,71 +28,134 @@
     ],
     "group_uuid": "b872eaff-f3d8-4e62-9c9b-a81fd23cf432",
     "stem_html": "A beam of light always spreads out. Why can a beam not be produced with parallel rays to prevent spreading?",
-    "tags": "b872eaff-f3d8-4e62-9c9b-a81fd23cf432",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:27-3-1",
+      "k12phys-ch17",
+      "k12phys-ch17-s02",
+      "k12phys-ch17-s02-lo01",
+      "k12phys-ch17-ex034",
+      "exid:k12phys-ch17-ex034",
+      "context-cnxmod:c74437f7-d44a-48b6-aa11-6fc7531059f0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:0a9db352-56cc-40a3-a57c-296990f8ac42",
+      "context-cnxmod:e538a857-1730-441e-98c1-45207e2a2a05",
+      "aplo:stax-apphys:6.C.3.1"
+    ],
     "uid": "11347@5"
   },
   {
     "answers": [
       {
-        "id": 346868,
-        "content_html": "No, it is not a natural science because it is not used in the study of the natural world.",
-        "correctness": "0.0",
-        "feedback_html": "Mathematics is used in the study of the natural world, but that does not explain whether it is a natural science."
-      },
-      {
-        "id": 346871,
-        "content_html": "No, it is not a natural science. Mathematics focuses on understanding mathematical relations and calculations, which is useful in natural sciences but which is distinct.",
+        "id": 206621,
+        "content_html": "A diffraction grating is a large collection of evenly spaced parallel lines that produces an interference pattern that is similar to but sharper and better dispersed than that of a double slit.",
         "correctness": "1.0",
-        "feedback_html": "Mathematics is not a natural science as it does not use chemical and physical measurements like other fields in natural sciences."
+        "feedback_html": "The lines are evenly spaced and parallel to each other."
       },
       {
-        "id": 346869,
-        "content_html": "Yes, it is a natural science. Mathematics deals with verifying the experimental data.",
+        "id": 206620,
+        "content_html": "A diffraction grating is a large collection of randomly spaced parallel lines that produces an interference pattern that is similar to but less sharp or well-dispersed as that of a double slit.",
         "correctness": "0.0",
-        "feedback_html": "Mathematics does not use the chemical and physical measurements, therefore it is not natural science."
+        "feedback_html": "The lines are not randomly spaced, and the pattern is sharper and better dispersed than that of a double slit."
       },
       {
-        "id": 346870,
-        "content_html": "Yes, it is a natural science. It uses chemical and physical measurements.",
+        "id": 206619,
+        "content_html": "A diffraction grating is a large collection of randomly spaced intersecting lines that produces an interference pattern that is similar to but sharper and better dispersed than that of a double slit.",
         "correctness": "0.0",
-        "feedback_html": "Mathematics does not use chemical and physical measurements."
+        "feedback_html": "The lines are neither randomly spaced nor intersecting."
+      },
+      {
+        "id": 206618,
+        "content_html": "A diffraction grating is a large collection of evenly spaced intersecting lines that produces an interference pattern that is similar to but less sharp or well-dispersed as that of a double slit.",
+        "correctness": "0.0",
+        "feedback_html": "The lines formed are not intersecting, and the pattern is sharper and better dispersed than that of a double slit."
       }
     ],
-    "group_uuid": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
-    "stem_html": "Is mathematics a natural science? Explain your reasoning.",
-    "tags": "e8f5e09d-8f5d-4ec2-ac56-72688133a2e7",
-    "uid": "7@6"
+    "group_uuid": "7d148f90-19e1-4460-9187-77d46806d901",
+    "stem_html": "Describe a diffraction grating and the interference pattern it produces.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:27-4-1",
+      "k12phys-ch17",
+      "k12phys-ch17-s02",
+      "k12phys-ch17-s02-lo01",
+      "k12phys-ch17-ex041",
+      "exid:k12phys-ch17-ex041",
+      "context-cnxmod:c74437f7-d44a-48b6-aa11-6fc7531059f0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b19892a9-a128-4a8f-8810-0505518daced",
+      "context-cnxmod:8b9cd656-1181-48e7-a9c3-30731b3b8e86"
+    ],
+    "uid": "11363@4"
   },
   {
     "answers": [
       {
-        "id": 476561,
-        "content_html": "complete dominance",
+        "id": 206636,
+        "content_html": "All three interference pattern produce identical bands.",
         "correctness": "0.0",
-        "feedback_html": "If the color trait is completely dominant, the F1 generation would have been all red or all blue depending on the dominant allele, but here we obtained violet color flowers."
+        "feedback_html": "All three interference pattern produce similar bands but not identical bands."
       },
       {
-        "id": 476560,
-        "content_html": "codominance",
+        "id": 206635,
+        "content_html": "A double slit produces the sharpest and most distinct bands.",
         "correctness": "0.0",
-        "feedback_html": "In codominance, both alleles of a gene express equally."
+        "feedback_html": "A diffraction grating produces a sharper set of bands than does a double slit."
       },
       {
-        "id": 476562,
-        "content_html": "incomplete dominance",
+        "id": 206634,
+        "content_html": "A single slit produces the sharpest and most distinct bands.",
+        "correctness": "0.0",
+        "feedback_html": "A single slit produces the least distinct bands."
+      },
+      {
+        "id": 206637,
+        "content_html": "The diffraction grating produces the sharpest and most distinct bands.",
         "correctness": "1.0",
-        "feedback_html": "A cross between a blue (BB) flower and a red (RR) flower produces all violet (BR) flowers as a result of incomplete dominance. Both alleles when present produce intermediate inheritance, in which one allele for the trait is not completely expressed over its paired allele."
-      },
-      {
-        "id": 476559,
-        "content_html": "sex-linked",
-        "correctness": "0.0",
-        "feedback_html": "Try to recall the deviations from Mendelian inheritance."
+        "feedback_html": "The interference pattern produced by a diffraction grating is sharpest."
       }
     ],
-    "group_uuid": "0edda2cf-7c52-40e4-89cf-7c5c6993cb0f",
-    "stem_html": "Petunias can be blue, red, or violet. When a blue flower is crossed with a red flower, all the resulting flowers are violet. When a violet flower is crossed with a red flower, about half of the flowers are violet and half are red. How do you characterize the color trait?",
-    "tags": "0edda2cf-7c52-40e4-89cf-7c5c6993cb0f",
-    "uid": "898@8"
+    "group_uuid": "898f6596-b563-4925-99a7-d1a17474a6c1",
+    "stem_html": "Compare the interference patterns of single-slit diffraction, double-slit diffraction, and a diffraction grating.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "dok:3",
+      "blooms:4",
+      "time:long",
+      "book:stax-phys",
+      "lo:stax-phys:27-4-1",
+      "k12phys-ch17",
+      "k12phys-ch17-s02",
+      "k12phys-ch17-s02-lo01",
+      "k12phys-ch17-ex045",
+      "exid:k12phys-ch17-ex045",
+      "context-cnxmod:c74437f7-d44a-48b6-aa11-6fc7531059f0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b19892a9-a128-4a8f-8810-0505518daced",
+      "context-cnxmod:8b9cd656-1181-48e7-a9c3-30731b3b8e86"
+    ],
+    "uid": "11367@4"
   }
 ]

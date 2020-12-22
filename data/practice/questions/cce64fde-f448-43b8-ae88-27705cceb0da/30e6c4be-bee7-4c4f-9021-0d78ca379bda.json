@@ -28,7 +28,28 @@
     ],
     "group_uuid": "dab313cf-afaa-4a82-a2e6-12a10049b6fa",
     "stem_html": "How are electrostatic force and charge related?",
-    "tags": "dab313cf-afaa-4a82-a2e6-12a10049b6fa",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:18-3-1",
+      "k12phys-ch18",
+      "k12phys-ch18-s02",
+      "k12phys-ch18-s02-lo01",
+      "k12phys-ch18-ex048",
+      "exid:k12phys-ch18-ex048",
+      "context-cnxmod:c3ec769e-f89b-42f3-aed7-d9f2288ae650",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:1c5971cb-9849-466e-b6f1-5dd7bd3958d6",
+      "context-cnxmod:0aa94add-1dca-4d25-a4e0-ffd782bcbae7",
+      "aplo:stax-apphys:3.C.2.1"
+    ],
     "uid": "7085@5"
   }
 ]

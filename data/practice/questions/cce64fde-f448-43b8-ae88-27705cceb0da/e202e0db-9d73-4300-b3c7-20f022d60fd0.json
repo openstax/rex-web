@@ -2,34 +2,54 @@
   {
     "answers": [
       {
-        "id": 470440,
-        "content_html": "hydrogen atom, water molecule, skin cell, liver, elephant, wolf pack, tropical rainforest, planet Earth",
+        "id": 206152,
+        "content_html": "The power of the lens is <span data-math=\"0.0400\\,\\text{D}\">0.0400\\,\\text{D}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The power of the lens is the reciprocal of the focal length."
+      },
+      {
+        "id": 206151,
+        "content_html": "The power of the lens is <span data-math=\"0.0800\\,\\text{D}\">0.0800\\,\\text{D}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The focal length of the lens should be in meters before calculating the power in <span data-math=\"\\text{D}\">\\text{D}</span>."
+      },
+      {
+        "id": 206150,
+        "content_html": "The power of the lens is <span data-math=\"4.00\\,\\text{D}\">4.00\\,\\text{D}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "The power of the lens can be calculated by taking the reciprocal of the focal length."
+      },
+      {
+        "id": 206153,
+        "content_html": "The power of the lens is <span data-math=\"8.00\\,\\text{D}\">8.00\\,\\text{D}</span>.",
         "correctness": "1.0",
-        "feedback_html": "Hydrogen atom, water molecule, skin cell, liver, elephant, wolf pack, tropical rainforest, planet Earth is the correct order from smallest level of organization to most encompassing."
-      },
-      {
-        "id": 470437,
-        "content_html": "hydrogen atom, skin cell, water molecule, liver, elephant, wolf pack, tropical rainforest, planet Earth",
-        "correctness": "0.0",
-        "feedback_html": "A skin cell is more encompassing than a water molecule."
-      },
-      {
-        "id": 470438,
-        "content_html": "hydrogen atom, skin cell, water molecule, liver, wolf pack, elephant, tropical rainforest, planet Earth",
-        "correctness": "0.0",
-        "feedback_html": "Try to carefully visualize the list given and arrange them from the smallest to the longst level of organization."
-      },
-      {
-        "id": 470439,
-        "content_html": "water molecule, hydrogen atom, skin cell, liver, elephant, wolf pack, tropical rainforest, planet Earth",
-        "correctness": "0.0",
-        "feedback_html": "A water molecule is not the smallest level of organization, hydrogen atom is."
+        "feedback_html": "This is the correct answer. The power of the lens is <span data-math=\"8.00\\,\\text{D}\">8.00\\,\\text{D}</span>."
       }
     ],
-    "group_uuid": "947cb522-a69c-461a-bef5-1d7025418d3b",
-    "stem_html": "Consider the levels of organization of the biological world and place each of these items in order from smallest level of organization to most encompassing: skin cell, elephant, water molecule, planet Earth, tropical rainforest, hydrogen atom, wolf pack, liver.",
-    "tags": "947cb522-a69c-461a-bef5-1d7025418d3b",
-    "uid": "19@7"
+    "group_uuid": "19f35a6a-0a72-419e-b0cb-498c506efce2",
+    "stem_html": "A lens has a focal length of <span data-math=\"12.5\\,\\text{cm}\">12.5\\,\\text{cm}</span>. What is the power of the lens?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:25-6-3",
+      "k12phys-ch16",
+      "k12phys-ch16-s03",
+      "k12phys-ch16-s03-lo03",
+      "k12phys-ch16-ex053",
+      "exid:k12phys-ch16-ex053",
+      "context-cnxmod:01f1ad69-c5cc-442f-a4e6-0a390bc428fe",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:8dce827b-73c2-4a1e-a800-ca1e9bf61b6b",
+      "context-cnxmod:f80f9c39-57b2-454c-a285-ea8cfe81c81d"
+    ],
+    "uid": "11245@4"
   },
   {
     "answers": [
@@ -60,40 +80,82 @@
     ],
     "group_uuid": "b7ce5382-d28c-4a0e-b1be-0958b59c2238",
     "stem_html": "A lens has a magnification that is negative. What is the orientation of the image?",
-    "tags": "b7ce5382-d28c-4a0e-b1be-0958b59c2238",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch16",
+      "k12phys-ch16-s03",
+      "k12phys-ch16-s03-lo01",
+      "k12phys-ch16-ex055",
+      "exid:k12phys-ch16-ex055",
+      "context-cnxmod:01f1ad69-c5cc-442f-a4e6-0a390bc428fe",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:8dce827b-73c2-4a1e-a800-ca1e9bf61b6b",
+      "lo:stax-phys:25-6-2",
+      "context-cnxmod:f80f9c39-57b2-454c-a285-ea8cfe81c81d",
+      "aplo:stax-apphys:6.E.5.1"
+    ],
     "uid": "11251@7"
   },
   {
     "answers": [
       {
-        "id": 471524,
-        "content_html": "These large cells show invaginations to increase the surface-to-volume ratio.",
+        "id": 391477,
+        "content_html": "The image is real and erect.",
+        "correctness": "0.0",
+        "feedback_html": "The image is erect but it is virtual."
+      },
+      {
+        "id": 391478,
+        "content_html": "The image is real and inverted.",
+        "correctness": "0.0",
+        "feedback_html": "If an object is placed between the focal point and a convex lens, the image formed is virtual and erect."
+      },
+      {
+        "id": 391480,
+        "content_html": "The image is virtual and erect.",
         "correctness": "1.0",
-        "feedback_html": "These cells display numerous invaginations of the cytoplasmic membrane, are unusually flat, or have large vacuoles or other organelles, which effectively reduce the volume of the cytoplasm, making their survival possible even with a large volume."
+        "feedback_html": "A virtual, erect image is formed."
       },
       {
-        "id": 471523,
-        "content_html": "The large cells shut off their ion pumps and maintain a stable concentration gradient to avoid diffusion.",
+        "id": 391479,
+        "content_html": "The image is virtual and inverted.",
         "correctness": "0.0",
-        "feedback_html": ""
-      },
-      {
-        "id": 471522,
-        "content_html": "These cells have an intracellular mechanism to compensate for the constant diffusion taking place.",
-        "correctness": "0.0",
-        "feedback_html": ""
-      },
-      {
-        "id": 471521,
-        "content_html": "These cells have an extra capsule surrounding the cell membrane to avoid excess diffusion.",
-        "correctness": "0.0",
-        "feedback_html": ""
+        "feedback_html": "The image formed is virtual, but it is also erect."
       }
     ],
-    "group_uuid": "e1c94378-95f9-4212-839a-e58c9ded5cbe",
-    "stem_html": "Some unusually large cells do exist. How might such cells solve the problem of diffusion?",
-    "tags": "e1c94378-95f9-4212-839a-e58c9ded5cbe",
-    "uid": "304@8"
+    "group_uuid": "304a1663-0601-4591-9307-511c35556d19",
+    "stem_html": "An object is placed between the focal point and a convex lens. Describe the image that is formed in terms of its orientation, and whether the image is real or virtual.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:4",
+      "book:stax-phys",
+      "k12phys-ch16",
+      "k12phys-ch16-s03",
+      "k12phys-ch16-s03-lo01",
+      "k12phys-ch16-ex057",
+      "exid:k12phys-ch16-ex057",
+      "context-cnxmod:01f1ad69-c5cc-442f-a4e6-0a390bc428fe",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:8dce827b-73c2-4a1e-a800-ca1e9bf61b6b",
+      "lo:stax-phys:25-6-2",
+      "context-cnxmod:f80f9c39-57b2-454c-a285-ea8cfe81c81d",
+      "aplo:stax-apphys:6.E.5.1"
+    ],
+    "uid": "11257@5"
   },
   {
     "answers": [
@@ -124,7 +186,28 @@
     ],
     "group_uuid": "38610384-c923-4d6a-b9e6-87c23a5536b9",
     "stem_html": "A person timing the moonrise looks at her watch and then at the rising moon. Describe what happened inside her eyes that allowed her to see her watch clearly one second and then see the moon clearly.",
-    "tags": "38610384-c923-4d6a-b9e6-87c23a5536b9",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "blooms:1",
+      "dok:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:26-1-1",
+      "k12phys-ch16",
+      "k12phys-ch16-s03",
+      "k12phys-ch16-s03-lo02",
+      "k12phys-ch16-ex060",
+      "exid:k12phys-ch16-ex060",
+      "context-cnxmod:01f1ad69-c5cc-442f-a4e6-0a390bc428fe",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:f3b5f7c4-0700-4afd-a4e7-ecf3805dce4c",
+      "context-cnxmod:a8335f42-b69d-421e-89dd-6c61da89f598"
+    ],
     "uid": "11264@5"
   },
   {
@@ -156,7 +239,28 @@
     ],
     "group_uuid": "f7183941-5d5b-41f0-ae88-dc939655525d",
     "stem_html": "Compare nearsightedness (myopia) and farsightedness (hyperopia) in terms of focal point.",
-    "tags": "f7183941-5d5b-41f0-ae88-dc939655525d",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:26-2-1",
+      "k12phys-ch16",
+      "k12phys-ch16-s03",
+      "k12phys-ch16-s03-lo02",
+      "k12phys-ch16-ex070",
+      "exid:k12phys-ch16-ex070",
+      "context-cnxmod:01f1ad69-c5cc-442f-a4e6-0a390bc428fe",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:1609ec7b-f319-4a25-b6c2-2cb58aff976b",
+      "context-cnxmod:49a4924b-2636-4410-9ed1-8e32262f5a6a"
+    ],
     "uid": "11286@5"
   },
   {
@@ -188,7 +292,28 @@
     ],
     "group_uuid": "cacc607f-7480-4dd5-8e2e-c020d2a3803f",
     "stem_html": "Solve the equation <span data-math=\"\\frac{1}{d_\\text{o}} + \\frac{1}{d_\\text{i}} = \\frac{1}{f}\">\\frac{1}{d_\\text{o}} + \\frac{1}{d_\\text{i}} = \\frac{1}{f}</span> for <span data-math=\"f\">f</span> in such a way that it is not expressed as a reciprocal.",
-    "tags": "cacc607f-7480-4dd5-8e2e-c020d2a3803f",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "blooms:3",
+      "time:long",
+      "book:stax-phys",
+      "k12phys-ch16",
+      "k12phys-ch16-s03",
+      "k12phys-ch16-s03-lo03",
+      "k12phys-ch16-ex072",
+      "exid:k12phys-ch16-ex072",
+      "context-cnxmod:01f1ad69-c5cc-442f-a4e6-0a390bc428fe",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:8dce827b-73c2-4a1e-a800-ca1e9bf61b6b",
+      "lo:stax-phys:25-6-2",
+      "context-cnxmod:f80f9c39-57b2-454c-a285-ea8cfe81c81d"
+    ],
     "uid": "11288@4"
   }
 ]

@@ -10,8 +10,14 @@ interface Extras {
   }>;
 }
 
-export default (url: string) => {
-  const contentUrl = `${url}/contents/`;
+/*
+ * appUrl is reported to the app for the resolving of relative assets in the content.
+ * there are situatons such as pre-rendering using a local proxy where this is different
+ * from the actual url that is fetched from.
+ */
+export default (backendUrl: string, appUrl: string = backendUrl) => {
+
+  const contentUrl = (base: string, ref: string) => `${base}/contents/${ref}.json`;
 
   const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
     .then(acceptStatus(200, (status, message) => `Error response from archive "${fetchUrl}" ${status}: ${message}`))
@@ -23,7 +29,7 @@ export default (url: string) => {
       return Promise.resolve(cached);
     }
 
-    return archiveFetch<C>(`${contentUrl}${id}.json`)
+    return archiveFetch<C>(contentUrl(backendUrl, id))
       .then((response) => {
         cache.set(id, response);
         return response;
@@ -44,7 +50,7 @@ export default (url: string) => {
       return Promise.resolve(cached);
     }
 
-    return archiveFetch<Extras>(`${url}/extras/${pageId}`)
+    return archiveFetch<Extras>(`${backendUrl}/extras/${pageId}`)
       .then(({books}) => books.map(({ident_hash}) => {
         return {
           bookVersion: getIdVersion(ident_hash),
@@ -70,7 +76,7 @@ export default (url: string) => {
           return {
             cached: () => pageCache.get(bookAndPageUrl),
             load: () => pageLoader(bookAndPageUrl),
-            url: () => `${contentUrl}${bookAndPageUrl}`,
+            url: () => contentUrl(appUrl, bookAndPageUrl),
           };
         },
       };

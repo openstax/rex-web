@@ -9,9 +9,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   <div
     className="ScrollLock__Overlay-sc-1fi845b-0 gqkuDv"
     data-testid="scroll-lock-overlay"
-    mobileOnly={false}
     onClick={[Function]}
-    zIndex={80}
   />
   <div
     className="PopupStyles__Modal-w0z1hl-3 ZJcjg"
@@ -60,21 +58,18 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       </button>
     </h3>
     <div
-      className="PopupStyles__PopupBody-w0z1hl-2 ShowPracticeQuestions__ShowPracticeQuestionsBody-sc-1hq8omx-0 iOcTbR"
+      className="PopupStyles__PopupBody-w0z1hl-2 ShowPracticeQuestions__ShowPracticeQuestionsBody-sc-1hq8omx-0 klvMFR"
       data-analytics-region="PQ popup"
       data-testid="show-practice-questions-body"
     >
       <div
-        className="ShowPracticeQuestions__QuestionsWrapper-sc-1hq8omx-2 bPGDgA"
+        className="FinalScreen__StyledFinalScreen-sc-131hu2n-0 cKZyXt"
       >
-        <div
-          className="ShowPracticeQuestions__QuestionsHeader-sc-1hq8omx-3 bcZXeX"
+        <span
+          className="FinalScreen__StyledText-sc-131hu2n-1 MXQtJ"
         >
-          Questions
-        </div>
-        <div
-          className="ProgressBar__ProgressBarWrapper-sc-12ssvtu-0 kleYmF"
-        />
+          You have reached the end of this set!
+        </span>
       </div>
     </div>
   </div>

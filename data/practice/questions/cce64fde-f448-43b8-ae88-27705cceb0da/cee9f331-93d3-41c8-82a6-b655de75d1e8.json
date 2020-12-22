@@ -28,103 +28,187 @@
     ],
     "group_uuid": "a0d52268-de7a-488a-8dd3-3b0e4aff34fc",
     "stem_html": "What is the mathematical relationship linking the energy of a photon to its frequency?",
-    "tags": "a0d52268-de7a-488a-8dd3-3b0e4aff34fc",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:29-3-1",
+      "k12phys-ch21",
+      "k12phys-ch21-s01",
+      "k12phys-ch21-s01-lo02",
+      "k12phys-ch21-ex007",
+      "exid:k12phys-ch21-ex007",
+      "context-cnxmod:945d741b-f25d-49bc-9f85-7f72db5e65ad",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:5ab359e7-b922-4b27-b86b-aff3cc82175e",
+      "context-cnxmod:3a247428-8d85-4d9d-9494-d8a75bc7bd66"
+    ],
     "uid": "11384@7"
   },
   {
     "answers": [
       {
-        "id": 347150,
-        "content_html": "Molecules with the formulas <span data-math=\"\\text{CH}_3\\text{CH}_2\\text{OH}\">\\text{CH}_3\\text{CH}_2\\text{OH}</span> and <span data-math=\"\\text{C}_3\\text{H}_6\\text{O}_2\">\\text{C}_3\\text{H}_6\\text{O}_2</span> could be structural isomers.",
+        "id": 206721,
+        "content_html": "The red flame is hotter because red light has lower frequency.",
         "correctness": "0.0",
-        "feedback_html": "<span data-math=\"\\text{CH}_3\\text{CH}_2\\text{OH}\">\\text{CH}_3\\text{CH}_2\\text{OH}</span> is an alcohol while <span data-math=\"\\text{C}_3\\text{H}_6\\text{O}_2\">\\text{C}_3\\text{H}_6\\text{O}_2</span> is a carboxylic acid. Because they are different molecules with different numbers of atoms, they cannot be structural isomers."
+        "feedback_html": "Red light has higher frequency."
       },
       {
-        "id": 347149,
-        "content_html": "Molecules must have a single bond to be cis-trans isomers.",
+        "id": 206720,
+        "content_html": "The red flame is hotter because red light has higher frequency.",
         "correctness": "0.0",
-        "feedback_html": "Cis-trans isomers do not rotate around single bonds"
+        "feedback_html": "Red light has higher frequency."
       },
       {
-        "id": 347148,
-        "content_html": "To be enantiomers, a molecule must have at least three different atoms or groups connected to a central carbon",
+        "id": 206719,
+        "content_html": "The blue flame is hotter because blue light has lower frequency.",
         "correctness": "0.0",
-        "feedback_html": "Recall enantiomers have just three different atoms connected to central carbon atom, not more than that"
+        "feedback_html": "Blue light has higher frequency."
       },
       {
-        "id": 347151,
-        "content_html": "To be enantiomers, a molecule must have at least four different atoms or groups connected to a central carbon",
+        "id": 206722,
+        "content_html": "The blue flame is hotter because blue light has higher frequency.",
         "correctness": "1.0",
-        "feedback_html": "To be an enantiomer, a molecule must have at least four different atoms attached to the central carbon atom"
+        "feedback_html": "The energy of light is directly proportional to frequency of the light. The blue flame is hotter because blue light has higher frequency."
       }
     ],
-    "group_uuid": "2b0e8e49-262a-4297-93d1-b557abaf0bed",
-    "stem_html": "Which of the following statements is true?",
-    "tags": "2b0e8e49-262a-4297-93d1-b557abaf0bed",
-    "uid": "69@4"
+    "group_uuid": "69b50180-3b76-4a02-a9bb-4e187947bc9a",
+    "stem_html": "Two flames are observed on a stove. One is red while the other is blue. Which flame is hotter?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:29-3-1",
+      "k12phys-ch21",
+      "k12phys-ch21-s01",
+      "k12phys-ch21-s01-lo04",
+      "k12phys-ch21-ex009",
+      "exid:k12phys-ch21-ex009",
+      "context-cnxmod:945d741b-f25d-49bc-9f85-7f72db5e65ad",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:5ab359e7-b922-4b27-b86b-aff3cc82175e",
+      "context-cnxmod:3a247428-8d85-4d9d-9494-d8a75bc7bd66"
+    ],
+    "uid": "11390@5"
   },
   {
     "answers": [
       {
-        "id": 338457,
-        "content_html": "The presence of limestone would not make a difference.",
+        "id": 514126,
+        "content_html": "Planck’s constant is smaller than any previous discovered constant.",
         "correctness": "0.0",
-        "feedback_html": "Calcium carbonate acts as a buffer that minimizes pH changes"
+        "feedback_html": "Modern physics concepts are based on the quantization of energy."
       },
       {
-        "id": 338458,
-        "content_html": "An environment rich in limestone would be more affected by acid rain.",
-        "correctness": "0.0",
-        "feedback_html": "Calcium carbonate acts as a buffer that minimizes pH changes."
-      },
-      {
-        "id": 338459,
-        "content_html": "An environment poor in limestone would be more affected by acid rain.",
+        "id": 514127,
+        "content_html": "Planck hypothesized that energy is quantized rather than continuous.",
         "correctness": "1.0",
-        "feedback_html": "Calcium carbonate acts as a buffer that minimizes pH changes, so an area poor in limestone would be more affected by acid rain than an area rich in limestone."
+        "feedback_html": "Classical physics concepts were based on the continuous nature of energy."
       },
       {
-        "id": 338460,
-        "content_html": "The impact would depend on the type of vegetation present.",
+        "id": 514128,
+        "content_html": "Planck’s theories meant that classical physics was no longer useful for any system.",
         "correctness": "0.0",
-        "feedback_html": "Some vegetation may be more sensitive to acid rain than others, but all vegetation would benefit from calcium carbonate buffering."
+        "feedback_html": "Classical physics calculations are not valid for subatomic particles."
+      },
+      {
+        "id": 514129,
+        "content_html": "Plank discovered the blackbody radiation spectrum.",
+        "correctness": "0.0",
+        "feedback_html": "Classical physics calculations are valid for macroscopic particles."
       }
     ],
-    "group_uuid": "db5ad74e-3b11-4689-ba6f-4e1928a4a2eb",
-    "stem_html": "Limestone is a naturally occurring mineral rich in calcium carbonate (<span data-math=\"\\text{CaCO}_3\">\\text{CaCO}_3</span>). In water, calcium carbonate dissolves to form carbonate <span data-math=\"({{\\text{CO}_3}}^{2-})\">({{\\text{CO}_3}{\\!}}^{2-})</span>, a weak base that acts as a buffer. Which would you expect to be more affected by acid rain, an environment rich in limestone or an environment poor in limestone?",
-    "tags": "db5ad74e-3b11-4689-ba6f-4e1928a4a2eb",
-    "uid": "74@7"
+    "group_uuid": "74e97d6e-6ced-4790-84c5-2c539cf8d464",
+    "stem_html": "How did Planck’s work come to be regarded as a major dividing line between classical and modern physics?\n",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "k12phys-ch21",
+      "k12phys-ch21-s01",
+      "k12phys-ch21-s01-lo02",
+      "k12phys-ch21-ex026",
+      "exid:k12phys-ch21-ex026",
+      "context-cnxmod:945d741b-f25d-49bc-9f85-7f72db5e65ad",
+      "filter-type:import:hs",
+      "type:practice",
+      "context-cnxmod:f78cdc22-37ab-42b8-b0a4-db74a8ae7a3f",
+      "context-cnxmod:cf5fb070-e0c7-4b8e-8241-c0b946450c78",
+      "aplo:stax-apphys:1.A.2.1",
+      "aplo:stax-apphys:5.B.8.1",
+      "book:stax-apphys",
+      "science-practice:argumentation"
+    ],
+    "uid": "11427@6"
   },
   {
     "answers": [
       {
-        "id": 347059,
-        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"6\">6</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
+        "id": 391683,
+        "content_html": "Photons of gamma rays and X-rays carry with them less energy.",
+        "correctness": "0.0",
+        "feedback_html": "Consider how frequency, wavelength, and energy vary across the electromagnetic spectrum."
+      },
+      {
+        "id": 391682,
+        "content_html": "Photons of gamma rays and X-rays have longer wavelengths.",
+        "correctness": "0.0",
+        "feedback_html": "Consider how frequency, wavelength, and energy vary across the electromagnetic spectrum."
+      },
+      {
+        "id": 391681,
+        "content_html": "Photons of gamma rays and X-rays have lower frequencies.",
+        "correctness": "0.0",
+        "feedback_html": "Consider how frequency, wavelength, and energy vary across the electromagnetic spectrum."
+      },
+      {
+        "id": 391684,
+        "content_html": "Photons of gamma rays and X-rays carry with them more energy.",
         "correctness": "1.0",
-        "feedback_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"6\">6</span>, respectively. While, that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively."
-      },
-      {
-        "id": 347056,
-        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"12\">12</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
-        "correctness": "0.0",
-        "feedback_html": "The atomic number of carbon-13 is not <span data-math=\"12\">12</span>."
-      },
-      {
-        "id": 347057,
-        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"13\">13</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"6\">6</span>, respectively.",
-        "correctness": "0.0",
-        "feedback_html": "The mass number and atomic number of carbon-13 are not the same for this isotope of carbon."
-      },
-      {
-        "id": 347058,
-        "content_html": "The mass number and atomic number of carbon-13 is <span data-math=\"13\">13</span> and <span data-math=\"12\">12</span>, while that of carbon-12 is <span data-math=\"12\">12</span> and <span data-math=\"12\">12</span>, respectively.",
-        "correctness": "0.0",
-        "feedback_html": "The atomic number of carbon, and all of its isotopes, is not <span data-math=\"12\">12</span>."
+        "feedback_html": "Photons of gamma rays and X-rays carry with them more energy; as a result, they have greater penetrating power."
       }
     ],
-    "group_uuid": "7b96c761-af83-4b1b-be9b-a0a7455ba2fb",
-    "stem_html": "List the mass number and atomic number of carbon-12 and carbon-13, respectively.",
-    "tags": "7b96c761-af83-4b1b-be9b-a0a7455ba2fb",
-    "uid": "53@5"
+    "group_uuid": "53ed8dde-fafe-47c5-a956-2d11e70a74aa",
+    "stem_html": "Why are photons of gamma rays and X-rays able to penetrate objects more successfully than ultraviolet radiation?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch21",
+      "k12phys-ch21-s01",
+      "k12phys-ch21-s01-lo04",
+      "k12phys-ch21-ex030",
+      "exid:k12phys-ch21-ex030",
+      "context-cnxmod:945d741b-f25d-49bc-9f85-7f72db5e65ad",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:e4c006f1-efe1-437c-aed1-94210be0e07b",
+      "lo:stax-phys:31-1-4",
+      "context-cnxmod:bed8d5ac-3c74-45bd-a60e-295cf2a8bb00",
+      "aplo:stax-apphys:5.G.1.1"
+    ],
+    "uid": "11431@8"
   }
 ]
