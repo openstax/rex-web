@@ -297,4 +297,105 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
 
         # AND: search string still stays in the search box
         toolbar.click_search_icon()
+        assert mobile.search_term_displayed_in_search_textbox == search_term
+
+
+@markers.test_case("C543233")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
+    """x in search sidebar closes sidebar, text in search input still visible"""
+
+    # GIVEN: Book page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    # Skip any notification/nudge popups
+    while book.notification_present:
+        book.notification.got_it()
+
+    toolbar = book.toolbar
+    mobile = book.mobile_search_toolbar
+    search_sidebar = book.search_sidebar
+    search_term = utility.get_search_term(book_slug)
+
+    if book.is_desktop:
+        book.toolbar.search_for(search_term)
+
+        assert search_sidebar.search_results_present
+
+        search_result_scroll_position = book.scroll_position
+
+        # WHEN: Close search sidebar
+        book.search_sidebar.close_search_sidebar()
+
+        # THEN: Search sidebar is closed
+        assert search_sidebar.search_results_not_displayed
+
+        # AND: Search string in the search input box is still visible
         assert toolbar.search_term_displayed_in_search_textbox == search_term
+
+        # AND: User stays in the same location in the book content as before closing the sidebar
+        scroll_position_after_closing_search_sidebar = book.scroll_position
+        assert scroll_position_after_closing_search_sidebar == search_result_scroll_position
+
+    if book.is_mobile:
+        mobile.search_for(search_term)
+
+        assert search_sidebar.search_results_present
+
+        # WHEN: Close search sidebar
+        mobile.click_close_search_results_link()
+
+        # THEN: Search sidebar is closed
+        assert search_sidebar.search_results_not_displayed
+
+        # AND search string in the search input box is still visible
+        book.toolbar.click_search_icon()
+        assert mobile.search_term_displayed_in_search_textbox == search_term
+
+
+@markers.test_case("C543234")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
+    """x in search textbox clears search string but search results are not affected"""
+
+    # GIVEN: Book page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    # Skip any notification/nudge popups
+    while book.notification_present:
+        book.notification.got_it()
+
+    toolbar = book.toolbar
+    mobile = book.mobile_search_toolbar
+    search_sidebar = book.search_sidebar
+    search_term = utility.get_search_term(book_slug)
+
+    if book.is_desktop:
+        # AND: Search sidebar is open
+        book.toolbar.search_for(search_term)
+        assert search_sidebar.search_results_present
+
+        # WHEN: Click X in the search textbox
+        toolbar.click_search_textbox_x()
+
+        # THEN: Search string is cleared from the search textbox
+        assert toolbar.search_term_displayed_in_search_textbox == ""
+
+        # AND: Search sidebar is still open
+        assert search_sidebar.search_results_present
+
+    if book.is_mobile:
+        # AND: Search sidebar is open
+        mobile.search_for(search_term)
+        assert search_sidebar.search_results_present
+
+        # WHEN: Click X in the search textbox
+        mobile.click_search_textbox_x()
+
+        # THEN: Search string is cleared from the search textbox
+        assert mobile.search_term_displayed_in_search_textbox == ""
+
+        # AND: Search sidebar is still open
+        assert search_sidebar.search_results_present
