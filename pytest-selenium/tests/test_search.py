@@ -10,8 +10,7 @@ from selenium.webdriver.common.by import By
 
 from pages.content import Content
 from tests import markers
-from utils import utility
-from utils.utility import Utilities
+from utils.utility import Utilities, get_search_term
 
 XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-highlight first text last focus')]"
 
@@ -123,7 +122,7 @@ def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug
     search_sidebar = content.search_sidebar
 
     # WHEN: Search is triggered for a string
-    search_term = utility.get_search_term(book_slug)
+    search_term = get_search_term(book_slug)
 
     if content.is_desktop:
         toolbar.search_for(search_term)
@@ -155,7 +154,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
     mobile = book.mobile_search_toolbar
     toc_sidebar = book.sidebar
     search_sidebar = book.search_sidebar
-    search_term = utility.get_search_term(book_slug)
+    search_term = get_search_term(book_slug)
 
     if book.is_desktop:
         # WHEN: Search sidebar is displayed with search results
@@ -316,7 +315,7 @@ def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
     toolbar = book.toolbar
     mobile = book.mobile_search_toolbar
     search_sidebar = book.search_sidebar
-    search_term = utility.get_search_term(book_slug)
+    search_term = get_search_term(book_slug)
 
     if book.is_desktop:
         # AND: Search results are displayed in search sidebar
@@ -370,7 +369,7 @@ def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
     toolbar = book.toolbar
     mobile = book.mobile_search_toolbar
     search_sidebar = book.search_sidebar
-    search_term = utility.get_search_term(book_slug)
+    search_term = get_search_term(book_slug)
 
     if book.is_desktop:
         # AND: Search sidebar is open
