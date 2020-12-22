@@ -304,7 +304,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
-    """x in search sidebar closes sidebar, text in search input still visible"""
+    """X in search sidebar closes sidebar, text in search input still visible"""
 
     # GIVEN: Book page is loaded
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -319,8 +319,8 @@ def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
     search_term = utility.get_search_term(book_slug)
 
     if book.is_desktop:
+        # AND: Search results are displayed in search sidebar
         book.toolbar.search_for(search_term)
-
         assert search_sidebar.search_results_present
 
         search_result_scroll_position = book.scroll_position
@@ -331,7 +331,7 @@ def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
         # THEN: Search sidebar is closed
         assert search_sidebar.search_results_not_displayed
 
-        # AND: Search string in the search input box is still visible
+        # AND: Search string in the search  textbox is still visible
         assert toolbar.search_term_displayed_in_search_textbox == search_term
 
         # AND: User stays in the same location in the book content as before closing the sidebar
@@ -339,8 +339,8 @@ def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
         assert scroll_position_after_closing_search_sidebar == search_result_scroll_position
 
     if book.is_mobile:
+        # AND: Search results are displayed in search sidebar
         mobile.search_for(search_term)
-
         assert search_sidebar.search_results_present
 
         # WHEN: Close search sidebar
@@ -358,7 +358,7 @@ def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
-    """x in search textbox clears search string but search results are not affected"""
+    """X in search textbox clears search string but search results are not affected"""
 
     # GIVEN: Book page is loaded
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
