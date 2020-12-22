@@ -174,10 +174,11 @@ class WebBase(Page):
         try:
             Utilities.click_option(self.driver, locator=self._print_copy_locator)
             if self.find_element(*self._order_on_amazon_locator):
-                amazon_link = self.find_element(*self._order_on_amazon_locator).get_attribute(
-                    "href"
-                )
-                self.close_modal()
+                Utilities.click_option(self.driver, locator=self._order_on_amazon_locator)
+                self.switch_to_window(1)
+                amazon_link = self.current_url
+                self.driver.close()
+                self.driver.switch_to.window(self.driver.window_handles[0])
                 return amazon_link
         except NoSuchElementException:
             return None
