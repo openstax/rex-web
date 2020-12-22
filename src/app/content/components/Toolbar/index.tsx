@@ -96,7 +96,6 @@ class Toolbar extends React.Component<Props, State> {
 
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
-        <Styled.SidebarControl hideMobileText={true} tabIndex={hideFromFocus ? -1 : undefined} />
         <Styled.SearchPrintWrapper>
           <Styled.SearchInputWrapper
             active={this.props.mobileToolbarOpen}
@@ -131,6 +130,7 @@ class Toolbar extends React.Component<Props, State> {
           <HighlightButton />
         </Styled.NudgeElementTarget>
         { !this.props.practiceQuestionsEnabled ? <PrintButton /> : null }
+        <Styled.SidebarControl hideMobileText={true} tabIndex={hideFromFocus ? -1 : undefined} />
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />
