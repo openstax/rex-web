@@ -110,42 +110,40 @@
   {
     "answers": [
       {
-        "id": 391823,
-        "content_html": "A solar cell converts all photons that it absorbs to electrical energy using the photoelectric effect.",
-        "correctness": "0.0",
+        "id": 514238,
+        "content_html": "The light’s wavelength was about 837 nm.",
+        "correctness": "1.0",
         "feedback_html": "The efficiency of a solar cell is not <span data-math=\"100\\%\">100\\%</span>. The solar cell is not able to absorb all the photons. Only certain photons with enough energy are absorbed."
       },
       {
-        "id": 391822,
-        "content_html": "A solar cell converts all electrons that it absorbs to electrical energy using the photoelectric effect.",
+        "id": 514239,
+        "content_html": "The light’s wavelength was about 886 nm.",
         "correctness": "0.0",
         "feedback_html": "Light is composed of photons, not electrons."
       },
       {
-        "id": 391821,
-        "content_html": "A solar cell absorbs the photons with energy less than the energy gap of the material of the solar cell and converts it to electrical energy using the photoelectric effect.",
+        "id": 514240,
+        "content_html": "The light’s wavelength was about 908 nm.",
         "correctness": "0.0",
         "feedback_html": "Photons with energy less than the band gap energy of the material of the solar cell cannot be absorbed."
       },
       {
-        "id": 391824,
-        "content_html": "A solar cell absorbs the photons with energy greater than the energy gap of the material of the solar cell and converts it to electrical energy using the photoelectric effect.",
-        "correctness": "1.0",
+        "id": 514241,
+        "content_html": "The light’s wavelength was about 950 nm.",
+        "correctness": "0.0",
         "feedback_html": "Photons with energy greater than the energy gap of the material can be absorbed by the solar cell, which converts it to electrical energy using the photoelectric effect."
       }
     ],
     "group_uuid": "74851683-05f5-4593-ab4c-9802b3924ff9",
-    "stem_html": "How do solar cells utilize the photoelectric effect?",
+    "stem_html": "An extremely efficient solar panel is designed with an energy gap of 1.4 eV. If shining a light on the panel causes a current to flow and the temperature of the panel to increase slightly, what can you say about the wavelength of the light?\n",
     "tags": [
       "inbook-yes",
       "k12phys",
       "ost-test-prep",
       "short-answer",
-      "time:short",
       "dok:2",
-      "blooms:2",
-      "book:stax-phys",
-      "lo:stax-phys:29-2-1",
+      "time:medium",
+      "blooms:4",
       "k12phys-ch21",
       "k12phys-ch21-s02",
       "k12phys-ch21-s02-lo04",
@@ -153,53 +151,52 @@
       "exid:k12phys-ch21-ex064",
       "context-cnxmod:142071fe-635b-47fd-b504-df53c82a8b45",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:77b44c56-c161-4234-815b-f90a130c30ec",
       "context-cnxmod:73e6245b-c15b-4abb-8242-deb950cba2d0",
-      "aplo:stax-apphys:6.F.3.1"
+      "aplo:stax-apphys:6.F.3.1",
+      "book:stax-apphys",
+      "science-practice:data-analysis"
     ],
-    "uid": "11497@7"
+    "uid": "11497@8"
   },
   {
     "answers": [
       {
-        "id": 391828,
-        "content_html": "The increased intensity increases the number of ejected electrons. The increased current is due to the increase in the number of electrons.",
+        "id": 514214,
+        "content_html": "The observed current will increase because more electrons are moving through the material.",
         "correctness": "1.0",
         "feedback_html": "The number of ejected electrons increases with the increase in intensity of light. As a result, more electrons are moving to fill their ‘holes.’ This greater number of electrons moving is responsible for an increased current."
       },
       {
-        "id": 391825,
-        "content_html": "The increased intensity decreases the number of ejected electrons. The increased current is due to the decrease in the number of electrons ejected.",
+        "id": 514215,
+        "content_html": "The observed current will increase because electrons are moving more quickly through the material.",
         "correctness": "0.0",
         "feedback_html": "The increase in intensity increases the number of electrons ejected from the metallic surface."
       },
       {
-        "id": 391826,
-        "content_html": "The increased intensity does not alter the number of electrons ejected. The increased current is due to the increase in the kinetic energy of electrons.",
+        "id": 514216,
+        "content_html": "The observed current will decrease because fewer electrons are moving through the material. ",
         "correctness": "0.0",
         "feedback_html": "The intensity of light is proportionally related to the number of electrons ejected from the metallic surface."
       },
       {
-        "id": 391827,
-        "content_html": "The increased intensity alters the number of electrons ejected, but an increase in the current is due to an increase in the kinetic energy of electrons.",
+        "id": 514217,
+        "content_html": "The observed current will decrease because electrons are moving more slowly through the material.",
         "correctness": "0.0",
         "feedback_html": "How can the increased velocity of electrons change the current? Increase in current means more electrons are moving. So, an increase in the number of electrons due to increased intensity of light is responsible for an increase in the current."
       }
     ],
     "group_uuid": "14cf4bb9-b28f-420c-9060-ddcf4b1f7093",
-    "stem_html": "When increasing the intensity of light shining on a metallic surface, it is possible to increase the current created on that surface. Classical theorists would argue that this is evidence that intensity causes charge to move with a greater kinetic energy. Argue this logic from the perspective of a modern physicist.",
+    "stem_html": "You and your lab partner increase the intensity of light shining on a metal surface. Predict the effect on the current that you are able to measure and explain your reasoning.\n",
     "tags": [
       "inbook-yes",
       "k12phys",
       "ost-test-prep",
       "extended-response",
-      "time:medium",
+      "time:short",
       "dok:3",
-      "blooms:5",
-      "book:stax-phys",
-      "lo:stax-phys:29-2-1",
+      "blooms:4",
       "k12phys-ch21",
       "k12phys-ch21-s01",
       "k12phys-ch21-s02-lo01",
@@ -207,12 +204,13 @@
       "exid:k12phys-ch21-ex066",
       "context-cnxmod:945d741b-f25d-49bc-9f85-7f72db5e65ad",
       "filter-type:import:hs",
-      "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:77b44c56-c161-4234-815b-f90a130c30ec",
       "context-cnxmod:73e6245b-c15b-4abb-8242-deb950cba2d0",
-      "aplo:stax-apphys:6.F.3.1"
+      "aplo:stax-apphys:6.F.3.1",
+      "book:stax-apphys",
+      "science-practice:argumentation"
     ],
-    "uid": "11499@5"
+    "uid": "11499@6"
   }
 ]
