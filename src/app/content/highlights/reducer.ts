@@ -7,9 +7,8 @@ import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
-import { highlightStyles, modalQueryParameterName } from '../constants';
+import { highlightStyles } from '../constants';
 import * as actions from './actions';
-import { modalUrlName } from './constants';
 import { State } from './types';
 import {
   addToTotalCounts,
@@ -43,9 +42,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       // Noops for locationChange dispatched when search query changes
       if (action.payload.action === 'REPLACE') { return state; }
 
-      const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
-        && action.payload.action === 'PUSH';
-
       const currentPageId = state.currentPage.pageId;
       const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
       return {
@@ -54,7 +50,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           : initialState.currentPage,
         summary: {
           ...state.summary,
-          open: summaryShouldBeOpen,
         },
       };
     }

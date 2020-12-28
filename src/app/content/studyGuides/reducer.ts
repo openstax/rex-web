@@ -1,12 +1,11 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
-import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
-import { modalQueryParameterName, studyGuidesFeatureFlag } from '../constants';
+import { studyGuidesFeatureFlag } from '../constants';
 import * as actions from './actions';
-import { highlightStyles, modalUrlName } from './constants';
+import { highlightStyles } from './constants';
 import { State } from './types';
 
 export const initialState: State = {
@@ -27,12 +26,6 @@ export const initialState: State = {
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
-    case getType(locationChange): {
-      const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
-        && action.payload.action === 'PUSH';
-
-      return {...state, summary: {...state.summary, open: summaryShouldBeOpen}};
-    }
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     case getType(actions.openStudyGuides):
