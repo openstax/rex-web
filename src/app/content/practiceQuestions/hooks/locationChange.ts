@@ -1,7 +1,10 @@
 import Sentry from '../../../../helpers/Sentry';
+import { query } from '../../../navigation/selectors';
 import { AppServices, MiddlewareAPI } from '../../../types';
+import { modalQueryParameterName } from '../../constants';
 import { bookAndPage } from '../../selectors';
-import { receivePracticeQuestionsSummary } from '../actions';
+import { openPracticeQuestions, receivePracticeQuestionsSummary } from '../actions';
+import { modalUrlName } from '../constants';
 import { hasPracticeQuestions, practiceQuestionsEnabled } from '../selectors';
 import { PracticeQuestionsSummary } from '../types';
 
@@ -27,6 +30,11 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   if (!practiceQuestionsSummary) { return; }
 
   services.dispatch(receivePracticeQuestionsSummary(practiceQuestionsSummary));
+
+  const navigationQuery = query(services.getState());
+  if (navigationQuery[modalQueryParameterName] === modalUrlName) {
+    services.dispatch(openPracticeQuestions());
+  }
 };
 
 export default hookBody;
