@@ -4,11 +4,13 @@ import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { receiveFeatureFlags } from '../../../actions';
+import * as navigationSelectors from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import { formatBookData } from '../../utils';
-import { receivePracticeQuestionsSummary } from '../actions';
+import { openPracticeQuestions, receivePracticeQuestionsSummary } from '../actions';
+import { modalUrlName } from '../constants';
 import { PracticeQuestionsSummary } from '../types';
 
 describe('locationChange', () => {
@@ -49,6 +51,23 @@ describe('locationChange', () => {
 
     expect(getSummary).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
+  });
+
+  it('opens modal if modal query is present', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+
+    const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
+      .mockResolvedValue(mockSummaryResponse);
+
+    const getQuery = jest.spyOn(navigationSelectors, 'query').mockReturnValue({modal: modalUrlName});
+
+    await hook();
+
+    expect(getSummary).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
+    expect(getQuery).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(openPracticeQuestions());
   });
 
   it('noops on locationChange if feature flag is not present', async() => {
