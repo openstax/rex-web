@@ -1498,10 +1498,45 @@ class Content(Page):
     class MobileSearchToolbar(Region):
         _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
         _back_to_results_locator = (By.CSS_SELECTOR, "[data-testid='back-to-search-results']")
+        _close_search_results_locator = (By.CSS_SELECTOR, "[data-testid='close-search-results']")
+        _search_textbox_x_locator = (By.CSS_SELECTOR, "[data-testid='mobile-clear-search']")
 
         @property
         def search_textbox(self) -> WebElement:
+            """Return the search textbox in mobile view."""
             return self.find_element(*self._search_textbox_mobile_locator)
+
+        @property
+        def search_term_displayed_in_search_textbox(self):
+            """Return the search term displayed in search textbox in mobile view."""
+            return self.search_textbox.get_attribute("value")
+
+        @property
+        def back_to_results(self):
+            """Return the back to search results link in mobile view."""
+            return self.find_element(*self._back_to_results_locator)
+
+        @property
+        def close_search_results(self):
+            """Return the close search results link in mobile view."""
+            return self.find_element(*self._close_search_results_locator)
+
+        @property
+        def search_textbox_x(self):
+            """Return the X in search textbox, mobile view."""
+            return self.find_element(*self._search_textbox_x_locator)
+
+        def click_back_to_search_results_button(self):
+            """Clicks the back to search results link in mobile view."""
+            Utilities.click_option(self.driver, element=self.back_to_results)
+
+        def click_close_search_results_link(self):
+            """Clicks the close search results link in mobile view."""
+            Utilities.click_option(self.driver, element=self.close_search_results)
+
+        def click_search_textbox_x(self):
+            """Clicks the X in search textbox, mobile view."""
+            Utilities.click_option(self.driver, element=self.search_textbox_x)
 
         def search_for(self, search_term: str) -> SearchSidebar:
             """Search for a term/query in mobile resolution.
@@ -1521,13 +1556,6 @@ class Content(Page):
             self.page.search_sidebar.wait_for_region_to_display()
             sleep(0.5)
             return self.page.search_sidebar
-
-        @property
-        def back_to_results(self):
-            return self.find_element(*self._back_to_results_locator)
-
-        def click_back_to_search_results_button(self):
-            Utilities.click_option(self.driver, element=self.back_to_results)
 
     class NavBar(Region):
 
@@ -1745,6 +1773,7 @@ class Content(Page):
         _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
         _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
         _toc_toggle_button_locator = (By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
+        _search_textbox_x_locator = (By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
 
         _my_highlights_selector = "[data-testid=highlights-popup-wrapper]"
 
@@ -1759,14 +1788,22 @@ class Content(Page):
 
         @property
         def search_button_mobile(self) -> WebElement:
+            """Return the search icon in mobile view."""
             return self.find_element(*self._search_button_mobile_locator)
 
         @property
         def search_textbox(self) -> WebElement:
+            """Return the search textbox in desktop view."""
             return self.find_element(*self._search_textbox_desktop_locator)
 
         @property
+        def search_textbox_x(self) -> WebElement:
+            """Return the search textbox X in desktop view."""
+            return self.find_element(*self._search_textbox_x_locator)
+
+        @property
         def search_term_displayed_in_search_textbox(self):
+            """Return the search term in desktop view."""
             return self.search_textbox.get_attribute("value")
 
         @property
@@ -1777,7 +1814,12 @@ class Content(Page):
             """Clicks the search icon in mobile view."""
             self.offscreen_click(self.search_button_mobile)
 
+        def click_search_textbox_x(self) -> WebElement:
+            """Clicks the X in search textbox, desktop view."""
+            return self.offscreen_click(self.search_textbox_x)
+
         def click_toc_toggle_button(self) -> Content.SideBar:
+            """Clicks the TOC toggle button."""
             self.offscreen_click(self.toc_toggle_button)
             return self.page.sidebar.wait_for_region_to_display()
 
