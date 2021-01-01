@@ -4,7 +4,7 @@ attrs==20.3.0
 certifi==2020.12.5
 cffi==1.14.4
 cfgv==3.2.0
-chardet==3.0.4
+chardet==4.0.0
 chromedriver-binary==87.0.4280.20.0
 cryptography==3.2.1
 Faker==4.18.0
