@@ -15,7 +15,7 @@ more-itertools==8.6.0
 nodeenv==1.5.0
 packaging==20.8
 pluggy==0.13.1
-pre-commit==2.9.2
+pre-commit==2.9.3
 py==1.9.0
 pyAesCrypt==0.4.3
 pycparser==2.20
