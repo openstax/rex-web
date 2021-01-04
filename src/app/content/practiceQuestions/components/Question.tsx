@@ -24,12 +24,15 @@ export const QuestionWrapper = styled.form`
 `;
 
 // tslint:disable-next-line: variable-name
-export const QuestionContent = styled(ContentExcerpt)`
+export const QuestionContent = styled(React.forwardRef((props, ref) => <div tabIndex={0}>
+  <ContentExcerpt {...props} tabIndex={-1} ref={ref} />
+</div>))`
   ${h4Style}
   font-weight: bold;
   color: ${theme.color.primary.gray.base};
   padding: 0;
   overflow: initial;
+  outline: none;
 `;
 
 // tslint:disable-next-line: variable-name
