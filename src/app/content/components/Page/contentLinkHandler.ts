@@ -35,11 +35,12 @@ export const reduceReferences = (document: Document, {references, currentPath}: 
     const path = content.getUrl(reference.params);
     const search = content.getSearch && content.getSearch(reference.params);
     const query = search ? `?${search}` : '';
+    const referenceMatch = reference.match.rapMatch ? reference.match.rapMatch : reference.match.refMatch;
     const a = assertNotNull(
-      document.querySelector(`[href^='${reference.match}']`),
+      document.querySelector(`[href^='${referenceMatch}']`),
       'references are created from hrefs');
     const href = assertNotNull(a.getAttribute('href'), 'it was found by href value')
-      .replace(reference.match, toRelativeUrl(currentPath, path) + query);
+      .replace(referenceMatch, toRelativeUrl(currentPath, path) + query);
     a.setAttribute('href', href);
   }
 };

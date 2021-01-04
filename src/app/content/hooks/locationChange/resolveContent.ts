@@ -206,21 +206,30 @@ const loadContentReference = async(
   services: AppServices & MiddlewareAPI,
   book: Book,
   page: ArchivePage,
-  reference: ReturnType<typeof getContentPageReferences>[0]
+  reference: {
+    bookId?: string,
+    bookVersion?: string,
+    match: string,
+    prevMatch?: string,
+    pageUid: string,
+  }
 ) => {
   const targetBook: Book = archiveTreeContainsNode(book.tree, reference.pageUid)
     ? book
     : await resolveExternalBookReference(services, book, page, reference.pageUid);
 
   return {
-    match: reference.match,
+    match: {
+      rapMatch: reference.prevMatch,
+      refMatch: reference.match,
+    },
     params: {
       book: getUrlParamsForBook(targetBook),
       page: getUrlParamForPageId(targetBook, reference.pageUid),
     },
     state: {
-      bookUid: targetBook.id,
-      bookVersion: targetBook.version,
+      bookUid: reference.bookId || targetBook.id,
+      bookVersion: reference.bookVersion || targetBook.version,
       pageUid: reference.pageUid,
     },
   };
