@@ -60,31 +60,6 @@ describe('ShowPracticeQuestions', () => {
       .mockReturnValue('mockedUrl');
   });
 
-  it('renders only a few components when there is no book and no selected section', () => {
-    const component = renderer.create(render());
-
-    expect(() => component.root.findByType(SectionTitle)).toThrow();
-    expect(() => component.root.findByType(Filters)).not.toThrow();
-    expect(() => component.root.findByProps({ target: '_blank' })).toThrow();
-    expect(() => component.root.findByType(QuestionsWrapper)).not.toThrow();
-    expect(() => component.root.findByType(QuestionsHeader)).not.toThrow();
-    expect(() => component.root.findByType(ProgressBar)).not.toThrow();
-  });
-
-  it('renders general components when there is a book and selected section', () => {
-    store.dispatch(receiveBook(book));
-    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
-
-    const component = renderer.create(render());
-
-    expect(() => component.root.findByType(Filters)).not.toThrow();
-    expect(() => component.root.findByType(SectionTitle)).not.toThrow();
-    expect(() => component.root.findByType(QuestionsWrapper)).not.toThrow();
-    expect(() => component.root.findByType(QuestionsHeader)).not.toThrow();
-    expect(() => component.root.findByProps({ target: '_blank' })).not.toThrow();
-    expect(() => component.root.findByType(ProgressBar)).not.toThrow();
-  });
-
   it('renders Intro screen', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
@@ -159,7 +134,7 @@ describe('ShowPracticeQuestions', () => {
     expect(() => component.root.findByType(Question)).not.toThrow();
   });
 
-  it('renders FinalScreen screen', () => {
+  it('renders FinalScreen screen at the end of section questions', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
     store.dispatch(receivePracticeQuestionsSummary({
@@ -173,6 +148,15 @@ describe('ShowPracticeQuestions', () => {
     const component = renderer.create(render());
 
     expect(() => component.root.findByType(Question)).toThrow();
+    expect(() => component.root.findByType(FinalScreen)).not.toThrow();
+  });
+
+  it('renders FinalScreen screen if section has no questions and there is no nextSection', () => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+
+    const component = renderer.create(render());
+
     expect(() => component.root.findByType(FinalScreen)).not.toThrow();
   });
 });

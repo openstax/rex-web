@@ -11,9 +11,12 @@ import { LinkedArchiveTreeSection } from '../../types';
 // tslint:disable-next-line: variable-name
 export const StyledLink = styled(ContentLink)`
   display: block;
+  width: max-content;
+  max-width: 100%;
+  flex-shrink: 0;
   font-size: 1.4rem;
   color: #929292;
-  margin-top: 2.5rem;
+  padding: 2.5rem 0;
   text-decoration: none;
 
   > span {
@@ -25,7 +28,7 @@ export const StyledLink = styled(ContentLink)`
   }
 
   ${theme.breakpoints.mobile(css`
-    margin: 1.2rem;
+    padding: 1.2rem;
   `)}
 `;
 

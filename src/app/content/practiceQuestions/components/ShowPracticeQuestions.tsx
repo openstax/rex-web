@@ -32,7 +32,7 @@ export const ShowPracitceQuestionsContent = styled.div`
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
-  padding: 2rem 3.2rem 2.5rem 3.2rem;
+  padding: 2rem 3.2rem 0 3.2rem;
   ${theme.breakpoints.mobile(css`
     text-align: left;
     padding: 0;
@@ -42,6 +42,7 @@ export const ShowPracitceQuestionsContent = styled.div`
 // tslint:disable-next-line: variable-name
 export const SectionTitle = styled.div`
   ${h4Style}
+  flex-shrink: 0;
   font-weight: bold;
   padding: 0;
   margin-top: 0;
@@ -55,8 +56,10 @@ export const SectionTitle = styled.div`
 
 // tslint:disable-next-line: variable-name
 export const QuestionsWrapper = styled.div`
-  flex: 1;
+  flex: 1 0;
+  overflow: initial;
   border: 1px solid ${theme.color.neutral.darkest};
+  background-color: ${theme.color.white};
 `;
 
 // tslint:disable-next-line: variable-name
@@ -94,8 +97,11 @@ const ShowPracticeQuestions = () => {
       <Filters />
       <ShowPracitceQuestionsContent>
         {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
-        {questionsCount === 0 && nextSection
-          ? <EmptyScreen nextSection={nextSection} />
+        {questionsCount === 0
+          ? (nextSection
+            ? <EmptyScreen nextSection={nextSection} />
+            : <FinalScreen />
+          )
           : hasAnswers && !questionsInProggress
             ? <FinalScreen nextSection={nextSection} />
             : (

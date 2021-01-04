@@ -55,25 +55,25 @@
   {
     "answers": [
       {
-        "id": 379836,
+        "id": 517457,
         "content_html": "An engine’s efficiency equals the sum of useful energy (work) and the input energy.",
         "correctness": "0.0",
         "feedback_html": "An engine’s efficiency is the proportion of useful energy (work) to the input energy."
       },
       {
-        "id": 379839,
+        "id": 517458,
         "content_html": "An engine’s efficiency equals the proportion of useful energy (work) to the input energy.",
         "correctness": "1.0",
         "feedback_html": "Yes, the ratio of useful energy (work) to the input energy defines an engine’s efficiency."
       },
       {
-        "id": 379837,
+        "id": 517456,
         "content_html": "An engine’s efficiency equals the product of useful energy (work) and the input energy.",
         "correctness": "0.0",
         "feedback_html": "Remember, an engine’s efficiency cannot be greater than <span data-math=\"1\">1</span>, which would often result from the product of input and output energies."
       },
       {
-        "id": 379838,
+        "id": 517455,
         "content_html": "An engine’s efficiency equals the difference between the useful energy (work) and the input energy.",
         "correctness": "0.0",
         "feedback_html": "Net energy (the difference between input energy and output energy) is not a measure of an engine’s efficiency."
@@ -101,9 +101,8 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:ed5a4287-94eb-4889-b028-69e3363eb378",
-      "context-cnxmod:03a8500e-2942-4b15-803b-525dd9e05192",
       "aplo:stax-apphys:7.B.2.1"
     ],
-    "uid": "6660@5"
+    "uid": "6660@6"
   }
 ]

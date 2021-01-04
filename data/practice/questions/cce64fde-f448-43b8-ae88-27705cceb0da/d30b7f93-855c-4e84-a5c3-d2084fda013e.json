@@ -109,25 +109,25 @@
   {
     "answers": [
       {
-        "id": 379467,
+        "id": 517099,
         "content_html": "The Celsius scale derived on the planet will be the same as that on Earth, because the Celsius scale is independent of the freezing and boiling points of water.",
         "correctness": "0.0",
         "feedback_html": "The Celsius scale is derived by using the freezing and boiling point of water. Since these are different from those on Earth, the scale will be different as well."
       },
       {
-        "id": 379470,
+        "id": 517100,
         "content_html": "The Celsius scale derived on that planet will not be the same as that on Earth, because the Celsius scale is dependent and derived by using the freezing and boiling points of water.",
         "correctness": "1.0",
         "feedback_html": "The boiling point is different on the Earth and the planet. So, the Celsius scale that is derived on the planet will not be same as on the Earth."
       },
       {
-        "id": 379468,
+        "id": 517098,
         "content_html": "The Celsius scale derived on the planet will be the same as that on Earth, because the Celsius scale is an absolute temperature scale based on molecular motion, which is independent of pressure.",
         "correctness": "0.0",
         "feedback_html": "Although an absolute temperature scale would have the same reference temperature (absolute zero) as on Earth, the Kelvin scale, and not the Celsius scale, is an absolute temperature scale."
       },
       {
-        "id": 379469,
+        "id": 517097,
         "content_html": "The Celsius scale derived on the planet will not be the same as that on Earth, but the Fahrenheit scale will be the same, because its reference temperatures are not based on the freezing and boiling points of water.",
         "correctness": "0.0",
         "feedback_html": "The Fahrenheit scale uses a chemical mixture for its reference temperature of <span data-math=\"0\">0</span> degrees; the temperature of such a mixture would be affected by atmospheric pressure, and so would not be the same as on Earth."
@@ -155,33 +155,32 @@
       "book:stax-k12phys",
       "type:practice",
       "context-cnxmod:7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33",
-      "context-cnxmod:755b8a47-c7b5-4909-a302-81c9c05568a3",
       "aplo:stax-apphys:1.A.5.1"
     ],
-    "uid": "6553@5"
+    "uid": "6553@6"
   },
   {
     "answers": [
       {
-        "id": 379475,
+        "id": 517095,
         "content_html": "It is the temperature at which the internal energy of the system is maximum, because the speed of its constituent particles increases to maximum at this point.",
         "correctness": "0.0",
         "feedback_html": "Remember, at absolute zero, the internal energy of the system of particles approaches zero."
       },
       {
-        "id": 379476,
+        "id": 517094,
         "content_html": "It is the temperature at which the internal energy of the system is maximum, because the speed of its constituent particles decreases to zero at this point.",
         "correctness": "0.0",
         "feedback_html": "The internal energy of the system approaches zero when its constituent particles become motionless."
       },
       {
-        "id": 379477,
+        "id": 517093,
         "content_html": "It is the temperature at which the internal energy of the system approaches zero, because the speed of its constituent particles increases to a maximum at this point.",
         "correctness": "0.0",
         "feedback_html": "The internal energy increases with the increase in the speed of the constituent particles of the system."
       },
       {
-        "id": 379478,
+        "id": 517096,
         "content_html": "It is that temperature at which the internal energy of the system approaches zero, because the speed of its constituent particles decreases to zero at this point.",
         "correctness": "1.0",
         "feedback_html": "At <span data-math=\"0\\,\\text{K}\">0\\,\\text{K}</span>, there is no motion of the constituent particles of the system, which results in zero internal energy of the system."
@@ -209,9 +208,8 @@
       "type:practice",
       "context-cnxmod:7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33",
       "lo:stax-phys:13-1-1",
-      "context-cnxmod:755b8a47-c7b5-4909-a302-81c9c05568a3",
       "aplo:stax-apphys:1.A.5.1"
     ],
-    "uid": "6555@5"
+    "uid": "6555@6"
   }
 ]
