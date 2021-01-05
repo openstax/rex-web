@@ -4,6 +4,7 @@ import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
 import { resetModules } from './utils';
 
 jest.mock('../helpers/Sentry');
+jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2022);
 
 declare global {
   namespace jest {
