@@ -3,7 +3,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { goBack } from '../../../navigation/actions';
+import { push } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
@@ -31,7 +31,7 @@ const PracticeQuestionsPopup = () => {
       if (!assertWindow().confirm(message)) { return; }
     }
     if (match) {
-      dispatch(goBack(match));
+      dispatch(push(match));
     }
     trackOpenClosePQ(method);
   }, [match, dispatch, currentQuestionIndex, trackOpenClosePQ, intl]);

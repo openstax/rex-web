@@ -5,6 +5,8 @@ import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import ContentLink from '../../components/ContentLink';
+import { modalQueryParameterName } from '../../constants';
+import { modalUrlName } from '../../practiceQuestions/constants';
 import { hasPracticeQuestions, practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
 import { bookAndPage } from '../../selectors';
 import { toolbarIconColor } from '../constants';
@@ -53,7 +55,7 @@ const PracticeQuestionsButton = () => {
   if (!isEnabled || !hasPracticeQs || !book || !page) { return null; }
 
   const search = {
-    modal: 'PQ',
+    [modalQueryParameterName]: modalUrlName,
     query: undefined,
   };
 

@@ -36,7 +36,7 @@ export type Match<R> = R extends AnyRoute
   : never;
 
 export type HistoryAction<R extends AnyRoute = AnyRoute> = Match<R> & {
-  method: 'push' | 'replace' | 'goBack';
+  method: 'push' | 'replace';
   hash?: string;
   search?: string;
 };

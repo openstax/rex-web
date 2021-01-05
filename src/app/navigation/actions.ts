@@ -18,4 +18,3 @@ const makeCallHistoryMethodAction = (method: HistoryAction['method']) => (
 
 export const push = makeCallHistoryMethodAction('push');
 export const replace = makeCallHistoryMethodAction('replace');
-export const goBack = makeCallHistoryMethodAction('replace');
