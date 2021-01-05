@@ -21,23 +21,18 @@ export const initialState: State = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action): State => {
   switch (action.type) {
     case getType(locationChange):
-      const shouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
-        && action.payload.action === 'PUSH';
+      const shouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName;
 
-      return {...state, open: shouldBeOpen, selectedSection: null, questions: [], questionAnswers: {}};
-    case getType(receiveFeatureFlags):
-      return {...state, isEnabled: action.payload.includes(practiceQuestionsFeatureFlag)};
-    case getType(actions.openPracticeQuestions):
-      return {...state, open: true};
-    case getType(actions.closePracticeQuestions):
       return {
         ...state,
         currentQuestionIndex: null,
-        open: false,
+        open: shouldBeOpen,
         questionAnswers: {},
         questions: [],
         selectedSection: null,
       };
+    case getType(receiveFeatureFlags):
+      return {...state, isEnabled: action.payload.includes(practiceQuestionsFeatureFlag)};
     case getType(actions.receivePracticeQuestionsSummary):
       return {...state, summary: action.payload};
     case getType(actions.setSelectedSection):

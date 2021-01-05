@@ -9,7 +9,7 @@ import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
-import { closePracticeQuestions, nextQuestion, openPracticeQuestions } from '../actions';
+import { nextQuestion } from '../actions';
 import PracticeQuestionsPopup from './PracticeQuestionsPopup';
 
 // this is a hack because useEffect is currently not called
@@ -40,7 +40,7 @@ describe('PracticeQuestions', () => {
   });
 
   it('renders practice questions modal if it is open', () => {
-    store.dispatch(openPracticeQuestions());
+    // store.dispatch(openPracticeQuestions());
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
@@ -54,7 +54,7 @@ describe('PracticeQuestions', () => {
   });
 
   it('doesn\'t render practice questions modal if it is closed', () => {
-    store.dispatch(closePracticeQuestions());
+    // store.dispatch(closePracticeQuestions());
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
@@ -81,7 +81,7 @@ describe('PracticeQuestions', () => {
     </Provider>, {createNodeMock});
 
     renderer.act(() => {
-      store.dispatch(openPracticeQuestions());
+      // store.dispatch(openPracticeQuestions());
     });
 
     expect(focus).toHaveBeenCalled();
@@ -90,7 +90,7 @@ describe('PracticeQuestions', () => {
   it('closes and tracks when clicking x icon', () => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
 
-    store.dispatch(openPracticeQuestions());
+    // store.dispatch(openPracticeQuestions());
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
