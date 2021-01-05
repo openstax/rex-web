@@ -32,6 +32,7 @@ describe('ErrorBoundary', () => {
   });
 
   it('matches snapshot', () => {
+    jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     const tree = renderer
       .create(<MessageProvider><Provider store={store}>
           <ErrorBoundary><Buggy /></ErrorBoundary>
