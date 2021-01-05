@@ -64,6 +64,7 @@ describe('content', () => {
   });
 
   it('matches snapshot', () => {
+    jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
@@ -82,6 +83,7 @@ describe('content', () => {
   });
 
   it('renders empty state', () => {
+    jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
