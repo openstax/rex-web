@@ -1279,7 +1279,7 @@ Array [
                           dangerouslySetInnerHTML={
                             Object {
                               "__html": "
-  <div data-html=\\"copyright\\">© 1999-2020, Rice University. Except where otherwise noted, textbooks on this site
+  <div data-html=\\"copyright\\">© 1999-2021, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
     rel=\\"noreferrer\\">Creative Commons Attribution 4.0 International License</a>.
@@ -1985,7 +1985,7 @@ Array [
                           dangerouslySetInnerHTML={
                             Object {
                               "__html": "
-  <div data-html=\\"copyright\\">© 1999-2020, Rice University. Except where otherwise noted, textbooks on this site
+  <div data-html=\\"copyright\\">© 1999-2021, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
     rel=\\"noreferrer\\">Creative Commons Attribution 4.0 International License</a>.
