@@ -1,8 +1,7 @@
-import { Highlight, HighlightColorEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightsSummary, NewHighlight } from '@openstax/highlighter/dist/api';
 import { ScrollTarget } from '../../navigation/types';
 import { LinkedArchiveTree, LinkedArchiveTreeNode, LinkedArchiveTreeSection } from '../types';
 
-export type HighlightData = Highlight;
 export interface SummaryHighlights {
   [locationId: string]: {[pageId: string]: HighlightData[]};
 }
@@ -52,3 +51,8 @@ export interface HighlightScrollTarget extends ScrollTarget {
   type: 'highlight';
   id: string;
 }
+
+// technically the null id is allowed by the api and it will create it if not supplied,
+// but the scopeId should not be nullable in the swagger
+export type NewHighlightPayload = NewHighlight & {id: string, scopeId: string};
+export type HighlightData = Highlight & {scopeId: string};

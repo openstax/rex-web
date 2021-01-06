@@ -1,7 +1,6 @@
 import {
   GetHighlightsRequest,
   GetHighlightsSourceTypeEnum,
-  Highlight,
   Highlights,
 } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
@@ -16,7 +15,7 @@ import { getNextPageSources, incrementPage } from './paginationUtils';
 
 const extractDataFromHighlightClientResponse = (highlightsResponse: Highlights) => {
   // TODO - change swagger so none of this is nullable
-  const data = assertDefined(highlightsResponse.data, 'response from highlights api is invalid');
+  const data = assertDefined(highlightsResponse.data, 'response from highlights api is invalid') as HighlightData[];
   const meta = assertDefined(highlightsResponse.meta, 'response from highlights api is invalid');
   const page = assertDefined(meta.page, 'response from highlights api is invalid');
   const perPage = assertDefined(meta.perPage, 'response from highlights api is invalid');
@@ -42,7 +41,7 @@ const getNewSources = (
 };
 
 export const formatReceivedHighlights = (
-  highlights: Highlight[],
+  highlights: HighlightData[],
   locationFilters: HighlightLocationFilters
 ) => highlights.reduce((result, highlight) => {
   const pageId = stripIdVersion(highlight.sourceId);
@@ -68,7 +67,7 @@ const fetchHighlightsForSource = async({
   pagination,
 }: {
   highlightClient: AppServices['highlightClient'],
-  prevHighlights?: Highlight[],
+  prevHighlights?: HighlightData[],
   book: Book,
   pagination: NonNullable<SummaryHighlightsPagination>,
   colors: NonNullable<GetHighlightsRequest['colors']>;
@@ -106,9 +105,9 @@ export const loadUntilPageSize = async({
   sets?: GetHighlightsRequest['sets'];
   sourcesFetched: string[],
   countsPerSource: CountsPerSource,
-  highlights?: Highlight[]
+  highlights?: HighlightData[]
   pageSize?: number,
-}): Promise<{pagination: SummaryHighlightsPagination, highlights: Highlight[]}> => {
+}): Promise<{pagination: SummaryHighlightsPagination, highlights: HighlightData[]}> => {
   const {page, sourceIds, perPage} = previousPagination
     ? incrementPage(previousPagination)
     : {

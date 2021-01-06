@@ -1,4 +1,3 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
 import { getType } from 'typesafe-actions';
 import Sentry from '../../../../helpers/Sentry';
 import { receivePageFocus } from '../../../actions';
@@ -10,6 +9,7 @@ import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
 import { receiveHighlights } from '../actions';
 import * as select from '../selectors';
+import { HighlightData } from '../types';
 import { loadAllHighlights } from '../utils/highlightLoadingUtils';
 
 const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAction) => {
@@ -33,7 +33,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
     return;
   }
 
-  let highlights: Highlight[];
+  let highlights: HighlightData[];
   try {
     highlights = await loadAllHighlights({
       book,

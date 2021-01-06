@@ -1,4 +1,4 @@
-import { HighlightUpdateColorEnum, NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
+import { HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
@@ -7,6 +7,7 @@ import { groupedToastNotifications, toastNotifications } from '../../../notifica
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { createHighlight, openMyHighlights, updateHighlight } from '../actions';
+import { NewHighlightPayload } from '../types';
 
 jest.mock('../../../../helpers/Sentry');
 
@@ -17,7 +18,7 @@ const mockHighlight = () => {
     annotation: 'asdf',
     color: 'red' as string,
     id,
-  } as NewHighlight & {id: string};
+  } as NewHighlightPayload;
 };
 
 const highlightUpdatePayload = (id: string, toChange: {color: string, annotation: string}) => {

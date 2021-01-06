@@ -1,4 +1,4 @@
-import { NewHighlight } from '@openstax/highlighter/dist/api';
+import { NewHighlightColorEnum, NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import Sentry from '../../../../helpers/Sentry';
 import { addToast } from '../../../notifications/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
@@ -20,9 +20,12 @@ export const hookBody: ActionHookBody<typeof receiveDeleteHighlight> =
 
       dispatch(addToast(toastMessageKeys.higlights.failure.delete, {destination}));
       dispatch(createHighlight({
-        ...payload as unknown as NewHighlight,
-        id: payload.id,
-      },
+        ...payload,
+        // it would be nice if these enums were the same in the swagger
+        color: payload.color as unknown as NewHighlightColorEnum,
+        sourceType: payload.sourceType as unknown as NewHighlightSourceTypeEnum,
+      }
+      ,
       {...meta, revertingAfterFailure: true}));
     }
   };

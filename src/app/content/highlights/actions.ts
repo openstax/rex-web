@@ -1,9 +1,10 @@
-import { Highlight, NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
+import { UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import { createStandardAction } from 'typesafe-actions';
 import {
   CountsPerSource,
   HighlightData,
   HighlightLocationFilters,
+  NewHighlightPayload,
   SummaryFilters,
   SummaryHighlights,
   SummaryHighlightsPagination,
@@ -11,16 +12,20 @@ import {
 
 export const focusHighlight = createStandardAction('Content/Highlights/focus')<string>();
 export const clearFocusedHighlight = createStandardAction('Content/Highlights/clear')();
-export const createHighlight = createStandardAction('Content/Highlights/create')<NewHighlight & {id: string}, {
-  revertingAfterFailure?: boolean,
+export const createHighlight = createStandardAction('Content/Highlights/create')<
+  NewHighlightPayload,
+  {
+    isDefaultColor?: boolean,
+    revertingAfterFailure?: boolean,
+    locationFilterId: string,
+    pageId: string,
+  }
+>();
+export const requestDeleteHighlight = createStandardAction('Content/Highlights/requestDelete')<HighlightData, {
   locationFilterId: string,
   pageId: string,
 }>();
-export const requestDeleteHighlight = createStandardAction('Content/Highlights/requestDelete')<Highlight, {
-  locationFilterId: string,
-  pageId: string,
-}>();
-export const receiveDeleteHighlight = createStandardAction('Content/Highlights/receiveDelete')<Highlight, {
+export const receiveDeleteHighlight = createStandardAction('Content/Highlights/receiveDelete')<HighlightData, {
   revertingAfterFailure?: boolean,
   locationFilterId: string,
   pageId: string,

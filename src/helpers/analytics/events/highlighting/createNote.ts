@@ -1,4 +1,6 @@
+import { createdHighlight } from '@openstax/event-capture-client/events';
 import { createSelector } from 'reselect';
+import { NewHighlightPayload } from '../../../../app/content/highlights/types';
 import * as selectNavigation from '../../../../app/navigation/selectors';
 import { AnalyticsEvent } from '../event';
 
@@ -11,11 +13,19 @@ export const selector = createSelector(
 
 export const track = (
   {pathname}: ReturnType<typeof selector>,
-  color: string
+  highlight: NewHighlightPayload,
+  {isDefaultColor}: {isDefaultColor?: boolean}
 ): AnalyticsEvent | void => {
   return {
+    getEventCapturePayload: () => createdHighlight({
+      ...highlight,
+      annotation: highlight.annotation || '',
+      highlightId: highlight.id,
+      locationStrategies: JSON.stringify(highlight.locationStrategies),
+      sourceMetadata: '', // idk what this is for
+    }),
     getGoogleAnalyticsPayload: () => ({
-      eventAction: color,
+      eventAction: isDefaultColor ? 'default' : highlight.color,
       eventCategory: createNote,
       eventLabel: pathname,
     }),

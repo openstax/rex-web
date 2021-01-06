@@ -1,10 +1,9 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { h4Style, labelStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { assertDefined } from '../../utils';
-import { OrderedSummaryHighlights } from '../highlights/types';
+import { HighlightData, OrderedSummaryHighlights } from '../highlights/types';
 import {
   desktopHorizontalMargin,
   desktopVerticalMargin,
@@ -97,7 +96,7 @@ export const HighlightSection = styled.div`
 
 interface SectionHighlightsProps {
   highlightDataInSection: OrderedSummaryHighlights[0];
-  highlightRenderer: (highlight: Highlight, pageId: string) => JSX.Element;
+  highlightRenderer: (highlight: HighlightData, pageId: string) => JSX.Element;
 }
 
 // tslint:disable-next-line: variable-name

@@ -1,10 +1,10 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
 import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { toastNotifications } from '../../../notifications/selectors';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { createHighlight, receiveDeleteHighlight } from '../actions';
+import { HighlightData } from '../types';
 
 jest.mock('../../../../helpers/Sentry');
 
@@ -42,7 +42,7 @@ describe('receiveDeleteHighlight', () => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
       .mockResolvedValue({} as any);
 
-    hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
+    hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
     await Promise.resolve();
 
     expect(deleteHighlightClient).toHaveBeenCalledWith({id: highlight.id});
@@ -51,7 +51,7 @@ describe('receiveDeleteHighlight', () => {
   it('doesn\'t call highlightClient when reverting creation', async() => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight');
 
-    hook(receiveDeleteHighlight(highlight as unknown as Highlight, {...meta, revertingAfterFailure: true}));
+    hook(receiveDeleteHighlight(highlight as unknown as HighlightData, {...meta, revertingAfterFailure: true}));
     await Promise.resolve();
 
     expect(deleteHighlightClient).not.toHaveBeenCalled();
@@ -63,7 +63,7 @@ describe('receiveDeleteHighlight', () => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
       .mockRejectedValue(error);
 
-    hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
+    hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
     await Promise.resolve();
 
     expect(deleteHighlightClient).toHaveBeenCalled();
