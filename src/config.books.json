@@ -3,7 +3,7 @@
     "defaultVersion": "31.2"
   },
   "9d8df601-4f12-4ac1-8224-b450bf739e5f": {
-    "defaultVersion": "6.5"
+    "defaultVersion": "6.7"
   },
   "14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22": {
     "defaultVersion": "22.7"
@@ -12,13 +12,13 @@
     "defaultVersion": "22.20"
   },
   "8d50a0af-948b-4204-a71d-4826cba765b8": {
-    "defaultVersion": "16.144"
+    "defaultVersion": "16.174"
   },
   "6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2": {
     "defaultVersion": "26.6"
   },
   "914ac66e-e1ec-486d-8a9c-97b0f7a99774": {
-    "defaultVersion": "5.4"
+    "defaultVersion": "5.11"
   },
   "b56bb9e9-5eb8-48ef-9939-88b1b12ce22f": {
     "defaultVersion": "37.1"
@@ -33,7 +33,7 @@
     "defaultVersion": "22.1"
   },
   "a31cd793-2162-4e9e-acb5-6e6bbd76a5fa": {
-    "defaultVersion": "15.1"
+    "defaultVersion": "22.1"
   },
   "7fccc9cf-9b71-44f6-800b-f9457fd64335": {
     "defaultVersion": "18.26"
@@ -42,7 +42,7 @@
     "defaultVersion": "13.1"
   },
   "9b08c294-057f-4201-9f48-5d6ad992740d": {
-    "defaultVersion": "29.3"
+    "defaultVersion": "31.1"
   },
   "031da8d3-b525-429c-80cf-6c8ed997733a": {
     "defaultVersion": "23.16"
@@ -60,7 +60,7 @@
     "defaultVersion": "7.1"
   },
   "d380510e-6145-4625-b19a-4fa68204b6b1": {
-    "defaultVersion": "11.1"
+    "defaultVersion": "12.7"
   },
   "4664c267-cd62-4a99-8b28-1cb9b3aee347": {
     "defaultVersion": "5.1"
@@ -99,7 +99,7 @@
     "defaultVersion": "7.7"
   },
   "920d1c8a-606c-4888-bfd4-d1ee27ce1795": {
-    "defaultVersion": "16.1"
+    "defaultVersion": "17.5"
   },
   "636cbfd9-4e37-4575-83ab-9dec9029ca4e": {
     "defaultVersion": "14.1"
@@ -108,13 +108,13 @@
     "defaultVersion": "14.1"
   },
   "bc498e1f-efe9-43a0-8dea-d3569ad09a82": {
-    "defaultVersion": "9.1"
+    "defaultVersion": "10.7"
   },
   "27f59064-990e-48f1-b604-5188b9086c29": {
     "defaultVersion": "12.1"
   },
   "c3acb2ab-7d5c-45ad-b3cd-e59673fedd4e": {
-    "defaultVersion": "12.1"
+    "defaultVersion": "12.8"
   },
   "5c09762c-b540-47d3-9541-dda1f44f16e5": {
     "defaultVersion": "18.1"
@@ -123,7 +123,7 @@
     "defaultVersion": "8.8"
   },
   "a7ba2fb8-8925-4987-b182-5f4429d48daa": {
-    "defaultVersion": "10.10"
+    "defaultVersion": "10.18"
   },
   "d50f6e32-0fda-46ef-a362-9bd36ca7c97d": {
     "defaultVersion": "20.1"
@@ -132,7 +132,7 @@
     "defaultVersion": "24.2"
   },
   "af275420-6050-4707-995c-57b9cc13c358": {
-    "defaultVersion": "18.1"
+    "defaultVersion": "20.1"
   },
   "507feb1e-cfff-4b54-bc07-d52636cecfe3": {
     "defaultVersion": "9.12"
