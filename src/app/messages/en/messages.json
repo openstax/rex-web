@@ -96,7 +96,7 @@
   "i18n:practice-questions:popup:continue": "Continue",
   "i18n:practice-questions:popup:correct": "Correct",
   "i18n:practice-questions:popup:empty:message": "There are no questions for this chapter/section.",
-  "i18n:practice-questions:popup:empty:next-section": "Select a section from the dropdown above or continue to ",
+  "i18n:practice-questions:popup:empty:next-section": "Continue to ",
   "i18n:practice-questions:popup:final": "You have reached the end of this set!",
   "i18n:practice-questions:popup:final:next-section": "Next section:",
   "i18n:practice-questions:popup:heading": "Practice Questions",
