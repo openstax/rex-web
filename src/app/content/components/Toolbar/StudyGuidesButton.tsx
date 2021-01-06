@@ -36,7 +36,7 @@ const StudyGuidesText = styled.span`
 // tslint:disable-next-line:variable-name
 const StudyGuidesButton = () => {
   const dispatch = useDispatch();
-  const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
+  const trackOpen = useAnalyticsEvent('openStudyGuides');
 
   const isEnabled = useSelector(studyGuidesEnabled);
   const studyGuidesSummaryNotEmpty = useSelector(hasStudyGuides);
@@ -45,7 +45,7 @@ const StudyGuidesButton = () => {
 
   const openStudyGuidesSummary = () => {
     dispatch(openStudyGuidesAction());
-    trackOpenClose();
+    trackOpen('button');
   };
 
   return <FormattedMessage id='i18n:toolbar:studyguides:button:text'>

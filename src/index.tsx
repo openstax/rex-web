@@ -95,7 +95,10 @@ function doneRendering() {
 window.onblur = onPageFocusChange(false, app);
 window.onfocus = onPageFocusChange(true, app);
 
-window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
+const {events} = window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
+
+// initial analytics events
+events.sessionStarted.track(events.sessionStarted.selector(app.store.getState()), document.referrer);
 
 // start long running processes
 pollUpdates(app.store);
