@@ -48,7 +48,7 @@ const bindTrackSelector = <E extends Event>(event: E) => (state: AppState) =>  {
   };
 };
 
-const mapEventType = <E extends Event>(event: E) => ({
+export const mapEventType = <E extends Event>(event: E) => ({
   ...event,
   bind: bindTrackSelector(event),
   track: triggerEvent(event),
