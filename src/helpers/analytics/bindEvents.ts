@@ -39,11 +39,11 @@ const triggerEvent = <E extends Event>(event: E): E['track'] => (...args) => {
   }
 };
 
-const bindTrackSelector = <E extends Event>(event: E) => (state: AppState) =>  {
+const bindTrackSelector = <E extends Event>(event: E) => (state: AppState | (() => AppState)) =>  {
   type RemainingArgumentTypes = E['track'] extends (d: ReturnType<E['selector']>, ...args: infer A) => any ? A : never;
 
   return (...args: RemainingArgumentTypes) => {
-    const data = event.selector(state);
+    const data = event.selector(typeof state === 'function' ? state() : state);
     triggerEvent(event)(data, ...args);
   };
 };

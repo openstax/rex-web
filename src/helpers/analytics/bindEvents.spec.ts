@@ -52,6 +52,20 @@ describe('mapEventType', () => {
       expect(trackGa).toHaveBeenCalledWith(gaPayload);
       expect(trackEc).toHaveBeenCalledWith(ecPayload);
     });
+
+    it('works with state getter', () => {
+      const bound = mapped.bind(() => appState);
+      selector.mockReturnValue(selected);
+      getGoogleAnalyticsPayload.mockReturnValue(gaPayload);
+      getEventCapturePayload.mockReturnValue(ecPayload);
+
+      bound(param);
+
+      expect(track).toHaveBeenCalledWith(selected, param);
+      expect(selector).toHaveBeenCalledWith(appState);
+      expect(trackGa).toHaveBeenCalledWith(gaPayload);
+      expect(trackEc).toHaveBeenCalledWith(ecPayload);
+    });
   });
 
   describe('track', () => {
