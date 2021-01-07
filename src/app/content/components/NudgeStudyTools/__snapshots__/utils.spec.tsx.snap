@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`usePositions return null if target was not found 1`] = `"null"`;
-
-exports[`usePositions return positions and updates body overflow to previous value after finishing calculations 1`] = `"{\\"arrowLeft\\":952,\\"arrowTopOffset\\":248,\\"closeButtonLeft\\":1253,\\"closeButtonTopOffset\\":348,\\"contentWrapperRight\\":657,\\"contentWrapperTopOffset\\":388,\\"spotlightHeight\\":45,\\"spotlightLeftOffset\\":941,\\"spotlightTopOffset\\":193,\\"spotlightWidth\\":302}"`;
