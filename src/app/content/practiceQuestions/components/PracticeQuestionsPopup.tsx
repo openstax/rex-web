@@ -8,9 +8,8 @@ import * as navigation from '../../../navigation/selectors';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertWindow } from '../../../utils';
+import { assertDefined } from '../../../utils';
 import Modal from '../../components/Modal';
-// import { modalQueryParameterName } from '../../constants';
-// import { modalUrlName } from '../../practiceQuestions/constants';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
 import * as pqSelectors from '../selectors';
@@ -32,9 +31,7 @@ const PracticeQuestionsPopup = () => {
       const message = intl.formatMessage({ id: 'i18n:practice-questions:popup:warning-before-close' });
       if (!assertWindow().confirm(message)) { return; }
     }
-    if (match) {
-      dispatch(push(match));
-    }
+    dispatch(push(assertDefined(match, 'match should be always defined at this step')));
     trackOpenClosePQ(method);
   }, [match, dispatch, currentQuestionIndex, trackOpenClosePQ, intl]);
 
