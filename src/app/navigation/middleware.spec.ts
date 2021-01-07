@@ -17,6 +17,15 @@ const routes = [
   },
 ];
 
+const routeParams = {
+  book: {
+    slug: 'foo',
+  },
+  page: {
+    slug: 'bar',
+  },
+};
+
 describe('navigation middleware', () => {
   let middleware = require('./middleware');
 
@@ -34,6 +43,7 @@ describe('navigation middleware', () => {
 
     middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
       method: 'push',
+      params: routeParams,
       route: routes[0],
     }));
 
@@ -57,6 +67,7 @@ describe('navigation middleware', () => {
 
     middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
       method: 'push',
+      params: routeParams,
       route: routes[0],
       state,
     }));
@@ -91,7 +102,7 @@ describe('navigation middleware', () => {
     expect(dispatch).toHaveBeenCalledWith(actions.locationChange({
       action: 'PUSH',
       location: history.location,
-      match: {route: routes[1]},
+      match: expect.objectContaining({route: routes[1]}),
     }));
   });
 });

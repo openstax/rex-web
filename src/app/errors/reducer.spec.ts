@@ -4,6 +4,15 @@ import { locationChange } from '../navigation/actions';
 import reducer, { initialState } from './reducer';
 import { notFound } from './routes';
 
+const routeParams = {
+  book: {
+    slug: 'foo',
+  },
+  page: {
+    slug: 'bar',
+  },
+};
+
 describe('error reducer', () => {
 
   it('reduces locationChange with no match', () => {
@@ -33,7 +42,10 @@ describe('error reducer', () => {
       search: '',
       state: {},
     };
-    const match = {route: notFound};
+    const match = {
+      params: routeParams,
+      route: notFound,
+    };
     const newState = reducer(state, locationChange({location, match, action: 'PUSH'}));
 
     expect(newState.code).toEqual(404);

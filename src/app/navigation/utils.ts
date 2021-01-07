@@ -6,6 +6,7 @@ import pathToRegexp, { Key, parse } from 'path-to-regexp';
 import queryString, { OutputParams } from 'query-string';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
+import { Params } from '../content/types';
 import { notFound } from '../errors/routes';
 import { isPlainObject } from '../guards';
 import { pathTokenIsKey } from '../navigation/guards';
@@ -57,10 +58,11 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
 
 export const matchSearch = (action: AnyMatch, search: string | undefined) => {
   const previous = querystring.parse(search || '');
-
-  const route = querystring.parse(isMatchWithParams(action)
+  const matchesParams = isMatchWithParams(action);
+  const route = querystring.parse(
+    matchesParams
     ? action.route.getSearch ? action.route.getSearch(action.params) : ''
-    : action.route.getSearch ? action.route.getSearch() : ''
+    : action.route.getSearch ? action.route.getSearch({} as Params) : ''
   );
 
   return querystring.stringify({
@@ -69,9 +71,12 @@ export const matchSearch = (action: AnyMatch, search: string | undefined) => {
   });
 };
 
-export const matchUrl = (action: AnyMatch) => isMatchWithParams(action)
+export const matchUrl = (action: AnyMatch) => {
+  const matchesParams = isMatchWithParams(action);
+  return matchesParams
   ? action.route.getUrl(action.params)
-  : action.route.getUrl();
+  : action.route.getUrl({} as Params);
+};
 
 export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, location: Location, action: Action) => {
   const match = findRouteMatch(routes, location);
