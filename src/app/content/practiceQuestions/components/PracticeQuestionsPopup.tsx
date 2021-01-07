@@ -25,7 +25,7 @@ const PracticeQuestionsPopup = () => {
   const bookTheme = useSelector(bookThemeSelector);
   const intl = useIntl();
   const match = useSelector(navigation.match);
-  const isOpen = useSelector(pqSelectors.practiceQuestionsOpen);
+  const isPracticeQuestionsOpen = useSelector(pqSelectors.practiceQuestionsOpen);
 
   const closeAndTrack = React.useCallback((method: string) => () => {
     if (currentQuestionIndex !== null) {
@@ -38,17 +38,17 @@ const PracticeQuestionsPopup = () => {
     trackOpenClosePQ(method);
   }, [match, dispatch, currentQuestionIndex, trackOpenClosePQ, intl]);
 
-  useOnEsc(popUpRef, isOpen, closeAndTrack('esc'));
+  useOnEsc(popUpRef, isPracticeQuestionsOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;
 
-    if (popUp && isOpen) {
+    if (popUp && isPracticeQuestionsOpen) {
       popUp.focus();
     }
-  }, [isOpen]);
+  }, [isPracticeQuestionsOpen]);
 
-  return isOpen ?
+  return isPracticeQuestionsOpen ?
     <Modal
       ref={popUpRef}
       tabIndex='-1'
