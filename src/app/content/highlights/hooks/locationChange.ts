@@ -1,14 +1,13 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
 import { getType } from 'typesafe-actions';
-import Sentry from '../../../../helpers/Sentry';
 import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
-import { addToast } from '../../../notifications/actions';
-import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
+import { CustomApplicationError } from '../../../utils';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
 import { receiveHighlights } from '../actions';
+import { HighlightLoadError } from '../errors';
 import * as select from '../selectors';
 import { loadAllHighlights } from '../utils/highlightLoadingUtils';
 
@@ -41,12 +40,11 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
       pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
     });
   } catch (error) {
-    Sentry.captureException(error);
-
-    if (action && action.type !== getType(receivePageFocus)) {
-      dispatch(addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false}));
+    if (action && action.type !== getType(receivePageFocus) && !(error instanceof CustomApplicationError)) {
+      throw new HighlightLoadError({ destination: 'page', shouldAutoDismiss: false });
     }
-    return;
+
+    throw error;
   }
 
   dispatch(receiveHighlights({highlights, pageId: page.id}));

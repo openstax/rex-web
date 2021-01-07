@@ -1,8 +1,6 @@
-import Sentry from '../../../../helpers/Sentry';
-import { addToast } from '../../../notifications/actions';
-import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
-import { actionHook, assertWindow } from '../../../utils';
+import { actionHook, assertWindow, CustomApplicationError } from '../../../utils';
+import { StudyGuidesPopupPrintError } from '../../highlights/errors';
 import { printStudyGuides, receiveSummaryStudyGuides, toggleStudyGuidesSummaryLoading } from '../actions';
 import { studyGuidesOpen } from '../selectors';
 import { loadMore, LoadMoreResponse } from './loadMore';
@@ -13,10 +11,14 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices) => {
   try {
     response = await loadMore(services);
   } catch (error) {
-    Sentry.captureException(error);
-    services.dispatch(addToast(toastMessageKeys.studyGuides.failure.popUp.print, {destination: 'studyGuides'}));
     services.dispatch(toggleStudyGuidesSummaryLoading(false));
-    return;
+
+    if (error instanceof CustomApplicationError) {
+      throw error;
+    }
+
+    // TODO: It seems to not be catched by makeCatchError
+    throw new StudyGuidesPopupPrintError({ destination: 'studyGuides' });
   }
 
   const {formattedHighlights} = response;

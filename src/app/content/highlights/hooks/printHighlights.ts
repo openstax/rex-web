@@ -1,9 +1,7 @@
-import Sentry from '../../../../helpers/Sentry';
-import { addToast } from '../../../notifications/actions';
-import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
-import { actionHook, assertWindow } from '../../../utils';
+import { actionHook, assertWindow, CustomApplicationError } from '../../../utils';
 import { printSummaryHighlights, receiveSummaryHighlights, toggleSummaryHighlightsLoading } from '../actions';
+import { HighlightPopupPrintError } from '../errors';
 import { myHighlightsOpen } from '../selectors';
 import { loadMore, LoadMoreResponse } from './loadMore';
 
@@ -13,10 +11,14 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
   try {
     response = await loadMore(services);
   } catch (error) {
-    Sentry.captureException(error);
-    services.dispatch(addToast(toastMessageKeys.higlights.failure.popUp.print, {destination: 'myHighlights'}));
     services.dispatch(toggleSummaryHighlightsLoading(false));
-    return;
+
+    if (error instanceof CustomApplicationError) {
+      throw error;
+    }
+
+    // TODO: It seems to not be catched by makeCatchError
+    throw new HighlightPopupPrintError({ destination: 'myHighlights' });
   }
 
   const {formattedHighlights} = response;

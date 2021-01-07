@@ -1,9 +1,6 @@
 import { GetHighlightsSummarySourceTypeEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
-import { addToast } from '../../../notifications/actions';
-import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { ActionHookBody, Unpromisify } from '../../../types';
-import { actionHook, assertDefined } from '../../../utils';
+import { actionHook, assertDefined, CustomApplicationError } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import * as selectContent from '../../selectors';
 import {
@@ -12,6 +9,7 @@ import {
   receiveSummaryHighlights,
   toggleSummaryHighlightsLoading
 } from '../actions';
+import { HighlightPopupLoadError } from '../errors';
 import { highlightLocationFilters } from '../selectors';
 import { extractTotalCounts } from '../utils/paginationUtils';
 import { loadMore, LoadMoreResponse } from './loadMore';
@@ -32,10 +30,13 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
       sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
     });
   } catch (error) {
-    Sentry.captureException(error);
-    dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
     dispatch(toggleSummaryHighlightsLoading(false));
-    return;
+
+    if (error instanceof CustomApplicationError) {
+      throw error;
+    }
+
+    throw new HighlightPopupLoadError({ destination: 'myHighlights' });
   }
 
   const countsPerSource = assertDefined(totalCounts.countsPerSource, 'summary response is invalid');
@@ -50,10 +51,13 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   try {
     highlights = await loadMore(services, summaryPageSize);
   } catch (error) {
-    Sentry.captureException(error);
-    dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
     dispatch(toggleSummaryHighlightsLoading(false));
-    return;
+
+    if (error instanceof CustomApplicationError) {
+      throw error;
+    }
+
+    throw new HighlightPopupLoadError({destination: 'myHighlights'});
   }
 
   const {formattedHighlights, pagination} = highlights;
