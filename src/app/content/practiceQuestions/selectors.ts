@@ -12,11 +12,6 @@ export const practiceQuestionsEnabled = createSelector(
   (state) => state.isEnabled
 );
 
-export const practiceQuestionsOpen = createSelector(
-  localState,
-  (state) => state.open
-);
-
 export const practiceQuestionsSummary = createSelector(
   localState,
   (state) => state.summary

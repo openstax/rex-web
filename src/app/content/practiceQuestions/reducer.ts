@@ -3,15 +3,13 @@ import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
-import { modalQueryParameterName, practiceQuestionsFeatureFlag } from '../constants';
+import { practiceQuestionsFeatureFlag } from '../constants';
 import * as actions from './actions';
-import { modalUrlName } from './constants';
 import { State } from './types';
 
 export const initialState: State = {
   currentQuestionIndex: null,
   isEnabled: false,
-  open: false,
   questionAnswers: {},
   questions: [],
   selectedSection: null,
@@ -21,12 +19,9 @@ export const initialState: State = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action): State => {
   switch (action.type) {
     case getType(locationChange):
-      const shouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName;
-
       return {
         ...state,
         currentQuestionIndex: null,
-        open: shouldBeOpen,
         questionAnswers: {},
         questions: [],
         selectedSection: null,

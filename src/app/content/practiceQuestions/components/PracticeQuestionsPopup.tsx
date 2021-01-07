@@ -9,6 +9,8 @@ import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertWindow } from '../../../utils';
 import Modal from '../../components/Modal';
+import { modalQueryParameterName } from '../../constants';
+import { modalUrlName } from '../../practiceQuestions/constants';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
 import * as pqSelectors from '../selectors';
@@ -19,11 +21,13 @@ const PracticeQuestionsPopup = () => {
   const dispatch = useDispatch();
   const popUpRef = React.useRef<HTMLElement>(null);
   const trackOpenClosePQ = useAnalyticsEvent('openClosePracticeQuestions');
-  const isPracticeQuestionsOpen = useSelector(pqSelectors.practiceQuestionsOpen);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
   const bookTheme = useSelector(bookThemeSelector);
   const intl = useIntl();
   const match = useSelector(navigation.match);
+  const hasModalQuery = useSelector(navigation.query)[modalQueryParameterName] === modalUrlName;
+  const hasPracticeQuestions = !!useSelector(pqSelectors.hasPracticeQuestions);
+  const isOpen = hasModalQuery && hasPracticeQuestions;
 
   const closeAndTrack = React.useCallback((method: string) => () => {
     if (currentQuestionIndex !== null) {
@@ -36,17 +40,17 @@ const PracticeQuestionsPopup = () => {
     trackOpenClosePQ(method);
   }, [match, dispatch, currentQuestionIndex, trackOpenClosePQ, intl]);
 
-  useOnEsc(popUpRef, isPracticeQuestionsOpen, closeAndTrack('esc'));
+  useOnEsc(popUpRef, isOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;
 
-    if (popUp && isPracticeQuestionsOpen) {
+    if (popUp && isOpen) {
       popUp.focus();
     }
-  }, [isPracticeQuestionsOpen]);
+  }, [isOpen]);
 
-  return isPracticeQuestionsOpen ?
+  return isOpen ?
     <Modal
       ref={popUpRef}
       tabIndex='-1'
