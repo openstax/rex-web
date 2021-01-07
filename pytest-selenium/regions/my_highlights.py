@@ -571,6 +571,7 @@ class MyHighlights(Region):
         _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
         _highlight_locator = (By.CSS_SELECTOR, "[class*=content-excerpt]")
         _empty_state_nudge_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
+        _context_menu_locator = (By.XPATH, "//div[starts-with(@class, 'ContextMenu')]")
 
         @property
         def chapters(self) -> List[MyHighlights.Highlights.Chapter]:
@@ -629,6 +630,140 @@ class MyHighlights(Region):
             """
             return list(
                 set([highlight.get_attribute("data-highlight-id") for highlight in self.highlights]))
+
+        @property
+        def edit_highlight_box(self) -> List[MyHighlights.Highlights.EditHighlight]:
+            """Access the list of context menu's displayed in the MH modal.
+
+            :return: the list of context menu's displayed in the MH modal
+            :rtype: list(:py:class:`~MyHighlights.Highlights.EditHighlight`)
+
+            """
+            return [self.EditHighlight(self, option)
+                    for option
+                    in self.find_elements(*self._context_menu_locator)]
+
+        class EditHighlight(Region):
+            _alter_menu_toggle_locator = (By.CSS_SELECTOR, "[class*=MenuToggle]")
+            _highlight_green_locator = (By.CSS_SELECTOR, "[name=green]")
+            _highlight_blue_locator = (By.CSS_SELECTOR, "[name=blue]")
+            _highlight_yellow_locator = (By.CSS_SELECTOR, "[name=yellow]")
+            _highlight_purple_locator = (By.CSS_SELECTOR, "[name=purple]")
+            _highlight_pink_locator = (By.CSS_SELECTOR, "[name=pink]")
+            _edit_button_locator = (By.CSS_SELECTOR, "[class*=DropdownList] li:nth-child(1) a")
+            _delete_button_locator = (By.CSS_SELECTOR, "[class*=DropdownList] li:nth-child(2) a")
+            _highlight_id_locator = (By.XPATH, "./following::div[starts-with(@class, 'content-excerpt')]")
+
+            @property
+            def mh_highlight_id(self) -> str:
+                """Return the highlight ID of the highlight being edited.
+
+                :return: the unique ``data-highlight-id`` in MH page
+                :rtype: str
+
+                """
+                return self.find_element(*self._highlight_id_locator).get_attribute("data-highlight-id")
+
+            @property
+            def edit_button(self) -> WebElement:
+                """Return the edit highlight button.
+
+                :return: the "Edit" button
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._edit_button_locator)
+
+            @property
+            def delete_button(self) -> WebElement:
+                """Return the delete highlight button.
+
+                :return: the "Delete" button
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._delete_button_locator)
+
+            @property
+            def pink(self) -> WebElement:
+                """Return the pink highlight toggle input.
+
+                :return: the pink circle highlight color toggle
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._highlight_pink_locator)
+
+            @property
+            def green(self) -> WebElement:
+                """Return the green highlight toggle input.
+
+                :return: the green circle highlight color toggle
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._highlight_green_locator)
+
+            @property
+            def blue(self) -> WebElement:
+                """Return the blue highlight toggle input.
+
+                :return: the blue circle highlight color toggle
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._highlight_blue_locator)
+
+            @property
+            def yellow(self) -> WebElement:
+                """Return the yellow highlight toggle input.
+
+                :return: the yellow circle highlight color toggle
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._highlight_yellow_locator)
+
+            @property
+            def purple(self) -> WebElement:
+                """Return the purple highlight toggle input.
+
+                :return: the purple circle highlight color toggle
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._highlight_purple_locator)
+
+            def toggle_menu(self) -> MyHighlights.Highlights.EditHighlight:
+                """Toggle the highlight context menu open or close.
+
+                :return: the edit highlight box
+                :rtype: :py:class:`~MyHighlights.Highlights.EditHighlight`
+
+                """
+                toggle = self.find_element(*self._alter_menu_toggle_locator)
+                Utilities.click_option(self.driver, element=toggle)
+                return self
+
+            def toggle_color(self, color: Color) -> MyHighlights.Highlights.EditHighlight:
+                """Toggle a highlight color.
+
+                :param color: the color to toggle on or off
+                :type color: :py:class:`~utils.utility.Color`
+                :return: the edit highlight box
+                :rtype: :py:class:`~MyHighlights.Highlights.EditHighlight`
+
+                """
+                colors = {
+                    Color.PINK: self.pink,
+                    Color.GREEN: self.green,
+                    Color.BLUE: self.blue,
+                    Color.PURPLE: self.purple,
+                    Color.YELLOW: self.yellow,
+                }
+
+                Utilities.click_option(self.driver, element=colors[color])
+                return self
 
         class Chapter(ChapterData):
             """A book chapter with highlights.
