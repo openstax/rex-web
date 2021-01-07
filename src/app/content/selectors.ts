@@ -33,11 +33,6 @@ export const bookTheme = createSelector(
   (currentBook) => hasOSWebData(currentBook) ? currentBook.theme : defaultTheme
 );
 
-export const showNudgeStudyTools = createSelector(
-  localState,
-  (state) => state.showNudgeStudyTools
-);
-
 export const contentReferences = createSelector(
   localState,
   (state) => state.references
