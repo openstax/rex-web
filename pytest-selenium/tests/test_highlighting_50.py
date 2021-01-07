@@ -40,7 +40,7 @@ def test_change_color_from_MH_page(selenium, base_url, book_slug, page_slug):
     # WHEN: Change highlight color of the 2nd highlight from MH page
     my_highlights = book.toolbar.my_highlights()
 
-    highlight = my_highlights.highlights.edit_highlight_box
+    highlight = my_highlights.highlights.edit_highlight
     highlight_id_0 = highlight[0].mh_highlight_id
     highlight_id_1 = highlight[1].mh_highlight_id
     new_highlight_color = Color.PINK

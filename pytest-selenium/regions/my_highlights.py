@@ -632,7 +632,7 @@ class MyHighlights(Region):
                 set([highlight.get_attribute("data-highlight-id") for highlight in self.highlights]))
 
         @property
-        def edit_highlight_box(self) -> List[MyHighlights.Highlights.EditHighlight]:
+        def edit_highlight(self) -> List[MyHighlights.Highlights.EditHighlight]:
             """Access the list of context menu's displayed in the MH modal.
 
             :return: the list of context menu's displayed in the MH modal
