@@ -41,7 +41,6 @@ const ContentPane = ({isOpen, onClick, children}: React.PropsWithChildren<Props>
     <ScrollLock
       onClick={onClick}
       mobileOnly={true}
-      disableTabbing={false}
       overlay={true}
       zIndex={theme.zIndex.overlay}
     />}
