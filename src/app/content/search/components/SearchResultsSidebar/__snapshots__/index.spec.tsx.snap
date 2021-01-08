@@ -158,7 +158,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       <a
         className="styled__SectionContentPreview-as3fh1-11 dMNXGN"
         data-testid="search-result"
-        href="books/book-slug-1/pages/test-page-1"
+        href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D"
         onClick={[Function]}
         result={
           Object {
@@ -262,7 +262,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             <a
               className="styled__SectionContentPreview-as3fh1-11 dYIMyw"
               data-testid="search-result"
-              href="books/book-slug-1/pages/10-test-page-6"
+              href="books/book-slug-1/pages/10-test-page-6?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D"
               onClick={[Function]}
               result={
                 Object {
@@ -368,7 +368,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             <a
               className="styled__SectionContentPreview-as3fh1-11 dYIMyw"
               data-testid="search-result"
-              href="books/book-slug-1/pages/12-test-page-7"
+              href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D"
               onClick={[Function]}
               result={
                 Object {

@@ -9,7 +9,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import { formatBookData } from '../../utils';
-import { openPracticeQuestions, receivePracticeQuestionsSummary } from '../actions';
+import { receivePracticeQuestionsSummary } from '../actions';
 import { modalUrlName } from '../constants';
 import { PracticeQuestionsSummary } from '../types';
 

@@ -3,14 +3,27 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook, page as shortPage } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { receiveFeatureFlags } from '../../../actions';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
+import { receiveBook, receivePage } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
-import { openPracticeQuestions } from '../../practiceQuestions/actions';
+import { locationChange } from '../../../navigation/actions';
 import * as selectors from '../../practiceQuestions/selectors';
-import PracticeQuestionsButton, { PracticeQuestionsWrapper } from './PracticeQuestionsButton';
+import { formatBookData } from '../../utils';
+import PracticeQuestionsButton, { StyledContentLink } from './PracticeQuestionsButton';
+
+jest.mock('../../../../config', () => {
+  const mockBook = (jest as any).requireActual('../../../../test/mocks/archiveLoader').book;
+  return {BOOKS: {
+   [mockBook.id]: {defaultVersion: mockBook.version},
+  }};
+});
+
+const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('practice questions button', () => {
   let store: Store;
@@ -40,26 +53,29 @@ describe('practice questions button', () => {
   it('renders if feature flag is enabled and there are practice questions', () => {
     jest.spyOn(selectors, 'hasPracticeQuestions').mockReturnValue(true);
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receiveBook(book));
 
     const component = renderer.create(render());
 
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('clicking button opens modal', () => {
+  it('clicking button activates openClosePracticeQuestions analytics', () => {
     const spyTrack = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(selectors, 'hasPracticeQuestions').mockReturnValue(true);
 
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receiveBook(book));
 
     const component = renderer.create(render());
 
     renderer.act(() => {
-      const button = component.root.findByType(PracticeQuestionsWrapper);
+      const button = component.root.findByType(StyledContentLink);
       button.props.onClick();
     });
 
-    expect(dispatch).toHaveBeenLastCalledWith(openPracticeQuestions());
     expect(spyTrack).toHaveBeenCalled();
   });
 });
