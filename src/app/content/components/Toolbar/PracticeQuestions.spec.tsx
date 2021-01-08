@@ -11,7 +11,6 @@ import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
-import { locationChange } from '../../../navigation/actions';
 import * as selectors from '../../practiceQuestions/selectors';
 import { formatBookData } from '../../utils';
 import PracticeQuestionsButton, { StyledContentLink } from './PracticeQuestionsButton';
@@ -28,13 +27,11 @@ const book = formatBookData(archiveBook, mockCmsBook);
 describe('practice questions button', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
-  let dispatch: jest.SpyInstance;
   let render: () => JSX.Element;
 
   beforeEach(() => {
     store = createTestStore();
     services = createTestServices();
-    dispatch = jest.spyOn(store, 'dispatch');
     render = () => <Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>

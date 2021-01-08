@@ -42,13 +42,11 @@ describe('PracticeQuestions', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
   let container: HTMLElement;
-  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore({
       content: initialContentState,
     });
-    dispatch = jest.spyOn(store, 'dispatch');
     services = createTestServices();
     container = assertWindow().document.createElement('div');
   });
