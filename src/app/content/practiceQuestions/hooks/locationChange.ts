@@ -13,8 +13,6 @@ const loadSummary = async(
   services: MiddlewareAPI & AppServices,
   book: Book
 ): Promise<PracticeQuestionsSummary | undefined> => {
-  // const hasCurrentPQ = hasPracticeQuestions(services.getState());
-  // if (hasCurrentPQ) { return; }
   try {
     return await services.practiceQuestionsLoader.getPracticeQuestionsBookSummary(book.id);
   } catch (error) {

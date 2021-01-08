@@ -24,7 +24,7 @@ const PracticeQuestionsPopup = () => {
   const bookTheme = useSelector(bookThemeSelector);
   const intl = useIntl();
   const match = useSelector(navigation.match);
-  const isPracticeQuestionsOpen = useSelector(pqSelectors.practiceQuestionsOpen);
+  const isPracticeQuestionsOpen = useSelector(pqSelectors.isPracticeQuestionsOpen);
 
   const closeAndTrack = React.useCallback((method: string) => () => {
     if (currentQuestionIndex !== null) {

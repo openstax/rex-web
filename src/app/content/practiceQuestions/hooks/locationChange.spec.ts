@@ -4,13 +4,13 @@ import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { receiveFeatureFlags } from '../../../actions';
-import * as navigationSelectors from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
+import { LinkedArchiveTreeSection } from '../../types';
 import { formatBookData } from '../../utils';
-import { receivePracticeQuestionsSummary } from '../actions';
-import { modalUrlName } from '../constants';
+import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
+import { receivePracticeQuestionsSummary, setSelectedSection } from '../actions';
 import { PracticeQuestionsSummary } from '../types';
 
 describe('locationChange', () => {
@@ -40,8 +40,9 @@ describe('locationChange', () => {
     hook = (require('./locationChange').default)(helpers);
   });
 
-  it('fetch practice questions on locationChange', async() => {
+  it('fetches practice questions and sets selected section on locationChange', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
@@ -49,40 +50,30 @@ describe('locationChange', () => {
 
     await hook();
 
-    expect(getSummary).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
-  });
-
-  it('opens modal if modal query is present', async() => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
-
-    const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
-      .mockResolvedValue(mockSummaryResponse);
-
-    const getQuery = jest.spyOn(navigationSelectors, 'query').mockReturnValue({modal: modalUrlName});
-
-    await hook();
+    const section = archiveTreeUtils.findArchiveTreeNodeById(book.tree, shortPage.id) as LinkedArchiveTreeSection;
 
     expect(getSummary).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
-    expect(getQuery).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(openPracticeQuestions());
+    expect(dispatch).toHaveBeenCalledWith(setSelectedSection(section));
   });
 
   it('noops on locationChange if feature flag is not present', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
       .mockResolvedValue(mockSummaryResponse);
 
     await hook();
 
+    const section = archiveTreeUtils.findArchiveTreeNodeById(book.tree, shortPage.id) as LinkedArchiveTreeSection;
+
     expect(getSummary).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
+    expect(dispatch).not.toHaveBeenCalledWith(setSelectedSection(section));
   });
 
-  it('noops on locationChange if book is not loaded', async() => {
+  it('noops on locationChange if book and page is not loaded', async() => {
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
@@ -90,12 +81,16 @@ describe('locationChange', () => {
 
     await hook();
 
+    const section = archiveTreeUtils.findArchiveTreeNodeById(book.tree, shortPage.id) as LinkedArchiveTreeSection;
+
     expect(getSummary).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
+    expect(dispatch).not.toHaveBeenCalledWith(setSelectedSection(section));
   });
 
-  it('noops on locationChange if summary is already loaded', async() => {
+  it('only sets selected sections if summary is already loaded', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
     store.dispatch(receivePracticeQuestionsSummary({ countsPerSource: { asd: 1 } }));
 
@@ -104,8 +99,46 @@ describe('locationChange', () => {
 
     await hook();
 
+    const section = archiveTreeUtils.findArchiveTreeNodeById(book.tree, shortPage.id) as LinkedArchiveTreeSection;
+
     expect(getSummary).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
+    expect(dispatch).toHaveBeenCalledWith(setSelectedSection(section));
+  });
+
+  it('only fetch practice questions if section is undefined', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+
+    const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
+      .mockResolvedValue(mockSummaryResponse);
+    const spySection = jest.spyOn(archiveTreeUtils, 'findArchiveTreeNodeById').mockReturnValue(undefined);
+
+    await hook();
+
+    const section = archiveTreeUtils.findArchiveTreeNodeById(book.tree, shortPage.id) as LinkedArchiveTreeSection;
+
+    expect(getSummary).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
+    expect(spySection).toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setSelectedSection(section));
+  });
+
+  it('doesnt set selected section if there are no practice questions', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+    const mockSummaryResponseWithoutQuestions = { countsPerSource: {} };
+
+    const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
+      .mockResolvedValue(mockSummaryResponseWithoutQuestions);
+
+    await hook();
+
+    expect(getSummary).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponseWithoutQuestions));
+
   });
 
   describe('error handling', () => {

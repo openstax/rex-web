@@ -58,7 +58,7 @@ describe('PracticeQuestions', () => {
   });
 
   it('renders practice questions modal if it is open', () => {
-    jest.spyOn(pqSelectors, 'practiceQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
@@ -72,7 +72,7 @@ describe('PracticeQuestions', () => {
   });
 
   it('doesn\'t render practice questions modal if it is closed', () => {
-    jest.spyOn(pqSelectors, 'practiceQuestionsOpen').mockReturnValue(false);
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(false);
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
@@ -86,7 +86,7 @@ describe('PracticeQuestions', () => {
   });
 
   it('focus is on pop up content', async() => {
-    jest.spyOn(pqSelectors, 'practiceQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     const focus = jest.fn();
     const addEventListener = jest.fn();
     const createNodeMock = () => ({focus, addEventListener});
@@ -104,7 +104,7 @@ describe('PracticeQuestions', () => {
 
   it('tracks analytics when clicking x icon', () => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
-    jest.spyOn(pqSelectors, 'practiceQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     const component = renderer.create(<Provider store={store}>
@@ -125,7 +125,7 @@ describe('PracticeQuestions', () => {
 
   it('tracks analytics when clicking esc', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
-    jest.spyOn(pqSelectors, 'practiceQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     const { node } = renderToDom(<Provider store={store}>
@@ -145,7 +145,7 @@ describe('PracticeQuestions', () => {
 
   it('tracks analytics on overlay click', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
-    jest.spyOn(pqSelectors, 'practiceQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     const { node } = renderToDom(<Provider store={store}>
@@ -170,7 +170,7 @@ describe('PracticeQuestions', () => {
 
   it('show warning prompt and tracks analytics after confirm', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
-    jest.spyOn(pqSelectors, 'practiceQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
     const spyConfirm = jest.spyOn(assertWindow(), 'confirm')
       .mockImplementation(() => true);
@@ -201,7 +201,7 @@ describe('PracticeQuestions', () => {
 
   it('show warning prompt and do not tracks analytics after cancel', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
-    jest.spyOn(pqSelectors, 'practiceQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
     track.mockClear();
     const spyConfirm = jest.spyOn(assertWindow(), 'confirm')

@@ -24,7 +24,7 @@ export const hasPracticeQuestions = createSelector(
   (summary) => Boolean(summary && Object.keys(summary).length > 0)
 );
 
-export const practiceQuestionsOpen = createSelector(
+export const isPracticeQuestionsOpen = createSelector(
   hasPracticeQuestions,
   navigationSelectors.query,
   (hasPQ, query) => hasPQ && query && query.modal === modalUrlName
