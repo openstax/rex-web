@@ -5,6 +5,8 @@ import { HighlightPopupPrintError } from '../errors';
 import { myHighlightsOpen } from '../selectors';
 import { loadMore, LoadMoreResponse } from './loadMore';
 
+let waitingForPromiseCollector = false;
+
 export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
   let response: Unpromisify<LoadMoreResponse>;
 
@@ -17,7 +19,6 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
       throw error;
     }
 
-    // TODO: It seems to not be catched by makeCatchError
     throw new HighlightPopupPrintError({ destination: 'myHighlights' });
   }
 
@@ -27,8 +28,11 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
     pagination: null,
   }));
 
-  // wait for content to process/load
-  await services.promiseCollector.calm();
+  if (!waitingForPromiseCollector) {
+    // wait for content to process/load
+    await services.promiseCollector.calm();
+    waitingForPromiseCollector = false;
+  }
 
   services.dispatch(toggleSummaryHighlightsLoading(false));
 
@@ -38,8 +42,10 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
 };
 
 export const hookBody: ActionHookBody<typeof printSummaryHighlights> = (services) => () => {
+  // TODO: refactor this somehow
   // do not return promise, otherwise `services.promiseCollector.calm()` will end up waiting for itself
-  asyncHelper(services);
+  waitingForPromiseCollector = true;
+  return asyncHelper(services);
 };
 
 export const printHighlightsHook = actionHook(printSummaryHighlights, hookBody);
