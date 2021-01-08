@@ -11,8 +11,10 @@ const ScrollLockBodyClass = createGlobalStyle`
   body.body {
     ${(props: {mobileOnly?: boolean}) => props.mobileOnly && css`
       ${theme.breakpoints.mobile(css`
-        #root {
-          display: none;
+        @media print {
+          #root {
+            display: none;
+          }
         }
 
         overflow: hidden;
@@ -20,18 +22,18 @@ const ScrollLockBodyClass = createGlobalStyle`
     `}
 
     ${(props: {mobileOnly?: boolean}) => props.mobileOnly === false && css`
-      #root {
-        display: none;
+      @media print {
+        #root {
+          display: none;
+        }
       }
 
       overflow: hidden;
     `}
   }
 
-  @media print {
-    body.body {
-      overflow: visible;
-    }
+  body.body {
+    overflow: visible;
   }
 `;
 
