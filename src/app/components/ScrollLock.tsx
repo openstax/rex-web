@@ -11,11 +11,23 @@ const ScrollLockBodyClass = createGlobalStyle`
   body.body {
     ${(props: {mobileOnly?: boolean}) => props.mobileOnly && css`
       ${theme.breakpoints.mobile(css`
+        @media print {
+          #root {
+            display: none;
+          }
+        }
+
         overflow: hidden;
       `)}
     `}
 
     ${(props: {mobileOnly?: boolean}) => props.mobileOnly === false && css`
+      @media print {
+        #root {
+          display: none;
+        }
+      }
+
       overflow: hidden;
     `}
   }
@@ -40,13 +52,12 @@ const fadeIn = keyframes`
 interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   mobileOnly?: boolean;
-  disableTabbing?: boolean;
   zIndex?: number;
 }
 
 // tslint:disable-next-line:variable-name
-export const Overlay = styled(({ mobileOnly, disableTabbing = true, zIndex, ...props}: OverlayProps) => {
-  useDisableContentTabbing(disableTabbing);
+export const Overlay = styled(({ mobileOnly, zIndex, ...props}: OverlayProps) => {
+  useDisableContentTabbing(mobileOnly ? false : true);
   return <div {...props} />;
 })`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
@@ -75,7 +86,6 @@ interface Props {
   onClick?: () => void;
   overlay?: boolean;
   mobileOnly?: boolean | undefined;
-  disableTabbing?: boolean;
   zIndex?: number | undefined;
 }
 
@@ -88,7 +98,6 @@ export default class ScrollLock extends React.Component<Props> {
         data-testid='scroll-lock-overlay'
         onClick={this.props.onClick}
         mobileOnly={this.props.mobileOnly}
-        disableTabbing={this.props.disableTabbing}
         zIndex={this.props.zIndex}
       />}
     </OnScroll>;
