@@ -32,8 +32,10 @@ const ScrollLockBodyClass = createGlobalStyle`
     `}
   }
 
-  body.body {
-    overflow: visible;
+  @media print {
+    body.body {
+      overflow: visible;
+    }
   }
 `;
 
