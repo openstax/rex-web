@@ -11,12 +11,7 @@ import { hasPracticeQuestions, practiceQuestionsEnabled } from '../../practiceQu
 import { bookAndPage } from '../../selectors';
 import { toolbarIconColor } from '../constants';
 import { buttonMinWidth } from './styled';
-import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
-
-// tslint:disable-next-line:variable-name
-export const PracticeQuestionsWrapper = styled(PlainButton)`
-  ${toolbarDefaultButton}
-`;
+import { toolbarDefaultButton, toolbarDefaultText } from './styled';
 
 // TODO: refactor the styling of Toolbar ContentLinks
 // tslint:disable-next-line:variable-name
@@ -50,21 +45,16 @@ const PracticeQuestionsButton = () => {
   const isEnabled = useSelector(practiceQuestionsEnabled);
   const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
   const hasPracticeQs = useSelector(hasPracticeQuestions);
-  const { book, page }: {book: any; page: any} = useSelector(bookAndPage);
+  const { book, page } = useSelector(bookAndPage);
 
   if (!isEnabled || !hasPracticeQs || !book || !page) { return null; }
-
-  const search = {
-    [modalQueryParameterName]: modalUrlName,
-    query: undefined,
-  };
 
   return <FormattedMessage id='i18n:toolbar:practice-questions:button:text'>
     {(msg: Element | string) =>
       <StyledContentLink
         book={book}
         page={page}
-        search={search}
+        search={{ [modalQueryParameterName]: modalUrlName, query: undefined }}
         onClick={trackOpenClose}
         aria-label={msg}>
         <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />

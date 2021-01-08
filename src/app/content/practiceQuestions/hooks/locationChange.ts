@@ -13,8 +13,8 @@ const loadSummary = async(
   services: MiddlewareAPI & AppServices,
   book: Book
 ): Promise<PracticeQuestionsSummary | undefined> => {
-  const hasCurrentPQ = hasPracticeQuestions(services.getState());
-  if (hasCurrentPQ) { return; }
+  // const hasCurrentPQ = hasPracticeQuestions(services.getState());
+  // if (hasCurrentPQ) { return; }
   try {
     return await services.practiceQuestionsLoader.getPracticeQuestionsBookSummary(book.id);
   } catch (error) {
@@ -29,15 +29,17 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   if (!book || !page || !isEnabled ) { return; }
 
-  const practiceQuestionsSummary = await loadSummary(services, book);
+  let practiceQuestionsSummary;
+  if (!hasPracticeQuestions(services.getState())) {
+    practiceQuestionsSummary = await loadSummary(services, book);
+  }
   if (practiceQuestionsSummary) {
     services.dispatch(receivePracticeQuestionsSummary(practiceQuestionsSummary));
   }
 
-  const hasCurrentPQ = hasPracticeQuestions(services.getState());
-  if (!hasCurrentPQ) { return; }
-  const section = findArchiveTreeNodeById(book.tree, page.id);
+  if (!hasPracticeQuestions(services.getState())) { return; }
 
+  const section = findArchiveTreeNodeById(book.tree, page.id);
   if (section && isLinkedArchiveTreeSection(section)) {
     services.dispatch(setSelectedSection(section));
   }
