@@ -5,6 +5,7 @@ import { shouldLoadAppMessage } from '../app/notifications/utils';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import { APP_ENV, RELEASE_ID } from '../config';
+import { configureEventCapture } from '../gateways/eventCaptureClient';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 
 /*
@@ -30,6 +31,7 @@ let previousObservedReleaseId: string | undefined;
 export type Cancel = () => void;
 
 interface EnvironmentConfigs {
+  quasar_api?: string | undefined;
   google_analytics?: string[] | undefined;
   feature_flags?: string[];
 }
@@ -45,6 +47,7 @@ const processEnvironment = (store: Store, environment: Environment) => {
 
   if (environment.configs) {
     processGoogleAnalyticsIds(environment.configs);
+    processQuasarConfigs(environment.configs);
     processFeatureFlags(store, environment.configs.feature_flags);
   }
   if (environment.messages) {
@@ -63,6 +66,15 @@ const processReleaseId = (store: Store, environment: Environment) => {
   }
 
   previousObservedReleaseId = releaseId;
+};
+
+const processQuasarConfigs = (environmentConfigs: EnvironmentConfigs) => {
+  if (environmentConfigs.quasar_api) {
+    configureEventCapture(environmentConfigs.quasar_api === 'default'
+      ? {}
+      : {basePath: environmentConfigs.quasar_api}
+    );
+  }
 };
 
 const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
