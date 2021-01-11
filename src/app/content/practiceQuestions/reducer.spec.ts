@@ -6,14 +6,15 @@ import * as actions from './actions';
 import reducer, { initialState } from './reducer';
 import { PracticeQuestions, QuestionAnswers } from './types';
 
-
 describe('practice questions reducer', () => {
   it('reduces nextQuestion when currentQuestionIndex is null', () => {
     const state = {
       ...initialState,
       currentQuestionIndex: null,
     };
+
     const newState = reducer(state, actions.nextQuestion());
+
     expect(newState.currentQuestionIndex).toEqual(0);
   });
 
@@ -22,7 +23,9 @@ describe('practice questions reducer', () => {
       ...initialState,
       currentQuestionIndex: 0,
     };
+
     const newState = reducer(state, actions.nextQuestion());
+
     expect(newState.currentQuestionIndex).toEqual(1);
   });
 
@@ -30,10 +33,11 @@ describe('practice questions reducer', () => {
     const state = {
       ...initialState,
       currentQuestionIndex: 1,
-      questionAnswers: { asd: { id: 'answer1'} } as any as QuestionAnswers,
+      questionAnswers: { asd: { id: 'answer1' } } as any as QuestionAnswers,
       questions: [{ uid: 'asd' }, { uid: 'afs' }] as PracticeQuestions,
       selectedSection: { title: 'some title' } as LinkedArchiveTreeSection,
     };
+
     const newState = reducer(state, locationChange({
       action: 'PUSH',
       location: {
@@ -49,6 +53,7 @@ describe('practice questions reducer', () => {
         route: content,
       },
     } as any));
+
     expect(newState.currentQuestionIndex).toEqual(initialState.currentQuestionIndex);
     expect(newState.questionAnswers).toEqual(initialState.questionAnswers);
     expect(newState.questions).toEqual(initialState.questions);

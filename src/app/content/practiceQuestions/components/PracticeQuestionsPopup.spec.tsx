@@ -1,4 +1,3 @@
-import { createMemoryHistory } from 'history';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
@@ -12,7 +11,6 @@ import { push } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
-import { initialState as initialContentState } from '../../reducer';
 import { content } from '../../routes';
 import { nextQuestion } from '../actions';
 import * as pqSelectors from '../selectors';
