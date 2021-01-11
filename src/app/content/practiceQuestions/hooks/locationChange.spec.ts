@@ -106,6 +106,7 @@ describe('locationChange', () => {
     expect(dispatch).toHaveBeenCalledWith(setSelectedSection(section));
   });
 
+  // for test coverage
   it('only fetch practice questions if section is undefined', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...shortPage, references: []}));
@@ -133,12 +134,16 @@ describe('locationChange', () => {
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
       .mockResolvedValue(mockSummaryResponseWithoutQuestions);
+    const spySection = jest.spyOn(archiveTreeUtils, 'findArchiveTreeNodeById');
 
     await hook();
 
+    const section = archiveTreeUtils.findArchiveTreeNodeById(book.tree, shortPage.id) as LinkedArchiveTreeSection;
+
     expect(getSummary).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponseWithoutQuestions));
-
+    expect(spySection).toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setSelectedSection(section));
   });
 
   describe('error handling', () => {

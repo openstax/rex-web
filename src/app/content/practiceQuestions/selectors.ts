@@ -21,7 +21,7 @@ export const practiceQuestionsSummary = createSelector(
 
 export const hasPracticeQuestions = createSelector(
   practiceQuestionsSummary,
-  (summary) => Boolean(summary && Object.keys(summary).length > 0)
+  (summary) => Boolean(summary && Object.keys(summary.countsPerSource).length > 0)
 );
 
 export const isPracticeQuestionsOpen = createSelector(
