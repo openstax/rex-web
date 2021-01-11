@@ -53,16 +53,13 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ...anchorProps
   } = props;
   const {url, params} = getBookPageUrlAndParams(book, page);
-  let relativeUrl = toRelativeUrl(currentPath, url);
+  const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
   const options = currentBook && currentBook.id === bookUid
     ? createNavigationOptions(search, scrollTarget)
     : undefined;
-
-  if (options && options.search) {
-    relativeUrl = `${relativeUrl}?${options.search}`;
-  }
+  const URL = options && options.search ? `${relativeUrl}?${options.search}` : relativeUrl;
 
   return <a
     ref={myForwardedRef}
@@ -93,7 +90,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
       },
       options);
     }}
-    href={relativeUrl}
+    href={URL}
     {...anchorProps}
   >{children}</a>;
 };
