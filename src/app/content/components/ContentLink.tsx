@@ -6,7 +6,7 @@ import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { ScrollTarget } from '../../navigation/types';
-import { createNavigationOptions } from '../../navigation/utils';
+import { createNavigationOptions, navigationOptionsToString } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
@@ -59,7 +59,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const options = currentBook && currentBook.id === bookUid
     ? createNavigationOptions(search, scrollTarget)
     : undefined;
-  const URL = options && options.search ? `${relativeUrl}?${options.search}` : relativeUrl;
+  const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
 
   return <a
     ref={myForwardedRef}

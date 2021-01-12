@@ -7,7 +7,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { renderToDom } from '../../../../test/reactutils';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
-import { push } from '../../../navigation/actions';
+import { replace } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
@@ -119,7 +119,7 @@ describe('PracticeQuestions', () => {
     });
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).toHaveBeenCalledWith(replace(mockMatch));
   });
 
   it('tracks analytics and removes modal-url when clicking esc', async() => {
@@ -140,7 +140,30 @@ describe('PracticeQuestions', () => {
     element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).toHaveBeenCalledWith(replace(mockMatch));
+  });
+
+  it('tracks analytics and removes modal-url with goBack', async() => {
+    const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
+    const spyGoBack = jest.spyOn(services.history, 'goBack').mockImplementation(() => jest.fn());
+    services.history.action = 'PUSH';
+
+    const { node } = renderToDom(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <PracticeQuestionsPopup />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    const element = assertNotNull(node.querySelector('[data-testid=\'practice-questions-popup-wrapper\']'), '');
+
+    element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
+
+    expect(track).toHaveBeenCalled();
+    expect(spyGoBack).toHaveBeenCalled();
   });
 
   it('tracks analytics and removes modal-url on overlay click', async() => {
@@ -166,7 +189,7 @@ describe('PracticeQuestions', () => {
     ReactTestUtils.Simulate.click(element, {preventDefault}); // this checks for react onClick prop
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).toHaveBeenCalledWith(replace(mockMatch));
   });
 
   it('show warning prompt and tracks analytics after confirm', async() => {

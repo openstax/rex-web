@@ -168,3 +168,6 @@ export const createNavigationOptions = (
     target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
   }),
 });
+
+export const navigationOptionsToString = (options: ReturnType<typeof createNavigationOptions>) =>
+  (options.search ? `?${options.search}` : '') + (options.hash ? options.hash : '');

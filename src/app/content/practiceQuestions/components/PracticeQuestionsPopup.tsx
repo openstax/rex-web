@@ -3,7 +3,8 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { push } from '../../../navigation/actions';
+import { useServices } from '../../../context/Services';
+import { replace } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
@@ -25,15 +26,22 @@ const PracticeQuestionsPopup = () => {
   const intl = useIntl();
   const match = useSelector(navigation.match);
   const isPracticeQuestionsOpen = useSelector(pqSelectors.isPracticeQuestionsOpen);
+  const services = useServices();
 
   const closeAndTrack = React.useCallback((method: string) => () => {
     if (currentQuestionIndex !== null) {
       const message = intl.formatMessage({ id: 'i18n:practice-questions:popup:warning-before-close' });
       if (!assertWindow().confirm(message)) { return; }
     }
-    dispatch(push(assertDefined(match, 'match should be always defined at this step')));
+
+    if (services.history.action === 'POP') {
+      dispatch(replace(assertDefined(match, 'match should be always defined at this step')));
+    } else {
+      services.history.goBack();
+    }
+
     trackOpenClosePQ(method);
-  }, [match, dispatch, currentQuestionIndex, trackOpenClosePQ, intl]);
+  }, [match, dispatch, currentQuestionIndex, trackOpenClosePQ, intl, services]);
 
   useOnEsc(popUpRef, isPracticeQuestionsOpen, closeAndTrack('esc'));
 
