@@ -2,7 +2,7 @@ import React from 'react';
 
 // tslint:disable:max-line-length
 // tslint:disable-next-line:variable-name
-const SvgComponent = (props: React.HTMLProps<SVGElement>) => (
+const SvgComponent = (props: React.SVGProps<SVGSVGElement>) => (
   <svg width='15px' height='15px' viewBox='0 0 15 15' version='1.1' {...props}>
     <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
       <g transform='translate(-302.000000, -18.000000)' fill='currentColor'>

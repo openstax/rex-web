@@ -35,18 +35,18 @@ interface ButtonProps<T extends ComponentType | undefined> {
   component?: T extends undefined ? undefined :
     T extends ComponentType ? React.ReactComponentElement<T>:
     never;
+  myForwardedRef: React.Ref<HTMLAnchorElement>;
 }
 
 // tslint:disable-next-line:variable-name
-const ButtonHoc = React.forwardRef(<T extends ComponentType | undefined>(
-  {variant, size, component, ...props}: ButtonProps<T>,
-  ref: React.Ref<Omit<HTMLButtonElement | T, 'undefined'>>
+const ButtonHoc = <T extends ComponentType | undefined>(
+  {variant, size, component, myForwardedRef, ...props}: ButtonProps<T>
 ) => {
   if (isDefined(component)) {
-    return React.cloneElement(component, {...props, ref});
+    return React.cloneElement(component, {...props, myForwardedRef});
   }
-  return <button ref={ref} {...props} />;
-});
+  return <button ref={myForwardedRef} {...props} />;
+};
 
 // tslint:disable-next-line:variable-name
 const Button = styled(ButtonHoc)`
@@ -131,4 +131,9 @@ export const ButtonLink = styled(PlainButton)`
   ${(props: {decorated: boolean}) => props.decorated ? decoratedLinkStyle : linkStyle}
 `;
 
-export default Button;
+export default React.forwardRef<
+  HTMLAnchorElement,
+  Omit<React.ComponentProps<typeof Button>, 'myForwardedRef'>
+>((props, ref) =>
+  <Button {...props} myForwardedRef={ref} />
+);

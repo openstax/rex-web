@@ -23,7 +23,7 @@ export class Dropdown extends React.Component<{user: User, currentPath: string}>
   public render() {
     const {user, currentPath} = this.props;
     return <OnScroll callback={this.blockScroll}>
-      <Styled.DropdownOverlay tabIndex='-1' ref={this.overlay}>
+      <Styled.DropdownOverlay tabIndex={-1} ref={this.overlay}>
         <FormattedMessage id='i18n:nav:logo:alt'>
           {(msg: Element | string) => <a aria-hidden='true' tabIndex={-1} href='/'>
             <Styled.OverlayLogo
@@ -70,10 +70,10 @@ export class Dropdown extends React.Component<{user: User, currentPath: string}>
 // tslint:disable-next-line:variable-name
 const DropdownToggle: SFC<{user: User}> = ({user}) =>
   <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
-    {(msg: Element | string) => <Styled.DropdownToggle tabIndex='0' data-testid='user-nav-toggle'>
+    {(msg: Element | string) => <Styled.DropdownToggle tabIndex={0} data-testid='user-nav-toggle'>
       {msg}
-      <Styled.DownIcon aria-hidden='true' />
-      <Styled.HamburgerIcon ariaHidden='true' />
+      <Styled.DownIcon aria-hidden={true} />
+      <Styled.HamburgerIcon aria-hidden={true} />
     </Styled.DropdownToggle>}
   </FormattedMessage>;
 

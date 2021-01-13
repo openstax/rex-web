@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@formatjs/intl-pluralrules": "^1.1.2",
+    "@formatjs/intl-locale": "^2.4.13",
+    "@formatjs/intl-pluralrules": "^4.0.5",
     "@openstax/highlighter": "^1.6.3",
     "@openstax/open-search-client": "0.1.0",
     "@sentry/browser": "^5.6.1",

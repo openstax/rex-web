@@ -10,15 +10,19 @@ interface ScrollOffsetProps {
   mobileOffset: number;
 }
 
-// tslint:disable-next-line:variable-name
-const GlobalStyle = createGlobalStyle<ScrollOffsetProps>`
-  body {
-    scroll-padding: ${(props) => props.desktopOffset}rem 0 0 0;
-    ${theme.breakpoints.mobile(css`
-      scroll-padding: ${(props: ScrollOffsetProps) => props.mobileOffset}rem 0 0 0;
-    `)}
-  }
+const mobileGlobalStyles = (mobileOffset: number) => css`
+  scroll-padding: ${mobileOffset}rem 0 0 0;
 `;
+
+// tslint:disable-next-line:variable-name
+const GlobalStyle = createGlobalStyle<ScrollOffsetProps>((props) => `
+  body {
+    scroll-padding: ${props.desktopOffset}rem 0 0 0;
+    ${theme.breakpoints.mobile(
+      mobileGlobalStyles(props.mobileOffset)
+    )}
+  }
+`);
 
 /*
  * everything from here down is only necessary because some browsers do not support

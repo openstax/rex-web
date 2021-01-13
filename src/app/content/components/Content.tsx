@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import ScrollOffset from '../../components/ScrollOffset';
 import ErrorBoundary from '../../errors/components/ErrorBoundary';
@@ -45,17 +45,18 @@ const Background = styled.div`
   }
 `;
 
+const getNotificationTop = (mobileExpanded: boolean) => mobileExpanded
+  ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
+  : bookBannerMobileMiniHeight + toolbarMobileHeight;
+
 // tslint:disable-next-line:variable-name
-const ContentNotifications = styled(Notifications)`
+const ContentNotifications = styled(Notifications)<{mobileExpanded: boolean}>`
   &&& {
     z-index: ${theme.zIndex.contentNotifications};
     top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
     ${theme.breakpoints.mobile(css`
-      top: ${({mobileExpanded}: {mobileExpanded: boolean}) => mobileExpanded
-          ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
-          : bookBannerMobileMiniHeight + toolbarMobileHeight
-      }rem;
-    `)}
+      top: ${(props: {mobileExpanded: boolean }) => getNotificationTop(props.mobileExpanded)}rem;
+    ` as FlattenSimpleInterpolation)}
   }
 `;
 

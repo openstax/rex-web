@@ -73,7 +73,7 @@ const renderSocialDirectory = () => <Styled.Social role='directory'>
   <SocialIconMessage id='i18n:footer:social:in:alt' href={linkedInUrl} Icon={Styled.LinkedInIcon} />
   <SocialIconMessage id='i18n:footer:social:ig:alt' href={instagramUrl} Icon={Styled.IGIcon} />
   <FormattedMessage id='i18n:footer:social:rice-logo:alt'>
-    {(msg: Element | string) => <Styled.BottomLink href={riceUrl} target='_blank' rel='noopener'>
+    {(msg: string) => <Styled.BottomLink href={riceUrl} target='_blank' rel='noopener'>
       <Styled.FooterLogo src={RiceWhiteLogo} alt={msg} />
     </Styled.BottomLink>}
   </FormattedMessage>

@@ -27,6 +27,12 @@ import {
 import { applyBookTextColor } from './utils/applyBookTextColor';
 import { disablePrint } from './utils/disablePrint';
 
+interface BarWrapperProps {
+  colorSchema: BookWithOSWebData['theme'] | undefined;
+  up?: boolean;
+  variant?: 'mini' | 'big';
+}
+
 const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'blue': '#004aa2',
   'deep-green': '#12A28C',
@@ -64,9 +70,8 @@ const bookBannerTextStyle = css`
 `;
 
 type Style = string | number | FlattenSimpleInterpolation;
-const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
-  (props: {variant: 'mini' | 'big'}) =>
-    props.variant === 'mini' ? miniStyle : bigStyle;
+const ifMiniNav = (miniStyle: Style, bigStyle?: Style, variant?: string) =>
+  variant === 'mini' ? miniStyle : bigStyle;
 
 const bookTitleMiniNavDestkopWidth = 27;
 
@@ -79,9 +84,9 @@ const bookTitleStyles = css`
   text-decoration: none;
   margin: 0;
 
-  ${theme.breakpoints.mobile(css`
-    ${bookBannerTextStyle}
-  `)}
+  ${theme.breakpoints.mobile(
+    bookBannerTextStyle as FlattenSimpleInterpolation
+  )}
 
   ${ifMiniNav(css`
     width: ${bookTitleMiniNavDestkopWidth}rem;
@@ -93,12 +98,12 @@ const bookTitleStyles = css`
 `;
 
 // tslint:disable-next-line:variable-name
-const BookTitle = styled.span`
+const BookTitle = styled.span<BarWrapperProps>`
   ${bookTitleStyles}
 `;
 
 // tslint:disable-next-line:variable-name
-const BookTitleLink = styled.a`
+const BookTitleLink = styled.a<BarWrapperProps>`
   ${bookTitleStyles}
   :hover {
     text-decoration: underline;
@@ -122,7 +127,7 @@ const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => va
 
     max-height: ${h3MobileLineHeight * 2}rem;
     margin-top: 0.3rem;
-  `)}
+  ` as FlattenSimpleInterpolation)}
   ${ifMiniNav(css`
     max-width: ${maxNavWidth - bookTitleMiniNavDestkopWidth - (maxNavWidth - contentTextWidth) / 2}rem;
 
@@ -132,11 +137,6 @@ const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => va
   `)}
 `;
 
-interface BarWrapperProps {
-  colorSchema: BookWithOSWebData['theme'] | undefined;
-  up: boolean;
-  variant: 'mini' | 'big';
-}
 // tslint:disable-next-line:variable-name
 export const BarWrapper = styled.div<BarWrapperProps>`
   ${disablePrint}

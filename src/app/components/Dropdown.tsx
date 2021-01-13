@@ -15,7 +15,10 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
   className?: string;
   component: T extends React.ComponentType
     ? React.ReactComponentElement<T>:
-    never;
+    any;
+  onClick?: () => void;
+  isOpen?: boolean;
+  tabIndex?: number;
 }
 // tslint:disable-next-line:variable-name
 export const DropdownToggle = styled(React.forwardRef<HTMLElement, ToggleProps>(

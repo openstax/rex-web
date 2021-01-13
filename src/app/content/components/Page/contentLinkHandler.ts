@@ -4,6 +4,7 @@ import flow from 'lodash/fp/flow';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
+import { MatchWithParams, Route, State } from '../../../navigation/types';
 import { AppState, Dispatch } from '../../../types';
 import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
 import { hasOSWebData } from '../../guards';
@@ -11,7 +12,7 @@ import showConfirmation from '../../highlights/components/utils/showConfirmation
 import { focused, hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { Book, PageReferenceMap } from '../../types';
+import { Book, PageReferenceMap, Params } from '../../types';
 import { isClickWithModifierKeys } from '../../utils/domUtils';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
 
@@ -69,7 +70,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       return;
     }
 
-    const base = new URL(assertWindow().location);
+    const base = new URL(assertWindow().location.toString());
     base.hash = '';
     base.search = '';
 
@@ -104,7 +105,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
           ...locationState,
           ...reference.state,
         },
-      }, {hash, search: searchString}));
+      } as MatchWithParams<Route<Params, State>>, {hash, search: searchString}));
     } else {
       // defer to allow other handlers to execute before nav happens
       defer(() => navigate({
@@ -115,6 +116,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
           ...getBookPageUrlAndParams(book, page).state,
 
         },
-      }, {hash, search: searchString}));
+      } as MatchWithParams<Route<Params, State>>, {hash, search: searchString}));
     }
   };

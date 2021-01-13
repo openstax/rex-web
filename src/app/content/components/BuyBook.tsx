@@ -51,7 +51,7 @@ const BuyBook = () => {
   if (!config) { return null; }
 
   return <FormattedMessage id='i18n:toolbar:buy-book:aria-label:text'>
-    {(ariaLabel) => <BuyBookAlignment>
+    {(ariaLabel: string | undefined) => <BuyBookAlignment>
       <BuyBookLink
         aria-label={ariaLabel}
         target='_blank'
@@ -60,7 +60,7 @@ const BuyBook = () => {
         data-analytics-label='buy-book'
       >
         <FormattedMessage id='i18n:toolbar:buy-book:text'>
-          {(msg) => msg}
+          {(msg: string) => msg}
         </FormattedMessage>
       </BuyBookLink>
       {config.disclosure && <BuyPrintDisclosure>{config.disclosure}</BuyPrintDisclosure>}

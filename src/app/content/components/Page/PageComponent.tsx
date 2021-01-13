@@ -210,7 +210,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     this.listenersOn();
 
-    const promise = typesetMath(container, assertWindow());
+    const promise = typesetMath(container, assertWindow()) as Promise<any>;
     this.props.services.promiseCollector.add(promise);
     this.processing = promise;
 

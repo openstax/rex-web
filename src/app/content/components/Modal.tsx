@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import { StyledComponentProps } from 'styled-components/macro';
 import ScrollLock from '../../components/ScrollLock';
@@ -15,7 +15,7 @@ const ModalWithScrollLock = React.forwardRef(
   return createPortal(
     <PopupWrapper>
       <ScrollLock {...scrollLockProps} />
-      <ModalWrapper ref={ref} {...props}>
+      <ModalWrapper ref={ref as RefObject<any>} {...props}>
         {children}
       </ModalWrapper>
     </PopupWrapper>,
