@@ -22,7 +22,7 @@ class PrintButton extends Component<Props> {
       <FormattedMessage id='i18n:toolbar:print:text'>
         {(msg: Element | string) => (
           <FormattedMessage id='i18n:toolbar:print:aria-label'>
-            {(label: Element | string) => (
+            {(label: string) => (
               <Styled.PrintOptWrapper
                 onClick={this.props.onClick ? this.props.onClick : () => assertWindow().print()}
                 aria-label={label}

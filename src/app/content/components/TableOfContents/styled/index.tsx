@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Details } from '../../../../components/Details';
 import { iconSize, Summary as BaseSummary } from '../../../../components/Details';
@@ -60,6 +60,7 @@ export const ContentLink = styled(ContentLinkComponent)`
 interface NavItemComponentProps {
   active?: boolean;
   className?: string;
+  children?: ReactNode;
 }
 // tslint:disable-next-line:variable-name
 export const NavItemComponent = React.forwardRef<HTMLLIElement, NavItemComponentProps>(
@@ -150,11 +151,11 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
   }}
 `;
 
-interface DetailsComponentProps {defaultOpen: boolean; open: boolean; }
+interface DetailsComponentProps {defaultOpen?: boolean; open?: boolean; }
 class DetailsComponent extends React.Component<DetailsComponentProps, {defaultOpen: boolean}> {
   constructor(props: DetailsComponentProps) {
     super(props);
-    this.state = {defaultOpen: props.defaultOpen};
+    this.state = {defaultOpen: Boolean(props.defaultOpen)};
   }
   public render() {
     const {open, defaultOpen: _, ...props} = this.props;

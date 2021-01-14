@@ -17,17 +17,18 @@ interface InnerProps {
   message: string;
   onClick: () => void;
   className?: string;
-  hideMobileText: boolean;
+  hideMobileText?: boolean;
 }
 interface MiddleProps {
   isOpen: State['tocOpen'];
   openToc: () => void;
   closeToc: () => void;
-  hideMobileText: boolean;
+  hideMobileText?: boolean;
+  tabIndex?: number;
 }
 
 // tslint:disable-next-line:variable-name
-export const ToCButtonText = styled.span`
+export const ToCButtonText = styled.span<{hideMobileText: boolean}>`
   font-weight: 600;
   ${textRegularSize};
   margin: 0;

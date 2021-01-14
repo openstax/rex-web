@@ -26,7 +26,7 @@ export class TableOfContents extends Component<SidebarProps> {
   public render() {
     const {isOpen, book} = this.props;
     return <FormattedMessage id='i18n:toc:title'>
-      {(msg: Element | string) =>
+      {(msg: string) =>
         <Styled.SidebarBody
           isOpen={isOpen}
           ref={this.sidebar}

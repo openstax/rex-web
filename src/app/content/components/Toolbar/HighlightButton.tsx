@@ -45,11 +45,11 @@ const HighlightButton = ({ openMyHighlights }: Props) => {
   };
 
   return <FormattedMessage id='i18n:toolbar:highlights:text'>
-      {(msg: Element | string) =>
+      {(msg: string) =>
         <MyHighlightsWrapper
           onClick={() => openHighlightsSummary()}
           aria-label={msg}
-          practiceQuestionsEnabled={practiceQuestionsEnabled}
+          practiceQuestionsEnabled={Boolean(practiceQuestionsEnabled)}
         >
           <HighlightsIcon />
           <MyHighlightsText>{msg}</MyHighlightsText>

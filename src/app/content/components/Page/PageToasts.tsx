@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -14,12 +14,12 @@ import theme from '../../../theme';
 import { mobileToolbarOpen as mobileToolbarOpenSelector } from '../../search/selectors';
 
 export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + toolbarDesktopHeight;
-export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
+export const getMobileSearchFailureTop = (mobileToolbarOpen: boolean) => mobileToolbarOpen
   ? bookBannerMobileMiniHeight + toolbarMobileHeight + toolbarMobileSearchWrapperHeight
   : bookBannerMobileMiniHeight + toolbarMobileHeight;
 
 // tslint:disable-next-line:variable-name
-export const ToastContainerWrapper = styled.div`
+export const ToastContainerWrapper = styled.div<{mobileToolbarOpen: boolean}>`
   width: 100%;
   position: sticky;
   overflow: visible;
@@ -27,8 +27,8 @@ export const ToastContainerWrapper = styled.div`
   top: ${desktopSearchFailureTop}rem;
   ${theme.breakpoints.mobile(css`
     z-index: ${theme.zIndex.contentNotifications + 1};
-    top: ${getMobileSearchFailureTop}rem;
-  `)}
+    top: ${(props: {mobileToolbarOpen: boolean }) => getMobileSearchFailureTop(props.mobileToolbarOpen)}rem;
+  ` as FlattenSimpleInterpolation)}
 `;
 
 // tslint:disable-next-line:variable-name

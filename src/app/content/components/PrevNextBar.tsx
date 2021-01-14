@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
@@ -33,11 +33,12 @@ interface HidingContentLinkProps {
   book?: Book;
   page?: ArchiveTreeSection;
   side: 'left' | 'right';
+  children: ReactNode;
 }
 // tslint:disable-next-line:variable-name
-const HidingContentLinkComponent = ({page, book, side, ...props}: HidingContentLinkProps) =>
+const HidingContentLinkComponent = ({page, book, side, children, ...props}: HidingContentLinkProps) =>
   page !== undefined && book !== undefined
-    ? <ContentLink book={book} page={page} {...props} />
+    ? <ContentLink book={book} page={page} {...children} {...props} />
     : <span aria-hidden />;
 
 // tslint:disable-next-line:variable-name

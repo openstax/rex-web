@@ -34,6 +34,7 @@ interface Props {
   scrollTarget?: ScrollTarget;
   className?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
+  dangerouslySetInnerHTML?: any;
 }
 
 // tslint:disable-next-line:variable-name

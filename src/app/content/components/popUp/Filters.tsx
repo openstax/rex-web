@@ -21,7 +21,7 @@ const DownIcon = styled(AngleDown)`
 
 interface ToggleProps {
   label: string;
-  isOpen: boolean;
+  isOpen?: boolean;
   ariaLabelId: string;
 }
 // tslint:disable-next-line:variable-name
@@ -77,7 +77,7 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
 export const FilterDropdown = ({label, ariaLabelId, children}:
   React.PropsWithChildren<{label: string, ariaLabelId: string}>) =>
     <FormattedMessage id={label}>
-      {(msg: Element | string) => <Dropdown
+      {(msg: string) => <Dropdown
         toggle={<Toggle label={msg} ariaLabelId={ariaLabelId} />}
         transparentTab={false}
       >

@@ -1,4 +1,4 @@
-import { css, keyframes } from 'styled-components';
+import { css, FlattenSimpleInterpolation, keyframes } from 'styled-components';
 import { DropdownList } from '../../../components/Dropdown';
 import theme from '../../../theme';
 import { remsToEms } from '../../../utils';
@@ -178,7 +178,7 @@ export const mainCardStyles = css`
     animation: none;
     ${touchScreenDisplay}
   `)}
-`;
+` as FlattenSimpleInterpolation;
 
 export const mainWrapperStyles = css`
   position: relative;

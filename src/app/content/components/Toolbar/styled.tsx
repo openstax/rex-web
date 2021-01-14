@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro';
 import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
@@ -149,7 +149,7 @@ export const CloseButton = styled(
 `;
 
 // tslint:disable-next-line:variable-name
-export const SearchInputWrapper = styled.form`
+export const SearchInputWrapper = styled.form<{ active?: boolean }>`
   display: flex;
   align-items: center;
   margin-right: 2rem;
@@ -182,13 +182,13 @@ export const SearchInputWrapper = styled.form`
         color: ${theme.color.primary.gray.foreground};
       }
     `}
-  `)}
+  ` as FlattenSimpleInterpolation)}
 `;
 
 // tslint:disable-next-line:variable-name
 export const SearchInput = styled(({desktop, mobile, ...props}) =>
   <FormattedMessage id='i18n:toolbar:search:placeholder'>
-    {(msg) => <input {...props}
+    {(msg: string) => <input {...props}
       aria-label={assertString(msg, 'placeholder must be a string')}
       placeholder={assertString(msg, 'placeholder must be a string')}
     />}

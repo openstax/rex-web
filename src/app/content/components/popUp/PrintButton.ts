@@ -4,7 +4,7 @@ import PrintButton from '../../components/Toolbar/PrintButton';
 import { filters } from '../../styles/PopupConstants';
 
 // tslint:disable-next-line:variable-name
-export default styled(PrintButton)`
+export default styled(PrintButton)<{loading: boolean}>`
   cursor: ${({loading}) => loading ? 'wait' : 'pointer'};
   height: max-content;
   margin-left: auto;

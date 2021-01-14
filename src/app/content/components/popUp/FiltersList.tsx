@@ -88,7 +88,7 @@ export const FiltersListChapter = (props: FiltersListChapterProps) => (
       id='i18n:highlighting:filters:remove:chapter'
       values={{filterValue: splitTitleParts(props.title).join(' ')}}
     >
-      {(msg: string | Element) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
+      {(msg: string) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
         <Times />
       </StyledPlainButton>}
     </FormattedMessage>

@@ -38,7 +38,7 @@ const PracticeQuestionsButton = () => {
   };
 
   return <FormattedMessage id='i18n:toolbar:practice-questions:button:text'>
-    {(msg: Element | string) =>
+    {(msg: string) =>
       <PracticeQuestionsWrapper onClick={openPracticeQuestionsSummary} aria-label={msg}>
         <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
         <PracticeQuestionsText>{msg}</PracticeQuestionsText>

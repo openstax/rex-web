@@ -16,6 +16,7 @@ interface Props {
   className?: string;
   checked?: boolean;
   disabled?: boolean;
+  onChange?: () => void;
 }
 
 // tslint:disable-next-line:variable-name

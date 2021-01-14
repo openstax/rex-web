@@ -49,7 +49,7 @@ const StudyGuidesButton = () => {
   };
 
   return <FormattedMessage id='i18n:toolbar:studyguides:button:text'>
-    {(msg: Element | string) =>
+    {(msg: string) =>
       <StudyGuidesWrapper onClick={openStudyGuidesSummary} aria-label={msg}>
         <StudyGuidesIcon aria-hidden='true' src={studyGuidesIcon} />
         <StudyGuidesText>{msg}</StudyGuidesText>

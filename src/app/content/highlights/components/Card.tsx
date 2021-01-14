@@ -160,7 +160,7 @@ export default connect(
     data: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
     hasQuery: !!selectSearch.query(state),
     isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
-    isTocOpen: contentSelect.tocOpen(state),
+    isTocOpen: Boolean(contentSelect.tocOpen(state)),
   }),
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),
