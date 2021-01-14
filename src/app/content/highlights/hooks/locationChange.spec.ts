@@ -177,6 +177,7 @@ describe('locationChange', () => {
     });
 
     it('throws HighlightLoadError', async() => {
+      expect.assertions(2);
       const error = {} as any;
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({...page, references: []}));
@@ -196,6 +197,7 @@ describe('locationChange', () => {
     });
 
     it('throws CustomApplicationError', async() => {
+      expect.assertions(8);
       const mockCustomApplicationError = new CustomApplicationError('error');
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({...page, references: []}));

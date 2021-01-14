@@ -79,6 +79,7 @@ describe('printStudyGuides', () => {
   });
 
   it('throws CustomApplicationError', async() => {
+    expect.assertions(2);
     const mockCustomApplicationError = new CustomApplicationError();
 
     jest.spyOn(require('./loadMore'), 'loadMore')

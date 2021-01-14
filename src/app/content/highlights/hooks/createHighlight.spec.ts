@@ -66,6 +66,7 @@ describe('createHighlight', () => {
   });
 
   it('deletes a highlight that failed to create', async() => {
+    expect.assertions(2);
     const error = {} as any;
     const meta = {locationFilterId: 'id', pageId: 'id'};
 
@@ -87,6 +88,7 @@ describe('createHighlight', () => {
   });
 
   it('throws HighlightCreateError', async() => {
+    expect.assertions(3);
     const error = {} as any;
     const meta = { locationFilterId: 'id', pageId: 'id' };
 
@@ -107,6 +109,7 @@ describe('createHighlight', () => {
   });
 
   it('throws CustomApplicationError', async() => {
+    expect.assertions(3);
     const mockCustomApplicationError = new CustomApplicationError('error');
     const meta = { locationFilterId: 'id', pageId: 'id' };
 

@@ -111,6 +111,7 @@ describe('updateHighlight', () => {
   });
 
   it('reverts an update if it failed', async() => {
+    expect.assertions(2);
     const error = {} as any;
 
     const updateHighlightClient = jest.spyOn(helpers.highlightClient, 'updateHighlight')
@@ -128,6 +129,7 @@ describe('updateHighlight', () => {
   });
 
   it('throws HighlightUpdateColorError', async() => {
+    expect.assertions(3);
     const error = {} as any;
     const oldHighlight = {
       annotation: assertDefined(highlight.annotation, 'annotation disappeared'),
@@ -149,6 +151,7 @@ describe('updateHighlight', () => {
   });
 
   it('throws HighlightUpdateAnnotationError', async() => {
+    expect.assertions(6);
     const error = {} as any;
     const oldHighlight = {
       annotation: assertDefined(highlight.annotation, 'annotation disappeared'),
@@ -181,6 +184,7 @@ describe('updateHighlight', () => {
   });
 
   it('throws CustomApplicationError', async() => {
+    expect.assertions(3);
     const mockCustomApplicationError = new CustomApplicationError('error');
 
     const updatePayload = highlightUpdatePayload(highlight.id, { color: 'red', annotation: 'new' });

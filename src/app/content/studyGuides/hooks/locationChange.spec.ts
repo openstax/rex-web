@@ -106,6 +106,7 @@ describe('locationChange', () => {
   });
 
   it('throws HighlightLoadError', async() => {
+    expect.assertions(3);
     const error = {} as any;
 
     jest.spyOn(Date, 'now')
@@ -128,6 +129,7 @@ describe('locationChange', () => {
   });
 
   it('throws CustomApplicationError', async() => {
+    expect.assertions(3);
     const mockCustomApplicationError = new CustomApplicationError('error');
 
     jest.spyOn(Date, 'now')

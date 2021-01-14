@@ -221,6 +221,7 @@ describe('loadMore', () => {
   });
 
   it('throws StudyGuidesPopupLoadError', async() => {
+    expect.assertions(3);
     const error = {} as any;
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
@@ -243,6 +244,7 @@ describe('loadMore', () => {
   });
 
   it('throws CustomApplicationError', async() => {
+    expect.assertions(3);
     const mockCustomApplicationError = new CustomApplicationError('error');
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')

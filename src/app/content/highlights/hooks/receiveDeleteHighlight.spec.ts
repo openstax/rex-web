@@ -56,6 +56,7 @@ describe('receiveDeleteHighlight', () => {
   });
 
   it('reverts deletion if it failed', async() => {
+    expect.assertions(2);
     const error = {} as any;
 
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
@@ -70,6 +71,7 @@ describe('receiveDeleteHighlight', () => {
   });
 
   it('throws HighlightDeleteError', async() => {
+    expect.assertions(3);
     const error = {} as any;
 
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
@@ -85,6 +87,7 @@ describe('receiveDeleteHighlight', () => {
   });
 
   it('throws CustomApplicationError', async() => {
+    expect.assertions(3);
     const mockCustomApplicationError = new CustomApplicationError('error');
 
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')

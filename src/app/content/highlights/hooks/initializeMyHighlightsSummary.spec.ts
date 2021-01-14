@@ -86,6 +86,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
   });
 
   it('throws HighlightPopupLoadError when summary request fails', async() => {
+    expect.assertions(4);
     const error = {} as any;
 
     store.dispatch(receiveBook(book));
@@ -104,6 +105,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
   });
 
   it('throws CustomApplicationError when summary request fails', async() => {
+    expect.assertions(4);
     const mockCustomApplicationError = new CustomApplicationError('error');
 
     store.dispatch(receiveBook(book));
@@ -122,6 +124,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
   });
 
   it('throws HighlightPopupLoadError when highlights request fails', async() => {
+    expect.assertions(4);
     const error = {} as any;
 
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
@@ -141,6 +144,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
   });
 
   it('throws CustomApplicationError when highlights request fails', async() => {
+    expect.assertions(4);
     const mockCustomApplicationError = new CustomApplicationError('error');
 
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')

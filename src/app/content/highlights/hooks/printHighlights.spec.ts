@@ -213,6 +213,7 @@ describe('printHighlights', () => {
     });
 
     it('throws HighlightPopupPrintError', async() => {
+      expect.assertions(3);
       const error = {} as any;
 
       jest.spyOn(helpers.highlightClient, 'getHighlights')
@@ -228,6 +229,7 @@ describe('printHighlights', () => {
     });
 
     it('throws CustomApplicationError', async() => {
+      expect.assertions(3);
       const mockCustomApplicationError = new CustomApplicationError('error');
 
       jest.spyOn(helpers.highlightClient, 'getHighlights')

@@ -291,6 +291,7 @@ describe('filtersChange', () => {
   });
 
   it('throws HighlightPopupLoadError', async() => {
+    expect.assertions(3);
     const error = {} as any;
     const pageId = 'testbook1-testpage9-uuid';
 
@@ -316,6 +317,7 @@ describe('filtersChange', () => {
   });
 
   it('throws CustomApplicationError', async() => {
+    expect.assertions(2);
     const mockCustomApplicationError = new CustomApplicationError('error');
     const pageId = 'testbook1-testpage9-uuid';
 
