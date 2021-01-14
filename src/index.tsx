@@ -94,7 +94,6 @@ function doneRendering() {
 
 window.onblur = onPageFocusChange(false, app);
 window.onfocus = onPageFocusChange(true, app);
-
 window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
 
 // start long running processes
