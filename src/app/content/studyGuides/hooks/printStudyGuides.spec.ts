@@ -111,7 +111,7 @@ describe('printStudyGuides', () => {
     expect(print).toHaveBeenCalled();
   });
 
-  it('doesn\'t wait for promiseCollector.calm', async() => {
+  it('doesn\'t wait twice for promiseCollector.calm', async() => {
     // waitingForPromiseCollector is false
     await asyncHelper(helpers);
 

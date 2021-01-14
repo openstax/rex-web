@@ -1,15 +1,14 @@
+import { makeApplicationError } from '../helpers/applicationMessageError';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
 import createTestStore from '../test/createTestStore';
 import { book } from '../test/mocks/archiveLoader';
 import { mockCmsBook } from '../test/mocks/osWebLoader';
 import * as actions from './content/actions';
-import { HighlightCreateError } from './content/highlights/errors';
 import * as selectors from './content/selectors';
 import { formatBookData } from './content/utils';
 import { notFound } from './errors/routes';
 import { addToast } from './notifications/actions';
-import { toastMessageKeys } from './notifications/components/ToastNotifications/constants';
 import { AppServices, AppState, MiddlewareAPI, Store } from './types';
 import * as utils from './utils';
 import { assertDocument, UnauthenticatedError } from './utils';
@@ -137,8 +136,8 @@ describe('actionHook', () => {
 
 it('handle error if it is instance of ApplicationMesssageError', async() => {
   const hookSpy = jest.fn(async() => Promise.reject(
-    new HighlightCreateError({ destination: 'myHighlights', shouldAutoDismiss: true }
-    )));
+    new (makeApplicationError('some-key'))({ destination: 'myHighlights', shouldAutoDismiss: true })
+  ));
   const helpers = ({
     dispatch: jest.fn(),
     getState: () => ({} as AppState),
@@ -154,8 +153,7 @@ it('handle error if it is instance of ApplicationMesssageError', async() => {
 
   expect(Sentry.captureException).toHaveBeenCalled();
   expect(hookSpy).toHaveBeenCalled();
-  expect(dispatch).toHaveBeenCalledWith(addToast(
-    toastMessageKeys.higlights.failure.create, { destination: 'myHighlights', shouldAutoDismiss: true }));
+  expect(dispatch).toHaveBeenCalledWith(addToast('some-key', { destination: 'myHighlights', shouldAutoDismiss: true }));
   jest.resetAllMocks();
 });
 

@@ -149,6 +149,33 @@ describe('locationChange', () => {
   });
 
   describe('error handling', () => {
+    it('doesn\'t throw HighlightLoadError if hook ran because of page\'s focus changing', async() => {
+      expect.assertions(4);
+
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({...page, references: []}));
+      store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+      dispatch.mockClear();
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce({});
+
+      try {
+        await hook(receivePageFocus(true));
+      } catch (error) {
+        expect(error.messageKey).not.toBeDefined();
+        expect(error.meta).not.toBeDefined();
+      }
+
+      try {
+        await hook(receivePageFocus(false));
+      } catch (error) {
+        expect(error.messageKey).not.toBeDefined();
+        expect(error.meta).not.toBeDefined();
+      }
+    });
+
     it('throws HighlightLoadError', async() => {
       const error = {} as any;
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
@@ -158,7 +185,7 @@ describe('locationChange', () => {
       dispatch.mockClear();
 
       jest.spyOn(helpers.highlightClient, 'getHighlights')
-          .mockRejectedValueOnce(error);
+        .mockRejectedValueOnce(error);
 
       try {
         await hook(locationChange({action: 'PUSH', location: {} as any}));
@@ -177,7 +204,7 @@ describe('locationChange', () => {
       dispatch.mockClear();
 
       jest.spyOn(helpers.highlightClient, 'getHighlights')
-          .mockRejectedValue(mockCustomApplicationError);
+        .mockRejectedValue(mockCustomApplicationError);
 
       try {
         await hook();

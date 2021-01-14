@@ -61,7 +61,7 @@ describe('printHighlights', () => {
 
     dispatch = jest.spyOn(helpers, 'dispatch');
     calmSpy = jest.spyOn(helpers.promiseCollector, 'calm')
-    .mockImplementation(() => Promise.resolve());
+      .mockImplementation(() => Promise.resolve());
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
