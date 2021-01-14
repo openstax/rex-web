@@ -213,6 +213,10 @@ const loadContentReference = async(
     pageUid: string,
   }
 ) => {
+  const sameBook = reference.bookId
+    ? (book.id === reference.bookId && book.version === reference.bookVersion)
+    : true;
+
   const targetBook: Book = archiveTreeContainsNode(book.tree, reference.pageUid)
     ? book
     : await resolveExternalBookReference(services, book, page, reference.pageUid);
