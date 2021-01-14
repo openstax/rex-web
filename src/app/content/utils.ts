@@ -40,9 +40,8 @@ export const getContentPageReferences = (content: string) => {
       return {
         bookId: bookId.substr(2),
         bookVersion,
-        match: `/contents/${pageId}`,
+        match,
         pageUid: stripIdVersion(pageId),
-        prevMatch: match,
       };
     });
 

@@ -42,10 +42,7 @@ export interface State {
 }
 
 export interface PageReferenceMap extends PageReference {
-  match: {
-    rapMatch: string | undefined,
-    refMatch: string,
-  };
+  match: string;
 }
 
 export interface PageReference {

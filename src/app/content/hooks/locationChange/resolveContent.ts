@@ -210,7 +210,6 @@ const loadContentReference = async(
     bookId?: string,
     bookVersion?: string,
     match: string,
-    prevMatch?: string,
     pageUid: string,
   }
 ) => {
@@ -219,10 +218,7 @@ const loadContentReference = async(
     : await resolveExternalBookReference(services, book, page, reference.pageUid);
 
   return {
-    match: {
-      rapMatch: reference.prevMatch,
-      refMatch: reference.match,
-    },
+    match: reference.match,
     params: {
       book: getUrlParamsForBook(targetBook),
       page: getUrlParamForPageId(targetBook, reference.pageUid),

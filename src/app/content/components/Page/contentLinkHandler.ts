@@ -35,7 +35,7 @@ export const reduceReferences = (document: Document, {references, currentPath}: 
     const path = content.getUrl(reference.params);
     const search = content.getSearch && content.getSearch(reference.params);
     const query = search ? `?${search}` : '';
-    const referenceMatch = reference.match.rapMatch ? reference.match.rapMatch : reference.match.refMatch;
+    const referenceMatch = reference.match;
     const a = assertNotNull(
       document.querySelector(`[href^='${referenceMatch}']`),
       'references are created from hrefs');
