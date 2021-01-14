@@ -121,7 +121,7 @@ describe('createHighlight', () => {
       await hook(createHighlight(mock, meta));
     } catch (error) {
       expect(createHighlightClient).toHaveBeenCalledWith({ highlight: mock });
-      expect(error instanceof CustomApplicationError).toBe(true);
+      expect(error.name).toEqual('CustomApplicationError');
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });

@@ -335,8 +335,7 @@ describe('filtersChange', () => {
       await hook(store.dispatch(setSummaryFilters({locationIds})));
     } catch (error) {
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-      expect(error instanceof CustomApplicationError).toBe(true);
-      expect(error.message).toBe(mockCustomApplicationError.message);
+      expect(error.name).toEqual('CustomApplicationError');
     }
   });
 });

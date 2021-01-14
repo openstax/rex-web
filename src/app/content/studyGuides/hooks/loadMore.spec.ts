@@ -259,7 +259,7 @@ describe('loadMore', () => {
       await hook(store.dispatch(loadMoreStudyGuides()));
     } catch (error) {
       expect(dispatch).toHaveBeenCalledWith(toggleStudyGuidesSummaryLoading(false));
-      expect(error instanceof CustomApplicationError).toBe(true);
+      expect(error.name).toEqual('CustomApplicationError');
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });

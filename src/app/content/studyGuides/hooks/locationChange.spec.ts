@@ -144,7 +144,7 @@ describe('locationChange', () => {
       await hook();
     } catch (error) {
       expect(getHighlightsSummaryClient).toHaveBeenCalled();
-      expect(error instanceof CustomApplicationError).toBe(true);
+      expect(error.name).toEqual('CustomApplicationError');
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });

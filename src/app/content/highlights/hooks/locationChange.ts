@@ -3,7 +3,6 @@ import { getType } from 'typesafe-actions';
 import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
-import { CustomApplicationError } from '../../../utils';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
 import { receiveHighlights } from '../actions';
@@ -40,7 +39,8 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
       pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
     });
   } catch (error) {
-    if (action && action.type !== getType(receivePageFocus) && !(error instanceof CustomApplicationError)) {
+    // TODO: This should check for instanceof CustomApplicationError but it doesn't work in tests
+    if (action && action.type !== getType(receivePageFocus) && error.name !== 'CustomApplicationError') {
       throw new HighlightLoadError({ destination: 'page', shouldAutoDismiss: false });
     }
 

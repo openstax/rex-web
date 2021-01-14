@@ -182,28 +182,28 @@ describe('locationChange', () => {
       try {
         await hook();
       } catch (error) {
-        expect(error instanceof CustomApplicationError).toBe(true);
+        expect(error.name).toEqual('CustomApplicationError');
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
 
       try {
         await hook(receivePageFocus(true));
       } catch (error) {
-        expect(error instanceof CustomApplicationError).toBe(true);
+        expect(error.name).toEqual('CustomApplicationError');
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
 
       try {
         await hook(receivePageFocus(false));
       } catch (error) {
-        expect(error instanceof CustomApplicationError).toBe(true);
+        expect(error.name).toEqual('CustomApplicationError');
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
 
       try {
         await hook(locationChange({action: 'PUSH', location: {} as any}));
       } catch (error) {
-        expect(error instanceof CustomApplicationError).toBe(true);
+        expect(error.name).toEqual('CustomApplicationError');
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
     });

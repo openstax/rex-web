@@ -237,7 +237,7 @@ describe('printHighlights', () => {
         await asyncHelper(helpers);
       } catch (error) {
         expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-        expect(error instanceof CustomApplicationError).toBe(true);
+        expect(error.name).toEqual('CustomApplicationError');
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
     });

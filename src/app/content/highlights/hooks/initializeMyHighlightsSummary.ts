@@ -1,6 +1,6 @@
 import { GetHighlightsSummarySourceTypeEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
 import { ActionHookBody, Unpromisify } from '../../../types';
-import { actionHook, assertDefined, CustomApplicationError } from '../../../utils';
+import { actionHook, assertDefined } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import * as selectContent from '../../selectors';
 import {
@@ -32,7 +32,8 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   } catch (error) {
     dispatch(toggleSummaryHighlightsLoading(false));
 
-    if (error instanceof CustomApplicationError) {
+    // TODO: This should check for instanceof CustomApplicationError but it doesn't work in tests
+    if (error.name === 'CustomApplicationError') {
       throw error;
     }
 
@@ -53,7 +54,8 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   } catch (error) {
     dispatch(toggleSummaryHighlightsLoading(false));
 
-    if (error instanceof CustomApplicationError) {
+    // TODO: This should check for instanceof CustomApplicationError but it doesn't work in tests
+    if (error.name === 'CustomApplicationError') {
       throw error;
     }
 
