@@ -4,9 +4,12 @@ import createTestStore from '../test/createTestStore';
 import { book } from '../test/mocks/archiveLoader';
 import { mockCmsBook } from '../test/mocks/osWebLoader';
 import * as actions from './content/actions';
+import { HighlightCreateError } from './content/highlights/errors';
 import * as selectors from './content/selectors';
 import { formatBookData } from './content/utils';
 import { notFound } from './errors/routes';
+import { addToast } from './notifications/actions';
+import { toastMessageKeys } from './notifications/components/ToastNotifications/constants';
 import { AppServices, AppState, MiddlewareAPI, Store } from './types';
 import * as utils from './utils';
 import { assertDocument, UnauthenticatedError } from './utils';
@@ -130,6 +133,30 @@ describe('actionHook', () => {
     expect(helpers.dispatch).not.toHaveBeenCalled();
     jest.resetAllMocks();
   });
+});
+
+it('handle error if it is instance of ApplicationMesssageError', async() => {
+  const hookSpy = jest.fn(async() => Promise.reject(
+    new HighlightCreateError({ destination: 'myHighlights', shouldAutoDismiss: true }
+    )));
+  const helpers = ({
+    dispatch: jest.fn(),
+    getState: () => ({} as AppState),
+    promiseCollector: new PromiseCollector(),
+  } as any) as MiddlewareAPI & AppServices;
+
+  const dispatch = jest.spyOn(helpers, 'dispatch');
+  jest.spyOn(global.Date, 'now').mockReturnValue(1);
+
+  const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+  middleware(helpers)(helpers)((action) => action)(actions.openToc());
+  await Promise.resolve();
+
+  expect(Sentry.captureException).toHaveBeenCalled();
+  expect(hookSpy).toHaveBeenCalled();
+  expect(dispatch).toHaveBeenCalledWith(addToast(
+    toastMessageKeys.higlights.failure.create, { destination: 'myHighlights', shouldAutoDismiss: true }));
+  jest.resetAllMocks();
 });
 
 describe('assertDefined', () => {

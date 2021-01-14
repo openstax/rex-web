@@ -28,7 +28,7 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
     pagination: null,
   }));
 
-  if (!waitingForPromiseCollector) {
+  if (waitingForPromiseCollector) {
     // wait for content to process/load
     await services.promiseCollector.calm();
     waitingForPromiseCollector = false;

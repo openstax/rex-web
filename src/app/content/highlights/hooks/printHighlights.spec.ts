@@ -6,9 +6,8 @@ import { book as archiveBook, page as archivePage } from '../../../../test/mocks
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
-import { groupedToastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
-import { assertWindow } from '../../../utils';
+import { assertWindow, CustomApplicationError } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { formatBookData } from '../../utils';
@@ -42,10 +41,10 @@ describe('printHighlights', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
+  let calmSpy: jest.SpyInstance;
   let print: jest.SpyInstance;
-  let addPromise: jest.SpyInstance;
   let asyncHelper: typeof import ('./printHighlights').asyncHelper;
-  let hook: typeof import ('./printHighlights').printHighlightsHook;
+  let hook: ReturnType<typeof import ('./printHighlights').hookBody>;
 
   beforeEach(() => {
     resetModules();
@@ -60,21 +59,16 @@ describe('printHighlights', () => {
       getState: store.getState,
     };
 
-    addPromise = jest.spyOn(helpers.promiseCollector, 'add');
     dispatch = jest.spyOn(helpers, 'dispatch');
+    calmSpy = jest.spyOn(helpers.promiseCollector, 'calm')
+    .mockImplementation(() => Promise.resolve());
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
     store.dispatch(openMyHighlights());
 
     asyncHelper = (require('./printHighlights').asyncHelper);
-    hook = (require('./printHighlights').printHighlightsHook);
-  });
-
-  it('doesn\'t get added to promise collector', () => {
-    hook(helpers)(helpers)((action) => action)(printSummaryHighlights());
-
-    expect(addPromise).not.toHaveBeenCalled();
+    hook = (require('./printHighlights').hookBody)(helpers);
   });
 
   describe('with unfetched resources', () => {
@@ -84,18 +78,6 @@ describe('printHighlights', () => {
         'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
       }, new Map()));
       store.dispatch(setSummaryFilters({locationIds}));
-    });
-
-    it('adds a toast on request failure', async() => {
-      const error = {} as any;
-
-      jest.spyOn(helpers.highlightClient, 'getHighlights')
-        .mockRejectedValueOnce(error);
-
-      await asyncHelper(helpers);
-
-      expect(groupedToastNotifications(store.getState()).myHighlights)
-        .toEqual([expect.objectContaining({messageKey: toastMessageKeys.higlights.failure.popUp.print})]);
     });
 
     it('fetches all highlights before print', async() => {
@@ -210,6 +192,54 @@ describe('printHighlights', () => {
       }));
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
       expect(print).toHaveBeenCalled();
+    });
+
+    it('waits for promiseCollector.calm', async() => {
+      const loadMore = jest.spyOn(require('./loadMore'), 'loadMore')
+        .mockImplementation(async() => ({}));
+
+      hook(printSummaryHighlights());
+
+      expect(loadMore).toHaveBeenCalled();
+      await Promise.resolve();
+
+      expect(print).not.toHaveBeenCalled();
+
+      expect(calmSpy).toHaveBeenCalled();
+      await Promise.resolve();
+
+      expect(dispatch).toBeCalledWith(toggleSummaryHighlightsLoading(false));
+      expect(print).toHaveBeenCalled();
+    });
+
+    it('throws HighlightPopupPrintError', async() => {
+      const error = {} as any;
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce(error);
+
+      try {
+        await asyncHelper(helpers);
+      } catch (error) {
+        expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
+        expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.popUp.print);
+        expect(error.meta).toEqual({ destination: 'myHighlights' });
+      }
+    });
+
+    it('throws CustomApplicationError', async() => {
+      const mockCustomApplicationError = new CustomApplicationError('error');
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce(mockCustomApplicationError);
+
+      try {
+        await asyncHelper(helpers);
+      } catch (error) {
+        expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
+        expect(error instanceof CustomApplicationError).toBe(true);
+        expect(error.message).toBe(mockCustomApplicationError.message);
+      }
     });
   });
 

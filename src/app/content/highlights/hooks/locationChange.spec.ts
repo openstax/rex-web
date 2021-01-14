@@ -9,9 +9,9 @@ import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
 import { locationChange } from '../../../navigation/actions';
-import { addToast } from '../../../notifications/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
+import { CustomApplicationError } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { receiveHighlights } from '../actions';
@@ -149,7 +149,8 @@ describe('locationChange', () => {
   });
 
   describe('error handling', () => {
-    it('doesn\'t show a toast if hook ran because of page\'s focus changing', async() => {
+    it('throws HighlightLoadError', async() => {
+      const error = {} as any;
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({...page, references: []}));
       store.dispatch(receiveUser(formatUser(testAccountsUser)));
@@ -157,18 +158,18 @@ describe('locationChange', () => {
       dispatch.mockClear();
 
       jest.spyOn(helpers.highlightClient, 'getHighlights')
-        .mockRejectedValueOnce({});
+          .mockRejectedValueOnce(error);
 
-      await hook(receivePageFocus(true));
-      await hook(receivePageFocus(false));
-
-      expect(dispatch).not.toHaveBeenCalled();
+      try {
+        await hook(locationChange({action: 'PUSH', location: {} as any}));
+      } catch (error) {
+        expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.load);
+        expect(error.meta).toEqual({destination: 'page', shouldAutoDismiss: false});
+      }
     });
 
-    it('shows a toast on fetch failure', async() => {
-      jest.spyOn(Date, 'now')
-        .mockReturnValue(1);
-
+    it('throws CustomApplicationError', async() => {
+      const mockCustomApplicationError = new CustomApplicationError('error');
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({...page, references: []}));
       store.dispatch(receiveUser(formatUser(testAccountsUser)));
@@ -176,13 +177,35 @@ describe('locationChange', () => {
       dispatch.mockClear();
 
       jest.spyOn(helpers.highlightClient, 'getHighlights')
-        .mockRejectedValueOnce({});
+          .mockRejectedValue(mockCustomApplicationError);
 
-      await hook(locationChange({action: 'PUSH', location: {} as any}));
+      try {
+        await hook();
+      } catch (error) {
+        expect(error instanceof CustomApplicationError).toBe(true);
+        expect(error.message).toBe(mockCustomApplicationError.message);
+      }
 
-      expect(dispatch).toHaveBeenCalledWith(
-        addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false})
-      );
+      try {
+        await hook(receivePageFocus(true));
+      } catch (error) {
+        expect(error instanceof CustomApplicationError).toBe(true);
+        expect(error.message).toBe(mockCustomApplicationError.message);
+      }
+
+      try {
+        await hook(receivePageFocus(false));
+      } catch (error) {
+        expect(error instanceof CustomApplicationError).toBe(true);
+        expect(error.message).toBe(mockCustomApplicationError.message);
+      }
+
+      try {
+        await hook(locationChange({action: 'PUSH', location: {} as any}));
+      } catch (error) {
+        expect(error instanceof CustomApplicationError).toBe(true);
+        expect(error.message).toBe(mockCustomApplicationError.message);
+      }
     });
   });
 });
