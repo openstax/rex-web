@@ -7,11 +7,8 @@ import createTestStore from '../../../../test/createTestStore';
 import { renderToDom } from '../../../../test/reactutils';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
-import { replace } from '../../../navigation/actions';
-import * as navigation from '../../../navigation/selectors';
 import { Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
-import { content } from '../../routes';
 import { nextQuestion } from '../actions';
 import * as pqSelectors from '../selectors';
 import PracticeQuestionsPopup from './PracticeQuestionsPopup';
@@ -30,23 +27,13 @@ jest.mock('react-dom', () => ({
   createPortal: (children: any) => children,
 }));
 
-const mockMatch = {
-  params: {
-    book: { slug: 'book' },
-    page: { slug: 'page' },
-  },
-  route: content,
-};
-
 describe('PracticeQuestions', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
   let container: HTMLElement;
-  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
-    dispatch = jest.spyOn(store, 'dispatch');
     services = createTestServices();
     container = assertWindow().document.createElement('div');
   });
@@ -103,7 +90,7 @@ describe('PracticeQuestions', () => {
   it('tracks analytics and removes modal-url when clicking x icon', () => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
-    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
+    const spyGoBack = jest.spyOn(services.history, 'goBack').mockImplementation(() => jest.fn());
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
@@ -119,13 +106,13 @@ describe('PracticeQuestions', () => {
     });
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(replace(mockMatch));
+    expect(spyGoBack).toHaveBeenCalled();
   });
 
   it('tracks analytics and removes modal-url when clicking esc', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
-    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
+    const spyGoBack = jest.spyOn(services.history, 'goBack').mockImplementation(() => jest.fn());
 
     const { node } = renderToDom(<Provider store={store}>
       <Services.Provider value={services}>
@@ -140,15 +127,13 @@ describe('PracticeQuestions', () => {
     element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(replace(mockMatch));
+    expect(spyGoBack).toHaveBeenCalled();
   });
 
   it('tracks analytics and removes modal-url with goBack', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
-    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
     const spyGoBack = jest.spyOn(services.history, 'goBack').mockImplementation(() => jest.fn());
-    services.history.action = 'PUSH';
 
     const { node } = renderToDom(<Provider store={store}>
       <Services.Provider value={services}>
@@ -169,7 +154,7 @@ describe('PracticeQuestions', () => {
   it('tracks analytics and removes modal-url on overlay click', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
-    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
+    const spyGoBack = jest.spyOn(services.history, 'goBack').mockImplementation(() => jest.fn());
 
     const { node } = renderToDom(<Provider store={store}>
       <Services.Provider value={services}>
@@ -189,13 +174,12 @@ describe('PracticeQuestions', () => {
     ReactTestUtils.Simulate.click(element, {preventDefault}); // this checks for react onClick prop
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(replace(mockMatch));
+    expect(spyGoBack).toHaveBeenCalled();
   });
 
   it('show warning prompt and tracks analytics after confirm', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
-    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
     const spyConfirm = jest.spyOn(assertWindow(), 'confirm')
       .mockImplementation(() => true);
 
@@ -226,7 +210,6 @@ describe('PracticeQuestions', () => {
   it('show warning prompt and do not tracks analytics after cancel', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
-    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
     track.mockClear();
     const spyConfirm = jest.spyOn(assertWindow(), 'confirm')
       .mockImplementation(() => false);
