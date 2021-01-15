@@ -50,11 +50,6 @@ export interface Route<
   getUrl: (p: P) => string;
   getSearch?: (p: P) => string;
   component: ComponentType;
-  // https://github.com/Microsoft/TypeScript/issues/29368#issuecomment-453529532
-  // getUrl: [P] extends [undefined] ? (() => string): ((p: P) => string);
-  // getSearch?: [P] extends [undefined] ? (() => string): ((p: P) => string);
-  // getUrl: [P] extends [undefined] ? (() => string): ((p: P) => string);
-  // getSearch?: [P] extends [undefined] ? (() => string): ((p: P) => string);
 }
 
 export interface LocationChange<M = AnyMatch> {
@@ -65,28 +60,6 @@ export interface LocationChange<M = AnyMatch> {
 
 export type AnyRoute = typeof routes[number];
 export type AnyMatch = UnionRouteMatches<AnyRoute>;
-
-/*
- * these must be generic because the AnyRoute getUrl types with specific params don't technically
- * extend the getUrl with the base structural type
- *
- * these need to be crazy unions because of the conditional types within the match and route
-export type GenericMatchWithParams<P extends RouteParamsType, S extends RouteStateType | undefined> =
-  Match<Route<P, Exclude<S, undefined>>> | Match<Route<P, undefined>>;
-
-export type GenericMatch2 =
-  Match<Route<RouteParamsType, RouteStateType>>
-  | Match<Route<RouteParamsType, undefined>>
-  | Match<Route<undefined, RouteStateType>>
-  | Match<Route<undefined, undefined>>;
-
-export type GenericMatch<P extends RouteParamsType | undefined, S extends RouteStateType | undefined> =
-  Match<Route<Exclude<P, undefined>, Exclude<S, undefined>>>
-  | Match<Route<Exclude<P, undefined>, undefined>>
-  | Match<Route<undefined, Exclude<S, undefined>>>
-  | Match<Route<undefined, S>>
-  | Match<Route<undefined, S>>;
- */
 
 export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>
   (locationChange: Required<LocationChange<Match<R>>>) =>
