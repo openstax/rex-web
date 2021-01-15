@@ -148,7 +148,7 @@ const resolvePage = async(
   }
 };
 
-const getBookInformation = async(
+export const getBookInformation = async(
   services: AppServices & MiddlewareAPI,
   reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {

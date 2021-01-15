@@ -19,7 +19,14 @@ export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, t
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
 
-export const getContentPageReferences = (content: string) => {
+interface ContentPageRefencesType {
+  bookId?: string;
+  bookVersion?: string;
+  match: string;
+  pageId: string;
+}
+
+export function getContentPageReferences(content: string) {
   const legacyMatches = (content.match(/"\/contents\/([a-z0-9-]+(@[\d.]+)?)/g) || [])
     .map((match) => {
       const pageId = match.substr(11);
@@ -43,8 +50,8 @@ export const getContentPageReferences = (content: string) => {
       };
     });
 
-  return [...legacyMatches, ...matches];
-};
+  return [...legacyMatches, ...matches] as ContentPageRefencesType[];
+}
 
 export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
   contents.map((subtree) => {
