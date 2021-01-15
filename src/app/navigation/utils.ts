@@ -6,14 +6,20 @@ import pathToRegexp, { Key, parse } from 'path-to-regexp';
 import queryString, { OutputParams } from 'query-string';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
-import { notFound } from '../errors/routes';
 import { isPlainObject } from '../guards';
 import { pathTokenIsKey } from '../navigation/guards';
 import { actionHook } from '../utils';
 import * as actions from './actions';
-import { isMatchWithParams } from './guards';
-import { AnyMatch, AnyRoute,
-  LocationChange, Match, RouteHookBody, RouteState, ScrollTarget } from './types';
+import {
+  AnyMatch,
+  AnyRoute,
+  LocationChange,
+  Match,
+  Route,
+  RouteHookBody,
+  RouteState,
+  ScrollTarget
+} from './types';
 
 const delimiter = '_';
 
@@ -55,12 +61,10 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
   }
 };
 
-export const matchSearch = (action: AnyMatch, search: string | undefined) => {
+export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?: string | undefined) => {
   const previous = querystring.parse(search || '');
-
-  const route = querystring.parse(isMatchWithParams(action)
-    ? action.route.getSearch ? action.route.getSearch(action.params) : ''
-    : action.route.getSearch ? action.route.getSearch() : ''
+  const route = querystring.parse(
+    action.route.getSearch ? action.route.getSearch(action.params) : ''
   );
 
   return querystring.stringify({
@@ -69,16 +73,20 @@ export const matchSearch = (action: AnyMatch, search: string | undefined) => {
   });
 };
 
-export const matchUrl = (action: AnyMatch) => isMatchWithParams(action)
-  ? action.route.getUrl(action.params)
-  : action.route.getUrl();
+// TODO - rename to matchPath
+// issue with passing AnyMatch into this https://stackoverflow.com/q/65727184/14809536
+export const matchUrl = <M extends Match<Route<any, any>>>(action: M) => action.route.getUrl(action.params);
+
+// TODO - rename to matchUrl
+// issue with passing AnyMatch into this https://stackoverflow.com/q/65727184/14809536
+export const matchUriString = <M extends Match<Route<any, any>>>(action: M) => {
+  const path = matchUrl(action);
+  const search = matchSearch(action);
+  return `${path}${search ? `?${search}` : ''}`;
+};
 
 export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, location: Location, action: Action) => {
   const match = findRouteMatch(routes, location);
-  if (match && match.route.name === notFound.name) {
-    notFound.redirect();
-    return;
-  }
   dispatch(actions.locationChange({location, match, action}));
 });
 
@@ -97,7 +105,6 @@ export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) 
  * Recursively creates combinations of supplied replacements
  * for the base parameter in an url
  */
-
 export const injectParamsToBaseUrl = (baseUrl: string, params: {[key: string]: string[]}): string[] => {
   const keyToInject = Object.keys(params)[0];
   if (!keyToInject) { return [baseUrl]; }

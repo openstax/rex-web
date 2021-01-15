@@ -33,15 +33,15 @@ export const actions = {
   notifications: notifications.actions,
 };
 
-export const routes = [
+export const routes = Object.values({
   ...(
     process.env.REACT_APP_ENV !== 'production'
-      ? Object.values(developer.routes)
-      : /* istanbul ignore next */ []
+      ? developer.routes
+      : /* istanbul ignore next */ {}
   ),
-  ...Object.values(content.routes),
-  ...Object.values(errors.routes),
-];
+  ...content.routes,
+  ...errors.routes,
+});
 
 const init = [
   ...Object.values(auth.init),
