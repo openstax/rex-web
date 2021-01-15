@@ -53,19 +53,19 @@ describe('findRouteMatch', () => {
   it('returns match for route without params', () => {
     const location = {pathname: '/basic'} as Location;
     const result = findRouteMatch(routes, location);
-    expect(result).toEqual({route: routes[0]});
+    expect(result).toEqual({route: routes[0], params: {}, state: {}});
   });
 
   it('returns match for route with params', () => {
     const location = {pathname: '/with/thing'} as Location;
     const result = findRouteMatch(routes, location);
-    expect(result).toEqual({route: routes[1], params: {param: 'thing'}});
+    expect(result).toEqual({route: routes[1], params: {param: 'thing'}, state: {}});
   });
 
   it('returns undefined for missing param values', () => {
     const location = {pathname: '/with'} as Location;
     const result = findRouteMatch(routes, location);
-    expect(result).toEqual({route: routes[1], params: {param: undefined}});
+    expect(result).toEqual({route: routes[1], params: {param: undefined}, state: {}});
   });
 });
 

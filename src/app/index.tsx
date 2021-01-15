@@ -16,7 +16,6 @@ import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as head from './head';
 import MessageProvider from './MessageProvider';
 import * as navigation from './navigation';
-import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
 import { matchUrl } from './navigation/utils';
 import * as notifications from './notifications';
@@ -69,18 +68,21 @@ export interface AppOptions {
 export default (options: AppOptions) => {
   const {initialEntries, initialState} = options;
 
-  const history = typeof window !== 'undefined' && window.history
-    ? createBrowserHistory()
-    : createMemoryHistory(initialEntries && {
+  const createMemoryHistoryHelper = () => {
+    const memoryHistory = createMemoryHistory(initialEntries && {
       initialEntries: initialEntries.map(matchUrl),
     });
 
-  if (initialEntries && initialEntries.length > 0) {
-    const entry = initialEntries[initialEntries.length - 1];
-    if (hasState(entry)) {
-      history.location.state = entry.state;
+    if (initialEntries && initialEntries[0]) {
+      memoryHistory.location.state = initialEntries[0].state;
     }
-  }
+
+    return memoryHistory;
+  };
+
+  const history = typeof window !== 'undefined' && window.history
+    ? createBrowserHistory()
+    : createMemoryHistoryHelper();
 
   const reducer = createReducer(history);
 

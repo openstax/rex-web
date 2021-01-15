@@ -43,9 +43,9 @@ const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
 };
 
 const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, keys: Key[], match: RegExpExecArray) => ({
+  params: getMatchParams(keys, match),
   route,
   state,
-  ...(keys.length > 0 ? {params: getMatchParams(keys, match)} : {}),
 } as AnyMatch);
 
 export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch | undefined => {
@@ -55,7 +55,7 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
       const re = pathToRegexp(path, keys, {end: true});
       const match = re.exec(location.pathname);
       if (match) {
-        return formatRouteMatch(route, location.state, keys, match);
+        return formatRouteMatch(route, location.state || {}, keys, match);
       }
     }
   }

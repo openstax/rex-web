@@ -4,7 +4,6 @@ import { notFound } from '../errors/routes';
 import { AnyAction, Dispatch, Middleware } from '../types';
 import { assertWindow } from '../utils/browser-assertions';
 import * as actions from './actions';
-import { hasState } from './guards';
 import { AnyRoute } from './types';
 import { changeToLocation, matchForRoute, matchSearch, matchUriString, matchUrl } from './utils';
 
@@ -26,9 +25,7 @@ export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}
       hash: action.payload.hash,
       pathname: matchUrl(action.payload),
       search: matchSearch(action.payload, action.payload.search),
-      state: hasState(action.payload)
-        ? action.payload.state
-        : undefined,
+      state: action.payload.state,
     });
   };
 };

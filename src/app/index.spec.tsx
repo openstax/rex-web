@@ -37,14 +37,6 @@ describe('create app', () => {
     expect(createMemoryHistory).not.toHaveBeenCalled();
   });
 
-  it('initializes the location state when initialEntries is passed', () => {
-    createApp = require('./index').default;
-    const match = {state: 'asdf'} as unknown as AnyMatch;
-    const app = createApp({services, initialEntries: [match]});
-
-    expect(app.history.location.state).toEqual('asdf');
-  });
-
   it('adds sentry middleware when enabled', () => {
     const mockedSentry = require('../helpers/Sentry').default;
     mockedSentry.shouldCollectErrors = true;
@@ -82,6 +74,14 @@ describe('create app', () => {
 
       expect(app.history.location.pathname).toEqual('url');
       expect(match.route.getUrl).toHaveBeenCalled();
+    });
+
+    it('initializes the location state when initialEntries is passed', () => {
+      createApp = require('./index').default;
+      const match = {state: 'asdf', route: {getUrl: jest.fn(() => 'url')}} as unknown as AnyMatch;
+      const app = createApp({services, initialEntries: [match]});
+
+      expect(app.history.location.state).toEqual('asdf');
     });
 
     it('doesn\'t add sentry middleware when not enabled', () => {
