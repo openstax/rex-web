@@ -88,7 +88,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
               open={false}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 iJoMzl"
+                className="ChapterFilter__StyledSummary-tcdlu-4 bSdrJA"
                 onClick={[Function]}
               >
                 <span
@@ -149,7 +149,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
               open={true}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 iJoMzl"
+                className="ChapterFilter__StyledSummary-tcdlu-4 bSdrJA"
                 onClick={[Function]}
               >
                 <span
@@ -249,7 +249,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
               open={false}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 iJoMzl"
+                className="ChapterFilter__StyledSummary-tcdlu-4 bSdrJA"
                 onClick={[Function]}
               >
                 <span
@@ -310,7 +310,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
               open={false}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 iJoMzl"
+                className="ChapterFilter__StyledSummary-tcdlu-4 bSdrJA"
                 onClick={[Function]}
               >
                 <span

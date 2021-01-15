@@ -193,6 +193,7 @@ export const StyledSummary = styled.summary`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: nowrap;
   padding: 0 1.6rem;
   height: 4rem;
   list-style: none;
@@ -204,11 +205,11 @@ export const StyledSummary = styled.summary`
   }
 
   ${ChapterTitle} {
+    flex: 1;
     margin-left: 0;
   }
 
   ${AngleIcon} {
-    /* Fix for Safari display issue */
     display: block;
   }
 `;
