@@ -31,21 +31,21 @@ export const getContentPageReferences = (content: string) => {
     });
 
   // rap content
-  const matches = (content.match(/.\/([a-z0-9-]+(@[\d.]+)):([a-z0-9-]+.xhtml)/g) || [])
+  const matches = (content.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
     .map((match) => {
       const [bookMatch, pageMatch] = match.split(':');
       const pageId = pageMatch.substr(0, 36);
       const [bookId, bookVersion] = bookMatch.split('@');
-
-      return {
+      const reference = {
         bookId: bookId.substr(2),
         bookVersion,
         match,
         pageUid: stripIdVersion(pageId),
       };
+      return reference;
     });
 
-  return [...matches, ...legacyMatches];
+  return [...legacyMatches, ...matches];
 };
 
 export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
