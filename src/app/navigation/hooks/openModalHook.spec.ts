@@ -42,6 +42,7 @@ describe('openModal', () => {
           page: { slug: 'page' },
         },
         route: content,
+        state: {},
       },
     }));
     const hook = hookFactory('myModalName')(helpers);

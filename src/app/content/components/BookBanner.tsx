@@ -6,7 +6,6 @@ import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
-import { notFound } from '../../errors/routes';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import { assertDefined, assertWindow } from '../../utils';
@@ -236,7 +235,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
-    const bookUrl = hasOSWebData(book) ? bookDetailsUrl(book) : notFound.getUrl();
+    const bookUrl = hasOSWebData(book) ? bookDetailsUrl(book) : '/no-book-details';
     const bookState = hasOSWebData(book) ? book.book_state : undefined;
 
     return this.renderBars({theme: bookTheme, book_state: bookState, ...book}, bookUrl, pageNode);

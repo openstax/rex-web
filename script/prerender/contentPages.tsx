@@ -113,11 +113,11 @@ type MakeRenderPage = (services: AppOptions['services']) =>
 
 const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
 
-  const matchState = assertDefined(
-    route.state,
-    'match state wasn\'t defined, it should have been'
-  );
-  const {bookUid, bookVersion, pageUid} = matchState;
+  if (!route.state || !('bookUid' in route.state)) {
+    throw new Error('match state wasn\'t defined, it should have been');
+  }
+
+  const {bookUid, bookVersion, pageUid} = route.state;
   const archivePage = assertDefined(
     await services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load(),
     'page wasn\'t cached, it should have been'

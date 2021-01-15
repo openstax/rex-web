@@ -34,7 +34,9 @@ describe('navigation middleware', () => {
 
     middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
       method: 'push',
+      params: {},
       route: routes[0],
+      state: {},
     }));
 
     expect(pushSpy).toHaveBeenCalled();
@@ -57,6 +59,7 @@ describe('navigation middleware', () => {
 
     middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
       method: 'push',
+      params: {},
       route: routes[0],
       state,
     }));
@@ -91,7 +94,7 @@ describe('navigation middleware', () => {
     expect(dispatch).toHaveBeenCalledWith(actions.locationChange({
       action: 'PUSH',
       location: history.location,
-      match: {route: routes[1]},
+      match: {route: routes[1], params: {}, state: {}},
     }));
   });
 });
