@@ -207,6 +207,7 @@ export const StyledSummary = styled.summary`
   ${ChapterTitle} {
     flex: 1;
     margin-left: 0;
+    text-align: left;
   }
 
   ${AngleIcon} {
