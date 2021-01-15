@@ -15,7 +15,7 @@ class WebBase(Page):
     _async_hide_locator = (By.CSS_SELECTOR, ".async-hide")
     _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-menu"]')
     _login_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
-    _logout_locator = (By.CSS_SELECTOR, "[href*=logout]")
+    _logout_locator = (By.CSS_SELECTOR, "[href*=signout]")
     _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
     _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[aria-expanded="true"]')
     _view_online_desktop_locator = (

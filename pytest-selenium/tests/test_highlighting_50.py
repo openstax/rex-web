@@ -68,3 +68,50 @@ def test_change_color_from_MH_page(selenium, base_url, book_slug, page_slug):
         if content_highlight_ids[0] == highlight_id_0
         else data[1][1]
     ), "highlight color changed for different highlight"
+
+
+@markers.test_case("C598222")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
+def test_add_note_from_MH_page(selenium, base_url, book_slug, page_slug):
+    """Adding note from MH page, updates the highlight in content page."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight 2 set of texts in the page
+    paragraph = random.sample(book.content.paragraphs, 2)
+    note = Utilities.random_string()
+    content_highlight_ids = book.content.highlight_ids
+
+    data = [(paragraph[0], Color.GREEN, note), (paragraph[1], Color.YELLOW, note == "")]
+
+    for paragraphs, colors, note in data:
+        book.content.highlight(target=paragraphs, offset=Highlight.RANDOM, color=colors, note=note)
+        content_highlight_ids = content_highlight_ids + list(
+            set(book.content.highlight_ids) - set(content_highlight_ids)
+        )
+
+    my_highlights = book.toolbar.my_highlights()
+
+    highlights = my_highlights.highlights.edit_highlight
+
+    for highlight in highlights:
+        if not highlight.note_present:
+            highlight.add_note()
+
+            x = Utilities.random_string()
+            highlight.note = x
+
+    from time import sleep
+
+    sleep(4)

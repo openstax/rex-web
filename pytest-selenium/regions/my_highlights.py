@@ -644,15 +644,20 @@ class MyHighlights(Region):
                     in self.find_elements(*self._context_menu_locator)]
 
         class EditHighlight(Region):
+            # _root_locator = (By.CSS_SELECTOR, "[class*=HighlightOuterWrapper]")
             _alter_menu_toggle_locator = (By.CSS_SELECTOR, "[class*=MenuToggle]")
             _highlight_green_locator = (By.CSS_SELECTOR, "[name=green]")
             _highlight_blue_locator = (By.CSS_SELECTOR, "[name=blue]")
             _highlight_yellow_locator = (By.CSS_SELECTOR, "[name=yellow]")
             _highlight_purple_locator = (By.CSS_SELECTOR, "[name=purple]")
             _highlight_pink_locator = (By.CSS_SELECTOR, "[name=pink]")
-            _edit_button_locator = (By.CSS_SELECTOR, "[class*=DropdownList] li:nth-child(1) a")
+            _add_or_edit_note_button_locator = (By.CSS_SELECTOR, "[class*=DropdownList] li:nth-child(1) a")
             _delete_button_locator = (By.CSS_SELECTOR, "[class*=DropdownList] li:nth-child(2) a")
             _highlight_id_locator = (By.XPATH, "./following::div[starts-with(@class, 'content-excerpt')]")
+            _annotation_textbox_locator = (By.CSS_SELECTOR, "textarea")
+            _cancel_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=cancel]")
+            _save_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=save]")
+            _note_indicator_locator = (By.XPATH, "./following::div[3]/span[contains(text(), 'Note:')]")
 
             @property
             def mh_highlight_id(self) -> str:
@@ -672,7 +677,60 @@ class MyHighlights(Region):
                 :rtype: WebElement
 
                 """
-                return self.find_element(*self._edit_button_locator)
+                return self.find_element(*self._add_or_edit_note_button_locator)
+
+            @property
+            def note_present(self) -> bool:
+                """Return True if the highlight has a note attached.
+
+                :return: ``True`` if the highlight has a note attached
+                :rtype: bool
+
+                """
+                try:
+                    return bool(self.find_element(*self._note_indicator_locator))
+                except NoSuchElementException:
+                    return False
+
+            @property
+            def note(self) -> str:
+                """Return the highlight note.
+
+                :return: the current highlight note text
+                :rtype: str
+
+                """
+                return self.note_box.text
+
+            @property
+            def note_box(self) -> WebElement:
+                """Return the highlight note text box.
+
+                :return: the highlight annotation text box
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._annotation_textbox_locator)
+
+            @property
+            def save_button(self) -> WebElement:
+                """Return the save annotation button.
+
+                :return: the "Save" button
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._save_annotation_button_locator)
+
+            @property
+            def cancel_button(self) -> WebElement:
+                """Return the cancel annotation button.
+
+                :return: the "Cancel" button
+                :rtype: WebElement
+
+                """
+                return self.find_element(*self._cancel_annotation_button_locator)
 
             @property
             def delete_button(self) -> WebElement:
@@ -742,6 +800,7 @@ class MyHighlights(Region):
 
                 """
                 toggle = self.find_element(*self._alter_menu_toggle_locator)
+
                 Utilities.click_option(self.driver, element=toggle)
                 return self
 
@@ -763,6 +822,51 @@ class MyHighlights(Region):
                 }
 
                 Utilities.click_option(self.driver, element=colors[color])
+                return self
+
+            def edit_note(self) -> MyHighlights.Highlights.HighlightBox:
+                """Toggle the annotation edit menu option.
+
+                :return: the note edit box
+                :rtype: :py:class:`~Content.Content.HighlightBox`
+
+                """
+
+                self.toggle_menu()
+                Utilities.click_option(self.driver, element=self.edit_button)
+                return self
+
+            add_note = edit_note
+
+            @note.setter
+            def note(self, note: str):
+                """Set the annotation text for the highlight.
+
+                :param str note: the annotation text for the selected highlight
+
+                """
+                # if not note:
+                #     Utilities.clear_field(self.driver, self.note_box)
+                self.note_box.send_keys(note)
+
+            def cancel(self) -> MyHighlights.Highlights.HighlightBox:
+                """Click the cancel note button.
+
+                :return: the highlight edit box
+
+                """
+                Utilities.click_option(self.driver, element=self.cancel_button)
+                return self
+
+            def save(self) -> MyHighlights.Highlights.HighlightBox:
+                """Click the save note button.
+
+                :return: the highlight display note box
+                :rtype: :py:class:`~Content.Content.HighlightBox`
+
+                """
+                Utilities.click_option(self.driver, element=self.save_button)
+                sleep(0.1)
                 return self
 
         class Chapter(ChapterData):
