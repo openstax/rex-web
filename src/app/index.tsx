@@ -17,7 +17,7 @@ import * as head from './head';
 import MessageProvider from './MessageProvider';
 import * as navigation from './navigation';
 import { AnyMatch } from './navigation/types';
-import { matchUrl } from './navigation/utils';
+import { matchPathname } from './navigation/utils';
 import * as notifications from './notifications';
 import createReducer from './reducer';
 import { AppServices, AppState, Middleware } from './types';
@@ -70,7 +70,7 @@ export default (options: AppOptions) => {
 
   const createMemoryHistoryHelper = () => {
     const memoryHistory = createMemoryHistory(initialEntries && {
-      initialEntries: initialEntries.map(matchUrl),
+      initialEntries: initialEntries.map(matchPathname),
     });
 
     if (initialEntries && initialEntries[0]) {

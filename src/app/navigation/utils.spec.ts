@@ -12,8 +12,8 @@ import {
   getUrlRegexParams,
   injectParamsToBaseUrl,
   isScrollTarget,
+  matchPathname,
   matchSearch,
-  matchUrl,
   routeHook,
 } from './utils';
 
@@ -119,17 +119,17 @@ describe('routeHook', () => {
   });
 });
 
-describe('matchUrl', () => {
+describe('matchPathname', () => {
 
   it('renders a url with no params', () => {
-    expect(matchUrl({route: routes[0]} as unknown as AnyMatch)).toEqual('url1');
+    expect(matchPathname({route: routes[0]} as unknown as AnyMatch)).toEqual('url1');
   });
 
   it('renders a url with params', () => {
     const spy = jest.spyOn(routes[1], 'getUrl');
     const params = {foo: 'bar'};
 
-    expect(matchUrl({route: routes[1], params} as unknown as AnyMatch)).toEqual('url2');
+    expect(matchPathname({route: routes[1], params} as unknown as AnyMatch)).toEqual('url2');
     expect(spy).toHaveBeenCalledWith(params);
   });
 });
