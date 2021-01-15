@@ -27,15 +27,16 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
 
   if (!book || !page || !isEnabled ) { return; }
 
-  let practiceQuestionsSummary;
-  if (!hasPracticeQuestions(services.getState())) {
-    practiceQuestionsSummary = await loadSummary(services, book);
-  }
-  if (practiceQuestionsSummary) {
-    services.dispatch(receivePracticeQuestionsSummary(practiceQuestionsSummary));
+  if (!hasPracticeQuestions(state)) {
+    const practiceQuestionsSummary = await loadSummary(services, book);
+    if (practiceQuestionsSummary) {
+      services.dispatch(receivePracticeQuestionsSummary(practiceQuestionsSummary));
+    }
   }
 
-  if (!hasPracticeQuestions(services.getState())) { return; }
+  const updatedState = services.getState();
+
+  if (!hasPracticeQuestions(updatedState)) { return; }
 
   const section = findArchiveTreeNodeById(book.tree, page.id);
   if (section && isLinkedArchiveTreeSection(section)) {

@@ -180,6 +180,7 @@ describe('PracticeQuestions', () => {
   it('show warning prompt and tracks analytics after confirm', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
+    const spyGoBack = jest.spyOn(services.history, 'goBack').mockImplementation(() => jest.fn());
     const spyConfirm = jest.spyOn(assertWindow(), 'confirm')
       .mockImplementation(() => true);
 
@@ -205,11 +206,13 @@ describe('PracticeQuestions', () => {
     expect(spyConfirm)
       .toHaveBeenCalledWith('Are you sure you want to exit this page? Your progress will not be saved.');
     expect(track).toHaveBeenCalled();
+    expect(spyGoBack).toHaveBeenCalled();
   });
 
   it('show warning prompt and do not tracks analytics after cancel', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
+    const spyGoBack = jest.spyOn(services.history, 'goBack').mockImplementation(() => jest.fn());
     track.mockClear();
     const spyConfirm = jest.spyOn(assertWindow(), 'confirm')
       .mockImplementation(() => false);
@@ -236,5 +239,6 @@ describe('PracticeQuestions', () => {
     expect(spyConfirm)
       .toHaveBeenCalledWith('Are you sure you want to exit this page? Your progress will not be saved.');
     expect(track).not.toHaveBeenCalled();
+    expect(spyGoBack).not.toHaveBeenCalled();
   });
 });

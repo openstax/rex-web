@@ -107,7 +107,7 @@ describe('locationChange', () => {
   });
 
   // for test coverage
-  it('only fetch practice questions if section is undefined', async() => {
+  it('doesnt set selected section if section is undefined', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...shortPage, references: []}));
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
