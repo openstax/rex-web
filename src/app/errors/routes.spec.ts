@@ -13,4 +13,11 @@ describe('notFound', () => {
   it('produces a relative url', () => {
     expect(notFound.getUrl({url: 'url'})).toEqual('/error/404');
   });
+
+  it('produces a query string', () => {
+    if (!notFound.getSearch) {
+      return expect(notFound.getSearch).toBeTruthy();
+    }
+    expect(notFound.getSearch({url: 'url'})).toEqual('path=url');
+  });
 });
