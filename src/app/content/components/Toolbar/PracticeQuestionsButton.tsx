@@ -54,7 +54,7 @@ const PracticeQuestionsButton = () => {
       <StyledContentLink
         book={book}
         page={page}
-        search={{ [modalQueryParameterName]: modalUrlName, query: undefined }}
+        search={{ [modalQueryParameterName]: modalUrlName }}
         onClick={trackOpenClose}
         aria-label={msg}>
         <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
