@@ -5,7 +5,7 @@ import { AnyAction, Dispatch, Middleware } from '../types';
 import { assertWindow } from '../utils/browser-assertions';
 import * as actions from './actions';
 import { AnyRoute } from './types';
-import { changeToLocation, matchForRoute, matchPathname, matchSearch, matchUriString } from './utils';
+import { changeToLocation, matchForRoute, matchPathname, matchSearch, matchUrl } from './utils';
 
 export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}) => {
   history.listen(changeToLocation(routes, dispatch));
@@ -24,7 +24,7 @@ export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}
         ? location.assign.bind(location)
         : location.replace.bind(location);
 
-      method(matchUriString(action.payload));
+      method(matchUrl(action.payload));
       return;
     }
 
