@@ -6,21 +6,21 @@ import { content } from './routes';
 import { State as SearchState } from './search/types';
 import { State as StudyGuidesState } from './studyGuides/types';
 
-export type SlugParams = {} & {
+export type SlugParams = {
   slug: string;
 };
 type VersionedSlugParams = SlugParams & {
   version: string;
 };
 
-export type UuidParams = {} & {
+export type UuidParams = {
   uuid: string;
 };
 type VersionedUuidParams = UuidParams & {
   version: string;
 };
 
-export type Params = {} & {
+export type Params = {
   book: SlugParams | VersionedSlugParams | VersionedUuidParams;
   page: SlugParams | UuidParams;
 };

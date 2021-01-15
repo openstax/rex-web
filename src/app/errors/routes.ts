@@ -3,7 +3,7 @@ import { Route } from '../navigation/types';
 
 const CATCH_ALL = '/(.*)';
 
-type Params = {} & {
+type Params = {
   url: string;
 };
 
