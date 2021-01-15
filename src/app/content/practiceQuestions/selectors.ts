@@ -30,6 +30,11 @@ export const isPracticeQuestionsOpen = createSelector(
   (hasPQ, query) => hasPQ && query && query.modal === modalUrlName
 );
 
+export const practiceQuestionsAreLoading = createSelector(
+  localState,
+  (state) => state.loading
+);
+
 export const practiceQuestionsLocationFilters = createSelector(
   practiceQuestionsSummary,
   parentSelectors.book,

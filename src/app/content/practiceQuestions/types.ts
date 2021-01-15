@@ -7,6 +7,7 @@ export interface State {
   currentQuestionIndex: number | null;
   questions: PracticeQuestion[];
   questionAnswers: QuestionAnswers;
+  loading: boolean;
 }
 
 export interface PracticeQuestionsSummary {

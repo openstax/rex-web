@@ -2,9 +2,11 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import Loader from '../../../components/Loader';
 import { h4Style, linkColor } from '../../../components/Typography';
 import theme from '../../../theme';
 import * as contentSelectors from '../../selectors';
+import LoaderWrapper from '../../styles/LoaderWrapper';
 import { PopupBody } from '../../styles/PopupStyles';
 import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import * as pqSelectors from '../selectors';
@@ -31,6 +33,7 @@ export const ShowPracticeQuestionsBody = styled(PopupBody)`
 // tslint:disable-next-line: variable-name
 export const SectionTitle = styled.div`
   ${h4Style}
+  z-index: 2;
   flex-shrink: 0;
   font-weight: bold;
   padding: 0;
@@ -67,6 +70,7 @@ export const QuestionsHeader = styled.div`
 // tslint:disable-next-line: variable-name
 export const StyledContentLink = styled.a`
   display: block;
+  z-index: 2;
   width: max-content;
   max-width: 100%;
   flex-shrink: 0;
@@ -104,6 +108,7 @@ const ShowPracticeQuestions = () => {
   }, [book, page, section, locationFilters]);
   const questionsInProggress = useSelector(pqSelectors.questionsInProggress);
   const hasAnswers = useSelector(pqSelectors.hasAnswers);
+  const isLoading = useSelector(pqSelectors.practiceQuestionsAreLoading);
 
   return (
     <ShowPracticeQuestionsBody
@@ -111,24 +116,25 @@ const ShowPracticeQuestions = () => {
       data-analytics-region='PQ popup'
     >
       {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
-      {questionsCount === 0
-        ? (nextSection
-          ? <EmptyScreen nextSection={nextSection} />
-          : <FinalScreen />
-        )
-        : hasAnswers && !questionsInProggress
-          ? <FinalScreen nextSection={nextSection} />
-          : (
-            <QuestionsWrapper>
-              <QuestionsHeader>
-                <FormattedMessage id='i18n:practice-questions:popup:questions'>
-                  {(msg: string) => msg}
-                </FormattedMessage>
-              </QuestionsHeader>
-              <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-              {questionsInProggress ? <Question /> : <IntroScreen />}
-            </QuestionsWrapper>
+      {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> :
+        questionsCount === 0
+          ? (nextSection
+            ? <EmptyScreen nextSection={nextSection} />
+            : <FinalScreen />
           )
+          : hasAnswers && !questionsInProggress
+            ? <FinalScreen nextSection={nextSection} />
+            : (
+              <QuestionsWrapper>
+                <QuestionsHeader>
+                  <FormattedMessage id='i18n:practice-questions:popup:questions'>
+                    {(msg: string) => msg}
+                  </FormattedMessage>
+                </QuestionsHeader>
+                <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+                {questionsInProggress ? <Question /> : <IntroScreen />}
+              </QuestionsWrapper>
+            )
       }
       {
         section && linkToTheSection

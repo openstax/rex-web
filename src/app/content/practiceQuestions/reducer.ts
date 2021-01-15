@@ -10,6 +10,7 @@ import { State } from './types';
 export const initialState: State = {
   currentQuestionIndex: null,
   isEnabled: false,
+  loading: false,
   questionAnswers: {},
   questions: [],
   selectedSection: null,
@@ -29,7 +30,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(practiceQuestionsFeatureFlag)};
     case getType(actions.receivePracticeQuestionsSummary):
-      return {...state, summary: action.payload};
+      return {...state, loading: true, summary: action.payload};
     case getType(actions.setSelectedSection):
       return {
         ...state,
@@ -41,7 +42,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
     case getType(actions.nextQuestion):
       return {...state, currentQuestionIndex: state.currentQuestionIndex === null ? 0 : state.currentQuestionIndex + 1};
     case getType(actions.setQuestions):
-      return {...state, questions: action.payload};
+      return {...state, loading: false, questions: action.payload};
     case getType(actions.setAnswer):
       const { questionId, answer } = action.payload;
       return {

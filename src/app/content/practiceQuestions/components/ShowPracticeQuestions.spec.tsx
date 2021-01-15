@@ -10,6 +10,7 @@ import { Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { content } from '../../routes';
+import LoaderWrapper from '../../styles/LoaderWrapper';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { finishQuestions, nextQuestion, receivePracticeQuestionsSummary,
@@ -57,6 +58,24 @@ describe('ShowPracticeQuestions', () => {
     ) as LinkedArchiveTreeSection;
     jest.spyOn(content, 'getUrl')
       .mockReturnValue('mockedUrl');
+  });
+
+  it('renders loader if questions are not loaded', () => {
+    store.dispatch(receivePracticeQuestionsSummary({
+      countsPerSource: { [linkedArchiveTreeSection.id]: 3 },
+    }));
+
+    const component = renderer.create(render());
+
+    expect(() => component.root.findByType(LoaderWrapper)).not.toThrow();
+
+    act(() => {
+      store.dispatch(receiveBook(book));
+      store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+      store.dispatch(setQuestions([{id: 'asd'} as any as PracticeQuestion]));
+    });
+
+    expect(() => component.root.findByType(LoaderWrapper)).toThrow();
   });
 
   it('renders Intro screen', () => {
