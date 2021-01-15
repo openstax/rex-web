@@ -195,6 +195,7 @@ export const StyledSummary = styled.summary`
   justify-content: space-between;
   padding: 0 1.6rem;
   height: 4rem;
+  list-style: none;
 
   &::marker,
   &::-webkit-details-marker {
@@ -205,6 +206,11 @@ export const StyledSummary = styled.summary`
   ${ChapterTitle} {
     margin-left: 0;
   }
+
+  ${AngleIcon} {
+    /* Fix for Safari display issue */
+    display: block;
+  }
 `;
 
 // tslint:disable-next-line: variable-name
@@ -214,6 +220,8 @@ export const StyledSectionItem = styled(PlainButton)`
   height: 4rem;
   width: 100%;
   text-align: left;
+  font-size: 1.4rem;
+  ${textStyle}
   ${(props: { isSelected: boolean }) => {
     if (props.isSelected) {
       return 'color: #027eb5;';
