@@ -26,23 +26,21 @@ export const getContentPageReferences = (content: string) => {
 
       return {
         match: match.substr(1),
-        pageUid: stripIdVersion(pageId),
+        pageId: stripIdVersion(pageId),
       };
     });
 
-  // rap content
   const matches = (content.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
     .map((match) => {
       const [bookMatch, pageMatch] = match.split(':');
       const pageId = pageMatch.substr(0, 36);
       const [bookId, bookVersion] = bookMatch.split('@');
-      const reference = {
+      return {
         bookId: bookId.substr(2),
         bookVersion,
         match,
-        pageUid: stripIdVersion(pageId),
+        pageId: stripIdVersion(pageId),
       };
-      return reference;
     });
 
   return [...legacyMatches, ...matches];
