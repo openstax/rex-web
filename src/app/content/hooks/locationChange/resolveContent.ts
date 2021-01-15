@@ -156,10 +156,10 @@ const getBookInformation = async(
     pageUid: string,
   }
 ) => {
-  const allReferences = await services.archiveLoader.getBookIdsForPage(reference.pageUid);
-  console.log(allReferences[0]);
+  // const allReferences = await services.archiveLoader.getBookIdsForPage(reference.pageUid);
+  // console.log(allReferences[0]);
   const configuredReference = reference.bookId && BOOKS[reference.bookId];
-  console.log(configuredReference);
+  // console.log(configuredReference);
 
   if (reference.bookId && configuredReference) {
     const referencedVersion = reference.bookVersion ? reference.bookVersion : configuredReference.defaultVersion;
@@ -170,14 +170,19 @@ const getBookInformation = async(
 
     return {osWebBook, archiveBook};
 
-  } else if (UNLIMITED_CONTENT) {
-    for (const {id, bookVersion} of allReferences) {
+  } else if (reference.bookId && UNLIMITED_CONTENT) {
+    /*for (const {id, bookVersion} of allReferences) {
       const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
       const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
 
       if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
         return {osWebBook, archiveBook};
       }
+    }*/
+    const osWebBook =  await services.osWebLoader.getBookFromId(reference.bookId).catch(() => undefined);
+    const archiveBook = await services.archiveLoader.book(reference.bookId, reference.bookVersion).load();
+    if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
+      return {osWebBook, archiveBook};
     }
   }
 
@@ -194,8 +199,8 @@ export const resolveExternalBookReference = async(
     pageUid: string,
   }
 ) => {
-  console.log(reference);
   const bookInformation = await getBookInformation(services, reference);
+  console.log(bookInformation);
 
   const error = (message: string) => new Error(
     `BUG: "${book.title} / ${page.title}" referenced "${reference.pageUid}", ${message}`

@@ -231,7 +231,7 @@ describe('locationChange', () => {
       };
 
       const referenceBook = await resolveExternalBookReference(
-        helpers, mockOtherBook, mockPageInOtherBook, mockPageInOtherBook.id);
+        helpers, mockOtherBook, mockPageInOtherBook, { pageUid: mockPageInOtherBook.id });
 
       expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
       expect(referenceBook).toBeTruthy();
@@ -244,7 +244,7 @@ describe('locationChange', () => {
 
       try {
         await resolveExternalBookReference(
-          helpers, mockOtherBook, mockPageInOtherBook, mockPageInOtherBook.id);
+          helpers, mockOtherBook, mockPageInOtherBook, { pageUid: mockPageInOtherBook.id });
       } catch (e) {
         message = e.message;
       }

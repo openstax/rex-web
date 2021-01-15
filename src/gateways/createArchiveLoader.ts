@@ -44,16 +44,13 @@ export default (backendUrl: string, appUrl: string = backendUrl) => {
 
   interface BookReference {id: string; bookVersion: string | undefined; }
   const extrasCache = createCache<string, BookReference[]>({maxRecords: 20});
-  const getBookIdsForPage: (pageId: string) => Promise<BookReference[]> = async(pageId) => {
+  const getBookIdsForPage: (pageId: string) => Promise<BookReference[]> = (pageId) => {
     const cached = extrasCache.get(pageId);
-
     if (cached) {
       return Promise.resolve(cached);
     }
 
-    let result: BookReference[];
-    try {
-      result = await archiveFetch<Extras>(`${backendUrl}/extras/${pageId}`)
+    return archiveFetch<Extras>(`${backendUrl}/extras/${pageId}`)
       .then(({books}) => books.map(({ident_hash}) => {
         return {
           bookVersion: getIdVersion(ident_hash),
@@ -64,13 +61,6 @@ export default (backendUrl: string, appUrl: string = backendUrl) => {
         extrasCache.set(pageId, response);
         return response;
       });
-
-      return result;
-    } catch (e) {
-      console.log(e);
-    }
-
-    return Promise.resolve([{id: '', bookVersion: undefined, error: 'unable to fetch page content'}]);
   };
 
   return {
