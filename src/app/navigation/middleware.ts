@@ -16,8 +16,15 @@ export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}
     }
 
     // special case for notFound because we want to hit the osweb page
+    // this could be made more generic with an `external` flag on the
+    // route or something
     if (matchForRoute(notFound, action.payload)) {
-      assertWindow().location.replace(matchUriString(action.payload));
+      const { location } = assertWindow();
+      const method = action.payload.method === 'push'
+        ? location.assign.bind(location)
+        : location.replace.bind(location);
+
+      method(matchUriString(action.payload));
       return;
     }
 
