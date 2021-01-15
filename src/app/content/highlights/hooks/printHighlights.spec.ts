@@ -239,7 +239,7 @@ describe('printHighlights', () => {
         await asyncHelper(helpers);
       } catch (error) {
         expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-        expect(error.name).toEqual('CustomApplicationError');
+        expect(error instanceof CustomApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
     });

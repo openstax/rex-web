@@ -97,7 +97,7 @@ describe('receiveDeleteHighlight', () => {
       await hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
     } catch (error) {
       expect(deleteHighlightClient).toHaveBeenCalled();
-      expect(error.name).toEqual('CustomApplicationError');
+      expect(error instanceof CustomApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });

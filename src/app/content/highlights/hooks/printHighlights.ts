@@ -1,5 +1,5 @@
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
-import { actionHook, assertWindow } from '../../../utils';
+import { actionHook, assertWindow, CustomApplicationError } from '../../../utils';
 import { printSummaryHighlights, receiveSummaryHighlights, toggleSummaryHighlightsLoading } from '../actions';
 import { HighlightPopupPrintError } from '../errors';
 import { myHighlightsOpen } from '../selectors';
@@ -15,8 +15,7 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
   } catch (error) {
     services.dispatch(toggleSummaryHighlightsLoading(false));
 
-    // TODO: This should check for instanceof CustomApplicationError but it doesn't work in tests
-    if (error.name === 'CustomApplicationError') {
+    if (error instanceof CustomApplicationError) {
       throw error;
     }
 

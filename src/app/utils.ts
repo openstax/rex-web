@@ -176,12 +176,7 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
   };
 };
 
-export class CustomApplicationError extends Error {
-  constructor(message?: string) {
-    super(message);
-    this.name = 'CustomApplicationError';
-  }
-}
+export class CustomApplicationError extends Error {}
 
 // tslint:disable-next-line: max-classes-per-file
 export class UnauthenticatedError extends CustomApplicationError {}

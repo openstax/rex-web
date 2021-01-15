@@ -2,7 +2,7 @@ import {
   GetHighlightsColorsEnum, GetHighlightsSetsEnum,
 } from '@openstax/highlighter/dist/api';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
-import { actionHook } from '../../../utils';
+import { actionHook, CustomApplicationError } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { StudyGuidesPopupLoadError } from '../../highlights/errors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../../highlights/utils/highlightLoadingUtils';
@@ -52,8 +52,7 @@ export const hookBody: ActionHookBody<
   } catch (error) {
     services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));
 
-    // TODO: This should check for instanceof CustomApplicationError but it doesn't work in tests
-    if (error.name === 'CustomApplicationError') {
+    if (error instanceof CustomApplicationError) {
       throw error;
     }
 

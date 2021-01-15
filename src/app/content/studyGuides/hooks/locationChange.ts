@@ -3,7 +3,7 @@ import {
   GetHighlightsSummarySourceTypeEnum,
 } from '@openstax/highlighter/dist/api';
 import { AppServices, MiddlewareAPI } from '../../../types';
-import { assertDefined } from '../../../utils';
+import { assertDefined, CustomApplicationError } from '../../../utils';
 import { StudyGuidesLoadError } from '../../highlights/errors';
 import { extractTotalCounts } from '../../highlights/utils/paginationUtils';
 import { bookAndPage } from '../../selectors';
@@ -31,8 +31,7 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
 
     return summary;
   } catch (error) {
-    // TODO: This should check for instanceof CustomApplicationError but it doesn't work in tests
-    if (error.name === 'CustomApplicationError') {
+    if (error instanceof CustomApplicationError) {
       throw error;
     }
 

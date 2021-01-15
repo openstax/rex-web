@@ -88,7 +88,7 @@ describe('printStudyGuides', () => {
       await hook(printStudyGuides());
     } catch (error) {
       expect(dispatch).toBeCalledWith(toggleStudyGuidesSummaryLoading(false));
-      expect(error.name).toEqual('CustomApplicationError');
+      expect(error instanceof CustomApplicationError).toEqual(true);
     }
   });
 

@@ -118,7 +118,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
     } catch (error) {
       expect(getHighlightsSummaryClient).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-      expect(error.name).toEqual('CustomApplicationError');
+      expect(error instanceof CustomApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });
@@ -158,7 +158,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
     } catch (error) {
       expect(getHighlightsClient).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-      expect(error.name).toEqual('CustomApplicationError');
+      expect(error instanceof CustomApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });

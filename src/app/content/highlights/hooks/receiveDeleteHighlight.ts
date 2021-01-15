@@ -1,7 +1,7 @@
 import { NewHighlight } from '@openstax/highlighter/dist/api';
 import { getHighlightToastDesination } from '../../../notifications/utils';
 import { ActionHookBody } from '../../../types';
-import { actionHook } from '../../../utils';
+import { actionHook, CustomApplicationError } from '../../../utils';
 import { createHighlight, receiveDeleteHighlight } from '../actions';
 import { HighlightDeleteError } from '../errors';
 
@@ -22,8 +22,7 @@ export const hookBody: ActionHookBody<typeof receiveDeleteHighlight> =
         {...meta, revertingAfterFailure: true}
       ));
 
-      // TODO: This should check for instanceof CustomApplicationError but it doesn't work in tests
-      if (error.name === 'CustomApplicationError') {
+      if (error instanceof CustomApplicationError) {
         throw error;
       }
 

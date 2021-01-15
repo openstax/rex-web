@@ -1,6 +1,6 @@
 import { getHighlightToastDesination } from '../../../notifications/utils';
 import { ActionHookBody } from '../../../types';
-import { actionHook } from '../../../utils';
+import { actionHook, CustomApplicationError } from '../../../utils';
 import { updateHighlight } from '../actions';
 import { HighlightUpdateAnnotationError, HighlightUpdateColorError } from '../errors';
 
@@ -20,8 +20,7 @@ export const hookBody: ActionHookBody<typeof updateHighlight> =
 
       dispatch(updateHighlight(meta.preUpdateData, {...meta, revertingAfterFailure: true}));
 
-      // TODO: This should check for instanceof CustomApplicationError but it doesn't work in tests
-      if (error.name === 'CustomApplicationError') {
+      if (error instanceof CustomApplicationError) {
         throw error;
       }
 

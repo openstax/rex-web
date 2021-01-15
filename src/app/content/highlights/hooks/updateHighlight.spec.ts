@@ -196,7 +196,7 @@ describe('updateHighlight', () => {
       await hook(updateHighlight(updatePayload, meta));
     } catch (error) {
       expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
-      expect(error.name).toEqual('CustomApplicationError');
+      expect(error instanceof CustomApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });
