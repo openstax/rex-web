@@ -2,6 +2,7 @@
 # fmt: off
 from __future__ import annotations
 
+import re
 from time import sleep
 from typing import List
 
@@ -569,9 +570,11 @@ class MyHighlights(Region):
         _chapter_locator = (By.XPATH, "//div[@data-testid='chapter-title']")
         _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
         _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
-        _highlight_locator = (By.CSS_SELECTOR, "[class*=content-excerpt]")
+        _highlight_id_locator = (By.CSS_SELECTOR, "[class*=content-excerpt]")
+
+        _highlight_locator = (By.CSS_SELECTOR, "[class*=HighlightOuterWrapper]")
         _empty_state_nudge_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
-        _context_menu_locator = (By.XPATH, "//div[starts-with(@class, 'ContextMenu')]")
+        # _context_menu_locator = (By.XPATH, "//div[starts-with(@class, 'ContextMenu')]")
 
         @property
         def chapters(self) -> List[MyHighlights.Highlights.Chapter]:
@@ -628,8 +631,15 @@ class MyHighlights(Region):
             :rtype: list(str)
 
             """
-            return list(
-                set([highlight.get_attribute("data-highlight-id") for highlight in self.highlights]))
+            return list(set(self._split_html(highlight) for highlight in self.highlights))
+
+        def _split_html(self, locator):
+            """Break up an innerHTML string to retrieve the highlight ID."""
+            html = locator.get_attribute("innerHTML")
+            split_html_highlight_id = re.findall(r"(.*? words|data-highlight-id.{38})", html)
+            unlist_highlight_id = ', '.join(split_html_highlight_id)
+            highlight_id = re.sub('data-highlight-id="', '', unlist_highlight_id)
+            return highlight_id
 
         @property
         def edit_highlight(self) -> List[MyHighlights.Highlights.EditHighlight]:

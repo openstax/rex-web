@@ -105,12 +105,17 @@ def test_add_note_from_MH_page(selenium, base_url, book_slug, page_slug):
 
     highlights = my_highlights.highlights.edit_highlight
 
-    for highlight in highlights:
-        if not highlight.note_present:
-            highlight.add_note()
+    highlights[0].add_note()
 
-            x = Utilities.random_string()
-            highlight.note = x
+    x = Utilities.random_string()
+    highlights[0].note = x
+
+    # for highlight in highlights:
+    #     if not highlight.note_present:
+    #         highlight.add_note()
+    #
+    #         x = Utilities.random_string()
+    #         highlight.note = x
 
     from time import sleep
 
