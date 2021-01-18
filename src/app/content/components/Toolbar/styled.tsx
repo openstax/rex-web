@@ -330,8 +330,3 @@ export const SidebarControl = styled(OpenSidebarControl)`
     margin-right: unset;
   `)}
 `;
-
-// tslint:disable-next-line: variable-name
-export const NudgeElementTarget = styled.div`
-  display: contents;
-`;
