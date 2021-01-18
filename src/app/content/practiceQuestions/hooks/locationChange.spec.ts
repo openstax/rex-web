@@ -4,13 +4,15 @@ import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { receiveFeatureFlags } from '../../../actions';
+import * as navigationSelectors from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import { practiceQuestionsFeatureFlag } from '../../constants';
+import { modalQueryParameterName, practiceQuestionsFeatureFlag } from '../../constants';
 import { LinkedArchiveTreeSection } from '../../types';
 import { formatBookData } from '../../utils';
 import * as archiveTreeUtils from '../../utils/archiveTreeUtils';
 import { receivePracticeQuestionsSummary, setSelectedSection } from '../actions';
+import { modalUrlName } from '../constants';
 import { PracticeQuestionsSummary } from '../types';
 
 describe('locationChange', () => {
@@ -47,6 +49,9 @@ describe('locationChange', () => {
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
       .mockResolvedValue(mockSummaryResponse);
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+      [modalQueryParameterName]: modalUrlName,
+    });
 
     await hook();
 
@@ -63,7 +68,9 @@ describe('locationChange', () => {
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
       .mockResolvedValue(mockSummaryResponse);
-
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+      [modalQueryParameterName]: modalUrlName,
+    });
     await hook();
 
     const section = archiveTreeUtils.findArchiveTreeNodeById(book.tree, shortPage.id) as LinkedArchiveTreeSection;
@@ -78,6 +85,9 @@ describe('locationChange', () => {
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
       .mockResolvedValue(mockSummaryResponse);
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+      [modalQueryParameterName]: modalUrlName,
+    });
 
     await hook();
 
@@ -96,6 +106,9 @@ describe('locationChange', () => {
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
       .mockResolvedValue(mockSummaryResponse);
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+        [modalQueryParameterName]: modalUrlName,
+    });
 
     await hook();
 
@@ -114,6 +127,9 @@ describe('locationChange', () => {
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
       .mockResolvedValue(mockSummaryResponse);
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+      [modalQueryParameterName]: modalUrlName,
+    });
     const spySection = jest.spyOn(archiveTreeUtils, 'findArchiveTreeNodeById').mockReturnValue(undefined);
 
     await hook();
@@ -134,6 +150,9 @@ describe('locationChange', () => {
 
     const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
       .mockResolvedValue(mockSummaryResponseWithoutQuestions);
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+      [modalQueryParameterName]: modalUrlName,
+    });
     const spySection = jest.spyOn(archiveTreeUtils, 'findArchiveTreeNodeById');
 
     await hook();
@@ -142,6 +161,26 @@ describe('locationChange', () => {
 
     expect(getSummary).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponseWithoutQuestions));
+    expect(spySection).toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setSelectedSection(section));
+  });
+
+  it('doesnt set selected section if there is no modal query', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+
+    const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
+      .mockResolvedValue(mockSummaryResponse);
+
+    const spySection = jest.spyOn(archiveTreeUtils, 'findArchiveTreeNodeById');
+
+    await hook();
+
+    const section = archiveTreeUtils.findArchiveTreeNodeById(book.tree, shortPage.id) as LinkedArchiveTreeSection;
+
+    expect(getSummary).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
     expect(spySection).toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalledWith(setSelectedSection(section));
   });

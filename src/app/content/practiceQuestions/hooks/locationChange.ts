@@ -1,10 +1,13 @@
 import Sentry from '../../../../helpers/Sentry';
+import { query } from '../../../navigation/selectors';
 import { AppServices, MiddlewareAPI } from '../../../types';
+import { modalQueryParameterName } from '../../constants';
 import { isLinkedArchiveTreeSection } from '../../guards';
 import { bookAndPage } from '../../selectors';
 import { Book, Page } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { receivePracticeQuestionsSummary, setSelectedSection } from '../actions';
+import { modalUrlName } from '../constants';
 import { hasPracticeQuestions, practiceQuestionsEnabled } from '../selectors';
 import { PracticeQuestionsSummary } from '../types';
 
@@ -21,8 +24,9 @@ const loadSummary = async(
 };
 
 const setSection = (services: MiddlewareAPI & AppServices, book: Book, page: Page) => {
+  const state = services.getState();
   // loading hasPracticeQuestions beacuse the state could be changed by receivePracticeQuestionsSummary
-  if (!hasPracticeQuestions(services.getState())) { return; }
+  if (!hasPracticeQuestions(state) || query(state)[modalQueryParameterName] !== modalUrlName) { return; }
 
   const section = findArchiveTreeNodeById(book.tree, page.id);
   if (section && isLinkedArchiveTreeSection(section)) {
