@@ -5,6 +5,7 @@ import * as selectors from './selectors';
 const initialState = {
     currentQuestionIndex: null,
     isEnabled: false,
+    loading: false,
     questionAnswers: {},
     questions: [],
     selectedSection: null,
