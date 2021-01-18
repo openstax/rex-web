@@ -34,7 +34,7 @@ const PracticeQuestionsPopup = () => {
     dispatch(push(assertDefined(match, 'match should be always defined at this step')));
 
     trackOpenClosePQ(method);
-  }, [currentQuestionIndex, trackOpenClosePQ, intl, dispatch]);
+  }, [currentQuestionIndex, trackOpenClosePQ, intl, dispatch, match]);
 
   useOnEsc(popUpRef, isPracticeQuestionsOpen, closeAndTrack('esc'));
 
