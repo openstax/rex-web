@@ -190,12 +190,7 @@ export const StyledDetails = styled.details`
 
 // tslint:disable-next-line: variable-name
 export const StyledSummary = styled.summary`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  padding: 0 1.6rem;
-  height: 4rem;
+  padding: 1rem 1.6rem;
   list-style: none;
 
   &::marker,
@@ -205,13 +200,13 @@ export const StyledSummary = styled.summary`
   }
 
   ${ChapterTitle} {
-    flex: 1;
+    float: left;
     margin-left: 0;
     text-align: left;
   }
 
   ${AngleIcon} {
-    display: block;
+    float: right;
   }
 `;
 
