@@ -143,7 +143,7 @@ describe('PracticeQuestions', () => {
     expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
   });
 
-  it('tracks analytics and removes modal-url with goBack', async() => {
+  it('tracks analytics and removes modal-url with push', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
