@@ -1,6 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { assertNotNull } from '../../../../utils/assertions';
 import { LinkedArchiveTreeSection } from '../../../types';
 import { PracticeAnswer } from '../../types';
 import {
@@ -68,19 +69,31 @@ const Answer = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showCorrect, isCorrect]);
 
+  const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    // Space
+    if (e.which === 32) {
+      e.preventDefault();
+      onSelect();
+      // Answer was selected when user pressed Space so we blur it and then focus
+      // so screenreader can read it again with updated aria-label for choice indicator.
+      assertNotNull(answerRef.current, 'onKeyDown called on unexisting element').blur();
+      assertNotNull(answerRef.current, 'onKeyDown called on unexisting element').focus();
+    }
+  };
+
   return <AnswerBlock
     showCorrect={showCorrect}
     isCorrect={isCorrect}
     isSubmitted={isSubmitted}
     isSelected={isSelected}
-    onClick={onSelect}
     ref={answerRef}
     tabIndex={0}
+    onKeyDown={onKeyDown}
     htmlFor={choiceIndicator}
   >
     <FormattedMessage
       id='i18n:practice-questions:popup:answers:choice'
-      values={{choiceIndicator: choiceIndicator.toUpperCase()}}
+      values={{choiceIndicator: choiceIndicator.toUpperCase(), selected: isSelected ? 'yes' : 'no'}}
     >{(msg: string) =>
       <React.Fragment>
         <input
@@ -91,6 +104,7 @@ const Answer = ({
           disabled={isSubmitted}
           aria-label={msg}
           onChange={onSelect}
+          tabIndex={-1}
         />
         <AnswerIndicator aria-label={msg}>
           {choiceIndicator}

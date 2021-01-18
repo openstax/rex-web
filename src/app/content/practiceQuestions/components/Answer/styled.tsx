@@ -49,25 +49,28 @@ export const AnswerIndicator = styled.span`
 
 const answerThemes = {
   correct: {
-    background: '#77AF42',
+    background: theme.color.neutral.base,
     border: '#77AF42',
     borderHovered: '#77AF42',
     fontColor: theme.color.neutral.base,
     fontColorActive: '#77AF42',
+    indicatorBackground: '#77AF42',
   },
   incorrect: {
-    background: theme.color.primary.red.base,
+    background: theme.color.neutral.base,
     border: theme.color.primary.red.base,
     borderHovered: theme.color.primary.red.base,
     fontColor: theme.color.neutral.base,
     fontColorActive: theme.color.primary.red.base,
+    indicatorBackground: theme.color.primary.red.base,
   },
   selected: {
-    background: theme.color.secondary.lightBlue.base,
+    background: '#E3F8FB',
     border: theme.color.secondary.lightBlue.base,
     borderHovered: theme.color.secondary.lightBlue.base,
     fontColor: theme.color.neutral.base,
     fontColorActive: theme.color.secondary.lightBlue.base,
+    indicatorBackground: theme.color.secondary.lightBlue.base,
   },
   unselected: {
     background: theme.color.neutral.base,
@@ -75,6 +78,7 @@ const answerThemes = {
     borderHovered: theme.color.secondary.lightBlue.base,
     fontColor: '#606163',
     fontColorActive: '#C6C6C6',
+    indicatorBackground: theme.color.neutral.base,
   },
 };
 
@@ -96,9 +100,11 @@ const getAnswerTheme = (props: AnswerBlockProps) => {
 };
 
 const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerThemes]) => css`
+  background-color: ${answerTheme.background};
+
   ${AnswerIndicator} {
     color: ${answerTheme.fontColor};
-    background-color: ${answerTheme.background};
+    background-color: ${answerTheme.indicatorBackground};
     border: 1.5px solid ${answerTheme.border};
   }
 
@@ -128,10 +134,6 @@ export const AnswerBlock = styled.label`
     opacity: 0;
     width: 0;
     height: 0;
-
-    &:focus + span {
-      outline: auto;
-    }
   }
 `;
 

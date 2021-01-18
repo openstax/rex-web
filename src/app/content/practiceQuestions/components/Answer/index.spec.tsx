@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import Answer from '.';
+import { renderToDom } from '../../../../../test/reactutils';
 import MessageProvider from '../../../../MessageProvider';
 import { assertDocument } from '../../../../utils/browser-assertions';
 
@@ -49,5 +51,49 @@ describe('Answer', () => {
     renderer.act(() => {});
 
     expect(spyFocus).not.toHaveBeenCalled();
+  });
+
+  it('select answer with a spacebar', () => {
+    const onSelect = jest.fn();
+
+    const {node: label} = renderToDom(<MessageProvider>
+      <Answer
+        isSelected={false}
+        isSubmitted={false}
+        showCorrect={true}
+        answer={{ correctness: '0.0' } as any}
+        choiceIndicator={'a'}
+        onSelect={onSelect}
+        source={{} as any}
+      />
+    </MessageProvider>);
+
+    label.focus();
+    ReactTestUtils.Simulate.keyDown(label, { which: 32 });
+
+    expect(onSelect).toHaveBeenCalled();
+  });
+
+  it('do not select answer for other keys', () => {
+    const onSelect = jest.fn();
+
+    const {node: label} = renderToDom(<MessageProvider>
+      <Answer
+        isSelected={false}
+        isSubmitted={false}
+        showCorrect={true}
+        answer={{ correctness: '0.0' } as any}
+        choiceIndicator={'a'}
+        onSelect={onSelect}
+        source={{} as any}
+      />
+    </MessageProvider>);
+
+    label.focus();
+    ReactTestUtils.Simulate.keyDown(label, { which: 31 });
+    ReactTestUtils.Simulate.keyDown(label, { which: 33 });
+    ReactTestUtils.Simulate.keyDown(label, { which: 36 });
+
+    expect(onSelect).not.toHaveBeenCalled();
   });
 });
