@@ -2,7 +2,7 @@ import Sentry from '../../../../helpers/Sentry';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { isLinkedArchiveTreeSection } from '../../guards';
 import { bookAndPage } from '../../selectors';
-import { Book } from '../../types';
+import { Book, Page } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { receivePracticeQuestionsSummary, setSelectedSection } from '../actions';
 import { hasPracticeQuestions, practiceQuestionsEnabled } from '../selectors';
@@ -20,6 +20,16 @@ const loadSummary = async(
   }
 };
 
+const setSection = (services: MiddlewareAPI & AppServices, book: Book, page: Page) => {
+  // loading hasPracticeQuestions beacuse the state could be changed by receivePracticeQuestionsSummary
+  if (!hasPracticeQuestions(services.getState())) { return; }
+
+  const section = findArchiveTreeNodeById(book.tree, page.id);
+  if (section && isLinkedArchiveTreeSection(section)) {
+    services.dispatch(setSelectedSection(section));
+  }
+};
+
 const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const state = services.getState();
   const { book, page } = bookAndPage(state);
@@ -34,14 +44,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
     }
   }
 
-  const updatedState = services.getState();
-
-  if (!hasPracticeQuestions(updatedState)) { return; }
-
-  const section = findArchiveTreeNodeById(book.tree, page.id);
-  if (section && isLinkedArchiveTreeSection(section)) {
-    services.dispatch(setSelectedSection(section));
-  }
+  setSection(services, book, page);
 };
 
 export default hookBody;

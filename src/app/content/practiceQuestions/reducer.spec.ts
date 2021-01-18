@@ -54,10 +54,9 @@ describe('practice questions reducer', () => {
       },
     } as any));
 
-    expect(newState.currentQuestionIndex).toEqual(initialState.currentQuestionIndex);
-    expect(newState.questionAnswers).toEqual(initialState.questionAnswers);
-    expect(newState.questions).toEqual(initialState.questions);
-    expect(newState.selectedSection).toEqual(initialState.selectedSection);
-    expect(newState.loading).toBe(true);
+    expect(newState).toEqual({
+      ...initialState,
+      loading: true,
+    });
   });
 });
