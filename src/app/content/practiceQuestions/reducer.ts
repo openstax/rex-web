@@ -23,6 +23,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
       return {
         ...state,
         currentQuestionIndex: null,
+        loading: true,
         questionAnswers: {},
         questions: [],
         selectedSection: null,
@@ -30,11 +31,12 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(practiceQuestionsFeatureFlag)};
     case getType(actions.receivePracticeQuestionsSummary):
-      return {...state, loading: true, summary: action.payload};
+      return {...state, summary: action.payload};
     case getType(actions.setSelectedSection):
       return {
         ...state,
         currentQuestionIndex: null,
+        loading: true,
         questionAnswers: {},
         questions: [],
         selectedSection: action.payload,
