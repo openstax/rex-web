@@ -6,6 +6,7 @@ import { h4Style, linkColor } from '../../../components/Typography';
 import theme from '../../../theme';
 import * as contentSelectors from '../../selectors';
 import { PopupBody } from '../../styles/PopupStyles';
+import { getArchiveTreeSectionTitle } from '../../utils/archiveTreeUtils';
 import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import * as pqSelectors from '../selectors';
 import { getNextPageWithPracticeQuestions } from '../utils';
@@ -109,6 +110,7 @@ const ShowPracticeQuestions = () => {
     <ShowPracticeQuestionsBody
       data-testid='show-practice-questions-body'
       data-analytics-region='PQ popup'
+      data-analytics-location={section ? getArchiveTreeSectionTitle(section) : 'section not loaded'}
     >
       {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
       {questionsCount === 0
