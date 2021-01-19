@@ -11,7 +11,10 @@ import ColorFilter from '../../components/popUp/ColorFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
 import FiltersList from '../../components/popUp/FiltersList';
 import PrintButton from '../../components/popUp/PrintButton';
-import { printStudyGuides, setSummaryFilters } from '../actions';
+import { FiltersChange } from '../../components/popUp/types';
+import { SummaryFiltersUpdate } from '../../highlights/types';
+import { LinkedArchiveTreeNode } from '../../types';
+import { printStudyGuides, updateSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
 import { cookieUTG } from './UsingThisGuide/constants';
@@ -26,7 +29,7 @@ const ConnectedChapterFilter = connect(
     selectedLocationFilters: selectors.summaryLocationFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setFilters: flow(setSummaryFilters, dispatch),
+    setFilters: (change: FiltersChange<LinkedArchiveTreeNode>) => dispatch(updateSummaryFilters({ locations: change })),
   })
 )(ChapterFilter);
 
@@ -50,7 +53,8 @@ const ConnectedColorFilter = connect(
     selectedColorFilters: selectors.summaryColorFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setSummaryFilters: flow(setSummaryFilters, dispatch),
+    updateSummaryFilters: (change: FiltersChange<HighlightColorEnum>) =>
+      dispatch(updateSummaryFilters({ colors: change })),
   })
 )(StyledColorFilter);
 
@@ -62,7 +66,7 @@ const ConnectedFilterList = connect(
     selectedLocationFilters: selectors.summaryLocationFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setFilters: flow(setSummaryFilters, dispatch),
+    setFilters: (change: SummaryFiltersUpdate) => dispatch(updateSummaryFilters(change)),
   })
 )(FiltersList);
 
@@ -104,7 +108,7 @@ export default () => {
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
       >
-        <ConnectedChapterFilter disabled={userLoggedOut}/>
+        <ConnectedChapterFilter disabled={userLoggedOut} multiselect={true} />
       </FilterDropdown>
       <FilterDropdown
         label='i18n:highlighting:filters:colors'
