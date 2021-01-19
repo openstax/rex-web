@@ -33,9 +33,8 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
 
     return summary;
   } catch (error) {
-    const errorId = Sentry.captureException(error);
-    dispatch(
-      addToast(toastMessageKeys.studyGuides.failure.load, {destination: 'page', shouldAutoDismiss: false, errorId}));
+    Sentry.captureException(error);
+    dispatch(addToast(toastMessageKeys.studyGuides.failure.load, {destination: 'page', shouldAutoDismiss: false}));
   }
 };
 

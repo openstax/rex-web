@@ -75,7 +75,7 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
           >
             (ID: 
             error-id
-             )
+            )
           </span>
         </div>
         <button

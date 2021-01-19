@@ -110,7 +110,7 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
             {txt}
             {
               notification.errorId
-                ? <ErrorId>(ID: {notification.errorId} )</ErrorId>
+                ? <ErrorId>(ID: {notification.errorId})</ErrorId>
                 : null
             }
           </Header>}
