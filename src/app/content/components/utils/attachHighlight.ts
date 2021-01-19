@@ -14,9 +14,10 @@ const attachHighlight = <T extends Highlight | SerializedHighlight>(
         ?  errorMsg(highlight)
         : `Highlight with id: ${highlight.id} has not been attached.`);
     }
-    return result;
+    return { highlight: result };
   } catch (e) {
-    Sentry.captureException(e);
+    const errorId = Sentry.captureException(e);
+    return { highlight: null, errorId };
   }
 };
 

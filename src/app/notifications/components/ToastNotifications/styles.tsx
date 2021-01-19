@@ -97,3 +97,10 @@ export const CloseButton = styled(PlainButton)`
     color: ${hoveredCloseIconColor};
   }
 `;
+
+// tslint:disable-next-line: variable-name
+export const ErrorId = styled.span`
+  margin-left: 1rem;
+  font-size: 1.3rem;
+  color: ${errorTextColor};
+`;

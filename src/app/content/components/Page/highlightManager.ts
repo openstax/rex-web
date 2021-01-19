@@ -4,7 +4,6 @@ import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import * as selectAuth from '../../../auth/selectors';
-import { isDefined } from '../../../guards';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow, memoizeStateToProps } from '../../../utils';
@@ -109,7 +108,7 @@ const getHighlightToFocus = (
 };
 
 export interface UpdateOptions {
-  onSelect: (highlight: Highlight | null) => void;
+  onSelect: (data: { highlight: Highlight | null, errorId?: string }) => void;
 }
 
 export default (container: HTMLElement, getProp: () => HighlightProp) => {
@@ -149,7 +148,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       toFocus.focus();
 
       if (options) {
-        options.onSelect(toFocus);
+        options.onSelect({ highlight: toFocus });
       }
 
       if (
@@ -162,7 +161,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         scrollTargetHighlightIdThatWasHandled = scrollTargetHighlight.id;
       }
     } else if (options && stateEstablished && highlightScrollTarget && !scrollTargetHighlightIdThatWasHandled) {
-      options.onSelect(null);
+      options.onSelect({ highlight: null });
       scrollTargetHighlightIdThatWasHandled = highlightScrollTarget.id;
     }
   };
@@ -217,7 +216,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       const newHighlights = getProp().highlights
         .filter(isUnknownHighlightData(highlighter))
         .map(highlightData({ ...services, highlighter }))
-        .filter(isDefined)
+        .filter((data) => data.highlight)
         ;
 
       const removedHighlights = highlighter.getHighlights()

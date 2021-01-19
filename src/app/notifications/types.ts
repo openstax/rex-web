@@ -25,6 +25,13 @@ export interface ToastNotification {
   timestamp: number;
   destination: 'studyGuides' | 'myHighlights' | 'page';
   shouldAutoDismiss: boolean;
+  errorId?: string;
+}
+
+export interface ToastMeta {
+  destination: ToastNotification['destination'];
+  shouldAutoDismiss?: boolean;
+  errorId?: string;
 }
 
 export type AnyNotification = ModalNotification | ToastNotification;

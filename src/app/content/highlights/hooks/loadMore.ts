@@ -51,8 +51,9 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
     try {
       highlights = await loadMore(services, summaryPageSize);
     } catch (error) {
-      Sentry.captureException(error);
-      services.dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
+      const errorId = Sentry.captureException(error);
+      services.dispatch(
+        addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights', errorId}));
       services.dispatch(toggleSummaryHighlightsLoading(false));
       return;
     }

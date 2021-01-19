@@ -46,7 +46,9 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     case getType(actions.addToast): {
       const sameToast = state.toastNotifications.find((toast) =>
-        toast.messageKey === action.payload.messageKey && toast.destination === action.payload.destination
+        toast.messageKey === action.payload.messageKey
+        && toast.destination === action.payload.destination
+        && toast.errorId === action.payload.errorId
       );
 
       if (sameToast) {

@@ -52,8 +52,9 @@ export const hookBody: ActionHookBody<
   try {
     response = await loadMore(services, summaryPageSize);
   } catch (error) {
-    Sentry.captureException(error);
-    services.dispatch(addToast(toastMessageKeys.studyGuides.failure.popUp.load, {destination: 'studyGuides'}));
+    const errorId = Sentry.captureException(error);
+    services.dispatch(
+      addToast(toastMessageKeys.studyGuides.failure.popUp.load, {destination: 'studyGuides', errorId}));
     services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));
     return;
   }
