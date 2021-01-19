@@ -21,7 +21,8 @@ exports[`Filters matches snapshot 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="down"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 320 512"
@@ -48,7 +49,8 @@ exports[`Filters matches snapshot 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="down"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 320 512"
@@ -320,7 +322,8 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="down"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 320 512"
@@ -338,7 +341,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     >
       <button
         aria-label="Filter highlights by Color"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 jcorgy Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -347,7 +350,8 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 320 512"
@@ -364,7 +368,6 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         labelKey={[Function]}
         mock-color-filter={true}
         selectedColorFilters={Set {}}
-        setSummaryFilters={[Function]}
         styles={
           Array [
             Object {
@@ -394,6 +397,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
             },
           ]
         }
+        updateSummaryFilters={[Function]}
       />
     </div>
     <button
