@@ -70,6 +70,13 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
           className="Card__Header-sc-1o7sacr-3 jGwlNH"
         >
           The note could not be saved. Please check your connection and try again.
+          <span
+            className="styles__ErrorId-zqr5u1-5 eykRbN"
+          >
+            (ID: 
+            error-id
+             )
+          </span>
         </div>
         <button
           className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-4 EKUEv"

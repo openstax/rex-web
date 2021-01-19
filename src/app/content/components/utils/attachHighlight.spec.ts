@@ -28,9 +28,8 @@ describe('attachHighlight', () => {
 
     HighlighterMock.getHighlight = () => mockHighlight;
 
-    const data = attachHighlight(mockHighlight, HighlighterMock);
+    attachHighlight(mockHighlight, HighlighterMock);
 
-    expect(data.highlight).toEqual(mockHighlight);
     expect(HighlighterMock.highlight).toHaveBeenCalledWith(mockHighlight);
     expect(Sentry.captureException).not.toHaveBeenCalled();
   });
@@ -69,9 +68,8 @@ describe('attachHighlight', () => {
     });
 
     it('call Sentry if highlight was not attached', () => {
-      const data = attachHighlight(mockHighlight, HighlighterMock);
+      attachHighlight(mockHighlight, HighlighterMock);
 
-      expect(data.highlight).toEqual(null);
       expect(HighlighterMock.highlight).toHaveBeenCalledWith(mockHighlight);
       expect(Sentry.captureException)
         .toHaveBeenCalledWith(new Error(`Highlight with id: ${mockHighlight.id} has not been attached.`));

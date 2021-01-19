@@ -89,14 +89,14 @@ export default class PageComponent extends Component<PagePropTypes> {
     });
   }
 
-  public onHighlightSelect: HighlightUpdateOptions['onSelect'] = ({ highlight }) => {
-    if (!highlight) {
+  public onHighlightSelect: HighlightUpdateOptions['onSelect'] = (selectedHighlight) => {
+    if (!selectedHighlight) {
       this.props.addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'});
     }
   };
 
-  public onSearchHighlightSelect: SearchUpdateOptions['onSelect'] = ({ highlight }) => {
-    if (!highlight) {
+  public onSearchHighlightSelect: SearchUpdateOptions['onSelect'] = (selectedHighlight) => {
+    if (!selectedHighlight) {
       this.props.addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'});
     }
   };
