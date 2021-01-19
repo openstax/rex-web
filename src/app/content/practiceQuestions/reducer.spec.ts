@@ -1,38 +1,20 @@
+import { content } from '../../content/routes';
 import { locationChange } from '../../navigation/actions';
+import { assertWindow } from '../../utils';
+import { LinkedArchiveTreeSection } from '../types';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
+import { PracticeQuestions, QuestionAnswers } from './types';
 
 describe('practice questions reducer', () => {
-  it('keeps modal open on location change if modal query is present', () => {
-    const mockState = {
-      ...initialState,
-      open: true,
-    };
-
-    const state = reducer(
-      mockState,
-      locationChange({action: 'PUSH', location: {state: {pageUid: 'asdf'}, search: '?modal=PQ'}} as any));
-    expect(state.open).toBe(true);
-  });
-
-  it('closes modal on location change if modal query is not present', () => {
-    const mockState = {
-      ...initialState,
-      open: true,
-    };
-
-    const state = reducer(
-      mockState,
-      locationChange({action: 'PUSH', location: {state: {pageUid: 'asdf'}, search: ''}} as any));
-    expect(state.open).toBe(false);
-  });
-
   it('reduces nextQuestion when currentQuestionIndex is null', () => {
     const state = {
       ...initialState,
       currentQuestionIndex: null,
     };
+
     const newState = reducer(state, actions.nextQuestion());
+
     expect(newState.currentQuestionIndex).toEqual(0);
   });
 
@@ -41,7 +23,40 @@ describe('practice questions reducer', () => {
       ...initialState,
       currentQuestionIndex: 0,
     };
+
     const newState = reducer(state, actions.nextQuestion());
+
     expect(newState.currentQuestionIndex).toEqual(1);
+  });
+
+  it('reduces locationChange', () => {
+    const state = {
+      ...initialState,
+      currentQuestionIndex: 1,
+      questionAnswers: { asd: { id: 'answer1' } } as any as QuestionAnswers,
+      questions: [{ uid: 'asd' }, { uid: 'afs' }] as PracticeQuestions,
+      selectedSection: { title: 'some title' } as LinkedArchiveTreeSection,
+    };
+
+    const newState = reducer(state, locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        pathname: '/books/book-slug-1/pages/doesnotmatter',
+        state: {},
+      },
+      match: {
+        params: {
+          book: { slug: 'book' },
+          page: { slug: 'page' },
+        },
+        route: content,
+      },
+    } as any));
+
+    expect(newState).toEqual({
+      ...initialState,
+      loading: true,
+    });
   });
 });

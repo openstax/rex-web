@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
+import * as navigationSelectors from '../../navigation/selectors';
 import * as parentSelectors from '../selectors';
+import { modalUrlName } from './constants';
 import { getPracticeQuestionsLocationFilters } from './utils';
 
 export const localState = createSelector(
@@ -12,11 +14,6 @@ export const practiceQuestionsEnabled = createSelector(
   (state) => state.isEnabled
 );
 
-export const practiceQuestionsOpen = createSelector(
-  localState,
-  (state) => state.open
-);
-
 export const practiceQuestionsSummary = createSelector(
   localState,
   (state) => state.summary
@@ -24,7 +21,18 @@ export const practiceQuestionsSummary = createSelector(
 
 export const hasPracticeQuestions = createSelector(
   practiceQuestionsSummary,
-  (summary) => summary && Object.keys(summary).length > 0
+  (summary) => Boolean(summary && Object.keys(summary.countsPerSource).length > 0)
+);
+
+export const isPracticeQuestionsOpen = createSelector(
+  hasPracticeQuestions,
+  navigationSelectors.query,
+  (hasPQ, query) => hasPQ && query && query.modal === modalUrlName
+);
+
+export const practiceQuestionsAreLoading = createSelector(
+  localState,
+  (state) => state.loading
 );
 
 export const practiceQuestionsLocationFilters = createSelector(
