@@ -2,9 +2,11 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import Loader from '../../../components/Loader';
 import { h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
 import * as contentSelectors from '../../selectors';
+import LoaderWrapper from '../../styles/LoaderWrapper';
 import { PopupBody } from '../../styles/PopupStyles';
 import { getArchiveTreeSectionTitle } from '../../utils/archiveTreeUtils';
 import * as pqSelectors from '../selectors';
@@ -43,6 +45,7 @@ export const ShowPracitceQuestionsContent = styled.div`
 // tslint:disable-next-line: variable-name
 export const SectionTitle = styled.div`
   ${h4Style}
+  z-index: 2;
   flex-shrink: 0;
   font-weight: bold;
   padding: 0;
@@ -89,6 +92,7 @@ const ShowPracticeQuestions = () => {
   }, [book, page, section, locationFilters]);
   const questionsInProggress = useSelector(pqSelectors.questionsInProggress);
   const hasAnswers = useSelector(pqSelectors.hasAnswers);
+  const isLoading = useSelector(pqSelectors.practiceQuestionsAreLoading);
 
   return (
     <ShowPracticeQuestionsBody
@@ -98,8 +102,9 @@ const ShowPracticeQuestions = () => {
     >
       <Filters />
       <ShowPracitceQuestionsContent>
-        {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
-        {questionsCount === 0
+      {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
+      {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> :
+        questionsCount === 0
           ? (nextSection
             ? <EmptyScreen nextSection={nextSection} />
             : <FinalScreen />
