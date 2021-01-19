@@ -7,9 +7,13 @@ import createTestStore from '../../../../test/createTestStore';
 import { renderToDom } from '../../../../test/reactutils';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
+import { push } from '../../../navigation/actions';
+import * as navigation from '../../../navigation/selectors';
 import { Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
-import { closePracticeQuestions, nextQuestion, openPracticeQuestions } from '../actions';
+import { content } from '../../routes';
+import { nextQuestion } from '../actions';
+import * as pqSelectors from '../selectors';
 import PracticeQuestionsPopup from './PracticeQuestionsPopup';
 
 // this is a hack because useEffect is currently not called
@@ -26,6 +30,14 @@ jest.mock('react-dom', () => ({
   createPortal: (children: any) => children,
 }));
 
+const mockMatch = {
+  params: {
+    book: { slug: 'book' },
+    page: { slug: 'page' },
+  },
+  route: content,
+};
+
 describe('PracticeQuestions', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
@@ -34,13 +46,17 @@ describe('PracticeQuestions', () => {
 
   beforeEach(() => {
     store = createTestStore();
-    dispatch = jest.spyOn(store, 'dispatch');
     services = createTestServices();
     container = assertWindow().document.createElement('div');
+    dispatch = jest.spyOn(store, 'dispatch');
+  });
+
+  afterAll(() => {
+    jest.clearAllMocks();
   });
 
   it('renders practice questions modal if it is open', () => {
-    store.dispatch(openPracticeQuestions());
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
@@ -54,7 +70,7 @@ describe('PracticeQuestions', () => {
   });
 
   it('doesn\'t render practice questions modal if it is closed', () => {
-    store.dispatch(closePracticeQuestions());
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(false);
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
@@ -68,6 +84,7 @@ describe('PracticeQuestions', () => {
   });
 
   it('focus is on pop up content', async() => {
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     const focus = jest.fn();
     const addEventListener = jest.fn();
     const createNodeMock = () => ({focus, addEventListener});
@@ -80,17 +97,13 @@ describe('PracticeQuestions', () => {
       </Services.Provider>
     </Provider>, {createNodeMock});
 
-    renderer.act(() => {
-      store.dispatch(openPracticeQuestions());
-    });
-
     expect(focus).toHaveBeenCalled();
   });
 
-  it('closes and tracks when clicking x icon', () => {
+  it('tracks analytics and removes modal-url when clicking x icon', () => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
-
-    store.dispatch(openPracticeQuestions());
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services} >
@@ -105,14 +118,14 @@ describe('PracticeQuestions', () => {
       closeButton.props.onClick();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(closePracticeQuestions());
     expect(track).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
   });
 
-  it('closes popup on esc and tracks analytics', async() => {
+  it('tracks analytics and removes modal-url when clicking esc', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
-
-    store.dispatch(openPracticeQuestions());
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     const { node } = renderToDom(<Provider store={store}>
       <Services.Provider value={services}>
@@ -126,14 +139,35 @@ describe('PracticeQuestions', () => {
 
     element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
 
-    expect(dispatch).toHaveBeenCalledWith(closePracticeQuestions());
     expect(track).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
   });
 
-  it('closes popup on overlay click and tracks analytics', async() => {
+  it('tracks analytics and removes modal-url with push', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
-    store.dispatch(openPracticeQuestions());
+    const { node } = renderToDom(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <PracticeQuestionsPopup />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    const element = assertNotNull(node.querySelector('[data-testid=\'practice-questions-popup-wrapper\']'), '');
+
+    element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
+
+    expect(track).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+  });
+
+  it('tracks analytics and removes modal-url on overlay click', async() => {
+    const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     const { node } = renderToDom(<Provider store={store}>
       <Services.Provider value={services}>
@@ -152,16 +186,17 @@ describe('PracticeQuestions', () => {
     element.dispatchEvent(event); // this checks for bindings using addEventListener
     ReactTestUtils.Simulate.click(element, {preventDefault}); // this checks for react onClick prop
 
-    expect(dispatch).toHaveBeenCalledWith(closePracticeQuestions());
     expect(track).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
   });
 
-  it('show warning prompt and closes popup after confirm', async() => {
+  it('show warning prompt and tracks analytics after confirm', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
     const spyConfirm = jest.spyOn(assertWindow(), 'confirm')
       .mockImplementation(() => true);
 
-    store.dispatch(openPracticeQuestions());
     store.dispatch(nextQuestion());
 
     const { node } = renderToDom(<Provider store={store}>
@@ -183,17 +218,18 @@ describe('PracticeQuestions', () => {
 
     expect(spyConfirm)
       .toHaveBeenCalledWith('Are you sure you want to exit this page? Your progress will not be saved.');
-    expect(dispatch).toHaveBeenCalledWith(closePracticeQuestions());
     expect(track).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
   });
 
-  it('show warning prompt and do not close popup after cancel', async() => {
+  it('show warning prompt and do not tracks analytics after cancel', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
     track.mockClear();
     const spyConfirm = jest.spyOn(assertWindow(), 'confirm')
       .mockImplementation(() => false);
 
-    store.dispatch(openPracticeQuestions());
     store.dispatch(nextQuestion());
 
     const { node } = renderToDom(<Provider store={store}>
@@ -215,7 +251,7 @@ describe('PracticeQuestions', () => {
 
     expect(spyConfirm)
       .toHaveBeenCalledWith('Are you sure you want to exit this page? Your progress will not be saved.');
-    expect(dispatch).not.toHaveBeenCalledWith(closePracticeQuestions());
     expect(track).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(push(mockMatch));
   });
 });

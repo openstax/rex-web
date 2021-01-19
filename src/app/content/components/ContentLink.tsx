@@ -6,7 +6,7 @@ import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { ScrollTarget } from '../../navigation/types';
-import { createNavigationOptions } from '../../navigation/utils';
+import { createNavigationOptions, navigationOptionsToString } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
@@ -56,6 +56,11 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const {url, params} = getBookPageUrlAndParams(book, page);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
+  // Add options only if linking to the same book
+  const options = currentBook && currentBook.id === bookUid
+    ? createNavigationOptions(search, scrollTarget)
+    : undefined;
+  const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
 
   return <a
     ref={myForwardedRef}
@@ -75,11 +80,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         onClick();
       }
 
-      // Add options only if linking to the same book
-      const options = currentBook && currentBook.id === bookUid
-        ? createNavigationOptions(search, scrollTarget)
-        : undefined;
-
       navigate({
         params,
         route: content,
@@ -91,7 +91,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
       },
       options);
     }}
-    href={relativeUrl}
+    href={URL}
     {...anchorProps}
   >{children}</a>;
 };
