@@ -90,7 +90,7 @@ describe('Answer', () => {
     </MessageProvider>);
 
     label.focus();
-    ReactTestUtils.Simulate.keyDown(label, { which: 31 });
+    ReactTestUtils.Simulate.keyDown(label, { which: 13 });
     ReactTestUtils.Simulate.keyDown(label, { which: 33 });
     ReactTestUtils.Simulate.keyDown(label, { which: 36 });
 

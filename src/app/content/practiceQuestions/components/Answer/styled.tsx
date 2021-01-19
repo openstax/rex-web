@@ -135,6 +135,14 @@ export const AnswerBlock = styled.label`
     width: 0;
     height: 0;
   }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: auto;
+  }
 `;
 
 // tslint:disable-next-line: variable-name
