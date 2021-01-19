@@ -42,7 +42,7 @@ describe('loadBuyPrintConfig', () => {
     jest.resetAllMocks();
     const hook = loadBuyPrintConfig(helpers);
     const load = jest.spyOn(helpers.buyPrintConfigLoader, 'load');
-    const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => null);
+    const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
 
     load.mockReturnValue(Promise.reject('asdf'));
 
