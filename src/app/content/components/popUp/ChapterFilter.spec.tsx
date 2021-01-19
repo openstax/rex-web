@@ -17,15 +17,16 @@ import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { receiveHighlightsTotalCounts } from '../../highlights/actions';
 import { ConnectedChapterFilter } from '../../highlights/components/SummaryPopup/Filters';
-import { HighlightLocationFilters } from '../../highlights/types';
 import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
 import Filters from '../../studyGuides/components/Filters';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
+import ChapterFilter, { StyledDetails, StyledSummary } from './ChapterFilter';
+import { LocationFilters } from './types';
 
 describe('ChapterFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
-  const locationIds = new Map() as HighlightLocationFilters;
+  const locationIds = new Map() as LocationFilters;
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
 
@@ -42,12 +43,12 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, new Map([[
       'testbook1-testpage1-uuid',
-      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+      { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
     ]])));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ConnectedChapterFilter />
+        <ConnectedChapterFilter multiselect={true} />
       </MessageProvider>
     </Provider>);
 
@@ -58,7 +59,7 @@ describe('ChapterFilter', () => {
   it('renders without a book', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ConnectedChapterFilter />
+        <ConnectedChapterFilter multiselect={true} />
       </MessageProvider>
     </Provider>);
 
@@ -74,17 +75,17 @@ describe('ChapterFilter', () => {
     }, new Map([
       [
         'testbook1-testpage1-uuid',
-        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+        { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
       ],
       [
         'testbook1-testchapter3-uuid',
-        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter3-uuid'), ''),
+        { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter3-uuid'), '') },
       ],
     ])));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ConnectedChapterFilter />
+        <ConnectedChapterFilter multiselect={true} />
       </MessageProvider>
     </Provider>);
 
@@ -103,12 +104,12 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, new Map([[
       'testbook1-testpage1-uuid',
-      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+      { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
     ]])));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ConnectedChapterFilter />
+        <ConnectedChapterFilter multiselect={true} />
       </MessageProvider>
     </Provider>);
 
@@ -135,12 +136,12 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, new Map([[
       'testbook1-testpage1-uuid',
-      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+      { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
     ]])));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ConnectedChapterFilter />
+        <ConnectedChapterFilter multiselect={true} />
       </MessageProvider>
     </Provider>);
 
@@ -167,7 +168,7 @@ describe('ChapterFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ConnectedChapterFilter />
+        <ConnectedChapterFilter multiselect={true} />
       </MessageProvider>
     </Provider>);
 
@@ -199,7 +200,7 @@ describe('ChapterFilter', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
-        <ConnectedChapterFilter />
+        <ConnectedChapterFilter multiselect={true} />
       </MessageProvider>
     </Provider>);
 
@@ -229,5 +230,45 @@ describe('ChapterFilter', () => {
 
     const [...allOrNoneButtons] = component.root.findAllByType(ButtonLink);
     expect(allOrNoneButtons.every((button) => button.props.disabled)).toBe(true);
+  });
+
+  it('toggle <details> on click', () => {
+    const locationFilters = new Map([[
+      'testbook1-testchapter2-uuid',
+      {
+        children: [{ id: 'testbook1-testpage3-uuid', title: 'page' }],
+        section: { id: 'testbook1-testchapter2-uuid', title: 'chapter' },
+      },
+    ]]);
+
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <ChapterFilter
+          locationFilters={locationFilters}
+          locationFiltersWithContent={new Set()}
+          selectedLocationFilters={new Set()}
+        />
+      </MessageProvider>
+    </Provider>);
+
+    const [details] = component.root.findAllByType(StyledDetails);
+    const [summary] = details.findAllByType(StyledSummary);
+    expect(details.props.open).toEqual(false);
+
+    renderer.act(() => {
+      summary.props.onClick({ preventDefault: jest.fn() });
+    });
+
+    component.update(<Provider store={store}>
+      <MessageProvider>
+        <ChapterFilter
+          locationFilters={locationFilters}
+          locationFiltersWithContent={new Set()}
+          selectedLocationFilters={new Set()}
+        />
+      </MessageProvider>
+    </Provider>);
+
+    expect(details.props.open).toEqual(true);
   });
 });

@@ -11,7 +11,7 @@ import MessageProvider from '../../../MessageProvider';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
-import { receiveHighlightsTotalCounts, setSummaryFilters } from '../../highlights/actions';
+import { receiveHighlightsTotalCounts, setSummaryFilters, updateSummaryFilters } from '../../highlights/actions';
 import Filters from '../../highlights/components/SummaryPopup/Filters';
 import { ArchiveTree } from '../../types';
 import { formatBookData } from '../../utils';
@@ -96,8 +96,8 @@ describe('Filters', () => {
         [HighlightColorEnum.Purple]: 1,
       },
     }, new Map([
-      [pageId, assertDefined(findArchiveTreeNodeById(book.tree, pageId), '')],
-      [chapterId, assertDefined(findArchiveTreeNodeById(book.tree, chapterId), '')],
+      [pageId, { section: assertDefined(findArchiveTreeNodeById(book.tree, pageId), '') }],
+      [chapterId, { section: assertDefined(findArchiveTreeNodeById(book.tree, chapterId), '') }],
     ])));
     store.dispatch(setSummaryFilters({
       locationIds: [],
@@ -136,6 +136,7 @@ describe('Filters', () => {
   it('removes colors and chapters from filters on click', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...pageInChapter, references: []}));
+    const mockChapterFilter = assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter5-uuid'), '');
     store.dispatch(receiveHighlightsTotalCounts({
       'testbook1-testchapter5-uuid': {
         [HighlightColorEnum.Green]: 1,
@@ -143,7 +144,7 @@ describe('Filters', () => {
       },
     }, new Map([[
       'testbook1-testchapter5-uuid',
-      assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter5-uuid'), ''),
+      { section: mockChapterFilter },
     ]])));
 
     dispatch.mockClear();
@@ -165,16 +166,22 @@ describe('Filters', () => {
       chapterFilters[0].findByType(StyledPlainButton).props.onClick();
     });
 
-    expect(storeDispatch).toBeCalledWith(setSummaryFilters({
-      locationIds: [],
+    expect(storeDispatch).toBeCalledWith(updateSummaryFilters({
+      locations: {
+        new: [],
+        remove: [mockChapterFilter],
+      },
     }));
 
     renderer.act(() => {
       colorFilters[0].findByType(StyledPlainButton).props.onClick();
     });
 
-    expect(storeDispatch).toBeCalledWith(setSummaryFilters({
-      colors: [ HighlightColorEnum.Green ],
+    expect(storeDispatch).toBeCalledWith(updateSummaryFilters({
+      colors: {
+        new: [],
+        remove: [HighlightColorEnum.Blue],
+      },
     }));
 
     chapterFilters = component.root.findAllByType(FiltersListChapter);

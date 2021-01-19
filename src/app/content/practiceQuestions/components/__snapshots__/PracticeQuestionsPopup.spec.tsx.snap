@@ -58,18 +58,58 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       </button>
     </h3>
     <div
-      className="PopupStyles__PopupBody-w0z1hl-2 ShowPracticeQuestions__ShowPracticeQuestionsBody-sc-1hq8omx-0 klvMFR"
+      className="PopupStyles__PopupBody-w0z1hl-2 ShowPracticeQuestions__ShowPracticeQuestionsBody-sc-1hq8omx-0 eoLiAF"
       data-analytics-region="PQ popup"
       data-testid="show-practice-questions-body"
     >
       <div
-        className="FinalScreen__StyledFinalScreen-sc-131hu2n-0 cKZyXt"
+        className="Filters-sc-1fn81fx-3 gZlQQL"
       >
-        <span
-          className="FinalScreen__StyledText-sc-131hu2n-1 MXQtJ"
+        <div
+          className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
         >
-          You have reached the end of this set!
-        </span>
+          <div
+            className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+          >
+            <button
+              aria-label="Filter PQ by Chapter & Section"
+              className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+              onClick={[Function]}
+            >
+              <div
+                tabIndex={-1}
+              >
+                Chapter & Section
+                <svg
+                  aria-hidden="true"
+                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  direction="down"
+                  fill="currentColor"
+                  focusable="false"
+                  viewBox="0 0 320 512"
+                >
+                  <path
+                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ShowPracticeQuestions__ShowPracitceQuestionsContent-sc-1hq8omx-1 gWrwIb"
+      >
+        <div
+          className="FinalScreen__StyledFinalScreen-sc-131hu2n-0 cKZyXt"
+        >
+          <span
+            className="FinalScreen__StyledText-sc-131hu2n-1 MXQtJ"
+          >
+            You have reached the end of this set!
+          </span>
+        </div>
       </div>
     </div>
   </div>

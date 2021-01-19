@@ -1,3 +1,4 @@
+import { LocationFiltersWithChildren } from '../components/popUp/types';
 import { isLinkedArchiveTreeSection } from '../guards';
 import { Book, LinkedArchiveTreeSection } from '../types';
 import { findArchiveTreeNodeById, flattenArchiveTree } from '../utils/archiveTreeUtils';
@@ -12,7 +13,7 @@ export const getPracticeQuestionsLocationFilters = (
   summary: PracticeQuestionsSummary | null, book: Book | undefined
 ) => {
   // key is an id of a parent of sections stored in a value
-  const locationFilters: Map<string, LinkedArchiveTreeSection[]> = new Map();
+  const locationFilters: LocationFiltersWithChildren = new Map();
 
   if (!book || !summary) { return locationFilters; }
 
@@ -21,23 +22,25 @@ export const getPracticeQuestionsLocationFilters = (
   for (const node of tree) {
     if (isLinkedArchiveTreeSection(node) && summary.countsPerSource[stripIdVersion(node.id)]) {
       const parentId = stripIdVersion(node.parent.id);
-      locationFilters.set(parentId, [...locationFilters.get(parentId) || [], node]);
+      const parentFilters = locationFilters.get(parentId);
+      const currentSections = parentFilters && parentFilters.children ? parentFilters.children : [];
+      locationFilters.set(parentId, { section: node.parent, children: [...currentSections, node] });
     }
   }
 
   return locationFilters;
 };
 
-const flattenLocationFilters = (locationFilters: Map<string, LinkedArchiveTreeSection[]>) => {
+const flattenLocationFilters = (locationFilters: LocationFiltersWithChildren) => {
   let flattened: LinkedArchiveTreeSection[] = [];
-  for (const sections of locationFilters.values()) {
-    flattened = flattened.concat(sections);
+  for (const { children } of locationFilters.values()) {
+    flattened = flattened.concat(children);
   }
   return flattened;
 };
 
 export const getNextPageWithPracticeQuestions = (
-  nodeId: string, locationFilters: Map<string, LinkedArchiveTreeSection[]>, book: Book | undefined
+  nodeId: string, locationFilters: LocationFiltersWithChildren, book: Book | undefined
 ) => {
   if (!book) { return; }
 
