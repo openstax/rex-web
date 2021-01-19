@@ -39,7 +39,9 @@ interface NextSectionMessageProps {
 }
 
 // tslint:disable-next-line: variable-name
-const NextSectionMessage = ({ nextSection, messageKey, onClick, analyticsLabel, className }: NextSectionMessageProps) => (
+const NextSectionMessage = ({
+  nextSection, messageKey, onClick, analyticsLabel, className,
+}: NextSectionMessageProps) => (
   <StyledNextSectionMessage className={className}>
     <StyledMessage>
       <StyledMessageText>
