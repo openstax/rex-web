@@ -6,10 +6,13 @@ import createTestStore from '../../../../test/createTestStore';
 import { book } from '../../../../test/mocks/archiveLoader';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
+import { locationChange } from '../../../navigation/actions';
 import { Store } from '../../../types';
 import { assertDefined } from '../../../utils';
+import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { content } from '../../routes';
+import LoaderWrapper from '../../styles/LoaderWrapper';
 import { LinkedArchiveTreeSection } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { finishQuestions, nextQuestion, receivePracticeQuestionsSummary,
@@ -58,6 +61,51 @@ describe('ShowPracticeQuestions', () => {
     ) as LinkedArchiveTreeSection;
     jest.spyOn(content, 'getUrl')
       .mockReturnValue('mockedUrl');
+  });
+
+  it('renders loader after locationChange until the questions are loaded', () => {
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        pathname: '/books/book-slug-1/pages/doesnotmatter',
+        state: {},
+      },
+      match: {
+        params: {
+          book: { slug: 'book' },
+          page: { slug: 'page' },
+        },
+        route: content,
+      },
+    }));
+
+    const component = renderer.create(render());
+
+    expect(() => component.root.findByType(LoaderWrapper)).not.toThrow();
+
+    act(() => {
+      store.dispatch(receiveBook(book));
+      store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+      store.dispatch(setQuestions([{id: 'asd'} as any as PracticeQuestion]));
+    });
+
+    expect(() => component.root.findByType(LoaderWrapper)).toThrow();
+  });
+
+  it('renders loader after setSelectedSection until the questions are loaded', () => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+
+    const component = renderer.create(render());
+
+    expect(() => component.root.findByType(LoaderWrapper)).not.toThrow();
+
+    act(() => {
+      store.dispatch(setQuestions([{id: 'asd'} as any as PracticeQuestion]));
+    });
+
+    expect(() => component.root.findByType(LoaderWrapper)).toThrow();
   });
 
   it('renders Intro screen', () => {
@@ -154,6 +202,7 @@ describe('ShowPracticeQuestions', () => {
   it('renders FinalScreen screen if section has no questions and there is no nextSection', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(setQuestions([]));
 
     const component = renderer.create(render());
 
