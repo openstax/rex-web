@@ -1,5 +1,6 @@
 import { treeWithoutUnits } from '../../../test/trees';
 import { book } from '../selectors';
+import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import * as select from './selectors';
 
 const mockBook = book as any as jest.SpyInstance;
@@ -18,11 +19,16 @@ describe('focused', () => {
 describe('highlightLocationFiltersWithContent', () => {
   it('filters', () => {
     mockBook.mockReturnValue({id: 'enabledbook', tree: treeWithoutUnits});
+    const mockChapter = findArchiveTreeNodeById(treeWithoutUnits, 'chapter1')!;
+    const mockPreface = findArchiveTreeNodeById(treeWithoutUnits, 'preface')!;
     expect(select.highlightLocationFiltersWithContent({
       summary: {
         totalCountsPerPage: {page1: { blue: 1 }, page2: { pink: 3 }, preface: { yellow: 2 }},
       },
-    } as any)).toEqual(new Set(['chapter1', 'preface']));
+    } as any)).toEqual(new Map([
+      ['chapter1', mockChapter],
+      ['preface', mockPreface],
+    ]));
   });
 
   it('works with null counts', () => {
@@ -31,7 +37,7 @@ describe('highlightLocationFiltersWithContent', () => {
       summary: {
         totalCountsPerPage: null,
       },
-    } as any)).toEqual(new Set());
+    } as any)).toEqual(new Map());
   });
 });
 

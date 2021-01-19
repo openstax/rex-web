@@ -12,7 +12,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Filter study guides by Chapter"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 jcorgy Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -21,7 +21,8 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           Chapter
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 320 512"
@@ -34,20 +35,41 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </div>
       </button>
       <div
-        disabled={false}
-        locationFilters={Map {}}
-        locationFiltersWithContent={Set {}}
-        mock-chapter-filter={true}
-        selectedLocationFilters={Set {}}
-        setFilters={[Function]}
-      />
+        className="ChapterFilter-tcdlu-7 bJwQzB"
+        tabIndex={-1}
+      >
+        <div
+          className="AllOrNone-sc-7m1y94-0 divvKQ"
+        >
+          <button
+            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            disabled={false}
+            onClick={[Function]}
+          >
+            All
+          </button>
+          <span>
+            |
+          </span>
+          <button
+            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            disabled={false}
+            onClick={[Function]}
+          >
+            None
+          </button>
+        </div>
+        <div
+          className="ChapterFilter__Row-tcdlu-0 nqIYu"
+        />
+      </div>
     </div>
     <div
       className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
     >
       <button
         aria-label="Filter study guides by Color"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 jcorgy Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -56,7 +78,8 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           Color
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 320 512"

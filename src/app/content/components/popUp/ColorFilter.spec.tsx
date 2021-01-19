@@ -3,7 +3,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
-import { match, not } from '../../../fpUtils';
 import MessageProvider from '../../../MessageProvider';
 import { highlightStyles } from '../../constants';
 import ColorFilter, { ColorFilterProps } from './ColorFilter';
@@ -28,8 +27,8 @@ describe('ColorFilter', () => {
         HighlightColorEnum.Purple,
         HighlightColorEnum.Yellow,
       ]),
-      setSummaryFilters: jest.fn(),
       styles: highlightStyles,
+      updateSummaryFilters: jest.fn(),
     };
   });
 
@@ -75,8 +74,9 @@ describe('ColorFilter', () => {
       box1.props.onChange();
     });
 
-    expect(props.setSummaryFilters).toHaveBeenCalledWith({
-      colors: Array.from(props.selectedColorFilters).filter(not(match(highlightStyles[0].label))),
+    expect(props.updateSummaryFilters).toHaveBeenCalledWith({
+      new: [],
+      remove: [highlightStyles[0].label],
     });
   });
 
@@ -105,8 +105,9 @@ describe('ColorFilter', () => {
       box1.props.onChange();
     });
 
-    expect(props.setSummaryFilters).toHaveBeenCalledWith({
-      colors: [...Array.from(selectedColorFilters), highlightStyles[0].label],
+    expect(props.updateSummaryFilters).toHaveBeenCalledWith({
+      new: [highlightStyles[0].label],
+      remove: [],
     });
   });
 
@@ -130,7 +131,10 @@ describe('ColorFilter', () => {
       allOrNone.props.onNone();
     });
 
-    expect(props.setSummaryFilters).toHaveBeenCalledWith({ colors: []});
+    expect(props.updateSummaryFilters).toHaveBeenCalledWith({
+      new: [],
+      remove: Array.from(colorFiltersWithContent),
+    });
   });
 
   it('selects all selects only colors witch have highlights', () => {
@@ -160,6 +164,9 @@ describe('ColorFilter', () => {
       allOrNone.props.onAll();
     });
 
-    expect(props.setSummaryFilters).toHaveBeenCalledWith({ colors: Array.from(colorFiltersWithContent) });
+    expect(props.updateSummaryFilters).toHaveBeenCalledWith({
+      new: Array.from(colorFiltersWithContent),
+      remove: [],
+    });
   });
 });

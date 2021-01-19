@@ -40,9 +40,9 @@ describe('getPracticeQuestionsLocationFilters', () => {
     };
 
     const output = new Map([
-      ['testbook1-testchapter10', [linkedPage1]],
-      ['testbook1-testchapter1-uuid', [linkedPage2, linkedPage3]],
-      ['testbook1-testchapter2-uuid', [linkedPage4]],
+      ['testbook1-testchapter10', { section: linkedPage1.parent, children: [linkedPage1] }],
+      ['testbook1-testchapter1-uuid', { section: linkedPage2.parent, children: [linkedPage2, linkedPage3] }],
+      ['testbook1-testchapter2-uuid', { section: linkedPage4.parent, children: [linkedPage4] }],
     ]);
 
     expect(getPracticeQuestionsLocationFilters(summary, book)).toEqual(output);
