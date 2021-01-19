@@ -2,9 +2,6 @@ import { createStandardAction } from 'typesafe-actions';
 import { LinkedArchiveTreeSection } from '../types';
 import { PracticeQuestion, PracticeQuestionsSummary, SetPracticeAnswer } from './types';
 
-export const openPracticeQuestions = createStandardAction('Content/PracticeQuestions/open')<void>();
-export const closePracticeQuestions = createStandardAction('Content/PracticeQuestions/close')<void>();
-
 export const setSelectedSection = createStandardAction(
   'Content/PracticeQuestions/setSelectedSection'
 )<LinkedArchiveTreeSection | null>();
