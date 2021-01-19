@@ -34,11 +34,12 @@ interface NextSectionMessageProps {
   nextSection: LinkedArchiveTreeSection;
   messageKey: string;
   onClick: () => void;
+  analyticsLabel?: string;
   className?: string;
 }
 
 // tslint:disable-next-line: variable-name
-const NextSectionMessage = ({ nextSection, messageKey, onClick, className }: NextSectionMessageProps) => (
+const NextSectionMessage = ({ nextSection, messageKey, onClick, analyticsLabel, className }: NextSectionMessageProps) => (
   <StyledNextSectionMessage className={className}>
     <StyledMessage>
       <StyledMessageText>
@@ -52,6 +53,7 @@ const NextSectionMessage = ({ nextSection, messageKey, onClick, className }: Nex
       variant='primary'
       size='large'
       onClick={onClick}
+      data-analytics-label={analyticsLabel}
     >
       <FormattedMessage id='i18n:practice-questions:popup:continue'>
         {(msg: string) => msg}
