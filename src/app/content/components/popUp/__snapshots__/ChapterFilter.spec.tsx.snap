@@ -2,7 +2,7 @@
 
 exports[`ChapterFilter matches snapshot 1`] = `
 <div
-  className="ChapterFilter-tcdlu-3 hkHmTL"
+  className="ChapterFilter-tcdlu-7 bJwQzB"
   tabIndex={-1}
 >
   <div
@@ -28,7 +28,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
     className="ChapterFilter__Row-tcdlu-0 nqIYu"
   >
     <div
-      className="ChapterFilter__Column-tcdlu-1 kiVKls"
+      className="ChapterFilter__Column-tcdlu-1 dKPjiE"
     >
       <label
         className="Checkbox-f0dje9-2 ksczzL"
