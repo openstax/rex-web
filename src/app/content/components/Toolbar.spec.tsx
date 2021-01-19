@@ -62,7 +62,6 @@ describe('print button', () => {
       </Services.Provider>
     </Provider>);
 
-
     expect(() => component.root.findByProps({'data-testid': 'print'})).toThrow();
   });
 });
