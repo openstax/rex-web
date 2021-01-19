@@ -1,5 +1,6 @@
 import { flatten, unflatten } from 'flat';
 import { Action, Location } from 'history';
+import { isNull, omitBy } from 'lodash';
 import curry from 'lodash/fp/curry';
 import omit from 'lodash/fp/omit';
 import pathToRegexp, { Key, parse } from 'path-to-regexp';
@@ -164,7 +165,10 @@ export const createNavigationOptions = (
 ) => ({
   hash: scrollTarget ? scrollTarget.elementId : undefined,
   search: queryString.stringify({
-    ...(search.query === null ? {} : search),
+    ...omitBy(search, isNull),
     target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
   }),
 });
+
+export const navigationOptionsToString = (options: ReturnType<typeof createNavigationOptions>) =>
+  (options.search ? `?${options.search}` : '') + (options.hash ? options.hash : '');
