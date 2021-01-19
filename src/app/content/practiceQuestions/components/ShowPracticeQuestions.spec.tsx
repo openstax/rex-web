@@ -19,6 +19,7 @@ import { finishQuestions, nextQuestion, receivePracticeQuestionsSummary,
   setAnswer, setQuestions, setSelectedSection } from '../actions';
 import { PracticeAnswer, PracticeQuestion } from '../types';
 import EmptyScreen from './EmptyScreen';
+import Filters from './Filters';
 import FinalScreen from './FinalScreen';
 import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
@@ -119,6 +120,7 @@ describe('ShowPracticeQuestions', () => {
 
     expect(() => component.root.findByType(IntroScreen)).not.toThrow();
 
+    expect(() => component.root.findByType(Filters)).not.toThrow();
     expect(() => component.root.findByType(SectionTitle)).not.toThrow();
     expect(() => component.root.findByType(QuestionsWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionsHeader)).not.toThrow();
