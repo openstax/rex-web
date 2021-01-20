@@ -20,16 +20,14 @@ export type Messages = Message[];
 export type ModalNotification = ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >>
   | AppMessageNotification;
 
-export interface ToastNotification {
+export interface ToastNotification extends ToastMeta {
   messageKey: string;
   timestamp: number;
-  destination: 'studyGuides' | 'myHighlights' | 'page';
   shouldAutoDismiss: boolean;
-  errorId?: string;
 }
 
 export interface ToastMeta {
-  destination: ToastNotification['destination'];
+  destination: 'studyGuides' | 'myHighlights' | 'page';
   shouldAutoDismiss?: boolean;
   errorId?: string;
 }
