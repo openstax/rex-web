@@ -17,6 +17,7 @@ import QuestionNavigation from './QuestionNavigation';
 
 // tslint:disable-next-line: variable-name
 export const QuestionWrapper = styled.form`
+  overflow: visible;
   padding: 0 ${theme.padding.page.desktop}rem;
   ${theme.breakpoints.mobile(css`
     padding: 0 ${theme.padding.page.mobile}rem;
@@ -38,6 +39,7 @@ export const QuestionContent = styled(React.forwardRef((props, ref) => <div tabI
 // tslint:disable-next-line: variable-name
 export const AnswersWrapper = styled.div`
   margin-top: ${theme.padding.page.desktop}rem;
+  overflow: visible;
 `;
 
 const getChoiceLetter = (value: number) => {

@@ -116,7 +116,7 @@ const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerT
 `;
 
 // tslint:disable-next-line: variable-name
-export const AnswerBlock = styled.label`
+export const AnswerBlock = styled.div`
   padding: 1rem 2.4rem;
   display: flex;
   align-items: flex-start;
