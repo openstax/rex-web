@@ -8,6 +8,7 @@ import { useFocusLost } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
 import theme from '../theme';
 import { preventDefault } from '../utils';
+import { visuallyHidden, visuallyShown } from './styleHelpers';
 import { textStyle } from './Typography/base';
 
 type ComponentWithRef = React.ComponentType<{ref: React.RefObject<any>}>;
@@ -36,20 +37,6 @@ const fadeIn = keyframes`
 
 const fadeInAnimation = css`
   animation: ${100}ms ${fadeIn} ease-out;
-`;
-
-const visuallyShown = css`
-  height: unset;
-  width: unset;
-  clip: unset;
-  overflow: visible;
-`;
-
-const visuallyHidden = css`
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
 `;
 
 interface ControlledProps {

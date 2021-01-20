@@ -143,7 +143,7 @@
   "i18n:toc:toggle:opened": "Click to close the Table of Contents",
   "i18n:toolbar:buy-book:aria-label:text": "Buy book",
   "i18n:toolbar:buy-book:text": "Order a print copy",
-  "i18n:practice-questions:popup:answers:choice": "Choice {choiceIndicator} {selected, select, yes {selected} no {}}",
+  "i18n:practice-questions:popup:answers:choice": "Choice {choiceIndicator}",
   "i18n:toolbar:highlights:popup:body:add-highlight": "Make a highlight and add a note",
   "i18n:toolbar:highlights:popup:body:highlights-free": "Log in to highlight. 100% FREE.",
   "i18n:toolbar:highlights:popup:body:no-highlights-in-book": "You have no highlights in this book",

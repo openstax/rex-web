@@ -91,6 +91,7 @@ const Question = () => {
       {question.answers.map((answer, index) =>
         <Answer
           key={index}
+          question={question}
           answer={answer}
           choiceIndicator={getChoiceLetter(index)}
           source={section}

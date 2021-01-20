@@ -1,15 +1,15 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { assertNotNull } from '../../../../utils/assertions';
 import { LinkedArchiveTreeSection } from '../../../types';
-import { PracticeAnswer } from '../../types';
+import { PracticeAnswer, PracticeQuestion } from '../../types';
 import {
   AnswerAlignment,
   AnswerBlock,
   AnswerContent,
   AnswerExcerpt,
   AnswerIndicator,
+  AnswerInput,
   StyledAnswerResult,
 } from './styled';
 
@@ -45,6 +45,7 @@ interface AnswerProps {
   isSubmitted: boolean;
   showCorrect: boolean;
   answer: PracticeAnswer;
+  question: PracticeQuestion;
   choiceIndicator: string;
   onSelect: () => void;
   source: LinkedArchiveTreeSection;
@@ -53,6 +54,7 @@ interface AnswerProps {
 // tslint:disable-next-line: variable-name
 const Answer = ({
   answer,
+  question,
   showCorrect,
   choiceIndicator,
   isSubmitted,
@@ -69,26 +71,18 @@ const Answer = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showCorrect, isCorrect]);
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    // Space
-    if (e.which === 32) {
-      e.preventDefault();
-      onSelect();
-      // Answer was selected when user pressed Space so we blur it and then focus
-      // so screenreader can read it again with updated aria-label for choice indicator.
-      assertNotNull(answerRef.current, 'onKeyDown called on unexisting element').blur();
-      assertNotNull(answerRef.current, 'onKeyDown called on unexisting element').focus();
-    }
-  };
-
-  return <label
-    ref={answerRef}
-    tabIndex={0}
-    onKeyDown={onKeyDown}
-    htmlFor={choiceIndicator}
-  >
+  return <>
+    <AnswerInput
+      id={choiceIndicator}
+      type='radio'
+      name={question.uid}
+      checked={isSelected}
+      disabled={isSubmitted}
+      onChange={onSelect}
+    />
     <AnswerBlock
-      tabIndex={-1}
+      ref={answerRef}
+      htmlFor={choiceIndicator}
       showCorrect={showCorrect}
       isCorrect={isCorrect}
       isSubmitted={isSubmitted}
@@ -96,23 +90,9 @@ const Answer = ({
     >
       <FormattedMessage
         id='i18n:practice-questions:popup:answers:choice'
-        values={{choiceIndicator: choiceIndicator.toUpperCase(), selected: isSelected ? 'yes' : 'no'}}
+        values={{choiceIndicator: choiceIndicator.toUpperCase()}}
       >{(msg: string) =>
-        <React.Fragment>
-          <input
-            id={choiceIndicator}
-            type='radio'
-            name={choiceIndicator}
-            checked={isSelected}
-            disabled={isSubmitted}
-            aria-label={msg}
-            onChange={onSelect}
-            tabIndex={-1}
-          />
-          <AnswerIndicator aria-label={msg}>
-            {choiceIndicator}
-          </AnswerIndicator>
-        </React.Fragment>
+        <AnswerIndicator aria-label={msg}>{choiceIndicator}</AnswerIndicator>
       }</FormattedMessage>
       <AnswerAlignment>
         <AnswerContent>
@@ -126,7 +106,7 @@ const Answer = ({
         </AnswerContent>
       </AnswerAlignment>
     </AnswerBlock>
-  </label>;
+  </>;
 };
 
 export default Answer;

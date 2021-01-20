@@ -1,5 +1,6 @@
 import flow from 'lodash/fp/flow';
 import styled, { css } from 'styled-components/macro';
+import { visuallyHidden } from '../../../../components/styleHelpers';
 import { textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
@@ -116,7 +117,12 @@ const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerT
 `;
 
 // tslint:disable-next-line: variable-name
-export const AnswerBlock = styled.div`
+export const AnswerInput = styled.input`
+  ${visuallyHidden}
+`;
+
+// tslint:disable-next-line: variable-name
+export const AnswerBlock = styled.label`
   padding: 1rem 2.4rem;
   display: flex;
   align-items: flex-start;
@@ -129,14 +135,12 @@ export const AnswerBlock = styled.div`
       padding: 0;
     }
   `)}
-  input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
 
-  &:focus {
+  input:focus + & {
+    outline: auto;
+    outline: -webkit-focus-ring-color auto 1px;
+  }
+  input:not(:focus-visible):focus + & {
     outline: none;
   }
 `;
