@@ -12,7 +12,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Filter highlights by Chapter"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 jcorgy Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -21,7 +21,8 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 320 512"
@@ -34,7 +35,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-3 hkHmTL"
+        className="ChapterFilter-tcdlu-7 bJwQzB"
         tabIndex={-1}
       >
         <div
@@ -66,7 +67,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Filter highlights by Color"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 jcorgy Button__PlainButton-ayg7nk-2 chgswm"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
         onClick={[Function]}
       >
         <div
@@ -75,7 +76,8 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="Filters__DownIcon-sc-1fn81fx-0 hoQnJB StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 320 512"

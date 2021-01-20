@@ -5,6 +5,7 @@ import { locationChange } from '../navigation/actions';
 import { AnyAction, FirstArgumentType } from '../types';
 import { assertWindow } from '../utils';
 import * as actions from './actions';
+import { initialState as practiceQuestionsState } from './practiceQuestions/reducer';
 import reducer, { initialState } from './reducer';
 import { content } from './routes';
 import searchReducer from './search/reducer';
@@ -129,6 +130,10 @@ describe('content reducer', () => {
           slug: 'bar',
         },
       },
+      practiceQuestions: {
+        ...practiceQuestionsState,
+        loading: true,
+      },
     });
 
   });
@@ -177,6 +182,10 @@ describe('content reducer', () => {
           slug: 'new page',
         },
       },
+      practiceQuestions: {
+        ...practiceQuestionsState,
+        loading: true,
+      },
     });
   });
 
@@ -220,6 +229,10 @@ describe('content reducer', () => {
         page: {
           slug: 'new page',
         },
+      },
+      practiceQuestions: {
+        ...practiceQuestionsState,
+        loading: true,
       },
     });
   });
