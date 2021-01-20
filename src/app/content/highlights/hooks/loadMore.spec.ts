@@ -3,7 +3,6 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage, pageInChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined, CustomApplicationError } from '../../../utils';
@@ -31,7 +30,6 @@ describe('filtersChange', () => {
   let hook: ReturnType<typeof import ('./loadMore').hookBody>;
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
 
     helpers = {
@@ -292,6 +290,27 @@ describe('filtersChange', () => {
 
     expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null, filters}));
   });
+});
+
+describe('filtersChange errors', () => {
+  let store: Store;
+  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  let dispatch: jest.SpyInstance;
+  let hook: ReturnType<typeof import ('./loadMore').hookBody>;
+
+  beforeEach(() => {
+    store = createTestStore();
+
+    helpers = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
+
+    dispatch = jest.spyOn(helpers, 'dispatch');
+
+    hook = (require('./loadMore').hookBody)(helpers);
+  });
 
   it('throws HighlightPopupLoadError', async() => {
     expect.assertions(3);
@@ -332,7 +351,7 @@ describe('filtersChange', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 1},
     }, new Map([
-      [pageId, assertDefined(findArchiveTreeNodeById(book.tree, pageId), '')],
+      [pageId, { section: assertDefined(findArchiveTreeNodeById(book.tree, pageId), '') }],
     ])));
 
     const locationIds = [pageId];
