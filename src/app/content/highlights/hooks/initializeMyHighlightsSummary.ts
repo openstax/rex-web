@@ -32,8 +32,8 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
       sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
     });
   } catch (error) {
-    Sentry.captureException(error);
-    dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
+    const errorId = Sentry.captureException(error);
+    dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights', errorId}));
     dispatch(toggleSummaryHighlightsLoading(false));
     return;
   }
@@ -50,8 +50,8 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   try {
     highlights = await loadMore(services, summaryPageSize);
   } catch (error) {
-    Sentry.captureException(error);
-    dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
+    const errorId = Sentry.captureException(error);
+    dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights', errorId}));
     dispatch(toggleSummaryHighlightsLoading(false));
     return;
   }
