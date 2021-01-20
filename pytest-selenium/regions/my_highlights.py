@@ -572,7 +572,6 @@ class MyHighlights(Region):
         _chapter_locator = (By.XPATH, "//div[@data-testid='chapter-title']")
         _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
         _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
-        _highlight_id_locator = (By.CSS_SELECTOR, "[class*=content-excerpt]")
         _highlight_locator = (By.CSS_SELECTOR, "[class*=HighlightOuterWrapper]")
         _empty_state_nudge_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
         _context_menu_locator = (By.XPATH, "//div[starts-with(@class, 'ContextMenu')]")
