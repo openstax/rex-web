@@ -140,6 +140,7 @@ export const AnswerBlock = styled.label`
     outline: auto;
     outline: -webkit-focus-ring-color auto 1px;
   }
+
   input:not(:focus-visible):focus + & {
     outline: none;
   }

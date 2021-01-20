@@ -5,6 +5,28 @@ import Answer from '.';
 import { renderToDom } from '../../../../../test/reactutils';
 import MessageProvider from '../../../../MessageProvider';
 import { assertDocument } from '../../../../utils/browser-assertions';
+import { PracticeQuestion } from '../../types';
+
+const mockQuestion = {
+  answers: [
+    {
+      content_html: '<span data-math=\'25\'>25</span>',
+      correctness: '0.0',
+      feedback_html: '...',
+      id: 273729,
+    },
+    {
+      content_html: '<span data-math=\'26\'>26</span>',
+      correctness: '1.0',
+      feedback_html: 'Iron is most strongly bound nuclide.',
+      id: 273730,
+    },
+  ],
+  group_uuid: 'd95384f2-1330-4582-9d81-1af0eae17b48',
+  stem_html: 'What is the atomic number of the most strongly bound nuclide?',
+  tags: 'd95384f2-1330-4582-9d81-1af0eae17b48',
+  uid: '11591@5',
+} as PracticeQuestion;
 
 describe('Answer', () => {
   it('focus answer if it is correct and showCorrect prop is true', () => {
@@ -13,6 +35,7 @@ describe('Answer', () => {
 
     renderer.create(<MessageProvider>
       <Answer
+        question={mockQuestion}
         isSelected={false}
         isSubmitted={false}
         showCorrect={true}
@@ -36,6 +59,7 @@ describe('Answer', () => {
 
     renderer.create(<MessageProvider>
       <Answer
+        question={mockQuestion}
         isSelected={false}
         isSubmitted={false}
         showCorrect={true}
@@ -58,6 +82,7 @@ describe('Answer', () => {
 
     const {node: label} = renderToDom(<MessageProvider>
       <Answer
+        question={mockQuestion}
         isSelected={false}
         isSubmitted={false}
         showCorrect={true}
@@ -79,6 +104,7 @@ describe('Answer', () => {
 
     const {node: label} = renderToDom(<MessageProvider>
       <Answer
+        question={mockQuestion}
         isSelected={false}
         isSubmitted={false}
         showCorrect={true}
