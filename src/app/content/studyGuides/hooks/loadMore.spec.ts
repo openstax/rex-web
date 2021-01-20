@@ -3,7 +3,6 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { CustomApplicationError } from '../../../utils';
@@ -43,7 +42,6 @@ describe('loadMore', () => {
   let hook: ReturnType<typeof import ('./loadMore').hookBody>;
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
 
     helpers = {
