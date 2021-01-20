@@ -135,13 +135,8 @@ export const AnswerBlock = styled.label`
     width: 0;
     height: 0;
   }
-
   &:focus {
     outline: none;
-  }
-
-  &:focus-visible {
-    outline: auto;
   }
 `;
 

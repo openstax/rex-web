@@ -81,48 +81,52 @@ const Answer = ({
     }
   };
 
-  return <AnswerBlock
-    showCorrect={showCorrect}
-    isCorrect={isCorrect}
-    isSubmitted={isSubmitted}
-    isSelected={isSelected}
+  return <label
     ref={answerRef}
     tabIndex={0}
     onKeyDown={onKeyDown}
     htmlFor={choiceIndicator}
   >
-    <FormattedMessage
-      id='i18n:practice-questions:popup:answers:choice'
-      values={{choiceIndicator: choiceIndicator.toUpperCase(), selected: isSelected ? 'yes' : 'no'}}
-    >{(msg: string) =>
-      <React.Fragment>
-        <input
-          id={choiceIndicator}
-          type='radio'
-          name={choiceIndicator}
-          checked={isSelected}
-          disabled={isSubmitted}
-          aria-label={msg}
-          onChange={onSelect}
-          tabIndex={-1}
-        />
-        <AnswerIndicator aria-label={msg}>
-          {choiceIndicator}
-        </AnswerIndicator>
-      </React.Fragment>
-    }</FormattedMessage>
-    <AnswerAlignment>
-      <AnswerContent>
-        <AnswerExcerpt dangerouslySetInnerHTML={{ __html: answer.content_html }} />
-        <AnswerResult
-          showCorrect={showCorrect}
-          isSelected={isSelected}
-          isSubmitted={isSubmitted}
-          isCorrect={isCorrect}
-        />
-      </AnswerContent>
-    </AnswerAlignment>
-  </AnswerBlock>;
+    <AnswerBlock
+      tabIndex={-1}
+      showCorrect={showCorrect}
+      isCorrect={isCorrect}
+      isSubmitted={isSubmitted}
+      isSelected={isSelected}
+    >
+      <FormattedMessage
+        id='i18n:practice-questions:popup:answers:choice'
+        values={{choiceIndicator: choiceIndicator.toUpperCase(), selected: isSelected ? 'yes' : 'no'}}
+      >{(msg: string) =>
+        <React.Fragment>
+          <input
+            id={choiceIndicator}
+            type='radio'
+            name={choiceIndicator}
+            checked={isSelected}
+            disabled={isSubmitted}
+            aria-label={msg}
+            onChange={onSelect}
+            tabIndex={-1}
+          />
+          <AnswerIndicator aria-label={msg}>
+            {choiceIndicator}
+          </AnswerIndicator>
+        </React.Fragment>
+      }</FormattedMessage>
+      <AnswerAlignment>
+        <AnswerContent>
+          <AnswerExcerpt dangerouslySetInnerHTML={{ __html: answer.content_html }} />
+          <AnswerResult
+            showCorrect={showCorrect}
+            isSelected={isSelected}
+            isSubmitted={isSubmitted}
+            isCorrect={isCorrect}
+          />
+        </AnswerContent>
+      </AnswerAlignment>
+    </AnswerBlock>
+  </label>;
 };
 
 export default Answer;
