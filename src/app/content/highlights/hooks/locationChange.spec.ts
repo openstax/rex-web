@@ -4,7 +4,6 @@ import { book, page } from '../../../../test/mocks/archiveLoader';
 import mockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { testAccountsUser } from '../../../../test/mocks/userLoader';
-import { resetModules } from '../../../../test/utils';
 import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
@@ -30,7 +29,6 @@ describe('locationChange', () => {
   let hook: ReturnType<typeof import ('./locationChange').default>;
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
 
     helpers = {
