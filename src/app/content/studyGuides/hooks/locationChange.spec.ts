@@ -2,7 +2,6 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
 import { receiveFeatureFlags } from '../../../actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
@@ -21,7 +20,6 @@ describe('locationChange', () => {
   let mockSummaryResponse: { countsPerSource: CountsPerSource };
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
 
     helpers = {
