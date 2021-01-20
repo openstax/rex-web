@@ -150,10 +150,10 @@ describe('Show my highlights', () => {
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
     }, new Map([
       ['testbook1-testpage1-uuid',
-        assertDefined( findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+        { section: assertDefined( findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
       ],
       ['testbook1-testchapter1-uuid',
-        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), ''),
+        { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), '') },
       ],
     ])));
     store.dispatch(receiveSummaryHighlights({
@@ -227,10 +227,10 @@ describe('Show my highlights', () => {
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
     }, new Map([
       ['testbook1-testpage1-uuid',
-        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+        { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
       ],
       ['testbook1-testchapter1-uuid',
-        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), ''),
+        { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), '') },
       ],
     ])));
     store.dispatch(receiveSummaryHighlights({

@@ -52,6 +52,7 @@ describe('Question', () => {
     store.dispatch(receiveBook(book));
     services = createTestServices();
     dispatch = jest.spyOn(store, 'dispatch');
+    store.dispatch(receiveBook(book));
     jest.spyOn(bookPageUtils, 'getBookPageUrlAndParams')
       .mockReturnValue({ url: 'asdf' } as any);
     render = () => <Provider store={store}>
@@ -135,7 +136,9 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     expect(fristAnswer.props.isSubmitted).toEqual(true);
     expect(secondAnswer.props.isSubmitted).toEqual(true);
@@ -217,7 +220,9 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     expect(preventDefault).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(setAnswer({ questionId: mockQuestion.uid, answer: mockQuestion.answers[0] }));
@@ -261,7 +266,9 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     expect(() => component.root.findByProps({
       id: 'i18n:practice-questions:popup:navigation:show-answer:after-submit-incorrect:aria-label',
@@ -303,7 +310,9 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     expect(() => component.root.findByProps({ 'data-testid': 'next' })).not.toThrow();
     expect(spyNextFocus).toHaveBeenCalled();
@@ -333,7 +342,9 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     act(() => {
       input.props.onChange();
@@ -376,11 +387,15 @@ describe('Question', () => {
 
     const form = component.root.findByProps({ 'data-testid': 'question-form' });
     const preventDefault = jest.fn();
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     expect(dispatch).toHaveBeenCalledWith(setAnswer({ questionId: mockQuestion.uid, answer: mockQuestion.answers[0] }));
 
-    form.props.onSubmit({ preventDefault });
+    act(() => {
+      form.props.onSubmit({ preventDefault });
+    });
 
     expect(dispatch).toHaveBeenCalledWith(finishQuestions());
   });

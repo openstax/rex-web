@@ -6,23 +6,26 @@ import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
+import Checkbox from '../../../../components/Checkbox';
 import { DropdownToggle } from '../../../../components/Dropdown';
 import * as Services from '../../../../context/Services';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
 import { formatBookData, stripIdVersion } from '../../../utils';
-import { receiveHighlightsTotalCounts } from '../../actions';
+import { receiveHighlightsTotalCounts, updateSummaryFilters } from '../../actions';
 import Filters from './Filters';
 
 describe('Filters', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
+  let dispatch: jest.SpyInstance;
   const book = formatBookData(archiveBook, mockCmsBook);
 
   beforeEach(() => {
     services = createTestServices();
     store = createTestStore();
     services = createTestServices();
+    dispatch = jest.spyOn(store, 'dispatch');
   });
 
   it('matches snapshot and renders proper aria labels', () => {
@@ -66,5 +69,49 @@ describe('Filters', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('dispatches updateSummaryFilters action', () => {
+    const pageId = stripIdVersion(book.tree.contents[0].id);
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {
+        [HighlightColorEnum.Green]: 1,
+        [HighlightColorEnum.Yellow]: 1,
+        [HighlightColorEnum.Blue]: 1,
+        [HighlightColorEnum.Pink]: 1,
+        [HighlightColorEnum.Purple]: 1,
+      },
+    }, new Map()));
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Filters />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    renderer.act(() => {
+      const [, colorFilterToggle] = component.root.findAllByType(DropdownToggle);
+      colorFilterToggle.props.onClick();
+    });
+
+    const [yellowCheckbox] = component.root.findAllByType(Checkbox);
+
+    renderer.act(() => {
+      yellowCheckbox.props.onChange();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(updateSummaryFilters({
+      colors: { new: [], remove: [HighlightColorEnum.Yellow] },
+    }));
+
+    renderer.act(() => {
+      yellowCheckbox.props.onChange();
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(updateSummaryFilters({
+      colors: { new: [HighlightColorEnum.Yellow], remove: [] },
+    }));
   });
 });

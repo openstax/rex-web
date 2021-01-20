@@ -3,11 +3,11 @@ import { LinkedArchiveTreeSection } from '../types';
 export interface State {
   isEnabled: boolean;
   summary: PracticeQuestionsSummary | null;
-  open: boolean;
   selectedSection: LinkedArchiveTreeSection | null;
   currentQuestionIndex: number | null;
   questions: PracticeQuestion[];
   questionAnswers: QuestionAnswers;
+  loading: boolean;
 }
 
 export interface PracticeQuestionsSummary {

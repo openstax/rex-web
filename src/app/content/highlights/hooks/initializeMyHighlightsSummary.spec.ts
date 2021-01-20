@@ -56,7 +56,8 @@ describe('initializeMyHighlightsSummaryHook', () => {
     jest.spyOn(selectors, 'summaryIsLoading').mockReturnValue(false);
     jest.spyOn(selectors, 'filteredCountsPerPage').mockReturnValue(totalCountsPerPage);
     jest.spyOn(selectors, 'highlightLocationFilters').mockReturnValue(new Map([[
-      'testbook1-testpage1-uuid', assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+      'testbook1-testpage1-uuid',
+      { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
     ]]));
 
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')

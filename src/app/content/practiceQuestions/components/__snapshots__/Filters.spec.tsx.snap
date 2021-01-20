@@ -1,0 +1,362 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
+<div
+  className="Filters-sc-1fn81fx-3 gZlQQL"
+>
+  <div
+    className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
+  >
+    <div
+      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+    >
+      <button
+        aria-label="Filter PQ by Chapter & Section"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+        onClick={[Function]}
+      >
+        <div
+          tabIndex={-1}
+        >
+          Chapter & Section
+          <svg
+            aria-hidden="true"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="down"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 320 512"
+          >
+            <path
+              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Filters ChapterFilter matches snapshot when open with selected section 1`] = `
+<div
+  className="Filters-sc-1fn81fx-3 gZlQQL"
+>
+  <div
+    className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
+  >
+    <div
+      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+    >
+      <button
+        aria-label="Filter PQ by Chapter & Section"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
+        onClick={[Function]}
+      >
+        <div
+          tabIndex={-1}
+        >
+          Chapter & Section
+          <svg
+            aria-hidden="true"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 320 512"
+          >
+            <path
+              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </button>
+      <div
+        className="ChapterFilter-tcdlu-7 Filters__StyledChapterFilters-sc-1lvdmlz-0 jvrNgK"
+        tabIndex={-1}
+      >
+        <div
+          className="ChapterFilter__Row-tcdlu-0 nqIYu"
+        >
+          <div
+            className="ChapterFilter__Column-tcdlu-1 dKPjiE"
+          >
+            <details
+              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
+              open={false}
+            >
+              <summary
+                className="ChapterFilter__StyledSummary-tcdlu-4 fDzISg"
+                onClick={[Function]}
+              >
+                <span
+                  className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "chapterId",
+                    }
+                  }
+                />
+                <svg
+                  aria-hidden="true"
+                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  direction="down"
+                  fill="currentColor"
+                  focusable="false"
+                  viewBox="0 0 320 512"
+                >
+                  <path
+                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </summary>
+              <div
+                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+              >
+                <button
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "section1",
+                      }
+                    }
+                  />
+                </button>
+                <button
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "section2",
+                      }
+                    }
+                  />
+                </button>
+              </div>
+            </details>
+            <details
+              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
+              open={true}
+            >
+              <summary
+                className="ChapterFilter__StyledSummary-tcdlu-4 fDzISg"
+                onClick={[Function]}
+              >
+                <span
+                  className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "chapterId2",
+                    }
+                  }
+                />
+                <svg
+                  aria-hidden="true"
+                  className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+                  direction="up"
+                  fill="currentColor"
+                  focusable="false"
+                  viewBox="0 0 320 512"
+                >
+                  <path
+                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </summary>
+              <div
+                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+              >
+                <button
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 AJhCb"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "section21",
+                      }
+                    }
+                  />
+                </button>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Filters ChapterFilter matches snapshot when open without selected section 1`] = `
+<div
+  className="Filters-sc-1fn81fx-3 gZlQQL"
+>
+  <div
+    className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
+  >
+    <div
+      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+    >
+      <button
+        aria-label="Filter PQ by Chapter & Section"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
+        onClick={[Function]}
+      >
+        <div
+          tabIndex={-1}
+        >
+          Chapter & Section
+          <svg
+            aria-hidden="true"
+            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            direction="up"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 320 512"
+          >
+            <path
+              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </button>
+      <div
+        className="ChapterFilter-tcdlu-7 Filters__StyledChapterFilters-sc-1lvdmlz-0 jvrNgK"
+        tabIndex={-1}
+      >
+        <div
+          className="ChapterFilter__Row-tcdlu-0 nqIYu"
+        >
+          <div
+            className="ChapterFilter__Column-tcdlu-1 dKPjiE"
+          >
+            <details
+              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
+              open={false}
+            >
+              <summary
+                className="ChapterFilter__StyledSummary-tcdlu-4 fDzISg"
+                onClick={[Function]}
+              >
+                <span
+                  className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "chapterId",
+                    }
+                  }
+                />
+                <svg
+                  aria-hidden="true"
+                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  direction="down"
+                  fill="currentColor"
+                  focusable="false"
+                  viewBox="0 0 320 512"
+                >
+                  <path
+                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </summary>
+              <div
+                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+              >
+                <button
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "section1",
+                      }
+                    }
+                  />
+                </button>
+                <button
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "section2",
+                      }
+                    }
+                  />
+                </button>
+              </div>
+            </details>
+            <details
+              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
+              open={false}
+            >
+              <summary
+                className="ChapterFilter__StyledSummary-tcdlu-4 fDzISg"
+                onClick={[Function]}
+              >
+                <span
+                  className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "chapterId2",
+                    }
+                  }
+                />
+                <svg
+                  aria-hidden="true"
+                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  direction="down"
+                  fill="currentColor"
+                  focusable="false"
+                  viewBox="0 0 320 512"
+                >
+                  <path
+                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </summary>
+              <div
+                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+              >
+                <button
+                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  onClick={[Function]}
+                >
+                  <span
+                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "section21",
+                      }
+                    }
+                  />
+                </button>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

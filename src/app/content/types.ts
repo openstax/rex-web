@@ -32,7 +32,6 @@ export interface State {
   practiceQuestions: PracticeQuestionsState;
   loading: Partial<Params>;
   search: SearchState;
-  showNudgeStudyTools: boolean | null;
   studyGuides: StudyGuidesState;
   highlights: HighlightState;
   book?: Book;

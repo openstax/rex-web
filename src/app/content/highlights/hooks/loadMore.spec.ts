@@ -155,7 +155,7 @@ describe('filtersChange', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 1},
     }, new Map([
-      [pageId, assertDefined(findArchiveTreeNodeById(book.tree, pageId), '')],
+      [pageId, { section: assertDefined(findArchiveTreeNodeById(book.tree, pageId), '') }],
     ])));
 
     const state = store.getState();
@@ -204,7 +204,10 @@ describe('filtersChange', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageInChapter.id]: {[HighlightColorEnum.Green]: 1},
     }, new Map([
-      [chapterIdForPageInChapter, assertDefined(findArchiveTreeNodeById(book.tree, chapterIdForPageInChapter), '')],
+      [
+        chapterIdForPageInChapter,
+        { section: assertDefined(findArchiveTreeNodeById(book.tree, chapterIdForPageInChapter), '') },
+      ],
     ])));
 
     const state = store.getState();
@@ -303,7 +306,7 @@ describe('filtersChange', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 1},
     }, new Map([
-      [pageId, assertDefined(findArchiveTreeNodeById(book.tree, pageId), '')],
+      [pageId, { section: assertDefined(findArchiveTreeNodeById(book.tree, pageId), '') }],
     ])));
 
     const locationIds = [pageId];
