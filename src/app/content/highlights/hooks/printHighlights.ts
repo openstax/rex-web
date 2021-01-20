@@ -42,8 +42,6 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
 };
 
 export const hookBody: ActionHookBody<typeof printSummaryHighlights> = (services) => () => {
-  // TODO: refactor this somehow
-  // do not return promise, otherwise `services.promiseCollector.calm()` will end up waiting for itself
   waitingForPromiseCollector = true;
   return asyncHelper(services);
 };
