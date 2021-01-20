@@ -102,21 +102,46 @@ def test_add_note_from_MH_page(selenium, base_url, book_slug, page_slug):
         )
 
     my_highlights = book.toolbar.my_highlights()
-
     highlights = my_highlights.highlights.edit_highlight
+    note_added = Utilities.random_string()
 
-    highlights[0].add_note()
+    for highlight in highlights:
+        # WHEN: From MH page, add a note for the highlight that does not have a note
+        if not highlight.note_present:
+            highlight_id = highlight.mh_highlight_id
 
-    x = Utilities.random_string()
-    highlights[0].note = x
+            highlight.add_note()
+            highlight.note = note_added
+            highlight.save()
 
-    # for highlight in highlights:
-    #     if not highlight.note_present:
-    #         highlight.add_note()
-    #
-    #         x = Utilities.random_string()
-    #         highlight.note = x
+            my_highlights.close()
 
-    from time import sleep
+            # THEN: The corresponding highlight in the content page is updated with the note added in MH page
+            Utilities.click_option(
+                driver=selenium,
+                element=book.content.get_highlight(by_id=highlight_id)[0],
+                scroll_to=-130,
+            )
 
-    sleep(4)
+            assert (
+                book.content.highlight_box.note == note_added
+            ), "the note text does not match the note added or note added to incorrect highlight"
+
+            highlight_id_1 = (
+                content_highlight_ids[0]
+                if content_highlight_ids[0] != highlight_id
+                else content_highlight_ids[1]
+            )
+            Utilities.click_option(
+                driver=selenium,
+                element=book.content.get_highlight(by_id=highlight_id_1)[0],
+                scroll_to=-130,
+            )
+
+            # AND: The highlight with note that was not updated in MH page is not affected
+            assert (
+                book.content.highlight_box.note == data[0][2]
+            ), "the note is added to incorrect highlight"
+            break
+        else:
+            continue

@@ -16,6 +16,8 @@ from pages.accounts import Login
 from regions.base import Region
 from utils.utility import Color, Utilities
 
+ELEMENT_SELECT = "return document.querySelector('{selector}');"
+
 
 class ChapterData(Region):
     """Shared resources for chapter attributes."""
@@ -571,10 +573,9 @@ class MyHighlights(Region):
         _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
         _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
         _highlight_id_locator = (By.CSS_SELECTOR, "[class*=content-excerpt]")
-
         _highlight_locator = (By.CSS_SELECTOR, "[class*=HighlightOuterWrapper]")
         _empty_state_nudge_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
-        # _context_menu_locator = (By.XPATH, "//div[starts-with(@class, 'ContextMenu')]")
+        _context_menu_locator = (By.XPATH, "//div[starts-with(@class, 'ContextMenu')]")
 
         @property
         def chapters(self) -> List[MyHighlights.Highlights.Chapter]:
@@ -634,7 +635,7 @@ class MyHighlights(Region):
             return list(set(self._split_html(highlight) for highlight in self.highlights))
 
         def _split_html(self, locator):
-            """Break up an innerHTML string to retrieve the highlight ID."""
+            """Break up the innerHTML string to retrieve highlight ID."""
             html = locator.get_attribute("innerHTML")
             split_html_highlight_id = re.findall(r"(.*? words|data-highlight-id.{38})", html)
             unlist_highlight_id = ', '.join(split_html_highlight_id)
@@ -654,7 +655,6 @@ class MyHighlights(Region):
                     in self.find_elements(*self._context_menu_locator)]
 
         class EditHighlight(Region):
-            # _root_locator = (By.CSS_SELECTOR, "[class*=HighlightOuterWrapper]")
             _alter_menu_toggle_locator = (By.CSS_SELECTOR, "[class*=MenuToggle]")
             _highlight_green_locator = (By.CSS_SELECTOR, "[name=green]")
             _highlight_blue_locator = (By.CSS_SELECTOR, "[name=blue]")
@@ -716,11 +716,13 @@ class MyHighlights(Region):
             def note_box(self) -> WebElement:
                 """Return the highlight note text box.
 
-                :return: the highlight annotation text box
+                :return: the highlight note text box
                 :rtype: WebElement
 
                 """
-                return self.find_element(*self._annotation_textbox_locator)
+                note_box = self.driver.execute_script(ELEMENT_SELECT.format(
+                    selector=self._annotation_textbox_locator[1]))
+                return note_box
 
             @property
             def save_button(self) -> WebElement:
@@ -730,7 +732,9 @@ class MyHighlights(Region):
                 :rtype: WebElement
 
                 """
-                return self.find_element(*self._save_annotation_button_locator)
+                save = self.driver.execute_script(ELEMENT_SELECT.format(
+                    selector=self._save_annotation_button_locator[1]))
+                return save
 
             @property
             def cancel_button(self) -> WebElement:
@@ -834,11 +838,11 @@ class MyHighlights(Region):
                 Utilities.click_option(self.driver, element=colors[color])
                 return self
 
-            def edit_note(self) -> MyHighlights.Highlights.HighlightBox:
+            def edit_note(self) -> MyHighlights.Highlights.EditHighlight:
                 """Toggle the annotation edit menu option.
 
                 :return: the note edit box
-                :rtype: :py:class:`~Content.Content.HighlightBox`
+                :rtype: :py:class:`~MyHighlights.Highlights.EditHighlight`
 
                 """
 
@@ -855,29 +859,27 @@ class MyHighlights(Region):
                 :param str note: the annotation text for the selected highlight
 
                 """
-                # if not note:
-                #     Utilities.clear_field(self.driver, self.note_box)
                 self.note_box.send_keys(note)
 
-            def cancel(self) -> MyHighlights.Highlights.HighlightBox:
+            def cancel(self) -> MyHighlights:
                 """Click the cancel note button.
 
-                :return: the highlight edit box
+                :return: the My Highlights and Notes modal
+                :rtype: :py:class:`~MyHighlights`
 
                 """
                 Utilities.click_option(self.driver, element=self.cancel_button)
-                return self
+                return self.page
 
-            def save(self) -> MyHighlights.Highlights.HighlightBox:
+            def save(self) -> MyHighlights:
                 """Click the save note button.
 
-                :return: the highlight display note box
-                :rtype: :py:class:`~Content.Content.HighlightBox`
+                :return: the My Highlights and Notes modal
+                :rtype: :py:class:`~MyHighlights`
 
                 """
                 Utilities.click_option(self.driver, element=self.save_button)
-                sleep(0.1)
-                return self
+                return self.page
 
         class Chapter(ChapterData):
             """A book chapter with highlights.
