@@ -1,6 +1,5 @@
 import flow from 'lodash/fp/flow';
 import styled, { css } from 'styled-components/macro';
-import { visuallyHidden } from '../../../../components/styleHelpers';
 import { textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
@@ -118,7 +117,10 @@ const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerT
 
 // tslint:disable-next-line: variable-name
 export const AnswerInput = styled.input`
-  ${visuallyHidden}
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 `;
 
 // tslint:disable-next-line: variable-name
