@@ -1,7 +1,6 @@
 import { ApplicationMesssageError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { resetModules } from '../../../../test/utils';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow, CustomApplicationError } from '../../../utils';
@@ -25,7 +24,6 @@ describe('printStudyGuides', () => {
   let hook: ReturnType<typeof import ('./printStudyGuides').hookBody>;
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore({
       ...{} as any,
       content: {
