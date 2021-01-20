@@ -1,10 +1,8 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import noop from 'lodash/fp/noop';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow, CustomApplicationError } from '../../../utils';
@@ -42,14 +40,14 @@ describe('printHighlights', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
   let calmSpy: jest.SpyInstance;
-  let print: jest.SpyInstance;
+  const print = jest.fn();
   let asyncHelper: typeof import ('./printHighlights').asyncHelper;
   let hook: ReturnType<typeof import ('./printHighlights').hookBody>;
 
   beforeEach(() => {
-    resetModules();
-    print = jest.spyOn(assertWindow(), 'print');
-    print.mockImplementation(noop);
+    const window = assertWindow();
+    window.print = print;
+    print.mockClear();
 
     store = createTestStore();
 
@@ -210,6 +208,8 @@ describe('printHighlights', () => {
 
       expect(dispatch).toBeCalledWith(toggleSummaryHighlightsLoading(false));
       expect(print).toHaveBeenCalled();
+
+      loadMore.mockRestore();
     });
 
     it('throws HighlightPopupPrintError', async() => {
