@@ -81,6 +81,7 @@ const Answer = ({
       onChange={onSelect}
     />
     <AnswerBlock
+      tabIndex={-1}
       ref={answerRef}
       htmlFor={choiceIndicator}
       showCorrect={showCorrect}
