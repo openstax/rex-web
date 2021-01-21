@@ -44,7 +44,6 @@ export const ShowPracitceQuestionsContent = styled.div`
 // tslint:disable-next-line: variable-name
 export const SectionTitle = styled.div`
   ${h4Style}
-  z-index: 2;
   flex-shrink: 0;
   font-weight: bold;
   padding: 0;
@@ -99,30 +98,32 @@ const ShowPracticeQuestions = () => {
       data-analytics-region='PQ popup'
     >
       <Filters />
-      <ShowPracitceQuestionsContent>
-      {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
-      {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> :
-        questionsCount === 0
-          ? (nextSection
-            ? <EmptyScreen nextSection={nextSection} />
-            : <FinalScreen />
-          )
-          : hasAnswers && !questionsInProggress
-            ? <FinalScreen nextSection={nextSection} />
-            : (
-              <QuestionsWrapper>
-                <QuestionsHeader>
-                  <FormattedMessage id='i18n:practice-questions:popup:questions'>
-                    {(msg: string) => msg}
-                  </FormattedMessage>
-                </QuestionsHeader>
-                <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-                {questionsInProggress ? <Question /> : <IntroScreen />}
-              </QuestionsWrapper>
-            )
-        }
-        <LinkToSection section={section} />
-      </ShowPracitceQuestionsContent>
+      {isLoading
+        ? <LoaderWrapper><Loader large /></LoaderWrapper>
+        : <ShowPracitceQuestionsContent>
+          {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
+          {questionsCount === 0
+              ? (nextSection
+                ? <EmptyScreen nextSection={nextSection} />
+                : <FinalScreen />
+              )
+              : hasAnswers && !questionsInProggress
+                ? <FinalScreen nextSection={nextSection} />
+                : (
+                  <QuestionsWrapper>
+                    <QuestionsHeader>
+                      <FormattedMessage id='i18n:practice-questions:popup:questions'>
+                        {(msg: string) => msg}
+                      </FormattedMessage>
+                    </QuestionsHeader>
+                    <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+                    {questionsInProggress ? <Question /> : <IntroScreen />}
+                  </QuestionsWrapper>
+                )
+            }
+          <LinkToSection section={section} />
+        </ShowPracitceQuestionsContent>
+      }
     </ShowPracticeQuestionsBody>
   );
 };
