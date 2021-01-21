@@ -10,7 +10,8 @@ import {
   loadMoreSummaryHighlights,
   receiveSummaryHighlights,
   setSummaryFilters,
-  toggleSummaryHighlightsLoading
+  toggleSummaryHighlightsLoading,
+  updateSummaryFilters
 } from '../actions';
 import * as select from '../selectors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../utils/highlightLoadingUtils';
@@ -42,7 +43,11 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
 };
 export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
-export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =
+export const hookBody: ActionHookBody<
+  typeof setSummaryFilters |
+  typeof loadMoreSummaryHighlights |
+  typeof updateSummaryFilters
+> =
   (services) => async() => {
     const filters = select.summaryFilters(services.getState());
 
@@ -63,3 +68,4 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
 
 export const loadMoreHook = actionHook(loadMoreSummaryHighlights, hookBody);
 export const setSummaryFiltersHook = actionHook(setSummaryFilters, hookBody);
+export const updateFiltersHook = actionHook(updateSummaryFilters, hookBody);
