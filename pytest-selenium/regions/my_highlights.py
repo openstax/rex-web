@@ -696,10 +696,7 @@ class MyHighlights(Region):
                 :rtype: bool
 
                 """
-                try:
-                    return bool(self.find_element(*self._note_indicator_locator))
-                except NoSuchElementException:
-                    return False
+                return bool(self.find_elements(*self._note_indicator_locator))
 
             @property
             def note(self) -> str:
@@ -719,9 +716,8 @@ class MyHighlights(Region):
                 :rtype: WebElement
 
                 """
-                note_box = self.driver.execute_script(ELEMENT_SELECT.format(
+                return self.driver.execute_script(ELEMENT_SELECT.format(
                     selector=self._annotation_textbox_locator[1]))
-                return note_box
 
             @property
             def save_button(self) -> WebElement:
@@ -731,9 +727,8 @@ class MyHighlights(Region):
                 :rtype: WebElement
 
                 """
-                save = self.driver.execute_script(ELEMENT_SELECT.format(
+                return self.driver.execute_script(ELEMENT_SELECT.format(
                     selector=self._save_annotation_button_locator[1]))
-                return save
 
             @property
             def cancel_button(self) -> WebElement:
