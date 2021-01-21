@@ -3,7 +3,7 @@ import { Action, Location } from 'history';
 import curry from 'lodash/fp/curry';
 import isNull from 'lodash/fp/isNull';
 import omit from 'lodash/fp/omit';
-import omitBy from 'lodash/omitBy';
+import omitBy from 'lodash/fp/omitBy';
 import pathToRegexp, { Key, parse } from 'path-to-regexp';
 import queryString, { OutputParams } from 'query-string';
 import querystring from 'querystring';
@@ -166,7 +166,7 @@ export const createNavigationOptions = (
 ) => ({
   hash: scrollTarget ? scrollTarget.elementId : undefined,
   search: queryString.stringify({
-    ...omitBy(search, isNull),
+    ...omitBy(isNull, search),
     target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
   }),
 });

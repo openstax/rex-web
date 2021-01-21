@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import isUndefined from 'lodash/fp/isUndefined';
-import omitBy from 'lodash/omitBy';
+import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
@@ -215,10 +215,10 @@ interface DropdownItemProps {
 const DropdownItemContent = ({
   message, href, target, prefix, onClick, dataAnalyticsRegion, dataAnalyticsLabel,
 }: Omit<DropdownItemProps, 'ariaMessage'>) => {
-  const analyticsDataProps = omitBy({
+  const analyticsDataProps = omitBy(isUndefined, {
     'data-analytics-label': dataAnalyticsLabel,
     'data-analytics-region': dataAnalyticsRegion,
-  }, isUndefined);
+  });
   return <FormattedMessage id={message}>
     {(msg: Element | string) => href
       ? <a href={href} tabIndex={0} onClick={onClick} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
