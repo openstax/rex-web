@@ -10,6 +10,7 @@ import {
   AnswerExcerpt,
   AnswerIndicator,
   AnswerInput,
+  AnswerWrapper,
   StyledAnswerResult,
 } from './styled';
 
@@ -71,7 +72,7 @@ const Answer = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showCorrect, isCorrect]);
 
-  return <>
+  return <AnswerWrapper tabIndex={-1} ref={answerRef}>
     <AnswerInput
       id={choiceIndicator}
       type='radio'
@@ -82,7 +83,6 @@ const Answer = ({
     />
     <AnswerBlock
       tabIndex={-1}
-      ref={answerRef}
       htmlFor={choiceIndicator}
       showCorrect={showCorrect}
       isCorrect={isCorrect}
@@ -107,7 +107,7 @@ const Answer = ({
         </AnswerContent>
       </AnswerAlignment>
     </AnswerBlock>
-  </>;
+  </AnswerWrapper>;
 };
 
 export default Answer;

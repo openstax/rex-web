@@ -116,6 +116,11 @@ const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerT
 `;
 
 // tslint:disable-next-line: variable-name
+export const AnswerWrapper = styled.div`
+  overflow: visible;
+`;
+
+// tslint:disable-next-line: variable-name
 export const AnswerInput = styled.input`
   position: absolute;
   opacity: 0;
@@ -138,6 +143,11 @@ export const AnswerBlock = styled.label`
     }
   `)}
 
+  :focus {
+    outline: none;
+  }
+
+  ${AnswerWrapper}:focus > &,
   input:focus + & {
     outline: auto;
     outline: -webkit-focus-ring-color auto 1px;
