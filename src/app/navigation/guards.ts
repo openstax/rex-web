@@ -1,4 +1,4 @@
-import { isObject } from 'lodash/fp';
+import isObject from 'lodash/fp/isObject';
 import { Key, Token } from 'path-to-regexp';
 import { AnyMatch, MatchesWithParams } from './types';
 

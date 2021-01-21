@@ -1,6 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { isUndefined, omitBy } from 'lodash';
 import flow from 'lodash/fp/flow';
+import isUndefined from 'lodash/fp/isUndefined';
+import omitBy from 'lodash/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
