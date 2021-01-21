@@ -134,6 +134,11 @@ export const AnswerBlock = styled.label`
   display: flex;
   align-items: flex-start;
   cursor: ${(props: AnswerBlockProps) => props.isSubmitted ? 'not-allowed' : 'pointer'};
+
+  :focus {
+    outline: none;
+  }
+
   ${flow(getAnswerTheme, getAnswerThemeCss)}
   ${theme.breakpoints.mobile(css`
     padding: 0.5rem 2.4rem;
@@ -143,11 +148,7 @@ export const AnswerBlock = styled.label`
     }
   `)}
 
-  :focus {
-    outline: none;
-  }
-
-  ${AnswerWrapper}:focus > &,
+  ${AnswerWrapper}:focus &,
   input:focus + & {
     outline: auto;
     outline: -webkit-focus-ring-color auto 1px;
