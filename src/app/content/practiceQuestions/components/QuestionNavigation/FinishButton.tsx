@@ -8,10 +8,11 @@ const FinishButton = () => {
     {(msg: string) => <Button
       variant='primary'
       size='large'
-      value={msg}
       data-analytics-label='Finish'
-      component={<input type='submit' />}
-    />}
+      type='submit'
+    >
+      {msg}
+    </Button>}
   </FormattedMessage>;
 };
 
