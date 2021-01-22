@@ -155,7 +155,7 @@ describe('Question', () => {
     // tslint:disable-next-line: no-empty
     act(() => {});
 
-    const submit = component.root.findByProps({ value: 'Submit' });
+    const submit = component.root.findByProps({ 'data-analytics-label': 'Submit' });
     expect(submit.props.disabled).toEqual(true);
 
     const [firstAnswer] = component.root.findAllByType(Answer);
@@ -208,7 +208,7 @@ describe('Question', () => {
     // tslint:disable-next-line: no-empty
     act(() => {});
 
-    const submit = component.root.findByProps({ value: 'Submit' });
+    const submit = component.root.findByProps({ 'data-analytics-label': 'Submit' });
     expect(submit.props.disabled).toEqual(true);
 
     const [firstAnswer, secondAnswer] = component.root.findAllByType(Answer);
