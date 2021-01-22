@@ -4,7 +4,6 @@ import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
 import { AppState, Store } from '../app/types';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 import * as clickButton from './analyticsEvents/clickButton';
-import * as clickInput from './analyticsEvents/clickInput';
 import * as clickLink from './analyticsEvents/clickLink';
 import { AnalyticsEvent } from './analyticsEvents/event';
 import * as highlightingCreateNote from './analyticsEvents/highlighting/createNote';
@@ -52,7 +51,6 @@ const mapEventType = <E extends Event>(event: E) => ({
 
 const analytics = {
   clickButton: mapEventType(clickButton),
-  clickInput: mapEventType(clickInput),
   clickLink: mapEventType(clickLink),
   createNote: mapEventType(highlightingCreateNote),
   deleteHighlight: mapEventType(deleteHighlight),
@@ -95,15 +93,6 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
         return;
       }
       analytics.clickButton.track(analytics.clickButton.selector(store.getState()), button);
-    }
-
-    const input = findFirstAncestorOrSelfOfType(e.target, window.HTMLInputElement);
-    if (input && ['button', 'submit'].includes(input.type)) {
-      const disableTrack = input.getAttribute('data-analytics-disable-track');
-      if ( disableTrack ) {
-        return;
-      }
-      analytics.clickInput.track(analytics.clickInput.selector(store.getState()), input);
     }
   });
 
