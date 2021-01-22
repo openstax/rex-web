@@ -31,6 +31,7 @@ exports[`FinalScreen for practice questions renders properly and dispatches acti
     </div>
     <button
       className="Button-ayg7nk-0 crGJLq"
+      data-analytics-label="Continue (Final Screen)"
       onClick={[Function]}
     >
       Continue

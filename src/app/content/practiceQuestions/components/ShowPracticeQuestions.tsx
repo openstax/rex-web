@@ -8,6 +8,7 @@ import theme from '../../../theme';
 import * as contentSelectors from '../../selectors';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import { PopupBody } from '../../styles/PopupStyles';
+import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import * as pqSelectors from '../selectors';
 import { getNextPageWithPracticeQuestions } from '../utils';
 import EmptyScreen from './EmptyScreen';
@@ -96,6 +97,7 @@ const ShowPracticeQuestions = () => {
     <ShowPracticeQuestionsBody
       data-testid='show-practice-questions-body'
       data-analytics-region='PQ popup'
+      data-analytics-location={section ? splitTitleParts(section.title).join(' ') : 'section not loaded'}
     >
       <Filters />
       {isLoading
