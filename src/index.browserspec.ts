@@ -43,10 +43,6 @@ describe('Browser sanity tests', () => {
     ];
     expect(infoMessages).toContain(str.join(''));
   });
-
-  it('redirects to the https://openstax.org/error/404', async() => {
-    expect(page.url()).toBe('https://openstax.org/error/404');
-  });
 });
 
 it('a11y lighthouse check', async() => {

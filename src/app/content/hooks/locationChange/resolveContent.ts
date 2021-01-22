@@ -82,7 +82,7 @@ export const resolveBookReference = async(
       ? currentBook.slug
       : await osWebLoader.getBookSlugFromId(match.params.book.uuid);
 
-  if (match.state && match.state.bookUid && match.state.bookVersion) {
+  if (match.state && 'bookUid' in match.state && match.state.bookVersion) {
       return [bookSlug, match.state.bookUid,  match.state.bookVersion];
   }
 
@@ -130,7 +130,7 @@ const resolvePage = async(
 ) => {
   const {dispatch, getState} = services;
   const state = getState();
-  const pageId = match.state && match.state.pageUid
+  const pageId = match.state && 'pageUid' in match.state
     ? match.state.pageUid
     : getPageIdFromUrlParam(book, match.params.page);
 
