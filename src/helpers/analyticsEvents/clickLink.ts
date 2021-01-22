@@ -1,7 +1,7 @@
 import { HTMLAnchorElement } from '@openstax/types/lib.dom';
 import { createSelector } from 'reselect';
 import * as selectNavigation from '../../app/navigation/selectors';
-import { AnalyticsEvent, getAnalyticsRegion } from './event';
+import { AnalyticsEvent, getAnalyticsLocation, getAnalyticsRegion } from './event';
 
 const baseName = 'REX Link';
 
@@ -15,6 +15,7 @@ export const track = (
   anchor: HTMLAnchorElement
 ): AnalyticsEvent | void => {
   const region = getAnalyticsRegion(anchor);
+  const location = getAnalyticsLocation(anchor);
   const href = anchor.getAttribute('data-analytics-label') || anchor.getAttribute('href');
 
   if (!href) {
@@ -30,7 +31,7 @@ export const track = (
       return {
         eventAction: href,
         eventCategory,
-        eventLabel: pathname,
+        eventLabel: location || pathname,
       };
 
     },

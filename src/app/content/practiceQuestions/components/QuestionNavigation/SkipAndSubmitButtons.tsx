@@ -31,9 +31,10 @@ const SkipAndSubmitButtons = ({ disableSubmit, isFinalQuestion, question }: Skip
             }
           }}
           data-analytics-label='Skip'
-          value={msg}
-          component={<input type='button' />}
-        />
+          type='button'
+        >
+          {msg}
+        </Button>
       )}
     </FormattedMessage>
     <FormattedMessage id='i18n:practice-questions:popup:navigation:submit'>
@@ -43,10 +44,11 @@ const SkipAndSubmitButtons = ({ disableSubmit, isFinalQuestion, question }: Skip
           size='large'
           disabled={disableSubmit}
           default={true}
-          value={msg}
           data-analytics-label='Submit'
-          component={<input type='submit' />}
-        />
+          type='submit'
+        >
+          {msg}
+        </Button>
       )}
     </FormattedMessage>
   </React.Fragment>;

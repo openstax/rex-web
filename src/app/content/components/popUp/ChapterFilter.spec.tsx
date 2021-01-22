@@ -247,6 +247,7 @@ describe('ChapterFilter', () => {
           locationFilters={locationFilters}
           locationFiltersWithContent={new Set()}
           selectedLocationFilters={new Set()}
+          ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
         />
       </MessageProvider>
     </Provider>);
@@ -265,6 +266,7 @@ describe('ChapterFilter', () => {
           locationFilters={locationFilters}
           locationFiltersWithContent={new Set()}
           selectedLocationFilters={new Set()}
+          ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
         />
       </MessageProvider>
     </Provider>);
