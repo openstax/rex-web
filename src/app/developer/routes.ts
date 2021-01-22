@@ -4,7 +4,7 @@ import { Route } from '../navigation/types';
 
 const ROUTES_PATH = '/';
 
-export const developerHome: Route<undefined, undefined> = {
+export const developerHome: Route = {
   component: Loadable({
     loader: () => import(/* webpackChunkName: "DeveloperHome" */ './components/Home'),
     loading: () => null,
