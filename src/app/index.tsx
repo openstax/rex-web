@@ -16,9 +16,8 @@ import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as head from './head';
 import MessageProvider from './MessageProvider';
 import * as navigation from './navigation';
-import { hasState } from './navigation/guards';
 import { AnyMatch } from './navigation/types';
-import { matchUrl } from './navigation/utils';
+import { matchPathname } from './navigation/utils';
 import * as notifications from './notifications';
 import createReducer from './reducer';
 import { AppServices, AppState, Middleware } from './types';
@@ -33,15 +32,15 @@ export const actions = {
   notifications: notifications.actions,
 };
 
-export const routes = [
+export const routes = Object.values({
   ...(
     process.env.REACT_APP_ENV !== 'production'
-      ? Object.values(developer.routes)
-      : /* istanbul ignore next */ []
+      ? developer.routes
+      : /* istanbul ignore next */ {}
   ),
-  ...Object.values(content.routes),
-  ...Object.values(errors.routes),
-];
+  ...content.routes,
+  ...errors.routes,
+});
 
 const init = [
   ...Object.values(auth.init),
@@ -69,18 +68,21 @@ export interface AppOptions {
 export default (options: AppOptions) => {
   const {initialEntries, initialState} = options;
 
-  const history = typeof window !== 'undefined' && window.history
-    ? createBrowserHistory()
-    : createMemoryHistory(initialEntries && {
-      initialEntries: initialEntries.map(matchUrl),
+  const createMemoryHistoryHelper = () => {
+    const memoryHistory = createMemoryHistory(initialEntries && {
+      initialEntries: initialEntries.map(matchPathname),
     });
 
-  if (initialEntries && initialEntries.length > 0) {
-    const entry = initialEntries[initialEntries.length - 1];
-    if (hasState(entry)) {
-      history.location.state = entry.state;
+    if (initialEntries && initialEntries[0]) {
+      memoryHistory.location.state = initialEntries[0].state;
     }
-  }
+
+    return memoryHistory;
+  };
+
+  const history = typeof window !== 'undefined' && window.history
+    ? createBrowserHistory()
+    : createMemoryHistoryHelper();
 
   const reducer = createReducer(history);
 
