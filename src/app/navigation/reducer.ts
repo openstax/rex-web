@@ -17,11 +17,10 @@ const addQuery = (location: Location) => ({
 export default (location: Location): Reducer<State, AnyAction> => (state = addQuery(location), action) => {
   switch (action.type) {
     case getType(actions.locationChange):
-      const { match } = action.payload;
       return {
         ...state,
         ...action.payload.location,
-        match,
+        match: action.payload.match,
         query: action.payload.query,
       };
     case getType(receiveDeleteHighlight): {
