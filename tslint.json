@@ -9,6 +9,7 @@
     "prefer-object-spread": true,
     "quotemark": [true, "single"],
     "space-before-function-paren": [true, "never"],
+    "interface-over-type-literal": false,
     "variable-name": [true, "check-format", "allow-leading-underscore"],
     "indent": [true, "spaces", 2],
     "whitespace": [true,
