@@ -145,3 +145,127 @@ def test_add_note_from_MH_page(selenium, base_url, book_slug, page_slug):
             break
         else:
             continue
+
+
+@markers.test_case("C598223")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
+def test_edit_note_from_MH_page(selenium, base_url, book_slug, page_slug):
+    """Editing note from MH page, updates the highlight in content page."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight 2 set of texts in the page
+    paragraph = random.sample(book.content.paragraphs, 2)
+    note = Utilities.random_string(length=50)
+    content_highlight_ids = book.content.highlight_ids
+    data = [(paragraph[0], Color.GREEN, note), (paragraph[1], Color.YELLOW, note == "")]
+
+    for paragraphs, colors, note in data:
+        book.content.highlight(target=paragraphs, offset=Highlight.RANDOM, color=colors, note=note)
+        content_highlight_ids = content_highlight_ids + list(
+            set(book.content.highlight_ids) - set(content_highlight_ids)
+        )
+
+    my_highlights = book.toolbar.my_highlights()
+    highlights = my_highlights.highlights.edit_highlight
+    note_append = Utilities.random_string(20)
+
+    for highlight in highlights:
+        # WHEN: From MH page, update the highlight note
+        if highlight.note_present:
+            highlight_id = highlight.mh_highlight_id
+
+            highlight.edit_note()
+            highlight.note = note_append
+
+            # AND: Hit Cancel in the note edit textbox
+            highlight.cancel()
+
+            my_highlights.close()
+
+            # THEN: The corresponding highlight in the content page is not updated with the note edited in MH page
+            Utilities.click_option(
+                driver=selenium,
+                element=book.content.get_highlight(by_id=highlight_id)[0],
+                scroll_to=-130,
+            )
+
+            assert (
+                book.content.highlight_box.note == data[0][2]
+            ), "the note text is modified even on clicking Cancel"
+
+            highlight_id_1 = (
+                content_highlight_ids[0]
+                if content_highlight_ids[0] != highlight_id
+                else content_highlight_ids[1]
+            )
+
+            Utilities.scroll_top(selenium)
+            Utilities.click_option(
+                driver=selenium,
+                element=book.content.get_highlight(by_id=highlight_id_1)[0],
+                scroll_to=-130,
+            )
+
+            # AND: The highlight that was not updated in MH page is also not affected
+            assert book.content.highlight_box.note == "", "the unaltered note text is modified"
+            break
+        else:
+            continue
+
+    my_highlights = book.toolbar.my_highlights()
+    highlights = my_highlights.highlights.edit_highlight
+
+    for highlight in highlights:
+        # WHEN: From MH page, update the highlight note
+        if highlight.note_present:
+            highlight_id = highlight.mh_highlight_id
+
+            highlight.edit_note()
+            highlight.note = note_append
+
+            # AND: Hit Save in the note edit textbox
+            highlight.save()
+
+            my_highlights.close()
+
+            # THEN: The corresponding highlight in the content page is updated with the note edited in MH page
+            Utilities.click_option(
+                driver=selenium,
+                element=book.content.get_highlight(by_id=highlight_id)[0],
+                scroll_to=-130,
+            )
+
+            assert (
+                book.content.highlight_box.note == note_append + data[0][2]
+            ), "the note text does not match the note edited or note is edited on incorrect highlight"
+
+            highlight_id_1 = (
+                content_highlight_ids[0]
+                if content_highlight_ids[0] != highlight_id
+                else content_highlight_ids[1]
+            )
+
+            Utilities.scroll_top(selenium)
+            Utilities.click_option(
+                driver=selenium,
+                element=book.content.get_highlight(by_id=highlight_id_1)[0],
+                scroll_to=-130,
+            )
+
+            # AND: The highlight that was not updated in MH page is not affected
+            assert book.content.highlight_box.note == "", "the unaltered note text is modified"
+            break
+        else:
+            continue

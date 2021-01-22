@@ -738,7 +738,8 @@ class MyHighlights(Region):
                 :rtype: WebElement
 
                 """
-                return self.find_element(*self._cancel_annotation_button_locator)
+                return self.driver.execute_script(ELEMENT_SELECT.format(
+                    selector=self._cancel_annotation_button_locator[1]))
 
             @property
             def delete_button(self) -> WebElement:
