@@ -14,11 +14,11 @@ const contentPaths = injectParamsToBaseUrl(base, {
   page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
 });
 
-interface State {
+type State = {} | {
   bookUid: string;
   bookVersion: string;
   pageUid: string;
-}
+};
 
 export const content: Route<Params, State> = {
   component: Loadable({
