@@ -59,6 +59,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
     </h3>
     <div
       className="PopupStyles__PopupBody-w0z1hl-2 ShowPracticeQuestions__ShowPracticeQuestionsBody-sc-1hq8omx-0 eoLiAF"
+      data-analytics-location="section not loaded"
       data-analytics-region="PQ popup"
       data-testid="show-practice-questions-body"
     >

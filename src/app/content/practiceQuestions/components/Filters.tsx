@@ -45,6 +45,7 @@ export default () => {
           selectedLocationFilters={selectedLocationFilters}
           setFilters={setFilters}
           multiselect={false}
+          ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
         />
       </FilterDropdown>
     </FiltersTopBar>
