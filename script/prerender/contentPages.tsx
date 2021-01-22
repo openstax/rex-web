@@ -18,7 +18,7 @@ import * as headSelectors from '../../src/app/head/selectors';
 import { Link, Meta } from '../../src/app/head/types';
 import * as navigationSelectors from '../../src/app/navigation/selectors';
 import { AnyMatch, Match } from '../../src/app/navigation/types';
-import { matchUrl } from '../../src/app/navigation/utils';
+import { matchPathname } from '../../src/app/navigation/utils';
 import { AppServices, AppState } from '../../src/app/types';
 import { assertDefined } from '../../src/app/utils';
 import { BOOKS } from '../../src/config';
@@ -57,7 +57,7 @@ const prepareApp = async(
   action: AnyMatch,
   expectedCode: number
 ) => {
-  const url = matchUrl(action);
+  const url = matchPathname(action);
   const app = createApp({initialEntries: [action], services});
 
   await app.services.promiseCollector.calm();
@@ -113,11 +113,11 @@ type MakeRenderPage = (services: AppOptions['services']) =>
 
 const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
 
-  const matchState = assertDefined(
-    route.state,
-    'match state wasn\'t defined, it should have been'
-  );
-  const {bookUid, bookVersion, pageUid} = matchState;
+  if (!route.state || !('bookUid' in route.state)) {
+    throw new Error('match state wasn\'t defined, it should have been');
+  }
+
+  const {bookUid, bookVersion, pageUid} = route.state;
   const archivePage = assertDefined(
     await services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load(),
     'page wasn\'t cached, it should have been'
@@ -138,7 +138,7 @@ const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
   return {
     changefreq: EnumChangefreq.MONTHLY,
     lastmod: dateFns.format(archivePage.revised, 'YYYY-MM-DD'),
-    url: matchUrl(route),
+    url: matchPathname(route),
   };
 };
 
