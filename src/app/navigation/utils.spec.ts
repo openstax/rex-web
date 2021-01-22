@@ -12,6 +12,7 @@ import {
   getUrlRegexParams,
   injectParamsToBaseUrl,
   isScrollTarget,
+  matchPathname,
   matchSearch,
   matchUrl,
   routeHook,
@@ -32,7 +33,8 @@ const routes = [
   },
   {
     component: () => null,
-    getSearch: () => 'url3?archive=https://archive-content03.cnx.org',
+    getSearch: () => 'archive=https://archive-content03.cnx.org',
+    getUrl: () => 'url3',
     name: 'with search',
     paths: ['/with/:search?'],
   },
@@ -53,19 +55,19 @@ describe('findRouteMatch', () => {
   it('returns match for route without params', () => {
     const location = {pathname: '/basic'} as Location;
     const result = findRouteMatch(routes, location);
-    expect(result).toEqual({route: routes[0]});
+    expect(result).toEqual({route: routes[0], params: {}, state: {}});
   });
 
   it('returns match for route with params', () => {
     const location = {pathname: '/with/thing'} as Location;
     const result = findRouteMatch(routes, location);
-    expect(result).toEqual({route: routes[1], params: {param: 'thing'}});
+    expect(result).toEqual({route: routes[1], params: {param: 'thing'}, state: {}});
   });
 
   it('returns undefined for missing param values', () => {
     const location = {pathname: '/with'} as Location;
     const result = findRouteMatch(routes, location);
-    expect(result).toEqual({route: routes[1], params: {param: undefined}});
+    expect(result).toEqual({route: routes[1], params: {param: undefined}, state: {}});
   });
 });
 
@@ -119,18 +121,28 @@ describe('routeHook', () => {
   });
 });
 
-describe('matchUrl', () => {
-
-  it('renders a url with no params', () => {
-    expect(matchUrl({route: routes[0]} as unknown as AnyMatch)).toEqual('url1');
+describe('matchPathname', () => {
+  it('renders a path with no params', () => {
+    expect(matchPathname({route: routes[0]} as unknown as AnyMatch)).toEqual('url1');
   });
 
-  it('renders a url with params', () => {
+  it('renders a path with params', () => {
     const spy = jest.spyOn(routes[1], 'getUrl');
     const params = {foo: 'bar'};
 
-    expect(matchUrl({route: routes[1], params} as unknown as AnyMatch)).toEqual('url2');
+    expect(matchPathname({route: routes[1], params} as unknown as AnyMatch)).toEqual('url2');
     expect(spy).toHaveBeenCalledWith(params);
+  });
+});
+
+describe('matchUrl', () => {
+  it('renders a url with just a path', () => {
+    expect(matchUrl({route: routes[0], params: {}, state: {}})).toEqual('url1');
+  });
+
+  it('renders url with path and query', () => {
+    expect(matchUrl({route: routes[2], params: {}, state: {}}))
+      .toEqual('url3?archive=https%3A%2F%2Farchive-content03.cnx.org');
   });
 });
 
@@ -225,7 +237,7 @@ describe('matchSearch', () => {
         {route: routes[2], params} as AnyMatch,
         ''
       )
-    ).toEqual('url3%3Farchive=https%3A%2F%2Farchive-content03.cnx.org');
+    ).toEqual('archive=https%3A%2F%2Farchive-content03.cnx.org');
     expect(spy).toHaveBeenCalledWith(params);
   });
 
@@ -242,7 +254,7 @@ describe('matchSearch', () => {
         {route: routes[2]} as AnyMatch,
         ''
       )
-    ).toEqual('url3%3Farchive=https%3A%2F%2Farchive-content03.cnx.org');
+    ).toEqual('archive=https%3A%2F%2Farchive-content03.cnx.org');
   });
 });
 
