@@ -50,6 +50,7 @@ describe('locationChange', () => {
           },
         },
         route: routes.content,
+        state: {},
       },
     };
 
