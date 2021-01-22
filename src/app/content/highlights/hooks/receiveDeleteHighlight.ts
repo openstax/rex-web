@@ -1,7 +1,8 @@
 import { NewHighlight } from '@openstax/highlighter/dist/api';
+import { makeApplicationError } from '../../../../helpers/applicationMessageError';
 import { getHighlightToastDesination } from '../../../notifications/utils';
 import { ActionHookBody } from '../../../types';
-import { actionHook, CustomApplicationError } from '../../../utils';
+import { actionHook } from '../../../utils';
 import { createHighlight, receiveDeleteHighlight } from '../actions';
 import { HighlightDeleteError } from '../errors';
 
@@ -22,11 +23,7 @@ export const hookBody: ActionHookBody<typeof receiveDeleteHighlight> =
         {...meta, revertingAfterFailure: true}
       ));
 
-      if (error instanceof CustomApplicationError) {
-        throw error;
-      }
-
-      throw new HighlightDeleteError({ destination });
+      throw makeApplicationError(error, new HighlightDeleteError({ destination }));
     }
   };
 

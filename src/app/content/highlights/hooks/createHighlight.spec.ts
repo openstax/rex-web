@@ -1,11 +1,11 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
-import { CustomApplicationError } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { createHighlight, receiveDeleteHighlight } from '../actions';
@@ -108,9 +108,9 @@ describe('createHighlight', () => {
     }
   });
 
-  it('throws CustomApplicationError', async() => {
+  it('throws ApplicationError', async() => {
     expect.assertions(3);
-    const mockCustomApplicationError = new CustomApplicationError('error');
+    const mockCustomApplicationError = new ApplicationError('error');
     const meta = { locationFilterId: 'id', pageId: 'id' };
 
     store.dispatch(receiveBook(book));
@@ -124,7 +124,7 @@ describe('createHighlight', () => {
       await hook(createHighlight(mock, meta));
     } catch (error) {
       expect(createHighlightClient).toHaveBeenCalledWith({ highlight: mock });
-      expect(error instanceof CustomApplicationError).toEqual(true);
+      expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });

@@ -1,4 +1,4 @@
-import { makeApplicationError } from '../helpers/applicationMessageError';
+import { makeToastMessageError } from '../helpers/applicationMessageError';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
 import createTestStore from '../test/createTestStore';
@@ -134,9 +134,9 @@ describe('actionHook', () => {
   });
 });
 
-it('handle error if it is instance of ApplicationMesssageError', async() => {
+it('handle error if it is instance of ToastMesssageError', async() => {
   const hookSpy = jest.fn(async() => Promise.reject(
-    new (makeApplicationError('some-key'))({ destination: 'myHighlights', shouldAutoDismiss: true })
+    new (makeToastMessageError('some-key'))({ destination: 'myHighlights', shouldAutoDismiss: true })
   ));
   const helpers = ({
     dispatch: jest.fn(),

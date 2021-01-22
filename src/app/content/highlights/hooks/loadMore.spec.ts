@@ -1,11 +1,12 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage, pageInChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
-import { assertDefined, CustomApplicationError } from '../../../utils';
+import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
@@ -338,9 +339,9 @@ describe('filtersChange errors', () => {
     }
   });
 
-  it('throws CustomApplicationError', async() => {
+  it('throws ApplicationError', async() => {
     expect.assertions(2);
-    const mockCustomApplicationError = new CustomApplicationError('error');
+    const mockCustomApplicationError = new ApplicationError('error');
     const pageId = 'testbook1-testpage9-uuid';
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
@@ -359,7 +360,7 @@ describe('filtersChange errors', () => {
       await hook(store.dispatch(setSummaryFilters({locationIds})));
     } catch (error) {
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-      expect(error instanceof CustomApplicationError).toEqual(true);
+      expect(error instanceof ApplicationError).toEqual(true);
     }
   });
 });

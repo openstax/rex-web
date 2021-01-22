@@ -1,8 +1,9 @@
 import {
   GetHighlightsColorsEnum, GetHighlightsSetsEnum,
 } from '@openstax/highlighter/dist/api';
+import { makeApplicationError } from '../../../../helpers/applicationMessageError';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
-import { actionHook, CustomApplicationError } from '../../../utils';
+import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { StudyGuidesPopupLoadError } from '../../highlights/errors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../../highlights/utils/highlightLoadingUtils';
@@ -52,12 +53,7 @@ export const hookBody: ActionHookBody<
     response = await loadMore(services, summaryPageSize);
   } catch (error) {
     services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));
-
-    if (error instanceof CustomApplicationError) {
-      throw error;
-    }
-
-    throw new StudyGuidesPopupLoadError({ destination: 'studyGuides' });
+    throw makeApplicationError(error, new StudyGuidesPopupLoadError({ destination: 'studyGuides' }));
   }
 
   const {formattedHighlights, pagination} = response;

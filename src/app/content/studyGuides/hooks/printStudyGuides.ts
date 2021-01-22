@@ -1,5 +1,6 @@
+import { makeApplicationError } from '../../../../helpers/applicationMessageError';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
-import { actionHook, assertWindow, CustomApplicationError } from '../../../utils';
+import { actionHook, assertWindow } from '../../../utils';
 import { StudyGuidesPopupPrintError } from '../../highlights/errors';
 import { printStudyGuides, receiveSummaryStudyGuides, toggleStudyGuidesSummaryLoading } from '../actions';
 import { studyGuidesOpen } from '../selectors';
@@ -14,12 +15,7 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices) => {
     response = await loadMore(services);
   } catch (error) {
     services.dispatch(toggleStudyGuidesSummaryLoading(false));
-
-    if (error instanceof CustomApplicationError) {
-      throw error;
-    }
-
-    throw new StudyGuidesPopupPrintError({ destination: 'studyGuides' });
+    throw makeApplicationError(error, new StudyGuidesPopupPrintError({ destination: 'studyGuides' }));
   }
 
   const {formattedHighlights} = response;

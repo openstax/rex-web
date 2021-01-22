@@ -1,11 +1,12 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
-import { assertWindow, CustomApplicationError } from '../../../utils';
+import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { formatBookData } from '../../utils';
@@ -228,9 +229,9 @@ describe('printHighlights', () => {
       }
     });
 
-    it('throws CustomApplicationError', async() => {
+    it('throws ApplicationError', async() => {
       expect.assertions(3);
-      const mockCustomApplicationError = new CustomApplicationError('error');
+      const mockCustomApplicationError = new ApplicationError('error');
 
       jest.spyOn(helpers.highlightClient, 'getHighlights')
         .mockRejectedValueOnce(mockCustomApplicationError);
@@ -239,7 +240,7 @@ describe('printHighlights', () => {
         await asyncHelper(helpers);
       } catch (error) {
         expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-        expect(error instanceof CustomApplicationError).toEqual(true);
+        expect(error instanceof ApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
     });

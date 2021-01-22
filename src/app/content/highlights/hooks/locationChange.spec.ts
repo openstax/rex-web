@@ -1,3 +1,4 @@
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
@@ -10,7 +11,6 @@ import { formatUser } from '../../../auth/utils';
 import { locationChange } from '../../../navigation/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
-import { CustomApplicationError } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { receiveHighlights } from '../actions';
@@ -194,9 +194,9 @@ describe('locationChange', () => {
       }
     });
 
-    it('throws CustomApplicationError', async() => {
+    it('throws ApplicationError', async() => {
       expect.assertions(8);
-      const mockCustomApplicationError = new CustomApplicationError('error');
+      const mockCustomApplicationError = new ApplicationError('error');
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({...page, references: []}));
       store.dispatch(receiveUser(formatUser(testAccountsUser)));
@@ -209,28 +209,28 @@ describe('locationChange', () => {
       try {
         await hook();
       } catch (error) {
-        expect(error instanceof CustomApplicationError).toEqual(true);
+        expect(error instanceof ApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
 
       try {
         await hook(receivePageFocus(true));
       } catch (error) {
-        expect(error instanceof CustomApplicationError).toEqual(true);
+        expect(error instanceof ApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
 
       try {
         await hook(receivePageFocus(false));
       } catch (error) {
-        expect(error instanceof CustomApplicationError).toEqual(true);
+        expect(error instanceof ApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
 
       try {
         await hook(locationChange({action: 'PUSH', location: {} as any}));
       } catch (error) {
-        expect(error instanceof CustomApplicationError).toEqual(true);
+        expect(error instanceof ApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
     });

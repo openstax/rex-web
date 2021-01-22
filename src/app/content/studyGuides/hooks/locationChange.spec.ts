@@ -1,3 +1,4 @@
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
@@ -5,7 +6,6 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { receiveFeatureFlags } from '../../../actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
-import { CustomApplicationError } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { CountsPerSource } from '../../highlights/types';
@@ -126,9 +126,9 @@ describe('locationChange', () => {
     }
   });
 
-  it('throws CustomApplicationError', async() => {
+  it('throws ApplicationError', async() => {
     expect.assertions(3);
-    const mockCustomApplicationError = new CustomApplicationError('error');
+    const mockCustomApplicationError = new ApplicationError('error');
 
     jest.spyOn(Date, 'now')
       .mockReturnValue(1);
@@ -144,7 +144,7 @@ describe('locationChange', () => {
       await hook();
     } catch (error) {
       expect(getHighlightsSummaryClient).toHaveBeenCalled();
-      expect(error instanceof CustomApplicationError).toEqual(true);
+      expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });

@@ -1,7 +1,7 @@
 import { Document } from '@openstax/types/lib.dom';
 import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
-import { ApplicationMesssageError } from '../helpers/applicationMessageError';
+import { ApplicationError, ToastMesssageError } from '../helpers/applicationMessageError';
 import Sentry from '../helpers/Sentry';
 import { receiveLoggedOut } from './auth/actions';
 import { recordError, showErrorDialog } from './errors/actions';
@@ -55,7 +55,7 @@ const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
     Sentry.captureException(e);
     notFound.redirect();
     return;
-  } else if (e instanceof ApplicationMesssageError) {
+  } else if (e instanceof ToastMesssageError) {
     Sentry.captureException(e);
     dispatch(addToast(e.messageKey, e.meta));
     return;
@@ -176,10 +176,8 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
   };
 };
 
-export class CustomApplicationError extends Error {}
+// tslint:disable-next-line: max-classes-per-file
+export class UnauthenticatedError extends ApplicationError {}
 
 // tslint:disable-next-line: max-classes-per-file
-export class UnauthenticatedError extends CustomApplicationError {}
-
-// tslint:disable-next-line: max-classes-per-file
-export class BookNotFoundError extends CustomApplicationError {}
+export class BookNotFoundError extends ApplicationError {}

@@ -1,6 +1,9 @@
 import { ToastMeta } from '../app/notifications/types';
 
-export class ApplicationMesssageError extends Error {
+export class ApplicationError extends Error {}
+
+// tslint:disable-next-line: max-classes-per-file
+export class ToastMesssageError extends Error {
   public messageKey: string;
   public meta: ToastMeta;
 
@@ -12,8 +15,18 @@ export class ApplicationMesssageError extends Error {
 }
 
 // tslint:disable-next-line: max-classes-per-file
-export const makeApplicationError = (messageKey: string) => class extends ApplicationMesssageError {
+export const makeToastMessageError = (messageKey: string) => class extends ToastMesssageError {
   constructor(meta: ToastMeta) {
     super(messageKey, meta);
   }
+};
+
+/**
+ * Return @param error if it is instance of ApplicationError or @param customError in other cases
+ */
+export const makeApplicationError = (error: Error, customError: Error | (() => Error)) => {
+  if (error instanceof ApplicationError) {
+    return error;
+  }
+  return typeof customError === 'function' ? customError() : customError;
 };

@@ -1,9 +1,9 @@
-import { ApplicationMesssageError } from '../../../../helpers/applicationMessageError';
+import { ApplicationError, ToastMesssageError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
-import { assertWindow, CustomApplicationError } from '../../../utils';
+import { assertWindow } from '../../../utils';
 import {
   closeStudyGuides,
   printStudyGuides,
@@ -61,7 +61,7 @@ describe('printStudyGuides', () => {
   it('throws ApplicationMesssageError', async() => {
     expect.assertions(3);
     const error = {} as any;
-    const mockApplicationMesssageError = new ApplicationMesssageError(
+    const mockApplicationMesssageError = new ToastMesssageError(
       toastMessageKeys.studyGuides.failure.popUp.print,
       { destination: 'studyGuides' });
 
@@ -76,9 +76,9 @@ describe('printStudyGuides', () => {
     }
   });
 
-  it('throws CustomApplicationError', async() => {
+  it('throws ApplicationError', async() => {
     expect.assertions(2);
-    const mockCustomApplicationError = new CustomApplicationError();
+    const mockCustomApplicationError = new ApplicationError();
 
     jest.spyOn(require('./loadMore'), 'loadMore')
       .mockRejectedValueOnce(mockCustomApplicationError);
@@ -86,7 +86,7 @@ describe('printStudyGuides', () => {
       await hook(printStudyGuides());
     } catch (error) {
       expect(dispatch).toBeCalledWith(toggleStudyGuidesSummaryLoading(false));
-      expect(error instanceof CustomApplicationError).toEqual(true);
+      expect(error instanceof ApplicationError).toEqual(true);
     }
   });
 

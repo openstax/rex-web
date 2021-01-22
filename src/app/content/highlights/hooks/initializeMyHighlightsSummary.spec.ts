@@ -1,11 +1,12 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
-import { assertDefined, CustomApplicationError } from '../../../utils';
+import { assertDefined } from '../../../utils';
 import { receiveBook } from '../../actions';
 import * as contentSelectors from '../../selectors';
 import { formatBookData } from '../../utils';
@@ -105,9 +106,9 @@ describe('initializeMyHighlightsSummaryHook', () => {
     }
   });
 
-  it('throws CustomApplicationError when summary request fails', async() => {
+  it('throws ApplicationError when summary request fails', async() => {
     expect.assertions(4);
-    const mockCustomApplicationError = new CustomApplicationError('error');
+    const mockCustomApplicationError = new ApplicationError('error');
 
     store.dispatch(receiveBook(book));
 
@@ -119,7 +120,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
     } catch (error) {
       expect(getHighlightsSummaryClient).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-      expect(error instanceof CustomApplicationError).toEqual(true);
+      expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });
@@ -144,9 +145,9 @@ describe('initializeMyHighlightsSummaryHook', () => {
     }
   });
 
-  it('throws CustomApplicationError when highlights request fails', async() => {
+  it('throws ApplicationError when highlights request fails', async() => {
     expect.assertions(4);
-    const mockCustomApplicationError = new CustomApplicationError('error');
+    const mockCustomApplicationError = new ApplicationError('error');
 
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
       .mockResolvedValueOnce({ countsPerSource: {} });
@@ -159,7 +160,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
     } catch (error) {
       expect(getHighlightsClient).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-      expect(error instanceof CustomApplicationError).toEqual(true);
+      expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });

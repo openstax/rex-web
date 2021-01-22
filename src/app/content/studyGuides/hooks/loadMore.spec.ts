@@ -1,11 +1,11 @@
 import { GetHighlightsSetsEnum, HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
-import { CustomApplicationError } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { HighlightData, SummaryHighlights } from '../../highlights/types';
 import { formatBookData } from '../../utils';
@@ -241,9 +241,9 @@ describe('loadMore', () => {
     }
   });
 
-  it('throws CustomApplicationError', async() => {
+  it('throws ApplicationError', async() => {
     expect.assertions(3);
-    const mockCustomApplicationError = new CustomApplicationError('error');
+    const mockCustomApplicationError = new ApplicationError('error');
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockRejectedValueOnce(mockCustomApplicationError);
@@ -259,7 +259,7 @@ describe('loadMore', () => {
       await hook(store.dispatch(loadMoreStudyGuides()));
     } catch (error) {
       expect(dispatch).toHaveBeenCalledWith(toggleStudyGuidesSummaryLoading(false));
-      expect(error instanceof CustomApplicationError).toEqual(true);
+      expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });

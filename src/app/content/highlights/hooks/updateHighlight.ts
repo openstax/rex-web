@@ -1,6 +1,7 @@
+import { makeApplicationError } from '../../../../helpers/applicationMessageError';
 import { getHighlightToastDesination } from '../../../notifications/utils';
 import { ActionHookBody } from '../../../types';
-import { actionHook, CustomApplicationError } from '../../../utils';
+import { actionHook } from '../../../utils';
 import { updateHighlight } from '../actions';
 import { HighlightUpdateAnnotationError, HighlightUpdateColorError } from '../errors';
 
@@ -20,15 +21,12 @@ export const hookBody: ActionHookBody<typeof updateHighlight> =
 
       dispatch(updateHighlight(meta.preUpdateData, {...meta, revertingAfterFailure: true}));
 
-      if (error instanceof CustomApplicationError) {
-        throw error;
-      }
-
-      if (payload.highlight.color && oldColor !== payload.highlight.color) {
-        throw new HighlightUpdateColorError({ destination });
-      } else {
-        throw new HighlightUpdateAnnotationError({ destination });
-      }
+      throw makeApplicationError(
+        error,
+        () => payload.highlight.color && oldColor !== payload.highlight.color
+          ? new HighlightUpdateColorError({ destination })
+          : new HighlightUpdateAnnotationError({ destination })
+      );
     }
   };
 

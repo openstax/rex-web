@@ -1,9 +1,9 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
-import { CustomApplicationError } from '../../../utils';
 import { createHighlight, receiveDeleteHighlight } from '../actions';
 
 const createMockHighlight = () => ({
@@ -86,9 +86,9 @@ describe('receiveDeleteHighlight', () => {
     }
   });
 
-  it('throws CustomApplicationError', async() => {
+  it('throws ApplicationError', async() => {
     expect.assertions(3);
-    const mockCustomApplicationError = new CustomApplicationError('error');
+    const mockCustomApplicationError = new ApplicationError('error');
 
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
       .mockRejectedValue(mockCustomApplicationError);
@@ -97,7 +97,7 @@ describe('receiveDeleteHighlight', () => {
       await hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
     } catch (error) {
       expect(deleteHighlightClient).toHaveBeenCalled();
-      expect(error instanceof CustomApplicationError).toEqual(true);
+      expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });

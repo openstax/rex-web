@@ -1,9 +1,10 @@
 import { HighlightUpdateColorEnum, NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
-import { assertDefined, CustomApplicationError } from '../../../utils';
+import { assertDefined } from '../../../utils';
 import { createHighlight, openMyHighlights, updateHighlight } from '../actions';
 
 jest.mock('../../../../helpers/Sentry');
@@ -183,9 +184,9 @@ describe('updateHighlight', () => {
     }
   });
 
-  it('throws CustomApplicationError', async() => {
+  it('throws ApplicationError', async() => {
     expect.assertions(3);
-    const mockCustomApplicationError = new CustomApplicationError('error');
+    const mockCustomApplicationError = new ApplicationError('error');
 
     const updatePayload = highlightUpdatePayload(highlight.id, { color: 'red', annotation: 'new' });
 
@@ -196,7 +197,7 @@ describe('updateHighlight', () => {
       await hook(updateHighlight(updatePayload, meta));
     } catch (error) {
       expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
-      expect(error instanceof CustomApplicationError).toEqual(true);
+      expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
     }
   });
