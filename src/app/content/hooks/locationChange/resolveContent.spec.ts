@@ -79,6 +79,7 @@ describe('locationChange', () => {
         },
       },
       route: routes.content,
+      state: {},
     };
 
     const resolveContent = require('./resolveContent');
