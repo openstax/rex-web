@@ -77,6 +77,7 @@ describe('ShowPracticeQuestions', () => {
           page: { slug: 'page' },
         },
         route: content,
+        state: {},
       },
     }));
 

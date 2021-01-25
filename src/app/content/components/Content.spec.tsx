@@ -57,6 +57,7 @@ describe('content', () => {
             },
           },
           route: content,
+          state: {},
         },
       })
     );

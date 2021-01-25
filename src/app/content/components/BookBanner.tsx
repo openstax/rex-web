@@ -6,7 +6,6 @@ import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
-import { notFound } from '../../errors/routes';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import { assertDefined, assertWindow } from '../../utils';
@@ -236,15 +235,18 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
       return <BarWrapper colorSchema={undefined} up={false} />;
     }
 
-    const bookUrl = hasOSWebData(book) ? bookDetailsUrl(book) : notFound.getUrl();
-    const bookState = hasOSWebData(book) ? book.book_state : undefined;
+    const bookUrl = hasOSWebData(book)
+      ? book.book_state !== 'retired'
+        ? bookDetailsUrl(book)
+        : undefined
+      : undefined;
 
-    return this.renderBars({theme: bookTheme, book_state: bookState, ...book}, bookUrl, pageNode);
+    return this.renderBars({theme: bookTheme, ...book}, bookUrl, pageNode);
   }
 
   private renderBars = (
-    book: Book & {theme: BookWithOSWebData['theme'], book_state: BookWithOSWebData['book_state'] | undefined},
-    bookUrl: string,
+    book: Book & {theme: BookWithOSWebData['theme']},
+    bookUrl: string | undefined,
     treeSection?: ArchiveTreeSection) =>
   ([
     <BarWrapper
@@ -257,7 +259,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
     >
       <TopBar>
         {
-          book.book_state === 'retired'
+          bookUrl === undefined
             ? <BookTitle data-testid='book-title-expanded' colorSchema={book.theme}>
               {book.tree.title}
             </BookTitle>
@@ -291,7 +293,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
     >
       <TopBar>
         {
-          book.book_state === 'retired'
+          bookUrl === undefined
             ? <BookTitle data-testid='book-title-collapsed' colorSchema={book.theme} variant='mini'>
               {book.tree.title}
             </BookTitle>
