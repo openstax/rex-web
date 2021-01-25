@@ -4,7 +4,7 @@ import Sentry from '../helpers/Sentry';
 export interface BuyPrintResponse {
   buy_urls: Array<{
     url: string;
-    provider: 'amazon';
+    provider: 'amazon' | 'openstax fallback';
     allows_redirects: boolean;
     disclosure: string | null;
   }>;
@@ -24,9 +24,9 @@ export default (url: string) => {
 
         return Promise.resolve({
           buy_urls: [{
-            allows_redirects: false,
+            allows_redirects: true,
             disclosure: null,
-            provider: 'amazon',
+            provider: 'openstax fallback',
             url: `${url}/${book.slug}`,
           }],
         }) as Promise<BuyPrintResponse>;

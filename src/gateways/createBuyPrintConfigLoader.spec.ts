@@ -39,9 +39,9 @@ describe('buyPrintConfigLoader', () => {
 
     const mockBuyPrintResponse = {
       buy_urls: [{
-        allows_redirects: false,
+        allows_redirects: true,
         disclosure: null,
-        provider: 'amazon',
+        provider: 'openstax fallback',
         url: 'url/asdf',
       }],
     };
