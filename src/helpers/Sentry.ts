@@ -67,15 +67,15 @@ export default {
   },
 
   log(message: string) {
-    this.captureMessage(message, Sentry.Severity.Log);
+    this.captureMessage(message, Severity.Log);
   },
 
   warn(message: string) {
-    this.captureMessage(message, Sentry.Severity.Warning);
+    this.captureMessage(message, Severity.Warning);
   },
 
   error(message: string) {
-    this.captureMessage(message, Sentry.Severity.Error);
+    this.captureMessage(message, Severity.Error);
   },
 
 };
