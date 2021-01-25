@@ -10,6 +10,14 @@ import books from '../src/config.books.json';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 
+interface ArchivedSlug {
+  pathname: string;
+  bookId: string;
+  pageId: string;
+}
+
+type ArchivedSlugs = ArchivedSlug[];
+
 const { book, newVersion } = argv as any as {
   book: string
   newVersion: string | number;
@@ -35,15 +43,31 @@ async function processBooks() {
 
   const [bookId, { defaultVersion }] = bookToUpdate;
 
-  const { title, tree: currentTree } = await archiveLoader.book(bookId, defaultVersion).load();
-  const { tree: newTree } = await archiveLoader.book(bookId, newVersion.toString()).load();
-  const bookSlug = await osWebLoader.getBookSlugFromId(bookId);
+  const { title, tree: currentTree } = await archiveLoader.book(bookId, defaultVersion).load()
+    .catch(() => {
+      // tslint:disable-next-line: no-console
+      console.log(`error while loading book ${bookId} with defaultVersion ${defaultVersion}`);
+      process.exit();
+    });
+  const { tree: newTree } = await archiveLoader.book(bookId, newVersion.toString()).load()
+    .catch(() => {
+      // tslint:disable-next-line: no-console
+      console.log(`error while loading book ${bookId} with newVersion ${newVersion}`);
+      process.exit();
+    });
+  const bookSlug = await osWebLoader.getBookSlugFromId(bookId)
+    .catch(() => {
+      // tslint:disable-next-line: no-console
+      console.log(`error while loading slug for bookId ${bookId}`);
+      process.exit();
+    });
+
   const flatCurrentTree = flattenArchiveTree(currentTree);
   const flatNewTree = flattenArchiveTree(newTree);
-  const missingPages = [...archivedSlugs];
+  const missingPages = [...archivedSlugs] as ArchivedSlugs;
 
-  const findPage = (section: LinkedArchiveTreeNode) => (
-    { pageId, bookId: pageBookId, pathname }: typeof archivedSlugs[0]
+  const findArchivedSlug = (section: LinkedArchiveTreeNode) => (
+    { pageId, bookId: pageBookId, pathname }: ArchivedSlug
   ) => pageId === section.id && pageBookId === bookId && pathname.split('/').pop() === section.slug;
 
   const formatSection = (section: LinkedArchiveTreeNode) => ({
@@ -52,12 +76,14 @@ async function processBooks() {
     pathname: `/books/${bookSlug}/pages/${section.slug}`,
   });
 
+  let countNewArchivedSlugs = 0;
   for (const section of flatCurrentTree) {
     if (
       !flatNewTree.find((newSection) => newSection.slug === section.slug)
-      && !archivedSlugs.find(findPage(section))
+      && !archivedSlugs.find(findArchivedSlug(section))
     ) {
       missingPages.push(formatSection(section));
+      countNewArchivedSlugs++;
     }
   }
 
@@ -69,7 +95,8 @@ async function processBooks() {
 
   fs.writeFileSync(booksPath, JSON.stringify(newBooksData, undefined, 2), 'utf8');
 
-  console.log(`updated ${title}`); // tslint:disable-line:no-console
+  // tslint:disable-next-line: no-console
+  console.log(`updated ${title} and added ${countNewArchivedSlugs} new archived slugs`);
 }
 
 processBooks();
