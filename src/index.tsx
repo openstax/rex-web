@@ -19,7 +19,7 @@ import { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
 import { startMathJax } from './helpers/mathjax';
 import pollUpdates from './helpers/pollUpdates';
-import Sentry from './helpers/Sentry';
+import Sentry, { Severity } from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
@@ -121,5 +121,5 @@ serviceWorker.register()
     }
   })
   .catch((e) => {
-    Sentry.captureException(e);
+    Sentry.captureException(e, Severity.Warning);
   });
