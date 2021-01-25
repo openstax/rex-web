@@ -117,6 +117,7 @@ describe('content reducer', () => {
           },
         },
         route: content,
+        state: {},
       },
     }));
 
@@ -169,6 +170,7 @@ describe('content reducer', () => {
           },
         },
         route: content,
+        state: {},
       },
     }));
 
@@ -217,6 +219,7 @@ describe('content reducer', () => {
           },
         },
         route: content,
+        state: {},
       },
     }));
 

@@ -53,6 +53,7 @@ const FinalScreen = ({ nextSection }: FinalScreenProps) => {
         nextSection={nextSection}
         messageKey='i18n:practice-questions:popup:final:next-section'
         onClick={() => dispatch(setSelectedSection(nextSection))}
+        analyticsLabel='Continue (Final Screen)'
       />
     }
   </StyledFinalScreen>;
