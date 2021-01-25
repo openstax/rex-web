@@ -32,7 +32,9 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
 
     return summary;
   } catch (error) {
-    throw ensureApplicationErrorType(error, new StudyGuidesLoadError({ destination: 'page', shouldAutoDismiss: false }));
+    throw ensureApplicationErrorType(
+      error,
+      new StudyGuidesLoadError({ destination: 'page', shouldAutoDismiss: false }));
   }
 };
 
