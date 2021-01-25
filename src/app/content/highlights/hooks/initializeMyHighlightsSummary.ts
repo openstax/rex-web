@@ -1,5 +1,5 @@
 import { GetHighlightsSummarySourceTypeEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
-import { makeApplicationError } from '../../../../helpers/applicationMessageError';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { ActionHookBody, Unpromisify } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { summaryPageSize } from '../../constants';
@@ -32,7 +32,7 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
     });
   } catch (error) {
     dispatch(toggleSummaryHighlightsLoading(false));
-    throw makeApplicationError(error, new HighlightPopupLoadError({ destination: 'myHighlights' }));
+    throw ensureApplicationErrorType(error, new HighlightPopupLoadError({ destination: 'myHighlights' }));
   }
 
   const countsPerSource = assertDefined(totalCounts.countsPerSource, 'summary response is invalid');
@@ -48,7 +48,7 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
     highlights = await loadMore(services, summaryPageSize);
   } catch (error) {
     dispatch(toggleSummaryHighlightsLoading(false));
-    throw makeApplicationError(error, new HighlightPopupLoadError({destination: 'myHighlights'}));
+    throw ensureApplicationErrorType(error, new HighlightPopupLoadError({destination: 'myHighlights'}));
   }
 
   const {formattedHighlights, pagination} = highlights;

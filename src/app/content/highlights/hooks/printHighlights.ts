@@ -1,4 +1,4 @@
-import { makeApplicationError } from '../../../../helpers/applicationMessageError';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook, assertWindow } from '../../../utils';
 import { printSummaryHighlights, receiveSummaryHighlights, toggleSummaryHighlightsLoading } from '../actions';
@@ -15,7 +15,7 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
     response = await loadMore(services);
   } catch (error) {
     services.dispatch(toggleSummaryHighlightsLoading(false));
-    throw makeApplicationError(error, new HighlightPopupPrintError({ destination: 'myHighlights' }));
+    throw ensureApplicationErrorType(error, new HighlightPopupPrintError({ destination: 'myHighlights' }));
   }
 
   const {formattedHighlights} = response;

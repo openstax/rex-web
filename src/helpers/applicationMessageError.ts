@@ -24,7 +24,7 @@ export const makeToastMessageError = (messageKey: string) => class extends Toast
 /**
  * Return @param error if it is instance of ApplicationError or @param customError in other cases
  */
-export const makeApplicationError = (error: Error, customError: Error | (() => Error)) => {
+export const ensureApplicationErrorType = (error: Error, customError: Error | (() => Error)) => {
   if (error instanceof ApplicationError) {
     return error;
   }

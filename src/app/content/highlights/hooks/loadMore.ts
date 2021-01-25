@@ -1,5 +1,5 @@
 import { GetHighlightsColorsEnum } from '@openstax/highlighter/dist/api';
-import { makeApplicationError } from '../../../../helpers/applicationMessageError';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
@@ -56,7 +56,7 @@ export const hookBody: ActionHookBody<
       highlights = await loadMore(services, summaryPageSize);
     } catch (error) {
       services.dispatch(toggleSummaryHighlightsLoading(false));
-      throw makeApplicationError(error, new HighlightPopupLoadError({ destination: 'myHighlights' }));
+      throw ensureApplicationErrorType(error, new HighlightPopupLoadError({ destination: 'myHighlights' }));
     }
 
     const {formattedHighlights, pagination} = highlights;

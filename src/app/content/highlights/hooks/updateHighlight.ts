@@ -1,4 +1,4 @@
-import { makeApplicationError } from '../../../../helpers/applicationMessageError';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { getHighlightToastDesination } from '../../../notifications/utils';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
@@ -21,7 +21,7 @@ export const hookBody: ActionHookBody<typeof updateHighlight> =
 
       dispatch(updateHighlight(meta.preUpdateData, {...meta, revertingAfterFailure: true}));
 
-      throw makeApplicationError(
+      throw ensureApplicationErrorType(
         error,
         () => payload.highlight.color && oldColor !== payload.highlight.color
           ? new HighlightUpdateColorError({ destination })

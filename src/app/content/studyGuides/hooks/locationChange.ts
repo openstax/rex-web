@@ -2,7 +2,7 @@ import {
   GetHighlightsSummarySetsEnum,
   GetHighlightsSummarySourceTypeEnum,
 } from '@openstax/highlighter/dist/api';
-import { makeApplicationError } from '../../../../helpers/applicationMessageError';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { StudyGuidesLoadError } from '../../highlights/errors';
@@ -32,7 +32,7 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
 
     return summary;
   } catch (error) {
-    throw makeApplicationError(error, new StudyGuidesLoadError({ destination: 'page', shouldAutoDismiss: false }));
+    throw ensureApplicationErrorType(error, new StudyGuidesLoadError({ destination: 'page', shouldAutoDismiss: false }));
   }
 };
 

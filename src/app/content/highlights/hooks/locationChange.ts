@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
 import { getType } from 'typesafe-actions';
-import { makeApplicationError } from '../../../../helpers/applicationMessageError';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
@@ -40,7 +40,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
       pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
     });
   } catch (error) {
-    throw makeApplicationError(
+    throw ensureApplicationErrorType(
       error,
       () => action && action.type !== getType(receivePageFocus)
         ? new HighlightLoadError({ destination: 'page', shouldAutoDismiss: false })
