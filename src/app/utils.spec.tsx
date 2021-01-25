@@ -127,7 +127,8 @@ describe('actionHook', () => {
 
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
     middleware(helpers)(helpers)((action) => action)(actions.openToc());
-    await Promise.resolve();
+
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(hookSpy).toHaveBeenCalled();
     expect(Sentry.captureException).toHaveBeenCalled();
