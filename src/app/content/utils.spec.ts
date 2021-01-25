@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/fp/cloneDeep';
 import { resetModules } from '../../test/utils';
 import { ArchiveBook, ArchiveTree, Book } from './types';
 import {
