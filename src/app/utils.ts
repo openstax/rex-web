@@ -7,6 +7,8 @@ import { receiveLoggedOut } from './auth/actions';
 import { recordError, showErrorDialog } from './errors/actions';
 import { notFound } from './errors/routes';
 import { isPlainObject } from './guards';
+import { replace } from './navigation/actions';
+import * as selectNavigation from './navigation/selectors';
 import { addToast } from './notifications/actions';
 import {
   ActionHookBody,
@@ -15,7 +17,8 @@ import {
   AppServices,
   AppState,
   Dispatch,
-  Middleware
+  Middleware,
+  MiddlewareAPI
 } from './types';
 
 export * from './utils/assertions';
@@ -27,7 +30,7 @@ export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
 export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: ActionHookBody<C>) =>
   (services: AppServices): Middleware => (stateHelpers) => {
     const boundHook = body({...stateHelpers, ...services});
-    const catchError = makeCatchError(stateHelpers.dispatch);
+    const catchError = makeCatchError(stateHelpers);
     const matches = checkActionType(actionCreator);
 
     return (next: Dispatch) => (action: AnyAction) => {
@@ -47,13 +50,13 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
     };
   };
 
-const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
+const makeCatchError = ({dispatch, getState}: MiddlewareAPI) => (e: Error) => {
   if (e instanceof UnauthenticatedError) {
     dispatch(receiveLoggedOut());
     return;
   } else if (e instanceof BookNotFoundError) {
     Sentry.captureException(e);
-    notFound.redirect();
+    dispatch(replace({route: notFound, params: {url: selectNavigation.pathname(getState())}, state: {}}));
     return;
   } else if (e instanceof ToastMesssageError) {
     Sentry.captureException(e);

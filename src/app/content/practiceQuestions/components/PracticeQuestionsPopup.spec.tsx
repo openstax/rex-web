@@ -36,6 +36,7 @@ const mockMatch = {
     page: { slug: 'page' },
   },
   route: content,
+  state: {},
 };
 
 describe('PracticeQuestions', () => {
