@@ -1,4 +1,5 @@
 import { rejectResponse } from '../helpers/fetch';
+import Sentry from '../helpers/Sentry';
 
 export interface BuyPrintResponse {
   buy_urls: Array<{
@@ -18,6 +19,17 @@ export default (url: string) => {
         } else {
           return rejectResponse(response,  (status, message) => `Error response from BuyPrint ${status}: ${message}`);
         }
+      }).catch((e) => {
+        Sentry.captureException(e);
+
+        return Promise.resolve({
+          buy_urls: [{
+            allows_redirects: false,
+            disclosure: null,
+            provider: 'amazon',
+            url: `${url}/${book.slug}`,
+          }],
+        }) as Promise<BuyPrintResponse>;
       }),
   };
 };
