@@ -1,4 +1,5 @@
 import { ServiceWorker, ServiceWorkerRegistration } from '@openstax/types/lib.dom';
+import defer from 'lodash/fp/defer';
 import { assertWindow } from '../app/utils';
 import * as helpers from './applicationUpdates';
 import Sentry from './Sentry';
@@ -78,7 +79,7 @@ describe('findAndInstallServiceWorkerUpdate', () => {
     const error = new Error('asdfasdf');
     failUpdate(error);
 
-    await Promise.resolve();
+    await new Promise(defer);
 
     expect(cb).toHaveBeenCalled();
     expect(sw.update).toHaveBeenCalled();

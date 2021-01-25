@@ -1,3 +1,4 @@
+import defer from 'lodash/fp/defer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { resetModules } from '../../../../test/utils';
@@ -64,7 +65,7 @@ describe('printStudyGuides', () => {
     loadMore.mockRejectedValueOnce(error);
 
     hook(printStudyGuides());
-    await Promise.resolve();
+    await new Promise(defer);
 
     expect(groupedToastNotifications(store.getState()).studyGuides)
       .toEqual([expect.objectContaining({messageKey: toastMessageKeys.studyGuides.failure.popUp.print})]);
@@ -74,7 +75,7 @@ describe('printStudyGuides', () => {
     hook(printStudyGuides());
 
     expect(loadMore).toHaveBeenCalled();
-    await Promise.resolve();
+    await new Promise(defer);
 
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(formattedHighlights, {
       isStillLoading: true,
@@ -84,7 +85,7 @@ describe('printStudyGuides', () => {
     expect(print).not.toHaveBeenCalled();
 
     expect(calmSpy).toHaveBeenCalled();
-    await Promise.resolve();
+    await new Promise(defer);
 
     expect(print).toHaveBeenCalled();
   });
@@ -93,12 +94,12 @@ describe('printStudyGuides', () => {
     hook(printStudyGuides());
 
     expect(loadMore).toHaveBeenCalled();
-    await Promise.resolve();
+    await new Promise(defer);
 
     store.dispatch(closeStudyGuides());
 
     expect(calmSpy).toHaveBeenCalled();
-    await Promise.resolve();
+    await new Promise(defer);
 
     expect(print).not.toHaveBeenCalled();
   });

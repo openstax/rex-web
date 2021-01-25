@@ -1,4 +1,5 @@
 import { HighlightUpdateColorEnum, NewHighlight, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
+import defer from 'lodash/fp/defer';
 import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
@@ -70,7 +71,7 @@ describe('updateHighlight', () => {
     const updatePayload = highlightUpdatePayload(highlight.id, {color: 'red', annotation: 'new'});
 
     hook(updateHighlight(updatePayload, meta));
-    await Promise.resolve();
+    await new Promise(defer);
 
     expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
   });
@@ -83,7 +84,7 @@ describe('updateHighlight', () => {
       highlightUpdatePayload(highlight.id, {color: 'red', annotation: 'new'}),
       {...meta, revertingAfterFailure: true}
     ));
-    await Promise.resolve();
+    await new Promise(defer);
 
     expect(updateHighlightClient).not.toHaveBeenCalled();
   });
@@ -102,7 +103,7 @@ describe('updateHighlight', () => {
     );
 
     hook(updateHighlight(updatePayload, meta));
-    await Promise.resolve();
+    await new Promise(defer);
 
     expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
     expect(Sentry.captureException).toHaveBeenCalledWith(error);

@@ -1,4 +1,5 @@
 import { HTMLDivElement, HTMLImageElement } from '@openstax/types/lib.dom';
+import defer from 'lodash/fp/defer';
 import { resetModules } from '../../../../test/utils';
 import { assertDocument } from '../../../utils';
 import allImagesLoaded from './allImagesLoaded';
@@ -44,13 +45,13 @@ describe('allImagesLoaded', () => {
         return expect(img.onload).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise(defer);
       expect(finished).toBe(false);
 
       expect(img.onload).not.toBe(onloadHandler);
       img.onload({} as any);
 
-      await Promise.resolve();
+      await new Promise(defer);
       expect(finished).toBe(true);
     });
 
@@ -63,12 +64,12 @@ describe('allImagesLoaded', () => {
         return expect(img.onload).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise(defer);
       expect(finished).toBe(false);
 
       img.onload({} as any);
 
-      await Promise.resolve();
+      await new Promise(defer);
       expect(finished).toBe(true);
     });
   });
@@ -86,7 +87,7 @@ describe('allImagesLoaded', () => {
         return expect(img.onerror).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise(defer);
       expect(finished).toBe(false);
 
       expect(img.onerror).not.toBe(onerrorHandler);
@@ -94,7 +95,7 @@ describe('allImagesLoaded', () => {
 
       expect(onerrorHandler).toHaveBeenCalled();
 
-      await Promise.resolve();
+      await new Promise(defer);
       expect(finished).toBe(true);
     });
 
@@ -107,12 +108,12 @@ describe('allImagesLoaded', () => {
         return expect(img.onerror).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise(defer);
       expect(finished).toBe(false);
 
       img.onerror({} as any);
 
-      await Promise.resolve();
+      await new Promise(defer);
       expect(finished).toBe(true);
     });
   });

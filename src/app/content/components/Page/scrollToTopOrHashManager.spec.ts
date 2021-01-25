@@ -1,4 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import defer from 'lodash/fp/defer';
 import { page } from '../../../../test/mocks/archiveLoader';
 import { scrollTo } from '../../../domUtils';
 import { assertWindow } from '../../../utils';
@@ -38,7 +39,7 @@ describe('scrollToTopOrHashManager', () => {
       {hash: '#asdf', page, scrollTarget: null, selectedResult: null},
       {hash: '#qwer', page, scrollTarget: null, selectedResult: null});
 
-    await Promise.resolve();
+    await new Promise(defer);
 
     expect(scrollTo).toHaveBeenCalledWith(target);
   });
