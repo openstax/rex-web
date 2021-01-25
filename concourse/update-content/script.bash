@@ -39,7 +39,7 @@ for book_id in $book_ids; do
   # approved book format has a "1." on the front of every version
   desired_version=${desired_version:2}
 
-  node script/entry.js update-content-versions-and-check-for-archived-slugs --book $book_id --newVersion $desired_version
+  node script/entry.js update-content-versions-and-check-for-archived-slugs --book "$book_id" --newVersion "$desired_version"
 
   git add src/config.books.json
   git commit -m "update content" || true
