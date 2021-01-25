@@ -1,105 +1,107 @@
 import fs from 'fs';
-import fetch from 'node-fetch';
 import path from 'path';
 import { argv } from 'yargs';
+import { content } from '../src/app/content/routes';
 import { LinkedArchiveTreeNode } from '../src/app/content/types';
 import { flattenArchiveTree } from '../src/app/content/utils';
-import archivedSlugs from '../src/archived-slugs.json';
+import { makeUnifiedBookLoader } from '../src/app/content/utils';
+import { findArchiveTreeNodeById } from '../src/app/content/utils/archiveTreeUtils';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
-import books from '../src/config.books.json';
+import books from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
+import redirects from '../src/redirects';
 
-interface ArchivedSlug {
+interface Redirect {
   pathname: string;
   bookId: string;
   pageId: string;
 }
 
-type ArchivedSlugs = ArchivedSlug[];
-
-const { book, newVersion } = argv as any as {
-  book: string
+const { bookId, newVersion } = argv as any as {
+  bookId: string
   newVersion: string | number;
 };
 
-(global as any).fetch = fetch;
-
 const booksPath = path.resolve(__dirname, '../src/config.books.json');
-const archivedSlugsPath = path.resolve(__dirname, '../src/archived-slugs.json');
+const redirectsPath = path.resolve(__dirname, '../src/redirects.json');
 
-const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
-const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
+const bookLoader = makeUnifiedBookLoader(
+  createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`),
+  createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`)
+);
 
-async function processBooks() {
-  const booksData = Object.entries(books);
-  const bookToUpdateIndex = booksData.findIndex(([id]) => id === book);
-  const bookToUpdate = booksData[bookToUpdateIndex] as [string, { defaultVersion: string }] | undefined;
-
-  if (!bookToUpdate) {
-    console.error(`book ${book} not found`); // tslint:disable-line:no-console
-    return;
+async function updateRedirections(_bookId: string, currentVersion: string, _newVersion: string) {
+  if (currentVersion === _newVersion) {
+    return 0;
   }
 
-  const [bookId, { defaultVersion }] = bookToUpdate;
-
-  if (defaultVersion === newVersion.toString()) {
-    console.log(`$${bookId} alredy at desired version.`); // tslint:disable-line:no-console
-    return;
-  }
-
-  const { title, tree: currentTree } = await archiveLoader.book(bookId, defaultVersion).load()
+  const { tree: currentTree, slug: bookSlug } = await bookLoader(_bookId, currentVersion)
     .catch((error) => {
       // tslint:disable-next-line: no-console
-      console.log(`error while loading book ${bookId} with defaultVersion ${defaultVersion}`);
+      console.log(`error while loading book ${_bookId} with defaultVersion ${currentVersion}`);
       throw error;
     });
-  const { tree: newTree } = await archiveLoader.book(bookId, newVersion.toString()).load()
+
+  const { tree: newTree } = await bookLoader(_bookId, _newVersion)
     .catch((error) => {
-      console.log(`error while loading book ${bookId} with newVersion ${newVersion}`); // tslint:disable-line:no-console
-      throw error;
-    });
-  const bookSlug = await osWebLoader.getBookSlugFromId(bookId)
-    .catch((error) => {
-      console.log(`error while loading slug for bookId ${bookId}`); // tslint:disable-line:no-console
+      // tslint:disable-next-line: no-console
+      console.log(`error while loading book ${_bookId} with newVersion ${_newVersion}`);
       throw error;
     });
 
   const flatCurrentTree = flattenArchiveTree(currentTree);
-  const flatNewTree = flattenArchiveTree(newTree);
-  const missingPages = [...archivedSlugs] as ArchivedSlugs;
 
-  const findArchivedSlug = (section: LinkedArchiveTreeNode) => (
-    { pageId, bookId: pageBookId, pathname }: ArchivedSlug
-  ) => pageId === section.id && pageBookId === bookId && pathname.split('/').pop() === section.slug;
+  const findRedirect = (section: LinkedArchiveTreeNode) => (
+    { pageId, bookId: pageBookId, pathname }: Redirect
+  ) => pageId === section.id && pageBookId === _bookId && pathname.split('/').pop() === section.slug;
 
   const formatSection = (section: LinkedArchiveTreeNode) => ({
-    bookId,
+    bookId: _bookId,
     pageId: section.id,
-    pathname: `/books/${bookSlug}/pages/${section.slug}`,
+    pathname: content.getUrl({ book: { slug: bookSlug }, page: { slug: section.slug } }),
   });
 
-  let countNewArchivedSlugs = 0;
+  let countNewRedirections = 0;
   for (const section of flatCurrentTree) {
+    const { slug } = findArchiveTreeNodeById(newTree, section.id) || {};
     if (
-      !flatNewTree.find((newSection) => newSection.slug === section.slug)
-      && !archivedSlugs.find(findArchivedSlug(section))
+      (slug && slug !== section.slug)
+      && !redirects.find(findRedirect(section))
     ) {
-      missingPages.push(formatSection(section));
-      countNewArchivedSlugs++;
+      redirects.push(formatSection(section));
+      countNewRedirections++;
     }
   }
 
-  fs.writeFileSync(archivedSlugsPath, JSON.stringify(missingPages, undefined, 2), 'utf8');
+  fs.writeFileSync(redirectsPath, JSON.stringify(redirects, undefined, 2), 'utf8');
 
-  booksData[bookToUpdateIndex] = [bookId, { defaultVersion: newVersion.toString() }];
-  const newBooksData: { [key: string]: { defaultVersion: string } } = {};
-  booksData.forEach(([id, data]) => newBooksData[id] = data);
-
-  fs.writeFileSync(booksPath, JSON.stringify(newBooksData, undefined, 2), 'utf8');
-
-  // tslint:disable-next-line: no-console
-  console.log(`updated ${title} and added ${countNewArchivedSlugs} new archived slugs`);
+  return countNewRedirections;
 }
 
-processBooks();
+async function processBook() {
+  const { defaultVersion } = books[bookId] || {};
+
+  if (defaultVersion === newVersion.toString()) {
+    console.log(`${bookId} alredy at desired version.`); // tslint:disable-line:no-console
+    process.exit(0);
+  }
+
+  const { title, version } = await bookLoader(bookId, newVersion.toString())
+    .catch((error) => {
+      // tslint:disable-next-line: no-console
+      console.log(`error while loading book ${bookId} with version ${newVersion}`);
+      throw error;
+    });
+
+  books[bookId] = { defaultVersion: version };
+
+  fs.writeFileSync(booksPath, JSON.stringify(books, undefined, 2) + '\n', 'utf8');
+
+  const newRedirectionsCounter = await updateRedirections(bookId, defaultVersion, newVersion.toString());
+
+  // tslint:disable-next-line: no-console
+  console.log(`updated ${title} and added ${newRedirectionsCounter} new redirections`);
+}
+
+processBook();

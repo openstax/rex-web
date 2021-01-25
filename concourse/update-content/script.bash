@@ -39,18 +39,20 @@ for book_id in $book_ids; do
   # approved book format has a "1." on the front of every version
   desired_version=${desired_version:2}
 
-  node script/entry.js update-content-versions-and-check-for-archived-slugs --book "$book_id" --newVersion "$desired_version"
+  node script/entry.js update-content-versions-and-check-for-archived-slugs --bookId "$book_id" --newVersion "$desired_version"
 
-  git add src/config.books.json
-  git commit -m "update content" || true
-  git push --set-upstream origin "$branch"
+  if [[ $(git status --porcelain) ]]; then
+    git add src/config.books.json
+    git commit -m "update content" || true
+    git push --set-upstream origin "$branch"
 
-  book_title=$(node script/entry.js book-info "$book_id" --field title)
-  curl -s -X POST -H "Authorization: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/repos/openstax/rex-web/pulls" --data-binary @- << JSON
-    {
-      "title": "$book_title updates",
-      "head": "$branch",
-      "base": "$rex_default_branch"
-    }
+    book_title=$(node script/entry.js book-info "$book_id" --field title)
+    curl -s -X POST -H "Authorization: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/repos/openstax/rex-web/pulls" --data-binary @- << JSON
+      {
+        "title": "$book_title updates",
+        "head": "$branch",
+        "base": "$rex_default_branch"
+      }
 JSON
+  fi
 done
