@@ -43,23 +43,26 @@ async function processBooks() {
 
   const [bookId, { defaultVersion }] = bookToUpdate;
 
+  if (defaultVersion === newVersion.toString()) {
+    console.log(`$${bookId} alredy at desired version.`); // tslint:disable-line:no-console
+    return;
+  }
+
   const { title, tree: currentTree } = await archiveLoader.book(bookId, defaultVersion).load()
-    .catch(() => {
+    .catch((error) => {
       // tslint:disable-next-line: no-console
       console.log(`error while loading book ${bookId} with defaultVersion ${defaultVersion}`);
-      process.exit();
+      throw error;
     });
   const { tree: newTree } = await archiveLoader.book(bookId, newVersion.toString()).load()
-    .catch(() => {
-      // tslint:disable-next-line: no-console
-      console.log(`error while loading book ${bookId} with newVersion ${newVersion}`);
-      process.exit();
+    .catch((error) => {
+      console.log(`error while loading book ${bookId} with newVersion ${newVersion}`); // tslint:disable-line:no-console
+      throw error;
     });
   const bookSlug = await osWebLoader.getBookSlugFromId(bookId)
-    .catch(() => {
-      // tslint:disable-next-line: no-console
-      console.log(`error while loading slug for bookId ${bookId}`);
-      process.exit();
+    .catch((error) => {
+      console.log(`error while loading slug for bookId ${bookId}`); // tslint:disable-line:no-console
+      throw error;
     });
 
   const flatCurrentTree = flattenArchiveTree(currentTree);
