@@ -1,4 +1,3 @@
-import defer from 'lodash/fp/defer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { resetModules } from '../../../../test/utils';
@@ -21,6 +20,8 @@ describe('printStudyGuides', () => {
 
   beforeEach(() => {
     resetModules();
+    jest.resetAllMocks();
+
     store = createTestStore({
       ...{} as any,
       content: {
@@ -47,7 +48,8 @@ describe('printStudyGuides', () => {
     dispatch = jest.spyOn(helpers, 'dispatch');
 
     calmSpy = jest.spyOn(helpers.promiseCollector, 'calm')
-      .mockImplementation(() => Promise.resolve());
+      .mockReturnValue(Promise.resolve());
+
     loadMore = jest.spyOn(require('./loadMore'), 'loadMore')
       .mockImplementation(async() => ({formattedHighlights}));
 
@@ -65,17 +67,27 @@ describe('printStudyGuides', () => {
     loadMore.mockRejectedValueOnce(error);
 
     hook(printStudyGuides());
-    await new Promise(defer);
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(groupedToastNotifications(store.getState()).studyGuides)
       .toEqual([expect.objectContaining({messageKey: toastMessageKeys.studyGuides.failure.popUp.print})]);
   });
 
   it('waits for promiseCollector.calm', async() => {
+    let resolveCalm: undefined | (() => void);
+
+    calmSpy.mockReturnValue(new Promise((resolve) => {
+      resolveCalm = resolve;
+    }));
+
+    if (!resolveCalm) {
+      return expect(resolveCalm).toBeTruthy();
+    }
+
     hook(printStudyGuides());
 
     expect(loadMore).toHaveBeenCalled();
-    await new Promise(defer);
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(formattedHighlights, {
       isStillLoading: true,
@@ -84,22 +96,34 @@ describe('printStudyGuides', () => {
 
     expect(print).not.toHaveBeenCalled();
 
-    expect(calmSpy).toHaveBeenCalled();
-    await new Promise(defer);
+    resolveCalm();
+
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(print).toHaveBeenCalled();
   });
 
   it('doesn\'t print if study guides modal was closed', async() => {
+    let resolveCalm: undefined | (() => void);
+
+    calmSpy.mockReturnValue(new Promise((resolve) => {
+      resolveCalm = resolve;
+    }));
+
+    if (!resolveCalm) {
+      return expect(resolveCalm).toBeTruthy();
+    }
+
     hook(printStudyGuides());
 
     expect(loadMore).toHaveBeenCalled();
-    await new Promise(defer);
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     store.dispatch(closeStudyGuides());
 
-    expect(calmSpy).toHaveBeenCalled();
-    await new Promise(defer);
+    resolveCalm();
+
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(print).not.toHaveBeenCalled();
   });
