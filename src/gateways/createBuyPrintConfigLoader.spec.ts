@@ -41,7 +41,7 @@ describe('buyPrintConfigLoader', () => {
       buy_urls: [{
         allows_redirects: true,
         disclosure: null,
-        provider: 'openstax fallback',
+        provider: 'openstax_fallback',
         url: 'url/asdf',
       }],
     };

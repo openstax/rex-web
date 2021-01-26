@@ -4,7 +4,7 @@ import Sentry from '../helpers/Sentry';
 export interface BuyPrintResponse {
   buy_urls: Array<{
     url: string;
-    provider: 'amazon' | 'openstax fallback';
+    provider: 'amazon' | 'openstax_fallback';
     allows_redirects: boolean;
     disclosure: string | null;
   }>;
@@ -26,7 +26,7 @@ export default (url: string) => {
           buy_urls: [{
             allows_redirects: true,
             disclosure: null,
-            provider: 'openstax fallback',
+            provider: 'openstax_fallback',
             url: `${url}/${book.slug}`,
           }],
         }) as Promise<BuyPrintResponse>;
