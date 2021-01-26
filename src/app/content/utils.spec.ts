@@ -41,7 +41,7 @@ describe('getContentPageReferences', () => {
     ).toEqual([
       {
         match: '/contents/as8s8xu9sdnjsd9',
-        pageUid: 'as8s8xu9sdnjsd9',
+        pageId: 'as8s8xu9sdnjsd9',
       },
     ]);
   });
@@ -55,11 +55,33 @@ describe('getContentPageReferences', () => {
     ).toEqual([
       {
         match: '/contents/as8s8xu9sdnjsd9',
-        pageUid: 'as8s8xu9sdnjsd9',
+        pageId: 'as8s8xu9sdnjsd9',
       },
       {
         match: '/contents/9sdnjsd9',
-        pageUid: '9sdnjsd9',
+        pageId: '9sdnjsd9',
+      },
+    ]);
+  });
+
+  it('picks up multiple rap links', () => {
+    expect(
+      getContentPageReferences(`
+      asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> sdf
+      <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a>
+    `)
+    ).toEqual([
+      {
+        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
+        bookVersion: '29.7',
+        match: './13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
+        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
+      },
+      {
+        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
+        bookVersion: undefined,
+        match: './13ac107a-f15f-49d2-97e8-60ab2e3b519c:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
+        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       },
     ]);
   });
