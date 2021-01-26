@@ -40,7 +40,7 @@ require('@babel/register')({
     '@babel/proposal-class-properties',
     '@babel/proposal-object-rest-spread',
     '@babel/transform-runtime',
-    'babel-plugin-transform-dynamic-import',
+    '@babel/plugin-syntax-dynamic-import',
   ]
 });
 
