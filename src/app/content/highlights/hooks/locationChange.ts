@@ -41,10 +41,10 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
       pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
     });
   } catch (error) {
-    Sentry.captureException(error);
-
+    const errorId = Sentry.captureException(error);
     if (action && action.type !== getType(receivePageFocus)) {
-      dispatch(addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false}));
+      dispatch(
+        addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false, errorId}));
     }
     return;
   }
