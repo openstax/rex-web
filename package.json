@@ -192,5 +192,10 @@
       "html",
       "lcovonly"
     ]
+  },
+   "babelMacros": {
+    "styledComponents": {
+      "pure": true
+    }
   }
 }
