@@ -1,5 +1,4 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
-import defer from 'lodash/fp/defer';
 import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
@@ -44,7 +43,7 @@ describe('receiveDeleteHighlight', () => {
       .mockResolvedValue({} as any);
 
     hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
-    await new Promise(defer);
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(deleteHighlightClient).toHaveBeenCalledWith({id: highlight.id});
   });
@@ -53,7 +52,7 @@ describe('receiveDeleteHighlight', () => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight');
 
     hook(receiveDeleteHighlight(highlight as unknown as Highlight, {...meta, revertingAfterFailure: true}));
-    await new Promise(defer);
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(deleteHighlightClient).not.toHaveBeenCalled();
   });
@@ -65,7 +64,7 @@ describe('receiveDeleteHighlight', () => {
       .mockRejectedValue(error);
 
     hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
-    await new Promise(defer);
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(deleteHighlightClient).toHaveBeenCalled();
     expect(Sentry.captureException).toHaveBeenCalledWith(error);
