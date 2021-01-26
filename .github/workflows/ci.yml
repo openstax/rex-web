@@ -23,6 +23,8 @@ jobs:
       with:
         path: node_modules
         key: node_modules
+    - run: nvm install
+    - run: nvm use
     - run: yarn install
     - name: Find Deployment
       id: find-deployment
@@ -69,6 +71,8 @@ jobs:
       with:
         path: node_modules
         key: node_modules
+    - run: nvm install
+    - run: nvm use
     - run: yarn install
     - run: |
         node script/entry.js domVisitor errorsExist \
@@ -110,6 +114,8 @@ jobs:
       with:
         path: node_modules
         key: node_modules
+    - run: nvm install
+    - run: nvm use
     - run: yarn install
     - run: yarn test:${{ matrix.suite }}
     - uses: actions/upload-artifact@v2
@@ -131,5 +137,7 @@ jobs:
       with:
         path: node_modules
         key: node_modules
+    - run: nvm install
+    - run: nvm use
     - run: yarn install
     - run: yarn lint
