@@ -90,25 +90,12 @@ Array [
     <div
       className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
-      <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
-        data-testid="details-link-expanded"
-        href="/error/404"
-        onClick={[Function]}
+      <span
+        className="BookBanner__BookTitle-sc-1avy0c0-2 gUeKV"
+        data-testid="book-title-expanded"
       >
-        <svg
-          aria-hidden="true"
-          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
-          fill="currentColor"
-          focusable="false"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-          />
-        </svg>
         Test Book 1
-      </a>
+      </span>
       <h1
         className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
         dangerouslySetInnerHTML={
@@ -127,26 +114,12 @@ Array [
     <div
       className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
-      <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
-        data-testid="details-link-collapsed"
-        href="/error/404"
-        onClick={[Function]}
-        tabIndex={-1}
+      <span
+        className="BookBanner__BookTitle-sc-1avy0c0-2 jvAwFk"
+        data-testid="book-title-collapsed"
       >
-        <svg
-          aria-hidden="true"
-          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
-          fill="currentColor"
-          focusable="false"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-          />
-        </svg>
         Test Book 1
-      </a>
+      </span>
       <span
         className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
         dangerouslySetInnerHTML={

@@ -1,4 +1,9 @@
-import { filter, flow, get, identity, map, max } from 'lodash/fp';
+import filter from 'lodash/fp/filter';
+import flow from 'lodash/fp/flow';
+import get from 'lodash/fp/get';
+import identity from 'lodash/fp/identity';
+import map from 'lodash/fp/map';
+import max from 'lodash/fp/max';
 import sitemap, { SitemapItemOptions } from 'sitemap';
 import { writeAssetFile } from './fileUtils';
 

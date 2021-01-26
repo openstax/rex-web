@@ -33,7 +33,7 @@ describe('error reducer', () => {
       search: '',
       state: {},
     };
-    const match = {route: notFound};
+    const match = {route: notFound, params: {url: 'url'}, state: {}};
     const newState = reducer(state, locationChange({location, match, action: 'PUSH'}));
 
     expect(newState.code).toEqual(404);

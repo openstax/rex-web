@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
 import { PlainButton } from '../../../components/Button';
@@ -8,6 +9,7 @@ import theme from '../../../theme';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 import { LinkedArchiveTreeNode } from '../../types';
+import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { AngleIcon } from './Filters';
 import { FiltersChange, LocationFilters } from './types';
 
@@ -55,6 +57,7 @@ const chunk = <T extends any>(sections: T[]) => {
 };
 
 interface ChapterFilterProps {
+  ariaLabelItemId?: string;
   className?: string;
   disabled?: boolean;
   locationFilters: LocationFilters;
@@ -67,6 +70,7 @@ interface ChapterFilterProps {
 // tslint:disable-next-line:variable-name
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
+  const l10n = useIntl();
 
   React.useEffect(() => {
     const selectedSectionId = Array.from(props.selectedLocationFilters).pop();
@@ -90,6 +94,12 @@ const ChapterFilter = (props: ChapterFilterProps) => {
       setSelectedChapters({ remove: [section], new: [] });
     } else {
       setSelectedChapters({ remove: [], new: [section] });
+    }
+  };
+
+  const getAriaLabel = (section: LinkedArchiveTreeNode) => {
+    if (props.ariaLabelItemId) {
+      return l10n.formatMessage({ id: props.ariaLabelItemId }, { filter: splitTitleParts(section.title).join(' ') });
     }
   };
 
@@ -119,6 +129,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
               multiselect={Boolean(props.multiselect)}
               title={section.title}
               onChange={() => handleChange(section)}
+              ariaLabel={getAriaLabel(section)}
             />;
           } else {
             return <StyledDetails key={section.id} open={openChapterId === section.id}>
@@ -138,6 +149,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
                     multiselect={props.multiselect}
                     title={child.title}
                     onChange={() => handleChange(child)}
+                    ariaLabel={getAriaLabel(child)}
                   />
                 ))}
               </StyledChapterFilterItemWrapper>
@@ -154,6 +166,7 @@ interface ChapterFilterItemProps {
   disabled: boolean;
   multiselect: boolean;
   title: string;
+  ariaLabel?: string;
   onChange: () => void;
 }
 
@@ -164,6 +177,7 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
       checked={props.selected}
       disabled={props.disabled}
       onChange={props.onChange}
+      aria-label={props.ariaLabel}
     >
       <ChapterTitle dangerouslySetInnerHTML={{__html: props.title}} />
     </Checkbox>;
@@ -172,6 +186,7 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
   return <StyledSectionItem
     onClick={props.onChange}
     isSelected={props.selected}
+    aria-label={props.ariaLabel}
   >
     <ChapterTitle dangerouslySetInnerHTML={{__html: props.title}} />
   </StyledSectionItem>;

@@ -39,7 +39,7 @@
     "styled-components": "^4.3.2",
     "styled-icons": "^8.1.0",
     "typesafe-actions": "^4.4.2",
-    "typescript": "~3.5.2",
+    "typescript": "3.9.6",
     "url": "^0.11.0",
     "uuid": "^3.4.0",
     "weak-map": "^1.0.5"
@@ -77,7 +77,7 @@
     "test:prerender:browser": "REACT_APP_ENV=test SERVER_MODE=built jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" -i",
     "test:prerender:screenshots": "REACT_APP_ENV=test SERVER_MODE=built jest --testPathPattern=\"(\\.|/)screenshotspec\\.tsx?\"",
     "test:lighthouse-manual": "REACT_APP_ENV=test lighthouse --view --config-path=./src/test/audits/index.js",
-    "analyze:bundle": "react-scripts build --stats && webpack-bundle-analyzer build/bundle-stats.json -m static -r build/bundle-stats.html -O",
+    "analyze:bundle": "react-scripts build && source-map-explorer 'build/static/js/*.js' -m",
     "analyze:dom": "node ./script/entry.js domVisitor",
     "heroku-postbuild": "npm run-script build:clean"
   },
@@ -150,6 +150,7 @@
     "react-test-renderer": "^16.11.0",
     "serve-static": "^1.13.2",
     "sitemap": "^3.2.2",
+    "source-map-explorer": "^2.5.2",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-config-styled-components": "^0.1.1",
@@ -157,7 +158,6 @@
     "tiny-async-pool": "^1.0.4",
     "ts-unused-exports": "^2.0.11",
     "tslint": "^5.11.0",
-    "webpack-bundle-analyzer": "^3.3.2",
     "yargs": "^13.2.4"
   },
   "resolutions": {
