@@ -10,13 +10,7 @@ import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '..
 import books from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
-import redirects from '../src/redirects';
-
-interface Redirect {
-  pathname: string;
-  bookId: string;
-  pageId: string;
-}
+import { Redirects } from '../src/redirects/types';
 
 const { bookId, newVersion } = argv as any as {
   bookId: string
@@ -24,7 +18,7 @@ const { bookId, newVersion } = argv as any as {
 };
 
 const booksPath = path.resolve(__dirname, '../src/config.books.json');
-const redirectsPath = path.resolve(__dirname, '../src/redirects.json');
+const redirectsPath = path.resolve(__dirname, '../src/redirects/');
 
 const bookLoader = makeUnifiedBookLoader(
   createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`),
@@ -50,10 +44,21 @@ async function updateRedirections(_bookId: string, currentVersion: string, _newV
       throw error;
     });
 
+  const redirectsBookPath = path.resolve(redirectsPath, bookId + '.json');
+
+  try {
+    // Create file with empty array only if it does not exixts
+    fs.writeFileSync(redirectsBookPath, '[]', { encoding: 'utf8', flag: 'wx' });
+  } catch {
+    // This will throw if file exists
+  }
+
+  const redirects: Redirects = require(redirectsBookPath);
+
   const flatCurrentTree = flattenArchiveTree(currentTree);
 
   const findRedirect = (section: LinkedArchiveTreeNode) => (
-    { pageId, bookId: pageBookId, pathname }: Redirect
+    { pageId, bookId: pageBookId, pathname }: Redirects[0]
   ) => pageId === section.id && pageBookId === _bookId && pathname.split('/').pop() === section.slug;
 
   const formatSection = (section: LinkedArchiveTreeNode) => ({
@@ -74,7 +79,7 @@ async function updateRedirections(_bookId: string, currentVersion: string, _newV
     }
   }
 
-  fs.writeFileSync(redirectsPath, JSON.stringify(redirects, undefined, 2), 'utf8');
+  fs.writeFileSync(redirectsBookPath, JSON.stringify(redirects, undefined, 2) + '\n', 'utf8');
 
   return countNewRedirections;
 }
