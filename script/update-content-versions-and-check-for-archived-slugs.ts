@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { isEqual } from 'lodash';
 import path from 'path';
 import { argv } from 'yargs';
 import { content } from '../src/app/content/routes';
@@ -12,7 +13,7 @@ import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { Redirects } from '../src/redirects/types';
 
-const { bookId, newVersion } = argv as any as {
+const args = argv as any as {
   bookId: string
   newVersion: string | number;
 };
@@ -25,47 +26,38 @@ const bookLoader = makeUnifiedBookLoader(
   createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`)
 );
 
-async function updateRedirections(_bookId: string, currentVersion: string, _newVersion: string) {
-  if (currentVersion === _newVersion) {
+async function updateRedirections(bookId: string, currentVersion: string, newVersion: string) {
+  if (currentVersion === newVersion) {
     return 0;
   }
 
-  const { tree: currentTree, slug: bookSlug } = await bookLoader(_bookId, currentVersion)
+  const { tree: currentTree, slug: bookSlug } = await bookLoader(bookId, currentVersion)
     .catch((error) => {
       // tslint:disable-next-line: no-console
-      console.log(`error while loading book ${_bookId} with defaultVersion ${currentVersion}`);
+      console.log(`error while loading book ${bookId} with defaultVersion ${currentVersion}`);
       throw error;
     });
 
-  const { tree: newTree } = await bookLoader(_bookId, _newVersion)
+  const { tree: newTree } = await bookLoader(bookId, newVersion)
     .catch((error) => {
       // tslint:disable-next-line: no-console
-      console.log(`error while loading book ${_bookId} with newVersion ${_newVersion}`);
+      console.log(`error while loading book ${bookId} with newVersion ${newVersion}`);
       throw error;
     });
 
   const redirectsBookPath = path.resolve(redirectsPath, bookId + '.json');
-
-  try {
-    // Create file with empty array only if it does not exixts
-    fs.writeFileSync(redirectsBookPath, '[]', { encoding: 'utf8', flag: 'wx' });
-  } catch {
-    // This will throw if file exists
-  }
-
-  const redirects: Redirects = require(redirectsBookPath);
+  const redirects: Redirects = fs.existsSync(redirectsBookPath) ? require(redirectsBookPath) : [];
 
   const flatCurrentTree = flattenArchiveTree(currentTree);
 
-  const findRedirect = (section: LinkedArchiveTreeNode) => (
-    { pageId, bookId: pageBookId, pathname }: Redirects[0]
-  ) => pageId === section.id && pageBookId === _bookId && pathname.split('/').pop() === section.slug;
-
   const formatSection = (section: LinkedArchiveTreeNode) => ({
-    bookId: _bookId,
+    bookId,
     pageId: section.id,
     pathname: content.getUrl({ book: { slug: bookSlug }, page: { slug: section.slug } }),
   });
+
+  const findRedirect = (section: LinkedArchiveTreeNode) =>
+    (redirect: Redirects[number]) => isEqual(formatSection(section), redirect);
 
   let countNewRedirections = 0;
   for (const section of flatCurrentTree) {
@@ -85,25 +77,25 @@ async function updateRedirections(_bookId: string, currentVersion: string, _newV
 }
 
 async function processBook() {
-  const { defaultVersion } = books[bookId] || {};
+  const { defaultVersion } = books[args.bookId] || {};
 
-  if (defaultVersion === newVersion.toString()) {
-    console.log(`${bookId} alredy at desired version.`); // tslint:disable-line:no-console
+  if (defaultVersion === args.newVersion.toString()) {
+    console.log(`${args.bookId} alredy at desired version.`); // tslint:disable-line:no-console
     process.exit(0);
   }
 
-  const { title, version } = await bookLoader(bookId, newVersion.toString())
+  const { title, version } = await bookLoader(args.bookId, args.newVersion.toString())
     .catch((error) => {
       // tslint:disable-next-line: no-console
-      console.log(`error while loading book ${bookId} with version ${newVersion}`);
+      console.log(`error while loading book ${args.bookId} with version ${args.newVersion}`);
       throw error;
     });
 
-  books[bookId] = { defaultVersion: version };
+  books[args.bookId] = { defaultVersion: version };
 
   fs.writeFileSync(booksPath, JSON.stringify(books, undefined, 2) + '\n', 'utf8');
 
-  const newRedirectionsCounter = await updateRedirections(bookId, defaultVersion, newVersion.toString());
+  const newRedirectionsCounter = await updateRedirections(args.bookId, defaultVersion, args.newVersion.toString());
 
   // tslint:disable-next-line: no-console
   console.log(`updated ${title} and added ${newRedirectionsCounter} new redirections`);
