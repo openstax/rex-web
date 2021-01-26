@@ -19,16 +19,39 @@ export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, t
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
 
-export const getContentPageReferences = (content: string) =>
-  (content.match(/"\/contents\/([a-z0-9-]+(@[\d.]+)?)/g) || [])
+interface ContentPageRefencesType {
+  bookId?: string;
+  bookVersion?: string;
+  match: string;
+  pageId: string;
+}
+
+export function getContentPageReferences(content: string) {
+  const legacyMatches = (content.match(/"\/contents\/([a-z0-9-]+(@[\d.]+)?)/g) || [])
     .map((match) => {
       const pageId = match.substr(11);
 
       return {
         match: match.substr(1),
-        pageUid: stripIdVersion(pageId),
+        pageId: stripIdVersion(pageId),
       };
     });
+
+  const matches = (content.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
+    .map((match) => {
+      const [bookMatch, pageMatch] = match.split(':');
+      const pageId = pageMatch.substr(0, 36);
+      const [bookId, bookVersion] = bookMatch.split('@');
+      return {
+        bookId: bookId.substr(2),
+        bookVersion,
+        match,
+        pageId: stripIdVersion(pageId),
+      };
+    });
+
+  return [...legacyMatches, ...matches] as ContentPageRefencesType[];
+}
 
 export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
   contents.map((subtree) => {
