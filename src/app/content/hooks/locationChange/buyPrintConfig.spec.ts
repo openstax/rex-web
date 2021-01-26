@@ -36,6 +36,23 @@ describe('loadBuyPrintConfig', () => {
     expect(dispatch).not.toHaveBeenCalled();
   });
 
+  it('noops and does not throw with empty config', async() => {
+    store.dispatch(receiveBook(book));
+    jest.resetAllMocks();
+    const hook = loadBuyPrintConfig(helpers);
+    const load = jest.spyOn(helpers.buyPrintConfigLoader, 'load');
+
+    load.mockReturnValue(Promise.resolve({buy_urls: []} as BuyPrintResponse));
+
+    try {
+      await hook();
+    } catch (e) {
+      expect('this should not have thrown').toEqual('asdf');
+    }
+
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
   it('dispatches on success', async() => {
     store.dispatch(receiveBook(book));
     jest.resetAllMocks();

@@ -15,6 +15,10 @@ const loadBuyPrintConfig = (services: MiddlewareAPI & AppServices) => async() =>
   const response = await buyPrintConfigLoader.load(book);
   const config = response.buy_urls[0];
 
+  if (!config) {
+    return;
+  }
+
   dispatch(receiveBuyPrintConfig(config));
 };
 
