@@ -66,7 +66,7 @@ const Question = () => {
     if (questionContent.current) {
       questionContent.current.focus();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [question]);
 
   if (!section || !question) { return null; }

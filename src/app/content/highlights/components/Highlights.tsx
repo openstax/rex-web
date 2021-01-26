@@ -36,7 +36,7 @@ const Highlights = ({ className }: { className: string }) => {
       services.promiseCollector.add(allImagesLoaded(container.current));
       services.promiseCollector.add(typesetMath(container.current, assertWindow()));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderedHighlights]);
 
   if (
