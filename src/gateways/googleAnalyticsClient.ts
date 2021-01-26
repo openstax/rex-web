@@ -4,7 +4,6 @@ import flow from 'lodash/fp/flow';
 import identity from 'lodash/fp/identity';
 import isEmpty from 'lodash/fp/isEmpty';
 import pickBy from 'lodash/fp/pickBy';
-import { Command } from 'styled-icons/icomoon';
 import { assertWindow, referringHostName } from '../app/utils';
 
 interface PageView {
