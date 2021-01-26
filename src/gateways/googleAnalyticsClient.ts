@@ -1,8 +1,10 @@
 // tslint:disable:max-classes-per-file
+import * as Cookies from 'js-cookie';
 import flow from 'lodash/fp/flow';
 import identity from 'lodash/fp/identity';
 import isEmpty from 'lodash/fp/isEmpty';
 import pickBy from 'lodash/fp/pickBy';
+import { Command } from 'styled-icons/icomoon';
 import { assertWindow, referringHostName } from '../app/utils';
 
 interface PageView {
@@ -106,7 +108,7 @@ class GoogleAnalyticsClient {
       return;
     }
 
-    if (this.isReadyForCommands()) {
+    if (this.isReadyForCommands() && !Cookies.get('ANALYTICS_OPT_OUT')) {
       this.commandEachTracker(command);
     } else {
       this.saveCommandForLater(command);
