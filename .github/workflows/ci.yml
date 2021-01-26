@@ -6,7 +6,7 @@ jobs:
   setup:
     name: Setup
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI
+    container: openstax/rex-web:CI-2020-01-25
     outputs:
       deployment-url: ${{ steps.find-deployment.outputs.url }}
       modified-books: ${{ steps.detect-books.outputs.modified-books }}
@@ -23,8 +23,6 @@ jobs:
       with:
         path: node_modules
         key: node_modules
-    - run: nvm install
-    - run: nvm use
     - run: yarn install
     - name: Find Deployment
       id: find-deployment
@@ -57,7 +55,7 @@ jobs:
   scan-books:
     name: Scan
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI
+    container: openstax/rex-web:CI-2020-01-25
     needs: setup
     strategy:
       fail-fast: false
@@ -71,8 +69,6 @@ jobs:
       with:
         path: node_modules
         key: node_modules
-    - run: nvm install
-    - run: nvm use
     - run: yarn install
     - run: |
         node script/entry.js domVisitor errorsExist \
@@ -98,7 +94,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI
+    container: openstax/rex-web:CI-2020-01-25
     strategy:
       fail-fast: false
       matrix:
@@ -114,8 +110,6 @@ jobs:
       with:
         path: node_modules
         key: node_modules
-    - run: nvm install
-    - run: nvm use
     - run: yarn install
     - run: yarn test:${{ matrix.suite }}
     - uses: actions/upload-artifact@v2
@@ -127,7 +121,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI
+    container: openstax/rex-web:CI-2020-01-25
     steps:
     - uses: actions/checkout@v2
       with:
@@ -137,7 +131,5 @@ jobs:
       with:
         path: node_modules
         key: node_modules
-    - run: nvm install
-    - run: nvm use
     - run: yarn install
     - run: yarn lint
