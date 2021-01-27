@@ -49,25 +49,28 @@ export const AnswerIndicator = styled.span`
 
 const answerThemes = {
   correct: {
-    background: '#77AF42',
+    background: theme.color.neutral.base,
     border: '#77AF42',
     borderHovered: '#77AF42',
     fontColor: theme.color.neutral.base,
     fontColorActive: '#77AF42',
+    indicatorBackground: '#77AF42',
   },
   incorrect: {
-    background: theme.color.primary.red.base,
+    background: theme.color.neutral.base,
     border: theme.color.primary.red.base,
     borderHovered: theme.color.primary.red.base,
     fontColor: theme.color.neutral.base,
     fontColorActive: theme.color.primary.red.base,
+    indicatorBackground: theme.color.primary.red.base,
   },
   selected: {
-    background: theme.color.secondary.lightBlue.base,
+    background: '#E3F8FB',
     border: theme.color.secondary.lightBlue.base,
     borderHovered: theme.color.secondary.lightBlue.base,
     fontColor: theme.color.neutral.base,
     fontColorActive: theme.color.secondary.lightBlue.base,
+    indicatorBackground: theme.color.secondary.lightBlue.base,
   },
   unselected: {
     background: theme.color.neutral.base,
@@ -75,6 +78,7 @@ const answerThemes = {
     borderHovered: theme.color.secondary.lightBlue.base,
     fontColor: '#606163',
     fontColorActive: '#C6C6C6',
+    indicatorBackground: theme.color.neutral.base,
   },
 };
 
@@ -96,9 +100,11 @@ const getAnswerTheme = (props: AnswerBlockProps) => {
 };
 
 const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerThemes]) => css`
+  background-color: ${answerTheme.background};
+
   ${AnswerIndicator} {
     color: ${answerTheme.fontColor};
-    background-color: ${answerTheme.background};
+    background-color: ${answerTheme.indicatorBackground};
     border: 1.5px solid ${answerTheme.border};
   }
 
@@ -110,11 +116,29 @@ const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerT
 `;
 
 // tslint:disable-next-line: variable-name
+export const AnswerWrapper = styled.div`
+  overflow: visible;
+`;
+
+// tslint:disable-next-line: variable-name
+export const AnswerInput = styled.input`
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+`;
+
+// tslint:disable-next-line: variable-name
 export const AnswerBlock = styled.label`
   padding: 1rem 2.4rem;
   display: flex;
   align-items: flex-start;
   cursor: ${(props: AnswerBlockProps) => props.isSubmitted ? 'not-allowed' : 'pointer'};
+
+  :focus {
+    outline: none;
+  }
+
   ${flow(getAnswerTheme, getAnswerThemeCss)}
   ${theme.breakpoints.mobile(css`
     padding: 0.5rem 2.4rem;
@@ -123,15 +147,15 @@ export const AnswerBlock = styled.label`
       padding: 0;
     }
   `)}
-  input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
 
-    &:focus + span {
-      outline: auto;
-    }
+  ${AnswerWrapper}:focus &,
+  input:focus + & {
+    outline: auto;
+    outline: -webkit-focus-ring-color auto 1px;
+  }
+
+  input:not(:focus-visible):focus + & {
+    outline: none;
   }
 `;
 
