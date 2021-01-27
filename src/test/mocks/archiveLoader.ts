@@ -1,5 +1,5 @@
 import fs from 'fs';
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
 import { ArchiveBook, ArchivePage } from '../../app/content/types';
 
