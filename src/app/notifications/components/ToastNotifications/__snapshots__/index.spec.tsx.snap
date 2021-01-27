@@ -5,12 +5,12 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
   className="styles__ToastsContainer-zqr5u1-0 clxXiP"
 >
   <div
-    className="styles__BannerBodyWrapper-zqr5u1-1 hauCUk"
+    className="styles__BannerBodyWrapper-zqr5u1-1 qefEc"
     data-testid="banner-body"
     onAnimationEnd={[Function]}
   >
     <div
-      className="styles__BannerBody-zqr5u1-2 dPBbUF"
+      className="styles__BannerBody-zqr5u1-2 kYtMtD"
     >
       <div
         className="Card__Header-sc-1o7sacr-3 jGwlNH"
@@ -54,12 +54,12 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
     </div>
   </div>
   <div
-    className="styles__BannerBodyWrapper-zqr5u1-1 fLPMjm"
+    className="styles__BannerBodyWrapper-zqr5u1-1 gKPfvw"
     data-testid="banner-body"
     onAnimationEnd={[Function]}
   >
     <div
-      className="styles__BannerBody-zqr5u1-2 dPBbUF"
+      className="styles__BannerBody-zqr5u1-2 kYtMtD"
     >
       <div
         className="Card__Header-sc-1o7sacr-3 jGwlNH"

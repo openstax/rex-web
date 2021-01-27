@@ -31,3 +31,9 @@ export const groupToasts = (toasts: ToastNotification[]) => toasts.reduce((group
   }
   return grouped;
 }, {} as {[key in ToastNotification['destination']]?: ToastNotification[]});
+
+export const compareToasts = (toast: ToastNotification, toast2: ToastNotification) => {
+  return toast.messageKey === toast2.messageKey
+    && toast.destination === toast2.destination
+    && toast.errorId === toast2.errorId;
+};

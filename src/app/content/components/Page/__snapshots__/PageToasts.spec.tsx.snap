@@ -10,12 +10,12 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
     className="styles__ToastsContainer-zqr5u1-0 clxXiP"
   >
     <div
-      className="styles__BannerBodyWrapper-zqr5u1-1 hauCUk"
+      className="styles__BannerBodyWrapper-zqr5u1-1 qefEc"
       data-testid="banner-body"
       onAnimationEnd={[Function]}
     >
       <div
-        className="styles__BannerBody-zqr5u1-2 dPBbUF"
+        className="styles__BannerBody-zqr5u1-2 kYtMtD"
       >
         <div
           className="Card__Header-sc-1o7sacr-3 jGwlNH"
@@ -70,12 +70,12 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
     className="styles__ToastsContainer-zqr5u1-0 clxXiP"
   >
     <div
-      className="styles__BannerBodyWrapper-zqr5u1-1 hauCUk"
+      className="styles__BannerBodyWrapper-zqr5u1-1 qefEc"
       data-testid="banner-body"
       onAnimationEnd={[Function]}
     >
       <div
-        className="styles__BannerBody-zqr5u1-2 dPBbUF"
+        className="styles__BannerBody-zqr5u1-2 kYtMtD"
       >
         <div
           className="Card__Header-sc-1o7sacr-3 jGwlNH"
