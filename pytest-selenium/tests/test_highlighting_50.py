@@ -1,5 +1,8 @@
 import random
 
+import pytest
+from selenium.common.exceptions import NoSuchElementException
+
 from pages.accounts import Signup
 from pages.content import Content
 from tests import markers
@@ -269,3 +272,80 @@ def test_edit_note_from_MH_page(selenium, base_url, book_slug, page_slug):
             break
         else:
             continue
+
+
+@markers.test_case("C598225")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
+def test_delete_highlight_from_MH_page(selenium, base_url, book_slug, page_slug):
+    """Deleting highlight from MH page, removes the highlight in content page."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight 2 set of texts in the page
+    paragraph = random.sample(book.content.paragraphs, 2)
+    note = Utilities.random_string(length=50)
+    content_highlight_ids = book.content.highlight_ids
+    data = [(paragraph[0], Color.GREEN, note), (paragraph[1], Color.YELLOW, note == "")]
+
+    for paragraphs, colors, note in data:
+        book.content.highlight(target=paragraphs, offset=Highlight.RANDOM, color=colors, note=note)
+        content_highlight_ids = content_highlight_ids + list(
+            set(book.content.highlight_ids) - set(content_highlight_ids)
+        )
+
+        my_highlights = book.toolbar.my_highlights()
+        highlights = my_highlights.highlights.edit_highlight
+
+        # WHEN: Click delete option from the highlight's context menu
+        highlights[0].click_delete()
+
+        # THEN: Delete confirmation message is displayed
+        assert (
+            highlights[0].confirm_delete_message
+            == "Are you sure you want to delete this note and highlight?"
+            if highlights[0].note_present
+            else "Are you sure you want to delete this highlight?"
+        ), (
+            "delete confirmation message is incorrect"
+            f"message displayed: {highlights[0].confirm_delete_message}"
+        )
+
+        # WHEN: Hit Cancel in the delete confirmation dialog
+        highlights[0].cancel()
+
+        # THEN: The highlight is not removed from MH page
+        assert (
+            len(my_highlights.all_highlights) == 1
+        ), "Highlight is removed from MH page even on hitting Cancel in delete confirmation dialog"
+
+        # WHEN: Click delete option from the highlight's context menu
+        # AND: Hit save in the delete confirmation dialog
+        highlights[0].delete()
+
+        # THEN: The highlight is removed from the MH page
+        assert (
+            len(my_highlights.all_highlights) == 0
+        ), "Highlight is not removed from MH page even on hitting Save in delete confirmation dialog"
+
+        my_highlights.close()
+
+        # AND: The highlight deleted in MH page is removed from the content page
+        assert book.content.highlight_count == 0, (
+            "Highlight deleted in MH page is not removed from content page: "
+            f"found {book.content.highlight_count}, expected {0}"
+        )
+
+        with pytest.raises(NoSuchElementException) as ex:
+            book.content.highlight_box
+        assert "No open highlight boxes found" in str(ex.value)

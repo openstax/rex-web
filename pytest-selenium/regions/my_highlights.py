@@ -667,6 +667,8 @@ class MyHighlights(Region):
             _cancel_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=cancel]")
             _save_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=save]")
             _note_indicator_locator = (By.XPATH, "./following::div[3]/span[contains(text(), 'Note:')]")
+            _delete_confirmation_button_locator = (By.CSS_SELECTOR, "[data-testid=delete]")
+            _delete_confirmation_message_locator = (By.CSS_SELECTOR, "[class*=HighlightDeleteWrapper] span")
 
             @property
             def mh_highlight_id(self) -> str:
@@ -740,6 +742,28 @@ class MyHighlights(Region):
                 """
                 return self.driver.execute_script(ELEMENT_SELECT.format(
                     selector=self._cancel_annotation_button_locator[1]))
+
+            @property
+            def confirm_delete_button(self) -> WebElement:
+                """Return the delete confirmation button.
+
+                :return: the "delete confirmation" button
+                :rtype: WebElement
+
+                """
+                return self.driver.execute_script(ELEMENT_SELECT.format(
+                    selector=self._delete_confirmation_button_locator[1]))
+
+            @property
+            def confirm_delete_message(self) -> WebElement:
+                """Return the delete confirmation message.
+
+                :return: the "delete confirmation" message
+                :rtype: WebElement
+
+                """
+                return self.driver.execute_script(ELEMENT_SELECT.format(
+                    selector=self._delete_confirmation_message_locator[1])).get_attribute("textContent")
 
             @property
             def delete_button(self) -> WebElement:
@@ -846,6 +870,35 @@ class MyHighlights(Region):
                 return self
 
             add_note = edit_note
+
+            def click_delete(self) -> MyHighlights.Highlights.EditHighlight:
+                """Toggle the highlight delete menu option.
+
+                :return: the note delete box
+                :rtype: :py:class:`~MyHighlights.Highlights.EditHighlight`
+
+                """
+
+                self.toggle_menu()
+                Utilities.click_option(self.driver, element=self.delete_button)
+                return self
+
+            def confirm_deletion(self):
+                """Click the delete confirmation button."""
+                sleep(0.25)
+                Utilities.click_option(self.driver, element=self.confirm_delete_button)
+
+            def delete(self) -> MyHighlights:
+                """Delete the highlight and note.
+
+                :return: the page content
+                :rtype: :py:class:`~MyHighlights`
+
+                """
+                self.click_delete()
+                self.confirm_deletion()
+                self.wait.until(expect.staleness_of(self.root))
+                return self.page
 
             @note.setter
             def note(self, note: str):
