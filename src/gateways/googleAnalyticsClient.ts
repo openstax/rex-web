@@ -5,7 +5,7 @@ import identity from 'lodash/fp/identity';
 import isEmpty from 'lodash/fp/isEmpty';
 import pickBy from 'lodash/fp/pickBy';
 import { assertWindow, referringHostName } from '../app/utils';
-import { cookieGA } from './constants.ts'
+import { cookieGA } from './constants';
 
 interface PageView {
   hitType: 'pageview';
