@@ -2,6 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
+import Button from '../../../../components/Button';
 import theme from '../../../../theme';
 import * as pqSelectors from '../../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
@@ -16,9 +17,14 @@ const Wrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   margin-bottom: 3.2rem;
+  overflow: visible;
 
   input {
     appearance: none;
+  }
+
+  ${Button} {
+    margin-left: 0.1rem;
   }
 
   ${theme.breakpoints.mobile(css`
