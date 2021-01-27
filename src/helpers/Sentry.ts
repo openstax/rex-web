@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/browser';
-import * as Integrations from '@sentry/integrations'; import createSentryMiddleware from 'redux-sentry-middleware';
+import * as Integrations from '@sentry/integrations';
+import createSentryMiddleware from 'redux-sentry-middleware';
 import { recordSentryMessage } from '../app/errors/actions';
 import { Middleware, MiddlewareAPI } from '../app/types';
 import config from '../config';
@@ -50,7 +51,6 @@ export default {
 
   captureException(error: any, level: Sentry.Severity = Severity.Error) {
     if (this.isEnabled) {
-
       Sentry.withScope((scope) => {
         scope.setLevel(level);
         Sentry.captureException(error);
