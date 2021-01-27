@@ -349,3 +349,31 @@ def test_delete_highlight_from_MH_page(selenium, base_url, book_slug, page_slug)
         with pytest.raises(NoSuchElementException) as ex:
             book.content.highlight_box
         assert "No open highlight boxes found" in str(ex.value)
+
+
+@markers.test_case("C598226")
+@markers.mobile_only
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
+def test_no_context_menu_in_mobile_MH_page(selenium, base_url, book_slug, page_slug):
+    """Mobile MH page does not have context menu."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight some text in the page
+    paragraph = random.sample(book.content.paragraphs, 1)
+    book.content.highlight(target=paragraph[0], offset=Highlight.RANDOM)
+
+    my_highlights = book.toolbar.my_highlights()
+    highlight = my_highlights.highlights.edit_highlight
+
+    assert not highlight[0].toggle_menu_visible()

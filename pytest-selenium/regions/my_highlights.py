@@ -7,7 +7,7 @@ from time import sleep
 from typing import List
 
 from pypom import Page
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expect
 from selenium.webdriver.remote.webelement import WebElement
@@ -825,6 +825,10 @@ class MyHighlights(Region):
                 """
                 return self.find_element(*self._highlight_purple_locator)
 
+            @property
+            def toggle(self):
+                return self.find_element(*self._alter_menu_toggle_locator)
+
             def toggle_menu(self) -> MyHighlights.Highlights.EditHighlight:
                 """Toggle the highlight context menu open or close.
 
@@ -832,10 +836,14 @@ class MyHighlights(Region):
                 :rtype: :py:class:`~MyHighlights.Highlights.EditHighlight`
 
                 """
-                toggle = self.find_element(*self._alter_menu_toggle_locator)
-
-                Utilities.click_option(self.driver, element=toggle)
+                Utilities.click_option(self.driver, element=self.toggle)
                 return self
+
+            def toggle_menu_visible(self):
+                try:
+                    return self.wait.until(expect.visibility_of(self.toggle))
+                except TimeoutException:
+                    return False
 
             def toggle_color(self, color: Color) -> MyHighlights.Highlights.EditHighlight:
                 """Toggle a highlight color.
