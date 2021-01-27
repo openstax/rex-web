@@ -5,6 +5,7 @@ import identity from 'lodash/fp/identity';
 import isEmpty from 'lodash/fp/isEmpty';
 import pickBy from 'lodash/fp/pickBy';
 import { assertWindow, referringHostName } from '../app/utils';
+import { cookieGA } from './constants.ts'
 
 interface PageView {
   hitType: 'pageview';
@@ -107,7 +108,7 @@ class GoogleAnalyticsClient {
       return;
     }
 
-    if (this.isReadyForCommands() && !Cookies.get('ANALYTICS_OPT_OUT')) {
+    if (this.isReadyForCommands()) {
       this.commandEachTracker(command);
     } else {
       this.saveCommandForLater(command);
@@ -199,7 +200,7 @@ class GoogleAnalyticsClient {
   }
 
   private isReadyForCommands() {
-    return (this.trackerNames.length > 0);
+    return (this.trackerNames.length > 0 && !Cookies.get(cookieGA));
   }
 
   // The real, low-level Google Analytics function
