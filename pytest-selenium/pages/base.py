@@ -217,7 +217,7 @@ class Page(pypom.Page):
     def username(self, element):
         """Get the username of a logged in user."""
 
-        return element.get_attribute("textContent")
+        return element.get_attribute("innerText")
 
     def element_in_viewport(self, target: WebElement):
         """verifies if target element is within viewport."""
