@@ -1,5 +1,5 @@
 import Highlighter, { Highlight, SerializedHighlight } from '@openstax/highlighter';
-import Sentry from '../../../../helpers/Sentry';
+import Sentry, { Severity } from '../../../../helpers/Sentry';
 
 const attachHighlight = <T extends Highlight | SerializedHighlight>(
   highlight: T,
@@ -16,7 +16,7 @@ const attachHighlight = <T extends Highlight | SerializedHighlight>(
     }
     return result;
   } catch (e) {
-    Sentry.captureException(e);
+    Sentry.captureException(e, Severity.Warning);
   }
 };
 
