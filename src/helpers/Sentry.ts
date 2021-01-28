@@ -17,6 +17,8 @@ export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
   return event;
 };
 
+export const Severity = Sentry.Severity;
+
 export default {
 
   initializeWithMiddleware(): Middleware {
@@ -47,9 +49,12 @@ export default {
     return typeof(window) !== 'undefined' && config.SENTRY_ENABLED;
   },
 
-  captureException(error: any) {
+  captureException(error: any, level: Sentry.Severity = Severity.Error) {
     if (this.isEnabled) {
-      Sentry.captureException(error);
+      Sentry.withScope((scope) => {
+        scope.setLevel(level);
+        Sentry.captureException(error);
+      });
     } else if (!this.shouldCollectErrors) {
       console.error(error); // tslint:disable-line:no-console
     }
@@ -62,15 +67,15 @@ export default {
   },
 
   log(message: string) {
-    this.captureMessage(message, Sentry.Severity.Log);
+    this.captureMessage(message, Severity.Log);
   },
 
   warn(message: string) {
-    this.captureMessage(message, Sentry.Severity.Warning);
+    this.captureMessage(message, Severity.Warning);
   },
 
   error(message: string) {
-    this.captureMessage(message, Sentry.Severity.Error);
+    this.captureMessage(message, Severity.Error);
   },
 
 };
