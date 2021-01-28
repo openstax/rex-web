@@ -2,6 +2,8 @@ import random
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 from pages.accounts import Signup
 from pages.content import Content
@@ -377,3 +379,76 @@ def test_no_context_menu_in_mobile_MH_page(selenium, base_url, book_slug, page_s
     highlight = my_highlights.highlights.edit_highlight
 
     assert not highlight[0].toggle_menu_visible()
+
+
+@markers.test_case("C600015")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
+def test_toggle_MH_page_context_menu_using_keyboard(selenium, base_url, book_slug, page_slug):
+    """Open/close context menu in MH page using keyboard."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight 2 sets of text in the page
+    paragraph = random.sample(book.content.paragraphs, 2)
+    note = Utilities.random_string()
+    data = [(paragraph[0], Color.GREEN, note), (paragraph[1], Color.YELLOW, note == "")]
+    for paragraphs, colors, note in data:
+        book.content.highlight(target=paragraphs, offset=Highlight.RANDOM, color=colors, note=note)
+
+    # AND: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    highlights = my_highlights.highlights.edit_highlight
+
+    # WHEN: Tab to the first context menu (present after the last breadcrumb)
+    # AND: Hit Return
+    (ActionChains(selenium).send_keys(Keys.TAB * 8).send_keys(Keys.RETURN).perform())
+
+    # THEN: Highlight edit box of the first highlight is open
+    assert highlights[0].highlight_edit_box_open
+
+    # AND: The focus is on the context menu of the first highlight
+    assert selenium.switch_to.active_element == highlights[0].context_menu
+
+    # WHEN: Hit Return
+    (ActionChains(selenium).send_keys(Keys.RETURN).perform())
+
+    # THEN: The highlight edit box of the first highlight is closed
+    assert not highlights[0].highlight_edit_box_open
+
+    # AND: The focus is on the context menu of the same highlight
+    assert selenium.switch_to.active_element == highlights[0].context_menu
+
+    # WHEN: Hit tab once and Enter
+    (ActionChains(selenium).send_keys(Keys.TAB * 1).send_keys(Keys.ENTER).perform())
+
+    # THEN: Highlight edit box of the second highlight is open
+    assert highlights[1].highlight_edit_box_open
+
+    # AND: The focus is on the context menu of the second highlight
+    assert selenium.switch_to.active_element == highlights[1].context_menu
+
+    # WHEN: Hit Escape
+    (ActionChains(selenium).send_keys(Keys.ESCAPE).perform())
+
+    # THEN: The highlight edit box of the second highlight is closed
+    assert not highlights[1].highlight_edit_box_open
+
+    # AND: The focus is on the context menu of the same highlight
+    assert selenium.switch_to.active_element == highlights[1].context_menu
+
+    # WHEN: Hit Esc
+    (ActionChains(selenium).send_keys(Keys.ESCAPE).perform())
+
+    # THEN: MH page is closed
+    assert not book.my_highlights_open, "My Highlights and Notes modal is still open"
