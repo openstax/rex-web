@@ -1,11 +1,10 @@
 // tslint:disable:max-classes-per-file
-import * as Cookies from 'js-cookie';
 import flow from 'lodash/fp/flow';
 import identity from 'lodash/fp/identity';
 import isEmpty from 'lodash/fp/isEmpty';
 import pickBy from 'lodash/fp/pickBy';
 import { assertWindow, referringHostName } from '../app/utils';
-import { disableAnalyticsCookie } from '../helpers/analyticsEvents/constants';
+import { trackingIsDisabled } from '../helpers/analytics';
 
 interface PageView {
   hitType: 'pageview';
@@ -168,7 +167,7 @@ class GoogleAnalyticsClient {
 
   public setTrackingIds(ids: string[]) {
     // Ignore tracking ID changes for the moment
-    if (this.trackerNames.length > 0 || this.trackingIsDisabled()) { return; }
+    if (this.trackerNames.length > 0 || trackingIsDisabled()) { return; }
 
     for (const id of ids) {
       // Build a tracker for each ID, use the ID as the basis of the
@@ -179,10 +178,6 @@ class GoogleAnalyticsClient {
     }
 
     this.flushPendingCommands();
-  }
-
-  private trackingIsDisabled(): boolean {
-    return !!Cookies.get(disableAnalyticsCookie);
   }
 
   private saveCommandForLater(command: Command) {
@@ -204,7 +199,7 @@ class GoogleAnalyticsClient {
   }
 
   private isReadyForCommands() {
-    return (this.trackerNames.length > 0 && !this.trackingIsDisabled());
+    return (this.trackerNames.length > 0 && !trackingIsDisabled());
   }
 
   // The real, low-level Google Analytics function

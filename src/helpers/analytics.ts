@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useServices } from '../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
@@ -21,6 +22,7 @@ import * as search from './analyticsEvents/search';
 import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClosePopUp';
 import * as openUTG from './analyticsEvents/studyGuides/openUTG';
 import * as unload from './analyticsEvents/unload';
+import { disableAnalyticsCookie } from './constants';
 
 type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
 type Selector = (state: AppState) => object;
@@ -122,5 +124,7 @@ export const useAnalyticsEvent = <T extends keyof typeof analytics>(eventType: T
     (event.track as any)(data, ...args);
   };
 };
+
+export const trackingIsDisabled = () => !!Cookies.get(disableAnalyticsCookie);
 
 export default analytics;
