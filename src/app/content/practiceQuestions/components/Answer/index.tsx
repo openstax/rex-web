@@ -2,13 +2,15 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { LinkedArchiveTreeSection } from '../../../types';
-import { PracticeAnswer } from '../../types';
+import { PracticeAnswer, PracticeQuestion } from '../../types';
 import {
   AnswerAlignment,
   AnswerBlock,
   AnswerContent,
   AnswerExcerpt,
   AnswerIndicator,
+  AnswerInput,
+  AnswerWrapper,
   StyledAnswerResult,
 } from './styled';
 
@@ -44,6 +46,7 @@ interface AnswerProps {
   isSubmitted: boolean;
   showCorrect: boolean;
   answer: PracticeAnswer;
+  question: PracticeQuestion;
   choiceIndicator: string;
   onSelect: () => void;
   source: LinkedArchiveTreeSection;
@@ -52,6 +55,7 @@ interface AnswerProps {
 // tslint:disable-next-line: variable-name
 const Answer = ({
   answer,
+  question,
   showCorrect,
   choiceIndicator,
   isSubmitted,
@@ -68,47 +72,42 @@ const Answer = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showCorrect, isCorrect]);
 
-  return <AnswerBlock
-    showCorrect={showCorrect}
-    isCorrect={isCorrect}
-    isSubmitted={isSubmitted}
-    isSelected={isSelected}
-    onClick={onSelect}
-    ref={answerRef}
-    tabIndex={0}
-    htmlFor={choiceIndicator}
-  >
-    <FormattedMessage
-      id='i18n:practice-questions:popup:answers:choice'
-      values={{choiceIndicator: choiceIndicator.toUpperCase()}}
-    >{(msg: string) =>
-      <React.Fragment>
-        <input
-          id={choiceIndicator}
-          type='radio'
-          name={choiceIndicator}
-          checked={isSelected}
-          disabled={isSubmitted}
-          aria-label={msg}
-          onChange={onSelect}
-        />
-        <AnswerIndicator aria-label={msg}>
-          {choiceIndicator}
-        </AnswerIndicator>
-      </React.Fragment>
-    }</FormattedMessage>
-    <AnswerAlignment>
-      <AnswerContent>
-        <AnswerExcerpt dangerouslySetInnerHTML={{ __html: answer.content_html }} />
-        <AnswerResult
-          showCorrect={showCorrect}
-          isSelected={isSelected}
-          isSubmitted={isSubmitted}
-          isCorrect={isCorrect}
-        />
-      </AnswerContent>
-    </AnswerAlignment>
-  </AnswerBlock>;
+  return <AnswerWrapper tabIndex={-1} ref={answerRef}>
+    <AnswerInput
+      id={choiceIndicator}
+      type='radio'
+      name={question.uid}
+      checked={isSelected}
+      disabled={isSubmitted}
+      onChange={onSelect}
+    />
+    <AnswerBlock
+      tabIndex={-1}
+      htmlFor={choiceIndicator}
+      showCorrect={showCorrect}
+      isCorrect={isCorrect}
+      isSubmitted={isSubmitted}
+      isSelected={isSelected}
+    >
+      <FormattedMessage
+        id='i18n:practice-questions:popup:answers:choice'
+        values={{choiceIndicator: choiceIndicator.toUpperCase()}}
+      >{(msg: string) =>
+        <AnswerIndicator aria-label={msg}>{choiceIndicator}</AnswerIndicator>
+      }</FormattedMessage>
+      <AnswerAlignment>
+        <AnswerContent>
+          <AnswerExcerpt dangerouslySetInnerHTML={{ __html: answer.content_html }} />
+          <AnswerResult
+            showCorrect={showCorrect}
+            isSelected={isSelected}
+            isSubmitted={isSubmitted}
+            isCorrect={isCorrect}
+          />
+        </AnswerContent>
+      </AnswerAlignment>
+    </AnswerBlock>
+  </AnswerWrapper>;
 };
 
 export default Answer;

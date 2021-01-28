@@ -148,11 +148,24 @@ const resolvePage = async(
   }
 };
 
-const getBookInformation = async(
+export const getBookInformation = async(
   services: AppServices & MiddlewareAPI,
-  pageId: string
+  reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
-  const allReferences = await services.archiveLoader.getBookIdsForPage(pageId);
+  const getInputReferenceInfo = (id: string, inputVersion?: string) => {
+    const defaultVersion = BOOKS[id] ? BOOKS[id].defaultVersion : undefined;
+    const bookVersion = inputVersion ? inputVersion : defaultVersion;
+
+    if (!bookVersion) {
+      return [];
+    }
+
+    return [{id, bookVersion}];
+  };
+
+  const allReferences = reference.bookId ? getInputReferenceInfo(reference.bookId, reference.bookVersion)
+    : await services.archiveLoader.getBookIdsForPage(reference.pageId);
+
   const configuredReference = allReferences.filter((item) => BOOKS[item.id])[0];
 
   if (configuredReference) {
@@ -167,13 +180,11 @@ const getBookInformation = async(
     for (const {id, bookVersion} of allReferences) {
       const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
       const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
-
       if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
         return {osWebBook, archiveBook};
       }
     }
   }
-
   return undefined;
 };
 
@@ -181,12 +192,12 @@ export const resolveExternalBookReference = async(
   services: AppServices & MiddlewareAPI,
   book: Book,
   page: ArchivePage,
-  pageId: string
+  reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
-  const bookInformation = await getBookInformation(services, pageId);
+  const bookInformation = await getBookInformation(services, reference);
 
   const error = (message: string) => new Error(
-    `BUG: "${book.title} / ${page.title}" referenced "${pageId}", ${message}`
+    `BUG: "${book.title} / ${page.title}" referenced "${reference.pageId}", ${message}`
   );
 
   if (!bookInformation) {
@@ -195,7 +206,7 @@ export const resolveExternalBookReference = async(
 
   const referencedBook = formatBookData(bookInformation.archiveBook, bookInformation.osWebBook);
 
-  if (!archiveTreeContainsNode(referencedBook.tree, pageId)) {
+  if (!archiveTreeContainsNode(referencedBook.tree, reference.pageId)) {
     throw error(`archive thought it would be in "${referencedBook.id}", but it wasn't`);
   }
 
@@ -206,22 +217,22 @@ const loadContentReference = async(
   services: AppServices & MiddlewareAPI,
   book: Book,
   page: ArchivePage,
-  reference: ReturnType<typeof getContentPageReferences>[0]
+  reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
-  const targetBook: Book = archiveTreeContainsNode(book.tree, reference.pageUid)
+  const targetBook: Book = archiveTreeContainsNode(book.tree, reference.pageId)
     ? book
-    : await resolveExternalBookReference(services, book, page, reference.pageUid);
+    : await resolveExternalBookReference(services, book, page, reference);
 
   return {
     match: reference.match,
     params: {
       book: getUrlParamsForBook(targetBook),
-      page: getUrlParamForPageId(targetBook, reference.pageUid),
+      page: getUrlParamForPageId(targetBook, reference.pageId),
     },
     state: {
       bookUid: targetBook.id,
       bookVersion: targetBook.version,
-      pageUid: reference.pageUid,
+      pageUid: reference.pageId,
     },
   };
 };
