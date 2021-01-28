@@ -102,7 +102,6 @@ export const campaignFromQuery: (query: Query) => SetPayload = flow(
 class GoogleAnalyticsClient {
   private trackerNames: string[] = [];
   private pendingCommands: PendingCommand[] = [];
-  private trackingIsDisabled: boolean = !!Cookies.get(disableAnalyticsCookie);
 
   public gaProxy(command: Command) {
     if (isEmpty(command.payload)) {
@@ -169,7 +168,7 @@ class GoogleAnalyticsClient {
 
   public setTrackingIds(ids: string[]) {
     // Ignore tracking ID changes for the moment
-    if (this.trackerNames.length > 0 || this.trackingIsDisabled) { return; }
+    if (this.trackerNames.length > 0 || this.trackingIsDisabled()) { return; }
 
     for (const id of ids) {
       // Build a tracker for each ID, use the ID as the basis of the
@@ -180,6 +179,10 @@ class GoogleAnalyticsClient {
     }
 
     this.flushPendingCommands();
+  }
+
+  private trackingIsDisabled(): boolean {
+    return !!Cookies.get(disableAnalyticsCookie);
   }
 
   private saveCommandForLater(command: Command) {
@@ -201,7 +204,7 @@ class GoogleAnalyticsClient {
   }
 
   private isReadyForCommands() {
-    return (this.trackerNames.length > 0 && !this.trackingIsDisabled);
+    return (this.trackerNames.length > 0 && !this.trackingIsDisabled());
   }
 
   // The real, low-level Google Analytics function
