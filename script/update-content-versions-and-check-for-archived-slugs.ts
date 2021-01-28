@@ -95,7 +95,7 @@ async function processBook() {
   const updatedBooksConfig = { ...books };
   updatedBooksConfig[args.bookId] = { defaultVersion: version };
 
-  fs.writeFileSync(booksPath, JSON.stringify(books, undefined, 2) + '\n', 'utf8');
+  fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
 
   // defaultVersion will be undefined when we add a new book.
   // In this case we don't need to updateRedirections because there is nothing to update.
