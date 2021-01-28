@@ -452,3 +452,65 @@ def test_toggle_MH_page_context_menu_using_keyboard(selenium, base_url, book_slu
 
     # THEN: MH page is closed
     assert not book.my_highlights_open, "My Highlights and Notes modal is still open"
+
+
+@markers.test_case("C600017")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
+def test_change_highlight_color_from_MH_page_context_menu_using_keyboard(
+    selenium, base_url, book_slug, page_slug
+):
+    """Change highlight color using keyboard navigation in MH page."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight some text in the page
+    paragraph = random.sample(book.content.paragraphs, 1)
+    note = Utilities.random_string()
+    book.content.highlight(
+        target=paragraph[0], offset=Highlight.RANDOM, color=Color.GREEN, note=note
+    )
+
+    # AND: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    highlights = my_highlights.highlights.edit_highlight
+    highlight_id = highlights[0].mh_highlight_id
+
+    # WHEN: Tab to the context menu and hit Return
+    (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+
+    # AND: Tab 4 times to select Purple color and hit Spacebar
+    (
+        ActionChains(selenium)
+        .send_keys(Keys.TAB * 4)
+        .send_keys(Keys.RETURN)
+        .send_keys(Keys.SPACE)
+        .perform()
+    )
+
+    # THEN: The highlight color in MH page is changed to purple
+    assert highlights[0].highlight_color == "purple"
+
+    # AND: The focus stays on purple color
+    assert selenium.switch_to.active_element == highlights[0].purple
+
+    # WHEN: Hit Esc twice to close the MH modal
+    (ActionChains(selenium).send_keys(Keys.ESCAPE * 2).perform())
+
+    highlight_classes = book.content.get_highlight(by_id=highlight_id)[0].get_attribute("class")
+    highlight_color_in_content_page_after_MH_color_change = Color.from_html_class(highlight_classes)
+
+    # THEN: The highlight color in the content page is changed to purple
+    assert (
+        highlight_color_in_content_page_after_MH_color_change == Color.PURPLE
+    ), "the current highlight color does not match the new color"

@@ -671,6 +671,7 @@ class MyHighlights(Region):
             _delete_confirmation_button_locator = (By.CSS_SELECTOR, "[data-testid=delete]")
             _delete_confirmation_message_locator = (By.CSS_SELECTOR, "[class*=HighlightDeleteWrapper] span")
             _highlight_edit_box_locator = (By.CSS_SELECTOR, "[class*=HighlightToggleEditContent]")
+            _highlight_color_locator = (By.XPATH, "./following::div[contains(@class, 'ContentWrapper')]")
 
             @property
             def mh_highlight_id(self) -> str:
@@ -681,6 +682,16 @@ class MyHighlights(Region):
 
                 """
                 return self.find_element(*self._highlight_id_locator).get_attribute("data-highlight-id")
+
+            @property
+            def highlight_color(self) -> str:
+                """Return the highlight color of the highlight being edited.
+
+                :return: the color of the highlight in MH page
+                :rtype: str
+
+                """
+                return self.find_element(*self._highlight_color_locator).get_attribute("color")
 
             @property
             def edit_button(self) -> WebElement:
