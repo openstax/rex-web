@@ -80,7 +80,8 @@ async function processBook() {
   const { defaultVersion } = books[args.bookId] || {};
 
   if (defaultVersion === args.newVersion.toString()) {
-    console.log(`${args.bookId} alredy at desired version.`); // tslint:disable-line:no-console
+    // tslint:disable-next-line: no-console
+    console.log(`${args.bookId} alredy at desired version.`);
     process.exit(0);
   }
 
@@ -91,11 +92,16 @@ async function processBook() {
       throw error;
     });
 
-  books[args.bookId] = { defaultVersion: version };
+  const updatedBooksConfig = { ...books };
+  updatedBooksConfig[args.bookId] = { defaultVersion: version };
 
   fs.writeFileSync(booksPath, JSON.stringify(books, undefined, 2) + '\n', 'utf8');
 
-  const newRedirectionsCounter = await updateRedirections(args.bookId, defaultVersion, args.newVersion.toString());
+  // defaultVersion will be undefined when we add a new book.
+  // In this case we don't need to updateRedirections because there is nothing to update.
+  const newRedirectionsCounter = defaultVersion
+    ? await updateRedirections(args.bookId, defaultVersion, args.newVersion.toString())
+    : 0;
 
   // tslint:disable-next-line: no-console
   console.log(`updated ${title} and added ${newRedirectionsCounter} new redirections`);
