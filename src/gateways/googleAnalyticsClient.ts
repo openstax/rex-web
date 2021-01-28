@@ -5,7 +5,7 @@ import identity from 'lodash/fp/identity';
 import isEmpty from 'lodash/fp/isEmpty';
 import pickBy from 'lodash/fp/pickBy';
 import { assertWindow, referringHostName } from '../app/utils';
-import { cookieGA } from './constants';
+import { disableAnalyticsCookie } from '../helpers/analyticsEvents/constants';
 
 interface PageView {
   hitType: 'pageview';
@@ -200,7 +200,7 @@ class GoogleAnalyticsClient {
   }
 
   private isReadyForCommands() {
-    return (this.trackerNames.length > 0 && !Cookies.get(cookieGA));
+    return (this.trackerNames.length > 0 && !Cookies.get(disableAnalyticsCookie));
   }
 
   // The real, low-level Google Analytics function
