@@ -90,6 +90,7 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 // tslint:disable-next-line:variable-name
 export const CloseButton = styled(PlainButton)`
   color: ${closeIconColor};
+  overflow: visible;
 
   &:hover {
     color: ${hoveredCloseIconColor};
@@ -99,6 +100,7 @@ export const CloseButton = styled(PlainButton)`
 // tslint:disable-next-line: variable-name
 export const ErrorId = styled.span`
   margin-left: 1rem;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: ${errorTextColor};
+  white-space: nowrap;
 `;

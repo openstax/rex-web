@@ -23,7 +23,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
           The highlight could not be saved. Please check your connection and try again.
         </div>
         <button
-          className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-4 EKUEv"
+          className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-4 jhqTCe"
           onClick={[Function]}
         >
           <svg
@@ -83,7 +83,7 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
           The highlight could not be saved. Please check your connection and try again.
         </div>
         <button
-          className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-4 EKUEv"
+          className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-4 jhqTCe"
           onClick={[Function]}
         >
           <svg
