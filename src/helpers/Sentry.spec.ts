@@ -13,9 +13,7 @@ jest.mock('../config', () => ({
 }));
 
 jest.mock('@sentry/browser', () => ({
-  Severity: {
-    Log: 'log',
-  },
+  ...(jest as any).requireActual('@sentry/browser'),
   captureException: jest.fn(),
   captureMessage: jest.fn(),
   configureScope: jest.fn(),
