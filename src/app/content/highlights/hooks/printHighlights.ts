@@ -6,8 +6,6 @@ import { HighlightPopupPrintError } from '../errors';
 import { myHighlightsOpen } from '../selectors';
 import { loadMore, LoadMoreResponse } from './loadMore';
 
-let waitingForPromiseCollector = false;
-
 export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
   let response: Unpromisify<LoadMoreResponse>;
 
@@ -24,21 +22,18 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
     pagination: null,
   }));
 
-  if (waitingForPromiseCollector) {
-    // wait for content to process/load
-    await services.promiseCollector.calm();
-    waitingForPromiseCollector = false;
-  }
+  // wait for content to process/load
+  services.promiseCollector.calm()
+    .then(() => {
+      services.dispatch(toggleSummaryHighlightsLoading(false));
 
-  services.dispatch(toggleSummaryHighlightsLoading(false));
-
-  if (myHighlightsOpen(services.getState())) {
-    assertWindow().print();
-  }
+      if (myHighlightsOpen(services.getState())) {
+        assertWindow().print();
+      }
+    });
 };
 
 export const hookBody: ActionHookBody<typeof printSummaryHighlights> = (services) => () => {
-  waitingForPromiseCollector = true;
   return asyncHelper(services);
 };
 

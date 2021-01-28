@@ -6,8 +6,6 @@ import { printStudyGuides, receiveSummaryStudyGuides, toggleStudyGuidesSummaryLo
 import { studyGuidesOpen } from '../selectors';
 import { loadMore, LoadMoreResponse } from './loadMore';
 
-let waitingForPromiseCollector = false;
-
 export const asyncHelper = async(services: MiddlewareAPI & AppServices) => {
   let response: Unpromisify<LoadMoreResponse>;
 
@@ -24,21 +22,18 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices) => {
     pagination: null,
   }));
 
-  if (waitingForPromiseCollector) {
-    // wait for content to process/load
-    await services.promiseCollector.calm();
-    waitingForPromiseCollector = false;
-  }
+  // wait for content to process/load
+  services.promiseCollector.calm()
+    .then(() => {
+      services.dispatch(toggleStudyGuidesSummaryLoading(false));
 
-  services.dispatch(toggleStudyGuidesSummaryLoading(false));
-
-  if (studyGuidesOpen(services.getState())) {
-    assertWindow().print();
-  }
+      if (studyGuidesOpen(services.getState())) {
+        assertWindow().print();
+      }
+    });
 };
 
 export const hookBody: ActionHookBody<typeof printStudyGuides> = (services) => () => {
-  waitingForPromiseCollector = true;
   return asyncHelper(services);
 };
 

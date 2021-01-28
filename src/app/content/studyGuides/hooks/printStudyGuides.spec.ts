@@ -110,21 +110,6 @@ describe('printStudyGuides', () => {
     expect(print).toHaveBeenCalled();
   });
 
-  it('doesn\'t wait twice for promiseCollector.calm', async() => {
-    // waitingForPromiseCollector is false
-    await asyncHelper(helpers);
-
-    expect(loadMore).toHaveBeenCalled();
-    await Promise.resolve();
-
-    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(formattedHighlights, {
-      isStillLoading: true,
-      pagination: null,
-    }));
-
-    expect(calmSpy).not.toHaveBeenCalled();
-  });
-
   it('doesn\'t print if study guides modal was closed', async() => {
     hook(printStudyGuides());
 
