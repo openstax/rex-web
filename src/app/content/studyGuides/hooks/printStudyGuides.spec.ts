@@ -20,7 +20,6 @@ describe('printStudyGuides', () => {
   let loadMore: jest.SpyInstance;
   let print: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let asyncHelper: typeof import ('./printStudyGuides').asyncHelper;
   let hook: ReturnType<typeof import ('./printStudyGuides').hookBody>;
 
   beforeEach(() => {
@@ -54,7 +53,6 @@ describe('printStudyGuides', () => {
     loadMore = jest.spyOn(require('./loadMore'), 'loadMore')
       .mockImplementation(async() => ({formattedHighlights}));
 
-    asyncHelper = (require('./printStudyGuides').asyncHelper);
     hook = (require('./printStudyGuides').hookBody)(helpers);
   });
 
