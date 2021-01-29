@@ -123,7 +123,7 @@ export const specialText = `
 </ul>
 
 <p>
-  © {bookLatestRevision, date, medium} {copyrightHolder} <strong>The OpenStax name, OpenStax logo,
+  © {bookLatestRevision, date, medium} {copyrightHolder}. <strong>The OpenStax name, OpenStax logo,
   OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo are not subject to the Creative Commons license and may
   not be reproduced without the prior and express written consent of Rice University.</strong>
 </p>
