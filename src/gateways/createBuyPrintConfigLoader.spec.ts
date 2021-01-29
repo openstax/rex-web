@@ -1,4 +1,7 @@
+import Sentry from '../helpers/Sentry';
 import createBuyPrintConfigLoader from './createBuyPrintConfigLoader';
+
+jest.mock('../helpers/Sentry');
 
 const mockFetch = (code: number, data: any) =>
   jest.fn(() =>
@@ -29,18 +32,23 @@ describe('buyPrintConfigLoader', () => {
     expect(config).toEqual({buy_urls: []});
   });
 
-  it('throws for unexpected errors', async() => {
+  it('returns default buyPrintResponse on response error', async() => {
     (global as any).fetch = mockFetch(500, 'unexpected error');
-    let message: string | undefined;
 
-    try {
-      await buyPrintConfigLoader.load({slug: 'asdf'});
-    } catch (e) {
-      message = e.message;
-    }
+    const response = await buyPrintConfigLoader.load({slug: 'asdf'});
 
-    expect(message).toMatchInlineSnapshot(
-      `"Error response from BuyPrint 500: unexpected error"`
+    const mockBuyPrintResponse = {
+      buy_urls: [{
+        allows_redirects: true,
+        disclosure: null,
+        provider: 'openstax_fallback',
+        url: 'url/asdf',
+      }],
+    };
+
+    expect(Sentry.captureException).toHaveBeenCalledWith(
+      new Error('Error response from BuyPrint 500: unexpected error')
     );
+    expect(response).toEqual(mockBuyPrintResponse);
   });
 });
