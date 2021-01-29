@@ -1,5 +1,6 @@
 import { GetHighlightsSummarySourceTypeEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
 import Sentry from '../../../../helpers/Sentry';
+import { getMessageIdStack } from '../../../errors/selectors';
 import { addToast } from '../../../notifications/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { ActionHookBody, Unpromisify } from '../../../types';
@@ -32,7 +33,8 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
       sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
     });
   } catch (error) {
-    const errorId = Sentry.captureException(error);
+    Sentry.captureException(error);
+    const errorId = getMessageIdStack(services.getState())[0];
     dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights', errorId}));
     dispatch(toggleSummaryHighlightsLoading(false));
     return;
@@ -50,7 +52,8 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   try {
     highlights = await loadMore(services, summaryPageSize);
   } catch (error) {
-    const errorId = Sentry.captureException(error);
+    Sentry.captureException(error);
+    const errorId = getMessageIdStack(services.getState())[0];
     dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights', errorId}));
     dispatch(toggleSummaryHighlightsLoading(false));
     return;

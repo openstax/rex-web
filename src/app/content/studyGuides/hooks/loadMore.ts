@@ -2,6 +2,7 @@ import {
   GetHighlightsColorsEnum, GetHighlightsSetsEnum,
 } from '@openstax/highlighter/dist/api';
 import Sentry from '../../../../helpers/Sentry';
+import { getMessageIdStack } from '../../../errors/selectors';
 import { addToast } from '../../../notifications/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
@@ -53,7 +54,8 @@ export const hookBody: ActionHookBody<
   try {
     response = await loadMore(services, summaryPageSize);
   } catch (error) {
-    const errorId = Sentry.captureException(error);
+    Sentry.captureException(error);
+    const errorId = getMessageIdStack(services.getState())[0];
     services.dispatch(
       addToast(toastMessageKeys.studyGuides.failure.popUp.load, {destination: 'studyGuides', errorId}));
     services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));

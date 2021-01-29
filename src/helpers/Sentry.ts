@@ -49,7 +49,7 @@ export default {
 
   captureException(error: any) {
     if (this.isEnabled) {
-      return Sentry.captureException(error);
+      Sentry.captureException(error);
     } else if (!this.shouldCollectErrors) {
       console.error(error); // tslint:disable-line:no-console
     }

@@ -3,6 +3,7 @@ import { getType } from 'typesafe-actions';
 import Sentry from '../../../../helpers/Sentry';
 import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
+import { getMessageIdStack } from '../../../errors/selectors';
 import { addToast } from '../../../notifications/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
@@ -41,7 +42,8 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
       pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
     });
   } catch (error) {
-    const errorId = Sentry.captureException(error);
+    Sentry.captureException(error);
+    const errorId = getMessageIdStack(services.getState())[0];
     if (action && action.type !== getType(receivePageFocus)) {
       dispatch(
         addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false, errorId}));
