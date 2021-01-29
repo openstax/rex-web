@@ -1,4 +1,3 @@
-import Sentry from '../../../../helpers/Sentry';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { receiveBuyPrintConfig } from '../../actions';
 import * as selectContent from '../../selectors';
@@ -13,14 +12,7 @@ const loadBuyPrintConfig = (services: MiddlewareAPI & AppServices) => async() =>
     return;
   }
 
-  const response = await buyPrintConfigLoader.load(book)
-    .catch(() => null);
-
-  if (response === null) {
-    Sentry.captureException(new Error(`book: ${book.slug} had no response from buy-book config service`));
-    return;
-  }
-
+  const response = await buyPrintConfigLoader.load(book);
   const config = response.buy_urls[0];
 
   if (!config) {
