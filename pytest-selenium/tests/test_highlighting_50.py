@@ -514,3 +514,88 @@ def test_change_highlight_color_from_MH_page_context_menu_using_keyboard(
     assert (
         highlight_color_in_content_page_after_MH_color_change == Color.PURPLE
     ), "the current highlight color does not match the new color"
+
+
+@markers.test_case("C600018")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
+def test_add_note_from_MH_page_using_keyboard_navigation(selenium, base_url, book_slug, page_slug):
+    """Add note from MH page using keyboard navigation."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight some text in the page
+    paragraph = random.sample(book.content.paragraphs, 1)
+    book.content.highlight(target=paragraph[0], offset=Highlight.RANDOM)
+
+    # AND: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    highlight = my_highlights.highlights.edit_highlight
+    highlight_id = highlight[0].mh_highlight_id
+    note_text = Utilities.random_string()
+
+    # WHEN: Open the context menu
+    (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+
+    # AND: Select Add note
+    (ActionChains(selenium).send_keys(Keys.TAB * 6).send_keys(Keys.RETURN).perform())
+
+    # AND: Enter the note in the textbox and hit cancel
+    (
+        ActionChains(selenium)
+        .send_keys(note_text)
+        .send_keys(Keys.TAB * 2)
+        .send_keys(Keys.ENTER)
+        .perform()
+    )
+
+    # AND: Close the MH page
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+
+    # THEN: The corresponding highlight in the content page is not updated with any note info
+    Utilities.click_option(
+        driver=selenium, element=book.content.get_highlight(by_id=highlight_id)[0], scroll_to=-130
+    )
+
+    assert (
+        book.content.highlight_box.note == ""
+    ), "the note is added to highlight even on clicking Cancel in MH page"
+
+    book.toolbar.my_highlights()
+
+    # WHEN: Open the context menu
+    (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+
+    # AND: Select Add note
+    (ActionChains(selenium).send_keys(Keys.TAB * 6).send_keys(Keys.RETURN).perform())
+
+    # AND: Enter the note in the textbox and hit save
+    (
+        ActionChains(selenium)
+        .send_keys(note_text)
+        .send_keys(Keys.TAB)
+        .send_keys(Keys.ENTER)
+        .perform()
+    )
+
+    # AND: Close the MH page
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+
+    # THEN: The corresponding highlight in the content page is updated with the note added in MH page
+    Utilities.click_option(
+        driver=selenium, element=book.content.get_highlight(by_id=highlight_id)[0], scroll_to=-130
+    )
+
+    assert (
+        book.content.highlight_box.note == note_text
+    ), "the note text does not match the note added in MH page"
