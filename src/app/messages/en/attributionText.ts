@@ -62,15 +62,14 @@ export const defaultText = `
 </p>
 `;
 
-export const teaText = `
+export const specialText = `
 <p>
   Want to cite, share, or modify this book? This book is
   <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by/4.0/">
    {bookLicenseName} {bookLicenseVersion}
   </a>
-  and you must attribute “Texas Education Agency (TEA)." The original material is available at: <a target="_blank"
-  rel="noopener" href="https://www.texasgateway.org/book/{teaBookName}">https://www.texasgateway.org/book/{teaBookName}
-  </a>. Changes were made to the original material, including updates to art, structure, and other content updates.
+  and you must attribute {copyrightHolder}.{originalMaterialInformation} Changes were made to the original material,
+  including updates to art, structure, and other content updates.
 </p>
 
 <strong>Attribution information</strong>
@@ -124,7 +123,7 @@ export const teaText = `
 </ul>
 
 <p>
-  © {bookLatestRevision, date, medium} Texas Education Agency (TEA). <strong>The OpenStax name, OpenStax logo,
+  © {bookLatestRevision, date, medium} {copyrightHolder} <strong>The OpenStax name, OpenStax logo,
   OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo are not subject to the Creative Commons license and may
   not be reproduced without the prior and express written consent of Rice University.</strong>
 </p>
