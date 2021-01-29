@@ -34,6 +34,7 @@ export default {
           new Integrations.Dedupe(),
         ],
         release: `rex@${config.RELEASE_ID}`,
+        tracesSampleRate: 0.1,
       });
       IS_INITIALIZED = true;
 
