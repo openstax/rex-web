@@ -9,6 +9,7 @@ import reduce from 'lodash/fp/reduce';
 import values from 'lodash/fp/values';
 import { not, reduceUntil } from '../../../fpUtils';
 import { isDefined } from '../../../guards';
+import { LocationFilters } from '../../components/popUp/types';
 import { maxResourcesPerFetch } from '../../constants';
 import { isArchiveTree } from '../../guards';
 import { ArchiveTree, LinkedArchiveTreeSection } from '../../types';
@@ -19,7 +20,6 @@ import {
 import { stripIdVersion } from '../../utils/idUtils';
 import {
   CountsPerSource,
-  HighlightLocationFilters,
   SummaryFilters,
   SummaryHighlightsPagination
 } from '../types';
@@ -84,10 +84,10 @@ export const getNextPageSources = (
 };
 
 export const filterCountsPerSourceByLocationFilter = (
-  locationFilters: HighlightLocationFilters,
+  locationFilters: LocationFilters,
   counts: CountsPerSource
 ): CountsPerSource => {
-  const chapterFilters = Array.from(locationFilters.values()).filter(isArchiveTree);
+  const chapterFilters = Array.from(locationFilters.values()).map((location) => location.section).filter(isArchiveTree);
 
   const someChapterContainsNode = (sourceId: string) => chapterFilters.find(
     (location) => archiveTreeContainsNode(location, sourceId)

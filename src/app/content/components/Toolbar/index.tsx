@@ -15,7 +15,6 @@ import {
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import { tocOpen } from '../../selectors';
-import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -96,7 +95,6 @@ class Toolbar extends React.Component<Props, State> {
 
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
-        <Styled.SidebarControl hideMobileText={true} tabIndex={hideFromFocus ? -1 : undefined} />
         <Styled.SearchPrintWrapper>
           <Styled.SearchInputWrapper
             active={this.props.mobileToolbarOpen}
@@ -126,11 +124,10 @@ class Toolbar extends React.Component<Props, State> {
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
         <PracticeQuestionsButton />
-        <Styled.NudgeElementTarget id={nudgeStudyToolsTargetId}>
-          <StudyGuidesButton />
-          <HighlightButton />
-        </Styled.NudgeElementTarget>
+        <StudyGuidesButton />
+        <HighlightButton />
         { !this.props.practiceQuestionsEnabled ? <PrintButton /> : null }
+        <Styled.SidebarControl hideMobileText={true} tabIndex={hideFromFocus ? -1 : undefined} />
       </Styled.TopBar>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
         <Styled.Hr />

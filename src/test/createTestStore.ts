@@ -1,5 +1,5 @@
 import { createMemoryHistory } from 'history';
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/fp/cloneDeep';
 import { combineReducers, createStore } from 'redux';
 import auth, {initialState as authState } from '../app/auth/reducer';
 import content, {initialState as contentState } from '../app/content/reducer';

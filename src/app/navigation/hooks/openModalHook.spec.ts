@@ -42,6 +42,7 @@ describe('openModal', () => {
           page: { slug: 'page' },
         },
         route: content,
+        state: {},
       },
     }));
     const hook = hookFactory('myModalName')(helpers);
@@ -56,27 +57,6 @@ describe('openModal', () => {
   });
 
   it('noops if match wansn\'t in the navigation state', () => {
-    const hook = hookFactory('myModalName')(helpers);
-
-    hook();
-
-    expect(dispatch).not.toHaveBeenCalled();
-  });
-
-  it('noops if match was in the navigation state but didn\'t have params', () => {
-    store.dispatch(locationChange({
-      action: 'PUSH',
-      location: {
-        ...assertWindow().location,
-        pathname: '/books/book-slug-1/pages/doesnotmatter',
-        state: {},
-      },
-      match: {
-        route: content,
-      },
-    } as any));
-    dispatch.mockClear();
-
     const hook = hookFactory('myModalName')(helpers);
 
     hook();

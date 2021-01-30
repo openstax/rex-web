@@ -3,13 +3,14 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
+import { push } from '../../../navigation/actions';
+import * as navigation from '../../../navigation/selectors';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
-import { assertWindow } from '../../../utils';
+import { assertDefined, assertWindow } from '../../../utils';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
-import { closePracticeQuestions } from '../actions';
 import * as pqSelectors from '../selectors';
 import ShowPracticeQuestions from './ShowPracticeQuestions';
 
@@ -18,19 +19,22 @@ const PracticeQuestionsPopup = () => {
   const dispatch = useDispatch();
   const popUpRef = React.useRef<HTMLElement>(null);
   const trackOpenClosePQ = useAnalyticsEvent('openClosePracticeQuestions');
-  const isPracticeQuestionsOpen = useSelector(pqSelectors.practiceQuestionsOpen);
+  const isPracticeQuestionsOpen = useSelector(pqSelectors.isPracticeQuestionsOpen);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
   const bookTheme = useSelector(bookThemeSelector);
   const intl = useIntl();
+  const match = useSelector(navigation.match);
 
   const closeAndTrack = React.useCallback((method: string) => () => {
     if (currentQuestionIndex !== null) {
       const message = intl.formatMessage({ id: 'i18n:practice-questions:popup:warning-before-close' });
       if (!assertWindow().confirm(message)) { return; }
     }
-    dispatch(closePracticeQuestions());
+
+    dispatch(push(assertDefined(match, 'match should be always defined at this step')));
+
     trackOpenClosePQ(method);
-  }, [dispatch, currentQuestionIndex, trackOpenClosePQ, intl]);
+  }, [currentQuestionIndex, trackOpenClosePQ, intl, dispatch, match]);
 
   useOnEsc(popUpRef, isPracticeQuestionsOpen, closeAndTrack('esc'));
 

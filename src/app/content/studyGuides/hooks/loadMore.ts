@@ -1,12 +1,11 @@
 import {
   GetHighlightsColorsEnum, GetHighlightsSetsEnum,
 } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
-import { addToast } from '../../../notifications/actions';
-import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
+import { StudyGuidesPopupLoadError } from '../../highlights/errors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../../highlights/utils/highlightLoadingUtils';
 import { book as bookSelector } from '../../selectors';
 import * as actions from '../actions';
@@ -43,6 +42,7 @@ export type LoadMoreResponse = ReturnType<typeof loadMore>;
 export const hookBody: ActionHookBody<
   typeof actions.setDefaultSummaryFilters |
   typeof actions.setSummaryFilters |
+  typeof actions.updateSummaryFilters |
   typeof actions.loadMoreStudyGuides
 > = (services) => async() => {
   const filters = select.summaryFilters(services.getState());
@@ -52,10 +52,8 @@ export const hookBody: ActionHookBody<
   try {
     response = await loadMore(services, summaryPageSize);
   } catch (error) {
-    Sentry.captureException(error);
-    services.dispatch(addToast(toastMessageKeys.studyGuides.failure.popUp.load, {destination: 'studyGuides'}));
     services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));
-    return;
+    throw ensureApplicationErrorType(error, new StudyGuidesPopupLoadError({ destination: 'studyGuides' }));
   }
 
   const {formattedHighlights, pagination} = response;
@@ -64,4 +62,5 @@ export const hookBody: ActionHookBody<
 
 export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);
 export const setSummaryFiltersHook = actionHook(actions.setSummaryFilters, hookBody);
+export const updateSummaryFiltersHook = actionHook(actions.updateSummaryFilters, hookBody);
 export const setDefaultSummaryFiltersHook = actionHook(actions.setDefaultSummaryFilters, hookBody);

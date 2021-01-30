@@ -1,16 +1,33 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { openPracticeQuestions } from '../../practiceQuestions/actions';
+import ContentLink from '../../components/ContentLink';
+import { modalQueryParameterName } from '../../constants';
+import { modalUrlName } from '../../practiceQuestions/constants';
 import { hasPracticeQuestions, practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
-import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
+import { bookAndPage } from '../../selectors';
+import { toolbarIconColor } from '../constants';
+import { buttonMinWidth } from './styled';
+import { toolbarDefaultButton, toolbarDefaultText } from './styled';
 
+// TODO: refactor the styling of Toolbar ContentLinks
 // tslint:disable-next-line:variable-name
-export const PracticeQuestionsWrapper = styled(PlainButton)`
+export const StyledContentLink = styled(ContentLink)`
   ${toolbarDefaultButton}
+  text-decoration: none;
+  padding: 0;
+  align-items: center;
+  color: ${toolbarIconColor.base};
+  height: 100%;
+  min-width: ${buttonMinWidth};
+
+  :hover,
+  :focus {
+    color: ${toolbarIconColor.darker};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -25,24 +42,24 @@ const PracticeQuestionsText = styled.span`
 
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsButton = () => {
-  const dispatch = useDispatch();
   const isEnabled = useSelector(practiceQuestionsEnabled);
   const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
   const hasPracticeQs = useSelector(hasPracticeQuestions);
+  const { book, page } = useSelector(bookAndPage);
 
-  if (!isEnabled || !hasPracticeQs) { return null; }
-
-  const openPracticeQuestionsSummary = () => {
-    dispatch(openPracticeQuestions());
-    trackOpenClose();
-  };
+  if (!isEnabled || !hasPracticeQs || !book || !page) { return null; }
 
   return <FormattedMessage id='i18n:toolbar:practice-questions:button:text'>
     {(msg: Element | string) =>
-      <PracticeQuestionsWrapper onClick={openPracticeQuestionsSummary} aria-label={msg}>
+      <StyledContentLink
+        book={book}
+        page={page}
+        search={{ [modalQueryParameterName]: modalUrlName }}
+        onClick={trackOpenClose}
+        aria-label={msg}>
         <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
         <PracticeQuestionsText>{msg}</PracticeQuestionsText>
-      </PracticeQuestionsWrapper>
+      </StyledContentLink>
     }
   </FormattedMessage>;
 };

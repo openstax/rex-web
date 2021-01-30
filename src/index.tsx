@@ -106,6 +106,10 @@ serviceWorker.register()
   .then((registration) => {
     app.services.serviceWorker = registration;
 
+    if (!window.navigator.serviceWorker.controller) {
+      return;
+    }
+
     if (registration && (registration.waiting || registration.installing)) {
       app.store.dispatch(updateAvailable());
     } else if (registration) {
