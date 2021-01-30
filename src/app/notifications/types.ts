@@ -27,6 +27,11 @@ export interface ToastNotification {
   shouldAutoDismiss: boolean;
 }
 
+export interface ToastMeta {
+  destination: ToastNotification['destination'];
+  shouldAutoDismiss?: boolean;
+}
+
 export type AnyNotification = ModalNotification | ToastNotification;
 
 export interface State {

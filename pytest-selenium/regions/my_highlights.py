@@ -2,11 +2,12 @@
 # fmt: off
 from __future__ import annotations
 
+import re
 from time import sleep
 from typing import List
 
 from pypom import Page
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expect
 from selenium.webdriver.remote.webelement import WebElement
@@ -14,6 +15,8 @@ from selenium.webdriver.remote.webelement import WebElement
 from pages.accounts import Login
 from regions.base import Region
 from utils.utility import Color, Utilities
+
+ELEMENT_SELECT = "return document.querySelector('{selector}');"
 
 
 class ChapterData(Region):
@@ -569,7 +572,7 @@ class MyHighlights(Region):
         _chapter_locator = (By.XPATH, "//div[@data-testid='chapter-title']")
         _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
         _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
-        _highlight_locator = (By.CSS_SELECTOR, "[class*=content-excerpt]")
+        _highlight_locator = (By.CSS_SELECTOR, "[class*=HighlightOuterWrapper]")
         _empty_state_nudge_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
         _context_menu_locator = (By.XPATH, "//div[starts-with(@class, 'ContextMenu')]")
 
@@ -628,8 +631,15 @@ class MyHighlights(Region):
             :rtype: list(str)
 
             """
-            return list(
-                set([highlight.get_attribute("data-highlight-id") for highlight in self.highlights]))
+            return list(set(self._split_html(highlight) for highlight in self.highlights))
+
+        def _split_html(self, locator):
+            """Break up the innerHTML string to retrieve highlight ID."""
+            html = locator.get_attribute("innerHTML")
+            split_html_highlight_id = re.findall(r"(.*? words|data-highlight-id.{38})", html)
+            unlist_highlight_id = ', '.join(split_html_highlight_id)
+            highlight_id = re.sub('data-highlight-id="', '', unlist_highlight_id)
+            return highlight_id
 
         @property
         def edit_highlight(self) -> List[MyHighlights.Highlights.EditHighlight]:
@@ -650,9 +660,15 @@ class MyHighlights(Region):
             _highlight_yellow_locator = (By.CSS_SELECTOR, "[name=yellow]")
             _highlight_purple_locator = (By.CSS_SELECTOR, "[name=purple]")
             _highlight_pink_locator = (By.CSS_SELECTOR, "[name=pink]")
-            _edit_button_locator = (By.CSS_SELECTOR, "[class*=DropdownList] li:nth-child(1) a")
+            _add_or_edit_note_button_locator = (By.CSS_SELECTOR, "[class*=DropdownList] li:nth-child(1) a")
             _delete_button_locator = (By.CSS_SELECTOR, "[class*=DropdownList] li:nth-child(2) a")
             _highlight_id_locator = (By.XPATH, "./following::div[starts-with(@class, 'content-excerpt')]")
+            _annotation_textbox_locator = (By.CSS_SELECTOR, "textarea")
+            _cancel_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=cancel]")
+            _save_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=save]")
+            _note_indicator_locator = (By.XPATH, "./following::div[3]/span[contains(text(), 'Note:')]")
+            _delete_confirmation_button_locator = (By.CSS_SELECTOR, "[data-testid=delete]")
+            _delete_confirmation_message_locator = (By.CSS_SELECTOR, "[class*=HighlightDeleteWrapper] span")
 
             @property
             def mh_highlight_id(self) -> str:
@@ -672,7 +688,82 @@ class MyHighlights(Region):
                 :rtype: WebElement
 
                 """
-                return self.find_element(*self._edit_button_locator)
+                return self.find_element(*self._add_or_edit_note_button_locator)
+
+            @property
+            def note_present(self) -> bool:
+                """Return True if the highlight has a note attached.
+
+                :return: ``True`` if the highlight has a note attached
+                :rtype: bool
+
+                """
+                return bool(self.find_elements(*self._note_indicator_locator))
+
+            @property
+            def note(self) -> str:
+                """Return the highlight note.
+
+                :return: the current highlight note text
+                :rtype: str
+
+                """
+                return self.note_box.text
+
+            @property
+            def note_box(self) -> WebElement:
+                """Return the highlight note text box.
+
+                :return: the highlight note text box
+                :rtype: WebElement
+
+                """
+                return self.driver.execute_script(ELEMENT_SELECT.format(
+                    selector=self._annotation_textbox_locator[1]))
+
+            @property
+            def save_button(self) -> WebElement:
+                """Return the save annotation button.
+
+                :return: the "Save" button
+                :rtype: WebElement
+
+                """
+                return self.driver.execute_script(ELEMENT_SELECT.format(
+                    selector=self._save_annotation_button_locator[1]))
+
+            @property
+            def cancel_button(self) -> WebElement:
+                """Return the cancel annotation button.
+
+                :return: the "Cancel" button
+                :rtype: WebElement
+
+                """
+                return self.driver.execute_script(ELEMENT_SELECT.format(
+                    selector=self._cancel_annotation_button_locator[1]))
+
+            @property
+            def confirm_delete_button(self) -> WebElement:
+                """Return the delete confirmation button.
+
+                :return: the "delete confirmation" button
+                :rtype: WebElement
+
+                """
+                return self.driver.execute_script(ELEMENT_SELECT.format(
+                    selector=self._delete_confirmation_button_locator[1]))
+
+            @property
+            def confirm_delete_message(self) -> WebElement:
+                """Return the delete confirmation message.
+
+                :return: the "delete confirmation" message
+                :rtype: WebElement
+
+                """
+                return self.driver.execute_script(ELEMENT_SELECT.format(
+                    selector=self._delete_confirmation_message_locator[1])).get_attribute("textContent")
 
             @property
             def delete_button(self) -> WebElement:
@@ -734,6 +825,10 @@ class MyHighlights(Region):
                 """
                 return self.find_element(*self._highlight_purple_locator)
 
+            @property
+            def toggle(self):
+                return self.find_element(*self._alter_menu_toggle_locator)
+
             def toggle_menu(self) -> MyHighlights.Highlights.EditHighlight:
                 """Toggle the highlight context menu open or close.
 
@@ -741,9 +836,14 @@ class MyHighlights(Region):
                 :rtype: :py:class:`~MyHighlights.Highlights.EditHighlight`
 
                 """
-                toggle = self.find_element(*self._alter_menu_toggle_locator)
-                Utilities.click_option(self.driver, element=toggle)
+                Utilities.click_option(self.driver, element=self.toggle)
                 return self
+
+            def toggle_menu_visible(self):
+                try:
+                    return self.wait.until(expect.visibility_of(self.toggle))
+                except TimeoutException:
+                    return False
 
             def toggle_color(self, color: Color) -> MyHighlights.Highlights.EditHighlight:
                 """Toggle a highlight color.
@@ -764,6 +864,78 @@ class MyHighlights(Region):
 
                 Utilities.click_option(self.driver, element=colors[color])
                 return self
+
+            def edit_note(self) -> MyHighlights.Highlights.EditHighlight:
+                """Toggle the annotation edit menu option.
+
+                :return: the note edit box
+                :rtype: :py:class:`~MyHighlights.Highlights.EditHighlight`
+
+                """
+
+                self.toggle_menu()
+                Utilities.click_option(self.driver, element=self.edit_button)
+                return self
+
+            add_note = edit_note
+
+            def click_delete(self) -> MyHighlights.Highlights.EditHighlight:
+                """Toggle the highlight delete menu option.
+
+                :return: the note delete box
+                :rtype: :py:class:`~MyHighlights.Highlights.EditHighlight`
+
+                """
+
+                self.toggle_menu()
+                Utilities.click_option(self.driver, element=self.delete_button)
+                return self
+
+            def confirm_deletion(self):
+                """Click the delete confirmation button."""
+                sleep(0.25)
+                Utilities.click_option(self.driver, element=self.confirm_delete_button)
+
+            def delete(self) -> MyHighlights:
+                """Delete the highlight and note.
+
+                :return: the page content
+                :rtype: :py:class:`~MyHighlights`
+
+                """
+                self.click_delete()
+                self.confirm_deletion()
+                self.wait.until(expect.staleness_of(self.root))
+                return self.page
+
+            @note.setter
+            def note(self, note: str):
+                """Set the annotation text for the highlight.
+
+                :param str note: the annotation text for the selected highlight
+
+                """
+                self.note_box.send_keys(note)
+
+            def cancel(self) -> MyHighlights:
+                """Click the cancel note button.
+
+                :return: the My Highlights and Notes modal
+                :rtype: :py:class:`~MyHighlights`
+
+                """
+                Utilities.click_option(self.driver, element=self.cancel_button)
+                return self.page
+
+            def save(self) -> MyHighlights:
+                """Click the save note button.
+
+                :return: the My Highlights and Notes modal
+                :rtype: :py:class:`~MyHighlights`
+
+                """
+                Utilities.click_option(self.driver, element=self.save_button)
+                return self.page
 
         class Chapter(ChapterData):
             """A book chapter with highlights.

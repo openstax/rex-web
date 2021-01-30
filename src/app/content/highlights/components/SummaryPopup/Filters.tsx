@@ -8,8 +8,10 @@ import ColorFilter from '../../../components/popUp/ColorFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../../components/popUp/Filters';
 import FiltersList from '../../../components/popUp/FiltersList';
 import PrintButton from '../../../components/popUp/PrintButton';
+import { FiltersChange } from '../../../components/popUp/types';
 import { highlightStyles } from '../../../constants';
-import { printSummaryHighlights, setSummaryFilters } from '../../actions';
+import { LinkedArchiveTreeNode } from '../../../types';
+import { printSummaryHighlights, updateSummaryFilters } from '../../actions';
 import * as select from '../../selectors';
 
 // tslint:disable-next-line:variable-name
@@ -20,7 +22,7 @@ export const ConnectedChapterFilter = connect(
     selectedLocationFilters: select.summaryLocationFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setFilters: flow(setSummaryFilters, dispatch),
+    setFilters: (change: FiltersChange<LinkedArchiveTreeNode>) => dispatch(updateSummaryFilters({ locations: change })),
   })
 )(ChapterFilter);
 
@@ -31,7 +33,8 @@ export const ConnectedColorFilter = connect(
     selectedColorFilters: select.summaryColorFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setSummaryFilters: flow(setSummaryFilters, dispatch),
+    updateSummaryFilters: (change: FiltersChange<HighlightColorEnum>) =>
+      dispatch(updateSummaryFilters({ colors: change })),
   })
 )(ColorFilter);
 
@@ -43,7 +46,7 @@ export const ConnectedFilterList = connect(
     selectedLocationFilters: select.summaryLocationFilters(state),
   }),
   (dispatch: Dispatch) => ({
-    setFilters: flow(setSummaryFilters, dispatch),
+    setFilters: flow(updateSummaryFilters, dispatch),
   })
 )(FiltersList);
 
@@ -78,7 +81,7 @@ export default () =>
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
       >
-        <ConnectedChapterFilter />
+        <ConnectedChapterFilter multiselect={true} />
       </FilterDropdown>
       <FilterDropdown
         label='i18n:highlighting:filters:colors'

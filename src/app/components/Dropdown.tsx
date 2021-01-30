@@ -1,6 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { isUndefined, omitBy } from 'lodash';
 import flow from 'lodash/fp/flow';
+import isUndefined from 'lodash/fp/isUndefined';
+import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
@@ -52,20 +53,30 @@ const visuallyHidden = css`
   clip: rect(1px, 1px, 1px, 1px);
 `;
 
-type Props = React.PropsWithChildren<{
+interface ControlledProps {
+  open: boolean;
+  setOpen: (value: boolean) => void;
+}
+
+interface Props {
   toggle: React.ReactNode;
   className?: string;
   onToggle?: () => void;
-}>;
+}
 
 // tslint:disable-next-line:variable-name
-const TabHiddenDropDown = styled(({toggle, children, className, onToggle}: Props) => {
-  const [open, setOpen] = React.useState<boolean>(false);
+const TabHiddenDropDown = styled((
+  {toggle, children, className, onToggle, ...props}: React.PropsWithChildren<Props | Props & ControlledProps>
+) => {
+  const { open: controlledOpen, setOpen: controlledSetOpen } = props as Props & ControlledProps;
+  const [open, setOpenState] = React.useState<boolean>(false);
+  const isOpen = controlledOpen !== undefined ? controlledOpen : open;
+  const setOpen = controlledSetOpen !== undefined ? controlledSetOpen : setOpenState;
   const container = React.useRef<HTMLElement>(null);
   const toggleElement = React.useRef<HTMLElement>(null);
 
-  useFocusLost(container, open, () => setOpen(false));
-  useOnEsc(container, open, () => {
+  useFocusLost(container, isOpen, () => setOpen(false));
+  useOnEsc(container, isOpen, () => {
     setOpen(false);
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
@@ -75,12 +86,12 @@ const TabHiddenDropDown = styled(({toggle, children, className, onToggle}: Props
       ref={toggleElement}
       component={toggle}
       onClick={() => {
-        setOpen((state) => !state);
+        setOpen(!isOpen);
         if (onToggle) { onToggle(); }
       }}
-      isOpen={open}
+      isOpen={isOpen}
     />
-    {open && children}
+    {(isOpen) && children}
   </div>;
 })`
   ${css`
@@ -101,7 +112,9 @@ export const DropdownFocusWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const TabTransparentDropdown = styled(({toggle, children, className}: Props) => <div className={className}>
+const TabTransparentDropdown = styled((
+  {toggle, children, className}: React.PropsWithChildren<Props>
+) => <div className={className}>
   <DropdownFocusWrapper>
     <DropdownToggle tabIndex={0} component={toggle} />
     {children}
@@ -202,10 +215,10 @@ interface DropdownItemProps {
 const DropdownItemContent = ({
   message, href, target, prefix, onClick, dataAnalyticsRegion, dataAnalyticsLabel,
 }: Omit<DropdownItemProps, 'ariaMessage'>) => {
-  const analyticsDataProps = omitBy({
+  const analyticsDataProps = omitBy(isUndefined, {
     'data-analytics-label': dataAnalyticsLabel,
     'data-analytics-region': dataAnalyticsRegion,
-  }, isUndefined);
+  });
   return <FormattedMessage id={message}>
     {(msg: Element | string) => href
       ? <a href={href} tabIndex={0} onClick={onClick} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
@@ -237,10 +250,18 @@ export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) 
     : <li><DropdownItemContent {...contentProps} /></li>;
 };
 
+interface CommonDropdownProps {
+  transparentTab?: boolean;
+}
+
+type TabTransparentDropdownProps = CommonDropdownProps & Props;
+export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & ControlledProps);
+
 // tslint:disable-next-line:variable-name
-const Dropdown = ({transparentTab, ...props}: {transparentTab?: boolean} & Props) => transparentTab !== false
-  ? <TabTransparentDropdown {...props} />
-  : <TabHiddenDropDown {...props} />;
+const Dropdown = ({transparentTab, ...props}: TabTransparentDropdownProps | TabHiddenDropdownProps) =>
+  transparentTab !== false
+    ? <TabTransparentDropdown {...props} />
+    : <TabHiddenDropDown {...props} />;
 
 export default styled(Dropdown)`
   overflow: visible;

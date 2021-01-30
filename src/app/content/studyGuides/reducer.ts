@@ -5,6 +5,7 @@ import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
 import { modalQueryParameterName, studyGuidesFeatureFlag } from '../constants';
+import updateSummaryFilters from '../highlights/utils/updateSummaryFilters';
 import * as actions from './actions';
 import { highlightStyles, modalUrlName } from './constants';
 import { State } from './types';
@@ -62,6 +63,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           filters: {...state.summary.filters, ...action.payload, default: false},
+          loading: true,
+          pagination: null,
+          studyGuides: {},
+        },
+      };
+    }
+    case getType(actions.updateSummaryFilters): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          filters: {...updateSummaryFilters(state.summary.filters, action.payload), default: false},
           loading: true,
           pagination: null,
           studyGuides: {},
