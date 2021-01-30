@@ -17,10 +17,7 @@ class WebBase(Page):
     _login_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
     _logout_locator = (By.CSS_SELECTOR, "[href*=signout]")
     _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
-    _mobile_user_nav_loaded_locator = (
-        By.CSS_SELECTOR,
-        '[class="page-header hide-until-loaded loaded fixed active"]',
-    )
+    _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[class="page-header active"]')
     _view_online_desktop_locator = (
         By.XPATH,
         "//div[@class='bigger-view']//span[text()='View online']/..",
