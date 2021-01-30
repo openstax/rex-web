@@ -1,10 +1,10 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { toastNotifications } from '../../../notifications/selectors';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
@@ -66,6 +66,7 @@ describe('createHighlight', () => {
   });
 
   it('deletes a highlight that failed to create', async() => {
+    expect.assertions(2);
     const error = {} as any;
     const meta = {locationFilterId: 'id', pageId: 'id'};
 
@@ -76,18 +77,55 @@ describe('createHighlight', () => {
       .mockRejectedValue(error);
     const mock = createMockHighlight();
 
+    try {
     await hook(createHighlight(mock, meta));
+    } catch (error) {
+      expect(createHighlightClient).toHaveBeenCalledWith({highlight: mock});
+      expect(dispatch).toHaveBeenCalledWith(
+        receiveDeleteHighlight(mock as unknown as Highlight, {...meta, revertingAfterFailure: true})
+      );
+    }
+  });
 
-    expect(createHighlightClient).toHaveBeenCalledWith({highlight: mock});
-    expect(Sentry.captureException).toHaveBeenCalledWith(error);
+  it('throws HighlightCreateError', async() => {
+    expect.assertions(3);
+    const error = {} as any;
+    const meta = { locationFilterId: 'id', pageId: 'id' };
 
-    expect(dispatch).toHaveBeenCalledWith(
-      receiveDeleteHighlight(mock as unknown as Highlight, {...meta, revertingAfterFailure: true})
-    );
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
 
-    const hasAdequateErrorToast = toastNotifications(store.getState())
-      .some((notification) => notification.messageKey === 'i18n:notification:toast:highlights:create-failure');
+    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'addHighlight')
+      .mockRejectedValue(error);
+    const mock = createMockHighlight();
 
-    expect(hasAdequateErrorToast).toBe(true);
+    try {
+      await hook(createHighlight(mock, meta));
+    } catch (error) {
+      expect(createHighlightClient).toHaveBeenCalledWith({ highlight: mock });
+      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.create);
+      expect(error.meta).toEqual({ destination: 'page' });
+    }
+  });
+
+  it('throws ApplicationError', async() => {
+    expect.assertions(3);
+    const mockCustomApplicationError = new ApplicationError('error');
+    const meta = { locationFilterId: 'id', pageId: 'id' };
+
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+
+    const createHighlightClient = jest.spyOn(helpers.highlightClient, 'addHighlight')
+      .mockRejectedValue(mockCustomApplicationError);
+    const mock = createMockHighlight();
+
+    try {
+      await hook(createHighlight(mock, meta));
+    } catch (error) {
+      expect(createHighlightClient).toHaveBeenCalledWith({ highlight: mock });
+      expect(error instanceof ApplicationError).toEqual(true);
+      expect(error.message).toBe(mockCustomApplicationError.message);
+    }
   });
 });
