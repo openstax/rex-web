@@ -7,7 +7,7 @@ import { findArchiveTreeNodeById } from '../../src/app/content/utils/archiveTree
 import { AppServices } from '../../src/app/types';
 import { writeAssetFile } from './fileUtils';
 
-const redirectsPath = path.resolve(__dirname, '../../src/redirects/');
+const redirectsPath = path.resolve(__dirname, '../../data/redirects/');
 
 const createRedirects = async(archiveLoader: AppServices['archiveLoader'], osWebLoader: AppServices['osWebLoader']) => {
   const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
