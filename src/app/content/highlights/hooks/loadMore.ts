@@ -1,7 +1,5 @@
 import { GetHighlightsColorsEnum } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
-import { addToast } from '../../../notifications/actions';
-import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
@@ -10,8 +8,10 @@ import {
   loadMoreSummaryHighlights,
   receiveSummaryHighlights,
   setSummaryFilters,
-  toggleSummaryHighlightsLoading
+  toggleSummaryHighlightsLoading,
+  updateSummaryFilters
 } from '../actions';
+import { HighlightPopupLoadError } from '../errors';
 import * as select from '../selectors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../utils/highlightLoadingUtils';
 
@@ -42,7 +42,11 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
 };
 export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
-export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =
+export const hookBody: ActionHookBody<
+  typeof setSummaryFilters |
+  typeof loadMoreSummaryHighlights |
+  typeof updateSummaryFilters
+> =
   (services) => async() => {
     const filters = select.summaryFilters(services.getState());
 
@@ -51,10 +55,8 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
     try {
       highlights = await loadMore(services, summaryPageSize);
     } catch (error) {
-      Sentry.captureException(error);
-      services.dispatch(addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights'}));
       services.dispatch(toggleSummaryHighlightsLoading(false));
-      return;
+      throw ensureApplicationErrorType(error, new HighlightPopupLoadError({ destination: 'myHighlights' }));
     }
 
     const {formattedHighlights, pagination} = highlights;
@@ -63,3 +65,4 @@ export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMore
 
 export const loadMoreHook = actionHook(loadMoreSummaryHighlights, hookBody);
 export const setSummaryFiltersHook = actionHook(setSummaryFilters, hookBody);
+export const updateFiltersHook = actionHook(updateSummaryFilters, hookBody);

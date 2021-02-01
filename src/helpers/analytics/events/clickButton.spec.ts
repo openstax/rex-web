@@ -36,5 +36,20 @@ describe('clickLink', () => {
       }
       expect(result.getGoogleAnalyticsPayload().eventCategory).toEqual('REX Button (foo)');
     });
+
+    it('data-analytics-location overrides pathname', () => {
+      const button = document.createElement('button');
+      button.setAttribute('data-analytics-location', 'test location');
+      button.setAttribute('aria-label', 'foo');
+      const result = track({pathname: 'asdf'}, button);
+      if (!result) {
+        return expect(result).toBeTruthy();
+      } else if (!result.getGoogleAnalyticsPayload) {
+        return expect(result.getGoogleAnalyticsPayload).toBeTruthy();
+      }
+      const gaPayload = result.getGoogleAnalyticsPayload();
+      expect(gaPayload.eventCategory).toEqual('REX Button');
+      expect(gaPayload.eventLabel).toEqual('test location');
+    });
   });
 });

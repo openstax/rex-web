@@ -6,24 +6,24 @@ import { content } from './routes';
 import { State as SearchState } from './search/types';
 import { State as StudyGuidesState } from './studyGuides/types';
 
-export interface SlugParams {
+export type SlugParams = {
   slug: string;
-}
-interface VersionedSlugParams extends SlugParams {
+};
+type VersionedSlugParams = SlugParams & {
   version: string;
-}
+};
 
-export interface UuidParams {
+export type UuidParams = {
   uuid: string;
-}
-interface VersionedUuidParams extends UuidParams {
+};
+type VersionedUuidParams = UuidParams & {
   version: string;
-}
+};
 
-export interface Params {
+export type Params = {
   book: SlugParams | VersionedSlugParams | VersionedUuidParams;
   page: SlugParams | UuidParams;
-}
+};
 
 export interface State {
   tocOpen: boolean | null;

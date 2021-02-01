@@ -44,6 +44,7 @@ const EmptyScreen = ({ nextSection }: EmptyScreenProps) => {
       nextSection={nextSection}
       messageKey='i18n:practice-questions:popup:empty:next-section'
       onClick={() => dispatch(setSelectedSection(nextSection))}
+      analyticsLabel='Continue (Empty Screen)'
     />
   </StyledEmptyScreen>;
 };

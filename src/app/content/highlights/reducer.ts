@@ -19,6 +19,7 @@ import {
   updateSummaryHighlightsDependOnFilters
 } from './utils';
 import { findHighlight } from './utils/reducerUtils';
+import updateSummaryFilters from './utils/updateSummaryFilters';
 
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
@@ -244,6 +245,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
             ...state.summary.filters,
             ...action.payload,
           },
+          highlights: {},
+          loading: true,
+          pagination: null,
+        },
+      };
+    }
+    case getType(actions.updateSummaryFilters): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          filters: updateSummaryFilters(state.summary.filters, action.payload),
           highlights: {},
           loading: true,
           pagination: null,

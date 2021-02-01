@@ -113,7 +113,7 @@ describe('getSortedSummaryHighlights', () => {
       },
     ];
 
-    const locationFilters =  new Map([[locationId, mockChapterTree]]);
+    const locationFilters =  new Map([[locationId, { section: mockChapterTree }]]);
     const sortedHighlights = getSortedSummaryHighlights(summaryHighlights, locationFilters);
 
     expect(sortedHighlights).toEqual(expectedResult);

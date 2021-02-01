@@ -15,9 +15,9 @@ class WebBase(Page):
     _async_hide_locator = (By.CSS_SELECTOR, ".async-hide")
     _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-menu"]')
     _login_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
-    _logout_locator = (By.CSS_SELECTOR, "[href*=logout]")
+    _logout_locator = (By.CSS_SELECTOR, "[href*=signout]")
     _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
-    _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[aria-expanded="true"]')
+    _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[class="page-header active"]')
     _view_online_desktop_locator = (
         By.XPATH,
         "//div[@class='bigger-view']//span[text()='View online']/..",
@@ -91,12 +91,9 @@ class WebBase(Page):
             if self.is_element_present(*self._user_nav_locator):
                 return True
         elif self.is_mobile:
-            self.mobile_user_nav.click()
-            if self.is_element_present(*self._mobile_user_nav_locator):
-                self.mobile_user_nav.click()
-                self.wait.until(
-                    expected.invisibility_of_element_located(self._mobile_user_nav_loaded_locator)
-                )
+            self.click_mobile_user_nav()
+            if self.mobile_user_nav_loaded:
+                self.click_mobile_user_nav()
                 return True
 
     @property
@@ -131,7 +128,8 @@ class WebBase(Page):
         self.wait_for_load()
 
     def click_view_online(self):
-        self.offscreen_click(self.view_online)
+        # self.offscreen_click(self.view_online)
+        Utilities.click_option(self.driver, element=self.view_online)
 
     def click_mobile_user_nav(self):
         self.offscreen_click(self.mobile_user_nav)

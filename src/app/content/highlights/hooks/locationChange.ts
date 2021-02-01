@@ -1,13 +1,12 @@
 import { getType } from 'typesafe-actions';
-import Sentry from '../../../../helpers/Sentry';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { receivePageFocus } from '../../../actions';
 import { user } from '../../../auth/selectors';
-import { addToast } from '../../../notifications/actions';
-import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { AnyAction, AppServices, MiddlewareAPI } from '../../../types';
 import { maxHighlightsApiPageSize } from '../../constants';
 import { bookAndPage } from '../../selectors';
 import { receiveHighlights } from '../actions';
+import { HighlightLoadError } from '../errors';
 import * as select from '../selectors';
 import { HighlightData } from '../types';
 import { loadAllHighlights } from '../utils/highlightLoadingUtils';
@@ -41,12 +40,12 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
       pagination: {page: 1, sourceIds: [page.id], perPage: maxHighlightsApiPageSize},
     });
   } catch (error) {
-    Sentry.captureException(error);
-
-    if (action && action.type !== getType(receivePageFocus)) {
-      dispatch(addToast(toastMessageKeys.higlights.failure.load, {destination: 'page', shouldAutoDismiss: false}));
-    }
-    return;
+    throw ensureApplicationErrorType(
+      error,
+      () => action && action.type !== getType(receivePageFocus)
+        ? new HighlightLoadError({ destination: 'page', shouldAutoDismiss: false })
+        : error
+    );
   }
 
   dispatch(receiveHighlights({highlights, pageId: page.id}));

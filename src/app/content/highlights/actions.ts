@@ -1,11 +1,12 @@
 import { UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import { createStandardAction } from 'typesafe-actions';
+import { LocationFilters } from '../components/popUp/types';
 import {
   CountsPerSource,
   HighlightData,
-  HighlightLocationFilters,
   NewHighlightPayload,
   SummaryFilters,
+  SummaryFiltersUpdate,
   SummaryHighlights,
   SummaryHighlightsPagination,
 } from './types';
@@ -54,6 +55,9 @@ export const loadMoreSummaryHighlights = createStandardAction('Content/Highlight
 export const setSummaryFilters = createStandardAction('Content/Highlights/Summary/setFilters')<
   Partial<SummaryFilters>
 >();
+export const updateSummaryFilters = createStandardAction('Content/Highlights/Summary/updateFilters')<
+  Partial<SummaryFiltersUpdate>
+>();
 export const receiveSummaryHighlights = createStandardAction('Content/Highlights/Summary/receiveHighlights')<
   SummaryHighlights,
   {
@@ -64,4 +68,4 @@ export const receiveSummaryHighlights = createStandardAction('Content/Highlights
 >();
 export const receiveHighlightsTotalCounts = createStandardAction(
   'Content/receiveHighlightsTotalCounts'
-)<CountsPerSource, HighlightLocationFilters>();
+)<CountsPerSource, LocationFilters>();

@@ -30,15 +30,6 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
       }
       events.clickButton.track(events.clickButton.selector(store.getState()), button);
     }
-
-    const input = findFirstAncestorOrSelfOfType(e.target, window.HTMLInputElement);
-    if (input && ['button', 'submit'].includes(input.type)) {
-      const disableTrack = input.getAttribute('data-analytics-disable-track');
-      if ( disableTrack ) {
-        return;
-      }
-      events.clickInput.track(events.clickInput.selector(store.getState()), input);
-    }
   });
 
   window.matchMedia('print').addListener((mql) => {

@@ -1,7 +1,7 @@
 import { HTMLButtonElement } from '@openstax/types/lib.dom';
 import { createSelector } from 'reselect';
 import * as selectNavigation from '../../../app/navigation/selectors';
-import { AnalyticsEvent, getAnalyticsRegion } from './event';
+import { AnalyticsEvent, getAnalyticsLocation, getAnalyticsRegion } from './event';
 
 const baseName = 'REX Button';
 
@@ -15,6 +15,7 @@ export const track = (
   anchor: HTMLButtonElement
 ): AnalyticsEvent | void => {
   const region = getAnalyticsRegion(anchor);
+  const location = getAnalyticsLocation(anchor);
   const label = anchor.getAttribute('data-analytics-label') || anchor.getAttribute('aria-label');
 
   if (!label) {
@@ -30,7 +31,7 @@ export const track = (
       return {
         eventAction: label,
         eventCategory,
-        eventLabel: pathname,
+        eventLabel: location || pathname,
       };
     },
   };

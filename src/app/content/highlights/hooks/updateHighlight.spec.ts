@@ -1,9 +1,8 @@
 import { HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
-import { groupedToastNotifications, toastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { createHighlight, openMyHighlights, updateHighlight } from '../actions';
@@ -89,7 +88,7 @@ describe('updateHighlight', () => {
     expect(updateHighlightClient).not.toHaveBeenCalled();
   });
 
-  it('doesn\'t show toast / revert update if it would result in the same highlight', async() => {
+  it('reverts update if it would result in the same highlight', async() => {
     const error = {} as any;
     const oldHighlight = {
       annotation: assertDefined(highlight.annotation, 'annotation disappeared'),
@@ -106,33 +105,33 @@ describe('updateHighlight', () => {
     await Promise.resolve();
 
     expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
-    expect(Sentry.captureException).toHaveBeenCalledWith(error);
 
     expect(dispatch).not.toHaveBeenCalledWith(updateHighlight(
       meta.preUpdateData,
       {...meta, revertingAfterFailure: true}
     ));
-
-    expect(toastNotifications(store.getState())).toEqual([]);
   });
 
   it('reverts an update if it failed', async() => {
+    expect.assertions(2);
     const error = {} as any;
 
     const updateHighlightClient = jest.spyOn(helpers.highlightClient, 'updateHighlight')
       .mockRejectedValue(error);
 
     const updatePayload = highlightUpdatePayload(highlight.id, {color: 'red', annotation: 'new'});
-
-    await hook(updateHighlight(updatePayload, meta));
-
-    expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
-    expect(Sentry.captureException).toHaveBeenCalledWith(error);
-
-    expect(dispatch).toHaveBeenCalledWith(updateHighlight(meta.preUpdateData, {...meta, revertingAfterFailure: true}));
+    try {
+      await hook(updateHighlight(updatePayload, meta));
+    } catch (error) {
+      expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
+      expect(dispatch).toHaveBeenCalledWith(updateHighlight(
+        meta.preUpdateData, { ...meta, revertingAfterFailure: true }
+      ));
+    }
   });
 
-  it('shows appropriate toast after failure', async() => {
+  it('throws HighlightUpdateColorError', async() => {
+    expect.assertions(3);
     const error = {} as any;
     const oldHighlight = {
       annotation: assertDefined(highlight.annotation, 'annotation disappeared'),
@@ -140,49 +139,67 @@ describe('updateHighlight', () => {
     };
 
     const colorUpdate = highlightUpdatePayload(highlight.id, {...oldHighlight, color: 'something new'});
+
+    const updateHighlightClient = jest.spyOn(helpers.highlightClient, 'updateHighlight')
+      .mockRejectedValue(error);
+
+    try {
+      await hook(updateHighlight(colorUpdate, meta));
+    } catch (error) {
+      expect(updateHighlightClient).toHaveBeenCalledWith(colorUpdate);
+      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.update.color);
+      expect(error.meta).toEqual({ destination: 'page' });
+    }
+  });
+
+  it('throws HighlightUpdateAnnotationError', async() => {
+    expect.assertions(6);
+    const error = {} as any;
+    const oldHighlight = {
+      annotation: assertDefined(highlight.annotation, 'annotation disappeared'),
+      color: highlight.color,
+    };
+
     const annotationUpdate = highlightUpdatePayload(highlight.id, {...oldHighlight, annotation: 'something else'});
 
     const updateHighlightClient = jest.spyOn(helpers.highlightClient, 'updateHighlight')
       .mockRejectedValue(error);
 
-    await hook(updateHighlight(colorUpdate, meta));
+    try {
+      await hook(updateHighlight(annotationUpdate, meta));
+    } catch (error) {
+      expect(updateHighlightClient).toHaveBeenCalledWith(annotationUpdate);
+      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.update.annotation);
+      expect(error.meta).toEqual({ destination: 'page' });
+    }
 
-    expect(updateHighlightClient).toHaveBeenCalledWith(colorUpdate);
-    expect(toastNotifications(store.getState()).some(
-      (notification) => notification.messageKey === toastMessageKeys.higlights.failure.update.color
-    )).toBe(true);
-
-    await hook(updateHighlight(annotationUpdate, meta));
-
-    expect(updateHighlightClient).toHaveBeenCalledWith(annotationUpdate);
-    expect(toastNotifications(store.getState()).some(
-      (notification) => notification.messageKey === toastMessageKeys.higlights.failure.update.annotation
-    )).toBe(true);
-  });
-
-  it('sends the toast to correct location', async() => {
-    const error = {} as any;
-    const oldHighlight = {
-      annotation: assertDefined(highlight.annotation, 'annotation disappeared'),
-      color: highlight.color,
-    };
-
-    const colorUpdate = highlightUpdatePayload(highlight.id, {...oldHighlight, color: 'something new'});
-
-    jest.spyOn(helpers.highlightClient, 'updateHighlight')
-      .mockRejectedValue(error);
-
-    await hook(updateHighlight(colorUpdate, meta));
-
-    expect(groupedToastNotifications(store.getState()).page)
-      .toEqual([expect.objectContaining({messageKey: toastMessageKeys.higlights.failure.update.color})]);
-    expect(groupedToastNotifications(store.getState()).myHighlights).toBe(undefined);
-
+    // getHighlightToastDesination will change destination to myHighlights
     store.dispatch(openMyHighlights());
 
-    await (hook(updateHighlight(colorUpdate, meta)));
+    try {
+      await hook(updateHighlight(annotationUpdate, meta));
+    } catch (error) {
+      expect(updateHighlightClient).toHaveBeenCalledWith(annotationUpdate);
+      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.update.annotation);
+      expect(error.meta).toEqual({ destination: 'myHighlights' });
+    }
+  });
 
-    expect(groupedToastNotifications(store.getState()).myHighlights)
-      .toEqual([expect.objectContaining({messageKey: toastMessageKeys.higlights.failure.update.color})]);
+  it('throws ApplicationError', async() => {
+    expect.assertions(3);
+    const mockCustomApplicationError = new ApplicationError('error');
+
+    const updatePayload = highlightUpdatePayload(highlight.id, { color: 'red', annotation: 'new' });
+
+    const updateHighlightClient = jest.spyOn(helpers.highlightClient, 'updateHighlight')
+      .mockRejectedValue(mockCustomApplicationError);
+
+    try {
+      await hook(updateHighlight(updatePayload, meta));
+    } catch (error) {
+      expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
+      expect(error instanceof ApplicationError).toEqual(true);
+      expect(error.message).toBe(mockCustomApplicationError.message);
+    }
   });
 });

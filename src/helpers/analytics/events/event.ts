@@ -12,6 +12,14 @@ export const getAnalyticsRegion = (element: HTMLElement) => {
   }
 };
 
+export const getAnalyticsLocation = (element: HTMLElement) => {
+  const location = findFirstAncestorOrSelf(element, (el) => !!el.getAttribute('data-analytics-location'));
+
+  if (location) {
+    return location.getAttribute('data-analytics-location');
+  }
+};
+
 export interface AnalyticsEvent {
   getGoogleAnalyticsPayload?: () => FirstArgumentType<GoogleAnalyticsClient['trackEventPayload']>;
   getEventCapturePayload?: () => FirstArgumentType<typeof captureEvent>;

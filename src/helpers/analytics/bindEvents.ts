@@ -2,7 +2,6 @@ import { AppState } from '../../app/types';
 import { captureEvent } from '../../gateways/eventCaptureClient';
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
 import * as clickButton from './events/clickButton';
-import * as clickInput from './events/clickInput';
 import * as clickLink from './events/clickLink';
 import { AnalyticsEvent } from './events/event';
 import * as highlightingCreateNote from './events/highlighting/createNote';
@@ -55,7 +54,6 @@ export const mapEventType = <E extends Event>(event: E) => ({
 
 export const events = {
   clickButton: mapEventType(clickButton),
-  clickInput: mapEventType(clickInput),
   clickLink: mapEventType(clickLink),
   closeStudyGuides: mapEventType(closeStudyGuides),
   createNote: mapEventType(highlightingCreateNote),
