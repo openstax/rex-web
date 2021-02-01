@@ -8,6 +8,7 @@ import * as actions from './content/actions';
 import * as selectors from './content/selectors';
 import { formatBookData } from './content/utils';
 import { notFound } from './errors/routes';
+import * as errorsSelectors from './errors/selectors';
 import { replace } from './navigation/actions';
 import * as selectNavigation from './navigation/selectors';
 import { addToast } from './notifications/actions';
@@ -140,29 +141,31 @@ describe('actionHook', () => {
     }));
     jest.resetAllMocks();
   });
-});
 
-it('handle error if it is instance of ToastMesssageError', async() => {
-  const hookSpy = jest.fn(async() => Promise.reject(
-    new (makeToastMessageError('some-key'))({ destination: 'myHighlights', shouldAutoDismiss: true })
-  ));
-  const helpers = ({
-    dispatch: jest.fn(),
-    getState: () => ({} as AppState),
-    promiseCollector: new PromiseCollector(),
-  } as any) as MiddlewareAPI & AppServices;
+  it('handle error if it is instance of ToastMesssageError', async() => {
+    const hookSpy = jest.fn(async() => Promise.reject(
+      new (makeToastMessageError('some-key'))({ destination: 'myHighlights', shouldAutoDismiss: true })
+    ));
+    const helpers = ({
+      dispatch: jest.fn(),
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any) as MiddlewareAPI & AppServices;
 
-  const dispatch = jest.spyOn(helpers, 'dispatch');
-  jest.spyOn(global.Date, 'now').mockReturnValue(1);
+    const dispatch = jest.spyOn(helpers, 'dispatch');
+    jest.spyOn(global.Date, 'now').mockReturnValue(1);
+    jest.spyOn(errorsSelectors, 'getMessageIdStack').mockReturnValue(['first-error', 'second-error']);
 
-  const middleware = utils.actionHook(actions.openToc, () => hookSpy);
-  middleware(helpers)(helpers)((action) => action)(actions.openToc());
-  await Promise.resolve();
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+    await Promise.resolve();
 
-  expect(Sentry.captureException).toHaveBeenCalled();
-  expect(hookSpy).toHaveBeenCalled();
-  expect(dispatch).toHaveBeenCalledWith(addToast('some-key', { destination: 'myHighlights', shouldAutoDismiss: true }));
-  jest.resetAllMocks();
+    expect(Sentry.captureException).toHaveBeenCalled();
+    expect(hookSpy).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast('some-key', { destination: 'myHighlights', shouldAutoDismiss: true, errorId: 'first-error' }));
+    jest.resetAllMocks();
+  });
 });
 
 describe('assertDefined', () => {
