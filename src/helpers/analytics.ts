@@ -22,7 +22,6 @@ import * as search from './analyticsEvents/search';
 import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClosePopUp';
 import * as openUTG from './analyticsEvents/studyGuides/openUTG';
 import * as unload from './analyticsEvents/unload';
-import { disableAnalyticsCookie } from './constants';
 
 type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
 type Selector = (state: AppState) => object;
@@ -124,6 +123,8 @@ export const useAnalyticsEvent = <T extends keyof typeof analytics>(eventType: T
     (event.track as any)(data, ...args);
   };
 };
+
+const disableAnalyticsCookie = 'ANALYTICS_OPT_OUT';
 
 export const trackingIsDisabled = () => !!Cookies.get(disableAnalyticsCookie);
 
