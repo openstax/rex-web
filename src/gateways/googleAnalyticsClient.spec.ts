@@ -132,8 +132,8 @@ describe('GoogleAnalyticsClient', () => {
         expect(client.getPendingCommands().length).toBe(1);
 
         client.setTrackingIds(['foo']);
-        expect(mockGa).not.toHaveBeenCalledWith('tfoo.set', 'queueTime', expect.any(Number));
-        expect(mockGa).not.toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/some/path'});
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
 
         expect(client.getPendingCommands().length).toBe(1);
       });
@@ -154,10 +154,10 @@ describe('GoogleAnalyticsClient', () => {
 
         client.setTrackingIds(['foo', 'bar']);
         client.trackPageView('/some/path');
-        expect(mockGa).not.toHaveBeenCalledWith('tfoo.set', 'queueTime', 0);
-        expect(mockGa).not.toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/some/path'});
-        expect(mockGa).not.toHaveBeenCalledWith('tbar.set', 'queueTime', 0);
-        expect(mockGa).not.toHaveBeenCalledWith('tbar.send', {hitType: 'pageview', page: '/some/path'});
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
       });
     });
 
