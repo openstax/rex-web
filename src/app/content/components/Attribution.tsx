@@ -98,21 +98,24 @@ interface Props {
 class Attribution extends Component<Props> {
   public container = React.createRef<HTMLDetailsElement>();
   private bookIdsWithSpecialAttributionText: {
-    [key: string]: { copyrightHolder: string, originalMaterialInformation: string }
+    [key: string]: {
+      copyrightHolder: string,
+      displayOriginalMaterialInformation?: string,
+      originalMaterialLink?: string,
+    }
   } = {
     '394a1101-fd8f-4875-84fa-55f15b06ba66': {
       copyrightHolder: 'Texas Education Agency (TEA)',
-      // tslint:disable-next-line: max-line-length
-      originalMaterialInformation: ` The original material is available at: <a target="_blank" rel="noopener" href="https://www.texasgateway.org/book/tea-statistics">https://www.texasgateway.org/book/tea-statistics</a>.`,
+      displayOriginalMaterialInformation: 'yes',
+      originalMaterialLink: 'https://www.texasgateway.org/book/tea-statistics',
     },
     '3e49fb1f-aec7-4181-a479-036874e10240': {
       copyrightHolder: 'The Michelson 20MM Foundation',
-      originalMaterialInformation: '',
     },
     'cce64fde-f448-43b8-ae88-27705cceb0da': {
       copyrightHolder: 'Texas Education Agency (TEA)',
-      // tslint:disable-next-line: max-line-length
-      originalMaterialInformation: ` The original material is available at: <a target="_blank" rel="noopener" href="https://www.texasgateway.org/book/tea-physics">https://www.texasgateway.org/book/tea-physics</a>.`,
+      displayOriginalMaterialInformation: 'yes',
+      originalMaterialLink: 'https://www.texasgateway.org/book/tea-physics',
     },
   };
   private toggleHandler: undefined | (() => void);

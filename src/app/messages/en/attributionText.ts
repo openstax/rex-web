@@ -68,8 +68,10 @@ export const specialText = `
   <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by/4.0/">
    {bookLicenseName} {bookLicenseVersion}
   </a>
-  and you must attribute {copyrightHolder}.{originalMaterialInformation} Changes were made to the original material,
-  including updates to art, structure, and other content updates.
+  and you must attribute {copyrightHolder}.{displayOriginalMaterialInformation, select, yes {
+    The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
+    {originalMaterialLink}
+  </a>.}} Changes were made to the original material, including updates to art, structure, and other content updates.
 </p>
 
 <strong>Attribution information</strong>
