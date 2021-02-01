@@ -1,13 +1,16 @@
 import { Document } from '@openstax/types/lib.dom';
 import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
+import { ApplicationError, ToastMesssageError } from '../helpers/applicationMessageError';
 import Sentry from '../helpers/Sentry';
 import { receiveLoggedOut } from './auth/actions';
 import { recordError, showErrorDialog } from './errors/actions';
 import { notFound } from './errors/routes';
+import { getMessageIdStack } from './errors/selectors';
 import { isPlainObject } from './guards';
 import { replace } from './navigation/actions';
 import * as selectNavigation from './navigation/selectors';
+import { addToast } from './notifications/actions';
 import {
   ActionHookBody,
   AnyAction,
@@ -55,6 +58,11 @@ const makeCatchError = ({dispatch, getState}: MiddlewareAPI) => (e: Error) => {
   } else if (e instanceof BookNotFoundError) {
     Sentry.captureException(e);
     dispatch(replace({route: notFound, params: {url: selectNavigation.pathname(getState())}, state: {}}));
+    return;
+  } else if (e instanceof ToastMesssageError) {
+    Sentry.captureException(e);
+    const errorId = getMessageIdStack(getState())[0];
+    dispatch(addToast(e.messageKey, { ...e.meta, errorId }));
     return;
   }
   Sentry.captureException(e);
@@ -173,7 +181,8 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
   };
 };
 
-export class UnauthenticatedError extends Error {}
+// tslint:disable-next-line: max-classes-per-file
+export class UnauthenticatedError extends ApplicationError {}
 
 // tslint:disable-next-line: max-classes-per-file
-export class BookNotFoundError extends Error {}
+export class BookNotFoundError extends ApplicationError {}

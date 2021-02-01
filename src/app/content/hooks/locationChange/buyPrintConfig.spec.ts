@@ -1,5 +1,4 @@
 import { BuyPrintResponse } from '../../../../gateways/createBuyPrintConfigLoader';
-import Sentry from '../../../../helpers/Sentry';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
@@ -34,25 +33,6 @@ describe('loadBuyPrintConfig', () => {
     const load = jest.spyOn(helpers.buyPrintConfigLoader, 'load');
     await hook();
     expect(load).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalled();
-  });
-
-  it('noops and does not throw on rejection (does report)', async() => {
-    store.dispatch(receiveBook(book));
-    jest.resetAllMocks();
-    const hook = loadBuyPrintConfig(helpers);
-    const load = jest.spyOn(helpers.buyPrintConfigLoader, 'load');
-    const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
-
-    load.mockReturnValue(Promise.reject('asdf'));
-
-    try {
-      await hook();
-    } catch (e) {
-      expect('this should not have thrown').toEqual('asdf');
-    }
-
-    expect(captureException).toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
   });
 

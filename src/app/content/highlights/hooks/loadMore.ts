@@ -1,8 +1,5 @@
 import { GetHighlightsColorsEnum } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
-import { getMessageIdStack } from '../../../errors/selectors';
-import { addToast } from '../../../notifications/actions';
-import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
@@ -14,6 +11,7 @@ import {
   toggleSummaryHighlightsLoading,
   updateSummaryFilters
 } from '../actions';
+import { HighlightPopupLoadError } from '../errors';
 import * as select from '../selectors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../utils/highlightLoadingUtils';
 
@@ -57,12 +55,8 @@ export const hookBody: ActionHookBody<
     try {
       highlights = await loadMore(services, summaryPageSize);
     } catch (error) {
-      Sentry.captureException(error);
-      const errorId = getMessageIdStack(services.getState())[0];
-      services.dispatch(
-        addToast(toastMessageKeys.higlights.failure.popUp.load, {destination: 'myHighlights', errorId}));
       services.dispatch(toggleSummaryHighlightsLoading(false));
-      return;
+      throw ensureApplicationErrorType(error, new HighlightPopupLoadError({ destination: 'myHighlights' }));
     }
 
     const {formattedHighlights, pagination} = highlights;
