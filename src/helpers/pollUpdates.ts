@@ -69,11 +69,12 @@ const processReleaseId = (store: Store, environment: Environment) => {
 };
 
 const processQuasarConfigs = (environmentConfigs: EnvironmentConfigs) => {
-  if (environmentConfigs.quasar_api) {
-    configureEventCapture(environmentConfigs.quasar_api === 'default'
-      ? {}
-      : {basePath: environmentConfigs.quasar_api}
-    );
+  if (environmentConfigs.quasar_api === 'default') {
+    configureEventCapture();
+  } else if (environmentConfigs.quasar_api) {
+    configureEventCapture({
+      basePath: environmentConfigs.quasar_api,
+    });
   }
 };
 

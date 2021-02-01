@@ -5,10 +5,9 @@ import { AnalyticsEvent } from './event';
 export const selector = (_state: AppState) => ({});
 
 export const track = (
-  _: ReturnType<typeof selector>,
-  referrer: string
+  _: ReturnType<typeof selector>
 ): AnalyticsEvent | void => {
   return {
-    getEventCapturePayload: () => sessionStarted({referrer}),
+    getEventCapturePayload: () => sessionStarted(),
   };
 };

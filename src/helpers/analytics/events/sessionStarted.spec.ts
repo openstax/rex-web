@@ -9,7 +9,7 @@ describe('sessionStarted', () => {
 
   describe('creates event capture payload', () => {
     it('reports referrer', () => {
-      const result = track({}, 'referrer');
+      const result = track({});
       const factory = jest.spyOn(events, 'sessionStarted');
 
       if (!result) {
@@ -20,7 +20,7 @@ describe('sessionStarted', () => {
 
       result.getEventCapturePayload();
 
-      expect(factory).toHaveBeenCalledWith({referrer: 'referrer'});
+      expect(factory).toHaveBeenCalledWith();
     });
   });
 });

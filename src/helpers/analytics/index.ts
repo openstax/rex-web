@@ -8,6 +8,8 @@ import { events } from './bindEvents';
 export const registerGlobalAnalytics = (window: Window, store: Store) => {
   const document = window.document;
 
+  events.sessionStarted.track(events.sessionStarted.selector(store.getState()));
+
   window.addEventListener('beforeunload', () => {
     events.unload.track(events.unload.selector(store.getState()));
   });

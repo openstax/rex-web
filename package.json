@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@formatjs/intl-pluralrules": "^1.1.2",
-    "@openstax/event-capture-client": "^1.0.3",
+    "@openstax/event-capture-client": "^1.1.1",
     "@openstax/highlighter": "^1.6.3",
     "@openstax/open-search-client": "0.1.0",
     "@sentry/browser": "6.0.2",

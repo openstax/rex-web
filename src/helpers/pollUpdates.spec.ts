@@ -57,6 +57,7 @@ describe('poll updates', () => {
   describe('in production', () => {
     let pollUpdates: typeof import ('./pollUpdates').default;
     let googleAnalyticsClient: typeof import ('../gateways/googleAnalyticsClient').default;
+    let quasar: typeof import ('../gateways/eventCaptureClient');
 
     beforeEach(() => {
       jest.mock('../config', () => ({
@@ -66,6 +67,7 @@ describe('poll updates', () => {
       resetModules();
       pollUpdates = require('./pollUpdates').default;
       googleAnalyticsClient = require('../gateways/googleAnalyticsClient').default;
+      quasar = require('../gateways/eventCaptureClient');
     });
 
     it('fetches /rex/environment.json imeediately', () => {
@@ -135,6 +137,46 @@ describe('poll updates', () => {
       await Promise.resolve(); // clear promise queue for the mockfetch
 
       expect(mock).toHaveBeenCalledWith(['UA-0000000-1']);
+    });
+
+    it('initializes quasar analytics (default)', async() => {
+      fetchSpy.mockReturnValue(mockFetchResponse(200, {
+        configs: {
+          quasar_api: 'default',
+        },
+        release_id: 'releaseid',
+      }));
+
+      const configureSpy = jest.spyOn(quasar, 'configureEventCapture')
+        .mockReturnValue(undefined);
+
+      cancel = pollUpdates(store);
+      jest.runOnlyPendingTimers();
+
+      await Promise.resolve(); // clear promise queue for the async poll function
+      await Promise.resolve(); // clear promise queue for the mockfetch
+
+      expect(configureSpy).toHaveBeenCalledWith();
+    });
+
+    it('initializes quasar analytics (custom)', async() => {
+      fetchSpy.mockReturnValue(mockFetchResponse(200, {
+        configs: {
+          quasar_api: 'coolplace.quasar.com',
+        },
+        release_id: 'releaseid',
+      }));
+
+      const configureSpy = jest.spyOn(quasar, 'configureEventCapture')
+        .mockReturnValue(undefined);
+
+      cancel = pollUpdates(store);
+      jest.runOnlyPendingTimers();
+
+      await Promise.resolve(); // clear promise queue for the async poll function
+      await Promise.resolve(); // clear promise queue for the mockfetch
+
+      expect(configureSpy).toHaveBeenCalledWith({basePath: 'coolplace.quasar.com'});
     });
 
     it('dispatches app messages', async() => {
