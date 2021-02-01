@@ -44,7 +44,7 @@ const FinalScreen = ({ nextSection }: FinalScreenProps) => {
   return <StyledFinalScreen>
     <StyledText>
       <FormattedMessage id='i18n:practice-questions:popup:final'>
-        {(msg: string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </StyledText>
     {

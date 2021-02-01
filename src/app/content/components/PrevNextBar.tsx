@@ -92,7 +92,7 @@ const PrevNextBar = ({book, prevNext}: PropTypes) => prevNext && <BarWrapper dat
     <HidingContentLink side='left' book={book} page={prevNext.prev} aria-label={ariaLabel} data-analytics-label='prev'>
       <LeftArrow />
       <FormattedMessage id='i18n:prevnext:prev:text'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </HidingContentLink>
     }
@@ -102,7 +102,7 @@ const PrevNextBar = ({book, prevNext}: PropTypes) => prevNext && <BarWrapper dat
     {(ariaLabel: Element | string) =>
     <HidingContentLink side='right' book={book} page={prevNext.next} aria-label={ariaLabel} data-analytics-label='next'>
       <FormattedMessage id='i18n:prevnext:next:text'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
       <RightArrow />
     </HidingContentLink>

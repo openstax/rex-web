@@ -50,11 +50,11 @@ const HighlightDeleteWrapper = ({
       ? 'i18n:highlighting:confirmation:delete-both'
       : 'i18n:highlighting:confirmation:delete-highlight'}
   >
-    {(msg: string) => <span>{msg}</span>}
+    {(msg) => <span>{msg}</span>}
   </FormattedMessage>
   <HighlightEditButtons>
     <FormattedMessage id='i18n:highlighting:button:delete'>
-      {(msg: Element | string) => <Button
+      {(msg) => <Button
         data-testid='delete'
         data-analytics-label='delete'
         size='medium'
@@ -63,7 +63,7 @@ const HighlightDeleteWrapper = ({
       >{msg}</Button>}
     </FormattedMessage>
     <FormattedMessage id='i18n:highlighting:button:cancel'>
-      {(msg: Element | string) => <Button
+      {(msg) => <Button
         size='medium'
         data-analytics-label='cancel'
         data-testid='cancel'

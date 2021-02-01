@@ -65,7 +65,7 @@ const SearchResult = (props: {
 
   return <Styled.NavItem>
     <FormattedMessage id='i18n:search-results:bar:current-page'>
-      {(msg: Element | string) =>
+      {(msg) =>
         <Styled.LinkWrapper {...(active ? {'aria-label': msg} : {})}>
           <Styled.SearchResultsLink
             dangerouslySetInnerHTML={{ __html: props.page.title }}

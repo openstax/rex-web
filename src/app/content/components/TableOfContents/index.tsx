@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../types';
 import { resetToc } from '../../actions';
@@ -19,26 +19,28 @@ interface SidebarProps {
   page?: Page;
 }
 
+// tslint:disable-next-line:variable-name
+const SidebarBody = React.forwardRef<HTMLElement, React.ComponentProps<typeof Styled.SidebarBody>>(
+  (props, ref) => <Styled.SidebarBody
+    ref={ref}
+    data-testid='toc'
+    aria-label={useIntl().formatMessage({id: 'i18n:toc:title'})}
+    data-analytics-region='toc'
+    {...props}
+  />
+);
+
 export class TableOfContents extends Component<SidebarProps> {
   public sidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
 
   public render() {
     const {isOpen, book} = this.props;
-    return <FormattedMessage id='i18n:toc:title'>
-      {(msg: Element | string) =>
-        <Styled.SidebarBody
-          isOpen={isOpen}
-          ref={this.sidebar}
-          data-testid='toc'
-          aria-label={msg}
-          data-analytics-region='toc'
-        >
-          {this.renderTocHeader()}
-          {book && this.renderToc(book)}
-        </Styled.SidebarBody>
-      }
-    </FormattedMessage>;
+
+    return <SidebarBody isOpen={isOpen} ref={this.sidebar}>
+      {this.renderTocHeader()}
+      {book && this.renderToc(book)}
+    </SidebarBody>;
   }
 
   public componentDidMount() {

@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { LinkedArchiveTreeSection } from '../../../types';
 import { PracticeAnswer } from '../../types';
 import {
@@ -34,7 +34,7 @@ const AnswerResult = ({ showCorrect, isSelected, isSubmitted, isCorrect }: Answe
 
   return <StyledAnswerResult isCorrect={isCorrect}>
     <FormattedMessage id={resultMsgKey}>
-      {(msg: string) => msg}
+      {(msg) => msg}
     </FormattedMessage>
   </StyledAnswerResult>;
 };
@@ -78,25 +78,21 @@ const Answer = ({
     tabIndex={0}
     htmlFor={choiceIndicator}
   >
-    <FormattedMessage
-      id='i18n:practice-questions:popup:answers:choice'
-      values={{choiceIndicator: choiceIndicator.toUpperCase()}}
-    >{(msg: string) =>
-      <React.Fragment>
-        <input
-          id={choiceIndicator}
-          type='radio'
-          name={choiceIndicator}
-          checked={isSelected}
-          disabled={isSubmitted}
-          aria-label={msg}
-          onChange={onSelect}
-        />
-        <AnswerIndicator aria-label={msg}>
-          {choiceIndicator}
-        </AnswerIndicator>
-      </React.Fragment>
-    }</FormattedMessage>
+    <input
+      id={choiceIndicator}
+      type='radio'
+      name={choiceIndicator}
+      checked={isSelected}
+      disabled={isSubmitted}
+      aria-label={useIntl().formatMessage(
+        {id: 'i18n:practice-questions:popup:answers:choice'},
+        {choiceIndicator: choiceIndicator.toUpperCase()}
+      )}
+      onChange={onSelect}
+    />
+    <AnswerIndicator>
+      {choiceIndicator}
+    </AnswerIndicator>
     <AnswerAlignment>
       <AnswerContent>
         <AnswerExcerpt dangerouslySetInnerHTML={{ __html: answer.content_html }} />

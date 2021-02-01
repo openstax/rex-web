@@ -44,7 +44,7 @@ const LinkToSection = ({ section }: LinkToSectionProps) => {
 
   return <StyledLink book={book} page={section} target='_blank' data-analytics-label='Go to link' >
     <FormattedMessage id='i18n:practice-questions:popup:read'>
-      {(msg: string) => msg}
+      {(msg) => msg}
     </FormattedMessage>
     <span dangerouslySetInnerHTML={{ __html: section.title }} />
   </StyledLink>;

@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import Button from '../../../../components/Button';
 import { nextQuestion } from '../../actions';
@@ -17,27 +17,23 @@ const NextButton = React.forwardRef(({ submittedAnswerIsCorrect }: NextButtonPro
     ? 'i18n:practice-questions:popup:navigation:next:after-submit-correct:aria-label'
     : 'i18n:practice-questions:popup:navigation:next';
 
-  return <FormattedMessage id={ariaLabelKey}>
-    {(ariaLabel: string) => <FormattedMessage id='i18n:practice-questions:popup:navigation:next'>
-      {(msg: string) => (
-        <Button
-          ref={ref}
-          variant='primary'
-          size='large'
-          aria-label={ariaLabel}
-          value={msg}
-          data-testid='next'
-          data-analytics-label='Next'
-          onClick={(e: React.MouseEvent) => {
-            e.preventDefault();
-            dispatch(nextQuestion());
-          }}
-        >
-          {msg}
-        </Button>
-      )}
-    </FormattedMessage>}
-  </FormattedMessage>;
+  const text = useIntl().formatMessage({id: 'i18n:practice-questions:popup:navigation:next'});
+
+  return <Button
+    ref={ref}
+    variant='primary'
+    size='large'
+    aria-label={useIntl().formatMessage({id: ariaLabelKey})}
+    value={text}
+    data-testid='next'
+    data-analytics-label='Next'
+    onClick={(e: React.MouseEvent) => {
+      e.preventDefault();
+      dispatch(nextQuestion());
+    }}
+  >
+    {text}
+  </Button>;
 });
 
 export default NextButton;

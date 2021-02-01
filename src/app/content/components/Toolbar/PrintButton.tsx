@@ -20,7 +20,7 @@ class PrintButton extends Component<Props> {
   public render() {
     return (
       <FormattedMessage id='i18n:toolbar:print:text'>
-        {(msg: Element | string) => (
+        {(msg) => (
           <FormattedMessage id='i18n:toolbar:print:aria-label'>
             {(label: Element | string) => (
               <Styled.PrintOptWrapper
