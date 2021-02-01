@@ -1,7 +1,8 @@
 import fs from 'fs';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/fp/isEqual';
 import path from 'path';
 import { argv } from 'yargs';
+import { Redirects } from '../data/redirects/types';
 import { content } from '../src/app/content/routes';
 import { LinkedArchiveTreeNode } from '../src/app/content/types';
 import { flattenArchiveTree } from '../src/app/content/utils';
@@ -11,15 +12,14 @@ import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '..
 import books from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
-import { Redirects } from '../src/redirects/types';
 
 const args = argv as any as {
   bookId: string
-  newVersion: string | number;
+  versionNumber: string | number;
 };
 
 const booksPath = path.resolve(__dirname, '../src/config.books.json');
-const redirectsPath = path.resolve(__dirname, '../src/redirects/');
+const redirectsPath = path.resolve(__dirname, '../data/redirects/');
 
 const bookLoader = makeUnifiedBookLoader(
   createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`),
@@ -46,7 +46,7 @@ async function updateRedirections(bookId: string, currentVersion: string, newVer
     });
 
   const redirectsBookPath = path.resolve(redirectsPath, bookId + '.json');
-  const redirects: Redirects = fs.existsSync(redirectsBookPath) ? require(redirectsBookPath) : [];
+  const redirects: Redirects = fs.existsSync(redirectsBookPath) ? await import(redirectsBookPath) : [];
 
   const flatCurrentTree = flattenArchiveTree(currentTree);
 
@@ -56,15 +56,14 @@ async function updateRedirections(bookId: string, currentVersion: string, newVer
     pathname: content.getUrl({ book: { slug: bookSlug }, page: { slug: section.slug } }),
   });
 
-  const findRedirect = (section: LinkedArchiveTreeNode) =>
-    (redirect: Redirects[number]) => isEqual(formatSection(section), redirect);
+  const matchRedirect = (section: LinkedArchiveTreeNode) => isEqual(formatSection(section));
 
   let countNewRedirections = 0;
   for (const section of flatCurrentTree) {
     const { slug } = findArchiveTreeNodeById(newTree, section.id) || {};
     if (
       (slug && slug !== section.slug)
-      && !redirects.find(findRedirect(section))
+      && !redirects.find(matchRedirect(section))
     ) {
       redirects.push(formatSection(section));
       countNewRedirections++;
@@ -78,17 +77,18 @@ async function updateRedirections(bookId: string, currentVersion: string, newVer
 
 async function processBook() {
   const { defaultVersion } = books[args.bookId] || {};
+  const newVersion = args.versionNumber.toString();
 
-  if (defaultVersion === args.newVersion.toString()) {
+  if (defaultVersion === newVersion) {
     // tslint:disable-next-line: no-console
     console.log(`${args.bookId} alredy at desired version.`);
     process.exit(0);
   }
 
-  const { title, version } = await bookLoader(args.bookId, args.newVersion.toString())
+  const { title, version } = await bookLoader(args.bookId, newVersion)
     .catch((error) => {
       // tslint:disable-next-line: no-console
-      console.log(`error while loading book ${args.bookId} with version ${args.newVersion}`);
+      console.log(`error while loading book ${args.bookId} with version ${newVersion}`);
       throw error;
     });
 
@@ -100,7 +100,7 @@ async function processBook() {
   // defaultVersion will be undefined when we add a new book.
   // In this case we don't need to updateRedirections because there is nothing to update.
   const newRedirectionsCounter = defaultVersion
-    ? await updateRedirections(args.bookId, defaultVersion, args.newVersion.toString())
+    ? await updateRedirections(args.bookId, defaultVersion, newVersion)
     : 0;
 
   // tslint:disable-next-line: no-console
