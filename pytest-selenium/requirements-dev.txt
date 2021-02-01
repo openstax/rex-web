@@ -7,7 +7,7 @@ cfgv==3.2.0
 chardet==4.0.0
 chromedriver-binary==89.0.4389.23.0
 cryptography==3.3.1
-Faker==5.3.0
+Faker==5.8.0
 identify==1.5.11
 idna==3.0
 importlib-metadata==3.3.0
