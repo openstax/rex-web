@@ -1767,10 +1767,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@openstax/event-capture-client@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@openstax/event-capture-client/-/event-capture-client-1.1.1.tgz#48cc10eba02d7e59c88d1aee80ccf5aaec93ba93"
-  integrity sha512-oyIxRmp9NnM8rMVkaWFkFNjuynsX6MbKs6VRoTMa7KhXoreQbqMRcKz3ckw8sDvS0MpRv+JIW6cnoE+mhFchMg==
+"@openstax/event-capture-client@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@openstax/event-capture-client/-/event-capture-client-1.1.2.tgz#5093d38c3d78609a9cd0b1d209a0db5bf6d2fec6"
+  integrity sha512-bpkMfku3zYyIAuLP653QAMX+5Fh/YkH5Nijy7cb8y1p2sNtGXs1J6WMeBS1oECH+7olmp8OtMLpuVOKp0TqcxA==
   dependencies:
     uuid "^8.3.2"
 
