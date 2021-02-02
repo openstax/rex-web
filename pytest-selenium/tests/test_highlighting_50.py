@@ -297,14 +297,10 @@ def test_delete_highlight_from_MH_page(selenium, base_url, book_slug, page_slug)
     # AND: Highlight 2 set of texts in the page
     paragraph = random.sample(book.content.paragraphs, 2)
     note = Utilities.random_string(length=50)
-    content_highlight_ids = book.content.highlight_ids
     data = [(paragraph[0], Color.GREEN, note), (paragraph[1], Color.YELLOW, note == "")]
 
     for paragraphs, colors, note in data:
         book.content.highlight(target=paragraphs, offset=Highlight.RANDOM, color=colors, note=note)
-        content_highlight_ids = content_highlight_ids + list(
-            set(book.content.highlight_ids) - set(content_highlight_ids)
-        )
 
         my_highlights = book.toolbar.my_highlights()
         highlights = my_highlights.highlights.edit_highlight
@@ -599,3 +595,172 @@ def test_add_note_from_MH_page_using_keyboard_navigation(selenium, base_url, boo
     assert (
         book.content.highlight_box.note == note_text
     ), "the note text does not match the note added in MH page"
+
+
+@markers.test_case("C622375")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
+def test_edit_note_from_MH_page_using_keyboard_navigation(selenium, base_url, book_slug, page_slug):
+    """Edit note from MH page using keyboard navigation."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight some text in the page
+    paragraph = random.sample(book.content.paragraphs, 1)
+    note = Utilities.random_string()
+    book.content.highlight(target=paragraph[0], offset=Highlight.RANDOM, note=note)
+
+    # AND: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    highlight = my_highlights.highlights.edit_highlight
+    highlight_id = highlight[0].mh_highlight_id
+    note_append = Utilities.random_string()
+
+    # WHEN: Open the context menu
+    (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+
+    # AND: Select Edit note
+    (ActionChains(selenium).send_keys(Keys.TAB * 6).send_keys(Keys.RETURN).perform())
+
+    # AND: Update the note in the textbox and hit cancel
+    (
+        ActionChains(selenium)
+        .send_keys(note_append)
+        .send_keys(Keys.TAB * 2)
+        .send_keys(Keys.ENTER)
+        .perform()
+    )
+
+    # AND: Close the MH page
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+
+    # THEN: The corresponding highlight in the content page is not updated with new note info
+    Utilities.click_option(
+        driver=selenium, element=book.content.get_highlight(by_id=highlight_id)[0], scroll_to=-130
+    )
+
+    assert (
+        book.content.highlight_box.note == note
+    ), "the note is updated even on clicking Cancel in MH page"
+
+    book.toolbar.my_highlights()
+
+    # WHEN: Open the context menu
+    (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+
+    # AND: Select Edit note
+    (ActionChains(selenium).send_keys(Keys.TAB * 6).send_keys(Keys.RETURN).perform())
+
+    # AND: Update the note in the textbox and hit save
+    (
+        ActionChains(selenium)
+        .send_keys(note_append)
+        .send_keys(Keys.TAB)
+        .send_keys(Keys.ENTER)
+        .perform()
+    )
+
+    # AND: Close the MH page
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+
+    # THEN: The corresponding highlight in the content page is updated with the new note text
+    Utilities.click_option(
+        driver=selenium, element=book.content.get_highlight(by_id=highlight_id)[0], scroll_to=-130
+    )
+
+    assert (
+        book.content.highlight_box.note == note_append + note
+    ), "the note text does not match the note updated in MH page"
+
+
+@markers.test_case("C600019")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
+def test_delete_highlight_from_MH_page_using_keyboard_navigation(
+    selenium, base_url, book_slug, page_slug
+):
+    """Deleting highlight from MH page using_keyboard_navigation."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight 2 set of texts in the page
+    paragraph = random.sample(book.content.paragraphs, 2)
+    note = Utilities.random_string(length=50)
+    data = [(paragraph[0], Color.GREEN, note), (paragraph[1], Color.YELLOW, note == "")]
+
+    for paragraphs, colors, note in data:
+        book.content.highlight(target=paragraphs, offset=Highlight.RANDOM, color=colors, note=note)
+
+        my_highlights = book.toolbar.my_highlights()
+        highlights = my_highlights.highlights.edit_highlight
+
+        # WHEN: Open the context menu
+        (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+
+        # AND: Select Delete note
+        (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+
+        # THEN: Delete confirmation message is displayed
+        assert (
+            highlights[0].confirm_delete_message
+            == "Are you sure you want to delete this note and highlight?"
+            if highlights[0].note_present
+            else "Are you sure you want to delete this highlight?"
+        ), (
+            "delete confirmation message is incorrect"
+            f"message displayed: {highlights[0].confirm_delete_message}"
+        )
+
+        # WHEN: Hit Cancel in the delete confirmation dialog
+        (ActionChains(selenium).send_keys(Keys.TAB * 2).send_keys(Keys.ENTER).perform())
+
+        # THEN: The highlight is not removed from MH page
+        assert (
+            len(my_highlights.all_highlights) == 1
+        ), "Highlight is removed from MH page even on hitting Cancel in delete confirmation dialog"
+
+        # WHEN: Open the context menu
+        (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.ENTER).perform())
+
+        # AND: Select Delete note
+        (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+
+        # AND: Hit Save in the delete confirmation dialog
+        (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+
+        # THEN: The highlight is removed from the MH page
+        assert (
+            len(my_highlights.all_highlights) == 0
+        ), "Highlight is not removed from MH page even on hitting Save in delete confirmation dialog"
+
+        my_highlights.close()
+
+        # AND: The highlight deleted in MH page is removed from the content page
+        assert book.content.highlight_count == 0, (
+            "Highlight deleted in MH page is not removed from content page: "
+            f"found {book.content.highlight_count}, expected {0}"
+        )
+
+        with pytest.raises(NoSuchElementException) as ex:
+            book.content.highlight_box
+        assert "No open highlight boxes found" in str(ex.value)
