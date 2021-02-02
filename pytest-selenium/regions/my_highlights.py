@@ -17,6 +17,7 @@ from regions.base import Region
 from utils.utility import Color, Utilities
 
 ELEMENT_SELECT = "return document.querySelector('{selector}');"
+COMPUTED_STYLES = "return window.getComputedStyle(arguments[0]){field};"
 
 
 class ChapterData(Region):
@@ -669,6 +670,8 @@ class MyHighlights(Region):
             _note_indicator_locator = (By.XPATH, "./following::div[3]/span[contains(text(), 'Note:')]")
             _delete_confirmation_button_locator = (By.CSS_SELECTOR, "[data-testid=delete]")
             _delete_confirmation_message_locator = (By.CSS_SELECTOR, "[class*=HighlightDeleteWrapper] span")
+            _highlight_edit_box_locator = (By.CSS_SELECTOR, "[class*=HighlightToggleEditContent]")
+            _highlight_color_locator = (By.XPATH, "./following::div[contains(@class, 'ContentWrapper')]")
 
             @property
             def mh_highlight_id(self) -> str:
@@ -679,6 +682,16 @@ class MyHighlights(Region):
 
                 """
                 return self.find_element(*self._highlight_id_locator).get_attribute("data-highlight-id")
+
+            @property
+            def highlight_color(self) -> str:
+                """Return the highlight color of the highlight being edited.
+
+                :return: the color of the highlight in MH page
+                :rtype: str
+
+                """
+                return self.find_element(*self._highlight_color_locator).get_attribute("color")
 
             @property
             def edit_button(self) -> WebElement:
@@ -829,6 +842,8 @@ class MyHighlights(Region):
             def toggle(self):
                 return self.find_element(*self._alter_menu_toggle_locator)
 
+            context_menu = toggle
+
             def toggle_menu(self) -> MyHighlights.Highlights.EditHighlight:
                 """Toggle the highlight context menu open or close.
 
@@ -844,6 +859,29 @@ class MyHighlights(Region):
                     return self.wait.until(expect.visibility_of(self.toggle))
                 except TimeoutException:
                     return False
+
+            @property
+            def highlight_edit_boxes(self) -> List[WebElement]:
+                """Return the list of highlight edit box elements in the modal.
+
+                :return: the list of highlight edit box elements
+                :rtype: list(WebElement)
+
+                """
+                return self.find_elements(*self._highlight_edit_box_locator)
+
+            @property
+            def highlight_edit_box_open(self):
+                """Search for the open (displayed) highlight edit box."""
+                for _ in range(2):
+                    for box in self.highlight_edit_boxes:
+                        sleep(0.1)
+                        display = self.driver.execute_script(
+                            COMPUTED_STYLES.format(field=".display"), box
+                        )
+                        if display != "none":
+                            return True
+                return False
 
             def toggle_color(self, color: Color) -> MyHighlights.Highlights.EditHighlight:
                 """Toggle a highlight color.
