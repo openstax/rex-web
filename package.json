@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@formatjs/intl-pluralrules": "^4.0.6",
     "@openstax/highlighter": "^1.6.3",
     "@openstax/open-search-client": "0.1.0",
@@ -13,6 +12,7 @@
     "@types/js-cookie": "^2.2.2",
     "@types/pretty": "^2.0.0",
     "@types/redux-sentry-middleware": "^0.1.0",
+    "babel-plugin-transform-dynamic-import": "^2.1.0",
     "color": "^3.1.2",
     "details-element-polyfill": "^2.3.1",
     "flat": "^5.0.0",
