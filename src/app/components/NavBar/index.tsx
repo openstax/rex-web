@@ -34,7 +34,7 @@ export const Dropdown: React.FunctionComponent<{user: User, currentPath: string}
   };
 
   return <OnScroll callback={blockScroll}>
-    <Styled.DropdownOverlay tabIndex='-1' ref={overlay}>
+    <Styled.DropdownOverlay tabIndex='-1' ref={overlay} data-testid='nav-overlay'>
       <a aria-hidden='true' tabIndex={-1} href='/'>
         <Styled.OverlayLogo
           src={openstaxLogo}
