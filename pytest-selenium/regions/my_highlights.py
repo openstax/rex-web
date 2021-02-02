@@ -881,6 +881,7 @@ class MyHighlights(Region):
                         )
                         if display != "none":
                             return True
+                return False
 
             def toggle_color(self, color: Color) -> MyHighlights.Highlights.EditHighlight:
                 """Toggle a highlight color.
