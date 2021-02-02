@@ -334,6 +334,7 @@ export const InnerText = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const SidebarControl = styled(OpenSidebarControl)`
+  order: -1;
   margin-right: auto;
   ${theme.breakpoints.mobile(css`
     margin-right: unset;

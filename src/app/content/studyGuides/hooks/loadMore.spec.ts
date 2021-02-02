@@ -1,11 +1,10 @@
 import { GetHighlightsSetsEnum, HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
-import { groupedToastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { HighlightData, SummaryHighlights } from '../../highlights/types';
@@ -15,6 +14,7 @@ import {
   receiveStudyGuidesTotalCounts,
   receiveSummaryStudyGuides,
   setDefaultSummaryFilters,
+  toggleStudyGuidesSummaryLoading,
 } from '../actions';
 import { summaryFilters } from '../selectors';
 
@@ -42,7 +42,6 @@ describe('loadMore', () => {
   let hook: ReturnType<typeof import ('./loadMore').hookBody>;
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
 
     helpers = {
@@ -219,7 +218,8 @@ describe('loadMore', () => {
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null, filters}));
   });
 
-  it('adds a toast on request error', async() => {
+  it('throws StudyGuidesPopupLoadError', async() => {
+    expect.assertions(3);
     const error = {} as any;
 
     jest.spyOn(helpers.highlightClient, 'getHighlights')
@@ -232,10 +232,36 @@ describe('loadMore', () => {
     }));
     store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']}));
 
-    await hook(store.dispatch(loadMoreStudyGuides()));
+    try {
+      await hook(store.dispatch(loadMoreStudyGuides()));
+    } catch (error) {
+      expect(dispatch).toHaveBeenLastCalledWith(toggleStudyGuidesSummaryLoading(false));
+      expect(error.messageKey).toBe(toastMessageKeys.studyGuides.failure.popUp.load);
+      expect(error.meta).toEqual({ destination: 'studyGuides' });
+    }
+  });
 
-    expect(groupedToastNotifications(store.getState()).studyGuides)
-      .toEqual([expect.objectContaining({messageKey: toastMessageKeys.studyGuides.failure.popUp.load})]);
+  it('throws ApplicationError', async() => {
+    expect.assertions(3);
+    const mockCustomApplicationError = new ApplicationError('error');
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockRejectedValueOnce(mockCustomApplicationError);
+
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
+    }));
+    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']}));
+
+    try {
+      await hook(store.dispatch(loadMoreStudyGuides()));
+    } catch (error) {
+      expect(dispatch).toHaveBeenCalledWith(toggleStudyGuidesSummaryLoading(false));
+      expect(error instanceof ApplicationError).toEqual(true);
+      expect(error.message).toBe(mockCustomApplicationError.message);
+    }
   });
 
   it('doesn\'t explode without a page', async() => {

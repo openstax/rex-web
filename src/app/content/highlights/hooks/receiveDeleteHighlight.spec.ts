@@ -1,12 +1,10 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { toastNotifications } from '../../../notifications/selectors';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { createHighlight, receiveDeleteHighlight } from '../actions';
-
-jest.mock('../../../../helpers/Sentry');
 
 const createMockHighlight = () => ({
   id: Math.random().toString(36).substring(7),
@@ -58,22 +56,49 @@ describe('receiveDeleteHighlight', () => {
   });
 
   it('reverts deletion if it failed', async() => {
+    expect.assertions(2);
     const error = {} as any;
 
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
       .mockRejectedValue(error);
 
-    hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
-    await new Promise((resolve) => setImmediate(resolve));
+    try {
+      await hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
+    } catch (error) {
+      expect(deleteHighlightClient).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith(createHighlight(highlight, {...meta, revertingAfterFailure: true}));
+    }
+  });
 
-    expect(deleteHighlightClient).toHaveBeenCalled();
-    expect(Sentry.captureException).toHaveBeenCalledWith(error);
+  it('throws HighlightDeleteError', async() => {
+    expect.assertions(3);
+    const error = {} as any;
 
-    expect(dispatch).toHaveBeenCalledWith(createHighlight(highlight, {...meta, revertingAfterFailure: true}));
+    const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
+      .mockRejectedValue(error);
 
-    const hasAdequateErrorToast = toastNotifications(store.getState())
-      .some((notification) => notification.messageKey === 'i18n:notification:toast:highlights:delete-failure');
+    try {
+      await hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
+    } catch (error) {
+      expect(deleteHighlightClient).toHaveBeenCalled();
+      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.delete);
+      expect(error.meta).toEqual({ destination: 'page' });
+    }
+  });
 
-    expect(hasAdequateErrorToast).toBe(true);
+  it('throws ApplicationError', async() => {
+    expect.assertions(3);
+    const mockCustomApplicationError = new ApplicationError('error');
+
+    const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
+      .mockRejectedValue(mockCustomApplicationError);
+
+    try {
+      await hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
+    } catch (error) {
+      expect(deleteHighlightClient).toHaveBeenCalled();
+      expect(error instanceof ApplicationError).toEqual(true);
+      expect(error.message).toBe(mockCustomApplicationError.message);
+    }
   });
 });

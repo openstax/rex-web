@@ -1,11 +1,15 @@
+import { ApplicationError, ToastMesssageError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { resetModules } from '../../../../test/utils';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
-import { groupedToastNotifications } from '../../../notifications/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { closeStudyGuides, printStudyGuides, receiveSummaryStudyGuides } from '../actions';
+import {
+  closeStudyGuides,
+  printStudyGuides,
+  receiveSummaryStudyGuides,
+  toggleStudyGuidesSummaryLoading
+} from '../actions';
 import { initialState } from '../reducer';
 
 describe('printStudyGuides', () => {
@@ -19,7 +23,6 @@ describe('printStudyGuides', () => {
   let hook: ReturnType<typeof import ('./printStudyGuides').hookBody>;
 
   beforeEach(() => {
-    resetModules();
     jest.resetAllMocks();
 
     store = createTestStore({
@@ -56,21 +59,36 @@ describe('printStudyGuides', () => {
     hook = (require('./printStudyGuides').hookBody)(helpers);
   });
 
-  it('doesn\'t return a promise', () => {
-    expect(hook(printStudyGuides())).toBe(undefined);
-    expect(loadMore).toHaveBeenCalled();
-  });
-
-  it('adds a toast on request error', async() => {
+  it('throws ApplicationMesssageError', async() => {
+    expect.assertions(3);
     const error = {} as any;
+    const mockApplicationMesssageError = new ToastMesssageError(
+      toastMessageKeys.studyGuides.failure.popUp.print,
+      { destination: 'studyGuides' });
 
     loadMore.mockRejectedValueOnce(error);
 
-    hook(printStudyGuides());
-    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
+    try {
+      await hook(printStudyGuides());
+    } catch (error) {
+      expect(dispatch).toBeCalledWith(toggleStudyGuidesSummaryLoading(false));
+      expect(error.messageKey).toBe(mockApplicationMesssageError.messageKey);
+      expect(error.meta).toEqual(mockApplicationMesssageError.meta);
+    }
+  });
 
-    expect(groupedToastNotifications(store.getState()).studyGuides)
-      .toEqual([expect.objectContaining({messageKey: toastMessageKeys.studyGuides.failure.popUp.print})]);
+  it('throws ApplicationError', async() => {
+    expect.assertions(2);
+    const mockCustomApplicationError = new ApplicationError();
+
+    jest.spyOn(require('./loadMore'), 'loadMore')
+      .mockRejectedValueOnce(mockCustomApplicationError);
+    try {
+      await hook(printStudyGuides());
+    } catch (error) {
+      expect(dispatch).toBeCalledWith(toggleStudyGuidesSummaryLoading(false));
+      expect(error instanceof ApplicationError).toEqual(true);
+    }
   });
 
   it('waits for promiseCollector.calm', async() => {
@@ -100,6 +118,7 @@ describe('printStudyGuides', () => {
 
     await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
+    expect(dispatch).toBeCalledWith(toggleStudyGuidesSummaryLoading(false));
     expect(print).toHaveBeenCalled();
   });
 

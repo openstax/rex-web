@@ -2,13 +2,15 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { LinkedArchiveTreeSection } from '../../../types';
-import { PracticeAnswer } from '../../types';
+import { PracticeAnswer, PracticeQuestion } from '../../types';
 import {
   AnswerAlignment,
   AnswerBlock,
   AnswerContent,
   AnswerExcerpt,
   AnswerIndicator,
+  AnswerInput,
+  AnswerWrapper,
   StyledAnswerResult,
 } from './styled';
 
@@ -44,6 +46,7 @@ interface AnswerProps {
   isSubmitted: boolean;
   showCorrect: boolean;
   answer: PracticeAnswer;
+  question: PracticeQuestion;
   choiceIndicator: string;
   onSelect: () => void;
   source: LinkedArchiveTreeSection;
@@ -52,6 +55,7 @@ interface AnswerProps {
 // tslint:disable-next-line: variable-name
 const Answer = ({
   answer,
+  question,
   showCorrect,
   choiceIndicator,
   isSubmitted,
@@ -68,43 +72,42 @@ const Answer = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showCorrect, isCorrect]);
 
-  return <AnswerBlock
-    showCorrect={showCorrect}
-    isCorrect={isCorrect}
-    isSubmitted={isSubmitted}
-    isSelected={isSelected}
-    onClick={onSelect}
-    ref={answerRef}
-    tabIndex={0}
-    htmlFor={choiceIndicator}
-  >
-    <input
+  return <AnswerWrapper tabIndex={-1} ref={answerRef}>
+    <AnswerInput
       id={choiceIndicator}
       type='radio'
-      name={choiceIndicator}
+      name={question.uid}
       checked={isSelected}
       disabled={isSubmitted}
-      aria-label={useIntl().formatMessage(
-        {id: 'i18n:practice-questions:popup:answers:choice'},
-        {choiceIndicator: choiceIndicator.toUpperCase()}
-      )}
       onChange={onSelect}
     />
-    <AnswerIndicator>
-      {choiceIndicator}
-    </AnswerIndicator>
-    <AnswerAlignment>
-      <AnswerContent>
-        <AnswerExcerpt dangerouslySetInnerHTML={{ __html: answer.content_html }} />
-        <AnswerResult
-          showCorrect={showCorrect}
-          isSelected={isSelected}
-          isSubmitted={isSubmitted}
-          isCorrect={isCorrect}
-        />
-      </AnswerContent>
-    </AnswerAlignment>
-  </AnswerBlock>;
+    <AnswerBlock
+      tabIndex={-1}
+      htmlFor={choiceIndicator}
+      showCorrect={showCorrect}
+      isCorrect={isCorrect}
+      isSubmitted={isSubmitted}
+      isSelected={isSelected}
+    >
+      <AnswerIndicator
+        aria-label={useIntl().formatMessage(
+          {id: 'i18n:practice-questions:popup:answers:choice'},
+          {choiceIndicator: choiceIndicator.toUpperCase()}
+        )}
+      >{choiceIndicator}</AnswerIndicator>
+      <AnswerAlignment>
+        <AnswerContent>
+          <AnswerExcerpt dangerouslySetInnerHTML={{ __html: answer.content_html }} />
+          <AnswerResult
+            showCorrect={showCorrect}
+            isSelected={isSelected}
+            isSubmitted={isSubmitted}
+            isCorrect={isCorrect}
+          />
+        </AnswerContent>
+      </AnswerAlignment>
+    </AnswerBlock>
+  </AnswerWrapper>;
 };
 
 export default Answer;
