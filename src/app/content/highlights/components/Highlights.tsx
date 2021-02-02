@@ -18,7 +18,7 @@ import * as HStyled from './HighlightStyles';
 import HighlightListElement from './SummaryPopup/HighlightListElement';
 
 // tslint:disable-next-line: variable-name
-const NoHighlightsTip = htmlMessage(
+export const NoHighlightsTip = htmlMessage(
   'i18n:toolbar:highlights:popup:heading:no-highlights-tip',
   (props) => <span {...props} />
 );
