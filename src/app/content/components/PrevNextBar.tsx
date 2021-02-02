@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
@@ -87,27 +87,29 @@ interface PropTypes {
 
 // tslint:disable-next-line:variable-name
 const PrevNextBar = ({book, prevNext}: PropTypes) => prevNext && <BarWrapper data-analytics-region='prev-next'>
-  <FormattedMessage id='i18n:prevnext:prev:aria-label'>
-    {(ariaLabel: Element | string) =>
-    <HidingContentLink side='left' book={book} page={prevNext.prev} aria-label={ariaLabel} data-analytics-label='prev'>
-      <LeftArrow />
-      <FormattedMessage id='i18n:prevnext:prev:text'>
-        {(msg) => msg}
-      </FormattedMessage>
-    </HidingContentLink>
-    }
-  </FormattedMessage>
+  <HidingContentLink side='left'
+    book={book}
+    page={prevNext.prev}
+    aria-label={useIntl().formatMessage({id: 'i18n:prevnext:prev:aria-label'})}
+    data-analytics-label='prev'
+  >
+    <LeftArrow />
+    <FormattedMessage id='i18n:prevnext:prev:text'>
+      {(msg) => msg}
+    </FormattedMessage>
+  </HidingContentLink>
 
-  <FormattedMessage id='i18n:prevnext:next:aria-label'>
-    {(ariaLabel: Element | string) =>
-    <HidingContentLink side='right' book={book} page={prevNext.next} aria-label={ariaLabel} data-analytics-label='next'>
-      <FormattedMessage id='i18n:prevnext:next:text'>
-        {(msg) => msg}
-      </FormattedMessage>
-      <RightArrow />
-    </HidingContentLink>
-    }
-  </FormattedMessage>
+  <HidingContentLink side='right'
+    book={book}
+    page={prevNext.next}
+    aria-label={useIntl().formatMessage({id: 'i18n:prevnext:next:aria-label'})}
+    data-analytics-label='next'
+  >
+    <FormattedMessage id='i18n:prevnext:next:text'>
+      {(msg) => msg}
+    </FormattedMessage>
+    <RightArrow />
+  </HidingContentLink>
 </BarWrapper>;
 
 export default connect(
