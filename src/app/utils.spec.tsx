@@ -158,7 +158,8 @@ it('handle error if it is instance of ToastMesssageError', async() => {
 
   const middleware = utils.actionHook(actions.openToc, () => hookSpy);
   middleware(helpers)(helpers)((action) => action)(actions.openToc());
-  await Promise.resolve();
+
+  await new Promise((resolve) => setImmediate(resolve));
 
   expect(Sentry.captureException).toHaveBeenCalled();
   expect(hookSpy).toHaveBeenCalled();
