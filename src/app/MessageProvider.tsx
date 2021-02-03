@@ -11,13 +11,7 @@ async function polyfill(locale: 'en') {
 
   // boolean added by the polyfill
   if ((Intl.PluralRules as (typeof Intl.PluralRules & {polyfilled?: boolean})).polyfilled) {
-    switch (locale) {
-      case 'en':
-        await import('@formatjs/intl-pluralrules/locale-data/en');
-        break;
-      default:
-        throw new Error('unsupported locale in messageProvider');
-    }
+    await import(`@formatjs/intl-pluralrules/locale-data/${locale}`);
   }
 }
 

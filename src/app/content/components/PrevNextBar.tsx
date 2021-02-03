@@ -86,31 +86,39 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-const PrevNextBar = ({book, prevNext}: PropTypes) => prevNext && <BarWrapper data-analytics-region='prev-next'>
-  <HidingContentLink side='left'
-    book={book}
-    page={prevNext.prev}
-    aria-label={useIntl().formatMessage({id: 'i18n:prevnext:prev:aria-label'})}
-    data-analytics-label='prev'
-  >
-    <LeftArrow />
-    <FormattedMessage id='i18n:prevnext:prev:text'>
-      {(msg) => msg}
-    </FormattedMessage>
-  </HidingContentLink>
+const PrevNextBar = ({book, prevNext}: PropTypes) => {
+  const { formatMessage } = useIntl();
 
-  <HidingContentLink side='right'
-    book={book}
-    page={prevNext.next}
-    aria-label={useIntl().formatMessage({id: 'i18n:prevnext:next:aria-label'})}
-    data-analytics-label='next'
-  >
-    <FormattedMessage id='i18n:prevnext:next:text'>
-      {(msg) => msg}
-    </FormattedMessage>
-    <RightArrow />
-  </HidingContentLink>
-</BarWrapper>;
+  if (!prevNext) {
+    return null;
+  }
+
+  return <BarWrapper data-analytics-region='prev-next'>
+    <HidingContentLink side='left'
+      book={book}
+      page={prevNext.prev}
+      aria-label={formatMessage({id: 'i18n:prevnext:prev:aria-label'})}
+      data-analytics-label='prev'
+    >
+      <LeftArrow />
+      <FormattedMessage id='i18n:prevnext:prev:text'>
+        {(msg) => msg}
+      </FormattedMessage>
+    </HidingContentLink>
+
+    <HidingContentLink side='right'
+      book={book}
+      page={prevNext.next}
+      aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
+      data-analytics-label='next'
+    >
+      <FormattedMessage id='i18n:prevnext:next:text'>
+        {(msg) => msg}
+      </FormattedMessage>
+      <RightArrow />
+    </HidingContentLink>
+  </BarWrapper>;
+};
 
 export default connect(
   (state: AppState) => ({

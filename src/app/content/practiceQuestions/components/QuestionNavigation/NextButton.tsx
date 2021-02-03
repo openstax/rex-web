@@ -25,7 +25,7 @@ const NextButton = React.forwardRef(({ submittedAnswerIsCorrect }: NextButtonPro
     size='large'
     aria-label={useIntl().formatMessage({id: ariaLabelKey})}
     value={text}
-    data-testid='next'
+    data-testid={submittedAnswerIsCorrect ? 'next-is-correct' : 'next'}
     data-analytics-label='Next'
     onClick={(e: React.MouseEvent) => {
       e.preventDefault();

@@ -1,7 +1,7 @@
 import { SearchResultHit } from '@openstax/open-search-client';
 import isEqual from 'lodash/fp/isEqual';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
 import { AppState, Dispatch, FirstArgumentType } from '../../../../types';
@@ -60,19 +60,18 @@ const SearchResult = (props: {
   selectedResult: SelectedResult | null;
   activeSectionRef: React.RefObject<HTMLAnchorElement>;
 }) => {
+  const formatMessage = useIntl().formatMessage;
   const active = props.page && props.currentPage
     && stripIdVersion(props.currentPage.id) === stripIdVersion(props.page.id);
 
   return <Styled.NavItem>
-    <FormattedMessage id='i18n:search-results:bar:current-page'>
-      {(msg) =>
-        <Styled.LinkWrapper {...(active ? {'aria-label': msg} : {})}>
-          <Styled.SearchResultsLink
-            dangerouslySetInnerHTML={{ __html: props.page.title }}
-          />
-        </Styled.LinkWrapper>
-      }
-    </FormattedMessage>
+    <Styled.LinkWrapper {...(active ? {
+      'aria-label': formatMessage({id: 'i18n:search-results:bar:current-page'}),
+    } : {})}>
+      <Styled.SearchResultsLink
+        dangerouslySetInnerHTML={{ __html: props.page.title }}
+      />
+    </Styled.LinkWrapper>
     {props.page.results.map((hit: SearchResultHit) =>
       hit.highlight.visibleContent.map((highlight: string, index: number) => {
         const thisResult = {result: hit, highlight: index};
