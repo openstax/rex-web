@@ -45,7 +45,7 @@ describe('Attribution', () => {
           book: formatBookData(book, mockCmsBook),
           page,
         },
-        navigation: { pathname: 'cool path name' },
+        navigation: { pathname: '/cool path name' },
       }) as any) as AppState;
 
       store = createTestStore(state);

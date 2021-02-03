@@ -92,7 +92,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
         Book URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
       </li>
       <li>
-        Section URL: <a href=\\"https://openstax.orgcool path name\\">https://openstax.orgcool path name</a>
+        Section URL: <a href=\\"https://openstax.org/cool path name\\">https://openstax.org/cool path name</a>
       </li>
     </ul>
   </li>
@@ -162,7 +162,8 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   and you must attribute Texas Education Agency (TEA).
     The original material is available at: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.texasgateway.org/book/tea-physics\\">
     https://www.texasgateway.org/book/tea-physics
-  </a>. Changes were made to the original material, including updates to art, structure, and other content updates.
+  </a>. Changes were made to the original material, including updates to art, structure, and
+  other content updates.
 </p>
 
 <strong>Attribution information</strong>
@@ -209,7 +210,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
         Book URL: <a href=\\"https://openstax.org/books/cce64fde-f448-43b8-ae88-27705cceb0da@1.0/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/cce64fde-f448-43b8-ae88-27705cceb0da@1.0/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
       </li>
       <li>
-        Section URL: <a href=\\"https://openstax.orgcool path name\\">https://openstax.orgcool path name</a>
+        Section URL: <a href=\\"https://openstax.org/cool path name\\">https://openstax.org/cool path name</a>
       </li>
     </ul>
   </li>
@@ -273,12 +274,10 @@ exports[`Attribution in browser renders special licensing and attribution for In
 <p>
   Want to cite, share, or modify this book? This book is
   <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://creativecommons.org/licenses/by/4.0/\\">
-   {bookLicenseName} {bookLicenseVersion}
+   Sweet License 1.0
   </a>
-  and you must attribute {copyrightHolder}.{displayOriginalMaterialInformation, select, yes {
-    The original material is available at: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"{originalMaterialLink}\\">
-    {originalMaterialLink}
-  </a>.}} Changes were made to the original material, including updates to art, structure, and other content updates.
+  and you must attribute The Michelson 20MM Foundation. Changes were made to the original material, including updates to art, structure, and
+  other content updates.
 </p>
 
 <strong>Attribution information</strong>
@@ -287,14 +286,14 @@ exports[`Attribution in browser renders special licensing and attribution for In
     If you are redistributing all or part of this book in a print format,
     then you must include on every physical page the following attribution:
     <blockquote>
-      Access for free at https://openstax.org{introPageUrl}
+      Access for free at https://openstax.org/books/3e49fb1f-aec7-4181-a479-036874e10240@1.0/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units
     </blockquote>
   </li>
   <li>
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
     <blockquote>
-      Access for free at <a href=\\"https://openstax.org{introPageUrl}\\">https://openstax.org{introPageUrl}</a>
+      Access for free at <a href=\\"https://openstax.org/books/3e49fb1f-aec7-4181-a479-036874e10240@1.0/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/3e49fb1f-aec7-4181-a479-036874e10240@1.0/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </blockquote>
   </li>
 </ul>
@@ -307,32 +306,32 @@ exports[`Attribution in browser renders special licensing and attribution for In
     <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
     <ul>
       <li>
-        Authors: {bookAuthors}
+        Authors: Bam Bammerson
       </li>
       <li>
         Publisher/website: OpenStax
       </li>
       <li>
-        Book title: {bookTitle}
+        Book title: Test Book 1
       </li>
       <li>
-        Publication date: {bookPublishDate, date, medium}
+        Publication date: Jun 21, 2012
       </li>
       <li>
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: <a href=\\"https://openstax.org{introPageUrl}\\">https://openstax.org{introPageUrl}</a>
+        Book URL: <a href=\\"https://openstax.org/books/3e49fb1f-aec7-4181-a479-036874e10240@1.0/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/3e49fb1f-aec7-4181-a479-036874e10240@1.0/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
       </li>
       <li>
-        Section URL: <a href=\\"https://openstax.org{currentPath}\\">https://openstax.org{currentPath}</a>
+        Section URL: <a href=\\"https://openstax.org/cool path name\\">https://openstax.org/cool path name</a>
       </li>
     </ul>
   </li>
 </ul>
 
 <p>
-  © {bookLatestRevision, date, medium} {copyrightHolder}. <strong>The OpenStax name, OpenStax logo,
+  © Jun 21, 2012 The Michelson 20MM Foundation. <strong>The OpenStax name, OpenStax logo,
   OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo are not subject to the Creative Commons license and may
   not be reproduced without the prior and express written consent of Rice University.</strong>
 </p>
@@ -394,7 +393,8 @@ exports[`Attribution in browser renders special licensing and attribution for St
   and you must attribute Texas Education Agency (TEA).
     The original material is available at: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.texasgateway.org/book/tea-statistics\\">
     https://www.texasgateway.org/book/tea-statistics
-  </a>. Changes were made to the original material, including updates to art, structure, and other content updates.
+  </a>. Changes were made to the original material, including updates to art, structure, and
+  other content updates.
 </p>
 
 <strong>Attribution information</strong>
@@ -441,7 +441,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
         Book URL: <a href=\\"https://openstax.org/books/394a1101-fd8f-4875-84fa-55f15b06ba66@1.0/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/394a1101-fd8f-4875-84fa-55f15b06ba66@1.0/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
       </li>
       <li>
-        Section URL: <a href=\\"https://openstax.orgcool path name\\">https://openstax.orgcool path name</a>
+        Section URL: <a href=\\"https://openstax.org/cool path name\\">https://openstax.org/cool path name</a>
       </li>
     </ul>
   </li>

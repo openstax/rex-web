@@ -111,6 +111,8 @@ class Attribution extends Component<Props> {
     },
     '3e49fb1f-aec7-4181-a479-036874e10240': {
       copyrightHolder: 'The Michelson 20MM Foundation',
+      displayOriginalMaterialInformation: 'no',
+      originalMaterialLink: '',
     },
     'cce64fde-f448-43b8-ae88-27705cceb0da': {
       copyrightHolder: 'Texas Education Agency (TEA)',
