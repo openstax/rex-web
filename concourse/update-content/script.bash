@@ -16,8 +16,8 @@ yarn
 approved_books_default_branch=$(curl -s https://api.github.com/repos/openstax/content-manager-approved-books | jq -r .default_branch)
 rex_default_branch=$(curl -s https://api.github.com/repos/openstax/rex-web | jq -r .default_branch)
 
-approved_books=$(curl -sL "https://github.com/openstax/content-manager-approved-books/raw/$approved_books_default_branch/approved-books.json")
-book_ids=$(jq -r 'map(select(.tutor_only == false)) | map(select(.server == "cnx.org")) | .[].uuid' <<< "$approved_books")
+approved_books=$(curl -sL "https://github.com/openstax/content-manager-approved-books/raw/$approved_books_default_branch/approved-books.json" | jq 'map(select(.tutor_only == false)) | map(select(.server == "cnx.org"))')
+book_ids=$(jq -r 'map(.uuid) | unique | .[]' <<< "$approved_books")
 
 git remote set-branches origin 'update-content-*'
 git remote set-branches origin --add "$rex_default_branch"
