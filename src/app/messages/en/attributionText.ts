@@ -64,15 +64,13 @@ export const defaultText = `
 
 export const specialText = `
 <p>
-  Want to cite, share, or modify this book? This book is
-  <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by/4.0/">
-   {bookLicenseName} {bookLicenseVersion}
-  </a>
-  and you must attribute {copyrightHolder}.{displayOriginalMaterialInformation, select, yes {
+  Want to cite, share, or modify this book? This book is {bookLicenseName}
+  {bookLicenseVersion} and you must attribute {copyrightHolder}.{displayOriginalMaterialInformation, select, yes {
     The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
     {originalMaterialLink}
-  </a>.} no {}} Changes were made to the original material, including updates to art, structure, and
-  other content updates.
+  </a>.} no {}}{isDerivativeWork, select,
+    yes { Changes were made to the original material, including updates to art, structure, and other content updates.}
+    no {}}
 </p>
 
 <strong>Attribution information</strong>
@@ -126,8 +124,10 @@ export const specialText = `
 </ul>
 
 <p>
-  © {bookLatestRevision, date, medium} {copyrightHolder}. <strong>The OpenStax name, OpenStax logo,
-  OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo are not subject to the Creative Commons license and may
-  not be reproduced without the prior and express written consent of Rice University.</strong>
+  © {bookLatestRevision, date, medium} {copyrightHolder}. {isDerivativeWork, select,
+    no { Textbook content produced by OpenStax is licensed under a {bookLicenseName} {bookLicenseVersion} license. }
+    yes {}}<strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo
+  are not subject to the Creative Commons license and may not be reproduced without the prior and express written
+  consent of Rice University.</strong>
 </p>
 `;

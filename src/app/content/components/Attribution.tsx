@@ -99,24 +99,26 @@ class Attribution extends Component<Props> {
   public container = React.createRef<HTMLDetailsElement>();
   private bookIdsWithSpecialAttributionText: {
     [key: string]: {
-      copyrightHolder: string,
-      displayOriginalMaterialInformation?: string,
+      copyrightHolder?: string,
+      displayOriginalMaterialInformation?: 'yes' | 'no',
+      isDerivativeWork?: 'yes' | 'no',
       originalMaterialLink?: string,
     }
   } = {
     '394a1101-fd8f-4875-84fa-55f15b06ba66': {
       copyrightHolder: 'Texas Education Agency (TEA)',
       displayOriginalMaterialInformation: 'yes',
+      isDerivativeWork: 'yes',
       originalMaterialLink: 'https://www.texasgateway.org/book/tea-statistics',
     },
     '3e49fb1f-aec7-4181-a479-036874e10240': {
       copyrightHolder: 'The Michelson 20MM Foundation',
-      displayOriginalMaterialInformation: 'no',
-      originalMaterialLink: '',
+      isDerivativeWork: 'yes',
     },
     'cce64fde-f448-43b8-ae88-27705cceb0da': {
       copyrightHolder: 'Texas Education Agency (TEA)',
       displayOriginalMaterialInformation: 'yes',
+      isDerivativeWork: 'yes',
       originalMaterialLink: 'https://www.texasgateway.org/book/tea-physics',
     },
   };
@@ -200,8 +202,12 @@ class Attribution extends Component<Props> {
       bookLicenseVersion: book.license.version,
       bookPublishDate,
       bookTitle: book.title,
+      copyrightHolder: 'OpenStax',
       currentPath: this.props.currentPath,
+      displayOriginalMaterialInformation: 'no',
       introPageUrl,
+      isDerivativeWork: 'no',
+      originalMaterialLink: '',
       ...this.bookIdsWithSpecialAttributionText[book.id] || {},
     };
   };
