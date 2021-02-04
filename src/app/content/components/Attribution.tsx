@@ -152,10 +152,6 @@ class Attribution extends Component<Props> {
     const {book} = this.props;
     if (!hasOSWebData(book)) { return null; }
 
-    const attributionTextId = book.id in this.bookIdsWithSpecialAttributionText
-      ? 'i18n:attribution:special-text'
-      : 'i18n:attribution:default-text';
-
     return <AttributionDetails
       ref={this.container}
       data-testid='attribution-details'
@@ -168,7 +164,7 @@ class Attribution extends Component<Props> {
           <span>{msg}</span>
         </AttributionSummary>}
       </FormattedMessage>
-      <FormattedHTMLMessage id={attributionTextId} values={this.getValues(book)}>
+      <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
         {(html) => <Content
           dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:attribution:text must return a string')}}
         ></Content>}
