@@ -36,7 +36,6 @@ export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled:
 };
 
 export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(onFocusLostHandler(ref, isEnabled, cb), [ref, isEnabled]);
 };
 
@@ -64,7 +63,6 @@ export const useOnDOMEvent = (
   cb: () => void,
   deps: React.DependencyList = []
 ) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(onDOMEventHandler(element, isEnabled, event, cb), [element, isEnabled, event, cb, ...deps]);
 };
 
@@ -132,7 +130,6 @@ export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: b
 };
 
 export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled, cb]);
 };
 
@@ -250,6 +247,5 @@ export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
 };
 
 export const useDisableContentTabbing = (isEnabled: boolean) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(disableContentTabbingHandler(isEnabled), [isEnabled]);
 };

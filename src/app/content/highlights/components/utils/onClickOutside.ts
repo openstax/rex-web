@@ -46,7 +46,6 @@ export const useOnClickOutside = (
   cb: (e: MouseEvent) => void,
   eventOptions?: EventListenerOptions
 ) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(onClickOutside(element, isEnabled, cb, eventOptions), [element, cb, isEnabled]);
 };
 
