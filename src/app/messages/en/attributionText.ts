@@ -1,7 +1,9 @@
 export const defaultText = `
 <p>
-  Want to cite, share, or modify this book? This book is {bookLicenseName}
-  {bookLicenseVersion} and you must attribute {copyrightHolder}.{displayOriginalMaterialInformation, select, yes {
+  Want to cite, share, or modify this book? This book is
+  <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
+    {bookLicenseName} {bookLicenseVersion}
+  </a> and you must attribute {copyrightHolder}.{displayOriginalMaterialInformation, select, yes {
     The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
     {originalMaterialLink}
   </a>.} no {}}{isDerivativeWork, select,

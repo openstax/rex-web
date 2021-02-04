@@ -105,15 +105,15 @@ class Attribution extends Component<Props> {
       originalMaterialLink?: string,
     }
   } = {
+    '1b4ee0ce-ee89-44fa-a5e7-a0db9f0c94b1': {
+      copyrightHolder: 'The Michelson 20MM Foundation',
+      isDerivativeWork: 'yes',
+    },
     '394a1101-fd8f-4875-84fa-55f15b06ba66': {
       copyrightHolder: 'Texas Education Agency (TEA)',
       displayOriginalMaterialInformation: 'yes',
       isDerivativeWork: 'yes',
       originalMaterialLink: 'https://www.texasgateway.org/book/tea-statistics',
-    },
-    '3e49fb1f-aec7-4181-a479-036874e10240': {
-      copyrightHolder: 'The Michelson 20MM Foundation',
-      isDerivativeWork: 'yes',
     },
     'cce64fde-f448-43b8-ae88-27705cceb0da': {
       copyrightHolder: 'Texas Education Agency (TEA)',
@@ -195,6 +195,7 @@ class Attribution extends Component<Props> {
       bookAuthors: authorsToDisplay.map(({value: {name}}) => name).join(', '),
       bookLatestRevision,
       bookLicenseName: book.license.name,
+      bookLicenseUrl: book.license.url,
       bookLicenseVersion: book.license.version,
       bookPublishDate,
       bookTitle: book.title,

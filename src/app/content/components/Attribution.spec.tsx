@@ -204,7 +204,7 @@ describe('Attribution', () => {
 
     it('renders special licensing and attribution for Intellectual Property', async() => {
       store.dispatch(
-        actions.receiveBook({...formatBookData(book, mockCmsBook), id: '3e49fb1f-aec7-4181-a479-036874e10240'})
+        actions.receiveBook({...formatBookData(book, mockCmsBook), id: '1b4ee0ce-ee89-44fa-a5e7-a0db9f0c94b1'})
       );
       const component = renderer.create(render());
       expect(component).toMatchSnapshot();

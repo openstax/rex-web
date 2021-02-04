@@ -101,6 +101,7 @@ export interface ArchiveBook {
   version: string;
   license: {
     name: string;
+    url: string;
     version: string;
   };
   revised: string;

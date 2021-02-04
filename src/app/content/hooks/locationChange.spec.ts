@@ -175,7 +175,7 @@ describe('locationChange', () => {
     const mockOtherBook = {
       abstract: '',
       id: 'newbookid',
-      license: {name: '', version: ''},
+      license: {name: '', version: '', url: ''},
       revised: '2012-06-21',
       title: 'newbook',
       tree: {
@@ -280,7 +280,7 @@ describe('locationChange', () => {
     it('error when archive returns a book that doesn\'t actually contain the page', async() => {
       helpers.archiveLoader.mockBook({
         id: 'garbagebookid',
-        license: {name: '', version: ''},
+        license: {name: '', version: '', url: ''},
         revised: '2012-06-21',
         title: 'book without the page you\'re looking for',
         tree: {
