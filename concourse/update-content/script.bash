@@ -36,22 +36,14 @@ for book_id in $book_ids; do
   # are available for the recipe code version REX supports
   desired_version=$(sort --version-sort -r <<< "$approved_versions" | head -n 1)
 
-  current_version=$(jq -r --arg uuid "$book_id" '.[$uuid].defaultVersion' < src/config.books.json)
-
   # approved book format has a "1." on the front of every version
   desired_version=${desired_version:2}
 
-  if [ "$desired_version" == "$current_version" ]; then
-    echo "$book_id alredy at desired version."
+  node script/entry.js update-content-versions-and-check-for-archived-slugs --bookId "$book_id" --newVersion "$desired_version"
+
+  if [[ -z $(git status --porcelain) ]]; then
     continue
   fi
-
-  jq \
-    --arg version "$desired_version" \
-    --arg uuid "$book_id" \
-    '.[$uuid].defaultVersion = $version' < src/config.books.json > src/config.books.json.new
-
-  mv src/config.books.json.new src/config.books.json
 
   git add src/config.books.json
   git commit -m "update content" || true
