@@ -4,6 +4,7 @@ import identity from 'lodash/fp/identity';
 import isEmpty from 'lodash/fp/isEmpty';
 import pickBy from 'lodash/fp/pickBy';
 import { assertWindow, referringHostName } from '../app/utils';
+import { trackingIsDisabled } from '../helpers/analytics';
 
 interface PageView {
   hitType: 'pageview';
@@ -166,7 +167,7 @@ class GoogleAnalyticsClient {
 
   public setTrackingIds(ids: string[]) {
     // Ignore tracking ID changes for the moment
-    if (this.trackerNames.length > 0) { return; }
+    if (this.trackerNames.length > 0 || trackingIsDisabled()) { return; }
 
     for (const id of ids) {
       // Build a tracker for each ID, use the ID as the basis of the
@@ -198,7 +199,7 @@ class GoogleAnalyticsClient {
   }
 
   private isReadyForCommands() {
-    return (this.trackerNames.length > 0);
+    return (this.trackerNames.length > 0 && !trackingIsDisabled());
   }
 
   // The real, low-level Google Analytics function

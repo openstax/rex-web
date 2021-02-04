@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useServices } from '../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
@@ -122,5 +123,9 @@ export const useAnalyticsEvent = <T extends keyof typeof analytics>(eventType: T
     (event.track as any)(data, ...args);
   };
 };
+
+const disableAnalyticsCookie = 'ANALYTICS_OPT_OUT';
+
+export const trackingIsDisabled = () => !!Cookies.get(disableAnalyticsCookie);
 
 export default analytics;
