@@ -3,12 +3,12 @@ export const defaultText = `
   Want to cite, share, or modify this book? This book is
   <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
     {bookLicenseName} {bookLicenseVersion}
-  </a> and you must attribute {copyrightHolder}.{displayOriginalMaterialInformation, select, yes {
+  </a> and you must attribute {copyrightHolder}.{displayOriginalMaterialInformation, select, true {
     The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
     {originalMaterialLink}
-  </a>.} no {}}{isDerivativeWork, select,
-    yes { Changes were made to the original material, including updates to art, structure, and other content updates.}
-    no {}}
+  </a>.} false {}}{isDerivativeWork, select,
+    true { Changes were made to the original material, including updates to art, structure, and other content updates.}
+    false {}}
 </p>
 
 <strong>Attribution information</strong>
@@ -63,8 +63,8 @@ export const defaultText = `
 
 <p>
   © {bookLatestRevision, date, medium} {copyrightHolder}. {isDerivativeWork, select,
-    no {Textbook content produced by OpenStax is licensed under a {bookLicenseName} {bookLicenseVersion} license. }
-    yes {}}<strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo
+    false {Textbook content produced by OpenStax is licensed under a {bookLicenseName} {bookLicenseVersion} license. }
+    true {}}<strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo
   are not subject to the Creative Commons license and may not be reproduced without the prior and express written
   consent of Rice University.</strong>
 </p>

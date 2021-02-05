@@ -100,25 +100,25 @@ class Attribution extends Component<Props> {
   private bookIdsWithSpecialAttributionText: {
     [key: string]: {
       copyrightHolder?: string,
-      displayOriginalMaterialInformation?: 'yes' | 'no',
-      isDerivativeWork?: 'yes' | 'no',
+      displayOriginalMaterialInformation?: boolean,
+      isDerivativeWork?: boolean,
       originalMaterialLink?: string,
     }
   } = {
     '1b4ee0ce-ee89-44fa-a5e7-a0db9f0c94b1': {
       copyrightHolder: 'The Michelson 20MM Foundation',
-      isDerivativeWork: 'yes',
+      isDerivativeWork: true,
     },
     '394a1101-fd8f-4875-84fa-55f15b06ba66': {
       copyrightHolder: 'Texas Education Agency (TEA)',
-      displayOriginalMaterialInformation: 'yes',
-      isDerivativeWork: 'yes',
+      displayOriginalMaterialInformation: true,
+      isDerivativeWork: true,
       originalMaterialLink: 'https://www.texasgateway.org/book/tea-statistics',
     },
     'cce64fde-f448-43b8-ae88-27705cceb0da': {
       copyrightHolder: 'Texas Education Agency (TEA)',
-      displayOriginalMaterialInformation: 'yes',
-      isDerivativeWork: 'yes',
+      displayOriginalMaterialInformation: true,
+      isDerivativeWork: true,
       originalMaterialLink: 'https://www.texasgateway.org/book/tea-physics',
     },
   };
@@ -201,9 +201,9 @@ class Attribution extends Component<Props> {
       bookTitle: book.title,
       copyrightHolder: 'OpenStax',
       currentPath: this.props.currentPath,
-      displayOriginalMaterialInformation: 'no',
+      displayOriginalMaterialInformation: false,
       introPageUrl,
-      isDerivativeWork: 'no',
+      isDerivativeWork: false,
       originalMaterialLink: '',
       ...this.bookIdsWithSpecialAttributionText[book.id] || {},
     };
