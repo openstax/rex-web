@@ -7,6 +7,7 @@ export const addToast = createStandardAction('Notification/toasts/add')
   .map((messageKey: string, meta: ToastMeta) => ({
     payload: {
       destination: meta.destination,
+      errorId: meta.errorId,
       messageKey,
       shouldAutoDismiss: meta.shouldAutoDismiss === undefined || meta.shouldAutoDismiss,
       timestamp: Date.now(),

@@ -40,6 +40,7 @@ describe('ToastNotifications', () => {
       timestamp: 1,
     }, {
       destination: 'myHighlights',
+      errorId: 'error-id',
       messageKey: toastMessageKeys.higlights.failure.update.annotation,
       shouldAutoDismiss: true,
       timestamp: 2,
