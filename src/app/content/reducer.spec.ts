@@ -247,4 +247,12 @@ describe('content reducer', () => {
 
     expect(searchReducer).toHaveBeenCalledWith(state.search, action);
   });
+
+  it('opens and closes NudgeStudyTools', () => {
+    const stateAfterOpen = reducer(initialState, actions.openNudgeStudyTools());
+    expect(stateAfterOpen.showNudgeStudyTools).toEqual(true);
+
+    const stateAfterClose = reducer(initialState, actions.closeNudgeStudyTools());
+    expect(stateAfterClose.showNudgeStudyTools).toEqual(false);
+  });
 });
