@@ -19,18 +19,17 @@ const createRedirects = async(archiveLoader: AppServices['archiveLoader'], osWeb
 
   for (const fileName of books) {
     const bookRedirects: Redirects = await import(`${redirectsPath}/${fileName}`);
-    const bookIdFromFilename = fileName.replace('.json', '');
-    const configForBook: { defaultVersion: string } | undefined = config[bookIdFromFilename];
-
-    if (!configForBook) {
-      // tslint:disable-next-line: no-console
-      console.log(`Couldn't find version for book: ${bookIdFromFilename}`);
-      continue;
-    }
-
-    const { tree, slug: bookSlug } = await bookLoader(bookIdFromFilename, configForBook.defaultVersion);
 
     for (const { bookId, pageId, pathname } of bookRedirects) {
+      const configForBook: { defaultVersion: string } | undefined = config[bookId];
+
+      if (!configForBook) {
+        // tslint:disable-next-line: no-console
+        console.log(`Couldn't find version for book: ${bookId}`);
+        continue;
+      }
+
+      const { tree, slug: bookSlug } = await bookLoader(bookId, configForBook.defaultVersion);
       const page = findArchiveTreeNodeById(tree, pageId);
 
       if (!page) {
