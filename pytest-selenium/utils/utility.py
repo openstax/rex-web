@@ -7,7 +7,7 @@ from platform import system
 from random import choice, choices, randint
 from string import digits, ascii_letters
 from time import sleep
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Union
 
 from faker import Faker
 from pypom import Page, Region
@@ -54,8 +54,14 @@ class Color(Enum):
     PURPLE = "purple"
     YELLOW = "yellow"
 
-    def __str__(self):
-        return self.value
+    def __str__(cls) -> str:
+        """Return the color as a string.
+
+        :return: the color as a string
+        :rtype: str
+
+        """
+        return cls.value
 
     @classmethod
     def from_html_class(cls, classes: str) -> Color:
@@ -88,6 +94,12 @@ class Color(Enum):
 
     @classmethod
     def options(cls) -> List[Color]:
+        """Return the color options.
+
+        :return: the ``Color`` options as a list
+        :rtype: list(Enum)
+
+        """
         return [color for _, color in cls.__members__.items()]
 
 
