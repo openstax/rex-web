@@ -5,6 +5,7 @@ import { content } from '../../src/app/content/routes';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { findArchiveTreeNodeById } from '../../src/app/content/utils/archiveTreeUtils';
 import { AppServices } from '../../src/app/types';
+import config from '../../src/config.books';
 import { writeAssetFile } from './fileUtils';
 
 const redirectsPath = path.resolve(__dirname, '../../data/redirects/');
@@ -16,10 +17,18 @@ const createRedirects = async(archiveLoader: AppServices['archiveLoader'], osWeb
 
   const redirects: Array<{ from: string, to: string }> = [];
 
-  for (const bookName of books) {
-    const bookRedirects: Redirects = require(redirectsPath + '/' + bookName);
-    const bookId = bookName.replace('.json', '');
-    const { tree, slug: bookSlug } = await bookLoader(bookId);
+  for (const fileName of books) {
+    const bookRedirects: Redirects = await import(`${redirectsPath}/${fileName}`);
+    const bookId = fileName.replace('.json', '');
+    const configForBook: { defaultVersion: string } | undefined = config[bookId];
+
+    if (!configForBook) {
+      // tslint:disable-next-line: no-console
+      console.log(`Couldn't find version for book: ${bookId}`);
+      continue;
+    }
+
+    const { tree, slug: bookSlug } = await bookLoader(bookId, configForBook.defaultVersion);
 
     for (const { pageId, pathname } of bookRedirects) {
       const page = findArchiveTreeNodeById(tree, pageId);
