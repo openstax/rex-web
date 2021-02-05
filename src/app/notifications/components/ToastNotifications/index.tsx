@@ -19,7 +19,7 @@ const ToastNotifications = ({toasts}: Props) => {
 
   return toasts.length ? <ToastsContainer>
       {toasts.map((toast) => <Toast
-        key={toast.messageKey}
+        key={toast.messageKey + toast.errorId}
         dismiss={() => dispatch(dismissNotification(toast))}
         notification={toast}
         positionProps={{

@@ -51,14 +51,18 @@ export default {
   },
 
   captureException(error: any, level: Sentry.Severity = Severity.Error) {
+    let eventId: string | undefined;
+
     if (this.isEnabled) {
       Sentry.withScope((scope) => {
         scope.setLevel(level);
-        Sentry.captureException(error);
+        eventId = Sentry.captureException(error);
       });
     } else if (!this.shouldCollectErrors) {
       console.error(error); // tslint:disable-line:no-console
     }
+
+    return eventId;
   },
 
   captureMessage(message: string, level: Sentry.Severity) {
