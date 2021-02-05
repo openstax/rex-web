@@ -100,7 +100,6 @@ class Attribution extends Component<Props> {
   private bookIdsWithSpecialAttributionText: {
     [key: string]: {
       copyrightHolder?: string,
-      displayOriginalMaterialInformation?: boolean,
       isDerivativeWork?: boolean,
       originalMaterialLink?: null | string,
     }
@@ -111,13 +110,11 @@ class Attribution extends Component<Props> {
     },
     '394a1101-fd8f-4875-84fa-55f15b06ba66': {
       copyrightHolder: 'Texas Education Agency (TEA)',
-      displayOriginalMaterialInformation: true,
       isDerivativeWork: true,
       originalMaterialLink: 'https://www.texasgateway.org/book/tea-statistics',
     },
     'cce64fde-f448-43b8-ae88-27705cceb0da': {
       copyrightHolder: 'Texas Education Agency (TEA)',
-      displayOriginalMaterialInformation: true,
       isDerivativeWork: true,
       originalMaterialLink: 'https://www.texasgateway.org/book/tea-physics',
     },
