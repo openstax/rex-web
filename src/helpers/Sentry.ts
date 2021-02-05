@@ -50,15 +50,19 @@ export default {
     return typeof(window) !== 'undefined' && config.SENTRY_ENABLED;
   },
 
-  captureException(error: any, level: Sentry.Severity = Severity.Error) {
+  captureException(error: any, level: Sentry.Severity = Severity.Error): string | undefined {
+    let eventId;
+
     if (this.isEnabled) {
       Sentry.withScope((scope) => {
         scope.setLevel(level);
-        Sentry.captureException(error);
+        eventId = Sentry.captureException(error);
       });
     } else if (!this.shouldCollectErrors) {
       console.error(error); // tslint:disable-line:no-console
     }
+
+    return eventId;
   },
 
   captureMessage(message: string, level: Sentry.Severity) {

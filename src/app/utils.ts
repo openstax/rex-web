@@ -6,7 +6,6 @@ import Sentry from '../helpers/Sentry';
 import { receiveLoggedOut } from './auth/actions';
 import { recordError, showErrorDialog } from './errors/actions';
 import { notFound } from './errors/routes';
-import { getMessageIdStack } from './errors/selectors';
 import { isPlainObject } from './guards';
 import { replace } from './navigation/actions';
 import * as selectNavigation from './navigation/selectors';
@@ -60,8 +59,7 @@ const makeCatchError = ({dispatch, getState}: MiddlewareAPI) => (e: Error) => {
     dispatch(replace({route: notFound, params: {url: selectNavigation.pathname(getState())}, state: {}}));
     return;
   } else if (e instanceof ToastMesssageError) {
-    Sentry.captureException(e);
-    const errorId = getMessageIdStack(getState())[0];
+    const errorId = Sentry.captureException(e);
     dispatch(addToast(e.messageKey, { ...e.meta, errorId }));
     return;
   }

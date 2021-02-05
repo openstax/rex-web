@@ -8,7 +8,6 @@ import * as actions from './content/actions';
 import * as selectors from './content/selectors';
 import { formatBookData } from './content/utils';
 import { notFound } from './errors/routes';
-import * as errorsSelectors from './errors/selectors';
 import { replace } from './navigation/actions';
 import * as selectNavigation from './navigation/selectors';
 import { addToast } from './notifications/actions';
@@ -154,13 +153,13 @@ describe('actionHook', () => {
 
     const dispatch = jest.spyOn(helpers, 'dispatch');
     jest.spyOn(global.Date, 'now').mockReturnValue(1);
-    jest.spyOn(errorsSelectors, 'getMessageIdStack').mockReturnValue(['first-error', 'second-error']);
+    const spySentry = jest.spyOn(Sentry, 'captureException').mockReturnValue('first-error');
 
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
     middleware(helpers)(helpers)((action) => action)(actions.openToc());
     await Promise.resolve();
 
-    expect(Sentry.captureException).toHaveBeenCalled();
+    expect(spySentry).toHaveBeenCalled();
     expect(hookSpy).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(
       addToast('some-key', { destination: 'myHighlights', shouldAutoDismiss: true, errorId: 'first-error' }));
