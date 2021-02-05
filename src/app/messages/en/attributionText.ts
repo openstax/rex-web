@@ -1,3 +1,4 @@
+// tslint:disable max-line-length
 export const defaultText = `
 <p>
   Want to cite, share, or modify this book? This book is
@@ -8,9 +9,9 @@ export const defaultText = `
     other { The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
       {originalMaterialLink}
     </a>.}
-  }{isDerivativeWork, select,
-    true { Changes were made to the original material, including updates to art, structure, and other content updates.}
-    false {}}
+  }{copyrightHolder, select,
+    OpenStax {}
+    other { Changes were made to the original material, including updates to art, structure, and other content updates.}}
 </p>
 
 <strong>Attribution information</strong>
@@ -64,9 +65,9 @@ export const defaultText = `
 </ul>
 
 <p>
-  © {bookLatestRevision, date, medium} {copyrightHolder}. {isDerivativeWork, select,
-    false {Textbook content produced by OpenStax is licensed under a {bookLicenseName} {bookLicenseVersion} license. }
-    true {}}<strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo
+  © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,
+    OpenStax {Textbook content produced by OpenStax is licensed under a {bookLicenseName} {bookLicenseVersion} license. }
+    other {}}<strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo
   are not subject to the Creative Commons license and may not be reproduced without the prior and express written
   consent of Rice University.</strong>
 </p>
