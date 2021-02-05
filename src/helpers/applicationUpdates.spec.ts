@@ -68,7 +68,7 @@ describe('findAndInstallServiceWorkerUpdate', () => {
     const cb = jest.fn();
     const update = jest.fn();
     const sw = {update: update as ServiceWorkerRegistration['update']} as ServiceWorkerRegistration;
-    const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => null);
+    const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
 
     let failUpdate: (e: Error) => void = () => null;
     update.mockReturnValue(new Promise((_resolve, reject) => failUpdate = reject));

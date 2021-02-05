@@ -147,7 +147,7 @@ describe('highlightResults', () => {
     container = assertDocument().createElement('div');
     highlighter = new Highlighter(container);
 
-    captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => null);
+    captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
   });
 
   describe('without errors' , () => {
