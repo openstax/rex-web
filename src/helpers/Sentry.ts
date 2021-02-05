@@ -50,8 +50,8 @@ export default {
     return typeof(window) !== 'undefined' && config.SENTRY_ENABLED;
   },
 
-  captureException(error: any, level: Sentry.Severity = Severity.Error): string | undefined {
-    let eventId;
+  captureException(error: any, level: Sentry.Severity = Severity.Error) {
+    let eventId: string | undefined;
 
     if (this.isEnabled) {
       Sentry.withScope((scope) => {
