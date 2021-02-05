@@ -3,10 +3,12 @@ export const defaultText = `
   Want to cite, share, or modify this book? This book is
   <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
     {bookLicenseName} {bookLicenseVersion}
-  </a> and you must attribute {copyrightHolder}.{displayOriginalMaterialInformation, select, true {
-    The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
-    {originalMaterialLink}
-  </a>.} false {}}{isDerivativeWork, select,
+  </a> and you must attribute {copyrightHolder}.{originalMaterialLink, select,
+    null {}
+    other { The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
+      {originalMaterialLink}
+    </a>.}
+  }{isDerivativeWork, select,
     true { Changes were made to the original material, including updates to art, structure, and other content updates.}
     false {}}
 </p>

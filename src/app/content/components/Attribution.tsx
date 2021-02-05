@@ -102,7 +102,7 @@ class Attribution extends Component<Props> {
       copyrightHolder?: string,
       displayOriginalMaterialInformation?: boolean,
       isDerivativeWork?: boolean,
-      originalMaterialLink?: string,
+      originalMaterialLink?: null | string,
     }
   } = {
     '1b4ee0ce-ee89-44fa-a5e7-a0db9f0c94b1': {
@@ -204,7 +204,7 @@ class Attribution extends Component<Props> {
       displayOriginalMaterialInformation: false,
       introPageUrl,
       isDerivativeWork: false,
-      originalMaterialLink: '',
+      originalMaterialLink: null,
       ...this.bookIdsWithSpecialAttributionText[book.id] || {},
     };
   };
