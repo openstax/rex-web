@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-modified_books=$(echo $(./script/get-modified-books.bash))
+modified_books=$(./script/get-modified-books.bash)
 
 for row in $(jq -c '.[]' <<< "$modified_books"); do
   book_id=$(jq -r '.book_id' <<< "$row")
@@ -8,7 +8,7 @@ for row in $(jq -c '.[]' <<< "$modified_books"); do
   node script/domVisitor errorsExist \
     --bookId="$book_id" \
     --bookVersion="$book_version" \
-    --rootUrl $1 \
+    --rootUrl="$BASE_URL" \
     --queryString="validateLinks"
 
   node script/entry.js urlChecker \

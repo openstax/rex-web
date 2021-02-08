@@ -64,7 +64,7 @@ jobs:
         path: node_modules
         key: node_modules3
     - run: yarn install
-    - run: bash ./script/validate-modified-books.bash "$BASE_URL"
+    - run: ./script/validate-modified-books.bash
       env:
         BASE_URL: ${{ needs.setup.outputs.deployment-url }}
 
