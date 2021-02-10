@@ -44,13 +44,13 @@ describe('allImagesLoaded', () => {
         return expect(img.onload).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(false);
 
       expect(img.onload).not.toBe(onloadHandler);
       img.onload({} as any);
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(true);
     });
 
@@ -63,12 +63,12 @@ describe('allImagesLoaded', () => {
         return expect(img.onload).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(false);
 
       img.onload({} as any);
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(true);
     });
   });
@@ -86,7 +86,7 @@ describe('allImagesLoaded', () => {
         return expect(img.onerror).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(false);
 
       expect(img.onerror).not.toBe(onerrorHandler);
@@ -94,7 +94,7 @@ describe('allImagesLoaded', () => {
 
       expect(onerrorHandler).toHaveBeenCalled();
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(true);
     });
 
@@ -107,12 +107,12 @@ describe('allImagesLoaded', () => {
         return expect(img.onerror).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(false);
 
       img.onerror({} as any);
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(true);
     });
   });

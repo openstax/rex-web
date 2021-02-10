@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
@@ -47,25 +47,24 @@ const BuyPrintDisclosure = styled.p`
 // tslint:disable-next-line: variable-name
 const BuyBook = () => {
   const config = useSelector(buyPrintConfig);
+  const formatMessage = useIntl().formatMessage;
 
   if (!config) { return null; }
 
-  return <FormattedMessage id='i18n:toolbar:buy-book:aria-label:text'>
-    {(ariaLabel) => <BuyBookAlignment>
-      <BuyBookLink
-        aria-label={ariaLabel}
-        target='_blank'
-        rel='noopener'
-        href={config.url}
-        data-analytics-label='buy-book'
-      >
-        <FormattedMessage id='i18n:toolbar:buy-book:text'>
-          {(msg) => msg}
-        </FormattedMessage>
-      </BuyBookLink>
-      {config.disclosure && <BuyPrintDisclosure>{config.disclosure}</BuyPrintDisclosure>}
-    </BuyBookAlignment>}
-  </FormattedMessage>;
+  return <BuyBookAlignment>
+    <BuyBookLink
+      aria-label={formatMessage({id: 'i18n:toolbar:buy-book:aria-label:text'})}
+      target='_blank'
+      rel='noopener'
+      href={config.url}
+      data-analytics-label='buy-book'
+    >
+      <FormattedMessage id='i18n:toolbar:buy-book:text'>
+        {(msg) => msg}
+      </FormattedMessage>
+    </BuyBookLink>
+    {config.disclosure && <BuyPrintDisclosure>{config.disclosure}</BuyPrintDisclosure>}
+  </BuyBookAlignment>;
 };
 
 export default BuyBook;

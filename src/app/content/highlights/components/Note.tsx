@@ -1,6 +1,6 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
@@ -50,19 +50,16 @@ const Note = ({onChange, onFocus, note}: Props) => {
 
   React.useEffect(setTextAreaHeight, [note]);
 
-  return <FormattedMessage id='i18n:highlighting:card:placeholder'>
-    {(msg: Element | string) => <TextArea
-        ref={textArea}
-        value={note}
-        onFocus={onFocus}
-        maxLength={noteMaxLength}
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-          onChange(e.target.value);
-        }}
-        placeholder={msg}
-      />
-    }
-  </FormattedMessage>;
+  return <TextArea
+    ref={textArea}
+    value={note}
+    onFocus={onFocus}
+    maxLength={noteMaxLength}
+    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      onChange(e.target.value);
+    }}
+    placeholder={useIntl().formatMessage({id: 'i18n:highlighting:card:placeholder'})}
+  />;
 };
 
 export default Note;

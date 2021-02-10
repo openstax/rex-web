@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { disablePrint } from '../content/components/utils/disablePrint';
@@ -44,20 +44,14 @@ interface GoToTopButtonProps {
 }
 
 // tslint:disable-next-line: variable-name
-const GoToTopButton = ({ i18nAriaLabel, onClick, ...rest }: GoToTopButtonProps) => (
-  <FormattedMessage id={i18nAriaLabel}>
-    {(msg: string) => (
-      <GoToTopWrapper
-        onClick={onClick}
-        aria-label={msg}
-        {...rest}
-      >
-        <GoToTop>
-          <GoToTopIcon />
-        </GoToTop>
-      </GoToTopWrapper>
-    )}
-  </FormattedMessage>
-);
+const GoToTopButton = ({ i18nAriaLabel, onClick, ...rest }: GoToTopButtonProps) => <GoToTopWrapper
+  onClick={onClick}
+  aria-label={useIntl().formatMessage({id: i18nAriaLabel})}
+  {...rest}
+>
+  <GoToTop>
+    <GoToTopIcon />
+  </GoToTop>
+</GoToTopWrapper>;
 
 export default GoToTopButton;

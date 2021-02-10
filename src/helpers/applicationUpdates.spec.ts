@@ -78,7 +78,7 @@ describe('findAndInstallServiceWorkerUpdate', () => {
     const error = new Error('asdfasdf');
     failUpdate(error);
 
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(cb).toHaveBeenCalled();
     expect(sw.update).toHaveBeenCalled();

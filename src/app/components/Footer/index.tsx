@@ -1,8 +1,7 @@
 import React, { SFC } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import RiceWhiteLogo from '../../../assets/rice-white-text.png';
 import htmlMessage from '../../components/htmlMessage';
-import { assertString } from '../../utils';
 import * as Styled from './styled';
 
 const fbUrl = 'https://www.facebook.com/openstax';
@@ -22,7 +21,7 @@ const Copyrights = htmlMessage('i18n:footer:copyright:bottom-text', Styled.Copyr
 // tslint:disable-next-line:variable-name
 const ColumnHeadingMessage: React.SFC<{id: string}> = ({id}) => <Styled.ColumnHeading>
   <FormattedMessage id={id}>
-    {(msg: Element | string) => msg}
+    {(msg) => msg}
   </FormattedMessage>
 </Styled.ColumnHeading>;
 
@@ -30,36 +29,35 @@ const ColumnHeadingMessage: React.SFC<{id: string}> = ({id}) => <Styled.ColumnHe
 const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string, rel?: string }> =
   ({id, href, target, rel }) => <Styled.FooterLink href={href} target={target ? target : '_self'} rel={rel ? rel : ''}>
   <FormattedMessage id={id}>
-    {(msg: Element | string) => msg}
+    {(msg) => msg}
   </FormattedMessage>
 </Styled.FooterLink>;
 
 // tslint:disable-next-line:variable-name
 const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.ComponentType}> =
-  ({id, href, Icon}) => <FormattedMessage id={id}>
-    {(msg: Element | string) =>
-      <Styled.SocialIcon aria-label={assertString(msg, 'aria-label must be a string')} href={href}
-        target='_blank' rel='noopener'>
-        <Icon />
-      </Styled.SocialIcon>
-    }
-  </FormattedMessage>;
+  ({id, href, Icon}) => <Styled.SocialIcon aria-label={useIntl().formatMessage({id})} href={href}
+    target='_blank' rel='noopener'>
+    <Icon />
+  </Styled.SocialIcon>;
 
-const renderColumn1 = () => <Styled.Column1>
+// tslint:disable-next-line:variable-name
+const Column1 = () => <Styled.Column1>
   <ColumnHeadingMessage id='i18n:footer:column1:help' />
   <FooterLinkMessage href='/contact' id='i18n:footer:column1:contact-us' />
   <FooterLinkMessage href={supportCenterLink} id='i18n:footer:column1:support-center' target='_blank' rel='noopener'/>
   <FooterLinkMessage href='/faq' id='i18n:footer:column1:faqs' />
 </Styled.Column1>;
 
-const renderColumn2 = () => <Styled.Column2>
+// tslint:disable-next-line:variable-name
+const Column2 = () => <Styled.Column2>
   <ColumnHeadingMessage id='i18n:footer:column2:openstax' />
   <FooterLinkMessage href='/press' id='i18n:footer:column2:press' />
   <FooterLinkMessage href={newsletterLink} target='_blank' rel='noopener' id='i18n:footer:column2:newsletter' />
   <FooterLinkMessage href='/careers' id='i18n:footer:column2:careers' />
 </Styled.Column2>;
 
-const renderColumn3 = () => <Styled.Column3>
+// tslint:disable-next-line:variable-name
+const Column3 = () => <Styled.Column3>
   <ColumnHeadingMessage id='i18n:footer:column3:policies' />
   <FooterLinkMessage href='/accessibility-statement' id='i18n:footer:column3:accessibility' />
   <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
@@ -67,16 +65,15 @@ const renderColumn3 = () => <Styled.Column3>
   <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
 </Styled.Column3>;
 
-const renderSocialDirectory = () => <Styled.Social role='directory'>
+// tslint:disable-next-line:variable-name
+const SocialDirectory = () => <Styled.Social role='directory'>
   <SocialIconMessage id='i18n:footer:social:fb:alt' href={fbUrl} Icon={Styled.FBIcon} />
   <SocialIconMessage id='i18n:footer:social:tw:alt' href={twitterUrl} Icon={Styled.TwitterIcon} />
   <SocialIconMessage id='i18n:footer:social:in:alt' href={linkedInUrl} Icon={Styled.LinkedInIcon} />
   <SocialIconMessage id='i18n:footer:social:ig:alt' href={instagramUrl} Icon={Styled.IGIcon} />
-  <FormattedMessage id='i18n:footer:social:rice-logo:alt'>
-    {(msg: Element | string) => <Styled.BottomLink href={riceUrl} target='_blank' rel='noopener'>
-      <Styled.FooterLogo src={RiceWhiteLogo} alt={msg} />
-    </Styled.BottomLink>}
-  </FormattedMessage>
+  <Styled.BottomLink href={riceUrl} target='_blank' rel='noopener'>
+    <Styled.FooterLogo src={RiceWhiteLogo} alt={useIntl().formatMessage({id: 'i18n:footer:social:rice-logo:alt'})} />
+  </Styled.BottomLink>
 </Styled.Social>;
 
 function getValues() {
@@ -93,19 +90,19 @@ const Footer: SFC = () => <Styled.FooterWrapper data-analytics-region='footer'>
       <Styled.TopBoxed>
         <Styled.Heading role='heading' aria-level={2}>
           <FormattedMessage id='i18n:footer:heading'>
-            {(msg: Element | string) => msg}
+            {(msg) => msg}
           </FormattedMessage>
         </Styled.Heading>
         <Mission />
-        {renderColumn1()}
-        {renderColumn2()}
-        {renderColumn3()}
+        <Column1 />
+        <Column2 />
+        <Column3 />
       </Styled.TopBoxed>
     </Styled.FooterTop>
     <Styled.FooterBottom>
       <Styled.BottomBoxed>
         <Copyrights values={getValues()} />
-        {renderSocialDirectory()}
+        <SocialDirectory />
       </Styled.BottomBoxed>
     </Styled.FooterBottom>
   </Styled.InnerFooter>

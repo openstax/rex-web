@@ -1,6 +1,6 @@
 import * as Cookies from 'js-cookie';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { Times } from 'styled-icons/fa-solid/Times';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
@@ -94,6 +94,7 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideBanner = (props: Props) => {
+  const intl = useIntl();
   const trackOpenUTG = useAnalyticsEvent('openUTG');
 
   React.useEffect(() => {
@@ -112,28 +113,27 @@ const UsingThisGuideBanner = (props: Props) => {
   return <BannerWrapper>
     <HeaderWrapper>
       <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
-        {(msg: Element | string) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
+        {(msg) => <UsingThisGuideTitle>{msg}</UsingThisGuideTitle>}
       </FormattedMessage>
     </HeaderWrapper>
     <BodyWrapper>
-      <FormattedMessage id='i18n:studyguides:popup:using-this-guide:alt'>
-        {(msg: Element | string) => <picture>
-          <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
-          <BannerImage src={desktopBanner} alt={msg} tabIndex={0} />
-        </picture>}
-      </FormattedMessage>
+      <picture>
+        <source media={theme.breakpoints.mobileMediumQuery} srcSet={mobileBanner} />
+        <BannerImage
+          src={desktopBanner}
+          alt={intl.formatMessage({id: 'i18n:studyguides:popup:using-this-guide:alt'})}
+          tabIndex={0}
+        />
+      </picture>
     </BodyWrapper>
-    <FormattedMessage id='i18n:studyguides:popup:using-this-guide:close:aria-label'>
-      {(msg: string) =>
-        <CloseIconButton
-          onClick={props.onClick}
-          aria-label={msg}
-          data-testid='close-utg'
-          data-analytics-disable-track={true}
-        >
-        <CloseIcon/>
-      </CloseIconButton>}
-    </FormattedMessage>
+      <CloseIconButton
+        onClick={props.onClick}
+        aria-label={intl.formatMessage({id: 'i18n:studyguides:popup:using-this-guide:close:aria-label'})}
+        data-testid='close-utg'
+        data-analytics-disable-track={true}
+      >
+      <CloseIcon/>
+    </CloseIconButton>
   </BannerWrapper>;
 };
 

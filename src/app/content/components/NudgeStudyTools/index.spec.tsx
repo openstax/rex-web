@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { makeFindByTestId } from '../../../../test/reactutils';
 import { receiveFeatureFlags } from '../../../actions';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
@@ -141,15 +142,11 @@ describe('NudgeStudyTools', () => {
     expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
     expect(() => component.root.findByType(NudgeBackground)).not.toThrow();
 
-    expect(() => component.root.findByProps({
-      id: 'i18n:nudge:study-tools:aria-label:with-study-guides',
-    })).toThrow();
-    expect(() => component.root.findByProps({
-      id: 'i18n:nudge:study-tools:aria-label:only-highlighting',
-    })).not.toThrow();
-    expect(() => component.root.findByProps({
-      id: 'i18n:nudge:study-tools:text:only-highlighting',
-    })).not.toThrow();
+    const findByTestId = makeFindByTestId(component.root);
+
+    expect(() => findByTestId('nudge-with-sg')).toThrow();
+    expect(() => findByTestId('nudge-only-hl')).not.toThrow();
+    expect(() => findByTestId('nudge-text-only-hl')).not.toThrow();
 
     jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
       .mockReturnValue(true);
@@ -162,15 +159,9 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    expect(() => component.root.findByProps({
-      id: 'i18n:nudge:study-tools:aria-label:only-highlighting',
-    })).toThrow();
-    expect(() => component.root.findByProps({
-      id: 'i18n:nudge:study-tools:aria-label:with-study-guides',
-    })).not.toThrow();
-    expect(() => component.root.findByProps({
-      id: 'i18n:nudge:study-tools:text:with-study-guides',
-    })).not.toThrow();
+    expect(() => findByTestId('nudge-only-hl')).toThrow();
+    expect(() => findByTestId('nudge-with-sg')).not.toThrow();
+    expect(() => findByTestId('nudge-text-with-sg')).not.toThrow();
   });
 
   it('dispatches action on clicking close button and tests if body has overflow style set to hidden', () => {

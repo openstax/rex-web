@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
 import { PlainButton } from '../../../../components/Button';
@@ -65,21 +65,19 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideButton = (props: Props) => {
-  return <FormattedMessage id='i18n:studyguides:popup:using-this-guide'>
-      {(msg: Element | string) =>
-        <UsingThisGuideButtonWrapper
-          aria-label={msg}
-          onClick={props.onClick}
-          isOpen={props.open}
-          data-analytics-disable-track={true}
-        >
-          <UsingThisGuideButtonInnerStyles isOpen={props.open} tabIndex={-1}>
-            <QuestionIcon/>
-            <UsingThisGuideText>{msg}</UsingThisGuideText>
-          </UsingThisGuideButtonInnerStyles>
-        </UsingThisGuideButtonWrapper>
-      }
-    </FormattedMessage>;
+  const text = useIntl().formatMessage({id: 'i18n:studyguides:popup:using-this-guide'});
+
+  return <UsingThisGuideButtonWrapper
+    aria-label={text}
+    onClick={props.onClick}
+    isOpen={props.open}
+    data-analytics-disable-track={true}
+  >
+    <UsingThisGuideButtonInnerStyles isOpen={props.open} tabIndex={-1}>
+      <QuestionIcon/>
+      <UsingThisGuideText>{text}</UsingThisGuideText>
+    </UsingThisGuideButtonInnerStyles>
+  </UsingThisGuideButtonWrapper>;
 };
 
 export default UsingThisGuideButton;
