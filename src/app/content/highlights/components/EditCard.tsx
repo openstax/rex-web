@@ -170,7 +170,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     />
     {editingAnnotation && props.data && <ButtonGroup>
       <FormattedMessage id='i18n:highlighting:button:save'>
-        {(msg: Element | string) => <Button
+        {(msg) => <Button
           data-testid='save'
           data-analytics-label='save'
           size='small'
@@ -188,7 +188,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
         >{msg}</Button>}
       </FormattedMessage>
       <FormattedMessage id='i18n:highlighting:button:cancel'>
-        {(msg: Element | string) => <Button
+        {(msg) => <Button
           size='small'
           data-analytics-label='cancel'
           data-testid='cancel'

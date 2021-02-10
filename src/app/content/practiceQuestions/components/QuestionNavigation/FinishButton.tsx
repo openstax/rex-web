@@ -5,7 +5,7 @@ import Button from '../../../../components/Button';
 // tslint:disable-next-line: variable-name
 const FinishButton = () => {
   return <FormattedMessage id='i18n:practice-questions:popup:navigation:finish'>
-    {(msg: string) => <Button
+    {(msg) => <Button
       variant='primary'
       size='large'
       data-analytics-label='Finish'

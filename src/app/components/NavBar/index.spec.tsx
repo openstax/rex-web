@@ -1,4 +1,3 @@
-import { ComponentClass } from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import createTestStore from '../../../test/createTestStore';
 import { reactAndFriends, resetModules } from '../../../test/utils';
@@ -6,26 +5,25 @@ import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import { User } from '../../auth/types';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
+import { assertNotNull } from '../../utils/assertions';
 
 describe('content', () => {
   let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
   let Provider: ReturnType<typeof reactAndFriends>['Provider']; // tslint:disable-line:variable-name
   let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
-  let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM']; // tslint:disable-line:variable-name
   let MessageProvider: ReturnType<typeof reactAndFriends>['MessageProvider']; // tslint:disable-line:variable-name
 
   beforeEach(() => {
     resetModules();
     jest.resetAllMocks();
-    ({React, Provider, renderer, ReactDOM, renderToDom, MessageProvider} = reactAndFriends());
+    ({React, Provider, renderer, renderToDom, MessageProvider} = reactAndFriends());
   });
 
   describe('in browser', () => {
     // tslint:disable-next-line:variable-name
     let NavBar: any;
     // tslint:disable-next-line:variable-name
-    let Dropdown: any;
     let store: Store;
     let user: User;
 
@@ -33,7 +31,6 @@ describe('content', () => {
       user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
       store = createTestStore();
       NavBar = require('.').default;
-      Dropdown = require('.').Dropdown;
     });
 
     const render = () => <Provider store={store}>
@@ -115,12 +112,8 @@ describe('content', () => {
       });
 
       it('blocks scroll when shown', () => {
-        const {tree} = renderToDom(render());
-        const overlayComponent = ReactTestUtils.findRenderedComponentWithType(
-          tree,
-          Dropdown as unknown as ComponentClass // ReactTestUtils types seem broken
-        );
-        const overlay = ReactDOM.findDOMNode(overlayComponent);
+        const {node} = renderToDom(render());
+        const overlay = assertNotNull(node.querySelector('[data-testid=\'nav-overlay\']'), '');
 
         getComputedStyle.mockReturnValue({height: '10px'});
 
@@ -135,12 +128,8 @@ describe('content', () => {
       });
 
       it('allows scroll when hidden', () => {
-        const {tree} = renderToDom(render());
-        const overlayComponent = ReactTestUtils.findRenderedComponentWithType(
-          tree,
-          Dropdown as unknown as ComponentClass // ReactTestUtils types seem broken
-        );
-        const overlay = ReactDOM.findDOMNode(overlayComponent);
+        const {node} = renderToDom(render());
+        const overlay = assertNotNull(node.querySelector('[data-testid=\'nav-overlay\']'), '');
 
         getComputedStyle.mockReturnValue({height: '0px'});
 

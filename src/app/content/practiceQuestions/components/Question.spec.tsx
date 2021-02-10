@@ -293,7 +293,7 @@ describe('Question', () => {
     const spyNextFocus = jest.spyOn(mockNextButton, 'focus');
 
     const component = renderer.create(render(), { createNodeMock: (el: any) => {
-      if (el.props['data-testid'] === 'next') { return mockNextButton; }
+      if (el.props['data-testid'] === 'next-is-correct') { return mockNextButton; }
       return undefined;
     } });
 
@@ -314,11 +314,8 @@ describe('Question', () => {
       form.props.onSubmit({ preventDefault });
     });
 
-    expect(() => component.root.findByProps({ 'data-testid': 'next' })).not.toThrow();
+    expect(() => component.root.findByProps({ 'data-testid': 'next-is-correct' })).not.toThrow();
     expect(spyNextFocus).toHaveBeenCalled();
-    expect(() => component.root.findByProps({
-      id: 'i18n:practice-questions:popup:navigation:next:after-submit-correct:aria-label',
-    })).not.toThrow();
   });
 
   it('clicking on submitted answer does nothing', () => {
