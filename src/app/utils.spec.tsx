@@ -141,30 +141,32 @@ describe('actionHook', () => {
     }));
     jest.resetAllMocks();
   });
-});
 
-it('handle error if it is instance of ToastMesssageError', async() => {
-  const hookSpy = jest.fn(async() => Promise.reject(
-    new (makeToastMessageError('some-key'))({ destination: 'myHighlights', shouldAutoDismiss: true })
-  ));
-  const helpers = ({
-    dispatch: jest.fn(),
-    getState: () => ({} as AppState),
-    promiseCollector: new PromiseCollector(),
-  } as any) as MiddlewareAPI & AppServices;
+  it('handle error if it is instance of ToastMesssageError', async() => {
+    const hookSpy = jest.fn(async() => Promise.reject(
+      new (makeToastMessageError('some-key'))({ destination: 'myHighlights', shouldAutoDismiss: true })
+    ));
+    const helpers = ({
+      dispatch: jest.fn(),
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any) as MiddlewareAPI & AppServices;
 
-  const dispatch = jest.spyOn(helpers, 'dispatch');
-  jest.spyOn(global.Date, 'now').mockReturnValue(1);
+    const dispatch = jest.spyOn(helpers, 'dispatch');
+    jest.spyOn(global.Date, 'now').mockReturnValue(1);
+    const spySentry = jest.spyOn(Sentry, 'captureException').mockReturnValue('first-error');
 
-  const middleware = utils.actionHook(actions.openToc, () => hookSpy);
-  middleware(helpers)(helpers)((action) => action)(actions.openToc());
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
 
-  await new Promise((resolve) => setImmediate(resolve));
+    await new Promise((resolve) => setImmediate(resolve));
 
-  expect(Sentry.captureException).toHaveBeenCalled();
-  expect(hookSpy).toHaveBeenCalled();
-  expect(dispatch).toHaveBeenCalledWith(addToast('some-key', { destination: 'myHighlights', shouldAutoDismiss: true }));
-  jest.resetAllMocks();
+    expect(spySentry).toHaveBeenCalled();
+    expect(hookSpy).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast('some-key', { destination: 'myHighlights', shouldAutoDismiss: true, errorId: 'first-error' }));
+    jest.resetAllMocks();
+  });
 });
 
 describe('assertDefined', () => {

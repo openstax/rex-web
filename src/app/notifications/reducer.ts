@@ -7,6 +7,7 @@ import { AnyAction } from '../types';
 import * as actions from './actions';
 import { isToastNotification } from './guards';
 import { Message, State } from './types';
+import { compareToasts } from './utils';
 
 export const initialState: State = {
   modalNotifications: [],
@@ -45,9 +46,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         modalNotifications: [...state.modalNotifications, ...processAppMessages(state, action)],
       };
     case getType(actions.addToast): {
-      const sameToast = state.toastNotifications.find((toast) =>
-        toast.messageKey === action.payload.messageKey && toast.destination === action.payload.destination
-      );
+      const sameToast = state.toastNotifications.find((toast) => compareToasts(toast, action.payload));
 
       if (sameToast) {
         return {
@@ -84,9 +83,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       if (isToastNotification(notificationToDelete)) {
         return {
           ...state,
-          toastNotifications: state.toastNotifications.filter((toast) =>
-            toast.messageKey !== notificationToDelete.messageKey
-          ),
+          toastNotifications: state.toastNotifications.filter((toast) => !compareToasts(notificationToDelete, toast)),
         };
       }
 

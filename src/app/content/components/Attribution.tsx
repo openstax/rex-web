@@ -98,6 +98,9 @@ const AttributionDetails = styled(Details)`
   ${disablePrint}
 `;
 
+// tslint:disable-next-line:variable-name
+const AttributionContent = htmlMessage('i18n:attribution:text', Content);
+
 interface Props {
   currentPath: string;
   book: Book | undefined;
@@ -106,9 +109,23 @@ interface Props {
 
 class Attribution extends Component<Props> {
   public container = React.createRef<HTMLDetailsElement>();
-  private bookIdsWithTEAAttributionText: {[key: string]: string} = {
-    '394a1101-fd8f-4875-84fa-55f15b06ba66': 'tea-statistics',
-    'cce64fde-f448-43b8-ae88-27705cceb0da': 'tea-physics',
+  private bookIdsWithSpecialAttributionText: {
+    [key: string]: {
+      copyrightHolder?: string,
+      originalMaterialLink?: null | string,
+    }
+  } = {
+    '1b4ee0ce-ee89-44fa-a5e7-a0db9f0c94b1': {
+      copyrightHolder: 'The Michelson 20MM Foundation',
+    },
+    '394a1101-fd8f-4875-84fa-55f15b06ba66': {
+      copyrightHolder: 'Texas Education Agency (TEA)',
+      originalMaterialLink: 'https://www.texasgateway.org/book/tea-statistics',
+    },
+    'cce64fde-f448-43b8-ae88-27705cceb0da': {
+      copyrightHolder: 'Texas Education Agency (TEA)',
+      originalMaterialLink: 'https://www.texasgateway.org/book/tea-physics',
+    },
   };
   private toggleHandler: undefined | (() => void);
 
@@ -140,18 +157,13 @@ class Attribution extends Component<Props> {
     const {book} = this.props;
     if (!hasOSWebData(book)) { return null; }
 
-    // tslint:disable-next-line:variable-name
-    const AttributionText = book.id in this.bookIdsWithTEAAttributionText
-      ? htmlMessage('i18n:attribution:tea-text', Content)
-      : htmlMessage('i18n:attribution:default-text', Content);
-
     return <AttributionDetails
       ref={this.container}
       data-testid='attribution-details'
       data-analytics-region='attribution'
     >
       <AttributionSummary />
-      <AttributionText values={this.getValues(book)} />
+      <AttributionContent values={this.getValues(book)} />
     </AttributionDetails>;
   }
 
@@ -178,12 +190,15 @@ class Attribution extends Component<Props> {
       bookAuthors: authorsToDisplay.map(({value: {name}}) => name).join(', '),
       bookLatestRevision,
       bookLicenseName: book.license.name,
+      bookLicenseUrl: book.license.url,
       bookLicenseVersion: book.license.version,
       bookPublishDate,
       bookTitle: book.title,
+      copyrightHolder: 'OpenStax',
       currentPath: this.props.currentPath,
       introPageUrl,
-      teaBookName: this.bookIdsWithTEAAttributionText[book.id],
+      originalMaterialLink: null,
+      ...this.bookIdsWithSpecialAttributionText[book.id] || {},
     };
   };
 }
