@@ -26,6 +26,7 @@ import {
   prepareBooks,
   renderPages
 } from './contentPages';
+import createRedirects from './createRedirects';
 import { writeAssetFile } from './fileUtils';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 
@@ -72,6 +73,7 @@ async function render() {
 
   await renderSitemapIndex();
   await renderManifest();
+  await createRedirects(archiveLoader, osWebLoader);
 
   const {numPages, elapsedMinutes} = getStats();
   // tslint:disable-next-line:no-console max-line-length
