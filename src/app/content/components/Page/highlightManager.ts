@@ -81,6 +81,8 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
   const highlighter: Highlighter = new Highlighter(services.container, {
     onClick: (highlight) => onClickHighlight({ ...services, highlighter }, highlight),
     onSelect: (...args) => onSelectHighlight({ ...services, highlighter }, ...args),
+    onFocusIn: (highlight) => services.getProp().focus(highlight.id),
+    onFocusOut: () => services.getProp().clearFocus(),
     skipIDsBy: /^(\d+$|term)/,
     snapMathJax: true,
     snapTableRows: true,
