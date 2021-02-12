@@ -1,4 +1,7 @@
+from typing import List
+
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
 from regions.base import Region
 
@@ -9,12 +12,25 @@ class TableOfContents(Region):
 
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
-    _chapter_link_locator = (By.CSS_SELECTOR, "li details")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
+
+    _chapter_link_selector = "li details"
 
     @property
     def active_section(self):
         return self.find_element(*self._active_section_locator)
+
+    @property
+    def chapters(self) -> List[WebElement]:
+        """Return a list of chapters.
+
+        :return: the list of available book chapters
+        :rtype: list(WebElement)
+
+        """
+        return self.driver.execute_script(
+            f"return document.querySelectorAll('{self._chapter_link_selector}');"
+        )
 
     @property
     def preface(self):
@@ -29,17 +45,14 @@ class TableOfContents(Region):
             for section_link in self.find_elements(*self._section_link_locator)
         ]
 
-    def expand_chapter(self, n):
+    def expand_chapter(self, n: int):
         """Expand a chapter from TOC.
 
-        :param n: chapter number -> int
+        :param int n: chapter number
         """
-        x = self.driver.execute_script(
-            ("return document.querySelectorAll('{selector}');").format(
-                selector=self._chapter_link_locator[1]
-            )
+        self.driver.execute_script(
+            "arguments[0].setAttribute('open', '1');", self.chapters[n]
         )
-        self.driver.execute_script(("return arguments[0].setAttribute('open', '1');"), x[n])
 
     @property
     def first_section(self):
@@ -60,11 +73,12 @@ class TableOfContents(Region):
             return self.root.get_attribute("textContent")
 
         @property
-        def is_active(self):
-            html = self.find_element(*self._is_active_locator).get_attribute("outerHTML")
-            try:
-                assert "Current Page" in html
-            except AssertionError:
-                return False
-            else:
-                return True
+        def is_active(self) -> bool:
+            """Return True if 'Current Page' found in the section's HTML.
+
+            :return: ``True`` if 'Current Page' found in the section HTML
+            :rtype: bool
+
+            """
+            parent = self.find_element(*self._is_active_locator)
+            return "Current Page" in parent.get_attribute("outerHTML")
