@@ -3,6 +3,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
+import { IntlShape } from 'react-intl';
 import * as selectAuth from '../../../auth/selectors';
 import { isDefined } from '../../../guards';
 import * as selectNavigation from '../../../navigation/selectors';
@@ -76,9 +77,10 @@ const onSelectHighlight = (
   services.setPendingHighlight(highlight);
 });
 
-const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter'>) => {
+const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter'>, intl: IntlShape) => {
 
   const highlighter: Highlighter = new Highlighter(services.container, {
+    formatMessage: (id: string, values?: Record<string, any>) => intl.formatMessage({ id }, values),
     onClick: (highlight) => onClickHighlight({ ...services, highlighter }, highlight),
     onFocusIn: (highlight) => services.getProp().focus(highlight.id),
     onFocusOut: () => services.getProp().clearFocus(),
@@ -114,7 +116,7 @@ export interface UpdateOptions {
   onSelect: (highlight: Highlight | null) => void;
 }
 
-export default (container: HTMLElement, getProp: () => HighlightProp) => {
+export default (container: HTMLElement, getProp: () => HighlightProp, intl: IntlShape) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let scrollTargetHighlightIdThatWasHandled: string;
@@ -176,7 +178,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     setPendingHighlight,
   };
 
-  highlighter = createHighlighter(services);
+  highlighter = createHighlighter(services, intl);
   setListHighlighter(highlighter);
 
   return {
