@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
@@ -42,6 +42,7 @@ const PracticeQuestionsText = styled.span`
 
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsButton = () => {
+  const intl = useIntl();
   const isEnabled = useSelector(practiceQuestionsEnabled);
   const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
   const hasPracticeQs = useSelector(hasPracticeQuestions);
@@ -49,19 +50,17 @@ const PracticeQuestionsButton = () => {
 
   if (!isEnabled || !hasPracticeQs || !book || !page) { return null; }
 
-  return <FormattedMessage id='i18n:toolbar:practice-questions:button:text'>
-    {(msg: Element | string) =>
-      <StyledContentLink
-        book={book}
-        page={page}
-        search={{ [modalQueryParameterName]: modalUrlName }}
-        onClick={trackOpenClose}
-        aria-label={msg}>
-        <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
-        <PracticeQuestionsText>{msg}</PracticeQuestionsText>
-      </StyledContentLink>
-    }
-  </FormattedMessage>;
+  const text = intl.formatMessage({id: 'i18n:toolbar:practice-questions:button:text'});
+
+  return <StyledContentLink
+    book={book}
+    page={page}
+    search={{ [modalQueryParameterName]: modalUrlName }}
+    onClick={trackOpenClose}
+    aria-label={text}>
+    <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
+    <PracticeQuestionsText>{text}</PracticeQuestionsText>
+  </StyledContentLink>;
 };
 
 export default PracticeQuestionsButton;

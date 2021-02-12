@@ -69,7 +69,7 @@ describe('updateHighlight', () => {
     const updatePayload = highlightUpdatePayload(highlight.id, {color: 'red', annotation: 'new'});
 
     hook(updateHighlight(updatePayload, meta));
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
   });
@@ -82,7 +82,7 @@ describe('updateHighlight', () => {
       highlightUpdatePayload(highlight.id, {color: 'red', annotation: 'new'}),
       {...meta, revertingAfterFailure: true}
     ));
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(updateHighlightClient).not.toHaveBeenCalled();
   });
@@ -101,7 +101,7 @@ describe('updateHighlight', () => {
     );
 
     hook(updateHighlight(updatePayload, meta));
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
 

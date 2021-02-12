@@ -38,7 +38,7 @@ describe('scrollToTopOrHashManager', () => {
       {hash: '#asdf', page, scrollTarget: null, selectedResult: null},
       {hash: '#qwer', page, scrollTarget: null, selectedResult: null});
 
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(scrollTo).toHaveBeenCalledWith(target);
   });

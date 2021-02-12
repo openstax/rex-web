@@ -109,10 +109,11 @@ describe('content route', () => {
         services,
       });
 
-      const tree = renderer
-          .create(<app.container />)
-          .toJSON();
-      expect(tree).toMatchSnapshot();
+      const tree = renderer.create(<app.container />);
+
+      expect(tree.toJSON()).toMatchSnapshot();
+
+      tree.unmount();
     });
   });
 

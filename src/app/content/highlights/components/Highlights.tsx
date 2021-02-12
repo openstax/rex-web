@@ -18,7 +18,7 @@ import * as HStyled from './HighlightStyles';
 import HighlightListElement from './SummaryPopup/HighlightListElement';
 
 // tslint:disable-next-line: variable-name
-const NoHighlightsTip = htmlMessage(
+export const NoHighlightsTip = htmlMessage(
   'i18n:toolbar:highlights:popup:heading:no-highlights-tip',
   (props) => <span {...props} />
 );
@@ -36,7 +36,7 @@ const Highlights = ({ className }: { className: string }) => {
       services.promiseCollector.add(allImagesLoaded(container.current));
       services.promiseCollector.add(typesetMath(container.current, assertWindow()));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps, ignore promiseCollector
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderedHighlights]);
 
   if (
@@ -46,18 +46,18 @@ const Highlights = ({ className }: { className: string }) => {
     return <HighlightsWrapper ref={container}>
       <HStyled.GeneralLeftText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:body:no-highlights-in-book'>
-          {(msg: Element | string) => msg}
+          {(msg) => msg}
         </FormattedMessage>
       </HStyled.GeneralLeftText>
       <HStyled.MyHighlightsWrapper>
         <HStyled.GeneralText>
           <FormattedMessage id='i18n:toolbar:highlights:popup:body:add-highlight'>
-            {(msg: Element | string) => msg}
+            {(msg) => msg}
           </FormattedMessage>
         </HStyled.GeneralText>
         <HStyled.GeneralTextWrapper>
           <FormattedMessage id='i18n:toolbar:highlights:popup:body:use-this-page'>
-            {(msg: Element | string) => msg}
+            {(msg) => msg}
           </FormattedMessage>
         </HStyled.GeneralTextWrapper>
         <HStyled.MyHighlightsImage src={myHighlightsEmptyImage} />
@@ -69,7 +69,7 @@ const Highlights = ({ className }: { className: string }) => {
     return <HighlightsWrapper ref={container}>
       <HStyled.GeneralCenterText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
-          {(msg: Element | string) => msg}
+          {(msg) => msg}
         </FormattedMessage>
         <NoHighlightsTip />
       </HStyled.GeneralCenterText>
