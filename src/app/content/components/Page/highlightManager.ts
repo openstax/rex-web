@@ -89,6 +89,7 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
     snapMathJax: true,
     snapTableRows: true,
     snapWords: true,
+    supportScreenreaders: true,
   });
   return highlighter;
 };

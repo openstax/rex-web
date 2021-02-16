@@ -31,7 +31,7 @@
   "i18n:footer:social:in:alt": "linkedin",
   "i18n:footer:social:rice-logo:alt": "Rice University logo",
   "i18n:footer:social:tw:alt": "twitter",
-  "i18n:highlighter:highlight:end": "End {color} highlight",
+  "i18n:highlighter:highlight:end": "End of {color} highlight",
   "i18n:highlighter:highlight:start": "Start {color} highlight",
   "i18n:highlighting:button:cancel": "Cancel",
   "i18n:highlighting:button:delete": "Delete",
