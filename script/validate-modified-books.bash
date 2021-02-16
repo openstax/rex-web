@@ -6,7 +6,7 @@ for row in $(jq -c '.[]' <<< "$modified_books"); do
   book_id=$(jq -r '.book_id' <<< "$row")
   book_version=$(jq -r '.book_version' <<< "$row")
 
-  node script/domVisitor errorsExist \
+  node script/entry.js domVisitor errorsExist \
     --bookId="$book_id" \
     --bookVersion="$book_version" \
     --rootUrl="$BASE_URL" \
