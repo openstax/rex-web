@@ -4,10 +4,10 @@ import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined, BookNotFoundError } from '../../../utils';
 import { receiveBook, receivePage, receivePageNotFoundId, requestBook, requestPage } from '../../actions';
-import { hasOSWebData } from '../../guards';
+import { hasOSWebData, isReferenceLoadingError } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { ArchivePage, Book, PageReferenceMap } from '../../types';
+import { ArchivePage, Book, PageReferenceMap, PageReferenceMapError, ReferenceLoadingError } from '../../types';
 import {
   formatBookData,
   getContentPageReferences,
@@ -178,6 +178,9 @@ export const getBookInformation = async(
 
   } else if (UNLIMITED_CONTENT) {
     for (const {id, bookVersion} of allReferences) {
+      // Omit references that don't have bookVersion because new pipeline will not support requests without a version
+      if (!bookVersion) { continue; }
+
       const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
       const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
       if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
@@ -185,7 +188,7 @@ export const getBookInformation = async(
       }
     }
   }
-  return undefined;
+  return new ReferenceLoadingError();
 };
 
 export const resolveExternalBookReference = async(
@@ -196,11 +199,17 @@ export const resolveExternalBookReference = async(
 ) => {
   const bookInformation = await getBookInformation(services, reference);
 
+  // Don't throw an error if reference couldn't be loaded when UNLIMITED_CONTENT is truthy
+  // It will be processed in contentLinkHandler.ts
+  if (UNLIMITED_CONTENT && isReferenceLoadingError(bookInformation)) {
+    return bookInformation;
+  }
+
   const error = (message: string) => new Error(
     `BUG: "${book.title} / ${page.title}" referenced "${reference.pageId}", ${message}`
   );
 
-  if (!bookInformation) {
+  if (isReferenceLoadingError(bookInformation)) {
     throw error('but it could not be found in any configured books.');
   }
 
@@ -218,10 +227,17 @@ const loadContentReference = async(
   book: Book,
   page: ArchivePage,
   reference: ReturnType<typeof getContentPageReferences>[number]
-) => {
-  const targetBook: Book = archiveTreeContainsNode(book.tree, reference.pageId)
+): Promise<PageReferenceMap | PageReferenceMapError> => {
+  const targetBook: Book | ReferenceLoadingError = archiveTreeContainsNode(book.tree, reference.pageId)
     ? book
     : await resolveExternalBookReference(services, book, page, reference);
+
+  if (isReferenceLoadingError(targetBook)) {
+    return {
+      reference,
+      type: 'error',
+    };
+  }
 
   return {
     match: reference.match,
@@ -239,7 +255,7 @@ const loadContentReference = async(
 
 const loadContentReferences = (services: AppServices & MiddlewareAPI, book: Book) => async(page: ArchivePage) => {
   const contentReferences = getContentPageReferences(page.content);
-  const references: PageReferenceMap[] = [];
+  const references: Array<PageReferenceMap | PageReferenceMapError> = [];
 
   for (const reference of contentReferences) {
     references.push(await loadContentReference(services, book, page, reference));
