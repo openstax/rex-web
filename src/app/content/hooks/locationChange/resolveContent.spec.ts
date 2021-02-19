@@ -7,12 +7,22 @@ import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
 import { isReferenceLoadingError } from '../../guards';
 import * as routes from '../../routes';
-import { Params, SlugParams, ReferenceLoadingError, Book } from '../../types';
-import { getBookInformation, resolveBookReference } from './resolveContent';
+import { Book, Params, ReferenceLoadingError, SlugParams } from '../../types';
+import { getBookInformation, loadContentReference, resolveBookReference } from './resolveContent';
+import * as resolveContentUtils from './resolveContent';
 
-const mockConfig = {BOOKS: {
- [book.id]: {defaultVersion: book.version},
-} as {[key: string]: {defaultVersion: string}}};
+jest.mock('../../../../config', () => {
+  const mockBook = (jest as any).requireActual(
+    '../../../../test/mocks/archiveLoader'
+  ).book;
+  return {
+    APP_ENV: 'development',
+    BOOKS: {
+      [mockBook.id]: { defaultVersion: mockBook.version },
+    },
+    UNLIMITED_CONTENT: true,
+  };
+});
 
 const testBookSlug = 'book-slug-1';
 const testUUID = 'longidin-vali-dfor-mat1-111111111111';
@@ -89,11 +99,6 @@ describe('locationChange', () => {
   });
 
   describe('in development', () => {
-    beforeAll(() => {
-      jest.doMock('../../../../config', () => ({...mockConfig, APP_ENV: 'development'}));
-      jest.doMock('../../../../config', () => ({...mockConfig, UNLIMITED_CONTENT: true}));
-    });
-
     it('doesn\'t load book if its already loading', async() => {
       helpers.archiveLoader.mock.loadBook.mockImplementation(
         () => new Promise((resolve) => setTimeout(() => resolve(book), 100))
@@ -296,22 +301,53 @@ describe('locationChange', () => {
 
     });
 
-    it('returns ReferenceLoadingError if no book version found in config or reference', async() => {
-      const reference = {
-        bookId: 'newbookid',
-        match: 'ajhd',
-        pageId: mockPageInOtherBook.id,
-      };
+    describe('getBookInformation', () => {
+      it('returns ReferenceLoadingError if no book version found in config or reference', async() => {
+        const reference = {
+          bookId: 'newbookid',
+          match: 'ajhd',
+          pageId: mockPageInOtherBook.id,
+        };
 
-      const referenceBook = await getBookInformation(helpers, reference);
+        const referenceBook = await getBookInformation(helpers, reference);
 
-      expect(referenceBook).toEqual(new ReferenceLoadingError());
+        expect(referenceBook).toEqual(new ReferenceLoadingError());
+      });
+
+      it('returns ReferenceLoadingError if no book version found in response from getBookIdsForPage', async() => {
+        const reference = {
+          match: 'ajhd',
+          pageId: mockPageInOtherBook.id,
+        };
+
+        jest.spyOn(helpers.archiveLoader, 'getBookIdsForPage')
+          .mockResolvedValue([{ id: 'asd', bookVersion: undefined }]);
+
+        const referenceBook = await getBookInformation(helpers, reference);
+
+        expect(referenceBook).toEqual(new ReferenceLoadingError());
+      });
+    });
+
+    describe('loadContentReference', () => {
+      it('returns PageReferenceMapError when resolveExternalBookReference returns ReferenceLoadingerror', async() => {
+        jest.spyOn(resolveContentUtils, 'resolveExternalBookReference')
+          .mockResolvedValue(new ReferenceLoadingError());
+
+        const reference = { match: 'asd', pageId: 'asd' };
+        expect(await loadContentReference(helpers, book, page, reference)).toEqual({ type: 'error', reference });
+      });
     });
   });
 
   describe('in production', () => {
     beforeAll(() => {
-      jest.doMock('../../../../config', () => ({...mockConfig, APP_ENV: 'production'}));
+      jest.doMock('../../../../config', () => ({
+        APP_ENV: 'production',
+        BOOKS: {
+          [book.id]: { defaultVersion: book.version },
+        },
+      }));
     });
 
     it('throws if book is missing cms data in production', async() => {

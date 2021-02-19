@@ -222,7 +222,7 @@ export const resolveExternalBookReference = async(
   return referencedBook;
 };
 
-const loadContentReference = async(
+export const loadContentReference = async(
   services: AppServices & MiddlewareAPI,
   book: Book,
   page: ArchivePage,
