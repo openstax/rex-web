@@ -9,6 +9,12 @@ Array [
   >
     Skip to Content
   </a>,
+  <a
+    className="HiddenLink-wwwegq-0 kZsmVR"
+    href="/wip-accessibility-page-link"
+  >
+    Go to accessibility help page
+  </a>,
   <div
     className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
     data-analytics-region="openstax-navbar"
