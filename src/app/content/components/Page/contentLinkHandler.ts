@@ -32,6 +32,7 @@ export type ContentLinkProp =
 
 export const reduceReferences = (document: Document, {references, currentPath}: ContentLinkProp) => {
   for (const reference of references) {
+    // references may contain PageReferenceMapError only if UNLIMITED_CONTENT is set to true
     if (isPageReferenceMapError(reference)) {
       const a = assertNotNull(
         document.querySelector(`[href^='${reference.reference.match}']`),
@@ -54,7 +55,7 @@ export const reduceReferences = (document: Document, {references, currentPath}: 
 
 const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap | PageReferenceMapError) =>
   isPageReferenceMapError(ref)
-  ? undefined
+  ? false
   : content.getUrl(ref.params) === pathname
     && (
       ('slug' in ref.params.book && hasOSWebData(book) && ref.params.book.slug === book.slug)
