@@ -5,8 +5,9 @@ import { resetModules } from '../../../../test/utils';
 import { Match } from '../../../navigation/types';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
+import { isReferenceLoadingError } from '../../guards';
 import * as routes from '../../routes';
-import { Params, SlugParams } from '../../types';
+import { Params, SlugParams, ReferenceLoadingError, Book } from '../../types';
 import { getBookInformation, resolveBookReference } from './resolveContent';
 
 const mockConfig = {BOOKS: {
@@ -218,7 +219,7 @@ describe('locationChange', () => {
       ).rejects.toThrow(`Could not resolve uuid for slug: ${testBookSlug}`);
     });
 
-    it('allows content links outside of BOOKS config and throws if not found', async() => {
+    it('allows content links outside of BOOKS config and do not throw if not found', async() => {
       /* Mock an actual hit for book outside BOOKS config */
       helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
         Promise.resolve([{ id: 'newbookid', bookVersion: '0' }])
@@ -242,19 +243,17 @@ describe('locationChange', () => {
       helpers.archiveLoader.mock.loadBook.mockImplementation(() => Promise.resolve(undefined) as any);
 
       let message: string | undefined;
-
+      let bookOrReferenceLoadingError: Book | ReferenceLoadingError | undefined;
       try {
-        await resolveExternalBookReference(
+        bookOrReferenceLoadingError = await resolveExternalBookReference(
           helpers, mockOtherBook, mockPageInOtherBook, { match: 'ajhd', pageId: mockPageInOtherBook.id });
       } catch (e) {
         message = e.message;
       }
 
       expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
-      expect(message).toEqual(
-        'BUG: \"newbook / page in a new book\" referenced \"newbookpageid\"' +
-        ', but it could not be found in any configured books.'
-      );
+      expect(message).toBeUndefined();
+      expect(bookOrReferenceLoadingError).toEqual(new ReferenceLoadingError());
     });
 
     it('resolves link with book version in reference or sets default', async() => {
@@ -288,12 +287,16 @@ describe('locationChange', () => {
       const referenceBook2 = await resolveExternalBookReference(
         helpers, mockOtherBook, mockPageInOtherBook, reference2);
 
+      if (isReferenceLoadingError(referenceBook2)) {
+        return expect(referenceBook2).toEqual('referenceBook2 should be ArchiveBook');
+      }
+
       expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('testbook1-uuid');
       expect(referenceBook2.version).toEqual('1.0');
 
     });
 
-    it('returns empty array if no book version found in config or reference', async() => {
+    it('returns ReferenceLoadingError if no book version found in config or reference', async() => {
       const reference = {
         bookId: 'newbookid',
         match: 'ajhd',
@@ -302,7 +305,7 @@ describe('locationChange', () => {
 
       const referenceBook = await getBookInformation(helpers, reference);
 
-      expect(referenceBook).toBeUndefined();
+      expect(referenceBook).toEqual(new ReferenceLoadingError());
     });
   });
 

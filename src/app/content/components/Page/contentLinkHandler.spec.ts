@@ -191,6 +191,29 @@ describe('contentLinkHandler', () => {
       }, expect.anything());
     });
 
+    it('intercepts clicking content links that failed to load due to reference loading error', async() => {
+      const link = `/books/${book.slug}/pages/page-title`;
+      anchor.setAttribute('href', link);
+      prop.references = [{
+        reference: {
+          bookVersion: 'version',
+          match: link,
+          pageId: 'pageid',
+        },
+        type: 'error',
+      }];
+
+      const event = {
+        preventDefault: jest.fn(),
+      };
+
+      await handler(event as any);
+
+      await new Promise((resolve) => defer(resolve));
+
+      expect(prop.navigate).not.toHaveBeenCalled();
+    });
+
     it('requires two clicks for links with highlights', async() => {
       const testHighlightID = 'randomid';
 

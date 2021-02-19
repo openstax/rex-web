@@ -107,6 +107,7 @@ describe('Page', () => {
         text
         <a href="">link with empty href</a>
         <a href="#hash">hash link</a>
+        <a href="cross-book-reference-error">reference loading error</a>
       `,
     };
     archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
@@ -127,6 +128,13 @@ describe('Page', () => {
           bookVersion: 'version',
           pageUid: 'page',
         },
+      },
+      {
+        reference: {
+          match: 'cross-book-reference-error',
+          pageId: 'doesnt-matter',
+        },
+        type: 'error',
       },
     ]}));
 
@@ -547,6 +555,35 @@ describe('Page', () => {
       hash: '',
       search: '',
     }));
+  });
+
+  it('interceptes clicking links that failed due to ReferenceLoadingError', async() => {
+    const {root} = renderDomWithReferences();
+
+    const spyAlert = jest.spyOn(globalThis as any, 'alert');
+
+    // page lifecycle hooks
+    await Promise.resolve();
+
+    dispatch.mockReset();
+    const [, , , , lastLink] = Array.from(root.querySelectorAll('#main-content a'));
+
+    if (!document || !lastLink) {
+      expect(document).toBeTruthy();
+      expect(lastLink).toBeTruthy();
+      return;
+    }
+
+    const event = makeEvent(document);
+    lastLink.dispatchEvent(event);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+
+    expect(spyAlert).toHaveBeenCalledWith('This link is broken because of a cross book content loading issue');
+
+    await new Promise((resolve) => defer(resolve));
+
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it('does not reset search results when clicking content links to same book', async() => {
