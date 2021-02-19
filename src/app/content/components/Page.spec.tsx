@@ -31,6 +31,7 @@ import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
 import * as searchUtils from '../search/utils';
 import * as select from '../selectors';
+import { PageReferenceMap, PageReferenceMapError } from '../types';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import PageNotFound from './Page/PageNotFound';
@@ -60,6 +61,32 @@ const makeEvent = (doc: Document) => {
   event.preventDefault = jest.fn();
   return event;
 };
+
+const references: Array<PageReferenceMap | PageReferenceMapError> = [
+  {
+    match: '/content/link',
+    params: {
+      book: {
+        slug: 'book-slug-1',
+      } ,
+      page: {
+        slug: 'page-title',
+      },
+    },
+    state: {
+      bookUid: 'book',
+      bookVersion: 'version',
+      pageUid: 'page',
+    },
+  },
+  {
+    reference: {
+      match: 'cross-book-reference-error',
+      pageId: 'doesnt-matter',
+    },
+    type: 'error',
+  },
+];
 
 describe('Page', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -112,31 +139,7 @@ describe('Page', () => {
     };
     archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
 
-    store.dispatch(receivePage({...pageWithRefereces, references: [
-      {
-        match: '/content/link',
-        params: {
-          book: {
-            slug: 'book-slug-1',
-          } ,
-          page: {
-            slug: 'page-title',
-          },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
-      },
-      {
-        reference: {
-          match: 'cross-book-reference-error',
-          pageId: 'doesnt-matter',
-        },
-        type: 'error',
-      },
-    ]}));
+    store.dispatch(receivePage({...pageWithRefereces, references }));
 
     return renderToDom(
       <Provider store={store}>
@@ -685,24 +688,7 @@ describe('Page', () => {
 
     await new Promise((resolve) => defer(resolve));
 
-    expect(dispatch).toHaveBeenCalledWith(receivePage(expect.objectContaining({ references: [
-      {
-        match: '/content/link',
-        params: {
-          book: {
-            slug: 'book-slug-1',
-          } ,
-          page: {
-            slug: 'page-title',
-          },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
-      },
-    ]})));
+    expect(dispatch).toHaveBeenCalledWith(receivePage(expect.objectContaining({ references })));
   });
 
   it('does not intercept clicking content links when meta key is pressed', () => {
