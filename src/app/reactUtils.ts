@@ -249,3 +249,27 @@ export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
 export const useDisableContentTabbing = (isEnabled: boolean) => {
   React.useEffect(disableContentTabbingHandler(isEnabled), [isEnabled]);
 };
+
+export type KeyCombinationOptions = Partial<Pick<KeyboardEvent, 'altKey' | 'ctrlKey' | 'key' | 'metaKey' | 'shiftKey'>>;
+
+export const useKeyCombination = (
+  options: KeyCombinationOptions,
+  callback: () => void
+) => {
+  const document = assertDocument();
+
+  const handler = React.useCallback((event: KeyboardEvent) => {
+    for (const option in options) {
+      if (event[option as keyof KeyCombinationOptions] !== options[option as keyof KeyCombinationOptions]) {
+        return;
+      }
+    }
+    event.preventDefault();
+    callback();
+  }, [options, callback]);
+
+  React.useEffect(() => {
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [document, handler]);
+};

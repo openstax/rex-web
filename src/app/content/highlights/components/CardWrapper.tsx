@@ -4,11 +4,13 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
+import { useKeyCombination } from '../../../reactUtils';
 import { AppState } from '../../../types';
 import { assertDefined, assertNotNull, remsToPx } from '../../../utils';
+import { assertDocument } from '../../../utils/browser-assertions';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
-import { cardMarginBottom } from '../constants';
+import { cardMarginBottom, highlightKeyCombination } from '../constants';
 import { focused } from '../selectors';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
@@ -29,11 +31,33 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
   const [offsets, setOffsets] = React.useState<Map<string, { top: number, bottom: number }>>(new Map());
+  const [shouldFocusCard, setShouldFocusCard] = React.useState(false);
   const focusedId = useSelector(focused);
   const focusedHighlight = React.useMemo(
     () => highlights.find((highlight) => highlight.id === focusedId),
     [focusedId, highlights]);
   const prevFocusedHighlightId = React.useRef(focusedId);
+
+  const moveFocus = React.useCallback(() => {
+    const document = assertDocument();
+    const activeElement = document.activeElement;
+    const highlightId = activeElement && activeElement.getAttribute('data-highlight-id');
+    if (highlightId) {
+      setShouldFocusCard(true);
+    } else if (focusedHighlight) {
+      let highlightElement: HTMLElement | undefined | null;
+      focusedHighlight.elements.some((el) => {
+        highlightElement = (el as HTMLElement).querySelector('[data-for-screenreaders]') as HTMLElement | null;
+        return highlightElement;
+      });
+      if (highlightElement) {
+        highlightElement.focus();
+        setShouldFocusCard(false);
+      }
+    }
+  }, [focusedHighlight]);
+
+  useKeyCombination(highlightKeyCombination, moveFocus);
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
@@ -126,6 +150,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           highlightOffsets={offsets.get(highlight.id)}
           onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
           zIndex={highlights.length - index}
+          shouldFocusCard={shouldFocusCard && focusedId === highlight.id}
         />
       ))}
     </div>

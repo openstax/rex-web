@@ -1,3 +1,5 @@
+import { KeyCombinationOptions } from '../../reactUtils';
+
 export const modalUrlName = 'MH';
 
 export const cardWidth = 20;
@@ -10,3 +12,9 @@ export const cardMarginBottom = 2;
 export const highlightBlockPadding = 1;
 export const highlightIndicatorSizeForBlock = 1.2;
 export const highlightIndicatorSize = 0.9;
+
+export const highlightKeyCombination: KeyCombinationOptions = {
+  ctrlKey: true,
+  key: 'H',
+  shiftKey: true,
+};

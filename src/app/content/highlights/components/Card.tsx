@@ -43,6 +43,7 @@ export interface CardProps {
   data?: HighlightData;
   className: string;
   zIndex: number;
+  shouldFocusCard: boolean;
   topOffset?: number;
   highlightOffsets?: { top: number, bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
@@ -55,6 +56,23 @@ const Card = (props: CardProps) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
+
+  const { isFocused, highlight: { id }, focus, shouldFocusCard } = props;
+
+  const focusCard = React.useCallback(async() => {
+    if (!isFocused && (!hasUnsavedHighlight || await showConfirmation())) {
+      focus(id);
+    }
+  }, [isFocused, hasUnsavedHighlight, id, focus]);
+
+  React.useEffect(() => {
+    if (shouldFocusCard && element.current) {
+      element.current.focus();
+    }
+    if (!isFocused && shouldFocusCard) {
+      focusCard();
+    }
+  }, [isFocused, shouldFocusCard, focusCard]);
 
   React.useEffect(() => {
     if (!props.isFocused) {
@@ -89,12 +107,6 @@ const Card = (props: CardProps) => {
     return null;
   }
 
-  const handleClickOnCard = async() => {
-    if (!props.isFocused && (!hasUnsavedHighlight || await showConfirmation())) {
-      props.focus(props.highlight.id);
-    }
-  };
-
   const onRemove = () => {
     if (props.data) {
       props.remove(props.data, {
@@ -127,7 +139,7 @@ const Card = (props: CardProps) => {
     ref: element,
   };
 
-  return <div onClick={handleClickOnCard} data-testid='card'>
+  return <div onClick={focusCard} data-testid='card'>
     {
       !editing && style && annotation ? <DisplayNote
         {...commonProps}
