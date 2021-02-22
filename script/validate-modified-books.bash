@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -x
+
 modified_books=$(./script/get-modified-books.bash)
 code=0
 
