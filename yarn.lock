@@ -2231,20 +2231,20 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@openstax/highlighter@^1.6.3":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.6.3.tgz#e265293efd90bfc485da4b86bd04b389f5c52e63"
-  integrity sha512-CpQ9EIICfCGQeyglPcMyw5R9Eq+B3mLa0hSdRlEHzwzk1ecfbesTjC2GPkmoyP3XIOMEvwKOjxia7EdM7R4vQw==
+"@openstax/highlighter@1.7.0-alpha1":
+  version "1.7.0-alpha1"
+  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.7.0-alpha1.tgz#b64c224397122c442d1cbcecff1c6f1f0bd772d8"
+  integrity sha512-J+k2+G9OnGyfc4wEizyKK70mkxUQGDP8UeZTHllnx82HJxGjQRPOLFIVhouxlUM6/zg05kegfdNJ8vr8CPHE/w==
   dependencies:
-    "@openstax/highlights-client" "0.2.2"
+    "@openstax/highlights-client" "0.2.1"
     change-case "^4.0.0"
     serialize-selection "^1.1.1"
     uuid "^3.3.3"
 
-"@openstax/highlights-client@0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@openstax/highlights-client/-/highlights-client-0.2.2.tgz#093272a3066e4c10ad0e260e698ff59b1af02544"
-  integrity sha512-9Y8fz9D0injJde1f122AYOs6eQlo73tZuenuIJkiIHwterZUC+hgbHEhmJU2U5ZHgnuq3nTRmEw57SMWRXja8A==
+"@openstax/highlights-client@0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@openstax/highlights-client/-/highlights-client-0.2.1.tgz#cd79e69046150012e1fa3c0c9bf79ba8432442f0"
+  integrity sha512-9evi36UcJ1ke8TeyGOgSYWFq1V5rX82st/QjT0Bl7x8rxt5Xo8x8vNuq9oC1rexAkJl6CF00FJx4aRdpKzw01A==
 
 "@openstax/open-search-client@0.1.0":
   version "0.1.0"
