@@ -49,20 +49,24 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
     book_availability_in_amazon = osweb.book_status_on_amazon()
 
     # WHEN: Click the view online link in osweb book detail page
-    osweb.click_view_online()
+    # Removing this step and replacing with a standard Content load to get
+    # around the instance changes
+    # osweb.click_view_online()
+    rex = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
     # THEN: Order print copy option is present in rex page
-    rex = Content(selenium)
+    # AND: The Amazon link should be opened in a new tab
     if book_availability_in_amazon is not None:
-        Utilities.click_option(selenium, element=rex.order_print_copy)
-        # AND: The Amazon link should be opened in a new tab
-        rex.switch_to_window(1)
+        original = selenium.current_window_handle
+        Utilities.switch_to(driver=selenium, element=rex.order_print_copy)
         assert (
             rex.current_url == book_availability_in_amazon
         ), "rex book has different amazon link than osweb"
 
         # AND: Order print copy button is present in all pages
-        rex.switch_to_window(0)
+        new_handle = 0 if original == selenium.window_handles[0] else 1
+        if len(selenium.window_handles) > 1:
+            selenium.switch_to.window(selenium.window_handles[new_handle])
         rex.click_next_link()
         assert rex.order_print_copy.is_displayed()
 

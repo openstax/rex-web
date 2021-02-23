@@ -431,3 +431,22 @@ class Utilities(object):
         """
         driver.execute_script("window.scrollTo(0, 0);")
         sleep(0.75)
+
+    @classmethod
+    def switch_to(cls, driver, locator=None, element=None):
+        """Switch to the other window handle.
+
+        :param driver: the selenium webdriver object
+        :param locator: the element locator
+        :type locator: tuple(str, str)
+        :param element: an element
+        :type element: WebElement
+        :return: None
+
+        """
+        current = driver.current_window_handle
+        cls.click_option(driver=driver, locator=locator, element=element)
+        sleep(1)
+        new_handle = 1 if current == driver.window_handles[0] else 0
+        if len(driver.window_handles) > 1:
+            driver.switch_to.window(driver.window_handles[new_handle])

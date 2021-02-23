@@ -11,26 +11,31 @@ from utils.utility import Utilities
 
 
 class WebBase(Page):
+
+    DESKTOP = "//div[@class='bigger-view']"
+    MOBILE = "//div[@class='phone-view']"
+    PRINT_COPY = "//a[span[contains(text(), 'Order a print copy')]]"
     URL_TEMPLATE = "/details/books/{book_slug}"
+    VIEW_ONLINE = "//span[text()='View online']"
+
     _async_hide_locator = (By.CSS_SELECTOR, ".async-hide")
     _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-menu"]')
     _login_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
     _logout_locator = (By.CSS_SELECTOR, "[href*=signout]")
     _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
     _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[class="page-header active"]')
-    _view_online_desktop_locator = (
-        By.XPATH,
-        "//div[@class='bigger-view']//span[text()='View online']/..",
-    )
-    _view_online_mobile_locator = (
-        By.XPATH,
-        "//div[@class='phone-view']//span[text()='View online']/..",
-    )
+    _view_online_desktop_locator = (By.XPATH, f"{DESKTOP}{VIEW_ONLINE}/..")
+    _view_online_mobile_locator = (By.XPATH, f"{MOBILE}{VIEW_ONLINE}/..")
     _dialog_locator = (By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
     _dialog_title_locator = (By.CSS_SELECTOR, "#dialog-title")
     _got_it_button_locator = (By.CSS_SELECTOR, ".cookie-notice button")
-    _print_copy_locator = (By.XPATH, "//*[contains(text(), 'Order a print copy')]/..")
-    _order_on_amazon_locator = (By.CSS_SELECTOR, '[class="btn primary"]')
+    _print_copy_locator = (By.XPATH, f"{DESKTOP}{PRINT_COPY}")
+    _print_copy_mobile_locator = (By.XPATH, f"{MOBILE}{PRINT_COPY}")
+    _individual_copy_locator = (By.CSS_SELECTOR, ".phone-version > a.box:first-child")
+    _order_a_personal_copy_locator = (
+        By.CSS_SELECTOR,
+        ".larger-version [class='btn primary'][data-track=Print]"
+    )
     _close_locator = (By.CSS_SELECTOR, '[class="put-away"]')
     _osweb_404_locator = (By.CSS_SELECTOR, '[class*="not-found"]')
 
@@ -170,10 +175,19 @@ class WebBase(Page):
     def book_status_on_amazon(self):
         """Open the Book Order modal."""
         try:
-            Utilities.click_option(self.driver, locator=self._print_copy_locator)
-            if self.find_element(*self._order_on_amazon_locator):
-                Utilities.click_option(self.driver, locator=self._order_on_amazon_locator)
-                self.switch_to_window(1)
+            print_locator = (
+                self._print_copy_mobile_locator if self.is_mobile else
+                self._print_copy_locator
+            )
+            individual_locator = (
+                self._individual_copy_locator if self.is_mobile else
+                self._order_a_personal_copy_locator
+            )
+            Utilities.click_option(self.driver, locator=print_locator)
+            individual = self.find_elements(*individual_locator)
+            if individual:
+                Utilities.switch_to(self.driver, element=individual[0])
+                sleep(1)
                 amazon_link = self.current_url
                 self.driver.close()
                 self.driver.switch_to.window(self.driver.window_handles[0])
