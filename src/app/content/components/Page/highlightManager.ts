@@ -80,7 +80,7 @@ const onSelectHighlight = (
 const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter'>, intl: IntlShape) => {
 
   const highlighter: Highlighter = new Highlighter(services.container, {
-    formatMessage: (id: string, values?: Record<string, any>) => intl.formatMessage({ id }, values),
+    formatMessage: (id: string, style?: string) => intl.formatMessage({ id }, { style }),
     onClick: (highlight) => onClickHighlight({ ...services, highlighter }, highlight),
     onFocusIn: (highlight) => services.getProp().focus(highlight.id),
     onFocusOut: () => services.getProp().clearFocus(),
@@ -89,7 +89,6 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
     snapMathJax: true,
     snapTableRows: true,
     snapWords: true,
-    supportScreenreaders: true,
   });
   return highlighter;
 };

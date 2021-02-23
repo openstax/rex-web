@@ -7,6 +7,7 @@ import { memoizeStateToProps } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
 import allImagesLoaded from '../utils/allImagesLoaded';
+import { IntlShape } from 'react-intl';
 
 interface Services {
   highlighter: Highlighter;
@@ -81,11 +82,12 @@ const handleUpdate = (services: Services) => (
   selectResult(services, previous, current, options);
 };
 
-const searchHighlightManager = (container: HTMLElement) => {
+const searchHighlightManager = (container: HTMLElement, intl: IntlShape) => {
   const services = {
     container,
     highlighter: new Highlighter(container, {
       className: 'search-highlight',
+      formatMessage: (id: string) => intl.formatMessage({ id }, { style: 'search' }),
     }),
     searchResultMap: [],
   };
