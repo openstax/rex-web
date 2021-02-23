@@ -4,7 +4,7 @@ set -x
 modified_books=$(./script/get-modified-books.bash)
 code=0
 
-for row in $(jq -c '.[]' <<< "$modified_books"); do
+while read -r row; do
   book_id=$(jq -r '.book_id' <<< "$row")
   book_version=$(jq -r '.book_version' <<< "$row")
 
@@ -22,6 +22,6 @@ for row in $(jq -c '.[]' <<< "$modified_books"); do
     --useUnversionedUrls \
     || code=1
 
-done
+done < <(jq -c '.[]' <<< "$modified_books")
 
 exit $code
