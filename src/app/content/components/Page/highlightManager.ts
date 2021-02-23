@@ -9,6 +9,7 @@ import { isDefined } from '../../../guards';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow, memoizeStateToProps } from '../../../utils';
+import { assertDocument } from '../../../utils/browser-assertions';
 import {
   clearFocusedHighlight,
   focusHighlight,
@@ -83,7 +84,19 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
     formatMessage: (id: string, style?: string) => intl.formatMessage({ id }, { style }),
     onClick: (highlight) => onClickHighlight({ ...services, highlighter }, highlight),
     onFocusIn: (highlight) => services.getProp().focus(highlight.id),
-    onFocusOut: () => services.getProp().clearFocus(),
+    onFocusOut: () => {
+      defer(() => {
+        const activeElement = assertDocument().activeElement;
+        // Do not clear focus from highlight if it was moved to the related card or to another highlight
+        if (
+          activeElement
+          && (activeElement.hasAttribute('data-highlight-card') || activeElement.hasAttribute('data-highlighted'))
+        ) {
+          return;
+        }
+        services.getProp().clearFocus();
+      });
+    },
     onSelect: (...args) => onSelectHighlight({ ...services, highlighter }, ...args),
     skipIDsBy: /^(\d+$|term)/,
     snapMathJax: true,

@@ -4,7 +4,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
-import { useKeyCombination } from '../../../reactUtils';
+import { useFocusLost, useKeyCombination } from '../../../reactUtils';
 import { AppState } from '../../../types';
 import { assertDefined, assertNotNull, remsToPx } from '../../../utils';
 import { assertDocument } from '../../../utils/browser-assertions';
@@ -58,6 +58,8 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   }, [focusedHighlight]);
 
   useKeyCombination(highlightKeyCombination, moveFocus);
+
+  useFocusLost(element, true, () => setShouldFocusCard(false));
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
