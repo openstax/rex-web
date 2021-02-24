@@ -15,7 +15,9 @@ export default class AccessibilityButtonsWrapper extends Component {
         {(txt) => <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`}>{txt}</HiddenLink>}
       </FormattedMessage>
       <FormattedMessage id='i18n:a11y:accessibilityHelp'>
-        {(txt) => <HiddenLink href='/wip-accessibility-page-link'>{txt}</HiddenLink>}
+        {(txt) => <FormattedMessage id='i18n:a11y:accessibilityHelp:link'>
+          {(href) => <HiddenLink href={href}>{txt}</HiddenLink>}
+        </FormattedMessage>}
       </FormattedMessage>
       {this.props.children}
     </Provider>;

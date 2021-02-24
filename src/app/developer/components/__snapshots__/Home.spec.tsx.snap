@@ -11,7 +11,11 @@ Array [
   </a>,
   <a
     className="HiddenLink-wwwegq-0 kZsmVR"
-    href="/wip-accessibility-page-link"
+    href={
+      Array [
+        "https://openstax.org/accessibility-statement",
+      ]
+    }
   >
     Go to accessibility help page
   </a>,
