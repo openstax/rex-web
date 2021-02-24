@@ -5,6 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
@@ -69,10 +70,9 @@ const Card = (props: CardProps) => {
     if (shouldFocusCard && element.current) {
       element.current.focus();
     }
-    if (!isFocused && shouldFocusCard) {
-      focusCard();
-    }
   }, [isFocused, shouldFocusCard, focusCard]);
+
+  useFocusIn(element, true, focusCard);
 
   React.useEffect(() => {
     if (!props.isFocused) {

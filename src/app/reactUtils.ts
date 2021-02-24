@@ -18,25 +18,42 @@ export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   return ref;
 };
 
-export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => () => {
+export const onFocusInOrOutHandler = (
+  ref: React.RefObject<HTMLElement>,
+  isEnabled: boolean,
+  cb: () => void,
+  type: 'focusin' | 'focusout'
+) => () => {
   const el = ref && ref.current;
   if (!el) { return; }
 
   const handler = (event: FocusEvent) => {
     const relatedTarget = event.relatedTarget;
 
-    if (!isElement(relatedTarget) || !ref.current!.contains(relatedTarget)) {
+    if (
+      type === 'focusout'
+      && (!isElement(relatedTarget) || !ref.current!.contains(relatedTarget))
+    ) {
+      cb();
+    } else if (
+      type === 'focusin'
+      && (isElement(relatedTarget) && ref.current!.contains(assertDocument().activeElement))
+    ) {
       cb();
     }
   };
 
   if (isEnabled) {
-    return addSafeEventListener(el, 'focusout', handler);
+    return addSafeEventListener(el, type, handler);
   }
 };
 
 export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(onFocusLostHandler(ref, isEnabled, cb), [ref, isEnabled]);
+  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusout'), [ref, isEnabled]);
+};
+
+export const useFocusIn = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
+  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusin'), [ref, isEnabled]);
 };
 
 export const onDOMEventHandler = (

@@ -59,7 +59,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   useKeyCombination(highlightKeyCombination, moveFocus);
 
-  useFocusLost(element, true, () => setShouldFocusCard(false));
+  useFocusLost(element, shouldFocusCard, () => setShouldFocusCard(false));
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;

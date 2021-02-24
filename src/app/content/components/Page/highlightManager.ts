@@ -48,7 +48,7 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
-const onClickHighlight = (services: HighlightManagerServices, highlight: Highlight | undefined) => defer(async() => {
+const onFocusHighlight = (services: HighlightManagerServices, highlight: Highlight | undefined) => defer(async() => {
   if (!highlight || services.getProp().focused === highlight.id) {
     return;
   }
@@ -82,12 +82,15 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
 
   const highlighter: Highlighter = new Highlighter(services.container, {
     formatMessage: (id: string, style?: string) => intl.formatMessage({ id }, { style }),
-    onClick: (highlight) => onClickHighlight({ ...services, highlighter }, highlight),
-    onFocusIn: (highlight) => services.getProp().focus(highlight.id),
+    onClick: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
+    onFocusIn: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
     onFocusOut: () => {
       defer(() => {
-        const activeElement = assertDocument().activeElement;
         // Do not clear focus from highlight if it was moved to the related card or to another highlight
+        // This function is defered because moving focus is done in a hook inside Card component
+        // which is triggered by a hook in CardWrapper component.
+        // We still want to clear focused highlight if user TAB outside of it, for example to figure link.
+        const activeElement = assertDocument().activeElement;
         if (
           activeElement
           && (activeElement.hasAttribute('data-highlight-card') || activeElement.hasAttribute('data-highlighted'))
