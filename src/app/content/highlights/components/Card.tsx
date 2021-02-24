@@ -44,6 +44,7 @@ export interface CardProps {
   data?: HighlightData;
   className: string;
   zIndex: number;
+  // If this prop is true then focus will be moved to this card.
   shouldFocusCard: boolean;
   topOffset?: number;
   highlightOffsets?: { top: number, bottom: number };
@@ -70,7 +71,7 @@ const Card = (props: CardProps) => {
     if (shouldFocusCard && element.current) {
       element.current.focus();
     }
-  }, [isFocused, shouldFocusCard, focusCard]);
+  }, [element, shouldFocusCard]);
 
   useFocusIn(element, true, focusCard);
 

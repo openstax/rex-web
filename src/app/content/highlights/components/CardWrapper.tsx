@@ -38,6 +38,11 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     [focusedId, highlights]);
   const prevFocusedHighlightId = React.useRef(focusedId);
 
+  // This function is triggered by keyboard shortuct defined in useKeyCombination(...)
+  // If user used it while having focus inside of a highlight we'll set shouldFocusCard to true
+  // and pass this as a prop only for the card that should be focused.
+  // If user used it while having focus inside of a card we'll find a highlight in the content
+  // and move focus to this highlight + reset shouldFocusCard state.
   const moveFocus = React.useCallback(() => {
     const document = assertDocument();
     const activeElement = document.activeElement;
@@ -59,6 +64,8 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   useKeyCombination(highlightKeyCombination, moveFocus);
 
+  // Clear shouldFocusCard when focus is lost from the CardWrapper.
+  // If we don't do this then card related for the focused highlight will be focused automatically.
   useFocusLost(element, shouldFocusCard, () => setShouldFocusCard(false));
 
   const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
