@@ -14,7 +14,7 @@ export const highlightIndicatorSizeForBlock = 1.2;
 export const highlightIndicatorSize = 0.9;
 
 export const highlightKeyCombination: KeyCombinationOptions = {
-  ctrlKey: true,
+  altKey: true,
   key: 'H',
   shiftKey: true,
 };
