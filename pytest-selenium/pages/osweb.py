@@ -9,6 +9,9 @@ from time import sleep
 from pages.base import Page
 from utils.utility import Utilities
 
+HAS_HEIGHT = "return window.getComputedStyle(arguments[0]).height != 'auto';"
+SET_HREF = "arguments[0].href = '{0}';"
+
 
 class WebBase(Page):
 
@@ -18,26 +21,48 @@ class WebBase(Page):
     URL_TEMPLATE = "/details/books/{book_slug}"
     VIEW_ONLINE = "//a[span[text()='View online']]"
 
-    _body_data_init_locator = (By.CSS_SELECTOR, "body[data-abr=init]")
-    _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-menu"]')
-    _login_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
-    _logout_locator = (By.CSS_SELECTOR, "[href*=signout]")
-    _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
-    _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[class="page-header active"]')
-    _view_online_desktop_locator = (By.XPATH, f"{DESKTOP}{VIEW_ONLINE}")
-    _view_online_mobile_locator = (By.XPATH, f"{MOBILE}{VIEW_ONLINE}")
-    _dialog_locator = (By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
-    _dialog_title_locator = (By.CSS_SELECTOR, "#dialog-title")
-    _got_it_button_locator = (By.CSS_SELECTOR, ".cookie-notice button")
-    _print_copy_locator = (By.XPATH, f"{DESKTOP}{PRINT_COPY}")
-    _print_copy_mobile_locator = (By.XPATH, f"{MOBILE}{PRINT_COPY}")
-    _individual_copy_locator = (By.CSS_SELECTOR, ".phone-version > a.box:first-child")
+    _body_data_init_locator = (
+        By.CSS_SELECTOR, "body[data-abr=init]")
+    _call_out_put_away_button_locator = (
+        By.CSS_SELECTOR, ".callout .put-away")
+    _close_locator = (
+        By.CSS_SELECTOR, '[class="put-away"]')
+    _dialog_locator = (
+        By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
+    _dialog_title_locator = (
+        By.CSS_SELECTOR, "#dialog-title")
+    _got_it_button_locator = (
+        By.CSS_SELECTOR, ".cookie-notice button")
+    _individual_copy_locator = (
+        By.CSS_SELECTOR, ".phone-version > a.box:first-child")
+    _logout_locator = (
+        By.CSS_SELECTOR, "[href*=signout]")
+    _log_in_locator = (
+        By.CSS_SELECTOR, '[class="pardotTrackClick"]')
+    _mobile_user_nav_loaded_locator = (
+        By.CSS_SELECTOR, '[class="page-header active"]')
+    _mobile_user_nav_locator = (
+        By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
+    _pi_close_button_locator = (
+        By.CSS_SELECTOR, "._pi_closeButton")
+    _print_copy_locator = (
+        By.XPATH, f"{DESKTOP}{PRINT_COPY}")
+    _print_copy_mobile_locator = (
+        By.XPATH, f"{MOBILE}{PRINT_COPY}")
     _order_a_personal_copy_locator = (
-        By.CSS_SELECTOR,
-        ".larger-version [class='btn primary'][data-track=Print]"
-    )
-    _close_locator = (By.CSS_SELECTOR, '[class="put-away"]')
-    _osweb_404_locator = (By.CSS_SELECTOR, '[class*="not-found"]')
+        By.CSS_SELECTOR, ".larger-version [class='btn primary'][data-track=Print]")
+    _osweb_404_locator = (
+        By.CSS_SELECTOR, '[class*="not-found"]')
+    _sticky_note_put_away_button_locator = (
+        By.CSS_SELECTOR, "#lower-sticky-note .put-away")
+    _user_nav_locator = (
+        By.CSS_SELECTOR, '[class*="login-menu"]')
+    _view_online_desktop_locator = (
+        By.XPATH, f"{DESKTOP}{VIEW_ONLINE}")
+    _view_online_links_locator = (
+        By.XPATH, "//a[span[contains(text(),'View online')]]")
+    _view_online_mobile_locator = (
+        By.XPATH, f"{MOBILE}{VIEW_ONLINE}")
 
     @property
     def loaded(self):
@@ -68,7 +93,7 @@ class WebBase(Page):
 
     @property
     def login(self):
-        return self.find_element(*self._login_locator)
+        return self.find_element(*self._log_in_locator)
 
     @property
     def user_nav(self):
@@ -199,20 +224,6 @@ class WebBase(Page):
 
     def close_modal(self):
         (ActionChains(self.driver).send_keys(Keys.ESCAPE).perform())
-
-    HAS_HEIGHT = (
-        "return window.getComputedStyle(arguments[0]).height != 'auto';")
-    SET_HREF = (
-        "arguments[0].href = '{0}';")
-
-    _call_out_put_away_button_locator = (
-        By.CSS_SELECTOR, ".callout .put-away")
-    _pi_close_button_locator = (
-        By.CSS_SELECTOR, "._pi_closeButton")
-    _sticky_note_put_away_button_locator = (
-        By.CSS_SELECTOR, "#lower-sticky-note .put-away")
-    _view_online_links_locator = (
-        By.XPATH, "//a[span[contains(text(),'View online')]]")
 
     def close_dialogs(self):
         """Close OSWeb dialog and survey boxes.
