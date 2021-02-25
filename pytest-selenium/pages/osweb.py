@@ -16,16 +16,16 @@ class WebBase(Page):
     MOBILE = "//div[@class='phone-view']"
     PRINT_COPY = "//a[span[contains(text(), 'Order a print copy')]]"
     URL_TEMPLATE = "/details/books/{book_slug}"
-    VIEW_ONLINE = "//span[text()='View online']"
+    VIEW_ONLINE = "//a[span[text()='View online']]"
 
-    _async_hide_locator = (By.CSS_SELECTOR, ".async-hide")
+    _body_data_init_locator = (By.CSS_SELECTOR, "body[data-abr=init]")
     _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-menu"]')
     _login_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
     _logout_locator = (By.CSS_SELECTOR, "[href*=signout]")
     _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
     _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[class="page-header active"]')
-    _view_online_desktop_locator = (By.XPATH, f"{DESKTOP}{VIEW_ONLINE}/..")
-    _view_online_mobile_locator = (By.XPATH, f"{MOBILE}{VIEW_ONLINE}/..")
+    _view_online_desktop_locator = (By.XPATH, f"{DESKTOP}{VIEW_ONLINE}")
+    _view_online_mobile_locator = (By.XPATH, f"{MOBILE}{VIEW_ONLINE}")
     _dialog_locator = (By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
     _dialog_title_locator = (By.CSS_SELECTOR, "#dialog-title")
     _got_it_button_locator = (By.CSS_SELECTOR, ".cookie-notice button")
@@ -49,10 +49,10 @@ class WebBase(Page):
         Return when the async event is hidden.
 
         """
-        script = r'document.addEventListener("load", function(event) {});'
-        sleep(0.5)
-        async_hide = bool(self.find_elements(*self._async_hide_locator))
-        return (self.driver.execute_script(script)) or (not async_hide)
+        script = r'window.addEventListener("load", function(event) {});'
+        self.driver.execute_script(script)
+        sleep(1.0)
+        return bool(self.find_elements(*self._body_data_init_locator))
 
     def wait_for_load(self):
         return self.wait.until(lambda _: self.loaded)
@@ -133,7 +133,6 @@ class WebBase(Page):
         self.wait_for_load()
 
     def click_view_online(self):
-        # self.offscreen_click(self.view_online)
         Utilities.click_option(self.driver, element=self.view_online)
 
     def click_mobile_user_nav(self):
@@ -147,18 +146,19 @@ class WebBase(Page):
     @property
     def notification_dialog_displayed(self) -> bool:
         """Return True if the dialog box is displayed.
+
         :return: ``True`` if the dialog box is displayed
         :rtype: bool
+
         """
-        try:
-            return bool(self.find_element(*self._dialog_locator))
-        except NoSuchElementException:
-            return False
+        return bool(self.find_elements(*self._dialog_locator))
 
     def click_notification_got_it(self):
         """Click the 'Got it!' button.
+
         :return: the home page
         :rtype: :py:class:`~pages.web.home.WebHome`
+
         """
         button = self.find_element(*self._got_it_button_locator)
         Utilities.click_option(self.driver, element=button)
@@ -167,8 +167,10 @@ class WebBase(Page):
     @property
     def title(self) -> str:
         """Return the dialog box title.
+
         :return: the Privacy and Cookies dialog box title
         :rtype: str
+
         """
         return self.find_element(*self._dialog_title_locator).text
 
@@ -197,3 +199,63 @@ class WebBase(Page):
 
     def close_modal(self):
         (ActionChains(self.driver).send_keys(Keys.ESCAPE).perform())
+
+    HAS_HEIGHT = (
+        "return window.getComputedStyle(arguments[0]).height != 'auto';")
+    SET_HREF = (
+        "arguments[0].href = '{0}';")
+
+    _call_out_put_away_button_locator = (
+        By.CSS_SELECTOR, ".callout .put-away")
+    _pi_close_button_locator = (
+        By.CSS_SELECTOR, "._pi_closeButton")
+    _sticky_note_put_away_button_locator = (
+        By.CSS_SELECTOR, "#lower-sticky-note .put-away")
+    _view_online_links_locator = (
+        By.XPATH, "//a[span[contains(text(),'View online')]]")
+
+    def close_dialogs(self):
+        """Close OSWeb dialog and survey boxes.
+
+        :return: None
+
+        """
+        # Pulse Insights survey
+        pi_close_button = self.find_elements(
+            *self._pi_close_button_locator)
+        if pi_close_button:
+            Utilities.click_option(
+                self.driver, element=pi_close_button[0])
+
+        # Sticky note alert or donation bar
+        sticky_note_close_button = self.find_elements(
+            *self._sticky_note_put_away_button_locator)
+        if sticky_note_close_button:
+            Utilities.click_option(
+                self.driver, element=sticky_note_close_button[0])
+
+        # In-line call out modal for phone or full view
+        call_out_put_away_button = [
+            button
+            for button
+            in self.find_elements(*self._call_out_put_away_button_locator)
+            if self.driver.execute_script(self.HAS_HEIGHT, button)]
+        if call_out_put_away_button:
+            Utilities.click_option(
+                self.driver, element=call_out_put_away_button[0])
+
+    def fix_view_online_url(self, base_url: str):
+        """Fix a non-staging/prod View online link.
+
+        :param str base_url: the expected instance base URL
+        :return: None
+
+        """
+        base = base_url.split("/")[2]
+        for link in self.find_elements(*self._view_online_links_locator):
+            url = link.get_attribute("href")
+            split_url = url.split("/")
+            split_url[2] = base
+            new_url = "/".join(split_url)
+            self.driver.execute_script(
+                self.SET_HREF.format(new_url), link)
