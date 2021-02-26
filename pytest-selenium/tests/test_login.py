@@ -22,7 +22,8 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
 
     # THEN: The page navigates to accounts/login
     expected_page_url = (
-        f"{base_url}/accounts/i/login?r=%2Fbooks%2F" f"{book_slug}%2Fpages%2F{page_slug}"
+        f"{base_url}/accounts/i/login?r=%2Fbooks%2F"
+        f"{book_slug}%2Fpages%2F{page_slug}"
     )
     assert expected_page_url in selenium.current_url, "not viewing the Accounts log in page"
 
@@ -79,6 +80,7 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
 
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
     osweb.wait_for_load()
+    osweb.close_dialogs()
 
     # THEN: osweb is in logged-in state
     assert osweb.user_is_logged_in
@@ -113,7 +115,7 @@ def test_rex_login_state_when_redirected_from_osweb(
     osweb_username = osweb.osweb_username(osweb.user_nav)
 
     # WHEN: Click the view online link in osweb book detail page
-    osweb.fix_view_online_url()
+    osweb.fix_view_online_url(base_url)
     osweb.click_view_online()
 
     # THEN: The book page is opened in REX with the same user as openstax.org
@@ -218,6 +220,7 @@ def test_cookie_notice_not_accepted_in_osweb_displayed_in_rex(
     osweb.wait_for_load()
 
     # WHEN: Click the view online link in osweb book detail page
+    osweb.fix_view_online_url(base_url)
     osweb.click_view_online()
 
     # THEN: The book page is opened in REX
@@ -259,6 +262,7 @@ def test_cookie_notice_accepted_in_osweb_not_displayed_in_rex(
     osweb.click_notification_got_it()
 
     # WHEN: Click the view online link in osweb book detail page
+    osweb.fix_view_online_url(base_url)
     osweb.click_view_online()
 
     # THEN: The book page is opened in REX
