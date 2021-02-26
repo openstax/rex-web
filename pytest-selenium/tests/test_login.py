@@ -113,6 +113,7 @@ def test_rex_login_state_when_redirected_from_osweb(
     osweb_username = osweb.osweb_username(osweb.user_nav)
 
     # WHEN: Click the view online link in osweb book detail page
+    osweb.fix_view_online_url()
     osweb.click_view_online()
 
     # THEN: The book page is opened in REX with the same user as openstax.org
