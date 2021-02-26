@@ -103,6 +103,7 @@ def test_rex_login_state_when_redirected_from_osweb(
     # GIVEN: Open osweb book details page
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
     osweb.wait_for_load()
+    osweb.close_dialogs()
     osweb.click_login()
 
     # AND: Login as existing user
@@ -165,6 +166,7 @@ def test_cookie_notice_accepted_in_rex_not_displayed_in_osweb(
     # THEN: Cookie notice should not be displayed in the osweb page
     osweb = WebBase(selenium)
     osweb.wait_for_page_to_load()
+    osweb.close_dialogs()
 
     assert not osweb.notification_dialog_displayed
 
@@ -199,6 +201,7 @@ def test_cookie_notice_not_accepted_in_rex_displayed_in_osweb(
     # THEN: Cookie notice is displayed in the osweb page
     osweb = WebBase(selenium)
     osweb.wait_for_page_to_load()
+    osweb.close_dialogs()
 
     assert osweb.notification_dialog_displayed
 
@@ -212,12 +215,14 @@ def test_cookie_notice_not_accepted_in_osweb_displayed_in_rex(
     # GIVEN: Open osweb book details page
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
     osweb.wait_for_load()
+    osweb.close_dialogs()
     osweb.click_login()
 
     # AND: Login as existing user
     accounts = Login(selenium)
     accounts.login(email, password)
     osweb.wait_for_load()
+    osweb.close_dialogs()
 
     # WHEN: Click the view online link in osweb book detail page
     osweb.fix_view_online_url(base_url)
