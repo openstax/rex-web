@@ -250,7 +250,7 @@ class WebBase(Page):
             button
             for button
             in self.find_elements(*self._call_out_put_away_button_locator)
-            if self.driver.execute_script(self.HAS_HEIGHT, button)]
+            if self.driver.execute_script(HAS_HEIGHT, button)]
         if call_out_put_away_button:
             Utilities.click_option(
                 self.driver, element=call_out_put_away_button[0])
@@ -268,5 +268,4 @@ class WebBase(Page):
             split_url = url.split("/")
             split_url[2] = base
             new_url = "/".join(split_url)
-            self.driver.execute_script(
-                self.SET_HREF.format(new_url), link)
+            self.driver.execute_script(SET_HREF.format(new_url), link)
