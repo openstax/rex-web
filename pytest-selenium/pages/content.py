@@ -1554,7 +1554,7 @@ class Content(Page):
             self.search_textbox.send_keys(search_term)
             self.offscreen_click(self.search_textbox)
             self.page.search_sidebar.wait_for_region_to_display()
-            sleep(0.5)
+            sleep(1.0)
             return self.page.search_sidebar
 
     class NavBar(Region):
@@ -1851,5 +1851,5 @@ class Content(Page):
             self.search_textbox.send_keys(search_term)
             self.offscreen_click(self.search_button)
             self.page.search_sidebar.wait_for_region_to_display()
-            sleep(0.25)
+            sleep(1.0)
             return self.page.search_sidebar
