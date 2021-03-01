@@ -14,7 +14,7 @@ import { cardMarginBottom, highlightKeyCombination } from '../constants';
 import { focused } from '../selectors';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
-import { getHighlightOffset } from './cardUtils';
+import { disableKeyCombinationHandler, getHighlightOffset } from './cardUtils';
 
 export interface WrapperProps {
   hasQuery: boolean;
@@ -62,7 +62,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
   }, [focusedHighlight]);
 
-  useKeyCombination(highlightKeyCombination, moveFocus);
+  useKeyCombination(highlightKeyCombination, moveFocus, disableKeyCombinationHandler);
 
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.

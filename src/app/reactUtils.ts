@@ -1,5 +1,5 @@
 import { FocusEvent, HTMLElement, HTMLElementEventMap,
-  KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
+  KeyboardEvent, MediaQueryListEvent, Element } from '@openstax/types/lib.dom';
 import React from 'react';
 import { addSafeEventListener } from './domUtils';
 import { isElement, isWindow } from './guards';
@@ -269,21 +269,35 @@ export const useDisableContentTabbing = (isEnabled: boolean) => {
 
 export type KeyCombinationOptions = Partial<Pick<KeyboardEvent, 'altKey' | 'ctrlKey' | 'key' | 'metaKey' | 'shiftKey'>>;
 
+/**
+ * Attach keydown event listener to the document and check if clicked keys are matching @param options
+ * Value of @param options.key is converted to lowercase before comparing.
+ * @param {KeyCombinationOptions} options
+ * @param {Function} callback
+ */
 export const useKeyCombination = (
   options: KeyCombinationOptions,
-  callback: () => void
+  callback: () => void,
+  disableHandler?: (activeElement: Element | null) => boolean
 ) => {
   const document = assertDocument();
 
   const handler = React.useCallback((event: KeyboardEvent) => {
+    if (disableHandler && disableHandler(document.activeElement)) {
+      return;
+    }
     for (const option in options) {
-      if (event[option as keyof KeyCombinationOptions] !== options[option as keyof KeyCombinationOptions]) {
+      if (
+        (option === 'key' && event.key.toLowerCase() !== options.key!.toLowerCase())
+        || (event[option as keyof KeyCombinationOptions] !== options[option as keyof KeyCombinationOptions])
+      ) {
         return;
       }
     }
     event.preventDefault();
     callback();
-  }, [options, callback]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callback, options]);
 
   React.useEffect(() => {
     document.addEventListener('keydown', handler);

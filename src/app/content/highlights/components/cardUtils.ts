@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
-import { HTMLElement, } from '@openstax/types/lib.dom';
+import { Element, HTMLElement, } from '@openstax/types/lib.dom';
 import { findElementSelfOrParent } from '../../../domUtils';
 import { assertWindow } from '../../../utils';
 import { HighlightData } from '../types';
@@ -70,4 +70,13 @@ export const generateUpdatePayload = (
   };
 
   return {updatePayload, preUpdateData};
+};
+
+export const disableKeyCombinationHandler = (activeElement: Element | null): boolean => {
+  if (!activeElement) { return false; }
+  if (activeElement.nodeName === 'TEXTAREA') { return true; }
+  if (activeElement.nodeName === 'INPUT') {
+    return activeElement.getAttribute('type') === 'text';
+  }
+  return false;
 };
