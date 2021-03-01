@@ -149,8 +149,9 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   return highlights.length
     ? <div className={className} ref={element}>
-      {highlights.map((highlight, index) => (
-        <Card
+      {highlights.map((highlight, index) => {
+        const focusThisCard = shouldFocusCard && focusedId === highlight.id;
+        return <Card
           highlighter={highlighter}
           highlight={highlight}
           key={highlight.id}
@@ -159,9 +160,10 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           highlightOffsets={offsets.get(highlight.id)}
           onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
           zIndex={highlights.length - index}
-          shouldFocusCard={shouldFocusCard && focusedId === highlight.id}
-        />
-      ))}
+          shouldFocusCard={focusThisCard}
+          moveFocusToTheHighlight={focusThisCard ? () => moveFocus() : () => null}
+        />;
+      })}
     </div>
     : null;
 };

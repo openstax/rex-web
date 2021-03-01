@@ -39,6 +39,7 @@ export interface EditCardProps {
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   data?: HighlightData;
   className: string;
+  moveFocusToTheHighlight: () => void;
 }
 
 // tslint:disable-next-line:variable-name
@@ -131,6 +132,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     }));
     trackEditAnnotation(addedNote, toSave.color);
     props.onCancel();
+    props.moveFocusToTheHighlight();
   };
 
   const updateUnsavedHighlightStatus = (newValue: string) => {
