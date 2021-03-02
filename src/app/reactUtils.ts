@@ -1,5 +1,5 @@
-import { FocusEvent, HTMLElement, HTMLElementEventMap,
-  KeyboardEvent, MediaQueryListEvent, Element } from '@openstax/types/lib.dom';
+import { Element, FocusEvent, HTMLElement,
+  HTMLElementEventMap, KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { addSafeEventListener } from './domUtils';
 import { isElement, isWindow } from './guards';
