@@ -278,12 +278,12 @@ export type KeyCombinationOptions = Partial<Pick<KeyboardEvent, 'altKey' | 'ctrl
 export const useKeyCombination = (
   options: KeyCombinationOptions,
   callback: () => void,
-  disableHandler?: (activeElement: Element | null) => boolean
+  noopHandler?: (activeElement: Element | null) => boolean
 ) => {
   const document = assertDocument();
 
   const handler = React.useCallback((event: KeyboardEvent) => {
-    if (disableHandler && disableHandler(document.activeElement)) {
+    if (noopHandler && noopHandler(document.activeElement)) {
       return;
     }
     for (const option in options) {

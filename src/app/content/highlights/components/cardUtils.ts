@@ -72,7 +72,7 @@ export const generateUpdatePayload = (
   return {updatePayload, preUpdateData};
 };
 
-export const disableKeyCombinationHandler = (activeElement: Element | null): boolean => {
+export const noopKeyCombinationHandler = (activeElement: Element | null): boolean => {
   if (!activeElement) { return false; }
   if (activeElement.nodeName === 'TEXTAREA') { return true; }
   if (activeElement.nodeName === 'INPUT') {

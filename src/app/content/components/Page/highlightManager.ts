@@ -86,7 +86,7 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
     onFocusIn: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
     onFocusOut: () => {
       defer(() => {
-        // Do not clear focus from highlight if it was moved to the related card or to another highlight
+        // Do not clear focus from highlight if it was moved to the Card component or to another highlight
         // This function is defered because moving focus is done in a hook inside Card component
         // which is triggered by a hook in CardWrapper component.
         // We still want to clear focused highlight if user TAB outside of it, for example to figure link.
