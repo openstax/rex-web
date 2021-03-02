@@ -20,6 +20,7 @@ import { HighlightData, HighlightScrollTarget } from '../../highlights/types';
 import { Page } from '../../types';
 import highlightManager from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
+import { assertDocument } from '../../../utils/browser-assertions';
 
 jest.mock('@openstax/highlighter');
 
@@ -141,24 +142,57 @@ describe('highlightManager', () => {
     highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
-    options.formatMessage('id', { value: 'abc' });
-    expect(intl.formatMessage).toHaveBeenCalledWith({ id: 'id' }, { value: 'abc' });
+    options.formatMessage('id', 'abc');
+    expect(intl.formatMessage).toHaveBeenCalledWith({ id: 'id' }, { style: 'abc' });
   });
 
-  it('calls highlighter.onFocusIn', () => {
+  it('highlighter.onFocusIn triggers prop.focus', async() => {
     highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
-    options.onFocusIn({ id: 'abc' });
-    expect(prop.focus).toHaveBeenCalledWith('abc');
+    const mockHighlight = { id: 'abc' };
+    options.onFocusIn(mockHighlight);
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.focus).toHaveBeenCalledWith(mockHighlight.id);
   });
 
-  it('calls highlighter.onFocusOut', () => {
+  it('highlighter.onFocusOut triggers prop.clearFocus', async() => {
     highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
     options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).toHaveBeenCalled();
+  });
+
+  it('highlighter.onFocusOut noop if active element is on element with data-highlighted', async() => {
+    highlightManager(element, () => prop, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    const document = assertDocument();
+    const highlightElement = document.createElement('span');
+    highlightElement.setAttribute('data-highlighted', 'true');
+    highlightElement.setAttribute('tabindex', '0');
+    document.body.append(highlightElement);
+    highlightElement.focus();
+    options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.clearFocus).not.toHaveBeenCalled();
+  });
+
+  it('highlighter.onFocusOut noop if active element is on element with data-highlight-card', async() => {
+    highlightManager(element, () => prop, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    const document = assertDocument();
+    const highlightElement = document.createElement('span');
+    highlightElement.setAttribute('data-highlight-card', 'true');
+    highlightElement.setAttribute('tabindex', '0');
+    document.body.append(highlightElement);
+    highlightElement.focus();
+    options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.clearFocus).not.toHaveBeenCalled();
   });
 
   it('highlights highlights', () => {
