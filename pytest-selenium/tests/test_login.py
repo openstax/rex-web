@@ -121,6 +121,7 @@ def test_rex_login_state_when_redirected_from_osweb(
 
     # THEN: The book page is opened in REX with the same user as openstax.org
     rex = Content(selenium)
+    rex.wait_for_page_to_load()
     rex_nav = rex.navbar
     assert rex_nav.user_is_logged_in
     rex_username = rex.username(rex_nav.user_nav_toggle)
