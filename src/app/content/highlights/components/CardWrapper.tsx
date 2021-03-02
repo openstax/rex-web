@@ -39,17 +39,19 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const prevFocusedHighlightId = React.useRef(focusedId);
 
   // This function is triggered by keyboard shortuct defined in useKeyCombination(...)
-  // If user used it while having focus inside of a highlight we'll set shouldFocusCard to true
-  // and pass this as a prop only for the card that should be focused.
-  // If user used it while having focus inside of a card we'll find a highlight in the content
-  // and move focus to this highlight + reset shouldFocusCard state.
+  // If user used it while having focus outside of this component and when focusedHighlight is truthy
+  // then we want move focus to the proper Card component by setting shouldFocusCard to true.
+  // If user used it while having focus inside of this component then we want to
+  // focus highlight in the content for the focusedHighlight and reset shouldFocusCard to false.
   const moveFocus = React.useCallback(() => {
     const document = assertDocument();
     const activeElement = document.activeElement;
-    const highlightId = activeElement && activeElement.getAttribute('data-highlight-id');
-    if (highlightId) {
-      setShouldFocusCard(true);
-    } else if (focusedHighlight) {
+
+    if (!focusedHighlight || !activeElement || !element.current) {
+      return;
+    }
+
+    if (element.current.contains(activeElement)) {
       let highlightElement: HTMLElement | undefined | null;
       focusedHighlight.elements.some((el) => {
         highlightElement = (el as HTMLElement).querySelector('[data-for-screenreaders]') as HTMLElement | null;
@@ -59,8 +61,10 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
         highlightElement.focus();
         setShouldFocusCard(false);
       }
+    } else {
+      setShouldFocusCard(true);
     }
-  }, [focusedHighlight]);
+  }, [element, focusedHighlight]);
 
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler);
 
