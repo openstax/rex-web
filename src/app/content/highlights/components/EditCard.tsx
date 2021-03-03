@@ -132,7 +132,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     }));
     trackEditAnnotation(addedNote, toSave.color);
     props.onCancel();
-    props.moveFocusToTheHighlight();
+    props.highlight.focus();
   };
 
   const updateUnsavedHighlightStatus = (newValue: string) => {

@@ -105,7 +105,7 @@ const Card = (props: CardProps) => {
   const locationFilterId = location && stripIdVersion(location.id);
 
   const { page, book } = props;
-  if (!props.highlight.range || !page || !book || !locationFilterId || (!props.isFocused && !annotation)) {
+  if (!props.highlight.range || !page || !book || !locationFilterId) {
     return null;
   }
 

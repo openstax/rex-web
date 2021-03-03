@@ -97,6 +97,9 @@ const fadeInAnimation = css`
 `;
 
 export const mainCardStyles = css`
+  ${(props: CardProps) => !props.isFocused && (!props.data || !props.data.annotation)
+    ? 'display: none;'
+    : 'display: block;'}
   ${fadeInAnimation}
   position: absolute;
   padding: ${cardPadding}rem;

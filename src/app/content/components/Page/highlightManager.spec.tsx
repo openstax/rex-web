@@ -14,13 +14,13 @@ import { page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
+import { assertDocument } from '../../../utils/browser-assertions';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import { HighlightData, HighlightScrollTarget } from '../../highlights/types';
 import { Page } from '../../types';
 import highlightManager from './highlightManager';
 import { HighlightProp, stubHighlightManager } from './highlightManager';
-import { assertDocument } from '../../../utils/browser-assertions';
 
 jest.mock('@openstax/highlighter');
 
@@ -161,7 +161,6 @@ describe('highlightManager', () => {
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
     options.onFocusOut();
-    await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).toHaveBeenCalled();
   });
 
@@ -176,7 +175,6 @@ describe('highlightManager', () => {
     document.body.append(highlightElement);
     highlightElement.focus();
     options.onFocusOut();
-    await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).not.toHaveBeenCalled();
   });
 
@@ -191,7 +189,6 @@ describe('highlightManager', () => {
     document.body.append(highlightElement);
     highlightElement.focus();
     options.onFocusOut();
-    await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).not.toHaveBeenCalled();
   });
 
