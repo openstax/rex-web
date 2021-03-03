@@ -28,16 +28,18 @@ export const onFocusInOrOutHandler = (
   if (!el) { return; }
 
   const handler = (event: FocusEvent) => {
-    const relatedTarget = event.relatedTarget;
+    const target = type === 'focusout'
+      ? event.relatedTarget
+      : event.target;
 
     if (
       type === 'focusout'
-      && (!isElement(relatedTarget) || !ref.current!.contains(relatedTarget))
+      && (!isElement(target) || !ref.current!.contains(target))
     ) {
       cb();
     } else if (
       type === 'focusin'
-      && (isElement(relatedTarget) && ref.current!.contains(assertDocument().activeElement))
+      && (isElement(target) && ref.current!.contains(target))
     ) {
       cb();
     }
@@ -270,8 +272,31 @@ export const useDisableContentTabbing = (isEnabled: boolean) => {
 export type KeyCombinationOptions = Partial<Pick<KeyboardEvent, 'altKey' | 'ctrlKey' | 'key' | 'metaKey' | 'shiftKey'>>;
 
 /**
+ * Compare @param options key-value pairs with properties from @param event
+ * If both values are of type string they are changed to lower case before comparing.
+ */
+const keyboardEventMatchesCombination = (options: KeyCombinationOptions, event: KeyboardEvent): boolean => {
+  const entries = Object.entries(options) as Array<[
+    keyof KeyCombinationOptions,
+    KeyCombinationOptions[keyof KeyCombinationOptions]
+  ]>;
+  for (const [option, value] of entries) {
+    const eventValue = event[option];
+    if (
+      (typeof value === 'string' && typeof eventValue === 'string')
+      && value.toLowerCase() !== eventValue.toLowerCase()
+    ) {
+      return false;
+    }
+    if (value !== eventValue) {
+      return false;
+    }
+  }
+  return true;
+};
+
+/**
  * Attach keydown event listener to the document and check if clicked keys are matching @param options
- * Value of @param options.key is converted to lowercase before comparing.
  * @param {KeyCombinationOptions} options
  * @param {Function} callback
  */
@@ -283,19 +308,13 @@ export const useKeyCombination = (
   const document = assertDocument();
 
   const handler = React.useCallback((event: KeyboardEvent) => {
-    if (noopHandler && noopHandler(document.activeElement)) {
+    if (noopHandler && isElement(event.target) && noopHandler(event.target)) {
       return;
     }
-    for (const option in options) {
-      if (
-        (option === 'key' && event.key.toLowerCase() !== options.key!.toLowerCase())
-        || (event[option as keyof KeyCombinationOptions] !== options[option as keyof KeyCombinationOptions])
-      ) {
-        return;
-      }
+    if (keyboardEventMatchesCombination(options, event)) {
+      event.preventDefault();
+      callback();
     }
-    event.preventDefault();
-    callback();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callback, options]);
 
