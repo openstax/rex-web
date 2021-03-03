@@ -774,6 +774,7 @@ class Content(Page):
             color: Union[Color, None] = Color.YELLOW,
             note: str = "",
             close_box: bool = True,
+            tries: int = 5
         ):
             """Highlight a page element.
 
@@ -791,11 +792,14 @@ class Content(Page):
                 default: no note
             :param close_box: (optional) close the edit highlight pop up box
                 default: ``True``
+            :param tries: (optional) the number of highlight attempts
+                default: 5
             :type target: WebElement
             :type offset: tuple(int, int), int
             :type color: :py:class:`~utils.utility.Color` or None
             :type note: str
-            :type: close_box: bool
+            :type close_box: bool
+            :type tries: int
             :return: None
 
             """
@@ -905,7 +909,10 @@ class Content(Page):
             if target.tag_name == "img" or target.tag_name == "figure":
                 end = (width * 0.75, 3)
             elif offset == Highlight.ENTIRE:
-                end = (width - 1, height - 1)
+                end = (
+                    width - 1,
+                    height - 1 if height - 1 > start[1] else start[1] + 1
+                )
             elif offset == Highlight.RANDOM:
                 end = (randint(10, max(10, width)), randint(20, max(20, height)))
             elif isinstance(offset, tuple) and len(offset) == 2:
