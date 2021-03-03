@@ -10,7 +10,7 @@ import createMockHighlight from '../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { resetModules } from '../../../test/utils';
-import SkipToContentWrapper from '../../components/SkipToContentWrapper';
+import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { locationChange } from '../../navigation/actions';
@@ -126,9 +126,9 @@ describe('Page', () => {
       <Provider store={store}>
         <MessageProvider>
           <Services.Provider value={services}>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <ConnectedPage />
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </Services.Provider>
         </MessageProvider>
       </Provider>

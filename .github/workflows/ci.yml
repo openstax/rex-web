@@ -9,7 +9,6 @@ jobs:
     container: openstax/rex-web:CI-2020-01-26
     outputs:
       deployment-url: ${{ steps.find-deployment.outputs.url }}
-      modified-books: ${{ steps.detect-books.outputs.modified-books }}
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.4.0
@@ -22,7 +21,7 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules4
+        key: node_modules5
     - run: yarn install
     - name: Find Deployment
       id: find-deployment
@@ -31,8 +30,6 @@ jobs:
         GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "::set-output name=url::$(./script/get-review-environment.bash)"
-    - id: detect-books
-      run: echo "::set-output name=modified-books::{\"include\":$(./script/get-modified-books.bash)}"
 
   selenium:
     name: Selenium
@@ -57,9 +54,6 @@ jobs:
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI-2020-01-26
     needs: setup
-    strategy:
-      fail-fast: false
-      matrix: ${{fromJson(needs.setup.outputs.modified-books)}}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -68,28 +62,11 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules4
+        key: node_modules5
     - run: yarn install
-    - run: |
-        node script/entry.js domVisitor errorsExist \
-          --bookId="$BOOK_ID" \
-          --bookVersion="$BOOK_VERSION" \
-          --rootUrl "$BASE_URL" \
-          --queryString="validateLinks"
+    - run: ./script/validate-modified-books.bash
       env:
-        BOOK_ID: ${{ matrix.book_id }}
-        BOOK_VERSION: ${{ matrix.book_version }}
         BASE_URL: ${{ needs.setup.outputs.deployment-url }}
-    - if: ${{ always() }}
-      run: |
-        node script/entry.js urlChecker \
-          --rootUrl="https://openstax.org" \
-          --bookId="$BOOK_ID" \
-          --bookVersion="$BOOK_VERSION" \
-          --useUnversionedUrls
-      env:
-        BOOK_ID: ${{ matrix.book_id }}
-        BOOK_VERSION: ${{ matrix.book_version }}
 
   test:
     name: Test
@@ -109,7 +86,7 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules4
+        key: node_modules5
     - run: yarn install
     - run: yarn test:${{ matrix.suite }}
     - uses: actions/upload-artifact@v2
@@ -130,6 +107,6 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules4
+        key: node_modules5
     - run: yarn install
     - run: yarn lint

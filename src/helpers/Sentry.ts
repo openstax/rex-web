@@ -53,13 +53,26 @@ export default {
   captureException(error: any, level: Sentry.Severity = Severity.Error) {
     let eventId: string | undefined;
 
+    if (!error) {
+      return;
+    }
+
     if (this.isEnabled) {
       Sentry.withScope((scope) => {
         scope.setLevel(level);
         eventId = Sentry.captureException(error);
       });
     } else if (!this.shouldCollectErrors) {
-      console.error(error); // tslint:disable-line:no-console
+      switch (level) {
+        case 'info':
+          console.info(error instanceof Error ? error.message : error); // tslint:disable-line:no-console
+          break;
+        case 'warning':
+          console.warn(error instanceof Error ? error.message : error); // tslint:disable-line:no-console
+          break;
+        default:
+          console.error(error); // tslint:disable-line:no-console
+      }
     }
 
     return eventId;
