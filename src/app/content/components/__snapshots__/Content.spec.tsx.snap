@@ -9,6 +9,16 @@ Array [
   >
     Skip to Content
   </a>,
+  <a
+    className="HiddenLink-wwwegq-0 kZsmVR"
+    href={
+      Array [
+        "https://openstax.org/accessibility-statement",
+      ]
+    }
+  >
+    Go to accessibility page
+  </a>,
   <div
     className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
     data-analytics-region="openstax-navbar"
@@ -1417,6 +1427,16 @@ Array [
     onClick={[Function]}
   >
     Skip to Content
+  </a>,
+  <a
+    className="HiddenLink-wwwegq-0 kZsmVR"
+    href={
+      Array [
+        "https://openstax.org/accessibility-statement",
+      ]
+    }
+  >
+    Go to accessibility page
   </a>,
   <div
     className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
