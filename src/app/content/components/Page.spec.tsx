@@ -14,7 +14,7 @@ import mockArchiveLoader, { book, page, shortPage } from '../../../test/mocks/ar
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
-import SkipToContentWrapper from '../../components/SkipToContentWrapper';
+import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
@@ -145,9 +145,9 @@ describe('Page', () => {
       <Provider store={store}>
         <MessageProvider>
           <Services.Provider value={services}>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <ConnectedPage />
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </Services.Provider>
         </MessageProvider>
       </Provider>
@@ -167,9 +167,9 @@ describe('Page', () => {
         <Provider store={store}>
           <MessageProvider>
             <Services.Provider value={services}>
-              <SkipToContentWrapper>
+              <AccessibilityButtonsWrapper>
                 <ConnectedPage />
-              </SkipToContentWrapper>
+              </AccessibilityButtonsWrapper>
             </Services.Provider>
           </MessageProvider>
         </Provider>
@@ -1129,11 +1129,11 @@ describe('Page', () => {
     const element = renderer.create(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1163,11 +1163,11 @@ describe('Page', () => {
     renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1207,11 +1207,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1268,11 +1268,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1303,11 +1303,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1342,11 +1342,11 @@ describe('Page', () => {
     renderer.create(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1375,11 +1375,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1399,11 +1399,11 @@ describe('Page', () => {
     const {tree} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1434,11 +1434,11 @@ describe('Page', () => {
     const component = renderer.create(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>);
 
@@ -1461,11 +1461,11 @@ describe('Page', () => {
       const {root} = renderToDom(
         <Provider store={store}>
           <MessageProvider>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <Services.Provider value={services}>
                 <ConnectedPage />
               </Services.Provider>
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </MessageProvider>
         </Provider>
       );
@@ -1485,11 +1485,11 @@ describe('Page', () => {
       const {root} = renderToDom(
         <Provider store={store}>
           <MessageProvider>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <Services.Provider value={services}>
                 <ConnectedPage />
               </Services.Provider>
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </MessageProvider>
         </Provider>
       );
