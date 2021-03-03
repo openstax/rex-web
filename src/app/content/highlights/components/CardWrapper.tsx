@@ -1,13 +1,13 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
+import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination } from '../../../reactUtils';
 import { AppState } from '../../../types';
 import { assertDefined, assertNotNull, remsToPx } from '../../../utils';
-import { assertDocument } from '../../../utils/browser-assertions';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { cardMarginBottom, highlightKeyCombination } from '../constants';
@@ -39,28 +39,16 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const prevFocusedHighlightId = React.useRef(focusedId);
 
   // This function is triggered by keyboard shortuct defined in useKeyCombination(...)
-  // If user used it while having focus outside of this component and when focusedHighlight is truthy
-  // then we want move focus to the proper Card component by setting shouldFocusCard to true.
-  // If user used it while having focus inside of this component then we want to
-  // focus highlight in the content for the focusedHighlight and reset shouldFocusCard to false.
-  const moveFocus = React.useCallback(() => {
-    const document = assertDocument();
-    const activeElement = document.activeElement;
+  // It moves focus between Card component and highlight in the content.
+  const moveFocus = React.useCallback((event: KeyboardEvent) => {
+    const activeElement = isHtmlElement(event.target) ? event.target : null;
 
     if (!focusedHighlight || !activeElement || !element.current) {
       return;
     }
 
     if (element.current.contains(activeElement)) {
-      let highlightElement: HTMLElement | undefined | null;
-      focusedHighlight.elements.some((el) => {
-        highlightElement = (el as HTMLElement).querySelector('[data-for-screenreaders]') as HTMLElement | null;
-        return highlightElement;
-      });
-      if (highlightElement) {
-        highlightElement.focus();
-        setShouldFocusCard(false);
-      }
+      focusedHighlight.focus();
     } else {
       setShouldFocusCard(true);
     }
@@ -165,7 +153,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
           zIndex={highlights.length - index}
           shouldFocusCard={focusThisCard}
-          moveFocusToTheHighlight={focusThisCard ? () => moveFocus() : () => null}
         />;
       })}
     </div>

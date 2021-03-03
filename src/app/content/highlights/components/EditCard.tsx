@@ -39,7 +39,6 @@ export interface EditCardProps {
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   data?: HighlightData;
   className: string;
-  moveFocusToTheHighlight: () => void;
 }
 
 // tslint:disable-next-line:variable-name

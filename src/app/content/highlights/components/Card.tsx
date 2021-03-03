@@ -49,7 +49,6 @@ export interface CardProps {
   topOffset?: number;
   highlightOffsets?: { top: number, bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
-  moveFocusToTheHighlight: () => void;
 }
 
 // tslint:disable-next-line:variable-name
@@ -135,7 +134,6 @@ const Card = (props: CardProps) => {
     className: props.className,
     highlight: props.highlight,
     isFocused: props.isFocused,
-    moveFocusToTheHighlight: props.moveFocusToTheHighlight,
     onBlur: props.blur,
     onHeightChange: props.onHeightChange,
     onRemove,
