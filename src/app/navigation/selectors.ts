@@ -30,7 +30,7 @@ export const hash = createSelector(
 export const scrollTarget = createSelector(
   query,
   hash,
-  (q, h) => getScrollTargetFromQuery(q, h)
+  getScrollTargetFromQuery
 );
 
 export const match = createSelector(
