@@ -150,7 +150,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, intl: Intl
       focused, prevProps.focused, pendingHighlight, scrollTargetHighlight, scrollTargetHighlightIdThatWasHandled);
 
     if (toFocus) {
-      toFocus.focus();
+      toFocus.addFocusedStyles();
 
       if (options) {
         options.onSelect(toFocus);
@@ -229,7 +229,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, intl: Intl
         .map(erase(highlighter))
         ;
 
-      highlighter.clearFocus();
+      highlighter.clearFocusedStyles();
 
       focusAndScrollToHighlight(prevProps, getProp(), options);
 

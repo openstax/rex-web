@@ -1,13 +1,13 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
+import { IntlShape } from 'react-intl';
 import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
 import { memoizeStateToProps } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
 import allImagesLoaded from '../utils/allImagesLoaded';
-import { IntlShape } from 'react-intl';
 
 interface Services {
   highlighter: Highlighter;
@@ -52,14 +52,14 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
 
   const {selectedResult} = current;
 
-  services.highlighter.clearFocus();
+  services.highlighter.clearFocusedStyles();
 
   const elementHighlights = services.searchResultMap.find((map) => isEqual(map.result, selectedResult.result));
   const selectedHighlights = elementHighlights && elementHighlights.highlights[selectedResult.highlight];
   const firstSelectedHighlight = selectedHighlights && selectedHighlights[0];
 
   if (firstSelectedHighlight) {
-    firstSelectedHighlight.focus();
+    firstSelectedHighlight.addFocusedStyles();
   }
 
   if (previous.selectedResult === current.selectedResult) { return; }
