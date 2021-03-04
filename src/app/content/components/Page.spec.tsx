@@ -31,7 +31,7 @@ import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
 import * as searchUtils from '../search/utils';
 import * as select from '../selectors';
-import { PageReferenceMap, PageReferenceMapError } from '../types';
+import { PageReferenceError, PageReferenceMap } from '../types';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import PageNotFound from './Page/PageNotFound';
@@ -62,7 +62,7 @@ const makeEvent = (doc: Document) => {
   return event;
 };
 
-const references: Array<PageReferenceMap | PageReferenceMapError> = [
+const references: Array<PageReferenceMap | PageReferenceError> = [
   {
     match: '/content/link',
     params: {
@@ -80,10 +80,7 @@ const references: Array<PageReferenceMap | PageReferenceMapError> = [
     },
   },
   {
-    reference: {
-      match: 'cross-book-reference-error',
-      pageId: 'doesnt-matter',
-    },
+    match: 'cross-book-reference-error',
     type: 'error',
   },
 ];
@@ -560,13 +557,10 @@ describe('Page', () => {
     }));
   });
 
-  it('interceptes clicking links that failed due to ReferenceLoadingError', async() => {
+  it('interceptes clicking links that failed due to reference loading error', async() => {
     const {root} = renderDomWithReferences();
 
     const spyAlert = jest.spyOn(globalThis as any, 'alert');
-
-    // page lifecycle hooks
-    await Promise.resolve();
 
     dispatch.mockReset();
     const [, , , , lastLink] = Array.from(root.querySelectorAll('#main-content a'));

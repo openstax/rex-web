@@ -5,9 +5,8 @@ import { resetModules } from '../../../../test/utils';
 import { Match } from '../../../navigation/types';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
-import { isReferenceLoadingError } from '../../guards';
 import * as routes from '../../routes';
-import { Book, Params, ReferenceLoadingError, SlugParams } from '../../types';
+import { Book, Params, SlugParams } from '../../types';
 import { getBookInformation, loadContentReference, resolveBookReference } from './resolveContent';
 import * as resolveContentUtils from './resolveContent';
 
@@ -248,7 +247,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mock.loadBook.mockImplementation(() => Promise.resolve(undefined) as any);
 
       let message: string | undefined;
-      let bookOrReferenceLoadingError: Book | ReferenceLoadingError | undefined;
+      let bookOrReferenceLoadingError: Book | undefined;
       try {
         bookOrReferenceLoadingError = await resolveExternalBookReference(
           helpers, mockOtherBook, mockPageInOtherBook, { match: 'ajhd', pageId: mockPageInOtherBook.id });
@@ -258,7 +257,7 @@ describe('locationChange', () => {
 
       expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
       expect(message).toBeUndefined();
-      expect(bookOrReferenceLoadingError).toEqual(new ReferenceLoadingError());
+      expect(bookOrReferenceLoadingError).toEqual(undefined);
     });
 
     it('resolves link with book version in reference or sets default', async() => {
@@ -292,7 +291,7 @@ describe('locationChange', () => {
       const referenceBook2 = await resolveExternalBookReference(
         helpers, mockOtherBook, mockPageInOtherBook, reference2);
 
-      if (isReferenceLoadingError(referenceBook2)) {
+      if (!referenceBook2) {
         return expect(referenceBook2).toEqual('referenceBook2 should be ArchiveBook');
       }
 
@@ -302,7 +301,7 @@ describe('locationChange', () => {
     });
 
     describe('getBookInformation', () => {
-      it('returns ReferenceLoadingError if no book version found in config or reference', async() => {
+      it('returns undefined if no book version found in config or reference', async() => {
         const reference = {
           bookId: 'newbookid',
           match: 'ajhd',
@@ -311,10 +310,10 @@ describe('locationChange', () => {
 
         const referenceBook = await getBookInformation(helpers, reference);
 
-        expect(referenceBook).toEqual(new ReferenceLoadingError());
+        expect(referenceBook).toEqual(undefined);
       });
 
-      it('returns ReferenceLoadingError if no book version found in response from getBookIdsForPage', async() => {
+      it('returns undefined if no book version found in response from getBookIdsForPage', async() => {
         const reference = {
           match: 'ajhd',
           pageId: mockPageInOtherBook.id,
@@ -325,17 +324,20 @@ describe('locationChange', () => {
 
         const referenceBook = await getBookInformation(helpers, reference);
 
-        expect(referenceBook).toEqual(new ReferenceLoadingError());
+        expect(referenceBook).toEqual(undefined);
       });
     });
 
     describe('loadContentReference', () => {
-      it('returns PageReferenceMapError when resolveExternalBookReference returns ReferenceLoadingerror', async() => {
+      it('returns undefined when resolveExternalBookReference returns ReferenceLoadingerror', async() => {
         jest.spyOn(resolveContentUtils, 'resolveExternalBookReference')
-          .mockResolvedValue(new ReferenceLoadingError());
+          .mockResolvedValue(undefined);
 
         const reference = { match: 'asd', pageId: 'asd' };
-        expect(await loadContentReference(helpers, book, page, reference)).toEqual({ type: 'error', reference });
+        expect(await loadContentReference(helpers, book, page, reference)).toEqual({
+          match: reference.match,
+          type: 'error',
+        });
       });
     });
   });

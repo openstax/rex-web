@@ -5,7 +5,6 @@ import { State as PracticeQuestionsState } from './practiceQuestions/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
 import { State as StudyGuidesState } from './studyGuides/types';
-import { getContentPageReferences } from './utils';
 
 export type SlugParams = {
   slug: string;
@@ -38,7 +37,7 @@ export interface State {
   highlights: HighlightState;
   book?: Book;
   page?: Page;
-  references: Array<PageReferenceMap | PageReferenceMapError>;
+  references: Array<PageReferenceMap | PageReferenceError>;
   buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
 }
 
@@ -46,16 +45,10 @@ export interface PageReferenceMap extends PageReference {
   match: string;
 }
 
-export interface PageReferenceMapError {
-  reference: ReturnType<typeof getContentPageReferences>[number];
+export interface PageReferenceError {
+  match: string;
   type: 'error';
 }
-
-/**
- * Error created when we can't load a reference. For example when target book doesn't exist
- * or the rex config doesn't have defaultVersion for this book.
- */
-export class ReferenceLoadingError extends Error {}
 
 export interface PageReference {
   state: RouteState<typeof content>;

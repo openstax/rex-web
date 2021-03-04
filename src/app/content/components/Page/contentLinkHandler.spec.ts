@@ -195,11 +195,7 @@ describe('contentLinkHandler', () => {
       const link = `/books/${book.slug}/pages/page-title`;
       anchor.setAttribute('href', link);
       prop.references = [{
-        reference: {
-          bookVersion: 'version',
-          match: link,
-          pageId: 'pageid',
-        },
+        match: link,
         type: 'error',
       }];
 
