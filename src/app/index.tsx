@@ -1,9 +1,12 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { APP_ENV } from '../config';
 import analytics from '../helpers/analytics';
 import createStore from '../helpers/createStore';
+import { writeFile } from '../helpers/fileUtils';
 import FontCollector from '../helpers/FontCollector';
+import prepareRedirects from '../helpers/prepareRedirects';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
 import * as appAactions from './actions';
@@ -99,6 +102,15 @@ export default (options: AppOptions) => {
 
   if (Sentry.shouldCollectErrors) {
     middleware.push(Sentry.initializeWithMiddleware());
+  }
+
+  // TODO: This has to be called before app starts, as some kind of script
+  // possibile solution is to modify package.json
+  if (APP_ENV !== 'production') {
+    prepareRedirects(services.archiveLoader, services.osWebLoader, 'redirects.development.json')
+      .then((redirects) => {
+        writeFile('redirects.development.json', JSON.stringify(redirects, undefined, 2));
+      });
   }
 
   const store = createStore({
