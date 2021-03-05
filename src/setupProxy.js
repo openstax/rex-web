@@ -2,7 +2,6 @@
  * this file is shared between webpack-dev-server and the pre-renderer
  */
 const url = require('url');
-const util = require('util');
 const fs = require('fs');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
@@ -166,6 +165,19 @@ function stubEnvironment(app) {
   });
 }
 
+function stubRedirects(app) {
+  app.use((req, res, next) => {
+    const  {pathname} = url.parse(req.url);
+
+    if (pathname === '/rex/redirects.json') {
+      const redirectsFile = path.join(__dirname, 'redirects.development.json');
+      sendFile(res, redirectsFile);
+    } else {
+      next();
+    }
+  });
+}
+
 function setupProxy(app) {
   if (!ARCHIVE_URL) { throw new Error('ARCHIVE_URL configuration must be defined'); }
   if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
@@ -176,6 +188,7 @@ function setupProxy(app) {
   highlightsProxy(app);
   osWebApiProxy(app);
   stubEnvironment(app);
+  stubRedirects(app);
 
   if (!SKIP_OS_WEB_PROXY) {
     osWebProxy(app);
