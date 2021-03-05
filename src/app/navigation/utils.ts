@@ -1,5 +1,5 @@
 import { flatten, unflatten } from 'flat';
-import { Action, Location } from 'history';
+import { Action, History, Location } from 'history';
 import curry from 'lodash/fp/curry';
 import isNull from 'lodash/fp/isNull';
 import omit from 'lodash/fp/omit';
@@ -178,3 +178,12 @@ export const createNavigationOptions = (
 
 export const navigationOptionsToString = (options: ReturnType<typeof createNavigationOptions>) =>
   (options.search ? `?${options.search}` : '') + (options.hash ? options.hash : '');
+
+export const tryRedirectingToNewUrl = async(history: History, pathname: string) => {
+  const redirects = await fetch('/rex/redirects.json').then((res) => res.json()) as Array<{ from: string, to: string }>;
+  const match = redirects.find(({ from }) => from === pathname);
+  if (match) {
+    history.push(match.to);
+    return;
+  }
+};
