@@ -26,6 +26,7 @@ export const trustAfter = 1000 * 60 * 60; // 1h
 const pageLoaded = new Date().getTime();
 const trustRelease = () => (new Date().getTime()) - pageLoaded > trustAfter;
 let previousObservedReleaseId: string | undefined;
+let getLastObservedReleaseIdHandler: ((id: string) => void) | undefined;
 
 export type Cancel = () => void;
 
@@ -63,6 +64,9 @@ const processReleaseId = (store: Store, environment: Environment) => {
   }
 
   previousObservedReleaseId = releaseId;
+  if (getLastObservedReleaseIdHandler) {
+    getLastObservedReleaseIdHandler(previousObservedReleaseId);
+  }
 };
 
 const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
@@ -89,6 +93,17 @@ export const poll = (store: Store) => async() => {
     processEnvironment(store, environment);
   }
 };
+
+export const getLastObservedReleaseId = () => new Promise<Environment['release_id']>((resolve) => {
+  if (previousObservedReleaseId) {
+    resolve(previousObservedReleaseId);
+  }
+
+  getLastObservedReleaseIdHandler = (id: string) => {
+    getLastObservedReleaseIdHandler = undefined;
+    resolve(id);
+  };
+});
 
 export default (store: Store): Cancel => {
   if (APP_ENV === 'test') {
