@@ -10,7 +10,10 @@ import { writeAssetFile } from './fileUtils';
 
 const redirectsPath = path.resolve(__dirname, '../../data/redirects/');
 
-const createRedirects = async(archiveLoader: AppServices['archiveLoader'], osWebLoader: AppServices['osWebLoader']) => {
+export const createRedirects = async(
+  archiveLoader: AppServices['archiveLoader'],
+  osWebLoader: AppServices['osWebLoader']
+) => {
   const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
   const books = fs.readdirSync(redirectsPath).filter((name) => name.match('.json'));
@@ -45,7 +48,10 @@ const createRedirects = async(archiveLoader: AppServices['archiveLoader'], osWeb
     }
   }
 
-  writeAssetFile('/rex/redirects.json', JSON.stringify(redirects, undefined, 2));
+  return redirects;
 };
 
-export default createRedirects;
+export default async(archiveLoader: AppServices['archiveLoader'], osWebLoader: AppServices['osWebLoader']) => {
+  const redirects = await createRedirects(archiveLoader, osWebLoader);
+  writeAssetFile('/rex/redirects.json', JSON.stringify(redirects, undefined, 2));
+};
