@@ -28,8 +28,13 @@ def test_no_results_message_in_MH_dropdown_filter(selenium, base_url, book_slug,
     book.content.show_solutions()
 
     # AND: Highlight 1 paragraph
-    paragraphs = random.sample(book.content.paragraphs, 1)
-    book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE)
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.paragraphs,
+        offset=Highlight.ENTIRE,
+        color=Color.YELLOW
+    )
 
     my_highlights = book.toolbar.my_highlights()
 
@@ -98,8 +103,13 @@ def test_no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, pag
     book.content.show_solutions()
 
     # AND: Highlight 1 paragraph
-    paragraphs = random.sample(book.content.paragraphs, 1)
-    book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE)
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.paragraphs,
+        offset=Highlight.ENTIRE,
+        color=Color.YELLOW
+    )
 
     my_highlights = book.toolbar.my_highlights()
     filterbar = my_highlights.filter_bar
@@ -148,7 +158,7 @@ def test_no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, pag
 @markers.desktop_only
 @markers.parametrize("book_slug,page_slug", [("microbiology", "1-introduction")])
 def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug, page_slug):
-    """Filter state is preserved throughout the session irrespective of chapter/section navigation."""
+    """Filter state preserved throughout the session irrespective of chapter/section navigation."""
 
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -179,9 +189,12 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
 
     for page in page_slug:
         book = Content(selenium, base_url, book_slug=book_slug, page_slug=page).open()
-        paragraphs = random.sample(book.content.paragraphs, 1)
-        book.content.highlight(
-            target=paragraphs[0], offset=Highlight.ENTIRE, color=Highlight.random_color()
+        Highlight.force_highlight(
+            book=book,
+            by=random.choice,
+            group=book.content.paragraphs,
+            offset=Highlight.ENTIRE,
+            color=Highlight.random_color()
         )
 
         content_highlight_ids = content_highlight_ids + list(
@@ -302,9 +315,12 @@ def test_filter_state_not_preserved_for_MH_in_new_tab(selenium, base_url, book_s
 
     for page in page_slug:
         book = Content(selenium, base_url, book_slug=book_slug, page_slug=page).open()
-        paragraphs = random.sample(book.content.paragraphs, 1)
-        book.content.highlight(
-            target=paragraphs[0], offset=Highlight.ENTIRE, color=Highlight.random_color()
+        Highlight.force_highlight(
+            book=book,
+            by=random.choice,
+            group=book.content.paragraphs,
+            offset=Highlight.ENTIRE,
+            color=Highlight.random_color()
         )
 
         content_highlight_ids = content_highlight_ids + list(
@@ -393,10 +409,15 @@ def test_chapter_filter_collapses_on_clicking_color_filter(
         ("5-introduction", Color.PINK),
     ]
 
-    for page, colors in data:
+    for page, color in data:
         book = Content(selenium, base_url, book_slug=book_slug, page_slug=page).open()
-        paragraphs = random.sample(book.content.paragraphs, 1)
-        book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE, color=colors)
+        Highlight.force_highlight(
+            book=book,
+            by=random.choice,
+            group=book.content.paragraphs,
+            offset=Highlight.ENTIRE,
+            color=color
+        )
 
         my_highlights = book.toolbar.my_highlights()
         mh_highlight_ids = mh_highlight_ids + list(
@@ -444,7 +465,7 @@ def test_chapter_filter_collapses_on_clicking_color_filter(
 def test_select_chapter_with_highlights_and_select_color_not_used_in_that_chapter(
     selenium, base_url, book_slug, page_slug
 ):
-    """Select chapter with highlights and a color that is not used in that chapter in MH page filters dropdown."""
+    """Select chapter with highlights and a color that is not used in that chapter in MH page filters dropdown."""  # NOQA
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
@@ -465,18 +486,25 @@ def test_select_chapter_with_highlights_and_select_color_not_used_in_that_chapte
         ("2-introduction", Color.PINK),
     ]
 
-    for page, colors in data:
+    for page, color in data:
         book = Content(selenium, base_url, book_slug=book_slug, page_slug=page).open()
-        paragraphs = random.sample(book.content.paragraphs, 1)
-        book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE, color=colors)
+        Highlight.force_highlight(
+            book=book,
+            by=random.choice,
+            group=book.content.paragraphs,
+            offset=Highlight.ENTIRE,
+            color=color
+        )
 
-    # WHEN: Update chapter dropdown to include only one highlighted Chapter - ch 1 remains selected
+    # WHEN: Update chapter dropdown to include only one highlighted
+    #       Chapter - ch 1 remains selected
     my_highlights = book.toolbar.my_highlights()
     filterbar = my_highlights.filter_bar
     filterbar.toggle_chapter_dropdown_menu()
     filterbar.chapter_filters.chapters[2].click()
 
-    # AND: Select color not used in that chapter and unselect the remaining colors - pink remains selected
+    # AND: Select color not used in that chapter and unselect the remaining
+    #      colors - pink remains selected
     filterbar.toggle_color_dropdown_menu()
     filterbar.color_filters.colors[1].click()
     filterbar.color_filters.colors[2].click()
@@ -509,8 +537,13 @@ def test_keyboard_navigation_for_MH_dropdown_filters(selenium, base_url, book_sl
     book.content.show_solutions()
 
     # AND: Highlight 1 paragraph
-    paragraphs = random.sample(book.content.paragraphs, 1)
-    book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE, color=Color.YELLOW)
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.paragraphs,
+        offset=Highlight.ENTIRE,
+        color=Color.YELLOW
+    )
     content_highlight_ids = list(book.content.highlight_ids)
 
     # AND: Open MH page
@@ -634,8 +667,13 @@ def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, p
     book.content.show_solutions()
 
     # AND: Highlight 1 paragraph
-    paragraphs = random.sample(book.content.paragraphs, 1)
-    book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE, color=Color.YELLOW)
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.paragraphs,
+        offset=Highlight.ENTIRE,
+        color=Color.YELLOW
+    )
 
     # AND: Open MH page
     my_highlights = book.toolbar.my_highlights()

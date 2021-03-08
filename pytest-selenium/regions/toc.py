@@ -1,3 +1,4 @@
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
 from regions.base import Region
@@ -7,10 +8,11 @@ class TableOfContents(Region):
 
     _root_locator = (By.CSS_SELECTOR, "ol")
 
+    _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
-    _chapter_link_locator = (By.CSS_SELECTOR, "li details")
-    _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
+
+    _chapter_link_selector = "li details"
 
     @property
     def active_section(self):
@@ -29,17 +31,20 @@ class TableOfContents(Region):
             for section_link in self.find_elements(*self._section_link_locator)
         ]
 
-    def expand_chapter(self, n):
+    def expand_chapter(self, chapter: int):
         """Expand a chapter from TOC.
 
-        :param n: chapter number -> int
+        :param int chapter: the chapter number to expand
+        :return: None
+
         """
-        x = self.driver.execute_script(
-            ("return document.querySelectorAll('{selector}');").format(
-                selector=self._chapter_link_locator[1]
-            )
+        chapters = self.driver.execute_script(
+            f"return document.querySelectorAll('{self._chapter_link_selector}');"
         )
-        self.driver.execute_script(("return arguments[0].setAttribute('open', '1');"), x[n])
+        self.driver.execute_script(
+            "return arguments[0].setAttribute('open', '1');",
+            chapters[chapter]
+        )
 
     @property
     def first_section(self):
@@ -50,6 +55,7 @@ class TableOfContents(Region):
         return self.sections[-1]
 
     class ContentPage(Region):
+
         _is_active_locator = (By.XPATH, "./..")
 
         def click(self):
@@ -60,11 +66,19 @@ class TableOfContents(Region):
             return self.root.get_attribute("textContent")
 
         @property
-        def is_active(self):
-            html = self.find_element(*self._is_active_locator).get_attribute("outerHTML")
+        def is_active(self) -> bool:
+            """Return True if this book section is currently active.
+
+            :return: ``True`` if this book section is currently displayed
+            :rtype: bool
+
+            """
             try:
-                assert "Current Page" in html
-            except AssertionError:
-                return False
-            else:
+                self.wait.until(lambda _: (
+                    "Current Page"
+                    in (self.find_element(*self._is_active_locator)
+                        .get_attribute("outerHTML"))
+                ))
                 return True
+            except TimeoutException:
+                return False
