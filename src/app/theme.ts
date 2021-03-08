@@ -152,6 +152,7 @@ export default {
     'navbar',
     'highlightSummaryPopup',
     'highlightsHelpInfoMobile',
+    'nudgeOverlay',
     'errorPopup',
     'focusedHiddenLink',
   ].reduce((result, key, index) => {

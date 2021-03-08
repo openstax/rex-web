@@ -32,6 +32,7 @@ export interface State {
   practiceQuestions: PracticeQuestionsState;
   loading: Partial<Params>;
   search: SearchState;
+  showNudgeStudyTools: boolean | null;
   studyGuides: StudyGuidesState;
   highlights: HighlightState;
   book?: Book;
@@ -101,6 +102,7 @@ export interface ArchiveBook {
   version: string;
   license: {
     name: string;
+    url: string;
     version: string;
   };
   revised: string;

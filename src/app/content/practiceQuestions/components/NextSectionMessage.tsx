@@ -46,7 +46,7 @@ const NextSectionMessage = ({
     <StyledMessage>
       <StyledMessageText>
         <FormattedMessage id={messageKey}>
-          {(msg: string) => msg}
+          {(msg) => msg}
         </FormattedMessage>
       </StyledMessageText>
       <StyledSectionTitle dangerouslySetInnerHTML={{ __html: nextSection.title }} />
@@ -58,7 +58,7 @@ const NextSectionMessage = ({
       data-analytics-label={analyticsLabel}
     >
       <FormattedMessage id='i18n:practice-questions:popup:continue'>
-        {(msg: string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </Button>
   </StyledNextSectionMessage>

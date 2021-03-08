@@ -38,7 +38,7 @@ describe('locationChange', () => {
   const mockOtherBook = {
     abstract: '',
     id: 'newbookid',
-    license: {name: '', version: ''},
+    license: {name: '', version: '', url: ''},
     revised: '2012-06-21',
     title: 'newbook',
     tree: {

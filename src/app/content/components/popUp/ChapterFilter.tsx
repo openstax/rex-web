@@ -70,7 +70,7 @@ interface ChapterFilterProps {
 // tslint:disable-next-line:variable-name
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
-  const l10n = useIntl();
+  const intl = useIntl();
 
   React.useEffect(() => {
     const selectedSectionId = Array.from(props.selectedLocationFilters).pop();
@@ -99,7 +99,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
 
   const getAriaLabel = (section: LinkedArchiveTreeNode) => {
     if (props.ariaLabelItemId) {
-      return l10n.formatMessage({ id: props.ariaLabelItemId }, { filter: splitTitleParts(section.title).join(' ') });
+      return intl.formatMessage({ id: props.ariaLabelItemId }, { filter: splitTitleParts(section.title).join(' ') });
     }
   };
 

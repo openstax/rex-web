@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc } from '../../../reactUtils';
@@ -15,6 +15,7 @@ import ShowStudyGuides from './ShowStudyGuides';
 // tslint:disable-next-line: variable-name
 const StudyguidesPopUp = () => {
   const dispatch = useDispatch();
+  const intl = useIntl();
 
   const popUpRef = React.useRef<HTMLElement>(null);
   const trackOpenCloseSG = useAnalyticsEvent('openCloseStudyGuides');
@@ -50,19 +51,15 @@ const StudyguidesPopUp = () => {
     >
       <Header colorSchema={bookTheme}>
         <FormattedMessage id='i18n:toolbar:studyguides:popup:heading'>
-          {(msg: Element | string) => msg}
+          {(msg) => msg}
         </FormattedMessage>
-        <FormattedMessage id='i18n:toolbar:studyguides:popup:close-button:aria-label'>
-          {(msg: string) => (
-            <CloseIconWrapper
-              data-testid='close-studyguides-popup'
-              aria-label={msg}
-              onClick={closeAndTrack('button')}
-            >
-              <CloseIcon colorSchema={bookTheme} />
-            </CloseIconWrapper>
-          )}
-        </FormattedMessage>
+        <CloseIconWrapper
+          data-testid='close-studyguides-popup'
+          aria-label={intl.formatMessage({id: 'i18n:toolbar:studyguides:popup:close-button:aria-label'})}
+          onClick={closeAndTrack('button')}
+        >
+          <CloseIcon colorSchema={bookTheme} />
+        </CloseIconWrapper>
       </Header>
       <ShowStudyGuides />
     </Modal>

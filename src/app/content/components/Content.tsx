@@ -28,6 +28,7 @@ import {
   toolbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
+import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
 import TableOfContents from './TableOfContents';
 import Toolbar from './Toolbar';
@@ -183,6 +184,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
       <HighlightsPopUp />
       <StudyguidesPopUp />
       <PracticeQuestionsPopup />
+      <NudgeStudyTools />
       <Toolbar />
       <OuterWrapper>
         <SearchResultsSidebar/>

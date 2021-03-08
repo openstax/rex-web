@@ -1,6 +1,6 @@
 import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
 import { ExternalLinkAlt as LinkIcon } from 'styled-icons/fa-solid/ExternalLinkAlt';
@@ -91,9 +91,11 @@ const HighlightToggleEditContent = styled.div`
 
 // tslint:disable-next-line:variable-name
 const HighlightDropdownMenu = React.forwardRef((props, ref) => {
-  return <FormattedMessage id='i18n:highlighting:dropdown:edit:aria-label'>
-    {(msg: string) => <MenuToggle aria-label={msg} ref={ref} {...props} />}
-  </FormattedMessage>;
+  return <MenuToggle
+    aria-label={useIntl().formatMessage({id: 'i18n:highlighting:dropdown:edit:aria-label'})}
+    ref={ref}
+    {...props}
+  />;
 });
 
 interface ContextMenuProps {

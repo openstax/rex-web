@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../components/Button';
@@ -36,14 +36,12 @@ interface ToggleProps {
 // tslint:disable-next-line:variable-name
 const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   ({label, isOpen, ariaLabelId, ...props}, ref) => (
-    <FormattedMessage id={ariaLabelId} values={{filter: label}}>
-      {(msg: string) => <PlainButton ref={ref} {...props} aria-label={msg}>
-        <div tabIndex={-1}>
-          {label}
-          <AngleIcon direction={isOpen ? 'up' : 'down'} />
-        </div>
-      </PlainButton>}
-    </FormattedMessage>
+    <PlainButton ref={ref} {...props} aria-label={useIntl().formatMessage({id: ariaLabelId}, {filter: label})}>
+      <div tabIndex={-1}>
+        {label}
+        <AngleIcon direction={isOpen ? 'up' : 'down'} />
+      </div>
+    </PlainButton>
   )
 ))`
   position: relative;
@@ -84,15 +82,13 @@ type FilterDropdownProps = {
 // tslint:disable-next-line:variable-name
 export const FilterDropdown = ({label, ariaLabelId, children, ...props}:
   React.PropsWithChildren<FilterDropdownProps>) =>
-    <FormattedMessage id={label}>
-      {(msg: Element | string) => <Dropdown
-        toggle={<Toggle label={msg} ariaLabelId={ariaLabelId} />}
-        transparentTab={false}
-        {...props}
-      >
-        {children}
-      </Dropdown>}
-    </FormattedMessage>;
+    <Dropdown
+      toggle={<Toggle label={useIntl().formatMessage({id: label})} ariaLabelId={ariaLabelId} />}
+      transparentTab={false}
+      {...props}
+    >
+      {children}
+    </Dropdown>;
 
 // tslint:disable-next-line: variable-name
 export const FiltersTopBar = styled.div`
