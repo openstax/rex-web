@@ -8,8 +8,8 @@ exports[`CardWrapper matches snapshot 1`] = `
     data-mock-card={true}
     highlight={
       Object {
+        "addFocusedStyles": [MockFunction],
         "elements": Array [],
-        "focus": [MockFunction],
         "getStyle": [MockFunction],
         "id": "id1",
         "isAttached": [MockFunction],

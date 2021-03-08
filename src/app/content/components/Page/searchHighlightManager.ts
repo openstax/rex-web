@@ -1,13 +1,13 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
+import { IntlShape } from 'react-intl';
 import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
 import { memoizeStateToProps } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
 import allImagesLoaded from '../utils/allImagesLoaded';
-import { IntlShape } from 'react-intl';
 
 interface Services {
   highlighter: Highlighter;

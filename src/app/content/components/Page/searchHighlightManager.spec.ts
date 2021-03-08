@@ -1,3 +1,4 @@
+import { IntlShape } from 'react-intl';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import { makeSearchResultHit } from '../../../../test/searchResults';
 import { assertDocument } from '../../../utils';
@@ -18,10 +19,12 @@ describe('searchHighlightManager', () => {
 
   let attachedManager: ReturnType<typeof searchHighlightManager>;
   let onHighlightSelect: jest.Mock;
+  let intl: IntlShape;
 
   beforeEach(() => {
     const container = assertDocument().createElement('div');
-    attachedManager = searchHighlightManager(container);
+    intl = { formatMessage: jest.fn() } as any as IntlShape;
+    attachedManager = searchHighlightManager(container, intl);
 
     onHighlightSelect = jest.fn();
   });
