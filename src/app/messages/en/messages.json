@@ -1,5 +1,7 @@
 {
   "i18n:a11y:skipToContent": "Skip to Content",
+  "i18n:a11y:accessibilityHelp": "Go to accessibility page",
+  "i18n:a11y:accessibilityHelp:link": "https://openstax.org/accessibility-statement",
   "i18n:attribution:toggle": "Citation/Attribution",
   "i18n:content:footnotes:title": "Footnotes",
   "i18n:content:solution:hide": "hide solution",
