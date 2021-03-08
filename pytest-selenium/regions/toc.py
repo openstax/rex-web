@@ -1,5 +1,6 @@
 from typing import List
 
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -10,6 +11,7 @@ class TableOfContents(Region):
 
     _root_locator = (By.CSS_SELECTOR, "ol")
 
+    _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
@@ -45,13 +47,19 @@ class TableOfContents(Region):
             for section_link in self.find_elements(*self._section_link_locator)
         ]
 
-    def expand_chapter(self, n: int):
+    def expand_chapter(self, chapter: int):
         """Expand a chapter from TOC.
 
-        :param int n: chapter number
+        :param int chapter: the chapter number to expand
+        :return: None
+
         """
+        chapters = self.driver.execute_script(
+            f"return document.querySelectorAll('{self._chapter_link_selector}');"
+        )
         self.driver.execute_script(
-            "arguments[0].setAttribute('open', '1');", self.chapters[n]
+            "return arguments[0].setAttribute('open', '1');",
+            chapters[chapter]
         )
 
     @property
@@ -63,6 +71,7 @@ class TableOfContents(Region):
         return self.sections[-1]
 
     class ContentPage(Region):
+
         _is_active_locator = (By.XPATH, "./..")
 
         def click(self):
@@ -80,5 +89,7 @@ class TableOfContents(Region):
             :rtype: bool
 
             """
-            parent = self.find_element(*self._is_active_locator)
-            return "Current Page" in parent.get_attribute("outerHTML")
+            parent = self.find_elements(*self._is_active_locator)
+            if parent:
+                return "Current Page" in parent[0].get_attribute("outerHTML")
+            return False
