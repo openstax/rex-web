@@ -7,7 +7,7 @@ from platform import system
 from random import choice, choices, randint
 from string import digits, ascii_letters
 from time import sleep
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Tuple
 
 from faker import Faker
 from pypom import Page, Region

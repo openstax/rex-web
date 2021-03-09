@@ -1,7 +1,6 @@
 """Test Reading Experience Google Analytics message queuing ."""
 
 import random
-from time import sleep
 
 from selenium.common.exceptions import NoSuchElementException
 
@@ -28,14 +27,16 @@ def test_the_user_clicks_a_toc_link_ga_event(
         book.notification.got_it()
 
     # WHEN:  they click a table of contents link
-    chapter = random.randint(1, len(book.sidebar.toc.chapters) - 1)
-    book.sidebar.toc.expand_chapter(chapter)
+    if book.is_mobile:
+        book.toolbar.click_toc_toggle_button()
+    event_action = book.sidebar.toc.next_section_page_slug
+    book.sidebar.toc.view_next_section()
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "{page_slug}",
     #          eventCategory: "REX Link (toc)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    last_event = Utilities.get_analytics_queue(selenium, -2)
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -45,7 +46,7 @@ def test_the_user_clicks_a_toc_link_ga_event(
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_user_clicks_the_order_a_print_copy_link_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when a print copy link is clicked."""
+    """The page submits the correct GA event when a print link is clicked."""
     # SETUP:
     event_action = "buy-book"
     event_category = "REX Link (toolbar)"
@@ -74,7 +75,7 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_user_clicks_the_previous_and_next_page_links_ga_events(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA events when the page change links are clicked."""
+    """The page submits the correct GA event when the page link is clicked."""
     # SETUP:
     action_script = (
         'document.querySelector("[data-analytics-label={label}]").click(); '
@@ -144,7 +145,7 @@ def test_user_logout_ga_event(
     assert(False)
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/accounts/logout?r=/books/{book_slug}/pages/{page_slug}",
+    #        { eventAction: "/accounts/logout?r=/books/{book_slug}/pages/{page_slug}",  # NOQA
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
@@ -300,7 +301,7 @@ def test_clicking_a_search_excerpt_ga_event(
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_banner_book_title_click_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when the book title in the banner is clicked."""
+    """The page submits the correct GA event when the book title is clicked."""
     # SETUP:
     event_action = "/details/books/{book_slug}"
     event_category = "REX Link (book-banner-collapsed)"
@@ -354,7 +355,7 @@ def test_view_book_online_link_ga_event(
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_openstax_logo_click_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when a user clicks the OpenStax logo."""
+    """The page submits the correct GA event when a user clicks the logo."""
     # SETUP:
     event_action = "/"
     event_category = "REX Link (openstax-navbar)"
@@ -486,7 +487,7 @@ def test_remove_highlight_by_using_same_color_button_ga_event(
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when the login nudge is cancelled."""
+    """The page submits the correct GA event when login nudge is cancelled."""
     # SETUP:
     event_action = "cancel"
     event_category = "REX Button (highlighting-login)"
@@ -577,7 +578,7 @@ def test_log_in_nudge_login_ga_event(
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_cancel_highlight_delete_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when a highlight deletion is cancelled."""
+    """The page submits the correct GA event when hl deletion is cancelled."""
     # SETUP:
     event_action = "cancel"
     event_category = "REX Button (confirm-delete-inline-highlight)"
@@ -661,7 +662,7 @@ def test_highlight_delete_ga_event(
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_edit_existing_note_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when an existing note is edited."""
+    """The page submits the correct GA event when existing note is edited."""
     # SETUP:
     color = Highlight.random_color()
     first_event_action = "save"
@@ -720,7 +721,7 @@ def test_edit_existing_note_ga_event(
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_add_note_to_highlight_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when a note is added to a highlight."""
+    """The page submits the correct GA event when note added to a highlight."""
     # SETUP:
     color = Highlight.random_color()
     first_event_action = "save"
@@ -775,7 +776,7 @@ def test_add_note_to_highlight_ga_event(
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_change_highlight_color_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when a highlight color is changed."""
+    """The page submits the correct GA event when a hl color is changed."""
     # SETUP:
     changed_color = Color.PURPLE
     event_action = str(changed_color)

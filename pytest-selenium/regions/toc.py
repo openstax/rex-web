@@ -1,10 +1,10 @@
 from typing import List
 
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
 from regions.base import Region
+from utils.utility import Utilities
 
 
 class TableOfContents(Region):
@@ -13,6 +13,10 @@ class TableOfContents(Region):
 
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
+    _next_section_locator = (
+        By.CSS_SELECTOR,
+        "[aria-label='Current Page'] ~ li > a"
+    )
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 
@@ -31,7 +35,8 @@ class TableOfContents(Region):
 
         """
         return self.driver.execute_script(
-            f"return document.querySelectorAll('{self._chapter_link_selector}');"
+            "return document.querySelectorAll"
+            f"('{self._chapter_link_selector}');"
         )
 
     @property
@@ -55,7 +60,8 @@ class TableOfContents(Region):
 
         """
         chapters = self.driver.execute_script(
-            f"return document.querySelectorAll('{self._chapter_link_selector}');"
+            "return document.querySelectorAll"
+            f"('{self._chapter_link_selector}');"
         )
         self.driver.execute_script(
             "return arguments[0].setAttribute('open', '1');",
@@ -69,6 +75,23 @@ class TableOfContents(Region):
     @property
     def last_section(self):
         return self.sections[-1]
+
+    @property
+    def next_section_page_slug(self) -> str:
+        """Return the next book section's page slug.
+
+        :return: the next book section's page slug
+        :rtype: str
+
+        """
+        next_sections = self.find_elements(*self._next_section_locator)
+        return next_sections[0].get_attribute("href").split("/")[-1]
+
+    def view_next_section(self):
+        """Click on the next section in the current chapter."""
+        next_sections = self.find_elements(*self._next_section_locator)
+        Utilities.click_option(self.driver, element=next_sections[0])
+        Utilities.parent_page(self).wait_for_page_to_load()
 
     class ContentPage(Region):
 
