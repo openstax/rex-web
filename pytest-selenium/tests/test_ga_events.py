@@ -72,7 +72,10 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(
 
 
 @markers.test_case("C621361", "C621362")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-2-the-scientific-methods")]
+)
 def test_user_clicks_the_previous_and_next_page_links_ga_events(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the page link is clicked."""
@@ -81,6 +84,9 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
         'document.querySelector("[data-analytics-label={label}]").click(); '
         "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
         ".map(x => x.command.payload);"
+    )
+    load_script = (
+        'return document.querySelector("[data-analytics-label={label}]");'
     )
     next_event_action = "next"
     next_event_category = "REX Link (prev-next)"
@@ -100,19 +106,22 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     events = selenium.execute_script(
         action_script.format(label=previous_event_action)
     )
+    book.wait.until(lambda _: book.driver.execute_script(
+        load_script.format(label=next_event_action)
+    ))
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "prev",
     #          eventCategory: "REX Link (prev-next)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = events[-1]
+    next_event_label = "/".join([""] + selenium.current_url.split("/")[3:])
+    last_event = events[-2]
     assert(last_event["eventAction"] == previous_event_action)
     assert(last_event["eventCategory"] == previous_event_category)
     assert(last_event["eventLabel"] == previous_event_label)
 
     # WHEN:  they click the 'Next' link
     #        (use a script because we need the events before the page changes)
-    next_event_label = "/".join([""] + selenium.current_url().split("/")[3:])
     events = selenium.execute_script(
         action_script.format(label=next_event_action)
     )
@@ -121,7 +130,7 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     #        { eventAction: "next",
     #          eventCategory: "REX Link (prev-next)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = events[-1]
+    last_event = events[-2]
     assert(last_event["eventAction"] == next_event_action)
     assert(last_event["eventCategory"] == next_event_category)
     assert(last_event["eventLabel"] == next_event_label)
