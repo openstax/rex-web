@@ -36,10 +36,15 @@ def test_the_user_clicks_a_toc_link_ga_event(
     #        { eventAction: "{page_slug}",
     #          eventCategory: "REX Link (toc)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -2)
-    assert(last_event["eventAction"] == event_action)
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    toc_link_event = Utilities.get_analytics_queue(selenium, -2)
+    assert(
+        "eventAction" in toc_link_event and
+        "eventCategory" in toc_link_event and
+        "eventLabel" in toc_link_event
+    ), "Not viewing the correct GA event"
+    assert(toc_link_event["eventAction"] == event_action)
+    assert(toc_link_event["eventCategory"] == event_category)
+    assert(toc_link_event["eventLabel"] == event_label)
 
 
 @markers.test_case("C591503")
@@ -66,6 +71,11 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(
     #          eventCategory: "REX Link (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -115,10 +125,15 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     #          eventCategory: "REX Link (prev-next)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     next_event_label = "/".join([""] + selenium.current_url.split("/")[3:])
-    last_event = events[-2]
-    assert(last_event["eventAction"] == previous_event_action)
-    assert(last_event["eventCategory"] == previous_event_category)
-    assert(last_event["eventLabel"] == previous_event_label)
+    transition_event = events[-2]
+    assert(
+        "eventAction" in transition_event and
+        "eventCategory" in transition_event and
+        "eventLabel" in transition_event
+    ), "Not viewing the correct GA event"
+    assert(transition_event["eventAction"] == previous_event_action)
+    assert(transition_event["eventCategory"] == previous_event_category)
+    assert(transition_event["eventLabel"] == previous_event_label)
 
     # WHEN:  they click the 'Next' link
     #        (use a script because we need the events before the page changes)
@@ -130,10 +145,15 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     #        { eventAction: "next",
     #          eventCategory: "REX Link (prev-next)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = events[-2]
-    assert(last_event["eventAction"] == next_event_action)
-    assert(last_event["eventCategory"] == next_event_category)
-    assert(last_event["eventLabel"] == next_event_label)
+    transition_event = events[-2]
+    assert(
+        "eventAction" in transition_event and
+        "eventCategory" in transition_event and
+        "eventLabel" in transition_event
+    ), "Not viewing the correct GA event"
+    assert(transition_event["eventAction"] == next_event_action)
+    assert(transition_event["eventCategory"] == next_event_category)
+    assert(transition_event["eventLabel"] == next_event_label)
 
 
 @markers.test_case("C621363")
@@ -163,15 +183,15 @@ def test_user_logout_ga_event(
     #        { eventAction: "/accounts/logout?r=/books/{book_slug}/pages/{page_slug}",  # NOQA
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = events[-2]
+    log_out_event = events[-2]
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in log_out_event and
+        "eventCategory" in log_out_event and
+        "eventLabel" in log_out_event
     ), "Not viewing the correct GA event"
-    assert(last_event["eventAction"] == event_action)
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(log_out_event["eventAction"] == event_action)
+    assert(log_out_event["eventCategory"] == event_category)
+    assert(log_out_event["eventLabel"] == event_label)
 
 
 @markers.test_case("C621364")
@@ -198,6 +218,11 @@ def test_open_the_table_of_contents_ga_event(
     #          eventCategory: "REX Button (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -227,6 +252,11 @@ def test_click_a_figure_link_ga_event(
     #          eventCategory: "REX Link",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -256,6 +286,11 @@ def test_close_the_table_of_contents_ga_event(
     #          eventCategory: "REX Button (toc)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -284,6 +319,11 @@ def test_account_profile_menu_bar_click_ga_event(
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -312,6 +352,11 @@ def test_clicking_a_search_excerpt_ga_event(
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     event_action = selenium.current_url.split("/")[-1]
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -341,6 +386,11 @@ def test_banner_book_title_click_ga_event(
     #          eventCategory: "REX Link (book-banner-collapsed)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -366,6 +416,11 @@ def test_view_book_online_link_ga_event(
     #          eventCategory: "Webview {book_slug} REX",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -395,6 +450,11 @@ def test_openstax_logo_click_ga_event(
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -424,6 +484,11 @@ def test__ga_event(
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -459,6 +524,11 @@ def test_new_highlight_ga_event(
     #          eventCategory: "REX highlighting (inline create)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -498,6 +568,11 @@ def test_remove_highlight_by_using_same_color_button_ga_event(
     #          eventCategory: "REX highlighting (delete-inline-highlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -536,6 +611,11 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
     #          eventCategory: "REX Button (highlighting-login)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -585,11 +665,20 @@ def test_log_in_nudge_login_ga_event(
     #        { eventAction: "/books/{book_slug}/pages/{page_slug}",
     #          eventCategory: "REX unload" }
     second_to_last_event = events[-2]
+    assert(
+        "eventAction" in second_to_last_event and
+        "eventCategory" in second_to_last_event and
+        "eventLabel" in second_to_last_event
+    ), "Not viewing the correct GA event"
     assert(second_to_last_event["eventAction"] == event_action)
     assert(second_to_last_event["eventCategory"] == event_category)
     assert(second_to_last_event["eventLabel"] == event_label)
 
     last_event = events[-1]
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_unload_action)
     assert(last_event["eventCategory"] == event_unload_category)
 
@@ -631,6 +720,11 @@ def test_cancel_highlight_delete_ga_event(
     #          eventCategory: "REX Button (confirm-delete-inline-highlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -673,6 +767,11 @@ def test_highlight_delete_ga_event(
     #          eventCategory: "REX Button (confirm-delete-inline-highlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -727,11 +826,21 @@ def test_edit_existing_note_ga_event(
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
     second_to_last_event = events[-2]
+    assert(
+        "eventAction" in second_to_last_event and
+        "eventCategory" in second_to_last_event and
+        "eventLabel" in second_to_last_event
+    ), "Not viewing the correct GA event"
     assert(second_to_last_event["eventAction"] == first_event_action)
     assert(second_to_last_event["eventCategory"] == first_event_category)
     assert(second_to_last_event["eventLabel"] == first_event_label)
 
     last_event = events[-1]
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == second_event_action)
     assert(last_event["eventCategory"] == second_event_category)
     assert(last_event["eventLabel"] == second_event_label)
@@ -782,11 +891,21 @@ def test_add_note_to_highlight_ga_event(
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
     second_to_last_event = events[-2]
+    assert(
+        "eventAction" in second_to_last_event and
+        "eventCategory" in second_to_last_event and
+        "eventLabel" in second_to_last_event
+    ), "Not viewing the correct GA event"
     assert(second_to_last_event["eventAction"] == first_event_action)
     assert(second_to_last_event["eventCategory"] == first_event_category)
     assert(second_to_last_event["eventLabel"] == first_event_label)
 
     last_event = events[-1]
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == second_event_action)
     assert(last_event["eventCategory"] == second_event_category)
     assert(last_event["eventLabel"] == second_event_label)
@@ -827,6 +946,11 @@ def test_change_highlight_color_ga_event(
     #          eventCategory: "REX highlighting (inline edit)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -862,6 +986,11 @@ def test_select_text_ga_event(
     assert(book.content.highlight_boxes), 'No highlight box found'
 
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -900,6 +1029,11 @@ def test_inline_highlighting_login_nudge_ga_event(
     assert(book.content.highlight_box.login_overlay_present), "Log in not seen"
 
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
@@ -949,6 +1083,11 @@ def test_go_to_highlight_ga_event(
     #          eventCategory: "REX Link (MH gotohighlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(event_action in last_event["eventAction"])
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
