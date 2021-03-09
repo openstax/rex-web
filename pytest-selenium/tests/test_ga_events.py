@@ -16,7 +16,7 @@ def test_the_user_clicks_a_toc_link_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a TOC link is clicked."""
     # SETUP:
-    event_action = f"{page_slug}"
+    event_action = None
     event_category = "REX Link (toc)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
 
@@ -49,7 +49,7 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(
     """The page submits the correct GA event when a print link is clicked."""
     # SETUP:
     event_action = "buy-book"
-    event_category = "REX Link (toolbar)"
+    event_category = "REX Link"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
 
     # GIVEN: a user viewing a book page
@@ -59,7 +59,7 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(
         book.notification.got_it()
 
     # WHEN:  they click the 'Order a print copy' button
-    assert(False)
+    book.order_a_print_copy(remain_on_page=True)
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "buy-book",
