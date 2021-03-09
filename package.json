@@ -64,7 +64,7 @@
     "pretest:sims": "./script/build-simulations.bash",
     "pretest": "npm run-script build:css",
     "test": "npm run-script test:unit && npm run-script test:browser && npm run-script test:build",
-    "test:unit": "REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)spec\\.tsx?\" && npm run-script codecov-ci",
+    "test:unit": "REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)spec\\.tsx?\" && CI=${CI} npm run-script codecov-ci",
     "test:browser": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" -i",
     "test:screenshots": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)screenshotspec\\.tsx?\" -i",
     "test:build": "REACT_APP_ENV=test npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
