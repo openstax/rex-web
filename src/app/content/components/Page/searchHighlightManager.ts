@@ -87,7 +87,7 @@ const searchHighlightManager = (container: HTMLElement, intl: IntlShape) => {
     container,
     highlighter: new Highlighter(container, {
       className: 'search-highlight',
-      formatMessage: (id: string) => intl.formatMessage({ id }, { style: 'search' }),
+      formatMessage: ({ id }) => intl.formatMessage({ id }, { style: 'search' }),
     }),
     searchResultMap: [],
   };

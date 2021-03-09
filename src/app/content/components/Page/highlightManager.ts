@@ -81,7 +81,7 @@ const onSelectHighlight = (
 const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter'>, intl: IntlShape) => {
 
   const highlighter: Highlighter = new Highlighter(services.container, {
-    formatMessage: (id: string, style?: string) => intl.formatMessage({ id }, { style }),
+    formatMessage: intl.formatMessage,
     onClick: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
     onFocusIn: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
     onFocusOut: () => {
