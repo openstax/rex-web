@@ -186,8 +186,33 @@ class Content(Page):
         return self.find_element(*self._print_locator)
 
     @property
-    def order_print_copy(self) -> WebElement:
+    def order_print_copy_button(self) -> WebElement:
         return self.find_element(*self._order_print_copy_locator)
+
+    def order_a_print_copy(self, remain_on_page: bool = False) -> Page:
+        """Click the 'Order a print copy' button.
+
+        :param bool remain_on_page: (Optional) remain on the current page
+            instead of the switching to the newly opened tab
+            default: ``False``
+        :return: the current page if ``remain_on_page`` or switch to the
+            Amazon store in a new tab
+        :rtype: :py:class:`~base.Page`
+
+        """
+        current = self.driver.current_window_handle
+        page = Utilities.switch_to(
+            self.driver,
+            element=self.order_print_copy_button
+        )
+        if remain_on_page:
+            new_handle = 1 if current == self.driver.window_handles[1] else 0
+            if len(self.driver.window_handles) > 1:
+                self.driver.switch_to.window(
+                    self.driver.window_handles[new_handle]
+                )
+            return self
+        return page
 
     @property
     def search_sidebar(self) -> SearchSidebar:

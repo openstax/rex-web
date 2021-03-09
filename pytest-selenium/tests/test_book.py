@@ -66,7 +66,7 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
     # AND: The Amazon link should be opened in a new tab
     if book_availability_in_amazon is not None:
         original = selenium.current_window_handle
-        Utilities.switch_to(driver=selenium, element=rex.order_print_copy)
+        Utilities.switch_to(driver=selenium, element=rex.order_print_copy_button)
         assert (
             rex.current_url == book_availability_in_amazon
         ), "rex book has different amazon link than osweb"
@@ -76,13 +76,13 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
         if len(selenium.window_handles) > 1:
             selenium.switch_to.window(selenium.window_handles[new_handle])
         rex.click_next_link()
-        assert rex.order_print_copy.is_displayed()
+        assert rex.order_print_copy_button.is_displayed()
 
     # AND: Order print copy option should not be present in Rex if osweb has no amazon link
     else:
         with pytest.raises(NoSuchElementException):
             assert (
-                not rex.order_print_copy
+                not rex.order_print_copy_button
             ), "amazon print option present in rex but not present in osweb"
 
 
