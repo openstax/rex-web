@@ -2,7 +2,6 @@ import googleAnalyticsClient from '../../../../gateways/googleAnalyticsClient';
 import { locationChange } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
-import { tryRedirectingToNewUrl } from '../../../navigation/utils';
 import { loadHighlights } from '../../highlights/hooks';
 import { loadPracticeQuestions } from '../../practiceQuestions/hooks';
 import { content } from '../../routes';
@@ -15,8 +14,6 @@ const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
   const state = services.getState();
   const pathname = selectNavigation.pathname(state);
   const query = selectNavigation.query(state);
-
-  tryRedirectingToNewUrl(services.history, pathname);
 
   googleAnalyticsClient.trackPageView(pathname, query);
 

@@ -80,6 +80,3 @@ open-search-client
 
 # development environment.json
 public/rex/environment.json
-
-# development redirects.json
-redirects.development.json
