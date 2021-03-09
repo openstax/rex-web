@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Redirects } from '../../data/redirects/types';
+import { RedirectsData } from '../../data/redirects/types';
 import { content } from '../../src/app/content/routes';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { findArchiveTreeNodeById } from '../../src/app/content/utils/archiveTreeUtils';
@@ -18,7 +18,7 @@ const createRedirects = async(archiveLoader: AppServices['archiveLoader'], osWeb
   const redirects: Array<{ from: string, to: string }> = [];
 
   for (const fileName of books) {
-    const bookRedirects: Redirects = await import(`${redirectsPath}/${fileName}`);
+    const bookRedirects: RedirectsData = await import(`${redirectsPath}/${fileName}`);
 
     for (const { bookId, pageId, pathname } of bookRedirects) {
       const configForBook: { defaultVersion: string } | undefined = config[bookId];
