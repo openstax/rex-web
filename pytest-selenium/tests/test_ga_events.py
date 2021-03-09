@@ -142,6 +142,11 @@ def test_user_logout_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a user logs out."""
     # SETUP:
+    action_script = (
+        'document.querySelector("a[href*=logout]").click(); '
+        "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
+        ".map(x => x.command.payload);"
+    )
     event_action = f"/accounts/logout?r=/books/{book_slug}/pages/{page_slug}"
     event_category = "REX Link (openstax-navbar)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
@@ -151,13 +156,19 @@ def test_user_logout_ga_event(
 
     # WHEN:  they click the user menu
     # AND:   click the 'Log out' menu link
-    assert(False)
+    book.navbar.click_user_name()
+    events = selenium.execute_script(action_script)
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "/accounts/logout?r=/books/{book_slug}/pages/{page_slug}",  # NOQA
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    last_event = events[-2]
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
     assert(last_event["eventAction"] == event_action)
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
