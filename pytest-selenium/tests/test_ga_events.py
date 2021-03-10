@@ -194,24 +194,46 @@ def test_user_logout_ga_event(
     assert(log_out_event["eventLabel"] == event_label)
 
 
-@markers.test_case("C621364")
+@markers.test_case("C621364", "C621366")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_open_the_table_of_contents_ga_event(
+def test_open_and_close_the_table_of_contents_ga_events(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the ToC is opened."""
     # SETUP:
-    event_action = "Click to open the Table of Contents"
-    event_category = "REX Button (toolbar)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    close_event_action = "Click to close the Table of Contents"
+    close_event_category = "REX Button (toc)"
+    close_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    open_event_action = "Click to open the Table of Contents"
+    open_event_category = "REX Button (toolbar)"
+    open_event_label = close_event_label
 
-    # GIVEN: a user viewing a book page
+    # GIVEN: a user viewing a book page and the ToC is open
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
+    if book.is_mobile:
+        book.toolbar.click_toc_toggle_button()
+
+    # WHEN:  they close the table of contents
+    book.sidebar.header.click_toc_toggle_button()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Click to close the Table of Contents",
+    #          eventCategory: "REX Button (toc)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(last_event["eventAction"] == close_event_action)
+    assert(last_event["eventCategory"] == close_event_category)
+    assert(last_event["eventLabel"] == close_event_label)
 
     # WHEN:  they open the table of contents
-    assert(False)
+    book.toolbar.click_toc_toggle_button()
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "Click to open the Table of Contents",
@@ -223,9 +245,9 @@ def test_open_the_table_of_contents_ga_event(
         "eventCategory" in last_event and
         "eventLabel" in last_event
     ), "Not viewing the correct GA event"
-    assert(last_event["eventAction"] == event_action)
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(last_event["eventAction"] == open_event_action)
+    assert(last_event["eventCategory"] == open_event_category)
+    assert(last_event["eventLabel"] == open_event_label)
 
 
 @markers.test_case("C621365")
