@@ -128,7 +128,7 @@
     "@types/yargs": "^13.0.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-plugin-transform-dynamic-import": "^2.1.0",
-    "codecov": "^3.7.1",
+    "codecov": "^3.8.1",
     "date-fns": "^1.30.1",
     "express": "^4.16.4",
     "glob": "^7.1.3",
