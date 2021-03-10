@@ -270,21 +270,23 @@ def test_click_a_figure_link_ga_event(
         book.notification.got_it()
 
     # WHEN:  they click the figure link
-    assert(False)
+    link = random.choice(book.content.figure_links)
+    event_action = f'#{link.get_attribute("href").split("#")[-1]}'
+    Utilities.click_option(selenium, element=link)
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "{figure reference}",
     #          eventCategory: "REX Link",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    link_click_event = Utilities.get_analytics_queue(selenium, -2)
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in link_click_event and
+        "eventCategory" in link_click_event and
+        "eventLabel" in link_click_event
     ), "Not viewing the correct GA event"
-    assert(last_event["eventAction"] == event_action)
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(link_click_event["eventAction"] == event_action)
+    assert(link_click_event["eventCategory"] == event_category)
+    assert(link_click_event["eventLabel"] == event_label)
 
 
 @markers.test_case("C621367")

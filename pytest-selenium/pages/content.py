@@ -388,6 +388,11 @@ class Content(Page):
 
         _caption_locator = (By.CSS_SELECTOR, ".os-caption-container")
         _figure_container_locator = (By.CSS_SELECTOR, ".os-figure")
+        _figure_link_locator = (
+            By.CSS_SELECTOR,
+            "section > p a[href*=Figure] , "
+            "div:not(.os-teacher) > section > .os-note-body a[href*=Figure]"
+        )
         _figure_locator = (By.CSS_SELECTOR, "figure")
         _footnote_locator = (By.CSS_SELECTOR, "[data-type=footnote-ref]")
         _highlight_box_locator = (By.CSS_SELECTOR, "form[class*=EditCard], div[class*=DisplayNote]")
@@ -461,6 +466,25 @@ class Content(Page):
             if not captions:
                 raise ContentError("no clean captions found")
             return captions
+
+        @property
+        def figure_links(self) -> List[WebElement]:
+            """Return the list of visible figure links.
+
+            :return: the list of available figure links not hidden behind
+                instructor content
+            :rtype: list(WebElement)
+            :raises ContentError: if no figure links are found in the content
+
+            """
+            links = [
+                link
+                for link
+                in self.find_elements(*self._figure_link_locator)
+            ]
+            if not links:
+                raise ContentError("no figure links found")
+            return links
 
         @property
         def figures(self) -> List[WebElement]:
