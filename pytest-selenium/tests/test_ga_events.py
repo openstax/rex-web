@@ -293,8 +293,13 @@ def test_click_a_figure_link_ga_event(
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_account_profile_menu_bar_click_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when account profile clicked."""
     # SETUP:
+    action_script = (
+        'document.querySelector("a[href*=profile]").click(); '
+        "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
+        ".map(x => x.command.payload);"
+    )
     event_action = "/accounts/profile"
     event_category = "REX Link (openstax-navbar)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
@@ -305,13 +310,14 @@ def test_account_profile_menu_bar_click_ga_event(
     # WHEN:  they click their name in the nav bar
     # AND:   click the 'Account Profile' link
     # AND:   switch back to the initial tabas
-    assert(False)
+    book.navbar.click_user_name()
+    events = selenium.execute_script(action_script)
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "/accounts/profile",
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    last_event = events[-1]
     assert(
         "eventAction" in last_event and
         "eventCategory" in last_event and
