@@ -10,6 +10,13 @@ from tests import markers
 from utils.utility import Color, Highlight, Utilities
 
 
+ACTION_SCRIPT = (
+    'document.querySelector("{selector}").click(); '
+    "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
+    ".map(x => x.command.payload);"
+)
+
+
 @markers.test_case("C591502")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_the_user_clicks_a_toc_link_ga_event(
@@ -90,11 +97,7 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the page link is clicked."""
     # SETUP:
-    action_script = (
-        'document.querySelector("[data-analytics-label={label}]").click(); '
-        "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
-        ".map(x => x.command.payload);"
-    )
+    label = "[data-analytics-label={label}]"
     load_script = (
         'return document.querySelector("[data-analytics-label={label}]");'
     )
@@ -114,7 +117,9 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     # WHEN:  they click the 'Previous' link
     #        (use a script because we need the events before the page changes)
     events = selenium.execute_script(
-        action_script.format(label=previous_event_action)
+        ACTION_SCRIPT.format(
+            selector=label.format(label=previous_event_action)
+        )
     )
     book.wait.until(lambda _: book.driver.execute_script(
         load_script.format(label=next_event_action)
@@ -138,7 +143,9 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     # WHEN:  they click the 'Next' link
     #        (use a script because we need the events before the page changes)
     events = selenium.execute_script(
-        action_script.format(label=next_event_action)
+        ACTION_SCRIPT.format(
+            selector=label.format(label=next_event_action)
+        )
     )
 
     # THEN:  the correct Google Analytics event is queued
@@ -162,14 +169,10 @@ def test_user_logout_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a user logs out."""
     # SETUP:
-    action_script = (
-        'document.querySelector("a[href*=logout]").click(); '
-        "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
-        ".map(x => x.command.payload);"
-    )
     event_action = f"/accounts/logout?r=/books/{book_slug}/pages/{page_slug}"
     event_category = "REX Link (openstax-navbar)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    selector = "a[href*=logout]"
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
@@ -177,7 +180,7 @@ def test_user_logout_ga_event(
     # WHEN:  they click the user menu
     # AND:   click the 'Log out' menu link
     book.navbar.click_user_name()
-    events = selenium.execute_script(action_script)
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "/accounts/logout?r=/books/{book_slug}/pages/{page_slug}",  # NOQA
@@ -295,14 +298,10 @@ def test_account_profile_menu_bar_click_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when account profile clicked."""
     # SETUP:
-    action_script = (
-        'document.querySelector("a[href*=profile]").click(); '
-        "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
-        ".map(x => x.command.payload);"
-    )
     event_action = "/accounts/profile"
     event_category = "REX Link (openstax-navbar)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    selector = "a[href*=profile]"
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
@@ -311,7 +310,7 @@ def test_account_profile_menu_bar_click_ga_event(
     # AND:   click the 'Account Profile' link
     # AND:   switch back to the initial tabas
     book.navbar.click_user_name()
-    events = selenium.execute_script(action_script)
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "/accounts/profile",
@@ -374,9 +373,10 @@ def test_banner_book_title_click_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the book title is clicked."""
     # SETUP:
-    event_action = "/details/books/{book_slug}"
+    event_action = f"/details/books/{book_slug}"
     event_category = "REX Link (book-banner-collapsed)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    selector = "a[data-testid=details-link-collapsed]"
 
     # GIVEN: a non-logged in user viewing a book page that is scrolled down
     book = Content(selenium, base_url,
@@ -385,21 +385,21 @@ def test_banner_book_title_click_ga_event(
         book.notification.got_it()
 
     # WHEN:  they click on the banner book title
-    assert(False)
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "/details/books/{book_slug}",
     #          eventCategory: "REX Link (book-banner-collapsed)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    link_click_event = events[-2]
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in link_click_event and
+        "eventCategory" in link_click_event and
+        "eventLabel" in link_click_event
     ), "Not viewing the correct GA event"
-    assert(last_event["eventAction"] == event_action)
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(link_click_event["eventAction"] == event_action)
+    assert(link_click_event["eventCategory"] == event_category)
+    assert(link_click_event["eventLabel"] == event_label)
 
 
 @markers.test_case("C621370")
@@ -638,6 +638,7 @@ def test_log_in_nudge_login_ga_event(
     event_label = f"/books/{book_slug}/pages/{page_slug}"
     event_unload_action = event_label
     event_unload_category = "REX unload"
+    selector = "[data-testid=confirm]"
 
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url,
@@ -656,12 +657,7 @@ def test_log_in_nudge_login_ga_event(
         )
 
     # use a script because we need the events before the page changes
-    action_script = (
-        'document.querySelector("[data-testid=confirm").click(); '
-        "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
-        ".map(x => x.command.payload);"
-    )
-    events = selenium.execute_script(action_script)
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "login",
