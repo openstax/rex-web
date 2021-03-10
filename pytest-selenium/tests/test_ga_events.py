@@ -469,13 +469,14 @@ def test_openstax_logo_click_ga_event(
 
 @markers.test_case("C621372")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+def test_log_in_click_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
-    event_action = "/accounts/login"
+    event_action = "login"
     event_category = "REX Link (openstax-navbar)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    selector = "a[href*=login]"
 
     # GIVEN: a non-logged in user viewing a book page that is scrolled down
     book = Content(selenium, base_url,
@@ -484,13 +485,13 @@ def test__ga_event(
         book.notification.got_it()
 
     # WHEN:  they click the 'Log in' link in the nav bar
-    assert(False)
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "/accounts/login",
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    last_event = events[-2]
     assert(
         "eventAction" in last_event and
         "eventCategory" in last_event and
