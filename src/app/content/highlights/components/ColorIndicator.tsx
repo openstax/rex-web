@@ -69,6 +69,7 @@ const ColorIndicator = styled(Hoc)`
     border-radius: 2rem;
   `}
   overflow: visible;
+
   ${CheckIcon} {
     height: ${(props: Props) => checkSize(props)}rem;
     width: ${(props: Props) => checkSize(props)}rem;
@@ -77,6 +78,7 @@ const ColorIndicator = styled(Hoc)`
       display: block;
     `}
   }
+
   input:focus + ${FocusedStyle} {
     display: block;
   }
