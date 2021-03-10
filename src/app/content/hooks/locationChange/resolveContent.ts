@@ -178,9 +178,6 @@ export const getBookInformation = async(
 
   } else if (UNLIMITED_CONTENT) {
     for (const {id, bookVersion} of allReferences) {
-      // Omit references that don't have bookVersion because new pipeline will not support requests without a version
-      if (!bookVersion) { continue; }
-
       const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
       const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
       if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {

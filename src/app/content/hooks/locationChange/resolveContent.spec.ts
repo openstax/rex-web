@@ -312,20 +312,6 @@ describe('locationChange', () => {
 
         expect(referenceBook).toEqual(undefined);
       });
-
-      it('returns undefined if no book version found in response from getBookIdsForPage', async() => {
-        const reference = {
-          match: 'ajhd',
-          pageId: mockPageInOtherBook.id,
-        };
-
-        jest.spyOn(helpers.archiveLoader, 'getBookIdsForPage')
-          .mockResolvedValue([{ id: 'asd', bookVersion: undefined }]);
-
-        const referenceBook = await getBookInformation(helpers, reference);
-
-        expect(referenceBook).toEqual(undefined);
-      });
     });
 
     describe('loadContentReference', () => {
