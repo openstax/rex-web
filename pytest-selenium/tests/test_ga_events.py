@@ -334,31 +334,38 @@ def test_clicking_a_search_excerpt_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
-    event_action = None  # Search excerpt page slug
+    event_action = None  # Not yet known, uses the search result link reference
     event_category = "REX Link"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    search_term = "Andromeda"
 
-    # GIVEN: a logged in user viewing a book page
+    # GIVEN: a user viewing a book page
     # AND:   searched the book for a term
-    book = user_setup(selenium, base_url, book_slug, page_slug)
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    search = book.mobile_search_toolbar if book.is_mobile else book.toolbar
+    search_results = search.search_for(search_term).results
 
     # WHEN:  they click on a search excerpt
-    assert(False)
+    link = random.choice(search_results)
+    event_action = link.get_attribute("href").split("/")[-1]
+    Utilities.click_option(selenium, element=link)
 
     # THEN:  the correct Google Analytics search link event is queued
     #        { eventAction: "{new page slug}",
     #          eventCategory: "REX Link",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    event_action = selenium.current_url.split("/")[-1]
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    link_click_event = Utilities.get_analytics_queue(selenium, -2)
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in link_click_event and
+        "eventCategory" in link_click_event and
+        "eventLabel" in link_click_event
     ), "Not viewing the correct GA event"
-    assert(last_event["eventAction"] == event_action)
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(link_click_event["eventAction"] == event_action)
+    assert(link_click_event["eventCategory"] == event_category)
+    assert(link_click_event["eventLabel"] == event_label)
 
 
 @markers.test_case("C621369")
