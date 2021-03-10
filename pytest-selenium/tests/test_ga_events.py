@@ -491,15 +491,15 @@ def test_log_in_click_ga_event(
     #        { eventAction: "/accounts/login",
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = events[-2]
+    log_in_event = events[-2]
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in log_in_event and
+        "eventCategory" in log_in_event and
+        "eventLabel" in log_in_event
     ), "Not viewing the correct GA event"
-    assert(last_event["eventAction"] == event_action)
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(log_in_event["eventAction"] == event_action)
+    assert(log_in_event["eventCategory"] == event_category)
+    assert(log_in_event["eventLabel"] == event_label)
 
 
 @markers.test_case("C597377")
