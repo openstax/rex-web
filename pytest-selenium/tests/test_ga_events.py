@@ -441,6 +441,7 @@ def test_openstax_logo_click_ga_event(
     event_action = "/"
     event_category = "REX Link (openstax-navbar)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    selector = "a[href='/']"
 
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url,
@@ -449,21 +450,21 @@ def test_openstax_logo_click_ga_event(
         book.notification.got_it()
 
     # WHEN:  they click on the OpenStax logo in the nav bar
-    assert(False)
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "/",
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    logo_click_event = events[-2]
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in logo_click_event and
+        "eventCategory" in logo_click_event and
+        "eventLabel" in logo_click_event
     ), "Not viewing the correct GA event"
-    assert(last_event["eventAction"] == event_action)
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(logo_click_event["eventAction"] == event_action)
+    assert(logo_click_event["eventCategory"] == event_category)
+    assert(logo_click_event["eventLabel"] == event_label)
 
 
 @markers.test_case("C621372")
