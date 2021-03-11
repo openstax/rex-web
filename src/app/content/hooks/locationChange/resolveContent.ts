@@ -168,23 +168,27 @@ export const getBookInformation = async(
 
   const configuredReference = allReferences.filter((item) => BOOKS[item.id])[0];
 
-  if (configuredReference) {
-    const osWebBook =  await services.osWebLoader.getBookFromId(configuredReference.id);
-    const archiveBook = await services.archiveLoader.book(
-      configuredReference.id, BOOKS[configuredReference.id].defaultVersion
-    ).load();
+  try {
+    if (configuredReference) {
+      const osWebBook =  await services.osWebLoader.getBookFromId(configuredReference.id);
+      const archiveBook = await services.archiveLoader.book(
+        configuredReference.id, BOOKS[configuredReference.id].defaultVersion
+      ).load();
 
-    return {osWebBook, archiveBook};
-
-  } else if (UNLIMITED_CONTENT) {
-    for (const {id, bookVersion} of allReferences) {
-      const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
-      const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
-      if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
-        return {osWebBook, archiveBook};
+      return {osWebBook, archiveBook};
+    } else if (UNLIMITED_CONTENT) {
+      for (const {id, bookVersion} of allReferences) {
+        const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
+        const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
+        if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
+          return {osWebBook, archiveBook};
+        }
       }
     }
+  } catch {
+    return undefined;
   }
+
   return undefined;
 };
 

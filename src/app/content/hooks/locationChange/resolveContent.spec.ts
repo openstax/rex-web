@@ -300,6 +300,28 @@ describe('locationChange', () => {
 
     });
 
+    it('returns undefined if book wasnt found', async() => {
+      helpers.archiveLoader.mock.loadBook.mockRejectedValue(new Error('asda'));
+
+      match.params = {
+        book: {uuid: book.id, version: '1.0'},
+        page: {slug: 'asd'},
+      };
+
+      const reference = {
+        bookId: book.id,
+        bookVersion: '1.0',
+        match: 'ajhd',
+        pageId: 'asd',
+      };
+
+      const referenceBook = await resolveExternalBookReference(
+        helpers, mockOtherBook, mockPageInOtherBook, reference);
+
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith(book.id);
+      expect(referenceBook).toEqual(undefined);
+    });
+
     describe('getBookInformation', () => {
       it('returns undefined if no book version found in config or reference', async() => {
         const reference = {
