@@ -9,7 +9,6 @@ from pages.content import Content
 from tests import markers
 from utils.utility import Color, Highlight, Utilities
 
-
 ACTION_SCRIPT = (
     'document.querySelector("{selector}").click(); '
     "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
