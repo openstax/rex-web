@@ -39,7 +39,7 @@ for book_id in $book_ids; do
   # approved book format has a "1." on the front of every version
   desired_version=${desired_version:2}
 
-  node script/entry.js update-content-versions-and-check-for-archived-slugs --bookId "$book_id" --newVersion "$desired_version"
+  node script/entry.js update-content-versions-and-check-for-archived-slugs --bookId "$book_id" --versionNumber "$desired_version"
 
   if [[ -z $(git status --porcelain) ]]; then
     continue
