@@ -4,13 +4,13 @@ import { Check } from 'styled-icons/fa-solid/Check';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
 
-interface FocusedStyleProps {
+interface StyleProps {
   style: typeof highlightStyles[number];
   size?: 'small';
   shape?: 'square' | 'circle';
 }
 
-interface Props<T extends React.ComponentType | undefined = React.ComponentType> extends FocusedStyleProps {
+interface Props<T extends React.ComponentType | undefined = React.ComponentType> extends StyleProps {
   className?: string;
   checked?: boolean;
   component?: T extends undefined ? undefined :
@@ -27,13 +27,13 @@ const CheckIcon = styled(Check)`
 const FocusedStyle = styled.span`
   display: none;
   position: absolute;
-  height: ${(props: FocusedStyleProps) => indicatorSize(props) + 0.6}rem;
-  width: ${(props: FocusedStyleProps) => indicatorSize(props) + 0.6}rem;
+  height: ${(props: StyleProps) => indicatorSize(props) + 0.6}rem;
+  width: ${(props: StyleProps) => indicatorSize(props) + 0.6}rem;
   background-color: ${(props: {style: typeof highlightStyles[number]}) => props.style.passive};
   z-index: -1;
   left: -0.4rem;
   top: -0.4rem;
-  ${(props: FocusedStyleProps) => (props.shape === 'circle' || props.shape === undefined) && css`
+  ${(props: StyleProps) => (props.shape === 'circle' || props.shape === undefined) && css`
     border-radius: 2rem;
   `}
 `;
@@ -41,7 +41,7 @@ const FocusedStyle = styled.span`
 // tslint:disable-next-line:variable-name
 function Hoc<T extends React.ComponentType | undefined>(props: React.PropsWithChildren<Props<T>>) {
   const {children, style, checked, size, component, ...otherProps} = props;
-  const focusedProps: FocusedStyleProps = { style, size, shape: props.shape };
+  const focusedProps: StyleProps = { style, size, shape: props.shape };
 
   if (isDefined(component)) {
     return React.cloneElement(
