@@ -4,11 +4,14 @@ import { Check } from 'styled-icons/fa-solid/Check';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
 
-interface Props<T extends React.ComponentType | undefined = React.ComponentType> {
+interface FocusedStyleProps {
+  style: typeof highlightStyles[number];
   size?: 'small';
   shape?: 'square' | 'circle';
+}
+
+interface Props<T extends React.ComponentType | undefined = React.ComponentType> extends FocusedStyleProps {
   className?: string;
-  style: typeof highlightStyles[number];
   checked?: boolean;
   component?: T extends undefined ? undefined :
     T extends React.ComponentType ? React.ReactComponentElement<T>:
@@ -19,8 +22,6 @@ interface Props<T extends React.ComponentType | undefined = React.ComponentType>
 const CheckIcon = styled(Check)`
   display: none;
 `;
-
-interface FocusedStyleProps extends Pick<Props, 'style' | 'size' | 'shape'> {}
 
 // tslint:disable-next-line:variable-name
 const FocusedStyle = styled.span`
