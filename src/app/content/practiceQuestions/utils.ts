@@ -36,7 +36,6 @@ const flattenLocationFilters = (locationFilters: LocationFiltersWithChildren) =>
   for (const { children } of locationFilters.values()) {
     flattened = flattened.concat(children);
   }
-
   return flattened;
 };
 
