@@ -7,6 +7,7 @@ export const resetModules = () => {
   jest.doMock('focus-within-polyfill', () => ({}));
   jest.doMock('mdn-polyfills/Node.prototype.children', () => ({}));
   jest.doMock('mdn-polyfills/NodeList.prototype.forEach', () => ({}));
+  jest.doMock('mdn-polyfills/Array.prototype.includes', () => ({}));
   jest.doMock('details-element-polyfill', () => jest.fn());
 };
 
