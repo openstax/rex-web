@@ -6,6 +6,7 @@ import random
 import re
 from functools import reduce
 from math import isclose
+from time import sleep
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException
@@ -1334,6 +1335,7 @@ def test_open_a_second_note_when_the_first_is_already_displayed(
     # WHEN: they click the second highlight
     highlight_two = book.content.get_highlight(by_id=highlight_id_two)[0]
     Utilities.click_option(selenium, element=highlight_two, scroll_to=-105)
+    sleep(1.0)
 
     # THEN: the second highlight is focused
     # AND:  the second note is displayed

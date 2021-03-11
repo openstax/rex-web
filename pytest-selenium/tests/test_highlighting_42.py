@@ -186,60 +186,70 @@ def test_my_highlights_summary_shows_all_types_of_content(selenium, base_url, bo
     if width <= DESKTOP[0]:
         selenium.set_window_size(width=DESKTOP[0], height=height)
 
-    book.content.highlight(
-        target=random.choice(book.content.paragraphs),
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.paragraphs,
         offset=Highlight.ENTIRE,
         color=Highlight.random_color(),
-    )
-    highlight_ids = book.content.highlight_ids
-    book.content.highlight(
-        target=random.choice(book.content.images),
+        name="Paragraph")
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.images,
         offset=Highlight.ENTIRE,
         color=Highlight.random_color(),
-    )
-    highlight_ids = highlight_ids + list(set(book.content.highlight_ids) - set(highlight_ids))
-    book.content.highlight(
-        target=random.choice(book.content.figures),
+        name="Image")
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.figures,
         offset=Highlight.ENTIRE,
         color=Highlight.random_color(),
-    )
-    highlight_ids = highlight_ids + list(set(book.content.highlight_ids) - set(highlight_ids))
-    book.content.highlight(
-        target=random.choice(book.content.captions),
+        name="Figure")
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.captions,
         offset=Highlight.ENTIRE,
         color=Highlight.random_color(),
-    )
-    highlight_ids = highlight_ids + list(set(book.content.highlight_ids) - set(highlight_ids))
-    book.content.highlight(
-        target=random.choice(book.content.lists),
+        name="Caption")
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.lists,
         offset=Highlight.ENTIRE,
         color=Highlight.random_color(),
-    )
-    highlight_ids = highlight_ids + list(set(book.content.highlight_ids) - set(highlight_ids))
-    book.content.highlight(
-        target=random.choice(book.content.tables),
+        name="List")
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.tables,
         offset=Highlight.ENTIRE,
         color=Highlight.random_color(),
-    )
-    highlight_ids = highlight_ids + list(set(book.content.highlight_ids) - set(highlight_ids))
-    book.content.highlight(
-        target=random.choice(book.content.footnotes),
+        name="Table")
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.footnotes,
         offset=Highlight.ENTIRE,
         color=Highlight.random_color(),
-    )
-    highlight_ids = highlight_ids + list(set(book.content.highlight_ids) - set(highlight_ids))
-    book.content.highlight(
-        target=random.choice(book.content.links),
+        name="Footnote")
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.links,
         offset=Highlight.ENTIRE,
         color=Highlight.random_color(),
-    )
-    highlight_ids = highlight_ids + list(set(book.content.highlight_ids) - set(highlight_ids))
-    book.content.highlight(
-        target=random.choice(book.content.math),
+        name="Link")
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.math,
         offset=Highlight.ENTIRE,
         color=Highlight.random_color(),
-    )
-    highlight_ids = highlight_ids + list(set(book.content.highlight_ids) - set(highlight_ids))
+        name="Math")
+    highlight_ids = set(book.content.highlight_ids)
 
     if width != DESKTOP[0]:
         # reset the window width for a mobile test
@@ -320,9 +330,13 @@ def test_lengthy_highlights_summary_page_has_a_floating_back_to_top_link(
     if width <= DESKTOP[0]:
         selenium.set_window_size(width=DESKTOP[0], height=height)
 
-    for paragraph in random.choices(book.content.paragraphs, k=10):
-        book.content.highlight(
-            target=paragraph, offset=Highlight.ENTIRE, color=Highlight.random_color()
+    for _ in range(10):
+        Highlight.force_highlight(
+            book=book,
+            by=random.choice,
+            group=book.content.paragraphs,
+            offset=Highlight.ENTIRE,
+            color=Highlight.random_color()
         )
 
     if width != DESKTOP[0]:
