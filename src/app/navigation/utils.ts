@@ -23,6 +23,10 @@ import {
   ScrollTarget
 } from './types';
 
+if (typeof(document) !== 'undefined') {
+  import(/* webpackChunkName: "Array.includes" */ 'mdn-polyfills/Array.prototype.includes');
+}
+
 const delimiter = '_';
 
 export const matchForRoute = <R extends AnyRoute>(route: R, match: AnyMatch | undefined): match is Match<R> =>
