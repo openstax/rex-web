@@ -421,7 +421,7 @@ class Utilities(object):
 
         """
         queue = driver.execute_script(ANALYTICS_QUEUE)
-        if index:
+        if index or index == 0:
             return queue[index]
         return queue
 
