@@ -7,6 +7,9 @@ import config from '../config';
 
 let IS_INITIALIZED = false;
 
+// This should be removed when Sentry team solve this issue: https://github.com/getsentry/sentry/issues/16012
+const normalizeReleaseId = (id: string): string => id.replace('/', '-');
+
 export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
   const { event_id } = event;
 
@@ -33,7 +36,7 @@ export default {
           new Integrations.CaptureConsole(),
           new Integrations.Dedupe(),
         ],
-        release: `rex@${config.RELEASE_ID}`,
+        release: normalizeReleaseId(`rex@${config.RELEASE_ID}`),
         tracesSampleRate: 0.1,
       });
       IS_INITIALIZED = true;
