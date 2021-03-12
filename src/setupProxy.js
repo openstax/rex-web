@@ -26,12 +26,16 @@ global.DOMParser = new JSDOM().window.DOMParser;
 
 require('@babel/register')({
   ignore: [/node_modules/],
-  extensions: ['.js', '.ts'],
+  extensions: ['.js', '.jsx', '.ts', '.tsx'],
   presets: [
     '@babel/preset-env',
     '@babel/preset-typescript',
+    '@babel/preset-react',
   ],
   plugins: [
+    'macros',
+    '@babel/proposal-class-properties',
+    '@babel/proposal-object-rest-spread',
     '@babel/transform-runtime',
     'babel-plugin-transform-dynamic-import',
   ]
