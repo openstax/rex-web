@@ -17,7 +17,32 @@ const {
   REACT_APP_SEARCH_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
+  REACT_APP_ARCHIVE_URL,
 } = require('./config');
+
+// lots of stuff relies on this
+const JSDOM = require('jsdom').JSDOM;
+global.DOMParser = new JSDOM().window.DOMParser;
+
+require('@babel/register')({
+  ignore: [/node_modules/],
+  extensions: ['.js', '.ts'],
+  presets: [
+    '@babel/preset-env',
+    '@babel/preset-typescript',
+  ],
+  plugins: [
+    '@babel/transform-runtime',
+    'babel-plugin-transform-dynamic-import',
+  ]
+});
+
+const { default: prepareRedirects } = require('./helpers/prepareRedirects');
+const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
+const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
+
+const archiveLoader = createArchiveLoader(`/${REACT_APP_ARCHIVE_URL}`, REACT_APP_ARCHIVE_URL);
+const osWebLoader = createOSWebLoader(`/${REACT_APP_OS_WEB_API_URL}`);
 
 const archivePaths = [
   '/extras',
@@ -63,6 +88,11 @@ const sendFile = (res, path) => {
     res.end(body);
   });
 };
+
+const sendJSON = (res, json, status = 200) => {
+  res.status(status);
+  res.end(JSON.stringify(json));
+}
 
 const findFileIn = (baseDir, reqInfo) => {
   const filePath = path.join(baseDir, reqInfo.pathname);
@@ -166,12 +196,15 @@ function stubEnvironment(app) {
 }
 
 function stubRedirects(app) {
-  app.use((req, res, next) => {
-    const  {pathname} = url.parse(req.url);
+  app.use(async(req, res, next) => {
+    const {pathname} = url.parse(req.url);
+    const redirects = await prepareRedirects(archiveLoader, osWebLoader);
+    const developmentRedirects = require('./redirects.development.json');
+
+    redirects.push(...developmentRedirects);
 
     if (pathname === '/rex/redirects.json') {
-      const redirectsFile = path.join(__dirname, 'redirects.development.json');
-      sendFile(res, redirectsFile);
+      sendJSON(res, redirects);
     } else {
       next();
     }
