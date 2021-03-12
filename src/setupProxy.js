@@ -19,29 +19,11 @@ const {
   REACT_APP_OS_WEB_API_URL,
   REACT_APP_ARCHIVE_URL,
 } = require('./config');
+const requireBabelConfig = require('./babel-config');
 
-// lots of stuff relies on this
-const JSDOM = require('jsdom').JSDOM;
-global.DOMParser = new JSDOM().window.DOMParser;
+requireBabelConfig();
 
-require('@babel/register')({
-  ignore: [/node_modules/],
-  extensions: ['.js', '.jsx', '.ts', '.tsx'],
-  presets: [
-    '@babel/preset-env',
-    '@babel/preset-typescript',
-    '@babel/preset-react',
-  ],
-  plugins: [
-    'macros',
-    '@babel/proposal-class-properties',
-    '@babel/proposal-object-rest-spread',
-    '@babel/transform-runtime',
-    'babel-plugin-transform-dynamic-import',
-  ]
-});
-
-const { default: prepareRedirects } = require('../script/prepareRedirects');
+const { default: prepareRedirects } = require('../script/utils/prepareRedirects');
 const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
 const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 
