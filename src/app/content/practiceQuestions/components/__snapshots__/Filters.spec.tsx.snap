@@ -74,7 +74,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-7 Filters__StyledChapterFilters-sc-1lvdmlz-0 jvrNgK"
+        className="ChapterFilter-tcdlu-7 Filters__StyledChapterFilters-sc-1lvdmlz-0 jynUnN"
         tabIndex={-1}
       >
         <div
@@ -238,7 +238,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-7 Filters__StyledChapterFilters-sc-1lvdmlz-0 jvrNgK"
+        className="ChapterFilter-tcdlu-7 Filters__StyledChapterFilters-sc-1lvdmlz-0 jynUnN"
         tabIndex={-1}
       >
         <div

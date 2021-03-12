@@ -2,7 +2,7 @@
 
 exports[`ColorFilter matches snapshot 1`] = `
 <div
-  className="ColorFilter-sc-1ic50x3-1 duhSOX"
+  className="ColorFilter-sc-1ic50x3-1 gDnnAT"
   tabIndex={-1}
 >
   <div
@@ -50,7 +50,7 @@ exports[`ColorFilter matches snapshot 1`] = `
       </svg>
     </span>
     <div
-      className="ColorIndicator-sc-1w5zl7g-1 kBHzhz"
+      className="ColorIndicator-sc-1w5zl7g-2 hxgXOu"
     >
       <svg
         aria-hidden="true"
@@ -64,6 +64,17 @@ exports[`ColorFilter matches snapshot 1`] = `
           fill="currentColor"
         />
       </svg>
+      <span
+        className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 kwsovu"
+        size="small"
+        style={
+          Object {
+            "focused": "#fed200",
+            "label": "yellow",
+            "passive": "#ffff8a",
+          }
+        }
+      />
     </div>
     <span
       className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
@@ -97,7 +108,7 @@ exports[`ColorFilter matches snapshot 1`] = `
       </svg>
     </span>
     <div
-      className="ColorIndicator-sc-1w5zl7g-1 dSRHOr"
+      className="ColorIndicator-sc-1w5zl7g-2 kUYWjn"
     >
       <svg
         aria-hidden="true"
@@ -111,6 +122,17 @@ exports[`ColorFilter matches snapshot 1`] = `
           fill="currentColor"
         />
       </svg>
+      <span
+        className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 fqiTys"
+        size="small"
+        style={
+          Object {
+            "focused": "#92d101",
+            "label": "green",
+            "passive": "#def99f",
+          }
+        }
+      />
     </div>
     <span
       className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
@@ -144,7 +166,7 @@ exports[`ColorFilter matches snapshot 1`] = `
       </svg>
     </span>
     <div
-      className="ColorIndicator-sc-1w5zl7g-1 eibKCM"
+      className="ColorIndicator-sc-1w5zl7g-2 fkmJHS"
     >
       <svg
         aria-hidden="true"
@@ -158,6 +180,17 @@ exports[`ColorFilter matches snapshot 1`] = `
           fill="currentColor"
         />
       </svg>
+      <span
+        className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 eHIgYD"
+        size="small"
+        style={
+          Object {
+            "focused": "#00c3ed",
+            "label": "blue",
+            "passive": "#c8f5ff",
+          }
+        }
+      />
     </div>
     <span
       className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
@@ -191,7 +224,7 @@ exports[`ColorFilter matches snapshot 1`] = `
       </svg>
     </span>
     <div
-      className="ColorIndicator-sc-1w5zl7g-1 ekjDWZ"
+      className="ColorIndicator-sc-1w5zl7g-2 gdbVRC"
     >
       <svg
         aria-hidden="true"
@@ -205,6 +238,17 @@ exports[`ColorFilter matches snapshot 1`] = `
           fill="currentColor"
         />
       </svg>
+      <span
+        className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 AHChX"
+        size="small"
+        style={
+          Object {
+            "focused": "#545ec8",
+            "label": "purple",
+            "passive": "#cbcfff",
+          }
+        }
+      />
     </div>
     <span
       className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
@@ -238,7 +282,7 @@ exports[`ColorFilter matches snapshot 1`] = `
       </svg>
     </span>
     <div
-      className="ColorIndicator-sc-1w5zl7g-1 hFYYXx"
+      className="ColorIndicator-sc-1w5zl7g-2 bhqGqa"
     >
       <svg
         aria-hidden="true"
@@ -252,6 +296,17 @@ exports[`ColorFilter matches snapshot 1`] = `
           fill="currentColor"
         />
       </svg>
+      <span
+        className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 cxneHl"
+        size="small"
+        style={
+          Object {
+            "focused": "#de017e",
+            "label": "pink",
+            "passive": "#ffc5e1",
+          }
+        }
+      />
     </div>
     <span
       className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
