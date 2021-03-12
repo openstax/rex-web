@@ -43,6 +43,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
     size={size}
     title={color}
     aria-label={useIntl().formatMessage({id: 'i18n:highlighting:change-color'}, {color})}
+    checked={props.checked}
     component={<label />}
     className={className}
   >
@@ -89,4 +90,5 @@ export default styled(ColorPicker)`
   outline: none;
   display: flex;
   flex-direction: row;
+  overflow: visible;
 `;
