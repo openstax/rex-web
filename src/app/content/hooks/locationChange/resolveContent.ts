@@ -168,25 +168,30 @@ export const getBookInformation = async(
 
   const configuredReference = allReferences.filter((item) => BOOKS[item.id])[0];
 
-  try {
-    if (configuredReference) {
-      const osWebBook =  await services.osWebLoader.getBookFromId(configuredReference.id);
-      const archiveBook = await services.archiveLoader.book(
-        configuredReference.id, BOOKS[configuredReference.id].defaultVersion
-      ).load();
+  if (configuredReference) {
+    const osWebBook =  await services.osWebLoader.getBookFromId(configuredReference.id);
+    const archiveBook = await services.archiveLoader.book(
+      configuredReference.id, BOOKS[configuredReference.id].defaultVersion
+    ).load().catch((error) => {
+      if (UNLIMITED_CONTENT) {
+        return undefined;
+      } else {
+        throw error;
+      }
+    });
 
+    if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
       return {osWebBook, archiveBook};
-    } else if (UNLIMITED_CONTENT) {
-      for (const {id, bookVersion} of allReferences) {
-        const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
-        const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
-        if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
-          return {osWebBook, archiveBook};
-        }
+    }
+  } else if (UNLIMITED_CONTENT) {
+    // this section only used for cnx.org content, delete when web-pipeline (RAP) is adopted
+    for (const {id, bookVersion} of allReferences) {
+      const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
+      const archiveBook = await services.archiveLoader.book(id, bookVersion).load().catch(() => undefined);
+      if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
+        return {osWebBook, archiveBook};
       }
     }
-  } catch {
-    return undefined;
   }
 
   return undefined;
