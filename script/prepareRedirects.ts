@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
-import { RedirectsData } from '../../data/redirects/types';
-import { content } from '../app/content/routes';
-import { makeUnifiedBookLoader } from '../app/content/utils';
-import { findArchiveTreeNodeById } from '../app/content/utils/archiveTreeUtils';
-import { AppServices } from '../app/types';
-import config from '../config.books';
+import { RedirectsData } from '../data/redirects/types';
+import { content } from '../src/app/content/routes';
+import { makeUnifiedBookLoader } from '../src/app/content/utils';
+import { findArchiveTreeNodeById } from '../src/app/content/utils/archiveTreeUtils';
+import { AppServices } from '../src/app/types';
+import config from '../src/config.books';
 
-const redirectsPath = path.resolve(__dirname, '../../data/redirects/');
+const redirectsPath = path.resolve(__dirname, '../data/redirects/');
 
 const prepareRedirects = async(
   archiveLoader: AppServices['archiveLoader'],

@@ -1,5 +1,5 @@
 import { AppServices } from '../../src/app/types';
-import prepareRedirects from '../../src/helpers/prepareRedirects';
+import prepareRedirects from '../prepareRedirects';
 import { writeAssetFile } from './fileUtils';
 
 export default async(archiveLoader: AppServices['archiveLoader'], osWebLoader: AppServices['osWebLoader']) => {

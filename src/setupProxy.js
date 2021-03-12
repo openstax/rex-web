@@ -37,7 +37,7 @@ require('@babel/register')({
   ]
 });
 
-const { default: prepareRedirects } = require('./helpers/prepareRedirects');
+const { default: prepareRedirects } = require('../script/prepareRedirects');
 const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
 const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 
