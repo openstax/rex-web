@@ -1,21 +1,22 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
-import { addToast } from '../../../notifications/actions';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
+import { getHighlightToastDesination } from '../../../notifications/utils';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
 import { createHighlight, receiveDeleteHighlight } from '../actions';
+import { HighlightCreateError } from '../errors';
 
 export const hookBody: ActionHookBody<typeof createHighlight> =
-  ({highlightClient, dispatch}) => async({payload, meta}) => {
+  ({highlightClient, dispatch, getState}) => async({payload, meta}) => {
     if (meta.revertingAfterFailure) { return; }
+
+    const destination = getHighlightToastDesination(getState());
 
     try {
       await highlightClient.addHighlight({highlight: payload});
     } catch (error) {
-      Sentry.captureException(error);
-
-      dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:create-failure'}));
       dispatch(receiveDeleteHighlight(payload as unknown as Highlight, {...meta, revertingAfterFailure: true}));
+      throw ensureApplicationErrorType(error, new HighlightCreateError({ destination }));
     }
   };
 

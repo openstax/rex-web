@@ -1,11 +1,15 @@
 import { Document } from '@openstax/types/lib.dom';
 import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
+import { ApplicationError, ToastMesssageError } from '../helpers/applicationMessageError';
 import Sentry from '../helpers/Sentry';
 import { receiveLoggedOut } from './auth/actions';
 import { recordError, showErrorDialog } from './errors/actions';
 import { notFound } from './errors/routes';
 import { isPlainObject } from './guards';
+import { replace } from './navigation/actions';
+import * as selectNavigation from './navigation/selectors';
+import { addToast } from './notifications/actions';
 import {
   ActionHookBody,
   AnyAction,
@@ -13,8 +17,12 @@ import {
   AppServices,
   AppState,
   Dispatch,
-  Middleware
+  Middleware,
+  MiddlewareAPI
 } from './types';
+
+export * from './utils/assertions';
+export * from './utils/browser-assertions';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
   (action: AnyAction): action is ReturnType<C> => action.type === getType(actionCreator);
@@ -22,7 +30,7 @@ export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
 export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: ActionHookBody<C>) =>
   (services: AppServices): Middleware => (stateHelpers) => {
     const boundHook = body({...stateHelpers, ...services});
-    const catchError = makeCatchError(stateHelpers.dispatch);
+    const catchError = makeCatchError(stateHelpers);
     const matches = checkActionType(actionCreator);
 
     return (next: Dispatch) => (action: AnyAction) => {
@@ -42,13 +50,17 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
     };
   };
 
-const makeCatchError = (dispatch: Dispatch) => (e: Error) => {
+const makeCatchError = ({dispatch, getState}: MiddlewareAPI) => (e: Error) => {
   if (e instanceof UnauthenticatedError) {
     dispatch(receiveLoggedOut());
     return;
   } else if (e instanceof BookNotFoundError) {
     Sentry.captureException(e);
-    notFound.redirect();
+    dispatch(replace({route: notFound, params: {url: selectNavigation.pathname(getState())}, state: {}}));
+    return;
+  } else if (e instanceof ToastMesssageError) {
+    const errorId = Sentry.captureException(e);
+    dispatch(addToast(e.messageKey, { ...e.meta, errorId }));
     return;
   }
   Sentry.captureException(e);
@@ -65,62 +77,6 @@ export const mergeRefs = <T>(...refs: Array<Ref<T> | undefined>) => (ref: T) => 
       (resolvableRef as any).current = ref;
     }
   });
-};
-
-/*
- * util for dealing with array and object index signatures
- * don't include undefined
- *
- * ref: https://github.com/Microsoft/TypeScript/issues/13778
- */
-export const assertDefined = <X>(x: X, message: string) => {
-  if (x === undefined) {
-    throw new Error(message);
-  }
-
-  return x as Exclude<X, undefined>;
-};
-
-export const assertNotNull = <X>(x: X, message: string) => {
-  if (x === null) {
-    throw new Error(message);
-  }
-
-  return x as Exclude<X, null>;
-};
-
-export const assertString = <X>(x: X, message: string): string => {
-  if (typeof x !== 'string') {
-    throw new Error(message);
-  }
-
-  return x;
-};
-
-export const assertWindow = (message: string = 'BUG: Window is undefined') => {
-  if (typeof(window) === 'undefined') {
-    throw new Error(message);
-  }
-
-  return window;
-};
-
-export const assertDocument = (message: string = 'BUG: Document is undefined') => {
-  if (typeof(document) === 'undefined') {
-    throw new Error(message);
-  }
-
-  return document;
-};
-
-export const assertDocumentElement = (message: string = 'BUG: Document Element is null') => {
-  const documentElement = assertDocument().documentElement;
-
-  if (documentElement === null) {
-    throw new Error(message);
-  }
-
-  return documentElement;
 };
 
 export const remsToEms = (rems: number) => rems * 10 / 16;
@@ -223,7 +179,8 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
   };
 };
 
-export class UnauthenticatedError extends Error {}
+// tslint:disable-next-line: max-classes-per-file
+export class UnauthenticatedError extends ApplicationError {}
 
 // tslint:disable-next-line: max-classes-per-file
-export class BookNotFoundError extends Error {}
+export class BookNotFoundError extends ApplicationError {}

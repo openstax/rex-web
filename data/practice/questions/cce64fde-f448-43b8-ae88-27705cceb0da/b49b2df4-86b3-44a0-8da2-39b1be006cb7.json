@@ -1,0 +1,224 @@
+[
+  {
+    "answers": [
+      {
+        "id": 377493,
+        "content_html": "Kinetic energy is being transformed into potential energy.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that the two mechanical energies involved in transformation are the kinetic and the potential energy. But remember that with decreasing height of the skydiver the potential energy decreases."
+      },
+      {
+        "id": 377494,
+        "content_html": "Potential energy is being transformed into kinetic energy.",
+        "correctness": "1.0",
+        "feedback_html": "Potential energy due to height is being transformed into kinetic energy."
+      },
+      {
+        "id": 377492,
+        "content_html": "Work is being transformed into kinetic energy.",
+        "correctness": "0.0",
+        "feedback_html": "Work is not a form of mechanical energy."
+      },
+      {
+        "id": 377491,
+        "content_html": "Kinetic energy is being transformed into work.",
+        "correctness": "0.0",
+        "feedback_html": "Think in terms of kinetic and potential energy. Work is not a form of mechanical energy."
+      }
+    ],
+    "group_uuid": "e8b8bd87-db3e-4907-9562-2c588afa347c",
+    "stem_html": "Describe the transformation between forms of mechanical energy that is happening to a falling skydiver before his parachute opens.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch09",
+      "k12phys-ch09-s02",
+      "k12phys-ch09-s02-lo01",
+      "k12phys-ch09-ex026",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:7-6-1",
+      "exid:k12phys-ch09-ex026",
+      "context-cnxmod:dd054bd9-7d21-40dc-9f53-aec3206c2060",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:79447c2d-a842-4328-b91f-2a53b15782d4",
+      "context-cnxmod:3775240a-ff7a-48fa-822a-b460630a3055",
+      "aplo:stax-apphys:4.C.1.2",
+      "aplo:stax-apphys:4.C.2.1",
+      "aplo:stax-apphys:4.C.2.2"
+    ],
+    "uid": "2777@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 377513,
+        "content_html": "<span data-math=\"10\\,\\text{J}\">10\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"KE = \\frac{1}{2} mv^2\">KE = \\frac{1}{2} mv^2</span>. You didn't square <span data-math=\"v\">v</span>."
+      },
+      {
+        "id": 377514,
+        "content_html": "<span data-math=\"20\\,\\text{J}\">20\\,\\text{J}</span>",
+        "correctness": "1.0",
+        "feedback_html": "<span data-math=\"KE = \\frac{1}{2} mv^2\">KE = \\frac{1}{2} mv^2</span>"
+      },
+      {
+        "id": 377512,
+        "content_html": "<span data-math=\"40\\,\\text{J}\">40\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"KE = \\frac{1}{2} mv^2\">KE = \\frac{1}{2} mv^2</span>. You didn't divide by <span data-math=\"2\">2</span>."
+      },
+      {
+        "id": 377511,
+        "content_html": "<span data-math=\"100\\,\\text{J}\">100\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"KE = \\frac{1}{2} mv^2\">KE = \\frac{1}{2} mv^2</span>"
+      }
+    ],
+    "group_uuid": "f9f83419-daae-4049-ad91-385fc60be2a1",
+    "stem_html": "What is the kinetic energy of a <span data-math=\"10\\text{kg}\">10\\text{kg}</span> object moving at <span data-math=\"2.0\\,\\text{m/s}\">2.0\\,\\text{m/s}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch09",
+      "k12phys-ch09-s02",
+      "k12phys-ch09-s02-lo02",
+      "k12phys-ch09-ex033",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:7-2-2",
+      "exid:k12phys-ch09-ex033",
+      "context-cnxmod:dd054bd9-7d21-40dc-9f53-aec3206c2060",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:9a772436-b150-40c2-8316-8a4ade7a17d8",
+      "context-cnxmod:5035aeb8-8f6d-46e7-9552-55d5ea593368",
+      "aplo:stax-apphys:3.E.1.1",
+      "aplo:stax-apphys:3.E.1.4"
+    ],
+    "uid": "2784@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 377520,
+        "content_html": "Because kinetic energy is directly proportional to the square of the velocity.",
+        "correctness": "1.0",
+        "feedback_html": "Doubling the velocity will cause kinetic energy to quadruple because KE is directly proportional to <span data-math=\"{v^2}\">{v^2}</span>."
+      },
+      {
+        "id": 377517,
+        "content_html": "Because kinetic energy is inversely proportional to the square of the velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Kinetic energy cannot be inversely proportional to velocity because kinetic energy increases with increasing velocity."
+      },
+      {
+        "id": 377518,
+        "content_html": "Because kinetic energy is directly proportional to the fourth power of the velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the correct expression for kinetic energy."
+      },
+      {
+        "id": 377519,
+        "content_html": "Because kinetic energy is inversely proportional to the fourth power of the velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Remember that more kinetic energy implies more velocity."
+      }
+    ],
+    "group_uuid": "62cd7c0b-e126-46ad-a164-09c5ac76eea9",
+    "stem_html": "Which statement best explains why accelerating a car from <span data-math=\"20\\,\\text{mph}\">20\\,\\text{mph}</span> to <span data-math=\"40\\,\\text{mph}\">40\\,\\text{mph}</span> quadruples its kinetic energy?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch09",
+      "k12phys-ch09-s02",
+      "k12phys-ch09-s02-lo02",
+      "k12phys-ch09-ex035",
+      "dok:2",
+      "time:medium",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:7-2-2",
+      "exid:k12phys-ch09-ex035",
+      "context-cnxmod:dd054bd9-7d21-40dc-9f53-aec3206c2060",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:9a772436-b150-40c2-8316-8a4ade7a17d8",
+      "context-cnxmod:5035aeb8-8f6d-46e7-9552-55d5ea593368",
+      "aplo:stax-apphys:3.E.1.3",
+      "aplo:stax-apphys:3.E.1.1",
+      "aplo:stax-apphys:3.E.1.2"
+    ],
+    "uid": "2786@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 377527,
+        "content_html": "As the boulder rolls down the mountainside, KE is converted to PE. As the boulder rolls up the opposite slope, PE is converted to KE. The boulder rolls only partway up the ridge because some of the PE has been converted to thermal energy due to friction.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the correct definition for kinetic and potential energy. Energy associated with position is potential energy while energy associated with motion is kinetic energy."
+      },
+      {
+        "id": 377528,
+        "content_html": "As the boulder rolls down the mountainside, KE is converted to PE. As the boulder rolls up the opposite slope, KE is converted to PE. The boulder rolls only partway up the ridge because some of the PE has been converted to thermal energy due to friction.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that when the boulder rolls up the opposite side, KE is converted to PE. But when it rolls down the mountainside, the height is decreasing so PE cannot increase."
+      },
+      {
+        "id": 377529,
+        "content_html": "As the boulder rolls down the mountainside, PE is converted to KE. As the boulder rolls up the opposite slope, PE is converted to KE. The boulder rolls only partway up the ridge because some of the PE has been converted to thermal energy due to friction.",
+        "correctness": "0.0",
+        "feedback_html": "Yes, when the boulder rolls down the mountainside, PE is converted to KE. But when it rolls up the opposite side of the mountain the speed is decreasing and hence KE decreases."
+      },
+      {
+        "id": 377530,
+        "content_html": "As the boulder rolls down the mountainside, PE is converted to KE. As the boulder rolls up the opposite slope, KE is converted to PE. The boulder rolls only partway up the ridge because some of the PE has been converted to thermal energy due to friction.",
+        "correctness": "1.0",
+        "feedback_html": "This is the correct order of transformation of energy. Since there is friction, the mechanical energy will not be constant."
+      }
+    ],
+    "group_uuid": "4e90f840-6dbe-4d31-b5d4-8ab71e1c1b33",
+    "stem_html": "A boulder rolls from the top of a mountain, travels across a valley below, and rolls part way up the ridge on the opposite side. Describe all the energy transformations taking place during these events and identify when they happen.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch09",
+      "k12phys-ch09-s02",
+      "k12phys-ch09-s02-lo01",
+      "k12phys-ch09-ex039",
+      "blooms:3",
+      "dok:3",
+      "time:long",
+      "book:stax-phys",
+      "lo:stax-phys:7-6-1",
+      "exid:k12phys-ch09-ex039",
+      "context-cnxmod:dd054bd9-7d21-40dc-9f53-aec3206c2060",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:79447c2d-a842-4328-b91f-2a53b15782d4",
+      "context-cnxmod:3775240a-ff7a-48fa-822a-b460630a3055",
+      "aplo:stax-apphys:4.C.1.2",
+      "aplo:stax-apphys:4.C.2.1",
+      "aplo:stax-apphys:4.C.2.2"
+    ],
+    "uid": "2790@5"
+  }
+]

@@ -9,8 +9,10 @@ import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
+import createBuyPrintConfigLoader from './gateways/createBuyPrintConfigLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
+import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoader';
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import { registerGlobalAnalytics } from './helpers/analytics';
@@ -32,19 +34,27 @@ if (window.top === window.self) {
   console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
 }
 
-const archiveUrl = assertDefined(config.REACT_APP_ARCHIVE_URL, 'REACT_APP_ARCHIVE_URL must be defined');
-if (!config.REACT_APP_OS_WEB_API_URL) { throw new Error('REACT_APP_OS_WEB_API_URL must be defined'); }
+const archiveUrl = config.REACT_APP_ARCHIVE_URL_OVERRIDE ||
+  assertDefined(config.REACT_APP_ARCHIVE_URL, 'REACT_APP_ARCHIVE_URL must be defined');
+
+const osWebUrl = assertDefined(config.REACT_APP_OS_WEB_API_URL, 'REACT_APP_OS_WEB_API_URL must be defined');
 const accountsUrl = assertDefined(config.REACT_APP_ACCOUNTS_URL, 'REACT_APP_ACCOUNTS_URL must be defined');
 const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_URL must be defined');
 const highlightsUrl = assertDefined(config.REACT_APP_HIGHLIGHTS_URL, 'REACT_APP_HIGHLIGHTS_URL must be defined');
+const buyPrintConfigUrl = assertDefined(
+  config.REACT_APP_BUY_PRINT_CONFIG_URL,
+  'REACT_APP_BUY_PRINT_CONFIG_URL must be defined'
+);
 const mainContent = document.getElementById('main-content');
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
     archiveLoader: createArchiveLoader(archiveUrl),
+    buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
     highlightClient: createHighlightClient(highlightsUrl),
-    osWebLoader: createOSWebLoader(config.REACT_APP_OS_WEB_API_URL),
+    osWebLoader: createOSWebLoader(osWebUrl),
+    practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
     searchClient: createSearchClient(searchUrl),
     userLoader: createUserLoader(accountsUrl),
@@ -96,8 +106,18 @@ serviceWorker.register()
   .then((registration) => {
     app.services.serviceWorker = registration;
 
-    if (registration && registration.waiting && registration.waiting.state === 'installed') {
+    if (!window.navigator.serviceWorker.controller) {
+      return;
+    }
+
+    if (registration && (registration.waiting || registration.installing)) {
       app.store.dispatch(updateAvailable());
+    } else if (registration) {
+      // For Chrome and Edge registration.waiting and registration.installing
+      // is still null for some time after .register()
+      registration.addEventListener('updatefound', () => {
+        app.store.dispatch(updateAvailable());
+      });
     }
   })
   .catch((e) => {

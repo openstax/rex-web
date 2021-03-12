@@ -1,0 +1,156 @@
+[
+  {
+    "answers": [
+      {
+        "id": 382234,
+        "content_html": "Electric power is proportional to current through the resistor multiplied by the square of the voltage across the resistor.",
+        "correctness": "0.0",
+        "feedback_html": "Electric power is not proportional to current through the resistor multiplied by the square of the voltage across the resistor."
+      },
+      {
+        "id": 382235,
+        "content_html": "Electric power is proportional to square of current through the resistor multiplied by the voltage across the resistor.",
+        "correctness": "0.0",
+        "feedback_html": "Recall, electric power is not proportional to current through the resistor multiplied by the square of the voltage across the resistor. It is dimensionally incorrect."
+      },
+      {
+        "id": 382236,
+        "content_html": "Electric power is proportional to current through the resistor divided by the voltage across the resistor.",
+        "correctness": "0.0",
+        "feedback_html": "Electric power is proportional to current through the resistor multiplied by the voltage across the resistor."
+      },
+      {
+        "id": 382237,
+        "content_html": "Electric power is proportional to current through the resistor multiplied by the voltage across the resistor.",
+        "correctness": "1.0",
+        "feedback_html": "Electric power is proportional to current through the resistor multiplied by the voltage across the resistor."
+      }
+    ],
+    "group_uuid": "cc74b127-7b21-4306-bc4c-c7b01fc9e5af",
+    "stem_html": "Explain in words the equation for power dissipated by a given resistance.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:20-4-1",
+      "k12phys-ch19",
+      "k12phys-ch19-s04",
+      "k12phys-ch19-s04-lo01",
+      "k12phys-ch19-ex085",
+      "exid:k12phys-ch19-ex085",
+      "context-cnxmod:2321103d-f61d-4fbf-a524-2f188cdf8bc0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:73962280-9abe-4429-b127-a1062b1b3fd5",
+      "context-cnxmod:7bd61dab-ae59-4a3b-a5b7-99be12a6f7d8",
+      "aplo:stax-apphys:5.B.9.8"
+    ],
+    "uid": "7367@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 382291,
+        "content_html": "<div data-math=\"0.36\\,\\text{W}\">0.36\\,\\text{W}</div>\n",
+        "correctness": "1.0",
+        "feedback_html": "Power is calculated as product of current and voltage"
+      },
+      {
+        "id": 382288,
+        "content_html": "<span data-math=\"0.011\\,\\text{W}\">0.011\\,\\text{W}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Electric power is not calculated from the correct formula."
+      },
+      {
+        "id": 382289,
+        "content_html": "Voltage drop across is <span data-math=\"5\\,\\text{V}\">5\\,\\text{V}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "Use the equation for electric power given the voltage and the current."
+      },
+      {
+        "id": 382290,
+        "content_html": "<span data-math=\"2.5\\,\\text{W}\">2.5\\,\\text{W}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Use the equation for electric power given the voltage and the current."
+      }
+    ],
+    "group_uuid": "5c701a48-9653-45d9-a939-3cfbdd9a4f7a",
+    "stem_html": "What power is dissipated in a circuit through which <span data-math=\"0.12\\,\\text{A}\">0.12\\,\\text{A}</span> flows across a potential drop of <span data-math=\"3.0\\,\\text{V}\">3.0\\,\\text{V}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:20-4-1",
+      "k12phys-ch19",
+      "k12phys-ch19-s04",
+      "k12phys-ch19-s04-lo02",
+      "k12phys-ch19-ex091",
+      "exid:k12phys-ch19-ex091",
+      "context-cnxmod:2321103d-f61d-4fbf-a524-2f188cdf8bc0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:73962280-9abe-4429-b127-a1062b1b3fd5",
+      "context-cnxmod:7bd61dab-ae59-4a3b-a5b7-99be12a6f7d8",
+      "aplo:stax-apphys:5.B.9.8"
+    ],
+    "uid": "7381@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 517726,
+        "content_html": "No, the power dissipated remain same.",
+        "correctness": "0.0",
+        "feedback_html": "The power loss increases because extra power is dissipated by second resistor."
+      },
+      {
+        "id": 517727,
+        "content_html": "Yes, the power dissipated increases.",
+        "correctness": "1.0",
+        "feedback_html": "The battery supplies the extra power and the second resistor dissipates it."
+      },
+      {
+        "id": 517725,
+        "content_html": "Yes, the power dissipated decreases.",
+        "correctness": "0.0",
+        "feedback_html": "Remember that the battery supplies the extra power and the second resistor dissipates it."
+      }
+    ],
+    "group_uuid": "1fa7d53d-3e54-45d8-848b-e7984915cfb3",
+    "stem_html": "A single resistor is connected across the terminals of a battery When you attach a second resistor in parallel with the first, does the power dissipated by the system change?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "lo:stax-phys:20-4-1",
+      "k12phys-ch19",
+      "k12phys-ch19-s04",
+      "k12phys-ch19-s04-lo01",
+      "k12phys-ch19-ex096",
+      "exid:k12phys-ch19-ex096",
+      "context-cnxmod:2321103d-f61d-4fbf-a524-2f188cdf8bc0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:73962280-9abe-4429-b127-a1062b1b3fd5",
+      "aplo:stax-apphys:5.B.9.8"
+    ],
+    "uid": "7386@6"
+  }
+]

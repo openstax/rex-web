@@ -1,10 +1,11 @@
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/fp/cloneDeep';
 import { book as mockArchiveBook, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../test/utils';
 import { Book } from '../types';
 import { formatBookData } from '../utils';
 import {
+  fromRelativeUrl,
   getBookPageUrlAndParams,
   getPageIdFromUrlParam,
   toRelativeUrl
@@ -157,6 +158,11 @@ describe('toRelativeUrl', () => {
     expect(url).toMatchInlineSnapshot(`"page1"`);
   });
 
+  it('when it includes a hash', () => {
+    const url = toRelativeUrl(`${BOOK_URL}/pages/doesnotmatter`, PAGE_URL + '#test');
+    expect(url).toMatchInlineSnapshot(`"page1#test"`);
+  });
+
   it('when in the same book but it ends with a /', () => {
     const url = toRelativeUrl(`${BOOK_URL}/pages/doesnotmatter/`, PAGE_URL);
     expect(url).toMatchInlineSnapshot('"../page1"');
@@ -196,5 +202,43 @@ describe('toRelativeUrl', () => {
   it('when not in a book and not at the root', () => {
     const url = toRelativeUrl('/doesnotmatter/doesnotmatter', PAGE_URL);
     expect(url).toMatchInlineSnapshot(`"../books/book1/pages/page1"`);
+  });
+});
+
+describe('fromRelativeUrl', () => {
+
+  it('relative url includes parent levels', () => {
+    const url = fromRelativeUrl('/books/somebook/pages/somepage', '../../someotherbook/pages/otherpage');
+    expect(url).toBe('/books/someotherbook/pages/otherpage');
+  });
+
+  it('relative url includes parent levels and a hash', () => {
+    const url = fromRelativeUrl('/books/somebook/pages/somepage', '../../someotherbook/pages/otherpage#hi');
+    expect(url).toBe('/books/someotherbook/pages/otherpage#hi');
+  });
+
+  it('relative url includes page and a hash', () => {
+    const url = fromRelativeUrl('/books/somebook/pages/somepage', 'somesecondpage#hello');
+    expect(url).toBe('/books/somebook/pages/somesecondpage#hello');
+  });
+
+  it('relative url is just a hash', () => {
+    const url = fromRelativeUrl('/books/somebook/pages/somepage', '#hello');
+    expect(url).toBe('/books/somebook/pages/somepage#hello');
+  });
+
+  it('relative url is empty string', () => {
+    const url = fromRelativeUrl('/books/somebook/pages/somepage', '');
+    expect(url).toBe('/books/somebook/pages/somepage');
+  });
+
+  it('when the same page', () => {
+    const url = fromRelativeUrl('/books/somebook/pages/somepage', './somesecondpage');
+    expect(url).toBe('/books/somebook/pages/somesecondpage');
+  });
+
+  it('returns url if it is absolute', () => {
+    const url = fromRelativeUrl('https://openstax.org/books/somebook/pages/somepage', './somesecondpage');
+    expect(url).toBe('https://openstax.org/books/somebook/pages/somesecondpage');
   });
 });

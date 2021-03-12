@@ -1,0 +1,471 @@
+[
+  {
+    "answers": [
+      {
+        "id": 517672,
+        "content_html": "The current will double.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, this is correct because current is proportional to the voltage. As voltage doubles, current doubles."
+      },
+      {
+        "id": 517671,
+        "content_html": "The current will increase by half.",
+        "correctness": "0.0",
+        "feedback_html": "Current is proportional to the charge."
+      },
+      {
+        "id": 517670,
+        "content_html": "The current will decrease by half.",
+        "correctness": "0.0",
+        "feedback_html": "Current is proportional to the charge. How can the current through the circuit decrease when the voltage is increasing?"
+      },
+      {
+        "id": 517669,
+        "content_html": "The current will decrease by a factor of two.",
+        "correctness": "0.0",
+        "feedback_html": "The relationship between current and voltage is directly proportional."
+      }
+    ],
+    "group_uuid": "de288c11-a687-43a3-a10d-0fb69e84c0a8",
+    "stem_html": "If you double the voltage across an ohmic resistor, how does the current through the resistor change?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:20-2-2",
+      "k12phys-ch19",
+      "k12phys-ch19-s01",
+      "k12phys-ch19-s01-lo03",
+      "k12phys-ch19-ex010",
+      "exid:k12phys-ch19-ex010",
+      "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26",
+      "aplo:stax-apphys:5.C.3.2"
+    ],
+    "uid": "7237@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 381773,
+        "content_html": "Electric current is the electric charge that is at rest.",
+        "correctness": "0.0",
+        "feedback_html": "Electric charge at rest do not produces any current."
+      },
+      {
+        "id": 381776,
+        "content_html": "Electric current is the electric charge that is moving.",
+        "correctness": "1.0",
+        "feedback_html": "Any moving charge can produce current."
+      },
+      {
+        "id": 381774,
+        "content_html": "Electric current is the electric charge that moves only from the positive terminal of a battery to the negative terminal.",
+        "correctness": "0.0",
+        "feedback_html": "This is not a requirement that the charge must have to move from the positive terminal to the negative terminal."
+      },
+      {
+        "id": 381775,
+        "content_html": "Electric current is the electric charge that moves only from a region of lower potential to higher potential.",
+        "correctness": "0.0",
+        "feedback_html": "This is not a requirement that the charge must have to move from the positive terminal to the negative terminal. Positive charges move from higher potential to lower potential while electrons move from lower potential to higher potential."
+      }
+    ],
+    "group_uuid": "2360b5c0-8a43-4bb5-bf3a-34d468474bfe",
+    "stem_html": "What is electric current?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:20-1-1",
+      "k12phys-ch19",
+      "k12phys-ch19-s01",
+      "k12phys-ch19-s01-lo01",
+      "k12phys-ch19-ex012",
+      "exid:k12phys-ch19-ex012",
+      "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:83b099ae-cc08-4970-bc1d-439a890ba764",
+      "context-cnxmod:fde7ad33-0064-4c3f-beb2-fdc32faad777",
+      "aplo:stax-apphys:3.G.2.1"
+    ],
+    "uid": "7243@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 381781,
+        "content_html": "Direct current flows continuously in every direction whereas alternating current flows in one direction.",
+        "correctness": "0.0",
+        "feedback_html": "Direct current cannot change its direction."
+      },
+      {
+        "id": 381784,
+        "content_html": "Direct current flows continuously in one direction whereas alternating current reverses its direction at regular time intervals.",
+        "correctness": "1.0",
+        "feedback_html": "The direct current flows in one direction while alternating current changes its direction at regular interval of time."
+      },
+      {
+        "id": 381782,
+        "content_html": "Both direct and alternating current flow in one direction but the magnitude of direct current is fixed whereas the magnitude of alternating current changes at regular intervals of time.",
+        "correctness": "0.0",
+        "feedback_html": "No, alternating current changes its direction at regular interval of time."
+      },
+      {
+        "id": 381783,
+        "content_html": "Both direct and alternating current changes its direction of flow but the magnitude of direct current is fixed whereas the magnitude of alternating current changes at regular intervals of time.",
+        "correctness": "0.0",
+        "feedback_html": "No, direct current do not changes its direction of flow."
+      }
+    ],
+    "group_uuid": "a111da20-f58f-433c-babf-ec13be9d601f",
+    "stem_html": "What is the difference between direct current and alternating current?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s01",
+      "k12phys-ch19-s01-lo01",
+      "k12phys-ch19-ex014",
+      "exid:k12phys-ch19-ex014",
+      "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:9d8b51d7-af16-4db1-8eb5-7bd9d7b29041",
+      "lo:stax-phys:20-5-1",
+      "context-cnxmod:e8869a42-f03e-4c17-a714-34d0be38ada8",
+      "aplo:stax-apphys:5.C.3.3"
+    ],
+    "uid": "7245@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 381840,
+        "content_html": "The electrons flow from the negative terminal of the battery to the positive terminal of the battery.",
+        "correctness": "1.0",
+        "feedback_html": "The positive charge flows from the positive terminal to the negative terminal of the battery. So electron flows from negative terminal of the battery to the positive terminal."
+      },
+      {
+        "id": 381839,
+        "content_html": "The electrons flow from the positive terminal of the battery to the negative terminal of the battery.",
+        "correctness": "0.0",
+        "feedback_html": "No, the positive charge flows from the positive terminal to the negative terminal of the battery."
+      }
+    ],
+    "group_uuid": "bc03aad9-fb4a-4714-9e98-4671ab0239d3",
+    "stem_html": "You connect a resistor across a battery. In which direction do the electrons flow?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s01",
+      "k12phys-ch19-s01-lo01",
+      "k12phys-ch19-ex018",
+      "exid:k12phys-ch19-ex018",
+      "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:83b099ae-cc08-4970-bc1d-439a890ba764",
+      "lo:stax-phys:20-1-2",
+      "context-cnxmod:fde7ad33-0064-4c3f-beb2-fdc32faad777",
+      "aplo:stax-apphys:5.B.9.8"
+    ],
+    "uid": "7260@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 512796,
+        "content_html": "C/m",
+        "correctness": "0.0",
+        "feedback_html": "Only a single unit is needed to define resistance. Here, two units are used in a ratio."
+      },
+      {
+        "id": 512797,
+        "content_html": "C/s\n",
+        "correctness": "0.0",
+        "feedback_html": "Only a single unit is needed to define resistance. Here, two units are used in a ratio."
+      },
+      {
+        "id": 512798,
+        "content_html": "Ω",
+        "correctness": "1.0",
+        "feedback_html": "Yes, the SI unit of resistance is <span data-math=\"\\Omega\">\\Omega</span>."
+      },
+      {
+        "id": 512799,
+        "content_html": "V",
+        "correctness": "0.0",
+        "feedback_html": "This is not a SI unit."
+      }
+    ],
+    "group_uuid": "4764dd8d-0755-463c-8428-90ab8642a04a",
+    "stem_html": "What quantity is used to describe the ability of a material to limit current flow?\n",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "k12phys-ch19",
+      "k12phys-ch19-s01",
+      "k12phys-ch19-s01-lo02",
+      "k12phys-ch19-ex023",
+      "exid:k12phys-ch19-ex023",
+      "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
+      "filter-type:import:hs",
+      "type:practice",
+      "context-cnxmod:336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26",
+      "context-cnxmod:cfb4cad4-0093-451c-82ed-f59c28b9ff24",
+      "aplo:stax-apphys:4.E.4.1",
+      "aplo:stax-apphys:5.C.3.2",
+      "book:stax-apphys",
+      "science-practice:modeling"
+    ],
+    "uid": "7273@9"
+  },
+  {
+    "answers": [
+      {
+        "id": 381902,
+        "content_html": "Ohm’s law says that the current through a resistor equals the voltage across the resistor multiplied by the resistance of the resistor.",
+        "correctness": "0.0",
+        "feedback_html": "The mathematical expression for the Ohm’s law is <span data-math=\"\\text{V}=\\text{IR}\">\\text{V}=\\text{IR}</span>."
+      },
+      {
+        "id": 381903,
+        "content_html": "Ohm’s law says that the voltage across a resistor equals the current through the resistor multiplied by the resistance of the resistor.",
+        "correctness": "1.0",
+        "feedback_html": "The mathematical expression for the Ohm’s law is <span data-math=\"\\text{V}=\\text{IR}\">\\text{V}=\\text{IR}</span>."
+      },
+      {
+        "id": 381901,
+        "content_html": "Ohm’s law says that the resistance of the resistor equals the current through the resistor multiplied by the voltage across a resistor.",
+        "correctness": "0.0",
+        "feedback_html": "The mathematical expression for the Ohm’s law is <span data-math=\"\\text{V}=\\text{IR}\">\\text{V}=\\text{IR}</span>."
+      },
+      {
+        "id": 381900,
+        "content_html": "Ohm’s law says that the voltage across a resistor equals the square of the current through the resistor multiplied by the resistance of the resistor.",
+        "correctness": "0.0",
+        "feedback_html": "The mathematical expression for the Ohm’s law is <span data-math=\"\\text{V}=\\text{IR}\">\\text{V}=\\text{IR}</span>."
+      }
+    ],
+    "group_uuid": "e7388659-af2c-4753-8dc9-c46ec5043ae2",
+    "stem_html": "Give a verbal expression for Ohm’s law.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:20-2-1",
+      "k12phys-ch19",
+      "k12phys-ch19-s01",
+      "k12phys-ch19-s01-lo02",
+      "k12phys-ch19-ex028",
+      "exid:k12phys-ch19-ex028",
+      "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26",
+      "context-cnxmod:cfb4cad4-0093-451c-82ed-f59c28b9ff24",
+      "aplo:stax-apphys:5.C.3.2"
+    ],
+    "uid": "7278@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 381910,
+        "content_html": "<span data-math=\"0.017\">0.017</span>",
+        "correctness": "0.0",
+        "feedback_html": "Resistance is inversely proportional to current."
+      },
+      {
+        "id": 381909,
+        "content_html": "1",
+        "correctness": "0.0",
+        "feedback_html": "The applied formula is incorrect."
+      },
+      {
+        "id": 381911,
+        "content_html": "60",
+        "correctness": "1.0",
+        "feedback_html": "Recall the mathematical expression for the Ohm’s law."
+      },
+      {
+        "id": 381908,
+        "content_html": "120",
+        "correctness": "0.0",
+        "feedback_html": "Recall the mathematical expression for the Ohm’s law."
+      }
+    ],
+    "group_uuid": "4072a32b-e301-4cf4-abfa-478472c48e0e",
+    "stem_html": "What resistance is required to produce <span data-math=\"0.15\\,\\text{A}\">0.15\\,\\text{A}</span> from a <span data-math=\"9.0\\,\\text{V}\">9.0\\,\\text{V}</span> battery?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:20-2-2",
+      "k12phys-ch19",
+      "k12phys-ch19-s01",
+      "k12phys-ch19-s01-lo03",
+      "k12phys-ch19-ex030",
+      "exid:k12phys-ch19-ex030",
+      "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26",
+      "context-cnxmod:cfb4cad4-0093-451c-82ed-f59c28b9ff24",
+      "aplo:stax-apphys:5.C.3.2"
+    ],
+    "uid": "7280@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 510457,
+        "content_html": "Current is the ratio of charge passing through a conductor per unit time. The current’s direction is the direction in which protons would flow.",
+        "correctness": "1.0",
+        "feedback_html": "Current is defined as charge flowing through a conductor per unit time and direction of current is defined to be the direction in which positive charges would flow."
+      },
+      {
+        "id": 510458,
+        "content_html": "Charge is the ratio of current passing through a conductor per unit time. The charge’s direction is the direction in which protons would flow.",
+        "correctness": "0.0",
+        "feedback_html": "Charges that move in a conductor can produce current but the amount of current is defined as the charge that passes through a conductor per unit time."
+      },
+      {
+        "id": 510459,
+        "content_html": "Current is the product of charge passing through a conductor and the amount of time that passes. The current’s direction is the direction in which electrons would flow.",
+        "correctness": "0.0",
+        "feedback_html": "No, the direction of current is defined to be the direction in which positive charge would flow."
+      },
+      {
+        "id": 510460,
+        "content_html": "Charge is the product of current passing through a conductor and time. The charge’s direction is the direction in which electrons would flow.",
+        "correctness": "0.0",
+        "feedback_html": "No, the direction of current is defined to be the direction in which positive charge would flow."
+      }
+    ],
+    "group_uuid": "c11eb2fe-a083-4208-98ad-f409c9ce5253",
+    "stem_html": "Explain how current and charge are related, including how direction is defined.\n",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "k12phys-ch19",
+      "k12phys-ch19-s01",
+      "k12phys-ch19-s01-lo01",
+      "k12phys-ch19-ex031",
+      "exid:k12phys-ch19-ex031",
+      "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
+      "filter-type:import:hs",
+      "type:practice",
+      "context-cnxmod:83b099ae-cc08-4970-bc1d-439a890ba764",
+      "context-cnxmod:fde7ad33-0064-4c3f-beb2-fdc32faad777",
+      "aplo:stax-apphys:3.G.2.1",
+      "aplo:stax-apphys:1.B.1.1",
+      "book:stax-apphys",
+      "science-practice:modeling"
+    ],
+    "uid": "7281@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 517650,
+        "content_html": "<span data-math=\"\\frac{R}{10}\">\\frac{R}{10}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Current and resistance are inversely proportional to each other. The amount of current after passing through each resistor will decrease and hence the resistance of the resistor will increase."
+      },
+      {
+        "id": 517651,
+        "content_html": "<span data-math=\"5\\,\\text{R}\">5\\,\\text{R}</span>",
+        "correctness": "0.0",
+        "feedback_html": "There are <span data-math=\"10\">10</span> resistors connected in series. The equivalent resistance of the resistors connected in series is the sum of individual resistances."
+      },
+      {
+        "id": 517649,
+        "content_html": "<span data-math=\"\\frac{10}{R}\">\\frac{10}{R}</span>\n",
+        "correctness": "0.0",
+        "feedback_html": "Current and resistance are inversely proportional to each other. The amount of current after passing through each resistor will decrease and hence the resistance of the resistor will increase."
+      },
+      {
+        "id": 517652,
+        "content_html": "<span data-math=\"10\\,\\text{R}\">10\\,\\text{R}</span>",
+        "correctness": "1.0",
+        "feedback_html": "There are <span data-math=\"10\">10</span> resistors connected in series. The equivalent resistance of the resistors connected in series is the sum of individual resistances."
+      }
+    ],
+    "group_uuid": "4e5b03d4-3c73-4b23-bfaf-5dafdd273ed6",
+    "stem_html": "You connect a single resistor <span data-math=\"R\">R</span> across a <span data-math=\"10\\text{-V}\">10\\text{-V}</span> battery and find that <span data-math=\"0.01\\,\\text{A}\">0.01\\,\\text{A}</span> flows through the circuit. You add another resistor <span data-math=\"R\">R</span> after the first resistor and find that <span data-math=\"0.005\\,\\text{A}\">0.005\\,\\text{A}</span> flows through the circuit. If you have <span data-math=\"10\">10</span> resistors <span data-math=\"R\">R</span> connected in a line one after the other, what would be their total resistance?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "lo:stax-phys:20-2-2",
+      "k12phys-ch19",
+      "k12phys-ch19-s01",
+      "k12phys-ch19-s01-lo03",
+      "k12phys-ch19-ex033",
+      "exid:k12phys-ch19-ex033",
+      "context-cnxmod:d04b7624-75cf-4d23-8dd8-8fc3266cad58",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:336edd2d-e6ba-4e31-bdc5-ee8fe5bd4b26",
+      "aplo:stax-apphys:5.C.3.2"
+    ],
+    "uid": "7283@7"
+  }
+]

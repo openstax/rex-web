@@ -1,0 +1,363 @@
+[
+  {
+    "answers": [
+      {
+        "id": 380705,
+        "content_html": "<div data-math=\"f = \\frac{1}{T}\">f = \\frac{1}{T}</div>\n",
+        "correctness": "1.0",
+        "feedback_html": "Yes, the inverse of the time is called the frequency of the wave."
+      },
+      {
+        "id": 380702,
+        "content_html": "<div data-math=\"f = \\left(\\frac{1}{T}\\right)^2\">f = \\left(\\frac{1}{T}\\right)^2</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The dimension of the square of the inverse of time is not equivalent to the dimension of frequency. The correct relation is <span data-math=\"f = \\frac{1}{T}\">f = \\frac{1}{T}</span>"
+      },
+      {
+        "id": 380703,
+        "content_html": "<div data-math=\"\\text{f} = \\text{T}\">\\text{f} = \\text{T}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "Time and frequency are different physical quantities, so this relation is not correct. The inverse of the time is called the frequency of the wave."
+      },
+      {
+        "id": 380704,
+        "content_html": "<div data-math=\"f = \\left(T\\right)^2\">f = \\left(T\\right)^2</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The inverse of the time is called the frequency of the wave."
+      }
+    ],
+    "group_uuid": "79ac71a8-7f3c-4d5d-a8bc-b487dbef78f2",
+    "stem_html": "How can you mathematically express wave frequency in terms of wave period?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:17-2-2",
+      "k12phys-ch13",
+      "k12phys-ch13-s02",
+      "k12phys-ch13-s02-lo02",
+      "k12phys-ch13-ex037",
+      "exid:k12phys-ch13-ex037",
+      "context-cnxmod:df9101fa-e2ca-4013-9a00-07d9e9f7aa3a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:085589bb-9ea4-443a-84c3-72c56f6b265d",
+      "context-cnxmod:177f95a9-8db4-4ede-a8e9-1838cc34e42d",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
+    "uid": "6893@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 380737,
+        "content_html": "The amplitude of a transverse wave is measured along the direction of propagation.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude of a transverse wave is measured along the direction perpendicular to the direction of propagation."
+      },
+      {
+        "id": 380738,
+        "content_html": "The amplitude and the wavelength of a transverse wave are measured along the direction of propagation.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude of a transverse wave is measured along the direction perpendicular to the direction of propagation."
+      },
+      {
+        "id": 380740,
+        "content_html": "The wavelength of a transverse wave is measured along the direction of propagation.",
+        "correctness": "1.0",
+        "feedback_html": "The wavelength of a transverse wave is measured along the direction of propagation."
+      },
+      {
+        "id": 380739,
+        "content_html": "The displacement of the particles of the medium in a transverse wave is measured along the direction of propagation.",
+        "correctness": "0.0",
+        "feedback_html": "Remember that the displacement of the particles of the medium in a transverse wave is measured along the direction perpendicular to that of the propagation of the wave."
+      }
+    ],
+    "group_uuid": "62e74793-2174-4c72-86ea-6a21a955d8bd",
+    "stem_html": "Which characteristic of a transverse wave is measured along the direction of propagation?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:16-9-1",
+      "k12phys-ch13",
+      "k12phys-ch13-s02",
+      "k12phys-ch13-s02-lo01",
+      "k12phys-ch13-ex039",
+      "exid:k12phys-ch13-ex039",
+      "context-cnxmod:df9101fa-e2ca-4013-9a00-07d9e9f7aa3a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:8e6e15f8-a69b-4895-8d27-23eeb265a31f",
+      "context-cnxmod:d57f8140-9072-40fb-abbb-4f1ded13bdcf",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
+    "uid": "6903@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 190991,
+        "content_html": "The wavelength difference between P-waves and S-waves is used to measure the distance to the epicenter.",
+        "correctness": "0.0",
+        "feedback_html": "The time difference between P-waves and S-waves is used to measure the distance to the epicenter."
+      },
+      {
+        "id": 190994,
+        "content_html": "The time difference between P-waves and S-waves is used to measure the distance to the epicenter.",
+        "correctness": "1.0",
+        "feedback_html": "The time difference between P-waves and S-waves, determined from three different locations, is used to measure the distance to the epicenter."
+      },
+      {
+        "id": 190992,
+        "content_html": "The frequency difference between P-waves and S-waves is used to measure the distance to the epicenter.",
+        "correctness": "0.0",
+        "feedback_html": "It is the time difference that determines the distance to the epicenter"
+      },
+      {
+        "id": 190993,
+        "content_html": "The phase difference between P-waves and S-waves is used to measure the distance to the epicenter.",
+        "correctness": "0.0",
+        "feedback_html": "The phase difference does not determine the distance to the epicenter."
+      }
+    ],
+    "group_uuid": "756c6d3e-9945-48ac-82a2-8057b2044abf",
+    "stem_html": "How is the distance to the epicenter of an earthquake determined?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s02",
+      "k12phys-ch13-s02-lo02",
+      "k12phys-ch13-ex042",
+      "exid:k12phys-ch13-ex042",
+      "context-cnxmod:df9101fa-e2ca-4013-9a00-07d9e9f7aa3a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice"
+    ],
+    "uid": "6910@3"
+  },
+  {
+    "answers": [
+      {
+        "id": 380808,
+        "content_html": "The height of a wave is half of its amplitude.",
+        "correctness": "0.0",
+        "feedback_html": "The height of a wave cannot be smaller than its amplitude."
+      },
+      {
+        "id": 380809,
+        "content_html": "The height of a wave is equal to its amplitude.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude of a wave is the vertical distance between the crest or the trough and the equilibrium position of the wave. The height of a wave is the vertical distance between the crest and the trough of the wave."
+      },
+      {
+        "id": 380811,
+        "content_html": "The height of a wave is twice its amplitude.",
+        "correctness": "1.0",
+        "feedback_html": "The vertical distance between the crest and the trough is twice of the amplitude of the wave."
+      },
+      {
+        "id": 380810,
+        "content_html": "The height of a wave is four times its amplitude.",
+        "correctness": "0.0",
+        "feedback_html": "The height of a wave is less than four times its amplitude."
+      }
+    ],
+    "group_uuid": "13f6e1e4-b5b7-4a9e-955a-8a161ebe3c6e",
+    "stem_html": "What is the relation between the amplitude and height of a transverse wave?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:16-9-1",
+      "k12phys-ch13",
+      "k12phys-ch13-s02",
+      "k12phys-ch13-s02-lo01",
+      "k12phys-ch13-ex048",
+      "exid:k12phys-ch13-ex048",
+      "context-cnxmod:df9101fa-e2ca-4013-9a00-07d9e9f7aa3a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:8e6e15f8-a69b-4895-8d27-23eeb265a31f",
+      "context-cnxmod:d57f8140-9072-40fb-abbb-4f1ded13bdcf",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
+    "uid": "6924@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 380819,
+        "content_html": "The amplitude and the frequency of a wave are independent of each other.",
+        "correctness": "1.0",
+        "feedback_html": "We can change the amplitude of a wave without affecting its frequency."
+      },
+      {
+        "id": 380816,
+        "content_html": "The amplitude and the frequency of a wave are equal.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude and the frequency of a wave are not equal because they are two quantities of unequal dimension."
+      },
+      {
+        "id": 380817,
+        "content_html": "The amplitude decreases with an increase in the frequency of a wave.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency of a wave can be increased without affecting its amplitude.."
+      },
+      {
+        "id": 380818,
+        "content_html": "The amplitude increases with an increase in the frequency of a wave.",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude of a wave can be increased without changing its frequency."
+      }
+    ],
+    "group_uuid": "a62703a4-9fd5-4002-b478-ba39760c5370",
+    "stem_html": "What is the relation between the amplitude and the frequency of a wave?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:17-2-2",
+      "k12phys-ch13",
+      "k12phys-ch13-s02",
+      "k12phys-ch13-s02-lo02",
+      "k12phys-ch13-ex050",
+      "exid:k12phys-ch13-ex050",
+      "context-cnxmod:df9101fa-e2ca-4013-9a00-07d9e9f7aa3a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:085589bb-9ea4-443a-84c3-72c56f6b265d",
+      "context-cnxmod:177f95a9-8db4-4ede-a8e9-1838cc34e42d",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
+    "uid": "6926@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 380824,
+        "content_html": "<span data-math=\"4\\,\\text{m}\"></span>",
+        "correctness": "0.0",
+        "feedback_html": "The wavelength will not be the product of the distance and the number of cycles."
+      },
+      {
+        "id": 380825,
+        "content_html": "<span data-math=\"2\\,\\text{m}\"></span>",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"2\\,\\text{m}\"></span> is the wavelength of a wave that is traveling distance of <span data-math=\"2\\,\\text{m}\"></span> in <span data-math=\"1\"></span> cycle."
+      },
+      {
+        "id": 380826,
+        "content_html": "<span data-math=\"0.5\\,\\text{m}\"></span>",
+        "correctness": "0.0",
+        "feedback_html": "This would have been the answer if the wave traveled <span data-math=\"1\\,\\text{m}\"></span> in <span data-math=\"2\"></span> cycles."
+      },
+      {
+        "id": 380827,
+        "content_html": "<span data-math=\"1\\,\\text{m}\"></span>",
+        "correctness": "1.0",
+        "feedback_html": "This is the right answer because the wavelength is the distance that the wave has covered in one cycle."
+      }
+    ],
+    "group_uuid": "e60c05d9-53b4-4f21-8328-b4b7491a9a42",
+    "stem_html": "A wave travels <span data-math=\"2\\,\\text{m}\"></span> every 2 cycles. What is its wavelength?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:16-9-1",
+      "k12phys-ch13",
+      "k12phys-ch13-s02",
+      "k12phys-ch13-s02-lo03",
+      "k12phys-ch13-ex052",
+      "exid:k12phys-ch13-ex052",
+      "context-cnxmod:df9101fa-e2ca-4013-9a00-07d9e9f7aa3a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:8e6e15f8-a69b-4895-8d27-23eeb265a31f",
+      "context-cnxmod:d57f8140-9072-40fb-abbb-4f1ded13bdcf",
+      "aplo:stax-apphys:6.A.1.2"
+    ],
+    "uid": "6928@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 380836,
+        "content_html": "In a good-quality speaker, sounds with high frequencies or short wavelengths are reproduced accurately by woofers, while sounds with low frequencies or long wavelengths are reproduced accurately by tweeters.",
+        "correctness": "0.0",
+        "feedback_html": "Sounds with shorts wavelengths cannot be accurately reproduced by woofers, and sounds with long wavelengths cannot be accurately reproduced by tweeters."
+      },
+      {
+        "id": 380837,
+        "content_html": "Sounds with high frequencies or short wavelengths are reproduced more accurately by tweeters, while sounds with low frequencies or long wavelengths are reproduced more accurately by woofers.",
+        "correctness": "1.0",
+        "feedback_html": "Small speakers or tweeters are best for reproducing sounds with short wavelengths. Large speakers or woofers are best for reproducing sounds with long wavelengths."
+      }
+    ],
+    "group_uuid": "e2520f0e-cf1a-416d-9f7b-2acc81c304ba",
+    "stem_html": "Why does a good-quality speaker have a woofer and a tweeter?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "lo:stax-phys:17-2-2",
+      "k12phys-ch13",
+      "k12phys-ch13-s02",
+      "k12phys-ch13-s02-lo02",
+      "k12phys-ch13-ex055",
+      "exid:k12phys-ch13-ex055",
+      "context-cnxmod:df9101fa-e2ca-4013-9a00-07d9e9f7aa3a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:085589bb-9ea4-443a-84c3-72c56f6b265d",
+      "context-cnxmod:177f95a9-8db4-4ede-a8e9-1838cc34e42d",
+      "aplo:stax-apphys:6.A.4.1"
+    ],
+    "uid": "6931@5"
+  }
+]

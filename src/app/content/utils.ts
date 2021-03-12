@@ -19,18 +19,41 @@ export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, t
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
 
-export const getContentPageReferences = (content: string) =>
-  (content.match(/"\/contents\/([a-z0-9-]+(@[\d.]+)?)/g) || [])
+interface ContentPageRefencesType {
+  bookId?: string;
+  bookVersion?: string;
+  match: string;
+  pageId: string;
+}
+
+export function getContentPageReferences(content: string) {
+  const legacyMatches = (content.match(/"\/contents\/([a-z0-9-]+(@[\d.]+)?)/g) || [])
     .map((match) => {
       const pageId = match.substr(11);
 
       return {
         match: match.substr(1),
-        pageUid: stripIdVersion(pageId),
+        pageId: stripIdVersion(pageId),
       };
     });
 
-const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
+  const matches = (content.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
+    .map((match) => {
+      const [bookMatch, pageMatch] = match.split(':');
+      const pageId = pageMatch.substr(0, 36);
+      const [bookId, bookVersion] = bookMatch.split('@');
+      return {
+        bookId: bookId.substr(2),
+        bookVersion,
+        match,
+        pageId: stripIdVersion(pageId),
+      };
+    });
+
+  return [...legacyMatches, ...matches] as ContentPageRefencesType[];
+}
+
+export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
   contents.map((subtree) => {
     subtree.title = getTitleFromArchiveNode(book, subtree);
     if (isArchiveTree(subtree)) {
@@ -38,16 +61,25 @@ const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode
     }
     return subtree;
   });
+
+  CACHED_FLATTENED_TREES.clear();
+  // getTitleFromArchiveNode is using `flattenArchiveTree` util that is caching old titles
+  // so we have to clear this cache after transforming titles
+
   return contents;
 };
 
-export const parseBookTree = (archiveBook: ArchiveBook) => {
-  archiveBook.tree.contents = parseContents(archiveBook, archiveBook.tree.contents);
-  // getTitleFromArchiveNode is using `flattenArchiveTree` util that is caching old titles
-  // so we have to clear this cache after transforming titles
-  CACHED_FLATTENED_TREES.clear();
-  return archiveBook;
-};
+const pickArchvieFields = (archiveBook: ArchiveBook) => ({
+  id: archiveBook.id,
+  license: archiveBook.license,
+  revised: archiveBook.revised,
+  title: archiveBook.title,
+  tree: {
+    ...archiveBook.tree,
+    contents: parseContents(archiveBook, archiveBook.tree.contents),
+  },
+  version: archiveBook.version,
+});
 
 export const formatBookData = <O extends OSWebBook | undefined>(
   archiveBook: ArchiveBook,
@@ -55,19 +87,19 @@ export const formatBookData = <O extends OSWebBook | undefined>(
 ): O extends OSWebBook ? BookWithOSWebData : ArchiveBook => {
   if (osWebBook === undefined) {
     // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    return parseBookTree(archiveBook) as ArchiveBook as any;
+    return pickArchvieFields(archiveBook) as ArchiveBook as any;
   }
 
   return {
-      ...parseBookTree(archiveBook),
-      amazon_link: osWebBook.amazon_link,
-      authors: osWebBook.authors,
-      book_state: osWebBook.book_state,
-      publish_date: osWebBook.publish_date,
-      slug: osWebBook.meta.slug,
-      theme: osWebBook.cover_color,
-    // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    } as BookWithOSWebData as any;
+    ...pickArchvieFields(archiveBook),
+    amazon_link: osWebBook.amazon_link,
+    authors: osWebBook.authors,
+    book_state: osWebBook.book_state,
+    publish_date: osWebBook.publish_date,
+    slug: osWebBook.meta.slug,
+    theme: osWebBook.cover_color,
+  // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
+  } as BookWithOSWebData as any;
 };
 
 export const makeUnifiedBookLoader = (

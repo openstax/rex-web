@@ -1,14 +1,22 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
+import { receiveBook } from '../../actions';
 import * as contentSelectors from '../../selectors';
 import { formatBookData } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
-import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts, receiveSummaryHighlights } from '../actions';
+import {
+  initializeMyHighlightsSummary,
+  receiveHighlightsTotalCounts,
+  receiveSummaryHighlights,
+  toggleSummaryHighlightsLoading
+} from '../actions';
 import * as selectors from '../selectors';
 import { HighlightData } from '../types';
 
@@ -49,7 +57,8 @@ describe('initializeMyHighlightsSummaryHook', () => {
     jest.spyOn(selectors, 'summaryIsLoading').mockReturnValue(false);
     jest.spyOn(selectors, 'filteredCountsPerPage').mockReturnValue(totalCountsPerPage);
     jest.spyOn(selectors, 'highlightLocationFilters').mockReturnValue(new Map([[
-      'testbook1-testpage1-uuid', assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+      'testbook1-testpage1-uuid',
+      { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
     ]]));
 
     jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
@@ -77,4 +86,83 @@ describe('initializeMyHighlightsSummaryHook', () => {
       expect.anything(), {pagination: null}
     ));
   });
+
+  it('throws HighlightPopupLoadError when summary request fails', async() => {
+    expect.assertions(4);
+    const error = {} as any;
+
+    store.dispatch(receiveBook(book));
+
+    const getHighlightsSummaryClient = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockRejectedValueOnce(error);
+
+    try {
+      await hook(initializeMyHighlightsSummary());
+    } catch (error) {
+      expect(getHighlightsSummaryClient).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
+      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.popUp.load);
+      expect(error.meta).toEqual({ destination: 'myHighlights' });
+    }
+  });
+
+  it('throws ApplicationError when summary request fails', async() => {
+    expect.assertions(4);
+    const mockCustomApplicationError = new ApplicationError('error');
+
+    store.dispatch(receiveBook(book));
+
+    const getHighlightsSummaryClient = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockRejectedValueOnce(mockCustomApplicationError);
+
+    try {
+      await hook(initializeMyHighlightsSummary());
+    } catch (error) {
+      expect(getHighlightsSummaryClient).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
+      expect(error instanceof ApplicationError).toEqual(true);
+      expect(error.message).toBe(mockCustomApplicationError.message);
+    }
+  });
+
+  it('throws HighlightPopupLoadError when highlights request fails', async() => {
+    expect.assertions(4);
+    const error = {} as any;
+
+    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockResolvedValueOnce({ countsPerSource: {} });
+
+    const getHighlightsClient = jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockRejectedValueOnce(error);
+
+    try {
+      await hook(initializeMyHighlightsSummary());
+    } catch (error) {
+      expect(getHighlightsClient).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
+      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.popUp.load);
+      expect(error.meta).toEqual({ destination: 'myHighlights' });
+    }
+  });
+
+  it('throws ApplicationError when highlights request fails', async() => {
+    expect.assertions(4);
+    const mockCustomApplicationError = new ApplicationError('error');
+
+    jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockResolvedValueOnce({ countsPerSource: {} });
+
+    const getHighlightsClient = jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockRejectedValueOnce(mockCustomApplicationError);
+
+    try {
+      await hook(initializeMyHighlightsSummary());
+    } catch (error) {
+      expect(getHighlightsClient).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
+      expect(error instanceof ApplicationError).toEqual(true);
+      expect(error.message).toBe(mockCustomApplicationError.message);
+    }
+  });
+
 });

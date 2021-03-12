@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Question renders null if there is no current question 1`] = `null`;
+
+exports[`Question renders null if there is no selected section question 1`] = `null`;

@@ -1,10 +1,10 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import noop from 'lodash/fp/noop';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
@@ -40,15 +40,15 @@ describe('printHighlights', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
-  let print: jest.SpyInstance;
-  let addPromise: jest.SpyInstance;
+  let calmSpy: jest.SpyInstance;
+  const print = jest.fn();
   let asyncHelper: typeof import ('./printHighlights').asyncHelper;
-  let hook: typeof import ('./printHighlights').printHighlightsHook;
+  let hook: ReturnType<typeof import ('./printHighlights').hookBody>;
 
   beforeEach(() => {
-    resetModules();
-    print = jest.spyOn(assertWindow(), 'print');
-    print.mockImplementation(noop);
+    const window = assertWindow();
+    window.print = print;
+    print.mockClear();
 
     store = createTestStore();
 
@@ -58,21 +58,16 @@ describe('printHighlights', () => {
       getState: store.getState,
     };
 
-    addPromise = jest.spyOn(helpers.promiseCollector, 'add');
     dispatch = jest.spyOn(helpers, 'dispatch');
+    calmSpy = jest.spyOn(helpers.promiseCollector, 'calm')
+      .mockImplementation(() => Promise.resolve());
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
     store.dispatch(openMyHighlights());
 
     asyncHelper = (require('./printHighlights').asyncHelper);
-    hook = (require('./printHighlights').printHighlightsHook);
-  });
-
-  it('doesn\'t get added to promise collector', () => {
-    hook(helpers)(helpers)((action) => action)(printSummaryHighlights());
-
-    expect(addPromise).not.toHaveBeenCalled();
+    hook = (require('./printHighlights').hookBody)(helpers);
   });
 
   describe('with unfetched resources', () => {
@@ -196,6 +191,58 @@ describe('printHighlights', () => {
       }));
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
       expect(print).toHaveBeenCalled();
+    });
+
+    it('waits for promiseCollector.calm', async() => {
+      const loadMore = jest.spyOn(require('./loadMore'), 'loadMore')
+        .mockImplementation(async() => ({}));
+
+      hook(printSummaryHighlights());
+
+      expect(loadMore).toHaveBeenCalled();
+      await Promise.resolve();
+
+      expect(print).not.toHaveBeenCalled();
+
+      expect(calmSpy).toHaveBeenCalled();
+      await Promise.resolve();
+
+      expect(dispatch).toBeCalledWith(toggleSummaryHighlightsLoading(false));
+      expect(print).toHaveBeenCalled();
+
+      loadMore.mockRestore();
+    });
+
+    it('throws HighlightPopupPrintError', async() => {
+      expect.assertions(3);
+      const error = {} as any;
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce(error);
+
+      try {
+        await asyncHelper(helpers);
+      } catch (error) {
+        expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
+        expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.popUp.print);
+        expect(error.meta).toEqual({ destination: 'myHighlights' });
+      }
+    });
+
+    it('throws ApplicationError', async() => {
+      expect.assertions(3);
+      const mockCustomApplicationError = new ApplicationError('error');
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValueOnce(mockCustomApplicationError);
+
+      try {
+        await asyncHelper(helpers);
+      } catch (error) {
+        expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
+        expect(error instanceof ApplicationError).toEqual(true);
+        expect(error.message).toBe(mockCustomApplicationError.message);
+      }
     });
   });
 

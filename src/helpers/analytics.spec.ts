@@ -11,7 +11,8 @@ const makeEvent = (doc: Document) => {
 
 describe('registerGlobalAnalytics', () => {
   const window = assertWindow();
-  const document = window.document; const store = createTestStore();
+  const document = window.document;
+  const store = createTestStore();
   let clickLink: jest.SpyInstance;
   let clickButton: jest.SpyInstance;
   let print: jest.SpyInstance;

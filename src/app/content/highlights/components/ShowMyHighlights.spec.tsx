@@ -39,6 +39,11 @@ jest.mock('./SummaryPopup/utils', () => ({
   createHighlightLink: (highlight: Highlight) => `/link/to/highlight/${highlight.id}`,
 }));
 
+jest.mock('react-dom', () => ({
+  ...jest.requireActual('react-dom'),
+  createPortal: (children: any) => children,
+}));
+
 describe('Show my highlights', () => {
   let store: Store;
   let user: User;
@@ -145,15 +150,15 @@ describe('Show my highlights', () => {
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
     }, new Map([
       ['testbook1-testpage1-uuid',
-        assertDefined( findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+        { section: assertDefined( findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
       ],
       ['testbook1-testchapter1-uuid',
-        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), ''),
+        { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), '') },
       ],
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': [{id: 'id'} as HighlightData],
+        'testbook1-testpage1-uuid': [{id: 'id', sourceId: 'testbook1-testpage1-uuid'} as HighlightData],
       },
     }, {pagination: null}));
 
@@ -222,15 +227,15 @@ describe('Show my highlights', () => {
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: 5},
     }, new Map([
       ['testbook1-testpage1-uuid',
-        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), ''),
+        { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
       ],
       ['testbook1-testchapter1-uuid',
-        assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), ''),
+        { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid'), '') },
       ],
     ])));
     store.dispatch(receiveSummaryHighlights({
       'testbook1-testpage1-uuid': {
-        'testbook1-testpage1-uuid': [{ id: 'asd' } as HighlightData],
+        'testbook1-testpage1-uuid': [{ id: 'asd', sourceId: 'testbook1-testpage1-uuid' } as HighlightData],
       },
     }, {pagination: null}));
 

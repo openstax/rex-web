@@ -2,10 +2,10 @@ import {
   GetHighlightsSummarySetsEnum,
   GetHighlightsSummarySourceTypeEnum,
 } from '@openstax/highlighter/dist/api';
-import Sentry from '../../../../helpers/Sentry';
-import { addToast } from '../../../notifications/actions';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined } from '../../../utils';
+import { StudyGuidesLoadError } from '../../highlights/errors';
 import { extractTotalCounts } from '../../highlights/utils/paginationUtils';
 import { bookAndPage } from '../../selectors';
 import { receiveStudyGuidesTotalCounts } from '../actions';
@@ -13,7 +13,7 @@ import { hasStudyGuides, studyGuidesEnabled } from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
 const loadSummary = async(services: MiddlewareAPI & AppServices) => {
-  const {dispatch, getState, highlightClient} = services;
+  const {getState, highlightClient} = services;
 
   const state = getState();
 
@@ -32,8 +32,9 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
 
     return summary;
   } catch (error) {
-    Sentry.captureException(error);
-    dispatch(addToast({messageKey: 'i18n:notification:toast:study-guides:load-failure', shouldAutoDismiss: false}));
+    throw ensureApplicationErrorType(
+      error,
+      new StudyGuidesLoadError({ destination: 'page', shouldAutoDismiss: false }));
   }
 };
 

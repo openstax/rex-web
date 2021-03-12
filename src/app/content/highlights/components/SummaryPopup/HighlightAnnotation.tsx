@@ -1,6 +1,6 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button from '../../../../components/Button';
 import { textRegularStyle } from '../../../../components/Typography';
@@ -49,28 +49,29 @@ const HighlightAnnotation = (
   { annotation, isEditing, onSave, onCancel }: HighlightAnnotationProps
 ) => {
   const [anno, setAnno] = React.useState(annotation);
+  const intl = useIntl();
+
+  React.useEffect(() => {
+    setAnno(annotation);
+  }, [annotation]);
 
   if (anno.length === 0 && !isEditing) { return null; }
 
   return <HighlightNote>
     {isEditing
-      ? <FormattedMessage id='i18n:highlighting:card:aria-label'>
-        {(ariaMsg: string) => <FormattedMessage id='i18n:highlighting:card:placeholder'>
-          {(msg: string) => <Textarea
-            value={anno}
-            placeholder={msg}
-            autoFocus={true}
-            aria-label={ariaMsg}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              setAnno(e.target.value);
-            }}
-          />}
-        </FormattedMessage>}
-      </FormattedMessage>
+      ? <Textarea
+        value={anno}
+        placeholder={intl.formatMessage({id: 'i18n:highlighting:card:placeholder'})}
+        autoFocus={true}
+        aria-label={intl.formatMessage({id: 'i18n:highlighting:card:aria-label'})}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+          setAnno(e.target.value);
+        }}
+      />
       : <React.Fragment>
         <span className='highlight-note-text'>
           <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
-            {(msg: Element | string) => msg}
+            {(msg) => msg}
           </FormattedMessage>
         </span>
         <HighlightNoteAnnotation>
@@ -79,28 +80,24 @@ const HighlightAnnotation = (
       </React.Fragment>
     }
     {isEditing && <HighlightEditButtons>
-      <FormattedMessage id='i18n:highlighting:button:save'>
-        {(msg: Element | string) => <Button
-          data-testid='save'
-          data-analytics-label='save'
-          size='medium'
-          variant='primary'
-          aria-label={msg}
-          onClick={() => onSave(anno)}
-        >{msg}</Button>}
-      </FormattedMessage>
-      <FormattedMessage id='i18n:highlighting:button:cancel'>
-        {(msg: Element | string) => <Button
-          size='medium'
-          data-analytics-label='cancel'
-          data-testid='cancel'
-          aria-label={msg}
-          onClick={() => {
-            onCancel();
-            setAnno(annotation);
-          }}
-        >{msg}</Button>}
-      </FormattedMessage>
+      <Button
+        data-testid='save'
+        data-analytics-label='save'
+        size='medium'
+        variant='primary'
+        aria-label={intl.formatMessage({id: 'i18n:highlighting:button:save'})}
+        onClick={() => onSave(anno)}
+      >{intl.formatMessage({id: 'i18n:highlighting:button:save'})}</Button>
+      <Button
+        size='medium'
+        data-analytics-label='cancel'
+        data-testid='cancel'
+        aria-label={intl.formatMessage({id: 'i18n:highlighting:button:cancel'})}
+        onClick={() => {
+          onCancel();
+          setAnno(annotation);
+        }}
+      >{intl.formatMessage({id: 'i18n:highlighting:button:cancel'})}</Button>
     </HighlightEditButtons>}
   </HighlightNote>;
 };

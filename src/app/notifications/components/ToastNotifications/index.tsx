@@ -1,25 +1,25 @@
 import orderBy from 'lodash/orderBy';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { mobileToolbarOpen } from '../../../content/search/selectors';
+import { useDispatch } from 'react-redux';
 import { assertDefined } from '../../../utils';
 import { dismissNotification } from '../../actions';
-import * as select from '../../selectors';
-import { ToastContainerWrapper, ToastsContainer } from './styles';
+import { ToastNotification } from '../../types';
+import { ToastsContainer } from './styles';
 import Toast from './Toast';
 
+interface Props {
+  toasts: ToastNotification[];
+}
+
 // tslint:disable-next-line:variable-name
-const ToastNotifications = () => {
+const ToastNotifications = ({toasts}: Props) => {
   const dispatch = useDispatch();
-  const toolbarOpen = useSelector(mobileToolbarOpen);
-  const toasts = useSelector(select.toastNotifications);
 
   const sortedToasts = new Map(orderBy(toasts, ['timestamp'], ['desc']).map((toast, index) => [toast, index]));
 
-  return toasts.length ? <ToastContainerWrapper mobileToolbarOpen={toolbarOpen}>
-    <ToastsContainer>
+  return toasts.length ? <ToastsContainer>
       {toasts.map((toast) => <Toast
-        key={toast.messageKey}
+        key={toast.messageKey + toast.errorId}
         dismiss={() => dispatch(dismissNotification(toast))}
         notification={toast}
         positionProps={{
@@ -27,8 +27,7 @@ const ToastNotifications = () => {
           totalToastCount: toasts.length,
         }}
       />)}
-    </ToastsContainer>
-  </ToastContainerWrapper> : null;
+    </ToastsContainer> : null;
 };
 
 export default ToastNotifications;

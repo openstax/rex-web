@@ -1,0 +1,274 @@
+[
+  {
+    "answers": [
+      {
+        "id": 375594,
+        "content_html": "<span data-math=\"{-100}\\,\\text{m}\">{-100}\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Consider the fact that the velocity of the object is positive. So, displacement will not be negative."
+      },
+      {
+        "id": 375593,
+        "content_html": "<span data-math=\"{-4}\\,\\text{m}\">{-4}\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Consider the definition of displacement correctly. It is not defined as the ratio of time interval to the velocity of the object."
+      },
+      {
+        "id": 375592,
+        "content_html": "<span data-math=\"4\\,\\text{m}\">4\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Displacement is not defined as the ratio of the time interval to the velocity of the object. Recall the definition of displacement."
+      },
+      {
+        "id": 375595,
+        "content_html": "<span data-math=\"100\\,\\text{m}\">100\\,\\text{m}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Displacement is defined as the product of the time interval and the velocity of the object (if the velocity, including direction, is constant, or if referring to the average velocity)."
+      }
+    ],
+    "group_uuid": "c3551565-1f71-4a24-9326-dff3f7f4ce0b",
+    "stem_html": "If an object is thrown horizontally, travels with an average x-component of its velocity equal to <span data-math=\"5\\,\\text{m/s}\">5\\,\\text{m/s}</span>, and does not hit the ground, what will be the x-component of the displacement after <span data-math=\"20\\,\\text{s}\">20\\,\\text{s}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch05",
+      "k12phys-ch05-s03",
+      "k12phys-ch05-s03-lo02",
+      "k12phys-ch05-ex052",
+      "dok:1",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch05-ex052",
+      "context-cnxmod:6c1aab40-18a2-424d-aa90-93b1265fe9dc",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:3-4-2",
+      "context-cnxmod:8b3e4448-1f6a-44fa-8b83-388f8403a0a7",
+      "context-cnxmod:b46567e9-4987-49f5-ba7c-828a756c372c",
+      "aplo:stax-apphys:3.A.1.1",
+      "aplo:stax-apphys:3.A.2.1"
+    ],
+    "uid": "2248@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 375607,
+        "content_html": "Projectile motion is the motion of an object projected into the air, which moves under the influence of gravity.",
+        "correctness": "1.0",
+        "feedback_html": "Projectile motion is defined as the motion of an object projected into the air which moves under the influence of gravity."
+      },
+      {
+        "id": 375604,
+        "content_html": "Projectile motion is the motion of an object projected into the air which moves independently of gravity.",
+        "correctness": "0.0",
+        "feedback_html": "The projectile motion of an object is not independent of the gravity."
+      },
+      {
+        "id": 375605,
+        "content_html": "Projectile motion is the motion of an object projected vertically upward into the air which moves under the influence of gravity.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that projectile motion is motion of an object in the air, which moves under the influence of gravity but consider the fact that the projectile can have horizontal motion as well."
+      },
+      {
+        "id": 375606,
+        "content_html": "Projectile motion is the motion of an object projected horizontally into the air which moves independently of gravity.",
+        "correctness": "0.0",
+        "feedback_html": "Consider the definition of projectile motion correctly. The definition of projectile motion is not independent of the gravity. Also, consider the fact that the projectile can have vertical velocity as well."
+      }
+    ],
+    "group_uuid": "37658fb5-1548-4dc1-80e1-ac94cfb41cb9",
+    "stem_html": "What is projectile motion?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch05",
+      "k12phys-ch05-s03",
+      "k12phys-ch05-s03-lo01",
+      "k12phys-ch05-ex055",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:3-4-1",
+      "exid:k12phys-ch05-ex055",
+      "context-cnxmod:6c1aab40-18a2-424d-aa90-93b1265fe9dc",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:8b3e4448-1f6a-44fa-8b83-388f8403a0a7",
+      "context-cnxmod:b46567e9-4987-49f5-ba7c-828a756c372c",
+      "aplo:stax-apphys:3.A.1.1"
+    ],
+    "uid": "2251@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 375626,
+        "content_html": "Object 1 will hit the ground <span data-math=\"3.2\\,\\text{s}\">3.2\\,\\text{s}</span> after object 2.",
+        "correctness": "0.0",
+        "feedback_html": "The difference between the two times cannot be equal to the time the first object takes to hit the ground."
+      },
+      {
+        "id": 375625,
+        "content_html": "Object 1 will hit the ground <span data-math=\"2.1\\,\\text{s}\">2.1\\,\\text{s}</span> after object 2.",
+        "correctness": "0.0",
+        "feedback_html": "The difference between the two times cannot be equal to the time the second object takes to hit the ground because the initial velocities are not equal."
+      },
+      {
+        "id": 375624,
+        "content_html": "Object 1 will hit the ground at the same time as object 2.",
+        "correctness": "0.0",
+        "feedback_html": "The difference between the two times cannot be zero because the objects do not have the same initial velocity."
+      },
+      {
+        "id": 375627,
+        "content_html": "Object 1 will hit the ground <span data-math=\"1.1\\,\\text{s}\">1.1\\,\\text{s}</span> after object 2.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, object 1, having an initial velocity of zero, will hit the ground <span data-math=\"1.1\\,\\text{s}\">1.1\\,\\text{s}</span> after object 2."
+      }
+    ],
+    "group_uuid": "029d14d2-5109-4d52-a0db-2f6dbd3143c3",
+    "stem_html": "Two identical items, object 1 and object 2, are dropped from the top of a <span data-math=\"50.0\\,\\text{m}\">50.0\\,\\text{m}</span> building. Object 1 is dropped with an initial velocity of <span data-math=\"0\\,\\text{m/s}\">0\\,\\text{m/s}</span>, while object 2 is thrown straight downward with an initial velocity of <span data-math=\"13.0\\,\\text{m/s}\">13.0\\,\\text{m/s}</span>. What is the difference in time, in seconds rounded to the nearest tenth, between when the two objects hit the ground?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch05",
+      "k12phys-ch05-s03",
+      "k12phys-ch05-s03-lo01",
+      "k12phys-ch05-ex060",
+      "time:short",
+      "blooms:3",
+      "dok:3",
+      "book:stax-phys",
+      "exid:k12phys-ch05-ex060",
+      "context-cnxmod:6c1aab40-18a2-424d-aa90-93b1265fe9dc",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:3-4-2",
+      "context-cnxmod:8b3e4448-1f6a-44fa-8b83-388f8403a0a7",
+      "context-cnxmod:b46567e9-4987-49f5-ba7c-828a756c372c",
+      "aplo:stax-apphys:3.A.1.1",
+      "aplo:stax-apphys:3.A.2.1"
+    ],
+    "uid": "2256@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 375641,
+        "content_html": "<span data-math=\"0^\\circ\\!\">0^\\circ\\!</span> or <span data-math=\"30^\\circ\">30^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that the range of the projectile will be zero for the angle of projection at <span data-math=\"0^\\circ\\!\">0^\\circ\\!</span> but if the angle of projection is <span data-math=\"30^\\circ\\!\">30^\\circ\\!</span> then range of projection will not be zero."
+      },
+      {
+        "id": 375640,
+        "content_html": "<span data-math=\"0^\\circ\\!\">0^\\circ\\!</span> or <span data-math=\"45^\\circ\">45^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "Consider the fact that the range is maximum for the angle of projection at <span data-math=\"45^\\circ\\!\">45^\\circ\\!</span>."
+      },
+      {
+        "id": 375642,
+        "content_html": "<span data-math=\"90^\\circ\\!\">90^\\circ\\!</span> or <span data-math=\"0^\\circ\">0^\\circ</span>",
+        "correctness": "1.0",
+        "feedback_html": "The range of the projectile would be zero for the angle of projection at <span data-math=\"0^\\circ\\!\">0^\\circ\\!</span> or <span data-math=\"90^\\circ\">90^\\circ</span>"
+      },
+      {
+        "id": 375639,
+        "content_html": "<span data-math=\"90^\\circ\\!\">90^\\circ\\!</span> or <span data-math=\"45^\\circ\">45^\\circ</span>",
+        "correctness": "0.0",
+        "feedback_html": "Yes, the range of the projectile would be zero for the angle of projection at <span data-math=\"90^\\circ\\!\">90^\\circ\\!</span>, but it will be at its maximum if the angle of projection is <span data-math=\"45^\\circ\\!\">45^\\circ\\!</span>."
+      }
+    ],
+    "group_uuid": "70c18560-a392-41fb-9031-a0865ff422b4",
+    "stem_html": "For what angle of a projectile is its range equal to zero?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch05",
+      "k12phys-ch05-s03",
+      "k12phys-ch05-s03-lo02",
+      "k12phys-ch05-ex066",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:3-4-1",
+      "exid:k12phys-ch05-ex066",
+      "context-cnxmod:6c1aab40-18a2-424d-aa90-93b1265fe9dc",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:8b3e4448-1f6a-44fa-8b83-388f8403a0a7",
+      "context-cnxmod:b46567e9-4987-49f5-ba7c-828a756c372c",
+      "aplo:stax-apphys:3.A.1.1",
+      "aplo:stax-apphys:3.A.2.1"
+    ],
+    "uid": "2262@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 375646,
+        "content_html": "The x-component of the acceleration of a projectile is <span data-math=\"0\">0</span> because acceleration of a projectile is due to gravity, which acts in the y direction.",
+        "correctness": "1.0",
+        "feedback_html": "The x-component of the acceleration of a projectile is zero because the acceleration due to gravity acts along the y direction."
+      },
+      {
+        "id": 375643,
+        "content_html": "The x component of the acceleration of a projectile is <span data-math=\"g\">g</span> because acceleration of a projectile is due to gravity, which acts in the x direction.",
+        "correctness": "0.0",
+        "feedback_html": "The force of gravity acts in the vertical direction in projectile motion."
+      },
+      {
+        "id": 375644,
+        "content_html": "The x-component of the acceleration of a projectile is <span data-math=\"0\">0</span> because acceleration of a projectile is due to gravity, which acts in the x direction.",
+        "correctness": "0.0",
+        "feedback_html": "Acceleration due to gravity acts in the vertical direction."
+      },
+      {
+        "id": 375645,
+        "content_html": "The x-component of the acceleration of a projectile is <span data-math=\"g\">g</span> because acceleration of a projectile is due to gravity, which acts in the y direction.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that the gravity acts in the y direction, but the assertion is not in accordance with the reasoning."
+      }
+    ],
+    "group_uuid": "46d866b5-2eb6-4bc8-b2ff-6dd92ee5195e",
+    "stem_html": "Ignoring drag, what is the x-component of the acceleration of a projectile? Why?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch05",
+      "k12phys-ch05-s03",
+      "k12phys-ch05-s03-lo01",
+      "k12phys-ch05-ex067",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:3-4-1",
+      "exid:k12phys-ch05-ex067",
+      "context-cnxmod:6c1aab40-18a2-424d-aa90-93b1265fe9dc",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:8b3e4448-1f6a-44fa-8b83-388f8403a0a7",
+      "context-cnxmod:b46567e9-4987-49f5-ba7c-828a756c372c",
+      "aplo:stax-apphys:3.A.1.1",
+      "aplo:stax-apphys:3.A.2.1"
+    ],
+    "uid": "2263@5"
+  }
+]

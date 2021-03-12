@@ -1,30 +1,32 @@
-import Sentry from '../../../../helpers/Sentry';
-import { addToast } from '../../../notifications/actions';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
+import { getHighlightToastDesination } from '../../../notifications/utils';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
 import { updateHighlight } from '../actions';
+import { HighlightUpdateAnnotationError, HighlightUpdateColorError } from '../errors';
 
 export const hookBody: ActionHookBody<typeof updateHighlight> =
-  ({highlightClient, dispatch}) => async({payload, meta}) => {
+  ({highlightClient, dispatch, getState}) => async({payload, meta}) => {
     if (meta.revertingAfterFailure) { return; }
+
+    const destination = getHighlightToastDesination(getState());
 
     try {
       await highlightClient.updateHighlight(payload);
     } catch (error) {
-      Sentry.captureException(error);
-
       const oldColor = meta.preUpdateData.highlight.color;
       const oldAnnotation = meta.preUpdateData.highlight.annotation;
 
       if (oldColor === payload.highlight.color && oldAnnotation === payload.highlight.annotation) { return; }
 
-      if (oldColor !== payload.highlight.color) {
-        dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:update-failure:color'}));
-      } else {
-        dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:update-failure:annotation'}));
-      }
-
       dispatch(updateHighlight(meta.preUpdateData, {...meta, revertingAfterFailure: true}));
+
+      throw ensureApplicationErrorType(
+        error,
+        () => payload.highlight.color && oldColor !== payload.highlight.color
+          ? new HighlightUpdateColorError({ destination })
+          : new HighlightUpdateAnnotationError({ destination })
+      );
     }
   };
 

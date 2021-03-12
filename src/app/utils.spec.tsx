@@ -1,3 +1,4 @@
+import { makeToastMessageError } from '../helpers/applicationMessageError';
 import PromiseCollector from '../helpers/PromiseCollector';
 import Sentry from '../helpers/Sentry';
 import createTestStore from '../test/createTestStore';
@@ -7,6 +8,9 @@ import * as actions from './content/actions';
 import * as selectors from './content/selectors';
 import { formatBookData } from './content/utils';
 import { notFound } from './errors/routes';
+import { replace } from './navigation/actions';
+import * as selectNavigation from './navigation/selectors';
+import { addToast } from './notifications/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from './types';
 import * as utils from './utils';
 import { assertDocument, UnauthenticatedError } from './utils';
@@ -115,19 +119,52 @@ describe('actionHook', () => {
     const mockReplace = jest.fn();
     jest.spyOn(utils.assertWindow().location, 'replace')
       .mockImplementation(mockReplace);
+    jest.spyOn(selectNavigation, 'pathname')
+      .mockReturnValue('url');
     const helpers = ({
       dispatch: jest.fn(),
       getState: () => ({} as AppState),
       promiseCollector: new PromiseCollector(),
     } as any) as MiddlewareAPI & AppServices;
+
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
     middleware(helpers)(helpers)((action) => action)(actions.openToc());
-    await Promise.resolve();
+
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(hookSpy).toHaveBeenCalled();
     expect(Sentry.captureException).toHaveBeenCalled();
-    expect(mockReplace).toHaveBeenCalledWith(notFound.getFullUrl());
-    expect(helpers.dispatch).not.toHaveBeenCalled();
+    expect(helpers.dispatch).toHaveBeenCalledWith(replace({
+      params: {url: 'url'},
+      route: notFound,
+      state: {},
+    }));
+    jest.resetAllMocks();
+  });
+
+  it('handle error if it is instance of ToastMesssageError', async() => {
+    const hookSpy = jest.fn(async() => Promise.reject(
+      new (makeToastMessageError('some-key'))({ destination: 'myHighlights', shouldAutoDismiss: true })
+    ));
+    const helpers = ({
+      dispatch: jest.fn(),
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any) as MiddlewareAPI & AppServices;
+
+    const dispatch = jest.spyOn(helpers, 'dispatch');
+    jest.spyOn(global.Date, 'now').mockReturnValue(1);
+    const spySentry = jest.spyOn(Sentry, 'captureException').mockReturnValue('first-error');
+
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+
+    await new Promise((resolve) => setImmediate(resolve));
+
+    expect(spySentry).toHaveBeenCalled();
+    expect(hookSpy).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast('some-key', { destination: 'myHighlights', shouldAutoDismiss: true, errorId: 'first-error' }));
     jest.resetAllMocks();
   });
 });

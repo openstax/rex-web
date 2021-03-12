@@ -10,6 +10,7 @@ import { loadMoreDistanceFromBottom } from '../../constants';
 import { loadMoreSummaryHighlights } from '../actions';
 import * as select from '../selectors';
 import Highlights from './Highlights';
+import HighlightsToasts from './HighlightsToasts';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
 
@@ -80,6 +81,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         data-testid='show-myhighlights-body'
         data-analytics-region='MH popup'
       >
+        <HighlightsToasts />
         <Filters />
         <Highlights />
         {this.state.showGoToTop && <GoToTopButton

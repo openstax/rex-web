@@ -1,20 +1,20 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
 import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
 import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as authSelect from '../../../auth/selectors';
 import { User } from '../../../auth/types';
-import ScrollLock from '../../../components/ScrollLock';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
+import Modal from '../../components/Modal';
 import { bookTheme } from '../../selectors';
-import { CloseIcon, CloseIconWrapper, Header, Modal, PopupBody, PopupWrapper } from '../../styles/PopupStyles';
+import { CloseIcon, CloseIconWrapper, Header, PopupBody } from '../../styles/PopupStyles';
 import { BookWithOSWebData } from '../../types';
-import { closeMyHighlights } from '../actions';
+import { closeMyHighlights as closeMyHighlightsAction } from '../actions';
 import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
 import ShowMyHighlights from './ShowMyHighlights';
@@ -26,12 +26,12 @@ const BlueNote = () => <Styled.BlueStickyNote>
   <Styled.StickyNoteUl>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:highlight'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:add-notes'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
   </Styled.StickyNoteUl>
@@ -43,12 +43,12 @@ const GreenNote = () => <Styled.GreenStickyNote>
   <Styled.StickyNoteUl>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:review'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:filter-chapters'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
   </Styled.StickyNoteUl>
@@ -63,7 +63,7 @@ const LoginForHighlights = () => {
     <Styled.GridWrapper>
       <Styled.GeneralText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
-          {(msg: Element | string) => msg}
+          {(msg) => msg}
         </FormattedMessage>
       </Styled.GeneralText>
       <Styled.ImagesGrid>
@@ -89,16 +89,17 @@ interface Props {
 }
 
 // tslint:disable-next-line: variable-name
-const HighlightsPopUp = ({ ...props }: Props) => {
+const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
   const popUpRef = React.useRef<HTMLElement>(null);
+  const intl = useIntl();
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
 
-  const closeAndTrack = () => {
-    props.closeMyHighlights();
-    trackOpenCloseMH('esc');
-  };
+  const closeAndTrack = React.useCallback((method: string) => () => {
+    closeMyHighlights();
+    trackOpenCloseMH(method);
+  }, [closeMyHighlights, trackOpenCloseMH]);
 
-  useOnEsc(popUpRef, props.myHighlightsOpen, closeAndTrack);
+  useOnEsc(popUpRef, props.myHighlightsOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;
@@ -108,43 +109,34 @@ const HighlightsPopUp = ({ ...props }: Props) => {
     }
   }, [props.myHighlightsOpen]);
 
-  return props.myHighlightsOpen ? (
-    <PopupWrapper>
-      <ScrollLock
-        overlay={true}
-        mobileOnly={false}
-        zIndex={theme.zIndex.highlightSummaryPopup}
-        onClick={() => { props.closeMyHighlights(); trackOpenCloseMH('overlay'); }}
-      />
-      <Modal
-        ref={popUpRef}
-        tabIndex='-1'
-        data-testid='highlights-popup-wrapper'
-      >
-        <Header colorSchema={props.bookTheme}>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-            {(msg: Element | string) => msg}
-          </FormattedMessage>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:close-button:aria-label'>
-            {(msg: string) => (
-              <CloseIconWrapper
-               data-testid='close-highlights-popup'
-               aria-label={msg}
-               onClick={() => {
-                 props.closeMyHighlights();
-                 trackOpenCloseMH('button');
-               }}
-              >
-                <CloseIcon colorSchema={props.bookTheme}/>
-              </CloseIconWrapper>
-            )}
-          </FormattedMessage>
-        </Header>
-        {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
-      </Modal>
+  return props.myHighlightsOpen ?
+    <Modal
+      ref={popUpRef}
+      tabIndex='-1'
+      data-testid='highlights-popup-wrapper'
+      scrollLockProps={{
+        mobileOnly: false,
+        onClick: closeAndTrack('overlay'),
+        overlay: true,
+        zIndex: theme.zIndex.highlightSummaryPopup,
+      }}
+    >
+      <Header colorSchema={props.bookTheme}>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
+          {(msg) => msg}
+        </FormattedMessage>
+        <CloseIconWrapper
+          data-testid='close-highlights-popup'
+          aria-label={intl.formatMessage({id: 'i18n:toolbar:highlights:popup:close-button:aria-label'})}
+          onClick={closeAndTrack('button')}
+        >
+          <CloseIcon colorSchema={props.bookTheme}/>
+        </CloseIconWrapper>
+      </Header>
+      {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
       <HighlightsHelpInfo />
-    </PopupWrapper>
-  ) : null;
+    </Modal>
+    : null;
 };
 
 export default connect(
@@ -155,6 +147,6 @@ export default connect(
     user: authSelect.user(state),
   }),
   (dispatch: Dispatch) => ({
-    closeMyHighlights: () => dispatch(closeMyHighlights()),
+    closeMyHighlights: () => dispatch(closeMyHighlightsAction()),
   })
 )(HighlightsPopUp);

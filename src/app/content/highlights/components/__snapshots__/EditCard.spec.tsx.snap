@@ -20,7 +20,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
     className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
   >
     <button
-      className="Button-ayg7nk-0 bNgBJd"
+      className="Button-ayg7nk-0 bXETKb"
       data-analytics-label="save"
       data-testid="save"
       onClick={[Function]}
@@ -28,7 +28,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
       Save
     </button>
     <button
-      className="Button-ayg7nk-0 hGjqhZ"
+      className="Button-ayg7nk-0 kWlfWJ"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}

@@ -1,0 +1,162 @@
+[
+  {
+    "answers": [
+      {
+        "id": 391227,
+        "content_html": "<div data-math=\"- 0.8\\,\\text{m}\">- 0.8\\,\\text{m}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The applied formula is incorrect."
+      },
+      {
+        "id": 391228,
+        "content_html": "<div data-math=\"- 0.4\\,\\text{m}\">- 0.4\\,\\text{m}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The sign convention for focal length is incorrect."
+      },
+      {
+        "id": 391230,
+        "content_html": "<div data-math=\"0.4\\,\\text{m}\">0.4\\,\\text{m}</div>\n",
+        "correctness": "1.0",
+        "feedback_html": "The calculated focal length is correct."
+      },
+      {
+        "id": 391229,
+        "content_html": "<div data-math=\"0.8\\,\\text{m}\">0.8\\,\\text{m}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The radius of curvature is not equal to focal length."
+      }
+    ],
+    "group_uuid": "22b5e2f1-0629-40c2-ba65-0051595a5fc1",
+    "stem_html": "A concave mirror has a radius of curvature of <span data-math=\"0.8\\,\\text{m}\">0.8\\,\\text{m}</span>. What is the focal length of the mirror?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:25-7-3",
+      "k12phys-ch16",
+      "k12phys-ch16-s01",
+      "k12phys-ch16-s01-lo02",
+      "k12phys-ch16-ex007",
+      "exid:k12phys-ch16-ex007",
+      "context-cnxmod:e0341ce1-48d3-4aaa-ab7c-096493a522a1",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:c4cef576-059d-4369-9494-6484d1d6191c",
+      "context-cnxmod:ed675322-fbca-4fda-a451-3ba66c1c95cc",
+      "aplo:stax-apphys:6.E.4.2"
+    ],
+    "uid": "11169@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 405918,
+        "content_html": "It gives a wide range of view. The image appears to be closer than the actual object.",
+        "correctness": "0.0",
+        "feedback_html": "A diverging mirror forms images that make the actual object appear farther away than it is."
+      },
+      {
+        "id": 405919,
+        "content_html": "It gives a narrow range of view. The image appears to be farther than the actual object.",
+        "correctness": "0.0",
+        "feedback_html": "A wide-range view is obtained by diverging mirrors."
+      },
+      {
+        "id": 405920,
+        "content_html": "It gives a narrow range of view. The image appears to be closer than the actual object.",
+        "correctness": "0.0",
+        "feedback_html": "The image formed by a diverging mirror has a wider range, but appears farther than the actual object."
+      },
+      {
+        "id": 405921,
+        "content_html": "It gives a wide range of view. The image appears to be farther than the actual object.",
+        "correctness": "1.0",
+        "feedback_html": "Images formed by a diverging mirror appear farther from the mirror than the actual object."
+      }
+    ],
+    "group_uuid": "f234db5c-3a0c-4406-b9c1-bd1198d97865",
+    "stem_html": "Why are diverging mirrors often used for rear-view mirrors in vehicles? What is the main disadvantage of using such a mirror compared with a flat one?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "blooms:2",
+      "time:medium",
+      "dok:3",
+      "book:stax-phys",
+      "k12phys-ch16",
+      "k12phys-ch16-s01",
+      "k12phys-ch16-s01-lo01",
+      "k12phys-ch16-ex012",
+      "exid:k12phys-ch16-ex012",
+      "context-cnxmod:e0341ce1-48d3-4aaa-ab7c-096493a522a1",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:c4cef576-059d-4369-9494-6484d1d6191c",
+      "lo:stax-phys:25-7-2",
+      "context-cnxmod:ed675322-fbca-4fda-a451-3ba66c1c95cc",
+      "aplo:stax-apphys:6.E.4.2"
+    ],
+    "uid": "11184@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 205973,
+        "content_html": "Light passing through air is partially reflected and refracted when it meets a glass surface. It is reflected because glass has a smooth surface; it is refracted while passing into the transparent glass.",
+        "correctness": "1.0",
+        "feedback_html": "The light is partially reflected by the glass surface and it is refracted while passing through the glass because of the difference in the refractive indices of glass and air."
+      },
+      {
+        "id": 205972,
+        "content_html": "Light passing through air is partially reflected and refracted when it meets a glass surface. It is reflected because glass has a rough surface, and it is refracted while passing into the opaque glass.",
+        "correctness": "0.0",
+        "feedback_html": "Light is reflected from glass because it has a smooth surface."
+      },
+      {
+        "id": 205971,
+        "content_html": "Light passing through air is partially reflected and refracted when it meets a glass surface. It is reflected because glass has a smooth surface; it is refracted while passing into the opaque glass.",
+        "correctness": "0.0",
+        "feedback_html": "Glass is normally a transparent material."
+      },
+      {
+        "id": 205970,
+        "content_html": "Light passing through air is partially reflected and refracted when it meets a glass surface. It is reflected because glass has a rough surface; it is refracted while passing into the transparent glass.",
+        "correctness": "0.0",
+        "feedback_html": "The smooth surface of glass reflects light."
+      }
+    ],
+    "group_uuid": "3e23ccd6-4fdb-4144-ac86-881a40157ef3",
+    "stem_html": "Sometimes light may be both reflected and refracted as it meets the surface of a different medium. Identify a material with a surface that when light travels through the air it is both reflected and refracted. Explain how this is possible.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:25-3-1",
+      "k12phys-ch16",
+      "k12phys-ch16-s01",
+      "k12phys-ch16-s01-lo01",
+      "k12phys-ch16-ex018",
+      "exid:k12phys-ch16-ex018",
+      "context-cnxmod:e0341ce1-48d3-4aaa-ab7c-096493a522a1",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:25999bf2-d3b4-4763-b10b-86d9e977d218",
+      "context-cnxmod:c5086d6f-9d82-4f7a-803e-66da7f5d568e"
+    ],
+    "uid": "11196@4"
+  }
+]

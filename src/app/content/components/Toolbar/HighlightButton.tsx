@@ -1,8 +1,8 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import highlightIcon from '../../../../assets/highlightIcon.svg';
+import HighlightsIcon from '../../../../assets/HighlightsIcon';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { AppState, Dispatch } from '../../../types';
 import { openMyHighlights as openMyHighlightsAction } from '../../highlights/actions';
@@ -23,11 +23,10 @@ const MyHighlightsWrapper = styled(PlainButton)`
   ${(props: { practiceQuestionsEnabled: boolean }) => {
     if (props.practiceQuestionsEnabled) { return `margin-right: 0;`; }
   }}
-`;
 
-// tslint:disable-next-line:variable-name
-const MyHighlightsIcon = styled.img`
-  ${toolbarIconStyles}
+  > svg {
+    ${toolbarIconStyles}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -45,19 +44,16 @@ const HighlightButton = ({ openMyHighlights }: Props) => {
     trackOpenCloseMH();
   };
 
-  return <FormattedMessage id='i18n:toolbar:highlights:text'>
-      {(msg: Element | string) =>
-        <MyHighlightsWrapper
-          onClick={() => openHighlightsSummary()}
-          aria-label={msg}
-          practiceQuestionsEnabled={practiceQuestionsEnabled}
-        >
-          <MyHighlightsIcon aria-hidden='true' src={highlightIcon} />
-          <MyHighlightsText>{msg}</MyHighlightsText>
-        </MyHighlightsWrapper>
-      }
-    </FormattedMessage>
-  ;
+  const text = useIntl().formatMessage({id: 'i18n:toolbar:highlights:text'});
+
+  return <MyHighlightsWrapper
+    onClick={() => openHighlightsSummary()}
+    aria-label={text}
+    practiceQuestionsEnabled={practiceQuestionsEnabled}
+  >
+    <HighlightsIcon />
+    <MyHighlightsText>{text}</MyHighlightsText>
+  </MyHighlightsWrapper>;
 };
 
 export default connect(

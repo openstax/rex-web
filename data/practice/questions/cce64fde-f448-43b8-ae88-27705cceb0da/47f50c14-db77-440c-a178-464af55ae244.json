@@ -1,0 +1,107 @@
+[
+  {
+    "answers": [
+      {
+        "id": 209685,
+        "content_html": "Kinematics is the study of motion.",
+        "correctness": "1.0",
+        "feedback_html": "The motion of a body is studied under kinematics."
+      },
+      {
+        "id": 209684,
+        "content_html": "Kinematics is the study of the cause of motion.",
+        "correctness": "0.0",
+        "feedback_html": "Force and its effects are studied under dynamics."
+      },
+      {
+        "id": 209683,
+        "content_html": "Kinematics is the study of dimensions.",
+        "correctness": "0.0",
+        "feedback_html": "Dimensions are studied under theoretical physics, not classical mechanics."
+      },
+      {
+        "id": 209682,
+        "content_html": "Kinematics is the study of atomic structures.",
+        "correctness": "0.0",
+        "feedback_html": "Atomic structure is studied under atomic physics, not classical mechanics."
+      }
+    ],
+    "group_uuid": "17140a07-5142-4988-95b2-fb1a5526394a",
+    "stem_html": "What is kinematics?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch04",
+      "k12phys-ch04-s01",
+      "k12phys-ch04-s01-lo01",
+      "k12phys-ch04-ex001",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:4-2-2",
+      "exid:k12phys-ch04-ex001",
+      "context-cnxmod:144d12ac-66f8-49b3-99f3-034118d0c858",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:b0ffd0a2-9c83-4d73-b899-7f2ade2acda6",
+      "context-cnxmod:abae927d-b545-4981-8e47-602c3fcb6ce5"
+    ],
+    "uid": "2060@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 375024,
+        "content_html": "Force is a scalar quantity.",
+        "correctness": "0.0",
+        "feedback_html": "Scalar quantities have magnitude but lack a direction."
+      },
+      {
+        "id": 375027,
+        "content_html": "Force is a vector quantity.",
+        "correctness": "1.0",
+        "feedback_html": "Force is a vector quantity because it has direction and magnitude."
+      },
+      {
+        "id": 375025,
+        "content_html": "Force is both a vector quantity and a scalar quantity.",
+        "correctness": "0.0",
+        "feedback_html": "Vector quantities have both direction and magnitude while scalar quantities lack a direction. Therefore a quantity cannot be both a vector and a scalar."
+      },
+      {
+        "id": 375026,
+        "content_html": "Force is neither a vector nor a scalar quantity.",
+        "correctness": "0.0",
+        "feedback_html": "In physics all quantities are either vector or scalar. Vector quantities are those with direction and magnitude while scalar quantities have magnitude only."
+      }
+    ],
+    "group_uuid": "a76456ed-a7cc-4e25-9daa-e500be29ffb5",
+    "stem_html": "What kind of physical quantity is force?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch04",
+      "k12phys-ch04-s01",
+      "k12phys-ch04-s01-lo02",
+      "k12phys-ch04-ex003",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:4-1-1",
+      "exid:k12phys-ch04-ex003",
+      "context-cnxmod:144d12ac-66f8-49b3-99f3-034118d0c858",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:7344986b-3079-4db2-92b9-78e0644c8610",
+      "context-cnxmod:708c252a-d832-48ab-9d66-06590e607b89",
+      "aplo:stax-apphys:3.E.1.3"
+    ],
+    "uid": "2062@5"
+  }
+]

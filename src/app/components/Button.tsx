@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { isDefined } from '../guards';
 import theme, { ColorSet } from '../theme';
-import { decoratedLinkStyle, linkStyle } from './Typography';
+import { decoratedLinkStyle, linkColor, linkStyle } from './Typography';
 import { textStyle } from './Typography/base';
 
 const applyColor = (color: ColorSet) => `
@@ -10,20 +10,25 @@ const applyColor = (color: ColorSet) => `
   color: ${color.foreground};
   background-color: ${color.base};
 
-  :hover {
-    background-color: ${color.darker};
-  }
-  :active {
-    background-color: ${color.darkest};
-  }
+  ${color.darker && css`
+    :hover {
+      background-color: ${color.darker};
+    }
+  `}
+  ${color.darkest && css`
+    :active {
+      background-color: ${color.darkest};
+    }
+  `}
 `;
 
-type Variant = 'primary' | 'secondary' | 'default';
+type Variant = 'primary' | 'secondary' | 'transparent' | 'default';
 type Size = 'large' | 'medium' | 'small';
 
 type ComponentType = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 
 interface ButtonProps<T extends ComponentType | undefined> {
+  disabled?: boolean;
   variant?: Variant;
   size?: Size;
   className?: string;
@@ -33,12 +38,15 @@ interface ButtonProps<T extends ComponentType | undefined> {
 }
 
 // tslint:disable-next-line:variable-name
-function ButtonHoc<T extends ComponentType | undefined>({variant, size, component, ...props}: ButtonProps<T>) {
+const ButtonHoc = React.forwardRef(<T extends ComponentType | undefined>(
+  {variant, size, component, ...props}: ButtonProps<T>,
+  ref: React.Ref<Omit<HTMLButtonElement | T, 'undefined'>>
+) => {
   if (isDefined(component)) {
-    return React.cloneElement(component, props);
+    return React.cloneElement(component, {...props, ref});
   }
-  return <button {...props} />;
-}
+  return <button ref={ref} {...props} />;
+});
 
 // tslint:disable-next-line:variable-name
 const Button = styled(ButtonHoc)`
@@ -76,6 +84,12 @@ const Button = styled(ButtonHoc)`
     font-weight: bold;
     border: none;
   `}
+  ${(props) => props.variant === 'transparent' && `
+    border: none;
+    background-color: transparent;
+    color: ${linkColor};
+    font-weight: normal;
+  `}
   ${(props) => (props.variant === 'default' || props.variant === undefined) && `
     ${applyColor({
       ...theme.color.neutral,
@@ -83,6 +97,10 @@ const Button = styled(ButtonHoc)`
     })}
     border: 1px solid #d5d5d5;
     font-weight: regular;
+  `}
+  ${(props) => props.disabled && `
+    ${applyColor(theme.color.disabled)}
+    cursor: not-allowed;
   `}
 `;
 

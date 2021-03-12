@@ -1,0 +1,152 @@
+[
+  {
+    "answers": [
+      {
+        "id": 382095,
+        "content_html": "Voltage drop across  is <span data-math=\"0\\,\\text{V}\">0\\,\\text{V}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "Consider, practically it not possible that the voltage drop across any resistor is zero."
+      },
+      {
+        "id": 382094,
+        "content_html": "Voltage drop across  is <span data-math=\"2.5\\,\\text{V}\">2.5\\,\\text{V}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "Voltage drop across each resistor connected in parallel is always same and numerically equals the applied voltage"
+      },
+      {
+        "id": 382096,
+        "content_html": "Voltage drop across is <span data-math=\"5\\,\\text{V}\">5\\,\\text{V}</span>.",
+        "correctness": "1.0",
+        "feedback_html": "Voltage drop across each resistor connected in parallel is always same and numerically equals the applied voltage"
+      },
+      {
+        "id": 382093,
+        "content_html": "Voltage drop across  is <span data-math=\"10\\,\\text{V}\">10\\,\\text{V}</span>.",
+        "correctness": "0.0",
+        "feedback_html": "It is not possible that voltage drop is more than applied voltage."
+      }
+    ],
+    "group_uuid": "ad564dd9-5e58-4919-bdc9-63d2b6dca2bc",
+    "stem_html": "If a <span data-math=\"5\\text{-V}\">5\\text{-V}</span> drop occurs across <span data-math=\"R_1\">R_1</span>, and <span data-math=\"R_1\">R_1</span> is connected in parallel to <span data-math=\"R_2\">R_2</span>, what is the voltage drop across <span data-math=\"R_2\">R_2</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "grasp-check",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s03-lo02",
+      "k12phys-ch19-s03",
+      "k12phys-ch19-ex059",
+      "exid:k12phys-ch19-ex059",
+      "context-cnxmod:232923b9-d2ec-4422-b122-4cf826e2fb87",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "filter-type:import:has-context",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-2",
+      "context-cnxfeature:fs-id1169084983897",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.3"
+    ],
+    "uid": "7329@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 382167,
+        "content_html": "No, because for parallel combination of resistors, the resistance through the remaining circuit increases.",
+        "correctness": "1.0",
+        "feedback_html": "For the parallel combination of resistors, the equivalent resistance increases if any of the resistors are removed."
+      },
+      {
+        "id": 382166,
+        "content_html": "Yes, because for parallel combination of resistors, the resistance through the remaining circuit increases.",
+        "correctness": "0.0",
+        "feedback_html": "Consider, for the parallel combination of resistors, the equivalent resistance increases if any of the resistors is removed but in series combination of resistors, the equivalent resistance decreases if any of the resistors is removed."
+      }
+    ],
+    "group_uuid": "1aa88f13-0b23-47b1-89d7-e2b3ce4d4458",
+    "stem_html": "If you remove resistance from a circuit, does the total resistance of the circuit always decrease? Explain.",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s03",
+      "k12phys-ch19-s03-lo01",
+      "k12phys-ch19-ex069",
+      "exid:k12phys-ch19-ex069",
+      "context-cnxmod:232923b9-d2ec-4422-b122-4cf826e2fb87",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-4",
+      "context-cnxmod:953ede56-7b47-4756-80ed-3d8f5df13bc7",
+      "aplo:stax-apphys:5.B.9.5"
+    ],
+    "uid": "7349@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 517792,
+        "content_html": "The current and the voltage remain the same.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, the current increases if resistance of second resistor is increased."
+      },
+      {
+        "id": 517791,
+        "content_html": "The current decreases and the voltage remains the same.",
+        "correctness": "0.0",
+        "feedback_html": "The current increases if resistance of second resistor is increased."
+      },
+      {
+        "id": 517790,
+        "content_html": "The current and the voltage increases.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that the current increases if resistance of second resistor is increased but voltage remains same."
+      },
+      {
+        "id": 517793,
+        "content_html": "The current increases and the voltage remains the same.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, the current increases and the voltage remains same."
+      }
+    ],
+    "group_uuid": "7660299b-450b-46be-b2d7-9f4742607c99",
+    "stem_html": "Two identical resistors are connected in parallel across the terminals of a battery. If you increase the resistance of one of the resistors, what happens to the current through and the voltage across the other resistor?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch19",
+      "k12phys-ch19-s03",
+      "k12phys-ch19-s03-lo01",
+      "k12phys-ch19-ex074",
+      "exid:k12phys-ch19-ex074",
+      "context-cnxmod:232923b9-d2ec-4422-b122-4cf826e2fb87",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:26396539-8aea-4808-93ee-181028b36fb2",
+      "lo:stax-phys:21-1-5",
+      "aplo:stax-apphys:5.B.9.3"
+    ],
+    "uid": "7354@6"
+  }
+]

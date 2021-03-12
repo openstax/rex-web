@@ -17,7 +17,12 @@ const addQuery = (location: Location) => ({
 export default (location: Location): Reducer<State, AnyAction> => (state = addQuery(location), action) => {
   switch (action.type) {
     case getType(actions.locationChange):
-      return addQuery(action.payload.location);
+      return {
+        ...state,
+        ...action.payload.location,
+        match: action.payload.match,
+        query: action.payload.query,
+      };
     case getType(receiveDeleteHighlight): {
       const scrollTarget = getScrollTargetFromQuery(state.query, state.hash);
       if (scrollTarget && isHighlightScrollTarget(scrollTarget) && scrollTarget.id === action.payload.id) {

@@ -1,0 +1,529 @@
+[
+  {
+    "answers": [
+      {
+        "id": 208241,
+        "content_html": "They are the same.",
+        "correctness": "0.0",
+        "feedback_html": "A hypothesis is usually formed by using information that is already known, not by guessing completely randomly."
+      },
+      {
+        "id": 208240,
+        "content_html": "A hypothesis has been thoroughly tested and found to be true.",
+        "correctness": "0.0",
+        "feedback_html": "That would be a law or a theory."
+      },
+      {
+        "id": 208242,
+        "content_html": "A hypothesis is a tentative assumption based on what is already known.",
+        "correctness": "1.0",
+        "feedback_html": "A hypothesis is a tentatively assumed statement, but will usually be chosen to be what seems plausible based on what is already known, not by guessing randomly."
+      },
+      {
+        "id": 208239,
+        "content_html": "A hypothesis is a broad explanation firmly supported by evidence.",
+        "correctness": "0.0",
+        "feedback_html": "That would be a theory."
+      }
+    ],
+    "group_uuid": "cb3c9a65-a43c-43b4-93f4-62d65fa38801",
+    "stem_html": "Describe the difference between a question, generated through observation, and a hypothesis.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "os-practice-concepts",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo01",
+      "k12phys-ch01-ex028",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex028",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1683@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 208250,
+        "content_html": "The hypothesis must be validated by scientific experiments.",
+        "correctness": "1.0",
+        "feedback_html": "Scientific experiments will provide us sufficient evidence to prove the hypothesis."
+      },
+      {
+        "id": 208249,
+        "content_html": "The hypothesis must not include any physical quantity.",
+        "correctness": "0.0",
+        "feedback_html": "The measurement of the physical quantity can provide us data to validate the hypothesis."
+      },
+      {
+        "id": 208248,
+        "content_html": "The hypothesis must be a short and concise statement.",
+        "correctness": "0.0",
+        "feedback_html": "The hypothesis should be a broad explanation of the events."
+      },
+      {
+        "id": 208247,
+        "content_html": "The hypothesis must apply to all the situations in the universe.",
+        "correctness": "0.0",
+        "feedback_html": "The hypothesis is an educated guess and need not be applicable to all the situations in the universe."
+      }
+    ],
+    "group_uuid": "5cd8a919-7c8e-4824-b661-599581ce2bea",
+    "stem_html": "Which of the following statements is correct about the hypothesis?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "os-practice-concepts",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo02",
+      "k12phys-ch01-ex030",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex030",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1685@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 208257,
+        "content_html": "A hypothesis is an explanation of the natural world with experimental support, while a scientific theory is an educated guess about a natural phenomenon.",
+        "correctness": "0.0",
+        "feedback_html": "A hypothesis is a tentative statement intended to be tested, while a theory is a well-developed explanation based on evidence."
+      },
+      {
+        "id": 208258,
+        "content_html": "A hypothesis is an educated guess about natural phenomenon, while a scientific theory is an explanation of natural world with experimental support.",
+        "correctness": "1.0",
+        "feedback_html": "A hypothesis is an educated guess about how something in the natural world works that needs to be tested. A scientific theory is an explanation of the natural world that is generally accepted by the scientific community because it has been tested many times and is supported by experimental evidence."
+      },
+      {
+        "id": 208256,
+        "content_html": "A hypothesis is experimental evidence of a natural phenomenon, while a scientific theory is an explanation of the natural world with experimental support.",
+        "correctness": "0.0",
+        "feedback_html": "A hypothesis is a tentative statement intended to be tested, and is not the experiment itself."
+      },
+      {
+        "id": 208255,
+        "content_html": "A hypothesis is an explanation of the natural world with experimental support, while a scientific theory is experimental evidence of a natural phenomenon.",
+        "correctness": "0.0",
+        "feedback_html": "A hypothesis is a tentative statement intended to be tested. A theory is not experimental evidence itself, but rather is a well-developed explanation."
+      }
+    ],
+    "group_uuid": "b744afd9-d6f2-4e46-a133-ed98ff00cbdc",
+    "stem_html": "Compare and contrast a hypothesis and a scientific theory.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "os-practice-concepts",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo03",
+      "k12phys-ch01-ex032",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex032",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1687@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 208266,
+        "content_html": "Modeling replaces the real system by something similar but easier to examine.",
+        "correctness": "1.0",
+        "feedback_html": "A model is a different system that has crucial features in common with the real system but is easier to analyze."
+      },
+      {
+        "id": 208265,
+        "content_html": "Modeling replaces the real system by something more interesting to examine.",
+        "correctness": "0.0",
+        "feedback_html": "Models are not useful merely by being interesting to analyze."
+      },
+      {
+        "id": 208264,
+        "content_html": "Modeling replaces the real system by something with more realistic properties.",
+        "correctness": "0.0",
+        "feedback_html": "It is impossible for anything to be more realistic than the real system itself."
+      },
+      {
+        "id": 208263,
+        "content_html": "Modeling includes more details than are present in the real system.",
+        "correctness": "0.0",
+        "feedback_html": "Models are generally simplified systems, and have less realistic detail than the actual system."
+      }
+    ],
+    "group_uuid": "165e4fbb-0ab1-4adb-b439-67eba8077503",
+    "stem_html": "Describe how modeling is useful in studying the structure of the atom.",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "k12phys-ch01",
+      "concept",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo02",
+      "k12phys-ch01-ex034",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:30-1-1",
+      "exid:k12phys-ch01-ex034",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:7d3d1276-696a-4a41-ab53-c12804b57470",
+      "context-cnxmod:01f8a8c3-62d7-4103-a1a0-a736c79c24ba"
+    ],
+    "uid": "1689@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 208285,
+        "content_html": "Its use requires constructing replicas of the metal wire in the lab.",
+        "correctness": "0.0",
+        "feedback_html": "Making a replica of the metal wire won’t simplify the system to make studies on it."
+      },
+      {
+        "id": 208286,
+        "content_html": "It involves analyzing an imaginary system simpler than the real wire it resembles.",
+        "correctness": "1.0",
+        "feedback_html": "Making models can simplify the system such that predictions can be made on the system under study."
+      },
+      {
+        "id": 208284,
+        "content_html": "It examines a model, or ideal, behavior that other metals should imitate.",
+        "correctness": "0.0",
+        "feedback_html": "The free-electron model involves assumptions; it does not examine the behavior of other metals."
+      },
+      {
+        "id": 208283,
+        "content_html": "It attempts to examine the metal in a very realistic, or model, way.",
+        "correctness": "0.0",
+        "feedback_html": "It does not give a realistic picture of motion of electrons in metal wire."
+      }
+    ],
+    "group_uuid": "1eeaf811-f298-4547-935e-78926781bcad",
+    "stem_html": "The free-electron model of metals explains some of the important behaviors of metals by assuming the metal’s electrons move freely through the metal without repelling one another. In what sense is the free-electron theory based on a model?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo01",
+      "k12phys-ch01-ex039",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex039",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1694@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 208293,
+        "content_html": "observation",
+        "correctness": "0.0",
+        "feedback_html": "Observations can be a part of hypothesis testing."
+      },
+      {
+        "id": 208292,
+        "content_html": "insight",
+        "correctness": "0.0",
+        "feedback_html": "A hypothesis may eventually turn into insight after there is experimental evidence to support it."
+      },
+      {
+        "id": 208291,
+        "content_html": "conclusion",
+        "correctness": "0.0",
+        "feedback_html": "Conclusion is the final step of an experiment; it may accept or reject a hypothesis."
+      },
+      {
+        "id": 208294,
+        "content_html": "law",
+        "correctness": "1.0",
+        "feedback_html": "An experimentally-supported hypothesis becomes a law."
+      }
+    ],
+    "group_uuid": "811da3a4-3f25-4f91-ae2d-ef1c524a6c74",
+    "stem_html": "When a large body of experimental evidence supports a hypothesis, what may the hypothesis eventually be considered?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo03",
+      "k12phys-ch01-ex041",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex041",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "lo:stax-phys:1-1-1",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1696@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 208301,
+        "content_html": "To test the hypothesis, compare the damage to the car by driving it on a smooth road and a gravel road.",
+        "correctness": "0.0",
+        "feedback_html": "The hypothesis is about damage to the car due to gravel and the dirt roads. Make sure you are comparing the correct cases."
+      },
+      {
+        "id": 208300,
+        "content_html": "To test the hypothesis, compare the damage to the car by driving it on a smooth road and a dirt road.",
+        "correctness": "0.0",
+        "feedback_html": "The hypothesis is about damage to the car due to gravel and the dirt roads. Make sure you are comparing the correct cases."
+      },
+      {
+        "id": 208302,
+        "content_html": "To test the hypothesis, compare the damage to the car by driving it on a gravel road and the dirt road.",
+        "correctness": "1.0",
+        "feedback_html": "The hypothesis is testable; to test the hypothesis compare the damage done to the car by driving it on a gravel road and on a dirt road."
+      },
+      {
+        "id": 208299,
+        "content_html": "This is not a testable hypothesis.",
+        "correctness": "0.0",
+        "feedback_html": "It is testable. Consider what you have to compare to test it."
+      }
+    ],
+    "group_uuid": "ecd26aa5-ac4b-4288-b7c9-728ede222ed1",
+    "stem_html": "Design an experiment that will test the following hypothesis: driving on a gravel road causes greater damage to a car than driving on a dirt road.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo01",
+      "k12phys-ch01-ex043",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "blooms:6",
+      "exid:k12phys-ch01-ex043",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1698@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 208318,
+        "content_html": "A local law applies only in a specific area, but a scientific law is applicable throughout the universe. Both the local law and the scientific law can change.",
+        "correctness": "1.0",
+        "feedback_html": "Both scientific and local laws can be changed but they differ in their universality. A local law applies only in a specific area, such as in a city or a single school. Scientific laws apply throughout the universe."
+      },
+      {
+        "id": 208317,
+        "content_html": "A local law applies only in a specific area, but a scientific law is applicable throughout the universe. A local law can change, but a scientific law cannot be changed.",
+        "correctness": "0.0",
+        "feedback_html": "A scientific law, just like a local law, can change if new evidence calls for the change."
+      },
+      {
+        "id": 208316,
+        "content_html": "A local law applies throughout the universe but a scientific law is applicable only in a specific area. Both the local and the scientific law can change.",
+        "correctness": "0.0",
+        "feedback_html": "A local law does not apply throughout the universe, a scientific law is not applicable to only a specific area only, and a law can change if new evidence calls for the change."
+      },
+      {
+        "id": 208315,
+        "content_html": "A local law applies throughout the universe, but a scientific law is applicable only in a specific area. A local law can change, but a scientific law cannot be changed.",
+        "correctness": "0.0",
+        "feedback_html": "A local law does not apply throughout the universe, a scientific law is not applicable to only a specific area and a law can change if new evidence calls for the change."
+      }
+    ],
+    "group_uuid": "22b21b1a-e99a-4384-b1c9-ddea574e896c",
+    "stem_html": "How does a scientific law compare to a local law, such as that governing parking at your school, in terms of whether or not laws can be changed, and how universal a law is?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo03",
+      "k12phys-ch01-ex047",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex047",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "lo:stax-phys:1-1-1",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1702@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 208321,
+        "content_html": "Drive the car at exactly 50 mph and then press harder on the accelerator pedal until the velocity reaches the speed 60 mph and record the distance this takes.",
+        "correctness": "0.0",
+        "feedback_html": "This tests how the car speeds up, not how far it takes to stop."
+      },
+      {
+        "id": 208322,
+        "content_html": "Drive the car at exactly 50 mph and then apply the brakes until it stops and record the distance this takes.",
+        "correctness": "1.0",
+        "feedback_html": "The car will come to stop because of the application of the brakes. The experiment measures the distance required."
+      },
+      {
+        "id": 208320,
+        "content_html": "Drive the car at exactly 50 mph and then apply the brakes until it stops and record the time it takes.",
+        "correctness": "0.0",
+        "feedback_html": "The experiment needs to measure distance, not time."
+      },
+      {
+        "id": 208319,
+        "content_html": "Drive the car at exactly 50 mph and then apply the accelerator until it reaches the speed of 60 mph and record the time it takes.",
+        "correctness": "0.0",
+        "feedback_html": "The experiment needs to measure distance to stop, not time to speed up."
+      }
+    ],
+    "group_uuid": "53c973ec-e858-4609-ab29-d536a7e7d413",
+    "stem_html": "You wish to perform an experiment on the stopping distance of your new car. Create a specific experiment to measure the distance. Be sure to specifically state how you will set up and take data during your experiment.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo01",
+      "k12phys-ch01-ex048",
+      "time:short",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "blooms:6",
+      "exid:k12phys-ch01-ex048",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1703@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 208330,
+        "content_html": "Further testing would need to show it is a universally followed rule.",
+        "correctness": "1.0",
+        "feedback_html": "A law is a pattern in nature, not a simple one-time observation that is supported by all available evidence."
+      },
+      {
+        "id": 208329,
+        "content_html": "The observation would have to be described in a published scientific article.",
+        "correctness": "0.0",
+        "feedback_html": "While this would help to have the law generally recognized, it is not the basis for a statement being a law."
+      },
+      {
+        "id": 208328,
+        "content_html": "The experiment would have to be repeated once or twice.",
+        "correctness": "0.0",
+        "feedback_html": "The experiment would also have to be part of a generally observed pattern or rule in nature, not a single observation, and be supported by all available evidence."
+      },
+      {
+        "id": 208327,
+        "content_html": "The observer would need to be a well-known scientist whose authority was accepted.",
+        "correctness": "0.0",
+        "feedback_html": "Scientific issues are ultimately settled on the basis of experiment and observation, not personal authority."
+      }
+    ],
+    "group_uuid": "159bd249-674f-44f8-9d31-dc3be211b303",
+    "stem_html": "What would play the most important role in leading to an experiment in the scientific world becoming a scientific law?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-s02",
+      "k12phys-ch01-s02-lo03",
+      "k12phys-ch01-ex050",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex050",
+      "context-cnxmod:9545b9a2-c371-4a31-abb9-3a4a1fff497b",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "lo:stax-phys:1-1-1",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1705@4"
+  }
+]

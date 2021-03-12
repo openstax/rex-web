@@ -1,11 +1,11 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { bodyCopyRegularStyle, textRegularStyle } from '../../../components/Typography';
+import { textRegularStyle } from '../../../components/Typography';
 import theme from '../../../theme';
+import ContentExcerpt from '../../components/ContentExcerpt';
 import { highlightStyles } from '../../constants';
 import { popupPadding } from '../../styles/PopupStyles';
-import addTargetBlankToLinks from '../../utils/addTargetBlankToLinks';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -44,16 +44,6 @@ const HighlightAnnotation = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const HighlightContent = styled.div`
-  ${bodyCopyRegularStyle}
-  overflow: auto;
-
-  * {
-    overflow: initial;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
 export const HighlightContentWrapper = styled.div`
   padding-left: 0.4rem;
   ${(props: {color: string}) => {
@@ -76,7 +66,7 @@ export const HighlightContentWrapper = styled.div`
   @media print {
     break-inside: avoid-page;
 
-    ${HighlightContent} {
+    ${ContentExcerpt} {
       background-color: white;
     }
   }
@@ -87,23 +77,18 @@ interface HighlightListElementProps {
 }
 
 // tslint:disable-next-line:variable-name
-const HighlightListElement = ({ highlight }: HighlightListElementProps) => {
-  const content = React.useMemo(
-    () => addTargetBlankToLinks(highlight.highlightedContent),
-    [highlight.highlightedContent]);
-
-  return <HighlightOuterWrapper>
+const HighlightListElement = ({ highlight }: HighlightListElementProps) =>
+  <HighlightOuterWrapper>
     <HighlightAnnotation>
       {highlight.annotation}
     </HighlightAnnotation>
     <HighlightContentWrapper color={highlight.color}>
-      <HighlightContent
-        className='summary-highlight-content'
+      <ContentExcerpt
         data-highlight-id={highlight.id}
-        dangerouslySetInnerHTML={{ __html: content }}
+        content={highlight.highlightedContent}
+        source={highlight.sourceId}
       />
     </HighlightContentWrapper>
   </HighlightOuterWrapper>;
-};
 
 export default HighlightListElement;

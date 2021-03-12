@@ -1,9 +1,9 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../components/Button';
-import Dropdown, { DropdownToggle } from '../../../components/Dropdown';
+import Dropdown, { DropdownToggle, TabHiddenDropdownProps } from '../../../components/Dropdown';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { filters } from '../../styles/PopupConstants';
@@ -11,12 +11,21 @@ import { disablePrint } from '../utils/disablePrint';
 import FiltersList from './FiltersList';
 
 // tslint:disable-next-line:variable-name
-const DownIcon = styled(AngleDown)`
+export const AngleIcon = styled(AngleDown)`
   color: ${theme.color.primary.gray.base};
   width: ${filters.dropdownToggle.icon.width}rem;
   height: ${filters.dropdownToggle.icon.height}rem;
   margin-left: 0.8rem;
   padding-top: 0.2rem;
+  ${({ direction }: { direction: 'up' | 'down' }) => {
+    if (direction === 'up') {
+      return `
+        transform: rotate(180deg);
+        padding-top: 0;
+        padding-bottom: 0.2rem;
+      `;
+    }
+  }}
 `;
 
 interface ToggleProps {
@@ -27,14 +36,12 @@ interface ToggleProps {
 // tslint:disable-next-line:variable-name
 const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   ({label, isOpen, ariaLabelId, ...props}, ref) => (
-    <FormattedMessage id={ariaLabelId} values={{filter: label}}>
-      {(msg: string) => <PlainButton ref={ref} {...props} aria-label={msg}>
-        <div tabIndex={-1}>
-          {label}
-          <DownIcon />
-        </div>
-      </PlainButton>}
-    </FormattedMessage>
+    <PlainButton ref={ref} {...props} aria-label={useIntl().formatMessage({id: ariaLabelId}, {filter: label})}>
+      <div tabIndex={-1}>
+        {label}
+        <AngleIcon direction={isOpen ? 'up' : 'down'} />
+      </div>
+    </PlainButton>
   )
 ))`
   position: relative;
@@ -48,12 +55,6 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
       background-color: ${theme.color.white};
       border-left: ${filters.border}rem solid ${theme.color.neutral.formBorder};
       border-right: ${filters.border}rem solid ${theme.color.neutral.formBorder};
-
-      ${DownIcon} {
-        transform: rotate(180deg);
-        padding-top: 0;
-        padding-bottom: 0.2rem;
-      }
     `
     : null
   }
@@ -73,17 +74,21 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
   }
 `;
 
+type FilterDropdownProps = {
+  label: string;
+  ariaLabelId: string;
+} & Partial<TabHiddenDropdownProps>;
+
 // tslint:disable-next-line:variable-name
-export const FilterDropdown = ({label, ariaLabelId, children}:
-  React.PropsWithChildren<{label: string, ariaLabelId: string}>) =>
-    <FormattedMessage id={label}>
-      {(msg: Element | string) => <Dropdown
-        toggle={<Toggle label={msg} ariaLabelId={ariaLabelId} />}
-        transparentTab={false}
-      >
-        {children}
-      </Dropdown>}
-    </FormattedMessage>;
+export const FilterDropdown = ({label, ariaLabelId, children, ...props}:
+  React.PropsWithChildren<FilterDropdownProps>) =>
+    <Dropdown
+      toggle={<Toggle label={useIntl().formatMessage({id: label})} ariaLabelId={ariaLabelId} />}
+      transparentTab={false}
+      {...props}
+    >
+      {children}
+    </Dropdown>;
 
 // tslint:disable-next-line: variable-name
 export const FiltersTopBar = styled.div`

@@ -10,7 +10,7 @@ import createMockHighlight from '../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { resetModules } from '../../../test/utils';
-import SkipToContentWrapper from '../../components/SkipToContentWrapper';
+import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { locationChange } from '../../navigation/actions';
@@ -126,9 +126,9 @@ describe('Page', () => {
       <Provider store={store}>
         <MessageProvider>
           <Services.Provider value={services}>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <ConnectedPage />
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </Services.Provider>
         </MessageProvider>
       </Provider>
@@ -155,6 +155,7 @@ describe('Page', () => {
     ] as any[];
 
     Highlighter.mock.instances[1].getHighlights.mockReturnValue(mockHighlights);
+    Highlighter.mock.instances[1].getOrderedHighlights.mockReturnValue(mockHighlights);
     Highlighter.mock.instances[1].getHighlight.mockImplementation(
       (id: string) => keyBy('id', mockHighlights)[id]
     );
@@ -178,11 +179,18 @@ describe('Page', () => {
       type: 'highlight',
     });
 
+    const actionData = requestDeleteHighlight(
+      mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }
+    );
+
     renderer.act(() => {
-      store.dispatch(
-        requestDeleteHighlight(mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }));
-      requestDeleteHighlightHook.hookBody({...services, getState: store.getState, dispatch: store.dispatch})(
-        requestDeleteHighlight(mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }));
+      store.dispatch(actionData);
+    });
+
+    renderer.act(() => {
+      requestDeleteHighlightHook.hookBody(
+        {...services, getState: store.getState, dispatch: store.dispatch}
+      )(actionData);
     });
 
     expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(mockHighlights[0], expect.anything()));

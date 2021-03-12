@@ -1,9 +1,10 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage, pageInChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
@@ -14,7 +15,8 @@ import {
   loadMoreSummaryHighlights,
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
-  setSummaryFilters
+  setSummaryFilters,
+  toggleSummaryHighlightsLoading
 } from '../actions';
 import { summaryColorFilters, summaryFilters, summaryLocationFilters } from '../selectors';
 import { HighlightData, SummaryHighlights } from '../types';
@@ -29,7 +31,6 @@ describe('filtersChange', () => {
   let hook: ReturnType<typeof import ('./loadMore').hookBody>;
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
 
     helpers = {
@@ -153,7 +154,7 @@ describe('filtersChange', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageId]: {[HighlightColorEnum.Green]: 1},
     }, new Map([
-      [pageId, assertDefined(findArchiveTreeNodeById(book.tree, pageId), '')],
+      [pageId, { section: assertDefined(findArchiveTreeNodeById(book.tree, pageId), '') }],
     ])));
 
     const state = store.getState();
@@ -202,7 +203,10 @@ describe('filtersChange', () => {
     store.dispatch(receiveHighlightsTotalCounts({
       [pageInChapter.id]: {[HighlightColorEnum.Green]: 1},
     }, new Map([
-      [chapterIdForPageInChapter, assertDefined(findArchiveTreeNodeById(book.tree, chapterIdForPageInChapter), '')],
+      [
+        chapterIdForPageInChapter,
+        { section: assertDefined(findArchiveTreeNodeById(book.tree, chapterIdForPageInChapter), '') },
+      ],
     ])));
 
     const state = store.getState();
@@ -286,5 +290,77 @@ describe('filtersChange', () => {
       .mockReturnValue(Promise.resolve({}));
 
     expect(dispatch).toBeCalledWith(receiveSummaryHighlights({}, {pagination: null, filters}));
+  });
+});
+
+describe('filtersChange errors', () => {
+  let store: Store;
+  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  let dispatch: jest.SpyInstance;
+  let hook: ReturnType<typeof import ('./loadMore').hookBody>;
+
+  beforeEach(() => {
+    store = createTestStore();
+
+    helpers = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
+
+    dispatch = jest.spyOn(helpers, 'dispatch');
+
+    hook = (require('./loadMore').hookBody)(helpers);
+  });
+
+  it('throws HighlightPopupLoadError', async() => {
+    expect.assertions(3);
+    const error = {} as any;
+    const pageId = 'testbook1-testpage9-uuid';
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockRejectedValueOnce(error);
+
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 1},
+    }, new Map([
+      [pageId, { section: assertDefined(findArchiveTreeNodeById(book.tree, pageId), '') }],
+    ])));
+
+    const locationIds = [pageId];
+    try {
+      await hook(store.dispatch(setSummaryFilters({locationIds})));
+    } catch (error) {
+      expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
+      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.popUp.load);
+      expect(error.meta).toEqual({ destination: 'myHighlights' });
+    }
+  });
+
+  it('throws ApplicationError', async() => {
+    expect.assertions(2);
+    const mockCustomApplicationError = new ApplicationError('error');
+    const pageId = 'testbook1-testpage9-uuid';
+
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockRejectedValueOnce(mockCustomApplicationError);
+
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: {[HighlightColorEnum.Green]: 1},
+    }, new Map([
+      [pageId, { section: assertDefined(findArchiveTreeNodeById(book.tree, pageId), '') }],
+    ])));
+
+    const locationIds = [pageId];
+    try {
+      await hook(store.dispatch(setSummaryFilters({locationIds})));
+    } catch (error) {
+      expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
+      expect(error instanceof ApplicationError).toEqual(true);
+    }
   });
 });

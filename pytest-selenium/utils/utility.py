@@ -93,6 +93,12 @@ class FontProperties:
         return element.value_of_css_property("font-weight") == "400"
 
 
+class HighlightingException(NoSuchElementException):
+    """A generic exception for highlighting failures."""
+
+    pass
+
+
 class Highlight:
     """Supplimental resources for book highlighting."""
 
@@ -117,6 +123,33 @@ class Highlight:
         driver.execute_script(ASYNC_DELETE)
         sleep(total_page_highlights * 0.05)
         driver.execute_script(RELOAD)
+
+    @classmethod
+    def force_highlight(cls, book, group, offset, color, by=None, name=None):
+        """Retry highlighting content to smooth out false test failures."""
+        starting_highlights = len(set(book.content.highlight_ids))
+        tries = 5
+        while (starting_highlights >= len(set(book.content.highlight_ids)) and
+               tries):
+            target = by(group) if by else group
+            try:
+                book.content.highlight(
+                    target=target,
+                    offset=offset,
+                    color=color)
+            except NoSuchElementException:
+                tries = tries - 1
+                # clear actions that may interfere with retrying the highlight
+                (ActionChains(book.driver)
+                    .move_to_element(target)
+                    .release(target)
+                    .pause(1)
+                    .click(target)
+                    .perform()
+                 )
+        if not tries:
+            name = f" <{str(name)}>" if name else ""
+            raise HighlightingException(f"Failed to highlight{name}")
 
     @classmethod
     def get_position(cls, driver, element: WebElement) -> Dict[str, float]:
@@ -164,9 +197,12 @@ class Highlight:
 class Library(object):
 
     books = {
-        "anatomy-and-physiology": {"default_page": "1-introduction", "search_term": "heart"},
+        "anatomy-and-physiology": {
+            "default_page": "1-introduction",
+            "search_term": "20 percent oxygen",
+        },
         "astronomy": {"default_page": "1-introduction", "search_term": "leap year"},
-        "biology-2e": {"default_page": "1-introduction", "search_term": "bacteria"},
+        "biology-2e": {"default_page": "1-introduction", "search_term": "evolution theory"},
         "biology-ap-courses": {"default_page": "1-introduction", "search_term": "Virus"},
         "chemistry-2e": {"default_page": "1-introduction", "search_term": "molecule"},
         "chemistry-atoms-first-2e": {"default_page": "1-introduction", "search_term": "coffee"},
@@ -232,7 +268,7 @@ class Library(object):
         "business-ethics": {"default_page": "1-introduction", "search_term": "enculturation"},
         "introductory-business-statistics": {
             "default_page": "1-introduction",
-            "search_term": "chi-square distribution",
+            "search_term": "chi-square probabilities",
         },
         "principles-management": {
             "default_page": "1-introduction",
@@ -428,3 +464,22 @@ class Utilities(object):
         """
         driver.execute_script("window.scrollTo(0, 0);")
         sleep(0.75)
+
+    @classmethod
+    def switch_to(cls, driver, locator=None, element=None):
+        """Switch to the other window handle.
+
+        :param driver: the selenium webdriver object
+        :param locator: the element locator
+        :type locator: tuple(str, str)
+        :param element: an element
+        :type element: WebElement
+        :return: None
+
+        """
+        current = driver.current_window_handle
+        cls.click_option(driver=driver, locator=locator, element=element)
+        sleep(1)
+        new_handle = 1 if current == driver.window_handles[0] else 0
+        if len(driver.window_handles) > 1:
+            driver.switch_to.window(driver.window_handles[new_handle])

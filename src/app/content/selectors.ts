@@ -23,9 +23,9 @@ export const book = createSelector(
   (state) => state.book
 );
 
-export const buyBookLink = createSelector(
-  book,
-  (data) => hasOSWebData(data) ? data.amazon_link : ''
+export const buyPrintConfig = createSelector(
+  localState,
+  (state) => state.buyPrint
 );
 
 export const bookTheme = createSelector(
@@ -63,9 +63,14 @@ export const loadingPage = createSelector(
   (slugs) => slugs.page
 );
 
-export const pageParam = createSelector(
+export const contentParams = createSelector(
   localState,
-  (state) => state.params ? state.params.page : null
+  (state) => state.params
+);
+
+export const pageParam = createSelector(
+  contentParams,
+  (params) => params ? params.page : null
 );
 
 export const pageNotFound = createSelector(

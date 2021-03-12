@@ -1,0 +1,546 @@
+[
+  {
+    "answers": [
+      {
+        "id": 380854,
+        "content_html": "Interference is a superposition of two waves to form a resultant wave with higher or lower frequency.",
+        "correctness": "0.0",
+        "feedback_html": "With the superposition of two waves, the frequency of the resultant wave does not change."
+      },
+      {
+        "id": 380855,
+        "content_html": "Interference is a superposition of two waves to form a wave of larger or smaller amplitude.",
+        "correctness": "1.0",
+        "feedback_html": "Interference results in a wave with longer or shorter amplitude."
+      },
+      {
+        "id": 380853,
+        "content_html": "Interference is a superposition of two waves to form a resultant wave with higher or lower velocity.",
+        "correctness": "0.0",
+        "feedback_html": "The superposition of two waves does not cause a change in velocity."
+      },
+      {
+        "id": 380852,
+        "content_html": "Interference is a superposition of two waves to form a resultant wave with longer or shorter wavelength.",
+        "correctness": "0.0",
+        "feedback_html": "Interference occurs between two waves with nearly equal wavelengths and the resultant wave will also have the same wavelength."
+      }
+    ],
+    "group_uuid": "ee40b150-c9e7-4843-8247-e944a38847f2",
+    "stem_html": "What is interference of waves?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo02",
+      "k12phys-ch13-ex060",
+      "lo:stax-phys:27-3-1",
+      "exid:k12phys-ch13-ex060",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:0a9db352-56cc-40a3-a57c-296990f8ac42",
+      "context-cnxmod:e538a857-1730-441e-98c1-45207e2a2a05",
+      "aplo:stax-apphys:6.C.1.1"
+    ],
+    "uid": "6936@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 380864,
+        "content_html": "The reflection of a wave is the change in amplitude of a wave when it bounces off a barrier.",
+        "correctness": "0.0",
+        "feedback_html": "Reflection does not always change the amplitude of a wave."
+      },
+      {
+        "id": 380865,
+        "content_html": "The reflection of a wave is the change in frequency of a wave when it bounces off a barrier.",
+        "correctness": "0.0",
+        "feedback_html": "Reflection does not change the frequency of a wave."
+      },
+      {
+        "id": 380866,
+        "content_html": "The reflection of a wave is the change in velocity of a wave when it bounces off a barrier.",
+        "correctness": "0.0",
+        "feedback_html": "The velocity of a wave remains same after reflection."
+      },
+      {
+        "id": 380867,
+        "content_html": "The reflection of a wave is the change in direction of a wave when it bounces off a barrier.",
+        "correctness": "1.0",
+        "feedback_html": "This is correct because after reflection, the direction of the wave changes."
+      }
+    ],
+    "group_uuid": "5dca51a8-f703-41ad-a512-264ba8986941",
+    "stem_html": "What is the reflection of a wave?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo04",
+      "k12phys-ch13-ex064",
+      "lo:stax-phys:25-2-1",
+      "exid:k12phys-ch13-ex064",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:c47dd6d3-afa5-4546-b430-d0e3c24108d5",
+      "context-cnxmod:887a0746-dde7-4503-b376-fd07d8b68774",
+      "aplo:stax-apphys:6.E.1.1"
+    ],
+    "uid": "6940@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 380928,
+        "content_html": "True",
+        "correctness": "0.0",
+        "feedback_html": "The amplitudes of waves add up whether or not the waves are propagating in the same line."
+      },
+      {
+        "id": 380929,
+        "content_html": "False",
+        "correctness": "1.0",
+        "feedback_html": "The amplitudes of the waves also add up when they are not propagating in same line."
+      }
+    ],
+    "group_uuid": "299ab1a9-4fbe-46e4-8ebe-e221b91d9ea6",
+    "stem_html": "Is this statement true or false? The amplitudes of waves add up only if they are propagating in the same line.",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo01",
+      "k12phys-ch13-ex066",
+      "lo:stax-phys:27-3-1",
+      "exid:k12phys-ch13-ex066",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:0a9db352-56cc-40a3-a57c-296990f8ac42",
+      "context-cnxmod:e538a857-1730-441e-98c1-45207e2a2a05",
+      "aplo:stax-apphys:6.C.1.1"
+    ],
+    "uid": "6958@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 380934,
+        "content_html": "The frequency depends on the propagation speed and the density of the string.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency of standing waves does not depend on the density of string."
+      },
+      {
+        "id": 380937,
+        "content_html": "The frequency depends on the propagation speed and the length of the string.",
+        "correctness": "1.0",
+        "feedback_html": "The frequency depends up the propagation speed because the length of string is fixed."
+      },
+      {
+        "id": 380935,
+        "content_html": "The frequency depends on the density and the length of the string.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency depends on the length but not the density of the string."
+      },
+      {
+        "id": 380936,
+        "content_html": "The frequency depends on the propagation speed, the density, and the length of the string.",
+        "correctness": "0.0",
+        "feedback_html": "The frequency depends on the length and the speed but is independent of the density of the string."
+      }
+    ],
+    "group_uuid": "339a3f3a-9cb3-4136-8dea-1c112b5f764f",
+    "stem_html": "In standing waves on a string, what does the frequency depend on?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo03",
+      "k12phys-ch13-ex068",
+      "exid:k12phys-ch13-ex068",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:c3c22e6d-abd4-4ebf-a134-9cb610d82374",
+      "lo:stax-phys:16-10-1",
+      "context-cnxmod:42ac8683-b84b-4cd8-a84d-1b5670404cf1",
+      "aplo:stax-apphys:6.D.1.2"
+    ],
+    "uid": "6960@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 380964,
+        "content_html": "<div data-math=\"\\frac{X}{2}\">\\frac{X}{2}</div>\n",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude will not get halved after pure constructive interference of waves."
+      },
+      {
+        "id": 380965,
+        "content_html": "<span data-math=\"X\">X</span>",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude will not remain same after pure constructive interference of waves."
+      },
+      {
+        "id": 380967,
+        "content_html": "<span data-math=\"2X\">2X</span>",
+        "correctness": "1.0",
+        "feedback_html": "In pure constructive interference of waves, the amplitude of the resultant wave will be the sum of the amplitudes of the individual waves."
+      },
+      {
+        "id": 380966,
+        "content_html": "<span data-math=\"X^{2}\">X^{2}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The amplitude of the resultant wave cannot be obtained by multiplying the amplitudes of the individual waves."
+      }
+    ],
+    "group_uuid": "2c7bf29b-ba94-464f-8bfe-f3c5b968c136",
+    "stem_html": "Two identical waves with an amplitude <span data-math=\"X\">X</span> superimpose in a way that pure constructive interference occurs. What is the amplitude of the resultant wave?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo02",
+      "k12phys-ch13-ex071",
+      "lo:stax-phys:27-3-1",
+      "exid:k12phys-ch13-ex071",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0a9db352-56cc-40a3-a57c-296990f8ac42",
+      "context-cnxmod:e538a857-1730-441e-98c1-45207e2a2a05",
+      "aplo:stax-apphys:6.C.1.1"
+    ],
+    "uid": "6971@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 380972,
+        "content_html": "Conductivity",
+        "correctness": "0.0",
+        "feedback_html": "Conductivity is an ability of a material to conduct electric current and it is not a cause of refraction."
+      },
+      {
+        "id": 380973,
+        "content_html": "Opacity",
+        "correctness": "0.0",
+        "feedback_html": "Opacity only tells about the amount of light passing through a medium, so a change in opacity cannot assure refraction."
+      },
+      {
+        "id": 380974,
+        "content_html": "Ductility",
+        "correctness": "0.0",
+        "feedback_html": "Ductility is the property of a body by which it can be cast into the shape of wires; hence, it is not related to refraction of light."
+      },
+      {
+        "id": 380975,
+        "content_html": "Density",
+        "correctness": "1.0",
+        "feedback_html": "A change in density of a material is the main cause of refraction of light."
+      }
+    ],
+    "group_uuid": "8c4ba30b-5cf5-41c6-af41-b9002a3b8747",
+    "stem_html": "Which property of a medium causes refraction?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo04",
+      "k12phys-ch13-ex073",
+      "lo:stax-phys:27-2-3",
+      "exid:k12phys-ch13-ex073",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0b5ceb83-9942-4f31-97ea-e86ea0c335d5",
+      "context-cnxmod:56a51025-965a-4b65-bb99-f6ba210c6b57",
+      "aplo:stax-apphys:6.E.3.1"
+    ],
+    "uid": "6973@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 214186,
+        "content_html": "True",
+        "correctness": "1.0",
+        "feedback_html": "Spherical waves can superimpose to give interference patterns."
+      },
+      {
+        "id": 214185,
+        "content_html": "False",
+        "correctness": "0.0",
+        "feedback_html": "Spherical waves can superimpose to give a resultant wave with a different amplitude."
+      }
+    ],
+    "group_uuid": "9f1ad245-5c7b-4208-a244-f60a4a5edb87",
+    "stem_html": "Is this statement true or false? Spherical waves can superimpose.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo01",
+      "k12phys-ch13-ex078",
+      "lo:stax-phys:27-3-1",
+      "exid:k12phys-ch13-ex078",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0a9db352-56cc-40a3-a57c-296990f8ac42",
+      "context-cnxmod:e538a857-1730-441e-98c1-45207e2a2a05"
+    ],
+    "uid": "6986@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 381019,
+        "content_html": "due to superposition with the reflected waves from the ends of the string",
+        "correctness": "1.0",
+        "feedback_html": "Waves reflected from the ends of the string are inverted; hence, they superimpose to give a standing wave."
+      },
+      {
+        "id": 381017,
+        "content_html": "due to superposition with the reflected waves from the walls of the room",
+        "correctness": "0.0",
+        "feedback_html": "Waves reflected from walls are not perfectly inverted and cannot form standing waves on superposition."
+      },
+      {
+        "id": 381018,
+        "content_html": "due to superposition with waves generated from the body of the guitar",
+        "correctness": "0.0",
+        "feedback_html": "Waves reflected from the guitar are not perfectly inverted and cannot form standing waves on superposition."
+      }
+    ],
+    "group_uuid": "6d7c0104-4484-495a-b7a6-0ed947989e33",
+    "stem_html": "Why does a standing wave form on a guitar string?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo03",
+      "k12phys-ch13-ex082",
+      "exid:k12phys-ch13-ex082",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:c3c22e6d-abd4-4ebf-a134-9cb610d82374",
+      "lo:stax-phys:16-10-1",
+      "context-cnxmod:42ac8683-b84b-4cd8-a84d-1b5670404cf1",
+      "aplo:stax-apphys:6.D.3.4"
+    ],
+    "uid": "6990@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 191224,
+        "content_html": "Because the pressure of water at the two ends of the pool is same",
+        "correctness": "0.0",
+        "feedback_html": "The constant pressure is not responsible for refraction of light."
+      },
+      {
+        "id": 191225,
+        "content_html": "Because the pressures of water at the two ends of the pool are different",
+        "correctness": "0.0",
+        "feedback_html": "The difference in pressure is not responsible for refraction of light."
+      },
+      {
+        "id": 191226,
+        "content_html": "Because the density of water at the two ends of the pool is same",
+        "correctness": "0.0",
+        "feedback_html": "Refraction does not occur at the interface of two media with same density"
+      },
+      {
+        "id": 191227,
+        "content_html": "Because the density of water at the two ends of the pool is different",
+        "correctness": "1.0",
+        "feedback_html": "The variation of density causes refraction of light."
+      }
+    ],
+    "group_uuid": "2b5eb8b5-6f87-4605-adba-a9dcf093eb42",
+    "stem_html": "Why do water waves traveling from the deep end to the shallow end of a swimming pool experience refraction?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:4",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo04",
+      "k12phys-ch13-ex084",
+      "exid:k12phys-ch13-ex084",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice"
+    ],
+    "uid": "6992@3"
+  },
+  {
+    "answers": [
+      {
+        "id": 214202,
+        "content_html": "The crests and the troughs of waves traveling in the same direction combine to form a criss-cross pattern.",
+        "correctness": "0.0",
+        "feedback_html": "Waves traveling in same direction will not form a criss-cross pattern."
+      },
+      {
+        "id": 214203,
+        "content_html": "The crests and the troughs of waves traveling in different directions combine to form a criss-cross pattern.",
+        "correctness": "1.0",
+        "feedback_html": "A criss-cross pattern will be formed when waves traveling in different directions superimposeresulting from constructive and destructive interference ."
+      }
+    ],
+    "group_uuid": "698af9b1-d498-42f8-ae6b-248c5c652cc9",
+    "stem_html": "Why do water waves sometimes appear like a complex criss-cross pattern?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:short",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo01",
+      "k12phys-ch13-ex086",
+      "lo:stax-phys:27-3-1",
+      "exid:k12phys-ch13-ex086",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0a9db352-56cc-40a3-a57c-296990f8ac42",
+      "context-cnxmod:e538a857-1730-441e-98c1-45207e2a2a05"
+    ],
+    "uid": "6994@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 381027,
+        "content_html": "Destructive interference results in waves with greater amplitudes being formed in places farther away from the epicenter.",
+        "correctness": "0.0",
+        "feedback_html": "Destructive interference cannot result in a wave with a greater amplitude."
+      },
+      {
+        "id": 381030,
+        "content_html": "Constructive interference results in waves with greater amplitudes being formed in places farther away from the epicenter.",
+        "correctness": "1.0",
+        "feedback_html": "Constructive interference results in waves with greater amplitudes; hence, it causes more damage farther away from the epicenter."
+      },
+      {
+        "id": 381028,
+        "content_html": "The standing waves of great amplitudes are formed in places farther away from the epicenter.",
+        "correctness": "0.0",
+        "feedback_html": "Standing waves generally do not form in earthquakes."
+      },
+      {
+        "id": 381029,
+        "content_html": "The pulse waves of great amplitude are formed in places farther away from the epicenter.",
+        "correctness": "0.0",
+        "feedback_html": "Pulse waves are not generated during earthquakes."
+      }
+    ],
+    "group_uuid": "307e752d-3afd-4186-a2c6-b9e2397dfdec",
+    "stem_html": "Occasionally, during earthquakes, areas near the epicenter are not damaged while those farther away are damaged. Why could this occur?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:short",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "k12phys-ch13",
+      "k12phys-ch13-s03",
+      "k12phys-ch13-s03-lo03",
+      "k12phys-ch13-ex088",
+      "exid:k12phys-ch13-ex088",
+      "context-cnxmod:8e4f6fe5-f082-4505-8de8-41372707f9aa",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:c3c22e6d-abd4-4ebf-a134-9cb610d82374",
+      "lo:stax-phys:16-10-1",
+      "context-cnxmod:42ac8683-b84b-4cd8-a84d-1b5670404cf1",
+      "aplo:stax-apphys:6.D.1.2"
+    ],
+    "uid": "6996@5"
+  }
+]

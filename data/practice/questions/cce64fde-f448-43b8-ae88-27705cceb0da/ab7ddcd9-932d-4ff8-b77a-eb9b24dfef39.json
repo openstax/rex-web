@@ -1,0 +1,535 @@
+[
+  {
+    "answers": [
+      {
+        "id": 513977,
+        "content_html": "–0.15 J",
+        "correctness": "0.0",
+        "feedback_html": "Remember that pressure-volume work equals the product of change in volume and pressure."
+      },
+      {
+        "id": 513978,
+        "content_html": "6.7 J",
+        "correctness": "0.0",
+        "feedback_html": "Work is not equal to the given pressure divided by the change in volume."
+      },
+      {
+        "id": 513979,
+        "content_html": "–23 J",
+        "correctness": "0.0",
+        "feedback_html": "The sum of the given pressure and change in volume does not yield the value of work done."
+      },
+      {
+        "id": 513980,
+        "content_html": "60 J",
+        "correctness": "1.0",
+        "feedback_html": "The product of the change in volume and pressure equals the pressure-volume work done by the system."
+      }
+    ],
+    "group_uuid": "41383daf-36c8-4ecf-ae64-51a89cd88ba0",
+    "stem_html": "How much work is done by a gas under 20 Pa of pressure increasing in volume by 3.0 m<sup>3</sup>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "k12phys-ch12",
+      "k12phys-ch12-s02",
+      "k12phys-ch12-s02-lo04",
+      "k12phys-ch12-ex016",
+      "exid:k12phys-ch12-ex016",
+      "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
+      "filter-type:import:hs",
+      "type:practice",
+      "context-cnxmod:b9cca0fe-e685-4f2f-a485-f62e6735cf58",
+      "context-cnxmod:d25883e8-2a6b-4afa-9f40-46f116461546",
+      "aplo:stax-apphys:5.B.5.5",
+      "book:stax-apphys",
+      "science-practice:mathematical-routines"
+    ],
+    "uid": "6667@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 379880,
+        "content_html": "Pressure is force divided by length.",
+        "correctness": "0.0",
+        "feedback_html": "The pressure in given in <span data-math=\"\\text{SI}\">\\text{SI}</span> units of newton’s per square meter."
+      },
+      {
+        "id": 379883,
+        "content_html": "Pressure is force divided by area.",
+        "correctness": "1.0",
+        "feedback_html": "Force divided by area is called pressure."
+      },
+      {
+        "id": 379881,
+        "content_html": "Pressure is force divided by volume.",
+        "correctness": "0.0",
+        "feedback_html": "Pressure is not equivalent to force per unit volume."
+      },
+      {
+        "id": 379882,
+        "content_html": "Pressure is force divided by mass.",
+        "correctness": "0.0",
+        "feedback_html": "This describes acceleration, not pressure."
+      }
+    ],
+    "group_uuid": "c52c493c-4ae6-41e8-8745-ae14f3adc957",
+    "stem_html": "What is pressure?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch12",
+      "k12phys-ch12-s02",
+      "k12phys-ch12-s02-lo01",
+      "k12phys-ch12-ex018",
+      "exid:k12phys-ch12-ex018",
+      "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:d04f597f-e959-4f4c-b416-4d75e19e076a",
+      "lo:stax-phys:11-3-1",
+      "context-cnxmod:3c11319b-f7cb-40af-a206-d52b4ca5f3b6",
+      "aplo:stax-apphys:7.A.1.1",
+      "aplo:stax-apphys:5.B.10.2"
+    ],
+    "uid": "6673@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 379891,
+        "content_html": "It is the work that is done by the compression or expansion of a fluid.",
+        "correctness": "1.0",
+        "feedback_html": "Pressure-volume work is work that is done by the compression or expansion of a fluid."
+      },
+      {
+        "id": 379888,
+        "content_html": "It is the work that is done by a force on an object to produce a certain displacement.",
+        "correctness": "0.0",
+        "feedback_html": "Pressure-volume work is work that is done by the compression or expansion of a fluid, which involves the area over which pressure is applied."
+      },
+      {
+        "id": 379889,
+        "content_html": "It is the work that is done by the surface molecules of a fluid.",
+        "correctness": "0.0",
+        "feedback_html": "All the molecules in a liquid contribute to the pressure-volume work."
+      },
+      {
+        "id": 379890,
+        "content_html": "It is the work that is done by the high-energy molecules of a fluid.",
+        "correctness": "0.0",
+        "feedback_html": "This work is related to the compression or expansion of an entire fluid, and not just the most energetic particles in the fluid."
+      }
+    ],
+    "group_uuid": "545cbb4e-1995-4a1e-a825-991366d920ff",
+    "stem_html": "What is pressure-volume work?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:15-2-3",
+      "k12phys-ch12",
+      "k12phys-ch12-s02",
+      "k12phys-ch12-s02-lo02",
+      "k12phys-ch12-ex020",
+      "exid:k12phys-ch12-ex020",
+      "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:b9cca0fe-e685-4f2f-a485-f62e6735cf58",
+      "context-cnxmod:d25883e8-2a6b-4afa-9f40-46f116461546",
+      "aplo:stax-apphys:5.B.5.5"
+    ],
+    "uid": "6675@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 379896,
+        "content_html": "Transferring energy by heat is the only way to add energy to or remove energy from a system.",
+        "correctness": "0.0",
+        "feedback_html": "One can add or remove energy by doing work also."
+      },
+      {
+        "id": 379897,
+        "content_html": "Doing compression work is the only way to add energy to or remove energy from a system.",
+        "correctness": "0.0",
+        "feedback_html": "One can transfer energy to or from a system by heat also."
+      },
+      {
+        "id": 379898,
+        "content_html": "Doing expansion work is the only way to add energy to or remove energy from a system.",
+        "correctness": "0.0",
+        "feedback_html": "This is not the only way to transfer energy to or from a system."
+      },
+      {
+        "id": 379899,
+        "content_html": "Transferring energy by heat or by doing work are the ways to add energy to or remove energy from a system.",
+        "correctness": "1.0",
+        "feedback_html": "Transferring energy by heat or by doing work can each allow energy to be added to or removed from a system."
+      }
+    ],
+    "group_uuid": "03c36739-4a49-4570-8a6d-0f1b51d0e3ce",
+    "stem_html": "What are the ways to add energy to or remove energy from a system?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:15-1-1",
+      "k12phys-ch12",
+      "k12phys-ch12-s02",
+      "k12phys-ch12-s02-lo03",
+      "k12phys-ch12-ex022",
+      "exid:k12phys-ch12-ex022",
+      "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:7e96b641-1efe-4920-9b39-2b72c6883215",
+      "context-cnxmod:2499fe6d-41be-4e32-83b0-d93bf558ae47",
+      "aplo:stax-apphys:5.B.5.5"
+    ],
+    "uid": "6677@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 517184,
+        "content_html": "The average kinetic energy of the gas particles decreases, so the balloon becomes colder.",
+        "correctness": "1.0",
+        "feedback_html": "Temperature is a measure of the average kinetic energy of the gas particles, and is directly proportional to the volume of the gas if pressure is held constant. Therefore, as volume decreases, so does the temperature (i.e., average kinetic energy of the particles), and the balloon becomes colder."
+      },
+      {
+        "id": 517181,
+        "content_html": "The average kinetic energy of the gas particles increases, so the balloon becomes hotter.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, if pressure is constant, temperature is directly proportional to the volume, so for temperature (that is, the average kinetic energy of the gas particles) to increase, the volume must also increase, causing the balloon to become larger, not smaller in size."
+      },
+      {
+        "id": 517182,
+        "content_html": "The average potential energy of the gas particles decreases, so the balloon becomes colder.",
+        "correctness": "0.0",
+        "feedback_html": "The potential energy of the gas particles does not affect temperature, which is changed because of the change in volume."
+      },
+      {
+        "id": 517183,
+        "content_html": "The average potential energy of the gas particles increases, so the balloon becomes hotter.",
+        "correctness": "0.0",
+        "feedback_html": "Remember that temperature is directly proportional to volume when pressure is constant, and that the average kinetic energy of particles determines temperature."
+      }
+    ],
+    "group_uuid": "0aa478b9-366a-4a6d-97bf-15e21b9f9eb8",
+    "stem_html": "When an inflated balloon experiences a decrease in size, the air pressure inside the balloon remains nearly constant. If there is no transfer of energy by heat to or from the balloon, what physical change takes place in the balloon?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:13-3-2",
+      "k12phys-ch12",
+      "k12phys-ch12-s02",
+      "k12phys-ch12-s02-lo01",
+      "k12phys-ch12-ex027",
+      "exid:k12phys-ch12-ex027",
+      "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:1ddf7960-d3c6-438e-a96e-ce0c5d3efd59",
+      "aplo:stax-apphys:7.A.1.1"
+    ],
+    "uid": "6700@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 379996,
+        "content_html": "It is transferred back to its surroundings.",
+        "correctness": "0.0",
+        "feedback_html": "The difference in energy remains in the system."
+      },
+      {
+        "id": 379999,
+        "content_html": "It is stored in the system as internal energy.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, it is stored as internal energy."
+      },
+      {
+        "id": 379997,
+        "content_html": "It is stored in the system as potential energy.",
+        "correctness": "0.0",
+        "feedback_html": "Extra heat will contribute to the internal energy of the system, which is a measure of the kinetic energy of the system’s particles."
+      },
+      {
+        "id": 379998,
+        "content_html": "It is stored in the system as entropy.",
+        "correctness": "0.0",
+        "feedback_html": "The entropy of the system will most likely change, but the energy is not stored as entropy; rather entropy is related to how the energy is stored."
+      }
+    ],
+    "group_uuid": "62e53845-9a07-4900-87b5-9bd72caf3541",
+    "stem_html": "If more energy is transferred into the system by net heat as compared to the net work done by the system, what happens to the difference in energy?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:15-1-4",
+      "k12phys-ch12",
+      "k12phys-ch12-s02",
+      "k12phys-ch12-s02-lo03",
+      "k12phys-ch12-ex029",
+      "exid:k12phys-ch12-ex029",
+      "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:7e96b641-1efe-4920-9b39-2b72c6883215",
+      "context-cnxmod:2499fe6d-41be-4e32-83b0-d93bf558ae47",
+      "aplo:stax-apphys:5.B.7.1"
+    ],
+    "uid": "6702@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 517391,
+        "content_html": "increasing internal energy",
+        "correctness": "0.0",
+        "feedback_html": "A system’s internal energy increases when work is done on a system."
+      },
+      {
+        "id": 517392,
+        "content_html": "compression",
+        "correctness": "0.0",
+        "feedback_html": "This is work done ON a system."
+      },
+      {
+        "id": 517394,
+        "content_html": "expansion",
+        "correctness": "1.0",
+        "feedback_html": "Expansion occurs when work is done by a system."
+      },
+      {
+        "id": 517393,
+        "content_html": "cooling",
+        "correctness": "0.0",
+        "feedback_html": "Cooling occurs when a system loses energy by heat."
+      }
+    ],
+    "group_uuid": "8ac0cb73-94a5-4879-9005-67e64a3818d2",
+    "stem_html": "Which of the following involves work done BY a system?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:15-2-3",
+      "k12phys-ch12",
+      "k12phys-ch12-s02",
+      "k12phys-ch12-s02-lo02",
+      "k12phys-ch12-ex033",
+      "exid:k12phys-ch12-ex033",
+      "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b9cca0fe-e685-4f2f-a485-f62e6735cf58",
+      "aplo:stax-apphys:5.B.5.5"
+    ],
+    "uid": "6716@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 484010,
+        "content_html": "<span data-math=\"20\\,\\text{J}\">20\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "This is the work done by the system."
+      },
+      {
+        "id": 484011,
+        "content_html": "<span data-math=\"30\\,\\text{J}\">30\\,\\text{J}</span>",
+        "correctness": "1.0",
+        "feedback_html": "This is the difference between the net change in the system's internal energy\n and the work done by the system."
+      },
+      {
+        "id": 484012,
+        "content_html": "<span data-math=\"50\\,\\text{J}\">50\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "This is the transferred from the system to the environment."
+      },
+      {
+        "id": 484013,
+        "content_html": "<span data-math=\"100\\,\\text{J}\">100\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "This is the energy added by heat to the system."
+      }
+    ],
+    "group_uuid": "4401b694-73dd-4f6f-a046-0a6ece03450c",
+    "stem_html": "What is the change in internal energy of a system  that does 20 J of work when <span data-math=\"Q_\\text{in} = 100\\,\\text{J}\">Q = 50\\,\\text{J}</span>  and  <span data-math=\"Q_\\text{out} = 50\\,\\text{J}\">Q = 20\\,\\text{J}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:15-1-4",
+      "k12phys-ch12",
+      "k12phys-ch12-s02",
+      "k12phys-ch12-s02-lo04",
+      "k12phys-ch12-ex035",
+      "exid:k12phys-ch12-ex035",
+      "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:7e96b641-1efe-4920-9b39-2b72c6883215",
+      "context-cnxmod:2499fe6d-41be-4e32-83b0-d93bf558ae47",
+      "aplo:stax-apphys:5.B.5.5"
+    ],
+    "uid": "6718@8"
+  },
+  {
+    "answers": [
+      {
+        "id": 380068,
+        "content_html": "pressure acting over the change in depth",
+        "correctness": "0.0",
+        "feedback_html": "Depth is not considered in calculating the work done by fluids."
+      },
+      {
+        "id": 380069,
+        "content_html": "pressure acting over the change in temperature",
+        "correctness": "0.0",
+        "feedback_html": "The work done is non-zero only when there is a change in volume of a gas."
+      },
+      {
+        "id": 380070,
+        "content_html": "temperature acting over the change in volume",
+        "correctness": "0.0",
+        "feedback_html": "The product of temperature and volume does not result in dimensions for work."
+      },
+      {
+        "id": 380071,
+        "content_html": "pressure acting over the change in volume",
+        "correctness": "1.0",
+        "feedback_html": "The work done can be defined as the pressure acting over the change in volume."
+      }
+    ],
+    "group_uuid": "6e748750-1856-4b98-96d4-36d45859a043",
+    "stem_html": "For fluids, what can work be defined as?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:15-2-3",
+      "k12phys-ch12",
+      "k12phys-ch12-s02",
+      "k12phys-ch12-s02-lo02",
+      "k12phys-ch12-ex038",
+      "exid:k12phys-ch12-ex038",
+      "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b9cca0fe-e685-4f2f-a485-f62e6735cf58",
+      "context-cnxmod:d25883e8-2a6b-4afa-9f40-46f116461546",
+      "aplo:stax-apphys:5.B.5.5"
+    ],
+    "uid": "6721@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 517353,
+        "content_html": "<span data-math=\"{-190}\\,\\text{J}\">{-190}\\,\\text{J}</span> ; this would change if heat added energy after the work was done",
+        "correctness": "0.0",
+        "feedback_html": "The energy added by heat is greater than the work done by the system, so the change in internal energy should be positive. The change in internal energy would also remain the same."
+      },
+      {
+        "id": 517352,
+        "content_html": "<span data-math=\"190\\,\\text{J}\">190\\,\\text{J}</span>; this would change if heat added energy after the work was done",
+        "correctness": "0.0",
+        "feedback_html": "The change in internal energy would be the same even if the heat added energy after the work was done."
+      },
+      {
+        "id": 517351,
+        "content_html": "<span data-math=\"{-190}\\,\\text{J}\">{-190}\\,\\text{J}</span>; this would not change even if heat added energy after the work was done",
+        "correctness": "0.0",
+        "feedback_html": "The work done is less than the energy added by heat. Hence, the change in internal energy should be positive."
+      },
+      {
+        "id": 517354,
+        "content_html": "<span data-math=\"190\\,\\text{J}\">190\\,\\text{J}</span>; this would not change even if heat added energy after the work was done",
+        "correctness": "1.0",
+        "feedback_html": "The change in internal energy would be <span data-math=\"190\\,\\text{J}\">190\\,\\text{J}</span>. If heat added energy after the work was done, the change in internal energy would be the same."
+      }
+    ],
+    "group_uuid": "a3688e45-622d-4539-808c-efe0a28b1407",
+    "stem_html": "Three hundred ten joules of heat enter a system, after which the system does <span data-math=\"120\\,\\text{J}\">120\\,\\text{J}</span> of work. What is the change in its internal energy? Would this amount change if the energy transferred by heat were added after the work was done instead of before?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:15-1-4",
+      "k12phys-ch12",
+      "k12phys-ch12-s02",
+      "k12phys-ch12-s02-lo04",
+      "k12phys-ch12-ex042",
+      "exid:k12phys-ch12-ex042",
+      "context-cnxmod:6729f2d5-c08a-4b4a-b3b1-1943219d1371",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:7e96b641-1efe-4920-9b39-2b72c6883215",
+      "aplo:stax-apphys:5.B.5.5"
+    ],
+    "uid": "6725@6"
+  }
+]

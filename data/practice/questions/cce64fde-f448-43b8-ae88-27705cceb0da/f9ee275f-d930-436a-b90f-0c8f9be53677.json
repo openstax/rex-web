@@ -1,0 +1,112 @@
+[
+  {
+    "answers": [
+      {
+        "id": 374396,
+        "content_html": "acceleration",
+        "correctness": "1.0",
+        "feedback_html": "The slope of the velocity vs. time curve is acceleration."
+      },
+      {
+        "id": 374393,
+        "content_html": "direction of motion",
+        "correctness": "0.0",
+        "feedback_html": "A velocity vs. time graph does not indicate the direction of motion of the object. For that, a frame of reference would be required. As an example, moving to the right on the graph is the positive direction."
+      },
+      {
+        "id": 374394,
+        "content_html": "reference frame of the motion",
+        "correctness": "0.0",
+        "feedback_html": "It is not possible to find out the reference frame from the velocity vs. time graph."
+      },
+      {
+        "id": 374395,
+        "content_html": "shortest path",
+        "correctness": "0.0",
+        "feedback_html": "The area under the velocity vs. time graph tells us the displacement, but not the shortest path between two points."
+      }
+    ],
+    "group_uuid": "c1ff5349-c531-4d04-9705-7972f30ad478",
+    "stem_html": "What information could you obtain by looking at a velocity vs. time graph?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch02",
+      "k12phys-ch02-s04",
+      "k12phys-ch02-s04-lo01",
+      "k12phys-ch02-ex074",
+      "dok:1",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "exid:k12phys-ch02-ex074",
+      "context-cnxmod:8e215354-cc13-428d-86b6-83c4be67d717",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:48eb4a92-e1e6-45e5-9f60-c4a3ae79199d",
+      "lo:stax-phys:2-8-3",
+      "context-cnxmod:20986bfa-2c2a-47f1-a48a-786122b0c606",
+      "aplo:stax-apphys:3.A.1.1",
+      "aplo:stax-apphys:3.A.1.3",
+      "aplo:stax-apphys:4.A.2.3"
+    ],
+    "uid": "1884@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 415292,
+        "content_html": "<span data-math=\"75\\,\\text{m}\">75\\,\\text{m}</span>",
+        "correctness": "1.0",
+        "feedback_html": "It can be calculated from the area of the velocity vs. time graph."
+      },
+      {
+        "id": 415293,
+        "content_html": "<span data-math=\"130\\,\\text{m}\">130\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Try to calculate the area under the velocity vs. time graph."
+      },
+      {
+        "id": 415294,
+        "content_html": "<span data-math=\"150\\,\\text{m}\">150\\,\\text{m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall the formula for the area of a triangle and apply it in this question to calculate the net displacement."
+      },
+      {
+        "id": 415295,
+        "content_html": "cannot be determined from the information given",
+        "correctness": "0.0",
+        "feedback_html": "The displacement can be calculated from the area under the velocity vs. time graph."
+      }
+    ],
+    "group_uuid": "2e2c23a2-dbb1-4e5f-88f6-51ae49b1c1d9",
+    "stem_html": "An object is moving along a straight path with constant acceleration. A velocity vs. time graph starts at <span data-math=\"0\">0</span> and ends at <span data-math=\"10\\,\\text{m/s}\">10\\,\\text{m/s}</span>, stretching over a time-span of <span data-math=\"15\\,\\text{s}\">15\\,\\text{s}</span>. What is the object’s net displacement?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch02",
+      "k12phys-ch02-s04",
+      "k12phys-ch02-s04-lo02",
+      "k12phys-ch02-ex081",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:2-3-4",
+      "exid:k12phys-ch02-ex081",
+      "context-cnxmod:8e215354-cc13-428d-86b6-83c4be67d717",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0530a45f-426f-4804-b22d-5d72704fa777",
+      "context-cnxmod:f6a98016-c865-4380-aea5-eb6578481242",
+      "aplo:stax-apphys:4.A.2.3",
+      "aplo:stax-apphys:4.A.2.1"
+    ],
+    "uid": "1891@6"
+  }
+]

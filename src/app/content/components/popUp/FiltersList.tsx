@@ -1,15 +1,16 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography';
-import { match, not } from '../../../fpUtils';
 import theme from '../../../theme';
 import { disablePrint } from '../../components/utils/disablePrint';
-import { HighlightLocationFilters, SummaryFilters } from '../../highlights/types';
+import { SummaryFiltersUpdate } from '../../highlights/types';
+import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
+import { LocationFilters } from './types';
 
 // tslint:disable-next-line: variable-name
 export const StyledPlainButton = styled(PlainButton)`
@@ -61,15 +62,16 @@ interface FiltersListColorProps {
 // tslint:disable-next-line: variable-name
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <FilterListItem>
-    <FormattedMessage id={props.ariaLabelKey(props.color)} values={{filterValue: props.color}}>
-      {(msg: string) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
-        <Times />
-      </StyledPlainButton>}
-    </FormattedMessage>
+    <StyledPlainButton
+      aria-label={useIntl().formatMessage({id: props.ariaLabelKey(props.color)}, {filterValue: props.color})}
+      onClick={props.onRemove}
+    >
+      <Times />
+    </StyledPlainButton>
 
     <ItemLabel>
       <FormattedMessage id={props.labelKey(props.color)}>
-        {(msg: string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </ItemLabel>
   </FilterListItem>
@@ -84,24 +86,25 @@ interface FiltersListChapterProps {
 // tslint:disable-next-line: variable-name
 export const FiltersListChapter = (props: FiltersListChapterProps) => (
   <FilterListItem>
-    <FormattedMessage
-      id='i18n:highlighting:filters:remove:chapter'
-      values={{filterValue: splitTitleParts(props.title).join(' ')}}
+    <StyledPlainButton
+      aria-label={useIntl().formatMessage({
+        id: 'i18n:highlighting:filters:remove:chapter'},
+        {filterValue: splitTitleParts(props.title).join(' ')}
+      )}
+      onClick={props.onRemove}
     >
-      {(msg: string | Element) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
-        <Times />
-      </StyledPlainButton>}
-    </FormattedMessage>
+      <Times />
+    </StyledPlainButton>
     <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
   </FilterListItem>
 );
 
 interface FiltersListProps {
   className?: string;
-  locationFilters: HighlightLocationFilters;
+  locationFilters: LocationFilters;
   selectedLocationFilters: Set<string>;
   selectedColorFilters: Set<HighlightColorEnum>;
-  setFilters: (filters: Partial<SummaryFilters>) => void;
+  setFilters: (change: SummaryFiltersUpdate) => void;
   colorAriaLabelKey: (color: HighlightColorEnum) => string;
   colorLabelKey: (color: HighlightColorEnum) => string;
 }
@@ -117,15 +120,15 @@ const FiltersList = ({
   colorLabelKey,
 }: FiltersListProps) => {
 
-  const onRemoveChapter = (locationId: string) => {
+  const onRemoveChapter = (location: LinkedArchiveTreeNode) => {
     setFilters({
-      locationIds: [...selectedLocationFilters].filter(not(match(locationId))),
+      locations: { remove: [location], new: [] },
     });
   };
 
   const onRemoveColor = (color: HighlightColorEnum) => {
     setFilters({
-      colors: selectedColorFilters && [...selectedColorFilters].filter(not(match(color))),
+      colors: { remove: [color], new: [] },
     });
   };
 
@@ -133,9 +136,9 @@ const FiltersList = ({
     {Array.from(locationFilters).map(([locationId, location]) => selectedLocationFilters.has(locationId) &&
     <FiltersListChapter
       key={locationId}
-      title={location.title}
+      title={location.section.title}
       locationId={locationId}
-      onRemove={() => onRemoveChapter(locationId)}
+      onRemove={() => onRemoveChapter(location.section)}
     />)}
     {selectedColorFilters && [...selectedColorFilters].sort().map((color) => <FiltersListColor
       key={color}

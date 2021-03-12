@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`practice questions button does not render if feature flag is not enabled 1`] = `null`;
+exports[`practice questions button does not render if feature flag is not enabled and there are no practice questions 1`] = `null`;
 
-exports[`practice questions button render if feature flag is enabled 1`] = `
-<button
+exports[`practice questions button renders if feature flag is enabled and there are practice questions 1`] = `
+<a
   aria-label="Practice"
-  className="styled__PlainButton-sc-1119auh-0 PracticeQuestionsButton__PracticeQuestionsWrapper-vyu0p6-0 dXEzXZ"
+  className="PracticeQuestionsButton__StyledContentLink-vyu0p6-0 hhqmFX"
+  href="books/book-slug-1/pages/test-page-1?modal=PQ"
   onClick={[Function]}
 >
   <img
@@ -18,5 +19,5 @@ exports[`practice questions button render if feature flag is enabled 1`] = `
   >
     Practice
   </span>
-</button>
+</a>
 `;

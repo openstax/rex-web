@@ -1,9 +1,17 @@
 import { GetHighlightsColorsEnum } from '@openstax/highlighter/dist/api';
-import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
+import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { book as bookSelector } from '../../selectors';
-import { loadMoreSummaryHighlights, receiveSummaryHighlights, setSummaryFilters } from '../actions';
+import {
+  loadMoreSummaryHighlights,
+  receiveSummaryHighlights,
+  setSummaryFilters,
+  toggleSummaryHighlightsLoading,
+  updateSummaryFilters
+} from '../actions';
+import { HighlightPopupLoadError } from '../errors';
 import * as select from '../selectors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../utils/highlightLoadingUtils';
 
@@ -32,13 +40,29 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
     pagination,
   };
 };
+export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
-export const hookBody: ActionHookBody<typeof setSummaryFilters | typeof loadMoreSummaryHighlights> =
+export const hookBody: ActionHookBody<
+  typeof setSummaryFilters |
+  typeof loadMoreSummaryHighlights |
+  typeof updateSummaryFilters
+> =
   (services) => async() => {
     const filters = select.summaryFilters(services.getState());
-    const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
+
+    let highlights: Unpromisify<LoadMoreResponse>;
+
+    try {
+      highlights = await loadMore(services, summaryPageSize);
+    } catch (error) {
+      services.dispatch(toggleSummaryHighlightsLoading(false));
+      throw ensureApplicationErrorType(error, new HighlightPopupLoadError({ destination: 'myHighlights' }));
+    }
+
+    const {formattedHighlights, pagination} = highlights;
     services.dispatch(receiveSummaryHighlights(formattedHighlights, {pagination, filters}));
   };
 
 export const loadMoreHook = actionHook(loadMoreSummaryHighlights, hookBody);
 export const setSummaryFiltersHook = actionHook(setSummaryFilters, hookBody);
+export const updateFiltersHook = actionHook(updateSummaryFilters, hookBody);

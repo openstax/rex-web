@@ -1,11 +1,11 @@
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash/fp/cloneDeep';
 import { resetModules } from '../../test/utils';
 import { ArchiveBook, ArchiveTree, Book } from './types';
 import {
   getContentPageReferences,
   getIdFromPageParam,
   getPageIdFromUrlParam,
-  parseBookTree,
+  parseContents,
   stripIdVersion,
   toRelativeUrl,
 } from './utils';
@@ -41,7 +41,7 @@ describe('getContentPageReferences', () => {
     ).toEqual([
       {
         match: '/contents/as8s8xu9sdnjsd9',
-        pageUid: 'as8s8xu9sdnjsd9',
+        pageId: 'as8s8xu9sdnjsd9',
       },
     ]);
   });
@@ -55,11 +55,33 @@ describe('getContentPageReferences', () => {
     ).toEqual([
       {
         match: '/contents/as8s8xu9sdnjsd9',
-        pageUid: 'as8s8xu9sdnjsd9',
+        pageId: 'as8s8xu9sdnjsd9',
       },
       {
         match: '/contents/9sdnjsd9',
-        pageUid: '9sdnjsd9',
+        pageId: '9sdnjsd9',
+      },
+    ]);
+  });
+
+  it('picks up multiple rap links', () => {
+    expect(
+      getContentPageReferences(`
+      asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> sdf
+      <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a>
+    `)
+    ).toEqual([
+      {
+        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
+        bookVersion: '29.7',
+        match: './13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
+        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
+      },
+      {
+        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
+        bookVersion: undefined,
+        match: './13ac107a-f15f-49d2-97e8-60ab2e3b519c:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
+        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       },
     ]);
   });
@@ -188,7 +210,7 @@ describe('toRelativeUrl', () => {
   });
 });
 
-describe('parseBookTree', () => {
+describe('parseContents', () => {
   const appendixHtml = '<span class="os-number">' +
     '<span class="os-part-text">Appendix </span>' +
     'D' +
@@ -237,7 +259,7 @@ describe('parseBookTree', () => {
   });
 
   it('removes .os-part-text', () => {
-    expect(parseBookTree(book).tree.contents[0].title).toEqual(
+    expect(parseContents(book, book.tree.contents)[0].title).toEqual(
       '<span class="os-number">' +
         'D' +
       '</span>' +
@@ -246,12 +268,12 @@ describe('parseBookTree', () => {
   });
 
   it('removes .os-number and .os-divider if section is an unit', () => {
-    expect(parseBookTree(book).tree.contents[1].title).toEqual(
+    expect(parseContents(book, book.tree.contents)[1].title).toEqual(
       '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>');
   });
 
   it('handles unit that does not have .os-number and .os-divider', () => {
-    expect(parseBookTree(book).tree.contents[2].title).toEqual(
+    expect(parseContents(book, book.tree.contents)[2].title).toEqual(
       '<span data-type="" itemprop="" class="os-text">The Chemistry of Life</span>');
   });
 
@@ -261,7 +283,7 @@ describe('parseBookTree', () => {
       title: title.replace(/appendix/i, 'something else'),
     })) as ArchiveTree['contents'];
 
-    expect(parseBookTree(book).tree.contents[0].title).toEqual(
+    expect(parseContents(book, book.tree.contents)[0].title).toEqual(
       '<span class="os-number">' +
         'D' +
       '</span>' +

@@ -78,6 +78,8 @@ describe('HighlightDeleteWrapper', () => {
       </MessageProvider>
     </Provider>);
 
+    renderer.act(() => { return; });
+
     renderer.act(() => {
       const textarea = component.root.findByProps({ value: annotation });
       textarea.props.onChange({
@@ -122,11 +124,11 @@ describe('Highlight annotation', () => {
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>
-            <HighlightListElement
-              highlight={highlight as unknown as HighlightData}
-              locationFilterId={location!.id}
-              pageId={page.id}
-            />)}
+          <HighlightListElement
+            highlight={highlight as unknown as HighlightData}
+            locationFilterId={location!.id}
+            pageId={page.id}
+          />
         </MessageProvider>
       </Services.Provider>
     </Provider>);

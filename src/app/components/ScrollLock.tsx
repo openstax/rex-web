@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
 import { sidebarTransitionTime, toolbarDesktopHeight } from '../content/components/constants';
 import { disablePrint } from '../content/components/utils/disablePrint';
+import { useDisableContentTabbing } from '../reactUtils';
 import theme from '../theme';
 import OnScroll, { OnTouchMoveCallback } from './OnScroll';
 
@@ -10,11 +11,23 @@ const ScrollLockBodyClass = createGlobalStyle`
   body.body {
     ${(props: {mobileOnly?: boolean}) => props.mobileOnly && css`
       ${theme.breakpoints.mobile(css`
+        @media print {
+          #root {
+            display: none;
+          }
+        }
+
         overflow: hidden;
       `)}
     `}
 
     ${(props: {mobileOnly?: boolean}) => props.mobileOnly === false && css`
+      @media print {
+        #root {
+          display: none;
+        }
+      }
+
       overflow: hidden;
     `}
   }
@@ -36,10 +49,19 @@ const fadeIn = keyframes`
   }
 `;
 
+interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  mobileOnly?: boolean;
+  zIndex?: number;
+}
+
 // tslint:disable-next-line:variable-name
-export const Overlay = styled.div`
+export const Overlay = styled(({ mobileOnly, zIndex, ...props}: OverlayProps) => {
+  useDisableContentTabbing(mobileOnly ? false : true);
+  return <div {...props} />;
+})`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   ${(props: {zIndex?: number}) => props.zIndex && css`
     z-index: ${props.zIndex};
   `}

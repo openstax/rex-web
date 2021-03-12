@@ -1,13 +1,15 @@
 import { createStandardAction } from 'typesafe-actions';
-import { AnyNotification, Message } from './types';
+import { AnyNotification, Message, ToastMeta } from './types';
 
 export const updateAvailable = createStandardAction('Notification/updateAvailable')();
 export const acceptCookies = createStandardAction('Notification/acceptCookies')();
 export const addToast = createStandardAction('Notification/toasts/add')
-  .map((toast: {messageKey: string, shouldAutoDismiss?: boolean}) => ({
+  .map((messageKey: string, meta: ToastMeta) => ({
     payload: {
-      messageKey: toast.messageKey,
-      shouldAutoDismiss: toast.shouldAutoDismiss === undefined || toast.shouldAutoDismiss,
+      destination: meta.destination,
+      errorId: meta.errorId,
+      messageKey,
+      shouldAutoDismiss: meta.shouldAutoDismiss === undefined || meta.shouldAutoDismiss,
       timestamp: Date.now(),
     },
   }));

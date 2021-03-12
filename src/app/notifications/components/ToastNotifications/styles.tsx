@@ -6,7 +6,7 @@ import { disablePrint } from '../../../content/components/utils/disablePrint';
 import theme from '../../../theme';
 import { inlineDisplayBreak } from '../../theme';
 import { Header } from '../Card';
-import { desktopSearchFailureTop, fadeOutDuration, getMobileSearchFailureTop } from './constants';
+import { fadeOutDuration } from './constants';
 import { ToastProps } from './Toast';
 
 const bannerBackground = '#F8E8EB';
@@ -26,19 +26,6 @@ const fadeOut = keyframes`
 `;
 
 // tslint:disable-next-line:variable-name
-export const ToastContainerWrapper = styled.div`
-  width: 100%;
-  position: sticky;
-  overflow: visible;
-  z-index: ${theme.zIndex.contentNotifications - 1};
-  top: ${desktopSearchFailureTop}rem;
-  ${theme.breakpoints.mobile(css`
-    z-index: ${theme.zIndex.contentNotifications + 1};
-    top: ${getMobileSearchFailureTop}rem;
-  `)}
-`;
-
-// tslint:disable-next-line:variable-name
 export const ToastsContainer = styled.div`
   width: 100%;
   position: absolute;
@@ -48,7 +35,7 @@ export const ToastsContainer = styled.div`
 const setTransitionStyles = ({positionProps, isFadingIn}: BannerProps) => css`
   transition: transform 0.6s;
   z-index: ${positionProps.totalToastCount - positionProps.index};
-  transform: translateY(${isFadingIn ? (positionProps.index) * 100 : -100}%);
+  transform: translateY(${isFadingIn ? 0 : -100}%);
 `;
 
 interface BannerProps {
@@ -62,7 +49,6 @@ export const BannerBodyWrapper = styled.div`
   width: 100%;
   margin: 0;
   overflow: visible;
-  position: absolute;
   ${setTransitionStyles};
   ${(props: BannerProps) => props.isFadingOut && css`
     animation: ${fadeOut} ${fadeOutDuration / 1000}s forwards;
@@ -82,7 +68,6 @@ export const BannerBody = styled.div`
   border: 1px solid ${errorBorderColor};
 
   ${Header} {
-    width: 90%;
     background: inherit;
     color: ${errorTextColor};
     font-weight: normal;
@@ -105,8 +90,17 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 // tslint:disable-next-line:variable-name
 export const CloseButton = styled(PlainButton)`
   color: ${closeIconColor};
+  overflow: visible;
 
   &:hover {
     color: ${hoveredCloseIconColor};
   }
+`;
+
+// tslint:disable-next-line: variable-name
+export const ErrorId = styled.span`
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  color: ${errorTextColor};
+  white-space: nowrap;
 `;

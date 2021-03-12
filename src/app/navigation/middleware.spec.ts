@@ -1,5 +1,7 @@
 import { createMemoryHistory } from 'history';
+import { notFound } from '../errors/routes';
 import { AnyAction } from '../types';
+import { assertWindow } from '../utils/browser-assertions';
 import * as actions from './actions';
 
 const routes = [
@@ -34,7 +36,9 @@ describe('navigation middleware', () => {
 
     middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
       method: 'push',
+      params: {},
       route: routes[0],
+      state: {},
     }));
 
     expect(pushSpy).toHaveBeenCalled();
@@ -57,6 +61,7 @@ describe('navigation middleware', () => {
 
     middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
       method: 'push',
+      params: {},
       route: routes[0],
       state,
     }));
@@ -67,6 +72,52 @@ describe('navigation middleware', () => {
       search: '',
       state,
     });
+  });
+
+  it('doesn\'t call history for not found (push)', () => {
+    const history = createMemoryHistory();
+    const next = jest.fn((_: AnyAction) => undefined);
+    const dispatch = jest.fn((_: AnyAction) => undefined);
+
+    const locationSpy = jest.spyOn(assertWindow().location, 'assign');
+    locationSpy.mockReturnValue(undefined);
+
+    const pushSpy = jest.spyOn(history, 'push');
+    pushSpy.mockReturnValue(undefined);
+
+    middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
+      method: 'push',
+      params: {url: 'asdf'},
+      route: notFound,
+      state: {},
+    }));
+
+    expect(pushSpy).not.toHaveBeenCalled();
+    expect(next).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('doesn\'t call history for not found (replace)', () => {
+    const history = createMemoryHistory();
+    const next = jest.fn((_: AnyAction) => undefined);
+    const dispatch = jest.fn((_: AnyAction) => undefined);
+
+    const locationSpy = jest.spyOn(assertWindow().location, 'replace');
+    locationSpy.mockReturnValue(undefined);
+
+    const pushSpy = jest.spyOn(history, 'push');
+    pushSpy.mockReturnValue(undefined);
+
+    middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
+      method: 'replace',
+      params: {url: 'asdf'},
+      route: notFound,
+      state: {},
+    }));
+
+    expect(pushSpy).not.toHaveBeenCalled();
+    expect(next).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it('dispatches locationChange when history updates externally', () => {
@@ -91,7 +142,7 @@ describe('navigation middleware', () => {
     expect(dispatch).toHaveBeenCalledWith(actions.locationChange({
       action: 'PUSH',
       location: history.location,
-      match: {route: routes[1]},
+      match: {route: routes[1], params: {}, state: {}},
     }));
   });
 });

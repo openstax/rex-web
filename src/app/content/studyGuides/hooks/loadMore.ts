@@ -1,9 +1,11 @@
 import {
   GetHighlightsColorsEnum, GetHighlightsSetsEnum,
 } from '@openstax/highlighter/dist/api';
-import { ActionHookBody, AppServices, MiddlewareAPI } from '../../../types';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
+import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
+import { StudyGuidesPopupLoadError } from '../../highlights/errors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../../highlights/utils/highlightLoadingUtils';
 import { book as bookSelector } from '../../selectors';
 import * as actions from '../actions';
@@ -35,18 +37,30 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
     pagination,
   };
 };
+export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
 export const hookBody: ActionHookBody<
   typeof actions.setDefaultSummaryFilters |
   typeof actions.setSummaryFilters |
+  typeof actions.updateSummaryFilters |
   typeof actions.loadMoreStudyGuides
-> =
-  (services) => async() => {
-    const filters = select.summaryFilters(services.getState());
-    const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
-    services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
-  };
+> = (services) => async() => {
+  const filters = select.summaryFilters(services.getState());
+
+  let response: Unpromisify<LoadMoreResponse>;
+
+  try {
+    response = await loadMore(services, summaryPageSize);
+  } catch (error) {
+    services.dispatch(actions.toggleStudyGuidesSummaryLoading(false));
+    throw ensureApplicationErrorType(error, new StudyGuidesPopupLoadError({ destination: 'studyGuides' }));
+  }
+
+  const {formattedHighlights, pagination} = response;
+  services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
+};
 
 export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);
 export const setSummaryFiltersHook = actionHook(actions.setSummaryFilters, hookBody);
+export const updateSummaryFiltersHook = actionHook(actions.updateSummaryFilters, hookBody);
 export const setDefaultSummaryFiltersHook = actionHook(actions.setDefaultSummaryFilters, hookBody);

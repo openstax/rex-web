@@ -1,4 +1,5 @@
 const fs = require('fs');
+const fetch = require('node-fetch');
 const path = require('path');
 const identity = require('lodash/fp/identity');
 const script = process.argv[2];
@@ -8,6 +9,10 @@ const extensions = ['.ts', '.tsx'];
 // lots of stuff relies on this
 const JSDOM = require('jsdom').JSDOM;
 global.DOMParser = new JSDOM().window.DOMParser;
+
+const URL = require('url');
+global.URL = URL.URL;
+global.fetch = fetch;
 
 if (!script) {
   console.error('script argument is required');

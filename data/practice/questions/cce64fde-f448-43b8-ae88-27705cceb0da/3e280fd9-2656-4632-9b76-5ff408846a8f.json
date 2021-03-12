@@ -1,0 +1,325 @@
+[
+  {
+    "answers": [
+      {
+        "id": 374186,
+        "content_html": "Distance has both magnitude and direction, while displacement has magnitude but no direction.",
+        "correctness": "0.0",
+        "feedback_html": "Recall the definition of distances and displacements. Think again which one has direction and magnitude both."
+      },
+      {
+        "id": 374189,
+        "content_html": "Distance has magnitude but no direction, while displacement has both magnitude and direction.",
+        "correctness": "1.0",
+        "feedback_html": "Distance is a physical quantity that has magnitude only and no direction, while displacement is a physical quantity that has magnitude as well as direction."
+      },
+      {
+        "id": 374187,
+        "content_html": "Distance has magnitude but no direction, while displacement has only direction.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that distances have magnitude only and no direction, but displacement does not only have direction."
+      },
+      {
+        "id": 374188,
+        "content_html": "There is no difference. Both distance and displacement have magnitude and direction.",
+        "correctness": "0.0",
+        "feedback_html": "Distance and displacement are not the same. Recall their definition."
+      }
+    ],
+    "group_uuid": "763c65e3-47ae-45cd-85c7-69349ec87531",
+    "stem_html": "What is the difference between distance and displacement?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo02",
+      "k12phys-ch02-ex011",
+      "dok:1",
+      "blooms:1",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:2-1-3",
+      "exid:k12phys-ch02-ex011",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:74c34e51-1968-4e5d-b1d3-e5df6a9be9fb",
+      "context-cnxmod:72169e9d-cba1-4d43-923c-41ae4d01b3cc",
+      "aplo:stax-apphys:3.A.1.1",
+      "aplo:stax-apphys:3.E.1.3"
+    ],
+    "uid": "1821@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 374196,
+        "content_html": "One-dimensional motion can have zero distance with a nonzero displacement. Displacement has both magnitude and direction, and it can also have zero displacement with nonzero distance because distance has only magnitude.",
+        "correctness": "0.0",
+        "feedback_html": "Zero distance with nonzero displacement is never possible. Any motion of the object will be a distance the object moves. Zero displacement is possible with nonzero distance as displacement is a vector quantity."
+      },
+      {
+        "id": 374195,
+        "content_html": "One-dimensional motion can have zero distance with a nonzero displacement. Displacement has both magnitude and direction, but it cannot have zero displacement with nonzero distance because distance has only magnitude.",
+        "correctness": "0.0",
+        "feedback_html": "Any motion of the object will contribute a nonzero distance. So if an object moves, there will be a nonzero distance covered and any other movement in any direction will get added to this distance. There can be zero displacement with nonzero distance because motion in the opposite direction gets subtracted from the initial displacement."
+      },
+      {
+        "id": 374197,
+        "content_html": "One-dimensional motion cannot have zero distance with a nonzero displacement. Displacement has both magnitude and direction, but it can have zero displacement with nonzero distance because distance has only magnitude and any motion will be the distance it moves.",
+        "correctness": "1.0",
+        "feedback_html": "Distance covered will go on increasing with each movement irrespective of the direction in which the object moves, as distance has only magnitude and no direction. Displacement, on the other hand, can decrease if the motion takes place in the opposite direction,because displacement has both magnitude and direction associated with it."
+      },
+      {
+        "id": 374194,
+        "content_html": "One-dimensional motion cannot have zero distance with a nonzero displacement. Displacement has both magnitude and direction, and it cannot have zero displacement with nonzero distance because distance has only magnitude.",
+        "correctness": "0.0",
+        "feedback_html": "You are partially correct! There can be zero displacement with nonzero distance. If you think about one complete revolution of Earth around the Sun, there is nonzero distance and a zero displacement covered."
+      }
+    ],
+    "group_uuid": "adfdde39-6f7e-4268-91e1-2ded860d1709",
+    "stem_html": "Can one-dimensional motion have zero distance but a nonzero displacement? What about zero displacement but a nonzero distance?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo02",
+      "k12phys-ch02-ex013",
+      "dok:2",
+      "time:medium",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:2-1-3",
+      "exid:k12phys-ch02-ex013",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:74c34e51-1968-4e5d-b1d3-e5df6a9be9fb",
+      "context-cnxmod:72169e9d-cba1-4d43-923c-41ae4d01b3cc",
+      "aplo:stax-apphys:3.A.1.1",
+      "aplo:stax-apphys:3.E.1.3"
+    ],
+    "uid": "1823@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 509104,
+        "content_html": "Each captain would describe other boat’s motion the same because motion is independent of reference frame.",
+        "correctness": "0.0",
+        "feedback_html": "Yes, the motion described will be the same but the reason specified is wrong. Motion depends on the frame of reference, as motion is a relative quantity."
+      },
+      {
+        "id": 509105,
+        "content_html": "Each captain will describe other boat’s motion as moving in the backward direction because they are in their own reference frames.",
+        "correctness": "1.0",
+        "feedback_html": "Motion depends on the frame of reference from which it is observed. The person in Boat A and the person in Boat B will see a boat moving past them in the opposite direction."
+      },
+      {
+        "id": 509106,
+        "content_html": "Each captain would describe the boats as moving differently because motion is a relative term.",
+        "correctness": "0.0",
+        "feedback_html": "Motion is a relative term but here both of them (person in Boat A and person in Boat B) observes the same thing, which is a boat moving past them in the opposite direction."
+      },
+      {
+        "id": 509107,
+        "content_html": "Each captain would describe the other boat’s motion perpendicularly because they will perceive them as moving opposite to each other.",
+        "correctness": "0.0",
+        "feedback_html": "The description provided by each person is the same. They both see a boat traveling past them."
+      }
+    ],
+    "group_uuid": "6e5f63ab-3d00-49e0-9bfb-d96c27c91de0",
+    "stem_html": "Two boats are traveling at equal and opposite velocities when they pass each other. How would the captain of each boat describe the motion of the other boat?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo01",
+      "k12phys-ch02-ex014",
+      "time:short",
+      "dok:3",
+      "blooms:4",
+      "exid:k12phys-ch02-ex014",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "type:practice",
+      "context-cnxmod:3639d684-af97-4ad8-9986-2b91609478bf",
+      "context-cnxmod:6fc611ce-ed32-4456-b24c-39612ebc9304",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3",
+      "book:stax-apphys",
+      "science-practice:argumentation"
+    ],
+    "uid": "1824@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 374205,
+        "content_html": "a description of motion depends on the reference frame",
+        "correctness": "1.0",
+        "feedback_html": "The reference frame is the coordinate system from which the position of the moving object is described."
+      },
+      {
+        "id": 374202,
+        "content_html": "motion appears the same in all reference frames",
+        "correctness": "0.0",
+        "feedback_html": "Remember, motion appears different, not the same, in all reference frames."
+      },
+      {
+        "id": 374203,
+        "content_html": "reference frames affect the motion of an object",
+        "correctness": "0.0",
+        "feedback_html": "Reference frames do not have any effect on the physics of an object."
+      },
+      {
+        "id": 374204,
+        "content_html": "you can see motion better from certain reference frames",
+        "correctness": "0.0",
+        "feedback_html": "A certain reference frame does make motion appear simpler, but that is not the sole reason to specify a reference frame."
+      }
+    ],
+    "group_uuid": "9a091ff9-8a3a-4101-bd17-628542dee37b",
+    "stem_html": "Why should you specify a reference frame when describing motion?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo01",
+      "k12phys-ch02-ex017",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "exid:k12phys-ch02-ex017",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:3639d684-af97-4ad8-9986-2b91609478bf",
+      "lo:stax-phys:6-4-1",
+      "context-cnxmod:6fc611ce-ed32-4456-b24c-39612ebc9304",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.B.1.3"
+    ],
+    "uid": "1827@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 516592,
+        "content_html": "130 miles",
+        "correctness": "0.0",
+        "feedback_html": "When calculating displacement, do not forget to consider the direction of motion."
+      },
+      {
+        "id": 516595,
+        "content_html": "30 miles east",
+        "correctness": "1.0",
+        "feedback_html": "The net movement of the biker will be towards the east."
+      },
+      {
+        "id": 516593,
+        "content_html": "30 miles west",
+        "correctness": "0.0",
+        "feedback_html": "The magnitude towards the east is greater than the magnitude towards the west. So the net displacement will be towards the east."
+      },
+      {
+        "id": 516594,
+        "content_html": "Cannot be determined from the information given",
+        "correctness": "0.0",
+        "feedback_html": "Displacement can be easily calculated from the given data as both magnitude and direction are provided in the question."
+      }
+    ],
+    "group_uuid": "b29491ce-c9c4-40d4-8835-4a90b3b7bafc",
+    "stem_html": "If a biker rides west for 50 miles from his starting position, then turns and bikes back east 80 miles. What is his net displacement?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo03",
+      "k12phys-ch02-ex019",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch02-ex019",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:74c34e51-1968-4e5d-b1d3-e5df6a9be9fb",
+      "lo:stax-phys:2-1-4"
+    ],
+    "uid": "1829@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 208785,
+        "content_html": "Displacement of the ball is twice the length of the lane, while the distance is zero.",
+        "correctness": "0.0",
+        "feedback_html": "After covering the path back and forth, the ball cannot have covered zero distance. Recall that displacement is the shortest distance between initial and final point."
+      },
+      {
+        "id": 208786,
+        "content_html": "Displacement of the ball is zero, while the distance is twice the length of the lane.",
+        "correctness": "1.0",
+        "feedback_html": "Displacement is the shortest distance between the initial and final positions, and distance is the total path covered by the ball during its back-and-forth motion."
+      },
+      {
+        "id": 208784,
+        "content_html": "Both the displacement and distance for the ball are equal to zero.",
+        "correctness": "0.0",
+        "feedback_html": "The ball traveled a back-and-forth path in its motion. So the distance can never be zero."
+      },
+      {
+        "id": 208783,
+        "content_html": "Both the displacement and distance for the ball are twice the length of the lane.",
+        "correctness": "0.0",
+        "feedback_html": "The ball reached its initial position after covering a certain path. Rethink about its displacement."
+      }
+    ],
+    "group_uuid": "48886e06-0469-41fc-9693-b74bb391e300",
+    "stem_html": "Maud sends her bowling ball straight down the center of the lane, getting a strike. The ball is brought back to the holder mechanically. What are the ball’s net displacement and distance traveled?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch02",
+      "k12phys-ch02-s01",
+      "k12phys-ch02-s01-lo02",
+      "k12phys-ch02-ex021",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:2-1-3",
+      "exid:k12phys-ch02-ex021",
+      "context-cnxmod:875fb3ef-44b0-4ab7-ba59-c05c22886f71",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:74c34e51-1968-4e5d-b1d3-e5df6a9be9fb",
+      "context-cnxmod:72169e9d-cba1-4d43-923c-41ae4d01b3cc"
+    ],
+    "uid": "1831@4"
+  }
+]

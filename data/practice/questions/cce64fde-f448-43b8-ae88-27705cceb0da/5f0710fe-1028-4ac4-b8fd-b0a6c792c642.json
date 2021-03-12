@@ -1,0 +1,471 @@
+[
+  {
+    "answers": [
+      {
+        "id": 184601,
+        "content_html": "Natural philosophy included all aspects of nature including physics.",
+        "correctness": "1.0",
+        "feedback_html": "Natural philosophy dealt with all aspects of nature by lumping physics with other fields of sciences, such as chemistry and biology. Physics mainly describes the most fundamental aspect of our universe."
+      },
+      {
+        "id": 184598,
+        "content_html": "Natural philosophy included all aspects of nature excluding physics.",
+        "correctness": "0.0",
+        "feedback_html": "Natural philosophy included all aspects of nature, including physics."
+      },
+      {
+        "id": 184599,
+        "content_html": "Natural philosophy and physics are different.",
+        "correctness": "0.0",
+        "feedback_html": "Physics is part of natural philosophy."
+      },
+      {
+        "id": 184600,
+        "content_html": "Natural philosophy and physics are essentially the same thing.",
+        "correctness": "0.0",
+        "feedback_html": "Biology and chemistry are also part of natural philosophy, but not part of physics."
+      }
+    ],
+    "group_uuid": "63a60000-ff6d-4fa7-90e7-fc1d677bb94c",
+    "stem_html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo01",
+      "k12phys-ch01-ex008",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex008",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual"
+    ],
+    "uid": "1663@3"
+  },
+  {
+    "answers": [
+      {
+        "id": 208181,
+        "content_html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
+        "correctness": "0.0",
+        "feedback_html": "This would be chemistry rather than physics."
+      },
+      {
+        "id": 208182,
+        "content_html": "Physics helps in predicting dynamics and movement of weather phenomena.",
+        "correctness": "1.0",
+        "feedback_html": "Physics helps in predicting dynamics and movement of weather phenomenon such as a tornado or rain."
+      },
+      {
+        "id": 208180,
+        "content_html": "Physics helps in predicting the motion of tectonic plates.",
+        "correctness": "0.0",
+        "feedback_html": "This is true, but it is not involved in day to day weather prediction."
+      },
+      {
+        "id": 208179,
+        "content_html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
+        "correctness": "0.0",
+        "feedback_html": "This is true, but its effects are not involved in day-to-day weather prediction."
+      }
+    ],
+    "group_uuid": "b9443b1a-75d6-459b-8509-18fa779451f3",
+    "stem_html": "How could physics be useful in weather prediction?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo03",
+      "concept",
+      "k12phys-ch01-ex010",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex010",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1665@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 374083,
+        "content_html": "It describes how speed affects different observers’ measurements of time and space.",
+        "correctness": "1.0",
+        "feedback_html": "Einstein’s theory of relativity affects the values measured for time intervals and distances from the viewpoints of observers in relative motion to each other."
+      },
+      {
+        "id": 374082,
+        "content_html": "It describes how different parts of the universe are far apart and do not affect each other.",
+        "correctness": "0.0",
+        "feedback_html": "This is not the main content of the theory of relativity."
+      },
+      {
+        "id": 374081,
+        "content_html": "It describes how people think of other people’s views from their own frame of reference.",
+        "correctness": "0.0",
+        "feedback_html": "Physics is not about people’s perceptions of other people’s opinions."
+      },
+      {
+        "id": 374080,
+        "content_html": "It describes how a frame of reference is necessary to describe position or motion.",
+        "correctness": "0.0",
+        "feedback_html": "While that is true, it is not the content of the theory of relativity."
+      }
+    ],
+    "group_uuid": "17516805-09b5-44ff-b5b6-076d876ff574",
+    "stem_html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo01",
+      "k12phys-ch01-ex011",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "dok:4",
+      "lo:stax-phys:28-1-1",
+      "exid:k12phys-ch01-ex011",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:a0aa151b-c104-49a6-a0a7-7d2cb965d23d",
+      "context-cnxmod:9c787d6e-6886-4098-a8cf-5dca13e9d470",
+      "aplo:stax-apphys:1.D.3.1"
+    ],
+    "uid": "1666@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 208194,
+        "content_html": "Physics is involved in structural strength, dimensions, etc., of the room.",
+        "correctness": "1.0",
+        "feedback_html": "Physics explains the dynamics of the building, the space and the dimensions of the room."
+      },
+      {
+        "id": 208193,
+        "content_html": "Physics is involved in the air composition inside the room.",
+        "correctness": "0.0",
+        "feedback_html": "While physics would help explain the flow of air in the room, the chemical composition of the air is dealt with by chemistry."
+      },
+      {
+        "id": 208192,
+        "content_html": "Physics is involved in the desk arrangement inside the room.",
+        "correctness": "0.0",
+        "feedback_html": "The arrangement of items or beautification is a matter of art and personal taste rather than of physics."
+      },
+      {
+        "id": 208191,
+        "content_html": "Physics is involved in the behavior of living beings inside the room.",
+        "correctness": "0.0",
+        "feedback_html": "Social behavior of living beings is not addressed by physics."
+      }
+    ],
+    "group_uuid": "6d03b2f1-5f1f-4ecf-86d2-9c0d29c5e7c6",
+    "stem_html": "What would be some ways in which physics was involved in building the features of the room you are in right now?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo03",
+      "k12phys-ch01-ex013",
+      "time:medium",
+      "blooms:4",
+      "book:stax-phys",
+      "dok:4",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex013",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1668@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 184609,
+        "content_html": "quantum mechanics and Einstein’s theory of relativity",
+        "correctness": "1.0",
+        "feedback_html": "Modern physics is about quantum mechanics and relativity."
+      },
+      {
+        "id": 184606,
+        "content_html": "quantum mechanics and classical physics",
+        "correctness": "0.0",
+        "feedback_html": "Classical physics is not modern physics"
+      },
+      {
+        "id": 184607,
+        "content_html": "Newton’s laws of motion and classical physics",
+        "correctness": "0.0",
+        "feedback_html": "Newton’s laws of motion are part of classical physics, not modern physics."
+      },
+      {
+        "id": 184608,
+        "content_html": "Newton’s laws of motion and Einstein’s theory of relativity",
+        "correctness": "0.0",
+        "feedback_html": "Relativity is a part of modern physics, but Newton’s laws are a part of classical physics."
+      }
+    ],
+    "group_uuid": "dad22ab3-ed46-4406-bdb0-2740b262e582",
+    "stem_html": "Modern physics could best be described as the combination of which theories?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo01",
+      "k12phys-ch01-ex014",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex014",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice"
+    ],
+    "uid": "1669@3"
+  },
+  {
+    "answers": [
+      {
+        "id": 208201,
+        "content_html": "Physics explains how energy passes from one object to another.",
+        "correctness": "0.0",
+        "feedback_html": "The domain of physics is not limited to study of transfer of energy, but it goes beyond it and explains the basics principles behind energy transfer."
+      },
+      {
+        "id": 208200,
+        "content_html": "Physics explains how gravity works.",
+        "correctness": "0.0",
+        "feedback_html": "Physics not only explains how gravity works, but it also explains the fundamental principles behind the causes and effects of the gravity."
+      },
+      {
+        "id": 208199,
+        "content_html": "Physics explains the motion of objects that can be seen with the naked eye.",
+        "correctness": "0.0",
+        "feedback_html": "Physics not only explains the motion of object, but it also explains the cause of motion."
+      },
+      {
+        "id": 208202,
+        "content_html": "Physics explains the fundamental aspects of the universe.",
+        "correctness": "1.0",
+        "feedback_html": "The fundamental laws of nature and the universe are studied under the branch of physics."
+      }
+    ],
+    "group_uuid": "58ea7572-2e15-41dd-9569-329e80722a35",
+    "stem_html": "Which of the following best describes why knowledge of physics is necessary to understand all other sciences?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo03",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch01-ex016",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:1-1-2",
+      "exid:k12phys-ch01-ex016",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:95497188-90c9-4aff-9446-222d4d6f9743",
+      "context-cnxmod:2f8a5d38-00d5-4c53-8df5-01294fb5a764"
+    ],
+    "uid": "1671@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 184613,
+        "content_html": "Physics aims to explain the fundamental aspects of our universe and how these aspects interact with one another.",
+        "correctness": "1.0",
+        "feedback_html": "Physics explains the laws and principles that govern the universe at a fundamental level."
+      },
+      {
+        "id": 184610,
+        "content_html": "Physics aims to explain the biological aspects of our universe and how these aspects interact with one another.",
+        "correctness": "0.0",
+        "feedback_html": "Biological aspects of universe and evolution of biological species are studied under the branch of biology."
+      },
+      {
+        "id": 184611,
+        "content_html": "Physics aims to explain the composition, structure and changes in matter occurring in the universe.",
+        "correctness": "0.0",
+        "feedback_html": "Chemical composition, structure and changes in matter,are studied under the various branches of chemistry."
+      },
+      {
+        "id": 184612,
+        "content_html": "Physics aims to explain the social behavior of living beings in the universe.",
+        "correctness": "0.0",
+        "feedback_html": "Social behavior of a living being is a part of sociology and anthropology."
+      }
+    ],
+    "group_uuid": "3a60b04e-c3a7-4e9b-bc8e-f71554ef5f24",
+    "stem_html": "Describe the aims of physics.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo01",
+      "ost-test-prep",
+      "k12phys-ch01-ex017",
+      "short-answer",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "exid:k12phys-ch01-ex017",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice"
+    ],
+    "uid": "1672@3"
+  },
+  {
+    "answers": [
+      {
+        "id": 274649,
+        "content_html": "Relativistic quantum mechanics unifies quantum mechanics with Einstein’s theory of relativity. The unified theory creates a greater understanding of our universe because it can explain objects of all sizes and masses.",
+        "correctness": "1.0",
+        "feedback_html": "Relativistic quantum mechanics unifies quantum mechanics with Einstein’s theory of relativity. Unifying these theories would create a greater understanding of our universe by explaining how large-scale processes, such as time, space and gravity, relate to very small-scale objects, such as the subatomic particles studied in quantum mechanics."
+      },
+      {
+        "id": 274650,
+        "content_html": "Relativistic quantum mechanics unifies classical mechanics with Einstein’s theory of relativity. The unified theory creates a greater understanding of our universe because it can explain objects of all sizes and masses.",
+        "correctness": "0.0",
+        "feedback_html": "Relativistic quantum mechanics unifies quantum mechanics, not classical mechanics, and Einstein’s theory of relativity."
+      },
+      {
+        "id": 274651,
+        "content_html": "Relativistic quantum mechanics unifies quantum mechanics with Einstein’s theory of relativity. The unified theory creates a greater understanding of our universe because it is unable to explain objects of all sizes and masses.",
+        "correctness": "0.0",
+        "feedback_html": "The unified theory would be able to explain objects of all sizes and masses."
+      },
+      {
+        "id": 274652,
+        "content_html": "Relativistic quantum mechanics unifies classical mechanics with the Einstein’s theory of relativity. The unified theory creates a greater understanding of our universe because it is unable to explain objects of all sizes and masses.",
+        "correctness": "0.0",
+        "feedback_html": "Relativistic quantum mechanics unifies quantum mechanics, not classical mechanics, and Einstein’s theory of relativity."
+      }
+    ],
+    "group_uuid": "cc65debc-10f4-4484-94c5-b62cc21f673f",
+    "stem_html": "Describe what two topics physicists are trying to unify with relativistic quantum mechanics. How will this unification create a greater understanding of our universe?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo02",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-ex019",
+      "dok:2",
+      "blooms:2",
+      "time:medium",
+      "book:stax-phys",
+      "lo:stax-phys:29-1-1",
+      "exid:k12phys-ch01-ex019",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:f78cdc22-37ab-42b8-b0a4-db74a8ae7a3f",
+      "context-cnxmod:cf5fb070-e0c7-4b8e-8241-c0b946450c78"
+    ],
+    "uid": "1674@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 208217,
+        "content_html": "Physics can explain the traffic on a particular street and help us know about the traffic in advance.",
+        "correctness": "0.0",
+        "feedback_html": "Traffic on a particular street is a social factor and does not involve physics. Traffic on a particular route is dependent on the human and social factors."
+      },
+      {
+        "id": 208216,
+        "content_html": "Physics can explain about the ongoing construction of roads on a particular street and help us know about delays in the traffic in advance.",
+        "correctness": "0.0",
+        "feedback_html": "The construction on a particular street is a social factor. The repair or construction on a particular street is dependent on the social and developmental factors."
+      },
+      {
+        "id": 208218,
+        "content_html": "Physics can explain distances, speed limits on a particular street and help us categorize faster routes.",
+        "correctness": "1.0",
+        "feedback_html": "The study of distances, speed limits on a particular street, or the average speed of the car involves physics and helps us categorize faster route."
+      },
+      {
+        "id": 208215,
+        "content_html": "Physics can explain the closing of a particular street and help us categorize faster routes.",
+        "correctness": "0.0",
+        "feedback_html": "The closing of a particular street is a social factor which depends on the social reasoning for the closing of the street and does not involve physics."
+      }
+    ],
+    "group_uuid": "b10c488f-1967-417f-8a9c-23881021983b",
+    "stem_html": "How could knowledge of physics help you find a faster way to drive from your house to your school?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "k12phys-ch01",
+      "k12phys-ch01-s01",
+      "k12phys-ch01-s01-lo03",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch01-ex021",
+      "dok:2",
+      "blooms:4",
+      "time:long",
+      "book:stax-phys",
+      "lo:stax-phys:4-7-2",
+      "exid:k12phys-ch01-ex021",
+      "context-cnxmod:17f6ff53-2d92-4669-acdd-9a958ea7fd0a",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:6b1832d7-c911-4f87-a18e-29e84c54c4e2",
+      "context-cnxmod:c8839816-3545-4281-8551-2eeee05afa78"
+    ],
+    "uid": "1676@4"
+  }
+]

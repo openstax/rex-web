@@ -130,7 +130,7 @@ export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: b
 };
 
 export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled]);
+  React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled, cb]);
 };
 
 export const useMatchMobileQuery = () => {
@@ -190,4 +190,62 @@ export const useOnScrollTopOffset = () => {
   }, [document, listener]);
 
   return topOffset;
+};
+
+// This list is based on the comment from
+// https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus/30753870#30753870
+// and https://allyjs.io/data-tables/focusable.html
+const tabbableElementsSelector = [
+  'a[href]',
+  'area[href]',
+  'audio',
+  'button:not([disabled])',
+  'details',
+  'embed',
+  'iframe',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'summary',
+  'textarea:not([disabled])',
+  'object',
+  // In Firefox elements with overflow: auto / scroll are tabbable if they are scrollable
+  // and ToC is one of these elements so we add `ol` to this list.
+  'ol',
+  'video',
+  '[contentEditable=true]',
+  '[tabindex]',
+].map((el) => el + `:not([tabindex='-1'])`).join(',');
+
+export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
+  if (!isEnabled) { return; }
+  const root = assertDocument().querySelector('#root');
+  if (!root) { return; }
+
+  root.setAttribute('aria-hidden', 'true');
+  const tabbable = root.querySelectorAll(tabbableElementsSelector);
+
+  tabbable.forEach((el) => {
+    const currentTabIndex = el.getAttribute('tabindex');
+    el.setAttribute('tabindex', '-1');
+    if (currentTabIndex) {
+      el.setAttribute('data-prev-tabindex', currentTabIndex);
+    }
+  });
+
+  return () => {
+    root.removeAttribute('aria-hidden');
+    tabbable.forEach((el) => {
+      const prevTabIndex = el.getAttribute('data-prev-tabindex');
+      if (prevTabIndex) {
+        el.setAttribute('tabindex', prevTabIndex);
+        el.removeAttribute('data-prev-tabindex');
+      } else {
+        el.removeAttribute('tabindex');
+      }
+    });
+  };
+};
+
+export const useDisableContentTabbing = (isEnabled: boolean) => {
+  React.useEffect(disableContentTabbingHandler(isEnabled), [isEnabled]);
 };

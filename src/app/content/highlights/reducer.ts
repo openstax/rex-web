@@ -7,8 +7,9 @@ import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
-import { highlightStyles } from '../constants';
+import { highlightStyles, modalQueryParameterName } from '../constants';
 import * as actions from './actions';
+import { modalUrlName } from './constants';
 import { State } from './types';
 import {
   addToTotalCounts,
@@ -18,6 +19,7 @@ import {
   updateSummaryHighlightsDependOnFilters
 } from './utils';
 import { findHighlight } from './utils/reducerUtils';
+import updateSummaryFilters from './utils/updateSummaryFilters';
 
 const defaultColors = highlightStyles.map(({label}) => label);
 export const initialState: State = {
@@ -41,6 +43,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(locationChange): {
       // Noops for locationChange dispatched when search query changes
       if (action.payload.action === 'REPLACE') { return state; }
+
+      const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
+        && action.payload.action === 'PUSH';
+
       const currentPageId = state.currentPage.pageId;
       const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
       return {
@@ -49,7 +55,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           : initialState.currentPage,
         summary: {
           ...state.summary,
-          open: false,
+          open: summaryShouldBeOpen,
         },
       };
     }
@@ -239,6 +245,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
             ...state.summary.filters,
             ...action.payload,
           },
+          highlights: {},
+          loading: true,
+          pagination: null,
+        },
+      };
+    }
+    case getType(actions.updateSummaryFilters): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          filters: updateSummaryFilters(state.summary.filters, action.payload),
           highlights: {},
           loading: true,
           pagination: null,

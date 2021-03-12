@@ -1,0 +1,163 @@
+[
+  {
+    "answers": [
+      {
+        "id": 374733,
+        "content_html": "<span data-math=\"{-0.23}\\,\\text{m/s}^2\">{-0.23}\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "This result does not represent the correct unit of measurement for acceleration."
+      },
+      {
+        "id": 374732,
+        "content_html": "<span data-math=\"{-4.29}\\,\\text{m/s}^2\">{-4.29}\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "Yes, acceleration can be negative, but do you think the car is slowing down? Have you considered the initial and final velocities correctly?"
+      },
+      {
+        "id": 374731,
+        "content_html": "<span data-math=\"0.23\\,\\text{m/s}^2\">0.23\\,\\text{m/s}^2</span>",
+        "correctness": "0.0",
+        "feedback_html": "Is it correct to say that acceleration is time over velocity? Can you recall the definition of acceleration?"
+      },
+      {
+        "id": 374734,
+        "content_html": "<span data-math=\"4.29\\,\\text{m/s}^2\">4.29\\,\\text{m/s}^2</span>",
+        "correctness": "1.0",
+        "feedback_html": "Acceleration is the rate of change of velocity."
+      }
+    ],
+    "group_uuid": "68041200-c89d-4a0c-84ba-a6f7f2493fbf",
+    "stem_html": "A cheetah can accelerate from rest to a speed of <span data-math=\"30.0\\,\\text{m/s}\">30.0\\,\\text{m/s}</span> in <span data-math=\"7.00\\,\\text{s}\">7.00\\,\\text{s}</span>. What is its acceleration?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch03",
+      "k12phys-ch03-s01",
+      "k12phys-ch03-s01-lo02",
+      "k12phys-ch03-ex004",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:2-4-2",
+      "context-cnxmod:6023b87d-5a28-4910-9e51-ee7fd11c98e1",
+      "exid:k12phys-ch03-ex004",
+      "context-cnxmod:95a1573d-0915-4203-8989-913325160855",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:59467866-4818-476c-affa-f56028c78f0c",
+      "context-cnxmod:56871db7-51e9-4504-94d0-9cb833851945",
+      "aplo:stax-apphys:4.A.2.1"
+    ],
+    "uid": "1985@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 516772,
+        "content_html": "(a) Push down on the accelerator and then (b) push down again on the accelerator a second time.",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that when the driver pushes down on the accelerator the velocity and the acceleration vectors will point in same direction but what about both pointing in the opposite direction? Do you think both the vectors will point in the opposite direction if driver pushes down on the accelerator?"
+      },
+      {
+        "id": 516773,
+        "content_html": "(a) Push down on the accelerator and then (b) push down on the brakes.",
+        "correctness": "1.0",
+        "feedback_html": "The acceleration and velocity vectors will point in the same direction when the driver pushes down on the accelerator and they will point in opposite direction when the brakes are applied."
+      },
+      {
+        "id": 516771,
+        "content_html": "(a) Push down on the brakes and then (b) push down on the brakes a second time.",
+        "correctness": "0.0",
+        "feedback_html": "The velocity and acceleration vectors will point in the opposite direction if the brakes are applied."
+      },
+      {
+        "id": 516770,
+        "content_html": "(a) Push down on the brakes and then (b) push down on the accelerator.",
+        "correctness": "0.0",
+        "feedback_html": "Are you sure that velocity and acceleration vectors will point in the same direction when the brakes are applied? Will they point in the opposite direction when the driver pushes down on the accelerator?"
+      }
+    ],
+    "group_uuid": "c7e72889-97e5-4820-90f7-95f1e10a838b",
+    "stem_html": "Imagine that a car is traveling from your left to your right at a constant velocity. Which two actions could the driver take that may be represented as (a) a velocity vector and an acceleration vector both pointing to the right and then (b) changing so the velocity vector points to the right and the acceleration vector points to the left?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch03",
+      "k12phys-ch03-s01",
+      "k12phys-ch03-s01-lo01",
+      "k12phys-ch03-ex012",
+      "time:medium",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "lo:stax-phys:2-6-1",
+      "exid:k12phys-ch03-ex012",
+      "context-cnxmod:95a1573d-0915-4203-8989-913325160855",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:3921ce75-f453-433d-84cc-b50dd486c27d",
+      "aplo:stax-apphys:3.A.1.1"
+    ],
+    "uid": "1993@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 415342,
+        "content_html": "The direction of the initial acceleration vector will point towards the wall, and its magnitude will be less than the acceleration vector of the crash.",
+        "correctness": "1.0",
+        "feedback_html": "The direction of the vector will be given by the direction of the motion. The magnitude is relative to the rate of change."
+      },
+      {
+        "id": 415343,
+        "content_html": "The direction of the initial acceleration vector will point away from the wall, and its magnitude will be less than the vector of the crash.",
+        "correctness": "0.0",
+        "feedback_html": "How can you calculate the direction of a vector?"
+      },
+      {
+        "id": 415344,
+        "content_html": "The direction of the initial acceleration vector will point towards the wall, and its magnitude will be more than the acceleration vector of the crash.",
+        "correctness": "0.0",
+        "feedback_html": "Acceleration is defined as the rate of change of velocity. What do you think is the relation between time and acceleration?"
+      },
+      {
+        "id": 415345,
+        "content_html": "The direction of the initial acceleration vector will point away from the wall, and its magnitude will be more than the acceleration vector of the crash.",
+        "correctness": "0.0",
+        "feedback_html": "The time it takes to reduce the velocity during the crash is much less."
+      }
+    ],
+    "group_uuid": "53735acc-84d7-41ef-98e4-d5f6025e2622",
+    "stem_html": "A test car carrying a crash test dummy accelerates from <span data-math=\"0\">0</span> to <span data-math=\"30\\,\\text{m/s}\">30\\,\\text{m/s}</span> and then crashes into a brick wall. Describe the\ndirection of the initial acceleration vector and compare the initial acceleration vector’s magnitude with respect to the acceleration magnitude at the moment of the crash.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch03",
+      "k12phys-ch03-s01",
+      "k12phys-ch03-s01-lo01",
+      "k12phys-ch03-ex021",
+      "dok:3",
+      "time:long",
+      "blooms:5",
+      "book:stax-phys",
+      "exid:k12phys-ch03-ex021",
+      "context-cnxmod:95a1573d-0915-4203-8989-913325160855",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:59467866-4818-476c-affa-f56028c78f0c",
+      "lo:stax-phys:2-4-1",
+      "context-cnxmod:56871db7-51e9-4504-94d0-9cb833851945",
+      "aplo:stax-apphys:4.A.2.1"
+    ],
+    "uid": "2002@7"
+  }
+]

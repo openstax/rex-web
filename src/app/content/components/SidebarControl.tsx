@@ -1,12 +1,11 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { ListOl } from 'styled-icons/fa-solid/ListOl';
+import TocIcon from '../../../assets/TocIcon';
 import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
-import { assertString } from '../../utils';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import { State } from '../types';
@@ -25,12 +24,6 @@ interface MiddleProps {
   closeToc: () => void;
   hideMobileText: boolean;
 }
-
-// tslint:disable-next-line:variable-name
-const ListIcon = styled(ListOl)`
-  ${toolbarIconStyles};
-  margin-right: 0.5rem;
-`;
 
 // tslint:disable-next-line:variable-name
 export const ToCButtonText = styled.span`
@@ -58,6 +51,11 @@ const ToCButton = styled.button`
   :hover {
     color: ${toolbarIconColor.darker};
   }
+
+  > svg {
+    ${toolbarIconStyles};
+    margin-right: 0.5rem;
+  }
 `;
 
 const closedMessage = 'i18n:toc:toggle:closed';
@@ -65,15 +63,11 @@ const openMessage = 'i18n:toc:toggle:opened';
 
 // tslint:disable-next-line:variable-name
 export const SidebarControl: React.SFC<InnerProps> = ({message, hideMobileText, children, ...props}) =>
-  <FormattedMessage id={message}>
-    {(msg: Element | string) => {
-      const txt = assertString(msg, 'Aria label only supports strings');
-      return <ToCButton aria-label={txt} {...props}>
-        <ListIcon/><ToCButtonText hideMobileText={!!hideMobileText}>Table of contents</ToCButtonText>
-        {children}
-      </ToCButton>;
-    }}
-  </FormattedMessage>;
+  <ToCButton aria-label={useIntl().formatMessage({id: message})} {...props}>
+    <TocIcon />
+    <ToCButtonText hideMobileText={!!hideMobileText}>Table of contents</ToCButtonText>
+    {children}
+  </ToCButton>;
 
 const connector = connect(
   (state: AppState) => ({

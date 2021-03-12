@@ -1,0 +1,161 @@
+[
+  {
+    "answers": [
+      {
+        "id": 391653,
+        "content_html": "Light is always polarized.",
+        "correctness": "0.0",
+        "feedback_html": "Light may or may not be polarized, but that does not affect its wavefront formation, which determines its nonparallel behavior."
+      },
+      {
+        "id": 391654,
+        "content_html": "Light is always reflected.",
+        "correctness": "0.0",
+        "feedback_html": "Light is reflected, but that is not the reason that the beam spreads out."
+      },
+      {
+        "id": 391655,
+        "content_html": "Light is always refracted.",
+        "correctness": "0.0",
+        "feedback_html": "Monochromatic light does not spread out due to refraction."
+      },
+      {
+        "id": 391656,
+        "content_html": "Light is always diffracted.",
+        "correctness": "1.0",
+        "feedback_html": "The beam of light spreads out because of diffraction of its wavefronts."
+      }
+    ],
+    "group_uuid": "b872eaff-f3d8-4e62-9c9b-a81fd23cf432",
+    "stem_html": "A beam of light always spreads out. Why can a beam not be produced with parallel rays to prevent spreading?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:27-3-1",
+      "k12phys-ch17",
+      "k12phys-ch17-s02",
+      "k12phys-ch17-s02-lo01",
+      "k12phys-ch17-ex034",
+      "exid:k12phys-ch17-ex034",
+      "context-cnxmod:c74437f7-d44a-48b6-aa11-6fc7531059f0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:0a9db352-56cc-40a3-a57c-296990f8ac42",
+      "context-cnxmod:e538a857-1730-441e-98c1-45207e2a2a05",
+      "aplo:stax-apphys:6.C.3.1"
+    ],
+    "uid": "11347@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 206621,
+        "content_html": "A diffraction grating is a large collection of evenly spaced parallel lines that produces an interference pattern that is similar to but sharper and better dispersed than that of a double slit.",
+        "correctness": "1.0",
+        "feedback_html": "The lines are evenly spaced and parallel to each other."
+      },
+      {
+        "id": 206620,
+        "content_html": "A diffraction grating is a large collection of randomly spaced parallel lines that produces an interference pattern that is similar to but less sharp or well-dispersed as that of a double slit.",
+        "correctness": "0.0",
+        "feedback_html": "The lines are not randomly spaced, and the pattern is sharper and better dispersed than that of a double slit."
+      },
+      {
+        "id": 206619,
+        "content_html": "A diffraction grating is a large collection of randomly spaced intersecting lines that produces an interference pattern that is similar to but sharper and better dispersed than that of a double slit.",
+        "correctness": "0.0",
+        "feedback_html": "The lines are neither randomly spaced nor intersecting."
+      },
+      {
+        "id": 206618,
+        "content_html": "A diffraction grating is a large collection of evenly spaced intersecting lines that produces an interference pattern that is similar to but less sharp or well-dispersed as that of a double slit.",
+        "correctness": "0.0",
+        "feedback_html": "The lines formed are not intersecting, and the pattern is sharper and better dispersed than that of a double slit."
+      }
+    ],
+    "group_uuid": "7d148f90-19e1-4460-9187-77d46806d901",
+    "stem_html": "Describe a diffraction grating and the interference pattern it produces.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:27-4-1",
+      "k12phys-ch17",
+      "k12phys-ch17-s02",
+      "k12phys-ch17-s02-lo01",
+      "k12phys-ch17-ex041",
+      "exid:k12phys-ch17-ex041",
+      "context-cnxmod:c74437f7-d44a-48b6-aa11-6fc7531059f0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b19892a9-a128-4a8f-8810-0505518daced",
+      "context-cnxmod:8b9cd656-1181-48e7-a9c3-30731b3b8e86"
+    ],
+    "uid": "11363@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 206636,
+        "content_html": "All three interference pattern produce identical bands.",
+        "correctness": "0.0",
+        "feedback_html": "All three interference pattern produce similar bands but not identical bands."
+      },
+      {
+        "id": 206635,
+        "content_html": "A double slit produces the sharpest and most distinct bands.",
+        "correctness": "0.0",
+        "feedback_html": "A diffraction grating produces a sharper set of bands than does a double slit."
+      },
+      {
+        "id": 206634,
+        "content_html": "A single slit produces the sharpest and most distinct bands.",
+        "correctness": "0.0",
+        "feedback_html": "A single slit produces the least distinct bands."
+      },
+      {
+        "id": 206637,
+        "content_html": "The diffraction grating produces the sharpest and most distinct bands.",
+        "correctness": "1.0",
+        "feedback_html": "The interference pattern produced by a diffraction grating is sharpest."
+      }
+    ],
+    "group_uuid": "898f6596-b563-4925-99a7-d1a17474a6c1",
+    "stem_html": "Compare the interference patterns of single-slit diffraction, double-slit diffraction, and a diffraction grating.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "dok:3",
+      "blooms:4",
+      "time:long",
+      "book:stax-phys",
+      "lo:stax-phys:27-4-1",
+      "k12phys-ch17",
+      "k12phys-ch17-s02",
+      "k12phys-ch17-s02-lo01",
+      "k12phys-ch17-ex045",
+      "exid:k12phys-ch17-ex045",
+      "context-cnxmod:c74437f7-d44a-48b6-aa11-6fc7531059f0",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b19892a9-a128-4a8f-8810-0505518daced",
+      "context-cnxmod:8b9cd656-1181-48e7-a9c3-30731b3b8e86"
+    ],
+    "uid": "11367@4"
+  }
+]

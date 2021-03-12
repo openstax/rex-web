@@ -1,0 +1,205 @@
+[
+  {
+    "answers": [
+      {
+        "id": 382357,
+        "content_html": "Either the south pole of magnet 1 is closer to the north pole of magnet 2 or the north pole of magnet 1 is closer to the south pole of magnet 2.",
+        "correctness": "0.0",
+        "feedback_html": "Repulsion always occurs between the same poles of two magnets."
+      },
+      {
+        "id": 382358,
+        "content_html": "Either the south poles of both the magnet 1 and magnet 2 are closer to each other or the north poles of both the magnet 1 and magnet 2 are closer to each other.",
+        "correctness": "1.0",
+        "feedback_html": "The north pole of a magnet is always repelled by the north pole of the other magnet, whereas the south pole of a magnet is always repelled by the south pole of the other magnet."
+      }
+    ],
+    "group_uuid": "4f60ece0-0e19-444c-9ca3-5966e19ecd34",
+    "stem_html": "If two magnets repel each other, what can you conclude about their relative orientation?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch20",
+      "k12phys-ch20-s01",
+      "k12phys-ch20-s01-lo01",
+      "k12phys-ch20-ex011",
+      "lo:stax-phys:22-1-2",
+      "exid:k12phys-ch20-ex011",
+      "context-cnxmod:180e7ee2-fe4a-4d88-96aa-6cbfe8d1abb9",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:962ddd95-e1d0-41bc-8460-53416914502c",
+      "context-cnxmod:ebbd4827-46f5-4e8f-82e9-5b8c44325738",
+      "aplo:stax-apphys:4.E.1.1"
+    ],
+    "uid": "7402@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 382366,
+        "content_html": "The directional lines present inside and outside the magnetic material that indicate the magnitude and direction of the magnetic force.",
+        "correctness": "1.0",
+        "feedback_html": "The field lines flows in a proper direction which indicates the direction of magnetic force and the density of the field lines at a particular region indicates the magnitude of magnetic force at that region."
+      },
+      {
+        "id": 382363,
+        "content_html": "The directional lines present inside and outside the magnetic material that indicate the magnitude of the magnetic force.",
+        "correctness": "0.0",
+        "feedback_html": "Both the magnitude and direction of a magnet can be determined from its field lines."
+      },
+      {
+        "id": 382364,
+        "content_html": "The directional lines present inside the magnetic material that indicate the magnitude and the direction of the magnetic force.",
+        "correctness": "0.0",
+        "feedback_html": "The field lines are also present outside the magnetic material."
+      },
+      {
+        "id": 382365,
+        "content_html": "The directional lines present outside the magnetic material that indicate the magnitude and the direction of the magnetic force.",
+        "correctness": "0.0",
+        "feedback_html": "The field lines are also present inside the magnetic material."
+      }
+    ],
+    "group_uuid": "01edcb33-1a76-4d4c-a244-46415a56e5f8",
+    "stem_html": "What is a magnetic field?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "worked-example",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch20",
+      "k12phys-ch20-s01",
+      "k12phys-ch20-s01-lo02",
+      "k12phys-ch20-ex013",
+      "lo:stax-phys:22-3-1",
+      "exid:k12phys-ch20-ex013",
+      "context-cnxmod:180e7ee2-fe4a-4d88-96aa-6cbfe8d1abb9",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "filter-type:import:has-context",
+      "context-cnxmod:fd949c21-c297-455d-8046-6c9b4c7e9f46",
+      "context-cnxmod:3c462fff-87e8-49fa-8cef-3697efe55cb5",
+      "aplo:stax-apphys:2.D.3.1"
+    ],
+    "uid": "7404@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 382411,
+        "content_html": "Yes, the magnetic fields from the two north poles will point in the same directions.",
+        "correctness": "0.0",
+        "feedback_html": "The magnetic fields from the two north poles will not point in the same direction."
+      },
+      {
+        "id": 382412,
+        "content_html": "Yes, the magnetic fields from the two north poles will point in opposite directions.",
+        "correctness": "0.0",
+        "feedback_html": "This would cause the needle to not be magnetized."
+      },
+      {
+        "id": 382414,
+        "content_html": "No, the magnetic fields from the two north poles will point in opposite directions.",
+        "correctness": "1.0",
+        "feedback_html": "As a result, the magnetic fields will cancel each other out and the needle will not be magnetized."
+      },
+      {
+        "id": 382413,
+        "content_html": "No, the magnetic fields from the two north poles will point in the same directions.",
+        "correctness": "0.0",
+        "feedback_html": "The magnetic fields from the two north poles will not point in the same direction."
+      }
+    ],
+    "group_uuid": "68f95c63-605f-4b0a-b7e1-cb0b21265ef3",
+    "stem_html": "If you place a small needle between the north poles of two bar magnets, will the needle become magnetized?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch20",
+      "k12phys-ch20-s01",
+      "k12phys-ch20-s01-lo01",
+      "k12phys-ch20-ex017",
+      "lo:stax-phys:22-1-2",
+      "exid:k12phys-ch20-ex017",
+      "context-cnxmod:180e7ee2-fe4a-4d88-96aa-6cbfe8d1abb9",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:962ddd95-e1d0-41bc-8460-53416914502c",
+      "context-cnxmod:ebbd4827-46f5-4e8f-82e9-5b8c44325738",
+      "aplo:stax-apphys:4.E.1.1"
+    ],
+    "uid": "7420@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 382459,
+        "content_html": "Magnetize the needle by holding it perpendicular to a bar magnet’s north pole and pierce the cork along its longitudinal axis by the needle and place the needle-cork combination in the water. The needle now orients itself along the magnetic field lines of Earth.",
+        "correctness": "0.0",
+        "feedback_html": "A needle cannot be used as a compass needle when it is magnetized by holding it perpendicular to a bar magnet’s north pole."
+      },
+      {
+        "id": 382460,
+        "content_html": "Magnetize the needle by holding it perpendicular to a bar magnet’s north pole and pierce the cork along its longitudinal axis by the needle and place the needle-cork combination in the water. The needle now orients itself perpendicular to the magnetic field lines of Earth.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, a needle cannot be used as a compass needle when it is magnetized by holding it perpendicular to a bar magnet’s north pole."
+      },
+      {
+        "id": 382462,
+        "content_html": "Magnetize the needle by holding its axis parallel to the axis of a bar magnet and pierce the cork along its longitudinal axis by the needle and place the needle-cork combination in the water. The needle now orients itself along the magnetic field lines of Earth.",
+        "correctness": "1.0",
+        "feedback_html": "This is the correct procedure to construct a compass needle."
+      },
+      {
+        "id": 382461,
+        "content_html": "Magnetize the needle by holding its axis parallel to the axis of a bar magnet and pierce the cork along its longitudinal axis by the needle and place the needle-cork combination in the water. The needle now orients itself perpendicular to the magnetic field lines of Earth.",
+        "correctness": "0.0",
+        "feedback_html": "The procedure is correct but remember the needle will orient itself along the magnetic field lines of Earth."
+      }
+    ],
+    "group_uuid": "f61dd3e3-d755-4540-bdad-01ad2450364b",
+    "stem_html": "Given a bar magnet, a needle, a cork, and a bowl full of water, describe how to make a compass.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch20",
+      "k12phys-ch20-s01",
+      "k12phys-ch20-s01-lo01",
+      "k12phys-ch20-ex024",
+      "lo:stax-phys:22-1-2",
+      "exid:k12phys-ch20-ex024",
+      "context-cnxmod:180e7ee2-fe4a-4d88-96aa-6cbfe8d1abb9",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:962ddd95-e1d0-41bc-8460-53416914502c",
+      "context-cnxmod:ebbd4827-46f5-4e8f-82e9-5b8c44325738",
+      "aplo:stax-apphys:2.D.3.1"
+    ],
+    "uid": "7435@5"
+  }
+]

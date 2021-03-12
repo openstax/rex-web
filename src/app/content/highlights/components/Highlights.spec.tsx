@@ -26,21 +26,18 @@ import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights from './Highlights';
+import { NoHighlightsTip } from './Highlights';
 import ContextMenu from './SummaryPopup/ContextMenu';
 import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';
 import HighlightDeleteWrapper from './SummaryPopup/HighlightDeleteWrapper';
 import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
 
-jest.mock('./SummaryPopup/utils', () => ({
-  ...jest.requireActual('./SummaryPopup/utils'),
-  createHighlightLink: (highlight: Highlight) => `/link/to/highlight/${highlight.id}`,
-}));
-
-const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1' };
-const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl' };
-const hlPink = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl' };
-const hlPurple = { id: 'hl4', color: HighlightColorEnum.Purple, annotation: 'hl' };
-const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow };
+const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1', sourceId: 'testbook1-testpage1-uuid' };
+const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl', sourceId: 'testbook1-testpage1-uuid' };
+const hlPink = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl', sourceId: 'testbook1-testpage1-uuid' };
+const hlPurple = { annotation: 'hl', color: HighlightColorEnum.Purple,
+  id: 'hl4', sourceId: 'testbook1-testpage1-uuid' };
+const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow, sourceId: 'testbook1-testpage1-uuid' };
 
 describe('Highlights', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
@@ -179,7 +176,8 @@ describe('Highlights', () => {
       </MessageProvider>
     </Provider>);
 
-    expect(component.root.findByProps({ id: 'i18n:toolbar:highlights:popup:heading:no-highlights-tip' }))
+    // i'm not sure why this type is wrong
+    expect(component.root.findByType(NoHighlightsTip as any))
       .toBeDefined();
   });
 

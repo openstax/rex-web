@@ -1,0 +1,40 @@
+[
+  {
+    "uuid": "9d368dfe-25ba-4374-ad4f-57a2296c35f1",
+    "stem_html": "<p>True or False: By taking the slope of the curve in the graph you can verify that the velocity of the jet car is <span data-math=\"115\\,\\text{m/s}\">115\\,\\text{m/s}</span> at <span data-math=\"t = 20\\,\\text{s}\">t = 20\\,\\text{s}</span>.</p>\n<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/Ss2Xg59OLfjbgarp-prodtutor/exercises/attachments/large_4d0a47286540a094efd207c623abc29a2ffe36956ca28862af35fca2096a754b.png\" alt=\"A line graph titled Position versus Time is shown. The x-axis is labeled time in seconds with a scale from zero to thirty-five in increments of five. The y-axis is labeled position in meters with a scale from zero to three thousand five hundred in increments of five hundred. Plotted points include zero, two hundred fifty, twenty, one thousand five hundred, and thirty, three thousand. The graphed line curves upward.\"></p>",
+    "id": 103040,
+    "answers": [
+      {
+        "id": 418236,
+        "content_html": "True",
+        "correctness": "1.0",
+        "feedback_html": "The slope of the tangent line drawn at t = 20 s will give the velocity of 115 m/s."
+      },
+      {
+        "id": 418237,
+        "content_html": "False",
+        "correctness": "0.0",
+        "feedback_html": "In a position vs time graph, the slope of tangent line drawn to the curve at a point will give the velocity of the car at that point."
+      }
+    ]
+  },
+  {
+    "uuid": "059f370c-b6c3-4e39-8832-8121e2deefe7",
+    "stem_html": "True or False: The position vs time graph of an object that is speeding up is a straight line.",
+    "id": 91840,
+    "answers": [
+      {
+        "id": 374332,
+        "content_html": "True",
+        "correctness": "0.0",
+        "feedback_html": "Since the object is speeding up, its velocity is continuously increasing and hence the slope of the position vs. time graph will not be constant."
+      },
+      {
+        "id": 374333,
+        "content_html": "False",
+        "correctness": "1.0",
+        "feedback_html": "The graph will not be a straight line as the velocity is not a constant."
+      }
+    ]
+  }
+]

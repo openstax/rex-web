@@ -1,4 +1,4 @@
-import noop from 'lodash/fp/noop';
+import { noop } from 'lodash/fp';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';

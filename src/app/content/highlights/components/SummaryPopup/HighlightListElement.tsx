@@ -3,12 +3,11 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
-import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
+import ContentExcerpt from '../../../components/ContentExcerpt';
 import { highlightStyles } from '../../../constants';
 import { book as bookSelector } from '../../../selectors';
 import { popupBodyPadding } from '../../../styles/PopupStyles';
-import addTargetBlankToLinks from '../../../utils/addTargetBlankToLinks';
 import { requestDeleteHighlight, updateHighlight } from '../../actions';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
@@ -35,16 +34,6 @@ const HighlightOuterWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const HighlightContent = styled.div`
-  ${bodyCopyRegularStyle}
-  overflow: auto;
-
-  * {
-    overflow: initial;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
 export const HighlightContentWrapper = styled.div`
   padding: 1.2rem ${popupBodyPadding}rem;
   ${(props: {color: string}) => {
@@ -57,7 +46,7 @@ export const HighlightContentWrapper = styled.div`
     return css`
       border-left: solid 0.8rem ${style.focused};
 
-      ${HighlightContent} {
+      ${ContentExcerpt} {
         background-color: ${style.passive};
       }
 
@@ -70,7 +59,7 @@ export const HighlightContentWrapper = styled.div`
   @media print {
     break-inside: avoid-page;
 
-    ${HighlightContent} {
+    ${ContentExcerpt} {
       background-color: white;
     }
   }
@@ -143,10 +132,6 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
     trackDeleteHighlight(highlight.color, true);
   };
 
-  const content = React.useMemo(
-    () => addTargetBlankToLinks(highlight.highlightedContent),
-    [highlight.highlightedContent]);
-
   return <HighlightOuterWrapper>
     {!isEditing && <ContextMenu
       highlight={highlight}
@@ -156,10 +141,10 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       onColorChange={updateColor}
     />}
     <HighlightContentWrapper color={highlight.color}>
-      <HighlightContent
-        className='summary-highlight-content'
+      <ContentExcerpt
         data-highlight-id={highlight.id}
-        dangerouslySetInnerHTML={{ __html: content }}
+        content={highlight.highlightedContent}
+        source={highlight.sourceId}
       />
       <HighlightAnnotation
         annotation={highlight.annotation || ''}

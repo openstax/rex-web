@@ -1,3 +1,4 @@
+import { BuyPrintResponse } from '../../gateways/createBuyPrintConfigLoader';
 import { RouteParams, RouteState } from '../navigation/types';
 import { State as HighlightState } from './highlights/types';
 import { State as PracticeQuestionsState } from './practiceQuestions/types';
@@ -5,24 +6,24 @@ import { content } from './routes';
 import { State as SearchState } from './search/types';
 import { State as StudyGuidesState } from './studyGuides/types';
 
-export interface SlugParams {
+export type SlugParams = {
   slug: string;
-}
-interface VersionedSlugParams extends SlugParams {
+};
+type VersionedSlugParams = SlugParams & {
   version: string;
-}
+};
 
-export interface UuidParams {
+export type UuidParams = {
   uuid: string;
-}
-interface VersionedUuidParams extends UuidParams {
+};
+type VersionedUuidParams = UuidParams & {
   version: string;
-}
+};
 
-export interface Params {
+export type Params = {
   book: SlugParams | VersionedSlugParams | VersionedUuidParams;
   page: SlugParams | UuidParams;
-}
+};
 
 export interface State {
   tocOpen: boolean | null;
@@ -37,6 +38,7 @@ export interface State {
   book?: Book;
   page?: Page;
   references: PageReferenceMap[];
+  buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
 }
 
 export interface PageReferenceMap extends PageReference {
@@ -100,6 +102,7 @@ export interface ArchiveBook {
   version: string;
   license: {
     name: string;
+    url: string;
     version: string;
   };
   revised: string;

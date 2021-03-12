@@ -1,12 +1,19 @@
-import { GetHighlightsSummarySourceTypeEnum } from '@openstax/highlighter/dist/api';
-import { ActionHookBody } from '../../../types';
+import { GetHighlightsSummarySourceTypeEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
+import { ActionHookBody, Unpromisify } from '../../../types';
 import { actionHook, assertDefined } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import * as selectContent from '../../selectors';
-import { initializeMyHighlightsSummary, receiveHighlightsTotalCounts, receiveSummaryHighlights } from '../actions';
+import {
+  initializeMyHighlightsSummary,
+  receiveHighlightsTotalCounts,
+  receiveSummaryHighlights,
+  toggleSummaryHighlightsLoading
+} from '../actions';
+import { HighlightPopupLoadError } from '../errors';
 import { highlightLocationFilters } from '../selectors';
 import { extractTotalCounts } from '../utils/paginationUtils';
-import { loadMore } from './loadMore';
+import { loadMore, LoadMoreResponse } from './loadMore';
 
 export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (services) => async() => {
   const { dispatch, getState, highlightClient } = services;
@@ -16,10 +23,17 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
   const book = assertDefined(selectContent.book(state), 'book should be defined');
   const locationFilters = highlightLocationFilters(state);
 
-  const totalCounts = await highlightClient.getHighlightsSummary({
-    scopeId: book.id,
-    sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
-  });
+  let totalCounts: HighlightsSummary;
+
+  try {
+    totalCounts = await highlightClient.getHighlightsSummary({
+      scopeId: book.id,
+      sourceType: GetHighlightsSummarySourceTypeEnum.OpenstaxPage,
+    });
+  } catch (error) {
+    dispatch(toggleSummaryHighlightsLoading(false));
+    throw ensureApplicationErrorType(error, new HighlightPopupLoadError({ destination: 'myHighlights' }));
+  }
 
   const countsPerSource = assertDefined(totalCounts.countsPerSource, 'summary response is invalid');
 
@@ -28,7 +42,17 @@ export const hookBody: ActionHookBody<typeof initializeMyHighlightsSummary> = (s
     locationFilters
   ));
 
-  const {formattedHighlights, pagination} = await loadMore(services, summaryPageSize);
+  let highlights: Unpromisify<LoadMoreResponse>;
+
+  try {
+    highlights = await loadMore(services, summaryPageSize);
+  } catch (error) {
+    dispatch(toggleSummaryHighlightsLoading(false));
+    throw ensureApplicationErrorType(error, new HighlightPopupLoadError({destination: 'myHighlights'}));
+  }
+
+  const {formattedHighlights, pagination} = highlights;
+
   dispatch(receiveSummaryHighlights(formattedHighlights, {pagination}));
 };
 

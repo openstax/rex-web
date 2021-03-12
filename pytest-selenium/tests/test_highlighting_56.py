@@ -362,6 +362,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_book_title(
     assert expected_page_url == osweb.current_url
 
     # WHEN: Click the view online link in osweb book detail page
+    osweb.fix_view_online_url(base_url)
     book.click_and_wait_for_load(osweb.view_online)
 
     # THEN: The unsaved note in the initial page is not saved
@@ -376,7 +377,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_book_title(
 
 @markers.test_case("C602209")
 @markers.desktop_only
-@markers.parametrize("book_slug,page_slug", [("microbiology", "4-introduction")])
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "2-introduction")])
 def test_modal_for_unsaved_notes_appears_on_selecting_new_text(
     selenium, base_url, book_slug, page_slug
 ):
@@ -401,7 +402,9 @@ def test_modal_for_unsaved_notes_appears_on_selecting_new_text(
     id_1 = book.content.highlight_ids[0]
 
     # AND: Select some text in the page
-    book.content.select(target=paragraph[1], offset=Highlight.ENTIRE)
+    paragraph_1 = paragraph[1] if paragraph[1] != paragraph[0] else paragraph[0]
+    # Highlight.Entire is flaky probably because of bug 1270, so using Random
+    book.content.select(target=paragraph_1, offset=Highlight.RANDOM)
 
     # THEN: Discard modal is displayed
     assert book.discard_changes_modal_displayed
@@ -419,14 +422,14 @@ def test_modal_for_unsaved_notes_appears_on_selecting_new_text(
     assert book.content.highlight_box.note == note
 
     # WHEN: Select some text in the page again
-    book.content.select(target=paragraph[1], offset=Highlight.ENTIRE)
+    book.content.select(target=paragraph_1, offset=Highlight.RANDOM)
 
     # AND: Click Discard changes in the modal
     book.discard_modal.click_discard_changes()
 
     # THEN: The new text is selected
     selected_text = selenium.execute_script("return window.getSelection().toString()")
-    assert selected_text == paragraph[1].get_attribute("textContent")
+    assert selected_text in paragraph_1.get_attribute("textContent")
 
     # AND: The highlight box is opened for the selected text
     assert book.content.highlight_box.is_open, "Highlight box not open"

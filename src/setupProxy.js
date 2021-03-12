@@ -17,7 +17,7 @@ const {
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_SEARCH_URL,
   REACT_APP_HIGHLIGHTS_URL,
-  REACT_APP_OS_WEB_API_URL
+  REACT_APP_OS_WEB_API_URL,
 } = require('./config');
 
 const archivePaths = [

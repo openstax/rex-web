@@ -9,6 +9,16 @@ Array [
   >
     Skip to Content
   </a>,
+  <a
+    className="HiddenLink-wwwegq-0 kZsmVR"
+    href={
+      Array [
+        "https://openstax.org/accessibility-statement",
+      ]
+    }
+  >
+    Go to accessibility page
+  </a>,
   <div
     className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
     data-analytics-region="openstax-navbar"
@@ -79,34 +89,34 @@ Array [
             className="Button__ButtonGroup-ayg7nk-1 jzhcUT"
           >
             <button
-              className="Button-ayg7nk-0 cwXHAf"
+              className="Button-ayg7nk-0 bmzHbc"
               onClick={[Function]}
             >
               accept cookies
             </button>
             <button
-              className="Button-ayg7nk-0 cwXHAf"
+              className="Button-ayg7nk-0 bmzHbc"
               data-testid="trigger-updates-available"
               onClick={[Function]}
             >
               update available
             </button>
             <button
-              className="Button-ayg7nk-0 cwXHAf"
+              className="Button-ayg7nk-0 bmzHbc"
               data-testid="trigger-messages"
               onClick={[Function]}
             >
               app messages
             </button>
             <button
-              className="Button-ayg7nk-0 cwXHAf"
+              className="Button-ayg7nk-0 bmzHbc"
               data-testid="trigger-inline-error"
               onClick={[Function]}
             >
               inline error
             </button>
             <button
-              className="Button-ayg7nk-0 cwXHAf"
+              className="Button-ayg7nk-0 bmzHbc"
               data-testid="trigger-modal-error"
               onClick={[Function]}
             >
@@ -188,15 +198,15 @@ Array [
             className="styled__Heading-y5hgq4-8 kYpDrD"
             role="heading"
           >
-            OpenStax is part of Rice University, which is a 501(c)(3) nonprofit charitable corporation.
+            Our mission is to improve educational access and learning for everyone.
           </div>
           <div
             className="styled__Mission-y5hgq4-9 hHuCFj"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
-  It's our mission to give every student the tools they need to be successful in the classroom.
-  Help our cause by <a href=\\"/give\\" target=\\"_blank\\">donating</a> today.
+  OpenStax is part of Rice University, which is a 501(c)(3) nonprofit.
+  <a href=\\"/give\\" target=\\"_blank\\">Give today</a> and help us reach more students.
 ",
               }
             }
@@ -321,7 +331,7 @@ Array [
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
-  <div data-html=\\"copyright\\">© 1999-2020, Rice University. Except where otherwise noted, textbooks on this site
+  <div data-html=\\"copyright\\">© 1999-2021, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href=\\"https://creativecommons.org/licenses/by/4.0/\\" target=\\"_blank\\"
     rel=\\"noreferrer\\">Creative Commons Attribution 4.0 International License</a>.

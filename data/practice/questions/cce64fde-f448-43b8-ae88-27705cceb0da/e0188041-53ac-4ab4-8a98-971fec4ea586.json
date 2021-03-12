@@ -1,0 +1,319 @@
+[
+  {
+    "answers": [
+      {
+        "id": 379525,
+        "content_html": "The mass difference between two objects causes heat transfer.",
+        "correctness": "0.0",
+        "feedback_html": "The mass difference is not responsible for heat transfer."
+      },
+      {
+        "id": 379524,
+        "content_html": "The density difference between two objects causes heat transfer.",
+        "correctness": "0.0",
+        "feedback_html": "Heat does not transfer energy due to the difference in densities between two systems."
+      },
+      {
+        "id": 379526,
+        "content_html": "The temperature difference between two systems causes heat transfer.",
+        "correctness": "1.0",
+        "feedback_html": "The energy is transferred by heat because of the temperature difference between two systems."
+      },
+      {
+        "id": 379523,
+        "content_html": "The pressure difference between two objects causes heat transfer.",
+        "correctness": "0.0",
+        "feedback_html": "The difference in pressure between two systems does not cause energy transfer by heat."
+      }
+    ],
+    "group_uuid": "30229e56-ec83-49e3-8f99-0814482e905d",
+    "stem_html": "What causes heat transfer?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:14-1-1",
+      "k12phys-ch11",
+      "k12phys-ch11-s02",
+      "k12phys-ch11-s02-lo01",
+      "k12phys-ch11-ex026",
+      "exid:k12phys-ch11-ex026",
+      "context-cnxmod:b882c568-f589-42e0-bb5a-3c03e7a71008",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:584c9411-06ea-41cc-b4f9-2d3b2873e844",
+      "context-cnxmod:67ac5679-be66-46a0-a787-286c431316c7",
+      "aplo:stax-apphys:7.B.1.1"
+    ],
+    "uid": "6567@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 379533,
+        "content_html": "conduction, radiation, and reflection",
+        "correctness": "0.0",
+        "feedback_html": "Reflection is not a mode of heat transfer."
+      },
+      {
+        "id": 379532,
+        "content_html": "conduction, reflection, and convection",
+        "correctness": "0.0",
+        "feedback_html": "Energy can be transferred by conduction and convection, but not by reflection."
+      },
+      {
+        "id": 379531,
+        "content_html": "convection, radiation, and reflection",
+        "correctness": "0.0",
+        "feedback_html": "Energy can be transferred by radiation and convection, but not by reflection."
+      },
+      {
+        "id": 379534,
+        "content_html": "conduction, radiation, and convection",
+        "correctness": "1.0",
+        "feedback_html": "Conduction, radiation, and convection are three modes of heat transfer."
+      }
+    ],
+    "group_uuid": "a8849641-35f7-48c3-a1ee-ceb2bd837da0",
+    "stem_html": "What are the different methods of heat transfer?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:14-4-1",
+      "k12phys-ch11",
+      "k12phys-ch11-s02",
+      "k12phys-ch11-s02-lo02",
+      "k12phys-ch11-ex028",
+      "exid:k12phys-ch11-ex028",
+      "context-cnxmod:b882c568-f589-42e0-bb5a-3c03e7a71008",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:40a49f6e-d9d4-4c32-bc84-a4414f1dbd44",
+      "context-cnxmod:f76fb812-b598-42d2-89fc-ca3c2fa35fe9",
+      "aplo:stax-apphys:1.E.3.1"
+    ],
+    "uid": "6569@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 212669,
+        "content_html": "The transfer of energy through emission and absorption of the electromagnetic waves is known as radiation.",
+        "correctness": "1.0",
+        "feedback_html": "Transfer of energy through emission and absorption is called radiation."
+      },
+      {
+        "id": 212668,
+        "content_html": "The transfer of energy without any direct physical contact between any two substances.",
+        "correctness": "0.0",
+        "feedback_html": "While this can by true of heat transfer by radiation, it is not the main defining feature of the process."
+      },
+      {
+        "id": 212667,
+        "content_html": "The transfer of energy through direct physical contact between any two substances.",
+        "correctness": "0.0",
+        "feedback_html": "This is the process of heat transfer by conduction."
+      },
+      {
+        "id": 212666,
+        "content_html": "The transfer of energy by means of the motion of fluids at different temperatures and with different densities.",
+        "correctness": "0.0",
+        "feedback_html": "This is the definition of heat transfer by convection."
+      }
+    ],
+    "group_uuid": "a6e3f5d7-4541-445e-911c-d8416495fb93",
+    "stem_html": "What is radiation?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:14-7-1",
+      "k12phys-ch11",
+      "k12phys-ch11-s02",
+      "k12phys-ch11-s02-lo02",
+      "k12phys-ch11-ex031",
+      "exid:k12phys-ch11-ex031",
+      "context-cnxmod:b882c568-f589-42e0-bb5a-3c03e7a71008",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:698c4a25-4cf4-447e-8ca6-7062ad1440f7"
+    ],
+    "uid": "6580@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 212691,
+        "content_html": "No, the energy of the radiation increases as the temperature increases, and the radiation becomes visible at certain temperatures.",
+        "correctness": "1.0",
+        "feedback_html": "As the energy of the radiation from a blackbody increases, the frequency of the radiation increases until it reaches the frequencies of visible light."
+      },
+      {
+        "id": 212688,
+        "content_html": "Yes, the energy of the radiation decreases as the temperature increases, and the radiation remains invisible at those energies.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that, as the temperature increases, the energy of the radiation increases."
+      },
+      {
+        "id": 212689,
+        "content_html": "No, the energy of the radiation decreases as the temperature increases, until the frequencies of the radiation are the same as those of visible light.",
+        "correctness": "0.0",
+        "feedback_html": "As the temperature of the object increases, the energy and frequency of the radiation emitted by the object increases, so that it eventually emits visible light."
+      },
+      {
+        "id": 212690,
+        "content_html": "Yes, as the temperature increases, and the energy is transferred from the object by other mechanisms besides radiation, so that the energy of the radiation does not increase.",
+        "correctness": "0.0",
+        "feedback_html": "No, other mechanisms are necessary in this process. As the temperature of the object increases, the emitted energy and its frequency increases."
+      }
+    ],
+    "group_uuid": "d24bc081-bd72-4df3-9d57-4c40cd372d02",
+    "stem_html": "If the thermal energy of a perfectly black object is increased by conduction, will the object remain black in appearance? Why or why not?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:14-7-1",
+      "k12phys-ch11",
+      "k12phys-ch11-s02",
+      "k12phys-ch11-s02-lo02",
+      "k12phys-ch11-ex033",
+      "exid:k12phys-ch11-ex033",
+      "context-cnxmod:b882c568-f589-42e0-bb5a-3c03e7a71008",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:698c4a25-4cf4-447e-8ca6-7062ad1440f7"
+    ],
+    "uid": "6586@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 379623,
+        "content_html": "Buoyancy is a downward force exerted by a solid that opposes the weight of an object.",
+        "correctness": "0.0",
+        "feedback_html": "Buoyancy is an upward force. It also is exerted by a fluid on an immersed object, or on a portion of the fluid that is less dense that the surrounding fluid."
+      },
+      {
+        "id": 379625,
+        "content_html": "Buoyancy is a downward force exerted by a fluid that opposes the weight of an immersed object.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that buoyancy is an upward force exerted by a fluid that opposes the weight of an immersed object."
+      },
+      {
+        "id": 379624,
+        "content_html": "Buoyancy is an upward force exerted by a solid that opposes the weight an object.",
+        "correctness": "0.0",
+        "feedback_html": "Buoyancy occurs in fluids, but not in solids."
+      },
+      {
+        "id": 379626,
+        "content_html": "Buoyancy is an upward force exerted by a fluid that opposes the weight of an immersed object.",
+        "correctness": "1.0",
+        "feedback_html": "Yes. Buoyancy is an upward force that opposes the weight of an immersed object in a fluid, or of a portion of the fluid that is less dense than the surrounding fluid."
+      }
+    ],
+    "group_uuid": "0aa23f12-5028-4033-97f0-756240aff6b7",
+    "stem_html": "What is buoyancy?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch11",
+      "k12phys-ch11-s02",
+      "k12phys-ch11-s02-lo02",
+      "k12phys-ch11-ex041",
+      "exid:k12phys-ch11-ex041",
+      "context-cnxmod:b882c568-f589-42e0-bb5a-3c03e7a71008",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:0893943f-9f8b-4fd8-ab21-85dfd7f9ca48",
+      "lo:stax-phys:11-7-1",
+      "context-cnxmod:b682fa00-0e5d-42d4-a08b-f59a19cbcf47",
+      "aplo:stax-apphys:3.C.4.2"
+    ],
+    "uid": "6602@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 517214,
+        "content_html": "Water would reduce the metal’s temperature more, because water has a greater specific heat than ice.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, water would reduce the metal’s temperature more."
+      },
+      {
+        "id": 517211,
+        "content_html": "Water would reduce the metal’s temperature more, because water has a smaller specific heat than ice.",
+        "correctness": "0.0",
+        "feedback_html": "Water has a greater specific heat than ice, so more energy goes into the water for each <span data-math=\"1^\\circ\\,\\text{C}\">1^\\circ\\,\\text{C}</span>\n increase in the water’s temperature, and hence a greater decrease takes place in the temperature of the metal."
+      },
+      {
+        "id": 517212,
+        "content_html": "Ice would reduce the metal’s temperature more, because ice has a smaller specific heat than water.",
+        "correctness": "0.0",
+        "feedback_html": "The smaller specific heat means that ice takes in less energy from the hot metal for each <span data-math=\"1^\\circ\\text{C}\">1^\\circ\\text{C}</span> increase in temperature than does water, and thus the ice cools the metal less efficiently."
+      },
+      {
+        "id": 517213,
+        "content_html": "Ice would reduce the metal’s temperature more, because ice has a greater specific heat than water.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that water has a greater specific heat than ice."
+      }
+    ],
+    "group_uuid": "e635dd20-d509-46fb-b13b-a4838144b4f1",
+    "stem_html": "A hot piece of metal needs to be cooled. If you were to put the metal in ice or in cold water, such that the ice did not melt and the temperature of either changed by the same amount, which would reduce the metal’s temperature more? Why?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "time:medium",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "k12phys-ch11",
+      "k12phys-ch11-s02",
+      "k12phys-ch11-s02-lo01",
+      "k12phys-ch11-ex045",
+      "exid:k12phys-ch11-ex045",
+      "context-cnxmod:b882c568-f589-42e0-bb5a-3c03e7a71008",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "lo:stax-phys:14-2-2",
+      "context-cnxmod:126dc167-76ef-41c9-a03f-4c8b1d0ac7cf",
+      "aplo:stax-apphys:5.B.7.1"
+    ],
+    "uid": "6606@8"
+  }
+]

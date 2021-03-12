@@ -1,0 +1,215 @@
+[
+  {
+    "answers": [
+      {
+        "id": 379381,
+        "content_html": "The thermal energy is the average potential energy of the particles in a system.",
+        "correctness": "0.0",
+        "feedback_html": "Thermal energy is independent of the potential energy of the particles."
+      },
+      {
+        "id": 379382,
+        "content_html": "The thermal energy is the total sum of the potential energies of the particles in a system.",
+        "correctness": "0.0",
+        "feedback_html": "Thermal energy is related to the kinetic energy of the particles."
+      },
+      {
+        "id": 379383,
+        "content_html": "The thermal energy is the average kinetic energy of the particles due to the interaction among the particles in a system.",
+        "correctness": "0.0",
+        "feedback_html": "Thermal energy is related to the motion of the particles in a system."
+      },
+      {
+        "id": 379384,
+        "content_html": "The thermal energy is the average kinetic energy of the particles in a system.",
+        "correctness": "1.0",
+        "feedback_html": "Thermal energy is the average kinetic energy of the particles."
+      }
+    ],
+    "group_uuid": "a22954dc-3613-40be-b370-953a73a0aa87",
+    "stem_html": "What is thermal energy?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch11",
+      "k12phys-ch11-s01",
+      "k12phys-ch11-s01-lo01",
+      "k12phys-ch11-ex006",
+      "exid:k12phys-ch11-ex006",
+      "context-cnxmod:d61a2fdd-8ee1-46fe-a698-c3640159d33c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:c4a34aaa-5c48-4ed3-a41b-1658bd03276c",
+      "lo:stax-phys:13-4-2",
+      "context-cnxmod:954f3359-ec30-425c-962f-0d325de314f1",
+      "aplo:stax-apphys:7.A.2.1"
+    ],
+    "uid": "6531@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 379454,
+        "content_html": "<span data-math=\"1\">1</span> degree Celsius",
+        "correctness": "1.0",
+        "feedback_html": "The temperature difference of <span data-math=\"1\\,\\text{K}\">1\\,\\text{K}</span> is the same as temperature difference of <span data-math=\"1\">1</span> degree Celsius."
+      },
+      {
+        "id": 379453,
+        "content_html": "<span data-math=\"1\">1</span> degree Fahrenheit",
+        "correctness": "0.0",
+        "feedback_html": "A difference of <span data-math=\"1\\,\\text{K}\">1\\,\\text{K}</span> = a difference of <span data-math=\"1.8^\\circ\\text{F}\">1.8^\\circ\\text{F}</span>."
+      },
+      {
+        "id": 379452,
+        "content_html": "<span data-math=\"273.15\">273.15</span> degrees Celsius",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"273.15\">273.15</span> degrees is the measure in kelvins of <span data-math=\"0^\\circ\\text{C}\">0^\\circ\\text{C}</span>."
+      },
+      {
+        "id": 379451,
+        "content_html": "<span data-math=\"273.15\">273.15</span> degrees Fahrenheit",
+        "correctness": "0.0",
+        "feedback_html": "<span data-math=\"273.15\">273.15</span> degrees is the measure in kelvins of <span data-math=\"0^\\circ\\text{C}\">0^\\circ\\text{C}</span>."
+      }
+    ],
+    "group_uuid": "72a5b4ba-3f96-46c5-9a4d-beed373e95ef",
+    "stem_html": "The temperature difference of <span data-math=\"1\\,\\text{K}\">1\\,\\text{K}</span> is the same as",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:13-1-2",
+      "k12phys-ch11",
+      "k12phys-ch11-s01",
+      "k12phys-ch11-s01-lo02",
+      "k12phys-ch11-ex012",
+      "exid:k12phys-ch11-ex012",
+      "context-cnxmod:d61a2fdd-8ee1-46fe-a698-c3640159d33c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33",
+      "context-cnxmod:755b8a47-c7b5-4909-a302-81c9c05568a3",
+      "aplo:stax-apphys:1.A.5.1"
+    ],
+    "uid": "6549@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 517099,
+        "content_html": "The Celsius scale derived on the planet will be the same as that on Earth, because the Celsius scale is independent of the freezing and boiling points of water.",
+        "correctness": "0.0",
+        "feedback_html": "The Celsius scale is derived by using the freezing and boiling point of water. Since these are different from those on Earth, the scale will be different as well."
+      },
+      {
+        "id": 517100,
+        "content_html": "The Celsius scale derived on that planet will not be the same as that on Earth, because the Celsius scale is dependent and derived by using the freezing and boiling points of water.",
+        "correctness": "1.0",
+        "feedback_html": "The boiling point is different on the Earth and the planet. So, the Celsius scale that is derived on the planet will not be same as on the Earth."
+      },
+      {
+        "id": 517098,
+        "content_html": "The Celsius scale derived on the planet will be the same as that on Earth, because the Celsius scale is an absolute temperature scale based on molecular motion, which is independent of pressure.",
+        "correctness": "0.0",
+        "feedback_html": "Although an absolute temperature scale would have the same reference temperature (absolute zero) as on Earth, the Kelvin scale, and not the Celsius scale, is an absolute temperature scale."
+      },
+      {
+        "id": 517097,
+        "content_html": "The Celsius scale derived on the planet will not be the same as that on Earth, but the Fahrenheit scale will be the same, because its reference temperatures are not based on the freezing and boiling points of water.",
+        "correctness": "0.0",
+        "feedback_html": "The Fahrenheit scale uses a chemical mixture for its reference temperature of <span data-math=\"0\">0</span> degrees; the temperature of such a mixture would be affected by atmospheric pressure, and so would not be the same as on Earth."
+      }
+    ],
+    "group_uuid": "5b71f55f-cd8a-41af-9818-731a47d24b95",
+    "stem_html": "A planet’s atmospheric pressure is such that water there boils at a lower temperature than it does at sea level on Earth. If a Celsius scale is derived on this planet, will it be the same as that on Earth?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:13-1-2",
+      "k12phys-ch11",
+      "k12phys-ch11-s01",
+      "k12phys-ch11-s01-lo02",
+      "k12phys-ch11-ex016",
+      "exid:k12phys-ch11-ex016",
+      "context-cnxmod:d61a2fdd-8ee1-46fe-a698-c3640159d33c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33",
+      "aplo:stax-apphys:1.A.5.1"
+    ],
+    "uid": "6553@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 517095,
+        "content_html": "It is the temperature at which the internal energy of the system is maximum, because the speed of its constituent particles increases to maximum at this point.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, at absolute zero, the internal energy of the system of particles approaches zero."
+      },
+      {
+        "id": 517094,
+        "content_html": "It is the temperature at which the internal energy of the system is maximum, because the speed of its constituent particles decreases to zero at this point.",
+        "correctness": "0.0",
+        "feedback_html": "The internal energy of the system approaches zero when its constituent particles become motionless."
+      },
+      {
+        "id": 517093,
+        "content_html": "It is the temperature at which the internal energy of the system approaches zero, because the speed of its constituent particles increases to a maximum at this point.",
+        "correctness": "0.0",
+        "feedback_html": "The internal energy increases with the increase in the speed of the constituent particles of the system."
+      },
+      {
+        "id": 517096,
+        "content_html": "It is that temperature at which the internal energy of the system approaches zero, because the speed of its constituent particles decreases to zero at this point.",
+        "correctness": "1.0",
+        "feedback_html": "At <span data-math=\"0\\,\\text{K}\">0\\,\\text{K}</span>, there is no motion of the constituent particles of the system, which results in zero internal energy of the system."
+      }
+    ],
+    "group_uuid": "c7bd5d66-e09f-429a-b677-fc407ba005dc",
+    "stem_html": "What is the meaning of absolute zero?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "k12phys-ch11",
+      "k12phys-ch11-s01",
+      "k12phys-ch11-s01-lo01",
+      "k12phys-ch11-ex018",
+      "exid:k12phys-ch11-ex018",
+      "context-cnxmod:d61a2fdd-8ee1-46fe-a698-c3640159d33c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:7d4ae38e-8a06-4d3f-bbe2-099ce4b9ab33",
+      "lo:stax-phys:13-1-1",
+      "aplo:stax-apphys:1.A.5.1"
+    ],
+    "uid": "6555@6"
+  }
+]

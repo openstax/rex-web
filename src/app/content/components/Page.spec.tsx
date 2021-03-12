@@ -14,13 +14,13 @@ import mockArchiveLoader, { book, page, shortPage } from '../../../test/mocks/ar
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
-import { resetModules } from '../../../test/utils';
-import SkipToContentWrapper from '../../components/SkipToContentWrapper';
+import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
 import { locationChange, push } from '../../navigation/actions';
 import { addToast } from '../../notifications/actions';
+import { toastMessageKeys } from '../../notifications/components/ToastNotifications/constants';
 import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
@@ -38,6 +38,13 @@ import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
+
+jest.mock('../../../config', () => {
+  const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
+  return {BOOKS: {
+   [mockBook.id]: {defaultVersion: mockBook.version},
+  }};
+});
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
 jest.mock('../../domUtils', () => ({
@@ -62,7 +69,6 @@ describe('Page', () => {
   let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
-    resetModules();
     jest.resetAllMocks();
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
@@ -128,9 +134,9 @@ describe('Page', () => {
       <Provider store={store}>
         <MessageProvider>
           <Services.Provider value={services}>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <ConnectedPage />
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </Services.Provider>
         </MessageProvider>
       </Provider>
@@ -145,13 +151,14 @@ describe('Page', () => {
         ...page,
         content: html,
       }));
+
       const {root} = renderToDom(
         <Provider store={store}>
           <MessageProvider>
             <Services.Provider value={services}>
-              <SkipToContentWrapper>
+              <AccessibilityButtonsWrapper>
                 <ConnectedPage />
-              </SkipToContentWrapper>
+              </AccessibilityButtonsWrapper>
             </Services.Provider>
           </MessageProvider>
         </Provider>
@@ -218,8 +225,8 @@ describe('Page', () => {
     });
 
     it('updates content self closing tags', async() => {
-      expect(await htmlHelper(`<strong data-somethin="asdf"/>asdf<iframe src="someplace"/>`)).toEqual(
-        '<strong data-somethin="asdf"></strong>asdf<iframe src="someplace"></iframe>'
+      expect(await htmlHelper(`<strong data-somethin="asdf"/>asdf<iframe src="/someplace"/>`)).toEqual(
+        '<strong data-somethin="asdf"></strong>asdf<iframe src="/someplace"></iframe>'
       );
     });
 
@@ -1026,7 +1033,9 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    expect(dispatch).toHaveBeenCalledWith(addToast({messageKey: 'i18n:notification:toast:search:highlight-not-found'}));
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'})
+    );
     dispatch.mockClear();
 
     renderer.act(() => {
@@ -1039,7 +1048,9 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
-    expect(dispatch).toHaveBeenCalledWith(addToast({messageKey: 'i18n:notification:toast:search:highlight-not-found'}));
+    expect(dispatch).toHaveBeenCalledWith(
+      addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'})
+    );
 
     highlightResults.mockRestore();
     dateMock.mockRestore();
@@ -1068,7 +1079,7 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(dispatch).toHaveBeenCalledWith(
-      addToast({messageKey: 'i18n:notification:toast:highlights:highlight-not-found'}));
+      addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
     dispatch.mockClear();
 
     const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
@@ -1086,7 +1097,7 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(dispatch).not.toHaveBeenCalledWith(
-      addToast({messageKey: 'i18n:notification:toast:highlights:highlight-not-found'}));
+      addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
 
     dateMock.mockRestore();
   });
@@ -1095,11 +1106,11 @@ describe('Page', () => {
     const element = renderer.create(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1129,11 +1140,11 @@ describe('Page', () => {
     renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1173,11 +1184,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1234,11 +1245,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1269,11 +1280,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1308,11 +1319,11 @@ describe('Page', () => {
     renderer.create(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1341,11 +1352,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1365,11 +1376,11 @@ describe('Page', () => {
     const {tree} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1400,11 +1411,11 @@ describe('Page', () => {
     const component = renderer.create(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>);
 
@@ -1427,11 +1438,11 @@ describe('Page', () => {
       const {root} = renderToDom(
         <Provider store={store}>
           <MessageProvider>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <Services.Provider value={services}>
                 <ConnectedPage />
               </Services.Provider>
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </MessageProvider>
         </Provider>
       );
@@ -1451,11 +1462,11 @@ describe('Page', () => {
       const {root} = renderToDom(
         <Provider store={store}>
           <MessageProvider>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <Services.Provider value={services}>
                 <ConnectedPage />
               </Services.Provider>
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </MessageProvider>
         </Provider>
       );

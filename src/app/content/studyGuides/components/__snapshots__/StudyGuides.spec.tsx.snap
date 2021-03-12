@@ -41,14 +41,14 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl1
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-3 dSbxG"
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 lbsMtc"
           color="blue"
         >
           <div
-            className="summary-highlight-content StudyGuidesListElement__HighlightContent-sc-5qgyda-2 jwHLiF"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
             dangerouslySetInnerHTML={
               Object {
-                "__html": "<a href=\\"link\\" target=\\"_blank\\">Link</a>",
+                "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
               }
             }
             data-highlight-id="hl1"
@@ -64,11 +64,11 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-3 dATmSN"
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 jQASvQ"
           color="green"
         >
           <div
-            className="summary-highlight-content StudyGuidesListElement__HighlightContent-sc-5qgyda-2 jwHLiF"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -87,11 +87,11 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-3 kiJznw"
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 kuhHtd"
           color="pink"
         >
           <div
-            className="summary-highlight-content StudyGuidesListElement__HighlightContent-sc-5qgyda-2 jwHLiF"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -110,11 +110,11 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-3 isUPcu"
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 fMEUWV"
           color="purple"
         >
           <div
-            className="summary-highlight-content StudyGuidesListElement__HighlightContent-sc-5qgyda-2 jwHLiF"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -131,11 +131,11 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
         />
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-3 iZJlhi"
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 cjhgbG"
           color={null}
         >
           <div
-            className="summary-highlight-content StudyGuidesListElement__HighlightContent-sc-5qgyda-2 jwHLiF"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -180,11 +180,11 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl1
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-3 dSbxG"
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 lbsMtc"
           color="blue"
         >
           <div
-            className="summary-highlight-content StudyGuidesListElement__HighlightContent-sc-5qgyda-2 jwHLiF"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -203,11 +203,11 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-3 dATmSN"
+          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 jQASvQ"
           color="green"
         >
           <div
-            className="summary-highlight-content StudyGuidesListElement__HighlightContent-sc-5qgyda-2 jwHLiF"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",

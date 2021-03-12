@@ -1,6 +1,6 @@
 import pathToRegexp from 'path-to-regexp';
 import Loadable from 'react-loadable';
-import { REACT_APP_ARCHIVE_URL } from '../../config';
+import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../../config';
 import { Route } from '../navigation/types';
 import { findPathForParams, getUrlRegexParams, injectParamsToBaseUrl } from '../navigation/utils';
 import { assertDefined } from '../utils';
@@ -14,11 +14,11 @@ const contentPaths = injectParamsToBaseUrl(base, {
   page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
 });
 
-interface State {
+type State = {} | {
   bookUid: string;
   bookVersion: string;
   pageUid: string;
-}
+};
 
 export const content: Route<Params, State> = {
   component: Loadable({
@@ -26,8 +26,8 @@ export const content: Route<Params, State> = {
     loading: () => null,
     modules: ['Content'],
   }),
-  getSearch: (_params: Params): string => REACT_APP_ARCHIVE_URL
-    ? `archive=${REACT_APP_ARCHIVE_URL}`
+  getSearch: (_params: Params): string => REACT_APP_ARCHIVE_URL_OVERRIDE
+    ? `archive=${REACT_APP_ARCHIVE_URL_OVERRIDE}`
     : ''
   ,
   getUrl: (params: Params): string => {

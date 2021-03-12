@@ -1,0 +1,212 @@
+[
+  {
+    "answers": [
+      {
+        "id": 215938,
+        "content_html": "An electric motor transforms electrical energy into mechanical energy.",
+        "correctness": "1.0",
+        "feedback_html": "An electric motor converts electrical energy into mechanical energy."
+      },
+      {
+        "id": 215937,
+        "content_html": "An electric motor transforms mechanical energy into electrical energy.",
+        "correctness": "0.0",
+        "feedback_html": "Mechanical energy is transformed into electrical energy by a generator."
+      },
+      {
+        "id": 215936,
+        "content_html": "An electric motor transforms chemical energy into mechanical energy.",
+        "correctness": "0.0",
+        "feedback_html": "A mechanical engine transforms chemical energy of petrol into mechanical energy."
+      },
+      {
+        "id": 215935,
+        "content_html": "An electric motor transforms mechanical energy into chemical energy.",
+        "correctness": "0.0",
+        "feedback_html": "A generator does not convert mechanical energy into chemical energy."
+      }
+    ],
+    "group_uuid": "e896b73a-6913-4946-acd5-66671e911d8e",
+    "stem_html": "What is an electric motor?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch20",
+      "k12phys-ch20-s03",
+      "k12phys-ch20-s03-lo01",
+      "k12phys-ch20-ex056",
+      "lo:stax-phys:23-1-1",
+      "exid:k12phys-ch20-ex056",
+      "context-cnxmod:41e3d85a-35ee-4888-bad9-541d80bd2928",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:da826210-6bb2-456a-b65d-1c07003cfb62",
+      "context-cnxmod:b942de7c-92ac-4dab-85a3-0b09900a3f43"
+    ],
+    "uid": "7483@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 215945,
+        "content_html": "A step-up transformer decreases the current to transmit power over short distance with minimum loss.",
+        "correctness": "0.0",
+        "feedback_html": "Remember, a step-up transformer increases the voltage to transmit power over long distances with minimum loss."
+      },
+      {
+        "id": 215944,
+        "content_html": "A step-up transformer increases the current to transmit power over short distance with minimum loss.",
+        "correctness": "0.0",
+        "feedback_html": "a step-up transformer increases the voltage to transmit power over long distances with minimum loss"
+      },
+      {
+        "id": 215946,
+        "content_html": "A step-up transformer increases voltage to transmit power over long distance with minimum loss.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, High voltage results in low transmission current thereby minimizing the power lost during transmission."
+      },
+      {
+        "id": 215943,
+        "content_html": "A step-up transformer decreases voltage to transmit power over short distance with minimum loss.",
+        "correctness": "0.0",
+        "feedback_html": "A step-up transformer increases voltage to transmit power over long distance with minimum loss"
+      }
+    ],
+    "group_uuid": "b75a8ae1-77b2-4709-bd36-814788f46550",
+    "stem_html": "What is a step-up transformer?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "k12phys-ch20",
+      "k12phys-ch20-s03",
+      "k12phys-ch20-s03-lo02",
+      "k12phys-ch20-ex058",
+      "lo:stax-phys:23-7-1",
+      "exid:k12phys-ch20-ex058",
+      "context-cnxmod:41e3d85a-35ee-4888-bad9-541d80bd2928",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:b6c3b106-5a2c-4711-aa01-6bacc62e5621",
+      "context-cnxmod:bc5c11a2-e098-41fa-b161-6eb1f50939ce"
+    ],
+    "uid": "7485@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 215996,
+        "content_html": "The peak emf from a generator can be maximized only by maximizing number of turns.",
+        "correctness": "0.0",
+        "feedback_html": "Peak emf from a generator can also be maximized by maximizing area of the wired loop or frequency."
+      },
+      {
+        "id": 215995,
+        "content_html": "The peak emf from a generator can be maximized only by maximizing area of the wired loop.",
+        "correctness": "0.0",
+        "feedback_html": "Peak emf from a generator can also be maximized by maximizing number of turns or frequency."
+      },
+      {
+        "id": 215994,
+        "content_html": "The peak emf from a generator can be maximized only by maximizing frequency.",
+        "correctness": "0.0",
+        "feedback_html": "Peak emf from a generator can also be maximized by maximizing number of turns or area of the wired loop."
+      },
+      {
+        "id": 215997,
+        "content_html": "The peak emf from a generator can be maximized by maximizing number of turns, maximizing area of the wired loop or maximizing frequency.",
+        "correctness": "1.0",
+        "feedback_html": "Yes, any of the three can maximize the peak emf."
+      }
+    ],
+    "group_uuid": "4b260237-f038-4dce-9415-1ad5826c6f40",
+    "stem_html": "How can you maximize the peak emf from a generator?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "time:medium",
+      "dok:3",
+      "blooms:4",
+      "book:stax-phys",
+      "k12phys-ch20",
+      "k12phys-ch20-s03",
+      "k12phys-ch20-s03-lo01",
+      "k12phys-ch20-ex062",
+      "lo:stax-phys:23-7-1",
+      "exid:k12phys-ch20-ex062",
+      "context-cnxmod:41e3d85a-35ee-4888-bad9-541d80bd2928",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:b6c3b106-5a2c-4711-aa01-6bacc62e5621",
+      "context-cnxmod:bc5c11a2-e098-41fa-b161-6eb1f50939ce"
+    ],
+    "uid": "7500@4"
+  },
+  {
+    "answers": [
+      {
+        "id": 216023,
+        "content_html": "The output emf will be doubled.",
+        "correctness": "1.0",
+        "feedback_html": "The emf is proportional to the frequency of rotation of coils"
+      },
+      {
+        "id": 216022,
+        "content_html": "The output emf will be halved.",
+        "correctness": "0.0",
+        "feedback_html": "There is a direct proportionality between the frequency of rotation coils and emf induced in them."
+      },
+      {
+        "id": 216021,
+        "content_html": "The output emf will be quadrupled.",
+        "correctness": "0.0",
+        "feedback_html": "If frequency is doubled then emf will be doubled."
+      },
+      {
+        "id": 216020,
+        "content_html": "The output emf will be tripled.",
+        "correctness": "0.0",
+        "feedback_html": "Emf is directly proportional to the frequency at which the coils rotate."
+      }
+    ],
+    "group_uuid": "1a2e711b-e98c-4b3a-ab28-04ffc733b264",
+    "stem_html": "How is the output emf of a generator affected if you double the frequency of rotation of its coil?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "time:short",
+      "dok:2",
+      "blooms:3",
+      "book:stax-phys",
+      "k12phys-ch20",
+      "k12phys-ch20-s03",
+      "k12phys-ch20-s03-lo01",
+      "k12phys-ch20-ex068",
+      "lo:stax-phys:23-5-1",
+      "exid:k12phys-ch20-ex068",
+      "context-cnxmod:41e3d85a-35ee-4888-bad9-541d80bd2928",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:a7a37214-9827-4d48-8e31-7c644b1ba14d",
+      "context-cnxmod:be294f61-df75-4b3c-9c59-e2e5ab23c843"
+    ],
+    "uid": "7507@4"
+  }
+]

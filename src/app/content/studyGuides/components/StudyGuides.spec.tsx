@@ -22,11 +22,26 @@ import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides, setSummaryFil
 import { studyGuidesLocationFilters } from '../selectors';
 import StudyGuides, { NoStudyGuidesTip } from './StudyGuides';
 
-const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1', highlightedContent: 'content' };
-const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl', highlightedContent: 'content' };
-const hlPink = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl', highlightedContent: 'content' };
-const hlPurple = { id: 'hl4', color: HighlightColorEnum.Purple, annotation: 'hl', highlightedContent: 'content' };
-const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow, highlightedContent: 'content' };
+const hlBlue = {
+  annotation: 'hl1', color: HighlightColorEnum.Blue,
+  highlightedContent: 'content', id: 'hl1', sourceId: 'testbook1-testpage1-uuid',
+};
+const hlGreen = {
+  annotation: 'hl', color: HighlightColorEnum.Green,
+  highlightedContent: 'content', id: 'hl2',  sourceId: 'testbook1-testpage1-uuid',
+};
+const hlPink = {
+  annotation: 'hl', color: HighlightColorEnum.Pink,
+  highlightedContent: 'content', id: 'hl3', sourceId: 'testbook1-testpage1-uuid',
+};
+const hlPurple = {
+  annotation: 'hl', color: HighlightColorEnum.Purple,
+  highlightedContent: 'content', id: 'hl4', sourceId: 'testbook1-testpage1-uuid',
+};
+const hlYellow = {
+  color: HighlightColorEnum.Yellow,
+  highlightedContent: 'content', id: 'hl5', sourceId: 'testbook1-testpage1-uuid',
+};
 
 describe('StudyGuides', () => {
   const book = formatBookData(archiveBook, mockCmsBook);

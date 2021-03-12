@@ -1,13 +1,14 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import ToastNotifications from '.';
+import ToastNotificationsComponent from '.';
 import createTestStore from '../../../../test/createTestStore';
 import { resetModules } from '../../../../test/utils';
 import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
+import { AppState, Store } from '../../../types';
 import { addToast, dismissNotification } from '../../actions';
 import { toastNotifications } from '../../selectors';
+import { toastMessageKeys } from './constants';
 import { BannerBodyWrapper, CloseButton } from './styles';
 import Toast from './Toast';
 
@@ -16,9 +17,15 @@ jest.mock('react', () => {
   return { ...react, useEffect: react.useLayoutEffect };
 });
 
+// tslint:disable-next-line:variable-name
+const ToastNotifications = connect((state: AppState) => ({
+  toasts: toastNotifications(state),
+}))(ToastNotificationsComponent);
+
 describe('ToastNotifications', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
+  const destination = 'page';
 
   beforeEach(() => {
     resetModules();
@@ -45,8 +52,8 @@ describe('ToastNotifications', () => {
       .mockReturnValueOnce(1)
       .mockReturnValueOnce(2);
 
-    store.dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:create-failure'}));
-    store.dispatch(addToast({messageKey: 'i18n:notification:toast:highlights:delete-failure'}));
+    store.dispatch(addToast(toastMessageKeys.higlights.failure.create, {destination}));
+    store.dispatch(addToast(toastMessageKeys.higlights.failure.delete, {destination}));
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -61,7 +68,7 @@ describe('ToastNotifications', () => {
     const firstNotificationMessage = 'i18n:notification:toast:highlights:create-failure';
     const secondNotificationMessage = 'i18n:notification:toast:highlights:delete-failure';
 
-    store.dispatch(addToast({messageKey: firstNotificationMessage}));
+    store.dispatch(addToast(firstNotificationMessage, {destination}));
 
     const {root} = renderer.create(<Provider store={store}>
       <MessageProvider>
@@ -72,7 +79,7 @@ describe('ToastNotifications', () => {
     expect(root.findAllByType(BannerBodyWrapper)).toHaveLength(1);
 
     renderer.act(() => {
-      store.dispatch(addToast({messageKey: secondNotificationMessage}));
+      store.dispatch(addToast(secondNotificationMessage, {destination}));
     });
 
     expect(root.findAllByType(BannerBodyWrapper)).toHaveLength(2);
@@ -105,8 +112,8 @@ describe('ToastNotifications', () => {
       .mockReturnValueOnce(2)
       .mockReturnValueOnce(3);
 
-    const firstNotification = addToast({messageKey: firstNotificationMessage});
-    const secondNotification = addToast({messageKey: secondNotificationMessage});
+    const firstNotification = addToast(firstNotificationMessage, {destination});
+    const secondNotification = addToast(secondNotificationMessage, {destination});
 
     store.dispatch(firstNotification);
     store.dispatch(secondNotification);
@@ -126,7 +133,7 @@ describe('ToastNotifications', () => {
     expect(secondToast.props.positionProps.index).toBe(0);
 
     renderer.act(() => {
-      store.dispatch(addToast({messageKey: firstNotificationMessage}));
+      store.dispatch(addToast(firstNotificationMessage, {destination}));
     });
 
     [firstToast, secondToast] = root.findAllByType(Toast);

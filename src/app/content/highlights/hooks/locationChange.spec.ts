@@ -1,15 +1,15 @@
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import mockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { testAccountsUser } from '../../../../test/mocks/userLoader';
-import { resetModules } from '../../../../test/utils';
 import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
 import { locationChange } from '../../../navigation/actions';
-import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
@@ -29,7 +29,6 @@ describe('locationChange', () => {
   let hook: ReturnType<typeof import ('./locationChange').default>;
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
 
     helpers = {
@@ -74,7 +73,7 @@ describe('locationChange', () => {
     const highlights = [{id: mock.id} as HighlightData];
     store.dispatch(receiveHighlights({highlights, pageId: page.id}));
 
-    hook(locationChange({} as any));
+    hook(locationChange({action: 'PUSH', location: {} as any}));
 
     expect(getHighlights).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
@@ -148,7 +147,9 @@ describe('locationChange', () => {
   });
 
   describe('error handling', () => {
-    it('doesn\'t show a toast if hook ran because of page\'s focus changing', async() => {
+    it('doesn\'t throw HighlightLoadError if hook ran because of page\'s focus changing', async() => {
+      expect.assertions(4);
+
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({...page, references: []}));
       store.dispatch(receiveUser(formatUser(testAccountsUser)));
@@ -158,16 +159,24 @@ describe('locationChange', () => {
       jest.spyOn(helpers.highlightClient, 'getHighlights')
         .mockRejectedValueOnce({});
 
-      await hook(receivePageFocus(true));
-      await hook(receivePageFocus(false));
+      try {
+        await hook(receivePageFocus(true));
+      } catch (error) {
+        expect(error.messageKey).not.toBeDefined();
+        expect(error.meta).not.toBeDefined();
+      }
 
-      expect(dispatch).not.toHaveBeenCalled();
+      try {
+        await hook(receivePageFocus(false));
+      } catch (error) {
+        expect(error.messageKey).not.toBeDefined();
+        expect(error.meta).not.toBeDefined();
+      }
     });
 
-    it('shows a toast on fetch failure', async() => {
-      jest.spyOn(Date, 'now')
-        .mockReturnValue(1);
-
+    it('throws HighlightLoadError', async() => {
+      expect.assertions(2);
+      const error = {} as any;
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({...page, references: []}));
       store.dispatch(receiveUser(formatUser(testAccountsUser)));
@@ -175,13 +184,55 @@ describe('locationChange', () => {
       dispatch.mockClear();
 
       jest.spyOn(helpers.highlightClient, 'getHighlights')
-        .mockRejectedValueOnce({});
+        .mockRejectedValueOnce(error);
 
-      await hook(locationChange({} as any));
+      try {
+        await hook(locationChange({action: 'PUSH', location: {} as any}));
+      } catch (error) {
+        expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.load);
+        expect(error.meta).toEqual({destination: 'page', shouldAutoDismiss: false});
+      }
+    });
 
-      expect(dispatch).toHaveBeenCalledWith(
-        addToast({messageKey: 'i18n:notification:toast:highlights:load-failure', shouldAutoDismiss: false})
-      );
+    it('throws ApplicationError', async() => {
+      expect.assertions(8);
+      const mockCustomApplicationError = new ApplicationError('error');
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({...page, references: []}));
+      store.dispatch(receiveUser(formatUser(testAccountsUser)));
+
+      dispatch.mockClear();
+
+      jest.spyOn(helpers.highlightClient, 'getHighlights')
+        .mockRejectedValue(mockCustomApplicationError);
+
+      try {
+        await hook();
+      } catch (error) {
+        expect(error instanceof ApplicationError).toEqual(true);
+        expect(error.message).toBe(mockCustomApplicationError.message);
+      }
+
+      try {
+        await hook(receivePageFocus(true));
+      } catch (error) {
+        expect(error instanceof ApplicationError).toEqual(true);
+        expect(error.message).toBe(mockCustomApplicationError.message);
+      }
+
+      try {
+        await hook(receivePageFocus(false));
+      } catch (error) {
+        expect(error instanceof ApplicationError).toEqual(true);
+        expect(error.message).toBe(mockCustomApplicationError.message);
+      }
+
+      try {
+        await hook(locationChange({action: 'PUSH', location: {} as any}));
+      } catch (error) {
+        expect(error instanceof ApplicationError).toEqual(true);
+        expect(error.message).toBe(mockCustomApplicationError.message);
+      }
     });
   });
 });

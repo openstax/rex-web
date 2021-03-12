@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
@@ -86,29 +86,39 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-const PrevNextBar = ({book, prevNext}: PropTypes) => prevNext && <BarWrapper data-analytics-region='prev-next'>
-  <FormattedMessage id='i18n:prevnext:prev:aria-label'>
-    {(ariaLabel: Element | string) =>
-    <HidingContentLink side='left' book={book} page={prevNext.prev} aria-label={ariaLabel} data-analytics-label='prev'>
+const PrevNextBar = ({book, prevNext}: PropTypes) => {
+  const { formatMessage } = useIntl();
+
+  if (!prevNext) {
+    return null;
+  }
+
+  return <BarWrapper data-analytics-region='prev-next'>
+    <HidingContentLink side='left'
+      book={book}
+      page={prevNext.prev}
+      aria-label={formatMessage({id: 'i18n:prevnext:prev:aria-label'})}
+      data-analytics-label='prev'
+    >
       <LeftArrow />
       <FormattedMessage id='i18n:prevnext:prev:text'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </HidingContentLink>
-    }
-  </FormattedMessage>
 
-  <FormattedMessage id='i18n:prevnext:next:aria-label'>
-    {(ariaLabel: Element | string) =>
-    <HidingContentLink side='right' book={book} page={prevNext.next} aria-label={ariaLabel} data-analytics-label='next'>
+    <HidingContentLink side='right'
+      book={book}
+      page={prevNext.next}
+      aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
+      data-analytics-label='next'
+    >
       <FormattedMessage id='i18n:prevnext:next:text'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
       <RightArrow />
     </HidingContentLink>
-    }
-  </FormattedMessage>
-</BarWrapper>;
+  </BarWrapper>;
+};
 
 export default connect(
   (state: AppState) => ({

@@ -1,10 +1,13 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
 import { ActionType } from 'typesafe-actions';
+import { closeMyHighlights } from '../content/highlights/actions';
+import { closeStudyGuides } from '../content/studyGuides/actions';
 import { AnyAction } from '../types';
 import * as actions from './actions';
 import { isToastNotification } from './guards';
 import { Message, State } from './types';
+import { compareToasts } from './utils';
 
 export const initialState: State = {
   modalNotifications: [],
@@ -43,7 +46,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         modalNotifications: [...state.modalNotifications, ...processAppMessages(state, action)],
       };
     case getType(actions.addToast): {
-      const sameToast = state.toastNotifications.find((toast) => toast.messageKey === action.payload.messageKey);
+      const sameToast = state.toastNotifications.find((toast) => compareToasts(toast, action.payload));
 
       if (sameToast) {
         return {
@@ -62,15 +65,25 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ],
       };
     }
+    case getType(closeStudyGuides): {
+      return {
+        ...state,
+        toastNotifications: state.toastNotifications.filter((toast) => toast.destination !== 'studyGuides'),
+      };
+    }
+    case getType(closeMyHighlights): {
+      return {
+        ...state,
+        toastNotifications: state.toastNotifications.filter((toast) => toast.destination !== 'myHighlights'),
+      };
+    }
     case getType(actions.dismissNotification): {
       const notificationToDelete = action.payload;
 
       if (isToastNotification(notificationToDelete)) {
         return {
           ...state,
-          toastNotifications: state.toastNotifications.filter((toast) =>
-            toast.messageKey !== notificationToDelete.messageKey
-          ),
+          toastNotifications: state.toastNotifications.filter((toast) => !compareToasts(notificationToDelete, toast)),
         };
       }
 

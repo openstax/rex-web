@@ -1,7 +1,10 @@
 import flow from 'lodash/fp/flow';
+import { closeMyHighlights } from '../content/highlights/actions';
+import { closeStudyGuides } from '../content/studyGuides/actions';
 import * as actions from './actions';
 import reducer, { appMessageType, initialState } from './reducer';
 import { ToastNotification } from './types';
+import { groupToasts } from './utils';
 
 describe('notifications reducer', () => {
   beforeEach(() => {
@@ -87,10 +90,12 @@ describe('notifications reducer', () => {
   });
 
   describe('toast notifications', () => {
+    const destination = 'page';
+
     it('reduces toasts', () => {
       const newState = flow(
-        (state) => reducer(state, actions.addToast({messageKey: 'mytoast'})),
-        (state) => reducer(state, actions.addToast({messageKey: 'myothertoast'}))
+        (state) => reducer(state, actions.addToast('mytoast', {destination})),
+        (state) => reducer(state, actions.addToast('myothertoast', {destination}))
       )(initialState);
 
       expect(newState.modalNotifications).toEqual([]);
@@ -101,7 +106,7 @@ describe('notifications reducer', () => {
     it('refreshes the timestamp if a toast with the same message appears', async() => {
       const mockDate = jest.spyOn(Date, 'now').mockReturnValueOnce(1);
 
-      const newState = reducer(initialState, actions.addToast({messageKey: 'mytoast'}));
+      const newState = reducer(initialState, actions.addToast('mytoast', {destination}));
       const toast = newState.toastNotifications.find((notification) => notification.messageKey === 'mytoast');
 
       if (!toast) {
@@ -110,7 +115,7 @@ describe('notifications reducer', () => {
       mockDate.mockReturnValueOnce(2);
 
       const initialTimestamp = toast.timestamp;
-      const state = reducer(newState, actions.addToast({messageKey: 'mytoast'}));
+      const state = reducer(newState, actions.addToast('mytoast', {destination}));
 
       expect(state.toastNotifications).toContainEqual(expect.objectContaining({messageKey: 'mytoast'}));
       expect(state.toastNotifications.length).toBe(1);
@@ -124,11 +129,11 @@ describe('notifications reducer', () => {
       const toastsOrder = ['mytoast', 'myothertoast', 'myamazingtoast'];
 
       const newState = flow(
-        (state) => reducer(state, actions.addToast({messageKey: 'mytoast'})),
-        (state) => reducer(state, actions.addToast({messageKey: 'myothertoast'})),
-        (state) => reducer(state, actions.addToast({messageKey: 'myamazingtoast'})),
-        (state) => reducer(state, actions.addToast({messageKey: 'mytoast'})),
-        (state) => reducer(state, actions.addToast({messageKey: 'myothertoast'}))
+        (state) => reducer(state, actions.addToast('mytoast', {destination})),
+        (state) => reducer(state, actions.addToast('myothertoast', {destination})),
+        (state) => reducer(state, actions.addToast('myamazingtoast', {destination})),
+        (state) => reducer(state, actions.addToast('mytoast', {destination})),
+        (state) => reducer(state, actions.addToast('myothertoast', {destination}))
       )(initialState);
 
       const [newest] = newState.toastNotifications;
@@ -141,10 +146,39 @@ describe('notifications reducer', () => {
 
       const afterReappearing  = flow(
         (state) => reducer(state, actions.dismissNotification(toastToDismiss)),
-        (state) => reducer(state, actions.addToast({messageKey: toastToDismiss.messageKey}))
+        (state) => reducer(state, actions.addToast(toastToDismiss.messageKey, {destination}))
       )(newState);
 
       expect(afterReappearing.toastNotifications.every(isInOrder(newOrder))).toBe(true);
+    });
+
+    it('closing modal clears its notifications', () => {
+      const newState = flow(
+        (state) => reducer(state, actions.addToast('mytoast', {destination: 'myHighlights'})),
+        (state) => reducer(state, actions.addToast('mytoast2', {destination: 'myHighlights'})),
+        (state) => reducer(state, actions.addToast('myothertoast', {destination: 'studyGuides'}))
+      )(initialState);
+
+      let groupedToasts = groupToasts(newState.toastNotifications);
+
+      expect(groupedToasts.myHighlights)
+        .toContainEqual(expect.objectContaining({messageKey: 'mytoast'}));
+      expect(groupedToasts.myHighlights)
+        .toContainEqual(expect.objectContaining({messageKey: 'mytoast2'}));
+      expect(groupedToasts.studyGuides)
+        .toContainEqual(expect.objectContaining({messageKey: 'myothertoast'}));
+
+      const afterClosingMH = reducer(newState, closeMyHighlights());
+      groupedToasts = groupToasts(afterClosingMH.toastNotifications);
+
+      expect(groupedToasts.myHighlights).toBe(undefined);
+      expect(groupedToasts.studyGuides)
+        .toContainEqual(expect.objectContaining({messageKey: 'myothertoast'}));
+
+      const afterClosingSG = reducer(afterClosingMH, closeStudyGuides());
+      groupedToasts = groupToasts(afterClosingSG.toastNotifications);
+
+      expect(groupedToasts.studyGuides).toBe(undefined);
     });
   });
 });

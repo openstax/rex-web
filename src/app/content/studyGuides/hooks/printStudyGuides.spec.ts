@@ -1,9 +1,15 @@
+import { ApplicationError, ToastMesssageError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { resetModules } from '../../../../test/utils';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { closeStudyGuides, printStudyGuides, receiveSummaryStudyGuides } from '../actions';
+import {
+  closeStudyGuides,
+  printStudyGuides,
+  receiveSummaryStudyGuides,
+  toggleStudyGuidesSummaryLoading
+} from '../actions';
 import { initialState } from '../reducer';
 
 describe('printStudyGuides', () => {
@@ -17,7 +23,8 @@ describe('printStudyGuides', () => {
   let hook: ReturnType<typeof import ('./printStudyGuides').hookBody>;
 
   beforeEach(() => {
-    resetModules();
+    jest.resetAllMocks();
+
     store = createTestStore({
       ...{} as any,
       content: {
@@ -44,23 +51,61 @@ describe('printStudyGuides', () => {
     dispatch = jest.spyOn(helpers, 'dispatch');
 
     calmSpy = jest.spyOn(helpers.promiseCollector, 'calm')
-      .mockImplementation(() => Promise.resolve());
+      .mockReturnValue(Promise.resolve());
+
     loadMore = jest.spyOn(require('./loadMore'), 'loadMore')
       .mockImplementation(async() => ({formattedHighlights}));
 
     hook = (require('./printStudyGuides').hookBody)(helpers);
   });
 
-  it('doesn\'t return a promise', () => {
-    expect(hook(printStudyGuides())).toBe(undefined);
-    expect(loadMore).toHaveBeenCalled();
+  it('throws ApplicationMesssageError', async() => {
+    expect.assertions(3);
+    const error = {} as any;
+    const mockApplicationMesssageError = new ToastMesssageError(
+      toastMessageKeys.studyGuides.failure.popUp.print,
+      { destination: 'studyGuides' });
+
+    loadMore.mockRejectedValueOnce(error);
+
+    try {
+      await hook(printStudyGuides());
+    } catch (error) {
+      expect(dispatch).toBeCalledWith(toggleStudyGuidesSummaryLoading(false));
+      expect(error.messageKey).toBe(mockApplicationMesssageError.messageKey);
+      expect(error.meta).toEqual(mockApplicationMesssageError.meta);
+    }
+  });
+
+  it('throws ApplicationError', async() => {
+    expect.assertions(2);
+    const mockCustomApplicationError = new ApplicationError();
+
+    jest.spyOn(require('./loadMore'), 'loadMore')
+      .mockRejectedValueOnce(mockCustomApplicationError);
+    try {
+      await hook(printStudyGuides());
+    } catch (error) {
+      expect(dispatch).toBeCalledWith(toggleStudyGuidesSummaryLoading(false));
+      expect(error instanceof ApplicationError).toEqual(true);
+    }
   });
 
   it('waits for promiseCollector.calm', async() => {
+    let resolveCalm: undefined | (() => void);
+
+    calmSpy.mockReturnValue(new Promise((resolve) => {
+      resolveCalm = resolve;
+    }));
+
+    if (!resolveCalm) {
+      return expect(resolveCalm).toBeTruthy();
+    }
+
     hook(printStudyGuides());
 
     expect(loadMore).toHaveBeenCalled();
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(formattedHighlights, {
       isStillLoading: true,
@@ -69,22 +114,35 @@ describe('printStudyGuides', () => {
 
     expect(print).not.toHaveBeenCalled();
 
-    expect(calmSpy).toHaveBeenCalled();
-    await Promise.resolve();
+    resolveCalm();
 
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
+
+    expect(dispatch).toBeCalledWith(toggleStudyGuidesSummaryLoading(false));
     expect(print).toHaveBeenCalled();
   });
 
   it('doesn\'t print if study guides modal was closed', async() => {
+    let resolveCalm: undefined | (() => void);
+
+    calmSpy.mockReturnValue(new Promise((resolve) => {
+      resolveCalm = resolve;
+    }));
+
+    if (!resolveCalm) {
+      return expect(resolveCalm).toBeTruthy();
+    }
+
     hook(printStudyGuides());
 
     expect(loadMore).toHaveBeenCalled();
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     store.dispatch(closeStudyGuides());
 
-    expect(calmSpy).toHaveBeenCalled();
-    await Promise.resolve();
+    resolveCalm();
+
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(print).not.toHaveBeenCalled();
   });

@@ -5,12 +5,11 @@ import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
-import { match, not } from '../../../fpUtils';
 import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
-import { SummaryFilters } from '../../highlights/types';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
+import { FiltersChange } from './types';
 
 // tslint:disable-next-line: variable-name
 const ColorLabel = styled.span`
@@ -26,7 +25,7 @@ export interface ColorFilterProps {
   styles: typeof highlightStyles;
   selectedColorFilters: Set<HighlightColorEnum>;
   colorFiltersWithContent: Set<HighlightColorEnum>;
-  setSummaryFilters: (filters: Pick<SummaryFilters, 'colors'>) => void;
+  updateSummaryFilters: (change: FiltersChange<HighlightColorEnum>) => void;
   labelKey: (label: HighlightColorEnum) => string;
 }
 
@@ -37,26 +36,26 @@ const ColorFilter = ({
   styles,
   selectedColorFilters,
   colorFiltersWithContent,
-  setSummaryFilters,
+  updateSummaryFilters,
   labelKey,
 }: ColorFilterProps) => {
 
-  const setSelectedColors = (colors: HighlightColorEnum[]) => {
-    setSummaryFilters({colors});
+  const setSelectedColors = (change: FiltersChange<HighlightColorEnum>) => {
+    updateSummaryFilters(change);
   };
 
   const handleChange = (label: HighlightColorEnum) => {
     if (selectedColorFilters.has(label)) {
-      setSelectedColors([...selectedColorFilters].filter(not(match(label))));
+      setSelectedColors({ remove: [label], new: [] });
     } else {
-      setSelectedColors([...selectedColorFilters, label]);
+      setSelectedColors({ remove: [], new: [label] });
     }
   };
 
   return <div className={className} tabIndex={-1}>
     <AllOrNone
-      onNone={() => setSelectedColors([])}
-      onAll={() => setSelectedColors(Array.from(colorFiltersWithContent))}
+      onNone={() => setSelectedColors({ remove: Array.from(colorFiltersWithContent), new: [] })}
+      onAll={() => setSelectedColors({ remove: [], new: Array.from(colorFiltersWithContent) })}
       disabled={disabled}
     />
     {styles.map((style) => <Checkbox
@@ -68,7 +67,7 @@ const ColorFilter = ({
       <ColorIndicator style={style} size='small'/>
       <ColorLabel>
         <FormattedMessage id={labelKey(style.label)}>
-          {(msg: Element | string) => msg}
+          {(msg) => msg}
         </FormattedMessage>
       </ColorLabel>
     </Checkbox>)}

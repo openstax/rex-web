@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useServices } from '../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
@@ -16,6 +17,7 @@ import * as showLogin from './analyticsEvents/highlighting/showLogin';
 import * as openCloseMH from './analyticsEvents/highlighting/summaryPopup/openClose';
 import * as openNudgeStudyTools from './analyticsEvents/openNudgeStudyTools';
 import * as pageFocus from './analyticsEvents/pageFocus';
+import * as openClosePracticeQuestions from './analyticsEvents/practiceQuestions/openClosePopUp';
 import * as print from './analyticsEvents/print';
 import * as search from './analyticsEvents/search';
 import * as openCloseStudyGuides from './analyticsEvents/studyGuides/openClosePopUp';
@@ -57,6 +59,7 @@ const analytics = {
   editAnnotation: mapEventType(highlightingEditAnnotation),
   editNoteColor: mapEventType(highlightingEditColor),
   openCloseMH: mapEventType(openCloseMH),
+  openClosePracticeQuestions: mapEventType(openClosePracticeQuestions),
   openCloseStudyGuides: mapEventType(openCloseStudyGuides),
   openNudgeStudyTools: mapEventType(openNudgeStudyTools),
   openUTG: mapEventType(openUTG),
@@ -122,5 +125,9 @@ export const useAnalyticsEvent = <T extends keyof typeof analytics>(eventType: T
     (event.track as any)(data, ...args);
   };
 };
+
+const disableAnalyticsCookie = 'ANALYTICS_OPT_OUT';
+
+export const trackingIsDisabled = () => !!Cookies.get(disableAnalyticsCookie);
 
 export default analytics;

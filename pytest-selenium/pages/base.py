@@ -206,7 +206,8 @@ class Page(pypom.Page):
                 raise WebDriverException("Try again")
 
         except WebDriverException:
-            self.driver.switch_to_window(self.driver.window_handles[n])
+            sleep(1.0)
+            self.driver.switch_to.window(self.driver.window_handles[n])
 
     def open_new_tab(self):
         """"Open new browser tab."""
@@ -217,7 +218,7 @@ class Page(pypom.Page):
     def username(self, element):
         """Get the username of a logged in user."""
 
-        return element.get_attribute("textContent")
+        return element.get_attribute("innerText")
 
     def element_in_viewport(self, target: WebElement):
         """verifies if target element is within viewport."""
@@ -245,3 +246,9 @@ class Page(pypom.Page):
                 win_lower_bound >= target_lower_bound,
             )
         )
+
+    def wait_for_service_worker_to_install(self):
+        """Add a delay to give some time for the service workers installation."""
+
+        sleep(3)
+        return None

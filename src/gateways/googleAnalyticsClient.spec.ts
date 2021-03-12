@@ -1,4 +1,5 @@
 import * as Utils from '../app/utils';
+import * as analytics from '../helpers/analytics';
 import { campaignFromQuery, GoogleAnalyticsClient } from './googleAnalyticsClient';
 
 declare const window: Window;
@@ -122,6 +123,20 @@ describe('GoogleAnalyticsClient', () => {
 
         expect(client.getPendingCommands().length).toBe(0);
       });
+
+      it('doens\'t send and flush the commands if trackingIsDisabled is true', async() => {
+        jest.spyOn(analytics, 'trackingIsDisabled').mockReturnValueOnce(true);
+
+        client.trackPageView('/some/path');
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(client.getPendingCommands().length).toBe(1);
+
+        client.setTrackingIds(['foo']);
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
+
+        expect(client.getPendingCommands().length).toBe(1);
+      });
     });
 
     describe('called after tracking IDs set', () => {
@@ -132,6 +147,17 @@ describe('GoogleAnalyticsClient', () => {
         expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/some/path'});
         expect(mockGa).toHaveBeenCalledWith('tbar.set', 'queueTime', 0);
         expect(mockGa).toHaveBeenCalledWith('tbar.send', {hitType: 'pageview', page: '/some/path'});
+      });
+
+      it('doesn\'t send them if trackingIsDisabled is true', async() => {
+        jest.spyOn(analytics, 'trackingIsDisabled').mockReturnValueOnce(true);
+
+        client.setTrackingIds(['foo', 'bar']);
+        client.trackPageView('/some/path');
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
       });
     });
 

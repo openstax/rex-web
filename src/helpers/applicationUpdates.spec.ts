@@ -18,14 +18,14 @@ describe('serviceWorkerNeedsUpdate', () => {
     expect(helpers.serviceWorkerNeedsUpdate(sw)).toBe(false);
   });
 
-  it('says yes', () => {
+  it('says yes to other cases', () => {
     const sw = {} as ServiceWorkerRegistration;
     expect(helpers.serviceWorkerNeedsUpdate(sw)).toBe(true);
   });
 });
 
 describe('findAndInstallServiceWorkerUpdate', () => {
-  it('noops if no update is needed', () => {
+  it('noops if it sw is already waiting', () => {
     const cb = jest.fn();
     const sw = {waiting: {}, update: jest.fn() as ServiceWorkerRegistration['update']} as ServiceWorkerRegistration;
     helpers.findAndInstallServiceWorkerUpdate(sw, cb);
@@ -34,11 +34,41 @@ describe('findAndInstallServiceWorkerUpdate', () => {
     expect(sw.update).not.toHaveBeenCalled();
   });
 
+  it('handles installing sw', async() => {
+    const cb = jest.fn();
+    const update = jest.fn();
+    const addEventListener = jest.fn();
+    const removeEventListener = jest.fn();
+    const serviceWorker = {
+      addEventListener: addEventListener as ServiceWorker['addEventListener'],
+      removeEventListener: removeEventListener as ServiceWorker['removeEventListener'],
+      state: 'installing',
+    };
+    const sw = {
+      installing: serviceWorker,
+      update: update as ServiceWorkerRegistration['update'],
+    };
+
+    let stateChangeHandler: () => void = () => null;
+    addEventListener.mockImplementation((_event, handler) => stateChangeHandler = handler);
+
+    helpers.findAndInstallServiceWorkerUpdate(sw as ServiceWorkerRegistration, cb);
+
+    expect(addEventListener).toHaveBeenCalledWith('statechange', expect.anything());
+
+    serviceWorker.state = 'installed';
+    stateChangeHandler();
+
+    expect(removeEventListener).toHaveBeenCalledWith('statechange', stateChangeHandler);
+    expect(cb).toHaveBeenCalled();
+    expect(sw.update).not.toHaveBeenCalled();
+  });
+
   it('handles update error', async() => {
     const cb = jest.fn();
     const update = jest.fn();
     const sw = {update: update as ServiceWorkerRegistration['update']} as ServiceWorkerRegistration;
-    const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => null);
+    const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
 
     let failUpdate: (e: Error) => void = () => null;
     update.mockReturnValue(new Promise((_resolve, reject) => failUpdate = reject));
@@ -48,7 +78,7 @@ describe('findAndInstallServiceWorkerUpdate', () => {
     const error = new Error('asdfasdf');
     failUpdate(error);
 
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(cb).toHaveBeenCalled();
     expect(sw.update).toHaveBeenCalled();

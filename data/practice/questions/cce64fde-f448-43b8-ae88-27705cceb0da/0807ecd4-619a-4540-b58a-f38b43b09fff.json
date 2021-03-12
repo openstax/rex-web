@@ -1,0 +1,375 @@
+[
+  {
+    "answers": [
+      {
+        "id": 376372,
+        "content_html": "<span data-math=\"\\frac{1}{144}\\,\\text{N-m}\">\\frac{1}{144}\\,\\text{N-m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The torque produced by the person is <span data-math=\"\\tau = rF\\sin \\theta\">\\tau = rF\\sin \\theta</span>. It is incorrect that <span data-math=\"\\tau = \\frac{r\\sin\\theta }{F^2}\\!\">\\tau = \\frac{r\\sin\\theta }{F^2}\\!</span>."
+      },
+      {
+        "id": 376371,
+        "content_html": "<span data-math=\"\\frac{1}{12}\\,\\text{N-m}\">\\frac{1}{12}\\,\\text{N-m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "It is incorrect that <span data-math=\"\\tau = \\frac{r\\sin\\theta}{F}\">\\tau = \\frac{r\\sin\\theta}{F}</span> . The torque produced by the person is <span data-math=\"\\tau = rF\\!\\sin\\theta\">\\tau = rF\\!\\sin\\theta</span>."
+      },
+      {
+        "id": 376373,
+        "content_html": "<span data-math=\"12\\,\\text{N-m}\">12\\,\\text{N-m}</span>",
+        "correctness": "1.0",
+        "feedback_html": "The torque produced by the person is <span data-math=\"\\tau = rF\\sin\\theta\">\\tau = rF\\sin\\theta</span>."
+      },
+      {
+        "id": 376370,
+        "content_html": "<span data-math=\"144\\,\\text{N-m}\">144\\,\\text{N-m}</span>",
+        "correctness": "0.0",
+        "feedback_html": "The torque produced by the person is directly proportional to the applied force. The torque produced is <span data-math=\"\\tau = rF\\sin \\theta\">\\tau = rF\\sin \\theta</span> It is incorrect that <span data-math=\"\\tau = r F^2 \\sin\\theta\">\\tau = r F^2 \\sin\\theta</span>."
+      }
+    ],
+    "group_uuid": "53a30083-9223-46cd-b720-565bd08cbd41",
+    "stem_html": "How much torque does a person produce if he applies a <span data-math=\"12\\,\\text{N}\">12\\,\\text{N}</span> force <span data-math=\"1.0\\,\\text{m}\">1.0\\,\\text{m}</span> away from the pivot point, perpendicularly to the lever arm?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch06",
+      "k12phys-ch06-s03",
+      "k12phys-ch06-s03-lo03",
+      "k12phys-ch06-ex064",
+      "dok:1",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex064",
+      "context-cnxmod:8d08196a-2a03-4ab9-981b-fbc0d4239ad4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:68822020-6b21-44a5-b553-c7500036c370",
+      "lo:stax-phys:10-3-2",
+      "context-cnxmod:0857d897-d418-456a-bb95-4263bfc4f956",
+      "aplo:stax-apphys:4.D.1.1",
+      "aplo:stax-apphys:4.D.1.2",
+      "aplo:stax-apphys:4.D.3.1"
+    ],
+    "uid": "2473@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 376380,
+        "content_html": "Angular acceleration is the rate of change of the angular displacement.",
+        "correctness": "0.0",
+        "feedback_html": "The rate of change of angular displacement is angular velocity. "
+      },
+      {
+        "id": 376381,
+        "content_html": "Angular acceleration is the rate of change of the angular velocity.",
+        "correctness": "1.0",
+        "feedback_html": "The angular acceleration is the rate of change of the angular velocity."
+      },
+      {
+        "id": 376379,
+        "content_html": "Angular acceleration is the rate of change of the linear displacement.",
+        "correctness": "0.0",
+        "feedback_html": "Angular acceleration is a rotational quantity whereas the linear displacement is not. "
+      },
+      {
+        "id": 376378,
+        "content_html": "Angular acceleration is the rate of change of the linear velocity.",
+        "correctness": "0.0",
+        "feedback_html": "Angular acceleration is a rotational quantity whereas linear velocity is not. "
+      }
+    ],
+    "group_uuid": "70ad0bb8-0e08-449c-890e-13bb09771c84",
+    "stem_html": "What is angular acceleration?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch06",
+      "k12phys-ch06-s03",
+      "k12phys-ch06-s03-lo01",
+      "k12phys-ch06-ex066",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex066",
+      "context-cnxmod:8d08196a-2a03-4ab9-981b-fbc0d4239ad4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:316775f2-8777-474c-b787-e64ea38cb026",
+      "lo:stax-phys:6-1-1",
+      "context-cnxmod:33836eec-f196-4963-a304-2949346b26d4",
+      "aplo:stax-apphys:3.A.2.1",
+      "aplo:stax-apphys:3.F.2.1",
+      "aplo:stax-apphys:4.D.1.1"
+    ],
+    "uid": "2475@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 376389,
+        "content_html": "It is the rotational equivalent of a force.",
+        "correctness": "1.0",
+        "feedback_html": "Torque is the turning effectiveness of the applied force."
+      },
+      {
+        "id": 376388,
+        "content_html": "It is the force that affects linear motion.",
+        "correctness": "0.0",
+        "feedback_html": "Torque is a rotational quantity. It is the turning effectiveness of the applied force."
+      },
+      {
+        "id": 376387,
+        "content_html": "It is the rotational equivalent of acceleration.",
+        "correctness": "0.0",
+        "feedback_html": "Torque is the rotational equivalent of force. Acceleration in rotational mechanics is called angular acceleration."
+      },
+      {
+        "id": 376386,
+        "content_html": "It is the acceleration that affects linear motion.",
+        "correctness": "0.0",
+        "feedback_html": "Torque is not acceleration. Torque is the rotational equivalent of force."
+      }
+    ],
+    "group_uuid": "3369bfb2-fc0e-4245-9150-84b8363043c1",
+    "stem_html": "Which of the following best describes torque?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch06",
+      "k12phys-ch06-s03",
+      "k12phys-ch06-s03-lo02",
+      "k12phys-ch06-ex068",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex068",
+      "context-cnxmod:8d08196a-2a03-4ab9-981b-fbc0d4239ad4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:68822020-6b21-44a5-b553-c7500036c370",
+      "lo:stax-phys:10-3-2",
+      "context-cnxmod:0857d897-d418-456a-bb95-4263bfc4f956",
+      "aplo:stax-apphys:4.D.3.1"
+    ],
+    "uid": "2477@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 376409,
+        "content_html": "It increases, because the torque is directly proportional to the mass of the body.",
+        "correctness": "1.0",
+        "feedback_html": "If the mass of the body increases, the torque must increase because the torque is directly proportional to the mass of the body. The torque acting on a body is <span data-math=\"\\tau = rF\\sin\\!\\theta\">\\tau = rF\\sin\\!\\theta</span> or <span data-math=\"\\tau = rma\\sin \\theta\">\\tau = rma\\sin \\theta</span> because <span data-math=\"F = ma\">F = ma</span>."
+      },
+      {
+        "id": 376408,
+        "content_html": "It increases because the torque is inversely proportional to the mass of the body.",
+        "correctness": "0.0",
+        "feedback_html": "The torque is not inversely proportional to the mass of the body. The torque acting on a body is <span data-math=\"\\tau = rF\\!\\sin\\theta\">\\tau = rF\\!\\sin\\theta</span>, which can be rewritten as <span data-math=\"\\tau = rma\\sin\\theta\">\\tau = rma\\sin\\theta</span> because <span data-math=\"F = ma\">F = ma</span>."
+      },
+      {
+        "id": 376407,
+        "content_html": "It decreases because the torque is directly proportional to the mass of the body.",
+        "correctness": "0.0",
+        "feedback_html": "The torque acting on a body is <span data-math=\"\\tau = rF\\!\\sin\\theta\">\\tau = rF\\!\\sin\\theta</span>. It can be rewritten as <span data-math=\"\\tau = rma\\sin \\theta\">\\tau = rma\\sin \\theta</span> because <span data-math=\"F = ma\">F = ma</span>, so the torque must increase if the mass increases."
+      },
+      {
+        "id": 376406,
+        "content_html": "It decreases, because the torque is inversely proportional to the mass of the body.",
+        "correctness": "0.0",
+        "feedback_html": "The torque acting on a body must be directly proportional to the mass of the body. The torque acting on a body is <span data-math=\"\\tau = rF\\!\\sin\\theta\">\\tau = rF\\!\\sin\\theta</span>, which can be rewritten as <span data-math=\"\\tau = rma\\sin\\theta\">\\tau = rma\\sin\\theta</span> because <span data-math=\"F = ma\">F = ma</span>."
+      }
+    ],
+    "group_uuid": "68f89d76-64bd-4c61-9391-729eb67856be",
+    "stem_html": "A person tries to lift a stone by using a lever. If the lever arm is constant and the mass of the stone increases, what is true of the torque necessary to lift it?",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "critical-thinking",
+      "k12phys",
+      "k12phys-ch06",
+      "k12phys-ch06-s03",
+      "k12phys-ch06-s03-lo02",
+      "k12phys-ch06-ex073",
+      "time:short",
+      "blooms:2",
+      "dok:3",
+      "book:stax-phys",
+      "lo:stax-phys:9-2-2",
+      "exid:k12phys-ch06-ex073",
+      "context-cnxmod:8d08196a-2a03-4ab9-981b-fbc0d4239ad4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:45686d1b-cb36-4318-badd-6d4c4425c4e4",
+      "context-cnxmod:7af43edb-9762-4cb1-9e40-6a8e93e7917d",
+      "aplo:stax-apphys:3.F.1.4",
+      "aplo:stax-apphys:3.F.1.5"
+    ],
+    "uid": "2482@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 376425,
+        "content_html": "Angular velocity is zero.",
+        "correctness": "0.0",
+        "feedback_html": "The net torque will be zero and so angular velocity is constant."
+      },
+      {
+        "id": 376426,
+        "content_html": "Angular acceleration is zero.",
+        "correctness": "1.0",
+        "feedback_html": "Angular acceleration is zero when net torque acting on the system is zero."
+      }
+    ],
+    "group_uuid": "06ce89fc-f2ae-42e8-9679-10d2410c2f82",
+    "stem_html": "What happens when two torques act equally in opposite directions?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "multiple-choice",
+      "k12phys-ch06",
+      "k12phys-ch06-s03",
+      "k12phys-ch06-s03-lo03",
+      "k12phys-ch06-ex078",
+      "dok:1",
+      "time:short",
+      "blooms:2",
+      "book:stax-phys",
+      "lo:stax-phys:10-3-3",
+      "exid:k12phys-ch06-ex078",
+      "context-cnxmod:8d08196a-2a03-4ab9-981b-fbc0d4239ad4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:68822020-6b21-44a5-b553-c7500036c370",
+      "context-cnxmod:0857d897-d418-456a-bb95-4263bfc4f956",
+      "aplo:stax-apphys:4.D.1.1",
+      "aplo:stax-apphys:4.D.1.2",
+      "aplo:stax-apphys:4.D.3.1"
+    ],
+    "uid": "2487@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 376442,
+        "content_html": "By applying the force at different points of the lever arm along the length of the lever or by changing the angle between the lever arm and the applied force.",
+        "correctness": "1.0",
+        "feedback_html": "The torque is defined as the product of the radial vector, the applied force, and the sine of the angle between them. Therefore, different torque can be produced for the same force by applying the force at different points of the lever arm along the length of the lever or by changing the angle between the lever arm and the applied force."
+      },
+      {
+        "id": 376441,
+        "content_html": "By applying the force at the same point of the lever arm along the length of the lever or by changing the angle between the lever arm and the applied force.",
+        "correctness": "0.0",
+        "feedback_html": "The torque remains the same when the force is applied at the same point of lever."
+      },
+      {
+        "id": 376440,
+        "content_html": "By applying the force at different points of the lever arm along the length of the lever or by maintaining the same angle between the lever arm and the applied force.",
+        "correctness": "0.0",
+        "feedback_html": "The torque does not change when the angle between the radial vector and the applied force is same."
+      },
+      {
+        "id": 376439,
+        "content_html": "By applying the force at the same point of the lever arm along the length of the lever or by maintaining the same angle between the lever arm and the applied force.",
+        "correctness": "0.0",
+        "feedback_html": "The torque changes with the change in the length of the radial vector or with the change in the angle between the radial vector and the applied force."
+      }
+    ],
+    "group_uuid": "34460c83-80d3-4de3-83f2-66759cdf8c51",
+    "stem_html": "How can the same force applied to a lever produce different torques?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch06",
+      "k12phys-ch06-s03",
+      "k12phys-ch06-s03-lo03",
+      "k12phys-ch06-ex083",
+      "blooms:1",
+      "time:short",
+      "dok:2",
+      "book:stax-phys",
+      "exid:k12phys-ch06-ex083",
+      "context-cnxmod:8d08196a-2a03-4ab9-981b-fbc0d4239ad4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:68822020-6b21-44a5-b553-c7500036c370",
+      "lo:stax-phys:10-3-2",
+      "context-cnxmod:0857d897-d418-456a-bb95-4263bfc4f956",
+      "aplo:stax-apphys:4.D.1.1",
+      "aplo:stax-apphys:4.D.1.2",
+      "aplo:stax-apphys:4.D.3.1"
+    ],
+    "uid": "2492@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 376443,
+        "content_html": "The force should be applied perpendicularly to the lever arm as close as possible from the pivot point.",
+        "correctness": "0.0",
+        "feedback_html": "Remember that torque is directly proportional to the distance from the point of application of force to the pivot."
+      },
+      {
+        "id": 376446,
+        "content_html": "The force should be applied perpendicularly to the lever arm as far as possible from the pivot point.",
+        "correctness": "1.0",
+        "feedback_html": "Since the applied force is the same, torque can be increased by increasing the distance from the point of application of the force to the pivot."
+      },
+      {
+        "id": 376444,
+        "content_html": "The force should be applied parallel to the lever arm as far as possible from the pivot point.",
+        "correctness": "0.0",
+        "feedback_html": "If force is parallel to the lever arm, then torque will be zero."
+      },
+      {
+        "id": 376445,
+        "content_html": "The force should be applied parallel to the lever arm as close as possible from the pivot point.",
+        "correctness": "0.0",
+        "feedback_html": "When the force is parallel to the lever arm, the angle made by the force will be zero and the torque will be zero."
+      }
+    ],
+    "group_uuid": "bbe33bbd-f59a-4e5e-b290-1074830ef02a",
+    "stem_html": "How can you maximize the torque applied to a given lever arm without applying more force?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "extended-response",
+      "k12phys-ch06",
+      "k12phys-ch06-s03",
+      "k12phys-ch06-s03-lo02",
+      "k12phys-ch06-ex085",
+      "time:short",
+      "dok:3",
+      "blooms:5",
+      "book:stax-phys",
+      "lo:stax-phys:9-2-2",
+      "exid:k12phys-ch06-ex085",
+      "context-cnxmod:8d08196a-2a03-4ab9-981b-fbc0d4239ad4",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:45686d1b-cb36-4318-badd-6d4c4425c4e4",
+      "context-cnxmod:7af43edb-9762-4cb1-9e40-6a8e93e7917d",
+      "aplo:stax-apphys:3.F.1.4",
+      "aplo:stax-apphys:3.F.1.5"
+    ],
+    "uid": "2494@5"
+  }
+]

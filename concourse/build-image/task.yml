@@ -4,6 +4,8 @@ platform: linux
 image_resource:
   type: registry-image
   source:
+    password: ((dockerhub-password))
+    username: ((dockerhub-username))
     repository: vito/oci-build-task
     tag: master
 

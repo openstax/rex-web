@@ -17,6 +17,8 @@ export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
   return event;
 };
 
+export const Severity = Sentry.Severity;
+
 export default {
 
   initializeWithMiddleware(): Middleware {
@@ -24,7 +26,7 @@ export default {
       Sentry.init({
         beforeSend: onBeforeSend(store),
         dist: config.RELEASE_ID,
-        dsn: 'https://84d2036467d546038347f0ac9ccd8b3b:c815982d89764df583493a60794e54aa@sentry.cnx.org/17',
+        dsn: 'https://d2a5f17c9d8f40369446ea0cfaf21e73@o484761.ingest.sentry.io/5538506',
         environment: config.DEPLOYED_ENV,
         integrations: [
           new Integrations.ExtraErrorData(),
@@ -32,6 +34,7 @@ export default {
           new Integrations.Dedupe(),
         ],
         release: `rex@${config.RELEASE_ID}`,
+        tracesSampleRate: 0.1,
       });
       IS_INITIALIZED = true;
 
@@ -47,12 +50,32 @@ export default {
     return typeof(window) !== 'undefined' && config.SENTRY_ENABLED;
   },
 
-  captureException(error: any) {
-    if (this.isEnabled) {
-      Sentry.captureException(error);
-    } else if (!this.shouldCollectErrors) {
-      console.error(error); // tslint:disable-line:no-console
+  captureException(error: any, level: Sentry.Severity = Severity.Error) {
+    let eventId: string | undefined;
+
+    if (!error) {
+      return;
     }
+
+    if (this.isEnabled) {
+      Sentry.withScope((scope) => {
+        scope.setLevel(level);
+        eventId = Sentry.captureException(error);
+      });
+    } else if (!this.shouldCollectErrors) {
+      switch (level) {
+        case 'info':
+          console.info(error instanceof Error ? error.message : error); // tslint:disable-line:no-console
+          break;
+        case 'warning':
+          console.warn(error instanceof Error ? error.message : error); // tslint:disable-line:no-console
+          break;
+        default:
+          console.error(error); // tslint:disable-line:no-console
+      }
+    }
+
+    return eventId;
   },
 
   captureMessage(message: string, level: Sentry.Severity) {
@@ -62,15 +85,15 @@ export default {
   },
 
   log(message: string) {
-    this.captureMessage(message, Sentry.Severity.Log);
+    this.captureMessage(message, Severity.Log);
   },
 
   warn(message: string) {
-    this.captureMessage(message, Sentry.Severity.Warning);
+    this.captureMessage(message, Severity.Warning);
   },
 
   error(message: string) {
-    this.captureMessage(message, Sentry.Severity.Error);
+    this.captureMessage(message, Severity.Error);
   },
 
 };

@@ -340,29 +340,23 @@ class Content(Page):
             self.offscreen_click(self.attribution_link)
             self.page.attribution.wait_for_region_to_display()
 
+        def click_book_url(self):
+            self.offscreen_click(self.find_element(*self._book_url_locator))
+
     class BookBanner(Region):
 
         _root_locator = (By.CSS_SELECTOR, '[data-testid="bookbanner"]')
 
         _book_title_locator = (By.CSS_SELECTOR, "div > a")
-        _chapter_section_locator = (By.CSS_SELECTOR, "div > h1 > span.os-number")
-        _chapter_title_locator = (By.CSS_SELECTOR, "div > h1 > span.os-text")
+        _section_title_locator = (By.CSS_SELECTOR, "div > h1")
 
         @property
         def book_title(self) -> WebElement:
             return self.find_element(*self._book_title_locator)
 
         @property
-        def chapter_title(self) -> str:
-            return self.find_element(*self._chapter_title_locator).text
-
-        @property
-        def chapter_section(self) -> Union[str, None]:
-            # The section isn't always included on the page so we return None
-            try:
-                return self.find_element(*self._chapter_section_locator).text
-            except NoSuchElementException:
-                return None
+        def section_title(self) -> str:
+            return self.find_element(*self._section_title_locator).text
 
     class Content(Region):
         """The main content for the book section."""
@@ -397,6 +391,29 @@ class Content(Page):
             ":not([data-bullet-style]):not([type]), "
             "p[id^='eip'], p[id^='import-auto']",
         )  # Phys
+        _page_error_locator = (By.CSS_SELECTOR, "[class*=PageNotFoundWrapper]")
+        _page_error_toc_button_locator = (By.CSS_SELECTOR, "[data-testid = toc-button]")
+
+        @property
+        def page_error_displayed(self) -> bool:
+            """Return true if rex 404 error is displayed"""
+            try:
+                return bool(self.wait.until(lambda _: self.find_element(*self._page_error_locator)))
+            except TimeoutException:
+                return False
+
+        @property
+        def page_error(self):
+            """Return the rex 404 error text"""
+            return self.find_element(*self._page_error_locator).get_attribute("textContent")
+
+        @property
+        def page_error_toc_button(self) -> WebElement:
+            return self.find_element(*self._page_error_toc_button_locator)
+
+        def click_page_error_toc_button(self):
+            """Click the TOC icon in the rex 404 error page"""
+            return Utilities.click_option(self.driver, element=self.page_error_toc_button)
 
         @property
         def captions(self) -> List[WebElement]:
@@ -757,6 +774,7 @@ class Content(Page):
             color: Union[Color, None] = Color.YELLOW,
             note: str = "",
             close_box: bool = True,
+            tries: int = 5
         ):
             """Highlight a page element.
 
@@ -774,11 +792,14 @@ class Content(Page):
                 default: no note
             :param close_box: (optional) close the edit highlight pop up box
                 default: ``True``
+            :param tries: (optional) the number of highlight attempts
+                default: 5
             :type target: WebElement
             :type offset: tuple(int, int), int
             :type color: :py:class:`~utils.utility.Color` or None
             :type note: str
-            :type: close_box: bool
+            :type close_box: bool
+            :type tries: int
             :return: None
 
             """
@@ -888,7 +909,10 @@ class Content(Page):
             if target.tag_name == "img" or target.tag_name == "figure":
                 end = (width * 0.75, 3)
             elif offset == Highlight.ENTIRE:
-                end = (width - 1, height - 1)
+                end = (
+                    width - 1,
+                    height - 1 if height - 1 > start[1] else start[1] + 1
+                )
             elif offset == Highlight.RANDOM:
                 end = (randint(10, max(10, width)), randint(20, max(20, height)))
             elif isinstance(offset, tuple) and len(offset) == 2:
@@ -1479,12 +1503,47 @@ class Content(Page):
             return self.page
 
     class MobileSearchToolbar(Region):
-
         _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
+        _back_to_results_locator = (By.CSS_SELECTOR, "[data-testid='back-to-search-results']")
+        _close_search_results_locator = (By.CSS_SELECTOR, "[data-testid='close-search-results']")
+        _search_textbox_x_locator = (By.CSS_SELECTOR, "[data-testid='mobile-clear-search']")
 
         @property
         def search_textbox(self) -> WebElement:
+            """Return the search textbox in mobile view."""
             return self.find_element(*self._search_textbox_mobile_locator)
+
+        @property
+        def search_term_displayed_in_search_textbox(self):
+            """Return the search term displayed in search textbox in mobile view."""
+            return self.search_textbox.get_attribute("value")
+
+        @property
+        def back_to_results(self):
+            """Return the back to search results link in mobile view."""
+            return self.find_element(*self._back_to_results_locator)
+
+        @property
+        def close_search_results(self):
+            """Return the close search results link in mobile view."""
+            return self.find_element(*self._close_search_results_locator)
+
+        @property
+        def search_textbox_x(self):
+            """Return the X in search textbox, mobile view."""
+            return self.find_element(*self._search_textbox_x_locator)
+
+        def click_back_to_search_results_button(self):
+            """Clicks the back to search results link in mobile view."""
+            Utilities.click_option(self.driver, element=self.back_to_results)
+
+        def click_close_search_results_link(self):
+            """Clicks the close search results link in mobile view."""
+            Utilities.click_option(self.driver, element=self.close_search_results)
+
+        def click_search_textbox_x(self):
+            """Clicks the X in search textbox, mobile view."""
+            Utilities.click_option(self.driver, element=self.search_textbox_x)
 
         def search_for(self, search_term: str) -> SearchSidebar:
             """Search for a term/query in mobile resolution.
@@ -1502,7 +1561,7 @@ class Content(Page):
             self.search_textbox.send_keys(search_term)
             self.offscreen_click(self.search_textbox)
             self.page.search_sidebar.wait_for_region_to_display()
-            sleep(0.25)
+            sleep(1.0)
             return self.page.search_sidebar
 
     class NavBar(Region):
@@ -1721,6 +1780,7 @@ class Content(Page):
         _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
         _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
         _toc_toggle_button_locator = (By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
+        _search_textbox_x_locator = (By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
 
         _my_highlights_selector = "[data-testid=highlights-popup-wrapper]"
 
@@ -1735,11 +1795,23 @@ class Content(Page):
 
         @property
         def search_button_mobile(self) -> WebElement:
+            """Return the search icon in mobile view."""
             return self.find_element(*self._search_button_mobile_locator)
 
         @property
         def search_textbox(self) -> WebElement:
+            """Return the search textbox in desktop view."""
             return self.find_element(*self._search_textbox_desktop_locator)
+
+        @property
+        def search_textbox_x(self) -> WebElement:
+            """Return the search textbox X in desktop view."""
+            return self.find_element(*self._search_textbox_x_locator)
+
+        @property
+        def search_term_displayed_in_search_textbox(self):
+            """Return the search term in desktop view."""
+            return self.search_textbox.get_attribute("value")
 
         @property
         def toc_toggle_button(self) -> WebElement:
@@ -1749,7 +1821,12 @@ class Content(Page):
             """Clicks the search icon in mobile view."""
             self.offscreen_click(self.search_button_mobile)
 
+        def click_search_textbox_x(self) -> WebElement:
+            """Clicks the X in search textbox, desktop view."""
+            return self.offscreen_click(self.search_textbox_x)
+
         def click_toc_toggle_button(self) -> Content.SideBar:
+            """Clicks the TOC toggle button."""
             self.offscreen_click(self.toc_toggle_button)
             return self.page.sidebar.wait_for_region_to_display()
 
@@ -1781,5 +1858,5 @@ class Content(Page):
             self.search_textbox.send_keys(search_term)
             self.offscreen_click(self.search_button)
             self.page.search_sidebar.wait_for_region_to_display()
-            sleep(0.25)
+            sleep(1.0)
             return self.page.search_sidebar

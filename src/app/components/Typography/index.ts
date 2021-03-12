@@ -10,7 +10,7 @@ export const disabledStyle = css`
   opacity: 0.4;
 `;
 
-const linkColor = '#027EB5';
+export const linkColor = '#027EB5';
 export const linkHover = '#0064A0';
 export const linkStyle = css`
   color: ${linkColor};

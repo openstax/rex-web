@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyScreen for practice questions renders properly and dispatches action on click 1`] = `
+<div
+  className="EmptyScreen__StyledEmptyScreen-sc-1mb50p9-0 beNCBf"
+>
+  <span
+    className="EmptyScreen__StyledText-sc-1mb50p9-1 gHduYp"
+  >
+    There are no questions for this chapter/section.
+  </span>
+  <div
+    className="NextSectionMessage__StyledNextSectionMessage-qtwzgn-0 gTWiOh"
+  >
+    <div
+      className="NextSectionMessage__StyledMessage-qtwzgn-1 TEURJ"
+    >
+      <span
+        className="NextSectionMessage__StyledMessageText-qtwzgn-2 iCtbqd"
+      >
+        Select a section from the dropdown above or continue to 
+      </span>
+      <span
+        className="NextSectionMessage__StyledSectionTitle-qtwzgn-3 cmlWLO"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "some title",
+          }
+        }
+      />
+    </div>
+    <button
+      className="Button-ayg7nk-0 crGJLq"
+      data-analytics-label="Continue (Empty Screen)"
+      onClick={[Function]}
+    >
+      Continue
+    </button>
+  </div>
+</div>
+`;

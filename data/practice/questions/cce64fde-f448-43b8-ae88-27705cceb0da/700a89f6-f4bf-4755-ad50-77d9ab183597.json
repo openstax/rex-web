@@ -1,0 +1,223 @@
+[
+  {
+    "answers": [
+      {
+        "id": 377405,
+        "content_html": "<span data-math=\"0\\,\\text{J}\">0\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Remember that when force and displacement are non-zero, the work done will be zero only when force and displacement are acting in perpendicular directions."
+      },
+      {
+        "id": 377406,
+        "content_html": "<span data-math=\"100\\,\\text{J}\">100\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "Recall the definition of work done. Work done is not the ratio of force applied and displacement."
+      },
+      {
+        "id": 377407,
+        "content_html": "<span data-math=\"200\\,\\text{J}\">200\\,\\text{J}</span>",
+        "correctness": "0.0",
+        "feedback_html": "This would have been the work done if the height was <span data-math=\"1\\,\\text{m}\">1\\,\\text{m}</span>."
+      },
+      {
+        "id": 377408,
+        "content_html": "<span data-math=\"400\\,\\text{J}\">400\\,\\text{J}</span>",
+        "correctness": "1.0",
+        "feedback_html": "Work done is defined as the product of force and displacement."
+      }
+    ],
+    "group_uuid": "79f0f0ea-2e4c-4087-aa23-ca263172a419",
+    "stem_html": "How much work is done when a weightlifter lifts a <span data-math=\"200\\,\\text{N}\">200\\,\\text{N}</span> barbell from the floor to a height of <span data-math=\"2\\,\\text{m}\">2\\,\\text{m}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-problems",
+      "k12phys-ch09",
+      "k12phys-ch09-s01",
+      "k12phys-ch09-s01-lo02",
+      "k12phys-ch09-ex004",
+      "dok:1",
+      "time:short",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:7-1-1",
+      "exid:k12phys-ch09-ex004",
+      "context-cnxmod:57fca8d4-daf0-4f43-a9a4-ac831005a64c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:beab5b21-3260-46fa-9c85-684a9f73184c",
+      "context-cnxmod:b41a6a7a-5fa2-4400-b07e-a507e0529003",
+      "aplo:stax-apphys:3.E.1.3",
+      "aplo:stax-apphys:3.E.1.4",
+      "aplo:stax-apphys:5.B.5.5"
+    ],
+    "uid": "2755@5"
+  },
+  {
+    "answers": [
+      {
+        "id": 377415,
+        "content_html": "work and force",
+        "correctness": "0.0",
+        "feedback_html": "It is correct that work is expressed in joules. Review what unit is used to express force."
+      },
+      {
+        "id": 377414,
+        "content_html": "energy and weight",
+        "correctness": "0.0",
+        "feedback_html": "Yes, energy is expressed in the units of joules. Review what unit is used to express weight."
+      },
+      {
+        "id": 377416,
+        "content_html": "work and energy",
+        "correctness": "1.0",
+        "feedback_html": "Work and energy are expressed in joules."
+      },
+      {
+        "id": 377413,
+        "content_html": "weight and force",
+        "correctness": "0.0",
+        "feedback_html": "Weight and force both have the same units, but that unit is not joules. Weight and force are expressed in Newtons."
+      }
+    ],
+    "group_uuid": "5f04de20-dc6b-4896-8da0-b1d136693142",
+    "stem_html": "Identify two properties that are expressed in units of joules.",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "os-practice-concepts",
+      "k12phys-ch09",
+      "k12phys-ch09-s01",
+      "k12phys-ch09-s01-lo01",
+      "k12phys-ch09-ex006",
+      "dok:1",
+      "blooms:1",
+      "time:short",
+      "book:stax-phys",
+      "lo:stax-phys:7-2-2",
+      "exid:k12phys-ch09-ex006",
+      "context-cnxmod:57fca8d4-daf0-4f43-a9a4-ac831005a64c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual-or-recall",
+      "context-cnxmod:9a772436-b150-40c2-8316-8a4ade7a17d8",
+      "context-cnxmod:5035aeb8-8f6d-46e7-9552-55d5ea593368",
+      "aplo:stax-apphys:3.E.1.3",
+      "aplo:stax-apphys:3.E.1.1",
+      "aplo:stax-apphys:3.E.1.2"
+    ],
+    "uid": "2757@6"
+  },
+  {
+    "answers": [
+      {
+        "id": 377424,
+        "content_html": "No, because the work-energy theorem states that work done on an object is equal to the change in kinetic energy, and change in KE requires a change in velocity. It is assumed that mass is constant.",
+        "correctness": "1.0",
+        "feedback_html": "It is not possible for the kinetic energy of an object to change without work having been done on the object. The work-energy theorem states that work done on an object is equal to the change in kinetic energy."
+      },
+      {
+        "id": 377423,
+        "content_html": "No, because the work-energy theorem states that work done on an object is equal to the sum of kinetic energy, and the change in KE requires a change in displacement. It is assumed that mass is constant.",
+        "correctness": "0.0",
+        "feedback_html": "Work done on an object is not the sum of kinetic energies."
+      },
+      {
+        "id": 377422,
+        "content_html": "Yes, because the work-energy theorem states that work done on an object is equal to the change in kinetic energy, and change in KE requires a change in velocity. It is assumed that mass is constant.",
+        "correctness": "0.0",
+        "feedback_html": "The assertion is not in accordance with the reasoning."
+      },
+      {
+        "id": 377421,
+        "content_html": "Yes, because the work-energy theorem states that work done on an object is equal to the sum of kinetic energy, and the change in KE requires a change in displacement. It is assumed that mass is constant.",
+        "correctness": "0.0",
+        "feedback_html": "Assertion is not in accordance with the reasoning. Also, work done is not the sum of kinetic energy."
+      }
+    ],
+    "group_uuid": "3d297e77-7586-4116-9c07-21b667ff610f",
+    "stem_html": "Is it possible for the sum of kinetic energy and potential energy of an object to change without work having been done on the object? Explain.",
+    "tags": [
+      "inbook-yes",
+      "ost-chapter-review",
+      "k12phys",
+      "concept",
+      "k12phys-ch09",
+      "k12phys-ch09-s01",
+      "k12phys-ch09-s01-lo01",
+      "k12phys-ch09-ex008",
+      "dok:2",
+      "time:medium",
+      "blooms:4",
+      "book:stax-phys",
+      "lo:stax-phys:7-2-2",
+      "exid:k12phys-ch09-ex008",
+      "context-cnxmod:57fca8d4-daf0-4f43-a9a4-ac831005a64c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:conceptual",
+      "context-cnxmod:9a772436-b150-40c2-8316-8a4ade7a17d8",
+      "context-cnxmod:5035aeb8-8f6d-46e7-9552-55d5ea593368",
+      "aplo:stax-apphys:4.C.1.2",
+      "aplo:stax-apphys:4.C.2.1",
+      "aplo:stax-apphys:4.C.1.1"
+    ],
+    "uid": "2759@7"
+  },
+  {
+    "answers": [
+      {
+        "id": 377458,
+        "content_html": "<span data-math=\"{v_1}\">{v_1}</span> is your speed at the top of the hill, and <span data-math=\"{v_2}\">{v_2}</span> is your speed at the bottom.",
+        "correctness": "1.0",
+        "feedback_html": "<span data-math=\"{v_1}\">{v_1}</span> is initial speed (that is, your speed at the top of the hill,) and <span data-math=\"{v_2}\">{v_2}</span> is final speed, (that is, your speed at the bottom of the hill)."
+      },
+      {
+        "id": 377455,
+        "content_html": "<span data-math=\"{v_1}\">{v_1}</span> is your speed at the bottom of the hill, and <span data-math=\"{v_2}\">{v_2}</span> is your speed at the top.",
+        "correctness": "0.0",
+        "feedback_html": "Consider the fact that work done is final kinetic energy minus initial kinetic energy."
+      },
+      {
+        "id": 377456,
+        "content_html": "<span data-math=\"{v_1}\">{v_1}</span> is your displacement at the top of the hill, and <span data-math=\"{v_2}\">{v_2}</span> is your displacement at the bottom.",
+        "correctness": "0.0",
+        "feedback_html": "Recall that work-energy theorem does not involve displacement."
+      },
+      {
+        "id": 377457,
+        "content_html": "<span data-math=\"{v_1}\">{v_1}</span> is your displacement at the bottom of the hill, and <span data-math=\"{v_2}\">{v_2}</span> is your displacement at the top.",
+        "correctness": "0.0",
+        "feedback_html": "If <span data-math=\"v_1\">v_1</span> and <span data-math=\"v_2\">v_2</span> are displacement, then the expressions <span data-math=\"\\frac{1}{2}mv_1^2\\!\">\\frac{1}{2}mv_1^2\\!</span> and <span data-math=\"\\frac{1}{2}mv_2^2\\!\">\\frac{1}{2}mv_2^2\\!</span> won’t give kinetic energy."
+      }
+    ],
+    "group_uuid": "6f79188e-e0a6-4c93-b221-3034a00bd20c",
+    "stem_html": "You start at the top of a hill on a bicycle and coast to the bottom without applying the brakes. By the time you reach the bottom of the hill, work has been done on you and your bicycle, according to the equation:\n<span data-math=\"W = \\frac{1}{2}m(v_2^{\\,2} - v_1^{\\,2})\">W = \\frac{1}{2}m(v_2^{\\,2} - v_1^{\\,2})</span>\nIf <span data-math=\"m\">m</span> is the mass of you and your bike, what are <span data-math=\"{v_1}\\!\">{v_1}\\!</span> and <span data-math=\"{v_2}\">{v_2}</span>?",
+    "tags": [
+      "inbook-yes",
+      "k12phys",
+      "ost-test-prep",
+      "short-answer",
+      "k12phys-ch09",
+      "k12phys-ch09-s01",
+      "k12phys-ch09-s01-lo02",
+      "k12phys-ch09-ex017",
+      "dok:2",
+      "time:medium",
+      "blooms:3",
+      "book:stax-phys",
+      "lo:stax-phys:7-2-2",
+      "exid:k12phys-ch09-ex017",
+      "context-cnxmod:57fca8d4-daf0-4f43-a9a4-ac831005a64c",
+      "filter-type:import:hs",
+      "book:stax-k12phys",
+      "type:practice",
+      "context-cnxmod:9a772436-b150-40c2-8316-8a4ade7a17d8",
+      "context-cnxmod:5035aeb8-8f6d-46e7-9552-55d5ea593368",
+      "aplo:stax-apphys:3.E.1.3",
+      "aplo:stax-apphys:3.E.1.2"
+    ],
+    "uid": "2768@5"
+  }
+]

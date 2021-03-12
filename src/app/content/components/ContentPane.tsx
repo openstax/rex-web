@@ -37,7 +37,13 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const ContentPane = ({isOpen, onClick, children}: React.PropsWithChildren<Props>) => <Wrapper isOpen={isOpen}>
-  {isOpen && <ScrollLock onClick={onClick} mobileOnly={true} overlay={true} zIndex={theme.zIndex.overlay} />}
+  {isOpen &&
+    <ScrollLock
+      onClick={onClick}
+      mobileOnly={true}
+      overlay={true}
+      zIndex={theme.zIndex.overlay}
+    />}
   {children}
 </Wrapper>;
 

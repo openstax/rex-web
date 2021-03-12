@@ -1,10 +1,10 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
 import { Print } from 'styled-icons/fa-solid/Print';
-import { Search } from 'styled-icons/fa-solid/Search';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
+import SearchIcon from '../../../../assets/SearchIcon';
 import { maxNavWidth } from '../../../components/NavBar/styled';
 import {
   decoratedLinkStyle,
@@ -13,7 +13,6 @@ import {
   textStyle
 } from '../../../components/Typography';
 import theme from '../../../theme';
-import { assertString } from '../../../utils';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -114,10 +113,27 @@ export const PrintOptions = styled.span`
 export const PrintIcon = styled(Print)`
   ${toolbarIconStyles}
 `;
+
 // tslint:disable-next-line:variable-name
-export const SearchButton = styled(({ desktop, mobile, ...props }) => <PlainButton {...props}><Search /></PlainButton>)`
+export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) => {
+  const intl = useIntl();
+
+  return <PlainButton
+    {...props}
+    {...ariaLabelId
+      ? {
+        'aria-label': intl.formatMessage({id: ariaLabelId}),
+      }
+      : {}
+    }
+    value={intl.formatMessage({id: 'i18n:search-results:bar:search-icon:value'})}
+  >
+    <SearchIcon/>
+  </PlainButton>;
+})`
   > svg {
     ${toolbarIconStyles}
+    vertical-align: middle;
   }
 
   ${(props) => props.desktop && theme.breakpoints.mobile(css`
@@ -132,7 +148,9 @@ export const SearchButton = styled(({ desktop, mobile, ...props }) => <PlainButt
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseButton = styled(({ desktop, ...props }) => <PlainButton {...props}><TimesCircle /></PlainButton>)`
+export const CloseButton = styled(
+  ({ desktop, ...props }) => <PlainButton {...props}><TimesCircle /></PlainButton>
+)`
   > svg {
     ${closeIconStyles}
   }
@@ -181,12 +199,10 @@ export const SearchInputWrapper = styled.form`
 
 // tslint:disable-next-line:variable-name
 export const SearchInput = styled(({desktop, mobile, ...props}) =>
-  <FormattedMessage id='i18n:toolbar:search:placeholder'>
-    {(msg) => <input {...props}
-      aria-label={assertString(msg, 'placeholder must be a string')}
-      placeholder={assertString(msg, 'placeholder must be a string')}
-    />}
-  </FormattedMessage>)`
+  <input {...props}
+    aria-label={useIntl().formatMessage({id: 'i18n:toolbar:search:placeholder'})}
+    placeholder={useIntl().formatMessage({id: 'i18n:toolbar:search:placeholder'})}
+  />)`
     ${textStyle}
     ${hideSearchChrome}
     font-size: 1.6rem;
@@ -318,6 +334,7 @@ export const InnerText = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const SidebarControl = styled(OpenSidebarControl)`
+  order: -1;
   margin-right: auto;
   ${theme.breakpoints.mobile(css`
     margin-right: unset;

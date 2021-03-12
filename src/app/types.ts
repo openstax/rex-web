@@ -9,8 +9,10 @@ import {
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
 import createArchiveLoader from '../gateways/createArchiveLoader';
+import createBuyPrintConfigLoader from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
 import createOSWebLoader from '../gateways/createOSWebLoader';
+import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../gateways/createSearchClient';
 import createUserLoader from '../gateways/createUserLoader';
 import analytics from '../helpers/analytics';
@@ -33,16 +35,18 @@ export interface AppState {
 }
 
 export interface AppServices {
-  serviceWorker?: ServiceWorkerRegistration;
   analytics: typeof analytics;
-  highlightClient: ReturnType<typeof createHighlightClient>;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
+  buyPrintConfigLoader: ReturnType<typeof createBuyPrintConfigLoader>;
   fontCollector: FontCollector;
+  highlightClient: ReturnType<typeof createHighlightClient>;
   history: History;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
+  practiceQuestionsLoader: ReturnType<typeof createPracticeQuestionsLoader>;
   prerenderedContent?: string;
   promiseCollector: PromiseCollector;
   searchClient: ReturnType<typeof createSearchClient>;
+  serviceWorker?: ServiceWorkerRegistration;
   userLoader: ReturnType<typeof createUserLoader>;
 }
 
@@ -72,3 +76,4 @@ export type ActionHookBody<C extends AnyActionCreator> = (helpers: MiddlewareAPI
 // helpers
 export type ArgumentTypes<F> = F extends (...args: infer A) => any ? A : never;
 export type FirstArgumentType<F> = F extends (first: infer A, ...args: any) => any ? A : never;
+export type Unpromisify<F> = F extends Promise<infer T> ? T : never;

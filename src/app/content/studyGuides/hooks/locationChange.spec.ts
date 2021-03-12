@@ -1,10 +1,10 @@
+import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
 import { receiveFeatureFlags } from '../../../actions';
-import { addToast } from '../../../notifications/actions';
+import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
@@ -20,7 +20,6 @@ describe('locationChange', () => {
   let mockSummaryResponse: { countsPerSource: CountsPerSource };
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
 
     helpers = {
@@ -104,28 +103,49 @@ describe('locationChange', () => {
     );
   });
 
-  describe('error handling', () => {
-    it('shows a toast on fetch failure', async() => {
-      jest.spyOn(Date, 'now')
-        .mockReturnValue(1);
+  it('throws HighlightLoadError', async() => {
+    expect.assertions(3);
+    const error = {} as any;
 
-      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      store.dispatch(receivePage({...shortPage, references: []}));
-      store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+    jest.spyOn(Date, 'now')
+      .mockReturnValue(1);
 
-      jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-        .mockRejectedValueOnce({});
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
-      dispatch.mockClear();
+    const getHighlightsSummaryClient = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+      .mockRejectedValueOnce(error);
 
-      jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
-        .mockRejectedValueOnce({});
-
+    try {
       await hook();
+    } catch (error) {
+      expect(getHighlightsSummaryClient).toHaveBeenCalled();
+      expect(error.messageKey).toBe(toastMessageKeys.studyGuides.failure.load);
+      expect(error.meta).toEqual({ destination: 'page' , shouldAutoDismiss: false});
+    }
+  });
 
-      expect(dispatch).toHaveBeenCalledWith(
-        addToast({messageKey: 'i18n:notification:toast:study-guides:load-failure', shouldAutoDismiss: false})
-      );
-    });
+  it('throws ApplicationError', async() => {
+    expect.assertions(3);
+    const mockCustomApplicationError = new ApplicationError('error');
+
+    jest.spyOn(Date, 'now')
+      .mockReturnValue(1);
+
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+
+    const getHighlightsSummaryClient = jest.spyOn(helpers.highlightClient, 'getHighlightsSummary')
+    .mockRejectedValueOnce(mockCustomApplicationError);
+
+    try {
+      await hook();
+    } catch (error) {
+      expect(getHighlightsSummaryClient).toHaveBeenCalled();
+      expect(error instanceof ApplicationError).toEqual(true);
+      expect(error.message).toBe(mockCustomApplicationError.message);
+    }
   });
 });

@@ -2,6 +2,7 @@ import { routeHook } from '../../navigation/utils';
 import { actionHook } from '../../utils';
 import * as actions from '../actions';
 import highlightHooks from '../highlights/hooks';
+import practiceQuestionsHooks from '../practiceQuestions/hooks';
 import * as routes from '../routes';
 import searchHooks from '../search/hooks';
 import studyGuidesHooks from '../studyGuides/hooks';
@@ -12,6 +13,7 @@ export default [
   ...searchHooks,
   ...highlightHooks,
   ...studyGuidesHooks,
+  ...practiceQuestionsHooks,
   routeHook(routes.content, locationChangeBody),
   actionHook(actions.receivePage, receiveContentBody),
 ];
