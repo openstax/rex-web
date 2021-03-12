@@ -66,20 +66,69 @@ exports[`ContextMenu match snapshot when open 1`] = `
       className="ContextMenu__HighlightToggleEditContent-a36hp5-5 hRiRhl"
     >
       <div
-        className="ColorPicker-an3xh1-1 goRNKZ"
+        className="ColorPicker-an3xh1-1 eIpXfa"
         tabIndex={-1}
       >
         <label
           aria-label="Apply yellow highlight"
-          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 kBHzhz"
+          checked={false}
+          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 hxgXOu"
+          component={<label />}
+          size="small"
+          style={
+            Object {
+              "focused": "#fed200",
+              "label": "yellow",
+              "passive": "#ffff8a",
+            }
+          }
           title="yellow"
         >
+          <svg
+            aria-hidden="true"
+            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+            fill="currentColor"
+            focusable="false"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+              fill="currentColor"
+            />
+          </svg>
           <input
             checked={false}
             name="yellow"
             onChange={[Function]}
             type="checkbox"
           />
+          <span
+            className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 kwsovu"
+            size="small"
+            style={
+              Object {
+                "focused": "#fed200",
+                "label": "yellow",
+                "passive": "#ffff8a",
+              }
+            }
+          />
+        </label>
+        <label
+          aria-label="Apply green highlight"
+          checked={false}
+          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 kUYWjn"
+          component={<label />}
+          size="small"
+          style={
+            Object {
+              "focused": "#92d101",
+              "label": "green",
+              "passive": "#def99f",
+            }
+          }
+          title="green"
+        >
           <svg
             aria-hidden="true"
             className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
@@ -92,18 +141,39 @@ exports[`ContextMenu match snapshot when open 1`] = `
               fill="currentColor"
             />
           </svg>
-        </label>
-        <label
-          aria-label="Apply green highlight"
-          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 dSRHOr"
-          title="green"
-        >
           <input
             checked={false}
             name="green"
             onChange={[Function]}
             type="checkbox"
           />
+          <span
+            className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 fqiTys"
+            size="small"
+            style={
+              Object {
+                "focused": "#92d101",
+                "label": "green",
+                "passive": "#def99f",
+              }
+            }
+          />
+        </label>
+        <label
+          aria-label="Apply blue highlight"
+          checked={true}
+          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 gHfQKR"
+          component={<label />}
+          size="small"
+          style={
+            Object {
+              "focused": "#00c3ed",
+              "label": "blue",
+              "passive": "#c8f5ff",
+            }
+          }
+          title="blue"
+        >
           <svg
             aria-hidden="true"
             className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
@@ -116,18 +186,39 @@ exports[`ContextMenu match snapshot when open 1`] = `
               fill="currentColor"
             />
           </svg>
-        </label>
-        <label
-          aria-label="Apply blue highlight"
-          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 eibKCM"
-          title="blue"
-        >
           <input
             checked={true}
             name="blue"
             onChange={[Function]}
             type="checkbox"
           />
+          <span
+            className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 eHIgYD"
+            size="small"
+            style={
+              Object {
+                "focused": "#00c3ed",
+                "label": "blue",
+                "passive": "#c8f5ff",
+              }
+            }
+          />
+        </label>
+        <label
+          aria-label="Apply purple highlight"
+          checked={false}
+          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 gdbVRC"
+          component={<label />}
+          size="small"
+          style={
+            Object {
+              "focused": "#545ec8",
+              "label": "purple",
+              "passive": "#cbcfff",
+            }
+          }
+          title="purple"
+        >
           <svg
             aria-hidden="true"
             className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
@@ -140,18 +231,39 @@ exports[`ContextMenu match snapshot when open 1`] = `
               fill="currentColor"
             />
           </svg>
-        </label>
-        <label
-          aria-label="Apply purple highlight"
-          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 ekjDWZ"
-          title="purple"
-        >
           <input
             checked={false}
             name="purple"
             onChange={[Function]}
             type="checkbox"
           />
+          <span
+            className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 AHChX"
+            size="small"
+            style={
+              Object {
+                "focused": "#545ec8",
+                "label": "purple",
+                "passive": "#cbcfff",
+              }
+            }
+          />
+        </label>
+        <label
+          aria-label="Apply pink highlight"
+          checked={false}
+          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 bhqGqa"
+          component={<label />}
+          size="small"
+          style={
+            Object {
+              "focused": "#de017e",
+              "label": "pink",
+              "passive": "#ffc5e1",
+            }
+          }
+          title="pink"
+        >
           <svg
             aria-hidden="true"
             className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
@@ -164,30 +276,23 @@ exports[`ContextMenu match snapshot when open 1`] = `
               fill="currentColor"
             />
           </svg>
-        </label>
-        <label
-          aria-label="Apply pink highlight"
-          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 hFYYXx"
-          title="pink"
-        >
           <input
             checked={false}
             name="pink"
             onChange={[Function]}
             type="checkbox"
           />
-          <svg
-            aria-hidden="true"
-            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
+          <span
+            className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 cxneHl"
+            size="small"
+            style={
+              Object {
+                "focused": "#de017e",
+                "label": "pink",
+                "passive": "#ffc5e1",
+              }
+            }
+          />
         </label>
       </div>
       <ol
