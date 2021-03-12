@@ -19,7 +19,7 @@ export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, t
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
 
-interface ContentPageRefencesType {
+export interface ContentPageRefencesType {
   bookId?: string;
   bookVersion?: string;
   match: string;
