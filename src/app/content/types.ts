@@ -37,12 +37,17 @@ export interface State {
   highlights: HighlightState;
   book?: Book;
   page?: Page;
-  references: PageReferenceMap[];
+  references: Array<PageReferenceMap | PageReferenceError>;
   buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
 }
 
 export interface PageReferenceMap extends PageReference {
   match: string;
+}
+
+export interface PageReferenceError {
+  match: string;
+  type: 'error';
 }
 
 export interface PageReference {

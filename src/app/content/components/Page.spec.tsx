@@ -31,6 +31,7 @@ import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
 import * as searchUtils from '../search/utils';
 import * as select from '../selectors';
+import { PageReferenceError, PageReferenceMap } from '../types';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import PageNotFound from './Page/PageNotFound';
@@ -60,6 +61,29 @@ const makeEvent = (doc: Document) => {
   event.preventDefault = jest.fn();
   return event;
 };
+
+const references: Array<PageReferenceMap | PageReferenceError> = [
+  {
+    match: '/content/link',
+    params: {
+      book: {
+        slug: 'book-slug-1',
+      } ,
+      page: {
+        slug: 'page-title',
+      },
+    },
+    state: {
+      bookUid: 'book',
+      bookVersion: 'version',
+      pageUid: 'page',
+    },
+  },
+  {
+    match: 'cross-book-reference-error',
+    type: 'error',
+  },
+];
 
 describe('Page', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -107,28 +131,12 @@ describe('Page', () => {
         text
         <a href="">link with empty href</a>
         <a href="#hash">hash link</a>
+        <a href="cross-book-reference-error">reference loading error</a>
       `,
     };
     archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
 
-    store.dispatch(receivePage({...pageWithRefereces, references: [
-      {
-        match: '/content/link',
-        params: {
-          book: {
-            slug: 'book-slug-1',
-          } ,
-          page: {
-            slug: 'page-title',
-          },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
-      },
-    ]}));
+    store.dispatch(receivePage({...pageWithRefereces, references }));
 
     return renderToDom(
       <Provider store={store}>
@@ -549,6 +557,32 @@ describe('Page', () => {
     }));
   });
 
+  it('interceptes clicking links that failed due to reference loading error', async() => {
+    const {root} = renderDomWithReferences();
+
+    const spyAlert = jest.spyOn(globalThis as any, 'alert');
+
+    dispatch.mockReset();
+    const [, , , , lastLink] = Array.from(root.querySelectorAll('#main-content a'));
+
+    if (!document || !lastLink) {
+      expect(document).toBeTruthy();
+      expect(lastLink).toBeTruthy();
+      return;
+    }
+
+    const event = makeEvent(document);
+    lastLink.dispatchEvent(event);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+
+    expect(spyAlert).toHaveBeenCalledWith('This link is broken because of a cross book content loading issue');
+
+    await new Promise((resolve) => defer(resolve));
+
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
   it('does not reset search results when clicking content links to same book', async() => {
     const mockSearchResults = { hits: { hits: [] } } as any as SearchResult;
     store.dispatch(receiveSearchResults(mockSearchResults));
@@ -648,24 +682,7 @@ describe('Page', () => {
 
     await new Promise((resolve) => defer(resolve));
 
-    expect(dispatch).toHaveBeenCalledWith(receivePage(expect.objectContaining({ references: [
-      {
-        match: '/content/link',
-        params: {
-          book: {
-            slug: 'book-slug-1',
-          } ,
-          page: {
-            slug: 'page-title',
-          },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
-      },
-    ]})));
+    expect(dispatch).toHaveBeenCalledWith(receivePage(expect.objectContaining({ references })));
   });
 
   it('does not intercept clicking content links when meta key is pressed', () => {
