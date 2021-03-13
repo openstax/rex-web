@@ -2,20 +2,66 @@
 
 exports[`ColorPicker matches snapshot no selection 1`] = `
 <div
-  className="ColorPicker-an3xh1-1 goRNKZ"
+  className="ColorPicker-an3xh1-1 eIpXfa"
   tabIndex={-1}
 >
   <label
     aria-label="Apply yellow highlight"
-    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 ZUCrP"
+    checked={false}
+    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 HsETE"
+    component={<label />}
+    style={
+      Object {
+        "focused": "#fed200",
+        "label": "yellow",
+        "passive": "#ffff8a",
+      }
+    }
     title="yellow"
   >
+    <svg
+      aria-hidden="true"
+      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+        fill="currentColor"
+      />
+    </svg>
     <input
       checked={false}
       name="yellow"
       onChange={[Function]}
       type="checkbox"
     />
+    <span
+      className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 gcsHaO"
+      style={
+        Object {
+          "focused": "#fed200",
+          "label": "yellow",
+          "passive": "#ffff8a",
+        }
+      }
+    />
+  </label>
+  <label
+    aria-label="Apply green highlight"
+    checked={false}
+    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 iXfiep"
+    component={<label />}
+    style={
+      Object {
+        "focused": "#92d101",
+        "label": "green",
+        "passive": "#def99f",
+      }
+    }
+    title="green"
+  >
     <svg
       aria-hidden="true"
       className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
@@ -28,18 +74,37 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         fill="currentColor"
       />
     </svg>
-  </label>
-  <label
-    aria-label="Apply green highlight"
-    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 gkudMq"
-    title="green"
-  >
     <input
       checked={false}
       name="green"
       onChange={[Function]}
       type="checkbox"
     />
+    <span
+      className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 dmUcJc"
+      style={
+        Object {
+          "focused": "#92d101",
+          "label": "green",
+          "passive": "#def99f",
+        }
+      }
+    />
+  </label>
+  <label
+    aria-label="Apply blue highlight"
+    checked={false}
+    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 jvnIhj"
+    component={<label />}
+    style={
+      Object {
+        "focused": "#00c3ed",
+        "label": "blue",
+        "passive": "#c8f5ff",
+      }
+    }
+    title="blue"
+  >
     <svg
       aria-hidden="true"
       className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
@@ -52,18 +117,37 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         fill="currentColor"
       />
     </svg>
-  </label>
-  <label
-    aria-label="Apply blue highlight"
-    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 gtQiTg"
-    title="blue"
-  >
     <input
       checked={false}
       name="blue"
       onChange={[Function]}
       type="checkbox"
     />
+    <span
+      className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 hKvHax"
+      style={
+        Object {
+          "focused": "#00c3ed",
+          "label": "blue",
+          "passive": "#c8f5ff",
+        }
+      }
+    />
+  </label>
+  <label
+    aria-label="Apply purple highlight"
+    checked={false}
+    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 fEyUOh"
+    component={<label />}
+    style={
+      Object {
+        "focused": "#545ec8",
+        "label": "purple",
+        "passive": "#cbcfff",
+      }
+    }
+    title="purple"
+  >
     <svg
       aria-hidden="true"
       className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
@@ -76,18 +160,37 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         fill="currentColor"
       />
     </svg>
-  </label>
-  <label
-    aria-label="Apply purple highlight"
-    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 eahxrs"
-    title="purple"
-  >
     <input
       checked={false}
       name="purple"
       onChange={[Function]}
       type="checkbox"
     />
+    <span
+      className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 pdWKj"
+      style={
+        Object {
+          "focused": "#545ec8",
+          "label": "purple",
+          "passive": "#cbcfff",
+        }
+      }
+    />
+  </label>
+  <label
+    aria-label="Apply pink highlight"
+    checked={false}
+    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 jhGpQY"
+    component={<label />}
+    style={
+      Object {
+        "focused": "#de017e",
+        "label": "pink",
+        "passive": "#ffc5e1",
+      }
+    }
+    title="pink"
+  >
     <svg
       aria-hidden="true"
       className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
@@ -100,30 +203,22 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         fill="currentColor"
       />
     </svg>
-  </label>
-  <label
-    aria-label="Apply pink highlight"
-    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-1 eRBXMJ"
-    title="pink"
-  >
     <input
       checked={false}
       name="pink"
       onChange={[Function]}
       type="checkbox"
     />
-    <svg
-      aria-hidden="true"
-      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
-      fill="currentColor"
-      focusable="false"
-      viewBox="0 0 512 512"
-    >
-      <path
-        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-        fill="currentColor"
-      />
-    </svg>
+    <span
+      className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 bTsnCP"
+      style={
+        Object {
+          "focused": "#de017e",
+          "label": "pink",
+          "passive": "#ffc5e1",
+        }
+      }
+    />
   </label>
 </div>
 `;
