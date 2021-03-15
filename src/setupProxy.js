@@ -24,11 +24,11 @@ const requireBabelConfig = require('./babel-config');
 requireBabelConfig();
 
 const { default: prepareRedirects } = require('../script/utils/prepareRedirects');
-const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
-const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
+// const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
+// const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 
-const archiveLoader = createArchiveLoader(`/${REACT_APP_ARCHIVE_URL}`, REACT_APP_ARCHIVE_URL);
-const osWebLoader = createOSWebLoader(`/${REACT_APP_OS_WEB_API_URL}`);
+// const archiveLoader = createArchiveLoader(`/${REACT_APP_ARCHIVE_URL}`, REACT_APP_ARCHIVE_URL);
+// const osWebLoader = createOSWebLoader(`/${REACT_APP_OS_WEB_API_URL}`);
 
 const archivePaths = [
   '/extras',
