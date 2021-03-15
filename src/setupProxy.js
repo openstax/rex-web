@@ -19,9 +19,9 @@ const {
   REACT_APP_OS_WEB_API_URL,
   // REACT_APP_ARCHIVE_URL,
 } = require('./config');
-// const requireBabelConfig = require('./babel-config');
+const requireBabelConfig = require('./babel-config');
 
-// requireBabelConfig();
+requireBabelConfig();
 
 // const { default: prepareRedirects } = require('../script/utils/prepareRedirects');
 // const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
