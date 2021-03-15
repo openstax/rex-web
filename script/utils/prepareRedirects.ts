@@ -1,5 +1,4 @@
 import { RedirectsData } from '../../data/redirects/types';
-import { content } from '../../src/app/content/routes';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { findArchiveTreeNodeById } from '../../src/app/content/utils/archiveTreeUtils';
 import { AppServices } from '../../src/app/types';
@@ -39,7 +38,7 @@ const prepareRedirects = async(
 
       redirects.push({
         from: pathname,
-        to: content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } }),
+        to: bookSlug, // content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } }),
       });
     }
   }
