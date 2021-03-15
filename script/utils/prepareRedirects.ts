@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 import { RedirectsData } from '../../data/redirects/types';
 import { content } from '../../src/app/content/routes';
@@ -14,7 +15,7 @@ const prepareRedirects = async(
 ) => {
   const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
-  const books = await import(`${redirectsPath}/books.json`);
+  const books = fs.readdirSync(redirectsPath).filter((name) => name.match('.json'));
 
   const redirects: Array<{ from: string, to: string }> = [];
 
