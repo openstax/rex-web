@@ -182,22 +182,25 @@ function stubEnvironment(app) {
 }
 
 function stubRedirects(app) {
+  const redirects = prepareRedirects(archiveLoader, osWebLoader)
+    .then((data) => {
+      const developmentRedirects = require('./redirects.development.json');
+      data.push(...developmentRedirects);
+      return data;
+    });
+
   app.use(async(req, res, next) => {
     const {pathname} = url.parse(req.url);
-    const redirects = await prepareRedirects(archiveLoader, osWebLoader);
-    const developmentRedirects = require('./redirects.development.json');
-
-    redirects.push(...developmentRedirects);
 
     if (pathname === '/rex/redirects.json') {
-      sendJSON(res, redirects);
+      sendJSON(res, await redirects);
     } else {
       next();
     }
   });
 }
 
-function setupProxy(app) {
+async function setupProxy(app) {
   if (!ARCHIVE_URL) { throw new Error('ARCHIVE_URL configuration must be defined'); }
   if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
 
