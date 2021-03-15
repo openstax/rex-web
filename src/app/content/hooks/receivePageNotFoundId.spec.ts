@@ -30,7 +30,8 @@ describe('receivePageNotFoundId hook', () => {
       pathname: '/books/physics/pages/1-introduction301',
     } as any;
 
-    historyReplaceSpy = jest.spyOn(helpers.history, 'replace');
+    historyReplaceSpy = jest.spyOn(helpers.history, 'replace')
+      .mockImplementation(jest.fn());
 
     fetchBackup = (globalThis as any).fetch;
 
