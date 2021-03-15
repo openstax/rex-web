@@ -1,12 +1,10 @@
-import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { AppServices } from '../../src/app/types';
 
 const prepareRedirects = async(
-  archiveLoader: AppServices['archiveLoader'],
-  osWebLoader: AppServices['osWebLoader']
+  _archiveLoader: AppServices['archiveLoader'],
+  _osWebLoader: AppServices['osWebLoader']
 ) => {
-  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
-  console.log('bookLoader', bookLoader)
+  // const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
   const books: string[] = [];
   console.log('books', books)
 
