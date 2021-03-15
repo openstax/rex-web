@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 
 
 class Region(pypom.Region):
+
     @property
     def is_displayed(self):
         return self.root.is_displayed()
@@ -15,11 +16,16 @@ class Region(pypom.Region):
     def offscreen_click(self, element=None):
         """Clicks an offscreen element (or the region's root).
 
-        Clicks the given element, even if it is offscreen, by sending the ENTER key.
-        Returns the element.
+        .. note:: We actually navigate using the Enter key because scrolling
+                  the page can be flaky
+                  (`StackOverflow <https://stackoverflow.com/a/39918249>`)
+
+        :return: the selected element
+        :rtype: WebElement
+
+        Clicks the given element, even if it is offscreen, by sending the ENTER
+        key.
+
         """
-        # We actually navigate using the ENTER key because scrolling the page can be flaky
-        # https://stackoverflow.com/a/39918249
-        # return self.page.offscreen_click(element or self.root)
         element.send_keys(Keys.ENTER)
         return element

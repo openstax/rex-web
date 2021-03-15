@@ -19,6 +19,7 @@ from pages.accounts import Login
 from pages.base import Page
 from regions.base import Region
 from regions.my_highlights import MyHighlights
+from regions.practice import Practice
 from regions.search_sidebar import SearchSidebar
 from regions.toc import TableOfContents
 from utils.utility import Color, Highlight, Utilities
@@ -48,6 +49,10 @@ class Content(Page):
     _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
     _order_print_copy_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
     _discard_modal_locator = (By.CSS_SELECTOR, "[class*='CardWrapper']")
+
+    _page_meta_title_selector = "head > meta[property='og:title']"
+    _page_meta_url_selector = "head > meta[property='og:url']"
+    _page_title_selector = "head > title"
 
     @property
     def loaded(self) -> bool:
@@ -233,6 +238,45 @@ class Content(Page):
         sidebar_width = self.width(self.sidebar.root)
         sidebar_width_left_offset = self.sidebar.root.get_attribute("offsetLeft")
         return int(sidebar_width) + int(sidebar_width_left_offset)
+
+    @property
+    def titles(self) -> Tuple[str, str, str]:
+        """Return the page title, page meta title and page meta URL.
+
+        .. note:: the meta URL always points to production so we modify the
+                  return string to reflect our current instance
+
+        :return: the page title, the page title within the page meta property
+            and the page URL within the page meta property
+        :rtype: tuple(str, str, str)
+
+        """
+        try:
+            self.wait.until(
+                lambda _: self.find_element(
+                    By.CSS_SELECTOR,
+                    self._page_meta_url_selector
+                )
+            )
+        except TimeoutException:
+            raise ContentError("Meta tags not loaded")
+        action_script = 'return document.querySelector("{selector}");'
+
+        title = self.driver.execute_script(
+            action_script.format(selector=self._page_title_selector)
+        ).get_attribute("textContent")
+
+        meta_title = self.driver.execute_script(
+            action_script.format(selector=self._page_meta_title_selector)
+        ).get_attribute("content")
+
+        meta_url_parts = self.driver.execute_script(
+            action_script.format(selector=self._page_meta_url_selector)
+        ).get_attribute("content").split("/")
+        meta_url_parts[2] = self.base_url.split("/")[-1]
+        meta_url = "/".join(meta_url_parts)
+
+        return (title, meta_title, meta_url)
 
     @property
     def toolbar(self) -> Content.ToolBar:
@@ -1824,18 +1868,51 @@ class Content(Page):
 
         _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
 
-        _my_highlights_button_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
-        _search_button_desktop_locator = (By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
-        _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
-        _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
-        _toc_toggle_button_locator = (By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
-        _search_textbox_x_locator = (By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
+        _my_highlights_button_locator = (
+            By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
+        _practice_button_locator = (
+            By.CSS_SELECTOR, "[class*=PracticeQuestions]")
+        _search_button_desktop_locator = (
+            By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
+        _search_button_mobile_locator = (
+            By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
+        _search_textbox_desktop_locator = (
+            By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
+        _search_textbox_x_locator = (
+            By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
+        _toc_toggle_button_locator = (
+            By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
         _my_highlights_selector = "[data-testid=highlights-popup-wrapper]"
+        _practice_questions_root_selector = "[class*=PopupWrapper]"
 
         @property
         def my_highlights_button(self) -> WebElement:
             return self.find_element(*self._my_highlights_button_locator)
+
+        @property
+        def practice_available(self) -> bool:
+            """Return True if Practice is available for this book.
+
+            :return: ``True`` if the practice exercises tool is available for
+                this book
+            :rtype: bool
+
+            """
+            return bool(self.find_elements(*self._practice_button_locator))
+
+        @property
+        def practice_button(self) -> WebElement:
+            """Return the Practice button.
+
+            :return: the Practice exercises tool button
+            :rtype: ``WebElement``
+            :raises ContentError: if Practice is not available
+
+            """
+            if self.practice_available:
+                return self.find_element(*self._practice_button_locator)
+            raise ContentError("Practice not available")
 
         @property
         def search_button(self) -> WebElement:
@@ -1848,6 +1925,11 @@ class Content(Page):
             return self.find_element(*self._search_button_mobile_locator)
 
         @property
+        def search_term_displayed_in_search_textbox(self):
+            """Return the search term in desktop view."""
+            return self.search_textbox.get_attribute("value")
+
+        @property
         def search_textbox(self) -> WebElement:
             """Return the search textbox in desktop view."""
             return self.find_element(*self._search_textbox_desktop_locator)
@@ -1856,11 +1938,6 @@ class Content(Page):
         def search_textbox_x(self) -> WebElement:
             """Return the search textbox X in desktop view."""
             return self.find_element(*self._search_textbox_x_locator)
-
-        @property
-        def search_term_displayed_in_search_textbox(self):
-            """Return the search term in desktop view."""
-            return self.search_textbox.get_attribute("value")
 
         @property
         def toc_toggle_button(self) -> WebElement:
@@ -1886,12 +1963,32 @@ class Content(Page):
             :rtype: :py:class:`~regions.my_highlights.MyHighlights`
 
             """
-            Utilities.click_option(self.driver, element=self.my_highlights_button)
+            Utilities.click_option(
+                self.driver,
+                element=self.my_highlights_button
+            )
             sleep(0.1)
             my_highlights_root = self.driver.execute_script(
                 ELEMENT_SELECT.format(selector=self._my_highlights_selector)
             )
             return MyHighlights(self.page, my_highlights_root)
+
+        def practice(self) -> Practice:
+            """Click the Practice button.
+
+            :return: the Practice widget
+            :rtype: :py:class:`~regions.practice.Practice`
+
+            """
+            Utilities.click_option(self.driver, element=self.practice_button)
+            find_modal = (
+                "return document.querySelector"
+                f'("{self._practice_questions_root_selector}");'
+            )
+            practice_root = self.driver.execute_script(find_modal)
+            practice = Practice(self.page, practice_root)
+            practice.wait_for_region_to_load()
+            return practice
 
         def search_for(self, search_term: str) -> Content.SideBar:
             """Search for a term/query in desktop resolution.

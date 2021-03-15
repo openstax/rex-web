@@ -16,6 +16,11 @@ ACTION_SCRIPT = (
 )
 
 
+# --------------------- #
+# Critical Priority SEO #
+# --------------------- #
+
+
 @markers.test_case("C591502")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_the_user_clicks_a_toc_link_ga_event(
@@ -1105,6 +1110,771 @@ def test_go_to_highlight_ga_event(
     #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
     #          eventCategory: "REX Link (MH gotohighlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+# ----------------- #
+# High Priority SEO #
+# ----------------- #
+
+
+@markers.test_case("C602208")
+@markers.parametrize("book_slug", [("chemistry-2e")])
+def test_title_and_meta_page_tags_for_seo(selenium, base_url, book_slug):
+    """Test the title and meta title property book header tags."""
+    # SETUP:
+    action_script = "return document.querySelector('[href=\"{}\"]');"
+    chapters = [
+        "Ch. 1",
+        "1.1",
+        "Ch. 1",
+        "B"
+    ]
+    pages = [
+        "1-introduction",
+        "1-1-chemistry-in-context",
+        "1-key-terms",
+        "b-essential-mathematics"
+    ]
+    starting_page = "preface"
+    title = "{chapter} {title} - Chemistry 2e | OpenStax"
+    titles = [
+        "Introduction",
+        "Chemistry in Context",
+        "Key Terms",
+        "Essential Mathematics"
+    ]
+
+    # GIVEN: a user
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=starting_page).open()
+
+    for section in range(4):
+        # WHEN:  they open a book page
+        new_page = book.driver.execute_script(
+            action_script.format(pages[section])
+        )
+        Utilities.click_option(book.driver, element=new_page)
+        book.wait_for_page_to_load()
+        page_title, page_meta_title, page_meta_url = book.titles
+        expected_title = title.format(
+            chapter=chapters[section],
+            title=titles[section]
+        )
+
+        # THEN:  the page title is formatted correctly
+        assert(page_title == expected_title), "Incorrect title found"
+
+        # AND:   the page meta title tag content is formatted correctly
+        assert(page_meta_title == expected_title), "Incorrect title found"
+
+        # AND:   the page meta URL tag content is the current page URL
+        assert(page_meta_url == selenium.current_url), "Incorrect page URL"
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("")
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test__ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ."""
+    # SETUP:
+    event_category = ""
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = ""
+
+    # GIVEN:
+
+    # WHEN:
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C620825")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-1-physics-definitions-and-applications")]
+)
+def test_start_practice_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when starting a practice."""
+    # SETUP:
+    event_action = "Start now"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
+
+    # GIVEN: a logged in user viewing a numbered section page
+    book = user_setup(selenium, base_url, book_slug, page_slug)
+    event_label, _, _ = book.titles
+    event_label = event_label.split(" - ")[0]
+
+    # WHEN:  they click the 'Practice' button
+    # AND:   click the 'Start now' button
+    practice = book.toolbar.practice()
+
+    practice.start_now()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Start now",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{book title}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
     assert(
         "eventAction" in last_event and
