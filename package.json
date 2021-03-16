@@ -190,9 +190,6 @@
       "text-summary",
       "html",
       "lcovonly"
-    ],
-    "modulePathIgnorePatterns": [
-      "node_modules"
     ]
   },
   "babelMacros": {
