@@ -28,7 +28,10 @@ const PracticeQuestionsPopup = () => {
   const closeAndTrack = React.useCallback((method: string) => () => {
     if (currentQuestionIndex !== null) {
       const message = intl.formatMessage({ id: 'i18n:practice-questions:popup:warning-before-close' });
-      if (!assertWindow().confirm(message)) { return; }
+      const confirmExit = assertWindow().confirm(message);
+      // tslint:disable-next-line: no-console
+      console.log('Exit confirmed: ', confirmExit);
+      if (!confirmExit) { return; }
     }
 
     dispatch(push(assertDefined(match, 'match should be always defined at this step')));
