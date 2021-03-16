@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import { RedirectsData } from '../../data/redirects/types';
 import { content } from '../../src/app/content/routes';
-import { findArchiveTreeNodeById } from '../../src/app/content/utils/archiveTreeUtils';
 import { AppServices } from '../../src/app/types';
 import config from '../../src/config.books';
 
@@ -29,7 +28,7 @@ const prepareRedirects = async(
       }
 
       const { tree, slug: bookSlug } = { tree: {contents: [] } as any, slug: 'asd' };
-      const page = findArchiveTreeNodeById(tree, pageId);
+      const page = tree.contents[0];
 
       if (!page) {
         // tslint:disable-next-line: no-console
