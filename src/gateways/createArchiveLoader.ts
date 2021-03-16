@@ -1,5 +1,4 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
-import { stripIdVersion } from '../app/content/utils';
 import { getIdVersion } from '../app/content/utils/idUtils';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
@@ -54,7 +53,7 @@ export default (backendUrl: string, appUrl: string = backendUrl) => {
       .then(({books}) => books.map(({ident_hash}) => {
         return {
           bookVersion: getIdVersion(ident_hash),
-          id: stripIdVersion(ident_hash),
+          id: ident_hash,
         };
       }))
       .then((response) => {
@@ -65,7 +64,7 @@ export default (backendUrl: string, appUrl: string = backendUrl) => {
 
   return {
     book: (bookId: string, bookVersion?: string) => {
-      const bookRef = bookVersion ? `${stripIdVersion(bookId)}@${bookVersion}` : stripIdVersion(bookId);
+      const bookRef = bookVersion ? `${bookId}@${bookVersion}` : bookId;
 
       return {
         cached: () => bookCache.get(bookRef),
