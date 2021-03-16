@@ -1,6 +1,5 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
-import { stripIdVersion } from '../app/content/utils';
-import { getIdVersion } from '../app/content/utils/idUtils';
+import { getIdVersion, stripIdVersion } from '../app/content/utils/idUtils';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 
