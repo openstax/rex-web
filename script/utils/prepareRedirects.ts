@@ -2,15 +2,19 @@ import fs from 'fs';
 import path from 'path';
 import { RedirectsData } from '../../data/redirects/types';
 import { content } from '../../src/app/content/routes';
+import { makeUnifiedBookLoader } from '../../src/app/content/utils';
+import { findArchiveTreeNodeById } from '../../src/app/content/utils/archiveTreeUtils';
 import { AppServices } from '../../src/app/types';
 import config from '../../src/config.books';
 
 const redirectsPath = path.resolve(__dirname, '../../data/redirects/');
 
 const prepareRedirects = async(
-  _archiveLoader: AppServices['archiveLoader'],
-  _osWebLoader: AppServices['osWebLoader']
+  archiveLoader: AppServices['archiveLoader'],
+  osWebLoader: AppServices['osWebLoader']
 ) => {
+  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
+
   const books = fs.readdirSync(redirectsPath).filter((name) => name.match('.json'));
 
   const redirects: Array<{ from: string, to: string }> = [];
@@ -27,8 +31,8 @@ const prepareRedirects = async(
         continue;
       }
 
-      const { tree, slug: bookSlug } = { tree: {contents: [] } as any, slug: 'asd' };
-      const page = tree.contents[0];
+      const { tree, slug: bookSlug } = await bookLoader(bookId, configForBook.defaultVersion);
+      const page = findArchiveTreeNodeById(tree, pageId);
 
       if (!page) {
         // tslint:disable-next-line: no-console

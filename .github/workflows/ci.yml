@@ -31,6 +31,43 @@ jobs:
       run: |
         echo "::set-output name=url::$(./script/get-review-environment.bash)"
 
+  selenium:
+    name: Selenium
+    runs-on: ubuntu-latest
+    container: python
+    needs: setup
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: master
+    - env:
+        BROWSER: 'Chrome'
+        MARKER: 'smoke_test'
+        BASE_URL: ${{ needs.setup.outputs.deployment-url }}
+        SAUCELABS_USERNAME: ${{ secrets.saucelabs_username }}
+        SAUCELABS_API_KEY: ${{ secrets.saucelabs_api_key }}
+        SECURE_STORE_PASSWORD: ${{ secrets.secure_store_password }}
+      run: make sauce
+
+  scan-books:
+    name: Scan
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI-2020-01-26
+    needs: setup
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - uses: actions/cache@v2
+      id: node_modules
+      with:
+        path: node_modules
+        key: node_modules5
+    - run: yarn install
+    - run: ./script/validate-modified-books.bash
+      env:
+        BASE_URL: ${{ needs.setup.outputs.deployment-url }}
+
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -38,7 +75,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [unit, browser]
+        suite: [unit, browser, build]
     env:
       CI: true
     steps:
@@ -50,7 +87,6 @@ jobs:
       with:
         path: node_modules
         key: node_modules5
-    - run: cat /proc/sys/fs/inotify/max_user_watches
     - run: yarn install
     - run: yarn test:${{ matrix.suite }}
     - uses: actions/upload-artifact@v2
@@ -58,3 +94,19 @@ jobs:
       with:
         name: diff output
         path: "**/__diff_output__/*"
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI-2020-01-26
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - uses: actions/cache@v2
+      id: node_modules
+      with:
+        path: node_modules
+        key: node_modules5
+    - run: yarn install
+    - run: yarn lint
