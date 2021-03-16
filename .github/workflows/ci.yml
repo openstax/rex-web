@@ -50,6 +50,7 @@ jobs:
       with:
         path: node_modules
         key: node_modules5
+    - run: cat /proc/sys/fs/inotify/max_user_watches
     - run: yarn install
     - run: yarn test:${{ matrix.suite }}
     - uses: actions/upload-artifact@v2
