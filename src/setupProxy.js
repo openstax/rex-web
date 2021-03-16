@@ -23,7 +23,7 @@ const requireBabelConfig = require('./babel-config');
 
 requireBabelConfig();
 
-const { default: prepareRedirects } = require('../script/utils/prepareRedirects');
+// const { default: prepareRedirects } = require('../script/utils/prepareRedirects');
 const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
 // const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 
