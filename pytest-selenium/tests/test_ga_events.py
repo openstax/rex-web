@@ -4,6 +4,7 @@ import random
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 from pages.accounts import Signup
 from pages.content import Content
@@ -1353,25 +1354,41 @@ def test_sg_close_using_overlay_click_ga_event(
     assert(last_event["eventLabel"] == event_label)
 
 
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+@markers.test_case("C621327")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_sg_close_using_esc_key_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when close SG by escape key."""
     # SETUP:
-    event_action = ""
-    event_category = ""
+    event_action = "esc"
+    event_category = "REX Study guides (close SG popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
 
-    # GIVEN:
+    # GIVEN: a user viewing a book page with a study guide
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    # Trick the system to load the study guide
+    book.click_next_link()
+    book.click_previous_link()
 
-    # WHEN:
+    # WHEN:  they open the study guide
+    # AND:   click the escape key
+    book.toolbar.study_guides()
+
+    (ActionChains(selenium)
+     .send_keys(Keys.ESCAPE)
+     .perform())
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    #        { eventAction: "esc",
+    #          eventCategory: "REX Study guides (close SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    last_event = Utilities.get_analytics_queue(selenium, -2)
     assert(
         "eventAction" in last_event and
         "eventCategory" in last_event and
