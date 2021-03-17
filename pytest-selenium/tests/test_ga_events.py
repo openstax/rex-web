@@ -1388,44 +1388,58 @@ def test_sg_close_using_esc_key_ga_event(
     #        { eventAction: "esc",
     #          eventCategory: "REX Study guides (close SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -2)
+    esc_key_event = Utilities.get_analytics_queue(selenium, -2)
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in esc_key_event and
+        "eventCategory" in esc_key_event and
+        "eventLabel" in esc_key_event
     ), "Not viewing the correct GA event"
-    assert(event_action in last_event["eventAction"])
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(event_action in esc_key_event["eventAction"])
+    assert(esc_key_event["eventCategory"] == event_category)
+    assert(esc_key_event["eventLabel"] == event_label)
 
 
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+@markers.test_case("C621328")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_sg_close_using_x_close_button_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when SG close 'x' is clicked."""
     # SETUP:
-    event_action = ""
-    event_category = ""
+    event_action = "button"
+    event_category = "REX Study guides (close SG popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
 
-    # GIVEN:
+    # GIVEN: a user viewing a book page with a study guide
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    # Trick the system to load the study guide
+    book.click_next_link()
+    book.click_previous_link()
 
-    # WHEN:
+    # WHEN:  they open the study guide
+    # AND:   click the escape key
+    guide = book.toolbar.study_guides()
+
+    guide.header.close()
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    #        { eventAction: "button",
+    #          eventCategory: "REX Study guides (close SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    x_close_event = Utilities.get_analytics_queue(selenium, -2)
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in x_close_event and
+        "eventCategory" in x_close_event and
+        "eventLabel" in x_close_event
     ), "Not viewing the correct GA event"
-    assert(event_action in last_event["eventAction"])
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(event_action in x_close_event["eventAction"])
+    assert(x_close_event["eventCategory"] == event_category)
+    assert(x_close_event["eventLabel"] == event_label)
 
 
 @markers.test_case("")
