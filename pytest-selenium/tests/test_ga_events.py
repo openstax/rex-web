@@ -1564,25 +1564,36 @@ def test_study_guide_remove_chapter_filter_ga_event(
     assert(last_event["eventLabel"] == event_label)
 
 
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+@markers.test_case("C609711")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("american-government-2e", "1-introduction")]
+)
+def test_using_this_guide_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when 'Using this guide' in SG."""
     # SETUP:
-    event_action = ""
-    event_category = ""
+    event_action = "button"
+    event_category = "REX Study guides (open UTG)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
 
-    # GIVEN:
+    # GIVEN: a logged in user viewing a book page
+    book = user_setup(selenium, base_url, book_slug, page_slug)
 
-    # WHEN:
+    # WHEN:  they open the study guide
+    # AND:   open the 'Using this guide' banner
+    guide = book.toolbar.study_guides()
+    if guide.toolbar.guide_is_open:
+        guide.toolbar.help_guide.close()
+
+    using_this_guide = guide.toolbar.using_this_guide()
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    #        { eventAction: "button",
+    #          eventCategory: "REX Study guides (open UTG)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    last_event = events[-1]
     assert(
         "eventAction" in last_event and
         "eventCategory" in last_event and
@@ -1591,6 +1602,13 @@ def test__ga_event(
     assert(event_action in last_event["eventAction"])
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
+
+    # WHEN:  they close the 'Using this guide' banner
+    using_this_guide.close()
+
+    # THEN:  no new Google Analytics event is created
+    ga_queue = Utilities.get_analytics_queue(selenium)
+    assert(len(ga_queue) == len(events)), "new GA event(s) created"
 
 
 @markers.test_case("")
