@@ -2,6 +2,7 @@
  * this file is shared between webpack-dev-server and the pre-renderer
  */
 const url = require('url');
+const util = require('util');
 const fs = require('fs');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
