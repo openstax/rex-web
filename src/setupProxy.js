@@ -21,6 +21,7 @@ const {
 } = require('./config');
 
 const archivePaths = [
+  '/apps/archive',
   '/extras',
   '/contents',
   '/resources',

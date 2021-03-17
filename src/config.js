@@ -23,7 +23,7 @@ let config = {
   SEARCH_URL: process.env.SEARCH_URL || 'https://openstax.org',
   HIGHLIGHTS_URL: process.env.HIGHLIGHTS_URL || 'https://openstax.org',
   REACT_APP_ACCOUNTS_URL: '/accounts',
-  REACT_APP_ARCHIVE_URL: '',
+  REACT_APP_ARCHIVE_URL: '/apps/archive/20210224.204120',
   REACT_APP_OS_WEB_API_URL: '/apps/cms/api',
   REACT_APP_SEARCH_URL: '/open-search/api/v0',
   REACT_APP_HIGHLIGHTS_URL: '/highlights/api/v0',
