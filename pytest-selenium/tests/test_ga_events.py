@@ -1522,23 +1522,36 @@ def test_study_guide_log_in_link_ga_event(
     assert(log_in_link_event["eventLabel"] == event_label)
 
 
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+@markers.test_case("C621333")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_study_guide_remove_chapter_filter_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when SA chapter filter removed."""
     # SETUP:
-    event_action = ""
-    event_category = ""
+    event_action = "Remove breadcrumb for chapter {number} {name}"
+    event_category = "REX Button (SG popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
 
-    # GIVEN:
+    # GIVEN: a logged in user viewing a book page
+    book = user_setup(selenium, base_url, book_slug, page_slug)
 
-    # WHEN:
+    # WHEN:  they open the study guide
+    # AND:   remove a chapter filter
+    guide = book.toolbar.study_guides()
+
+    chapter = guide.toolbar.active_filters[0]
+    event_action = event_action.format(
+        number=chapter.number,
+        name=chapter.name
+    )
+    chapter.remove_filter()
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    #        { eventAction: "Remove breadcrumb for chapter {number} {name}",
+    #          eventCategory: "REX Button (SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
     assert(
@@ -1546,7 +1559,7 @@ def test__ga_event(
         "eventCategory" in last_event and
         "eventLabel" in last_event
     ), "Not viewing the correct GA event"
-    assert(event_action in last_event["eventAction"])
+    assert(event_action.lower() in last_event["eventAction"].lower())
     assert(last_event["eventCategory"] == event_category)
     assert(last_event["eventLabel"] == event_label)
 
