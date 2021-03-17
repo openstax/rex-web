@@ -21,6 +21,7 @@ from regions.base import Region
 from regions.my_highlights import MyHighlights
 from regions.practice import Practice
 from regions.search_sidebar import SearchSidebar
+from regions.study_guides import StudyGuide
 from regions.toc import TableOfContents
 from utils.utility import Color, Highlight, Utilities
 
@@ -1880,6 +1881,8 @@ class Content(Page):
             By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
         _search_textbox_x_locator = (
             By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
+        _study_guides_button_locator = (
+            By.CSS_SELECTOR, "[class*=StudyGuides]")
         _toc_toggle_button_locator = (
             By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
@@ -1958,6 +1961,10 @@ class Content(Page):
             :raises ContentError: if the button is not found
 
             """
+            try:
+                self.wait.until(lambda _: self.study_guides_available)
+            except TimeoutException:
+                pass
             if self.study_guides_available:
                 return self.find_element(*self._study_guides_button_locator)
             raise ContentError("Study guide not available")

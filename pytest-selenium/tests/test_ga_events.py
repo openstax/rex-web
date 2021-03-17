@@ -1180,15 +1180,50 @@ def test_title_and_meta_page_tags_for_seo(selenium, base_url, book_slug):
         assert(page_meta_url == selenium.current_url), "Incorrect page URL"
 
 
+@markers.test_case("C605728")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("american-government-2e", "1-introduction")]
+)
+def test_study_guide_chapter_tag_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when a SG chapter tag opened."""
+    # SETUP:
+    event_action = "Filter study guides by Chapter"
+    event_category = "REX Button (SG popup)"
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+
+    # GIVEN: a user viewing a book study guide
+    book = user_setup(selenium, base_url, book_slug, page_slug)
+    guide = book.toolbar.study_guides()
+
+    # WHEN:  they open click the 'Chapter' filter drop down
+    guide.toolbar.chapter.click()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
+    #          eventCategory: "REX Link (MH gotohighlight)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
 @markers.test_case("")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1215,9 +1250,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1244,9 +1279,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1273,9 +1308,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1302,9 +1337,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1331,9 +1366,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1360,9 +1395,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1389,9 +1424,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1418,9 +1453,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1447,9 +1482,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1476,9 +1511,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1505,9 +1540,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1534,9 +1569,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1563,9 +1598,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1592,9 +1627,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1621,9 +1656,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1650,9 +1685,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1679,9 +1714,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1708,9 +1743,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1737,9 +1772,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1766,9 +1801,9 @@ def test__ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ."""
     # SETUP:
+    event_action = ""
     event_category = ""
     event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
 
     # GIVEN:
 
@@ -1789,53 +1824,27 @@ def test__ga_event(
     assert(last_event["eventLabel"] == event_label)
 
 
-@markers.test_case("")
+@markers.test_case("C622246")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+def test_practice_filter_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when PQ filter selected."""
     # SETUP:
-    event_category = ""
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = None
+    event_category = "REX Button (PQ popup)"
+    event_label = None
+
+    # GIVEN: a user viewing the Practice Questions modal
+
+    # WHEN:  they select a different section filter
+    assert(False)
     event_action = ""
-
-    # GIVEN:
-
-    # WHEN:
+    event_label = ""
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
-    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
-    assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
-    ), "Not viewing the correct GA event"
-    assert(event_action in last_event["eventAction"])
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
-
-
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
-        selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
-    # SETUP:
-    event_category = ""
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_action = ""
-
-    # GIVEN:
-
-    # WHEN:
-
-    # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
-    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { eventAction: "Filter PQ by section {section number/name}",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{section name}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
     assert(
         "eventAction" in last_event and
@@ -1874,7 +1883,7 @@ def test_start_practice_ga_event(
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "Start now",
     #          eventCategory: "REX Button (PQ popup)",
-    #          eventLabel: "{book title}" }
+    #          eventLabel: "{page title}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
     assert(
         "eventAction" in last_event and

@@ -10,7 +10,6 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as expect
 
 from pages.base import Page
-from pages.content import ContentError
 from regions.base import Region
 from utils.utility import Color, Utilities
 
@@ -35,7 +34,7 @@ class StudyGuide(Region):
         :rtype: bool
 
         """
-        return self.find_elements(*self._header_bar_locator).is_displayed()
+        return self.find_element(*self._header_bar_locator).is_displayed()
 
     @property
     def content(self) -> StudyGuide.Content:
@@ -452,6 +451,7 @@ class StudyGuide(Region):
             if self.guide_is_open:
                 banner_root = self.find_element(*self._help_banner_locator)
                 return self.UsingThisGuide(self, banner_root)
+            from pages.content import ContentError
             raise ContentError("Help guide not open")
 
         @property
