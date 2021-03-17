@@ -1478,62 +1478,48 @@ def test_sg_close_using_x_close_button_ga_events(
     assert(button_event["eventLabel"] == button_event_label)
 
 
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+@markers.test_case("C621331")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_study_guide_log_in_link_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when SG log in link is clicked."""
     # SETUP:
-    event_action = ""
-    event_category = ""
+    event_action = "login"
+    event_category = "REX Link (SG popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    selector = "[class*=StudyGuides] [data-analytics-label=login]"
 
-    # GIVEN:
+    # GIVEN: a user viewing a book page with a study guide
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    # Trick the system to load the study guide
+    book.click_next_link()
+    book.click_previous_link()
 
-    # WHEN:
+    # WHEN:  they open the study guide
+    # AND:   click the 'Log in' link
+    book.toolbar.study_guides()
+
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    #        { eventAction: "login",
+    #          eventCategory: "REX Link (SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    log_in_link_event = events[-2]
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in log_in_link_event and
+        "eventCategory" in log_in_link_event and
+        "eventLabel" in log_in_link_event
     ), "Not viewing the correct GA event"
-    assert(event_action in last_event["eventAction"])
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
-
-
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
-        selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
-    # SETUP:
-    event_action = ""
-    event_category = ""
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
-
-    # GIVEN:
-
-    # WHEN:
-
-    # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
-    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
-    assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
-    ), "Not viewing the correct GA event"
-    assert(event_action in last_event["eventAction"])
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(event_action in log_in_link_event["eventAction"])
+    assert(log_in_link_event["eventCategory"] == event_category)
+    assert(log_in_link_event["eventLabel"] == event_label)
 
 
 @markers.test_case("")
