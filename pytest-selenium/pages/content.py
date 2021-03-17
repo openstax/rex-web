@@ -1884,7 +1884,7 @@ class Content(Page):
             By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
         _my_highlights_selector = "[data-testid=highlights-popup-wrapper]"
-        _practice_questions_root_selector = "[class*=PopupWrapper]"
+        _pop_up_wrapper_root_selector = "[class*=PopupWrapper]"
 
         @property
         def my_highlights_button(self) -> WebElement:
@@ -1940,6 +1940,29 @@ class Content(Page):
             return self.find_element(*self._search_textbox_x_locator)
 
         @property
+        def study_guides_available(self) -> bool:
+            """Return True if a Study Guide is available for the book.
+
+            :return: ``True`` if the 'Study guides' button is found
+            :rtype: bool
+
+            """
+            return bool(self.find_elements(*self._study_guides_button_locator))
+
+        @property
+        def study_guides_button(self) -> WebElement:
+            """Return the 'Study guides' button.
+
+            :return: the 'Study guides' button if available
+            :rtype: :py:class:`selenium.webdriver.remote.webelement.WebElement`
+            :raises ContentError: if the button is not found
+
+            """
+            if self.study_guides_available:
+                return self.find_element(*self._study_guides_button_locator)
+            raise ContentError("Study guide not available")
+
+        @property
         def toc_toggle_button(self) -> WebElement:
             return self.find_element(*self._toc_toggle_button_locator)
 
@@ -1963,15 +1986,11 @@ class Content(Page):
             :rtype: :py:class:`~regions.my_highlights.MyHighlights`
 
             """
-            Utilities.click_option(
-                self.driver,
-                element=self.my_highlights_button
+            return self._pop_up_modal_helper(
+                element=self.my_highlights_button,
+                root_selector=self._my_highlights_selector,
+                modal=MyHighlights
             )
-            sleep(0.1)
-            my_highlights_root = self.driver.execute_script(
-                ELEMENT_SELECT.format(selector=self._my_highlights_selector)
-            )
-            return MyHighlights(self.page, my_highlights_root)
 
         def practice(self) -> Practice:
             """Click the Practice button.
@@ -1980,15 +1999,11 @@ class Content(Page):
             :rtype: :py:class:`~regions.practice.Practice`
 
             """
-            Utilities.click_option(self.driver, element=self.practice_button)
-            find_modal = (
-                "return document.querySelector"
-                f'("{self._practice_questions_root_selector}");'
+            return self._pop_up_modal_helper(
+                element=self.practice_button,
+                root_selector=self._pop_up_wrapper_root_selector,
+                modal=Practice
             )
-            practice_root = self.driver.execute_script(find_modal)
-            practice = Practice(self.page, practice_root)
-            practice.wait_for_region_to_load()
-            return practice
 
         def search_for(self, search_term: str) -> Content.SideBar:
             """Search for a term/query in desktop resolution.
@@ -2006,3 +2021,44 @@ class Content(Page):
             self.page.search_sidebar.wait_for_region_to_display()
             sleep(1.0)
             return self.page.search_sidebar
+
+        def study_guides(self) -> StudyGuide:
+            """Click the Study guides button.
+
+            :return: the Study Guide widget
+            :rtype: :py:class:`~regions.study_guide.StudyGuide`
+
+            """
+            return self._pop_up_modal_helper(
+                element=self.study_guides_button,
+                root_selector=self._pop_up_wrapper_root_selector,
+                modal=StudyGuide
+            )
+
+        def _pop_up_modal_helper(
+                self,
+                element: WebElement,
+                root_selector: str,
+                modal: Region
+                ) -> Region:
+            r"""Modal opener helper function.
+
+            :param element: the button to click
+            :param root_selector: the CSS selector for the modal root
+            :param modal: the modal Region being opened
+            :type element: :py:class:`selenium.webdriver.remote. \
+                                      webelement.WebElement`
+            :type root_selector: str
+            :type modal: :py:class:`~regions.base.Region`
+            :return: the opened modal
+            :rtype: :py:class:`~regions.base.Region`
+
+            """
+            Utilities.click_option(self.driver, element=element)
+            modal_root = self.driver.execute_script(
+                ELEMENT_SELECT.format(selector=root_selector)
+            )
+            sleep(0.1)
+            pop_up = modal(self.page, modal_root)
+            pop_up.wait_for_region_to_load()
+            return pop_up
