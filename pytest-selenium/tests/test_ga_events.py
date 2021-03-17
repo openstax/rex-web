@@ -184,6 +184,7 @@ def test_user_logout_ga_event(
     # WHEN:  they click the user menu
     # AND:   click the 'Log out' menu link
     book.navbar.click_user_name()
+
     events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
@@ -1194,15 +1195,21 @@ def test_study_guide_chapter_tag_ga_event(
     event_label = f"/books/{book_slug}/pages/{page_slug}"
 
     # GIVEN: a user viewing a book study guide
-    book = user_setup(selenium, base_url, book_slug, page_slug)
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    # Trick the system to load the study guide
+    book.click_next_link()
+    book.click_previous_link()
     guide = book.toolbar.study_guides()
 
     # WHEN:  they open click the 'Chapter' filter drop down
     guide.toolbar.chapter.click()
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    #        { eventAction: "Filter study guides by Chapter",
+    #          eventCategory: "REX Button (SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
     assert(
@@ -1215,25 +1222,40 @@ def test_study_guide_chapter_tag_ga_event(
     assert(last_event["eventLabel"] == event_label)
 
 
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+@markers.test_case("C607438")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_study_guide_cta_sign_up_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when sign up link is clicked."""
     # SETUP:
-    event_action = ""
-    event_category = ""
+    event_action = "signup"
+    event_category = "REX Link (SG popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    selector = "[data-analytics-label=signup]"
 
-    # GIVEN:
+    # GIVEN: a non-logged in user viewing a book page
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    # Trick the system to load the study guide
+    book.click_next_link()
+    book.click_previous_link()
 
-    # WHEN:
+    # WHEN:  they open the study guide
+    # AND:   click the 'Sign Up' button
+    book.toolbar.study_guides()
+
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    #        { eventAction: "signup",
+    #          eventCategory: "REX Link (SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    last_event = events[-2]
     assert(
         "eventAction" in last_event and
         "eventCategory" in last_event and

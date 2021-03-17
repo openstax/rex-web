@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as expect
 
+from pages.accounts import Login, Signup
 from pages.base import Page
 from regions.base import Region
 from utils.utility import Color, Utilities
@@ -17,6 +18,8 @@ from utils.utility import Color, Utilities
 class StudyGuide(Region):
     """The Study Guides pop up modal region."""
 
+    _account_nudge_locator = (
+        By.CSS_SELECTOR, "[class*=CTAWrapper]")
     _content_body_locator = (
         By.CSS_SELECTOR, "[data-testid*=guides-body] > [class*=StudyGuides]")
     _go_to_top_button_locator = (
@@ -35,6 +38,17 @@ class StudyGuide(Region):
 
         """
         return self.find_element(*self._header_bar_locator).is_displayed()
+
+    @property
+    def account(self) -> StudyGuide.Account:
+        """Access the account log in/sign up banner.
+
+        :return: the study guide account log in or sign up banner region
+        :rtype: :py:class:`~regions.study_guides.StudyGuide.Account`
+
+        """
+        cta_root = self.find_element(*self._account_nudge_locator)
+        return self.Account(self, cta_root)
 
     @property
     def content(self) -> StudyGuide.Content:
@@ -100,6 +114,83 @@ class StudyGuide(Region):
             Utilities.click_option(self.driver, element=self.go_to_top_button)
             sleep(1.0)
         return self
+
+    class Account(Region):
+        """The study guide account banner."""
+
+        _content_text_locator = (
+            By.CSS_SELECTOR, "[class*=CTAInfo]")
+        _heading_locator = (
+            By.CSS_SELECTOR, "h2")
+        _log_in_link_locator = (
+            By.CSS_SELECTOR, "[data-analytics-label=login]")
+        _sign_up_button_locator = (
+            By.CSS_SELECTOR, "[data-analytics-label=signup]")
+
+        @property
+        def content(self) -> str:
+            """Return the banner text content.
+
+            :return: the banner text content
+            :rtype: str
+
+            """
+            info = self.find_element(*self._content_text_locator)
+            return info.get_attribute("textContent")
+
+        @property
+        def heading(self) -> str:
+            """Return the banner heading.
+
+            :return: the banner heading
+            :rtype: str
+
+            """
+            return self.find_element(*self._heading_locator).text
+
+        @property
+        def log_in_link(self) -> WebElement:
+            """Return the log in link.
+
+            :return: the log in link element
+            :rtype: :py:class:`selenium.webdriver.remote.webelement.WebElement`
+
+            """
+            return self.find_element(*self._log_in_link_locator)
+
+        @property
+        def sign_up_link(self) -> WebElement:
+            """Return the sign up link.
+
+            :return: the sign up link element
+            :rtype: :py:class:`selenium.webdriver.remote.webelement.WebElement`
+
+            """
+            return self.find_element(*self._sign_up_button_locator)
+
+        def log_in(self) -> Login:
+            """Click the 'Log in' link.
+
+            :return: the Accounts log in page
+            :rtype: :py:class:`~pages.accounts.Login`
+
+            """
+            Utilities.click_option(self.driver, element=self.log_in_link)
+            login = Login(self.driver)
+            login.wait_for_page_to_load()
+            return login
+
+        def sign_up(self) -> Signup:
+            """Click the 'Sign Up' button.
+
+            :return: the Accounts sign up page
+            :rtype: :py:class:`~pages.accounts.Signup`
+
+            """
+            Utilities.click_option(self.driver, element=self.sign_up_link)
+            sign_up = Signup(self.driver)
+            sign_up.wait_for_page_to_load()
+            return sign_up
 
     class Content(Region):
         """The study guide main body."""
