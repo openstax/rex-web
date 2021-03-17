@@ -1268,7 +1268,7 @@ def test_study_guide_cta_sign_up_ga_event(
     assert(sign_up_link_event["eventLabel"] == event_label)
 
 
-@markers.test_case("C605716")
+@markers.test_case("C605716", "C621330")
 @markers.parametrize(
     "book_slug, page_slug",
     [("principles-economics-2e", "1-introduction")]
@@ -1277,9 +1277,12 @@ def test_open_study_guide_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the study guide is opened."""
     # SETUP:
-    event_action = "Study guides"
-    event_category = "REX Button (toolbar)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    button_event_action = "button"
+    button_event_category = "REX Study guides (open SG popup)"
+    button_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    open_event_action = "Study guides"
+    open_event_category = "REX Button (toolbar)"
+    open_event_label = button_event_label
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url,
@@ -1293,19 +1296,34 @@ def test_open_study_guide_ga_event(
     # WHEN:  they open the study guide
     book.toolbar.study_guides()
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct open Google Analytics event is queued
     #        { eventAction: "Study guides",
     #          eventCategory: "REX Button (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    open_study_guide_event = Utilities.get_analytics_queue(selenium, -3)
+    # AND:   the correct button Google Analytics event is queued
+    #        { eventAction: "button",
+    #          eventCategory: "REX Study guides (open SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    open_study_guide_event = events[-3]
     assert(
         "eventAction" in open_study_guide_event and
         "eventCategory" in open_study_guide_event and
         "eventLabel" in open_study_guide_event
     ), "Not viewing the correct GA event"
-    assert(event_action in open_study_guide_event["eventAction"])
-    assert(open_study_guide_event["eventCategory"] == event_category)
-    assert(open_study_guide_event["eventLabel"] == event_label)
+    assert(open_event_action in open_study_guide_event["eventAction"])
+    assert(open_study_guide_event["eventCategory"] == open_event_category)
+    assert(open_study_guide_event["eventLabel"] == open_event_label)
+
+    button_event = events[-1]
+    assert(
+        "eventAction" in button_event and
+        "eventCategory" in button_event and
+        "eventLabel" in button_event
+    ), "Not viewing the correct GA event"
+    assert(button_event_action in button_event["eventAction"])
+    assert(button_event["eventCategory"] == button_event_category)
+    assert(button_event["eventLabel"] == button_event_label)
 
 
 @markers.test_case("C621326")
@@ -1458,38 +1476,6 @@ def test_sg_close_using_x_close_button_ga_events(
     assert(button_event_action in button_event["eventAction"])
     assert(button_event["eventCategory"] == button_event_category)
     assert(button_event["eventLabel"] == button_event_label)
-
-
-@markers.test_case("")
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("principles-economics-2e", "1-introduction")]
-)
-def test__ga_event(
-        selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
-    # SETUP:
-    event_action = ""
-    event_category = ""
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
-
-    # GIVEN:
-
-    # WHEN:
-
-    # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
-    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
-    assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
-    ), "Not viewing the correct GA event"
-    assert(event_action in last_event["eventAction"])
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
 
 
 @markers.test_case("")
