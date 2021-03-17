@@ -174,13 +174,13 @@ describe('locationChange', () => {
   describe('cross book references', () => {
     const mockOtherBook = {
       abstract: '',
-      id: 'newbookid',
+      id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
       license: {name: '', version: '', url: ''},
       revised: '2012-06-21',
       title: 'newbook',
       tree: {
         contents: [],
-        id: 'newbookid@0',
+        id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c@0',
         slug: 'newbook',
         title: 'newbook',
       },
@@ -198,7 +198,7 @@ describe('locationChange', () => {
       amazon_link: '',
       authors: [{value: {name: 'different author', senior_author: true}}],
       book_state: 'live',
-      cnx_id: 'newbookid',
+      cnx_id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
       cover_color: 'blue',
       meta: {
         slug: 'new-book',
@@ -209,11 +209,12 @@ describe('locationChange', () => {
     beforeEach(() => {
       helpers.archiveLoader.mockBook(mockOtherBook);
       helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
-      mockConfig.BOOKS.newbookid = {defaultVersion: '0'};
+      mockConfig.BOOKS['13ac107a-f15f-49d2-97e8-60ab2e3b519c'] = {defaultVersion: '0'};
 
       helpers.archiveLoader.mockPage(book, {
         abstract: '',
-        content: 'some <a href="/contents/newbookpageid"></a> content',
+        // tslint:disable-next-line: max-line-length
+        content: 'some <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> content',
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',
         title: 'page referencing different book',
@@ -230,15 +231,11 @@ describe('locationChange', () => {
     });
 
     it('load', async() => {
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
-        Promise.resolve([{id: 'newbookid', bookVersion: '0'}])
-      );
       helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 
       await hook(payload);
 
-      expect(helpers.archiveLoader.mock.getBookIdsForPage).toHaveBeenCalledWith('newbookpageid');
-      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('13ac107a-f15f-49d2-97e8-60ab2e3b519c');
 
       expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({payload: expect.objectContaining({references: [{
         match: '/contents/newbookpageid',
@@ -251,7 +248,7 @@ describe('locationChange', () => {
           },
         },
         state: {
-          bookUid: 'newbookid',
+          bookUid: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
           bookVersion: '0',
           pageUid: 'newbookpageid',
         },
@@ -259,10 +256,6 @@ describe('locationChange', () => {
     });
 
     it('error when the page is not in any configured book', async() => {
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
-        Promise.resolve([{id: 'garbagebookid', bookVersion: '0'}])
-      );
-
       let message: string | undefined;
 
       try {
@@ -291,9 +284,6 @@ describe('locationChange', () => {
         },
         version: '0',
       });
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
-        Promise.resolve([{id: 'garbagebookid', bookVersion: '0'}])
-      );
       mockConfig.BOOKS.garbagebookid = {defaultVersion: '0'};
       helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 

@@ -64,10 +64,6 @@ export default () => {
     return pages && pages[pageId];
   });
 
-  const getBookIdsForPage = jest.fn((_pageId: string) =>
-    Promise.resolve([] as Array<{id: string, bookVersion: string | undefined}>)
-  );
-
   return {
     book: (bookId: string, bookVersion: string | undefined) => ({
       cached: () => cachedBook(bookId, bookVersion),
@@ -79,8 +75,7 @@ export default () => {
         url: () => '/someUrl',
       }),
     }),
-    getBookIdsForPage,
-    mock: { loadBook, loadPage, cachedBook, cachedPage, getBookIdsForPage },
+    mock: { loadBook, loadPage, cachedBook, cachedPage },
     mockBook: (newBook: ArchiveBook) => {
       localBooks[`${newBook.id}@${newBook.version}`] = newBook;
       localBookPages[`${newBook.id}@${newBook.version}`] = {};
