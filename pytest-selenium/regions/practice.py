@@ -25,7 +25,7 @@ class Practice(Region):
         :rtype: bool
 
         """
-        return bool(self.find_elements(*self._heading_locator))
+        return self.find_elements(*self._heading_locator).is_displayed()
 
     @property
     def start_now_button(self) -> WebElement:
