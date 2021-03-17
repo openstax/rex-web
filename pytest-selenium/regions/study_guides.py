@@ -26,6 +26,8 @@ class StudyGuide(Region):
         By.CSS_SELECTOR, "[class*=GoToTop]")
     _header_bar_locator = (
         By.CSS_SELECTOR, "h3")
+    _overlay_locator = (
+        By.CSS_SELECTOR, "[data-testid=scroll-lock-overlay]")
     _toolbar_locator = (
         By.CSS_SELECTOR, "[data-testid*=guides-body] > [class*=Filters]")
 
@@ -91,6 +93,16 @@ class StudyGuide(Region):
         """
         header_root = self.find_element(*self._header_bar_locator)
         return self.Header(self, header_root)
+
+    @property
+    def overlay(self) -> WebElement:
+        """Return the main content hide overlay element.
+
+        :return: the pop up overlay
+        :rtype: :py:class:`selenium.webdriver.remote.webelement.WebElement`
+
+        """
+        return self.find_element(*self._overlay_locator)
 
     @property
     def toolbar(self) -> StudyGuide.Toolbar:

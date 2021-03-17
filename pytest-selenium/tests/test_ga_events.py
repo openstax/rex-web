@@ -3,6 +3,7 @@
 import random
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
 
 from pages.accounts import Signup
 from pages.content import Content
@@ -1306,25 +1307,42 @@ def test_open_study_guide_ga_event(
     assert(open_study_guide_event["eventLabel"] == event_label)
 
 
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+@markers.test_case("C621326")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_sg_close_using_overlay_click_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when SG close by overlay click."""
     # SETUP:
-    event_action = ""
-    event_category = ""
+    event_action = "overlay"
+    event_category = "REX Study guides (close SG popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
 
-    # GIVEN:
+    # GIVEN: a user viewing a book page with a study guide
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    # Trick the system to load the study guide
+    book.click_next_link()
+    book.click_previous_link()
 
-    # WHEN:
+    # WHEN:  they open the study guide
+    # AND:   click on the content overlay
+    guide = book.toolbar.study_guides()
+
+    (ActionChains(selenium)
+     .move_to_element_with_offset(guide.overlay, 5, 5)
+     .click()
+     .perform())
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    #        { eventAction: "overlay",
+    #          eventCategory: "REX Study guides (close SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    last_event = Utilities.get_analytics_queue(selenium, -2)
     assert(
         "eventAction" in last_event and
         "eventCategory" in last_event and
