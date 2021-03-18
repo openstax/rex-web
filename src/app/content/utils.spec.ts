@@ -55,7 +55,7 @@ describe('getContentPageReferences', () => {
     ).toEqual([]);
   });
 
-  it.only('picks up multiple rap links', () => {
+  it('picks up multiple rap links', () => {
     expect(
       getContentPageReferences(`
       asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> sdf
