@@ -52,10 +52,8 @@ export default () => {
     ;
   });
   const loadPage = jest.fn((bookId, bookVersion, pageId) => {
-    console.log('loadPage', bookId, bookVersion, pageId)
     const pages = localBookPages[`${bookId}@${bookVersion}`];
     const pageData = pages && pages[pageId];
-    console.log('localBookPages', localBookPages)
     return pageData ? Promise.resolve(pageData) : Promise.reject();
   });
   const cachedBook = jest.fn((bookId, bookVersion): ArchiveBook | undefined => {

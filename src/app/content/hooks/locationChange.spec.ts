@@ -126,18 +126,17 @@ describe('locationChange', () => {
     await hook(payload);
 
     expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({payload: expect.objectContaining({references: [{
-      match: './13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
+      match: `./${mockBook.id}@${mockBook.version}:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml`,
       params: {
         book: {
-          uuid: mockBook.id,
-          version: mockBook.version,
+          slug: 'book-slug-1',
         },
         page: {
           slug: 'rando-page',
         },
       },
       state: {
-        bookUid: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
+        bookUid: mockBook.id,
         bookVersion: mockBook.version,
         pageUid: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       },
@@ -187,7 +186,7 @@ describe('locationChange', () => {
     const mockPageInOtherBook = {
       abstract: '',
       content: 'dope content bruh',
-      id: '99d38770-49c7-49d3-b567-88f393ffb4fe',
+      id: '99d38770-49c7-49d3-b567-88f393fother',
       revised: '2018-07-30T15:58:45Z',
       title: 'page in a new book',
       version: '0',
@@ -254,12 +253,19 @@ describe('locationChange', () => {
       }]})}));
     });
 
-    it('error when the page is not in any configured book', async() => {
-      helpers.archiveLoader.mock.loadBook.mockResolvedValue({
-        id: 'garbagebookid',
-        tree: { contents: [] },
+    it('error when archive returend book without valid tree', async() => {
+      helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
+      const garbageBook = { ...mockOtherBook, id: '13ac107a-f15f-49d2-97e8-garbageother', tree: null } as any;
+      helpers.archiveLoader.mockBook(garbageBook);
+      helpers.archiveLoader.mock.loadPage.mockResolvedValue({
+        abstract: '',
+        // tslint:disable-next-line: max-line-length
+        content: `some <a href="./${garbageBook.id}@${garbageBook.version}:thisiddoes-not7-exis-t567-88f393fother.xhtml"></a> content`,
+        id: 'pageid',
+        revised: '2018-07-30T15:58:45Z',
+        title: 'this page has cross link that directs to missing page',
         version: '0',
-      } as any);
+      });
 
       let message: string | undefined;
 
@@ -270,32 +276,23 @@ describe('locationChange', () => {
       }
 
       expect(message).toEqual(
-        'BUG: "Test Book 1 / page referencing different book" referenced "newbookpageid"' +
-        ', but it could not be found in any configured books.'
+        'BUG: "Test Book 1 / this page has cross link that directs to missing page"'
+        + ' referenced "thisiddoes-not7-exis-t567-88f393foth"'
+        + ', but it could not be found in any configured books.'
       );
     });
 
-    it.only('error when archive returns a book that doesn\'t actually contain the page', async() => {
-      helpers.archiveLoader.mockBook({
-        id: 'garbagebookid',
-        license: {name: '', version: '', url: ''},
-        revised: '2012-06-21',
-        title: 'book without the page you\'re looking for',
-        tree: {
-          contents: [],
-          id: 'garbagebookid@0',
-          slug: 'garbage-book',
-          title: 'garbage book',
-        },
+    it('error when archive returns a book that doesn\'t actually contain the page', async() => {
+      helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
+      helpers.archiveLoader.mock.loadPage.mockResolvedValue({
+        abstract: '',
+        // tslint:disable-next-line: max-line-length
+        content: `some <a href="./${mockOtherBook.id}@${mockOtherBook.version}:thisiddoes-not7-exis-t567-88f393fother.xhtml"></a> content`,
+        id: 'pageid',
+        revised: '2018-07-30T15:58:45Z',
+        title: 'this page has cross link that directs to missing page',
         version: '0',
       });
-      const garbagebook = { id: 'garbagebookid', tree: { contents: [] }, version: '0' } as any;
-      const garbagepage = { id: 'garbagepageid', content: 'asda' } as any;
-      helpers.archiveLoader.mockBook(garbagebook);
-      helpers.archiveLoader.mock.loadBook.mockResolvedValue(garbagebook);
-      helpers.archiveLoader.mock.loadPage.mockResolvedValue(garbagepage);
-      mockConfig.BOOKS.garbagebookid = {defaultVersion: '0'};
-      helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 
       let message: string | undefined;
 
@@ -306,8 +303,9 @@ describe('locationChange', () => {
       }
 
       expect(message).toEqual(
-        'BUG: "Test Book 1 / page referencing different book" referenced "newbookpageid"' +
-        ', archive thought it would be in "garbagebookid", but it wasn\'t'
+        'BUG: "Test Book 1 / this page has cross link that directs to missing page" referenced '
+        + '"thisiddoes-not7-exis-t567-88f393foth"'
+        + `, archive thought it would be in "${mockOtherBook.id}", but it wasn't`
       );
     });
   });

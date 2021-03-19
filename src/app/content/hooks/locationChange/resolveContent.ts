@@ -21,17 +21,12 @@ export default async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ) => {
-  console.log('01')
   const [book, loader] = await resolveBook(services, match);
-  console.log('02')
   const page = await resolvePage(services, match, book, loader);
-  console.log('03')
 
   if (!hasOSWebData(book) && APP_ENV === 'production') {
-  console.log('04')
   throw new Error('books without cms data are only supported outside production');
   }
-  console.log('05')
 
   return {book, page};
 };
@@ -53,9 +48,7 @@ const resolveBook = async(
   match: Match<typeof content>
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
   const {dispatch, getState, archiveLoader, osWebLoader} = services;
-  console.log('resolveBook 1')
   const [bookSlug, bookId, bookVersion] = await resolveBookReference(services, match);
-  console.log('resolveBook 2')
 
   const loader = archiveLoader.book(bookId, bookVersion);
   const state = getState();
@@ -63,19 +56,15 @@ const resolveBook = async(
   const book = bookState && bookState.id === bookId ? bookState : undefined;
 
   if (book) {
-  console.log('resolveBook 3')
-  return [book, loader];
+    return [book, loader];
   }
-  console.log('resolveBook 4')
 
   if (!isEqual((match.params.book), select.loadingBook(state))) {
-    console.log('resolveBook 5')
     dispatch(requestBook(match.params.book));
     const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
     dispatch(receiveBook(response[0]));
     return response;
   } else {
-    console.log('resolveBook 6')
     return await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
   }
 };
@@ -123,13 +112,9 @@ const loadPage = async(
   pageId: string
 ) => {
   services.dispatch(requestPage(match.params.page));
-  console.log('requrest', pageId)
   return await bookLoader.page(pageId).load()
     .then(loadContentReferences(services, book))
-    .then((pageData) => {
-      console.log('pageData', pageData)
-      return services.dispatch(receivePage(pageData)) && pageData
-    })
+    .then((pageData) => services.dispatch(receivePage(pageData)) && pageData)
   ;
 };
 
@@ -146,19 +131,15 @@ const resolvePage = async(
     : getPageIdFromUrlParam(book, match.params.page);
 
   if (!pageId) {
-    console.log('resolvePage 1')
     dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
     return;
   }
-  console.log('resolvePage 2')
 
   const loadingPage = select.loadingPage(state);
   const pageState = select.page(state);
   if (pageState && pageState.id === pageId) {
-    console.log('resolvePage 3')
     return pageState;
   } else if (!isEqual(loadingPage, match.params.page)) {
-    console.log('resolvePage 4')
     return await loadPage(services, match, book, bookLoader, pageId);
   }
 };
@@ -191,14 +172,11 @@ export const resolveExternalBookReference = async(
   page: ArchivePage,
   reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
-  console.log('1')
   const bookInformation = await getBookInformation(services, reference);
-  console.log('bookInformation', bookInformation)
 
   // Don't throw an error if reference couldn't be loaded when UNLIMITED_CONTENT is truthy
   // It will be processed in contentLinkHandler.ts
   if (UNLIMITED_CONTENT && !bookInformation) {
-    console.log('2')
     return bookInformation;
   }
 
@@ -206,20 +184,15 @@ export const resolveExternalBookReference = async(
     `BUG: "${book.title} / ${page.title}" referenced "${reference.pageId}", ${message}`
   );
 
-  console.log('bookInformation', bookInformation ? bookInformation.archiveBook.id : null)
   if (!bookInformation) {
-    console.log('3')
     throw error('but it could not be found in any configured books.');
   }
 
   const referencedBook = formatBookData(bookInformation.archiveBook, bookInformation.osWebBook);
 
-  console.log('referencedBook', referencedBook.id, 'reference.pageId', reference.pageId)
   if (!archiveTreeContainsNode(referencedBook.tree, reference.pageId)) {
-    console.log('4')
     throw error(`archive thought it would be in "${referencedBook.id}", but it wasn't`);
   }
-  console.log('5')
 
   return referencedBook;
 };
@@ -256,16 +229,11 @@ export const loadContentReference = async(
 };
 
 const loadContentReferences = (services: AppServices & MiddlewareAPI, book: Book) => async(page: ArchivePage) => {
-  console.log('page.content', page.content)
   const contentReferences = getContentPageReferences(page.content);
   const references: Array<PageReferenceMap | PageReferenceError> = [];
-  console.log('contentReferences', contentReferences)
   for (const reference of contentReferences) {
-    console.log('reference', reference)
     references.push(await loadContentReference(services, book, page, reference));
   }
-
-  console.log('references', references)
 
   return {
     ...page,
