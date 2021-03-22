@@ -277,7 +277,7 @@ describe('locationChange', () => {
 
       expect(message).toEqual(
         'BUG: "Test Book 1 / this page has cross link that directs to missing page"'
-        + ' referenced "thisiddoes-not7-exis-t567-88f393foth"'
+        + ' referenced "thisiddoes-not7-exis-t567-88f393fother"'
         + ', but it could not be found in any configured books.'
       );
     });
@@ -304,7 +304,7 @@ describe('locationChange', () => {
 
       expect(message).toEqual(
         'BUG: "Test Book 1 / this page has cross link that directs to missing page" referenced '
-        + '"thisiddoes-not7-exis-t567-88f393foth"'
+        + '"thisiddoes-not7-exis-t567-88f393fother"'
         + `, archive thought it would be in "${mockOtherBook.id}", but it wasn't`
       );
     });

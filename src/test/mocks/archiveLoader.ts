@@ -1,30 +1,31 @@
+// tslint:disable: max-line-length
 import fs from 'fs';
 import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
 import { ArchiveBook, ArchivePage } from '../../app/content/types';
 
 export const book = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid.json'), 'utf8')
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/20210224.204120/contents/testbook1-shortid.json'), 'utf8')
 ) as ArchiveBook;
 
 export const page = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage1-shortid.json'), 'utf8')
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/20210224.204120/contents/testbook1-shortid:testpage1-shortid.json'), 'utf8')
 ) as ArchivePage;
 
 export const shortPage = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage4-shortid.json'), 'utf8')
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/20210224.204120/contents/testbook1-shortid:testpage4-shortid.json'), 'utf8')
 ) as ArchivePage;
 
 export const pageInChapter = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage6-shortid.json'), 'utf8')
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/20210224.204120/contents/testbook1-shortid:testpage6-shortid.json'), 'utf8')
 ) as ArchivePage;
 
 export const pageInOtherChapter = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage7-shortid.json'), 'utf8')
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/20210224.204120/contents/testbook1-shortid:testpage7-shortid.json'), 'utf8')
 ) as ArchivePage;
 
 export const lastPage = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage12-shortid.json'), 'utf8')
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/20210224.204120/contents/testbook1-shortid:testpage12-shortid.json'), 'utf8')
 ) as ArchivePage;
 
 const books: {[key: string]: ArchiveBook} = {
