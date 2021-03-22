@@ -76,6 +76,8 @@ jobs:
       fail-fast: false
       matrix:
         suite: [unit, browser, build]
+    sysctls:
+      fs.inotify.max_user_watches: 524288
     env:
       CI: true
     steps:
