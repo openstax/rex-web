@@ -31,7 +31,7 @@ export function getContentPageReferences(content: string) {
   const matches = (content.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
     .map((match) => {
       const [bookMatch, pageMatch] = match.split(':');
-      const pageId = pageMatch.substr(0, 36);
+      const pageId = pageMatch.split('.xhtml')[0];
       let [bookId, bookVersion] = bookMatch.split('@') as [string, string | undefined];
       bookId = bookId.substr(2);
 
