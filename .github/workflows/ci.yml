@@ -73,7 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: openstax/rex-web:CI-2020-01-26
-      options: '--privileged --sysctl fs.inotify.max_user_watches=524288'
+      options: '--privileged --alowed-unsafe-sysctls --sysctl fs.inotify.max_user_watches=524288'
     strategy:
       fail-fast: false
       matrix:
