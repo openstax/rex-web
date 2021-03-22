@@ -71,13 +71,14 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI-2020-01-26
+    container:
+      image: openstax/rex-web:CI-2020-01-26
+      sysctls:
+        fs.inotify.max_user_watches: 524288
     strategy:
       fail-fast: false
       matrix:
         suite: [unit, browser, build]
-    sysctls:
-      fs.inotify.max_user_watches: 524288
     env:
       CI: true
     steps:
