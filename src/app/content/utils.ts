@@ -1,4 +1,3 @@
-import { BOOKS } from '../../config';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
 import { hasOSWebData, isArchiveTree } from './guards';
@@ -13,44 +12,11 @@ import {
   UuidParams,
 } from './types';
 import { CACHED_FLATTENED_TREES, getTitleFromArchiveNode } from './utils/archiveTreeUtils';
-import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
-
-export interface ContentPageRefencesType {
-  bookId: string;
-  bookVersion: string;
-  match: string;
-  pageId: string;
-}
-
-export function getContentPageReferences(content: string) {
-  const matches = (content.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
-    .map((match) => {
-      const [bookMatch, pageMatch] = match.split(':');
-      const pageId = pageMatch.split('.xhtml')[0];
-      let [bookId, bookVersion] = bookMatch.split('@') as [string, string | undefined];
-      bookId = bookId.substr(2);
-
-      if (!bookVersion && BOOKS[bookId]) {
-        bookVersion = BOOKS[bookId].defaultVersion;
-      }
-
-      if (!bookVersion) { return null; }
-
-      return {
-        bookId,
-        bookVersion,
-        match,
-        pageId: stripIdVersion(pageId),
-      };
-    }).filter((match) => match !== null);
-
-  return [...matches] as ContentPageRefencesType[];
-}
 
 export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
   contents.map((subtree) => {

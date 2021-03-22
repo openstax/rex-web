@@ -2,19 +2,12 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import { resetModules } from '../../test/utils';
 import { ArchiveBook, ArchiveTree, Book } from './types';
 import {
-  getContentPageReferences,
   getIdFromPageParam,
   getPageIdFromUrlParam,
   parseContents,
   stripIdVersion,
   toRelativeUrl,
 } from './utils';
-
-jest.mock('../../config', () => {
-  return {BOOKS: {
-   '13ac107a-f15f-49d2-97e8-60ab2e3b519c': {defaultVersion: '29.7'},
-  }};
-});
 
 describe('stripIdVersion', () => {
   it('strips ids', () => {
@@ -23,58 +16,6 @@ describe('stripIdVersion', () => {
 
   it('doesn\'t break with no id', () => {
     expect(stripIdVersion('asdf')).toEqual('asdf');
-  });
-});
-
-describe('getContentPageReferences', () => {
-  it('works with no references in the content', () => {
-    expect(getContentPageReferences('some cool content')).toEqual([]);
-  });
-
-  it('works with empty content', () => {
-    expect(getContentPageReferences('')).toEqual([]);
-  });
-
-  it('ignores urls not in links', () => {
-    expect(
-      getContentPageReferences('asdfasdfasf /contents/as8s8xu9sdnjsd9 asdfadf')
-    ).toEqual([]);
-  });
-
-  it('ignores urls without book version', () => {
-    expect(
-      getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf')
-    ).toEqual([]);
-  });
-
-  it('ignores rap links without book version if they are not in config.books.json', () => {
-    expect(
-      getContentPageReferences(`
-      asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3wrong:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a>
-    `)
-    ).toEqual([]);
-  });
-
-  it('picks up multiple rap links', () => {
-    expect(
-      getContentPageReferences(`
-      asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> sdf
-      <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a>
-    `)
-    ).toEqual([
-      {
-        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
-        bookVersion: '29.7',
-        match: './13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
-        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
-      },
-      {
-        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
-        bookVersion: '29.7',
-        match: './13ac107a-f15f-49d2-97e8-60ab2e3b519c:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
-        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
-      },
-    ]);
   });
 });
 

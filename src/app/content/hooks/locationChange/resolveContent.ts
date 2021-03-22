@@ -10,11 +10,11 @@ import * as select from '../../selectors';
 import { ArchivePage, Book, PageReferenceError, PageReferenceMap } from '../../types';
 import {
   formatBookData,
-  getContentPageReferences,
   getIdFromPageParam,
   getPageIdFromUrlParam,
 } from '../../utils';
 import { archiveTreeContainsNode, archiveTreeSectionIsBook } from '../../utils/archiveTreeUtils';
+import { stripIdVersion } from '../../utils/idUtils';
 import { getUrlParamForPageId, getUrlParamsForBook } from '../../utils/urlUtils';
 
 export default async(
@@ -25,11 +25,34 @@ export default async(
   const page = await resolvePage(services, match, book, loader);
 
   if (!hasOSWebData(book) && APP_ENV === 'production') {
-  throw new Error('books without cms data are only supported outside production');
+    throw new Error('books without cms data are only supported outside production');
   }
 
   return {book, page};
 };
+
+export function getContentPageReferences(htmlContent: string) {
+  const matches = (htmlContent.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
+    .map((match) => {
+      const [bookMatch, pageMatch] = match.split(':');
+      const pageId = pageMatch.split('.xhtml')[0];
+      let [bookId, bookVersion] = bookMatch.split('@') as [string, string | undefined];
+      bookId = bookId.substr(2);
+
+      if (!bookVersion && BOOKS[bookId]) {
+        bookVersion = BOOKS[bookId].defaultVersion;
+      }
+
+      return {
+        bookId,
+        bookVersion,
+        match,
+        pageId: stripIdVersion(pageId),
+      };
+    });
+
+  return matches;
+}
 
 const getBookResponse = async(
   osWebLoader: AppServices['osWebLoader'],
@@ -150,7 +173,7 @@ export const getBookInformation = async(
 ) => {
   const osWebBook =  await services.osWebLoader.getBookFromId(reference.bookId);
   const archiveBook = await services.archiveLoader.book(
-    reference.bookId, reference.bookVersion
+    reference.bookId, reference.bookVersion || 'undefined'
   ).load().catch((error) => {
     if (UNLIMITED_CONTENT) {
       return undefined;

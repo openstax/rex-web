@@ -19,6 +19,7 @@ jest.mock('../../../../config', () => {
     BOOKS: {
       [mockBook.id]: { defaultVersion: mockBook.version },
       '13ac107a-f15f-49d2-97e8-60ab2e3abcde': { defaultVersion: '1.0' },
+      '13ac107a-f15f-49d2-97e8-60ab2e3b519c': { defaultVersion: '29.7' },
     },
     UNLIMITED_CONTENT: true,
   };
@@ -255,6 +256,23 @@ describe('locationChange', () => {
       expect(referenceBook).toEqual(undefined);
     });
 
+    describe('getBookInformation', () => {
+      it('do not throw and handle reference with undefined version', async() => {
+        const reference = {
+          bookId: 'asdasdas',
+          bookVersion: undefined,
+          match: 'ajhd',
+          pageId: 'asd',
+        };
+
+        helpers.archiveLoader.mock.loadBook.mockRejectedValue(new Error('asd'));
+
+        const bookInfo = await resolveContentUtils.getBookInformation(helpers, reference);
+
+        expect(bookInfo).toEqual(undefined);
+      });
+    });
+
     describe('loadContentReference', () => {
       it('returns undefined when resolveExternalBookReference returns ReferenceLoadingerror', async() => {
         jest.spyOn(resolveContentUtils, 'resolveExternalBookReference')
@@ -318,5 +336,64 @@ describe('locationChange', () => {
       await expect(resolveExternalBookReference(helpers, mockOtherBook, mockPageInOtherBook, reference))
         .rejects.toThrow('asda');
     });
+  });
+});
+
+describe('getContentPageReferences', () => {
+  it('works with no references in the content', () => {
+    expect(resolveContentUtils.getContentPageReferences('some cool content')).toEqual([]);
+  });
+
+  it('works with empty content', () => {
+    expect(resolveContentUtils.getContentPageReferences('')).toEqual([]);
+  });
+
+  it('ignores urls not in links', () => {
+    expect(
+      resolveContentUtils.getContentPageReferences('asdfasdfasf /contents/as8s8xu9sdnjsd9 asdfadf')
+    ).toEqual([]);
+  });
+
+  it('ignores urls without book version', () => {
+    expect(
+      resolveContentUtils.getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf')
+    ).toEqual([]);
+  });
+
+  it('picks rap links without book version even if they are not in config.books.json', () => {
+    expect(
+      resolveContentUtils.getContentPageReferences(`
+      asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3wrong:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a>
+    `)
+    ).toEqual([
+      {
+        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3wrong',
+        bookVersion: undefined,
+        match: './13ac107a-f15f-49d2-97e8-60ab2e3wrong:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
+        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
+      },
+    ]);
+  });
+
+  it('picks up multiple rap links', () => {
+    expect(
+      resolveContentUtils.getContentPageReferences(`
+      asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> sdf
+      <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a>
+    `)
+    ).toEqual([
+      {
+        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
+        bookVersion: '29.7',
+        match: './13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
+        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
+      },
+      {
+        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
+        bookVersion: '29.7',
+        match: './13ac107a-f15f-49d2-97e8-60ab2e3b519c:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
+        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
+      },
+    ]);
   });
 });
