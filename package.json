@@ -190,8 +190,7 @@
       "text-summary",
       "html",
       "lcovonly"
-    ],
-    "watchman": false
+    ]
   },
   "babelMacros": {
     "styledComponents": {
