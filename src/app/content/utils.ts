@@ -12,11 +12,37 @@ import {
   UuidParams,
 } from './types';
 import { CACHED_FLATTENED_TREES, getTitleFromArchiveNode } from './utils/archiveTreeUtils';
+import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
+
+export interface ContentPageRefencesType {
+  bookId: string;
+  bookVersion?: string;
+  match: string;
+  pageId: string;
+}
+
+export function getContentPageReferences(htmlContent: string) {
+  const matches: ContentPageRefencesType[] = (htmlContent.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
+    .map((match) => {
+      const [bookMatch, pageMatch] = match.split(':');
+      const pageId = pageMatch.split('.xhtml')[0];
+      const [bookId, bookVersion] = bookMatch.split('@') as [string, string | undefined];
+
+      return {
+        bookId: bookId.substr(2),
+        bookVersion,
+        match,
+        pageId: stripIdVersion(pageId),
+      };
+    });
+
+  return matches;
+}
 
 export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
   contents.map((subtree) => {
