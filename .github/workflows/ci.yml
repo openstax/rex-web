@@ -88,9 +88,7 @@ jobs:
         path: node_modules
         key: node_modules5
     - run: yarn install
-    - run: for foo in /proc/*/fd/*; do readlink -f $foo; done |grep inotify |cut -d/ -f3 |xargs -I '{}' -- ps --no-headers -o '%p %U %a' -p '{}' |uniq -c |sort -n
     - run: yarn test:${{ matrix.suite }}
-    - run: for foo in /proc/*/fd/*; do readlink -f $foo; done |grep inotify |cut -d/ -f3 |xargs -I '{}' -- ps --no-headers -o '%p %U %a' -p '{}' |uniq -c |sort -n
     - uses: actions/upload-artifact@v2
       if: ${{ failure() }}
       with:
