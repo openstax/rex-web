@@ -141,23 +141,25 @@ describe('highlightManager', () => {
     highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
-    options.formatMessage('id', 'abc');
+    options.formatMessage({ id: 'id' }, { style: 'abc' });
     expect(intl.formatMessage).toHaveBeenCalledWith({ id: 'id' }, { style: 'abc' });
   });
 
-  it('calls highlighter.onFocusIn', () => {
+  it('calls highlighter.onFocusIn', async() => {
     highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
     options.onFocusIn({ id: 'abc' });
+    await new Promise((resolve) => defer(resolve));
     expect(prop.focus).toHaveBeenCalledWith('abc');
   });
 
-  it('calls highlighter.onFocusOut', () => {
+  it('calls highlighter.onFocusOut', async() => {
     highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
     options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).toHaveBeenCalled();
   });
 
