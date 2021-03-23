@@ -14,6 +14,7 @@ import { page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
+import { assertDocument } from '../../../utils/browser-assertions';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import { HighlightData, HighlightScrollTarget } from '../../highlights/types';
@@ -161,6 +162,36 @@ describe('highlightManager', () => {
     options.onFocusOut();
     await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).toHaveBeenCalled();
+  });
+
+  it('noops on highlighter.onFocusOut if active element has data-highlight-card attribute', async() => {
+    highlightManager(element, () => prop, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    const document = assertDocument();
+    const highlightElement = document.createElement('span');
+    highlightElement.setAttribute('data-highlight-card', 'true');
+    highlightElement.setAttribute('tabindex', '0');
+    document.body.append(highlightElement);
+    highlightElement.focus();
+    options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.clearFocus).not.toHaveBeenCalled();
+  });
+
+  it('noops on highlighter.onFocusOut if active element has data-for-screenreaders attribute', async() => {
+    highlightManager(element, () => prop, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    const document = assertDocument();
+    const highlightElement = document.createElement('span');
+    highlightElement.setAttribute('data-for-screenreaders', 'true');
+    highlightElement.setAttribute('tabindex', '0');
+    document.body.append(highlightElement);
+    highlightElement.focus();
+    options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.clearFocus).not.toHaveBeenCalled();
   });
 
   it('highlights highlights', () => {
