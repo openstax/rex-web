@@ -63,8 +63,8 @@
     "pretest:sims": "./script/build-simulations.bash",
     "pretest": "npm run-script build:css",
     "test": "npm run-script test:unit && npm run-script test:browser && npm run-script test:build",
-    "test:unit": "SKIP_PREFLIGHT_CHECK=true SERVER_MODE=built REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)spec\\.tsx?\" && ./script/push-codecov.bash",
-    "test:browser": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" -i",
+    "test:unit": "SERVER_MODE=built REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)spec\\.tsx?\" && ./script/push-codecov.bash",
+    "test:browser": "SERVER_MODE=built npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" -i",
     "test:screenshots": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)screenshotspec\\.tsx?\" -i",
     "test:build": "REACT_APP_ENV=test npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
     "test:sourcemap": "REACT_APP_ENV=test node ./script/verifySourcemaps.js",
@@ -160,8 +160,7 @@
     "yargs": "^13.2.4"
   },
   "resolutions": {
-    "@sentry/browser": "5.6.1",
-    "jest": "25.1.0"
+    "@sentry/browser": "5.6.1"
   },
   "jest": {
     "preset": "jest-puppeteer",
