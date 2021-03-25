@@ -22,7 +22,7 @@ module.exports = {
     launchTimeout: 60000,
     command: SERVER_MODE === 'built'
       ? `REACT_APP_ENV=test HTTPS=false PORT=${PORT} yarn server`
-      : `REACT_APP_ENV=test HTTPS=false PORT=${PORT} BROWSER=none craco start`,
+      : `REACT_APP_ENV=test HTTPS=false PORT=${PORT} BROWSER=none yarn start`,
     port: PORT,
   },
 }
