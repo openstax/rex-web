@@ -16,7 +16,7 @@ module.exports = {
         liveReload: false,
         watchContentBase: false,
         watchOptions: {
-          ignored: APP_ENV === 'test' ? /./ : undefined,
+          ignored: APP_ENV === 'test' ? /node_modules/ : undefined,
         }
       },
     }
@@ -28,7 +28,7 @@ module.exports = {
     liveReload: false,
     watchContentBase: false,
     watchOptions: {
-      ignored: APP_ENV === 'test' ? /./ : undefined,
+      ignored: APP_ENV === 'test' ? /node_modules/ : undefined,
     }
   },
 };
