@@ -27,6 +27,8 @@ class WebBase(Page):
         By.CSS_SELECTOR, ".callout .put-away")
     _close_locator = (
         By.CSS_SELECTOR, '[class="put-away"]')
+    _desktop_user_menu_locator = (
+        By.CSS_SELECTOR, ".desktop .login-menu")
     _dialog_locator = (
         By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
     _dialog_title_locator = (
@@ -39,6 +41,8 @@ class WebBase(Page):
         By.CSS_SELECTOR, "[href*=signout]")
     _log_in_locator = (
         By.CSS_SELECTOR, '[class="pardotTrackClick"]')
+    _mobile_user_menu_locator = (
+        By.CSS_SELECTOR, ".mobile .login-menu")
     _mobile_user_nav_loaded_locator = (
         By.CSS_SELECTOR, '[class="page-header active"]')
     _mobile_user_nav_locator = (
@@ -56,7 +60,7 @@ class WebBase(Page):
     _sticky_note_put_away_button_locator = (
         By.CSS_SELECTOR, "#lower-sticky-note .put-away")
     _user_nav_locator = (
-        By.CSS_SELECTOR, '[class*="login-menu"]')
+        By.CSS_SELECTOR, '.login-menu')
     _view_online_desktop_locator = (
         By.XPATH, f"{DESKTOP}{VIEW_ONLINE}")
     _view_online_links_locator = (
@@ -105,7 +109,10 @@ class WebBase(Page):
 
     @property
     def mobile_user_nav_loaded(self):
-        return self.find_element(*self._mobile_user_nav_loaded_locator).is_displayed()
+        user_nav = self.find_elements(*self._mobile_user_nav_loaded_locator)
+        if not user_nav:
+            return False
+        return user_nav[0].is_displayed()
 
     @property
     def logout(self):
@@ -118,13 +125,10 @@ class WebBase(Page):
     @property
     def user_is_logged_in(self):
         if self.is_desktop:
-            if self.is_element_present(*self._user_nav_locator):
-                return True
-        elif self.is_mobile:
-            self.click_mobile_user_nav()
-            if self.mobile_user_nav_loaded:
-                self.click_mobile_user_nav()
-                return True
+            user_menu = self.find_element(*self._desktop_user_menu_locator)
+        else:
+            user_menu = self.find_element(*self._mobile_user_menu_locator)
+        return 'dropdown' in user_menu.get_attribute("class")
 
     @property
     def view_online(self):
@@ -162,6 +166,7 @@ class WebBase(Page):
 
     def click_mobile_user_nav(self):
         self.offscreen_click(self.mobile_user_nav)
+        sleep(1.0)
 
     def osweb_username(self, element):
         """Get the username of the logged in user."""
