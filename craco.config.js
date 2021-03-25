@@ -6,7 +6,27 @@ const { APP_ENV } = require('./src/config');
 // We want to disable file watching because files are being added to Inotify which raises an error when running in Github CI.
 // https://github.com/openstax/rex-web/pull/1118#issuecomment-797573574
 module.exports = {
+  webpack: {
+    configure: {
+      watch: false,
+      devServer: {
+        hot: false,
+        inline: false,
+        injectHot: false,
+        liveReload: false,
+        watchContentBase: false,
+        watchOptions: {
+          ignored: APP_ENV === 'test' ? /\.tsx/ : undefined,
+        }
+      },
+    }
+  },
   devServer: {
+    hot: false,
+    inline: false,
+    injectHot: false,
+    liveReload: false,
+    watchContentBase: false,
     watchOptions: {
       ignored: APP_ENV === 'test' ? /\.tsx/ : undefined,
     }
