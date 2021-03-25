@@ -102,7 +102,6 @@ def test_rex_login_state_when_redirected_from_osweb(
 ):
     # GIVEN: Open osweb book details page
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
-    osweb.wait_for_load()
     osweb.close_dialogs()
     osweb.click_login()
 
@@ -124,7 +123,7 @@ def test_rex_login_state_when_redirected_from_osweb(
     rex.wait_for_page_to_load()
     rex_nav = rex.navbar
     assert rex_nav.user_is_logged_in
-    rex_username = rex.username(rex_nav.user_nav_toggle)
+    rex_username = rex.username(rex_nav.user_nav_toggle)[3:]
 
     assert rex_username == osweb_username
 

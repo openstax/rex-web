@@ -27,6 +27,8 @@ class WebBase(Page):
         By.CSS_SELECTOR, ".callout .put-away")
     _close_locator = (
         By.CSS_SELECTOR, '[class="put-away"]')
+    _desktop_log_in_link_locator = (
+        By.CSS_SELECTOR, ".desktop .login-menu > a")
     _desktop_user_menu_locator = (
         By.CSS_SELECTOR, ".desktop .login-menu")
     _dialog_locator = (
@@ -41,6 +43,8 @@ class WebBase(Page):
         By.CSS_SELECTOR, "[href*=signout]")
     _log_in_locator = (
         By.CSS_SELECTOR, '[class="pardotTrackClick"]')
+    _mobile_log_in_link_locator = (
+        By.CSS_SELECTOR, ".mobile .login-menu > a")
     _mobile_user_menu_locator = (
         By.CSS_SELECTOR, ".mobile .login-menu")
     _mobile_user_nav_loaded_locator = (
@@ -147,9 +151,12 @@ class WebBase(Page):
         Utilities.click_option(self.driver, element=target)
 
     def click_login(self):
-        if self.is_mobile:
+        if self.is_desktop:
+            log_in = self.find_element(*self._desktop_log_in_link_locator)
+        else:
             self.click_mobile_user_nav()
-        self.login.click()
+            log_in = self.find_element(*self._mobile_log_in_link_locator)
+        Utilities.click_option(self.driver, element=log_in)
 
     def click_logout(self):
         if self.is_desktop:
@@ -168,10 +175,14 @@ class WebBase(Page):
         self.offscreen_click(self.mobile_user_nav)
         sleep(1.0)
 
-    def osweb_username(self, element):
+    def osweb_username(self, element=None):
         """Get the username of the logged in user."""
-        element1 = self.username(element)
-        return " ".join(element1.split()[:2])
+        if self.is_desktop:
+            username = self.find_element(*self._desktop_log_in_link_locator)
+            return username.text[3:-5]
+        self.click_mobile_user_nav()
+        username = self.find_element(*self._mobile_log_in_link_locator)
+        return username.text[3:]
 
     @property
     def notification_dialog_displayed(self) -> bool:
