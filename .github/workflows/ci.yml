@@ -75,7 +75,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [unit, browser, build]
+        suite: [unit, build]
     env:
       CI: true
     steps:
@@ -89,6 +89,7 @@ jobs:
         key: node_modules5
     - run: yarn install
     - run: yarn test:${{ matrix.suite }}
+    - run: yarn test:browser
     - uses: actions/upload-artifact@v2
       if: ${{ failure() }}
       with:
