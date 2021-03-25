@@ -1,5 +1,6 @@
 from typing import List
 
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -97,6 +98,13 @@ class TableOfContents(Region):
 
         _is_active_locator = (By.XPATH, "./..")
 
+        _active_page_mark_selector = '[aria-label=\"Current Page\"]'
+
+        WAIT = (
+            "return document.querySelectorAll"
+            f"('{_active_page_mark_selector}');"
+        )
+
         def click(self):
             self.page.click_and_wait_for_load(self.root)
 
@@ -108,11 +116,17 @@ class TableOfContents(Region):
         def is_active(self) -> bool:
             """Return True if 'Current Page' found in the section's HTML.
 
+            .. note:: We wait until a page is marked as being currently open.
+
             :return: ``True`` if 'Current Page' found in the section HTML
             :rtype: bool
 
             """
-            parent = self.find_elements(*self._is_active_locator)
-            if parent:
-                return "Current Page" in parent[0].get_attribute("outerHTML")
-            return False
+            try:
+                self.wait.until(
+                    lambda _: bool(self.driver.execute_script(self.WAIT))
+                )
+            except TimeoutException:
+                return False
+            parent = self.find_element(*self._is_active_locator)
+            return "Current Page" in parent.get_attribute("outerHTML")
