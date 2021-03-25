@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "5.8.0",
     "@formatjs/intl-pluralrules": "^4.0.6",
     "@openstax/highlighter": "^1.6.3",
     "@openstax/open-search-client": "0.1.0",
