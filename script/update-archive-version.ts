@@ -72,12 +72,17 @@ async function updateArchiveVersion() {
       });
   }));
 
+  // New line after progress bar
+  console.log('\n');
+
   if (newRedirects.length > 0) {
-    for (const [book, redirects] of newRedirects) {
-      console.log(`\nAdded ${redirects} redirects for book ${book.title} | ${book.id}`);
-    }
+    console.log(
+      newRedirects
+        .map(([book, redirects]) => `Added ${redirects} redirects for book ${book.title} | ${book.id}`)
+        .join('\n')
+    );
   } else {
-    console.log('\nNo new redirects were added.');
+    console.log('No new redirects were added.');
   }
 
   const newConfig: typeof ArchiveUrlConfig = {
