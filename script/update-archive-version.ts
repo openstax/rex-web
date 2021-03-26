@@ -18,6 +18,11 @@ const args = argv as any as {
 };
 
 async function updateArchiveVersion() {
+  if (args.newArchiveUrl === REACT_APP_ARCHIVE_URL) {
+    console.log('Current and new archive url are the same. Skipping...');
+    return;
+  }
+
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
   const currentBookLoader = makeUnifiedBookLoader(
