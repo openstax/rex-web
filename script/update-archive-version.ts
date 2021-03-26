@@ -78,7 +78,7 @@ async function updateArchiveVersion() {
   }));
 
   // New line after progress bar
-  console.log('\n');
+  console.log('');
 
   if (newRedirects.length > 0) {
     console.log(
