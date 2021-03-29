@@ -2,7 +2,6 @@ import fetch from 'node-fetch';
 import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
 import {
-  APP_ENV,
   BOOKS,
   CODE_VERSION,
   REACT_APP_ACCOUNTS_URL,
@@ -74,10 +73,7 @@ async function render() {
 
   await renderSitemapIndex();
   await renderManifest();
-
-  if (APP_ENV === 'production') {
-    await createRedirects(archiveLoader, osWebLoader);
-  }
+  await createRedirects(archiveLoader, osWebLoader);
 
   const {numPages, elapsedMinutes} = getStats();
   // tslint:disable-next-line:no-console max-line-length
