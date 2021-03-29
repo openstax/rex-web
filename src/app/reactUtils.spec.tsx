@@ -82,6 +82,61 @@ describe('onFocusInOrOutHandler focusout', () => {
   });
 });
 
+describe('onFocusInOrOutHandler focusin', () => {
+  let ref: React.RefObject<HTMLElement>;
+  let htmlElement: HTMLElement;
+  let childElement: HTMLElement;
+  let siblingElement: HTMLElement;
+  let addEventListener: jest.SpyInstance;
+  let removeEventListener: jest.SpyInstance;
+
+  beforeEach(() => {
+    htmlElement = assertDocument().createElement('div');
+    childElement = assertDocument().createElement('div');
+    htmlElement.appendChild(childElement);
+    siblingElement = assertDocument().createElement('div');
+    ref = {
+      current: htmlElement,
+    } as React.RefObject<HTMLElement>;
+    addEventListener = jest.spyOn(ref.current!, 'addEventListener');
+    removeEventListener = jest.spyOn(ref.current!, 'removeEventListener');
+  });
+
+  it('clicking on child element triggers callback', () => {
+    const window = assertWindow();
+    const cb = jest.fn();
+    utils.onFocusInOrOutHandler(ref, true, cb, 'focusin')();
+
+    const focusinEvent = window.document.createEvent('FocusEvent');
+    Object.defineProperty(focusinEvent, 'target', {
+      value: childElement,
+      writable: false,
+    });
+    focusinEvent.initEvent('focusin', true, false);
+
+    ref.current!.dispatchEvent(focusinEvent);
+
+    expect(cb).toHaveBeenCalled();
+  });
+
+  it('noops when clicking on sibling item', () => {
+    const window = assertWindow();
+    const cb = jest.fn();
+    utils.onFocusInOrOutHandler(ref, true, cb, 'focusin')();
+
+    const focusinEvent = window.document.createEvent('FocusEvent');
+    Object.defineProperty(focusinEvent, 'target', {
+      value: siblingElement,
+      writable: false,
+    });
+    focusinEvent.initEvent('focusin', true, false);
+
+    siblingElement.dispatchEvent(focusinEvent);
+
+    expect(cb).not.toHaveBeenCalled();
+  });
+});
+
 describe('useTimeout', () => {
   // tslint:disable-next-line:variable-name
   let Component: React.ComponentType;
