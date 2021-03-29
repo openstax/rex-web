@@ -2,7 +2,7 @@ import fs from 'fs';
 import isEqual from 'lodash/fp/isEqual';
 import path from 'path';
 import { argv } from 'yargs';
-import { Redirects } from '../data/redirects/types';
+import { RedirectsData } from '../data/redirects/types';
 import { content } from '../src/app/content/routes';
 import { LinkedArchiveTreeNode } from '../src/app/content/types';
 import { flattenArchiveTree } from '../src/app/content/utils';
@@ -46,7 +46,7 @@ async function updateRedirections(bookId: string, currentVersion: string, newVer
     });
 
   const redirectsBookPath = path.resolve(redirectsPath, bookId + '.json');
-  const redirects: Redirects = fs.existsSync(redirectsBookPath) ? await import(redirectsBookPath) : [];
+  const redirects: RedirectsData = fs.existsSync(redirectsBookPath) ? await import(redirectsBookPath) : [];
 
   const flatCurrentTree = flattenArchiveTree(currentTree);
 
