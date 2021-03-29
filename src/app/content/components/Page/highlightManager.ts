@@ -60,6 +60,24 @@ const onFocusHighlight = (services: HighlightManagerServices, highlight: Highlig
   services.getProp().focus(highlight.id);
 });
 
+// Without defer when user focus highlight with TAB and then click on the card the activeElement
+// will be set to a <body> element for some reason
+const onFocusOutHighlight = (props: HighlightProp) => defer(() => {
+  // Do not clear focus from highlight if it was moved to the Card component or to another highlight
+  // We still want to clear focused highlight if user TAB outside of it, for example to figure link.
+  const activeElement = assertDocument().activeElement;
+  if (
+    activeElement
+    && findFirstAncestorOrSelf(
+      activeElement,
+      (node) => node.hasAttribute('data-highlight-card') || node.hasAttribute('data-for-screenreaders')
+    )
+  ) {
+    return;
+  }
+  props.clearFocus();
+});
+
 // deferred so any cards that are going to blur themselves will have done so before this is processed
 const onSelectHighlight = (
   services: HighlightManagerServices,
@@ -85,23 +103,7 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
     formatMessage: intl.formatMessage,
     onClick: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
     onFocusIn: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
-    // Without defer when user focus highlight with TAB and the click on the card the activeElement
-    // will be set to a <body> element for some reason
-    onFocusOut: () => defer(() => {
-      // Do not clear focus from highlight if it was moved to the Card component or to another highlight
-      // We still want to clear focused highlight if user TAB outside of it, for example to figure link.
-      const activeElement = assertDocument().activeElement;
-      if (
-        activeElement
-        && findFirstAncestorOrSelf(
-          activeElement,
-          (node) => node.hasAttribute('data-highlight-card') || node.hasAttribute('data-for-screenreaders')
-        )
-      ) {
-        return;
-      }
-      services.getProp().clearFocus();
-    }),
+    onFocusOut: () => onFocusOutHighlight(services.getProp()),
     onSelect: (...args) => onSelectHighlight({ ...services, highlighter }, ...args),
     skipIDsBy: /^(\d+$|term)/,
     snapMathJax: true,
