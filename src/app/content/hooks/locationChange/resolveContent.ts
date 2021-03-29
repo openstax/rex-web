@@ -7,7 +7,7 @@ import { receiveBook, receivePage, receivePageNotFoundId, requestBook, requestPa
 import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { ArchivePage, Book, PageReferenceMap } from '../../types';
+import { ArchivePage, Book, PageReferenceError, PageReferenceMap } from '../../types';
 import {
   formatBookData,
   getContentPageReferences,
@@ -172,19 +172,28 @@ export const getBookInformation = async(
     const osWebBook =  await services.osWebLoader.getBookFromId(configuredReference.id);
     const archiveBook = await services.archiveLoader.book(
       configuredReference.id, BOOKS[configuredReference.id].defaultVersion
-    ).load();
+    ).load().catch((error) => {
+      if (UNLIMITED_CONTENT) {
+        return undefined;
+      } else {
+        throw error;
+      }
+    });
 
-    return {osWebBook, archiveBook};
-
+    if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
+      return {osWebBook, archiveBook};
+    }
   } else if (UNLIMITED_CONTENT) {
+    // this section only used for cnx.org content, delete when web-pipeline (RAP) is adopted
     for (const {id, bookVersion} of allReferences) {
       const osWebBook =  await services.osWebLoader.getBookFromId(id).catch(() => undefined);
-      const archiveBook = await services.archiveLoader.book(id, bookVersion).load();
+      const archiveBook = await services.archiveLoader.book(id, bookVersion).load().catch(() => undefined);
       if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
         return {osWebBook, archiveBook};
       }
     }
   }
+
   return undefined;
 };
 
@@ -195,6 +204,12 @@ export const resolveExternalBookReference = async(
   reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
   const bookInformation = await getBookInformation(services, reference);
+
+  // Don't throw an error if reference couldn't be loaded when UNLIMITED_CONTENT is truthy
+  // It will be processed in contentLinkHandler.ts
+  if (UNLIMITED_CONTENT && !bookInformation) {
+    return bookInformation;
+  }
 
   const error = (message: string) => new Error(
     `BUG: "${book.title} / ${page.title}" referenced "${reference.pageId}", ${message}`
@@ -213,15 +228,22 @@ export const resolveExternalBookReference = async(
   return referencedBook;
 };
 
-const loadContentReference = async(
+export const loadContentReference = async(
   services: AppServices & MiddlewareAPI,
   book: Book,
   page: ArchivePage,
   reference: ReturnType<typeof getContentPageReferences>[number]
-) => {
-  const targetBook: Book = archiveTreeContainsNode(book.tree, reference.pageId)
+): Promise<PageReferenceMap | PageReferenceError> => {
+  const targetBook: Book | undefined = archiveTreeContainsNode(book.tree, reference.pageId)
     ? book
     : await resolveExternalBookReference(services, book, page, reference);
+
+  if (!targetBook) {
+    return {
+      match: reference.match,
+      type: 'error',
+    };
+  }
 
   return {
     match: reference.match,
@@ -239,7 +261,7 @@ const loadContentReference = async(
 
 const loadContentReferences = (services: AppServices & MiddlewareAPI, book: Book) => async(page: ArchivePage) => {
   const contentReferences = getContentPageReferences(page.content);
-  const references: PageReferenceMap[] = [];
+  const references: Array<PageReferenceMap | PageReferenceError> = [];
 
   for (const reference of contentReferences) {
     references.push(await loadContentReference(services, book, page, reference));

@@ -142,43 +142,29 @@ describe('highlightManager', () => {
     highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
-    options.formatMessage('id', 'abc');
+    options.formatMessage({ id: 'id' }, { style: 'abc' });
     expect(intl.formatMessage).toHaveBeenCalledWith({ id: 'id' }, { style: 'abc' });
   });
 
-  it('highlighter.onFocusIn triggers prop.focus', async() => {
+  it('calls highlighter.onFocusIn', async() => {
     highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
-    const mockHighlight = { id: 'abc' };
-    options.onFocusIn(mockHighlight);
+    options.onFocusIn({ id: 'abc' });
     await new Promise((resolve) => defer(resolve));
-    expect(prop.focus).toHaveBeenCalledWith(mockHighlight.id);
+    expect(prop.focus).toHaveBeenCalledWith('abc');
   });
 
-  it('highlighter.onFocusOut triggers prop.clearFocus', async() => {
+  it('calls highlighter.onFocusOut', async() => {
     highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
     options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).toHaveBeenCalled();
   });
 
-  it('highlighter.onFocusOut noop if active element is on element with data-highlighted', async() => {
-    highlightManager(element, () => prop, intl);
-    expect(Highlighter).toHaveBeenCalled();
-    const options = Highlighter.mock.calls[0][1];
-    const document = assertDocument();
-    const highlightElement = document.createElement('span');
-    highlightElement.setAttribute('data-highlighted', 'true');
-    highlightElement.setAttribute('tabindex', '0');
-    document.body.append(highlightElement);
-    highlightElement.focus();
-    options.onFocusOut();
-    expect(prop.clearFocus).not.toHaveBeenCalled();
-  });
-
-  it('highlighter.onFocusOut noop if active element is on element with data-highlight-card', async() => {
+  it('noops on highlighter.onFocusOut if active element has data-highlight-card attribute', async() => {
     highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
@@ -189,6 +175,22 @@ describe('highlightManager', () => {
     document.body.append(highlightElement);
     highlightElement.focus();
     options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.clearFocus).not.toHaveBeenCalled();
+  });
+
+  it('noops on highlighter.onFocusOut if active element has data-for-screenreaders attribute', async() => {
+    highlightManager(element, () => prop, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    const document = assertDocument();
+    const highlightElement = document.createElement('span');
+    highlightElement.setAttribute('data-for-screenreaders', 'true');
+    highlightElement.setAttribute('tabindex', '0');
+    document.body.append(highlightElement);
+    highlightElement.focus();
+    options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).not.toHaveBeenCalled();
   });
 

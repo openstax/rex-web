@@ -22,7 +22,6 @@ exports[`CardWrapper matches snapshot 1`] = `
         "sourceId": "testbook1-testpage1-uuid",
       }
     }
-    moveFocusToTheHighlight={[Function]}
     onHeightChange={[Function]}
     shouldFocusCard={false}
     zIndex={1}

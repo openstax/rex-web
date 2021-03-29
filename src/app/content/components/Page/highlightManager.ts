@@ -5,6 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { IntlShape } from 'react-intl';
 import * as selectAuth from '../../../auth/selectors';
+import { findFirstAncestorOrSelf } from '../../../domUtils';
 import { isDefined } from '../../../guards';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
@@ -84,18 +85,23 @@ const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter
     formatMessage: intl.formatMessage,
     onClick: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
     onFocusIn: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
-    onFocusOut: () => {
+    // Without defer when user focus highlight with TAB and the click on the card the activeElement
+    // will be set to a <body> element for some reason
+    onFocusOut: () => defer(() => {
       // Do not clear focus from highlight if it was moved to the Card component or to another highlight
       // We still want to clear focused highlight if user TAB outside of it, for example to figure link.
       const activeElement = assertDocument().activeElement;
       if (
         activeElement
-        && (activeElement.hasAttribute('data-highlight-card') || activeElement.hasAttribute('data-highlighted'))
+        && findFirstAncestorOrSelf(
+          activeElement,
+          (node) => node.hasAttribute('data-highlight-card') || node.hasAttribute('data-for-screenreaders')
+        )
       ) {
         return;
       }
       services.getProp().clearFocus();
-    },
+    }),
     onSelect: (...args) => onSelectHighlight({ ...services, highlighter }, ...args),
     skipIDsBy: /^(\d+$|term)/,
     snapMathJax: true,
