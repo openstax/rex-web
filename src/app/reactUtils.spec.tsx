@@ -5,7 +5,7 @@ import { resetModules } from '../test/utils';
 import * as utils from './reactUtils';
 import { assertDocument, assertWindow } from './utils';
 
-describe('useFocusLost', () => {
+describe('onFocusInOrOutHandler focusout', () => {
   let ref: React.RefObject<HTMLElement>;
   let htmlElement: HTMLElement;
   let childElement: HTMLElement;
@@ -26,22 +26,22 @@ describe('useFocusLost', () => {
   });
 
   it('registers event listener', () => {
-    utils.onFocusLostHandler(ref, true, () => null)();
+    utils.onFocusInOrOutHandler(ref, true, () => null, 'focusout')();
     expect(addEventListener).toHaveBeenCalled();
   });
 
   it('doesn\'t register event listener when ref.current doesn\'t exist', () => {
-    utils.onFocusLostHandler({ current: null }, true, () => null)();
+    utils.onFocusInOrOutHandler({ current: null }, true, () => null, 'focusout')();
     expect(addEventListener).not.toHaveBeenCalled();
   });
 
   it('doesn\'t register event listener when os disabled', () => {
-    utils.onFocusLostHandler({ current: null }, false, () => null)();
+    utils.onFocusInOrOutHandler({ current: null }, false, () => null, 'focusout')();
     expect(addEventListener).not.toHaveBeenCalled();
   });
 
   it('removes event listener', () => {
-    const removeEvListener = utils.onFocusLostHandler(ref, true, () => null)();
+    const removeEvListener = utils.onFocusInOrOutHandler(ref, true, () => null, 'focusout')();
     expect(removeEvListener).toBeDefined();
     removeEvListener!();
     expect(removeEventListener).toHaveBeenCalled();
@@ -50,7 +50,7 @@ describe('useFocusLost', () => {
   it('moving focusout event trigger callback', () => {
     const window = assertWindow();
     const cb = jest.fn();
-    utils.onFocusLostHandler(ref, true, cb)();
+    utils.onFocusInOrOutHandler(ref, true, cb, 'focusout')();
 
     const focusOutEvent = window.document.createEvent('FocusEvent');
     Object.defineProperty(focusOutEvent, 'relatedTarget', {
@@ -67,7 +67,7 @@ describe('useFocusLost', () => {
   it('noops when clicking on child item', () => {
     const window = assertWindow();
     const cb = jest.fn();
-    utils.onFocusLostHandler(ref, true, cb)();
+    utils.onFocusInOrOutHandler(ref, true, cb, 'focusout')();
 
     const focusOutEvent = window.document.createEvent('FocusEvent');
     Object.defineProperty(focusOutEvent, 'relatedTarget', {
