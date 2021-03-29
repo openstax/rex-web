@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { isEqual } from 'lodash/fp';
 import path from 'path';
-import { Redirects } from '../../data/redirects/types';
+import { RedirectsData } from '../../data/redirects/types';
 import { content } from '../../src/app/content/routes';
 import { BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
 import { flattenArchiveTree } from '../../src/app/content/utils';
@@ -16,7 +16,7 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
       + `but you've passed ${currentBook.id} and ${newBook.id}`);
   }
   const redirectsBookPath = path.resolve(redirectsPath, currentBook.id + '.json');
-  const redirects: Redirects = fs.existsSync(redirectsBookPath) ? await import(redirectsBookPath) : [];
+  const redirects: RedirectsData = fs.existsSync(redirectsBookPath) ? await import(redirectsBookPath) : [];
 
   const flatCurrentTree = flattenArchiveTree(currentBook.tree);
 
