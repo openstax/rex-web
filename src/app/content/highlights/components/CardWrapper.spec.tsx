@@ -6,8 +6,9 @@ import createMockHighlight from '../../../../test/mocks/highlight';
 import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument, remsToPx } from '../../../utils';
+import { assertWindow } from '../../../utils/browser-assertions';
 import { clearFocusedHighlight, focusHighlight } from '../actions';
-import { cardMarginBottom } from '../constants';
+import { cardMarginBottom, highlightKeyCombination } from '../constants';
 import Card from './Card';
 import CardWrapper from './CardWrapper';
 
@@ -274,5 +275,214 @@ describe('CardWrapper', () => {
     </Provider>);
 
     expect(() => component.unmount()).not.toThrow();
+  });
+
+  it('handles useKeyCombination - focus highlight in the content', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    const highlight = createMockHighlight();
+    const highlightElement = document.createElement('span');
+    document.body.appendChild(highlightElement);
+
+    const cardWrapperElement = document.createElement('div');
+    const cardElement = document.createElement('div');
+    cardWrapperElement.append(cardElement);
+
+    store.dispatch(focusHighlight(highlight.id));
+
+    renderer.create(<Provider store={store}>
+      <CardWrapper highlights={[highlight]} />
+    </Provider>, { createNodeMock: () => cardWrapperElement });
+
+    renderer.act(() => undefined);
+
+    expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
+
+    const keyboardEvent = window.document.createEvent('KeyboardEvent');
+    keyboardEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
+    Object.defineProperty(keyboardEvent, 'target', { value: cardElement });
+    document.dispatchEvent(keyboardEvent);
+
+    expect(highlight.focus).toHaveBeenCalled();
+  });
+
+  it('handles useKeyCombination - focus card and then handles useFocusLost - unfocus card', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    const highlight = createMockHighlight();
+    const highlightElement = document.createElement('span');
+    document.body.appendChild(highlightElement);
+
+    const cardWrapperElement = document.createElement('div');
+
+    store.dispatch(focusHighlight(highlight.id));
+
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper highlights={[highlight]} />
+    </Provider>, { createNodeMock: () => cardWrapperElement });
+
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      expect(card.props.shouldFocusCard).toEqual(false);
+    });
+
+    const keyboardEvent = window.document.createEvent('KeyboardEvent');
+    keyboardEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
+    Object.defineProperty(keyboardEvent, 'target', { value: highlightElement });
+    document.dispatchEvent(keyboardEvent);
+
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      expect(card.props.shouldFocusCard).toEqual(true);
+    });
+
+    expect(highlight.focus).not.toHaveBeenCalled();
+
+    const elementOutside = document.createElement('span');
+
+    const focusOutEvent = window.document.createEvent('FocusEvent');
+    focusOutEvent.initEvent('focusout', true, true);
+    Object.defineProperty(focusOutEvent, 'relatedTarget', { value: elementOutside });
+    cardWrapperElement.dispatchEvent(focusOutEvent);
+
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      expect(card.props.shouldFocusCard).toEqual(false);
+    });
+  });
+
+  it(
+    'handles useKeyCombination - noop if trigerred in element that we dont support '
+    + 'or with another key combination',
+    () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    const highlight = createMockHighlight();
+    const highlightElement = document.createElement('span');
+    document.body.appendChild(highlightElement);
+
+    const cardWrapperElement = document.createElement('div');
+
+    store.dispatch(focusHighlight(highlight.id));
+
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper highlights={[highlight]} />
+    </Provider>, { createNodeMock: () => cardWrapperElement });
+
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      expect(card.props.shouldFocusCard).toEqual(false);
+    });
+
+    const textarea = document.createElement('textarea');
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+
+    const textareaEvent = window.document.createEvent('KeyboardEvent');
+    textareaEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
+    Object.defineProperty(textareaEvent, 'target', { value: textarea });
+    document.dispatchEvent(textareaEvent);
+
+    const inputEvent = window.document.createEvent('KeyboardEvent');
+    inputEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
+    Object.defineProperty(inputEvent, 'target', { value: input });
+    document.dispatchEvent(inputEvent);
+
+    const anotherKeyEvent = window.document.createEvent('KeyboardEvent');
+    anotherKeyEvent.initKeyboardEvent('keydown', true, true, window, 'anotherkeythatwedontsupport', 0, '', false, '');
+    Object.defineProperty(anotherKeyEvent, 'target', { value: document.createElement('span') });
+    document.dispatchEvent(anotherKeyEvent);
+
+    renderer.act(() => {
+      const card = component.root.findByType(Card);
+      expect(card.props.shouldFocusCard).toEqual(false);
+    });
+
+    expect(highlight.focus).not.toHaveBeenCalled();
+  });
+
+  it('handles useKeyCombination - noop if focusedHighlight is undefined', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    const highlight = createMockHighlight();
+    const highlightElement = document.createElement('span');
+    document.body.appendChild(highlightElement);
+
+    const cardWrapperElement = document.createElement('div');
+    const cardElement = document.createElement('div');
+    cardWrapperElement.append(cardElement);
+
+    renderer.create(<Provider store={store}>
+      <CardWrapper highlights={[highlight]} />
+    </Provider>, { createNodeMock: () => cardWrapperElement });
+
+    renderer.act(() => undefined);
+
+    expect(store.getState().content.highlights.currentPage.focused).toEqual(undefined);
+
+    const keyboardEvent = window.document.createEvent('KeyboardEvent');
+    keyboardEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
+    Object.defineProperty(keyboardEvent, 'target', { value: cardElement });
+    document.dispatchEvent(keyboardEvent);
+
+    expect(highlight.focus).not.toHaveBeenCalled();
+  });
+
+  it('handles useKeyCombination - noop if event.target is undefined', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    const highlight = createMockHighlight();
+    const highlightElement = document.createElement('span');
+    document.body.appendChild(highlightElement);
+
+    const cardWrapperElement = document.createElement('div');
+    const cardElement = document.createElement('div');
+    cardWrapperElement.append(cardElement);
+
+    store.dispatch(focusHighlight(highlight.id));
+
+    renderer.create(<Provider store={store}>
+      <CardWrapper highlights={[highlight]} />
+    </Provider>, { createNodeMock: () => cardWrapperElement });
+
+    renderer.act(() => undefined);
+
+    expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
+
+    const keyboardEvent = window.document.createEvent('KeyboardEvent');
+    keyboardEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
+    Object.defineProperty(keyboardEvent, 'target', { value: undefined });
+    document.dispatchEvent(keyboardEvent);
+
+    expect(highlight.focus).not.toHaveBeenCalled();
+  });
+
+  it('handles useKeyCombination - noop if element.current is undefined', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    const highlight = createMockHighlight();
+    const highlightElement = document.createElement('span');
+    document.body.appendChild(highlightElement);
+
+    const cardWrapperElement = document.createElement('div');
+    const cardElement = document.createElement('div');
+    cardWrapperElement.append(cardElement);
+
+    store.dispatch(focusHighlight(highlight.id));
+
+    renderer.create(<Provider store={store}>
+      <CardWrapper highlights={[highlight]} />
+    </Provider>, { createNodeMock: () => undefined });
+
+    renderer.act(() => undefined);
+
+    expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
+
+    const keyboardEvent = window.document.createEvent('KeyboardEvent');
+    keyboardEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
+    Object.defineProperty(keyboardEvent, 'target', { value: cardElement });
+    document.dispatchEvent(keyboardEvent);
+
+    expect(highlight.focus).not.toHaveBeenCalled();
   });
 });

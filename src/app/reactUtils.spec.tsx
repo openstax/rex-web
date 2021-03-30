@@ -87,8 +87,6 @@ describe('onFocusInOrOutHandler focusin', () => {
   let htmlElement: HTMLElement;
   let childElement: HTMLElement;
   let siblingElement: HTMLElement;
-  let addEventListener: jest.SpyInstance;
-  let removeEventListener: jest.SpyInstance;
 
   beforeEach(() => {
     htmlElement = assertDocument().createElement('div');
@@ -98,8 +96,6 @@ describe('onFocusInOrOutHandler focusin', () => {
     ref = {
       current: htmlElement,
     } as React.RefObject<HTMLElement>;
-    addEventListener = jest.spyOn(ref.current!, 'addEventListener');
-    removeEventListener = jest.spyOn(ref.current!, 'removeEventListener');
   });
 
   it('clicking on child element triggers callback', () => {

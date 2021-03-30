@@ -303,7 +303,7 @@ const keyboardEventMatchesCombination = (options: KeyCombinationOptions, event: 
 export const useKeyCombination = (
   options: KeyCombinationOptions,
   callback: (event: KeyboardEvent) => void,
-  noopHandler?: (activeElement: Element | null) => boolean
+  noopHandler?: (activeElement: Element) => boolean
 ) => {
   const document = assertDocument();
 
