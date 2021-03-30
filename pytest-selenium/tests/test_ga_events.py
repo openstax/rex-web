@@ -1611,33 +1611,62 @@ def test_using_this_guide_ga_event(
     assert(len(ga_queue) == len(events)), "new GA event(s) created"
 
 
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+@markers.test_case("C620209")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-1-physics-definitions-and-applications")]
+)
+def test_practice_opened_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when Practice is opened."""
     # SETUP:
-    event_action = ""
-    event_category = ""
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    button_event_action = "button"
+    button_event_category = "REX Practice questions (open PQ popup)"
+    button_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    link_event_action = f"{page_slug}?modal=PQ"
+    link_event_category = "REX Link (toolbar)"
+    link_event_label = button_event_label
 
-    # GIVEN:
+    # GIVEN: a user viewing a book page with practice questions
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    # Trick the system to load the study guide
+    book.click_next_link()
+    book.click_previous_link()
 
-    # WHEN:
+    # WHEN:  they click the 'Practice' toolbar button
+    book.toolbar.practice()
 
-    # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    # THEN:  the correct Practice link Google Analytics event is queued
+    #        { eventAction: "{page_slug}?modal=PQ",
+    #          eventCategory: "REX Link (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    # AND:   the correct button Google Analytics event is queued
+    #        { eventAction: "button",
+    #          eventCategory: "REX Study guides (close SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    link_event = events[-3]
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in link_event and
+        "eventCategory" in link_event and
+        "eventLabel" in link_event
     ), "Not viewing the correct GA event"
-    assert(event_action in last_event["eventAction"])
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(link_event_action in link_event["eventAction"])
+    assert(link_event["eventCategory"] == link_event_category)
+    assert(link_event["eventLabel"] == link_event_label)
+
+    button_event = events[-2]
+    assert(
+        "eventAction" in button_event and
+        "eventCategory" in button_event and
+        "eventLabel" in button_event
+    ), "Not viewing the correct GA event"
+    assert(button_event_action in button_event["eventAction"])
+    assert(button_event["eventCategory"] == button_event_category)
+    assert(button_event["eventLabel"] == button_event_label)
 
 
 @markers.test_case("")
