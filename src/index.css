@@ -7,7 +7,7 @@ body, #root, html {
 
 
 html {
-  font-family: "Neue Helvetica W01";
+  font-family: "Neue Helvetica W01", Helvetica, Arial, sans-serif;
   font-size: 62.5%; /* Now 10px = 1rem! */
   text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
 }
