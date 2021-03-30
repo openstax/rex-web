@@ -60,9 +60,7 @@ const onFocusHighlight = (services: HighlightManagerServices, highlight: Highlig
   services.getProp().focus(highlight.id);
 });
 
-// Without defer when user focus highlight with TAB and then click on the card the activeElement
-// will be set to a <body> element for some reason
-const onFocusOutHighlight = (props: HighlightProp) => defer(() => {
+const onFocusOutHighlight = (props: HighlightProp) => () => {
   // Do not clear focus from highlight if it was moved to the Card component or to another highlight
   // We still want to clear focused highlight if user TAB outside of it, for example to figure link.
   const activeElement = assertDocument().activeElement;
@@ -76,7 +74,7 @@ const onFocusOutHighlight = (props: HighlightProp) => defer(() => {
     return;
   }
   props.clearFocus();
-});
+};
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
 const onSelectHighlight = (
