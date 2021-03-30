@@ -495,3 +495,45 @@ describe('useDisableContentTabbing', () => {
   expect(tabbableChildWithTabIndex.getAttribute('data-prev-tabindex')).toEqual(null);
   expect(tabbableElementOutsideOfTheRoot.getAttribute('tabindex')).toEqual(null);
 });
+
+describe('keyboardEventMatchesCombination', () => {
+  it('return false if event and options differs', () => {
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: true, altKey: true, shiftKey: true },
+      { key: 'a', ctrlKey: true, altKey: true, shiftKey: false } as any
+    )).toEqual(false);
+
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: true, altKey: true },
+      { key: 'a', ctrlKey: true, altKey: false } as any
+    )).toEqual(false);
+
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: true },
+      { key: 'a', ctrlKey: false } as any
+    )).toEqual(false);
+
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: undefined },
+      { key: 'a', ctrlKey: true } as any
+    )).toEqual(false);
+
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a' },
+      { key: 'b' } as any
+    )).toEqual(false);
+  });
+
+  it('return true if all of the options are of the same values in the event', () => {
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: true, altKey: true, shiftKey: true },
+      { key: 'A', ctrlKey: true, altKey: true, shiftKey: true } as any
+    )).toEqual(true);
+
+    // Returns true because altKey is not specified in the options
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: true },
+      { key: 'a', ctrlKey: true, altKey: false } as any
+    )).toEqual(true);
+  });
+});

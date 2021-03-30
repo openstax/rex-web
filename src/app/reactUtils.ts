@@ -275,7 +275,7 @@ export type KeyCombinationOptions = Partial<Pick<KeyboardEvent, 'altKey' | 'ctrl
  * Compare @param options key-value pairs with properties from @param event
  * If both values are of type string they are changed to lower case before comparing.
  */
-const keyboardEventMatchesCombination = (options: KeyCombinationOptions, event: KeyboardEvent): boolean => {
+export const keyboardEventMatchesCombination = (options: KeyCombinationOptions, event: KeyboardEvent): boolean => {
   const entries = Object.entries(options) as Array<[
     keyof KeyCombinationOptions,
     KeyCombinationOptions[keyof KeyCombinationOptions]
@@ -284,9 +284,9 @@ const keyboardEventMatchesCombination = (options: KeyCombinationOptions, event: 
     const eventValue = event[option];
     if (
       (typeof value === 'string' && typeof eventValue === 'string')
-      && value.toLowerCase() !== eventValue.toLowerCase()
+      && value.toLowerCase() === eventValue.toLowerCase()
     ) {
-      return false;
+      continue;
     }
     if (value !== eventValue) {
       return false;
