@@ -61,11 +61,9 @@ const onFocusHighlight = (services: HighlightManagerServices, highlight: Highlig
 });
 
 const onFocusOutHighlight = (props: HighlightProp) => {
-  console.log('onFocusOutHighlight')
   // Do not clear focus from highlight if it was moved to the Card component or to another highlight
   // We still want to clear focused highlight if user TAB outside of it, for example to figure link.
   const activeElement = assertDocument().activeElement;
-  console.log('activeElement', activeElement)
   if (
     activeElement
     && findFirstAncestorOrSelf(
