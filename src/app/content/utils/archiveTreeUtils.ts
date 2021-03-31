@@ -1,5 +1,6 @@
 import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
+import { APP_ENV } from '../../../config';
 import { assertDefined } from '../../utils';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
@@ -40,7 +41,7 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
   }));
   // Cache is disabled for testing
   /* istanbul ignore next */
-  if (process.env.NODE_ENV !== 'test') {
+  if (APP_ENV === 'production' || APP_ENV === 'development') {
     CACHED_FLATTENED_TREES.set(tree.id, flattened);
   }
   return flattened;
