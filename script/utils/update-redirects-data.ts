@@ -5,7 +5,6 @@ import { RedirectsData } from '../../data/redirects/types';
 import { content } from '../../src/app/content/routes';
 import { BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
 import { flattenArchiveTree } from '../../src/app/content/utils';
-import { CACHED_FLATTENED_TREES, findArchiveTreeNodeById } from '../../src/app/content/utils/archiveTreeUtils';
 
 const redirectsPath = path.resolve(__dirname, '../../data/redirects/');
 
@@ -18,7 +17,8 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
   const redirectsBookPath = path.resolve(redirectsPath, currentBook.id + '.json');
   const redirects: RedirectsData = fs.existsSync(redirectsBookPath) ? await import(redirectsBookPath) : [];
 
-  const flatCurrentTree = flattenArchiveTree(currentBook.tree);
+  const flatCurrentTree = flattenArchiveTree(currentBook.tree).filter((section) => section.id !== currentBook.id);
+  const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== currentBook.id);
 
   const formatSection = (section: LinkedArchiveTreeNode) => ({
     bookId: currentBook.id,
@@ -27,13 +27,11 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
   });
 
   const matchRedirect = (section: LinkedArchiveTreeNode) => isEqual(formatSection(section));
+  const matchSection = (section: LinkedArchiveTreeNode) => (node: LinkedArchiveTreeNode) => section.id === node.id;
 
   let countNewRedirections = 0;
   for (const section of flatCurrentTree) {
-    const { slug } = findArchiveTreeNodeById(newBook.tree, section.id) || {};
-    // findArchiveTreeNodeById will cache book structure and we don't want this
-    // because we are comparing the same book with different version which may have different content
-    CACHED_FLATTENED_TREES.clear();
+    const { slug } = flatNewTree.find(matchSection(section)) || {};
 
     if (
       (slug && slug !== section.slug)
