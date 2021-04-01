@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
@@ -21,7 +21,7 @@ import Note from './Note';
 import * as onClickOutsideModule from './utils/onClickOutside';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
-jest.mock('./Note', () => (props: any) => <div mock-note {...props} />);
+jest.mock('./Note', () => (props: any) => <div mock-note {...props} ref={props.textareaRef} />);
 jest.mock('./Confirmation', () => (props: any) => <div mock-confirmation {...props} />);
 
 describe('EditCard', () => {
@@ -699,5 +699,79 @@ describe('EditCard', () => {
       'data-analytics-region': 'edit-note',
     })).not.toThrow();
     expect(onHeightChange).toHaveBeenCalled();
+  });
+
+  it('ref.focus focuses textarea', () => {
+    const editCard = assertDocument().createElement('div');
+    const textarea = assertDocument().createElement('textarea');
+
+    const spyTextareaFocus = jest.spyOn(textarea, 'focus');
+
+    const createNodeMock = (element: ReactElement) => {
+      if (element.type === 'form') {
+        return editCard;
+      } else {
+        return textarea;
+      }
+    };
+
+    const onHeightChange = jest.fn();
+
+    renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard {...editCardProps} onHeightChange={onHeightChange} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>,
+      {createNodeMock}
+    );
+
+    // Wait for hooks
+    renderer.act(() => undefined);
+
+    expect(spyTextareaFocus).not.toHaveBeenCalled();
+
+    editCard.focus();
+
+    expect(spyTextareaFocus).toHaveBeenCalledTimes(1);
+  });
+
+  it('ref.focus does not focus textarea if it is not mounted yet', () => {
+    const editCard = assertDocument().createElement('div');
+    const textarea = assertDocument().createElement('textarea');
+
+    const spyTextareaFocus = jest.spyOn(textarea, 'focus');
+
+    const createNodeMock = (element: ReactElement) => {
+      if (element.type === 'form') {
+        return editCard;
+      } else {
+        return undefined;
+      }
+    };
+
+    const onHeightChange = jest.fn();
+
+    renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard {...editCardProps} onHeightChange={onHeightChange} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>,
+      {createNodeMock}
+    );
+
+    // Wait for hooks
+    renderer.act(() => undefined);
+
+    expect(spyTextareaFocus).not.toHaveBeenCalled();
+
+    editCard.focus();
+
+    expect(spyTextareaFocus).not.toHaveBeenCalled();
   });
 });
