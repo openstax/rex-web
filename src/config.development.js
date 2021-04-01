@@ -21,7 +21,6 @@ const UNLIMITED_CONTENT = UNLIMITED_CONTENT_QUERY === undefined
 ;
 
 module.exports = {
-  APP_ENV: 'development',
   RELEASE_ID: 'development',
   CODE_VERSION: 'development',
   DEPLOYED_ENV: 'development',
