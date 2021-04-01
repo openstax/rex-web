@@ -42,7 +42,9 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
     }
   }
 
-  fs.writeFileSync(redirectsBookPath, JSON.stringify(redirects, undefined, 2) + '\n', 'utf8');
+  if (redirects.length > 0) {
+    fs.writeFileSync(redirectsBookPath, JSON.stringify(redirects, undefined, 2) + '\n', 'utf8');
+  }
 
   return countNewRedirections;
 };
