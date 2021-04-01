@@ -62,8 +62,8 @@ async function updateArchiveVersion() {
     'Updating redirects [:bar] :current/:total (:etas ETA) | :msg',
     { complete: '=', incomplete: ' ', total: bookEntries.length }
   );
-  await Promise.all(updateRedirectsPromises.map(([bookId, promise]) => {
-    return promise()
+  await Promise.all(updateRedirectsPromises.map(([bookId, loader]) => {
+    return loader()
       .then(([book, redirects]) => {
         updatingRedirectsBar.tick({
           msg: `Finished processing ${book.title} | ${book.id}`,
