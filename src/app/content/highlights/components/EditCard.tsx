@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -51,6 +51,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const [editingAnnotation, setEditing] = React.useState<boolean>(!!props.data && !!props.data.annotation);
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
+  const textarea = React.useRef<HTMLTextAreaElement>(null);
 
   const trackCreateNote = useAnalyticsEvent('createNote');
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
@@ -74,6 +75,19 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   };
 
   useOnEsc(element, props.isFocused, cancelEditing);
+
+  // Overwrite .focus method on element.current to focus textarea when focusing this element.
+  // It is done this way instead of using React.useImperativeHandle because there are other
+  // functions that are being used and not all of them require overrides.
+  React.useEffect(() => {
+    if (element.current) {
+      (element.current as any).focus = () => {
+        if (textarea.current) {
+          textarea.current.focus();
+        }
+      };
+    }
+  }, [element]);
 
   React.useEffect(() => {
     if (props.data) { return; }
@@ -159,6 +173,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
       }
     }} />
     <Note
+      textareaRef={textarea}
       note={pendingAnnotation}
       onFocus={() => {
         if (!props.highlight.getStyle()) {
