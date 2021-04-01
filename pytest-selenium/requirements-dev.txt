@@ -38,7 +38,7 @@ six==1.15.0
 text-unidecode==1.3
 toml==0.10.2
 urllib3==1.26.4
-virtualenv==20.4.2
+virtualenv==20.4.3
 wcwidth==0.2.5
 zipp==3.4.0
 zope.component==4.6.2
