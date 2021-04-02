@@ -8,6 +8,8 @@ const requireBabelConfig = require('../src/babel-config');
 
 requireBabelConfig(extensions);
 
+const { disableArchiveTreeCaching } = require('../src/app/content/utils/archiveTreeUtils');
+
 if (!script) {
   console.error('script argument is required');
   process.exit(1);
@@ -22,5 +24,7 @@ if (!exists) {
   console.error(`script "${script}" does not exist`);
   process.exit(1);
 }
+
+disableArchiveTreeCaching();
 
 require(scriptPath);

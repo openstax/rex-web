@@ -81,6 +81,13 @@ let scrollBy: jest.SpyInstance;
 let mockGa: any;
 
 resetModules();
+
+beforeAll(async() => {
+  // import has to be here because we are using resetModules()
+  const { disableArchiveTreeCaching } = await import('../app/content/utils/archiveTreeUtils');
+  disableArchiveTreeCaching();
+});
+
 afterAll(async() => {
   resetModules();
 });

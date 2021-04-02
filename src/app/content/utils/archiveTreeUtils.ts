@@ -1,6 +1,5 @@
 import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
-import { APP_ENV } from '../../../config';
 import { assertDefined } from '../../utils';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
@@ -18,6 +17,9 @@ import { getIdVersion, stripIdVersion } from './idUtils';
 const domParser = new DOMParser();
 
 export const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
+let cacheArchiveTrees = true;
+export const disableArchiveTreeCaching = () => cacheArchiveTrees = false;
+
 export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
   // Cache is disabled for testing
   /* istanbul ignore next */
@@ -41,7 +43,7 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
   }));
   // Cache is disabled for testing
   /* istanbul ignore next */
-  if (APP_ENV === 'production' || APP_ENV === 'development') {
+  if (cacheArchiveTrees) {
     CACHED_FLATTENED_TREES.set(tree.id, flattened);
   }
   return flattened;
