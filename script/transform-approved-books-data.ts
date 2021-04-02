@@ -151,7 +151,8 @@ const transformData = () => {
     }
   }
 
-  // this script is used in bash script so we write results to the terminal so we can assign them to a variable
+  // this script is used in a update-content/script.bash
+  // so we write results to the terminal to assing them to a variable
   // tslint:disable-next-line: no-console
   console.log(JSON.stringify(results));
   return results;
