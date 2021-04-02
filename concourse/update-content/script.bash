@@ -26,7 +26,7 @@ git remote set-branches origin 'update-content-*'
 git remote set-branches origin --add "$rex_default_branch"
 
 for book_id in $book_ids; do
-  new_version=$(echo "$book_ids_and_versions" | jq -r --arg uuid "$book_id" 'to_entries | map(select(.key == $uuid))[0].value')
+  new_version=$(echo "$book_ids_and_versions" | jq -r --arg uuid "$book_id" '.[$uuid]')
 
   branch="update-content-$book_id"
   git fetch
