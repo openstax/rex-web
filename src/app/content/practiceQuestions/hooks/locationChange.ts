@@ -8,7 +8,11 @@ import { Book, Page } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { receivePracticeQuestionsSummary, setSelectedSection } from '../actions';
 import { modalUrlName } from '../constants';
-import { hasPracticeQuestions, practiceQuestionsEnabled } from '../selectors';
+import {
+  hasPracticeQuestions,
+  practiceQuestionsEnabled,
+  practiceQuestionsSummary as practiceQuestionsSummarySelector,
+} from '../selectors';
 import { PracticeQuestionsSummary } from '../types';
 
 // composed in /content/locationChange hook because it needs to happen after book load
@@ -34,14 +38,14 @@ const setSection = (services: MiddlewareAPI & AppServices, book: Book, page: Pag
   }
 };
 
-const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+export const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const state = services.getState();
   const { book, page } = bookAndPage(state);
   const isEnabled = practiceQuestionsEnabled(state);
 
   if (!book || !page || !isEnabled ) { return; }
 
-  if (!hasPracticeQuestions(state)) {
+  if (practiceQuestionsSummarySelector(state) === null) {
     const practiceQuestionsSummary = await loadSummary(services, book);
     if (practiceQuestionsSummary) {
       services.dispatch(receivePracticeQuestionsSummary(practiceQuestionsSummary));
