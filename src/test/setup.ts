@@ -1,5 +1,6 @@
 import { FrameRequestCallback } from '@openstax/types/lib.dom';
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
+import { JSDOM } from 'jsdom';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
 import { resetModules } from './utils';
 
@@ -83,6 +84,10 @@ let mockGa: any;
 resetModules();
 
 beforeAll(async() => {
+  // Add DOMParser if it doesn't exists since it is require by archiveTreeUtils
+  if (!(global as any).DOMParser) {
+    (global as any).DOMParser = new JSDOM().window.DOMParser;
+  }
   // import has to be here because we are using resetModules()
   const { disableArchiveTreeCaching } = await import('../app/content/utils/archiveTreeUtils');
   disableArchiveTreeCaching();
