@@ -7,7 +7,7 @@ import { scrollIntoView } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination } from '../../../reactUtils';
 import { AppState } from '../../../types';
-import { assertDefined, assertNotNull, remsToPx } from '../../../utils';
+import { assertDefined, remsToPx } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { cardMarginBottom, highlightKeyCombination } from '../constants';
