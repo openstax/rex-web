@@ -88,7 +88,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, confirmationRef, confirmingDelete, textToggle, width, isTocOpen, searchQuery]);
 
-  return <div className={className} ref={mergeRefs(ref, element)}>
+  return <div className={className} ref={mergeRefs(ref, element)} data-highlight-card>
     <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={false}>
       <DropdownList>
         <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
