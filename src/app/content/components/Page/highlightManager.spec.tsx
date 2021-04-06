@@ -160,6 +160,7 @@ describe('highlightManager', () => {
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
     options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).toHaveBeenCalled();
   });
 
@@ -174,6 +175,7 @@ describe('highlightManager', () => {
     document.body.append(highlightElement);
     highlightElement.focus();
     options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).not.toHaveBeenCalled();
   });
 
@@ -188,6 +190,7 @@ describe('highlightManager', () => {
     document.body.append(highlightElement);
     highlightElement.focus();
     options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
     expect(prop.clearFocus).not.toHaveBeenCalled();
   });
 
