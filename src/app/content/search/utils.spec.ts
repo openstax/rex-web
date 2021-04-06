@@ -230,37 +230,13 @@ describe('highlightResults', () => {
   });
 
   describe('with errors' , () => {
-    it('throw error after highlighter.highlight error', () => {
+    beforeEach(() => {
       highlight = jest.spyOn(highlighter, 'highlight').mockImplementation(() => {
         throw new Error('error');
       });
-
-      const results = [
-        makeSearchResultHit({
-          book: mockArchive.book,
-          highlights: ['asdf foo … <strong>asdf</strong>'],
-          page: mockArchive.page,
-        }),
-      ];
-
-      const element = assertDocument().createElement('p');
-      element.id = results[0].source.elementId;
-      container.append(element);
-
-      expect(() => highlightResults(highlighter, results)).toThrow();
-
-      expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'asdf'});
     });
 
-    it('calls Sentry if highlight failed to attach', () => {
-      highlight = jest.spyOn(highlighter, 'highlight').mockImplementation((hl: any) => {
-        hl.elements = [{}];
-      });
-
-      const getHighlight = jest.spyOn(highlighter, 'getHighlight').mockImplementation(() => ({
-        isAttached: () => false,
-      }) as any);
-
+    it('calls Sentry after highlighting error', () => {
       const results = [
         makeSearchResultHit({
           book: mockArchive.book,
@@ -278,7 +254,6 @@ describe('highlightResults', () => {
       expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'asdf'});
 
       expect(captureException).toHaveBeenCalled();
-      expect(getHighlight).toHaveBeenCalled();
     });
   });
 });
