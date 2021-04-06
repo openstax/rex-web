@@ -172,7 +172,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
 
-    expect(mockHighlights[0].focus).toHaveBeenCalled();
+    expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(scrollTarget(store.getState())).toEqual({
       elementId: 'hash-of-scroll-target',
       id: 'scroll-target-id',
@@ -240,7 +240,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
 
-    expect(mockHighlights[0].focus).toHaveBeenCalled();
+    expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalled();
 
     renderer.act(() => {
@@ -257,7 +257,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
 
-    expect(mockHighlights[1].focus).toHaveBeenCalled();
+    expect(mockHighlights[1].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalledTimes(1);
   });
 });

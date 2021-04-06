@@ -3,11 +3,14 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
+import { IntlShape } from 'react-intl';
 import * as selectAuth from '../../../auth/selectors';
+import { findFirstAncestorOrSelf } from '../../../domUtils';
 import { isDefined } from '../../../guards';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertWindow, memoizeStateToProps } from '../../../utils';
+import { assertDocument } from '../../../utils/browser-assertions';
 import {
   clearFocusedHighlight,
   focusHighlight,
@@ -46,7 +49,7 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
   & ReturnType<typeof mapDispatchToHighlightProp>;
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
-const onClickHighlight = (services: HighlightManagerServices, highlight: Highlight | undefined) => defer(async() => {
+const onFocusHighlight = (services: HighlightManagerServices, highlight: Highlight | undefined) => defer(async() => {
   if (!highlight || services.getProp().focused === highlight.id) {
     return;
   }
@@ -55,6 +58,24 @@ const onClickHighlight = (services: HighlightManagerServices, highlight: Highlig
   }
 
   services.getProp().focus(highlight.id);
+});
+
+// Without defer when user focus highlight with TAB and then click on the card the activeElement
+// will be set to a <body> element for some reason
+const onFocusOutHighlight = (props: HighlightProp) => defer(() => {
+  // Do not clear focus from highlight if it was moved to the Card component or to another highlight
+  // We still want to clear focused highlight if user TAB outside of it, for example to figure link.
+  const activeElement = assertDocument().activeElement;
+  if (
+    activeElement
+    && findFirstAncestorOrSelf(
+      activeElement,
+      (node) => node.hasAttribute('data-highlight-card') || node.hasAttribute('data-for-screenreaders')
+    )
+  ) {
+    return;
+  }
+  props.clearFocus();
 });
 
 // deferred so any cards that are going to blur themselves will have done so before this is processed
@@ -76,10 +97,13 @@ const onSelectHighlight = (
   services.setPendingHighlight(highlight);
 });
 
-const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter'>) => {
+const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter'>, intl: IntlShape) => {
 
   const highlighter: Highlighter = new Highlighter(services.container, {
-    onClick: (highlight) => onClickHighlight({ ...services, highlighter }, highlight),
+    formatMessage: intl.formatMessage,
+    onClick: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
+    onFocusIn: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
+    onFocusOut: () => onFocusOutHighlight(services.getProp()),
     onSelect: (...args) => onSelectHighlight({ ...services, highlighter }, ...args),
     skipIDsBy: /^(\d+$|term)/,
     snapMathJax: true,
@@ -112,7 +136,7 @@ export interface UpdateOptions {
   onSelect: (highlight: Highlight | null) => void;
 }
 
-export default (container: HTMLElement, getProp: () => HighlightProp) => {
+export default (container: HTMLElement, getProp: () => HighlightProp, intl: IntlShape) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let scrollTargetHighlightIdThatWasHandled: string;
@@ -146,7 +170,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
       focused, prevProps.focused, pendingHighlight, scrollTargetHighlight, scrollTargetHighlightIdThatWasHandled);
 
     if (toFocus) {
-      toFocus.focus();
+      toFocus.addFocusedStyles();
 
       if (options) {
         options.onSelect(toFocus);
@@ -174,7 +198,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
     setPendingHighlight,
   };
 
-  highlighter = createHighlighter(services);
+  highlighter = createHighlighter(services, intl);
   setListHighlighter(highlighter);
 
   return {
@@ -225,7 +249,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp) => {
         .map(erase(highlighter))
         ;
 
-      highlighter.clearFocus();
+      highlighter.clearFocusedStyles();
 
       focusAndScrollToHighlight(prevProps, getProp(), options);
 
