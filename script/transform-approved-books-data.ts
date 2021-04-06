@@ -95,13 +95,20 @@ const getDesiredVersion = (
   colOrRepo: ApprovedRepo | ApprovedCollection
 ): string | undefined => {
   const isCollection = isApprovedCollection(colOrRepo);
+
+  const filter = isCollection
+    ? matchCollectionVersion(colOrRepo as ApprovedCollection)
+    : matchRepoVersion(colOrRepo as ApprovedRepo);
+
+  const transformVersion = (versionData: ApprovedVersionCollection | ApprovedVersionRepo) => {
+    // books from collections have versions starting with 1.
+    return isCollection ? versionData.content_version.slice(2) : versionData.content_version;
+  };
+
   const versions = approvedVersions
-    // only versions for current repo
-    .filter(isApprovedRepo(colOrRepo) ? matchRepoVersion(colOrRepo) : matchCollectionVersion(colOrRepo))
-    .map((versionData) => {
-      // books from collections have versions starting with 1.
-      return isCollection ? versionData.content_version.slice(2) : versionData.content_version;
-    })
+    // only versions for current repo / collection
+    .filter(filter)
+    .map(transformVersion)
     // sort and revert so results are descending
     .sort()
     .reverse();
