@@ -394,7 +394,7 @@ describe('Card', () => {
     expect(showConfirmation).toHaveBeenCalled();
   });
 
-  it('focuses the Card if it shouldFocusCard prop is set', () => {
+  it('focuses the Card if shouldFocusCard prop is set', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights({

@@ -44,7 +44,7 @@ export interface CardProps {
   data?: HighlightData;
   className: string;
   zIndex: number;
-  // If this prop is true then focus will be moved to this card.
+  // If shouldFocusCard prop is true then focus will be moved to this card.
   shouldFocusCard: boolean;
   topOffset?: number;
   highlightOffsets?: { top: number, bottom: number };
@@ -67,13 +67,13 @@ const Card = (props: CardProps) => {
     }
   }, [isFocused, hasUnsavedHighlight, id, focus]);
 
+  useFocusIn(element, true, focusCard);
+
   React.useEffect(() => {
     if (shouldFocusCard && element.current) {
       element.current.focus();
     }
   }, [element, shouldFocusCard]);
-
-  useFocusIn(element, true, focusCard);
 
   React.useEffect(() => {
     if (!props.isFocused) {

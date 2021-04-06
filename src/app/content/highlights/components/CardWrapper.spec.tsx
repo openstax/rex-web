@@ -1,3 +1,4 @@
+import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -11,6 +12,31 @@ import { clearFocusedHighlight, focusHighlight } from '../actions';
 import { cardMarginBottom, highlightKeyCombination } from '../constants';
 import Card from './Card';
 import CardWrapper from './CardWrapper';
+
+const dispatchKeyDownEvent = (
+  window: Window,
+  element: Document | HTMLElement,
+  key: string,
+  target?: HTMLElement
+) => {
+  const keyboardEvent = window.document.createEvent('KeyboardEvent');
+  keyboardEvent.initKeyboardEvent('keydown', true, true, window, key, 0, '', false, '');
+  if (target) {
+    Object.defineProperty(keyboardEvent, 'target', { value: target });
+  }
+  element.dispatchEvent(keyboardEvent);
+};
+
+const dispatchFocusOutEvent = (
+  window: Window,
+  element: Document | HTMLElement,
+  relatedTarget: HTMLElement
+) => {
+  const focusEvent = window.document.createEvent('FocusEvent');
+  focusEvent.initEvent('focusout', true, true);
+  Object.defineProperty(focusEvent, 'relatedTarget', { value: relatedTarget });
+  element.dispatchEvent(focusEvent);
+};
 
 jest.mock('./Card', () => (props: any) => <span data-mock-card {...props} />);
 
@@ -298,10 +324,7 @@ describe('CardWrapper', () => {
 
     expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
 
-    const keyboardEvent = window.document.createEvent('KeyboardEvent');
-    keyboardEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
-    Object.defineProperty(keyboardEvent, 'target', { value: cardElement });
-    document.dispatchEvent(keyboardEvent);
+    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
 
     expect(highlight.focus).toHaveBeenCalled();
   });
@@ -326,10 +349,7 @@ describe('CardWrapper', () => {
       expect(card.props.shouldFocusCard).toEqual(false);
     });
 
-    const keyboardEvent = window.document.createEvent('KeyboardEvent');
-    keyboardEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
-    Object.defineProperty(keyboardEvent, 'target', { value: highlightElement });
-    document.dispatchEvent(keyboardEvent);
+    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, highlightElement);
 
     renderer.act(() => {
       const card = component.root.findByType(Card);
@@ -340,10 +360,7 @@ describe('CardWrapper', () => {
 
     const elementOutside = document.createElement('span');
 
-    const focusOutEvent = window.document.createEvent('FocusEvent');
-    focusOutEvent.initEvent('focusout', true, true);
-    Object.defineProperty(focusOutEvent, 'relatedTarget', { value: elementOutside });
-    cardWrapperElement.dispatchEvent(focusOutEvent);
+    dispatchFocusOutEvent(window, cardWrapperElement, elementOutside);
 
     renderer.act(() => {
       const card = component.root.findByType(Card);
@@ -378,20 +395,11 @@ describe('CardWrapper', () => {
     const input = document.createElement('input');
     input.setAttribute('type', 'text');
 
-    const textareaEvent = window.document.createEvent('KeyboardEvent');
-    textareaEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
-    Object.defineProperty(textareaEvent, 'target', { value: textarea });
-    document.dispatchEvent(textareaEvent);
+    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, textarea);
 
-    const inputEvent = window.document.createEvent('KeyboardEvent');
-    inputEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
-    Object.defineProperty(inputEvent, 'target', { value: input });
-    document.dispatchEvent(inputEvent);
+    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, input);
 
-    const anotherKeyEvent = window.document.createEvent('KeyboardEvent');
-    anotherKeyEvent.initKeyboardEvent('keydown', true, true, window, 'anotherkeythatwedontsupport', 0, '', false, '');
-    Object.defineProperty(anotherKeyEvent, 'target', { value: document.createElement('span') });
-    document.dispatchEvent(anotherKeyEvent);
+    dispatchKeyDownEvent(window, document, 'anotherkeythatwedontsupport', document.createElement('span'));
 
     renderer.act(() => {
       const card = component.root.findByType(Card);
@@ -420,10 +428,7 @@ describe('CardWrapper', () => {
 
     expect(store.getState().content.highlights.currentPage.focused).toEqual(undefined);
 
-    const keyboardEvent = window.document.createEvent('KeyboardEvent');
-    keyboardEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
-    Object.defineProperty(keyboardEvent, 'target', { value: cardElement });
-    document.dispatchEvent(keyboardEvent);
+    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
 
     expect(highlight.focus).not.toHaveBeenCalled();
   });
@@ -449,10 +454,7 @@ describe('CardWrapper', () => {
 
     expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
 
-    const keyboardEvent = window.document.createEvent('KeyboardEvent');
-    keyboardEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
-    Object.defineProperty(keyboardEvent, 'target', { value: undefined });
-    document.dispatchEvent(keyboardEvent);
+    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, undefined);
 
     expect(highlight.focus).not.toHaveBeenCalled();
   });
@@ -478,10 +480,7 @@ describe('CardWrapper', () => {
 
     expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
 
-    const keyboardEvent = window.document.createEvent('KeyboardEvent');
-    keyboardEvent.initKeyboardEvent('keydown', true, true, window, highlightKeyCombination.key!, 0, '', false, '');
-    Object.defineProperty(keyboardEvent, 'target', { value: cardElement });
-    document.dispatchEvent(keyboardEvent);
+    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
 
     expect(highlight.focus).not.toHaveBeenCalled();
   });
