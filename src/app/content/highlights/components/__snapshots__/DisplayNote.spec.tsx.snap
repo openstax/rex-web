@@ -3,6 +3,7 @@
 exports[`DisplayNote matches snapshot 1`] = `
 <div
   className="DisplayNote-wzwggt-1 blUofp"
+  data-highlight-card={true}
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
@@ -73,6 +74,7 @@ exports[`DisplayNote matches snapshot 1`] = `
 exports[`DisplayNote matches snapshot when focused 1`] = `
 <div
   className="DisplayNote-wzwggt-1 eDRYVj"
+  data-highlight-card={true}
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
@@ -143,6 +145,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 <div
   className="DisplayNote-wzwggt-1 eDRYVj"
+  data-highlight-card={true}
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
