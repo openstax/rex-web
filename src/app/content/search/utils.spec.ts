@@ -145,7 +145,7 @@ describe('highlightResults', () => {
     findTextInRange.mockImplementation((_element: any, searchString: string) => ([mockRange(searchString)]));
 
     container = assertDocument().createElement('div');
-    highlighter = new Highlighter(container);
+    highlighter = new Highlighter(container, { formatMessage: jest.fn() });
 
     captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
   });
