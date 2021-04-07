@@ -94,20 +94,14 @@ const getDesiredVersion = (
   approvedVersions: Array<ApprovedVersionCollection | ApprovedVersionRepo>,
   colOrRepo: ApprovedRepo | ApprovedCollection
 ): string | undefined => {
-  const isCollection = isApprovedCollection(colOrRepo);
-
-  const filter = isCollection
-    ? matchCollectionVersion(colOrRepo as ApprovedCollection)
-    : matchRepoVersion(colOrRepo as ApprovedRepo);
-
-  const transformVersion = (versionData: ApprovedVersionCollection | ApprovedVersionRepo) => {
-    // books from collections have versions starting with 1.
-    return isCollection ? versionData.content_version.slice(2) : versionData.content_version;
-  };
+  const [filter, transformVersion] = isApprovedCollection(colOrRepo)
+    ? [matchCollectionVersion(colOrRepo), (version: ApprovedVersion) => version.content_version.slice(2)]
+    : [matchRepoVersion(colOrRepo), (version: ApprovedVersion) => version.content_version];
 
   const versions = approvedVersions
     // only versions for current repo / collection
     .filter(filter)
+    // books from collections have versions starting with 1. - we are removing it
     .map(transformVersion)
     // sort and revert so results are descending
     .sort()
@@ -118,9 +112,9 @@ const getDesiredVersion = (
   return versions[0];
 };
 
-const { data } = argv as { data?: string };
-
 const transformData = () => {
+  const { data } = argv as { data?: string };
+
   if (!data) {
     throw new Error('data argument is missing');
   }
@@ -161,7 +155,7 @@ const transformData = () => {
   // this script is used in a update-content/script.bash
   // so we write results to the terminal to assign them to a variable
   // tslint:disable-next-line: no-console
-  console.log(JSON.stringify(results));
+  process.stdout.write(JSON.stringify(results));
   return results;
 };
 
