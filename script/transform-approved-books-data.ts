@@ -1,4 +1,5 @@
 import { argv } from 'yargs';
+import { REACT_APP_ARCHIVE_URL } from '../src/config';
 import configuredBooks from '../src/config.books';
 
 interface BookData {
@@ -80,13 +81,15 @@ const isApprovedBooksAndVersions = (something: any): something is ApprovedBooksA
       (element: any) => isApprovedVersionCollection(element) || isApprovedVersionRepo(element));
 };
 
-const matchRepoVersion = (repoData: ApprovedRepo) =>
+const matchRepoVersion = (repoData: ApprovedRepo, archiveVersion?: string) =>
   (versionData: ApprovedVersionCollection | ApprovedVersionRepo): versionData is ApprovedVersionRepo => {
+  if (archiveVersion && versionData.min_code_version !== archiveVersion) { return false; }
   return isApprovedVersionRepo(versionData) && versionData.repo === repoData.repo;
 };
 
-const matchCollectionVersion = (collectionData: ApprovedCollection) =>
+const matchCollectionVersion = (collectionData: ApprovedCollection, archiveVersion?: string) =>
   (versionData: ApprovedVersionCollection | ApprovedVersionRepo): versionData is ApprovedVersionCollection => {
+  if (archiveVersion && versionData.min_code_version !== archiveVersion) { return false; }
   return isApprovedVersionCollection(versionData) && versionData.collection_id === collectionData.collection_id;
 };
 
@@ -94,9 +97,13 @@ const getDesiredVersion = (
   approvedVersions: Array<ApprovedVersionCollection | ApprovedVersionRepo>,
   colOrRepo: ApprovedRepo | ApprovedCollection
 ): string | undefined => {
+  // Example archive code version: 20210224.204120
+  const archiveVersionMatch = REACT_APP_ARCHIVE_URL.match(/[0-9]+\.[0-9]+/);
+  const archiveVersion = archiveVersionMatch ? archiveVersionMatch[0] : undefined;
+
   const [filter, transformVersion] = isApprovedCollection(colOrRepo)
-    ? [matchCollectionVersion(colOrRepo), (version: ApprovedVersion) => version.content_version.slice(2)]
-    : [matchRepoVersion(colOrRepo), (version: ApprovedVersion) => version.content_version];
+    ? [matchCollectionVersion(colOrRepo, archiveVersion), (data: ApprovedVersion) => data.content_version.slice(2)]
+    : [matchRepoVersion(colOrRepo, archiveVersion), (data: ApprovedVersion) => data.content_version];
 
   const versions = approvedVersions
     // only versions for current repo / collection
@@ -152,9 +159,8 @@ const transformData = () => {
     }
   }
 
-  // this script is used in a update-content/script.bash
+  // this script is used in the update-content/script.bash
   // so we write results to the terminal to assign them to a variable
-  // tslint:disable-next-line: no-console
   process.stdout.write(JSON.stringify(results));
   return results;
 };
