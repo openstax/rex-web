@@ -9,7 +9,7 @@ import { StudyGuidesLoadError } from '../../highlights/errors';
 import { extractTotalCounts } from '../../highlights/utils/paginationUtils';
 import { bookAndPage } from '../../selectors';
 import { receiveStudyGuidesTotalCounts } from '../actions';
-import { hasStudyGuides, studyGuidesEnabled } from '../selectors';
+import { studyGuidesEnabled, totalCountsPerPage as totalCountsPerPageSelector } from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
 const loadSummary = async(services: MiddlewareAPI & AppServices) => {
@@ -19,9 +19,9 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
 
   const {book} = bookAndPage(state);
   const isEnabled = studyGuidesEnabled(state);
-  const hasCurrentStudyGuides = hasStudyGuides(state);
+  const totalCountsPerPage = totalCountsPerPageSelector(state);
 
-  if (!isEnabled || !book || hasCurrentStudyGuides) { return; }
+  if (!isEnabled || !book || totalCountsPerPage !== null) { return; }
 
   try {
     const summary = await highlightClient.getHighlightsSummary({
@@ -38,7 +38,7 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
   }
 };
 
-const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+export const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const studyGuidesSummary = await loadSummary(services);
 
   if (!studyGuidesSummary) { return; }
