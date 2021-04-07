@@ -54,17 +54,12 @@ export default {
   },
 
   captureException(error: any, level: Sentry.Severity = Severity.Error) {
-    let eventId: string | undefined;
-
     if (!error) {
       return;
     }
 
     if (this.isEnabled) {
-      Sentry.withScope((scope) => {
-        scope.setLevel(level);
-        eventId = Sentry.captureException(error);
-      });
+      return Sentry.captureException(error, { level });
     } else if (!this.shouldCollectErrors) {
       switch (level) {
         case 'info':
@@ -77,8 +72,6 @@ export default {
           console.error(error); // tslint:disable-line:no-console
       }
     }
-
-    return eventId;
   },
 
   captureMessage(message: string, level: Sentry.Severity) {
