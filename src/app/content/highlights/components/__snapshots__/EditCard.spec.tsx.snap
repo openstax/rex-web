@@ -4,6 +4,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
 <form
   className="EditCard-sc-1kvvj32-0 iFPiln"
   data-analytics-region="edit-note"
+  data-highlight-card={true}
 >
   <div
     mock-color-picker={true}
@@ -52,6 +53,7 @@ exports[`EditCard matches snapshot when focused 1`] = `
 <form
   className="EditCard-sc-1kvvj32-0 iFPiln"
   data-analytics-region="edit-note"
+  data-highlight-card={true}
 >
   <div
     color="yellow"
@@ -81,6 +83,7 @@ exports[`EditCard matches snapshot with data 1`] = `
 <form
   className="EditCard-sc-1kvvj32-0 iFPiln"
   data-analytics-region="edit-note"
+  data-highlight-card={true}
 >
   <div
     mock-color-picker={true}
@@ -109,6 +112,7 @@ exports[`EditCard matches snapshot without data 1`] = `
 <form
   className="EditCard-sc-1kvvj32-0 iFPiln"
   data-analytics-region="edit-note"
+  data-highlight-card={true}
 >
   <div
     mock-color-picker={true}
