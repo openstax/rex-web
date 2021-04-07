@@ -799,8 +799,8 @@ describe('Page', () => {
 
     const highlightElement = assertDocument().createElement('span');
     const mockHighlight = {
+      addFocusedStyles: jest.fn(),
       elements: [highlightElement],
-      focus: jest.fn(),
     } as any as Highlight;
 
     highlightResults.mockReturnValue([
@@ -820,7 +820,7 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
@@ -830,10 +830,10 @@ describe('Page', () => {
     const hit2 = makeSearchResultHit({book, page});
 
     const highlightElement = assertDocument().createElement('span');
-    const focus = jest.fn();
+    const addFocusedStyles = jest.fn();
     const mockHighlight = {
+      addFocusedStyles,
       elements: [highlightElement],
-      focus,
     } as any as Highlight;
 
     highlightResults.mockReturnValue([
@@ -859,12 +859,12 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    focus.mockClear();
+    addFocusedStyles.mockClear();
     (scrollTo as any).mockClear();
 
     store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
 
-    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
   });
 
@@ -879,8 +879,8 @@ describe('Page', () => {
 
     const highlightElement = assertDocument().createElement('span');
     const mockHighlight = {
+      addFocusedStyles: jest.fn(),
       elements: [highlightElement],
-      focus: jest.fn(),
     } as any as Highlight;
 
     highlightResults.mockReturnValue([
@@ -901,7 +901,7 @@ describe('Page', () => {
 
     // make sure nothing happened
     expect(highlightResults).toHaveBeenCalledWith(expect.anything(), []);
-    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
 
     // do navigation
@@ -920,7 +920,7 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
