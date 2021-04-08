@@ -88,7 +88,7 @@ jobs:
         path: node_modules
         key: node_modules5
     - run: yarn install
-    - run: yarn test:${{ matrix.suite }}
+    - run: yarn ci:test:${{ matrix.suite }}
     - uses: actions/upload-artifact@v2
       if: ${{ failure() }}
       with:
