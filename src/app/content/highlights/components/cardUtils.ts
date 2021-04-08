@@ -74,8 +74,5 @@ export const generateUpdatePayload = (
 
 export const noopKeyCombinationHandler = (activeElement: Element): boolean => {
   if (activeElement.nodeName === 'TEXTAREA') { return true; }
-  if (activeElement.nodeName === 'INPUT') {
-    return activeElement.getAttribute('type') === 'text';
-  }
   return false;
 };

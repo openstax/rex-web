@@ -392,12 +392,8 @@ describe('CardWrapper', () => {
     });
 
     const textarea = document.createElement('textarea');
-    const input = document.createElement('input');
-    input.setAttribute('type', 'text');
 
     dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, textarea);
-
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, input);
 
     dispatchKeyDownEvent(window, document, 'anotherkeythatwedontsupport', document.createElement('span'));
 
