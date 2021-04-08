@@ -1,6 +1,5 @@
 import { FrameRequestCallback } from '@openstax/types/lib.dom';
 import { MatchImageSnapshotOptions } from 'jest-image-snapshot';
-import { JSDOM } from 'jsdom';
 import toMatchImageSnapshot from './matchers/toMatchImageSnapshot';
 import { resetModules } from './utils';
 
