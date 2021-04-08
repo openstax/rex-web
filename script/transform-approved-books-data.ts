@@ -1,3 +1,4 @@
+import semverSort from 'semver-sort';
 import { argv } from 'yargs';
 import { REACT_APP_ARCHIVE_URL } from '../src/config';
 import configuredBooks from '../src/config.books';
@@ -101,22 +102,31 @@ const getDesiredVersion = (
   const archiveVersionMatch = REACT_APP_ARCHIVE_URL.match(/[0-9]+\.[0-9]+/);
   const archiveVersion = archiveVersionMatch ? archiveVersionMatch[0] : undefined;
 
-  const [filter, transformVersion] = isApprovedCollection(colOrRepo)
-    ? [matchCollectionVersion(colOrRepo, archiveVersion), (data: ApprovedVersion) => data.content_version.slice(2)]
-    : [matchRepoVersion(colOrRepo, archiveVersion), (data: ApprovedVersion) => data.content_version];
+  const [filter, transformVersion, sortFunction] = isApprovedCollection(colOrRepo)
+    ? [
+      matchCollectionVersion(colOrRepo, archiveVersion),
+      (version: string) => version.slice(2),
+      semverSort.desc,
+    ]
+    : [
+      matchRepoVersion(colOrRepo, archiveVersion),
+      (version: string) => version,
+      (array: string[]) => array.sort().reverse(),
+    ];
 
-  const versions = approvedVersions
-    // only versions for current repo / collection
+  // only versions for current repo / collection and current archive code version
+  const filteredVersions = approvedVersions
     .filter(filter)
-    // books from collections have versions starting with 1. - we are removing it
-    .map(transformVersion)
-    // sort and revert so results are descending
-    .sort()
-    .reverse();
+    .map((data) => data.content_version);
 
-  // in general we want the most recent one, in the future we'll have to filter this by which ones
-  // are available for the recipe code version REX supports
-  return versions[0];
+  // sorted from the highest to the lowest version
+  const sorted = sortFunction(filteredVersions);
+
+  // collections are using semantic versioning so we are removing first 2 characters
+  const transformed = sorted.map(transformVersion);
+
+  // we want the most recent one
+  return transformed[0];
 };
 
 const transformData = () => {
