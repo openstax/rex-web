@@ -323,3 +323,11 @@ export const useKeyCombination = (
     return () => document.removeEventListener('keydown', handler);
   }, [document, handler]);
 };
+
+export const useFocusElement = (element: React.RefObject<HTMLElement>, shouldFocus: boolean) => {
+  React.useEffect(() => {
+    if (shouldFocus && element.current) {
+      element.current.focus();
+    }
+  }, [element, shouldFocus]);
+};

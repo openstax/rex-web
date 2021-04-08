@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components/macro';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
-import { useDebouncedWindowSize } from '../../../reactUtils';
+import { useDebouncedWindowSize, useFocusElement } from '../../../reactUtils';
 import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
@@ -45,11 +45,12 @@ export interface DisplayNoteProps {
   onRemove: () => void;
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   className: string;
+  shouldFocusCard: boolean;
 }
 
 // tslint:disable-next-line:variable-name
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isActive, highlight, focus, onBlur, onEdit, onRemove, onHeightChange, className},
+  {note, isActive, highlight, focus, onBlur, onEdit, onRemove, onHeightChange, className, shouldFocusCard},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -87,6 +88,8 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     onHeightChange(refElement);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, confirmationRef, confirmingDelete, textToggle, width, isTocOpen, searchQuery]);
+
+  useFocusElement(element, shouldFocusCard);
 
   return <div className={className} ref={mergeRefs(ref, element)} tabIndex={-1} data-highlight-card>
     <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={false}>

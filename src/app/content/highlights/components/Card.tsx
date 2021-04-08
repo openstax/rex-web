@@ -44,7 +44,6 @@ export interface CardProps {
   data?: HighlightData;
   className: string;
   zIndex: number;
-  // If shouldFocusCard prop is true then focus will be moved to this card.
   shouldFocusCard: boolean;
   topOffset?: number;
   highlightOffsets?: { top: number, bottom: number };
@@ -59,7 +58,7 @@ const Card = (props: CardProps) => {
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
 
-  const { isActive, highlight: { id }, focus, shouldFocusCard } = props;
+  const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
     if (!isActive && (!hasUnsavedHighlight || await showConfirmation())) {
@@ -68,12 +67,6 @@ const Card = (props: CardProps) => {
   }, [isActive, hasUnsavedHighlight, id, focus]);
 
   useFocusIn(element, true, focusCard);
-
-  React.useEffect(() => {
-    if (shouldFocusCard && element.current) {
-      element.current.focus();
-    }
-  }, [element, shouldFocusCard]);
 
   React.useEffect(() => {
     if (!props.isActive) {
@@ -138,6 +131,7 @@ const Card = (props: CardProps) => {
     onHeightChange: props.onHeightChange,
     onRemove,
     ref: element,
+    shouldFocusCard: props.shouldFocusCard,
   };
 
   return <div onClick={focusCard} data-testid='card'>

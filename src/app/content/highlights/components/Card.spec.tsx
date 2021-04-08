@@ -393,26 +393,4 @@ describe('Card', () => {
 
     expect(showConfirmation).toHaveBeenCalled();
   });
-
-  it('focuses the Card if shouldFocusCard prop is set', () => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveHighlights({
-      highlights: [
-        { id: highlightData.id, annotation: 'asd' },
-      ] as HighlightData[],
-      pageId: '123',
-    }));
-
-    const cardElement = assertDocument().createElement('div');
-    const spyFocusCardElement = jest.spyOn(cardElement, 'focus');
-
-    renderer.create(<Provider store={store}>
-      <Card {...cardProps} shouldFocusCard={true} />
-    </Provider>, { createNodeMock: () => cardElement });
-
-    renderer.act(() => undefined);
-
-    expect(spyFocusCardElement).toHaveBeenCalled();
-  });
 });

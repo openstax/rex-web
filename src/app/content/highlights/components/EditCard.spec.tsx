@@ -701,7 +701,7 @@ describe('EditCard', () => {
     expect(onHeightChange).toHaveBeenCalled();
   });
 
-  it('ref.focus focuses textarea', () => {
+  it('focuses textarea if shouldFocusCard is set to true', () => {
     const editCard = assertDocument().createElement('div');
     const textarea = assertDocument().createElement('textarea');
 
@@ -721,7 +721,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} onHeightChange={onHeightChange} />
+            <EditCard {...editCardProps} onHeightChange={onHeightChange} shouldFocusCard={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>,
@@ -730,48 +730,7 @@ describe('EditCard', () => {
 
     // Wait for hooks
     renderer.act(() => undefined);
-
-    expect(spyTextareaFocus).not.toHaveBeenCalled();
-
-    editCard.focus();
 
     expect(spyTextareaFocus).toHaveBeenCalledTimes(1);
-  });
-
-  it('ref.focus does not focus textarea if it is not mounted yet', () => {
-    const editCard = assertDocument().createElement('div');
-    const textarea = assertDocument().createElement('textarea');
-
-    const spyTextareaFocus = jest.spyOn(textarea, 'focus');
-
-    const createNodeMock = (element: ReactElement) => {
-      if (element.type === 'form') {
-        return editCard;
-      } else {
-        return undefined;
-      }
-    };
-
-    const onHeightChange = jest.fn();
-
-    renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} onHeightChange={onHeightChange} />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>,
-      {createNodeMock}
-    );
-
-    // Wait for hooks
-    renderer.act(() => undefined);
-
-    expect(spyTextareaFocus).not.toHaveBeenCalled();
-
-    editCard.focus();
-
-    expect(spyTextareaFocus).not.toHaveBeenCalled();
   });
 });

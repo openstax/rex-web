@@ -8,7 +8,7 @@ import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as selectAuth from '../../../auth/selectors';
 import Button, { ButtonGroup } from '../../../components/Button';
-import { useOnEsc } from '../../../reactUtils';
+import { useFocusElement, useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
@@ -39,6 +39,7 @@ export interface EditCardProps {
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   data?: HighlightData;
   className: string;
+  shouldFocusCard: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -76,19 +77,6 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
 
   useOnEsc(element, props.isActive, cancelEditing);
 
-  // Overwrite .focus method on element.current to focus textarea when focusing this element.
-  // It is done this way instead of using React.useImperativeHandle because there are other
-  // functions that are being used and not all of them require overrides.
-  React.useEffect(() => {
-    if (element.current) {
-      (element.current as any).focus = () => {
-        if (textarea.current) {
-          textarea.current.focus();
-        }
-      };
-    }
-  }, [element]);
-
   React.useEffect(() => {
     if (props.data) { return; }
     if (authenticated) {
@@ -112,6 +100,8 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, editingAnnotation, props.isActive]);
+
+  useFocusElement(textarea, props.shouldFocusCard);
 
   const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
     props.highlight.setStyle(color);
