@@ -22,8 +22,6 @@ export default async(
   match: Match<typeof content>
 ) => {
 
-  // tslint:disable-next-line: no-console
-  console.log('resolveContent');
   const [book, loader] = await resolveBook(services, match);
   const page = await resolvePage(services, match, book, loader);
 
