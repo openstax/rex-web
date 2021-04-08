@@ -12,8 +12,8 @@ const redirectsDataFolderPath = path.resolve(__dirname, '../../data/redirects/')
 const redirectsDataFiles = APP_ENV === 'test'
   ? [path.resolve(__dirname, '../../src/mock-redirects.json')]
   : fs.readdirSync(redirectsDataFolderPath)
-    .filter((name) => name.match('.json'))
-    .map((file) => `${redirectsDataFolderPath}/${file}`);
+      .filter((name) => name.match('.json'))
+      .map((file) => `${redirectsDataFolderPath}/${file}`);
 
 const prepareRedirects = async(
   archiveLoader: AppServices['archiveLoader'],

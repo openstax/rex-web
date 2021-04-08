@@ -5,6 +5,9 @@ import { RedirectsData } from '../../data/redirects/types';
 import { content } from '../../src/app/content/routes';
 import { BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
 import { flattenArchiveTree } from '../../src/app/content/utils';
+import { disableArchiveTreeCaching } from '../../src/app/content/utils/archiveTreeUtils';
+
+disableArchiveTreeCaching();
 
 const redirectsPath = path.resolve(__dirname, '../../data/redirects/');
 

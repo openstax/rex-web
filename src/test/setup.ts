@@ -83,18 +83,8 @@ let mockGa: any;
 
 resetModules();
 
-beforeAll(async() => {
-  // Add DOMParser if it doesn't exists since it is require by archiveTreeUtils
-  if (!(global as any).DOMParser) {
-    (global as any).DOMParser = new JSDOM().window.DOMParser;
-  }
-  // import has to be here because we are using resetModules()
-  const { disableArchiveTreeCaching } = await import('../app/content/utils/archiveTreeUtils');
-  disableArchiveTreeCaching();
-});
-
 afterAll(async() => {
-  resetModules();
+  await resetModules();
 });
 
 beforeEach(() => {
