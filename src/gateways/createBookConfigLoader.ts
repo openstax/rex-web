@@ -15,12 +15,17 @@ interface ReleaseJsonStructure {
 }
 
 export default (baseUrl: string) => {
-  const toJson = (response: any) => response.json() as Promise<ReleaseJsonStructure>;
-
   const loadBookRemoteBookConfig = (url: string): Promise<BookConfig | undefined> => {
     return fetch(url)
-      .then(toJson)
-      .then((res) => res.books);
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json() as Promise<ReleaseJsonStructure>;
+        }
+      })
+      .then((response) => response && response.books)
+      .catch(() => {
+        return Promise.resolve(undefined);
+      });
   };
 
   return {

@@ -13,6 +13,7 @@ import {
   RELEASE_ID
 } from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
+import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
@@ -50,9 +51,12 @@ async function render() {
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
   const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
+  const bookConfigLoader = createBookConfigLoader(`http://localhost:${port}`);
+
   const {server} = await startServer({port, onlyProxy: true});
   const renderHelpers = {
     archiveLoader,
+    bookConfigLoader,
     buyPrintConfigLoader,
     highlightClient,
     osWebLoader,

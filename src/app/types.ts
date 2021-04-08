@@ -9,6 +9,7 @@ import {
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
 import createArchiveLoader from '../gateways/createArchiveLoader';
+import createBookConfigLoader from '../gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
 import createOSWebLoader from '../gateways/createOSWebLoader';
@@ -48,6 +49,7 @@ export interface AppServices {
   searchClient: ReturnType<typeof createSearchClient>;
   serviceWorker?: ServiceWorkerRegistration;
   userLoader: ReturnType<typeof createUserLoader>;
+  bookConfigLoader: ReturnType<typeof createBookConfigLoader>;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };
