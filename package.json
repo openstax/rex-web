@@ -62,7 +62,7 @@
     "coverage-report": "open coverage/index.html",
     "pretest:sims": "./script/build-simulations.bash",
     "pretest": "npm run-script build:css",
-    "ci:test:unit": "CI=true npm run-script test:unit && yarn codecov",
+    "ci:test:unit": "CI=true npm run-script test:unit && npm run-script codecov",
     "ci:test:build": "CI=true npm run-script test:build",
     "test": "npm run-script test:unit && npm run-script test:browser && npm run-script test:build",
     "test:unit": "REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)spec\\.tsx?\"",
