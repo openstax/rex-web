@@ -4,7 +4,7 @@ exports[`DisplayNote matches snapshot 1`] = `
 <div
   className="DisplayNote-wzwggt-1 blUofp"
   data-highlight-card={true}
-  tabIndex={0}
+  tabIndex={-1}
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
@@ -65,7 +65,7 @@ exports[`DisplayNote matches snapshot 1`] = `
     Note:
   </label>
   <div
-    isFocused={false}
+    isActive={false}
     mock-truncated-text={true}
     onChange={[Function]}
   />
@@ -76,7 +76,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 <div
   className="DisplayNote-wzwggt-1 eDRYVj"
   data-highlight-card={true}
-  tabIndex={0}
+  tabIndex={-1}
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
@@ -137,7 +137,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
     Note:
   </label>
   <div
-    isFocused={true}
+    isActive={true}
     mock-truncated-text={true}
     onChange={[Function]}
   />
@@ -148,7 +148,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 <div
   className="DisplayNote-wzwggt-1 eDRYVj"
   data-highlight-card={true}
-  tabIndex={0}
+  tabIndex={-1}
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
@@ -231,7 +231,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
     Note:
   </label>
   <div
-    isFocused={true}
+    isActive={true}
     mock-truncated-text={true}
     onChange={[Function]}
   />

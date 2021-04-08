@@ -54,7 +54,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} data={data} isFocused={true} />
+            <EditCard {...editCardProps} data={data} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -69,7 +69,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} isFocused={true} />
+            <EditCard {...editCardProps} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -88,7 +88,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={highlightData}
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -109,7 +109,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} isFocused={true} />
+            <EditCard {...editCardProps} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -130,7 +130,7 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              isFocused={true}
+              isActive={true}
               data={data}
             />
           </MessageProvider>
@@ -155,7 +155,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} data={data} isFocused={true} />
+            <EditCard {...editCardProps} data={data} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -182,7 +182,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -215,7 +215,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -251,7 +251,7 @@ describe('EditCard', () => {
               data={highlightData}
               locationFilterId='locationId'
               pageId='pageId'
-              isFocused={true}
+              isActive={true}
               onCreate={jest.fn()}
             />
           </MessageProvider>
@@ -301,7 +301,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -335,7 +335,7 @@ describe('EditCard', () => {
               {...editCardProps}
               locationFilterId='locationId'
               pageId='pageId'
-              isFocused={true}
+              isActive={true}
               data={data}
             />
           </MessageProvider>
@@ -392,7 +392,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -434,7 +434,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
               hasUnsavedHighlight={false}
             />
           </MessageProvider>
@@ -462,7 +462,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
               hasUnsavedHighlight={true}
             />
           </MessageProvider>
@@ -487,7 +487,7 @@ describe('EditCard', () => {
               data={highlightData}
               locationFilterId='locationId'
               pageId='pageId'
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -521,7 +521,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} isFocused={true} />
+            <EditCard {...editCardProps} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -585,7 +585,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} isFocused={true} />
+            <EditCard {...editCardProps} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -610,7 +610,7 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              isFocused={true}
+              isActive={true}
               data={highlightData}
               hasUnsavedHighlight={true}
             />
@@ -648,7 +648,7 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              isFocused={true}
+              isActive={true}
               data={undefined}
             />
           </MessageProvider>
@@ -681,7 +681,7 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              isFocused={true}
+              isActive={true}
               onHeightChange={onHeightChange}
             />
           </MessageProvider>

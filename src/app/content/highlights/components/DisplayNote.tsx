@@ -38,7 +38,7 @@ export interface DisplayNoteProps {
   highlight: Highlight;
   note: string;
   style: typeof highlightStyles[number];
-  isFocused: boolean;
+  isActive: boolean;
   focus: typeof focusHighlight;
   onEdit: () => void;
   onBlur: () => void;
@@ -49,7 +49,7 @@ export interface DisplayNoteProps {
 
 // tslint:disable-next-line:variable-name
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isFocused, highlight, focus, onBlur, onEdit, onRemove, onHeightChange, className},
+  {note, isActive, highlight, focus, onBlur, onEdit, onRemove, onHeightChange, className},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -61,7 +61,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   const isTocOpen = useSelector(tocOpen);
 
   const onToggle = () => {
-    if (!isFocused) {
+    if (!isActive) {
       focus(highlight.id);
     }
   };
@@ -73,14 +73,14 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
 
   // Change Event phase so when clicking on another Card,
   // onBlur is called before this Card calls focus.
-  useOnClickOutside(elements, isFocused, onBlur, { capture: true });
+  useOnClickOutside(elements, isActive, onBlur, { capture: true });
 
   React.useEffect(() => {
-    if (!isFocused) {
+    if (!isActive) {
       setConfirmingDelete(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
+  }, [isActive]);
 
   React.useEffect(() => {
     const refElement = confirmationRef.current ? confirmationRef : element;
@@ -88,7 +88,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, confirmationRef, confirmingDelete, textToggle, width, isTocOpen, searchQuery]);
 
-  return <div className={className} ref={mergeRefs(ref, element)} tabIndex={0} data-highlight-card>
+  return <div className={className} ref={mergeRefs(ref, element)} tabIndex={-1} data-highlight-card>
     <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={false}>
       <DropdownList>
         <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
@@ -101,7 +101,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     </Dropdown>
     <CloseIcon onClick={onBlur} />
     <label>Note:</label>
-    <TruncatedText text={note} isFocused={isFocused} onChange={() => setTextToggle((state) => !state)} />
+    <TruncatedText text={note} isActive={isActive} onChange={() => setTextToggle((state) => !state)} />
     {confirmingDelete && <Confirmation
       ref={confirmationRef}
       data-analytics-label='delete'
@@ -118,7 +118,7 @@ export default styled(DisplayNote)`
   width: ${cardWidth}rem;
   overflow: visible;
   background: ${theme.color.neutral.formBackground};
-  ${(props: DisplayNoteProps) => props.isFocused && css`
+  ${(props: DisplayNoteProps) => props.isActive && css`
     background: ${theme.color.white};
   `}
 

@@ -26,7 +26,7 @@ import Note from './Note';
 import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
 
 export interface EditCardProps {
-  isFocused: boolean;
+  isActive: boolean;
   hasUnsavedHighlight: boolean;
   highlight: Highlight;
   locationFilterId: string;
@@ -74,7 +74,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     props.onCancel();
   };
 
-  useOnEsc(element, props.isFocused, cancelEditing);
+  useOnEsc(element, props.isActive, cancelEditing);
 
   // Overwrite .focus method on element.current to focus textarea when focusing this element.
   // It is done this way instead of using React.useImperativeHandle because there are other
@@ -104,14 +104,14 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [element.current, props.highlight]);
 
-  useOnClickOutside(elements, props.isFocused, blurIfNotEditing, { capture: true });
+  useOnClickOutside(elements, props.isActive, blurIfNotEditing, { capture: true });
 
   React.useEffect(() => {
     if (element.current) {
       props.onHeightChange(element);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, editingAnnotation, props.isFocused]);
+  }, [element, editingAnnotation, props.isActive]);
 
   const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
     props.highlight.setStyle(color);

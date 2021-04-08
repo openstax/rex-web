@@ -31,7 +31,7 @@ export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
   book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
-  isFocused: boolean;
+  isActive: boolean;
   isTocOpen: boolean;
   hasQuery: boolean;
   highlighter: Highlighter;
@@ -59,13 +59,13 @@ const Card = (props: CardProps) => {
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
 
-  const { isFocused, highlight: { id }, focus, shouldFocusCard } = props;
+  const { isActive, highlight: { id }, focus, shouldFocusCard } = props;
 
   const focusCard = React.useCallback(async() => {
-    if (!isFocused && (!hasUnsavedHighlight || await showConfirmation())) {
+    if (!isActive && (!hasUnsavedHighlight || await showConfirmation())) {
       focus(id);
     }
-  }, [isFocused, hasUnsavedHighlight, id, focus]);
+  }, [isActive, hasUnsavedHighlight, id, focus]);
 
   useFocusIn(element, true, focusCard);
 
@@ -76,11 +76,11 @@ const Card = (props: CardProps) => {
   }, [element, shouldFocusCard]);
 
   React.useEffect(() => {
-    if (!props.isFocused) {
+    if (!props.isActive) {
       setEditing(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.isFocused]);
+  }, [props.isActive]);
 
   React.useEffect(() => {
     if (annotation) {
@@ -91,11 +91,11 @@ const Card = (props: CardProps) => {
   }, [props.highlight, annotation]);
 
   React.useEffect(() => {
-    if (!annotation && !props.isFocused) {
+    if (!annotation && !props.isActive) {
       props.onHeightChange({ current: null });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [annotation, props.isFocused]);
+  }, [annotation, props.isActive]);
 
   const location = React.useMemo(() => {
     return props.page && getHighlightLocationFilterForPage(locationFilters, props.page);
@@ -133,7 +133,7 @@ const Card = (props: CardProps) => {
   const commonProps = {
     className: props.className,
     highlight: props.highlight,
-    isFocused: props.isFocused,
+    isActive: props.isActive,
     onBlur: props.blur,
     onHeightChange: props.onHeightChange,
     onRemove,
@@ -172,7 +172,7 @@ export default connect(
     ...selectContent.bookAndPage(state),
     data: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
     hasQuery: !!selectSearch.query(state),
-    isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
+    isActive: selectHighlights.focused(state) === ownProps.highlight.id,
     isTocOpen: contentSelect.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({

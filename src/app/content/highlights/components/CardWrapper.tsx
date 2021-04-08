@@ -122,11 +122,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     if (!position) { return; }
     const topOffset = getOffsetsForHighlight(focusedHighlight).top;
 
-    let transform = '';
-
-    if (position > topOffset) {
-      transform = `translateY(-${position - topOffset}px)`;
-    }
+    const transform = position > topOffset ? `translateY(-${position - topOffset}px)` : '';
 
     if (element.current) {
       element.current.style.transform = transform;
