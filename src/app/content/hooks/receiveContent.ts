@@ -13,6 +13,8 @@ import { createTitle, getDescriptionPhrase } from '../utils/seoUtils';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import { assertDefined } from '../../utils';
 
+const domParser = new DOMParser();
+
 const stripHtmlAndTrim = (str: string) => str
   .replace(/(<span class="os-math-in-para">)(.*?)(<\/span>)/g, ' ... ')
   .replace(/<[^>]*>/g, ' ')
@@ -21,13 +23,6 @@ const stripHtmlAndTrim = (str: string) => str
   .trim()
   .substring(0, 155)
   .trim();
-
-const getContentDom = (str: string) => {
-  const d = document!.createElement('div')!;
-  d.innerHTML = str;
-  console.log(d)
-  return d;
-}
 
 const hookBody: ActionHookBody<typeof receivePage> = ({
   getState,
@@ -54,17 +49,15 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
 
   const title = createTitle(page, book);
   const cleanContent = getCleanContent(book, page, archiveLoader);
-  const contentDom = getContentDom(cleanContent);
-  const pageType = contentDom.children[0].classList.contains("appendix") ? "appendix" : contentDom.children[0].getAttribute("data-type");
-  const firstParagraph = contentDom.querySelector("p")?.outerHTML || "";
+  const contentNode = domParser.parseFromString(cleanContent, 'text/html');
+  const pageType = contentNode.children[0].classList.contains("appendix") ? "appendix" : contentNode.children[0].getAttribute("data-type");
+  const firstParagraph = contentNode.querySelector("p")?.outerHTML || "";
   const node = assertDefined(
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`
   );
   const descriptionPhrase = getDescriptionPhrase(node);
-  console.log(firstParagraph)
   const description = pageType === "page" ? stripHtmlAndTrim(firstParagraph): `On this page you will discover ${descriptionPhrase} of OpenStax's ${book.title} free college textbook.`
-  console.log(description)
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
