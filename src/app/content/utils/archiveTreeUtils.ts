@@ -14,14 +14,7 @@ import {
 } from '../types';
 import { getIdVersion, stripIdVersion } from './idUtils';
 
-let _domParser: typeof DOMParser;
-
-const initializeDOMParser = () => {
-  if (!_domParser) {
-    _domParser = new DOMParser();
-  }
-  return _domParser;
-};
+const domParser = new DOMParser();
 
 export const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
 let cacheArchiveTrees = true;
@@ -81,7 +74,6 @@ export const nodeMatcher = (nodeId: string) => (node: ArchiveTreeNode) =>
 export const nodeHasId = (nodeId: string, node: ArchiveTreeNode) => nodeMatcher(nodeId)(node);
 
 export const splitTitleParts = (str: string) => {
-  const domParser = initializeDOMParser();
   const domNode = domParser.parseFromString(str, 'text/html');
   const titleNode = domNode.querySelector('.os-text');
   const numNode = domNode.querySelector('.os-number');
@@ -143,8 +135,6 @@ export const prevNextBookPage = (
 };
 
 export const getTitleFromArchiveNode = (book: Book, node: ArchiveTree | ArchiveTreeSection): string => {
-  const domParser = initializeDOMParser();
-
   const domNode = domParser.parseFromString(`<div id="container">${node.title}</div>`, 'text/html');
   const container = domNode.getElementById('container');
 
