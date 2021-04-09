@@ -156,7 +156,7 @@ export const getBookInformation = async(
   const getInputReferenceInfo = async(id: string, inputVersion?: string) => {
     const bookVersionFromConfig = await services.bookConfigLoader.getBookVersionFromUUID(id);
 
-    const bookVersion = inputVersion ? inputVersion : bookVersionFromConfig?.defaultVersion;
+    const bookVersion = inputVersion ? inputVersion : (bookVersionFromConfig && bookVersionFromConfig.defaultVersion);
 
     if (!bookVersion) {
       return [];
