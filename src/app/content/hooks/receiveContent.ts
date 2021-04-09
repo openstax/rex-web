@@ -49,15 +49,16 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
 
   const title = createTitle(page, book);
   const cleanContent = getCleanContent(book, page, archiveLoader);
-  const contentNode = domParser.parseFromString(cleanContent, 'text/html');
-  const pageType = contentNode.children[0].classList.contains("appendix") ? "appendix" : contentNode.children[0].getAttribute("data-type");
+  const doc = domParser.parseFromString(cleanContent, 'text/html');
+  const contentNode = doc.body.children[0];
+  const pageType = contentNode.classList.contains("appendix") ? "appendix" : contentNode.getAttribute("data-type");
   const firstParagraph = contentNode.querySelector("p")?.outerHTML || "";
   const node = assertDefined(
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`
   );
   const descriptionPhrase = getDescriptionPhrase(node);
-  const description = pageType === "page" ? stripHtmlAndTrim(firstParagraph): `On this page you will discover ${descriptionPhrase} of OpenStax's ${book.title} free college textbook.`
+  const description = pageType === "page" ? stripHtmlAndTrim(firstParagraph) : `On this page you will discover ${descriptionPhrase} ${pageType === "appendix" ? "for" : "of"} OpenStax's ${book.title} free college textbook.`
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
