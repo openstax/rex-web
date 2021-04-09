@@ -11,40 +11,22 @@ import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import getCleanContent from '../utils/getCleanContent';
 import { createTitle, getDescriptionPhrase } from '../utils/seoUtils';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
-import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
 import { assertDefined } from '../../utils';
 
 const stripHtmlAndTrim = (str: string) => str
   .replace(/(<span class="os-math-in-para">)(.*?)(<\/span>)/g, ' ... ')
   .replace(/<[^>]*>/g, ' ')
   .replace(/ +/g, ' ')
+  .replace(/ ,/, ',')
   .trim()
   .substring(0, 155)
   .trim();
 
-  const getContentDom = (str: string) => {
-    const d = document!.createElement('div')!;
-    d.innerHTML = str;
-    console.log(d)
-    return d;
-  }
-
-const getChapterName = (tree: LinkedArchiveTree | LinkedArchiveTreeSection | undefined) => {
-  if (!tree) return "";
-  const chapterNum = tree.slug.match(/\d*(?=-)/);
-  if (tree.slug.includes("chapter") && tree.parent) {
-    console.log(tree.parent)
-    return stripHtmlAndTrim(tree.parent.title);
-  } else if (chapterNum) {
-    return `Chapter ${chapterNum}`;
-  } else {
-    return "the";
-  }
-}
-
-const getPageTitle = (str: string, tree: LinkedArchiveTree | LinkedArchiveTreeSection | undefined) => {
-  console.log('getting title: ', str, tree)
-  return str.includes("Chapter") ? "no title" : str
+const getContentDom = (str: string) => {
+  const d = document!.createElement('div')!;
+  d.innerHTML = str;
+  console.log(d)
+  return d;
 }
 
 const hookBody: ActionHookBody<typeof receivePage> = ({
@@ -79,10 +61,10 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`
   );
-  console.log(getDescriptionPhrase(node))
-  const chapterName = getChapterName(node);
-  const pageTitle = getPageTitle(page.title, node);
-  const description = pageType === "page" ? stripHtmlAndTrim(firstParagraph): `On this page you will discover the ${pageTitle} for ${chapterName} of OpenStax's ${book.title} free college textbook.`
+  const descriptionPhrase = getDescriptionPhrase(node);
+  console.log(firstParagraph)
+  const description = pageType === "page" ? stripHtmlAndTrim(firstParagraph): `On this page you will discover ${descriptionPhrase} of OpenStax's ${book.title} free college textbook.`
+  console.log(description)
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;

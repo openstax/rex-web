@@ -9,22 +9,6 @@ import {
   splitTitleParts,
 } from './archiveTreeUtils';
 
-export const getDescriptionPhrase = (node: LinkedArchiveTreeNode | undefined): string => {
-  if (!node) {
-    return '';
-  }
-
-  if (archiveTreeSectionIsChapter(node)) {
-    const number = getArchiveTreeSectionNumber(node);
-    return `Chapter ${number} `;
-  }
-
-  return archiveTreeSectionIsBook(node.parent)
-    ? getArchiveTreeSectionTitle(node) + ' '
-    : getDescriptionPhrase(node.parent);
-
-};
-
 const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string => {
   if (!node) {
     return '';
@@ -39,6 +23,23 @@ const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string => {
     ? getArchiveTreeSectionTitle(node) + ' '
     : getParentPrefix(node.parent);
 
+};
+
+export const getDescriptionPhrase = (node: LinkedArchiveTreeNode | undefined): string => {
+  if (!node) {
+    return '';
+  }
+
+  const prefix = getParentPrefix(node.parent).trim();
+  const sectionTitle = getArchiveTreeSectionTitle(node);
+  const chapterFromSlug = node.slug.match(/\d*(?=-)/) || [];
+  const isAnswerKey = prefix === "Answer Key";
+
+  if (isAnswerKey) {
+    return `the Answer Key of ${sectionTitle}`;
+  } else {
+    return chapterFromSlug[0] ? `${sectionTitle} of Chapter ${chapterFromSlug[0]}` : sectionTitle;
+  }
 };
 
 export const createTitle = (page: Page, book: Book): string => {
