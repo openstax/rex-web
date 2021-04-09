@@ -7,6 +7,7 @@ import analytics from '../helpers/analytics';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import mockArchiveLoader from './mocks/archiveLoader';
+import mockbookConfigLoader from './mocks/bookConfigLoader';
 import mockOsWebLoader from './mocks/osWebLoader';
 import mockUserLoader from './mocks/userLoader';
 
@@ -16,6 +17,7 @@ jest.mock('@openstax/highlighter/dist/api');
 const services = () => ({
   analytics,
   archiveLoader: mockArchiveLoader(),
+  bookConfigLoader: mockbookConfigLoader(),
   buyPrintConfigLoader: {load: jest.fn(() => Promise.resolve({
     buy_urls: [{url: 'https://example.com', disclosure: null}],
   } as BuyPrintResponse))},

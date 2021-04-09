@@ -2,7 +2,7 @@ import { BOOKS } from '../config';
 import { acceptStatus } from '../helpers/fetch';
 import Sentry from '../helpers/Sentry';
 
-interface BookVersion {
+export interface BookVersion {
   defaultVersion: string;
 }
 
