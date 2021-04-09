@@ -55,7 +55,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   const title = createTitle(page, book);
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const contentDom = getContentDom(cleanContent);
-  const pageType = contentDom.children[0].getAttribute("data-type");
+  const pageType = contentDom.children[0].classList.contains("appendix") ? "appendix" : contentDom.children[0].getAttribute("data-type");
   const firstParagraph = contentDom.querySelector("p")?.outerHTML || "";
   const node = assertDefined(
     findArchiveTreeNodeById(book.tree, page.id),
