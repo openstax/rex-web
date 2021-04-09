@@ -33,7 +33,7 @@ export const getDescriptionPhrase = (node: LinkedArchiveTreeNode | undefined): s
   const prefix = getParentPrefix(node.parent).trim();
   const sectionTitle = getArchiveTreeSectionTitle(node);
   const chapterFromSlug = node.slug.match(/\d*(?=-)/) || [];
-  const isAnswerKey = prefix === "Answer Key";
+  const isAnswerKey = prefix === 'Answer Key';
 
   if (isAnswerKey) {
     return `the Answer Key of ${sectionTitle}`;
