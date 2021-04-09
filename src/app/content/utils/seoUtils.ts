@@ -38,7 +38,7 @@ export const getDescriptionPhrase = (node: LinkedArchiveTreeNode | undefined): s
   if (isAnswerKey) {
     return `the Answer Key of ${sectionTitle}`;
   } else {
-    return chapterFromSlug[0] ? `${sectionTitle} of Chapter ${chapterFromSlug[0]}` : sectionTitle;
+    return chapterFromSlug[0] ? `${sectionTitle} for Chapter ${chapterFromSlug[0]} of` : `${sectionTitle} for`;
   }
 };
 

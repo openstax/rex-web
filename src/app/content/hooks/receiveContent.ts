@@ -60,9 +60,8 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   const descriptionPhrase = getDescriptionPhrase(node);
   const description = pageType === 'page'
     ? stripHtmlAndTrim(firstParagraph)
-    : `On this page you will discover ${descriptionPhrase} ${pageType === 'appendix'
-      ? 'for'
-      : 'of'} OpenStax's ${book.title} free college textbook.`;
+    : `On this page you will discover ${descriptionPhrase} OpenStax's ${book.title} free college textbook.`;
+      console.log(description)
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
