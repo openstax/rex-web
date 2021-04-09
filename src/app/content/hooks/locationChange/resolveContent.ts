@@ -154,12 +154,9 @@ export const getBookInformation = async(
   reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
   const getInputReferenceInfo = async(id: string, inputVersion?: string) => {
-    const defaultVersion = assertDefined(
-      await services.bookConfigLoader.getBookVersionFromUUID(id),
-      `BUG: ${id} is not in BOOKS configuration`
-    ).defaultVersion;
+    const bookVersionFromConfig = await services.bookConfigLoader.getBookVersionFromUUID(id);
 
-    const bookVersion = inputVersion ? inputVersion : defaultVersion;
+    const bookVersion = inputVersion ? inputVersion : bookVersionFromConfig?.defaultVersion;
 
     if (!bookVersion) {
       return [];
@@ -177,11 +174,7 @@ export const getBookInformation = async(
   if (configuredReference) {
     const osWebBook =  await services.osWebLoader.getBookFromId(configuredReference.id);
     const archiveBook = await services.archiveLoader.book(
-      configuredReference.id,
-      assertDefined(
-        await services.bookConfigLoader.getBookVersionFromUUID(configuredReference.id),
-        `BUG: ${configuredReference.id} is not in BOOKS configuration`
-      ).defaultVersion
+      configuredReference.id, configuredReference.bookVersion
     ).load().catch((error) => {
       if (UNLIMITED_CONTENT) {
         return undefined;
