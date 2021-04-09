@@ -9,7 +9,10 @@ import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import getCleanContent from '../utils/getCleanContent';
-import { createTitle } from '../utils/seoUtils';
+import { createTitle, getDescriptionPhrase } from '../utils/seoUtils';
+import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
+import { LinkedArchiveTree, LinkedArchiveTreeSection } from '../types';
+import { assertDefined } from '../../utils';
 
 const stripHtmlAndTrim = (str: string) => str
   .replace(/(<span class="os-math-in-para">)(.*?)(<\/span>)/g, ' ... ')
@@ -19,14 +22,29 @@ const stripHtmlAndTrim = (str: string) => str
   .substring(0, 155)
   .trim();
 
-const getPageType = (str: string) => {
-  const dataTypes = str.match(/(data-type=")([\w\-]+)"/) || [];
-  return dataTypes.length ? dataTypes[0].replace(/(data-type=")/g, ' ').replace(/"/g, ' ').trim() : '';
+  const getContentDom = (str: string) => {
+    const d = document!.createElement('div')!;
+    d.innerHTML = str;
+    console.log(d)
+    return d;
+  }
+
+const getChapterName = (tree: LinkedArchiveTree | LinkedArchiveTreeSection | undefined) => {
+  if (!tree) return "";
+  const chapterNum = tree.slug.match(/\d*(?=-)/);
+  if (tree.slug.includes("chapter") && tree.parent) {
+    console.log(tree.parent)
+    return stripHtmlAndTrim(tree.parent.title);
+  } else if (chapterNum) {
+    return `Chapter ${chapterNum}`;
+  } else {
+    return "the";
+  }
 }
 
-const getFirstParagraph = (str: string) => {
-  const paragraphs = str.match(/<p (.*?)>(.*?)<\/p>/g) || [];
-  return paragraphs[0];
+const getPageTitle = (str: string, tree: LinkedArchiveTree | LinkedArchiveTreeSection | undefined) => {
+  console.log('getting title: ', str, tree)
+  return str.includes("Chapter") ? "no title" : str
 }
 
 const hookBody: ActionHookBody<typeof receivePage> = ({
@@ -53,13 +71,18 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   }
 
   const title = createTitle(page, book);
-
-  // the abstract could be '<div/>'.
-  // const abstract = stripHtmlAndTrim(page.abstract ? page.abstract : '');
   const cleanContent = getCleanContent(book, page, archiveLoader);
-  const pageType = getPageType(cleanContent);
-  const firstParagraph = getFirstParagraph(cleanContent);
-  const description = pageType === "page" ? stripHtmlAndTrim(firstParagraph): `On this page you will discover the ${page.title} for Chapter X of OpenStax's ${book.title} free college textbook.`
+  const contentDom = getContentDom(cleanContent);
+  const pageType = contentDom.children[0].getAttribute("data-type");
+  const firstParagraph = contentDom.querySelector("p")?.outerHTML || "";
+  const node = assertDefined(
+    findArchiveTreeNodeById(book.tree, page.id),
+    `couldn't find node for a page id: ${page.id}`
+  );
+  console.log(getDescriptionPhrase(node))
+  const chapterName = getChapterName(node);
+  const pageTitle = getPageTitle(page.title, node);
+  const description = pageType === "page" ? stripHtmlAndTrim(firstParagraph): `On this page you will discover the ${pageTitle} for ${chapterName} of OpenStax's ${book.title} free college textbook.`
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;

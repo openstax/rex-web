@@ -9,6 +9,22 @@ import {
   splitTitleParts,
 } from './archiveTreeUtils';
 
+export const getDescriptionPhrase = (node: LinkedArchiveTreeNode | undefined): string => {
+  if (!node) {
+    return '';
+  }
+
+  if (archiveTreeSectionIsChapter(node)) {
+    const number = getArchiveTreeSectionNumber(node);
+    return `Chapter ${number} `;
+  }
+
+  return archiveTreeSectionIsBook(node.parent)
+    ? getArchiveTreeSectionTitle(node) + ' '
+    : getDescriptionPhrase(node.parent);
+
+};
+
 const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string => {
   if (!node) {
     return '';
