@@ -11,14 +11,6 @@ import {
 
 const domParser = new DOMParser();
 
-const hideMath = (node: any) => {
-  const mathSpans = node.querySelectorAll('.os-math-in-para');
-  mathSpans.forEach((el) => {
-    el.outerHTML = "...";
-  })
-  return node;
-}
-
 const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string => {
   if (!node) {
     return '';
@@ -34,6 +26,14 @@ const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string => {
     : getParentPrefix(node.parent);
 
 };
+
+const hideMath = (node: any) => {
+  const mathSpans = node.querySelectorAll('.os-math-in-para');
+  mathSpans.forEach((el) => {
+    el.outerHTML = "...";
+  })
+  return node;
+}
 
 // need to find out correct type here
 const getPageType = (node: any) => {
@@ -52,12 +52,10 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
   const doc = domParser.parseFromString(pageContent, 'text/html');
   const contentNode = doc.body.children[0];
   const pageType = getPageType(contentNode);
-
   const node = assertDefined(
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`
   );
-
   const prefix = getParentPrefix(node.parent).trim();
   const sectionTitle = getArchiveTreeSectionTitle(node);
   const chapterFromSlug = node.slug.match(/\d*(?=-)/) || [];
@@ -65,7 +63,7 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
 
   if (pageType === "page") {
     const mathless = hideMath(contentNode.querySelector('p'));
-    return mathless.textContent.substring(0, 155);
+    return mathless.textContent.trim().substring(0, 155);
   } else if (isAnswerKey) {
     return `the Answer Key of ${sectionTitle}`;
   } else {
