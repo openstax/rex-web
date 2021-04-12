@@ -38,7 +38,7 @@ const TextArea = styled.textarea`
 const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
   const setTextAreaHeight = () => {
     const element = textareaRef.current;
-    if (!element || !element) {
+    if (!element) {
       return;
     }
 
