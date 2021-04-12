@@ -29,24 +29,24 @@ const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string => {
 
 const hideMath = (node: any) => {
   const mathSpans = node.querySelectorAll('.os-math-in-para');
-  mathSpans.forEach((el) => {
-    el.outerHTML = "...";
-  })
+  mathSpans.forEach((el: any) => {
+    el.outerHTML = '...';
+  });
   return node;
-}
+};
 
 // need to find out correct type here
 const getPageType = (node: any) => {
   if (!node) {
     return '';
   }
-  
+
   if (node.classList.contains('appendix')) {
     return 'appendix';
   } else {
     return node.getAttribute('data-type');
   }
-}
+};
 
 export const createDescription = (pageContent: string, book: Book, page: Page) => {
   const doc = domParser.parseFromString(pageContent, 'text/html');
@@ -61,13 +61,15 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
   const chapterFromSlug = node.slug.match(/\d*(?=-)/) || [];
   const isAnswerKey = prefix === 'Answer Key';
 
-  if (pageType === "page") {
+  if (pageType === 'page') {
     const mathless = hideMath(contentNode.querySelector('p'));
     return mathless.textContent.trim().substring(0, 155);
   } else if (isAnswerKey) {
     return `the Answer Key of ${sectionTitle}`;
   } else {
-    const descriptionPhrase = chapterFromSlug[0] ? `${sectionTitle} for Chapter ${chapterFromSlug[0]} of` : `${sectionTitle} for`;
+    const descriptionPhrase = chapterFromSlug[0]
+      ? `${sectionTitle} for Chapter ${chapterFromSlug[0]} of`
+      : `${sectionTitle} for`;
     return `On this page you will discover ${descriptionPhrase} OpenStax's ${book.title} free college textbook.`;
   }
 };

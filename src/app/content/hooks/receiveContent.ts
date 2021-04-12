@@ -9,7 +9,7 @@ import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import getCleanContent from '../utils/getCleanContent';
-import { createTitle, createDescription } from '../utils/seoUtils';
+import { createDescription, createTitle } from '../utils/seoUtils';
 
 const hookBody: ActionHookBody<typeof receivePage> = ({
   getState,
