@@ -1,4 +1,3 @@
-import { Node } from 'styled-icons/fa-brands';
 import { assertDefined } from '../../utils';
 import { Book, LinkedArchiveTreeNode, Page } from '../types';
 import {
@@ -11,6 +10,14 @@ import {
 } from './archiveTreeUtils';
 
 const domParser = new DOMParser();
+
+const hideMath = (node: any) => {
+  const mathSpans = node.querySelectorAll('.os-math-in-para');
+  mathSpans.forEach((el) => {
+    el.outerHTML = "...";
+  })
+  return node;
+}
 
 const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string => {
   if (!node) {
@@ -41,14 +48,15 @@ const getPageType = (node: any) => {
   }
 }
 
-export const createDescription = (pageContent: string, node: LinkedArchiveTreeNode | undefined): string => {
-  if (!node) {
-    return '';
-  }
-
+export const createDescription = (pageContent: string, book: Book, page: Page) => {
   const doc = domParser.parseFromString(pageContent, 'text/html');
   const contentNode = doc.body.children[0];
   const pageType = getPageType(contentNode);
+
+  const node = assertDefined(
+    findArchiveTreeNodeById(book.tree, page.id),
+    `couldn't find node for a page id: ${page.id}`
+  );
 
   const prefix = getParentPrefix(node.parent).trim();
   const sectionTitle = getArchiveTreeSectionTitle(node);
@@ -56,17 +64,13 @@ export const createDescription = (pageContent: string, node: LinkedArchiveTreeNo
   const isAnswerKey = prefix === 'Answer Key';
 
   if (pageType === "page") {
-    const firstParagraph = contentNode.querySelector('p');
-    const mathSpans = firstParagraph.querySelectorAll('.os-math-in-para');
-    mathSpans.forEach((el) => {
-      el.outerHTML = "...";
-    })
-    console.log(firstParagraph.textContent.substring(0, 155))
-    return contentNode.querySelector('p')?.outerHTML || '';
+    const mathless = hideMath(contentNode.querySelector('p'));
+    return mathless.textContent.substring(0, 155);
   } else if (isAnswerKey) {
     return `the Answer Key of ${sectionTitle}`;
   } else {
-    return chapterFromSlug[0] ? `${sectionTitle} for Chapter ${chapterFromSlug[0]} of` : `${sectionTitle} for`;
+    const descriptionPhrase = chapterFromSlug[0] ? `${sectionTitle} for Chapter ${chapterFromSlug[0]} of` : `${sectionTitle} for`;
+    return `On this page you will discover ${descriptionPhrase} OpenStax's ${book.title} free college textbook.`;
   }
 };
 
