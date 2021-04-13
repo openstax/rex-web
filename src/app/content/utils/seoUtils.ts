@@ -58,7 +58,12 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
   const sectionTitle = getArchiveTreeSectionTitle(node);
   const nodeTitleDoc = domParser.parseFromString(node.title, 'text/html');
   const titleNode = nodeTitleDoc.body.children[0];
-  const chapterNum = titleNode.innerText.split('.')[0] || '';
+  const titleNodeNum = parseInt(titleNode.innerText.split('.')[0]);
+  const prefix = getParentPrefix(node.parent);
+  const prefixNum = parseInt(prefix.trim().split(' ')[1]);
+
+  // Check for numbers indicating chapter in title node and then prefix.
+  const chapterNum = !isNaN(titleNodeNum) ? titleNodeNum : (!isNaN(prefixNum) ? prefixNum : '');
   const isAnswerKey = contentNode.classList.contains('os-solution-container')
     || contentNode.classList.contains('os-solutions-container');
 
