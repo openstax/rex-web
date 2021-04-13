@@ -41,7 +41,7 @@ describe('receiveDeleteHighlight', () => {
       .mockResolvedValue({} as any);
 
     hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(deleteHighlightClient).toHaveBeenCalledWith({id: highlight.id});
   });
@@ -50,7 +50,7 @@ describe('receiveDeleteHighlight', () => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight');
 
     hook(receiveDeleteHighlight(highlight as unknown as HighlightData, {...meta, revertingAfterFailure: true}));
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(deleteHighlightClient).not.toHaveBeenCalled();
   });

@@ -3,7 +3,7 @@ import { recordSentryMessage } from '../app/errors/actions';
 import { Store } from '../app/types';
 import config from '../config';
 import createTestStore from '../test/createTestStore';
-import Sentry, { onBeforeSend } from './Sentry';
+import Sentry, { onBeforeSend, Severity } from './Sentry';
 
 jest.unmock('./Sentry');
 jest.mock('../config', () => ({
@@ -58,7 +58,9 @@ describe('Sentry error logging', () => {
     Sentry.initializeWithMiddleware()(store);
     const err = new Error('this is bad');
     Sentry.captureException(err);
-    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err);
+    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: Severity.Error });
+    Sentry.captureException(err, Severity.Warning);
+    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: Severity.Warning });
     Sentry.log('logged');
     expect(SentryLibrary.captureMessage).toHaveBeenCalledWith('logged', 'log');
   });
@@ -87,9 +89,58 @@ describe('Sentry error logging', () => {
 
     expect(spyConsoleError).not.toHaveBeenCalled();
 
-    Sentry.captureException(new Error('asdf'));
+    const err = new Error('asdf');
+    Sentry.captureException(err);
 
-    expect(spyConsoleError).toHaveBeenCalled();
+    expect(spyConsoleError).toHaveBeenCalledWith(err);
+  });
+
+  it('logs to (info) console when not enabled', () => {
+    config.SENTRY_ENABLED = false;
+    Sentry.initializeWithMiddleware();
+
+    const spyConsoleInfo = jest.spyOn(console, 'info')
+      .mockImplementationOnce(jest.fn)
+    ;
+
+    expect(spyConsoleInfo).not.toHaveBeenCalled();
+
+    Sentry.captureException(new Error('asdf'), Severity.Info);
+    expect(spyConsoleInfo).toHaveBeenCalledWith('asdf');
+
+    Sentry.captureException('qwer', Severity.Info);
+    expect(spyConsoleInfo).toHaveBeenCalledWith('qwer');
+  });
+
+  it('logs to (warn) console when not enabled', () => {
+    config.SENTRY_ENABLED = false;
+    Sentry.initializeWithMiddleware();
+
+    const spyConsoleWarn = jest.spyOn(console, 'warn')
+      .mockImplementationOnce(jest.fn)
+    ;
+
+    expect(spyConsoleWarn).not.toHaveBeenCalled();
+
+    Sentry.captureException(new Error('asdf'), Severity.Warning);
+    expect(spyConsoleWarn).toHaveBeenCalledWith('asdf');
+
+    Sentry.captureException('qwer', Severity.Warning);
+    expect(spyConsoleWarn).toHaveBeenCalledWith('qwer');
+  });
+
+  it('noops on undefined', () => {
+    config.SENTRY_ENABLED = false;
+    Sentry.initializeWithMiddleware();
+
+    const spyConsoleError = jest.spyOn(console, 'error')
+      .mockImplementationOnce(jest.fn)
+    ;
+
+    Sentry.captureException(undefined);
+
+    expect(SentryLibrary.captureException).not.toHaveBeenCalled();
+    expect(spyConsoleError).not.toHaveBeenCalled();
   });
 
   it('uses isEnabled in capture message', () => {

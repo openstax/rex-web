@@ -144,7 +144,11 @@ export const highlightResults = (
     const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
       const highlights = getHighlightRanges(element, highlightText)
         .map((range) => {
-          const highlight = new Highlight(range.nativeRange, {content: range.toString()});
+          const highlight = new Highlight(
+            range.nativeRange,
+            {content: range.toString()},
+            highlighter.getHighlightOptions()
+          );
           attachHighlight(highlight, highlighter, () =>
             `Search result failed to highlight on page ${hit.source.pageId}`
           );

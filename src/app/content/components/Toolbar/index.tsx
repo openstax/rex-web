@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
-import { assertDocument, assertString } from '../../../utils';
+import { assertDocument } from '../../../utils';
 import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
 import {
   clearSearch,
@@ -15,6 +15,7 @@ import {
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import { tocOpen } from '../../selectors';
+import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -104,28 +105,23 @@ class Toolbar extends React.Component<Props, State> {
             <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
               onChange={onChange}
               value={this.state.query}/>
-            <FormattedMessage id='i18n:toolbar:search:toggle'>
-              {(msg) => <FormattedMessage id='i18n:search-results:bar:search-icon:value'>
-                {(val) => <Styled.SearchButton mobile
-                type='button'
-                aria-label={assertString(msg, 'button name must be a string')}
-                data-testid='mobile-toggle'
-                onClick={toggleMobile}
-                value={val}
-              />}</FormattedMessage>}
-            </FormattedMessage>
-            {!this.state.formSubmitted && <FormattedMessage id='i18n:search-results:bar:search-icon:value'>
-                {(val) => <Styled.SearchButton desktop value={val} />}
-              </FormattedMessage>
-            }
+            <Styled.SearchButton mobile
+              type='button'
+              ariaLabelId='i18n:toolbar:search:toggle'
+              data-testid='mobile-toggle'
+              onClick={toggleMobile}
+            />
+            {!this.state.formSubmitted && <Styled.SearchButton desktop />}
             {this.state.formSubmitted &&
               <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
             }
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
         <PracticeQuestionsButton />
-        <StudyGuidesButton />
-        <HighlightButton />
+        <Styled.NudgeElementTarget id={nudgeStudyToolsTargetId}>
+          <StudyGuidesButton />
+          <HighlightButton />
+        </Styled.NudgeElementTarget>
         { !this.props.practiceQuestionsEnabled ? <PrintButton /> : null }
         <Styled.SidebarControl hideMobileText={true} tabIndex={hideFromFocus ? -1 : undefined} />
       </Styled.TopBar>

@@ -59,8 +59,8 @@ const makeCatchError = ({dispatch, getState}: MiddlewareAPI) => (e: Error) => {
     dispatch(replace({route: notFound, params: {url: selectNavigation.pathname(getState())}, state: {}}));
     return;
   } else if (e instanceof ToastMesssageError) {
-    Sentry.captureException(e);
-    dispatch(addToast(e.messageKey, e.meta));
+    const errorId = Sentry.captureException(e);
+    dispatch(addToast(e.messageKey, { ...e.meta, errorId }));
     return;
   }
   Sentry.captureException(e);

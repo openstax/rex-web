@@ -3,7 +3,7 @@ import flow from 'lodash/fp/flow';
 import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { useFocusLost } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
@@ -220,7 +220,7 @@ const DropdownItemContent = ({
     'data-analytics-region': dataAnalyticsRegion,
   });
   return <FormattedMessage id={message}>
-    {(msg: Element | string) => href
+    {(msg) => href
       ? <a href={href} tabIndex={0} onClick={onClick} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
       /*
         this should be a button but Safari and firefox don't support focusing buttons
@@ -243,10 +243,10 @@ const DropdownItemContent = ({
 
 // tslint:disable-next-line:variable-name
 export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) => {
+  const intl = useIntl();
+
   return ariaMessage
-    ? <FormattedMessage id={ariaMessage}>
-      {(msg: string) => <li aria-label={msg}><DropdownItemContent {...contentProps}/></li>}
-    </FormattedMessage>
+    ? <li aria-label={intl.formatMessage({id: ariaMessage})}><DropdownItemContent {...contentProps}/></li>
     : <li><DropdownItemContent {...contentProps} /></li>;
 };
 

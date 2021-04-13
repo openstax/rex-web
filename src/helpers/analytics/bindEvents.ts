@@ -12,6 +12,7 @@ import * as showCreate from './events/highlighting/showCreate';
 import * as showHelpInfo from './events/highlighting/showHelpInfo';
 import * as showLogin from './events/highlighting/showLogin';
 import * as openCloseMH from './events/highlighting/summaryPopup/openClose';
+import * as openNudgeStudyTools from './events/openNudgeStudyTools';
 import * as pageFocus from './events/pageFocus';
 import * as openClosePracticeQuestions from './events/practiceQuestions/openClosePopUp';
 import * as print from './events/print';
@@ -62,6 +63,7 @@ export const events = {
   editNoteColor: mapEventType(highlightingEditColor),
   openCloseMH: mapEventType(openCloseMH),
   openClosePracticeQuestions: mapEventType(openClosePracticeQuestions),
+  openNudgeStudyTools: mapEventType(openNudgeStudyTools),
   openStudyGuides: mapEventType(openStudyGuides),
   openUTG: mapEventType(openUTG),
   pageFocus: mapEventType(pageFocus),

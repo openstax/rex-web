@@ -26,6 +26,7 @@ import { highlightLocationFilters } from '../selectors';
 import { HighlightData, SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights from './Highlights';
+import { NoHighlightsTip } from './Highlights';
 import ContextMenu from './SummaryPopup/ContextMenu';
 import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';
 import HighlightDeleteWrapper from './SummaryPopup/HighlightDeleteWrapper';
@@ -175,7 +176,8 @@ describe('Highlights', () => {
       </MessageProvider>
     </Provider>);
 
-    expect(component.root.findByProps({ id: 'i18n:toolbar:highlights:popup:heading:no-highlights-tip' }))
+    // i'm not sure why this type is wrong
+    expect(component.root.findByType(NoHighlightsTip as any))
       .toBeDefined();
   });
 

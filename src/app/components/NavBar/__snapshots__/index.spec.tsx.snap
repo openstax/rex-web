@@ -111,6 +111,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       </span>
       <div
         className="styled__DropdownOverlay-sc-3syvnw-10 heRIAm"
+        data-testid="nav-overlay"
         tabIndex="-1"
       >
         <a

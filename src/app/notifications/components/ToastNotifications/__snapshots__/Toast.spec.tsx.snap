@@ -2,12 +2,12 @@
 
 exports[`Toast matches snapshot 1`] = `
 <div
-  className="styles__BannerBodyWrapper-zqr5u1-1 ivdFWh"
+  className="styles__BannerBodyWrapper-zqr5u1-1 hYxeHM"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >
   <div
-    className="styles__BannerBody-zqr5u1-2 dPBbUF"
+    className="styles__BannerBody-zqr5u1-2 kYtMtD"
   >
     <div
       className="Card__Header-sc-1o7sacr-3 jGwlNH"
@@ -15,7 +15,7 @@ exports[`Toast matches snapshot 1`] = `
       The highlight could not be saved. Please check your connection and try again.
     </div>
     <button
-      className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-4 EKUEv"
+      className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-4 jhqTCe"
       onClick={[MockFunction]}
     >
       <svg

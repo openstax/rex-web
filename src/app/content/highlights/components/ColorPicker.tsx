@@ -1,6 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import { match, not } from '../../../fpUtils';
 import { highlightStyles } from '../../constants';
@@ -35,26 +35,21 @@ interface ColorButtonProps {
 }
 
 // tslint:disable-next-line:variable-name
-const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps) =>
-  <FormattedMessage id={`i18n:highlighting:colors:${style.label}`}>
-    {(msg: Element | string) =>
-      <FormattedMessage id='i18n:highlighting:change-color' values={{color: msg}}>
-        {(ariaMessage: string) =>
-          <ColorIndicator
-            style={style}
-            size={size}
-            title={msg}
-            aria-label={ariaMessage}
-            component={<label />}
-            className={className}
-          >
-            <input type='checkbox' {...props} />
-          </ColorIndicator>
-        }
-      </FormattedMessage>
-    }
-  </FormattedMessage>
-)`
+const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps) => {
+  const color = useIntl().formatMessage({id: `i18n:highlighting:colors:${style.label}`});
+
+  return <ColorIndicator
+    style={style}
+    size={size}
+    title={color}
+    aria-label={useIntl().formatMessage({id: 'i18n:highlighting:change-color'}, {color})}
+    checked={props.checked}
+    component={<label />}
+    className={className}
+  >
+    <input type='checkbox' {...props} />
+  </ColorIndicator>;
+})`
   cursor: pointer;
   margin: 0 ${cardPadding}rem ${cardPadding}rem 0;
 
@@ -95,4 +90,5 @@ export default styled(ColorPicker)`
   outline: none;
   display: flex;
   flex-direction: row;
+  overflow: visible;
 `;

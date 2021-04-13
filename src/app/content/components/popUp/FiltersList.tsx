@@ -1,6 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
@@ -62,15 +62,16 @@ interface FiltersListColorProps {
 // tslint:disable-next-line: variable-name
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <FilterListItem>
-    <FormattedMessage id={props.ariaLabelKey(props.color)} values={{filterValue: props.color}}>
-      {(msg: string) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
-        <Times />
-      </StyledPlainButton>}
-    </FormattedMessage>
+    <StyledPlainButton
+      aria-label={useIntl().formatMessage({id: props.ariaLabelKey(props.color)}, {filterValue: props.color})}
+      onClick={props.onRemove}
+    >
+      <Times />
+    </StyledPlainButton>
 
     <ItemLabel>
       <FormattedMessage id={props.labelKey(props.color)}>
-        {(msg: string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </ItemLabel>
   </FilterListItem>
@@ -85,14 +86,15 @@ interface FiltersListChapterProps {
 // tslint:disable-next-line: variable-name
 export const FiltersListChapter = (props: FiltersListChapterProps) => (
   <FilterListItem>
-    <FormattedMessage
-      id='i18n:highlighting:filters:remove:chapter'
-      values={{filterValue: splitTitleParts(props.title).join(' ')}}
+    <StyledPlainButton
+      aria-label={useIntl().formatMessage({
+        id: 'i18n:highlighting:filters:remove:chapter'},
+        {filterValue: splitTitleParts(props.title).join(' ')}
+      )}
+      onClick={props.onRemove}
     >
-      {(msg: string | Element) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
-        <Times />
-      </StyledPlainButton>}
-    </FormattedMessage>
+      <Times />
+    </StyledPlainButton>
     <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
   </FilterListItem>
 );

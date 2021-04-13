@@ -7,6 +7,9 @@ import config from '../config';
 
 let IS_INITIALIZED = false;
 
+// This should be removed when Sentry team solve this issue: https://github.com/getsentry/sentry/issues/16012
+const normalize = (id: string): string => id.replace('/', '-');
+
 export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
   const { event_id } = event;
 
@@ -25,7 +28,7 @@ export default {
     return (store) => {
       Sentry.init({
         beforeSend: onBeforeSend(store),
-        dist: config.RELEASE_ID,
+        dist: normalize(config.RELEASE_ID),
         dsn: 'https://d2a5f17c9d8f40369446ea0cfaf21e73@o484761.ingest.sentry.io/5538506',
         environment: config.DEPLOYED_ENV,
         integrations: [
@@ -33,7 +36,7 @@ export default {
           new Integrations.CaptureConsole(),
           new Integrations.Dedupe(),
         ],
-        release: `rex@${config.RELEASE_ID}`,
+        release: normalize(`rex@${config.RELEASE_ID}`),
         tracesSampleRate: 0.1,
       });
       IS_INITIALIZED = true;
@@ -51,13 +54,23 @@ export default {
   },
 
   captureException(error: any, level: Sentry.Severity = Severity.Error) {
+    if (!error) {
+      return;
+    }
+
     if (this.isEnabled) {
-      Sentry.withScope((scope) => {
-        scope.setLevel(level);
-        Sentry.captureException(error);
-      });
+      return Sentry.captureException(error, { level });
     } else if (!this.shouldCollectErrors) {
-      console.error(error); // tslint:disable-line:no-console
+      switch (level) {
+        case 'info':
+          console.info(error instanceof Error ? error.message : error); // tslint:disable-line:no-console
+          break;
+        case 'warning':
+          console.warn(error instanceof Error ? error.message : error); // tslint:disable-line:no-console
+          break;
+        default:
+          console.error(error); // tslint:disable-line:no-console
+      }
     }
   },
 

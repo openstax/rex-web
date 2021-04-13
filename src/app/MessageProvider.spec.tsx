@@ -18,28 +18,44 @@ describe('MessageProvider', () => {
   });
 
   describe('when api is not there', () => {
-    const backup = Intl.PluralRules;
-
     beforeEach(() => {
-      /// @ts-ignore
-      delete Intl.PluralRules;
+      (Intl as any).PluralRules.polyfilled = true;
     });
 
     afterEach(() => {
-      /// @ts-ignore
-      Intl.PluralRules = backup;
+      delete (Intl as any).PluralRules.polyfilled;
     });
 
-    it('loads polyfill', () => {
+    it('loads polyfill', async() => {
       let loaded = false;
 
+      jest.doMock('@formatjs/intl-pluralrules/should-polyfill', () => ({
+        shouldPolyfill: () => true,
+      }));
       jest.doMock('@formatjs/intl-pluralrules/polyfill', () => {
         loaded = true;
       });
       require('./MessageProvider');
 
+      await new Promise((resolve) => setImmediate(resolve));
+
+      expect(loaded).toBe(true);
+    });
+
+    it('loads data', async() => {
+      let loaded = false;
+
+      jest.doMock('@formatjs/intl-pluralrules/should-polyfill', () => ({
+        shouldPolyfill: () => true,
+      }));
+      jest.doMock('@formatjs/intl-pluralrules/locale-data/en', () => {
+        loaded = true;
+      });
+      require('./MessageProvider');
+
+      await new Promise((resolve) => setImmediate(resolve));
+
       expect(loaded).toBe(true);
     });
   });
-
 });

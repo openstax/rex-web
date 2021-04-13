@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
 import { Print } from 'styled-icons/fa-solid/Print';
@@ -13,7 +13,6 @@ import {
   textStyle
 } from '../../../components/Typography';
 import theme from '../../../theme';
-import { assertString } from '../../../utils';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -116,9 +115,22 @@ export const PrintIcon = styled(Print)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SearchButton = styled(
-  ({ desktop, mobile, ...props }) => <PlainButton {...props}><SearchIcon/></PlainButton>
-)`
+export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) => {
+  const intl = useIntl();
+
+  return <PlainButton
+    {...props}
+    {...ariaLabelId
+      ? {
+        'aria-label': intl.formatMessage({id: ariaLabelId}),
+      }
+      : {}
+    }
+    value={intl.formatMessage({id: 'i18n:search-results:bar:search-icon:value'})}
+  >
+    <SearchIcon/>
+  </PlainButton>;
+})`
   > svg {
     ${toolbarIconStyles}
     vertical-align: middle;
@@ -187,12 +199,10 @@ export const SearchInputWrapper = styled.form`
 
 // tslint:disable-next-line:variable-name
 export const SearchInput = styled(({desktop, mobile, ...props}) =>
-  <FormattedMessage id='i18n:toolbar:search:placeholder'>
-    {(msg) => <input {...props}
-      aria-label={assertString(msg, 'placeholder must be a string')}
-      placeholder={assertString(msg, 'placeholder must be a string')}
-    />}
-  </FormattedMessage>)`
+  <input {...props}
+    aria-label={useIntl().formatMessage({id: 'i18n:toolbar:search:placeholder'})}
+    placeholder={useIntl().formatMessage({id: 'i18n:toolbar:search:placeholder'})}
+  />)`
     ${textStyle}
     ${hideSearchChrome}
     font-size: 1.6rem;
@@ -329,4 +339,9 @@ export const SidebarControl = styled(OpenSidebarControl)`
   ${theme.breakpoints.mobile(css`
     margin-right: unset;
   `)}
+`;
+
+// tslint:disable-next-line: variable-name
+export const NudgeElementTarget = styled.div`
+  display: contents;
 `;

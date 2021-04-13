@@ -4,7 +4,8 @@ import {
   Book,
   BookWithOSWebData,
   LinkedArchiveTree,
-  LinkedArchiveTreeSection
+  LinkedArchiveTreeSection,
+  PageReferenceError,
 } from './types';
 
 export const isArchiveTree = (section: ArchiveTree | ArchiveTreeSection): section is ArchiveTree =>
@@ -18,3 +19,6 @@ export const isLinkedArchiveTreeSection =
 
 export const hasOSWebData = (book: Book | undefined): book is BookWithOSWebData =>
   book ? 'slug' in book : false;
+
+export const isPageReferenceError = (something: { match: string }): something is PageReferenceError =>
+  (something as PageReferenceError).type === 'error';

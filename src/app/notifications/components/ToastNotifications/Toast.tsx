@@ -10,6 +10,7 @@ import {
   BannerBodyWrapper,
   CloseButton,
   CloseIcon,
+  ErrorId,
 } from './styles';
 
 export const initialState = {
@@ -105,7 +106,14 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
     >
       <BannerBody>
         <FormattedMessage id={notification.messageKey}>
-          {(txt) =>  <Header>{txt}</Header>}
+          {(txt) =>  <Header>
+            {txt}
+            {
+              notification.errorId
+                ? <ErrorId>(ID: {notification.errorId})</ErrorId>
+                : null
+            }
+          </Header>}
         </FormattedMessage>
         <CloseButton onClick={dismiss}>
           <CloseIcon />

@@ -32,16 +32,22 @@ export interface State {
   practiceQuestions: PracticeQuestionsState;
   loading: Partial<Params>;
   search: SearchState;
+  showNudgeStudyTools: boolean | null;
   studyGuides: StudyGuidesState;
   highlights: HighlightState;
   book?: Book;
   page?: Page;
-  references: PageReferenceMap[];
+  references: Array<PageReferenceMap | PageReferenceError>;
   buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
 }
 
 export interface PageReferenceMap extends PageReference {
   match: string;
+}
+
+export interface PageReferenceError {
+  match: string;
+  type: 'error';
 }
 
 export interface PageReference {
@@ -101,6 +107,7 @@ export interface ArchiveBook {
   version: string;
   license: {
     name: string;
+    url: string;
     version: string;
   };
   revised: string;

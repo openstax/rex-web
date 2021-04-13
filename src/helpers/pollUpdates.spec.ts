@@ -96,9 +96,7 @@ describe('poll updates', () => {
       jest.runOnlyPendingTimers();
       jest.runOnlyPendingTimers();
 
-      await Promise.resolve(); // clear promise queue
-      await Promise.resolve(); // clear promise queue
-      await Promise.resolve(); // clear promise queue
+      await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
       expect(dispatch).not.toHaveBeenCalled();
 
@@ -107,9 +105,7 @@ describe('poll updates', () => {
 
       jest.runOnlyPendingTimers();
 
-      await Promise.resolve(); // clear promise queue
-      await Promise.resolve(); // clear promise queue
-      await Promise.resolve(); // clear promise queue
+      await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
       expect(dispatch).toHaveBeenCalledWith(updateAvailable());
     });
@@ -120,8 +116,7 @@ describe('poll updates', () => {
       (global as any).fetch = mockFetch(200, {release_id: 'releaseid2'});
       jest.runOnlyPendingTimers();
 
-      await Promise.resolve(); // clear promise queue for the async poll function
-      await Promise.resolve(); // clear promise queue for the mockfetch
+      await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
       expect(dispatch).toHaveBeenCalledWith(updateAvailable());
     });
@@ -133,8 +128,7 @@ describe('poll updates', () => {
       cancel = pollUpdates(store);
       jest.runOnlyPendingTimers();
 
-      await Promise.resolve(); // clear promise queue for the async poll function
-      await Promise.resolve(); // clear promise queue for the mockfetch
+      await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
       expect(mock).toHaveBeenCalledWith(['UA-0000000-1']);
     });
@@ -195,8 +189,7 @@ describe('poll updates', () => {
       cancel = pollUpdates(store);
       jest.runOnlyPendingTimers();
 
-      await Promise.resolve(); // clear promise queue for the async poll function
-      await Promise.resolve(); // clear promise queue for the mockfetch
+      await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
       expect(dispatch).toHaveBeenCalledWith(receiveMessages(messages));
     });
@@ -215,8 +208,7 @@ describe('poll updates', () => {
       cancel = pollUpdates(store);
       jest.runOnlyPendingTimers();
 
-      await Promise.resolve(); // clear promise queue for the async poll function
-      await Promise.resolve(); // clear promise queue for the mockfetch
+      await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
       expect(mock).not.toHaveBeenCalled();
     });

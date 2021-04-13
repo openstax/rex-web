@@ -14,7 +14,7 @@ import mockArchiveLoader, { book, page, shortPage } from '../../../test/mocks/ar
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
-import SkipToContentWrapper from '../../components/SkipToContentWrapper';
+import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
 import MessageProvider from '../../MessageProvider';
@@ -31,6 +31,7 @@ import * as routes from '../routes';
 import { receiveSearchResults, requestSearch, selectSearchResult } from '../search/actions';
 import * as searchUtils from '../search/utils';
 import * as select from '../selectors';
+import { PageReferenceError, PageReferenceMap } from '../types';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import PageNotFound from './Page/PageNotFound';
@@ -60,6 +61,29 @@ const makeEvent = (doc: Document) => {
   event.preventDefault = jest.fn();
   return event;
 };
+
+const references: Array<PageReferenceMap | PageReferenceError> = [
+  {
+    match: '/content/link',
+    params: {
+      book: {
+        slug: 'book-slug-1',
+      } ,
+      page: {
+        slug: 'page-title',
+      },
+    },
+    state: {
+      bookUid: 'book',
+      bookVersion: 'version',
+      pageUid: 'page',
+    },
+  },
+  {
+    match: 'cross-book-reference-error',
+    type: 'error',
+  },
+];
 
 describe('Page', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
@@ -107,36 +131,20 @@ describe('Page', () => {
         text
         <a href="">link with empty href</a>
         <a href="#hash">hash link</a>
+        <a href="cross-book-reference-error">reference loading error</a>
       `,
     };
     archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
 
-    store.dispatch(receivePage({...pageWithRefereces, references: [
-      {
-        match: '/content/link',
-        params: {
-          book: {
-            slug: 'book-slug-1',
-          } ,
-          page: {
-            slug: 'page-title',
-          },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
-      },
-    ]}));
+    store.dispatch(receivePage({...pageWithRefereces, references }));
 
     return renderToDom(
       <Provider store={store}>
         <MessageProvider>
           <Services.Provider value={services}>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <ConnectedPage />
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </Services.Provider>
         </MessageProvider>
       </Provider>
@@ -156,9 +164,9 @@ describe('Page', () => {
         <Provider store={store}>
           <MessageProvider>
             <Services.Provider value={services}>
-              <SkipToContentWrapper>
+              <AccessibilityButtonsWrapper>
                 <ConnectedPage />
-              </SkipToContentWrapper>
+              </AccessibilityButtonsWrapper>
             </Services.Provider>
           </MessageProvider>
         </Provider>
@@ -549,6 +557,32 @@ describe('Page', () => {
     }));
   });
 
+  it('interceptes clicking links that failed due to reference loading error', async() => {
+    const {root} = renderDomWithReferences();
+
+    const spyAlert = jest.spyOn(globalThis as any, 'alert');
+
+    dispatch.mockReset();
+    const [, , , , lastLink] = Array.from(root.querySelectorAll('#main-content a'));
+
+    if (!document || !lastLink) {
+      expect(document).toBeTruthy();
+      expect(lastLink).toBeTruthy();
+      return;
+    }
+
+    const event = makeEvent(document);
+    lastLink.dispatchEvent(event);
+
+    expect(event.preventDefault).not.toHaveBeenCalled();
+
+    expect(spyAlert).toHaveBeenCalledWith('This link is broken because of a cross book content loading issue');
+
+    await new Promise((resolve) => defer(resolve));
+
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
   it('does not reset search results when clicking content links to same book', async() => {
     const mockSearchResults = { hits: { hits: [] } } as any as SearchResult;
     store.dispatch(receiveSearchResults(mockSearchResults));
@@ -648,24 +682,7 @@ describe('Page', () => {
 
     await new Promise((resolve) => defer(resolve));
 
-    expect(dispatch).toHaveBeenCalledWith(receivePage(expect.objectContaining({ references: [
-      {
-        match: '/content/link',
-        params: {
-          book: {
-            slug: 'book-slug-1',
-          } ,
-          page: {
-            slug: 'page-title',
-          },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
-      },
-    ]})));
+    expect(dispatch).toHaveBeenCalledWith(receivePage(expect.objectContaining({ references })));
   });
 
   it('does not intercept clicking content links when meta key is pressed', () => {
@@ -782,8 +799,8 @@ describe('Page', () => {
 
     const highlightElement = assertDocument().createElement('span');
     const mockHighlight = {
+      addFocusedStyles: jest.fn(),
       elements: [highlightElement],
-      focus: jest.fn(),
     } as any as Highlight;
 
     highlightResults.mockReturnValue([
@@ -803,7 +820,7 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
@@ -813,10 +830,10 @@ describe('Page', () => {
     const hit2 = makeSearchResultHit({book, page});
 
     const highlightElement = assertDocument().createElement('span');
-    const focus = jest.fn();
+    const addFocusedStyles = jest.fn();
     const mockHighlight = {
+      addFocusedStyles,
       elements: [highlightElement],
-      focus,
     } as any as Highlight;
 
     highlightResults.mockReturnValue([
@@ -842,12 +859,12 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    focus.mockClear();
+    addFocusedStyles.mockClear();
     (scrollTo as any).mockClear();
 
     store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
 
-    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
   });
 
@@ -862,8 +879,8 @@ describe('Page', () => {
 
     const highlightElement = assertDocument().createElement('span');
     const mockHighlight = {
+      addFocusedStyles: jest.fn(),
       elements: [highlightElement],
-      focus: jest.fn(),
     } as any as Highlight;
 
     highlightResults.mockReturnValue([
@@ -884,7 +901,7 @@ describe('Page', () => {
 
     // make sure nothing happened
     expect(highlightResults).toHaveBeenCalledWith(expect.anything(), []);
-    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
 
     // do navigation
@@ -903,7 +920,7 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
@@ -1106,11 +1123,11 @@ describe('Page', () => {
     const element = renderer.create(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1140,11 +1157,11 @@ describe('Page', () => {
     renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1184,11 +1201,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1245,11 +1262,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1280,11 +1297,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1319,11 +1336,11 @@ describe('Page', () => {
     renderer.create(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1352,11 +1369,11 @@ describe('Page', () => {
     const {root} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1376,11 +1393,11 @@ describe('Page', () => {
     const {tree} = renderToDom(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>
     );
@@ -1411,11 +1428,11 @@ describe('Page', () => {
     const component = renderer.create(
       <Provider store={store}>
         <MessageProvider>
-          <SkipToContentWrapper>
+          <AccessibilityButtonsWrapper>
             <Services.Provider value={services}>
               <ConnectedPage />
             </Services.Provider>
-          </SkipToContentWrapper>
+          </AccessibilityButtonsWrapper>
         </MessageProvider>
       </Provider>);
 
@@ -1438,11 +1455,11 @@ describe('Page', () => {
       const {root} = renderToDom(
         <Provider store={store}>
           <MessageProvider>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <Services.Provider value={services}>
                 <ConnectedPage />
               </Services.Provider>
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </MessageProvider>
         </Provider>
       );
@@ -1462,11 +1479,11 @@ describe('Page', () => {
       const {root} = renderToDom(
         <Provider store={store}>
           <MessageProvider>
-            <SkipToContentWrapper>
+            <AccessibilityButtonsWrapper>
               <Services.Provider value={services}>
                 <ConnectedPage />
               </Services.Provider>
-            </SkipToContentWrapper>
+            </AccessibilityButtonsWrapper>
           </MessageProvider>
         </Provider>
       );

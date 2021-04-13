@@ -6,13 +6,18 @@ import { Provider } from '../context/SkipToContent';
 import { scrollTo } from '../domUtils';
 import HiddenLink from './HiddenLink';
 
-export default class SkipToContentWrapper extends Component {
+export default class AccessibilityButtonsWrapper extends Component {
   public mainContent: HTMLDivElement | undefined;
 
   public render() {
     return <Provider value={{registerMainContent: this.registerMainContent}}>
       <FormattedMessage id='i18n:a11y:skipToContent'>
         {(txt) => <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`}>{txt}</HiddenLink>}
+      </FormattedMessage>
+      <FormattedMessage id='i18n:a11y:accessibilityHelp'>
+        {(txt) => <FormattedMessage id='i18n:a11y:accessibilityHelp:link'>
+          {(href) => <HiddenLink href={href}>{txt}</HiddenLink>}
+        </FormattedMessage>}
       </FormattedMessage>
       {this.props.children}
     </Provider>;
@@ -24,7 +29,8 @@ export default class SkipToContentWrapper extends Component {
       scrollTo(this.mainContent);
       this.mainContent.focus();
     } else {
-      throw new Error(`BUG: Expected mainComponent to be defined. Does SkipToContentWrapper contain a MainContent?`);
+      throw new Error(
+        `BUG: Expected mainComponent to be defined. Does AccessibilityButtonsWrapper contain a MainContent?`);
     }
   };
 
