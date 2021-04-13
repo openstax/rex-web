@@ -56,10 +56,12 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`
   );
-  const prefix = getParentPrefix(node.parent).trim();
   const sectionTitle = getArchiveTreeSectionTitle(node);
-  const chapterFromSlug = node.slug.match(/\d*(?=-)/) || [];
-  const isAnswerKey = prefix === 'Answer Key';
+  const nodeTitleDoc = domParser.parseFromString(node.title, 'text/html');
+  const titleNode = nodeTitleDoc.body.children[0];
+  const chapterFromTitle = titleNode.innerText.split('.')[0] || '';
+  const isAnswerKey = contentNode.classList.contains('os-solution-container')
+    || contentNode.classList.contains('os-solution-container');
 
   if (pageType === 'page') {
     const mathless = hideMath(contentNode.querySelector('p'));
@@ -67,8 +69,8 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
   } else if (isAnswerKey) {
     return `the Answer Key of ${sectionTitle}`;
   } else {
-    const descriptionPhrase = chapterFromSlug[0]
-      ? `${sectionTitle} for Chapter ${chapterFromSlug[0]} of`
+    const descriptionPhrase = chapterFromTitle
+      ? `${sectionTitle} for Chapter ${chapterFromTitle} of`
       : `${sectionTitle} for`;
     return `On this page you will discover ${descriptionPhrase} OpenStax's ${book.title} free college textbook.`;
   }
