@@ -5,7 +5,7 @@ import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
 import { AppState } from '../../../types';
-import { assertDefined, assertNotNull, remsToPx } from '../../../utils';
+import { assertDefined, remsToPx } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { cardMarginBottom } from '../constants';
@@ -76,9 +76,68 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
       newPositions.set(highlight.id, stackedTopOffset);
     }
 
+    const focusedPosition = focusedHighlight
+      ? cardsPositions.get(focusedHighlight.id) || 0
+      : 0;
+
+    const topOffsetFocused = focusedHighlight && focusedPosition
+      ? getOffsetsForHighlight(focusedHighlight).top
+      : 0;
+
+    const focusedHighlightIndex = focusedHighlight
+      ? highlights.findIndex((highlight) => highlight.id === focusedHighlight.id)
+      : -1;
+
+    const highlightsUpToFocused = focusedHighlightIndex > 0 ? highlights.slice(0, focusedHighlightIndex + 1) : [];
+    const highlightsAfterFocused = focusedHighlightIndex > 0 ? highlights.slice(focusedHighlightIndex + 1) : [];
+
+    const reversedHighlightsUpToFocused = highlightsUpToFocused.reverse();
+
+    const offsetToAdjust = focusedPosition - topOffsetFocused;
+
+    if (offsetToAdjust > 0) {
+      for (const [index, highlight] of reversedHighlightsUpToFocused.entries()) {
+
+        const highlightTopOffset = newPositions.get(highlight.id) as number;
+        const adjustedHighlightPosition = highlightTopOffset - offsetToAdjust;
+
+        newPositions.set(highlight.id, adjustedHighlightPosition);
+
+        const nextHighlight = reversedHighlightsUpToFocused[index + 1] as Highlight | undefined;
+        if (nextHighlight) {
+          const nextHighlightTopOffset = newPositions.get(nextHighlight.id) as number;
+          const nextHighlightHeight = cardsHeights.get(nextHighlight.id) as number;
+          const nextHighlightBottomOffset = nextHighlightTopOffset + nextHighlightHeight;
+
+          if (nextHighlightBottomOffset <= adjustedHighlightPosition) {
+            break;
+          }
+        }
+
+      }
+
+      let lastVisibleCardPosition = 0;
+      let lastVisibleCardHeight = 0;
+
+      for (const [index, highlight] of highlightsAfterFocused.entries()) {
+        const topOffset = getOffsetsForHighlight(highlight).top;
+
+        const stackedTopOffset = Math.max(topOffset, lastVisibleCardPosition
+          + lastVisibleCardHeight
+          + (index > 0 ? remsToPx(cardMarginBottom) : 0));
+
+        if (cardsHeights.get(highlight.id)) {
+          lastVisibleCardPosition = stackedTopOffset;
+          lastVisibleCardHeight = cardsHeights.get(highlight.id)!;
+        }
+
+        newPositions.set(highlight.id, stackedTopOffset);
+      }
+    }
+
     setCardsPositions(newPositions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [highlights, cardsHeights]);
+  }, [highlights, cardsHeights, focusedHighlight]);
 
   React.useEffect(() => {
     if (!focusedHighlight && element.current) {
@@ -95,12 +154,12 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     // because highlights will be already cleared and this function will try to run
     // before page changes.
     if (!position) { return; }
-    const topOffset = getOffsetsForHighlight(focusedHighlight).top;
+    // const topOffset = getOffsetsForHighlight(focusedHighlight).top;
 
-    if (position > topOffset) {
-      assertNotNull(element.current, 'element.current can\'t be null')
-        .style.transform = `translateY(-${position - topOffset}px)`;
-    }
+    // if (position > topOffset) {
+    //   assertNotNull(element.current, 'element.current can\'t be null')
+    //     .style.transform = `translateY(-${position - topOffset}px)`;
+    // }
 
     // Check for prevFocusedHighlightId.current is required so we do not scroll to the
     // focused highlight after user switches between the browser tabs - in this case
