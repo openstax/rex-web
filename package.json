@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@openstax/event-capture-client": "^1.1.3",
     "@formatjs/intl-pluralrules": "^4.0.6",
+    "@openstax/event-capture-client": "1.2",
     "@openstax/highlighter": "^1.7.0",
     "@openstax/open-search-client": "0.1.0",
     "@sentry/browser": "6.0.2",

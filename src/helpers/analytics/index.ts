@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useServices } from '../../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../../app/domUtils';
 import { Store } from '../../app/types';
+import * as eventCaptureClient from '../../gateways/eventCaptureClient';
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
 import { events } from './bindEvents';
 
@@ -43,7 +44,7 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
 
   googleAnalyticsClient.setCustomDimensionForSession();
 
-  return {googleAnalyticsClient, events};
+  return {googleAnalyticsClient, eventCaptureClient, events};
 };
 
 export const useAnalyticsEvent = <T extends keyof typeof events>(eventType: T) => {
