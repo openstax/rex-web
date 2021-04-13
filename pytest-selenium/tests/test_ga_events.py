@@ -1,6 +1,7 @@
 """Test Reading Experience Google Analytics message queuing ."""
 
 import random
+import re
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -1201,9 +1202,6 @@ def test_study_guide_chapter_tag_ga_event(
                    book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
-    # Trick the system to load the study guide
-    book.click_next_link()
-    book.click_previous_link()
     guide = book.toolbar.study_guides()
 
     # WHEN:  they open click the 'Chapter' filter drop down
@@ -1243,9 +1241,6 @@ def test_study_guide_cta_sign_up_ga_event(
                    book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
-    # Trick the system to load the study guide
-    book.click_next_link()
-    book.click_previous_link()
 
     # WHEN:  they open the study guide
     # AND:   click the 'Sign Up' button
@@ -1289,9 +1284,6 @@ def test_open_study_guide_ga_event(
                    book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
-    # Trick the system to load the study guide
-    book.click_next_link()
-    book.click_previous_link()
 
     # WHEN:  they open the study guide
     book.toolbar.study_guides()
@@ -1344,9 +1336,6 @@ def test_sg_close_using_overlay_click_ga_event(
                    book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
-    # Trick the system to load the study guide
-    book.click_next_link()
-    book.click_previous_link()
 
     # WHEN:  they open the study guide
     # AND:   click on the content overlay
@@ -1390,9 +1379,6 @@ def test_sg_close_using_esc_key_ga_event(
                    book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
-    # Trick the system to load the study guide
-    book.click_next_link()
-    book.click_previous_link()
 
     # WHEN:  they open the study guide
     # AND:   click the escape key
@@ -1438,9 +1424,6 @@ def test_sg_close_using_x_close_button_ga_events(
                    book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
-    # Trick the system to load the study guide
-    book.click_next_link()
-    book.click_previous_link()
 
     # WHEN:  they open the study guide
     # AND:   click the escape key
@@ -1497,9 +1480,6 @@ def test_study_guide_log_in_link_ga_event(
                    book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
-    # Trick the system to load the study guide
-    book.click_next_link()
-    book.click_previous_link()
 
     # WHEN:  they open the study guide
     # AND:   click the 'Log in' link
@@ -1632,9 +1612,6 @@ def test_practice_opened_ga_event(
                    book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
-    # Trick the system to load the study guide
-    book.click_next_link()
-    book.click_previous_link()
 
     # WHEN:  they click the 'Practice' toolbar button
     book.toolbar.practice()
@@ -1669,24 +1646,35 @@ def test_practice_opened_ga_event(
     assert(button_event["eventLabel"] == button_event_label)
 
 
-@markers.test_case("")
+@markers.test_case("C621317")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+def test_continue_to_questions_button_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when Continue button clicked."""
     # SETUP:
-    event_action = ""
-    event_category = ""
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = "Continue (Empty Screen)"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
+    re_title = re.compile(r"(?:Ch\.\ \d{1,2})?(\ ?.*)(?:\ \-\ .*){1}")
+    get_title = "return document.querySelector('title').text;"
 
-    # GIVEN:
+    # GIVEN: a user viewing the practice modal for a page without questions
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
 
-    # WHEN:
+    title = selenium.execute_script(get_title)
+    event_label = re_title.match(title).groups()[0]
+
+    # WHEN:  they click the 'Continue' button
+    practice.content._continue()
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
-    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { eventAction: "Continue (Empty Screen)",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{page_title}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
     assert(
         "eventAction" in last_event and

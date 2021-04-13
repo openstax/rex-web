@@ -364,7 +364,7 @@ class Practice(Region):
             :rtype: :py:class:`~regions.practice.Practice.Content`
 
             """
-            return self._click_helper(self._submit_answer_button_locator)
+            return self._click_helper(self._continue_button_locator)
 
         def _next(self) -> Practice.Content:
             """Click the 'Next' question button.
@@ -373,7 +373,7 @@ class Practice(Region):
             :rtype: :py:class:`~regions.practice.Practice.Content`
 
             """
-            return self._click_helper(self._submit_answer_button_locator)
+            return self._click_helper(self._next_button_locator)
 
         class Answer(Region):
             """A practice question answer option."""
