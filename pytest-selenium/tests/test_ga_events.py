@@ -1656,7 +1656,6 @@ def test_continue_to_questions_button_ga_event(
     event_category = "REX Button (PQ popup)"
     event_label = None
     re_title = re.compile(r"(?:Ch\.\ \d{1,2})?(\ ?.*)(?:\ \-\ .*){1}")
-    get_title = "return document.querySelector('title').text;"
 
     # GIVEN: a user viewing the practice modal for a page without questions
     book = Content(selenium, base_url,
@@ -1664,9 +1663,7 @@ def test_continue_to_questions_button_ga_event(
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
-
-    title = selenium.execute_script(get_title)
-    event_label = re_title.match(title).groups()[0]
+    event_label = re_title.match(book.page_title).groups()[0]
 
     # WHEN:  they click the 'Continue' button
     practice.content._continue()
