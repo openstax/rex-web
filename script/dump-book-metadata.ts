@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
-import { ArchiveBook, ArchiveTreeSection } from '../src/app/content/types';
+import { ArchiveBook, LinkedArchiveTree, LinkedArchiveTreeSection } from '../src/app/content/types';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
-import { createDescription } from '../src/app/content/utils/seoUtils';
+import { createDescription, getParentPrefix, getTextContent } from '../src/app/content/utils/seoUtils';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL } from '../src/config';
 import allBooks from '../src/config.books.json';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
@@ -11,13 +11,17 @@ import createArchiveLoader from '../src/gateways/createArchiveLoader';
 const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
 
 const getPageMetadata = async(
-        section: ArchiveTreeSection,
+        section: LinkedArchiveTreeSection | LinkedArchiveTree,
         book: ArchiveBook,
         loader: ReturnType<(typeof archiveLoader)['book']>
     ) => {
         const page = await loader.page(section.id).load();
         const description = createDescription(archiveLoader, book, page);
-        console.log(`${book.title},${page.title},"${description.replace(/"/g, '""')}"`);
+        const sectionTitle = getTextContent(section.title);
+        const parentPrefix = getParentPrefix(section.parent).replace('Ch.', '').trim();
+
+        // tslint:disable-next-line:no-console
+        console.log(`${book.title},${parentPrefix},${sectionTitle},"${description.replace(/"/g, '""')}"`);
 };
 
 const getBookMetadata = async(id: string, version: string) => {
