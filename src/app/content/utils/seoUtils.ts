@@ -58,7 +58,7 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
   const sectionTitle = getArchiveTreeSectionTitle(node);
   const nodeTitleDoc = domParser.parseFromString(node.title, 'text/html');
   const titleNode = nodeTitleDoc.body.children[0];
-  const chapterFromTitle = titleNode.innerText.split('.')[0] || '';
+  const chapterNum = titleNode.innerText.split('.')[0] || '';
   const isAnswerKey = contentNode.classList.contains('os-solution-container')
     || contentNode.classList.contains('os-solutions-container');
 
@@ -68,8 +68,8 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
   } else if (isAnswerKey) {
     return `the Answer Key of ${sectionTitle}`;
   } else {
-    const descriptionPhrase = chapterFromTitle
-      ? `${sectionTitle} for Chapter ${chapterFromTitle} of`
+    const descriptionPhrase = chapterNum
+      ? `${sectionTitle} for Chapter ${chapterNum} of`
       : `${sectionTitle} for`;
     return `On this page you will discover ${descriptionPhrase} OpenStax's ${book.title} free college textbook.`;
   }
