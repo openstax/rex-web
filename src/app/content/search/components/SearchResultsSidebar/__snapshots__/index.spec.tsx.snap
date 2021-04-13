@@ -16,7 +16,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="styled__CloseIcon-as3fh1-1 hQiTO"
+          className="styled__CloseIcon-as3fh1-1 gsCQGC"
           focusable="false"
           height="15px"
           version="1.1"
@@ -71,7 +71,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   data-testid="search-results-sidebar"
 >
   <div
-    className="styled__SearchQueryWrapper-as3fh1-5 bsqVfh"
+    className="styled__SearchQueryWrapper-as3fh1-5 gtPURI"
   >
     <div
       className="styled__SearchQuery-as3fh1-4 hPLPan"
@@ -107,7 +107,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="styled__CloseIcon-as3fh1-1 hQiTO"
+          className="styled__CloseIcon-as3fh1-1 gsCQGC"
           focusable="false"
           height="15px"
           version="1.1"
@@ -141,10 +141,10 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
     className="styled__NavOl-as3fh1-2 jPrtty"
   >
     <li
-      className="styled__NavItem-as3fh1-14 bzTfHo"
+      className="styled__NavItem-as3fh1-14 kLrMDD"
     >
       <div
-        className="styled__LinkWrapper-as3fh1-12 gAIKPA"
+        className="styled__LinkWrapper-as3fh1-12 edDtdw"
       >
         <div
           className="styled__SearchResultsLink-as3fh1-10 hnAJVM"
@@ -156,7 +156,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         />
       </div>
       <a
-        className="styled__SectionContentPreview-as3fh1-11 dMNXGN"
+        className="styled__SectionContentPreview-as3fh1-11 bJhIrl"
         data-testid="search-result"
         href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
         onClick={[Function]}
@@ -203,7 +203,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           tabIndex={0}
         >
           <div
-            className="styled__SearchBarSummaryContainer-as3fh1-8 Rvvho"
+            className="styled__SearchBarSummaryContainer-as3fh1-8 eSHSds"
             tabIndex={-1}
           >
             <svg
@@ -244,11 +244,11 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           className="styled__DetailsOl-as3fh1-13 ggpsqK"
         >
           <li
-            className="styled__NavItem-as3fh1-14 bzTfHo"
+            className="styled__NavItem-as3fh1-14 kLrMDD"
           >
             <div
               aria-label="Current Page"
-              className="styled__LinkWrapper-as3fh1-12 gAIKPA"
+              className="styled__LinkWrapper-as3fh1-12 edDtdw"
             >
               <div
                 className="styled__SearchResultsLink-as3fh1-10 hnAJVM"
@@ -260,7 +260,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </div>
             <a
-              className="styled__SectionContentPreview-as3fh1-11 dYIMyw"
+              className="styled__SectionContentPreview-as3fh1-11 fhVukS"
               data-testid="search-result"
               href="books/book-slug-1/pages/10-test-page-6?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
               onClick={[Function]}
@@ -310,7 +310,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           tabIndex={0}
         >
           <div
-            className="styled__SearchBarSummaryContainer-as3fh1-8 Rvvho"
+            className="styled__SearchBarSummaryContainer-as3fh1-8 eSHSds"
             tabIndex={-1}
           >
             <svg
@@ -351,10 +351,10 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           className="styled__DetailsOl-as3fh1-13 ggpsqK"
         >
           <li
-            className="styled__NavItem-as3fh1-14 bzTfHo"
+            className="styled__NavItem-as3fh1-14 kLrMDD"
           >
             <div
-              className="styled__LinkWrapper-as3fh1-12 gAIKPA"
+              className="styled__LinkWrapper-as3fh1-12 edDtdw"
             >
               <div
                 className="styled__SearchResultsLink-as3fh1-10 hnAJVM"
@@ -366,7 +366,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </div>
             <a
-              className="styled__SectionContentPreview-as3fh1-11 dYIMyw"
+              className="styled__SectionContentPreview-as3fh1-11 fhVukS"
               data-testid="search-result"
               href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
               onClick={[Function]}
@@ -427,7 +427,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
       >
         <svg
           aria-hidden="true"
-          className="styled__CloseIcon-as3fh1-1 hQiTO"
+          className="styled__CloseIcon-as3fh1-1 gsCQGC"
           focusable="false"
           height="15px"
           version="1.1"
