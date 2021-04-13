@@ -55,26 +55,34 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
   };
 
-  const updateCardsPositions = React.useCallback(() => {
-    const newPositions: Map<string, number> = new Map();
-
-    let lastVisibleCardPosition = 0;
-    let lastVisibleCardHeight = 0;
-
-    for (const [index, highlight] of highlights.entries()) {
+  const updatePostionsStartingFromTop = (
+    positions: Map<string, number>,
+    highlightsElements: Highlight[],
+    heights: Map<string, number>,
+    addMarginToTheFirstCard = false,
+    lastVisibleCardPosition = 0,
+    lastVisibleCardHeight = 0
+  ) => {
+    for (const [index, highlight] of highlightsElements.entries()) {
       const topOffset = getOffsetsForHighlight(highlight).top;
 
-      const stackedTopOffset = Math.max(topOffset, lastVisibleCardPosition
-        + lastVisibleCardHeight
-        + (index > 0 ? remsToPx(cardMarginBottom) : 0));
+      const marginToAdd = index > 0 || addMarginToTheFirstCard ? remsToPx(cardMarginBottom) : 0;
+      const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
+      const stackedTopOffset = Math.max(topOffset, lastVisibleCardBottom + marginToAdd);
 
-      if (cardsHeights.get(highlight.id)) {
+      if (heights.get(highlight.id)) {
         lastVisibleCardPosition = stackedTopOffset;
-        lastVisibleCardHeight = cardsHeights.get(highlight.id)!;
+        lastVisibleCardHeight = heights.get(highlight.id)!;
       }
 
-      newPositions.set(highlight.id, stackedTopOffset);
+      positions.set(highlight.id, stackedTopOffset);
     }
+
+    return positions;
+  };
+
+  const updateCardsPositions = React.useCallback(() => {
+    let newPositions = updatePostionsStartingFromTop(new Map(), highlights, cardsHeights);
 
     const focusedPosition = focusedHighlight
       ? cardsPositions.get(focusedHighlight.id) || 0
@@ -116,23 +124,14 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
       }
 
-      let lastVisibleCardPosition = 0;
-      let lastVisibleCardHeight = 0;
-
-      for (const [index, highlight] of highlightsAfterFocused.entries()) {
-        const topOffset = getOffsetsForHighlight(highlight).top;
-
-        const stackedTopOffset = Math.max(topOffset, lastVisibleCardPosition
-          + lastVisibleCardHeight
-          + (index > 0 ? remsToPx(cardMarginBottom) : 0));
-
-        if (cardsHeights.get(highlight.id)) {
-          lastVisibleCardPosition = stackedTopOffset;
-          lastVisibleCardHeight = cardsHeights.get(highlight.id)!;
-        }
-
-        newPositions.set(highlight.id, stackedTopOffset);
-      }
+      newPositions = updatePostionsStartingFromTop(
+        newPositions,
+        highlightsAfterFocused,
+        cardsHeights,
+        true,
+        focusedHighlight ? newPositions.get(focusedHighlight.id) || 0 : 0,
+        focusedHighlight ? cardsHeights.get(focusedHighlight.id) || 0 : 0
+      );
     }
 
     setCardsPositions(newPositions);
@@ -149,17 +148,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   React.useEffect(() => {
     if (!focusedHighlight) { return; }
-    const position = cardsPositions.get(focusedHighlight.id);
-    // position may be undefined in case of changing a page when highlight is focused
-    // because highlights will be already cleared and this function will try to run
-    // before page changes.
-    if (!position) { return; }
-    // const topOffset = getOffsetsForHighlight(focusedHighlight).top;
-
-    // if (position > topOffset) {
-    //   assertNotNull(element.current, 'element.current can\'t be null')
-    //     .style.transform = `translateY(-${position - topOffset}px)`;
-    // }
 
     // Check for prevFocusedHighlightId.current is required so we do not scroll to the
     // focused highlight after user switches between the browser tabs - in this case
