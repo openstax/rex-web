@@ -81,8 +81,9 @@ let scrollBy: jest.SpyInstance;
 let mockGa: any;
 
 resetModules();
+
 afterAll(async() => {
-  resetModules();
+  await resetModules();
 });
 
 beforeEach(() => {
