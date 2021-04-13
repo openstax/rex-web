@@ -62,7 +62,7 @@ const getChapterNum = (section: LinkedArchiveTreeSection | LinkedArchiveTree) =>
   const prefix = getParentPrefix(section.parent);
   const prefixNum = parseInt(prefix.trim().split(' ')[1]);
 
-  // Check for numbers indicating chapter in title node and then prefix.
+  // Check for numbers indicating chapter first in title node and then prefix.
   return !isNaN(titleNodeNum) ? titleNodeNum : (!isNaN(prefixNum) ? prefixNum : '');
 }
 
@@ -79,6 +79,8 @@ export const createDescription = (loader: AppServices['archiveLoader'], book: Bo
   const chapterNum = getChapterNum(node);
 
   if (pageType === 'page') {
+    // Remove abstract if it exists.
+    if (contentNode.querySelector('[data-type="abstract"]')) contentNode.querySelector('[data-type="abstract"]').remove();
     const mathless = hideMath(contentNode.querySelector('p'));
     return mathless.textContent ? mathless.textContent.trim().substring(0, 155) : '';
   } else {
