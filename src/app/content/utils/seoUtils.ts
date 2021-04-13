@@ -1,8 +1,8 @@
+import { Element, HTMLElement } from '@openstax/types/lib.dom';
 import { AppServices } from '../../types';
-import getCleanContent from '../utils/getCleanContent';
 import { assertDefined } from '../../utils';
 import { Book, LinkedArchiveTree, LinkedArchiveTreeNode, LinkedArchiveTreeSection, Page } from '../types';
-import { HTMLElement, Element } from '@openstax/types/lib.dom';
+import getCleanContent from '../utils/getCleanContent';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
