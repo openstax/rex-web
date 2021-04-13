@@ -60,7 +60,7 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
   const titleNode = nodeTitleDoc.body.children[0];
   const chapterFromTitle = titleNode.innerText.split('.')[0] || '';
   const isAnswerKey = contentNode.classList.contains('os-solution-container')
-    || contentNode.classList.contains('os-solution-container');
+    || contentNode.classList.contains('os-solutions-container');
 
   if (pageType === 'page') {
     const mathless = hideMath(contentNode.querySelector('p'));
