@@ -35,7 +35,6 @@ const hideMath = (node: any) => {
   return node;
 };
 
-// need to find out correct type here
 const getPageType = (node: any) => {
   if (!node) {
     return '';
