@@ -32,7 +32,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="DisplayNote__CloseIcon-wzwggt-0 hdJHbE"
+    className="DisplayNote__CloseIcon-wzwggt-0 hnBOJQ"
     focusable="false"
     height="15px"
     onClick={[MockFunction]}
@@ -103,7 +103,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="DisplayNote__CloseIcon-wzwggt-0 hdJHbE"
+    className="DisplayNote__CloseIcon-wzwggt-0 hnBOJQ"
     focusable="false"
     height="15px"
     onClick={[MockFunction]}
@@ -196,7 +196,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="DisplayNote__CloseIcon-wzwggt-0 hdJHbE"
+    className="DisplayNote__CloseIcon-wzwggt-0 hnBOJQ"
     focusable="false"
     height="15px"
     onClick={[MockFunction]}
