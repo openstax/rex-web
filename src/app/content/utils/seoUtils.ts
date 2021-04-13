@@ -1,5 +1,8 @@
+import { AppServices } from '../../types';
+import getCleanContent from '../utils/getCleanContent';
 import { assertDefined } from '../../utils';
-import { Book, LinkedArchiveTreeNode, Page } from '../types';
+import { Book, LinkedArchiveTree, LinkedArchiveTreeNode, LinkedArchiveTreeSection, Page } from '../types';
+import { HTMLElement, Element } from '@openstax/types/lib.dom';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
@@ -27,28 +30,45 @@ const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string => {
 
 };
 
-const hideMath = (node: any) => {
+const hideMath = (node: HTMLElement) => {
   const mathSpans = node.querySelectorAll('.os-math-in-para');
-  mathSpans.forEach((el: any) => {
+  mathSpans.forEach((el: Element) => {
     el.outerHTML = '...';
   });
   return node;
 };
 
-const getPageType = (node: any) => {
+const getPageType = (node: HTMLElement) => {
   if (!node) {
     return '';
   }
 
   if (node.classList.contains('appendix')) {
     return 'appendix';
+  } else if (
+      node.classList.contains('os-solution-container')
+      || node.classList.contains('os-solutions-container')
+      ) {
+    return 'answer-key';
   } else {
     return node.getAttribute('data-type');
   }
 };
 
-export const createDescription = (pageContent: string, book: Book, page: Page) => {
-  const doc = domParser.parseFromString(pageContent, 'text/html');
+const getChapterNum = (section: LinkedArchiveTreeSection | LinkedArchiveTree) => {
+  const nodeTitleDoc = domParser.parseFromString(section.title, 'text/html');
+  const titleNode = nodeTitleDoc.body.children[0];
+  const titleNodeNum = titleNode.innerText ? parseInt(titleNode.innerText.split('.')[0]) : 0 ;
+  const prefix = getParentPrefix(section.parent);
+  const prefixNum = parseInt(prefix.trim().split(' ')[1]);
+
+  // Check for numbers indicating chapter in title node and then prefix.
+  return !isNaN(titleNodeNum) ? titleNodeNum : (!isNaN(prefixNum) ? prefixNum : '');
+}
+
+export const createDescription = (loader: AppServices['archiveLoader'], book: Book, page: Page) => {
+  const cleanContent = getCleanContent(book, page, loader);
+  const doc = domParser.parseFromString(cleanContent, 'text/html');
   const contentNode = doc.body.children[0];
   const pageType = getPageType(contentNode);
   const node = assertDefined(
@@ -56,22 +76,13 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
     `couldn't find node for a page id: ${page.id}`
   );
   const sectionTitle = getArchiveTreeSectionTitle(node);
-  const nodeTitleDoc = domParser.parseFromString(node.title, 'text/html');
-  const titleNode = nodeTitleDoc.body.children[0];
-  const titleNodeNum = parseInt(titleNode.innerText.split('.')[0]);
-  const prefix = getParentPrefix(node.parent);
-  const prefixNum = parseInt(prefix.trim().split(' ')[1]);
-
-  // Check for numbers indicating chapter in title node and then prefix.
-  const chapterNum = !isNaN(titleNodeNum) ? titleNodeNum : (!isNaN(prefixNum) ? prefixNum : '');
-  const isAnswerKey = contentNode.classList.contains('os-solution-container')
-    || contentNode.classList.contains('os-solutions-container');
+  const chapterNum = getChapterNum(node);
 
   if (pageType === 'page') {
     const mathless = hideMath(contentNode.querySelector('p'));
-    return mathless.textContent.trim().substring(0, 155);
+    return mathless.textContent ? mathless.textContent.trim().substring(0, 155) : '';
   } else {
-    const descriptionPhrase = isAnswerKey ? `the Answer Key for ${sectionTitle} of` : (chapterNum
+    const descriptionPhrase = pageType === "answer-key" ? `the Answer Key for ${sectionTitle} of` : (chapterNum
       ? `${sectionTitle} for Chapter ${chapterNum} of`
       : `${sectionTitle} for`);
     return `On this page you will discover ${descriptionPhrase} OpenStax's ${book.title} free college textbook.`;

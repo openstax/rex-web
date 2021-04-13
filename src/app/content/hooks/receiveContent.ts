@@ -8,7 +8,6 @@ import { hasOSWebData } from '../guards';
 import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
-import getCleanContent from '../utils/getCleanContent';
 import { createDescription, createTitle } from '../utils/seoUtils';
 
 const hookBody: ActionHookBody<typeof receivePage> = ({
@@ -35,8 +34,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   }
 
   const title = createTitle(page, book);
-  const cleanContent = getCleanContent(book, page, archiveLoader);
-  const description = createDescription(cleanContent, book, page);
+  const description = createDescription(archiveLoader, book, page);
   console.log(description)
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
