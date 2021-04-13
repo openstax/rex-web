@@ -65,12 +65,10 @@ export const createDescription = (pageContent: string, book: Book, page: Page) =
   if (pageType === 'page') {
     const mathless = hideMath(contentNode.querySelector('p'));
     return mathless.textContent.trim().substring(0, 155);
-  } else if (isAnswerKey) {
-    return `the Answer Key of ${sectionTitle}`;
   } else {
-    const descriptionPhrase = chapterNum
+    const descriptionPhrase = isAnswerKey ? `the Answer Key of ${sectionTitle}` : (chapterNum
       ? `${sectionTitle} for Chapter ${chapterNum} of`
-      : `${sectionTitle} for`;
+      : `${sectionTitle} for`);
     return `On this page you will discover ${descriptionPhrase} OpenStax's ${book.title} free college textbook.`;
   }
 };
