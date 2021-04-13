@@ -35,25 +35,22 @@ async function updateArchiveVersion() {
     osWebLoader
   );
 
-  const updateRedirectsPromises: Array<[string, () => Promise<[BookWithOSWebData, number]>]> = [];
+  const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
   const bookEntries = Object.entries(BOOKS);
 
   console.log('Preparing books...');
 
   for (const [bookId, { defaultVersion }] of bookEntries) {
-    updateRedirectsPromises.push([
-      bookId,
-      async() => {
-        const [currentBook, newBook] = await Promise.all([
-          currentBookLoader(bookId, defaultVersion),
-          newBookLoader(bookId, defaultVersion),
-        ]);
+    updateRedirectsPromises.push(async() => {
+      const [currentBook, newBook] = await Promise.all([
+        currentBookLoader(bookId, defaultVersion),
+        newBookLoader(bookId, defaultVersion),
+      ]);
 
-        const redirects = await updateRedirectsData(currentBook, newBook);
+      const redirects = await updateRedirectsData(currentBook, newBook);
 
-        return [currentBook, redirects];
-      },
-    ]);
+      return [currentBook, redirects];
+    });
   }
 
   const newRedirects: Array<[BookWithOSWebData, number]> = [];
@@ -62,7 +59,7 @@ async function updateArchiveVersion() {
     'Updating redirects [:bar] :current/:total (:etas ETA) | :msg',
     { complete: '=', incomplete: ' ', total: bookEntries.length }
   );
-  await Promise.all(updateRedirectsPromises.map(([bookId, loader]) => {
+  await Promise.all(updateRedirectsPromises.map((loader) => {
     return loader()
       .then(([book, redirects]) => {
         updatingRedirectsBar.tick({
@@ -71,9 +68,6 @@ async function updateArchiveVersion() {
         if (redirects > 0) {
           newRedirects.push([book, redirects]);
         }
-      })
-      .catch((error) => {
-        updatingRedirectsBar.interrupt(`Error while loading: ${bookId} | ${error}`);
       });
   }));
 
