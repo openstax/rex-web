@@ -79,7 +79,6 @@ export const createDescription = (loader: AppServices['archiveLoader'], book: Bo
   const parentIsBook = node.parent ? archiveTreeSectionIsBook(node.parent) : false;
   const sectionTitle = getArchiveTreeSectionTitle(node);
   const parentTitle = node.parent ? getTextContent(node.parent.title) : '';
-  // const chapterNum = getChapterNum(node);
 
   if (pageType === 'page') {
     // Remove abstract if it exists.
