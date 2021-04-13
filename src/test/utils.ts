@@ -1,6 +1,6 @@
 import mockRangy from './mocks/rangy';
 
-export const resetModules = () => {
+export const resetModules = async() => {
   jest.resetModules();
   jest.doMock('rangy', () => mockRangy);
   jest.doMock('rangy/lib/rangy-textrange', () => ({}));
@@ -9,6 +9,8 @@ export const resetModules = () => {
   jest.doMock('mdn-polyfills/NodeList.prototype.forEach', () => ({}));
   jest.doMock('mdn-polyfills/Array.prototype.includes', () => ({}));
   jest.doMock('details-element-polyfill', () => jest.fn());
+  const { disableArchiveTreeCaching } = await import('../app/content/utils/archiveTreeUtils');
+  disableArchiveTreeCaching();
 };
 
 export const reactAndFriends = () => {
