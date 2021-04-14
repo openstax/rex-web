@@ -8,7 +8,7 @@ import { hasOSWebData } from '../guards';
 import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
-import { createDescription, createTitle } from '../utils/seoUtils';
+import { createTitle, getPageDescription } from '../utils/seoUtils';
 
 const hookBody: ActionHookBody<typeof receivePage> = ({
   getState,
@@ -34,7 +34,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   }
 
   const title = createTitle(page, book);
-  const description = createDescription(archiveLoader, book, page);
+  const description = getPageDescription(archiveLoader, book, page);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;

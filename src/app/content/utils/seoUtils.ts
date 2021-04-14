@@ -12,24 +12,18 @@ import {
   splitTitleParts,
 } from './archiveTreeUtils';
 
+type PageTypes = 'page' | 'appendix' | 'answer-key' | 'eoc-sub-page' | 'eoc-page' | 'eob-page';
+
+interface DescriptionTemplateValues {
+  parentTitle: string;
+  parentType: 'chapter' | 'book' | 'other';
+  pageTitle: string;
+  bookTitle: string;
+  chapterTitle: string;
+  sectionTitle: string;
+}
+
 const domParser = new DOMParser();
-
-export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, includeTitle: boolean = false): string => {
-  if (!node) {
-    return '';
-  }
-
-  if (archiveTreeSectionIsChapter(node)) {
-    const number = getArchiveTreeSectionNumber(node).replace('Chapter', '').trim();
-    const name = getArchiveTreeSectionTitle(node);
-    return includeTitle ? `Ch. ${number}. ${name}` : `Ch. ${number} `;
-  }
-
-  return archiveTreeSectionIsBook(node.parent)
-    ? getArchiveTreeSectionTitle(node) + ' '
-    : getParentPrefix(node.parent, includeTitle);
-
-};
 
 const hideMath = (node: Element) => {
   if (!node) {
@@ -41,23 +35,6 @@ const hideMath = (node: Element) => {
     el.outerHTML = '...';
   });
   return node.textContent;
-};
-
-const getPageType = (node: HTMLElement) => {
-  if (!node) {
-    return '';
-  }
-
-  if (node.classList.contains('appendix')) {
-    return 'appendix';
-  } else if (
-      node.classList.contains('os-solution-container')
-      || node.classList.contains('os-solutions-container')
-      ) {
-    return 'answer-key';
-  } else {
-    return node.getAttribute('data-type');
-  }
 };
 
 export const getTextContent = (str: string) => {
@@ -86,75 +63,135 @@ const removeIntroContent = (node: HTMLElement) => {
   }
 };
 
-const getFirstParagraph = (node: HTMLElement) => {
-  if (!node) {
-    return '';
-  }
-  // First look for first p in a section.
-  const firstSection = node.querySelector('section');
-  const first = firstSection
-    ? firstSection.querySelector('p')
-    : node.querySelector('p');
-
-  if (!first || !first.textContent) {
-    return '';
-  }
-
-  // Find first p longer than 100 chars.
-  if (first.textContent.length < 90) {
-    let next = first.nextElementSibling;
-
-    while (next && next.textContent) {
-      if (next.matches('p') && next.textContent.length >= 90) {
-        return next;
-      }
-      next = next.nextElementSibling;
-    }
-  } else {
-    return first;
-  }
-};
-
 export const generateExcerpt = (str: string) => {
   return str.replace(/\n/g, ' ').replace(/\s\s/g, ' ').trim().substring(0, 152) + '...';
 };
 
-export const createDescription = (loader: AppServices['archiveLoader'], book: Book, page: Page) => {
+// tslint:disable-next-line: max-line-length
+const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): PageTypes => {
+  const {parentType, chapterTitle, sectionTitle} = values;
+  const nodeClasses = node.classList;
+  const nodeType = node.getAttribute('data-type');
+
+  if (nodeType === 'page') {
+    return 'page';
+  } else if (nodeClasses.contains('appendix')) {
+    return 'appendix';
+  } else if (
+    nodeClasses.contains('os-solution-container')
+      || nodeClasses.contains('os-solutions-container')
+      ) {
+    return 'answer-key';
+  } else if (parentType !== 'chapter' && parentType !== 'book') {
+    return 'eoc-sub-page';
+  } else if (sectionTitle !== chapterTitle) {
+    return 'eoc-page';
+  } else {
+    return 'eob-page';
+  }
+};
+
+const getPageDescriptionFromContent = (node: HTMLElement): string | null => {
+  removeIntroContent(node);
+  const firstSection = node.querySelector('section');
+  let para: Element | null = firstSection
+    ? firstSection.querySelector('p')
+    : node.querySelector('p');
+
+  if (!para || !para.textContent) {
+    return null;
+  }
+
+  // Find first <p> of 90+ chars.
+  if (para.textContent.length >= 90) {
+    console.log('we have a long enough para');
+    const mathless = hideMath(para);
+    return mathless ? generateExcerpt(mathless) : null;
+  } else {
+    console.log('para not long enough');
+    const text = para.textContent;
+    const next = para.nextElementSibling;
+    while (text && text.length < 90 && next) {
+      console.log('while text too short...');
+      if (next.matches('p')) {
+        para = next;
+      }
+    }
+    return null;
+  }
+};
+
+// tslint:disable: max-line-length
+const generateDescriptionFromTemplate = (pageType: PageTypes, values: DescriptionTemplateValues) => {
+  const {parentTitle, pageTitle, bookTitle, chapterTitle, sectionTitle} = values;
+  switch (pageType) {
+    case 'page':
+      return `On this page you will discover the ${pageTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
+    case 'answer-key':
+      return `On this page you will discover the Answer Key for ${pageTitle} of OpenStax's ${bookTitle} free textbook.`;
+    case 'eoc-sub-page':
+      return `On this page you will discover the ${parentTitle}: ${sectionTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
+    case 'eoc-page':
+      return `On this page you will discover the ${sectionTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
+    case 'eob-page' || 'appendix':
+      return `On this page you will discover the ${sectionTitle} for OpenStax's ${bookTitle} free textbook.`;
+    default:
+       throw new Error('unknown page type');
+  }
+};
+
+export const getPageDescription = (loader: AppServices['archiveLoader'], book: Book, page: Page) => {
   const cleanContent = getCleanContent(book, page, loader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
-  const contentNode = doc.body.children[0];
-  const pageType = getPageType(contentNode);
-  const node = assertDefined(
+  const node = doc.body.children[0];
+  const treeNode = assertDefined(
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`
   );
-  const parentPrefix = getParentPrefix(node, true).replace('Ch.', 'Chapter').trim();
-  const parentIsChapter = node.parent ? archiveTreeSectionIsChapter(node.parent) : true;
-  const parentIsBook = node.parent ? archiveTreeSectionIsBook(node.parent) : false;
-  const sectionTitle = getArchiveTreeSectionTitle(node);
-  const parentTitle = node.parent ? getTextContent(node.parent.title) : '';
 
-  if (pageType === 'page') {
-    removeIntroContent(contentNode);
-    const firstP = getFirstParagraph(contentNode);
-    const mathless = firstP ? hideMath(firstP) : null;
-    return mathless
-      ? generateExcerpt(mathless)
-      // tslint:disable-next-line:max-line-length
-      : `On this page you will discover the ${sectionTitle} for ${parentPrefix} of OpenStax's ${book.title} free textbook.`;
-  } else {
-    let descriptionPhrase = '';
-    if (pageType === 'answer-key') {
-      descriptionPhrase = `the Answer Key for ${sectionTitle} of`;
-    } else if (!parentIsChapter && !parentIsBook) {
-      descriptionPhrase = `${parentTitle}: ${sectionTitle} for ${parentPrefix} of`;
-    } else if (sectionTitle !== parentPrefix) {
-      descriptionPhrase = `the ${sectionTitle} for ${parentPrefix} of`;
-    } else {
-      descriptionPhrase = `the ${sectionTitle} for`;
-    }
-    return `On this page you will discover ${descriptionPhrase} OpenStax's ${book.title} free textbook.`;
+  const parentTitle = treeNode.parent ? getTextContent(treeNode.parent.title) : '';
+  const chapterTitle = getParentPrefix(node, true).replace('Ch.', 'Chapter').trim();
+  const pageTitle = getArchiveTreeSectionTitle(node);
+  const sectionTitle = node.parent ? getTextContent(node.parent.title) : '';
+  const parentType = node.parent && archiveTreeSectionIsChapter(node.parent)
+    ? 'chapter'
+    : (node.parent && archiveTreeSectionIsBook(node.parent)
+      ? 'book'
+      : 'other');
+
+  const values = {
+    bookTitle: book.title,
+    chapterTitle,
+    pageTitle,
+    parentTitle,
+    parentType,
+    sectionTitle,
+  };
+
+  const pageType = getPageType(node, values);
+
+  const contentDescription: string | null = pageType === 'page'
+    ? getPageDescriptionFromContent(node)
+    : null;
+
+  return contentDescription || generateDescriptionFromTemplate(treeNode, pageType, values);
+};
+
+export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, includeTitle: boolean = false): string => {
+  if (!node) {
+    return '';
   }
+
+  if (archiveTreeSectionIsChapter(node)) {
+    const number = getArchiveTreeSectionNumber(node).replace('Chapter', '').trim();
+    const name = getArchiveTreeSectionTitle(node);
+    return includeTitle ? `Ch. ${number}. ${name}` : `Ch. ${number} `;
+  }
+
+  return archiveTreeSectionIsBook(node.parent)
+    ? getArchiveTreeSectionTitle(node) + ' '
+    : getParentPrefix(node.parent, includeTitle);
+
 };
 
 export const createTitle = (page: Page, book: Book): string => {
