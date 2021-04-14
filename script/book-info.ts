@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import { argv } from 'yargs';
-import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL } from '../src/config';
+import { ARCHIVE_URL, BOOKS, REACT_APP_ARCHIVE_URL } from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 
 const {
@@ -14,7 +14,7 @@ const {
 const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
 
 const bookId = argv._[1];
-const bookVersion = argv._[2];
+const bookVersion = BOOKS[bookId].defaultVersion;
 archiveLoader.book(bookId, bookVersion).load().then((book: any) => {
   if (field) {
     // tslint:disable-next-line:no-console

@@ -49,7 +49,7 @@ for book_id in $book_ids; do
   git commit -m "update content" || true
   git push --set-upstream origin "$branch"
 
-  book_title=$(node script/entry.js book-info "$book_id" "$desired_version" --field title)
+  book_title=$(node script/entry.js book-info "$book_id" --field title)
   curl -s -X POST -H "Authorization: token $GITHUB_ACCESS_TOKEN" "https://api.github.com/repos/openstax/rex-web/pulls" --data-binary @- << JSON
     {
       "title": "$book_title updates",

@@ -24,7 +24,7 @@ working_set=$(jq "map({(.book_id): .}) | add // {}" <<< "$book_json")
 
 for book_id in $(jq -r "keys[]" <<< "$working_set"); do
   book_version=$(jq -r --arg book_id "$book_id" '.[$book_id].book_version' <<< "$working_set")
-  title=$(node script/entry.js book-info --field=title "$book_id" "$book_version")
+  title=$(node script/entry.js book-info --field=title "$book_id")
   working_set=$(jq -r \
     --arg title "$title" \
     --arg book_id "$book_id" \
