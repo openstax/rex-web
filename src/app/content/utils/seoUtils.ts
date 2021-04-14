@@ -123,15 +123,12 @@ const getPageDescriptionFromContent = (node: HTMLElement): string | null => {
 
   // Find first <p> of 90+ chars.
   if (para.textContent.length >= 90) {
-    console.log('we have a long enough para');
     const mathless = hideMath(para);
     return mathless ? generateExcerpt(mathless) : null;
   } else {
-    console.log('para not long enough');
     const text = para.textContent;
     const next = para.nextElementSibling;
     while (text && text.length < 90 && next) {
-      console.log('while text too short...');
       if (next.matches('p')) {
         para = next;
       }
