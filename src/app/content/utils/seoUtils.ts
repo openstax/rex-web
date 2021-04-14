@@ -72,15 +72,14 @@ const removeIntroContent = (node: HTMLElement) => {
 
   const introContentList = node.querySelectorAll(
     '[data-type="abstract"], .learning-objectives, .chapter-objectives, .be-prepared'
-    );
-
-  if (!introContentList.length) {
-    return null;
-  }
+    ) || [];
 
   for (let i = 0; i <= introContentList.length; i++) {
-    const parent = introContentList[i].parentNode;
-    if (parent) {
+    if (introContentList[i]) {
+      const parent = introContentList[i].parentNode;
+      if (parent === null) {
+        break;
+      }
       parent.removeChild(introContentList[i]);
     }
   }

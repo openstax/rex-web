@@ -18,10 +18,11 @@ const getPageMetadata = async(
         const page = await loader.page(section.id).load();
         const description = createDescription(archiveLoader, book, page);
         const sectionTitle = getTextContent(section.title);
-        const parentPrefix = getParentPrefix(section.parent);
+        const parentPrefix = getParentPrefix(section.parent).trim();
 
+        const row = `"${book.title}","${parentPrefix}","${sectionTitle}","${description}"`;
         // tslint:disable-next-line:no-console
-        console.log(`${book.title},${parentPrefix},${sectionTitle},"${description.replace(/"/g, '""')}"`);
+        console.log(row);
 };
 
 const getBookMetadata = async(id: string, version: string) => {
