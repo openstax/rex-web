@@ -18,7 +18,7 @@ const getPageMetadata = async(
         const page = await loader.page(section.id).load();
         const description = createDescription(archiveLoader, book, page);
         const sectionTitle = getTextContent(section.title);
-        const parentPrefix = getParentPrefix(section.parent).replace('Ch.', '').trim();
+        const parentPrefix = getParentPrefix(section.parent);
 
         // tslint:disable-next-line:no-console
         console.log(`${book.title},${parentPrefix},${sectionTitle},"${description.replace(/"/g, '""')}"`);

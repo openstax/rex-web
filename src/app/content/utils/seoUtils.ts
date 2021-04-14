@@ -20,7 +20,7 @@ export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string
   }
 
   if (archiveTreeSectionIsChapter(node)) {
-    const number = getArchiveTreeSectionNumber(node);
+    const number = getArchiveTreeSectionNumber(node).replace('Chapter', '').trim();
     return `Ch. ${number} `;
   }
 
@@ -65,6 +65,27 @@ export const getTextContent = (str: string) => {
   return text || '';
 };
 
+const removeIntroContent = (node: HTMLElement) => {
+  if (!node) {
+    return null;
+  }
+
+  console.log(node.querySelector('.be-prepared'));
+  const introContentList = node.querySelectorAll(
+    '[data-type="abstract"], .learning-objectives, .chapter-objectives, .be-prepared'
+    );
+
+  console.log('intro list: ', introContentList);
+
+  if (!introContentList.length) {
+    return null;
+  }
+
+  for (let i = 0; i <= introContentList.length; i++) {
+    introContentList[i]?.parentNode?.removeChild(introContentList[i]);
+  }
+};
+
 export const createDescription = (loader: AppServices['archiveLoader'], book: Book, page: Page) => {
   const cleanContent = getCleanContent(book, page, loader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
@@ -81,10 +102,7 @@ export const createDescription = (loader: AppServices['archiveLoader'], book: Bo
   const parentTitle = node.parent ? getTextContent(node.parent.title) : '';
 
   if (pageType === 'page') {
-    // Remove abstract if it exists.
-    if (contentNode.querySelector('[data-type="abstract"]')) {
-      contentNode.querySelector('[data-type="abstract"]').remove();
-    }
+    removeIntroContent(contentNode);
     const mathless = hideMath(contentNode.querySelector('p'));
     return mathless && mathless.textContent ? mathless.textContent.trim().substring(0, 155) : '';
   } else {
