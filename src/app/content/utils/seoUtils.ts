@@ -70,12 +70,9 @@ const removeIntroContent = (node: HTMLElement) => {
     return null;
   }
 
-  console.log(node.querySelector('.be-prepared'));
   const introContentList = node.querySelectorAll(
     '[data-type="abstract"], .learning-objectives, .chapter-objectives, .be-prepared'
     );
-
-  console.log('intro list: ', introContentList);
 
   if (!introContentList.length) {
     return null;
