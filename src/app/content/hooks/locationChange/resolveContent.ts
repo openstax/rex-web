@@ -156,15 +156,23 @@ export const getBookInformation = async(
 ) => {
   const { bookId, bookVersion } = getInputReferenceInfo(reference.bookId, reference.bookVersion);
 
+  if (!bookVersion && UNLIMITED_CONTENT) {
+    return undefined;
+  }
+
   const osWebBook =  await services.osWebLoader.getBookFromId(bookId);
-  const archiveBook = await services.archiveLoader.book(bookId, bookVersion || 'undefined')
+
+  if (!bookVersion) {
+    throw new Error(`book version wasn't specified for book ${bookId}`);
+  }
+
+  const archiveBook = await services.archiveLoader.book(bookId, bookVersion)
     .load()
-    .catch((error) => {
+    .catch((e) => {
       if (UNLIMITED_CONTENT) {
         return undefined;
-      } else {
-        throw error;
       }
+      throw e;
     });
 
   if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
