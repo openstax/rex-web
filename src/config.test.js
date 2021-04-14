@@ -2,7 +2,7 @@ module.exports = {
   RELEASE_ID: 'test',
   CODE_VERSION: 'test',
   DEPLOYED_ENV: 'test',
-  REACT_APP_ARCHIVE_URL: '',
+  REACT_APP_ARCHIVE_URL: '/apps/archive/codeversion',
 
   BOOKS: {'testbook1-uuid':{'defaultVersion':'1.0'}},
 

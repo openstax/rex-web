@@ -32,6 +32,7 @@ const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL
 const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
 const archivePaths = [
+  '/apps/archive',
   '/extras',
   '/contents',
   '/resources',
