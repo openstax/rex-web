@@ -71,7 +71,7 @@ const removeIntroContent = (node: HTMLElement) => {
   }
 
   const introContentList = node.querySelectorAll(
-    '[data-type="abstract"], .learning-objectives, .chapter-objectives, .be-prepared'
+    '[data-type="abstract"], .learning-objectives, .chapter-objectives, .be-prepared, .os-teacher'
     ) || [];
 
   for (let i = 0; i <= introContentList.length; i++) {
