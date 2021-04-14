@@ -1727,24 +1727,45 @@ def test_submit_practice_question_answer_ga_event(
     assert(last_event["eventLabel"] == event_label)
 
 
-@markers.test_case("")
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+@markers.test_case("C621319")
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "2-4-velocity-vs-time-graphs")]
+)
+def test_practice_question_finish_section_button_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when 'Finish' button clicked."""
     # SETUP:
-    event_action = ""
-    event_category = ""
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = "Finish"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
 
-    # GIVEN:
+    # GIVEN: a student viewing a practice question
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+    practice.content.start_now()
+    event_label = f"{practice.content.number} {practice.content.title}"
 
-    # WHEN:
+    # WHEN:  they answer each question
+    # AND:   click the 'Finish' button
+    for question in practice.content.questions:
+        answer = random.choice(practice.content.answers)
+        answer.select()
+        practice.content.submit()
+        try:
+            practice.content._next()
+        except NoSuchElementException:
+            break
+
+    practice.content.finish()
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
-    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { eventAction: "Finish",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{section page title}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
     assert(
         "eventAction" in last_event and

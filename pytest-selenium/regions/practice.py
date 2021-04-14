@@ -151,6 +151,8 @@ class Practice(Region):
             By.CSS_SELECTOR, "div[class*=SectionTitle] .os-text")
         _continue_button_locator = (
             By.CSS_SELECTOR, "[data-analytics-label^=Continue]")
+        _finish_button_locator = (
+            By.CSS_SELECTOR, "[data-analytics-label^=Finish]")
         _link_to_section_locator = (
             By.CSS_SELECTOR, "[class^=LinkToSection]")
         _message_locator = (
@@ -283,6 +285,15 @@ class Practice(Region):
             """
             id_tag = self.find_element(*self._question_id_locator)
             return id_tag.get_attribute("name")
+
+        def finish(self) -> Practice.Content:
+            """Click the 'Finish' button.
+
+            :return: the practice content pane
+            :rtype: :py:class:`~regions.practice.Practice.Content`
+
+            """
+            return self._click_helper(self._finish_button_locator)
 
         def read_section(self) -> Page:
             """Click the read section link.
@@ -485,6 +496,7 @@ class Practice(Region):
                 """
                 radio_button = self.find_element(*self._radio_button_locator)
                 Utilities.click_option(self.driver, element=radio_button)
+                sleep(0.2)
 
             def _get_color(self, answer: WebElement) -> str:
                 r"""Return the background color for the selected element.
