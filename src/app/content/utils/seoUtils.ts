@@ -40,7 +40,7 @@ const hideMath = (node: Element) => {
   mathSpans.forEach((el: Element) => {
     el.outerHTML = '...';
   });
-  return node;
+  return node.textContent;
 };
 
 const getPageType = (node: HTMLElement) => {
@@ -115,6 +115,10 @@ const getFirstParagraph = (node: HTMLElement) => {
   }
 };
 
+export const generateExcerpt = (str: string) => {
+  return str.replace(/\n/g, ' ').replace(/\s\s/g, ' ').trim().substring(0, 152) + '...';
+};
+
 export const createDescription = (loader: AppServices['archiveLoader'], book: Book, page: Page) => {
   const cleanContent = getCleanContent(book, page, loader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
@@ -133,9 +137,9 @@ export const createDescription = (loader: AppServices['archiveLoader'], book: Bo
   if (pageType === 'page') {
     removeIntroContent(contentNode);
     const firstP = getFirstParagraph(contentNode);
-    const mathless = firstP ? hideMath(firstP) : '';
-    return mathless && mathless.textContent
-      ? mathless.textContent.replace(/\n/g, ' ').replace(/\s\s/g, ' ').trim().substring(0, 152) + '...'
+    const mathless = firstP ? hideMath(firstP) : null;
+    return mathless
+      ? generateExcerpt(mathless)
       // tslint:disable-next-line:max-line-length
       : `On this page you will discover the ${sectionTitle} for ${parentPrefix} of OpenStax's ${book.title} free textbook.`;
   } else {
