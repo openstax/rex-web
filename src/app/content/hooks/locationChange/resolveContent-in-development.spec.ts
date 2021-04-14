@@ -153,6 +153,29 @@ describe('locationChange', () => {
       expect(getBookSlugFromId).toHaveBeenCalledTimes(1);
     });
 
+    it('uses param version if there is one', async() => {
+      const versionedSlugParams = {
+        ...match.params,
+        book: {
+          ...match.params.book,
+          version: 'asdf',
+        },
+      } as Params;
+
+      match.params = versionedSlugParams;
+
+      helpers.archiveLoader.mockBook({
+        ...book,
+        version: 'asdf',
+      });
+      helpers.archiveLoader.mockPage({
+        ...book,
+        version: 'asdf',
+      }, page, testPage);
+      await hook(helpers, match);
+      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', 'asdf');
+    });
+
     it('uses uuid if present', async() => {
       helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
       const versionedUuidParams = {
