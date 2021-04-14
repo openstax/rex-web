@@ -96,12 +96,14 @@ export const resolveBookReference = async(
     throw new BookNotFoundError(`Could not resolve uuid for slug: ${bookSlug}`);
   }
 
-  const { defaultVersion } = assertDefined(
-    BOOKS[bookUid],
-    `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
-  );
+  const bookVersion = 'version' in match.params.book
+    ? match.params.book.version
+    : assertDefined(
+        BOOKS[bookUid],
+        `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
+      ).defaultVersion;
 
-  return [bookSlug, bookUid, defaultVersion];
+  return [bookSlug, bookUid, bookVersion];
 };
 
 const loadPage = async(
