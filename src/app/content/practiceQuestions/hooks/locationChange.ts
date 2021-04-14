@@ -38,19 +38,33 @@ const setSection = (services: MiddlewareAPI & AppServices, book: Book, page: Pag
   }
 };
 
-export const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
-  const state = services.getState();
-  const { book, page } = bookAndPage(state);
-  const isEnabled = practiceQuestionsEnabled(state);
-
-  if (!book || !page || !isEnabled ) { return; }
-
-  if (practiceQuestionsSummarySelector(state) === null) {
+const loadPracticeQuestionSummary = async(services: MiddlewareAPI & AppServices, book: Book) => {
+  if (practiceQuestionsSummarySelector(services.getState()) === null) {
     const practiceQuestionsSummary = await loadSummary(services, book);
     if (practiceQuestionsSummary) {
       services.dispatch(receivePracticeQuestionsSummary(practiceQuestionsSummary));
     }
   }
+};
+
+export const loadPracticeQuestionSummaryHookBody = (services: MiddlewareAPI & AppServices) => async() => {
+  const state = services.getState();
+  const { book, page } = bookAndPage(state);
+  const isEnabled = practiceQuestionsEnabled(state);
+
+  if (!book || !page || !isEnabled) { return; }
+
+  await loadPracticeQuestionSummary(services, book);
+};
+
+export const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+  const state = services.getState();
+  const { book, page } = bookAndPage(state);
+  const isEnabled = practiceQuestionsEnabled(state);
+
+  if (!book || !page || !isEnabled) { return; }
+
+  await loadPracticeQuestionSummary(services, book);
 
   setSection(services, book, page);
 };
