@@ -38,33 +38,28 @@ const setSection = (services: MiddlewareAPI & AppServices, book: Book, page: Pag
   }
 };
 
-const loadPracticeQuestionSummary = async(services: MiddlewareAPI & AppServices, book: Book) => {
-  if (practiceQuestionsSummarySelector(services.getState()) === null) {
-    const practiceQuestionsSummary = await loadSummary(services, book);
-    if (practiceQuestionsSummary) {
-      services.dispatch(receivePracticeQuestionsSummary(practiceQuestionsSummary));
-    }
+export const loadPracticeQuestionsSummaryHookBody = (services: MiddlewareAPI & AppServices) => async() => {
+  const state = services.getState();
+  const { book, page } = bookAndPage(state);
+  const isEnabled = practiceQuestionsEnabled(state);
+  const summary = practiceQuestionsSummarySelector(state);
+
+  if (!book || !page || !isEnabled || summary !== null) { return; }
+
+  const practiceQuestionsSummary = await loadSummary(services, book);
+  if (practiceQuestionsSummary) {
+    services.dispatch(receivePracticeQuestionsSummary(practiceQuestionsSummary));
   }
 };
 
-export const loadPracticeQuestionSummaryHookBody = (services: MiddlewareAPI & AppServices) => async() => {
+const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const state = services.getState();
   const { book, page } = bookAndPage(state);
   const isEnabled = practiceQuestionsEnabled(state);
 
   if (!book || !page || !isEnabled) { return; }
 
-  await loadPracticeQuestionSummary(services, book);
-};
-
-export const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
-  const state = services.getState();
-  const { book, page } = bookAndPage(state);
-  const isEnabled = practiceQuestionsEnabled(state);
-
-  if (!book || !page || !isEnabled) { return; }
-
-  await loadPracticeQuestionSummary(services, book);
+  await loadPracticeQuestionsSummaryHookBody(services)();
 
   setSection(services, book, page);
 };
