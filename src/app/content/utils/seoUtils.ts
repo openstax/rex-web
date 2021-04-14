@@ -101,11 +101,11 @@ const getFirstParagraph = (node: HTMLElement) => {
   }
 
   // Find first p longer than 100 chars.
-  if (first.textContent.length < 100) {
+  if (first.textContent.length < 90) {
     let next = first.nextElementSibling;
 
-    while (next) {
-      if (next.matches('p')) {
+    while (next && next.textContent) {
+      if (next.matches('p') && next.textContent.length >= 90) {
         return next;
       }
       next = next.nextElementSibling;
@@ -135,7 +135,7 @@ export const createDescription = (loader: AppServices['archiveLoader'], book: Bo
     const firstP = getFirstParagraph(contentNode);
     const mathless = firstP ? hideMath(firstP) : '';
     return mathless && mathless.textContent
-      ? mathless.textContent.trim().substring(0, 152) + '...'
+      ? mathless.textContent.replace(/\n/g, ' ').replace(/\s\s/g, ' ').trim().substring(0, 152) + '...'
       // tslint:disable-next-line:max-line-length
       : `On this page you will discover the ${sectionTitle} for ${parentPrefix} of OpenStax's ${book.title} free textbook.`;
   } else {
