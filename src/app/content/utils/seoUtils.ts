@@ -79,10 +79,10 @@ const removeIntroContent = (node: HTMLElement) => {
   }
 
   for (let i = 0; i <= introContentList.length; i++) {
-    if (!introContentList[i]) {
-      break;
+    const parent = introContentList[i].parentNode;
+    if (parent) {
+      parent.removeChild(introContentList[i]);
     }
-    introContentList[i].parentNode?.removeChild(introContentList[i]);
   }
 };
 
