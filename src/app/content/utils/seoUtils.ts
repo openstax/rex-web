@@ -25,13 +25,29 @@ interface DescriptionTemplateValues {
 
 const domParser = new DOMParser();
 
+export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, includeTitle: boolean = false): string => {
+  if (!node) {
+    return '';
+  }
+
+  if (archiveTreeSectionIsChapter(node)) {
+    const number = getArchiveTreeSectionNumber(node).replace('Chapter', '').trim();
+    const name = getArchiveTreeSectionTitle(node);
+    return includeTitle ? `Ch. ${number}. ${name}` : `Ch. ${number} `;
+  }
+
+  return archiveTreeSectionIsBook(node.parent)
+    ? getArchiveTreeSectionTitle(node) + ' '
+    : getParentPrefix(node.parent, includeTitle);
+
+};
+
 const hideMath = (node: Element) => {
   if (!node) {
     return '';
   }
 
-  const mathSpans = node.querySelectorAll('.os-math-in-para');
-  mathSpans.forEach((el: Element) => {
+  node.querySelectorAll('.os-math-in-para').forEach((el: Element) => {
     el.outerHTML = '...';
   });
   return node.textContent;
@@ -40,7 +56,7 @@ const hideMath = (node: Element) => {
 export const getTextContent = (str: string) => {
   const parsed = domParser.parseFromString(str, 'text/html');
   const text = parsed.body.textContent;
-  return text || '';
+  return text;
 };
 
 const removeIntroContent = (node: HTMLElement) => {
@@ -92,6 +108,9 @@ const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): Page
 };
 
 const getPageDescriptionFromContent = (node: HTMLElement): string | null => {
+  if (!node) {
+    return null;
+  }
   removeIntroContent(node);
   const firstSection = node.querySelector('section');
   let para: Element | null = firstSection
@@ -149,17 +168,17 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
     `couldn't find node for a page id: ${page.id}`
   );
 
-  const parentTitle = treeNode.parent ? getTextContent(treeNode.parent.title) : '';
-  const chapterTitle = getParentPrefix(node, true).replace('Ch.', 'Chapter').trim();
-  const pageTitle = getArchiveTreeSectionTitle(node);
-  const sectionTitle = node.parent ? getTextContent(node.parent.title) : '';
-  const parentType = node.parent && archiveTreeSectionIsChapter(node.parent)
+  const parentTitle = treeNode.parent ? getTextContent(treeNode.parent.title) : null;
+  const chapterTitle = getParentPrefix(treeNode, true).replace('Ch.', 'Chapter').trim();
+  const pageTitle = getArchiveTreeSectionTitle(treeNode);
+  const sectionTitle = treeNode.parent ? getTextContent(treeNode.parent.title) : null;
+  const parentType = treeNode.parent && archiveTreeSectionIsChapter(treeNode.parent)
     ? 'chapter'
-    : (node.parent && archiveTreeSectionIsBook(node.parent)
+    : (treeNode.parent && archiveTreeSectionIsBook(treeNode.parent)
       ? 'book'
       : 'other');
 
-  const values = {
+  const values: DescriptionTemplateValues = {
     bookTitle: book.title,
     chapterTitle,
     pageTitle,
@@ -174,24 +193,7 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
     ? getPageDescriptionFromContent(node)
     : null;
 
-  return contentDescription || generateDescriptionFromTemplate(treeNode, pageType, values);
-};
-
-export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, includeTitle: boolean = false): string => {
-  if (!node) {
-    return '';
-  }
-
-  if (archiveTreeSectionIsChapter(node)) {
-    const number = getArchiveTreeSectionNumber(node).replace('Chapter', '').trim();
-    const name = getArchiveTreeSectionTitle(node);
-    return includeTitle ? `Ch. ${number}. ${name}` : `Ch. ${number} `;
-  }
-
-  return archiveTreeSectionIsBook(node.parent)
-    ? getArchiveTreeSectionTitle(node) + ' '
-    : getParentPrefix(node.parent, includeTitle);
-
+  return contentDescription || generateDescriptionFromTemplate(pageType, values);
 };
 
 export const createTitle = (page: Page, book: Book): string => {
