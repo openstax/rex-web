@@ -56,6 +56,7 @@ export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveT
   CACHED_FLATTENED_TREES.clear();
   // getTitleFromArchiveNode is using `flattenArchiveTree` util that is caching old titles
   // so we have to clear this cache after transforming titles
+  // without this everytime when we call functions like findArchiveNodeById we would get old titles, before parsing
 
   return contents;
 };

@@ -1,0 +1,18 @@
+{
+  "preset": "jest-puppeteer",
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json"
+  ],
+  "setupFilesAfterEnv": [
+    "<rootDir>/src/test/setup-for-puppeteer.ts"
+  ],
+  "testRegex": "(\\.|/)(screenshot|browser|prerender)?spec\\.tsx?$",
+  "transform": {
+    "^.+\\.tsx?$": "<rootDir>/node_modules/react-scripts/config/jest/babelTransform.js",
+    "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/node_modules/react-scripts/config/jest/fileTransform.js"
+  }
+}
