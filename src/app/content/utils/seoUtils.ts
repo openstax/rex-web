@@ -14,23 +14,24 @@ import {
 
 const domParser = new DOMParser();
 
-export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined): string => {
+export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, includeTitle: boolean = false): string => {
   if (!node) {
     return '';
   }
 
   if (archiveTreeSectionIsChapter(node)) {
     const number = getArchiveTreeSectionNumber(node).replace('Chapter', '').trim();
-    return `Ch. ${number} `;
+    const name = getArchiveTreeSectionTitle(node);
+    return includeTitle ? `Ch. ${number}. ${name}` : `Ch. ${number} `;
   }
 
   return archiveTreeSectionIsBook(node.parent)
     ? getArchiveTreeSectionTitle(node) + ' '
-    : getParentPrefix(node.parent);
+    : getParentPrefix(node.parent, includeTitle);
 
 };
 
-const hideMath = (node: HTMLElement) => {
+const hideMath = (node: Element) => {
   if (!node) {
     return '';
   }
@@ -85,6 +86,35 @@ const removeIntroContent = (node: HTMLElement) => {
   }
 };
 
+const getFirstParagraph = (node: HTMLElement) => {
+  if (!node) {
+    return '';
+  }
+  // First look for first p in a section.
+  const firstSection = node.querySelector('section');
+  const first = firstSection
+    ? firstSection.querySelector('p')
+    : node.querySelector('p');
+
+  if (!first || !first.textContent) {
+    return '';
+  }
+
+  // Find first p longer than 100 chars.
+  if (first.textContent.length < 100) {
+    let next = first.nextElementSibling;
+
+    while (next) {
+      if (next.matches('p')) {
+        return next;
+      }
+      next = next.nextElementSibling;
+    }
+  } else {
+    return first;
+  }
+};
+
 export const createDescription = (loader: AppServices['archiveLoader'], book: Book, page: Page) => {
   const cleanContent = getCleanContent(book, page, loader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
@@ -94,7 +124,7 @@ export const createDescription = (loader: AppServices['archiveLoader'], book: Bo
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`
   );
-  const parentPrefix = getParentPrefix(node).replace('Ch.', 'Chapter').trim();
+  const parentPrefix = getParentPrefix(node, true).replace('Ch.', 'Chapter').trim();
   const parentIsChapter = node.parent ? archiveTreeSectionIsChapter(node.parent) : true;
   const parentIsBook = node.parent ? archiveTreeSectionIsBook(node.parent) : false;
   const sectionTitle = getArchiveTreeSectionTitle(node);
@@ -102,8 +132,12 @@ export const createDescription = (loader: AppServices['archiveLoader'], book: Bo
 
   if (pageType === 'page') {
     removeIntroContent(contentNode);
-    const mathless = hideMath(contentNode.querySelector('p'));
-    return mathless && mathless.textContent ? mathless.textContent.trim().substring(0, 155) : '';
+    const firstP = getFirstParagraph(contentNode);
+    const mathless = firstP ? hideMath(firstP) : '';
+    return mathless && mathless.textContent
+      ? mathless.textContent.trim().substring(0, 152) + '...'
+      // tslint:disable-next-line:max-line-length
+      : `On this page you will discover the ${sectionTitle} for ${parentPrefix} of OpenStax's ${book.title} free textbook.`;
   } else {
     let descriptionPhrase = '';
     if (pageType === 'answer-key') {
@@ -115,7 +149,7 @@ export const createDescription = (loader: AppServices['archiveLoader'], book: Bo
     } else {
       descriptionPhrase = `the ${sectionTitle} for`;
     }
-    return `On this page you will discover ${descriptionPhrase} OpenStax's ${book.title} free college textbook.`;
+    return `On this page you will discover ${descriptionPhrase} OpenStax's ${book.title} free textbook.`;
   }
 };
 
