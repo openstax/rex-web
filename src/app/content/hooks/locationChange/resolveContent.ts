@@ -148,7 +148,6 @@ const resolvePage = async(
 };
 
 const getInputReferenceInfo = async(services: AppServices & MiddlewareAPI, bookId: string, inputVersion?: string) => {
-  // const defaultVersion = BOOKS[bookId] ? BOOKS[bookId].defaultVersion : undefined;
   const bookVersionFromConfig = await services.bookConfigLoader.getBookVersionFromUUID(bookId);
   const defaultVersion = bookVersionFromConfig && bookVersionFromConfig.defaultVersion;
   const bookVersion = inputVersion ? inputVersion : defaultVersion;
