@@ -147,8 +147,10 @@ const resolvePage = async(
   }
 };
 
-const getInputReferenceInfo = (bookId: string, inputVersion?: string) => {
-  const defaultVersion = BOOKS[bookId] ? BOOKS[bookId].defaultVersion : undefined;
+const getInputReferenceInfo = async(services: AppServices & MiddlewareAPI, bookId: string, inputVersion?: string) => {
+  // const defaultVersion = BOOKS[bookId] ? BOOKS[bookId].defaultVersion : undefined;
+  const bookVersionFromConfig = await services.bookConfigLoader.getBookVersionFromUUID(bookId);
+  const defaultVersion = bookVersionFromConfig && bookVersionFromConfig.defaultVersion;
   const bookVersion = inputVersion ? inputVersion : defaultVersion;
   return {bookId, bookVersion};
 };
@@ -157,7 +159,7 @@ export const getBookInformation = async(
   services: AppServices & MiddlewareAPI,
   reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
-  const { bookId, bookVersion } = getInputReferenceInfo(reference.bookId, reference.bookVersion);
+  const { bookId, bookVersion } = await getInputReferenceInfo(services, reference.bookId, reference.bookVersion);
 
   if (!bookVersion && UNLIMITED_CONTENT) {
     return undefined;
