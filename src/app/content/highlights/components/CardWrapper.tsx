@@ -34,14 +34,14 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     [focusedId, highlights]);
   const prevFocusedHighlightId = React.useRef(focusedId);
 
-  const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
+  const onHeightChange = React.useCallback((id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
     if (cardsHeights.get(id) !== height) {
       setCardsHeights((previous) => new Map(previous).set(id, height === null ? 0 : height));
     }
-  };
+  }, [cardsHeights]);
 
-  const getOffsetsForHighlight = (highlight: Highlight) => {
+  const getOffsetsForHighlight = React.useCallback((highlight: Highlight) => {
     if (offsets.has(highlight.id)) {
       return assertDefined(offsets.get(highlight.id), 'this has to be defined');
     } else {
@@ -52,7 +52,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
       setOffsets((state) => new Map(state).set(highlight.id, newOffsets));
       return newOffsets;
     }
-  };
+  }, [container, offsets]);
 
   React.useEffect(() => {
     const positions = updateCardsPositions(focusedHighlight, highlights, cardsHeights, getOffsetsForHighlight);
