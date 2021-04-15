@@ -3,6 +3,7 @@ import { HighlightColorEnum, HighlightUpdateColorEnum, UpdateHighlightRequest } 
 import { HTMLElement, } from '@openstax/types/lib.dom';
 import { findElementSelfOrParent } from '../../../domUtils';
 import { assertWindow, remsToPx } from '../../../utils';
+import { assertDefined } from '../../../utils/assertions';
 import { cardMarginBottom } from '../constants';
 import { HighlightData } from '../types';
 
@@ -116,7 +117,7 @@ const getOffsetToAdjustForHighlightPosition = (
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number }
 ) => {
   const position = highlight
-    ? cardsPositions.get(highlight.id) || 0
+    ? assertDefined(cardsPositions.get(highlight.id), 'internal function requested postion of unknown highlight')
     : 0;
 
   const topOffsetFocused = highlight && position
@@ -127,8 +128,10 @@ const getOffsetToAdjustForHighlightPosition = (
 };
 
 /**
- * Change position of a card for @param highlight to align it with the corresponding highlight in the document
- * and recalculate positions of other cards that may be affected by this operation.
+ * Calculate positions of all cards for @param highlights
+ * If @param focusedHighlight is specified then change position of the related card to align it
+ * with the corresponding highlight in the document and recalculate positions of all other cards that
+ * may be affected by this operation.
  */
 export const updateCardsPositions = (
   focusedHighlight: Highlight | undefined,
@@ -142,13 +145,11 @@ export const updateCardsPositions = (
 
   if (!focusedHighlight || offsetToAdjust === 0) { return cardsPositions; }
 
-  const focusedHighlightIndex = focusedHighlight
-    ? highlights.findIndex((highlight) => highlight.id === focusedHighlight.id)
-    : -1;
+  const focusedHighlightIndex = highlights.findIndex((highlight) => highlight.id === focusedHighlight.id);
 
   // Start processing the first part of highlights
 
-  const highlightsUpToFocused = focusedHighlightIndex > 0 ? highlights.slice(0, focusedHighlightIndex + 1) : [];
+  const highlightsUpToFocused = highlights.slice(0, focusedHighlightIndex + 1);
 
   // Reverse an array to start from the focused highlight card, adjust its position and continue adjusting cards above
   const reversedHighlightsUpToFocused = highlightsUpToFocused.reverse();
@@ -178,7 +179,7 @@ export const updateCardsPositions = (
   // Adjusting the position of focused highlight might cause some cards to go up which means that maybe cards
   // that were previously pushed down now have space to align with their highlights.
 
-  const highlightsAfterFocused = focusedHighlightIndex > 0 ? highlights.slice(focusedHighlightIndex + 1) : [];
+  const highlightsAfterFocused = highlights.slice(focusedHighlightIndex + 1);
 
   return updateStackedCardsPostions(
     highlightsAfterFocused,
