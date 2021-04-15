@@ -107,12 +107,14 @@ export default () => {
       <FilterDropdown
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+        dataAnalyticsLabel='Filter study guides by Chapter'
       >
         <ConnectedChapterFilter disabled={userLoggedOut} multiselect={true} />
       </FilterDropdown>
       <FilterDropdown
         label='i18n:highlighting:filters:colors'
         ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+        dataAnalyticsLabel='Filter study guides by Color'
       >
         <ConnectedColorFilter
           disabled={userLoggedOut}

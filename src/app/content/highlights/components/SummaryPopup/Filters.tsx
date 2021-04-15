@@ -80,12 +80,14 @@ export default () =>
       <FilterDropdown
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+        dataAnalyticsLabel='Filter highlights by Chapter'
       >
         <ConnectedChapterFilter multiselect={true} />
       </FilterDropdown>
       <FilterDropdown
         label='i18n:highlighting:filters:colors'
         ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+        dataAnalyticsLabel='Filter highlights by Color'
       >
         <ConnectedColorFilter
           styles={highlightStyles}

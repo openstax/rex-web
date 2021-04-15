@@ -65,6 +65,7 @@ export const FiltersListColor = (props: FiltersListColorProps) => (
     <StyledPlainButton
       aria-label={useIntl().formatMessage({id: props.ariaLabelKey(props.color)}, {filterValue: props.color})}
       onClick={props.onRemove}
+      data-analytics-label={`Remove breadcrumb for color ${props.color}`}
     >
       <Times />
     </StyledPlainButton>
@@ -91,6 +92,7 @@ export const FiltersListChapter = (props: FiltersListChapterProps) => (
         id: 'i18n:highlighting:filters:remove:chapter'},
         {filterValue: splitTitleParts(props.title).join(' ')}
       )}
+      data-analytics-label={`Remove breadcrumb for chapter ${splitTitleParts(props.title).join(' ')}`}
       onClick={props.onRemove}
     >
       <Times />
