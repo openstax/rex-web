@@ -64,6 +64,32 @@ def pytest_addoption(parser):
     )
 
 
+def pytest_collection_modifyitems(config, items):
+    """Runtime test options."""
+    server = (
+        config.getoption("--base-url") or
+        config.getini("base_url")
+    )
+    non_dev_system = (
+        "//staging.openstax." not in server and
+        "//openstax." not in server
+    )
+    if non_dev_system:
+        return
+
+    deselected = []
+    remaining = []
+    for item in items:
+        if "dev_only" in item.keywords:
+            deselected.append(item)
+        else:
+            remaining.append(item)
+
+    if deselected:
+        config.hook.pytest_deselected(items=deselected)
+        items[:] = remaining
+
+
 @pytest.fixture
 def language(request):
     return "en"
@@ -90,7 +116,10 @@ def chrome_options(chrome_options, pytestconfig, language):
 
     # Set the browser language
     chrome_options.add_argument("--lang={lang}".format(lang=language))
-    chrome_options.add_experimental_option("prefs", {"intl.accept_languages": language})
+    chrome_options.add_experimental_option(
+        "prefs",
+        {"intl.accept_languages": language}
+    )
 
     return chrome_options
 
