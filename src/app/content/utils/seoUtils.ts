@@ -164,6 +164,7 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`
   );
+  console.log(treeNode)
 
   const parentTitle = treeNode.parent ? getTextContent(treeNode.parent.title) : null;
   const chapterTitle = getParentPrefix(treeNode, true).replace('Ch.', 'Chapter').trim();

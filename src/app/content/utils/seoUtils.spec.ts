@@ -1,7 +1,40 @@
+import makeArchiveLoader from '../../../test/mocks/archiveLoader';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
 import { Book, Page } from '../types';
-import { createTitle } from './seoUtils';
+import { createTitle, getPageDescription } from './seoUtils';
+import { contentPage, contentPageShort, contentPageWithObjectives, mockBook } from './seoUtils.constants';
+
+// tslint:disable: object-literal-sort-keys max-line-length
+describe('getDescription', () => {
+  const loader = makeArchiveLoader();
+  loader.mockBook(mockBook);
+
+  it('makes a description for a content page', () => {
+    loader.mockPage(mockBook, contentPage, 'page-slug');
+    const description = getPageDescription(loader, mockBook, contentPage);
+    expect(description).toMatchInlineSnapshot(
+      `"For example, take a look at the image above. This image is of the Andromeda Galaxy, which contains billions of individual stars, huge clouds of gas, and..."`
+    );
+  });
+
+  it('makes a description for a content page with insufficient text', () => {
+    loader.mockPage(mockBook, contentPageShort, 'page-slug');
+    const description = getPageDescription(loader, mockBook, contentPageShort);
+    expect(description).toMatchInlineSnapshot(
+      `"On this page you will discover the Unit Testing for Unit Testing of OpenStax's JavaScript Testing free textbook."`
+      );
+  });
+
+  it('makes a description for a content page that begins with learning objectives', () => {
+    loader.mockPage(mockBook, contentPageWithObjectives, 'page-slug');
+    const description = getPageDescription(loader, mockBook, contentPageWithObjectives);
+    expect(description).toMatchInlineSnapshot(
+      `"The forces that cause Andromeda to act as it does are the same forces we contend with here on Earth, whether we are planning to send a rocket into space..."`
+    );
+  });
+
+});
 
 describe('createTitle', () => {
   it('creates title for a page without a parent and without .os-text class in the title', () => {
