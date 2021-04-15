@@ -5,14 +5,13 @@ import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
 import { AppState } from '../../../types';
-import { assertDefined, remsToPx } from '../../../utils';
+import { assertDefined } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
-import { cardMarginBottom } from '../constants';
 import { focused } from '../selectors';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
-import { getHighlightOffset } from './cardUtils';
+import { getHighlightOffset, updateCardsPositions } from './cardUtils';
 
 export interface WrapperProps {
   hasQuery: boolean;
@@ -55,97 +54,13 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
   };
 
-  const updatePostionsStartingFromTop = (
-    positions: Map<string, number>,
-    highlightsElements: Highlight[],
-    heights: Map<string, number>,
-    addMarginToTheFirstCard = false,
-    lastVisibleCardPosition = 0,
-    lastVisibleCardHeight = 0
-  ) => {
-    for (const [index, highlight] of highlightsElements.entries()) {
-      const topOffset = getOffsetsForHighlight(highlight).top;
-
-      const marginToAdd = index > 0 || addMarginToTheFirstCard ? remsToPx(cardMarginBottom) : 0;
-      const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
-      const stackedTopOffset = Math.max(topOffset, lastVisibleCardBottom + marginToAdd);
-
-      if (heights.get(highlight.id)) {
-        lastVisibleCardPosition = stackedTopOffset;
-        lastVisibleCardHeight = heights.get(highlight.id)!;
-      }
-
-      positions.set(highlight.id, stackedTopOffset);
-    }
-
-    return positions;
-  };
-
-  const updateCardsPositions = React.useCallback(() => {
-    let newPositions = updatePostionsStartingFromTop(new Map(), highlights, cardsHeights);
-
-    const focusedPosition = focusedHighlight
-      ? cardsPositions.get(focusedHighlight.id) || 0
-      : 0;
-
-    const topOffsetFocused = focusedHighlight && focusedPosition
-      ? getOffsetsForHighlight(focusedHighlight).top
-      : 0;
-
-    const focusedHighlightIndex = focusedHighlight
-      ? highlights.findIndex((highlight) => highlight.id === focusedHighlight.id)
-      : -1;
-
-    const highlightsUpToFocused = focusedHighlightIndex > 0 ? highlights.slice(0, focusedHighlightIndex + 1) : [];
-    const highlightsAfterFocused = focusedHighlightIndex > 0 ? highlights.slice(focusedHighlightIndex + 1) : [];
-
-    const reversedHighlightsUpToFocused = highlightsUpToFocused.reverse();
-
-    const offsetToAdjust = focusedPosition - topOffsetFocused;
-
-    if (offsetToAdjust > 0) {
-      for (const [index, highlight] of reversedHighlightsUpToFocused.entries()) {
-
-        const highlightTopOffset = newPositions.get(highlight.id) as number;
-        const adjustedHighlightPosition = highlightTopOffset - offsetToAdjust;
-
-        newPositions.set(highlight.id, adjustedHighlightPosition);
-
-        const nextHighlight = reversedHighlightsUpToFocused[index + 1] as Highlight | undefined;
-        if (nextHighlight) {
-          const nextHighlightTopOffset = newPositions.get(nextHighlight.id) as number;
-          const nextHighlightHeight = cardsHeights.get(nextHighlight.id) as number;
-          const nextHighlightBottomOffset = nextHighlightTopOffset + nextHighlightHeight;
-
-          if (nextHighlightBottomOffset <= adjustedHighlightPosition) {
-            break;
-          }
-        }
-
-      }
-
-      newPositions = updatePostionsStartingFromTop(
-        newPositions,
-        highlightsAfterFocused,
-        cardsHeights,
-        true,
-        focusedHighlight ? newPositions.get(focusedHighlight.id) || 0 : 0,
-        focusedHighlight ? cardsHeights.get(focusedHighlight.id) || 0 : 0
-      );
-    }
-
-    setCardsPositions(newPositions);
+  React.useEffect(() => {
+    const positions = updateCardsPositions(focusedHighlight, highlights, cardsHeights, getOffsetsForHighlight);
+    setCardsPositions(positions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [highlights, cardsHeights, focusedHighlight]);
 
-  React.useEffect(() => {
-    if (!focusedHighlight && element.current) {
-      element.current.style.transform = '';
-    }
-  }, [focusedHighlight]);
-
-  React.useEffect(updateCardsPositions, [updateCardsPositions]);
-
+  // Scroll into view of highlight when user focuses it
   React.useEffect(() => {
     if (!focusedHighlight) { return; }
 
