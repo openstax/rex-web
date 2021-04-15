@@ -75,6 +75,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
             <button
               aria-label="Filter PQ by Chapter & Section"
               className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+              data-analytics-label="Filter PQ by Chapter & Section"
               onClick={[Function]}
             >
               <div
