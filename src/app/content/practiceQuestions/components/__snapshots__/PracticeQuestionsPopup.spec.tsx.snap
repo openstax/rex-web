@@ -23,6 +23,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       <button
         aria-label="Click to close Practice Questions modal"
         className="Button__PlainButton-ayg7nk-2 PopupStyles__CloseIconWrapper-w0z1hl-4 jafVNy"
+        data-analytics-label="Click to close Practice Questions modal"
         data-testid="close-practice-questions-popup"
         onClick={[Function]}
       >
