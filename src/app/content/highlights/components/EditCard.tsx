@@ -148,6 +148,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     className={props.className}
     ref={mergeRefs(ref, element)}
     data-analytics-region='edit-note'
+    data-highlight-card
   >
     <ColorPicker color={props.data ? props.data.color : undefined} onChange={onColorChange} onRemove={() => {
       if (props.data && !props.data.annotation && !pendingAnnotation) {
