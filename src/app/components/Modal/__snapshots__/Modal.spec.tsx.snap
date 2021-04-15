@@ -20,7 +20,7 @@ exports[`Modal matches snapshot 1`] = `
         </h1>
         <svg
           aria-hidden="true"
-          className="styles__CloseModalIcon-sc-1gxqzoa-8 jWxogI"
+          className="styles__CloseModalIcon-sc-1gxqzoa-8 cjHFEZ"
           focusable="false"
           height="15px"
           onClick={[Function]}
@@ -77,7 +77,7 @@ exports[`Modal matches snapshot with children 1`] = `
         </h1>
         <svg
           aria-hidden="true"
-          className="styles__CloseModalIcon-sc-1gxqzoa-8 jWxogI"
+          className="styles__CloseModalIcon-sc-1gxqzoa-8 cjHFEZ"
           focusable="false"
           height="15px"
           onClick={[Function]}

@@ -1,14 +1,7 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
-import { getIdVersion } from '../app/content/utils/idUtils';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
-
-interface Extras {
-  books: Array<{
-    ident_hash: string
-  }>;
-}
 
 /*
  * appUrl is reported to the app for the resolving of relative assets in the content.
@@ -42,30 +35,9 @@ export default (backendUrl: string, appUrl: string = backendUrl) => {
   const pageCache = createCache<string, ArchivePage>({maxRecords: 20});
   const pageLoader = contentsLoader<ArchivePage>(pageCache);
 
-  interface BookReference {id: string; bookVersion: string | undefined; }
-  const extrasCache = createCache<string, BookReference[]>({maxRecords: 20});
-  const getBookIdsForPage: (pageId: string) => Promise<BookReference[]> = (pageId) => {
-    const cached = extrasCache.get(pageId);
-    if (cached) {
-      return Promise.resolve(cached);
-    }
-
-    return archiveFetch<Extras>(`${backendUrl}/extras/${pageId}`)
-      .then(({books}) => books.map(({ident_hash}) => {
-        return {
-          bookVersion: getIdVersion(ident_hash),
-          id: stripIdVersion(ident_hash),
-        };
-      }))
-      .then((response) => {
-        extrasCache.set(pageId, response);
-        return response;
-      });
-  };
-
   return {
-    book: (bookId: string, bookVersion?: string) => {
-      const bookRef = bookVersion ? `${stripIdVersion(bookId)}@${bookVersion}` : stripIdVersion(bookId);
+    book: (bookId: string, bookVersion: string) => {
+      const bookRef = `${stripIdVersion(bookId)}@${bookVersion}`;
 
       return {
         cached: () => bookCache.get(bookRef),
@@ -81,6 +53,5 @@ export default (backendUrl: string, appUrl: string = backendUrl) => {
         },
       };
     },
-    getBookIdsForPage,
   };
 };
