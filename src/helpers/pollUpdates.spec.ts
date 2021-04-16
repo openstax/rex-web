@@ -147,8 +147,7 @@ describe('poll updates', () => {
       cancel = pollUpdates(store);
       jest.runOnlyPendingTimers();
 
-      await Promise.resolve(); // clear promise queue for the async poll function
-      await Promise.resolve(); // clear promise queue for the mockfetch
+      await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
       expect(configureSpy).toHaveBeenCalledWith();
     });
@@ -167,8 +166,7 @@ describe('poll updates', () => {
       cancel = pollUpdates(store);
       jest.runOnlyPendingTimers();
 
-      await Promise.resolve(); // clear promise queue for the async poll function
-      await Promise.resolve(); // clear promise queue for the mockfetch
+      await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
       expect(configureSpy).toHaveBeenCalledWith({basePath: 'coolplace.quasar.com'});
     });
