@@ -1,7 +1,7 @@
 import fs from 'fs';
 import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
-import { ArchiveBook, ArchivePage } from '../../app/content/types';
+import { ArchiveBook, ArchivePage, ArchiveTree } from '../../app/content/types';
 
 export const book = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid.json'), 'utf8')
@@ -27,11 +27,11 @@ export const lastPage = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage12-shortid.json'), 'utf8')
 ) as ArchivePage;
 
-const books: {[key: string]: ArchiveBook} = {
+const books: { [key: string]: ArchiveBook } = {
   [`${book.id}@${book.version}`]: book,
 };
 
-const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
+const bookPages: { [key: string]: { [key: string]: ArchivePage } } = {
   [`${book.id}@${book.version}`]: {
     [page.id]: page,
     [shortPage.id]: shortPage,
@@ -49,7 +49,7 @@ export default () => {
     return bookData
       ? Promise.resolve(bookData)
       : Promise.reject(new Error(`failed to load book data ${bookId}@${bookVersion}`))
-    ;
+      ;
   });
   const loadPage = jest.fn((bookId, bookVersion, pageId) => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
@@ -65,7 +65,7 @@ export default () => {
   });
 
   const getBookIdsForPage = jest.fn((_pageId: string) =>
-    Promise.resolve([] as Array<{id: string, bookVersion: string | undefined}>)
+    Promise.resolve([] as Array<{ id: string, bookVersion: string | undefined }>)
   );
 
   return {
@@ -85,13 +85,23 @@ export default () => {
       localBooks[`${newBook.id}@${newBook.version}`] = newBook;
       localBookPages[`${newBook.id}@${newBook.version}`] = {};
     },
-    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string) => {
+    // tslint:disable-next-line: max-line-length
+    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string, parentChapter: ArchiveTree = { contents: [], id: '', title: '', slug: '' }) => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
-      localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push({
-        id: `${newPage.id}@${newPage.version}`,
-        slug: pageSlug,
-        title: newPage.title,
-      });
+      if (parentChapter.title) {
+        parentChapter.contents.push({
+          id: `${newPage.id}@${newPage.version}`,
+          slug: pageSlug,
+          title: newPage.title,
+        });
+        localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push(parentChapter);
+      } else {
+        localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push({
+          id: `${newPage.id}@${newPage.version}`,
+          slug: pageSlug,
+          title: newPage.title,
+        });
+      }
     },
   };
 };

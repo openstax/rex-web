@@ -3,14 +3,21 @@ import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
 import { Book, Page } from '../types';
 import { createTitle, getPageDescription } from './seoUtils';
-import { contentPage, contentPageShort, contentPageWithObjectives, mockBook } from './seoUtils.constants';
+import {
+  answerKeyPage,
+  contentPage,
+  contentPageShort,
+  contentPageWithObjectives,
+  eobPage,
+  mockBook,
+} from './seoUtils.constants';
 
 // tslint:disable: object-literal-sort-keys max-line-length
 describe('getDescription', () => {
   const loader = makeArchiveLoader();
   loader.mockBook(mockBook);
 
-  it('makes a description for a content page', () => {
+  it('makes a description for content page', () => {
     loader.mockPage(mockBook, contentPage, 'page-slug');
     const description = getPageDescription(loader, mockBook, contentPage);
     expect(description).toMatchInlineSnapshot(
@@ -18,20 +25,34 @@ describe('getDescription', () => {
     );
   });
 
-  it('makes a description for a content page with insufficient text', () => {
-    loader.mockPage(mockBook, contentPageShort, 'page-slug');
+  it('makes a description for content page with insufficient text', () => {
+    loader.mockPage(mockBook, contentPageShort, 'page-slug', mockBook.tree.contents[1]);
     const description = getPageDescription(loader, mockBook, contentPageShort);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will discover the Unit Testing for Unit Testing of OpenStax's JavaScript Testing free textbook."`
-      );
+      `"On this page you will discover the Introduction for Chapter 1. What is a test? of OpenStax's JavaScript Testing free textbook."`
+    );
   });
 
-  it('makes a description for a content page that begins with learning objectives', () => {
+  it('makes a description for content page with learning objectives', () => {
     loader.mockPage(mockBook, contentPageWithObjectives, 'page-slug');
     const description = getPageDescription(loader, mockBook, contentPageWithObjectives);
     expect(description).toMatchInlineSnapshot(
-      `"The forces that cause Andromeda to act as it does are the same forces we contend with here on Earth, whether we are planning to send a rocket into space..."`
+      `"This is the paragraph that comes after the learning objectives section. It does not have any special classes applied...."`
     );
+  });
+
+  it('makes a description for answer key page', () => {
+    loader.mockPage(mockBook, answerKeyPage, 'page-slug', mockBook.tree.contents[1]);
+    const description = getPageDescription(loader, mockBook, answerKeyPage);
+    expect(description).toMatchInlineSnapshot(
+      `"On this page you will discover the Answer Key for Introduction of OpenStax's JavaScript Testing free textbook."`
+    );
+  });
+
+  it('makes a description for end-of-book page', () => {
+    loader.mockPage(mockBook, eobPage, 'page-slug');
+    const description = getPageDescription(loader, mockBook, eobPage);
+    expect(description).toMatchInlineSnapshot();
   });
 
 });
