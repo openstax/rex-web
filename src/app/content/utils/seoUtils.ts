@@ -58,22 +58,22 @@ export const getTextContent = (str: string) => {
   return text;
 };
 
-const removeIntroContent = (node: HTMLElement) => {
+const removeExcludedContent = (node: HTMLElement) => {
   if (!node) {
     return null;
   }
 
-  const introContentList = node.querySelectorAll(
+  const excludedContent = node.querySelectorAll(
     '[data-type="abstract"], .learning-objectives, .chapter-objectives, .be-prepared, .os-teacher'
     ) || [];
 
-  for (let i = 0; i <= introContentList.length; i++) {
-    if (introContentList[i]) {
-      const parent = introContentList[i].parentNode;
+  for (let i = 0; i <= excludedContent.length; i++) {
+    if (excludedContent[i]) {
+      const parent = excludedContent[i].parentNode;
       if (parent === null) {
         break;
       }
-      parent.removeChild(introContentList[i]);
+      parent.removeChild(excludedContent[i]);
     }
   }
 };
@@ -110,7 +110,7 @@ const getPageDescriptionFromContent = (node: HTMLElement): string | null => {
   if (!node) {
     return null;
   }
-  removeIntroContent(node);
+  removeExcludedContent(node);
   const firstSection = node.querySelector('section');
   let para: Element | null = firstSection
     ? firstSection.querySelector('p')
