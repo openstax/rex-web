@@ -12,7 +12,7 @@ import {
   splitTitleParts,
 } from './archiveTreeUtils';
 
-type PageTypes = 'page' | 'answer-key' | 'eoc-sub-page' | 'eoc-page' | 'eob-page';
+type PageTypes = 'page' | 'answer-key' | 'subpage' | 'eoc-page' | 'eob-page';
 
 interface DescriptionTemplateValues {
   parentTitle: string;
@@ -74,7 +74,7 @@ const removeExcludedContent = (node: HTMLElement) => {
 };
 
 export const generateExcerpt = (str: string) => {
-  return str.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 152) + '...';
+  return str.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 152) + '...';
 };
 
 const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): PageTypes => {
@@ -92,7 +92,7 @@ const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): Page
     ) {
     return 'answer-key';
   } else if (parentType !== 'chapter' && parentType !== 'book') {
-    return 'eoc-sub-page';
+    return 'subpage';
   } else if (pageTitle !== parentPrefix) {
     return 'eoc-page';
   } else {
@@ -105,29 +105,15 @@ const getPageDescriptionFromContent = (node: HTMLElement): string | null => {
     return null;
   }
   removeExcludedContent(node);
-  const firstSection = node.querySelector('section');
-  let para: Element | null = firstSection
-    ? firstSection.querySelector('p')
-    : node.querySelector('p');
+  const paragraphs = node.querySelectorAll(':scope>section>p,:scope>p');
 
-  if (!para || !para.textContent) {
+  if (!paragraphs) {
     return null;
   }
 
-  // Find first <p> of 90+ chars.
-  if (para.textContent.length >= 90) {
-    const mathless = hideMath(para);
-    return mathless ? generateExcerpt(mathless) : null;
-  } else {
-    const text = para.textContent;
-    const next = para.nextElementSibling;
-    while (text && text.length < 90 && next) {
-      if (next.matches('p')) {
-        para = next;
-      }
-    }
-    return null;
-  }
+  const foundByLength = Array.from(paragraphs).find((p) => p.textContent ? p.textContent.length >= 90 : null);
+  const mathless = foundByLength ? hideMath(foundByLength) : null;
+  return mathless ? generateExcerpt(mathless) : null;
 };
 
 // tslint:disable: max-line-length
@@ -138,7 +124,7 @@ const generateDescriptionFromTemplate = (pageType: PageTypes, values: Descriptio
       return `On this page you will discover the ${pageTitle} for ${parentPrefix} of OpenStax's ${bookTitle} free textbook.`;
     case 'answer-key':
       return `On this page you will discover the Answer Key for ${pageTitle} of OpenStax's ${bookTitle} free textbook.`;
-    case 'eoc-sub-page':
+    case 'subpage':
       return `On this page you will discover ${parentTitle}: ${pageTitle} for ${parentPrefix} of OpenStax's ${bookTitle} free textbook.`;
     case 'eoc-page':
       return `On this page you will discover the ${pageTitle} for ${parentPrefix} of OpenStax's ${bookTitle} free textbook.`;
