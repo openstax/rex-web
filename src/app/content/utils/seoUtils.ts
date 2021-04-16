@@ -69,11 +69,7 @@ const removeExcludedContent = (node: HTMLElement) => {
 
   for (let i = 0; i <= excludedContent.length; i++) {
     if (excludedContent[i]) {
-      const parent = excludedContent[i].parentNode;
-      if (parent === null) {
-        break;
-      }
-      parent.removeChild(excludedContent[i]);
+      excludedContent[i].remove();
     }
   }
 };
