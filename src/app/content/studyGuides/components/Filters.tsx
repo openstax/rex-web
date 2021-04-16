@@ -132,8 +132,9 @@ export default () => {
       show={isUTGopen}
     />
     {!userLoggedOut && <ConnectedFilterList
-      colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
+      colorAriaLabelKey='i18n:studyguides:popup:filters:remove:color'
       colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
+      chapterAriaLabelKey='i18n:studyguides:popup:filters:remove:chapter'
     />}
   </Filters>;
 };

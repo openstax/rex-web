@@ -54,7 +54,7 @@ const FilterListItem = styled.li`
 
 interface FiltersListColorProps {
   color: HighlightColorEnum;
-  ariaLabelKey: (color: HighlightColorEnum) => string;
+  ariaLabelKey: string;
   labelKey: (color: HighlightColorEnum) => string;
   onRemove: () => void;
 }
@@ -63,7 +63,7 @@ interface FiltersListColorProps {
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <FilterListItem>
     <StyledPlainButton
-      aria-label={useIntl().formatMessage({id: props.ariaLabelKey(props.color)}, {filterValue: props.color})}
+      aria-label={useIntl().formatMessage({id: props.ariaLabelKey}, {filterValue: props.color})}
       onClick={props.onRemove}
       data-analytics-label={`Remove breadcrumb for color ${props.color}`}
     >
@@ -79,6 +79,7 @@ export const FiltersListColor = (props: FiltersListColorProps) => (
 );
 
 interface FiltersListChapterProps {
+  ariaLabelKey: string;
   title: string;
   locationId: string;
   onRemove: () => void;
@@ -88,9 +89,9 @@ interface FiltersListChapterProps {
 export const FiltersListChapter = (props: FiltersListChapterProps) => (
   <FilterListItem>
     <StyledPlainButton
-      aria-label={useIntl().formatMessage({
-        id: 'i18n:highlighting:filters:remove:chapter'},
-        {filterValue: splitTitleParts(props.title).join(' ')}
+      aria-label={useIntl().formatMessage(
+        { id: props.ariaLabelKey },
+        { filterValue: splitTitleParts(props.title).join(' ') }
       )}
       data-analytics-label={`Remove breadcrumb for chapter ${splitTitleParts(props.title).join(' ')}`}
       onClick={props.onRemove}
@@ -107,7 +108,8 @@ interface FiltersListProps {
   selectedLocationFilters: Set<string>;
   selectedColorFilters: Set<HighlightColorEnum>;
   setFilters: (change: SummaryFiltersUpdate) => void;
-  colorAriaLabelKey: (color: HighlightColorEnum) => string;
+  chapterAriaLabelKey: string;
+  colorAriaLabelKey: string;
   colorLabelKey: (color: HighlightColorEnum) => string;
 }
 
@@ -118,6 +120,7 @@ const FiltersList = ({
   selectedColorFilters,
   selectedLocationFilters,
   setFilters,
+  chapterAriaLabelKey,
   colorAriaLabelKey,
   colorLabelKey,
 }: FiltersListProps) => {
@@ -141,6 +144,7 @@ const FiltersList = ({
       title={location.section.title}
       locationId={locationId}
       onRemove={() => onRemoveChapter(location.section)}
+      ariaLabelKey={chapterAriaLabelKey}
     />)}
     {selectedColorFilters && [...selectedColorFilters].sort().map((color) => <FiltersListColor
       key={color}

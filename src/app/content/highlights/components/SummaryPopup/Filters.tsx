@@ -97,7 +97,8 @@ export default () =>
       <ConnectedPrintButton />
     </FiltersTopBar>
     <ConnectedFilterList
-      colorAriaLabelKey={() => 'i18n:highlighting:filters:remove:color'}
+      colorAriaLabelKey='i18n:highlighting:filters:remove:color'
       colorLabelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+      chapterAriaLabelKey='i18n:highlighting:filters:remove:chapter'
     />
   </Filters>;
