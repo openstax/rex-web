@@ -66,7 +66,7 @@ describe('isPracticeQuestionsOpen', () => {
     expect(selectors.isPracticeQuestionsOpen(rootState)).toBe(false);
   });
 
-  it('returns true if ff is not enabled', () => {
+  it('returns false if ff is not enabled', () => {
     const rootState = ({
     content: {
     practiceQuestions: {
@@ -82,6 +82,6 @@ describe('isPracticeQuestionsOpen', () => {
     },
     } as any) as AppState;
 
-    expect(selectors.isPracticeQuestionsOpen(rootState)).toBe(true);
+    expect(selectors.isPracticeQuestionsOpen(rootState)).toBe(false);
   });
 });

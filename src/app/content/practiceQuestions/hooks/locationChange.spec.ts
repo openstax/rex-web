@@ -249,4 +249,36 @@ describe('loadPracticeQuestionsSummaryHookBody', () => {
     expect(getSummary).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
   });
+
+  it('does not dispatch setSelectedSection if it is already set', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+    store.dispatch(setSelectedSection({ id: 'asd' } as any));
+
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+      [modalQueryParameterName]: modalUrlName,
+    });
+
+    await hookBody();
+
+    expect(dispatch).not.toHaveBeenCalledWith(setSelectedSection(expect.anything()));
+  });
+
+  it('does not dispatch receivePracticeQuestionsSummary if there are none', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+      [modalQueryParameterName]: modalUrlName,
+    });
+
+    jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
+      .mockResolvedValue(undefined);
+
+    await hookBody();
+
+    expect(dispatch).not.toHaveBeenCalledWith(receivePracticeQuestionsSummary(expect.anything()));
+  });
 });
