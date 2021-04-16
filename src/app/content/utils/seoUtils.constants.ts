@@ -34,7 +34,7 @@ export const mockBook = {
           {
             id: '4',
             title: '<span data-type="" itemprop="" class="os-text">Chapter Review</span>',
-            slug: 'chapter-review-slug',
+            slug: '3-chapter-review-slug',
             contents: [],
           },
         ],
