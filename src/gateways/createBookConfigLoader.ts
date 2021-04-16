@@ -16,8 +16,11 @@ interface ReleaseJsonStructure {
   id: string;
 }
 
+const cachedBooks = { ...BOOKS } as BookConfig;
+
 export default (baseUrl: string) => {
-  const loadRemoteBookConfig = (url: string): Promise<BookConfig | undefined> => {
+  const loadRemoteBookConfig = (): Promise<BookConfig | undefined> => {
+    const url = `${baseUrl}/rex/release.json`;
     return fetch(url)
       .then(acceptStatus(200, (status, message) => `Error response from "${url}" ${status}: ${message}`))
       .then((response) => response.json() as Promise<ReleaseJsonStructure>)
@@ -30,8 +33,14 @@ export default (baseUrl: string) => {
 
   return {
     getBookVersionFromUUID: (uuid: string): BookVersion | Promise<BookVersion | undefined> => {
-      const url = `${baseUrl}/rex/release.json`;
-      return BOOKS[uuid] ? BOOKS[uuid] : loadRemoteBookConfig(url).then((books) => books && books[uuid]);
+      return cachedBooks[uuid] ? cachedBooks[uuid] : loadRemoteBookConfig().then((books) => {
+        let bookVersion;
+        if (books && uuid in books) {
+          bookVersion = books[uuid];
+          cachedBooks[uuid] = bookVersion;
+        }
+        return bookVersion;
+      });
     },
   };
 };
