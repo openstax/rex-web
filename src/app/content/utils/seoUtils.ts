@@ -62,7 +62,6 @@ const removeExcludedContent = (node: HTMLElement) => {
   if (!node) {
     return null;
   }
-
   const excludedContent = node.querySelectorAll(
     '[data-type="abstract"], .learning-objectives, .chapter-objectives, .be-prepared, .os-teacher'
     ) || [];
@@ -82,11 +81,10 @@ const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): Page
   const {parentType, parentPrefix, pageTitle} = values;
   const nodeClasses = node.classList;
   const nodeType = node.getAttribute('data-type');
-  console.log(values);
 
-  if (nodeType === 'page') {
+  if (nodeType === 'page' && !nodeClasses.contains('appendix')) {
     return 'page';
-  } else if (nodeClasses.contains('appendix')) {
+  } else if (pageTitle === parentPrefix) {
     return 'eob-page';
   } else if (
     nodeClasses.contains('os-solution-container')
@@ -98,7 +96,7 @@ const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): Page
   } else if (pageTitle !== parentPrefix) {
     return 'eoc-page';
   } else {
-    return 'eob-page';
+    throw new Error('no page type detected');
   }
 };
 
@@ -151,6 +149,27 @@ const generateDescriptionFromTemplate = (pageType: PageTypes, values: Descriptio
   }
 };
 
+const getTemplateVars = (book: Book, node: LinkedArchiveTreeNode) => {
+  const parentTitle = node.parent ? getTextContent(node.parent.title) : null;
+  const parentPrefix = getParentPrefix(node, true).replace('Ch.', 'Chapter').trim();
+  const pageTitle = getArchiveTreeSectionTitle(node);
+  const parentType = node.parent && archiveTreeSectionIsChapter(node.parent)
+    ? 'chapter'
+    : (node.parent && archiveTreeSectionIsBook(node.parent)
+      ? 'book'
+      : 'other');
+
+  const values: DescriptionTemplateValues = {
+    bookTitle: book.title,
+    pageTitle,
+    parentPrefix,
+    parentTitle,
+    parentType,
+  };
+
+  return values;
+};
+
 export const getPageDescription = (loader: AppServices['archiveLoader'], book: Book, page: Page) => {
   const cleanContent = getCleanContent(book, page, loader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
@@ -160,23 +179,7 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
     `couldn't find node for a page id: ${page.id}`
   );
 
-  const parentTitle = treeNode.parent ? getTextContent(treeNode.parent.title) : null;
-  const parentPrefix = getParentPrefix(treeNode, true).replace('Ch.', 'Chapter').trim();
-  const pageTitle = getArchiveTreeSectionTitle(treeNode);
-  const parentType = treeNode.parent && archiveTreeSectionIsChapter(treeNode.parent)
-    ? 'chapter'
-    : (treeNode.parent && archiveTreeSectionIsBook(treeNode.parent)
-      ? 'book'
-      : 'other');
-
-  const values: DescriptionTemplateValues = {
-    bookTitle: book.title,
-    parentPrefix,
-    pageTitle,
-    parentTitle,
-    parentType,
-  };
-
+  const values = getTemplateVars(book, treeNode);
   const pageType = getPageType(node, values);
 
   const contentDescription: string | null = pageType === 'page'
