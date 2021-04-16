@@ -12,14 +12,14 @@ import {
   splitTitleParts,
 } from './archiveTreeUtils';
 
-type PageTypes = 'page' | 'appendix' | 'answer-key' | 'eoc-sub-page' | 'eoc-page' | 'eob-page';
+type PageTypes = 'page' | 'answer-key' | 'eoc-sub-page' | 'eoc-page' | 'eob-page';
 
 interface DescriptionTemplateValues {
   parentTitle: string;
   parentType: 'chapter' | 'book' | 'other';
   pageTitle: string;
   bookTitle: string;
-  chapterTitle: string;
+  parentPrefix: string;
 }
 
 const domParser = new DOMParser();
@@ -75,27 +75,27 @@ const removeExcludedContent = (node: HTMLElement) => {
 };
 
 export const generateExcerpt = (str: string) => {
-  return str.replace(/\n/g, ' ').replace(/\s\s/g, ' ').trim().substring(0, 152) + '...';
+  return str.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 152) + '...';
 };
 
-// tslint:disable-next-line: max-line-length
 const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): PageTypes => {
-  const {parentType, chapterTitle, pageTitle} = values;
+  const {parentType, parentPrefix, pageTitle} = values;
   const nodeClasses = node.classList;
   const nodeType = node.getAttribute('data-type');
+  console.log(values);
 
   if (nodeType === 'page') {
     return 'page';
   } else if (nodeClasses.contains('appendix')) {
-    return 'appendix';
+    return 'eob-page';
   } else if (
     nodeClasses.contains('os-solution-container')
       || nodeClasses.contains('os-solutions-container')
-      ) {
+    ) {
     return 'answer-key';
   } else if (parentType !== 'chapter' && parentType !== 'book') {
     return 'eoc-sub-page';
-  } else if (pageTitle !== chapterTitle) {
+  } else if (pageTitle !== parentPrefix) {
     return 'eoc-page';
   } else {
     return 'eob-page';
@@ -134,17 +134,17 @@ const getPageDescriptionFromContent = (node: HTMLElement): string | null => {
 
 // tslint:disable: max-line-length
 const generateDescriptionFromTemplate = (pageType: PageTypes, values: DescriptionTemplateValues) => {
-  const {parentTitle, pageTitle, bookTitle, chapterTitle} = values;
+  const {parentTitle, pageTitle, bookTitle, parentPrefix} = values;
   switch (pageType) {
     case 'page':
-      return `On this page you will discover the ${pageTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
+      return `On this page you will discover the ${pageTitle} for ${parentPrefix} of OpenStax's ${bookTitle} free textbook.`;
     case 'answer-key':
       return `On this page you will discover the Answer Key for ${pageTitle} of OpenStax's ${bookTitle} free textbook.`;
     case 'eoc-sub-page':
-      return `On this page you will discover ${parentTitle}: ${pageTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
+      return `On this page you will discover ${parentTitle}: ${pageTitle} for ${parentPrefix} of OpenStax's ${bookTitle} free textbook.`;
     case 'eoc-page':
-      return `On this page you will discover the ${pageTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
-    case 'eob-page' || 'appendix':
+      return `On this page you will discover the ${pageTitle} for ${parentPrefix} of OpenStax's ${bookTitle} free textbook.`;
+    case 'eob-page':
       return `On this page you will discover the ${pageTitle} for OpenStax's ${bookTitle} free textbook.`;
     default:
        throw new Error('unknown page type');
@@ -161,7 +161,7 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
   );
 
   const parentTitle = treeNode.parent ? getTextContent(treeNode.parent.title) : null;
-  const chapterTitle = getParentPrefix(treeNode, true).replace('Ch.', 'Chapter').trim();
+  const parentPrefix = getParentPrefix(treeNode, true).replace('Ch.', 'Chapter').trim();
   const pageTitle = getArchiveTreeSectionTitle(treeNode);
   const parentType = treeNode.parent && archiveTreeSectionIsChapter(treeNode.parent)
     ? 'chapter'
@@ -171,7 +171,7 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
 
   const values: DescriptionTemplateValues = {
     bookTitle: book.title,
-    chapterTitle,
+    parentPrefix,
     pageTitle,
     parentTitle,
     parentType,
