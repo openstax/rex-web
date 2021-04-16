@@ -65,7 +65,7 @@ describe('getDescription', () => {
     loader.mockPage(mockBook, eocSubPage, 'page-slug', chapter, chapterSection);
     const description = getPageDescription(loader, mockBook, eocSubPage);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will discover the Chapter Review: Key Concepts for Chapter 2. Unit Testing of OpenStax's JavaScript Testing free textbook."`
+      `"On this page you will discover Chapter Review: Key Concepts for Chapter 2. Unit Testing of OpenStax's JavaScript Testing free textbook."`
     );
   });
 

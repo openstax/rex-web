@@ -145,7 +145,7 @@ const generateDescriptionFromTemplate = (pageType: PageTypes, values: Descriptio
     case 'answer-key':
       return `On this page you will discover the Answer Key for ${pageTitle} of OpenStax's ${bookTitle} free textbook.`;
     case 'eoc-sub-page':
-      return `On this page you will discover the ${parentTitle}: ${pageTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
+      return `On this page you will discover ${parentTitle}: ${pageTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
     case 'eoc-page':
       return `On this page you will discover the ${pageTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
     case 'eob-page' || 'appendix':
