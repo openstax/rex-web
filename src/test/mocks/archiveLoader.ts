@@ -27,11 +27,11 @@ export const lastPage = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid:testpage12-shortid.json'), 'utf8')
 ) as ArchivePage;
 
-const books: { [key: string]: ArchiveBook } = {
+const books: {[key: string]: ArchiveBook} = {
   [`${book.id}@${book.version}`]: book,
 };
 
-const bookPages: { [key: string]: { [key: string]: ArchivePage } } = {
+const bookPages: {[key: string]: {[key: string]: ArchivePage }} = {
   [`${book.id}@${book.version}`]: {
     [page.id]: page,
     [shortPage.id]: shortPage,
@@ -49,7 +49,7 @@ export default () => {
     return bookData
       ? Promise.resolve(bookData)
       : Promise.reject(new Error(`failed to load book data ${bookId}@${bookVersion}`))
-      ;
+    ;
   });
   const loadPage = jest.fn((bookId, bookVersion, pageId) => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
@@ -65,7 +65,7 @@ export default () => {
   });
 
   const getBookIdsForPage = jest.fn((_pageId: string) =>
-    Promise.resolve([] as Array<{ id: string, bookVersion: string | undefined }>)
+    Promise.resolve([] as Array<{id: string, bookVersion: string | undefined}>)
   );
 
   return {
