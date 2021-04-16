@@ -12,9 +12,9 @@ import {
   eocPage,
   eocSubPage,
   mockBook,
-} from './seoUtils.constants';
+} from './seoUtils.spec.data';
 
-// tslint:disable: object-literal-sort-keys max-line-length
+// tslint:disable: max-line-length
 describe('getDescription', () => {
   const loader = makeArchiveLoader();
   loader.mockBook(mockBook);
