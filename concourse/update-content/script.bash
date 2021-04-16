@@ -20,13 +20,14 @@ data=$(curl -sL "https://github.com/openstax/content-manager-approved-books/raw/
 
 # script will return a JSON object with book ids and new versions only for books that doesn't mach current config
 book_ids_and_versions=$(node script/entry.js transform-approved-books-data --data "$data")
-book_ids=$(echo "$book_ids_and_versions" | jq -r 'keys | .[]')
+book_entries=$(echo "$book_ids_and_versions" | jq -c 'to_entries | .[]')
 
 git remote set-branches origin 'update-content-*'
 git remote set-branches origin --add "$rex_default_branch"
 
-for book_id in $book_ids; do
-  new_version=$(echo "$book_ids_and_versions" | jq -r --arg uuid "$book_id" '.[$uuid]')
+for book_and_version in $book_entries; do
+  book_id=$(echo "$book_and_version" | jq '.key')
+  new_version=$(echo "$book_and_version" | jq '.value')
 
   branch="update-content-$book_id"
   git fetch

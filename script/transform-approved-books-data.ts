@@ -1,5 +1,6 @@
 import semverSort from 'semver-sort';
 import { argv } from 'yargs';
+import { assertNotNull } from '../src/app/utils';
 import { REACT_APP_ARCHIVE_URL } from '../src/config';
 import configuredBooks from '../src/config.books';
 
@@ -99,8 +100,10 @@ const getDesiredVersion = (
   colOrRepo: ApprovedRepo | ApprovedCollection
 ): string | undefined => {
   // Example archive code version: 20210224.204120
-  const archiveVersionMatch = REACT_APP_ARCHIVE_URL.match(/[0-9]+\.[0-9]+/);
-  const archiveVersion = archiveVersionMatch ? archiveVersionMatch[0] : undefined;
+  const archiveVersion = assertNotNull(
+    REACT_APP_ARCHIVE_URL.match(/[0-9]+\.[0-9]+/),
+    'REACT_APP_ARCHIVE_URL does not contain valid code version'
+  )[0];
 
   const [filter, transformVersion, sortFunction] = isApprovedCollection(colOrRepo)
     ? [
