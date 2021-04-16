@@ -27,7 +27,8 @@ export const hasPracticeQuestions = createSelector(
 export const isPracticeQuestionsOpen = createSelector(
   hasPracticeQuestions,
   navigationSelectors.query,
-  (hasPQ, query) => hasPQ && query && query.modal === modalUrlName
+  practiceQuestionsEnabled,
+  (hasPQ, query, isEnabled) => hasPQ && query && query.modal === modalUrlName && isEnabled
 );
 
 export const practiceQuestionsAreLoading = createSelector(
