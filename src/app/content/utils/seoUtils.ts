@@ -156,7 +156,6 @@ const generateDescriptionFromTemplate = (pageType: PageTypes, values: Descriptio
 };
 
 export const getPageDescription = (loader: AppServices['archiveLoader'], book: Book, page: Page) => {
-  console.log(page);
   const cleanContent = getCleanContent(book, page, loader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const node = doc.body.children[0];

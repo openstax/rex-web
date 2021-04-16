@@ -86,21 +86,23 @@ export default () => {
       localBookPages[`${newBook.id}@${newBook.version}`] = {};
     },
     // tslint:disable-next-line: max-line-length
-    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string, parentChapter?: ArchiveTree) => {
+    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string, parentChapter?: ArchiveTree, parentSection?: ArchiveTree) => {
+      const pageObj = {
+        id: `${newPage.id}@${newPage.version}`,
+        slug: pageSlug,
+        title: newPage.title,
+      };
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
       if (parentChapter) {
-        parentChapter.contents.push({
-          id: `${newPage.id}@${newPage.version}`,
-          slug: pageSlug,
-          title: newPage.title,
-        });
+        if (parentSection) {
+          parentSection.contents.push(pageObj);
+          parentChapter.contents.push(parentSection);
+        } else {
+          parentChapter.contents.push(pageObj);
+        }
         localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push(parentChapter);
       } else {
-        localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push({
-          id: `${newPage.id}@${newPage.version}`,
-          slug: pageSlug,
-          title: newPage.title,
-        });
+        localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push(pageObj);
       }
     },
   };

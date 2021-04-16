@@ -9,6 +9,8 @@ import {
   contentPageShort,
   contentPageWithObjectives,
   eobPage,
+  eocPage,
+  eocSubPage,
   mockBook,
 } from './seoUtils.constants';
 
@@ -46,6 +48,24 @@ describe('getDescription', () => {
     const description = getPageDescription(loader, mockBook, answerKeyPage);
     expect(description).toMatchInlineSnapshot(
       `"On this page you will discover the Answer Key for Chapter 3 of OpenStax's JavaScript Testing free textbook."`
+    );
+  });
+
+  it('makes a description for end-of-chapter page', () => {
+    loader.mockPage(mockBook, eocPage, 'page-slug', mockBook.tree.contents[2]);
+    const description = getPageDescription(loader, mockBook, eocPage);
+    expect(description).toMatchInlineSnapshot(
+      `"On this page you will discover the Review Questions for Chapter 2. Unit Testing of OpenStax's JavaScript Testing free textbook."`
+    );
+  });
+
+  it('makes a description for end-of-chapter subpage', () => {
+    const chapter = mockBook.tree.contents[2];
+    const chapterSection = mockBook.tree.contents[2].contents[0];
+    loader.mockPage(mockBook, eocSubPage, 'page-slug', chapter, chapterSection);
+    const description = getPageDescription(loader, mockBook, eocSubPage);
+    expect(description).toMatchInlineSnapshot(
+      `"On this page you will discover the Chapter Review: Key Concepts for Chapter 2. Unit Testing of OpenStax's JavaScript Testing free textbook."`
     );
   });
 
