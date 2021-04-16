@@ -45,14 +45,16 @@ describe('getDescription', () => {
     loader.mockPage(mockBook, answerKeyPage, 'page-slug', mockBook.tree.contents[1]);
     const description = getPageDescription(loader, mockBook, answerKeyPage);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will discover the Answer Key for Introduction of OpenStax's JavaScript Testing free textbook."`
+      `"On this page you will discover the Answer Key for Chapter 3 of OpenStax's JavaScript Testing free textbook."`
     );
   });
 
   it('makes a description for end-of-book page', () => {
     loader.mockPage(mockBook, eobPage, 'page-slug');
     const description = getPageDescription(loader, mockBook, eobPage);
-    expect(description).toMatchInlineSnapshot();
+    expect(description).toMatchInlineSnapshot(
+      `"On this page you will discover the References for OpenStax's JavaScript Testing free textbook."`
+    );
   });
 
 });

@@ -20,7 +20,6 @@ interface DescriptionTemplateValues {
   pageTitle: string;
   bookTitle: string;
   chapterTitle: string;
-  sectionTitle: string;
 }
 
 const domParser = new DOMParser();
@@ -85,7 +84,7 @@ export const generateExcerpt = (str: string) => {
 
 // tslint:disable-next-line: max-line-length
 const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): PageTypes => {
-  const {parentType, chapterTitle, sectionTitle} = values;
+  const {parentType, chapterTitle, pageTitle} = values;
   const nodeClasses = node.classList;
   const nodeType = node.getAttribute('data-type');
 
@@ -100,7 +99,7 @@ const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): Page
     return 'answer-key';
   } else if (parentType !== 'chapter' && parentType !== 'book') {
     return 'eoc-sub-page';
-  } else if (sectionTitle !== chapterTitle) {
+  } else if (pageTitle !== chapterTitle) {
     return 'eoc-page';
   } else {
     return 'eob-page';
@@ -139,18 +138,18 @@ const getPageDescriptionFromContent = (node: HTMLElement): string | null => {
 
 // tslint:disable: max-line-length
 const generateDescriptionFromTemplate = (pageType: PageTypes, values: DescriptionTemplateValues) => {
-  const {parentTitle, pageTitle, bookTitle, chapterTitle, sectionTitle} = values;
+  const {parentTitle, pageTitle, bookTitle, chapterTitle} = values;
   switch (pageType) {
     case 'page':
       return `On this page you will discover the ${pageTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
     case 'answer-key':
       return `On this page you will discover the Answer Key for ${pageTitle} of OpenStax's ${bookTitle} free textbook.`;
     case 'eoc-sub-page':
-      return `On this page you will discover the ${parentTitle}: ${sectionTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
+      return `On this page you will discover the ${parentTitle}: ${pageTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
     case 'eoc-page':
-      return `On this page you will discover the ${sectionTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
+      return `On this page you will discover the ${pageTitle} for ${chapterTitle} of OpenStax's ${bookTitle} free textbook.`;
     case 'eob-page' || 'appendix':
-      return `On this page you will discover the ${sectionTitle} for OpenStax's ${bookTitle} free textbook.`;
+      return `On this page you will discover the ${pageTitle} for OpenStax's ${bookTitle} free textbook.`;
     default:
        throw new Error('unknown page type');
   }
@@ -168,7 +167,6 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
   const parentTitle = treeNode.parent ? getTextContent(treeNode.parent.title) : null;
   const chapterTitle = getParentPrefix(treeNode, true).replace('Ch.', 'Chapter').trim();
   const pageTitle = getArchiveTreeSectionTitle(treeNode);
-  const sectionTitle = treeNode.parent ? getTextContent(treeNode.parent.title) : null;
   const parentType = treeNode.parent && archiveTreeSectionIsChapter(treeNode.parent)
     ? 'chapter'
     : (treeNode.parent && archiveTreeSectionIsBook(treeNode.parent)
@@ -181,13 +179,10 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
     pageTitle,
     parentTitle,
     parentType,
-    sectionTitle,
   };
 
-  console.log(values);
-
   const pageType = getPageType(node, values);
-  console.log(pageType);
+  console.log(pageType, treeNode, values)
 
   const contentDescription: string | null = pageType === 'page'
     ? getPageDescriptionFromContent(node)

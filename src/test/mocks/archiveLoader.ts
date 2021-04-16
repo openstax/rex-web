@@ -86,9 +86,9 @@ export default () => {
       localBookPages[`${newBook.id}@${newBook.version}`] = {};
     },
     // tslint:disable-next-line: max-line-length
-    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string, parentChapter: ArchiveTree = { contents: [], id: '', title: '', slug: '' }) => {
+    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string, parentChapter?: ArchiveTree) => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
-      if (parentChapter.title) {
+      if (parentChapter) {
         parentChapter.contents.push({
           id: `${newPage.id}@${newPage.version}`,
           slug: pageSlug,
