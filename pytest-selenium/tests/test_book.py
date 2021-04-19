@@ -208,7 +208,7 @@ def test_bookbanner_behavior_in_rex_404_page(selenium, base_url, book_slug, page
     # THEN: Page title is not displayed in the book banner
     with pytest.raises(NoSuchElementException):
         assert not book_banner.section_title, (
-            "Page title is displayed in the book banner when rex 404 is displayed"
+            "Page title displayed in the book banner when rex 404 is displayed"
         )
 
     # AND: Clicking book title in book banner opens the osweb book details page
@@ -222,6 +222,7 @@ def test_bookbanner_behavior_in_rex_404_page(selenium, base_url, book_slug, page
     # AND: Navigating back to rex does not display the rex 404 page
     osweb.fix_view_online_url(base_url)
     book.click_and_wait_for_load(osweb.view_online)
+    book.wait_for_page_to_load()
     assert toc.sections[1].is_active
     assert not book.content.page_error_displayed
 

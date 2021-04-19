@@ -37,7 +37,9 @@ class ContentError(Exception):
 
 class Content(Page):
 
+    PAGE_MISSING = "Uh oh, we can't find the page you requested."
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
+    _404_ERROR = "<h1>Uh-oh, no page here</h1>"
 
     _body_locator = (By.CSS_SELECTOR, "body")
     _book_section_content_locator = (By.CSS_SELECTOR, "[class*=MinPageHeight]")
@@ -57,7 +59,19 @@ class Content(Page):
 
     @property
     def loaded(self) -> bool:
-        return bool(self.find_element(*self._body_locator).get_attribute("data-rex-loaded"))
+        """Return True when the page is load or an error pane is found.
+
+        :return: ``True`` when the page is loaded, the page not found message
+            is displayed, or the 404 error page is displayed
+        :rtype: bool
+
+        """
+        body = self.find_elements(*self._body_locator)
+        data_load = body[0].get_attribute("data-rex-loaded") if body else None
+        source = self.driver.page_source
+        page_missing = self.PAGE_MISSING in source
+        _404_error = self._404_ERROR in source
+        return data_load or page_missing or _404_error
 
     @property
     def attribution(self) -> Content.Attribution:
