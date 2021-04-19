@@ -105,7 +105,7 @@ const getPageDescriptionFromContent = (node: HTMLElement): string | null => {
     return null;
   }
   removeExcludedContent(node);
-  const paragraphs = node.querySelectorAll(':scope>section>p,:scope>p');
+  const paragraphs = node.querySelectorAll('section>p') || node.querySelectorAll('p');
 
   if (!paragraphs) {
     return null;
