@@ -2074,25 +2074,46 @@ def test_practice_read_link_ga_event(
     assert(last_event["eventLabel"] in event_label)
 
 
-@markers.test_case("")
+@markers.test_case("C622245")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "2-4-velocity-vs-time-graphs")]
+)
+def test_pq_continue_to_next_section_button_click_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when continuing to next pq set."""
     # SETUP:
-    event_action = ""
-    event_category = ""
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = "Continue (Final Screen)"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
 
-    # GIVEN:
+    # GIVEN: a student viewing the practice question modal
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
 
-    # WHEN:
+    # WHEN:  they answer each question
+    # AND:   click the 'Continue' button
+    practice.content.start_now()
+    for question in practice.content.questions:
+        answer = random.choice(practice.content.answers)
+        answer.select()
+        practice.content.submit()
+        try:
+            practice.content._next()
+        except NoSuchElementException:
+            practice.content.finish()
+
+    event_label = f"{practice.content.number} {practice.content.title}"
+    practice.content._continue()
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
-    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { eventAction: "Continue (Final Screen)",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{section page title}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
     assert(
         "eventAction" in last_event and
