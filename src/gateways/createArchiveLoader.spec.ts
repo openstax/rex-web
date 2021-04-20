@@ -27,28 +27,28 @@ describe('archiveLoader', () => {
       });
 
       it('requests data from archive url for book', () => {
-        archiveLoader.book('coolid', undefined).load();
+        archiveLoader.book('coolid', 'version').load();
 
-        expect(fetch).toHaveBeenCalledWith('url/contents/coolid.json');
+        expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version.json');
       });
 
       it('requests data from archive url for page', () => {
-        archiveLoader.book('coolid', undefined).page('coolpageid').load();
+        archiveLoader.book('coolid', 'version').page('coolpageid').load();
 
-        expect(fetch).toHaveBeenCalledWith('url/contents/coolid:coolpageid.json');
+        expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version:coolpageid.json');
       });
 
       it('returns cached book data', async() => {
-        const one = await archiveLoader.book('coolid', undefined).load();
-        const two = archiveLoader.book('coolid', undefined).cached();
+        const one = await archiveLoader.book('coolid', 'version').load();
+        const two = archiveLoader.book('coolid', 'version').cached();
 
         expect(fetch).toHaveBeenCalledTimes(1);
         expect(two).toBe(one);
       });
 
       it('returns cached page data', async() => {
-        const one = await archiveLoader.book('coolid', undefined).page('coolpageid').load();
-        const two = archiveLoader.book('coolid', undefined).page('coolpageid').cached();
+        const one = await archiveLoader.book('coolid', 'version').page('coolpageid').load();
+        const two = archiveLoader.book('coolid', 'version').page('coolpageid').cached();
 
         expect(fetch).toHaveBeenCalledTimes(1);
         expect(two).toBe(one);
@@ -67,12 +67,12 @@ describe('archiveLoader', () => {
       });
 
       it('memoizes requests', async() => {
-        await archiveLoader.book('coolid', undefined).load();
-        await archiveLoader.book('coolid2', undefined).load();
-        await archiveLoader.book('coolid', undefined).load();
-        await archiveLoader.book('coolid1', undefined).load();
-        await archiveLoader.book('coolid', undefined).load();
-        await archiveLoader.book('coolid2', undefined).load();
+        await archiveLoader.book('coolid', 'version').load();
+        await archiveLoader.book('coolid2', 'version').load();
+        await archiveLoader.book('coolid', 'version').load();
+        await archiveLoader.book('coolid1', 'version').load();
+        await archiveLoader.book('coolid', 'version').load();
+        await archiveLoader.book('coolid2', 'version').load();
 
         expect(fetch).toHaveBeenCalledTimes(3);
       });
@@ -88,41 +88,16 @@ describe('archiveLoader', () => {
       let error: Error | null = null;
 
       try {
-        await archiveLoader.book('coolid', undefined).load();
+        await archiveLoader.book('coolid', 'version').load();
       } catch (e) {
         error = e;
       }
 
       if (error) {
-        expect(error.message).toEqual('Error response from archive "url/contents/coolid.json" 404: not found');
+        expect(error.message).toEqual('Error response from archive "url/contents/coolid@version.json" 404: not found');
       } else {
         expect(error).toBeTruthy();
       }
-    });
-  });
-
-  describe('bookIds loader', () => {
-    beforeEach(() => {
-      (global as any).fetch = mockFetch(200, {books: [{ident_hash: 'id'}]});
-    });
-
-    it('makes request to archive', async() => {
-      await archiveLoader.getBookIdsForPage('pageId');
-      expect(fetch).toHaveBeenCalledWith('url/extras/pageId');
-    });
-
-    it('returns the ids', async() => {
-      expect(await archiveLoader.getBookIdsForPage('pageId')).toEqual(
-        [{bookVersion: undefined, id: 'id'}]
-      );
-    });
-
-    it('memoizes', async() => {
-      await archiveLoader.getBookIdsForPage('pageId');
-      await archiveLoader.getBookIdsForPage('pageId2');
-      await archiveLoader.getBookIdsForPage('pageId');
-
-      expect(fetch).toHaveBeenCalledTimes(2);
     });
   });
 });
