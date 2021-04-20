@@ -50,7 +50,8 @@ class TableOfContents(Region):
     def sections(self):
         return [
             self.ContentPage(self.page, section_link)
-            for section_link in self.find_elements(*self._section_link_locator)
+            for section_link
+            in self.find_elements(*self._section_link_locator)
         ]
 
     def expand_chapter(self, chapter: int):
