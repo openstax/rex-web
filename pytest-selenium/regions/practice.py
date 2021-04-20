@@ -79,6 +79,8 @@ class Practice(Region):
         By.CSS_SELECTOR, "[data-testid*=show-practice] > [class*=Filters]")
     _heading_locator = (
         By.CSS_SELECTOR, "h3")
+    _overlay_locator = (
+        By.CSS_SELECTOR, "[data-testid=scroll-lock-overlay]")
 
     @property
     def close_x_button(self) -> WebElement:
@@ -131,6 +133,16 @@ class Practice(Region):
 
         """
         return self.find_element(*self._heading_locator).is_displayed()
+
+    @property
+    def overlay(self) -> WebElement:
+        """Return the main content hide overlay element.
+
+        :return: the pop up overlay
+        :rtype: :py:class:`selenium.webdriver.remote.webelement.WebElement`
+
+        """
+        return self.find_element(*self._overlay_locator)
 
     def close(self) -> Page:
         """Close the Practice modal.

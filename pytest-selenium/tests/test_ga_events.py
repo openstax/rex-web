@@ -1905,24 +1905,33 @@ def test_skip_practice_question_ga_event(
     assert(last_event["eventLabel"] == event_label)
 
 
-@markers.test_case("")
+@markers.test_case("C621322")
 @markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+def test_close_practice_by_clicking_the_overlay_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when the overlay is clicked."""
     # SETUP:
-    event_action = ""
-    event_category = ""
+    event_action = "overlay"
+    event_category = "REX Practice questions (close PQ popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
 
-    # GIVEN:
+    # GIVEN: a student viewing the practice question modal
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
 
-    # WHEN:
+    # WHEN:  they click the overlay outside the modal
+    (ActionChains(selenium)
+     .move_to_element_with_offset(practice.overlay, 5, 5)
+     .click()
+     .perform())
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    #        { eventAction: "overlay",
+    #          eventCategory: "REX Practice questions (close PQ popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
     assert(
