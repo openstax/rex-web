@@ -615,6 +615,8 @@ class Practice(Region):
             By.CSS_SELECTOR, "details")
         _menu_is_open_locator = (
             By.CSS_SELECTOR, "[class*=StyledChapterFilters]")
+        _toggle_button_locator = (
+            By.CSS_SELECTOR, "button[class*=DropdownToggle]")
 
         @property
         def chapters(self) -> List[Practice.Filters.Chapter]:
@@ -647,7 +649,8 @@ class Practice(Region):
             :rtype: :py:class:`~regions.practice.Practice.Filters`
 
             """
-            Utilities.click_option(self.driver, element=self.root)
+            button = self.find_element(*self._toggle_button_locator)
+            Utilities.click_option(self.driver, element=button)
             sleep(0.1)
             return self
 

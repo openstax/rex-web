@@ -2128,34 +2128,65 @@ def test_pq_continue_to_next_section_button_click_ga_event(
 @markers.test_case("C622246")
 @markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_practice_filter_ga_event(
+def test_practice_filter_ga_events(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when PQ filter selected."""
+    """The page submits the correct GA events when a PQ filter selected."""
     # SETUP:
-    event_action = None
-    event_category = "REX Button (PQ popup)"
-    event_label = None
+    filter_menu_event_action = "Filter PQ by Chapter & Section"
+    filter_menu_event_category = "REX Button (PQ popup)"
+    filter_menu_event_label = None
+    filter_section_event_action = None
+    filter_section_event_category = "REX Button (PQ popup)"
+    filter_section_event_label = None
 
-    # GIVEN: a user viewing the Practice Questions modal
+    # GIVEN: a student viewing the practice question modal
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+    filter_menu_event_label = (
+        f"{practice.content.number} {practice.content.title}"
+    )
+    filter_section_event_label = filter_menu_event_label
 
     # WHEN:  they select a different section filter
-    assert(False)
-    event_action = ""
-    event_label = ""
+    filters = practice.filters.toggle()
+    filters.chapters[0].toggle()
+    section = filters.chapters[0].sections[0]
+    filter_section_event_action = (
+        f"Filter PQ by {section.number} {section.title}"
+    )
+    section.select()
 
-    # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "Filter PQ by section {section number/name}",
+    # THEN:  the correct Google Analytics filter menu event is queued
+    #        { eventAction: "Filter PQ by Chapter & Section",
     #          eventCategory: "REX Button (PQ popup)",
-    #          eventLabel: "{section name}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    #          eventLabel: "{section page title}" }
+    # AND:   the correct Google Analytics filter selection event is queued
+    #        { eventAction: "button",
+    #          eventCategory: "REX Practice questions (close PQ popup)",
+    #          eventLabel: "{section page title}" }
+    events = Utilities.get_analytics_queue(selenium)
+    menu_event = events[-2]
     assert(
-        "eventAction" in last_event and
-        "eventCategory" in last_event and
-        "eventLabel" in last_event
+        "eventAction" in menu_event and
+        "eventCategory" in menu_event and
+        "eventLabel" in menu_event
     ), "Not viewing the correct GA event"
-    assert(event_action in last_event["eventAction"])
-    assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(filter_menu_event_action in menu_event["eventAction"])
+    assert(menu_event["eventCategory"] == filter_menu_event_category)
+    assert(menu_event["eventLabel"] == filter_menu_event_label)
+
+    selection_event = events[-1]
+    assert(
+        "eventAction" in selection_event and
+        "eventCategory" in selection_event and
+        "eventLabel" in selection_event
+    ), "Not viewing the correct GA event"
+    assert(filter_section_event_action in selection_event["eventAction"])
+    assert(selection_event["eventCategory"] == filter_section_event_category)
+    assert(selection_event["eventLabel"] == filter_section_event_label)
 
 
 @markers.test_case("C620825")
