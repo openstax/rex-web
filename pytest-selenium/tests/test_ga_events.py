@@ -2036,26 +2036,34 @@ def test_practice_closed_when_x_close_button_clicked_ga_events(
     assert(button_event["eventLabel"] == button_event_label)
 
 
-@markers.test_case("")
+@markers.test_case("C621325")
 @markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test__ga_event(
+def test_practice_read_link_ga_event(
         selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA event when read link is clicked."""
     # SETUP:
-    event_action = ""
-    event_category = ""
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    event_action = "Go to link"
+    event_category = "REX Link (PQ popup)"
+    event_label = None
+    selector = "[data-analytics-label='Go to link']"
 
-    # GIVEN:
+    # GIVEN: a student viewing the practice question modal
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
 
-    # WHEN:
+    # WHEN:  they click the read link
+    event_label = f"{practice.content.number} {practice.content.title}"
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
-    #          eventCategory: "REX Link (MH gotohighlight)",
+    #        { eventAction: "Go to link",
+    #          eventCategory: "REX Link (PQ popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    last_event = events[-1]
     assert(
         "eventAction" in last_event and
         "eventCategory" in last_event and
@@ -2063,7 +2071,7 @@ def test__ga_event(
     ), "Not viewing the correct GA event"
     assert(event_action in last_event["eventAction"])
     assert(last_event["eventCategory"] == event_category)
-    assert(last_event["eventLabel"] == event_label)
+    assert(last_event["eventLabel"] in event_label)
 
 
 @markers.test_case("")

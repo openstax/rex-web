@@ -55,7 +55,12 @@ class TitleSection(Region):
         :rtype: str
 
         """
-        return self.find_element(*self._chapter_section_number_locator).text
+        try:
+            return (
+                self.find_element(*self._chapter_section_number_locator).text
+            )
+        except NoSuchElementException:
+            return ""
 
     @property
     def title(self) -> str:
