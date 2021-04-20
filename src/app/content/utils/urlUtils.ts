@@ -1,4 +1,5 @@
 import { APP_ENV, BOOKS } from '../../../config';
+import { AppServices } from '../../types';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNodeById, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
@@ -8,12 +9,13 @@ export function bookDetailsUrl(book: BookWithOSWebData) {
   return `/details/books/${book.slug}`;
 }
 
-export const getBookPageUrlAndParams = (
+export const getBookPageUrlAndParams = async(
   book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>,
-  page: Pick<Page, 'id' | 'title'>
+  page: Pick<Page, 'id' | 'title'>,
+  bookConfigLoader?: AppServices['bookConfigLoader']
 ) => {
   const params: Params = {
-    book: getUrlParamsForBook(book),
+    book: await getUrlParamsForBook(book, bookConfigLoader),
     page: getUrlParamForPageId(book, page.id),
   };
   const state = {
@@ -28,11 +30,16 @@ export const getBookPageUrlAndParams = (
   return {params, state, url: contentRoute.getUrl(params) + query};
 };
 
-export const getUrlParamsForBook = (
-  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>
-): Params['book'] => {
-  if ('slug' in book && book.slug && BOOKS[book.id]) {
-    return book.version === BOOKS[book.id].defaultVersion
+export const getUrlParamsForBook = async(
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>,
+  bookConfigLoader?: AppServices['bookConfigLoader']
+): Promise<Params['book']> => {
+  const bookVersionFromConfig = bookConfigLoader ?
+    await bookConfigLoader.getBookVersionFromUUID(book.id)
+    : BOOKS[book.id];
+
+  if ('slug' in book && book.slug && bookVersionFromConfig) {
+    return book.version === bookVersionFromConfig.defaultVersion
       ? {slug: book.slug}
       : {slug: book.slug, version: book.version};
   } else {

@@ -4,7 +4,7 @@ import flow from 'lodash/fp/flow';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
-import { AppState, Dispatch } from '../../../types';
+import { AppServices, AppState, Dispatch } from '../../../types';
 import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
 import { hasOSWebData, isPageReferenceError } from '../../guards';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
@@ -70,7 +70,10 @@ const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageRefere
       || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
     );
 
-export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp) =>
+export const contentLinkHandler = (
+  anchor: HTMLAnchorElement,
+  getProps: () => ContentLinkProp,
+  bookConfigLoader: AppServices['bookConfigLoader']) =>
   async(e: MouseEvent) => {
     const {
       references,
@@ -126,12 +129,14 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       }, {hash, search: searchString}));
     } else {
       // defer to allow other handlers to execute before nav happens
+      const bookParams = (await getBookPageUrlAndParams(book, page, bookConfigLoader)).params;
+      const bookState = (await getBookPageUrlAndParams(book, page, bookConfigLoader)).params;
       defer(() => navigate({
-        params: getBookPageUrlAndParams(book, page).params,
+        params: bookParams,
         route: content,
         state: {
           ...locationState,
-          ...getBookPageUrlAndParams(book, page).state,
+          ...bookState,
 
         },
       }, {hash, search: searchString}));

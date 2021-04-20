@@ -67,14 +67,14 @@ async function checkPages(bookSlug: string, pages: string[]) {
 }
 
 const getUrl = (book: Book) => useUnversionedUrls
-  ? (treeSection: LinkedArchiveTreeSection) =>
+  ? async(treeSection: LinkedArchiveTreeSection) =>
       contentRoute.getUrl({
         book: {
           slug: (book as BookWithOSWebData).slug,
         },
         page: getUrlParamForPageId(book, treeSection.id),
       })
-  : (treeSection: LinkedArchiveTreeSection) => getBookPageUrlAndParams(book, treeSection).url;
+  :  async(treeSection: LinkedArchiveTreeSection) =>  (await getBookPageUrlAndParams(book, treeSection)).url;
 
 async function checkUrls() {
   const url = assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port');
@@ -89,7 +89,7 @@ async function checkUrls() {
 
   for (const book of books) {
     const pages = findTreePages(book.tree);
-    anyFailures = await checkPages(book.slug, pages.map(getUrl(book))) || anyFailures;
+    anyFailures = await checkPages(book.slug, await Promise.all(pages.map(getUrl(book)))) || anyFailures;
   }
 
   if (anyFailures) {

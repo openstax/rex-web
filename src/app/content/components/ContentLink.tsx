@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
+import { useServices } from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { ScrollTarget } from '../../navigation/types';
@@ -15,7 +16,7 @@ import {
 import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
-import { Book } from '../types';
+import { Book, Params } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 
@@ -53,7 +54,23 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     hasUnsavedHighlight,
     ...anchorProps
   } = props;
-  const {url, params} = getBookPageUrlAndParams(book, page);
+  const services = useServices();
+  const [url, setUrl] = React.useState('');
+  const [params, setParams] = React.useState<Params>({} as any);
+
+  React.useEffect(() => {
+    const setBookPageUrlAndParams = async() => {
+      const { url: bookPageUrl, params: bookPageParams } = await getBookPageUrlAndParams(
+        book,
+        page,
+        services.bookConfigLoader
+      );
+      setUrl(bookPageUrl);
+      setParams(bookPageParams);
+    };
+    setBookPageUrlAndParams();
+  }, [book, page, services.bookConfigLoader]);
+
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book

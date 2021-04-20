@@ -1,8 +1,9 @@
 import flow from 'lodash/fp/flow';
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { bodyCopyRegularStyle } from '../../components/Typography';
+import { useServices } from '../../context/Services';
 import { assertDefined } from '../../utils';
 import { book } from '../selectors';
 import { LinkedArchiveTreeSection } from '../types';
@@ -30,22 +31,30 @@ const ContentExcerpt = (props: Props) => {
     forwardedRef,
     ...excerptProps
   } = props;
-
+  const services = useServices();
+  const [excerptSourceUrl, setExcerptSourceUrl] = React.useState('');
   const currentBook = assertDefined(useSelector(book), 'book not loaded');
   const sourcePage = typeof source === 'string'
     ? assertDefined(findArchiveTreeNodeById(currentBook.tree, source), 'page not found in book')
     : source;
 
-  const excerptSource = getBookPageUrlAndParams(
-    currentBook,
-    sourcePage
-  );
+  useEffect(() => {
+    const setBookPageUrlAndParams = async() => {
+      const { url } = await getBookPageUrlAndParams(
+        currentBook,
+        sourcePage,
+        services.bookConfigLoader
+      );
+      setExcerptSourceUrl(url);
+    };
+    setBookPageUrlAndParams();
+  });
 
   const fixedContent = React.useMemo(() => flow(
     addTargetBlankToLinks,
-    (newContent) => rebaseRelativeContentLinks(newContent, excerptSource.url),
-    (newContent) => resolveRelativeResources(newContent, excerptSource.url)
-  )(props.content), [props.content, excerptSource.url]);
+    (newContent) => rebaseRelativeContentLinks(newContent, excerptSourceUrl),
+    (newContent) => resolveRelativeResources(newContent, excerptSourceUrl)
+  )(props.content), [props.content, excerptSourceUrl]);
 
   return <div
     ref={forwardedRef}

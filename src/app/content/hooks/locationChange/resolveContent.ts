@@ -237,7 +237,7 @@ export const loadContentReference = async(
   return {
     match: reference.match,
     params: {
-      book: getUrlParamsForBook(targetBook),
+      book: await getUrlParamsForBook(targetBook, services.bookConfigLoader),
       page: getUrlParamForPageId(targetBook, reference.pageId),
     },
     state: {

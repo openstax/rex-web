@@ -157,7 +157,7 @@ async function run() {
   const errorDetector = makePageErrorDetector(page);
 
   for (const book of books) {
-    anyFailures = await visitPages(page, errorDetector, findBookPages(book), audit) || anyFailures;
+    anyFailures = await visitPages(page, errorDetector, await findBookPages(book), audit) || anyFailures;
   }
 
   await browser.close();
@@ -174,5 +174,5 @@ run().then(null, (err) => {
 
 function findBookPages(book: Book) {
   const pages = findTreePages(book.tree);
-  return pages.map((treeSection) => getBookPageUrlAndParams(book, treeSection).url);
+  return Promise.all(pages.map(async(treeSection) => (await getBookPageUrlAndParams(book, treeSection)).url));
 }

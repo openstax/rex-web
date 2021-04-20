@@ -35,7 +35,7 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
   services.dispatch(receiveSearchResults(results, meta));
 };
 
-export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
+export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => async({payload, meta}) => {
   const state = services.getState();
   const {page: currentPage, book} = selectContent.bookAndPage(state);
   const pageIsLoading = selectContent.loadingPage(state);
@@ -74,7 +74,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const page = currentPage || targetPage;
 
   const navigation = {
-    params: getBookPageUrlAndParams(book, targetPage).params,
+    params: (await getBookPageUrlAndParams(book, targetPage, services.bookConfigLoader)).params,
     route: content,
     state : {
       bookUid: book.id,

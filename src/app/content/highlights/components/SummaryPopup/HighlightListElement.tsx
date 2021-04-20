@@ -1,8 +1,9 @@
 import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
+import { useServices } from '../../../../context/Services';
 import theme from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
 import { highlightStyles } from '../../../constants';
@@ -77,7 +78,16 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const [isDeleting, setIsDeleting] = React.useState(false);
   const book = useSelector(bookSelector);
   const dispatch = useDispatch();
-  const linkToHighlight = React.useMemo(() => createHighlightLink(highlight, book), [highlight, book]);
+  const services = useServices();
+  const [linkToHighlight, setLinkToHighlight] = useState('');
+
+  React.useEffect(() => {
+    const getLinkToHighlight = async() => {
+      const highLightLink = await createHighlightLink(services.bookConfigLoader, highlight, book);
+      setLinkToHighlight(highLightLink);
+    };
+    getLinkToHighlight();
+  }, [book, highlight, services.bookConfigLoader]);
 
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');

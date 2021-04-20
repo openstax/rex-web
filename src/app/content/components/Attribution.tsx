@@ -1,11 +1,12 @@
 import { HTMLDetailsElement } from '@openstax/types/lib.dom';
-import React, { Component } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details';
 import { htmlMessage } from '../../components/htmlMessage';
 import { bodyCopyRegularStyle, decoratedLinkStyle, textRegularLineHeight } from '../../components/Typography';
+import { useServices } from '../../context/Services';
 import { scrollTo } from '../../domUtils';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
@@ -107,9 +108,14 @@ interface Props {
   page: Page | undefined;
 }
 
-class Attribution extends Component<Props> {
-  public container = React.createRef<HTMLDetailsElement>();
-  private bookIdsWithSpecialAttributionText: {
+// tslint:disable-next-line: variable-name
+const Attribution = (props: Props) => {
+  // tslint:disable-next-line: no-console
+  console.log('render Attribution');
+  const services = useServices();
+  const [values, setValues] = React.useState<Record<string, any>>();
+  const containerRef = React.useRef<HTMLDetailsElement>();
+  const bookIdsWithSpecialAttributionText: {
     [key: string]: {
       copyrightHolder?: string,
       originalMaterialLink?: null | string,
@@ -127,81 +133,90 @@ class Attribution extends Component<Props> {
       originalMaterialLink: 'https://www.texasgateway.org/book/tea-physics',
     },
   };
-  private toggleHandler: undefined | (() => void);
 
-  public componentDidMount() {
-    const container = this.container.current;
-
+  React.useEffect(() => {
+    const container = containerRef.current;
     if (!container) {
       return;
     }
+    const toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container);
+    container.addEventListener('toggle', toggleHandler);
 
-    this.toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container);
-    container.addEventListener('toggle', this.toggleHandler);
-  }
+    return () => {
+      if (!container || !toggleHandler) {
+        return;
+      }
+      container.removeEventListener('toggle', toggleHandler);
+    };
+  }, []);
 
-  public componentWillUnmount() {
-    if (!this.container.current || !this.toggleHandler) {
-      return;
+  React.useLayoutEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.removeAttribute('open');
     }
-    this.container.current.removeEventListener('toggle', this.toggleHandler);
-  }
+  }, [props.page]);
 
-  public componentDidUpdate(prevProps: Props) {
-    if (this.container.current && prevProps.page && prevProps.page !== this.props.page) {
-      this.container.current.removeAttribute('open');
+  // public componentDidUpdate(prevProps: Props) {
+  //   if (this.container.current && prevProps.page && prevProps.page !== this.props.page) {
+  //     this.container.current.removeAttribute('open');
+  //   }
+  // }
+
+  React.useEffect(() => {
+    const getValues = async(book: BookWithOSWebData) => {
+      const introPage = findDefaultBookPage(book);
+      const introPageUrl = (await getBookPageUrlAndParams(book, introPage, services.bookConfigLoader)).url;
+
+      assertNotNull(book.publish_date, `BUG: Could not find publication date`);
+      const bookPublishDate = new Date(book.publish_date);
+      const bookLatestRevision = new Date(book.revised);
+
+      // date is initialized as UTC, conversion to local time can change the date.
+      // this compensates
+      bookPublishDate.setMinutes(bookPublishDate.getMinutes() + bookPublishDate.getTimezoneOffset());
+      bookLatestRevision.setMinutes(bookLatestRevision.getMinutes() + bookLatestRevision.getTimezoneOffset());
+
+      const seniorAuthors = book.authors.filter((author) => author.value.senior_author);
+
+      const authorsToDisplay = seniorAuthors.length > 0
+        ? seniorAuthors
+        : book.authors.slice(0, 2);
+
+      const result = {
+        bookAuthors: authorsToDisplay.map(({value: {name}}) => name).join(', '),
+        bookLatestRevision,
+        bookLicenseName: book.license.name,
+        bookLicenseUrl: book.license.url,
+        bookLicenseVersion: book.license.version,
+        bookPublishDate,
+        bookTitle: book.title,
+        copyrightHolder: 'OpenStax',
+        currentPath: props.currentPath,
+        introPageUrl,
+        originalMaterialLink: null,
+        ...bookIdsWithSpecialAttributionText[book.id] || {},
+      };
+
+      setValues(result);
+    };
+
+    if (hasOSWebData(props.book)) {
+      getValues(props.book);
     }
-  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.book, props.currentPath, services.bookConfigLoader]);
 
-  public render() {
-    const {book} = this.props;
-    if (!hasOSWebData(book)) { return null; }
-
-    return <AttributionDetails
-      ref={this.container}
+  return hasOSWebData(props.book) ?
+    <AttributionDetails
+      ref={containerRef}
       data-testid='attribution-details'
       data-analytics-region='attribution'
     >
       <AttributionSummary />
-      <AttributionContent values={this.getValues(book)} />
-    </AttributionDetails>;
-  }
-
-  private getValues = (book: BookWithOSWebData) => {
-    const introPage = findDefaultBookPage(book);
-    const introPageUrl = getBookPageUrlAndParams(book, introPage).url;
-
-    assertNotNull(book.publish_date, `BUG: Could not find publication date`);
-    const bookPublishDate = new Date(book.publish_date);
-    const bookLatestRevision = new Date(book.revised);
-
-    // date is initialized as UTC, conversion to local time can change the date.
-    // this compensates
-    bookPublishDate.setMinutes(bookPublishDate.getMinutes() + bookPublishDate.getTimezoneOffset());
-    bookLatestRevision.setMinutes(bookLatestRevision.getMinutes() + bookLatestRevision.getTimezoneOffset());
-
-    const seniorAuthors = book.authors.filter((author) => author.value.senior_author);
-
-    const authorsToDisplay = seniorAuthors.length > 0
-      ? seniorAuthors
-      : book.authors.slice(0, 2);
-
-    return {
-      bookAuthors: authorsToDisplay.map(({value: {name}}) => name).join(', '),
-      bookLatestRevision,
-      bookLicenseName: book.license.name,
-      bookLicenseUrl: book.license.url,
-      bookLicenseVersion: book.license.version,
-      bookPublishDate,
-      bookTitle: book.title,
-      copyrightHolder: 'OpenStax',
-      currentPath: this.props.currentPath,
-      introPageUrl,
-      originalMaterialLink: null,
-      ...this.bookIdsWithSpecialAttributionText[book.id] || {},
-    };
-  };
-}
+      <AttributionContent values={values} />
+    </AttributionDetails>
+    : null;
+};
 
 export default connect(
   (state: AppState) => ({
