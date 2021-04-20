@@ -10,6 +10,12 @@ import {
   toRelativeUrl,
 } from './utils';
 
+jest.mock('../../config', () => {
+  return {BOOKS: {
+   '13ac107a-f15f-49d2-97e8-60ab2e3b519c': {defaultVersion: '29.7'},
+  }};
+});
+
 describe('stripIdVersion', () => {
   it('strips ids', () => {
     expect(stripIdVersion('asdf@qwer')).toEqual('asdf');
@@ -35,31 +41,23 @@ describe('getContentPageReferences', () => {
     ).toEqual([]);
   });
 
-  it('picks up basic content reference', () => {
+  it('ignores urls without book version', () => {
     expect(
       getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf')
-    ).toEqual([
-      {
-        match: '/contents/as8s8xu9sdnjsd9',
-        pageId: 'as8s8xu9sdnjsd9',
-      },
-    ]);
+    ).toEqual([]);
   });
 
-  it('picks up multiple references', () => {
+  it('picks rap links without book version even if they are not in config.books.json', () => {
     expect(
       getContentPageReferences(`
-      asdfa <a href="/contents/as8s8xu9sdnjsd9"></a> sdf
-      <a href="/contents/9sdnjsd9"></a>
+      asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3wrong:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a>
     `)
     ).toEqual([
       {
-        match: '/contents/as8s8xu9sdnjsd9',
-        pageId: 'as8s8xu9sdnjsd9',
-      },
-      {
-        match: '/contents/9sdnjsd9',
-        pageId: '9sdnjsd9',
+        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3wrong',
+        bookVersion: undefined,
+        match: './13ac107a-f15f-49d2-97e8-60ab2e3wrong:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
+        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       },
     ]);
   });

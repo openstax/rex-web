@@ -20,7 +20,7 @@ exports[`ErrorModal matches snapshot 1`] = `
         </h1>
         <svg
           aria-hidden="true"
-          className="styles__CloseModalIcon-sc-1gxqzoa-8 jWxogI"
+          className="styles__CloseModalIcon-sc-1gxqzoa-8 cjHFEZ"
           focusable="false"
           height="15px"
           onClick={[Function]}
@@ -108,7 +108,7 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
         </h1>
         <svg
           aria-hidden="true"
-          className="styles__CloseModalIcon-sc-1gxqzoa-8 jWxogI"
+          className="styles__CloseModalIcon-sc-1gxqzoa-8 cjHFEZ"
           focusable="false"
           height="15px"
           onClick={[Function]}
