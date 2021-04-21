@@ -32,7 +32,7 @@ class WebBase(Page):
     _desktop_user_menu_locator = (
         By.CSS_SELECTOR, ".desktop .login-menu")
     _dialog_locator = (
-        By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
+        By.CSS_SELECTOR, 'dialog[class*=dialog]')
     _dialog_title_locator = (
         By.CSS_SELECTOR, "#dialog-title")
     _got_it_button_locator = (
