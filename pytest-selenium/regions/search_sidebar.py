@@ -28,11 +28,10 @@ class SearchSidebar(Region):
     # fmt: off
     @property
     def no_results_message(self):
-        try:
-            return (self.find_element(*self._no_results_locator)
-                    .get_attribute("textContent"))
-        except NoSuchElementException:
-            return ""
+        results = self.find_elements(*self._no_results_locator)
+        if results:
+            return results[0].get_attribute("textContent")
+        return ""
 
     @property
     def close_search_sidebar_button(self):
