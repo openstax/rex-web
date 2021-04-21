@@ -10,14 +10,15 @@ import {
   contentPageWithObjectives,
   eobPage,
   eocPage,
-  eocSubPage,
   mockBook,
+  subpage,
 } from './seoUtils.spec.data';
 
 // tslint:disable: max-line-length
 describe('getDescription', () => {
   const loader = makeArchiveLoader();
   loader.mockBook(mockBook);
+  const testChapters = mockBook.tree.contents;
 
   it('makes a description for content page', () => {
     loader.mockPage(mockBook, contentPage, 'page-slug');
@@ -28,15 +29,15 @@ describe('getDescription', () => {
   });
 
   it('makes a description for content page with insufficient text', () => {
-    loader.mockPage(mockBook, contentPageShort, 'page-slug', mockBook.tree.contents[1]);
+    loader.mockPage(mockBook, contentPageShort, 'page-slug', testChapters[0]);
     const description = getPageDescription(loader, mockBook, contentPageShort);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will discover the Introduction for Chapter 1. What is a test? of OpenStax's JavaScript Testing free textbook."`
+      `"On this page you will discover the Best Practices for Chapter 1. What is a test? of OpenStax's JavaScript Testing free textbook."`
     );
   });
 
   it('makes a description for content page with learning objectives', () => {
-    loader.mockPage(mockBook, contentPageWithObjectives, 'page-slug');
+    loader.mockPage(mockBook, contentPageWithObjectives, 'page-slug', testChapters[0]);
     const description = getPageDescription(loader, mockBook, contentPageWithObjectives);
     expect(description).toMatchInlineSnapshot(
       `"This is the paragraph that comes after the learning objectives section. It does not have any special classes applied...."`
@@ -44,7 +45,7 @@ describe('getDescription', () => {
   });
 
   it('makes a description for answer key page', () => {
-    loader.mockPage(mockBook, answerKeyPage, 'page-slug', mockBook.tree.contents[1]);
+    loader.mockPage(mockBook, answerKeyPage, 'page-slug', testChapters[2]);
     const description = getPageDescription(loader, mockBook, answerKeyPage);
     expect(description).toMatchInlineSnapshot(
       `"On this page you will discover the Answer Key for Chapter 3 of OpenStax's JavaScript Testing free textbook."`
@@ -52,18 +53,18 @@ describe('getDescription', () => {
   });
 
   it('makes a description for end-of-chapter page', () => {
-    loader.mockPage(mockBook, eocPage, 'page-slug', mockBook.tree.contents[2]);
+    loader.mockPage(mockBook, eocPage, 'page-slug', testChapters[0]);
     const description = getPageDescription(loader, mockBook, eocPage);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will discover the Review Questions for Chapter 2. Unit Testing of OpenStax's JavaScript Testing free textbook."`
+      `"On this page you will discover the Review Questions for Chapter 1. What is a test? of OpenStax's JavaScript Testing free textbook."`
     );
   });
 
   it('makes a description for end-of-chapter subpage', () => {
-    const chapter = mockBook.tree.contents[2];
-    const chapterSection = mockBook.tree.contents[2].contents[0];
-    loader.mockPage(mockBook, eocSubPage, 'page-slug', chapter, chapterSection);
-    const description = getPageDescription(loader, mockBook, eocSubPage);
+    // const chapter = mockBook.tree.contents[2];
+    // const chapterSection = mockBook.tree.contents[2].contents[0];
+    loader.mockPage(mockBook, subpage, 'page-slug', testChapters[1]);
+    const description = getPageDescription(loader, mockBook, subpage);
     expect(description).toMatchInlineSnapshot(
       `"On this page you will discover Chapter Review: Key Concepts for Chapter 2. Unit Testing of OpenStax's JavaScript Testing free textbook."`
     );

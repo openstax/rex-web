@@ -85,9 +85,18 @@ export default () => {
       localBooks[`${newBook.id}@${newBook.version}`] = newBook;
       localBookPages[`${newBook.id}@${newBook.version}`] = {};
     },
-    // tslint:disable-next-line: max-line-length
-    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string) => {
+    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string, tree?: ArchiveTree) => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
+      const currentBook = localBooks[`${parentBook.id}@${parentBook.version}`];
+      if (tree) {
+        currentBook.tree.contents.push(tree);
+      } else {
+        currentBook.tree.contents.push({
+          id: `${newPage.id}@${newPage.version}`,
+          slug: pageSlug,
+          title: newPage.title,
+        });
+      }
     },
   };
 };
