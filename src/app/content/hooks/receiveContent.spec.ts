@@ -93,7 +93,6 @@ describe('setHead hook', () => {
       store.dispatch(receiveBook(combinedBook));
       store.dispatch(receivePage({
         ...page,
-        abstract: 'foobar',
         references: [],
       }));
       const bookId = book.id;
@@ -101,14 +100,14 @@ describe('setHead hook', () => {
 
       await hook(receivePage({
         ...page,
-        abstract: 'foobar',
         references: [],
       }));
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
-          {name: 'description', content: 'foobar'},
-          {property: 'og:description', content: 'foobar'},
+          // tslint:disable: max-line-length
+          {name: 'description', content: 'Morbi lobortis mattis velit, ... dapibus convallis est mollis sed. Sed ullamcorper est tortor, at ultricies felis tincidunt ut. Mauris interdum nunc et ...'},
+          {property: 'og:description', content: 'Morbi lobortis mattis velit, ... dapibus convallis est mollis sed. Sed ullamcorper est tortor, at ultricies felis tincidunt ut. Mauris interdum nunc et ...'},
         ]),
       })));
     });

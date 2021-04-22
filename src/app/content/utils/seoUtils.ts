@@ -46,9 +46,10 @@ const hideMath = (node: Element) => {
     return '';
   }
 
-  node.querySelectorAll('.os-math-in-para').forEach((el: Element) => {
+  node.querySelectorAll('math, .os-math-in-para').forEach((el: Element) => {
     el.outerHTML = '...';
   });
+  console.log(node.textContent);
   return node.textContent;
 };
 
