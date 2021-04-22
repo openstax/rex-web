@@ -35,6 +35,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
 
   const title = createTitle(page, book);
   const description = getPageDescription(archiveLoader, book, page);
+  console.log('receive desc: ', description);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;

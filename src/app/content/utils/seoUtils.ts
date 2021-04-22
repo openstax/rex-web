@@ -160,12 +160,11 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
   const cleanContent = getCleanContent(book, page, loader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const node = doc.body.children[0];
-  const treeNode = assertDefined(
-    findArchiveTreeNodeById(book.tree, page.id),
-    `couldn't find node for a page id: ${page.id}`
-  );
-
-  const values = getTemplateVars(book, treeNode);
+  const treeNode = findArchiveTreeNodeById(book.tree, page.id);
+  const values = treeNode ? getTemplateVars(book, treeNode) : undefined;
+  if (!values) {
+    return '';
+  }
   const pageType = getPageType(node, values);
 
   const contentDescription: string | null = pageType === 'page'
