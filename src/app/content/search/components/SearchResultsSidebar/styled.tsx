@@ -24,7 +24,7 @@ import ContentLinkComponent from '../../../components/ContentLink';
 import { toolbarIconStyles } from '../../../components/Toolbar/iconStyles';
 import { disablePrint } from '../../../components/utils/disablePrint';
 
-const borderColor = '#d5d5d5';
+const borderColor = '#dfdfdf';
 const backgroundColor = '#f1f1f1';
 const headerHeight = 4;
 
@@ -151,7 +151,7 @@ export const SearchQueryWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  background: ${theme.color.neutral.base};
+  background: ${theme.color.primary.gray.lightest};
   min-height: ${headerHeight}rem;
   overflow: visible;
 `;
@@ -173,7 +173,7 @@ export const Details = styled(BaseDetails)`
 export const SearchBarSummaryContainer = styled.div`
   display: flex;
   align-items: normal;
-  background: ${borderColor};
+  background: ${theme.color.primary.gray.lighter};
   padding: 1rem 0 1rem ${theme.padding.page.desktop}rem;
   border-top: solid 0.1rem ${borderColor};
   ${theme.breakpoints.mobile(css`
@@ -222,11 +222,11 @@ export const SectionContentPreview = styled(
   padding: 0 0 0 6.6rem;
 
   :not(:last-child) > div {
-    border-bottom: solid 0.1rem ${backgroundColor};
+    border-bottom: solid 0.1rem ${borderColor};
   }
 
   ${(props: {selectedResult: boolean}) => props.selectedResult && css`
-    background: ${backgroundColor};
+    background: ${borderColor};
   `}
 
   > div {
@@ -258,7 +258,7 @@ export const LinkWrapper = styled.div`
   padding-left: 4.3rem;
   padding-top: 1.2rem;
   padding-bottom: 0.8rem;
-  border-top: solid 0.2rem ${backgroundColor};
+  border-top: solid 0.2rem ${borderColor};
   ${theme.breakpoints.mobile(css`
     padding-left: 3.3rem;
   `)}
@@ -273,7 +273,7 @@ export const DetailsOl = styled.ol`
 // tslint:disable-next-line:variable-name
 export const NavItem = styled.li`
   overflow: visible;
-  background: ${theme.color.primary.gray.foreground};
+  background: ${theme.color.primary.gray.lightest};
 `;
 
 // tslint:disable-next-line:variable-name
