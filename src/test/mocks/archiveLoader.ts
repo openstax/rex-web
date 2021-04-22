@@ -1,7 +1,7 @@
 import fs from 'fs';
 import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
-import { ArchiveBook, ArchivePage, ArchiveTree } from '../../app/content/types';
+import { ArchiveBook, ArchivePage } from '../../app/content/types';
 import { findArchiveTreeNodeById } from '../../app/content/utils/archiveTreeUtils';
 
 export const book = JSON.parse(
