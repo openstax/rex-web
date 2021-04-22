@@ -2,6 +2,7 @@ import fs from 'fs';
 import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
 import { ArchiveBook, ArchivePage, ArchiveTree } from '../../app/content/types';
+import { findArchiveTreeNodeById } from '../../app/content/utils/archiveTreeUtils';
 
 export const book = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/contents/testbook1-shortid.json'), 'utf8')
@@ -85,11 +86,12 @@ export default () => {
       localBooks[`${newBook.id}@${newBook.version}`] = newBook;
       localBookPages[`${newBook.id}@${newBook.version}`] = {};
     },
-    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string, tree?: ArchiveTree) => {
+    mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string) => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
       const currentBook = localBooks[`${parentBook.id}@${parentBook.version}`];
-      if (tree) {
-        currentBook.tree.contents.push(tree);
+      const treeNode = findArchiveTreeNodeById(parentBook.tree, newPage.id);
+      if (treeNode) {
+        currentBook.tree.contents.push(treeNode);
       } else {
         currentBook.tree.contents.push({
           id: `${newPage.id}@${newPage.version}`,
