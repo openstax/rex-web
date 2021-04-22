@@ -32,7 +32,7 @@ const books: {[key: string]: ArchiveBook} = {
   [`${book.id}@${book.version}`]: book,
 };
 
-const bookPages: {[key: string]: {[key: string]: ArchivePage }} = {
+const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
   [`${book.id}@${book.version}`]: {
     [page.id]: page,
     [shortPage.id]: shortPage,

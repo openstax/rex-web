@@ -1,4 +1,5 @@
 // tslint:disable: object-literal-sort-keys max-line-length
+import { OSWebBook } from '../../../gateways/createOSWebLoader';
 
 export const contentPage = {
   title: 'Introduction',
@@ -64,6 +65,18 @@ export const eobPage = {
   slug: 'references',
 };
 
+export const mockOsWebBook: OSWebBook = {
+  meta: {
+    slug: 'js-book',
+  },
+  publish_date: '',
+  authors: [{value: {name: 'Author Name', senior_author: true}}],
+  book_state: 'coming_soon',
+  cover_color: 'yellow',
+  cnx_id: '',
+  amazon_link: '',
+};
+
 export const mockBook = {
   title: 'JavaScript Testing',
   id: '15',
@@ -74,6 +87,7 @@ export const mockBook = {
   },
   version: '1.0',
   revised: '',
+  slug: 'js-book',
   tree: {
     id: '1',
     title: 'JavaScript Testing',

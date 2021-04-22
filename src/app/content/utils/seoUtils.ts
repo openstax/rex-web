@@ -30,7 +30,7 @@ export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, include
   }
 
   if (archiveTreeSectionIsChapter(node)) {
-    const number = getArchiveTreeSectionNumber(node).replace('Chapter', '').trim();
+    const number = getArchiveTreeSectionNumber(node).trim();
     const name = getArchiveTreeSectionTitle(node);
     return includeTitle ? `Ch. ${number}. ${name}` : `Ch. ${number} `;
   }

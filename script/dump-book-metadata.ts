@@ -1,14 +1,17 @@
 import fetch from 'node-fetch';
 import { ArchiveBook, LinkedArchiveTree, LinkedArchiveTreeSection } from '../src/app/content/types';
+import { formatBookData } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { getPageDescription, getParentPrefix, getTextContent } from '../src/app/content/utils/seoUtils';
-import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL } from '../src/config';
+import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import allBooks from '../src/config.books.json';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import createOSWebLoader from '../src/gateways/createOSWebLoader';
 
 (global as any).fetch = fetch;
 
 const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
+const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
 const getPageMetadata = async(
   section: LinkedArchiveTreeSection | LinkedArchiveTree,
@@ -28,9 +31,12 @@ const getPageMetadata = async(
 const getBookMetadata = async(id: string, version: string) => {
   const loader = archiveLoader.book(id, version);
   const singleBook = await loader.load();
-  const bookPages = findTreePages(singleBook.tree);
+  const osWebBook = singleBook.tree.slug ? await osWebLoader.getBookFromSlug(singleBook.tree.slug) : undefined;
+  const book = formatBookData(singleBook, osWebBook);
+
+  const bookPages = findTreePages(book.tree);
   for (const page of bookPages) {
-    getPageMetadata(page, singleBook, loader);
+    getPageMetadata(page, book, loader);
   }
 };
 
