@@ -8,6 +8,7 @@ import { cardPadding, cardWidth } from '../constants';
 
 interface Props {
   note: string;
+  textareaRef: React.RefObject<HTMLTextAreaElement>;
   onChange: (note: string) => void;
   onFocus: () => void;
 }
@@ -34,11 +35,9 @@ const TextArea = styled.textarea`
 `;
 
 // tslint:disable-next-line:variable-name
-const Note = ({onChange, onFocus, note}: Props) => {
-  const textArea = React.useRef<HTMLTextAreaElement>(null);
-
+const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
   const setTextAreaHeight = () => {
-    const element = textArea.current;
+    const element = textareaRef.current;
     if (!element) {
       return;
     }
@@ -51,7 +50,7 @@ const Note = ({onChange, onFocus, note}: Props) => {
   React.useEffect(setTextAreaHeight, [note]);
 
   return <TextArea
-    ref={textArea}
+    ref={textareaRef}
     value={note}
     onFocus={onFocus}
     maxLength={noteMaxLength}
