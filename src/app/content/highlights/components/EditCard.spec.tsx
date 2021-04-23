@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
@@ -21,7 +21,7 @@ import Note from './Note';
 import * as onClickOutsideModule from './utils/onClickOutside';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
-jest.mock('./Note', () => (props: any) => <div mock-note {...props} />);
+jest.mock('./Note', () => (props: any) => <div mock-note {...props} ref={props.textareaRef} />);
 jest.mock('./Confirmation', () => (props: any) => <div mock-confirmation {...props} />);
 
 describe('EditCard', () => {
@@ -54,7 +54,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} data={data} isFocused={true} />
+            <EditCard {...editCardProps} data={data} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -69,7 +69,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} isFocused={true} />
+            <EditCard {...editCardProps} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -88,7 +88,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={highlightData}
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -109,7 +109,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} isFocused={true} />
+            <EditCard {...editCardProps} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -130,7 +130,7 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              isFocused={true}
+              isActive={true}
               data={data}
             />
           </MessageProvider>
@@ -155,7 +155,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} data={data} isFocused={true} />
+            <EditCard {...editCardProps} data={data} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -182,7 +182,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -215,7 +215,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -251,7 +251,7 @@ describe('EditCard', () => {
               data={highlightData}
               locationFilterId='locationId'
               pageId='pageId'
-              isFocused={true}
+              isActive={true}
               onCreate={jest.fn()}
             />
           </MessageProvider>
@@ -301,7 +301,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -335,7 +335,7 @@ describe('EditCard', () => {
               {...editCardProps}
               locationFilterId='locationId'
               pageId='pageId'
-              isFocused={true}
+              isActive={true}
               data={data}
             />
           </MessageProvider>
@@ -392,7 +392,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -434,7 +434,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
               hasUnsavedHighlight={false}
             />
           </MessageProvider>
@@ -462,7 +462,7 @@ describe('EditCard', () => {
             <EditCard
               {...editCardProps}
               data={data}
-              isFocused={true}
+              isActive={true}
               hasUnsavedHighlight={true}
             />
           </MessageProvider>
@@ -487,7 +487,7 @@ describe('EditCard', () => {
               data={highlightData}
               locationFilterId='locationId'
               pageId='pageId'
-              isFocused={true}
+              isActive={true}
             />
           </MessageProvider>
         </Services.Provider>
@@ -521,7 +521,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} isFocused={true} />
+            <EditCard {...editCardProps} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -585,7 +585,7 @@ describe('EditCard', () => {
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider onError={() => null}>
-            <EditCard {...editCardProps} isFocused={true} />
+            <EditCard {...editCardProps} isActive={true} />
           </MessageProvider>
         </Services.Provider>
       </Provider>
@@ -610,7 +610,7 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              isFocused={true}
+              isActive={true}
               data={highlightData}
               hasUnsavedHighlight={true}
             />
@@ -648,7 +648,7 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              isFocused={true}
+              isActive={true}
               data={undefined}
             />
           </MessageProvider>
@@ -681,7 +681,7 @@ describe('EditCard', () => {
           <MessageProvider onError={() => null}>
             <EditCard
               {...editCardProps}
-              isFocused={true}
+              isActive={true}
               onHeightChange={onHeightChange}
             />
           </MessageProvider>
@@ -699,5 +699,38 @@ describe('EditCard', () => {
       'data-analytics-region': 'edit-note',
     })).not.toThrow();
     expect(onHeightChange).toHaveBeenCalled();
+  });
+
+  it('focuses textarea if shouldFocusCard is set to true', () => {
+    const editCard = assertDocument().createElement('div');
+    const textarea = assertDocument().createElement('textarea');
+
+    const spyTextareaFocus = jest.spyOn(textarea, 'focus');
+
+    const createNodeMock = (element: ReactElement) => {
+      if (element.type === 'form') {
+        return editCard;
+      } else {
+        return textarea;
+      }
+    };
+
+    const onHeightChange = jest.fn();
+
+    renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider onError={() => null}>
+            <EditCard {...editCardProps} onHeightChange={onHeightChange} shouldFocusCard={true} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>,
+      {createNodeMock}
+    );
+
+    // Wait for hooks
+    renderer.act(() => undefined);
+
+    expect(spyTextareaFocus).toHaveBeenCalledTimes(1);
   });
 });

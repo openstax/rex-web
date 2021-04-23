@@ -1,5 +1,5 @@
-import { FocusEvent, HTMLElement, HTMLElementEventMap,
-  KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
+import { Element, FocusEvent, HTMLElement,
+  HTMLElementEventMap, KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { addSafeEventListener } from './domUtils';
 import { isElement, isWindow } from './guards';
@@ -18,25 +18,44 @@ export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   return ref;
 };
 
-export const onFocusLostHandler = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => () => {
+export const onFocusInOrOutHandler = (
+  ref: React.RefObject<HTMLElement>,
+  isEnabled: boolean,
+  cb: () => void,
+  type: 'focusin' | 'focusout'
+) => () => {
   const el = ref && ref.current;
   if (!el) { return; }
 
   const handler = (event: FocusEvent) => {
-    const relatedTarget = event.relatedTarget;
+    const target = type === 'focusout'
+      ? event.relatedTarget
+      : event.target;
 
-    if (!isElement(relatedTarget) || !ref.current!.contains(relatedTarget)) {
+    if (
+      type === 'focusout'
+      && (!isElement(target) || !ref.current!.contains(target))
+    ) {
+      cb();
+    } else if (
+      type === 'focusin'
+      && (isElement(target) && ref.current!.contains(target))
+    ) {
       cb();
     }
   };
 
   if (isEnabled) {
-    return addSafeEventListener(el, 'focusout', handler);
+    return addSafeEventListener(el, type, handler);
   }
 };
 
 export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(onFocusLostHandler(ref, isEnabled, cb), [ref, isEnabled]);
+  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusout'), [ref, isEnabled]);
+};
+
+export const useFocusIn = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
+  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusin'), [ref, isEnabled]);
 };
 
 export const onDOMEventHandler = (
@@ -248,4 +267,67 @@ export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
 
 export const useDisableContentTabbing = (isEnabled: boolean) => {
   React.useEffect(disableContentTabbingHandler(isEnabled), [isEnabled]);
+};
+
+export type KeyCombinationOptions = Partial<Pick<KeyboardEvent, 'altKey' | 'ctrlKey' | 'key' | 'metaKey' | 'shiftKey'>>;
+
+/**
+ * Compare @param options key-value pairs with properties from @param event
+ * If both values are of type string they are changed to lower case before comparing.
+ */
+export const keyboardEventMatchesCombination = (options: KeyCombinationOptions, event: KeyboardEvent): boolean => {
+  const entries = Object.entries(options) as Array<[
+    keyof KeyCombinationOptions,
+    KeyCombinationOptions[keyof KeyCombinationOptions]
+  ]>;
+  for (const [option, value] of entries) {
+    const eventValue = event[option];
+    if (
+      (typeof value === 'string' && typeof eventValue === 'string')
+      && value.toLowerCase() === eventValue.toLowerCase()
+    ) {
+      continue;
+    }
+    if (value !== eventValue) {
+      return false;
+    }
+  }
+  return true;
+};
+
+/**
+ * Attach keydown event listener to the document and check if clicked keys are matching @param options
+ * @param {KeyCombinationOptions} options
+ * @param {Function} callback
+ */
+export const useKeyCombination = (
+  options: KeyCombinationOptions,
+  callback: (event: KeyboardEvent) => void,
+  noopHandler?: (activeElement: Element) => boolean
+) => {
+  const document = assertDocument();
+
+  const handler = React.useCallback((event: KeyboardEvent) => {
+    if (noopHandler && isElement(event.target) && noopHandler(event.target)) {
+      return;
+    }
+    if (keyboardEventMatchesCombination(options, event)) {
+      event.preventDefault();
+      callback(event);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callback, options]);
+
+  React.useEffect(() => {
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [document, handler]);
+};
+
+export const useFocusElement = (element: React.RefObject<HTMLElement>, shouldFocus: boolean) => {
+  React.useEffect(() => {
+    if (shouldFocus && element.current) {
+      element.current.focus();
+    }
+  }, [element, shouldFocus]);
 };
