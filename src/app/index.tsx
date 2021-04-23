@@ -14,7 +14,7 @@ import * as developer from './developer';
 import * as errors from './errors';
 import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as head from './head';
-import MessageProvider from './MessageProvider';
+import MessageProvider, { intl } from './MessageProvider';
 import * as navigation from './navigation';
 import { AnyMatch } from './navigation/types';
 import { matchPathname } from './navigation/utils';
@@ -56,6 +56,7 @@ const hooks = [
 const defaultServices = () => ({
   analytics,
   fontCollector: new FontCollector(),
+  intlProvider: intl,
   promiseCollector: new PromiseCollector(),
 });
 

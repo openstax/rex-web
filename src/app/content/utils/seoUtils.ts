@@ -12,6 +12,11 @@ import {
   splitTitleParts,
 } from './archiveTreeUtils';
 
+type Services = {
+  intl: AppServices['intlProvider'];
+  loader: AppServices['archiveLoader'];
+};
+
 type PageTypes = 'page' | 'answer-key' | 'subpage' | 'eoc-page' | 'eob-page';
 
 interface DescriptionTemplateValues {
@@ -156,8 +161,8 @@ const getTemplateVars = (book: Book, node: LinkedArchiveTreeNode) => {
   return values;
 };
 
-export const getPageDescription = (loader: AppServices['archiveLoader'], book: Book, page: Page) => {
-  const cleanContent = getCleanContent(book, page, loader);
+export const getPageDescription = (services: Services, book: Book, page: Page) => {
+  const cleanContent = getCleanContent(book, page, services.loader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const node = doc.body.children[0];
   const treeNode = findArchiveTreeNodeById(book.tree, page.id);
