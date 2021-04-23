@@ -6,7 +6,7 @@ import TruncatedText from './TruncatedText';
 describe('TruncatedText', () => {
   it('matches snapshot', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <TruncatedText text='asdf' isFocused={false} onChange={() => null} />
+      <TruncatedText text='asdf' isActive={false} onChange={() => null} />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -15,7 +15,7 @@ describe('TruncatedText', () => {
 
   it('matches snapshot when focused', () => {
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <TruncatedText text='asdf' isFocused={true} onChange={() => null} />
+      <TruncatedText text='asdf' isActive={true} onChange={() => null} />
     </MessageProvider>);
 
     const tree = component.toJSON();
@@ -29,11 +29,11 @@ describe('TruncatedText', () => {
     });
 
     const component = renderer.create(<MessageProvider onError={() => null}>
-      <TruncatedText text='asdf' isFocused={true} onChange={() => null} />
+      <TruncatedText text='asdf' isActive={true} onChange={() => null} />
     </MessageProvider>, {createNodeMock});
 
     component.update(<MessageProvider onError={() => null}>
-      <TruncatedText text='asdf' isFocused={true} onChange={() => null} />
+      <TruncatedText text='asdf' isActive={true} onChange={() => null} />
     </MessageProvider>);
 
     expect(() => component.root.findByType('span')).not.toThrow();
@@ -43,11 +43,11 @@ describe('TruncatedText', () => {
     const onChange = jest.fn();
 
     renderer.create(<MessageProvider onError={() => null}>
-      <TruncatedText text='asdf' isFocused={false} onChange={onChange} />
+      <TruncatedText text='asdf' isActive={false} onChange={onChange} />
     </MessageProvider>);
 
     renderer.create(<MessageProvider onError={() => null}>
-      <TruncatedText text='asdf' isFocused={true} onChange={onChange} />
+      <TruncatedText text='asdf' isActive={true} onChange={onChange} />
     </MessageProvider>);
 
     expect(onChange).toHaveBeenCalledTimes(1);
