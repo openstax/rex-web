@@ -66,7 +66,7 @@ export interface AppOptions {
 }
 
 export default (options: AppOptions) => {
-  const {initialEntries, initialState} = options;
+  const { initialEntries, initialState } = options;
 
   const createMemoryHistoryHelper = () => {
     const memoryHistory = createMemoryHistory(initialEntries && {
@@ -109,13 +109,13 @@ export default (options: AppOptions) => {
 
   const container = () => (
     <Provider store={store}>
-      <MessageProvider>
-        <ErrorBoundary>
-          <Services.Provider value={services} >
+      <Services.Provider value={services} >
+        <MessageProvider>
+          <ErrorBoundary>
             <navigation.components.NavigationProvider routes={routes} />
-          </Services.Provider>
-        </ErrorBoundary>
-      </MessageProvider>
+          </ErrorBoundary>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>
   );
 
