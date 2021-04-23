@@ -47,9 +47,11 @@ describe('ChapterFilter', () => {
     ]])));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedChapterFilter multiselect={true} />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <ConnectedChapterFilter multiselect={true} />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const tree = component.toJSON();
@@ -58,9 +60,11 @@ describe('ChapterFilter', () => {
 
   it('renders without a book', () => {
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedChapterFilter multiselect={true} />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <ConnectedChapterFilter multiselect={true} />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const checkedBoxes = component.root.findAllByProps({checked: true});
@@ -84,9 +88,11 @@ describe('ChapterFilter', () => {
     ])));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedChapterFilter multiselect={true} />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <ConnectedChapterFilter multiselect={true} />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const [box1, box2, box3, box4, box5] = component.root.findAllByType(Checkbox);
@@ -108,9 +114,11 @@ describe('ChapterFilter', () => {
     ]])));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedChapterFilter multiselect={true} />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <ConnectedChapterFilter multiselect={true} />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const [box1] = component.root.findAllByType(Checkbox);
@@ -140,9 +148,11 @@ describe('ChapterFilter', () => {
     ]])));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedChapterFilter multiselect={true} />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <ConnectedChapterFilter multiselect={true} />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const [box1, box2] = component.root.findAllByType(Checkbox);
@@ -167,9 +177,11 @@ describe('ChapterFilter', () => {
     }, locationIds));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedChapterFilter multiselect={true} />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <ConnectedChapterFilter multiselect={true} />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const [box1, box2, , , box5] = component.root.findAllByType(Checkbox);
@@ -199,9 +211,11 @@ describe('ChapterFilter', () => {
     }, locationIds));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ConnectedChapterFilter multiselect={true} />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <ConnectedChapterFilter multiselect={true} />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const [box1, ...otherBoxes] = component.root.findAllByType(Checkbox);
@@ -242,14 +256,16 @@ describe('ChapterFilter', () => {
     ]]);
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <ChapterFilter
-          locationFilters={locationFilters}
-          locationFiltersWithContent={new Set()}
-          selectedLocationFilters={new Set()}
-          ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
-        />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <ChapterFilter
+            locationFilters={locationFilters}
+            locationFiltersWithContent={new Set()}
+            selectedLocationFilters={new Set()}
+            ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
+          />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     const [details] = component.root.findAllByType(StyledDetails);
@@ -261,14 +277,16 @@ describe('ChapterFilter', () => {
     });
 
     component.update(<Provider store={store}>
-      <MessageProvider>
-        <ChapterFilter
-          locationFilters={locationFilters}
-          locationFiltersWithContent={new Set()}
-          selectedLocationFilters={new Set()}
-          ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
-        />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <ChapterFilter
+            locationFilters={locationFilters}
+            locationFiltersWithContent={new Set()}
+            selectedLocationFilters={new Set()}
+            ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
+          />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     expect(details.props.open).toEqual(true);
