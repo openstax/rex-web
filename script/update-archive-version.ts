@@ -56,15 +56,14 @@ async function updateArchiveVersion() {
   const newRedirects: Array<[BookWithOSWebData, number]> = [];
 
   const updatingRedirectsBar = new ProgressBar(
-    'Updating redirects [:bar] :current/:total (:etas ETA) | :msg',
+    'Updating redirects [:bar] :current/:total (:etas ETA)',
     { complete: '=', incomplete: ' ', total: bookEntries.length }
   );
   await Promise.all(updateRedirectsPromises.map((loader) => {
     return loader()
       .then(([book, redirects]) => {
-        updatingRedirectsBar.tick({
-          msg: `Finished processing ${book.title} | ${book.id}`,
-        });
+        updatingRedirectsBar.interrupt(`Finished processing ${book.title} | ${book.id}`);
+        updatingRedirectsBar.tick();
         if (redirects > 0) {
           newRedirects.push([book, redirects]);
         }
@@ -93,4 +92,8 @@ async function updateArchiveVersion() {
   fs.writeFileSync(configArchiveUrlPath, JSON.stringify(newConfig, undefined, 2) + '\n', 'utf8');
 }
 
-updateArchiveVersion();
+updateArchiveVersion()
+  .catch(() => {
+    console.log('an error has prevented the upgrade from completing');
+    process.exit(1);
+  });
