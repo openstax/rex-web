@@ -1,5 +1,5 @@
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
-import { useIntl } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { Book, LinkedArchiveTreeNode, Page } from '../types';
@@ -29,7 +29,6 @@ interface DescriptionTemplateValues {
 }
 
 const domParser = new DOMParser();
-const intl = useIntl();
 
 export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, includeTitle: boolean = false): string => {
   if (!node) {
@@ -124,8 +123,9 @@ const getPageDescriptionFromContent = (node: HTMLElement): string | null => {
 };
 
 // tslint:disable: max-line-length
-const generateDescriptionFromTemplate = (pageType: PageTypes, values: DescriptionTemplateValues) => {
+const generateDescriptionFromTemplate = (intl: IntlShape, pageType: PageTypes, values: DescriptionTemplateValues) => {
   const {parentTitle, pageTitle, bookTitle, parentPrefix} = values;
+
   switch (pageType) {
     case 'page':
       return intl.formatMessage({id: 'i18n:metadata:page'}, {pageTitle, parentPrefix, bookTitle});
@@ -164,6 +164,7 @@ const getTemplateVars = (book: Book, node: LinkedArchiveTreeNode) => {
 };
 
 export const getPageDescription = (services: Services, book: Book, page: Page) => {
+  const intl = services.intl;
   const cleanContent = getCleanContent(book, page, services.loader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const node = doc.body.children[0];
@@ -178,7 +179,7 @@ export const getPageDescription = (services: Services, book: Book, page: Page) =
     ? getPageDescriptionFromContent(node)
     : null;
 
-  return contentDescription || generateDescriptionFromTemplate(pageType, values);
+  return contentDescription || generateDescriptionFromTemplate(intl, pageType, values);
 };
 
 export const createTitle = (page: Page, book: Book): string => {
