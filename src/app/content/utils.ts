@@ -61,8 +61,7 @@ export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveT
   return contents;
 };
 
-const pickArchiveFields = (archiveBook: ArchiveBook) => {
-  return {
+const pickArchiveFields = (archiveBook: ArchiveBook) => ({
   id: archiveBook.id,
   license: archiveBook.license,
   revised: archiveBook.revised,
@@ -72,8 +71,7 @@ const pickArchiveFields = (archiveBook: ArchiveBook) => {
     contents: parseContents(archiveBook, archiveBook.tree.contents),
   },
   version: archiveBook.version,
-};
-};
+});
 
 export const formatBookData = <O extends OSWebBook | undefined>(
   archiveBook: ArchiveBook,
