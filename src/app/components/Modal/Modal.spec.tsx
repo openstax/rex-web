@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Modal from '.';
+import createTestServices from '../../../test/createTestServices';
+import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
-import createTestServices from '../../test/createTestServices';
-import * as Services from '../context/Services';
 
 describe('Modal', () => {
   let services: ReturnType<typeof createTestServices>;

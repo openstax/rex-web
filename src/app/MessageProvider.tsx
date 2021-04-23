@@ -11,7 +11,7 @@ async function polyfill(locale: 'en') {
   }
 
   // boolean added by the polyfill
-  if ((Intl.PluralRules as (typeof Intl.PluralRules & { polyfilled?: boolean })).polyfilled) {
+  if ((Intl.PluralRules as (typeof Intl.PluralRules & {polyfilled?: boolean})).polyfilled) {
     await import(`@formatjs/intl-pluralrules/locale-data/${locale}`);
   }
 }
