@@ -118,6 +118,7 @@ export const onPageFocusChange = (focus: boolean, app: {services: AppServices, s
 };
 
 const eventTypeMap = {
+  focusin: 'FocusEvent' as 'FocusEvent',
   focusout: 'FocusEvent' as 'FocusEvent',
 };
 type EventTypeMap = typeof eventTypeMap;
