@@ -70,7 +70,7 @@ const removeExcludedContent = (node: HTMLElement) => {
   }
   const excludedContent = node.querySelectorAll(
     '[data-type="abstract"], .learning-objectives, .chapter-objectives, .be-prepared, .os-teacher'
-    ) || [];
+  ) || [];
 
   for (let i = 0; i <= excludedContent.length; i++) {
     if (excludedContent[i]) {
@@ -84,7 +84,7 @@ export const generateExcerpt = (str: string) => {
 };
 
 const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): PageTypes => {
-  const {parentType, parentPrefix, pageTitle} = values;
+  const { parentType, parentPrefix, pageTitle } = values;
   const nodeClasses = node.classList;
   const nodeType = node.getAttribute('data-type');
 
@@ -94,8 +94,8 @@ const getPageType = (node: HTMLElement, values: DescriptionTemplateValues): Page
     return 'eob-page';
   } else if (
     nodeClasses.contains('os-solution-container')
-      || nodeClasses.contains('os-solutions-container')
-    ) {
+    || nodeClasses.contains('os-solutions-container')
+  ) {
     return 'answer-key';
   } else if (parentType !== 'chapter' && parentType !== 'book') {
     return 'subpage';
@@ -120,26 +120,6 @@ const getPageDescriptionFromContent = (node: HTMLElement): string | null => {
   const foundByLength = Array.from(paragraphs).find((p) => p.textContent ? p.textContent.length >= 90 : null);
   const mathless = foundByLength ? hideMath(foundByLength) : null;
   return mathless ? generateExcerpt(mathless) : null;
-};
-
-// tslint:disable: max-line-length
-const generateDescriptionFromTemplate = (intl: IntlShape, pageType: PageTypes, values: DescriptionTemplateValues) => {
-  const {parentTitle, pageTitle, bookTitle, parentPrefix} = values;
-
-  switch (pageType) {
-    case 'page':
-      return intl.formatMessage({id: 'i18n:metadata:page'}, {pageTitle, parentPrefix, bookTitle});
-    case 'answer-key':
-      return intl.formatMessage({id: 'i18n:metadata:answer-key'}, {pageTitle, bookTitle});
-    case 'subpage':
-      return intl.formatMessage({id: 'i18n:metadata:subpage'}, {parentTitle, pageTitle, parentPrefix, bookTitle});
-    case 'eoc-page':
-      return intl.formatMessage({id: 'i18n:metadata:eoc-page'}, {pageTitle, parentPrefix, bookTitle});
-    case 'eob-page':
-      return intl.formatMessage({id: 'i18n:metadata:eob-page'}, {pageTitle, bookTitle});
-    default:
-       throw new Error('unknown page type');
-  }
 };
 
 const getTemplateVars = (book: Book, node: LinkedArchiveTreeNode) => {
@@ -173,13 +153,15 @@ export const getPageDescription = (services: Services, book: Book, page: Page) =
   if (!values) {
     return '';
   }
+  const { parentTitle, pageTitle, parentPrefix, bookTitle } = values;
   const pageType = getPageType(node, values);
 
   const contentDescription: string | null = pageType === 'page'
     ? getPageDescriptionFromContent(node)
     : null;
 
-  return contentDescription || generateDescriptionFromTemplate(intl, pageType, values);
+  return contentDescription
+  || intl.formatMessage({ id: `i18n:metadata:${pageType}` }, { parentTitle, pageTitle, parentPrefix, bookTitle });
 };
 
 export const createTitle = (page: Page, book: Book): string => {
