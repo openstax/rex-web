@@ -1,6 +1,7 @@
 import makeArchiveLoader from '../../../test/mocks/archiveLoader';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
+import { useServices } from '../../context/Services';
 import { Book, Page } from '../types';
 import { formatBookData } from '../utils';
 import { createTitle, getPageDescription } from './seoUtils';
@@ -20,11 +21,15 @@ import {
 describe('getDescription', () => {
   const loader = makeArchiveLoader();
   const book = formatBookData(mockBook, mockOsWebBook);
+  const services = {
+    intl: useServices().intlProvider,
+    loader,
+  };
   loader.mockBook(book);
 
   it('makes a description for content page', () => {
     loader.mockPage(book, contentPage, 'page-slug');
-    const description = getPageDescription(loader, book, contentPage);
+    const description = getPageDescription(services, book, contentPage);
     expect(description).toMatchInlineSnapshot(
       `"For example, take a look at the image above. This image is of the Andromeda Galaxy, which contains billions of individual stars, huge clouds of gas, and..."`
     );
@@ -32,7 +37,7 @@ describe('getDescription', () => {
 
   it('makes a description for content page with insufficient text', () => {
     loader.mockPage(book, contentPageShort, 'page-slug');
-    const description = getPageDescription(loader, book, contentPageShort);
+    const description = getPageDescription(services, book, contentPageShort);
     expect(description).toMatchInlineSnapshot(
       `"On this page you will discover the Best Practices for Chapter 1. What is a test? of OpenStax's JavaScript Testing free textbook."`
     );
@@ -40,7 +45,7 @@ describe('getDescription', () => {
 
   it('makes a description for content page with learning objectives', () => {
     loader.mockPage(book, contentPageWithObjectives, 'page-slug');
-    const description = getPageDescription(loader, book, contentPageWithObjectives);
+    const description = getPageDescription(services, book, contentPageWithObjectives);
     expect(description).toMatchInlineSnapshot(
       `"This is the paragraph that comes after the learning objectives section. It does not have any special classes applied...."`
     );
@@ -48,7 +53,7 @@ describe('getDescription', () => {
 
   it('makes a description for answer key page', () => {
     loader.mockPage(book, answerKeyPage, 'page-slug');
-    const description = getPageDescription(loader, book, answerKeyPage);
+    const description = getPageDescription(services, book, answerKeyPage);
     expect(description).toMatchInlineSnapshot(
       `"On this page you will discover the Answer Key for Chapter 3 of OpenStax's JavaScript Testing free textbook."`
     );
@@ -56,7 +61,7 @@ describe('getDescription', () => {
 
   it('makes a description for end-of-chapter page', () => {
     loader.mockPage(book, eocPage, 'page-slug');
-    const description = getPageDescription(loader, book, eocPage);
+    const description = getPageDescription(services, book, eocPage);
     expect(description).toMatchInlineSnapshot(
       `"On this page you will discover the Review Questions for Chapter 1. What is a test? of OpenStax's JavaScript Testing free textbook."`
     );
@@ -64,7 +69,7 @@ describe('getDescription', () => {
 
   it('makes a description for end-of-chapter subpage', () => {
     loader.mockPage(book, subpage, 'page-slug');
-    const description = getPageDescription(loader, book, subpage);
+    const description = getPageDescription(services, book, subpage);
     expect(description).toMatchInlineSnapshot(
       `"On this page you will discover Chapter Review: Key Concepts for Chapter 2. Unit Testing of OpenStax's JavaScript Testing free textbook."`
     );
@@ -72,7 +77,7 @@ describe('getDescription', () => {
 
   it('makes a description for end-of-book page', () => {
     loader.mockPage(book, eobPage, 'page-slug');
-    const description = getPageDescription(loader, book, eobPage);
+    const description = getPageDescription(services, book, eobPage);
     expect(description).toMatchInlineSnapshot(
       `"On this page you will discover the References for OpenStax's JavaScript Testing free textbook."`
     );
