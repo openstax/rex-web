@@ -1,5 +1,4 @@
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
-import { IntlShape } from 'react-intl';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { Book, LinkedArchiveTreeNode, Page } from '../types';
