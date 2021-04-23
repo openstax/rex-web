@@ -14,12 +14,33 @@ import PrintButton from '../../components/popUp/PrintButton';
 import { FiltersChange } from '../../components/popUp/types';
 import { SummaryFiltersUpdate } from '../../highlights/types';
 import { LinkedArchiveTreeNode } from '../../types';
+import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { printStudyGuides, updateSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
 import { cookieUTG } from './UsingThisGuide/constants';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
 import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
+
+const createColorDataAnalyticsLabel = (color: HighlightColorEnum): string => {
+  let label;
+  switch (color) {
+    case 'blue':
+      label = 'Important Concepts';
+      break;
+    case 'green':
+      label = 'Connections & Relationships';
+      break;
+    case 'purple':
+      label = 'Enrichment';
+      break;
+    case 'yellow':
+      label = 'Key Terms';
+      break;
+  }
+
+  return `Remove breadcrumb for label ${label}`;
+};
 
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
@@ -132,9 +153,11 @@ export default () => {
       show={isUTGopen}
     />
     {!userLoggedOut && <ConnectedFilterList
-      colorAriaLabelKey='i18n:studyguides:popup:filters:remove:color'
-      colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
-      chapterAriaLabelKey='i18n:studyguides:popup:filters:remove:chapter'
+      colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
+      colorDataAnalyticsLabel={(color: HighlightColorEnum) => createColorDataAnalyticsLabel(color)}
+      colorLabelKey={(color: HighlightColorEnum) => `i18n:studyguides:popup:filters:${color}`}
+      chapterAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:chapter'}
+      chapterDataAnalyticsLabel={(title: string) => `Remove breadcrumb for chapter ${splitTitleParts(title).join(' ')}`}
     />}
   </Filters>;
 };

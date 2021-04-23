@@ -11,6 +11,7 @@ import PrintButton from '../../../components/popUp/PrintButton';
 import { FiltersChange } from '../../../components/popUp/types';
 import { highlightStyles } from '../../../constants';
 import { LinkedArchiveTreeNode } from '../../../types';
+import { splitTitleParts } from '../../../utils/archiveTreeUtils';
 import { printSummaryHighlights, updateSummaryFilters } from '../../actions';
 import * as select from '../../selectors';
 
@@ -97,8 +98,10 @@ export default () =>
       <ConnectedPrintButton />
     </FiltersTopBar>
     <ConnectedFilterList
-      colorAriaLabelKey='i18n:highlighting:filters:remove:color'
-      colorLabelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
-      chapterAriaLabelKey='i18n:highlighting:filters:remove:chapter'
+      colorAriaLabelKey={() => 'i18n:highlighting:filters:remove:color'}
+      colorDataAnalyticsLabel={(color: HighlightColorEnum) => `Remove breadcrumb for color ${color}`}
+      colorLabelKey={(color: HighlightColorEnum) => `i18n:highlighting:colors:${color}`}
+      chapterAriaLabelKey={() => 'i18n:highlighting:filters:remove:chapter'}
+      chapterDataAnalyticsLabel={(title: string) => `Remove breadcrumb for chapter ${splitTitleParts(title).join(' ')}`}
     />
   </Filters>;

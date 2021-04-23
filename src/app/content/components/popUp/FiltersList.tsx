@@ -54,7 +54,8 @@ const FilterListItem = styled.li`
 
 interface FiltersListColorProps {
   color: HighlightColorEnum;
-  ariaLabelKey: string;
+  ariaLabelKey: (color: HighlightColorEnum) => string;
+  dataAnalyticsLabel: (color: HighlightColorEnum) => string;
   labelKey: (color: HighlightColorEnum) => string;
   onRemove: () => void;
 }
@@ -63,9 +64,9 @@ interface FiltersListColorProps {
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <FilterListItem>
     <StyledPlainButton
-      aria-label={useIntl().formatMessage({id: props.ariaLabelKey}, {filterValue: props.color})}
+      aria-label={useIntl().formatMessage({id: props.ariaLabelKey(props.color)}, {filterValue: props.color})}
       onClick={props.onRemove}
-      data-analytics-label={`Remove breadcrumb for color ${props.color}`}
+      data-analytics-label={props.dataAnalyticsLabel(props.color)}
     >
       <Times />
     </StyledPlainButton>
@@ -79,8 +80,9 @@ export const FiltersListColor = (props: FiltersListColorProps) => (
 );
 
 interface FiltersListChapterProps {
-  ariaLabelKey: string;
   title: string;
+  ariaLabelKey: (title: string) => string;
+  dataAnalyticsLabel: (title: string) => string;
   locationId: string;
   onRemove: () => void;
 }
@@ -90,10 +92,10 @@ export const FiltersListChapter = (props: FiltersListChapterProps) => (
   <FilterListItem>
     <StyledPlainButton
       aria-label={useIntl().formatMessage(
-        { id: props.ariaLabelKey },
+        { id: props.ariaLabelKey(props.title) },
         { filterValue: splitTitleParts(props.title).join(' ') }
       )}
-      data-analytics-label={`Remove breadcrumb for chapter ${splitTitleParts(props.title).join(' ')}`}
+      data-analytics-label={props.dataAnalyticsLabel(props.title)}
       onClick={props.onRemove}
     >
       <Times />
@@ -108,8 +110,10 @@ interface FiltersListProps {
   selectedLocationFilters: Set<string>;
   selectedColorFilters: Set<HighlightColorEnum>;
   setFilters: (change: SummaryFiltersUpdate) => void;
-  chapterAriaLabelKey: string;
-  colorAriaLabelKey: string;
+  chapterAriaLabelKey: (title: string) => string;
+  chapterDataAnalyticsLabel: (title: string) => string;
+  colorAriaLabelKey: (color: HighlightColorEnum) => string;
+  colorDataAnalyticsLabel: (color: HighlightColorEnum) => string;
   colorLabelKey: (color: HighlightColorEnum) => string;
 }
 
@@ -121,7 +125,9 @@ const FiltersList = ({
   selectedLocationFilters,
   setFilters,
   chapterAriaLabelKey,
+  chapterDataAnalyticsLabel,
   colorAriaLabelKey,
+  colorDataAnalyticsLabel,
   colorLabelKey,
 }: FiltersListProps) => {
 
@@ -145,12 +151,14 @@ const FiltersList = ({
       locationId={locationId}
       onRemove={() => onRemoveChapter(location.section)}
       ariaLabelKey={chapterAriaLabelKey}
+      dataAnalyticsLabel={chapterDataAnalyticsLabel}
     />)}
     {selectedColorFilters && [...selectedColorFilters].sort().map((color) => <FiltersListColor
       key={color}
       color={color}
       onRemove={() => onRemoveColor(color)}
       ariaLabelKey={colorAriaLabelKey}
+      dataAnalyticsLabel={colorDataAnalyticsLabel}
       labelKey={colorLabelKey}
     />)}
   </ul>;
