@@ -171,9 +171,11 @@ describe('Highlights', () => {
     store.dispatch(receiveSummaryHighlights({}, {pagination: null}));
 
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Highlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     // i'm not sure why this type is wrong
@@ -183,9 +185,11 @@ describe('Highlights', () => {
 
   it('show add highlight message when there are no highlights in specific book', () => {
     const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Highlights/>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>);
 
     expect(component.root.findByProps({ id: 'i18n:toolbar:highlights:popup:body:add-highlight' }))

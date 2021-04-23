@@ -1,8 +1,10 @@
 import ReactTestUtils from 'react-dom/test-utils';
+import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import { User } from '../../auth/types';
+import * as Services from '../../context/Services';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { assertNotNull } from '../../utils/assertions';
@@ -13,8 +15,10 @@ describe('content', () => {
   let Provider: ReturnType<typeof reactAndFriends>['Provider']; // tslint:disable-line:variable-name
   let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
   let MessageProvider: ReturnType<typeof reactAndFriends>['MessageProvider']; // tslint:disable-line:variable-name
+  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
+    services = createTestServices();
     resetModules();
     jest.resetAllMocks();
     ({React, Provider, renderer, renderToDom, MessageProvider} = reactAndFriends());
@@ -34,9 +38,11 @@ describe('content', () => {
     });
 
     const render = () => <Provider store={store}>
-      <MessageProvider>
-        <NavBar />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NavBar />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>;
 
     it('matches snapshot for null state', () => {

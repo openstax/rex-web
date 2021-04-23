@@ -11,7 +11,7 @@ describe('ColorPicker', () => {
 
   beforeEach(() => {
       services = createTestServices();
-    });
+  });
 
   it('matches snapshot no selection', () => {
     const component = renderer.create(<Services.Provider value={services}>

@@ -2,9 +2,11 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { routes } from '..';
+import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { receiveBook } from '../actions';
@@ -16,22 +18,26 @@ import ContentExcerpt from './ContentExcerpt';
 
 describe('ContentExcerpt', () => {
   let store: Store;
+  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     store = createTestStore();
+    services = createTestServices();
   });
 
   const mockSection = findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid') as LinkedArchiveTreeSection;
 
   const render = (sourcePage: string | LinkedArchiveTreeSection, content: string) => renderer.create(
     <Provider store={store}>
-      <MessageProvider>
-        <ContentExcerpt
-          content={content}
-          source={sourcePage}
-          className='class1'
-        />
-      </MessageProvider>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <ContentExcerpt
+            content={content}
+            source={sourcePage}
+            className='class1'
+          />
+        </MessageProvider>
+      </Services.Provider>
     </Provider>
   );
 

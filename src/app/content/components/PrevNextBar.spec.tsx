@@ -1,9 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook, lastPage, page as firstPage, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { AppState, Store } from '../../types';
 import { receiveBook, receivePage } from '../actions';
@@ -22,15 +24,22 @@ const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('PrevNextBar', () => {
   let store: Store;
+  let services: ReturnType<typeof createTestServices>;
+
   beforeEach(() => {
     const state = {
       content: initialState,
     } as any as AppState;
     store = createTestStore(state);
+    services = createTestServices();
   });
 
   const render = () => <Provider store={store}>
-    <MessageProvider><PrevNextBar /></MessageProvider>
+    <Services.Provider value={services}>
+      <MessageProvider>
+        <PrevNextBar />
+      </MessageProvider>
+    </Services.Provider>
   </Provider>;
 
   it('renders `null` with no page or book', () => {
