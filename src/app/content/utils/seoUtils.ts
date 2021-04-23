@@ -1,4 +1,5 @@
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
+import { useIntl } from 'react-intl';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { Book, LinkedArchiveTreeNode, Page } from '../types';
@@ -28,6 +29,7 @@ interface DescriptionTemplateValues {
 }
 
 const domParser = new DOMParser();
+const intl = useIntl();
 
 export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, includeTitle: boolean = false): string => {
   if (!node) {
@@ -126,15 +128,15 @@ const generateDescriptionFromTemplate = (pageType: PageTypes, values: Descriptio
   const {parentTitle, pageTitle, bookTitle, parentPrefix} = values;
   switch (pageType) {
     case 'page':
-      return `On this page you will discover the ${pageTitle} for ${parentPrefix} of OpenStax's ${bookTitle} free textbook.`;
+      return intl.formatMessage({id: 'i18n:metadata:page'}, {pageTitle, parentPrefix, bookTitle});
     case 'answer-key':
-      return `On this page you will discover the Answer Key for ${pageTitle} of OpenStax's ${bookTitle} free textbook.`;
+      return intl.formatMessage({id: 'i18n:metadata:answer-key'}, {pageTitle, bookTitle});
     case 'subpage':
-      return `On this page you will discover ${parentTitle}: ${pageTitle} for ${parentPrefix} of OpenStax's ${bookTitle} free textbook.`;
+      return intl.formatMessage({id: 'i18n:metadata:subpage'}, {parentTitle, pageTitle, parentPrefix, bookTitle});
     case 'eoc-page':
-      return `On this page you will discover the ${pageTitle} for ${parentPrefix} of OpenStax's ${bookTitle} free textbook.`;
+      return intl.formatMessage({id: 'i18n:metadata:eoc-page'}, {pageTitle, parentPrefix, bookTitle});
     case 'eob-page':
-      return `On this page you will discover the ${pageTitle} for OpenStax's ${bookTitle} free textbook.`;
+      return intl.formatMessage({id: 'i18n:metadata:eob-page'}, {pageTitle, bookTitle});
     default:
        throw new Error('unknown page type');
   }
