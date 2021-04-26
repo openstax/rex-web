@@ -1,17 +1,14 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import TestContainer from '../../../../test/TestContainer';
 import { receiveLoggedOut } from '../../../auth/actions';
 import AllOrNone from '../../../components/AllOrNone';
 import { ButtonLink } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
-import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
@@ -28,11 +25,9 @@ describe('ChapterFilter', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   const locationIds = new Map() as LocationFilters;
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
 
     store.dispatch(receivePage({...page, references: []}));
   });
@@ -46,26 +41,18 @@ describe('ChapterFilter', () => {
       { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
     ]])));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ConnectedChapterFilter multiselect={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedChapterFilter multiselect={true} />
+    </TestContainer>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('renders without a book', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ConnectedChapterFilter multiselect={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedChapterFilter multiselect={true} />
+    </TestContainer>);
 
     const checkedBoxes = component.root.findAllByProps({checked: true});
     expect(checkedBoxes.length).toBe(0);
@@ -87,13 +74,9 @@ describe('ChapterFilter', () => {
       ],
     ])));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ConnectedChapterFilter multiselect={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedChapterFilter multiselect={true} />
+    </TestContainer>);
 
     const [box1, box2, box3, box4, box5] = component.root.findAllByType(Checkbox);
 
@@ -113,13 +96,9 @@ describe('ChapterFilter', () => {
       { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
     ]])));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ConnectedChapterFilter multiselect={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedChapterFilter multiselect={true} />
+    </TestContainer>);
 
     const [box1] = component.root.findAllByType(Checkbox);
 
@@ -147,13 +126,9 @@ describe('ChapterFilter', () => {
       { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
     ]])));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ConnectedChapterFilter multiselect={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedChapterFilter multiselect={true} />
+    </TestContainer>);
 
     const [box1, box2] = component.root.findAllByType(Checkbox);
     const allOrNone = component.root.findByType(AllOrNone);
@@ -176,13 +151,9 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, locationIds));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ConnectedChapterFilter multiselect={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedChapterFilter multiselect={true} />
+    </TestContainer>);
 
     const [box1, box2, , , box5] = component.root.findAllByType(Checkbox);
     const allOrNone = component.root.findByType(AllOrNone);
@@ -210,13 +181,9 @@ describe('ChapterFilter', () => {
       'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
     }, locationIds));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ConnectedChapterFilter multiselect={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedChapterFilter multiselect={true} />
+    </TestContainer>);
 
     const [box1, ...otherBoxes] = component.root.findAllByType(Checkbox);
 
@@ -234,13 +201,9 @@ describe('ChapterFilter', () => {
       },
     }));
 
-    const component = renderer.create(<Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Filters />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+        <Filters />
+      </TestContainer>);
 
     const [...allOrNoneButtons] = component.root.findAllByType(ButtonLink);
     expect(allOrNoneButtons.every((button) => button.props.disabled)).toBe(true);
@@ -255,18 +218,14 @@ describe('ChapterFilter', () => {
       },
     ]]);
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ChapterFilter
-            locationFilters={locationFilters}
-            locationFiltersWithContent={new Set()}
-            selectedLocationFilters={new Set()}
-            ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
-          />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <ChapterFilter
+        locationFilters={locationFilters}
+        locationFiltersWithContent={new Set()}
+        selectedLocationFilters={new Set()}
+        ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
+      />
+    </TestContainer>);
 
     const [details] = component.root.findAllByType(StyledDetails);
     const [summary] = details.findAllByType(StyledSummary);
@@ -276,18 +235,14 @@ describe('ChapterFilter', () => {
       summary.props.onClick({ preventDefault: jest.fn() });
     });
 
-    component.update(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ChapterFilter
-            locationFilters={locationFilters}
-            locationFiltersWithContent={new Set()}
-            selectedLocationFilters={new Set()}
-            ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
-          />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    component.update(<TestContainer store={store}>
+      <ChapterFilter
+        locationFilters={locationFilters}
+        locationFiltersWithContent={new Set()}
+        selectedLocationFilters={new Set()}
+        ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
+      />
+    </TestContainer>);
 
     expect(details.props.open).toEqual(true);
   });

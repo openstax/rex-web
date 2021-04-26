@@ -2,19 +2,16 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
+import TestContainer from '../../../../test/TestContainer';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
-import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
 import { highlightStyles } from '../../constants';
 import ColorFilter, { ColorFilterProps } from './ColorFilter';
 
 describe('ColorFilter', () => {
   let props: ColorFilterProps;
-  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
-    services = createTestServices();
     props = {
       colorFiltersWithContent: new Set([
         HighlightColorEnum.Blue,
@@ -43,19 +40,17 @@ describe('ColorFilter', () => {
       HighlightColorEnum.Yellow,
     ]);
 
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorFilter
-          {...props}
-          selectedColorFilters={new Set([
-            HighlightColorEnum.Green,
-            HighlightColorEnum.Pink,
-            HighlightColorEnum.Yellow,
-          ])}
-          colorFiltersWithContent={colorFiltersWithContent}
-        />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorFilter
+        {...props}
+        selectedColorFilters={new Set([
+          HighlightColorEnum.Green,
+          HighlightColorEnum.Pink,
+          HighlightColorEnum.Yellow,
+        ])}
+        colorFiltersWithContent={colorFiltersWithContent}
+      />
+    </TestContainer>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -67,11 +62,9 @@ describe('ColorFilter', () => {
       HighlightColorEnum.Yellow,
     ]);
 
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
+    const component = renderer.create(<TestContainer>
         <ColorFilter {...props} colorFiltersWithContent={colorFiltersWithContent} />
-      </MessageProvider>
-    </Services.Provider>);
+    </TestContainer>);
 
     const [box1, box2] = component.root.findAllByType(Checkbox);
 
@@ -95,15 +88,13 @@ describe('ColorFilter', () => {
     ]);
     const selectedColorFilters = new Set(highlightStyles.slice(2, 5).map((style) => style.label));
 
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorFilter
-          {...props}
-          colorFiltersWithContent={colorFiltersWithContent}
-          selectedColorFilters={selectedColorFilters}
-        />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorFilter
+        {...props}
+        colorFiltersWithContent={colorFiltersWithContent}
+        selectedColorFilters={selectedColorFilters}
+      />
+    </TestContainer>);
 
     const [box1, box2, box3] = component.root.findAllByType(Checkbox);
 
@@ -127,11 +118,9 @@ describe('ColorFilter', () => {
       HighlightColorEnum.Yellow,
     ]);
 
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorFilter {...props} colorFiltersWithContent={colorFiltersWithContent} />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorFilter {...props} colorFiltersWithContent={colorFiltersWithContent} />
+    </TestContainer>);
 
     const [box1, box2] = component.root.findAllByType(Checkbox);
     const allOrNone = component.root.findByType(AllOrNone);
@@ -155,15 +144,13 @@ describe('ColorFilter', () => {
       HighlightColorEnum.Yellow,
     ]);
 
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorFilter
-          {...props}
-          colorFiltersWithContent={colorFiltersWithContent}
-          selectedColorFilters={new Set()}
-        />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorFilter
+        {...props}
+        colorFiltersWithContent={colorFiltersWithContent}
+        selectedColorFilters={new Set()}
+      />
+    </TestContainer>);
 
     const [yellow, green, blue, purple, pink] = component.root.findAllByType(Checkbox);
     const allOrNone = component.root.findByType(AllOrNone);

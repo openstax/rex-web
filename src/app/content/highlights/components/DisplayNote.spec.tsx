@@ -1,13 +1,10 @@
 import { Highlight } from '@openstax/highlighter';
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { makeFindByTestId } from '../../../../test/reactutils';
+import TestContainer from '../../../../test/TestContainer';
 import { DropdownToggle } from '../../../components/Dropdown';
-import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDocument, assertWindow } from '../../../utils';
 import { openToc } from '../../actions';
@@ -25,11 +22,9 @@ const doNothing = () => null;
 describe('DisplayNote', () => {
   let displayNoteProps: Partial<DisplayNoteProps>;
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
     displayNoteProps = {
       focus: jest.fn(),
       highlight: { elements: [] } as any as Highlight,
@@ -42,39 +37,27 @@ describe('DisplayNote', () => {
   });
 
   it('matches snapshot', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} isActive={false} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={false} />
+    </TestContainer>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('matches snapshot when focused', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} isActive={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('matches snapshot when focused with opened dropdown', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} isActive={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -86,13 +69,9 @@ describe('DisplayNote', () => {
   });
 
   it('shows delete confirmation', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} isActive={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -111,13 +90,9 @@ describe('DisplayNote', () => {
   });
 
   it('confirmation deletes', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
+    const component = renderer.create(<TestContainer store={store}>
           <DisplayNote {...displayNoteProps} isActive={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, { createNodeMock: () => assertDocument().createElement('div')});
+    </TestContainer>, { createNodeMock: () => assertDocument().createElement('div')});
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -140,13 +115,9 @@ describe('DisplayNote', () => {
   });
 
   it('confirmation cancels and does not call props.onBlur', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} isActive={true} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -173,13 +144,9 @@ describe('DisplayNote', () => {
   it('closes confirmation after changing focus and reopen', () => {
     let isActive = true;
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} isActive={isActive} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={isActive} />
+    </TestContainer>);
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
 
@@ -198,13 +165,9 @@ describe('DisplayNote', () => {
 
     isActive = false;
 
-    component.update(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} isActive={isActive} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    component.update(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={isActive} />
+    </TestContainer>);
 
     // tslint:disable-next-line: no-empty
     renderer.act(() => {});
@@ -213,13 +176,9 @@ describe('DisplayNote', () => {
 
     isActive = true;
 
-    component.update(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} isActive={isActive} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    component.update(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={isActive} />
+    </TestContainer>);
 
     // tslint:disable-next-line: no-empty
     renderer.act(() => {});
@@ -228,13 +187,9 @@ describe('DisplayNote', () => {
   });
 
   it('calls onHeightChange when textToggle state changes', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} isActive={false} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={false} />
+    </TestContainer>);
 
     const trucatedText = component.root.findByType(TruncatedText);
 
@@ -251,13 +206,9 @@ describe('DisplayNote', () => {
       id: 'asdf',
     } as any as Highlight;
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
+    </TestContainer>);
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -270,13 +221,9 @@ describe('DisplayNote', () => {
   it('calls onHeightChange on open toc, search sidebar or window resize', () => {
     const highlight = { id: 'asdf', elements: [] } as any as Highlight;
 
-    renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
+    </TestContainer>);
 
     renderer.act(() => {
       store.dispatch(openToc());
@@ -301,13 +248,9 @@ describe('DisplayNote', () => {
   it('does not throw after unmout', () => {
     const highlight = { id: 'asdf', elements: [] } as any as Highlight;
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider onError={doNothing}>
-          <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
+    </TestContainer>);
 
     expect(() => component.unmount()).not.toThrow();
   });

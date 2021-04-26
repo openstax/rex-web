@@ -1,12 +1,10 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook, lastPage, page as firstPage, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import * as Services from '../../context/Services';
-import MessageProvider from '../../MessageProvider';
+import TestContainer from '../../../test/TestContainer';
 import { AppState, Store } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import { initialState } from '../reducer';
@@ -24,23 +22,17 @@ const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('PrevNextBar', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     const state = {
       content: initialState,
     } as any as AppState;
     store = createTestStore(state);
-    services = createTestServices();
   });
 
-  const render = () => <Provider store={store}>
-    <Services.Provider value={services}>
-      <MessageProvider>
-        <PrevNextBar />
-      </MessageProvider>
-    </Services.Provider>
-  </Provider>;
+  const render = () => <TestContainer store={store}>
+    <PrevNextBar />
+  </TestContainer>;
 
   it('renders `null` with no page or book', () => {
     const component = renderer.create(render());
