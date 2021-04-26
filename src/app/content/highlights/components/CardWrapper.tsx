@@ -7,14 +7,14 @@ import { scrollIntoView } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination } from '../../../reactUtils';
 import { AppState } from '../../../types';
-import { assertDefined, remsToPx } from '../../../utils';
+import { assertDefined } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
-import { cardMarginBottom, highlightKeyCombination } from '../constants';
+import { highlightKeyCombination } from '../constants';
 import { focused } from '../selectors';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
-import { getHighlightOffset, noopKeyCombinationHandler } from './cardUtils';
+import { getHighlightOffset, noopKeyCombinationHandler, updateCardsPositions } from './cardUtils';
 
 export interface WrapperProps {
   hasQuery: boolean;
@@ -60,14 +60,14 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   // If we don't do this then card related for the focused highlight will be focused automatically.
   useFocusLost(element, shouldFocusCard, () => setShouldFocusCard(false));
 
-  const onHeightChange = (id: string, ref: React.RefObject<HTMLElement>) => {
+  const onHeightChange = React.useCallback((id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
     if (cardsHeights.get(id) !== height) {
       setCardsHeights((previous) => new Map(previous).set(id, height === null ? 0 : height));
     }
-  };
+  }, [cardsHeights]);
 
-  const getOffsetsForHighlight = (highlight: Highlight) => {
+  const getOffsetsForHighlight = React.useCallback((highlight: Highlight) => {
     if (offsets.has(highlight.id)) {
       return assertDefined(offsets.get(highlight.id), 'this has to be defined');
     } else {
@@ -78,56 +78,17 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
       setOffsets((state) => new Map(state).set(highlight.id, newOffsets));
       return newOffsets;
     }
-  };
-
-  const updateCardsPositions = React.useCallback(() => {
-    const newPositions: Map<string, number> = new Map();
-
-    let lastVisibleCardPosition = 0;
-    let lastVisibleCardHeight = 0;
-
-    for (const [index, highlight] of highlights.entries()) {
-      const topOffset = getOffsetsForHighlight(highlight).top;
-
-      const stackedTopOffset = Math.max(topOffset, lastVisibleCardPosition
-        + lastVisibleCardHeight
-        + (index > 0 ? remsToPx(cardMarginBottom) : 0));
-
-      if (cardsHeights.get(highlight.id)) {
-        lastVisibleCardPosition = stackedTopOffset;
-        lastVisibleCardHeight = cardsHeights.get(highlight.id)!;
-      }
-
-      newPositions.set(highlight.id, stackedTopOffset);
-    }
-
-    setCardsPositions(newPositions);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [highlights, cardsHeights]);
+  }, [container, offsets]);
 
   React.useEffect(() => {
-    if (!focusedHighlight && element.current) {
-      element.current.style.transform = '';
-    }
-  }, [focusedHighlight]);
+    const positions = updateCardsPositions(focusedHighlight, highlights, cardsHeights, getOffsetsForHighlight);
+    setCardsPositions(positions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [highlights, cardsHeights, focusedHighlight]);
 
-  React.useEffect(updateCardsPositions, [updateCardsPositions]);
-
+  // Scroll into view of highlight when user focuses it
   React.useEffect(() => {
     if (!focusedHighlight) { return; }
-    const position = cardsPositions.get(focusedHighlight.id);
-    // position may be undefined in case of changing a page when highlight is focused
-    // because highlights will be already cleared and this function will try to run
-    // before page changes.
-    if (!position) { return; }
-    const topOffset = getOffsetsForHighlight(focusedHighlight).top;
-
-    const transform = position > topOffset ? `translateY(-${position - topOffset}px)` : '';
-
-    if (element.current) {
-      element.current.style.transform = transform;
-    }
-
     // Check for prevFocusedHighlightId.current is required so we do not scroll to the
     // focused highlight after user switches between the browser tabs - in this case
     // highlights are refetched and it trigers cardPositions to be updated since reference
