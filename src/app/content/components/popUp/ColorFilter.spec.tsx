@@ -1,7 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import createTestServices from '../../../../test/createTestServices';
 import TestContainer from '../../../../test/TestContainer';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';

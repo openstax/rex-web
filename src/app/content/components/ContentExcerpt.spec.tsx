@@ -1,7 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { routes } from '..';
-import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';

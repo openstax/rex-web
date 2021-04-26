@@ -1,5 +1,4 @@
 import cloneDeep from 'lodash/fp/cloneDeep';
-import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
@@ -14,21 +13,15 @@ describe('Attribution', () => {
   let React: any; // tslint:disable-line:variable-name
   let ReactDOM: any; // tslint:disable-line:variable-name
   let renderer: any;
-  let Provider: any; // tslint:disable-line:variable-name
   let renderToDom: any;
-  let MessageProvider = require('../../MessageProvider').default; // tslint:disable-line:variable-name
-  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     jest.resetAllMocks();
     resetModules();
     React = require('react');
     ReactDOM = require('react-dom');
-    Provider = require('react-redux').Provider;
     renderer = require('react-test-renderer');
     renderToDom = require('../../../test/reactutils').renderToDom;
-    MessageProvider = require('../../MessageProvider').default;
-    services = createTestServices();
   });
 
   describe('in browser', () => {

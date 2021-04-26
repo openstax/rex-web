@@ -1,6 +1,5 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook, lastPage, page as firstPage, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';

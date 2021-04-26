@@ -1,7 +1,6 @@
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import SearchResultsSidebar from '.';
 import createTestStore from '../../../../../test/createTestStore';
@@ -23,7 +22,6 @@ import {
   makeSearchResults
 } from '../../../../../test/searchResults';
 import TestContainer from '../../../../../test/TestContainer';
-import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
 import { assertDocument, assertWindow } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';

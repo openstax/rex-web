@@ -1,12 +1,8 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import TestContainer from '../../../../test/TestContainer';
 import Button from '../../../components/Button';
-import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { nextQuestion, setQuestions } from '../actions';
 import { PracticeQuestions } from '../types';
