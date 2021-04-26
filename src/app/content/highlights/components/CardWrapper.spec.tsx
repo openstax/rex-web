@@ -1,3 +1,4 @@
+import { Highlight } from '@openstax/highlighter';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -8,9 +9,10 @@ import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument, remsToPx } from '../../../utils';
 import { assertWindow } from '../../../utils/browser-assertions';
-import { clearFocusedHighlight, focusHighlight } from '../actions';
+import { focusHighlight } from '../actions';
 import { cardMarginBottom, highlightKeyCombination } from '../constants';
 import Card from './Card';
+import * as cardUtils from './cardUtils';
 import CardWrapper from './CardWrapper';
 
 const dispatchKeyDownEvent = (
@@ -158,48 +160,6 @@ describe('CardWrapper', () => {
     expect(scrollIntoView).not.toHaveBeenCalled();
   });
 
-  it('updates top offset for main wrapper if it is required', () => {
-    const div = assertDocument().createElement('div');
-    const createNodeMock = () => div;
-
-    const highlight = () => ({
-      ...createMockHighlight(),
-      range: {
-        getBoundingClientRect: () => ({ top: 100 }),
-      },
-    });
-
-    const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight(), highlight(), highlight()]} />
-    </Provider>, {createNodeMock});
-
-    // Wait for React.useEffect
-    renderer.act(() => undefined);
-
-    expect(div.style.transform).toEqual('');
-
-    // Update positions - currently all cards are in the same position
-    // after onHeightChange their positions will be recalculated
-    renderer.act(() => {
-      component.root.findAllByType(Card)
-        .forEach((card) => card.props.onHeightChange({ current: { offsetHeight: 100 }}));
-    });
-
-    // Position of last card is now 340px - all highlights are positioned 100px from the top
-    // Which mean that position of first card is at 100px offsetTop. Since all cards have 100px height
-    // and there is 20px margin between cards, we end up having 340px offsetTop for third card.
-    renderer.act(() => {
-      const [, , card] = component.root.findAllByType(Card);
-      expect(card.props.topOffset).toEqual(340);
-      store.dispatch(focusHighlight(card.props.highlight.id));
-    });
-
-    // When we focus third card then main wrapper should move to the top for 340px - 100px
-    // which is equal to third card position - topOffset for this highlight.
-
-    expect(div.style.transform).toEqual('translateY(-240px)');
-  });
-
   it(`handles card's height changes`, () => {
     const component = renderer.create(<Provider store={store}>
       <CardWrapper highlights={[createMockHighlight(), createMockHighlight()]} />
@@ -236,60 +196,74 @@ describe('CardWrapper', () => {
     expect(() => component.root.findAllByType(Card)).not.toThrow();
   });
 
-  it('resets top offset on clear focused highlight', () => {
-    const div = assertDocument().createElement('div');
-    const createNodeMock = () => div;
-    const highlight = createMockHighlight();
-    const highlight2 = createMockHighlight();
+  it(`update only these cards that needs it when focusing highlight`, () => {
+    const highlights = [createMockHighlight(), createMockHighlight(), createMockHighlight(), createMockHighlight()];
+    const highlightsPositionsInDocument = [0, 100, 120, 300];
+
+    jest.spyOn(cardUtils, 'getHighlightOffset')
+      .mockImplementation((_container: any, highlight: Highlight) => {
+        const top = highlightsPositionsInDocument[highlights.findIndex((search) => search.id === highlight.id)];
+        return {
+          bottom: top + 20,
+          top,
+        };
+      });
 
     const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight, highlight2]} />
-    </Provider>, {createNodeMock});
+      <CardWrapper highlights={highlights} />
+    </Provider>);
 
-    const [card1, card2] = component.root.findAllByType(Card);
+    const [card1, card2, card3, card4] = component.root.findAllByType(Card);
+    expect(card1.props.topOffset).toEqual(undefined);
+    expect(card2.props.topOffset).toEqual(undefined);
+    expect(card3.props.topOffset).toEqual(undefined);
+    expect(card3.props.topOffset).toEqual(undefined);
 
+    // Update state with a height
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 100 }});
-      card2.props.onHeightChange({ current: { offsetHeight: 100 }});
-      store.dispatch(focusHighlight(highlight2.id));
+      card1.props.onHeightChange({ current: { offsetHeight: 50 }});
+      card2.props.onHeightChange({ current: { offsetHeight: 50 }});
+      card3.props.onHeightChange({ current: { offsetHeight: 50 }});
+      card4.props.onHeightChange({ current: { offsetHeight: 50 }});
     });
+    expect(card1.props.topOffset).toEqual(0); // first card have only 50px height + 20px margin bottom
+    expect(card2.props.topOffset).toEqual(100); // so the second cards starts and the highlight level which is 100
+    // highlight for the card3 starts at 120px which is too close to the card2
+    // calculated offset will be equal to card2 offset + card2 height + card2 margin bottom = 170px
+    expect(card3.props.topOffset).toEqual(170);
+    expect(card4.props.topOffset).toEqual(300); // card4 will start at the corresponding highlight level
 
-    expect(div.style.transform).toEqual('translateY(-120px)');
-
+    // Move card2 and card3 to the top when the card3 is focused - card1 and card4 are not affected
     renderer.act(() => {
-      store.dispatch(clearFocusedHighlight());
+      store.dispatch(focusHighlight(card3.props.highlight.id));
     });
+    // cards were moved by 70px up (50 is height of the focused card and 20 px is margin bottom)
+    expect(card1.props.topOffset).toEqual(0);
+    expect(card2.props.topOffset).toEqual(50);
+    expect(card3.props.topOffset).toEqual(120);
+    expect(card4.props.topOffset).toEqual(300);
 
-    expect(div.style.transform).toEqual('');
-  });
-
-  it('does not reset topOffset when focused another highlight', () => {
-    const div = assertDocument().createElement('div');
-    const createNodeMock = () => div;
-    const highlight = createMockHighlight();
-    const highlight2 = createMockHighlight();
-    const highlight3 = createMockHighlight();
-
-    const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight, highlight2, highlight3]} />
-    </Provider>, {createNodeMock});
-
-    const [card1, card2, card3] = component.root.findAllByType(Card);
-
+    // focusing card1 is not changing position of any cards
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 100 }});
-      card2.props.onHeightChange({ current: { offsetHeight: 100 }});
-      card3.props.onHeightChange({ current: { offsetHeight: 100 }});
-      store.dispatch(focusHighlight(highlight2.id));
+      store.dispatch(focusHighlight(card1.props.highlight.id));
     });
+    // cards were moved by 70px up (50 is height of the focused card and 20 px is margin bottom)
+    expect(card1.props.topOffset).toEqual(0);
+    expect(card2.props.topOffset).toEqual(100);
+    expect(card3.props.topOffset).toEqual(170);
+    expect(card4.props.topOffset).toEqual(300);
 
-    expect(div.style.transform).toEqual('translateY(-120px)');
-
+    // focusing card4 is not changing position of any cards
     renderer.act(() => {
-      store.dispatch(focusHighlight(highlight3.id));
+      store.dispatch(focusHighlight(card1.props.highlight.id));
     });
+    // cards were moved by 70px up (50 is height of the focused card and 20 px is margin bottom)
+    expect(card1.props.topOffset).toEqual(0);
+    expect(card2.props.topOffset).toEqual(100);
+    expect(card3.props.topOffset).toEqual(170);
+    expect(card4.props.topOffset).toEqual(300);
 
-    expect(div.style.transform).toEqual('translateY(-240px)');
+    expect(() => component.root.findAllByType(Card)).not.toThrow();
   });
 
   it('does not throw on unmount when highlight is focused', () => {
