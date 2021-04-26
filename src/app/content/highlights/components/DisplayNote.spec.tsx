@@ -40,7 +40,7 @@ describe('DisplayNote', () => {
   it('matches snapshot', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={false} />
+        <DisplayNote {...displayNoteProps} isActive={false} />
       </MessageProvider>
     </Provider>);
 
@@ -51,7 +51,7 @@ describe('DisplayNote', () => {
   it('matches snapshot when focused', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={true} />
+        <DisplayNote {...displayNoteProps} isActive={true} />
       </MessageProvider>
     </Provider>);
 
@@ -62,7 +62,7 @@ describe('DisplayNote', () => {
   it('matches snapshot when focused with opened dropdown', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={true} />
+        <DisplayNote {...displayNoteProps} isActive={true} />
       </MessageProvider>
     </Provider>);
 
@@ -78,7 +78,7 @@ describe('DisplayNote', () => {
   it('shows delete confirmation', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={true} />
+        <DisplayNote {...displayNoteProps} isActive={true} />
       </MessageProvider>
     </Provider>);
 
@@ -101,7 +101,7 @@ describe('DisplayNote', () => {
   it('confirmation deletes', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={true} />
+        <DisplayNote {...displayNoteProps} isActive={true} />
       </MessageProvider>
     </Provider>, { createNodeMock: () => assertDocument().createElement('div')});
 
@@ -128,7 +128,7 @@ describe('DisplayNote', () => {
   it('confirmation cancels and does not call props.onBlur', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={true} />
+        <DisplayNote {...displayNoteProps} isActive={true} />
       </MessageProvider>
     </Provider>);
 
@@ -155,11 +155,11 @@ describe('DisplayNote', () => {
   });
 
   it('closes confirmation after changing focus and reopen', () => {
-    let isFocused = true;
+    let isActive = true;
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={isFocused} />
+        <DisplayNote {...displayNoteProps} isActive={isActive} />
       </MessageProvider>
     </Provider>);
 
@@ -178,11 +178,11 @@ describe('DisplayNote', () => {
 
     expect(component.root.findByType(Confirmation)).toBeDefined();
 
-    isFocused = false;
+    isActive = false;
 
     component.update(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={isFocused} />
+        <DisplayNote {...displayNoteProps} isActive={isActive} />
       </MessageProvider>
     </Provider>);
 
@@ -191,11 +191,11 @@ describe('DisplayNote', () => {
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
 
-    isFocused = true;
+    isActive = true;
 
     component.update(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={isFocused} />
+        <DisplayNote {...displayNoteProps} isActive={isActive} />
       </MessageProvider>
     </Provider>);
 
@@ -208,7 +208,7 @@ describe('DisplayNote', () => {
   it('calls onHeightChange when textToggle state changes', () => {
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={false} />
+        <DisplayNote {...displayNoteProps} isActive={false} />
       </MessageProvider>
     </Provider>);
 
@@ -229,7 +229,7 @@ describe('DisplayNote', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} highlight={highlight} isFocused={false} />
+        <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
       </MessageProvider>
     </Provider>);
 
@@ -246,7 +246,7 @@ describe('DisplayNote', () => {
 
     renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} highlight={highlight} isFocused={false} />
+        <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
       </MessageProvider>
     </Provider>);
 
@@ -275,7 +275,7 @@ describe('DisplayNote', () => {
 
     const component = renderer.create(<Provider store={store}>
       <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} highlight={highlight} isFocused={false} />
+        <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
       </MessageProvider>
     </Provider>);
 

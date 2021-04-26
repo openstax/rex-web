@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
-import { HTMLElement, } from '@openstax/types/lib.dom';
+import { Element, HTMLElement, } from '@openstax/types/lib.dom';
 import { findElementSelfOrParent } from '../../../domUtils';
 import { assertWindow, remsToPx } from '../../../utils';
 import { assertDefined } from '../../../utils/assertions';
@@ -78,12 +78,12 @@ export const generateUpdatePayload = (
  * Calculate positions for the cards according to the location of associated highlights in the document.
  * Positions will be adjusted to the presence of the other cards in cases like multiple highlights in the same line.
  */
-const updateStackedCardsPostions = (
+const updateStackedCardsPositions = (
   highlightsElements: Highlight[],
   heights: Map<string, number>,
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
   initialPositions?: Map<string, number>,
-  addMarginBottomToTheFirstCard = false,
+  addAditionalMarginForTheFirstCard = false,
   lastVisibleCardPosition = 0,
   lastVisibleCardHeight = 0
 ) => {
@@ -92,7 +92,7 @@ const updateStackedCardsPostions = (
   for (const [index, highlight] of highlightsElements.entries()) {
     const topOffset = getHighlightPosition(highlight).top;
 
-    const marginToAdd = index > 0 || addMarginBottomToTheFirstCard ? remsToPx(cardMarginBottom) : 0;
+    const marginToAdd = index > 0 || addAditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
     const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
     const stackedTopOffset = Math.max(topOffset, lastVisibleCardBottom + marginToAdd);
 
@@ -139,7 +139,7 @@ export const updateCardsPositions = (
   cardsHeights: Map<string, number>,
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number }
 ) => {
-  const cardsPositions = updateStackedCardsPostions(highlights, cardsHeights, getHighlightPosition);
+  const cardsPositions = updateStackedCardsPositions(highlights, cardsHeights, getHighlightPosition);
 
   const offsetToAdjust = getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition);
 
@@ -181,7 +181,7 @@ export const updateCardsPositions = (
 
   const highlightsAfterFocused = highlights.slice(focusedHighlightIndex + 1);
 
-  return updateStackedCardsPostions(
+  return updateStackedCardsPositions(
     highlightsAfterFocused,
     cardsHeights,
     getHighlightPosition,
@@ -190,4 +190,9 @@ export const updateCardsPositions = (
     cardsPositions.get(focusedHighlight.id) as number,
     cardsHeights.get(focusedHighlight.id) as number
   );
+};
+
+export const noopKeyCombinationHandler = (activeElement: Element): boolean => {
+  if (activeElement.nodeName === 'TEXTAREA') { return true; }
+  return false;
 };

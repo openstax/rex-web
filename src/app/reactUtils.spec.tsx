@@ -5,7 +5,7 @@ import { resetModules } from '../test/utils';
 import * as utils from './reactUtils';
 import { assertDocument, assertWindow } from './utils';
 
-describe('useFocusLost', () => {
+describe('onFocusInOrOutHandler focusout', () => {
   let ref: React.RefObject<HTMLElement>;
   let htmlElement: HTMLElement;
   let childElement: HTMLElement;
@@ -26,22 +26,22 @@ describe('useFocusLost', () => {
   });
 
   it('registers event listener', () => {
-    utils.onFocusLostHandler(ref, true, () => null)();
+    utils.onFocusInOrOutHandler(ref, true, () => null, 'focusout')();
     expect(addEventListener).toHaveBeenCalled();
   });
 
   it('doesn\'t register event listener when ref.current doesn\'t exist', () => {
-    utils.onFocusLostHandler({ current: null }, true, () => null)();
+    utils.onFocusInOrOutHandler({ current: null }, true, () => null, 'focusout')();
     expect(addEventListener).not.toHaveBeenCalled();
   });
 
   it('doesn\'t register event listener when os disabled', () => {
-    utils.onFocusLostHandler({ current: null }, false, () => null)();
+    utils.onFocusInOrOutHandler({ current: null }, false, () => null, 'focusout')();
     expect(addEventListener).not.toHaveBeenCalled();
   });
 
   it('removes event listener', () => {
-    const removeEvListener = utils.onFocusLostHandler(ref, true, () => null)();
+    const removeEvListener = utils.onFocusInOrOutHandler(ref, true, () => null, 'focusout')();
     expect(removeEvListener).toBeDefined();
     removeEvListener!();
     expect(removeEventListener).toHaveBeenCalled();
@@ -50,7 +50,7 @@ describe('useFocusLost', () => {
   it('moving focusout event trigger callback', () => {
     const window = assertWindow();
     const cb = jest.fn();
-    utils.onFocusLostHandler(ref, true, cb)();
+    utils.onFocusInOrOutHandler(ref, true, cb, 'focusout')();
 
     const focusOutEvent = window.document.createEvent('FocusEvent');
     Object.defineProperty(focusOutEvent, 'relatedTarget', {
@@ -67,7 +67,7 @@ describe('useFocusLost', () => {
   it('noops when clicking on child item', () => {
     const window = assertWindow();
     const cb = jest.fn();
-    utils.onFocusLostHandler(ref, true, cb)();
+    utils.onFocusInOrOutHandler(ref, true, cb, 'focusout')();
 
     const focusOutEvent = window.document.createEvent('FocusEvent');
     Object.defineProperty(focusOutEvent, 'relatedTarget', {
@@ -77,6 +77,57 @@ describe('useFocusLost', () => {
     focusOutEvent.initEvent('focusout', true, false);
 
     childElement.dispatchEvent(focusOutEvent);
+
+    expect(cb).not.toHaveBeenCalled();
+  });
+});
+
+describe('onFocusInOrOutHandler focusin', () => {
+  let ref: React.RefObject<HTMLElement>;
+  let htmlElement: HTMLElement;
+  let childElement: HTMLElement;
+  let siblingElement: HTMLElement;
+
+  beforeEach(() => {
+    htmlElement = assertDocument().createElement('div');
+    childElement = assertDocument().createElement('div');
+    htmlElement.appendChild(childElement);
+    siblingElement = assertDocument().createElement('div');
+    ref = {
+      current: htmlElement,
+    } as React.RefObject<HTMLElement>;
+  });
+
+  it('clicking on child element triggers callback', () => {
+    const window = assertWindow();
+    const cb = jest.fn();
+    utils.onFocusInOrOutHandler(ref, true, cb, 'focusin')();
+
+    const focusinEvent = window.document.createEvent('FocusEvent');
+    Object.defineProperty(focusinEvent, 'target', {
+      value: childElement,
+      writable: false,
+    });
+    focusinEvent.initEvent('focusin', true, false);
+
+    ref.current!.dispatchEvent(focusinEvent);
+
+    expect(cb).toHaveBeenCalled();
+  });
+
+  it('noops when clicking on sibling item', () => {
+    const window = assertWindow();
+    const cb = jest.fn();
+    utils.onFocusInOrOutHandler(ref, true, cb, 'focusin')();
+
+    const focusinEvent = window.document.createEvent('FocusEvent');
+    Object.defineProperty(focusinEvent, 'target', {
+      value: siblingElement,
+      writable: false,
+    });
+    focusinEvent.initEvent('focusin', true, false);
+
+    siblingElement.dispatchEvent(focusinEvent);
 
     expect(cb).not.toHaveBeenCalled();
   });
@@ -443,4 +494,46 @@ describe('useDisableContentTabbing', () => {
   expect(tabbableChildWithTabIndex.getAttribute('tabindex')).toEqual('2');
   expect(tabbableChildWithTabIndex.getAttribute('data-prev-tabindex')).toEqual(null);
   expect(tabbableElementOutsideOfTheRoot.getAttribute('tabindex')).toEqual(null);
+});
+
+describe('keyboardEventMatchesCombination', () => {
+  it('return false if event and options differs', () => {
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: true, altKey: true, shiftKey: true },
+      { key: 'a', ctrlKey: true, altKey: true, shiftKey: false } as any
+    )).toEqual(false);
+
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: true, altKey: true },
+      { key: 'a', ctrlKey: true, altKey: false } as any
+    )).toEqual(false);
+
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: true },
+      { key: 'a', ctrlKey: false } as any
+    )).toEqual(false);
+
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: undefined },
+      { key: 'a', ctrlKey: true } as any
+    )).toEqual(false);
+
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a' },
+      { key: 'b' } as any
+    )).toEqual(false);
+  });
+
+  it('return true if all of the options are of the same values in the event', () => {
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: true, altKey: true, shiftKey: true },
+      { key: 'A', ctrlKey: true, altKey: true, shiftKey: true } as any
+    )).toEqual(true);
+
+    // Returns true because altKey is not specified in the options
+    expect(utils.keyboardEventMatchesCombination(
+      { key: 'a', ctrlKey: true },
+      { key: 'a', ctrlKey: true, altKey: false } as any
+    )).toEqual(true);
+  });
 });
