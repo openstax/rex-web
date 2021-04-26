@@ -26,7 +26,7 @@ export const intl = createIntl({
 }, cache);
 
 // tslint:disable-next-line:variable-name
-const MessageProvider: React.FC<{onError?: () => void}> = (props) =>
+const MessageProvider: React.FC<{}> = (props) =>
   <RawIntlProvider value={useServices().intlProvider}>
     {props.children}
   </RawIntlProvider>;
