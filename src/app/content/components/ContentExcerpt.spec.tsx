@@ -6,6 +6,7 @@ import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import TestContainer from '../../../test/TestContainer';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
@@ -28,17 +29,13 @@ describe('ContentExcerpt', () => {
   const mockSection = findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid') as LinkedArchiveTreeSection;
 
   const render = (sourcePage: string | LinkedArchiveTreeSection, content: string) => renderer.create(
-    <Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ContentExcerpt
-            content={content}
-            source={sourcePage}
-            className='class1'
-          />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>
+    <TestContainer>
+      <ContentExcerpt
+        content={content}
+        source={sourcePage}
+        className='class1'
+      />
+    </TestContainer>
   );
 
   it('fixes urls in content using addTargetBlank and resolveRelative', () => {

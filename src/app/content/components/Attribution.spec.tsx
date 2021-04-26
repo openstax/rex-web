@@ -3,8 +3,8 @@ import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import TestContainer from '../../../test/TestContainer';
 import { resetModules } from '../../../test/utils';
-import * as Services from '../../context/Services';
 import { AppState, Store } from '../../types';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
@@ -55,13 +55,9 @@ describe('Attribution', () => {
       store = createTestStore(state);
     });
 
-    const render = () => <Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Attribution />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>;
+    const render = () => <TestContainer>
+      <Attribution />
+    </TestContainer>;
 
     it('removes listener when it unmounts', () => {
       const { root, node } = renderToDom(render());
