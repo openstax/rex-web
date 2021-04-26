@@ -22,6 +22,7 @@ import {
   makeSearchResultHit,
   makeSearchResults
 } from '../../../../../test/searchResults';
+import TestContainer from '../../../../../test/TestContainer';
 import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
 import { assertDocument, assertWindow } from '../../../../utils';
@@ -53,11 +54,9 @@ describe('SearchResultsSidebar', () => {
   });
 
   const render = () => (
-    <MessageProvider>
-      <Provider store={store}>
-        <SearchResultsSidebar/>
-      </Provider>
-    </MessageProvider>
+    <TestContainer store={store}>
+      <SearchResultsSidebar/>
+    </TestContainer>
   );
 
   it('mounts and unmounts without a dom', () => {

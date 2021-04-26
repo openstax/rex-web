@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import TestContainer from '../../../../test/TestContainer';
 import Button from '../../../components/Button';
 import * as Services from '../../../context/Services';
 import MessageProvider from '../../../MessageProvider';
@@ -14,20 +15,14 @@ import IntroScreen from './IntroScreen';
 describe('IntroScreen for practice questions', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
-  let services: ReturnType<typeof createTestServices>;
   let render: () => JSX.Element;
 
   beforeEach(() => {
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
-    services = createTestServices();
-    render = () => <Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <IntroScreen />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>;
+    render = () => <TestContainer store={store}>
+      <IntroScreen />
+    </TestContainer>;
   });
 
   it('renders properly for 1 question', () => {
