@@ -108,7 +108,7 @@ export default (options: AppOptions) => {
     reducer,
   });
 
-  const container = () => (
+  const container: React.SFC<{onError?: () => void}> = () => (
     <Provider store={store}>
       <Services.Provider value={services} >
         <MessageProvider>

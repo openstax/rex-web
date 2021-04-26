@@ -1,34 +1,23 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import createTestServices from '../../../../test/createTestServices';
-import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
+import TestContainer from '../../../../test/TestContainer';
 import { highlightStyles } from '../../constants';
 import ColorPicker from './ColorPicker';
 
 describe('ColorPicker', () => {
-  let services: ReturnType<typeof createTestServices>;
-
-  beforeEach(() => {
-      services = createTestServices();
-  });
 
   it('matches snapshot no selection', () => {
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
+    const component = renderer.create(<TestContainer>
       <ColorPicker onChange={jest.fn()} onRemove={jest.fn()} />
-      </MessageProvider>
-    </Services.Provider>);
+    </TestContainer>);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('checks selection', () => {
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorPicker color={highlightStyles[0].label} onChange={jest.fn()} onRemove={jest.fn()} />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorPicker color={highlightStyles[0].label} onChange={jest.fn()} onRemove={jest.fn()} />
+    </TestContainer>);
 
     const [first, ...rest] = component.root.findAllByType('input');
     expect(first.props.checked).toEqual(true);
@@ -36,11 +25,9 @@ describe('ColorPicker', () => {
   });
 
   it('checks selection (multiple)', () => {
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={jest.fn()} onRemove={jest.fn()} />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={jest.fn()} onRemove={jest.fn()} />
+    </TestContainer>);
 
     const [first, ...rest] = component.root.findAllByType('input');
     expect(first.props.checked).toEqual(true);
@@ -51,11 +38,9 @@ describe('ColorPicker', () => {
     const onChange = jest.fn();
     const onRemove = jest.fn();
 
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
+    </TestContainer>);
 
     const [, second] = component.root.findAllByType('input');
 
@@ -69,11 +54,9 @@ describe('ColorPicker', () => {
     const onChange = jest.fn();
     const onRemove = jest.fn();
 
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={onChange} onRemove={onRemove} />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={onChange} onRemove={onRemove} />
+    </TestContainer>);
 
     const [, second] = component.root.findAllByType('input');
 
@@ -87,11 +70,9 @@ describe('ColorPicker', () => {
     const onChange = jest.fn();
     const onRemove = jest.fn();
 
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
+    </TestContainer>);
 
     const [first] = component.root.findAllByType('input');
 
@@ -105,11 +86,9 @@ describe('ColorPicker', () => {
     const onChange = jest.fn();
     const onRemove = jest.fn();
 
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={onChange} onRemove={onRemove} />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={onChange} onRemove={onRemove} />
+    </TestContainer>);
 
     const [first] = component.root.findAllByType('input');
 
@@ -122,11 +101,9 @@ describe('ColorPicker', () => {
   it('do not call remove if it was not passed', () => {
     const onChange = jest.fn();
 
-    const component = renderer.create(<Services.Provider value={services}>
-      <MessageProvider>
-        <ColorPicker color={highlightStyles[0].label} onChange={onChange} />
-      </MessageProvider>
-    </Services.Provider>);
+    const component = renderer.create(<TestContainer>
+      <ColorPicker color={highlightStyles[0].label} onChange={onChange} />
+    </TestContainer>);
 
     const [first] = component.root.findAllByType('input');
 
