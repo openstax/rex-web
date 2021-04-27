@@ -82,7 +82,7 @@ export const FiltersListColor = (props: FiltersListColorProps) => (
 interface FiltersListChapterProps {
   title: string;
   ariaLabelKey: (title: string) => string;
-  dataAnalyticsLabel: (title: string) => string;
+  dataAnalyticsLabel: (splitTitle: string) => string;
   locationId: string;
   onRemove: () => void;
 }
@@ -95,7 +95,7 @@ export const FiltersListChapter = (props: FiltersListChapterProps) => (
         { id: props.ariaLabelKey(props.title) },
         { filterValue: splitTitleParts(props.title).join(' ') }
       )}
-      data-analytics-label={props.dataAnalyticsLabel(props.title)}
+      data-analytics-label={props.dataAnalyticsLabel(splitTitleParts(props.title).join(' '))}
       onClick={props.onRemove}
     >
       <Times />
@@ -111,7 +111,7 @@ interface FiltersListProps {
   selectedColorFilters: Set<HighlightColorEnum>;
   setFilters: (change: SummaryFiltersUpdate) => void;
   chapterAriaLabelKey: (title: string) => string;
-  chapterDataAnalyticsLabel: (title: string) => string;
+  chapterDataAnalyticsLabel: (splitTitle: string) => string;
   colorAriaLabelKey: (color: HighlightColorEnum) => string;
   colorDataAnalyticsLabel: (color: HighlightColorEnum) => string;
   colorLabelKey: (color: HighlightColorEnum) => string;

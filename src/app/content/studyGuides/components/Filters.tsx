@@ -14,7 +14,6 @@ import PrintButton from '../../components/popUp/PrintButton';
 import { FiltersChange } from '../../components/popUp/types';
 import { SummaryFiltersUpdate } from '../../highlights/types';
 import { LinkedArchiveTreeNode } from '../../types';
-import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { printStudyGuides, updateSummaryFilters } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
@@ -22,6 +21,7 @@ import { cookieUTG } from './UsingThisGuide/constants';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
 import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
+// converting color to a label is based on "i18n:studyguides:popup:filters:remove:color" from messages.json
 const createColorDataAnalyticsLabel = (color: HighlightColorEnum): string => {
   let label;
   switch (color) {
@@ -157,7 +157,7 @@ export default () => {
       colorDataAnalyticsLabel={(color: HighlightColorEnum) => createColorDataAnalyticsLabel(color)}
       colorLabelKey={(color: HighlightColorEnum) => `i18n:studyguides:popup:filters:${color}`}
       chapterAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:chapter'}
-      chapterDataAnalyticsLabel={(title: string) => `Remove breadcrumb for chapter ${splitTitleParts(title).join(' ')}`}
+      chapterDataAnalyticsLabel={(splitTitle: string) => `Remove breadcrumb for chapter ${splitTitle}`}
     />}
   </Filters>;
 };
