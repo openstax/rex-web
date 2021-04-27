@@ -154,6 +154,13 @@ const transformData = () => {
   const { approved_books, approved_versions } = parsed;
 
   for (const collectionOrRepo of approved_books) {
+    if (
+      collectionOrRepo.tutor_only
+      || (isApprovedCollection(collectionOrRepo) && collectionOrRepo.server !== 'cnx.org')
+    ) {
+      continue;
+    }
+
     const books = collectionOrRepo.books;
     const desiredVersion = getDesiredVersion(approved_versions, collectionOrRepo);
 
