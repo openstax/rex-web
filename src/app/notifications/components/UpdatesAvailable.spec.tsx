@@ -27,10 +27,10 @@ describe('UpdatesAvailable', () => {
 
   it('reloads on click', () => {
     const component = renderer.create(<Services.Provider value={services}>
-        <MessageProvider>
-          <UpdatesAvailable />
-        </MessageProvider>
-      </Services.Provider>);
+      <MessageProvider>
+        <UpdatesAvailable />
+      </MessageProvider>
+    </Services.Provider>);
     component.root.findByType('button').props.onClick();
     expect(reload).toHaveBeenCalled();
   });

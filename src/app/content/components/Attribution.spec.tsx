@@ -1,9 +1,10 @@
 import cloneDeep from 'lodash/fp/cloneDeep';
+import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import TestContainer from '../../../test/TestContainer';
 import { resetModules } from '../../../test/utils';
+import * as Services from '../../context/Services';
 import { AppState, Store } from '../../types';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
@@ -13,15 +14,21 @@ describe('Attribution', () => {
   let React: any; // tslint:disable-line:variable-name
   let ReactDOM: any; // tslint:disable-line:variable-name
   let renderer: any;
+  let Provider: any; // tslint:disable-line:variable-name
   let renderToDom: any;
+  let MessageProvider = require('../../MessageProvider').default; // tslint:disable-line:variable-name
+  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     jest.resetAllMocks();
     resetModules();
     React = require('react');
     ReactDOM = require('react-dom');
+    Provider = require('react-redux').Provider;
     renderer = require('react-test-renderer');
     renderToDom = require('../../../test/reactutils').renderToDom;
+    MessageProvider = require('../../MessageProvider').default;
+    services = createTestServices();
   });
 
   describe('in browser', () => {
@@ -48,9 +55,13 @@ describe('Attribution', () => {
       store = createTestStore(state);
     });
 
-    const render = () => <TestContainer store={store}>
-      <Attribution />
-    </TestContainer>;
+    const render = () => <Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Attribution />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>;
 
     it('removes listener when it unmounts', () => {
       const { root, node } = renderToDom(render());

@@ -27,7 +27,7 @@ export const intl = createIntl({
 
 // tslint:disable-next-line:variable-name
 const MessageProvider: React.FC<{}> = (props) =>
-  <RawIntlProvider value={useServices().intl}>
+  <RawIntlProvider value={intl}>
     {props.children}
   </RawIntlProvider>;
 
