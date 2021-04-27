@@ -95,17 +95,17 @@ interface NavigationBarProps {
 // tslint:disable-next-line:variable-name
 const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
   <Styled.BarWrapper data-analytics-region='openstax-navbar'>
-  <Styled.TopBar data-testid='navbar'>
-    <a href='/'>
-      <Styled.HeaderImage
-        role='img'
-        src={openstaxLogo}
-        alt={useIntl().formatMessage({id: 'i18n:nav:logo:alt'})}
-      />
-    </a>
-    {loggedOut && <LoggedOutState currentPath={currentPath} />}
-    {user && <LoggedInState user={user} currentPath={currentPath} />}
-  </Styled.TopBar>
+    <Styled.TopBar data-testid='navbar'>
+      <a href='/'>
+        <Styled.HeaderImage
+          role='img'
+          src={openstaxLogo}
+          alt={useIntl().formatMessage({id: 'i18n:nav:logo:alt'})}
+        />
+      </a>
+      {loggedOut && <LoggedOutState currentPath={currentPath} />}
+      {user && <LoggedInState user={user} currentPath={currentPath} />}
+    </Styled.TopBar>
 </Styled.BarWrapper>;
 
 export default connect(

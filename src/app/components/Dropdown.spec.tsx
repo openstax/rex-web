@@ -80,13 +80,13 @@ describe('Dropdown', () => {
     const useOnEscSpy = jest.spyOn(reactUtils, 'useOnEsc');
 
     const component = renderer.create(<TestContainer>
-        <Dropdown transparentTab={false} toggle={<button>show more</button>}>
-          <DropdownList>
-            <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
-            <DropdownItem onClick={() => null} href='/wooo' message='i18n:highlighting:dropdown:edit' />
-          </DropdownList>
-        </Dropdown>
-      </TestContainer>);
+      <Dropdown transparentTab={false} toggle={<button>show more</button>}>
+        <DropdownList>
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
+          <DropdownItem onClick={() => null} href='/wooo' message='i18n:highlighting:dropdown:edit' />
+        </DropdownList>
+      </Dropdown>
+    </TestContainer>);
 
     renderer.act(() => {
       component.root.findByType('button').props.onClick();

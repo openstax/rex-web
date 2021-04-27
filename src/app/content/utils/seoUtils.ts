@@ -83,6 +83,7 @@ export const generateExcerpt = (str: string) => {
 const getPageType = (node: HTMLElement, parentType: TreeNodeTypes, parentPrefix: string, pageTitle: string ): PageTypes => {
   const nodeClasses = node.classList;
   const nodeType = node.getAttribute('data-type');
+  const answerKeyClasses = ['os-solution-container', 'os-solutions-container', 'os-end-of-book-solutions-container'];
 
   if (nodeType === 'page' && !nodeClasses.contains('appendix')) {
     return 'page';
@@ -92,11 +93,7 @@ const getPageType = (node: HTMLElement, parentType: TreeNodeTypes, parentPrefix:
     return 'index';
   } else if (pageTitle === parentPrefix) {
     return 'eob-page';
-  } else if (
-    nodeClasses.contains('os-solution-container')
-    || nodeClasses.contains('os-solutions-container')
-      || nodeClasses.contains('os-end-of-book-solutions-container')
-  ) {
+  } else if (answerKeyClasses.some((className) => nodeClasses.contains(className))) {
     return 'answer-key';
   } else if (parentType !== 'chapter' && parentType !== 'book') {
     return 'subpage';
