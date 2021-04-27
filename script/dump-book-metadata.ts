@@ -3,7 +3,7 @@ import { ArchiveBook, LinkedArchiveTree, LinkedArchiveTreeSection } from '../src
 import { formatBookData } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { getPageDescription, getParentPrefix, getTextContent } from '../src/app/content/utils/seoUtils';
-import { useServices } from '../src/app/context/Services';
+import { intl } from '../src/app/MessageProvider';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import allBooks from '../src/config.books.json';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
@@ -20,7 +20,7 @@ const getPageMetadata = async(
   loader: ReturnType<(typeof archiveLoader)['book']>
 ) => {
   const services = {
-    intl: useServices().intl,
+    intl,
     loader: archiveLoader,
   };
   const page = await loader.page(section.id).load();

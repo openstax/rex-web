@@ -2,7 +2,6 @@ import createTestServices from '../../../test/createTestServices';
 import makeArchiveLoader from '../../../test/mocks/archiveLoader';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
-import { useServices } from '../../context/Services';
 import { Book, Page } from '../types';
 import { formatBookData } from '../utils';
 import { createTitle, getPageDescription } from './seoUtils';

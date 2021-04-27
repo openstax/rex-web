@@ -4,7 +4,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button from '../../../../components/Button';
 import { textRegularStyle } from '../../../../components/Typography';
-import { useServices } from '../../../../context/Services';
 import theme from '../../../../theme';
 import { HighlightEditButtons } from './styles';
 
