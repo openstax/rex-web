@@ -1,11 +1,11 @@
 import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
-import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details';
 import { htmlMessage } from '../../components/htmlMessage';
 import { bodyCopyRegularStyle, decoratedLinkStyle, textRegularLineHeight } from '../../components/Typography';
+import { useServices } from '../../context/Services';
 import { scrollTo } from '../../domUtils';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
@@ -40,7 +40,8 @@ const SummaryOpenIcon = styled((props) => <CollapseIcon {...props} />)`
 
 // tslint:disable-next-line:variable-name
 const AttributionSummary = styled((props) => {
-  const message = useIntl().formatMessage({id: 'i18n:attribution:toggle'});
+  const services = useServices();
+  const message = services.intlProvider.formatMessage({id: 'i18n:attribution:toggle'});
 
   return <Summary {...props} aria-label={message}>
     <SummaryClosedIcon />

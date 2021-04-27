@@ -1,3 +1,4 @@
+import createTestServices from '../../../test/createTestServices';
 import makeArchiveLoader from '../../../test/mocks/archiveLoader';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
@@ -22,7 +23,7 @@ describe('getDescription', () => {
   const loader = makeArchiveLoader();
   const book = formatBookData(mockBook, mockOsWebBook);
   const services = {
-    intl: useServices().intlProvider,
+    intl: createTestServices().intlProvider,
     loader,
   };
   loader.mockBook(book);

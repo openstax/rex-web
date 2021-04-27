@@ -13,14 +13,18 @@ interface TestContainerProps {
 }
 
 // tslint:disable-next-line:variable-name max-line-length
-const TestContainer = ({services = createTestServices(), store = createTestStore(), children}: TestContainerProps) => (
+const TestContainer = ({services = createTestServices(), store = createTestStore(), children}: TestContainerProps) => {
+  console.log('test container: ', services.intlProvider.formats);
+
+  return (
   <Provider store={store}>
-    <Services.Provider value= {services}>
+    <Services.Provider value={services}>
       <MessageProvider>
         {children}
       </MessageProvider>
     </Services.Provider>
   </Provider>
 );
+  };
 
 export default TestContainer;

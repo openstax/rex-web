@@ -48,7 +48,7 @@ describe('Attribution', () => {
       store = createTestStore(state);
     });
 
-    const render = () => <TestContainer>
+    const render = () => <TestContainer store={store}>
       <Attribution />
     </TestContainer>;
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';
@@ -7,7 +6,6 @@ import { book, page } from '../../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../../test/TestContainer';
-import MessageProvider from '../../../../MessageProvider';
 import { Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
@@ -43,18 +41,16 @@ describe('HighlightDeleteWrapper', () => {
   });
 
   it('match snapshot when editing is set to true', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightAnnotation
-          annotation='Some annotation'
-          isEditing={true}
-          // tslint:disable-next-line: no-empty
-          onSave={() => {}}
-          // tslint:disable-next-line: no-empty
-          onCancel={() => {}}
-        />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <HighlightAnnotation
+        annotation='Some annotation'
+        isEditing={true}
+        // tslint:disable-next-line: no-empty
+        onSave={() => {}}
+        // tslint:disable-next-line: no-empty
+        onCancel={() => {}}
+      />
+    </TestContainer>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
