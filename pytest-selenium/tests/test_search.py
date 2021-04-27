@@ -37,8 +37,11 @@ def test_message_when_search_yields_no_results(
 
     # THEN: the search sidebar displays the no results message
     # AND:  they remain on the same page as before they executed the search
-    assert(content.search_sidebar.no_results_message == f"Sorry, no results found for   ‘{search_term}’"), \
+    assert(
+        content.search_sidebar.no_results_message ==
+        f"Sorry, no results found for   ‘{search_term}’"), (
         "search sidebar no results message not found or incorrect"
+    )
 
     assert(content.current_url == page_url_before_search), \
         "page URL different after search"

@@ -58,7 +58,9 @@ class WebBase(Page):
     _print_copy_mobile_locator = (
         By.XPATH, f"{MOBILE}{PRINT_COPY}")
     _order_a_personal_copy_locator = (
-        By.CSS_SELECTOR, ".larger-version [class='btn primary'][data-track=Print]")
+        By.CSS_SELECTOR,
+        ".larger-version [class='btn primary'][data-track=Print]"
+    )
     _osweb_404_locator = (
         By.CSS_SELECTOR, '[class*="not-found"]')
     _sticky_note_put_away_button_locator = (
@@ -92,12 +94,17 @@ class WebBase(Page):
 
     def osweb_404_displayed(self) -> bool:
         """Return true if osweb 404 error is displayed"""
-        return bool(self.wait.until(lambda _: self.find_element(*self._osweb_404_locator)))
+        return bool(
+            self.wait.until(
+                lambda _: self.find_element(*self._osweb_404_locator)
+            )
+        )
 
     @property
     def osweb_404_error(self):
         """Return the 404 error text"""
-        return self.find_element(*self._osweb_404_locator).get_attribute("textContent")
+        _404_error = self.find_elements(*self._osweb_404_locator)
+        return _404_error[0].get_attribute("textContent") if _404_error else ""
 
     @property
     def login(self):

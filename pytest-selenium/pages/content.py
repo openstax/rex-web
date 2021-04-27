@@ -47,10 +47,16 @@ class Content(Page):
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _modal_root_locator = (By.CSS_SELECTOR, "[class*=PopupWrapper]")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
-    _notification_pop_up_locator = (By.CSS_SELECTOR, "[class*=ContentNotifications]")
+    _notification_pop_up_locator = (
+        By.CSS_SELECTOR,
+        "[class*=ContentNotifications]"
+    )
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
     _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
-    _order_print_copy_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
+    _order_print_copy_locator = (
+        By.CSS_SELECTOR,
+        "[data-analytics-label=buy-book]"
+    )
     _discard_modal_locator = (By.CSS_SELECTOR, "[class*='CardWrapper']")
 
     _page_meta_title_selector = "head > meta[property='og:title']"
@@ -207,7 +213,9 @@ class Content(Page):
 
     @property
     def order_print_copy_button(self) -> WebElement:
-        return self.find_element(*self._order_print_copy_locator)
+        return self.wait.until(
+            lambda _: self.find_element(*self._order_print_copy_locator)
+        )
 
     def order_a_print_copy(self, remain_on_page: bool = False) -> Page:
         """Click the 'Order a print copy' button.
