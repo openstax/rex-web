@@ -2212,7 +2212,7 @@ def test_start_practice_ga_event(
     # AND:   click the 'Start now' button
     practice = book.toolbar.practice()
 
-    practice.start_now()
+    practice.content.start_now()
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "Start now",
