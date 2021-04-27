@@ -383,7 +383,7 @@ describe('Card', () => {
     store.dispatch(setAnnotationChangesPending(true));
 
     const component = renderer.create(<Provider store={store}>
-      <Card {...cardProps} isFocused={false} />
+      <Card {...cardProps} isActive={false} />
     </Provider>);
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
