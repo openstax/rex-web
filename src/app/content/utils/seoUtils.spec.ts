@@ -6,8 +6,8 @@ import { Book, Page } from '../types';
 import { formatBookData } from '../utils';
 import { createTitle, getPageDescription } from './seoUtils';
 import {
-  appendixPage,
   answerKeyPage,
+  appendixPage,
   contentPage,
   contentPageShort,
   contentPageWithObjectives,
@@ -87,20 +87,19 @@ describe('getDescription', () => {
 
   it('makes a description for an appendix', () => {
     loader.mockPage(book, appendixPage, 'page-slug');
-    const description = getPageDescription(services, book, eobPage);
+    const description = getPageDescription(services, book, appendixPage);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will find the References section for OpenStax's JavaScript Testing free textbook."`
+      `"On this page you will find the Testing Matrix Examples for OpenStax's JavaScript Testing free textbook."`
     );
   });
 
-  it('makes a description for an index, () => {
+  it('makes a description for an index', () => {
     loader.mockPage(book, indexPage, 'page-slug');
-    const description = getPageDescription(services, book, eobPage);
+    const description = getPageDescription(services, book, indexPage);
     expect(description).toMatchInlineSnapshot(
-    `"On this page you will find the Index for OpenStax's JavaScript Testing free textbook."`
-  );
-});
-
+      `"On this page you will find the Index for OpenStax's JavaScript Testing free textbook."`
+    );
+  });
 });
 
 describe('createTitle', () => {
