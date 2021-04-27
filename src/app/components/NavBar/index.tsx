@@ -1,8 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { SFC } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { useServices } from '../../../app/context/Services';
 import openstaxLogo from '../../../assets/logo.svg';
 import * as authSelect from '../../auth/selectors';
 import { User } from '../../auth/types';
@@ -20,7 +19,6 @@ if (typeof(window) !== 'undefined') {
 // tslint:disable-next-line:variable-name
 export const Dropdown: React.FunctionComponent<{user: User, currentPath: string}> = ({user, currentPath}) => {
   const overlay = React.useRef<HTMLElement>();
-  const services = useServices();
 
   const blockScroll: OnScrollCallback = (e) => {
     if (typeof(window) === 'undefined' || !overlay.current) {
@@ -40,7 +38,7 @@ export const Dropdown: React.FunctionComponent<{user: User, currentPath: string}
       <a aria-hidden='true' tabIndex={-1} href='/'>
         <Styled.OverlayLogo
           src={openstaxLogo}
-          alt={services.intlProvider.formatMessage({id: 'i18n:nav:logo:alt'})}
+          alt={useIntl().formatMessage({id: 'i18n:nav:logo:alt'})}
         />
       </a>
       <div>
@@ -95,26 +93,20 @@ interface NavigationBarProps {
   currentPath: string;
 }
 // tslint:disable-next-line:variable-name
-const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) => {
-  const services = useServices();
-  console.log('nav bar services: ', services);
-
-  return (
-    <Styled.BarWrapper data-analytics-region='openstax-navbar'>
-    <Styled.TopBar data-testid='navbar'>
-      <a href='/'>
-        <Styled.HeaderImage
-          role='img'
-          src={openstaxLogo}
-          alt={services.intlProvider.formatMessage({id: 'i18n:nav:logo:alt'})}
-        />
-      </a>
-      {loggedOut && <LoggedOutState currentPath={currentPath} />}
-      {user && <LoggedInState user={user} currentPath={currentPath} />}
-    </Styled.TopBar>
-  </Styled.BarWrapper>
-  );
-};
+const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
+  <Styled.BarWrapper data-analytics-region='openstax-navbar'>
+  <Styled.TopBar data-testid='navbar'>
+    <a href='/'>
+      <Styled.HeaderImage
+        role='img'
+        src={openstaxLogo}
+        alt={useIntl().formatMessage({id: 'i18n:nav:logo:alt'})}
+      />
+    </a>
+    {loggedOut && <LoggedOutState currentPath={currentPath} />}
+    {user && <LoggedInState user={user} currentPath={currentPath} />}
+  </Styled.TopBar>
+</Styled.BarWrapper>;
 
 export default connect(
   (state: AppState) => ({
