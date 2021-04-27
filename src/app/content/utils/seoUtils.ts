@@ -91,6 +91,7 @@ const getPageType = (node: HTMLElement, parentType: TreeNodeTypes, parentPrefix:
   } else if (
     nodeClasses.contains('os-solution-container')
     || nodeClasses.contains('os-solutions-container')
+      || nodeClasses.contains('os-end-of-book-solutions-container')
   ) {
     return 'answer-key';
   } else if (parentType !== 'chapter' && parentType !== 'book') {

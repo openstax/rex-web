@@ -39,7 +39,7 @@ describe('getDescription', () => {
     loader.mockPage(book, contentPageShort, 'page-slug');
     const description = getPageDescription(services, book, contentPageShort);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will discover the Best Practices for Chapter 1. What is a test? of OpenStax's JavaScript Testing free textbook."`
+      `"On this page you will find the Best Practices for Chapter 1. What is a test? of OpenStax's JavaScript Testing free textbook."`
     );
   });
 
@@ -55,7 +55,7 @@ describe('getDescription', () => {
     loader.mockPage(book, answerKeyPage, 'page-slug');
     const description = getPageDescription(services, book, answerKeyPage);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will discover the Answer Key for Chapter 3 of OpenStax's JavaScript Testing free textbook."`
+      `"On this page you will find the Answer Key for Chapter 3 of OpenStax's JavaScript Testing free textbook."`
     );
   });
 
@@ -63,7 +63,7 @@ describe('getDescription', () => {
     loader.mockPage(book, eocPage, 'page-slug');
     const description = getPageDescription(services, book, eocPage);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will discover the Review Questions for Chapter 1. What is a test? of OpenStax's JavaScript Testing free textbook."`
+      `"On this page you will find the Review Questions for Chapter 1. What is a test? of OpenStax's JavaScript Testing free textbook."`
     );
   });
 
@@ -71,7 +71,7 @@ describe('getDescription', () => {
     loader.mockPage(book, subpage, 'page-slug');
     const description = getPageDescription(services, book, subpage);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will discover Chapter Review: Key Concepts for Chapter 2. Unit Testing of OpenStax's JavaScript Testing free textbook."`
+      `"On this page you will find Chapter Review: Key Concepts for Chapter 2. Unit Testing of OpenStax's JavaScript Testing free textbook."`
     );
   });
 
@@ -79,7 +79,7 @@ describe('getDescription', () => {
     loader.mockPage(book, eobPage, 'page-slug');
     const description = getPageDescription(services, book, eobPage);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will discover the References for OpenStax's JavaScript Testing free textbook."`
+      `"On this page you will find the References for OpenStax's JavaScript Testing free textbook."`
     );
   });
 
