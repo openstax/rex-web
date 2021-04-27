@@ -1,6 +1,6 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button from '../../../../components/Button';
 import { textRegularStyle } from '../../../../components/Typography';
@@ -50,7 +50,7 @@ const HighlightAnnotation = (
   { annotation, isEditing, onSave, onCancel }: HighlightAnnotationProps
 ) => {
   const [anno, setAnno] = React.useState(annotation);
-  const intl = useServices().intlProvider;
+  const intl = useIntl();
 
   React.useEffect(() => {
     setAnno(annotation);

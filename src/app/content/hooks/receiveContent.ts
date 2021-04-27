@@ -15,7 +15,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   dispatch,
   archiveLoader,
   osWebLoader,
-  intlProvider}) => async() => {
+  intl}) => async() => {
 
   const state = getState();
   const book = select.book(state);
@@ -35,7 +35,7 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   }
 
   const services = {
-    intl: intlProvider,
+    intl,
     loader: archiveLoader,
   };
 

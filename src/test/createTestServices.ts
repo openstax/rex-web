@@ -23,7 +23,7 @@ const services = () => ({
   fontCollector: new FontCollector(),
   highlightClient: createHighlightClient('asdf'),
   history: createMemoryHistory(),
-  intlProvider: intl,
+  intl,
   osWebLoader: mockOsWebLoader(),
   practiceQuestionsLoader: createPracticeQuestionsLoader(),
   promiseCollector: new PromiseCollector(),

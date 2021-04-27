@@ -56,7 +56,7 @@ const hooks = [
 const defaultServices = () => ({
   analytics,
   fontCollector: new FontCollector(),
-  intlProvider: intl,
+  intl,
   promiseCollector: new PromiseCollector(),
 });
 

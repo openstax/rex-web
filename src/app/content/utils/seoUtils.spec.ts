@@ -23,7 +23,7 @@ describe('getDescription', () => {
   const loader = makeArchiveLoader();
   const book = formatBookData(mockBook, mockOsWebBook);
   const services = {
-    intl: createTestServices().intlProvider,
+    intl: createTestServices().intl,
     loader,
   };
   loader.mockBook(book);

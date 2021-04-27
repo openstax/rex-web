@@ -58,7 +58,7 @@ const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
     onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
       onChange(e.target.value);
     }}
-    placeholder={services.intlProvider.formatMessage({id: 'i18n:highlighting:card:placeholder'})}
+    placeholder={services.intl.formatMessage({id: 'i18n:highlighting:card:placeholder'})}
   />;
 };
 

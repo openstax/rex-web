@@ -13,7 +13,7 @@ import {
 } from './archiveTreeUtils';
 
 type Services = {
-  intl: AppServices['intlProvider'];
+  intl: AppServices['intl'];
   loader: AppServices['archiveLoader'];
 };
 
