@@ -17,7 +17,7 @@ type Services = {
   loader: AppServices['archiveLoader'];
 };
 
-type PageTypes = 'page' | 'answer-key' | 'subpage' | 'eoc-page' | 'eob-page';
+type PageTypes = 'page' | 'answer-key' | 'subpage' | 'eoc-page' | 'eob-page' | 'appendix' | 'index';
 
 type TreeNodeTypes = 'chapter' | 'book' | 'other';
 
@@ -86,6 +86,10 @@ const getPageType = (node: HTMLElement, parentType: TreeNodeTypes, parentPrefix:
 
   if (nodeType === 'page' && !nodeClasses.contains('appendix')) {
     return 'page';
+  } else if (nodeClasses.contains('appendix')) {
+    return 'appendix';
+  } else if (nodeClasses.contains('os-index-container')) {
+    return 'index';
   } else if (pageTitle === parentPrefix) {
     return 'eob-page';
   } else if (

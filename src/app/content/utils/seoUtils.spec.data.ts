@@ -65,6 +65,26 @@ export const eobPage = {
   slug: 'references',
 };
 
+export const appendixPage = {
+  title: 'Testing Matrix Examples',
+  content: '<html xmlns="http://www.w3.org/1999/xhtml"><body><div data-type="page" class="appendix" id="1d1fd537-77fb-4eac-8a8a-60bbaa747b6d" data-cnxml-to-html-ver="2.1.0"><p>The forces that cause Andromeda to act as it does are the same forces we contend with here on Earth, whether we are planning to send a rocket into space or simply raise the walls for a new home. The same gravity that causes the stars of Andromeda to rotate and revolve also causes water to flow over hydroelectric dams here on Earth. Tonight, take a moment to look up at the stars. The forces out there are the same as the ones here on Earth. Through a study of physics, you may gain a greater understanding of the interconnectedness of everything we can see and know in this universe.</p></div></body></html>',
+  abstract: '',
+  id: '13',
+  version: '1.0',
+  revised: '',
+  slug: 'testing-matrix-examples',
+};
+
+export const indexPage = {
+  title: 'Index',
+  content: '<html xmlns="http://www.w3.org/1999/xhtml"><body><div data-type="composite-page" class="os-eob os-index-container" id="1d1fd537-77fb-4eac-8a8a-60bbaa747b6d" data-cnxml-to-html-ver="2.1.0"><p>The forces that cause Andromeda to act as it does are the same forces we contend with here on Earth, whether we are planning to send a rocket into space or simply raise the walls for a new home. The same gravity that causes the stars of Andromeda to rotate and revolve also causes water to flow over hydroelectric dams here on Earth. Tonight, take a moment to look up at the stars. The forces out there are the same as the ones here on Earth. Through a study of physics, you may gain a greater understanding of the interconnectedness of everything we can see and know in this universe.</p></div></body></html>',
+  abstract: '',
+  id: '14',
+  version: '1.0',
+  revised: '',
+  slug: 'index',
+};
+
 export const mockOsWebBook: OSWebBook = {
   meta: {
     slug: 'js-book',
@@ -136,6 +156,8 @@ export const mockBook = {
         ],
       },
       eobPage,
+      appendixPage,
+      indexPage,
     ],
   },
 };
