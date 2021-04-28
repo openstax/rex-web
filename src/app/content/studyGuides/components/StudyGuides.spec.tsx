@@ -82,7 +82,7 @@ describe('StudyGuides', () => {
 
     store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
 
-    const component = renderer.create(<TestContainer store={store}>
+    const component = renderer.create(<TestContainer services={services} store={store}>
       <StudyGuides />
     </TestContainer>);
 
@@ -118,7 +118,7 @@ describe('StudyGuides', () => {
 
     store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
 
-    renderer.create(<TestContainer store={store}>
+    renderer.create(<TestContainer services={services} store={store}>
       <StudyGuides />
     </TestContainer>, { createNodeMock: () => container });
 
@@ -155,7 +155,7 @@ describe('StudyGuides', () => {
       store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
     });
 
-    const component = renderer.create(<TestContainer store={store}>
+    const component = renderer.create(<TestContainer services={services} store={store}>
       <StudyGuides/>
     </TestContainer>);
 
@@ -176,7 +176,7 @@ describe('StudyGuides', () => {
     const summaryStudyGuides = {} as SummaryHighlights;
     store.dispatch(receiveSummaryStudyGuides(summaryStudyGuides, {pagination: null}));
 
-    const component = renderer.create(<TestContainer store={store}>
+    const component = renderer.create(<TestContainer services={services} store={store}>
       <StudyGuides />
     </TestContainer>);
 
