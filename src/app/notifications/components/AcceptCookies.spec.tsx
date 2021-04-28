@@ -20,7 +20,7 @@ describe('AcceptCookies', () => {
     dispatch = jest.spyOn(store, 'dispatch');
   });
 
-  it('dimsises notification', () => {
+  it('dismisses notification', () => {
     const notification = acceptCookies();
 
     const component = renderer.create(<TestContainer store={store}>

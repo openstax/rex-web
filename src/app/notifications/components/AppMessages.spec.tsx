@@ -21,7 +21,7 @@ describe('AppMessage', () => {
     dispatch = jest.spyOn(store, 'dispatch');
   });
 
-  it('dimsises message', () => {
+  it('dismisses message', () => {
     const notification = {
       payload: {
         dismissable: true,
