@@ -1,11 +1,9 @@
 import cloneDeep from 'lodash/fp/cloneDeep';
-import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../test/utils';
 import TestContainer from '../../../test/TestContainer';
-import * as Services from '../../context/Services';
+import { resetModules } from '../../../test/utils';
 import { AppState, Store } from '../../types';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
@@ -18,7 +16,6 @@ describe('Attribution', () => {
   let Provider: any; // tslint:disable-line:variable-name
   let renderToDom: any;
   let MessageProvider = require('../../MessageProvider').default; // tslint:disable-line:variable-name
-  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -29,7 +26,6 @@ describe('Attribution', () => {
     renderer = require('react-test-renderer');
     renderToDom = require('../../../test/reactutils').renderToDom;
     MessageProvider = require('../../MessageProvider').default;
-    services = createTestServices();
   });
 
   describe('in browser', () => {
@@ -56,7 +52,7 @@ describe('Attribution', () => {
       store = createTestStore(state);
     });
 
-    const render = () => <TestContainer services={services} store={store}>
+    const render = () => <TestContainer store={store}>
       <Attribution />
     </TestContainer>;
 
