@@ -150,6 +150,9 @@ describe('activateSwAndReload', () => {
   let reload: jest.SpyInstance;
 
   beforeEach(() => {
+    Object.defineProperty(assertWindow(), 'location', {
+      value: { reload: jest.fn() },
+    });
     reload = jest.spyOn(assertWindow().location, 'reload').mockImplementation(() => null);
   });
 
