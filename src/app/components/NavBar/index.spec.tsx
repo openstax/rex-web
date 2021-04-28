@@ -1,10 +1,9 @@
 import ReactTestUtils from 'react-dom/test-utils';
-import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import TestContainer from '../../../test/TestContainer';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import { User } from '../../auth/types';
-import * as Services from '../../context/Services';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { assertNotNull } from '../../utils/assertions';
@@ -12,16 +11,12 @@ import { assertNotNull } from '../../utils/assertions';
 describe('content', () => {
   let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
-  let Provider: ReturnType<typeof reactAndFriends>['Provider']; // tslint:disable-line:variable-name
   let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
-  let MessageProvider: ReturnType<typeof reactAndFriends>['MessageProvider']; // tslint:disable-line:variable-name
-  let services: ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
-    services = createTestServices();
     resetModules();
     jest.resetAllMocks();
-    ({React, Provider, renderer, renderToDom, MessageProvider} = reactAndFriends());
+    ({React, renderer, renderToDom} = reactAndFriends());
   });
 
   describe('in browser', () => {
@@ -37,13 +32,9 @@ describe('content', () => {
       NavBar = require('.').default;
     });
 
-    const render = () => <Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NavBar />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>;
+    const render = () => <TestContainer store={store}>
+      <NavBar />
+    </TestContainer>;
 
     it('matches snapshot for null state', () => {
       const component = renderer.create(render());
