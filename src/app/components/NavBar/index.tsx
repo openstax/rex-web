@@ -106,7 +106,7 @@ const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
       {loggedOut && <LoggedOutState currentPath={currentPath} />}
       {user && <LoggedInState user={user} currentPath={currentPath} />}
     </Styled.TopBar>
-</Styled.BarWrapper>;
+  </Styled.BarWrapper>;
 
 export default connect(
   (state: AppState) => ({

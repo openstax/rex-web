@@ -1,7 +1,7 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
-import { useServices } from '../../../../app/context/Services';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { cardPadding, cardWidth } from '../constants';
@@ -36,7 +36,6 @@ const TextArea = styled.textarea`
 
 // tslint:disable-next-line:variable-name
 const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
-  const services = useServices();
   const setTextAreaHeight = () => {
     const element = textareaRef.current;
     if (!element) {
@@ -58,7 +57,7 @@ const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
     onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
       onChange(e.target.value);
     }}
-    placeholder={services.intl.formatMessage({id: 'i18n:highlighting:card:placeholder'})}
+    placeholder={useIntl().formatMessage({id: 'i18n:highlighting:card:placeholder'})}
   />;
 };
 

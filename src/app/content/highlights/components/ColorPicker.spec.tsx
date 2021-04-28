@@ -5,7 +5,6 @@ import { highlightStyles } from '../../constants';
 import ColorPicker from './ColorPicker';
 
 describe('ColorPicker', () => {
-
   it('matches snapshot no selection', () => {
     const component = renderer.create(<TestContainer>
       <ColorPicker onChange={jest.fn()} onRemove={jest.fn()} />
