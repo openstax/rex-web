@@ -85,13 +85,13 @@ const isApprovedBooksAndVersions = (something: any): something is ApprovedBooksA
 
 const matchRepoVersion = (repoData: ApprovedRepo, archiveVersion?: string) =>
   (versionData: ApprovedVersionCollection | ApprovedVersionRepo): versionData is ApprovedVersionRepo => {
-  if (archiveVersion && versionData.min_code_version > archiveVersion) { return false; }
+  if (archiveVersion && versionData.min_code_version !== archiveVersion) { return false; }
   return isApprovedVersionRepo(versionData) && versionData.repo === repoData.repo;
 };
 
 const matchCollectionVersion = (collectionData: ApprovedCollection, archiveVersion?: string) =>
   (versionData: ApprovedVersionCollection | ApprovedVersionRepo): versionData is ApprovedVersionCollection => {
-  if (archiveVersion && versionData.min_code_version > archiveVersion) { return false; }
+  if (archiveVersion && versionData.min_code_version !== archiveVersion) { return false; }
   return isApprovedVersionCollection(versionData) && versionData.collection_id === collectionData.collection_id;
 };
 
@@ -165,11 +165,8 @@ const transformData = () => {
     const desiredVersion = getDesiredVersion(approved_versions, collectionOrRepo);
 
     if (!desiredVersion) {
-      throw new Error(`Couldn't find version for ${
-        isApprovedRepo(collectionOrRepo)
-          ? `repo ${collectionOrRepo.repo}`
-          : `collection ${collectionOrRepo.collection_id}`
-      }`);
+      // Skip if we couldn't find the version matching currently used archive version
+      continue;
     }
 
     for (const book of books) {
