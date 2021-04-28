@@ -1,5 +1,5 @@
 import isEqual from 'lodash/fp/isEqual';
-import { APP_ENV, UNLIMITED_CONTENT } from '../../../../config';
+import { APP_ENV, BOOKS, UNLIMITED_CONTENT } from '../../../../config';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined, BookNotFoundError } from '../../../utils';
@@ -21,7 +21,6 @@ export default async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ) => {
-
   const [book, loader] = await resolveBook(services, match);
   const page = await resolvePage(services, match, book, loader);
 
@@ -147,9 +146,8 @@ const resolvePage = async(
   }
 };
 
-const getInputReferenceInfo = async(services: AppServices & MiddlewareAPI, bookId: string, inputVersion?: string) => {
-  const bookVersionFromConfig = await services.bookConfigLoader.getBookVersionFromUUID(bookId);
-  const defaultVersion = bookVersionFromConfig && bookVersionFromConfig.defaultVersion;
+const getInputReferenceInfo = (bookId: string, inputVersion?: string) => {
+  const defaultVersion = BOOKS[bookId] ? BOOKS[bookId].defaultVersion : undefined;
   const bookVersion = inputVersion ? inputVersion : defaultVersion;
   return {bookId, bookVersion};
 };
@@ -158,7 +156,7 @@ export const getBookInformation = async(
   services: AppServices & MiddlewareAPI,
   reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
-  const { bookId, bookVersion } = await getInputReferenceInfo(services, reference.bookId, reference.bookVersion);
+  const { bookId, bookVersion } = getInputReferenceInfo(reference.bookId, reference.bookVersion);
 
   if (!bookVersion && UNLIMITED_CONTENT) {
     return undefined;
