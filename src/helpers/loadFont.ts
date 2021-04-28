@@ -5,7 +5,7 @@ export default (url: string) => new Promise((resolve) => {
   }
 
   if (document.head.querySelector(`link[href="${url}"]`)) {
-    resolve();
+    resolve({});
     return;
   }
 

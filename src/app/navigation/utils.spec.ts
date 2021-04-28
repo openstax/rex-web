@@ -127,7 +127,7 @@ describe('matchPathname', () => {
   });
 
   it('renders a path with params', () => {
-    const spy = jest.spyOn(routes[1], 'getUrl');
+    const spy = jest.spyOn(routes[1]!, 'getUrl');
     const params = {foo: 'bar'};
 
     expect(matchPathname({route: routes[1], params} as unknown as AnyMatch)).toEqual('url2');
@@ -137,11 +137,11 @@ describe('matchPathname', () => {
 
 describe('matchUrl', () => {
   it('renders a url with just a path', () => {
-    expect(matchUrl({route: routes[0], params: {}, state: {}})).toEqual('url1');
+    expect(matchUrl({route: routes[0]!, params: {}, state: {}})).toEqual('url1');
   });
 
   it('renders url with path and query', () => {
-    expect(matchUrl({route: routes[2], params: {}, state: {}}))
+    expect(matchUrl({route: routes[2]!, params: {}, state: {}}))
       .toEqual('url3?archive=https%3A%2F%2Farchive-content03.cnx.org');
   });
 });
@@ -229,7 +229,7 @@ describe('matchSearch', () => {
   });
 
   it('renders a url with search', () => {
-    const spy = jest.spyOn(routes[2], 'getSearch');
+    const spy = jest.spyOn(routes[2]!, 'getSearch');
     const params = { foo: 'bar' } as unknown as Params;
 
     expect(
