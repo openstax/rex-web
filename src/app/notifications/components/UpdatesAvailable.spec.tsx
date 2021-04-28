@@ -15,7 +15,6 @@ describe('UpdatesAvailable', () => {
     ({React, renderer, TestContainer} = reactAndFriends());
     UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
     serviceWorkerNeedsUpdate = jest.spyOn(require('../../../helpers/applicationUpdates'), 'serviceWorkerNeedsUpdate');
-    TestContainer = require('../../../test/TestContainer').default;
   });
 
   afterEach(() => {
