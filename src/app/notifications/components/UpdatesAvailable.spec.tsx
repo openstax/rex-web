@@ -1,10 +1,10 @@
-import TestContainer from '../../../test/TestContainer';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 
 describe('UpdatesAvailable', () => {
   const reloadBackup = window!.location.reload;
   let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
+  let TestContainer: ReturnType<typeof reactAndFriends>['TestContainer']; // tslint:disable-line:variable-name
   let UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
   let serviceWorkerNeedsUpdate: jest.SpyInstance;
   let reload: jest.SpyInstance;
@@ -12,9 +12,10 @@ describe('UpdatesAvailable', () => {
   beforeEach(() => {
     reload = window!.location.reload = jest.fn();
     resetModules();
-    ({React, renderer} = reactAndFriends());
+    ({React, renderer, TestContainer} = reactAndFriends());
     UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
     serviceWorkerNeedsUpdate = jest.spyOn(require('../../../helpers/applicationUpdates'), 'serviceWorkerNeedsUpdate');
+    TestContainer = require('../../../test/TestContainer').default;
   });
 
   afterEach(() => {

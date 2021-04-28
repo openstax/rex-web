@@ -1,6 +1,5 @@
 import ReactTestUtils from 'react-dom/test-utils';
 import createTestStore from '../../../test/createTestStore';
-import TestContainer from '../../../test/TestContainer';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import { User } from '../../auth/types';
@@ -12,11 +11,13 @@ describe('content', () => {
   let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
   let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
+  let TestContainer: ReturnType<typeof reactAndFriends>['TestContainer']; // tslint:disable-line:variable-name
 
   beforeEach(() => {
     resetModules();
     jest.resetAllMocks();
-    ({React, renderer, renderToDom} = reactAndFriends());
+    ({React, renderer, renderToDom, TestContainer} = reactAndFriends());
+    TestContainer = require('../../../test/TestContainer').default;
   });
 
   describe('in browser', () => {
