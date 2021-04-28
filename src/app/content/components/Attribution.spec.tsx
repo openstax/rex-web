@@ -12,7 +12,6 @@ describe('Attribution', () => {
   let React: any; // tslint:disable-line:variable-name
   let ReactDOM: any; // tslint:disable-line:variable-name
   let renderer: any;
-  let Provider: any; // tslint:disable-line:variable-name
   let renderToDom: any;
   let TestContainer = require('../../../test/TestContainer').default; // tslint:disable-line:variable-name
 
@@ -21,7 +20,6 @@ describe('Attribution', () => {
     resetModules();
     React = require('react');
     ReactDOM = require('react-dom');
-    Provider = require('react-redux').Provider;
     renderer = require('react-test-renderer');
     renderToDom = require('../../../test/reactutils').renderToDom;
     TestContainer = require('../../../test/TestContainer').default;
