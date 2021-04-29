@@ -160,8 +160,8 @@ export const useMatchMobileQuery = () => {
   const matchMedia = assertWindow().matchMedia(theme.breakpoints.mobileQuery);
   const [isMobile, setIsMobile] = React.useState(matchMedia.matches);
 
-  const listener = React.useCallback((e: EventListener) => {
-    if ((e as MediaQueryListEvent).matches) {
+  const listener = React.useCallback((e: MediaQueryListEvent) => {
+    if (e.matches) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -169,8 +169,8 @@ export const useMatchMobileQuery = () => {
   }, []);
 
   React.useEffect(() => {
-    matchMedia.addListener(listener);
-    return () => { matchMedia.removeListener(listener); };
+    matchMedia.addEventListener('change', listener);
+    return () => { matchMedia.removeEventListener('change', listener); };
   }, [listener, matchMedia]);
 
   return isMobile;
