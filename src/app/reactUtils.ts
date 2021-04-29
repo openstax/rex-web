@@ -169,8 +169,8 @@ export const useMatchMobileQuery = () => {
   }, []);
 
   React.useEffect(() => {
-    matchMedia.addEventListener('change', listener);
-    return () => { matchMedia.removeEventListener('change', listener); };
+    matchMedia.addListener(listener);
+    return () => { matchMedia.removeListener(listener as any); };
   }, [listener, matchMedia]);
 
   return isMobile;
