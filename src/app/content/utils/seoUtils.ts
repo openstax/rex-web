@@ -154,6 +154,7 @@ export const getPageDescription = (services: Services, book: Book, page: Page) =
   const parentType = getParentType(treeNode);
   const { parentTitle, pageTitle, parentPrefix, bookTitle } = values;
   const pageType = getPageType(node, parentType, parentPrefix, pageTitle);
+  console.log('page type: ', pageType);
 
   const contentDescription: string | null = pageType === 'page'
     ? getPageDescriptionFromContent(doc.body)
