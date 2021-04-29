@@ -4,21 +4,16 @@ import { ARCHIVE_URL, BOOKS, REACT_APP_ARCHIVE_URL } from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 
 const {
-  bookId,
   field,
 } = argv as {
-  bookId?: string;
   field?: string;
 };
-
-if (!bookId) {
-  throw new Error('Missing bookId parameter');
-}
 
 (global as any).fetch = fetch;
 
 const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
 
+const bookId = argv._[1];
 const bookVersion = BOOKS[bookId].defaultVersion;
 archiveLoader.book(bookId, bookVersion).load().then((book: any) => {
   if (field) {
