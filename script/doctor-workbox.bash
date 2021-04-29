@@ -9,7 +9,9 @@ function abs_path {
 
 build=$(abs_path "${BASH_SOURCE%/*}/../build")
 worker="$build"/service-worker.js
+workerMap="$build"/service-worker.js.map
 
 mkdir "$build"/books
 
 mv "$worker" "$build"/books/
+mv "$workerMap" "$build"/books/
