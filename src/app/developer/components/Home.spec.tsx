@@ -16,7 +16,7 @@ describe('Home', () => {
 
   it('matches snapshot', async() => {
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
-    const store = createTestStore({navigation: new URL('https://localhost')});
+    const store = createTestStore({navigation: new URL('https://localhost') as any});
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>

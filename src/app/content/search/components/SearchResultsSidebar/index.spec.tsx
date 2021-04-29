@@ -195,7 +195,7 @@ describe('SearchResultsSidebar', () => {
 
     jest.useFakeTimers();
     if (sidebar.searchSidebar.current) {
-      sidebar.searchSidebar.current.dispatchEvent(animationEvent());
+      sidebar.searchSidebar.current.dispatchEvent(animationEvent() as any);
     }
     jest.runAllTimers();
 
