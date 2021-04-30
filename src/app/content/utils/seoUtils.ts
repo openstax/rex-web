@@ -147,15 +147,13 @@ export const getPageDescription = (services: Services, book: Book, page: Page) =
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const node = doc.body.children[0];
   const treeNode = findArchiveTreeNodeById(book.tree, page.id);
-  const values = treeNode ? getTemplateVars(book, treeNode) : undefined;
-  if (!values || !treeNode) {
+  if (!treeNode) {
     return '';
   }
+  const values = getTemplateVars(book, treeNode);
   const parentType = getParentType(treeNode);
   const { parentTitle, pageTitle, parentPrefix, bookTitle } = values;
   const pageType = getPageType(node, parentType, parentPrefix, pageTitle);
-  console.log('page type: ', pageType);
-
   const contentDescription: string | null = pageType === 'page'
     ? getPageDescriptionFromContent(doc.body)
     : null;
