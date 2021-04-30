@@ -115,7 +115,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
       }));
       trackEditNoteColor(color);
     } else {
-      assertWindow().getSelection().removeAllRanges();
+      assertWindow().getSelection()!.removeAllRanges();
       props.onCreate();
       trackCreateNote(isDefault ? 'default' : color);
     }

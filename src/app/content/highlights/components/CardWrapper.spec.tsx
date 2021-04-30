@@ -21,8 +21,7 @@ const dispatchKeyDownEvent = (
   key: string,
   target?: HTMLElement
 ) => {
-  const keyboardEvent = window.document.createEvent('KeyboardEvent');
-  keyboardEvent.initKeyboardEvent('keydown', true, true, window, key, 0, '', false, '');
+  const keyboardEvent = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key, view: window });
   if (target) {
     Object.defineProperty(keyboardEvent, 'target', { value: target });
   }
@@ -155,7 +154,7 @@ describe('CardWrapper', () => {
 
     // make sure that useEffect is called
     // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
+    renderer.act(() => { });
 
     expect(scrollIntoView).not.toHaveBeenCalled();
   });
@@ -171,8 +170,8 @@ describe('CardWrapper', () => {
 
     // Update state with a height
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 100 }});
-      card2.props.onHeightChange({ current: { offsetHeight: 100 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 100 } });
+      card2.props.onHeightChange({ current: { offsetHeight: 100 } });
     });
     // We are starting at 100 because of getHighlightTopOffset mock
     expect(card1.props.topOffset).toEqual(100);
@@ -180,14 +179,14 @@ describe('CardWrapper', () => {
 
     // Noops when height is the same
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 100 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 100 } });
     });
     expect(card1.props.topOffset).toEqual(100);
     expect(card2.props.topOffset).toEqual(100 + 100 + remsToPx(cardMarginBottom));
 
     // Handle null value
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: null }});
+      card1.props.onHeightChange({ current: { offsetHeight: null } });
     });
     // First card have null height so secondcard starts at the highlight top offset
     expect(card1.props.topOffset).toEqual(100);
@@ -221,10 +220,10 @@ describe('CardWrapper', () => {
 
     // Update state with a height
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 50 }});
-      card2.props.onHeightChange({ current: { offsetHeight: 50 }});
-      card3.props.onHeightChange({ current: { offsetHeight: 50 }});
-      card4.props.onHeightChange({ current: { offsetHeight: 50 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card2.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card3.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card4.props.onHeightChange({ current: { offsetHeight: 50 } });
     });
     expect(card1.props.topOffset).toEqual(0); // first card have only 50px height + 20px margin bottom
     expect(card2.props.topOffset).toEqual(100); // so the second cards starts and the highlight level which is 100
@@ -346,38 +345,38 @@ describe('CardWrapper', () => {
     'handles useKeyCombination - noop if trigerred in element that we dont support '
     + 'or with another key combination',
     () => {
-    const window = assertWindow();
-    const document = assertDocument();
-    const highlight = createMockHighlight();
-    const highlightElement = document.createElement('span');
-    document.body.appendChild(highlightElement);
+      const window = assertWindow();
+      const document = assertDocument();
+      const highlight = createMockHighlight();
+      const highlightElement = document.createElement('span');
+      document.body.appendChild(highlightElement);
 
-    const cardWrapperElement = document.createElement('div');
+      const cardWrapperElement = document.createElement('div');
 
-    store.dispatch(focusHighlight(highlight.id));
+      store.dispatch(focusHighlight(highlight.id));
 
-    const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
-    </Provider>, { createNodeMock: () => cardWrapperElement });
+      const component = renderer.create(<Provider store={store}>
+        <CardWrapper highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
 
-    renderer.act(() => {
-      const card = component.root.findByType(Card);
-      expect(card.props.shouldFocusCard).toEqual(false);
+      renderer.act(() => {
+        const card = component.root.findByType(Card);
+        expect(card.props.shouldFocusCard).toEqual(false);
+      });
+
+      const textarea = document.createElement('textarea');
+
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, textarea);
+
+      dispatchKeyDownEvent(window, document, 'anotherkeythatwedontsupport', document.createElement('span'));
+
+      renderer.act(() => {
+        const card = component.root.findByType(Card);
+        expect(card.props.shouldFocusCard).toEqual(false);
+      });
+
+      expect(highlight.focus).not.toHaveBeenCalled();
     });
-
-    const textarea = document.createElement('textarea');
-
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, textarea);
-
-    dispatchKeyDownEvent(window, document, 'anotherkeythatwedontsupport', document.createElement('span'));
-
-    renderer.act(() => {
-      const card = component.root.findByType(Card);
-      expect(card.props.shouldFocusCard).toEqual(false);
-    });
-
-    expect(highlight.focus).not.toHaveBeenCalled();
-  });
 
   it('handles useKeyCombination - noop if focusedHighlight is undefined', () => {
     const window = assertWindow();

@@ -280,8 +280,12 @@ describe('onEscHandler', () => {
     const cb = jest.fn();
     utils.onEscHandler(ref, true, cb)();
 
-    const keyboardEvent = window.document.createEvent('KeyboardEvent');
-    keyboardEvent.initKeyboardEvent('keydown', true, true, window, 'Escape', 0, '', false, '');
+    const keyboardEvent = new KeyboardEvent('keydown', {
+      bubbles: true,
+      cancelable: true,
+      key: 'Escape',
+      view: window,
+    });
 
     ref.current!.dispatchEvent(keyboardEvent);
 
@@ -293,8 +297,12 @@ describe('onEscHandler', () => {
     const cb = jest.fn();
     utils.onEscHandler(ref, true, cb)();
 
-    const keyboardEvent = window.document.createEvent('KeyboardEvent');
-    keyboardEvent.initKeyboardEvent('keydown', true, true, window, 'Other key', 0, '', false, '');
+    const keyboardEvent = new KeyboardEvent('keydown', {
+      bubbles: true,
+      cancelable: true,
+      key: 'Other key',
+      view: window,
+    });
 
     ref.current!.dispatchEvent(keyboardEvent);
 
