@@ -70,7 +70,12 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   }
   removeExcludedContent(page);
   // tslint:disable-next-line: max-line-length
-  const paragraphs = [...Array.from(page.querySelectorAll(':scope>section>p')), ...Array.from(page.querySelectorAll(':scope>p'))];
+  const paragraphs = [
+    ...Array.from(page.querySelectorAll(':scope>section>p')),
+    ...Array.from(page.querySelectorAll(':scope>p')),
+    ...Array.from(page.querySelectorAll('.intro-body>.intro-text>p')),
+    ...Array.from(page.querySelectorAll('.intro-body>.intro-text>section>p')),
+  ];
   const foundByLength = Array.from(paragraphs).find((p) => {
     const mathlessP = hideMath(p);
     return mathlessP.textContent && mathlessP.textContent.length >= 90 ? mathlessP : null;
