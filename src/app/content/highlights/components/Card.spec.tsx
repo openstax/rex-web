@@ -290,10 +290,7 @@ describe('Card', () => {
       ...highlight.serialize().getApiPayload(),
       scopeId: 'testbook1-uuid',
       sourceId: 'testbook1-testpage1-uuid',
-      sourceMetadata: {
-        bookVersion: '1.0',
-        pageVersion: '1.0',
-      },
+      sourceMetadata: {bookVersion: '1.0'},
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
       locationFilterId: location!.id,
