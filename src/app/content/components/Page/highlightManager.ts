@@ -89,7 +89,7 @@ const onSelectHighlight = (
   }
 
   if (services.getProp().hasUnsavedHighlight && !await showConfirmation()) {
-    assertWindow().getSelection().removeAllRanges();
+    assertWindow().getSelection()!.removeAllRanges();
     return;
   }
 
