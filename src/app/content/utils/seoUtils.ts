@@ -71,7 +71,7 @@ const getPageDescriptionFromContent = (node: Element): string | null => {
   removeExcludedContent(page);
   // tslint:disable-next-line: max-line-length
   const paragraphs = [...Array.from(node.querySelectorAll('div:first-child>section>p')), ...Array.from(node.querySelectorAll('div:first-child>p'))];
-
+  console.log('paragraphs: ', paragraphs);
   const foundByLength = Array.from(paragraphs).find((p) => {
     const mathlessP = hideMath(p);
     return mathlessP.textContent && mathlessP.textContent.length >= 90 ? mathlessP : null;
@@ -88,7 +88,8 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
   }
   const contentDescription: string | null = getPageDescriptionFromContent(doc.body);
 
-  return contentDescription || 'OpenStax is ...';
+  // tslint:disable-next-line: max-line-length
+  return contentDescription || 'OpenStax is a non-profit organization committed to improving student access to quality learning materials. Our free textbooks are developed and peer-reviewed by educators to ensure they are readable and accurate.';
 };
 
 export const createTitle = (page: Page, book: Book): string => {

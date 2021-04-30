@@ -1,4 +1,3 @@
-import createTestServices from '../../../test/createTestServices';
 import makeArchiveLoader from '../../../test/mocks/archiveLoader';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
@@ -6,32 +5,24 @@ import { Book, Page } from '../types';
 import { formatBookData } from '../utils';
 import { createTitle, getPageDescription } from './seoUtils';
 import {
-  answerKeyPage,
-  appendixPage,
   contentPage,
   contentPageShort,
   contentPageWithObjectives,
   eobPage,
   eocPage,
-  indexPage,
   mockBook,
   mockOsWebBook,
-  subpage,
 } from './seoUtils.spec.data';
 
 // tslint:disable: max-line-length
 describe('getDescription', () => {
   const loader = makeArchiveLoader();
   const book = formatBookData(mockBook, mockOsWebBook);
-  const services = {
-    intl: createTestServices().intl,
-    loader,
-  };
   loader.mockBook(book);
 
   it('makes a description for content page', () => {
     loader.mockPage(book, contentPage, 'page-slug');
-    const description = getPageDescription(services, book, contentPage);
+    const description = getPageDescription(loader, book, contentPage);
     expect(description).toMatchInlineSnapshot(
       `"For example, take a look at the image above. This image is of the Andromeda Galaxy, which contains billions of individual stars, huge clouds of gas, and..."`
     );
@@ -39,65 +30,33 @@ describe('getDescription', () => {
 
   it('makes a description for content page with insufficient text', () => {
     loader.mockPage(book, contentPageShort, 'page-slug');
-    const description = getPageDescription(services, book, contentPageShort);
+    const description = getPageDescription(loader, book, contentPageShort);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will find the Best Practices for Chapter 1. What is a test? of OpenStax's free JavaScript Testing textbook."`
+      `"OpenStax is a non-profit organization committed to improving student access to quality learning materials. Our free textbooks are developed and peer-reviewed by educators to ensure they are readable and accurate."`
     );
   });
 
   it('makes a description for content page with learning objectives', () => {
     loader.mockPage(book, contentPageWithObjectives, 'page-slug');
-    const description = getPageDescription(services, book, contentPageWithObjectives);
+    const description = getPageDescription(loader, book, contentPageWithObjectives);
     expect(description).toMatchInlineSnapshot(
       `"This is the paragraph that comes after the learning objectives section. It does not have any special classes applied...."`
     );
   });
 
-  it('makes a description for answer key page', () => {
-    loader.mockPage(book, answerKeyPage, 'page-slug');
-    const description = getPageDescription(services, book, answerKeyPage);
-    expect(description).toMatchInlineSnapshot(
-      `"On this page you will find the Answer Key for Chapter 3 of OpenStax's free JavaScript Testing textbook."`
-    );
-  });
-
   it('makes a description for end-of-chapter page', () => {
     loader.mockPage(book, eocPage, 'page-slug');
-    const description = getPageDescription(services, book, eocPage);
+    const description = getPageDescription(loader, book, eocPage);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will find the Review Questions section for Chapter 1. What is a test? of OpenStax's free JavaScript Testing textbook."`
-    );
-  });
-
-  it('makes a description for end-of-chapter subpage', () => {
-    loader.mockPage(book, subpage, 'page-slug');
-    const description = getPageDescription(services, book, subpage);
-    expect(description).toMatchInlineSnapshot(
-      `"On this page you will find Chapter Review: Key Concepts for Chapter 2. Unit Testing of OpenStax's free JavaScript Testing textbook."`
+      `"Religion describes the beliefs, values, and practices related to sacred or spiritual concerns. Social theorist Émile Durkheim defined religion as a “uni..."`
     );
   });
 
   it('makes a description for end-of-book page', () => {
     loader.mockPage(book, eobPage, 'page-slug');
-    const description = getPageDescription(services, book, eobPage);
+    const description = getPageDescription(loader, book, eobPage);
     expect(description).toMatchInlineSnapshot(
-      `"On this page you will find the References section for OpenStax's free JavaScript Testing textbook."`
-    );
-  });
-
-  it('makes a description for an appendix', () => {
-    loader.mockPage(book, appendixPage, 'page-slug');
-    const description = getPageDescription(services, book, appendixPage);
-    expect(description).toMatchInlineSnapshot(
-      `"On this page you will find the Testing Matrix Examples for OpenStax's free JavaScript Testing textbook."`
-    );
-  });
-
-  it('makes a description for an index', () => {
-    loader.mockPage(book, indexPage, 'page-slug');
-    const description = getPageDescription(services, book, indexPage);
-    expect(description).toMatchInlineSnapshot(
-      `"On this page you will find the Index for OpenStax's free JavaScript Testing textbook."`
+      `"OpenStax is a non-profit organization committed to improving student access to quality learning materials. Our free textbooks are developed and peer-reviewed by educators to ensure they are readable and accurate."`
     );
   });
 });
