@@ -93,22 +93,24 @@ describe('setHead hook', () => {
       store.dispatch(receiveBook(combinedBook));
       store.dispatch(receivePage({
         ...page,
-        abstract: 'foobar',
         references: [],
       }));
       const bookId = book.id;
       CANONICAL_MAP[bookId] = [ [bookId, {}] ];
 
+      jest.spyOn(seoUtils, 'getPageDescription')
+        .mockReturnValue('mock seo description');
+
       await hook(receivePage({
         ...page,
-        abstract: 'foobar',
         references: [],
       }));
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
-          {name: 'description', content: 'foobar'},
-          {property: 'og:description', content: 'foobar'},
+          // tslint:disable: max-line-length
+          {name: 'description', content: 'mock seo description'},
+          {property: 'og:description', content: 'mock seo description'},
         ]),
       })));
     });
