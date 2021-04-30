@@ -1,4 +1,4 @@
-import { Element } from '@openstax/types/lib.dom';
+import { Element, HTMLElement } from '@openstax/types/lib.dom';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { Book, LinkedArchiveTreeNode, Page } from '../types';
@@ -63,15 +63,13 @@ export const generateExcerpt = (str: string) => {
   return str.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 152) + '...';
 };
 
-const getPageDescriptionFromContent = (node: Element): string | null => {
-  const page = node.firstElementChild;
+const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   if (!page) {
     return null;
   }
   removeExcludedContent(page);
   // tslint:disable-next-line: max-line-length
-  const paragraphs = [...Array.from(node.querySelectorAll('div:first-child>section>p')), ...Array.from(node.querySelectorAll('div:first-child>p'))];
-  console.log('paragraphs: ', paragraphs);
+  const paragraphs = [...Array.from(page.querySelectorAll(':scope>section>p')), ...Array.from(page.querySelectorAll(':scope>p'))];
   const foundByLength = Array.from(paragraphs).find((p) => {
     const mathlessP = hideMath(p);
     return mathlessP.textContent && mathlessP.textContent.length >= 90 ? mathlessP : null;
@@ -86,7 +84,7 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
   if (!treeNode) {
     return '';
   }
-  const contentDescription: string | null = getPageDescriptionFromContent(doc.body);
+  const contentDescription: string | null = getPageDescriptionFromContent(doc.body.firstElementChild);
 
   // tslint:disable-next-line: max-line-length
   return contentDescription || 'OpenStax is a non-profit organization committed to improving student access to quality learning materials. Our free textbooks are developed and peer-reviewed by educators to ensure they are readable and accurate.';
