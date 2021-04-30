@@ -42,6 +42,7 @@ for book_and_version in $book_entries; do
   fi
 
   git add src/config.books.json
+  git add data/
   git commit -m "update content" || true
   git push --set-upstream origin "$branch"
 
