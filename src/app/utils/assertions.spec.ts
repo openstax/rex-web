@@ -6,7 +6,7 @@ describe('assertNonNullableArray', () => {
   });
 
   it('throw if array contains null element', () => {
-    expect(() => assertNonNullableArray([undefined], 'asd')).toThrow();
+    expect(() => assertNonNullableArray([null], 'asd')).toThrow();
   });
 
   it('do not throw if array contains other falsy values', () => {
