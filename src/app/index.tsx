@@ -21,6 +21,7 @@ import { matchPathname } from './navigation/utils';
 import * as notifications from './notifications';
 import createReducer from './reducer';
 import { AppServices, AppState, Middleware } from './types';
+import { assertNonNullableArray } from './utils/assertions';
 
 export const actions = {
   app: appAactions,
@@ -32,7 +33,7 @@ export const actions = {
   notifications: notifications.actions,
 };
 
-export const routes = Object.values({
+export const routes = assertNonNullableArray(Object.values({
   ...(
     process.env.REACT_APP_ENV !== 'production'
       ? developer.routes
@@ -40,7 +41,7 @@ export const routes = Object.values({
   ),
   ...content.routes,
   ...errors.routes,
-});
+}), 'some of the required routes are not exported');
 
 const init = [
   ...Object.values(auth.init),

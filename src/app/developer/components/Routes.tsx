@@ -5,7 +5,7 @@ import Panel from './Panel';
 
 // tslint:disable-next-line:variable-name
 const Routes = () => <Panel title='Routes'>
-  {routes.map((route) => route && <div key={route.name}>
+  {routes.map((route) => <div key={route.name}>
     <H3>{route.name}</H3>
     path: {route.paths.map((path) => <React.Fragment key={path}>{path}<br /></React.Fragment>)}
   </div>)}

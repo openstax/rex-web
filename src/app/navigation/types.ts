@@ -59,7 +59,7 @@ export interface LocationChange<M = AnyMatch> {
   action: Action;
 }
 
-export type AnyRoute = typeof routes[number];
+export type AnyRoute = NonNullable<typeof routes[number]>;
 export type AnyMatch = UnionRouteMatches<AnyRoute>;
 
 export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>

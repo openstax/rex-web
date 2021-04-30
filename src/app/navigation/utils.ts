@@ -30,13 +30,13 @@ if (typeof(document) !== 'undefined') {
 const delimiter = '_';
 
 export const matchForRoute = <R extends AnyRoute>(route: R, match: AnyMatch | undefined): match is Match<R> =>
-  !!match && !!route && match.route.name === route.name;
+  !!match && match.route.name === route.name;
 
 export const locationChangeForRoute = <R extends AnyRoute>(
   route: R,
   locationChange: LocationChange
 ): locationChange is Required<LocationChange<Match<R>>> =>
-  !!locationChange.match && !!route && locationChange.match.route.name === route.name;
+  !!locationChange.match && locationChange.match.route.name === route.name;
 
 export const getUrlRegexParams = (obj: object): object => flatten(obj, {delimiter});
 
@@ -56,7 +56,7 @@ const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, ke
 
 export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch | undefined => {
   for (const route of routes) {
-    for (const path of route!.paths) {
+    for (const path of route.paths) {
       const keys: Key[] = [];
       const re = pathToRegexp(path, keys, {end: true});
       const match = re.exec(location.pathname);
