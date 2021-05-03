@@ -12,7 +12,6 @@ export const hookBody: ActionHookBody<typeof createHighlight> =
 
     const destination = getHighlightToastDesination(getState());
 
-    console.log(payload);
     try {
       await highlightClient.addHighlight({highlight: payload});
     } catch (error) {
