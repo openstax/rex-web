@@ -1,7 +1,9 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import { Element, HTMLElement, } from '@openstax/types/lib.dom';
+import React from 'react';
 import { findElementSelfOrParent } from '../../../domUtils';
+import { isHtmlElement } from '../../../guards';
 import { assertWindow, remsToPx } from '../../../utils';
 import { assertDefined } from '../../../utils/assertions';
 import { cardMarginBottom } from '../constants';
@@ -192,7 +194,15 @@ export const updateCardsPositions = (
   );
 };
 
-export const noopKeyCombinationHandler = (activeElement: Element): boolean => {
+export const noopKeyCombinationHandler = (
+  allowedContainers: Array<HTMLElement | React.RefObject<HTMLElement>>
+) => (activeElement: Element): boolean => {
+  const activeElementIsOutsideOfTheAllowedContainer = allowedContainers.every((container) => {
+    return isHtmlElement(container)
+      ? !container.contains(activeElement)
+      : !container.current || !container.current.contains(activeElement);
+  });
+  if (activeElementIsOutsideOfTheAllowedContainer) { return true; }
   if (activeElement.nodeName === 'TEXTAREA') { return true; }
   return false;
 };
