@@ -91,7 +91,6 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   removeExcludedContent(page);
 
   const paragraphs = getParagraphs(page);
-  console.log(paragraphs.map((p) => p.textContent));
   const foundByLength = Array.from(paragraphs).find((p) => {
     const mathlessP = hideMath(p);
     return mathlessP.textContent && mathlessP.textContent.length >= 90 ? mathlessP : null;
