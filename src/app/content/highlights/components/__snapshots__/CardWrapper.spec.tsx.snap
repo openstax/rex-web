@@ -5,6 +5,7 @@ exports[`CardWrapper matches snapshot 1`] = `
   className="sc-bdVaJa jZCMyL"
 >
   <span
+    container={<div />}
     data-mock-card={true}
     highlight={
       Object {
