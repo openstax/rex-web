@@ -17,7 +17,6 @@ describe('content', () => {
     resetModules();
     jest.resetAllMocks();
     ({React, renderer, renderToDom, TestContainer} = reactAndFriends());
-    TestContainer = require('../../../test/TestContainer').default;
   });
 
   describe('in browser', () => {

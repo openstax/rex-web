@@ -2,27 +2,23 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../test/utils';
+import { reactAndFriends, resetModules } from '../../../test/utils';
 import { AppState, Store } from '../../types';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 
 describe('Attribution', () => {
-  let React: any; // tslint:disable-line:variable-name
-  let ReactDOM: any; // tslint:disable-line:variable-name
-  let renderer: any;
-  let renderToDom: any;
-  let TestContainer = require('../../../test/TestContainer').default; // tslint:disable-line:variable-name
+  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
+  let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM']; // tslint:disable-line:variable-name
+  let renderer: ReturnType<typeof reactAndFriends>['renderer'];
+  let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
+  let TestContainer: ReturnType<typeof reactAndFriends>['TestContainer']; // tslint:disable-line:variable-name
 
   beforeEach(() => {
     jest.resetAllMocks();
     resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
-    renderer = require('react-test-renderer');
-    renderToDom = require('../../../test/reactutils').renderToDom;
-    TestContainer = require('../../../test/TestContainer').default;
+    ({React, ReactDOM, renderer, renderToDom, TestContainer} = reactAndFriends());
   });
 
   describe('in browser', () => {

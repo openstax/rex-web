@@ -108,7 +108,7 @@ export default (options: AppOptions) => {
     reducer,
   });
 
-  const container: React.FC = () => (
+  const container = () => (
     <Provider store={store}>
       <Services.Provider value={services} >
         <MessageProvider>
