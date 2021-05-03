@@ -65,22 +65,33 @@ export const generateExcerpt = (str: string) => {
   return str.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 152) + '...';
 };
 
+const getParagraphs = (page: HTMLElement) => {
+  const sectionParaSelectors = [
+    '[data-type="page"]>section>p',
+    '[data-type="composite-page"]>section>p',
+    '.intro-body>.intro-text>section>p',
+  ];
+
+  const paraSelectors = [
+    '[data-type="page"]>p',
+    '[data-type="composite-page"]>p',
+    '.intro-body>.intro-text>p',
+  ];
+
+  const sectionParagraphs = Array.from(page.querySelectorAll(sectionParaSelectors.join(',')));
+  const pageParagraphs = Array.from(page.querySelectorAll(paraSelectors.join(',')));
+
+  return [...sectionParagraphs, ...pageParagraphs];
+};
+
 const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   if (!page) {
     return null;
   }
   removeExcludedContent(page);
 
-  const selectors = [
-    '[data-type="page"]>section>p',
-    '[data-type="composite-page"]>section>p',
-    '[data-type="page"]>p',
-    '[data-type="composite-page"]>p',
-    '.intro-body>.intro-text>p',
-    '.intro-body>.intro-text>section>p',
-  ];
-
-  const paragraphs = [...Array.from(page.querySelectorAll(selectors.join(',')))];
+  const paragraphs = getParagraphs(page);
+  console.log(paragraphs.map((p) => p.textContent));
   const foundByLength = Array.from(paragraphs).find((p) => {
     const mathlessP = hideMath(p);
     return mathlessP.textContent && mathlessP.textContent.length >= 90 ? mathlessP : null;
