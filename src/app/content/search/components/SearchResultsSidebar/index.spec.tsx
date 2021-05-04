@@ -42,8 +42,7 @@ describe('SearchResultsSidebar', () => {
   let dispatch: jest.SpyInstance;
 
   const animationEvent = () => {
-    const event = new (assertWindow().CustomEvent)('webkitAnimationEnd');
-    return event;
+    return new (assertWindow().Event)('webkitAnimationEnd');
   };
 
   beforeEach(() => {
@@ -195,7 +194,7 @@ describe('SearchResultsSidebar', () => {
 
     jest.useFakeTimers();
     if (sidebar.searchSidebar.current) {
-      sidebar.searchSidebar.current.dispatchEvent(animationEvent() as any);
+      sidebar.searchSidebar.current.dispatchEvent(animationEvent());
     }
     jest.runAllTimers();
 
