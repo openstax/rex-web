@@ -48,14 +48,21 @@ jest.mock('./cardUtils', () => ({
 
 describe('CardWrapper', () => {
   let store: Store;
+  let container: HTMLElement;
 
   beforeEach(() => {
     store = createTestStore();
+    container = assertDocument().createElement('div');
+    assertDocument().body.appendChild(container);
+  });
+
+  afterEach(() => {
+    container.remove();
   });
 
   it('matches snapshot', () => {
     const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[createMockHighlight('id1')]} />
+      <CardWrapper container={container} highlights={[createMockHighlight('id1')]} />
     </Provider>);
 
     const tree = component.toJSON();
@@ -64,7 +71,7 @@ describe('CardWrapper', () => {
 
   it('matches snapshot when there is no highlights', () => {
     const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[]} />
+      <CardWrapper container={container} highlights={[]} />
     </Provider>);
 
     const tree = component.toJSON();
@@ -73,7 +80,7 @@ describe('CardWrapper', () => {
 
   it('renders cards', () => {
     const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[createMockHighlight(), createMockHighlight()]} />
+      <CardWrapper container={container} highlights={[createMockHighlight(), createMockHighlight()]} />
     </Provider>);
 
     expect(component.root.findAllByType(Card).length).toBe(2);
@@ -89,7 +96,7 @@ describe('CardWrapper', () => {
     };
 
     renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
+      <CardWrapper container={container} highlights={[highlight]} />
     </Provider>);
 
     renderer.act(() => {
@@ -110,7 +117,7 @@ describe('CardWrapper', () => {
     };
 
     renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
+      <CardWrapper container={container} highlights={[highlight]} />
     </Provider>);
 
     renderer.act(() => {
@@ -138,7 +145,7 @@ describe('CardWrapper', () => {
     };
 
     const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight, highlight2]} />
+      <CardWrapper container={container} highlights={[highlight, highlight2]} />
     </Provider>);
 
     renderer.act(() => {
@@ -149,7 +156,7 @@ describe('CardWrapper', () => {
     scrollIntoView.mockClear();
 
     component.update(<Provider store={store}>
-      <CardWrapper highlights={[highlight, highlight2, highlight3]} />
+      <CardWrapper container={container} highlights={[highlight, highlight2, highlight3]} />
     </Provider>);
 
     // make sure that useEffect is called
@@ -161,7 +168,7 @@ describe('CardWrapper', () => {
 
   it(`handles card's height changes`, () => {
     const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[createMockHighlight(), createMockHighlight()]} />
+      <CardWrapper container={container} highlights={[createMockHighlight(), createMockHighlight()]} />
     </Provider>);
 
     const [card1, card2] = component.root.findAllByType(Card);
@@ -209,7 +216,7 @@ describe('CardWrapper', () => {
       });
 
     const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={highlights} />
+      <CardWrapper container={container} highlights={highlights} />
     </Provider>);
 
     const [card1, card2, card3, card4] = component.root.findAllByType(Card);
@@ -270,7 +277,7 @@ describe('CardWrapper', () => {
     store.dispatch(focusHighlight(highlight.id));
 
     const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
+      <CardWrapper container={container} highlights={[highlight]} />
     </Provider>);
 
     expect(() => component.unmount()).not.toThrow();
@@ -281,7 +288,7 @@ describe('CardWrapper', () => {
     const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
-    document.body.appendChild(highlightElement);
+    container.appendChild(highlightElement);
 
     const cardWrapperElement = document.createElement('div');
     const cardElement = document.createElement('div');
@@ -290,7 +297,7 @@ describe('CardWrapper', () => {
     store.dispatch(focusHighlight(highlight.id));
 
     renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
+      <CardWrapper container={container} highlights={[highlight]} />
     </Provider>, { createNodeMock: () => cardWrapperElement });
 
     renderer.act(() => undefined);
@@ -307,14 +314,14 @@ describe('CardWrapper', () => {
     const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
-    document.body.appendChild(highlightElement);
+    container.appendChild(highlightElement);
 
     const cardWrapperElement = document.createElement('div');
 
     store.dispatch(focusHighlight(highlight.id));
 
     const component = renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
+      <CardWrapper container={container} highlights={[highlight]} />
     </Provider>, { createNodeMock: () => cardWrapperElement });
 
     renderer.act(() => {
@@ -349,14 +356,23 @@ describe('CardWrapper', () => {
       const document = assertDocument();
       const highlight = createMockHighlight();
       const highlightElement = document.createElement('span');
-      document.body.appendChild(highlightElement);
+      container.appendChild(highlightElement);
+
+      const textarea = document.createElement('textarea');
+      container.appendChild(textarea);
+
+      const elementInsideContainer = document.createElement('div');
+      container.appendChild(elementInsideContainer);
+
+      const elementOutsideOfTheContainer = document.createElement('div');
+      document.body.appendChild(elementOutsideOfTheContainer);
 
       const cardWrapperElement = document.createElement('div');
 
       store.dispatch(focusHighlight(highlight.id));
 
       const component = renderer.create(<Provider store={store}>
-        <CardWrapper highlights={[highlight]} />
+        <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
 
       renderer.act(() => {
@@ -364,11 +380,11 @@ describe('CardWrapper', () => {
         expect(card.props.shouldFocusCard).toEqual(false);
       });
 
-      const textarea = document.createElement('textarea');
-
       dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, textarea);
 
-      dispatchKeyDownEvent(window, document, 'anotherkeythatwedontsupport', document.createElement('span'));
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, elementOutsideOfTheContainer);
+
+      dispatchKeyDownEvent(window, document, 'anotherkeythatwedontsupport', elementInsideContainer);
 
       renderer.act(() => {
         const card = component.root.findByType(Card);
@@ -383,14 +399,14 @@ describe('CardWrapper', () => {
     const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
-    document.body.appendChild(highlightElement);
+    container.appendChild(highlightElement);
 
     const cardWrapperElement = document.createElement('div');
     const cardElement = document.createElement('div');
     cardWrapperElement.append(cardElement);
 
     renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
+      <CardWrapper container={container} highlights={[highlight]} />
     </Provider>, { createNodeMock: () => cardWrapperElement });
 
     renderer.act(() => undefined);
@@ -407,7 +423,7 @@ describe('CardWrapper', () => {
     const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
-    document.body.appendChild(highlightElement);
+    container.appendChild(highlightElement);
 
     const cardWrapperElement = document.createElement('div');
     const cardElement = document.createElement('div');
@@ -416,7 +432,7 @@ describe('CardWrapper', () => {
     store.dispatch(focusHighlight(highlight.id));
 
     renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
+      <CardWrapper container={container} highlights={[highlight]} />
     </Provider>, { createNodeMock: () => cardWrapperElement });
 
     renderer.act(() => undefined);
@@ -433,7 +449,7 @@ describe('CardWrapper', () => {
     const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
-    document.body.appendChild(highlightElement);
+    container.appendChild(highlightElement);
 
     const cardWrapperElement = document.createElement('div');
     const cardElement = document.createElement('div');
@@ -442,7 +458,7 @@ describe('CardWrapper', () => {
     store.dispatch(focusHighlight(highlight.id));
 
     renderer.create(<Provider store={store}>
-      <CardWrapper highlights={[highlight]} />
+      <CardWrapper container={container} highlights={[highlight]} />
     </Provider>, { createNodeMock: () => undefined });
 
     renderer.act(() => undefined);
