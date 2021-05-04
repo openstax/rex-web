@@ -42,9 +42,15 @@ export function register(): Promise<ServiceWorkerRegistration> {
     return Promise.reject();
   }
 
+  if (!process.env.PUBLIC_URL) {
+    return Promise.reject(
+      new Error('service worker won\'t work if PUBLIC_URL is not defined.')
+    );
+  }
+
   // The URL constructor is available in all browsers that support SW.
   const publicUrl = new URL(
-    process.env.PUBLIC_URL!,
+    process.env.PUBLIC_URL,
     window.location.href
   );
   if (publicUrl.origin !== window.location.origin) {
