@@ -85,7 +85,7 @@ export default () => {
     mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string) => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
       const currentBook = localBooks[`${parentBook.id}@${parentBook.version}`];
-      const treeNode = findArchiveTreeNodeById(parentBook.tree, newPage.id);
+      const treeNode = findArchiveTreeNodeById(currentBook.tree, newPage.id);
       if (!treeNode) {
         currentBook.tree.contents.push({
           id: `${newPage.id}@${newPage.version}`,
