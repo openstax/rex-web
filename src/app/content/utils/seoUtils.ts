@@ -1,6 +1,6 @@
 // tslint:disable: max-line-length
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
-// import { useIntl } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { Book, LinkedArchiveTreeNode, Page } from '../types';
@@ -14,9 +14,14 @@ import {
   splitTitleParts,
 } from './archiveTreeUtils';
 
+type Services = {
+  intl: AppServices['intl'];
+  loader: AppServices['archiveLoader'];
+};
+
 const domParser = new DOMParser();
 
-export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, includeTitle: boolean = false): string => {
+export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, intl: IntlShape, includeTitle: boolean = false): string => {
   if (!node) {
     return '';
   }
@@ -24,15 +29,14 @@ export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, include
   if (archiveTreeSectionIsChapter(node)) {
     const number = getArchiveTreeSectionNumber(node).trim();
     const name = getArchiveTreeSectionTitle(node);
-    return includeTitle ? `Ch. ${number}. ${name}` : `Ch. ${number} `;
-    // const prefixVariant = includeTitle ? 'with-name' : 'without-name';
-    // return useIntl().formatMessage({id: 'i18n:metadata:title:${prefixVariant}'}, {number, name});
+    const prefixVariant = includeTitle ? 'with-name' : 'without-name';
+    return intl.formatMessage({id: `i18n:metadata:title:${prefixVariant}`}, {number, name});
 
   }
 
   return archiveTreeSectionIsBook(node.parent)
     ? getArchiveTreeSectionTitle(node) + ' '
-    : getParentPrefix(node.parent, includeTitle);
+    : getParentPrefix(node.parent, intl, includeTitle);
 
 };
 
@@ -114,7 +118,8 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   return foundByLength && foundByLength.textContent ? generateExcerpt(foundByLength.textContent) : null;
 };
 
-export const getPageDescription = (loader: AppServices['archiveLoader'], book: Book, page: Page) => {
+export const getPageDescription = (services: Services, book: Book, page: Page) => {
+  const {intl, loader} = services;
   const cleanContent = getCleanContent(book, page, loader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const treeNode = findArchiveTreeNodeById(book.tree, page.id);
@@ -125,11 +130,10 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
   const isAppendix = pageNode.classList.contains('appendix');
   const contentDescription: string | null = isAppendix ? null : getPageDescriptionFromContent(pageNode);
 
-  return contentDescription || 'OpenStax is a non-profit organization committed to improving student access to quality learning materials. Our free textbooks are developed and peer-reviewed by educators to ensure they are readable and accurate.';
-  // return contentDescription || useIntl().formatMessage({id: 'i18n:metadata:description'});
+  return contentDescription || intl.formatMessage({id: 'i18n:metadata:description'});
 };
 
-export const createTitle = (page: Page, book: Book): string => {
+export const createTitle = (page: Page, book: Book, intl: IntlShape): string => {
   const node = assertDefined(
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`
@@ -141,5 +145,5 @@ export const createTitle = (page: Page, book: Book): string => {
     return `${nodeNumber} ${title}`;
   }
 
-  return getParentPrefix(node.parent) + title;
+  return getParentPrefix(node.parent, intl) + title;
 };

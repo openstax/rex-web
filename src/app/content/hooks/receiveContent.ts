@@ -14,7 +14,8 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   getState,
   dispatch,
   archiveLoader,
-  osWebLoader}) => async() => {
+  osWebLoader,
+  intl}) => async() => {
 
   const state = getState();
   const book = select.book(state);
@@ -33,8 +34,14 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
     return;
   }
 
-  const title = createTitle(page, book);
-  const description = getPageDescription(archiveLoader, book, page);
+  const services = {
+    intl,
+    loader: archiveLoader,
+  };
+
+  const title = createTitle(page, book, intl);
+  const description = getPageDescription(services, book, page);
+  console.log(description);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;

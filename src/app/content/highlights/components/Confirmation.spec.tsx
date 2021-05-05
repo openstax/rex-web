@@ -2,11 +2,11 @@ import React from 'react';
 import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import en from '../../../../app/messages/en/index';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { makeFindByTestId } from '../../../../test/reactutils';
 import * as Services from '../../../context/Services';
-import en from '../../../../app/messages/en/index';
 import { Store } from '../../../types';
 import Confirmation from './Confirmation';
 
@@ -20,7 +20,6 @@ jest.mock('react', () => {
 });
 
 describe('Confirmation', () => {
-  const cache = createIntlCache();
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
 
@@ -31,7 +30,7 @@ describe('Confirmation', () => {
       'i18n:confirm': 'confirm',
       'i18n:message': 'message',
     },
-  }, cache);
+  },);
 
   beforeEach(() => {
     store = createTestStore();
