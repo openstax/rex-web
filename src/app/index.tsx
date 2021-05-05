@@ -14,7 +14,7 @@ import * as developer from './developer';
 import * as errors from './errors';
 import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as head from './head';
-import MessageProvider from './MessageProvider';
+import MessageProvider, { intl } from './MessageProvider';
 import * as navigation from './navigation';
 import { AnyMatch } from './navigation/types';
 import { matchPathname } from './navigation/utils';
@@ -56,6 +56,7 @@ const hooks = [
 const defaultServices = () => ({
   analytics,
   fontCollector: new FontCollector(),
+  intl,
   promiseCollector: new PromiseCollector(),
 });
 
@@ -109,13 +110,13 @@ export default (options: AppOptions) => {
 
   const container = () => (
     <Provider store={store}>
-      <MessageProvider>
-        <ErrorBoundary>
-          <Services.Provider value={services} >
+      <Services.Provider value={services} >
+        <MessageProvider>
+          <ErrorBoundary>
             <navigation.components.NavigationProvider routes={routes} />
-          </Services.Provider>
-        </ErrorBoundary>
-      </MessageProvider>
+          </ErrorBoundary>
+        </MessageProvider>
+      </Services.Provider>
     </Provider>
   );
 
