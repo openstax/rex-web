@@ -44,3 +44,5 @@ export default (baseUrl: string) => {
     },
   };
 };
+
+export const getBookVersionFromUUID = (uuid: string): BookVersion | undefined => cachedBooks[uuid];
