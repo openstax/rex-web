@@ -25,9 +25,15 @@ book_entries=$(echo "$book_ids_and_versions" | jq -c 'to_entries | .[]')
 git remote set-branches origin 'update-content-*'
 git remote set-branches origin --add "$rex_default_branch"
 
+errors=()
+
+set +e
+
 for book_and_version in $book_entries; do
   book_id=$(echo "$book_and_version" | jq -r '.key')
   new_version=$(echo "$book_and_version" | jq -r '.value')
+
+  trap "errors+=("$book_id"@"$new_version"); continue" ERR
 
   branch="update-content-$book_id"
   git fetch
@@ -55,3 +61,13 @@ for book_and_version in $book_entries; do
     }
 JSON
 done
+
+set -e
+
+if [[ "${#errors[@]}" != 0 ]]; then
+  for book_id_and_version in "${errors[@]}"
+  do
+    echo "Book with ID@VERSION: $book_id_and_version couldn't be updated"
+  done
+  exit 1
+fi
