@@ -64,6 +64,8 @@ const removeExcludedContent = (node: Element) => {
     // End notes and references
     'section.suggested-reading',
     'section.references',
+    // Footnote superscript
+    '[role="doc-noteref"]',
   ];
 
   const excludedContent = node.querySelectorAll(excludedSelectors.join(',')) || [];
