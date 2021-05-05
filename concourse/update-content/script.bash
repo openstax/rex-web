@@ -66,7 +66,7 @@ for book_and_version in $book_entries; do
 JSON
 done
 
-trap -
+trap - ERR
 set -e
 
 if [[ "${#errors[@]}" != 0 ]]; then
