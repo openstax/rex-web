@@ -33,7 +33,13 @@ for book_and_version in $book_entries; do
   book_id=$(echo "$book_and_version" | jq -r '.key')
   new_version=$(echo "$book_and_version" | jq -r '.value')
 
-  trap "errors+=("$book_id"@"$new_version"); continue" ERR
+  function report_error() {
+    errors+=("$book_id"@"$new_version")
+  }
+
+  trap "report_error; continue" ERR
+
+  node script/entry.js throw-error
 
   branch="update-content-$book_id"
   git fetch
