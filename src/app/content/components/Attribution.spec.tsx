@@ -2,43 +2,36 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../test/utils';
+import { reactAndFriends, resetModules } from '../../../test/utils';
 import { AppState, Store } from '../../types';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 
+// tslint:disable:variable-name
 describe('Attribution', () => {
-  let React: any; // tslint:disable-line:variable-name
-  let ReactDOM: any; // tslint:disable-line:variable-name
-  let renderer: any;
-  let Provider: any; // tslint:disable-line:variable-name
-  let renderToDom: any;
-  let MessageProvider = require('../../MessageProvider').default; // tslint:disable-line:variable-name
+  let React: ReturnType<typeof reactAndFriends>['React'];
+  let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM'];
+  let renderer: ReturnType<typeof reactAndFriends>['renderer'];
+  let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
+  let TestContainer: ReturnType<typeof reactAndFriends>['TestContainer'];
+  let scrollTo: any;
 
   beforeEach(() => {
     jest.resetAllMocks();
     resetModules();
-    React = require('react');
-    ReactDOM = require('react-dom');
-    Provider = require('react-redux').Provider;
-    renderer = require('react-test-renderer');
-    renderToDom = require('../../../test/reactutils').renderToDom;
-    MessageProvider = require('../../MessageProvider').default;
+    const mockScrollTo = scrollTo = jest.fn();
+    jest.mock('scroll-to-element', () => mockScrollTo);
+    ({React, ReactDOM, renderer, renderToDom, TestContainer} = reactAndFriends());
   });
 
   describe('in browser', () => {
-    // tslint:disable-next-line:variable-name
-    let Attribution: any;
     let state: AppState;
     let store: Store;
-    let scrollTo: any;
+    let Attribution: any;
 
     beforeEach(() => {
-      const mockScrollTo = scrollTo = jest.fn();
-      jest.mock('scroll-to-element', () => mockScrollTo);
       Attribution = require('./Attribution').default;
-
       state = (cloneDeep({
         content: {
           ...initialState,
@@ -51,11 +44,9 @@ describe('Attribution', () => {
       store = createTestStore(state);
     });
 
-    const render = () => <Provider store={store}>
-      <MessageProvider>
-        <Attribution />
-      </MessageProvider>
-    </Provider>;
+    const render = () => <TestContainer store={store}>
+      <Attribution />
+    </TestContainer>;
 
     it('removes listener when it unmounts', () => {
       const { root, node } = renderToDom(render());
