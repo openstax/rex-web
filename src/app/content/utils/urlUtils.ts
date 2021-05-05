@@ -1,4 +1,5 @@
-import { APP_ENV, BOOKS } from '../../../config';
+import { APP_ENV } from '../../../config';
+import { getBookVersionFromUUID } from '../../../gateways/createBookConfigLoader';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNodeById, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
@@ -31,8 +32,9 @@ export const getBookPageUrlAndParams = (
 export const getUrlParamsForBook = (
   book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>
 ): Params['book'] => {
-  if ('slug' in book && book.slug && BOOKS[book.id]) {
-    return book.version === BOOKS[book.id].defaultVersion
+  const bookVersionFromConfig = getBookVersionFromUUID(book.id);
+  if ('slug' in book && book.slug && bookVersionFromConfig) {
+    return book.version === bookVersionFromConfig.defaultVersion
       ? {slug: book.slug}
       : {slug: book.slug, version: book.version};
   } else {
