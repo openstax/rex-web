@@ -1172,8 +1172,8 @@ describe('Page', () => {
       id: 'adsfasdf',
       references: [],
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     }));
 
     await Promise.resolve();
@@ -1191,8 +1191,8 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.navigation.hash = '#somehash';
@@ -1250,8 +1250,8 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.navigation.hash = '#somehash';
@@ -1287,8 +1287,8 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.navigation.hash = '#somehash';
@@ -1358,8 +1358,8 @@ describe('Page', () => {
       content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.content.page = tablePage;

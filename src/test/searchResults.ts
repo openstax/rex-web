@@ -3,8 +3,8 @@ import { ArchiveBook, ArchivePage, ArchiveTreeSection } from '../app/content/typ
 import { getIdVersion, stripIdVersion } from '../app/content/utils/idUtils';
 import * as mockArchive from './mocks/archiveLoader';
 
-const isArchiveTreeSection = (thing: ArchivePage | ArchiveTreeSection): thing is ArchiveTreeSection =>
-  !(thing as ArchivePage).version;
+const isArchivePage = (thing: ArchivePage | ArchiveTreeSection): thing is ArchivePage =>
+  !!(thing as ArchivePage).revised;
 
 export const makeSearchResultHit = (
   {book, page, highlights, sourceId}: {
@@ -23,7 +23,7 @@ export const makeSearchResultHit = (
   source: {
     elementId: sourceId || 'fs-id1544727',
     elementType: SearchResultHitSourceElementTypeEnum.Paragraph,
-    pageId: `${stripIdVersion(page.id)}@${isArchiveTreeSection(page) ? getIdVersion(page.id) : page.version}`,
+    pageId: `${stripIdVersion(page.id)}@${isArchivePage(page) ? page.revised : getIdVersion(page.id)}`,
     pagePosition: 60,
   },
 });
