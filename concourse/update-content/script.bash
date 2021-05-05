@@ -39,8 +39,6 @@ for book_and_version in $book_entries; do
 
   trap "report_error; continue" ERR
 
-  node script/entry.js throw-error
-
   branch="update-content-$book_id"
   git fetch
   git checkout "$rex_default_branch"
@@ -68,6 +66,7 @@ for book_and_version in $book_entries; do
 JSON
 done
 
+trap -
 set -e
 
 if [[ "${#errors[@]}" != 0 ]]; then
