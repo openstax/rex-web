@@ -50,9 +50,20 @@ const removeExcludedContent = (node: Element) => {
   if (!node) {
     return null;
   }
-  const excludedContent = node.querySelectorAll(
-    '[data-type="abstract"], .learning-objectives, .chapter-objectives, .be-prepared, .os-teacher'
-  ) || [];
+
+  const excludedSelectors = [
+    // Introductory content
+    '[data-type="abstract"]',
+    '.learning-objectives',
+    '.chapter-objectives',
+    '.be-prepared',
+    '.os-teacher',
+    // End notes and references
+    'section.suggested-reading',
+    'section.references',
+  ];
+
+  const excludedContent = node.querySelectorAll(excludedSelectors.join(',')) || [];
 
   for (const item of Array.from(excludedContent)) {
     if (item) {
