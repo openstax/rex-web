@@ -121,7 +121,9 @@ export const getPageDescription = (loader: AppServices['archiveLoader'], book: B
   if (!treeNode) {
     return '';
   }
-  const contentDescription: string | null = getPageDescriptionFromContent(doc.body.firstElementChild);
+  const pageNode = doc.body.firstElementChild;
+  const isAppendix = pageNode.classList.contains('appendix');
+  const contentDescription: string | null = isAppendix ? null : getPageDescriptionFromContent(pageNode);
 
   return contentDescription || 'OpenStax is a non-profit organization committed to improving student access to quality learning materials. Our free textbooks are developed and peer-reviewed by educators to ensure they are readable and accurate.';
   // return contentDescription || useIntl().formatMessage({id: 'i18n:metadata:description'});
