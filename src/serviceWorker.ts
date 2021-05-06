@@ -44,7 +44,8 @@ export function register(): Promise<ServiceWorkerRegistration> {
 
   // The URL constructor is available in all browsers that support SW.
   const publicUrl = new URL(
-    process.env.PUBLIC_URL,
+    // PUBLIC_URL is not set up for rex-web envs.
+    process.env.PUBLIC_URL || '',
     window.location.href
   );
   if (publicUrl.origin !== window.location.origin) {
