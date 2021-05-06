@@ -12,11 +12,11 @@ export async function findBooks({
   bookId,
   bookVersion,
 }: {
+  rootUrl: string,
   archiveLoader: AppServices['archiveLoader'],
+  osWebLoader: AppServices['osWebLoader']
   bookId?: string,
   bookVersion?: string,
-  osWebLoader: AppServices['osWebLoader']
-  rootUrl: string,
 }) {
   // Get the book config whether the server is prerendered or dev mode
   const bookConfig: typeof config.BOOKS = await fetch(`${rootUrl}/rex/release.json`)
