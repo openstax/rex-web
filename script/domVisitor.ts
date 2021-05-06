@@ -2,11 +2,17 @@ import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
 import { argv } from 'yargs';
+import { Redirects } from '../data/redirects/types';
 import { Book } from '../src/app/content/types';
 import { getBookPageUrlAndParams } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { assertDefined } from '../src/app/utils';
+import config from '../src/config';
+import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
+import checkIfPageHasRedirect from './utils/checkIfPageHasRedirect';
+import prepareRedirects from './utils/prepareRedirects';
 import progressBar from './utils/progressBar';
 
 const {
@@ -53,7 +59,8 @@ async function visitPages(
   page: puppeteer.Page,
   observePageErrors: ObservePageErrors,
   bookPages: string[],
-  audit: Audit
+  audit: Audit,
+  redirects: Redirects
 ) {
   let anyFailures = false;
   const bar = progressBar('visiting [:bar] :current/:total (:etas ETA) ', {
@@ -73,7 +80,8 @@ async function visitPages(
       const appendQueryString =
         queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`)
                     : archiveUrl ? `?archive=${archiveUrl}` : '';
-      await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+      const pageRedirection = checkIfPageHasRedirect(redirects, pageUrl);
+      await page.goto(`${rootUrl}${pageRedirection ? pageRedirection : pageUrl}${appendQueryString}`);
       await page.waitForSelector('body[data-rex-loaded="true"]');
       await calmHooks(page);
 
@@ -142,12 +150,16 @@ async function run() {
     devtools: devTools,
     headless: showBrowser === undefined,
   });
+  const archiveLoader = createArchiveLoader(`${archiveUrl ? archiveUrl : rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const books = await findBooks({
-    archiveUrl,
+    archiveLoader,
     bookId,
     bookVersion,
+    osWebLoader,
     rootUrl: assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port'),
   });
+  const redirects = await prepareRedirects(archiveLoader, osWebLoader);
 
   let anyFailures = false;
 
@@ -157,7 +169,7 @@ async function run() {
   const errorDetector = makePageErrorDetector(page);
 
   for (const book of books) {
-    anyFailures = await visitPages(page, errorDetector, findBookPages(book), audit) || anyFailures;
+    anyFailures = await visitPages(page, errorDetector, findBookPages(book), audit, redirects) || anyFailures;
   }
 
   await browser.close();

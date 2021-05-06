@@ -2,12 +2,18 @@ import { JSDOM } from 'jsdom';
 import chunk from 'lodash/chunk';
 import fetch from 'node-fetch';
 import { argv } from 'yargs';
+import { Redirects } from '../data/redirects/types';
 import { content as contentRoute } from '../src/app/content/routes';
 import { Book, BookWithOSWebData, LinkedArchiveTreeSection } from '../src/app/content/types';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { getBookPageUrlAndParams, getUrlParamForPageId } from '../src/app/content/utils/urlUtils';
 import { assertDefined } from '../src/app/utils';
+import config from '../src/config';
+import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
+import checkIfPageHasRedirect from './utils/checkIfPageHasRedirect';
+import prepareRedirects from './utils/prepareRedirects';
 import progressBar from './utils/progressBar';
 
 (global as any).DOMParser = new JSDOM().window.DOMParser;
@@ -26,7 +32,7 @@ const {
   useUnversionedUrls?: boolean;
 };
 
-async function checkPages(bookSlug: string, pages: string[]) {
+async function checkPages(bookSlug: string, pages: string[], redirects: Redirects) {
   let anyFailures = false;
   const bar = progressBar(`checking ${bookSlug} [:bar] :current/:total (:etas ETA)`, {
     complete: '=',
@@ -38,15 +44,23 @@ async function checkPages(bookSlug: string, pages: string[]) {
   const notFound: string[] = [];
 
   const visitPage = async(page: string) => {
-    try {
-      const response = await fetch(`${rootUrl}${page}`);
-      if (response.status === 404) {
+    const checkIfPageDoesntExist = async(url: string) => {
+      try {
+        const response = await fetch(url);
+        return response.status === 404;
+      } catch {
+        anyFailures = true;
+        bar.interrupt(`- (error loading) ${page}`);
+      }
+    };
+
+    if (checkIfPageDoesntExist(`${rootUrl}${page}`)) {
+      const pageRedirection = checkIfPageHasRedirect(redirects, page);
+      if (pageRedirection && checkIfPageDoesntExist(`${rootUrl}${pageRedirection.to}`)) {
         notFound.push(page);
       }
-    } catch {
-      anyFailures = true;
-      bar.interrupt(`- (error loading) ${page}`);
     }
+
     bar.tick();
   };
 
@@ -77,19 +91,23 @@ const getUrl = (book: Book) => useUnversionedUrls
   : (treeSection: LinkedArchiveTreeSection) => getBookPageUrlAndParams(book, treeSection).url;
 
 async function checkUrls() {
+  const archiveLoader = createArchiveLoader(`${archiveUrl ? archiveUrl : rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const url = assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port');
   const books = await findBooks({
-    archiveUrl,
+    archiveLoader,
     bookId,
     bookVersion,
+    osWebLoader,
     rootUrl: url,
   });
+  const redirects = await prepareRedirects(archiveLoader, osWebLoader);
 
   let anyFailures = false;
 
   for (const book of books) {
     const pages = findTreePages(book.tree);
-    anyFailures = await checkPages(book.slug, pages.map(getUrl(book))) || anyFailures;
+    anyFailures = await checkPages(book.slug, pages.map(getUrl(book)), redirects) || anyFailures;
   }
 
   if (anyFailures) {
