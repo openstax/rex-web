@@ -38,11 +38,13 @@ const getBookMetadata = async(id: string, version: string) => {
   const singleBook = await loader.load();
   const osWebBook = singleBook.tree.slug ? await osWebLoader.getBookFromSlug(singleBook.tree.slug) : undefined;
   const book = formatBookData(singleBook, osWebBook);
-
   const bookPages = findTreePages(book.tree);
-  for (const page of bookPages) {
+
+  const bookRows = await Promise.all(bookPages.map(async(page) => {
     getPageMetadata(page, book, loader);
-  }
+  }));
+
+  return bookRows;
 };
 
 const getAllBooksMetadata = async() => {
