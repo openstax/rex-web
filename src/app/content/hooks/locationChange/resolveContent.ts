@@ -1,6 +1,6 @@
 import isEqual from 'lodash/fp/isEqual';
 import { APP_ENV, UNLIMITED_CONTENT } from '../../../../config';
-import { getBookVersionFromUUID } from '../../../../gateways/createBookConfigLoader';
+import { getBookVersionFromUUIDSync } from '../../../../gateways/createBookConfigLoader';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined, BookNotFoundError } from '../../../utils';
@@ -148,7 +148,7 @@ const resolvePage = async(
 };
 
 const getInputReferenceInfo = (bookId: string, inputVersion?: string) => {
-  const bookVersionFromConfig = getBookVersionFromUUID(bookId);
+  const bookVersionFromConfig = getBookVersionFromUUIDSync(bookId);
   const defaultVersion = bookVersionFromConfig && bookVersionFromConfig.defaultVersion;
   const bookVersion = inputVersion ? inputVersion : defaultVersion;
   return {bookId, bookVersion};

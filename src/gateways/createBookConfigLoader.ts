@@ -32,8 +32,8 @@ export default (baseUrl: string) => {
   };
 
   return {
-    getBookVersionFromUUID: (uuid: string): BookVersion | Promise<BookVersion | undefined> => {
-      return cachedBooks[uuid] ? cachedBooks[uuid] : loadRemoteBookConfig().then((books) => {
+    getBookVersionFromUUID: (uuid: string): Promise<BookVersion | undefined> => {
+      return cachedBooks[uuid] ? Promise.resolve(cachedBooks[uuid]) : loadRemoteBookConfig().then((books) => {
         let bookVersion;
         if (books && uuid in books) {
           bookVersion = books[uuid];
@@ -45,4 +45,4 @@ export default (baseUrl: string) => {
   };
 };
 
-export const getBookVersionFromUUID = (uuid: string): BookVersion | undefined => cachedBooks[uuid];
+export const getBookVersionFromUUIDSync = (uuid: string): BookVersion | undefined => cachedBooks[uuid];

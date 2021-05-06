@@ -29,8 +29,8 @@ describe('bookConfigLoader', () => {
     (global as any).fetch = fetchBackup;
   });
 
-  it('returns bookVersion from local config', () => {
-    const bookVersion = bookConfigLoader.getBookVersionFromUUID('test-book-uuid');
+  it('returns bookVersion from local config', async() => {
+    const bookVersion = await bookConfigLoader.getBookVersionFromUUID('test-book-uuid');
     expect(bookVersion).toEqual({ defaultVersion: 'test-book-version' });
   });
 
