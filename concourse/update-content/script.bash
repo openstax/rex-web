@@ -67,7 +67,6 @@ JSON
 done
 
 trap - ERR
-set -e
 
 if [[ "${#errors[@]}" != 0 ]]; then
   for book_id_and_version in "${errors[@]}"
