@@ -30,7 +30,7 @@ class WebBase(Page):
     _desktop_log_in_link_locator = (
         By.CSS_SELECTOR, ".desktop .login-menu > a")
     _desktop_user_menu_locator = (
-        By.CSS_SELECTOR, ".desktop .login-menu")
+        By.CSS_SELECTOR, "[data-testid=user-nav-toggle], .desktop .login-menu")
     _dialog_locator = (
         By.CSS_SELECTOR, 'dialog[class*=dialog]')
     _dialog_title_locator = (
@@ -46,7 +46,7 @@ class WebBase(Page):
     _mobile_log_in_link_locator = (
         By.CSS_SELECTOR, ".mobile .login-menu > a")
     _mobile_user_menu_locator = (
-        By.CSS_SELECTOR, ".mobile .login-menu")
+        By.CSS_SELECTOR, "[data-testid=user-nav-toggle], .mobile .login-menu")
     _mobile_user_nav_loaded_locator = (
         By.CSS_SELECTOR, '[class="page-header active"]')
     _mobile_user_nav_locator = (

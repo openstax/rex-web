@@ -61,6 +61,7 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
 
 
 @markers.test_case("C477329")
+@markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, email, password):
@@ -95,6 +96,7 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
 
 
 @markers.test_case("C477328")
+@markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_rex_login_state_when_redirected_from_osweb(
@@ -172,6 +174,7 @@ def test_cookie_notice_accepted_in_rex_not_displayed_in_osweb(
 
 
 @markers.test_case("C546509")
+@markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_cookie_notice_not_accepted_in_rex_displayed_in_osweb(
@@ -211,6 +214,7 @@ def test_cookie_notice_not_accepted_in_rex_displayed_in_osweb(
 
 
 @markers.test_case("C546506")
+@markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_cookie_notice_not_accepted_in_osweb_displayed_in_rex(
@@ -251,6 +255,7 @@ def test_cookie_notice_not_accepted_in_osweb_displayed_in_rex(
 
 
 @markers.test_case("C546505")
+@markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_cookie_notice_accepted_in_osweb_not_displayed_in_rex(

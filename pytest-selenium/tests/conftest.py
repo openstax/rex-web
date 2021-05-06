@@ -70,17 +70,20 @@ def pytest_collection_modifyitems(config, items):
         config.getoption("--base-url") or
         config.getini("base_url")
     )
-    non_dev_system = (
+    dev_system = (
         "//staging.openstax." not in server and
         "//openstax." not in server
     )
-    if non_dev_system:
+    heroku_app = "herokuapp" in server
+    if dev_system and not heroku_app:
         return
 
     deselected = []
     remaining = []
     for item in items:
-        if "dev_only" in item.keywords:
+        if dev_system and "dev_only" in item.keywords:
+            deselected.append(item)
+        elif heroku_app and "non_heroku" in item.keywords:
             deselected.append(item)
         else:
             remaining.append(item)

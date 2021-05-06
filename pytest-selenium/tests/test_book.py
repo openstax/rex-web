@@ -94,6 +94,7 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C613211")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
+@pytest.mark.xfail
 def test_redirect_to_osweb_404_when_book_is_incorrect(
         selenium, base_url, book_slug, page_slug
 ):
