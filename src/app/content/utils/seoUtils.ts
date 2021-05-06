@@ -143,6 +143,5 @@ export const createTitle = (page: Page, book: Book, intl: IntlShape): string => 
   if (nodeNumber) {
     return `${nodeNumber} ${title}`;
   }
-
   return getParentPrefix(node.parent, intl) + title;
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl';
+import { createIntl, RawIntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import en from '../../../../app/messages/en/index';
