@@ -56,9 +56,6 @@ export interface HighlightScrollTarget extends ScrollTarget {
   id: string;
 }
 
-// scopeId should not be nullable in the swagger, sourceMetadata is intentionally loosely typed
-// in the swagger, but we provide a better type here for our use
-export type NewHighlightPayload = NewHighlight & {scopeId: string, sourceMetadata: {
-  bookVersion: string;
-}};
+// scopeId should not be nullable in the swagger
+export type NewHighlightPayload = NewHighlight & {scopeId: string};
 export type HighlightData = Highlight & {scopeId: string};
