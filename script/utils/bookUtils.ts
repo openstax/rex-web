@@ -6,11 +6,11 @@ import { assertDefined } from '../../src/app/utils';
 import config from '../../src/config';
 
 export async function findBooks({
+  rootUrl,
   archiveLoader,
+  osWebLoader,
   bookId,
   bookVersion,
-  osWebLoader,
-  rootUrl,
 }: {
   archiveLoader: AppServices['archiveLoader'],
   bookId?: string,
