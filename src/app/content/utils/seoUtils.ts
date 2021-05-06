@@ -31,7 +31,6 @@ export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, intl: I
     const name = getArchiveTreeSectionTitle(node);
     const prefixVariant = includeTitle ? 'with-name' : 'without-name';
     return intl.formatMessage({id: `i18n:metadata:title:${prefixVariant}`}, {number, name});
-
   }
 
   return archiveTreeSectionIsBook(node.parent)
