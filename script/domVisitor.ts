@@ -11,7 +11,7 @@ import config from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
-import checkIfPageHasRedirect from './utils/checkIfPageHasRedirect';
+import getPageUrlOrRedirection from './utils/getPageUrlOrRedirection';
 import prepareRedirects from './utils/prepareRedirects';
 import progressBar from './utils/progressBar';
 
@@ -80,8 +80,8 @@ async function visitPages(
       const appendQueryString =
         queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`)
                     : archiveUrl ? `?archive=${archiveUrl}` : '';
-      const pageRedirection = checkIfPageHasRedirect(redirects, pageUrl);
-      await page.goto(`${rootUrl}${pageRedirection ? pageRedirection : pageUrl}${appendQueryString}`);
+      const validatedUrl = getPageUrlOrRedirection(redirects, pageUrl);
+      await page.goto(`${rootUrl}${validatedUrl}${appendQueryString}`);
       await page.waitForSelector('body[data-rex-loaded="true"]');
       await calmHooks(page);
 

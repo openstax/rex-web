@@ -12,7 +12,7 @@ import config from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
-import checkIfPageHasRedirect from './utils/checkIfPageHasRedirect';
+import getPageUrlOrRedirection from './utils/getPageUrlOrRedirection';
 import prepareRedirects from './utils/prepareRedirects';
 import progressBar from './utils/progressBar';
 
@@ -44,21 +44,15 @@ async function checkPages(bookSlug: string, pages: string[], redirects: Redirect
   const notFound: string[] = [];
 
   const visitPage = async(page: string) => {
-    const checkIfPageDoesntExist = async(url: string) => {
-      try {
-        const response = await fetch(url);
-        return response.status === 404;
-      } catch {
-        anyFailures = true;
-        bar.interrupt(`- (error loading) ${page}`);
-      }
-    };
-
-    if (checkIfPageDoesntExist(`${rootUrl}${page}`)) {
-      const pageRedirection = checkIfPageHasRedirect(redirects, page);
-      if (pageRedirection && checkIfPageDoesntExist(`${rootUrl}${pageRedirection.to}`)) {
+    const validatedUrl = getPageUrlOrRedirection(redirects, page);
+    try {
+      const response = await fetch(`${rootUrl}${validatedUrl}`);
+      if (response.status === 404) {
         notFound.push(page);
       }
+    } catch {
+      anyFailures = true;
+      bar.interrupt(`- (error loading) ${page}`);
     }
 
     bar.tick();
