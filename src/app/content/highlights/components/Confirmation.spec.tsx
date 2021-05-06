@@ -30,7 +30,7 @@ describe('Confirmation', () => {
       'i18n:confirm': 'confirm',
       'i18n:message': 'message',
     },
-  },);
+  });
 
   beforeEach(() => {
     store = createTestStore();
