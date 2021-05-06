@@ -30,7 +30,7 @@ const getPageMetadata = async(
 
   const row = `"${book.title}","${parentPrefix}","${sectionTitle}","${description}"`;
   // tslint:disable-next-line:no-console
-  console.log(row);
+  // console.log(row);
 };
 
 const getBookMetadata = async(id: string, version: string) => {
