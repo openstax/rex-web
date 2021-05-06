@@ -9,6 +9,7 @@ export const mockCmsBook: OSWebBook = {
   meta: {
     slug: 'book-slug-1',
   },
+  promote_image: null,
   publish_date: '2012-06-21',
 };
 
