@@ -1,5 +1,5 @@
 import React from 'react';
-import { createIntl, RawIntlProvider } from 'react-intl';
+import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import en from '../../../../app/messages/en/index';
@@ -23,14 +23,15 @@ describe('Confirmation', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
 
+  const cache = createIntlCache();
   const intl = createIntl({
     locale: 'en',
     messages: {
       ...en,
-      'i18n:confirm': 'confirm',
-      'i18n:message': 'message',
+      confirm: 'confirm',
+      message: 'message',
     },
-  });
+  }, cache);
 
   beforeEach(() => {
     store = createTestStore();
