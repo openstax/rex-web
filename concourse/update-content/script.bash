@@ -9,7 +9,7 @@ if [ "$GITHUB_USERNAME" != "" ] && [ "$GITHUB_PASSWORD" != "" ]; then
 fi
 
 # this is here so the creds don't get pasted to the output
-set -ex
+set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
 yarn
 
@@ -27,8 +27,6 @@ git remote set-branches origin --add "$rex_default_branch"
 
 errors=()
 
-set +e
-
 for book_and_version in $book_entries; do
   book_id=$(echo "$book_and_version" | jq -r '.key')
   new_version=$(echo "$book_and_version" | jq -r '.value')
@@ -37,7 +35,7 @@ for book_and_version in $book_entries; do
     errors+=("$book_id"@"$new_version")
   }
 
-  trap "report_error; continue" ERR
+  set +e; trap "report_error; continue" ERR
 
   branch="update-content-$book_id"
   git fetch
@@ -66,7 +64,7 @@ for book_and_version in $book_entries; do
 JSON
 done
 
-trap - ERR
+set -e; trap - ERR
 
 if [[ "${#errors[@]}" != 0 ]]; then
   for book_id_and_version in "${errors[@]}"
