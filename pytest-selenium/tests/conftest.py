@@ -81,7 +81,7 @@ def pytest_collection_modifyitems(config, items):
     deselected = []
     remaining = []
     for item in items:
-        if dev_system and "dev_only" in item.keywords:
+        if not dev_system and "dev_only" in item.keywords:
             deselected.append(item)
         elif heroku_app and "non_heroku" in item.keywords:
             deselected.append(item)
