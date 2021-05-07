@@ -72,10 +72,10 @@ export interface BookWithOSWebData extends ArchiveBook {
 export type Book = BookWithOSWebData | ArchiveBook;
 
 export interface Page {
-  abstract: string;
+  abstract: string | null;
   id: string;
   title: string;
-  version: string;
+  slug: string;
 }
 
 export interface ArchiveTreeNode {
@@ -114,12 +114,12 @@ export interface ArchiveBook {
 }
 
 export interface ArchivePage {
-  abstract: string;
+  abstract: string | null;
   id: string;
   content: string;
-  version: string;
   title: string;
   revised: string;
+  slug: string;
 }
 
 export type ArchiveContent = ArchivePage | ArchiveBook;
