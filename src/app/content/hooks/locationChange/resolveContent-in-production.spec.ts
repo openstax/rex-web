@@ -60,8 +60,8 @@ describe('locationChange', () => {
     content: 'dope content bruh',
     id: '99d38770-49c7-49d3-b567-88f393ffb4fe',
     revised: '2018-07-30T15:58:45Z',
+    slug: 'page-in-a-new-book',
     title: 'page in a new book',
-    version: '0',
   };
 
   beforeEach(() => {
