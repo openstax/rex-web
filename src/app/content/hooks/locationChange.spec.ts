@@ -111,8 +111,8 @@ describe('locationChange', () => {
       content: `some <a href="./${mockBook.id}@${mockBook.version}:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> content`,
       id: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qwerqewrqwer',
-      version: '0',
     }, 'rando-page');
 
     (payload.match.params.page as SlugParams).slug = 'rando-page';
@@ -188,8 +188,8 @@ describe('locationChange', () => {
       content: 'dope content bruh',
       id: '99d38770-49c7-49d3-b567-88f393fother',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'page-in-a-new-book',
       title: 'page in a new book',
-      version: '0',
     };
     const mockCmsOtherBook: OSWebBook = {
       amazon_link: '',
@@ -215,8 +215,8 @@ describe('locationChange', () => {
         content: `some <a href="./${mockOtherBook.id}@${mockOtherBook.version}:${mockPageInOtherBook.id}.xhtml"></a> content`,
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',
+        slug: 'mock-slug',
         title: 'page referencing different book',
-        version: '0',
       }, 'page-referencing-different-book');
 
       (payload.match.params.page as SlugParams).slug = 'page referencing different book';
@@ -263,8 +263,8 @@ describe('locationChange', () => {
         content: `some <a href="./${garbageBook.id}@${garbageBook.version}:thisiddoes-not7-exis-t567-88f393fother.xhtml"></a> content`,
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',
+        slug: 'mock-slug',
         title: 'this page has cross link that directs to missing page',
-        version: '0',
       });
 
       let message: string | undefined;
@@ -290,8 +290,8 @@ describe('locationChange', () => {
         content: `some <a href="./${mockOtherBook.id}@${mockOtherBook.version}:thisiddoes-not7-exis-t567-88f393fother.xhtml"></a> content`,
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',
+        slug: 'mock-slug',
         title: 'this page has cross link that directs to missing page',
-        version: '0',
       });
 
       let message: string | undefined;
