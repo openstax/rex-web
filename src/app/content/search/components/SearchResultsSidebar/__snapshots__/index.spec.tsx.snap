@@ -174,7 +174,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               "source": Object {
                 "elementId": "fs-id1544727",
                 "elementType": "paragraph",
-                "pageId": "testbook1-testpage1-uuid@2018-07-30T15:58:45Z",
+                "pageId": "testbook1-testpage1-uuid@1.0",
                 "pagePosition": 60,
               },
             },
@@ -278,7 +278,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                     "source": Object {
                       "elementId": "fs-id1544727",
                       "elementType": "paragraph",
-                      "pageId": "testbook1-testpage6-uuid@2018-07-30T15:58:45Z",
+                      "pageId": "testbook1-testpage6-uuid@1.0",
                       "pagePosition": 60,
                     },
                   },
@@ -384,7 +384,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                     "source": Object {
                       "elementId": "fs-id1544727",
                       "elementType": "paragraph",
-                      "pageId": "testbook1-testpage7-uuid@2018-07-30T15:58:45Z",
+                      "pageId": "testbook1-testpage7-uuid@1.0",
                       "pagePosition": 60,
                     },
                   },
