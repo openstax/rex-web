@@ -23,7 +23,7 @@ export const makeSearchResultHit = (
   source: {
     elementId: sourceId || 'fs-id1544727',
     elementType: SearchResultHitSourceElementTypeEnum.Paragraph,
-    pageId: `${stripIdVersion(page.id)}@${isArchivePage(page) ? page.revised : getIdVersion(page.id)}`,
+    pageId: `${stripIdVersion(page.id)}@${isArchivePage(page) ? '1.0' : getIdVersion(page.id)}`,
     pagePosition: 60,
   },
 });
