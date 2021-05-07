@@ -84,7 +84,7 @@ export default () => {
     mockPage: (parentBook: ArchiveBook, newPage: ArchivePage, pageSlug: string) => {
       localBookPages[`${parentBook.id}@${parentBook.version}`][newPage.id] = newPage;
       localBooks[`${parentBook.id}@${parentBook.version}`].tree.contents.push({
-        id: `${newPage.id}@${newPage.revised}`,
+        id: `${newPage.id}@1.0`,
         slug: pageSlug,
         title: newPage.title,
       });
