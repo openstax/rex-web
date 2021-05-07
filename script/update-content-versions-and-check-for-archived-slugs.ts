@@ -74,4 +74,6 @@ async function processBook() {
   console.log(`updated ${title} and added ${newRedirectionsCounter} new redirections`);
 }
 
-processBook();
+processBook().catch(() => {
+  process.exit(1);
+});
