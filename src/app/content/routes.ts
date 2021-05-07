@@ -32,7 +32,7 @@ export const content: Route<Params, State> = {
   ,
   getUrl: (params: Params): string => {
     const parsedParams = getUrlRegexParams(params);
-    const path = assertDefined(findPathForParams(parsedParams, contentPaths), 'Ivalid parameters for content path');
+    const path = assertDefined(findPathForParams(parsedParams, contentPaths), 'Invalid parameters for content path');
 
     return pathToRegexp.compile(path)(parsedParams);
   },
