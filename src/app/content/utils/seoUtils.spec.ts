@@ -39,7 +39,7 @@ describe('getDescription', () => {
     loader.mockPage(book, contentPageShort, 'page-slug');
     const description = getPageDescription(services, book, contentPageShort);
     expect(description).toMatchInlineSnapshot(
-      `"OpenStax is a non-profit organization committed to improving student access to quality learning materials. Our free textbooks are developed and peer-reviewed by educators to ensure they are readable and accurate."`
+      `"This free textbook is an OpenStax resource written to increase student access to high-quality, peer-reviewed learning materials."`
     );
   });
 
@@ -63,7 +63,7 @@ describe('getDescription', () => {
     loader.mockPage(book, eobPage, 'page-slug');
     const description = getPageDescription(services, book, eobPage);
     expect(description).toMatchInlineSnapshot(
-      `"OpenStax is a non-profit organization committed to improving student access to quality learning materials. Our free textbooks are developed and peer-reviewed by educators to ensure they are readable and accurate."`
+      `"This free textbook is an OpenStax resource written to increase student access to high-quality, peer-reviewed learning materials."`
     );
   });
 });
