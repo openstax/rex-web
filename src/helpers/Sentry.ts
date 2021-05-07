@@ -38,6 +38,14 @@ export default {
         ],
         release: normalize(`rex@${config.RELEASE_ID}`),
         tracesSampleRate: 0.1,
+        whitelistUrls: [
+          /https?:\/\/localhost/,
+          /https?:\/\/(www\.)?openstax\.org/,
+          /https?:\/\/dev\.openstax\.org/,
+          /https?:\/\/(.*\.)?sandbox\.openstax\.org/,
+          /https?:\/\/staging\.openstax\.org/,
+          /https?:\/\/rex-web\.herokuapp\.com/,
+        ],
       });
       IS_INITIALIZED = true;
 
