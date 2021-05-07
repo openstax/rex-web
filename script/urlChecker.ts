@@ -12,7 +12,7 @@ import config from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
-import getPageUrlOrRedirection from './utils/getPageUrlOrRedirection';
+import getPageOrRedirectedUrl from './utils/getPageOrRedirectedUrl';
 import prepareRedirects from './utils/prepareRedirects';
 import progressBar from './utils/progressBar';
 
@@ -44,7 +44,7 @@ async function checkPages(bookSlug: string, pages: string[], redirects: Redirect
   const notFound: string[] = [];
 
   const visitPage = async(page: string) => {
-    const validatedUrl = getPageUrlOrRedirection(redirects, page);
+    const validatedUrl = getPageOrRedirectedUrl(redirects, page);
     try {
       const response = await fetch(`${rootUrl}${validatedUrl}`);
       if (response.status === 404) {
