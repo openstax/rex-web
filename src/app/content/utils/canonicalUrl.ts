@@ -26,7 +26,7 @@ export async function getCanonicalUrlParams(
   for (const [id, CANONICAL_PAGES_MAP] of canonicals) {
     const version = assertDefined(
       getBookVersionFromUUIDSync(id),
-      `BUG: Book ${id} is not in BOOKS configuration`
+      `We've already filtered out books that are not in the BOOK configuration`
     ).defaultVersion;
     const canonicalBook = book.id === id  && hasOSWebData(book) ? book : await getBook(id, version);
     const mappedPageId = CANONICAL_PAGES_MAP[pageId] || pageId;
