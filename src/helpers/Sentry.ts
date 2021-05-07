@@ -39,7 +39,7 @@ export default {
         release: normalize(`rex@${config.RELEASE_ID}`),
         tracesSampleRate: 0.1,
         whitelistUrls: [
-          /https?:\/\/localhost/,
+          /https?:\/\/localhost:3000/,
           /https?:\/\/(www\.)?openstax\.org/,
           /https?:\/\/dev\.openstax\.org/,
           /https?:\/\/(.*\.)?sandbox\.openstax\.org/,
