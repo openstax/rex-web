@@ -9,11 +9,14 @@ from tests import markers
 
 @markers.test_case("C477326", "C477327")
 @markers.parametrize("page_slug", ["preface"])
-@markers.nondestructive
-def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, password):
+def test_login_and_logout(
+    selenium, base_url, book_slug, page_slug, email, password
+):
     """Test Accounts log in and log out from a content page."""
     # GIVEN: a content page is loaded
-    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    content = Content(
+        selenium, base_url, book_slug=book_slug, page_slug=page_slug
+    ).open()
     user_nav = content.navbar
     page_url_before_login = selenium.current_url
 
@@ -25,7 +28,9 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
         f"{base_url}/accounts/i/login?r=%2Fbooks%2F"
         f"{book_slug}%2Fpages%2F{page_slug}"
     )
-    assert expected_page_url in selenium.current_url, "not viewing the Accounts log in page"
+    assert(expected_page_url in selenium.current_url), (
+        "not viewing the Accounts log in page"
+    )
 
     # WHEN: they log in as an existing user
     Login(selenium).login(email, password)
@@ -63,10 +68,13 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
 @markers.test_case("C477329")
 @markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
-@markers.nondestructive
-def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, email, password):
+def test_logout_in_osweb_logsout_rex(
+    selenium, base_url, book_slug, page_slug, email, password
+):
     # GIVEN: Rex page is open
-    rex = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    rex = Content(
+        selenium, base_url, book_slug=book_slug, page_slug=page_slug
+    ).open()
     rex_nav = rex.navbar
 
     # WHEN: Login Rex with email & password
@@ -98,7 +106,6 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
 @markers.test_case("C477328")
 @markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
-@markers.nondestructive
 def test_rex_login_state_when_redirected_from_osweb(
     selenium, base_url, book_slug, page_slug, email, password
 ):
@@ -137,12 +144,13 @@ def test_rex_login_state_when_redirected_from_osweb(
 @markers.test_case("C546508")
 @markers.smoke_test
 @markers.parametrize("page_slug", ["preface"])
-@markers.nondestructive
 def test_cookie_notice_accepted_in_rex_not_displayed_in_osweb(
     selenium, base_url, book_slug, page_slug, email, password
 ):
     # GIVEN: Rex book page is open
-    rex = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    rex = Content(
+        selenium, base_url, book_slug=book_slug, page_slug=page_slug
+    ).open()
     rex_nav = rex.navbar
     book_banner = rex.bookbanner
 
@@ -157,7 +165,9 @@ def test_cookie_notice_accepted_in_rex_not_displayed_in_osweb(
     accounts.login(email, password)
 
     # AND: Cookie notice is displayed
-    assert rex.notification.title == "Privacy and cookies", "cookie notice is not displayed"
+    assert(rex.notification.title == "Privacy and cookies"), (
+        "cookie notice is not displayed"
+    )
 
     # WHEN: Accept the cookie notice
     rex.notification.got_it()
@@ -176,7 +186,6 @@ def test_cookie_notice_accepted_in_rex_not_displayed_in_osweb(
 @markers.test_case("C546509")
 @markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
-@markers.nondestructive
 def test_cookie_notice_not_accepted_in_rex_displayed_in_osweb(
     selenium, base_url, book_slug, page_slug, email, password
 ):
@@ -216,7 +225,6 @@ def test_cookie_notice_not_accepted_in_rex_displayed_in_osweb(
 @markers.test_case("C546506")
 @markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
-@markers.nondestructive
 def test_cookie_notice_not_accepted_in_osweb_displayed_in_rex(
     selenium, base_url, book_slug, page_slug, email, password
 ):
@@ -257,7 +265,6 @@ def test_cookie_notice_not_accepted_in_osweb_displayed_in_rex(
 @markers.test_case("C546505")
 @markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
-@markers.nondestructive
 def test_cookie_notice_accepted_in_osweb_not_displayed_in_rex(
     selenium, base_url, book_slug, page_slug
 ):
@@ -295,12 +302,13 @@ def test_cookie_notice_accepted_in_osweb_not_displayed_in_rex(
 
 @markers.test_case("C546507")
 @markers.parametrize("page_slug", ["preface"])
-@markers.nondestructive
 def test_accepted_cookie_notice_not_displayed_in_another_session(
     selenium, base_url, book_slug, page_slug, email, password
 ):
     # GIVEN: Rex book page is open
-    rex = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    rex = Content(
+        selenium, base_url, book_slug=book_slug, page_slug=page_slug
+    ).open()
     rex_nav = rex.navbar
     user_nav = rex.navbar
 
@@ -315,7 +323,9 @@ def test_accepted_cookie_notice_not_displayed_in_another_session(
     accounts.login(email, password)
 
     # AND: Cookie notice is displayed
-    assert rex.notification.title == "Privacy and cookies", "cookie notice is not displayed"
+    assert(rex.notification.title == "Privacy and cookies"), (
+        "cookie notice is not displayed"
+    )
 
     # AND: Accept the cookie notice
     rex.notification.got_it()
@@ -331,6 +341,10 @@ def test_accepted_cookie_notice_not_displayed_in_another_session(
     try:
         assert not rex.notification_present
     except AssertionError:
-        assert rex.notification.title != "Privacy and cookies", "cookie notice displayed"
+        assert(rex.notification.title != "Privacy and cookies"), (
+            "cookie notice displayed"
+        )
         rex.notification.got_it()
-        assert not rex.notification_present, f"Additional {rex.notification.title} message present"
+        assert(not rex.notification_present), (
+            f"Additional {rex.notification.title} message present"
+        )
