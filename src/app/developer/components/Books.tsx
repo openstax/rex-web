@@ -24,19 +24,10 @@ class Books extends React.Component<Props, State> {
     const {archiveLoader, osWebLoader} = this.props.services;
     const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
-    const sortBooks = (bookA: Book, bookB: Book) => {
-      if (bookA.title < bookB.title) {
-        return -1;
-      } else if (bookA.title > bookB.title) {
-        return 1;
-      }
-      return 0;
-    };
-
     for (const [bookId, {defaultVersion}] of Object.entries(BOOKS)) {
       bookLoader(bookId, defaultVersion).then((bookData) => {
         this.setState((state) => ({
-          books: [...state.books, bookData].sort(sortBooks),
+          books: [...state.books, bookData].sort((bookA, bookB) => bookA.title.localeCompare(bookB.title)),
         }));
       });
     }
