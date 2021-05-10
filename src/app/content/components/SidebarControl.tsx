@@ -85,6 +85,7 @@ const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerPro
     {...props}
     data-testid='toc-button'
     message={isOpen ? openMessage : closedMessage}
+    data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
     onClick={isOpen ? props.closeToc : props.openToc}
   />);
 
