@@ -2,7 +2,7 @@ import pytest
 from selenium.common.exceptions import NoSuchElementException
 
 from pages.content import Content
-from pages.accounts import Login
+from pages.accounts import Login, Signup
 from pages.osweb import WebBase
 from tests import markers
 
@@ -61,6 +61,7 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
 
 
 @markers.test_case("C477329")
+@markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, email, password):
@@ -95,6 +96,7 @@ def test_logout_in_osweb_logsout_rex(selenium, base_url, book_slug, page_slug, e
 
 
 @markers.test_case("C477328")
+@markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_rex_login_state_when_redirected_from_osweb(
@@ -102,7 +104,6 @@ def test_rex_login_state_when_redirected_from_osweb(
 ):
     # GIVEN: Open osweb book details page
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
-    osweb.wait_for_load()
     osweb.close_dialogs()
     osweb.click_login()
 
@@ -124,7 +125,7 @@ def test_rex_login_state_when_redirected_from_osweb(
     rex.wait_for_page_to_load()
     rex_nav = rex.navbar
     assert rex_nav.user_is_logged_in
-    rex_username = rex.username(rex_nav.user_nav_toggle)
+    rex_username = rex.username(rex_nav.user_nav_toggle)[3:]
 
     assert rex_username == osweb_username
 
@@ -173,28 +174,33 @@ def test_cookie_notice_accepted_in_rex_not_displayed_in_osweb(
 
 
 @markers.test_case("C546509")
+@markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_cookie_notice_not_accepted_in_rex_displayed_in_osweb(
     selenium, base_url, book_slug, page_slug, email, password
 ):
     # GIVEN: Rex book page is open
-    rex = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    rex = Content(selenium, base_url,
+                  book_slug=book_slug, page_slug=page_slug).open()
     rex_nav = rex.navbar
     book_banner = rex.bookbanner
 
     # AND: Discard any non-cookie notice from the page
     while rex.notification_present:
-        assert rex.notification.title != "Privacy and cookies"
+        assert(rex.notification.title != "Privacy and cookies")
         rex.notification.got_it()
 
     # WHEN: Login Rex with email & password
     rex_nav.click_login()
     accounts = Login(selenium)
     accounts.login(email, password)
+    rex.wait_for_page_to_load()
 
     # AND: Cookie notice is displayed
-    assert rex.notification.title == "Privacy and cookies", "cookie notice is not displayed"
+    assert(rex.notification.title == "Privacy and cookies"), (
+        "cookie notice is not displayed"
+    )
 
     # WHEN: click on the book title to navigate to the osweb book page
     book_banner.book_title.click()
@@ -208,6 +214,7 @@ def test_cookie_notice_not_accepted_in_rex_displayed_in_osweb(
 
 
 @markers.test_case("C546506")
+@markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_cookie_notice_not_accepted_in_osweb_displayed_in_rex(
@@ -248,19 +255,18 @@ def test_cookie_notice_not_accepted_in_osweb_displayed_in_rex(
 
 
 @markers.test_case("C546505")
+@markers.non_heroku
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_cookie_notice_accepted_in_osweb_not_displayed_in_rex(
-    selenium, base_url, book_slug, page_slug, email, password
+    selenium, base_url, book_slug, page_slug
 ):
     # GIVEN: Open osweb book details page
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    book.navbar.click_login()
+    Signup(selenium).register()
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
-    osweb.wait_for_load()
-    osweb.click_login()
-
-    # AND: Login as existing user
-    accounts = Login(selenium)
-    accounts.login(email, password)
     osweb.wait_for_load()
 
     # AND: Accept the cookie notice
@@ -276,11 +282,15 @@ def test_cookie_notice_accepted_in_osweb_not_displayed_in_rex(
     # AND: Cookie notice is not displayed
     rex = Content(selenium)
     try:
-        assert not rex.notification_present
+        assert(not rex.notification_present)
     except AssertionError:
-        assert rex.notification.title != "Privacy and cookies", "cookie notice displayed"
+        assert(rex.notification.title != "Privacy and cookies"), (
+            "cookie notice displayed"
+        )
         rex.notification.got_it()
-        assert not rex.notification_present, f"Additional {rex.notification.title} message present"
+        assert(not rex.notification_present), (
+            f"Additional {rex.notification.title} message present"
+        )
 
 
 @markers.test_case("C546507")

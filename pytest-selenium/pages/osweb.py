@@ -27,8 +27,12 @@ class WebBase(Page):
         By.CSS_SELECTOR, ".callout .put-away")
     _close_locator = (
         By.CSS_SELECTOR, '[class="put-away"]')
+    _desktop_log_in_link_locator = (
+        By.CSS_SELECTOR, ".desktop .login-menu > a")
+    _desktop_user_menu_locator = (
+        By.CSS_SELECTOR, "[data-testid=user-nav-toggle], .desktop .login-menu")
     _dialog_locator = (
-        By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
+        By.CSS_SELECTOR, 'dialog[class*=dialog]')
     _dialog_title_locator = (
         By.CSS_SELECTOR, "#dialog-title")
     _got_it_button_locator = (
@@ -39,6 +43,10 @@ class WebBase(Page):
         By.CSS_SELECTOR, "[href*=signout]")
     _log_in_locator = (
         By.CSS_SELECTOR, '[class="pardotTrackClick"]')
+    _mobile_log_in_link_locator = (
+        By.CSS_SELECTOR, ".mobile .login-menu > a")
+    _mobile_user_menu_locator = (
+        By.CSS_SELECTOR, "[data-testid=user-nav-toggle], .mobile .login-menu")
     _mobile_user_nav_loaded_locator = (
         By.CSS_SELECTOR, '[class="page-header active"]')
     _mobile_user_nav_locator = (
@@ -50,13 +58,15 @@ class WebBase(Page):
     _print_copy_mobile_locator = (
         By.XPATH, f"{MOBILE}{PRINT_COPY}")
     _order_a_personal_copy_locator = (
-        By.CSS_SELECTOR, ".larger-version [class='btn primary'][data-track=Print]")
+        By.CSS_SELECTOR,
+        ".larger-version [class='btn primary'][data-track=Print]"
+    )
     _osweb_404_locator = (
         By.CSS_SELECTOR, '[class*="not-found"]')
     _sticky_note_put_away_button_locator = (
         By.CSS_SELECTOR, "#lower-sticky-note .put-away")
     _user_nav_locator = (
-        By.CSS_SELECTOR, '[class*="login-menu"]')
+        By.CSS_SELECTOR, '.login-menu')
     _view_online_desktop_locator = (
         By.XPATH, f"{DESKTOP}{VIEW_ONLINE}")
     _view_online_links_locator = (
@@ -84,12 +94,17 @@ class WebBase(Page):
 
     def osweb_404_displayed(self) -> bool:
         """Return true if osweb 404 error is displayed"""
-        return bool(self.wait.until(lambda _: self.find_element(*self._osweb_404_locator)))
+        return bool(
+            self.wait.until(
+                lambda _: self.find_element(*self._osweb_404_locator)
+            )
+        )
 
     @property
     def osweb_404_error(self):
         """Return the 404 error text"""
-        return self.find_element(*self._osweb_404_locator).get_attribute("textContent")
+        _404_error = self.find_elements(*self._osweb_404_locator)
+        return _404_error[0].get_attribute("textContent") if _404_error else ""
 
     @property
     def login(self):
@@ -105,7 +120,10 @@ class WebBase(Page):
 
     @property
     def mobile_user_nav_loaded(self):
-        return self.find_element(*self._mobile_user_nav_loaded_locator).is_displayed()
+        user_nav = self.find_elements(*self._mobile_user_nav_loaded_locator)
+        if not user_nav:
+            return False
+        return user_nav[0].is_displayed()
 
     @property
     def logout(self):
@@ -118,13 +136,10 @@ class WebBase(Page):
     @property
     def user_is_logged_in(self):
         if self.is_desktop:
-            if self.is_element_present(*self._user_nav_locator):
-                return True
-        elif self.is_mobile:
-            self.click_mobile_user_nav()
-            if self.mobile_user_nav_loaded:
-                self.click_mobile_user_nav()
-                return True
+            user_menu = self.find_element(*self._desktop_user_menu_locator)
+        else:
+            user_menu = self.find_element(*self._mobile_user_menu_locator)
+        return 'dropdown' in user_menu.get_attribute("class")
 
     @property
     def view_online(self):
@@ -143,9 +158,12 @@ class WebBase(Page):
         Utilities.click_option(self.driver, element=target)
 
     def click_login(self):
-        if self.is_mobile:
+        if self.is_desktop:
+            log_in = self.find_element(*self._desktop_log_in_link_locator)
+        else:
             self.click_mobile_user_nav()
-        self.login.click()
+            log_in = self.find_element(*self._mobile_log_in_link_locator)
+        Utilities.click_option(self.driver, element=log_in)
 
     def click_logout(self):
         if self.is_desktop:
@@ -162,11 +180,16 @@ class WebBase(Page):
 
     def click_mobile_user_nav(self):
         self.offscreen_click(self.mobile_user_nav)
+        sleep(1.0)
 
-    def osweb_username(self, element):
+    def osweb_username(self, element=None):
         """Get the username of the logged in user."""
-        element1 = self.username(element)
-        return " ".join(element1.split()[:2])
+        if self.is_desktop:
+            username = self.find_element(*self._desktop_log_in_link_locator)
+            return username.text[3:-5]
+        self.click_mobile_user_nav()
+        username = self.find_element(*self._mobile_log_in_link_locator)
+        return username.text[3:]
 
     @property
     def notification_dialog_displayed(self) -> bool:

@@ -1,8 +1,11 @@
 """Test Reading Experience Google Analytics message queuing ."""
 
 import random
+import re
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 from pages.accounts import Signup
 from pages.content import Content
@@ -16,7 +19,13 @@ ACTION_SCRIPT = (
 )
 
 
+# --------------------- #
+# Critical Priority SEO #
+# --------------------- #
+
+
 @markers.test_case("C591502")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_the_user_clicks_a_toc_link_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -54,6 +63,7 @@ def test_the_user_clicks_a_toc_link_ga_event(
 
 
 @markers.test_case("C591503")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_user_clicks_the_order_a_print_copy_link_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -88,6 +98,7 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(
 
 
 @markers.test_case("C621361", "C621362")
+@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "1-2-the-scientific-methods")]
@@ -163,6 +174,7 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
 
 
 @markers.test_case("C621363")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_user_logout_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -179,6 +191,7 @@ def test_user_logout_ga_event(
     # WHEN:  they click the user menu
     # AND:   click the 'Log out' menu link
     book.navbar.click_user_name()
+
     events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
     # THEN:  the correct Google Analytics event is queued
@@ -197,6 +210,7 @@ def test_user_logout_ga_event(
 
 
 @markers.test_case("C621364", "C621366")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_open_and_close_the_table_of_contents_ga_events(
         selenium, base_url, book_slug, page_slug):
@@ -253,6 +267,7 @@ def test_open_and_close_the_table_of_contents_ga_events(
 
 
 @markers.test_case("C621365")
+@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "1-1-physics-definitions-and-applications")]
@@ -292,6 +307,7 @@ def test_click_a_figure_link_ga_event(
 
 
 @markers.test_case("C621367")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_account_profile_menu_bar_click_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -327,6 +343,7 @@ def test_account_profile_menu_bar_click_ga_event(
 
 
 @markers.test_case("C545852", "C621368")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_clicking_a_search_excerpt_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -386,6 +403,7 @@ def test_clicking_a_search_excerpt_ga_event(
 
 
 @markers.test_case("C621369")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_banner_book_title_click_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -422,6 +440,7 @@ def test_banner_book_title_click_ga_event(
 
 @markers.test_case("C621370")
 @markers.skip_test(reason="difficulty getting GA data from OSWeb")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_view_book_online_link_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -451,6 +470,7 @@ def test_view_book_online_link_ga_event(
 
 
 @markers.test_case("C621371")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_openstax_logo_click_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -486,6 +506,7 @@ def test_openstax_logo_click_ga_event(
 
 
 @markers.test_case("C621372")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_log_in_click_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -521,6 +542,7 @@ def test_log_in_click_ga_event(
 
 
 @markers.test_case("C597377")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_new_highlight_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -561,6 +583,7 @@ def test_new_highlight_ga_event(
 
 
 @markers.test_case("C621346")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_remove_highlight_by_using_same_color_button_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -605,6 +628,7 @@ def test_remove_highlight_by_using_same_color_button_ga_event(
 
 
 @markers.test_case("C621347")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -648,6 +672,7 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
 
 
 @markers.test_case("C621348")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_log_in_nudge_login_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -707,6 +732,7 @@ def test_log_in_nudge_login_ga_event(
 
 
 @markers.test_case("C621349")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_cancel_highlight_delete_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -754,6 +780,7 @@ def test_cancel_highlight_delete_ga_event(
 
 
 @markers.test_case("C621350")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_highlight_delete_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -801,6 +828,7 @@ def test_highlight_delete_ga_event(
 
 
 @markers.test_case("C621351", "C621352")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_edit_existing_note_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -870,6 +898,7 @@ def test_edit_existing_note_ga_event(
 
 
 @markers.test_case("C621353", "C621354")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_add_note_to_highlight_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -935,6 +964,7 @@ def test_add_note_to_highlight_ga_event(
 
 
 @markers.test_case("C621355")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_change_highlight_color_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -980,6 +1010,7 @@ def test_change_highlight_color_ga_event(
 
 
 @markers.test_case("C597671")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_select_text_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -1020,6 +1051,7 @@ def test_select_text_ga_event(
 
 
 @markers.test_case("C597672")
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_inline_highlighting_login_nudge_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -1064,6 +1096,7 @@ def test_inline_highlighting_login_nudge_ga_event(
 
 @markers.test_case("C615600")
 @markers.desktop_only
+@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_go_to_highlight_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -1105,6 +1138,1086 @@ def test_go_to_highlight_ga_event(
     #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
     #          eventCategory: "REX Link (MH gotohighlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+# ----------------- #
+# High Priority SEO #
+# ----------------- #
+
+
+@markers.test_case("C602208")
+@markers.parametrize("book_slug", [("chemistry-2e")])
+def test_title_and_meta_page_tags_for_seo(selenium, base_url, book_slug):
+    """Test the title and meta title property book header tags."""
+    # SETUP:
+    action_script = "return document.querySelector('[href=\"{}\"]');"
+    chapters = [
+        "Ch. 1",
+        "1.1",
+        "Ch. 1",
+        "B"
+    ]
+    pages = [
+        "1-introduction",
+        "1-1-chemistry-in-context",
+        "1-key-terms",
+        "b-essential-mathematics"
+    ]
+    starting_page = "preface"
+    title = "{chapter} {title} - Chemistry 2e | OpenStax"
+    titles = [
+        "Introduction",
+        "Chemistry in Context",
+        "Key Terms",
+        "Essential Mathematics"
+    ]
+
+    # GIVEN: a user
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=starting_page).open()
+
+    for section in range(4):
+        # WHEN:  they open a book page
+        new_page = book.driver.execute_script(
+            action_script.format(pages[section])
+        )
+        Utilities.click_option(book.driver, element=new_page)
+        book.wait_for_page_to_load()
+        page_title, page_meta_title, page_meta_url = book.titles
+        expected_title = title.format(
+            chapter=chapters[section],
+            title=titles[section]
+        )
+
+        # THEN:  the page title is formatted correctly
+        assert(page_title == expected_title), "Incorrect title found"
+
+        # AND:   the page meta title tag content is formatted correctly
+        assert(page_meta_title == expected_title), "Incorrect title found"
+
+        # AND:   the page meta URL tag content is the current page URL
+        assert(page_meta_url == selenium.current_url), "Incorrect page URL"
+
+
+@markers.test_case("C605728")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("american-government-2e", "1-introduction")]
+)
+def test_study_guide_chapter_tag_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when a SG chapter tag opened."""
+    # SETUP:
+    event_action = "Filter study guides by Chapter"
+    event_category = "REX Button (SG popup)"
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+
+    # GIVEN: a user viewing a book study guide
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    guide = book.toolbar.study_guides()
+
+    # WHEN:  they open click the 'Chapter' filter drop down
+    guide.toolbar.chapter.click()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Filter study guides by Chapter",
+    #          eventCategory: "REX Button (SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C607438")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_study_guide_cta_sign_up_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when sign up link is clicked."""
+    # SETUP:
+    event_action = "signup"
+    event_category = "REX Link (SG popup)"
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    selector = "[data-analytics-label=signup]"
+
+    # GIVEN: a non-logged in user viewing a book page
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # WHEN:  they open the study guide
+    # AND:   click the 'Sign Up' button
+    book.toolbar.study_guides()
+
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "signup",
+    #          eventCategory: "REX Link (SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    sign_up_link_event = events[-2]
+    assert(
+        "eventAction" in sign_up_link_event and
+        "eventCategory" in sign_up_link_event and
+        "eventLabel" in sign_up_link_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in sign_up_link_event["eventAction"])
+    assert(sign_up_link_event["eventCategory"] == event_category)
+    assert(sign_up_link_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C605716", "C621330")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_open_study_guide_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when the study guide is opened."""
+    # SETUP:
+    button_event_action = "button"
+    button_event_category = "REX Study guides (open SG popup)"
+    button_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    open_event_action = "Study guides"
+    open_event_category = "REX Button (toolbar)"
+    open_event_label = button_event_label
+
+    # GIVEN: a user viewing a book page with a study guide
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # WHEN:  they open the study guide
+    book.toolbar.study_guides()
+
+    # THEN:  the correct open Google Analytics event is queued
+    #        { eventAction: "Study guides",
+    #          eventCategory: "REX Button (toolbar)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    # AND:   the correct button Google Analytics event is queued
+    #        { eventAction: "button",
+    #          eventCategory: "REX Study guides (open SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    open_study_guide_event = events[-3]
+    assert(
+        "eventAction" in open_study_guide_event and
+        "eventCategory" in open_study_guide_event and
+        "eventLabel" in open_study_guide_event
+    ), "Not viewing the correct GA event"
+    assert(open_event_action in open_study_guide_event["eventAction"])
+    assert(open_study_guide_event["eventCategory"] == open_event_category)
+    assert(open_study_guide_event["eventLabel"] == open_event_label)
+
+    button_event = events[-1]
+    assert(
+        "eventAction" in button_event and
+        "eventCategory" in button_event and
+        "eventLabel" in button_event
+    ), "Not viewing the correct GA event"
+    assert(button_event_action in button_event["eventAction"])
+    assert(button_event["eventCategory"] == button_event_category)
+    assert(button_event["eventLabel"] == button_event_label)
+
+
+@markers.test_case("C621326")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_sg_close_using_overlay_click_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when SG close by overlay click."""
+    # SETUP:
+    event_action = "overlay"
+    event_category = "REX Study guides (close SG popup)"
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+
+    # GIVEN: a user viewing a book page with a study guide
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # WHEN:  they open the study guide
+    # AND:   click on the content overlay
+    guide = book.toolbar.study_guides()
+
+    (ActionChains(selenium)
+     .move_to_element_with_offset(guide.overlay, 5, 5)
+     .click()
+     .perform())
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "overlay",
+    #          eventCategory: "REX Study guides (close SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -2)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C621327")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_sg_close_using_esc_key_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when close SG by escape key."""
+    # SETUP:
+    event_action = "esc"
+    event_category = "REX Study guides (close SG popup)"
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+
+    # GIVEN: a user viewing a book page with a study guide
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # WHEN:  they open the study guide
+    # AND:   hit the escape key
+    book.toolbar.study_guides()
+
+    (ActionChains(selenium)
+     .send_keys(Keys.ESCAPE)
+     .perform())
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "esc",
+    #          eventCategory: "REX Study guides (close SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    esc_key_event = Utilities.get_analytics_queue(selenium, -2)
+    assert(
+        "eventAction" in esc_key_event and
+        "eventCategory" in esc_key_event and
+        "eventLabel" in esc_key_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in esc_key_event["eventAction"])
+    assert(esc_key_event["eventCategory"] == event_category)
+    assert(esc_key_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C621328", "C621329")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_sg_close_using_x_close_button_ga_events(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when SG close 'x' is clicked."""
+    # SETUP:
+    button_event_action = "button"
+    button_event_category = "REX Study guides (close SG popup)"
+    button_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    close_event_action = "Close Study Guides"
+    close_event_category = "REX Button"
+    close_event_label = button_event_label
+
+    # GIVEN: a user viewing a book page with a study guide
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # WHEN:  they open the study guide
+    # AND:   click the escape key
+    guide = book.toolbar.study_guides()
+
+    guide.header.close()
+
+    # THEN:  the correct close Google Analytics event is queued
+    #        { eventAction: "Close Study Guides",
+    #          eventCategory: "REX Button",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    # AND:   the correct button Google Analytics event is queued
+    #        { eventAction: "button",
+    #          eventCategory: "REX Study guides (close SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    close_event = events[-3]
+    assert(
+        "eventAction" in close_event and
+        "eventCategory" in close_event and
+        "eventLabel" in close_event
+    ), "Not viewing the correct GA event"
+    assert(close_event_action in close_event["eventAction"])
+    assert(close_event["eventCategory"] == close_event_category)
+    assert(close_event["eventLabel"] == close_event_label)
+
+    button_event = events[-2]
+    assert(
+        "eventAction" in button_event and
+        "eventCategory" in button_event and
+        "eventLabel" in button_event
+    ), "Not viewing the correct GA event"
+    assert(button_event_action in button_event["eventAction"])
+    assert(button_event["eventCategory"] == button_event_category)
+    assert(button_event["eventLabel"] == button_event_label)
+
+
+@markers.test_case("C621331")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_study_guide_log_in_link_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when SG log in link is clicked."""
+    # SETUP:
+    event_action = "login"
+    event_category = "REX Link (SG popup)"
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    selector = "[class*=StudyGuides] [data-analytics-label=login]"
+
+    # GIVEN: a user viewing a book page with a study guide
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # WHEN:  they open the study guide
+    # AND:   click the 'Log in' link
+    book.toolbar.study_guides()
+
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "login",
+    #          eventCategory: "REX Link (SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    log_in_link_event = events[-2]
+    assert(
+        "eventAction" in log_in_link_event and
+        "eventCategory" in log_in_link_event and
+        "eventLabel" in log_in_link_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in log_in_link_event["eventAction"])
+    assert(log_in_link_event["eventCategory"] == event_category)
+    assert(log_in_link_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C621333")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("principles-economics-2e", "1-introduction")]
+)
+def test_study_guide_remove_chapter_filter_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when SA chapter filter removed."""
+    # SETUP:
+    event_action = "Remove breadcrumb for chapter {number} {name}"
+    event_category = "REX Button (SG popup)"
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+
+    # GIVEN: a logged in user viewing a book page
+    book = user_setup(selenium, base_url, book_slug, page_slug)
+
+    # WHEN:  they open the study guide
+    # AND:   remove a chapter filter
+    guide = book.toolbar.study_guides()
+
+    chapter = guide.toolbar.active_filters[0]
+    event_action = event_action.format(
+        number=chapter.number,
+        name=chapter.name
+    )
+    chapter.remove_filter()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Remove breadcrumb for chapter {number} {name}",
+    #          eventCategory: "REX Button (SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action.lower() in last_event["eventAction"].lower())
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C609711")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("american-government-2e", "1-introduction")]
+)
+def test_using_this_guide_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when 'Using this guide' in SG."""
+    # SETUP:
+    event_action = "button"
+    event_category = "REX Study guides (open UTG)"
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+
+    # GIVEN: a logged in user viewing a book page
+    book = user_setup(selenium, base_url, book_slug, page_slug)
+
+    # WHEN:  they open the study guide
+    # AND:   open the 'Using this guide' banner
+    guide = book.toolbar.study_guides()
+    if guide.toolbar.guide_is_open:
+        guide.toolbar.help_guide.close()
+
+    using_this_guide = guide.toolbar.using_this_guide()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "button",
+    #          eventCategory: "REX Study guides (open UTG)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    last_event = events[-1]
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+    # WHEN:  they close the 'Using this guide' banner
+    using_this_guide.close()
+
+    # THEN:  no new Google Analytics event is created
+    ga_queue = Utilities.get_analytics_queue(selenium)
+    assert(len(ga_queue) == len(events)), "new GA event(s) created"
+
+
+@markers.test_case("C620209")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-1-physics-definitions-and-applications")]
+)
+def test_practice_opened_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when Practice is opened."""
+    # SETUP:
+    button_event_action = "button"
+    button_event_category = "REX Practice questions (open PQ popup)"
+    button_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    link_event_action = f"{page_slug}?modal=PQ"
+    link_event_category = "REX Link (toolbar)"
+    link_event_label = button_event_label
+
+    # GIVEN: a user viewing a book page with practice questions
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # WHEN:  they click the 'Practice' toolbar button
+    book.toolbar.practice()
+
+    # THEN:  the correct Practice link Google Analytics event is queued
+    #        { eventAction: "{page_slug}?modal=PQ",
+    #          eventCategory: "REX Link (toolbar)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    # AND:   the correct button Google Analytics event is queued
+    #        { eventAction: "button",
+    #          eventCategory: "REX Study guides (close SG popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    link_event = events[-3]
+    assert(
+        "eventAction" in link_event and
+        "eventCategory" in link_event and
+        "eventLabel" in link_event
+    ), "Not viewing the correct GA event"
+    assert(link_event_action in link_event["eventAction"])
+    assert(link_event["eventCategory"] == link_event_category)
+    assert(link_event["eventLabel"] == link_event_label)
+
+    button_event = events[-2]
+    assert(
+        "eventAction" in button_event and
+        "eventCategory" in button_event and
+        "eventLabel" in button_event
+    ), "Not viewing the correct GA event"
+    assert(button_event_action in button_event["eventAction"])
+    assert(button_event["eventCategory"] == button_event_category)
+    assert(button_event["eventLabel"] == button_event_label)
+
+
+@markers.test_case("C621317")
+@markers.dev_only
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test_continue_to_questions_button_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when Continue button clicked."""
+    # SETUP:
+    event_action = "Continue (Empty Screen)"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
+    re_title = re.compile(r"(?:Ch\.\ \d{1,2})?(\ ?.*)(?:\ \-\ .*){1}")
+
+    # GIVEN: a user viewing the practice modal for a page without questions
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+    event_label = re_title.match(book.page_title).groups()[0]
+
+    # WHEN:  they click the 'Continue' button
+    practice.content._continue()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Continue (Empty Screen)",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{page_title}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C621318")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-1-physics-definitions-and-applications")]
+)
+def test_submit_practice_question_answer_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when submiting a PQ answer."""
+    # SETUP:
+    event_action = "Submit"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
+
+    # GIVEN: a student viewing a practice question
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+    practice.content.start_now()
+    event_label = f"{practice.content.number} {practice.content.title}"
+
+    # WHEN:  they select an answer option
+    # AND:   click the 'Submit' button
+    answer = random.choice(practice.content.answers)
+    answer.select()
+
+    practice.content.submit()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Submit",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{section page title}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C621319")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "2-4-velocity-vs-time-graphs")]
+)
+def test_practice_question_finish_section_button_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when 'Finish' button clicked."""
+    # SETUP:
+    event_action = "Finish"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
+
+    # GIVEN: a student viewing a practice question
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+    practice.content.start_now()
+    event_label = f"{practice.content.number} {practice.content.title}"
+
+    # WHEN:  they answer each question
+    # AND:   click the 'Finish' button
+    for question in practice.content.questions:
+        answer = random.choice(practice.content.answers)
+        answer.select()
+        practice.content.submit()
+        try:
+            practice.content._next()
+        except NoSuchElementException:
+            break
+
+    practice.content.finish()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Finish",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{section page title}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C621320")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-1-physics-definitions-and-applications")]
+)
+def test_practice_show_answer_button_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when show answer clicked."""
+    # SETUP:
+    event_action = "Show answer"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
+
+    # GIVEN: a student viewing a practice question
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+    practice.content.start_now()
+
+    # WHEN:  they answer a question incorrectly
+    # AND:   click the 'Show answer' button
+    for question in practice.content.questions:
+        answer = random.choice(practice.content.answers)
+        answer.select()
+        practice.content.submit()
+        try:
+            practice.content.show_answer()
+            break
+        except NoSuchElementException:
+            practice.content._next()
+    event_label = f"{practice.content.number} {practice.content.title}"
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Show answer",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{section page title}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C621321")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-1-physics-definitions-and-applications")]
+)
+def test_skip_practice_question_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when skip link is clicked."""
+    # SETUP:
+    event_action = "Skip"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
+
+    # GIVEN: a student viewing a practice question
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+    practice.content.start_now()
+
+    # WHEN:  they click the 'Skip' link
+    practice.content.skip()
+    event_label = f"{practice.content.number} {practice.content.title}"
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Skip",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{section page title}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C621322")
+@markers.dev_only
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test_close_practice_by_clicking_the_overlay_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when the overlay is clicked."""
+    # SETUP:
+    event_action = "overlay"
+    event_category = "REX Practice questions (close PQ popup)"
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+
+    # GIVEN: a student viewing the practice question modal
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+
+    # WHEN:  they click the overlay outside the modal
+    (ActionChains(selenium)
+     .move_to_element_with_offset(practice.overlay, 5, 5)
+     .click()
+     .perform())
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "overlay",
+    #          eventCategory: "REX Practice questions (close PQ popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C621323")
+@markers.dev_only
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test_close_practice_by_using_esc_key_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when ESC key hit."""
+    # SETUP:
+    event_action = "esc"
+    event_category = "REX Practice questions (close PQ popup)"
+    event_label = f"/books/{book_slug}/pages/{page_slug}"
+
+    # GIVEN: a student viewing the practice question modal
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    book.toolbar.practice()
+
+    # WHEN:  they hit the escape key
+    (ActionChains(selenium)
+     .send_keys(Keys.ESCAPE)
+     .perform())
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "esc",
+    #          eventCategory: "REX Practice questions (close PQ popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C621324")
+@markers.dev_only
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test_practice_closed_when_x_close_button_clicked_ga_events(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA events when 'x' close button clicked."""
+    # SETUP:
+    button_event_action = "button"
+    button_event_category = "REX Practice questions (close PQ popup)"
+    button_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    close_event_action = "Click to close Practice Questions modal"
+    close_event_category = "REX Button"
+    close_event_label = button_event_label
+
+    # GIVEN: a student viewing the practice question modal
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+
+    # WHEN:  they click the close 'x' button
+    practice.close()
+
+    # THEN:  the correct Google Analytics close event is queued
+    #        { eventAction: "Click to close Practice Questions modal",
+    #          eventCategory: "REX Button",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    # AND:   the correct Google Analytics button event is queued
+    #        { eventAction: "button",
+    #          eventCategory: "REX Practice questions (close PQ popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    close_event = events[-3]
+    assert(
+        "eventAction" in close_event and
+        "eventCategory" in close_event and
+        "eventLabel" in close_event
+    ), "Not viewing the correct GA event"
+    assert(close_event_action in close_event["eventAction"])
+    assert(close_event["eventCategory"] == close_event_category)
+    assert(close_event["eventLabel"] == close_event_label)
+
+    button_event = events[-1]
+    assert(
+        "eventAction" in button_event and
+        "eventCategory" in button_event and
+        "eventLabel" in button_event
+    ), "Not viewing the correct GA event"
+    assert(button_event_action in button_event["eventAction"])
+    assert(button_event["eventCategory"] == button_event_category)
+    assert(button_event["eventLabel"] == button_event_label)
+
+
+@markers.test_case("C621325")
+@markers.dev_only
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test_practice_read_link_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when read link is clicked."""
+    # SETUP:
+    event_action = "Go to link"
+    event_category = "REX Link (PQ popup)"
+    event_label = None
+    selector = "[data-analytics-label='Go to link']"
+
+    # GIVEN: a student viewing the practice question modal
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+
+    # WHEN:  they click the read link
+    event_label = f"{practice.content.number} {practice.content.title}"
+    events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Go to link",
+    #          eventCategory: "REX Link (PQ popup)",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    last_event = events[-1]
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] in event_label)
+
+
+@markers.test_case("C622245")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "2-4-velocity-vs-time-graphs")]
+)
+def test_pq_continue_to_next_section_button_click_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when continuing to next pq set."""
+    # SETUP:
+    event_action = "Continue (Final Screen)"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
+
+    # GIVEN: a student viewing the practice question modal
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+
+    # WHEN:  they answer each question
+    # AND:   click the 'Continue' button
+    practice.content.start_now()
+    for question in practice.content.questions:
+        answer = random.choice(practice.content.answers)
+        answer.select()
+        practice.content.submit()
+        try:
+            practice.content._next()
+        except NoSuchElementException:
+            practice.content.finish()
+
+    event_label = f"{practice.content.number} {practice.content.title}"
+    practice.content._continue()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Continue (Final Screen)",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{section page title}" }
+    last_event = Utilities.get_analytics_queue(selenium, -1)
+    assert(
+        "eventAction" in last_event and
+        "eventCategory" in last_event and
+        "eventLabel" in last_event
+    ), "Not viewing the correct GA event"
+    assert(event_action in last_event["eventAction"])
+    assert(last_event["eventCategory"] == event_category)
+    assert(last_event["eventLabel"] == event_label)
+
+
+@markers.test_case("C622246")
+@markers.dev_only
+@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+def test_practice_filter_ga_events(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA events when a PQ filter selected."""
+    # SETUP:
+    filter_menu_event_action = "Filter PQ by Chapter & Section"
+    filter_menu_event_category = "REX Button (PQ popup)"
+    filter_menu_event_label = None
+    filter_section_event_action = None
+    filter_section_event_category = "REX Button (PQ popup)"
+    filter_section_event_label = None
+
+    # GIVEN: a student viewing the practice question modal
+    book = Content(selenium, base_url,
+                   book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+    practice = book.toolbar.practice()
+    filter_menu_event_label = (
+        f"{practice.content.number} {practice.content.title}"
+    )
+    filter_section_event_label = filter_menu_event_label
+
+    # WHEN:  they select a different section filter
+    filters = practice.filters.toggle()
+    filters.chapters[0].toggle()
+    section = filters.chapters[0].sections[0]
+    filter_section_event_action = (
+        f"Filter PQ by {section.number} {section.title}"
+    )
+    section.select()
+
+    # THEN:  the correct Google Analytics filter menu event is queued
+    #        { eventAction: "Filter PQ by Chapter & Section",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{section page title}" }
+    # AND:   the correct Google Analytics filter selection event is queued
+    #        { eventAction: "button",
+    #          eventCategory: "REX Practice questions (close PQ popup)",
+    #          eventLabel: "{section page title}" }
+    events = Utilities.get_analytics_queue(selenium)
+    menu_event = events[-2]
+    assert(
+        "eventAction" in menu_event and
+        "eventCategory" in menu_event and
+        "eventLabel" in menu_event
+    ), "Not viewing the correct GA event"
+    assert(filter_menu_event_action in menu_event["eventAction"])
+    assert(menu_event["eventCategory"] == filter_menu_event_category)
+    assert(menu_event["eventLabel"] == filter_menu_event_label)
+
+    selection_event = events[-1]
+    assert(
+        "eventAction" in selection_event and
+        "eventCategory" in selection_event and
+        "eventLabel" in selection_event
+    ), "Not viewing the correct GA event"
+    assert(filter_section_event_action in selection_event["eventAction"])
+    assert(selection_event["eventCategory"] == filter_section_event_category)
+    assert(selection_event["eventLabel"] == filter_section_event_label)
+
+
+@markers.test_case("C620825")
+@markers.dev_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-1-physics-definitions-and-applications")]
+)
+def test_start_practice_ga_event(
+        selenium, base_url, book_slug, page_slug):
+    """The page submits the correct GA event when starting a practice."""
+    # SETUP:
+    event_action = "Start now"
+    event_category = "REX Button (PQ popup)"
+    event_label = None
+
+    # GIVEN: a logged in user viewing a numbered section page
+    book = user_setup(selenium, base_url, book_slug, page_slug)
+    event_label, _, _ = book.titles
+    event_label = event_label.split(" - ")[0]
+
+    # WHEN:  they click the 'Practice' button
+    # AND:   click the 'Start now' button
+    practice = book.toolbar.practice()
+
+    practice.content.start_now()
+
+    # THEN:  the correct Google Analytics event is queued
+    #        { eventAction: "Start now",
+    #          eventCategory: "REX Button (PQ popup)",
+    #          eventLabel: "{page title}" }
     last_event = Utilities.get_analytics_queue(selenium, -1)
     assert(
         "eventAction" in last_event and
