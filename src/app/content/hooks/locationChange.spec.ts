@@ -13,8 +13,11 @@ import * as routes from '../routes';
 import { SlugParams } from '../types';
 import { formatBookData } from '../utils';
 
+const mockBook = {...book, id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c', version: '29.7'};
+
 const mockConfig = {BOOKS: {
  [book.id]: {defaultVersion: book.version},
+ [mockBook.id]: {defaultVersion: mockBook.version},
 } as {[key: string]: {defaultVersion: string}}};
 
 jest.doMock('../../../config', () => mockConfig);
@@ -101,35 +104,29 @@ describe('locationChange', () => {
   });
 
   it('loads a page with a content reference', async() => {
-    helpers.archiveLoader.mockPage(book, {
+    helpers.archiveLoader.mockBook(mockBook);
+    helpers.archiveLoader.mockPage(mockBook, {
       abstract: '',
-      content: 'rando content',
-      id: 'rando-page-id',
+      // tslint:disable-next-line: max-line-length
+      content: `some <a href="./${mockBook.id}@${mockBook.version}:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> content`,
+      id: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       revised: '2018-07-30T15:58:45Z',
-      title: 'rando page',
-      version: '0',
-    }, 'rando-page');
-    helpers.archiveLoader.mockPage(book, {
-      abstract: '',
-      content: 'some <a href="/contents/rando-page-id"></a> content',
-      id: 'asdfasfasdfasdf',
-      revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qwerqewrqwer',
-      version: '0',
-    }, 'qwerqewrqwer');
+    }, 'rando-page');
 
-    (payload.match.params.page as SlugParams).slug = 'qwerqewrqwer';
+    (payload.match.params.page as SlugParams).slug = 'rando-page';
 
     payload.match.state = {
-      bookUid: 'testbook1-uuid',
-      bookVersion: '1.0',
-      pageUid: 'asdfasfasdfasdf',
+      bookUid: mockBook.id,
+      bookVersion: mockBook.version,
+      pageUid: '99d38770-49c7-49d3-b567-88f393ffb4fe',
     };
 
     await hook(payload);
 
     expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({payload: expect.objectContaining({references: [{
-      match: '/contents/rando-page-id',
+      match: `./${mockBook.id}@${mockBook.version}:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml`,
       params: {
         book: {
           slug: 'book-slug-1',
@@ -139,9 +136,9 @@ describe('locationChange', () => {
         },
       },
       state: {
-        bookUid: 'testbook1-uuid',
-        bookVersion: '1.0',
-        pageUid: 'rando-page-id',
+        bookUid: mockBook.id,
+        bookVersion: mockBook.version,
+        pageUid: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       },
     }]})}));
   });
@@ -174,13 +171,13 @@ describe('locationChange', () => {
   describe('cross book references', () => {
     const mockOtherBook = {
       abstract: '',
-      id: 'newbookid',
+      id: '13ac107a-f15f-49d2-97e8-60ab2e3other',
       license: {name: '', version: '', url: ''},
       revised: '2012-06-21',
       title: 'newbook',
       tree: {
         contents: [],
-        id: 'newbookid@0',
+        id: '13ac107a-f15f-49d2-97e8-60ab2e3other@0',
         slug: 'newbook',
         title: 'newbook',
       },
@@ -189,16 +186,16 @@ describe('locationChange', () => {
     const mockPageInOtherBook = {
       abstract: '',
       content: 'dope content bruh',
-      id: 'newbookpageid',
+      id: '99d38770-49c7-49d3-b567-88f393fother',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'page-in-a-new-book',
       title: 'page in a new book',
-      version: '0',
     };
     const mockCmsOtherBook: OSWebBook = {
       amazon_link: '',
       authors: [{value: {name: 'different author', senior_author: true}}],
       book_state: 'live',
-      cnx_id: 'newbookid',
+      cnx_id: mockOtherBook.id,
       cover_color: 'blue',
       meta: {
         slug: 'new-book',
@@ -207,41 +204,39 @@ describe('locationChange', () => {
     };
 
     beforeEach(() => {
+      helpers.archiveLoader.mockBook(mockBook);
       helpers.archiveLoader.mockBook(mockOtherBook);
       helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
-      mockConfig.BOOKS.newbookid = {defaultVersion: '0'};
+      mockConfig.BOOKS[mockOtherBook.id] = {defaultVersion: mockOtherBook.version};
 
-      helpers.archiveLoader.mockPage(book, {
+      helpers.archiveLoader.mockPage(mockBook, {
         abstract: '',
-        content: 'some <a href="/contents/newbookpageid"></a> content',
+        // tslint:disable-next-line: max-line-length
+        content: `some <a href="./${mockOtherBook.id}@${mockOtherBook.version}:${mockPageInOtherBook.id}.xhtml"></a> content`,
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',
+        slug: 'mock-slug',
         title: 'page referencing different book',
-        version: '0',
       }, 'page-referencing-different-book');
 
       (payload.match.params.page as SlugParams).slug = 'page referencing different book';
 
       payload.match.state = {
-        bookUid: 'testbook1-uuid',
-        bookVersion: '1.0',
+        bookUid: mockBook.id,
+        bookVersion: mockBook.version,
         pageUid: 'pageid',
       };
     });
 
     it('load', async() => {
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
-        Promise.resolve([{id: 'newbookid', bookVersion: '0'}])
-      );
       helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 
       await hook(payload);
 
-      expect(helpers.archiveLoader.mock.getBookIdsForPage).toHaveBeenCalledWith('newbookpageid');
-      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith(mockOtherBook.id);
 
       expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({payload: expect.objectContaining({references: [{
-        match: '/contents/newbookpageid',
+        match: `./${mockOtherBook.id}@${mockOtherBook.version}:${mockPageInOtherBook.id}.xhtml`,
         params: {
           book: {
             slug: 'new-book',
@@ -251,17 +246,26 @@ describe('locationChange', () => {
           },
         },
         state: {
-          bookUid: 'newbookid',
-          bookVersion: '0',
-          pageUid: 'newbookpageid',
+          bookUid: mockOtherBook.id,
+          bookVersion: mockOtherBook.version,
+          pageUid: mockPageInOtherBook.id,
         },
       }]})}));
     });
 
-    it('error when the page is not in any configured book', async() => {
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
-        Promise.resolve([{id: 'garbagebookid', bookVersion: '0'}])
-      );
+    it('error when archive returend book without valid tree', async() => {
+      helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
+      const garbageBook = { ...mockOtherBook, id: '13ac107a-f15f-49d2-97e8-garbageother', tree: null } as any;
+      helpers.archiveLoader.mockBook(garbageBook);
+      helpers.archiveLoader.mock.loadPage.mockResolvedValue({
+        abstract: '',
+        // tslint:disable-next-line: max-line-length
+        content: `some <a href="./${garbageBook.id}@${garbageBook.version}:thisiddoes-not7-exis-t567-88f393fother.xhtml"></a> content`,
+        id: 'pageid',
+        revised: '2018-07-30T15:58:45Z',
+        slug: 'mock-slug',
+        title: 'this page has cross link that directs to missing page',
+      });
 
       let message: string | undefined;
 
@@ -272,30 +276,23 @@ describe('locationChange', () => {
       }
 
       expect(message).toEqual(
-        'BUG: "Test Book 1 / page referencing different book" referenced "newbookpageid"' +
-        ', but it could not be found in any configured books.'
+        'BUG: "Test Book 1 / this page has cross link that directs to missing page"'
+        + ' referenced "thisiddoes-not7-exis-t567-88f393fother"'
+        + ', but it could not be found in any configured books.'
       );
     });
 
     it('error when archive returns a book that doesn\'t actually contain the page', async() => {
-      helpers.archiveLoader.mockBook({
-        id: 'garbagebookid',
-        license: {name: '', version: '', url: ''},
-        revised: '2012-06-21',
-        title: 'book without the page you\'re looking for',
-        tree: {
-          contents: [],
-          id: 'garbagebookid@0',
-          slug: 'garbage-book',
-          title: 'garbage book',
-        },
-        version: '0',
-      });
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
-        Promise.resolve([{id: 'garbagebookid', bookVersion: '0'}])
-      );
-      mockConfig.BOOKS.garbagebookid = {defaultVersion: '0'};
       helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
+      helpers.archiveLoader.mock.loadPage.mockResolvedValue({
+        abstract: '',
+        // tslint:disable-next-line: max-line-length
+        content: `some <a href="./${mockOtherBook.id}@${mockOtherBook.version}:thisiddoes-not7-exis-t567-88f393fother.xhtml"></a> content`,
+        id: 'pageid',
+        revised: '2018-07-30T15:58:45Z',
+        slug: 'mock-slug',
+        title: 'this page has cross link that directs to missing page',
+      });
 
       let message: string | undefined;
 
@@ -306,8 +303,9 @@ describe('locationChange', () => {
       }
 
       expect(message).toEqual(
-        'BUG: "Test Book 1 / page referencing different book" referenced "newbookpageid"' +
-        ', archive thought it would be in "garbagebookid", but it wasn\'t'
+        'BUG: "Test Book 1 / this page has cross link that directs to missing page" referenced '
+        + '"thisiddoes-not7-exis-t567-88f393fother"'
+        + `, archive thought it would be in "${mockOtherBook.id}", but it wasn't`
       );
     });
   });

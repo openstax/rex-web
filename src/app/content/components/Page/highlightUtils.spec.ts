@@ -10,7 +10,7 @@ describe('updateStyle', () => {
   let updateStyle: ReturnType<typeof utils.updateStyle>;
 
   beforeEach(() => {
-    highlighter = new Highlighter(assertDocument().createElement('div'));
+    highlighter = new Highlighter(assertDocument().createElement('div'), { formatMessage: jest.fn() });
     updateStyle = utils.updateStyle(highlighter);
   });
 

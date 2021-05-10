@@ -1,0 +1,7 @@
+[
+  {
+    "bookId": "testbook1-uuid",
+    "pageId": "testbook1-testpage12-uuid",
+    "pathname": "/books/testbook1-uuid/pages/testbook1-testpage12-uuid"
+  }
+]

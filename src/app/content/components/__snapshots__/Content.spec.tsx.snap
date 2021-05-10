@@ -145,6 +145,7 @@ Array [
             <button
               aria-label="Search this book"
               className="styled__SearchButton-sc-1119auh-4 dxyenK styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-analytics-label="Search this book"
               data-testid="mobile-toggle"
               onClick={[Function]}
               type="button"
@@ -213,6 +214,7 @@ Array [
           <button
             aria-label="My highlights"
             className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 cywKxd"
+            data-analytics-label="My highlights"
             onClick={[Function]}
           >
             <svg
@@ -274,6 +276,7 @@ Array [
         <button
           aria-label="print"
           className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+          data-analytics-label="print"
           data-testid="print"
           onClick={[Function]}
         >
@@ -298,6 +301,7 @@ Array [
         <button
           aria-label="Click to open the Table of Contents"
           className="styled__SidebarControl-sc-1119auh-17 hjOsxS SidebarControl__ToCButton-sdjc7-1 crKPaR"
+          data-analytics-label="Click to open the Table of Contents"
           data-testid="toc-button"
           onClick={[Function]}
           tabIndex={-1}
@@ -356,6 +360,7 @@ Array [
               <button
                 aria-label="Click to close the Table of Contents"
                 className="wrapper__SidebarHeaderButton-sc-1nl0jy-3 dtJNW SidebarControl__ToCButton-sdjc7-1 crKPaR"
+                data-analytics-label="Click to close the Table of Contents"
                 data-testid="toc-button"
                 onClick={[Function]}
               >
@@ -390,7 +395,7 @@ Array [
                 </span>
                 <svg
                   aria-hidden="true"
-                  className="wrapper__TimesIcon-sc-1nl0jy-2 hvKSwO"
+                  className="wrapper__TimesIcon-sc-1nl0jy-2 fkIAHp"
                   focusable="false"
                   height="15px"
                   version="1.1"
@@ -1492,6 +1497,7 @@ Array [
             <button
               aria-label="Search this book"
               className="styled__SearchButton-sc-1119auh-4 dxyenK styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-analytics-label="Search this book"
               data-testid="mobile-toggle"
               onClick={[Function]}
               type="button"
@@ -1560,6 +1566,7 @@ Array [
           <button
             aria-label="My highlights"
             className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 cywKxd"
+            data-analytics-label="My highlights"
             onClick={[Function]}
           >
             <svg
@@ -1621,6 +1628,7 @@ Array [
         <button
           aria-label="print"
           className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+          data-analytics-label="print"
           data-testid="print"
           onClick={[Function]}
         >
@@ -1645,6 +1653,7 @@ Array [
         <button
           aria-label="Click to open the Table of Contents"
           className="styled__SidebarControl-sc-1119auh-17 hjOsxS SidebarControl__ToCButton-sdjc7-1 crKPaR"
+          data-analytics-label="Click to open the Table of Contents"
           data-testid="toc-button"
           onClick={[Function]}
           tabIndex={-1}
@@ -1703,6 +1712,7 @@ Array [
               <button
                 aria-label="Click to close the Table of Contents"
                 className="wrapper__SidebarHeaderButton-sc-1nl0jy-3 dtJNW SidebarControl__ToCButton-sdjc7-1 crKPaR"
+                data-analytics-label="Click to close the Table of Contents"
                 data-testid="toc-button"
                 onClick={[Function]}
               >
@@ -1737,7 +1747,7 @@ Array [
                 </span>
                 <svg
                   aria-hidden="true"
-                  className="wrapper__TimesIcon-sc-1nl0jy-2 hvKSwO"
+                  className="wrapper__TimesIcon-sc-1nl0jy-2 fkIAHp"
                   focusable="false"
                   height="15px"
                   version="1.1"

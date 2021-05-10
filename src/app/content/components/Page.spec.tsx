@@ -140,13 +140,13 @@ describe('Page', () => {
 
     return renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <Services.Provider value={services}>
+        <Services.Provider value={services}>
+          <MessageProvider>
             <AccessibilityButtonsWrapper>
               <ConnectedPage />
             </AccessibilityButtonsWrapper>
-          </Services.Provider>
-        </MessageProvider>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
   };
@@ -162,13 +162,13 @@ describe('Page', () => {
 
       const {root} = renderToDom(
         <Provider store={store}>
-          <MessageProvider>
-            <Services.Provider value={services}>
+          <Services.Provider value={services}>
+            <MessageProvider>
               <AccessibilityButtonsWrapper>
                 <ConnectedPage />
               </AccessibilityButtonsWrapper>
-            </Services.Provider>
-          </MessageProvider>
+            </MessageProvider>
+          </Services.Provider>
         </Provider>
       );
       const query = root.querySelector<HTMLElement>('#main-content');
@@ -799,8 +799,8 @@ describe('Page', () => {
 
     const highlightElement = assertDocument().createElement('span');
     const mockHighlight = {
+      addFocusedStyles: jest.fn(),
       elements: [highlightElement],
-      focus: jest.fn(),
     } as any as Highlight;
 
     highlightResults.mockReturnValue([
@@ -820,7 +820,7 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
@@ -830,10 +830,10 @@ describe('Page', () => {
     const hit2 = makeSearchResultHit({book, page});
 
     const highlightElement = assertDocument().createElement('span');
-    const focus = jest.fn();
+    const addFocusedStyles = jest.fn();
     const mockHighlight = {
+      addFocusedStyles,
       elements: [highlightElement],
-      focus,
     } as any as Highlight;
 
     highlightResults.mockReturnValue([
@@ -859,12 +859,12 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    focus.mockClear();
+    addFocusedStyles.mockClear();
     (scrollTo as any).mockClear();
 
     store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
 
-    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
   });
 
@@ -879,8 +879,8 @@ describe('Page', () => {
 
     const highlightElement = assertDocument().createElement('span');
     const mockHighlight = {
+      addFocusedStyles: jest.fn(),
       elements: [highlightElement],
-      focus: jest.fn(),
     } as any as Highlight;
 
     highlightResults.mockReturnValue([
@@ -901,7 +901,7 @@ describe('Page', () => {
 
     // make sure nothing happened
     expect(highlightResults).toHaveBeenCalledWith(expect.anything(), []);
-    expect(mockHighlight.focus).not.toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
 
     // do navigation
@@ -920,7 +920,7 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    expect(mockHighlight.focus).toHaveBeenCalled();
+    expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
@@ -1122,13 +1122,13 @@ describe('Page', () => {
   it('mounts, updates, and unmounts without a dom', () => {
     const element = renderer.create(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
               <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1156,13 +1156,13 @@ describe('Page', () => {
 
     renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1172,8 +1172,8 @@ describe('Page', () => {
       id: 'adsfasdf',
       references: [],
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     }));
 
     await Promise.resolve();
@@ -1191,8 +1191,8 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.navigation.hash = '#somehash';
@@ -1200,13 +1200,13 @@ describe('Page', () => {
 
     const {root} = renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1250,8 +1250,8 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.navigation.hash = '#somehash';
@@ -1261,13 +1261,13 @@ describe('Page', () => {
 
     const {root} = renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1287,8 +1287,8 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.navigation.hash = '#somehash';
@@ -1296,13 +1296,13 @@ describe('Page', () => {
 
     const {root} = renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1335,13 +1335,13 @@ describe('Page', () => {
 
     renderer.create(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1358,8 +1358,8 @@ describe('Page', () => {
       content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.content.page = tablePage;
@@ -1368,13 +1368,13 @@ describe('Page', () => {
 
     const {root} = renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1392,13 +1392,13 @@ describe('Page', () => {
 
     const {tree} = renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1427,13 +1427,13 @@ describe('Page', () => {
 
     const component = renderer.create(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>);
 
     expect(component.root.findByType(PageNotFound)).toBeTruthy();
@@ -1454,13 +1454,13 @@ describe('Page', () => {
 
       const {root} = renderToDom(
         <Provider store={store}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-              <Services.Provider value={services}>
-                <ConnectedPage />
-              </Services.Provider>
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
+          <Services.Provider value={services}>
+            <MessageProvider>
+              <AccessibilityButtonsWrapper>
+                  <ConnectedPage />
+              </AccessibilityButtonsWrapper>
+            </MessageProvider>
+          </Services.Provider>
         </Provider>
       );
 
@@ -1478,13 +1478,13 @@ describe('Page', () => {
 
       const {root} = renderToDom(
         <Provider store={store}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-              <Services.Provider value={services}>
-                <ConnectedPage />
-              </Services.Provider>
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
+          <Services.Provider value={services}>
+            <MessageProvider>
+              <AccessibilityButtonsWrapper>
+                  <ConnectedPage />
+              </AccessibilityButtonsWrapper>
+            </MessageProvider>
+          </Services.Provider>
         </Provider>
       );
 

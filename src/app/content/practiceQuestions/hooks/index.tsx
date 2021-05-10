@@ -1,4 +1,6 @@
-import loadPracticeQuestions from './locationChange';
+import { receiveFeatureFlags } from '../../../actions';
+import { actionHook } from '../../../utils';
+import loadPracticeQuestions, { loadPracticeQuestionsSummaryHookBody } from './locationChange';
 import { setSelectedSectionHook } from './setSelectedSectionHook';
 
 export {
@@ -7,4 +9,5 @@ export {
 
 export default [
   setSelectedSectionHook,
+  actionHook(receiveFeatureFlags, loadPracticeQuestionsSummaryHookBody),
 ];

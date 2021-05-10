@@ -13,11 +13,12 @@ const initialState = {
 };
 
 describe('isPracticeQuestionsOpen', () => {
-  it('returns true if has practice questions and has modal url', () => {
+  it('returns true if has practice questions and has modal url and ff is enabled', () => {
     const rootState = ({
     content: {
     practiceQuestions: {
       ...initialState,
+      isEnabled: true,
       summary: { countsPerSource: { asd: 1 } },
       },
     },
@@ -60,6 +61,25 @@ describe('isPracticeQuestionsOpen', () => {
       navigation: {
         query: {},
       },
+    } as any) as AppState;
+
+    expect(selectors.isPracticeQuestionsOpen(rootState)).toBe(false);
+  });
+
+  it('returns false if ff is not enabled', () => {
+    const rootState = ({
+    content: {
+    practiceQuestions: {
+      ...initialState,
+      isEnabled: false,
+      summary: { countsPerSource: { asd: 1 } },
+      },
+    },
+    navigation: {
+      query: {
+        modal: modalUrlName,
+      },
+    },
     } as any) as AppState;
 
     expect(selectors.isPracticeQuestionsOpen(rootState)).toBe(false);

@@ -1,7 +1,20 @@
+import UntypedHighlighter from '@openstax/highlighter';
+import { IntlShape } from 'react-intl';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import { makeSearchResultHit } from '../../../../test/searchResults';
 import { assertDocument } from '../../../utils';
 import searchHighlightManager from './searchHighlightManager';
+
+jest.mock('@openstax/highlighter');
+
+UntypedHighlighter.prototype.eraseAll = jest.fn();
+
+// tslint:disable-next-line:variable-name
+const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
+
+beforeEach(() => {
+  jest.resetAllMocks();
+});
 
 describe('searchHighlightManager', () => {
   const searchResults = [
@@ -18,10 +31,12 @@ describe('searchHighlightManager', () => {
 
   let attachedManager: ReturnType<typeof searchHighlightManager>;
   let onHighlightSelect: jest.Mock;
+  let intl: IntlShape;
 
   beforeEach(() => {
     const container = assertDocument().createElement('div');
-    attachedManager = searchHighlightManager(container);
+    intl = { formatMessage: jest.fn() } as any as IntlShape;
+    attachedManager = searchHighlightManager(container, intl);
 
     onHighlightSelect = jest.fn();
   });
@@ -52,5 +67,11 @@ describe('searchHighlightManager', () => {
     );
 
     expect(onHighlightSelect).toHaveBeenCalledTimes(2);
+  });
+
+  it('handles highlight.formatMessage', () => {
+    const options = Highlighter.mock.calls[0][1];
+    options.formatMessage({ id: 'asdfg' });
+    expect(intl.formatMessage).toHaveBeenCalledWith({ id: 'asdfg' }, { style: 'search' });
   });
 });

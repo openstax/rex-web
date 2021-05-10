@@ -128,6 +128,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
         <CloseIconWrapper
           data-testid='close-highlights-popup'
           aria-label={intl.formatMessage({id: 'i18n:toolbar:highlights:popup:close-button:aria-label'})}
+          data-analytics-label='Close My Highlights'
           onClick={closeAndTrack('button')}
         >
           <CloseIcon colorSchema={props.bookTheme}/>
