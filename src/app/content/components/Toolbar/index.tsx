@@ -108,6 +108,7 @@ class Toolbar extends React.Component<Props, State> {
             <Styled.SearchButton mobile
               type='button'
               ariaLabelId='i18n:toolbar:search:toggle'
+              data-analytics-label='Search this book'
               data-testid='mobile-toggle'
               onClick={toggleMobile}
             />

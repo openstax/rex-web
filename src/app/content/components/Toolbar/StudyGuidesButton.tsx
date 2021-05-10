@@ -51,7 +51,7 @@ const StudyGuidesButton = () => {
 
   const text = intl.formatMessage({id: 'i18n:toolbar:studyguides:button:text'});
 
-  return <StudyGuidesWrapper onClick={openStudyGuidesSummary} aria-label={text}>
+  return <StudyGuidesWrapper onClick={openStudyGuidesSummary} aria-label={text} data-analytics-label='Study guides'>
     <StudyGuidesIcon aria-hidden='true' src={studyGuidesIcon} />
     <StudyGuidesText>{text}</StudyGuidesText>
   </StudyGuidesWrapper>;
