@@ -57,8 +57,7 @@ const PracticeQuestionsButton = () => {
     page={page}
     search={{ [modalQueryParameterName]: modalUrlName }}
     onClick={trackOpenClose}
-    aria-label={text}
-    data-analytics-label='Practice'>
+    aria-label={text}>
     <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
     <PracticeQuestionsText>{text}</PracticeQuestionsText>
   </StyledContentLink>;
