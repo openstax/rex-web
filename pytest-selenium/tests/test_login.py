@@ -114,7 +114,7 @@ def test_rex_login_state_when_redirected_from_osweb(
 
     # verify user is logged in and get the username
     assert osweb.user_is_logged_in
-    osweb_username = osweb.osweb_username(osweb.user_nav)
+    osweb_username = osweb.osweb_username()
 
     # WHEN: Click the view online link in osweb book detail page
     osweb.fix_view_online_url(base_url)

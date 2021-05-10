@@ -182,7 +182,7 @@ class WebBase(Page):
         self.offscreen_click(self.mobile_user_nav)
         sleep(1.0)
 
-    def osweb_username(self, element=None):
+    def osweb_username(self):
         """Get the username of the logged in user."""
         if self.is_desktop:
             username = self.find_element(*self._desktop_log_in_link_locator)
