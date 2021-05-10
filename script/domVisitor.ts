@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
 import { argv } from 'yargs';
-import { Redirects } from '../data/redirects/types';
 import { Book } from '../src/app/content/types';
 import { getBookPageUrlAndParams } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
@@ -11,8 +10,6 @@ import config from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
-import getPageOrRedirectedUrl from './utils/getPageOrRedirectedUrl';
-import prepareRedirects from './utils/prepareRedirects';
 import progressBar from './utils/progressBar';
 
 const {
@@ -59,8 +56,7 @@ async function visitPages(
   page: puppeteer.Page,
   observePageErrors: ObservePageErrors,
   bookPages: string[],
-  audit: Audit,
-  redirects: Redirects
+  audit: Audit
 ) {
   let anyFailures = false;
   const bar = progressBar('visiting [:bar] :current/:total (:etas ETA) ', {
@@ -80,8 +76,7 @@ async function visitPages(
       const appendQueryString =
         queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`)
                     : archiveUrl ? `?archive=${archiveUrl}` : '';
-      const validatedUrl = getPageOrRedirectedUrl(redirects, pageUrl);
-      await page.goto(`${rootUrl}${validatedUrl}${appendQueryString}`);
+      await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
       await page.waitForSelector('body[data-rex-loaded="true"]');
       await calmHooks(page);
 
@@ -159,7 +154,6 @@ async function run() {
     osWebLoader,
     rootUrl: assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port'),
   });
-  const redirects = await prepareRedirects(archiveLoader, osWebLoader);
 
   let anyFailures = false;
 
@@ -169,7 +163,7 @@ async function run() {
   const errorDetector = makePageErrorDetector(page);
 
   for (const book of books) {
-    anyFailures = await visitPages(page, errorDetector, findBookPages(book), audit, redirects) || anyFailures;
+    anyFailures = await visitPages(page, errorDetector, findBookPages(book), audit) || anyFailures;
   }
 
   await browser.close();
