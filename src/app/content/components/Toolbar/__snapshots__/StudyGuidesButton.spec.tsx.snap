@@ -8,6 +8,7 @@ exports[`study guides button render if feature flag is enabled and book has stud
 <button
   aria-label="Study guides"
   className="styled__PlainButton-sc-1119auh-0 StudyGuidesButton__StudyGuidesWrapper-sc-1gy68g-0 hpciZn"
+  data-analytics-label="Study guides"
   onClick={[Function]}
 >
   <img
