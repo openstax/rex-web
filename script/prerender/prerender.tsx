@@ -1,17 +1,7 @@
 import fetch from 'node-fetch';
 import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
-import {
-  BOOKS,
-  CODE_VERSION,
-  REACT_APP_ACCOUNTS_URL,
-  REACT_APP_ARCHIVE_URL,
-  REACT_APP_BUY_PRINT_CONFIG_URL,
-  REACT_APP_HIGHLIGHTS_URL,
-  REACT_APP_OS_WEB_API_URL,
-  REACT_APP_SEARCH_URL,
-  RELEASE_ID
-} from '../../src/config';
+import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
@@ -31,6 +21,18 @@ import createRedirects from './createRedirects';
 import { writeAssetFile } from './fileUtils';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 
+const {
+  BOOKS,
+  CODE_VERSION,
+  REACT_APP_ACCOUNTS_URL,
+  REACT_APP_ARCHIVE_URL,
+  REACT_APP_BUY_PRINT_CONFIG_URL,
+  REACT_APP_HIGHLIGHTS_URL,
+  REACT_APP_OS_WEB_API_URL,
+  REACT_APP_SEARCH_URL,
+  RELEASE_ID,
+} = config;
+
 (global as any).fetch = fetch;
 
 async function renderManifest() {
@@ -39,6 +41,8 @@ async function renderManifest() {
     code: CODE_VERSION,
     id: RELEASE_ID,
   }, null, 2));
+
+  writeAssetFile('/rex/config.json', JSON.stringify(config, null, 2));
 }
 
 async function render() {
