@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
-import { assertDocument } from '../../../utils';
+import { assertDocument, assertWindow } from '../../../utils';
 import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
 import {
   clearSearch,
@@ -51,6 +51,17 @@ class Toolbar extends React.Component<Props, State> {
   }
 
   public state = { query: '', queryProp: '', formSubmitted: false };
+
+  public componentDidMount() {
+    console.log('page mounted');
+
+    const window = assertWindow('Browser entrypoint must be used in the browser');
+
+    window.dataLayer.push('event', 'optimize.callback', {
+        callback: (val: any, name: any) => console.log('something! ', val, name),
+    });
+    // window.dataLayer.push({event: 'optimize.activate'});
+  }
 
   public render() {
     const onSubmit = (e: React.FormEvent) => {
