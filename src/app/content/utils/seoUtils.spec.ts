@@ -18,9 +18,12 @@ import {
 
 // tslint:disable: max-line-length
 describe('getDescription', () => {
-  const archiveLoader = makeArchiveLoader();
+  const archiveLoader = createTestServices().archiveLoader;
   const book = formatBookData(mockBook, mockOsWebBook);
-  const services = createTestServices();
+  const services = {
+    archiveLoader,
+    intl: createTestServices().intl,
+  };
 
   archiveLoader.mockBook(book);
 
