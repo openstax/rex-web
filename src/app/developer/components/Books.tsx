@@ -24,11 +24,13 @@ class Books extends React.Component<Props, State> {
     const {archiveLoader, osWebLoader} = this.props.services;
     const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
-    const books = await Promise.all(Object.entries(BOOKS).map(([bookId, {defaultVersion}]) =>
-      bookLoader(bookId, defaultVersion)
-    ));
-
-    this.setState({books});
+    for (const [bookId, {defaultVersion}] of Object.entries(BOOKS)) {
+      bookLoader(bookId, defaultVersion).then((bookData) => {
+        this.setState((state) => ({
+          books: [...state.books, bookData].sort((bookA, bookB) => bookA.title.localeCompare(bookB.title)),
+        }));
+      });
+    }
   }
 
   public render() {
