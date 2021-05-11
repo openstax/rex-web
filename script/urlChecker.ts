@@ -55,13 +55,13 @@ async function checkPages(
         const redirectedURLs = redirectedPages.filter(({ pageId }) => pageId === page.id)
         .map(({ redirectedURL }) => redirectedURL);
         for (const redirectedURL of redirectedURLs) {
-          if ((await fetch(redirectedURL)).status === 200) {
+          if ((await fetch(`${rootUrl}${redirectedURL}`)).status === 200) {
             isSuccessful = true;
             break;
           }
         }
       } else {
-        isSuccessful = (await fetch(pageURL)).status === 200;
+        isSuccessful = (await fetch(`${rootUrl}${pageURL}`)).status === 200;
       }
 
       if (!isSuccessful) {
