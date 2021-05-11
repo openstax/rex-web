@@ -116,7 +116,7 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   return null;
 };
 
-export const getPageDescription = (services: AppServices, book: Book, page: Page) => {
+export const getPageDescription = (services: Pick<AppServices, 'archiveLoader' | 'intl'>, book: Book, page: Page) => {
   const {intl, archiveLoader} = services;
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
@@ -125,7 +125,6 @@ export const getPageDescription = (services: AppServices, book: Book, page: Page
     return '';
   }
   const pageNode = doc.body.firstElementChild;
-  console.log('page node: ', pageNode.classList)
   const isAppendix = pageNode && pageNode.classList.contains('appendix');
   const contentDescription: string | null = isAppendix ? null : getPageDescriptionFromContent(pageNode);
 
