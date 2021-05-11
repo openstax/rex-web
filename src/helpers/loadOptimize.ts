@@ -8,4 +8,12 @@ export default (containerId: string) => new Promise((resolve) => {
     script.setAttribute('src', `https://www.googleoptimize.com/optimize.js?id=${containerId}`);
     script.onload = resolve;
     document.head.appendChild(script);
+
+    // if (typeof(window) !== 'undefined') {
+    //   window.dataLayer.push('event', 'optimize.callback', {
+    //     callback: () => console.log('callback triggered: '),
+    //   });
+
+    //   window.dataLayer.push({event: 'optimize.activate'});
+    // }
   });

@@ -103,6 +103,10 @@ pollUpdates(app.store);
 startMathJax();
 
 // load optimize
+// 3 conditions, if deployed env is server
+// don't render optimize stuff so we dont mistakenly reg sessions during prerender
+// other than server, set to host name where we're running - openstax.org is for real prod
+// any other case use development container
 loadOptimize(config.APP_ENV === 'production' ? 'OPT-NFHSM4B' : 'OPT-W65B3CP');
 
 // Learn more about service workers: http://bit.ly/CRA-PWA

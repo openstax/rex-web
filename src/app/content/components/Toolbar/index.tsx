@@ -55,17 +55,10 @@ class Toolbar extends React.Component<Props, State> {
   public componentDidMount() {
     console.log('mount');
 
-    function myCallback() {
-      console.log('optimize callback: ', arguments);
-    }
-    if (typeof(window) !== 'undefined') {
-
-      window.dataLayer.push('event', 'optimize.callback', {
-        callback: myCallback,
-      });
-
-      window.dataLayer.push({event: 'optimize.activate'});
-    }
+    // function myCallback() {
+    //   console.log('optimize callback: ', arguments);
+    // }
+    
   }
 
   public render() {
