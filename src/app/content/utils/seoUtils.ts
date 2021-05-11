@@ -85,7 +85,7 @@ const getParagraphs = (page: HTMLElement) => {
   ];
 
   const paraSelectors = [
-    '[data-type="page"]>p',
+    '[data-type="page"]:not(.appendix)>p',
     '[data-type="composite-page"]>p',
     '.intro-body>.intro-text>p',
   ];
@@ -125,10 +125,8 @@ export const getPageDescription = (services: Pick<AppServices, 'archiveLoader' |
     return '';
   }
   const pageNode = doc.body.firstElementChild;
-  const isAppendix = pageNode.classList.contains('appendix');
-  const contentDescription: string | null = isAppendix ? null : getPageDescriptionFromContent(pageNode);
 
-  return contentDescription || intl.formatMessage({id: 'i18n:metadata:description'});
+  return getPageDescriptionFromContent(pageNode) || intl.formatMessage({id: 'i18n:metadata:description'});
 };
 
 export const createTitle = (page: Page, book: Book, intl: IntlShape): string => {

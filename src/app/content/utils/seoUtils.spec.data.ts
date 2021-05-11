@@ -8,6 +8,7 @@ export const contentPage = {
   id: '3',
   version: '1.0',
   revised: '',
+  slug: 'introduction',
 };
 
 export const contentPageWithObjectives = {
@@ -17,6 +18,7 @@ export const contentPageWithObjectives = {
   id: '4',
   version: '1.0',
   revised: '',
+  slug: 'how-to-write-a-test',
 };
 
 export const contentPageShort = {
@@ -26,6 +28,7 @@ export const contentPageShort = {
   id: '5',
   version: '1.0',
   revised: '',
+  slug: 'best-practices',
 };
 
 export const eocPage = {
@@ -35,6 +38,7 @@ export const eocPage = {
   id: '6',
   version: '1.0',
   revised: '',
+  slug: 'review-questions',
 };
 
 export const eobPage = {

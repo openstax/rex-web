@@ -1,5 +1,4 @@
 import createTestServices from '../../../test/createTestServices';
-import makeArchiveLoader from '../../../test/mocks/archiveLoader';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
 import { intl } from '../../MessageProvider';
