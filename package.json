@@ -15,7 +15,7 @@
     "history": "^4.7.2",
     "html-entities": "^1.2.1",
     "js-cookie": "^2.2.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "mdn-polyfills": "^5.18.0",
     "mime": "^2.5.0",
     "path-to-regexp": "^3.0.0",
