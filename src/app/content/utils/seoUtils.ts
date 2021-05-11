@@ -13,11 +13,6 @@ import {
   splitTitleParts,
 } from './archiveTreeUtils';
 
-type Services = {
-  intl: AppServices['intl'];
-  archiveLoader: AppServices['archiveLoader'];
-};
-
 const domParser = new DOMParser();
 
 // tslint:disable-next-line: max-line-length
@@ -121,7 +116,7 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   return null;
 };
 
-export const getPageDescription = (services: Services, book: Book, page: Page) => {
+export const getPageDescription = (services: AppServices, book: Book, page: Page) => {
   const {intl, archiveLoader} = services;
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');

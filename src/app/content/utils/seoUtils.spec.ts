@@ -20,10 +20,7 @@ import {
 describe('getDescription', () => {
   const archiveLoader = makeArchiveLoader();
   const book = formatBookData(mockBook, mockOsWebBook);
-  const services = {
-    archiveLoader,
-    intl: createTestServices().intl,
-  };
+  const services = createTestServices();
 
   archiveLoader.mockBook(book);
 

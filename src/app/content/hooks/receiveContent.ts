@@ -10,12 +10,8 @@ import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import { createTitle, getPageDescription } from '../utils/seoUtils';
 
-const hookBody: ActionHookBody<typeof receivePage> = ({
-  getState,
-  dispatch,
-  archiveLoader,
-  osWebLoader,
-  intl}) => async() => {
+const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
+  const { getState, dispatch, archiveLoader, osWebLoader, intl } = services;
 
   const state = getState();
   const book = select.book(state);
@@ -33,11 +29,6 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   if (loadingPage) {
     return;
   }
-
-  const services = {
-    archiveLoader,
-    intl,
-  };
 
   const title = createTitle(page, book, intl);
   const description = getPageDescription(services, book, page);
