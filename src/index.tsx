@@ -103,7 +103,7 @@ pollUpdates(app.store);
 startMathJax();
 
 // load optimize
-loadOptimize('OPT-W65B3CP');
+loadOptimize(config.APP_ENV === 'production' ? 'OPT-NFHSM4B' : 'OPT-W65B3CP');
 
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()
