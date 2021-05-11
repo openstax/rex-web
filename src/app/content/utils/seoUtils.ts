@@ -16,21 +16,19 @@ import {
 const domParser = new DOMParser();
 
 // tslint:disable-next-line: max-line-length
-export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, intl: IntlShape, includeTitle: boolean = false): string => {
+export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, intl: IntlShape): string => {
   if (!node) {
     return '';
   }
 
   if (archiveTreeSectionIsChapter(node)) {
     const number = getArchiveTreeSectionNumber(node).trim();
-    const name = getArchiveTreeSectionTitle(node);
-    const i18nTitle = includeTitle ? 'i18n:metadata:title:with-name' : 'i18n:metadata:title:without-name';
-    return intl.formatMessage({id: i18nTitle}, {number, name});
+    return intl.formatMessage({id: 'i18n:metadata:title'}, {number});
   }
 
   return archiveTreeSectionIsBook(node.parent)
     ? getArchiveTreeSectionTitle(node) + ' '
-    : getParentPrefix(node.parent, intl, includeTitle);
+    : getParentPrefix(node.parent, intl);
 
 };
 
