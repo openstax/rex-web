@@ -9,11 +9,25 @@ export default (containerId: string) => new Promise((resolve) => {
     script.onload = resolve;
     document.head.appendChild(script);
 
-    // if (typeof(window) !== 'undefined') {
-    //   window.dataLayer.push('event', 'optimize.callback', {
-    //     callback: () => console.log('callback triggered: '),
-    //   });
+    if (typeof(window) !== 'undefined') {
 
-    //   window.dataLayer.push({event: 'optimize.activate'});
-    // }
+      setTimeout(() => {
+        console.log('timeout over');
+
+        function gtag(arg1: any, arg2: any, arg3: any) {
+          console.log('printing args: ', arg1, arg2, arg3);
+          window!.dataLayer.push(arguments);
+        }
+
+        function logArgs() {
+          console.log('args: ', arguments);
+        }
+
+        gtag('event', 'optimize.callback', {
+          callback: () => logArgs,
+        });
+
+        window!.dataLayer.push({event: 'optimize.activate'});
+      }, 5000);
+    }
   });
