@@ -27,13 +27,3 @@ export const assertString = <X>(x: X, message: string): string => {
 
   return x;
 };
-
-export const assertNonNullableArray = <X>(arr: X[], message: string) => {
-  for (const item of arr) {
-    if (item === null || item === undefined) {
-      throw new Error(message);
-    }
-  }
-
-  return arr as Array<NonNullable<X>>;
-};
