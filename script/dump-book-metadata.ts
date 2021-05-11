@@ -40,9 +40,7 @@ const getBookMetadata = async(id: string, version: string) => {
   const book = formatBookData(singleBook, osWebBook);
   const bookPages = findTreePages(book.tree);
 
-  const bookRows = await Promise.all(bookPages.map(async(page) => {
-    getPageMetadata(page, book, loader);
-  }));
+  const bookRows = await Promise.all(bookPages.map(async(page) => getPageMetadata(page, book, loader)));
 
   return bookRows;
 };

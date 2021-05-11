@@ -29,8 +29,8 @@ export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, intl: I
   if (archiveTreeSectionIsChapter(node)) {
     const number = getArchiveTreeSectionNumber(node).trim();
     const name = getArchiveTreeSectionTitle(node);
-    const prefixVariant = includeTitle ? 'with-name' : 'without-name';
-    return intl.formatMessage({id: `i18n:metadata:title:${prefixVariant}`}, {number, name});
+    const i18nTitle = includeTitle ? 'i18n:metadata:title:with-name' : 'i18n:metadata:title:without-name';
+    return intl.formatMessage({id: i18nTitle}, {number, name});
   }
 
   return archiveTreeSectionIsBook(node.parent)
@@ -108,11 +108,17 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   removeExcludedContent(page);
 
   const paragraphs = getParagraphs(page);
-  const foundByLength = Array.from(paragraphs).find((p) => {
-    const mathlessP = hideMath(p);
-    return mathlessP.textContent && mathlessP.textContent.length >= 90 ? mathlessP : null;
-  });
-  return foundByLength && foundByLength.textContent ? generateExcerpt(foundByLength.textContent) : null;
+  const isLongEnough = (node: Element) => node.textContent && node.textContent.length >= 90;
+
+  for (const paragraph of paragraphs) {
+    hideMath(paragraph);
+    if (!isLongEnough(paragraph) || !paragraph.textContent) {
+      continue;
+    }
+    return generateExcerpt(paragraph.textContent);
+  }
+
+  return null;
 };
 
 export const getPageDescription = (services: Services, book: Book, page: Page) => {
