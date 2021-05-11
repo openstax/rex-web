@@ -79,7 +79,7 @@ export const generateExcerpt = (str: string) => {
 
 const getParagraphs = (page: HTMLElement) => {
   const sectionParaSelectors = [
-    '[data-type="page"]>section>p',
+    '[data-type="page"]:not(.appendix)>section>p',
     '[data-type="composite-page"]>section>p',
     '.intro-body>.intro-text>section>p',
   ];
@@ -91,6 +91,7 @@ const getParagraphs = (page: HTMLElement) => {
   ];
 
   const sectionParagraphs = Array.from(page.querySelectorAll(sectionParaSelectors.join(',')));
+  console.log(sectionParagraphs.map((p) => p.textContent));
   const pageParagraphs = Array.from(page.querySelectorAll(paraSelectors.join(',')));
 
   return [...sectionParagraphs, ...pageParagraphs];
