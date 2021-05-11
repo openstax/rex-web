@@ -52,15 +52,6 @@ class Toolbar extends React.Component<Props, State> {
 
   public state = { query: '', queryProp: '', formSubmitted: false };
 
-  public componentDidMount() {
-    console.log('mount');
-
-    // function myCallback() {
-    //   console.log('optimize callback: ', arguments);
-    // }
-    
-  }
-
   public render() {
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
