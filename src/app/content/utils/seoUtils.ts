@@ -1,4 +1,3 @@
-// tslint:disable: max-line-length
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { AppServices } from '../../types';
@@ -16,11 +15,12 @@ import {
 
 type Services = {
   intl: AppServices['intl'];
-  loader: AppServices['archiveLoader'];
+  archiveLoader: AppServices['archiveLoader'];
 };
 
 const domParser = new DOMParser();
 
+// tslint:disable-next-line: max-line-length
 export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, intl: IntlShape, includeTitle: boolean = false): string => {
   if (!node) {
     return '';
@@ -74,9 +74,7 @@ const removeExcludedContent = (node: Element) => {
   const excludedContent = node.querySelectorAll(excludedSelectors.join(',')) || [];
 
   for (const item of Array.from(excludedContent)) {
-    if (item) {
-      item.remove();
-    }
+    item.remove();
   }
 };
 
@@ -118,8 +116,8 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
 };
 
 export const getPageDescription = (services: Services, book: Book, page: Page) => {
-  const {intl, loader} = services;
-  const cleanContent = getCleanContent(book, page, loader);
+  const {intl, archiveLoader} = services;
+  const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const treeNode = findArchiveTreeNodeById(book.tree, page.id);
   if (!treeNode) {

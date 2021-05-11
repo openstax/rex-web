@@ -108,7 +108,6 @@ describe('setHead hook', () => {
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
-          // tslint:disable: max-line-length
           {name: 'description', content: 'mock seo description'},
           {property: 'og:description', content: 'mock seo description'},
         ]),

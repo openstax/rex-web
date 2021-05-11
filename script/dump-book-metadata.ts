@@ -20,8 +20,8 @@ const getPageMetadata = async(
   loader: ReturnType<(typeof archiveLoader)['book']>
 ) => {
   const services = {
+    archiveLoader,
     intl,
-    loader: archiveLoader,
   };
   const page = await loader.page(section.id).load();
   const description = getPageDescription(services, book, page);

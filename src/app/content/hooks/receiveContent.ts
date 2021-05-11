@@ -35,8 +35,8 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
   }
 
   const services = {
+    archiveLoader,
     intl,
-    loader: archiveLoader,
   };
 
   const title = createTitle(page, book, intl);

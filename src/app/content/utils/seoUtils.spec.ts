@@ -18,17 +18,17 @@ import {
 
 // tslint:disable: max-line-length
 describe('getDescription', () => {
-  const loader = makeArchiveLoader();
+  const archiveLoader = makeArchiveLoader();
   const book = formatBookData(mockBook, mockOsWebBook);
   const services = {
+    archiveLoader,
     intl: createTestServices().intl,
-    loader,
   };
 
-  loader.mockBook(book);
+  archiveLoader.mockBook(book);
 
   it('makes a description for content page', () => {
-    loader.mockPage(book, contentPage, 'page-slug');
+    archiveLoader.mockPage(book, contentPage, 'page-slug');
     const description = getPageDescription(services, book, contentPage);
     expect(description).toMatchInlineSnapshot(
       `"For example, take a look at the image above. This image is of the Andromeda Galaxy, which contains billions of individual stars, huge clouds of gas, and..."`
@@ -36,7 +36,7 @@ describe('getDescription', () => {
   });
 
   it('makes a description for content page with insufficient text', () => {
-    loader.mockPage(book, contentPageShort, 'page-slug');
+    archiveLoader.mockPage(book, contentPageShort, 'page-slug');
     const description = getPageDescription(services, book, contentPageShort);
     expect(description).toMatchInlineSnapshot(
       `"This free textbook is an OpenStax resource written to increase student access to high-quality, peer-reviewed learning materials."`
@@ -44,7 +44,7 @@ describe('getDescription', () => {
   });
 
   it('makes a description for content page with learning objectives', () => {
-    loader.mockPage(book, contentPageWithObjectives, 'page-slug');
+    archiveLoader.mockPage(book, contentPageWithObjectives, 'page-slug');
     const description = getPageDescription(services, book, contentPageWithObjectives);
     expect(description).toMatchInlineSnapshot(
       `"This is the paragraph that comes after the learning objectives section. It does not have any special classes applied...."`
@@ -52,7 +52,7 @@ describe('getDescription', () => {
   });
 
   it('makes a description for end-of-chapter page', () => {
-    loader.mockPage(book, eocPage, 'page-slug');
+    archiveLoader.mockPage(book, eocPage, 'page-slug');
     const description = getPageDescription(services, book, eocPage);
     expect(description).toMatchInlineSnapshot(
       `"Religion describes the beliefs, values, and practices related to sacred or spiritual concerns. Social theorist Émile Durkheim defined religion as a “uni..."`
@@ -60,7 +60,7 @@ describe('getDescription', () => {
   });
 
   it('makes a description for end-of-book page', () => {
-    loader.mockPage(book, eobPage, 'page-slug');
+    archiveLoader.mockPage(book, eobPage, 'page-slug');
     const description = getPageDescription(services, book, eobPage);
     expect(description).toMatchInlineSnapshot(
       `"This free textbook is an OpenStax resource written to increase student access to high-quality, peer-reviewed learning materials."`
