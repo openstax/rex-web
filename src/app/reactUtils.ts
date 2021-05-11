@@ -52,12 +52,12 @@ export const onFocusInOrOutHandler = (
 
 export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusout'), [ref, isEnabled]);
+  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusout'), [ref, isEnabled, cb]);
 };
 
 export const useFocusIn = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusin'), [ref, isEnabled]);
+  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusin'), [ref, isEnabled, cb]);
 };
 
 export const onDOMEventHandler = (

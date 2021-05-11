@@ -2,12 +2,13 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import TestContainer from '../../../test/TestContainer';
+import { State } from '../../navigation/types';
 import Home from './Home';
 
 describe('Home', () => {
   it('matches snapshot', async() => {
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
-    const store = createTestStore({navigation: new URL('https://localhost') as any});
+    const store = createTestStore({navigation: new URL('https://localhost') as any as State});
     const component = renderer.create(<TestContainer store={store}>
       <Home />
     </TestContainer>);
