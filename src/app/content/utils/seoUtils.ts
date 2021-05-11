@@ -91,7 +91,6 @@ const getParagraphs = (page: HTMLElement) => {
   ];
 
   const sectionParagraphs = Array.from(page.querySelectorAll(sectionParaSelectors.join(',')));
-  console.log(sectionParagraphs.map((p) => p.textContent));
   const pageParagraphs = Array.from(page.querySelectorAll(paraSelectors.join(',')));
 
   return [...sectionParagraphs, ...pageParagraphs];
