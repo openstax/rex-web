@@ -1,8 +1,10 @@
+import fs from 'fs';
 import { JSDOM } from 'jsdom';
 import chunk from 'lodash/chunk';
 import fetch from 'node-fetch';
+import path from 'path';
 import { argv } from 'yargs';
-import { Redirects } from '../data/redirects/types';
+import { RedirectsData } from '../data/redirects/types';
 import { content as contentRoute } from '../src/app/content/routes';
 import { Book, BookWithOSWebData, LinkedArchiveTreeSection } from '../src/app/content/types';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
@@ -12,8 +14,6 @@ import config from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
-import getPageOrRedirectedUrls from './utils/getPageOrRedirectedUrls';
-import prepareRedirects from './utils/prepareRedirects';
 import progressBar from './utils/progressBar';
 
 (global as any).DOMParser = new JSDOM().window.DOMParser;
@@ -32,9 +32,13 @@ const {
   useUnversionedUrls?: boolean;
 };
 
-async function checkPages(bookSlug: string, pages: string[], redirects: Redirects) {
+async function checkPages(
+  book: BookWithOSWebData,
+  pages: LinkedArchiveTreeSection[],
+  redirectedPages: Array<{ pageId: string, redirectedURL: string }> | undefined
+) {
   let anyFailures = false;
-  const bar = progressBar(`checking ${bookSlug} [:bar] :current/:total (:etas ETA)`, {
+  const bar = progressBar(`checking ${book.slug} [:bar] :current/:total (:etas ETA)`, {
     complete: '=',
     incomplete: ' ',
     total: pages.length,
@@ -43,16 +47,29 @@ async function checkPages(bookSlug: string, pages: string[], redirects: Redirect
 
   const notFound: string[] = [];
 
-  const visitPage = async(page: string) => {
-    const pageOrRedirectedUrls = getPageOrRedirectedUrls(redirects, page);
+  const visitPage = async(page: LinkedArchiveTreeSection) => {
+    const pageURL = getUrl(book)(page);
     try {
-      const isSuccessful = pageOrRedirectedUrls.some(async(url) => (await fetch(`${rootUrl}${url}`)).status === 200);
+      let isSuccessful: boolean = false;
+      if (redirectedPages) {
+        const redirectedURLs = redirectedPages.filter(({ pageId }) => pageId === page.id)
+        .map(({ redirectedURL }) => redirectedURL);
+        for (const redirectedURL of redirectedURLs) {
+          if ((await fetch(redirectedURL)).status === 200) {
+            isSuccessful = true;
+            break;
+          }
+        }
+      } else {
+        isSuccessful = (await fetch(pageURL)).status === 200;
+      }
+
       if (!isSuccessful) {
-        notFound.push(page);
+        notFound.push(pageURL);
       }
     } catch {
       anyFailures = true;
-      bar.interrupt(`- (error loading) ${page}`);
+      bar.interrupt(`- (error loading) ${pageURL}`);
     }
 
     bar.tick();
@@ -73,6 +90,23 @@ async function checkPages(bookSlug: string, pages: string[], redirects: Redirect
 
   return anyFailures || notFound.length > 0;
 }
+
+const loadRedirectedPagesForBookId = async(bookID: string) => {
+  const fileName = path.resolve(__dirname, `../data/redirects/${bookID}.json`);
+  if (!fs.existsSync(fileName)) { return; }
+
+  const bookRedirects: RedirectsData = await import(fileName);
+  const redirectedPages: Array<{pageId: string, redirectedURL: string}> = [];
+
+  for (const { pageId, pathname } of bookRedirects) {
+    redirectedPages.push({
+      pageId,
+      redirectedURL: pathname,
+    });
+  }
+
+  return redirectedPages;
+};
 
 const getUrl = (book: Book) => useUnversionedUrls
   ? (treeSection: LinkedArchiveTreeSection) =>
@@ -95,13 +129,13 @@ async function checkUrls() {
     osWebLoader,
     rootUrl: url,
   });
-  const redirects = await prepareRedirects(archiveLoader, osWebLoader);
 
   let anyFailures = false;
 
   for (const book of books) {
     const pages = findTreePages(book.tree);
-    anyFailures = await checkPages(book.slug, pages.map(getUrl(book)), redirects) || anyFailures;
+    const redirectedPages = await loadRedirectedPagesForBookId(book.id);
+    anyFailures = await checkPages(book, pages, redirectedPages) || anyFailures;
   }
 
   if (anyFailures) {
