@@ -88,7 +88,7 @@ export default () => {
       const treeNode = findArchiveTreeNodeById(currentBook.tree, newPage.id);
       if (!treeNode) {
         currentBook.tree.contents.push({
-          id: `${newPage.id}@${newPage.version}`,
+          id: `${newPage.id}@1.0`,
           slug: pageSlug,
           title: newPage.title,
         });

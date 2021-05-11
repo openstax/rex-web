@@ -77,13 +77,17 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
 type FilterDropdownProps = {
   label: string;
   ariaLabelId: string;
+  dataAnalyticsLabel: string;
 } & Partial<TabHiddenDropdownProps>;
 
 // tslint:disable-next-line:variable-name
-export const FilterDropdown = ({label, ariaLabelId, children, ...props}:
+export const FilterDropdown = ({label, ariaLabelId, dataAnalyticsLabel, children, ...props}:
   React.PropsWithChildren<FilterDropdownProps>) =>
     <Dropdown
-      toggle={<Toggle label={useIntl().formatMessage({id: label})} ariaLabelId={ariaLabelId} />}
+      toggle={<Toggle
+        label={useIntl().formatMessage({id: label})}
+        ariaLabelId={ariaLabelId}
+        data-analytics-label={dataAnalyticsLabel}/>}
       transparentTab={false}
       {...props}
     >
