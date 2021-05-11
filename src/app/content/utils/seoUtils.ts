@@ -125,7 +125,8 @@ export const getPageDescription = (services: AppServices, book: Book, page: Page
     return '';
   }
   const pageNode = doc.body.firstElementChild;
-  const isAppendix = pageNode.classList.contains('appendix');
+  console.log('page node: ', pageNode.classList)
+  const isAppendix = pageNode && pageNode.classList.contains('appendix');
   const contentDescription: string | null = isAppendix ? null : getPageDescriptionFromContent(pageNode);
 
   return contentDescription || intl.formatMessage({id: 'i18n:metadata:description'});

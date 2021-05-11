@@ -21,7 +21,8 @@ const getPageMetadata = async(
   loader: ReturnType<(typeof archiveLoader)['book']>
 ) => {
   const page = await loader.page(section.id).load();
-  const description = getPageDescription(useServices(), book, page);
+  const services = useServices();
+  const description = getPageDescription(services, book, page);
   const sectionTitle = getTextContent(section.title);
   const parentPrefix = getParentPrefix(section.parent, intl).trim();
 
