@@ -1,13 +1,10 @@
 import React from 'react';
-import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl';
-import { Provider } from 'react-redux';
+import { createIntl } from 'react-intl';
 import renderer from 'react-test-renderer';
-import en from '../../../../app/messages/en/index';
+import en from '../../../../app/messages/en';
 import createTestServices from '../../../../test/createTestServices';
-import createTestStore from '../../../../test/createTestStore';
 import { makeFindByTestId } from '../../../../test/reactutils';
-import * as Services from '../../../context/Services';
-import { Store } from '../../../types';
+import TestContainer from '../../../../test/TestContainer';
 import Confirmation from './Confirmation';
 
 // this is a hack because useEffect is currently not called
@@ -20,10 +17,7 @@ jest.mock('react', () => {
 });
 
 describe('Confirmation', () => {
-  let store: Store;
-  let services: ReturnType<typeof createTestServices>;
 
-  const cache = createIntlCache();
   const intl = createIntl({
     locale: 'en',
     messages: {
@@ -31,43 +25,32 @@ describe('Confirmation', () => {
       confirm: 'confirm',
       message: 'message',
     },
-  }, cache);
-
-  beforeEach(() => {
-    store = createTestStore();
-    services = createTestServices();
   });
+  const services = createTestServices();
+  services.intl = intl;
 
   it('matches snapshot no selection', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <RawIntlProvider value={intl}>
-          <Confirmation
-            message='message'
-            data-analytics-region='region'
-            confirmMessage='confirm'
-            onConfirm={() => null}
-            onCancel={() => null}
-          />
-        </RawIntlProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services}>
+      <Confirmation
+        message='message'
+        data-analytics-region='region'
+        confirmMessage='confirm'
+        onConfirm={() => null}
+        onCancel={() => null}
+      />
+    </TestContainer>);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('prevents default when clicking confirm button', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <RawIntlProvider value={intl}>
-          <Confirmation
-            message='message'
-            confirmMessage='confirm'
-            onCancel={() => null}
-          />
-        </RawIntlProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services}>
+      <Confirmation
+        message='message'
+        confirmMessage='confirm'
+        onCancel={() => null}
+      />
+    </TestContainer>);
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('confirm');
@@ -79,17 +62,13 @@ describe('Confirmation', () => {
   });
 
   it('prevents default when clicking cancel button', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <RawIntlProvider value={intl}>
-          <Confirmation
-            message='message'
-            confirmMessage='confirm'
-            onCancel={() => null}
-          />
-        </RawIntlProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services}>
+      <Confirmation
+        message='message'
+        confirmMessage='confirm'
+        onCancel={() => null}
+      />
+    </TestContainer>);
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('cancel');
@@ -101,18 +80,14 @@ describe('Confirmation', () => {
   });
 
   it('doesn\'t prevent default when clicking confirm link', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <RawIntlProvider value={intl}>
-          <Confirmation
-            confirmLink='/asdf'
-            message='message'
-            confirmMessage='confirm'
-            onCancel={() => null}
-          />
-        </RawIntlProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services}>
+      <Confirmation
+        confirmLink='/asdf'
+        message='message'
+        confirmMessage='confirm'
+        onCancel={() => null}
+      />
+    </TestContainer>);
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('confirm');
@@ -125,18 +100,14 @@ describe('Confirmation', () => {
 
   it('calls onConfirm', () => {
     const onConfirm = jest.fn();
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <RawIntlProvider value={intl}>
-          <Confirmation
-            message='message'
-            confirmMessage='confirm'
-            onConfirm={onConfirm}
-            onCancel={() => null}
-          />
-        </RawIntlProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services}>
+      <Confirmation
+        message='message'
+        confirmMessage='confirm'
+        onConfirm={onConfirm}
+        onCancel={() => null}
+      />
+    </TestContainer>);
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('confirm');
@@ -147,18 +118,14 @@ describe('Confirmation', () => {
 
   it('calls onCancel', () => {
     const onCancel = jest.fn();
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <RawIntlProvider value={intl}>
-          <Confirmation
-            message='message'
-            confirmMessage='confirm'
-            onConfirm={() => null}
-            onCancel={onCancel}
-          />
-        </RawIntlProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services}>
+      <Confirmation
+        message='message'
+        confirmMessage='confirm'
+        onConfirm={() => null}
+        onCancel={onCancel}
+      />
+    </TestContainer>);
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('cancel');
@@ -169,18 +136,14 @@ describe('Confirmation', () => {
 
   it('calls always', () => {
     const always = jest.fn();
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <RawIntlProvider value={intl}>
-          <Confirmation
-            message='message'
-            confirmMessage='confirm'
-            onCancel={() => null}
-            always={always}
-          />
-        </RawIntlProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services}>
+      <Confirmation
+        message='message'
+        confirmMessage='confirm'
+        onCancel={() => null}
+        always={always}
+      />
+    </TestContainer>);
 
     const findByTestId = makeFindByTestId(component.root);
     findByTestId('confirm').props.onClick({preventDefault: jest.fn()});
