@@ -15,7 +15,6 @@ import {
 
 const domParser = new DOMParser();
 
-// tslint:disable-next-line: max-line-length
 export const getParentPrefix = (node: LinkedArchiveTreeNode | undefined, intl: IntlShape): string => {
   if (!node) {
     return '';
