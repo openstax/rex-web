@@ -701,7 +701,7 @@ describe('Page', () => {
       event.initMouseEvent('click',
         event.cancelBubble,
         event.cancelable,
-        event.view!,
+        assertWindow(),
         event.detail,
         event.screenX,
         event.screenY,

@@ -161,7 +161,7 @@ describe('CardWrapper', () => {
 
     // make sure that useEffect is called
     // tslint:disable-next-line: no-empty
-    renderer.act(() => { });
+    renderer.act(() => {});
 
     expect(scrollIntoView).not.toHaveBeenCalled();
   });
