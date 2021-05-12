@@ -29,7 +29,7 @@ export default {
       Sentry.init({
         allowUrls: [
           /localhost/,
-          /opentstax/,
+          /openstax.org/,
           /https?:\/\/rex-web(.*\.)?\.herokuapp\.com/,
         ],
         beforeSend: onBeforeSend(store),
