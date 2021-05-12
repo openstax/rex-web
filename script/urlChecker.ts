@@ -49,15 +49,14 @@ async function checkPages(
 
   const validatePage = async(page: LinkedArchiveTreeSection) => {
     const pageURL = getUrl(book)(page);
-    const redirectedURLs = redirectedPages.filter(({ pageId }) => pageId === page.id)
-      .map(({ pathname }) => pathname);
+    const urls = [pageURL, ...redirectedPages.filter(({ pageId }) => pageId === page.id)
+      .map(({ pathname }) => pathname)];
 
-    for (const redirectedURL of redirectedURLs) {
-      if ((await fetch(`${rootUrl}${redirectedURL}`)).status === 200) {
+    for (const url of urls) {
+      if ((await fetch(`${rootUrl}${url}`)).status === 200) {
         return true;
       }
     }
-    return (await fetch(`${rootUrl}${pageURL}`)).status === 200;
   };
 
   const visitPage = async(page: LinkedArchiveTreeSection) => {
