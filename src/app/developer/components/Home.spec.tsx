@@ -1,10 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
-import createTestStore from '../../../test/createTestStore';
 import { book } from '../../../test/mocks/archiveLoader';
 import TestContainer from '../../../test/TestContainer';
-import { State } from '../../navigation/types';
 import Home from './Home';
 
 jest.mock('../../../config', () => ({
@@ -25,8 +23,7 @@ describe('Home', () => {
 
   it('matches snapshot and books are sorted', async() => {
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
-    const store = createTestStore({navigation: new URL('https://localhost') as any as State});
-    const component = renderer.create(<TestContainer services={services} store={store}>
+    const component = renderer.create(<TestContainer services={services}>
       <Home />
     </TestContainer>);
 
