@@ -130,7 +130,7 @@ export default styled(MainContent)`
   @media screen {
     .search-highlight {
       font-weight: bold;
-      background-color: #feff00;
+      background-color: #ffea00;
 
       &.focus {
         background-color: #ff9e4b;
