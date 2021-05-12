@@ -55,7 +55,7 @@ async function render() {
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
   const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
-  const bookConfigLoader = createBookConfigLoader(`http://localhost:${port}`);
+  const bookConfigLoader = createBookConfigLoader();
 
   const {server} = await startServer({port, onlyProxy: true});
   const renderHelpers = {

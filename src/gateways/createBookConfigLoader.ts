@@ -1,6 +1,6 @@
 import { BOOKS } from '../config';
 import { acceptStatus } from '../helpers/fetch';
-import Sentry from '../helpers/Sentry';
+import Sentry, { Severity } from '../helpers/Sentry';
 
 export interface BookVersion {
   defaultVersion: string;
@@ -18,15 +18,15 @@ interface ReleaseJsonStructure {
 
 const cachedBooks = { ...BOOKS } as BookConfig;
 
-export default (baseUrl: string) => {
+export default () => {
   const loadRemoteBookConfig = (): Promise<BookConfig | undefined> => {
-    const url = `${baseUrl}/rex/release.json`;
+    const url = '/rex/release.json';
     return fetch(url)
       .then(acceptStatus(200, (status, message) => `Error response from "${url}" ${status}: ${message}`))
       .then((response) => response.json() as Promise<ReleaseJsonStructure>)
       .then((response) => response && response.books)
       .catch((e) => {
-        Sentry.captureException(e);
+        Sentry.captureException(e, Severity.Warning);
         return Promise.resolve(undefined);
       });
   };

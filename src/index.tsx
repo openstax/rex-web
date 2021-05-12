@@ -46,14 +46,13 @@ const buyPrintConfigUrl = assertDefined(
   config.REACT_APP_BUY_PRINT_CONFIG_URL,
   'REACT_APP_BUY_PRINT_CONFIG_URL must be defined'
 );
-const originUrl = assertDefined(config.ORIGIN_URL, 'ORIGIN_URL must be definded');
 const mainContent = document.getElementById('main-content');
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
     archiveLoader: createArchiveLoader(archiveUrl),
-    bookConfigLoader: createBookConfigLoader(originUrl),
+    bookConfigLoader: createBookConfigLoader(),
     buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
     highlightClient: createHighlightClient(highlightsUrl),
     osWebLoader: createOSWebLoader(osWebUrl),

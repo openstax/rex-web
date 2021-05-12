@@ -22,7 +22,7 @@ describe('bookConfigLoader', () => {
   let bookConfigLoader: AppServices['bookConfigLoader'];
 
   beforeEach(() => {
-    bookConfigLoader = require('./createBookConfigLoader').default('url');
+    bookConfigLoader = require('./createBookConfigLoader').default();
   });
 
   afterEach(() => {
@@ -46,7 +46,7 @@ describe('bookConfigLoader', () => {
     });
 
     const bookVersion = await bookConfigLoader.getBookVersionFromUUID('test-book-uuid-2');
-    expect(fetch).toHaveBeenCalledWith('url/rex/release.json');
+    expect(fetch).toHaveBeenCalledWith('/rex/release.json');
     expect(bookVersion).toEqual({ defaultVersion: 'test-book-version-2' });
   });
 
@@ -62,7 +62,7 @@ describe('bookConfigLoader', () => {
     });
 
     const bookVersion = await bookConfigLoader.getBookVersionFromUUID('non-existing-book-uuid');
-    expect(fetch).toHaveBeenCalledWith('url/rex/release.json');
+    expect(fetch).toHaveBeenCalledWith('/rex/release.json');
     expect(bookVersion).toBe(undefined);
   });
 
@@ -70,10 +70,10 @@ describe('bookConfigLoader', () => {
     (global as any).fetch = mockFetch(500, 'unexpected error');
 
     const bookVersion = await bookConfigLoader.getBookVersionFromUUID('test');
-    expect(fetch).toHaveBeenCalledWith('url/rex/release.json');
+    expect(fetch).toHaveBeenCalledWith('/rex/release.json');
 
     expect(Sentry.captureException).toHaveBeenCalledWith(
-      new Error('Error response from "url/rex/release.json" 500: unexpected error')
+      new Error('Error response from "/rex/release.json" 500: unexpected error'), 'warning'
     );
     expect(bookVersion).toBe(undefined);
   });
