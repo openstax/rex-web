@@ -35,7 +35,7 @@ const {
 async function checkPages(
   book: BookWithOSWebData,
   pages: LinkedArchiveTreeSection[],
-  redirectedPages: Array<{ pageId: string, redirectedURL: string }> | undefined
+  redirectedPages: RedirectsData
 ) {
   let anyFailures = false;
   const bar = progressBar(`checking ${book.slug} [:bar] :current/:total (:etas ETA)`, {
@@ -47,24 +47,23 @@ async function checkPages(
 
   const notFound: string[] = [];
 
+  const validatePage = async(page: LinkedArchiveTreeSection) => {
+    const pageURL = getUrl(book)(page);
+    const redirectedURLs = redirectedPages.filter(({ pageId }) => pageId === page.id)
+      .map(({ pathname }) => pathname);
+
+    for (const redirectedURL of redirectedURLs) {
+      if ((await fetch(`${rootUrl}${redirectedURL}`)).status === 200) {
+        return true;
+      }
+    }
+    return (await fetch(`${rootUrl}${pageURL}`)).status === 200;
+  };
+
   const visitPage = async(page: LinkedArchiveTreeSection) => {
     const pageURL = getUrl(book)(page);
     try {
-      let isSuccessful: boolean = false;
-      if (redirectedPages) {
-        const redirectedURLs = redirectedPages.filter(({ pageId }) => pageId === page.id)
-        .map(({ redirectedURL }) => redirectedURL);
-        for (const redirectedURL of redirectedURLs) {
-          if ((await fetch(`${rootUrl}${redirectedURL}`)).status === 200) {
-            isSuccessful = true;
-            break;
-          }
-        }
-      } else {
-        isSuccessful = (await fetch(`${rootUrl}${pageURL}`)).status === 200;
-      }
-
-      if (!isSuccessful) {
+      if (!await validatePage(page)) {
         notFound.push(pageURL);
       }
     } catch {
@@ -91,21 +90,9 @@ async function checkPages(
   return anyFailures || notFound.length > 0;
 }
 
-const loadRedirectedPagesForBookId = async(bookID: string) => {
+const loadRedirectedPagesForBookId = async(bookID: string): Promise<RedirectsData>  => {
   const fileName = path.resolve(__dirname, `../data/redirects/${bookID}.json`);
-  if (!fs.existsSync(fileName)) { return; }
-
-  const bookRedirects: RedirectsData = await import(fileName);
-  const redirectedPages: Array<{pageId: string, redirectedURL: string}> = [];
-
-  for (const { pageId, pathname } of bookRedirects) {
-    redirectedPages.push({
-      pageId,
-      redirectedURL: pathname,
-    });
-  }
-
-  return redirectedPages;
+  return fs.existsSync(fileName) ? await import(fileName) : [];
 };
 
 const getUrl = (book: Book) => useUnversionedUrls
