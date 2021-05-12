@@ -27,6 +27,11 @@ export default {
   initializeWithMiddleware(): Middleware {
     return (store) => {
       Sentry.init({
+        allowUrls: [
+          /localhost/,
+          /opentstax/,
+          /https?:\/\/rex-web(.*\.)?\.herokuapp\.com/,
+        ],
         beforeSend: onBeforeSend(store),
         dist: normalize(config.RELEASE_ID),
         dsn: 'https://d2a5f17c9d8f40369446ea0cfaf21e73@o484761.ingest.sentry.io/5538506',
@@ -38,11 +43,6 @@ export default {
         ],
         release: normalize(`rex@${config.RELEASE_ID}`),
         tracesSampleRate: 0.1,
-        whitelistUrls: [
-          /https?:\/\/localhost:3000/,
-          /https?:\/\/(.*\.)?openstax\.org/,
-          /https?:\/\/rex-web(.*\.)?\.herokuapp\.com/,
-        ],
       });
       IS_INITIALIZED = true;
 
