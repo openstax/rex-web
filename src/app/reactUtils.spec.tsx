@@ -317,8 +317,8 @@ describe('useMatchMobileQuery', () => {
 
   it('adds and removes listeners', () => {
     const mock = {
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
     } as any as MediaQueryList;
 
     jest.spyOn(assertWindow(), 'matchMedia')
@@ -330,17 +330,17 @@ describe('useMatchMobileQuery', () => {
     // tslint:disable-next-line: no-empty
     renderer.act(() => {});
 
-    expect(mock.addListener).toHaveBeenCalled();
+    expect(mock.addEventListener).toHaveBeenCalled();
 
     component.unmount();
 
-    expect(mock.removeListener).toHaveBeenCalled();
+    expect(mock.removeEventListener).toHaveBeenCalled();
   });
 
   it('updates on listener calls', () => {
     const mock = {
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
     } as any as MediaQueryList;
 
     jest.spyOn(assertWindow(), 'matchMedia')
@@ -353,14 +353,14 @@ describe('useMatchMobileQuery', () => {
     renderer.act(() => {});
 
     renderer.act(() => {
-      (mock.addListener as any as jest.SpyInstance).mock.calls[0][0]({ matches: true });
+      (mock.addEventListener as any as jest.SpyInstance).mock.calls[0][1]({ matches: true });
     });
 
     expect(() => component.root.findByProps({ 'data-test-id': 'mobile-resolution' })).not.toThrow();
     expect(() => component.root.findByProps({ 'data-test-id': 'desktop-resolution' })).toThrow();
 
     renderer.act(() => {
-      (mock.addListener as any as jest.SpyInstance).mock.calls[0][0]({ matches: false });
+      (mock.addEventListener as any as jest.SpyInstance).mock.calls[0][1]({ matches: false });
     });
 
     expect(() => component.root.findByProps({ 'data-test-id': 'mobile-resolution' })).toThrow();
