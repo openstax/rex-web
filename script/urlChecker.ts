@@ -57,6 +57,7 @@ async function checkPages(
         return true;
       }
     }
+    return false;
   };
 
   const visitPage = async(page: LinkedArchiveTreeSection) => {
