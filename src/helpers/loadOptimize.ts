@@ -11,23 +11,20 @@ export default (containerId: string) => new Promise((resolve) => {
 
     if (typeof(window) !== 'undefined') {
 
-      setTimeout(() => {
-        console.log('timeout over');
+      function gtag(arg1: any, arg2: any, arg3: any) {
+        console.log(arg1, arg2, arg3);
+        window!.dataLayer.push(arguments);
+      }
 
-        function gtag(arg1: any, arg2: any, arg3: any) {
-          console.log('printing args: ', arg1, arg2, arg3);
-          window!.dataLayer.push(arguments);
-        }
+      // function logVariant(variant: any) {
+      //   console.log(variant);
+      // }
 
-        function logArgs() {
-          console.log('args: ', arguments);
-        }
+      gtag('event', 'optimize.callback', {
+        callback: (variant: any) => console.log(variant),
+      });
 
-        gtag('event', 'optimize.callback', {
-          callback: () => logArgs,
-        });
-
-        window!.dataLayer.push({event: 'optimize.activate'});
-      }, 5000);
+      window!.dataLayer.push({event: 'optimize.activate'});
     }
+
   });
