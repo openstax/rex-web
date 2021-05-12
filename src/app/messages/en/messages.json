@@ -142,6 +142,7 @@
   "i18n:studyguides:popup:filters:yellow": "Key Terms",
   "i18n:studyguides:popup:filters:filter-by:aria-label": "Filter study guides by {filter}",
   "i18n:studyguides:popup:filters:remove:color": "Remove breadcrumb for label {filterValue, select, blue {Important Concepts} green {Connections & Relationships} purple {Enrichment} yellow {Key Terms}}",
+  "i18n:studyguides:popup:filters:remove:chapter": "Remove breadcrumb for chapter {filterValue}",
   "i18n:studyguides:popup:no-highlights": "No results.",
   "i18n:studyguides:popup:no-highlights-tip": "Try selecting a different <strong>chapter or color filter</strong> to see different results.",
   "i18n:studyguides:popup:using-this-guide": "Using This Guide",
