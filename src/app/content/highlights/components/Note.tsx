@@ -36,7 +36,7 @@ const TextArea = styled.textarea`
 
 // tslint:disable-next-line:variable-name
 const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
-  const setTextAreaHeight = () => {
+  const setTextAreaHeight = React.useCallback(() => {
     const element = textareaRef.current;
     if (!element) {
       return;
@@ -45,9 +45,9 @@ const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
     if (element.scrollHeight > element.offsetHeight) {
       element.style.height = `${element.scrollHeight + 5}px`;
     }
-  };
+  }, [textareaRef]);
 
-  React.useEffect(setTextAreaHeight, [note]);
+  React.useEffect(setTextAreaHeight, [note, setTextAreaHeight]);
 
   return <TextArea
     ref={textareaRef}
