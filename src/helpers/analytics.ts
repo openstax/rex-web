@@ -75,12 +75,7 @@ const analytics = {
 export const registerGlobalAnalytics = (window: Window, store: Store) => {
   const document = window.document;
 
-  function gtag(arg1: any, arg2: any, arg3: any) {
-    console.log(arg1, arg2, arg3);
-    window!.dataLayer.push(arguments);
-  }
-
-  gtag('event', 'optimize.callback', {
+  window.gtag('event', 'optimize.callback', {
     callback: (variant: any) => console.log(variant),
   });
 
