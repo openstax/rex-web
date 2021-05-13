@@ -59,6 +59,15 @@ export interface BookWithOSWebData extends ArchiveBook {
   book_state: 'coming_soon' | 'deprecated' | 'live' | 'new_edition_available' | 'retired';
   theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
   slug: string;
+  promote_image: null | {
+    id: number;
+    title: string;
+    meta: {
+      type: string;
+      detail_url: string;
+      download_url: string;
+    }
+  };
   publish_date: string;
   amazon_link: string;
   authors: Array<{

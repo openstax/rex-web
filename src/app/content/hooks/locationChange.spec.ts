@@ -200,6 +200,7 @@ describe('locationChange', () => {
       meta: {
         slug: 'new-book',
       },
+      promote_image: null,
       publish_date: '2012-06-21',
     };
 
