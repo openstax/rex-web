@@ -280,8 +280,12 @@ describe('onEscHandler', () => {
     const cb = jest.fn();
     utils.onEscHandler(ref, true, cb)();
 
-    const keyboardEvent = window.document.createEvent('KeyboardEvent');
-    keyboardEvent.initKeyboardEvent('keydown', true, true, window, 'Escape', 0, '', false, '');
+    const keyboardEvent = new KeyboardEvent('keydown', {
+      bubbles: true,
+      cancelable: true,
+      key: 'Escape',
+      view: window,
+    });
 
     ref.current!.dispatchEvent(keyboardEvent);
 
@@ -293,8 +297,12 @@ describe('onEscHandler', () => {
     const cb = jest.fn();
     utils.onEscHandler(ref, true, cb)();
 
-    const keyboardEvent = window.document.createEvent('KeyboardEvent');
-    keyboardEvent.initKeyboardEvent('keydown', true, true, window, 'Other key', 0, '', false, '');
+    const keyboardEvent = new KeyboardEvent('keydown', {
+      bubbles: true,
+      cancelable: true,
+      key: 'Other key',
+      view: window,
+    });
 
     ref.current!.dispatchEvent(keyboardEvent);
 
@@ -317,8 +325,8 @@ describe('useMatchMobileQuery', () => {
 
   it('adds and removes listeners', () => {
     const mock = {
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
     } as any as MediaQueryList;
 
     jest.spyOn(assertWindow(), 'matchMedia')
@@ -330,17 +338,17 @@ describe('useMatchMobileQuery', () => {
     // tslint:disable-next-line: no-empty
     renderer.act(() => {});
 
-    expect(mock.addListener).toHaveBeenCalled();
+    expect(mock.addEventListener).toHaveBeenCalled();
 
     component.unmount();
 
-    expect(mock.removeListener).toHaveBeenCalled();
+    expect(mock.removeEventListener).toHaveBeenCalled();
   });
 
   it('updates on listener calls', () => {
     const mock = {
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
     } as any as MediaQueryList;
 
     jest.spyOn(assertWindow(), 'matchMedia')
@@ -353,14 +361,14 @@ describe('useMatchMobileQuery', () => {
     renderer.act(() => {});
 
     renderer.act(() => {
-      (mock.addListener as any as jest.SpyInstance).mock.calls[0][0]({ matches: true });
+      (mock.addEventListener as any as jest.SpyInstance).mock.calls[0][1]({ matches: true });
     });
 
     expect(() => component.root.findByProps({ 'data-test-id': 'mobile-resolution' })).not.toThrow();
     expect(() => component.root.findByProps({ 'data-test-id': 'desktop-resolution' })).toThrow();
 
     renderer.act(() => {
-      (mock.addListener as any as jest.SpyInstance).mock.calls[0][0]({ matches: false });
+      (mock.addEventListener as any as jest.SpyInstance).mock.calls[0][1]({ matches: false });
     });
 
     expect(() => component.root.findByProps({ 'data-test-id': 'mobile-resolution' })).toThrow();

@@ -1,4 +1,4 @@
-import { ClientRect, HTMLElement } from '@openstax/types/lib.dom';
+import { DOMRect, HTMLElement } from '@openstax/types/lib.dom';
 import * as Cookies from 'js-cookie';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -17,7 +17,7 @@ describe('usePositions', () => {
   let store: Store;
   // tslint:disable-next-line: variable-name
   let Component: (props: { isMobile: boolean }) => JSX.Element;
-  const mockRect = { bottom: 228, height: 25, left: 951, right: 1233, top: 203, width: 282 } as any as ClientRect;
+  const mockRect = { bottom: 228, height: 25, left: 951, right: 1233, top: 203, width: 282 } as any as DOMRect;
 
   beforeEach(() => {
     const document = assertDocument();
