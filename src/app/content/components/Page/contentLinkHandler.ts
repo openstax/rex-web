@@ -88,7 +88,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       return;
     }
 
-    const base = new URL(assertWindow().location);
+    const base = new URL(assertWindow().location.href);
     base.hash = '';
     base.search = '';
 

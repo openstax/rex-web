@@ -51,11 +51,13 @@ export const onFocusInOrOutHandler = (
 };
 
 export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusout'), [ref, isEnabled]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusout'), [ref, isEnabled, cb]);
 };
 
 export const useFocusIn = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusin'), [ref, isEnabled]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusin'), [ref, isEnabled, cb]);
 };
 
 export const onDOMEventHandler = (
@@ -82,6 +84,7 @@ export const useOnDOMEvent = (
   cb: () => void,
   deps: React.DependencyList = []
 ) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(onDOMEventHandler(element, isEnabled, event, cb), [element, isEnabled, event, cb, ...deps]);
 };
 
@@ -149,6 +152,7 @@ export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: b
 };
 
 export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled, cb]);
 };
 
@@ -156,8 +160,8 @@ export const useMatchMobileQuery = () => {
   const matchMedia = assertWindow().matchMedia(theme.breakpoints.mobileQuery);
   const [isMobile, setIsMobile] = React.useState(matchMedia.matches);
 
-  const listener = React.useCallback((e: EventListener) => {
-    if ((e as MediaQueryListEvent).matches) {
+  const listener = React.useCallback((e: MediaQueryListEvent) => {
+    if (e.matches) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -165,8 +169,8 @@ export const useMatchMobileQuery = () => {
   }, []);
 
   React.useEffect(() => {
-    matchMedia.addListener(listener);
-    return () => { matchMedia.removeListener(listener); };
+    matchMedia.addEventListener('change', listener);
+    return () => { matchMedia.removeEventListener('change', listener); };
   }, [listener, matchMedia]);
 
   return isMobile;
@@ -266,6 +270,7 @@ export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
 };
 
 export const useDisableContentTabbing = (isEnabled: boolean) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(disableContentTabbingHandler(isEnabled), [isEnabled]);
 };
 
