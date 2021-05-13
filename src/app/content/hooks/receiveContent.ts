@@ -1,4 +1,5 @@
 import { setHead } from '../../head/actions';
+import { Link } from '../../head/types';
 import { pathname } from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
@@ -36,19 +37,22 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
 
-  dispatch(setHead({
-    links: canonicalUrl ? [
-      {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`},
-    ] : [],
-    meta: [
-      {name: 'description', content: description},
-      {property: 'og:description', content: description},
-      {property: 'og:title', content: title},
-      {property: 'og:url', content: `https://openstax.org${currentPath}`},
-      {name: 'theme-color', content: bookTheme},
-    ],
-    title,
-  }));
+  const links = canonicalUrl ? [
+    {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`} as Link,
+  ] : [];
+  const meta = [
+    {name: 'description', content: description},
+    {property: 'og:description', content: description},
+    {property: 'og:title', content: title},
+    {property: 'og:url', content: `https://openstax.org${currentPath}`},
+    {name: 'theme-color', content: bookTheme},
+  ];
+
+  if (hasOSWebData(book) && book.promote_image) {
+    meta.push({ property: 'og:image', content: book.promote_image.meta.download_url });
+  }
+
+  dispatch(setHead({links, meta, title}));
 };
 
 export default hookBody;
