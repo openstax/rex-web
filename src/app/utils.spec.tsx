@@ -117,8 +117,9 @@ describe('actionHook', () => {
   it('handle error if it is instace of BookNotFoundError', async() => {
     const hookSpy = jest.fn(async() => Promise.reject(new utils.BookNotFoundError('asd')));
     const mockReplace = jest.fn();
-    jest.spyOn(utils.assertWindow().location, 'replace')
-      .mockImplementation(mockReplace);
+    Object.defineProperty(utils.assertWindow(), 'location', {
+      value: { replace: mockReplace },
+    });
     jest.spyOn(selectNavigation, 'pathname')
       .mockReturnValue('url');
     const helpers = ({

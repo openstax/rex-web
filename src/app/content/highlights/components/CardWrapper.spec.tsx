@@ -21,8 +21,7 @@ const dispatchKeyDownEvent = (
   key: string,
   target?: HTMLElement
 ) => {
-  const keyboardEvent = window.document.createEvent('KeyboardEvent');
-  keyboardEvent.initKeyboardEvent('keydown', true, true, window, key, 0, '', false, '');
+  const keyboardEvent = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key, view: window });
   if (target) {
     Object.defineProperty(keyboardEvent, 'target', { value: target });
   }
@@ -178,8 +177,8 @@ describe('CardWrapper', () => {
 
     // Update state with a height
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 100 }});
-      card2.props.onHeightChange({ current: { offsetHeight: 100 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 100 } });
+      card2.props.onHeightChange({ current: { offsetHeight: 100 } });
     });
     // We are starting at 100 because of getHighlightTopOffset mock
     expect(card1.props.topOffset).toEqual(100);
@@ -187,14 +186,14 @@ describe('CardWrapper', () => {
 
     // Noops when height is the same
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 100 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 100 } });
     });
     expect(card1.props.topOffset).toEqual(100);
     expect(card2.props.topOffset).toEqual(100 + 100 + remsToPx(cardMarginBottom));
 
     // Handle null value
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: null }});
+      card1.props.onHeightChange({ current: { offsetHeight: null } });
     });
     // First card have null height so secondcard starts at the highlight top offset
     expect(card1.props.topOffset).toEqual(100);
@@ -228,10 +227,10 @@ describe('CardWrapper', () => {
 
     // Update state with a height
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 50 }});
-      card2.props.onHeightChange({ current: { offsetHeight: 50 }});
-      card3.props.onHeightChange({ current: { offsetHeight: 50 }});
-      card4.props.onHeightChange({ current: { offsetHeight: 50 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card2.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card3.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card4.props.onHeightChange({ current: { offsetHeight: 50 } });
     });
     expect(card1.props.topOffset).toEqual(0); // first card have only 50px height + 20px margin bottom
     expect(card2.props.topOffset).toEqual(100); // so the second cards starts and the highlight level which is 100
