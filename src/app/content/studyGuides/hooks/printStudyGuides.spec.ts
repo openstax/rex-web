@@ -94,7 +94,7 @@ describe('printStudyGuides', () => {
   it('waits for promiseCollector.calm', async() => {
     let resolveCalm: undefined | (() => void);
 
-    calmSpy.mockReturnValue(new Promise((resolve) => {
+    calmSpy.mockReturnValue(new Promise<void>((resolve) => {
       resolveCalm = resolve;
     }));
 
@@ -125,7 +125,7 @@ describe('printStudyGuides', () => {
   it('doesn\'t print if study guides modal was closed', async() => {
     let resolveCalm: undefined | (() => void);
 
-    calmSpy.mockReturnValue(new Promise((resolve) => {
+    calmSpy.mockReturnValue(new Promise<void>((resolve) => {
       resolveCalm = resolve;
     }));
 

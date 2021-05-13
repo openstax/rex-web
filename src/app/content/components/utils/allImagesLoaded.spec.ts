@@ -14,6 +14,8 @@ describe('allImagesLoaded', () => {
     finished = false;
     element = assertDocument().createElement('div');
     img = assertDocument().createElement('img');
+
+    Object.defineProperty(img, 'complete', { value: false, writable: true });
   });
 
   it('resolves when passed an element with no images', async() => {

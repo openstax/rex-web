@@ -70,7 +70,7 @@ describe('highlightManager', () => {
   });
 
   afterEach(() => {
-    delete window.document.getSelection;
+    delete (window as any).document.getSelection;
   });
 
   it('CardList is rendered initially', () => {
