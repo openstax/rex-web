@@ -29,6 +29,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
         selectedSection: null,
       };
     case getType(receiveFeatureFlags):
+      console.log('practice q reducer - receiving feature flags: ', action.payload);
       return {...state, isEnabled: action.payload.includes(practiceQuestionsFeatureFlag)};
     case getType(actions.receivePracticeQuestionsSummary):
       return {...state, summary: action.payload};

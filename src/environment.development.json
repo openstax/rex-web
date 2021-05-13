@@ -8,6 +8,12 @@
     "feature_flags": [
       "practiceQuestionsEnabled",
       "studyGuidesEnabled"
-    ]
+    ],
+    "experiments" : {
+      "searchButton": {
+        "id": "OCCkMMCZSwW87szzpniCow",
+        "variant": "0"
+      }
+    }
   }
 }

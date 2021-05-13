@@ -75,6 +75,7 @@ const analytics = {
 export const registerGlobalAnalytics = (window: Window, store: Store) => {
   const document = window.document;
 
+  // will dispatch a feature flag on variant receieved
   window.gtag('event', 'optimize.callback', {
     callback: (variant: any) => console.log(variant),
   });

@@ -1,4 +1,4 @@
-import { receiveFeatureFlags } from '../app/actions';
+import { receiveExperiments, receiveFeatureFlags } from '../app/actions';
 import { receiveMessages, updateAvailable } from '../app/notifications/actions';
 import { Messages } from '../app/notifications/types';
 import { shouldLoadAppMessage } from '../app/notifications/utils';
@@ -29,9 +29,16 @@ let previousObservedReleaseId: string | undefined;
 
 export type Cancel = () => void;
 
+export interface Experiments {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
 interface EnvironmentConfigs {
   google_analytics?: string[] | undefined;
   feature_flags?: string[];
+  experiments: Experiments;
 }
 
 interface Environment {
@@ -46,6 +53,7 @@ const processEnvironment = (store: Store, environment: Environment) => {
   if (environment.configs) {
     processGoogleAnalyticsIds(environment.configs);
     processFeatureFlags(store, environment.configs.feature_flags);
+    processExperiments(store, environment.configs.experiments);
   }
   if (environment.messages) {
     processMessages(store, environment.messages.filter(shouldLoadAppMessage));
@@ -74,6 +82,10 @@ const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
 };
 const processFeatureFlags = (store: Store, featureFlags: string[] = []) => {
   store.dispatch(receiveFeatureFlags(featureFlags));
+};
+const processExperiments = (store: Store, experiments: Experiments) => {
+  console.log('poll updates - experiments: ', experiments);
+  store.dispatch(receiveExperiments(experiments));
 };
 const processMessages = (store: Store, messages: Messages) => {
   store.dispatch(receiveMessages(messages));
