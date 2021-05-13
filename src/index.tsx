@@ -34,6 +34,9 @@ if (window.top === window.self) {
   console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
 }
 
+// throw new Error('throwing error');
+// Sentry.captureException(new Error('Caught exception for testing'));
+
 const archiveUrl = config.REACT_APP_ARCHIVE_URL_OVERRIDE ||
   assertDefined(config.REACT_APP_ARCHIVE_URL, 'REACT_APP_ARCHIVE_URL must be defined');
 
