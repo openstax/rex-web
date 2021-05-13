@@ -28,8 +28,9 @@ export default {
     return (store) => {
       Sentry.init({
         allowUrls: [
+          /localhost/,
           /openstax/,
-          /https?:\/\/rex-web(.*\.)?\.herokuapp\.com/,
+          /https?:\/\/rex-web(.*)?\.herokuapp\.com/,
         ],
         beforeSend: onBeforeSend(store),
         dist: normalize(config.RELEASE_ID),
