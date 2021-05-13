@@ -79,7 +79,7 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
     callback: (variant: any) => console.log(variant),
   });
 
-  window!.dataLayer.push({event: 'optimize.activate'});
+  window.dataLayer.push({event: 'optimize.activate'});
 
   window.addEventListener('beforeunload', () => {
     analytics.unload.track(analytics.unload.selector(store.getState()));
