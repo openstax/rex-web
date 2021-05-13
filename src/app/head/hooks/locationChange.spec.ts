@@ -6,7 +6,7 @@ import { assertNotNull } from '../../utils';
 describe('setHead hook', () => {
   let hookBody: ActionHookBody<typeof locationChange>;
   const helpers = {} as MiddlewareAPI & AppServices;
-  const action = locationChange({location: new URL('http://localhost/'), action: 'PUSH'});
+  const action = locationChange({location: {...new URL('http://localhost/'), state: {}}, action: 'PUSH'});
 
   beforeEach(() => {
     resetModules();

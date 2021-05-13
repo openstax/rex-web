@@ -58,7 +58,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
-  useFocusLost(element, shouldFocusCard, () => setShouldFocusCard(false));
+  useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), [setShouldFocusCard]));
 
   const onHeightChange = React.useCallback((id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;

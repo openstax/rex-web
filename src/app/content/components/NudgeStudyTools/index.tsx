@@ -48,7 +48,7 @@ const NudgeStudyTools = () => {
     if (positions) {
       document.body.style.overflow = 'hidden';
     }
-    return () => { document.body.style.overflow = null; };
+    return () => { document.body.style.overflow = ''; };
     // document will not change
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [positions]);
