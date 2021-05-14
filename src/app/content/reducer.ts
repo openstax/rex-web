@@ -11,6 +11,7 @@ import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
 import * as actions from './actions';
+import experimentsReducer, {initialState as initialExperimentsState } from './experiments/reducer';
 import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
 import practiceQuestionsReducer, {initialState as initialPracticeQuestionsState } from './practiceQuestions/reducer';
 import { content } from './routes';
@@ -20,6 +21,7 @@ import { State } from './types';
 
 export const initialState = {
   buyPrint: null,
+  experiments: initialExperimentsState,
   highlights: initialHighlightState,
   loading: {},
   pageNotFoundId: null,
@@ -59,6 +61,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const studyGuides = studyGuidesReducer(contentState.studyGuides, action);
       if (contentState.studyGuides !== studyGuides) {
         return {...contentState, studyGuides};
+      }
+      return contentState;
+    },
+    (contentState) => {
+      const experiments = experimentsReducer(contentState.experiments, action);
+      if (contentState.experiments !== experiments) {
+        return {...contentState, experiments};
       }
       return contentState;
     }
