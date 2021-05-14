@@ -16,10 +16,10 @@ interface ReleaseJsonStructure {
   id: string;
 }
 
-const cachedBooks = { ...BOOKS } as BookConfig;
+let cachedBooks = { ...BOOKS };
 
 export default () => {
-  const loadRemoteBookConfig = (): Promise<BookConfig | undefined> => {
+  const loadRemoteBookConfig = () => {
     const url = '/rex/release.json';
     return fetch(url)
       .then(acceptStatus(200, (status, message) => `Error response from "${url}" ${status}: ${message}`))
@@ -34,12 +34,10 @@ export default () => {
   return {
     getBookVersionFromUUID: (uuid: string): Promise<BookVersion | undefined> => {
       return cachedBooks[uuid] ? Promise.resolve(cachedBooks[uuid]) : loadRemoteBookConfig().then((books) => {
-        let bookVersion;
-        if (books && uuid in books) {
-          bookVersion = books[uuid];
-          cachedBooks[uuid] = bookVersion;
+        if (books) {
+          cachedBooks = books;
         }
-        return bookVersion;
+        return getBookVersionFromUUIDSync(uuid);
       });
     },
   };
