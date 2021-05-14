@@ -6,7 +6,8 @@ export const localState = createSelector(
   (parentState) => parentState.experiments
 );
 
+// how to create selectors for particular variants
 export const experimentsEnabled = createSelector(
   localState,
-  (state) => state.experiments
+  (state) => state
 );

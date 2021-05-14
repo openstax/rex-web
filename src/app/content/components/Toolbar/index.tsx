@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
+import { experimentsEnabled as experimentsEnabledSelector } from '../../experiments/selectors';
 import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
 import {
   clearSearch,
@@ -33,6 +34,7 @@ interface Props {
   searchSidebarOpen: boolean;
   hasSearchResults: boolean;
   practiceQuestionsEnabled: boolean;
+  experimentsEnabled: any;
 }
 
 interface State {
@@ -159,6 +161,7 @@ class Toolbar extends React.Component<Props, State> {
 
 export default connect(
   (state: AppState) => ({
+    experimentsEnabled: experimentsEnabledSelector(state),
     hasSearchResults: selectSearch.hasResults(state),
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     practiceQuestionsEnabled: practiceQuestionsEnabledSelector(state),
