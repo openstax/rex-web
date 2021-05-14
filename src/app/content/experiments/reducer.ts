@@ -3,10 +3,11 @@ import { getType } from 'typesafe-actions';
 import { receiveFeatureFlags } from '../../actions';
 import { AnyAction } from '../../types';
 import { experimentIds } from './constants';
+import { State } from './types';
 
-export const initialState = {};
+export const initialState: State = {};
 
-const reducer: Reducer<{}, AnyAction> = (state = initialState, action): any => {
+const reducer: Reducer<State, AnyAction> = (state = initialState, action): any => {
     switch (action.type) {
         case getType(receiveFeatureFlags):
             const [id, variant] = action.payload;
