@@ -29,12 +29,6 @@ let previousObservedReleaseId: string | undefined;
 
 export type Cancel = () => void;
 
-// export interface Experiments {
-//   [key: string]: {
-//     [key: string]: string;
-//   };
-// }
-
 interface EnvironmentConfigs {
   google_analytics?: string[] | undefined;
   feature_flags?: string[];
@@ -52,7 +46,6 @@ const processEnvironment = (store: Store, environment: Environment) => {
   if (environment.configs) {
     processGoogleAnalyticsIds(environment.configs);
     processFeatureFlags(store, environment.configs.feature_flags);
-    // processExperiments(store, environment.configs.experiments);
   }
   if (environment.messages) {
     processMessages(store, environment.messages.filter(shouldLoadAppMessage));
@@ -79,7 +72,7 @@ const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
     googleAnalyticsClient.setTrackingIds(ids);
   }
 };
-const processFeatureFlags = (store: Store, featureFlags: any) => {
+const processFeatureFlags = (store: Store, featureFlags: string[] = []) => {
   store.dispatch(receiveFeatureFlags(featureFlags));
 };
 const processMessages = (store: Store, messages: Messages) => {
