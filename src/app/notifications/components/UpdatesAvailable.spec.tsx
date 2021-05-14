@@ -10,7 +10,10 @@ describe('UpdatesAvailable', () => {
   let reload: jest.SpyInstance;
 
   beforeEach(() => {
-    reload = window!.location.reload = jest.fn();
+    reload = jest.fn();
+    Object.defineProperty(window, 'location', {
+      value: { reload },
+    });
     resetModules();
     ({React, renderer, TestContainer} = reactAndFriends());
     UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
@@ -18,7 +21,9 @@ describe('UpdatesAvailable', () => {
   });
 
   afterEach(() => {
-    window!.location.reload = reloadBackup;
+    Object.defineProperty(window, 'location', {
+      value: { reload: reloadBackup },
+    });
   });
 
   it('reloads on click', () => {
