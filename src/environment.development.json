@@ -2,9 +2,6 @@
   "release_id": "development",
   "messages": [],
   "configs": {
-    "google_analytics": [
-      "UA-73668038-3"
-    ],
     "feature_flags": [
       "practiceQuestionsEnabled",
       "studyGuidesEnabled"
