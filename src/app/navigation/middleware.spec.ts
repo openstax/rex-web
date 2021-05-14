@@ -24,6 +24,13 @@ describe('navigation middleware', () => {
 
   beforeEach(() => {
     middleware = require('./middleware').default;
+
+    Object.defineProperty(assertWindow(), 'location', {
+      value: {
+        assign: jest.fn(),
+        replace: jest.fn(),
+      },
+    });
   });
 
   it('calls history when callHistoryMethod is dispatched', () => {
