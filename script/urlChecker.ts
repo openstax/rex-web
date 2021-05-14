@@ -1,12 +1,18 @@
+import fs from 'fs';
 import { JSDOM } from 'jsdom';
 import chunk from 'lodash/chunk';
 import fetch from 'node-fetch';
+import path from 'path';
 import { argv } from 'yargs';
+import { RedirectsData } from '../data/redirects/types';
 import { content as contentRoute } from '../src/app/content/routes';
 import { Book, BookWithOSWebData, LinkedArchiveTreeSection } from '../src/app/content/types';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { getBookPageUrlAndParams, getUrlParamForPageId } from '../src/app/content/utils/urlUtils';
 import { assertDefined } from '../src/app/utils';
+import config from '../src/config';
+import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
 import progressBar from './utils/progressBar';
 
@@ -26,9 +32,13 @@ const {
   useUnversionedUrls?: boolean;
 };
 
-async function checkPages(bookSlug: string, pages: string[]) {
+async function checkPages(
+  book: BookWithOSWebData,
+  pages: LinkedArchiveTreeSection[],
+  redirectedPages: RedirectsData
+) {
   let anyFailures = false;
-  const bar = progressBar(`checking ${bookSlug} [:bar] :current/:total (:etas ETA)`, {
+  const bar = progressBar(`checking ${book.slug} [:bar] :current/:total (:etas ETA)`, {
     complete: '=',
     incomplete: ' ',
     total: pages.length,
@@ -37,16 +47,30 @@ async function checkPages(bookSlug: string, pages: string[]) {
 
   const notFound: string[] = [];
 
-  const visitPage = async(page: string) => {
+  const validatePage = async(page: LinkedArchiveTreeSection) => {
+    const pageURL = getUrl(book)(page);
+    const urls = [pageURL, ...redirectedPages.filter(({ pageId }) => pageId === page.id)
+      .map(({ pathname }) => pathname)];
+
+    for (const url of urls) {
+      if ((await fetch(`${rootUrl}${url}`)).status === 200) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const visitPage = async(page: LinkedArchiveTreeSection) => {
+    const pageURL = getUrl(book)(page);
     try {
-      const response = await fetch(`${rootUrl}${page}`);
-      if (response.status === 404) {
-        notFound.push(page);
+      if (!await validatePage(page)) {
+        notFound.push(pageURL);
       }
     } catch {
       anyFailures = true;
-      bar.interrupt(`- (error loading) ${page}`);
+      bar.interrupt(`- (error loading) ${pageURL}`);
     }
+
     bar.tick();
   };
 
@@ -66,6 +90,11 @@ async function checkPages(bookSlug: string, pages: string[]) {
   return anyFailures || notFound.length > 0;
 }
 
+const loadRedirectedPagesForBookId = async(bookID: string): Promise<RedirectsData>  => {
+  const fileName = path.resolve(__dirname, `../data/redirects/${bookID}.json`);
+  return fs.existsSync(fileName) ? await import(fileName) : [];
+};
+
 const getUrl = (book: Book) => useUnversionedUrls
   ? (treeSection: LinkedArchiveTreeSection) =>
       contentRoute.getUrl({
@@ -77,11 +106,14 @@ const getUrl = (book: Book) => useUnversionedUrls
   : (treeSection: LinkedArchiveTreeSection) => getBookPageUrlAndParams(book, treeSection).url;
 
 async function checkUrls() {
+  const archiveLoader = createArchiveLoader(`${archiveUrl ? archiveUrl : rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const url = assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port');
   const books = await findBooks({
-    archiveUrl,
+    archiveLoader,
     bookId,
     bookVersion,
+    osWebLoader,
     rootUrl: url,
   });
 
@@ -89,7 +121,8 @@ async function checkUrls() {
 
   for (const book of books) {
     const pages = findTreePages(book.tree);
-    anyFailures = await checkPages(book.slug, pages.map(getUrl(book))) || anyFailures;
+    const redirectedPages = await loadRedirectedPagesForBookId(book.id);
+    anyFailures = await checkPages(book, pages, redirectedPages) || anyFailures;
   }
 
   if (anyFailures) {
