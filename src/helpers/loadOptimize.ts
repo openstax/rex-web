@@ -1,10 +1,17 @@
-import { assertDocument } from '../app/utils';
+import { assertDocument, assertWindow } from '../app/utils';
+import config from '../config';
 
-export default (containerId: string | null) => new Promise((resolve) => {
+const getOptimizeContainerByEnv = () => {
+  const window = assertWindow();
+  return config.DEPLOYED_ENV === 'server' ? null
+  : (window.location.hostname === 'openstax.org' ? 'OPT-NFHSM4B' : 'OPT-W65B3CP');
+};
+
+export default () => new Promise((resolve) => {
+    const containerId = getOptimizeContainerByEnv();
     if (!containerId) {
-        return;
+      return;
     }
-
     const script = assertDocument().createElement('script');
     script.setAttribute('type', 'text/javascript');
     script.setAttribute('src', `https://www.googleoptimize.com/optimize.js?id=${containerId}`);

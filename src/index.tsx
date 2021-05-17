@@ -103,8 +103,7 @@ pollUpdates(app.store);
 startMathJax();
 
 // load optimize
-loadOptimize(config.DEPLOYED_ENV === 'server' ? null
-  : (window.location.hostname === 'openstax.org' ? 'OPT-NFHSM4B' : 'OPT-W65B3CP'));
+loadOptimize();
 
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()
