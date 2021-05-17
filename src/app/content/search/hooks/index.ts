@@ -52,45 +52,60 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     : getFirstResult(book, payload);
 
   if (
-    // selectedResult may equal to null if api did not return any results
-    !selectedResult
+    selectedResult &&
     // We are clearing selected result when requesting a new search so in the theory this should never happen
-    || isEqual(select.selectedResult(state), selectedResult)
+    (isEqual(select.selectedResult(state), selectedResult)
     // selectedResult bookId data is different than current book id
-    || book.id !== getIndexData(selectedResult.result.index).bookId
+    || book.id !== getIndexData(selectedResult.result.index).bookId)
   ) {
     return;
   }
 
-  services.dispatch(selectSearchResult(selectedResult));
+  if (selectedResult) {
+    services.dispatch(selectSearchResult(selectedResult));
+  }
 
-  const targetPageId = selectedResult.result.source.pageId;
-  const targetPage = assertDefined(
-    findArchiveTreeNodeById(book.tree, targetPageId),
-    'search result pointed to page that wasn\'t in book'
-  );
+  let navigation = selectNavigation.match(services.getState());
+  const targetPageId = selectedResult ? selectedResult.result.source.pageId : currentPage ? currentPage.id : null;
 
-  // currentPage may by undefined when user started a search from the 404 page
-  const page = currentPage || targetPage;
+  if (targetPageId) {
+    const targetPage = assertDefined(
+      findArchiveTreeNodeById(book.tree, targetPageId),
+      'search result pointed to page that wasn\'t in book'
+    );
 
-  const navigation = {
-    params: getBookPageUrlAndParams(book, targetPage).params,
-    route: content,
-    state : {
-      bookUid: book.id,
-      bookVersion: book.version,
-      pageUid: stripIdVersion(targetPage.id),
-    },
-  };
+    // tslint:disable-next-line: no-console
+    console.log('targetPage.id: ', targetPage.id);
 
-  const action = stripIdVersion(page.id) === stripIdVersion(targetPage.id) ? replace : push;
-  const search = queryString.stringify({
-    query,
-    target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
-  });
-  const hash = selectedResult.result.source.elementId;
+    navigation = {
+      params: getBookPageUrlAndParams(book, targetPage).params,
+      route: content,
+      state : {
+        bookUid: book.id,
+        bookVersion: book.version,
+        pageUid: stripIdVersion(targetPage.id),
+      },
+    };
+  }
 
-  services.dispatch(action(navigation, { hash, search }));
+  const action = (targetPageId && currentPage) &&
+    stripIdVersion(currentPage.id) === stripIdVersion(targetPageId) ? replace : push;
+
+  const options = selectedResult ?
+    {
+      hash: selectedResult.result.source.elementId,
+      search: queryString.stringify({
+        query,
+        target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
+      }),
+    } :
+    {
+      search: queryString.stringify({ query }),
+    };
+
+  if (navigation) {
+    services.dispatch(action(navigation, options));
+  }
 };
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
