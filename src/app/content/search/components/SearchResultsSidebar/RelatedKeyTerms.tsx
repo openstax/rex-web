@@ -53,7 +53,7 @@ const RelatedKeyTerms = () => {
         })}
       </Styled.RelatedKeyTerms>
       <Styled.SearchResultsSectionTitle>
-        <FormattedMessage id='i18n:search-results:related-key-term:title'>
+        <FormattedMessage id='i18n:search-results:bar:title'>
           {(msg) => msg}
         </FormattedMessage>
       </Styled.SearchResultsSectionTitle>
