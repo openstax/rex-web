@@ -61,12 +61,7 @@ export const currentPageResults = createSelector(
   (rawResults, page) => rawResults && page ? getSearchResultsForPage(page, rawResults) : []
 );
 
-export const book = createSelector(
-  parentSelectors.localState,
-  (state) => state.book
-);
-
 export const bookTheme = createSelector(
-  book,
+  parentSelectors.book,
   (currentBook) => hasOSWebData(currentBook) ? currentBook.theme : defaultTheme
 );
