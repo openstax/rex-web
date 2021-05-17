@@ -17,7 +17,6 @@ const RelatedKeyTerms = () => {
   const selectedResult = useSelector(selectedResultSelector);
   const book = useSelector(bookSelector);
   console.log('hits', hits)
-  console.log('selectedResult', selectedResult)
 
   const mockHits = [
     { source: { elementId: 'fs-id1171472152018', pageId: 'dd8eaea8-c24d-5499-8fca-2a6985125a69' }, highlight: { visibleContent: ['common goods', 'goods that all people may use but that are of limited supply'] } },
@@ -25,41 +24,49 @@ const RelatedKeyTerms = () => {
     { source: { elementId: 'fs-id1171472070779', pageId: 'dd8eaea8-c24d-5499-8fca-2a6985125a69' }, highlight: { visibleContent: ['direct democracy', 'a form of government where people participate directly in making government decisions instead of choosing representatives to do this for them'] } },
   ] as any as SearchResultHit[];
 
-  return book && mockHits && mockHits.length > 0 ? <Styled.RelatedKeyTerms>
-    <Styled.SearchResultsSectionTitle>
-      <FormattedMessage id='i18n:search-results:related-key-term:title'>
-        {(msg) => msg}
-      </FormattedMessage>
-    </Styled.SearchResultsSectionTitle>
-    {mockHits.map((hit, index) => {
-      const thisResult = {result: hit, highlight: index};
-      console.log('thisResult', thisResult)
-      const isSelected = isEqual(selectedResult, thisResult);
-      const target: SearchScrollTarget = {
-        elementId: thisResult.result.source.elementId,
-        index,
-        type: 'search',
-      };
-      const [term, description] = hit.highlight.visibleContent;
-      const page = findArchiveTreeNodeById(book.tree, hit.source.pageId);
+  return book && mockHits && mockHits.length > 0
+    ? <React.Fragment>
+      <Styled.RelatedKeyTerms>
+        <Styled.SearchResultsSectionTitle>
+          <FormattedMessage id='i18n:search-results:related-key-term:title'>
+            {(msg) => msg}
+          </FormattedMessage>
+        </Styled.SearchResultsSectionTitle>
+        {mockHits.map((hit, index) => {
+          const thisResult = {result: hit, highlight: index};
+          const isSelected = isEqual(selectedResult, thisResult);
+          const target: SearchScrollTarget = {
+            elementId: thisResult.result.source.elementId,
+            index,
+            type: 'search',
+          };
+          const [term, description] = hit.highlight.visibleContent;
+          const page = findArchiveTreeNodeById(book.tree, hit.source.pageId);
 
-      return <Styled.SectionContentPreview
-        selectedResult={isSelected}
-        data-testid='related-key-term-result'
-        key={index}
-        book={book}
-        page={page}
-        result={thisResult}
-        scrollTarget={target}
-        onClick={() => dispatch(closeSearchResultsMobile())}
-      >
-        <Styled.KeyTermContainer>
-          <Styled.KeyTerm>{term}</Styled.KeyTerm>
-          {description}
-        </Styled.KeyTermContainer>
-      </Styled.SectionContentPreview>;
-    })}
-  </Styled.RelatedKeyTerms> : null;
+          return <Styled.SectionContentPreview
+            selectedResult={isSelected}
+            data-testid='related-key-term-result'
+            key={index}
+            book={book}
+            page={page}
+            result={thisResult}
+            scrollTarget={target}
+            onClick={() => dispatch(closeSearchResultsMobile())}
+          >
+            <Styled.KeyTermContainer>
+              <Styled.KeyTerm>{term}</Styled.KeyTerm>
+              {description}
+            </Styled.KeyTermContainer>
+          </Styled.SectionContentPreview>;
+        })}
+      </Styled.RelatedKeyTerms>
+      <Styled.SearchResultsSectionTitle>
+        <FormattedMessage id='i18n:search-results:related-key-term:title'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.SearchResultsSectionTitle>
+    </React.Fragment>
+  : null;
 };
 
 export default RelatedKeyTerms;

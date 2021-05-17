@@ -93,11 +93,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public resultContainers = (book: Book, results: SearchResultContainer[]) => <Styled.NavOl>
     <RelatedKeyTerms />
-    <Styled.SearchResultsSectionTitle>
-      <FormattedMessage id='i18n:search-results:bar:title'>
-        {(msg) => msg}
-      </FormattedMessage>
-    </Styled.SearchResultsSectionTitle>
     <SearchResultContainers
       activeSectionRef={this.activeSection}
       selectedResult={this.props.selectedResult}
