@@ -30,7 +30,7 @@ import { State as notificationState } from './notifications/types';
 export interface AppState {
   content: contentState;
   errors: errorsState;
-  experiments: featureFlagsState;
+  featureFlags: featureFlagsState;
   head: headState;
   auth: authState;
   navigation: navigationState;
