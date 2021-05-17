@@ -1,4 +1,6 @@
 import { createSelector } from 'reselect';
+import { defaultTheme } from '../../content/components/constants';
+import { hasOSWebData } from '../../content/guards';
 import * as parentSelectors from '../selectors';
 import { countTotalHighlights, getFormattedSearchResults, getSearchResultsForPage } from './utils';
 
@@ -57,4 +59,14 @@ export const currentPageResults = createSelector(
   getRawResults,
   parentSelectors.page,
   (rawResults, page) => rawResults && page ? getSearchResultsForPage(page, rawResults) : []
+);
+
+export const book = createSelector(
+  parentSelectors.localState,
+  (state) => state.book
+);
+
+export const bookTheme = createSelector(
+  book,
+  (currentBook) => hasOSWebData(currentBook) ? currentBook.theme : defaultTheme
 );

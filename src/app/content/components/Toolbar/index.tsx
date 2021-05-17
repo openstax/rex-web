@@ -25,6 +25,7 @@ import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
 interface Props {
+  bookTheme: string;
   search: typeof requestSearch;
   query: string | null;
   clearSearch: () => void;
@@ -56,7 +57,7 @@ class Toolbar extends React.Component<Props, State> {
   public state = { query: '', queryProp: '', formSubmitted: false };
 
   public render() {
-    console.log(this.props.searchButtonStyle);
+    console.log(this.props.searchButtonStyle, this.props.bookTheme);
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
@@ -163,6 +164,7 @@ class Toolbar extends React.Component<Props, State> {
 
 export default connect(
   (state: AppState) => ({
+    bookTheme: selectSearch.bookTheme(state),
     hasSearchResults: selectSearch.hasResults(state),
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     practiceQuestionsEnabled: practiceQuestionsEnabledSelector(state),
