@@ -2,9 +2,9 @@ import { FeatureFlagVariantValue } from './types';
 
 export const experiments: { [key: string]: FeatureFlagVariantValue[] } = {
   searchButton: [
-    'originalButtonEnabled',
-    'bannerColorButtonEnabled',
-    'grayButtonEnabled',
+    'originalButton',
+    'bannerColorButton',
+    'grayButton',
   ],
 };
 

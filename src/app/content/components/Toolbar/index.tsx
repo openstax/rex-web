@@ -3,10 +3,11 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import { featureFlagsEnabled as featureFlagsEnabledSelector } from '../../../featureFlags/selectors';
+import { FeatureFlagVariantValue } from '../../../featureFlags/types';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { experimentsEnabled as experimentsEnabledSelector } from '../../../featureFlags/selectors';
 import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
 import {
   clearSearch,
@@ -34,7 +35,7 @@ interface Props {
   searchSidebarOpen: boolean;
   hasSearchResults: boolean;
   practiceQuestionsEnabled: boolean;
-  experimentsEnabled: any;
+  searchButtonStyle: FeatureFlagVariantValue | null;
 }
 
 interface State {
@@ -55,6 +56,7 @@ class Toolbar extends React.Component<Props, State> {
   public state = { query: '', queryProp: '', formSubmitted: false };
 
   public render() {
+    console.log(this.props.searchButtonStyle);
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
@@ -161,11 +163,11 @@ class Toolbar extends React.Component<Props, State> {
 
 export default connect(
   (state: AppState) => ({
-    experimentsEnabled: experimentsEnabledSelector(state),
     hasSearchResults: selectSearch.hasResults(state),
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     practiceQuestionsEnabled: practiceQuestionsEnabledSelector(state),
     query: selectSearch.query(state),
+    searchButtonStyle: featureFlagsEnabledSelector(state).searchButton,
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
     tocOpen: tocOpen(state),
   }),
