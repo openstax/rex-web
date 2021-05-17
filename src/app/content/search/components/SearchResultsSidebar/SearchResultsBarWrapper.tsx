@@ -21,6 +21,7 @@ interface ResultsSidebarProps {
   searchResultsOpen: boolean;
   book?: Book;
   totalHits: number | null;
+  totalHitsKeyTerms: number | null;
   selectedResult: SelectedResult | null;
 }
 
@@ -58,10 +59,9 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     <Styled.SearchQuery>
       <Styled.SearchIconInsideBar />
         <Styled.HeaderQuery>
-          {this.props.totalHits}{' '}
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
-            values={{total: this.props.totalHits}}
+            values={{search: this.props.totalHits, terms: this.props.totalHitsKeyTerms}}
           />
           <strong> &lsquo;{this.props.query}&rsquo;</strong>
         </Styled.HeaderQuery>

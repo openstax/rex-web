@@ -29,7 +29,7 @@ export const selectedResult = createSelector(
 
 export const hits = createSelector(
   localState,
-  (state) => state.results ? state.results.hits.hits : null
+  (state) => state.results ? state.results.hits.hits.filter((hit) => !matchKeyTermHit(hit)) : null
 );
 
 export const keyTermHits = createSelector(
@@ -40,6 +40,11 @@ export const keyTermHits = createSelector(
 export const totalHits = createSelector(
   hits,
   (hitsOrNull) => hitsOrNull ? countTotalHighlights(hitsOrNull) : null
+);
+
+export const totalHitsKeyTerms = createSelector(
+  keyTermHits,
+  (keyTermHitsOrNull) => keyTermHitsOrNull ? countTotalHighlights(keyTermHitsOrNull) : null
 );
 
 export const getRawResults = createSelector(

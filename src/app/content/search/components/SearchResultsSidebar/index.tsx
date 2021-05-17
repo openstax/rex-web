@@ -13,6 +13,7 @@ interface Props {
   query: string | null;
   hasQuery: boolean;
   totalHits: number | null;
+  totalHitsKeyTerms: number | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
   searchResultsOpen: boolean;
@@ -23,6 +24,7 @@ interface State {
   results: SearchResultContainer[] | null;
   query: string | null;
   totalHits: number | null;
+  totalHitsKeyTerms: number | null;
   selectedResult: SelectedResult | null;
 }
 
@@ -41,6 +43,7 @@ export class SearchResultsSidebar extends Component<Props, State> {
       results: props.results,
       selectedResult: props.selectedResult,
       totalHits: props.totalHits,
+      totalHitsKeyTerms: props.totalHitsKeyTerms,
     };
   }
   public state: State = {
@@ -48,6 +51,7 @@ export class SearchResultsSidebar extends Component<Props, State> {
     results: null,
     selectedResult: null,
     totalHits: null,
+    totalHitsKeyTerms: null,
   };
 
   public constructor(props: Props) {
@@ -74,6 +78,7 @@ export default connect(
     searchResultsOpen: selectSearch.searchResultsOpen(state),
     selectedResult: selectSearch.selectedResult(state),
     totalHits: selectSearch.totalHits(state),
+    totalHitsKeyTerms: selectSearch.totalHitsKeyTerms(state),
   }),
   (dispatch: Dispatch) => ({
     onClose: () => {

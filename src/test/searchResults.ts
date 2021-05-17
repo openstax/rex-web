@@ -7,8 +7,9 @@ const isArchivePage = (thing: ArchivePage | ArchiveTreeSection): thing is Archiv
   !!(thing as ArchivePage).revised;
 
 export const makeSearchResultHit = (
-  {book, page, highlights, sourceId}: {
+  {book, page, highlights, sourceId, elementType}: {
     book: ArchiveBook,
+    elementType?: SearchResultHitSourceElementTypeEnum,
     page: ArchivePage | ArchiveTreeSection,
     highlights?: string[],
     sourceId?: string,
@@ -22,7 +23,7 @@ export const makeSearchResultHit = (
   score: 2,
   source: {
     elementId: sourceId || 'fs-id1544727',
-    elementType: SearchResultHitSourceElementTypeEnum.Paragraph,
+    elementType: elementType || SearchResultHitSourceElementTypeEnum.Paragraph,
     pageId: `${stripIdVersion(page.id)}@${isArchivePage(page) ? '1.0' : getIdVersion(page.id)}`,
     pagePosition: 60,
   },
