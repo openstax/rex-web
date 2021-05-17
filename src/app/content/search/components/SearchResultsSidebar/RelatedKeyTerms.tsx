@@ -1,4 +1,3 @@
-import { SearchResultHit } from '@openstax/open-search-client';
 import { isEqual } from 'lodash/fp';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -16,15 +15,8 @@ const RelatedKeyTerms = () => {
   const hits = useSelector(keyTermHits);
   const selectedResult = useSelector(selectedResultSelector);
   const book = useSelector(bookSelector);
-  console.log('hits', hits)
 
-  const mockHits = [
-    { source: { elementId: 'fs-id1171472152018', pageId: 'dd8eaea8-c24d-5499-8fca-2a6985125a69' }, highlight: { visibleContent: ['common goods', 'goods that all people may use but that are of limited supply'] } },
-    { source: { elementId: 'fs-id1171474482696', pageId: 'dd8eaea8-c24d-5499-8fca-2a6985125a69' }, highlight: { visibleContent: ['democracy', 'a form of government where political power rests in the hands of the people'] } },
-    { source: { elementId: 'fs-id1171472070779', pageId: 'dd8eaea8-c24d-5499-8fca-2a6985125a69' }, highlight: { visibleContent: ['direct democracy', 'a form of government where people participate directly in making government decisions instead of choosing representatives to do this for them'] } },
-  ] as any as SearchResultHit[];
-
-  return book && mockHits && mockHits.length > 0
+  return book && hits && hits.length > 0
     ? <React.Fragment>
       <Styled.RelatedKeyTerms>
         <Styled.SearchResultsSectionTitle>
@@ -32,7 +24,7 @@ const RelatedKeyTerms = () => {
             {(msg) => msg}
           </FormattedMessage>
         </Styled.SearchResultsSectionTitle>
-        {mockHits.map((hit, index) => {
+        {hits.map((hit, index) => {
           const thisResult = {result: hit, highlight: index};
           const isSelected = isEqual(selectedResult, thisResult);
           const target: SearchScrollTarget = {
