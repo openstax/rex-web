@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
-import { receiveFeatureFlags } from '../app/actions';
+import { receiveExperiments } from '../app/actions';
 import { useServices } from '../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
 import { AppState, Store } from '../app/types';
@@ -79,7 +79,7 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
   // google optimize - will dispatch a feature flag on variant receieved
   window.gtag('event', 'optimize.callback', {
     callback: (idx: string, id: string) => {
-      store.dispatch(receiveFeatureFlags([id, idx]));
+      store.dispatch(receiveExperiments([id, idx]));
     },
   });
 

@@ -1,20 +1,21 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { receiveFeatureFlags } from '../../actions';
+import { receiveExperiments } from '../../actions';
 import { AnyAction } from '../../types';
-import { experimentIds } from './constants';
+import { experimentIds, experiments } from './constants';
 import { State } from './types';
 
 export const initialState: State = {};
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action): any => {
     switch (action.type) {
-        case getType(receiveFeatureFlags):
+        case getType(receiveExperiments):
             const [id, variant] = action.payload;
             if (experimentIds[id]) {
-                const experiment = experimentIds[id];
-                const idx = parseInt(variant, 10);
-                return {...state, [experiment]: idx};
+                const experimentName = experimentIds[id];
+                const variantIndex = parseInt(variant, 10);
+                const variantName = experiments[experimentName][variantIndex];
+                return {...state, [experimentName]: variantName};
             }
             return state;
         default:
