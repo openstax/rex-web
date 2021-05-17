@@ -41,8 +41,7 @@ describe('SearchResultsSidebar', () => {
   let dispatch: jest.SpyInstance;
 
   const animationEvent = () => {
-    const event = new (assertWindow().CustomEvent)('webkitAnimationEnd');
-    return event;
+    return new (assertWindow().Event)('webkitAnimationEnd');
   };
 
   beforeEach(() => {

@@ -5,6 +5,7 @@ export interface OSWebBook {
   meta: {
     slug: string;
   };
+  promote_image: BookWithOSWebData['promote_image'];
   publish_date: string | null;
   authors: Array<{
     value: {
@@ -25,7 +26,7 @@ interface OSWebResponse {
   items: OSWebBook[];
 }
 
-export const fields = 'cnx_id,authors,publish_date,cover_color,amazon_link,book_state';
+export const fields = 'cnx_id,authors,publish_date,cover_color,amazon_link,book_state,promote_image';
 
 export default (prefix: string) => {
   const baseUrl = `${prefix}/v2/pages`;
