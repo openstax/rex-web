@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { experimentsEnabled as experimentsEnabledSelector } from '../../experiments/selectors';
+import { experimentsEnabled as experimentsEnabledSelector } from '../../../featureFlags/selectors';
 import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
 import {
   clearSearch,

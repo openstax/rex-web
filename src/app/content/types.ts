@@ -1,6 +1,5 @@
 import { BuyPrintResponse } from '../../gateways/createBuyPrintConfigLoader';
 import { RouteParams, RouteState } from '../navigation/types';
-import { State as ExperimentsState } from './experiments/types';
 import { State as HighlightState } from './highlights/types';
 import { State as PracticeQuestionsState } from './practiceQuestions/types';
 import { content } from './routes';
@@ -40,7 +39,6 @@ export interface State {
   page?: Page;
   references: Array<PageReferenceMap | PageReferenceError>;
   buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
-  experiments: ExperimentsState;
 }
 
 export interface PageReferenceMap extends PageReference {

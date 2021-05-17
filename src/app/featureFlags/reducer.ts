@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { receiveExperiments } from '../../actions';
-import { AnyAction } from '../../types';
+import { receiveExperiments } from '../actions';
+import { AnyAction } from '../types';
 import { experimentIds, experiments } from './constants';
 import { State } from './types';
 
