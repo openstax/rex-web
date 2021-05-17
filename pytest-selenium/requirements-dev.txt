@@ -9,7 +9,7 @@ chromedriver-binary==91.0.4472.19.0
 cryptography==3.4.7
 Faker==8.1.2
 identify==2.2.4
-idna==3.1
+idna==2.10 # pyup: ignore
 importlib-metadata==4.0.1
 more-itertools==8.7.0
 nodeenv==1.6.0
