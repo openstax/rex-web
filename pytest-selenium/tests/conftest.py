@@ -82,7 +82,7 @@ def pytest_collection_modifyitems(config, items):
     )
     heroku_app = "herokuapp" in server
     highlighting = config.getoption("--highlighting")
-    if dev_system and not heroku_app and not highlighting:
+    if dev_system and not heroku_app and highlighting:
         return
 
     deselected = []
