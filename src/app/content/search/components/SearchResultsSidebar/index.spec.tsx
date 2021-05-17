@@ -169,7 +169,6 @@ describe('SearchResultsSidebar', () => {
             highlights: ['term', 'descritpion'],
             page: pageInChapter,
           }),
-          makeSearchResultHit({ book: archiveBook, page: pageInOtherChapter }),
         ])
       )
     );

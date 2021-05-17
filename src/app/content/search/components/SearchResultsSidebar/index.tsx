@@ -1,3 +1,4 @@
+import { SearchResultHit } from '@openstax/open-search-client';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../../types';
@@ -12,6 +13,7 @@ interface Props {
   book?: Book;
   query: string | null;
   hasQuery: boolean;
+  keyTermHits: SearchResultHit[] | null;
   totalHits: number | null;
   totalHitsKeyTerms: number | null;
   results: SearchResultContainer[] | null;
@@ -73,6 +75,7 @@ export default connect(
   (state: AppState) => ({
     book: select.book(state),
     hasQuery: !!selectSearch.query(state),
+    keyTermHits: selectSearch.keyTermHits(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
