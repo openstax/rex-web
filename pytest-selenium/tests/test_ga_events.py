@@ -543,7 +543,11 @@ def test_log_in_click_ga_event(
 
 @markers.test_case("C597377")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_new_highlight_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when content is selected."""
@@ -584,7 +588,11 @@ def test_new_highlight_ga_event(
 
 @markers.test_case("C621346")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_remove_highlight_by_using_same_color_button_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the same color is clicked."""
@@ -629,7 +637,11 @@ def test_remove_highlight_by_using_same_color_button_ga_event(
 
 @markers.test_case("C621347")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when login nudge is cancelled."""
@@ -673,7 +685,11 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
 
 @markers.test_case("C621348")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_log_in_nudge_login_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when using the inline 'Log in'."""
@@ -733,7 +749,11 @@ def test_log_in_nudge_login_ga_event(
 
 @markers.test_case("C621349")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_cancel_highlight_delete_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when hl deletion is cancelled."""
@@ -781,7 +801,11 @@ def test_cancel_highlight_delete_ga_event(
 
 @markers.test_case("C621350")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_highlight_delete_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a highlight is deleted."""
@@ -829,7 +853,11 @@ def test_highlight_delete_ga_event(
 
 @markers.test_case("C621351", "C621352")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_edit_existing_note_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when existing note is edited."""
@@ -899,7 +927,11 @@ def test_edit_existing_note_ga_event(
 
 @markers.test_case("C621353", "C621354")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_add_note_to_highlight_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when note added to a highlight."""
@@ -965,7 +997,11 @@ def test_add_note_to_highlight_ga_event(
 
 @markers.test_case("C621355")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_change_highlight_color_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a hl color is changed."""
@@ -1011,7 +1047,11 @@ def test_change_highlight_color_ga_event(
 
 @markers.test_case("C597671")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_select_text_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when content is selected."""
@@ -1052,7 +1092,11 @@ def test_select_text_ga_event(
 
 @markers.test_case("C597672")
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_inline_highlighting_login_nudge_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the log in nudge is shown."""
@@ -1097,7 +1141,11 @@ def test_inline_highlighting_login_nudge_ga_event(
 @markers.test_case("C615600")
 @markers.desktop_only
 @markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_go_to_highlight_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event for the 'Go to highlight' button.
