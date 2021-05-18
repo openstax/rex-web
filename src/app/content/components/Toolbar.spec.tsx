@@ -299,11 +299,9 @@ describe('search', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('matches snapshot when theme color and grayButton variant are set', () => {
+  it('matches snapshot when theme color and no button variant are set', () => {
     jest.spyOn(searchSelectors, 'bookTheme').mockReturnValue('blue');
-    jest.spyOn(featureFlagSelectors, 'featureFlagsEnabled').mockReturnValue({
-      searchButton: 'grayButton',
-    });
+    jest.spyOn(featureFlagSelectors, 'featureFlagsEnabled').mockReturnValue({});
 
     const component = render();
 
