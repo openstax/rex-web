@@ -27,13 +27,17 @@ export default {
   initializeWithMiddleware(): Middleware {
     return (store) => {
       Sentry.init({
+        allowUrls: [
+          /localhost/,
+          /openstax.org/,
+          /https?:\/\/rex-web(.*)?\.herokuapp\.com/,
+        ],
         beforeSend: onBeforeSend(store),
         dist: normalize(config.RELEASE_ID),
         dsn: 'https://d2a5f17c9d8f40369446ea0cfaf21e73@o484761.ingest.sentry.io/5538506',
         environment: config.DEPLOYED_ENV,
         integrations: [
           new Integrations.ExtraErrorData(),
-          new Integrations.CaptureConsole(),
           new Integrations.Dedupe(),
         ],
         release: normalize(`rex@${config.RELEASE_ID}`),
