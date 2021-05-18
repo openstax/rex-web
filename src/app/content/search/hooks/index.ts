@@ -4,17 +4,15 @@ import { push, replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
-import { actionHook, assertDefined } from '../../../utils';
+import { actionHook } from '../../../utils';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
-import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { getBookPageUrlAndParams } from '../../utils/urlUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
-import { findSearchResultHit, getFirstResult, getIndexData } from '../utils';
+import { createUpdatedNavigation, findSearchResultHit, getFirstResult, getIndexData } from '../utils';
 import trackSearch from './trackSearch';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
@@ -67,27 +65,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 
   const targetPageId = selectedResult ? selectedResult.result.source.pageId : currentPage ? currentPage.id : null;
 
-  const createUpdatedNavigation = () => {
-    if (targetPageId) {
-      const targetPage = assertDefined(
-        findArchiveTreeNodeById(book.tree, targetPageId),
-        'search result pointed to page that wasn\'t in book'
-      );
-      return {
-        params: getBookPageUrlAndParams(book, targetPage).params,
-        route: content,
-        state: {
-          bookUid: book.id,
-          bookVersion: book.version,
-          pageUid: stripIdVersion(targetPage.id),
-        },
-      };
-    }
-
-    return selectNavigation.match(state);
-  };
-
-  const navigation = createUpdatedNavigation();
+  const navigation = createUpdatedNavigation(targetPageId, book) || selectNavigation.match(state);
 
   const action = (targetPageId && currentPage) &&
     stripIdVersion(currentPage.id) === stripIdVersion(targetPageId) ? replace : push;
