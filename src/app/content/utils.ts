@@ -86,6 +86,7 @@ export const formatBookData = <O extends OSWebBook | undefined>(
     amazon_link: osWebBook.amazon_link,
     authors: osWebBook.authors,
     book_state: osWebBook.book_state,
+    promote_image: osWebBook.promote_image,
     publish_date: osWebBook.publish_date,
     slug: osWebBook.meta.slug,
     theme: osWebBook.cover_color,
