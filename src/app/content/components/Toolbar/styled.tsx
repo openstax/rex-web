@@ -133,6 +133,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
     <SearchIcon/>
   </PlainButton>;
 })`
+  height: 3.2rem;
   background: ${(props) => searchButtonStyles[props.colorSchema]};
   ${applySearchIconColor}
 
@@ -142,13 +143,12 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
   }
   ${(props) => props.desktop && theme.breakpoints.mobile(css`
     display: none;
-    height: 3.2rem;
   `)}
   ${(props) => props.mobile && css`
     display: none;
-    height: 100%;
     ${theme.breakpoints.mobile(css`
       display: block;
+      height: 100%;
     `)}
   `}
 `;
@@ -197,7 +197,7 @@ export const SearchInputWrapper = styled.form`
       background: ${theme.color.primary.gray.base};
 
       ${SearchButton} {
-        color: ${theme.color.primary.gray.foreground};
+        color: ${applySearchIconColor};
       }
     `}
   `)}

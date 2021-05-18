@@ -11,6 +11,18 @@ export const applySearchIconColor = (props: {colorSchema: SearchButtonColor}) =>
 
     :hover,
     :focus {
-        color: ${theme.color.primary[props.colorSchema].foreground}
+        color: ${theme.color.primary[props.colorSchema].foreground};
+
+        ::before {
+            content:"";
+            display: block;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 45px;
+            background-color: rgba(0, 0, 0, 0.06)
+            ;
+        }
     }
   `;
