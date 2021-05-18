@@ -82,7 +82,7 @@ export const getIndexData = (indexName: string) => {
 };
 
 export const countTotalHighlights = (results: SearchResultHit[]) => {
-  return results.reduce((count, hit) => count + (matchKeyTermHit(hit) ? 1 : hit.highlight.visibleContent.length), 0);
+  return results.reduce((count, hit) => count + hit.highlight.visibleContent.length, 0);
 };
 
 const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);

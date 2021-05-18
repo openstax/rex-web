@@ -29,7 +29,8 @@ const RelatedKeyTerms = ({ book, keyTermHits }: { book: Book, keyTermHits: Searc
         index,
         type: 'search',
       };
-      const [term, description] = hit.highlight.visibleContent;
+      const term = hit.highlight.title;
+      const description = hit.highlight.visibleContent[0];
       const page = findArchiveTreeNodeById(book.tree, hit.source.pageId);
 
       return <Styled.SectionContentPreview
@@ -42,9 +43,9 @@ const RelatedKeyTerms = ({ book, keyTermHits }: { book: Book, keyTermHits: Searc
         scrollTarget={target}
         onClick={() => dispatch(closeSearchResultsMobile())}
       >
-        <Styled.KeyTermContainer>
+        <Styled.KeyTermContainer tabIndex={-1}>
           <Styled.KeyTerm>{term}</Styled.KeyTerm>
-          {description}
+          <div dangerouslySetInnerHTML={{ __html: description }} />
         </Styled.KeyTermContainer>
       </Styled.SectionContentPreview>;
     })}
