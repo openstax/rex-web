@@ -141,6 +141,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
     ${toolbarIconStyles}
     vertical-align: middle;
   }
+
   ${(props) => props.desktop && theme.breakpoints.mobile(css`
     display: none;
   `)}

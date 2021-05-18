@@ -57,7 +57,6 @@ class Toolbar extends React.Component<Props, State> {
   public state = { query: '', queryProp: '', formSubmitted: false };
 
   public render() {
-    console.log(this.props.searchButtonStyle, this.props.bookTheme);
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
