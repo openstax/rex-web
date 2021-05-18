@@ -8,6 +8,7 @@ import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } f
 import { makeSearchResults } from '../../../test/searchResults';
 import { receiveFeatureFlags } from '../../actions';
 import * as Services from '../../context/Services';
+import * as featureFlagSelectors from '../../featureFlags/selectors';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
@@ -19,6 +20,7 @@ import {
   receiveSearchResults,
   requestSearch
 } from '../search/actions';
+import * as searchSelectors from '../search/selectors';
 import Toolbar from './Toolbar';
 
 describe('print button', () => {
@@ -284,5 +286,27 @@ describe('search', () => {
     });
 
     expect(findById('desktop-search-input').props.value).toEqual('asdf');
+  });
+
+  it('matches snapshot when theme color and bannerColorButton variant are set', () => {
+    jest.spyOn(searchSelectors, 'bookTheme').mockReturnValue('blue');
+    jest.spyOn(featureFlagSelectors, 'featureFlagsEnabled').mockReturnValue({
+      searchButton: 'bannerColorButton',
+    });
+
+    const component = render();
+
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('matches snapshot when theme color and grayButton variant are set', () => {
+    jest.spyOn(searchSelectors, 'bookTheme').mockReturnValue('blue');
+    jest.spyOn(featureFlagSelectors, 'featureFlagsEnabled').mockReturnValue({
+      searchButton: 'grayButton',
+    });
+
+    const component = render();
+
+    expect(component.toJSON()).toMatchSnapshot();
   });
 });
