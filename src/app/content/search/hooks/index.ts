@@ -65,28 +65,29 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     services.dispatch(selectSearchResult(selectedResult));
   }
 
-  let navigation = selectNavigation.match(services.getState());
   const targetPageId = selectedResult ? selectedResult.result.source.pageId : currentPage ? currentPage.id : null;
 
-  if (targetPageId) {
-    const targetPage = assertDefined(
-      findArchiveTreeNodeById(book.tree, targetPageId),
-      'search result pointed to page that wasn\'t in book'
-    );
+  const createUpdatedNavigation = () => {
+    if (targetPageId) {
+      const targetPage = assertDefined(
+        findArchiveTreeNodeById(book.tree, targetPageId),
+        'search result pointed to page that wasn\'t in book'
+      );
+      return {
+        params: getBookPageUrlAndParams(book, targetPage).params,
+        route: content,
+        state: {
+          bookUid: book.id,
+          bookVersion: book.version,
+          pageUid: stripIdVersion(targetPage.id),
+        },
+      };
+    }
 
-    // tslint:disable-next-line: no-console
-    console.log('targetPage.id: ', targetPage.id);
+    return selectNavigation.match(state);
+  };
 
-    navigation = {
-      params: getBookPageUrlAndParams(book, targetPage).params,
-      route: content,
-      state : {
-        bookUid: book.id,
-        bookVersion: book.version,
-        pageUid: stripIdVersion(targetPage.id),
-      },
-    };
-  }
+  const navigation = createUpdatedNavigation();
 
   const action = (targetPageId && currentPage) &&
     stripIdVersion(currentPage.id) === stripIdVersion(targetPageId) ? replace : push;

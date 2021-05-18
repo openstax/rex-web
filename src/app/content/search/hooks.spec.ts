@@ -197,13 +197,6 @@ describe('hooks', () => {
       hook = receiveSearchHook(helpers);
     });
 
-    it('noops if there are no results', () => {
-      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      store.dispatch(receivePage({ ...page, references: [] }));
-      go();
-      expect(dispatch).not.toHaveBeenCalled();
-    });
-
     it('noops if search, page, and selected search match intended already', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
@@ -237,6 +230,15 @@ describe('hooks', () => {
         },
       ]);
       expect(dispatch).not.toHaveBeenCalled();
+    });
+
+    it('noops if page is undefined and search query has no hits', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(requestSearch('asdf'));
+      go([]);
+
+      expect(dispatch).not.toHaveBeenCalledWith(selectSearchResult);
+      expect(dispatch).not.toHaveBeenCalledWith(replace);
     });
 
     it('throws if index string is improperly formatted', () => {
@@ -310,7 +312,7 @@ describe('hooks', () => {
       );
     });
 
-    it('dispatches REPLACE with search query when page is undefined', () => {
+    it('dispatches PUSH with search query when page is undefined', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(requestSearch('asdf'));
       go([hit]);
@@ -319,6 +321,33 @@ describe('hooks', () => {
         query: 'asdf',
         target: JSON.stringify({ type: 'search', index: 0 }),
       });
+      expect(dispatch).toHaveBeenCalledWith(
+        push({
+          params: expect.anything(),
+          route: content,
+          state: {
+            bookUid: book.id,
+            bookVersion: book.version,
+            pageUid: page.id,
+          },
+        }, {
+          hash: hit.source.elementId,
+          search,
+        })
+      );
+    });
+
+    it('dispatches REPLACE with search query that has no hits', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('asdf'));
+      go([]);
+
+      const search = queryString.stringify({
+        query: 'asdf',
+      });
+
+      expect(dispatch).not.toHaveBeenCalledWith(selectSearchResult);
       expect(dispatch).toHaveBeenCalledWith(
         replace({
           params: expect.anything(),
@@ -329,7 +358,6 @@ describe('hooks', () => {
             pageUid: page.id,
           },
         }, {
-          hash: hit.source.elementId,
           search,
         })
       );
