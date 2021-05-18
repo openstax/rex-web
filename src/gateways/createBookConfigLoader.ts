@@ -2,16 +2,10 @@ import { BOOKS } from '../config';
 import { acceptStatus } from '../helpers/fetch';
 import Sentry, { Severity } from '../helpers/Sentry';
 
-export interface BookVersion {
-  defaultVersion: string;
-}
-
-interface BookConfig {
-  [key: string]: BookVersion;
-}
+export type BookVersion = typeof BOOKS[0];
 
 interface ReleaseJsonStructure {
-  books: BookConfig;
+  books: typeof BOOKS;
   code: string;
   id: string;
 }
