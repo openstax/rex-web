@@ -99,6 +99,10 @@ class Toolbar extends React.Component<Props, State> {
     const hideFromFocus = this.props.tocOpen === true
       || (this.props.tocOpen === null && !this.props.searchSidebarOpen);
 
+    const searchButtonColor = this.props.searchButtonStyle === 'grayButton' ? 'gray' : (
+      this.props.searchButtonStyle === 'bannerColorButton' ? this.props.bookTheme : ''
+    );
+
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
         <Styled.SearchPrintWrapper>
@@ -106,18 +110,21 @@ class Toolbar extends React.Component<Props, State> {
             active={this.props.mobileToolbarOpen}
             onSubmit={onSubmit}
             data-testid='desktop-search'
+            colorSchema={searchButtonColor}
           >
             <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
               onChange={onChange}
-              value={this.state.query}/>
+              value={this.state.query}
+            />
             <Styled.SearchButton mobile
               type='button'
               ariaLabelId='i18n:toolbar:search:toggle'
               data-analytics-label='Search this book'
               data-testid='mobile-toggle'
               onClick={toggleMobile}
+              colorSchema={searchButtonColor}
             />
-            {!this.state.formSubmitted && <Styled.SearchButton desktop />}
+            {!this.state.formSubmitted && <Styled.SearchButton desktop colorSchema={searchButtonColor} />}
             {this.state.formSubmitted &&
               <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
             }
@@ -146,7 +153,12 @@ class Toolbar extends React.Component<Props, State> {
                 <Styled.InnerText>{msg}</Styled.InnerText>
               </Styled.SeachResultsTextButton>}
             </FormattedMessage>}
-          <Styled.SearchInputWrapper action='#' onSubmit={onSubmit} data-testid='mobile-search'>
+          <Styled.SearchInputWrapper
+            action='#'
+            onSubmit={onSubmit}
+            data-testid='mobile-search'
+            colorSchema={searchButtonColor}
+          >
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
               onChange={onChange} value={this.state.query} />

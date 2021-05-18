@@ -13,6 +13,7 @@ import {
   textStyle
 } from '../../../components/Typography';
 import theme from '../../../theme';
+import { searchButtonStyles } from '../../constants';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -27,6 +28,7 @@ import {
   toolbarSearchInputMobileHeight
 } from '../constants';
 import { OpenSidebarControl } from '../SidebarControl';
+import { applySearchIconColor } from '../utils/applySearchIconColor';
 import { disablePrint } from '../utils/disablePrint';
 import { toolbarIconStyles } from './iconStyles';
 
@@ -131,11 +133,14 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
     <SearchIcon/>
   </PlainButton>;
 })`
+  height: 3.2rem;
+  background: ${(props) => searchButtonStyles[props.colorSchema]};
+  ${applySearchIconColor}
+
   > svg {
     ${toolbarIconStyles}
     vertical-align: middle;
   }
-
   ${(props) => props.desktop && theme.breakpoints.mobile(css`
     display: none;
   `)}

@@ -132,3 +132,6 @@ export interface ArchivePage {
 }
 
 export type ArchiveContent = ArchivePage | ArchiveBook;
+
+// tslint:disable-next-line: max-line-length
+export type SearchButtonColor = 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red' | 'gray' | 'transparent';
