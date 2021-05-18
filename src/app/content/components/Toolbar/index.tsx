@@ -113,8 +113,7 @@ class Toolbar extends React.Component<Props, State> {
           >
             <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
               onChange={onChange}
-              value={this.state.query}
-            />
+              value={this.state.query}/>
             <Styled.SearchButton mobile
               type='button'
               ariaLabelId='i18n:toolbar:search:toggle'

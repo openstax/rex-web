@@ -28,6 +28,6 @@ const getBaseColors = (colors: {[key: string]: {[key: string]: string}}) => {
 };
 
 export const searchButtonStyles: {[key: string]: string} = {
-  gray: '#5D6062',
+  gray: theme.color.primary.gray.base,
   ...getBaseColors(theme.color.primary) as {},
 };
