@@ -156,8 +156,8 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
             "highlight": 0,
             "result": Object {
               "highlight": Object {
+                "title": "term1 - selected",
                 "visibleContent": Array [
-                  "term1 - selected",
                   "descritpion 1",
                 ],
               },
@@ -175,27 +175,34 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       >
         <div
           className="styled__KeyTermContainer-as3fh1-22 jZVQmO"
+          tabIndex={-1}
         >
           <span
             className="styled__KeyTerm-as3fh1-24 iJtAOL"
           >
             term1 - selected
           </span>
-          descritpion 1
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "descritpion 1",
+              }
+            }
+          />
         </div>
       </a>
       <a
         className="styled__SectionContentPreview-as3fh1-11 fhVukS"
         data-testid="related-key-term-result"
-        href="books/book-slug-1/pages/10-test-page-6?query=term1&target=%7B%22index%22%3A1%2C%22type%22%3A%22search%22%7Dfs-id1544727"
+        href="books/book-slug-1/pages/10-test-page-6?query=term1&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
         onClick={[Function]}
         result={
           Object {
-            "highlight": 1,
+            "highlight": 0,
             "result": Object {
               "highlight": Object {
+                "title": "term2",
                 "visibleContent": Array [
-                  "term2",
                   "descritpion 2",
                 ],
               },
@@ -213,13 +220,20 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       >
         <div
           className="styled__KeyTermContainer-as3fh1-22 jZVQmO"
+          tabIndex={-1}
         >
           <span
             className="styled__KeyTerm-as3fh1-24 iJtAOL"
           >
             term2
           </span>
-          descritpion 2
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "descritpion 2",
+              }
+            }
+          />
         </div>
       </a>
     </div>
@@ -305,6 +319,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
                   "highlight": 0,
                   "result": Object {
                     "highlight": Object {
+                      "title": undefined,
                       "visibleContent": Array [
                         "cool <strong>highlight</strong> bruh",
                       ],
@@ -437,6 +452,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             "highlight": 0,
             "result": Object {
               "highlight": Object {
+                "title": undefined,
                 "visibleContent": Array [
                   "cool <strong>highlight</strong> bruh",
                 ],
@@ -541,6 +557,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                   "highlight": 0,
                   "result": Object {
                     "highlight": Object {
+                      "title": undefined,
                       "visibleContent": Array [
                         "cool <strong>highlight</strong> bruh",
                       ],
@@ -647,6 +664,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                   "highlight": 0,
                   "result": Object {
                     "highlight": Object {
+                      "title": undefined,
                       "visibleContent": Array [
                         "cool <strong>highlight</strong> bruh",
                       ],

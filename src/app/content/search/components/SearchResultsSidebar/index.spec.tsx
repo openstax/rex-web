@@ -134,8 +134,9 @@ describe('SearchResultsSidebar', () => {
     const selectedResult = makeSearchResultHit({
       book: archiveBook,
       elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
-      highlights: ['term1 - selected', 'descritpion 1'],
+      highlights: ['descritpion 1'],
       page,
+      title: 'term1 - selected',
     });
     store.dispatch(
       receiveSearchResults(
@@ -144,8 +145,9 @@ describe('SearchResultsSidebar', () => {
           makeSearchResultHit({
             book: archiveBook,
             elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
-            highlights: ['term2', 'descritpion 2'],
+            highlights: ['descritpion 2'],
             page: pageInChapter,
+            title: 'term2',
           }),
           makeSearchResultHit({ book: archiveBook, page: pageInOtherChapter }),
         ])
@@ -166,8 +168,9 @@ describe('SearchResultsSidebar', () => {
           makeSearchResultHit({
             book: archiveBook,
             elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
-            highlights: ['term', 'descritpion'],
+            highlights: ['descritpion'],
             page: pageInChapter,
+            title: 'term',
           }),
         ])
       )
