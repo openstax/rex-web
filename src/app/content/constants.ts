@@ -27,7 +27,4 @@ const getBaseColors = (colors: {[key: string]: {[key: string]: string}}) => {
   return bases;
 };
 
-export const searchButtonStyles: {[key: string]: string} = {
-  gray: theme.color.primary.gray.base,
-  ...getBaseColors(theme.color.primary) as {},
-};
+export const searchButtonStyles: {[key: string]: string} = getBaseColors(theme.color.primary);
