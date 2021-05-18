@@ -20,11 +20,10 @@ export const highlightStyles: Array<{label: HighlightColorEnum, passive: string,
   {label: HighlightColorEnum.Pink, passive: '#ffc5e1', focused: '#de017e'},
 ];
 
-const getBaseColors = (colors: {[key: string]: {[key: string]: string}}) => {
+export const getBaseColors = () => {
   const bases: { [key: string]: string } = {};
+  const primaryColors: {[key: string]: {[key: string]: string}} = theme.color.primary;
 
-  Object.keys(colors).forEach((color) => {bases[color] = colors[color].base; });
+  Object.keys(primaryColors).forEach((color) => {bases[color] = primaryColors[color].base; });
   return bases;
 };
-
-export const searchButtonStyles: {[key: string]: string} = getBaseColors(theme.color.primary);
