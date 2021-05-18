@@ -6,6 +6,9 @@ import { Book } from '../src/app/content/types';
 import { getBookPageUrlAndParams } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { assertDefined } from '../src/app/utils';
+import config from '../src/config';
+import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
 import progressBar from './utils/progressBar';
 
@@ -142,10 +145,13 @@ async function run() {
     devtools: devTools,
     headless: showBrowser === undefined,
   });
+  const archiveLoader = createArchiveLoader(`${archiveUrl ? archiveUrl : rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const books = await findBooks({
-    archiveUrl,
+    archiveLoader,
     bookId,
     bookVersion,
+    osWebLoader,
     rootUrl: assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port'),
   });
 
