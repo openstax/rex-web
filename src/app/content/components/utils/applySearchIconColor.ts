@@ -1,9 +1,9 @@
 import { css } from 'styled-components/macro';
 import theme from '../../../theme';
-import { SearchButtonColor } from '../../types';
+import { BookWithOSWebData } from '../../types';
 import { toolbarIconColor } from '../constants';
 
-export const applySearchIconColor = (props: {colorSchema: SearchButtonColor}) =>
+export const applySearchIconColor = (props: {colorSchema: BookWithOSWebData['theme']}) =>
   props.colorSchema ? css`
     color: ${theme.color.primary[props.colorSchema].foreground};
 

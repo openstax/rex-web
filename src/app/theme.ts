@@ -87,14 +87,6 @@ const color = {
       foreground: textColors.black,
       foregroundHover: greyColors.light,
     },
-    // tslint:disable-next-line: object-literal-key-quotes
-    get baseColors() {
-      const bases: { [key: string]: string } = {};
-      const primaryColors: {[key: string]: {[key: string]: string}} = color.primary;
-
-      Object.keys(primaryColors).forEach((primaryColor) => {bases[primaryColor] = primaryColors[primaryColor].base; });
-      return bases;
-    },
   },
   secondary: {
     deepGreen: {base: '#0c9372'},

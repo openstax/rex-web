@@ -13,6 +13,7 @@ import {
   textStyle
 } from '../../../components/Typography';
 import theme from '../../../theme';
+import { primaryBaseColors } from '../../constants';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -133,7 +134,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
   </PlainButton>;
 })`
   height: 3.2rem;
-  background: ${(props) => theme.color.primary.baseColors[props.colorSchema]};
+  background: ${(props) => primaryBaseColors()[props.colorSchema]};
   ${applySearchIconColor}
 
   > svg {

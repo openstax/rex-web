@@ -1,4 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import theme from '../theme';
 
 export const studyGuidesFeatureFlag = 'studyGuidesEnabled';
 export const practiceQuestionsFeatureFlag = 'practiceQuestionsEnabled';
@@ -18,3 +19,11 @@ export const highlightStyles: Array<{label: HighlightColorEnum, passive: string,
   {label: HighlightColorEnum.Purple, passive: '#cbcfff', focused: '#545ec8'},
   {label: HighlightColorEnum.Pink, passive: '#ffc5e1', focused: '#de017e'},
 ];
+
+export const primaryBaseColors = () => {
+  const bases: { [key: string]: string } = {};
+  const primaryColors: {[key: string]: {[key: string]: string}} = theme.color.primary;
+
+  Object.keys(primaryColors).forEach((color) => {bases[color] = primaryColors[color].base; });
+  return bases;
+};
