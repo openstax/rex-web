@@ -6,8 +6,8 @@ import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } from '../../../test/reactutils';
 import { makeSearchResults } from '../../../test/searchResults';
-import { receiveFeatureFlags } from '../../actions';
 import * as Services from '../../context/Services';
+import { receiveFeatureFlags } from '../../featureFlags/actions';
 import * as featureFlagSelectors from '../../featureFlags/selectors';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
@@ -20,7 +20,7 @@ import {
   receiveSearchResults,
   requestSearch
 } from '../search/actions';
-import * as searchSelectors from '../search/selectors';
+import * as contentSelectors from '../selectors';
 import Toolbar from './Toolbar';
 
 describe('print button', () => {
@@ -289,8 +289,8 @@ describe('search', () => {
   });
 
   it('matches snapshot when theme color and bannerColorButton variant are set', () => {
-    jest.spyOn(searchSelectors, 'bookTheme').mockReturnValue('blue');
-    jest.spyOn(featureFlagSelectors, 'featureFlagsEnabled').mockReturnValue({
+    jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('blue');
+    jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({
       searchButton: 'bannerColorButton',
     });
 
@@ -300,8 +300,8 @@ describe('search', () => {
   });
 
   it('matches snapshot when theme color and no button variant are set', () => {
-    jest.spyOn(searchSelectors, 'bookTheme').mockReturnValue('blue');
-    jest.spyOn(featureFlagSelectors, 'featureFlagsEnabled').mockReturnValue({});
+    jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('blue');
+    jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({});
 
     const component = render();
 
