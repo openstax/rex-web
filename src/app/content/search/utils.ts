@@ -4,7 +4,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
 import { AnyMatch } from '../../navigation/types';
-import { assertDefined, getAllRegexMatches } from '../../utils';
+import { getAllRegexMatches } from '../../utils';
 import attachHighlight from '../components/utils/attachHighlight';
 import { content } from '../routes';
 import { ArchiveTree, Book, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
@@ -184,19 +184,18 @@ export const findSearchResultHit = (
   return results.find((result) => result.source.elementId === target.elementId);
 };
 
-export const createRouteMatchOptions = (pageId: string, book: Book): AnyMatch => {
-  const page = assertDefined(
-    findArchiveTreeNodeById(book.tree, pageId),
-    'search result pointed to page that wasn\'t in book'
-  );
+export const createRouteMatchOptions = (pageId: string, book: Book): AnyMatch | undefined => {
+  const page = findArchiveTreeNodeById(book.tree, pageId);
 
-  return {
-    params: getBookPageUrlAndParams(book, page).params,
-    route: content,
-    state: {
-      bookUid: book.id,
-      bookVersion: book.version,
-      pageUid: stripIdVersion(page.id),
-    },
-  };
+  return page ?
+    {
+      params: getBookPageUrlAndParams(book, page).params,
+      route: content,
+      state: {
+        bookUid: book.id,
+        bookVersion: book.version,
+        pageUid: stripIdVersion(page.id),
+      },
+    }
+    : undefined;
 };

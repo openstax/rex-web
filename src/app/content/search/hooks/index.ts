@@ -63,7 +63,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     services.dispatch(selectSearchResult(selectedResult));
   }
 
-  const targetPageId = selectedResult ? selectedResult.result.source.pageId : currentPage ? currentPage.id : null;
+  const targetPageId = selectedResult?.result.source.pageId || currentPage?.id;
 
   const navigation = targetPageId ? createRouteMatchOptions(targetPageId, book) : selectNavigation.match(state);
 
