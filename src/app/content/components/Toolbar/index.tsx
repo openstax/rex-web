@@ -3,7 +3,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { featureFlagsEnabled as featureFlagsEnabledSelector } from '../../../featureFlags/selectors';
+import * as selectFeatureFlags from '../../../featureFlags/selectors';
 import { FeatureFlagVariantValue } from '../../../featureFlags/types';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
@@ -16,6 +16,7 @@ import {
   requestSearch,
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
+import * as selectContent from '../../selectors';
 import { tocOpen } from '../../selectors';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
@@ -174,12 +175,12 @@ class Toolbar extends React.Component<Props, State> {
 
 export default connect(
   (state: AppState) => ({
-    bookTheme: selectSearch.bookTheme(state),
+    bookTheme: selectContent.bookTheme(state),
     hasSearchResults: selectSearch.hasResults(state),
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     practiceQuestionsEnabled: practiceQuestionsEnabledSelector(state),
     query: selectSearch.query(state),
-    searchButtonStyle: featureFlagsEnabledSelector(state).searchButton,
+    searchButtonStyle: selectFeatureFlags.enabled(state).searchButton,
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
     tocOpen: tocOpen(state),
   }),
