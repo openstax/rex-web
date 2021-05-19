@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
-import { receiveExperiments } from '../app/actions';
 import { useServices } from '../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
+import { receiveExperiments } from '../app/featureFlags/actions';
 import { AppState, Store } from '../app/types';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 import * as clickButton from './analyticsEvents/clickButton';
