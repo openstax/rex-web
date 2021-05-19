@@ -1,4 +1,4 @@
-import * as actions from '../actions';
+import * as actions from '../featureFlags/actions';
 import reducer, { initialState } from './reducer';
 
 describe('feature flags reducer', () => {
