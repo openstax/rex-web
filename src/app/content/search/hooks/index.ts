@@ -12,7 +12,7 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
-import { createUpdatedNavigation, findSearchResultHit, getFirstResult, getIndexData } from '../utils';
+import { createRouteMatchOptions, findSearchResultHit, getFirstResult, getIndexData } from '../utils';
 import trackSearch from './trackSearch';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
@@ -65,7 +65,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 
   const targetPageId = selectedResult ? selectedResult.result.source.pageId : currentPage ? currentPage.id : null;
 
-  const navigation = createUpdatedNavigation(targetPageId, book) || selectNavigation.match(state);
+  const navigation = targetPageId ? createRouteMatchOptions(targetPageId, book) : selectNavigation.match(state);
 
   const action = (targetPageId && currentPage) &&
     stripIdVersion(currentPage.id) === stripIdVersion(targetPageId) ? replace : push;

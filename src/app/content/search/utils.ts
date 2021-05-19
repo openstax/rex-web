@@ -3,6 +3,7 @@ import { SearchResult, SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
+import { AnyMatch } from '../../navigation/types';
 import { assertDefined, getAllRegexMatches } from '../../utils';
 import attachHighlight from '../components/utils/attachHighlight';
 import { content } from '../routes';
@@ -183,20 +184,19 @@ export const findSearchResultHit = (
   return results.find((result) => result.source.elementId === target.elementId);
 };
 
-export const createUpdatedNavigation = (targetPageId: string | null, book: Book) => {
-  if (!targetPageId) { return null; }
-
-  const targetPage = assertDefined(
-    findArchiveTreeNodeById(book.tree, targetPageId),
+export const createRouteMatchOptions = (pageId: string, book: Book): AnyMatch => {
+  const page = assertDefined(
+    findArchiveTreeNodeById(book.tree, pageId),
     'search result pointed to page that wasn\'t in book'
   );
+
   return {
-    params: getBookPageUrlAndParams(book, targetPage).params,
+    params: getBookPageUrlAndParams(book, page).params,
     route: content,
     state: {
       bookUid: book.id,
       bookVersion: book.version,
-      pageUid: stripIdVersion(targetPage.id),
+      pageUid: stripIdVersion(page.id),
     },
   };
 };
