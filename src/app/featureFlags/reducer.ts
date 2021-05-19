@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { receiveExperiments, receiveFeatureFlags } from '../actions';
+import { receiveExperiments, receiveFeatureFlags } from '../featureFlags/actions';
 import { AnyAction } from '../types';
 import { experimentIds, experiments } from './constants';
 import { State } from './types';
@@ -20,7 +20,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): any =
             return state;
         case getType(receiveFeatureFlags):
             const flags: { [key: string]: boolean } = {};
-            action.payload.forEach((flag) => flags[flag] = true);
+            action.payload.forEach((flag: string) => flags[flag] = true);
             return {...state, ...flags};
         default:
             return state;
