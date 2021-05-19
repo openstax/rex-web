@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { receiveExperiments } from '../actions';
+import { receiveExperiments, receiveFeatureFlags } from '../actions';
 import { AnyAction } from '../types';
 import { experimentIds, experiments } from './constants';
 import { State } from './types';
@@ -11,13 +11,17 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): any =
     switch (action.type) {
         case getType(receiveExperiments):
             const [id, variant] = action.payload;
-            if (experimentIds[id]) {
+            if (variant && experimentIds[id]) {
                 const experimentName = experimentIds[id];
                 const variantIndex = parseInt(variant, 10);
                 const variantName = experiments[experimentName][variantIndex];
                 return {...state, [experimentName]: variantName};
             }
             return state;
+        case getType(receiveFeatureFlags):
+            const flags: { [key: string]: boolean } = {};
+            action.payload.forEach((flag) => flags[flag] = true);
+            return {...state, ...flags};
         default:
             return state;
     }

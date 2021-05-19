@@ -8,7 +8,7 @@ export const experiments: { [key: string]: FeatureFlagVariantValue[] } = {
   ],
 };
 
-export const experimentIds: { [key: string]: string } = {
+export const experimentIds: { [key: string]: keyof typeof experiments } = {
   '473Jeu7ORta1TTuJ5UjL6w': 'searchButton', // prod
   'OCCkMMCZSwW87szzpniCow': 'searchButton', // dev
 };
