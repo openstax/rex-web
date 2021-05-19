@@ -65,8 +65,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 
   const targetPageId = selectedResult?.result.source.pageId || currentPage?.id;
 
-  const navigation = targetPageId ? createRouteMatchOptions(targetPageId, book) : selectNavigation.match(state);
-
   const action = (targetPageId && currentPage) &&
     stripIdVersion(currentPage.id) === stripIdVersion(targetPageId) ? replace : push;
 
@@ -82,6 +80,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
       search: queryString.stringify({ query }),
     };
 
+  const navigation = targetPageId ? createRouteMatchOptions(targetPageId, book) : selectNavigation.match(state);
   if (navigation) {
     services.dispatch(action(navigation, options));
   }

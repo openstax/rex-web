@@ -186,16 +186,15 @@ export const findSearchResultHit = (
 
 export const createRouteMatchOptions = (pageId: string, book: Book): AnyMatch | undefined => {
   const page = findArchiveTreeNodeById(book.tree, pageId);
+  if (!page) { return; }
 
-  return page ?
-    {
-      params: getBookPageUrlAndParams(book, page).params,
-      route: content,
-      state: {
-        bookUid: book.id,
-        bookVersion: book.version,
-        pageUid: stripIdVersion(page.id),
-      },
-    }
-    : undefined;
+  return {
+    params: getBookPageUrlAndParams(book, page).params,
+    route: content,
+    state: {
+      bookUid: book.id,
+      bookVersion: book.version,
+      pageUid: stripIdVersion(page.id),
+    },
+  };
 };
