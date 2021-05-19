@@ -1,6 +1,6 @@
 import { FeatureFlagVariantValue } from './types';
 
-export const experiments: { [key: string]: FeatureFlagVariantValue[] } = {
+export const experiments: Record<string, FeatureFlagVariantValue[]> = {
   searchButton: [
     'originalButton',
     'bannerColorButton',
