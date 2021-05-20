@@ -1,4 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import mapValues from 'lodash/fp/mapValues';
 import theme from '../theme';
 
 export const studyGuidesFeatureFlag = 'studyGuidesEnabled';
@@ -20,10 +21,4 @@ export const highlightStyles: Array<{label: HighlightColorEnum, passive: string,
   {label: HighlightColorEnum.Pink, passive: '#ffc5e1', focused: '#de017e'},
 ];
 
-export const primaryBaseColors = () => {
-  const bases: { [key: string]: string } = {};
-  const primaryColors: {[key: string]: {[key: string]: string}} = theme.color.primary;
-
-  Object.keys(primaryColors).forEach((color) => {bases[color] = primaryColors[color].base; });
-  return bases;
-};
+export const primaryBaseColors = () => mapValues((color) => color.base, theme.color.primary);
