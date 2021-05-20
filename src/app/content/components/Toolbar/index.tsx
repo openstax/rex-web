@@ -101,7 +101,7 @@ class Toolbar extends React.Component<Props, State> {
       || (this.props.tocOpen === null && !this.props.searchSidebarOpen);
 
     const searchButtonColor = this.props.searchButtonStyle === 'grayButton' ? ('gray' as BookWithOSWebData['theme']) : (
-      this.props.searchButtonStyle === 'bannerColorButton' ? this.props.bookTheme : ''
+      this.props.searchButtonStyle === 'bannerColorButton' ? this.props.bookTheme : null
     );
 
     return <Styled.BarWrapper data-analytics-region='toolbar'>
