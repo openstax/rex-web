@@ -18,6 +18,7 @@ import {
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import { tocOpen } from '../../selectors';
+import { BookWithOSWebData } from '../../types';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
@@ -26,7 +27,7 @@ import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
 interface Props {
-  bookTheme: string;
+  bookTheme: BookWithOSWebData['theme'];
   search: typeof requestSearch;
   query: string | null;
   clearSearch: () => void;
@@ -99,7 +100,7 @@ class Toolbar extends React.Component<Props, State> {
     const hideFromFocus = this.props.tocOpen === true
       || (this.props.tocOpen === null && !this.props.searchSidebarOpen);
 
-    const searchButtonColor = this.props.searchButtonStyle === 'grayButton' ? 'gray' : (
+    const searchButtonColor = this.props.searchButtonStyle === 'grayButton' ? ('gray' as BookWithOSWebData['theme']) : (
       this.props.searchButtonStyle === 'bannerColorButton' ? this.props.bookTheme : ''
     );
 
