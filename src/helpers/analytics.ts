@@ -79,11 +79,10 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
   // google optimize - will dispatch a feature flag on variant receieved
   if (window.gtag && window.dataLayer) {
     window.gtag('event', 'optimize.callback', {
-    callback: (idx: string, id: string) => {
-      store.dispatch(receiveExperiments([id, idx]));
-    },
-  });
-
+      callback: (idx: string, id: string) => {
+        store.dispatch(receiveExperiments([id, idx]));
+      },
+    });
     window.dataLayer.push({event: 'optimize.activate'});
   }
 
