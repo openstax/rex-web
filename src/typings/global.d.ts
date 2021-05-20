@@ -54,7 +54,7 @@ declare global {
     };
     MathJax: any;
     ga: UniversalAnalytics.ga;
-    dataLayer: any;
+    dataLayer:  object[];
     gtag: any;
   }
 

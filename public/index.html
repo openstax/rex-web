@@ -32,7 +32,7 @@
 
     <!-- Google Optmize (declaring gtag helper function) -->
     <script>
-      function gtag() {console.log('gtag args: ', arguments);dataLayer.push(arguments);}
+      function gtag() {console.log('gtag args: ', arguments);if(dataLayer)dataLayer.push(arguments);}
     </script>
     <!-- End Google Optimize -->
 
