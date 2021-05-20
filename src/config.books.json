@@ -1,6 +1,6 @@
 {
   "13ac107a-f15f-49d2-97e8-60ab2e3b519c": {
-    "defaultVersion": "32.2"
+    "defaultVersion": "33.3"
   },
   "9d8df601-4f12-4ac1-8224-b450bf739e5f": {
     "defaultVersion": "6.7"
@@ -72,7 +72,7 @@
     "defaultVersion": "15.7"
   },
   "30189442-6998-4686-ac05-ed152b91b9de": {
-    "defaultVersion": "25.18"
+    "defaultVersion": "25.23"
   },
   "e42bd376-624b-4c0f-972f-e0c57998e765": {
     "defaultVersion": "9.13"
@@ -177,6 +177,6 @@
     "defaultVersion": "14.1"
   },
   "1b4ee0ce-ee89-44fa-a5e7-a0db9f0c94b1": {
-    "defaultVersion": "6.3"
+    "defaultVersion": "6.21"
   }
 }
