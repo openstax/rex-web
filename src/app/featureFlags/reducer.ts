@@ -19,9 +19,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): any =
             }
             return state;
         case getType(receiveFeatureFlags):
-            const flags: { [key: string]: boolean } = {};
-            action.payload.forEach((flag: string) => flags[flag] = true);
-            return {...state, ...flags};
+            return action.payload.reduce((result, flag) => ({...result, [flag]: true}), state);
         default:
             return state;
     }
