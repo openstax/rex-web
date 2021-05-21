@@ -9,6 +9,7 @@ import {
   contentPage,
   contentPageShort,
   contentPageWithObjectives,
+  emptyPage,
   eobPage,
   eocPage,
   mockBook,
@@ -58,6 +59,14 @@ describe('getDescription', () => {
   it('makes a description for end-of-book page', () => {
     archiveLoader.mockPage(book, eobPage, 'page-slug');
     const description = getPageDescription(services, book, eobPage);
+    expect(description).toMatchInlineSnapshot(
+      `"This free textbook is an OpenStax resource written to increase student access to high-quality, peer-reviewed learning materials."`
+    );
+  });
+
+  it('makes a description for a page with no content', () => {
+    archiveLoader.mockPage(book, emptyPage, 'page-slug');
+    const description = getPageDescription(services, book, emptyPage);
     expect(description).toMatchInlineSnapshot(
       `"This free textbook is an OpenStax resource written to increase student access to high-quality, peer-reviewed learning materials."`
     );

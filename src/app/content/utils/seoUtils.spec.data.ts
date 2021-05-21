@@ -64,6 +64,16 @@ export const mockOsWebBook: OSWebBook = {
   amazon_link: '',
 };
 
+export const emptyPage = {
+  title: 'Introduction',
+  abstract: '',
+  content: '<html xmlns="http://www.w3.org/1999/xhtml"><body></body></html>',
+  id: '3',
+  version: '1.0',
+  revised: '',
+  slug: 'introduction',
+};
+
 export const mockBook = {
   title: 'JavaScript Testing',
   id: '15',

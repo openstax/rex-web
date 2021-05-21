@@ -53,7 +53,7 @@ const removeExcludedContent = (node: Element) => {
     '[role="doc-noteref"]',
   ];
 
-  const excludedContent = node.querySelectorAll(excludedSelectors.join(',')) || [];
+  const excludedContent = node.querySelectorAll(excludedSelectors.join(','));
 
   for (const item of Array.from(excludedContent)) {
     item.remove();
