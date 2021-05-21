@@ -2,7 +2,7 @@ import { BOOKS } from '../config';
 import { acceptStatus } from '../helpers/fetch';
 import Sentry, { Severity } from '../helpers/Sentry';
 
-export type BookVersion = typeof BOOKS[0];
+type BookVersion = typeof BOOKS[0];
 
 interface ReleaseJsonStructure {
   books: typeof BOOKS;

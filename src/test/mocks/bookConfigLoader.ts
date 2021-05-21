@@ -1,15 +1,11 @@
-import { BookVersion } from '../../gateways/createBookConfigLoader';
+import createBookConfigLoader from '../../gateways/createBookConfigLoader';
 import { book } from './archiveLoader';
 
-const mockBookVersion: BookVersion = {
-  defaultVersion: book.version,
-};
-
 const localBookConfig = {
-  [book.id]: mockBookVersion,
+  [book.id]: { defaultVersion: book.version },
 };
 
-export default () => {
+export default (): ReturnType<typeof createBookConfigLoader> => {
   const resolveBookVersion = (uuid: string) => localBookConfig[uuid];
 
   const mockGetBookVersionFromUUID = jest.fn((uuid: string) => {
