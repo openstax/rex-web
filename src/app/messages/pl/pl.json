@@ -1,0 +1,1184 @@
+[
+ {
+   "title": "i18n:a11y:skipToContent",
+   "English": "Skip to Content",
+   "polish": "Przejdź do treści",
+   "notes": "PK: to jest przycisk, który mogą użyć użytkownicy czytników ekranowych, aby przejść do treści danego modułu, który jest aktualnie otwarty - proponowałbym coś w stylu: Przejdź do treści\n\nPS: ok, super"
+ },
+ {
+   "title": "i18n:a11y:accessibilityHelp",
+   "English": "Go to accessibility page",
+   "polish": "Przejdź do informacji o dostępności",
+   "notes": ""
+ },
+ {
+   "title": "i18n:a11y:accessibilityHelp:link",
+   "English": "https://openstax.org/accessibility-statement",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "i18n:attribution:toggle",
+   "English": "Citation/Attribution",
+   "polish": "Cytowanie i udostępnianie",
+   "notes": ""
+ },
+ {
+   "title": "i18n:content:footnotes:title",
+   "English": "Footnotes",
+   "polish": "Przypisy",
+   "notes": ""
+ },
+ {
+   "title": "i18n:content:solution:hide",
+   "English": "hide solution",
+   "polish": "Ukryj rozwiązanie",
+   "notes": ""
+ },
+ {
+   "title": "i18n:content:solution:show",
+   "English": "show solution",
+   "polish": "Pokaż rozwiązanie",
+   "notes": ""
+ },
+ {
+   "title": "i18n:content:solution:toggle-title",
+   "English": "Show/Hide Solution",
+   "polish": "Pokaż/Ukryj rozwiązanie",
+   "notes": ""
+ },
+ {
+   "title": "i18n:discard:body",
+   "English": "You have an unsaved note on this page.",
+   "polish": "Na tej stronie znajduje się niezachowana notatka  ",
+   "notes": "PK: pokazuje się, gdy ktoś edytuje notatkę, nie zapisze jej i chce przejść na inną stronę - wtedy ostrzegamy go, że ma niezapisaną notatkę - proponowałbym: \"Masz niezapisaną notatkę na tej stronię\"\nPS: niezachowana lepiej, bo w kontekście notatki niezapisna ma dwa znaczenia. Szyk zdania - wolałabym uniknąć anglicyzmu"
+ },
+ {
+   "title": "i18n:discard:button:cancel",
+   "English": "Cancel",
+   "polish": "Anuluj",
+   "notes": ""
+ },
+ {
+   "title": "i18n:discard:button:discard",
+   "English": "Discard changes",
+   "polish": "Odrzuć zmiany",
+   "notes": ""
+ },
+ {
+   "title": "i18n:discard:heading",
+   "English": "Discard unsaved changes?",
+   "polish": "Odrzucić niezachowane zmiany?",
+   "notes": ""
+ },
+ {
+   "title": "i18n:error:boundary:action-btn-text",
+   "English": "OK",
+   "polish": "OK",
+   "notes": ""
+ },
+ {
+   "title": "i18n:error:boundary:heading",
+   "English": "Error",
+   "polish": "Błąd",
+   "notes": ""
+ },
+ {
+   "title": "i18n:error:boundary:sub-heading",
+   "English": "Uh-oh, there's been a glitch",
+   "polish": "Ojoj, coś tu nie działa",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column1:contact-us",
+   "English": "Contact Us",
+   "polish": "Skontaktuj się z nami",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column1:faqs",
+   "English": "FAQ",
+   "polish": "FAQ",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column1:help",
+   "English": "Help",
+   "polish": "Pomoc",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column1:support-center",
+   "English": "Support Center",
+   "polish": "Zespół wsparcia",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column2:careers",
+   "English": "Careers",
+   "polish": "Kariera",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column2:newsletter",
+   "English": "Newsletter",
+   "polish": "Newsletter",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column2:openstax",
+   "English": "OpenStax",
+   "polish": "OpenStax",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column2:press",
+   "English": "Press",
+   "polish": "Dla prasy",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column3:accessibility",
+   "English": "Accessibility Statement",
+   "polish": "Informacja o dostępności",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column3:license",
+   "English": "Licensing",
+   "polish": "Licencja",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column3:policies",
+   "English": "Policies",
+   "polish": "Zasady korzystania",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column3:privacy-policy",
+   "English": "Privacy Policy",
+   "polish": "Polityka prywatności",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:column3:terms",
+   "English": "Terms of Use",
+   "polish": "Regulamin",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:heading",
+   "English": "Our mission is to improve educational access and learning for everyone.",
+   "polish": "Naszą misją jest zapewnienie wszystkim dostępu do wiedzy i edukacji.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:social:fb:alt",
+   "English": "facebook",
+   "polish": "facebook",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:social:ig:alt",
+   "English": "instagram",
+   "polish": "instagram",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:social:in:alt",
+   "English": "linkedin",
+   "polish": "linkedin",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:social:rice-logo:alt",
+   "English": "Rice University logo",
+   "polish": "Rice University logo",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:social:tw:alt",
+   "English": "twitter",
+   "polish": "twitter",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:button:cancel",
+   "English": "Cancel",
+   "polish": "Anuluj",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:button:delete",
+   "English": "Delete",
+   "polish": "Usuń",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:button:save",
+   "English": "Save",
+   "polish": "Zachowaj",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:card:aria-label",
+   "English": "Enter note's text",
+   "polish": "Wpisz tekst",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:card:placeholder",
+   "English": "Add a note...",
+   "polish": "Dodaj notatkę...",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:card:show-more",
+   "English": "show more",
+   "polish": "pokaż więcej",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:change-color",
+   "English": "Apply {color} highlight",
+   "polish": "Wybierz {color} zakreślacz",
+   "notes": "PK: {color} zostanie zastąpione kolorem, np. żółty, proponowałbym coś w stylu: \"Wybierz {color} kolor\" - ew. dodać \"zakreślacza\", ale jakoś dziwnie mi to brzmi :D                  \n\nBJ: ew. mogłoby być \"Wybierz {color} zakreślacz\" -> Wybierz żółty/niebieski/fioletowy zakreślacz\n\nPS: +1 dla BJ :)"
+ },
+ {
+   "title": "i18n:highlighting:colors:blue",
+   "English": "blue",
+   "polish": "niebieski",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:colors:green",
+   "English": "green",
+   "polish": "zielony",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:colors:pink",
+   "English": "pink",
+   "polish": "różowy",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:colors:purple",
+   "English": "purple",
+   "polish": "fioletowy",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:colors:yellow",
+   "English": "yellow",
+   "polish": "żółty",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:confirmation:delete-both",
+   "English": "Are you sure you want to delete this note and highlight?",
+   "polish": "Na pewno chcesz usunąć tę notatkę i zakreślenie?",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:confirmation:delete-highlight",
+   "English": "Are you sure you want to delete this highlight?",
+   "polish": "Na pewno chcesz usunąć to zakreślenie?",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:confirmation:delete-note",
+   "English": "Are you sure you want to delete this note?",
+   "polish": "Na pewno chcesz usunąć tę notatkę?",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:dropdown:add-note",
+   "English": "Add note",
+   "polish": "Dodaj notatkę ",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:dropdown:delete",
+   "English": "Delete",
+   "polish": "Usuń",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:dropdown:edit",
+   "English": "Edit",
+   "polish": "Edytuj",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:dropdown:edit:aria-label",
+   "English": "Edit this highlight",
+   "polish": "Edytuj zakreślenie",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:dropdown:go-to-highlight",
+   "English": "Go to highlight",
+   "polish": "Przejdź do zakreślenia",
+   "notes": "PK: Może: \"Przejdź do zakreślenia\" - chodzi i treść linku, który przenosi do danego miejsca\n\nPS. OK"
+ },
+ {
+   "title": "i18n:highlighting:filters:all",
+   "English": "All",
+   "polish": "Wszystkie",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:filters:chapters",
+   "English": "Chapter",
+   "polish": "Rozdział",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:filters:colors",
+   "English": "Color",
+   "polish": "Kolor",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:filters:filter-by:aria-label",
+   "English": "Filter highlights by {filter}",
+   "polish": "Filtruj zakreślenia wg {filter}",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:filters:none",
+   "English": "None",
+   "polish": "Żaden",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:filters:remove:chapter",
+   "English": "Remove breadcrumb for chapter {filterValue}",
+   "polish": "Wyczyść filtrowanie rozdziału {filterValue}",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:filters:remove:color",
+   "English": "Remove breadcrumb for color {filterValue}",
+   "polish": "Wyczyść filtrowanie wg koloru {filterValue}",
+   "notes": "PK: Here we will have problem with polish cases - we should specify different case for each color\nPS not really, we can leave it in the 1st case."
+ },
+ {
+   "title": "i18n:highlighting:login:link",
+   "English": "Log in",
+   "polish": "Zaloguj się",
+   "notes": ""
+ },
+ {
+   "title": "i18n:highlighting:login:prompt",
+   "English": "Log in to highlight and take notes. It’s 100% free.",
+   "polish": "Zaloguj się, żeby dodawać zakreślenia i notatki. 100% bez opłat.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:nav:hello:text",
+   "English": "Hi {name}",
+   "polish": "Cześć, {name}",
+   "notes": ""
+ },
+ {
+   "title": "i18n:nav:login:text",
+   "English": "Log in",
+   "polish": "Zaloguj się",
+   "notes": ""
+ },
+ {
+   "title": "i18n:nav:logo:alt",
+   "English": "OpenStax Logo",
+   "polish": "OpenStax Logo",
+   "notes": ""
+ },
+ {
+   "title": "i18n:nav:logout:text",
+   "English": "Log out",
+   "polish": "Wyloguj ",
+   "notes": ""
+ },
+ {
+   "title": "i18n:nav:profile:text",
+   "English": "Account Profile",
+   "polish": "Konto",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:appmessage:dismiss",
+   "English": "OK",
+   "polish": "OK",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:appmessage:header",
+   "English": "Notification",
+   "polish": "Powiadomienia",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:cookies:body",
+   "English": "This site uses cookies to optimize your experience on our platform. By continuing to use this site you agree to use our cookies. If you'd like more information or would like to opt out please see our <a href=\"/privacy-policy\" target=\"blank\">Privacy Policy</a>",
+   "polish": "Używamy ciasteczek, które zapewniają komfort korzystania z platformy. Pozostanie na tej stronie jest równoznaczne z wyrażeniem zgody na użycie ciasteczek. Więcej informacji oraz opcję cofnięcia udzielonej zgody znajdziesz na <a href=\"/privacy-policy\" target=\"blank\">Privacy Policy</a>",
+   "notes": "PK: Czy nazwa linku też powinna być przetłumaczona, jak wyżej \"Polityka prywatności\"?\n\nPS: zapewne treść polityki prywatności jest modyfikowana w CMS, więc będzie tutaj potrzebny nowy link i pełne tłumaczenie"
+ },
+ {
+   "title": "i18n:notification:cookies:header",
+   "English": "Privacy and cookies",
+   "polish": "Polityka prywatności i ciasteczka",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:cookies:ok",
+   "English": "Got it!",
+   "polish": "Rozumiem!",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:update:body",
+   "English": "Click below to use the most recent version of this software.",
+   "polish": "Kliknij poniżej, by przejść do najnowszej wersji oprogramowania.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:update:header",
+   "English": "Updates Available",
+   "polish": "Dostępna aktualizacja",
+   "notes": "PK: Ten tekst będzie widoczny razem z przyciskiem poniżej - może dać to jako \"Dostępna aktualizacja\"?\n\nPS: OK, a poniżej zmieniłam na Aktualizuj"
+ },
+ {
+   "title": "i18n:notification:update:reload",
+   "English": "Update",
+   "polish": "Aktualizuj",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:search:highlight-not-found",
+   "English": "We're unable to find that search result. Please try another.",
+   "polish": "Nie odnajdujemy wyników dla tego zapytania. Spróbuj innego.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:highlights:create-failure",
+   "English": "The highlight could not be saved. Please check your connection and try again.",
+   "polish": "Zakreślenie nie zostało zachowane. Sprawdź połączenie z internetem i spróbuj ponownie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:highlights:delete-failure",
+   "English": "The highlight could not be deleted. Please check your connection and try again.",
+   "polish": "Zakreślenie nie zostało usunięte. Sprawdź połączenie z internetem i spróbuj ponownie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:highlights:highlight-not-found",
+   "English": "We're unable to find that highlight. Please try another.",
+   "polish": "Nie odnajdujemy tego zakreślenia. Spróbuj zmienić zapytanie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:highlights:update-failure:color",
+   "English": "The highlight color could not be changed. Please check your connection and try again.",
+   "polish": "Kolor zakreślenia nie może być zmieniony. Sprawdź połączenie z internetem i spróbuj ponownie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:highlights:update-failure:annotation",
+   "English": "The note could not be saved. Please check your connection and try again.",
+   "polish": "Notatka nie została zachowana. Sprawdź połączenie z internetem i spróbuj ponownie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:highlights:load-failure",
+   "English": "We're unable to load Highlights on this page. Please check your connection and try again.",
+   "polish": "Nie możemy załadować zakreśleń na tej stronie. Sprawdź połączenie z internetem i spróbuj ponownie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:highlights:popup:load-failure",
+   "English": "Some highlights could not be loaded. Please check your connection and try again.",
+   "polish": "Niektóre zakreślenia na tej stronie nie mogą zostać załadowane. Sprawdź połączenie z internetem i spróbuj ponownie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:highlights:popup:print-failure",
+   "English": "We're unable to print this page. Please check your connection and try again.",
+   "polish": "Nie możemy wydrukować tej strony. Sprawdź połączenie z internetem i spróbuj ponownie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:study-guides:load-failure",
+   "English": "We're unable to load Study Guides on this page. Please check your connection and try again.",
+   "polish": "Nie możemy załadować zawartości Kompendium na tej stronie. Sprawdź połączenie z internetem i spróbuj ponownie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:study-guides:popup:load-failure",
+   "English": "We're unable to load content on this page. Please check your connection and try again",
+   "polish": "Nie możemy załadować zawartości strony. Sprawdź połączenie z internetem i spróbuj ponownie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:notification:toast:study-guides:popup:print-failure",
+   "English": "We're unable to print this page. Please check your connection and try again.",
+   "polish": "Nie możemy wydrukować tej strony. Sprawdź połączenie z internetem i spróbuj ponownie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:nudge:study-tools:heading",
+   "English": "The study tools you need. <strong>100% FREE!</strong>",
+   "polish": "Narzędzia, których potrzebujesz. <strong>100% ZA DARMO!</strong>",
+   "notes": ""
+ },
+ {
+   "title": "i18n:nudge:study-tools:text:with-study-guides",
+   "English": "Boost your studies with expert-created study guides and highlighting. <strong>It's all free.</strong>",
+   "polish": "Ucz się sprawniej z Kompendium przygotowanym przez ekspertów oraz własnych notatek. <strong>Wszystko to bez opłat.</strong>",
+   "notes": ""
+ },
+ {
+   "title": "i18n:nudge:study-tools:text:only-highlighting",
+   "English": "Highlight, take notes, and make your own study guides. <strong>It's all free.</strong>",
+   "polish": "Zakreślaj, rób notatki i twórz własne kompendia. <strong>Wszystko to bez opłat.</strong>",
+   "notes": ""
+ },
+ {
+   "title": "i18n:nudge:study-tools:aria-label:with-study-guides",
+   "English": "Image points to the Study Guides and My Highlights buttons in the toolbar. The study tools you need. 100% free. Boost your studies with expert-created study guides and highlighting. To close image, navigate to or click the x button.",
+   "polish": "Ilustracja prowadzi do przycisków Kompendium i Moje notatki. Narzędzia, których potrzebujesz, 100% za darmo. Ucz się sprawniej z Kompendium przygotowanym przez ekspertów oraz własnych notatek. Żeby zamknąć ilustrację, przejdź do albo kliknij w x.",
+   "notes": "jak to wygląda - chodzi mi o \"image\" - czy to obrazek/ikonka"
+ },
+ {
+   "title": "i18n:nudge:study-tools:aria-label:only-highlighting",
+   "English": "Image points to the My Highlights button in the toolbar. The study tools you need. 100% free. Highlight, take notes, and make your own study guides. To close image, navigate to or click the x button.",
+   "polish": "Ilustracja prowadzi do przycisku Moje notatki. Narzędzie, którego potrzebujesz, 100% za darmo. Ucz się sprawniej, dodając zakreślenia i notatki. Żeby zamknąć ilustrację, przejdź do albo kliknij w x.",
+   "notes": "jak to wygląda - chodzi mi o \"image\" - czy to obrazek/ikonka"
+ },
+ {
+   "title": "i18n:page-not-found:heading",
+   "English": "Uh oh, we can't find the page you requested.",
+   "polish": "Ojoj, nie możemy odnaleźć tej strony.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:page-not-found:text-before-button",
+   "English": "Try another page in the",
+   "polish": "Spróbuj wybrać inną stronę w ",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:close",
+   "English": "Click to close Practice Questions modal",
+   "polish": "Kliknij, żeby zamknąć okno z Ćwiczeniami",
+   "notes": "PK: Może \"Kliknij, żeby zamknąć okno z Ćwiczeniami\"?\n\nPS: OK"
+ },
+ {
+   "title": "i18n:practice-questions:popup:continue",
+   "English": "Continue",
+   "polish": "Kontynuuj",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:correct",
+   "English": "Correct",
+   "polish": "Poprawna odpowiedź",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:empty:message",
+   "English": "There are no questions for this chapter/section.",
+   "polish": "Nie ma pytań do tego fragmentu książki.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:empty:next-section",
+   "English": "Select a section from the dropdown above or continue to ",
+   "polish": "Wybierz rozdział z listy powyżej albo przejdź do",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:filters:chapters",
+   "English": "Chapter & Section",
+   "polish": "Rozdział i sekcja",
+   "notes": "BJ: Dlaczego \"wycinek\" zamiast \"sekcja\"?\n\nPS:  OK. A co znaczy tutaj \"sekcja\"? chodzi o podrozdział?                                                       BJ: Tak, o podrozdział."
+ },
+ {
+   "title": "i18n:practice-questions:popup:filters:filter-by:aria-label",
+   "English": "Filter PQ by {filter}",
+   "polish": "Filtruj Ćwiczenia wg {filter}",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:final",
+   "English": "You have reached the end of this set!",
+   "polish": "To już wszystkie pytania w tym zestawie!",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:final:next-section",
+   "English": "Next section:",
+   "polish": "Następna sekcja:",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:heading",
+   "English": "Practice Questions",
+   "polish": "Ćwiczenia",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:incorrect",
+   "English": "Incorrect",
+   "polish": "Błędna odpowiedź",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:intro:message",
+   "English": "{questions, plural, one {1 question in this section} other {{questions} questions in this section}}",
+   "polish": "{questions, plural, one {W tej sekcji jest jedno pytanie} other {Liczba pytań w tej sekcji: {questions}}} \n\n{questions, plural, one {W tej sekcji są dwa pytania} other {Liczba pytań w tej sekcji: {questions}}} \n",
+   "notes": "PK: {questions, plural, one {W tej sekcji jest jedno pytanie} other {Liczba pytań w tej sekcji: {questions}}} - ogólnie możemy też rozbić to chyba na więcej przypadków\n\nPS: potrzebna liczba pojedyncza i mnoga, chyba więcej przypadków nie musimy uwzględniać?"
+ },
+ {
+   "title": "i18n:practice-questions:popup:intro:start",
+   "English": "Start now",
+   "polish": "Rozpocznij",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:navigation:finish",
+   "English": "Finish",
+   "polish": "Zakończ",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:navigation:next",
+   "English": "Next",
+   "polish": "Następny",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:navigation:next:after-submit-correct:aria-label",
+   "English": "This answer is correct. Next button.",
+   "polish": "Poprawna odowiedź. Przejdź dalej.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:navigation:show-answer",
+   "English": "Show answer",
+   "polish": "Pokaż odpowiedź",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:navigation:show-answer:after-submit-incorrect:aria-label",
+   "English": "This answer is incorrect. Show answer button.",
+   "polish": "Błędna odpowiedź. Pokaż rozwiązanie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:navigation:skip",
+   "English": "Skip",
+   "polish": "Pomiń",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:navigation:submit",
+   "English": "Submit",
+   "polish": "Zatwierdź",
+   "notes": "PK: W tym przypadku to jest bardziej \"Zatwierdź\"\n\nPS: OK"
+ },
+ {
+   "title": "i18n:practice-questions:popup:questions",
+   "English": "Questions",
+   "polish": "Pytania",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:read",
+   "English": "Read",
+   "polish": "Przeczytaj o tym",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:warning-before-close",
+   "English": "Are you sure you want to exit this page? Your progress will not be saved.",
+   "polish": "Na pewno chcesz opuścić stronę? Twoje wyniki nie zostaną zachowane.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:prevnext:next:aria-label",
+   "English": "Next Page",
+   "polish": "Następna strona",
+   "notes": ""
+ },
+ {
+   "title": "i18n:prevnext:next:text",
+   "English": "Next",
+   "polish": "Dalej",
+   "notes": ""
+ },
+ {
+   "title": "i18n:prevnext:prev:aria-label",
+   "English": "Previous Page",
+   "polish": "Poprzednia strona",
+   "notes": ""
+ },
+ {
+   "title": "i18n:prevnext:prev:text",
+   "English": "Previous",
+   "polish": "Wróć",
+   "notes": ""
+ },
+ {
+   "title": "i18n:search-results:bar",
+   "English": "Search results sidebar",
+   "polish": "Wyniki wyszukiwania",
+   "notes": ""
+ },
+ {
+   "title": "i18n:search-results:bar:close-text:mobile",
+   "English": "Close",
+   "polish": "Zamknij",
+   "notes": ""
+ },
+ {
+   "title": "i18n:search-results:bar:current-page",
+   "English": "Current Page",
+   "polish": "Bieżąca strona",
+   "notes": ""
+ },
+ {
+   "title": "i18n:search-results:bar:loading-state",
+   "English": "Loading results",
+   "polish": "Ładowanie wyników",
+   "notes": ""
+ },
+ {
+   "title": "i18n:search-results:bar:query:no-results",
+   "English": "Sorry, no results found for ",
+   "polish": "Nie znaleźliśmy wyników dla ",
+   "notes": ""
+ },
+ {
+   "title": "i18n:search-results:bar:query:results",
+   "English": "{total, plural, one {search result for } other {search results for }}",
+   "polish": "{total, plural, one {Wynik zapytania dla } other {Wyniki zapytania dla }}",
+   "notes": "PK: {total, plural, one {Wynik zapytania dla } other {Wyniki zapytania dla }}"
+ },
+ {
+   "title": "i18n:search-results:bar:search-icon:value",
+   "English": "Search",
+   "polish": "Szukaj",
+   "notes": ""
+ },
+ {
+   "title": "i18n:search-results:bar:toggle-text:mobile",
+   "English": "Search results",
+   "polish": "Szukaj wyników",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:cta:button",
+   "English": "Sign Up",
+   "polish": "Zapisz się",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:cta:info",
+   "English": "Like this guide? <br>We've got study guides for every chapter. <strong>Free forever.</strong>",
+   "polish": "Podoba Ci się to? <br>Dodaliśmy Kompendia do każdego rozdziału. <strong>Na zawsze za darmo.</strong>",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:cta:login",
+   "English": "Log in",
+   "polish": "Zaloguj się",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:cta:separator",
+   "English": "or",
+   "polish": "albo",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:cta:title",
+   "English": "Expert-created study guides. <strong>100% free!</strong>",
+   "polish": "Kompendia przygotowane przez ekspertów. <strong>100% za darmo!</strong>",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:popup:filters:blue",
+   "English": "Important Concepts",
+   "polish": "Główne zagadnienia",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:popup:filters:green",
+   "English": "Connections & Relationships",
+   "polish": "Powiązania",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:popup:filters:purple",
+   "English": "Enrichment",
+   "polish": "Dodatki",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:popup:filters:yellow",
+   "English": "Key Terms",
+   "polish": "Kluczowe pojęcia",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:popup:filters:filter-by:aria-label",
+   "English": "Filter study guides by {filter}",
+   "polish": "Filtruj Kompendium wg {filter} ",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:popup:filters:remove:color",
+   "English": "Remove breadcrumb for label {filterValue, select, blue {Important Concepts} green {Connections & Relationships} purple {Enrichment} yellow {Key Terms}}",
+   "polish": "Wyczyść filtrowanie wg etykiety {filterValue, select, blue {Główne zagadnienia} green {Powiązania} purple {Dodatki} yellow {Kluczowe pojęcia}}",
+   "notes": "PK: Wyczyść filtrowanie po etykiecie {filterValue, select, blue {Główne zagadnienia} green {Powiązania} purple {Dodatki} yellow {Kluczowe pojęcia}}"
+ },
+ {
+   "title": "i18n:studyguides:popup:no-highlights",
+   "English": "No results.",
+   "polish": "Brak wyników",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:popup:no-highlights-tip",
+   "English": "Try selecting a different <strong>chapter or color filter</strong> to see different results.",
+   "polish": "Wybierz inny <strong>rozdział albo kolor</strong>, żeby zobaczyć inne wyniki.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:popup:using-this-guide",
+   "English": "Using This Guide",
+   "polish": "Używasz tego Kompendium",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:popup:using-this-guide:alt",
+   "English": "The image presents the structure of study guides. The first element of each block summarizes, clarifies, or enriches key content. The second element is taken directly from the book. On the left side, there is a color label depending on the content.",
+   "polish": "Ilustracja przedstawia strukturę Kompendium. Pierwszy element w każdym bloku to podsumowanie, wyjaśnienie albo wzbogacenie najważniejszych treści. Drugi element jest wzięty bezpośrednio z książki. Etykieta z kolorem dostosowanym do treści znajduje się po lewej stronie.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:studyguides:popup:using-this-guide:close:aria-label",
+   "English": "Closes the image describing the structure of study guides.",
+   "polish": "Zamyka ilustrację opisującą strukturę Kompendium.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toc:title",
+   "English": "Table of Contents",
+   "polish": "Spis treści",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toc:toggle:closed",
+   "English": "Click to open the Table of Contents",
+   "polish": "Kliknij, żeby przejść do spisu treści",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toc:toggle:opened",
+   "English": "Click to close the Table of Contents",
+   "polish": "Kliknij, żeby zamknąć spis treści",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:buy-book:aria-label:text",
+   "English": "Buy book",
+   "polish": "Kup książkę",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:buy-book:text",
+   "English": "Order a print copy",
+   "polish": "Zamów wydruk",
+   "notes": ""
+ },
+ {
+   "title": "i18n:practice-questions:popup:answers:choice",
+   "English": "Choice {choiceIndicator}",
+   "polish": "Odpowiedź {choiceIndicator}",
+   "notes": "PK: Odpowiedź {choiceIndicator}"
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:body:add-highlight",
+   "English": "Make a highlight and add a note",
+   "polish": "Zakreślaj i rób notatki",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:body:highlights-free",
+   "English": "Log in to highlight. 100% FREE.",
+   "polish": "Zaloguj się, żeby dodawać notatki. 100% ZA DARMO.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:body:no-highlights-in-book",
+   "English": "You have no highlights in this book",
+   "polish": "W tej książce nie ma zakreśleń.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:body:note:add-notes",
+   "English": "Add notes",
+   "polish": "Dodaj notatki",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:body:note:filter-chapters",
+   "English": "Filter by chapters & colors",
+   "polish": "Filtruj wg rozdziałów i kolorów",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:body:note:highlight",
+   "English": "Highlight",
+   "polish": "Zakreślenie",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:body:note:review",
+   "English": "Review your highlights and notes in one place",
+   "polish": "Przeglądaj swoje zakreślenia i notatki w jednym miejscu.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:body:note:study-guide",
+   "English": "Make your study guide",
+   "polish": "Stwórz własne kompendium.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:body:note:text",
+   "English": "Note:",
+   "polish": "Notatka:",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:body:use-this-page",
+   "English": "Then use this page to create your own study guide",
+   "polish": "Następnie użyj tej strony, żeby stworzyć własne kompendium.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:button:back-to-top",
+   "English": "Go back to top",
+   "polish": "Idź na górę",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:close-button:aria-label",
+   "English": "Close My Highlights",
+   "polish": "Zamknij Moje notatki",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:heading",
+   "English": "My Highlights and Notes",
+   "polish": "Moje notatki i zakreślenia",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:heading:no-highlights",
+   "English": "No results.",
+   "polish": "Brak wyników",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:heading:no-highlights-tip",
+   "English": "Try selecting different <strong>chapter or color filters</strong> to see different results.",
+   "polish": "Wybierz inny <strong>rozdział albo kolor</strong>, żeby zobaczyć inne wyniki.",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:help-info",
+   "English": "Need help? Visit the <a data-testid='support-link' data-analytics-label='support-link' target=\"_blank\" href=\"https://openstax.secure.force.com/help/articles/FAQ/Using-the-highlighting-and-note-taking-feature-on-mobile-or-tablet?search=highlighting\">Support Center</a>",
+   "polish": "Potrzebujesz pomocy? Przejdź do <a data-testid='support-link' data-analytics-label='support-link' target=\"_blank\" href=\"https://openstax.secure.force.com/help/articles/FAQ/Using-the-highlighting-and-note-taking-feature-on-mobile-or-tablet?search=highlighting\">Support Center</a>",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:text",
+   "English": "My highlights",
+   "polish": "Moje notatki",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:practice-questions:button:text",
+   "English": "Practice",
+   "polish": "Ćwiczenia",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:print:aria-label",
+   "English": "print",
+   "polish": "Drukuj",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:print:text",
+   "English": "Print",
+   "polish": "Drukuj",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:search:placeholder",
+   "English": "Search this book",
+   "polish": "Szukaj w książce",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:search:toggle",
+   "English": "Search this book",
+   "polish": "Szukaj w książce",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:studyguides:button:text",
+   "English": "Study guides",
+   "polish": "Kompendia",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:studyguides:popup:button:back-to-top",
+   "English": "Go back to top",
+   "polish": "Idź na górę",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:studyguides:popup:close-button:aria-label",
+   "English": "Close Study Guides",
+   "polish": "Zamknij Kompendia",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:studyguides:popup:heading",
+   "English": "Study Guide",
+   "polish": "Kompendium",
+   "notes": ""
+ },
+ {
+   "title": "i18n:attribution:text",
+   "English": "\n<p>\n  Want to cite, share, or modify this book? This book is\n  <a target=\"_blank\" rel=\"noopener\" href=\"{bookLicenseUrl}\">\n    {bookLicenseName} {bookLicenseVersion}\n  </a> and you must attribute {copyrightHolder}.{originalMaterialLink, select,\n    null {}\n    other { The original material is available at: <a target=\"_blank\" rel=\"noopener\" href=\"{originalMaterialLink}\">\n      {originalMaterialLink}\n    </a>.}\n  }{copyrightHolder, select,\n    OpenStax {}\n    other { Changes were made to the original material, including updates to art, structure, and other content updates.}}\n</p>\n\n<strong>Attribution information</strong>\n<ul>\n  <li>\n    If you are redistributing all or part of this book in a print format,\n    then you must include on every physical page the following attribution:\n    <blockquote>\n      Access for free at https://openstax.org{introPageUrl}\n    </blockquote>\n  </li>\n  <li>\n    If you are redistributing all or part of this book in a digital format,\n    then you must include on every digital page view the following attribution:\n    <blockquote>\n      Access for free at <a href=\"https://openstax.org{introPageUrl}\">https://openstax.org{introPageUrl}</a>\n    </blockquote>\n  </li>\n</ul>\n\n<strong>Citation information</strong>\n<ul>\n  <li>\n    Use the information below to generate a citation. We recommend using a\n    citation tool such as\n    <a target=\"_blank\" rel=\"noopener\" href=\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\">this one</a>.\n    <ul>\n      <li>\n        Authors: {bookAuthors}\n      </li>\n      <li>\n        Publisher/website: OpenStax\n      </li>\n      <li>\n        Book title: {bookTitle}\n      </li>\n      <li>\n        Publication date: {bookPublishDate, date, medium}\n      </li>\n      <li>\n        Location: Houston, Texas\n      </li>\n      <li>\n        Book URL: <a href=\"https://openstax.org{introPageUrl}\">https://openstax.org{introPageUrl}</a>\n      </li>\n      <li>\n        Section URL: <a href=\"https://openstax.org{currentPath}\">https://openstax.org{currentPath}</a>\n      </li>\n    </ul>\n  </li>\n</ul>\n\n<p>\n  © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,\n    OpenStax {Textbook content produced by OpenStax is licensed under a {bookLicenseName} {bookLicenseVersion} license. }\n    other {}}<strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo\n  are not subject to the Creative Commons license and may not be reproduced without the prior and express written\n  consent of Rice University.</strong>\n</p>\n",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "i18n:error:boundary:body",
+   "English": "\n  We're not quite sure what went wrong. Refresh the page. If this doesn't solve\n  the problem, visit our <a href=\"{supportCenterLink}\" target=\"_blank\">Support Center</a>.\n",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:copyright:bottom-text",
+   "English": "<div data-html=\"copyright\">© 1999-{currentYear}, Rice University. Except where otherwise noted, textbooks on this site\n    are licensed under a\n    <a href=\"{copyrightLink}\" target=\"_blank\"\n    rel=\"noreferrer\">Creative Commons Attribution 4.0 International License</a>.\n  </div>\n  <div data-html=\"apStatement\">\n    Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,\n    which is not affiliated with, and does not endorse, this site.\n  </div>",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "i18n:footer:copyright:mission-text",
+   "English": "OpenStax is part of Rice University, which is a 501(c)(3) nonprofit.\n  <a href=\"/give\" target=\"_blank\">Give today</a> and help us reach more students.",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "i18n:toolbar:highlights:popup:login-text",
+   "English": "\n<a href=\"{loginLink}\">Log in</a> to view your highlights and notes.\n",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "TBD",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "",
+   "polish": "",
+   "notes": "Materiały dodatkowe"
+ },
+ {
+   "title": "",
+   "English": "Study guides",
+   "polish": "Wskazówki / Przewodnik / Wytyczne / Wiedza w pigułce / Kompendium",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "Practice Questions",
+   "polish": "Ćwiczenia",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "filter by",
+   "polish": "filtruj wg",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "",
+   "polish": "",
+   "notes": ""
+ },
+ {
+   "title": "",
+   "English": "My highlights ",
+   "polish": "Moje notatki",
+   "notes": ""
+ }
+]
