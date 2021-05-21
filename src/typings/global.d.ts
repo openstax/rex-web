@@ -55,7 +55,7 @@ declare global {
     MathJax: any;
     ga: UniversalAnalytics.ga;
     dataLayer:  object[];
-    gtag: any;
+    gtag: (eventKey: string, eventVal: string, eventObj: object) => boolean;
   }
 
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;
