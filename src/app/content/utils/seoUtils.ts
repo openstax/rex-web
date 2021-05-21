@@ -38,12 +38,6 @@ const hideMath = (node: Element) => {
   return node;
 };
 
-export const getTextContent = (str: string) => {
-  const parsed = domParser.parseFromString(str, 'text/html');
-  const text = parsed.body.textContent;
-  return text;
-};
-
 const removeExcludedContent = (node: Element) => {
   if (!node) {
     return null;
