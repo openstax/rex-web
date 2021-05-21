@@ -59,6 +59,7 @@ export const mockOsWebBook: OSWebBook = {
   authors: [{value: {name: 'Author Name', senior_author: true}}],
   book_state: 'coming_soon',
   cover_color: 'yellow',
+  promote_image: null,
   cnx_id: '',
   amazon_link: '',
 };
