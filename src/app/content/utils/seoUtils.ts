@@ -39,10 +39,6 @@ const hideMath = (node: Element) => {
 };
 
 const removeExcludedContent = (node: Element) => {
-  if (!node) {
-    return null;
-  }
-
   const excludedSelectors = [
     // Introductory content
     '[data-type="abstract"]',
@@ -88,9 +84,6 @@ const getParagraphs = (page: HTMLElement) => {
 };
 
 const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
-  if (!page) {
-    return null;
-  }
   removeExcludedContent(page);
 
   const paragraphs = getParagraphs(page);
@@ -111,13 +104,10 @@ export const getPageDescription = (services: Pick<AppServices, 'archiveLoader' |
   const {intl, archiveLoader} = services;
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
-  const treeNode = findArchiveTreeNodeById(book.tree, page.id);
-  if (!treeNode) {
-    return '';
-  }
   const pageNode = doc.body.firstElementChild;
+  const pageDescription = pageNode ? getPageDescriptionFromContent(pageNode) : null;
 
-  return getPageDescriptionFromContent(pageNode) || intl.formatMessage({id: 'i18n:metadata:description'});
+  return pageDescription || intl.formatMessage({id: 'i18n:metadata:description'});
 };
 
 export const createTitle = (page: Page, book: Book, intl: IntlShape): string => {
