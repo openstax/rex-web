@@ -2,7 +2,6 @@ import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { useServices } from '../app/context/Services';
 import { findFirstAncestorOrSelfOfType } from '../app/domUtils';
-import { receiveExperiments } from '../app/featureFlags/actions';
 import { AppState, Store } from '../app/types';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
 import * as clickButton from './analyticsEvents/clickButton';
@@ -75,16 +74,6 @@ const analytics = {
 
 export const registerGlobalAnalytics = (window: Window, store: Store) => {
   const document = window.document;
-
-  // google optimize - will dispatch a feature flag on variant receieved
-  if (window.gtag && window.dataLayer) {
-    window.gtag('event', 'optimize.callback', {
-      callback: (idx: string, id: string) => {
-        store.dispatch(receiveExperiments([id, idx]));
-      },
-    });
-    window.dataLayer.push({event: 'optimize.activate'});
-  }
 
   window.addEventListener('beforeunload', () => {
     analytics.unload.track(analytics.unload.selector(store.getState()));

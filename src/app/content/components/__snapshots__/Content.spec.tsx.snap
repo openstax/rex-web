@@ -129,7 +129,7 @@ Array [
           className="styled__SearchPrintWrapper-sc-1119auh-8 gCGyni"
         >
           <form
-            className="styled__SearchInputWrapper-sc-1119auh-6 gFglKV"
+            className="styled__SearchInputWrapper-sc-1119auh-6 bkDHsN"
             data-testid="desktop-search"
             onSubmit={[Function]}
           >
@@ -144,7 +144,7 @@ Array [
             />
             <button
               aria-label="Search this book"
-              className="styled__SearchButton-sc-1119auh-4 cLQcre styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 fXqtFK styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-analytics-label="Search this book"
               data-testid="mobile-toggle"
               onClick={[Function]}
@@ -177,7 +177,7 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-1119auh-4 cBVvKf styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 cCINnr styled__PlainButton-sc-1119auh-0 kPdLbJ"
               value="Search"
             >
               <svg
@@ -1481,7 +1481,7 @@ Array [
           className="styled__SearchPrintWrapper-sc-1119auh-8 gCGyni"
         >
           <form
-            className="styled__SearchInputWrapper-sc-1119auh-6 gFglKV"
+            className="styled__SearchInputWrapper-sc-1119auh-6 bkDHsN"
             data-testid="desktop-search"
             onSubmit={[Function]}
           >
@@ -1496,7 +1496,7 @@ Array [
             />
             <button
               aria-label="Search this book"
-              className="styled__SearchButton-sc-1119auh-4 cLQcre styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 fXqtFK styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-analytics-label="Search this book"
               data-testid="mobile-toggle"
               onClick={[Function]}
@@ -1529,7 +1529,7 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-1119auh-4 cBVvKf styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 cCINnr styled__PlainButton-sc-1119auh-0 kPdLbJ"
               value="Search"
             >
               <svg

@@ -103,7 +103,7 @@ pollUpdates(app.store);
 startMathJax();
 
 // load optimize
-loadOptimize();
+loadOptimize(window, app.store);
 
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()

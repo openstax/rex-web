@@ -19,7 +19,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): any =
             }
             return state;
         case getType(receiveFeatureFlags):
-            return action.payload.reduce((result, flag) => ({...result, [flag]: true}), state);
+            return action.payload.reduce((result, flag) => ({...result, [flag]: true}), {...state});
         default:
             return state;
     }
