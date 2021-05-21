@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { AppServices } from '../../src/app/types';
 import { assertDefined } from '../../src/app/utils';
-import config from '../../src/config';
+import BOOKS from '../../src/config.books';
 
 export async function findBooks({
   rootUrl,
@@ -19,10 +19,10 @@ export async function findBooks({
   bookVersion?: string,
 }) {
   // Get the book config whether the server is prerendered or dev mode
-  const bookConfig: typeof config.BOOKS = await fetch(`${rootUrl}/rex/release.json`)
+  const bookConfig: typeof BOOKS = await fetch(`${rootUrl}/rex/release.json`)
     .then((response) => response.json())
     .then((json) => json.books)
-    .catch(() => config.BOOKS)
+    .catch(() => BOOKS)
   ;
 
   // this hackery makes it not care about self signed certificates
