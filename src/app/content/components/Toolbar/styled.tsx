@@ -136,7 +136,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
   height: 3.2rem;
   background:
     ${(props: {colorSchema: BookWithOSWebData['theme'] }) => props.colorSchema
-      ? theme.color.primary[props.colorSchema].base : ''};
+      ? theme.color.primary[props.colorSchema].base : 'transparent'};
   ${applySearchIconColor}
 
   > svg {
@@ -195,12 +195,11 @@ export const SearchInputWrapper = styled.form`
     height: 100%;
     overflow: hidden;
     width: 100%;
-
-    ${(props: { active: boolean }) => props.active && css`
-      background: ${theme.color.primary.gray.base};
+    ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
+      background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
 
       ${SearchButton} {
-        color: ${applySearchIconColor};
+        ${applySearchIconColor};
       }
     `}
   `)}
