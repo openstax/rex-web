@@ -204,11 +204,13 @@ describe('locationChange', () => {
       publish_date: '2012-06-21',
     };
 
+    mockConfig.BOOKS[mockOtherBook.id] = {defaultVersion: mockOtherBook.version};
+    jest.doMock('../../../config', () => mockConfig);
+
     beforeEach(() => {
       helpers.archiveLoader.mockBook(mockBook);
       helpers.archiveLoader.mockBook(mockOtherBook);
       helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
-      mockConfig.BOOKS[mockOtherBook.id] = {defaultVersion: mockOtherBook.version};
 
       helpers.archiveLoader.mockPage(mockBook, {
         abstract: '',
