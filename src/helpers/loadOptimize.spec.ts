@@ -2,7 +2,6 @@ import { Store } from '../app/types';
 import { assertWindow } from '../app/utils';
 import createTestStore from '../test/createTestStore';
 import loadOptimize from './loadOptimize';
-import * as loadOptimizeFile from './loadOptimize';
 
 describe('loadOptimize', () => {
   let store: Store;
@@ -12,6 +11,9 @@ describe('loadOptimize', () => {
   beforeEach(() => {
     store = createTestStore();
     window = assertWindow();
+
+    gtag = window.gtag = jest.fn();
+    window.dataLayer = [];
 
     if (typeof document === 'undefined') {
       throw new Error('JSDom not loaded');
@@ -30,19 +32,57 @@ describe('loadOptimize', () => {
     });
   });
 
-  it('injects <script> into head', async() => {
+  afterEach(() => {
+    if (typeof document === 'undefined') {
+      throw new Error('JSDom not loaded');
+    }
+
+    document.head.innerHTML = '';
+  });
+
+  it('injects correct <script> into head if in production', async() => {
+    const newLocation = {
+      ...window.location,
+      hostname: 'openstax.org',
+    };
+    delete (window as any).location;
+    window.location = newLocation;
+
     await loadOptimize(window, store);
 
-    jest
-      .spyOn(loadOptimizeFile, 'getOptimizeContainerByEnv')
-      .mockReturnValue('OPT-W65B3CP');
-
-    // tslint:disable: max-line-length
     if (document && document.head) {
       const style = document.head.querySelector('style');
       if (style) {
         style.remove();
       }
+      // tslint:disable: max-line-length
+      expect(document.head.innerHTML).toMatchInlineSnapshot(
+        `"<script type=\\"text/javascript\\" src=\\"https://www.googleoptimize.com/optimize.js?id=OPT-NFHSM4B\\"></script>"`
+      );
+    } else if (document) {
+      expect(document).toBeTruthy();
+      expect(document.head).toBeTruthy();
+    } else {
+      expect(document).toBeTruthy();
+    }
+  });
+
+  it('injects correct <script> into head if in development', async() => {
+    const newLocation = {
+      ...window.location,
+      hostname: 'foo',
+    };
+    delete (window as any).location;
+    window.location = newLocation;
+
+    await loadOptimize(window, store);
+
+    if (document && document.head) {
+      const style = document.head.querySelector('style');
+      if (style) {
+        style.remove();
+      }
+      // tslint:disable: max-line-length
       expect(document.head.innerHTML).toMatchInlineSnapshot(
         `"<script type=\\"text/javascript\\" src=\\"https://www.googleoptimize.com/optimize.js?id=OPT-W65B3CP\\"></script>"`
       );
