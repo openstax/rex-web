@@ -10,7 +10,7 @@ export const getOptimizeContainerByEnv = (window: Window) => {
 
 export default (window: Window, store: Store) => new Promise((resolve) => {
     const containerId = getOptimizeContainerByEnv(window);
-    if (!containerId) {
+    if (!containerId || !window.gtag || !window.dataLayer) {
       return;
     }
     const script = assertDocument().createElement('script');
