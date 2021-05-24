@@ -10,7 +10,7 @@ book_json=$(node -e "$(cat <<script
 
   const modified = Object.keys(newBooks).map((key) => {
     if (oldBooks[key] === undefined || newBooks[key].defaultVersion !== oldBooks[key].defaultVersion) {
-      return {title: '', book_version: newBooks[key].defaultVersion, book_id: key};
+      return {title: '', book_version: newBooks[key].defaultVersion, book_id: key, is_new: oldBooks[key] === undefined};
     }
   }).filter(record => !!record);
 
