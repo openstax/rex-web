@@ -1,5 +1,6 @@
 import isEqual from 'lodash/fp/isEqual';
-import { APP_ENV, BOOKS, UNLIMITED_CONTENT } from '../../../../config';
+import { APP_ENV, UNLIMITED_CONTENT } from '../../../../config';
+import { getBookVersionFromUUIDSync } from '../../../../gateways/createBookConfigLoader';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined, BookNotFoundError } from '../../../utils';
@@ -70,7 +71,7 @@ const resolveBook = async(
 };
 
 export const resolveBookReference = async(
-  {osWebLoader, getState}: AppServices & MiddlewareAPI,
+  {osWebLoader, bookConfigLoader, getState}: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ): Promise<[string | undefined, string, string]> => {
   const state = getState();
@@ -99,7 +100,7 @@ export const resolveBookReference = async(
   const bookVersion = 'version' in match.params.book
     ? match.params.book.version
     : assertDefined(
-        BOOKS[bookUid],
+        await bookConfigLoader.getBookVersionFromUUID(bookUid),
         `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
       ).defaultVersion;
 
@@ -147,7 +148,8 @@ const resolvePage = async(
 };
 
 const getInputReferenceInfo = (bookId: string, inputVersion?: string) => {
-  const defaultVersion = BOOKS[bookId] ? BOOKS[bookId].defaultVersion : undefined;
+  const bookVersionFromConfig = getBookVersionFromUUIDSync(bookId);
+  const defaultVersion = bookVersionFromConfig && bookVersionFromConfig.defaultVersion;
   const bookVersion = inputVersion ? inputVersion : defaultVersion;
   return {bookId, bookVersion};
 };

@@ -202,6 +202,19 @@ function stubRedirects(app) {
   });
 }
 
+function stubRelease(app) {
+  app.use((req, res, next) => {
+    const {pathname} = url.parse(req.url);
+
+    if (pathname === '/rex/release.json') {
+      const releaseFile = path.join(__dirname, 'release.development.json');
+      sendFile(res, releaseFile);
+    } else {
+      next();
+    }
+  })
+}
+
 async function setupProxy(app) {
   if (!ARCHIVE_URL) { throw new Error('ARCHIVE_URL configuration must be defined'); }
   if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
@@ -213,6 +226,7 @@ async function setupProxy(app) {
   osWebApiProxy(app);
   stubEnvironment(app);
   stubRedirects(app);
+  stubRelease(app);
 
   if (!SKIP_OS_WEB_PROXY) {
     osWebProxy(app);
