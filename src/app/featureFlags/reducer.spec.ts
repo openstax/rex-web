@@ -14,4 +14,16 @@ describe('feature flags reducer', () => {
         searchButton: 'grayButton',
     });
   });
+
+  it('returns state if invalid experiment data received', () => {
+    const state = {
+      ...initialState,
+    };
+
+    const newState = reducer(state, actions.receiveExperiments(['', '']));
+
+    expect(newState).toEqual({
+        ...state,
+    });
+  });
 });

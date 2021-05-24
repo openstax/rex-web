@@ -3,7 +3,7 @@ import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
 import config from '../config';
 
-const getOptimizeContainerByEnv = (window: Window) => {
+export const getOptimizeContainerByEnv = (window: Window) => {
   return config.DEPLOYED_ENV === 'server' ? null
   : (window.location.hostname === 'openstax.org' ? 'OPT-NFHSM4B' : 'OPT-W65B3CP');
 };
