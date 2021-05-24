@@ -20,6 +20,7 @@ import {
   receiveSearchResults,
   requestSearch
 } from '../search/actions';
+import * as searchSelectors from '../search/selectors';
 import * as contentSelectors from '../selectors';
 import Toolbar from './Toolbar';
 
@@ -292,6 +293,18 @@ describe('search', () => {
     jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('blue');
     jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({
       searchButton: 'bannerColorButton',
+    });
+    jest.spyOn(searchSelectors, 'mobileToolbarOpen').mockReturnValue(true);
+
+    const component = render();
+
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('matches snapshot when theme color and grayButton variant are set', () => {
+    jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('red');
+    jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({
+      searchButton: 'grayButton',
     });
 
     const component = render();

@@ -7,9 +7,6 @@ export const getOptimizeContainerByEnv = (window: Window) =>
 
 export default (window: Window, store: Store) => new Promise((resolve) => {
     const containerId = getOptimizeContainerByEnv(window);
-    if (!containerId) {
-      return;
-    }
 
     const script = assertDocument().createElement('script');
     script.setAttribute('type', 'text/javascript');

@@ -5,14 +5,12 @@ import loadOptimize from './loadOptimize';
 
 describe('loadOptimize', () => {
   let store: Store;
-  let gtag: (eventKey: string, eventVal: string, eventObj: object) => boolean;
   let window: Window;
 
   beforeEach(() => {
     store = createTestStore();
     window = assertWindow();
-
-    gtag = window.gtag = jest.fn();
+    window.gtag = jest.fn();
     window.dataLayer = [];
 
     if (typeof document === 'undefined') {
