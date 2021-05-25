@@ -4,8 +4,6 @@ module.exports = {
   DEPLOYED_ENV: 'test',
   REACT_APP_ARCHIVE_URL: '/apps/archive/codeversion',
 
-  BOOKS: {'testbook1-uuid':{'defaultVersion':'1.0'}},
-
   FIXTURES: true,
 
   PORT: process.env.PORT ? parseInt(process.env.PORT, 10) : 62873,

@@ -10,17 +10,17 @@ import { Book, Params, SlugParams } from '../../types';
 import { loadContentReference, resolveBookReference } from './resolveContent';
 import * as resolveContentUtils from './resolveContent';
 
-jest.mock('../../../../config', () => {
+jest.mock('../../../../config', () => ({
+  APP_ENV: 'development',
+  UNLIMITED_CONTENT: true,
+}));
+jest.mock('../../../../config.books', () => {
   const mockBook = (jest as any).requireActual(
     '../../../../test/mocks/archiveLoader'
   ).book;
   return {
-    APP_ENV: 'development',
-    BOOKS: {
-      [mockBook.id]: { defaultVersion: mockBook.version },
-      '13ac107a-f15f-49d2-97e8-60ab2e3abcde': { defaultVersion: '1.0' },
-    },
-    UNLIMITED_CONTENT: true,
+    [mockBook.id]: { defaultVersion: mockBook.version },
+    '13ac107a-f15f-49d2-97e8-60ab2e3abcde': { defaultVersion: '1.0' },
   };
 });
 

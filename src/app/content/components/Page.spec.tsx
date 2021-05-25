@@ -40,11 +40,9 @@ import allImagesLoaded from './utils/allImagesLoaded';
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 
-jest.mock('../../../config', () => {
+jest.mock('../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
-  return {BOOKS: {
-   [mockBook.id]: {defaultVersion: mockBook.version},
-  }};
+  return { [mockBook.id]: { defaultVersion: mockBook.version } };
 });
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784

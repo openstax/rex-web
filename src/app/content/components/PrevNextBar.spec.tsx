@@ -10,11 +10,9 @@ import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 import PrevNextBar from './PrevNextBar';
 
-jest.mock('../../../config', () => {
+jest.mock('../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
-  return {BOOKS: {
-   [mockBook.id]: {defaultVersion: mockBook.version},
-  }};
+  return { [mockBook.id]: { defaultVersion: mockBook.version } };
 });
 
 const book = formatBookData(archiveBook, mockCmsBook);

@@ -15,12 +15,12 @@ import { formatBookData } from '../utils';
 
 const mockBook = {...book, id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c', version: '29.7'};
 
-const mockConfig = {BOOKS: {
+const mockBookConfig = {
  [book.id]: {defaultVersion: book.version},
  [mockBook.id]: {defaultVersion: mockBook.version},
-} as {[key: string]: {defaultVersion: string}}};
+} as {[key: string]: {defaultVersion: string}};
 
-jest.doMock('../../../config', () => mockConfig);
+jest.doMock('../../../config.books', () => mockBookConfig);
 
 describe('locationChange', () => {
   let store: Store;
@@ -205,11 +205,13 @@ describe('locationChange', () => {
       publish_date: '2012-06-21',
     };
 
+    mockBookConfig[mockOtherBook.id] = {defaultVersion: mockOtherBook.version};
+    jest.doMock('../../../config.books', () => mockBookConfig);
+
     beforeEach(() => {
       helpers.archiveLoader.mockBook(mockBook);
       helpers.archiveLoader.mockBook(mockOtherBook);
       helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
-      mockConfig.BOOKS[mockOtherBook.id] = {defaultVersion: mockOtherBook.version};
 
       helpers.archiveLoader.mockPage(mockBook, {
         abstract: '',

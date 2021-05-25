@@ -2,7 +2,9 @@ import fetch from 'node-fetch';
 import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
 import config from '../../src/config';
+import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
+import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
@@ -21,7 +23,6 @@ import { writeAssetFile } from './fileUtils';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 const {
-  BOOKS,
   CODE_VERSION,
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_ARCHIVE_URL,
@@ -54,10 +55,14 @@ async function render() {
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
   const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
+  const bookConfigLoader = createBookConfigLoader();
+
   const {server} = await startServer({port, onlyProxy: true});
   const renderHelpers = {
     archiveLoader,
+    bookConfigLoader,
     buyPrintConfigLoader,
+    config,
     highlightClient,
     osWebLoader,
     practiceQuestionsLoader,
