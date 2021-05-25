@@ -178,6 +178,7 @@ Array [
             </button>
             <button
               className="styled__SearchButton-sc-1119auh-4 cCINnr styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-testid="search-button"
               value="Search"
             >
               <svg
@@ -1530,6 +1531,7 @@ Array [
             </button>
             <button
               className="styled__SearchButton-sc-1119auh-4 cCINnr styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-testid="search-button"
               value="Search"
             >
               <svg
