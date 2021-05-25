@@ -12,11 +12,11 @@ import { formatBookData } from '../utils';
 import * as archiveUtils from '../utils/archiveTreeUtils';
 import * as seoUtils from '../utils/seoUtils';
 
-const mockConfig = {BOOKS: {
+const mockBookConfig = {
  [book.id]: {defaultVersion: book.version},
-} as {[key: string]: {defaultVersion: string}}};
+} as {[key: string]: {defaultVersion: string}};
 
-jest.doMock('../../../config', () => mockConfig);
+jest.doMock('../../../config.books', () => mockBookConfig);
 
 describe('setHead hook', () => {
   let getCanonicalUrlParams: typeof import ('../utils/canonicalUrl').getCanonicalUrlParams;

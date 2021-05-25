@@ -10,11 +10,9 @@ import {
   toRelativeUrl,
 } from './utils';
 
-jest.mock('../../config', () => {
-  return {BOOKS: {
-   '13ac107a-f15f-49d2-97e8-60ab2e3b519c': {defaultVersion: '29.7'},
-  }};
-});
+jest.mock('../../config.books', () => ({
+  '13ac107a-f15f-49d2-97e8-60ab2e3b519c': { defaultVersion: '29.7' },
+}));
 
 describe('stripIdVersion', () => {
   it('strips ids', () => {

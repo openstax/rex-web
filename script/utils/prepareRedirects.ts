@@ -5,7 +5,8 @@ import { content } from '../../src/app/content/routes';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { findArchiveTreeNodeById } from '../../src/app/content/utils/archiveTreeUtils';
 import { AppServices } from '../../src/app/types';
-import { APP_ENV, BOOKS } from '../../src/config';
+import { APP_ENV } from '../../src/config';
+import BOOKS from '../../src/config.books';
 
 const redirectsDataFolderPath = path.resolve(__dirname, '../../data/redirects/');
 

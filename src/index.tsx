@@ -55,6 +55,7 @@ const app = createApp({
     archiveLoader: createArchiveLoader(archiveUrl),
     bookConfigLoader: createBookConfigLoader(),
     buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
+    config,
     highlightClient: createHighlightClient(highlightsUrl),
     osWebLoader: createOSWebLoader(osWebUrl),
     practiceQuestionsLoader: createPracticeQuestionsLoader(),
