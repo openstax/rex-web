@@ -118,29 +118,31 @@ describe('content route', () => {
   });
 
   describe('route content', () => {
-    const mockConfig = {BOOKS: {
+    const mockBookConfig = {
       [book.id]: {defaultVersion: book.version},
-    } as {[key: string]: {defaultVersion: string}}};
+    } as {[key: string]: {defaultVersion: string}};
 
     it('doesnt set archive url on getSearch when there is only a default archive url', () => {
       resetModules();
-      jest.doMock('../../config', () => ({...mockConfig, REACT_APP_ARCHIVE_URL: 'some-content'}));
+      jest.doMock('../../config', () => ({REACT_APP_ARCHIVE_URL: 'some-content'}));
+      jest.doMock('../../config.books', () => mockBookConfig);
       expect(require('./routes').content.getSearch()).toEqual('');
     });
 
     it('sets archive url on getSearch when there is an archive url override and no default', () => {
       resetModules();
-      jest.doMock('../../config', () => ({...mockConfig, REACT_APP_ARCHIVE_URL_OVERRIDE: 'some-content'}));
+      jest.doMock('../../config', () => ({REACT_APP_ARCHIVE_URL_OVERRIDE: 'some-content'}));
+      jest.doMock('../../config.books', () => mockBookConfig);
       expect(require('./routes').content.getSearch()).toEqual('archive=some-content');
     });
 
     it('sets archive url on getSearch when there is an archive url override and a default', () => {
       resetModules();
       jest.doMock('../../config', () => ({
-        ...mockConfig,
         REACT_APP_ARCHIVE_URL: 'asdf',
         REACT_APP_ARCHIVE_URL_OVERRIDE: 'some-content',
       }));
+      jest.doMock('../../config.books', () => mockBookConfig);
       expect(require('./routes').content.getSearch()).toEqual('archive=some-content');
     });
   });

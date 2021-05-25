@@ -21,7 +21,7 @@ import { AnyMatch, Match } from '../../src/app/navigation/types';
 import { matchPathname } from '../../src/app/navigation/utils';
 import { AppServices, AppState } from '../../src/app/types';
 import { assertDefined } from '../../src/app/utils';
-import { BOOKS } from '../../src/config';
+import BOOKS from '../../src/config.books';
 import FontCollector from '../../src/helpers/FontCollector';
 import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils';
 
