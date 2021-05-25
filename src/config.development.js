@@ -34,8 +34,6 @@ module.exports = {
   FIXTURES: false,
   DEBUG: true,
 
-  BOOKS: require('./config.books'),
-
   PORT: process.env.PORT ? parseInt(process.env.PORT, 10) : 8000,
 
   UNLIMITED_CONTENT: UNLIMITED_CONTENT === undefined ? true : UNLIMITED_CONTENT
