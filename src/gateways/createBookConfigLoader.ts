@@ -1,4 +1,4 @@
-import { BOOKS } from '../config';
+import BOOKS from '../config.books';
 import { acceptStatus } from '../helpers/fetch';
 import Sentry, { Severity } from '../helpers/Sentry';
 
