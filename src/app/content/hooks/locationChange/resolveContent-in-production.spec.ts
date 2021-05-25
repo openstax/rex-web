@@ -12,15 +12,15 @@ const testUUID = '13ac107a-f15f-49d2-97e8-60ab2e3abcde';
 const testVersion = '1.0';
 const testPage = 'test-page-1';
 
-jest.mock('../../../../config', () => {
+jest.mock('../../../../config', () => ({
+  APP_ENV: 'production',
+  UNLIMITED_CONTENT: false,
+}));
+jest.mock('../../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../../test/mocks/archiveLoader').book;
   return {
-    APP_ENV: 'production',
-    BOOKS: {
-      [mockBook.id]: { defaultVersion: mockBook.version },
-      '13ac107a-f15f-49d2-97e8-60ab2e3abcde': { defaultVersion: '1.0' },
-    },
-    UNLIMITED_CONTENT: false,
+    [mockBook.id]: { defaultVersion: mockBook.version },
+    '13ac107a-f15f-49d2-97e8-60ab2e3abcde': { defaultVersion: '1.0' },
   };
 });
 
