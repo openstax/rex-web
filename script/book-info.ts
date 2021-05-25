@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import { argv } from 'yargs';
-import { ARCHIVE_URL, BOOKS, REACT_APP_ARCHIVE_URL } from '../src/config';
+import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL } from '../src/config';
+import BOOKS from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 
 const {

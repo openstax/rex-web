@@ -16,11 +16,11 @@ import { formatBookData } from '../../utils';
 import { receiveHighlights } from '../actions';
 import { HighlightData } from '../types';
 
-const mockConfig = {BOOKS: {
+const mockBookConfig = {
  [book.id]: {defaultVersion: book.version},
-} as {[key: string]: {defaultVersion: string}}};
+} as {[key: string]: {defaultVersion: string}};
 
-jest.doMock('../../../../config', () => mockConfig);
+jest.doMock('../../../../config.books', () => mockBookConfig);
 
 describe('locationChange', () => {
   let store: Store;

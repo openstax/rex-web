@@ -5,14 +5,12 @@ import { book } from '../../../test/mocks/archiveLoader';
 import TestContainer from '../../../test/TestContainer';
 import Home from './Home';
 
-jest.mock('../../../config', () => ({
-  BOOKS: {
-    'some-id': {
-      defaultVersion: '1.0',
-    },
-    'some-id-2': {
-      defaultVersion: '1.0',
-    },
+jest.mock('../../../config.books', () => ({
+  'some-id': {
+    defaultVersion: '1.0',
+  },
+  'some-id-2': {
+    defaultVersion: '1.0',
   },
 }));
 

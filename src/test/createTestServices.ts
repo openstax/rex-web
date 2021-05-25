@@ -1,6 +1,7 @@
 import { SearchApi } from '@openstax/open-search-client';
 import { createMemoryHistory } from 'history';
 import { intl } from '../app/MessageProvider';
+import config from '../config';
 import { BuyPrintResponse } from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
@@ -22,6 +23,7 @@ const services = () => ({
   buyPrintConfigLoader: {load: jest.fn(() => Promise.resolve({
     buy_urls: [{url: 'https://example.com', disclosure: null}],
   } as BuyPrintResponse))},
+  config,
   fontCollector: new FontCollector(),
   highlightClient: createHighlightClient('asdf'),
   history: createMemoryHistory(),
