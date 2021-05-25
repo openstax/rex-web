@@ -124,7 +124,9 @@ class Toolbar extends React.Component<Props, State> {
               onClick={toggleMobile}
               colorSchema={searchButtonColor}
             />
-            {!this.state.formSubmitted && <Styled.SearchButton desktop colorSchema={searchButtonColor} />}
+            {!this.state.formSubmitted &&
+              <Styled.SearchButton desktop colorSchema={searchButtonColor} data-testid='search-button' />
+            }
             {this.state.formSubmitted &&
               <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
             }
