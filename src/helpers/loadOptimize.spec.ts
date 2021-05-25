@@ -1,3 +1,4 @@
+import { receiveExperiments } from '../app/featureFlags/actions';
 import { Store } from '../app/types';
 import { assertDocument, assertWindow } from '../app/utils';
 import createTestStore from '../test/createTestStore';
@@ -6,13 +7,14 @@ import loadOptimize from './loadOptimize';
 describe('loadOptimize', () => {
   let store: Store;
   let window: Window;
+  let dispatch: jest.SpyInstance;
   const document = assertDocument();
 
   beforeEach(() => {
     store = createTestStore();
     window = assertWindow();
-    window.gtag = jest.fn();
     window.dataLayer = [];
+    dispatch = jest.spyOn(store, 'dispatch');
 
     const createEvent = document.createEvent.bind(document);
     const originalCreateElement = document.createElement.bind(document);
@@ -29,6 +31,7 @@ describe('loadOptimize', () => {
 
   afterEach(() => {
     document.head.innerHTML = '';
+    window.dataLayer = [];
   });
 
   it('injects correct <script> into head if in production', async() => {
@@ -40,14 +43,10 @@ describe('loadOptimize', () => {
     window.location = newLocation;
 
     await loadOptimize(window, store);
+    const script = document.head.querySelector('script');
 
-    const style = document.head.querySelector('style');
-    if (style) {
-      style.remove();
-    }
-    // tslint:disable: max-line-length
-    expect(document.head.innerHTML).toMatchInlineSnapshot(
-      `"<script type=\\"text/javascript\\" src=\\"https://www.googleoptimize.com/optimize.js?id=OPT-NFHSM4B\\"></script>"`
+    expect(script!.src).toEqual(
+      'https://www.googleoptimize.com/optimize.js?id=OPT-NFHSM4B'
     );
   });
 
@@ -60,13 +59,17 @@ describe('loadOptimize', () => {
     window.location = newLocation;
 
     await loadOptimize(window, store);
-    const style = document.head.querySelector('style');
-    if (style) {
-      style.remove();
-    }
-    // tslint:disable: max-line-length
-    expect(document.head.innerHTML).toMatchInlineSnapshot(
-      `"<script type=\\"text/javascript\\" src=\\"https://www.googleoptimize.com/optimize.js?id=OPT-W65B3CP\\"></script>"`
+    const script = document.head.querySelector('script');
+
+    expect(script!.src).toEqual(
+      'https://www.googleoptimize.com/optimize.js?id=OPT-W65B3CP'
     );
+  });
+
+  it('registers optimize callback and correctly dispatches action', async() => {
+    await loadOptimize(window, store);
+
+    ((window.dataLayer[0] as any)[2] as any).callback('1', 'OCCkMMCZSwW87szzpniCow');
+    expect(dispatch).toHaveBeenCalledWith(receiveExperiments(['OCCkMMCZSwW87szzpniCow', '1']));
   });
 });

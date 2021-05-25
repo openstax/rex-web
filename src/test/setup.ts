@@ -93,6 +93,13 @@ beforeEach(() => {
 
   scrollTo = window.scrollTo = jest.fn();
   scrollBy = window.scrollBy = jest.fn();
+  window.dataLayer = [];
+
+  function gtag() {
+    if (window) {
+      window.dataLayer.push(arguments);
+    }
+  }
 
   matchMedia = window.matchMedia = jest.fn().mockImplementation((query) => {
     return {
@@ -113,6 +120,7 @@ beforeEach(() => {
 
   mockGa = jest.fn();
   window.ga = mockGa;
+  window.gtag = gtag;
 });
 
 afterEach(() => {
