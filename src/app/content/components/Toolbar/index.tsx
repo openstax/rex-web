@@ -111,6 +111,7 @@ class Toolbar extends React.Component<Props, State> {
             active={this.props.mobileToolbarOpen}
             onSubmit={onSubmit}
             data-testid='desktop-search'
+            data-experiment
             colorSchema={searchButtonColor}
           >
             <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
@@ -160,6 +161,7 @@ class Toolbar extends React.Component<Props, State> {
             action='#'
             onSubmit={onSubmit}
             data-testid='mobile-search'
+            data-experiment
             colorSchema={searchButtonColor}
           >
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'

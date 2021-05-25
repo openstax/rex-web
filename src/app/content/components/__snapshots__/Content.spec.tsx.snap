@@ -130,6 +130,7 @@ Array [
         >
           <form
             className="styled__SearchInputWrapper-sc-1119auh-6 bkDHsN"
+            data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
           >
@@ -1484,6 +1485,7 @@ Array [
         >
           <form
             className="styled__SearchInputWrapper-sc-1119auh-6 bkDHsN"
+            data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
           >
