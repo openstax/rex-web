@@ -36,7 +36,7 @@ describe('content', () => {
         ['[data-testid="search-results-sidebar"]', 'style'],
         ['[data-testid="loader"] path', 'style'],
         ['[data-testid="mobile-toggle"]', 'style'],
-        ['[data-testid="search-button"]', 'style'],
+        ['[data-experiment]', 'style'],
         // img src is changed from data:image/svg+xml;base64... to static path
         ['[data-testid="navbar"] img', 'src'],
       ].forEach(([selector, attribute]) => {

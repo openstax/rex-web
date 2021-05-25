@@ -146,6 +146,7 @@ Array [
               aria-label="Search this book"
               className="styled__SearchButton-sc-1119auh-4 fXqtFK styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-analytics-label="Search this book"
+              data-experiment={true}
               data-testid="mobile-toggle"
               onClick={[Function]}
               type="button"
@@ -178,7 +179,7 @@ Array [
             </button>
             <button
               className="styled__SearchButton-sc-1119auh-4 cCINnr styled__PlainButton-sc-1119auh-0 kPdLbJ"
-              data-testid="search-button"
+              data-experiment={true}
               value="Search"
             >
               <svg
@@ -1499,6 +1500,7 @@ Array [
               aria-label="Search this book"
               className="styled__SearchButton-sc-1119auh-4 fXqtFK styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-analytics-label="Search this book"
+              data-experiment={true}
               data-testid="mobile-toggle"
               onClick={[Function]}
               type="button"
@@ -1531,7 +1533,7 @@ Array [
             </button>
             <button
               className="styled__SearchButton-sc-1119auh-4 cCINnr styled__PlainButton-sc-1119auh-0 kPdLbJ"
-              data-testid="search-button"
+              data-experiment={true}
               value="Search"
             >
               <svg

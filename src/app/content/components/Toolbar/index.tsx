@@ -121,11 +121,12 @@ class Toolbar extends React.Component<Props, State> {
               ariaLabelId='i18n:toolbar:search:toggle'
               data-analytics-label='Search this book'
               data-testid='mobile-toggle'
+              data-experiment
               onClick={toggleMobile}
               colorSchema={searchButtonColor}
             />
             {!this.state.formSubmitted &&
-              <Styled.SearchButton desktop colorSchema={searchButtonColor} data-testid='search-button' />
+              <Styled.SearchButton desktop colorSchema={searchButtonColor} data-experiment />
             }
             {this.state.formSubmitted &&
               <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
