@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
 import config from '../../src/config';
+import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
@@ -22,7 +23,6 @@ import { writeAssetFile } from './fileUtils';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 const {
-  BOOKS,
   CODE_VERSION,
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_ARCHIVE_URL,
@@ -62,6 +62,7 @@ async function render() {
     archiveLoader,
     bookConfigLoader,
     buyPrintConfigLoader,
+    config,
     highlightClient,
     osWebLoader,
     practiceQuestionsLoader,

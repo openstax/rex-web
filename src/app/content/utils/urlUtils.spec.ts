@@ -13,11 +13,9 @@ import {
 
 const testUUID = 'longidin-vali-dfor-mat1-111111111111';
 
-jest.mock('../../../config', () => {
+jest.mock('../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
-  return {BOOKS: {
-   [mockBook.id]: {defaultVersion: mockBook.version},
-  }};
+  return { [mockBook.id]: { defaultVersion: mockBook.version } };
 });
 
 describe('getBookPageUrlAndParams', () => {
