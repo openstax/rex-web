@@ -9,6 +9,7 @@ import {
 } from 'redux';
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
+import config from '../config';
 import createArchiveLoader from '../gateways/createArchiveLoader';
 import createBookConfigLoader from '../gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../gateways/createBuyPrintConfigLoader';
@@ -40,6 +41,7 @@ export interface AppServices {
   analytics: typeof analytics;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
   buyPrintConfigLoader: ReturnType<typeof createBuyPrintConfigLoader>;
+  config: typeof config;
   fontCollector: FontCollector;
   highlightClient: ReturnType<typeof createHighlightClient>;
   history: History;

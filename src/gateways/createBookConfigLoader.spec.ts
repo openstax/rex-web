@@ -3,12 +3,10 @@ import Sentry from '../helpers/Sentry';
 
 jest.mock('../helpers/Sentry');
 
-jest.mock('../config', () => ({
-  BOOKS: {
+jest.mock('../config.books', () => ({
     'test-book-uuid': {
       defaultVersion: 'test-book-version',
     },
-  },
 }));
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({

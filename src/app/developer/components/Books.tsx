@@ -1,5 +1,5 @@
 import React from 'react';
-import { BOOKS } from '../../../config';
+import BOOKS from '../../../config.books';
 import { H3 } from '../../components/Typography';
 import { StyledContentLink } from '../../content/components/ContentLink';
 import { Book } from '../../content/types';
