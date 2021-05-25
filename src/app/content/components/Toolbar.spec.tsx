@@ -23,6 +23,7 @@ import {
 import * as searchSelectors from '../search/selectors';
 import * as contentSelectors from '../selectors';
 import Toolbar from './Toolbar';
+import { SearchButton } from './Toolbar/styled';
 
 describe('print button', () => {
   let store: Store;
@@ -289,7 +290,7 @@ describe('search', () => {
     expect(findById('desktop-search-input').props.value).toEqual('asdf');
   });
 
-  it('matches snapshot when theme color and bannerColorButton variant are set', () => {
+  it('button has theme bg color applied', () => {
     jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('blue');
     jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({
       searchButton: 'bannerColorButton',
@@ -297,27 +298,33 @@ describe('search', () => {
     jest.spyOn(searchSelectors, 'mobileToolbarOpen').mockReturnValue(true);
 
     const component = render();
+    const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(searchButton.props.colorSchema).toEqual('blue');
+    expect(searchButtonMobile.props.colorSchema).toEqual('blue');
   });
 
-  it('matches snapshot when theme color and grayButton variant are set', () => {
+  it('button has gray bg color applied', () => {
     jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('red');
     jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({
       searchButton: 'grayButton',
     });
 
     const component = render();
+    const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(searchButton.props.colorSchema).toEqual('gray');
+    expect(searchButtonMobile.props.colorSchema).toEqual('gray');
   });
 
-  it('matches snapshot when theme color and no button variant are set', () => {
+  it('button has no bg color applied', () => {
     jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('blue');
     jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({});
 
     const component = render();
+    const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(searchButton.props.colorSchema).toEqual(null);
+    expect(searchButtonMobile.props.colorSchema).toEqual(null);
   });
 });

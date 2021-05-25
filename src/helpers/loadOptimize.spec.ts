@@ -1,21 +1,18 @@
 import { Store } from '../app/types';
-import { assertWindow } from '../app/utils';
+import { assertDocument, assertWindow } from '../app/utils';
 import createTestStore from '../test/createTestStore';
 import loadOptimize from './loadOptimize';
 
 describe('loadOptimize', () => {
   let store: Store;
   let window: Window;
+  const document = assertDocument();
 
   beforeEach(() => {
     store = createTestStore();
     window = assertWindow();
     window.gtag = jest.fn();
     window.dataLayer = [];
-
-    if (typeof document === 'undefined') {
-      throw new Error('JSDom not loaded');
-    }
 
     const createEvent = document.createEvent.bind(document);
     const originalCreateElement = document.createElement.bind(document);
@@ -31,10 +28,6 @@ describe('loadOptimize', () => {
   });
 
   afterEach(() => {
-    if (typeof document === 'undefined') {
-      throw new Error('JSDom not loaded');
-    }
-
     document.head.innerHTML = '';
   });
 
@@ -48,21 +41,14 @@ describe('loadOptimize', () => {
 
     await loadOptimize(window, store);
 
-    if (document && document.head) {
-      const style = document.head.querySelector('style');
-      if (style) {
-        style.remove();
-      }
-      // tslint:disable: max-line-length
-      expect(document.head.innerHTML).toMatchInlineSnapshot(
-        `"<script type=\\"text/javascript\\" src=\\"https://www.googleoptimize.com/optimize.js?id=OPT-NFHSM4B\\"></script>"`
-      );
-    } else if (document) {
-      expect(document).toBeTruthy();
-      expect(document.head).toBeTruthy();
-    } else {
-      expect(document).toBeTruthy();
+    const style = document.head.querySelector('style');
+    if (style) {
+      style.remove();
     }
+    // tslint:disable: max-line-length
+    expect(document.head.innerHTML).toMatchInlineSnapshot(
+      `"<script type=\\"text/javascript\\" src=\\"https://www.googleoptimize.com/optimize.js?id=OPT-NFHSM4B\\"></script>"`
+    );
   });
 
   it('injects correct <script> into head if in development', async() => {
@@ -74,21 +60,13 @@ describe('loadOptimize', () => {
     window.location = newLocation;
 
     await loadOptimize(window, store);
-
-    if (document && document.head) {
-      const style = document.head.querySelector('style');
-      if (style) {
-        style.remove();
-      }
-      // tslint:disable: max-line-length
-      expect(document.head.innerHTML).toMatchInlineSnapshot(
-        `"<script type=\\"text/javascript\\" src=\\"https://www.googleoptimize.com/optimize.js?id=OPT-W65B3CP\\"></script>"`
-      );
-    } else if (document) {
-      expect(document).toBeTruthy();
-      expect(document.head).toBeTruthy();
-    } else {
-      expect(document).toBeTruthy();
+    const style = document.head.querySelector('style');
+    if (style) {
+      style.remove();
     }
+    // tslint:disable: max-line-length
+    expect(document.head.innerHTML).toMatchInlineSnapshot(
+      `"<script type=\\"text/javascript\\" src=\\"https://www.googleoptimize.com/optimize.js?id=OPT-W65B3CP\\"></script>"`
+    );
   });
 });
