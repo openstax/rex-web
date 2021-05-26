@@ -6,11 +6,11 @@ from enum import Enum
 from platform import system
 from random import choice, choices, randint
 from string import digits, ascii_letters
-
 from time import sleep
 from typing import Dict, List, Tuple
 
 from faker import Faker
+from pypom import Page, Region
 from selenium.common.exceptions import (
     ElementClickInterceptedException,
     NoSuchElementException,
@@ -22,6 +22,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 
 # Constant usage values for javascript commands
+ANALYTICS_QUEUE = (
+    "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
+    ".map(x => x.command.payload);")
 ASYNC_DELETE = r"""
 (async function delete_page_highlights() {
   const ids = __APP_STORE.getState().content.highlights.highlights.map(({id}) => id);
@@ -51,8 +54,14 @@ class Color(Enum):
     PURPLE = "purple"
     YELLOW = "yellow"
 
-    def __str__(self):
-        return self.value
+    def __str__(cls) -> str:
+        """Return the color as a string.
+
+        :return: the color as a string
+        :rtype: str
+
+        """
+        return cls.value
 
     @classmethod
     def from_html_class(cls, classes: str) -> Color:
@@ -85,6 +94,12 @@ class Color(Enum):
 
     @classmethod
     def options(cls) -> List[Color]:
+        """Return the color options.
+
+        :return: the ``Color`` options as a list
+        :rtype: list(Enum)
+
+        """
         return [color for _, color in cls.__members__.items()]
 
 
@@ -395,6 +410,22 @@ class Utilities(object):
                         element = driver.find_element(*locator)
 
     @classmethod
+    def get_analytics_queue(cls, driver, index: int = None):
+        """Access the list of queued Google Analytics events.
+
+        :param driver: a selenium webdriver
+        :param index: a specific event in the list; defaults to ``None``
+        :type driver: Webdriver
+        :type index: int, optional
+        :return: the list of queued Google Analytics events
+
+        """
+        queue = driver.execute_script(ANALYTICS_QUEUE)
+        if index or index == 0:
+            return queue[index]
+        return queue
+
+    @classmethod
     def has_scroll_bar(cls, driver, element) -> bool:
         """Return True if the element currently has a vertical scroll bar.
 
@@ -407,6 +438,20 @@ class Utilities(object):
 
         """
         return driver.execute_script(HAS_SCROLL_BAR, element)
+
+    @classmethod
+    def parent_page(cls, region: Region) -> Page:
+        """Return the first page object found.
+
+        :param region: the current region object in a page object tree
+        :type region: :py:class:`~pypom.Region`
+        :return: the first ``Page`` object found in the current tree
+        :rtype: :py:class:`~pypom.Page`
+
+        """
+        if isinstance(region.page, Region):
+            return cls.parent_page(region.page)
+        return region.page
 
     @classmethod
     def random_name(cls) -> Tuple(str, str):
@@ -466,7 +511,7 @@ class Utilities(object):
         sleep(0.75)
 
     @classmethod
-    def switch_to(cls, driver, locator=None, element=None):
+    def switch_to(cls, driver, link_locator=None, element=None, action=None):
         """Switch to the other window handle.
 
         :param driver: the selenium webdriver object
@@ -478,8 +523,14 @@ class Utilities(object):
 
         """
         current = driver.current_window_handle
-        cls.click_option(driver=driver, locator=locator, element=element)
+        data = None
+        if not action:
+            cls.click_option(driver=driver, locator=link_locator, element=element)
+        else:
+            data = action()
         sleep(1)
         new_handle = 1 if current == driver.window_handles[0] else 0
         if len(driver.window_handles) > 1:
             driver.switch_to.window(driver.window_handles[new_handle])
+        if data:
+            return data
