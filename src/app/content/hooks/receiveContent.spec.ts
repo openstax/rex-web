@@ -12,11 +12,11 @@ import { formatBookData } from '../utils';
 import * as archiveUtils from '../utils/archiveTreeUtils';
 import * as seoUtils from '../utils/seoUtils';
 
-const mockConfig = {BOOKS: {
+const mockBookConfig = {
  [book.id]: {defaultVersion: book.version},
-} as {[key: string]: {defaultVersion: string}}};
+} as {[key: string]: {defaultVersion: string}};
 
-jest.doMock('../../../config', () => mockConfig);
+jest.doMock('../../../config.books', () => mockBookConfig);
 
 describe('setHead hook', () => {
   let getCanonicalUrlParams: typeof import ('../utils/canonicalUrl').getCanonicalUrlParams;
@@ -132,6 +132,32 @@ describe('setHead hook', () => {
         meta: expect.arrayContaining([
           expect.objectContaining({name: 'description'}),
           expect.objectContaining({property: 'og:description'}),
+        ]),
+      })));
+    });
+
+    it('dispatches sethead with og:image tag if book has that data', async() => {
+      store.dispatch(receiveBook({
+        ...combinedBook,
+        promote_image: { meta: { download_url: 'mock_download_url' } } as any,
+      }));
+      store.dispatch(receivePage({
+        ...page,
+        abstract: 'foobar',
+        references: [],
+      }));
+      const bookId = book.id;
+      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+
+      await hook(receivePage({
+        ...page,
+        abstract: 'foobar',
+        references: [],
+      }));
+
+      expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
+        meta: expect.arrayContaining([
+          {property: 'og:image', content: 'mock_download_url'},
         ]),
       })));
     });

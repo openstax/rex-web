@@ -49,6 +49,7 @@ const HighlightButton = ({ openMyHighlights }: Props) => {
   return <MyHighlightsWrapper
     onClick={() => openHighlightsSummary()}
     aria-label={text}
+    data-analytics-label='My highlights'
     practiceQuestionsEnabled={practiceQuestionsEnabled}
   >
     <HighlightsIcon />

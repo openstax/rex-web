@@ -7,24 +7,26 @@ import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
 import * as routes from '../../routes';
 import { Book, Params, SlugParams } from '../../types';
-import { getBookInformation, loadContentReference, resolveBookReference } from './resolveContent';
+import { loadContentReference, resolveBookReference } from './resolveContent';
 import * as resolveContentUtils from './resolveContent';
 
-jest.mock('../../../../config', () => {
+jest.mock('../../../../config', () => ({
+  APP_ENV: 'development',
+  UNLIMITED_CONTENT: true,
+}));
+jest.mock('../../../../config.books', () => {
   const mockBook = (jest as any).requireActual(
     '../../../../test/mocks/archiveLoader'
   ).book;
   return {
-    APP_ENV: 'development',
-    BOOKS: {
-      [mockBook.id]: { defaultVersion: mockBook.version },
-    },
-    UNLIMITED_CONTENT: true,
+    [mockBook.id]: { defaultVersion: mockBook.version },
+    '13ac107a-f15f-49d2-97e8-60ab2e3abcde': { defaultVersion: '1.0' },
   };
 });
 
 const testBookSlug = 'book-slug-1';
-const testUUID = 'longidin-vali-dfor-mat1-111111111111';
+const testUUID = '13ac107a-f15f-49d2-97e8-60ab2e3abcde';
+const testVersion = '1.0';
 const testPage = 'test-page-1';
 
 describe('locationChange', () => {
@@ -47,13 +49,13 @@ describe('locationChange', () => {
 
   const mockOtherBook = {
     abstract: '',
-    id: 'newbookid',
+    id: '13ac107a-f15f-49d2-97e8-60ab2e3other',
     license: {name: '', version: '', url: ''},
     revised: '2012-06-21',
     title: 'newbook',
     tree: {
       contents: [],
-      id: 'newbookid@0',
+      id: '13ac107a-f15f-49d2-97e8-60ab2e3other@0',
       slug: 'newbook',
       title: 'newbook',
     },
@@ -62,10 +64,10 @@ describe('locationChange', () => {
   const mockPageInOtherBook = {
     abstract: '',
     content: 'dope content bruh',
-    id: 'newbookpageid',
+    id: '99d38770-49c7-49d3-b567-88f393ffb4fe',
     revised: '2018-07-30T15:58:45Z',
+    slug: 'page-in-a-new-book',
     title: 'page in a new book',
-    version: '0',
   };
 
   beforeEach(() => {
@@ -137,12 +139,12 @@ describe('locationChange', () => {
       match.params = {
         book: {
           uuid: testUUID,
-          version: '1.0',
+          version: testVersion,
         },
         page: {
           slug: testPage,
         },
-      },
+      };
       await hook(helpers, match);
       await hook(helpers, match);
 
@@ -174,34 +176,12 @@ describe('locationChange', () => {
       expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', 'asdf');
     });
 
-    it('uses latest version if requested', async() => {
-      const versionedSlugParams = {
-        ...match.params,
-        book: {
-          ...match.params.book,
-          version: 'latest',
-        },
-      } as Params;
-
-      match.params = versionedSlugParams;
-      helpers.archiveLoader.mockBook({
-        ...book,
-        version: undefined as any as string,
-      });
-      helpers.archiveLoader.mockPage({
-        ...book,
-        version: undefined as any as string,
-      }, page, testPage);
-      await hook(helpers, match);
-      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', undefined);
-    });
-
     it('uses uuid if present', async() => {
       helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
       const versionedUuidParams = {
         book: {
           uuid: testUUID,
-          version: '1.0',
+          version: testVersion,
         },
         page: {
           slug: (match.params.page as SlugParams).slug,
@@ -212,7 +192,7 @@ describe('locationChange', () => {
 
       match.params = versionedUuidParams;
       await hook(helpers, match);
-      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('longidin-vali-dfor-mat1-111111111111', '1.0');
+      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(testUUID, testVersion);
     });
 
     it('throws if there is no uuid', async() => {
@@ -223,44 +203,7 @@ describe('locationChange', () => {
       ).rejects.toThrow(`Could not resolve uuid for slug: ${testBookSlug}`);
     });
 
-    it('allows content links outside of BOOKS config and do not throw if not found', async() => {
-      /* Mock an actual hit for book outside BOOKS config */
-      helpers.archiveLoader.mock.getBookIdsForPage.mockReturnValue(
-        Promise.resolve([{ id: 'newbookid', bookVersion: '0' }])
-      );
-      helpers.archiveLoader.mockBook(mockOtherBook);
-      helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
-
-      match.params = {
-        book: {uuid: mockOtherBook.id, version: '1.0'},
-        page: {slug: 'page-in-a-new-book'},
-      };
-
-      const referenceBook = await resolveExternalBookReference(
-        helpers, mockOtherBook, mockPageInOtherBook, { match: 'ajhd', pageId: mockPageInOtherBook.id });
-
-      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
-      expect(referenceBook).toBeTruthy();
-
-      /* Mock an actual hit for book outside BOOKS config */
-      helpers.osWebLoader.getBookFromId.mockImplementation(() => Promise.reject() as any);
-      helpers.archiveLoader.mock.loadBook.mockImplementation(() => Promise.resolve(undefined) as any);
-
-      let message: string | undefined;
-      let bookOrReferenceLoadingError: Book | undefined;
-      try {
-        bookOrReferenceLoadingError = await resolveExternalBookReference(
-          helpers, mockOtherBook, mockPageInOtherBook, { match: 'ajhd', pageId: mockPageInOtherBook.id });
-      } catch (e) {
-        message = e.message;
-      }
-
-      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
-      expect(message).toBeUndefined();
-      expect(bookOrReferenceLoadingError).toEqual(undefined);
-    });
-
-    it('resolves link with book version in reference or sets default', async() => {
+    it('do not allow content links outside of BOOKS config and do not throw if not found', async() => {
       helpers.archiveLoader.mockBook(mockOtherBook);
       helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
 
@@ -270,34 +213,47 @@ describe('locationChange', () => {
       };
 
       const reference = {
+        bookId: mockOtherBook.id,
+        bookVersion: '1.0',
+        match: 'ajhd',
+        pageId: mockPageInOtherBook.id,
+      };
+
+      const referenceBook = await resolveExternalBookReference(helpers, mockOtherBook, mockPageInOtherBook, reference);
+
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith(mockOtherBook.id);
+      expect(referenceBook).toEqual(undefined);
+
+      /* Mock an actual hit for book outside BOOKS config */
+      helpers.osWebLoader.getBookFromId.mockImplementation(() => Promise.resolve() as any);
+      helpers.archiveLoader.mock.loadBook.mockImplementation(() => Promise.resolve(undefined) as any);
+
+      let message: string | undefined;
+      let bookOrReferenceLoadingError: Book | undefined;
+      try {
+        bookOrReferenceLoadingError = await resolveExternalBookReference(
+          helpers, mockOtherBook, mockPageInOtherBook, reference);
+      } catch (e) {
+        message = e;
+      }
+
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith(mockOtherBook.id);
+      expect(message).toBeUndefined();
+      expect(bookOrReferenceLoadingError).toEqual(undefined);
+    });
+
+    it('resolves link with book version in reference', async() => {
+      const reference = {
         bookId: 'newbookid',
         bookVersion: '0',
         match: 'ajhd',
         pageId: mockPageInOtherBook.id,
       };
 
-      const referenceBook = await resolveExternalBookReference(
-        helpers, mockOtherBook, mockPageInOtherBook, reference);
+      await resolveExternalBookReference(helpers, mockOtherBook, mockPageInOtherBook, reference);
 
-      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('newbookid');
-      expect(referenceBook).toBeTruthy();
-
-      const reference2 = {
-        bookId: 'testbook1-uuid',
-        match: 'ajhd',
-        pageId: 'testbook1-testpage1-uuid',
-      };
-
-      const referenceBook2 = await resolveExternalBookReference(
-        helpers, mockOtherBook, mockPageInOtherBook, reference2);
-
-      if (!referenceBook2) {
-        return expect(referenceBook2).toEqual('referenceBook2 should be ArchiveBook');
-      }
-
-      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('testbook1-uuid');
-      expect(referenceBook2.version).toEqual('1.0');
-
+      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith(reference.bookId);
+      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(reference.bookId, reference.bookVersion);
     });
 
     it('returns undefined if book wasnt found', async() => {
@@ -322,39 +278,20 @@ describe('locationChange', () => {
       expect(referenceBook).toEqual(undefined);
     });
 
-    it('returns undefined if book wasnt found (no bookId in reference)', async() => {
-      helpers.archiveLoader.mock.loadBook.mockRejectedValue(new Error('asda'));
-      helpers.archiveLoader.getBookIdsForPage.mockResolvedValue([{ id: 'asd', bookVersion: '0' }]);
-
-      match.params = {
-        book: {uuid: book.id, version: '1.0'},
-        page: {slug: 'asd'},
-      };
-
-      const reference = {
-        bookVersion: '1.0',
-        match: 'ajhd',
-        pageId: 'asd',
-      };
-
-      const referenceBook = await resolveExternalBookReference(
-        helpers, mockOtherBook, mockPageInOtherBook, reference);
-
-      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith('asd');
-      expect(referenceBook).toEqual(undefined);
-    });
-
     describe('getBookInformation', () => {
-      it('returns undefined if no book version found in config or reference', async() => {
+      it('do not throw and handle reference with undefined version', async() => {
         const reference = {
-          bookId: 'newbookid',
+          bookId: 'asdasdas',
+          bookVersion: undefined,
           match: 'ajhd',
-          pageId: mockPageInOtherBook.id,
+          pageId: 'asd',
         };
 
-        const referenceBook = await getBookInformation(helpers, reference);
+        helpers.archiveLoader.mock.loadBook.mockRejectedValue(new Error('asd'));
 
-        expect(referenceBook).toEqual(undefined);
+        const bookInfo = await resolveContentUtils.getBookInformation(helpers, reference);
+
+        expect(bookInfo).toEqual(undefined);
       });
     });
 
@@ -363,62 +300,12 @@ describe('locationChange', () => {
         jest.spyOn(resolveContentUtils, 'resolveExternalBookReference')
           .mockResolvedValue(undefined);
 
-        const reference = { match: 'asd', pageId: 'asd' };
+        const reference = { match: 'asd', pageId: 'asd', bookId: 'asd', bookVersion: 'asd' };
         expect(await loadContentReference(helpers, book, page, reference)).toEqual({
           match: reference.match,
           type: 'error',
         });
       });
-    });
-  });
-
-  describe('in production', () => {
-    beforeAll(() => {
-      jest.doMock('../../../../config', () => ({
-        APP_ENV: 'production',
-        BOOKS: {
-          [book.id]: { defaultVersion: book.version },
-        },
-      }));
-    });
-
-    it('throws if book is missing cms data in production', async() => {
-      helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
-      mockUUIDBook();
-
-      const versionedUuidParams = {
-        book: {
-          uuid: testUUID,
-          version: '1.0',
-        },
-        page: {
-          slug: (match.params.page as SlugParams).slug,
-        },
-      } as Params;
-      match.params = versionedUuidParams;
-
-      await expect(
-         hook(helpers, match)
-      ).rejects.toThrow('books without cms data are only supported outside production');
-    });
-
-    it('resolveExternalBookReference throws if book wasnt found', async() => {
-      helpers.archiveLoader.mock.loadBook.mockRejectedValue(new Error('asda'));
-
-      match.params = {
-        book: {uuid: book.id, version: '1.0'},
-        page: {slug: 'asd'},
-      };
-
-      const reference = {
-        bookId: book.id,
-        bookVersion: '1.0',
-        match: 'ajhd',
-        pageId: 'asd',
-      };
-
-      await expect(resolveExternalBookReference(helpers, mockOtherBook, mockPageInOtherBook, reference))
-        .rejects.toThrow('asda');
     });
   });
 });

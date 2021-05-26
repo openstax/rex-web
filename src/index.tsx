@@ -9,6 +9,7 @@ import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
+import createBookConfigLoader from './gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from './gateways/createBuyPrintConfigLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
@@ -51,7 +52,9 @@ const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
     archiveLoader: createArchiveLoader(archiveUrl),
+    bookConfigLoader: createBookConfigLoader(),
     buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
+    config,
     highlightClient: createHighlightClient(highlightsUrl),
     osWebLoader: createOSWebLoader(osWebUrl),
     practiceQuestionsLoader: createPracticeQuestionsLoader(),

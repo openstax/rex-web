@@ -6,6 +6,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import keyBy from 'lodash/fp/keyBy';
 import React from 'react';
+import { IntlShape } from 'react-intl';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
@@ -13,6 +14,7 @@ import { page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
+import { assertDocument } from '../../../utils/browser-assertions';
 import Card from '../../highlights/components/Card';
 import CardWrapper from '../../highlights/components/CardWrapper';
 import { HighlightData, HighlightScrollTarget } from '../../highlights/types';
@@ -46,6 +48,7 @@ describe('highlightManager', () => {
   let prop: HighlightProp;
   let prevProp: HighlightProp;
   let store: Store;
+  let intl: IntlShape;
 
   beforeEach(() => {
     window = assertWindow();
@@ -62,15 +65,16 @@ describe('highlightManager', () => {
       scrollTarget: null,
     };
     prevProp = {...prop};
+    intl = { formatMessage: jest.fn() } as any as IntlShape;
     store = createTestStore();
   });
 
   afterEach(() => {
-    delete window.document.getSelection;
+    delete (window as any).document.getSelection;
   });
 
   it('CardList is rendered initially', () => {
-    const {CardList} = highlightManager(element, () => prop);
+    const {CardList} = highlightManager(element, () => prop, intl);
     const component = renderer.create(<Provider store={store}>
       <CardList/>
     </Provider>);
@@ -80,7 +84,7 @@ describe('highlightManager', () => {
   });
 
   it('CardList is rendered after update', () => {
-    const {CardList, update} = highlightManager(element, () => prop);
+    const {CardList, update} = highlightManager(element, () => prop, intl);
     update(prevProp);
     const component = renderer.create(<Provider store={store}>
       <CardList/>
@@ -96,7 +100,7 @@ describe('highlightManager', () => {
       isAttached: () => true,
     };
     const mockHighlightData = {id: mockHighlight.id} as HighlightData;
-    const {CardList, update} = highlightManager(element, () => prop);
+    const {CardList, update} = highlightManager(element, () => prop, intl);
     const component = renderer.create(<Provider store={store}>
       <CardList/>
     </Provider>);
@@ -130,8 +134,64 @@ describe('highlightManager', () => {
   });
 
   it('creates highlighter', () => {
-    highlightManager(element, () => prop);
+    highlightManager(element, () => prop, intl);
     expect(Highlighter).toHaveBeenCalled();
+  });
+
+  it('calls highlighter.formatMessage', () => {
+    highlightManager(element, () => prop, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    options.formatMessage({ id: 'id' }, { style: 'abc' });
+    expect(intl.formatMessage).toHaveBeenCalledWith({ id: 'id' }, { style: 'abc' });
+  });
+
+  it('calls highlighter.onFocusIn', async() => {
+    highlightManager(element, () => prop, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    options.onFocusIn({ id: 'abc' });
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.focus).toHaveBeenCalledWith('abc');
+  });
+
+  it('calls highlighter.onFocusOut', async() => {
+    highlightManager(element, () => prop, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.clearFocus).toHaveBeenCalled();
+  });
+
+  it('noops on highlighter.onFocusOut if active element has data-highlight-card attribute', async() => {
+    highlightManager(element, () => prop, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    const document = assertDocument();
+    const highlightElement = document.createElement('span');
+    highlightElement.setAttribute('data-highlight-card', 'true');
+    highlightElement.setAttribute('tabindex', '0');
+    document.body.append(highlightElement);
+    highlightElement.focus();
+    options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.clearFocus).not.toHaveBeenCalled();
+  });
+
+  it('noops on highlighter.onFocusOut if active element has data-for-screenreaders attribute', async() => {
+    highlightManager(element, () => prop, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    const document = assertDocument();
+    const highlightElement = document.createElement('span');
+    highlightElement.setAttribute('data-for-screenreaders', 'true');
+    highlightElement.setAttribute('tabindex', '0');
+    document.body.append(highlightElement);
+    highlightElement.focus();
+    options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.clearFocus).not.toHaveBeenCalled();
   });
 
   it('highlights highlights', () => {
@@ -140,7 +200,7 @@ describe('highlightManager', () => {
       isAttached: () => true,
     };
     const mockHighlightData = {id: mockHighlight.id} as HighlightData;
-    const {update} = highlightManager(element, () => prop);
+    const {update} = highlightManager(element, () => prop, intl);
 
     prop.highlights = [
       mockHighlightData,
@@ -167,7 +227,7 @@ describe('highlightManager', () => {
   it('erases highlights', () => {
     const mockHighlight1 = createMockHighlight();
     const mockHighlight2 = createMockHighlight();
-    const {update} = highlightManager(element, () => prop);
+    const {update} = highlightManager(element, () => prop, intl);
 
     prop.highlights = [
       {id: mockHighlight1.id} as HighlightData,
@@ -196,12 +256,12 @@ describe('highlightManager', () => {
       createMockHighlight(),
       createMockHighlight(),
     ];
-    const {update} = highlightManager(element, () => prop);
+    const {update} = highlightManager(element, () => prop, intl);
 
     prop.focused = mockHighlights[0].id;
     prop.highlights = mockHighlights.map(({id}) => ({id} as HighlightData));
 
-    const focus = jest.spyOn(mockHighlights[0], 'focus');
+    const addFocusedStyles = jest.spyOn(mockHighlights[0], 'addFocusedStyles');
     const highlightScrollIntoView = jest.fn();
     mockHighlights[0].elements.push({
       scrollIntoView: highlightScrollIntoView,
@@ -212,9 +272,9 @@ describe('highlightManager', () => {
 
     update(prevProp);
 
-    expect(focus).toHaveBeenCalledTimes(1);
+    expect(addFocusedStyles).toHaveBeenCalledTimes(1);
     expect(highlightScrollIntoView).toHaveBeenCalledTimes(0);
-    expect(focus).toHaveBeenCalledWith();
+    expect(addFocusedStyles).toHaveBeenCalledWith();
   });
 
   it('focuses scroll target highlight and scrolls it into view', () => {
@@ -222,7 +282,7 @@ describe('highlightManager', () => {
       createMockHighlight(),
       createMockHighlight(),
     ];
-    const {update} = highlightManager(element, () => prop);
+    const {update} = highlightManager(element, () => prop, intl);
 
     prop.scrollTarget = {
       elementId: 'does-not-matter',
@@ -230,7 +290,7 @@ describe('highlightManager', () => {
       type: 'highlight',
     } as HighlightScrollTarget;
 
-    const highlightFocus = jest.spyOn(mockHighlights[1], 'focus');
+    const addFocusedStyles = jest.spyOn(mockHighlights[1], 'addFocusedStyles');
     const highlightScrollIntoView = jest.fn();
     mockHighlights[1].elements.push({
       scrollIntoView: highlightScrollIntoView,
@@ -245,7 +305,7 @@ describe('highlightManager', () => {
 
     update(prevProp, options);
 
-    expect(highlightFocus).toHaveBeenCalledTimes(1);
+    expect(addFocusedStyles).toHaveBeenCalledTimes(1);
     expect(highlightScrollIntoView).toHaveBeenCalledTimes(1);
     expect(prop.focus).toHaveBeenCalledWith(mockHighlights[1].id);
     expect(options.onSelect).toHaveBeenCalledWith(mockHighlights[1]);
@@ -253,7 +313,7 @@ describe('highlightManager', () => {
 
   it('calls options.onSelect with null if user is loggedOut, page is fetched and there is scroll target', () => {
     const mockHighlights = [] as Highlight[];
-    const {update} = highlightManager(element, () => prop);
+    const {update} = highlightManager(element, () => prop, intl);
 
     prop.highlightsLoaded = false;
     prop.loggedOut = true;
@@ -281,7 +341,7 @@ describe('highlightManager', () => {
       createMockHighlight(),
       createMockHighlight(),
     ];
-    const {update} = highlightManager(element, () => prop);
+    const {update} = highlightManager(element, () => prop, intl);
 
     prop.scrollTarget = {
       elementId: 'does-not-matter',
@@ -302,7 +362,7 @@ describe('highlightManager', () => {
   });
 
   it('umounts', () => {
-    const manager = highlightManager(element, () => prop);
+    const manager = highlightManager(element, () => prop, intl);
 
     const unmount = Highlighter.mock.instances[0].unmount = jest.fn();
 
@@ -315,7 +375,7 @@ describe('highlightManager', () => {
     let manager: ReturnType<typeof highlightManager>;
 
     beforeEach(() => {
-      manager = highlightManager(element, () => prop);
+      manager = highlightManager(element, () => prop, intl);
     });
 
     afterEach(() => {
@@ -469,7 +529,7 @@ describe('highlightManager', () => {
     let manager: ReturnType<typeof highlightManager>;
 
     beforeEach(() => {
-      manager = highlightManager(element, () => prop);
+      manager = highlightManager(element, () => prop, intl);
     });
 
     afterEach(() => {

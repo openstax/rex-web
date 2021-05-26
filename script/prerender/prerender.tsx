@@ -1,18 +1,10 @@
 import fetch from 'node-fetch';
 import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
-import {
-  BOOKS,
-  CODE_VERSION,
-  REACT_APP_ACCOUNTS_URL,
-  REACT_APP_ARCHIVE_URL,
-  REACT_APP_BUY_PRINT_CONFIG_URL,
-  REACT_APP_HIGHLIGHTS_URL,
-  REACT_APP_OS_WEB_API_URL,
-  REACT_APP_SEARCH_URL,
-  RELEASE_ID
-} from '../../src/config';
+import config from '../../src/config';
+import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
+import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
@@ -30,6 +22,17 @@ import createRedirects from './createRedirects';
 import { writeAssetFile } from './fileUtils';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 
+const {
+  CODE_VERSION,
+  REACT_APP_ACCOUNTS_URL,
+  REACT_APP_ARCHIVE_URL,
+  REACT_APP_BUY_PRINT_CONFIG_URL,
+  REACT_APP_HIGHLIGHTS_URL,
+  REACT_APP_OS_WEB_API_URL,
+  REACT_APP_SEARCH_URL,
+  RELEASE_ID,
+} = config;
+
 (global as any).fetch = fetch;
 
 async function renderManifest() {
@@ -38,6 +41,8 @@ async function renderManifest() {
     code: CODE_VERSION,
     id: RELEASE_ID,
   }, null, 2));
+
+  writeAssetFile('/rex/config.json', JSON.stringify(config, null, 2));
 }
 
 async function render() {
@@ -50,10 +55,14 @@ async function render() {
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
   const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
+  const bookConfigLoader = createBookConfigLoader();
+
   const {server} = await startServer({port, onlyProxy: true});
   const renderHelpers = {
     archiveLoader,
+    bookConfigLoader,
     buyPrintConfigLoader,
+    config,
     highlightClient,
     osWebLoader,
     practiceQuestionsLoader,
