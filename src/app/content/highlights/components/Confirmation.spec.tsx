@@ -1,5 +1,8 @@
 import React from 'react';
+import { createIntl } from 'react-intl';
 import renderer from 'react-test-renderer';
+import en from '../../../../app/messages/en';
+import createTestServices from '../../../../test/createTestServices';
 import { makeFindByTestId } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import Confirmation from './Confirmation';
@@ -14,8 +17,20 @@ jest.mock('react', () => {
 });
 
 describe('Confirmation', () => {
+
+  const intl = createIntl({
+    locale: 'en',
+    messages: {
+      ...en,
+      confirm: 'confirm',
+      message: 'message',
+    },
+  });
+  const services = createTestServices();
+  services.intl = intl;
+
   it('matches snapshot no selection', () => {
-    const component = renderer.create(<TestContainer>
+    const component = renderer.create(<TestContainer services={services}>
       <Confirmation
         message='message'
         data-analytics-region='region'
@@ -29,7 +44,7 @@ describe('Confirmation', () => {
   });
 
   it('prevents default when clicking confirm button', () => {
-    const component = renderer.create(<TestContainer>
+    const component = renderer.create(<TestContainer services={services}>
       <Confirmation
         message='message'
         confirmMessage='confirm'
@@ -47,7 +62,7 @@ describe('Confirmation', () => {
   });
 
   it('prevents default when clicking cancel button', () => {
-    const component = renderer.create(<TestContainer>
+    const component = renderer.create(<TestContainer services={services}>
       <Confirmation
         message='message'
         confirmMessage='confirm'
@@ -65,7 +80,7 @@ describe('Confirmation', () => {
   });
 
   it('doesn\'t prevent default when clicking confirm link', () => {
-    const component = renderer.create(<TestContainer>
+    const component = renderer.create(<TestContainer services={services}>
       <Confirmation
         confirmLink='/asdf'
         message='message'
@@ -85,7 +100,7 @@ describe('Confirmation', () => {
 
   it('calls onConfirm', () => {
     const onConfirm = jest.fn();
-    const component = renderer.create(<TestContainer>
+    const component = renderer.create(<TestContainer services={services}>
       <Confirmation
         message='message'
         confirmMessage='confirm'
@@ -103,7 +118,7 @@ describe('Confirmation', () => {
 
   it('calls onCancel', () => {
     const onCancel = jest.fn();
-    const component = renderer.create(<TestContainer>
+    const component = renderer.create(<TestContainer services={services}>
       <Confirmation
         message='message'
         confirmMessage='confirm'
@@ -121,7 +136,7 @@ describe('Confirmation', () => {
 
   it('calls always', () => {
     const always = jest.fn();
-    const component = renderer.create(<TestContainer>
+    const component = renderer.create(<TestContainer services={services}>
       <Confirmation
         message='message'
         confirmMessage='confirm'
