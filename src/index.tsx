@@ -12,7 +12,7 @@ import createArchiveLoader from './gateways/createArchiveLoader';
 import createBookConfigLoader from './gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from './gateways/createBuyPrintConfigLoader';
 import createHighlightClient from './gateways/createHighlightClient';
-import createIntlLoader from './gateways/createIntl';
+import createIntl from './gateways/createIntl';
 import createOSWebLoader from './gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoader';
 import createSearchClient from './gateways/createSearchClient';
@@ -57,7 +57,7 @@ const app = createApp({
     buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
     config,
     highlightClient: createHighlightClient(highlightsUrl),
-    intl: createIntlLoader(),
+    intl: createIntl(),
     osWebLoader: createOSWebLoader(osWebUrl),
     practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,

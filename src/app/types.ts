@@ -13,7 +13,7 @@ import createArchiveLoader from '../gateways/createArchiveLoader';
 import createBookConfigLoader from '../gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
-import createIntlLoader from '../gateways/createIntl';
+import createIntl from '../gateways/createIntl';
 import createOSWebLoader from '../gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../gateways/createSearchClient';
@@ -45,7 +45,7 @@ export interface AppServices {
   fontCollector: FontCollector;
   highlightClient: ReturnType<typeof createHighlightClient>;
   history: History;
-  intl: ReturnType<typeof createIntlLoader>;
+  intl: ReturnType<typeof createIntl>;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
   practiceQuestionsLoader: ReturnType<typeof createPracticeQuestionsLoader>;
   prerenderedContent?: string;
