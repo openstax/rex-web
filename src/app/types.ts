@@ -14,6 +14,7 @@ import createArchiveLoader from '../gateways/createArchiveLoader';
 import createBookConfigLoader from '../gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
+import createIntlLoader from '../gateways/createIntlLoader';
 import createOSWebLoader from '../gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../gateways/createSearchClient';
@@ -46,6 +47,7 @@ export interface AppServices {
   highlightClient: ReturnType<typeof createHighlightClient>;
   history: History;
   intl: IntlShape;
+  intlLoader: ReturnType<typeof createIntlLoader>;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
   practiceQuestionsLoader: ReturnType<typeof createPracticeQuestionsLoader>;
   prerenderedContent?: string;

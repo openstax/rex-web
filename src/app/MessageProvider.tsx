@@ -3,7 +3,6 @@ import React from 'react';
 import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl';
 import { useServices } from './context/Services';
 import enMessages from './messages/en';
-import plMessages from './messages/pl';
 
 // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
 async function polyfill(locale: string) {
@@ -18,7 +17,6 @@ async function polyfill(locale: string) {
 }
 
 polyfill('en');
-polyfill('pl');
 
 const cache = createIntlCache();
 
