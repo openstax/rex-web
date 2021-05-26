@@ -32,7 +32,9 @@
 
     <!-- Google Optmize (declaring gtag helper function) -->
     <script>
-      function gtag() {if(dataLayer)dataLayer.push(arguments);}
+      function gtag() {
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push(arguments);}
     </script>
     <!-- End Google Optimize -->
 
