@@ -200,4 +200,200 @@ export default {
       'b9fed02b-edda-433d-adfa-fce8cc55091d': 'be2e1e07-67a1-469b-b17c-109fda35d510',
     }],
   ],
+  /* Introduction to Sociology 2e */ '02040312-72c8-441e-a685-20e9333f3e1d': [
+    /* Introduction to Sociology 3e */['746f171e-0d6a-4ef2-b69d-367880872f4a', {
+      /* Preface to the same module in 3e */
+      '325e4afd-80b6-44dd-87b6-35aff4f40eac': '6454d583-84a8-4ce1-9af2-36be28532b98',
+      /* 1.0 Introduction to Sociology to the same module in 3e */
+      '4eb21133-cf0a-4ea7-81f5-b1e47698ec30': 'bdf8b962-cd9d-4752-a983-cd3d57b50f02',
+      /* 1.1 What Is Sociology? to the same module in 3e */
+      '5d97ba77-626b-4670-a1bb-c65fdd07bb0c': 'c8d9ab4b-dd9c-4dad-aa9f-00bae82cd0af',
+      /* 1.2 The History of Sociology to the same module in 3e */
+      '82966abb-ebb0-48ab-8576-a52a0e126bd9': '5f36c280-1b4c-4abb-9407-61358242bee0',
+      /* 1.3 Theoretical Perspectives to the same module in 3e */
+      '40c45f23-6a75-414a-987a-cccd50bd04b8': '746efd2e-8fb4-4368-98b4-45f6fd33eb27',
+      /* 1.4 Why Study Sociology? to the same module in 3e */
+      '2478dd75-fc23-48c8-9dfc-57a409d04c6b': 'e13dda45-c995-47e5-8146-0ac7e1015ce6',
+      /* 2.0 Introduction to Sociological Research to the same module in 3e */
+      'de329f8c-7690-4ea5-a3a4-d0ce6605d0ea': '5f0b4a03-f79c-442a-9fae-0a8a1359f4df',
+      /* 2.1 Approaches to Sociological Research to the same module in 3e */
+      'baee4db6-1e28-43f9-a0b7-a4f3c7263598': '0f87b4b5-bdb9-478d-94e1-f6967392b249',
+      /* 2.2 Research Methods to the same module in 3e */
+      'e72e915a-719d-4496-ac15-5197a2c11258': '51969efe-44b2-4302-97b5-a50ed8bd0eaf',
+      /* 2.3 Ethical Concerns to the same module in 3e */
+      '6d922c72-61cf-4f13-9b00-4f0c640cbf17': '90ffbc39-5865-42ad-bcd9-bfb740dbdfd7',
+      /* 3.0 Introduction to Culture to the same module in 3e */
+      '8a8ed60b-fb85-463f-a002-b48af257f894': 'd54ed6a4-1098-4b2c-b206-b7850002fd26',
+      /* 3.1 What Is Culture? to the same module in 3e */
+      'f87398b0-553a-4538-959d-15b28d0a80ef': 'dde4d8cb-ce8f-4c68-bad2-786d7c0f5f29',
+      /* 3.2 Elements of Culture to the same module in 3e */
+      'f298104a-d0dd-432f-83ec-3881813a7eaa': '946e6080-b7be-495d-9679-667c0e985a18',
+      /* 3.3 Pop Culture, Subculture, and Cultural Change to the same module in 3e */
+      '4ee317f2-cc23-4075-b377-51ee4d11bb61': '5750bc50-77e4-42ed-a7a0-dcc31a562dcb',
+      /* 3.4 Theoretical Perspectives on Culture to the same module in 3e */
+      'f2055c29-6b50-4a77-89d8-f88745ce0f18': 'ca2347f6-ca5a-46cf-bd8b-75768bd084a3',
+      /* 4.0 Introduction to Society and Social interaction to the same module in 3e */
+      '31eae3d7-1b57-4c24-ad0b-d08a2851b70d': 'ef238876-14ce-464f-ac5a-e30d656d77b7',
+      /* 4.1 Types of Societies to the same module in 3e */
+      'aace8da1-b83e-4a5e-bfb8-5bd44699381a': '526f33fb-2ed8-4d15-b2e5-2b83a2b97849',
+      /* 4.2 Theoretical Perspectives on Society to the same module in 3e */
+      '6414e0c9-1e95-4b06-af38-b11762cb667e': 'c1bc1aa5-03ef-4909-90b3-f47d33bc0c85',
+      /* 4.3 Social Constructions of Reality to the same module in 3e */
+      'd06ad985-cecb-48b4-b222-197d04abc6a': '040ac094-d7eb-4761-840f-04f22aa30797',
+      /* 5.0 Introduction to Socialization to the same module in 3e */
+      '52eff48e-e18d-4231-9fe3-eb7ffb9ee365': '432870f9-ca8c-475d-b171-11af7c328514',
+      /* 5.1 Theories of Self Development to the same module in 3e */
+      '08e4a1f1-738c-4296-b07d-e13fa2973681': 'c55c99ae-0516-4279-abd1-755d85f42bab',
+      /* 5.2 Why Socialization Matters to the same module in 3e */
+      'cde4e88d-3f69-4711-86d9-4f3b9697383b': 'bac65f73-c682-4565-9160-fda8409a9e0f',
+      /* 5.3 Agents of Socialization to the same module in 3e */
+      '3256e44f-a765-4c3a-8728-3a6c92b49a65': '4a762cc1-da3a-408d-8fcb-a5f57c6af751',
+      /* 5.4 Socialization Across the Life Course to the same module in 3e */
+      '269040ea-022f-40d1-b2f7-4b9219fa096d': '7a006b94-2b4a-4f60-ac2e-5f1cf8500a47',
+      /* 6.0 Introduction Groups and Organizations to the same module in 3e */
+      '74c17c8b-542d-4b6d-81b8-1188530fd1c3': '45a4685e-ef8f-4bfb-a584-4d023fa60bd9',
+      /* 6.1 Types of Groups to the same module in 3e */
+      'd95043f3-b879-4ad1-bd2c-7654f592c853': '2e236b4a-85d4-4640-a7df-f91ce95d7f3a',
+      /* 6.2 Group Size and Structure to the same module in 3e */
+      'a2b20cc9-c475-4b89-bf51-03ed75861dca': '5af5f060-563c-46d6-9239-2dcc5eb17f46',
+      /* 6.3 Formal Organizations to the same module in 3e */
+      'aebb5e2c-a825-4192-a8c0-91678b449ec2': 'db3d2810-0166-495e-8254-1df166163826',
+      /* 7.0 Introduction to Deviance, Crime, and Social Control to the same module in 3e */
+      '178fcbde-9ec6-46de-812f-1a44ad5144a5': 'e22a4d88-dd1f-410f-a15d-5d1a16caa3f4',
+      /* 7.1 Deviance and Control to the same module in 3e */
+      'cef21f33-7a41-49c6-b129-1a4e20b2b64d': '73acf5b5-9551-4ec3-8208-0938b2acc762',
+      /* 7.2 Theoretical Perspectives on Deviance to the same module in 3e */
+      '398ece58-90b3-4378-b774-f71e06bab8fe': '334bb070-bffe-4cea-8386-2ebc455e5e6c',
+      /* 7.3 Crime and the Law to the same module in 3e */
+      'dbfef635-98d1-49e6-ad56-efa7b91f506f': '5520305c-c934-4d73-8779-229edab703ab',
+      /* 8.0 Introduction to Media and Technology to the same module in 3e */
+      '022f74e4-8ebc-4232-b3f1-e052ee6ef711': '62b4811d-0c36-4175-b4b9-b87e0121aa67',
+      /* 8.1 Technology Today to the same module in 3e */
+      'ff98c048-3f87-453f-a5f9-fd962553166d': 'fcabfd7d-c9bf-4365-b3bc-37548cf60c27',
+      /* 8.2 Media and Technology in Society to the same module in 3e */
+      'fd4e4037-aa50-4849-8c69-0d7b80d3ef3c': '8c1fe4e0-906f-4831-a5f8-f637302b9998',
+      /* 8.3 Global Implications of Media and Technology to the same module in 3e */
+      'f8e4d21a-488f-491c-9e07-968a0b3e48ba': 'd3311627-9427-42b7-ba60-7fc46ebc0cb1',
+      /* 8.4 Theoretical Perspectives on Media and Technology to the same module in 3e */
+      '62b3caf7-b83a-4ff1-bb52-953afc1a9b6d': '9771fb31-def5-4866-9a53-aa4e4eefead0',
+      /* 9.0 Introduction to Social Stratification in the United States to the same module in 3e */
+      '6e2fe486-093d-4e60-9ca3-1bbce5481b9c': '88050bef-46be-4c54-8104-43daf366c374',
+      /* 9.1 What Is Social Stratification? to the same module in 3e */
+      '2d80e77e-9e52-4bed-bf58-312c1b662922': '8915773e-2bab-4a4e-bf54-bb94d35b26e8',
+      /* 9.2 Social Stratification and Mobility in the US to the same module in 3e */
+      '61a9f276-1bde-4cef-ba2d-040bae4f90a2': '2bd53207-47cf-4968-8b04-dc1903f0225d',
+      /* 9.3 Global Stratification and Inequality to the same module in 3e */
+      '3f1c42b1-6494-47b1-9120-fa45b47f50b7': 'cb507d56-798b-4941-946a-fd825a0f5cd5',
+      /* 9.4 Theoretical Perspectives on Social Stratification to the same module in 3e */
+      '34faad00-f5b5-4d54-93ae-708adc6df1ca': '7b677f99-aa60-4f6e-9bbc-69d428d32beb',
+      /* 10.0 Introduction to Global Inequality to the same module in 3e */
+      'b6166e6a-8ffe-494c-a1f3-7e4acb668280': '5793e6d2-bc37-40a1-a6cc-de69a7687996',
+      /* 10.1 Global Stratification and Classification to the same module in 3e */
+      'ed308f6a-61dd-447b-b1b4-5118e7e25b22': 'f73ea9c9-c051-4d97-bea6-d235213f3a4e',
+      /* 10.2 Global Wealth and Poverty to the same module in 3e */
+      'd7c18fbb-e549-46da-aff4-68e60949d130': 'a88e70f0-2a90-4e98-a978-d895560224c5',
+      /* 10.3 Theoretical Perspectives on Global Stratification to the same module in 3e */
+      'c9770cc1-8415-475d-b691-99b289598974': '64172b6a-8685-486b-a784-f1c96fcde21e',
+      /* 11.0 Introduction to Race and Ethnicity to the same module in 3e */
+      '1f4db786-0c13-415a-a456-ab07a24b2dfb': '7e6d02f2-9fe9-4696-927b-87b141005478',
+      /* 11.1 Racial, Ethnic, and Minority Groups to the same module in 3e */
+      'a55ca711-352c-47cb-ba17-35b00eb1f18a': 'ef3b2aab-ce5b-4b35-9ec7-7f588cf76737',
+      /* 11.2 Stereotypes, Prejudice, and Discrimination to the same module in 3e */
+      'd310a908-eb93-4b62-881a-12864fbb7157': '0edbeb4e-db80-4e63-afeb-e3b7448fe175',
+      /* 11.3 Theories of Race and Ethnicity to the same module in 3e */
+      'b1afff9f-c485-4245-8ca2-30de4666d03b': 'e207a1bd-229d-435d-b2be-feb218954337',
+      /* 11.4 Intergroup Relationships to the same module in 3e */
+      '134db5ed-6e53-42da-b821-6347b7b2554d': '05938a47-b4e3-4e5d-91f4-7d702ecbf185',
+      /* 11.5 Race and Ethnicity in the United States to the same module in 3e */
+      'b3cb90e7-b5d7-4e9c-91fc-e4fa2887f971': '6ae57670-6018-4994-a651-9a7755739413',
+      /* 12.0 Introduction to Gender, Sex, and Sexuality to the same module in 3e */
+      '4fff8b4d-65dd-4c21-9dc2-d33bfc9ae1c0': 'eca82f51-6e74-4d44-8897-784473cbaea3',
+      /* 12.1 Sex and Gender to the same module in 3e */
+      '26f66ec2-2527-441d-97a2-5e2d170cfc57': '2cb1bb9b-62a0-461d-af73-647db2608cef',
+      /* 12.2 Gender to the same module in 3e */
+      '2138442f-2ad7-4ec3-9972-fc913805b42a': '9c2a4870-25a6-4be7-958b-f4cfe2edc441',
+      /* 12.3 Sex and Sexuality to the same module in 3e */
+      '672dd126-9ce3-4175-9db3-5bff44be91fe': 'daa2005c-e793-403a-8138-8966743527b6',
+      /* 13.0 Introduction to Aging and the Elderly to the same module in 3e */
+      'acdddf86-67ea-453a-861f-efb0a4b50202': 'aa9e578c-a8de-4296-afa0-c205701738ef',
+      /* 13.1 Who Are the Elderly? Aging in Society to the same module in 3e */
+      'f4ce6106-f567-43a2-bcd9-f29ac6d7ea7c': '8907afb3-2050-406f-b99b-91656b44a872',
+      /* 13.2 The Process of Aging to the same module in 3e */
+      'd9df5e48-4b72-482e-b616-886926188054': '4a2cd675-c659-40bc-80a3-50ed002e844f',
+      /* 13.3 Challenges Facing the Elderly to the same module in 3e */
+      'a1ccdea8-6ff8-40ea-adc4-38bab44d04ee': 'd77aa9eb-7f03-41cb-ac74-b1058c46fcb8',
+      /* 13.4 Theoretical Perspectives on Aging to the same module in 3e */
+      'ade7fd74-8340-4c21-a537-7d4c8d67d965': '2bbe750f-a065-4ab9-a092-dad76f09fc23',
+      /* 14.0 Introduction to Marriage and Family to the same module in 3e */
+      'f05f32bf-ca44-4bcf-80c1-9377fb1d21f7': 'b69dea58-83eb-46fc-85db-b7a0fe7f60e6',
+      /* 14.1 What Is Marriage? What Is a Family? to the same module in 3e */
+      'fc2d2208-0a60-425e-9217-0d6ee659be7e': '8680e355-7ca9-4d25-81c3-2cf35d6a54a7',
+      /* 14.2 Variations in Family Life to the same module in 3e */
+      'fc504354-e135-4a28-b22a-2054dea6e315': '6b1bd506-8d81-4f46-bd02-4de90ad14be7',
+      /* 14.3 Challenges Families Face to the same module in 3e */
+      '5f441b6a-ae68-4d84-a106-1d1b011f0331': '5b7d753b-e94a-49ad-8ee8-a82a2ae23eb0',
+      /* 15.0 Introduction to Religion to the same module in 3e */
+      'a7255255-e4f0-472c-81c0-54ab97cb2e68': '25a8930a-a75a-4104-af3e-3b3656168979',
+      /* 15.1 The Sociological Approach to Religion to the same module in 3e */
+      '53d3be59-277f-4139-b821-d04960c33d0b': 'f0212a7a-dcd7-4def-8e73-b75666b3d47a',
+      /* 15.2 World Religions to the same module in 3e */
+      '93ebe6b3-6e50-4dc1-9bc0-a55f6935bccb': '0d9cc835-5129-432b-99e8-6fe01c3492e6',
+      /* 15.3 Religion in the United States to the same module in 3e */
+      '5def2064-5c90-44ae-a963-6ecff5b80975': '195b3cdc-5a0a-476e-9fd0-c5592777b541',
+      /* 16.0 Introduction to Education to the same module in 3e */
+      '443cd6b3-64bc-4803-bd6a-eb216790a130': '0fa1e181-b3f5-4130-84c3-c56bed6087ba',
+      /* 16.1 Education around the World to the same module in 3e */
+      '55daa5bc-71b0-4578-8fec-51e39b581abd': '2dc215d3-3592-4ad3-8791-69203a46b56f',
+      /* 16.2 Theoretical Perspectives on Education to the same module in 3e */
+      '43b4a12e-66b6-479a-935d-f5e568a10463': 'b51cb16c-b4e3-4276-bc01-c1e55f3f7a80',
+      /* 16.3 Issues in Education to the same module in 3e */
+      '984be05e-c3eb-422d-9170-47b1f0d02c9c': 'c33eb672-e588-49db-8904-7bd3f59141f3',
+      /* 17.0 Introduction to Government and Politics to the same module in 3e */
+      '75703577-ab2a-4b1d-860f-94514729c298': '70dc2bd6-2797-4873-9ff5-d99883edee8c',
+      /* 17.1 Power and Authority to the same module in 3e */
+      '1af78294-fbeb-49fe-b2cf-fd747f5a3e2e': '38f28809-b520-472f-8641-8f41b1aa7f39',
+      /* 17.2 Forms of Government to the same module in 3e */
+      'bf6698dd-c4d7-4559-82b2-3915859e3d75': '8b0aaf0a-92d9-4d3b-8de7-b0fd43e9b0cd',
+      /* 17.3 Politics in the United States to the same module in 3e */
+      '1c4bead3-4898-4fe9-b5f9-fb91e8a00c3a': '103fb4d3-3c1c-40c8-bb67-fba843c4b50a',
+      /* 17.4 Theoretical Perspectives on Government and Power to the same module in 3e */
+      '940de604-e01b-4565-81df-78985b79919a': '885f8ec6-75f0-4444-a0ec-6bf5d421dfb6',
+      /* 18.0 Introduction to Work and the Economy to the same module in 3e */
+      '6bde5892-e610-4f5f-bfbb-84f624ace8c6': '2dce905a-8b18-4744-9059-68bf253fcdb1',
+      /* 18.1 Economic Systems to the same module in 3e */
+      '36f9cf93-9c5d-41f1-8c14-d7c89fea9b85': '9736b5e6-5c55-4427-bbea-583631ec35d5',
+      /* 18.2 Globalization and the Economy to the same module in 3e */
+      '5fe19034-9a53-44c7-bdc5-346d0d0753dc': 'bd95b55e-bd6e-42d5-9b24-d7245a4b2f0c',
+      /* 18.3 Work in the United States to the same module in 3e */
+      '71d09a20-73f5-4265-9bae-7c5bc70a0a47': '50990608-0ac5-48eb-aa99-a9895f3c684e',
+      /* 19.0 Introduction to Health and Medicine to the same module in 3e */
+      '5f90d10f-2f6a-486c-86d4-893653b26b83': '924e725d-f89a-4489-b5b0-b54fbbba9bc0',
+      /* 19.1 The Social Construction of Health to the same module in 3e */
+      'e31c5006-5e21-43fc-b070-c5347066cd96': 'be196e13-bfd0-4c6f-ba08-dc3e0f243330',
+      /* 19.2 Global Health to the same module in 3e */
+      'd1ef539d-3612-4154-b787-6835fe93703b': '6bd7a019-4c5f-4d67-bd2b-e95487d77b72',
+      /* 19.3 Health in the United States to the same module in 3e */
+      'f3a2b187-e44d-4a5f-af59-ee4bcd39046f': '0e24f38e-51de-48b7-98c7-e2cb84012915',
+      /* 19.4 Comparative Health and Medicine to the same module in 3e */
+      '86d65916-f669-4a65-9187-15d83e2d1689': '82e9a288-e88b-44e5-b72d-65c467ac1700',
+      /* 19.5 Theoretical Perspectives on Health and Medicine to the same module in 3e */
+      '54923470-ad35-40ef-b09c-da89b0e19da5': '6e9cde25-53c7-4960-b31b-3ecccbe1e701',
+      /* 20.0 Introduction to Population, Urbanization, and the Environment to the same module in 3e */
+      '8803c7d4-c848-4b4e-a743-82f7477eb764': '2578a895-c99f-4149-aab4-a8aa6c03f4b5',
+      /* 20.1 Demography and Population to the same module in 3e */
+      '2cf134f9-f88e-4590-8c33-404ead13ab83': 'aaec018d-a1e6-4e6d-9d85-36f8274a9085',
+      /* 20.2 Urbanization to the same module in 3e */
+      '4c117289-4d19-4892-82dd-c0e820ea9041': '8ca3d600-1a6f-4535-94e4-1c13cb77d4c9',
+      /* 20.3 The Environment and Society to the same module in 3e */
+      'a9c17e87-c269-4cd2-b540-aaf6cc273dbf': '7aed3dd9-7c4d-4a25-b903-3529583215e6',
+      /* 21.0 Introduction to Social Movements and Social Change to the same module in 3e */
+      '31d1b1ea-ca56-4379-af73-b08eef4165ab': 'e475e719-67e9-4a51-9c2b-313d009991eb',
+      /* 21.1 Collective Behavior to the same module in 3e */
+      '21126f9c-6b12-4860-a396-01a3ba24393e': '6e69fbe2-9c5d-4c03-85db-565c56621331',
+      /* 21.2 Social Movements to the same module in 3e */
+      'cea139cd-98de-4841-91e6-abcb0baa92da': '1272acf1-44da-4f2c-88e7-4eff807738e6',
+      /* 21.3 Social Change to the same module in 3e */
+      'be2e1e07-67a1-469b-b17c-109fda35d510': '4937c948-e669-42a4-98cc-fe18f2370de1',
+    }],
+  ],
 } as CanonicalBookMap;
