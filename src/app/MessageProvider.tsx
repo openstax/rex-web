@@ -1,8 +1,11 @@
 import { shouldPolyfill } from '@formatjs/intl-pluralrules/should-polyfill';
 import React from 'react';
-import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl';
+import { RawIntlProvider } from 'react-intl';
+import { connect } from 'react-redux';
+import * as select from './content/selectors';
+import { Book } from './content/types';
 import { useServices } from './context/Services';
-import enMessages from './messages/en';
+import { AppState } from './types';
 
 // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
 async function polyfill(locale: string) {
@@ -18,17 +21,22 @@ async function polyfill(locale: string) {
 
 polyfill('en');
 
-const cache = createIntlCache();
-
-export const intl = createIntl({
-  locale: 'en',
-  messages: enMessages,
-}, cache);
-
 // tslint:disable-next-line:variable-name
-const MessageProvider: React.FC = (props) =>
-  <RawIntlProvider value={useServices().intl}>
-    {props.children}
-  </RawIntlProvider>;
+const MessageProvider = (props: {book?: Book, children?: React.ReactNode}) => {
+  const lang = React.useMemo(() => {
+    return props.book?.language;
+  }, [props.book]);
+  const intl = useServices().intl.getIntlObject(lang);
 
-export default MessageProvider;
+  return lang ? (
+    <RawIntlProvider value={intl}>
+      {props.children}
+    </RawIntlProvider>
+  ) : null;
+};
+
+export default connect(
+  (state: AppState) => ({
+    book: select.book(state),
+  })
+)(MessageProvider);

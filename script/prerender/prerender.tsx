@@ -7,6 +7,7 @@ import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
+import createIntlLoader from '../../src/gateways/createIntl';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
@@ -56,6 +57,7 @@ async function render() {
   const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const bookConfigLoader = createBookConfigLoader();
+  const intl = createIntlLoader();
 
   const {server} = await startServer({port, onlyProxy: true});
   const renderHelpers = {
@@ -64,6 +66,7 @@ async function render() {
     buyPrintConfigLoader,
     config,
     highlightClient,
+    intl,
     osWebLoader,
     practiceQuestionsLoader,
     searchClient,
