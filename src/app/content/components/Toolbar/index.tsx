@@ -18,7 +18,7 @@ import {
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import { tocOpen } from '../../selectors';
-import { BookWithOSWebData } from '../../types';
+import { Book, BookWithOSWebData } from '../../types';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
@@ -27,6 +27,7 @@ import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
 interface Props {
+  book?: Book;
   bookTheme: BookWithOSWebData['theme'];
   search: typeof requestSearch;
   query: string | null;
@@ -59,6 +60,8 @@ class Toolbar extends React.Component<Props, State> {
   public state = { query: '', queryProp: '', formSubmitted: false };
 
   public render() {
+    const {book, bookTheme, searchButtonStyle} = this.props;
+
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
@@ -100,9 +103,20 @@ class Toolbar extends React.Component<Props, State> {
     const hideFromFocus = this.props.tocOpen === true
       || (this.props.tocOpen === null && !this.props.searchSidebarOpen);
 
-    const searchButtonColor = this.props.searchButtonStyle === 'grayButton' ? ('gray' as BookWithOSWebData['theme']) : (
-      this.props.searchButtonStyle === 'bannerColorButton' ? this.props.bookTheme : null
-    );
+    let searchButtonColor = null;
+
+    if (book) {
+      switch (searchButtonStyle) {
+        case 'grayButton':
+          searchButtonColor = 'gray' as BookWithOSWebData['theme'];
+          break;
+        case 'bannerColorButton':
+          searchButtonColor = bookTheme;
+          break;
+        default:
+          searchButtonColor = null;
+      }
+    }
 
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
@@ -181,6 +195,7 @@ class Toolbar extends React.Component<Props, State> {
 
 export default connect(
   (state: AppState) => ({
+    book: selectContent.book(state),
     bookTheme: selectContent.bookTheme(state),
     hasSearchResults: selectSearch.hasResults(state),
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
