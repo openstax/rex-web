@@ -43,7 +43,7 @@ export default {
       /* Theoretical Perspectives on Society */
       'c5b9353a-8e1f-484b-94d4-0d3b886e1661': 'c1bc1aa5-03ef-4909-90b3-f47d33bc0c85',
       /* Social Constructions of Reality */
-      '00b50039-5567-417c-b71b-0df7ef800ebf': 'd06ad985-cecb-48b4-b222-197d04abc6a1',
+      '00b50039-5567-417c-b71b-0df7ef800ebf': '040ac094-d7eb-4761-840f-04f22aa30797',
       /* Introduction to Socialization */
       '89c733d6-b1f4-423f-af6e-a888a9d36ddf': '432870f9-ca8c-475d-b171-11af7c328514',
       /* Theories of Self Development */
@@ -239,7 +239,7 @@ export default {
       /* 4.2 Theoretical Perspectives on Society */
       '6414e0c9-1e95-4b06-af38-b11762cb667e': 'c1bc1aa5-03ef-4909-90b3-f47d33bc0c85',
       /* 4.3 Social Constructions of Reality */
-      'd06ad985-cecb-48b4-b222-197d04abc6a': '040ac094-d7eb-4761-840f-04f22aa30797',
+      'd06ad985-cecb-48b4-b222-197d04abc6a1': '040ac094-d7eb-4761-840f-04f22aa30797',
       /* 5.0 Introduction to Socialization */
       '52eff48e-e18d-4231-9fe3-eb7ffb9ee365': '432870f9-ca8c-475d-b171-11af7c328514',
       /* 5.1 Theories of Self Development */
