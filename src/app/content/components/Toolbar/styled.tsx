@@ -137,7 +137,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
   background:
     ${(props: {colorSchema: BookWithOSWebData['theme'] }) => props.colorSchema
       ? theme.color.primary[props.colorSchema].base : 'transparent'};
-  ${applySearchIconColor}
+  ${(props: {colorSchema: BookWithOSWebData['theme'] }) => applySearchIconColor(props.colorSchema)}
 
   > svg {
     ${toolbarIconStyles}
@@ -199,7 +199,7 @@ export const SearchInputWrapper = styled.form`
       background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
 
       ${SearchButton} {
-        ${applySearchIconColor};
+        ${applySearchIconColor(props.colorSchema)};
       }
     `}
   `)}

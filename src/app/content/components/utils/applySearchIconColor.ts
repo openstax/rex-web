@@ -1,15 +1,16 @@
 import { css } from 'styled-components/macro';
 import theme from '../../../theme';
-import { BookWithOSWebData } from '../../types';
 import { toolbarIconColor } from '../constants';
 
-export const applySearchIconColor = (props: {colorSchema: BookWithOSWebData['theme']}) =>
-  props.colorSchema ? css`
-    color: ${theme.color.primary[props.colorSchema].foreground};
+const primaryColors = theme.color.primary;
+
+export const applySearchIconColor = (colorSchema: keyof typeof primaryColors) =>
+  colorSchema ? css`
+    color: ${primaryColors[colorSchema].foreground};
 
     :hover,
     :focus {
-        color: ${theme.color.primary[props.colorSchema].foreground};
+        color: ${primaryColors[colorSchema].foreground};
 
         ::before {
             content:"";
