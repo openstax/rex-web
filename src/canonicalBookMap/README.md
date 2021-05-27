@@ -9,7 +9,7 @@ Steps to create a map of book modules:
 
 4. Create the map of modules as a string (Modify the moduleMapComment if necessay)
     const modulesMapStr = mappingList.reduce((prev, current) => {
-        const moduleMapComment = current[0] === current[2] ? `${current[0]} to the same module in 3e` : `${current[0]} to the ${current[2]}`
+        const moduleMapComment = current[0]
         const moduleMap = `'${current[1]}': '${current[3]}'`
         const newLine = `/* ${moduleMapComment} */\n${moduleMap},\n`
         return prev + newLine
