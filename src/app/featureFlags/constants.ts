@@ -9,6 +9,6 @@ export const experiments: Record<string, FeatureFlagVariantValue[]> = {
 };
 
 export const experimentIds: { [key: string]: keyof typeof experiments } = {
-  '473Jeu7ORta1TTuJ5UjL6w': 'searchButton', // prod
-  'OCCkMMCZSwW87szzpniCow': 'searchButton', // dev
+  OCCkMMCZSwW87szzpniCow: 'searchButton', // dev
+  zHtr33wcS1mVgFn7b2nU3A: 'searchButton', // prod
 };

@@ -4,4 +4,4 @@ export type FeatureFlag = string;
 
 export interface State {
     [key: string]: FeatureFlagVariantValue;
-   }
+}
