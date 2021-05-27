@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import { book as archiveBook } from '../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } from '../../../test/reactutils';
 import { makeSearchResults } from '../../../test/searchResults';
 import * as Services from '../../context/Services';
@@ -22,8 +24,11 @@ import {
 } from '../search/actions';
 import * as searchSelectors from '../search/selectors';
 import * as contentSelectors from '../selectors';
+import { formatBookData } from '../utils';
 import Toolbar from './Toolbar';
 import { SearchButton } from './Toolbar/styled';
+
+const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('print button', () => {
   let store: Store;
@@ -296,6 +301,7 @@ describe('search', () => {
       searchButton: 'bannerColorButton',
     });
     jest.spyOn(searchSelectors, 'mobileToolbarOpen').mockReturnValue(true);
+    jest.spyOn(contentSelectors, 'book').mockReturnValue(book);
 
     const component = render();
     const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
@@ -309,6 +315,7 @@ describe('search', () => {
     jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({
       searchButton: 'grayButton',
     });
+    jest.spyOn(contentSelectors, 'book').mockReturnValue(book);
 
     const component = render();
     const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
@@ -320,6 +327,7 @@ describe('search', () => {
   it('button has no bg color applied', () => {
     jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('blue');
     jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({});
+    jest.spyOn(contentSelectors, 'book').mockReturnValue(book);
 
     const component = render();
     const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
