@@ -312,31 +312,6 @@ describe('hooks', () => {
       );
     });
 
-    it('dispatches PUSH with search query when page is undefined', () => {
-      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      store.dispatch(requestSearch('asdf'));
-      go([hit]);
-
-      const search = queryString.stringify({
-        query: 'asdf',
-        target: JSON.stringify({ type: 'search', index: 0 }),
-      });
-      expect(dispatch).toHaveBeenCalledWith(
-        push({
-          params: expect.anything(),
-          route: content,
-          state: {
-            bookUid: book.id,
-            bookVersion: book.version,
-            pageUid: page.id,
-          },
-        }, {
-          hash: hit.source.elementId,
-          search,
-        })
-      );
-    });
-
     it('dispatches REPLACE with search query that has no hits', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));

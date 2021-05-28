@@ -65,8 +65,8 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 
   const targetPageId = selectedResult?.result.source.pageId || currentPage?.id;
 
-  const action = (targetPageId && currentPage) &&
-    stripIdVersion(currentPage.id) === stripIdVersion(targetPageId) ? replace : push;
+  const action = (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id))
+    ? replace : push;
 
   const options = selectedResult ?
     {
