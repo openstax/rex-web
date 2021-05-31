@@ -93,8 +93,8 @@ const getScrollPadding = () => {
   return parseFloat(padding) || 0;
 };
 
-export const scrollTo = (elem: HTMLElement | Element | string) => {
-  return scrollToElement(elem, {offset: getScrollPadding()});
+export const scrollTo = (elem: HTMLElement | Element | string, additionalOffset = 0) => {
+  return scrollToElement(elem, {offset: getScrollPadding() + additionalOffset});
 };
 
 export const scrollIntoView = (elem: HTMLElement) => {
