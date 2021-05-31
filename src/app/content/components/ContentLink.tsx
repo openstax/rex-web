@@ -30,7 +30,7 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  search: { query: string | null };
+  search: Record<string, string | null | undefined>;
   scrollTarget?: ScrollTarget;
   className?: string;
   target?: string;
@@ -103,7 +103,8 @@ export const ConnectedContentLink = connect(
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     search: ({
-      query: selectSearch.query(state),
+      'content-style': selectNavigation.query(state)['content-style'] as string | undefined,
+      'query': selectSearch.query(state),
       ...(ownProps.search ? ownProps.search : {}),
     }),
   }),
