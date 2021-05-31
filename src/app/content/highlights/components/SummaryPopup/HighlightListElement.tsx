@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
+import DynamicContentStyles from '../../../../components/DynamicContentStyles';
 import theme from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
 import { highlightStyles } from '../../../constants';
@@ -141,11 +142,13 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       onColorChange={updateColor}
     />}
     <HighlightContentWrapper color={highlight.color}>
-      <ContentExcerpt
-        data-highlight-id={highlight.id}
-        content={highlight.highlightedContent}
-        source={highlight.sourceId}
-      />
+      <DynamicContentStyles>
+        <ContentExcerpt
+          data-highlight-id={highlight.id}
+          content={highlight.highlightedContent}
+          source={highlight.sourceId}
+        />
+      </DynamicContentStyles>
       <HighlightAnnotation
         annotation={highlight.annotation || ''}
         isEditing={isEditing}

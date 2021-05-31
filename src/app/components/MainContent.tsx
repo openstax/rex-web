@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Consumer } from '../context/SkipToContent';
 import { mergeRefs } from '../utils';
+import DynamicContentStyles from './DynamicContentStyles';
 
 interface Props {
   className?: string;
@@ -23,13 +24,15 @@ const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Pro
       className={className}
       tabIndex={0}
     >
-      <HideOutline
-        id={MAIN_CONTENT_ID}
-        tabIndex={-1}
-        {...props}
-      >
-        {children}
-      </HideOutline>
+      <DynamicContentStyles>
+        <HideOutline
+          id={MAIN_CONTENT_ID}
+          tabIndex={-1}
+          {...props}
+        >
+          {children}
+        </HideOutline>
+      </DynamicContentStyles>
     </div>}
   </Consumer>
 );
