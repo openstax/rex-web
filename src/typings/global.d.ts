@@ -64,4 +64,5 @@ declare global {
   // tslint:disable-next-line:variable-name
   var DOMParser: dom.DOMParserConstructor;
   var KeyboardEvent: dom.KeyboardEventConstructor
+  var ResizeObserver: dom.ResizeObserverConstructor
 }
