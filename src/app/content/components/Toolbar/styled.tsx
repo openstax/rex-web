@@ -134,10 +134,11 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
   </PlainButton>;
 })`
   height: 3.2rem;
+  transition: ${(props) => props.colorSchema ? 'background 200ms' : 'none'};
   background:
     ${(props: {colorSchema: BookWithOSWebData['theme'] | null }) => props.colorSchema
       ? theme.color.primary[props.colorSchema].base : 'transparent'};
-  ${(props: {colorSchema: BookWithOSWebData['theme'] | null }) => applySearchIconColor(props.colorSchema)}
+  ${(props) => applySearchIconColor(props.colorSchema)}
 
   > svg {
     ${toolbarIconStyles}

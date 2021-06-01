@@ -11,6 +11,7 @@ export const applySearchIconColor = (colorSchema: keyof typeof primaryColors | n
     :hover,
     :focus {
         color: ${primaryColors[colorSchema].foreground};
+        transition: color 200ms;
 
         ::before {
             content:"";
