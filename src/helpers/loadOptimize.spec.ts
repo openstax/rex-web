@@ -1,6 +1,7 @@
 import { receiveExperiments } from '../app/featureFlags/actions';
 import { Store } from '../app/types';
 import { assertDocument, assertWindow } from '../app/utils';
+import config from '../config';
 import createTestStore from '../test/createTestStore';
 import loadOptimize from './loadOptimize';
 
@@ -13,7 +14,6 @@ describe('loadOptimize', () => {
   beforeEach(() => {
     store = createTestStore();
     window = assertWindow();
-    window.dataLayer = [];
     dispatch = jest.spyOn(store, 'dispatch');
 
     const createEvent = document.createEvent.bind(document);
@@ -35,12 +35,8 @@ describe('loadOptimize', () => {
   });
 
   it('injects correct <script> into head if in production', async() => {
-    const newLocation = {
-      ...window.location,
-      hostname: 'openstax.org',
-    };
-    delete (window as any).location;
-    window.location = newLocation;
+    config.DEPLOYED_ENV = 'openstax.org';
+    window.dataLayer.push = jest.fn();
 
     await loadOptimize(window, store);
     const script = document.head.querySelector('script');
@@ -51,12 +47,8 @@ describe('loadOptimize', () => {
   });
 
   it('injects correct <script> into head if in development', async() => {
-    const newLocation = {
-      ...window.location,
-      hostname: 'foo',
-    };
-    delete (window as any).location;
-    window.location = newLocation;
+    config.DEPLOYED_ENV = 'foo';
+    window.dataLayer.push = jest.fn();
 
     await loadOptimize(window, store);
     const script = document.head.querySelector('script');
@@ -67,6 +59,7 @@ describe('loadOptimize', () => {
   });
 
   it('registers optimize callback and correctly dispatches action', async() => {
+    config.DEPLOYED_ENV = 'foo';
     await loadOptimize(window, store);
 
     ((window.dataLayer[0] as any)[2] as any).callback('1', 'OCCkMMCZSwW87szzpniCow');

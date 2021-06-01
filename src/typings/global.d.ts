@@ -54,7 +54,7 @@ declare global {
     };
     MathJax: any;
     ga: UniversalAnalytics.ga;
-    dataLayer:  object[];
+    dataLayer: object[];
     gtag: (eventKey?: string, eventVal?: string, eventObj?: object) => boolean | void;
   }
 

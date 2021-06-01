@@ -145,7 +145,7 @@ Array [
             />
             <button
               aria-label="Search this book"
-              className="styled__SearchButton-sc-1119auh-4 fXqtFK styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 fRNtmY styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-analytics-label="Search this book"
               data-experiment={true}
               data-testid="mobile-toggle"
@@ -179,7 +179,7 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-1119auh-4 cCINnr styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 iMBjHc styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-experiment={true}
               value="Search"
             >
@@ -1500,7 +1500,7 @@ Array [
             />
             <button
               aria-label="Search this book"
-              className="styled__SearchButton-sc-1119auh-4 fXqtFK styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 fRNtmY styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-analytics-label="Search this book"
               data-experiment={true}
               data-testid="mobile-toggle"
@@ -1534,7 +1534,7 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-1119auh-4 cCINnr styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 iMBjHc styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-experiment={true}
               value="Search"
             >
