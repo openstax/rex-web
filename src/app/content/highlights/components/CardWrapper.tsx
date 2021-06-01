@@ -37,6 +37,8 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     () => highlights.find((highlight) => highlight.id === focusedId),
     [focusedId, highlights]);
   const prevFocusedHighlightId = React.useRef(focusedId);
+  // tslint:disable-next-line: no-empty
+  const setNewCardsPositionsRef = React.useRef(() => {});
 
   // This function is triggered by keyboard shortuct defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
@@ -68,23 +70,24 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   }, [cardsHeights]);
 
   const getOffsetsForHighlight = React.useCallback((highlight: Highlight) => {
-    if (offsets.has(highlight.id)) {
-      return assertDefined(offsets.get(highlight.id), 'this has to be defined');
-    } else {
-      const newOffsets = assertDefined(
-        getHighlightOffset(container, highlight),
-        `Couldn't get offsets for highlight with an id: ${highlight.id}`
-      );
-      setOffsets((state) => new Map(state).set(highlight.id, newOffsets));
-      return newOffsets;
-    }
-  }, [container, offsets]);
+    const newOffsets = assertDefined(
+      getHighlightOffset(container, highlight),
+      `Couldn't get offsets for highlight with an id: ${highlight.id}`
+    );
+    setOffsets((state) => new Map(state).set(highlight.id, newOffsets));
+    return newOffsets;
+  }, [container]);
 
-  React.useEffect(() => {
+  const setNewCardsPositions = React.useCallback(() => {
     const positions = updateCardsPositions(focusedHighlight, highlights, cardsHeights, getOffsetsForHighlight);
     setCardsPositions(positions);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [highlights, cardsHeights, focusedHighlight]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cardsHeights, focusedHighlight, highlights]);
+
+  React.useEffect(() => {
+    setNewCardsPositions();
+    setNewCardsPositionsRef.current = setNewCardsPositions;
+  }, [setNewCardsPositions]);
 
   // Scroll into view of highlight when user focuses it
   React.useEffect(() => {
@@ -100,6 +103,16 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusedHighlight, cardsPositions]);
+
+  React.useEffect(() => {
+    const resizeObserver = new ResizeObserver(() => {
+      setNewCardsPositionsRef.current();
+    });
+    resizeObserver.observe(container);
+    return () => {
+        resizeObserver.disconnect();
+    };
+  }, [container]);
 
   return highlights.length
     ? <div className={className} ref={element}>
