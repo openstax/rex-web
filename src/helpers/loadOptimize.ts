@@ -1,12 +1,13 @@
 import { receiveExperiments } from '../app/featureFlags/actions';
 import { Store } from '../app/types';
 import { assertDocument } from '../app/utils';
+import config from '../config';
 
-export const getOptimizeContainerByEnv = (window: Window) =>
-  window.location.hostname === 'openstax.org' ? 'OPT-NFHSM4B' : 'OPT-W65B3CP';
+export const getOptimizeContainerByEnv = () =>
+  config.DEPLOYED_ENV === 'openstax.org' ? 'OPT-NFHSM4B' : 'OPT-W65B3CP';
 
 export default (window: Window, store: Store) => new Promise((resolve) => {
-    const containerId = getOptimizeContainerByEnv(window);
+    const containerId = getOptimizeContainerByEnv();
 
     const script = assertDocument().createElement('script');
     script.setAttribute('type', 'text/javascript');

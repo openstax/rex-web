@@ -23,7 +23,7 @@ describe('loadOptimize', () => {
       const element = originalCreateElement(type);
       const event = createEvent('Event');
       event.initEvent('load');
-      setTimeout(() => element.onload && element.onload(event), 0);
+      setImmediate(() => element.onload && element.onload(event));
 
       return element;
     });
