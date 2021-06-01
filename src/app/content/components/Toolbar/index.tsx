@@ -4,7 +4,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import * as selectFeatureFlags from '../../../featureFlags/selectors';
-import { FeatureFlagVariantValue } from '../../../featureFlags/types';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
@@ -16,9 +15,7 @@ import {
   requestSearch,
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
-import * as selectContent from '../../selectors';
 import { tocOpen } from '../../selectors';
-import { Book, BookWithOSWebData } from '../../types';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
@@ -27,8 +24,6 @@ import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
 interface Props {
-  book?: Book;
-  bookTheme: BookWithOSWebData['theme'];
   search: typeof requestSearch;
   query: string | null;
   clearSearch: () => void;
@@ -39,7 +34,7 @@ interface Props {
   searchSidebarOpen: boolean;
   hasSearchResults: boolean;
   practiceQuestionsEnabled: boolean;
-  searchButtonStyle: FeatureFlagVariantValue | null;
+  searchButtonColor: string | null;
 }
 
 interface State {
@@ -60,7 +55,6 @@ class Toolbar extends React.Component<Props, State> {
   public state = { query: '', queryProp: '', formSubmitted: false };
 
   public render() {
-    const {book, bookTheme, searchButtonStyle} = this.props;
 
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
@@ -103,21 +97,6 @@ class Toolbar extends React.Component<Props, State> {
     const hideFromFocus = this.props.tocOpen === true
       || (this.props.tocOpen === null && !this.props.searchSidebarOpen);
 
-    let searchButtonColor = null;
-
-    if (book) {
-      switch (searchButtonStyle) {
-        case 'grayButton':
-          searchButtonColor = 'gray' as BookWithOSWebData['theme'];
-          break;
-        case 'bannerColorButton':
-          searchButtonColor = bookTheme;
-          break;
-        default:
-          searchButtonColor = null;
-      }
-    }
-
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
         <Styled.SearchPrintWrapper>
@@ -126,7 +105,7 @@ class Toolbar extends React.Component<Props, State> {
             onSubmit={onSubmit}
             data-testid='desktop-search'
             data-experiment
-            colorSchema={searchButtonColor}
+            colorSchema={this.props.searchButtonColor}
           >
             <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
               onChange={onChange}
@@ -138,10 +117,10 @@ class Toolbar extends React.Component<Props, State> {
               data-testid='mobile-toggle'
               data-experiment
               onClick={toggleMobile}
-              colorSchema={searchButtonColor}
+              colorSchema={this.props.searchButtonColor}
             />
             {!this.state.formSubmitted &&
-              <Styled.SearchButton desktop colorSchema={searchButtonColor} data-experiment />
+              <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
             }
             {this.state.formSubmitted &&
               <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
@@ -176,7 +155,7 @@ class Toolbar extends React.Component<Props, State> {
             onSubmit={onSubmit}
             data-testid='mobile-search'
             data-experiment
-            colorSchema={searchButtonColor}
+            colorSchema={this.props.searchButtonColor}
           >
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
@@ -195,13 +174,11 @@ class Toolbar extends React.Component<Props, State> {
 
 export default connect(
   (state: AppState) => ({
-    book: selectContent.book(state),
-    bookTheme: selectContent.bookTheme(state),
     hasSearchResults: selectSearch.hasResults(state),
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     practiceQuestionsEnabled: practiceQuestionsEnabledSelector(state),
     query: selectSearch.query(state),
-    searchButtonStyle: selectFeatureFlags.enabled(state).searchButton,
+    searchButtonColor: selectFeatureFlags.searchButtonColor(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
     tocOpen: tocOpen(state),
   }),
