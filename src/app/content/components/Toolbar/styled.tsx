@@ -135,9 +135,9 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
 })`
   height: 3.2rem;
   background:
-    ${(props: {colorSchema: BookWithOSWebData['theme'] }) => props.colorSchema
+    ${(props: {colorSchema: BookWithOSWebData['theme'] | null }) => props.colorSchema
       ? theme.color.primary[props.colorSchema].base : 'transparent'};
-  ${(props: {colorSchema: BookWithOSWebData['theme'] }) => applySearchIconColor(props.colorSchema)}
+  ${(props: {colorSchema: BookWithOSWebData['theme'] | null }) => applySearchIconColor(props.colorSchema)}
 
   > svg {
     ${toolbarIconStyles}

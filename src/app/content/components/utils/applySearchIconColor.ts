@@ -4,7 +4,7 @@ import { toolbarIconColor } from '../constants';
 
 const primaryColors = theme.color.primary;
 
-export const applySearchIconColor = (colorSchema: keyof typeof primaryColors) =>
+export const applySearchIconColor = (colorSchema: keyof typeof primaryColors | null) =>
   colorSchema ? css`
     color: ${primaryColors[colorSchema].foreground};
 
