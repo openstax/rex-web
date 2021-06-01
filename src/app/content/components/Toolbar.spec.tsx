@@ -8,9 +8,11 @@ import { book as archiveBook } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } from '../../../test/reactutils';
 import { makeSearchResults } from '../../../test/searchResults';
+import TestContainer from '../../../test/TestContainer';
 import * as Services from '../../context/Services';
 import { receiveFeatureFlags } from '../../featureFlags/actions';
 import * as featureFlagSelectors from '../../featureFlags/selectors';
+import { searchButtonColor } from '../../featureFlags/selectors';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
@@ -22,8 +24,6 @@ import {
   receiveSearchResults,
   requestSearch
 } from '../search/actions';
-import * as searchSelectors from '../search/selectors';
-import * as contentSelectors from '../selectors';
 import { formatBookData } from '../utils';
 import Toolbar from './Toolbar';
 import { SearchButton } from './Toolbar/styled';
@@ -294,14 +294,18 @@ describe('search', () => {
 
     expect(findById('desktop-search-input').props.value).toEqual('asdf');
   });
+});
+
+describe('search button', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  const render = () => renderer.create(<TestContainer><Toolbar /></TestContainer>);
 
   it('button has theme bg color applied', () => {
-    jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('blue');
-    jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({
-      searchButton: 'bannerColorButton',
-    });
-    jest.spyOn(searchSelectors, 'mobileToolbarOpen').mockReturnValue(true);
-    jest.spyOn(contentSelectors, 'book').mockReturnValue(book);
+    const color = searchButtonColor.resultFunc('bannerColorButton', book, 'blue');
+    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue(color);
 
     const component = render();
     const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
@@ -311,11 +315,8 @@ describe('search', () => {
   });
 
   it('button has gray bg color applied', () => {
-    jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('red');
-    jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({
-      searchButton: 'grayButton',
-    });
-    jest.spyOn(contentSelectors, 'book').mockReturnValue(book);
+    const color = searchButtonColor.resultFunc('grayButton', book, 'red');
+    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue(color);
 
     const component = render();
     const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
@@ -325,9 +326,8 @@ describe('search', () => {
   });
 
   it('button has no bg color applied', () => {
-    jest.spyOn(contentSelectors, 'bookTheme').mockReturnValue('blue');
-    jest.spyOn(featureFlagSelectors, 'enabled').mockReturnValue({});
-    jest.spyOn(contentSelectors, 'book').mockReturnValue(book);
+    const color = searchButtonColor.resultFunc(null, book, 'blue');
+    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue(color);
 
     const component = render();
     const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
