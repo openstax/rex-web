@@ -11,7 +11,7 @@ Faker==8.4.0
 identify==2.2.7
 idna==2.10 # pyup: ignore
 importlib-metadata==4.4.0
-more-itertools==8.7.0
+more-itertools==8.8.0
 nodeenv==1.5.0
 packaging==20.9
 pluggy==0.13.1
