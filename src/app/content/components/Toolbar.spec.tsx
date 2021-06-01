@@ -24,6 +24,7 @@ import {
   receiveSearchResults,
   requestSearch
 } from '../search/actions';
+import * as searchSelectors from '../search/selectors';
 import { formatBookData } from '../utils';
 import Toolbar from './Toolbar';
 import { SearchButton } from './Toolbar/styled';
@@ -306,6 +307,7 @@ describe('search button', () => {
   it('button has theme bg color applied', () => {
     const color = searchButtonColor.resultFunc('bannerColorButton', book, 'blue');
     jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue(color);
+    jest.spyOn(searchSelectors, 'mobileToolbarOpen').mockReturnValue(true);
 
     const component = render();
     const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
