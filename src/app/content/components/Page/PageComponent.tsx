@@ -36,6 +36,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private highlightManager = stubHighlightManager;
   private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Promise<void> = Promise.resolve();
+  private componentDidUpdateCounter = 0;
 
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
@@ -75,8 +76,12 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
-    if (prevProps.page !== this.props.page) {
+    if (prevProps.page !== this.props.page && this.props.page) {
       await this.postProcess();
+    }
+
+    if (!this.shouldUpdateHighlightManagers(prevProps, this.props)) {
+      return;
     }
 
     const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
@@ -215,5 +220,27 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.processing = promise;
 
     return promise;
+  }
+
+  private getRunId(): number {
+    const newId = this.componentDidUpdateCounter + 1;
+    this.componentDidUpdateCounter = newId;
+    return newId;
+  }
+
+  /**
+   * When a user navigates quickly between pages there are multiple calls to componentDidUpdate
+   * and since it is an async function there might be still unresolved promisses that would result
+   * in calling highlighter.update multiple times, see: https://github.com/openstax/unified/issues/1169
+   */
+  private shouldUpdateHighlightManagers(prevProps: PagePropTypes, props: PagePropTypes): boolean {
+    const runId = this.getRunId();
+    // Always update highlighters for the first run
+    if (runId === 1) { return true; }
+    // Update search highlight manager if selected result has changed.
+    // If we don't do this then for the last componenDidUpdate call prevProps will equal props and it will noop.
+    if (!prevProps.searchHighlights.selectedResult && props.searchHighlights.selectedResult) { return true; }
+    // Update highlighters only for the latest run
+    return this.componentDidUpdateCounter === runId;
   }
 }
