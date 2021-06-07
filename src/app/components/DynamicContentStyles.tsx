@@ -8,8 +8,10 @@ export const WithStyles = styled.div`
   ${(props: { styles: string }) => props.styles}
 `;
 
+interface DynamicContentStylesProps extends React.HTMLAttributes<HTMLDivElement> {}
+
 // tslint:disable-next-line: variable-name
-const DynamicContentStyles = ({ children }: { children: React.ReactNode }) => {
+const DynamicContentStyles = ({ children, ...otherProps }: React.PropsWithChildren<DynamicContentStylesProps>) => {
   const queryParams = useSelector(query);
   const [styles, setStyles] = React.useState('');
 
@@ -22,7 +24,7 @@ const DynamicContentStyles = ({ children }: { children: React.ReactNode }) => {
     }
   }, [queryParams]);
 
-  return <WithStyles styles={styles}>
+  return <WithStyles styles={styles} data-dynamic-style={!!styles} {...otherProps}>
     {children}
   </WithStyles>;
 };

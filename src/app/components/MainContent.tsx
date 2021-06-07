@@ -12,7 +12,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const HideOutline = styled.div`
+const HideOutline = styled(DynamicContentStyles)`
   outline: none;
 `;
 
@@ -24,15 +24,13 @@ const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Pro
       className={className}
       tabIndex={0}
     >
-      <DynamicContentStyles>
-        <HideOutline
-          id={MAIN_CONTENT_ID}
-          tabIndex={-1}
-          {...props}
-        >
-          {children}
-        </HideOutline>
-      </DynamicContentStyles>
+      <HideOutline
+        id={MAIN_CONTENT_ID}
+        tabIndex={-1}
+        {...props}
+      >
+        {children}
+      </HideOutline>
     </div>}
   </Consumer>
 );
