@@ -21,7 +21,7 @@ body {
   font-size: @font-size-base;
 }
 
-#main-content:not([data-dynamic-style]), .content-excerpt:not([data-dynamic-style]) {
+#main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
   @import "./content-baked.less";
 
   // gray is used for text color
@@ -141,7 +141,7 @@ body {
   }
 }
 
-.content-excerpt:not([data-dynamic-style]) {
+.content-excerpt:not([data-dynamic-style="true"]) {
   > section {
     margin-top: 0;
   }
