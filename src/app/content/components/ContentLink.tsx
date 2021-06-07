@@ -103,8 +103,8 @@ export const ConnectedContentLink = connect(
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     search: ({
-      'content-style': selectNavigation.query(state)['content-style'] as string | undefined,
-      'query': selectSearch.query(state) || undefined,
+      query: selectSearch.query(state) || undefined,
+      ...selectNavigation.persistentQueryParameters(state),
       ...(ownProps.search ? ownProps.search : {}),
     }),
   }),

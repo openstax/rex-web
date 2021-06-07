@@ -40,7 +40,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const {page: currentPage, book} = selectContent.bookAndPage(state);
   const pageIsLoading = selectContent.loadingPage(state);
   const query = select.query(state);
-  const navigationQuery = selectNavigation.query(state);
   const results = select.hits(state) || [];
 
   if (pageIsLoading || !book) {
@@ -85,11 +84,10 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   };
 
   const action = stripIdVersion(page.id) === stripIdVersion(targetPage.id) ? replace : push;
-  const contentStyle = navigationQuery['content-style'] as string | undefined;
   const search = queryString.stringify({
-    'content-style': contentStyle,
     query,
-    'target': JSON.stringify({ type: 'search', index: selectedResult.highlight }),
+    target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
+    ...selectNavigation.persistentQueryParameters(state),
   });
   const hash = selectedResult.result.source.elementId;
 

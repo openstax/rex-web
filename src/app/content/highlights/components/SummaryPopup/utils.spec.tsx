@@ -37,9 +37,8 @@ describe('createHighlightLink', () => {
     store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
 
     const data = {
-      'target': JSON.stringify({ id: mockHighlight.id, type: 'highlight' }),
-      // tslint:disable-next-line: object-literal-sort-keys - content-style is added after target
       'content-style': store.getState().navigation.query['content-style'],
+      'target': JSON.stringify({ id: mockHighlight.id, type: 'highlight' }),
     };
     const target = queryString.stringify(data) + `#${mockHighlight.anchor}`;
     const component = renderer.create(<TestContainer store={store}>

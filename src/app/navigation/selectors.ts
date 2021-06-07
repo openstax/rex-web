@@ -1,4 +1,6 @@
+import { pickBy } from 'lodash/fp';
 import { createSelector } from 'reselect';
+import { isDefined } from '../guards';
 import * as parentSelectors from '../selectors';
 import { getScrollTargetFromQuery } from './utils';
 
@@ -36,6 +38,13 @@ export const scrollTarget = createSelector(
 export const match = createSelector(
   localState,
   (state) => state.match
+);
+
+export const persistentQueryParameters = createSelector(
+  query,
+  (navQuery) => pickBy(isDefined, {
+    'content-style': navQuery['content-style'] as string | undefined,
+  })
 );
 
 export const location = localState;
