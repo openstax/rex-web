@@ -30,7 +30,7 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  search: Record<string, string | null | undefined>;
+  search: Record<string, string | undefined>;
   scrollTarget?: ScrollTarget;
   className?: string;
   target?: string;
@@ -98,13 +98,13 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState, ownProps: {search?: { query?: string | null }}) => ({
+  (state: AppState, ownProps: {search?: { query?: string }}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     search: ({
       'content-style': selectNavigation.query(state)['content-style'] as string | undefined,
-      'query': selectSearch.query(state),
+      'query': selectSearch.query(state) || undefined,
       ...(ownProps.search ? ownProps.search : {}),
     }),
   }),
