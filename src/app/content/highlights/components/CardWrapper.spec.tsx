@@ -87,8 +87,8 @@ describe('CardWrapper', () => {
   });
 
   it('scrolls to card when focused', () => {
-    const scrollTo = jest.spyOn(domUtils, 'scrollTo');
-    scrollTo.mockImplementation(() => null);
+    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+    scrollIntoView.mockImplementation(() => null);
 
     const highlight = {
       ...createMockHighlight(),
@@ -103,13 +103,13 @@ describe('CardWrapper', () => {
       store.dispatch(focusHighlight(highlight.id));
     });
 
-    expect(scrollTo).toHaveBeenCalled();
-    scrollTo.mockClear();
+    expect(scrollIntoView).toHaveBeenCalled();
+    scrollIntoView.mockClear();
   });
 
   it('do not scroll to card when focused if it does not have elements', () => {
-    const scrollTo = jest.spyOn(domUtils, 'scrollTo');
-    scrollTo.mockImplementation(() => null);
+    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+    scrollIntoView.mockImplementation(() => null);
 
     const highlight = {
       ...createMockHighlight(),
@@ -124,12 +124,12 @@ describe('CardWrapper', () => {
       store.dispatch(focusHighlight(highlight.id));
     });
 
-    expect(scrollTo).not.toHaveBeenCalled();
+    expect(scrollIntoView).not.toHaveBeenCalled();
   });
 
   it('do not scroll to focused card after rerender if focused highlight is the same', () => {
-    const scrollTo = jest.spyOn(domUtils, 'scrollTo');
-    scrollTo.mockImplementation(() => null);
+    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+    scrollIntoView.mockImplementation(() => null);
 
     const highlight = {
       ...createMockHighlight(),
@@ -152,8 +152,8 @@ describe('CardWrapper', () => {
       store.dispatch(focusHighlight(highlight.id));
     });
 
-    expect(scrollTo).toHaveBeenCalled();
-    scrollTo.mockClear();
+    expect(scrollIntoView).toHaveBeenCalled();
+    scrollIntoView.mockClear();
 
     component.update(<Provider store={store}>
       <CardWrapper container={container} highlights={[highlight, highlight2, highlight3]} />
@@ -163,7 +163,7 @@ describe('CardWrapper', () => {
     // tslint:disable-next-line: no-empty
     renderer.act(() => {});
 
-    expect(scrollTo).not.toHaveBeenCalled();
+    expect(scrollIntoView).not.toHaveBeenCalled();
   });
 
   it(`handles card's height changes`, () => {

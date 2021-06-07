@@ -3,7 +3,7 @@ import { HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { scrollTo } from '../../../domUtils';
+import { scrollIntoView } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination } from '../../../reactUtils';
 import { AppState } from '../../../types';
@@ -88,10 +88,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   // Scroll into view of highlight when user focuses it
   React.useEffect(() => {
-    if (!focusedHighlight) {
-      prevFocusedHighlightId.current = undefined;
-      return;
-    }
+    if (!focusedHighlight) { return; }
     // Check for prevFocusedHighlightId.current is required so we do not scroll to the
     // focused highlight after user switches between the browser tabs - in this case
     // highlights are refetched and it trigers cardPositions to be updated since reference
@@ -99,7 +96,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     // focusedHighlight.elements[0] will be undefined for pendingHighlight
     if (focusedHighlight.id !== prevFocusedHighlightId.current && focusedHighlight.elements[0]) {
       prevFocusedHighlightId.current = focusedHighlight.id;
-      scrollTo(focusedHighlight.elements[0] as HTMLElement, -100);
+      scrollIntoView(focusedHighlight.elements[0] as HTMLElement);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusedHighlight, cardsPositions]);
