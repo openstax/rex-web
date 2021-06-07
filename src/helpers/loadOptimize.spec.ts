@@ -3,7 +3,7 @@ import { Store } from '../app/types';
 import { assertDocument, assertWindow } from '../app/utils';
 import config from '../config';
 import createTestStore from '../test/createTestStore';
-import loadOptimize from './loadOptimize';
+import loadOptimize, { getCallback } from './loadOptimize';
 
 describe('loadOptimize', () => {
   let store: Store;
@@ -68,13 +68,8 @@ describe('loadOptimize', () => {
   `);
   });
 
-  it('registers optimize callback and correctly dispatches action', async() => {
-    config.DEPLOYED_ENV = 'foo';
-
-    jest.spyOn(document.head, 'appendChild');
-    await loadOptimize(window, store);
-
-    ((window.dataLayer[0] as any)[2] as any).callback('1', 'OCCkMMCZSwW87szzpniCow');
+  it('callback correctly dispatches action', async() => {
+    getCallback(store)('1', 'OCCkMMCZSwW87szzpniCow');
     expect(dispatch).toHaveBeenCalledWith(receiveExperiments(['OCCkMMCZSwW87szzpniCow', '1']));
   });
 });
