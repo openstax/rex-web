@@ -37,8 +37,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     () => highlights.find((highlight) => highlight.id === focusedId),
     [focusedId, highlights]);
   const prevFocusedHighlightId = React.useRef(focusedId);
-  // tslint:disable-next-line: no-empty
-  const setNewCardsPositionsRef = React.useRef(() => {});
+  const setNewCardsPositionsRef = React.useRef<() => void | undefined>(() => undefined);
 
   // This function is triggered by keyboard shortuct defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
@@ -81,8 +80,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const setNewCardsPositions = React.useCallback(() => {
     const positions = updateCardsPositions(focusedHighlight, highlights, cardsHeights, getOffsetsForHighlight);
     setCardsPositions(positions);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cardsHeights, focusedHighlight, highlights]);
+  }, [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
 
   React.useEffect(() => {
     setNewCardsPositions();
