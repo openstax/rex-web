@@ -116,6 +116,18 @@ class FilterToggle(Region):
             "return arguments[0].checked;",
             self.find_element(*self._checkbox_locator))
 
+    @property
+    def is_disabled(self) -> bool:
+        """Return True if the checkbox is disabled.
+
+        :return: ``True`` if the checkbox is currently disabled
+        :rtype: bool
+
+        """
+        return self.driver.execute_script(
+            "return arguments[0].disabled;",
+            self.find_element(*self._checkbox_locator))
+
     def click(self):
         """Click the filter checkbox.
 
