@@ -9,6 +9,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { openToc, receiveBook, receivePage } from '../../actions';
@@ -393,5 +394,29 @@ describe('Card', () => {
     });
 
     expect(showConfirmation).toHaveBeenCalled();
+  });
+
+  it('scroll card into view if it is active', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        { id: highlight.id, annotation: 'asd' },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+
+    const mock = assertDocument().createElement('div');
+    const spyScrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+
+    renderer.create(<Provider store={store}>
+      <Card {...cardProps} />
+    </Provider>, { createNodeMock: () => mock});
+
+    renderer.act(() => {
+      store.dispatch(focusHighlight(highlight.id));
+    });
+
+    expect(spyScrollIntoView).toHaveBeenCalledWith(mock);
   });
 });

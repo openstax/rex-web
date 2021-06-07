@@ -5,6 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { scrollIntoView } from '../../../domUtils';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
@@ -71,6 +72,8 @@ const Card = (props: CardProps) => {
   React.useEffect(() => {
     if (!props.isActive) {
       setEditing(false);
+    } else if (element.current) {
+      scrollIntoView(element.current);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isActive]);
