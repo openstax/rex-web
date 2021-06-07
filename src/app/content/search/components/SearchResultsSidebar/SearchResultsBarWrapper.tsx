@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import Loader from '../../../../components/Loader';
 import { Book } from '../../../types';
 import {
@@ -23,22 +23,35 @@ interface ResultsSidebarProps {
   selectedResult: SelectedResult | null;
 }
 
+// tslint:disable-next-line: variable-name
+const LoadingState = ({onClose}: {onClose: () => void}) => <Styled.LoadingWrapper
+  aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar:loading-state'})}
+>
+  <Styled.CloseIconWrapper>
+    <Styled.CloseIconButton onClick={onClose}>
+      <Styled.CloseIcon />
+    </Styled.CloseIconButton>
+  </Styled.CloseIconWrapper>
+  <Loader />
+</Styled.LoadingWrapper>;
+
+// tslint:disable-next-line: variable-name
+const SearchResultsBar = React.forwardRef<
+  HTMLElement, {searchResultsOpen: boolean, hasQuery: boolean, children: React.ReactNode}
+>(
+  (props, ref) => <Styled.SearchResultsBar
+    aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar'})}
+    data-testid='search-results-sidebar'
+    ref={ref}
+    {...props}
+  />
+);
+
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public searchSidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
   public searchSidebarHeader = React.createRef<HTMLElement>();
-
-  public loadindState = () => <FormattedMessage id='i18n:search-results:bar:loading-state'>
-    {(msg: Element | string) => <Styled.LoadingWrapper aria-label={msg}>
-      <Styled.CloseIconWrapper>
-        <Styled.CloseIconButton onClick={this.props.onClose}>
-          <Styled.CloseIcon />
-        </Styled.CloseIconButton>
-      </Styled.CloseIconWrapper>
-      <Loader />
-    </Styled.LoadingWrapper>}
-  </FormattedMessage>;
 
   public totalResults = () => <Styled.SearchQueryWrapper ref={this.searchSidebarHeader}>
     <Styled.SearchQuery>
@@ -47,7 +60,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           {this.props.totalHits}{' '}
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
-            values={{total: this.props.totalHits}}/>
+            values={{total: this.props.totalHits}}
+          />
           <strong> &lsquo;{this.props.query}&rsquo;</strong>
         </Styled.HeaderQuery>
         <Styled.CloseIconButton
@@ -66,7 +80,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       </Styled.CloseIconButton>
     </Styled.CloseIconWrapper>
     <FormattedMessage id='i18n:search-results:bar:query:no-results'>
-      {(msg: Element | string) => (
+      {(msg) => (
         <Styled.SearchQuery>
           <Styled.SearchQueryAlignment>
             {msg} <strong> &lsquo;{this.props.query}&rsquo;</strong>
@@ -89,22 +103,16 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     const { results, book, searchResultsOpen, hasQuery } = this.props;
 
     return (
-      <FormattedMessage id='i18n:search-results:bar'>
-        {(msg: Element | string) => (
-          <Styled.SearchResultsBar
-            aria-label={msg}
-            searchResultsOpen={searchResultsOpen}
-            hasQuery={hasQuery}
-            ref={this.searchSidebar}
-            data-testid='search-results-sidebar'
-          >
-            {!results ? this.loadindState() : null}
-            {results && results.length > 0 ? this.totalResults() : null}
-            {results && results.length === 0 ? this.noResults() : null}
-            {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
-          </Styled.SearchResultsBar>
-        )}
-      </FormattedMessage>
+      <SearchResultsBar
+        searchResultsOpen={searchResultsOpen}
+        hasQuery={hasQuery}
+        ref={this.searchSidebar}
+      >
+        {!results ? <LoadingState onClose={this.props.onClose} /> : null}
+        {results && results.length > 0 ? this.totalResults() : null}
+        {results && results.length === 0 ? this.noResults() : null}
+        {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
+      </SearchResultsBar>
     );
   }
 

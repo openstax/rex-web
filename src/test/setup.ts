@@ -81,8 +81,9 @@ let scrollBy: jest.SpyInstance;
 let mockGa: any;
 
 resetModules();
+
 afterAll(async() => {
-  resetModules();
+  await resetModules();
 });
 
 beforeEach(() => {
@@ -95,11 +96,11 @@ beforeEach(() => {
 
   matchMedia = window.matchMedia = jest.fn().mockImplementation((query) => {
     return {
-      addListener: jest.fn(),
+      addEventListener: jest.fn(),
       matches: false,
       media: query,
       onchange: null,
-      removeListener: jest.fn(),
+      removeEventListener: jest.fn(),
     };
   });
 

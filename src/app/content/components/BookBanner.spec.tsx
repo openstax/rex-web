@@ -1,10 +1,8 @@
 import { DOMRect } from '@openstax/types/lib.dom';
-import React from 'react';
-import renderer from 'react-test-renderer';
 import { book as archiveBook, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
-import { resetModules } from '../../../test/utils';
+import { reactAndFriends, resetModules } from '../../../test/utils';
 import { assertDocument, assertWindow } from '../../utils';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
@@ -26,7 +24,7 @@ describe('BookBanner', () => {
     resetModules();
 
     window = assertWindow();
-    delete window.location;
+    delete (window as any).location;
 
     window.location = {
       assign: jest.fn(),
@@ -44,7 +42,11 @@ describe('BookBanner', () => {
   });
 
   describe('without unsaved changes', () => {
+    let React: any; // tslint:disable-line:variable-name
+    let renderer: any;
+
     beforeEach(() => {
+      ({React, renderer} = reactAndFriends());
       BookBanner = require('./BookBanner').BookBanner;
     });
 
@@ -192,7 +194,11 @@ describe('BookBanner', () => {
       () => mockConfirmation
     );
 
+    let React: any; // tslint:disable-line:variable-name
+    let renderer: any;
+
     beforeEach(() => {
+      ({React, renderer} = reactAndFriends());
       BookBanner = require('./BookBanner').BookBanner;
     });
 
@@ -232,6 +238,31 @@ describe('BookBanner', () => {
 
       expect(event.preventDefault).toHaveBeenCalled();
       expect(assign).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('outside browser', () => {
+    const windowBackup = window;
+    const documentBackup = document;
+    let React: any; // tslint:disable-line:variable-name
+    let renderer: any;
+
+    beforeEach(() => {
+      delete (global as any).window;
+      delete (global as any).document;
+      ({React, renderer} = reactAndFriends());
+    });
+
+    afterEach(() => {
+      (global as any).window = windowBackup;
+      (global as any).document = documentBackup;
+    });
+
+    it('renders', () => {
+      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} bookTheme={book.theme} />);
+
+      const tree = component.toJSON();
+      expect(tree).toMatchSnapshot();
     });
   });
 });

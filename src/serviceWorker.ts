@@ -12,6 +12,7 @@
 
 import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
 import { assertWindow } from './app/utils';
+import Sentry, { Severity } from './helpers/Sentry';
 // tslint:disable:no-console
 
 const window = assertWindow();
@@ -29,13 +30,22 @@ const isLocalhost = Boolean(
 
 export function register(): Promise<ServiceWorkerRegistration> {
   if (!('serviceWorker' in navigator)) {
-    return Promise.reject(new Error('Service worker not supported'));
+    Sentry.captureException(new Error('Service worker not supported'), Severity.Warning);
+    return Promise.reject();
   }
   if (process.env.NODE_ENV !== 'production') {
-    return Promise.reject(new Error('Service worker disabled outside production'));
+    Sentry.captureException(new Error('Service worker disabled outside production'), Severity.Info);
+    return Promise.reject();
   }
   if (process.env.REACT_APP_ENV === 'test') {
-    return Promise.reject(new Error('service worker disabled in testing'));
+    Sentry.captureException(new Error('service worker disabled in testing'), Severity.Info);
+    return Promise.reject();
+  }
+
+  if (process.env.PUBLIC_URL === undefined) {
+    return Promise.reject(
+      new Error('service worker won\'t work if PUBLIC_URL is not defined.')
+    );
   }
 
   // The URL constructor is available in all browsers that support SW.

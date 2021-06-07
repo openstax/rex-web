@@ -10,7 +10,7 @@ import createMockHighlight from '../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { resetModules } from '../../../test/utils';
-import SkipToContentWrapper from '../../components/SkipToContentWrapper';
+import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import MessageProvider from '../../MessageProvider';
 import { locationChange } from '../../navigation/actions';
@@ -124,13 +124,13 @@ describe('Page', () => {
 
     return renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <Services.Provider value={services}>
-            <SkipToContentWrapper>
-              <ConnectedPage />
-            </SkipToContentWrapper>
-          </Services.Provider>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+              <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+              </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
   };
@@ -172,7 +172,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
 
-    expect(mockHighlights[0].focus).toHaveBeenCalled();
+    expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(scrollTarget(store.getState())).toEqual({
       elementId: 'hash-of-scroll-target',
       id: 'scroll-target-id',
@@ -240,7 +240,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
 
-    expect(mockHighlights[0].focus).toHaveBeenCalled();
+    expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalled();
 
     renderer.act(() => {
@@ -257,7 +257,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
 
-    expect(mockHighlights[1].focus).toHaveBeenCalled();
+    expect(mockHighlights[1].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalledTimes(1);
   });
 });

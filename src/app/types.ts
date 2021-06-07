@@ -1,5 +1,6 @@
 import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
 import { History } from 'history';
+import { IntlShape } from 'react-intl';
 import {
   Dispatch as ReduxDispatch,
   Middleware as ReduxMiddleware,
@@ -8,7 +9,9 @@ import {
 } from 'redux';
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
+import config from '../config';
 import createArchiveLoader from '../gateways/createArchiveLoader';
+import createBookConfigLoader from '../gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
 import createOSWebLoader from '../gateways/createOSWebLoader';
@@ -38,9 +41,11 @@ export interface AppServices {
   analytics: typeof analytics;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
   buyPrintConfigLoader: ReturnType<typeof createBuyPrintConfigLoader>;
+  config: typeof config;
   fontCollector: FontCollector;
   highlightClient: ReturnType<typeof createHighlightClient>;
   history: History;
+  intl: IntlShape;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
   practiceQuestionsLoader: ReturnType<typeof createPracticeQuestionsLoader>;
   prerenderedContent?: string;
@@ -48,6 +53,7 @@ export interface AppServices {
   searchClient: ReturnType<typeof createSearchClient>;
   serviceWorker?: ServiceWorkerRegistration;
   userLoader: ReturnType<typeof createUserLoader>;
+  bookConfigLoader: ReturnType<typeof createBookConfigLoader>;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };

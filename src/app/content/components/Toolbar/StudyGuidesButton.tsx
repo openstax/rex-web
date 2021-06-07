@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
@@ -36,6 +36,7 @@ const StudyGuidesText = styled.span`
 // tslint:disable-next-line:variable-name
 const StudyGuidesButton = () => {
   const dispatch = useDispatch();
+  const intl = useIntl();
   const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
 
   const isEnabled = useSelector(studyGuidesEnabled);
@@ -48,14 +49,12 @@ const StudyGuidesButton = () => {
     trackOpenClose();
   };
 
-  return <FormattedMessage id='i18n:toolbar:studyguides:button:text'>
-    {(msg: Element | string) =>
-      <StudyGuidesWrapper onClick={openStudyGuidesSummary} aria-label={msg}>
-        <StudyGuidesIcon aria-hidden='true' src={studyGuidesIcon} />
-        <StudyGuidesText>{msg}</StudyGuidesText>
-      </StudyGuidesWrapper>
-    }
-  </FormattedMessage>;
+  const text = intl.formatMessage({id: 'i18n:toolbar:studyguides:button:text'});
+
+  return <StudyGuidesWrapper onClick={openStudyGuidesSummary} aria-label={text} data-analytics-label='Study guides'>
+    <StudyGuidesIcon aria-hidden='true' src={studyGuidesIcon} />
+    <StudyGuidesText>{text}</StudyGuidesText>
+  </StudyGuidesWrapper>;
 };
 
 export default StudyGuidesButton;

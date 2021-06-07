@@ -37,13 +37,13 @@ const PageNotFoundText = styled.div`
 const PageNotFound = () => <PageNotFoundWrapper>
   <PageNotFoundTitle>
     <FormattedMessage id='i18n:page-not-found:heading'>
-      {(msg: string) => msg}
+      {(msg) => msg}
     </FormattedMessage>
   </PageNotFoundTitle>
   <PageNotFoundText>
     <span>
       <FormattedMessage id='i18n:page-not-found:text-before-button'>
-        {(msg: string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </span>
     <SidebarControl />

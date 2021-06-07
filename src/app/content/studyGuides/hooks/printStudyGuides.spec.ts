@@ -23,6 +23,8 @@ describe('printStudyGuides', () => {
   let hook: ReturnType<typeof import ('./printStudyGuides').hookBody>;
 
   beforeEach(() => {
+    jest.resetAllMocks();
+
     store = createTestStore({
       ...{} as any,
       content: {
@@ -49,7 +51,8 @@ describe('printStudyGuides', () => {
     dispatch = jest.spyOn(helpers, 'dispatch');
 
     calmSpy = jest.spyOn(helpers.promiseCollector, 'calm')
-      .mockImplementation(() => Promise.resolve());
+      .mockReturnValue(Promise.resolve());
+
     loadMore = jest.spyOn(require('./loadMore'), 'loadMore')
       .mockImplementation(async() => ({formattedHighlights}));
 
@@ -89,10 +92,20 @@ describe('printStudyGuides', () => {
   });
 
   it('waits for promiseCollector.calm', async() => {
+    let resolveCalm: undefined | (() => void);
+
+    calmSpy.mockReturnValue(new Promise<void>((resolve) => {
+      resolveCalm = resolve;
+    }));
+
+    if (!resolveCalm) {
+      return expect(resolveCalm).toBeTruthy();
+    }
+
     hook(printStudyGuides());
 
     expect(loadMore).toHaveBeenCalled();
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(formattedHighlights, {
       isStillLoading: true,
@@ -101,23 +114,35 @@ describe('printStudyGuides', () => {
 
     expect(print).not.toHaveBeenCalled();
 
-    expect(calmSpy).toHaveBeenCalled();
-    await Promise.resolve();
+    resolveCalm();
+
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(dispatch).toBeCalledWith(toggleStudyGuidesSummaryLoading(false));
     expect(print).toHaveBeenCalled();
   });
 
   it('doesn\'t print if study guides modal was closed', async() => {
+    let resolveCalm: undefined | (() => void);
+
+    calmSpy.mockReturnValue(new Promise<void>((resolve) => {
+      resolveCalm = resolve;
+    }));
+
+    if (!resolveCalm) {
+      return expect(resolveCalm).toBeTruthy();
+    }
+
     hook(printStudyGuides());
 
     expect(loadMore).toHaveBeenCalled();
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     store.dispatch(closeStudyGuides());
 
-    expect(calmSpy).toHaveBeenCalled();
-    await Promise.resolve();
+    resolveCalm();
+
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(print).not.toHaveBeenCalled();
   });

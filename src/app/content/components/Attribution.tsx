@@ -1,15 +1,16 @@
 import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
-import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details';
+import { htmlMessage } from '../../components/htmlMessage';
 import { bodyCopyRegularStyle, decoratedLinkStyle, textRegularLineHeight } from '../../components/Typography';
 import { scrollTo } from '../../domUtils';
 import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertNotNull, assertString } from '../../utils';
+import { assertNotNull } from '../../utils';
 import { hasOSWebData } from '../guards';
 import * as select from '../selectors';
 import { Book, BookWithOSWebData, Page } from '../types';
@@ -38,7 +39,15 @@ const SummaryOpenIcon = styled((props) => <CollapseIcon {...props} />)`
 `;
 
 // tslint:disable-next-line:variable-name
-const AttributionSummary = styled((props) => <Summary {...props} />)`
+const AttributionSummary = styled((props) => {
+  const message = useIntl().formatMessage({id: 'i18n:attribution:toggle'});
+
+  return <Summary {...props} aria-label={message}>
+    <SummaryClosedIcon />
+    <SummaryOpenIcon />
+    <span>{message}</span>
+  </Summary>;
+})`
   ${contentTextStyle}
   font-weight: 500;
   list-style: none;
@@ -88,6 +97,9 @@ const AttributionDetails = styled(Details)`
 
   ${disablePrint}
 `;
+
+// tslint:disable-next-line:variable-name
+const AttributionContent = htmlMessage('i18n:attribution:text', Content);
 
 interface Props {
   currentPath: string;
@@ -150,18 +162,8 @@ class Attribution extends Component<Props> {
       data-testid='attribution-details'
       data-analytics-region='attribution'
     >
-      <FormattedMessage id='i18n:attribution:toggle'>
-        {(msg) => <AttributionSummary aria-label={msg}>
-          <SummaryClosedIcon />
-          <SummaryOpenIcon />
-          <span>{msg}</span>
-        </AttributionSummary>}
-      </FormattedMessage>
-      <FormattedHTMLMessage id='i18n:attribution:text' values={this.getValues(book)}>
-        {(html) => <Content
-          dangerouslySetInnerHTML={{__html: assertString(html, 'i18n:attribution:text must return a string')}}
-        ></Content>}
-      </FormattedHTMLMessage>
+      <AttributionSummary />
+      <AttributionContent values={this.getValues(book)} />
     </AttributionDetails>;
   }
 

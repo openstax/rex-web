@@ -70,7 +70,7 @@ interface ChapterFilterProps {
 // tslint:disable-next-line:variable-name
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
-  const l10n = useIntl();
+  const intl = useIntl();
 
   React.useEffect(() => {
     const selectedSectionId = Array.from(props.selectedLocationFilters).pop();
@@ -99,7 +99,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
 
   const getAriaLabel = (section: LinkedArchiveTreeNode) => {
     if (props.ariaLabelItemId) {
-      return l10n.formatMessage({ id: props.ariaLabelItemId }, { filter: splitTitleParts(section.title).join(' ') });
+      return intl.formatMessage({ id: props.ariaLabelItemId }, { filter: splitTitleParts(section.title).join(' ') });
     }
   };
 
@@ -130,6 +130,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
               title={section.title}
               onChange={() => handleChange(section)}
               ariaLabel={getAriaLabel(section)}
+              dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(section.title).join(' ')}`}
             />;
           } else {
             return <StyledDetails key={section.id} open={openChapterId === section.id}>
@@ -150,6 +151,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
                     title={child.title}
                     onChange={() => handleChange(child)}
                     ariaLabel={getAriaLabel(child)}
+                    dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(child.title).join(' ')}`}
                   />
                 ))}
               </StyledChapterFilterItemWrapper>
@@ -167,6 +169,7 @@ interface ChapterFilterItemProps {
   multiselect: boolean;
   title: string;
   ariaLabel?: string;
+  dataAnalyticsLabel: string;
   onChange: () => void;
 }
 
@@ -187,6 +190,7 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
     onClick={props.onChange}
     isSelected={props.selected}
     aria-label={props.ariaLabel}
+    data-analytics-label={props.dataAnalyticsLabel}
   >
     <ChapterTitle dangerouslySetInnerHTML={{__html: props.title}} />
   </StyledSectionItem>;

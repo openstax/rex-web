@@ -117,8 +117,9 @@ describe('actionHook', () => {
   it('handle error if it is instace of BookNotFoundError', async() => {
     const hookSpy = jest.fn(async() => Promise.reject(new utils.BookNotFoundError('asd')));
     const mockReplace = jest.fn();
-    jest.spyOn(utils.assertWindow().location, 'replace')
-      .mockImplementation(mockReplace);
+    Object.defineProperty(utils.assertWindow(), 'location', {
+      value: { replace: mockReplace },
+    });
     jest.spyOn(selectNavigation, 'pathname')
       .mockReturnValue('url');
     const helpers = ({
@@ -129,7 +130,8 @@ describe('actionHook', () => {
 
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
     middleware(helpers)(helpers)((action) => action)(actions.openToc());
-    await Promise.resolve();
+
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
     expect(hookSpy).toHaveBeenCalled();
     expect(Sentry.captureException).toHaveBeenCalled();
@@ -157,7 +159,8 @@ describe('actionHook', () => {
 
     const middleware = utils.actionHook(actions.openToc, () => hookSpy);
     middleware(helpers)(helpers)((action) => action)(actions.openToc());
-    await Promise.resolve();
+
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(spySentry).toHaveBeenCalled();
     expect(hookSpy).toHaveBeenCalled();

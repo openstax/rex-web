@@ -1,6 +1,6 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
@@ -8,6 +8,7 @@ import { cardPadding, cardWidth } from '../constants';
 
 interface Props {
   note: string;
+  textareaRef: React.RefObject<HTMLTextAreaElement>;
   onChange: (note: string) => void;
   onFocus: () => void;
 }
@@ -34,11 +35,9 @@ const TextArea = styled.textarea`
 `;
 
 // tslint:disable-next-line:variable-name
-const Note = ({onChange, onFocus, note}: Props) => {
-  const textArea = React.useRef<HTMLTextAreaElement>(null);
-
-  const setTextAreaHeight = () => {
-    const element = textArea.current;
+const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
+  const setTextAreaHeight = React.useCallback(() => {
+    const element = textareaRef.current;
     if (!element) {
       return;
     }
@@ -46,23 +45,20 @@ const Note = ({onChange, onFocus, note}: Props) => {
     if (element.scrollHeight > element.offsetHeight) {
       element.style.height = `${element.scrollHeight + 5}px`;
     }
-  };
+  }, [textareaRef]);
 
-  React.useEffect(setTextAreaHeight, [note]);
+  React.useEffect(setTextAreaHeight, [note, setTextAreaHeight]);
 
-  return <FormattedMessage id='i18n:highlighting:card:placeholder'>
-    {(msg: Element | string) => <TextArea
-        ref={textArea}
-        value={note}
-        onFocus={onFocus}
-        maxLength={noteMaxLength}
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-          onChange(e.target.value);
-        }}
-        placeholder={msg}
-      />
-    }
-  </FormattedMessage>;
+  return <TextArea
+    ref={textareaRef}
+    value={note}
+    onFocus={onFocus}
+    maxLength={noteMaxLength}
+    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      onChange(e.target.value);
+    }}
+    placeholder={useIntl().formatMessage({id: 'i18n:highlighting:card:placeholder'})}
+  />;
 };
 
 export default Note;

@@ -206,7 +206,8 @@ class Page(pypom.Page):
                 raise WebDriverException("Try again")
 
         except WebDriverException:
-            self.driver.switch_to_window(self.driver.window_handles[n])
+            sleep(1.0)
+            self.driver.switch_to.window(self.driver.window_handles[n])
 
     def open_new_tab(self):
         """"Open new browser tab."""
@@ -216,7 +217,6 @@ class Page(pypom.Page):
 
     def username(self, element):
         """Get the username of a logged in user."""
-
         return element.get_attribute("innerText")
 
     def element_in_viewport(self, target: WebElement):

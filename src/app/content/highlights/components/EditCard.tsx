@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as selectAuth from '../../../auth/selectors';
 import Button, { ButtonGroup } from '../../../components/Button';
-import { useOnEsc } from '../../../reactUtils';
+import { useFocusElement, useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
@@ -26,7 +26,7 @@ import Note from './Note';
 import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
 
 export interface EditCardProps {
-  isFocused: boolean;
+  isActive: boolean;
   hasUnsavedHighlight: boolean;
   highlight: Highlight;
   locationFilterId: string;
@@ -39,6 +39,7 @@ export interface EditCardProps {
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   data?: HighlightData;
   className: string;
+  shouldFocusCard: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -51,6 +52,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const [editingAnnotation, setEditing] = React.useState<boolean>(!!props.data && !!props.data.annotation);
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
+  const textarea = React.useRef<HTMLTextAreaElement>(null);
 
   const trackCreateNote = useAnalyticsEvent('createNote');
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
@@ -73,7 +75,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     props.onCancel();
   };
 
-  useOnEsc(element, props.isFocused, cancelEditing);
+  useOnEsc(element, props.isActive, cancelEditing);
 
   React.useEffect(() => {
     if (props.data) { return; }
@@ -90,14 +92,16 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [element.current, props.highlight]);
 
-  useOnClickOutside(elements, props.isFocused, blurIfNotEditing, { capture: true });
+  useOnClickOutside(elements, props.isActive, blurIfNotEditing, { capture: true });
 
   React.useEffect(() => {
     if (element.current) {
       props.onHeightChange(element);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, editingAnnotation, props.isFocused]);
+  }, [element, editingAnnotation, props.isActive]);
+
+  useFocusElement(textarea, props.shouldFocusCard);
 
   const onColorChange = (color: HighlightColorEnum, isDefault?: boolean) => {
     props.highlight.setStyle(color);
@@ -111,7 +115,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
       }));
       trackEditNoteColor(color);
     } else {
-      assertWindow().getSelection().removeAllRanges();
+      assertWindow().getSelection()?.removeAllRanges();
       props.onCreate();
       trackCreateNote(isDefault ? 'default' : color);
     }
@@ -131,6 +135,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     }));
     trackEditAnnotation(addedNote, toSave.color);
     props.onCancel();
+    props.highlight.focus();
   };
 
   const updateUnsavedHighlightStatus = (newValue: string) => {
@@ -148,6 +153,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     className={props.className}
     ref={mergeRefs(ref, element)}
     data-analytics-region='edit-note'
+    data-highlight-card
   >
     <ColorPicker color={props.data ? props.data.color : undefined} onChange={onColorChange} onRemove={() => {
       if (props.data && !props.data.annotation && !pendingAnnotation) {
@@ -156,6 +162,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
       }
     }} />
     <Note
+      textareaRef={textarea}
       note={pendingAnnotation}
       onFocus={() => {
         if (!props.highlight.getStyle()) {
@@ -170,7 +177,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     />
     {editingAnnotation && props.data && <ButtonGroup>
       <FormattedMessage id='i18n:highlighting:button:save'>
-        {(msg: Element | string) => <Button
+        {(msg) => <Button
           data-testid='save'
           data-analytics-label='save'
           size='small'
@@ -188,7 +195,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
         >{msg}</Button>}
       </FormattedMessage>
       <FormattedMessage id='i18n:highlighting:button:cancel'>
-        {(msg: Element | string) => <Button
+        {(msg) => <Button
           size='small'
           data-analytics-label='cancel'
           data-testid='cancel'

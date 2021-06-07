@@ -706,7 +706,7 @@ def test_delete_highlight_from_MH_page_using_keyboard_navigation(
     # AND: Highlight 2 set of texts in the page
     paragraph = random.sample(book.content.paragraphs, 2)
     note = Utilities.random_string(length=50)
-    data = [(paragraph[0], Color.GREEN, note), (paragraph[1], Color.YELLOW, note == "")]
+    data = [(paragraph[0], Color.GREEN, note), (paragraph[1], Color.YELLOW, "")]
 
     for paragraphs, colors, note in data:
         book.content.highlight(target=paragraphs, offset=Highlight.RANDOM, color=colors, note=note)
@@ -732,7 +732,7 @@ def test_delete_highlight_from_MH_page_using_keyboard_navigation(
         )
 
         # WHEN: Hit Cancel in the delete confirmation dialog
-        (ActionChains(selenium).send_keys(Keys.TAB * 2).send_keys(Keys.ENTER).perform())
+        (ActionChains(selenium).send_keys(Keys.TAB * 2).pause(1).send_keys(Keys.ENTER).perform())
 
         # THEN: The highlight is not removed from MH page
         assert (
@@ -740,13 +740,13 @@ def test_delete_highlight_from_MH_page_using_keyboard_navigation(
         ), "Highlight is removed from MH page even on hitting Cancel in delete confirmation dialog"
 
         # WHEN: Open the context menu
-        (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.ENTER).perform())
+        (ActionChains(selenium).send_keys(Keys.TAB * 7).pause(1).send_keys(Keys.ENTER).perform())
 
         # AND: Select Delete note
-        (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+        (ActionChains(selenium).send_keys(Keys.TAB * 7).pause(1).send_keys(Keys.RETURN).perform())
 
         # AND: Hit Save in the delete confirmation dialog
-        (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+        (ActionChains(selenium).send_keys(Keys.TAB * 1).pause(1).send_keys(Keys.ENTER).perform())
 
         # THEN: The highlight is removed from the MH page
         assert (

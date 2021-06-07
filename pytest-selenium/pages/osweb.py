@@ -9,30 +9,70 @@ from time import sleep
 from pages.base import Page
 from utils.utility import Utilities
 
+HAS_HEIGHT = "return window.getComputedStyle(arguments[0]).height != 'auto';"
+SET_HREF = "arguments[0].href = '{0}';"
+
 
 class WebBase(Page):
+
+    DESKTOP = "//div[@class='bigger-view']"
+    MOBILE = "//div[@class='phone-view']"
+    PRINT_COPY = "//a[span[contains(text(), 'Order a print copy')]]"
     URL_TEMPLATE = "/details/books/{book_slug}"
-    _async_hide_locator = (By.CSS_SELECTOR, ".async-hide")
-    _user_nav_locator = (By.CSS_SELECTOR, '[class*="login-menu"]')
-    _login_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
-    _logout_locator = (By.CSS_SELECTOR, "[href*=signout]")
-    _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
-    _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[class="page-header active"]')
+    VIEW_ONLINE = "//a[span[text()='View online']]"
+
+    _body_data_init_locator = (
+        By.CSS_SELECTOR, "body[data-abr=init]")
+    _call_out_put_away_button_locator = (
+        By.CSS_SELECTOR, ".callout .put-away")
+    _close_locator = (
+        By.CSS_SELECTOR, '[class="put-away"]')
+    _desktop_log_in_link_locator = (
+        By.CSS_SELECTOR, ".desktop .login-menu > a")
+    _desktop_user_menu_locator = (
+        By.CSS_SELECTOR, "[data-testid=user-nav-toggle], .desktop .login-menu")
+    _dialog_locator = (
+        By.CSS_SELECTOR, 'dialog[class*=dialog]')
+    _dialog_title_locator = (
+        By.CSS_SELECTOR, "#dialog-title")
+    _got_it_button_locator = (
+        By.CSS_SELECTOR, ".cookie-notice button")
+    _individual_copy_locator = (
+        By.CSS_SELECTOR, ".phone-version > a.box:first-child")
+    _logout_locator = (
+        By.CSS_SELECTOR, "[href*=signout]")
+    _log_in_locator = (
+        By.CSS_SELECTOR, '[class="pardotTrackClick"]')
+    _mobile_log_in_link_locator = (
+        By.CSS_SELECTOR, ".mobile .login-menu > a")
+    _mobile_user_menu_locator = (
+        By.CSS_SELECTOR, "[data-testid=user-nav-toggle], .mobile .login-menu")
+    _mobile_user_nav_loaded_locator = (
+        By.CSS_SELECTOR, '[class="page-header active"]')
+    _mobile_user_nav_locator = (
+        By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
+    _pi_close_button_locator = (
+        By.CSS_SELECTOR, "._pi_closeButton")
+    _print_copy_locator = (
+        By.XPATH, f"{DESKTOP}{PRINT_COPY}")
+    _print_copy_mobile_locator = (
+        By.XPATH, f"{MOBILE}{PRINT_COPY}")
+    _order_a_personal_copy_locator = (
+        By.CSS_SELECTOR,
+        ".larger-version [class='btn primary'][data-track=Print]"
+    )
+    _osweb_404_locator = (
+        By.CSS_SELECTOR, '[class*="not-found"]')
+    _sticky_note_put_away_button_locator = (
+        By.CSS_SELECTOR, "#lower-sticky-note .put-away")
+    _user_nav_locator = (
+        By.CSS_SELECTOR, '.login-menu')
     _view_online_desktop_locator = (
-        By.XPATH,
-        "//div[@class='bigger-view']//span[text()='View online']/..",
-    )
+        By.XPATH, f"{DESKTOP}{VIEW_ONLINE}")
+    _view_online_links_locator = (
+        By.XPATH, "//a[span[contains(text(),'View online')]]")
     _view_online_mobile_locator = (
-        By.XPATH,
-        "//div[@class='phone-view']//span[text()='View online']/..",
-    )
-    _dialog_locator = (By.CSS_SELECTOR, '[aria-labelledby="dialog-title"]')
-    _dialog_title_locator = (By.CSS_SELECTOR, "#dialog-title")
-    _got_it_button_locator = (By.CSS_SELECTOR, ".cookie-notice button")
-    _print_copy_locator = (By.XPATH, "//*[contains(text(), 'Order a print copy')]/..")
-    _order_on_amazon_locator = (By.CSS_SELECTOR, '[class="btn primary"]')
-    _close_locator = (By.CSS_SELECTOR, '[class="put-away"]')
-    _osweb_404_locator = (By.CSS_SELECTOR, '[class*="not-found"]')
+        By.XPATH, f"{MOBILE}{VIEW_ONLINE}")
 
     @property
     def loaded(self):
@@ -44,26 +84,31 @@ class WebBase(Page):
         Return when the async event is hidden.
 
         """
-        script = r'document.addEventListener("load", function(event) {});'
-        sleep(0.5)
-        async_hide = bool(self.find_elements(*self._async_hide_locator))
-        return (self.driver.execute_script(script)) or (not async_hide)
+        script = r'window.addEventListener("load", function(event) {});'
+        self.driver.execute_script(script)
+        sleep(1.0)
+        return bool(self.find_elements(*self._body_data_init_locator))
 
     def wait_for_load(self):
         return self.wait.until(lambda _: self.loaded)
 
     def osweb_404_displayed(self) -> bool:
         """Return true if osweb 404 error is displayed"""
-        return bool(self.wait.until(lambda _: self.find_element(*self._osweb_404_locator)))
+        return bool(
+            self.wait.until(
+                lambda _: self.find_element(*self._osweb_404_locator)
+            )
+        )
 
     @property
     def osweb_404_error(self):
         """Return the 404 error text"""
-        return self.find_element(*self._osweb_404_locator).get_attribute("textContent")
+        _404_error = self.find_elements(*self._osweb_404_locator)
+        return _404_error[0].get_attribute("textContent") if _404_error else ""
 
     @property
     def login(self):
-        return self.find_element(*self._login_locator)
+        return self.find_element(*self._log_in_locator)
 
     @property
     def user_nav(self):
@@ -75,7 +120,10 @@ class WebBase(Page):
 
     @property
     def mobile_user_nav_loaded(self):
-        return self.find_element(*self._mobile_user_nav_loaded_locator).is_displayed()
+        user_nav = self.find_elements(*self._mobile_user_nav_loaded_locator)
+        if not user_nav:
+            return False
+        return user_nav[0].is_displayed()
 
     @property
     def logout(self):
@@ -88,13 +136,10 @@ class WebBase(Page):
     @property
     def user_is_logged_in(self):
         if self.is_desktop:
-            if self.is_element_present(*self._user_nav_locator):
-                return True
-        elif self.is_mobile:
-            self.click_mobile_user_nav()
-            if self.mobile_user_nav_loaded:
-                self.click_mobile_user_nav()
-                return True
+            user_menu = self.find_element(*self._desktop_user_menu_locator)
+        else:
+            user_menu = self.find_element(*self._mobile_user_menu_locator)
+        return 'dropdown' in user_menu.get_attribute("class")
 
     @property
     def view_online(self):
@@ -113,9 +158,12 @@ class WebBase(Page):
         Utilities.click_option(self.driver, element=target)
 
     def click_login(self):
-        if self.is_mobile:
+        if self.is_desktop:
+            log_in = self.find_element(*self._desktop_log_in_link_locator)
+        else:
             self.click_mobile_user_nav()
-        self.login.click()
+            log_in = self.find_element(*self._mobile_log_in_link_locator)
+        Utilities.click_option(self.driver, element=log_in)
 
     def click_logout(self):
         if self.is_desktop:
@@ -128,32 +176,37 @@ class WebBase(Page):
         self.wait_for_load()
 
     def click_view_online(self):
-        # self.offscreen_click(self.view_online)
         Utilities.click_option(self.driver, element=self.view_online)
 
     def click_mobile_user_nav(self):
         self.offscreen_click(self.mobile_user_nav)
+        sleep(1.0)
 
-    def osweb_username(self, element):
+    def osweb_username(self):
         """Get the username of the logged in user."""
-        element1 = self.username(element)
-        return " ".join(element1.split()[:2])
+        if self.is_desktop:
+            username = self.find_element(*self._desktop_log_in_link_locator)
+            return username.text[3:-5]
+        self.click_mobile_user_nav()
+        username = self.find_element(*self._mobile_log_in_link_locator)
+        return username.text[3:]
 
     @property
     def notification_dialog_displayed(self) -> bool:
         """Return True if the dialog box is displayed.
+
         :return: ``True`` if the dialog box is displayed
         :rtype: bool
+
         """
-        try:
-            return bool(self.find_element(*self._dialog_locator))
-        except NoSuchElementException:
-            return False
+        return bool(self.find_elements(*self._dialog_locator))
 
     def click_notification_got_it(self):
         """Click the 'Got it!' button.
+
         :return: the home page
         :rtype: :py:class:`~pages.web.home.WebHome`
+
         """
         button = self.find_element(*self._got_it_button_locator)
         Utilities.click_option(self.driver, element=button)
@@ -162,18 +215,29 @@ class WebBase(Page):
     @property
     def title(self) -> str:
         """Return the dialog box title.
+
         :return: the Privacy and Cookies dialog box title
         :rtype: str
+
         """
         return self.find_element(*self._dialog_title_locator).text
 
     def book_status_on_amazon(self):
         """Open the Book Order modal."""
         try:
-            Utilities.click_option(self.driver, locator=self._print_copy_locator)
-            if self.find_element(*self._order_on_amazon_locator):
-                Utilities.click_option(self.driver, locator=self._order_on_amazon_locator)
-                self.switch_to_window(1)
+            print_locator = (
+                self._print_copy_mobile_locator if self.is_mobile else
+                self._print_copy_locator
+            )
+            individual_locator = (
+                self._individual_copy_locator if self.is_mobile else
+                self._order_a_personal_copy_locator
+            )
+            Utilities.click_option(self.driver, locator=print_locator)
+            individual = self.find_elements(*individual_locator)
+            if individual:
+                Utilities.switch_to(self.driver, element=individual[0])
+                sleep(1)
                 amazon_link = self.current_url
                 self.driver.close()
                 self.driver.switch_to.window(self.driver.window_handles[0])
@@ -183,3 +247,48 @@ class WebBase(Page):
 
     def close_modal(self):
         (ActionChains(self.driver).send_keys(Keys.ESCAPE).perform())
+
+    def close_dialogs(self):
+        """Close OSWeb dialog and survey boxes.
+
+        :return: None
+
+        """
+        # Pulse Insights survey
+        pi_close_button = self.find_elements(
+            *self._pi_close_button_locator)
+        if pi_close_button:
+            Utilities.click_option(
+                self.driver, element=pi_close_button[0])
+
+        # Sticky note alert or donation bar
+        sticky_note_close_button = self.find_elements(
+            *self._sticky_note_put_away_button_locator)
+        if sticky_note_close_button:
+            Utilities.click_option(
+                self.driver, element=sticky_note_close_button[0])
+
+        # In-line call out modal for phone or full view
+        call_out_put_away_button = [
+            button
+            for button
+            in self.find_elements(*self._call_out_put_away_button_locator)
+            if self.driver.execute_script(HAS_HEIGHT, button)]
+        if call_out_put_away_button:
+            Utilities.click_option(
+                self.driver, element=call_out_put_away_button[0])
+
+    def fix_view_online_url(self, base_url: str):
+        """Fix a non-staging/prod View online link.
+
+        :param str base_url: the expected instance base URL
+        :return: None
+
+        """
+        base = base_url.split("/")[2]
+        for link in self.find_elements(*self._view_online_links_locator):
+            url = link.get_attribute("href")
+            split_url = url.split("/")
+            split_url[2] = base
+            new_url = "/".join(split_url)
+            self.driver.execute_script(SET_HREF.format(new_url), link)

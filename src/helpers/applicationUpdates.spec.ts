@@ -78,7 +78,7 @@ describe('findAndInstallServiceWorkerUpdate', () => {
     const error = new Error('asdfasdf');
     failUpdate(error);
 
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(cb).toHaveBeenCalled();
     expect(sw.update).toHaveBeenCalled();
@@ -91,7 +91,7 @@ describe('findAndInstallServiceWorkerUpdate', () => {
     const sw = {update: update as ServiceWorkerRegistration['update']} as ServiceWorkerRegistration;
 
     let finishUpdate: () => void = () => null;
-    update.mockReturnValue(new Promise((resolve) => finishUpdate = resolve));
+    update.mockReturnValue(new Promise<void>((resolve) => finishUpdate = resolve));
 
     helpers.findAndInstallServiceWorkerUpdate(sw, cb);
 
@@ -119,7 +119,7 @@ describe('findAndInstallServiceWorkerUpdate', () => {
     };
 
     let finishUpdate: () => void = () => null;
-    update.mockReturnValue(new Promise((resolve) => finishUpdate = resolve));
+    update.mockReturnValue(new Promise<void>((resolve) => finishUpdate = resolve));
 
     let stateChangeHandler: () => void = () => null;
     addEventListener.mockImplementation((_event, handler) => stateChangeHandler = handler);
@@ -150,6 +150,9 @@ describe('activateSwAndReload', () => {
   let reload: jest.SpyInstance;
 
   beforeEach(() => {
+    Object.defineProperty(assertWindow(), 'location', {
+      value: { reload: jest.fn() },
+    });
     reload = jest.spyOn(assertWindow().location, 'reload').mockImplementation(() => null);
   });
 

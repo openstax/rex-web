@@ -18,9 +18,21 @@ const {
   REACT_APP_SEARCH_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
+  REACT_APP_ARCHIVE_URL,
 } = require('./config');
+const requireBabelConfig = require('./babel-config');
+
+requireBabelConfig();
+
+const { default: prepareRedirects } = require('../script/utils/prepareRedirects');
+const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
+const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
+
+const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`, REACT_APP_ARCHIVE_URL);
+const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
 const archivePaths = [
+  '/apps/archive',
   '/extras',
   '/contents',
   '/resources',
@@ -64,6 +76,11 @@ const sendFile = (res, path) => {
     res.end(body);
   });
 };
+
+const sendJSON = (res, json, status = 200) => {
+  res.status(status);
+  res.end(JSON.stringify(json));
+}
 
 const findFileIn = (baseDir, reqInfo) => {
   const filePath = path.join(baseDir, reqInfo.pathname);
@@ -166,7 +183,39 @@ function stubEnvironment(app) {
   });
 }
 
-function setupProxy(app) {
+function stubRedirects(app) {
+  const redirects = prepareRedirects(archiveLoader, osWebLoader)
+    .then((data) => {
+      const developmentRedirects = require('./redirects.development.json');
+      data.push(...developmentRedirects);
+      return data;
+    });
+
+  app.use(async(req, res, next) => {
+    const {pathname} = url.parse(req.url);
+
+    if (pathname === '/rex/redirects.json') {
+      sendJSON(res, await redirects);
+    } else {
+      next();
+    }
+  });
+}
+
+function stubRelease(app) {
+  app.use((req, res, next) => {
+    const {pathname} = url.parse(req.url);
+
+    if (pathname === '/rex/release.json') {
+      const releaseFile = path.join(__dirname, 'release.development.json');
+      sendFile(res, releaseFile);
+    } else {
+      next();
+    }
+  })
+}
+
+async function setupProxy(app) {
   if (!ARCHIVE_URL) { throw new Error('ARCHIVE_URL configuration must be defined'); }
   if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
 
@@ -176,6 +225,8 @@ function setupProxy(app) {
   highlightsProxy(app);
   osWebApiProxy(app);
   stubEnvironment(app);
+  stubRedirects(app);
+  stubRelease(app);
 
   if (!SKIP_OS_WEB_PROXY) {
     osWebProxy(app);

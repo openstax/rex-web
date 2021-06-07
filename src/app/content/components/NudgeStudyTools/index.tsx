@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import htmlMessage from '../../../components/htmlMessage';
@@ -36,6 +36,7 @@ import {
 
 // tslint:disable-next-line: variable-name
 const NudgeStudyTools = () => {
+  const { formatMessage } = useIntl();
   const hasStudyGuides = useSelector(hasStudyGuidesSelector);
   const document = assertDocument();
   const wrapperRef = React.useRef<HTMLElement>(null);
@@ -47,7 +48,7 @@ const NudgeStudyTools = () => {
     if (positions) {
       document.body.style.overflow = 'hidden';
     }
-    return () => { document.body.style.overflow = null; };
+    return () => { document.body.style.overflow = ''; };
     // document will not change
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [positions]);
@@ -81,20 +82,22 @@ const NudgeStudyTools = () => {
     >
       <NudgeCloseIcon />
     </NudgeCloseButton>
-    <FormattedMessage id={ariaLabelKey}>
-      {(msg: string) => <NudgeContentWrapper
-        ref={wrapperRef}
-        tabIndex={1}
-        aria-label={msg}
-        top={positions.contentWrapperTopOffset}
-        right={positions.contentWrapperRight}
-      >
-        <NudgeContent>
-          <NudgeHeading />
-          {hasStudyGuides ? <NudgeTextWithStudyGuides /> : <NudgeTextOnlyHighlights />}
-        </NudgeContent>
-      </NudgeContentWrapper>}
-    </FormattedMessage>
+    <NudgeContentWrapper
+      ref={wrapperRef}
+      tabIndex={1}
+      data-testid={`nudge-${hasStudyGuides ? 'with-sg' : 'only-hl'}`}
+      aria-label={formatMessage({id: ariaLabelKey})}
+      top={positions.contentWrapperTopOffset}
+      right={positions.contentWrapperRight}
+    >
+      <NudgeContent>
+        <NudgeHeading />
+        {hasStudyGuides
+          ? <NudgeTextWithStudyGuides data-testid='nudge-text-with-sg' />
+          : <NudgeTextOnlyHighlights data-testid='nudge-text-only-hl' />
+        }
+      </NudgeContent>
+    </NudgeContentWrapper>
     <NudgeBackground
       top={positions.spotlightTopOffset}
       left={positions.spotlightLeftOffset}

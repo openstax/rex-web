@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
 import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1.png';
 import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2.png';
@@ -26,12 +26,12 @@ const BlueNote = () => <Styled.BlueStickyNote>
   <Styled.StickyNoteUl>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:highlight'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:add-notes'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
   </Styled.StickyNoteUl>
@@ -43,12 +43,12 @@ const GreenNote = () => <Styled.GreenStickyNote>
   <Styled.StickyNoteUl>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:review'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:filter-chapters'>
-        {(msg: Element | string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
   </Styled.StickyNoteUl>
@@ -63,7 +63,7 @@ const LoginForHighlights = () => {
     <Styled.GridWrapper>
       <Styled.GeneralText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
-          {(msg: Element | string) => msg}
+          {(msg) => msg}
         </FormattedMessage>
       </Styled.GeneralText>
       <Styled.ImagesGrid>
@@ -91,6 +91,7 @@ interface Props {
 // tslint:disable-next-line: variable-name
 const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
   const popUpRef = React.useRef<HTMLElement>(null);
+  const intl = useIntl();
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
 
   const closeAndTrack = React.useCallback((method: string) => () => {
@@ -122,19 +123,16 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
     >
       <Header colorSchema={props.bookTheme}>
         <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-          {(msg: Element | string) => msg}
+          {(msg) => msg}
         </FormattedMessage>
-        <FormattedMessage id='i18n:toolbar:highlights:popup:close-button:aria-label'>
-          {(msg: string) => (
-            <CloseIconWrapper
-              data-testid='close-highlights-popup'
-              aria-label={msg}
-              onClick={closeAndTrack('button')}
-            >
-              <CloseIcon colorSchema={props.bookTheme}/>
-            </CloseIconWrapper>
-          )}
-        </FormattedMessage>
+        <CloseIconWrapper
+          data-testid='close-highlights-popup'
+          aria-label={intl.formatMessage({id: 'i18n:toolbar:highlights:popup:close-button:aria-label'})}
+          data-analytics-label='Close My Highlights'
+          onClick={closeAndTrack('button')}
+        >
+          <CloseIcon colorSchema={props.bookTheme}/>
+        </CloseIconWrapper>
       </Header>
       {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
       <HighlightsHelpInfo />

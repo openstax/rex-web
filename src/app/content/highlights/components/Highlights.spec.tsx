@@ -1,13 +1,11 @@
 import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
+import TestContainer from '../../../../test/TestContainer';
 import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights, { HighlightSection } from '../../components/SectionHighlights';
@@ -26,6 +24,7 @@ import { highlightLocationFilters } from '../selectors';
 import { SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights from './Highlights';
+import { NoHighlightsTip } from './Highlights';
 import ContextMenu from './SummaryPopup/ContextMenu';
 import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';
 import HighlightDeleteWrapper from './SummaryPopup/HighlightDeleteWrapper';
@@ -84,13 +83,9 @@ describe('Highlights', () => {
 
     store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Highlights/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Highlights/>
+    </TestContainer>);
 
     const sections = component.root.findAllByType(SectionHighlights);
     expect(sections.length).toEqual(2);
@@ -140,13 +135,9 @@ describe('Highlights', () => {
       store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
     });
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Highlights/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Highlights/>
+    </TestContainer>);
 
     const sections = component.root.findAllByType(SectionHighlights);
     expect(sections.length).toEqual(2);
@@ -169,22 +160,19 @@ describe('Highlights', () => {
     store.dispatch(setSummaryFilters({locationIds: ['not-in-book']}));
     store.dispatch(receiveSummaryHighlights({}, {pagination: null}));
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Highlights/>
+    </TestContainer>);
 
-    expect(component.root.findByProps({ id: 'i18n:toolbar:highlights:popup:heading:no-highlights-tip' }))
+    // i'm not sure why this type is wrong
+    expect(component.root.findByType(NoHighlightsTip as any))
       .toBeDefined();
   });
 
   it('show add highlight message when there are no highlights in specific book', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <Highlights/>
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Highlights/>
+    </TestContainer>);
 
     expect(component.root.findByProps({ id: 'i18n:toolbar:highlights:popup:body:add-highlight' }))
       .toBeDefined();
@@ -214,13 +202,9 @@ describe('Highlights', () => {
 
     store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Highlights/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Highlights/>
+    </TestContainer>);
 
     const editingMenus = component.root.findAllByType(ContextMenu);
     expect(editingMenus.length).toEqual(6);
@@ -251,13 +235,9 @@ describe('Highlights', () => {
     store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
     dispatch.mockClear();
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Highlights/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Highlights/>
+    </TestContainer>);
 
     let [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
     expect(firstAnnotation.props.isEditing).toEqual(false);
@@ -329,13 +309,9 @@ describe('Highlights', () => {
     store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
     dispatch.mockClear();
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Highlights/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Highlights/>
+    </TestContainer>);
 
     renderer.act(() => {
       const [firstContextMenu] = component.root.findAllByType(ContextMenu);
@@ -382,13 +358,9 @@ describe('Highlights', () => {
     store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
     dispatch.mockClear();
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Highlights/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Highlights/>
+    </TestContainer>);
 
     renderer.act(() => {
       const [firstContextMenu, secondContextMenu] = component.root.findAllByType(ContextMenu);

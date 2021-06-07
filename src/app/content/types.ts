@@ -37,12 +37,17 @@ export interface State {
   highlights: HighlightState;
   book?: Book;
   page?: Page;
-  references: PageReferenceMap[];
+  references: Array<PageReferenceMap | PageReferenceError>;
   buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
 }
 
 export interface PageReferenceMap extends PageReference {
   match: string;
+}
+
+export interface PageReferenceError {
+  match: string;
+  type: 'error';
 }
 
 export interface PageReference {
@@ -54,6 +59,15 @@ export interface BookWithOSWebData extends ArchiveBook {
   book_state: 'coming_soon' | 'deprecated' | 'live' | 'new_edition_available' | 'retired';
   theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
   slug: string;
+  promote_image: null | {
+    id: number;
+    title: string;
+    meta: {
+      type: string;
+      detail_url: string;
+      download_url: string;
+    }
+  };
   publish_date: string;
   amazon_link: string;
   authors: Array<{
@@ -67,10 +81,10 @@ export interface BookWithOSWebData extends ArchiveBook {
 export type Book = BookWithOSWebData | ArchiveBook;
 
 export interface Page {
-  abstract: string;
+  abstract: string | null;
   id: string;
   title: string;
-  version: string;
+  slug: string;
 }
 
 export interface ArchiveTreeNode {
@@ -109,12 +123,12 @@ export interface ArchiveBook {
 }
 
 export interface ArchivePage {
-  abstract: string;
+  abstract: string | null;
   id: string;
   content: string;
-  version: string;
   title: string;
   revised: string;
+  slug: string;
 }
 
 export type ArchiveContent = ArchivePage | ArchiveBook;

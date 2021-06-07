@@ -14,6 +14,8 @@ describe('allImagesLoaded', () => {
     finished = false;
     element = assertDocument().createElement('div');
     img = assertDocument().createElement('img');
+
+    Object.defineProperty(img, 'complete', { value: false, writable: true });
   });
 
   it('resolves when passed an element with no images', async() => {
@@ -44,13 +46,13 @@ describe('allImagesLoaded', () => {
         return expect(img.onload).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(false);
 
       expect(img.onload).not.toBe(onloadHandler);
       img.onload({} as any);
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(true);
     });
 
@@ -63,12 +65,12 @@ describe('allImagesLoaded', () => {
         return expect(img.onload).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(false);
 
       img.onload({} as any);
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(true);
     });
   });
@@ -86,7 +88,7 @@ describe('allImagesLoaded', () => {
         return expect(img.onerror).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(false);
 
       expect(img.onerror).not.toBe(onerrorHandler);
@@ -94,7 +96,7 @@ describe('allImagesLoaded', () => {
 
       expect(onerrorHandler).toHaveBeenCalled();
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(true);
     });
 
@@ -107,12 +109,12 @@ describe('allImagesLoaded', () => {
         return expect(img.onerror).toBeTruthy();
       }
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(false);
 
       img.onerror({} as any);
 
-      await Promise.resolve();
+      await new Promise((resolve) => setImmediate(resolve));
       expect(finished).toBe(true);
     });
   });

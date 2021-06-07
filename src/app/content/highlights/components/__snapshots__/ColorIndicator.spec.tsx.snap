@@ -2,7 +2,7 @@
 
 exports[`ColorIndicator matches snapshot (checked) 1`] = `
 <div
-  className="ColorIndicator-sc-1w5zl7g-1 gkiZbS"
+  className="ColorIndicator-sc-1w5zl7g-2 dojCyw"
 >
   <svg
     aria-hidden="true"
@@ -16,12 +16,22 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
       fill="currentColor"
     />
   </svg>
+  <span
+    className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 gcsHaO"
+    style={
+      Object {
+        "focused": "#fed200",
+        "label": "yellow",
+        "passive": "#ffff8a",
+      }
+    }
+  />
 </div>
 `;
 
 exports[`ColorIndicator matches snapshot 1`] = `
 <div
-  className="ColorIndicator-sc-1w5zl7g-1 ZUCrP"
+  className="ColorIndicator-sc-1w5zl7g-2 HsETE"
 >
   <svg
     aria-hidden="true"
@@ -35,5 +45,15 @@ exports[`ColorIndicator matches snapshot 1`] = `
       fill="currentColor"
     />
   </svg>
+  <span
+    className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 gcsHaO"
+    style={
+      Object {
+        "focused": "#fed200",
+        "label": "yellow",
+        "passive": "#ffff8a",
+      }
+    }
+  />
 </div>
 `;

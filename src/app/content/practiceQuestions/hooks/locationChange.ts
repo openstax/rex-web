@@ -8,25 +8,37 @@ import { Book, Page } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { receivePracticeQuestionsSummary, setSelectedSection } from '../actions';
 import { modalUrlName } from '../constants';
-import { hasPracticeQuestions, practiceQuestionsEnabled } from '../selectors';
-import { PracticeQuestionsSummary } from '../types';
+import {
+  hasPracticeQuestions,
+  practiceQuestionsEnabled,
+  practiceQuestionsSummary as practiceQuestionsSummarySelector,
+  selectedSection as selectedSectionSelector,
+} from '../selectors';
 
 // composed in /content/locationChange hook because it needs to happen after book load
-const loadSummary = async(
+const loadAndDispatchSummary = async(
   services: MiddlewareAPI & AppServices,
   book: Book
-): Promise<PracticeQuestionsSummary | undefined> => {
+) => {
   try {
-    return await services.practiceQuestionsLoader.getPracticeQuestionsBookSummary(book.id);
+    const practiceQuestionsSummary =  await services.practiceQuestionsLoader.getPracticeQuestionsBookSummary(book.id);
+    if (practiceQuestionsSummary) {
+      services.dispatch(receivePracticeQuestionsSummary(practiceQuestionsSummary));
+    }
   } catch (error) {
     Sentry.captureException(error);
   }
 };
 
-const setSection = (services: MiddlewareAPI & AppServices, book: Book, page: Page) => {
+const setSection = (services: MiddlewareAPI & AppServices, book?: Book, page?: Page) => {
   const state = services.getState();
   // loading hasPracticeQuestions beacuse the state could be changed by receivePracticeQuestionsSummary
-  if (!hasPracticeQuestions(state) || query(state)[modalQueryParameterName] !== modalUrlName) { return; }
+  if (
+    !hasPracticeQuestions(state)
+    || query(state)[modalQueryParameterName] !== modalUrlName
+    || !book
+    || !page
+  ) { return; }
 
   const section = findArchiveTreeNodeById(book.tree, page.id);
   if (section && isLinkedArchiveTreeSection(section)) {
@@ -34,21 +46,33 @@ const setSection = (services: MiddlewareAPI & AppServices, book: Book, page: Pag
   }
 };
 
-const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
+/**
+ * Load PQ summary only only if it wasn't already loaded.
+ * Additionally set a section if locationChange was fired before feature flags were fetched.
+ */
+export const loadPracticeQuestionsSummaryHookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const state = services.getState();
   const { book, page } = bookAndPage(state);
   const isEnabled = practiceQuestionsEnabled(state);
+  const summary = practiceQuestionsSummarySelector(state);
+  const selectedSection = selectedSectionSelector(state);
 
-  if (!book || !page || !isEnabled ) { return; }
+  if (!book || !page || !isEnabled || summary !== null) { return; }
 
-  if (!hasPracticeQuestions(state)) {
-    const practiceQuestionsSummary = await loadSummary(services, book);
-    if (practiceQuestionsSummary) {
-      services.dispatch(receivePracticeQuestionsSummary(practiceQuestionsSummary));
-    }
+  await loadAndDispatchSummary(services, book);
+
+  if (!selectedSection) {
+    setSection(services, book, page);
   }
+};
+
+const locationChangeHookBody = (services: MiddlewareAPI & AppServices) => async() => {
+  const state = services.getState();
+  const { book, page } = bookAndPage(state);
+
+  await loadPracticeQuestionsSummaryHookBody(services)();
 
   setSection(services, book, page);
 };
 
-export default hookBody;
+export default locationChangeHookBody;

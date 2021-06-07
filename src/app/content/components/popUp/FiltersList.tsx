@@ -1,6 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
@@ -55,6 +55,7 @@ const FilterListItem = styled.li`
 interface FiltersListColorProps {
   color: HighlightColorEnum;
   ariaLabelKey: (color: HighlightColorEnum) => string;
+  dataAnalyticsLabel: (color: HighlightColorEnum) => string;
   labelKey: (color: HighlightColorEnum) => string;
   onRemove: () => void;
 }
@@ -62,15 +63,17 @@ interface FiltersListColorProps {
 // tslint:disable-next-line: variable-name
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <FilterListItem>
-    <FormattedMessage id={props.ariaLabelKey(props.color)} values={{filterValue: props.color}}>
-      {(msg: string) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
-        <Times />
-      </StyledPlainButton>}
-    </FormattedMessage>
+    <StyledPlainButton
+      aria-label={useIntl().formatMessage({id: props.ariaLabelKey(props.color)}, {filterValue: props.color})}
+      onClick={props.onRemove}
+      data-analytics-label={props.dataAnalyticsLabel(props.color)}
+    >
+      <Times />
+    </StyledPlainButton>
 
     <ItemLabel>
       <FormattedMessage id={props.labelKey(props.color)}>
-        {(msg: string) => msg}
+        {(msg) => msg}
       </FormattedMessage>
     </ItemLabel>
   </FilterListItem>
@@ -78,6 +81,8 @@ export const FiltersListColor = (props: FiltersListColorProps) => (
 
 interface FiltersListChapterProps {
   title: string;
+  ariaLabelKey: (title: string) => string;
+  dataAnalyticsLabel: (splitTitle: string) => string;
   locationId: string;
   onRemove: () => void;
 }
@@ -85,14 +90,16 @@ interface FiltersListChapterProps {
 // tslint:disable-next-line: variable-name
 export const FiltersListChapter = (props: FiltersListChapterProps) => (
   <FilterListItem>
-    <FormattedMessage
-      id='i18n:highlighting:filters:remove:chapter'
-      values={{filterValue: splitTitleParts(props.title).join(' ')}}
+    <StyledPlainButton
+      aria-label={useIntl().formatMessage(
+        { id: props.ariaLabelKey(props.title) },
+        { filterValue: splitTitleParts(props.title).join(' ') }
+      )}
+      data-analytics-label={props.dataAnalyticsLabel(splitTitleParts(props.title).join(' '))}
+      onClick={props.onRemove}
     >
-      {(msg: string | Element) => <StyledPlainButton aria-label={msg} onClick={props.onRemove}>
-        <Times />
-      </StyledPlainButton>}
-    </FormattedMessage>
+      <Times />
+    </StyledPlainButton>
     <ItemLabel dangerouslySetInnerHTML={{ __html: props.title }} />
   </FilterListItem>
 );
@@ -103,7 +110,10 @@ interface FiltersListProps {
   selectedLocationFilters: Set<string>;
   selectedColorFilters: Set<HighlightColorEnum>;
   setFilters: (change: SummaryFiltersUpdate) => void;
+  chapterAriaLabelKey: (title: string) => string;
+  chapterDataAnalyticsLabel: (splitTitle: string) => string;
   colorAriaLabelKey: (color: HighlightColorEnum) => string;
+  colorDataAnalyticsLabel: (color: HighlightColorEnum) => string;
   colorLabelKey: (color: HighlightColorEnum) => string;
 }
 
@@ -114,7 +124,10 @@ const FiltersList = ({
   selectedColorFilters,
   selectedLocationFilters,
   setFilters,
+  chapterAriaLabelKey,
+  chapterDataAnalyticsLabel,
   colorAriaLabelKey,
+  colorDataAnalyticsLabel,
   colorLabelKey,
 }: FiltersListProps) => {
 
@@ -137,12 +150,15 @@ const FiltersList = ({
       title={location.section.title}
       locationId={locationId}
       onRemove={() => onRemoveChapter(location.section)}
+      ariaLabelKey={chapterAriaLabelKey}
+      dataAnalyticsLabel={chapterDataAnalyticsLabel}
     />)}
     {selectedColorFilters && [...selectedColorFilters].sort().map((color) => <FiltersListColor
       key={color}
       color={color}
       onRemove={() => onRemoveColor(color)}
       ariaLabelKey={colorAriaLabelKey}
+      dataAnalyticsLabel={colorDataAnalyticsLabel}
       labelKey={colorLabelKey}
     />)}
   </ul>;

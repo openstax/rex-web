@@ -684,6 +684,7 @@ class MyHighlights(Region):
             _delete_confirmation_message_locator = (By.CSS_SELECTOR, "[class*=HighlightDeleteWrapper] span")
             _highlight_edit_box_locator = (By.CSS_SELECTOR, "[class*=HighlightToggleEditContent]")
             _highlight_color_locator = (By.XPATH, "./following::div[contains(@class, 'ContentWrapper')]")
+            _go_to_highlight_link_locator = (By.CSS_SELECTOR, '[data-analytics-region="MH gotohighlight"]')
 
             @property
             def mh_highlight_id(self) -> str:
@@ -986,6 +987,35 @@ class MyHighlights(Region):
                 """
                 Utilities.click_option(self.driver, element=self.save_button)
                 return self.page
+
+            @property
+            def go_to_highlight_link(self) -> WebElement:
+                """Return the 'Go to highlight' link.
+
+                :return: the 'Go to highlight' link element
+                :rtype: :py:class:`selenium.webdriver.remote.webelement.WebElement`
+
+                """
+                return self.find_element(*self._go_to_highlight_link_locator)
+
+            def go_to_highlight(self) -> Page:
+                """Click the 'Go to highlight' link.
+
+                :return: the book page containing the highlight in a new tab
+                :rtype: :py:class:`~pages.content.Content`
+
+                """
+                link_url = self.go_to_highlight_link.get_attribute("href").split("/")
+                book = link_url[2]
+                page = link_url[4].split("?")[0]
+                Utilities.switch_to(self.driver, element=self.go_to_highlight_link)
+                from pages.content import Content
+                return Content(
+                    driver=self.driver,
+                    base_url=Utilities.parent_page(self).base_url,
+                    book_slug=book,
+                    page_slug=page
+                )
 
         class Chapter(ChapterData):
             """A book chapter with highlights.

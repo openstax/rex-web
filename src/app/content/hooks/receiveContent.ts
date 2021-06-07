@@ -1,4 +1,5 @@
 import { setHead } from '../../head/actions';
+import { Link } from '../../head/types';
 import { pathname } from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
@@ -8,21 +9,10 @@ import { hasOSWebData } from '../guards';
 import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
-import getCleanContent from '../utils/getCleanContent';
-import { createTitle } from '../utils/seoUtils';
+import { createTitle, getPageDescription } from '../utils/seoUtils';
 
-const stripHtmlAndTrim = (str: string) => str
-  .replace(/<[^>]*>/g, ' ')
-  .replace(/ +/g, ' ')
-  .trim()
-  .substring(0, 155)
-  .trim();
-
-const hookBody: ActionHookBody<typeof receivePage> = ({
-  getState,
-  dispatch,
-  archiveLoader,
-  osWebLoader}) => async() => {
+const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
+  const { getState, dispatch, archiveLoader, osWebLoader, intl } = services;
 
   const state = getState();
   const book = select.book(state);
@@ -41,28 +31,28 @@ const hookBody: ActionHookBody<typeof receivePage> = ({
     return;
   }
 
-  const title = createTitle(page, book);
-
-  // the abstract could be '<div/>'.
-  const abstract = stripHtmlAndTrim(page.abstract ? page.abstract : '');
-  const description = abstract || stripHtmlAndTrim(getCleanContent(book, page, archiveLoader));
+  const title = createTitle(page, book, intl);
+  const description = getPageDescription(services, book, page);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
 
-  dispatch(setHead({
-    links: canonicalUrl ? [
-      {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`},
-    ] : [],
-    meta: [
-      {name: 'description', content: description},
-      {property: 'og:description', content: description},
-      {property: 'og:title', content: title},
-      {property: 'og:url', content: `https://openstax.org${currentPath}`},
-      {name: 'theme-color', content: bookTheme},
-    ],
-    title,
-  }));
+  const links = canonicalUrl ? [
+    {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`} as Link,
+  ] : [];
+  const meta = [
+    {name: 'description', content: description},
+    {property: 'og:description', content: description},
+    {property: 'og:title', content: title},
+    {property: 'og:url', content: `https://openstax.org${currentPath}`},
+    {name: 'theme-color', content: bookTheme},
+  ];
+
+  if (hasOSWebData(book) && book.promote_image) {
+    meta.push({ property: 'og:image', content: book.promote_image.meta.download_url });
+  }
+
+  dispatch(setHead({links, meta, title}));
 };
 
 export default hookBody;

@@ -1,47 +1,33 @@
-import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import * as selectNavigation from '../../../navigation/selectors';
-import { AppState } from '../../../types';
+import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { assertWindow } from '../../../utils';
-import * as select from '../../selectors';
-import { Book } from '../../types';
 import * as Styled from './styled';
 
 interface Props {
-  currentPath: string;
-  book: Book | undefined;
   className?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
 }
 
-class PrintButton extends Component<Props> {
-  public render() {
-    return (
-      <FormattedMessage id='i18n:toolbar:print:text'>
-        {(msg: Element | string) => (
-          <FormattedMessage id='i18n:toolbar:print:aria-label'>
-            {(label: Element | string) => (
-              <Styled.PrintOptWrapper
-                onClick={this.props.onClick ? this.props.onClick : () => assertWindow().print()}
-                aria-label={label}
-                data-testid='print'
-                className={this.props.className}
-                disabled={this.props.disabled}
-              >
-                <Styled.PrintIcon />
-                <Styled.PrintOptions>{msg}</Styled.PrintOptions>
-              </Styled.PrintOptWrapper>
-            )}
-          </FormattedMessage>
-        )}
-      </FormattedMessage>
-    );
-  }
-}
+// tslint:disable-next-line:variable-name
+const PrintButton = (props: Props) => {
+  const intl = useIntl();
 
-export default connect((state: AppState) => ({
-  ...select.bookAndPage(state),
-  currentPath: selectNavigation.pathname(state),
-}))(PrintButton);
+  return <FormattedMessage id='i18n:toolbar:print:text'>
+    {(msg) => (
+      <Styled.PrintOptWrapper
+        onClick={props.onClick ? props.onClick : () => assertWindow().print()}
+        aria-label={intl.formatMessage({id: 'i18n:toolbar:print:aria-label'})}
+        data-testid='print'
+        data-analytics-label='print'
+        className={props.className}
+        disabled={props.disabled}
+      >
+        <Styled.PrintIcon />
+        <Styled.PrintOptions>{msg}</Styled.PrintOptions>
+      </Styled.PrintOptWrapper>
+    )}
+  </FormattedMessage>;
+};
+
+export default PrintButton;

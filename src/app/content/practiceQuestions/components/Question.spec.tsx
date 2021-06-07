@@ -1,13 +1,11 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import * as mathjaxHelpers from '../../../../helpers/mathjax';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book } from '../../../../test/mocks/archiveLoader';
+import TestContainer from '../../../../test/TestContainer';
 import Button from '../../../components/Button';
-import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { assertDocument, assertWindow } from '../../../utils/browser-assertions';
@@ -55,13 +53,9 @@ describe('Question', () => {
     store.dispatch(receiveBook(book));
     jest.spyOn(bookPageUtils, 'getBookPageUrlAndParams')
       .mockReturnValue({ url: 'asdf' } as any);
-    render = () => <Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
+    render = () => <TestContainer services={services} store={store}>
           <Question />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>;
+    </TestContainer>;
     linkedArchiveTreeSection = assertDefined(
       findArchiveTreeNodeById(book.tree, 'testbook1-testpage2-uuid'),
       'mock file has been changed'
@@ -293,7 +287,7 @@ describe('Question', () => {
     const spyNextFocus = jest.spyOn(mockNextButton, 'focus');
 
     const component = renderer.create(render(), { createNodeMock: (el: any) => {
-      if (el.props['data-testid'] === 'next') { return mockNextButton; }
+      if (el.props['data-testid'] === 'next-is-correct') { return mockNextButton; }
       return undefined;
     } });
 
@@ -314,11 +308,8 @@ describe('Question', () => {
       form.props.onSubmit({ preventDefault });
     });
 
-    expect(() => component.root.findByProps({ 'data-testid': 'next' })).not.toThrow();
+    expect(() => component.root.findByProps({ 'data-testid': 'next-is-correct' })).not.toThrow();
     expect(spyNextFocus).toHaveBeenCalled();
-    expect(() => component.root.findByProps({
-      id: 'i18n:practice-questions:popup:navigation:next:after-submit-correct:aria-label',
-    })).not.toThrow();
   });
 
   it('clicking on submitted answer does nothing', () => {

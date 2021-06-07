@@ -13,6 +13,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       <button
         aria-label="Filter study guides by Chapter"
         className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
+        data-analytics-label="Filter study guides by Chapter"
         onClick={[Function]}
       >
         <div
@@ -35,7 +36,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-7 bJwQzB"
+        className="ChapterFilter-tcdlu-7 iaQiZB"
         tabIndex={-1}
       >
         <div
@@ -70,6 +71,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       <button
         aria-label="Filter study guides by Color"
         className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
+        data-analytics-label="Filter study guides by Color"
         onClick={[Function]}
       >
         <div
@@ -92,7 +94,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </div>
       </button>
       <div
-        className="ColorFilter-sc-1ic50x3-1 Filters__StyledColorFilter-hr7yu8-0 bFcjpm"
+        className="ColorFilter-sc-1ic50x3-1 Filters__StyledColorFilter-hr7yu8-0 hgkJEg"
         tabIndex={-1}
       >
         <div
@@ -142,7 +144,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             </svg>
           </span>
           <div
-            className="ColorIndicator-sc-1w5zl7g-1 kBHzhz"
+            className="ColorIndicator-sc-1w5zl7g-2 hxgXOu"
           >
             <svg
               aria-hidden="true"
@@ -156,6 +158,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 fill="currentColor"
               />
             </svg>
+            <span
+              className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 kwsovu"
+              size="small"
+              style={
+                Object {
+                  "focused": "#fed200",
+                  "label": "yellow",
+                  "passive": "#ffff8a",
+                }
+              }
+            />
           </div>
           <span
             className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
@@ -189,7 +202,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             </svg>
           </span>
           <div
-            className="ColorIndicator-sc-1w5zl7g-1 dSRHOr"
+            className="ColorIndicator-sc-1w5zl7g-2 kUYWjn"
           >
             <svg
               aria-hidden="true"
@@ -203,6 +216,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 fill="currentColor"
               />
             </svg>
+            <span
+              className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 fqiTys"
+              size="small"
+              style={
+                Object {
+                  "focused": "#92d101",
+                  "label": "green",
+                  "passive": "#def99f",
+                }
+              }
+            />
           </div>
           <span
             className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
@@ -236,7 +260,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             </svg>
           </span>
           <div
-            className="ColorIndicator-sc-1w5zl7g-1 eibKCM"
+            className="ColorIndicator-sc-1w5zl7g-2 fkmJHS"
           >
             <svg
               aria-hidden="true"
@@ -250,6 +274,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 fill="currentColor"
               />
             </svg>
+            <span
+              className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 eHIgYD"
+              size="small"
+              style={
+                Object {
+                  "focused": "#00c3ed",
+                  "label": "blue",
+                  "passive": "#c8f5ff",
+                }
+              }
+            />
           </div>
           <span
             className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
@@ -283,7 +318,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             </svg>
           </span>
           <div
-            className="ColorIndicator-sc-1w5zl7g-1 ekjDWZ"
+            className="ColorIndicator-sc-1w5zl7g-2 gdbVRC"
           >
             <svg
               aria-hidden="true"
@@ -297,6 +332,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 fill="currentColor"
               />
             </svg>
+            <span
+              className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 AHChX"
+              size="small"
+              style={
+                Object {
+                  "focused": "#545ec8",
+                  "label": "purple",
+                  "passive": "#cbcfff",
+                }
+              }
+            />
           </div>
           <span
             className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
@@ -312,6 +358,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       <button
         aria-label="print"
         className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 iIYjST styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+        data-analytics-label="print"
         data-testid="print"
         disabled={false}
         onClick={[Function]}
@@ -423,6 +470,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       <button
         aria-label="Remove breadcrumb for label Important Concepts"
         className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        data-analytics-label="Remove breadcrumb for label Important Concepts"
         onClick={[Function]}
       >
         <svg
@@ -464,6 +512,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       <button
         aria-label="Remove breadcrumb for label Connections & Relationships"
         className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        data-analytics-label="Remove breadcrumb for label Connections & Relationships"
         onClick={[Function]}
       >
         <svg
@@ -505,6 +554,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       <button
         aria-label="Remove breadcrumb for label Enrichment"
         className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        data-analytics-label="Remove breadcrumb for label Enrichment"
         onClick={[Function]}
       >
         <svg
@@ -546,6 +596,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       <button
         aria-label="Remove breadcrumb for label Key Terms"
         className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        data-analytics-label="Remove breadcrumb for label Key Terms"
         onClick={[Function]}
       >
         <svg

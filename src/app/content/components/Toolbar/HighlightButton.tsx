@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import HighlightsIcon from '../../../../assets/HighlightsIcon';
@@ -44,19 +44,17 @@ const HighlightButton = ({ openMyHighlights }: Props) => {
     trackOpenCloseMH();
   };
 
-  return <FormattedMessage id='i18n:toolbar:highlights:text'>
-      {(msg: Element | string) =>
-        <MyHighlightsWrapper
-          onClick={() => openHighlightsSummary()}
-          aria-label={msg}
-          practiceQuestionsEnabled={practiceQuestionsEnabled}
-        >
-          <HighlightsIcon />
-          <MyHighlightsText>{msg}</MyHighlightsText>
-        </MyHighlightsWrapper>
-      }
-    </FormattedMessage>
-  ;
+  const text = useIntl().formatMessage({id: 'i18n:toolbar:highlights:text'});
+
+  return <MyHighlightsWrapper
+    onClick={() => openHighlightsSummary()}
+    aria-label={text}
+    data-analytics-label='My highlights'
+    practiceQuestionsEnabled={practiceQuestionsEnabled}
+  >
+    <HighlightsIcon />
+    <MyHighlightsText>{text}</MyHighlightsText>
+  </MyHighlightsWrapper>;
 };
 
 export default connect(

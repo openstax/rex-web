@@ -60,19 +60,16 @@ const PracticeQuestionsPopup = () => {
     >
       <Header colorSchema={bookTheme}>
         <FormattedMessage id='i18n:practice-questions:popup:heading'>
-          {(msg: Element | string) => msg}
+          {(msg) => msg}
         </FormattedMessage>
-        <FormattedMessage id='i18n:practice-questions:popup:close'>
-          {(msg: string) => (
-            <CloseIconWrapper
-              data-testid='close-practice-questions-popup'
-              aria-label={msg}
-              onClick={closeAndTrack('button')}
-            >
-              <CloseIcon colorSchema={bookTheme} />
-            </CloseIconWrapper>
-          )}
-        </FormattedMessage>
+        <CloseIconWrapper
+          data-testid='close-practice-questions-popup'
+          aria-label={intl.formatMessage({id: 'i18n:practice-questions:popup:close'})}
+          data-analytics-label='Click to close Practice Questions modal'
+          onClick={closeAndTrack('button')}
+        >
+          <CloseIcon colorSchema={bookTheme} />
+        </CloseIconWrapper>
       </Header>
       <ShowPracticeQuestions />
     </Modal>

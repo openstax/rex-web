@@ -1,12 +1,11 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
 import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
-import { assertString } from '../../utils';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import { State } from '../types';
@@ -64,16 +63,11 @@ const openMessage = 'i18n:toc:toggle:opened';
 
 // tslint:disable-next-line:variable-name
 export const SidebarControl: React.SFC<InnerProps> = ({message, hideMobileText, children, ...props}) =>
-  <FormattedMessage id={message}>
-    {(msg: Element | string) => {
-      const txt = assertString(msg, 'Aria label only supports strings');
-      return <ToCButton aria-label={txt} {...props}>
-        <TocIcon />
-        <ToCButtonText hideMobileText={!!hideMobileText}>Table of contents</ToCButtonText>
-        {children}
-      </ToCButton>;
-    }}
-  </FormattedMessage>;
+  <ToCButton aria-label={useIntl().formatMessage({id: message})} {...props}>
+    <TocIcon />
+    <ToCButtonText hideMobileText={!!hideMobileText}>Table of contents</ToCButtonText>
+    {children}
+  </ToCButton>;
 
 const connector = connect(
   (state: AppState) => ({
@@ -91,6 +85,7 @@ const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerPro
     {...props}
     data-testid='toc-button'
     message={isOpen ? openMessage : closedMessage}
+    data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
     onClick={isOpen ? props.closeToc : props.openToc}
   />);
 
