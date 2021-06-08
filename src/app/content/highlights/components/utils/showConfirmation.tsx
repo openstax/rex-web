@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import uuid from 'uuid/v4';
-import MessageProvider from '../../../../MessageProvider';
+import TestContainer from '../../../../../test/TestContainer';
 import { assertDocument, assertNotNull } from '../../../../utils';
 import ConfirmationModal from '../ConfirmationModal';
 
@@ -17,9 +17,9 @@ export default async() => {
     const confirm = () => resolve(true);
     const deny = () => resolve(false);
     ReactDOM.render(
-      <MessageProvider>
+      <TestContainer>
         <ConfirmationModal deny={deny} confirm={confirm} />
-      </MessageProvider>,
+      </TestContainer>,
       domNode
     );
   });
