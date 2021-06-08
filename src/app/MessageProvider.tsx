@@ -26,7 +26,7 @@ polyfill('en');
 const MessageProvider = (props: {book?: Book, currentPath?: string, children?: React.ReactNode}) => {
   const lang = React.useMemo(() => {
     return props.currentPath === '/' ? 'en' : props.book?.language;
-  }, [props.book]);
+  }, [props.book, props.currentPath]);
   const intl = useServices().intl.getIntlObject(lang);
 
   return lang ? (
