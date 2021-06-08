@@ -97,18 +97,25 @@ export const scrollTo = (elem: HTMLElement | Element | string) => {
   return scrollToElement(elem, {offset: getScrollPadding()});
 };
 
-export const scrollIntoView = (elem: HTMLElement) => {
+/**
+ * This function will scroll into @param firstElement view but it will take into consideration
+ * the @param lastElement position to check if scrolling is required.
+ */
+export const scrollIntoView = (firstElem: HTMLElement, lastElem?: HTMLElement) => {
   const window = assertWindow();
-  if (!window.document.body.contains(elem)) { return; }
+  if (!window.document.body.contains(firstElem)) { return; }
 
-  const {top, bottom} = elem.getBoundingClientRect();
-  const below = bottom > window.innerHeight;
-  const above = top < Math.abs(getScrollPadding());
+  const {top: topFirst, bottom: bottomFirst} = firstElem.getBoundingClientRect();
+  const {top: topSecond, bottom: bottomSecond} = (lastElem || firstElem).getBoundingClientRect();
+
+  const below = bottomFirst > window.innerHeight || bottomSecond > window.innerHeight;
+  const scrollPadding = Math.abs(getScrollPadding());
+  const above = topFirst < scrollPadding || topSecond < scrollPadding;
 
   if (below) {
-    scrollToElement(elem, {align: 'middle'});
+    scrollToElement(firstElem, {align: 'middle'});
   } else if (above) {
-    scrollTo(elem);
+    scrollTo(firstElem);
   }
 };
 

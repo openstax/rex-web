@@ -396,9 +396,11 @@ describe('Card', () => {
     expect(showConfirmation).toHaveBeenCalled();
   });
 
-  it('scroll card into view if it is active', () => {
+  it('scroll highlight into view if it is active', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
+    const firstElement = assertDocument().createElement('span');
+    const secondElement = assertDocument().createElement('span');
     store.dispatch(receiveHighlights({
       highlights: [
         { id: highlight.id, annotation: 'asd' },
@@ -406,17 +408,18 @@ describe('Card', () => {
       pageId: '123',
     }));
 
-    const mock = assertDocument().createElement('div');
     const spyScrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+
+    highlight.elements = [firstElement, secondElement];
 
     renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>, { createNodeMock: () => mock});
+    </Provider>);
 
     renderer.act(() => {
       store.dispatch(focusHighlight(highlight.id));
     });
 
-    expect(spyScrollIntoView).toHaveBeenCalledWith(mock);
+    expect(spyScrollIntoView).toHaveBeenCalledWith(firstElement, secondElement);
   });
 });

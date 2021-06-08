@@ -72,8 +72,10 @@ const Card = (props: CardProps) => {
   React.useEffect(() => {
     if (!props.isActive) {
       setEditing(false);
-    } else if (element.current) {
-      scrollIntoView(element.current);
+    } else {
+      const firstElement = props.highlight.elements[0] as HTMLElement;
+      const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
+      scrollIntoView(firstElement, lastElement);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isActive]);
