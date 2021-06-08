@@ -38,11 +38,10 @@ describe('loadOptimize', () => {
     window.dataLayer.push = jest.fn();
     window.gtag = jest.fn();
 
-    jest.spyOn(document.head, 'appendChild');
+    const mockAppend = jest.spyOn(document.head, 'appendChild').mockImplementation((node) => node);
     await loadOptimize(window, store);
 
-    const script = document.head.querySelector('script');
-    expect(script).toMatchInlineSnapshot(`
+    expect(mockAppend.mock.calls[0][0]).toMatchInlineSnapshot(`
     <script
       src="https://www.googleoptimize.com/optimize.js?id=OPT-NFHSM4B"
       type="text/javascript"
@@ -56,11 +55,11 @@ describe('loadOptimize', () => {
     window.dataLayer.push = jest.fn();
     window.gtag = jest.fn();
 
-    jest.spyOn(document.head, 'appendChild');
+    const mockAppend = jest.spyOn(document.head, 'appendChild').mockImplementation((node) => node);
     await loadOptimize(window, store);
 
-    const script = document.head.querySelector('script');
-    expect(script).toMatchInlineSnapshot(`
+    // const script = document.head.querySelector('script');
+    expect(mockAppend.mock.calls[1][0]).toMatchInlineSnapshot(`
     <script
       src="https://www.googleoptimize.com/optimize.js?id=OPT-W65B3CP"
       type="text/javascript"
