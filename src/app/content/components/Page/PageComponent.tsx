@@ -68,6 +68,12 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
+    const runId = this.getRunId();
+
+    if (prevProps.page !== this.props.page) {
+      this.postProcess();
+    }
+
     // if there is a previous processing job, wait for it to finish.
     // this is mostly only relevant for initial load to ensure search results
     // are not highlighted before math is done typesetting, but may also
@@ -76,11 +82,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
-    if (prevProps.page !== this.props.page && this.props.page) {
-      await this.postProcess();
-    }
-
-    if (!this.shouldUpdateHighlightManagers(prevProps, this.props)) {
+    if (!this.shouldUpdateHighlightManagers(prevProps, this.props, runId)) {
       return;
     }
 
@@ -233,10 +235,7 @@ export default class PageComponent extends Component<PagePropTypes> {
    * and since it is an async function there might be still unresolved promisses that would result
    * in calling highlighter.update multiple times, see: https://github.com/openstax/unified/issues/1169
    */
-  private shouldUpdateHighlightManagers(prevProps: PagePropTypes, props: PagePropTypes): boolean {
-    const runId = this.getRunId();
-    // Always update highlighters for the first run
-    if (runId === 1) { return true; }
+  private shouldUpdateHighlightManagers(prevProps: PagePropTypes, props: PagePropTypes, runId: number): boolean {
     // Update search highlight manager if selected result has changed.
     // If we don't do this then for the last componenDidUpdate call prevProps will equal props and it will noop.
     if (!prevProps.searchHighlights.selectedResult && props.searchHighlights.selectedResult) { return true; }
