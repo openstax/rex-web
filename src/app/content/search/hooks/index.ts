@@ -50,11 +50,11 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     : getFirstResult(book, payload);
 
   if (
-    selectedResult &&
+    selectedResult
     // We are clearing selected result when requesting a new search so in the theory this should never happen
-    (isEqual(select.selectedResult(state), selectedResult)
-    // selectedResult bookId data is different than current book id
-    || book.id !== getIndexData(selectedResult.result.index).bookId)
+    && (isEqual(select.selectedResult(state), selectedResult)
+      // selectedResult bookId data is different than current book id
+      || book.id !== getIndexData(selectedResult.result.index).bookId)
   ) {
     return;
   }
@@ -68,17 +68,15 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const action = (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id))
     ? replace : push;
 
-  const options = selectedResult ?
-    {
+  const options = selectedResult
+    ? {
       hash: selectedResult.result.source.elementId,
       search: queryString.stringify({
         query,
         target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
       }),
-    } :
-    {
-      search: queryString.stringify({ query }),
-    };
+    }
+    : { search: queryString.stringify({ query }) };
 
   const navigation = targetPageId ? createRouteMatchOptions(targetPageId, book) : selectNavigation.match(state);
   if (navigation) {
