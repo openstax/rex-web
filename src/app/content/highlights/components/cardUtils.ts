@@ -9,12 +9,31 @@ import { assertDefined } from '../../../utils/assertions';
 import { cardMarginBottom } from '../constants';
 import { HighlightData } from '../types';
 
-export const getHighlightOffset = (container: HTMLElement | undefined, highlight: Highlight) => {
+export const getHighlightOffset = (
+  container: HTMLElement | undefined,
+  highlight: Highlight,
+  expandableAncestorsSelector?: string
+) => {
   if (!container || !highlight.range || !highlight.range.getBoundingClientRect) {
     return;
   }
 
   const {top, bottom } = highlight.range.getBoundingClientRect();
+
+  if (expandableAncestorsSelector) {
+    const highlightElement = highlight.elements[0] as HTMLElement;
+    const expandableAncestor = highlightElement && highlightElement.closest(expandableAncestorsSelector);
+
+    if (expandableAncestor
+      && expandableAncestor.getBoundingClientRect().bottom
+      < highlightElement.getBoundingClientRect().top
+    ) {
+      return {
+        bottom: -9999,
+        top: -9999,
+      };
+    }
+  }
 
   const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
   const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
@@ -93,6 +112,11 @@ const updateStackedCardsPositions = (
 
   for (const [index, highlight] of highlightsElements.entries()) {
     const topOffset = getHighlightPosition(highlight).top;
+
+    if (topOffset === -9999) {
+      positions.set(highlight.id, topOffset);
+      continue;
+    }
 
     const marginToAdd = index > 0 || addAditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
     const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
