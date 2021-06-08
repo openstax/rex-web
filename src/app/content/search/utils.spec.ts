@@ -8,12 +8,8 @@ import { mockRange } from '../../../test/mocks/rangy';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { assertDocument } from '../../utils';
-import { content } from '../routes';
 import { ArchivePage, LinkedArchiveTree } from '../types';
-import { stripIdVersion } from '../utils';
-import * as archiveTreeUtils from '../utils/archiveTreeUtils';
-import * as urlUtils from '../utils/urlUtils';
-import { createRouteMatchOptions, getFirstResult, getFormattedSearchResults, highlightResults } from './utils';
+import { getFirstResult, getFormattedSearchResults, highlightResults } from './utils';
 
 jest.mock('@openstax/highlighter/dist/Highlight', () => ({
   default: class {
@@ -259,40 +255,5 @@ describe('highlightResults', () => {
 
       expect(captureException).toHaveBeenCalled();
     });
-  });
-});
-
-describe('createRouteMatchOptions', () => {
-  it('creates route match if page was found in book', () => {
-    const { book, page } = mockArchive;
-    const mockParams = {
-      book: { slug: 'book' },
-      page: { slug: 'page' },
-    };
-    const mockMatch = {
-      params: mockParams,
-      route: content,
-      state: {
-        bookUid: book.id,
-        bookVersion: book.version,
-        pageUid: stripIdVersion(page.id),
-      },
-    };
-    jest.spyOn(urlUtils, 'getBookPageUrlAndParams').mockReturnValueOnce({ params: mockParams } as any);
-    const spyFindArchiveTreeNodeById = jest.spyOn(archiveTreeUtils, 'findArchiveTreeNodeById');
-
-    const result = createRouteMatchOptions(page.id, book);
-    expect(spyFindArchiveTreeNodeById).toHaveBeenCalled();
-    expect(result).toEqual(mockMatch);
-  });
-
-  it('return undefined if page was not found in book', () => {
-    const { book } = mockArchive;
-    const spyFindArchiveTreeNodeById = jest.spyOn(archiveTreeUtils, 'findArchiveTreeNodeById')
-      .mockReturnValueOnce(undefined);
-
-    const result = createRouteMatchOptions(treeWithUnits.id, book);
-    expect(spyFindArchiveTreeNodeById).toHaveBeenCalled();
-    expect(result).toEqual(undefined);
   });
 });

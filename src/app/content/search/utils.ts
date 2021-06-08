@@ -3,18 +3,10 @@ import { SearchResult, SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
-import { AnyMatch } from '../../navigation/types';
 import { getAllRegexMatches } from '../../utils';
 import attachHighlight from '../components/utils/attachHighlight';
-import { content } from '../routes';
-import { ArchiveTree, Book, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
-import { getBookPageUrlAndParams } from '../utils';
-import {
-  archiveTreeSectionIsChapter,
-  archiveTreeSectionIsPage,
-  findArchiveTreeNodeById,
-  linkArchiveTree
-} from '../utils/archiveTreeUtils';
+import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
+import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
 import { isSearchResultChapter } from './guards';
 import { SearchResultContainer, SearchResultPage, SearchScrollTarget, SelectedResult } from './types';
@@ -182,19 +174,4 @@ export const findSearchResultHit = (
   target: SearchScrollTarget
 ): SearchResultHit | undefined => {
   return results.find((result) => result.source.elementId === target.elementId);
-};
-
-export const createRouteMatchOptions = (pageId: string, book: Book): AnyMatch | undefined => {
-  const page = findArchiveTreeNodeById(book.tree, pageId);
-  if (!page) { return; }
-
-  return {
-    params: getBookPageUrlAndParams(book, page).params,
-    route: content,
-    state: {
-      bookUid: book.id,
-      bookVersion: book.version,
-      pageUid: stripIdVersion(page.id),
-    },
-  };
 };

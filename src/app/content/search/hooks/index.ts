@@ -9,10 +9,11 @@ import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
 import { stripIdVersion } from '../../utils/idUtils';
+import { createNavigationMatch } from '../../utils/navigationUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
-import { createRouteMatchOptions, findSearchResultHit, getFirstResult, getIndexData } from '../utils';
+import { findSearchResultHit, getFirstResult, getIndexData } from '../utils';
 import trackSearch from './trackSearch';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
@@ -78,9 +79,9 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     }
     : { search: queryString.stringify({ query }) };
 
-  const navigation = targetPageId ? createRouteMatchOptions(targetPageId, book) : selectNavigation.match(state);
-  if (navigation) {
-    services.dispatch(action(navigation, options));
+  const navigationMatch = targetPageId ? createNavigationMatch(targetPageId, book) : selectNavigation.match(state);
+  if (navigationMatch) {
+    services.dispatch(action(navigationMatch, options));
   }
 };
 
