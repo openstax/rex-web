@@ -8,16 +8,17 @@ import * as selectNavigation from '../../navigation/selectors';
 import { ScrollTarget } from '../../navigation/types';
 import { createNavigationOptions, navigationOptionsToString } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
+import { assertDefined } from '../../utils/assertions';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
-import { content } from '../routes';
 import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
 import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 import { isClickWithModifierKeys } from '../utils/domUtils';
+import { createNavigationMatch } from '../utils/navigationUtils';
 
 interface Props {
   book: Book;
@@ -54,6 +55,9 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ...anchorProps
   } = props;
   const {url, params} = getBookPageUrlAndParams(book, page);
+  const navigationMatch = assertDefined(
+    createNavigationMatch(page.id, book, params),
+    `Page ${page.id} does not exist in book ${book.id}`);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
@@ -80,16 +84,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         onClick();
       }
 
-      navigate({
-        params,
-        route: content,
-        state: {
-          bookUid,
-          bookVersion: book.version,
-          pageUid: stripIdVersion(page.id),
-        },
-      },
-      options);
+      navigate(navigationMatch, options);
     }}
     href={URL}
     {...anchorProps}
