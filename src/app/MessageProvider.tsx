@@ -1,15 +1,15 @@
 import { shouldPolyfill } from '@formatjs/intl-pluralrules/should-polyfill';
 import React, { useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
-import { connect } from 'react-redux';
-import * as select from './content/selectors';
-import { Book } from './content/types';
+import { useSelector } from 'react-redux';
+import { book as bookSelector } from './content/selectors';
 import { useServices } from './context/Services';
-import * as selectNavigation from './navigation/selectors';
-import { AppState } from './types';
+import { pathname as pathSelector } from './navigation/selectors';
 
 // tslint:disable-next-line:variable-name
-const MessageProvider = (props: { book?: Book, currentPath?: string, children?: React.ReactNode }) => {
+const MessageProvider = (props: { children?: React.ReactNode }) => {
+  const book = useSelector(bookSelector);
+  const currentPath = useSelector(pathSelector);
   const [polyfillLoaded, setPolyfillLoaded] = useState(false);
 
   // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
@@ -30,8 +30,8 @@ const MessageProvider = (props: { book?: Book, currentPath?: string, children?: 
   }
 
   const lang = React.useMemo(() => {
-    return props.currentPath === '/' ? 'en' : props.book?.language;
-  }, [props.book, props.currentPath]);
+    return currentPath === '/' ? 'en' : book?.language;
+  }, [book, currentPath]);
 
   const intl = useServices().intl.getIntlObject(lang);
 
@@ -44,9 +44,4 @@ const MessageProvider = (props: { book?: Book, currentPath?: string, children?: 
   ) : null;
 };
 
-export default connect(
-  (state: AppState) => ({
-    book: select.book(state),
-    currentPath: selectNavigation.pathname(state),
-  })
-)(MessageProvider);
+export default MessageProvider;
