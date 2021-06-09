@@ -176,10 +176,5 @@
   "i18n:toolbar:studyguides:button:text": "Kompendia",
   "i18n:toolbar:studyguides:popup:button:back-to-top": "Idź na górę",
   "i18n:toolbar:studyguides:popup:close-button:aria-label": "Zamknij Kompendia",
-  "i18n:toolbar:studyguides:popup:heading": "Kompendium",
-  "i18n:attribution:text": "",
-  "i18n:error:boundary:body": "",
-  "i18n:footer:copyright:bottom-text": "",
-  "i18n:footer:copyright:mission-text": "",
-  "i18n:toolbar:highlights:popup:login-text": ""
+  "i18n:toolbar:studyguides:popup:heading": "Kompendium"
 }
