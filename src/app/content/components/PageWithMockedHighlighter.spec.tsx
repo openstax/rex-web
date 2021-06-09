@@ -196,6 +196,7 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(mockHighlights[0], expect.anything()));
     expect(spyReplaceState).toHaveBeenCalledWith(null, '', window.location.origin + window.location.pathname);
     expect(scrollTarget(store.getState())).toEqual(null);
+    jest.resetAllMocks();
   });
 
   // tslint:disable-next-line: max-line-length
