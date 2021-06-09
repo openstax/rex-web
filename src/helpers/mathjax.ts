@@ -30,6 +30,8 @@ const MATHJAX_CONFIG = {
   },
 };
 
+const typesettingCounterAttribute = 'data-math-typesetting';
+
 const findProcessedMath = (root: Element): Element[] => Array.from(root.querySelectorAll('.MathJax math'));
 const findUnprocessedMath = (root: Element): Element[] => {
   const processedMath = findProcessedMath(root);
@@ -127,14 +129,34 @@ const getTypesetDocument = memoize((root, windowImpl) => {
 });
 getTypesetDocument.cache = new WeakMap();
 
+const increaseMathTypesettingCounter = (container: Element) => {
+  const counter = Number(container.getAttribute(typesettingCounterAttribute)) || 0;
+  const newValue = counter + 1;
+  container.setAttribute(typesettingCounterAttribute, newValue.toString());
+};
+
+const decreaseMathTypesettingCounter = (container: Element) => {
+  const counter = Number(container.getAttribute(typesettingCounterAttribute)) || 1;
+  const newValue = counter - 1;
+  if (newValue === 0) {
+    container.removeAttribute(typesettingCounterAttribute);
+  } else {
+    container.setAttribute(typesettingCounterAttribute, newValue.toString());
+  }
+};
+
 // typesetMath is the main exported function.
 // It's called by components like HTML after they're rendered
 const typesetMath = (root: Element, windowImpl = window) => {
+  increaseMathTypesettingCounter(root);
   // schedule a Mathjax pass if there is at least one [data-math] or <math> element present
   if (windowImpl && windowImpl.MathJax && windowImpl.MathJax.Hub && root.querySelector(COMBINED_MATH_SELECTOR)) {
-    return getTypesetDocument(root, windowImpl)();
+    return getTypesetDocument(root, windowImpl)().then(() => {
+      decreaseMathTypesettingCounter(root);
+    });
   }
 
+  decreaseMathTypesettingCounter(root);
   return Promise.resolve();
 };
 
@@ -166,6 +188,7 @@ function startMathJax() {
 }
 
 export {
+  typesettingCounterAttribute,
   typesetMath,
   startMathJax,
 };

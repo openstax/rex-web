@@ -86,8 +86,9 @@ export default class PageComponent extends Component<PagePropTypes> {
       return;
     }
 
-    const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
+    const highlightsAddedOrRemoved = await this.highlightManager.update(prevProps.highlights, {
       onSelect: this.onHighlightSelect,
+      waitForMathTypesetting: true,
     });
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
@@ -233,7 +234,8 @@ export default class PageComponent extends Component<PagePropTypes> {
   /**
    * When a user navigates quickly between pages there are multiple calls to componentDidUpdate
    * and since it is an async function there might be still unresolved promisses that would result
-   * in calling highlighter.update multiple times, see: https://github.com/openstax/unified/issues/1169
+   * in calling highlighter.update multiple times after they are done.
+   * see: https://github.com/openstax/unified/issues/1169
    */
   private shouldUpdateHighlightManagers(prevProps: PagePropTypes, props: PagePropTypes, runId: number): boolean {
     // Update search highlight manager if selected result has changed.
