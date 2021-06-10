@@ -4,53 +4,53 @@ import { IntlShape, RawIntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { book as bookSelector } from './content/selectors';
 import { useServices } from './context/Services';
-import { pathname as pathSelector } from './navigation/selectors';
+import { match as matchSelector } from './navigation/selectors';
+
+// https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
+async function polyfill(locale: string | undefined) {
+  if (!locale) {
+    return;
+  }
+
+  if (shouldPolyfill()) {
+    await import('@formatjs/intl-pluralrules/polyfill');
+  }
+
+  // boolean added by the polyfill
+  if ((Intl.PluralRules as (typeof Intl.PluralRules & { polyfilled?: boolean })).polyfilled) {
+    await import(`@formatjs/intl-pluralrules/locale-data/${locale}`);
+  }
+}
 
 // tslint:disable-next-line:variable-name
 const MessageProvider = (props: { children?: React.ReactNode }) => {
   const book = useSelector(bookSelector);
-  const currentPath = useSelector(pathSelector);
+  const route = useSelector(matchSelector)?.route;
   const [polyfillLoaded, setPolyfillLoaded] = useState(false);
   const [intl, setIntl] = useState<IntlShape | null>(null);
 
-  const lang = React.useMemo(() => {
-    return currentPath === '/' ? 'en' : book?.language;
-  }, [book, currentPath]);
+  const bookLocale = React.useMemo(() => {
+    return route?.locale || book?.language;
+  }, [book, route]);
 
-  // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
-  async function polyfill(locale: string | undefined) {
-    if (!locale) {
-      return;
-    }
-
-    if (shouldPolyfill()) {
-      await import('@formatjs/intl-pluralrules/polyfill');
-    }
-
-    // boolean added by the polyfill
-    if ((Intl.PluralRules as (typeof Intl.PluralRules & { polyfilled?: boolean })).polyfilled) {
-      await import(`@formatjs/intl-pluralrules/locale-data/${locale}`);
-      setPolyfillLoaded(true);
-    }
-  }
   const intlService = useServices().intl;
 
   useEffect(() => {
-    if (!lang) {
-      return;
-    }
+    const doPolyfill = async() => {
+      await polyfill(bookLocale);
+      setPolyfillLoaded(true);
+    };
 
-    polyfill(lang);
-
-    async function fetchMyAPI() {
-      const thing = await intlService.getIntlObject(lang);
+    const setUpIntl = async() => {
+      const thing = await intlService.getIntlObject(bookLocale);
       setIntl(thing);
-    }
+    };
 
-    fetchMyAPI();
-  }, [intlService, lang]);
+    setUpIntl();
+    doPolyfill();
+  }, [intlService, bookLocale]);
 
-  return intl && (!shouldPolyfill() || polyfillLoaded) ? (
+  return intl && polyfillLoaded ? (
     <RawIntlProvider value={intl}>
       {props.children}
     </RawIntlProvider>
