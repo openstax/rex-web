@@ -13,7 +13,6 @@ import createArchiveLoader from '../gateways/createArchiveLoader';
 import createBookConfigLoader from '../gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
-import createIntl from './messages/createIntl';
 import createOSWebLoader from '../gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../gateways/createSearchClient';
@@ -25,6 +24,7 @@ import { State as authState } from './auth/types';
 import { State as contentState } from './content/types';
 import { State as errorsState } from './errors/types';
 import { State as headState } from './head/types';
+import createIntl from './messages/createIntl';
 import { State as navigationState } from './navigation/types';
 import { State as notificationState } from './notifications/types';
 

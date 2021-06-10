@@ -1,9 +1,9 @@
 import { SearchApi } from '@openstax/open-search-client';
 import { createMemoryHistory } from 'history';
+import createIntl from '../app/messages/createIntl';
 import config from '../config';
 import { BuyPrintResponse } from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
-import createIntl from '../app/messages/createIntl';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import analytics from '../helpers/analytics';
 import FontCollector from '../helpers/FontCollector';
