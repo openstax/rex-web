@@ -17,12 +17,15 @@ describe('FinalScreen for practice questions', () => {
     dispatch = jest.spyOn(store, 'dispatch');
   });
 
-  it('renders properly and dispatches action on click', () => {
+  it('renders properly and dispatches action on click', async() => {
     const mockSection = { title: 'some title' } as LinkedArchiveTreeSection;
 
     const component = renderer.create(<TestContainer store={store}>
       <FinalScreen nextSection={mockSection} />
     </TestContainer>);
+
+    // tslint:disable-next-line: no-empty
+    await renderer.act(async() => {});
 
     const button = component.root.findByType(Button);
 
