@@ -7,17 +7,13 @@ import { useServices } from './context/Services';
 import { match as matchSelector } from './navigation/selectors';
 
 // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
-async function polyfill(locale: string | undefined) {
-  if (!locale) {
-    return;
-  }
-
+async function polyfill(locale: string) {
   if (shouldPolyfill()) {
     await import('@formatjs/intl-pluralrules/polyfill');
   }
 
   // boolean added by the polyfill
-  if ((Intl.PluralRules as (typeof Intl.PluralRules & { polyfilled?: boolean })).polyfilled) {
+  if ((Intl.PluralRules as (typeof Intl.PluralRules & {polyfilled?: boolean})).polyfilled) {
     await import(`@formatjs/intl-pluralrules/locale-data/${locale}`);
   }
 }
@@ -36,6 +32,10 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
   const intlService = useServices().intl;
 
   useEffect(() => {
+    if (!bookLocale) {
+      return;
+    }
+
     const doPolyfill = async() => {
       await polyfill(bookLocale);
       setPolyfillLoaded(true);
