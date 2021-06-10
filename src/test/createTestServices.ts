@@ -3,7 +3,7 @@ import { createMemoryHistory } from 'history';
 import config from '../config';
 import { BuyPrintResponse } from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
-import createIntl from '../gateways/createIntl';
+import createIntl from '../app/messages/createIntl';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import analytics from '../helpers/analytics';
 import FontCollector from '../helpers/FontCollector';

@@ -1,4 +1,4 @@
-import { resetModules } from '../test/utils';
+import { resetModules } from '../../test/utils';
 
 describe('MessageProvider', () => {
 
