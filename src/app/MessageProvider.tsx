@@ -1,6 +1,6 @@
 import { shouldPolyfill } from '@formatjs/intl-pluralrules/should-polyfill';
-import React, { useState } from 'react';
-import { RawIntlProvider } from 'react-intl';
+import React, { useEffect, useState } from 'react';
+import { IntlShape, RawIntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { book as bookSelector } from './content/selectors';
 import { useServices } from './context/Services';
@@ -11,6 +11,11 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
   const book = useSelector(bookSelector);
   const currentPath = useSelector(pathSelector);
   const [polyfillLoaded, setPolyfillLoaded] = useState(false);
+  const [intl, setIntl] = useState<IntlShape | null>(null);
+
+  const lang = React.useMemo(() => {
+    return currentPath === '/' ? 'en' : book?.language;
+  }, [book, currentPath]);
 
   // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
   async function polyfill(locale: string | undefined) {
@@ -28,16 +33,24 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
       setPolyfillLoaded(true);
     }
   }
+  const intlService = useServices().intl;
 
-  const lang = React.useMemo(() => {
-    return currentPath === '/' ? 'en' : book?.language;
-  }, [book, currentPath]);
+  useEffect(() => {
+    if (!lang) {
+      return;
+    }
 
-  const intl = useServices().intl.getIntlObject(lang);
+    polyfill(lang);
 
-  polyfill(lang);
+    async function fetchMyAPI() {
+      const thing = await intlService.getIntlObject(lang);
+      setIntl(thing);
+    }
 
-  return (lang && !shouldPolyfill()) || (lang && polyfillLoaded) ? (
+    fetchMyAPI();
+  }, [intlService, lang]);
+
+  return intl && (!shouldPolyfill() || polyfillLoaded) ? (
     <RawIntlProvider value={intl}>
       {props.children}
     </RawIntlProvider>
