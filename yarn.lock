@@ -2956,10 +2956,10 @@
   resolved "https://registry.yarnpkg.com/@openstax/open-search-client/-/open-search-client-0.1.0.tgz#57c0d5d9524eb8cf8fc729251fcccfe5c26b8358"
   integrity sha512-m3+jeNIwegiuTW0ncxdafRYG2EjlPyH5F2v6zdlDQcGVXK6yZWrKthz8jrRxmTCx7CE5Iw+Jv2UwE0ghVi2TXg==
 
-"@openstax/types@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@openstax/types/-/types-2.0.0.tgz#f739b4840498c3f45c20242252480a6908265d4c"
-  integrity sha512-Hjp1MU56YFCqP2GB1SnZFrqs5XB51gb6c/h7YxtibqRQdzEKj4oD89DRyps0JXHr988Kv5zdvajZk0pLiDxZnQ==
+"@openstax/types@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@openstax/types/-/types-3.1.0.tgz#364a73e321127dfb1cfa36adccdae8e21a0805dc"
+  integrity sha512-vy9nFdfw/nRX7iYjpl1CPxHwr8dIog+WVlDQr+EeD31HQ9uQX4I+cNV7jmvx1oiMIofSdrM+OBbmPC9qzAJK+w==
 
 "@pmmmwh/react-refresh-webpack-plugin@0.4.3":
   version "0.4.3"
