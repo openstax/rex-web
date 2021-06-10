@@ -42,8 +42,8 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
     };
 
     const setUpIntl = async() => {
-      const thing = await intlService.getIntlObject(bookLocale);
-      setIntl(thing);
+      const intlObject = await intlService.getIntlObject(bookLocale);
+      setIntl(intlObject);
     };
 
     setUpIntl();
