@@ -37,7 +37,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     () => highlights.find((highlight) => highlight.id === focusedId),
     [focusedId, highlights]);
   const prevFocusedHighlightId = React.useRef(focusedId);
-  const setNewCardsPositionsRef = React.useRef<() => void | undefined>(() => undefined);
+  const setNewCardsPositionsRef = React.useRef<() => void>();
 
   // This function is triggered by keyboard shortuct defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
@@ -104,7 +104,10 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   React.useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
-      setNewCardsPositionsRef.current();
+      assertDefined(
+        setNewCardsPositionsRef.current,
+        'setNewCardsPositionsRef should be already defined by useEffect'
+      )();
     });
     resizeObserver.observe(container);
     return () => {
