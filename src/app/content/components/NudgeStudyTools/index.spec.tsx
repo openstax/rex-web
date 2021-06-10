@@ -6,7 +6,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { makeFindByTestId } from '../../../../test/reactutils';
 import { receiveFeatureFlags } from '../../../actions';
 import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
+import MessageProvider from '../../../messages/MessageProvider';
 import * as reactUtils from '../../../reactUtils';
 import { AppServices, Store } from '../../../types';
 import { assertDocument } from '../../../utils';

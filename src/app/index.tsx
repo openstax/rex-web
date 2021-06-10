@@ -14,7 +14,7 @@ import * as developer from './developer';
 import * as errors from './errors';
 import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as head from './head';
-import MessageProvider from './MessageProvider';
+import MessageProvider from './messages/MessageProvider';
 import * as navigation from './navigation';
 import { AnyMatch } from './navigation/types';
 import { matchPathname } from './navigation/utils';

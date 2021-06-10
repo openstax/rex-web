@@ -7,7 +7,7 @@ import { book as archiveBook, page as shortPage } from '../../../../test/mocks/a
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { receiveFeatureFlags } from '../../../actions';
 import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
+import MessageProvider from '../../../messages/MessageProvider';
 import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';

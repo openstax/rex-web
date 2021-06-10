@@ -8,7 +8,7 @@ import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } f
 import { makeSearchResults } from '../../../test/searchResults';
 import { receiveFeatureFlags } from '../../actions';
 import * as Services from '../../context/Services';
-import MessageProvider from '../../MessageProvider';
+import MessageProvider from '../../messages/MessageProvider';
 import { Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import { practiceQuestionsFeatureFlag } from '../constants';

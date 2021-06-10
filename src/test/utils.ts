@@ -15,7 +15,7 @@ export const resetModules = async() => {
 
 export const reactAndFriends = () => {
   return {
-    MessageProvider: require('../app/MessageProvider').default,
+    MessageProvider: require('../app/messages/MessageProvider').default,
     Provider: require('react-redux').Provider,
     React: require('react'),
     ReactDOM: require('react-dom') as typeof import ('react-dom'),

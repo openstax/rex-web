@@ -9,7 +9,7 @@ import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import Checkbox from '../../../../components/Checkbox';
 import { DropdownToggle } from '../../../../components/Dropdown';
 import * as Services from '../../../../context/Services';
-import MessageProvider from '../../../../MessageProvider';
+import MessageProvider from '../../../../messages/MessageProvider';
 import { Store } from '../../../../types';
 import { formatBookData, stripIdVersion } from '../../../utils';
 import { receiveHighlightsTotalCounts, updateSummaryFilters } from '../../actions';

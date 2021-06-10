@@ -8,7 +8,7 @@ import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
-import MessageProvider from '../../MessageProvider';
+import MessageProvider from '../../messages/MessageProvider';
 import { locationChange } from '../../navigation/actions';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';

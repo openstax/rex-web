@@ -2,9 +2,9 @@ import { shouldPolyfill } from '@formatjs/intl-pluralrules/should-polyfill';
 import React, { useEffect, useState } from 'react';
 import { IntlShape, RawIntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { book as bookSelector } from './content/selectors';
-import { useServices } from './context/Services';
-import { match as matchSelector } from './navigation/selectors';
+import { book as bookSelector } from '../content/selectors';
+import { useServices } from '../context/Services';
+import { match as matchSelector } from '../navigation/selectors';
 
 // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
 async function polyfill(locale: string) {

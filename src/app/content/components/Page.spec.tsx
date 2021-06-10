@@ -17,7 +17,7 @@ import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResu
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
-import MessageProvider from '../../MessageProvider';
+import MessageProvider from '../../messages/MessageProvider';
 import { locationChange, push } from '../../navigation/actions';
 import { addToast } from '../../notifications/actions';
 import { toastMessageKeys } from '../../notifications/components/ToastNotifications/constants';

@@ -5,7 +5,7 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { receiveFeatureFlags } from '../../../actions';
 import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
+import MessageProvider from '../../../messages/MessageProvider';
 import { Store } from '../../../types';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { CountsPerSource } from '../../highlights/types';
