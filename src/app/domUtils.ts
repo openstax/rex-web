@@ -106,7 +106,9 @@ export const scrollIntoView = (firstElem: HTMLElement, lastElem?: HTMLElement) =
   if (!window.document.body.contains(firstElem)) { return; }
 
   const {top: topFirst, bottom: bottomFirst} = firstElem.getBoundingClientRect();
-  const {top: topSecond, bottom: bottomSecond} = (lastElem || firstElem).getBoundingClientRect();
+  const {top: topSecond, bottom: bottomSecond} = lastElem && window.document.body.contains(lastElem)
+    ? lastElem.getBoundingClientRect()
+    : firstElem.getBoundingClientRect();
 
   const below = bottomFirst > window.innerHeight || bottomSecond > window.innerHeight;
   const scrollPadding = Math.abs(getScrollPadding());

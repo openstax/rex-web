@@ -12,6 +12,7 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
+import { assertWindow } from '../../../utils/browser-assertions';
 import { openToc, receiveBook, receivePage } from '../../actions';
 import { highlightStyles } from '../../constants';
 import { requestSearch } from '../../search/actions';
@@ -401,6 +402,8 @@ describe('Card', () => {
     store.dispatch(receivePage({...page, references: []}));
     const firstElement = assertDocument().createElement('span');
     const secondElement = assertDocument().createElement('span');
+    assertWindow().document.body.append(firstElement);
+    assertWindow().document.body.append(secondElement);
     store.dispatch(receiveHighlights({
       highlights: [
         { id: highlight.id, annotation: 'asd' },
