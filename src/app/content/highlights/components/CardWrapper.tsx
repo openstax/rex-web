@@ -69,9 +69,8 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   }, [cardsHeights]);
 
   const getOffsetsForHighlight = React.useCallback((highlight: Highlight) => {
-    const expandableAncestorsSelector = '[data-type="solution"] > .ui-body';
     const newOffsets = assertDefined(
-      getHighlightOffset(container, highlight, expandableAncestorsSelector),
+      getHighlightOffset(container, highlight),
       `Couldn't get offsets for highlight with an id: ${highlight.id}`
     );
     setOffsets((state) => new Map(state).set(highlight.id, newOffsets));

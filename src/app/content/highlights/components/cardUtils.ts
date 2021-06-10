@@ -11,8 +11,7 @@ import { HighlightData } from '../types';
 
 export const getHighlightOffset = (
   container: HTMLElement | undefined,
-  highlight: Highlight,
-  expandableAncestorsSelector?: string
+  highlight: Highlight
 ) => {
   if (!container || !highlight.range || !highlight.range.getBoundingClientRect) {
     return;
@@ -20,19 +19,18 @@ export const getHighlightOffset = (
 
   const {top, bottom } = highlight.range.getBoundingClientRect();
 
-  if (expandableAncestorsSelector) {
-    const highlightElement = highlight.elements[0] as HTMLElement;
-    const expandableAncestor = highlightElement && highlightElement.closest(expandableAncestorsSelector);
+  const highlightElement = highlight.elements[0] as HTMLElement;
+  const expandableAncestor = highlightElement
+    && highlightElement.closest('[data-type="solution"][aria-expanded="false"]');
 
-    if (expandableAncestor
-      && expandableAncestor.getBoundingClientRect().bottom
-      < highlightElement.getBoundingClientRect().top
-    ) {
-      return {
-        bottom: -9999,
-        top: -9999,
-      };
-    }
+  if (expandableAncestor
+    && expandableAncestor.getBoundingClientRect().bottom
+    < highlightElement.getBoundingClientRect().top
+  ) {
+    return {
+      bottom: -9999,
+      top: -9999,
+    };
   }
 
   const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
