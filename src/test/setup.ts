@@ -79,6 +79,7 @@ let matchMedia: jest.SpyInstance;
 let scrollTo: jest.SpyInstance;
 let scrollBy: jest.SpyInstance;
 let mockGa: any;
+let mockResizeObserver: any;
 
 resetModules();
 
@@ -113,6 +114,16 @@ beforeEach(() => {
 
   mockGa = jest.fn();
   window.ga = mockGa;
+
+  // tslint:disable-next-line: only-arrow-functions
+  mockResizeObserver = function() {
+    return ({
+      disconnect: jest.fn(),
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+    });
+  };
+  globalThis.ResizeObserver = mockResizeObserver;
 });
 
 afterEach(() => {
