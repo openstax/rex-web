@@ -116,7 +116,8 @@ beforeEach(() => {
   window.ga = mockGa;
 
   // tslint:disable-next-line: only-arrow-functions
-  mockResizeObserver = function() {
+  mockResizeObserver = function(callback: () => void) {
+    callback();
     return ({
       disconnect: jest.fn(),
       observe: jest.fn(),
