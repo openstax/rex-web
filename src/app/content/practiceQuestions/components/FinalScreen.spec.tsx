@@ -27,6 +27,8 @@ describe('FinalScreen for practice questions', () => {
     // tslint:disable-next-line: no-empty
     await renderer.act(async() => {});
 
+    console.log('comp: ', component)
+
     const button = component.root.findByType(Button);
 
     renderer.act(() => {
