@@ -1,7 +1,7 @@
 import { HTMLElement, MediaQueryList } from '@openstax/types/lib.dom';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { runHooks, resetModules } from '../test/utils';
+import { resetModules, runHooks } from '../test/utils';
 import * as utils from './reactUtils';
 import { assertDocument, assertWindow } from './utils';
 
