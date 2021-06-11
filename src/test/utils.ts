@@ -1,3 +1,4 @@
+import renderer from 'react-test-renderer';
 import mockRangy from './mocks/rangy';
 
 export const resetModules = async() => {
@@ -23,4 +24,14 @@ export const reactAndFriends = () => {
     renderToDom: require('./reactutils').renderToDom,
     renderer: require('react-test-renderer'),
   };
+};
+
+export const runHooks = () => {
+  // tslint:disable-next-line: no-empty
+  renderer.act(() => {});
+};
+
+export const runHooksAsync = async() => {
+  // tslint:disable-next-line: no-empty
+  await renderer.act(async() => {});
 };

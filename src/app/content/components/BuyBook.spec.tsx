@@ -4,6 +4,7 @@ import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import TestContainer from '../../../test/TestContainer';
+import { runHooksAsync } from '../../../test/utils';
 import { Store } from '../../types';
 import { receiveBuyPrintConfig } from '../actions';
 import { receiveBook } from '../actions';
@@ -26,18 +27,19 @@ describe('BuyBook', () => {
       <BuyBook />
     </TestContainer>);
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    await runHooksAsync();
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('returns null', () => {
+  it('returns null', async() => {
+    store.dispatch(receiveBook(book));
     const component = renderer.create(<TestContainer store={store}>
       <BuyBook />
     </TestContainer>);
+
+    await runHooksAsync();
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();

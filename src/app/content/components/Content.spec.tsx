@@ -5,6 +5,7 @@ import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { runHooksAsync } from '../../../test/utils';
 import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
@@ -75,9 +76,7 @@ describe('content', () => {
       </Provider>
     );
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    runHooksAsync();
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -96,9 +95,7 @@ describe('content', () => {
       </Provider>
     );
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    runHooksAsync();
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -118,9 +115,7 @@ describe('content', () => {
       </Provider>
     );
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    runHooksAsync();
 
     expect(component.root.findByType(BuyBook)).toBeTruthy();
   });
@@ -138,9 +133,7 @@ describe('content', () => {
       </Provider>
     );
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    runHooksAsync();
 
     const scrollOffset = component.root.findByType(ScrollOffset);
 
@@ -166,9 +159,7 @@ describe('content', () => {
       </Provider>
     );
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    runHooksAsync();
 
     const scrollOffset = component.root.findByType(ScrollOffset);
 
@@ -194,9 +185,7 @@ describe('content', () => {
       </Provider>
     );
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    runHooksAsync();
 
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(1);
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledWith(
@@ -222,9 +211,7 @@ describe('content', () => {
       </Provider>
     );
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    runHooksAsync();
 
     const pageComponent = component.root.findByProps({ id: 'main-content' });
 
@@ -244,9 +231,7 @@ describe('content', () => {
       </Provider>
     );
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    runHooksAsync();
 
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
 
@@ -269,9 +254,7 @@ describe('content', () => {
       </Provider>
     );
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    runHooksAsync();
 
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
     const mobileScrollLock = component.root.findByType(ScrollLock);
@@ -296,9 +279,7 @@ describe('content', () => {
       </Provider>
     );
 
-    // Call hook
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    runHooksAsync();
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
 
