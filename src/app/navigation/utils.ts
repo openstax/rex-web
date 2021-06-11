@@ -128,7 +128,7 @@ export const findPathForParams = (params: object, paths: string[]) => {
   });
 };
 
-export const getQueryForParam = (param: string, value: string, existingQuery?: string | OutputParams) => {
+export const getQueryForParam = (param: string, value: string | string[], existingQuery?: string | OutputParams) => {
   if (existingQuery) {
     const parsedExistingQuery = typeof existingQuery === 'string'
       ? queryString.parse(existingQuery)

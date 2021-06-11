@@ -9,6 +9,7 @@ import updateSummaryFilters from '../highlights/utils/updateSummaryFilters';
 import * as actions from './actions';
 import { highlightStyles, modalUrlName } from './constants';
 import { State } from './types';
+import { getColorFiltersFromQuery } from './utils';
 
 export const initialState: State = {
   isEnabled: false,
@@ -30,9 +31,17 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
       const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
-        && action.payload.action === 'PUSH';
+        && (action.payload.action === 'PUSH' || action.payload.action === 'REPLACE');
+      const colors = getColorFiltersFromQuery(action.payload.query) || state.summary.filters.colors;
 
-      return {...state, summary: {...state.summary, open: summaryShouldBeOpen}};
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          filters: {...state.summary.filters, colors},
+          open: summaryShouldBeOpen,
+        },
+      };
     }
     case getType(receiveFeatureFlags):
       return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};
