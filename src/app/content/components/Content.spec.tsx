@@ -1,12 +1,14 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import MessageProvider from '../../../test/MessageProvider';
 import { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import TestContainer from '../../../test/TestContainer';
 import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
+import * as Services from '../../context/Services';
 import { locationChange } from '../../navigation/actions';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
@@ -64,9 +66,13 @@ describe('content', () => {
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     const component = renderer.create(
-      <TestContainer store={store} services={services}>
-        <Content />
-      </TestContainer>
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
     );
 
     const tree = component.toJSON();
@@ -77,9 +83,13 @@ describe('content', () => {
     store.dispatch(receiveBook(bookState));
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     const component = renderer.create(
-      <TestContainer store={store} services={services}>
-        <Content />
-      </TestContainer>
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
     );
 
     const tree = component.toJSON();
@@ -91,9 +101,13 @@ describe('content', () => {
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     const component = renderer.create(
-      <TestContainer store={store} services={services}>
-        <Content />
-      </TestContainer>
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
     );
 
     expect(component.root.findByType(BuyBook)).toBeTruthy();
@@ -103,9 +117,13 @@ describe('content', () => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
-      <TestContainer store={store} services={services}>
-        <Content />
-      </TestContainer>
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
     );
 
     const scrollOffset = component.root.findByType(ScrollOffset);
@@ -123,9 +141,13 @@ describe('content', () => {
     store.dispatch(openMobileToolbar());
 
     const component = renderer.create(
-      <TestContainer store={store} services={services}>
-        <Content />
-      </TestContainer>
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
     );
 
     const scrollOffset = component.root.findByType(ScrollOffset);
@@ -143,9 +165,13 @@ describe('content', () => {
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     renderer.create(
-      <TestContainer store={store} services={services}>
-        <Content />
-      </TestContainer>
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
     );
 
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(1);
@@ -163,9 +189,13 @@ describe('content', () => {
     services.archiveLoader.mock.cachedPage.mockReturnValue(undefined);
 
     const component = renderer.create(
-      <TestContainer store={store} services={services}>
-        <Content />
-      </TestContainer>
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
     );
 
     const pageComponent = component.root.findByProps({ id: 'main-content' });
@@ -177,9 +207,13 @@ describe('content', () => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
-      <TestContainer store={store} services={services}>
-        <Content />
-      </TestContainer>
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
     );
 
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
@@ -194,9 +228,13 @@ describe('content', () => {
     });
 
     const component = renderer.create(
-      <TestContainer store={store} services={services}>
-        <Content />
-      </TestContainer>
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
     );
 
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
@@ -213,9 +251,13 @@ describe('content', () => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
-      <TestContainer store={store} services={services}>
-        <Content />
-      </TestContainer>
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Content />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
     );
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
