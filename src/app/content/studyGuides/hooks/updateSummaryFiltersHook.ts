@@ -1,7 +1,9 @@
+import { pickBy } from 'lodash/fp';
 import { replace } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { updateQuery } from '../../../navigation/utils';
 import { ActionHookBody } from '../../../types';
+import { colorFilterQueryParameterName, locationIdsFilterQueryParameterName } from '../../constants';
 import updateSummaryFilters from '../../highlights/utils/updateSummaryFilters';
 import { updateSummaryFilters as updateSummaryFiltersAction } from '../actions';
 import { summaryFilters } from '../selectors';
@@ -13,7 +15,10 @@ export const hookBody: ActionHookBody<typeof updateSummaryFiltersAction> = (serv
   const filters = summaryFilters(state);
 
   if (match && (action.payload.colors || action.payload.locations)) {
-    const updatedFilters = updateSummaryFilters(filters, action.payload);
+    const updatedFilters = pickBy(
+      (_val, key) => [colorFilterQueryParameterName, locationIdsFilterQueryParameterName].includes(key),
+      updateSummaryFilters(filters, action.payload)
+    );
     services.dispatch(replace(match, {
       search: updateQuery(updatedFilters, existingQuery),
     }));

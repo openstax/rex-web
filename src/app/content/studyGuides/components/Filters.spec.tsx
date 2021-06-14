@@ -10,18 +10,24 @@ import TestContainer from '../../../../test/TestContainer';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
 import Checkbox from '../../../components/Checkbox';
 import { DropdownToggle } from '../../../components/Dropdown';
+import { locationChange } from '../../../navigation/actions';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook } from '../../actions';
 import FiltersList, { FiltersListColor } from '../../components/popUp/FiltersList';
+import { modalQueryParameterName } from '../../constants';
+import { SummaryFilters, SummaryFiltersUpdate } from '../../highlights/types';
+import updateSummaryFilters from '../../highlights/utils/updateSummaryFilters';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import {
   printStudyGuides,
   receiveStudyGuidesTotalCounts,
   receiveSummaryStudyGuides,
-  updateSummaryFilters,
+  updateSummaryFilters as updateSummaryFiltersAction,
 } from '../actions';
+import { modalUrlName } from '../constants';
+import { summaryFilters } from '../selectors';
 import Filters from './Filters';
 import { cookieUTG } from './UsingThisGuide/constants';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
@@ -140,6 +146,20 @@ describe('Filters', () => {
       },
     }));
 
+    // call action that should be triggered by the hook for updateSummaryFilters
+    const updateFilters = (update: SummaryFiltersUpdate) => {
+      renderer.act(() => {
+        const updatedFilters = updateSummaryFilters(summaryFilters(store.getState()), update);
+        store.dispatch(locationChange({
+          location: {},
+          query: {
+            [modalQueryParameterName]: modalUrlName,
+            ...updatedFilters,
+          },
+        } as any));
+      });
+    };
+
     const component = renderer.create(<TestContainer services={services} store={store}>
       <Filters />
     </TestContainer>);
@@ -156,18 +176,22 @@ describe('Filters', () => {
       yellowCheckbox.props.onChange();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(updateSummaryFilters({
+    const firstUpdate = updateSummaryFiltersAction({
       colors: { new: [], remove: [HighlightColorEnum.Yellow] },
-    }));
+    });
+    expect(dispatch).toHaveBeenCalledWith(firstUpdate);
+    updateFilters(firstUpdate.payload);
 
     renderer.act(() => {
       yellowCheckbox.props.onChange();
       colorFilterToggle.props.onClick();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(updateSummaryFilters({
+    const secondUpdate = updateSummaryFiltersAction({
       colors: { new: [HighlightColorEnum.Yellow], remove: [] },
-    }));
+    });
+    expect(dispatch).toHaveBeenCalledWith(secondUpdate);
+    updateFilters(secondUpdate.payload);
 
     dispatch.mockClear();
 
@@ -181,7 +205,7 @@ describe('Filters', () => {
       ch1.props.onChange();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(updateSummaryFilters({
+    expect(dispatch).toHaveBeenCalledWith(updateSummaryFiltersAction({
       locations: { new: [chapter], remove: [] },
     }));
   });
@@ -208,7 +232,7 @@ describe('Filters', () => {
       green.props.onRemove();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(updateSummaryFilters({
+    expect(dispatch).toHaveBeenCalledWith(updateSummaryFiltersAction({
       colors: { new: [], remove: [HighlightColorEnum.Green] },
     }));
   });
