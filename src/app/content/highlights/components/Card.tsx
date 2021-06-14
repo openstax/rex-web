@@ -75,10 +75,14 @@ const Card = (props: CardProps) => {
     } else {
       const firstElement = props.highlight.elements[0] as HTMLElement;
       const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
-      scrollIntoView(firstElement, lastElement);
+      const elements = [lastElement];
+      if (element.current) {
+        elements.push(element.current);
+      }
+      scrollIntoView(firstElement, elements);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.isActive]);
+  }, [element, props.isActive]);
 
   React.useEffect(() => {
     if (annotation) {

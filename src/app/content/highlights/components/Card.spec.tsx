@@ -46,6 +46,7 @@ describe('Card', () => {
   let highlight: ReturnType<typeof createMockHighlight>;
   let highlightData: ReturnType<ReturnType<typeof createMockHighlight>['serialize']>['data'];
   let cardProps: Partial<CardProps> & { highlight: Highlight };
+  let createNodeMock: () => HTMLElement;
 
   beforeEach(() => {
     store = createTestStore();
@@ -59,6 +60,7 @@ describe('Card', () => {
       highlightOffsets: { top: 0, bottom: 0 },
       onHeightChange: () => null,
     };
+    createNodeMock = () => assertDocument().createElement('div');
   });
 
   it('matches snapshot when focused without note', () => {
@@ -93,7 +95,7 @@ describe('Card', () => {
     store.dispatch(focusHighlight(highlight.id));
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} container={container} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -114,7 +116,7 @@ describe('Card', () => {
     store.dispatch(requestSearch('asdf'));
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -134,7 +136,7 @@ describe('Card', () => {
     });
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} container={container} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -152,7 +154,7 @@ describe('Card', () => {
     }));
     expect(() => renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>)).not.toThrow();
+    </Provider>, {createNodeMock})).not.toThrow();
   });
 
   it('switches to editing mode when onEdit is triggered', () => {
@@ -171,7 +173,7 @@ describe('Card', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     const picker = component.root.findByType(DisplayNote);
     renderer.act(() => {
@@ -194,7 +196,7 @@ describe('Card', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     const picker = component.root.findByType(DisplayNote);
     renderer.act(() => {
@@ -229,7 +231,7 @@ describe('Card', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     const picker = component.root.findByType(DisplayNote);
     renderer.act(() => {
@@ -248,7 +250,7 @@ describe('Card', () => {
     store.dispatch(focusHighlight(highlight.id));
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     dispatch.mockClear();
 
@@ -281,7 +283,7 @@ describe('Card', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     const editcard = component.root.findByType(EditCard);
     renderer.act(() => {
@@ -305,7 +307,7 @@ describe('Card', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     expect(() => component.root.findByType(EditCard)).toThrow();
   });
@@ -325,7 +327,7 @@ describe('Card', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     expect(() => component.root.findByType(EditCard)).toThrow();
   });
@@ -336,7 +338,7 @@ describe('Card', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     expect(() => component.root.findByType(EditCard)).toThrow();
   });
@@ -353,7 +355,7 @@ describe('Card', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
 
@@ -387,7 +389,7 @@ describe('Card', () => {
 
     const component = renderer.create(<Provider store={store}>
       <Card {...cardProps} isActive={false} />
-    </Provider>);
+    </Provider>, {createNodeMock});
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
     await renderer.act(async() => {
@@ -401,9 +403,11 @@ describe('Card', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     const firstElement = assertDocument().createElement('span');
+    // Do not add secondElement to the document for full scrollIntoView coverage
     const secondElement = assertDocument().createElement('span');
+    const cardElement = assertDocument().createElement('div');
     assertWindow().document.body.append(firstElement);
-    assertWindow().document.body.append(secondElement);
+    assertWindow().document.body.append(cardElement);
     store.dispatch(receiveHighlights({
       highlights: [
         { id: highlight.id, annotation: 'asd' },
@@ -417,12 +421,12 @@ describe('Card', () => {
 
     renderer.create(<Provider store={store}>
       <Card {...cardProps} />
-    </Provider>);
+    </Provider>, { createNodeMock: () => cardElement });
 
     renderer.act(() => {
       store.dispatch(focusHighlight(highlight.id));
     });
 
-    expect(spyScrollIntoView).toHaveBeenCalledWith(firstElement, secondElement);
+    expect(spyScrollIntoView).toHaveBeenCalledWith(firstElement, [secondElement, cardElement]);
   });
 });

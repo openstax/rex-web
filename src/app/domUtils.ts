@@ -98,26 +98,31 @@ export const scrollTo = (elem: HTMLElement | Element | string) => {
 };
 
 /**
- * This function will scroll into @param firstElement view but it will take into consideration
- * the @param lastElement position to check if scrolling is required.
+ * This function will scroll into @param elementToScroll view but it will take into consideration
+ * elements positions from @param otherElements.
  */
-export const scrollIntoView = (firstElem: HTMLElement, lastElem?: HTMLElement) => {
+export const scrollIntoView = (elementToScroll: HTMLElement, otherElements?: HTMLElement[]) => {
   const window = assertWindow();
-  if (!window.document.body.contains(firstElem)) { return; }
+  if (!window.document.body.contains(elementToScroll)) { return; }
 
-  const {top: topFirst, bottom: bottomFirst} = firstElem.getBoundingClientRect();
-  const {top: topSecond, bottom: bottomSecond} = lastElem && window.document.body.contains(lastElem)
-    ? lastElem.getBoundingClientRect()
-    : firstElem.getBoundingClientRect();
+  const {top: topFirst, bottom: bottomFirst} = elementToScroll.getBoundingClientRect();
 
-  const below = bottomFirst > window.innerHeight || bottomSecond > window.innerHeight;
   const scrollPadding = Math.abs(getScrollPadding());
-  const above = topFirst < scrollPadding || topSecond < scrollPadding;
+  let below = bottomFirst > window.innerHeight;
+  let above = topFirst < scrollPadding;
+
+  for (const element of otherElements || []) {
+    if (window.document.body.contains(element)) {
+      const { top: topEl, bottom: bottomEl } = element.getBoundingClientRect();
+      below = below || bottomEl > window.innerHeight;
+      above = above || topEl < scrollPadding;
+    }
+  }
 
   if (below) {
-    scrollToElement(firstElem, {align: 'middle'});
+    scrollToElement(elementToScroll, {align: 'middle'});
   } else if (above) {
-    scrollTo(firstElem);
+    scrollTo(elementToScroll);
   }
 };
 
