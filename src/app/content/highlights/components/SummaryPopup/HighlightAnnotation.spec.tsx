@@ -6,6 +6,7 @@ import { book, page } from '../../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../../test/TestContainer';
+import { runHooksAsync } from '../../../../../test/utils';
 import { Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
@@ -24,7 +25,9 @@ describe('HighlightDeleteWrapper', () => {
     store = createTestStore();
   });
 
-  it('match snapshot when editing is set to false', () => {
+  it('match snapshot when editing is set to false', async() => {
+    store.dispatch(receiveBook(book));
+
     const component = renderer.create(<TestContainer store={store}>
       <HighlightAnnotation
         annotation='Some annotation'
@@ -36,11 +39,15 @@ describe('HighlightDeleteWrapper', () => {
       />
     </TestContainer>);
 
+    await runHooksAsync();
+
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('match snapshot when editing is set to true', () => {
+  it('match snapshot when editing is set to true', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+
     const component = renderer.create(<TestContainer store={store}>
       <HighlightAnnotation
         annotation='Some annotation'
@@ -52,11 +59,15 @@ describe('HighlightDeleteWrapper', () => {
       />
     </TestContainer>);
 
+    await runHooksAsync();
+
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('properly fire onCancel and onSave props', () => {
+  it('properly fire onCancel and onSave props', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+
     let savedText = '';
     let cancelClicked = false;
     const annotation = 'TEST';
@@ -69,6 +80,8 @@ describe('HighlightDeleteWrapper', () => {
         onSave={(text) => { savedText = text; }}
       />
     </TestContainer>);
+
+    await runHooksAsync();
 
     renderer.act(() => { return; });
 
@@ -103,7 +116,7 @@ describe('Highlight annotation', () => {
     highlight = createMockHighlight('asdf');
   });
 
-  it('edits annotation from MH pop up and track analytics', () => {
+  it('edits annotation from MH pop up and track analytics', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
 
@@ -120,6 +133,8 @@ describe('Highlight annotation', () => {
         pageId={page.id}
       />
     </TestContainer>);
+
+    await runHooksAsync();
 
     const track = jest.spyOn(services.analytics.editAnnotation, 'track');
 

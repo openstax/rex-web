@@ -4,7 +4,7 @@ import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import TestContainer from '../../../test/TestContainer';
-import { runHooksAsync } from '../../../test/utils';
+import { runHooksAsync } from '../../../test/utils';'';
 import { Store } from '../../types';
 import { receiveBuyPrintConfig } from '../actions';
 import { receiveBook } from '../actions';
@@ -18,10 +18,10 @@ describe('BuyBook', () => {
 
   beforeEach(() => {
     store = createTestStore();
+    store.dispatch(receiveBook(book));
   });
 
   it('renders when config is available', async() => {
-    store.dispatch(receiveBook(book));
     store.dispatch(receiveBuyPrintConfig({url: 'https://example.com', disclosure: 'asdf'}));
     const component = renderer.create(<TestContainer store={store}>
       <BuyBook />
@@ -34,7 +34,6 @@ describe('BuyBook', () => {
   });
 
   it('returns null', async() => {
-    store.dispatch(receiveBook(book));
     const component = renderer.create(<TestContainer store={store}>
       <BuyBook />
     </TestContainer>);

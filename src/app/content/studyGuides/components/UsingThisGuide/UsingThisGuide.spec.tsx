@@ -5,6 +5,7 @@ import createTestStore from '../../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../../test/TestContainer';
+import { runHooksAsync } from '../../../../../test/utils';
 import { Store } from '../../../../types';
 import { receiveBook } from '../../../actions';
 import { formatBookData } from '../../../utils';
@@ -19,43 +20,35 @@ describe('Using this guide', () => {
 
   beforeEach(() => {
     store = createTestStore();
+    store.dispatch(receiveBook(book));
   });
 
   it('renders using this guide button correctly (when banner closed)', async() => {
-    store.dispatch(receiveBook(book));
-
     const component = renderer.create(<TestContainer store={store}>
       <UsingThisGuideButton open={false} onClick={onclickFn}/>
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    await runHooksAsync();
 
     expect(component.toJSON()).toMatchSnapshot();
   });
 
   it('renders using this guide button correctly (when banner open)', async() => {
-    store.dispatch(receiveBook(book));
-
     const component = renderer.create(<TestContainer store={store}>
       <UsingThisGuideButton open={true} onClick={onclickFn}/>
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    await runHooksAsync();
 
     expect(component.toJSON()).toMatchSnapshot();
   });
 
   it('renders using this guide banner correctly', async() => {
-    store.dispatch(receiveBook(book));
-
     const component = renderer.create(<TestContainer store={store}>
       <UsingThisGuideBanner show={true} onClick={onclickFn}/>
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    await runHooksAsync();
 
     expect(component.toJSON()).toMatchSnapshot();
   });

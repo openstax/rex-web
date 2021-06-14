@@ -54,8 +54,6 @@ describe('Study Guides button and PopUp', () => {
       <StudyguidesPopUp />
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await act(async() => {});
     act(() => { store.dispatch(openStudyGuides()); });
     act(() => {
       component.root.findByProps({ 'data-testid': 'close-studyguides-popup' })
@@ -73,9 +71,6 @@ describe('Study Guides button and PopUp', () => {
     const component = renderToDom(<TestContainer services={services} store={store}>
       <StudyguidesPopUp />
     </TestContainer>);
-
-    // tslint:disable-next-line: no-empty
-    await act(async() => {});
 
     const track = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
     const element = assertNotNull(component.node.querySelector('[data-testid=\'studyguides-popup-wrapper\']'), '');
@@ -95,9 +90,6 @@ describe('Study Guides button and PopUp', () => {
     const component = renderToDom(<TestContainer services={services} store={store}>
       <StudyguidesPopUp />
     </TestContainer>);
-
-    // tslint:disable-next-line: no-empty
-    await act(async() => {});
 
     const track = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
     const element = assertNotNull(component.node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');

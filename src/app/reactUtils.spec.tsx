@@ -1,7 +1,7 @@
 import { HTMLElement, MediaQueryList } from '@openstax/types/lib.dom';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { resetModules, runHooks } from '../test/utils';
+import { resetModules } from '../test/utils';
 import * as utils from './reactUtils';
 import { assertDocument, assertWindow } from './utils';
 
@@ -334,7 +334,8 @@ describe('useMatchMobileQuery', () => {
 
     const component = renderer.create(<Component/>);
 
-    runHooks();
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
 
     expect(mock.addEventListener).toHaveBeenCalled();
 
@@ -354,7 +355,8 @@ describe('useMatchMobileQuery', () => {
 
     const component = renderer.create(<Component/>);
 
-    runHooks();
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
 
     renderer.act(() => {
       (mock.addEventListener as any as jest.SpyInstance).mock.calls[0][1]({ matches: true });
@@ -394,7 +396,8 @@ describe('useOnScrollTopOffset', () => {
 
     const component = renderer.create(<Component/>);
 
-    runHooks();
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
 
     expect(spyAddListener).toHaveBeenCalled();
 
@@ -412,7 +415,8 @@ describe('useOnScrollTopOffset', () => {
 
     const component = renderer.create(<Component/>);
 
-    runHooks();
+    // tslint:disable-next-line: no-empty
+    renderer.act(() => {});
 
     Object.defineProperty(document, 'scrollingElement', {
       value: null,

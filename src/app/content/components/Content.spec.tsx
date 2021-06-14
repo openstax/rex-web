@@ -76,7 +76,7 @@ describe('content', () => {
       </Provider>
     );
 
-    runHooksAsync();
+    await runHooksAsync();
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -95,7 +95,7 @@ describe('content', () => {
       </Provider>
     );
 
-    runHooksAsync();
+    await runHooksAsync();
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -115,7 +115,7 @@ describe('content', () => {
       </Provider>
     );
 
-    runHooksAsync();
+    await runHooksAsync();
 
     expect(component.root.findByType(BuyBook)).toBeTruthy();
   });
@@ -133,7 +133,7 @@ describe('content', () => {
       </Provider>
     );
 
-    runHooksAsync();
+    await runHooksAsync();
 
     const scrollOffset = component.root.findByType(ScrollOffset);
 
@@ -159,7 +159,7 @@ describe('content', () => {
       </Provider>
     );
 
-    runHooksAsync();
+    await runHooksAsync();
 
     const scrollOffset = component.root.findByType(ScrollOffset);
 
@@ -185,7 +185,7 @@ describe('content', () => {
       </Provider>
     );
 
-    runHooksAsync();
+    await runHooksAsync();
 
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(1);
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledWith(
@@ -211,7 +211,7 @@ describe('content', () => {
       </Provider>
     );
 
-    runHooksAsync();
+    await runHooksAsync();
 
     const pageComponent = component.root.findByProps({ id: 'main-content' });
 
@@ -231,7 +231,7 @@ describe('content', () => {
       </Provider>
     );
 
-    runHooksAsync();
+    await runHooksAsync();
 
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
 
@@ -254,7 +254,7 @@ describe('content', () => {
       </Provider>
     );
 
-    runHooksAsync();
+    await runHooksAsync();
 
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
     const mobileScrollLock = component.root.findByType(ScrollLock);
@@ -279,7 +279,7 @@ describe('content', () => {
       </Provider>
     );
 
-    runHooksAsync();
+    await runHooksAsync();
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
 
