@@ -11,7 +11,6 @@ const exists = (filepath: string) => {
 };
 
 export const directoryExists = (filepath: string) => exists(filepath) && fs.lstatSync(filepath).isDirectory();
-export const fileExists = (filepath: string) => exists(filepath) && fs.lstatSync(filepath).isFile();
 
 export const touchFile = (filepath: string) => exists(filepath) || writeFile(filepath, '');
 export const readFile = (filepath: string) => fs.readFileSync(filepath, 'utf8');
