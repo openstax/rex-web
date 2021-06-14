@@ -1,7 +1,5 @@
 import * as mockArchive from '../../../test/mocks/archiveLoader';
-import { treeWithUnits } from '../../../test/trees';
 import { content } from '../routes';
-import * as archiveTreeUtils from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
 import { createNavigationMatch } from './navigationUtils';
 import * as urlUtils from './urlUtils';
@@ -28,10 +26,8 @@ describe('createRouteMatchOptions', () => {
     };
     const spyGetBookPageUrlAndParams = jest.spyOn(urlUtils, 'getBookPageUrlAndParams')
       .mockReturnValueOnce({ params: mockParams } as any);
-    const spyFindArchiveTreeNodeById = jest.spyOn(archiveTreeUtils, 'findArchiveTreeNodeById');
 
-    const result = createNavigationMatch(page.id, book);
-    expect(spyFindArchiveTreeNodeById).toHaveBeenCalled();
+    const result = createNavigationMatch(page, book);
     expect(spyGetBookPageUrlAndParams).toHaveBeenCalled();
     expect(result).toEqual(mockMatch);
   });
@@ -52,21 +48,9 @@ describe('createRouteMatchOptions', () => {
       },
     };
     const spyGetBookPageUrlAndParams = jest.spyOn(urlUtils, 'getBookPageUrlAndParams');
-    const spyFindArchiveTreeNodeById = jest.spyOn(archiveTreeUtils, 'findArchiveTreeNodeById');
 
-    const result = createNavigationMatch(page.id, book, mockParams);
-    expect(spyFindArchiveTreeNodeById).toHaveBeenCalled();
+    const result = createNavigationMatch(page, book, mockParams);
     expect(spyGetBookPageUrlAndParams).not.toHaveBeenCalled();
     expect(result).toEqual(mockMatch);
-  });
-
-  it('return undefined if page was not found in book', () => {
-    const { book } = mockArchive;
-    const spyFindArchiveTreeNodeById = jest.spyOn(archiveTreeUtils, 'findArchiveTreeNodeById')
-      .mockReturnValueOnce(undefined);
-
-    const result = createNavigationMatch(treeWithUnits.id, book);
-    expect(spyFindArchiveTreeNodeById).toHaveBeenCalled();
-    expect(result).toEqual(undefined);
   });
 });

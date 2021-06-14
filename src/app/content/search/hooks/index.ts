@@ -5,9 +5,12 @@ import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
+import { assertDefined } from '../../../utils/assertions';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
+import { Page } from '../../types';
+import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
@@ -79,7 +82,16 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     }
     : { search: queryString.stringify({ query }) };
 
-  const navigationMatch = targetPageId ? createNavigationMatch(targetPageId, book) : selectNavigation.match(state);
+  // tslint:disable-next-line: no-console
+  console.log(targetPageId);
+  const navigationMatch = targetPageId
+    ? createNavigationMatch(
+      assertDefined(
+        findArchiveTreeNodeById(book.tree, targetPageId),
+        'search result pointed to page that wasn\'t in book'
+      ) as any as Page, book)
+    : selectNavigation.match(state);
+
   if (navigationMatch) {
     services.dispatch(action(navigationMatch, options));
   }
