@@ -7,6 +7,7 @@ import { Store } from '../../../types';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import FinalScreen from './FinalScreen';
+import { runHooksAsync } from '../../../../test/utils';
 
 describe('FinalScreen for practice questions', () => {
   let store: Store;
@@ -24,8 +25,7 @@ describe('FinalScreen for practice questions', () => {
       <FinalScreen nextSection={mockSection} />
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    await runHooksAsync();
 
     const button = component.root.findByType(Button);
 
