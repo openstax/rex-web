@@ -4,7 +4,7 @@ import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import TestContainer from '../../../test/TestContainer';
-import { runHooksAsync } from '../../../test/utils';'';
+import { runHooksAsync } from '../../../test/utils';
 import { Store } from '../../types';
 import { receiveBuyPrintConfig } from '../actions';
 import { receiveBook } from '../actions';

@@ -1,17 +1,17 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
+import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
 import { runHooksAsync } from '../../../../test/utils';
 import Button from '../../../components/Button';
 import { Store } from '../../../types';
+import { receiveBook } from '../../actions';
 import { LinkedArchiveTreeSection } from '../../types';
+import { formatBookData } from '../../utils';
 import { setSelectedSection } from '../actions';
 import FinalScreen from './FinalScreen';
-import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { receiveBook } from '../../actions';
-import { formatBookData } from '../../utils';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
