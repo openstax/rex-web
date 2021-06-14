@@ -40,7 +40,7 @@ export const match = createSelector(
   (state) => state.match
 );
 
-export const persistentQueryParameters = createSelector(
+export const systemQueryParameters = createSelector(
   query,
   (navQuery) => pickBy(isDefined, {
     'content-style': navQuery['content-style'] as string | undefined,
