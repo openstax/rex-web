@@ -30,15 +30,15 @@ export default (routes: AnyRoute[], history: History): Middleware => ({getState,
       return;
     }
 
-    action.payload.search = queryString.stringify({
-      ...persistenQueryParameters(getState()),
-      ...queryString.parse(action.payload.search || ''),
-    });
-
     history[action.payload.method]({
       hash: action.payload.hash,
       pathname: matchPathname(action.payload),
-      search: matchSearch(action.payload, action.payload.search),
+      search: matchSearch(
+        action.payload,
+        {
+          ...persistenQueryParameters(getState()),
+          ...queryString.parse(action.payload.search || ''),
+        }),
       state: action.payload.state,
     });
   };

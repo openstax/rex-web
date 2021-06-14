@@ -67,14 +67,13 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
   }
 };
 
-export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?: string | undefined) => {
-  const previous = querystring.parse(search || '');
+export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?: queryString.OutputParams) => {
   const route = querystring.parse(
     action.route.getSearch ? action.route.getSearch(action.params) : ''
   );
 
   return querystring.stringify({
-    ...previous,
+    ...search,
     ...route,
   });
 };
