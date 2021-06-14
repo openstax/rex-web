@@ -87,7 +87,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const search = queryString.stringify({
     query,
     target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
-    ...selectNavigation.systemQueryParameters(state),
   });
   const hash = selectedResult.result.source.elementId;
 

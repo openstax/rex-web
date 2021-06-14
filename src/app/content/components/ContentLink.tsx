@@ -104,7 +104,6 @@ export const ConnectedContentLink = connect(
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     search: ({
       query: selectSearch.query(state) || undefined,
-      ...selectNavigation.systemQueryParameters(state),
       ...(ownProps.search ? ownProps.search : {}),
     }),
   }),
