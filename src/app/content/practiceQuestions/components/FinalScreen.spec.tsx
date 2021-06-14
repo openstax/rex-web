@@ -2,12 +2,12 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import TestContainer from '../../../../test/TestContainer';
+import { runHooksAsync } from '../../../../test/utils';
 import Button from '../../../components/Button';
 import { Store } from '../../../types';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import FinalScreen from './FinalScreen';
-import { runHooksAsync } from '../../../../test/utils';
 
 describe('FinalScreen for practice questions', () => {
   let store: Store;

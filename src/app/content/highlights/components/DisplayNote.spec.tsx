@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { makeFindByTestId } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
-import { runHooks } from '../../../../test/utils'
+import { runHooks } from '../../../../test/utils';
 import { DropdownToggle } from '../../../components/Dropdown';
 import { Store } from '../../../types';
 import { assertDocument, assertWindow } from '../../../utils';
@@ -14,7 +14,6 @@ import { requestSearch } from '../../search/actions';
 import Confirmation from './Confirmation';
 import DisplayNote, { DisplayNoteProps } from './DisplayNote';
 import TruncatedText from './TruncatedText';
-
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
 jest.mock('./TruncatedText', () => (props: any) => <div mock-truncated-text {...props} />);

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
@@ -8,8 +7,6 @@ import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import TestContainer from '../../../test/TestContainer';
 import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
-import * as Services from '../../context/Services';
-import MessageProvider from '../../messages/MessageProvider';
 import { locationChange } from '../../navigation/actions';
 import { Store } from '../../types';
 import { assertWindow } from '../../utils';
