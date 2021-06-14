@@ -5,11 +5,10 @@ import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
 import { modalQueryParameterName, studyGuidesFeatureFlag } from '../constants';
-import updateSummaryFilters from '../highlights/utils/updateSummaryFilters';
 import * as actions from './actions';
 import { highlightStyles, modalUrlName } from './constants';
 import { State } from './types';
-import { getColorFiltersFromQuery } from './utils';
+import { getFiltersFromQuery } from './utils';
 
 export const initialState: State = {
   isEnabled: false,
@@ -32,13 +31,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(locationChange): {
       const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
         && (action.payload.action === 'PUSH' || action.payload.action === 'REPLACE');
-      const colors = getColorFiltersFromQuery(action.payload.query) || state.summary.filters.colors;
+      const {colors, locationIds} = getFiltersFromQuery(action.payload.query, state);
 
       return {
         ...state,
         summary: {
           ...state.summary,
-          filters: {...state.summary.filters, colors},
+          filters: {...state.summary.filters, colors, locationIds},
           open: summaryShouldBeOpen,
         },
       };
@@ -72,18 +71,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           filters: {...state.summary.filters, ...action.payload, default: false},
-          loading: true,
-          pagination: null,
-          studyGuides: {},
-        },
-      };
-    }
-    case getType(actions.updateSummaryFilters): {
-      return {
-        ...state,
-        summary: {
-          ...state.summary,
-          filters: {...updateSummaryFilters(state.summary.filters, action.payload), default: false},
           loading: true,
           pagination: null,
           studyGuides: {},
