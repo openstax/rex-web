@@ -1,19 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
-import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
-import { runHooksAsync } from '../../../../test/utils';
 import Button from '../../../components/Button';
 import { Store } from '../../../types';
-import { receiveBook } from '../../actions';
 import { LinkedArchiveTreeSection } from '../../types';
-import { formatBookData } from '../../utils';
 import { setSelectedSection } from '../actions';
 import FinalScreen from './FinalScreen';
-
-const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('FinalScreen for practice questions', () => {
   let store: Store;
@@ -22,7 +15,6 @@ describe('FinalScreen for practice questions', () => {
   beforeEach(() => {
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
-    store.dispatch(receiveBook(book));
   });
 
   it('renders properly and dispatches action on click', async() => {
@@ -32,7 +24,8 @@ describe('FinalScreen for practice questions', () => {
       <FinalScreen nextSection={mockSection} />
     </TestContainer>);
 
-    await runHooksAsync();
+    // tslint:disable-next-line: no-empty
+    await renderer.act(async() => {});
 
     const button = component.root.findByType(Button);
 

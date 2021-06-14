@@ -5,7 +5,7 @@ import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import { runHooksAsync } from '../../../test/utils';
+import TestContainer from '../../../test/TestContainer';
 import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
@@ -61,79 +61,55 @@ describe('content', () => {
     services = createTestServices();
   });
 
-  it('matches snapshot', async() => {
+  it('matches snapshot', () => {
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     const component = renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
+      <TestContainer store={store} services={services}>
+        <Content />
+      </TestContainer>
     );
-
-    await runHooksAsync();
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders empty state', async() => {
+  it('renders empty state', () => {
     store.dispatch(receiveBook(bookState));
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     const component = renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
+      <TestContainer store={store} services={services}>
+        <Content />
+      </TestContainer>
     );
-
-    await runHooksAsync();
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders BuyBook button if book have a link to amazon', async() => {
+  it('renders BuyBook button if book have a link to amazon', () => {
     store.dispatch(receiveBook({ ...bookState, amazon_link: 'some-link' }));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     const component = renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
+      <TestContainer store={store} services={services}>
+        <Content />
+      </TestContainer>
     );
-
-    await runHooksAsync();
 
     expect(component.root.findByType(BuyBook)).toBeTruthy();
   });
 
-  it('provides the right scroll offset when mobile search collapsed', async() => {
+  it('provides the right scroll offset when mobile search collapsed', () => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
+      <TestContainer store={store} services={services}>
+        <Content />
+      </TestContainer>
     );
-
-    await runHooksAsync();
 
     const scrollOffset = component.root.findByType(ScrollOffset);
 
@@ -145,21 +121,15 @@ describe('content', () => {
     `);
   });
 
-  it('provides the right scroll offset when mobile search collapsed', async() => {
+  it('provides the right scroll offset when mobile search collapsed', () => {
     store.dispatch(receiveBook(bookState));
     store.dispatch(openMobileToolbar());
 
     const component = renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
+      <TestContainer store={store} services={services}>
+        <Content />
+      </TestContainer>
     );
-
-    await runHooksAsync();
 
     const scrollOffset = component.root.findByType(ScrollOffset);
 
@@ -171,21 +141,15 @@ describe('content', () => {
     `);
   });
 
-  it('gets page content out of cached archive query', async() => {
+  it('gets page content out of cached archive query', () => {
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
+      <TestContainer store={store} services={services}>
+        <Content />
+      </TestContainer>
     );
-
-    await runHooksAsync();
 
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(1);
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledWith(
@@ -195,66 +159,48 @@ describe('content', () => {
     );
   });
 
-  it('page element is still rendered if archive content is unavailable', async() => {
+  it('page element is still rendered if archive content is unavailable', () => {
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     services.archiveLoader.mock.cachedPage.mockReturnValue(undefined);
 
     const component = renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
+      <TestContainer store={store} services={services}>
+        <Content />
+      </TestContainer>
     );
-
-    await runHooksAsync();
 
     const pageComponent = component.root.findByProps({ id: 'main-content' });
 
     expect(pageComponent).toBeDefined();
   });
 
-  it('renders with ToC in null state', async() => {
+  it('renders with ToC in null state', () => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
+      <TestContainer store={store} services={services}>
+        <Content />
+      </TestContainer>
     );
-
-    await runHooksAsync();
 
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
 
     expect(tableOfContentsComponent.props.isOpen).toBe(null);
   });
 
-  it('clicking overlay closes toc', async() => {
+  it('clicking overlay closes toc', () => {
     renderer.act(() => {
       store.dispatch(receiveBook(bookState));
       store.dispatch(openToc());
     });
 
     const component = renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
+      <TestContainer store={store} services={services}>
+        <Content />
+      </TestContainer>
     );
-
-    await runHooksAsync();
 
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
     const mobileScrollLock = component.root.findByType(ScrollLock);
@@ -266,20 +212,14 @@ describe('content', () => {
     expect(tableOfContentsComponent.props.isOpen).toBe(false);
   });
 
-  it('SidebarControl opens and closes ToC', async() => {
+  it('SidebarControl opens and closes ToC', () => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
+      <TestContainer store={store} services={services}>
+        <Content />
+      </TestContainer>
     );
-
-    await runHooksAsync();
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
 
