@@ -32,17 +32,26 @@ describe('buyPrintConfigLoader', () => {
     expect(config).toEqual({buy_urls: []});
   });
 
+  it('gets cached config', async() => {
+    (global as any).fetch = mockFetch(200, {buy_urls: []});
+
+    await buyPrintConfigLoader.load({slug: 'qwer'});
+    await buyPrintConfigLoader.load({slug: 'qwer'});
+
+    expect(fetch).toHaveBeenCalledTimes(1);
+  });
+
   it('returns default buyPrintResponse on response error', async() => {
     (global as any).fetch = mockFetch(500, 'unexpected error');
 
-    const response = await buyPrintConfigLoader.load({slug: 'asdf'});
+    const response = await buyPrintConfigLoader.load({slug: 'zxcv'});
 
     const mockBuyPrintResponse = {
       buy_urls: [{
         allows_redirects: true,
         disclosure: null,
         provider: 'openstax_fallback',
-        url: 'url/asdf',
+        url: 'url/zxcv',
       }],
     };
 
