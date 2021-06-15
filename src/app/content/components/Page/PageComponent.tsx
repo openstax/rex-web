@@ -109,13 +109,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
   };
 
-  public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
-    if (prevProps.page !== this.props.page) {
-      this.listenersOff();
-    }
-    return null;
-  }
-
   public componentWillUnmount() {
     this.listenersOff();
     this.searchHighlightManager.unmount();
