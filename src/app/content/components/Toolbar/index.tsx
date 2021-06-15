@@ -119,12 +119,12 @@ class Toolbar extends React.Component<Props, State> {
               onClick={toggleMobile}
               colorSchema={this.props.searchButtonColor}
             />
-            {!this.state.formSubmitted &&
-              <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
-            }
             {this.state.formSubmitted &&
-              <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
+              <Styled.CloseIconButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search'>
+                <Styled.CloseButton />
+              </Styled.CloseIconButton>
             }
+            <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
         <PracticeQuestionsButton />
@@ -160,11 +160,15 @@ class Toolbar extends React.Component<Props, State> {
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
               onChange={onChange} value={this.state.query} />
-            {this.state.query && <Styled.CloseButton
-              type='button'
-              onClick={onClear}
-              data-testid='mobile-clear-search'
-            />}
+            {
+              this.state.query && <Styled.CloseIconButton
+                type='button'
+                onClick={onClear}
+                data-testid='mobile-clear-search'
+              >
+                <Styled.CloseButton />
+              </Styled.CloseIconButton>
+              }
           </Styled.SearchInputWrapper>
         </Styled.MobileSearchContainer>
       </Styled.MobileSearchWrapper>}
