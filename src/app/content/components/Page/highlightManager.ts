@@ -30,6 +30,7 @@ export interface HighlightManagerServices {
   clearPendingHighlight: () => void;
   highlighter: Highlighter;
   container: HTMLElement;
+  dispatch: Dispatch;
 }
 
 export const mapStateToHighlightProp = memoizeStateToProps((state: AppState) => ({
@@ -53,7 +54,9 @@ const onFocusHighlight = (services: HighlightManagerServices, highlight: Highlig
   if (!highlight || services.getProp().focused === highlight.id) {
     return;
   }
-  if (services.getProp().focused && services.getProp().hasUnsavedHighlight && !await showConfirmation()) {
+  if (services.getProp().focused
+    && services.getProp().hasUnsavedHighlight
+    && !await showConfirmation(services.dispatch)) {
     return;
   }
 
@@ -88,7 +91,7 @@ const onSelectHighlight = (
     return;
   }
 
-  if (services.getProp().hasUnsavedHighlight && !await showConfirmation()) {
+  if (services.getProp().hasUnsavedHighlight && !await showConfirmation(services.dispatch)) {
     assertWindow().getSelection()?.removeAllRanges();
     return;
   }
@@ -136,7 +139,8 @@ export interface UpdateOptions {
   onSelect: (highlight: Highlight | null) => void;
 }
 
-export default (container: HTMLElement, getProp: () => HighlightProp, intl: IntlShape) => {
+// tslint:disable-next-line: max-line-length
+export default (dispatch: Dispatch, container: HTMLElement, getProp: () => HighlightProp, intl: IntlShape) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let scrollTargetHighlightIdThatWasHandled: string;
@@ -194,6 +198,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, intl: Intl
   const services = {
     clearPendingHighlight,
     container,
+    dispatch,
     getProp,
     setPendingHighlight,
   };

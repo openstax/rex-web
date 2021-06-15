@@ -62,7 +62,10 @@ export default class PageComponent extends Component<PagePropTypes> {
       return;
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current, this.props.intl);
-    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.intl);
+    this.highlightManager = highlightManager(
+      this.props.dispatch,
+      this.container.current, () => this.props.highlights,
+      this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
   }
 

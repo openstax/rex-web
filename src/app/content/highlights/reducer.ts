@@ -21,8 +21,14 @@ import {
 import { findHighlight } from './utils/reducerUtils';
 import updateSummaryFilters from './utils/updateSummaryFilters';
 
+const initialConfirmationModalState: State['confirmationModal'] = {
+  callback: (key) => key === 'confirm',
+  open: false,
+};
 const defaultColors = highlightStyles.map(({label}) => label);
+
 export const initialState: State = {
+  confirmationModal: initialConfirmationModalState,
   currentPage: {
     hasUnsavedHighlight: false,
     highlights: null,
@@ -50,6 +56,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const currentPageId = state.currentPage.pageId;
       const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
       return {
+        ...state,
         currentPage: currentPageId && actionPageId === currentPageId
           ? omit('focused', {...state.currentPage, hasUnsavedHighlight: false})
           : initialState.currentPage,
@@ -78,6 +85,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         : state.summary.totalCountsPerPage;
 
       return {
+        ...state,
         currentPage: {
           ...state.currentPage,
           hasUnsavedHighlight: false,
@@ -132,6 +140,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       ;
 
       return {
+        ...state,
         currentPage: {
           ...state.currentPage,
           hasUnsavedHighlight,
@@ -170,6 +179,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       ;
 
       return {
+        ...state,
         currentPage: {
           ...state.currentPage,
           focused: state.currentPage.focused === action.payload.id ? undefined : state.currentPage.focused,
@@ -185,6 +195,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.receiveHighlights): {
       return {
+        ...state,
         currentPage: {
           ...state.currentPage,
           highlights: action.payload.highlights,
@@ -290,6 +301,23 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
             locationIds,
           },
           totalCountsPerPage: action.payload,
+        },
+      };
+    }
+    case getType(actions.showConfirmationModal): {
+      return {
+        ...state,
+        confirmationDialog: {
+          callback: action.payload.callback,
+          open: true,
+        },
+      };
+    }
+    case getType(actions.closeConfirmationModal): {
+      return {
+        ...state,
+        confirmationModal: {
+          ...initialConfirmationModalState,
         },
       };
     }

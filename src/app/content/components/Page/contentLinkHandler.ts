@@ -1,6 +1,7 @@
 import { Document, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
+import { useDispatch } from 'react-redux';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
@@ -82,6 +83,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       focusedHighlight,
       hasUnsavedHighlight,
     } = getProps();
+    const dispatch = useDispatch();
     const href = anchor.getAttribute('href');
 
     if (!href || !book || !page || isClickWithModifierKeys(e)) {
@@ -110,7 +112,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       e.stopPropagation();
     }
 
-    if (hasUnsavedHighlight && !await showConfirmation()) {
+    if (hasUnsavedHighlight && !await showConfirmation(dispatch)) {
       return;
     }
 

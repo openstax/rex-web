@@ -7,6 +7,7 @@ import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import { AppState } from '../../types';
+import ConfirmationModal from '../highlights/components/ConfirmationModal';
 import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
 import PracticeQuestionsPopup from '../practiceQuestions/components/PracticeQuestionsPopup';
 import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
@@ -204,6 +205,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
           </CenteredContentRow>
         </Wrapper>
       </OuterWrapper>
+      <ConfirmationModal />
     </ErrorBoundary>
   </Background>
 </Layout>;

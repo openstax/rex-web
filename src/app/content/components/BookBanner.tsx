@@ -7,7 +7,7 @@ import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import theme from '../../theme';
-import { AppState } from '../../types';
+import { AppState, Dispatch } from '../../types';
 import { assertDefined, assertWindow } from '../../utils';
 import { hasOSWebData } from '../guards';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
@@ -181,6 +181,7 @@ export interface PropTypes {
   book?: Book;
   hasUnsavedHighlight?: boolean;
   bookTheme: BookWithOSWebData['theme'];
+  dispatch: Dispatch;
 }
 
 interface BookBannerState {
@@ -214,7 +215,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
     }
     e.preventDefault();
 
-    if (!await showConfirmation()) {
+    if (!await showConfirmation(this.props.dispatch)) {
       return;
     }
     assertWindow().location.assign(link);

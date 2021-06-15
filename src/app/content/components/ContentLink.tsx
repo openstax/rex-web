@@ -1,6 +1,6 @@
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
@@ -53,6 +53,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     hasUnsavedHighlight,
     ...anchorProps
   } = props;
+  const dispatch = useDispatch();
   const {url, params} = getBookPageUrlAndParams(book, page);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
@@ -72,7 +73,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       e.preventDefault();
 
-      if (hasUnsavedHighlight && !await showConfirmation()) {
+      if (hasUnsavedHighlight && !await showConfirmation(dispatch)) {
         return;
       }
 
