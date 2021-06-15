@@ -7,7 +7,6 @@ import {
   getHighlightOffset,
   getHighlightTopOffset,
   hiddenHighlightOffset,
-  updateStackedCardsPositions
 } from './cardUtils';
 
 describe('cardUtils', () => {
@@ -81,19 +80,5 @@ describe('generateUpdatePayload', () => {
 
     expect(payload.preUpdateData.highlight).toEqual(oldData);
     expect(payload.updatePayload.highlight).toEqual({ ...update, color: oldData.color });
-  });
-});
-
-describe('updateStackedCardsPositions', () => {
-  it('returns hidden higlight position without adjusting the offset', () => {
-    const highlight = createMockHighlight('asd');
-    const mockGetHighlightPosition = jest.fn().mockReturnValueOnce({ top: hiddenHighlightOffset });
-    const mockPosition = new Map<string, number>();
-    mockPosition.set(highlight.id, hiddenHighlightOffset);
-    expect(updateStackedCardsPositions(
-      [highlight as any as Highlight],
-      { [`${highlight.id}`]: 20 } as any,
-      mockGetHighlightPosition
-    )).toEqual(mockPosition);
   });
 });

@@ -96,7 +96,7 @@ export const generateUpdatePayload = (
  * Calculate positions for the cards according to the location of associated highlights in the document.
  * Positions will be adjusted to the presence of the other cards in cases like multiple highlights in the same line.
  */
-export const updateStackedCardsPositions = (
+const updateStackedCardsPositions = (
   highlightsElements: Highlight[],
   heights: Map<string, number>,
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },

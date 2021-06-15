@@ -13,6 +13,7 @@ import { focusHighlight } from '../actions';
 import { cardMarginBottom, highlightKeyCombination } from '../constants';
 import Card from './Card';
 import * as cardUtils from './cardUtils';
+import { hiddenHighlightOffset } from './cardUtils';
 import CardWrapper from './CardWrapper';
 
 const dispatchKeyDownEvent = (
@@ -40,11 +41,6 @@ const dispatchFocusOutEvent = (
 };
 
 jest.mock('./Card', () => (props: any) => <span data-mock-card {...props} />);
-
-jest.mock('./cardUtils', () => ({
-  ...jest.requireActual('./cardUtils'),
-  getHighlightOffset: jest.fn(() => ({ top: 100, bottom: 100 })),
-}));
 
 describe('CardWrapper', () => {
   let store: Store;
@@ -90,9 +86,10 @@ describe('CardWrapper', () => {
     const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
     scrollIntoView.mockImplementation(() => null);
 
+    const element = assertDocument().createElement('div');
     const highlight = {
       ...createMockHighlight(),
-      elements: ['something'],
+      elements: [element],
     };
 
     renderer.create(<Provider store={store}>
@@ -131,17 +128,20 @@ describe('CardWrapper', () => {
     const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
     scrollIntoView.mockImplementation(() => null);
 
+    const element = assertDocument().createElement('div');
     const highlight = {
       ...createMockHighlight(),
-      elements: ['something'],
+      elements: [element],
     };
+    const element2 = assertDocument().createElement('div');
     const highlight2 = {
       ...createMockHighlight(),
-      elements: ['else'],
+      elements: [element2],
     };
+    const element3 = assertDocument().createElement('div');
     const highlight3 = {
       ...createMockHighlight(),
-      elements: ['woops'],
+      elements: [element3],
     };
 
     const component = renderer.create(<Provider store={store}>
@@ -166,7 +166,46 @@ describe('CardWrapper', () => {
     expect(scrollIntoView).not.toHaveBeenCalled();
   });
 
+  it('returns hidden higlight position without adjusting the offset', () => {
+    const element = assertDocument().createElement('div');
+    const highlight = {
+      ...createMockHighlight(),
+      elements: [element],
+    };
+    const element2 = assertDocument().createElement('div');
+    const expandedAncestor = assertDocument().createElement('div');
+    expandedAncestor.setAttribute('aria-expanded', 'false');
+    expandedAncestor.dataset.type = 'solution';
+    expandedAncestor.appendChild(element2);
+    const highlight2 = {
+      ...createMockHighlight(),
+      elements: [element2],
+    };
+
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper container={container} highlights={[highlight, highlight2]} />
+    </Provider>);
+
+    const [card1, card2] = component.root.findAllByType(Card);
+    expect(card1.props.topOffset).toEqual(undefined);
+    expect(card2.props.topOffset).toEqual(undefined);
+
+    // Update state with a height
+    renderer.act(() => {
+      card1.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card2.props.onHeightChange({ current: { offsetHeight: 50 } });
+    });
+
+    // first card have only 50px height + 20px margin bottom
+    expect(card1.props.topOffset).toEqual(0);
+    // returns -9999 beacuse higlight is a child of collapsed container
+    expect(card2.props.topOffset).toEqual(hiddenHighlightOffset);
+  });
+
   it(`handles card's height changes`, () => {
+    jest.spyOn(cardUtils, 'getHighlightOffset')
+      .mockReturnValue(({ top: 100, bottom: 100 }));
+
     const component = renderer.create(<Provider store={store}>
       <CardWrapper container={container} highlights={[createMockHighlight(), createMockHighlight()]} />
     </Provider>);
