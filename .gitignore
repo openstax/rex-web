@@ -80,3 +80,6 @@ open-search-client
 
 # development environment.json
 public/rex/environment.json
+
+# pre-rendering cache folder
+/cache
