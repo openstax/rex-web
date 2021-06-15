@@ -94,17 +94,22 @@ export default styled(MainContent)`
         }
       }
 
-      &.first.text.has-note:before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        width: 0;
-        height: 0;
-        opacity: 0.8;
-        border-left: ${highlightIndicatorSize}em solid ${style.focused};
-        border-top: ${highlightIndicatorSize}em solid transparent;
-        transform: rotate(90deg);
+      &.first.text.has-note {
+        display: inline-block;
+        line-height: 1.7rem;
+
+        &:after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: "";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: ${highlightIndicatorSize}em solid ${style.focused};
+          border-top: ${highlightIndicatorSize}em solid transparent;
+          transform: rotate(90deg);
+        }
       }
 
       @media screen {
@@ -119,7 +124,7 @@ export default styled(MainContent)`
             background-color: ${style.focused};
           }
 
-          &.first.text.has-note:before {
+          &.first.text.has-note:after {
             display: none;
           }
         }
