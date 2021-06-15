@@ -118,25 +118,25 @@ Array [
       </div>
     </div>
     <div
-      className="styled__BarWrapper-sc-1119auh-9 iBpta"
+      className="styled__BarWrapper-sc-1119auh-10 fiPaey"
       data-analytics-region="toolbar"
     >
       <div
-        className="styled__TopBar-sc-1119auh-11 iMGONm"
+        className="styled__TopBar-sc-1119auh-12 gCvMuu"
         data-testid="toolbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-1119auh-8 gCGyni"
+          className="styled__SearchPrintWrapper-sc-1119auh-9 lUBcZ"
         >
           <form
-            className="styled__SearchInputWrapper-sc-1119auh-6 bkDHsN"
+            className="styled__SearchInputWrapper-sc-1119auh-7 hzXomm"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
           >
             <input
               aria-label="Search this book"
-              className="styled__SearchInput-sc-1119auh-7 fDlesR"
+              className="styled__SearchInput-sc-1119auh-8 yjezi"
               data-testid="desktop-search-input"
               onChange={[Function]}
               placeholder="Search this book"
@@ -145,7 +145,7 @@ Array [
             />
             <button
               aria-label="Search this book"
-              className="styled__SearchButton-sc-1119auh-4 fRNtmY styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 cSMsEm styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-analytics-label="Search this book"
               data-experiment={true}
               data-testid="mobile-toggle"
@@ -179,7 +179,7 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-1119auh-4 iMBjHc styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 bKQlQl styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-experiment={true}
               value="Search"
             >
@@ -211,7 +211,7 @@ Array [
           </form>
         </div>
         <div
-          className="styled__NudgeElementTarget-sc-1119auh-18 kJPvUC"
+          className="styled__NudgeElementTarget-sc-1119auh-19 fIeWXu"
           id="nudge-study-tools"
         >
           <button
@@ -303,7 +303,7 @@ Array [
         </button>
         <button
           aria-label="Click to open the Table of Contents"
-          className="styled__SidebarControl-sc-1119auh-17 hjOsxS SidebarControl__ToCButton-sdjc7-1 crKPaR"
+          className="styled__SidebarControl-sc-1119auh-18 btgOdP SidebarControl__ToCButton-sdjc7-1 crKPaR"
           data-analytics-label="Click to open the Table of Contents"
           data-testid="toc-button"
           onClick={[Function]}
@@ -1473,25 +1473,25 @@ Array [
       className="BookBanner__BarWrapper-sc-1avy0c0-5 blPrsP"
     />
     <div
-      className="styled__BarWrapper-sc-1119auh-9 iBpta"
+      className="styled__BarWrapper-sc-1119auh-10 fiPaey"
       data-analytics-region="toolbar"
     >
       <div
-        className="styled__TopBar-sc-1119auh-11 iMGONm"
+        className="styled__TopBar-sc-1119auh-12 gCvMuu"
         data-testid="toolbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-1119auh-8 gCGyni"
+          className="styled__SearchPrintWrapper-sc-1119auh-9 lUBcZ"
         >
           <form
-            className="styled__SearchInputWrapper-sc-1119auh-6 bkDHsN"
+            className="styled__SearchInputWrapper-sc-1119auh-7 hzXomm"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
           >
             <input
               aria-label="Search this book"
-              className="styled__SearchInput-sc-1119auh-7 fDlesR"
+              className="styled__SearchInput-sc-1119auh-8 yjezi"
               data-testid="desktop-search-input"
               onChange={[Function]}
               placeholder="Search this book"
@@ -1500,7 +1500,7 @@ Array [
             />
             <button
               aria-label="Search this book"
-              className="styled__SearchButton-sc-1119auh-4 fRNtmY styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 cSMsEm styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-analytics-label="Search this book"
               data-experiment={true}
               data-testid="mobile-toggle"
@@ -1534,7 +1534,7 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-1119auh-4 iMBjHc styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 bKQlQl styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-experiment={true}
               value="Search"
             >
@@ -1566,7 +1566,7 @@ Array [
           </form>
         </div>
         <div
-          className="styled__NudgeElementTarget-sc-1119auh-18 kJPvUC"
+          className="styled__NudgeElementTarget-sc-1119auh-19 fIeWXu"
           id="nudge-study-tools"
         >
           <button
@@ -1658,7 +1658,7 @@ Array [
         </button>
         <button
           aria-label="Click to open the Table of Contents"
-          className="styled__SidebarControl-sc-1119auh-17 hjOsxS SidebarControl__ToCButton-sdjc7-1 crKPaR"
+          className="styled__SidebarControl-sc-1119auh-18 btgOdP SidebarControl__ToCButton-sdjc7-1 crKPaR"
           data-analytics-label="Click to open the Table of Contents"
           data-testid="toc-button"
           onClick={[Function]}
