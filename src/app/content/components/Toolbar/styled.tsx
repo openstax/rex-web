@@ -134,6 +134,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
   </PlainButton>;
 })`
   height: 3.2rem;
+  margin: 0;
   transition: ${(props) => props.colorSchema ? 'background 200ms' : 'none'};
   background:
     ${(props: {colorSchema: BookWithOSWebData['theme'] | null }) => props.colorSchema
