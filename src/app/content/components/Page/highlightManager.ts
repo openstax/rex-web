@@ -139,7 +139,6 @@ export interface UpdateOptions {
   onSelect: (highlight: Highlight | null) => void;
 }
 
-// tslint:disable-next-line: max-line-length
 export default (dispatch: Dispatch, container: HTMLElement, getProp: () => HighlightProp, intl: IntlShape) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
