@@ -307,7 +307,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.showConfirmationModal): {
       return {
         ...state,
-        confirmationDialog: {
+        confirmationModal: {
           callback: action.payload.callback,
           open: true,
         },
