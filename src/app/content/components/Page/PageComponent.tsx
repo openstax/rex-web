@@ -68,20 +68,22 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
+    // Store the id of this update. We need it because we want to update highlight managers only once
+    // per rerender. componentDidUpdate is called multiple times when user navigates quickly.
     const runId = this.getRunId();
 
+    // If page has changed, call postProcess that will remove old and attach new listerns and start mathjax typesetting.
     if (prevProps.page !== this.props.page) {
       this.postProcess();
     }
 
-    // if there is a previous processing job, wait for it to finish.
-    // this is mostly only relevant for initial load to ensure search results
-    // are not highlighted before math is done typesetting, but may also
-    // be relevant if there are rapid page navigations.
+    // Wait for the mathjax promise set by postProcess from previous or current componentDidUpdate call.
     await this.processing;
 
     this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
+    // If user nvaigated quickly between pages then most likelly there were multiple componentDidUpdate calls started.
+    // We want to update highlight manager only for the last componentDidUpdate.
     if (!this.shouldUpdateHighlightManagers(prevProps, this.props, runId)) {
       return;
     }
