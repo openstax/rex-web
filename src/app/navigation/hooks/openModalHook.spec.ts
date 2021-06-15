@@ -2,6 +2,7 @@ import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { initialState as initialContentState } from '../../content/reducer';
 import { content } from '../../content/routes';
+import { modalUrlName } from '../../content/studyGuides/constants';
 import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { locationChange } from '../actions';
@@ -52,6 +53,34 @@ describe('openModal', () => {
     expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
       payload: expect.objectContaining({
         search: 'modal=myModalName',
+      }),
+    }));
+  });
+
+  it('updates the search with colors filter for SG modal', () => {
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        ...assertWindow().location,
+        pathname: '/books/book-slug-1/pages/doesnotmatter',
+        state: {},
+      },
+      match: {
+        params: {
+          book: { slug: 'book' },
+          page: { slug: 'page' },
+        },
+        route: content,
+        state: {},
+      },
+    }));
+    const hook = hookFactory(modalUrlName)(helpers);
+
+    hook();
+
+    expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
+      payload: expect.objectContaining({
+        search: `colors=yellow&colors=green&colors=blue&colors=purple&modal=${modalUrlName}`,
       }),
     }));
   });

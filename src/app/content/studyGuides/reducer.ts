@@ -31,7 +31,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(locationChange): {
       const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
         && (action.payload.action === 'PUSH' || action.payload.action === 'REPLACE');
-      const {colors, locationIds} = getFiltersFromQuery(action.payload.query, state);
+      const {colors, locationIds} = getFiltersFromQuery(action.payload.query, state.summary.filters);
 
       return {
         ...state,

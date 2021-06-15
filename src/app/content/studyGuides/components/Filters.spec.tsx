@@ -16,7 +16,7 @@ import { assertWindow } from '../../../utils';
 import { receiveBook } from '../../actions';
 import FiltersList, { FiltersListColor } from '../../components/popUp/FiltersList';
 import { modalQueryParameterName } from '../../constants';
-import { SummaryFilters, SummaryFiltersUpdate } from '../../highlights/types';
+import { SummaryFiltersUpdate } from '../../highlights/types';
 import updateSummaryFilters from '../../highlights/utils/updateSummaryFilters';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
@@ -27,7 +27,7 @@ import {
   updateSummaryFilters as updateSummaryFiltersAction,
 } from '../actions';
 import { modalUrlName } from '../constants';
-import { summaryFilters } from '../selectors';
+import * as selectors from '../selectors';
 import Filters from './Filters';
 import { cookieUTG } from './UsingThisGuide/constants';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
@@ -50,9 +50,18 @@ describe('Filters', () => {
   });
 
   it('matches snapshot with UTG banner open (opened initially)', () => {
-    const pageId = stripIdVersion(book.tree.contents[0].id);
+    const chapterId = stripIdVersion(book.tree.contents[2].id);
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {},
+      query: {
+        [modalQueryParameterName]: modalUrlName,
+        locationIds: [chapterId],
+      },
+    } as any));
+    store.dispatch(receiveBook(book));
     store.dispatch(receiveStudyGuidesTotalCounts({
-      [pageId]: {
+      [chapterId]: {
         [HighlightColorEnum.Green]: 1,
         [HighlightColorEnum.Yellow]: 1,
         [HighlightColorEnum.Blue]: 1,
@@ -60,6 +69,9 @@ describe('Filters', () => {
         [HighlightColorEnum.Purple]: 1,
       },
     }));
+    // mock this value because state is being reset after dispatching locationChange
+    jest.spyOn(selectors, 'summaryLocationFilters')
+      .mockReturnValue(new Set([chapterId]));
 
     const component = renderer.create(<TestContainer services={services} store={store}>
       <Filters />
@@ -149,14 +161,16 @@ describe('Filters', () => {
     // call action that should be triggered by the hook for updateSummaryFilters
     const updateFilters = (update: SummaryFiltersUpdate) => {
       renderer.act(() => {
-        const updatedFilters = updateSummaryFilters(summaryFilters(store.getState()), update);
+        const updatedFilters = updateSummaryFilters(selectors.summaryFilters(store.getState()), update);
         store.dispatch(locationChange({
+          action: 'REPLACE',
           location: {},
           query: {
             [modalQueryParameterName]: modalUrlName,
             ...updatedFilters,
           },
         } as any));
+        store.dispatch(receiveBook(book));
       });
     };
 
@@ -205,9 +219,11 @@ describe('Filters', () => {
       ch1.props.onChange();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(updateSummaryFiltersAction({
+    const thirdUpdate = updateSummaryFiltersAction({
       locations: { new: [chapter], remove: [] },
-    }));
+    });
+    expect(dispatch).toHaveBeenCalledWith(thirdUpdate);
+    updateFilters(thirdUpdate.payload);
   });
 
   it('dispatches updateSummaryFilters when removing selected colors from FiltersList', () => {
