@@ -3,12 +3,25 @@ import { stripIdVersion } from '../app/content/utils';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 
+interface Options {
+  appUrl?: string;
+  bookCache?: Cache<string, ArchiveBook>;
+  pageCache?: Cache<string, ArchivePage>;
+}
+
+const defaultOptions = (backendUrl: string) => ({
+  appUrl: backendUrl,
+  bookCache: createCache<string, ArchiveBook>({maxRecords: 20}),
+  pageCache: createCache<string, ArchivePage>({maxRecords: 20}),
+});
+
 /*
  * appUrl is reported to the app for the resolving of relative assets in the content.
  * there are situatons such as pre-rendering using a local proxy where this is different
  * from the actual url that is fetched from.
  */
-export default (backendUrl: string, appUrl: string = backendUrl) => {
+export default (backendUrl: string, options: Options = {}) => {
+  const {pageCache, bookCache, appUrl} = {...defaultOptions(backendUrl), ...options};
 
   const contentUrl = (base: string, ref: string) => `${base}/contents/${ref}.json`;
 
@@ -29,10 +42,7 @@ export default (backendUrl: string, appUrl: string = backendUrl) => {
       });
   };
 
-  const bookCache = createCache<string, ArchiveBook>({maxRecords: 20});
   const bookLoader = contentsLoader<ArchiveBook>(bookCache);
-
-  const pageCache = createCache<string, ArchivePage>({maxRecords: 20});
   const pageLoader = contentsLoader<ArchivePage>(pageCache);
 
   return {
