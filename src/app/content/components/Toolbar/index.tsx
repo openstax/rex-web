@@ -166,7 +166,7 @@ class Toolbar extends React.Component<Props, State> {
                 onClick={onClear}
                 data-testid='mobile-clear-search'
               >
-                <Styled.CloseButton />
+                <Styled.CloseIcon />
               </Styled.CloseIconButton>
               }
           </Styled.SearchInputWrapper>

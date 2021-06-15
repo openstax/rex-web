@@ -153,7 +153,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseButton = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   color: ${toolbarIconColor.base};
   height: 2.2rem;
 `;
