@@ -159,7 +159,7 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseIconButton = styled.button`
+export const CloseButton = styled.button`
   ${toolbarIconStyles}
   cursor: pointer;
   border: none;

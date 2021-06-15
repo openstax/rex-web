@@ -120,9 +120,9 @@ class Toolbar extends React.Component<Props, State> {
               colorSchema={this.props.searchButtonColor}
             />
             {this.state.formSubmitted &&
-              <Styled.CloseIconButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search'>
-                <Styled.CloseButton />
-              </Styled.CloseIconButton>
+              <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search'>
+                <Styled.CloseIcon />
+              </Styled.CloseButton>
             }
             <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
           </Styled.SearchInputWrapper>
@@ -161,13 +161,13 @@ class Toolbar extends React.Component<Props, State> {
               autoFocus
               onChange={onChange} value={this.state.query} />
             {
-              this.state.query && <Styled.CloseIconButton
+              this.state.query && <Styled.CloseButton
                 type='button'
                 onClick={onClear}
                 data-testid='mobile-clear-search'
               >
                 <Styled.CloseIcon />
-              </Styled.CloseIconButton>
+              </Styled.CloseButton>
               }
           </Styled.SearchInputWrapper>
         </Styled.MobileSearchContainer>
