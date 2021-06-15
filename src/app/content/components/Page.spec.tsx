@@ -910,7 +910,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
 
-    expect(highlightResults).not.toHaveBeenCalledWith(expect.anything(), []);
+    expect(highlightResults).toHaveBeenCalledWith(expect.anything(), [hit]);
     expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
