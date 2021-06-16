@@ -1,28 +1,31 @@
-import React from 'react';
 import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
 import createTestServices from '../../test/createTestServices';
 import createTestStore from '../../test/createTestStore';
 import { book as archiveBook } from '../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../test/mocks/osWebLoader';
-import { resetModules, runHooksAsync } from '../../test/utils';
+import { reactAndFriends, resetModules } from '../../test/utils';
 import { receiveBook } from '../content/actions';
 import { formatBookData } from '../content/utils';
 import * as Services from '../context/Services';
-import MessageProvider from '../messages/MessageProvider';
 import { Store } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('MessageProvider', () => {
+  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
+  let renderer: ReturnType<typeof reactAndFriends>['renderer'];
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
+  // tslint:disable-next-line: variable-name
+  let MessageProvider: any;
 
   beforeEach(() => {
+    resetModules();
+
     store = createTestStore();
     services = createTestServices();
+    ({React, renderer} = reactAndFriends());
     store.dispatch(receiveBook(book));
-    resetModules();
   });
 
   it('doesn\'t polyfill when api exists', async() => {
@@ -32,15 +35,17 @@ describe('MessageProvider', () => {
       loaded = true;
     });
 
-    renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider />
-        </Services.Provider>
-      </Provider>
+    MessageProvider = require('../messages/MessageProvider').default;
+    store.dispatch(receiveBook(book));
+
+    renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider />
+      </Services.Provider>
+    </Provider>
     );
 
-    await runHooksAsync();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(loaded).toBe(false);
   });
@@ -48,10 +53,7 @@ describe('MessageProvider', () => {
   describe('when api is not there', () => {
 
     beforeEach(() => {
-      store = createTestStore();
-      services = createTestServices();
       (Intl as any).PluralRules.polyfilled = true;
-      store.dispatch(receiveBook(book));
     });
 
     afterEach(() => {
@@ -69,15 +71,16 @@ describe('MessageProvider', () => {
         loaded = true;
       });
 
-      renderer.create(
-        <Provider store={store}>
-          <Services.Provider value={services}>
-            <MessageProvider />
-          </Services.Provider>
-        </Provider>
+      MessageProvider = require('../messages/MessageProvider').default;
+
+      renderer.create(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider />
+        </Services.Provider>
+      </Provider>
       );
 
-      await runHooksAsync();
+      await new Promise((resolve) => setImmediate(resolve));
 
       expect(loaded).toBe(true);
     });
@@ -92,15 +95,18 @@ describe('MessageProvider', () => {
         loaded = true;
       });
 
-      renderer.create(
-        <Provider store={store}>
-          <Services.Provider value={services}>
-            <MessageProvider />
-          </Services.Provider>
-        </Provider>
+      require('../messages/MessageProvider');
+
+      MessageProvider = require('../messages/MessageProvider').default;
+
+      renderer.create(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider />
+        </Services.Provider>
+      </Provider>
       );
 
-      await runHooksAsync();
+      await new Promise((resolve) => setImmediate(resolve));
 
       expect(loaded).toBe(true);
     });
