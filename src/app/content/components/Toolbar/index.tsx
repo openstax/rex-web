@@ -122,7 +122,7 @@ class Toolbar extends React.Component<Props, State> {
               colorSchema={this.props.searchButtonColor}
             />
             {!this.state.formSubmitted && !newButtonEnabled &&
-              <Styled.SearchButton desktop />
+              <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
             }
             {this.state.formSubmitted && !newButtonEnabled &&
               <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
