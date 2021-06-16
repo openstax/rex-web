@@ -1,8 +1,9 @@
-import UntypedHighlighter from '@openstax/highlighter';
+import UntypedHighlighter, { Highlight } from '@openstax/highlighter';
 import { IntlShape } from 'react-intl';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import { makeSearchResultHit } from '../../../../test/searchResults';
 import { assertDocument } from '../../../utils';
+import * as utils from '../../search/utils';
 import searchHighlightManager from './searchHighlightManager';
 
 jest.mock('@openstax/highlighter');
@@ -32,16 +33,49 @@ describe('searchHighlightManager', () => {
   let attachedManager: ReturnType<typeof searchHighlightManager>;
   let onHighlightSelect: jest.Mock;
   let intl: IntlShape;
+  let solutionButtonClick: jest.SpyInstance;
 
   beforeEach(() => {
     const container = assertDocument().createElement('div');
+    const collapsedSolution = assertDocument().createElement('div');
+    collapsedSolution.setAttribute('data-type', 'solution');
+    collapsedSolution.setAttribute('aria-expanded', 'false');
+    const button = assertDocument().createElement('button');
+    collapsedSolution.append(button);
+
+    solutionButtonClick = jest.spyOn(button, 'click');
+
+    const hl1 = assertDocument().createElement('span');
+    const hl2 = assertDocument().createElement('span');
+    const hl3 = assertDocument().createElement('span');
+
+    collapsedSolution.append(hl1, hl2);
+
     intl = { formatMessage: jest.fn() } as any as IntlShape;
     attachedManager = searchHighlightManager(container, intl);
+
+    const createMockHl = (element: HTMLElement): Highlight => ({
+      addFocusedStyles: jest.fn(),
+      elements: [element],
+    } as any);
+
+    jest.spyOn(utils, 'highlightResults')
+      .mockImplementation(() => [
+        {
+          highlights: { 0: [createMockHl(hl1)], 1: [createMockHl(hl2)] } as any as Record<number, Highlight[]>,
+          result: searchResults[0],
+        },
+        {
+          highlights: { 0: [createMockHl(hl3)] } as any as Record<number, Highlight[]>,
+          result: searchResults[0],
+        },
+      ]);
 
     onHighlightSelect = jest.fn();
   });
 
-  it('calls highlight select callback only when a new highlight is selected', () => {
+  it('calls highlight select callback only when a new highlight is selected + toggle solution if highlight is inside',
+    () => {
     const selectedSearchResult = {highlight: 0, result: searchResults[0]};
 
     attachedManager.update(
@@ -67,6 +101,7 @@ describe('searchHighlightManager', () => {
     );
 
     expect(onHighlightSelect).toHaveBeenCalledTimes(2);
+    expect(solutionButtonClick).toHaveBeenCalledTimes(2);
   });
 
   it('handles highlight.formatMessage', () => {
