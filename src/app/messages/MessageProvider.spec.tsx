@@ -49,7 +49,7 @@ describe('MessageProvider', () => {
 
     MessageProvider = require('../messages/MessageProvider').default;
 
-    const component = renderer.create(<Provider store={store}>
+    renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider />
       </Services.Provider>
@@ -88,7 +88,7 @@ describe('MessageProvider', () => {
         store.dispatch(receiveBook(book));
       });
 
-      const component = renderer.create(<Provider store={store}>
+      renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider />
         </Services.Provider>
@@ -116,7 +116,7 @@ describe('MessageProvider', () => {
         store.dispatch(receiveBook(book));
       });
 
-      const component = renderer.create(<Provider store={store}>
+      renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider />
         </Services.Provider>
