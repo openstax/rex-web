@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
 import { Print } from 'styled-icons/fa-solid/Print';
+import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import SearchIcon from '../../../../assets/SearchIcon';
 import { maxNavWidth } from '../../../components/NavBar/styled';
 import Times from '../../../components/Times';
@@ -53,6 +54,12 @@ const hideSearchChrome = css`
     appearance: none;
     display: none;
   }
+`;
+
+const closeIconStyles = css`
+  height: 1.6rem;
+  width: 1.6rem;
+  color: #cdcdcd;
 `;
 
 const barPadding = css`
@@ -154,13 +161,26 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
 `;
 
 // tslint:disable-next-line:variable-name
+export const CloseButton = styled(
+  ({ desktop, ...props }) => <PlainButton {...props}><TimesCircle /></PlainButton>
+)`
+  > svg {
+    ${closeIconStyles}
+  }
+
+  ${(props) => props.desktop && theme.breakpoints.mobile(css`
+    display: none;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   color: ${toolbarIconColor.base};
   height: 2.2rem;
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseButton = styled.button`
+export const CloseButtonNew = styled.button`
   ${toolbarIconStyles}
   cursor: pointer;
   border: none;

@@ -97,6 +97,8 @@ class Toolbar extends React.Component<Props, State> {
     const hideFromFocus = this.props.tocOpen === true
       || (this.props.tocOpen === null && !this.props.searchSidebarOpen);
 
+    const newButtonEnabled = !!this.props.searchButtonColor;
+
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
         <Styled.SearchPrintWrapper>
@@ -119,12 +121,20 @@ class Toolbar extends React.Component<Props, State> {
               onClick={toggleMobile}
               colorSchema={this.props.searchButtonColor}
             />
-            {this.state.formSubmitted &&
-              <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search'>
-                <Styled.CloseIcon />
-              </Styled.CloseButton>
+            {!this.state.formSubmitted && !newButtonEnabled &&
+              <Styled.SearchButton desktop />
             }
-            <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+            {this.state.formSubmitted && !newButtonEnabled &&
+              <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
+            }
+            {this.state.formSubmitted && newButtonEnabled &&
+              <Styled.CloseButtonNew desktop type='button' onClick={onClear} data-testid='desktop-clear-search'>
+                <Styled.CloseIcon />
+              </Styled.CloseButtonNew>
+            }
+            {newButtonEnabled &&
+              <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+            }
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
         <PracticeQuestionsButton />
@@ -161,13 +171,20 @@ class Toolbar extends React.Component<Props, State> {
               autoFocus
               onChange={onChange} value={this.state.query} />
             {
-              this.state.query && <Styled.CloseButton
+              this.state.query && newButtonEnabled && <Styled.CloseButtonNew
                 type='button'
                 onClick={onClear}
                 data-testid='mobile-clear-search'
               >
                 <Styled.CloseIcon />
-              </Styled.CloseButton>
+              </Styled.CloseButtonNew>
+              }
+              {
+                this.state.query && !newButtonEnabled && <Styled.CloseButton
+                type='button'
+                onClick={onClear}
+                data-testid='mobile-clear-search'
+              />
               }
           </Styled.SearchInputWrapper>
         </Styled.MobileSearchContainer>
