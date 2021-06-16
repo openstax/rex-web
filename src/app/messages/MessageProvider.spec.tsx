@@ -16,8 +16,7 @@ describe('MessageProvider', () => {
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
   let store: Store;
   let services: ReturnType<typeof createTestServices>;
-  // tslint:disable-next-line: variable-name
-  let MessageProvider: any;
+  let MessageProvider: any; // tslint:disable-line: variable-name
 
   beforeEach(() => {
     resetModules();
@@ -36,7 +35,6 @@ describe('MessageProvider', () => {
     });
 
     MessageProvider = require('../messages/MessageProvider').default;
-    store.dispatch(receiveBook(book));
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
