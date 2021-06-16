@@ -30,10 +30,13 @@ describe('MessageProvider', () => {
       intl: createIntl(),
     };
     ({Provider, React, renderer, Services} = reactAndFriends());
+
+    renderer.act(() => {
+        store.dispatch(receiveBook(book));
+      });
   });
 
   it('doesn\'t polyfill when api exists', async() => {
-    const promise = Promise.resolve();
     let loaded = false;
 
     jest.doMock('@formatjs/intl-pluralrules/polyfill', () => {
@@ -46,7 +49,7 @@ describe('MessageProvider', () => {
 
     MessageProvider = require('../messages/MessageProvider').default;
 
-    renderer.create(<Provider store={store}>
+    const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider />
       </Services.Provider>
@@ -56,7 +59,6 @@ describe('MessageProvider', () => {
     await new Promise((resolve) => setImmediate(resolve));
 
     expect(loaded).toBe(false);
-    await renderer.act(() => promise);
   });
 
   describe('when api is not there', () => {
@@ -86,7 +88,7 @@ describe('MessageProvider', () => {
         store.dispatch(receiveBook(book));
       });
 
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider />
         </Services.Provider>
@@ -114,7 +116,7 @@ describe('MessageProvider', () => {
         store.dispatch(receiveBook(book));
       });
 
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider />
         </Services.Provider>
