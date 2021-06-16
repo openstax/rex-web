@@ -20,6 +20,7 @@ export const reactAndFriends = () => {
     Provider: require('react-redux').Provider,
     React: require('react'),
     ReactDOM: require('react-dom') as typeof import ('react-dom'),
+    Services: require('../app/context/Services'),
     TestContainer: require('./TestContainer').default,
     renderToDom: require('./reactutils').renderToDom,
     renderer: require('react-test-renderer'),
