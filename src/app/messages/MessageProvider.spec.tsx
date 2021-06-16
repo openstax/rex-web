@@ -2,7 +2,7 @@ import createTestServices from '../../test/createTestServices';
 import createTestStore from '../../test/createTestStore';
 import { book as archiveBook } from '../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../test/mocks/osWebLoader';
-import { reactAndFriends, resetModules, runHooksAsync } from '../../test/utils';
+import { reactAndFriends, resetModules } from '../../test/utils';
 import { receiveBook } from '../content/actions';
 import { formatBookData } from '../content/utils';
 import createIntl from '../messages/createIntl';
@@ -93,7 +93,7 @@ describe('MessageProvider', () => {
       </Provider>
       );
 
-      await runHooksAsync();
+      await new Promise((resolve) => setImmediate(resolve));
 
       expect(loaded).toBe(true);
     });
@@ -121,7 +121,7 @@ describe('MessageProvider', () => {
       </Provider>
       );
 
-      await runHooksAsync();
+      await new Promise((resolve) => setImmediate(resolve));
 
       expect(loaded).toBe(true);
     });
