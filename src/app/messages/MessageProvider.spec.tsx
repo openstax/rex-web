@@ -26,6 +26,7 @@ describe('MessageProvider', () => {
     store = createTestStore();
     services = {
       ...createTestServices(),
+      // override the intl object normally used for testing
       intl: createIntl(),
     };
     ({Provider, React, renderer, Services} = reactAndFriends());
