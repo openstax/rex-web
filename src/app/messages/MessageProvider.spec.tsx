@@ -30,10 +30,6 @@ describe('MessageProvider', () => {
       intl: createIntl(),
     };
     ({Provider, React, renderer, Services} = reactAndFriends());
-
-    renderer.act(() => {
-        store.dispatch(receiveBook(book));
-      });
   });
 
   it('doesn\'t polyfill when api exists', async() => {
@@ -63,7 +59,7 @@ describe('MessageProvider', () => {
 
   describe('when api is not there', () => {
 
-    beforeEach(async() => {
+    beforeEach(() => {
       (Intl as any).PluralRules.polyfilled = true;
     });
 
