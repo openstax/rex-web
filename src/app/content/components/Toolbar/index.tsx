@@ -56,8 +56,6 @@ class Toolbar extends React.Component<Props, State> {
 
   public render() {
 
-    console.log('form, color: ', this.state.formSubmitted, this.props.searchButtonColor);
-
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
