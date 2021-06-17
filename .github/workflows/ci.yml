@@ -21,7 +21,7 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules7
+        key: node_modules8
     - run: yarn install
     - name: Find Deployment
       id: find-deployment
@@ -62,7 +62,7 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules7
+        key: node_modules8
     - run: yarn install
     - run: ./script/validate-modified-books.bash
       env:
@@ -86,7 +86,7 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules7
+        key: node_modules8
     - run: yarn install
     - run: yarn ci:test:${{ matrix.suite }}
     - uses: actions/upload-artifact@v2
@@ -107,6 +107,6 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules7
+        key: node_modules8
     - run: yarn install
     - run: yarn lint
