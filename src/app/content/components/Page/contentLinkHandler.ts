@@ -8,7 +8,7 @@ import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
 import { hasOSWebData, isPageReferenceError } from '../../guards';
-import showConfirmation from '../../highlights/components/utils/showConfirmation';
+import showDiscardChangesConfirmation from '../../highlights/components/utils/showDiscardChangesConfirmation';
 import { focused, hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
 import { content } from '../../routes';
 import * as select from '../../selectors';
@@ -112,7 +112,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       e.stopPropagation();
     }
 
-    if (hasUnsavedHighlight && !await showConfirmation(dispatch)) {
+    if (hasUnsavedHighlight && !await showDiscardChangesConfirmation(dispatch)) {
       return;
     }
 

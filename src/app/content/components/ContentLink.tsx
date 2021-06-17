@@ -8,7 +8,7 @@ import * as selectNavigation from '../../navigation/selectors';
 import { ScrollTarget } from '../../navigation/types';
 import { createNavigationOptions, navigationOptionsToString } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
-import showConfirmation from '../highlights/components/utils/showConfirmation';
+import showDiscardChangesConfirmation from '../highlights/components/utils/showDiscardChangesConfirmation';
 import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
@@ -73,7 +73,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       e.preventDefault();
 
-      if (hasUnsavedHighlight && !await showConfirmation(dispatch)) {
+      if (hasUnsavedHighlight && !await showDiscardChangesConfirmation(dispatch)) {
         return;
       }
 

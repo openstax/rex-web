@@ -151,13 +151,3 @@ export const hasMoreResults = createSelector(
   summaryPagination,
   checkIfHasMoreResults
 );
-
-export const isConfirmationModalOpen = createSelector(
-  localState,
-  (state) => state.confirmationModal.open
-);
-
-export const confirmationModalCallback = createSelector(
-  localState,
-  (state) => state.confirmationModal.callback
-);

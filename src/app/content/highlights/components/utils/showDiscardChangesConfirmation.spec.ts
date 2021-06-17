@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import { resetModules } from '../../../../../test/utils';
 import { assertDocument } from '../../../../utils';
-import showConfirmation from './showConfirmation';
+import showDiscardChangesConfirmation from './showDiscardChangesConfirmation';
 
 jest.mock('../ConfirmationModal', () => jest.fn()
   .mockImplementationOnce(({ confirm }) => {
@@ -50,7 +50,7 @@ describe('ShowConfirmation', () => {
   });
 
   it('unmounts on confirmation', async() => {
-    const answer = await showConfirmation();
+    const answer = await showDiscardChangesConfirmation();
 
     expect(answer).toBe(true);
     expect(createElement).toHaveBeenCalledWith('div');
@@ -60,7 +60,7 @@ describe('ShowConfirmation', () => {
   });
 
   it('unmounts on denial', async() => {
-    const answer = await showConfirmation();
+    const answer = await showDiscardChangesConfirmation();
 
     expect(answer).toBe(false);
     expect(unmount).toHaveBeenCalledWith(modalNode);

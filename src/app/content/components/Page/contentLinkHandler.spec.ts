@@ -286,7 +286,7 @@ describe('contentLinkHandler', () => {
       .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(true), 300)));
 
     jest.mock(
-      '../../highlights/components/utils/showConfirmation',
+      '../../highlights/components/utils/showDiscardChangesConfirmation',
       () => mockConfirmation
     );
 

@@ -64,7 +64,3 @@ export const receiveSummaryHighlights = createStandardAction('Content/Highlights
 export const receiveHighlightsTotalCounts = createStandardAction(
   'Content/receiveHighlightsTotalCounts'
 )<CountsPerSource, LocationFilters>();
-export const showConfirmationModal = createStandardAction('Content/Highlights/showConfirmation')<{
-  callback: (key: 'deny' | 'confirm') => any
-}>();
-export const closeConfirmationModal = createStandardAction('Content/Highlights/closeConfirmation')<void>();

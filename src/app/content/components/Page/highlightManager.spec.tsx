@@ -24,7 +24,8 @@ import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
 
-jest.mock('../../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
+jest.mock('../../highlights/components/utils/showDiscardChangesConfirmation',
+  () => () => new Promise((resolve) => resolve(false)));
 jest.mock('../../highlights/components/Card', () => (props: any) => <div mock-card {...props} />);
 
 UntypedHighlighter.prototype.eraseAll = jest.fn();

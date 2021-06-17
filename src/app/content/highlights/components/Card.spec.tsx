@@ -28,7 +28,7 @@ import { getHighlightLocationFilterForPage } from '../utils';
 import Card, { CardProps } from './Card';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
-import showConfirmation from './utils/showConfirmation';
+import showDiscardChangesConfirmation from './utils/showDiscardChangesConfirmation';
 
 jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef(
   (props: any, ref: any) => <div ref={ref} mock-display-note {...props} />
@@ -36,7 +36,7 @@ jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef
 jest.mock('./EditCard', () => (jest as any).requireActual('react').forwardRef(
   (props: any, ref: any) => <div ref={ref} mock-edit {...props} />
 ));
-jest.mock('./utils/showConfirmation', () => jest.fn(() => new Promise((res) => res(true))));
+jest.mock('./utils/showDiscardChangesConfirmation', () => jest.fn(() => new Promise((res) => res(true))));
 
 describe('Card', () => {
   let store: Store;
@@ -392,6 +392,6 @@ describe('Card', () => {
       card.props.onClick();
     });
 
-    expect(showConfirmation).toHaveBeenCalled();
+    expect(showDiscardChangesConfirmation).toHaveBeenCalled();
   });
 });

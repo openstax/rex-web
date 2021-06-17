@@ -190,7 +190,7 @@ describe('BookBanner', () => {
       .mockImplementationOnce(() =>  new Promise((resolve) => resolve(false)));
 
     jest.mock(
-      '../highlights/components/utils/showConfirmation',
+      '../highlights/components/utils/showDiscardChangesConfirmation',
       () => mockConfirmation
     );
 

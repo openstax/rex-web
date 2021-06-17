@@ -1,7 +1,6 @@
 import flow from 'lodash/fp/flow';
 import { IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 import * as selectNavigation from '../../../navigation/selectors';
 import { addToast } from '../../../notifications/actions';
 import { AppServices, AppState } from '../../../types';
@@ -30,7 +29,6 @@ export interface PagePropTypes {
   highlights: HighlightProp;
   services: AppServices;
   addToast: typeof addToast;
-  dispatch: Dispatch;
 }
 
 export default connect(
@@ -49,7 +47,6 @@ export default connect(
   (dispatch) => ({
     addToast: flow(addToast, dispatch),
     contentLinks: mapDispatchToContentLinkProp(dispatch),
-    dispatch,
     highlights: mapDispatchToHighlightProp(dispatch),
   }),
   merge

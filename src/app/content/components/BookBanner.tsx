@@ -10,7 +10,7 @@ import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { assertDefined, assertWindow } from '../../utils';
 import { hasOSWebData } from '../guards';
-import showConfirmation from '../highlights/components/utils/showConfirmation';
+import showDiscardChangesConfirmation from '../highlights/components/utils/showDiscardChangesConfirmation';
 import { hasUnsavedHighlight } from '../highlights/selectors';
 import * as select from '../selectors';
 import { ArchiveTreeSection , Book, BookWithOSWebData } from '../types';
@@ -215,7 +215,7 @@ export class BookBanner extends Component<PropTypes, BookBannerState> {
     }
     e.preventDefault();
 
-    if (!await showConfirmation(this.props.dispatch)) {
+    if (!await showDiscardChangesConfirmation(this.props.dispatch)) {
       return;
     }
     assertWindow().location.assign(link);

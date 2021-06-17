@@ -50,10 +50,6 @@ export interface State {
     loading: boolean;
     highlights: SummaryHighlights | null;
   };
-  confirmationModal: {
-    open: boolean,
-    callback: (key: 'deny' | 'confirm') => any
-  };
 }
 
 export interface HighlightScrollTarget extends ScrollTarget {

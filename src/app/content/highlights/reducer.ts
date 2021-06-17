@@ -21,14 +21,9 @@ import {
 import { findHighlight } from './utils/reducerUtils';
 import updateSummaryFilters from './utils/updateSummaryFilters';
 
-const initialConfirmationModalState: State['confirmationModal'] = {
-  callback: (key) => key === 'confirm',
-  open: false,
-};
 const defaultColors = highlightStyles.map(({label}) => label);
 
 export const initialState: State = {
-  confirmationModal: initialConfirmationModalState,
   currentPage: {
     hasUnsavedHighlight: false,
     highlights: null,
@@ -301,23 +296,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
             locationIds,
           },
           totalCountsPerPage: action.payload,
-        },
-      };
-    }
-    case getType(actions.showConfirmationModal): {
-      return {
-        ...state,
-        confirmationModal: {
-          callback: action.payload.callback,
-          open: true,
-        },
-      };
-    }
-    case getType(actions.closeConfirmationModal): {
-      return {
-        ...state,
-        confirmationModal: {
-          ...initialConfirmationModalState,
         },
       };
     }

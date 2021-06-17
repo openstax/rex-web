@@ -16,7 +16,7 @@ import {
   focusHighlight,
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
-import showConfirmation from '../../highlights/components/utils/showConfirmation';
+import showDiscardChangesConfirmation from '../../highlights/components/utils/showDiscardChangesConfirmation';
 import { isHighlightScrollTarget } from '../../highlights/guards';
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
@@ -30,7 +30,6 @@ export interface HighlightManagerServices {
   clearPendingHighlight: () => void;
   highlighter: Highlighter;
   container: HTMLElement;
-  dispatch: Dispatch;
 }
 
 export const mapStateToHighlightProp = memoizeStateToProps((state: AppState) => ({
@@ -44,6 +43,7 @@ export const mapStateToHighlightProp = memoizeStateToProps((state: AppState) => 
 }));
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
+  dispatch,
   focus: flow(focusHighlight, dispatch),
 });
 export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
@@ -56,7 +56,7 @@ const onFocusHighlight = (services: HighlightManagerServices, highlight: Highlig
   }
   if (services.getProp().focused
     && services.getProp().hasUnsavedHighlight
-    && !await showConfirmation(services.dispatch)) {
+    && !await showDiscardChangesConfirmation(services.getProp().dispatch)) {
     return;
   }
 
@@ -91,7 +91,7 @@ const onSelectHighlight = (
     return;
   }
 
-  if (services.getProp().hasUnsavedHighlight && !await showConfirmation(services.dispatch)) {
+  if (services.getProp().hasUnsavedHighlight && !await showDiscardChangesConfirmation(services.getProp().dispatch)) {
     assertWindow().getSelection()?.removeAllRanges();
     return;
   }
@@ -139,7 +139,7 @@ export interface UpdateOptions {
   onSelect: (highlight: Highlight | null) => void;
 }
 
-export default (dispatch: Dispatch, container: HTMLElement, getProp: () => HighlightProp, intl: IntlShape) => {
+export default (container: HTMLElement, getProp: () => HighlightProp, intl: IntlShape) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let scrollTargetHighlightIdThatWasHandled: string;
@@ -197,7 +197,6 @@ export default (dispatch: Dispatch, container: HTMLElement, getProp: () => Highl
   const services = {
     clearPendingHighlight,
     container,
-    dispatch,
     getProp,
     setPendingHighlight,
   };
