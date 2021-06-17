@@ -4,10 +4,15 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import { book as archiveBook } from '../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } from '../../../test/reactutils';
 import { makeSearchResults } from '../../../test/searchResults';
-import { receiveFeatureFlags } from '../../actions';
+import TestContainer from '../../../test/TestContainer';
 import * as Services from '../../context/Services';
+import { receiveFeatureFlags } from '../../featureFlags/actions';
+import * as featureFlagSelectors from '../../featureFlags/selectors';
+import { searchButtonColor } from '../../featureFlags/selectors';
 import MessageProvider from '../../MessageProvider';
 import { Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
@@ -19,7 +24,12 @@ import {
   receiveSearchResults,
   requestSearch
 } from '../search/actions';
+import * as searchSelectors from '../search/selectors';
+import { formatBookData } from '../utils';
 import Toolbar from './Toolbar';
+import { CloseButtonNew, SearchButton } from './Toolbar/styled';
+
+const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('print button', () => {
   let store: Store;
@@ -284,5 +294,70 @@ describe('search', () => {
     });
 
     expect(findById('desktop-search-input').props.value).toEqual('asdf');
+  });
+});
+
+describe('search button', () => {
+  let store: Store;
+
+  beforeEach(() => {
+    store = createTestStore();
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  const render = () => renderer.create(<TestContainer store={store}><Toolbar /></TestContainer>);
+
+  it('button has theme bg color applied', () => {
+    const color = searchButtonColor.resultFunc('bannerColorButton', book, 'blue');
+    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue(color);
+    jest.spyOn(searchSelectors, 'mobileToolbarOpen').mockReturnValue(true);
+
+    const component = render();
+    const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
+
+    expect(searchButton.props.colorSchema).toEqual('blue');
+    expect(searchButtonMobile.props.colorSchema).toEqual('blue');
+  });
+
+  it('button has gray bg color applied', () => {
+    const color = searchButtonColor.resultFunc('grayButton', book, 'red');
+    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue(color);
+
+    const component = render();
+    const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
+
+    expect(searchButton.props.colorSchema).toEqual('gray');
+    expect(searchButtonMobile.props.colorSchema).toEqual('gray');
+  });
+
+  it('button has no bg color applied', () => {
+    const color = searchButtonColor.resultFunc(null, book, 'blue');
+    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue(color);
+
+    const component = render();
+    const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
+
+    expect(searchButton.props.colorSchema).toEqual(null);
+    expect(searchButtonMobile.props.colorSchema).toEqual(null);
+  });
+
+  it('new search buttons use new close button', () => {
+    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue('green');
+
+    const component = render();
+    const findById = makeFindByTestId(component.root);
+
+    const inputEvent = makeInputEvent('cool search');
+    findById('desktop-search-input').props.onChange(inputEvent);
+
+    const event = makeEvent();
+    renderer.act(() => findById('desktop-search').props.onSubmit(event));
+
+    const [closeButton] = component.root.findAllByType(CloseButtonNew);
+
+    expect(closeButton).toBeTruthy();
   });
 });
