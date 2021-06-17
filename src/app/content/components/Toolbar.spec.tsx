@@ -166,8 +166,6 @@ describe('search', () => {
   });
 
   it('search and clear work on desktop', () => {
-    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue('green');
-
     const component = render();
     const findById = makeFindByTestId(component.root);
 
@@ -301,9 +299,11 @@ describe('search', () => {
 
 describe('search button', () => {
   let store: Store;
+  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
+    dispatch = jest.spyOn(store, 'dispatch');
   });
 
   afterEach(() => {
@@ -346,22 +346,20 @@ describe('search button', () => {
     expect(searchButtonMobile.props.colorSchema).toEqual(null);
   });
 
-  it('new search button variants use new "close" button', () => {
+  it('new search buttons use new close button', () => {
     jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue('green');
 
     const component = render();
     const findById = makeFindByTestId(component.root);
 
+    const inputEvent = makeInputEvent('cool search');
+    findById('desktop-search-input').props.onChange(inputEvent);
+
     const event = makeEvent();
     renderer.act(() => findById('desktop-search').props.onSubmit(event));
-    expect(event.preventDefault).toHaveBeenCalled();
 
-    renderer.act(() => {
-      store.dispatch(requestSearch('cool search'));
-      store.dispatch(receiveSearchResults(makeSearchResults()));
-    });
+    const [closeButton] = component.root.findAllByType(CloseButtonNew);
 
-    const [newCloseButton] = component.root.findAllByType(CloseButtonNew);
-    expect(newCloseButton).toBeTruthy();
+    expect(closeButton).toBeTruthy();
   });
 });
