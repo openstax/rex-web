@@ -24,7 +24,7 @@ const ConfirmationModal = () => {
   } = useSelector(confirmationModalOptions);
 
   return isOpen
-    ? <Modal onModalClose={() => callback(false)} heading={headingi18nKey}>
+    ? <Modal onModalClose={() => callback(false)} heading={headingi18nKey} data-test-id='confirmation-modal'>
       <Body>
         <FormattedMessage id={bodyi18nKey}>
           {(msg) => <BodyHeading>{msg}</BodyHeading>}
@@ -33,7 +33,7 @@ const ConfirmationModal = () => {
       <ConfirmationFooter>
         <FormattedMessage id={okButtoni18nKey}>
           {(msg) => <Button
-            data-testid='confirmation-modal-ok-button'
+            data-test-id='confirmation-modal-ok-button'
             onClick={() => callback(true)}
             variant='primary'
           > {msg}
@@ -41,7 +41,7 @@ const ConfirmationModal = () => {
         </FormattedMessage>
         <FormattedMessage id={cancelButtoni18nKey}>
           {(msg) => <Button
-            data-testid='confirmation-modal-cancel-button'
+            data-test-id='confirmation-modal-cancel-button'
             onClick={() => callback(false)}
             variant='secondary'
           > {msg}

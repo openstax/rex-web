@@ -1,7 +1,6 @@
 import { Document, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
-import { useDispatch } from 'react-redux';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
@@ -26,6 +25,7 @@ export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) =
   references: select.contentReferences(state),
 }));
 export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
+  dispatch,
   navigate: flow(push, dispatch),
 });
 export type ContentLinkProp =
@@ -82,8 +82,8 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       locationState,
       focusedHighlight,
       hasUnsavedHighlight,
+      dispatch,
     } = getProps();
-    const dispatch = useDispatch();
     const href = anchor.getAttribute('href');
 
     if (!href || !book || !page || isClickWithModifierKeys(e)) {

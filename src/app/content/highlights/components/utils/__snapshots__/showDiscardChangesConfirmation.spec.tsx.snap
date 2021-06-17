@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConfirmationModal matches snapshot 1`] = `
+exports[`showDiscardChangesConfirmation matches snapshot 1`] = `
 <div
   className="styles__ModalWrapper-sc-1gxqzoa-6 bfHzdf"
 >
@@ -16,7 +16,7 @@ exports[`ConfirmationModal matches snapshot 1`] = `
         <h1
           className="styles__Heading-sc-1gxqzoa-2 eqDSaw"
         >
-          asd
+          Discard unsaved changes?
         </h1>
         <svg
           aria-hidden="true"
@@ -55,7 +55,7 @@ exports[`ConfirmationModal matches snapshot 1`] = `
         <h3
           className="styles__BodyHeading-sc-1gxqzoa-3 krnhWx"
         >
-          asd
+          You have an unsaved note on this page.
         </h3>
       </div>
       <div
@@ -67,7 +67,7 @@ exports[`ConfirmationModal matches snapshot 1`] = `
           onClick={[Function]}
         >
            
-          asd
+          Discard changes
         </button>
         <button
           className="Button-ayg7nk-0 hRgmRs"
@@ -75,7 +75,7 @@ exports[`ConfirmationModal matches snapshot 1`] = `
           onClick={[Function]}
         >
            
-          asd
+          Cancel
         </button>
       </div>
     </div>

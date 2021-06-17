@@ -1,8 +1,10 @@
 import { DOMRect } from '@openstax/types/lib.dom';
+import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
 import { reactAndFriends, resetModules } from '../../../test/utils';
+import { Dispatch } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
@@ -17,6 +19,7 @@ describe('BookBanner', () => {
   let window: Window;
   let event: React.MouseEvent;
   let assign: jest.SpyInstance;
+  let dispatch: Dispatch;
   // tslint:disable-next-line:variable-name
   let BookBanner: React.ComponentType<PropTypes>;
 
@@ -39,6 +42,7 @@ describe('BookBanner', () => {
     } as any as React.MouseEvent;
 
     assign = jest.spyOn(window.location, 'assign');
+    dispatch = createTestStore().dispatch;
   });
 
   describe('without unsaved changes', () => {
@@ -51,14 +55,19 @@ describe('BookBanner', () => {
     });
 
     it('renders empty state with no page or book', () => {
-      const component = renderer.create(<BookBanner bookTheme={defaultTheme} />);
+      const component = renderer.create(<BookBanner dispatch={dispatch} bookTheme={defaultTheme} />);
 
       const tree = component.toJSON();
       expect(tree).toMatchSnapshot();
     });
 
     it('renders correctly when you pass a page and book', () => {
-      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} bookTheme={book.theme} />);
+      const component = renderer.create(<BookBanner
+        dispatch={dispatch}
+        pageNode={pageNode}
+        book={book}
+        bookTheme={book.theme}
+      />);
 
       const tree = component.toJSON();
       expect(tree).toMatchSnapshot();
@@ -66,6 +75,7 @@ describe('BookBanner', () => {
 
     it('renders BookTitle instead of BookTitleLink with a link to details page for retired books', () => {
       const component = renderer.create(<BookBanner
+        dispatch={dispatch}
         pageNode={pageNode}
         book={{...book, book_state: 'retired'}}
         bookTheme={book.theme}
@@ -79,6 +89,7 @@ describe('BookBanner', () => {
 
     it('renders correctly without osweb data', () => {
       const component = renderer.create(<BookBanner
+        dispatch={dispatch}
         pageNode={pageNode}
         book={bookWithoutOsWebData}
         bookTheme={defaultTheme}
@@ -89,7 +100,7 @@ describe('BookBanner', () => {
     });
 
     it('renders correctly without pageNode', () => {
-      const component = renderer.create(<BookBanner book={book} bookTheme={defaultTheme} />);
+      const component = renderer.create(<BookBanner dispatch={dispatch} book={book} bookTheme={defaultTheme} />);
 
       const tree = component.toJSON();
       expect(tree).toMatchSnapshot();
@@ -97,6 +108,7 @@ describe('BookBanner', () => {
 
     it('does not stop default navigation event', async() => {
       const component = renderer.create(<BookBanner
+        dispatch={dispatch}
         pageNode={pageNode}
         book={book}
         bookTheme={book.theme}
@@ -114,16 +126,26 @@ describe('BookBanner', () => {
     });
 
     it('mounts in a dom', () => {
-      expect(() => renderToDom(<BookBanner pageNode={pageNode} book={book} bookTheme={book.theme} />)).not.toThrow();
+      expect(() => renderToDom(<BookBanner
+        dispatch={dispatch}
+        pageNode={pageNode}
+        book={book}
+        bookTheme={book.theme}
+      />)).not.toThrow();
     });
 
     it('wrapper transition matches snapshot', () => {
-      const component = renderer.create(<BarWrapper colorSchema='blue' up={true} />);
+      const component = renderer.create(<BarWrapper dispatch={dispatch} colorSchema='blue' up={true} />);
       expect(component.toJSON()).toMatchSnapshot();
     });
 
     it('defaults tab indexes on banner links', () => {
-      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} bookTheme={book.theme} />);
+      const component = renderer.create(<BookBanner
+        dispatch={dispatch}
+        pageNode={pageNode}
+        book={book}
+        bookTheme={book.theme}
+      />);
 
       const linkExpanded = component.root.findByProps({'data-testid': 'details-link-expanded'});
       const linkCollapsed = component.root.findByProps({'data-testid': 'details-link-collapsed'});
@@ -154,7 +176,7 @@ describe('BookBanner', () => {
         .mockReturnValueOnce({top: 50} as DOMRect);
 
       const component = renderer.create(
-        <BookBanner pageNode={pageNode} book={book} bookTheme={book.theme}/>,
+        <BookBanner dispatch={dispatch} pageNode={pageNode} book={book} bookTheme={book.theme}/>,
         {createNodeMock}
       );
 
@@ -204,6 +226,7 @@ describe('BookBanner', () => {
 
     it('redirects if users chooses to discard', async() => {
       const component = renderer.create(<BookBanner
+        dispatch={dispatch}
         pageNode={pageNode}
         book={book}
         bookTheme={book.theme}
@@ -223,6 +246,7 @@ describe('BookBanner', () => {
 
     it('noops if users chooses not to discard', async() => {
       const component = renderer.create(<BookBanner
+        dispatch={dispatch}
         pageNode={pageNode}
         book={book}
         bookTheme={book.theme}
@@ -259,7 +283,12 @@ describe('BookBanner', () => {
     });
 
     it('renders', () => {
-      const component = renderer.create(<BookBanner pageNode={pageNode} book={book} bookTheme={book.theme} />);
+      const component = renderer.create(<BookBanner
+        dispatch={dispatch}
+        pageNode={pageNode}
+        book={book}
+        bookTheme={book.theme}
+      />);
 
       const tree = component.toJSON();
       expect(tree).toMatchSnapshot();

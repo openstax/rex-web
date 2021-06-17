@@ -38,7 +38,8 @@ import PageNotFound from './Page/PageNotFound';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
-jest.mock('../highlights/components/utils/showDiscardChangesConfirmation', () => () => new Promise((resolve) => resolve(false)));
+jest.mock('../highlights/components/utils/showDiscardChangesConfirmation',
+  () => () => new Promise((resolve) => resolve(false)));
 
 jest.mock('../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
