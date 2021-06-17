@@ -1,4 +1,4 @@
-import { receiveFeatureFlags } from '../../../actions';
+import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import { actionHook } from '../../../utils';
 import loadPracticeQuestions, { loadPracticeQuestionsSummaryHookBody } from './locationChange';
 import { setSelectedSectionHook } from './setSelectedSectionHook';
