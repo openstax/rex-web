@@ -1,4 +1,4 @@
-import { receiveFeatureFlags } from '../../actions';
+import { receiveFeatureFlags } from '../../featureFlags/actions';
 import { locationChange } from '../../navigation/actions';
 import { studyGuidesFeatureFlag } from '../constants';
 import { HighlightData, SummaryHighlights } from '../highlights/types';
