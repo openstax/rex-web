@@ -27,7 +27,7 @@ import {
 import * as searchSelectors from '../search/selectors';
 import { formatBookData } from '../utils';
 import Toolbar from './Toolbar';
-import { SearchButton } from './Toolbar/styled';
+import { CloseButtonNew, SearchButton } from './Toolbar/styled';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -166,6 +166,8 @@ describe('search', () => {
   });
 
   it('search and clear work on desktop', () => {
+    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue('green');
+
     const component = render();
     const findById = makeFindByTestId(component.root);
 
@@ -298,11 +300,17 @@ describe('search', () => {
 });
 
 describe('search button', () => {
+  let store: Store;
+
+  beforeEach(() => {
+    store = createTestStore();
+  });
+
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  const render = () => renderer.create(<TestContainer><Toolbar /></TestContainer>);
+  const render = () => renderer.create(<TestContainer store={store}><Toolbar /></TestContainer>);
 
   it('button has theme bg color applied', () => {
     const color = searchButtonColor.resultFunc('bannerColorButton', book, 'blue');
@@ -336,5 +344,24 @@ describe('search button', () => {
 
     expect(searchButton.props.colorSchema).toEqual(null);
     expect(searchButtonMobile.props.colorSchema).toEqual(null);
+  });
+
+  it('new search button variants use new "close" button', () => {
+    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue('green');
+
+    const component = render();
+    const findById = makeFindByTestId(component.root);
+
+    const event = makeEvent();
+    renderer.act(() => findById('desktop-search').props.onSubmit(event));
+    expect(event.preventDefault).toHaveBeenCalled();
+
+    renderer.act(() => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults()));
+    });
+
+    const [newCloseButton] = component.root.findAllByType(CloseButtonNew);
+    expect(newCloseButton).toBeTruthy();
   });
 });
