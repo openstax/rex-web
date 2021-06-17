@@ -299,11 +299,9 @@ describe('search', () => {
 
 describe('search button', () => {
   let store: Store;
-  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
-    dispatch = jest.spyOn(store, 'dispatch');
   });
 
   afterEach(() => {
