@@ -81,7 +81,6 @@ describe('study guides reducer', () => {
         ...initialState.summary,
         filters: {
           colors: [],
-          default: false,
           locationIds: [],
         },
       },
@@ -105,7 +104,6 @@ describe('study guides reducer', () => {
 
     const staleFilters = {
       colors: initialState.summary.filters.colors,
-      default: initialState.summary.filters.default,
       locationIds: [],
     };
 

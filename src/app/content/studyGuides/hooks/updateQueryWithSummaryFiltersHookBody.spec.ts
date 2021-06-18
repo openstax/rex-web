@@ -10,7 +10,7 @@ import { updateSummaryFilters } from '../actions';
 describe('openModal', () => {
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let hookBody: typeof import ('./updateSummaryFiltersHook').hookBody;
+  let hookBody: typeof import ('./updateQueryWithSummaryFiltersHookBody').hookBody;
   let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('openModal', () => {
 
     dispatch = jest.spyOn(helpers, 'dispatch');
 
-    hookBody = (require('./updateSummaryFiltersHook').hookBody);
+    hookBody = (require('./updateQueryWithSummaryFiltersHookBody').hookBody);
   });
 
   it('sets correct location if there was match in the navigation state', () => {

@@ -15,7 +15,6 @@ export const initialState: State = {
   summary: {
     filters: {
       colors: highlightStyles.map(({label}) => label),
-      default: true,
       locationIds: [],
     },
     loading: false,
@@ -29,16 +28,20 @@ export const initialState: State = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
-      const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
+      const hasModalQuery = action.payload.query[modalQueryParameterName] === modalUrlName;
+      const summaryShouldBeOpen = hasModalQuery
         && (action.payload.action === 'PUSH' || action.payload.action === 'REPLACE');
-      const {colors, locationIds} = getFiltersFromQuery(action.payload.query, state.summary.filters);
+      const {colors, locationIds} = getFiltersFromQuery(action.payload.query);
 
       return {
         ...state,
         summary: {
           ...state.summary,
           filters: {...state.summary.filters, colors, locationIds},
+          loading: true,
           open: summaryShouldBeOpen,
+          pagination: null,
+          studyGuides: {},
         },
       };
     }
@@ -53,24 +56,12 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.printStudyGuides):
     case getType(actions.loadMoreStudyGuides):
       return {...state, summary: {...state.summary, loading: true}};
-    case getType(actions.setDefaultSummaryFilters): {
-      return {
-        ...state,
-        summary: {
-          ...state.summary,
-          filters: {...state.summary.filters, ...action.payload},
-          loading: true,
-          pagination: null,
-          studyGuides: {},
-        },
-      };
-    }
     case getType(actions.setSummaryFilters): {
       return {
         ...state,
         summary: {
           ...state.summary,
-          filters: {...state.summary.filters, ...action.payload, default: false},
+          filters: {...state.summary.filters, ...action.payload},
           loading: true,
           pagination: null,
           studyGuides: {},

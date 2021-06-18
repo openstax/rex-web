@@ -12,6 +12,7 @@ import {
   openStudyGuides,
   setDefaultSummaryFilters
 } from '../actions';
+import { colorfilterLabels } from '../constants';
 
 jest.mock('./loadMore', () => ({
   loadMore: jest.fn(),
@@ -57,7 +58,10 @@ describe('openStudyGuides', () => {
 
     await hook(openStudyGuides());
     expect(dispatch).toHaveBeenCalledWith(
-      setDefaultSummaryFilters({locationIds: ['testbook1-testchapter3-uuid']})
+      setDefaultSummaryFilters({
+        colors: Array.from(colorfilterLabels),
+        locationIds: ['testbook1-testchapter3-uuid'],
+      })
     );
   });
 
@@ -68,7 +72,10 @@ describe('openStudyGuides', () => {
 
     await hook(openStudyGuides());
     expect(dispatch).toHaveBeenCalledWith(
-      setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']})
+      setDefaultSummaryFilters({
+        colors: Array.from(colorfilterLabels),
+        locationIds: ['testbook1-testchapter1-uuid'],
+      })
     );
   });
 });
