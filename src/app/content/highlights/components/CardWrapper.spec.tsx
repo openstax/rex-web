@@ -88,10 +88,10 @@ describe('CardWrapper', () => {
       elements: [element],
     };
     const element2 = assertDocument().createElement('div');
-    const expandedAncestor = assertDocument().createElement('div');
-    expandedAncestor.setAttribute('aria-expanded', 'false');
-    expandedAncestor.dataset.type = 'solution';
-    expandedAncestor.appendChild(element2);
+    const collapsedAncestor = assertDocument().createElement('div');
+    collapsedAncestor.setAttribute('aria-expanded', 'false');
+    collapsedAncestor.dataset.type = 'solution';
+    collapsedAncestor.appendChild(element2);
     const highlight2 = {
       ...createMockHighlight(),
       elements: [element2],
