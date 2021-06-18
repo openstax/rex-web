@@ -11,10 +11,7 @@ import { HighlightData } from '../types';
 
 export const hiddenHighlightOffset = -9999;
 
-export const getHighlightOffset = (
-  container: HTMLElement | undefined,
-  highlight: Highlight
-) => {
+export const getHighlightOffset = (container: HTMLElement | undefined, highlight: Highlight) => {
   if (!container || !highlight.range || !highlight.range.getBoundingClientRect) {
     return;
   }
