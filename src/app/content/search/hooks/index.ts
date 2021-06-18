@@ -82,8 +82,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     }
     : { search: queryString.stringify({ query }) };
 
-  // tslint:disable-next-line: no-console
-  console.log(targetPageId);
   const navigationMatch = targetPageId
     ? createNavigationMatch(
       assertDefined(
