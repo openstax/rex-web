@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
-import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument, remsToPx } from '../../../utils';
 import { assertWindow } from '../../../utils/browser-assertions';
@@ -82,90 +81,6 @@ describe('CardWrapper', () => {
     expect(component.root.findAllByType(Card).length).toBe(2);
   });
 
-  it('scrolls to card when focused', () => {
-    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
-    scrollIntoView.mockImplementation(() => null);
-
-    const element = assertDocument().createElement('div');
-    const highlight = {
-      ...createMockHighlight(),
-      elements: [element],
-    };
-
-    renderer.create(<Provider store={store}>
-      <CardWrapper container={container} highlights={[highlight]} />
-    </Provider>);
-
-    renderer.act(() => {
-      store.dispatch(focusHighlight(highlight.id));
-    });
-
-    expect(scrollIntoView).toHaveBeenCalled();
-    scrollIntoView.mockClear();
-  });
-
-  it('do not scroll to card when focused if it does not have elements', () => {
-    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
-    scrollIntoView.mockImplementation(() => null);
-
-    const highlight = {
-      ...createMockHighlight(),
-      elements: [],
-    };
-
-    renderer.create(<Provider store={store}>
-      <CardWrapper container={container} highlights={[highlight]} />
-    </Provider>);
-
-    renderer.act(() => {
-      store.dispatch(focusHighlight(highlight.id));
-    });
-
-    expect(scrollIntoView).not.toHaveBeenCalled();
-  });
-
-  it('do not scroll to focused card after rerender if focused highlight is the same', () => {
-    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
-    scrollIntoView.mockImplementation(() => null);
-
-    const element = assertDocument().createElement('div');
-    const highlight = {
-      ...createMockHighlight(),
-      elements: [element],
-    };
-    const element2 = assertDocument().createElement('div');
-    const highlight2 = {
-      ...createMockHighlight(),
-      elements: [element2],
-    };
-    const element3 = assertDocument().createElement('div');
-    const highlight3 = {
-      ...createMockHighlight(),
-      elements: [element3],
-    };
-
-    const component = renderer.create(<Provider store={store}>
-      <CardWrapper container={container} highlights={[highlight, highlight2]} />
-    </Provider>);
-
-    renderer.act(() => {
-      store.dispatch(focusHighlight(highlight.id));
-    });
-
-    expect(scrollIntoView).toHaveBeenCalled();
-    scrollIntoView.mockClear();
-
-    component.update(<Provider store={store}>
-      <CardWrapper container={container} highlights={[highlight, highlight2, highlight3]} />
-    </Provider>);
-
-    // make sure that useEffect is called
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
-
-    expect(scrollIntoView).not.toHaveBeenCalled();
-  });
-
   it('returns hidden higlight position without adjusting the offset', () => {
     const element = assertDocument().createElement('div');
     const highlight = {
@@ -187,16 +102,7 @@ describe('CardWrapper', () => {
     </Provider>);
 
     const [card1, card2] = component.root.findAllByType(Card);
-    expect(card1.props.topOffset).toEqual(undefined);
-    expect(card2.props.topOffset).toEqual(undefined);
 
-    // Update state with a height
-    renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 50 } });
-      card2.props.onHeightChange({ current: { offsetHeight: 50 } });
-    });
-
-    // first card have only 50px height + 20px margin bottom
     expect(card1.props.topOffset).toEqual(0);
     // returns -9999 beacuse higlight is a child of collapsed container
     expect(card2.props.topOffset).toEqual(hiddenHighlightOffset);
@@ -211,8 +117,6 @@ describe('CardWrapper', () => {
     </Provider>);
 
     const [card1, card2] = component.root.findAllByType(Card);
-    expect(card1.props.topOffset).toEqual(undefined);
-    expect(card2.props.topOffset).toEqual(undefined);
 
     // Update state with a height
     renderer.act(() => {
