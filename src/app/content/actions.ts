@@ -28,7 +28,7 @@ export const receivePageNotFoundId = createStandardAction('Content/receivePageNo
 export const openNudgeStudyTools = createStandardAction('Content/openNudgeStudyTools')();
 export const closeNudgeStudyTools = createStandardAction('Content/closeNudgeStudyTools')();
 
-export const showConfirmationModal = createStandardAction('Content/showDiscardChangesConfirmation')<{
+export const showConfirmationModal = createStandardAction('Content/showConfirmationModal')<{
   options: {
     callback: (confimred: boolean) => void,
     headingi18nKey: string,
@@ -37,4 +37,4 @@ export const showConfirmationModal = createStandardAction('Content/showDiscardCh
     cancelButtoni18nKey: string,
   };
 }>();
-export const closeConfirmationModal = createStandardAction('Content/closeConfirmation')<void>();
+export const closeConfirmationModal = createStandardAction('Content/closeConfirmationModal')<void>();
