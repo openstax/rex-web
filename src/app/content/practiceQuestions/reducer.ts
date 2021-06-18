@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { receiveFeatureFlags } from '../../actions';
+import { receiveFeatureFlags } from '../../featureFlags/actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { practiceQuestionsFeatureFlag } from '../constants';

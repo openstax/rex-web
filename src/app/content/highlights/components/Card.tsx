@@ -5,6 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { scrollIntoView } from '../../../domUtils';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
@@ -72,9 +73,17 @@ const Card = (props: CardProps) => {
   React.useEffect(() => {
     if (!props.isActive) {
       setEditing(false);
+    } else {
+      const firstElement = props.highlight.elements[0] as HTMLElement;
+      const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
+      const elements = [lastElement];
+      if (element.current) {
+        elements.push(element.current);
+      }
+      scrollIntoView(firstElement, elements);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.isActive]);
+  }, [element, props.isActive]);
 
   React.useEffect(() => {
     if (annotation) {
