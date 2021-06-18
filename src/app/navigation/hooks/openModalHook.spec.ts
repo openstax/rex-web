@@ -57,12 +57,13 @@ describe('openModal', () => {
     }));
   });
 
-  it('updates the search with colors filter for SG modal', () => {
+  it('keeps colors and locationIds from query for SG modal', () => {
     store.dispatch(locationChange({
       action: 'PUSH',
       location: {
         ...assertWindow().location,
         pathname: '/books/book-slug-1/pages/doesnotmatter',
+        search: 'colors=yellow&locationIds=module-id',
         state: {},
       },
       match: {
@@ -80,7 +81,7 @@ describe('openModal', () => {
 
     expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
       payload: expect.objectContaining({
-        search: `colors=yellow&colors=green&colors=blue&colors=purple&modal=${modalUrlName}`,
+        search: `colors=yellow&locationIds=module-id&modal=${modalUrlName}`,
       }),
     }));
   });

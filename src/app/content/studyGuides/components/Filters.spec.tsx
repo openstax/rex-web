@@ -24,9 +24,10 @@ import {
   printStudyGuides,
   receiveStudyGuidesTotalCounts,
   receiveSummaryStudyGuides,
+  setSummaryFilters,
   updateSummaryFilters as updateSummaryFiltersAction,
 } from '../actions';
-import { modalUrlName } from '../constants';
+import { colorfilterLabels, modalUrlName } from '../constants';
 import * as selectors from '../selectors';
 import Filters from './Filters';
 import { cookieUTG } from './UsingThisGuide/constants';
@@ -51,15 +52,11 @@ describe('Filters', () => {
 
   it('matches snapshot with UTG banner open (opened initially)', () => {
     const chapterId = stripIdVersion(book.tree.contents[2].id);
-    store.dispatch(locationChange({
-      action: 'REPLACE',
-      location: {},
-      query: {
-        [modalQueryParameterName]: modalUrlName,
-        locationIds: [chapterId],
-      },
-    } as any));
     store.dispatch(receiveBook(book));
+    store.dispatch(setSummaryFilters({
+      colors: Array.from(colorfilterLabels),
+      locationIds: [chapterId],
+    }));
     store.dispatch(receiveStudyGuidesTotalCounts({
       [chapterId]: {
         [HighlightColorEnum.Green]: 1,
@@ -69,9 +66,6 @@ describe('Filters', () => {
         [HighlightColorEnum.Purple]: 1,
       },
     }));
-    // mock this value because state is being reset after dispatching locationChange
-    jest.spyOn(selectors, 'summaryLocationFilters')
-      .mockReturnValue(new Set([chapterId]));
 
     const component = renderer.create(<TestContainer services={services} store={store}>
       <Filters />
@@ -88,6 +82,7 @@ describe('Filters', () => {
   });
 
   it('renders correct label keys for color dropdown', () => {
+    store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
     const pageId = stripIdVersion(book.tree.contents[0].id);
     store.dispatch(receiveStudyGuidesTotalCounts({
       [pageId]: {
@@ -150,6 +145,7 @@ describe('Filters', () => {
 
   it('dispatches updateSummaryFilters action on selecting colors and chapters', () => {
     const chapter = findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid')!;
+    store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
     store.dispatch(receiveBook(book));
     store.dispatch(receiveStudyGuidesTotalCounts({
       [chapter.id]: {
@@ -228,6 +224,7 @@ describe('Filters', () => {
 
   it('dispatches updateSummaryFilters when removing selected colors from FiltersList', () => {
     store.dispatch(receiveUser({} as any));
+    store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
     const pageId = stripIdVersion(book.tree.contents[0].id);
     store.dispatch(receiveStudyGuidesTotalCounts({
       [pageId]: {

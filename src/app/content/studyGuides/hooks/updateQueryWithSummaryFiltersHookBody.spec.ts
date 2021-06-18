@@ -5,7 +5,8 @@ import { initialState as initialContentState } from '../../../content/reducer';
 import { replace } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
-import { updateSummaryFilters } from '../actions';
+import { setDefaultSummaryFilters, setSummaryFilters, updateSummaryFilters } from '../actions';
+import { colorfilterLabels } from '../constants';
 
 describe('openModal', () => {
   let store: Store;
@@ -36,10 +37,28 @@ describe('openModal', () => {
     jest.spyOn(navigation, 'query')
       .mockReturnValue({ modal: 'SG' });
 
+    store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
+
     hookBody(helpers)(updateSummaryFilters({ colors: { new: [], remove: [HighlightColorEnum.Green] } }));
 
     expect(dispatch).toHaveBeenCalledWith(replace(mockMatch, {
       search: 'colors=yellow&colors=blue&colors=purple&modal=SG',
+    }));
+  });
+
+  it('adds filters to query for setDefaultFilters', () => {
+    const mockMatch = {} as any;
+    jest.spyOn(navigation, 'match')
+      .mockReturnValue(mockMatch);
+    jest.spyOn(navigation, 'query')
+      .mockReturnValue({ modal: 'SG' });
+
+    store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
+
+    hookBody(helpers)(setDefaultSummaryFilters({ colors: [HighlightColorEnum.Green], locationIds: ['module-id'] }));
+
+    expect(dispatch).toHaveBeenCalledWith(replace(mockMatch, {
+      search: 'colors=green&locationIds=module-id&modal=SG',
     }));
   });
 
@@ -48,18 +67,6 @@ describe('openModal', () => {
       .mockReturnValue(undefined);
 
     hookBody(helpers)(updateSummaryFilters({ colors: { new: [], remove: [HighlightColorEnum.Green] } }));
-
-    expect(dispatch).not.toHaveBeenCalled();
-  });
-
-  it('noops if colors weren\'t updated', () => {
-    const mockMatch = {} as any;
-    jest.spyOn(navigation, 'match')
-      .mockReturnValue(mockMatch);
-    jest.spyOn(navigation, 'query')
-      .mockReturnValue({ modal: 'SG' });
-
-    hookBody(helpers)(updateSummaryFilters({}));
 
     expect(dispatch).not.toHaveBeenCalled();
   });

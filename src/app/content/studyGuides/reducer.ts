@@ -6,7 +6,7 @@ import { AnyAction } from '../../types';
 import { merge } from '../../utils';
 import { modalQueryParameterName, studyGuidesFeatureFlag } from '../constants';
 import * as actions from './actions';
-import { highlightStyles, modalUrlName } from './constants';
+import { modalUrlName } from './constants';
 import { State } from './types';
 import { getFiltersFromQuery } from './utils';
 
@@ -14,7 +14,7 @@ export const initialState: State = {
   isEnabled: false,
   summary: {
     filters: {
-      colors: highlightStyles.map(({label}) => label),
+      colors: [],
       locationIds: [],
     },
     loading: false,
@@ -38,10 +38,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         summary: {
           ...state.summary,
           filters: {...state.summary.filters, colors, locationIds},
-          loading: true,
+          loading: hasModalQuery,
           open: summaryShouldBeOpen,
-          pagination: null,
-          studyGuides: {},
+          pagination: hasModalQuery ? null : state.summary.pagination,
+          studyGuides: hasModalQuery ? {} : state.summary.studyGuides,
         },
       };
     }
