@@ -1,4 +1,4 @@
-import { receiveFeatureFlags } from '../../../actions';
+import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import { closeModal } from '../../../navigation/hooks/closeModalHook';
 import { openModal } from '../../../navigation/hooks/openModalHook';
 import { actionHook } from '../../../utils';
