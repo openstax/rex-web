@@ -1,5 +1,5 @@
 import { MiddlewareAPI } from '../../../../types';
-import { closeConfirmationModal, showConfirmationModal } from '../../../actions';
+import { showConfirmationModal } from '../../../actions';
 
 export default (dispatch: MiddlewareAPI['dispatch']): Promise<boolean> => new Promise((resolve) => {
   dispatch(showConfirmationModal({
@@ -7,7 +7,6 @@ export default (dispatch: MiddlewareAPI['dispatch']): Promise<boolean> => new Pr
       bodyi18nKey: 'i18n:discard:body',
       callback: (confirmed: boolean) => {
         resolve(confirmed);
-        dispatch(closeConfirmationModal());
       },
       cancelButtoni18nKey: 'i18n:discard:button:cancel',
       headingi18nKey: 'i18n:discard:heading',

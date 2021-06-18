@@ -43,10 +43,10 @@ export interface State {
     open: boolean,
     options: {
       callback: (confimred: boolean) => void,
-      headingi18nKey: string | '',
-      bodyi18nKey: string | '',
-      okButtoni18nKey: string | '',
-      cancelButtoni18nKey: string | '',
+      headingi18nKey: string,
+      bodyi18nKey: string,
+      okButtoni18nKey: string,
+      cancelButtoni18nKey: string,
     };
   };
 }

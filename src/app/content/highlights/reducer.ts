@@ -51,7 +51,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const currentPageId = state.currentPage.pageId;
       const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
       return {
-        ...state,
         currentPage: currentPageId && actionPageId === currentPageId
           ? omit('focused', {...state.currentPage, hasUnsavedHighlight: false})
           : initialState.currentPage,
@@ -80,7 +79,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         : state.summary.totalCountsPerPage;
 
       return {
-        ...state,
         currentPage: {
           ...state.currentPage,
           hasUnsavedHighlight: false,
@@ -135,7 +133,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       ;
 
       return {
-        ...state,
         currentPage: {
           ...state.currentPage,
           hasUnsavedHighlight,
@@ -174,7 +171,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       ;
 
       return {
-        ...state,
         currentPage: {
           ...state.currentPage,
           focused: state.currentPage.focused === action.payload.id ? undefined : state.currentPage.focused,
@@ -190,7 +186,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.receiveHighlights): {
       return {
-        ...state,
         currentPage: {
           ...state.currentPage,
           highlights: action.payload.highlights,

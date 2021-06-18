@@ -1,10 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../../../components/Button';
 import Modal from '../../../components/Modal';
 import { Body, BodyHeading, Footer } from '../../../components/Modal/styles';
+import { closeConfirmationModal } from '../../actions';
 import { confirmationModalOptions, isConfirmationModalOpen } from '../../selectors';
 
 // tslint:disable-next-line:variable-name
@@ -15,6 +16,7 @@ const ConfirmationFooter = styled(Footer)`
 // tslint:disable-next-line:variable-name
 const ConfirmationModal = () => {
   const isOpen = useSelector(isConfirmationModalOpen);
+  const dispatch = useDispatch();
   const {
     callback,
     headingi18nKey,
@@ -23,8 +25,19 @@ const ConfirmationModal = () => {
     cancelButtoni18nKey,
   } = useSelector(confirmationModalOptions);
 
-  return isOpen
-    ? <Modal onModalClose={() => callback(false)} heading={headingi18nKey} data-test-id='confirmation-modal'>
+  const onConfirmation = () => {
+    callback(true);
+    dispatch(closeConfirmationModal());
+  };
+
+  const onDenial = () => {
+    callback(false);
+    dispatch(closeConfirmationModal());
+  };
+
+  if (!isOpen) { return null; }
+
+  return <Modal onModalClose={onDenial} heading={headingi18nKey} data-test-id='confirmation-modal'>
       <Body>
         <FormattedMessage id={bodyi18nKey}>
           {(msg) => <BodyHeading>{msg}</BodyHeading>}
@@ -34,7 +47,7 @@ const ConfirmationModal = () => {
         <FormattedMessage id={okButtoni18nKey}>
           {(msg) => <Button
             data-test-id='confirmation-modal-ok-button'
-            onClick={() => callback(true)}
+            onClick={onConfirmation}
             variant='primary'
           > {msg}
           </Button>}
@@ -42,14 +55,13 @@ const ConfirmationModal = () => {
         <FormattedMessage id={cancelButtoni18nKey}>
           {(msg) => <Button
             data-test-id='confirmation-modal-cancel-button'
-            onClick={() => callback(false)}
+            onClick={onDenial}
             variant='secondary'
           > {msg}
           </Button>}
         </FormattedMessage>
       </ConfirmationFooter>
-    </Modal>
-    : null;
+    </Modal>;
 };
 
 export default ConfirmationModal;

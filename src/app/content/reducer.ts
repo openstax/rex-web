@@ -147,9 +147,7 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(actions.closeConfirmationModal): {
       return {
         ...state,
-        confirmationModal: {
-          ...initialConfirmationModalState,
-        },
+        confirmationModal: initialConfirmationModalState,
       };
     }
     default:

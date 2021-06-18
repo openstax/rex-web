@@ -23,7 +23,7 @@ describe('showDiscardChangesConfirmation', () => {
     await Promise.resolve();
   });
 
-  it('return true on confirmation', async() => {
+  it('returns true on confirmation', async() => {
     const answer = showDiscardChangesConfirmation(store.dispatch);
     const component = renderer.create(<TestContainer store={store}>
       <ConfirmationModal/>
@@ -37,21 +37,21 @@ describe('showDiscardChangesConfirmation', () => {
     expect(await answer).toBe(true);
   });
 
-  it('return false on denial', async() => {
+  it('returns false on denial', async() => {
     const answer = showDiscardChangesConfirmation(store.dispatch);
     const component = renderer.create(<TestContainer store={store}>
       <ConfirmationModal/>
     </TestContainer>);
 
-    const okButton = component.root.findByProps({ 'data-test-id': 'confirmation-modal-cancel-button' });
+    const cancelButton = component.root.findByProps({ 'data-test-id': 'confirmation-modal-cancel-button' });
     renderer.act(() => {
-      okButton.props.onClick();
+      cancelButton.props.onClick();
     });
 
     expect(await answer).toBe(false);
   });
 
-  it('return false on exit', async() => {
+  it('returns false on exit', async() => {
     const answer = showDiscardChangesConfirmation(store.dispatch);
     const component = renderer.create(<TestContainer store={store}>
       <ConfirmationModal/>
