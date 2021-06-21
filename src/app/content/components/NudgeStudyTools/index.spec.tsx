@@ -62,7 +62,7 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    runHooks();
+    runHooks(renderer);
 
     expect(spySetCookies).toHaveBeenCalled();
     expect(spyTrack).toHaveBeenCalled();
@@ -85,7 +85,7 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    runHooks();
+    runHooks(renderer);
 
     expect(spySetCookies).toHaveBeenCalled();
     expect(spyTrack).toHaveBeenCalled();
@@ -213,7 +213,7 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>, { createNodeMock });
 
-    runHooks();
+    runHooks(renderer);
 
     expect(spyFocusWrapper).toHaveBeenCalledTimes(1);
   });
@@ -234,7 +234,7 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    runHooks();
+    runHooks(renderer);
 
     expect(() => component.root.findByType(NudgeArrow)).not.toThrow();
 
@@ -249,7 +249,7 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    runHooks();
+    runHooks(renderer);
 
     expect(assertDocument().body.style.overflow).toEqual('');
   });

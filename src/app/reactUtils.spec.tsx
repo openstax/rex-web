@@ -334,7 +334,7 @@ describe('useMatchMobileQuery', () => {
 
     const component = renderer.create(<Component/>);
 
-    runHooks();
+    runHooks(renderer);
 
     expect(mock.addEventListener).toHaveBeenCalled();
 
@@ -354,7 +354,7 @@ describe('useMatchMobileQuery', () => {
 
     const component = renderer.create(<Component/>);
 
-    runHooks();
+    runHooks(renderer);
 
     renderer.act(() => {
       (mock.addEventListener as any as jest.SpyInstance).mock.calls[0][1]({ matches: true });
@@ -394,7 +394,7 @@ describe('useOnScrollTopOffset', () => {
 
     const component = renderer.create(<Component/>);
 
-    runHooks();
+    runHooks(renderer);
 
     expect(spyAddListener).toHaveBeenCalled();
 
@@ -412,7 +412,7 @@ describe('useOnScrollTopOffset', () => {
 
     const component = renderer.create(<Component/>);
 
-    runHooks();
+    runHooks(renderer);
 
     Object.defineProperty(document, 'scrollingElement', {
       value: null,

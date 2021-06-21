@@ -160,7 +160,7 @@ describe('CardWrapper', () => {
       <CardWrapper container={container} highlights={[highlight, highlight2, highlight3]} />
     </Provider>);
 
-    runHooks();
+    runHooks(renderer);
 
     expect(scrollIntoView).not.toHaveBeenCalled();
   });

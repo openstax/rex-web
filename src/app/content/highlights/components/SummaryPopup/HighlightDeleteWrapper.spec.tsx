@@ -48,7 +48,7 @@ describe('HighlightDeleteWrapper', () => {
       />
     </TestContainer>, {createNodeMock});
 
-    await runHooksAsync();
+    await runHooksAsync(renderer);
 
     expect(focus).toHaveBeenCalled();
   });

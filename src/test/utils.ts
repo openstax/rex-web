@@ -1,4 +1,4 @@
-import renderer from 'react-test-renderer';
+import rendererType from 'react-test-renderer';
 import mockRangy from './mocks/rangy';
 
 export const resetModules = async() => {
@@ -16,7 +16,6 @@ export const resetModules = async() => {
 
 export const reactAndFriends = () => {
   return {
-    MessageProvider: require('../app/messages/MessageProvider').default,
     Provider: require('react-redux').Provider,
     React: require('react'),
     ReactDOM: require('react-dom') as typeof import ('react-dom'),
@@ -27,12 +26,12 @@ export const reactAndFriends = () => {
   };
 };
 
-export const runHooks = () => {
+export const runHooks = (renderer: typeof rendererType) => {
   // tslint:disable-next-line: no-empty
   renderer.act(() => {});
 };
 
-export const runHooksAsync = async() => {
+export const runHooksAsync = async(renderer: typeof rendererType) => {
   // tslint:disable-next-line: no-empty
   await renderer.act(async() => {});
 };

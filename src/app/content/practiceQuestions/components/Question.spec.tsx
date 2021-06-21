@@ -88,7 +88,7 @@ describe('Question', () => {
 
     const component = renderer.create(render(), { createNodeMock: () => mockQuestionContainer });
 
-    runHooks();
+    runHooks(renderer);
 
     expect(() => component.root.findByType(QuestionWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionContent)).not.toThrow();

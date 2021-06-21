@@ -6,6 +6,7 @@ import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../../test/MessageProvider';
 import { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { runHooksAsync } from '../../../test/utils';
 import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
@@ -60,7 +61,7 @@ describe('content', () => {
     services = createTestServices();
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot', async() => {
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
@@ -75,11 +76,13 @@ describe('content', () => {
       </Provider>
     );
 
+    await runHooksAsync(renderer);
+
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders empty state', () => {
+  it('renders empty state', async() => {
     store.dispatch(receiveBook(bookState));
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     const component = renderer.create(
@@ -92,11 +95,13 @@ describe('content', () => {
       </Provider>
     );
 
+    await runHooksAsync(renderer);
+
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders BuyBook button if book have a link to amazon', () => {
+  it('renders BuyBook button if book have a link to amazon', async() => {
     store.dispatch(receiveBook({ ...bookState, amazon_link: 'some-link' }));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
@@ -110,10 +115,12 @@ describe('content', () => {
       </Provider>
     );
 
+    await runHooksAsync(renderer);
+
     expect(component.root.findByType(BuyBook)).toBeTruthy();
   });
 
-  it('provides the right scroll offset when mobile search collapsed', () => {
+  it('provides the right scroll offset when mobile search collapsed', async() => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
@@ -126,6 +133,8 @@ describe('content', () => {
       </Provider>
     );
 
+    await runHooksAsync(renderer);
+
     const scrollOffset = component.root.findByType(ScrollOffset);
 
     expect(scrollOffset.props).toMatchInlineSnapshot(`
@@ -136,7 +145,7 @@ describe('content', () => {
     `);
   });
 
-  it('provides the right scroll offset when mobile search collapsed', () => {
+  it('provides the right scroll offset when mobile search collapsed', async() => {
     store.dispatch(receiveBook(bookState));
     store.dispatch(openMobileToolbar());
 
@@ -150,6 +159,8 @@ describe('content', () => {
       </Provider>
     );
 
+    await runHooksAsync(renderer);
+
     const scrollOffset = component.root.findByType(ScrollOffset);
 
     expect(scrollOffset.props).toMatchInlineSnapshot(`
@@ -160,7 +171,7 @@ describe('content', () => {
     `);
   });
 
-  it('gets page content out of cached archive query', () => {
+  it('gets page content out of cached archive query', async() => {
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
@@ -174,6 +185,8 @@ describe('content', () => {
       </Provider>
     );
 
+    await runHooksAsync(renderer);
+
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledTimes(1);
     expect(services.archiveLoader.mock.cachedPage).toHaveBeenCalledWith(
       'testbook1-uuid',
@@ -182,7 +195,7 @@ describe('content', () => {
     );
   });
 
-  it('page element is still rendered if archive content is unavailable', () => {
+  it('page element is still rendered if archive content is unavailable', async() => {
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
@@ -198,12 +211,14 @@ describe('content', () => {
       </Provider>
     );
 
+    await runHooksAsync(renderer);
+
     const pageComponent = component.root.findByProps({ id: 'main-content' });
 
     expect(pageComponent).toBeDefined();
   });
 
-  it('renders with ToC in null state', () => {
+  it('renders with ToC in null state', async() => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
@@ -216,12 +231,14 @@ describe('content', () => {
       </Provider>
     );
 
+    await runHooksAsync(renderer);
+
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
 
     expect(tableOfContentsComponent.props.isOpen).toBe(null);
   });
 
-  it('clicking overlay closes toc', () => {
+  it('clicking overlay closes toc', async() => {
     renderer.act(() => {
       store.dispatch(receiveBook(bookState));
       store.dispatch(openToc());
@@ -237,6 +254,8 @@ describe('content', () => {
       </Provider>
     );
 
+    await runHooksAsync(renderer);
+
     const tableOfContentsComponent = component.root.findByType(TableOfContents);
     const mobileScrollLock = component.root.findByType(ScrollLock);
 
@@ -247,7 +266,7 @@ describe('content', () => {
     expect(tableOfContentsComponent.props.isOpen).toBe(false);
   });
 
-  it('SidebarControl opens and closes ToC', () => {
+  it('SidebarControl opens and closes ToC', async() => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
@@ -259,6 +278,8 @@ describe('content', () => {
         </Services.Provider>
       </Provider>
     );
+
+    await runHooksAsync(renderer);
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
 

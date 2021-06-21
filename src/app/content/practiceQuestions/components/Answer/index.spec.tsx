@@ -45,7 +45,7 @@ describe('Answer', () => {
       />
     </TestContainer>, { createNodeMock: () => container });
 
-    runHooks();
+    runHooks(renderer);
 
     expect(spyFocus).toHaveBeenCalled();
   });
@@ -67,7 +67,7 @@ describe('Answer', () => {
       />
     </TestContainer>, { createNodeMock: () => container });
 
-    runHooks();
+    runHooks(renderer);
 
     expect(spyFocus).not.toHaveBeenCalled();
   });

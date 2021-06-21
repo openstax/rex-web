@@ -170,7 +170,7 @@ describe('DisplayNote', () => {
       <DisplayNote {...displayNoteProps} isActive={isActive} />
     </TestContainer>);
 
-    runHooks();
+    runHooks(renderer);
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
 
@@ -180,7 +180,7 @@ describe('DisplayNote', () => {
       <DisplayNote {...displayNoteProps} isActive={isActive} />
     </TestContainer>);
 
-    runHooks();
+    runHooks(renderer);
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
   });

@@ -283,7 +283,7 @@ describe('Filters', () => {
         <Filters />
       </TestContainer>);
 
-      runHooks();
+      runHooks(renderer);
 
       const banner = component.root.findByType(UsingThisGuideBanner);
       expect(banner.props.show).toEqual(true);

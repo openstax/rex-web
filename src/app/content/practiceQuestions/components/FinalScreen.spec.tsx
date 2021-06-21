@@ -25,7 +25,7 @@ describe('FinalScreen for practice questions', () => {
       <FinalScreen nextSection={mockSection} />
     </TestContainer>);
 
-    await runHooksAsync();
+    await runHooksAsync(renderer);
 
     const button = component.root.findByType(Button);
 

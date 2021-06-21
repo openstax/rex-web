@@ -2,7 +2,7 @@ import createTestServices from '../../test/createTestServices';
 import createTestStore from '../../test/createTestStore';
 import { book as archiveBook } from '../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../test/mocks/osWebLoader';
-import { reactAndFriends, resetModules } from '../../test/utils';
+import { reactAndFriends, resetModules, runHooksAsync } from '../../test/utils';
 import { receiveBook } from '../content/actions';
 import { formatBookData } from '../content/utils';
 import createIntl from '../messages/createIntl';
@@ -45,14 +45,20 @@ describe('MessageProvider', () => {
 
     MessageProvider = require('../messages/MessageProvider').default;
 
-    renderer.create(<Provider store={store}>
+    const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider />
       </Services.Provider>
     </Provider>
     );
 
-    await new Promise((resolve) => setImmediate(resolve));
+    component.update(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider />
+      </Services.Provider>
+    </Provider>);
+
+    await runHooksAsync(renderer);
 
     expect(loaded).toBe(false);
   });
@@ -84,14 +90,20 @@ describe('MessageProvider', () => {
         store.dispatch(receiveBook(book));
       });
 
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider />
         </Services.Provider>
       </Provider>
       );
 
-      await new Promise((resolve) => setImmediate(resolve));
+      component.update(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider />
+        </Services.Provider>
+      </Provider>);
+
+      await runHooksAsync(renderer);
 
       expect(loaded).toBe(true);
     });
@@ -112,14 +124,20 @@ describe('MessageProvider', () => {
         store.dispatch(receiveBook(book));
       });
 
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider />
         </Services.Provider>
       </Provider>
       );
 
-      await new Promise((resolve) => setImmediate(resolve));
+      component.update(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider />
+        </Services.Provider>
+      </Provider>);
+
+      await runHooksAsync(renderer);
 
       expect(loaded).toBe(true);
     });
