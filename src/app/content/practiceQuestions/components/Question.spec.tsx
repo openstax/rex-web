@@ -106,7 +106,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     expect(() => component.root.findByType(QuestionWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionContent)).not.toThrow();
@@ -146,7 +146,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const submit = component.root.findByProps({ 'data-analytics-label': 'Submit' });
     expect(submit.props.disabled).toEqual(true);
@@ -171,7 +171,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const [skip] = component.root.findAllByType(Button);
 
@@ -199,7 +199,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const submit = component.root.findByProps({ 'data-analytics-label': 'Submit' });
     expect(submit.props.disabled).toEqual(true);
@@ -248,7 +248,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const [firstAnswer] = component.root.findAllByType(Answer);
     const input = firstAnswer.findByProps({ type: 'radio' });
@@ -292,7 +292,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const [, correctAnswer] = component.root.findAllByType(Answer);
     const input = correctAnswer.findByProps({ type: 'radio' });
@@ -320,7 +320,7 @@ describe('Question', () => {
 
     // Run initial useEffect hook
     // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const [, secondAnswer] = component.root.findAllByType(Answer);
     const input = secondAnswer.findByProps({ type: 'radio' });
