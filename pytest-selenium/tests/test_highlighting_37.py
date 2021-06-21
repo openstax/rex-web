@@ -13,11 +13,12 @@ from utils.utility import Color, Highlight, Utilities
 
 
 @markers.test_case("C591999")
-@markers.parametrize(
-    "book_slug,page_slug", [
-        ("astronomy",
-         "1-introduction")])
 @markers.desktop_only
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("astronomy", "1-introduction")]
+)
 def test_highlight_is_not_created_until_a_color_is_selected(
         selenium, base_url, book_slug, page_slug):
     """A highlight is not created until the highlight color is selected."""
@@ -68,11 +69,12 @@ def test_highlight_is_not_created_until_a_color_is_selected(
 
 
 @markers.test_case("C592001")
-@markers.parametrize(
-    "book_slug,page_slug", [
-        ("astronomy",
-         "1-introduction")])
 @markers.desktop_only
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("microbiology", "1-introduction")]
+)
 def test_color_auto_selected_if_a_note_is_added(
         selenium, base_url, book_slug, page_slug):
     """The first highlight color is auto-selected if a note is typed."""
@@ -119,11 +121,12 @@ def test_color_auto_selected_if_a_note_is_added(
 
 
 @markers.test_case("C592625")
-@markers.parametrize(
-    "book_slug,page_slug", [
-        ("astronomy",
-         "1-introduction")])
 @markers.desktop_only
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("microbiology", "1-introduction")]
+)
 def test_signup_as_a_new_user_via_the_highlight_nudge_overlay(
         selenium, base_url, book_slug, page_slug):
     """Signup as a new user using the highlight nudge overlay."""
@@ -180,11 +183,12 @@ def test_signup_as_a_new_user_via_the_highlight_nudge_overlay(
 
 
 @markers.test_case("C592626")
-@markers.smoke_test
+@markers.highlighting
 @markers.parametrize(
-    "book_slug,page_slug", [
-        ("microbiology",
-         "1-introduction")])
+    "book_slug, page_slug",
+    [("microbiology", "1-introduction")]
+)
+@markers.smoke_test
 def test_display_highlights_for_returning_users(
         selenium, base_url, book_slug, page_slug):
     """Existing highlights are displayed for returning users."""
