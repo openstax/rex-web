@@ -1,3 +1,3 @@
 export const loginText = `
-<a href="{loginLink}">Log in</a> to view your highlights and notes.
+    <a href="{loginLink}">Zaloguj się,</a> żeby zobaczyć swoje notatki i zakreślenia.
 `;

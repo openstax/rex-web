@@ -1,16 +1,14 @@
+// tslint:disable: max-line-length
 export const bottomText = `
-  <div data-html="copyright">© 1999-{currentYear}, Rice University. Except where otherwise noted, textbooks on this site
-    are licensed under a
-    <a href="{copyrightLink}" target="_blank"
-    rel="noreferrer">Creative Commons Attribution 4.0 International License</a>.
+  <div data-html=""copyright"">© 1999-{currentYear}, Rice University. Jeśli nie zaznaczono inaczej, podręczniki na tej stronie zostały opublikowane na licencji
+  <a href=""{copyrightLink}"" target=""_blank""
+  rel=""noreferrer"">Creative Commons Uznanie autorstwa 4.0 Międzynarodowa</a>.
   </div>
-  <div data-html="apStatement">
-    Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,
-    which is not affiliated with, and does not endorse, this site.
+  <div data-html=""apStatement"">
+  Advanced Placement<sup>®</sup> and AP<sup>®</sup> są znakami towarowymi zarejestrowanymi i/lub należącymi do fundacji College Board, która nie jest powiązana z tą stroną i jej nie wspiera.
   </div>
 `;
 
 export const missionText = `
-  OpenStax is part of Rice University, which is a 501(c)(3) nonprofit.
-  <a href="/give" target="_blank">Give today</a> and help us reach more students.
+  OpenStax jest częścią Rice University i fundacją non profit typu 501(c)(3). <a href=""/give"" target=""_blank"">Wpłać darowiznę</a>i pomóż nam dotrzeć do większej liczby studentów.
 `;

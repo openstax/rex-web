@@ -1,64 +1,62 @@
 // tslint:disable max-line-length
 export const defaultText = `
 <p>
-  Want to cite, share, or modify this book? This book is
-  <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
+ Chcesz zacytować, udostępnić albo zmodyfikować treść tej książki? Została ona wydana na licencji, 
+  <a target=""_blank"" rel=""noopener"" href=""{bookLicenseUrl}"">
     {bookLicenseName} {bookLicenseVersion}
-  </a> and you must attribute {copyrightHolder}.{originalMaterialLink, select,
+  </a> która wymaga od Ciebie uznania autorstwa {copyrightHolder}.{originalMaterialLink, select,
     null {}
-    other { The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
+    other {Oryginalna publikacja jest dostępna na: <a target=""_blank"" rel=""noopener"" href=""{originalMaterialLink}"">
       {originalMaterialLink}
     </a>.}
   }{copyrightHolder, select,
     OpenStax {}
-    other { Changes were made to the original material, including updates to art, structure, and other content updates.}}
+    other {Wprowadzono modyfikacje oryginalnej publikacji, w tym aktualizacje ilustracji, struktury i treści.}}
 </p>
 
-<strong>Attribution information</strong>
+<strong>Cytowanie i udostępnienia</strong>
 <ul>
   <li>
-    If you are redistributing all or part of this book in a print format,
-    then you must include on every physical page the following attribution:
+Jeśli rozpowszechniasz tę książkę w formie drukowanej, umieść na każdej jej kartce informację:
     <blockquote>
-      Access for free at https://openstax.org{introPageUrl}
+Treści dostępne za darmo na https://openstax.org{introPageUrl}
     </blockquote>
   </li>
   <li>
-    If you are redistributing all or part of this book in a digital format,
-    then you must include on every digital page view the following attribution:
+
+Jeśli rozpowszechniasz całą książkę lub jej fragment w formacie cyfrowym, na każdym widoku strony umieść informację:
     <blockquote>
-      Access for free at <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+  Treści dostępne za darmo na<a href=""https://openstax.org{introPageUrl}"">https://openstax.org{introPageUrl}</a>
     </blockquote>
   </li>
 </ul>
 
-<strong>Citation information</strong>
+<strong> Cytowanie</strong>
 <ul>
   <li>
-    Use the information below to generate a citation. We recommend using a
-    citation tool such as
-    <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">this one</a>.
+Jeśli chcesz zacytować tę książkę, skorzystaj z dostępnych narzędzi do tworzenia wpisów bibliograficznych, jak np.:
+    <a target=""_blank"" rel=""noopener"" href=""https://www.lib.ncsu.edu/citationbuilder/#/default/default"">this one</a>.
     <ul>
       <li>
-        Authors: {bookAuthors}
+    Autorzy: {bookAuthors}
       </li>
       <li>
-        Publisher/website: OpenStax
+     Wydawca/strona internetowa: OpenStax
       </li>
       <li>
-        Book title: {bookTitle}
+     Tytuł książki: {bookTitle}
       </li>
       <li>
-        Publication date: {bookPublishDate, date, medium}
+        Data publikacji: {bookPublishDate, date, medium}
       </li>
       <li>
-        Location: Houston, Texas
+     Miejscowość: Houston, Teksas
       </li>
       <li>
-        Book URL: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+     URL książki: <a href=""https://openstax.org{introPageUrl}"">https://openstax.org{introPageUrl}</a>
       </li>
       <li>
-        Section URL: <a href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
+      URL fragmentu: <a href=""https://openstax.org{currentPath}"">https://openstax.org{currentPath}</a>
       </li>
     </ul>
   </li>
@@ -66,9 +64,8 @@ export const defaultText = `
 
 <p>
   © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,
-    OpenStax {Textbook content produced by OpenStax is licensed under a {bookLicenseName} {bookLicenseVersion} license. }
-    other {}}<strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo
-  are not subject to the Creative Commons license and may not be reproduced without the prior and express written
-  consent of Rice University.</strong>
+    OpenStax {Treść książki została wytworzona przez OpenStax na licencji {bookLicenseName} {bookLicenseVersion}. }
+    other {}}<strong> Nazwa OpenStax, logo OpenStax, okładki OpenStax, nazwa OpenStax CNX oraz OpenStax CNX logo
+ nie podlegają licencji Creative Commons i wykorzystanie ich jest dozwolone wyłącznie na mocy uprzedniego pisemnego upoważnienia przez Rice University.</strong>
 </p>
 `;
