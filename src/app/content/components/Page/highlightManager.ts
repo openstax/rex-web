@@ -4,7 +4,6 @@ import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { IntlShape } from 'react-intl';
-import { typesettingCounterAttribute } from '../../../../helpers/mathjax';
 import * as selectAuth from '../../../auth/selectors';
 import { findFirstAncestorOrSelf } from '../../../domUtils';
 import { isDefined } from '../../../guards';
@@ -193,58 +192,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp, intl: Intl
     }
   };
 
-  const updateHighlighter = async(prevProps: HighlightProp, options?: UpdateOptions): Promise<boolean> => {
-    const typsettingCounter = Number(container.getAttribute(typesettingCounterAttribute)) || 0;
-    if (options?.waitForMathTypesetting && typsettingCounter > 0) {
-      return new Promise((res) => {
-        setTimeout(() => res(updateHighlighter(prevProps, options)), 100);
-      });
-    }
-
-    let addedOrRemoved = false;
-
-    const matchHighlightId = (id: string) => (search: HighlightData | Highlight) => search.id === id;
-
-    if (
-      pendingHighlight
-      && !highlighter.getHighlight(pendingHighlight.id)
-      && getProp().highlights.find(matchHighlightId(pendingHighlight.id))
-    ) {
-      addedOrRemoved = true;
-      attachHighlight(pendingHighlight, highlighter);
-    }
-
-    getProp().highlights
-      .map(updateStyle(highlighter))
-    ;
-
-    const newHighlights = getProp().highlights
-      .filter(isUnknownHighlightData(highlighter))
-      .map(highlightData({ ...services, highlighter }))
-      .filter(isDefined)
-      ;
-
-    const removedHighlights = highlighter.getHighlights()
-      .filter((highlight) => !getProp().highlights.find(matchHighlightId(highlight.id)))
-      .map(erase(highlighter))
-      ;
-
-    highlighter.clearFocusedStyles();
-
-    focusAndScrollToHighlight(prevProps, getProp(), options);
-
-    if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {
-      clearPendingHighlight();
-    }
-
-    if (addedOrRemoved || newHighlights.length > 0 || removedHighlights.length > 0) {
-      setListHighlights(highlighter.getOrderedHighlights());
-      return true;
-    }
-
-    return addedOrRemoved;
-  };
-
   const services = {
     clearPendingHighlight,
     container,
@@ -275,7 +222,48 @@ export default (container: HTMLElement, getProp: () => HighlightProp, intl: Intl
     },
     unmount: (): void => highlighter && highlighter.unmount(),
     update: (prevProps: HighlightProp, options?: UpdateOptions) => {
-      return updateHighlighter(prevProps, options);
+      let addedOrRemoved = false;
+
+      const matchHighlightId = (id: string) => (search: HighlightData | Highlight) => search.id === id;
+
+      if (
+        pendingHighlight
+        && !highlighter.getHighlight(pendingHighlight.id)
+        && getProp().highlights.find(matchHighlightId(pendingHighlight.id))
+      ) {
+        addedOrRemoved = true;
+        attachHighlight(pendingHighlight, highlighter);
+      }
+
+      getProp().highlights
+        .map(updateStyle(highlighter))
+      ;
+
+      const newHighlights = getProp().highlights
+        .filter(isUnknownHighlightData(highlighter))
+        .map(highlightData({ ...services, highlighter }))
+        .filter(isDefined)
+        ;
+
+      const removedHighlights = highlighter.getHighlights()
+        .filter((highlight) => !getProp().highlights.find(matchHighlightId(highlight.id)))
+        .map(erase(highlighter))
+        ;
+
+      highlighter.clearFocusedStyles();
+
+      focusAndScrollToHighlight(prevProps, getProp(), options);
+
+      if (pendingHighlight && removedHighlights.find(matchHighlightId(pendingHighlight.id))) {
+        clearPendingHighlight();
+      }
+
+      if (addedOrRemoved || newHighlights.length > 0 || removedHighlights.length > 0) {
+        setListHighlights(highlighter.getOrderedHighlights());
+        return true;
+      }
+
+      return addedOrRemoved;
     },
   };
 };
@@ -283,5 +271,5 @@ export default (container: HTMLElement, getProp: () => HighlightProp, intl: Intl
 export const stubHighlightManager = ({
   CardList: (() => null) as React.FC,
   unmount: (): void => undefined,
-  update: (_prevProps: HighlightProp, _options?: UpdateOptions): Promise<boolean> => Promise.resolve(false),
+  update: (_prevProps: HighlightProp, _options?: UpdateOptions): boolean => false,
 });

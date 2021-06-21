@@ -1073,7 +1073,7 @@ describe('Page', () => {
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     renderer.act(() => {
       store.dispatch(locationChange({
@@ -1084,7 +1084,7 @@ describe('Page', () => {
     });
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(dispatch).toHaveBeenCalledWith(
       addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
@@ -1102,7 +1102,7 @@ describe('Page', () => {
     });
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(dispatch).not.toHaveBeenCalledWith(
       addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
@@ -1167,7 +1167,7 @@ describe('Page', () => {
       title: 'qerqwer',
     }));
 
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(spy).toHaveBeenCalledWith(0, 0);
   });

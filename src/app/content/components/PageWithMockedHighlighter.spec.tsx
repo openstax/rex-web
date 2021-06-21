@@ -93,6 +93,7 @@ describe('Page', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let services: AppServices & MiddlewareAPI;
+  let renderDomWithReferences: () => ReturnType<typeof renderToDom>;
 
   beforeEach(() => {
     resetModules();
@@ -120,25 +121,25 @@ describe('Page', () => {
       getState: store.getState,
     };
     archiveLoader = testServices.archiveLoader;
+
+    renderDomWithReferences = () => {
+      archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
+
+      store.dispatch(receivePage({...pageWithRefereces, references}));
+
+      return renderToDom(
+        <Provider store={store}>
+          <Services.Provider value={services}>
+            <MessageProvider>
+                <AccessibilityButtonsWrapper>
+                  <ConnectedPage />
+                </AccessibilityButtonsWrapper>
+            </MessageProvider>
+          </Services.Provider>
+        </Provider>
+      );
+    };
   });
-
-  const renderDomWithReferences = () => {
-    archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
-
-    store.dispatch(receivePage({...pageWithRefereces, references}));
-
-    return renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-              <AccessibilityButtonsWrapper>
-                <ConnectedPage />
-              </AccessibilityButtonsWrapper>
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
-  };
 
   it('removes a highlight that was a scroll target highlight and clears navigations\'s state', async() => {
     const window = assertWindow();
@@ -148,7 +149,7 @@ describe('Page', () => {
     renderDomWithReferences();
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     const highlightsScrollTargetElement = assertDocument().createElement('span');
     const mockHighlights = [
@@ -175,7 +176,7 @@ describe('Page', () => {
     });
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(scrollTarget(store.getState())).toEqual({
@@ -229,8 +230,8 @@ describe('Page', () => {
       },
     ] as any[];
 
-    Highlighter.mock.instances[1].getHighlights.mockReturnValue(mockHighlights);
-    Highlighter.mock.instances[1].getHighlight.mockImplementation(
+    Highlighter.mock.instances[0].getHighlights.mockReturnValue(mockHighlights);
+    Highlighter.mock.instances[0].getHighlight.mockImplementation(
       (id: string) => keyBy('id', mockHighlights)[id]
     );
     fromApiResponse.mockImplementation((highlight) => highlight);
@@ -244,7 +245,7 @@ describe('Page', () => {
     });
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalled();

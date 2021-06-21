@@ -35,7 +35,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
   private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
-  private processing: Promise<void> = Promise.resolve();
+  private processing: Array<Promise<void>> = [];
   private componentDidUpdateCounter = 0;
 
   public getTransformedContent = () => {
@@ -78,7 +78,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
 
     // Wait for the mathjax promise set by postProcess from previous or current componentDidUpdate call.
-    await this.processing;
+    await Promise.all(this.processing);
 
     this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
@@ -88,9 +88,8 @@ export default class PageComponent extends Component<PagePropTypes> {
       return;
     }
 
-    const highlightsAddedOrRemoved = await this.highlightManager.update(prevProps.highlights, {
+    const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
       onSelect: this.onHighlightSelect,
-      waitForMathTypesetting: true,
     });
 
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
@@ -215,9 +214,11 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     const promise = typesetMath(container, assertWindow());
     this.props.services.promiseCollector.add(promise);
-    this.processing = promise;
+    this.processing.push(promise);
 
-    return promise;
+    return promise.then(() => {
+      this.processing = this.processing.filter((p) => p !== promise);
+    });
   }
 
   private getRunId(): number {
