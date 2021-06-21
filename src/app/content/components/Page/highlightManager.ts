@@ -134,7 +134,6 @@ const getHighlightToFocus = (
 
 export interface UpdateOptions {
   onSelect: (highlight: Highlight | null) => void;
-  waitForMathTypesetting?: boolean;
 }
 
 export default (container: HTMLElement, getProp: () => HighlightProp, intl: IntlShape) => {
