@@ -148,7 +148,7 @@ describe('Page', () => {
     renderDomWithReferences();
 
     // page lifecycle hooks
-    await new Promise((resolve) => setImmediate(resolve));
+    await Promise.resolve();
 
     const highlightsScrollTargetElement = assertDocument().createElement('span');
     const mockHighlights = [
@@ -175,7 +175,8 @@ describe('Page', () => {
     });
 
     // page lifecycle hooks
-    await new Promise((resolve) => setImmediate(resolve));
+    await Promise.resolve();
+    await Promise.resolve();
 
     expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(scrollTarget(store.getState())).toEqual({
@@ -201,6 +202,7 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(mockHighlights[0], expect.anything()));
     expect(spyReplaceState).toHaveBeenCalledWith(null, '', window.location.origin + window.location.pathname);
     expect(scrollTarget(store.getState())).toEqual(null);
+    jest.resetAllMocks();
   });
 
   // tslint:disable-next-line: max-line-length
@@ -243,7 +245,8 @@ describe('Page', () => {
     });
 
     // page lifecycle hooks
-    await new Promise((resolve) => setImmediate(resolve));
+    await Promise.resolve();
+    await Promise.resolve();
 
     expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalled();
@@ -264,7 +267,6 @@ describe('Page', () => {
 
     expect(mockHighlights[1].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalledTimes(1);
-    jest.resetAllMocks();
   });
 
   it('handle multiple mathjax promises and call highlightManager.update only once', async() => {
