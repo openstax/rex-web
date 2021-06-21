@@ -169,3 +169,7 @@ export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): sec
   && getArchiveTreeSectionNumber(section) !== null
   && section.contents.some((node) => !isArchiveTree(node))
 ;
+export const archiveTreeSectionIsAnswerKey = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
+  isLinkedArchiveTree(section)
+  && section.slug === 'answer-key'
+;
