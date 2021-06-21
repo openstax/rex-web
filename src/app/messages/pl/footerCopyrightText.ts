@@ -5,7 +5,7 @@ export const bottomText = `
   rel=""noreferrer"">Creative Commons Uznanie autorstwa 4.0 Międzynarodowa</a>.
   </div>
   <div data-html=""apStatement"">
-  Advanced Placement<sup>®</sup> and AP<sup>®</sup> są znakami towarowymi zarejestrowanymi i/lub należącymi do fundacji College Board, która nie jest powiązana z tą stroną i jej nie wspiera.
+  Advanced Placement<sup>®</sup> i AP<sup>®</sup> są znakami towarowymi zarejestrowanymi i/lub należącymi do fundacji College Board, która nie jest powiązana z tą stroną i jej nie wspiera.
   </div>
 `;
 
