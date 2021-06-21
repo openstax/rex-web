@@ -12,6 +12,7 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { assertDocument } from '../../../utils/browser-assertions';
@@ -507,13 +508,37 @@ describe('highlightManager', () => {
         window.getSelection = jest.fn(() => ({
           removeAllRanges,
         })) as any;
-
-        prop.focused = 'random id';
         prop.hasUnsavedHighlight = true;
         manager.update(prevProp);
       });
 
-      it('noops if user decides not to discard changes', async() => {
+      it('scrolls to edited highlight if user decides not to discard changes', async() => {
+        const mockSrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+        const firstElement = assertDocument().createElement('div');
+        firstElement.innerHTML = 'firstElement';
+        const lastElement = assertDocument().createElement('div');
+        lastElement.innerHTML = 'lastElement';
+
+        const mockHighlight = {
+          ...createMockHighlight('test-id'),
+          elements: [firstElement, lastElement],
+        };
+        const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
+        Highlighter.mock.instances[0].getHighlight
+        .mockReturnValueOnce(mockHighlight);
+        prop.focused = mockHighlight.id;
+
+        await renderer.act(() => {
+          Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
+          return new Promise((resolve) => defer(resolve));
+        });
+
+        expect(highlight).not.toHaveBeenCalled();
+        expect(removeAllRanges).toHaveBeenCalled();
+        expect(mockSrollIntoView).toHaveBeenCalledWith(firstElement, [lastElement]);
+      });
+      it('doesnt\'t scroll to edited highlight if lost its focus ', async() => {
+        const mockSrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
         const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
 
         await renderer.act(() => {
@@ -523,6 +548,7 @@ describe('highlightManager', () => {
 
         expect(highlight).not.toHaveBeenCalled();
         expect(removeAllRanges).toHaveBeenCalled();
+        expect(mockSrollIntoView).not.toHaveBeenCalled();
       });
     });
   });

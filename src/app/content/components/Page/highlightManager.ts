@@ -100,8 +100,7 @@ const onSelectHighlight = (
 
     const firstElement = focusedHighlight.elements[0] as HTMLElement;
     const lastElement = focusedHighlight.elements[focusedHighlight.elements.length - 1] as HTMLElement;
-    const elements = [lastElement];
-    scrollIntoView(firstElement, elements);
+    scrollIntoView(firstElement, [lastElement]);
     return;
   }
 
