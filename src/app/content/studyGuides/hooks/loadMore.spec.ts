@@ -74,7 +74,7 @@ describe('loadMore', () => {
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage2-uuid']},
       // tslint:disable-next-line: object-literal-sort-keys
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage11-uuid']},
-      'testbook1-tpestpage8-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage8-uuid']},
+      'testbook1-testpage8-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage8-uuid']},
     }));
     store.dispatch(setSummaryFilters({
       colors: Array.from(colorfilterLabels),
@@ -174,7 +174,7 @@ describe('loadMore', () => {
     };
 
     expect(loadingSpy).toHaveBeenCalled();
-    // expect(highlightClient).toHaveBeenCalledTimes(3);
+    expect(highlightClient).toHaveBeenCalledTimes(3);
     expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, {pagination: null, filters}));
   });
 
