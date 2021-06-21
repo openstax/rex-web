@@ -2935,10 +2935,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@openstax/highlighter@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.9.0.tgz#bafd769a966923c04967d5b24472e3da641599fe"
-  integrity sha512-rF4uaFjaNBOSfqgT6kYHdBVvUPWuVezyexzNHgl8SCPB0GwEvmONIhO3vlZgYCKkwalyfXKoC5G1ADH/gXzu1g==
+"@openstax/highlighter@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.9.1.tgz#8d129da18ce440a71460e72bac1c929b596d1933"
+  integrity sha512-/RDIKJwNh+coi8iTUdOGM2/pwWFZdOgJ1/hPPwjVbU5P4nMWpEEycBJEhP33R3gYc6xWoI0gnkECpui0WYVnEQ==
   dependencies:
     "@openstax/highlights-client" "0.2.3"
     change-case "^4.0.0"
