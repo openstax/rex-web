@@ -16,8 +16,8 @@ const DynamicContentStyles = ({ children, ...otherProps }: React.PropsWithChildr
   const [styles, setStyles] = React.useState('');
 
   React.useEffect(() => {
-    const cssfileUrl = queryParams['content-style'] as string | undefined;
-    if (cssfileUrl) {
+    const cssfileUrl = queryParams['content-style'];
+    if (cssfileUrl && typeof cssfileUrl === 'string') {
       fetch(cssfileUrl)
         .then((res) => res.text())
         .then((data) => setStyles(data));
