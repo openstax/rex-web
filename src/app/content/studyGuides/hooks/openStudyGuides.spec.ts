@@ -12,6 +12,7 @@ import { formatBookData } from '../../utils';
 import {
   loadMoreStudyGuides,
   openStudyGuides,
+  receiveStudyGuidesTotalCounts,
   setDefaultSummaryFilters
 } from '../actions';
 import { colorfilterLabels } from '../constants';
@@ -91,6 +92,26 @@ describe('openStudyGuides', () => {
     expect(dispatch).toHaveBeenCalledWith(
       setDefaultSummaryFilters({
         colors: [HighlightColorEnum.Blue],
+        locationIds: ['testbook1-testchapter1-uuid'],
+      })
+    );
+  });
+
+  it('sets colors from colors with content', async() => {
+    store.dispatch(locationChange({ location: { search: '' } } as any));
+    store.dispatch(receiveLoggedOut());
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      countsPerSource: {
+        green: 1,
+      },
+    }));
+
+    await hook(openStudyGuides());
+    expect(dispatch).toHaveBeenCalledWith(
+      setDefaultSummaryFilters({
+        colors: [HighlightColorEnum.Green],
         locationIds: ['testbook1-testchapter1-uuid'],
       })
     );

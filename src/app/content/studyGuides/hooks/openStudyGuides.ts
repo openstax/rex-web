@@ -16,13 +16,16 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const book = selectContent.book(state);
   const firstChapter = book && findArchiveTreeNode(archiveTreeSectionIsChapter, book.tree);
   const query = navigation.query(state);
+  const colorsWithSG = select.highlightColorFiltersWithContent(state);
   const { colors: colorsFromQuery, locationIds } = getFiltersFromQuery(query);
-  const colors = colorsFromQuery.length ? colorsFromQuery : Array.from(colorfilterLabels);
+  const colors = colorsFromQuery.length
+    ? colorsFromQuery
+    : Array.from(colorsWithSG.size ? colorsWithSG : colorfilterLabels);
 
   if (notLoggedIn && firstChapter && !locationIds.includes(firstChapter.id)) {
     // Non logged in users will always see SG only for the first chapter
     services.dispatch(setDefaultSummaryFilters({ colors, locationIds: [firstChapter.id] }));
-  } else if (!notLoggedIn && locationIds.length === 0 && defaultFilter && !locationIds.includes(defaultFilter.id)) {
+  } else if (!notLoggedIn && locationIds.length === 0 && defaultFilter) {
     // Set default locationId filter for logged in users
     services.dispatch(setDefaultSummaryFilters({ colors, locationIds: [defaultFilter.id] }));
   } else {

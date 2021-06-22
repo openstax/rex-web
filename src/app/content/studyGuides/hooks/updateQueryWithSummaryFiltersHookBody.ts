@@ -1,3 +1,4 @@
+import { getType } from 'typesafe-actions';
 import { replace } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { updateQuery } from '../../../navigation/utils';
@@ -17,7 +18,7 @@ export const hookBody: ActionHookBody<
 
   if (!match) { return; }
 
-  const updatedFilters = action.type === 'Content/StudyGuides/Summary/setDefaultFilters'
+  const updatedFilters = action.type === getType(actions.setDefaultSummaryFilters)
     ? action.payload
     : updateSummaryFilters(filters, action.payload);
   services.dispatch(replace(match, {
