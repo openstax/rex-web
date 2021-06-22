@@ -20,6 +20,7 @@ import { State } from './types';
 
 export const initialState = {
   buyPrint: null,
+  fontModifier: 1,
   highlights: initialHighlightState,
   loading: {},
   pageNotFoundId: null,
@@ -67,8 +68,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
 
 export default reducer;
 
-function reduceContent(state: State, action: AnyAction) {
+function reduceContent(state: State, action: any) {
   switch (action.type) {
+    case 'changeFont':
+      return {...state, fontModifier: action.modifier};
     case getType(actions.openToc):
       return {...state, tocOpen: true};
     case getType(actions.closeToc):

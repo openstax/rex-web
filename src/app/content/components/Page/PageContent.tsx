@@ -23,8 +23,6 @@ export const contentTextStyle = css`
 
 export default styled(MainContent)`
   ${contentTextStyle}
-  font-size: 1.4rem;
-  line-height: 2rem;
   overflow: visible;
 
   @media screen {

@@ -17,12 +17,10 @@
 @screen-sm-min:         @screen-sm;
 @screen-xs-max:         (@screen-sm-min - 1);
 
-body {
-  font-size: @font-size-base;
-}
-
 #main-content, .content-excerpt {
   @import "./content-baked.less";
+  font-size: calc(var(--font-modification, 1) * 1.4rem);
+  line-height: calc(var(--font-modification, 1) * 2rem);
 
   // gray is used for text color
   @gray: #424242;
@@ -34,13 +32,13 @@ body {
     bottom: -.25em;
   }
   h2{
-    font-size: 2.8rem;
+    font-size: calc(var(--font-modification, 1) * 2.8rem);
   }
   h3 {
-    font-size: 2.1rem;
+    font-size: calc(var(--font-modification, 1) * 2.1rem);
   }
   h4 {
-    font-size: 1.6rem;
+    font-size: calc(var(--font-modification, 1) * 1.6rem);
   }
   sub, sup {
     font-size: 75%;

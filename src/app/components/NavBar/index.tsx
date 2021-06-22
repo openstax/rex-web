@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { SFC } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import openstaxLogo from '../../../assets/logo.svg';
 import * as authSelect from '../../auth/selectors';
 import { User } from '../../auth/types';
@@ -88,13 +88,17 @@ const LoggedOutState: SFC<{currentPath: string}> = ({currentPath}) => <Formatted
 </FormattedMessage>;
 
 interface NavigationBarProps {
-  user?: User;
+  user ?: User;
   loggedOut: boolean;
   currentPath: string;
 }
 // tslint:disable-next-line:variable-name
-const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
-  <Styled.BarWrapper data-analytics-region='openstax-navbar'>
+const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) => {
+
+  const dispatch = useDispatch();
+  const changeFont = (modifier: number) => dispatch({type: 'changeFont', modifier});
+
+  return <Styled.BarWrapper data-analytics-region='openstax-navbar'>
     <Styled.TopBar data-testid='navbar'>
       <a href='/'>
         <Styled.HeaderImage
@@ -103,10 +107,16 @@ const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
           alt={useIntl().formatMessage({id: 'i18n:nav:logo:alt'})}
         />
       </a>
+      <div>
+        <input type='range' id='font' name='font' onChange={(e: any) => changeFont(Number(e.target.value))}
+             min='0.5' max='3' defaultValue='1' step='0.1' />
+        <label htmlFor='font'>font size</label>
+      </div>
       {loggedOut && <LoggedOutState currentPath={currentPath} />}
       {user && <LoggedInState user={user} currentPath={currentPath} />}
     </Styled.TopBar>
   </Styled.BarWrapper>;
+};
 
 export default connect(
   (state: AppState) => ({

@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import ScrollOffset from '../../components/ScrollOffset';
@@ -37,6 +37,8 @@ import Wrapper from './Wrapper';
 
 // tslint:disable-next-line:variable-name
 const Background = styled.div`
+  --font-modification: ${(props) => props.modifier};
+
   @media screen {
     display: flex;
     flex: 1;
@@ -178,7 +180,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
       + scrollOffset
     }
   />
-  <Background>
+  <Background modifier={useSelector((state: any) => state.content.fontModifier)}>
     <BookBanner />
     <ErrorBoundary>
       <HighlightsPopUp />
