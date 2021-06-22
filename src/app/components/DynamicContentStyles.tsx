@@ -24,7 +24,10 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   const [styles, setStyles] = React.useState('');
 
   React.useEffect(() => {
-    if (disable) { setStyles(''); }
+    if (disable) {
+      setStyles('');
+      return;
+    }
 
     const cssfileUrl = queryParams['content-style'];
     if (cssfileUrl && typeof cssfileUrl === 'string') {
