@@ -512,31 +512,6 @@ describe('highlightManager', () => {
         manager.update(prevProp);
       });
 
-      it('scrolls to edited highlight if user decides not to discard changes', async() => {
-        const mockSrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
-        const firstElement = assertDocument().createElement('div');
-        firstElement.innerHTML = 'firstElement';
-        const lastElement = assertDocument().createElement('div');
-        lastElement.innerHTML = 'lastElement';
-
-        const mockHighlight = {
-          ...createMockHighlight('test-id'),
-          elements: [firstElement, lastElement],
-        };
-        const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
-        Highlighter.mock.instances[0].getHighlight
-        .mockReturnValueOnce(mockHighlight);
-        prop.focused = mockHighlight.id;
-
-        await renderer.act(() => {
-          Highlighter.mock.calls[0][1].onSelect([], mockHighlight);
-          return new Promise((resolve) => defer(resolve));
-        });
-
-        expect(highlight).not.toHaveBeenCalled();
-        expect(removeAllRanges).toHaveBeenCalled();
-        expect(mockSrollIntoView).toHaveBeenCalledWith(firstElement, [lastElement]);
-      });
       it('doesnt\'t scroll to edited highlight if lost its focus ', async() => {
         const mockSrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
         const highlight = Highlighter.mock.instances[0].highlight = jest.fn();

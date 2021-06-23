@@ -5,7 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { IntlShape } from 'react-intl';
 import * as selectAuth from '../../../auth/selectors';
-import { findFirstAncestorOrSelf, scrollIntoView } from '../../../domUtils';
+import { findFirstAncestorOrSelf } from '../../../domUtils';
 import { isDefined } from '../../../guards';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
@@ -93,14 +93,6 @@ const onSelectHighlight = (
 
   if (services.getProp().hasUnsavedHighlight && !await showDiscardChangesConfirmation(services.getProp().dispatch)) {
     assertWindow().getSelection()?.removeAllRanges();
-    const focuesId = services.getProp().focused;
-    const focusedHighlight = focuesId ? services.highlighter.getHighlight(focuesId) : null;
-
-    if (!focusedHighlight) { return; }
-
-    const firstElement = focusedHighlight.elements[0] as HTMLElement;
-    const lastElement = focusedHighlight.elements[focusedHighlight.elements.length - 1] as HTMLElement;
-    scrollIntoView(firstElement, [lastElement]);
     return;
   }
 
