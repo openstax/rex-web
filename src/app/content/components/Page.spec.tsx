@@ -54,7 +54,7 @@ jest.mock('../../domUtils', () => ({
 
 const makeEvent = (doc: Document) => {
   const event = doc.createEvent('MouseEvents');
-  event.initEvent('click', true, false);
+  event.initEvent('click', true, true);
   event.preventDefault();
   event.preventDefault = jest.fn();
   return event;
@@ -558,7 +558,8 @@ describe('Page', () => {
   it('interceptes clicking links that failed due to reference loading error', async() => {
     const {root} = renderDomWithReferences();
 
-    const spyAlert = jest.spyOn(globalThis as any, 'alert');
+    const spyAlert = jest.spyOn(globalThis as any, 'alert')
+      .mockImplementation(jest.fn());
 
     dispatch.mockReset();
     const [, , , , lastLink] = Array.from(root.querySelectorAll('#main-content a'));
