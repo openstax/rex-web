@@ -512,7 +512,6 @@ describe('highlightManager', () => {
       });
 
       it('noops if user decides not to discard changes', async() => {
-        // const mockSrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
         const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
 
         await renderer.act(() => {
@@ -522,7 +521,6 @@ describe('highlightManager', () => {
 
         expect(highlight).not.toHaveBeenCalled();
         expect(removeAllRanges).toHaveBeenCalled();
-        // expect(mockSrollIntoView).not.toHaveBeenCalled();
       });
     });
   });
