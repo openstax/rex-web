@@ -12,7 +12,6 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
-import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { assertDocument } from '../../../utils/browser-assertions';
@@ -512,8 +511,8 @@ describe('highlightManager', () => {
         manager.update(prevProp);
       });
 
-      it('doesnt\'t scroll to edited highlight if lost its focus ', async() => {
-        const mockSrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+      it('noops if user decides not to discard changes', async() => {
+        // const mockSrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
         const highlight = Highlighter.mock.instances[0].highlight = jest.fn();
 
         await renderer.act(() => {
@@ -523,7 +522,7 @@ describe('highlightManager', () => {
 
         expect(highlight).not.toHaveBeenCalled();
         expect(removeAllRanges).toHaveBeenCalled();
-        expect(mockSrollIntoView).not.toHaveBeenCalled();
+        // expect(mockSrollIntoView).not.toHaveBeenCalled();
       });
     });
   });
