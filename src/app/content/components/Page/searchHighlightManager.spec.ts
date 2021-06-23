@@ -74,8 +74,9 @@ describe('searchHighlightManager', () => {
     onHighlightSelect = jest.fn();
   });
 
-  it('calls highlight select callback only when a new highlight is selected + toggle solution if highlight is inside',
-    () => {
+  const testName = 'calls highlight select callback only when a new highlight is selected '
+    + '+ toggle solution if highlight is inside';
+  it(testName, () => {
     const selectedSearchResult = {highlight: 0, result: searchResults[0]};
 
     attachedManager.update(
