@@ -507,6 +507,8 @@ describe('highlightManager', () => {
         window.getSelection = jest.fn(() => ({
           removeAllRanges,
         })) as any;
+
+        prop.focused = 'random id';
         prop.hasUnsavedHighlight = true;
         manager.update(prevProp);
       });
