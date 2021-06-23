@@ -15,7 +15,7 @@ import { tocOpen } from '../../selectors';
 import { focusHighlight } from '../actions';
 import { cardPadding, cardWidth } from '../constants';
 import Confirmation from './Confirmation';
-import MenuToggle, { MenuIcon } from './MenuToggle';
+import DefaultMenuToggle, { MenuIcon } from './MenuToggle';
 import TruncatedText from './TruncatedText';
 import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
 
@@ -32,6 +32,26 @@ const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusab
   ${theme.breakpoints.touchDeviceQuery(css`
     display: block;
  `)}
+`;
+
+// tslint:disable-next-line: variable-name
+const MenuToggle = styled(DefaultMenuToggle)`
+  position: relative;
+
+  /*
+    card may move for 2rem when it is focused and sometimes this cause context menu
+    to not show up on the click https://github.com/openstax/unified/issues/1611
+  */
+  &::after {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2.5rem;
+    position: absolute;
+    top: 0;
+    right: -2rem;
+    cursor: default;
+  }
 `;
 
 export interface DisplayNoteProps {

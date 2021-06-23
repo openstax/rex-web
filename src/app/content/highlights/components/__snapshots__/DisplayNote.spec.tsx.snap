@@ -2,7 +2,7 @@
 
 exports[`DisplayNote matches snapshot 1`] = `
 <div
-  className="DisplayNote-wzwggt-1 blUofp"
+  className="DisplayNote-wzwggt-2 Fniou"
   data-highlight-card={true}
   tabIndex={-1}
 >
@@ -10,7 +10,7 @@ exports[`DisplayNote matches snapshot 1`] = `
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
+      className="MenuToggle-sc-1el28uq-1 Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DisplayNote__MenuToggle-wzwggt-1 jzPxkw Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -74,7 +74,7 @@ exports[`DisplayNote matches snapshot 1`] = `
 
 exports[`DisplayNote matches snapshot when focused 1`] = `
 <div
-  className="DisplayNote-wzwggt-1 eDRYVj"
+  className="DisplayNote-wzwggt-2 iIbIhW"
   data-highlight-card={true}
   tabIndex={-1}
 >
@@ -82,7 +82,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
+      className="MenuToggle-sc-1el28uq-1 Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DisplayNote__MenuToggle-wzwggt-1 jzPxkw Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -146,7 +146,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 
 exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 <div
-  className="DisplayNote-wzwggt-1 eDRYVj"
+  className="DisplayNote-wzwggt-2 iIbIhW"
   data-highlight-card={true}
   tabIndex={-1}
 >
@@ -154,7 +154,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
+      className="MenuToggle-sc-1el28uq-1 Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DisplayNote__MenuToggle-wzwggt-1 jzPxkw Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
