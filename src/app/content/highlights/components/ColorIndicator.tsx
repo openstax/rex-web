@@ -47,7 +47,7 @@ function Hoc<T extends React.ComponentType | undefined>(props: React.PropsWithCh
     return React.cloneElement(
       component,
       props,
-      [<CheckIcon key='check' />, children, <FocusedStyle {...focusedProps} />]
+      [<CheckIcon key='check' />, children, <FocusedStyle key='focused' {...focusedProps} />]
     );
   }
   return <div {...otherProps}><CheckIcon />{children}<FocusedStyle {...focusedProps} /></div>;
