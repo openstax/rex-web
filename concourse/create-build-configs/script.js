@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const versionFile = 'rex-web/.git/short_ref';
+const versionFile = 'rex-web/.git/ref';
 const envFile = 'build-configs/config.env';
 const argFile = 'build-configs/config.json';
 const commitFile = 'build-configs/commit.txt';
@@ -20,7 +20,7 @@ fs.readFile(versionFile, 'utf8', function(err, commit) {
   //  - `${date}/${commit}` had some nice aspects but creates duplicate releases in the new system
   //    where the pipeline can be triggered by non-rex changes
   //  - v3 is arbitrary but now it will be easy to check for the older releases and delete them
-  const releaseId = `v3/${commit}`;
+  const releaseId = `v3/${commit.substring(0, 7)}`;
   const args = {
     PUBLIC_URL: `/rex/releases/${releaseId}`,
     REACT_APP_CODE_VERSION: commit,
