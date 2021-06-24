@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { SearchResult } from '@openstax/open-search-client';
-import { Document, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, Element, HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -58,6 +58,13 @@ const makeEvent = (doc: Document) => {
   event.preventDefault();
   event.preventDefault = jest.fn();
   return event;
+};
+
+const click = (target: HTMLElement | Element) => {
+  assertWindow().location.hash = target.getAttribute('href') || '';
+  target.dispatchEvent(
+    new (assertWindow() as any).Event('click', {bubbles: true})
+  );
 };
 
 const references: Array<PageReferenceMap | PageReferenceError> = [
@@ -599,12 +606,13 @@ describe('Page', () => {
     const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
 
     if (!firstLink || !document) {
+      expect(document).toBeTruthy();
       return expect(firstLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent(document);
-
-    firstLink.dispatchEvent(evt1);
+    firstLink.dispatchEvent(
+      new (assertWindow() as any).Event('click', {bubbles: true})
+    );
 
     await new Promise((resolve) => defer(resolve));
 
