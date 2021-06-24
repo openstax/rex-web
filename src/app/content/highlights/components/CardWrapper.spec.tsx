@@ -246,7 +246,9 @@ describe('CardWrapper', () => {
       expect(card.props.shouldFocusCard).toEqual(false);
     });
 
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, highlightElement);
+    renderer.act(() => {
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, highlightElement);
+    });
 
     renderer.act(() => {
       const card = component.root.findByType(Card);
@@ -257,7 +259,9 @@ describe('CardWrapper', () => {
 
     const elementOutside = document.createElement('span');
 
-    dispatchFocusOutEvent(window, cardWrapperElement, elementOutside);
+    renderer.act(() => {
+      dispatchFocusOutEvent(window, cardWrapperElement, elementOutside);
+    });
 
     renderer.act(() => {
       const card = component.root.findByType(Card);
