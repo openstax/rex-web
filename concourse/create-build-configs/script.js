@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
+const crypto = require('crypto');
+
 const versionFile = 'rex-web/.git/ref';
 const booksFile = 'rex-web/src/config.books.json';
 const envFile = 'build-configs/config.env';
@@ -21,19 +23,28 @@ Promise.all([
   readFile(versionFile),
   readFile(booksFile)
 ]).then(([commit, books]) => {
-  // the v3 gives an easy way to detect very old releases, this
-  // is the third time i've changed the release id format:
+
+  const versionedArgs = {
+    REACT_APP_CODE_VERSION: commit,
+    BOOKS: JSON.stringify(books)
+  };
+
+  const versionInfoString = JSON.stringify(versionedArgs);
+  const version = crypto.createHash('sha1').update(versionInfoString).digest('hex')
+
+  // the v4 gives an easy way to detect very old releases, this
+  // is the fourth time i've changed the release id format:
   //  - initially `master/${commit}` became wrong when we started building from non-master places
   //  - `${date}/${commit}` had some nice aspects but creates duplicate releases in the new system
   //    where the pipeline can be triggered by non-rex changes
-  //  - v3 is arbitrary but now it will be easy to check for the older releases and delete them
-  const releaseId = `v3/${commit.substring(0, 7)}`;
+  //  - v3 is arbitrary but now it will be easy to check for the older releases and delete them (uses the rex code version)
+  //  - v4 now hashes the code version and books config into a new version identifier
+  const releaseId = `v4/${version.substring(0, 7)}`;
   const args = {
+    ...versionedArgs,
     PUBLIC_URL: `/rex/releases/${releaseId}`,
-    REACT_APP_CODE_VERSION: commit,
     REACT_APP_RELEASE_ID: releaseId,
     REACT_APP_ENV: 'production',
-    BOOKS: JSON.stringify(books)
   };
 
   console.log(JSON.stringify(args, null, 2));
