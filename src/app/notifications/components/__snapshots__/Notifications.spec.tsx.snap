@@ -23,7 +23,7 @@ exports[`Notifications matches snapshot 1`] = `
       className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
     >
       <button
-        className="Button-ayg7nk-0 bBYlAl"
+        className="Button-ayg7nk-0 fFJxez"
         onClick={[Function]}
       >
         Update
@@ -58,7 +58,7 @@ exports[`Notifications matches snapshot 2`] = `
         className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
       >
         <button
-          className="Button-ayg7nk-0 bBYlAl"
+          className="Button-ayg7nk-0 fFJxez"
           onClick={[Function]}
         >
           Got it!
@@ -95,7 +95,7 @@ exports[`Notifications matches snapshot 3`] = `
       className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
     >
       <button
-        className="Button-ayg7nk-0 bBYlAl"
+        className="Button-ayg7nk-0 fFJxez"
         onClick={[Function]}
       >
         OK
