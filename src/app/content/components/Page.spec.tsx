@@ -60,13 +60,6 @@ const makeEvent = (doc: Document) => {
   return event;
 };
 
-const click = (target: HTMLElement | Element) => {
-  assertWindow().location.hash = target.getAttribute('href') || '';
-  target.dispatchEvent(
-    new (assertWindow() as any).Event('click', {bubbles: true})
-  );
-};
-
 const references: Array<PageReferenceMap | PageReferenceError> = [
   {
     match: '/content/link',
