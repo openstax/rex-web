@@ -35,14 +35,12 @@ describe('DynamicContentStyles', () => {
     expect(withStyles.props.styles).toEqual('.cool { color: red; }');
     expect(spyFetch).toHaveBeenCalledWith('file.css');
 
-    // tslint:disable-next-line: no-empty
     await renderer.act(async() => {
       store.dispatch(locationChange({ location: { search: 'content-style=file2.css' } } as any));
     });
 
     expect(spyFetch).toHaveBeenCalledTimes(2);
 
-    // tslint:disable-next-line: no-empty
     await renderer.act(async() => {
       store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
     });
