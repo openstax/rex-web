@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { SearchResult } from '@openstax/open-search-client';
-import { Document, Element, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
