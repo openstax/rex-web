@@ -497,7 +497,7 @@ describe('Page', () => {
     expect(secondLink.getAttribute('href')).toEqual('./rando/link');
   });
 
-  it('interceptes clicking content links', async() => {
+  it('intercepts clicking content links', async() => {
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -555,10 +555,15 @@ describe('Page', () => {
     }));
   });
 
-  it('interceptes clicking links that failed due to reference loading error', async() => {
+  it('intercepts clicking links that failed due to reference loading error', async() => {
+    if (!window) {
+      return expect(window).toBeTruthy();
+    }
+
     const {root} = renderDomWithReferences();
 
-    const spyAlert = jest.spyOn(globalThis as any, 'alert');
+    window.alert = jest.fn();
+    const spyAlert = jest.spyOn(window, 'alert');
 
     dispatch.mockReset();
     const [, , , , lastLink] = Array.from(root.querySelectorAll('#main-content a'));
