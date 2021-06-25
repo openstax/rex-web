@@ -6,7 +6,6 @@ const crypto = require('crypto');
 const versionFile = 'rex-web/.git/ref';
 const booksFile = 'rex-web/src/config.books.json';
 const envFile = 'build-configs/config.env';
-const argFile = 'build-configs/config.json';
 const commitFile = 'build-configs/commit.txt';
 const releaseFile = 'build-configs/release-id.txt';
 const booksConfigFile = 'build-configs/books.json';
@@ -23,13 +22,8 @@ Promise.all([
   readFile(versionFile),
   readFile(booksFile)
 ]).then(([commit, books]) => {
-
-  const versionedArgs = {
-    REACT_APP_CODE_VERSION: commit,
-    BOOKS: JSON.stringify(books)
-  };
-
-  const versionInfoString = JSON.stringify(versionedArgs);
+  const compactBooks = books.replace(/\s/g, '')
+  const versionInfoString = [commit, compactBooks].join('|');
   const version = crypto.createHash('sha1').update(versionInfoString).digest('hex')
 
   // the v4 gives an easy way to detect very old releases, this
@@ -41,22 +35,19 @@ Promise.all([
   //  - v4 now hashes the code version and books config into a new version identifier
   const releaseId = `v4/${version.substring(0, 7)}`;
   const args = {
-    ...versionedArgs,
+    BOOKS: compactBooks,
+    REACT_APP_CODE_VERSION: commit,
     PUBLIC_URL: `/rex/releases/${releaseId}`,
     REACT_APP_RELEASE_ID: releaseId,
     REACT_APP_ENV: 'production',
   };
 
-  console.log(JSON.stringify(args, null, 2));
   console.log('Generating env file...');
   fs.writeFile(
     envFile,
-    Object.entries(args).reduce((result, [key, value]) => [...result, `${key}=${value}`], []).join("\n"),
+    Object.entries(args).reduce((result, [key, value]) => [...result, `${key}="${value.replace(/"/g, '\\"')}"`], []).join("\n"),
     handleErr
   );
-
-  console.log('Generating build arg file...');
-  fs.writeFile(argFile, JSON.stringify(args), handleErr);
 
   console.log(`Generating commit file with: ${commit}`);
   fs.writeFile(commitFile, commit, handleErr);
@@ -65,5 +56,5 @@ Promise.all([
   fs.writeFile(releaseFile, releaseId, handleErr);
 
   console.log(`Generating books file...`);
-  fs.writeFile(booksConfigFile, JSON.stringify(books), handleErr);
+  fs.writeFile(booksConfigFile, books, handleErr);
 });
