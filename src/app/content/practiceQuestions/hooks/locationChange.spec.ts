@@ -3,7 +3,7 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { receiveFeatureFlags } from '../../../actions';
+import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import * as navigationSelectors from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';

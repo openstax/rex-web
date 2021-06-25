@@ -23,6 +23,7 @@ describe('content', () => {
       [
         '[data-testid="user-nav"]',
         '[data-testid="nav-login"]',
+        '[data-experiment]',
       ].forEach((selector) => {
         const element = root.querySelector(selector);
         if (element) {
