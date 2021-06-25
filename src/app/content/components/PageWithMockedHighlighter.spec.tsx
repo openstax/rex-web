@@ -12,7 +12,7 @@ import { renderToDom } from '../../../test/reactutils';
 import { resetModules } from '../../../test/utils';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
-import MessageProvider from '../../MessageProvider';
+import MessageProvider from '../../messages/MessageProvider';
 import { locationChange } from '../../navigation/actions';
 import { scrollTarget } from '../../navigation/selectors';
 import { AppServices, MiddlewareAPI, Store } from '../../types';
