@@ -103,24 +103,26 @@ describe('Page', () => {
     };
     archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
 
-    store.dispatch(receivePage({...pageWithRefereces, references: [
-      {
-        match: '/content/link',
-        params: {
-          book: {
-            slug: 'book-slug-1',
-          } ,
-          page: {
-            slug: 'page-title',
+    renderer.act(() => {
+      store.dispatch(receivePage({...pageWithRefereces, references: [
+        {
+          match: '/content/link',
+          params: {
+            book: {
+              slug: 'book-slug-1',
+            } ,
+            page: {
+              slug: 'page-title',
+            },
+          },
+          state: {
+            bookUid: 'book',
+            bookVersion: 'version',
+            pageUid: 'page',
           },
         },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
-      },
-    ]}));
+      ]}));
+    });
 
     return renderToDom(
       <Provider store={store}>
