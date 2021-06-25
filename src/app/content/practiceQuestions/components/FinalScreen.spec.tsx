@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import TestContainer from '../../../../test/TestContainer';
+import { runHooksAsync } from '../../../../test/utils';
 import Button from '../../../components/Button';
 import { Store } from '../../../types';
 import { LinkedArchiveTreeSection } from '../../types';
@@ -24,8 +25,7 @@ describe('FinalScreen for practice questions', () => {
       <FinalScreen nextSection={mockSection} />
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    await runHooksAsync(renderer);
 
     const button = component.root.findByType(Button);
 
