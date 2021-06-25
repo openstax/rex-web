@@ -109,7 +109,7 @@ export default (options: AppOptions) => {
 
   const container = () => (
     <Provider store={store}>
-      <Services.Provider value={services}>
+      <Services.Provider value={services} >
         <MessageProvider>
           <ErrorBoundary>
             <navigation.components.NavigationProvider routes={routes} />
