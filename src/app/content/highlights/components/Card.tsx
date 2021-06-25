@@ -5,6 +5,8 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { scrollIntoView } from '../../../domUtils';
+import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
@@ -30,7 +32,7 @@ export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
   book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
-  isFocused: boolean;
+  isActive: boolean;
   isTocOpen: boolean;
   hasQuery: boolean;
   highlighter: Highlighter;
@@ -43,6 +45,7 @@ export interface CardProps {
   data?: HighlightData;
   className: string;
   zIndex: number;
+  shouldFocusCard: boolean;
   topOffset?: number;
   highlightOffsets?: { top: number, bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
@@ -56,12 +59,30 @@ const Card = (props: CardProps) => {
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
 
+  const { isActive, highlight: { id }, focus } = props;
+
+  const focusCard = React.useCallback(async() => {
+    if (!isActive && (!hasUnsavedHighlight || await showConfirmation())) {
+      focus(id);
+    }
+  }, [isActive, hasUnsavedHighlight, id, focus]);
+
+  useFocusIn(element, true, focusCard);
+
   React.useEffect(() => {
-    if (!props.isFocused) {
+    if (!props.isActive) {
       setEditing(false);
+    } else {
+      const firstElement = props.highlight.elements[0] as HTMLElement;
+      const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
+      const elements = [lastElement];
+      if (element.current) {
+        elements.push(element.current);
+      }
+      scrollIntoView(firstElement, elements);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.isFocused]);
+  }, [element, props.isActive]);
 
   React.useEffect(() => {
     if (annotation) {
@@ -72,11 +93,11 @@ const Card = (props: CardProps) => {
   }, [props.highlight, annotation]);
 
   React.useEffect(() => {
-    if (!annotation && !props.isFocused) {
+    if (!annotation && !props.isActive) {
       props.onHeightChange({ current: null });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [annotation, props.isFocused]);
+  }, [annotation, props.isActive]);
 
   const location = React.useMemo(() => {
     return props.page && getHighlightLocationFilterForPage(locationFilters, props.page);
@@ -85,15 +106,9 @@ const Card = (props: CardProps) => {
   const locationFilterId = location && stripIdVersion(location.id);
 
   const { page, book } = props;
-  if (!props.highlight.range || !page || !book || !locationFilterId || (!props.isFocused && !annotation)) {
+  if (!props.highlight.range || !page || !book || !locationFilterId) {
     return null;
   }
-
-  const handleClickOnCard = async() => {
-    if (!props.isFocused && (!hasUnsavedHighlight || await showConfirmation())) {
-      props.focus(props.highlight.id);
-    }
-  };
 
   const onRemove = () => {
     if (props.data) {
@@ -110,6 +125,7 @@ const Card = (props: CardProps) => {
       ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
       scopeId: book.id,
       sourceId: page.id,
+      sourceMetadata: {bookVersion: book.version},
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
       locationFilterId,
@@ -120,14 +136,15 @@ const Card = (props: CardProps) => {
   const commonProps = {
     className: props.className,
     highlight: props.highlight,
-    isFocused: props.isFocused,
+    isActive: props.isActive,
     onBlur: props.blur,
     onHeightChange: props.onHeightChange,
     onRemove,
     ref: element,
+    shouldFocusCard: props.shouldFocusCard,
   };
 
-  return <div onClick={handleClickOnCard} data-testid='card'>
+  return <div onClick={focusCard} data-testid='card'>
     {
       !editing && style && annotation ? <DisplayNote
         {...commonProps}
@@ -159,7 +176,7 @@ export default connect(
     ...selectContent.bookAndPage(state),
     data: selectHighlights.highlights(state).find((search) => search.id === ownProps.highlight.id),
     hasQuery: !!selectSearch.query(state),
-    isFocused: selectHighlights.focused(state) === ownProps.highlight.id,
+    isActive: selectHighlights.focused(state) === ownProps.highlight.id,
     isTocOpen: contentSelect.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({

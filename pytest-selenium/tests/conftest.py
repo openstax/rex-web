@@ -57,11 +57,50 @@ def pytest_addoption(parser):
         help="enable headless mode for chrome.",
     )
     group.addoption(
+        "--highlighting",
+        action="store_true",
+        default=os.getenv("HIGHLIGHTING", False),
+        help="enable highlighting tests",
+    )
+    group.addoption(
         "--no-sandbox",
         action="store_true",
         default=os.getenv("NO_SANDBOX", False),
         help="disable chrome's sandbox.",
     )
+
+
+def pytest_collection_modifyitems(config, items):
+    """Runtime test options."""
+    server = (
+        config.getoption("--base-url") or
+        config.getini("base_url")
+    )
+    dev_system = (
+        "//staging.openstax." not in server and
+        "//openstax." not in server
+    )
+    heroku_app = "herokuapp" in server
+    highlighting = config.getoption("--highlighting")
+    if dev_system and not heroku_app and highlighting:
+        return
+
+    deselected = []
+    remaining = []
+    for item in items:
+        keywords = item.keywords
+        if not dev_system and "dev_only" in keywords:
+            deselected.append(item)
+        elif heroku_app and "non_heroku" in keywords:
+            deselected.append(item)
+        elif not highlighting and "highlighting" in keywords:
+            deselected.append(item)
+        else:
+            remaining.append(item)
+
+    if deselected:
+        config.hook.pytest_deselected(items=deselected)
+        items[:] = remaining
 
 
 @pytest.fixture
@@ -90,7 +129,10 @@ def chrome_options(chrome_options, pytestconfig, language):
 
     # Set the browser language
     chrome_options.add_argument("--lang={lang}".format(lang=language))
-    chrome_options.add_experimental_option("prefs", {"intl.accept_languages": language})
+    chrome_options.add_experimental_option(
+        "prefs",
+        {"intl.accept_languages": language}
+    )
 
     return chrome_options
 

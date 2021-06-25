@@ -10,14 +10,13 @@ import { assertNotNull } from '../../utils/assertions';
 describe('content', () => {
   let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
-  let Provider: ReturnType<typeof reactAndFriends>['Provider']; // tslint:disable-line:variable-name
   let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
-  let MessageProvider: ReturnType<typeof reactAndFriends>['MessageProvider']; // tslint:disable-line:variable-name
+  let TestContainer: ReturnType<typeof reactAndFriends>['TestContainer']; // tslint:disable-line:variable-name
 
   beforeEach(() => {
     resetModules();
     jest.resetAllMocks();
-    ({React, Provider, renderer, renderToDom, MessageProvider} = reactAndFriends());
+    ({React, renderer, renderToDom, TestContainer} = reactAndFriends());
   });
 
   describe('in browser', () => {
@@ -33,11 +32,9 @@ describe('content', () => {
       NavBar = require('.').default;
     });
 
-    const render = () => <Provider store={store}>
-      <MessageProvider>
-        <NavBar />
-      </MessageProvider>
-    </Provider>;
+    const render = () => <TestContainer store={store}>
+      <NavBar />
+    </TestContainer>;
 
     it('matches snapshot for null state', () => {
       const component = renderer.create(render());

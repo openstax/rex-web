@@ -16,6 +16,11 @@ exports[`EditCard matches snapshot when editing 1`] = `
     note="asdf"
     onChange={[Function]}
     onFocus={[Function]}
+    textareaRef={
+      Object {
+        "current": null,
+      }
+    }
   />
   <div
     className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
@@ -66,6 +71,11 @@ exports[`EditCard matches snapshot when focused 1`] = `
     note=""
     onChange={[Function]}
     onFocus={[Function]}
+    textareaRef={
+      Object {
+        "current": null,
+      }
+    }
   />
   <div
     confirmLink="/accounts/login?r=/"
@@ -95,6 +105,11 @@ exports[`EditCard matches snapshot with data 1`] = `
     note=""
     onChange={[Function]}
     onFocus={[Function]}
+    textareaRef={
+      Object {
+        "current": null,
+      }
+    }
   />
   <div
     confirmLink="/accounts/login?r=/"
@@ -124,6 +139,11 @@ exports[`EditCard matches snapshot without data 1`] = `
     note=""
     onChange={[Function]}
     onFocus={[Function]}
+    textareaRef={
+      Object {
+        "current": null,
+      }
+    }
   />
   <div
     confirmLink="/accounts/login?r=/"

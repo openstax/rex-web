@@ -118,24 +118,25 @@ Array [
       </div>
     </div>
     <div
-      className="styled__BarWrapper-sc-1119auh-9 iBpta"
+      className="styled__BarWrapper-sc-1119auh-11 cakJKy"
       data-analytics-region="toolbar"
     >
       <div
-        className="styled__TopBar-sc-1119auh-11 iMGONm"
+        className="styled__TopBar-sc-1119auh-13 eutlHe"
         data-testid="toolbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-1119auh-8 gCGyni"
+          className="styled__SearchPrintWrapper-sc-1119auh-10 cneQxF"
         >
           <form
-            className="styled__SearchInputWrapper-sc-1119auh-6 gFglKV"
+            className="styled__SearchInputWrapper-sc-1119auh-8 ceehYa"
+            data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
           >
             <input
               aria-label="Search this book"
-              className="styled__SearchInput-sc-1119auh-7 fDlesR"
+              className="styled__SearchInput-sc-1119auh-9 yCQjK"
               data-testid="desktop-search-input"
               onChange={[Function]}
               placeholder="Search this book"
@@ -144,7 +145,9 @@ Array [
             />
             <button
               aria-label="Search this book"
-              className="styled__SearchButton-sc-1119auh-4 dxyenK styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 heJcuZ styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-analytics-label="Search this book"
+              data-experiment={true}
               data-testid="mobile-toggle"
               onClick={[Function]}
               type="button"
@@ -176,7 +179,8 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-1119auh-4 jWSYMO styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 ibSRIA styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-experiment={true}
               value="Search"
             >
               <svg
@@ -207,12 +211,13 @@ Array [
           </form>
         </div>
         <div
-          className="styled__NudgeElementTarget-sc-1119auh-18 kJPvUC"
+          className="styled__NudgeElementTarget-sc-1119auh-20 dWNLmv"
           id="nudge-study-tools"
         >
           <button
             aria-label="My highlights"
             className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 cywKxd"
+            data-analytics-label="My highlights"
             onClick={[Function]}
           >
             <svg
@@ -274,6 +279,7 @@ Array [
         <button
           aria-label="print"
           className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+          data-analytics-label="print"
           data-testid="print"
           onClick={[Function]}
         >
@@ -297,7 +303,8 @@ Array [
         </button>
         <button
           aria-label="Click to open the Table of Contents"
-          className="styled__SidebarControl-sc-1119auh-17 hjOsxS SidebarControl__ToCButton-sdjc7-1 crKPaR"
+          className="styled__SidebarControl-sc-1119auh-19 gGZErd SidebarControl__ToCButton-sdjc7-1 crKPaR"
+          data-analytics-label="Click to open the Table of Contents"
           data-testid="toc-button"
           onClick={[Function]}
           tabIndex={-1}
@@ -356,6 +363,7 @@ Array [
               <button
                 aria-label="Click to close the Table of Contents"
                 className="wrapper__SidebarHeaderButton-sc-1nl0jy-3 dtJNW SidebarControl__ToCButton-sdjc7-1 crKPaR"
+                data-analytics-label="Click to close the Table of Contents"
                 data-testid="toc-button"
                 onClick={[Function]}
               >
@@ -390,7 +398,7 @@ Array [
                 </span>
                 <svg
                   aria-hidden="true"
-                  className="wrapper__TimesIcon-sc-1nl0jy-2 hvKSwO"
+                  className="wrapper__TimesIcon-sc-1nl0jy-2 fkIAHp"
                   focusable="false"
                   height="15px"
                   version="1.1"
@@ -974,7 +982,7 @@ Array [
                     className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
-                      className="PageContent-ny9bj0-0 iapMdy"
+                      className="PageContent-ny9bj0-0 gLsPXs"
                       tabIndex={0}
                     >
                       <div
@@ -1465,24 +1473,25 @@ Array [
       className="BookBanner__BarWrapper-sc-1avy0c0-5 blPrsP"
     />
     <div
-      className="styled__BarWrapper-sc-1119auh-9 iBpta"
+      className="styled__BarWrapper-sc-1119auh-11 cakJKy"
       data-analytics-region="toolbar"
     >
       <div
-        className="styled__TopBar-sc-1119auh-11 iMGONm"
+        className="styled__TopBar-sc-1119auh-13 eutlHe"
         data-testid="toolbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-1119auh-8 gCGyni"
+          className="styled__SearchPrintWrapper-sc-1119auh-10 cneQxF"
         >
           <form
-            className="styled__SearchInputWrapper-sc-1119auh-6 gFglKV"
+            className="styled__SearchInputWrapper-sc-1119auh-8 ceehYa"
+            data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
           >
             <input
               aria-label="Search this book"
-              className="styled__SearchInput-sc-1119auh-7 fDlesR"
+              className="styled__SearchInput-sc-1119auh-9 yCQjK"
               data-testid="desktop-search-input"
               onChange={[Function]}
               placeholder="Search this book"
@@ -1491,7 +1500,9 @@ Array [
             />
             <button
               aria-label="Search this book"
-              className="styled__SearchButton-sc-1119auh-4 dxyenK styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 heJcuZ styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-analytics-label="Search this book"
+              data-experiment={true}
               data-testid="mobile-toggle"
               onClick={[Function]}
               type="button"
@@ -1523,7 +1534,8 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-1119auh-4 jWSYMO styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-1119auh-4 ibSRIA styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-experiment={true}
               value="Search"
             >
               <svg
@@ -1554,12 +1566,13 @@ Array [
           </form>
         </div>
         <div
-          className="styled__NudgeElementTarget-sc-1119auh-18 kJPvUC"
+          className="styled__NudgeElementTarget-sc-1119auh-20 dWNLmv"
           id="nudge-study-tools"
         >
           <button
             aria-label="My highlights"
             className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 cywKxd"
+            data-analytics-label="My highlights"
             onClick={[Function]}
           >
             <svg
@@ -1621,6 +1634,7 @@ Array [
         <button
           aria-label="print"
           className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+          data-analytics-label="print"
           data-testid="print"
           onClick={[Function]}
         >
@@ -1644,7 +1658,8 @@ Array [
         </button>
         <button
           aria-label="Click to open the Table of Contents"
-          className="styled__SidebarControl-sc-1119auh-17 hjOsxS SidebarControl__ToCButton-sdjc7-1 crKPaR"
+          className="styled__SidebarControl-sc-1119auh-19 gGZErd SidebarControl__ToCButton-sdjc7-1 crKPaR"
+          data-analytics-label="Click to open the Table of Contents"
           data-testid="toc-button"
           onClick={[Function]}
           tabIndex={-1}
@@ -1703,6 +1718,7 @@ Array [
               <button
                 aria-label="Click to close the Table of Contents"
                 className="wrapper__SidebarHeaderButton-sc-1nl0jy-3 dtJNW SidebarControl__ToCButton-sdjc7-1 crKPaR"
+                data-analytics-label="Click to close the Table of Contents"
                 data-testid="toc-button"
                 onClick={[Function]}
               >
@@ -1737,7 +1753,7 @@ Array [
                 </span>
                 <svg
                   aria-hidden="true"
-                  className="wrapper__TimesIcon-sc-1nl0jy-2 hvKSwO"
+                  className="wrapper__TimesIcon-sc-1nl0jy-2 fkIAHp"
                   focusable="false"
                   height="15px"
                   version="1.1"
@@ -1783,7 +1799,7 @@ Array [
                     className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
-                      className="PageContent-ny9bj0-0 iapMdy"
+                      className="PageContent-ny9bj0-0 gLsPXs"
                       tabIndex={0}
                     >
                       <div

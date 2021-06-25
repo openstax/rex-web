@@ -17,6 +17,9 @@ import { getIdVersion, stripIdVersion } from './idUtils';
 const domParser = new DOMParser();
 
 export const CACHED_FLATTENED_TREES = new Map<string, Array<LinkedArchiveTree | LinkedArchiveTreeSection>>();
+let cacheArchiveTrees = true;
+export const disableArchiveTreeCaching = () => cacheArchiveTrees = false;
+
 export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchiveTree | LinkedArchiveTreeSection> {
   // Cache is disabled for testing
   /* istanbul ignore next */
@@ -40,7 +43,7 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
   }));
   // Cache is disabled for testing
   /* istanbul ignore next */
-  if (process.env.NODE_ENV !== 'test') {
+  if (cacheArchiveTrees) {
     CACHED_FLATTENED_TREES.set(tree.id, flattened);
   }
   return flattened;
@@ -165,4 +168,8 @@ export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): sec
   && !archiveTreeSectionIsBook(section)
   && getArchiveTreeSectionNumber(section) !== null
   && section.contents.some((node) => !isArchiveTree(node))
+;
+export const archiveTreeSectionIsAnswerKey = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
+  isLinkedArchiveTree(section)
+  && section.slug === 'answer-key'
 ;

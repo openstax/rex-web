@@ -13,6 +13,8 @@
  * these javascript config files for committed configurations.
  */
 
+const { REACT_APP_ARCHIVE_URL } = require('./config.archive-url.json');
+
 let config = {
   APP_ENV: process.env.REACT_APP_ENV,
   IS_PRODUCTION: process.env.REACT_APP_ENV === 'production',
@@ -23,12 +25,11 @@ let config = {
   SEARCH_URL: process.env.SEARCH_URL || 'https://openstax.org',
   HIGHLIGHTS_URL: process.env.HIGHLIGHTS_URL || 'https://openstax.org',
   REACT_APP_ACCOUNTS_URL: '/accounts',
-  REACT_APP_ARCHIVE_URL: '',
+  REACT_APP_ARCHIVE_URL,
   REACT_APP_OS_WEB_API_URL: '/apps/cms/api',
   REACT_APP_SEARCH_URL: '/open-search/api/v0',
   REACT_APP_HIGHLIGHTS_URL: '/highlights/api/v0',
   REACT_APP_BUY_PRINT_CONFIG_URL: 'https://buyprint.openstax.org',
-  BOOKS: process.env.REACT_APP_BOOKS || require('./config.books'),
   SENTRY_ENABLED: process.env.REACT_APP_SENTRY_ENABLED || false,
 };
 

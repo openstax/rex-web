@@ -5,8 +5,8 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { receiveFeatureFlags } from '../../../actions';
 import * as Services from '../../../context/Services';
+import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
@@ -15,11 +15,9 @@ import * as selectors from '../../practiceQuestions/selectors';
 import { formatBookData } from '../../utils';
 import PracticeQuestionsButton, { StyledContentLink } from './PracticeQuestionsButton';
 
-jest.mock('../../../../config', () => {
+jest.mock('../../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../../test/mocks/archiveLoader').book;
-  return {BOOKS: {
-   [mockBook.id]: {defaultVersion: mockBook.version},
-  }};
+  return { [mockBook.id]: { defaultVersion: mockBook.version } };
 });
 
 const book = formatBookData(archiveBook, mockCmsBook);

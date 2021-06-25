@@ -20,28 +20,19 @@ export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
 
 export interface ContentPageRefencesType {
-  bookId?: string;
+  bookId: string;
   bookVersion?: string;
   match: string;
   pageId: string;
 }
 
-export function getContentPageReferences(content: string) {
-  const legacyMatches = (content.match(/"\/contents\/([a-z0-9-]+(@[\d.]+)?)/g) || [])
-    .map((match) => {
-      const pageId = match.substr(11);
-
-      return {
-        match: match.substr(1),
-        pageId: stripIdVersion(pageId),
-      };
-    });
-
-  const matches = (content.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
+export function getContentPageReferences(htmlContent: string) {
+  const matches: ContentPageRefencesType[] = (htmlContent.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
     .map((match) => {
       const [bookMatch, pageMatch] = match.split(':');
-      const pageId = pageMatch.substr(0, 36);
-      const [bookId, bookVersion] = bookMatch.split('@');
+      const pageId = pageMatch.split('.xhtml')[0];
+      const [bookId, bookVersion] = bookMatch.split('@') as [string, string | undefined];
+
       return {
         bookId: bookId.substr(2),
         bookVersion,
@@ -50,7 +41,7 @@ export function getContentPageReferences(content: string) {
       };
     });
 
-  return [...legacyMatches, ...matches] as ContentPageRefencesType[];
+  return matches;
 }
 
 export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
@@ -65,11 +56,12 @@ export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveT
   CACHED_FLATTENED_TREES.clear();
   // getTitleFromArchiveNode is using `flattenArchiveTree` util that is caching old titles
   // so we have to clear this cache after transforming titles
+  // without this everytime when we call functions like findArchiveNodeById we would get old titles, before parsing
 
   return contents;
 };
 
-const pickArchvieFields = (archiveBook: ArchiveBook) => ({
+const pickArchiveFields = (archiveBook: ArchiveBook) => ({
   id: archiveBook.id,
   license: archiveBook.license,
   revised: archiveBook.revised,
@@ -87,14 +79,14 @@ export const formatBookData = <O extends OSWebBook | undefined>(
 ): O extends OSWebBook ? BookWithOSWebData : ArchiveBook => {
   if (osWebBook === undefined) {
     // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    return pickArchvieFields(archiveBook) as ArchiveBook as any;
+    return pickArchiveFields(archiveBook) as ArchiveBook as any;
   }
-
   return {
-    ...pickArchvieFields(archiveBook),
+    ...pickArchiveFields(archiveBook),
     amazon_link: osWebBook.amazon_link,
     authors: osWebBook.authors,
     book_state: osWebBook.book_state,
+    promote_image: osWebBook.promote_image,
     publish_date: osWebBook.publish_date,
     slug: osWebBook.meta.slug,
     theme: osWebBook.cover_color,
@@ -105,11 +97,10 @@ export const formatBookData = <O extends OSWebBook | undefined>(
 export const makeUnifiedBookLoader = (
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
-) => async(bookId: string, bookVersion?: string) => {
+) => async(bookId: string, bookVersion: string) => {
   const bookLoader = archiveLoader.book(bookId, bookVersion);
   const osWebBook = await osWebLoader.getBookFromId(bookId);
   const archiveBook = await bookLoader.load();
-
   const book = formatBookData(archiveBook, osWebBook);
 
   if (!hasOSWebData(book)) {

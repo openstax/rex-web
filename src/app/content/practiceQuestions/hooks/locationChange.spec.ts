@@ -3,7 +3,7 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { receiveFeatureFlags } from '../../../actions';
+import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import * as navigationSelectors from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
@@ -201,5 +201,84 @@ describe('locationChange', () => {
       expect(getSummary).toHaveBeenCalled();
       expect(Sentry.captureException).toHaveBeenCalledWith(mockError);
     });
+  });
+});
+
+describe('loadPracticeQuestionsSummaryHookBody', () => {
+  let store: Store;
+  let dispatch: jest.SpyInstance;
+  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  let hookBody: ReturnType<typeof import ('./locationChange').loadPracticeQuestionsSummaryHookBody>;
+  let mockSummaryResponse: PracticeQuestionsSummary;
+
+  beforeEach(() => {
+    store = createTestStore();
+
+    helpers = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
+
+    mockSummaryResponse = {
+      countsPerSource: {
+        pageId: 2,
+      },
+    };
+
+    dispatch = jest.spyOn(helpers, 'dispatch');
+
+    hookBody = (require('./locationChange').loadPracticeQuestionsSummaryHookBody)(helpers);
+  });
+
+  it('fetches pq summary when received feature flags only once', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+
+    const getSummary = jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
+      .mockResolvedValue(mockSummaryResponse);
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+      [modalQueryParameterName]: modalUrlName,
+    });
+
+    await hookBody();
+
+    await hookBody();
+
+    expect(getSummary).toHaveBeenCalledTimes(1);
+    expect(dispatch).toHaveBeenCalledWith(receivePracticeQuestionsSummary(mockSummaryResponse));
+  });
+
+  it('does not dispatch setSelectedSection if it is already set', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+    store.dispatch(setSelectedSection({ id: 'asd' } as any));
+
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+      [modalQueryParameterName]: modalUrlName,
+    });
+
+    await hookBody();
+
+    expect(dispatch).not.toHaveBeenCalledWith(setSelectedSection(expect.anything()));
+  });
+
+  it('does not dispatch receivePracticeQuestionsSummary if there are none', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...shortPage, references: []}));
+    store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
+
+    jest.spyOn(navigationSelectors, 'query').mockReturnValueOnce({
+      [modalQueryParameterName]: modalUrlName,
+    });
+
+    jest.spyOn(helpers.practiceQuestionsLoader, 'getPracticeQuestionsBookSummary')
+      .mockResolvedValue(undefined);
+
+    await hookBody();
+
+    expect(dispatch).not.toHaveBeenCalledWith(receivePracticeQuestionsSummary(expect.anything()));
   });
 });

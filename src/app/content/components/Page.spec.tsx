@@ -40,11 +40,9 @@ import allImagesLoaded from './utils/allImagesLoaded';
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 
-jest.mock('../../../config', () => {
+jest.mock('../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
-  return {BOOKS: {
-   [mockBook.id]: {defaultVersion: mockBook.version},
-  }};
+  return { [mockBook.id]: { defaultVersion: mockBook.version } };
 });
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
@@ -140,13 +138,13 @@ describe('Page', () => {
 
     return renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <Services.Provider value={services}>
+        <Services.Provider value={services}>
+          <MessageProvider>
             <AccessibilityButtonsWrapper>
               <ConnectedPage />
             </AccessibilityButtonsWrapper>
-          </Services.Provider>
-        </MessageProvider>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
   };
@@ -162,13 +160,13 @@ describe('Page', () => {
 
       const {root} = renderToDom(
         <Provider store={store}>
-          <MessageProvider>
-            <Services.Provider value={services}>
+          <Services.Provider value={services}>
+            <MessageProvider>
               <AccessibilityButtonsWrapper>
                 <ConnectedPage />
               </AccessibilityButtonsWrapper>
-            </Services.Provider>
-          </MessageProvider>
+            </MessageProvider>
+          </Services.Provider>
         </Provider>
       );
       const query = root.querySelector<HTMLElement>('#main-content');
@@ -701,7 +699,7 @@ describe('Page', () => {
       event.initMouseEvent('click',
         event.cancelBubble,
         event.cancelable,
-        event.view,
+        assertWindow(),
         event.detail,
         event.screenX,
         event.screenY,
@@ -1122,13 +1120,13 @@ describe('Page', () => {
   it('mounts, updates, and unmounts without a dom', () => {
     const element = renderer.create(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
               <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1156,13 +1154,13 @@ describe('Page', () => {
 
     renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1172,8 +1170,8 @@ describe('Page', () => {
       id: 'adsfasdf',
       references: [],
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     }));
 
     await Promise.resolve();
@@ -1191,8 +1189,8 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.navigation.hash = '#somehash';
@@ -1200,13 +1198,13 @@ describe('Page', () => {
 
     const {root} = renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1250,8 +1248,8 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.navigation.hash = '#somehash';
@@ -1261,13 +1259,13 @@ describe('Page', () => {
 
     const {root} = renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1287,8 +1285,8 @@ describe('Page', () => {
       content: '<div style="height: 1000px;"></div><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.navigation.hash = '#somehash';
@@ -1296,13 +1294,13 @@ describe('Page', () => {
 
     const {root} = renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1335,13 +1333,13 @@ describe('Page', () => {
 
     renderer.create(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1358,8 +1356,8 @@ describe('Page', () => {
       content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
       title: 'qerqwer',
-      version: '0',
     };
 
     state.content.page = tablePage;
@@ -1368,13 +1366,13 @@ describe('Page', () => {
 
     const {root} = renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1392,13 +1390,13 @@ describe('Page', () => {
 
     const {tree} = renderToDom(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>
     );
 
@@ -1427,13 +1425,13 @@ describe('Page', () => {
 
     const component = renderer.create(
       <Provider store={store}>
-        <MessageProvider>
-          <AccessibilityButtonsWrapper>
-            <Services.Provider value={services}>
-              <ConnectedPage />
-            </Services.Provider>
-          </AccessibilityButtonsWrapper>
-        </MessageProvider>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+                <ConnectedPage />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
       </Provider>);
 
     expect(component.root.findByType(PageNotFound)).toBeTruthy();
@@ -1454,13 +1452,13 @@ describe('Page', () => {
 
       const {root} = renderToDom(
         <Provider store={store}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-              <Services.Provider value={services}>
-                <ConnectedPage />
-              </Services.Provider>
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
+          <Services.Provider value={services}>
+            <MessageProvider>
+              <AccessibilityButtonsWrapper>
+                  <ConnectedPage />
+              </AccessibilityButtonsWrapper>
+            </MessageProvider>
+          </Services.Provider>
         </Provider>
       );
 
@@ -1478,13 +1476,13 @@ describe('Page', () => {
 
       const {root} = renderToDom(
         <Provider store={store}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-              <Services.Provider value={services}>
-                <ConnectedPage />
-              </Services.Provider>
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
+          <Services.Provider value={services}>
+            <MessageProvider>
+              <AccessibilityButtonsWrapper>
+                  <ConnectedPage />
+              </AccessibilityButtonsWrapper>
+            </MessageProvider>
+          </Services.Provider>
         </Provider>
       );
 

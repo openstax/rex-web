@@ -23,6 +23,7 @@ describe('content', () => {
       [
         '[data-testid="user-nav"]',
         '[data-testid="nav-login"]',
+        '[data-experiment]',
       ].forEach((selector) => {
         const element = root.querySelector(selector);
         if (element) {
@@ -35,6 +36,8 @@ describe('content', () => {
         ['[data-testid="toc"]', 'style'],
         ['[data-testid="search-results-sidebar"]', 'style'],
         ['[data-testid="loader"] path', 'style'],
+        // img src is changed from data:image/svg+xml;base64... to static path
+        ['[data-testid="navbar"] img', 'src'],
       ].forEach(([selector, attribute]) => {
         root.querySelectorAll(selector).forEach((element) =>
           element.removeAttribute(attribute)
