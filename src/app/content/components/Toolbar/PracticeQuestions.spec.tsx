@@ -6,7 +6,6 @@ import createTestStore from '../../../../test/createTestStore';
 import MessageProvider from '../../../../test/MessageProvider';
 import { book as archiveBook, page as shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { runHooksAsync } from '../../../../test/utils';
 import { receiveFeatureFlags } from '../../../actions';
 import * as Services from '../../../context/Services';
 import { Store } from '../../../types';
@@ -46,15 +45,13 @@ describe('practice questions button', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('renders if feature flag is enabled and there are practice questions', async() => {
+  it('renders if feature flag is enabled and there are practice questions', () => {
     jest.spyOn(selectors, 'hasPracticeQuestions').mockReturnValue(true);
     store.dispatch(receiveFeatureFlags([practiceQuestionsFeatureFlag]));
     store.dispatch(receivePage({...shortPage, references: []}));
     store.dispatch(receiveBook(book));
 
     const component = renderer.create(render());
-
-    await runHooksAsync(renderer);
 
     expect(component.toJSON()).toMatchSnapshot();
   });
