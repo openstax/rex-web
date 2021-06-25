@@ -6,6 +6,7 @@ import { Print } from 'styled-icons/fa-solid/Print';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import SearchIcon from '../../../../assets/SearchIcon';
 import { maxNavWidth } from '../../../components/NavBar/styled';
+import Times from '../../../components/Times';
 import {
   decoratedLinkStyle,
   textRegularSize,
@@ -13,6 +14,7 @@ import {
   textStyle
 } from '../../../components/Typography';
 import theme from '../../../theme';
+import { BookWithOSWebData } from '../../types';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -27,6 +29,7 @@ import {
   toolbarSearchInputMobileHeight
 } from '../constants';
 import { OpenSidebarControl } from '../SidebarControl';
+import { applySearchIconColor } from '../utils/applySearchIconColor';
 import { disablePrint } from '../utils/disablePrint';
 import { toolbarIconStyles } from './iconStyles';
 
@@ -131,6 +134,15 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
     <SearchIcon/>
   </PlainButton>;
 })`
+  height: 3.2rem;
+  border-radius: 0;
+  margin: 0;
+  transition: ${(props) => props.colorSchema ? 'background 200ms' : 'none'};
+  background:
+    ${(props: {colorSchema: BookWithOSWebData['theme'] | null }) => props.colorSchema
+      ? theme.color.primary[props.colorSchema].base : 'transparent'};
+  ${(props) => applySearchIconColor(props.colorSchema)}
+
   > svg {
     ${toolbarIconStyles}
     vertical-align: middle;
@@ -143,6 +155,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
     display: none;
     ${theme.breakpoints.mobile(css`
       display: block;
+      height: 100%;
     `)}
   `}
 `;
@@ -158,6 +171,25 @@ export const CloseButton = styled(
   ${(props) => props.desktop && theme.breakpoints.mobile(css`
     display: none;
   `)}
+`;
+
+// tslint:disable-next-line:variable-name
+export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+  color: ${toolbarIconColor.base};
+  height: 2.2rem;
+`;
+
+// tslint:disable-next-line:variable-name
+export const CloseButtonNew = styled.button`
+  ${toolbarIconStyles}
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin-right: 1.6rem;
+  background: transparent;
+  overflow: visible;
+  height: 2.2rem;
+  width: 2.2rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -186,12 +218,11 @@ export const SearchInputWrapper = styled.form`
     height: 100%;
     overflow: hidden;
     width: 100%;
-
-    ${(props: { active: boolean }) => props.active && css`
-      background: ${theme.color.primary.gray.base};
+    ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
+      background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
 
       ${SearchButton} {
-        color: ${theme.color.primary.gray.foreground};
+        ${applySearchIconColor(props.colorSchema)};
       }
     `}
   `)}

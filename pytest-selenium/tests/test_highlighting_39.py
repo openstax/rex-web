@@ -15,15 +15,18 @@ from utils.utility import Color, Highlight, Utilities
 
 
 HAS_INDICATOR = (
-    "return window.getComputedStyle(arguments[0], ':after').getPropertyValue('opacity') == '0.8';")
+    "return window.getComputedStyle(arguments[0], ':after')"
+    ".getPropertyValue('opacity') == '0.8';"
+)
 
 
 @markers.test_case("C592627")
-@markers.parametrize(
-    "book_slug,page_slug", [
-        ("astronomy",
-         "1-1-the-nature-of-astronomy")])
 @markers.desktop_only
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("astronomy", "1-1-the-nature-of-astronomy")]
+)
 def test_keyboard_navigation_for_my_highlights_button_on_content_page(
         selenium, base_url, book_slug, page_slug):
     """Use keyboard navigation to open and close My Highlights and Notes."""
@@ -90,11 +93,12 @@ def test_keyboard_navigation_for_my_highlights_button_on_content_page(
 
 
 @markers.test_case("C592629")
-@markers.parametrize(
-    "book_slug,page_slug", [
-        ("astronomy",
-         "1-1-the-nature-of-astronomy")])
 @markers.desktop_only
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("astronomy", "1-1-the-nature-of-astronomy")]
+)
 def test_open_my_highlights_for_non_logged_in_users_on_desktop(
         selenium, base_url, book_slug, page_slug):
     """Open the My Highlights and Notes modal for non-logged in users."""
@@ -131,11 +135,12 @@ def test_open_my_highlights_for_non_logged_in_users_on_desktop(
 
 
 @markers.test_case("C592631")
-@markers.parametrize(
-    "book_slug,page_slug", [
-        ("astronomy",
-         "1-1-the-nature-of-astronomy")])
+@markers.highlighting
 @markers.mobile_only
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("astronomy", "1-1-the-nature-of-astronomy")]
+)
 def test_open_my_highlights_for_non_logged_in_users_on_mobile(
         selenium, base_url, book_slug, page_slug):
     """Open the My Highlights and Notes modal for non-logged in users."""
@@ -170,10 +175,12 @@ def test_open_my_highlights_for_non_logged_in_users_on_mobile(
 
 
 @markers.test_case("C592633")
+@markers.highlighting
 @markers.parametrize(
-    "book_slug,page_slug", [
-        ("introductory-statistics",
-         "2-2-histograms-frequency-polygons-and-time-series-graphs")])
+    "book_slug, page_slug",
+    [("introductory-statistics",
+      "2-2-histograms-frequency-polygons-and-time-series-graphs")]
+)
 def test_clicking_on_the_note_indicator_opens_the_note_card(
         selenium, base_url, book_slug, page_slug):
     """Open the note card for various highlights with notes."""
@@ -242,11 +249,12 @@ def test_clicking_on_the_note_indicator_opens_the_note_card(
 
 
 @markers.test_case("C592634")
-@markers.smoke_test
+@markers.highlighting
 @markers.parametrize(
-    "book_slug,page_slug", [
-        ("biology-2e",
-         "1-1-the-science-of-biology")])
+    "book_slug, page_slug",
+    [("biology-2e", "1-1-the-science-of-biology")]
+)
+@markers.smoke_test
 def test_note_indicator_not_present_for_highlights_without_notes(
         selenium, base_url, book_slug, page_slug):
     """The note indicator is not present on highlights without notes.
@@ -309,8 +317,9 @@ def test_note_indicator_not_present_for_highlights_without_notes(
 
 
 @markers.test_case("C592635")
-@markers.parametrize("page_slug", [("preface")])
 @markers.desktop_only
+@markers.highlighting
+@markers.parametrize("page_slug", [("preface")])
 def test_note_indicator_added_when_highlight_without_a_note_has_a_note_added(
         selenium, base_url, book_slug, page_slug):
     """Adding a note to a highlight also adds the indicator to the highlight.
