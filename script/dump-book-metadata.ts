@@ -21,12 +21,10 @@ const getPageMetadata = async(
   book: ArchiveBook,
   loader: ReturnType<(typeof archiveLoader)['book']>
 ) => {
-
   const services = {
     archiveLoader,
     intl,
   };
-
   const page = await loader.page(section.id).load();
   const description = await getPageDescription(services, book, page);
   const sectionTitle = domParser.parseFromString(section.title, 'text/html').body.textContent;
