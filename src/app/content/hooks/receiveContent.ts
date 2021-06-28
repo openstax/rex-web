@@ -1,6 +1,6 @@
-import { useIntl } from 'react-intl';
 import { setHead } from '../../head/actions';
 import { Link } from '../../head/types';
+import createIntl from '../../messages/createIntl';
 import { pathname } from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
@@ -32,7 +32,9 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
     return;
   }
 
-  const title = await createTitle(page, book, useIntl());
+  const intl = await createIntl().getIntlObject(book.language);
+
+  const title = await createTitle(page, book, intl);
   const description = await getPageDescription(services, book, page);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
