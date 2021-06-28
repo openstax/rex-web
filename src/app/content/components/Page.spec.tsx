@@ -52,9 +52,8 @@ jest.mock('../../domUtils', () => ({
   scrollTo: jest.fn(),
 }));
 
-const makeEvent = (doc: Document) => {
-  const event = doc.createEvent('MouseEvents');
-  event.initEvent('click', true, false);
+const makeEvent = () => {
+  const event = new Event('click', { bubbles: true, cancelable: true });
   event.preventDefault();
   event.preventDefault = jest.fn();
   return event;
@@ -383,9 +382,9 @@ describe('Page', () => {
         }
 
         expect(solution.matches('.ui-solution-visible')).toBe(false);
-        button.dispatchEvent(makeEvent(pageElement.ownerDocument!));
+        button.dispatchEvent(makeEvent());
         expect(solution.matches('.ui-solution-visible')).toBe(true);
-        button.dispatchEvent(makeEvent(pageElement.ownerDocument!));
+        button.dispatchEvent(makeEvent());
         expect(solution.matches('.ui-solution-visible')).toBe(false);
       });
 
@@ -444,9 +443,9 @@ describe('Page', () => {
         }
 
         Object.defineProperty(button.parentElement, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeEvent(pageElement.ownerDocument!))).not.toThrow();
+        expect(() => button.dispatchEvent(makeEvent())).not.toThrow();
         Object.defineProperty(button, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeEvent(pageElement.ownerDocument!))).not.toThrow();
+        expect(() => button.dispatchEvent(makeEvent())).not.toThrow();
       });
     });
 
@@ -516,10 +515,10 @@ describe('Page', () => {
       return;
     }
 
-    const evt1 = makeEvent(document);
-    const evt2 = makeEvent(document);
-    const evt3 = makeEvent(document);
-    const evt4 = makeEvent(document);
+    const evt1 = makeEvent();
+    const evt2 = makeEvent();
+    const evt3 = makeEvent();
+    const evt4 = makeEvent();
 
     firstLink.dispatchEvent(evt1);
     secondLink.dispatchEvent(evt2);
@@ -558,7 +557,8 @@ describe('Page', () => {
   it('interceptes clicking links that failed due to reference loading error', async() => {
     const {root} = renderDomWithReferences();
 
-    const spyAlert = jest.spyOn(globalThis as any, 'alert');
+    const spyAlert = jest.spyOn(globalThis as any, 'alert')
+      .mockImplementation(jest.fn());
 
     dispatch.mockReset();
     const [, , , , lastLink] = Array.from(root.querySelectorAll('#main-content a'));
@@ -569,7 +569,7 @@ describe('Page', () => {
       return;
     }
 
-    const event = makeEvent(document);
+    const event = makeEvent();
     lastLink.dispatchEvent(event);
 
     expect(event.preventDefault).not.toHaveBeenCalled();
@@ -597,7 +597,7 @@ describe('Page', () => {
       return expect(firstLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent(document);
+    const evt1 = makeEvent();
 
     firstLink.dispatchEvent(evt1);
 
@@ -642,7 +642,7 @@ describe('Page', () => {
       return expect(hashLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent(document);
+    const evt1 = makeEvent();
 
     hashLink.dispatchEvent(evt1);
 
@@ -674,7 +674,7 @@ describe('Page', () => {
       return expect(archiveLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent(document);
+    const evt1 = makeEvent();
 
     archiveLink.dispatchEvent(evt1);
 
