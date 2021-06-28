@@ -19,7 +19,9 @@ from pages.accounts import Login
 from pages.base import Page
 from regions.base import Region
 from regions.my_highlights import MyHighlights
+from regions.practice import Practice
 from regions.search_sidebar import SearchSidebar
+from regions.study_guides import StudyGuide
 from regions.toc import TableOfContents
 from utils.utility import Color, Highlight, Utilities
 
@@ -35,7 +37,9 @@ class ContentError(Exception):
 
 class Content(Page):
 
+    PAGE_MISSING = "Uh oh, we can't find the page you requested."
     URL_TEMPLATE = "/books/{book_slug}/pages/{page_slug}"
+    _404_ERROR = "<h1>Uh-oh, no page here</h1>"
 
     _body_locator = (By.CSS_SELECTOR, "body")
     _book_section_content_locator = (By.CSS_SELECTOR, "[class*=MinPageHeight]")
@@ -43,15 +47,37 @@ class Content(Page):
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _modal_root_locator = (By.CSS_SELECTOR, "[class*=PopupWrapper]")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
-    _notification_pop_up_locator = (By.CSS_SELECTOR, "[class*=ContentNotifications]")
+    _notification_pop_up_locator = (
+        By.CSS_SELECTOR,
+        "[class*=ContentNotifications]"
+    )
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
     _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
-    _order_print_copy_locator = (By.CSS_SELECTOR, "[aria-label='Buy book']")
+    _order_print_copy_locator = (
+        By.CSS_SELECTOR,
+        "[data-analytics-label=buy-book]"
+    )
     _discard_modal_locator = (By.CSS_SELECTOR, "[class*='CardWrapper']")
+
+    _page_meta_title_selector = "head > meta[property='og:title']"
+    _page_meta_url_selector = "head > meta[property='og:url']"
+    _page_title_selector = "head > title"
 
     @property
     def loaded(self) -> bool:
-        return bool(self.find_element(*self._body_locator).get_attribute("data-rex-loaded"))
+        """Return True when the page is load or an error pane is found.
+
+        :return: ``True`` when the page is loaded, the page not found message
+            is displayed, or the 404 error page is displayed
+        :rtype: bool
+
+        """
+        body = self.find_elements(*self._body_locator)
+        data_load = body[0].get_attribute("data-rex-loaded") if body else None
+        source = self.driver.page_source
+        page_missing = self.PAGE_MISSING in source
+        _404_error = self._404_ERROR in source
+        return data_load or page_missing or _404_error
 
     @property
     def attribution(self) -> Content.Attribution:
@@ -186,8 +212,35 @@ class Content(Page):
         return self.find_element(*self._print_locator)
 
     @property
-    def order_print_copy(self) -> WebElement:
-        return self.find_element(*self._order_print_copy_locator)
+    def order_print_copy_button(self) -> WebElement:
+        return self.wait.until(
+            lambda _: self.find_element(*self._order_print_copy_locator)
+        )
+
+    def order_a_print_copy(self, remain_on_page: bool = False) -> Page:
+        """Click the 'Order a print copy' button.
+
+        :param bool remain_on_page: (Optional) remain on the current page
+            instead of the switching to the newly opened tab
+            default: ``False``
+        :return: the current page if ``remain_on_page`` or switch to the
+            Amazon store in a new tab
+        :rtype: :py:class:`~base.Page`
+
+        """
+        current = self.driver.current_window_handle
+        page = Utilities.switch_to(
+            self.driver,
+            element=self.order_print_copy_button
+        )
+        if remain_on_page:
+            new_handle = 1 if current == self.driver.window_handles[1] else 0
+            if len(self.driver.window_handles) > 1:
+                self.driver.switch_to.window(
+                    self.driver.window_handles[new_handle]
+                )
+            return self
+        return page
 
     @property
     def search_sidebar(self) -> SearchSidebar:
@@ -208,6 +261,45 @@ class Content(Page):
         sidebar_width = self.width(self.sidebar.root)
         sidebar_width_left_offset = self.sidebar.root.get_attribute("offsetLeft")
         return int(sidebar_width) + int(sidebar_width_left_offset)
+
+    @property
+    def titles(self) -> Tuple[str, str, str]:
+        """Return the page title, page meta title and page meta URL.
+
+        .. note:: the meta URL always points to production so we modify the
+                  return string to reflect our current instance
+
+        :return: the page title, the page title within the page meta property
+            and the page URL within the page meta property
+        :rtype: tuple(str, str, str)
+
+        """
+        try:
+            self.wait.until(
+                lambda _: self.find_element(
+                    By.CSS_SELECTOR,
+                    self._page_meta_url_selector
+                )
+            )
+        except TimeoutException:
+            raise ContentError("Meta tags not loaded")
+        action_script = 'return document.querySelector("{selector}");'
+
+        title = self.driver.execute_script(
+            action_script.format(selector=self._page_title_selector)
+        ).get_attribute("textContent")
+
+        meta_title = self.driver.execute_script(
+            action_script.format(selector=self._page_meta_title_selector)
+        ).get_attribute("content")
+
+        meta_url_parts = self.driver.execute_script(
+            action_script.format(selector=self._page_meta_url_selector)
+        ).get_attribute("content").split("/")
+        meta_url_parts[2] = self.base_url.split("/")[-1]
+        meta_url = "/".join(meta_url_parts)
+
+        return (title, meta_title, meta_url)
 
     @property
     def toolbar(self) -> Content.ToolBar:
@@ -363,6 +455,11 @@ class Content(Page):
 
         _caption_locator = (By.CSS_SELECTOR, ".os-caption-container")
         _figure_container_locator = (By.CSS_SELECTOR, ".os-figure")
+        _figure_link_locator = (
+            By.CSS_SELECTOR,
+            "section > p a[href*=Figure] , "
+            "div:not(.os-teacher) > section > .os-note-body a[href*=Figure]"
+        )
         _figure_locator = (By.CSS_SELECTOR, "figure")
         _footnote_locator = (By.CSS_SELECTOR, "[data-type=footnote-ref]")
         _highlight_box_locator = (By.CSS_SELECTOR, "form[class*=EditCard], div[class*=DisplayNote]")
@@ -436,6 +533,25 @@ class Content(Page):
             if not captions:
                 raise ContentError("no clean captions found")
             return captions
+
+        @property
+        def figure_links(self) -> List[WebElement]:
+            """Return the list of visible figure links.
+
+            :return: the list of available figure links not hidden behind
+                instructor content
+            :rtype: list(WebElement)
+            :raises ContentError: if no figure links are found in the content
+
+            """
+            links = [
+                link
+                for link
+                in self.find_elements(*self._figure_link_locator)
+            ]
+            if not links:
+                raise ContentError("no figure links found")
+            return links
 
         @property
         def figures(self) -> List[WebElement]:
@@ -1775,18 +1891,53 @@ class Content(Page):
 
         _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
 
-        _my_highlights_button_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
-        _search_button_desktop_locator = (By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
-        _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
-        _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
-        _toc_toggle_button_locator = (By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
-        _search_textbox_x_locator = (By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
+        _my_highlights_button_locator = (
+            By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
+        _practice_button_locator = (
+            By.CSS_SELECTOR, "[class*=PracticeQuestions]")
+        _search_button_desktop_locator = (
+            By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
+        _search_button_mobile_locator = (
+            By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
+        _search_textbox_desktop_locator = (
+            By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
+        _search_textbox_x_locator = (
+            By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
+        _study_guides_button_locator = (
+            By.CSS_SELECTOR, "[class*=StudyGuides]")
+        _toc_toggle_button_locator = (
+            By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
         _my_highlights_selector = "[data-testid=highlights-popup-wrapper]"
+        _pop_up_wrapper_root_selector = "[class*=PopupWrapper]"
 
         @property
         def my_highlights_button(self) -> WebElement:
             return self.find_element(*self._my_highlights_button_locator)
+
+        @property
+        def practice_available(self) -> bool:
+            """Return True if Practice is available for this book.
+
+            :return: ``True`` if the practice exercises tool is available for
+                this book
+            :rtype: bool
+
+            """
+            return bool(self.find_elements(*self._practice_button_locator))
+
+        @property
+        def practice_button(self) -> WebElement:
+            """Return the Practice button.
+
+            :return: the Practice exercises tool button
+            :rtype: ``WebElement``
+            :raises ContentError: if Practice is not available
+
+            """
+            if self.practice_available:
+                return self.find_element(*self._practice_button_locator)
+            raise ContentError("Practice not available")
 
         @property
         def search_button(self) -> WebElement:
@@ -1799,6 +1950,11 @@ class Content(Page):
             return self.find_element(*self._search_button_mobile_locator)
 
         @property
+        def search_term_displayed_in_search_textbox(self):
+            """Return the search term in desktop view."""
+            return self.search_textbox.get_attribute("value")
+
+        @property
         def search_textbox(self) -> WebElement:
             """Return the search textbox in desktop view."""
             return self.find_element(*self._search_textbox_desktop_locator)
@@ -1809,9 +1965,31 @@ class Content(Page):
             return self.find_element(*self._search_textbox_x_locator)
 
         @property
-        def search_term_displayed_in_search_textbox(self):
-            """Return the search term in desktop view."""
-            return self.search_textbox.get_attribute("value")
+        def study_guides_available(self) -> bool:
+            """Return True if a Study Guide is available for the book.
+
+            :return: ``True`` if the 'Study guides' button is found
+            :rtype: bool
+
+            """
+            return bool(self.find_elements(*self._study_guides_button_locator))
+
+        @property
+        def study_guides_button(self) -> WebElement:
+            """Return the 'Study guides' button.
+
+            :return: the 'Study guides' button if available
+            :rtype: :py:class:`selenium.webdriver.remote.webelement.WebElement`
+            :raises ContentError: if the button is not found
+
+            """
+            try:
+                self.wait.until(lambda _: self.study_guides_available)
+            except TimeoutException:
+                pass
+            if self.study_guides_available:
+                return self.find_element(*self._study_guides_button_locator)
+            raise ContentError("Study guide not available")
 
         @property
         def toc_toggle_button(self) -> WebElement:
@@ -1837,12 +2015,24 @@ class Content(Page):
             :rtype: :py:class:`~regions.my_highlights.MyHighlights`
 
             """
-            Utilities.click_option(self.driver, element=self.my_highlights_button)
-            sleep(0.1)
-            my_highlights_root = self.driver.execute_script(
-                ELEMENT_SELECT.format(selector=self._my_highlights_selector)
+            return self._pop_up_modal_helper(
+                element=self.my_highlights_button,
+                root_selector=self._my_highlights_selector,
+                modal=MyHighlights
             )
-            return MyHighlights(self.page, my_highlights_root)
+
+        def practice(self) -> Practice:
+            """Click the Practice button.
+
+            :return: the Practice widget
+            :rtype: :py:class:`~regions.practice.Practice`
+
+            """
+            return self._pop_up_modal_helper(
+                element=self.practice_button,
+                root_selector=self._pop_up_wrapper_root_selector,
+                modal=Practice
+            )
 
         def search_for(self, search_term: str) -> Content.SideBar:
             """Search for a term/query in desktop resolution.
@@ -1860,3 +2050,44 @@ class Content(Page):
             self.page.search_sidebar.wait_for_region_to_display()
             sleep(1.0)
             return self.page.search_sidebar
+
+        def study_guides(self) -> StudyGuide:
+            """Click the Study guides button.
+
+            :return: the Study Guide widget
+            :rtype: :py:class:`~regions.study_guide.StudyGuide`
+
+            """
+            return self._pop_up_modal_helper(
+                element=self.study_guides_button,
+                root_selector=self._pop_up_wrapper_root_selector,
+                modal=StudyGuide
+            )
+
+        def _pop_up_modal_helper(
+                self,
+                element: WebElement,
+                root_selector: str,
+                modal: Region
+                ) -> Region:
+            r"""Modal opener helper function.
+
+            :param element: the button to click
+            :param root_selector: the CSS selector for the modal root
+            :param modal: the modal Region being opened
+            :type element: :py:class:`selenium.webdriver.remote. \
+                                      webelement.WebElement`
+            :type root_selector: str
+            :type modal: :py:class:`~regions.base.Region`
+            :return: the opened modal
+            :rtype: :py:class:`~regions.base.Region`
+
+            """
+            Utilities.click_option(self.driver, element=element)
+            modal_root = self.driver.execute_script(
+                ELEMENT_SELECT.format(selector=root_selector)
+            )
+            sleep(0.1)
+            pop_up = modal(self.page, modal_root)
+            pop_up.wait_for_region_to_load()
+            return pop_up

@@ -13,6 +13,7 @@ import * as Services from './context/Services';
 import * as developer from './developer';
 import * as errors from './errors';
 import ErrorBoundary from './errors/components/ErrorBoundary';
+import * as featureFlags from './featureFlags';
 import * as head from './head';
 import MessageProvider from './messages/MessageProvider';
 import * as navigation from './navigation';
@@ -27,6 +28,7 @@ export const actions = {
   auth: auth.actions,
   content: content.actions,
   errors: errors.actions,
+  featureFlags: featureFlags.actions,
   head: head.actions,
   navigation: navigation.actions,
   notifications: notifications.actions,

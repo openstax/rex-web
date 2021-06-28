@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
-import { runHooks } from '../../../../test/utils';
 import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument, remsToPx } from '../../../utils';
@@ -160,8 +159,6 @@ describe('CardWrapper', () => {
       <CardWrapper container={container} highlights={[highlight, highlight2, highlight3]} />
     </Provider>);
 
-    runHooks(renderer);
-
     expect(scrollIntoView).not.toHaveBeenCalled();
   });
 
@@ -171,8 +168,6 @@ describe('CardWrapper', () => {
     </Provider>);
 
     const [card1, card2] = component.root.findAllByType(Card);
-    expect(card1.props.topOffset).toEqual(undefined);
-    expect(card2.props.topOffset).toEqual(undefined);
 
     // Update state with a height
     renderer.act(() => {

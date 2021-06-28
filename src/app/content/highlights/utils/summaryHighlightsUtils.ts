@@ -7,7 +7,11 @@ import {
 import flow from 'lodash/fp/flow';
 import partition from 'lodash/fp/partition';
 import { LocationFilters } from '../../components/popUp/types';
-import { archiveTreeSectionIsChapter, findTreePages } from '../../utils/archiveTreeUtils';
+import {
+  archiveTreeSectionIsAnswerKey,
+  archiveTreeSectionIsChapter,
+  findTreePages,
+} from '../../utils/archiveTreeUtils';
 import {
   CountsPerSource,
   HighlightData,
@@ -81,7 +85,7 @@ export const getSortedSummaryHighlights =
         return previousLocations;
       }
 
-      if (!archiveTreeSectionIsChapter(location.section)) {
+      if (!archiveTreeSectionIsChapter(location.section) && !archiveTreeSectionIsAnswerKey(location.section)) {
         return [...previousLocations, {
           location: location.section,
           pages: [{

@@ -25,6 +25,11 @@ import BOOKS from '../../src/config.books';
 import FontCollector from '../../src/helpers/FontCollector';
 import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils';
 
+export const stats = {
+  promiseCollector: 0,
+  renderHtml: 0,
+};
+
 export async function prepareContentPage(
   book: BookWithOSWebData,
   pageId: string,
@@ -60,7 +65,9 @@ const prepareApp = async(
   const url = matchPathname(action);
   const app = createApp({initialEntries: [action], services});
 
+  const timer = minuteCounter();
   await app.services.promiseCollector.calm();
+  stats.promiseCollector += timer();
 
   const state = app.store.getState();
   const styles = new ServerStyleSheet();
@@ -98,13 +105,21 @@ const renderHtml: RenderHtml = (styles, app, state) => {
   });
 };
 
-const start = (new Date()).getTime();
-let numPages = 0;
-export const getStats = () => {
-  const end = (new Date()).getTime();
-  const elapsedTime = end - start;
-  const elapsedMinutes = elapsedTime / 1000 / 60;
+export const minuteCounter = () => {
+  const start = (new Date()).getTime();
+  return () => {
+    const end = (new Date()).getTime();
+    const elapsedTime = end - start;
+    const elapsedMinutes = elapsedTime / 1000 / 60;
 
+    return elapsedMinutes;
+  };
+};
+
+let numPages = 0;
+const globalMinuteCounter = minuteCounter();
+export const getStats = () => {
+  const elapsedMinutes = globalMinuteCounter();
   return {numPages, elapsedMinutes};
 };
 
@@ -125,7 +140,10 @@ const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
 
   const {app, styles, state, url} = await prepareApp(services, route, code);
   console.info(`rendering ${url}`); // tslint:disable-line:no-console
+
+  const timer = minuteCounter();
   const html = await renderHtml(styles, app, state);
+  stats.renderHtml += timer();
 
   numPages++;
 
