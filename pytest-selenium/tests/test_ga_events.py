@@ -17,6 +17,10 @@ ACTION_SCRIPT = (
     "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
     ".map(x => x.command.payload);"
 )
+VIEW_ANALYTICS_QUEUE = {
+    "name": "ANALYTICS_OPT_OUT",
+    "value": "1",
+}
 
 
 # --------------------- #
@@ -25,7 +29,6 @@ ACTION_SCRIPT = (
 
 
 @markers.test_case("C591502")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_the_user_clicks_a_toc_link_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -38,6 +41,7 @@ def test_the_user_clicks_a_toc_link_ga_event(
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -63,7 +67,6 @@ def test_the_user_clicks_a_toc_link_ga_event(
 
 
 @markers.test_case("C591503")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_user_clicks_the_order_a_print_copy_link_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -76,6 +79,7 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -98,7 +102,6 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(
 
 
 @markers.test_case("C621361", "C621362")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "1-2-the-scientific-methods")]
@@ -121,6 +124,7 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     # GIVEN: a user viewing a book that is not the first book page
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -174,7 +178,6 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
 
 
 @markers.test_case("C621363")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_user_logout_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -210,7 +213,6 @@ def test_user_logout_ga_event(
 
 
 @markers.test_case("C621364", "C621366")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_open_and_close_the_table_of_contents_ga_events(
         selenium, base_url, book_slug, page_slug):
@@ -226,6 +228,7 @@ def test_open_and_close_the_table_of_contents_ga_events(
     # GIVEN: a user viewing a book page and the ToC is open
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     if book.is_mobile:
@@ -267,7 +270,6 @@ def test_open_and_close_the_table_of_contents_ga_events(
 
 
 @markers.test_case("C621365")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "1-1-physics-definitions-and-applications")]
@@ -283,6 +285,7 @@ def test_click_a_figure_link_ga_event(
     # GIVEN: a user viewing a book page with a figure link
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -307,7 +310,6 @@ def test_click_a_figure_link_ga_event(
 
 
 @markers.test_case("C621367")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_account_profile_menu_bar_click_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -343,7 +345,6 @@ def test_account_profile_menu_bar_click_ga_event(
 
 
 @markers.test_case("C545852", "C621368")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_clicking_a_search_excerpt_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -361,6 +362,7 @@ def test_clicking_a_search_excerpt_ga_event(
     # AND:   searched the book for a term
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     search = book.mobile_search_toolbar if book.is_mobile else book.toolbar
@@ -403,7 +405,6 @@ def test_clicking_a_search_excerpt_ga_event(
 
 
 @markers.test_case("C621369")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_banner_book_title_click_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -417,6 +418,7 @@ def test_banner_book_title_click_ga_event(
     # GIVEN: a non-logged in user viewing a book page that is scrolled down
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -470,7 +472,6 @@ def test_view_book_online_link_ga_event(
 
 
 @markers.test_case("C621371")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_openstax_logo_click_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -484,6 +485,7 @@ def test_openstax_logo_click_ga_event(
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -506,7 +508,6 @@ def test_openstax_logo_click_ga_event(
 
 
 @markers.test_case("C621372")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_log_in_click_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -520,6 +521,7 @@ def test_log_in_click_ga_event(
     # GIVEN: a non-logged in user viewing a book page that is scrolled down
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -542,8 +544,11 @@ def test_log_in_click_ga_event(
 
 
 @markers.test_case("C597377")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_new_highlight_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when content is selected."""
@@ -583,8 +588,11 @@ def test_new_highlight_ga_event(
 
 
 @markers.test_case("C621346")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_remove_highlight_by_using_same_color_button_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the same color is clicked."""
@@ -628,8 +636,11 @@ def test_remove_highlight_by_using_same_color_button_ga_event(
 
 
 @markers.test_case("C621347")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when login nudge is cancelled."""
@@ -641,6 +652,7 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -672,8 +684,11 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
 
 
 @markers.test_case("C621348")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_log_in_nudge_login_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when using the inline 'Log in'."""
@@ -688,6 +703,7 @@ def test_log_in_nudge_login_ga_event(
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -732,8 +748,11 @@ def test_log_in_nudge_login_ga_event(
 
 
 @markers.test_case("C621349")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_cancel_highlight_delete_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when hl deletion is cancelled."""
@@ -780,8 +799,11 @@ def test_cancel_highlight_delete_ga_event(
 
 
 @markers.test_case("C621350")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_highlight_delete_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a highlight is deleted."""
@@ -828,8 +850,11 @@ def test_highlight_delete_ga_event(
 
 
 @markers.test_case("C621351", "C621352")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_edit_existing_note_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when existing note is edited."""
@@ -898,8 +923,11 @@ def test_edit_existing_note_ga_event(
 
 
 @markers.test_case("C621353", "C621354")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_add_note_to_highlight_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when note added to a highlight."""
@@ -964,8 +992,11 @@ def test_add_note_to_highlight_ga_event(
 
 
 @markers.test_case("C621355")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_change_highlight_color_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a hl color is changed."""
@@ -1010,8 +1041,11 @@ def test_change_highlight_color_ga_event(
 
 
 @markers.test_case("C597671")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_select_text_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when content is selected."""
@@ -1051,8 +1085,11 @@ def test_select_text_ga_event(
 
 
 @markers.test_case("C597672")
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_inline_highlighting_login_nudge_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the log in nudge is shown."""
@@ -1064,6 +1101,7 @@ def test_inline_highlighting_login_nudge_ga_event(
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1096,8 +1134,11 @@ def test_inline_highlighting_login_nudge_ga_event(
 
 @markers.test_case("C615600")
 @markers.desktop_only
-@markers.dev_only
-@markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
+@markers.highlighting
+@markers.parametrize(
+    "book_slug, page_slug",
+    [("physics", "1-introduction")]
+)
 def test_go_to_highlight_ga_event(
         selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event for the 'Go to highlight' button.
@@ -1209,7 +1250,6 @@ def test_title_and_meta_page_tags_for_seo(selenium, base_url, book_slug):
 
 
 @markers.test_case("C605728")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("american-government-2e", "1-introduction")]
@@ -1225,6 +1265,7 @@ def test_study_guide_chapter_tag_ga_event(
     # GIVEN: a user viewing a book study guide
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     guide = book.toolbar.study_guides()
@@ -1248,7 +1289,6 @@ def test_study_guide_chapter_tag_ga_event(
 
 
 @markers.test_case("C607438")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("principles-economics-2e", "1-introduction")]
@@ -1265,6 +1305,7 @@ def test_study_guide_cta_sign_up_ga_event(
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1290,7 +1331,6 @@ def test_study_guide_cta_sign_up_ga_event(
 
 
 @markers.test_case("C605716", "C621330")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("principles-economics-2e", "1-introduction")]
@@ -1309,6 +1349,7 @@ def test_open_study_guide_ga_event(
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1346,7 +1387,6 @@ def test_open_study_guide_ga_event(
 
 
 @markers.test_case("C621326")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("principles-economics-2e", "1-introduction")]
@@ -1362,6 +1402,7 @@ def test_sg_close_using_overlay_click_ga_event(
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1390,7 +1431,6 @@ def test_sg_close_using_overlay_click_ga_event(
 
 
 @markers.test_case("C621327")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("principles-economics-2e", "1-introduction")]
@@ -1406,6 +1446,7 @@ def test_sg_close_using_esc_key_ga_event(
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1433,7 +1474,6 @@ def test_sg_close_using_esc_key_ga_event(
 
 
 @markers.test_case("C621328", "C621329")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("principles-economics-2e", "1-introduction")]
@@ -1452,6 +1492,7 @@ def test_sg_close_using_x_close_button_ga_events(
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1492,7 +1533,6 @@ def test_sg_close_using_x_close_button_ga_events(
 
 
 @markers.test_case("C621331")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("principles-economics-2e", "1-introduction")]
@@ -1509,6 +1549,7 @@ def test_study_guide_log_in_link_ga_event(
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1534,7 +1575,6 @@ def test_study_guide_log_in_link_ga_event(
 
 
 @markers.test_case("C621333")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("principles-economics-2e", "1-introduction")]
@@ -1577,7 +1617,6 @@ def test_study_guide_remove_chapter_filter_ga_event(
 
 
 @markers.test_case("C609711")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("american-government-2e", "1-introduction")]
@@ -1625,7 +1664,6 @@ def test_using_this_guide_ga_event(
 
 
 @markers.test_case("C620209")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "1-1-physics-definitions-and-applications")]
@@ -1644,6 +1682,7 @@ def test_practice_opened_ga_event(
     # GIVEN: a user viewing a book page with practice questions
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1681,7 +1720,6 @@ def test_practice_opened_ga_event(
 
 
 @markers.test_case("C621317")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_continue_to_questions_button_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -1695,6 +1733,7 @@ def test_continue_to_questions_button_ga_event(
     # GIVEN: a user viewing the practice modal for a page without questions
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1719,7 +1758,6 @@ def test_continue_to_questions_button_ga_event(
 
 
 @markers.test_case("C621318")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "1-1-physics-definitions-and-applications")]
@@ -1735,6 +1773,7 @@ def test_submit_practice_question_answer_ga_event(
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1764,7 +1803,6 @@ def test_submit_practice_question_answer_ga_event(
 
 
 @markers.test_case("C621319")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "2-4-velocity-vs-time-graphs")]
@@ -1780,6 +1818,7 @@ def test_practice_question_finish_section_button_ga_event(
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1815,7 +1854,6 @@ def test_practice_question_finish_section_button_ga_event(
 
 
 @markers.test_case("C621320")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "1-1-physics-definitions-and-applications")]
@@ -1831,6 +1869,7 @@ def test_practice_show_answer_button_ga_event(
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1865,7 +1904,6 @@ def test_practice_show_answer_button_ga_event(
 
 
 @markers.test_case("C621321")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "1-1-physics-definitions-and-applications")]
@@ -1881,6 +1919,7 @@ def test_skip_practice_question_ga_event(
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1906,7 +1945,6 @@ def test_skip_practice_question_ga_event(
 
 
 @markers.test_case("C621322")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_close_practice_by_clicking_the_overlay_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -1919,6 +1957,7 @@ def test_close_practice_by_clicking_the_overlay_ga_event(
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1945,7 +1984,6 @@ def test_close_practice_by_clicking_the_overlay_ga_event(
 
 
 @markers.test_case("C621323")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_close_practice_by_using_esc_key_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -1958,6 +1996,7 @@ def test_close_practice_by_using_esc_key_ga_event(
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     book.toolbar.practice()
@@ -1983,7 +2022,6 @@ def test_close_practice_by_using_esc_key_ga_event(
 
 
 @markers.test_case("C621324")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_practice_closed_when_x_close_button_clicked_ga_events(
         selenium, base_url, book_slug, page_slug):
@@ -1999,6 +2037,7 @@ def test_practice_closed_when_x_close_button_clicked_ga_events(
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2037,7 +2076,6 @@ def test_practice_closed_when_x_close_button_clicked_ga_events(
 
 
 @markers.test_case("C621325")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_practice_read_link_ga_event(
         selenium, base_url, book_slug, page_slug):
@@ -2051,6 +2089,7 @@ def test_practice_read_link_ga_event(
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2075,7 +2114,6 @@ def test_practice_read_link_ga_event(
 
 
 @markers.test_case("C622245")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "2-4-velocity-vs-time-graphs")]
@@ -2091,6 +2129,7 @@ def test_pq_continue_to_next_section_button_click_ga_event(
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2126,7 +2165,6 @@ def test_pq_continue_to_next_section_button_click_ga_event(
 
 
 @markers.test_case("C622246")
-@markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_practice_filter_ga_events(
         selenium, base_url, book_slug, page_slug):
@@ -2142,6 +2180,7 @@ def test_practice_filter_ga_events(
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2190,7 +2229,6 @@ def test_practice_filter_ga_events(
 
 
 @markers.test_case("C620825")
-@markers.dev_only
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "1-1-physics-definitions-and-applications")]
@@ -2233,6 +2271,7 @@ def user_setup(driver, base_url, book_slug, page_slug):
     """Setup a new user for use in Goggle Analytics event tests."""
     book = Content(driver, base_url,
                    book_slug=book_slug, page_slug=page_slug).open()
+    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     book.navbar.click_login()
