@@ -159,8 +159,13 @@ describe('Page', () => {
       },
     ] as any[];
 
-    Highlighter.mock.instances[1].getHighlights.mockReturnValue(mockHighlights);
-    Highlighter.mock.instances[1].getOrderedHighlights.mockReturnValue(mockHighlights);
+    Highlighter.mock.instances[1].getHighlights
+      .mockReturnValueOnce(mockHighlights)
+      .mockReturnValue([]);
+    Highlighter.mock.instances[1]
+      .getOrderedHighlights
+      .mockReturnValueOnce(mockHighlights)
+      .mockReturnValue([]);
     Highlighter.mock.instances[1].getHighlight.mockImplementation(
       (id: string) => keyBy('id', mockHighlights)[id]
     );
