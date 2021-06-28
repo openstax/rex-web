@@ -3,6 +3,11 @@ import React from 'react';
 import { RawIntlProvider } from 'react-intl';
 import createTestServices from './createTestServices';
 
+interface Props {
+  locale?: string;
+  messages?: Record<string, string>;
+}
+
 // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
 async function polyfill(locale: 'en') {
   if (shouldPolyfill()) {
@@ -18,9 +23,9 @@ async function polyfill(locale: 'en') {
 polyfill('en');
 
 // tslint:disable-next-line:variable-name
-const MessageProvider: React.FC = (props) =>
-  <RawIntlProvider value={createTestServices().intl.getIntlObject()}>
-    {props.children}
+const MessageProvider = ({children, ...props}: React.PropsWithChildren<Props>) =>
+  <RawIntlProvider value={createTestServices().intl.getIntlObject(props.locale, props.messages)}>
+    {children}
   </RawIntlProvider>;
 
 export default MessageProvider;

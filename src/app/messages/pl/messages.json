@@ -62,6 +62,8 @@
   "i18n:highlighting:filters:remove:color": "Wyczyść filtrowanie wg koloru {filterValue}",
   "i18n:highlighting:login:link": "Zaloguj się",
   "i18n:highlighting:login:prompt": "Zaloguj się, żeby dodawać zakreślenia i notatki. 100% bez opłat.",
+  "i18n:metadata:description": "This free textbook is an OpenStax resource written to increase student access to high-quality, peer-reviewed learning materials.",
+  "i18n:metadata:title": "Ch. {number} ",
   "i18n:nav:hello:text": "Cześć, {name}",
   "i18n:nav:login:text": "Zaloguj się",
   "i18n:nav:logo:alt": "OpenStax Logo",

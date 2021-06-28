@@ -1,5 +1,5 @@
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
-import { IntlShape } from 'react-intl';
+import { IntlShape, useIntl } from 'react-intl';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { Book, LinkedArchiveTreeNode, Page } from '../types';
@@ -101,7 +101,8 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
 };
 
 export const getPageDescription = (services: Pick<AppServices, 'archiveLoader' | 'intl'>, book: Book, page: Page) => {
-  const {intl, archiveLoader} = services;
+  const {archiveLoader} = services;
+  const intl = useIntl();
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const pageNode = doc.body.firstElementChild;

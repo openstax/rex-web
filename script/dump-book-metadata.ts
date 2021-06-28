@@ -3,11 +3,11 @@ import { ArchiveBook, LinkedArchiveTree, LinkedArchiveTreeSection } from '../src
 import { formatBookData } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { getPageDescription, getParentPrefix } from '../src/app/content/utils/seoUtils';
-import { intl } from '../src/app/MessageProvider';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import allBooks from '../src/config.books.json';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
+import createIntl from '../src/test/createIntl';
 
 (global as any).fetch = fetch;
 const domParser = new DOMParser();
@@ -20,6 +20,10 @@ const getPageMetadata = async(
   book: ArchiveBook,
   loader: ReturnType<(typeof archiveLoader)['book']>
 ) => {
+
+  const intl = createIntl();
+  const intlObject = await intl.getIntlObject(book.language);
+
   const services = {
     archiveLoader,
     intl,
@@ -27,7 +31,7 @@ const getPageMetadata = async(
   const page = await loader.page(section.id).load();
   const description = getPageDescription(services, book, page);
   const sectionTitle = domParser.parseFromString(section.title, 'text/html').body.textContent;
-  const parentPrefix = getParentPrefix(section.parent, intl).trim();
+  const parentPrefix = getParentPrefix(section.parent, intlObject).trim();
 
   const row = `"${book.title}","${parentPrefix}","${sectionTitle}","${description}"`;
   // tslint:disable-next-line:no-console
