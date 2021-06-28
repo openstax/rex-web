@@ -8,6 +8,7 @@ import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as selectAuth from '../../../auth/selectors';
 import Button, { ButtonGroup } from '../../../components/Button';
+import { scrollIntoView } from '../../../domUtils';
 import { useFocusElement, useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
@@ -135,7 +136,13 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     }));
     trackEditAnnotation(addedNote, toSave.color);
     props.onCancel();
-    props.highlight.focus();
+    const firstElement = props.highlight.elements[0] as HTMLElement;
+    const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
+    const otherElements = [lastElement];
+    if (element.current) {
+      otherElements.push(element.current);
+    }
+    scrollIntoView(firstElement, otherElements);
   };
 
   const updateUnsavedHighlightStatus = (newValue: string) => {
