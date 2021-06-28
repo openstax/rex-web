@@ -29,7 +29,7 @@ const getPageMetadata = async(
     intl,
   };
   const page = await loader.page(section.id).load();
-  const description = getPageDescription(services, book, page);
+  const description = await getPageDescription(services, book, page);
   const sectionTitle = domParser.parseFromString(section.title, 'text/html').body.textContent;
   const parentPrefix = getParentPrefix(section.parent, intlObject).trim();
 

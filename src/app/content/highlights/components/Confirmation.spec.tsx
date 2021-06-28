@@ -22,8 +22,8 @@ jest.mock('react', () => {
 // Add translations for testing
 const messages = {
   ...en,
-  'confirm': 'confirm',
-  'message': 'message',
+  confirm: 'confirm',
+  message: 'message',
 };
 
 describe('Confirmation', () => {

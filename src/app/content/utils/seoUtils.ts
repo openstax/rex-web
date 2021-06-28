@@ -1,5 +1,6 @@
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
-import { IntlShape, useIntl } from 'react-intl';
+import { IntlShape } from 'react-intl';
+import createIntl from '../../messages/createIntl';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { Book, LinkedArchiveTreeNode, Page } from '../types';
@@ -100,9 +101,10 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   return null;
 };
 
-export const getPageDescription = (services: Pick<AppServices, 'archiveLoader' | 'intl'>, book: Book, page: Page) => {
+// tslint:disable-next-line: max-line-length
+export const getPageDescription = async(services: Pick<AppServices, 'archiveLoader' | 'intl'>, book: Book, page: Page) => {
   const {archiveLoader} = services;
-  const intl = useIntl();
+  const intl = await createIntl().getIntlObject(book.language);
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const pageNode = doc.body.firstElementChild;
@@ -111,7 +113,7 @@ export const getPageDescription = (services: Pick<AppServices, 'archiveLoader' |
   return pageDescription || intl.formatMessage({id: 'i18n:metadata:description'});
 };
 
-export const createTitle = (page: Page, book: Book, intl: IntlShape): string => {
+export const createTitle = async(page: Page, book: Book, intl: IntlShape): Promise<string> => {
   const node = assertDefined(
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`

@@ -298,7 +298,9 @@ describe('CardWrapper', () => {
 
     expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
 
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
+    renderer.act(() => {
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
+    });
 
     expect(highlight.focus).toHaveBeenCalled();
   });
@@ -323,7 +325,9 @@ describe('CardWrapper', () => {
       expect(card.props.shouldFocusCard).toEqual(false);
     });
 
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, highlightElement);
+    renderer.act(() => {
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, highlightElement);
+    });
 
     renderer.act(() => {
       const card = component.root.findByType(Card);
