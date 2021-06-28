@@ -21,9 +21,9 @@ const readFile = (path) => new Promise(resolve => fs.readFile(path, 'utf8', (err
 Promise.all([
   readFile(versionFile),
   readFile(booksFile)
-]).then(([commit, books]) => {
-  const compactBooks = books.replace(/\s/g, '')
-  const versionInfoString = [commit, compactBooks].join('|');
+]).then(input => {
+  const [commit, books] = input.map(param => param.replace(/\s/g, ''));
+  const versionInfoString = [commit, books].join('|');
   const version = crypto.createHash('sha1').update(versionInfoString).digest('hex')
 
   // the v4 gives an easy way to detect very old releases, this
@@ -35,7 +35,7 @@ Promise.all([
   //  - v4 now hashes the code version and books config into a new version identifier
   const releaseId = `v4/${version.substring(0, 7)}`;
   const args = {
-    BOOKS: compactBooks,
+    BOOKS: books,
     REACT_APP_CODE_VERSION: commit,
     PUBLIC_URL: `/rex/releases/${releaseId}`,
     REACT_APP_RELEASE_ID: releaseId,
