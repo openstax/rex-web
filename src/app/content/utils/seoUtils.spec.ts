@@ -73,7 +73,7 @@ describe('getDescription', () => {
 });
 
 describe('createTitle', () => {
-  const intl = createTestServices().intl;
+  const intl = createTestServices().intl.getIntlObject('en');
 
   it('creates title for a page without a parent and without .os-text class in the title', async() => {
     const page = makeArchiveSection('page1');
@@ -81,7 +81,7 @@ describe('createTitle', () => {
       title: 'book',
       tree: makeArchiveTree('book', [page]),
     };
-    const title = await createTitle(page as any as Page, book as any as Book, intl.getIntlObject('en'));
+    const title = await createTitle(page as any as Page, book as any as Book, intl);
     expect(title).toEqual('page1 - book | OpenStax');
   });
 
@@ -95,7 +95,7 @@ describe('createTitle', () => {
       title: 'book',
       tree: makeArchiveTree('book', [answerKey]),
     };
-    const title = await createTitle(page as any as Page, book as any as Book, intl.getIntlObject('en'));
+    const title = await createTitle(page as any as Page, book as any as Book, intl);
     expect(title).toEqual('Answer Key chapter 1 - book | OpenStax');
   });
 
@@ -109,7 +109,7 @@ describe('createTitle', () => {
       title: 'book',
       tree: makeArchiveTree('book', [chapter]),
     };
-    const title = await createTitle(page as any as Page, book as any as Book, intl.getIntlObject('en'));
+    const title = await createTitle(page as any as Page, book as any as Book, intl);
     expect(title).toEqual('Ch. 1 page1 - book | OpenStax');
   });
 
@@ -123,7 +123,7 @@ describe('createTitle', () => {
       title: 'book',
       tree: makeArchiveTree('book', [chapter]),
     };
-    const title = await createTitle(page as any as Page, book as any as Book, intl.getIntlObject('en'));
+    const title = await createTitle(page as any as Page, book as any as Book, intl);
     expect(title).toEqual('3 page1 - book | OpenStax');
   });
 });

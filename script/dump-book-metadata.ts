@@ -22,7 +22,7 @@ const getPageMetadata = async(
 ) => {
 
   const intl = createIntl();
-  const intlObject = await intl.getIntlObject(book.language);
+  const intlObject = await createIntl().getIntlObject(book.language);
 
   const services = {
     archiveLoader,

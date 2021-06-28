@@ -23,9 +23,12 @@ async function polyfill(locale: 'en') {
 polyfill('en');
 
 // tslint:disable-next-line:variable-name
-const MessageProvider = ({children, ...props}: React.PropsWithChildren<Props>) =>
-  <RawIntlProvider value={createTestServices().intl.getIntlObject(props.locale, props.messages)}>
+const MessageProvider = ({children, ...props}: React.PropsWithChildren<Props>) => {
+  const intlObject = createTestServices().intl.getIntlObject(props.locale, props.messages);
+
+  return <RawIntlProvider value={intlObject}>
     {children}
   </RawIntlProvider>;
+};
 
 export default MessageProvider;

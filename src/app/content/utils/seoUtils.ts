@@ -102,7 +102,7 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
 };
 
 // tslint:disable-next-line: max-line-length
-export const getPageDescription = async(services: Pick<AppServices, 'archiveLoader' | 'intl'>, book: Book, page: Page) => {
+export const getPageDescription = async(services: Pick<AppServices, 'archiveLoader' | 'intl'>, book: Book, page: Page): Promise<string> => {
   const {archiveLoader} = services;
   const intl = await createIntl().getIntlObject(book.language);
   const cleanContent = getCleanContent(book, page, archiveLoader);
