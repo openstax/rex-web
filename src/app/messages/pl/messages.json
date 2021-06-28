@@ -1,7 +1,7 @@
 {
   "i18n:a11y:skipToContent": "Przejdź do treści",
   "i18n:a11y:accessibilityHelp": "Przejdź do informacji o dostępności",
-  "i18n:a11y:accessibilityHelp:link": "",
+  "i18n:a11y:accessibilityHelp:link": "https://openstax.org/accessibility-statement",
   "i18n:attribution:toggle": "Cytowanie i udostępnianie",
   "i18n:content:footnotes:title": "Przypisy",
   "i18n:content:solution:hide": "Ukryj rozwiązanie",
