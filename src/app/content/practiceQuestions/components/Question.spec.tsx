@@ -104,8 +104,6 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
     runHooks(renderer);
 
     expect(() => component.root.findByType(QuestionWrapper)).not.toThrow();
@@ -144,8 +142,6 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
     runHooks(renderer);
 
     const submit = component.root.findByProps({ 'data-analytics-label': 'Submit' });
@@ -169,8 +165,6 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
     runHooks(renderer);
 
     const [skip] = component.root.findAllByType(Button);
@@ -197,8 +191,6 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
     runHooks(renderer);
 
     const submit = component.root.findByProps({ 'data-analytics-label': 'Submit' });
@@ -246,8 +238,6 @@ describe('Question', () => {
       return undefined;
     } });
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
     runHooks(renderer);
 
     const [firstAnswer] = component.root.findAllByType(Answer);
@@ -290,8 +280,6 @@ describe('Question', () => {
       return undefined;
     } });
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
     runHooks(renderer);
 
     const [, correctAnswer] = component.root.findAllByType(Answer);
@@ -318,8 +306,6 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
     runHooks(renderer);
 
     const [, secondAnswer] = component.root.findAllByType(Answer);
@@ -364,9 +350,7 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
-    act(() => { });
+    runHooks(renderer);
 
     const [firstAnswer] = component.root.findAllByType(Answer);
     const input = firstAnswer.findByProps({ type: 'radio' });
