@@ -73,7 +73,7 @@ describe('getDescription', () => {
 });
 
 describe('createTitle', () => {
-  const intl = createTestServices().intl.getIntlObject('en');
+  const intl = createTestServices().intl.getIntlObject();
 
   it('creates title for a page without a parent and without .os-text class in the title', async() => {
     const page = makeArchiveSection('page1');
