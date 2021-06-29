@@ -9,7 +9,6 @@ import { assertDefined } from '../../../utils/assertions';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
-import { Page } from '../../types';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
@@ -87,7 +86,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
       assertDefined(
         findArchiveTreeNodeById(book.tree, targetPageId),
         'search result pointed to page that wasn\'t in book'
-      ) as any as Page, book)
+      ), book)
     : selectNavigation.match(state);
 
   if (navigationMatch) {

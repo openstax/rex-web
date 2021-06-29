@@ -14,7 +14,7 @@ import {
 } from '../highlights/selectors';
 import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
-import { Book, Page } from '../types';
+import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { createNavigationMatch } from '../utils/navigationUtils';
@@ -54,7 +54,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ...anchorProps
   } = props;
   const {url, params} = getBookPageUrlAndParams(book, page);
-  const navigationMatch = createNavigationMatch(page as Page, book, params);
+  const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
