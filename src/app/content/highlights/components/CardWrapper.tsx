@@ -75,15 +75,13 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     return newOffsets;
   }, [container]);
 
-  const setNewCardsPositions = React.useCallback(() => {
-    const positions = updateCardsPositions(focusedHighlight, highlights, cardsHeights, getOffsetsForHighlight);
-    setCardsPositions(positions);
-  }, [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
-
   React.useEffect(() => {
-    setNewCardsPositions();
-    setNewCardsPositionsRef.current = setNewCardsPositions;
-  }, [setNewCardsPositions]);
+    setNewCardsPositionsRef.current = () => {
+      const positions = updateCardsPositions(focusedHighlight, highlights, cardsHeights, getOffsetsForHighlight);
+      setCardsPositions(positions);
+    };
+    setNewCardsPositionsRef.current();
+  }, [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
 
   React.useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
