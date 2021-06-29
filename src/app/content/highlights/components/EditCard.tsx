@@ -136,7 +136,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     }));
     trackEditAnnotation(addedNote, toSave.color);
     props.onCancel();
-    scrollHighlightIntoView(props.highlight, element.current);
+    scrollHighlightIntoView(props.highlight, element);
   };
 
   const updateUnsavedHighlightStatus = (newValue: string) => {

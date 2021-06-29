@@ -73,7 +73,7 @@ const Card = (props: CardProps) => {
     if (!props.isActive) {
       setEditing(false);
     } else {
-      scrollHighlightIntoView(props.highlight, element.current);
+      scrollHighlightIntoView(props.highlight, element);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, props.isActive]);
