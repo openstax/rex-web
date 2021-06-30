@@ -28,8 +28,6 @@ export const erase = (highlighter: Highlighter) => (highlight: Highlight) => {
 };
 
 export const insertPendingCardInOrder = (highlighter: Highlighter, highlights: Highlight[], pending: Highlight) => {
-  // tslint:disable-next-line: no-console
-  console.log('insertPendingCardInOrder');
   const prevHighlight = highlighter.getHighlightBefore(pending);
   if (!prevHighlight) {
     return [pending, ...highlights.filter((highlight) => highlight.id !== pending.id)];
