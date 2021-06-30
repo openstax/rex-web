@@ -40,6 +40,11 @@ const dispatchFocusOutEvent = (
 
 jest.mock('./Card', () => (props: any) => <span data-mock-card {...props} />);
 
+jest.mock('./cardUtils', () => ({
+  ...jest.requireActual('./cardUtils'),
+  getHighlightOffset: jest.fn(() => ({ top: 100, bottom: 100 })),
+}));
+
 describe('CardWrapper', () => {
   let store: Store;
   let container: HTMLElement;
@@ -100,9 +105,6 @@ describe('CardWrapper', () => {
   });
 
   it(`handles card's height changes`, () => {
-    jest.spyOn(cardUtils, 'getHighlightOffset')
-      .mockReturnValue(({ top: 100, bottom: 100 }));
-
     const component = renderer.create(<Provider store={store}>
       <CardWrapper container={container} highlights={[createMockHighlight(), createMockHighlight()]} />
     </Provider>);
