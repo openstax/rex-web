@@ -2,43 +2,9 @@ import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertDocument } from '../../../utils';
-import {
-  generateUpdatePayload,
-  getHighlightOffset,
-  getHighlightTopOffset,
-  hiddenHighlightOffset,
-} from './cardUtils';
+import { generateUpdatePayload, getHighlightTopOffset } from './cardUtils';
 
 describe('cardUtils', () => {
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
-
-  describe('getHighlightOffset', () => {
-    it('returns offset for highlight', () => {
-      expect(getHighlightOffset(
-        assertDocument().createElement('div'),
-        createMockHighlight() as any as Highlight)
-      ).toEqual({ top: 0, bottom: 0 });
-    });
-
-    it('returns offset to hide higlight if it is inside collapsed ancestor', () => {
-      const highlight = createMockHighlight('asd');
-      const element = assertDocument().createElement('span');
-      highlight.elements = [element];
-      const ancestor = assertDocument().createElement('div');
-      ancestor.dataset.type = 'solution';
-      ancestor.setAttribute('aria-expanded', 'false');
-      jest.spyOn(element, 'closest').mockImplementationOnce(() => ancestor);
-      expect(getHighlightOffset(
-        assertDocument().createElement('div'),
-        highlight as any as Highlight)
-      ).toEqual({ top: hiddenHighlightOffset, bottom: hiddenHighlightOffset });
-    });
-  });
-});
-
-describe('getHighlightTopOffset', () => {
   it('returns undefined if passed container is undefined', () => {
     expect(getHighlightTopOffset(undefined, { id: 'asd' } as Highlight)).toBeUndefined();
   });

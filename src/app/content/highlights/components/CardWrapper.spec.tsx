@@ -12,7 +12,6 @@ import { focusHighlight } from '../actions';
 import { cardMarginBottom, highlightKeyCombination } from '../constants';
 import Card from './Card';
 import * as cardUtils from './cardUtils';
-import { hiddenHighlightOffset } from './cardUtils';
 import CardWrapper from './CardWrapper';
 
 const dispatchKeyDownEvent = (
@@ -64,6 +63,25 @@ describe('CardWrapper', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('matches snapshot when higlight is hidden by collapsed ancestor', () => {
+    const element = assertDocument().createElement('div');
+    const collapsedAncestor = assertDocument().createElement('div');
+    collapsedAncestor.setAttribute('aria-expanded', 'false');
+    collapsedAncestor.dataset.type = 'solution';
+    collapsedAncestor.appendChild(element);
+    const hiddenHighlight = {
+      ...createMockHighlight(),
+      elements: [element],
+    };
+
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper container={container} highlights={[hiddenHighlight]} />
+    </Provider>);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
   it('matches snapshot when there is no highlights', () => {
     const component = renderer.create(<Provider store={store}>
       <CardWrapper container={container} highlights={[]} />
@@ -79,33 +97,6 @@ describe('CardWrapper', () => {
     </Provider>);
 
     expect(component.root.findAllByType(Card).length).toBe(2);
-  });
-
-  it('returns hidden higlight position without adjusting the offset', () => {
-    const element = assertDocument().createElement('div');
-    const highlight = {
-      ...createMockHighlight(),
-      elements: [element],
-    };
-    const element2 = assertDocument().createElement('div');
-    const collapsedAncestor = assertDocument().createElement('div');
-    collapsedAncestor.setAttribute('aria-expanded', 'false');
-    collapsedAncestor.dataset.type = 'solution';
-    collapsedAncestor.appendChild(element2);
-    const highlight2 = {
-      ...createMockHighlight(),
-      elements: [element2],
-    };
-
-    const component = renderer.create(<Provider store={store}>
-      <CardWrapper container={container} highlights={[highlight, highlight2]} />
-    </Provider>);
-
-    const [card1, card2] = component.root.findAllByType(Card);
-
-    expect(card1.props.topOffset).toEqual(0);
-    // returns -9999 beacuse higlight is a child of collapsed container
-    expect(card2.props.topOffset).toEqual(hiddenHighlightOffset);
   });
 
   it(`handles card's height changes`, () => {

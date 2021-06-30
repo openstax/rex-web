@@ -75,6 +75,14 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     return newOffsets;
   }, [container]);
 
+  const checkIfHiddenByCollapsedAncestor = (highlight: Highlight) => {
+    const highlightElement = highlight.elements[0] as HTMLElement;
+    const collapsedAncestor = highlightElement
+      ? highlightElement.closest('[data-type="solution"][aria-expanded="false"]')
+      : null;
+    return Boolean(collapsedAncestor);
+  };
+
   React.useEffect(() => {
     setNewCardsPositionsRef.current = () => {
       const positions = updateCardsPositions(focusedHighlight, highlights, cardsHeights, getOffsetsForHighlight);
@@ -110,6 +118,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
           zIndex={highlights.length - index}
           shouldFocusCard={focusThisCard}
+          isHidden={checkIfHiddenByCollapsedAncestor(highlight)}
         />;
       })}
     </div>

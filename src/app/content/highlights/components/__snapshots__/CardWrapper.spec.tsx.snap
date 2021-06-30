@@ -24,8 +24,71 @@ exports[`CardWrapper matches snapshot 1`] = `
         "sourceId": "testbook1-testpage1-uuid",
       }
     }
+    isHidden={false}
     onHeightChange={[Function]}
     shouldFocusCard={false}
+    zIndex={1}
+  />
+</div>
+`;
+
+exports[`CardWrapper matches snapshot when higlight is hidden by collapsed ancestor 1`] = `
+<div
+  className="sc-bdVaJa jZCMyL"
+>
+  <span
+    container={<div />}
+    data-mock-card={true}
+    highlight={
+      Object {
+        "addFocusedStyles": [MockFunction],
+        "elements": Array [
+          <div />,
+        ],
+        "focus": [MockFunction],
+        "getStyle": [MockFunction],
+        "id": "13hcqg",
+        "isAttached": [MockFunction],
+        "range": Object {
+          "commonAncestorContainer": null,
+          "getBoundingClientRect": [MockFunction] {
+            "calls": Array [
+              Array [],
+              Array [],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 0,
+                  "top": 0,
+                },
+              },
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 0,
+                  "top": 0,
+                },
+              },
+            ],
+          },
+        },
+        "serialize": [Function],
+        "setStyle": [MockFunction],
+        "sourceId": "testbook1-testpage1-uuid",
+      }
+    }
+    highlightOffsets={
+      Object {
+        "bottom": 0,
+        "top": 0,
+      }
+    }
+    isHidden={true}
+    onHeightChange={[Function]}
+    shouldFocusCard={false}
+    topOffset={0}
     zIndex={1}
   />
 </div>
