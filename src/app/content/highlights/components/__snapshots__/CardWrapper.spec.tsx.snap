@@ -47,7 +47,7 @@ exports[`CardWrapper matches snapshot when higlight is hidden by collapsed ances
         ],
         "focus": [MockFunction],
         "getStyle": [MockFunction],
-        "id": "blcf4f",
+        "id": "ma3asa",
         "isAttached": [MockFunction],
         "range": Object {
           "commonAncestorContainer": null,
