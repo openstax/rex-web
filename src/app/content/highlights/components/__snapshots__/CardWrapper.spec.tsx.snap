@@ -47,32 +47,11 @@ exports[`CardWrapper matches snapshot when higlight is hidden by collapsed ances
         ],
         "focus": [MockFunction],
         "getStyle": [MockFunction],
-        "id": "13hcqg",
+        "id": "nk3x6p",
         "isAttached": [MockFunction],
         "range": Object {
           "commonAncestorContainer": null,
-          "getBoundingClientRect": [MockFunction] {
-            "calls": Array [
-              Array [],
-              Array [],
-            ],
-            "results": Array [
-              Object {
-                "type": "return",
-                "value": Object {
-                  "bottom": 0,
-                  "top": 0,
-                },
-              },
-              Object {
-                "type": "return",
-                "value": Object {
-                  "bottom": 0,
-                  "top": 0,
-                },
-              },
-            ],
-          },
+          "getBoundingClientRect": [MockFunction],
         },
         "serialize": [Function],
         "setStyle": [MockFunction],
@@ -81,14 +60,14 @@ exports[`CardWrapper matches snapshot when higlight is hidden by collapsed ances
     }
     highlightOffsets={
       Object {
-        "bottom": 0,
-        "top": 0,
+        "bottom": 100,
+        "top": 100,
       }
     }
     isHidden={true}
     onHeightChange={[Function]}
     shouldFocusCard={false}
-    topOffset={0}
+    topOffset={100}
     zIndex={1}
   />
 </div>
