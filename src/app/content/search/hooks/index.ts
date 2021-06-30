@@ -4,13 +4,14 @@ import { push, replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
-import { actionHook, assertDefined } from '../../../utils';
+import { actionHook } from '../../../utils';
+import { assertDefined } from '../../../utils/assertions';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { getBookPageUrlAndParams } from '../../utils/urlUtils';
+import { createNavigationMatch } from '../../utils/navigationUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
@@ -52,45 +53,45 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     : getFirstResult(book, payload);
 
   if (
-    // selectedResult may equal to null if api did not return any results
-    !selectedResult
+    selectedResult
     // We are clearing selected result when requesting a new search so in the theory this should never happen
-    || isEqual(select.selectedResult(state), selectedResult)
-    // selectedResult bookId data is different than current book id
-    || book.id !== getIndexData(selectedResult.result.index).bookId
+    && (isEqual(select.selectedResult(state), selectedResult)
+      // selectedResult bookId data is different than current book id
+      || book.id !== getIndexData(selectedResult.result.index).bookId)
   ) {
     return;
   }
 
-  services.dispatch(selectSearchResult(selectedResult));
+  if (selectedResult) {
+    services.dispatch(selectSearchResult(selectedResult));
+  }
 
-  const targetPageId = selectedResult.result.source.pageId;
-  const targetPage = assertDefined(
-    findArchiveTreeNodeById(book.tree, targetPageId),
-    'search result pointed to page that wasn\'t in book'
-  );
+  const targetPageId = selectedResult?.result.source.pageId || currentPage?.id;
 
-  // currentPage may by undefined when user started a search from the 404 page
-  const page = currentPage || targetPage;
+  const action = (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id))
+    ? replace : push;
 
-  const navigation = {
-    params: getBookPageUrlAndParams(book, targetPage).params,
-    route: content,
-    state : {
-      bookUid: book.id,
-      bookVersion: book.version,
-      pageUid: stripIdVersion(targetPage.id),
-    },
-  };
+  const options = selectedResult
+    ? {
+      hash: selectedResult.result.source.elementId,
+      search: queryString.stringify({
+        query,
+        target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
+      }),
+    }
+    : { search: queryString.stringify({ query }) };
 
-  const action = stripIdVersion(page.id) === stripIdVersion(targetPage.id) ? replace : push;
-  const search = queryString.stringify({
-    query,
-    target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
-  });
-  const hash = selectedResult.result.source.elementId;
+  const navigationMatch = targetPageId
+    ? createNavigationMatch(
+      assertDefined(
+        findArchiveTreeNodeById(book.tree, targetPageId),
+        'search result pointed to page that wasn\'t in book'
+      ), book)
+    : selectNavigation.match(state);
 
-  services.dispatch(action(navigation, { hash, search }));
+  if (navigationMatch) {
+    services.dispatch(action(navigationMatch, options));
+  }
 };
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
