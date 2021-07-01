@@ -32,45 +32,4 @@ exports[`CardWrapper matches snapshot 1`] = `
 </div>
 `;
 
-exports[`CardWrapper matches snapshot when higlight is hidden by collapsed ancestor 1`] = `
-<div
-  className="sc-bdVaJa jZCMyL"
->
-  <span
-    container={<div />}
-    data-mock-card={true}
-    highlight={
-      Object {
-        "addFocusedStyles": [MockFunction],
-        "elements": Array [
-          <div />,
-        ],
-        "focus": [MockFunction],
-        "getStyle": [MockFunction],
-        "id": "ma3asa",
-        "isAttached": [MockFunction],
-        "range": Object {
-          "commonAncestorContainer": null,
-          "getBoundingClientRect": [MockFunction],
-        },
-        "serialize": [Function],
-        "setStyle": [MockFunction],
-        "sourceId": "testbook1-testpage1-uuid",
-      }
-    }
-    highlightOffsets={
-      Object {
-        "bottom": 100,
-        "top": 100,
-      }
-    }
-    isHidden={true}
-    onHeightChange={[Function]}
-    shouldFocusCard={false}
-    topOffset={100}
-    zIndex={1}
-  />
-</div>
-`;
-
 exports[`CardWrapper matches snapshot when there is no highlights 1`] = `null`;
