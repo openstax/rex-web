@@ -86,7 +86,7 @@ export const countTotalHighlights = (results: SearchResultHit[]) => {
 
 const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);
 
-const getHighlightRanges = (element: HTMLElement, highlight: string): RangyRange[] => {
+const getHighlightRanges = (element: HTMLElement, highlight: string, index: number): RangyRange[] => {
   const elementRange = rangy.createRange();
   elementRange.selectNodeContents(element);
 
@@ -104,7 +104,13 @@ const getHighlightRanges = (element: HTMLElement, highlight: string): RangyRange
       return [];
     }
 
-    const [partRange] = findTextInRange(elementRange, part.replace(/<\/?strong>|\n/g, ''));
+    const ranges = findTextInRange(elementRange, part.replace(/<\/?strong>|\n/g, ''));
+    // sometimes there might be more fragments of the same text found in the element
+    // in this case get the highlight depending of it's index
+    // https://github.com/openstax/unified/issues/1349
+    const partRange = ranges.length >= index + 1
+      ? ranges[index]
+      : ranges[0];
 
     if (!partRange) {
       // TODO - log
@@ -142,7 +148,7 @@ export const highlightResults = (
     }
 
     const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
-      const highlights = getHighlightRanges(element, highlightText)
+      const highlights = getHighlightRanges(element, highlightText, index)
         .map((range) => {
           const highlight = new Highlight(
             range.nativeRange,
