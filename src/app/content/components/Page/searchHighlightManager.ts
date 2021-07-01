@@ -59,6 +59,14 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
   const firstSelectedHighlight = selectedHighlights && selectedHighlights[0];
 
   if (firstSelectedHighlight) {
+    // If selected result is in the collapsed solution then expand it
+    const solution = (firstSelectedHighlight.elements[0] as HTMLElement)
+      .closest('[data-type="solution"][aria-expanded="false"]');
+    if (solution) {
+      const button = solution.querySelector('button');
+      button?.click();
+    }
+
     firstSelectedHighlight.addFocusedStyles();
   }
 
