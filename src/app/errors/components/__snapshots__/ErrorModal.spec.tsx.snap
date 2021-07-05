@@ -73,7 +73,7 @@ exports[`ErrorModal matches snapshot 1`] = `
         className="styles__Footer-sc-1gxqzoa-9 eKsEVO"
       >
         <button
-          className="Button-ayg7nk-0 bBYlAl"
+          className="Button-ayg7nk-0 fFJxez"
           data-testid="clear-error"
           onClick={[Function]}
         >
@@ -166,7 +166,7 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
         className="styles__Footer-sc-1gxqzoa-9 eKsEVO"
       >
         <button
-          className="Button-ayg7nk-0 bBYlAl"
+          className="Button-ayg7nk-0 fFJxez"
           data-testid="clear-error"
           onClick={[Function]}
         >
