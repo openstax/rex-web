@@ -23,7 +23,6 @@ XPATH_SEARCH = (
 
 
 @markers.test_case("C591511")
-@markers.highlighting
 @markers.parametrize(
     "book_slug,page_slug", [
         ("introductory-statistics",
@@ -137,7 +136,6 @@ def test_highlighting_different_content(
 
 
 @markers.test_case("C591512")
-@markers.highlighting
 @markers.smoke_test
 @markers.parametrize("page_slug", [("preface")])
 @markers.desktop_only
@@ -198,7 +196,6 @@ def test_delete_a_highlight(
 
 
 @markers.test_case("C591513")
-@markers.highlighting
 @markers.parametrize("page_slug", [("preface")])
 @markers.desktop_only
 def test_highlight_stays_on_navigation(
@@ -251,7 +248,6 @@ def test_highlight_stays_on_navigation(
 
 
 @markers.test_case("C591514")
-@markers.highlighting
 @markers.parametrize(
     "book_slug,page_slug", [
         ("astronomy",
@@ -319,7 +315,6 @@ def test_search_term_colored_within_a_highlight(
 
 
 @markers.test_case("C591515")
-@markers.highlighting
 @markers.parametrize(
     "book_slug,page_slug", [
         ("astronomy",
@@ -381,14 +376,12 @@ def test_user_highlight_over_search_term_highlight(
 
 
 @markers.test_case("C591686")
-@markers.highlighting
 @markers.skip_test(reason="test mechanics covered by C591687")
 def test_expanded_focussed_note_card_is_displayed_when_highlight_clicked():
     """Display the focussed note card after clicking a highlight."""
 
 
 @markers.test_case("C591687")
-@markers.highlighting
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -451,7 +444,6 @@ def test_focussed_note_card_is_displayed_when_highlight_clicked(
 
 
 @markers.test_case("C591688")
-@markers.highlighting
 @markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
@@ -514,7 +506,6 @@ def test_delete_a_highlight_and_note_using_the_context_menu(
 
 
 @markers.test_case("C591689")
-@markers.highlighting
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -611,7 +602,6 @@ def test_delete_a_note_using_the_context_menu(
 
 
 @markers.test_case("C591690")
-@markers.highlighting
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -684,7 +674,6 @@ def test_cancel_deleting_a_highlight_using_the_context_menu(
 
 
 @markers.test_case("C591691")
-@markers.highlighting
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -758,7 +747,6 @@ def test_cancel_deleting_a_note_using_the_context_menu(
 
 
 @markers.test_case("C591692")
-@markers.highlighting
 @markers.smoke_test
 @markers.parametrize(
     "book_slug,page_slug", [
@@ -817,14 +805,12 @@ def test_save_a_note_edit(selenium, base_url, book_slug, page_slug):
 
 
 @markers.test_case("C591693")
-@markers.highlighting
 @markers.skip_test(reason="test mechanics covered by C591691")
 def test_cancel_after_editing_a_note():
     """Cancel a note edit after changing the text but before saving it."""
 
 
 @markers.test_case("C591694")
-@markers.highlighting
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -885,7 +871,6 @@ def test_clicking_a_note_highlight_color_doesnt_change_the_highlight(
 
 
 @markers.test_case("C591695")
-@markers.highlighting
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -958,14 +943,12 @@ def test_clicking_a_new_note_highlight_color_changes_the_highlight(
 
 
 @markers.test_case("C591696")
-@markers.highlighting
 @markers.skip_test(reason="requires testing a temp pdf document")
 def test_print_preview_shows_highlights():
     """Highlights remain under a print preview PDF."""
 
 
 @markers.test_case("C591697")
-@markers.highlighting
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -1012,10 +995,7 @@ def test_clicking_outside_edit_box_doesnt_close_when_note_not_saved(
 
 
 @markers.test_case("C591698")
-@markers.highlighting
-@markers.skip_test(
-    reason="mobile requirements changed - changing resolution does not help"
-)
+@markers.skip_test(reason="mobile requirements changed - changing screen resolution does not help")
 @markers.parametrize(
     "book_slug,page_slug", [
         ("microbiology",
@@ -1091,12 +1071,11 @@ def test_read_only_display_card_is_shown_when_highlight_clicked_in_mobile(
 
 
 @markers.test_case("C591699")
-@markers.highlighting
-@markers.mobile_only
 @markers.parametrize(
-    "book_slug,page_slug",
-    [("microbiology", "1-introduction")]
-)
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.mobile_only
 def test_read_only_display_card_closes_when_clicking_content_in_mobile(
         selenium, base_url, book_slug, page_slug):
     """Clicking outside the display card closes the card on mobile."""
@@ -1153,15 +1132,12 @@ def test_read_only_display_card_closes_when_clicking_content_in_mobile(
 
 
 @markers.test_case("C591700")
-@markers.skip_test(
-    reason="mobile requirements changed - changing resolution does not help"
-)
-@markers.highlighting
-@markers.mobile_only
+@markers.skip_test(reason="mobile requirements changed - changing screen resolution does not help")
 @markers.parametrize(
-    "book_slug,page_slug",
-    [("microbiology", "1-introduction")]
-)
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.mobile_only
 def test_mobile_display_card_scrolls_for_long_notes(
         selenium, base_url, book_slug, page_slug):
     """A display card with a long note can be scrolled."""
@@ -1218,12 +1194,11 @@ def test_mobile_display_card_scrolls_for_long_notes(
 
 
 @markers.test_case("C591701")
-@markers.highlighting
-@markers.mobile_only
 @markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "1-introduction")]
-)
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.mobile_only
 def test_open_note_card_after_searching_for_term_in_highlight(
         selenium, base_url, book_slug, page_slug):
     """Clicking the searched text within a highlight opens the note."""
@@ -1302,12 +1277,11 @@ def test_open_note_card_after_searching_for_term_in_highlight(
 
 
 @markers.test_case("C591702")
-@markers.highlighting
-@markers.mobile_only
 @markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "1-introduction")]
-)
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.mobile_only
 def test_open_a_second_note_when_the_first_is_already_displayed(
         selenium, base_url, book_slug, page_slug):
     """Click a second highlighted note when one is already open on mobile."""
@@ -1378,29 +1352,25 @@ def test_open_a_second_note_when_the_first_is_already_displayed(
 
 @markers.test_case("C591703")
 @markers.skip_test(reason="requires testing a temp pdf document")
-@markers.highlighting
 def test_print_preview_while_note_card_is_displayed():
     """Highlight note card not displayed in print preview PDF."""
 
 
 @markers.test_case("C591704")
 @markers.skip_test(reason="test mechanics covered by C591697")
-@markers.highlighting
 def test_clicking_outside_edit_box_doesnt_close_when_note_not_saved_2():
     """Cancel a note edit after changing the text but before saving it."""
 
 
 @markers.test_case("C591705")
 @markers.skip_test(reason="not prioritized")
-@markers.highlighting
 def test_content_highlight_and_note_are_copyable():
     """Copy content, highlighted content, and highlight notes."""
 
 
 @markers.test_case("C592002")
-@markers.desktop_only
-@markers.highlighting
 @markers.parametrize("page_slug", [("preface")])
+@markers.desktop_only
 def test_top_of_create_note_box_is_even_with_top_of_content_highlight(
         selenium, base_url, book_slug, page_slug):
     """The top of the create box is even with the top of the highlight.
@@ -1460,7 +1430,6 @@ def test_top_of_create_note_box_is_even_with_top_of_content_highlight(
 
 @markers.test_case("C592003")
 @markers.skip_test(reason="not prioritized")
-@markers.highlighting
 def test_top_of_edit_note_box_is_even_with_top_of_content_highlight():
     """The top of the edit box is even with the top of the highlight.
 
@@ -1471,9 +1440,8 @@ def test_top_of_edit_note_box_is_even_with_top_of_content_highlight():
 
 
 @markers.test_case("C592004")
-@markers.desktop_only
-@markers.highlighting
 @markers.parametrize("page_slug", [("preface")])
+@markers.desktop_only
 def test_top_of_create_note_box_is_even_with_bottom_of_content_highlight(
         selenium, base_url, book_slug, page_slug):
     """The top of the create box is even with the bottom of the highlight.
@@ -1533,7 +1501,6 @@ def test_top_of_create_note_box_is_even_with_bottom_of_content_highlight(
 
 @markers.test_case("C592005")
 @markers.skip_test(reason="not prioritized")
-@markers.highlighting
 def test_top_of_edit_note_box_is_even_with_bottom_of_content_highlight():
     """The top of the edit box is even with the bottom of the highlight.
 
@@ -1545,18 +1512,16 @@ def test_top_of_edit_note_box_is_even_with_bottom_of_content_highlight():
 
 @markers.test_case("C592006")
 @markers.skip_test(reason="not prioritized")
-@markers.highlighting
 def test_clicking_outside_create_note_box_closes_the_create_box():
     """Clicking outside an empty create note box closes the box."""
 
 
 @markers.test_case("C592007")
-@markers.desktop_only
-@markers.highlighting
 @markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "1-introduction")]
-)
+    "book_slug,page_slug", [
+        ("microbiology",
+         "1-introduction")])
+@markers.desktop_only
 def test_change_color_of_highlighted_text(
         selenium, base_url, book_slug, page_slug):
     """Change the color of a content highlight."""
@@ -1626,7 +1591,6 @@ def test_change_color_of_highlighted_text(
 
 @markers.test_case("C592008")
 @markers.skip_test(reason="not prioritized")
-@markers.highlighting
 def test_create_note_box_position_and_size_for_long_notes():
     """Verify the create note box position for long notes."""
 # fmt: on

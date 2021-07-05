@@ -57,12 +57,6 @@ def pytest_addoption(parser):
         help="enable headless mode for chrome.",
     )
     group.addoption(
-        "--highlighting",
-        action="store_true",
-        default=os.getenv("HIGHLIGHTING", False),
-        help="enable highlighting tests",
-    )
-    group.addoption(
         "--no-sandbox",
         action="store_true",
         default=os.getenv("NO_SANDBOX", False),
@@ -81,19 +75,15 @@ def pytest_collection_modifyitems(config, items):
         "//openstax." not in server
     )
     heroku_app = "herokuapp" in server
-    highlighting = config.getoption("--highlighting")
-    if dev_system and not heroku_app and highlighting:
+    if dev_system and not heroku_app:
         return
 
     deselected = []
     remaining = []
     for item in items:
-        keywords = item.keywords
-        if not dev_system and "dev_only" in keywords:
+        if not dev_system and "dev_only" in item.keywords:
             deselected.append(item)
-        elif heroku_app and "non_heroku" in keywords:
-            deselected.append(item)
-        elif not highlighting and "highlighting" in keywords:
+        elif heroku_app and "non_heroku" in item.keywords:
             deselected.append(item)
         else:
             remaining.append(item)

@@ -16,12 +16,8 @@ from utils.utility import Highlight, Utilities
 
 
 @markers.test_case("C592636")
-@markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("chemistry-2e", "1-introduction")]
-)
 @markers.smoke_test
+@markers.parametrize("book_slug,page_slug", [("chemistry-2e", "1-introduction")])
 def test_my_highlights_summary_shows_highlights_and_notes_on_current_page(
     selenium, base_url, book_slug, page_slug
 ):
@@ -163,11 +159,7 @@ def test_my_highlights_summary_shows_highlights_and_notes_on_current_page(
 
 
 @markers.test_case("C592637")
-@markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("chemistry-2e", "1-4-measurements")]
-)
+@markers.parametrize("book_slug,page_slug", [("chemistry-2e", "1-4-measurements")])
 def test_my_highlights_summary_shows_all_types_of_content(selenium, base_url, book_slug, page_slug):
     """My Highlights and Notes summary shows all types of page content."""
     # GIVEN: the Chemistry 2e book section 1.4 is displayed
@@ -279,12 +271,8 @@ def test_my_highlights_summary_shows_all_types_of_content(selenium, base_url, bo
 
 
 @markers.test_case("C592640")
+@markers.parametrize("book_slug,page_slug", [("chemistry-2e", "1-introduction")])
 @markers.desktop_only
-@markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("chemistry-2e", "1-introduction")]
-)
 def test_able_to_close_my_highlights_with_keyboard_navigation(
     selenium, base_url, book_slug, page_slug
 ):
@@ -315,11 +303,7 @@ def test_able_to_close_my_highlights_with_keyboard_navigation(
 
 
 @markers.test_case("C592641")
-@markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("chemistry-2e", "1-1-chemistry-in-context")]
-)
+@markers.parametrize("book_slug,page_slug", [("chemistry-2e", "1-1-chemistry-in-context")])
 def test_lengthy_highlights_summary_page_has_a_floating_back_to_top_link(
     selenium, base_url, book_slug, page_slug
 ):
