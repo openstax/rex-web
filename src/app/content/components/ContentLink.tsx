@@ -1,6 +1,7 @@
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { useIntl } from 'react-intl';
+import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
 import { push } from '../../navigation/actions';
@@ -8,7 +9,7 @@ import * as selectNavigation from '../../navigation/selectors';
 import { ScrollTarget } from '../../navigation/types';
 import { createNavigationOptions, navigationOptionsToString } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
-import showDiscardChangesConfirmation from '../highlights/components/utils/showDiscardChangesConfirmation';
+import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
@@ -53,7 +54,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     hasUnsavedHighlight,
     ...anchorProps
   } = props;
-  const dispatch = useDispatch();
   const {url, params} = getBookPageUrlAndParams(book, page);
   const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);
@@ -63,6 +63,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ? createNavigationOptions(search, scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
+  const intl = useIntl();
 
   return <a
     ref={myForwardedRef}
@@ -74,7 +75,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       e.preventDefault();
 
-      if (hasUnsavedHighlight && !await showDiscardChangesConfirmation(dispatch)) {
+      if (hasUnsavedHighlight && !await showConfirmation(intl)) {
         return;
       }
 

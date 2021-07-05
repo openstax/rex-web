@@ -24,7 +24,7 @@ import { HighlightProp, stubHighlightManager } from './highlightManager';
 
 jest.mock('@openstax/highlighter');
 
-jest.mock('../../highlights/components/utils/showDiscardChangesConfirmation',
+jest.mock('../../highlights/components/utils/showConfirmation',
   () => () => new Promise((resolve) => resolve(false)));
 jest.mock('../../highlights/components/Card', () => (props: any) => <div mock-card {...props} />);
 
@@ -56,7 +56,6 @@ describe('highlightManager', () => {
     element = window.document.createElement('div');
     prop = {
       clearFocus: jest.fn(),
-      dispatch: jest.fn(),
       focus: jest.fn(),
       focused: undefined,
       hasUnsavedHighlight: false,

@@ -100,13 +100,3 @@ export const prevNextPage = createSelector(
     ? prevNextBookPage(selectedBook, selectedPage.id)
     : null
 );
-
-export const isConfirmationModalOpen = createSelector(
-  localState,
-  (state) => state.confirmationModal.open
-);
-
-export const confirmationModalOptions = createSelector(
-  localState,
-  (state) => state.confirmationModal.options
-);

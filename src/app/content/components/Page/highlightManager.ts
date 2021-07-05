@@ -16,7 +16,7 @@ import {
   focusHighlight,
 } from '../../highlights/actions';
 import CardWrapper from '../../highlights/components/CardWrapper';
-import showDiscardChangesConfirmation from '../../highlights/components/utils/showDiscardChangesConfirmation';
+import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import { isHighlightScrollTarget } from '../../highlights/guards';
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
@@ -30,6 +30,7 @@ export interface HighlightManagerServices {
   clearPendingHighlight: () => void;
   highlighter: Highlighter;
   container: HTMLElement;
+  intl: IntlShape;
 }
 
 export const mapStateToHighlightProp = memoizeStateToProps((state: AppState) => ({
@@ -43,7 +44,6 @@ export const mapStateToHighlightProp = memoizeStateToProps((state: AppState) => 
 }));
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
-  dispatch,
   focus: flow(focusHighlight, dispatch),
 });
 export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
@@ -54,9 +54,7 @@ const onFocusHighlight = (services: HighlightManagerServices, highlight: Highlig
   if (!highlight || services.getProp().focused === highlight.id) {
     return;
   }
-  if (services.getProp().focused
-    && services.getProp().hasUnsavedHighlight
-    && !await showDiscardChangesConfirmation(services.getProp().dispatch)) {
+  if (services.getProp().focused && services.getProp().hasUnsavedHighlight && !await showConfirmation(services.intl)) {
     return;
   }
 
@@ -91,7 +89,7 @@ const onSelectHighlight = (
     return;
   }
 
-  if (services.getProp().hasUnsavedHighlight && !await showDiscardChangesConfirmation(services.getProp().dispatch)) {
+  if (services.getProp().hasUnsavedHighlight && !await showConfirmation(services.intl)) {
     assertWindow().getSelection()?.removeAllRanges();
     return;
   }
@@ -100,14 +98,14 @@ const onSelectHighlight = (
   services.setPendingHighlight(highlight);
 });
 
-const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter'>, intl: IntlShape) => {
+const createHighlighter = (services: Omit<HighlightManagerServices, 'highlighter' | 'intl'>, intl: IntlShape) => {
 
   const highlighter: Highlighter = new Highlighter(services.container, {
     formatMessage: intl.formatMessage,
-    onClick: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
-    onFocusIn: (highlight) => onFocusHighlight({ ...services, highlighter }, highlight),
+    onClick: (highlight) => onFocusHighlight({ ...services, highlighter, intl }, highlight),
+    onFocusIn: (highlight) => onFocusHighlight({ ...services, highlighter, intl }, highlight),
     onFocusOut: () => onFocusOutHighlight(services.getProp()),
-    onSelect: (...args) => onSelectHighlight({ ...services, highlighter }, ...args),
+    onSelect: (...args) => onSelectHighlight({ ...services, highlighter, intl }, ...args),
     skipIDsBy: /^(\d+$|term)/,
     snapMathJax: true,
     snapTableRows: true,
@@ -243,7 +241,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, intl: Intl
 
       const newHighlights = getProp().highlights
         .filter(isUnknownHighlightData(highlighter))
-        .map(highlightData({ ...services, highlighter }))
+        .map(highlightData({ ...services, intl, highlighter }))
         .filter(isDefined)
         ;
 

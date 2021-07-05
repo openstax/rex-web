@@ -3,7 +3,8 @@ import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useIntl } from 'react-intl';
+import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { scrollIntoView } from '../../../domUtils';
 import { useFocusIn } from '../../../reactUtils';
@@ -26,7 +27,7 @@ import { getHighlightLocationFilterForPage } from '../utils';
 import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
-import showDiscardChangesConfirmation from './utils/showDiscardChangesConfirmation';
+import showConfirmation from './utils/showConfirmation';
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
@@ -58,15 +59,15 @@ const Card = (props: CardProps) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
-  const dispatch = useDispatch();
+  const intl = useIntl();
 
   const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
-    if (!isActive && (!hasUnsavedHighlight || await showDiscardChangesConfirmation(dispatch))) {
+    if (!isActive && (!hasUnsavedHighlight || await showConfirmation(intl))) {
       focus(id);
     }
-  }, [isActive, hasUnsavedHighlight, dispatch, focus, id]);
+  }, [isActive, hasUnsavedHighlight, id, focus, intl]);
 
   useFocusIn(element, true, focusCard);
 

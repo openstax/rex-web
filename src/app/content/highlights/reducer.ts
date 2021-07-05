@@ -22,7 +22,6 @@ import { findHighlight } from './utils/reducerUtils';
 import updateSummaryFilters from './utils/updateSummaryFilters';
 
 const defaultColors = highlightStyles.map(({label}) => label);
-
 export const initialState: State = {
   currentPage: {
     hasUnsavedHighlight: false,

@@ -1,13 +1,14 @@
 import { Document, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
+import { IntlShape } from 'react-intl';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState, Dispatch } from '../../../types';
 import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
 import { hasOSWebData, isPageReferenceError } from '../../guards';
-import showDiscardChangesConfirmation from '../../highlights/components/utils/showDiscardChangesConfirmation';
+import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import { focused, hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
 import { content } from '../../routes';
 import * as select from '../../selectors';
@@ -25,7 +26,6 @@ export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) =
   references: select.contentReferences(state),
 }));
 export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
-  dispatch,
   navigate: flow(push, dispatch),
 });
 export type ContentLinkProp =
@@ -71,7 +71,7 @@ const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageRefere
       || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
     );
 
-export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp) =>
+export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, intl: IntlShape) =>
   async(e: MouseEvent) => {
     const {
       references,
@@ -82,7 +82,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       locationState,
       focusedHighlight,
       hasUnsavedHighlight,
-      dispatch,
     } = getProps();
     const href = anchor.getAttribute('href');
 
@@ -112,7 +111,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       e.stopPropagation();
     }
 
-    if (hasUnsavedHighlight && !await showDiscardChangesConfirmation(dispatch)) {
+    if (hasUnsavedHighlight && !await showConfirmation(intl)) {
       return;
     }
 

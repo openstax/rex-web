@@ -16,7 +16,7 @@ exports[`ConfirmationModal matches snapshot 1`] = `
         <h1
           className="styles__Heading-sc-1gxqzoa-2 eqDSaw"
         >
-          asd
+          Discard unsaved changes?
         </h1>
         <svg
           aria-hidden="true"
@@ -55,7 +55,7 @@ exports[`ConfirmationModal matches snapshot 1`] = `
         <h3
           className="styles__BodyHeading-sc-1gxqzoa-3 krnhWx"
         >
-          asd
+          You have an unsaved note on this page.
         </h3>
       </div>
       <div
@@ -63,19 +63,19 @@ exports[`ConfirmationModal matches snapshot 1`] = `
       >
         <button
           className="Button-ayg7nk-0 bBYlAl"
-          data-test-id="confirmation-modal-ok-button"
+          data-testid="discard-changes"
           onClick={[Function]}
         >
            
-          asd
+          Discard changes
         </button>
         <button
           className="Button-ayg7nk-0 hRgmRs"
-          data-test-id="confirmation-modal-cancel-button"
+          data-testid="cancel-discard"
           onClick={[Function]}
         >
            
-          asd
+          Cancel
         </button>
       </div>
     </div>

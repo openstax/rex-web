@@ -255,9 +255,4 @@ describe('content reducer', () => {
     const stateAfterClose = reducer(initialState, actions.closeNudgeStudyTools());
     expect(stateAfterClose.showNudgeStudyTools).toEqual(false);
   });
-
-  // for 100% test coverage
-  it('confirmationModal default callback', () => {
-      expect(initialState.confirmationModal.options.callback(true)).toBe(true);
-  });
 });
