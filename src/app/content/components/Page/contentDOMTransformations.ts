@@ -1,7 +1,5 @@
-import { Document, HTMLButtonElement, HTMLElement, HTMLImageElement } from '@openstax/types/lib.dom';
+import { Document, HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
-import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../../../../config';
-import { ifUndefined } from '../../../fpUtils';
 import { assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
