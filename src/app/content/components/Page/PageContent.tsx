@@ -2,9 +2,9 @@ import Color from 'color';
 import styled, { css } from 'styled-components/macro';
 import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
-import increaseSize from '../../../utils/increaseSize';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
+import increaseSize from '../../../utils/increaseSize';
 import { highlightStyles } from '../../constants';
 import {
   highlightBlockPadding,
