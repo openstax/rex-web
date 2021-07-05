@@ -3,7 +3,6 @@ import { cloneDeep } from 'lodash/fp';
 import createTestStore from '../../../test/createTestStore';
 import { book as archiveBook, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-// import { renderToDom } from '../../../test/reactutils';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { AppState } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
@@ -58,7 +57,7 @@ describe('BookBanner', () => {
 
       const tree = component.toJSON();
       expect(tree).toMatchSnapshot();
-      });
+    });
 
     it('renders correctly when you pass a page and book', () => {
       const state = (cloneDeep({
