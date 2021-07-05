@@ -102,34 +102,34 @@ Array [
             className="Button__ButtonGroup-ayg7nk-1 jzhcUT"
           >
             <button
-              className="Button-ayg7nk-0 bmzHbc"
+              className="Button-ayg7nk-0 liRzrl"
               onClick={[Function]}
             >
               accept cookies
             </button>
             <button
-              className="Button-ayg7nk-0 bmzHbc"
+              className="Button-ayg7nk-0 liRzrl"
               data-testid="trigger-updates-available"
               onClick={[Function]}
             >
               update available
             </button>
             <button
-              className="Button-ayg7nk-0 bmzHbc"
+              className="Button-ayg7nk-0 liRzrl"
               data-testid="trigger-messages"
               onClick={[Function]}
             >
               app messages
             </button>
             <button
-              className="Button-ayg7nk-0 bmzHbc"
+              className="Button-ayg7nk-0 liRzrl"
               data-testid="trigger-inline-error"
               onClick={[Function]}
             >
               inline error
             </button>
             <button
-              className="Button-ayg7nk-0 bmzHbc"
+              className="Button-ayg7nk-0 liRzrl"
               data-testid="trigger-modal-error"
               onClick={[Function]}
             >
