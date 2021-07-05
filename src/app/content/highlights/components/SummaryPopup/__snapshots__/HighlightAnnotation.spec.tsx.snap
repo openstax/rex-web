@@ -34,7 +34,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   >
     <button
       aria-label="Save"
-      className="Button-ayg7nk-0 bBYlAl"
+      className="Button-ayg7nk-0 fFJxez"
       data-analytics-label="save"
       data-testid="save"
       onClick={[Function]}
@@ -43,7 +43,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
     </button>
     <button
       aria-label="Cancel"
-      className="Button-ayg7nk-0 bmzHbc"
+      className="Button-ayg7nk-0 liRzrl"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}
