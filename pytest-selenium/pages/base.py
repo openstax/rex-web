@@ -81,9 +81,9 @@ class Page(pypom.Page):
         key. Returns after loading the last element (title) of the page).
 
         """
-        title_before_click = self.page_title
+        title_before_click = self.driver.title
         element.send_keys(Keys.ENTER)
-        self.wait.until(lambda _: title_before_click != (self.page_title))
+        self.wait.until(lambda _: title_before_click != (self.driver.title))
 
     def element_is_not_interactable(self, element):
         try:
