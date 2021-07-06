@@ -47,7 +47,7 @@ export const systemQueryParameters = createSelector(
   })
 );
 
-export const persistenQueryParameters = createSelector(
+export const persistentQueryParameters = createSelector(
   query,
   (navQuery) => pickBy(isDefined, navQuery)
 );

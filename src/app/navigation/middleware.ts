@@ -5,7 +5,7 @@ import { notFound } from '../errors/routes';
 import { AnyAction, Dispatch, Middleware } from '../types';
 import { assertWindow } from '../utils/browser-assertions';
 import * as actions from './actions';
-import { persistenQueryParameters } from './selectors';
+import { persistentQueryParameters } from './selectors';
 import { AnyRoute } from './types';
 import { changeToLocation, matchForRoute, matchPathname, matchSearch, matchUrl } from './utils';
 
@@ -36,7 +36,7 @@ export default (routes: AnyRoute[], history: History): Middleware => ({getState,
       search: matchSearch(
         action.payload,
         {
-          ...persistenQueryParameters(getState()),
+          ...persistentQueryParameters(getState()),
           ...queryString.parse(action.payload.search || ''),
         }),
       state: action.payload.state,
