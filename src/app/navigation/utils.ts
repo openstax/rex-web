@@ -67,13 +67,14 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
   }
 };
 
-export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?: queryString.OutputParams) => {
+export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?: string | undefined) => {
+  const previous = querystring.parse(search || '');
   const route = querystring.parse(
     action.route.getSearch ? action.route.getSearch(action.params) : ''
   );
 
   return querystring.stringify({
-    ...search,
+    ...previous,
     ...route,
   });
 };
@@ -169,7 +170,7 @@ export const getScrollTargetFromQuery = (
 };
 
 export const createNavigationOptions = (
-  search: Record<string, string | null | undefined>,
+  search: { query?: string | null },
   scrollTarget?: ScrollTarget
 ) => ({
   hash: scrollTarget ? scrollTarget.elementId : undefined,

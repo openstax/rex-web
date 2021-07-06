@@ -1,15 +1,13 @@
 import { History } from 'history';
-import queryString from 'query-string';
 import { getType } from 'typesafe-actions';
 import { notFound } from '../errors/routes';
 import { AnyAction, Dispatch, Middleware } from '../types';
 import { assertWindow } from '../utils/browser-assertions';
 import * as actions from './actions';
-import { persistentQueryParameters } from './selectors';
 import { AnyRoute } from './types';
 import { changeToLocation, matchForRoute, matchPathname, matchSearch, matchUrl } from './utils';
 
-export default (routes: AnyRoute[], history: History): Middleware => ({getState, dispatch}) => {
+export default (routes: AnyRoute[], history: History): Middleware => ({dispatch}) => {
   history.listen(changeToLocation(routes, dispatch));
 
   return (next: Dispatch) => (action: AnyAction) => {
@@ -33,12 +31,7 @@ export default (routes: AnyRoute[], history: History): Middleware => ({getState,
     history[action.payload.method]({
       hash: action.payload.hash,
       pathname: matchPathname(action.payload),
-      search: matchSearch(
-        action.payload,
-        {
-          ...persistentQueryParameters(getState()),
-          ...queryString.parse(action.payload.search || ''),
-        }),
+      search: matchSearch(action.payload, action.payload.search),
       state: action.payload.state,
     });
   };

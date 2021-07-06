@@ -43,13 +43,18 @@ export const match = createSelector(
 export const systemQueryParameters = createSelector(
   query,
   (navQuery) => pickBy(isDefined, {
-    'content-style': navQuery['content-style'] as string | undefined,
+    'archive': navQuery.archive,
+    'content-style': navQuery['content-style'],
   })
 );
 
 export const persistentQueryParameters = createSelector(
   query,
-  (navQuery) => pickBy(isDefined, navQuery)
+  (navQuery) => pickBy(isDefined, {
+    modal: navQuery.modal,
+    search: navQuery.search,
+    target: navQuery.target,
+  })
 );
 
 export const location = localState;
