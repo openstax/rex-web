@@ -5,7 +5,6 @@ import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
-// import * as selectNavigation from '../../../navigation/selectors';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
