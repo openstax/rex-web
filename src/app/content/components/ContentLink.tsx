@@ -30,11 +30,12 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  search: Record<string, string | undefined>;
+  search: { query: string | null };
   scrollTarget?: ScrollTarget;
   className?: string;
   target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
+  systemQueryParams: any;
 }
 
 // tslint:disable-next-line:variable-name
@@ -51,6 +52,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     children,
     myForwardedRef,
     hasUnsavedHighlight,
+    systemQueryParams,
     ...anchorProps
   } = props;
   const {url, params} = getBookPageUrlAndParams(book, page);
@@ -59,7 +61,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
   const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions(search, scrollTarget)
+    ? createNavigationOptions({...search, ...systemQueryParams}, scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
 
@@ -90,14 +92,15 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState, ownProps: {search?: { query?: string }}) => ({
+  (state: AppState, ownProps: {search?: { query?: string | null }}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     search: ({
-      query: selectSearch.query(state) || undefined,
+      query: selectSearch.query(state),
       ...(ownProps.search ? ownProps.search : {}),
     }),
+    systemQueryParams: selectNavigation.systemQueryParameters(state),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),

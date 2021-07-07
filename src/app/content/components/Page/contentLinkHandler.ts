@@ -85,8 +85,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       persistent,
     } = getProps();
     const href = anchor.getAttribute('href');
-    console.log('location state: ', locationState);
-    console.log('persistent: ', persistent);
 
     if (!href || !book || !page || isClickWithModifierKeys(e)) {
       return;

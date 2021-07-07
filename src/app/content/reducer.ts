@@ -37,7 +37,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     (contentState) => {
       const search = searchReducer(contentState.search, action);
       if (contentState.search !== search) {
-        return {...contentState, search};
+         return {...contentState, search};
       }
       return contentState;
     },

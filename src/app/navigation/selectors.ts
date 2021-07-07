@@ -53,7 +53,6 @@ export const persistentQueryParameters = createSelector(
   (navQuery) => pickBy(isDefined, {
     modal: navQuery.modal,
     search: navQuery.search,
-    target: navQuery.target,
   })
 );
 
