@@ -18,7 +18,6 @@ export const useCreateHighlightLink = ({ sourceId, id, anchor: elementId }: High
       target: JSON.stringify({ id, type: 'highlight' }),
     };
     const target = queryString.stringify(data) + `#${elementId}`;
-
     setLink(`${page && book ? getBookPageUrlAndParams(book, page).url : ''}?${target}`);
   }, [id, book, elementId, sourceId, systemQueryParams]);
 
