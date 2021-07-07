@@ -1,9 +1,11 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import queryString from 'query-string';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
+// import * as selectNavigation from '../../../navigation/selectors';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
@@ -38,11 +40,12 @@ export default class PageComponent extends Component<PagePropTypes> {
   private processing: Promise<void> = Promise.resolve();
 
   public getTransformedContent = () => {
-    const {book, page, services} = this.props;
+    const {book, page, services, systemQueryParams} = this.props;
 
     return getCleanContent(book, page, services.archiveLoader, (content) => {
       const parsedContent = parser.parseFromString(content, 'text/html');
-      contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
+      const systemQueryString = queryString.stringify(systemQueryParams);
+      contentLinks.reduceReferences(parsedContent, this.props.contentLinks, systemQueryString);
 
       transformContent(parsedContent, parsedContent.body, this.props.intl);
 

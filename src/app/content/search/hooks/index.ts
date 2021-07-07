@@ -44,8 +44,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const results = select.hits(state) || [];
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
 
-  console.log('receiving search hook');
-
   if (pageIsLoading || !book) {
     return; // book changed while query was in the air
   }
@@ -99,7 +97,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 };
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
-  console.log('clearing search hook');
   const scrollTarget = selectNavigation.scrollTarget(services.getState());
   if (scrollTarget && isSearchScrollTarget(scrollTarget)) {
     services.history.replace({
@@ -122,10 +119,6 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async() =
     ? { result: targettedHit, highlight: searchScrollTarget.index }
     : null;
   const currentSelectedResult = select.selectedResult(state);
-  const systemQueryParams = selectNavigation.systemQueryParameters(state);
-
-  console.log('sync search - navy query: ', navigationQuery);
-  console.log('sync search - system: ', systemQueryParams);
 
   if (typeof navigationQuery === 'string' && navigationQuery !== searchQuery) {
     services.dispatch(requestSearch(
