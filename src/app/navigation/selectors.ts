@@ -43,15 +43,8 @@ export const match = createSelector(
 export const systemQueryParameters = createSelector(
   query,
   (navQuery) => pickBy(isDefined, {
+    'archive': navQuery.archive,
     'content-style': navQuery['content-style'],
-  })
-);
-
-export const persistentQueryParameters = createSelector(
-  query,
-  (navQuery) => pickBy(isDefined, {
-    modal: navQuery.modal,
-    search: navQuery.search,
   })
 );
 

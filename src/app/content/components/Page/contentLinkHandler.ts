@@ -22,7 +22,6 @@ export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) =
   hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
   locationState: selectNavigation.locationState(state),
   page: select.page(state),
-  // persistentQueryParams: selectNavigation.persistentQueryParameters(state),
   references: select.contentReferences(state),
 }));
 export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
@@ -82,7 +81,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       locationState,
       focusedHighlight,
       hasUnsavedHighlight,
-      // persistentQueryParams,
     } = getProps();
     const href = anchor.getAttribute('href');
 
