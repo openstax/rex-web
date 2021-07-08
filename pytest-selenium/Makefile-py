@@ -56,7 +56,7 @@ sauce: venv
 		--capability avoidProxy True \
 		--capability browserName $(BROWSER) \
 		--capability screenResolution 1600x1200 \
-		$highlighting
+		--$highlighting
 		--secure-store-filename=pytest-selenium/store/store.aes \
 		--secure-store-password=$(SECURE_STORE_PASSWORD) \
 		pytest-selenium/tests
