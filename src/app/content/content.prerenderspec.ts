@@ -38,6 +38,8 @@ describe('content', () => {
         ['[data-testid="loader"] path', 'style'],
         // img src is changed from data:image/svg+xml;base64... to static path
         ['[data-testid="navbar"] img', 'src'],
+        // caused by DynamicContentStyles component
+        ['#main-content', 'class'],
       ].forEach(([selector, attribute]) => {
         root.querySelectorAll(selector).forEach((element) =>
           element.removeAttribute(attribute)
