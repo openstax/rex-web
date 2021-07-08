@@ -26,7 +26,7 @@ export const QuestionWrapper = styled.form`
 
 // tslint:disable-next-line: variable-name
 export const QuestionContent = styled(React.forwardRef((props, ref) => <div tabIndex={0}>
-  <ContentExcerpt {...props} tabIndex={-1} ref={ref} />
+  <ContentExcerpt {...props} tabIndex={-1} ref={ref} disableDynamicContentStyles={true} />
 </div>))`
   ${h4Style}
   font-weight: bold;
