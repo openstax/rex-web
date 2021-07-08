@@ -38,25 +38,25 @@ const reducePageReferenceError = (reference: PageReferenceError, document: Docum
   a.setAttribute('onclick', 'alert("This link is broken because of a cross book content loading issue")');
 };
 
-const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document) => {
+// tslint:disable-next-line: max-line-length
+const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryString: string) => {
   const path = content.getUrl(reference.params);
-  const search = content.getSearch && content.getSearch(reference.params);
-  const query = search ? `?${search}` : '';
   const a = assertNotNull(
     document.querySelector(`[href^='${reference.match}']`),
     'references are created from hrefs');
   const href = assertNotNull(a.getAttribute('href'), 'it was found by href value')
-    .replace(reference.match, toRelativeUrl(currentPath, path) + query);
+    .replace(reference.match, toRelativeUrl(currentPath, path) + systemQueryString);
   a.setAttribute('href', href);
 };
 
-export const reduceReferences = (document: Document, {references, currentPath}: ContentLinkProp) => {
+// tslint:disable-next-line: max-line-length
+export const reduceReferences = (document: Document, {references, currentPath}: ContentLinkProp, systemQueryString: string) => {
   for (const reference of references) {
     // references may contain PageReferenceError only if UNLIMITED_CONTENT is set to true
     if (isPageReferenceError(reference)) {
       reducePageReferenceError(reference, document);
     } else {
-      reduceReference(reference, currentPath, document);
+      reduceReference(reference, currentPath, document, systemQueryString);
     }
   }
 };

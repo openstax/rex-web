@@ -110,7 +110,7 @@ describe('Highlight annotation', () => {
     const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
 
-    jest.spyOn(utils, 'createHighlightLink')
+    jest.spyOn(utils, 'useCreateHighlightLink')
       .mockReturnValue('/link/to/highlight');
 
     const component = renderer.create(<TestContainer services={services} store={store}>
