@@ -2,6 +2,7 @@ import flow from 'lodash/fp/flow';
 import React, { HTMLAttributes } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import DynamicContentStyles from '../../components/DynamicContentStyles';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import { assertDefined } from '../../utils';
 import { book } from '../selectors';
@@ -19,6 +20,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   source: string | LinkedArchiveTreeSection;
   forwardedRef?: React.Ref<HTMLElement>;
+  disableDynamicContentStyles?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -47,7 +49,7 @@ const ContentExcerpt = (props: Props) => {
     (newContent) => resolveRelativeResources(newContent, excerptSource.url)
   )(props.content), [props.content, excerptSource.url]);
 
-  return <div
+  return <DynamicContentStyles
     ref={forwardedRef}
     dangerouslySetInnerHTML={{ __html: fixedContent }}
     className={`content-excerpt ${className}`}
