@@ -87,8 +87,8 @@ def pytest_collection_modifyitems(config, items):
             deselected.append(item)
         elif heroku_app and "non_heroku" in keywords:
             deselected.append(item)
-        # elif not highlighting and "highlighting" in keywords:
-        #     remaining.append(item)
+        elif not highlighting and "highlighting" in keywords:
+            deselected.append(item)
         else:
             remaining.append(item)
 
