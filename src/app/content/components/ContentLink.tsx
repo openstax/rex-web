@@ -29,12 +29,12 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  persistentQueryParams: ContentQueryParams;
+  persistentQueryParams?: ContentQueryParams;
   scrollTarget?: ScrollTarget;
   className?: string;
   target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
-  systemQueryParams: any;
+  systemQueryParams?: {[key: string]: string | string[]};
 }
 
 // tslint:disable-next-line:variable-name

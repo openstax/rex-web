@@ -31,6 +31,7 @@ describe('contentLinkHandler', () => {
       navigate: jest.fn(),
       page,
       references: [],
+      systemQueryParams: {},
     };
   });
 
