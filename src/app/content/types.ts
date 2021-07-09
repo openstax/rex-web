@@ -6,6 +6,12 @@ import { content } from './routes';
 import { State as SearchState } from './search/types';
 import { State as StudyGuidesState } from './studyGuides/types';
 
+export type ContentQueryParams = {
+  modal?: string,
+  query?: string,
+  target?: string,
+};
+
 export type SlugParams = {
   slug: string;
 };

@@ -1,6 +1,7 @@
 import { Document, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
+import queryString from 'query-string';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
@@ -23,6 +24,7 @@ export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) =
   locationState: selectNavigation.locationState(state),
   page: select.page(state),
   references: select.contentReferences(state),
+  systemQueryParams: selectNavigation.systemQueryParameters(state),
 }));
 export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
   navigate: flow(push, dispatch),
@@ -39,8 +41,9 @@ const reducePageReferenceError = (reference: PageReferenceError, document: Docum
 };
 
 // tslint:disable-next-line: max-line-length
-const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryString: string) => {
+const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryParams: {[key: string]: string | string[]}) => {
   const path = content.getUrl(reference.params);
+  const systemQueryString = queryString.stringify(systemQueryParams);
   const a = assertNotNull(
     document.querySelector(`[href^='${reference.match}']`),
     'references are created from hrefs');
@@ -50,13 +53,13 @@ const reduceReference = (reference: PageReferenceMap, currentPath: string, docum
 };
 
 // tslint:disable-next-line: max-line-length
-export const reduceReferences = (document: Document, {references, currentPath}: ContentLinkProp, systemQueryString: string) => {
+export const reduceReferences = (document: Document, {references, currentPath, systemQueryParams}: ContentLinkProp) => {
   for (const reference of references) {
     // references may contain PageReferenceError only if UNLIMITED_CONTENT is set to true
     if (isPageReferenceError(reference)) {
       reducePageReferenceError(reference, document);
     } else {
-      reduceReference(reference, currentPath, document, systemQueryString);
+      reduceReference(reference, currentPath, document, systemQueryParams);
     }
   }
 };
