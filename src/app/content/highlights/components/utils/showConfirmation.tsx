@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { IntlShape, RawIntlProvider } from 'react-intl';
+import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid/v4';
+import { AppServices } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
 import ConfirmationModal from '../ConfirmationModal';
 
-export default async(intl: IntlShape) => {
+export default async(services: AppServices) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
 
@@ -17,7 +18,7 @@ export default async(intl: IntlShape) => {
     const confirm = () => resolve(true);
     const deny = () => resolve(false);
     ReactDOM.render(
-      <RawIntlProvider value={intl}>
+      <RawIntlProvider value={services.intl}>
         <ConfirmationModal deny={deny} confirm={confirm} />
       </RawIntlProvider>,
       domNode

@@ -53,7 +53,7 @@ describe('BookBanner', () => {
     });
 
     it('renders empty state with no page or book', () => {
-      const component = renderer.create(<TestContainer store={createTestStore()}><BookBanner /></TestContainer>);
+      const component = renderer.create(<TestContainer><BookBanner /></TestContainer>);
 
       const tree = component.toJSON();
       expect(tree).toMatchSnapshot();
