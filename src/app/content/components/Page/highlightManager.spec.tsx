@@ -140,7 +140,7 @@ describe('highlightManager', () => {
   });
 
   it('calls highlighter.formatMessage', () => {
-    const mockFormatMessage = jest.spyOn(services.intl, 'formatMessage');
+    const mockFormatMessage = jest.spyOn(services.intl, 'formatMessage').mockImplementation(jest.fn());
     highlightManager(element, () => prop, services);
     expect(Highlighter).toHaveBeenCalled();
     const options = Highlighter.mock.calls[0][1];
