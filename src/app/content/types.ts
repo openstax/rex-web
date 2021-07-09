@@ -12,6 +12,11 @@ export type ContentQueryParams = {
   target?: string,
 };
 
+export type SystemQueryParams = {
+  archive?: string,
+  'content-style'?: string,
+};
+
 export type SlugParams = {
   slug: string;
 };

@@ -12,7 +12,7 @@ import showConfirmation from '../../highlights/components/utils/showConfirmation
 import { focused, hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { Book, PageReferenceError, PageReferenceMap } from '../../types';
+import { Book, PageReferenceError, PageReferenceMap, SystemQueryParams } from '../../types';
 import { isClickWithModifierKeys } from '../../utils/domUtils';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
 
@@ -41,7 +41,7 @@ const reducePageReferenceError = (reference: PageReferenceError, document: Docum
 };
 
 // tslint:disable-next-line: max-line-length
-const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryParams: {[key: string]: string | string[]}) => {
+const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryParams: SystemQueryParams) => {
   const path = content.getUrl(reference.params);
   const systemQueryString = queryString.stringify(systemQueryParams);
   const a = assertNotNull(
