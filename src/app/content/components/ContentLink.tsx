@@ -13,7 +13,7 @@ import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
 import * as select from '../selectors';
-import { Book, ContentQueryParams } from '../types';
+import { Book, ContentQueryParams, SystemQueryParams } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { createNavigationMatch } from '../utils/navigationUtils';
@@ -34,7 +34,7 @@ interface Props {
   className?: string;
   target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
-  systemQueryParams?: {[key: string]: string | string[]};
+  systemQueryParams?: SystemQueryParams;
 }
 
 // tslint:disable-next-line:variable-name
