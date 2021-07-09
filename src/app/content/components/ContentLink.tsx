@@ -29,12 +29,12 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  persistentQueryParams?: ContentQueryParams;
   scrollTarget?: ScrollTarget;
   className?: string;
   target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
   systemQueryParams?: SystemQueryParams;
+  persistentQueryParams?: ContentQueryParams;
 }
 
 // tslint:disable-next-line:variable-name
@@ -44,7 +44,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     page,
     currentBook,
     currentPath,
-    persistentQueryParams,
     scrollTarget,
     navigate,
     onClick,
@@ -52,6 +51,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     myForwardedRef,
     hasUnsavedHighlight,
     systemQueryParams,
+    persistentQueryParams,
     ...anchorProps
   } = props;
   const {url, params} = getBookPageUrlAndParams(book, page);
@@ -60,8 +60,9 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
   const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions({...persistentQueryParams, ...systemQueryParams}, scrollTarget)
+    ? createNavigationOptions({...systemQueryParams, ...persistentQueryParams}, scrollTarget)
     : undefined;
+  console.log('options: ', options);
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
 
   return <a

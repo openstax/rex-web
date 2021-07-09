@@ -30,6 +30,7 @@ describe('contentLinkHandler', () => {
       locationState: {} as any,
       navigate: jest.fn(),
       page,
+      persistentQueryParams: {},
       references: [],
       systemQueryParams: {},
     };

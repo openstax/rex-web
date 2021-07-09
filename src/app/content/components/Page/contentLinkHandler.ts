@@ -23,6 +23,7 @@ export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) =
   hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
   locationState: selectNavigation.locationState(state),
   page: select.page(state),
+  persistentQueryParams: selectNavigation.persistentQueryParameters(state),
   references: select.contentReferences(state),
   systemQueryParams: selectNavigation.systemQueryParameters(state),
 }));
@@ -44,11 +45,12 @@ const reducePageReferenceError = (reference: PageReferenceError, document: Docum
 const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryParams: SystemQueryParams) => {
   const path = content.getUrl(reference.params);
   const systemQueryString = queryString.stringify(systemQueryParams);
+  console.log('system string: ', systemQueryString);
   const a = assertNotNull(
     document.querySelector(`[href^='${reference.match}']`),
     'references are created from hrefs');
   const href = assertNotNull(a.getAttribute('href'), 'it was found by href value')
-    .replace(reference.match, toRelativeUrl(currentPath, path) + systemQueryString);
+    .replace(reference.match, toRelativeUrl(currentPath, path)) + systemQueryString;
   a.setAttribute('href', href);
 };
 
@@ -99,6 +101,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
     const reference = references.find(isPathRefernceForBook(pathname, book));
 
     const searchString = search.substring(1);
+    console.log('search string: ', searchString);
 
     if (!reference && !(pathname === currentPath && hash)) {
       return;

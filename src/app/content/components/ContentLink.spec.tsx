@@ -96,7 +96,7 @@ describe('ContentLink', () => {
         query: 'search-from-direct-prop',
       };
       const component = renderer.create(<Provider store={store}>
-        <ConnectedContentLink book={book} page={page} search={mockSearch} />
+        <ConnectedContentLink book={book} page={page} persistentQueryParams={mockSearch} />
       </Provider>);
 
       const event = await click(component);
