@@ -30,6 +30,7 @@ let config = {
   REACT_APP_SEARCH_URL: '/open-search/api/v0',
   REACT_APP_HIGHLIGHTS_URL: '/highlights/api/v0',
   REACT_APP_BUY_PRINT_CONFIG_URL: 'https://buyprint.openstax.org',
+  REACT_APP_PLACEMENTS_CONFIG_URL: 'https://jp3.placements.sandbox.openstax.org',
   SENTRY_ENABLED: process.env.REACT_APP_SENTRY_ENABLED || false,
 };
 
