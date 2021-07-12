@@ -1,10 +1,10 @@
 import { Document, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
-import queryString from 'query-string';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
+import { createNavigationOptions, navigationOptionsToString } from '../../../navigation/utils';
 import { AppState, Dispatch } from '../../../types';
 import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
 import { hasOSWebData, isPageReferenceError } from '../../guards';
@@ -44,12 +44,12 @@ const reducePageReferenceError = (reference: PageReferenceError, document: Docum
 // tslint:disable-next-line: max-line-length
 const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryParams: SystemQueryParams) => {
   const path = content.getUrl(reference.params);
-  const systemQueryString = queryString.stringify(systemQueryParams);
+  const options = createNavigationOptions(systemQueryParams);
   const a = assertNotNull(
     document.querySelector(`[href^='${reference.match}']`),
     'references are created from hrefs');
   const href = assertNotNull(a.getAttribute('href'), 'it was found by href value')
-    .replace(reference.match, toRelativeUrl(currentPath, path)) + systemQueryString;
+    .replace(reference.match, toRelativeUrl(currentPath, path) + navigationOptionsToString(options));
   a.setAttribute('href', href);
 };
 

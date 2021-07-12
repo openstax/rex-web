@@ -60,7 +60,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
   const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions({...systemQueryParams}, scrollTarget)
+    ? createNavigationOptions({...systemQueryParams, ...persistentQueryParams}, scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
 
@@ -91,14 +91,10 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState, ownProps: {persistentQueryParams?: ContentQueryParams}) => ({
+  (state: AppState) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
-    persistentQueryParams: ({
-      ...selectNavigation.persistentQueryParameters(state),
-      ...(ownProps.persistentQueryParams ? ownProps.persistentQueryParams : {}),
-    }),
     systemQueryParams: selectNavigation.systemQueryParameters(state),
   }),
   (dispatch: Dispatch) => ({
