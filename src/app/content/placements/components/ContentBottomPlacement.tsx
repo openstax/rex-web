@@ -8,29 +8,40 @@ import { myContentBottomPlacements } from '../selectors';
 import { contentTextWidth } from '../../components/constants';
 
 // tslint:disable-next-line:variable-name
-const Alignment = styled.div`
+const Wrapper = styled.div`
+  background-color: #1a9173;
+`;
+
+const Body = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  padding: 2rem 0;
   max-width: ${contentTextWidth}rem;
   overflow: visible;
-  background-color: blue
 `;
 
 const Title = styled.div`
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: 600;
   color: white;
+  float: left;
 `;
 
 const Blurb = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: white;
   ${textRegularStyle}
   line-height: 1.7rem;
   flex: 1;
   align-self: stretch;
+  color: white;
+  float: left;
+`;
+
+const ButtonWrapper = styled.div`
+  float: right;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -44,8 +55,8 @@ const ButtonLink = styled.a`
   text-decoration: none;
   height: 5rem;
   width: 19rem;
-  color: ${theme.color.primary.orange.base};
-  border: solid 0.1rem;
+  color: white;
+  background-color: ${theme.color.primary.orange.base};
   font-weight: 700;
 `;
 
@@ -58,24 +69,27 @@ const ContentBottomPlacement = () => {
 
   const config = placement.config as ContentBottomConfig;
 
-  // hide if no placement config
-
-  return <Alignment>
-    <Title>
-      {config.title}
-    </Title>
-    <Blurb>
-      {config.blurb}
-    </Blurb>
-    <ButtonLink
-      // aria-label={formatMessage({id: 'i18n:toolbar:buy-book:aria-label:text'})} // TODO: what to do here?
-      target='_blank'
-      rel='noopener'
-      href={config.url}
-      data-analytics-label='content-bottom-placement'
-    >
-    </ButtonLink>
-  </Alignment>;
+  return <Wrapper>
+    <Body>
+      <Title>
+        {config.title}
+      </Title>
+      <Blurb>
+        {config.blurb}
+      </Blurb>
+      <ButtonWrapper>
+        <ButtonLink
+          // aria-label={formatMessage({id: 'i18n:toolbar:buy-book:aria-label:text'})} // TODO: what to do here?
+          target='_blank'
+          rel='noopener'
+          href={config.url}
+          data-analytics-label='content-bottom-placement'
+        >
+          {config.button}
+        </ButtonLink>
+      </ButtonWrapper>
+    </Body>
+  </Wrapper>;
 };
 
 export default ContentBottomPlacement;
