@@ -175,7 +175,7 @@ export const createNavigationOptions = (
   hash: scrollTarget ? scrollTarget.elementId : undefined,
   queryParamString: queryString.stringify({
     ...omitBy(isNull, queryParams),
-    target: scrollTarget && queryParams.query ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
+    target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
   }),
 });
 
