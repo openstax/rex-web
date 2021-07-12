@@ -9,6 +9,7 @@ import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
+import createBookConfigLoader from './gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from './gateways/createBuyPrintConfigLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
@@ -17,6 +18,7 @@ import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
+import loadOptimize from './helpers/loadOptimize';
 import { startMathJax } from './helpers/mathjax';
 import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
@@ -51,7 +53,9 @@ const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
     archiveLoader: createArchiveLoader(archiveUrl),
+    bookConfigLoader: createBookConfigLoader(),
     buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
+    config,
     highlightClient: createHighlightClient(highlightsUrl),
     osWebLoader: createOSWebLoader(osWebUrl),
     practiceQuestionsLoader: createPracticeQuestionsLoader(),
@@ -100,6 +104,9 @@ window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
 // start long running processes
 pollUpdates(app.store);
 startMathJax();
+
+// load optimize
+loadOptimize(window, app.store);
 
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()

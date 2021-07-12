@@ -16,7 +16,7 @@ export const track = (
 ): AnalyticsEvent | void => {
   const region = getAnalyticsRegion(anchor);
   const location = getAnalyticsLocation(anchor);
-  const label = anchor.getAttribute('data-analytics-label') || anchor.getAttribute('aria-label');
+  const label = anchor.getAttribute('data-analytics-label');
 
   if (!label) {
     return;

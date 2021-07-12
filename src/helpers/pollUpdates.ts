@@ -1,4 +1,4 @@
-import { receiveFeatureFlags } from '../app/actions';
+import { receiveFeatureFlags } from '../app/featureFlags/actions';
 import { receiveMessages, updateAvailable } from '../app/notifications/actions';
 import { Messages } from '../app/notifications/types';
 import { shouldLoadAppMessage } from '../app/notifications/utils';

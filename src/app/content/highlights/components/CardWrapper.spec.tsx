@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
-import * as domUtils from '../../../domUtils';
 import { Store } from '../../../types';
 import { assertDocument, remsToPx } from '../../../utils';
 import { assertWindow } from '../../../utils/browser-assertions';
@@ -21,8 +20,7 @@ const dispatchKeyDownEvent = (
   key: string,
   target?: HTMLElement
 ) => {
-  const keyboardEvent = window.document.createEvent('KeyboardEvent');
-  keyboardEvent.initKeyboardEvent('keydown', true, true, window, key, 0, '', false, '');
+  const keyboardEvent = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key, view: window });
   if (target) {
     Object.defineProperty(keyboardEvent, 'target', { value: target });
   }
@@ -87,99 +85,17 @@ describe('CardWrapper', () => {
     expect(component.root.findAllByType(Card).length).toBe(2);
   });
 
-  it('scrolls to card when focused', () => {
-    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
-    scrollIntoView.mockImplementation(() => null);
-
-    const highlight = {
-      ...createMockHighlight(),
-      elements: ['something'],
-    };
-
-    renderer.create(<Provider store={store}>
-      <CardWrapper container={container} highlights={[highlight]} />
-    </Provider>);
-
-    renderer.act(() => {
-      store.dispatch(focusHighlight(highlight.id));
-    });
-
-    expect(scrollIntoView).toHaveBeenCalled();
-    scrollIntoView.mockClear();
-  });
-
-  it('do not scroll to card when focused if it does not have elements', () => {
-    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
-    scrollIntoView.mockImplementation(() => null);
-
-    const highlight = {
-      ...createMockHighlight(),
-      elements: [],
-    };
-
-    renderer.create(<Provider store={store}>
-      <CardWrapper container={container} highlights={[highlight]} />
-    </Provider>);
-
-    renderer.act(() => {
-      store.dispatch(focusHighlight(highlight.id));
-    });
-
-    expect(scrollIntoView).not.toHaveBeenCalled();
-  });
-
-  it('do not scroll to focused card after rerender if focused highlight is the same', () => {
-    const scrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
-    scrollIntoView.mockImplementation(() => null);
-
-    const highlight = {
-      ...createMockHighlight(),
-      elements: ['something'],
-    };
-    const highlight2 = {
-      ...createMockHighlight(),
-      elements: ['else'],
-    };
-    const highlight3 = {
-      ...createMockHighlight(),
-      elements: ['woops'],
-    };
-
-    const component = renderer.create(<Provider store={store}>
-      <CardWrapper container={container} highlights={[highlight, highlight2]} />
-    </Provider>);
-
-    renderer.act(() => {
-      store.dispatch(focusHighlight(highlight.id));
-    });
-
-    expect(scrollIntoView).toHaveBeenCalled();
-    scrollIntoView.mockClear();
-
-    component.update(<Provider store={store}>
-      <CardWrapper container={container} highlights={[highlight, highlight2, highlight3]} />
-    </Provider>);
-
-    // make sure that useEffect is called
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
-
-    expect(scrollIntoView).not.toHaveBeenCalled();
-  });
-
   it(`handles card's height changes`, () => {
     const component = renderer.create(<Provider store={store}>
       <CardWrapper container={container} highlights={[createMockHighlight(), createMockHighlight()]} />
     </Provider>);
 
     const [card1, card2] = component.root.findAllByType(Card);
-    expect(card1.props.topOffset).toEqual(undefined);
-    expect(card2.props.topOffset).toEqual(undefined);
 
     // Update state with a height
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 100 }});
-      card2.props.onHeightChange({ current: { offsetHeight: 100 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 100 } });
+      card2.props.onHeightChange({ current: { offsetHeight: 100 } });
     });
     // We are starting at 100 because of getHighlightTopOffset mock
     expect(card1.props.topOffset).toEqual(100);
@@ -187,14 +103,14 @@ describe('CardWrapper', () => {
 
     // Noops when height is the same
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 100 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 100 } });
     });
     expect(card1.props.topOffset).toEqual(100);
     expect(card2.props.topOffset).toEqual(100 + 100 + remsToPx(cardMarginBottom));
 
     // Handle null value
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: null }});
+      card1.props.onHeightChange({ current: { offsetHeight: null } });
     });
     // First card have null height so secondcard starts at the highlight top offset
     expect(card1.props.topOffset).toEqual(100);
@@ -228,10 +144,10 @@ describe('CardWrapper', () => {
 
     // Update state with a height
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: 50 }});
-      card2.props.onHeightChange({ current: { offsetHeight: 50 }});
-      card3.props.onHeightChange({ current: { offsetHeight: 50 }});
-      card4.props.onHeightChange({ current: { offsetHeight: 50 }});
+      card1.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card2.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card3.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card4.props.onHeightChange({ current: { offsetHeight: 50 } });
     });
     expect(card1.props.topOffset).toEqual(0); // first card have only 50px height + 20px margin bottom
     expect(card2.props.topOffset).toEqual(100); // so the second cards starts and the highlight level which is 100
@@ -305,7 +221,9 @@ describe('CardWrapper', () => {
 
     expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
 
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
+    renderer.act(() => {
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
+    });
 
     expect(highlight.focus).toHaveBeenCalled();
   });
@@ -330,7 +248,9 @@ describe('CardWrapper', () => {
       expect(card.props.shouldFocusCard).toEqual(false);
     });
 
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, highlightElement);
+    renderer.act(() => {
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, highlightElement);
+    });
 
     renderer.act(() => {
       const card = component.root.findByType(Card);
@@ -341,7 +261,9 @@ describe('CardWrapper', () => {
 
     const elementOutside = document.createElement('span');
 
-    dispatchFocusOutEvent(window, cardWrapperElement, elementOutside);
+    renderer.act(() => {
+      dispatchFocusOutEvent(window, cardWrapperElement, elementOutside);
+    });
 
     renderer.act(() => {
       const card = component.root.findByType(Card);
@@ -381,11 +303,13 @@ describe('CardWrapper', () => {
       expect(card.props.shouldFocusCard).toEqual(false);
     });
 
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, textarea);
+    renderer.act(() => {
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, textarea);
 
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, elementOutsideOfTheContainer);
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, elementOutsideOfTheContainer);
 
-    dispatchKeyDownEvent(window, document, 'anotherkeythatwedontsupport', elementInsideContainer);
+      dispatchKeyDownEvent(window, document, 'anotherkeythatwedontsupport', elementInsideContainer);
+    });
 
     renderer.act(() => {
       const card = component.root.findByType(Card);
@@ -414,7 +338,9 @@ describe('CardWrapper', () => {
 
     expect(store.getState().content.highlights.currentPage.focused).toEqual(undefined);
 
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
+    renderer.act(() => {
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
+    });
 
     expect(highlight.focus).not.toHaveBeenCalled();
   });
@@ -440,7 +366,9 @@ describe('CardWrapper', () => {
 
     expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
 
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, undefined);
+    renderer.act(() => {
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, undefined);
+    });
 
     expect(highlight.focus).not.toHaveBeenCalled();
   });
@@ -466,7 +394,9 @@ describe('CardWrapper', () => {
 
     expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
 
-    dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
+    renderer.act(() => {
+      dispatchKeyDownEvent(window, document, highlightKeyCombination.key!, cardElement);
+    });
 
     expect(highlight.focus).not.toHaveBeenCalled();
   });

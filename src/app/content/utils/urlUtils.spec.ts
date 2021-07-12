@@ -13,11 +13,9 @@ import {
 
 const testUUID = 'longidin-vali-dfor-mat1-111111111111';
 
-jest.mock('../../../config', () => {
+jest.mock('../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
-  return {BOOKS: {
-   [mockBook.id]: {defaultVersion: mockBook.version},
-  }};
+  return { [mockBook.id]: { defaultVersion: mockBook.version } };
 });
 
 describe('getBookPageUrlAndParams', () => {
@@ -70,7 +68,7 @@ describe('getUrlParamForPageId', () => {
   });
 
   it('returns uuid param if tree is missing a slug', () => {
-    delete book.tree.contents[0].slug;
+    delete (book as any).tree.contents[0].slug;
 
     expect(getUrlParamForPageId(book, 'pagelongid@1')).toEqual({uuid: 'pagelongid'});
   });
@@ -94,7 +92,7 @@ describe('getUrlParamForPageId', () => {
     });
 
     it('throws if tree is missing a slug and env is production', () => {
-      delete book.tree.contents[0].slug;
+      delete (book as any).tree.contents[0].slug;
       expect(() =>
         getUrlParamForPageId(book, 'pagelongid@1')
       ).toThrowErrorMatchingInlineSnapshot(

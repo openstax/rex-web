@@ -13,7 +13,7 @@ import { HighlightData } from '../../types';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
-import { createHighlightLink } from './utils';
+import { useCreateHighlightLink } from './utils';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -78,7 +78,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const [isDeleting, setIsDeleting] = React.useState(false);
   const book = useSelector(bookSelector);
   const dispatch = useDispatch();
-  const linkToHighlight = React.useMemo(() => createHighlightLink(highlight, book), [highlight, book]);
+  const linkToHighlight = useCreateHighlightLink(highlight, book);
 
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');

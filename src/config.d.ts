@@ -14,12 +14,6 @@ interface Config {
   CODE_VERSION: string;
   RELEASE_ID: string;
 
-  BOOKS: {
-    [key: string]: {
-      defaultVersion: string;
-    };
-  };
-
   PORT: number;
   DEBUG: boolean;
 }

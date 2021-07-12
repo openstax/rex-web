@@ -14,7 +14,7 @@ describe('clickLink', () => {
 
     it('reports label', () => {
       const button = document.createElement('button');
-      button.setAttribute('aria-label', 'foo');
+      button.setAttribute('data-analytics-label', 'foo');
       const result = track({pathname: 'asdf'}, button);
       if (!result) {
         return expect(result).toBeTruthy();
@@ -27,7 +27,7 @@ describe('clickLink', () => {
     it('adds region to category', () => {
       const button = document.createElement('button');
       button.setAttribute('data-analytics-region', 'foo');
-      button.setAttribute('aria-label', 'foo');
+      button.setAttribute('data-analytics-label', 'foo');
       const result = track({pathname: 'asdf'}, button);
       if (!result) {
         return expect(result).toBeTruthy();
@@ -40,7 +40,7 @@ describe('clickLink', () => {
     it('data-analytics-location overrides pathname', () => {
       const button = document.createElement('button');
       button.setAttribute('data-analytics-location', 'test location');
-      button.setAttribute('aria-label', 'foo');
+      button.setAttribute('data-analytics-label', 'foo');
       const result = track({pathname: 'asdf'}, button);
       if (!result) {
         return expect(result).toBeTruthy();

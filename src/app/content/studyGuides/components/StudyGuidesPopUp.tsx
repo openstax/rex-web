@@ -57,6 +57,7 @@ const StudyguidesPopUp = () => {
         <CloseIconWrapper
           data-testid='close-studyguides-popup'
           aria-label={intl.formatMessage({id: 'i18n:toolbar:studyguides:popup:close-button:aria-label'})}
+          data-analytics-label='Close Study Guides'
           onClick={closeAndTrack('button')}
         >
           <CloseIcon colorSchema={bookTheme} />

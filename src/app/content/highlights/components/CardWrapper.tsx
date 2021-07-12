@@ -3,7 +3,6 @@ import { HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { scrollIntoView } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination } from '../../../reactUtils';
 import { AppState } from '../../../types';
@@ -36,7 +35,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const focusedHighlight = React.useMemo(
     () => highlights.find((highlight) => highlight.id === focusedId),
     [focusedId, highlights]);
-  const prevFocusedHighlightId = React.useRef(focusedId);
 
   // This function is triggered by keyboard shortuct defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
@@ -58,7 +56,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
-  useFocusLost(element, shouldFocusCard, () => setShouldFocusCard(false));
+  useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), [setShouldFocusCard]));
 
   const onHeightChange = React.useCallback((id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
@@ -85,21 +83,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     setCardsPositions(positions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [highlights, cardsHeights, focusedHighlight]);
-
-  // Scroll into view of highlight when user focuses it
-  React.useEffect(() => {
-    if (!focusedHighlight) { return; }
-    // Check for prevFocusedHighlightId.current is required so we do not scroll to the
-    // focused highlight after user switches between the browser tabs - in this case
-    // highlights are refetched and it trigers cardPositions to be updated since reference
-    // to the highlights or highlights' data has changed.
-    // focusedHighlight.elements[0] will be undefined for pendingHighlight
-    if (focusedHighlight.id !== prevFocusedHighlightId.current && focusedHighlight.elements[0]) {
-      prevFocusedHighlightId.current = focusedHighlight.id;
-      scrollIntoView(focusedHighlight.elements[0] as HTMLElement);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [focusedHighlight, cardsPositions]);
 
   return highlights.length
     ? <div className={className} ref={element}>
