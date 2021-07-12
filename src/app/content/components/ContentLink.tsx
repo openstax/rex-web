@@ -63,6 +63,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ? createNavigationOptions({...persistentQueryParams, ...systemQueryParams}, scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
+  console.log('URL: ', URL);
 
   return <a
     ref={myForwardedRef}
