@@ -38,6 +38,7 @@ test-rail-sauce: venv
 		--tr-password=$(TR_PASSWORD) \
 		--tr-run-id=$(TR_RUN_ID) \
 		--tr-skip-missing \
+		--highlighting \
 		--base-url=$(BASE_URL) \
 		--driver SauceLabs \
 		--capability avoidProxy True \
@@ -55,6 +56,7 @@ sauce: venv
 		--capability avoidProxy True \
 		--capability browserName $(BROWSER) \
 		--capability screenResolution 1600x1200 \
+		--highlighting \
 		--secure-store-filename=pytest-selenium/store/store.aes \
 		--secure-store-password=$(SECURE_STORE_PASSWORD) \
 		pytest-selenium/tests
