@@ -169,15 +169,15 @@ export const getScrollTargetFromQuery = (
 };
 
 export const createNavigationOptions = (
-  queryParams: Record<string, string | null | undefined>,
+  search: Record<string, string | null | undefined>,
   scrollTarget?: ScrollTarget
 ) => ({
   hash: scrollTarget ? scrollTarget.elementId : undefined,
-  queryParamString: queryString.stringify({
-    ...omitBy(isNull, queryParams),
+  search: queryString.stringify({
+    ...omitBy(isNull, search),
     target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
   }),
 });
 
 export const navigationOptionsToString = (options: ReturnType<typeof createNavigationOptions>) =>
-  (options.queryParamString ? `?${options.queryParamString}` : '') + (options.hash ? options.hash : '');
+  (options.search ? `?${options.search}` : '') + (options.hash ? options.hash : '');
