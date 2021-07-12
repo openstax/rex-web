@@ -4,6 +4,7 @@ import { intl } from '../app/MessageProvider';
 import config from '../config';
 import { BuyPrintResponse } from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
+import createPlacementsClient from '../gateways/createPlacementsClient';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import analytics from '../helpers/analytics';
 import FontCollector from '../helpers/FontCollector';
@@ -26,6 +27,7 @@ const services = () => ({
   config,
   fontCollector: new FontCollector(),
   highlightClient: createHighlightClient('asdf'),
+  placementsClient: createPlacementsClient('jkl;'),
   history: createMemoryHistory(),
   intl,
   osWebLoader: mockOsWebLoader(),

@@ -12,6 +12,7 @@ import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
 import * as actions from './actions';
 import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
+import placementsReducer, {initialState as initialPlacementsState } from './placements/reducer';
 import practiceQuestionsReducer, {initialState as initialPracticeQuestionsState } from './practiceQuestions/reducer';
 import { content } from './routes';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';
@@ -24,6 +25,7 @@ export const initialState = {
   loading: {},
   pageNotFoundId: null,
   params: null,
+  placements: initialPlacementsState,
   practiceQuestions: initialPracticeQuestionsState,
   references: [],
   search: initialSearchState,
@@ -45,6 +47,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const highlights = highlightReducer(contentState.highlights, action);
       if (contentState.highlights !== highlights) {
         return {...contentState, highlights};
+      }
+      return contentState;
+    },
+    (contentState) => {
+      const placements = placementsReducer(contentState.placements, action);
+      if (contentState.placements !== placements) {
+        return {...contentState, placements};
       }
       return contentState;
     },

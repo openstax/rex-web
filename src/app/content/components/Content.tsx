@@ -12,6 +12,7 @@ import PracticeQuestionsPopup from '../practiceQuestions/components/PracticeQues
 import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
 import StudyguidesPopUp from '../studyGuides/components/StudyGuidesPopUp';
+import ContentBottomPlacement from '../placements/components/ContentBottomPlacement';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
@@ -197,6 +198,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
                   <ContentNotifications mobileExpanded={mobileExpanded} />
                   <Page />
                   <Attribution />
+                  <ContentBottomPlacement />
                   <Footer/>
                 </MainContentWrapper>
               </UndoPadding>

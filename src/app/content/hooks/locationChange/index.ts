@@ -3,6 +3,7 @@ import { locationChange } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { loadHighlights } from '../../highlights/hooks';
+import { loadMyPlacements } from '../../placements/hooks';
 import { loadPracticeQuestions } from '../../practiceQuestions/hooks';
 import { content } from '../../routes';
 import { syncSearch } from '../../search/hooks';
@@ -23,6 +24,7 @@ const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
     syncSearch(services)(action),
     loadBuyPrintConfig(services)(),
     loadHighlights(services)(locationChange(action)),
+    loadMyPlacements(services)(),
     loadStudyGuides(services)(),
     loadPracticeQuestions(services)(),
   ]);

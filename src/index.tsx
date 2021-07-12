@@ -13,6 +13,7 @@ import createBookConfigLoader from './gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from './gateways/createBuyPrintConfigLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
+import createPlacementsClient from './gateways/createPlacementsClient';
 import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoader';
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
@@ -43,6 +44,7 @@ const osWebUrl = assertDefined(config.REACT_APP_OS_WEB_API_URL, 'REACT_APP_OS_WE
 const accountsUrl = assertDefined(config.REACT_APP_ACCOUNTS_URL, 'REACT_APP_ACCOUNTS_URL must be defined');
 const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_URL must be defined');
 const highlightsUrl = assertDefined(config.REACT_APP_HIGHLIGHTS_URL, 'REACT_APP_HIGHLIGHTS_URL must be defined');
+const placementsUrl = assertDefined(config.REACT_APP_PLACEMENTS_URL, 'REACT_APP_PLACEMENTS_URL must be defined');
 const buyPrintConfigUrl = assertDefined(
   config.REACT_APP_BUY_PRINT_CONFIG_URL,
   'REACT_APP_BUY_PRINT_CONFIG_URL must be defined'
@@ -58,6 +60,7 @@ const app = createApp({
     config,
     highlightClient: createHighlightClient(highlightsUrl),
     osWebLoader: createOSWebLoader(osWebUrl),
+    placementsClient: createPlacementsClient(placementsUrl),
     practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
     searchClient: createSearchClient(searchUrl),

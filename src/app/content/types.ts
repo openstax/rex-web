@@ -1,6 +1,7 @@
 import { BuyPrintResponse } from '../../gateways/createBuyPrintConfigLoader';
 import { RouteParams, RouteState } from '../navigation/types';
 import { State as HighlightState } from './highlights/types';
+import { State as PlacementState } from './placements/types';
 import { State as PracticeQuestionsState } from './practiceQuestions/types';
 import { content } from './routes';
 import { State as SearchState } from './search/types';
@@ -35,6 +36,7 @@ export interface State {
   showNudgeStudyTools: boolean | null;
   studyGuides: StudyGuidesState;
   highlights: HighlightState;
+  placements: PlacementState;
   book?: Book;
   page?: Page;
   references: Array<PageReferenceMap | PageReferenceError>;
