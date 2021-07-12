@@ -22,7 +22,7 @@ export const track = (
       annotation: highlight.annotation || '',
       highlightId: highlight.id,
       locationStrategies: JSON.stringify(highlight.locationStrategies),
-      sourceMetadata: '', // idk what this is for
+      sourceMetadata: highlight.sourceMetadata || {},
     }),
     getGoogleAnalyticsPayload: () => ({
       eventAction: isDefaultColor ? 'default' : highlight.color,
