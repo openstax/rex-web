@@ -22,6 +22,7 @@ import {
   makeSearchResults
 } from '../../../../../test/searchResults';
 import TestContainer from '../../../../../test/TestContainer';
+import * as selectNavigation from '../../../../navigation/selectors';
 import { Store } from '../../../../types';
 import { assertDocument, assertWindow } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
@@ -94,6 +95,7 @@ describe('SearchResultsSidebar', () => {
   it('shows sidebar with loading state if there is a search', () => {
     store.dispatch(requestSearch('cool search'));
     const component = renderer.create(render());
+    jest.spyOn(selectNavigation, 'persistentQueryParameters').mockReturnValue({query: 'cool search'});
     const findById = makeFindByTestId(component.root);
 
     expect(() => findById('loader')).not.toThrow();
@@ -101,6 +103,7 @@ describe('SearchResultsSidebar', () => {
   });
 
   it('matches snapshot for no search results', () => {
+    jest.spyOn(selectNavigation, 'persistentQueryParameters').mockReturnValue({query: 'cool search'});
     store.dispatch(requestSearch('cool search'));
     store.dispatch(receiveSearchResults(makeSearchResults([])));
 
@@ -111,6 +114,7 @@ describe('SearchResultsSidebar', () => {
   it('matches snapshot with results', () => {
     store.dispatch(receivePage({ ...pageInChapter, references: [] }));
     store.dispatch(requestSearch('cool search'));
+    jest.spyOn(selectNavigation, 'persistentQueryParameters').mockReturnValue({query: 'cool search'});
     const selectedResult = makeSearchResultHit({ book: archiveBook, page });
     store.dispatch(
       receiveSearchResults(
