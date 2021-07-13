@@ -8,11 +8,6 @@ exports[`practice questions button renders if feature flag is enabled and there 
   className="PracticeQuestionsButton__StyledContentLink-vyu0p6-0 hhqmFX"
   href="books/book-slug-1/pages/test-page-1?modal=PQ"
   onClick={[Function]}
-  search={
-    Object {
-      "modal": "PQ",
-    }
-  }
 >
   <img
     aria-hidden="true"
