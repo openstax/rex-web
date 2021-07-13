@@ -72,14 +72,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const action = (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id))
     ? replace : push;
 
-  if (selectedResult) {
-      console.log('selected search result: ', queryString.stringify({
-        query,
-        target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
-        ...systemQueryParams,
-      }));
-    }
-
   const options = selectedResult
     ? {
       hash: selectedResult.result.source.elementId,
