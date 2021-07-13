@@ -1,4 +1,3 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
 import { getType } from 'typesafe-actions';
 import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { receivePageFocus } from '../../../actions';
@@ -9,6 +8,7 @@ import { bookAndPage } from '../../selectors';
 import { receiveHighlights } from '../actions';
 import { HighlightLoadError } from '../errors';
 import * as select from '../selectors';
+import { HighlightData } from '../types';
 import { loadAllHighlights } from '../utils/highlightLoadingUtils';
 
 const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAction) => {
@@ -32,7 +32,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
     return;
   }
 
-  let highlights: Highlight[];
+  let highlights: HighlightData[];
   try {
     highlights = await loadAllHighlights({
       book,
