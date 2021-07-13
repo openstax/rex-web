@@ -121,7 +121,7 @@ const Card = (props: CardProps) => {
   };
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
-  const onCreate = () => {
+  const onCreate = (isDefaultColor: boolean) => {
     props.create({
       ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
       scopeId: book.id,
@@ -129,6 +129,7 @@ const Card = (props: CardProps) => {
       sourceMetadata: {bookVersion: book.version},
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
+      isDefaultColor,
       locationFilterId,
       pageId: page.id,
     });

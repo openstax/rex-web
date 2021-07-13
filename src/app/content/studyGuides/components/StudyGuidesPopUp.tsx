@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
+import { FirstArgumentType } from '../../../types';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
@@ -18,14 +19,14 @@ const StudyguidesPopUp = () => {
   const intl = useIntl();
 
   const popUpRef = React.useRef<HTMLElement>(null);
-  const trackOpenCloseSG = useAnalyticsEvent('openCloseStudyGuides');
+  const trackClose = useAnalyticsEvent('closeStudyGuides');
   const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
   const bookTheme = useSelector(bookThemeSelector);
 
-  const closeAndTrack = React.useCallback((method: string) => () => {
+  const closeAndTrack = React.useCallback((method: FirstArgumentType<typeof trackClose>) => () => {
     dispatch(closeStudyGuides());
-    trackOpenCloseSG(method);
-  }, [dispatch, trackOpenCloseSG]);
+    trackClose(method);
+  }, [dispatch, trackClose]);
 
   useOnEsc(popUpRef, isStudyGuidesOpen, closeAndTrack('esc'));
 
