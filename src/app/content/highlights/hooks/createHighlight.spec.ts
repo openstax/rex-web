@@ -1,4 +1,3 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
 import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
@@ -9,6 +8,7 @@ import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { createHighlight, receiveDeleteHighlight } from '../actions';
+import { HighlightData } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
@@ -82,7 +82,7 @@ describe('createHighlight', () => {
     } catch (error) {
       expect(createHighlightClient).toHaveBeenCalledWith({highlight: mock});
       expect(dispatch).toHaveBeenCalledWith(
-        receiveDeleteHighlight(mock as unknown as Highlight, {...meta, revertingAfterFailure: true})
+        receiveDeleteHighlight(mock as unknown as HighlightData, {...meta, revertingAfterFailure: true})
       );
     }
   });
