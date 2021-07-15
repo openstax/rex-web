@@ -37,7 +37,7 @@ const StudyGuidesText = styled.span`
 const StudyGuidesButton = () => {
   const dispatch = useDispatch();
   const intl = useIntl();
-  const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
+  const trackOpen = useAnalyticsEvent('openStudyGuides');
 
   const isEnabled = useSelector(studyGuidesEnabled);
   const studyGuidesSummaryNotEmpty = useSelector(hasStudyGuides);
@@ -46,7 +46,7 @@ const StudyGuidesButton = () => {
 
   const openStudyGuidesSummary = () => {
     dispatch(openStudyGuidesAction());
-    trackOpenClose();
+    trackOpen('button');
   };
 
   const text = intl.formatMessage({id: 'i18n:toolbar:studyguides:button:text'});
