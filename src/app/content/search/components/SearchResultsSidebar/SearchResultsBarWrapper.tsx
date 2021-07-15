@@ -107,6 +107,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         searchResultsOpen={searchResultsOpen}
         hasQuery={hasQuery}
         ref={this.searchSidebar}
+        data-analytics-region='search-results'
       >
         {!results ? <LoadingState onClose={this.props.onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
