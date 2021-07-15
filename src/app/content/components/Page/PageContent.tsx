@@ -94,8 +94,7 @@ export default styled(MainContent)`
         }
       }
 
-      &.first.text.has-note [data-for-screenreaders]:first-child {
-        display: inline-block;
+      &.first.text.has-note:before {
         position: absolute;
         top: 0;
         left: 0;
@@ -120,8 +119,8 @@ export default styled(MainContent)`
             background-color: ${style.focused};
           }
 
-          &.first.text.has-note [data-for-screenreaders]:first-child {
-            border: none;
+          &.first.text.has-note:before {
+            content: none;
           }
         }
       }
