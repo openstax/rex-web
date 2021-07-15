@@ -770,7 +770,7 @@ def test_delete_highlight_from_MH_page_using_keyboard_navigation(
         ), "Highlight is removed from MH page even on hitting Cancel in delete confirmation dialog"
 
         # WHEN: Open the context menu
-        (ActionChains(selenium).send_keys(Keys.TAB * 7).pause(1).send_keys(Keys.ENTER).perform())
+        (ActionChains(selenium).send_keys(Keys.TAB * 8).pause(1).send_keys(Keys.ENTER).perform())
 
         # AND: Select Delete note
         (ActionChains(selenium).send_keys(Keys.TAB * 7).pause(1).send_keys(Keys.RETURN).perform())
