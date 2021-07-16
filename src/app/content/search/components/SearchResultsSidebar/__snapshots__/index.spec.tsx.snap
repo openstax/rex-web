@@ -4,6 +4,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 <div
   aria-label="Search results sidebar"
   className="styled__SearchResultsBar-as3fh1-3 llsXIP"
+  data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div>
@@ -68,6 +69,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 <div
   aria-label="Search results sidebar"
   className="styled__SearchResultsBar-as3fh1-3 llsXIP"
+  data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div
@@ -412,6 +414,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
 <div
   aria-label="Search results sidebar"
   className="styled__SearchResultsBar-as3fh1-3 llsXIP"
+  data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div
