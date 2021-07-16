@@ -777,7 +777,7 @@ class MyHighlights(Region):
 
                 """
                 return self.driver.execute_script(ELEMENT_SELECT.format(
-                    selector=self._delete_confirmation_message_locator[1])).get_attribute("textContent")
+                    selector=self._delete_confirmation_message_locator[1])).text
 
             @property
             def delete_button(self) -> WebElement:
