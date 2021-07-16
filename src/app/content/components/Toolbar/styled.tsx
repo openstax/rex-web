@@ -37,7 +37,7 @@ export const buttonMinWidth = `45px`;
 export const toolbarDefaultText = css`
   font-weight: 600;
   font-size: 1.6rem
-  line-height: 2.5;
+  line-height: 2.5rem;
   margin: 0 0 0 0.5rem;
   ${theme.breakpoints.mobile(css`
     display: none;

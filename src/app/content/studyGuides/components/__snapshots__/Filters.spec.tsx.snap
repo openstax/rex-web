@@ -376,7 +376,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           />
         </svg>
         <span
-          className="styled__PrintOptions-sc-1119auh-2 gazcDy"
+          className="styled__PrintOptions-sc-1119auh-2 kvOeeQ"
         >
           Print
         </span>
@@ -404,7 +404,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             />
           </svg>
           <span
-            className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 dOoWUH"
+            className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 eabhbh"
           >
             Using This Guide
           </span>

@@ -76,7 +76,7 @@ exports[`Using this guide renders using this guide button correctly (when banner
       />
     </svg>
     <span
-      className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 dOoWUH"
+      className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 eabhbh"
     >
       Using This Guide
     </span>
@@ -108,7 +108,7 @@ exports[`Using this guide renders using this guide button correctly (when banner
       />
     </svg>
     <span
-      className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 dOoWUH"
+      className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 eabhbh"
     >
       Using This Guide
     </span>

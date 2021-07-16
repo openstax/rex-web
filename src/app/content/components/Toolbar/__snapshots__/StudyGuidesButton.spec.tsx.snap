@@ -17,7 +17,7 @@ exports[`study guides button render if feature flag is enabled and book has stud
     src="studyGuidesIcon.svg"
   />
   <span
-    className="StudyGuidesButton__StudyGuidesText-sc-1gy68g-2 gCMLFg"
+    className="StudyGuidesButton__StudyGuidesText-sc-1gy68g-2 caNCFu"
   >
     Study guides
   </span>
