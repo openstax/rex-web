@@ -13,7 +13,6 @@ import {
   textStyle
 } from '../../../components/Typography';
 import theme from '../../../theme';
-import increaseSize from '../../../utils/increaseSize';
 import { BookWithOSWebData } from '../../types';
 import {
   bookBannerDesktopMiniHeight,
@@ -37,8 +36,8 @@ export const buttonMinWidth = `45px`;
 
 export const toolbarDefaultText = css`
   font-weight: 600;
-  font-size: ${increaseSize(1.6)}rem;
-  line-height: ${increaseSize(2.5)};
+  font-size: 1.6rem
+  line-height: 2.5;
   margin: 0 0 0 0.5rem;
   ${theme.breakpoints.mobile(css`
     display: none;
