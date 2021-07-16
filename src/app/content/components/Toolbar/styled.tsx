@@ -13,7 +13,7 @@ import {
   textStyle
 } from '../../../components/Typography';
 import theme from '../../../theme';
-import increaseSize from '../../../utils/increaseSize'
+import increaseSize from '../../../utils/increaseSize';
 import { BookWithOSWebData } from '../../types';
 import {
   bookBannerDesktopMiniHeight,
