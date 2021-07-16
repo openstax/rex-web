@@ -147,7 +147,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         className="styled__LinkWrapper-as3fh1-12 edDtdw"
       >
         <div
-          className="styled__SearchResultsLink-as3fh1-10 hnAJVM"
+          className="styled__SearchResultsLink-as3fh1-10 vutew"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -156,7 +156,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         />
       </div>
       <a
-        className="styled__SectionContentPreview-as3fh1-11 bJhIrl"
+        className="styled__SectionContentPreview-as3fh1-11 gFODoL"
         data-testid="search-result"
         href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
         onClick={[Function]}
@@ -231,7 +231,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </svg>
             <span
-              className="styled__SummaryTitle-as3fh1-6 kQeKbP"
+              className="styled__SummaryTitle-as3fh1-6 jLAgGi"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -251,7 +251,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               className="styled__LinkWrapper-as3fh1-12 edDtdw"
             >
               <div
-                className="styled__SearchResultsLink-as3fh1-10 hnAJVM"
+                className="styled__SearchResultsLink-as3fh1-10 vutew"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-text\\">Test Page 6</span>",
@@ -260,7 +260,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </div>
             <a
-              className="styled__SectionContentPreview-as3fh1-11 fhVukS"
+              className="styled__SectionContentPreview-as3fh1-11 iiKfIL"
               data-testid="search-result"
               href="books/book-slug-1/pages/10-test-page-6?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
               onClick={[Function]}
@@ -338,7 +338,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </svg>
             <span
-              className="styled__SummaryTitle-as3fh1-6 kQeKbP"
+              className="styled__SummaryTitle-as3fh1-6 jLAgGi"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -357,7 +357,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               className="styled__LinkWrapper-as3fh1-12 edDtdw"
             >
               <div
-                className="styled__SearchResultsLink-as3fh1-10 hnAJVM"
+                className="styled__SearchResultsLink-as3fh1-10 vutew"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -366,7 +366,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </div>
             <a
-              className="styled__SectionContentPreview-as3fh1-11 fhVukS"
+              className="styled__SectionContentPreview-as3fh1-11 iiKfIL"
               data-testid="search-result"
               href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
               onClick={[Function]}

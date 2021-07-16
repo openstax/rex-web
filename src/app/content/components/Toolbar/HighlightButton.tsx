@@ -5,6 +5,7 @@ import styled from 'styled-components/macro';
 import HighlightsIcon from '../../../../assets/HighlightsIcon';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { AppState, Dispatch } from '../../../types';
+import increaseSize from '../../../utils/increaseSize';
 import { openMyHighlights as openMyHighlightsAction } from '../../highlights/actions';
 import * as selectors from '../../highlights/selectors';
 import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
@@ -32,6 +33,8 @@ const MyHighlightsWrapper = styled(PlainButton)`
 // tslint:disable-next-line:variable-name
 const MyHighlightsText = styled.span`
   ${toolbarDefaultText}
+  font-size: ${increaseSize(1.6)}rem;
+  line-height: ${increaseSize(2.5)}rem;
 `;
 
 // tslint:disable-next-line:variable-name

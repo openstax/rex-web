@@ -4,6 +4,7 @@ import MainContent from '../../../components/MainContent';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
+import increaseSize from '../../../utils/increaseSize';
 import { highlightStyles } from '../../constants';
 import {
   highlightBlockPadding,
@@ -23,8 +24,8 @@ export const contentTextStyle = css`
 
 export default styled(MainContent)`
   ${contentTextStyle}
-  font-size: 1.4rem;
-  line-height: 2rem;
+  font-size: ${increaseSize(1.4)}rem;
+  line-height: ${increaseSize(2)}rem;
   overflow: visible;
 
   @media screen {
