@@ -1,5 +1,5 @@
 import { css } from 'styled-components/macro';
-import increaseFontSize from '../../utils/increaseSize';
+import increaseSize from '../../utils/increaseSize';
 import { textStyle } from './base';
 
 export * from './base';
@@ -63,7 +63,7 @@ export const bodyCopyRegularStyle = css`
 
 export const labelStyle = css`
   ${textStyle}
-  font-size: ${increaseFontSize(1.4)}rem;
-  line-height: ${increaseFontSize(1.6)}rem;
+  font-size: ${increaseSize(1.4)}rem;
+  line-height: ${increaseSize(1.6)}rem;
   font-weight: normal;
 `;
