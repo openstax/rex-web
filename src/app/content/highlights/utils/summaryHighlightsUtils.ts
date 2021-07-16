@@ -1,5 +1,4 @@
 import {
-  Highlight,
   HighlightColorEnum,
   HighlightUpdateColorEnum,
   UpdateHighlightRequest,
@@ -26,7 +25,7 @@ interface BaseData {
 }
 
 interface DataAdd extends BaseData {
-  highlight: Highlight;
+  highlight: HighlightData;
 }
 
 const insertHighlightAtIndex = (
@@ -127,7 +126,7 @@ export const removeSummaryHighlight = (
 ): SummaryHighlights => {
   const { locationFilterId, pageId, id } = data;
 
-  const pageHighlights: Highlight[] | undefined =
+  const pageHighlights: HighlightData[] | undefined =
     summaryHighlights[locationFilterId] && summaryHighlights[locationFilterId][pageId];
   const [filteredHighlights, removedHighlights] = pageHighlights
     ? partition((highlight) => highlight.id !== id, pageHighlights)
@@ -183,7 +182,7 @@ export const updateSummaryHighlight = (summaryHighlights: SummaryHighlights, dat
 };
 
 interface Data extends BaseData {
-  highlight: Highlight;
+  highlight: HighlightData;
 }
 
 /**
@@ -242,7 +241,7 @@ export const updateSummaryHighlightsDependOnFilters = (
 
 export const removeFromTotalCounts = (
   totalCounts: CountsPerSource,
-  highlight: Highlight
+  highlight: HighlightData
 ) => {
   if (totalCounts[highlight.sourceId] && totalCounts[highlight.sourceId][highlight.color]) {
     const newTotal = {
@@ -269,7 +268,7 @@ export const removeFromTotalCounts = (
 
 export const addToTotalCounts = (
   totalCounts: CountsPerSource,
-  highlight: Highlight
+  highlight: HighlightData
 ) => {
   return {
     ...totalCounts,
@@ -282,8 +281,8 @@ export const addToTotalCounts = (
 
 export const updateInTotalCounts = (
   totalCounts: CountsPerSource,
-  oldHighlight: Highlight,
-  newHighlight: Highlight
+  oldHighlight: HighlightData,
+  newHighlight: HighlightData
 ) => {
   if (
     oldHighlight.sourceId === newHighlight.sourceId
@@ -300,7 +299,7 @@ export const updateInTotalCounts = (
 
 export const getHighlightByIdFromSummaryHighlights = (
   summaryHighlights: SummaryHighlights, id: string
-): Highlight | undefined => {
+): HighlightData | undefined => {
 
   for (const data of Object.values(summaryHighlights)) {
     for (const highlights of Object.values(data)) {
