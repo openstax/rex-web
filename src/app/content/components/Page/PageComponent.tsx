@@ -65,7 +65,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       return;
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current, this.props.intl);
-    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.intl);
+    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
   }
 
@@ -181,7 +181,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.listenersOff();
 
     this.mapLinks((a) => {
-      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks);
+      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
     });
