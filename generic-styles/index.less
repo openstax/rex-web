@@ -17,6 +17,9 @@
 @screen-sm-min:         @screen-sm;
 @screen-xs-max:         (@screen-sm-min - 1);
 
+// Custom constants
+@font-size-scale:       8/7;
+
 body {
   font-size: @font-size-base;
 }
@@ -34,13 +37,13 @@ body {
     bottom: -.25em;
   }
   h2{
-    font-size: 2.8rem;
+    font-size: round(2.8rem * 10 * @font-size-scale)/10;
   }
   h3 {
-    font-size: 2.1rem;
+    font-size: round(2.1rem * 10 * @font-size-scale)/10;
   }
   h4 {
-    font-size: 1.6rem;
+    font-size: round(1.6rem * 10 * @font-size-scale)/10;
   }
   sub, sup {
     font-size: 75%;
@@ -127,7 +130,7 @@ body {
     > .os-title {
       margin: 0 -3rem;
       padding: 1.5rem 3rem;
-      font-size: 1.5rem;
+      font-size: round(1.5rem * 10 * @font-size-scale)/10;
       color: @gray;
       background-color: #ececec;
       border-bottom: 1px solid #dcdcdc;
