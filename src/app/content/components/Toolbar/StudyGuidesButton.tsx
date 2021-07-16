@@ -5,12 +5,11 @@ import styled, { css } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import theme from '../../../theme';
-import increaseSize from '../../../utils/increaseSize'
+import increaseSize from '../../../utils/increaseSize';
 import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/actions';
 import { hasStudyGuides, studyGuidesEnabled } from '../../studyGuides/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultText } from './styled';
-
 
 // tslint:disable-next-line:variable-name
 export const StudyGuidesWrapper = styled(PlainButton)`
