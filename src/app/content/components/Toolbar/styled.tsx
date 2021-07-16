@@ -9,6 +9,7 @@ import { maxNavWidth } from '../../../components/NavBar/styled';
 import Times from '../../../components/Times';
 import {
   decoratedLinkStyle,
+  textRegularSize,
   textRegularStyle,
   textStyle
 } from '../../../components/Typography';
@@ -36,8 +37,7 @@ export const buttonMinWidth = `45px`;
 
 export const toolbarDefaultText = css`
   font-weight: 600;
-  font-size: 1.6rem
-  line-height: 2.5rem;
+  ${textRegularSize};
   margin: 0 0 0 0.5rem;
   ${theme.breakpoints.mobile(css`
     display: none;
