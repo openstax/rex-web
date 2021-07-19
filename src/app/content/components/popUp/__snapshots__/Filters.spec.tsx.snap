@@ -86,7 +86,7 @@ exports[`Filters matches snapshot 1`] = `
         />
       </svg>
       <span
-        className="styled__PrintOptions-sc-1119auh-2 kvOeeQ"
+        className="styled__PrintOptions-sc-1119auh-2 bRCGrc"
       >
         Print
       </span>
@@ -431,7 +431,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         />
       </svg>
       <span
-        className="styled__PrintOptions-sc-1119auh-2 kvOeeQ"
+        className="styled__PrintOptions-sc-1119auh-2 bRCGrc"
       >
         Print
       </span>

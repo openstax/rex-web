@@ -427,7 +427,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         />
       </svg>
       <span
-        className="styled__PrintOptions-sc-1119auh-2 kvOeeQ"
+        className="styled__PrintOptions-sc-1119auh-2 bRCGrc"
       >
         Print
       </span>

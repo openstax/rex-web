@@ -15,7 +15,7 @@ exports[`practice questions button renders if feature flag is enabled and there 
     src="practiceQuestionsIcon.svg"
   />
   <span
-    className="PracticeQuestionsButton__PracticeQuestionsText-vyu0p6-2 hgdcfU"
+    className="PracticeQuestionsButton__PracticeQuestionsText-vyu0p6-2 fJxtws"
   >
     Practice
   </span>
