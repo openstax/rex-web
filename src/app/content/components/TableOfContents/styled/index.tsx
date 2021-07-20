@@ -128,7 +128,7 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
       & > ${NavItem} > ${ContentLink} {
         .os-number {
           width: ${numberWidth}rem;
-          overflow: hidden;
+          overflow: visible;
         }
 
         .os-divider {
