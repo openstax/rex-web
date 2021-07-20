@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import theme from '../../../theme';
-import increaseSize from '../../../utils/increaseSize';
 import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/actions';
 import { hasStudyGuides, studyGuidesEnabled } from '../../studyGuides/selectors';
 import { toolbarIconStyles } from './iconStyles';
@@ -32,8 +31,8 @@ const StudyGuidesIcon = styled.img`
 // tslint:disable-next-line:variable-name
 const StudyGuidesText = styled.span`
   ${toolbarDefaultText}
-  font-size: ${increaseSize(1.6)}rem;
-  line-height: ${increaseSize(2.5)}rem;
+  font-size: 1.8rem;
+  line-height: 2.9rem;
 `;
 
 // tslint:disable-next-line:variable-name

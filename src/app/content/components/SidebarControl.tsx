@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
-import increaseSize from '../../utils/increaseSize';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import { State } from '../types';
@@ -28,8 +27,8 @@ interface MiddleProps {
 // tslint:disable-next-line:variable-name
 export const ToCButtonText = styled.span`
   font-weight: 600;
-  font-size: ${increaseSize(1.6)}rem;
-  line-height: ${increaseSize(2.5)};
+  font-size: 1.8rem;
+  line-height: 2.9;
   margin: 0;
   padding: 0;
   ${(props) => props.hideMobileText && theme.breakpoints.mobile(css`
