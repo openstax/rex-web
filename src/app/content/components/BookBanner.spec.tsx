@@ -43,12 +43,13 @@ describe('BookBanner', () => {
 
   describe('without unsaved changes', () => {
     let React: any; // tslint:disable-line:variable-name
+    let ReactDOM: any; // tslint:disable-line:variable-name
     let renderer: any;
     let TestContainer: any; // tslint:disable-line:variable-name
     let renderToDom: any;
 
     beforeEach(() => {
-      ({React, renderer, TestContainer, renderToDom} = reactAndFriends());
+      ({React, ReactDOM, renderer, TestContainer, renderToDom} = reactAndFriends());
       BookBanner = require('./BookBanner').default;
     });
 
@@ -173,7 +174,7 @@ describe('BookBanner', () => {
       expect(event.preventDefault).not.toHaveBeenCalled();
     });
 
-    it('mounts in a dom', () => {
+    it('mounts and unmmounts in a dom', () => {
       const state = (cloneDeep({
         content: {
           ...initialState,
@@ -190,7 +191,8 @@ describe('BookBanner', () => {
         },
       }) as any) as AppState;
       const store = createTestStore(state);
-      expect(() => renderToDom(<TestContainer store={store}><BookBanner /></TestContainer>)).not.toThrow();
+      const {root} = renderToDom(<TestContainer store={store}><BookBanner /></TestContainer>);
+      expect(() => ReactDOM.unmountComponentAtNode(root)).not.toThrow();
     });
 
     it('wrapper transition matches snapshot', () => {
