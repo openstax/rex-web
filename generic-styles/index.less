@@ -21,7 +21,7 @@ body {
   font-size: @font-size-base;
 }
 
-#main-content, .content-excerpt {
+#main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
   @import "./content-baked.less";
 
   // gray is used for text color
@@ -139,9 +139,13 @@ body {
       display: inline;
     }
   }
+
+  .os-table td {
+    height: 3rem;
+  }
 }
 
-.content-excerpt {
+.content-excerpt:not([data-dynamic-style="true"]) {
   > section {
     margin-top: 0;
   }
