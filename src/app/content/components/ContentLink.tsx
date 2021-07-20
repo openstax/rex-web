@@ -91,10 +91,11 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState) => ({
+  (state: AppState, ownProps: {persistentQueryParams?: ContentQueryParams}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
+    persistentQueryParams: ownProps.persistentQueryParams || selectNavigation.persistentQueryParameters(state),
     systemQueryParams: selectNavigation.systemQueryParameters(state),
   }),
   (dispatch: Dispatch) => ({
