@@ -200,8 +200,8 @@ export default {
       '634b2a40-8f9d-4eca-b8b4-9f8df33f556b': '97a153dd-5719-4de8-b8e7-828b7f5b4396',
       /* The Constitution of the United States to the same module in 2e */
       'e752e52a-f95b-4e60-8c26-d6d93503b060': '1ec16a27-0461-4812-b91b-ffa28f8d8232',
-       /* Federalist Papers #10 and #51 to the same module in 2e */
-       'c187510d-48b5-4038-b002-f570afe989ad': '4a682489-9204-46b4-89c0-261ae689d86b',
+      /* Federalist Papers #10 and #51 to the same module in 2e */
+      'c187510d-48b5-4038-b002-f570afe989ad': '4a682489-9204-46b4-89c0-261ae689d86b',
       /* Electoral College Votes by State, 2012–2020 to the same module in 2e */
       '442e78a0-684d-45e2-a789-11bc53d25582': '985b4a50-7460-400f-a21d-92944c265ecb',
       /* Selected Supreme Court Cases to the same module in 2e */
