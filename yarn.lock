@@ -2935,10 +2935,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@openstax/event-capture-client@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@openstax/event-capture-client/-/event-capture-client-1.2.1.tgz#8a0adab6060ed29c241b484d7fc8d76e25552d90"
-  integrity sha512-D9HSt7jgjzxVjKZBQj+R5Xo//qOoA7OfHhfpQ6lZzGxbhuWSkGKTdme4d1se7wYmg7f7JPFDxITidct/cOTuWA==
+"@openstax/event-capture-client@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@openstax/event-capture-client/-/event-capture-client-1.2.2.tgz#ee0bde5f349b124b0bfa77cae3c5498ca99f8067"
+  integrity sha512-DMvacapJ+MkQSRlHtjpCoUGe1+aE/rc7kSU1DzsshEXFhL//qSAaozJyA2Ryq1Vd27DpOXtYZyIFcNIgE+J4bg==
   dependencies:
     uuid "^8.3.2"
 
