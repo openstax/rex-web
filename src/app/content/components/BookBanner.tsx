@@ -1,6 +1,6 @@
 import { HTMLAnchorElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
@@ -194,6 +194,7 @@ const BookBanner = () => {
   const miniBanner = React.useRef<HTMLDivElement>();
   const bigBanner = React.useRef<HTMLDivElement>();
   const services = useServices();
+  const dispatch = useDispatch();
 
   const handleScroll = () => {
     if (miniBanner.current && bigBanner.current && typeof(window) !== 'undefined') {
@@ -213,7 +214,7 @@ const BookBanner = () => {
     }
     e.preventDefault();
 
-    if (!await showConfirmation(services)) {
+    if (!await showConfirmation(services, dispatch)) {
       return;
     }
     assertWindow().location.assign(link);

@@ -54,7 +54,8 @@ describe('ShowConfirmation', () => {
   });
 
   it('unmounts on confirmation', async() => {
-    const answer = await showConfirmation(services);
+    const dispatch = jest.fn();
+    const answer = await showConfirmation(services, dispatch);
 
     expect(answer).toBe(true);
     expect(createElement).toHaveBeenCalledWith('div');
@@ -64,7 +65,8 @@ describe('ShowConfirmation', () => {
   });
 
   it('unmounts on denial', async() => {
-    const answer = await showConfirmation(services);
+    const dispatch = jest.fn();
+    const answer = await showConfirmation(services, dispatch);
 
     expect(answer).toBe(false);
     expect(unmount).toHaveBeenCalledWith(modalNode);

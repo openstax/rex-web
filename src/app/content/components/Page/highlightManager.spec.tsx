@@ -56,6 +56,7 @@ describe('highlightManager', () => {
     element = window.document.createElement('div');
     prop = {
       clearFocus: jest.fn(),
+      dispatch: jest.fn(),
       focus: jest.fn(),
       focused: undefined,
       hasUnsavedHighlight: false,

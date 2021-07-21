@@ -29,6 +29,7 @@ describe('contentLinkHandler', () => {
     prop = {
       book,
       currentPath: '/asdf',
+      dispatch: jest.fn(),
       focusedHighlight: '',
       hasUnsavedHighlight: false,
       locationState: {} as any,

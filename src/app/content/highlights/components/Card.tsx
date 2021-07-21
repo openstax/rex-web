@@ -3,7 +3,7 @@ import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
 import { scrollIntoView } from '../../../domUtils';
@@ -63,14 +63,15 @@ const Card = (props: CardProps) => {
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const shouldForceScrollToHiglight = useSelector(selectHighlights.shouldForceScrollToHiglight);
   const services = useServices();
+  const dispatch = useDispatch();
 
   const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
-    if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services))) {
+    if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services, dispatch))) {
       focus(id);
     }
-  }, [isActive, hasUnsavedHighlight, id, focus, services]);
+  }, [isActive, hasUnsavedHighlight, id, focus, services, dispatch]);
 
   useFocusIn(element, true, focusCard);
 

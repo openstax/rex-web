@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid/v4';
-import { AppServices } from '../../../../types';
+import { AppServices, Dispatch } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
+import { setForceScrollToHiglight } from '../../actions';
 import ConfirmationModal from '../ConfirmationModal';
 
-export default async(services: AppServices) => {
+export default async(services: AppServices, dispatch: Dispatch) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
 
@@ -16,7 +17,10 @@ export default async(services: AppServices) => {
 
   const userChoice: boolean = await new Promise((resolve) => {
     const confirm = () => resolve(true);
-    const deny = () => resolve(false);
+    const deny = () => {
+      resolve(false);
+      dispatch(setForceScrollToHiglight(true));
+    };
     ReactDOM.render(
       <RawIntlProvider value={services.intl}>
         <ConfirmationModal deny={deny} confirm={confirm} />
