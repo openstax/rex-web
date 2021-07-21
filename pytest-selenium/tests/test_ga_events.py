@@ -1,5 +1,5 @@
 """Test Reading Experience Google Analytics message queuing ."""
-
+# flake8: noqa
 import random
 import re
 
@@ -17,7 +17,7 @@ ACTION_SCRIPT = (
     "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
     ".map(x => x.command.payload);"
 )
-VIEW_ANALYTICS_QUEUE = {"name": "ANALYTICS_OPT_OUT", "value": "1"}
+VIEW_ANALYTICS_QUEUE = {"name": "xyz", "value": "1"}
 
 
 # --------------------- #
