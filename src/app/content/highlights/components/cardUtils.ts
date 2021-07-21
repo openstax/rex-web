@@ -20,7 +20,7 @@ export const getHighlightOffset = (container: HTMLElement | undefined, highlight
   const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
   const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
   const scrollOffset = assertWindow().scrollY;
-  const isSafari = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+  const isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
   return {
     // Safari includes endContainer height in getBoundingClientRect().bottom, pushing EditCard down
