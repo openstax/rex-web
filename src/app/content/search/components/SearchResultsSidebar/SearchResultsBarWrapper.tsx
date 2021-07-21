@@ -21,7 +21,6 @@ interface ResultsSidebarProps {
   book?: Book;
   totalHits: number | null;
   selectedResult: SelectedResult | null;
-  dataAnalyticsRegion?: string;
 }
 
 // tslint:disable-next-line: variable-name
@@ -101,16 +100,14 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   </Styled.NavOl>;
 
   public render() {
-    const { results, book, searchResultsOpen, hasQuery, dataAnalyticsRegion } = this.props;
+    const { results, book, onClose, query, totalHits, selectedResult, ...props } = this.props;
 
     return (
       <SearchResultsBar
-        searchResultsOpen={searchResultsOpen}
-        hasQuery={hasQuery}
         ref={this.searchSidebar}
-        data-analytics-region={dataAnalyticsRegion}
+        {...props}
       >
-        {!results ? <LoadingState onClose={this.props.onClose} /> : null}
+        {!results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
         {results && results.length === 0 ? this.noResults() : null}
         {book && results && results.length > 0 ? this.resultContainers(book, results) : null}

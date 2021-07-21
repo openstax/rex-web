@@ -60,7 +60,7 @@ export class SearchResultsSidebar extends Component<Props, State> {
     return this.state.query ? <SearchResultsBarWrapper
       {...this.props}
       {...this.state}
-      dataAnalyticsRegion='search-results'
+      data-analytics-region='search-results'
     /> : null;
   }
 }
