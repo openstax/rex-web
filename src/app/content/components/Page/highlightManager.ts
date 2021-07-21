@@ -58,7 +58,8 @@ const onFocusHighlight = (
   }
   if (highlightManagerServices.getProp().focused
     && highlightManagerServices.getProp().hasUnsavedHighlight
-    && !await showConfirmation(appServices)) {
+    && !await showConfirmation(appServices)
+  ) {
     return;
   }
 

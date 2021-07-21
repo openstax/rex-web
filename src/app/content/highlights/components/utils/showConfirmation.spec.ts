@@ -43,7 +43,7 @@ describe('ShowConfirmation', () => {
     document.body.appendChild(rootNode);
 
     rootNode.insertAdjacentElement = jest.fn().mockImplementation(() => {
-        document.body.appendChild(modalNode);
+      document.body.appendChild(modalNode);
     });
 
     render = jest.spyOn(ReactDOM, 'render');

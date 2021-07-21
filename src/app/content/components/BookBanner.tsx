@@ -178,7 +178,7 @@ export const BarWrapper = styled.div<BarWrapperProps>`
 
 interface BookBannerState {
   scrollTransition: boolean;
-  tabbableBanner: 'big' | 'mini';
+  tabbableBanner: 'mini' | 'big';
 }
 
 // tslint:disable-next-line:variable-name
