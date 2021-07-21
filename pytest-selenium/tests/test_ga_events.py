@@ -17,7 +17,6 @@ ACTION_SCRIPT = (
     "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
     ".map(x => x.command.payload);"
 )
-VIEW_ANALYTICS_QUEUE = {"name": "xyz", "value": "1"}
 
 
 # --------------------- #
@@ -36,7 +35,6 @@ def test_the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page
 
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -72,7 +70,6 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(selenium, base_url, bo
 
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -110,7 +107,6 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
 
     # GIVEN: a user viewing a book that is not the first book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -207,7 +203,6 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
 
     # GIVEN: a user viewing a book page and the ToC is open
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     if book.is_mobile:
@@ -257,7 +252,6 @@ def test_click_a_figure_link_ga_event(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: a user viewing a book page with a figure link
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -329,7 +323,6 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     # GIVEN: a user viewing a book page
     # AND:   searched the book for a term
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     search = book.mobile_search_toolbar if book.is_mobile else book.toolbar
@@ -383,7 +376,6 @@ def test_banner_book_title_click_ga_event(selenium, base_url, book_slug, page_sl
 
     # GIVEN: a non-logged in user viewing a book page that is scrolled down
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -445,7 +437,6 @@ def test_openstax_logo_click_ga_event(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -479,7 +470,6 @@ def test_log_in_click_ga_event(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: a non-logged in user viewing a book page that is scrolled down
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -595,7 +585,6 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
 
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -639,7 +628,6 @@ def test_log_in_nudge_login_ga_event(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -996,7 +984,6 @@ def test_inline_highlighting_login_nudge_ga_event(selenium, base_url, book_slug,
 
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1125,7 +1112,6 @@ def test_study_guide_chapter_tag_ga_event(selenium, base_url, book_slug, page_sl
 
     # GIVEN: a user viewing a book study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     guide = book.toolbar.study_guides()
@@ -1158,7 +1144,6 @@ def test_study_guide_cta_sign_up_ga_event(selenium, base_url, book_slug, page_sl
 
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1197,7 +1182,6 @@ def test_open_study_guide_ga_event(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1245,7 +1229,6 @@ def test_sg_close_using_overlay_click_ga_event(selenium, base_url, book_slug, pa
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1279,7 +1262,6 @@ def test_sg_close_using_esc_key_ga_event(selenium, base_url, book_slug, page_slu
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1319,7 +1301,6 @@ def test_sg_close_using_x_close_button_ga_events(selenium, base_url, book_slug, 
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1371,7 +1352,6 @@ def test_study_guide_log_in_link_ga_event(selenium, base_url, book_slug, page_sl
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1486,7 +1466,6 @@ def test_practice_opened_ga_event(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: a user viewing a book page with practice questions
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
 
@@ -1533,7 +1512,6 @@ def test_continue_to_questions_button_ga_event(selenium, base_url, book_slug, pa
 
     # GIVEN: a user viewing the practice modal for a page without questions
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1568,7 +1546,6 @@ def test_submit_practice_question_answer_ga_event(selenium, base_url, book_slug,
 
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1606,7 +1583,6 @@ def test_practice_question_finish_section_button_ga_event(selenium, base_url, bo
 
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1653,7 +1629,6 @@ def test_practice_show_answer_button_ga_event(selenium, base_url, book_slug, pag
 
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1698,7 +1673,6 @@ def test_skip_practice_question_ga_event(selenium, base_url, book_slug, page_slu
 
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1732,7 +1706,6 @@ def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, boo
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1764,7 +1737,6 @@ def test_close_practice_by_using_esc_key_ga_event(selenium, base_url, book_slug,
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     book.toolbar.practice()
@@ -1802,7 +1774,6 @@ def test_practice_closed_when_x_close_button_clicked_ga_events(
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1852,7 +1823,6 @@ def test_practice_read_link_ga_event(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1888,7 +1858,6 @@ def test_pq_continue_to_next_section_button_click_ga_event(
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1935,7 +1904,6 @@ def test_practice_filter_ga_events(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2015,7 +1983,6 @@ def test_start_practice_ga_event(selenium, base_url, book_slug, page_slug):
 def user_setup(driver, base_url, book_slug, page_slug):
     """Setup a new user for use in Goggle Analytics event tests."""
     book = Content(driver, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    book.driver.add_cookie(VIEW_ANALYTICS_QUEUE)
     while book.notification_present:
         book.notification.got_it()
     book.navbar.click_login()
