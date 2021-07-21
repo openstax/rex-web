@@ -1,12 +1,14 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../../../components/Button';
 import Modal from '../../../components/Modal';
 import { Body, BodyHeading, Footer } from '../../../components/Modal/styles';
-import { closeConfirmationModal } from '../../actions';
-import { confirmationModalOptions, isConfirmationModalOpen } from '../../selectors';
+
+interface Props {
+  deny: () => void;
+  confirm: () => void;
+}
 
 // tslint:disable-next-line:variable-name
 const ConfirmationFooter = styled(Footer)`
@@ -14,54 +16,32 @@ const ConfirmationFooter = styled(Footer)`
 `;
 
 // tslint:disable-next-line:variable-name
-const ConfirmationModal = () => {
-  const isOpen = useSelector(isConfirmationModalOpen);
-  const dispatch = useDispatch();
-  const {
-    callback,
-    headingi18nKey,
-    bodyi18nKey,
-    okButtoni18nKey,
-    cancelButtoni18nKey,
-  } = useSelector(confirmationModalOptions);
-
-  const onConfirmation = () => {
-    callback(true);
-    dispatch(closeConfirmationModal());
-  };
-
-  const onDenial = () => {
-    callback(false);
-    dispatch(closeConfirmationModal());
-  };
-
-  if (!isOpen) { return null; }
-
-  return <Modal onModalClose={onDenial} heading={headingi18nKey} data-test-id='confirmation-modal'>
-      <Body>
-        <FormattedMessage id={bodyi18nKey}>
-          {(msg) => <BodyHeading>{msg}</BodyHeading>}
-        </FormattedMessage>
-      </Body>
-      <ConfirmationFooter>
-        <FormattedMessage id={okButtoni18nKey}>
-          {(msg) => <Button
-            data-test-id='confirmation-modal-ok-button'
-            onClick={onConfirmation}
-            variant='primary'
+const ConfirmationModal = ({deny, confirm}: Props) => {
+  return <Modal onModalClose={deny} heading='i18n:discard:heading'>
+    <Body>
+      <FormattedMessage id='i18n:discard:body'>
+        {(msg) => <BodyHeading>{msg}</BodyHeading>}
+      </FormattedMessage>
+    </Body>
+    <ConfirmationFooter>
+      <FormattedMessage id='i18n:discard:button:discard'>
+        {(msg) => <Button
+          data-testid='discard-changes'
+          onClick={confirm}
+          variant='primary'
           > {msg}
-          </Button>}
-        </FormattedMessage>
-        <FormattedMessage id={cancelButtoni18nKey}>
-          {(msg) => <Button
-            data-test-id='confirmation-modal-cancel-button'
-            onClick={onDenial}
-            variant='secondary'
+        </Button>}
+      </FormattedMessage>
+      <FormattedMessage id='i18n:discard:button:cancel'>
+        {(msg) => <Button
+          data-testid='cancel-discard'
+          onClick={deny}
+          variant='secondary'
           > {msg}
-          </Button>}
-        </FormattedMessage>
-      </ConfirmationFooter>
-    </Modal>;
+        </Button>}
+      </FormattedMessage>
+    </ConfirmationFooter>
+  </Modal>;
 };
 
 export default ConfirmationModal;

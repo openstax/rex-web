@@ -1,19 +1,19 @@
 import { HTMLAnchorElement, HTMLDivElement } from '@openstax/types/lib.dom';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
+import { useServices } from '../../context/Services';
 import theme from '../../theme';
-import { AppState, Dispatch } from '../../types';
 import { assertDefined, assertWindow } from '../../utils';
 import { hasOSWebData } from '../guards';
-import showDiscardChangesConfirmation from '../highlights/components/utils/showDiscardChangesConfirmation';
-import { hasUnsavedHighlight } from '../highlights/selectors';
+import showConfirmation from '../highlights/components/utils/showConfirmation';
+import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../highlights/selectors';
 import * as select from '../selectors';
-import { ArchiveTreeSection , Book, BookWithOSWebData } from '../types';
+import { BookWithOSWebData } from '../types';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
 import {
@@ -176,159 +176,144 @@ export const BarWrapper = styled.div<BarWrapperProps>`
   ${ifMiniNav(`margin-top: -${bookBannerDesktopMiniHeight}rem`)}
 `;
 
-export interface PropTypes {
-  pageNode?: ArchiveTreeSection;
-  book?: Book;
-  hasUnsavedHighlight?: boolean;
-  bookTheme: BookWithOSWebData['theme'];
-  dispatch: Dispatch;
-}
-
 interface BookBannerState {
   scrollTransition: boolean;
   tabbableBanner: 'mini' | 'big';
 }
 
 // tslint:disable-next-line:variable-name
-export class BookBanner extends Component<PropTypes, BookBannerState> {
-  public state: BookBannerState = {
+const BookBanner = () => {
+  const [bookBannerState, setBookBannerState] = React.useState<BookBannerState>({
     scrollTransition: false,
     tabbableBanner: 'big',
-  };
-  private miniBanner = React.createRef<HTMLDivElement>();
-  private bigBanner = React.createRef<HTMLDivElement>();
+  });
+  const book = useSelector(select.book);
+  const treeSection = useSelector(select.pageNode);
+  const bookTheme = useSelector(select.bookTheme);
+  const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
+  const miniBanner = React.useRef<HTMLDivElement>();
+  const bigBanner = React.useRef<HTMLDivElement>();
+  const services = useServices();
 
-  public handleScroll = () => {
-    if (this.miniBanner.current && this.bigBanner.current && typeof(window) !== 'undefined') {
-      const miniRect = this.miniBanner.current.getBoundingClientRect();
-      this.setState({
-        scrollTransition: miniRect.top === 0 &&
-          this.bigBanner.current.offsetTop + this.bigBanner.current.clientHeight > window.scrollY,
+  const handleScroll = () => {
+    if (miniBanner.current && bigBanner.current && typeof(window) !== 'undefined') {
+      const miniRect = miniBanner.current.getBoundingClientRect();
+
+      setBookBannerState({
+        scrollTransition: miniRect.top === 0
+        && bigBanner.current.offsetTop + bigBanner.current.clientHeight > window.scrollY,
         tabbableBanner: miniRect.top === 0 ? 'mini' : 'big',
       });
     }
   };
 
-  public handleLinkClick = async(e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
-    if (isClickWithModifierKeys(e) || !this.props.hasUnsavedHighlight) {
+  const handleLinkClick = async(e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+    if (isClickWithModifierKeys(e) || !hasUnsavedHighlight) {
       return;
     }
     e.preventDefault();
 
-    if (!await showDiscardChangesConfirmation(this.props.dispatch)) {
+    if (!await showConfirmation(services)) {
       return;
     }
     assertWindow().location.assign(link);
   };
 
-  public componentDidMount() {
+  React.useEffect(() => {
     if (typeof document === 'undefined') {
       return;
     }
-    document.addEventListener('scroll', this.handleScroll);
-    this.handleScroll();
+    document.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => {
+      document?.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  if (!book) {
+    return <BarWrapper colorSchema={undefined} up={false} />;
   }
 
-  public render() {
-    const { pageNode, book, bookTheme } = this.props;
+  const bookUrl = hasOSWebData(book)
+    ? book.book_state !== 'retired'
+      ? bookDetailsUrl(book)
+      : undefined
+    : undefined;
 
-    if (!book) {
-      return <BarWrapper colorSchema={undefined} up={false} />;
-    }
-
-    const bookUrl = hasOSWebData(book)
-      ? book.book_state !== 'retired'
-        ? bookDetailsUrl(book)
-        : undefined
-      : undefined;
-
-    return this.renderBars({theme: bookTheme, ...book}, bookUrl, pageNode);
-  }
-
-  private renderBars = (
-    book: Book & {theme: BookWithOSWebData['theme']},
-    bookUrl: string | undefined,
-    treeSection?: ArchiveTreeSection) =>
-  ([
+  return <>
     <BarWrapper
-      colorSchema={book.theme}
+      colorSchema={bookTheme}
       key='expanded-nav'
-      up={this.state.scrollTransition}
-      ref={this.bigBanner}
+      up={bookBannerState.scrollTransition}
+      ref={bigBanner}
       data-testid='bookbanner'
       data-analytics-region='book-banner-expanded'
     >
       <TopBar>
         {
           bookUrl === undefined
-            ? <BookTitle data-testid='book-title-expanded' colorSchema={book.theme}>
+            ? <BookTitle data-testid='book-title-expanded' colorSchema={bookTheme}>
               {book.tree.title}
             </BookTitle>
             : <BookTitleLink
               data-testid='details-link-expanded'
               href={bookUrl}
-              colorSchema={book.theme}
+              colorSchema={bookTheme}
               onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                this.handleLinkClick(e, bookUrl);
+                handleLinkClick(e, bookUrl);
               }}
-              tabIndex={this.state.tabbableBanner === 'big' ? undefined : -1}
+              tabIndex={bookBannerState.tabbableBanner === 'big' ? undefined : -1}
             >
-              <LeftArrow colorSchema={book.theme} />{book.tree.title}
+              <LeftArrow colorSchema={bookTheme} />{book.tree.title}
             </BookTitleLink>
         }
         {treeSection
           ? <BookChapter
-            colorSchema={book.theme}
-            dangerouslySetInnerHTML={{__html: treeSection.title}}
+            colorSchema={bookTheme}
+            dangerouslySetInnerHTML={{ __html: treeSection.title }}
           />
           : null}
       </TopBar>
-    </BarWrapper>,
+    </BarWrapper>
     <BarWrapper
-      colorSchema={book.theme}
+      colorSchema={bookTheme}
       variant='mini'
       key='mini-nav'
-      ref={this.miniBanner}
+      ref={miniBanner}
       data-testid='bookbanner-collapsed'
       data-analytics-region='book-banner-collapsed'
     >
       <TopBar>
         {
           bookUrl === undefined
-            ? <BookTitle data-testid='book-title-collapsed' colorSchema={book.theme} variant='mini'>
-              {book.tree.title}
+            ? <BookTitle data-testid='book-title-collapsed' colorSchema={bookTheme} variant='mini'>
+              {book.title}
             </BookTitle>
             : <BookTitleLink
               data-testid='details-link-collapsed'
               href={bookUrl}
               variant='mini'
-              colorSchema={book.theme}
+              colorSchema={bookTheme}
               onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                this.handleLinkClick(e, bookUrl);
+                handleLinkClick(e, bookUrl);
               }}
-              tabIndex={this.state.tabbableBanner === 'mini' ? undefined : -1}
+              tabIndex={bookBannerState.tabbableBanner === 'mini' ? undefined : -1}
             >
-            <LeftArrow colorSchema={book.theme} />{book.tree.title}
-          </BookTitleLink>
+              <LeftArrow colorSchema={bookTheme} />{book.tree.title}
+            </BookTitleLink>
         }
         {treeSection
           ? <BookChapter
-            colorSchema={book.theme}
+            colorSchema={bookTheme}
             variant='mini'
-            dangerouslySetInnerHTML={{__html: treeSection.title}}
+            dangerouslySetInnerHTML={{ __html: treeSection.title }}
           />
           : null
         }
       </TopBar>
-    </BarWrapper>,
-  ]);
-}
+    </BarWrapper>
+  </>;
+};
 
-export default connect(
-  (state: AppState) => ({
-    book: select.book(state),
-    bookTheme: select.bookTheme(state),
-    hasUnsavedHighlight: hasUnsavedHighlight(state),
-    pageNode: select.pageNode(state),
-  })
-)(BookBanner);
+export default BookBanner;

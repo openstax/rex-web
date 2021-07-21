@@ -39,16 +39,6 @@ export interface State {
   page?: Page;
   references: Array<PageReferenceMap | PageReferenceError>;
   buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
-  confirmationModal: {
-    open: boolean,
-    options: {
-      callback: (confimred: boolean) => void,
-      headingi18nKey: string,
-      bodyi18nKey: string,
-      okButtoni18nKey: string,
-      cancelButtoni18nKey: string,
-    };
-  };
 }
 
 export interface PageReferenceMap extends PageReference {

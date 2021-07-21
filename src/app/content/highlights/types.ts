@@ -1,9 +1,8 @@
-import { Highlight, HighlightColorEnum, HighlightsSummary } from '@openstax/highlighter/dist/api';
+import { Highlight, HighlightColorEnum, HighlightsSummary, NewHighlight } from '@openstax/highlighter/dist/api';
 import { ScrollTarget } from '../../navigation/types';
 import { FiltersChange } from '../components/popUp/types';
 import { LinkedArchiveTreeNode } from '../types';
 
-export type HighlightData = Highlight;
 export interface SummaryHighlights {
   [locationId: string]: {[pageId: string]: HighlightData[]};
 }
@@ -57,3 +56,7 @@ export interface HighlightScrollTarget extends ScrollTarget {
   type: 'highlight';
   id: string;
 }
+
+// scopeId should not be nullable in the swagger
+export type NewHighlightPayload = NewHighlight & {scopeId: string};
+export type HighlightData = Highlight & {scopeId: string};

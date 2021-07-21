@@ -18,20 +18,8 @@ import searchReducer, {initialState as initialSearchState } from './search/reduc
 import studyGuidesReducer, {initialState as initialStudyGuidesState } from './studyGuides/reducer';
 import { State } from './types';
 
-const initialConfirmationModalState: State['confirmationModal'] = {
-  open: false,
-  options: {
-    bodyi18nKey: '',
-    callback: (confimred: boolean) => confimred,
-    cancelButtoni18nKey: '',
-    headingi18nKey: '',
-    okButtoni18nKey: '',
-  },
-};
-
 export const initialState = {
   buyPrint: null,
-  confirmationModal: initialConfirmationModalState,
   highlights: initialHighlightState,
   loading: {},
   pageNotFoundId: null,
@@ -134,21 +122,6 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(openStudyGuides):
     case getType(actions.closeNudgeStudyTools): {
       return {...state, showNudgeStudyTools: false };
-    }
-    case getType(actions.showConfirmationModal): {
-      return {
-        ...state,
-        confirmationModal: {
-          open: true,
-          options: action.payload.options,
-        },
-      };
-    }
-    case getType(actions.closeConfirmationModal): {
-      return {
-        ...state,
-        confirmationModal: initialConfirmationModalState,
-      };
     }
     default:
       return state;

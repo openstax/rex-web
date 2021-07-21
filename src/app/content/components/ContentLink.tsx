@@ -1,21 +1,24 @@
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
+import { useServices } from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { ScrollTarget } from '../../navigation/types';
 import { createNavigationOptions, navigationOptionsToString } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
-import showDiscardChangesConfirmation from '../highlights/components/utils/showDiscardChangesConfirmation';
-import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../highlights/selectors';
-import { content } from '../routes';
+import showConfirmation from '../highlights/components/utils/showConfirmation';
+import {
+  hasUnsavedHighlight as hasUnsavedHighlightSelector
+} from '../highlights/selectors';
 import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
 import { Book } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 import { isClickWithModifierKeys } from '../utils/domUtils';
+import { createNavigationMatch } from '../utils/navigationUtils';
 
 interface Props {
   book: Book;
@@ -33,6 +36,7 @@ interface Props {
   className?: string;
   target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
+  systemQueryParams: any;
 }
 
 // tslint:disable-next-line:variable-name
@@ -49,17 +53,19 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     children,
     myForwardedRef,
     hasUnsavedHighlight,
+    systemQueryParams,
     ...anchorProps
   } = props;
-  const dispatch = useDispatch();
   const {url, params} = getBookPageUrlAndParams(book, page);
+  const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
   const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions(search, scrollTarget)
+    ? createNavigationOptions({...search, ...systemQueryParams}, scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
+  const services = useServices();
 
   return <a
     ref={myForwardedRef}
@@ -71,7 +77,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       e.preventDefault();
 
-      if (hasUnsavedHighlight && !await showDiscardChangesConfirmation(dispatch)) {
+      if (hasUnsavedHighlight && !await showConfirmation(services)) {
         return;
       }
 
@@ -79,16 +85,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         onClick();
       }
 
-      navigate({
-        params,
-        route: content,
-        state: {
-          bookUid,
-          bookVersion: book.version,
-          pageUid: stripIdVersion(page.id),
-        },
-      },
-      options);
+      navigate(navigationMatch, options);
     }}
     href={URL}
     {...anchorProps}
@@ -105,6 +102,7 @@ export const ConnectedContentLink = connect(
       query: selectSearch.query(state),
       ...(ownProps.search ? ownProps.search : {}),
     }),
+    systemQueryParams: selectNavigation.systemQueryParameters(state),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),

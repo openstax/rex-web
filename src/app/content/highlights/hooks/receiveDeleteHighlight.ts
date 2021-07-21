@@ -1,4 +1,4 @@
-import { NewHighlight } from '@openstax/highlighter/dist/api';
+import { NewHighlightColorEnum, NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { getHighlightToastDesination } from '../../../notifications/utils';
 import { ActionHookBody } from '../../../types';
@@ -15,13 +15,13 @@ export const hookBody: ActionHookBody<typeof receiveDeleteHighlight> =
     try {
       await highlightClient.deleteHighlight({id: payload.id});
     } catch (error) {
-      dispatch(createHighlight(
-        {
-          ...payload as unknown as NewHighlight,
-          id: payload.id,
-        },
-        {...meta, revertingAfterFailure: true}
-      ));
+      dispatch(createHighlight({
+        ...payload,
+        // it would be nice if these enums were the same in the swagger
+        color: payload.color as unknown as NewHighlightColorEnum,
+        sourceType: payload.sourceType as unknown as NewHighlightSourceTypeEnum,
+      },
+      {...meta, revertingAfterFailure: true}));
 
       throw ensureApplicationErrorType(error, new HighlightDeleteError({ destination }));
     }

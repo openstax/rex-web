@@ -38,8 +38,7 @@ import PageNotFound from './Page/PageNotFound';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
-jest.mock('../highlights/components/utils/showDiscardChangesConfirmation',
-  () => () => new Promise((resolve) => resolve(false)));
+jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
 
 jest.mock('../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
@@ -767,7 +766,7 @@ describe('Page', () => {
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
     // after images are loaded
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     // click again for selectedSearchResult to update
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
@@ -791,7 +790,7 @@ describe('Page', () => {
     renderDomWithReferences();
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
     const hit = makeSearchResultHit({book, page});
@@ -815,9 +814,7 @@ describe('Page', () => {
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
     // page lifecycle hooks
-    await Promise.resolve();
-    // after images are loaded
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
@@ -871,7 +868,7 @@ describe('Page', () => {
     renderDomWithReferences();
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
     const hit = makeSearchResultHit({book, page: shortPage});
@@ -894,12 +891,10 @@ describe('Page', () => {
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
     // page lifecycle hooks
-    await Promise.resolve();
-    // after images are loaded
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     // make sure nothing happened
-    expect(highlightResults).toHaveBeenCalledWith(expect.anything(), []);
+    expect(highlightResults).not.toHaveBeenCalled();
     expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
 
@@ -913,12 +908,9 @@ describe('Page', () => {
     store.dispatch(receivePage({...shortPage, references: []}));
 
     // page lifecycle hooks
-    await Promise.resolve();
-    // previous processing
-    await Promise.resolve();
-    // after images are loaded
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
+    expect(highlightResults).toHaveBeenCalledWith(expect.anything(), [hit]);
     expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
@@ -1081,7 +1073,7 @@ describe('Page', () => {
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     renderer.act(() => {
       store.dispatch(locationChange({
@@ -1092,7 +1084,7 @@ describe('Page', () => {
     });
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(dispatch).toHaveBeenCalledWith(
       addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
@@ -1110,7 +1102,7 @@ describe('Page', () => {
     });
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(dispatch).not.toHaveBeenCalledWith(
       addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
@@ -1175,7 +1167,7 @@ describe('Page', () => {
       title: 'qerqwer',
     }));
 
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(spy).toHaveBeenCalledWith(0, 0);
   });

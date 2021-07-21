@@ -3,8 +3,9 @@ import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useServices } from '../../../context/Services';
 import { scrollIntoView } from '../../../domUtils';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
@@ -27,7 +28,7 @@ import { getHighlightLocationFilterForPage } from '../utils';
 import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
-import showDiscardChangesConfirmation from './utils/showDiscardChangesConfirmation';
+import showConfirmation from './utils/showConfirmation';
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
@@ -61,15 +62,15 @@ const Card = (props: CardProps) => {
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const shouldForceScrollToHiglight = useSelector(selectHighlights.shouldForceScrollToHiglight);
-  const dispatch = useDispatch();
+  const services = useServices();
 
   const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
-    if (!isActive && (!hasUnsavedHighlight || await showDiscardChangesConfirmation(dispatch))) {
+    if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services))) {
       focus(id);
     }
-  }, [isActive, hasUnsavedHighlight, dispatch, focus, id]);
+  }, [isActive, hasUnsavedHighlight, id, focus, services]);
 
   useFocusIn(element, true, focusCard);
 
@@ -128,7 +129,7 @@ const Card = (props: CardProps) => {
   };
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
-  const onCreate = () => {
+  const onCreate = (isDefaultColor: boolean) => {
     props.create({
       ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
       scopeId: book.id,
@@ -136,6 +137,7 @@ const Card = (props: CardProps) => {
       sourceMetadata: {bookVersion: book.version},
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
+      isDefaultColor,
       locationFilterId,
       pageId: page.id,
     });

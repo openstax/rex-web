@@ -1,4 +1,4 @@
-import { Highlight, HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum, HighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import omit from 'lodash/fp/omit';
 import pick from 'lodash/fp/pick';
 import { Reducer } from 'redux';
@@ -10,7 +10,7 @@ import { merge } from '../../utils';
 import { highlightStyles, modalQueryParameterName } from '../constants';
 import * as actions from './actions';
 import { modalUrlName } from './constants';
-import { State } from './types';
+import { HighlightData, State } from './types';
 import {
   addToTotalCounts,
   removeFromTotalCounts,
@@ -22,7 +22,6 @@ import { findHighlight } from './utils/reducerUtils';
 import updateSummaryFilters from './utils/updateSummaryFilters';
 
 const defaultColors = highlightStyles.map(({label}) => label);
-
 export const initialState: State = {
   currentPage: {
     hasUnsavedHighlight: false,
@@ -111,7 +110,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const newHighlight = {
         ...oldHighlight,
         ...action.payload.highlight,
-      } as Highlight;
+      } as HighlightData;
 
       const newCurrentPageHighlights = highlights
         ? highlights.map((highlight) => {

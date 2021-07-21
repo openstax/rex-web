@@ -45,12 +45,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="blue"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
               }
             }
+            data-dynamic-style={false}
             data-highlight-id="hl1"
           />
         </div>
@@ -68,12 +69,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="green"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
               }
             }
+            data-dynamic-style={false}
             data-highlight-id="hl2"
           />
         </div>
@@ -91,12 +93,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="pink"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
               }
             }
+            data-dynamic-style={false}
             data-highlight-id="hl3"
           />
         </div>
@@ -114,12 +117,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="purple"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
               }
             }
+            data-dynamic-style={false}
             data-highlight-id="hl4"
           />
         </div>
@@ -135,12 +139,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color={null}
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
               }
             }
+            data-dynamic-style={false}
             data-highlight-id="hl5"
           />
         </div>
@@ -184,12 +189,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="blue"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
               }
             }
+            data-dynamic-style={false}
             data-highlight-id="hl1"
           />
         </div>
@@ -207,12 +213,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="green"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
               }
             }
+            data-dynamic-style={false}
             data-highlight-id="hl2"
           />
         </div>
