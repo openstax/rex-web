@@ -1,4 +1,4 @@
-import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
@@ -9,10 +9,11 @@ import { highlightStyles } from '../../../constants';
 import { book as bookSelector } from '../../../selectors';
 import { popupBodyPadding } from '../../../styles/PopupStyles';
 import { requestDeleteHighlight, updateHighlight } from '../../actions';
+import { HighlightData } from '../../types';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
-import { createHighlightLink } from './utils';
+import { useCreateHighlightLink } from './utils';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -66,7 +67,7 @@ export const HighlightContentWrapper = styled.div`
 `;
 
 interface HighlightListElementProps {
-  highlight: Highlight;
+  highlight: HighlightData;
   locationFilterId: string;
   pageId: string;
 }
@@ -77,7 +78,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const [isDeleting, setIsDeleting] = React.useState(false);
   const book = useSelector(bookSelector);
   const dispatch = useDispatch();
-  const linkToHighlight = React.useMemo(() => createHighlightLink(highlight, book), [highlight, book]);
+  const linkToHighlight = useCreateHighlightLink(highlight, book);
 
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');

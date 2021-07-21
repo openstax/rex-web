@@ -2935,6 +2935,13 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@openstax/event-capture-client@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@openstax/event-capture-client/-/event-capture-client-1.2.1.tgz#8a0adab6060ed29c241b484d7fc8d76e25552d90"
+  integrity sha512-D9HSt7jgjzxVjKZBQj+R5Xo//qOoA7OfHhfpQ6lZzGxbhuWSkGKTdme4d1se7wYmg7f7JPFDxITidct/cOTuWA==
+  dependencies:
+    uuid "^8.3.2"
+
 "@openstax/highlighter@^1.9.1":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.9.1.tgz#8d129da18ce440a71460e72bac1c929b596d1933"
@@ -2956,10 +2963,10 @@
   resolved "https://registry.yarnpkg.com/@openstax/open-search-client/-/open-search-client-0.1.0.tgz#57c0d5d9524eb8cf8fc729251fcccfe5c26b8358"
   integrity sha512-m3+jeNIwegiuTW0ncxdafRYG2EjlPyH5F2v6zdlDQcGVXK6yZWrKthz8jrRxmTCx7CE5Iw+Jv2UwE0ghVi2TXg==
 
-"@openstax/types@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@openstax/types/-/types-2.0.0.tgz#f739b4840498c3f45c20242252480a6908265d4c"
-  integrity sha512-Hjp1MU56YFCqP2GB1SnZFrqs5XB51gb6c/h7YxtibqRQdzEKj4oD89DRyps0JXHr988Kv5zdvajZk0pLiDxZnQ==
+"@openstax/types@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@openstax/types/-/types-3.1.0.tgz#364a73e321127dfb1cfa36adccdae8e21a0805dc"
+  integrity sha512-vy9nFdfw/nRX7iYjpl1CPxHwr8dIog+WVlDQr+EeD31HQ9uQX4I+cNV7jmvx1oiMIofSdrM+OBbmPC9qzAJK+w==
 
 "@pmmmwh/react-refresh-webpack-plugin@0.4.3":
   version "0.4.3"
@@ -17116,7 +17123,7 @@ uuid@^3.4.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^8.3.0:
+uuid@^8.3.0, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==

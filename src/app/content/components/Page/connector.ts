@@ -29,6 +29,7 @@ export interface PagePropTypes {
   highlights: HighlightProp;
   services: AppServices;
   addToast: typeof addToast;
+  systemQueryParams: ReturnType<typeof selectNavigation.systemQueryParameters>;
 }
 
 export default connect(
@@ -43,6 +44,7 @@ export default connect(
     query: query(state),
     scrollToTopOrHash: mapStateToScrollToTopOrHashProp(state),
     searchHighlights: mapStateToSearchHighlightProp(state),
+    systemQueryParams: selectNavigation.systemQueryParameters(state),
   }),
   (dispatch) => ({
     addToast: flow(addToast, dispatch),
