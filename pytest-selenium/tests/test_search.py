@@ -16,7 +16,7 @@ XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-hig
 
 
 # fmt: off
-@markers.test_case("C543235")
+@markers.test_case("C543235", "C635010")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 def test_message_when_search_yields_no_results(
