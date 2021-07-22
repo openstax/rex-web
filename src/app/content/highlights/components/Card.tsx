@@ -78,6 +78,9 @@ const Card = (props: CardProps) => {
   React.useEffect(() => {
     if (!props.isActive) {
       setEditing(false);
+    } else if (shouldForceScrollToHiglight) {
+      props.setForceScrollToHiglight(false);
+      return; // prevents calling scrollIntoView two times
     } else {
       const firstElement = props.highlight.elements[0] as HTMLElement;
       const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
@@ -86,10 +89,6 @@ const Card = (props: CardProps) => {
         elements.push(element.current);
       }
       scrollIntoView(firstElement, elements);
-
-      if (shouldForceScrollToHiglight) {
-        props.setForceScrollToHiglight(false);
-      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, props.isActive, shouldForceScrollToHiglight]);
