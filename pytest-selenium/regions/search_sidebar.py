@@ -30,7 +30,7 @@ class SearchSidebar(Region):
     def no_results_message(self):
         results = self.find_elements(*self._no_results_locator)
         if results:
-            return results[0].get_attribute("textContent")
+            return results[0].text
         return ""
 
     @property
@@ -99,15 +99,11 @@ class SearchSidebar(Region):
     @property
     def search_results_present(self):
         return self.wait.until(
-            expected.visibility_of_element_located(
-                self._search_results_sidebar_locator
-            )
+            expected.visibility_of_element_located(self._search_results_sidebar_locator)
         )
 
     @property
     def search_results_not_displayed(self):
         return self.wait.until(
-            expected.invisibility_of_element_located(
-                self.search_results_sidebar
-            )
+            expected.invisibility_of_element_located(self.search_results_sidebar)
         )
