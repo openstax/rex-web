@@ -31,6 +31,10 @@ const PageNotFoundText = styled.div`
   span {
     margin-right: 0.5rem;
   }
+
+  ${SidebarControl} {
+    order: initial;
+  }
 `;
 
 // tslint:disable-next-line: variable-name
