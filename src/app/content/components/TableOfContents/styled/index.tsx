@@ -35,6 +35,8 @@ const activeState = css`
 // tslint:disable-next-line:variable-name
 export const SummaryTitle = styled.span`
   ${labelStyle}
+  font-size: 1.8rem;
+  line-height: 2.9rem;
   display: flex;
   flex: 1;
 `;
@@ -42,6 +44,8 @@ export const SummaryTitle = styled.span`
 // tslint:disable-next-line:variable-name
 export const ContentLink = styled(ContentLinkComponent)`
   ${labelStyle}
+  font-size: 1.8rem;
+  line-height: 2.9rem;
   display: flex;
   margin-left: ${iconSize}rem;
   text-decoration: none;

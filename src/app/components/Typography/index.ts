@@ -62,7 +62,7 @@ export const bodyCopyRegularStyle = css`
 
 export const labelStyle = css`
   ${textStyle}
-  font-size: 1.6rem;
-  line-height: 1.8rem;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
   font-weight: normal;
 `;

@@ -38,6 +38,8 @@ const PracticeQuestionsIcon = styled.img`
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsText = styled.span`
   ${toolbarDefaultText}
+  font-size: 1.8rem;
+  line-height: 2.9rem;
 `;
 
 // tslint:disable-next-line:variable-name
