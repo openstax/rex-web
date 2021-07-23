@@ -157,7 +157,7 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
           }
         />
         <div
-          className="ErrorIdList-sc-1coujqm-0 hgtwwo"
+          className="ErrorIdList-sc-1coujqm-0 dXzSc"
         >
           some-error-id
         </div>

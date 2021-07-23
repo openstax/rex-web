@@ -24,7 +24,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       className="SectionHighlights__HighlightWrapper-c51y19-2 gFcHNj"
     >
       <div
-        className="SectionHighlights__HighlightSection-c51y19-3 fgtBQH"
+        className="SectionHighlights__HighlightSection-c51y19-3 cYxWVd"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 6</span>",
@@ -168,7 +168,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       className="SectionHighlights__HighlightWrapper-c51y19-2 gFcHNj"
     >
       <div
-        className="SectionHighlights__HighlightSection-c51y19-3 fgtBQH"
+        className="SectionHighlights__HighlightSection-c51y19-3 cYxWVd"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 7</span>",
