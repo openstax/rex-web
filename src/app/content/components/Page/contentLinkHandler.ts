@@ -4,7 +4,7 @@ import flow from 'lodash/fp/flow';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
-import { AppState, Dispatch } from '../../../types';
+import { AppServices, AppState, Dispatch } from '../../../types';
 import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
 import { hasOSWebData, isPageReferenceError } from '../../guards';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
@@ -38,25 +38,25 @@ const reducePageReferenceError = (reference: PageReferenceError, document: Docum
   a.setAttribute('onclick', 'alert("This link is broken because of a cross book content loading issue")');
 };
 
-const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document) => {
+// tslint:disable-next-line: max-line-length
+const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryString: string) => {
   const path = content.getUrl(reference.params);
-  const search = content.getSearch && content.getSearch(reference.params);
-  const query = search ? `?${search}` : '';
   const a = assertNotNull(
     document.querySelector(`[href^='${reference.match}']`),
     'references are created from hrefs');
   const href = assertNotNull(a.getAttribute('href'), 'it was found by href value')
-    .replace(reference.match, toRelativeUrl(currentPath, path) + query);
+    .replace(reference.match, toRelativeUrl(currentPath, path) + systemQueryString);
   a.setAttribute('href', href);
 };
 
-export const reduceReferences = (document: Document, {references, currentPath}: ContentLinkProp) => {
+// tslint:disable-next-line: max-line-length
+export const reduceReferences = (document: Document, {references, currentPath}: ContentLinkProp, systemQueryString: string) => {
   for (const reference of references) {
     // references may contain PageReferenceError only if UNLIMITED_CONTENT is set to true
     if (isPageReferenceError(reference)) {
       reducePageReferenceError(reference, document);
     } else {
-      reduceReference(reference, currentPath, document);
+      reduceReference(reference, currentPath, document, systemQueryString);
     }
   }
 };
@@ -70,7 +70,7 @@ const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageRefere
       || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
     );
 
-export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp) =>
+export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, services: AppServices) =>
   async(e: MouseEvent) => {
     const {
       references,
@@ -110,7 +110,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       e.stopPropagation();
     }
 
-    if (hasUnsavedHighlight && !await showConfirmation()) {
+    if (hasUnsavedHighlight && !await showConfirmation(services)) {
       return;
     }
 

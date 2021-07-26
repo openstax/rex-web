@@ -65,7 +65,7 @@ describe('study guides button', () => {
   });
 
   it('clicking button triggers analytics event', () => {
-    const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
+    const spyTrack = jest.spyOn(services.analytics.openStudyGuides, 'track');
 
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
     store.dispatch(receiveStudyGuidesTotalCounts({ countsPerSource: { asd: { green: 1 } } } as CountsPerSource));
@@ -82,16 +82,6 @@ describe('study guides button', () => {
       const button = component.root.findByType(StudyGuidesWrapper);
       button.props.onClick();
     });
-
-    expect(spyTrack).toHaveBeenCalled();
-  });
-
-  // Temporary test for a coverage until we add component wich handles that
-  it('trigger analytics close event', () => {
-    const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
-
-    const trackOpenClose = services.analytics.openCloseStudyGuides.bind(store.getState());
-    trackOpenClose('esc');
 
     expect(spyTrack).toHaveBeenCalled();
   });

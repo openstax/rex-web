@@ -63,7 +63,7 @@ describe('Study Guides button and PopUp', () => {
       <StudyguidesPopUp />
     </TestContainer>);
 
-    const track = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
+    const track = jest.spyOn(services.analytics.closeStudyGuides, 'track');
     const element = assertNotNull(node.querySelector('[data-testid=\'studyguides-popup-wrapper\']'), '');
 
     element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
@@ -81,7 +81,7 @@ describe('Study Guides button and PopUp', () => {
       <StudyguidesPopUp />
     </TestContainer>);
 
-    const track = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
+    const track = jest.spyOn(services.analytics.closeStudyGuides, 'track');
     const element = assertNotNull(node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');
 
     const event = window.document.createEvent('MouseEvents');

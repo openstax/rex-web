@@ -42,6 +42,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const pageIsLoading = selectContent.loadingPage(state);
   const query = select.query(state);
   const results = select.hits(state) || [];
+  const systemQueryParams = selectNavigation.systemQueryParameters(state);
 
   if (pageIsLoading || !book) {
     return; // book changed while query was in the air
@@ -77,6 +78,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
       search: queryString.stringify({
         query,
         target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
+        ...systemQueryParams,
       }),
     }
     : { search: queryString.stringify({ query }) };
