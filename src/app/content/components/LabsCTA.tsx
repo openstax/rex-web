@@ -13,7 +13,6 @@ const LabsCTAWrapper = styled.div`
   display: flex;
   align-items: center;
   background-color: ${theme.color.secondary.deepGreen.base};
-
   ${theme.breakpoints.mobileSmall(css`
     flex-direction: column;
 `)}
@@ -25,7 +24,6 @@ const LabsCTAContent = styled.div`
   flex-direction: column;
   color: ${theme.color.white};
   margin-right: 60px;
-
   ${theme.breakpoints.mobileSmall(css`
     margin-right: unset;
   `)}
@@ -67,7 +65,7 @@ const LabsCTA = () => {
         size='large'
         target='_blank'
         rel='noopener'
-        href="#"
+        href='#'
       >
         <FormattedMessage id='i18n:toolbar:labs-cta:link'>
           {(msg) => msg}
