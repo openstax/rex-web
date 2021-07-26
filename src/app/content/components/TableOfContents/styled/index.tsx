@@ -22,9 +22,9 @@ export * from './wrapper';
   .appendChild(document.createElement('span'))
 );
  */
-const numberCharacterWidth = .7796875;
-const letterCharacterWidth = 1.0375;
-const numberPeriodWidth = .390625;
+const numberCharacterWidth = 1.0015625;
+const letterCharacterWidth = 1.7;
+const numberPeriodWidth = .5015625;
 const dividerWidth = .8;
 
 const activeState = css`
