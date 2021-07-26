@@ -428,7 +428,7 @@ Array [
               </button>
             </div>
             <ol
-              className="styled__NavOl-sc-18yti3s-5 cbWkuS"
+              className="styled__NavOl-sc-18yti3s-5 hZexnG"
             >
               <li
                 className="styled__NavItem-sc-18yti3s-2 lcPtic"
@@ -458,7 +458,7 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__ExpandIcon-xi326o-0 jBugBS StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 192 512"
@@ -470,7 +470,7 @@ Array [
                       </svg>
                       <svg
                         aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__CollapseIcon-xi326o-1 kuhvvJ StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 320 512"
@@ -491,7 +491,7 @@ Array [
                     </div>
                   </summary>
                   <ol
-                    className="styled__NavOl-sc-18yti3s-5 iFNiTd"
+                    className="styled__NavOl-sc-18yti3s-5 jTOgWs"
                   >
                     <li
                       className="styled__NavItem-sc-18yti3s-2 lcPtic"
@@ -507,7 +507,7 @@ Array [
                           >
                             <svg
                               aria-hidden="true"
-                              className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                              className="Details__ExpandIcon-xi326o-0 jBugBS StyledIconBase-sc-bdy9j4 cCvWXa"
                               fill="currentColor"
                               focusable="false"
                               viewBox="0 0 192 512"
@@ -519,7 +519,7 @@ Array [
                             </svg>
                             <svg
                               aria-hidden="true"
-                              className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                              className="Details__CollapseIcon-xi326o-1 kuhvvJ StyledIconBase-sc-bdy9j4 cCvWXa"
                               fill="currentColor"
                               focusable="false"
                               viewBox="0 0 320 512"
@@ -604,7 +604,7 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__ExpandIcon-xi326o-0 jBugBS StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 192 512"
@@ -616,7 +616,7 @@ Array [
                       </svg>
                       <svg
                         aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__CollapseIcon-xi326o-1 kuhvvJ StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 320 512"
@@ -671,7 +671,7 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__ExpandIcon-xi326o-0 jBugBS StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 192 512"
@@ -683,7 +683,7 @@ Array [
                       </svg>
                       <svg
                         aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__CollapseIcon-xi326o-1 kuhvvJ StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 320 512"
@@ -738,7 +738,7 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__ExpandIcon-xi326o-0 jBugBS StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 192 512"
@@ -750,7 +750,7 @@ Array [
                       </svg>
                       <svg
                         aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__CollapseIcon-xi326o-1 kuhvvJ StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 320 512"
@@ -804,7 +804,7 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__ExpandIcon-xi326o-0 jBugBS StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 192 512"
@@ -816,7 +816,7 @@ Array [
                       </svg>
                       <svg
                         aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__CollapseIcon-xi326o-1 kuhvvJ StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 320 512"
@@ -870,7 +870,7 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__ExpandIcon-xi326o-0 jBugBS StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 192 512"
@@ -882,7 +882,7 @@ Array [
                       </svg>
                       <svg
                         aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                        className="Details__CollapseIcon-xi326o-1 kuhvvJ StyledIconBase-sc-bdy9j4 cCvWXa"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 320 512"
@@ -1055,7 +1055,7 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      className="Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD Details__ExpandIcon-xi326o-0 jBugBS StyledIconBase-sc-bdy9j4 cCvWXa"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 192 512"
@@ -1067,7 +1067,7 @@ Array [
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      className="Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve Details__CollapseIcon-xi326o-1 kuhvvJ StyledIconBase-sc-bdy9j4 cCvWXa"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
