@@ -112,7 +112,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       e.stopPropagation();
     }
 
-    if (hasUnsavedHighlight && !await showConfirmation(services, dispatch)) {
+    if (hasUnsavedHighlight && !await showConfirmation(services, dispatch, focusedHighlight!)) {
       return;
     }
 

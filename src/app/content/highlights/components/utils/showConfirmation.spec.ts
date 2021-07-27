@@ -3,6 +3,7 @@ import createTestServices from '../../../../../test/createTestServices';
 import { resetModules } from '../../../../../test/utils';
 import { AppServices } from '../../../../types';
 import { assertDocument } from '../../../../utils';
+import { clearFocusedHighlight, focusHighlight, setAnnotationChangesPending } from '../../actions';
 import showConfirmation from './showConfirmation';
 
 jest.mock('../ConfirmationModal', () => jest.fn()
@@ -27,6 +28,8 @@ const rootNode = (() => {
 })();
 
 const modalNode = assertDocument().createElement('div');
+
+const focusedHighlight = 'highlightId';
 
 describe('ShowConfirmation', () => {
   let createElement: jest.SpyInstance;
@@ -55,8 +58,9 @@ describe('ShowConfirmation', () => {
 
   it('unmounts on confirmation', async() => {
     const dispatch = jest.fn();
-    const answer = await showConfirmation(services, dispatch);
+    const answer = await showConfirmation(services, dispatch, focusedHighlight);
 
+    expect(dispatch).toHaveBeenCalledWith(clearFocusedHighlight());
     expect(answer).toBe(true);
     expect(createElement).toHaveBeenCalledWith('div');
     expect(render).toHaveBeenCalledWith(expect.anything(), modalNode);
@@ -66,9 +70,12 @@ describe('ShowConfirmation', () => {
 
   it('unmounts on denial', async() => {
     const dispatch = jest.fn();
-    const answer = await showConfirmation(services, dispatch);
+    const answer = await showConfirmation(services, dispatch, focusedHighlight);
 
+    expect(dispatch).toHaveBeenCalledWith(clearFocusedHighlight());
     expect(answer).toBe(false);
+    expect(dispatch).toHaveBeenCalledWith(focusHighlight(focusedHighlight));
+    expect(dispatch).toHaveBeenCalledWith(setAnnotationChangesPending(true));
     expect(unmount).toHaveBeenCalledWith(modalNode);
   });
 });

@@ -11,6 +11,7 @@ import { createNavigationOptions, navigationOptionsToString } from '../../naviga
 import { AppState, Dispatch } from '../../types';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
+  focused,
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
 import * as selectSearch from '../search/selectors';
@@ -37,6 +38,7 @@ interface Props {
   target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
   systemQueryParams: any;
+  focusedHighlight: string | undefined;
 }
 
 // tslint:disable-next-line:variable-name
@@ -54,6 +56,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     myForwardedRef,
     hasUnsavedHighlight,
     systemQueryParams,
+    focusedHighlight,
     ...anchorProps
   } = props;
   const {url, params} = getBookPageUrlAndParams(book, page);
@@ -78,7 +81,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       e.preventDefault();
 
-      if (hasUnsavedHighlight && !await showConfirmation(services, dispatch)) {
+      if (hasUnsavedHighlight && !await showConfirmation(services, dispatch, focusedHighlight!)) {
         return;
       }
 
@@ -98,6 +101,7 @@ export const ConnectedContentLink = connect(
   (state: AppState, ownProps: {search?: { query?: string | null }}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
+    focusedHighlight: focused(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     search: ({
       query: selectSearch.query(state),

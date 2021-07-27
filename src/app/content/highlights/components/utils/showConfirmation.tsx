@@ -4,22 +4,23 @@ import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid/v4';
 import { AppServices, Dispatch } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
-import { setForceScrollToHiglight } from '../../actions';
+import { clearFocusedHighlight, focusHighlight, setAnnotationChangesPending } from '../../actions';
 import ConfirmationModal from '../ConfirmationModal';
 
-export default async(services: AppServices, dispatch: Dispatch) => {
+export default async(services: AppServices, dispatch: Dispatch, focusedHighlight: string) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
-
   domNode.id = `dialog-${uuid()}`;
   const root = assertNotNull(document.getElementById('root'), 'root element not found');
   root.insertAdjacentElement('afterend', domNode);
 
   const userChoice: boolean = await new Promise((resolve) => {
+    dispatch(clearFocusedHighlight());
     const confirm = () => resolve(true);
     const deny = () => {
       resolve(false);
-      dispatch(setForceScrollToHiglight(true));
+      dispatch(focusHighlight(focusedHighlight));
+      dispatch(setAnnotationChangesPending(true));
     };
     ReactDOM.render(
       <RawIntlProvider value={services.intl}>

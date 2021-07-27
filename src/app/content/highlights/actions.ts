@@ -13,7 +13,6 @@ import {
 
 export const focusHighlight = createStandardAction('Content/Highlights/focus')<string>();
 export const clearFocusedHighlight = createStandardAction('Content/Highlights/clear')();
-export const setForceScrollToHiglight = createStandardAction('Content/Highlights/setForceScrollToHiglight')<boolean>();
 
 export const createHighlight = createStandardAction('Content/Highlights/create')<
   NewHighlightPayload,

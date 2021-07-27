@@ -21,7 +21,6 @@ import {
   focusHighlight,
   requestDeleteHighlight,
   setAnnotationChangesPending,
-  setForceScrollToHiglight,
 } from '../actions';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
@@ -44,7 +43,6 @@ export interface CardProps {
   remove: typeof requestDeleteHighlight;
   blur: typeof clearFocusedHighlight;
   setAnnotationChangesPending: typeof setAnnotationChangesPending;
-  setForceScrollToHiglight: typeof setForceScrollToHiglight;
   data?: HighlightData;
   className: string;
   zIndex: number;
@@ -61,26 +59,23 @@ const Card = (props: CardProps) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
-  const shouldForceScrollToHiglight = useSelector(selectHighlights.shouldForceScrollToHiglight);
+  const focsuedHighlight = useSelector(selectHighlights.focused);
   const services = useServices();
   const dispatch = useDispatch();
 
   const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
-    if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services, dispatch))) {
+    if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services, dispatch, focsuedHighlight!))) {
       focus(id);
     }
-  }, [isActive, hasUnsavedHighlight, id, focus, services, dispatch]);
+  }, [isActive, focsuedHighlight, hasUnsavedHighlight, id, focus, services, dispatch]);
 
   useFocusIn(element, true, focusCard);
 
   React.useEffect(() => {
     if (!props.isActive) {
       setEditing(false);
-    } else if (shouldForceScrollToHiglight) {
-      props.setForceScrollToHiglight(false);
-      return; // prevents calling scrollIntoView two times
     } else {
       const firstElement = props.highlight.elements[0] as HTMLElement;
       const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
@@ -91,7 +86,7 @@ const Card = (props: CardProps) => {
       scrollIntoView(firstElement, elements);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, props.isActive, shouldForceScrollToHiglight]);
+  }, [element, props.isActive]);
 
   React.useEffect(() => {
     if (annotation) {
@@ -195,6 +190,5 @@ export default connect(
     focus: flow(focusHighlight, dispatch),
     remove: flow(requestDeleteHighlight, dispatch),
     setAnnotationChangesPending: flow(setAnnotationChangesPending, dispatch),
-    setForceScrollToHiglight: flow(setForceScrollToHiglight, dispatch),
   })
 )(StyledCard);

@@ -40,7 +40,6 @@ export interface State {
     highlights: null | HighlightData[];
     hasUnsavedHighlight: boolean;
     focused?: string;
-    shouldForceScrollToHiglight: boolean;
   };
   summary: {
     open: boolean,

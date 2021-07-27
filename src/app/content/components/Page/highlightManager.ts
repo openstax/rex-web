@@ -59,7 +59,11 @@ const onFocusHighlight = (
   }
   if (highlightManagerServices.getProp().focused
     && highlightManagerServices.getProp().hasUnsavedHighlight
-    && !await showConfirmation(appServices, highlightManagerServices.getProp().dispatch)
+    && !await showConfirmation(
+      appServices,
+      highlightManagerServices.getProp().dispatch,
+      highlightManagerServices.getProp().focused!
+    )
   ) {
     return;
   }
@@ -98,7 +102,11 @@ const onSelectHighlight = (
 
   if (
     highlightManagerServices.getProp().hasUnsavedHighlight
-    && !await showConfirmation(appServices, highlightManagerServices.getProp().dispatch)
+    && !await showConfirmation(
+      appServices,
+      highlightManagerServices.getProp().dispatch,
+      highlightManagerServices.getProp().focused!
+      )
   ) {
     assertWindow().getSelection()?.removeAllRanges();
     return;
