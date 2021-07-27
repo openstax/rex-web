@@ -22,9 +22,9 @@ export * from './wrapper';
   .appendChild(document.createElement('span'))
 );
  */
-const numberCharacterWidth = 1.0015625;
-const letterCharacterWidth = 1.7;
-const numberPeriodWidth = .5015625;
+const numberCharacterWidth = .890625;
+const letterCharacterWidth = 1.5109375;
+const numberPeriodWidth = .4453125;
 const dividerWidth = .8;
 
 const activeState = css`
@@ -35,8 +35,8 @@ const activeState = css`
 // tslint:disable-next-line:variable-name
 export const SummaryTitle = styled.span`
   ${labelStyle}
-  font-size: 1.8rem;
-  line-height: 2.9rem;
+  font-size: 1.6rem;
+  line-height: 1.8rem;
   display: flex;
   flex: 1;
 `;
@@ -44,8 +44,8 @@ export const SummaryTitle = styled.span`
 // tslint:disable-next-line:variable-name
 export const ContentLink = styled(ContentLinkComponent)`
   ${labelStyle}
-  font-size: 1.8rem;
-  line-height: 2.9rem;
+  font-size: 1.6rem;
+  line-height: 1.8rem;
   display: flex;
   margin-left: ${iconSize}rem;
   text-decoration: none;

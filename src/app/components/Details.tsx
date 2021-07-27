@@ -8,7 +8,6 @@ export const iconSize = 1.7;
 const expandCollapseIconStyle = css`
   height: ${iconSize}rem;
   width: ${iconSize}rem;
-  margin-top: 0.6rem;
 `;
 
 // tslint:disable-next-line:variable-name

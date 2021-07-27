@@ -21,6 +21,23 @@ body {
   font-size: @font-size-base;
 }
 
+.page-content {
+  line-height: 2.3rem;
+  color: '#424242';
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+
+  a {
+    color: '#027EB5';
+    cursor: pointer;
+    text-decoration: underline;
+  
+    :hover {
+      color: '#0064A0';
+    }
+  }
+}
+
 #main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
   @import "./content-baked.less";
 

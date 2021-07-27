@@ -1,7 +1,6 @@
 import Color from 'color';
 import styled, { css } from 'styled-components/macro';
 import MainContent from '../../../components/MainContent';
-import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
@@ -13,9 +12,6 @@ import {
 import { contentTextWidth } from '../constants';
 
 export const contentTextStyle = css`
-  ${bodyCopyRegularStyle}
-  line-height: 2.3rem;
-
   @media screen { /* full page width in print */
     max-width: ${contentTextWidth}rem;
     margin: 0 auto;
