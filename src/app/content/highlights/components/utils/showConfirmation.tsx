@@ -10,6 +10,7 @@ import ConfirmationModal from '../ConfirmationModal';
 export default async(services: AppServices, dispatch: Dispatch, focusedHighlight: string) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
+
   domNode.id = `dialog-${uuid()}`;
   const root = assertNotNull(document.getElementById('root'), 'root element not found');
   root.insertAdjacentElement('afterend', domNode);
