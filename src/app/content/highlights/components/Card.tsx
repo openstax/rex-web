@@ -6,7 +6,6 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useServices } from '../../../context/Services';
 import { scrollIntoView } from '../../../domUtils';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
@@ -60,7 +59,6 @@ const Card = (props: CardProps) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
-  const services = useServices();
   const intl = useIntl();
 
   const { isActive, highlight: { id }, focus } = props;
@@ -69,7 +67,7 @@ const Card = (props: CardProps) => {
     if (!isActive && (!hasUnsavedHighlight || await showConfirmation(intl))) {
       focus(id);
     }
-  }, [isActive, hasUnsavedHighlight, id, focus, services, intl]);
+  }, [isActive, hasUnsavedHighlight, id, focus, intl]);
 
   useFocusIn(element, true, focusCard);
 
