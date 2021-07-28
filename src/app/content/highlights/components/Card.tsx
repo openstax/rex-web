@@ -61,7 +61,7 @@ const Card = (props: CardProps) => {
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const services = useServices();
-  const intl = useIntl();;
+  const intl = useIntl();
 
   const { isActive, highlight: { id }, focus } = props;
 
