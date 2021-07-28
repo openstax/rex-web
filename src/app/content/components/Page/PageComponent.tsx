@@ -182,7 +182,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.listenersOff();
 
     this.mapLinks((a) => {
-      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks);
+      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.intl);
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
     });

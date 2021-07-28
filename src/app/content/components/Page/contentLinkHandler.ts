@@ -1,7 +1,7 @@
 import { Document, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
-import { useIntl } from 'react-intl';
+import { IntlShape } from 'react-intl';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
@@ -71,7 +71,7 @@ const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageRefere
       || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
     );
 
-export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp) =>
+export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, intl: IntlShape) =>
   async(e: MouseEvent) => {
     const {
       references,
@@ -84,7 +84,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       hasUnsavedHighlight,
     } = getProps();
     const href = anchor.getAttribute('href');
-    const intl = useIntl();
 
     if (!href || !book || !page || isClickWithModifierKeys(e)) {
       return;
