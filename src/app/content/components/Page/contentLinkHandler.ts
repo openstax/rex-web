@@ -1,10 +1,11 @@
 import { Document, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
+import { useIntl } from 'react-intl';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
-import { AppServices, AppState, Dispatch } from '../../../types';
+import { AppState, Dispatch } from '../../../types';
 import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
 import { hasOSWebData, isPageReferenceError } from '../../guards';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
@@ -70,7 +71,7 @@ const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageRefere
       || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
     );
 
-export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, services: AppServices) =>
+export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp) =>
   async(e: MouseEvent) => {
     const {
       references,
@@ -83,6 +84,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       hasUnsavedHighlight,
     } = getProps();
     const href = anchor.getAttribute('href');
+    const intl = useIntl();
 
     if (!href || !book || !page || isClickWithModifierKeys(e)) {
       return;
@@ -110,7 +112,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       e.stopPropagation();
     }
 
-    if (hasUnsavedHighlight && !await showConfirmation(services)) {
+    if (hasUnsavedHighlight && !await showConfirmation(intl)) {
       return;
     }
 

@@ -1,9 +1,9 @@
 import flow from 'lodash/fp/flow';
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
-import { useServices } from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
 import { ScrollTarget } from '../../navigation/types';
@@ -65,7 +65,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ? createNavigationOptions({...search, ...systemQueryParams}, scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
-  const services = useServices();
+  const intl = useIntl();
 
   return <a
     ref={myForwardedRef}
@@ -77,7 +77,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       e.preventDefault();
 
-      if (hasUnsavedHighlight && !await showConfirmation(services)) {
+      if (hasUnsavedHighlight && !await showConfirmation(intl)) {
         return;
       }
 

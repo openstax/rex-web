@@ -66,7 +66,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current, this.props.intl);
     // tslint:disable-next-line: max-line-length
-    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
+    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
   }
 
@@ -182,7 +182,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.listenersOff();
 
     this.mapLinks((a) => {
-      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
+      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks);
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
     });
