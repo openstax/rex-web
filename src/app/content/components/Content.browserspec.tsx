@@ -10,7 +10,7 @@ const TEST_CASES: { [testCase: string]: (target: Page) => Promise<void> } = {
 };
 const EXPECTED_SCROLL_TOPS: { [testCase: string]: number[] } = {
   Desktop: [242, 90, 122, 242, 365, 622, 715, 1216, 1560],
-  Mobile: [239, 66, 96, 239, 523, 1148, 1287, 1636, 2004],
+  Mobile: [239, 66, 96, 239, 523, 1148, 1287, 1636, 2003],
 };
 
 describe('Content', () => {
