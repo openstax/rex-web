@@ -28,7 +28,7 @@ interface MiddleProps {
 export const ToCButtonText = styled.span`
   font-weight: 600;
   font-size: 1.8rem;
-  line-height: 2.9;
+  line-height: 2.9rem;
   margin: 0;
   padding: 0;
   ${(props) => props.hideMobileText && theme.breakpoints.mobile(css`
