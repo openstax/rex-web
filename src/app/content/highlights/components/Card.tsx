@@ -69,7 +69,7 @@ const Card = (props: CardProps) => {
     if (!isActive && (!hasUnsavedHighlight || await showConfirmation(intl))) {
       focus(id);
     }
-  }, [isActive, hasUnsavedHighlight, id, focus, services]);
+  }, [isActive, hasUnsavedHighlight, id, focus, services, intl]);
 
   useFocusIn(element, true, focusCard);
 
