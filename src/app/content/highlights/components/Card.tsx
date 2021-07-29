@@ -6,7 +6,6 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
-import { scrollIntoView } from '../../../domUtils';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
@@ -27,6 +26,7 @@ import { getHighlightLocationFilterForPage } from '../utils';
 import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
+import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
 
 export interface CardProps {
@@ -76,13 +76,7 @@ const Card = (props: CardProps) => {
     if (!props.isActive) {
       setEditing(false);
     } else {
-      const firstElement = props.highlight.elements[0] as HTMLElement;
-      const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
-      const elements = [lastElement];
-      if (element.current) {
-        elements.push(element.current);
-      }
-      scrollIntoView(firstElement, elements);
+      scrollHighlightIntoView(props.highlight, element);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, props.isActive]);
