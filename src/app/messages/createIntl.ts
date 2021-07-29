@@ -6,15 +6,15 @@ export default () => {
   return {
     getIntlObject: async(locale: string) => {
         const cache = createIntlCache();
-        let messages = enMessages;
+        let messages;
 
-        import (`./${locale}/index.ts`)
-        .then((localeMessages) => {
+        try {
+          const localeMessages = await import(`./${locale}/index`);
           messages = localeMessages.default;
-        })
-        .catch((e) => {
+        } catch (e) {
+          messages = enMessages;
           Sentry.captureException(e);
-        });
+        }
 
         const intl = createIntl({
           locale,
