@@ -21,10 +21,13 @@ body {
   font-size: @font-size-base;
 }
 
-.page-content {
-  line-height: 2.3rem;
-  color: #424242;
+#main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
+  @import "./content-baked.less";
   font-size: 1.6rem;
+  line-height: 2.3rem;
+
+  // gray is used for text color
+  @gray: #424242;
 
   a {
     color: #027EB5;
@@ -35,15 +38,6 @@ body {
       color: #0064A0;
     }
   }
-}
-
-#main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
-  @import "./content-baked.less";
-  font-size: 1.6rem;
-  line-height: 2.3rem;
-
-  // gray is used for text color
-  @gray: #424242;
 
   sup {
     top: -.5em;
