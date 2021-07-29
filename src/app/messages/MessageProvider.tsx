@@ -43,17 +43,12 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
 
     const setUpIntl = async() => {
       const intlObject = await intlService.getIntlObject(bookLocale);
-      console.log('intl object: ', intlObject)
       setIntl(intlObject);
     };
 
     setUpIntl();
     doPolyfill();
   }, [intlService, bookLocale]);
-
-  useEffect(() => {
-    console.log('our intl: ', intl);
-  }, [intl]);
 
   return intl && polyfillLoaded ? (
     <RawIntlProvider value={intl}>

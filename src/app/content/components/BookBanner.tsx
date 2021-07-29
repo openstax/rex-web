@@ -194,7 +194,6 @@ const BookBanner = () => {
   const miniBanner = React.useRef<HTMLDivElement>();
   const bigBanner = React.useRef<HTMLDivElement>();
   const intl = useIntl();
-  console.log('use: ', intl)
 
   const handleScroll = () => {
     if (miniBanner.current && bigBanner.current && typeof(window) !== 'undefined') {
