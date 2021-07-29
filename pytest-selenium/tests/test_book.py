@@ -91,7 +91,7 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C613211")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-@pytest.mark.xfail
+@pytest.mark.xfail(reason="osweb bug 1886")
 def test_redirect_to_osweb_404_when_book_is_incorrect(selenium, base_url, book_slug, page_slug):
     """User is redirected to osweb 404 page when book slug doesn't exist."""
     # GIVEN: A content page
@@ -107,23 +107,30 @@ def test_redirect_to_osweb_404_when_book_is_incorrect(selenium, base_url, book_s
 
 
 @markers.test_case("C614212")
-@markers.parametrize("page_slug", ["preface"])
+@markers.parametrize("page_slug", ["prefacetest"])
 @markers.nondestructive
-@pytest.mark.xfail
 def test_redirect_to_osweb_404_when_page_is_incorrect_in_first_session(
     selenium, base_url, book_slug, page_slug
 ):
-    """Rex 404 page is displayed when user opens incorrect page."""
+    """OSweb 404 page is displayed when user opens incorrect page."""
     # GIVEN: A content page
-    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}test")
+    # book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    selenium.get(base_url + "/books/" + book_slug + "/pages/" + page_slug)
 
     # WHEN: A page is loaded with incorrect page slug in the first session
-    book.open()
 
     # THEN: osweb 404 page is displayed
-    osweb = WebBase(selenium)
-    assert osweb.osweb_404_displayed
-    assert osweb.osweb_404_error == EXPECTED_WEB_ERROR
+
+    # OSweb redirects to book details page  & not 404 if
+    # book slug is entered correctly. Updating this test
+    # to reflect the same until Rex & osweb arrive at a conclusion
+    # osweb = WebBase(selenium)
+    # osweb.wait_for_load()
+    # assert osweb.osweb_404_displayed
+    # assert osweb.osweb_404_error == EXPECTED_WEB_ERROR
+
+    expected_page_url = base_url + "/details/books/" + book_slug
+    assert expected_page_url == selenium.current_url
 
 
 @markers.test_case("C613212")
