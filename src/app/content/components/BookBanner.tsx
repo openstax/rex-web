@@ -1,12 +1,12 @@
 import { HTMLAnchorElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
+import { useServices } from '../../context/Services';
 import theme from '../../theme';
 import { assertDefined, assertWindow } from '../../utils';
 import { hasOSWebData } from '../guards';
@@ -193,7 +193,7 @@ const BookBanner = () => {
   const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
   const miniBanner = React.useRef<HTMLDivElement>();
   const bigBanner = React.useRef<HTMLDivElement>();
-  const intl = useIntl();
+  const services = useServices();
 
   const handleScroll = () => {
     if (miniBanner.current && bigBanner.current && typeof(window) !== 'undefined') {
@@ -213,7 +213,7 @@ const BookBanner = () => {
     }
     e.preventDefault();
 
-    if (!await showConfirmation(intl)) {
+    if (!await showConfirmation(services)) {
       return;
     }
     assertWindow().location.assign(link);

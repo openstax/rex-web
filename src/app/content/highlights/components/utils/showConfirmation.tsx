@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl';
-import { IntlShape } from 'react-intl';
 import uuid from 'uuid/v4';
+import { AppServices } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
 import ConfirmationModal from '../ConfirmationModal';
 
-export default async(intl: IntlShape) => {
+export default async(services: AppServices) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
+  const intl = await services.intl.getIntlObject('en');
 
   domNode.id = `dialog-${uuid()}`;
   const root = assertNotNull(document.getElementById('root'), 'root element not found');
