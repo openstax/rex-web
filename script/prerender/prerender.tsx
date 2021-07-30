@@ -2,7 +2,6 @@ import fetch from 'node-fetch';
 import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
 import { ArchiveBook, ArchivePage } from '../../src/app/content/types';
-import createIntl from '../../src/app/messages/createIntl';
 import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
@@ -78,7 +77,6 @@ async function render() {
   });
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const bookConfigLoader = createBookConfigLoader();
-  const intl = createIntl();
 
   const {server} = await startServer({port, onlyProxy: true});
   const renderHelpers = {
@@ -87,7 +85,6 @@ async function render() {
     buyPrintConfigLoader,
     config,
     highlightClient,
-    intl,
     osWebLoader,
     practiceQuestionsLoader,
     searchClient,

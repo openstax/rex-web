@@ -1,3 +1,4 @@
+import createIntl from '../../../test/createIntl';
 import createTestServices from '../../../test/createTestServices';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
@@ -20,12 +21,13 @@ describe('getDescription', () => {
   const services = createTestServices();
   const archiveLoader = services.archiveLoader;
   const book = formatBookData(mockBook, mockOsWebBook);
+  const intl = createIntl().getIntlObject();
 
   archiveLoader.mockBook(book);
 
   it('makes a description for content page', async() => {
     archiveLoader.mockPage(book, contentPage, 'page-slug');
-    const description = await getPageDescription(services, book, contentPage);
+    const description = await getPageDescription(services, intl, book, contentPage);
     expect(description).toMatchInlineSnapshot(
       `"For example, take a look at the image above. This image is of the Andromeda Galaxy, which contains billions of individual stars, huge clouds of gas, and..."`
     );
@@ -33,7 +35,7 @@ describe('getDescription', () => {
 
   it('makes a description for content page with insufficient text', async() => {
     archiveLoader.mockPage(book, contentPageShort, 'page-slug');
-    const description = await getPageDescription(services, book, contentPageShort);
+    const description = await getPageDescription(services, intl, book, contentPageShort);
     expect(description).toMatchInlineSnapshot(
       `"This free textbook is an OpenStax resource written to increase student access to high-quality, peer-reviewed learning materials."`
     );
@@ -41,7 +43,7 @@ describe('getDescription', () => {
 
   it('makes a description for content page with learning objectives', async() => {
     archiveLoader.mockPage(book, contentPageWithObjectives, 'page-slug');
-    const description = await getPageDescription(services, book, contentPageWithObjectives);
+    const description = await getPageDescription(services, intl, book, contentPageWithObjectives);
     expect(description).toMatchInlineSnapshot(
       `"This is the paragraph that comes after the learning objectives section. It does not have any special classes applied...."`
     );
@@ -49,7 +51,7 @@ describe('getDescription', () => {
 
   it('makes a description for end-of-chapter page', async() => {
     archiveLoader.mockPage(book, eocPage, 'page-slug');
-    const description = await getPageDescription(services, book, eocPage);
+    const description = await getPageDescription(services, intl, book, eocPage);
     expect(description).toMatchInlineSnapshot(
       `"Religion describes the beliefs, values, and practices related to sacred or spiritual concerns. Social theorist Émile Durkheim defined religion as a “uni..."`
     );
@@ -57,7 +59,7 @@ describe('getDescription', () => {
 
   it('makes a description for end-of-book page', async() => {
     archiveLoader.mockPage(book, eobPage, 'page-slug');
-    const description = await getPageDescription(services, book, eobPage);
+    const description = await getPageDescription(services, intl, book, eobPage);
     expect(description).toMatchInlineSnapshot(
       `"This free textbook is an OpenStax resource written to increase student access to high-quality, peer-reviewed learning materials."`
     );
@@ -65,7 +67,7 @@ describe('getDescription', () => {
 
   it('makes a description for a page with no content', async() => {
     archiveLoader.mockPage(book, emptyPage, 'page-slug');
-    const description = await getPageDescription(services, book, emptyPage);
+    const description = await getPageDescription(services, intl, book, emptyPage);
     expect(description).toMatchInlineSnapshot(
       `"This free textbook is an OpenStax resource written to increase student access to high-quality, peer-reviewed learning materials."`
     );

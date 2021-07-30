@@ -59,14 +59,14 @@ export default class PageComponent extends Component<PagePropTypes> {
     });
   };
 
-  public componentDidMount() {
+  public async componentDidMount() {
     this.postProcess();
     if (!this.container.current) {
       return;
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current, this.props.intl);
     // tslint:disable-next-line: max-line-length
-    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services);
+    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
   }
 

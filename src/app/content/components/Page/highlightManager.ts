@@ -3,6 +3,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
+import { IntlShape } from 'react-intl';
 import * as selectAuth from '../../../auth/selectors';
 import { findFirstAncestorOrSelf } from '../../../domUtils';
 import { isDefined } from '../../../guards';
@@ -106,11 +107,12 @@ const onSelectHighlight = (
 
 const createHighlighter = (
   highlightManagerServices: Omit<HighlightManagerServices, 'highlighter' | 'intl'>,
-  appServices: AppServices
+  appServices: AppServices,
+  intl: IntlShape
 ) => {
 
   const highlighter: Highlighter = new Highlighter(highlightManagerServices.container, {
-    formatMessage: appServices.intl.formatMessage,
+    formatMessage: intl.formatMessage,
     onClick: (highlight) => onFocusHighlight({ ...highlightManagerServices, highlighter}, highlight, appServices),
     onFocusIn: (highlight) => onFocusHighlight({ ...highlightManagerServices, highlighter}, highlight, appServices),
     onFocusOut: () => onFocusOutHighlight(highlightManagerServices.getProp()),
@@ -146,7 +148,7 @@ export interface UpdateOptions {
   onSelect: (highlight: Highlight | null) => void;
 }
 
-export default (container: HTMLElement, getProp: () => HighlightProp, appServices: AppServices) => {
+export default (container: HTMLElement, getProp: () => HighlightProp, appServices: AppServices, intl: IntlShape) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let scrollTargetHighlightIdThatWasHandled: string;
@@ -208,7 +210,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
     setPendingHighlight,
   };
 
-  highlighter = createHighlighter(highlightManagerServices, appServices);
+  highlighter = createHighlighter(highlightManagerServices, appServices, intl);
   setListHighlighter(highlighter);
 
   return {

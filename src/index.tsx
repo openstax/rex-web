@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
 import { onPageFocusChange } from './app/domUtils';
-import createIntl from './app/messages/createIntl';
 import { updateAvailable } from './app/notifications/actions';
 import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
@@ -58,7 +57,6 @@ const app = createApp({
     buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
     config,
     highlightClient: createHighlightClient(highlightsUrl),
-    intl: createIntl(),
     osWebLoader: createOSWebLoader(osWebUrl),
     practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,

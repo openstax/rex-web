@@ -5,7 +5,6 @@ import { mockCmsBook } from '../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules, runHooksAsync } from '../../test/utils';
 import { receiveBook } from '../content/actions';
 import { formatBookData } from '../content/utils';
-import createIntl from '../messages/createIntl';
 import { AppServices, Store } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -20,15 +19,11 @@ describe('MessageProvider', () => {
   let services: AppServices;
   let MessageProvider: any;
 
-  beforeEach(() => {
+  beforeEach(async() => {
     resetModules();
 
     store = createTestStore();
-    services = {
-      ...createTestServices(),
-      // override the intl object normally used for testing
-      intl: createIntl(),
-    };
+    services = createTestServices();
     ({Provider, React, renderer, Services} = reactAndFriends());
   });
 

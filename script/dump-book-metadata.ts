@@ -14,7 +14,6 @@ const domParser = new DOMParser();
 
 const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
 const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
-const intl = createIntl();
 
 const getPageMetadata = async(
   section: LinkedArchiveTreeSection | LinkedArchiveTree,
@@ -23,12 +22,11 @@ const getPageMetadata = async(
 ) => {
   const services = {
     archiveLoader,
-    intl,
   };
+  const intlObject = await createIntl().getIntlObject(book.language);
   const page = await loader.page(section.id).load();
-  const description = await getPageDescription(services, book, page);
+  const description = await getPageDescription(services, intlObject, book, page);
   const sectionTitle = domParser.parseFromString(section.title, 'text/html').body.textContent;
-  const intlObject = await intl.getIntlObject(book.language);
   const parentPrefix = getParentPrefix(section.parent, intlObject).trim();
 
   const row = `"${book.title}","${parentPrefix}","${sectionTitle}","${description}"`;

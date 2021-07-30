@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { IntlShape, RawIntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { book as bookSelector } from '../content/selectors';
-import { useServices } from '../context/Services';
 import { match as matchSelector } from '../navigation/selectors';
+import createIntl from './createIntl';
 
 // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
 async function polyfill(locale: string) {
@@ -29,7 +29,7 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
     return route?.locale || book?.language;
   }, [book, route]);
 
-  const intlService = useServices().intl;
+  const intlService = createIntl();
 
   useEffect(() => {
     if (!bookLocale) {
