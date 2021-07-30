@@ -29,8 +29,6 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
     return route?.locale || book?.language;
   }, [book, route]);
 
-  const intlService = createIntl();
-
   useEffect(() => {
     if (!bookLocale) {
       return;
@@ -42,13 +40,14 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
     };
 
     const setUpIntl = async() => {
-      const intlObject = await intlService.getIntlObject(bookLocale);
+      const intlObject = await createIntl().getIntlObject(bookLocale);
+      console.log('setting up intl with: ', bookLocale)
       setIntl(intlObject);
     };
 
     setUpIntl();
     doPolyfill();
-  }, [intlService, bookLocale]);
+  }, [bookLocale]);
 
   return intl && polyfillLoaded ? (
     <RawIntlProvider value={intl}>
