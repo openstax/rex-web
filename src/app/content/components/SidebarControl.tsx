@@ -3,7 +3,6 @@ import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
-import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import * as actions from '../actions';
@@ -28,7 +27,8 @@ interface MiddleProps {
 // tslint:disable-next-line:variable-name
 export const ToCButtonText = styled.span`
   font-weight: 600;
-  ${textRegularSize};
+  font-size: 1.8rem;
+  line-height: 2.9rem;
   margin: 0;
   padding: 0;
   ${(props) => props.hideMobileText && theme.breakpoints.mobile(css`
