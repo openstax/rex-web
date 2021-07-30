@@ -85,7 +85,13 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   React.useEffect(() => {
     setNewCardsPositionsRef.current = () => {
-      const positions = updateCardsPositions(focusedHighlight, highlights, cardsHeights, getOffsetsForHighlight);
+      const positions = updateCardsPositions(
+        focusedHighlight,
+        highlights,
+        cardsHeights,
+        getOffsetsForHighlight,
+        checkIfHiddenByCollapsedAncestor
+      );
       setCardsPositions(positions);
     };
     setNewCardsPositionsRef.current();

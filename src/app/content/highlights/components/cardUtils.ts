@@ -84,6 +84,7 @@ const updateStackedCardsPositions = (
   highlightsElements: Highlight[],
   heights: Map<string, number>,
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
+  checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean,
   initialPositions?: Map<string, number>,
   addAditionalMarginForTheFirstCard = false,
   lastVisibleCardPosition = 0,
@@ -98,7 +99,7 @@ const updateStackedCardsPositions = (
     const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
     const stackedTopOffset = Math.max(topOffset, lastVisibleCardBottom + marginToAdd);
 
-    if (heights.get(highlight.id)) {
+    if (heights.get(highlight.id) && !checkIfHiddenByCollapsedAncestor(highlight)) {
       lastVisibleCardPosition = stackedTopOffset;
       lastVisibleCardHeight = heights.get(highlight.id)!;
     }
@@ -139,9 +140,15 @@ export const updateCardsPositions = (
   focusedHighlight: Highlight | undefined,
   highlights: Highlight[],
   cardsHeights: Map<string, number>,
-  getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number }
+  getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
+  checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean
 ) => {
-  const cardsPositions = updateStackedCardsPositions(highlights, cardsHeights, getHighlightPosition);
+  const cardsPositions = updateStackedCardsPositions(
+    highlights,
+    cardsHeights,
+    getHighlightPosition,
+    checkIfHiddenByCollapsedAncestor
+  );
 
   const offsetToAdjust = getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition);
 
@@ -187,6 +194,7 @@ export const updateCardsPositions = (
     highlightsAfterFocused,
     cardsHeights,
     getHighlightPosition,
+    checkIfHiddenByCollapsedAncestor,
     cardsPositions,
     true,
     cardsPositions.get(focusedHighlight.id) as number,
