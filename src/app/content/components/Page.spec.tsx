@@ -344,15 +344,15 @@ describe('Page', () => {
               + `aria-label="show solution" `
               + `aria-expanded="false"`
             + `>
-      <div class="ui-toggle-wrapper">
-        <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
-      </div>
-      <section class="ui-body" role="alert" style="display: block; overflow: hidden; height: 0px">
+      <details class="ui-toggle-wrapper">
+        <summary class="btn-link ui-toggle" title="Show/Hide Solution"></summary>
+        <section class="ui-body" role="alert">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
               <div class="os-solution-container">
                 <p id="paragraph2">answer answer answer.</p>
               </div>
             </section>
+      </details>
     </div>
           </section></div>
         `);
@@ -374,17 +374,17 @@ describe('Page', () => {
           </div>
         `);
 
-        const button = pageElement.querySelector('[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle');
+        const summary = pageElement.querySelector('[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle');
         const solution = pageElement.querySelector('[data-type="solution"]');
 
-        if (!button || !solution) {
+        if (!summary || !solution) {
           return expect(false).toBe(true);
         }
 
         expect(solution.matches('.ui-solution-visible')).toBe(false);
-        button.dispatchEvent(makeEvent());
+        summary.dispatchEvent(makeEvent());
         expect(solution.matches('.ui-solution-visible')).toBe(true);
-        button.dispatchEvent(makeEvent());
+        summary.dispatchEvent(makeEvent());
         expect(solution.matches('.ui-solution-visible')).toBe(false);
       });
 

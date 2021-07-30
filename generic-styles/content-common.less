@@ -295,23 +295,21 @@ blockquote {
     padding: 0.5em 1em;
   }
 
-  // Exercise Solutions contain a button to toggle showing or hiding the solution
+  // Exercise Solutions contain a summary to toggle showing or hiding the solution
   [data-type="solution"],
   .solution {
     border-top: 0.1rem solid @gray;
 
     // The Show/Hide Solution text
-    > .ui-toggle-wrapper {
-      text-align: center;
-
-      > .ui-toggle {
+    > .ui-toggle-wrapper > .ui-toggle {
         font-weight: bold;
         text-align: center;
-      }
+        list-style: none;
+        cursor: pointer;
     }
 
     &:not(.ui-solution-visible) {
-      > .ui-toggle-wrapper > button.ui-toggle::before {
+      > .ui-toggle-wrapper > summary.ui-toggle::before {
         content: "[Show Solution]";
       }
       > section {
@@ -320,7 +318,7 @@ blockquote {
     }
 
     &.ui-solution-visible {
-      > .ui-toggle-wrapper > button.ui-toggle::before {
+      > .ui-toggle-wrapper > summary.ui-toggle::before {
         content: "[Hide Solution]";
       }
     }

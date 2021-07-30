@@ -15,29 +15,15 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   setLinksAttributes(rootEl);
 };
 
-const toggleSolutionSectionStyles = (section: HTMLElement, shouldBeVisible: boolean) => {
-  if (shouldBeVisible) {
-    section.style.height = 'auto';
-    section.style.overflow = 'visible';
-  } else {
-    section.style.height = '0px';
-    section.style.overflow = 'hidden';
-  }
-};
-
 const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
-  const section = assertNotNull(solution.querySelector('section'), 'Expected solution to contain a <section>');
-
   if (solution.classList.contains('ui-solution-visible')) {
     solution.classList.remove('ui-solution-visible');
     solution.setAttribute('aria-expanded', 'false');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
-    toggleSolutionSectionStyles(section, false);
   } else {
     solution.className += ' ui-solution-visible';
     solution.setAttribute('aria-expanded', 'true');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:hide'}));
-    toggleSolutionSectionStyles(section, true);
   }
 };
 
@@ -118,11 +104,6 @@ function fixLists(rootEl: HTMLElement) {
   });
 }
 
-// hide text visually, but make rangy still search through it
-// when highlighting a search result
-// https://github.com/timdown/rangy/wiki/Text-Range-Module#visible-text
-const initialSolutionStyles = 'display: block; overflow: hidden; height: 0px';
-
 function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   const title = intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
 
@@ -132,10 +113,10 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
     el.setAttribute('aria-expanded', 'false');
     const contents = el.innerHTML;
     el.innerHTML = `
-      <div class="ui-toggle-wrapper">
-        <button class="btn-link ui-toggle" title="${title}"></button>
-      </div>
-      <section class="ui-body" role="alert" style="${initialSolutionStyles}">${contents}</section>
+      <details class="ui-toggle-wrapper">
+        <summary class="btn-link ui-toggle" title="${title}"></summary>
+        <section class="ui-body" role="alert">${contents}</section>
+      </details>
     `;
   });
 }
