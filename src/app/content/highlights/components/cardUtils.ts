@@ -14,14 +14,23 @@ export const getHighlightOffset = (container: HTMLElement | undefined, highlight
     return;
   }
 
-  const {top, bottom } = highlight.range.getBoundingClientRect();
+  const highlightRangeRect = highlight.range.getBoundingClientRect();
 
+  // some elements may not return DOMRect properties, eg an iframe
+  // this corrects positioning of editcard on firefox for a hilite starting and ending on an iframe
+  const boundingRect = highlightRangeRect.top === 0 && highlightRangeRect.bottom === 0
+  ? highlight.range.commonAncestorContainer.parentNode.getBoundingClientRect() : highlightRangeRect;
+
+  const {top, bottom} = boundingRect;
+  const endContainerHeight = highlight.range.endContainer.clientHeight;
   const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
   const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
   const scrollOffset = assertWindow().scrollY;
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   return {
-    bottom: bottom - parentOffset + scrollOffset,
+    // Safari includes endContainer height in getBoundingClientRect().bottom, pushing EditCard down
+    bottom: bottom - parentOffset + scrollOffset - (isSafari ? endContainerHeight : 0),
     top: top - parentOffset + scrollOffset,
   };
 };
