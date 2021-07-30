@@ -270,7 +270,7 @@ Array [
               </g>
             </svg>
             <span
-              className="HighlightButton__MyHighlightsText-fxks7p-1 euasWR"
+              className="HighlightButton__MyHighlightsText-fxks7p-1 kPraVg"
             >
               My highlights
             </span>
@@ -334,7 +334,7 @@ Array [
             </g>
           </svg>
           <span
-            className="SidebarControl__ToCButtonText-sdjc7-0 fvFcxu"
+            className="SidebarControl__ToCButtonText-sdjc7-0 jkrvrh"
           >
             Table of contents
           </span>
@@ -392,7 +392,7 @@ Array [
                   </g>
                 </svg>
                 <span
-                  className="SidebarControl__ToCButtonText-sdjc7-0 dVcbLQ"
+                  className="SidebarControl__ToCButtonText-sdjc7-0 drhjCM"
                 >
                   Table of contents
                 </span>
@@ -428,13 +428,13 @@ Array [
               </button>
             </div>
             <ol
-              className="styled__NavOl-sc-18yti3s-5 cbWkuS"
+              className="styled__NavOl-sc-18yti3s-5 gncPwk"
             >
               <li
                 className="styled__NavItem-sc-18yti3s-2 lcPtic"
               >
                 <a
-                  className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -481,7 +481,7 @@ Array [
                         />
                       </svg>
                       <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cpNgr"
+                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
@@ -491,7 +491,7 @@ Array [
                     </div>
                   </summary>
                   <ol
-                    className="styled__NavOl-sc-18yti3s-5 iFNiTd"
+                    className="styled__NavOl-sc-18yti3s-5 jPwHOh"
                   >
                     <li
                       className="styled__NavItem-sc-18yti3s-2 lcPtic"
@@ -530,7 +530,7 @@ Array [
                               />
                             </svg>
                             <span
-                              className="styled__SummaryTitle-sc-18yti3s-0 cpNgr"
+                              className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
                               dangerouslySetInnerHTML={
                                 Object {
                                   "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
@@ -546,7 +546,7 @@ Array [
                             className="styled__NavItem-sc-18yti3s-2 lcPtic"
                           >
                             <a
-                              className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                              className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                               dangerouslySetInnerHTML={
                                 Object {
                                   "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
@@ -563,7 +563,7 @@ Array [
                       className="styled__NavItem-sc-18yti3s-2 lcPtic"
                     >
                       <a
-                        className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
@@ -577,7 +577,7 @@ Array [
                       className="styled__NavItem-sc-18yti3s-2 lcPtic"
                     >
                       <a
-                        className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
@@ -627,7 +627,7 @@ Array [
                         />
                       </svg>
                       <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cpNgr"
+                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -643,7 +643,7 @@ Array [
                       className="styled__NavItem-sc-18yti3s-2 lcPtic"
                     >
                       <a
-                        className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-text\\">Test Page 3</span>",
@@ -694,7 +694,7 @@ Array [
                         />
                       </svg>
                       <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cpNgr"
+                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
@@ -711,7 +711,7 @@ Array [
                       className="styled__NavItem-sc-18yti3s-2 lcPtic"
                     >
                       <a
-                        className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -761,7 +761,7 @@ Array [
                         />
                       </svg>
                       <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cpNgr"
+                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
@@ -777,7 +777,7 @@ Array [
                       className="styled__NavItem-sc-18yti3s-2 lcPtic"
                     >
                       <a
-                        className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-text\\">Test Page 5</span>",
@@ -827,7 +827,7 @@ Array [
                         />
                       </svg>
                       <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cpNgr"
+                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -843,7 +843,7 @@ Array [
                       className="styled__NavItem-sc-18yti3s-2 lcPtic"
                     >
                       <a
-                        className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-text\\">Test Page 6</span>",
@@ -893,7 +893,7 @@ Array [
                         />
                       </svg>
                       <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cpNgr"
+                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -909,7 +909,7 @@ Array [
                       className="styled__NavItem-sc-18yti3s-2 lcPtic"
                     >
                       <a
-                        className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -926,7 +926,7 @@ Array [
                 className="styled__NavItem-sc-18yti3s-2 lcPtic"
               >
                 <a
-                  className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
@@ -940,7 +940,7 @@ Array [
                 className="styled__NavItem-sc-18yti3s-2 lcPtic"
               >
                 <a
-                  className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
@@ -954,7 +954,7 @@ Array [
                 className="styled__NavItem-sc-18yti3s-2 lcPtic"
               >
                 <a
-                  className="styled__ContentLink-sc-18yti3s-1 eJFaJK"
+                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
@@ -982,7 +982,7 @@ Array [
                     className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
-                      className="PageContent-ny9bj0-0 gLsPXs"
+                      className="page-content PageContent-ny9bj0-0 cXwdbF"
                       tabIndex={0}
                     >
                       <div
@@ -1051,7 +1051,7 @@ Array [
                 >
                   <summary
                     aria-label="Citation/Attribution"
-                    className="Attribution__AttributionSummary-sc-11isnv6-2 gobEtQ Details__Summary-xi326o-2 goqLfs"
+                    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
                   >
                     <svg
                       aria-hidden="true"
@@ -1082,7 +1082,7 @@ Array [
                     </span>
                   </summary>
                   <div
-                    className="Attribution__Content-sc-11isnv6-3 bUUJqd"
+                    className="Attribution__Content-sc-11isnv6-3 SNfN"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "
@@ -1626,7 +1626,7 @@ Array [
               </g>
             </svg>
             <span
-              className="HighlightButton__MyHighlightsText-fxks7p-1 euasWR"
+              className="HighlightButton__MyHighlightsText-fxks7p-1 kPraVg"
             >
               My highlights
             </span>
@@ -1690,7 +1690,7 @@ Array [
             </g>
           </svg>
           <span
-            className="SidebarControl__ToCButtonText-sdjc7-0 fvFcxu"
+            className="SidebarControl__ToCButtonText-sdjc7-0 jkrvrh"
           >
             Table of contents
           </span>
@@ -1748,7 +1748,7 @@ Array [
                   </g>
                 </svg>
                 <span
-                  className="SidebarControl__ToCButtonText-sdjc7-0 dVcbLQ"
+                  className="SidebarControl__ToCButtonText-sdjc7-0 drhjCM"
                 >
                   Table of contents
                 </span>
@@ -1800,7 +1800,7 @@ Array [
                     className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
-                      className="PageContent-ny9bj0-0 gLsPXs"
+                      className="PageContent-ny9bj0-0 cXwdbF"
                       tabIndex={0}
                     >
                       <div
