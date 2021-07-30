@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom';
-import { IntlShape } from 'react-intl';
 import createTestServices from '../../../../../test/createTestServices';
 import { resetModules } from '../../../../../test/utils';
 import { AppServices } from '../../../../types';
