@@ -32,6 +32,8 @@ const MyHighlightsWrapper = styled(PlainButton)`
 // tslint:disable-next-line:variable-name
 const MyHighlightsText = styled.span`
   ${toolbarDefaultText}
+  font-size: 1.8rem;
+  line-height: 2.9rem;
 `;
 
 // tslint:disable-next-line:variable-name
