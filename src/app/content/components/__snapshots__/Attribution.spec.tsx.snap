@@ -8,7 +8,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Attribution__AttributionSummary-sc-11isnv6-2 gobEtQ Details__Summary-xi326o-2 goqLfs"
+    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
   >
     <svg
       aria-hidden="true"
@@ -39,7 +39,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
     </span>
   </summary>
   <div
-    className="Attribution__Content-sc-11isnv6-3 bUUJqd"
+    className="Attribution__Content-sc-11isnv6-3 SNfN"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -120,7 +120,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Attribution__AttributionSummary-sc-11isnv6-2 gobEtQ Details__Summary-xi326o-2 goqLfs"
+    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
   >
     <svg
       aria-hidden="true"
@@ -151,7 +151,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     </span>
   </summary>
   <div
-    className="Attribution__Content-sc-11isnv6-3 bUUJqd"
+    className="Attribution__Content-sc-11isnv6-3 SNfN"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -234,7 +234,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Attribution__AttributionSummary-sc-11isnv6-2 gobEtQ Details__Summary-xi326o-2 goqLfs"
+    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
   >
     <svg
       aria-hidden="true"
@@ -265,7 +265,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
     </span>
   </summary>
   <div
-    className="Attribution__Content-sc-11isnv6-3 bUUJqd"
+    className="Attribution__Content-sc-11isnv6-3 SNfN"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -346,7 +346,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Attribution__AttributionSummary-sc-11isnv6-2 gobEtQ Details__Summary-xi326o-2 goqLfs"
+    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
   >
     <svg
       aria-hidden="true"
@@ -377,7 +377,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     </span>
   </summary>
   <div
-    className="Attribution__Content-sc-11isnv6-3 bUUJqd"
+    className="Attribution__Content-sc-11isnv6-3 SNfN"
     dangerouslySetInnerHTML={
       Object {
         "__html": "

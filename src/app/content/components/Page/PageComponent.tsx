@@ -138,6 +138,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     return <React.Fragment>
       <PageContent
         key='main-content'
+        className='page-content'
         ref={this.container}
         dangerouslySetInnerHTML={{ __html: html}}
       />
