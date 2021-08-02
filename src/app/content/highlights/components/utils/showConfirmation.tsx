@@ -10,9 +10,9 @@ import ConfirmationModal from '../ConfirmationModal';
 export default async(services: AppServices) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
+  const language = services;
+  console.log('services: ', language);
   const intl = await createIntl().getIntlObject('en');
-  // tslint:disable-next-line: no-console
-  console.log(services);
 
   domNode.id = `dialog-${uuid()}`;
   const root = assertNotNull(document.getElementById('root'), 'root element not found');

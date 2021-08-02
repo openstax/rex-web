@@ -6,6 +6,7 @@ import {
   MiddlewareAPI as ReduxMiddlewareAPI,
   Store as ReduxStore,
 } from 'redux';
+import { Store } from 'styled-icons/boxicons-regular';
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
 import config from '../config';
@@ -54,6 +55,11 @@ export interface AppServices {
   serviceWorker?: ServiceWorkerRegistration;
   userLoader: ReturnType<typeof createUserLoader>;
   bookConfigLoader: ReturnType<typeof createBookConfigLoader>;
+}
+
+export interface AppServicesAndReduxMiddleware extends AppServices {
+  dispatch: Dispatch;
+  store: Store;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };

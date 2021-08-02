@@ -195,6 +195,8 @@ const BookBanner = () => {
   const bigBanner = React.useRef<HTMLDivElement>();
   const services = useServices();
 
+  showConfirmation(services);
+
   const handleScroll = () => {
     if (miniBanner.current && bigBanner.current && typeof(window) !== 'undefined') {
       const miniRect = miniBanner.current.getBoundingClientRect();
