@@ -1,11 +1,16 @@
 import React from 'react';
+import { useDispatch, useStore } from 'react-redux';
 import { AppServices } from '../types';
 
 export const servicesContext = React.createContext({} as AppServices);
 
 const {Consumer, Provider} = servicesContext;
 
-export const useServices = () => React.useContext(servicesContext);
+export const useServices = () => ({
+  ...React.useContext(servicesContext),
+  dispatch: useDispatch(),
+  getState: useStore().getState,
+});
 
 export {
   Consumer,

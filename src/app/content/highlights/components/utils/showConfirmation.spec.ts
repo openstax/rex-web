@@ -1,9 +1,12 @@
 import ReactDOM from 'react-dom';
 import createTestServices from '../../../../../test/createTestServices';
+import createTestStore from '../../../../../test/createTestStore';
 import { resetModules } from '../../../../../test/utils';
-import { AppServices } from '../../../../types';
+import { initialState } from '../../../reducer';
+import { AppServices, MiddlewareAPI } from '../../../../types';
 import { assertDocument } from '../../../../utils';
 import { clearFocusedHighlight, focusHighlight, setAnnotationChangesPending } from '../../actions';
+import { initialState as initialHighlightState } from '../../reducer';
 import showConfirmation from './showConfirmation';
 
 jest.mock('../ConfirmationModal', () => jest.fn()
@@ -35,7 +38,8 @@ describe('ShowConfirmation', () => {
   let createElement: jest.SpyInstance;
   let render: jest.SpyInstance;
   let unmount: jest.SpyInstance;
-  let services: AppServices;
+  let dispatch: jest.SpyInstance;
+  let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
     resetModules();
@@ -53,12 +57,29 @@ describe('ShowConfirmation', () => {
     unmount = jest.spyOn(ReactDOM, 'unmountComponentAtNode');
 
     createElement = jest.spyOn(document, 'createElement').mockImplementation(() => modalNode);
-    services = createTestServices();
+
+    const store = createTestStore({
+      content: {
+        ...initialState,
+        highlights: {
+          ...initialHighlightState,
+          currentPage: {
+            ...initialHighlightState.currentPage,
+            focused: focusedHighlight,
+          },
+        },
+      },
+    });
+    dispatch = jest.spyOn(store, 'dispatch');
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('unmounts on confirmation', async() => {
-    const dispatch = jest.fn();
-    const answer = await showConfirmation(services, dispatch, focusedHighlight);
+    const answer = await showConfirmation(services);
 
     expect(dispatch).toHaveBeenCalledWith(clearFocusedHighlight());
     expect(answer).toBe(true);
@@ -69,8 +90,7 @@ describe('ShowConfirmation', () => {
   });
 
   it('unmounts on denial', async() => {
-    const dispatch = jest.fn();
-    const answer = await showConfirmation(services, dispatch, focusedHighlight);
+    const answer = await showConfirmation(services);
 
     expect(dispatch).toHaveBeenCalledWith(clearFocusedHighlight());
     expect(answer).toBe(false);

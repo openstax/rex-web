@@ -1,6 +1,6 @@
 import { HTMLAnchorElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
@@ -11,7 +11,7 @@ import theme from '../../theme';
 import { assertDefined, assertWindow } from '../../utils';
 import { hasOSWebData } from '../guards';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
-import { focused, hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../highlights/selectors';
+import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../highlights/selectors';
 import * as select from '../selectors';
 import { BookWithOSWebData } from '../types';
 import { isClickWithModifierKeys } from '../utils/domUtils';
@@ -191,11 +191,9 @@ const BookBanner = () => {
   const treeSection = useSelector(select.pageNode);
   const bookTheme = useSelector(select.bookTheme);
   const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
-  const focsuedHighlight = useSelector(focused);
   const miniBanner = React.useRef<HTMLDivElement>();
   const bigBanner = React.useRef<HTMLDivElement>();
   const services = useServices();
-  const dispatch = useDispatch();
 
   const handleScroll = () => {
     if (miniBanner.current && bigBanner.current && typeof(window) !== 'undefined') {
@@ -215,7 +213,7 @@ const BookBanner = () => {
     }
     e.preventDefault();
 
-    if (!await showConfirmation(services, dispatch, focsuedHighlight!)) {
+    if (!await showConfirmation(services)) {
       return;
     }
     assertWindow().location.assign(link);

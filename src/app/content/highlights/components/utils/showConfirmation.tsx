@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid/v4';
-import { AppServices, Dispatch } from '../../../../types';
+import { AppServices, MiddlewareAPI } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
 import { clearFocusedHighlight, focusHighlight, setAnnotationChangesPending } from '../../actions';
+import { focused } from '../../selectors';
 import ConfirmationModal from '../ConfirmationModal';
 
-export default async(services: AppServices, dispatch: Dispatch, focusedHighlight: string) => {
+export default async(services: MiddlewareAPI & AppServices) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
 
@@ -16,12 +17,13 @@ export default async(services: AppServices, dispatch: Dispatch, focusedHighlight
   root.insertAdjacentElement('afterend', domNode);
 
   const userChoice: boolean = await new Promise((resolve) => {
-    dispatch(clearFocusedHighlight());
+    const focusedHighlight = focused(services.getState())!;
+    services.dispatch(clearFocusedHighlight());
     const confirm = () => resolve(true);
     const deny = () => {
       resolve(false);
-      dispatch(focusHighlight(focusedHighlight));
-      dispatch(setAnnotationChangesPending(true));
+      services.dispatch(focusHighlight(focusedHighlight));
+      services.dispatch(setAnnotationChangesPending(true));
     };
     ReactDOM.render(
       <RawIntlProvider value={services.intl}>

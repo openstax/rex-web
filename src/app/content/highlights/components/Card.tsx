@@ -3,7 +3,7 @@ import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
@@ -59,17 +59,15 @@ const Card = (props: CardProps) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
-  const focsuedHighlight = useSelector(selectHighlights.focused);
   const services = useServices();
-  const dispatch = useDispatch();
 
   const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
-    if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services, dispatch, focsuedHighlight!))) {
+    if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services))) {
       focus(id);
     }
-  }, [isActive, focsuedHighlight, hasUnsavedHighlight, id, focus, services, dispatch]);
+  }, [isActive, hasUnsavedHighlight, id, focus, services]);
 
   useFocusIn(element, true, focusCard);
 
