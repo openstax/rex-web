@@ -9,8 +9,8 @@ const TEST_CASES: { [testCase: string]: (target: Page) => Promise<void> } = {
   Desktop: setDesktopViewport, Mobile: setMobileViewport,
 };
 const EXPECTED_SCROLL_TOPS: { [testCase: string]: number[] } = {
-  Desktop: [236, 90, 122, 236, 324, 554, 641, 1143, 1449],
-  Mobile: [210, 66, 96, 210, 418, 968, 1075, 1425, 1751],
+  Desktop: [235, 90, 122, 235, 324, 554, 641, 1142, 1448],
+  Mobile: [209, 66, 96, 209, 418, 968, 1075, 1424, 1750],
 };
 
 describe('Content', () => {
