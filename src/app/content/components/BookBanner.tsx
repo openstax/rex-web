@@ -194,7 +194,6 @@ const BookBanner = () => {
   const miniBanner = React.useRef<HTMLDivElement>();
   const bigBanner = React.useRef<HTMLDivElement>();
   const services = useServices();
-
   showConfirmation(services);
 
   const handleScroll = () => {

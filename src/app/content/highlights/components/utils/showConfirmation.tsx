@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid/v4';
 import createIntl from '../../../../messages/createIntl';
-import { AppServices } from '../../../../types';
+// import { AppServices } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
 import ConfirmationModal from '../ConfirmationModal';
 
-export default async(services: AppServices) => {
+export default async(services: any) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
-  const language = services;
-  console.log('services: ', language);
-  const intl = await createIntl().getIntlObject('en');
+  const { content } = services.getState();
+  const language = content.book.language;
+  const intl = await createIntl().getIntlObject(language);
 
   domNode.id = `dialog-${uuid()}`;
   const root = assertNotNull(document.getElementById('root'), 'root element not found');
