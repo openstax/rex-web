@@ -304,6 +304,20 @@ export const Hr = styled.hr`
 `;
 
 // tslint:disable-next-line:variable-name
+export const TopBar = styled.div`
+  display: flex;
+  overflow: visible;
+  justify-content: flex-end;
+  align-items: center;
+  ${barPadding};
+  height: ${toolbarDesktopHeight}rem;
+  ${theme.breakpoints.mobile(css`
+    justify-content: space-between;
+    height: ${toolbarMobileHeight}rem;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
 export const MobileSearchContainer = styled.div`
   ${barPadding}
   margin-top: ${mobileSearchContainerMargin}rem;
@@ -351,6 +365,7 @@ export const InnerText = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const SidebarControl = styled(OpenSidebarControl)`
+  order: -1;
   margin-right: auto;
   ${theme.breakpoints.mobile(css`
     margin-right: unset;
@@ -360,21 +375,4 @@ export const SidebarControl = styled(OpenSidebarControl)`
 // tslint:disable-next-line: variable-name
 export const NudgeElementTarget = styled.div`
   display: contents;
-`;
-
-// tslint:disable-next-line:variable-name
-export const TopBar = styled.div`
-  display: flex;
-  overflow: visible;
-  justify-content: flex-end;
-  align-items: center;
-  ${barPadding};
-  height: ${toolbarDesktopHeight}rem;
-  ${theme.breakpoints.mobile(css`
-    justify-content: space-between;
-    height: ${toolbarMobileHeight}rem;
-  `)}
-  ${SidebarControl} {
-    order: -1;
-  }
 `;

@@ -122,7 +122,7 @@ Array [
       data-analytics-region="toolbar"
     >
       <div
-        className="styled__TopBar-sc-1119auh-20 jCmAYX"
+        className="styled__TopBar-sc-1119auh-13 eutlHe"
         data-testid="toolbar"
       >
         <div
@@ -211,7 +211,7 @@ Array [
           </form>
         </div>
         <div
-          className="styled__NudgeElementTarget-sc-1119auh-19 fIeWXu"
+          className="styled__NudgeElementTarget-sc-1119auh-20 dWNLmv"
           id="nudge-study-tools"
         >
           <button
@@ -303,7 +303,7 @@ Array [
         </button>
         <button
           aria-label="Click to open the Table of Contents"
-          className="styled__SidebarControl-sc-1119auh-18 goLnIL SidebarControl__ToCButton-sdjc7-1 crKPaR"
+          className="styled__SidebarControl-sc-1119auh-19 gGZErd SidebarControl__ToCButton-sdjc7-1 crKPaR"
           data-analytics-label="Click to open the Table of Contents"
           data-testid="toc-button"
           onClick={[Function]}
@@ -1478,7 +1478,7 @@ Array [
       data-analytics-region="toolbar"
     >
       <div
-        className="styled__TopBar-sc-1119auh-20 jCmAYX"
+        className="styled__TopBar-sc-1119auh-13 eutlHe"
         data-testid="toolbar"
       >
         <div
@@ -1567,7 +1567,7 @@ Array [
           </form>
         </div>
         <div
-          className="styled__NudgeElementTarget-sc-1119auh-19 fIeWXu"
+          className="styled__NudgeElementTarget-sc-1119auh-20 dWNLmv"
           id="nudge-study-tools"
         >
           <button
@@ -1659,7 +1659,7 @@ Array [
         </button>
         <button
           aria-label="Click to open the Table of Contents"
-          className="styled__SidebarControl-sc-1119auh-18 goLnIL SidebarControl__ToCButton-sdjc7-1 crKPaR"
+          className="styled__SidebarControl-sc-1119auh-19 gGZErd SidebarControl__ToCButton-sdjc7-1 crKPaR"
           data-analytics-label="Click to open the Table of Contents"
           data-testid="toc-button"
           onClick={[Function]}
