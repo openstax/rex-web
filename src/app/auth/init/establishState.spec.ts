@@ -1,12 +1,12 @@
 import createTestServices from '../../../test/createTestServices';
 import { testAccountsUser } from '../../../test/mocks/userLoader';
-import { MiddlewareAPI } from '../../types';
+import { AppServices, MiddlewareAPI } from '../../types';
 import { receiveLoggedOut, receiveUser } from '../actions';
 import { formatUser } from '../utils';
 import establishState from './establishState';
 
 describe('auth establishState', () => {
-  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
     services = {
