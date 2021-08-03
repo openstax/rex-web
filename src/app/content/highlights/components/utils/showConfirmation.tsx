@@ -10,7 +10,8 @@ import ConfirmationModal from '../ConfirmationModal';
 export default async(services: AppServices & MiddlewareAPI) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
-  const { content } = services.getState();
+  const state = services.getState();
+  const { content } = state;
   const language = content!.book!.language;
   const intl = await createIntl(language);
 
