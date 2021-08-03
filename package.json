@@ -6,7 +6,7 @@
     "@craco/craco": "^6.1.2",
     "@formatjs/intl-pluralrules": "^4.0.6",
     "@openstax/event-capture-client": "1.2.2",
-    "@openstax/highlighter": "^1.9.1",
+    "@openstax/highlighter": "^1.10.0",
     "@openstax/open-search-client": "0.1.0",
     "@sentry/browser": "6.0.2",
     "@sentry/integrations": "^6.0.2",

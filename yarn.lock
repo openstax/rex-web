@@ -2942,10 +2942,10 @@
   dependencies:
     uuid "^8.3.2"
 
-"@openstax/highlighter@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.9.1.tgz#8d129da18ce440a71460e72bac1c929b596d1933"
-  integrity sha512-/RDIKJwNh+coi8iTUdOGM2/pwWFZdOgJ1/hPPwjVbU5P4nMWpEEycBJEhP33R3gYc6xWoI0gnkECpui0WYVnEQ==
+"@openstax/highlighter@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.10.0.tgz#9c3967188cbb35c16f7810ddc66a2de7cdf9a4ae"
+  integrity sha512-W6jb4PZA+fnd8gOil2PNl/2vunyOFju8Dlc/30vKHNQWgToEvOB3LxTlvhjXbBkrfOzqC2DPBr61hMgDi6e0Jw==
   dependencies:
     "@openstax/highlights-client" "0.2.3"
     change-case "^4.0.0"
