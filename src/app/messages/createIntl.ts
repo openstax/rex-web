@@ -11,7 +11,11 @@ export default memoize(async(locale: string) => {
     messages = localeMessages.default;
   } catch (e) {
     const enMessages = await import(`./en/index`);
-    messages = enMessages.default;
+    if (enMessages) {
+      messages = enMessages.default;
+    } else {
+      messages = null;
+    }
     Sentry.captureException(e);
   }
 
