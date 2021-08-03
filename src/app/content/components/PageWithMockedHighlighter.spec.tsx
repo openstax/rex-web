@@ -16,7 +16,7 @@ import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWr
 import * as Services from '../../context/Services';
 import { locationChange } from '../../navigation/actions';
 import { scrollTarget } from '../../navigation/selectors';
-import { MiddlewareAPI, Store } from '../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import { receivePage } from '../actions';
 import {
@@ -93,7 +93,7 @@ describe('Page', () => {
   let archiveLoader: ReturnType<typeof mockArchiveLoader>;
   let store: Store;
   let dispatch: jest.SpyInstance;
-  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
     resetModules();
