@@ -25,7 +25,7 @@ const getPageMetadata = async(
   };
   const intlObject = await createIntl(book.language);
   const page = await loader.page(section.id).load();
-  const description = await getPageDescription(services, intlObject, book, page);
+  const description = getPageDescription(services, intlObject, book, page);
   const sectionTitle = domParser.parseFromString(section.title, 'text/html').body.textContent;
   const parentPrefix = getParentPrefix(section.parent, intlObject).trim();
 
