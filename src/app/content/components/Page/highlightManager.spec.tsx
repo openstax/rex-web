@@ -14,7 +14,7 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
-import { AppServices, Store } from '../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { assertDocument } from '../../../utils/browser-assertions';
 import Card from '../../highlights/components/Card';
@@ -51,7 +51,7 @@ describe('highlightManager', () => {
   let prop: HighlightProp;
   let prevProp: HighlightProp;
   let store: Store;
-  let services: AppServices;
+  let services: AppServices & MiddlewareAPI;
   let intl: IntlShape;
 
   beforeEach(() => {
@@ -69,8 +69,12 @@ describe('highlightManager', () => {
       scrollTarget: null,
     };
     prevProp = {...prop};
-    services = createTestServices();
     store = createTestStore();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     intl = createIntl();
   });
 

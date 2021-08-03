@@ -7,7 +7,7 @@ import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
-import { Store } from '../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
 import { closeStudyGuides, openStudyGuides } from '../actions';
@@ -31,11 +31,15 @@ describe('Study Guides button and PopUp', () => {
   let dispatch: jest.SpyInstance;
   let store: Store;
   let user: User;
-  let services: ReturnType<typeof createTestServices>;
+  let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
-    services = createTestServices();
     store = createTestStore();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
 
     dispatch = jest.spyOn(store, 'dispatch');

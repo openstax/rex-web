@@ -6,7 +6,7 @@ import { book, page } from '../../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../../test/TestContainer';
-import { Store } from '../../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
 import { highlightLocationFilters } from '../../selectors';
@@ -94,12 +94,16 @@ describe('HighlightDeleteWrapper', () => {
 
 describe('Highlight annotation', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: AppServices & MiddlewareAPI;
   let highlight: ReturnType<typeof createMockHighlight>;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     highlight = createMockHighlight('asdf');
   });
 

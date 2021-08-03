@@ -14,7 +14,7 @@ import * as Services from '../../context/Services';
 import { receiveFeatureFlags } from '../../featureFlags/actions';
 import * as featureFlagSelectors from '../../featureFlags/selectors';
 import { searchButtonColor } from '../../featureFlags/selectors';
-import { Store } from '../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import { practiceQuestionsFeatureFlag } from '../constants';
 import {
@@ -33,12 +33,16 @@ const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('print button', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: AppServices & MiddlewareAPI;
   let print: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     print = jest.spyOn(assertWindow(), 'print');
     print.mockImplementation(noop);
   });
@@ -79,12 +83,16 @@ describe('print button', () => {
 describe('search', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
-  let services: ReturnType<typeof createTestServices>;
+  let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   const render = () => renderer.create(<Provider store={store}>

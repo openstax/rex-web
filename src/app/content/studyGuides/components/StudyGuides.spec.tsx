@@ -7,7 +7,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter, pageInOtherChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
-import { Store } from '../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights from '../../components/SectionHighlights';
@@ -44,7 +44,7 @@ const hlYellow = {
 describe('StudyGuides', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();
@@ -52,7 +52,11 @@ describe('StudyGuides', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...page, references: []}));
 
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('properly display summary highlights', () => {

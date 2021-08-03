@@ -5,7 +5,7 @@ import { mockCmsBook } from '../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules, runHooksAsync } from '../../test/utils';
 import { receiveBook } from '../content/actions';
 import { formatBookData } from '../content/utils';
-import { AppServices, Store } from '../types';
+import { AppServices, MiddlewareAPI, Store } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -16,14 +16,18 @@ describe('MessageProvider', () => {
   let Services: ReturnType<typeof reactAndFriends>['Services'];
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
   let store: Store;
-  let services: AppServices;
+  let services: AppServices & MiddlewareAPI;
   let MessageProvider: any;
 
   beforeEach(async() => {
     resetModules();
 
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     ({Provider, React, renderer, Services} = reactAndFriends());
   });
 

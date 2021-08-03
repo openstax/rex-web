@@ -7,7 +7,7 @@ import { book } from '../../../../test/mocks/archiveLoader';
 import TestContainer from '../../../../test/TestContainer';
 import { runHooks } from '../../../../test/utils';
 import Button from '../../../components/Button';
-import { Store } from '../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { assertDocument, assertWindow } from '../../../utils/browser-assertions';
 import { receiveBook } from '../../actions';
@@ -21,7 +21,7 @@ import Question, { AnswersWrapper, QuestionContent, QuestionWrapper } from './Qu
 
 describe('Question', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: AppServices & MiddlewareAPI;
   let render: () => JSX.Element;
   let linkedArchiveTreeSection: LinkedArchiveTreeSection;
   let dispatch: jest.SpyInstance;
@@ -49,7 +49,11 @@ describe('Question', () => {
   beforeEach(() => {
     store = createTestStore();
     store.dispatch(receiveBook(book));
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     dispatch = jest.spyOn(store, 'dispatch');
     store.dispatch(receiveBook(book));
     jest.spyOn(bookPageUtils, 'getBookPageUrlAndParams')

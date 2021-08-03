@@ -6,7 +6,7 @@ import createTestStore from '../test/createTestStore';
 import { receivePageFocus } from './actions';
 import * as domUtils from './domUtils';
 import { onPageFocusChange } from './domUtils';
-import { AppServices } from './types';
+import { AppServices, MiddlewareAPI } from './types';
 import { assertDocument, assertWindow } from './utils';
 
 jest.mock('scroll-to-element');
@@ -133,13 +133,17 @@ describe('findElementSelfOrParent', () => {
 
 describe('focus on tab change', () => {
   let store: Store;
-  let services: AppServices;
+  let services: AppServices & MiddlewareAPI;
   let pageFocus: jest.SpyInstance;
   let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     pageFocus = jest.spyOn(services.analytics.pageFocus, 'track');
     dispatch = jest.spyOn(store, 'dispatch');
   });

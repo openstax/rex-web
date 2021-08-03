@@ -6,7 +6,7 @@ import createTestStore from '../../../../test/createTestStore';
 import MessageProvider from '../../../../test/MessageProvider';
 import * as Services from '../../../context/Services';
 import { receiveFeatureFlags } from '../../../featureFlags/actions';
-import { Store } from '../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { CountsPerSource } from '../../highlights/types';
 import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
@@ -14,11 +14,15 @@ import StudyGuidesButton, { StudyGuidesWrapper } from './StudyGuidesButton';
 
 describe('study guides button', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('does not render if feature flag is not enabled', () => {

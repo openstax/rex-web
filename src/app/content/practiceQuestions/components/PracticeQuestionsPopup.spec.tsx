@@ -7,7 +7,7 @@ import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { push } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
-import { Store } from '../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
 import { content } from '../../routes';
 import { nextQuestion } from '../actions';
@@ -39,13 +39,17 @@ const mockMatch = {
 
 describe('PracticeQuestions', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: AppServices & MiddlewareAPI;
   let container: HTMLElement;
   let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     container = assertWindow().document.createElement('div');
     dispatch = jest.spyOn(store, 'dispatch');
   });

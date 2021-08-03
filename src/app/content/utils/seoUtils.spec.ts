@@ -1,5 +1,6 @@
 import createIntl from '../../../test/createIntl';
 import createTestServices from '../../../test/createTestServices';
+import createTestStore from '../../../test/createTestStore';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
 import { Book, Page } from '../types';
@@ -18,7 +19,12 @@ import {
 
 // tslint:disable: max-line-length
 describe('getDescription', () => {
-  const services = createTestServices();
+  const store = createTestStore();
+  const services = {
+    ...createTestServices(),
+    dispatch: store.dispatch,
+    getState: store.getState,
+  };
   const archiveLoader = services.archiveLoader;
   const book = formatBookData(mockBook, mockOsWebBook);
   const intl = createIntl();

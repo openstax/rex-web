@@ -9,7 +9,7 @@ import { runHooks } from '../../../../test/utils';
 import * as Services from '../../../context/Services';
 import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import * as reactUtils from '../../../reactUtils';
-import { AppServices, Store } from '../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
@@ -26,7 +26,7 @@ import * as utils from './utils';
 describe('NudgeStudyTools', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
-  let services: AppServices;
+  let services: AppServices & MiddlewareAPI;
   const mockPositions = {
     arrowLeft: 1200,
     arrowTopOffset: 245,
@@ -45,7 +45,11 @@ describe('NudgeStudyTools', () => {
 
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('sets cookies, opens nudge and track opening for books without SG', () => {

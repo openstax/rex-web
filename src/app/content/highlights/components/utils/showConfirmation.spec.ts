@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom';
 import createTestServices from '../../../../../test/createTestServices';
+import createTestStore from '../../../../../test/createTestStore';
 import { resetModules } from '../../../../../test/utils';
-import { AppServices } from '../../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../../types';
 import { assertDocument } from '../../../../utils';
 import showConfirmation from './showConfirmation';
 
@@ -32,7 +33,8 @@ describe('ShowConfirmation', () => {
   let createElement: jest.SpyInstance;
   let render: jest.SpyInstance;
   let unmount: jest.SpyInstance;
-  let services: AppServices;
+  let services: AppServices & MiddlewareAPI;
+  let store: Store;
 
   beforeEach(() => {
     resetModules();
@@ -50,7 +52,12 @@ describe('ShowConfirmation', () => {
     unmount = jest.spyOn(ReactDOM, 'unmountComponentAtNode');
 
     createElement = jest.spyOn(document, 'createElement').mockImplementation(() => modalNode);
-    services = createTestServices();
+    store = createTestStore();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('unmounts on confirmation', async() => {
