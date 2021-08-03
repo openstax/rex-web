@@ -6,7 +6,6 @@ import {
   MiddlewareAPI as ReduxMiddlewareAPI,
   Store as ReduxStore,
 } from 'redux';
-import { Store } from 'styled-icons/boxicons-regular';
 import { ActionType } from 'typesafe-actions';
 import { actions } from '.';
 import config from '../config';
