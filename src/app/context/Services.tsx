@@ -6,12 +6,10 @@ export const servicesContext = React.createContext({} as AppServices);
 
 const {Consumer, Provider} = servicesContext;
 
-// export const useServices = () => React.useContext(servicesContext);
-
 export const useServices = () => ({
   ...React.useContext(servicesContext),
   dispatch: useStore().dispatch,
-  getState: useStore().getState,
+  getState: useStore().getState(),
 });
 
 export {

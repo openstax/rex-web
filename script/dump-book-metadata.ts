@@ -23,7 +23,7 @@ const getPageMetadata = async(
   const services = {
     archiveLoader,
   };
-  const intlObject = await createIntl().getIntlObject(book.language);
+  const intlObject = await createIntl(book.language);
   const page = await loader.page(section.id).load();
   const description = await getPageDescription(services, intlObject, book, page);
   const sectionTitle = domParser.parseFromString(section.title, 'text/html').body.textContent;

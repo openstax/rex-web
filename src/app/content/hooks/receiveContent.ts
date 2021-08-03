@@ -32,7 +32,7 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
     return;
   }
 
-  const intlObject = await createIntl().getIntlObject(book.language);
+  const intlObject = await createIntl(book.language);
 
   const title = await createTitle(page, book, intlObject);
   const description = await getPageDescription(services, intlObject, book, page);

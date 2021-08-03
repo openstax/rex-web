@@ -21,7 +21,7 @@ describe('getDescription', () => {
   const services = createTestServices();
   const archiveLoader = services.archiveLoader;
   const book = formatBookData(mockBook, mockOsWebBook);
-  const intl = createIntl().getIntlObject();
+  const intl = createIntl();
 
   archiveLoader.mockBook(book);
 
@@ -75,7 +75,7 @@ describe('getDescription', () => {
 });
 
 describe('createTitle', () => {
-  const intl = createTestServices().intl.getIntlObject();
+  const intl = createTestServices().intl;
 
   it('creates title for a page without a parent and without .os-text class in the title', async() => {
     const page = makeArchiveSection('page1');

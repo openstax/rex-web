@@ -59,7 +59,7 @@ export interface AppServices {
 
 export interface AppServicesAndReduxMiddleware extends AppServices {
   dispatch: Dispatch;
-  store: Store;
+  getState: AppState;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };

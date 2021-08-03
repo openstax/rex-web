@@ -71,7 +71,7 @@ describe('highlightManager', () => {
     prevProp = {...prop};
     services = createTestServices();
     store = createTestStore();
-    intl = createIntl().getIntlObject();
+    intl = createIntl();
   });
 
   afterEach(() => {

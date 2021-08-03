@@ -1,7 +1,7 @@
 import { shouldPolyfill } from '@formatjs/intl-pluralrules/should-polyfill';
 import React from 'react';
 import { RawIntlProvider } from 'react-intl';
-import createTestServices from './createTestServices';
+import createIntl from './createIntl';
 
 interface Props {
   locale?: string;
@@ -24,7 +24,7 @@ polyfill('en');
 
 // tslint:disable-next-line:variable-name
 const MessageProvider = ({children, ...props}: React.PropsWithChildren<Props>) => {
-  const intlObject = createTestServices().intl.getIntlObject(props.locale, props.messages);
+  const intlObject = createIntl(props.locale, props.messages);
 
   return <RawIntlProvider value={intlObject}>
     {children}
