@@ -81,7 +81,7 @@ describe('getDescription', () => {
 });
 
 describe('createTitle', () => {
-  const intl = createTestServices().intl;
+  const intl = createIntl();
 
   it('creates title for a page without a parent and without .os-text class in the title', () => {
     const page = makeArchiveSection('page1');
