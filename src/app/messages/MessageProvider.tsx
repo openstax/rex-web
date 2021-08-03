@@ -4,6 +4,7 @@ import { IntlShape, RawIntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { book as bookSelector } from '../content/selectors';
 import { match as matchSelector } from '../navigation/selectors';
+import { assertDocument } from '../utils/browser-assertions';
 import createIntl from './createIntl';
 
 // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
@@ -33,6 +34,8 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
     if (!bookLocale) {
       return;
     }
+
+    assertDocument().documentElement.lang = bookLocale;
 
     const doPolyfill = async() => {
       await polyfill(bookLocale);
