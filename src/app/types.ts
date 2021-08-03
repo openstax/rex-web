@@ -57,11 +57,6 @@ export interface AppServices {
   bookConfigLoader: ReturnType<typeof createBookConfigLoader>;
 }
 
-export interface AppServicesAndReduxMiddleware extends AppServices {
-  dispatch: Dispatch;
-  getState: AppState;
-}
-
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };
 type ActionCreatorMap<T> = { [K in keyof T]: FlattenedActionMap<T[K]> };
 

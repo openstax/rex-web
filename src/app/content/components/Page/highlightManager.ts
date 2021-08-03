@@ -8,7 +8,7 @@ import * as selectAuth from '../../../auth/selectors';
 import { findFirstAncestorOrSelf } from '../../../domUtils';
 import { isDefined } from '../../../guards';
 import * as selectNavigation from '../../../navigation/selectors';
-import { AppServices, AppState, Dispatch } from '../../../types';
+import { AppServices, AppState, Dispatch, MiddlewareAPI } from '../../../types';
 import { assertWindow, memoizeStateToProps } from '../../../utils';
 import { assertDocument } from '../../../utils/browser-assertions';
 import {
@@ -52,7 +52,7 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
 const onFocusHighlight = (
   highlightManagerServices: HighlightManagerServices,
   highlight: Highlight | undefined,
-  appServices: AppServices
+  appServices: AppServices & MiddlewareAPI
 ) => defer(async() => {
   if (!highlight || highlightManagerServices.getProp().focused === highlight.id) {
     return;
@@ -88,7 +88,7 @@ const onFocusOutHighlight = (props: HighlightProp) => defer(() => {
 // deferred so any cards that are going to blur themselves will have done so before this is processed
 const onSelectHighlight = (
   highlightManagerServices: HighlightManagerServices,
-  appServices: AppServices,
+  appServices: AppServices & MiddlewareAPI,
   highlights: Highlight[],
   highlight: Highlight | undefined
 ) => defer(async() => {
@@ -107,7 +107,7 @@ const onSelectHighlight = (
 
 const createHighlighter = (
   highlightManagerServices: Omit<HighlightManagerServices, 'highlighter' | 'intl'>,
-  appServices: AppServices,
+  appServices: AppServices & MiddlewareAPI,
   intl: IntlShape
 ) => {
 
@@ -148,7 +148,8 @@ export interface UpdateOptions {
   onSelect: (highlight: Highlight | null) => void;
 }
 
-export default (container: HTMLElement, getProp: () => HighlightProp, appServices: AppServices, intl: IntlShape) => {
+// tslint:disable-next-line: max-line-length
+export default (container: HTMLElement, getProp: () => HighlightProp, appServices: AppServices & MiddlewareAPI, intl: IntlShape) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let scrollTargetHighlightIdThatWasHandled: string;

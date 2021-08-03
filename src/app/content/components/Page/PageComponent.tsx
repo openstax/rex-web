@@ -59,7 +59,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     });
   };
 
-  public async componentDidMount() {
+  public componentDidMount() {
     this.postProcess();
     if (!this.container.current) {
       return;

@@ -101,7 +101,7 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
 };
 
 // tslint:disable-next-line: max-line-length
-export const getPageDescription = async(services: Pick<AppServices, 'archiveLoader'>, intl: IntlShape, book: Book, page: Page): Promise<string> => {
+export const getPageDescription = (services: Pick<AppServices, 'archiveLoader'>, intl: IntlShape, book: Book, page: Page): string => {
   const { archiveLoader } = services;
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
@@ -111,7 +111,7 @@ export const getPageDescription = async(services: Pick<AppServices, 'archiveLoad
   return pageDescription || intl.formatMessage({id: 'i18n:metadata:description'});
 };
 
-export const createTitle = async(page: Page, book: Book, intl: IntlShape): Promise<string> => {
+export const createTitle = (page: Page, book: Book, intl: IntlShape): string => {
   const node = assertDefined(
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`

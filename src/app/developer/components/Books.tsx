@@ -5,11 +5,11 @@ import { StyledContentLink } from '../../content/components/ContentLink';
 import { Book } from '../../content/types';
 import { findDefaultBookPage, makeUnifiedBookLoader } from '../../content/utils';
 import withServices from '../../context/Services';
-import { AppServices } from '../../types';
+import { AppServices, MiddlewareAPI } from '../../types';
 import Panel from './Panel';
 
 interface Props {
-  services: AppServices;
+  services: AppServices & MiddlewareAPI;
 }
 interface State {
   books: Book[];

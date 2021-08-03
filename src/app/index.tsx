@@ -109,9 +109,15 @@ export default (options: AppOptions) => {
     reducer,
   });
 
+  const servicesWithReduxMiddleware = {
+    ...services,
+    dispatch: store.dispatch,
+    getState: store.getState,
+  };
+
   const container = () => (
     <Provider store={store}>
-      <Services.Provider value={services} >
+      <Services.Provider value={servicesWithReduxMiddleware} >
         <MessageProvider>
           <ErrorBoundary>
             <navigation.components.NavigationProvider routes={routes} />

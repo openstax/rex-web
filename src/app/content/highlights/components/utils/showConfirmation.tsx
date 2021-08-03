@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid/v4';
 import createIntl from '../../../../messages/createIntl';
+import { AppServices, MiddlewareAPI } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
 import ConfirmationModal from '../ConfirmationModal';
 
-export default async(services: any) => {
+export default async(services: AppServices & MiddlewareAPI) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
-  const { content } = services.getState;
+  const { content } = services.getState();
   const language = content!.book!.language;
   const intl = await createIntl(language);
 
