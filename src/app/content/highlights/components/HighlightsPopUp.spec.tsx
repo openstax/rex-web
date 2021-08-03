@@ -10,7 +10,7 @@ import TestContainer from '../../../../test/TestContainer';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import * as appGuards from '../../../guards';
-import { AppServices, MiddlewareAPI, Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
 import { receiveBook } from '../../actions';
@@ -38,7 +38,7 @@ describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
   let store: Store;
   let user: User;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();

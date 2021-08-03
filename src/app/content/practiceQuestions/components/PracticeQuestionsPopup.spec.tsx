@@ -7,7 +7,7 @@ import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { push } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
-import { AppServices, MiddlewareAPI, Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
 import { content } from '../../routes';
 import { nextQuestion } from '../actions';
@@ -39,7 +39,7 @@ const mockMatch = {
 
 describe('PracticeQuestions', () => {
   let store: Store;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let container: HTMLElement;
   let dispatch: jest.SpyInstance;
 

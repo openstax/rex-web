@@ -7,7 +7,7 @@ import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
-import { AppServices, MiddlewareAPI, Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
 import { closeStudyGuides, openStudyGuides } from '../actions';
@@ -31,7 +31,7 @@ describe('Study Guides button and PopUp', () => {
   let dispatch: jest.SpyInstance;
   let store: Store;
   let user: User;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();

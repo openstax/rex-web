@@ -7,7 +7,7 @@ import { book } from '../../../../test/mocks/archiveLoader';
 import TestContainer from '../../../../test/TestContainer';
 import { runHooks } from '../../../../test/utils';
 import Button from '../../../components/Button';
-import { AppServices, MiddlewareAPI, Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { assertDocument, assertWindow } from '../../../utils/browser-assertions';
 import { receiveBook } from '../../actions';
@@ -21,7 +21,7 @@ import Question, { AnswersWrapper, QuestionContent, QuestionWrapper } from './Qu
 
 describe('Question', () => {
   let store: Store;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let render: () => JSX.Element;
   let linkedArchiveTreeSection: LinkedArchiveTreeSection;
   let dispatch: jest.SpyInstance;

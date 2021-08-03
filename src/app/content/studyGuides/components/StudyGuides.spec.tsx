@@ -7,7 +7,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter, pageInOtherChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
-import { AppServices, MiddlewareAPI, Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights from '../../components/SectionHighlights';
@@ -44,7 +44,7 @@ const hlYellow = {
 describe('StudyGuides', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let store: Store;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();

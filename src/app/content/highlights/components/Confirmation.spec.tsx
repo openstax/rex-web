@@ -7,7 +7,7 @@ import MessageProvider from '../../../../test/MessageProvider';
 import { makeFindByTestId } from '../../../../test/reactutils';
 import * as Services from '../../../context/Services';
 import en from '../../../messages/en/index';
-import { AppServices, MiddlewareAPI, Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import Confirmation from './Confirmation';
 
 // this is a hack because useEffect is currently not called
@@ -28,7 +28,7 @@ const messages = {
 
 describe('Confirmation', () => {
   let store: Store;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();

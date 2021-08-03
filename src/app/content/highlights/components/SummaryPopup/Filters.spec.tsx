@@ -10,14 +10,14 @@ import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import Checkbox from '../../../../components/Checkbox';
 import { DropdownToggle } from '../../../../components/Dropdown';
 import * as Services from '../../../../context/Services';
-import { AppServices, MiddlewareAPI, Store } from '../../../../types';
+import { MiddlewareAPI, Store } from '../../../../types';
 import { formatBookData, stripIdVersion } from '../../../utils';
 import { receiveHighlightsTotalCounts, updateSummaryFilters } from '../../actions';
 import Filters from './Filters';
 
 describe('Filters', () => {
   let store: Store;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
   const book = formatBookData(archiveBook, mockCmsBook);
 

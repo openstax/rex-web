@@ -6,7 +6,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
-import { AppServices, MiddlewareAPI, Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights, { HighlightSection } from '../../components/SectionHighlights';
 import LoaderWrapper from '../../styles/LoaderWrapper';
@@ -41,7 +41,7 @@ describe('Highlights', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let consoleError: jest.SpyInstance;
   let store: Store;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
 
   beforeEach(() => {

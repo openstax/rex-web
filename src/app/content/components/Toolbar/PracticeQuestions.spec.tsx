@@ -8,7 +8,7 @@ import { book as archiveBook, page as shortPage } from '../../../../test/mocks/a
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import * as Services from '../../../context/Services';
 import { receiveFeatureFlags } from '../../../featureFlags/actions';
-import { AppServices, MiddlewareAPI, Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import * as selectors from '../../practiceQuestions/selectors';
@@ -24,7 +24,7 @@ const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('practice questions button', () => {
   let store: Store;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let render: () => JSX.Element;
 
   beforeEach(() => {

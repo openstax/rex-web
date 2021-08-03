@@ -11,7 +11,7 @@ import { runHooks } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
 import Checkbox from '../../../components/Checkbox';
 import { DropdownToggle } from '../../../components/Dropdown';
-import { AppServices, MiddlewareAPI, Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook } from '../../actions';
 import FiltersList, { FiltersListColor } from '../../components/popUp/FiltersList';
@@ -30,7 +30,7 @@ import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
 describe('Filters', () => {
   let store: Store;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
   const window = assertWindow();
   const book = formatBookData(archiveBook, mockCmsBook);

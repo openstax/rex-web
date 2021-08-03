@@ -14,7 +14,7 @@ import * as Services from '../../context/Services';
 import { receiveFeatureFlags } from '../../featureFlags/actions';
 import * as featureFlagSelectors from '../../featureFlags/selectors';
 import { searchButtonColor } from '../../featureFlags/selectors';
-import { AppServices, MiddlewareAPI, Store } from '../../types';
+import { MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import { practiceQuestionsFeatureFlag } from '../constants';
 import {
@@ -33,7 +33,7 @@ const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('print button', () => {
   let store: Store;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let print: jest.SpyInstance;
 
   beforeEach(() => {
@@ -83,7 +83,7 @@ describe('print button', () => {
 describe('search', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();
