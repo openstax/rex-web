@@ -1,10 +1,16 @@
 import ReactDOM from 'react-dom';
 import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';
+import { book as archiveBook } from '../../../../../test/mocks/archiveLoader';
 import { resetModules } from '../../../../../test/utils';
+import { mockCmsBook } from '../../../..//../test/mocks/osWebLoader';
 import { AppServices, MiddlewareAPI, Store } from '../../../../types';
 import { assertDocument } from '../../../../utils';
+import { receiveBook } from '../../../actions';
+import { formatBookData } from '../../../utils';
 import showConfirmation from './showConfirmation';
+
+const book = formatBookData(archiveBook, mockCmsBook);
 
 jest.mock('../ConfirmationModal', () => jest.fn()
   .mockImplementationOnce(({ confirm }) => {
@@ -61,6 +67,7 @@ describe('ShowConfirmation', () => {
   });
 
   it('unmounts on confirmation', async() => {
+    store.dispatch(receiveBook(book));
     const answer = await showConfirmation(services);
 
     expect(answer).toBe(true);
@@ -71,6 +78,7 @@ describe('ShowConfirmation', () => {
   });
 
   it('unmounts on denial', async() => {
+    store.dispatch(receiveBook(book));
     const answer = await showConfirmation(services);
 
     expect(answer).toBe(false);

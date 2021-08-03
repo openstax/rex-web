@@ -99,7 +99,7 @@ describe('setHead hook', () => {
       CANONICAL_MAP[bookId] = [ [bookId, {}] ];
 
       jest.spyOn(seoUtils, 'getPageDescription')
-        .mockImplementation(() => Promise.resolve('mock seo description'));
+        .mockReturnValue('mock seo description');
 
       await hook(receivePage({
         ...page,
@@ -217,7 +217,7 @@ describe('setHead hook', () => {
       CANONICAL_MAP[bookId] = [ [bookId, {}] ];
 
       jest.spyOn(seoUtils, 'createTitle')
-        .mockImplementation(() => Promise.resolve('mock seo title'));
+        .mockReturnValue('mock seo title');
 
       store.dispatch(receiveBook(combinedBook));
       store.dispatch(receivePage({...page, references: [], id: pageId}));

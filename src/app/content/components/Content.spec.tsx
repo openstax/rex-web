@@ -10,7 +10,7 @@ import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
 import { locationChange } from '../../navigation/actions';
-import { AppServices, MiddlewareAPI, Store } from '../../types';
+import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { openToc, receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
@@ -30,7 +30,7 @@ jest.mock('../../../config.books', () => {
 
 describe('content', () => {
   let store: Store;
-  let services: AppServices & MiddlewareAPI;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   const bookState = formatBookData(book, mockCmsBook);
 
   beforeEach(() => {
