@@ -118,18 +118,12 @@ describe('ContentLink', () => {
       const scrollTarget: SearchScrollTarget = { type: 'search', index: 1, elementId: 'anchor' };
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveBook(book));
-<<<<<<< HEAD
       const mockSearch = {
         query: 'asdf',
       };
-      const component = renderer.create(<Provider store={store}>
-        <ConnectedContentLink book={book} page={page} persistentQueryParams={mockSearch} scrollTarget={scrollTarget} />
-      </Provider>);
-=======
       const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} scrollTarget={scrollTarget} />
+        <ConnectedContentLink book={book} page={page} persistentQueryParams={mockSearch} scrollTarget={scrollTarget} />
       </TestContainer>);
->>>>>>> master
 
       dispatch.mockClear();
 
