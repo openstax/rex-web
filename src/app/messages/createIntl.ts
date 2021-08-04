@@ -1,28 +1,27 @@
 import memoize from 'lodash/fp/memoize';
 import { createIntl, createIntlCache } from 'react-intl';
-// import Sentry from '../../helpers/Sentry';
-import en from './en/index';
+import Sentry from '../../helpers/Sentry';
 
-export default memoize((locale: string) => {
+export default memoize(async(locale: string) => {
   const cache = createIntlCache();
-  // let messages;
+  let messages;
 
-  // try {
-  //   const localeMessages = import(`./en/index`);
-  //   messages = localeMessages.default;
-  // } catch (e) {
-  //   const enMessages = import(`./en/index`);
-  //   if (enMessages) {
-  //     messages = enMessages.default;
-  //   } else {
-  //     messages = null;
-  //   }
-  //   Sentry.captureException(e);
-  // }
+  try {
+    const localeMessages = await import(`./${locale}/index`);
+    messages = localeMessages.default;
+  } catch (e) {
+    const enMessages = await import(`./en/index`);
+    if (enMessages) {
+      messages = enMessages.default;
+    } else {
+      messages = null;
+    }
+    Sentry.captureException(e);
+  }
 
   const intl = createIntl({
     locale,
-    messages: en,
+    messages,
   }, cache);
 
   return intl;

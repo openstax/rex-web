@@ -73,11 +73,12 @@ describe('content', () => {
   it('updates links in content', async() => {
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE_WITH_LINKS);
-    const links: string[] = await page.evaluate(() => {
-          return document ? Array.from(document.querySelectorAll('#main-content a'))
-          .map((element) => element.getAttribute('href') as string)
-        : [];
-      }
+
+    const links: string[] = await page.evaluate(() =>
+      document
+        ? Array.from(document.querySelectorAll('#main-content a'))
+      .map((element) => element.getAttribute('href') as string)
+    : []
     );
 
     expect(links).toEqual([

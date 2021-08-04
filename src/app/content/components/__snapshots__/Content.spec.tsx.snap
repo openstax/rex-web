@@ -336,7 +336,7 @@ Array [
           <span
             className="SidebarControl__ToCButtonText-sdjc7-0 jkrvrh"
           >
-            Table of Contents
+            Table of contents
           </span>
         </button>
       </div>
@@ -351,7 +351,7 @@ Array [
           className="Content__CenteredContentRow-sc-1f451g1-2 bIMWRC"
         >
           <div
-            aria-label="Table of Contents"
+            aria-label="Table of contents"
             className="wrapper__SidebarBody-sc-1nl0jy-0 fRdwcf"
             data-analytics-region="toc"
             data-testid="toc"
@@ -394,7 +394,7 @@ Array [
                 <span
                   className="SidebarControl__ToCButtonText-sdjc7-0 drhjCM"
                 >
-                  Table of Contents
+                  Table of contents
                 </span>
                 <svg
                   aria-hidden="true"
@@ -1764,7 +1764,7 @@ Array [
           <span
             className="SidebarControl__ToCButtonText-sdjc7-0 jkrvrh"
           >
-            Table of Contents
+            Table of contents
           </span>
         </button>
       </div>
@@ -1779,7 +1779,7 @@ Array [
           className="Content__CenteredContentRow-sc-1f451g1-2 bIMWRC"
         >
           <div
-            aria-label="Table of Contents"
+            aria-label="Table of contents"
             className="wrapper__SidebarBody-sc-1nl0jy-0 fRdwcf"
             data-analytics-region="toc"
             data-testid="toc"
@@ -1822,7 +1822,7 @@ Array [
                 <span
                   className="SidebarControl__ToCButtonText-sdjc7-0 drhjCM"
                 >
-                  Table of Contents
+                  Table of contents
                 </span>
                 <svg
                   aria-hidden="true"
