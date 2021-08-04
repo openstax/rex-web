@@ -33,7 +33,6 @@ describe('content', () => {
 
       // these attributes are intended to be changed on page load
       [
-        ['html', 'lang'],
         ['[data-testid="toc"]', 'style'],
         ['[data-testid="search-results-sidebar"]', 'style'],
         ['[data-testid="loader"] path', 'style'],
@@ -75,11 +74,17 @@ describe('content', () => {
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE_WITH_LINKS);
 
-    const links: string[] = await page.evaluate(() =>
-      document
+    const links: string[] = await page.evaluate(() => {
+      console.log('doc: ', document);
+      if (document) {
+        console.log('array: ', Array.from(document.querySelectorAll('#main-content a')))
+      }
+
+      return document
         ? Array.from(document.querySelectorAll('#main-content a'))
           .map((element) => element.getAttribute('href') as string)
-        : []
+        : [];
+      }
     );
 
     expect(links).toEqual([
