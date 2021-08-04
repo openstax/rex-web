@@ -8,22 +8,22 @@ import { assertDocument } from '../utils/browser-assertions';
 import createIntl from './createIntl';
 
 // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
-async function polyfill(locale: string) {
-  if (shouldPolyfill()) {
-    await import('@formatjs/intl-pluralrules/polyfill');
-  }
+// async function polyfill(locale: string) {
+//   if (shouldPolyfill()) {
+//     await import('@formatjs/intl-pluralrules/polyfill');
+//   }
 
-  // boolean added by the polyfill
-  if ((Intl.PluralRules as (typeof Intl.PluralRules & {polyfilled?: boolean})).polyfilled) {
-    await import(`@formatjs/intl-pluralrules/locale-data/${locale}`);
-  }
-}
+//   // boolean added by the polyfill
+//   if ((Intl.PluralRules as (typeof Intl.PluralRules & {polyfilled?: boolean})).polyfilled) {
+//     await import(`@formatjs/intl-pluralrules/locale-data/${locale}`);
+//   }
+// }
 
 // tslint:disable-next-line:variable-name
 const MessageProvider = (props: { children?: React.ReactNode }) => {
   const book = useSelector(bookSelector);
   const route = useSelector(matchSelector)?.route;
-  const [polyfillLoaded, setPolyfillLoaded] = useState(false);
+  // const [polyfillLoaded, setPolyfillLoaded] = useState(false);
   const [intl, setIntl] = useState<IntlShape | null>(null);
 
   const bookLocale = React.useMemo(() => {
@@ -37,10 +37,10 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
 
     assertDocument().documentElement.lang = bookLocale;
 
-    const doPolyfill = async() => {
-      await polyfill(bookLocale);
-      setPolyfillLoaded(true);
-    };
+    // const doPolyfill = async() => {
+    //   await polyfill(bookLocale);
+    //   setPolyfillLoaded(true);
+    // };
 
     const setUpIntl = async() => {
       const intlObject = await createIntl(bookLocale);
@@ -48,7 +48,7 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
     };
 
     setUpIntl();
-    doPolyfill();
+    // doPolyfill();
   }, [bookLocale]);
 
   return intl ? (
