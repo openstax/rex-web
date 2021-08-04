@@ -1,4 +1,4 @@
-import { shouldPolyfill } from '@formatjs/intl-pluralrules/should-polyfill';
+// import { shouldPolyfill } from '@formatjs/intl-pluralrules/should-polyfill';
 import React, { useEffect, useState } from 'react';
 import { IntlShape, RawIntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
