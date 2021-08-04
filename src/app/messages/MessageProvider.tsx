@@ -51,7 +51,7 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
     doPolyfill();
   }, [bookLocale]);
 
-  return intl && polyfillLoaded ? (
+  return intl ? (
     <RawIntlProvider value={intl}>
       {props.children}
     </RawIntlProvider>
