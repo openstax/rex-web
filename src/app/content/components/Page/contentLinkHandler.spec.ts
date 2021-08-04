@@ -1,8 +1,10 @@
 import { HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
+import createTestServices from '../../../../test/createTestServices';
 import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
+import { AppServices } from '../../../types';
 import { assertDocument } from '../../../utils';
 import * as routes from '../../routes';
 import { formatBookData } from '../../utils';
@@ -17,10 +19,12 @@ describe('contentLinkHandler', () => {
   let handler: (e: MouseEvent) => Promise<void>;
   let prop: ContentLinkProp;
   let anchor: HTMLAnchorElement;
+  let services: AppServices;
 
   beforeEach(() => {
     resetModules();
     anchor = assertDocument().createElement('a');
+    services = createTestServices();
 
     prop = {
       book,
@@ -41,7 +45,7 @@ describe('contentLinkHandler', () => {
 
     beforeEach(() => {
       contentRoute = require('../../routes').content;
-      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop);
+      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop, services);
     });
 
     it('intercepts clicking content links with uuid', async() => {
@@ -295,7 +299,7 @@ describe('contentLinkHandler', () => {
     beforeEach(() => {
       prop.hasUnsavedHighlight = true;
 
-      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop);
+      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop, services);
 
       const link = `/books/${book.id}@${book.version}/pages/page-title`;
       anchor.setAttribute('href', link);
