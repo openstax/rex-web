@@ -33,6 +33,7 @@ describe('content', () => {
 
       // these attributes are intended to be changed on page load
       [
+        ['html', 'lang'],
         ['[data-testid="toc"]', 'style'],
         ['[data-testid="search-results-sidebar"]', 'style'],
         ['[data-testid="loader"] path', 'style'],
