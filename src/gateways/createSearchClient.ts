@@ -1,4 +1,4 @@
-import { Configuration, SearchApi } from '@openstax/open-search-client';
+import { Configuration, SearchApi } from '../clients/open-search';
 
 export default (url: string) => {
   const config = new Configuration({

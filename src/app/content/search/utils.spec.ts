@@ -1,7 +1,7 @@
 import Highlighter from '@openstax/highlighter';
-import { SearchResult } from '@openstax/open-search-client/dist/models/SearchResult';
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import * as mockArchive from '../../..//test/mocks/archiveLoader';
+import { SearchResult } from '../../../clients/open-search';
 import * as rangyHelpers from '../../../helpers/rangy';
 import Sentry from '../../../helpers/Sentry';
 import { mockRange } from '../../../test/mocks/rangy';

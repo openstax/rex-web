@@ -1,5 +1,5 @@
-import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
 import queryString from 'querystring';
+import { SearchResultHit } from '../../../clients/open-search';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';

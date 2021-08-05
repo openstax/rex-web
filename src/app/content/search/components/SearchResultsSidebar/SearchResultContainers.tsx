@@ -1,8 +1,8 @@
-import { SearchResultHit } from '@openstax/open-search-client';
 import isEqual from 'lodash/fp/isEqual';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
+import { SearchResultHit } from '../../../../../clients/open-search';
 import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
 import { AppState, Dispatch, FirstArgumentType } from '../../../../types';
 import * as select from '../../../selectors';

@@ -1,6 +1,6 @@
-import { SearchApi } from '@openstax/open-search-client';
 import { createMemoryHistory } from 'history';
 import { intl } from '../app/MessageProvider';
+import { SearchApi } from '../clients/open-search';
 import config from '../config';
 import { BuyPrintResponse } from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
@@ -13,7 +13,7 @@ import mockbookConfigLoader from './mocks/bookConfigLoader';
 import mockOsWebLoader from './mocks/osWebLoader';
 import mockUserLoader from './mocks/userLoader';
 
-jest.mock('@openstax/open-search-client');
+jest.mock('../clients/open-search');
 jest.mock('@openstax/highlighter/dist/api');
 
 const services = () => ({

@@ -1,5 +1,4 @@
 import { Highlight } from '@openstax/highlighter';
-import { SearchResult } from '@openstax/open-search-client';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
@@ -7,6 +6,7 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import { SearchResult } from '../../../clients/open-search';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';

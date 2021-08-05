@@ -2958,11 +2958,6 @@
   resolved "https://registry.yarnpkg.com/@openstax/highlights-client/-/highlights-client-0.2.3.tgz#fb6983e0f6f7f142dc621a76651fed73982bdde1"
   integrity sha512-XebhmTIUQj5b1ZdCHDPYBQF0VpZXHxKkt2Sgvmxmpp8tYQihKtq/SYSNKNmC8tgf6/JktDLrUneLdlXCvAG8jA==
 
-"@openstax/open-search-client@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@openstax/open-search-client/-/open-search-client-0.1.0.tgz#57c0d5d9524eb8cf8fc729251fcccfe5c26b8358"
-  integrity sha512-m3+jeNIwegiuTW0ncxdafRYG2EjlPyH5F2v6zdlDQcGVXK6yZWrKthz8jrRxmTCx7CE5Iw+Jv2UwE0ghVi2TXg==
-
 "@openstax/types@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@openstax/types/-/types-3.1.0.tgz#364a73e321127dfb1cfa36adccdae8e21a0805dc"

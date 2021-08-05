@@ -1,6 +1,6 @@
-import { SearchResultHit, SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client';
 import { ArchiveBook, ArchivePage, ArchiveTreeSection } from '../app/content/types';
 import { getIdVersion, stripIdVersion } from '../app/content/utils/idUtils';
+import { SearchResultHit, SearchResultHitSourceElementTypeEnum } from '../clients/open-search';
 import * as mockArchive from './mocks/archiveLoader';
 
 const isArchivePage = (thing: ArchivePage | ArchiveTreeSection): thing is ArchivePage =>

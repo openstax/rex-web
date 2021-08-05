@@ -76,7 +76,6 @@ ui-test.html
 # generated code
 src/content.css
 src/content.css.map
-open-search-client
 src/clients/
 
 # development environment.json

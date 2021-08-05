@@ -1,7 +1,7 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
-import { SearchResult, SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import sortBy from 'lodash/fp/sortBy';
+import { SearchResult, SearchResultHit } from '../../../clients/open-search';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
 import { getAllRegexMatches } from '../../utils';
 import attachHighlight from '../components/utils/attachHighlight';
