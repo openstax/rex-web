@@ -5,7 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { scrollIntoView } from '../../../domUtils';
+import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
@@ -26,6 +26,7 @@ import { getHighlightLocationFilterForPage } from '../utils';
 import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
+import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
 
 export interface CardProps {
@@ -58,14 +59,15 @@ const Card = (props: CardProps) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
+  const services = useServices();
 
   const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
-    if (!isActive && (!hasUnsavedHighlight || await showConfirmation())) {
+    if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services))) {
       focus(id);
     }
-  }, [isActive, hasUnsavedHighlight, id, focus]);
+  }, [isActive, hasUnsavedHighlight, id, focus, services]);
 
   useFocusIn(element, true, focusCard);
 
@@ -73,13 +75,7 @@ const Card = (props: CardProps) => {
     if (!props.isActive) {
       setEditing(false);
     } else {
-      const firstElement = props.highlight.elements[0] as HTMLElement;
-      const lastElement = props.highlight.elements[props.highlight.elements.length - 1] as HTMLElement;
-      const elements = [lastElement];
-      if (element.current) {
-        elements.push(element.current);
-      }
-      scrollIntoView(firstElement, elements);
+      scrollHighlightIntoView(props.highlight, element);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, props.isActive]);
