@@ -85,7 +85,8 @@
     "test:lighthouse-manual": "REACT_APP_ENV=test lighthouse --view --config-path=./src/test/audits/index.js",
     "analyze:bundle": "craco build && source-map-explorer 'build/static/js/*.js' -m",
     "analyze:dom": "node ./script/entry.js domVisitor",
-    "heroku-postbuild": "npm run-script build:clean"
+    "heroku-postbuild": "npm run-script build:clean",
+    "postinstall": "./script/build-swagger-clients.bash"
   },
   "eslintConfig": {
     "extends": "react-app"
