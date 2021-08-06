@@ -1,5 +1,4 @@
 import googleAnalyticsClient from '../../../../gateways/googleAnalyticsClient';
-import initializeIntl from '../../../messages/intlHook';
 import { locationChange } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
@@ -8,6 +7,7 @@ import { loadPracticeQuestions } from '../../practiceQuestions/hooks';
 import { content } from '../../routes';
 import { syncSearch } from '../../search/hooks';
 import { loadStudyGuides } from '../../studyGuides/hooks';
+import initializeIntl from '../intlHook';
 import loadBuyPrintConfig from './buyPrintConfig';
 import resolveContent from './resolveContent';
 

@@ -1,5 +1,5 @@
-import { AppServices, MiddlewareAPI } from '../types';
-import createIntl from './createIntl';
+import createIntl from '../../messages/createIntl';
+import { AppServices, MiddlewareAPI } from '../../types';
 
 export const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const state = services.getState();
