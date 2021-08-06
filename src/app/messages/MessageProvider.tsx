@@ -12,7 +12,7 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
   const book = useSelector(bookSelector);
   const route = useSelector(matchSelector)?.route;
   const services = useServices();
-  const [intl, setIntl] = useState<IntlShape | undefined>(services.intl);
+  const [intl, setIntl] = useState<IntlShape | null>(services.intl.current);
 
   const bookLocale = React.useMemo(() => {
     return route?.locale || book?.language;

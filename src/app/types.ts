@@ -47,7 +47,7 @@ export interface AppServices {
   fontCollector: FontCollector;
   highlightClient: ReturnType<typeof createHighlightClient>;
   history: History;
-  intl?: IntlShape;
+  intl: {current: IntlShape | null};
   osWebLoader: ReturnType<typeof createOSWebLoader>;
   practiceQuestionsLoader: ReturnType<typeof createPracticeQuestionsLoader>;
   prerenderedContent?: string;

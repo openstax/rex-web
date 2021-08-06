@@ -58,6 +58,7 @@ const hooks = [
 const defaultServices = () => ({
   analytics,
   fontCollector: new FontCollector(),
+  intl: {current: null},
   promiseCollector: new PromiseCollector(),
 });
 
@@ -109,15 +110,9 @@ export default (options: AppOptions) => {
     reducer,
   });
 
-  const servicesWithReduxMiddleware = {
-    ...services,
-    dispatch: store.dispatch,
-    getState: store.getState,
-  };
-
   const container = () => (
     <Provider store={store}>
-      <Services.Provider value={servicesWithReduxMiddleware} >
+      <Services.Provider value={services} >
         <MessageProvider>
           <ErrorBoundary>
             <navigation.components.NavigationProvider routes={routes} />
