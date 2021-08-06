@@ -1,4 +1,5 @@
 import googleAnalyticsClient from '../../../../gateways/googleAnalyticsClient';
+import initializeIntl from '../../../messages/intlHook';
 import { locationChange } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
@@ -25,6 +26,7 @@ const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
     loadHighlights(services)(locationChange(action)),
     loadStudyGuides(services)(),
     loadPracticeQuestions(services)(),
+    initializeIntl(services)(),
   ]);
 };
 

@@ -10,7 +10,7 @@ export function bookDetailsUrl(book: BookWithOSWebData) {
 }
 
 export const getBookPageUrlAndParams = (
-  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>,
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'language'> & Partial<{slug: string}>,
   page: Pick<Page, 'id' | 'title'>
 ) => {
   const params: Params = {

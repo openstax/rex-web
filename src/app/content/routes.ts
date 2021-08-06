@@ -36,6 +36,7 @@ export const content: Route<Params, State> = {
 
     return pathToRegexp.compile(path)(parsedParams);
   },
+  language: 'en',
   name: 'Content',
   paths: contentPaths,
 };

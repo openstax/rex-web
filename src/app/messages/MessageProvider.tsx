@@ -1,57 +1,20 @@
-import { shouldPolyfill } from '@formatjs/intl-pluralrules/should-polyfill';
 import React, { useEffect, useState } from 'react';
 import { IntlShape, RawIntlProvider } from 'react-intl';
-import { useSelector } from 'react-redux';
-import { book as bookSelector } from '../content/selectors';
-import { match as matchSelector } from '../navigation/selectors';
-import { assertDocument } from '../utils/browser-assertions';
-import createIntl from './createIntl';
-
-// https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
-async function polyfill(locale: string) {
-  if (shouldPolyfill()) {
-    await import('@formatjs/intl-pluralrules/polyfill');
-  }
-
-  // boolean added by the polyfill
-  if ((Intl.PluralRules as (typeof Intl.PluralRules & {polyfilled?: boolean})).polyfilled) {
-    await import(`@formatjs/intl-pluralrules/locale-data/${locale}`);
-  }
-}
+import { useServices } from '../context/Services';
 
 // tslint:disable-next-line:variable-name
 const MessageProvider = (props: { children?: React.ReactNode }) => {
-  const book = useSelector(bookSelector);
-  const route = useSelector(matchSelector)?.route;
-  const [polyfillLoaded, setPolyfillLoaded] = useState(false);
+  const services = useServices();
   const [intl, setIntl] = useState<IntlShape | null>(null);
 
-  const bookLocale = React.useMemo(() => {
-    return route?.locale || book?.language;
-  }, [book, route]);
-
   useEffect(() => {
-    if (!bookLocale) {
+    if (!services.intl) {
       return;
     }
+    setIntl(services.intl);
+  }, [services]);
 
-    assertDocument().documentElement.lang = bookLocale;
-
-    const doPolyfill = async() => {
-      await polyfill(bookLocale);
-      setPolyfillLoaded(true);
-    };
-
-    const setUpIntl = async() => {
-      const intlObject = await createIntl(bookLocale);
-      setIntl(intlObject);
-    };
-
-    setUpIntl();
-    doPolyfill();
-  }, [bookLocale]);
-
-  return intl && polyfillLoaded ? (
+  return intl ? (
     <RawIntlProvider value={intl}>
       {props.children}
     </RawIntlProvider>
