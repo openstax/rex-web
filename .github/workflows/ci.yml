@@ -3,12 +3,9 @@ name: CI
 on: [pull_request]
 
 jobs:
-  setup:
-    name: Setup
+  swagger:
+    name: Swagger 
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI-2020-01-26
-    outputs:
-      deployment-url: ${{ steps.find-deployment.outputs.url }}
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.4.0
@@ -17,6 +14,29 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.head.sha }}
+    - uses: actions/cache@v2
+      id: swagger_clients 
+      with:
+        path: src/clients 
+        key: swagger_clients 
+    - run: ./script/build-swagger-clients.bash
+
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI-2020-01-26
+    needs: swagger
+    outputs:
+      deployment-url: ${{ steps.find-deployment.outputs.url }}
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - uses: actions/cache@v2
+      id: swagger_clients 
+      with:
+        path: src/clients 
+        key: swagger_clients 
     - uses: actions/cache@v2
       id: node_modules
       with:

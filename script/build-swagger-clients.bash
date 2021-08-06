@@ -1,14 +1,21 @@
 #!/usr/bin/env bash
 set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
+project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
+
+if [ -d "$project_dir/src/clients" ]; then
+  echo "/src/clients directory exists, skipping swagger build" > /dev/stderr;
+  exit 0;
+fi
+
 if [ -z "$(which docker)" ]; then
   echo "docker is required to build swagger" > /dev/stderr;
   exit 1;
 fi
 
-project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
-
 swagger_clients=$(node -e "process.stdout.write(JSON.stringify(require('$project_dir/src/swagger-clients.js')))" | jq -c .[])
+
+mkdir "$project_dir/src/clients"
 
 while IFS= read -r swagger_client; do
   client_name=$(jq -r .name <<< "$swagger_client")
@@ -29,7 +36,7 @@ while IFS= read -r swagger_client; do
 
   echo "(swagger $client_name) building swagger" > /dev/stderr;
 
-  docker run --rm -v "$temp_dir:/shared" openapitools/openapi-generator-cli generate \
+  docker run --rm -v "$temp_dir:/shared" openapitools/openapi-generator-cli:v5.2.0 generate \
     --additional-properties=typescriptThreePlus=true \
     -i /shared/swagger.json \
     -g typescript-fetch \
