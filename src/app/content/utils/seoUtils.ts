@@ -101,14 +101,17 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
 };
 
 // tslint:disable-next-line: max-line-length
-export const getPageDescription = (services: Pick<AppServices, 'archiveLoader'>, intl: IntlShape, book: Book, page: Page): string => {
-  const { archiveLoader } = services;
+export const getPageDescription = (services: Pick<AppServices, 'archiveLoader' | 'intl'>, book: Book, page: Page): string => {
+  const { archiveLoader, intl } = services;
+  if (!intl.current) {
+    return '';
+  }
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const pageNode = doc.body.firstElementChild;
   const pageDescription = pageNode ? getPageDescriptionFromContent(pageNode) : null;
 
-  return pageDescription || intl.formatMessage({id: 'i18n:metadata:description'});
+  return pageDescription || intl.current.formatMessage({id: 'i18n:metadata:description'});
 };
 
 export const createTitle = (page: Page, book: Book, intl: IntlShape): string => {

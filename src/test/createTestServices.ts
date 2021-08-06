@@ -27,7 +27,7 @@ const services = () => ({
   fontCollector: new FontCollector(),
   highlightClient: createHighlightClient('asdf'),
   history: createMemoryHistory(),
-  intl: createIntl('en'),
+  intl: {current: createIntl('en')},
   osWebLoader: mockOsWebLoader(),
   practiceQuestionsLoader: createPracticeQuestionsLoader(),
   promiseCollector: new PromiseCollector(),
