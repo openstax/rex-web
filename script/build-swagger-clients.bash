@@ -1,21 +1,17 @@
 #!/usr/bin/env bash
 set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
-project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
-
-if [ -d "$project_dir/src/clients" ]; then
-  echo "/src/clients directory exists, skipping swagger build" > /dev/stderr;
-  exit 0;
-fi
-
 if [ -z "$(command -v docker)" ]; then
   echo "docker is required to build swagger" > /dev/stderr;
   exit 1;
 fi
+if [ -z "$(command -v yarn)" ]; then
+  echo "yarn is required to build swagger" > /dev/stderr;
+  exit 1;
+fi
 
+project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 swagger_clients=$(node -e "process.stdout.write(JSON.stringify(require('$project_dir/src/swagger-clients.js')))" | jq -c .[])
-
-mkdir "$project_dir/src/clients"
 
 while IFS= read -r swagger_client; do
   client_name=$(jq -r .name <<< "$swagger_client")
@@ -47,15 +43,35 @@ while IFS= read -r swagger_client; do
   docker run --rm -v "$temp_dir:/shared" openapitools/openapi-generator-cli:v5.2.0 bash -c \
     'chown -R "$(stat -c "%u:%g" /shared)" /shared'
 
-  echo "(swagger $client_name) hacking the mainframe" > /dev/stderr;
+  echo "(swagger $client_name) building typescript" > /dev/stderr;
 
-  find "$temp_dir" -name '*.ts' | while IFS= read -r file; do
-    cat <(echo "// @ts-nocheck") "$file" >> "$file.tmp"
-    mv "$file.tmp" "$file"
-  done
+  cd "$temp_dir"
 
-  rm -rf "$project_dir/src/clients/$client_name"
-  mv "$temp_dir/src" "$project_dir/src/clients/$client_name"
+  yarn add typescript@4.2 semver
+  yarn tsc --module commonjs --target es6 --lib es2015,dom --outDir dist --declaration index.ts
+  
+  echo "(swagger $client_name) configuring package" > /dev/stderr;
+
+  api_version=$(docker run --rm -i stedolan/jq .info.version < swagger.json)
+  npm_version=$(yarn info --silent "@openstax/$client_name" version)
+
+  if yarn semver -r "$api_version-build.0" "$npm_version"; then
+    version=$(yarn semver "$npm_version" -i prerelease)
+  else
+    version=""$api_version-build.0""
+  fi
+
+  cat > dist/package.json <<packagejson
+{
+  "name": "@openstax/$client_name",
+  "description": "automatically generated swagger client",
+  "version": "$version",
+  "main": "index.js",
+  "module": "index.es.js",
+  "typings": "index.d.ts",
+  "license": "MIT"
+}
+packagejson
 
   echo "(swagger $client_name) done" > /dev/stderr;
 
