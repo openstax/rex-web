@@ -8,7 +8,7 @@ if [ -d "$project_dir/src/clients" ]; then
   exit 0;
 fi
 
-if [ -z "$(which docker)" ]; then
+if [ -z "$(command -v docker)" ]; then
   echo "docker is required to build swagger" > /dev/stderr;
   exit 1;
 fi
