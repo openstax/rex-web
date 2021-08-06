@@ -51,7 +51,7 @@ export interface Route<
   getUrl: (p: P) => string;
   getSearch?: (p: P) => string;
   component: ComponentType;
-  language?: string;
+  locale?: string;
 }
 
 export interface LocationChange<M = AnyMatch> {

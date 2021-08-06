@@ -15,7 +15,7 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
   const [intl, setIntl] = useState<IntlShape | undefined>(services.intl);
 
   const bookLocale = React.useMemo(() => {
-    return route?.language || book?.language;
+    return route?.locale || book?.language;
   }, [book, route]);
 
   useEffect(() => {
