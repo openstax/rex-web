@@ -19,7 +19,7 @@ jobs:
       with:
         path: src/clients 
         key: swagger_clients 
-    - run: ./script/build-swagger-clients.bash
+    - run: yarn install
 
   setup:
     name: Setup
