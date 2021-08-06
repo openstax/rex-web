@@ -7,7 +7,6 @@ import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLo
 import analytics from '../helpers/analytics';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
-// import createIntl from '../app/messages/createIntl';
 import createIntl from './createIntl';
 import mockArchiveLoader from './mocks/archiveLoader';
 import mockbookConfigLoader from './mocks/bookConfigLoader';
