@@ -42,6 +42,11 @@ while IFS= read -r swagger_client; do
     -g typescript-fetch \
     -o /shared/src > "$temp_dir"/swagger.log.txt
 
+  echo "(swagger $client_name) fixing file permissions" > /dev/stderr;
+
+  docker run --rm -v "$temp_dir:/shared" openapitools/openapi-generator-cli:v5.2.0 bash -c \
+    'chown -R "$(stat -c "%u:%g" /shared)" /shared'
+
   echo "(swagger $client_name) hacking the mainframe" > /dev/stderr;
 
   find "$temp_dir" -name '*.ts' | while IFS= read -r file; do
