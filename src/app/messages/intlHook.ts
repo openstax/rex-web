@@ -11,8 +11,8 @@ export const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
     return;
   }
 
-  await createIntl(lang);
-  //
+  const intl = await createIntl(lang);
+  // services.dispatch()
 };
 
 export default hookBody;

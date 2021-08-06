@@ -68,7 +68,6 @@ export interface AppOptions {
 }
 
 export default (options: AppOptions) => {
-  // createApp()
   const {initialEntries, initialState} = options;
 
   const createMemoryHistoryHelper = () => {

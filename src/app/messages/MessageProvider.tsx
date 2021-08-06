@@ -5,7 +5,7 @@ import { useServices } from '../context/Services';
 // tslint:disable-next-line:variable-name
 const MessageProvider = (props: { children?: React.ReactNode }) => {
   const services = useServices();
-  const [intl, setIntl] = useState<IntlShape | null>(null);
+  const [intl, setIntl] = useState<IntlShape | undefined>(services.intl);
 
   useEffect(() => {
     if (!services.intl) {
