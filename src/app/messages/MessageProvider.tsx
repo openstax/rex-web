@@ -33,11 +33,11 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
     setUpIntl();
   }, [bookLocale]);
 
-  return intl ? (
+  return intl && (
     <RawIntlProvider value={intl}>
       {props.children}
     </RawIntlProvider>
-  ) : null;
+  );
 };
 
 export default MessageProvider;
