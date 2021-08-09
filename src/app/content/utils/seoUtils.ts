@@ -1,7 +1,7 @@
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { AppServices } from '../../types';
-import { assertDefined } from '../../utils';
+import { assertDefined, assertNotNull } from '../../utils';
 import { Book, LinkedArchiveTreeNode, Page } from '../types';
 import getCleanContent from '../utils/getCleanContent';
 import {
@@ -107,7 +107,8 @@ export const getPageDescription = (services: Pick<AppServices, 'archiveLoader' |
   const pageNode = doc.body.firstElementChild;
   const pageDescription = pageNode ? getPageDescriptionFromContent(pageNode) : null;
 
-  return pageDescription || (intl.current ? intl.current.formatMessage({id: 'i18n:metadata:description'}) : '');
+  // tslint:disable-next-line: max-line-length
+  return pageDescription || assertNotNull(intl.current, 'Current intl object not found').formatMessage({id: 'i18n:metadata:description'});
 };
 
 export const createTitle = (page: Page, book: Book, intl: IntlShape): string => {

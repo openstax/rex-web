@@ -3,6 +3,7 @@ import { Link } from '../../head/types';
 import { pathname } from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
+import { assertNotNull } from '../../utils';
 import { receivePage } from '../actions';
 import { defaultTheme } from '../components/constants';
 import { hasOSWebData } from '../guards';
@@ -31,7 +32,7 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
     return;
   }
 
-  const title = intl.current ? createTitle(page, book, intl.current) : '';
+  const title = createTitle(page, book, assertNotNull(intl.current, 'Current intl object not found'));
   const description = getPageDescription(services, book, page);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
