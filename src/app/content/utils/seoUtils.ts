@@ -100,15 +100,16 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   return null;
 };
 
-export const getPageDescription = (services: Pick<AppServices, 'archiveLoader' | 'intl'>, book: Book, page: Page) => {
-  const {intl, archiveLoader} = services;
+// tslint:disable-next-line: max-line-length
+export const getPageDescription = (services: Pick<AppServices, 'archiveLoader'>, book: Book, page: Page, intl: IntlShape) => {
+  const {archiveLoader} = services;
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const pageNode = doc.body.firstElementChild;
   const pageDescription = pageNode ? getPageDescriptionFromContent(pageNode) : null;
 
   // tslint:disable-next-line: max-line-length
-  return pageDescription || assertNotNull(intl.current, 'Current intl object not found').formatMessage({id: 'i18n:metadata:description'});
+  return pageDescription || intl.formatMessage({id: 'i18n:metadata:description'});
 };
 
 export const createTitle = (page: Page, book: Book, intl: IntlShape): string => {
