@@ -2,6 +2,8 @@
 import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 import re
 from time import sleep
@@ -67,10 +69,7 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
     # AND: The Amazon link should be opened in a new tab
     if book_availability_in_amazon is not None:
         original = selenium.current_window_handle
-        Utilities.switch_to(
-            driver=selenium,
-            element=rex.order_print_copy_button
-        )
+        Utilities.switch_to(driver=selenium, element=rex.order_print_copy_button)
         assert (
             rex.current_url == book_availability_in_amazon
         ), "rex book has different amazon link than osweb"
@@ -95,15 +94,10 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 @pytest.mark.xfail
-def test_redirect_to_osweb_404_when_book_is_incorrect(
-        selenium, base_url, book_slug, page_slug
-):
+def test_redirect_to_osweb_404_when_book_is_incorrect(selenium, base_url, book_slug, page_slug):
     """User is redirected to osweb 404 page when book slug doesn't exist."""
     # GIVEN: A content page
-    book = Content(
-        selenium, base_url,
-        book_slug=f"{book_slug}test", page_slug=page_slug
-    )
+    book = Content(selenium, base_url, book_slug=f"{book_slug}test", page_slug=page_slug)
 
     # WHEN: A page is loaded with incorrect book slug
     book.open()
@@ -111,7 +105,7 @@ def test_redirect_to_osweb_404_when_book_is_incorrect(
     # THEN: osweb 404 page is displayed
     osweb = WebBase(selenium)
     assert osweb.osweb_404_displayed
-    assert(osweb.osweb_404_error == EXPECTED_WEB_ERROR)
+    assert osweb.osweb_404_error == EXPECTED_WEB_ERROR
 
 
 @markers.test_case("C614212")
@@ -123,10 +117,7 @@ def test_redirect_to_osweb_404_when_page_is_incorrect_in_first_session(
 ):
     """Rex 404 page is displayed when user opens incorrect page."""
     # GIVEN: A content page
-    book = Content(
-        selenium, base_url,
-        book_slug=book_slug, page_slug=f"{page_slug}test"
-    )
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}test")
 
     # WHEN: A page is loaded with incorrect page slug in the first session
     book.open()
@@ -134,7 +125,7 @@ def test_redirect_to_osweb_404_when_page_is_incorrect_in_first_session(
     # THEN: osweb 404 page is displayed
     osweb = WebBase(selenium)
     assert osweb.osweb_404_displayed
-    assert(osweb.osweb_404_error == EXPECTED_WEB_ERROR)
+    assert osweb.osweb_404_error == EXPECTED_WEB_ERROR
 
 
 @markers.test_case("C613212")
@@ -146,29 +137,22 @@ def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
     """Rex 404 displayed when opening incorrect page in an existing session."""
 
     # GIVEN: A page is loaded
-    book = Content(
-        selenium, base_url,
-        book_slug=book_slug, page_slug=page_slug
-    ).open()
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
     book.wait_for_service_worker_to_install()
 
     # AND: User loads an incorrect page in the same session
-    book = Content(
-        selenium, base_url,
-        book_slug=book_slug, page_slug=f"{page_slug}'test'"
-    ).open()
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=f"{page_slug}'test'").open()
     toolbar = book.toolbar
     sidebar = book.sidebar
     toc = book.sidebar.toc
 
     # WHEN: Rex 404 page is displayed
     expected_error = (
-        "Uh oh, we can't find the page you requested."
-        "Try another page in theTable of contents"
+        "Uh oh, we can't find the page you requested." "Try another page in theTable of contents"
     )
-    assert(book.content.page_error_displayed)
-    assert(book.content.page_error == expected_error)
+    assert book.content.page_error_displayed
+    assert book.content.page_error == expected_error
 
     # THEN: Next & Previous links are not displayed
     assert not book.next_link_is_displayed
@@ -227,9 +211,9 @@ def test_bookbanner_behavior_in_rex_404_page(selenium, base_url, book_slug, page
 
     # THEN: Page title is not displayed in the book banner
     with pytest.raises(NoSuchElementException):
-        assert not book_banner.section_title, (
-            "Page title displayed in the book banner when rex 404 is displayed"
-        )
+        assert (
+            not book_banner.section_title
+        ), "Page title displayed in the book banner when rex 404 is displayed"
 
     # AND: Clicking book title in book banner opens the osweb book details page
     book_banner.book_title.click()
@@ -393,3 +377,43 @@ def test_search_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slu
 
         # AND: Rex 404 page is not displayed
         assert not book.content.page_error_displayed
+
+
+@markers.test_case("C624689")
+@markers.desktop_only
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_accessibility_help_link(selenium, base_url, book_slug, page_slug):
+    """On a rex page, accessibility help link shows on tabbing."""
+
+    # GIVEN: A page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    # WHEN: Hit tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Skip to content link is visible
+    assert selenium.switch_to.active_element == book.skip_to_content
+
+    # WHEN: Hit tab again
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Accessibility help page link is visible
+    assert selenium.switch_to.active_element == book.goto_accessibility_page
+
+    # WHEN: Click Next link
+    book.click_next_link()
+
+    # THEN: Skip to content and accessibility help link are present in all pages
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+    assert selenium.switch_to.active_element == book.skip_to_content
+
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+    assert selenium.switch_to.active_element == book.goto_accessibility_page
+
+    # WHEN: Click on the accessibility help link
+    book.goto_accessibility_page.click()
+
+    # THEN: The accessibility help page is opened in the same window
+    expected_url = "https://openstax.org/accessibility-statement"
+    assert book.current_url == expected_url
