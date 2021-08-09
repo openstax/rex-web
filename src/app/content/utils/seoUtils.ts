@@ -108,7 +108,6 @@ export const getPageDescription = (services: Pick<AppServices, 'archiveLoader'>,
   const pageNode = doc.body.firstElementChild;
   const pageDescription = pageNode ? getPageDescriptionFromContent(pageNode) : null;
 
-  // tslint:disable-next-line: max-line-length
   return pageDescription || intl.formatMessage({id: 'i18n:metadata:description'});
 };
 
