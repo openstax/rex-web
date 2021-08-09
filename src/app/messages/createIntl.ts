@@ -15,11 +15,12 @@ async function polyfill(locale: string) {
   }
 }
 
-export default memoize(async(locale: string) => {
-  await polyfill(locale);
+export default memoize(async(loc: string) => {
+  await polyfill(loc);
 
   const cache = createIntlCache();
   let messages;
+  let locale = loc;
 
   try {
     const localeMessages = await import(`./${locale}/index`);
@@ -27,6 +28,7 @@ export default memoize(async(locale: string) => {
   } catch (e) {
     const enMessages = await import(`./en/index`);
     if (enMessages) {
+      locale = 'en';
       messages = enMessages.default;
     } else {
       messages = null;
