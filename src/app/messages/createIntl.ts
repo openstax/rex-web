@@ -27,12 +27,8 @@ export default memoize(async(loc: string) => {
     messages = localeMessages.default;
   } catch (e) {
     const enMessages = await import(`./en/index`);
-    if (enMessages) {
-      locale = 'en';
-      messages = enMessages.default;
-    } else {
-      messages = null;
-    }
+    locale = 'en';
+    messages = enMessages.default;
     Sentry.captureException(e);
   }
 
