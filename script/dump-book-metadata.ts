@@ -20,15 +20,14 @@ const getPageMetadata = async(
   book: ArchiveBook,
   loader: ReturnType<(typeof archiveLoader)['book']>
 ) => {
-  const intlObject = await createIntl(book.language);
+  const intl = await createIntl(book.language);
   const services = {
     archiveLoader,
-    intl: {current: intlObject},
   };
   const page = await loader.page(section.id).load();
-  const description = getPageDescription(services, book, page);
+  const description = getPageDescription(services, intl, book, page);
   const sectionTitle = domParser.parseFromString(section.title, 'text/html').body.textContent;
-  const parentPrefix = getParentPrefix(section.parent, intlObject).trim();
+  const parentPrefix = getParentPrefix(section.parent, intl).trim();
 
   const row = `"${book.title}","${parentPrefix}","${sectionTitle}","${description}"`;
   // tslint:disable-next-line:no-console

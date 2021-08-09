@@ -1,7 +1,7 @@
 import { Element, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { AppServices } from '../../types';
-import { assertDefined, assertNotNull } from '../../utils';
+import { assertDefined } from '../../utils';
 import { Book, LinkedArchiveTreeNode, Page } from '../types';
 import getCleanContent from '../utils/getCleanContent';
 import {
@@ -101,7 +101,7 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
 };
 
 // tslint:disable-next-line: max-line-length
-export const getPageDescription = (services: Pick<AppServices, 'archiveLoader'>, book: Book, page: Page, intl: IntlShape) => {
+export const getPageDescription = (services: Pick<AppServices, 'archiveLoader'>, intl: IntlShape, book: Book, page: Page) => {
   const {archiveLoader} = services;
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
