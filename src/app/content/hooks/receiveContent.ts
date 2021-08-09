@@ -4,7 +4,6 @@ import createIntl from '../../messages/createIntl';
 import { pathname } from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
-import { assertDefined } from '../../utils';
 import { receivePage } from '../actions';
 import { defaultTheme } from '../components/constants';
 import { hasOSWebData } from '../guards';
@@ -14,13 +13,11 @@ import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import { createTitle, getPageDescription } from '../utils/seoUtils';
 
 const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
-  const { getState, dispatch, archiveLoader, osWebLoader, intl } = services;
+  const { getState, dispatch, archiveLoader, osWebLoader } = services;
 
-  let intlObj = intl.current;
   const state = getState();
   const book = select.book(state);
   const page = select.page(state);
-  const locale = assertDefined(book, 'Book not found').language;
   const loadingBook = select.loadingBook(state);
   const loadingPage = select.loadingPage(state);
   const currentPath = pathname(state);
@@ -35,11 +32,9 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
     return;
   }
 
-  if (!intlObj) {
-    intlObj = await createIntl(locale);
-  }
-
-  const title = createTitle(page, book, intlObj);
+  const locale = book.language;
+  const intl = await createIntl(locale);
+  const title = createTitle(page, book, intl);
   const description = getPageDescription(services, book, page);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
