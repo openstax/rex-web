@@ -155,9 +155,8 @@ class Attribution extends Component<Props> {
 
   public render() {
     const {book} = this.props;
-    if (!hasOSWebData(book)) { return null; }
 
-    return <AttributionDetails
+    return hasOSWebData(book) && <AttributionDetails
       ref={this.container}
       data-testid='attribution-details'
       data-analytics-region='attribution'
