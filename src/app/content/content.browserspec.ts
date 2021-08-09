@@ -73,7 +73,7 @@ describe('content', () => {
 
 // tslint:disable-next-line:no-shadowed-variable
 const clickTocLink = (href: string) => page.evaluate(async(href) => {
-  const link = document && document.querySelector(`[aria-label="Table of Contents"] [href="${href}"]`);
+  const link = document && document.querySelector(`[data-testid="toc"] [href="${href}"]`);
 
   if (!link || !document || !window) {
     return false;
@@ -90,7 +90,7 @@ const clickTocLink = (href: string) => page.evaluate(async(href) => {
 }, href);
 
 const getSelectedTocSection = () => page.evaluate(() => {
-  const toc = document && document.querySelector('[aria-label="Table of Contents"]');
+  const toc = document && document.querySelector('[data-testid="toc"]');
 
   const li = toc && toc.querySelector('li[aria-label="Current Page"]');
   const a = li && li.querySelector('a');
@@ -100,7 +100,7 @@ const getSelectedTocSection = () => page.evaluate(() => {
 });
 
 const isTocVisible = () => page.evaluate(() => {
-  const element = document && document.querySelector('[aria-label="Table of Contents"]');
+  const element = document && document.querySelector('[data-testid="toc"]');
   const style = element && window && window.getComputedStyle(element);
   return style && style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
 });
@@ -110,7 +110,7 @@ const getScrollTop = () => page.evaluate(() => {
 });
 
 const getTocScrollTop = () => page.evaluate(() => {
-  const scrollyTocNav = document && document.querySelector('[aria-label="Table of Contents"] > ol');
+  const scrollyTocNav = document && document.querySelector('[data-testid="toc"] > ol');
   return scrollyTocNav && scrollyTocNav.scrollTop;
 });
 
@@ -120,6 +120,6 @@ const scrollDown = () => page.evaluate(() => {
 
 // tslint:disable-next-line:no-shadowed-variable
 const scrollTocDown = (px: number) => page.evaluate((px) => {
-  const toc = document && document.querySelector('[aria-label="Table of Contents"] > ol');
+  const toc = document && document.querySelector('[data-testid="toc"] > ol');
   return toc && toc.scrollBy(0, px || toc.scrollHeight);
 }, px);
