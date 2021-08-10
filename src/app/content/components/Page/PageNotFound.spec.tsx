@@ -5,7 +5,7 @@ import TestContainer from '../../../../test/TestContainer';
 import { Store } from '../../../types';
 import { openToc } from '../../actions';
 import { tocOpen } from '../../selectors';
-import { SidebarControl } from '../Toolbar/styled';
+import { SidebarControl } from '../SidebarControl';
 import PageNotFound from './PageNotFound';
 
 describe('PageNotFound', () => {
