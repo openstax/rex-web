@@ -84,7 +84,7 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
     # AND: Order print copy option should not be present in Rex if osweb has no
     #      amazon link
     else:
-        with pytest.raises(NoSuchElementException):
+        with pytest.raises(TimeoutException):
             assert (
                 not rex.order_print_copy_button
             ), "amazon print option present in rex but not present in osweb"
