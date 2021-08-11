@@ -4,10 +4,9 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
-import * as selectNavigation from '../../../../navigation/selectors';
 import { AppState, Dispatch, FirstArgumentType } from '../../../../types';
 import * as select from '../../../selectors';
-import { Book, ContentQueryParams, Page } from '../../../types';
+import { Book, Page } from '../../../types';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { closeSearchResultsMobile, selectSearchResult } from '../../actions';
 import { isSearchResultChapter } from '../../guards';
@@ -22,7 +21,6 @@ interface SearchResultContainersProps {
   selectedResult: SelectedResult | null;
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
   activeSectionRef: React.RefObject<HTMLAnchorElement>;
-  persistentQueryParams: ContentQueryParams;
 }
 // tslint:disable-next-line:variable-name
 const SearchResultContainers = ({containers, ...props}: SearchResultContainersProps) => (
@@ -37,7 +35,6 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
           selectedResult={props.selectedResult}
           activeSectionRef={props.activeSectionRef}
           key={node.id}
-          persistentQueryParams={props.persistentQueryParams}
         />
       ) : (
         <SearchResult
@@ -48,7 +45,6 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
           selectedResult={props.selectedResult}
           activeSectionRef={props.activeSectionRef}
           key={node.id}
-          persistentQueryParams={props.persistentQueryParams}
         />
       )
     )}
@@ -63,7 +59,6 @@ const SearchResult = (props: {
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
   selectedResult: SelectedResult | null;
   activeSectionRef: React.RefObject<HTMLAnchorElement>;
-  persistentQueryParams: ContentQueryParams;
 }) => {
   const formatMessage = useIntl().formatMessage;
   const active = props.page && props.currentPage
@@ -95,7 +90,6 @@ const SearchResult = (props: {
           result={thisResult}
           scrollTarget={target}
           onClick={() => props.selectResult(thisResult)}
-          persistentQueryParams={props.persistentQueryParams}
           {...isSelected ?  {ref: props.activeSectionRef} : {}}
         >
           <div tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }} />
@@ -113,7 +107,6 @@ const SearchResultsDropdown = (props: {
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
   selectedResult: SelectedResult | null;
   activeSectionRef: React.RefObject<HTMLAnchorElement>;
-  persistentQueryParams: ContentQueryParams;
 }) => {
   return <Styled.ListItem>
     <Styled.Details open>
@@ -134,7 +127,6 @@ const SearchResultsDropdown = (props: {
           selectResult={props.selectResult}
           selectedResult={props.selectedResult}
           activeSectionRef={props.activeSectionRef}
-          persistentQueryParams={props.persistentQueryParams}
         />
       </Styled.DetailsOl>
     </Styled.Details>
@@ -144,7 +136,6 @@ const SearchResultsDropdown = (props: {
 export default connect(
   (state: AppState) => ({
     currentPage: select.page(state),
-    persistentQueryParams: selectNavigation.persistentQueryParameters(state),
   }),
   (dispatch: Dispatch) => ({
     selectResult: () => {

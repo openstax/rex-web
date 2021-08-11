@@ -13,6 +13,7 @@ import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
+import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
 import { Book, ContentQueryParams, SystemQueryParams } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
@@ -30,7 +31,7 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  search?: { query: string | null };
+  queryParams?: {query: string | null};
   scrollTarget?: ScrollTarget;
   className?: string;
   target?: string;
@@ -46,7 +47,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     page,
     currentBook,
     currentPath,
-    search,
+    queryParams,
     scrollTarget,
     navigate,
     onClick,
@@ -95,13 +96,14 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState, ownProps: {search?: { query?: string | null }, persistentQueryParams?: ContentQueryParams}) => ({
+  (state: AppState, ownProps: {queryParams?: {query: string | null}, persistentQueryParams?: ContentQueryParams}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     persistentQueryParams: {
-      ...ownProps.persistentQueryParams || selectNavigation.persistentQueryParameters(state),
-      ...ownProps.search,
+      ...selectNavigation.persistentQueryParameters(state),
+      query: selectSearch.query(state),
+      ...(ownProps.queryParams ? ownProps.queryParams : {}),
     },
     systemQueryParams: selectNavigation.systemQueryParameters(state),
   }),

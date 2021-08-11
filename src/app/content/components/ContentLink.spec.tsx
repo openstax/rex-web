@@ -96,7 +96,7 @@ describe('ContentLink', () => {
         query: 'search-from-direct-prop',
       };
       const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} search={mockSearch} />
+        <ConnectedContentLink book={book} page={page} queryParams={mockSearch} />
       </TestContainer>);
 
       const event = await click(component);
@@ -113,16 +113,12 @@ describe('ContentLink', () => {
       expect(event.preventDefault).toHaveBeenCalled();
     });
 
-    // tslint:disable-next-line: max-line-length
-    it('dispatches navigation action with scroll target data and search if scroll target and search are passed', async() => {
+    it('dispatches navigation action with scroll target data and search if scroll target is passed', async() => {
       const scrollTarget: SearchScrollTarget = { type: 'search', index: 1, elementId: 'anchor' };
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveBook(book));
-      const mockSearch = {
-        query: 'asdf',
-      };
       const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} persistentQueryParams={mockSearch} scrollTarget={scrollTarget} />
+        <ConnectedContentLink book={book} page={page} scrollTarget={scrollTarget} />
       </TestContainer>);
 
       dispatch.mockClear();
