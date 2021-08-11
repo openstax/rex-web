@@ -8,7 +8,7 @@ import { State as StudyGuidesState } from './studyGuides/types';
 
 export type ContentQueryParams = {
   modal?: string,
-  query?: string,
+  query?: string | null,
   target?: string,
 };
 
