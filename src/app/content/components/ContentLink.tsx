@@ -13,7 +13,6 @@ import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
-import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
 import { Book, ContentQueryParams, SystemQueryParams } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
@@ -102,8 +101,7 @@ export const ConnectedContentLink = connect(
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     persistentQueryParams: {
       ...ownProps.persistentQueryParams || selectNavigation.persistentQueryParameters(state),
-      ...ownProps.search ? ownProps.search : {},
-      query: selectSearch.query(state),
+      ...ownProps.search,
     },
     systemQueryParams: selectNavigation.systemQueryParameters(state),
   }),
