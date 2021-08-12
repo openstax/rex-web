@@ -1,4 +1,5 @@
 import flow from 'lodash/fp/flow';
+import { OutputParams } from 'query-string';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/macro';
@@ -13,7 +14,6 @@ import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
-import * as selectSearch from '../search/selectors';
 import * as select from '../selectors';
 import { Book, ContentQueryParams, SystemQueryParams } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
@@ -31,7 +31,7 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  queryParams?: { query: string | null };
+  queryParams?: OutputParams;
   scrollTarget?: ScrollTarget;
   className?: string;
   target?: string;
@@ -97,13 +97,12 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
   // tslint:disable-next-line: max-line-length
-  (state: AppState, ownProps: {queryParams?: { query: string | null }, persistentQueryParams?: ContentQueryParams}) => ({
+  (state: AppState, ownProps: {queryParams?: OutputParams, persistentQueryParams?: ContentQueryParams}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     persistentQueryParams: {
       ...selectNavigation.persistentQueryParameters(state),
-      query: selectSearch.query(state),
       ...ownProps.queryParams,
     },
     systemQueryParams: selectNavigation.systemQueryParameters(state),

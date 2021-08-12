@@ -48,9 +48,12 @@ const reduceReference = (reference: PageReferenceMap, currentPath: string, docum
   const a = assertNotNull(
     document.querySelector(`[href^='${reference.match}']`),
     'references are created from hrefs');
-  const href = assertNotNull(a.getAttribute('href'), 'it was found by href value')
+  const href = assertNotNull(a.getAttribute('href'), 'it was found by href value');
+  const hash = new URL(href, `https://openstax.org${currentPath}`).hash;
+  options.hash = hash;
+  const newHref = href
     .replace(reference.match, toRelativeUrl(currentPath, path) + navigationOptionsToString(options));
-  a.setAttribute('href', href);
+  a.setAttribute('href', newHref);
 };
 
 // tslint:disable-next-line: max-line-length
