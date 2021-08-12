@@ -31,7 +31,7 @@ interface Props {
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
-  queryParams?: {query: string | null};
+  queryParams?: { query: string | null };
   scrollTarget?: ScrollTarget;
   className?: string;
   target?: string;
@@ -96,7 +96,8 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState, ownProps: {queryParams?: {query: string | null}, persistentQueryParams?: ContentQueryParams}) => ({
+  // tslint:disable-next-line: max-line-length
+  (state: AppState, ownProps: {queryParams?: { query: string | null }, persistentQueryParams?: ContentQueryParams}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
