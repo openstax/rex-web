@@ -95,7 +95,7 @@ const SearchResult = (props: {
           result={thisResult}
           scrollTarget={target}
           queryParams={{query: props.currentQuery}}
-          // shouldnt need to call, does loc change add search res to state in search reducer?
+          onClick={() => props.selectResult(thisResult)}
           {...isSelected ?  {ref: props.activeSectionRef} : {}}
         >
           <div tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }} />
