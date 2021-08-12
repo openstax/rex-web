@@ -45,7 +45,6 @@ const reducePageReferenceError = (reference: PageReferenceError, document: Docum
 const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryParams: SystemQueryParams) => {
   const path = content.getUrl(reference.params);
   const options = createNavigationOptions(systemQueryParams);
-  console.log('options: ', options);
   const a = assertNotNull(
     document.querySelector(`[href^='${reference.match}']`),
     'references are created from hrefs');
