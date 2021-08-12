@@ -103,7 +103,7 @@ export const ConnectedContentLink = connect(
     persistentQueryParams: {
       ...selectNavigation.persistentQueryParameters(state),
       query: selectSearch.query(state),
-      ...(ownProps.queryParams ? ownProps.queryParams : {}),
+      ...ownProps.queryParams,
     },
     systemQueryParams: selectNavigation.systemQueryParameters(state),
   }),
