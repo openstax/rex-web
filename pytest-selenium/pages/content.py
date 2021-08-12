@@ -47,21 +47,20 @@ class Content(Page):
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _modal_root_locator = (By.CSS_SELECTOR, "[class*=PopupWrapper]")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
-    _notification_pop_up_locator = (
-        By.CSS_SELECTOR,
-        "[class*=ContentNotifications]"
-    )
+    _notification_pop_up_locator = (By.CSS_SELECTOR, "[class*=ContentNotifications]")
     _previous_locator = (By.CSS_SELECTOR, "[aria-label='Previous Page']")
     _print_locator = (By.CSS_SELECTOR, "[data-testid=print]")
-    _order_print_copy_locator = (
-        By.CSS_SELECTOR,
-        "[data-analytics-label=buy-book]"
-    )
+    _order_print_copy_locator = (By.CSS_SELECTOR, "[data-analytics-label=buy-book]")
     _discard_modal_locator = (By.CSS_SELECTOR, "[class*='CardWrapper']")
 
     _page_meta_title_selector = "head > meta[property='og:title']"
     _page_meta_url_selector = "head > meta[property='og:url']"
     _page_title_selector = "head > title"
+    _skip_to_content_locator = (By.XPATH, "//a[contains(text(), 'Skip to Content')]")
+    _goto_accessibility_page_locator = (
+        By.XPATH,
+        "//a[contains(text(), 'Go to accessibility page')]",
+    )
 
     @property
     def loaded(self) -> bool:
@@ -78,6 +77,10 @@ class Content(Page):
         page_missing = self.PAGE_MISSING in source
         _404_error = self._404_ERROR in source
         return data_load or page_missing or _404_error
+
+    @property
+    def goto_accessibility_page(self) -> WebElement:
+        return self.find_element(*self._goto_accessibility_page_locator)
 
     @property
     def attribution(self) -> Content.Attribution:
@@ -213,9 +216,7 @@ class Content(Page):
 
     @property
     def order_print_copy_button(self) -> WebElement:
-        return self.wait.until(
-            lambda _: self.find_element(*self._order_print_copy_locator)
-        )
+        return self.wait.until(lambda _: self.find_element(*self._order_print_copy_locator))
 
     def order_a_print_copy(self, remain_on_page: bool = False) -> Page:
         """Click the 'Order a print copy' button.
@@ -229,16 +230,11 @@ class Content(Page):
 
         """
         current = self.driver.current_window_handle
-        page = Utilities.switch_to(
-            self.driver,
-            element=self.order_print_copy_button
-        )
+        page = Utilities.switch_to(self.driver, element=self.order_print_copy_button)
         if remain_on_page:
             new_handle = 1 if current == self.driver.window_handles[1] else 0
             if len(self.driver.window_handles) > 1:
-                self.driver.switch_to.window(
-                    self.driver.window_handles[new_handle]
-                )
+                self.driver.switch_to.window(self.driver.window_handles[new_handle])
             return self
         return page
 
@@ -263,6 +259,10 @@ class Content(Page):
         return int(sidebar_width) + int(sidebar_width_left_offset)
 
     @property
+    def skip_to_content(self) -> WebElement:
+        return self.find_element(*self._skip_to_content_locator)
+
+    @property
     def titles(self) -> Tuple[str, str, str]:
         """Return the page title, page meta title and page meta URL.
 
@@ -276,10 +276,7 @@ class Content(Page):
         """
         try:
             self.wait.until(
-                lambda _: self.find_element(
-                    By.CSS_SELECTOR,
-                    self._page_meta_url_selector
-                )
+                lambda _: self.find_element(By.CSS_SELECTOR, self._page_meta_url_selector)
             )
         except TimeoutException:
             raise ContentError("Meta tags not loaded")
@@ -293,9 +290,11 @@ class Content(Page):
             action_script.format(selector=self._page_meta_title_selector)
         ).get_attribute("content")
 
-        meta_url_parts = self.driver.execute_script(
-            action_script.format(selector=self._page_meta_url_selector)
-        ).get_attribute("content").split("/")
+        meta_url_parts = (
+            self.driver.execute_script(action_script.format(selector=self._page_meta_url_selector))
+            .get_attribute("content")
+            .split("/")
+        )
         meta_url_parts[2] = self.base_url.split("/")[-1]
         meta_url = "/".join(meta_url_parts)
 
@@ -458,7 +457,7 @@ class Content(Page):
         _figure_link_locator = (
             By.CSS_SELECTOR,
             "section > p a[href*=Figure] , "
-            "div:not(.os-teacher) > section > .os-note-body a[href*=Figure]"
+            "div:not(.os-teacher) > section > .os-note-body a[href*=Figure]",
         )
         _figure_locator = (By.CSS_SELECTOR, "figure")
         _footnote_locator = (By.CSS_SELECTOR, "[data-type=footnote-ref]")
@@ -544,11 +543,7 @@ class Content(Page):
             :raises ContentError: if no figure links are found in the content
 
             """
-            links = [
-                link
-                for link
-                in self.find_elements(*self._figure_link_locator)
-            ]
+            links = [link for link in self.find_elements(*self._figure_link_locator)]
             if not links:
                 raise ContentError("no figure links found")
             return links
@@ -890,7 +885,7 @@ class Content(Page):
             color: Union[Color, None] = Color.YELLOW,
             note: str = "",
             close_box: bool = True,
-            tries: int = 5
+            tries: int = 5,
         ):
             """Highlight a page element.
 
@@ -1025,10 +1020,7 @@ class Content(Page):
             if target.tag_name == "img" or target.tag_name == "figure":
                 end = (width * 0.75, 3)
             elif offset == Highlight.ENTIRE:
-                end = (
-                    width - 1,
-                    height - 1 if height - 1 > start[1] else start[1] + 1
-                )
+                end = (width - 1, height - 1 if height - 1 > start[1] else start[1] + 1)
             elif offset == Highlight.RANDOM:
                 end = (randint(10, max(10, width)), randint(20, max(20, height)))
             elif isinstance(offset, tuple) and len(offset) == 2:
@@ -1891,22 +1883,14 @@ class Content(Page):
 
         _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
 
-        _my_highlights_button_locator = (
-            By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
-        _practice_button_locator = (
-            By.CSS_SELECTOR, "[class*=PracticeQuestions]")
-        _search_button_desktop_locator = (
-            By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
-        _search_button_mobile_locator = (
-            By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
-        _search_textbox_desktop_locator = (
-            By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
-        _search_textbox_x_locator = (
-            By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
-        _study_guides_button_locator = (
-            By.CSS_SELECTOR, "[class*=StudyGuides]")
-        _toc_toggle_button_locator = (
-            By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
+        _my_highlights_button_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
+        _practice_button_locator = (By.CSS_SELECTOR, "[class*=PracticeQuestions]")
+        _search_button_desktop_locator = (By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
+        _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
+        _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
+        _search_textbox_x_locator = (By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
+        _study_guides_button_locator = (By.CSS_SELECTOR, "[class*=StudyGuides]")
+        _toc_toggle_button_locator = (By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
         _my_highlights_selector = "[data-testid=highlights-popup-wrapper]"
         _pop_up_wrapper_root_selector = "[class*=PopupWrapper]"
@@ -2018,7 +2002,7 @@ class Content(Page):
             return self._pop_up_modal_helper(
                 element=self.my_highlights_button,
                 root_selector=self._my_highlights_selector,
-                modal=MyHighlights
+                modal=MyHighlights,
             )
 
         def practice(self) -> Practice:
@@ -2031,7 +2015,7 @@ class Content(Page):
             return self._pop_up_modal_helper(
                 element=self.practice_button,
                 root_selector=self._pop_up_wrapper_root_selector,
-                modal=Practice
+                modal=Practice,
             )
 
         def search_for(self, search_term: str) -> Content.SideBar:
@@ -2061,15 +2045,12 @@ class Content(Page):
             return self._pop_up_modal_helper(
                 element=self.study_guides_button,
                 root_selector=self._pop_up_wrapper_root_selector,
-                modal=StudyGuide
+                modal=StudyGuide,
             )
 
         def _pop_up_modal_helper(
-                self,
-                element: WebElement,
-                root_selector: str,
-                modal: Region
-                ) -> Region:
+            self, element: WebElement, root_selector: str, modal: Region
+        ) -> Region:
             r"""Modal opener helper function.
 
             :param element: the button to click
@@ -2084,9 +2065,7 @@ class Content(Page):
 
             """
             Utilities.click_option(self.driver, element=element)
-            modal_root = self.driver.execute_script(
-                ELEMENT_SELECT.format(selector=root_selector)
-            )
+            modal_root = self.driver.execute_script(ELEMENT_SELECT.format(selector=root_selector))
             sleep(0.1)
             pop_up = modal(self.page, modal_root)
             pop_up.wait_for_region_to_load()
