@@ -49,8 +49,8 @@ const reduceReference = (reference: PageReferenceMap, currentPath: string, docum
     document.querySelector(`[href^='${reference.match}']`),
     'references are created from hrefs');
   const href = assertNotNull(a.getAttribute('href'), 'it was found by href value');
-  const hash = new URL(href, `https://openstax.org${currentPath}`).hash;
-  options.hash = hash;
+  const currentHash = (a as HTMLAnchorElement).hash;
+  options.hash = currentHash ? '' : new URL(href, `https://openstax.org${currentPath}`).hash;
   const newHref = href
     .replace(reference.match, toRelativeUrl(currentPath, path) + navigationOptionsToString(options));
   a.setAttribute('href', newHref);
