@@ -10,8 +10,6 @@ import {
   toRelativeUrl,
 } from './utils';
 
-// const mockBook = {...book, id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c', version: '29.7'};
-
 jest.mock('../../config.books', () => ({
   '13ac107a-f15f-49d2-97e8-60ab2e3b519c': { defaultVersion: '29.7' },
 }));
@@ -31,7 +29,7 @@ describe('getContentPageReferences', () => {
   let page: ArchivePage;
 
   beforeEach(() => {
-    book = cloneDeep({
+    book = {
       tree: {
         contents: [
           {
@@ -43,7 +41,7 @@ describe('getContentPageReferences', () => {
         id: 'booklongid@1',
         title: 'book',
       },
-    }) as ArchiveBook;
+    } as ArchiveBook;
 
     page = {
       abstract: '',
