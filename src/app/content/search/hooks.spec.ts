@@ -71,12 +71,12 @@ describe('hooks', () => {
       hook = clearSearchHook(helpers);
     });
 
-    it('clears hash and search if there was a search scroll target', () => {
-      const mockSearchScrollTarget = `target=${JSON.stringify({ type: 'search', index: 0 })}`;
+    it('clears hash and search if there was a search query', () => {
+      const mockSearchQuery = 'query=asdlfkj';
       const spy = jest.spyOn(helpers.history, 'replace');
 
       store.dispatch(navigationLocationChange({
-        location: { hash: 'elementId', search: mockSearchScrollTarget },
+        location: { hash: 'elementId', search: mockSearchQuery },
       } as any));
 
       hook(clearSearch());
@@ -84,7 +84,7 @@ describe('hooks', () => {
       expect(spy).toHaveBeenCalledWith({ hash: '', search: '' });
     });
 
-    it('noops if there was no scroll target or if it wasn\'t search scroll target', () => {
+    it('noops if there was no search query', () => {
       const mockNOTSearchScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'asd' })}`;
       const spy = jest.spyOn(helpers.history, 'replace');
 
