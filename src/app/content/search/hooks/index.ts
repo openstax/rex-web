@@ -98,15 +98,17 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
   const state = services.getState();
-  const query = selectNavigation.persistentQueryParameters(state).query;
+  const scrollTarget = selectNavigation.scrollTarget(state);
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
+  const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
 
-  if (query) {
-    services.history.replace({
-      hash: '',
-      search: queryString.stringify(systemQueryParams),
-    });
-  }
+  const newTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : persistentQueryParams.target;
+  const newParams = {...persistentQueryParams, query: undefined, target: newTarget};
+
+  services.history.replace({
+    hash: '',
+    search: queryString.stringify(systemQueryParams) + queryString.stringify(newParams),
+  });
 };
 
 // composed in /content/locationChange hook because it needs to happen after book load
