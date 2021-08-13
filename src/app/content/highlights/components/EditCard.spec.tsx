@@ -25,9 +25,13 @@ jest.mock('./Confirmation', () => (props: any) => <div mock-confirmation {...pro
 describe('EditCard', () => {
   const highlight = createMockHighlight('asdf');
   const highlightData = highlight.serialize().data;
-  const services = createTestServices();
   const store = createTestStore();
   const dispatch = jest.spyOn(store, 'dispatch');
+  const services = {
+    ...createTestServices(),
+    dispatch: store.dispatch,
+    getState: store.getState,
+  };
   let editCardProps: Partial<EditCardProps>;
 
   beforeEach(() => {

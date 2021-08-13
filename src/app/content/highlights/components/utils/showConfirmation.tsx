@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid/v4';
-import { AppServices } from '../../../../types';
+import { AppServices, MiddlewareAPI } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
 import ConfirmationModal from '../ConfirmationModal';
 
-export default async(services: AppServices) => {
+export default async(services: AppServices & MiddlewareAPI) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
+  const intl = assertNotNull(services.intl.current, 'Current intl object not found');
 
   domNode.id = `dialog-${uuid()}`;
   const root = assertNotNull(document.getElementById('root'), 'root element not found');
@@ -18,7 +19,7 @@ export default async(services: AppServices) => {
     const confirm = () => resolve(true);
     const deny = () => resolve(false);
     ReactDOM.render(
-      <RawIntlProvider value={services.intl}>
+      <RawIntlProvider value={intl}>
         <ConfirmationModal deny={deny} confirm={confirm} />
       </RawIntlProvider>,
       domNode
