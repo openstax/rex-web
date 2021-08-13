@@ -99,14 +99,21 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
   const state = services.getState();
   const scrollTarget = selectNavigation.scrollTarget(state);
+  const hash = selectNavigation.hash(state);
+  const query = selectNavigation.query(state);
+
+  if (!Object.keys(query).length) {
+    return;
+  }
+
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
   const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
-
   const newTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : persistentQueryParams.target;
-  const newParams = {...persistentQueryParams, query: undefined, target: newTarget};
+  const newHash = scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : hash;
+  const newParams = {...persistentQueryParams, query: undefined, target: newTarget || undefined};
 
   services.history.replace({
-    hash: '',
+    hash: newHash,
     search: queryString.stringify(systemQueryParams) + queryString.stringify(newParams),
   });
 };
