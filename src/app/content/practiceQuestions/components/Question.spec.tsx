@@ -5,8 +5,9 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book } from '../../../../test/mocks/archiveLoader';
 import TestContainer from '../../../../test/TestContainer';
+import { runHooks } from '../../../../test/utils';
 import Button from '../../../components/Button';
-import { Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import { assertDefined } from '../../../utils';
 import { assertDocument, assertWindow } from '../../../utils/browser-assertions';
 import { receiveBook } from '../../actions';
@@ -20,7 +21,7 @@ import Question, { AnswersWrapper, QuestionContent, QuestionWrapper } from './Qu
 
 describe('Question', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let render: () => JSX.Element;
   let linkedArchiveTreeSection: LinkedArchiveTreeSection;
   let dispatch: jest.SpyInstance;
@@ -48,7 +49,11 @@ describe('Question', () => {
   beforeEach(() => {
     store = createTestStore();
     store.dispatch(receiveBook(book));
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     dispatch = jest.spyOn(store, 'dispatch');
     store.dispatch(receiveBook(book));
     jest.spyOn(bookPageUtils, 'getBookPageUrlAndParams')
@@ -87,9 +92,7 @@ describe('Question', () => {
 
     const component = renderer.create(render(), { createNodeMock: () => mockQuestionContainer });
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
+    runHooks(renderer);
 
     expect(() => component.root.findByType(QuestionWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionContent)).not.toThrow();
@@ -105,9 +108,7 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     expect(() => component.root.findByType(QuestionWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionContent)).not.toThrow();
@@ -145,9 +146,7 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const submit = component.root.findByProps({ 'data-analytics-label': 'Submit' });
     expect(submit.props.disabled).toEqual(true);
@@ -170,9 +169,7 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const [skip] = component.root.findAllByType(Button);
 
@@ -198,9 +195,7 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const submit = component.root.findByProps({ 'data-analytics-label': 'Submit' });
     expect(submit.props.disabled).toEqual(true);
@@ -247,9 +242,7 @@ describe('Question', () => {
       return undefined;
     } });
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const [firstAnswer] = component.root.findAllByType(Answer);
     const input = firstAnswer.findByProps({ type: 'radio' });
@@ -291,9 +284,7 @@ describe('Question', () => {
       return undefined;
     } });
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const [, correctAnswer] = component.root.findAllByType(Answer);
     const input = correctAnswer.findByProps({ type: 'radio' });
@@ -319,9 +310,7 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
-    act(() => {});
+    runHooks(renderer);
 
     const [, secondAnswer] = component.root.findAllByType(Answer);
     const input = secondAnswer.findByProps({ type: 'radio' });
@@ -365,9 +354,7 @@ describe('Question', () => {
 
     const component = renderer.create(render());
 
-    // Run initial useEffect hook
-    // tslint:disable-next-line: no-empty
-    act(() => { });
+    runHooks(renderer);
 
     const [firstAnswer] = component.root.findAllByType(Answer);
     const input = firstAnswer.findByProps({ type: 'radio' });

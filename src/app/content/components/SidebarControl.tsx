@@ -65,7 +65,7 @@ const openMessage = 'i18n:toc:toggle:opened';
 export const SidebarControl: React.SFC<InnerProps> = ({message, hideMobileText, children, ...props}) =>
   <ToCButton aria-label={useIntl().formatMessage({id: message})} {...props}>
     <TocIcon />
-    <ToCButtonText hideMobileText={!!hideMobileText}>Table of contents</ToCButtonText>
+    <ToCButtonText hideMobileText={!!hideMobileText}>{useIntl().formatMessage({id: 'i18n:toc:title'})}</ToCButtonText>
     {children}
   </ToCButton>;
 
