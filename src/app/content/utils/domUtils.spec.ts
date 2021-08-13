@@ -184,7 +184,7 @@ describe('expandCurrentChapter', () => {
   it('stops when it reaches the toc', () => {
     container.innerHTML = `
       <details data-testid="details1">
-        <div aria-label="Table of Contents">
+        <div data-testid="toc">
           <details data-testid="details2">
             <div data-testid="target" />
           </details>
