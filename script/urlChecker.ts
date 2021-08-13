@@ -3,7 +3,7 @@ import { JSDOM } from 'jsdom';
 import chunk from 'lodash/chunk';
 import fetch from 'node-fetch';
 import path from 'path';
-import { argv } from 'yargs';
+import argv from 'yargs';
 import { RedirectsData } from '../data/redirects/types';
 import { content as contentRoute } from '../src/app/content/routes';
 import { Book, BookWithOSWebData, LinkedArchiveTreeSection } from '../src/app/content/types';
@@ -24,7 +24,7 @@ const {
   bookVersion,
   archiveUrl,
   useUnversionedUrls,
-} = argv as {
+} = argv.string('bookVersion').argv as {
   rootUrl?: string;
   bookId?: string;
   bookVersion?: string;
