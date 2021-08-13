@@ -96,7 +96,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  // tslint:disable-next-line: max-line-length
   (state: AppState, ownProps: {queryParams?: OutputParams, persistentQueryParams?: ContentQueryParams}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),

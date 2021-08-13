@@ -28,8 +28,9 @@ export interface ContentPageRefencesType {
 }
 
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
-  // tslint:disable-next-line: max-line-length
-  const matches: ContentPageRefencesType[] = (page.content.match(/['"]{1}((#[^'"\s]+)|(\.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml(#.[^'"]+)?)))/g) || [])
+  const matches: ContentPageRefencesType[] = (
+    page.content.match(/['"]{1}((#[^'"\s]+)|(\.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml(#.[^'"]+)?)))/g) || []
+    )
     .map((match) => {
       const [bookMatch, pageMatch] = match.split(':');
       const pageId = pageMatch && pageMatch.split('.xhtml')[0];
