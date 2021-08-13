@@ -3,11 +3,12 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import React from 'react';
+import { IntlShape } from 'react-intl';
 import * as selectAuth from '../../../auth/selectors';
 import { findFirstAncestorOrSelf } from '../../../domUtils';
 import { isDefined } from '../../../guards';
 import * as selectNavigation from '../../../navigation/selectors';
-import { AppServices, AppState, Dispatch } from '../../../types';
+import { AppServices, AppState, Dispatch, MiddlewareAPI } from '../../../types';
 import { assertWindow, memoizeStateToProps } from '../../../utils';
 import { assertDocument } from '../../../utils/browser-assertions';
 import {
@@ -51,7 +52,7 @@ export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
 const onFocusHighlight = (
   highlightManagerServices: HighlightManagerServices,
   highlight: Highlight | undefined,
-  appServices: AppServices
+  appServices: AppServices & MiddlewareAPI
 ) => defer(async() => {
   if (!highlight || highlightManagerServices.getProp().focused === highlight.id) {
     return;
@@ -87,7 +88,7 @@ const onFocusOutHighlight = (props: HighlightProp) => defer(() => {
 // deferred so any cards that are going to blur themselves will have done so before this is processed
 const onSelectHighlight = (
   highlightManagerServices: HighlightManagerServices,
-  appServices: AppServices,
+  appServices: AppServices & MiddlewareAPI,
   highlights: Highlight[],
   highlight: Highlight | undefined
 ) => defer(async() => {
@@ -106,11 +107,12 @@ const onSelectHighlight = (
 
 const createHighlighter = (
   highlightManagerServices: Omit<HighlightManagerServices, 'highlighter' | 'intl'>,
-  appServices: AppServices
+  appServices: AppServices & MiddlewareAPI,
+  intl: IntlShape
 ) => {
 
   const highlighter: Highlighter = new Highlighter(highlightManagerServices.container, {
-    formatMessage: appServices.intl.formatMessage,
+    formatMessage: intl.formatMessage,
     onClick: (highlight) => onFocusHighlight({ ...highlightManagerServices, highlighter}, highlight, appServices),
     onFocusIn: (highlight) => onFocusHighlight({ ...highlightManagerServices, highlighter}, highlight, appServices),
     onFocusOut: () => onFocusOutHighlight(highlightManagerServices.getProp()),
@@ -146,7 +148,8 @@ export interface UpdateOptions {
   onSelect: (highlight: Highlight | null) => void;
 }
 
-export default (container: HTMLElement, getProp: () => HighlightProp, appServices: AppServices) => {
+// tslint:disable-next-line: max-line-length
+export default (container: HTMLElement, getProp: () => HighlightProp, appServices: AppServices & MiddlewareAPI, intl: IntlShape) => {
   let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let scrollTargetHighlightIdThatWasHandled: string;
@@ -208,7 +211,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
     setPendingHighlight,
   };
 
-  highlighter = createHighlighter(highlightManagerServices, appServices);
+  highlighter = createHighlighter(highlightManagerServices, appServices, intl);
   setListHighlighter(highlighter);
 
   return {

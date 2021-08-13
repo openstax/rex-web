@@ -1,5 +1,6 @@
 import { setHead } from '../../head/actions';
 import { Link } from '../../head/types';
+import createIntl from '../../messages/createIntl';
 import { pathname } from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
@@ -12,7 +13,7 @@ import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import { createTitle, getPageDescription } from '../utils/seoUtils';
 
 const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
-  const { getState, dispatch, archiveLoader, osWebLoader, intl } = services;
+  const { getState, dispatch, archiveLoader, osWebLoader } = services;
 
   const state = getState();
   const book = select.book(state);
@@ -31,8 +32,10 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
     return;
   }
 
+  const locale = book.language;
+  const intl = await createIntl(locale);
   const title = createTitle(page, book, intl);
-  const description = getPageDescription(services, book, page);
+  const description = getPageDescription(services, intl, book, page);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
