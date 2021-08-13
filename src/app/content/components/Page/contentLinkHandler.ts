@@ -5,7 +5,7 @@ import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { createNavigationOptions, navigationOptionsToString } from '../../../navigation/utils';
-import { AppServices, AppState, Dispatch } from '../../../types';
+import { AppServices, AppState, Dispatch, MiddlewareAPI } from '../../../types';
 import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
 import { hasOSWebData, isPageReferenceError } from '../../guards';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
@@ -77,7 +77,8 @@ const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageRefere
       || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
     );
 
-export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, services: AppServices) =>
+// tslint:disable-next-line: max-line-length
+export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, services: AppServices & MiddlewareAPI) =>
   async(e: MouseEvent) => {
     const {
       references,

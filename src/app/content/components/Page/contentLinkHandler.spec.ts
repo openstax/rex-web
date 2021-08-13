@@ -1,10 +1,11 @@
 import { HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import createTestServices from '../../../../test/createTestServices';
+import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
-import { AppServices } from '../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import * as routes from '../../routes';
 import { formatBookData } from '../../utils';
@@ -19,12 +20,18 @@ describe('contentLinkHandler', () => {
   let handler: (e: MouseEvent) => Promise<void>;
   let prop: ContentLinkProp;
   let anchor: HTMLAnchorElement;
-  let services: AppServices;
+  let services: AppServices & MiddlewareAPI;
+  let store: Store;
 
   beforeEach(() => {
     resetModules();
     anchor = assertDocument().createElement('a');
-    services = createTestServices();
+    store = createTestStore();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
 
     prop = {
       book,

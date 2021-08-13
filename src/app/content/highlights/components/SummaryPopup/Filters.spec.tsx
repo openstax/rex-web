@@ -4,27 +4,30 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';
+import MessageProvider from '../../../../../test/MessageProvider';
 import { book as archiveBook } from '../../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import Checkbox from '../../../../components/Checkbox';
 import { DropdownToggle } from '../../../../components/Dropdown';
 import * as Services from '../../../../context/Services';
-import MessageProvider from '../../../../MessageProvider';
-import { Store } from '../../../../types';
+import { MiddlewareAPI, Store } from '../../../../types';
 import { formatBookData, stripIdVersion } from '../../../utils';
 import { receiveHighlightsTotalCounts, updateSummaryFilters } from '../../actions';
 import Filters from './Filters';
 
 describe('Filters', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
   const book = formatBookData(archiveBook, mockCmsBook);
 
   beforeEach(() => {
-    services = createTestServices();
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     dispatch = jest.spyOn(store, 'dispatch');
   });
 

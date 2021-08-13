@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import * as Services from '../app/context/Services';
-import MessageProvider from '../app/MessageProvider';
 import { Store } from '../app/types';
 import createTestServices from './createTestServices';
 import createTestStore from './createTestStore';
+import MessageProvider from './MessageProvider';
 
 interface TestContainerProps {
   services?: ReturnType<typeof createTestServices>;
@@ -12,10 +12,18 @@ interface TestContainerProps {
   children: ReactNode;
 }
 
+const testStore = createTestStore();
+const testServices = createTestServices();
+
+const reduxMiddleware = {
+  dispatch: testStore.dispatch,
+  getState: testStore.getState,
+};
+
 // tslint:disable-next-line:variable-name max-line-length
-const TestContainer = ({services = createTestServices(), store = createTestStore(), children}: TestContainerProps) =>
+const TestContainer = ({services = testServices, store = testStore, children}: TestContainerProps) =>
   <Provider store={store}>
-    <Services.Provider value={services}>
+    <Services.Provider value={{...services, ...reduxMiddleware}}>
       <MessageProvider>
         {children}
       </MessageProvider>
