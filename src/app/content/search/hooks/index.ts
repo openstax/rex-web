@@ -109,12 +109,11 @@ export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
   const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
   const newTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : persistentQueryParams.target;
-  const newHash = scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : hash;
-  const newParams = {...persistentQueryParams, query: undefined, target: newTarget || undefined};
+  const newPersistentParams = {...persistentQueryParams, query: undefined, target: newTarget || undefined};
 
   services.history.replace({
-    hash: newHash,
-    search: queryString.stringify(systemQueryParams) + queryString.stringify(newParams),
+    hash: scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : hash,
+    search: queryString.stringify(systemQueryParams) + queryString.stringify(newPersistentParams),
   });
 };
 
