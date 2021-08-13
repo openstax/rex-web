@@ -45,12 +45,12 @@ const reducePageReferenceError = (reference: PageReferenceError, document: Docum
 const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryParams: SystemQueryParams) => {
   const path = content.getUrl(reference.params);
   const options = createNavigationOptions(systemQueryParams);
-  const a = assertNotNull(
-    document.querySelector(`[href^='${reference.match}']`),
-    'references are created from hrefs');
+  const a = document.querySelector(`[href^='${reference.match}']`) as HTMLAnchorElement;
+  if (!a) {
+    return;
+  }
   const href = assertNotNull(a.getAttribute('href'), 'it was found by href value');
-  // add hash to options if href only consists of hash, ie an anchor on the same page
-  options.hash = (a as HTMLAnchorElement).hash === href ? new URL(href, `https://openstax.org${currentPath}`).hash : '';
+  options.hash = a.hash;
   const newHref = href
     .replace(reference.match, toRelativeUrl(currentPath, path) + navigationOptionsToString(options));
   a.setAttribute('href', newHref);
