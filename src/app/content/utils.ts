@@ -36,8 +36,6 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
       const pageId = pageMatch && pageMatch.split('.xhtml')[0];
       const [bookId, bookVersion] = bookMatch && bookMatch.split('@') as [string, string | undefined];
 
-      console.log('book: ', book, book.id);
-
       return {
         bookId: (match.includes(':') && bookId && bookId.substr(3)) || book.id,
         bookVersion: bookVersion || book.version,
