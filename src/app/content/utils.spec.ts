@@ -30,6 +30,8 @@ describe('getContentPageReferences', () => {
 
   beforeEach(() => {
     book = {
+      id: 'booklongid@1',
+      title: 'book',
       tree: {
         contents: [
           {
@@ -38,8 +40,6 @@ describe('getContentPageReferences', () => {
             title: '<span class="os-text">Preface</span>',
           },
         ],
-        id: 'booklongid@1',
-        title: 'book',
       },
     } as ArchiveBook;
 
@@ -60,6 +60,18 @@ describe('getContentPageReferences', () => {
   it('works with empty content', () => {
     page.content = '';
     expect(getContentPageReferences(book, page)).toEqual([]);
+  });
+
+  it ('works with hash links', () => {
+    page.content = '<a href="#foo"></a>';
+    expect(getContentPageReferences(book, page)).toEqual([
+      {
+        bookId: 'booklongid@1',
+        bookVersion: undefined,
+        match: '#foo',
+        pageId: 'adsfasdf',
+      },
+    ]);
   });
 
   it('ignores urls not in links', () => {
