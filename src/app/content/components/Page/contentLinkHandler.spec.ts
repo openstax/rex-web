@@ -9,7 +9,7 @@ import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import * as routes from '../../routes';
 import { formatBookData } from '../../utils';
-import { ContentLinkProp } from './contentLinkHandler';
+import { ContentLinkProp, reduceReferences } from './contentLinkHandler';
 
 const book = {
   ...formatBookData(archiveBook, mockCmsBook),
@@ -53,6 +53,56 @@ describe('contentLinkHandler', () => {
     beforeEach(() => {
       contentRoute = require('../../routes').content;
       handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop, services);
+    });
+
+    it('noops if the href is not found', async() => {
+      const link1 = '#foo';
+      const link2 = '#bar';
+      const document = assertDocument();
+      const linkElem = document.createElement('link');
+      const anchorElem = document.createElement('a');
+      linkElem.setAttribute('url', link1);
+      anchorElem.setAttribute('href', link2);
+      document.body.append(linkElem);
+      document.body.append(anchorElem);
+
+      prop.references = [{
+        match: link1,
+        params: {
+          book: {
+            slug: book.slug,
+          },
+          page: {
+            slug: 'page-title',
+          },
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      },
+      {
+        match: link2,
+        params: {
+          book: {
+            slug: book.slug,
+          },
+          page: {
+            slug: 'page-title',
+          },
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }];
+
+      reduceReferences(document, prop);
+      expect(document.body.innerHTML).toMatchInlineSnapshot(
+        `"<link url=\\"#foo\\"><a href=\\"books/book-slug-1/pages/page-title#bar\\"></a>"`
+      );
     });
 
     it('intercepts clicking content links with uuid', async() => {
