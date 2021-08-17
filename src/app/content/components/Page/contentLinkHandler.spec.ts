@@ -47,14 +47,7 @@ describe('contentLinkHandler', () => {
     };
   });
 
-  describe('without unsaved highlight', () => {
-    let contentRoute: typeof routes['content'];
-
-    beforeEach(() => {
-      contentRoute = require('../../routes').content;
-      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop, services);
-    });
-
+  describe('reduce references', () => {
     it('noops if the href is not found', async() => {
       const link1 = '#foo';
       const link2 = '#bar';
@@ -103,6 +96,15 @@ describe('contentLinkHandler', () => {
       expect(document.body.innerHTML).toMatchInlineSnapshot(
         `"<link url=\\"#foo\\"><a href=\\"books/book-slug-1/pages/page-title#bar\\"></a>"`
       );
+    });
+  });
+
+  describe('without unsaved highlight', () => {
+    let contentRoute: typeof routes['content'];
+
+    beforeEach(() => {
+      contentRoute = require('../../routes').content;
+      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop, services);
     });
 
     it('intercepts clicking content links with uuid', async() => {
