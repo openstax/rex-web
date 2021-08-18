@@ -1,8 +1,9 @@
 import createTestServices from '../test/createTestServices';
+import createTestStore from '../test/createTestStore';
 import { reactAndFriends, resetModules } from '../test/utils';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
-import { AppServices } from './types';
+import { AppServices, MiddlewareAPI, Store } from './types';
 let React: any; // tslint:disable-line:variable-name
 let renderer: any;
 
@@ -17,14 +18,20 @@ describe('create app', () => {
   let createApp = require('./index').default;
   let createBrowserHistory: jest.SpyInstance;
   let createMemoryHistory: jest.SpyInstance;
-  let services: AppServices;
+  let services: AppServices & MiddlewareAPI;
+  let store: Store;
 
   beforeEach(() => {
     jest.resetAllMocks();
     resetModules();
     ({React, renderer} = reactAndFriends());
     history = require('history');
-    services = createTestServices();
+    store = createTestStore();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
 
     createBrowserHistory = jest.spyOn(history, 'createBrowserHistory');
     createMemoryHistory = jest.spyOn(history, 'createMemoryHistory');

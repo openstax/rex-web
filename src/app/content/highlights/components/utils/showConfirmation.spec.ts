@@ -1,9 +1,16 @@
 import ReactDOM from 'react-dom';
 import createTestServices from '../../../../../test/createTestServices';
+import createTestStore from '../../../../../test/createTestStore';
+import { book as archiveBook } from '../../../../../test/mocks/archiveLoader';
 import { resetModules } from '../../../../../test/utils';
-import { AppServices } from '../../../../types';
+import { mockCmsBook } from '../../../..//../test/mocks/osWebLoader';
+import { AppServices, MiddlewareAPI, Store } from '../../../../types';
 import { assertDocument } from '../../../../utils';
+import { receiveBook } from '../../../actions';
+import { formatBookData } from '../../../utils';
 import showConfirmation from './showConfirmation';
+
+const book = formatBookData(archiveBook, mockCmsBook);
 
 jest.mock('../ConfirmationModal', () => jest.fn()
   .mockImplementationOnce(({ confirm }) => {
@@ -32,7 +39,8 @@ describe('ShowConfirmation', () => {
   let createElement: jest.SpyInstance;
   let render: jest.SpyInstance;
   let unmount: jest.SpyInstance;
-  let services: AppServices;
+  let services: AppServices & MiddlewareAPI;
+  let store: Store;
 
   beforeEach(() => {
     resetModules();
@@ -50,10 +58,16 @@ describe('ShowConfirmation', () => {
     unmount = jest.spyOn(ReactDOM, 'unmountComponentAtNode');
 
     createElement = jest.spyOn(document, 'createElement').mockImplementation(() => modalNode);
-    services = createTestServices();
+    store = createTestStore();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('unmounts on confirmation', async() => {
+    store.dispatch(receiveBook(book));
     const answer = await showConfirmation(services);
 
     expect(answer).toBe(true);
@@ -64,6 +78,7 @@ describe('ShowConfirmation', () => {
   });
 
   it('unmounts on denial', async() => {
+    store.dispatch(receiveBook(book));
     const answer = await showConfirmation(services);
 
     expect(answer).toBe(false);
