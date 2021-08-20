@@ -42,7 +42,7 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
     ) {
       redirects.push(formatSection(section));
       countNewRedirections++;
-    } else {
+    } else if (slug !== section.slug) {
       // tslint:disable-next-line: no-console
       console.error(`page with ID ${section.id} not found in new book`);
       process.exit(1);
