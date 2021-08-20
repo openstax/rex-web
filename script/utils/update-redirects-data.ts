@@ -44,7 +44,7 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
       countNewRedirections++;
     } else {
       // tslint:disable-next-line: no-console
-      console.error(`section ${section} not found in new book`);
+      console.error(`page with ID ${section.id} not found in new book`);
       process.exit(1);
     }
   }
