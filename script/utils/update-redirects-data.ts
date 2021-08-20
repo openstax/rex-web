@@ -37,12 +37,13 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
     const { slug } = flatNewTree.find(matchSection(section)) || {};
 
     if (
+      // page has a slug in new book and it is not the same as in the current book
       (slug && slug !== section.slug)
       && !redirects.find(matchRedirect(section))
     ) {
       redirects.push(formatSection(section));
       countNewRedirections++;
-    } else if (slug !== section.slug) {
+    } else if (!slug) {
       // tslint:disable-next-line: no-console
       console.error(`page with ID ${section.id} not found in new book`);
       process.exit(1);
