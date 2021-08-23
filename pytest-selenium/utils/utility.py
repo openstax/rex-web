@@ -24,7 +24,8 @@ from selenium.webdriver.remote.webelement import WebElement
 # Constant usage values for javascript commands
 ANALYTICS_QUEUE = (
     "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
-    ".map(x => x.command.payload);")
+    ".map(x => x.command.payload);"
+)
 ASYNC_DELETE = r"""
 (async function delete_page_highlights() {
   const ids = __APP_STORE.getState().content.highlights.highlights.map(({id}) => id);
@@ -144,24 +145,21 @@ class Highlight:
         """Retry highlighting content to smooth out false test failures."""
         starting_highlights = len(set(book.content.highlight_ids))
         tries = 5
-        while (starting_highlights >= len(set(book.content.highlight_ids)) and
-               tries):
+        while starting_highlights >= len(set(book.content.highlight_ids)) and tries:
             target = by(group) if by else group
             try:
-                book.content.highlight(
-                    target=target,
-                    offset=offset,
-                    color=color)
+                book.content.highlight(target=target, offset=offset, color=color)
             except NoSuchElementException:
                 tries = tries - 1
                 # clear actions that may interfere with retrying the highlight
-                (ActionChains(book.driver)
+                (
+                    ActionChains(book.driver)
                     .move_to_element(target)
                     .release(target)
                     .pause(1)
                     .click(target)
                     .perform()
-                 )
+                )
         if not tries:
             name = f" <{str(name)}>" if name else ""
             raise HighlightingException(f"Failed to highlight{name}")
@@ -212,6 +210,15 @@ class Highlight:
 class Library(object):
 
     books = {
+        "algebra-and-trigonometry": {
+            "default_page": "1-introduction-to-prerequisites",
+            "search_term": "Graphs of Parabolas",
+        },
+        "american-government-2e": {"default_page": "1-introduction", "search_term": "mass media"},
+        "american-government-3e": {
+            "default_page": "1-introduction",
+            "search_term": "Commercial fishers",
+        },
         "anatomy-and-physiology": {
             "default_page": "1-introduction",
             "search_term": "20 percent oxygen",
@@ -219,8 +226,21 @@ class Library(object):
         "astronomy": {"default_page": "1-introduction", "search_term": "leap year"},
         "biology-2e": {"default_page": "1-introduction", "search_term": "evolution theory"},
         "biology-ap-courses": {"default_page": "1-introduction", "search_term": "Virus"},
+        "business-ethics": {"default_page": "1-introduction", "search_term": "enculturation"},
+        "business-law-i-essentials": {
+            "default_page": "1-introduction",
+            "search_term": "industrialization",
+        },
         "chemistry-2e": {"default_page": "1-introduction", "search_term": "molecule"},
         "chemistry-atoms-first-2e": {"default_page": "1-introduction", "search_term": "coffee"},
+        "college-algebra": {
+            "default_page": "1-introduction-to-prerequisites",
+            "search_term": "hyperbola",
+        },
+        "college-algebra-corequisite-support": {
+            "default_page": "1-introduction-to-prerequisites",
+            "search_term": "commutative property of addition",
+        },
         "college-physics": {
             "default_page": "1-introduction-to-science-and-the-realm-of-"
             "physics-physical-quantities-and-units",
@@ -231,7 +251,6 @@ class Library(object):
             "search_term": "kinetic energy",
         },
         "concepts-biology": {"default_page": "1-introduction", "search_term": "Cell"},
-        "microbiology": {"default_page": "1-introduction", "search_term": "ecosystems"},
         "calculus-volume-1": {
             "default_page": "1-introduction",
             "search_term": "summation notation",
@@ -241,6 +260,78 @@ class Library(object):
             "search_term": "summation notation",
         },
         "calculus-volume-3": {"default_page": "1-introduction", "search_term": "zero vector"},
+        "introduction-business": {
+            "default_page": "1-introduction",
+            "search_term": "Buyer behavior",
+        },
+        "college-success": {"default_page": "1-introduction", "search_term": "Shira’s career path"},
+        "entrepreneurship": {"default_page": "1-introduction", "search_term": "Business Model"},
+        "elementary-algebra-2e": {
+            "default_page": "1-introduction",
+            "search_term": "common denominator",
+        },
+        "intermediate-algebra-2e": {
+            "default_page": "1-introduction",
+            "search_term": "quadratic equations and functions",
+        },
+        "introductory-business-statistics": {
+            "default_page": "1-introduction",
+            "search_term": "chi-square probabilities",
+        },
+        "introduction-sociology-2e": {
+            "default_page": "1-introduction-to-sociology",
+            "search_term": "certificates or degrees",
+        },
+        "introduction-sociology-3e": {
+            "default_page": "1-introduction-to-sociology",
+            "search_term": "Berger, 1963",
+        },
+        "introductory-statistics": {
+            "default_page": "1-introduction",
+            "search_term": "randomly selected student",
+        },
+        "microbiology": {"default_page": "1-introduction", "search_term": "ecosystems"},
+        "organizational-behavior": {
+            "default_page": "1-introduction",
+            "search_term": "organizational development",
+        },
+        "physics": {"default_page": "1-introduction", "search_term": "linear relationship"},
+        "precalculus": {
+            "default_page": "1-introduction-to-functions",
+            "search_term": "Pythagorean Identities",
+        },
+        "prealgebra-2e": {"default_page": "1-introduction", "search_term": "Whole Numbers"},
+        "principles-financial-accounting": {
+            "default_page": "1-why-it-matters",
+            "search_term": "Explain the Pricing of Long-Term Liabilities",
+        },
+        "principles-economics-2e": {"default_page": "1-introduction", "search_term": "Elasticity"},
+        "principles-macroeconomics-2e": {
+            "default_page": "1-introduction",
+            "search_term": "modern economic growth",
+        },
+        "principles-microeconomics-2e": {
+            "default_page": "1-introduction",
+            "search_term": "Explicit costs",
+        },
+        "principles-macroeconomics-ap-courses-2e": {
+            "default_page": "1-introduction",
+            "search_term": "adjustable-rate mortgage",
+        },
+        "principles-microeconomics-ap-courses-2e": {
+            "default_page": "1-introduction",
+            "search_term": "positive externality",
+        },
+        "principles-managerial-accounting": {
+            "default_page": "1-why-it-matters",
+            "search_term": "relevant range",
+        },
+        "principles-management": {
+            "default_page": "1-introduction",
+            "search_term": "plan is a decision to carry out a particular action",
+        },
+        "psychology-2e": {"default_page": "1-introduction", "search_term": "event schema"},
+        "statistics": {"default_page": "1-introduction", "search_term": "memoryless property"},
         "university-physics-volume-1": {
             "default_page": "1-introduction",
             "search_term": "interference",
@@ -253,92 +344,7 @@ class Library(object):
             "default_page": "1-introduction",
             "search_term": "interference fringes",
         },
-        "american-government-2e": {"default_page": "1-introduction", "search_term": "mass media"},
-        "principles-economics-2e": {"default_page": "1-introduction", "search_term": "Elasticity"},
-        "principles-macroeconomics-2e": {
-            "default_page": "1-introduction",
-            "search_term": "modern economic growth",
-        },
-        "principles-microeconomics-2e": {
-            "default_page": "1-introduction",
-            "search_term": "Explicit costs",
-        },
-        "introduction-sociology-2e": {
-            "default_page": "1-introduction-to-sociology",
-            "search_term": "certificates or degrees",
-        },
         "us-history": {"default_page": "1-introduction", "search_term": "PATRIOTS"},
-        "principles-financial-accounting": {
-            "default_page": "1-why-it-matters",
-            "search_term": "Explain the Pricing of Long-Term Liabilities",
-        },
-        "principles-managerial-accounting": {
-            "default_page": "1-why-it-matters",
-            "search_term": "relevant range",
-        },
-        "introduction-business": {
-            "default_page": "1-introduction",
-            "search_term": "Buyer behavior",
-        },
-        "business-ethics": {"default_page": "1-introduction", "search_term": "enculturation"},
-        "introductory-business-statistics": {
-            "default_page": "1-introduction",
-            "search_term": "chi-square probabilities",
-        },
-        "principles-management": {
-            "default_page": "1-introduction",
-            "search_term": "plan is a decision to carry out a particular action",
-        },
-        "entrepreneurship": {"default_page": "1-introduction", "search_term": "Business Model"},
-        "organizational-behavior": {
-            "default_page": "1-introduction",
-            "search_term": "organizational development",
-        },
-        "introductory-statistics": {
-            "default_page": "1-introduction",
-            "search_term": "randomly selected student",
-        },
-        "precalculus": {
-            "default_page": "1-introduction-to-functions",
-            "search_term": "Pythagorean Identities",
-        },
-        "college-algebra": {
-            "default_page": "1-introduction-to-prerequisites",
-            "search_term": "hyperbola",
-        },
-        "algebra-and-trigonometry": {
-            "default_page": "1-introduction-to-prerequisites",
-            "search_term": "Graphs of Parabolas",
-        },
-        "business-law-i-essentials": {
-            "default_page": "1-introduction",
-            "search_term": "industrialization",
-        },
-        "principles-macroeconomics-ap-courses-2e": {
-            "default_page": "1-introduction",
-            "search_term": "adjustable-rate mortgage",
-        },
-        "principles-microeconomics-ap-courses-2e": {
-            "default_page": "1-introduction",
-            "search_term": "positive externality",
-        },
-        "prealgebra-2e": {"default_page": "1-introduction", "search_term": "Whole Numbers"},
-        "psychology-2e": {"default_page": "1-introduction", "search_term": "event schema"},
-        "college-success": {"default_page": "1-introduction", "search_term": "Shira’s career path"},
-        "elementary-algebra-2e": {
-            "default_page": "1-introduction",
-            "search_term": "common denominator",
-        },
-        "intermediate-algebra-2e": {
-            "default_page": "1-introduction",
-            "search_term": "quadratic equations and functions",
-        },
-        "physics": {"default_page": "1-introduction", "search_term": "linear relationship"},
-        "statistics": {"default_page": "1-introduction", "search_term": "memoryless property"},
-        "college-algebra-corequisite-support": {
-            "default_page": "1-introduction-to-prerequisites",
-            "search_term": "commutative property of addition",
-        },
     }
 
     def random_book_slug(self):
