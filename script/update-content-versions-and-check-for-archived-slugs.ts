@@ -48,7 +48,7 @@ async function processBook() {
 
   if (defaultVersion === newVersion) {
     // tslint:disable-next-line: no-console
-    console.log(`${args.bookId} alredy at desired version.`);
+    console.log(`${args.bookId} already at desired version.`);
     process.exit(0);
   }
 
