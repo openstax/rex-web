@@ -1,13 +1,19 @@
 import ReactDOM from 'react-dom';
 import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';
+import { book as archiveBook } from '../../../../../test/mocks/archiveLoader';
 import { resetModules } from '../../../../../test/utils';
-import { initialState } from '../../../reducer';
-import { AppServices, MiddlewareAPI } from '../../../../types';
+import { mockCmsBook } from '../../../..//../test/mocks/osWebLoader';
+import { AppServices, MiddlewareAPI, Store } from '../../../../types';
 import { assertDocument } from '../../../../utils';
+import { receiveBook } from '../../../actions';
+import { initialState } from '../../../reducer';
+import { formatBookData } from '../../../utils';
 import { clearFocusedHighlight, focusHighlight, setAnnotationChangesPending } from '../../actions';
 import { initialState as initialHighlightState } from '../../reducer';
 import showConfirmation from './showConfirmation';
+
+const book = formatBookData(archiveBook, mockCmsBook);
 
 jest.mock('../ConfirmationModal', () => jest.fn()
   .mockImplementationOnce(({ confirm }) => {
@@ -38,8 +44,9 @@ describe('ShowConfirmation', () => {
   let createElement: jest.SpyInstance;
   let render: jest.SpyInstance;
   let unmount: jest.SpyInstance;
-  let dispatch: jest.SpyInstance;
   let services: AppServices & MiddlewareAPI;
+  let store: Store;
+  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     resetModules();
@@ -58,7 +65,7 @@ describe('ShowConfirmation', () => {
 
     createElement = jest.spyOn(document, 'createElement').mockImplementation(() => modalNode);
 
-    const store = createTestStore({
+    store = createTestStore({
       content: {
         ...initialState,
         highlights: {
@@ -79,6 +86,7 @@ describe('ShowConfirmation', () => {
   });
 
   it('unmounts on confirmation', async() => {
+    store.dispatch(receiveBook(book));
     const answer = await showConfirmation(services);
 
     expect(dispatch).toHaveBeenCalledWith(clearFocusedHighlight());
@@ -90,6 +98,7 @@ describe('ShowConfirmation', () => {
   });
 
   it('unmounts on denial', async() => {
+    store.dispatch(receiveBook(book));
     const answer = await showConfirmation(services);
 
     expect(dispatch).toHaveBeenCalledWith(clearFocusedHighlight());

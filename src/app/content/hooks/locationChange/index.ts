@@ -7,6 +7,7 @@ import { loadPracticeQuestions } from '../../practiceQuestions/hooks';
 import { content } from '../../routes';
 import { syncSearch } from '../../search/hooks';
 import { loadStudyGuides } from '../../studyGuides/hooks';
+import initializeIntl from '../intlHook';
 import loadBuyPrintConfig from './buyPrintConfig';
 import resolveContent from './resolveContent';
 
@@ -25,6 +26,7 @@ const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
     loadHighlights(services)(locationChange(action)),
     loadStudyGuides(services)(),
     loadPracticeQuestions(services)(),
+    initializeIntl(services)(),
   ]);
 };
 

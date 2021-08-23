@@ -1,5 +1,5 @@
 import * as Utils from '../app/utils';
-import * as analytics from '../helpers/analytics';
+import * as analyticsUtils from '../helpers/analytics/utils';
 import { campaignFromQuery, GoogleAnalyticsClient } from './googleAnalyticsClient';
 
 declare const window: Window;
@@ -125,7 +125,7 @@ describe('GoogleAnalyticsClient', () => {
       });
 
       it('doens\'t send and flush the commands if trackingIsDisabled is true', async() => {
-        jest.spyOn(analytics, 'trackingIsDisabled').mockReturnValueOnce(true);
+        jest.spyOn(analyticsUtils, 'trackingIsDisabled').mockReturnValueOnce(true);
 
         client.trackPageView('/some/path');
         expect(mockGa).not.toHaveBeenCalled();
@@ -150,7 +150,7 @@ describe('GoogleAnalyticsClient', () => {
       });
 
       it('doesn\'t send them if trackingIsDisabled is true', async() => {
-        jest.spyOn(analytics, 'trackingIsDisabled').mockReturnValueOnce(true);
+        jest.spyOn(analyticsUtils, 'trackingIsDisabled').mockReturnValueOnce(true);
 
         client.setTrackingIds(['foo', 'bar']);
         client.trackPageView('/some/path');

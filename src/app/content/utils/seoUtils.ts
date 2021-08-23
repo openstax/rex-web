@@ -100,8 +100,9 @@ const getPageDescriptionFromContent = (page: HTMLElement): string | null => {
   return null;
 };
 
-export const getPageDescription = (services: Pick<AppServices, 'archiveLoader' | 'intl'>, book: Book, page: Page) => {
-  const {intl, archiveLoader} = services;
+// tslint:disable-next-line: max-line-length
+export const getPageDescription = (services: Pick<AppServices, 'archiveLoader'>, intl: IntlShape, book: Book, page: Page) => {
+  const {archiveLoader} = services;
   const cleanContent = getCleanContent(book, page, archiveLoader);
   const doc = domParser.parseFromString(cleanContent, 'text/html');
   const pageNode = doc.body.firstElementChild;

@@ -8,9 +8,10 @@ import { clearFocusedHighlight, focusHighlight, setAnnotationChangesPending } fr
 import { focused } from '../../selectors';
 import ConfirmationModal from '../ConfirmationModal';
 
-export default async(services: MiddlewareAPI & AppServices) => {
+export default async(services: AppServices & MiddlewareAPI) => {
   const document = assertDocument();
   const domNode = document.createElement('div');
+  const intl = assertNotNull(services.intl.current, 'Current intl object not found');
 
   domNode.id = `dialog-${uuid()}`;
   const root = assertNotNull(document.getElementById('root'), 'root element not found');
@@ -26,7 +27,7 @@ export default async(services: MiddlewareAPI & AppServices) => {
       services.dispatch(setAnnotationChangesPending(true));
     };
     ReactDOM.render(
-      <RawIntlProvider value={services.intl}>
+      <RawIntlProvider value={intl}>
         <ConfirmationModal deny={deny} confirm={confirm} />
       </RawIntlProvider>,
       domNode
