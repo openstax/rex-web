@@ -1850,7 +1850,7 @@ class Content(Page):
 
     class SideBar(Region):
 
-        _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of Contents']")
+        _root_locator = (By.CSS_SELECTOR, "[aria-label='Table of contents']")
 
         @property
         def header(self) -> Content.SideBar.Header:
