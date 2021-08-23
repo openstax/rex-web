@@ -100,15 +100,14 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   </Styled.NavOl>;
 
   public render() {
-    const { results, book, searchResultsOpen, hasQuery } = this.props;
+    const { results, book, onClose, query, totalHits, selectedResult, ...propsToForward } = this.props;
 
     return (
       <SearchResultsBar
-        searchResultsOpen={searchResultsOpen}
-        hasQuery={hasQuery}
         ref={this.searchSidebar}
+        {...propsToForward}
       >
-        {!results ? <LoadingState onClose={this.props.onClose} /> : null}
+        {!results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
         {results && results.length === 0 ? this.noResults() : null}
         {book && results && results.length > 0 ? this.resultContainers(book, results) : null}

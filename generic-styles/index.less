@@ -23,9 +23,21 @@ body {
 
 #main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
   @import "./content-baked.less";
+  font-size: 1.6rem;
+  line-height: 2.3rem;
 
   // gray is used for text color
   @gray: #424242;
+
+  a {
+    color: #027EB5;
+    cursor: pointer;
+    text-decoration: underline;
+  
+    &:hover {
+      color: #0064A0;
+    }
+  }
 
   sup {
     top: -.5em;
@@ -34,13 +46,13 @@ body {
     bottom: -.25em;
   }
   h2{
-    font-size: 2.8rem;
+    font-size: 3.2rem;
   }
   h3 {
-    font-size: 2.1rem;
+    font-size: 2.4rem;
   }
   h4 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
   sub, sup {
     font-size: 75%;
@@ -127,7 +139,7 @@ body {
     > .os-title {
       margin: 0 -3rem;
       padding: 1.5rem 3rem;
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       color: @gray;
       background-color: #ececec;
       border-bottom: 1px solid #dcdcdc;
