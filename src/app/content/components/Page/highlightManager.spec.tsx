@@ -57,6 +57,7 @@ describe('highlightManager', () => {
   beforeEach(() => {
     window = assertWindow();
     element = window.document.createElement('div');
+    store = createTestStore();
     prop = {
       clearFocus: jest.fn(),
       dispatch: jest.fn(),
@@ -68,6 +69,7 @@ describe('highlightManager', () => {
       loggedOut: false,
       page,
       scrollTarget: null,
+      state: store.getState(),
     };
     prevProp = {...prop};
     store = createTestStore();

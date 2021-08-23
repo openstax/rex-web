@@ -43,6 +43,7 @@ describe('contentLinkHandler', () => {
       navigate: jest.fn(),
       page,
       references: [],
+      state: createTestStore().getState(),
     };
   });
 
