@@ -23,10 +23,8 @@ export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) =
   locationState: selectNavigation.locationState(state),
   page: select.page(state),
   references: select.contentReferences(state),
-  state,
 }));
 export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
-  dispatch,
   navigate: flow(push, dispatch),
 });
 export type ContentLinkProp =
@@ -84,8 +82,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       locationState,
       focusedHighlight,
       hasUnsavedHighlight,
-      dispatch,
-      state,
     } = getProps();
     const href = anchor.getAttribute('href');
 
@@ -115,7 +111,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       e.stopPropagation();
     }
 
-    if (hasUnsavedHighlight && !await showConfirmation({ ...services, dispatch, getState: () => state })) {
+    if (hasUnsavedHighlight && !await showConfirmation(services)) {
       return;
     }
 

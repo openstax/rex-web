@@ -40,11 +40,9 @@ export const mapStateToHighlightProp = memoizeStateToProps((state: AppState) => 
   loggedOut: selectAuth.loggedOut(state),
   page: select.page(state),
   scrollTarget: selectNavigation.scrollTarget(state),
-  state,
 }));
 export const mapDispatchToHighlightProp = (dispatch: Dispatch) => ({
   clearFocus: flow(clearFocusedHighlight, dispatch),
-  dispatch,
   focus: flow(focusHighlight, dispatch),
 });
 export type HighlightProp = ReturnType<typeof mapStateToHighlightProp>
@@ -61,11 +59,7 @@ const onFocusHighlight = (
   }
   if (highlightManagerServices.getProp().focused
     && highlightManagerServices.getProp().hasUnsavedHighlight
-    && !await showConfirmation({
-      ...appServices,
-      dispatch: highlightManagerServices.getProp().dispatch,
-      getState: () => highlightManagerServices.getProp().state,
-    })
+    && !await showConfirmation(appServices)
   ) {
     return;
   }
@@ -104,11 +98,7 @@ const onSelectHighlight = (
 
   if (
     highlightManagerServices.getProp().hasUnsavedHighlight
-    && !await showConfirmation({
-      ...appServices,
-      dispatch: highlightManagerServices.getProp().dispatch,
-      getState: () => highlightManagerServices.getProp().state,
-    })
+    && !await showConfirmation(appServices)
   ) {
     assertWindow().getSelection()?.removeAllRanges();
     return;
