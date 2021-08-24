@@ -249,7 +249,7 @@ export const loadContentReference = async(
 };
 
 const loadContentReferences = (services: AppServices & MiddlewareAPI, book: Book) => async(page: ArchivePage) => {
-  const contentReferences = getContentPageReferences(page.content);
+  const contentReferences = getContentPageReferences(book, page);
   const references: Array<PageReferenceMap | PageReferenceError> = [];
   for (const reference of contentReferences) {
     references.push(await loadContentReference(services, book, page, reference));

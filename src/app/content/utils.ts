@@ -3,6 +3,7 @@ import { AppServices } from '../types';
 import { hasOSWebData, isArchiveTree } from './guards';
 import {
   ArchiveBook,
+  ArchivePage,
   ArchiveTree,
   ArchiveTreeNode,
   Book,
@@ -26,18 +27,20 @@ export interface ContentPageRefencesType {
   pageId: string;
 }
 
-export function getContentPageReferences(htmlContent: string) {
-  const matches: ContentPageRefencesType[] = (htmlContent.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
+export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
+  const matches: ContentPageRefencesType[] = (
+    page.content.match(/['"]{1}((#[^'"\s]+)|(\.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml(#.[^'"]+)?)))/g) || []
+    )
     .map((match) => {
       const [bookMatch, pageMatch] = match.split(':');
-      const pageId = pageMatch.split('.xhtml')[0];
-      const [bookId, bookVersion] = bookMatch.split('@') as [string, string | undefined];
+      const pageId = pageMatch && pageMatch.split('.xhtml')[0];
+      const [bookId, bookVersion] = bookMatch && bookMatch.split('@') as [string, string | undefined];
 
       return {
-        bookId: bookId.substr(2),
-        bookVersion,
-        match,
-        pageId: stripIdVersion(pageId),
+        bookId: (match.includes(':') && bookId && bookId.substr(3)) || book.id,
+        bookVersion: bookVersion || book.version,
+        match: match.substr(1),
+        pageId: (pageId && stripIdVersion(pageId)) || page.id,
       };
     });
 
