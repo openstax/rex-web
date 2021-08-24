@@ -10,12 +10,14 @@ import { Book, Page } from '../../../types';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { closeSearchResultsMobile, selectSearchResult } from '../../actions';
 import { isSearchResultChapter } from '../../guards';
+import * as selectSearch from '../../selectors';
 import { SearchResultChapter, SearchResultContainer,
   SearchResultPage, SearchScrollTarget, SelectedResult } from '../../types';
 import * as Styled from './styled';
 
 interface SearchResultContainersProps {
   currentPage: Page | undefined;
+  currentQuery: string | null;
   containers: SearchResultContainer[];
   book: Book;
   selectedResult: SelectedResult | null;
@@ -29,6 +31,7 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
       isSearchResultChapter(node) ? (
         <SearchResultsDropdown
           currentPage={props.currentPage}
+          currentQuery={props.currentQuery}
           chapter={node}
           book={props.book}
           selectResult={props.selectResult}
@@ -39,6 +42,7 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
       ) : (
         <SearchResult
           currentPage={props.currentPage}
+          currentQuery={props.currentQuery}
           page={node}
           book={props.book}
           selectResult={props.selectResult}
@@ -54,6 +58,7 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
 // tslint:disable-next-line:variable-name
 const SearchResult = (props: {
   currentPage: Page | undefined;
+  currentQuery: string | null;
   page: SearchResultPage;
   book: Book;
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
@@ -89,6 +94,7 @@ const SearchResult = (props: {
           page={props.page}
           result={thisResult}
           scrollTarget={target}
+          queryParams={{query: props.currentQuery}}
           onClick={() => props.selectResult(thisResult)}
           {...isSelected ?  {ref: props.activeSectionRef} : {}}
         >
@@ -102,6 +108,7 @@ const SearchResult = (props: {
 // tslint:disable-next-line:variable-name
 const SearchResultsDropdown = (props: {
   currentPage: Page | undefined;
+  currentQuery: string | null;
   chapter: SearchResultChapter;
   book: Book;
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
@@ -122,6 +129,7 @@ const SearchResultsDropdown = (props: {
       <Styled.DetailsOl>
         <SearchResultContainers
           currentPage={props.currentPage}
+          currentQuery={props.currentQuery}
           containers={props.chapter.contents}
           book={props.book}
           selectResult={props.selectResult}
@@ -136,6 +144,7 @@ const SearchResultsDropdown = (props: {
 export default connect(
   (state: AppState) => ({
     currentPage: select.page(state),
+    currentQuery: selectSearch.query(state),
   }),
   (dispatch: Dispatch) => ({
     selectResult: () => {
