@@ -213,143 +213,249 @@ class Library(object):
         "algebra-and-trigonometry": {
             "default_page": "1-introduction-to-prerequisites",
             "search_term": "Graphs of Parabolas",
+            "search_results_total": 7,
         },
-        "american-government-2e": {"default_page": "1-introduction", "search_term": "mass media"},
+        "american-government-2e": {
+            "default_page": "1-introduction",
+            "search_term": "mass media",
+            "search_results_total": 25,
+        },
         "american-government-3e": {
             "default_page": "1-introduction",
             "search_term": "Commercial fishers",
+            "search_results_total": 5,
         },
         "anatomy-and-physiology": {
             "default_page": "1-introduction",
             "search_term": "20 percent oxygen",
+            "search_results_total": 14,
         },
-        "astronomy": {"default_page": "1-introduction", "search_term": "leap year"},
-        "biology-2e": {"default_page": "1-introduction", "search_term": "evolution theory"},
-        "biology-ap-courses": {"default_page": "1-introduction", "search_term": "Virus"},
-        "business-ethics": {"default_page": "1-introduction", "search_term": "enculturation"},
+        "astronomy": {
+            "default_page": "1-introduction",
+            "search_term": "leap year",
+            "search_results_total": 23,
+        },
+        "biology-2e": {
+            "default_page": "1-introduction",
+            "search_term": "evolution theory",
+            "search_results_total": 46,
+        },
+        "biology-ap-courses": {
+            "default_page": "1-introduction",
+            "search_term": "Virus",
+            "search_results_total": 177,
+        },
+        "business-ethics": {
+            "default_page": "1-introduction",
+            "search_term": "enculturation",
+            "search_results_total": 9,
+        },
         "business-law-i-essentials": {
             "default_page": "1-introduction",
             "search_term": "industrialization",
+            "search_results_total": 4,
         },
-        "chemistry-2e": {"default_page": "1-introduction", "search_term": "molecule"},
-        "chemistry-atoms-first-2e": {"default_page": "1-introduction", "search_term": "coffee"},
+        "chemistry-2e": {
+            "default_page": "1-introduction",
+            "search_term": "molecule",
+            "search_results_total": 425,
+        },
+        "chemistry-atoms-first-2e": {
+            "default_page": "1-introduction",
+            "search_term": "coffee",
+            "search_results_total": 31,
+        },
         "college-algebra": {
             "default_page": "1-introduction-to-prerequisites",
             "search_term": "hyperbola",
+            "search_results_total": 113,
         },
         "college-algebra-corequisite-support": {
             "default_page": "1-introduction-to-prerequisites",
             "search_term": "commutative property of addition",
+            "search_results_total": 1,
         },
         "college-physics": {
             "default_page": "1-introduction-to-science-and-the-realm-of-"
             "physics-physical-quantities-and-units",
             "search_term": "Newton's first law",
+            "search_results_total": 2,
         },
         "college-physics-ap-courses": {
             "default_page": "1-connection-for-ap-r-courses",
             "search_term": "kinetic energy",
+            "search_results_total": 1022,
         },
-        "concepts-biology": {"default_page": "1-introduction", "search_term": "Cell"},
+        "concepts-biology": {
+            "default_page": "1-introduction",
+            "search_term": "Cell",
+            "search_results_total": 780,
+        },
         "calculus-volume-1": {
             "default_page": "1-introduction",
-            "search_term": "summation notation",
+            "search_term": "number",
+            "search_results_total": 209,
         },
         "calculus-volume-2": {
             "default_page": "1-introduction",
             "search_term": "summation notation",
+            "search_results_total": 6,
         },
-        "calculus-volume-3": {"default_page": "1-introduction", "search_term": "zero vector"},
+        "calculus-volume-3": {
+            "default_page": "1-introduction",
+            "search_term": "zero vector",
+            "search_results_total": 101,
+        },
         "introduction-business": {
             "default_page": "1-introduction",
             "search_term": "Buyer behavior",
+            "search_results_total": 15,
         },
-        "college-success": {"default_page": "1-introduction", "search_term": "Shira’s career path"},
-        "entrepreneurship": {"default_page": "1-introduction", "search_term": "Business Model"},
+        "college-success": {
+            "default_page": "1-introduction",
+            "search_term": "Shira’s career path",
+            "search_results_total": 9,
+        },
+        "entrepreneurship": {
+            "default_page": "1-introduction",
+            "search_term": "Business Model",
+            "search_results_total": 349,
+        },
         "elementary-algebra-2e": {
             "default_page": "1-introduction",
             "search_term": "common denominator",
+            "search_results_total": 67,
         },
         "intermediate-algebra-2e": {
             "default_page": "1-introduction",
             "search_term": "quadratic equations and functions",
+            "search_results_total": 6,
         },
         "introductory-business-statistics": {
             "default_page": "1-introduction",
             "search_term": "chi-square probabilities",
+            "search_results_total": 2,
         },
         "introduction-sociology-2e": {
             "default_page": "1-introduction-to-sociology",
             "search_term": "certificates or degrees",
+            "search_results_total": 4,
         },
         "introduction-sociology-3e": {
             "default_page": "1-introduction-to-sociology",
             "search_term": "Berger, 1963",
+            "search_results_total": 5,
         },
         "introductory-statistics": {
             "default_page": "1-introduction",
             "search_term": "randomly selected student",
+            "search_results_total": 12,
         },
-        "microbiology": {"default_page": "1-introduction", "search_term": "ecosystems"},
+        "microbiology": {
+            "default_page": "1-introduction",
+            "search_term": "ecosystems",
+            "search_results_total": 18,
+        },
         "organizational-behavior": {
             "default_page": "1-introduction",
             "search_term": "organizational development",
+            "search_results_total": 44,
         },
-        "physics": {"default_page": "1-introduction", "search_term": "linear relationship"},
+        "physics": {
+            "default_page": "1-introduction",
+            "search_term": "linear relationship",
+            "search_results_total": 10,
+        },
         "precalculus": {
             "default_page": "1-introduction-to-functions",
             "search_term": "Pythagorean Identities",
+            "search_results_total": 18,
         },
-        "prealgebra-2e": {"default_page": "1-introduction", "search_term": "Whole Numbers"},
+        "prealgebra-2e": {
+            "default_page": "1-introduction",
+            "search_term": "Whole Numbers",
+            "search_results_total": 160,
+        },
         "principles-financial-accounting": {
             "default_page": "1-why-it-matters",
             "search_term": "Explain the Pricing of Long-Term Liabilities",
+            "search_results_total": 7,
         },
-        "principles-economics-2e": {"default_page": "1-introduction", "search_term": "Elasticity"},
+        "principles-economics-2e": {
+            "default_page": "1-introduction",
+            "search_term": "Elasticity",
+            "search_results_total": 165,
+        },
         "principles-macroeconomics-2e": {
             "default_page": "1-introduction",
             "search_term": "modern economic growth",
+            "search_results_total": 14,
         },
         "principles-microeconomics-2e": {
             "default_page": "1-introduction",
             "search_term": "Explicit costs",
+            "search_results_total": 18,
         },
         "principles-macroeconomics-ap-courses-2e": {
             "default_page": "1-introduction",
             "search_term": "adjustable-rate mortgage",
+            "search_results_total": 14,
         },
         "principles-microeconomics-ap-courses-2e": {
             "default_page": "1-introduction",
             "search_term": "positive externality",
+            "search_results_total": 24,
         },
         "principles-managerial-accounting": {
             "default_page": "1-why-it-matters",
             "search_term": "relevant range",
+            "search_results_total": 51,
         },
         "principles-management": {
             "default_page": "1-introduction",
             "search_term": "plan is a decision to carry out a particular action",
+            "search_results_total": 11,
         },
-        "psychology-2e": {"default_page": "1-introduction", "search_term": "event schema"},
-        "statistics": {"default_page": "1-introduction", "search_term": "memoryless property"},
+        "psychology-2e": {
+            "default_page": "1-introduction",
+            "search_term": "event schema",
+            "search_results_total": 15,
+        },
+        "statistics": {
+            "default_page": "1-introduction",
+            "search_term": "memoryless property",
+            "search_results_total": 5,
+        },
         "university-physics-volume-1": {
             "default_page": "1-introduction",
             "search_term": "interference",
+            "search_results_total": 66,
         },
         "university-physics-volume-2": {
             "default_page": "1-introduction",
             "search_term": "interference fringes",
+            "search_results_total": 3,
         },
         "university-physics-volume-3": {
             "default_page": "1-introduction",
             "search_term": "interference fringes",
+            "search_results_total": 61,
         },
-        "us-history": {"default_page": "1-introduction", "search_term": "PATRIOTS"},
+        "us-history": {
+            "default_page": "1-introduction",
+            "search_term": "PATRIOTS",
+            "search_results_total": 20,
+        },
     }
 
     def random_book_slug(self):
         random_book_slug = choice(list(self.books.keys()))
         return random_book_slug
+
+    @property
+    def all_book_slug(self):
+        all_book_slug = list(self.books.keys())
+        return all_book_slug
 
 
 def get_default_page(element):
@@ -362,6 +468,11 @@ def get_search_term(element):
     book_list = Library.books
     search_term = book_list[element]["search_term"]
     return search_term
+
+
+def expected_search_results_total(element) -> int:
+    book_list = Library.books
+    return book_list[element]["search_results_total"]
 
 
 class Utilities(object):

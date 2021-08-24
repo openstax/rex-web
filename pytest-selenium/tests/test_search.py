@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 
 from pages.content import Content
 from tests import markers
-from utils.utility import Utilities, get_search_term
+from utils.utility import Utilities, Library, get_search_term, expected_search_results_total
 
 XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-highlight first text last focus')]"
 
@@ -402,3 +402,44 @@ def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
 
         # AND: Search sidebar is still open
         assert search_sidebar.search_results_present
+
+
+@markers.test_case("C543234")
+# @markers.parametrize(
+#     "book_slug,page_slug", [
+#         ("microbiology",
+#          "1-introduction")])
+@markers.parametrize("page_slug", ["preface"])
+@markers.desktop_only
+@markers.nondestructive
+def test_search_results(selenium, base_url, book_slug, page_slug):
+    """Number of search results does not vary"""
+    book_list = Library()
+    book_slugs = book_list.all_book_slug
+    print(book_slugs)
+    for x in list(book_slugs):
+
+        # GIVEN: Book page is loaded
+        book = Content(selenium, base_url, book_slug=x, page_slug=page_slug).open()
+
+        # Skip any notification/nudge popups
+        while book.notification_present:
+            book.notification.got_it()
+
+        search_sidebar = book.search_sidebar
+        search_term = get_search_term(x)
+        expected = expected_search_results_total(x)
+
+        # AND: Search sidebar is open
+        book.toolbar.search_for(search_term)
+        assert search_sidebar.search_results_present
+
+        print(search_sidebar.search_result_total)
+
+        assert search_sidebar.search_result_total == expected
+
+        # within = search_sidebar.search_result_total +- 3
+        # assert isclose(
+        #             search_sidebar.search_result_total, expected,
+        #             rel_tol=within,
+        #         )
