@@ -213,7 +213,7 @@ class Library(object):
         "algebra-and-trigonometry": {
             "default_page": "1-introduction-to-prerequisites",
             "search_term": "Graphs of Parabolas",
-            "search_results_total": 8,
+            "search_results_total": 6,
         },
         "american-government-2e": {
             "default_page": "1-introduction",
