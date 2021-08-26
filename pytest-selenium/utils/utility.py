@@ -449,11 +449,13 @@ class Library(object):
     }
 
     def random_book_slug(self):
+        """Book slug of a random book selected from the Library."""
         random_book_slug = choice(list(self.books.keys()))
         return random_book_slug
 
     @property
     def book_slugs_list(self):
+        """List of book slugs for all the books present in the Library."""
         book_slugs_list = list(self.books.keys())
         return book_slugs_list
 
@@ -471,6 +473,13 @@ def get_search_term(element):
 
 
 def expected_search_results_total(element) -> int:
+    """Total search results for the search performed on the book.
+
+        :param int element: the book slug
+        :return: total number of search results defined for the book slug in the library
+        :rtype: int
+
+    """
     book_list = Library.books
     return book_list[element]["search_results_total"]
 
