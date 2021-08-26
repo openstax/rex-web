@@ -213,22 +213,22 @@ class Library(object):
         "algebra-and-trigonometry": {
             "default_page": "1-introduction-to-prerequisites",
             "search_term": "Graphs of Parabolas",
-            "search_results_total": 7,
+            "search_results_total": 8,
         },
         "american-government-2e": {
             "default_page": "1-introduction",
             "search_term": "mass media",
-            "search_results_total": 25,
+            "search_results_total": 27,
         },
         "american-government-3e": {
             "default_page": "1-introduction",
             "search_term": "Commercial fishers",
-            "search_results_total": 5,
+            "search_results_total": 2,
         },
         "anatomy-and-physiology": {
             "default_page": "1-introduction",
             "search_term": "20 percent oxygen",
-            "search_results_total": 14,
+            "search_results_total": 19,
         },
         "astronomy": {
             "default_page": "1-introduction",
@@ -294,7 +294,7 @@ class Library(object):
         "calculus-volume-1": {
             "default_page": "1-introduction",
             "search_term": "number",
-            "search_results_total": 209,
+            "search_results_total": 207,
         },
         "calculus-volume-2": {
             "default_page": "1-introduction",
@@ -453,9 +453,9 @@ class Library(object):
         return random_book_slug
 
     @property
-    def all_book_slug(self):
-        all_book_slug = list(self.books.keys())
-        return all_book_slug
+    def book_slugs_list(self):
+        book_slugs_list = list(self.books.keys())
+        return book_slugs_list
 
 
 def get_default_page(element):

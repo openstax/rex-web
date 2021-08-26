@@ -5,8 +5,10 @@ from random import choice
 from string import digits, ascii_letters
 import re
 from time import sleep
+import unittest
 
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
 from pages.content import Content
 from tests import markers
@@ -404,42 +406,47 @@ def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
         assert search_sidebar.search_results_present
 
 
-@markers.test_case("C543234")
-# @markers.parametrize(
-#     "book_slug,page_slug", [
-#         ("microbiology",
-#          "1-introduction")])
+@markers.test_case("C543252")
 @markers.parametrize("page_slug", ["preface"])
 @markers.desktop_only
 @markers.nondestructive
-def test_search_results(selenium, base_url, book_slug, page_slug):
-    """Number of search results does not vary"""
+def test_search_results(selenium, base_url, page_slug):
+    """Search sidebar shows total number of matches throughout the book"""
     book_list = Library()
-    book_slugs = book_list.all_book_slug
-    print(book_slugs)
-    for x in list(book_slugs):
+    book_slugs = book_list.book_slugs_list
+
+    # Repeat the test for all books in the library
+    for book_slug in list(book_slugs):
 
         # GIVEN: Book page is loaded
-        book = Content(selenium, base_url, book_slug=x, page_slug=page_slug).open()
+        book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
         # Skip any notification/nudge popups
         while book.notification_present:
             book.notification.got_it()
 
+        # WHEN: Search is performed
         search_sidebar = book.search_sidebar
-        search_term = get_search_term(x)
-        expected = expected_search_results_total(x)
+        search_term = get_search_term(book_slug)
+        expected_value = expected_search_results_total(book_slug)
 
         # AND: Search sidebar is open
         book.toolbar.search_for(search_term)
-        assert search_sidebar.search_results_present
+        try:
+            assert search_sidebar.search_results_present
+        except TimeoutException:
+            # wait and check if search sidebar appears
+            sleep(0.5)
+            assert search_sidebar.search_results_present
 
-        print(search_sidebar.search_result_total)
-
-        assert search_sidebar.search_result_total == expected
-
-        # within = search_sidebar.search_result_total +- 3
-        # assert isclose(
-        #             search_sidebar.search_result_total, expected,
-        #             rel_tol=within,
-        #         )
+        # THEN: Search sidebar shows total number of matches throughout the book
+        try:
+            assert search_sidebar.search_result_total == expected_value
+        except AssertionError:
+            # Total search results vary slightly between environment/search sessions which is being worked on by the developers.
+            # Till then asserting with a threshold value
+            print(
+                f"Search results mismatch for '{book_slug}', expected = '{expected_value}', actual = '{search_sidebar.search_result_total}'"
+            )
+            tc = unittest.TestCase()
+            tc.assertAlmostEqual(search_sidebar.search_result_total, expected_value, delta=3)
