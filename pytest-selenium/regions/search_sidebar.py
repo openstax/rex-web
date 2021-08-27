@@ -58,6 +58,10 @@ class SearchSidebar(Region):
         """
         return self.find_elements(*self._result_option_locator)
 
+    @property
+    def search_result_total(self):
+        return len(self.results)
+
     def search_results(self, term: str = "") -> List[WebElement]:
         """Return the search results from search sidebar.
 
