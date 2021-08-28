@@ -6,6 +6,17 @@ import { content } from './routes';
 import { State as SearchState } from './search/types';
 import { State as StudyGuidesState } from './studyGuides/types';
 
+export type ContentQueryParams = {
+  modal?: string,
+  query?: string | null,
+  target?: string,
+};
+
+export type SystemQueryParams = {
+  archive?: string,
+  'content-style'?: string,
+};
+
 export type SlugParams = {
   slug: string;
 };
@@ -114,6 +125,7 @@ export interface ArchiveBook {
   title: string;
   tree: ArchiveTree;
   version: string;
+  language: string;
   license: {
     name: string;
     url: string;

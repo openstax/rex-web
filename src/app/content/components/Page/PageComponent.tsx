@@ -1,5 +1,4 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
-import queryString from 'query-string';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
@@ -40,12 +39,11 @@ export default class PageComponent extends Component<PagePropTypes> {
   private componentDidUpdateCounter = 0;
 
   public getTransformedContent = () => {
-    const {book, page, services, systemQueryParams} = this.props;
+    const {book, page, services} = this.props;
 
     return getCleanContent(book, page, services.archiveLoader, (content) => {
       const parsedContent = parser.parseFromString(content, 'text/html');
-      const systemQueryString = queryString.stringify(systemQueryParams);
-      contentLinks.reduceReferences(parsedContent, this.props.contentLinks, systemQueryString);
+      contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
 
       transformContent(parsedContent, parsedContent.body, this.props.intl);
 
@@ -65,7 +63,8 @@ export default class PageComponent extends Component<PagePropTypes> {
       return;
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current, this.props.intl);
-    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.intl);
+    // tslint:disable-next-line: max-line-length
+    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
   }
 
@@ -138,6 +137,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     return <React.Fragment>
       <PageContent
         key='main-content'
+        className='page-content'
         ref={this.container}
         dangerouslySetInnerHTML={{ __html: html}}
       />
@@ -181,7 +181,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.listenersOff();
 
     this.mapLinks((a) => {
-      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks);
+      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
     });

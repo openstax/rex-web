@@ -1,11 +1,16 @@
 import React from 'react';
-import { AppServices } from '../types';
+import { useStore } from 'react-redux';
+import { AppServices, MiddlewareAPI } from '../types';
 
 export const servicesContext = React.createContext({} as AppServices);
 
 const {Consumer, Provider} = servicesContext;
 
-export const useServices = () => React.useContext(servicesContext);
+export const useServices = (): AppServices & MiddlewareAPI => ({
+  ...React.useContext(servicesContext),
+  dispatch: useStore().dispatch,
+  getState: useStore().getState,
+});
 
 export {
   Consumer,
@@ -13,7 +18,7 @@ export {
 };
 
 interface ServiceConsumer {
-  services: AppServices;
+  services: AppServices & MiddlewareAPI;
 }
 
 /* tslint:disable-next-line:variable-name */

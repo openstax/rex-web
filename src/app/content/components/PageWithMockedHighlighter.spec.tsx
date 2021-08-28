@@ -6,6 +6,7 @@ import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import MessageProvider from '../../../test/MessageProvider';
 import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
@@ -13,7 +14,6 @@ import { renderToDom } from '../../../test/reactutils';
 import { resetModules } from '../../../test/utils';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
-import MessageProvider from '../../MessageProvider';
 import { locationChange } from '../../navigation/actions';
 import { scrollTarget } from '../../navigation/selectors';
 import { AppServices, MiddlewareAPI, Store } from '../../types';
@@ -33,7 +33,8 @@ import ConnectedPage from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
-jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
+jest.mock('../highlights/components/utils/showConfirmation',
+  () => () => new Promise((resolve) => resolve(false)));
 
 // https://github.com/facebook/jest/issues/936#issuecomment-463644784
 jest.mock('../../domUtils', () => ({
