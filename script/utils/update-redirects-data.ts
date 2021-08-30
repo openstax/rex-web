@@ -45,7 +45,7 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
       countNewRedirections++;
     // remove `else` to enable legitimately removing pages from books
     // only once uuids are guaranteed to be consistent
-    } else if (!slug && !matchSlug(section.slug)) {
+    } else if (!slug && matchSlug(section.slug) === undefined) {
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
         + `but page with ID ${section.id} was not found in new book`);
