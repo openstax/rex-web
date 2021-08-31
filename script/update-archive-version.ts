@@ -27,12 +27,16 @@ async function updateArchiveVersion() {
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
   const currentBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`),
+    createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+      archiveHost: ARCHIVE_URL,
+    }),
     osWebLoader
   );
 
   const newBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(`${ARCHIVE_URL}${args.newArchiveUrl}`),
+    createArchiveLoader(args.newArchiveUrl, {
+      archiveHost: ARCHIVE_URL,
+    }),
     osWebLoader
   );
 
