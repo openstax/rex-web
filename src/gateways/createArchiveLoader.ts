@@ -13,7 +13,6 @@ interface Options {
 }
 
 const defaultOptions = () => ({
-  appHost: '',
   archiveHost: '',
   bookCache: createCache<string, ArchiveBook>({maxRecords: 20}),
   pageCache: createCache<string, ArchivePage>({maxRecords: 20}),
@@ -63,7 +62,7 @@ export default (archiveBasePath: string, options: Options = {}) => {
           return {
             cached: () => pageCache.get(bookAndPageRef),
             load: () => pageLoader(bookId, bookAndPageRef),
-            url: () => contentUrl(appHost, bookId, bookAndPageRef),
+            url: () => contentUrl(appHost || archiveHost, bookId, bookAndPageRef),
           };
         },
       };
