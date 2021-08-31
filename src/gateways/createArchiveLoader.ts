@@ -1,5 +1,6 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
+import BOOKS from '../config.books';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 
@@ -23,19 +24,20 @@ const defaultOptions = (backendUrl: string) => ({
 export default (backendUrl: string, options: Options = {}) => {
   const {pageCache, bookCache, appUrl} = {...defaultOptions(backendUrl), ...options};
 
-  const contentUrl = (base: string, ref: string) => `${base}/contents/${ref}.json`;
+  const contentUrlBase = (bookId: string) => BOOKS[bookId]?.archiveOverride || appUrl;
+  const contentUrl = (bookId: string, ref: string) => `${contentUrlBase(bookId)}/contents/${ref}.json`;
 
   const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
     .then(acceptStatus(200, (status, message) => `Error response from archive "${fetchUrl}" ${status}: ${message}`))
     .then((response) => response.json() as Promise<T>);
 
-  const contentsLoader = <C extends ArchiveContent>(cache: Cache<string, C>) => (id: string) => {
+  const contentsLoader = <C extends ArchiveContent>(cache: Cache<string, C>) => (bookId: string, id: string) => {
     const cached = cache.get(id);
     if (cached) {
       return Promise.resolve(cached);
     }
 
-    return archiveFetch<C>(contentUrl(backendUrl, id))
+    return archiveFetch<C>(contentUrl(bookId, id))
       .then((response) => {
         cache.set(id, response);
         return response;
@@ -51,14 +53,14 @@ export default (backendUrl: string, options: Options = {}) => {
 
       return {
         cached: () => bookCache.get(bookRef),
-        load: () => bookLoader(bookRef),
+        load: () => bookLoader(bookId, bookRef),
 
         page: (pageId: string) => {
-          const bookAndPageUrl = `${bookRef}:${pageId}`;
+          const bookAndPageRef = `${bookRef}:${pageId}`;
           return {
-            cached: () => pageCache.get(bookAndPageUrl),
-            load: () => pageLoader(bookAndPageUrl),
-            url: () => contentUrl(appUrl, bookAndPageUrl),
+            cached: () => pageCache.get(bookAndPageRef),
+            load: () => pageLoader(bookId, bookAndPageRef),
+            url: () => contentUrl(bookId, bookAndPageRef),
           };
         },
       };
