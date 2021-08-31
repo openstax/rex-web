@@ -48,7 +48,7 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
     } else if (!slug && matchSlug(section.slug) === undefined) {
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
-        + `but neither page with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
+        + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
     }
   }
 
