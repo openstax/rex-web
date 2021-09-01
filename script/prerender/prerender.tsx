@@ -62,8 +62,8 @@ async function render() {
   await Loadable.preloadAll();
   const port = await portfinder.getPortPromise();
   const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
-    appHost: '', /* passing appHost ensures the localhost path is not used in wrangling urls */
-    archiveHost: `http://localhost:${port}`,
+    appPrefix: '',
+    archivePrefix: `http://localhost:${port}`,
     bookCache: createDiskCache<string, ArchiveBook>('archive-books'),
     pageCache: createDiskCache<string, ArchivePage>('archive-pages'),
   });
