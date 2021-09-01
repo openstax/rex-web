@@ -35,6 +35,7 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
   let countNewRedirections = 0;
   for (const section of flatCurrentTree) {
     const { slug } = flatNewTree.find(matchSection(section)) || {};
+    const matchSlug = (currentPageSlug: string) => flatNewTree.find((newPage) => newPage.slug === currentPageSlug);
 
     if (
       (slug && slug !== section.slug)
@@ -44,10 +45,10 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
       countNewRedirections++;
     // remove `else` to enable legitimately removing pages from books
     // only once uuids are guaranteed to be consistent
-    } else if (!slug) {
+    } else if (!slug && matchSlug(section.slug) === undefined) {
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
-        + `but page with ID ${section.id} was not found in new book`);
+        + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
     }
   }
 
