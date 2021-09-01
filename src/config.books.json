@@ -156,7 +156,8 @@
     "defaultVersion": "10.1"
   },
   "afe4332a-c97f-4fc4-be27-4e4d384a32d8": {
-    "defaultVersion": "18.2"
+    "defaultVersion": "18.2",
+    "archiveOverride": "/apps/archive/20210713.205645"
   },
   "4061c832-098e-4b3c-a1d9-7eb593a2cb31": {
     "defaultVersion": "13.2"

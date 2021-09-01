@@ -12,7 +12,9 @@ const {
 
 (global as any).fetch = fetch;
 
-const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
+const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+  archivePrefix: ARCHIVE_URL,
+});
 
 const bookId = argv._[1];
 const bookVersion = BOOKS[bookId].defaultVersion;
