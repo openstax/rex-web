@@ -5,27 +5,51 @@ import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 
 interface Options {
-  appHost?: string; /* alternate host to report to the app for resolving relative links in content */
-  archiveHost?: string; /* this is prefixed on the url unless archiveOverride is passed */
-  archiveOverride?: string; /* this will for sure be used if passed */
+  /*
+   * appPrefix and archivePrefix can be used if there is a base
+   * portion of the content path that must be different between
+   * actually loading the content, and where to report the content
+   * came from for the purpose of resolving relative urls.
+   *
+   * pre-rendering is a case where these must be different because
+   * it loads content from a different path than it will be served
+   * from after release.
+   *
+   * if you're not setting both of these its ok to pass the entire
+   * url as part of archivePath;
+   */
+  appPrefix?: string;
+  archivePrefix?: string;
+
+  /*
+   * books can specify an archiveOverride in the config.books.json
+   * pass true here if you want to disable that.
+   *
+   * when passing an override query parameter in development, or when
+   * checking alternate content in pipeline upgrade scripts, are examples
+   * of when you'd probably want to disable this
+   */
+  disablePerBookPinning?: boolean;
+
   bookCache?: Cache<string, ArchiveBook>;
   pageCache?: Cache<string, ArchivePage>;
 }
 
 const defaultOptions = () => ({
-  archiveHost: '',
+  archivePrefix: '',
   bookCache: createCache<string, ArchiveBook>({maxRecords: 20}),
   pageCache: createCache<string, ArchivePage>({maxRecords: 20}),
 });
 
-export default (archiveBasePath: string, options: Options = {}) => {
-  const {pageCache, bookCache, appHost, archiveHost, archiveOverride} = {
+export default (archivePath: string, options: Options = {}) => {
+  const {pageCache, bookCache, appPrefix, archivePrefix, disablePerBookPinning} = {
     ...defaultOptions(),
     ...options,
   };
 
-  const contentUrlBase = (host: string, bookId: string) => archiveOverride ||
-    `${host}${BOOKS[bookId]?.archiveOverride || archiveBasePath}`;
+  const contentUrlBase = (host: string, bookId: string) => disablePerBookPinning
+    ? `${host}${archivePath}`
+    : `${host}${BOOKS[bookId]?.archiveOverride || archivePath}`;
   const contentUrl = (host: string, bookId: string, ref: string) =>
     `${contentUrlBase(host, bookId)}/contents/${ref}.json`;
 
@@ -39,7 +63,7 @@ export default (archiveBasePath: string, options: Options = {}) => {
       return Promise.resolve(cached);
     }
 
-    return archiveFetch<C>(contentUrl(archiveHost, bookId, id))
+    return archiveFetch<C>(contentUrl(archivePrefix, bookId, id))
       .then((response) => {
         cache.set(id, response);
         return response;
@@ -62,7 +86,7 @@ export default (archiveBasePath: string, options: Options = {}) => {
           return {
             cached: () => pageCache.get(bookAndPageRef),
             load: () => pageLoader(bookId, bookAndPageRef),
-            url: () => contentUrl(appHost || archiveHost, bookId, bookAndPageRef),
+            url: () => contentUrl(appPrefix || archivePrefix, bookId, bookAndPageRef),
           };
         },
       };
