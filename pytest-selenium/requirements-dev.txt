@@ -14,7 +14,7 @@ importlib-metadata==4.8.1
 more-itertools==8.8.0
 nodeenv==1.6.0
 packaging==21.0
-pluggy==0.13.1
+pluggy==1.0.0
 pre-commit==2.13.0
 py==1.10.0
 pyAesCrypt==6.0.0
