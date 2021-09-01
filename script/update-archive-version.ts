@@ -20,7 +20,7 @@ const args = argv as any as {
 };
 
 async function updateArchiveVersion() {
-  if (`${args.newArchive}` === REACT_APP_ARCHIVE_URL) {
+  if (`${REACT_APP_ARCHIVE_URL_BASE}${args.newArchive}` === REACT_APP_ARCHIVE_URL) {
     console.log('Current and new archive url are the same. Skipping...');
     return;
   }
