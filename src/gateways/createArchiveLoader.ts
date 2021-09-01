@@ -15,8 +15,9 @@ interface Options {
    * it loads content from a different path than it will be served
    * from after release.
    *
-   * if you're not setting both of these its ok to pass the entire
-   * url as part of archivePath;
+   * archivePrefix alone is still helpful because it will be prepended
+   * to any book archiveOverride values (in case you need those to have
+   * a host, like in scripts)
    */
   appPrefix?: string;
   archivePrefix?: string;
