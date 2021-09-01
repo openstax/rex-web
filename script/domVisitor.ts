@@ -145,7 +145,9 @@ async function run() {
     devtools: devTools,
     headless: showBrowser === undefined,
   });
-  const archiveLoader = createArchiveLoader(`${archiveUrl ? archiveUrl : rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const archiveLoader = createArchiveLoader(config.REACT_APP_ARCHIVE_URL, {
+    archivePrefix: archiveUrl ? archiveUrl : rootUrl,
+  });
   const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const books = await findBooks({
     archiveLoader,
