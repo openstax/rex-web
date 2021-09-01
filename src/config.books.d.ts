@@ -1,6 +1,7 @@
 interface Books {
   [key: string]: {
     defaultVersion: string;
+    archiveOverride?: string;
   };
 }
 
