@@ -32,7 +32,7 @@ async function updateArchiveVersion() {
   );
 
   const newBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(`${ARCHIVE_URL}${args.newArchiveUrl}`),
+    createArchiveLoader(`${ARCHIVE_URL}${args.newArchiveUrl}`, {disablePerBookPinning: true}),
     osWebLoader
   );
 
