@@ -36,7 +36,6 @@ async function updateArchiveVersion() {
   const newBookLoader = makeUnifiedBookLoader(
     createArchiveLoader(args.newArchiveUrl, {
       archivePrefix: ARCHIVE_URL,
-      disablePerBookPinning: true,
     }),
     osWebLoader
   );
@@ -82,7 +81,7 @@ async function updateArchiveVersion() {
   if (newRedirects.length > 0) {
     console.log(
       newRedirects
-        .map(([book, redirects]) => `Added ${redirects} redirects for book ${book.title} | ${book.id}`)
+        .map(([book, redirects]) => `Added ${redirects} redirects for book ${book.id}`)
         .join('\n')
     );
   } else {
