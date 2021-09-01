@@ -1,13 +1,13 @@
 import flow from 'lodash/fp/flow';
 import identity from 'lodash/fp/identity';
-import createArchiveLoader from '../../../gateways/createArchiveLoader';
+import { AppServices } from '../../types';
 import { Book, Page } from '../types';
 import { resolveRelativeResources } from './contentManipulation';
 
 export default function getCleanContent(
   book: Book | undefined,
   page: Page | undefined,
-  archiveLoader: ReturnType<typeof createArchiveLoader>,
+  archiveLoader: AppServices['archiveLoader'],
   transformer: (content: string) => string = identity
 ) {
   const cachedPage = book && page &&
