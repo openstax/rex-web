@@ -1,6 +1,6 @@
 import isEqual from 'lodash/fp/isEqual';
 import queryString from 'query-string';
-import { REACT_APP_ARCHIVE_URL } from '../../../../config';
+import { REACT_APP_ARCHIVE } from '../../../../config';
 import { push, replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
@@ -28,7 +28,7 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
   }
 
   const results = await services.searchClient.search({
-    books: [`${REACT_APP_ARCHIVE_URL}/${book.id}@${book.version}`],
+    books: [`${REACT_APP_ARCHIVE}/${book.id}@${book.version}`],
     indexStrategy: 'i1',
     q: payload,
     searchStrategy: 's1',
