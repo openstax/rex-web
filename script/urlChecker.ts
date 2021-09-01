@@ -106,7 +106,9 @@ const getUrl = (book: Book) => useUnversionedUrls
   : (treeSection: LinkedArchiveTreeSection) => getBookPageUrlAndParams(book, treeSection).url;
 
 async function checkUrls() {
-  const archiveLoader = createArchiveLoader(`${archiveUrl ? archiveUrl : rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const archiveLoader = createArchiveLoader(config.REACT_APP_ARCHIVE_URL, {
+    archivePrefix: archiveUrl ? archiveUrl : rootUrl,
+  });
   const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const url = assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port');
   const books = await findBooks({
