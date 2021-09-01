@@ -81,7 +81,7 @@ async function updateArchiveVersion() {
   if (newRedirects.length > 0) {
     console.log(
       newRedirects
-        .map(([book, redirects]) => `Added ${redirects} redirects for book ${book.id}`)
+        .map(([book, redirects]) => `Added ${redirects} redirects for book ${book.title} | ${book.id}`)
         .join('\n')
     );
   } else {
