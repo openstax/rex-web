@@ -52,7 +52,9 @@ const mainContent = document.getElementById('main-content');
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
-    archiveLoader: createArchiveLoader(archiveUrl),
+    archiveLoader: createArchiveLoader(archiveUrl, {
+      disablePerBookPinning: !!config.REACT_APP_ARCHIVE_URL_OVERRIDE,
+    }),
     bookConfigLoader: createBookConfigLoader(),
     buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
     config,
