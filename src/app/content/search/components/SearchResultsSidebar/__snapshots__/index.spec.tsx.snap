@@ -3,16 +3,16 @@
 exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-3 llsXIP"
+  className="styled__SearchResultsBar-as3fh1-3 hlJQw"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div>
     <div
-      className="styled__CloseIconWrapper-as3fh1-17 eZjRtu"
+      className="styled__CloseIconWrapper-as3fh1-20 cTztJS"
     >
       <button
-        className="styled__CloseIconButton-as3fh1-16 ehlFTE"
+        className="styled__CloseIconButton-as3fh1-19 cMpUBy"
         onClick={[Function]}
       >
         <svg
@@ -47,10 +47,10 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
       </button>
     </div>
     <div
-      className="styled__SearchQuery-as3fh1-4 hPLPan"
+      className="styled__SearchQuery-as3fh1-7 dkZmAk"
     >
       <div
-        className="styled__SearchQueryAlignment-as3fh1-15 zBfIM"
+        className="styled__SearchQueryAlignment-as3fh1-18 bDnppb"
       >
         Sorry, no results found for 
          
@@ -68,42 +68,23 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-3 llsXIP"
+  className="styled__SearchResultsBar-as3fh1-3 hlJQw"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div
-    className="styled__SearchQueryWrapper-as3fh1-5 gtPURI"
+    className="styled__SearchResultsTopBar-as3fh1-4 iqKAVu"
   >
     <div
-      className="styled__SearchQuery-as3fh1-4 hPLPan"
+      className="styled__SearchResultsHeader-as3fh1-5 bDKAci"
     >
-      <svg
-        aria-hidden="true"
-        className="styled__SearchIconInsideBar-as3fh1-0 dgtBTP StyledIconBase-sc-bdy9j4 cCvWXa"
-        fill="currentColor"
-        focusable="false"
-        viewBox="0 0 512 512"
+      <span
+        className="styled__SearchResultsHeaderTitle-as3fh1-6 gZYIlY"
       >
-        <path
-          d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
-          fill="currentColor"
-        />
-      </svg>
-      <div
-        className="styled__HeaderQuery-as3fh1-19 crkhDN"
-      >
-        3
-         
-        search results for 
-        <strong>
-           ‘
-          cool search
-          ’
-        </strong>
-      </div>
+        Search results
+      </span>
       <button
-        className="styled__CloseIconButton-as3fh1-16 ehlFTE"
+        className="styled__CloseIconButton-as3fh1-19 cMpUBy"
         data-testid="close-search"
         onClick={[Function]}
       >
@@ -138,18 +119,42 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         </svg>
       </button>
     </div>
+    <div
+      className="styled__SearchQueryWrapper-as3fh1-8 bvmymb"
+    >
+      <div
+        className="styled__SearchQuery-as3fh1-7 dkZmAk"
+      >
+        <img
+          className="styled__SearchIconInsideBar-as3fh1-0 edHBGg"
+          src="search-icon-v2.svg"
+        />
+        <div
+          className="styled__HeaderQuery-as3fh1-22 gOTSQU"
+        >
+          3
+           
+          search results for 
+          <strong>
+             ‘
+            cool search
+            ’
+          </strong>
+        </div>
+      </div>
+    </div>
   </div>
   <ol
     className="styled__NavOl-as3fh1-2 jPrtty"
   >
     <li
-      className="styled__NavItem-as3fh1-14 kLrMDD"
+      className="styled__NavItem-as3fh1-17 fSMHWV"
     >
       <div
-        className="styled__LinkWrapper-as3fh1-12 edDtdw"
+        className="styled__LinkWrapper-as3fh1-15 eGzsKN"
       >
         <div
-          className="styled__SearchResultsLink-as3fh1-10 hnAJVM"
+          className="styled__SearchResultsLink-as3fh1-13 hmjTQN"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -158,7 +163,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         />
       </div>
       <a
-        className="styled__SectionContentPreview-as3fh1-11 bJhIrl"
+        className="styled__SectionContentPreview-as3fh1-14 cfgiVo"
         data-testid="search-result"
         href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
         onClick={[Function]}
@@ -194,18 +199,18 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       </a>
     </li>
     <li
-      className="styled__ListItem-as3fh1-20 bgLAKc"
+      className="styled__ListItem-as3fh1-23 bWFiQo"
     >
       <details
-        className="Details-xi326o-3 styled__Details-as3fh1-7 jLcYfE"
+        className="Details-xi326o-3 styled__Details-as3fh1-10 iKswOJ"
         open={true}
       >
         <summary
-          className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-9 hPtQFE"
+          className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-12 gjDctA"
           tabIndex={0}
         >
           <div
-            className="styled__SearchBarSummaryContainer-as3fh1-8 eSHSds"
+            className="styled__SearchBarSummaryContainer-as3fh1-11 jCqvcP"
             tabIndex={-1}
           >
             <svg
@@ -233,7 +238,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </svg>
             <span
-              className="styled__SummaryTitle-as3fh1-6 kQeKbP"
+              className="styled__SummaryTitle-as3fh1-9 dkRcSL"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -243,17 +248,17 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           </div>
         </summary>
         <ol
-          className="styled__DetailsOl-as3fh1-13 ggpsqK"
+          className="styled__DetailsOl-as3fh1-16 eIxJTm"
         >
           <li
-            className="styled__NavItem-as3fh1-14 kLrMDD"
+            className="styled__NavItem-as3fh1-17 fSMHWV"
           >
             <div
               aria-label="Current Page"
-              className="styled__LinkWrapper-as3fh1-12 edDtdw"
+              className="styled__LinkWrapper-as3fh1-15 eGzsKN"
             >
               <div
-                className="styled__SearchResultsLink-as3fh1-10 hnAJVM"
+                className="styled__SearchResultsLink-as3fh1-13 hmjTQN"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-text\\">Test Page 6</span>",
@@ -262,7 +267,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </div>
             <a
-              className="styled__SectionContentPreview-as3fh1-11 fhVukS"
+              className="styled__SectionContentPreview-as3fh1-14 eIxMvU"
               data-testid="search-result"
               href="books/book-slug-1/pages/10-test-page-6?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
               onClick={[Function]}
@@ -301,18 +306,18 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       </details>
     </li>
     <li
-      className="styled__ListItem-as3fh1-20 bgLAKc"
+      className="styled__ListItem-as3fh1-23 bWFiQo"
     >
       <details
-        className="Details-xi326o-3 styled__Details-as3fh1-7 jLcYfE"
+        className="Details-xi326o-3 styled__Details-as3fh1-10 iKswOJ"
         open={true}
       >
         <summary
-          className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-9 hPtQFE"
+          className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-12 gjDctA"
           tabIndex={0}
         >
           <div
-            className="styled__SearchBarSummaryContainer-as3fh1-8 eSHSds"
+            className="styled__SearchBarSummaryContainer-as3fh1-11 jCqvcP"
             tabIndex={-1}
           >
             <svg
@@ -340,7 +345,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </svg>
             <span
-              className="styled__SummaryTitle-as3fh1-6 kQeKbP"
+              className="styled__SummaryTitle-as3fh1-9 dkRcSL"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -350,16 +355,16 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           </div>
         </summary>
         <ol
-          className="styled__DetailsOl-as3fh1-13 ggpsqK"
+          className="styled__DetailsOl-as3fh1-16 eIxJTm"
         >
           <li
-            className="styled__NavItem-as3fh1-14 kLrMDD"
+            className="styled__NavItem-as3fh1-17 fSMHWV"
           >
             <div
-              className="styled__LinkWrapper-as3fh1-12 edDtdw"
+              className="styled__LinkWrapper-as3fh1-15 eGzsKN"
             >
               <div
-                className="styled__SearchResultsLink-as3fh1-10 hnAJVM"
+                className="styled__SearchResultsLink-as3fh1-13 hmjTQN"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -368,7 +373,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               />
             </div>
             <a
-              className="styled__SectionContentPreview-as3fh1-11 fhVukS"
+              className="styled__SectionContentPreview-as3fh1-14 eIxMvU"
               data-testid="search-result"
               href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
               onClick={[Function]}
@@ -413,19 +418,19 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 exports[`SearchResultsSidebar shows sidebar with loading state if there is a search 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-3 llsXIP"
+  className="styled__SearchResultsBar-as3fh1-3 hlJQw"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div
     aria-label="Loading results"
-    className="styled__LoadingWrapper-as3fh1-18 bCoJZF"
+    className="styled__LoadingWrapper-as3fh1-21 fDKrIA"
   >
     <div
-      className="styled__CloseIconWrapper-as3fh1-17 eZjRtu"
+      className="styled__CloseIconWrapper-as3fh1-20 cTztJS"
     >
       <button
-        className="styled__CloseIconButton-as3fh1-16 ehlFTE"
+        className="styled__CloseIconButton-as3fh1-19 cMpUBy"
         onClick={[Function]}
       >
         <svg
