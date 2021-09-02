@@ -131,6 +131,28 @@ export const SearchResultsBar = styled.div`
   flex-direction: column;
 `;
 
+// tslint:disable-next-line: variable-name
+export const SearchResultsTopBar = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+// tslint:disable-next-line: variable-name
+export const SearchResultsHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid ${theme.color.neutral.formBorder}
+`;
+
+// tslint:disable-next-line: variable-name
+export const SearchResultsHeaderTitle = styled.span`
+  font-size: 1.8rem;
+  margin-left: 16px;
+  color: ${theme.color.primary.gray.base};
+  font-weight: bold;
+`;
+
 // tslint:disable-next-line:variable-name
 export const SearchQuery = styled.div`
   ${textRegularStyle}
