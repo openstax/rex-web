@@ -1,7 +1,10 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import styled from 'styled-components';
+import searchIcon from '../.../../../../../../assets/search-icon-v2.svg'
 import Loader from '../../../../components/Loader';
+import theme from '../../../../theme';
 import { Book } from '../../../types';
 import {
   fixSafariScrolling,
@@ -22,6 +25,28 @@ interface ResultsSidebarProps {
   totalHits: number | null;
   selectedResult: SelectedResult | null;
 }
+
+// tslint:disable-next-line: variable-name
+const SearchResultsTopBar = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+// tslint:disable-next-line: variable-name
+const SearchResultsHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid ${theme.color.neutral.formBorder}
+`;
+
+// tslint:disable-next-line: variable-name
+const SearchResultsHeaderTitle = styled.span`
+  font-size: 1.8rem;
+  margin-left: 16px;
+  color: ${theme.color.primary.gray.base};
+  font-weight: bold;
+`;
 
 // tslint:disable-next-line: variable-name
 const LoadingState = ({onClose}: {onClose: () => void}) => <Styled.LoadingWrapper
@@ -53,25 +78,30 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public activeSection = React.createRef<HTMLElement>();
   public searchSidebarHeader = React.createRef<HTMLElement>();
 
-  public totalResults = () => <Styled.SearchQueryWrapper ref={this.searchSidebarHeader}>
-    <Styled.SearchQuery>
-      <Styled.SearchIconInsideBar />
+  public totalResults = () => <SearchResultsTopBar ref={this.searchSidebarHeader}>
+    <SearchResultsHeader>
+      <SearchResultsHeaderTitle>Search results</SearchResultsHeaderTitle>
+      <Styled.CloseIconButton
+        onClick={this.props.onClose}
+        data-testid='close-search'
+      >
+        <Styled.CloseIcon />
+      </Styled.CloseIconButton>
+    </SearchResultsHeader>
+    <Styled.SearchQueryWrapper >
+      <Styled.SearchQuery>
+        <Styled.SearchIconInsideBar src={searchIcon}/>
         <Styled.HeaderQuery>
           {this.props.totalHits}{' '}
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
-            values={{total: this.props.totalHits}}
+            values={{ total: this.props.totalHits }}
           />
           <strong> &lsquo;{this.props.query}&rsquo;</strong>
         </Styled.HeaderQuery>
-        <Styled.CloseIconButton
-          onClick={this.props.onClose}
-          data-testid='close-search'
-        >
-        <Styled.CloseIcon />
-      </Styled.CloseIconButton>
-    </Styled.SearchQuery>
-  </Styled.SearchQueryWrapper>;
+      </Styled.SearchQuery>
+    </Styled.SearchQueryWrapper>
+  </SearchResultsTopBar>;
 
   public noResults = () => <div>
     <Styled.CloseIconWrapper>
