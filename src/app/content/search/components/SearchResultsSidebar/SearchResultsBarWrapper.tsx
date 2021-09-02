@@ -56,7 +56,11 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
     <Styled.SearchResultsHeader>
-      <Styled.SearchResultsHeaderTitle>Search results</Styled.SearchResultsHeaderTitle>
+      <Styled.SearchResultsHeaderTitle>
+        <FormattedMessage id='i18n:search-results:bar:header:title'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.SearchResultsHeaderTitle>
       <Styled.CloseIconButton
         onClick={this.props.onClose}
         data-testid='close-search'
