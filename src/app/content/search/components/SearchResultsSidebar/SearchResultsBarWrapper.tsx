@@ -1,10 +1,8 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled from 'styled-components';
-import searchIcon from '../.../../../../../../assets/search-icon-v2.svg'
+import searchIcon from '../.../../../../../../assets/search-icon-v2.svg';
 import Loader from '../../../../components/Loader';
-import theme from '../../../../theme';
 import { Book } from '../../../types';
 import {
   fixSafariScrolling,
@@ -73,7 +71,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           {this.props.totalHits}{' '}
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
-            values={{ total: this.props.totalHits }}
+            values={{total: this.props.totalHits}}
           />
           <strong> &lsquo;{this.props.query}&rsquo;</strong>
         </Styled.HeaderQuery>
