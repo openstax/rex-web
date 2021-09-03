@@ -270,7 +270,7 @@ def test_click_a_figure_link_ga_event(selenium, base_url, book_slug, page_slug):
         and "eventCategory" in link_click_event
         and "eventLabel" in link_click_event
     ), "Not viewing the correct GA event"
-    assert link_click_event["eventAction"] == event_action
+    assert link_click_event["eventAction"] == page_slug + event_action
     assert link_click_event["eventCategory"] == event_category
     assert link_click_event["eventLabel"] == event_label
 
