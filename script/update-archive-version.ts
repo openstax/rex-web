@@ -5,7 +5,7 @@ import ProgressBar from 'progress';
 import { argv } from 'yargs';
 import { BookWithOSWebData } from '../src/app/content/types';
 import { makeUnifiedBookLoader } from '../src/app/content/utils';
-import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
+import { ARCHIVE_URL, REACT_APP_ARCHIVE, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import ArchiveUrlConfig from '../src/config.archive-url';
 import BOOKS from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
@@ -20,7 +20,7 @@ const args = argv as any as {
 };
 
 async function updateArchiveVersion() {
-  if (`${REACT_APP_ARCHIVE_URL_BASE}${args.newArchive}` === REACT_APP_ARCHIVE_URL) {
+  if (args.newArchive === REACT_APP_ARCHIVE) {
     console.log('Current and new archive url are the same. Skipping...');
     return;
   }
