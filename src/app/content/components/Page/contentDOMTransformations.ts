@@ -6,6 +6,7 @@ import { assertNotNull } from '../../../utils';
 // .../src/scripts/modules/media/body/body.coffee#L123
 // We are passing Document because it is required to prerender.
 export const transformContent = (document: Document, rootEl: HTMLElement, intl: IntlShape) => {
+  removeDocumentTitle(rootEl);
   addScopeToTables(rootEl);
   wrapElements(document, rootEl);
   tweakFigures(rootEl);
@@ -41,6 +42,14 @@ export const mapSolutions = (container: HTMLElement | null, cb: (a: HTMLButtonEl
     )).forEach(cb);
   }
 };
+
+function removeDocumentTitle(rootEl: HTMLElement) {
+  rootEl.querySelectorAll([
+    'h1[data-type="document-title"]',
+    'h2[data-type="document-title"]',
+    'div[data-type="document-title"]',
+  ].join(',')).forEach((el) => el.remove());
+}
 
 function addScopeToTables(rootEl: HTMLElement) {
   rootEl.querySelectorAll('table th').forEach((el) => el.setAttribute('scope', 'col'));
