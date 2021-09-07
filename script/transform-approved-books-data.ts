@@ -38,11 +38,11 @@ const isApprovedCollection = (something: any): something is ApprovedCollection =
 };
 
 interface ApprovedRepo extends ApprovedBooksData {
-  repo: string;
+  repository_name: string;
 }
 
 const isApprovedRepo = (something: any): something is ApprovedRepo => {
-  return typeof something.repo === 'string' && isApprovedBooksData(something);
+  return typeof something.repository_name === 'string' && isApprovedBooksData(something);
 };
 
 interface ApprovedVersion {
@@ -63,11 +63,11 @@ const isApprovedVersionCollection = (something: any): something is ApprovedVersi
 };
 
 interface ApprovedVersionRepo extends ApprovedVersion {
-  repo: string;
+  repository_name: string;
 }
 
 const isApprovedVersionRepo = (something: any): something is ApprovedVersionRepo => {
-  return typeof something.repo === 'string' && isApprovedVersion(something);
+  return typeof something.repository_name === 'string' && isApprovedVersion(something);
 };
 
 interface ApprovedBooksAndVersions {
@@ -86,7 +86,7 @@ const isApprovedBooksAndVersions = (something: any): something is ApprovedBooksA
 const matchRepoVersion = (repoData: ApprovedRepo, archiveVersion?: string) =>
   (versionData: ApprovedVersionCollection | ApprovedVersionRepo): versionData is ApprovedVersionRepo => {
   if (archiveVersion && versionData.min_code_version > archiveVersion) { return false; }
-  return isApprovedVersionRepo(versionData) && versionData.repo === repoData.repo;
+  return isApprovedVersionRepo(versionData) && versionData.repository_name === repoData.repository_name;
 };
 
 const matchCollectionVersion = (collectionData: ApprovedCollection, archiveVersion?: string) =>
