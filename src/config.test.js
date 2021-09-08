@@ -3,6 +3,8 @@ module.exports = {
   CODE_VERSION: 'test',
   DEPLOYED_ENV: 'test',
   REACT_APP_ARCHIVE_URL: '/apps/archive/codeversion',
+  REACT_APP_ARCHIVE: 'codeversion',
+  SEARCH_URL: 'https://search-os-f42d77d.sandbox.openstax.org',
 
   FIXTURES: true,
 
