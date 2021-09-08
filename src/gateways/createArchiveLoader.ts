@@ -1,5 +1,6 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
+import { ifUndefined } from '../app/fpUtils';
 import BOOKS from '../config.books';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
@@ -87,7 +88,7 @@ export default (archivePath: string, options: Options = {}) => {
           return {
             cached: () => pageCache.get(bookAndPageRef),
             load: () => pageLoader(bookId, bookAndPageRef),
-            url: () => contentUrl(appPrefix || archivePrefix, bookId, bookAndPageRef),
+            url: () => contentUrl(ifUndefined(appPrefix, archivePrefix), bookId, bookAndPageRef),
           };
         },
       };
