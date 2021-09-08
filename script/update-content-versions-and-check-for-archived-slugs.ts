@@ -16,7 +16,9 @@ const args = argv.string('versionNumber').argv as any as {
 const booksPath = path.resolve(__dirname, '../src/config.books.json');
 
 const bookLoader = makeUnifiedBookLoader(
-  createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`),
+  createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+    archivePrefix: ARCHIVE_URL,
+  }),
   createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`)
 );
 
