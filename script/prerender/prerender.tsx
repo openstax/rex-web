@@ -71,8 +71,7 @@ async function render() {
     cache: createDiskCache<string, OSWebBook | undefined>('osweb'),
   });
   const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
-  // tslint:disable-next-line: max-line-length
-  const searchClient = createSearchClient(`https://search-os-f42d77d.sandbox.openstax.org${port}${REACT_APP_SEARCH_URL}`);
+  const searchClient = createSearchClient(`http://localhost:${port}${REACT_APP_SEARCH_URL}`);
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
   const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL, {
     cache: createDiskCache<string, BuyPrintResponse>('buy-print'),
