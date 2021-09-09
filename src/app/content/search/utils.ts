@@ -7,7 +7,7 @@ import { getAllRegexMatches } from '../../utils';
 import attachHighlight from '../components/utils/attachHighlight';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
-import { getIdVersion, stripArchiveVersion, stripIdVersion } from '../utils/idUtils';
+import { getIdVersion, stripIdVersion } from '../utils/idUtils';
 import { isSearchResultChapter } from './guards';
 import { SearchResultContainer, SearchResultPage, SearchScrollTarget, SelectedResult } from './types';
 
@@ -72,10 +72,9 @@ export const getIndexData = (indexName: string) => {
   }
 
   const [version, indexingStrategy] = tail.split('_');
-  const bookIdAndArchive = stripIdVersion(indexName);
 
   return {
-    bookId: stripArchiveVersion(bookIdAndArchive),
+    bookId: stripIdVersion(indexName),
     indexingStrategy,
     version,
   };
