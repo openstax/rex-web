@@ -149,6 +149,7 @@ export const SearchResultsHeader = styled.div`
 export const SearchResultsHeaderTitle = styled.span`
   font-size: 1.8rem;
   margin-left: 16px;
+  padding: 1rem 0;
   color: ${theme.color.primary.gray.base};
   font-weight: bold;
 `;
