@@ -15,7 +15,7 @@
     "defaultVersion": "17.1"
   },
   "6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2": {
-    "defaultVersion": "26.26"
+    "defaultVersion": "29.1"
   },
   "914ac66e-e1ec-486d-8a9c-97b0f7a99774": {
     "defaultVersion": "6.1"
@@ -33,7 +33,7 @@
     "defaultVersion": "25.1"
   },
   "a31cd793-2162-4e9e-acb5-6e6bbd76a5fa": {
-    "defaultVersion": "22.1"
+    "defaultVersion": "25.1"
   },
   "7fccc9cf-9b71-44f6-800b-f9457fd64335": {
     "defaultVersion": "19.3"
@@ -156,7 +156,8 @@
     "defaultVersion": "10.1"
   },
   "afe4332a-c97f-4fc4-be27-4e4d384a32d8": {
-    "defaultVersion": "18.1"
+    "defaultVersion": "18.2",
+    "archiveOverride": "/apps/archive/20210713.205645"
   },
   "4061c832-098e-4b3c-a1d9-7eb593a2cb31": {
     "defaultVersion": "13.2"
