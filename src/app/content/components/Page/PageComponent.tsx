@@ -230,7 +230,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     return newId;
   }
 
-  // Reapply tha location hash to make the anchors linking to dynamically generated content work
+  // Reapply the location hash to make the anchors linking to dynamically generated content work
   // when the link is opened in a new tab
   private reApplyLocationHash() {
     const window = assertWindow();
