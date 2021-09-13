@@ -59,6 +59,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public componentDidMount() {
     this.postProcess();
+    this.reApplyLocationHash();
     if (!this.container.current) {
       return;
     }
@@ -227,6 +228,17 @@ export default class PageComponent extends Component<PagePropTypes> {
     const newId = this.componentDidUpdateCounter + 1;
     this.componentDidUpdateCounter = newId;
     return newId;
+  }
+
+  // Reapply tha location hash to make the anchors linking to dynamically generated content work
+  // when the link is opened in a new tab
+  private reApplyLocationHash() {
+    const window = assertWindow();
+    if (window.location.hash) {
+      const hash = window.location.hash;
+      window.location.hash = '';
+      window.location.hash = hash;
+    }
   }
 
   /**
