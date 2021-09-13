@@ -5,7 +5,7 @@ import ProgressBar from 'progress';
 import { argv } from 'yargs';
 import { BookWithOSWebData } from '../src/app/content/types';
 import { makeUnifiedBookLoader } from '../src/app/content/utils';
-import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
+import { ARCHIVE_URL, REACT_APP_ARCHIVE, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import ArchiveUrlConfig from '../src/config.archive-url';
 import BOOKS from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
@@ -13,13 +13,14 @@ import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import updateRedirectsData from './utils/update-redirects-data';
 
 const configArchiveUrlPath = path.resolve(__dirname, '../src/config.archive-url.json');
+const { REACT_APP_ARCHIVE_URL_BASE } = ArchiveUrlConfig;
 
 const args = argv as any as {
-  newArchiveUrl: string
+  newArchive: string
 };
 
 async function updateArchiveVersion() {
-  if (args.newArchiveUrl === REACT_APP_ARCHIVE_URL) {
+  if (args.newArchive === REACT_APP_ARCHIVE) {
     console.log('Current and new archive url are the same. Skipping...');
     return;
   }
@@ -34,7 +35,7 @@ async function updateArchiveVersion() {
   );
 
   const newBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(args.newArchiveUrl, {
+    createArchiveLoader(args.newArchive, {
       archivePrefix: ARCHIVE_URL,
     }),
     osWebLoader
@@ -89,10 +90,11 @@ async function updateArchiveVersion() {
   }
 
   const newConfig: typeof ArchiveUrlConfig = {
-    REACT_APP_ARCHIVE_URL: args.newArchiveUrl,
+    REACT_APP_ARCHIVE: args.newArchive,
+    REACT_APP_ARCHIVE_URL_BASE,
   };
 
-  console.log(`Updating config.archive-url.json with ${args.newArchiveUrl}`);
+  console.log(`Updating config.archive-url.json with ${args.newArchive}`);
 
   fs.writeFileSync(configArchiveUrlPath, JSON.stringify(newConfig, undefined, 2) + '\n', 'utf8');
 }
