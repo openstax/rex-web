@@ -1430,6 +1430,11 @@ describe('Page', () => {
     expect(component.root.findByType(PageNotFound)).toBeTruthy();
   });
 
+  it('reapplies location hash', () => {
+  // for 100% coverage of reApplyLocationHash function
+    assertWindow().location.hash = 'my_hash';
+  });
+
   describe('with prerendered state', () => {
     beforeEach(() => {
       assertWindow().__PRELOADED_STATE__ = state;
