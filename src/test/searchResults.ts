@@ -18,7 +18,7 @@ export const makeSearchResultHit = (
   }
 ): SearchResultHit => ({
   highlight: { visibleContent: highlights || ['cool <strong>highlight</strong> bruh'] },
-  index: `${book.id}@${book.version}_i1`,
+  index: `codeversion__${book.id}@${book.version}_i1`,
   score: 2,
   source: {
     elementId: sourceId || 'fs-id1544727',
