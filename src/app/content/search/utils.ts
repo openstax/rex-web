@@ -72,9 +72,11 @@ export const getIndexData = (indexName: string) => {
   }
 
   const [version, indexingStrategy] = tail.split('_');
+  const id = stripIdVersion(indexName);
+  const idArchiveSplit = id.split('__');
 
   return {
-    bookId: stripIdVersion(indexName),
+    bookId: idArchiveSplit.length > 1 ? idArchiveSplit[1] : id,
     indexingStrategy,
     version,
   };
