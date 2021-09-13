@@ -31,6 +31,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const hasModalQuery = action.payload.query[modalQueryParameterName] === modalUrlName;
       const summaryShouldBeOpen = hasModalQuery
         && (action.payload.action === 'PUSH' || action.payload.action === 'REPLACE');
+      // const summaryShouldBeOpen = hasModalQuery
+      //   && !(action.payload.action === 'POP' && location is same as previous);
       const {colors, locationIds} = getFiltersFromQuery(action.payload.query);
 
       return {

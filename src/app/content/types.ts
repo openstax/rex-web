@@ -10,6 +10,8 @@ export type ContentQueryParams = {
   modal?: string,
   query?: string | null,
   target?: string,
+  colors?: string,
+  locationIds?: string,
 };
 
 export type SystemQueryParams = {
