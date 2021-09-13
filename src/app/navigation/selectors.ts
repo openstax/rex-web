@@ -51,6 +51,8 @@ export const systemQueryParameters = createSelector(
 export const persistentQueryParameters = createSelector(
   query,
   (navQuery) => pickBy(isDefined, {
+    colors: navQuery.colors,
+    locationIds: navQuery.locationIds,
     modal: navQuery.modal,
     query: navQuery.query,
     target: navQuery.target,
