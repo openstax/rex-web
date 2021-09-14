@@ -12,7 +12,9 @@ import createOSWebLoader from '../src/gateways/createOSWebLoader';
 (global as any).fetch = fetch;
 const domParser = new DOMParser();
 
-const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
+const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+  archivePrefix: ARCHIVE_URL,
+});
 const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
 const getPageMetadata = async(

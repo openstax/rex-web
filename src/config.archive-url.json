@@ -1,3 +1,4 @@
 {
-  "REACT_APP_ARCHIVE_URL": "/apps/archive/20210713.205645"
+  "REACT_APP_ARCHIVE": "20210823.155019",
+  "REACT_APP_ARCHIVE_URL_BASE": "/apps/archive/"
 }
