@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>E5706EFA-D077-4AFC-847A-BA5F0E28D362</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="REX_NewNav_Open---Search-Specs" transform="translate(-96.000000, -256.000000)" fill="#5E6062" fill-rule="nonzero">
+            <g id="search-icon-v2-copy" transform="translate(96.000000, 256.000000)">
+                <path d="M7,0 C10.865993,0 14,3.134007 14,7 C14,8.662837 13.420201,10.190255 12.45174,11.391118 L17.03033,15.96967 C17.323223,16.262563 17.323223,16.737437 17.03033,17.03033 C16.764064,17.296597 16.3474,17.320803 16.053788,17.102948 L15.96967,17.03033 L11.391118,12.45174 C10.190255,13.420201 8.662837,14 7,14 C3.134007,14 0,10.865993 0,7 C0,3.134007 3.134007,0 7,0 Z M7,1.5 C3.962434,1.5 1.5,3.962434 1.5,7 C1.5,10.037566 3.962434,12.5 7,12.5 C10.037566,12.5 12.5,10.037566 12.5,7 C12.5,3.962434 10.037566,1.5 7,1.5 Z" id="search-icon-v2"></path>
+            </g>
+        </g>
+    </g>
+</svg>

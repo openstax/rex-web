@@ -1,6 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import searchIcon from '../.../../../../../../assets/search-icon-v2.svg';
 import Loader from '../../../../components/Loader';
 import { Book } from '../../../types';
 import {
@@ -53,9 +54,23 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public activeSection = React.createRef<HTMLElement>();
   public searchSidebarHeader = React.createRef<HTMLElement>();
 
-  public totalResults = () => <Styled.SearchQueryWrapper ref={this.searchSidebarHeader}>
-    <Styled.SearchQuery>
-      <Styled.SearchIconInsideBar />
+  public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
+    <Styled.SearchResultsHeader>
+      <Styled.SearchResultsHeaderTitle>
+        <FormattedMessage id='i18n:search-results:bar:header:title'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.SearchResultsHeaderTitle>
+      <Styled.CloseIconButton
+        onClick={this.props.onClose}
+        data-testid='close-search'
+      >
+        <Styled.CloseIcon />
+      </Styled.CloseIconButton>
+    </Styled.SearchResultsHeader>
+    <Styled.SearchQueryWrapper >
+      <Styled.SearchQuery>
+        <Styled.SearchIconInsideBar src={searchIcon}/>
         <Styled.HeaderQuery>
           {this.props.totalHits}{' '}
           <FormattedMessage
@@ -64,14 +79,9 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           />
           <strong> &lsquo;{this.props.query}&rsquo;</strong>
         </Styled.HeaderQuery>
-        <Styled.CloseIconButton
-          onClick={this.props.onClose}
-          data-testid='close-search'
-        >
-        <Styled.CloseIcon />
-      </Styled.CloseIconButton>
-    </Styled.SearchQuery>
-  </Styled.SearchQueryWrapper>;
+      </Styled.SearchQuery>
+    </Styled.SearchQueryWrapper>
+  </Styled.SearchResultsTopBar>;
 
   public noResults = () => <div>
     <Styled.CloseIconWrapper>
