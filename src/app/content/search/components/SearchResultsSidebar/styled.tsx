@@ -1,7 +1,6 @@
 import React from 'react';
 import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { Search } from 'styled-icons/fa-solid/Search';
 import { Details as BaseDetails, Summary } from '../../../../components/Details';
 import { navDesktopHeight } from '../../../../components/NavBar';
 import Times from '../../../../components/Times';
@@ -24,17 +23,17 @@ import ContentLinkComponent from '../../../components/ContentLink';
 import { toolbarIconStyles } from '../../../components/Toolbar/iconStyles';
 import { disablePrint } from '../../../components/utils/disablePrint';
 
-const borderColor = '#dfdfdf';
-const backgroundColor = '#f1f1f1';
+const borderColor = 'rgba(0, 0, 0, 0.06)';
+const backgroundColor = '#fafafa';
 const headerHeight = 4;
 
 // tslint:disable-next-line:variable-name
-export const SearchIconInsideBar = styled(Search)`
+export const SearchIconInsideBar = styled.img`
   ${toolbarIconStyles}
   height: ${headerHeight}rem;
   color: ${theme.color.primary.gray.darker};
   margin-right: 0.7rem;
-  margin-left: ${theme.padding.page.desktop}rem;
+  margin-left: 1.6rem;
   ${theme.breakpoints.mobile(css`
     margin-left: ${theme.padding.page.mobile}rem;
   `)}
@@ -132,6 +131,29 @@ export const SearchResultsBar = styled.div`
   flex-direction: column;
 `;
 
+// tslint:disable-next-line: variable-name
+export const SearchResultsTopBar = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+// tslint:disable-next-line: variable-name
+export const SearchResultsHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid ${theme.color.neutral.formBorder}
+`;
+
+// tslint:disable-next-line: variable-name
+export const SearchResultsHeaderTitle = styled.span`
+  font-size: 1.8rem;
+  margin-left: 16px;
+  padding: 1rem 0;
+  color: ${theme.color.primary.gray.base};
+  font-weight: bold;
+`;
+
 // tslint:disable-next-line:variable-name
 export const SearchQuery = styled.div`
   ${textRegularStyle}
@@ -151,7 +173,7 @@ export const SearchQueryWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  background: ${theme.color.primary.gray.lightest};
+  background: ${backgroundColor};
   min-height: ${headerHeight}rem;
   overflow: visible;
 `;
@@ -160,7 +182,7 @@ export const SearchQueryWrapper = styled.div`
 export const SummaryTitle = styled.span`
   ${labelStyle}
   font-weight: bold;
-  padding-right: ${theme.padding.page.desktop}rem;
+  padding-right: 1.6rem;
   line-height: 1.3;
 `;
 
@@ -173,8 +195,8 @@ export const Details = styled(BaseDetails)`
 export const SearchBarSummaryContainer = styled.div`
   display: flex;
   align-items: normal;
-  background: ${theme.color.primary.gray.lighter};
-  padding: 1rem 0 1rem ${theme.padding.page.desktop}rem;
+  background: rgba(0, 0, 0, 0.17);
+  padding: 1rem 0 1rem 1.6rem;
   border-top: solid 0.1rem ${borderColor};
   ${theme.breakpoints.mobile(css`
     padding-left: ${theme.padding.page.mobile}rem;
@@ -198,7 +220,7 @@ export const SearchBarSummary = styled(Summary)`
 export const SearchResultsLink = styled.div`
   ${labelStyle}
   width: 100%;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.3;
 `;
 
@@ -219,7 +241,7 @@ export const SectionContentPreview = styled(
   display: block;
   text-decoration: none;
   line-height: 1.3;
-  padding: 0 0 0 6.6rem;
+  padding: 0 0 0 3.2rem;
 
   :not(:last-child) > div {
     border-bottom: solid 0.1rem ${borderColor};
@@ -255,9 +277,7 @@ export const LinkWrapper = styled.div`
   min-height: 3.4rem;
   display: flex;
   align-items: center;
-  padding-left: 4.3rem;
-  padding-top: 1.2rem;
-  padding-bottom: 0.8rem;
+  padding: 1.2rem 1.6rem 0.8rem 1.6rem;
   border-top: solid 0.2rem ${borderColor};
   ${theme.breakpoints.mobile(css`
     padding-left: 3.3rem;
@@ -268,12 +288,16 @@ export const LinkWrapper = styled.div`
 export const DetailsOl = styled.ol`
   overflow: visible;
   padding: 0;
+
+  ${LinkWrapper}{
+    padding-left: 2.5rem;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
 export const NavItem = styled.li`
   overflow: visible;
-  background: ${theme.color.primary.gray.lightest};
+  background: ${backgroundColor};
 `;
 
 // tslint:disable-next-line:variable-name
