@@ -28,7 +28,7 @@ const { default: prepareRedirects } = require('../script/utils/prepareRedirects'
 const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
 const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 
-const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`, REACT_APP_ARCHIVE_URL);
+const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
 const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
 const archivePaths = [
@@ -49,6 +49,7 @@ function getReqInfo(request) {
   const {search, pathname} = url.parse(request.url);
   const cookie = request.headers.cookie || '';
   return {
+    url: request.url,
     search,
     pathname,
     authenticated: cookie.includes('session')
@@ -96,6 +97,11 @@ const findFileIn = (baseDir, reqInfo) => {
   } else if (isDirectory(filePath) && isFile(indexFilePath)) {
     return indexFilePath;
   } else {
+    console.log(`did not find fixture file for ${reqInfo.url}, looked in:
+  ${queryFilePath}
+  ${filePath}
+  ${indexFilePath}
+`);
     return null;
   }
 };
@@ -107,10 +113,11 @@ function setupTestProxy(app) {
     const reqInfo = getReqInfo(req);
 
     const fixtureDir = path.join(__dirname, 'test/fixtures');
-    const authFile = findFileIn(path.join(fixtureDir, 'authenticated'), reqInfo);
+    const authFile = reqInfo.authenticated && findFileIn(path.join(fixtureDir, 'authenticated'), reqInfo);
     const publicFile = findFileIn(fixtureDir, reqInfo);
 
-    if (authFile && reqInfo.authenticated) {
+
+    if (authFile) {
       sendFile(res, authFile);
     } else if (publicFile) {
       sendFile(res, publicFile);

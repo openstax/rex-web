@@ -1,5 +1,6 @@
 import { createIntl, createIntlCache } from 'react-intl';
 import enMessages from '../app/messages/en';
+import esMessages from '../app/messages/es';
 import plMessages from '../app/messages/pl';
 
 export default (
@@ -10,7 +11,7 @@ export default (
 
     const intl = createIntl({
       locale,
-      messages: messages || (locale === 'pl' ? plMessages : enMessages),
+      messages: messages || (locale === 'pl' ? plMessages : locale === 'es' ? esMessages : enMessages),
     }, cache);
 
     return intl;
