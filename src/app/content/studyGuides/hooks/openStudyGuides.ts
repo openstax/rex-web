@@ -22,6 +22,7 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
     ? colorsFromQuery
     : Array.from(colorsWithSG.size ? colorsWithSG : colorfilterLabels);
 
+
   if (notLoggedIn && firstChapter && !locationIds.includes(firstChapter.id)) {
     // Non logged in users will always see SG only for the first chapter
     services.dispatch(setDefaultSummaryFilters({ colors, locationIds: [firstChapter.id] }));
@@ -31,7 +32,6 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   } else {
     const studyGuides = select.summaryStudyGuides(state);
     const studyGuidesAreLoading = select.summaryIsLoading(state);
-
     if (studyGuides === null && studyGuidesAreLoading === false) {
       services.dispatch(loadMoreStudyGuides());
     }

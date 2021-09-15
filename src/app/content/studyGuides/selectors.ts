@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/fp/isEmpty';
 import { createSelector } from 'reselect';
 import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
@@ -47,7 +48,8 @@ export const totalCountsPerPageOrEmpty = createSelector(
 
 export const studyGuidesOpen = createSelector(
   studyGuidesSummary,
-  (summary) => summary.open
+  studyGuidesEnabled,
+  (summary, flagEnabled) => summary.open && !isEmpty(summary.studyGuides) && flagEnabled
 );
 
 export const summaryIsLoading = createSelector(

@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
+import { useServices } from '../../../context/Services';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { FirstArgumentType } from '../../../types';
@@ -20,8 +21,10 @@ const StudyguidesPopUp = () => {
 
   const popUpRef = React.useRef<HTMLElement>(null);
   const trackClose = useAnalyticsEvent('closeStudyGuides');
-  const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
+  const selector = useSelector(studyGuidesOpen);
+  const [isStudyGuidesOpen, setIsStudyGuidesOpen] = React.useState(selector || false);
   const bookTheme = useSelector(bookThemeSelector);
+  const services = useServices();
 
   const closeAndTrack = React.useCallback((method: FirstArgumentType<typeof trackClose>) => () => {
     dispatch(closeStudyGuides());
@@ -31,12 +34,13 @@ const StudyguidesPopUp = () => {
   useOnEsc(popUpRef, isStudyGuidesOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
+    setIsStudyGuidesOpen(selector);
     const popUp = popUpRef.current;
 
     if (popUp && isStudyGuidesOpen) {
       popUp.focus();
     }
-  }, [isStudyGuidesOpen]);
+  }, [selector, isStudyGuidesOpen]);
 
   return isStudyGuidesOpen ?
     <Modal
