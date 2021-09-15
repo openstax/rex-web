@@ -12,7 +12,9 @@ from utils.utility import Color, Highlight, Utilities
 @markers.test_case("C624981")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize("book_slug, page_slug", [("organizational-behavior", "2-introduction")])
+@markers.parametrize(
+    "book_slug, page_slug", [("business-law-i-essentials", "1-1-basic-american-legal-principles")]
+)
 def test_change_highlight_color_using_keyboard(selenium, base_url, book_slug, page_slug):
     """Highlight color can be changed using keyboard navigation."""
     # GIVEN: Login book page
@@ -27,20 +29,72 @@ def test_change_highlight_color_using_keyboard(selenium, base_url, book_slug, pa
     while book.notification_present:
         book.notification.got_it()
 
-    # AND: Highlight 2 set of texts in the page
-    paragraph = random.sample(book.content.paragraphs, 2)
-    note = Utilities.random_string()
-    content_highlight_ids = book.content.highlight_ids
+    # AND: Highlight some text in the page without a note
+    paragraphs = random.sample(book.content.paragraphs, 1)
+    book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE, color=Color.GREEN)
+    highlight_no_note = book.content.highlight_ids[0]
 
-    data = [(paragraph[0], Color.GREEN, note), (paragraph[1], Color.YELLOW, note == "")]
-
-    for paragraphs, colors, note in data:
-        book.content.highlight(target=paragraphs, offset=Highlight.RANDOM, color=colors, note=note)
-        content_highlight_ids = content_highlight_ids + list(
-            set(book.content.highlight_ids) - set(content_highlight_ids)
-        )
+    # AND: Navigate to next page and highlight some text with a note
+    book.click_next_link()
+    paragraphs = random.sample(book.content.paragraphs, 1)
+    book.content.highlight(
+        target=paragraphs[0],
+        offset=Highlight.ENTIRE,
+        color=Color.YELLOW,
+        note=Utilities.random_string(),
+    )
+    highlight_with_note = book.content.highlight_ids[0]
 
     book.reload()
 
+    # WHEN: Tab to the highlight and hit H key
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys("H").perform())
+
+    # AND: Change the highlight color in the active notecard using shift tab and spacebar keys
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+    (
+        ActionChains(selenium)
+        .send_keys(Keys.SHIFT + Keys.TAB + Keys.SHIFT)
+        .send_keys(Keys.SPACE)
+        .perform()
+    )
+
+    # AND: Navigate out of the highlight and move to the previous link
+    (ActionChains(selenium).send_keys("H").perform())
+
+    # THEN: The highlight color is changed
+    highlight_classes_0 = book.content.get_highlight(by_id=highlight_with_note)[0].get_attribute(
+        "class"
+    )
+    highlight_0_color_after_color_change = Color.from_html_class(highlight_classes_0)
+
+    assert highlight_0_color_after_color_change == Color.PINK
+
+    # WHEN: Navigate to the previous page, tab to the highlight and hit H key
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+    # from time import sleep
+    # sleep(4)
+    # (ActionChains(selenium).send_keys(Keys.SHIFT + Keys.TAB).send_keys(Keys.ENTER).perform())
+
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
     (ActionChains(selenium).send_keys(Keys.TAB).perform())
-    assert selenium.switch_to.active_element == book.skip_to_content
+    (ActionChains(selenium).send_keys("H").perform())
+
+    (
+        ActionChains(selenium)
+        .send_keys(Keys.SHIFT + Keys.TAB + Keys.SHIFT)
+        .send_keys(Keys.SPACE)
+        .perform()
+    )
+    (ActionChains(selenium).send_keys("H").perform())
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: The highlight color is changed
+    highlight_classes_1 = book.content.get_highlight(by_id=highlight_no_note)[0].get_attribute(
+        "class"
+    )
+    highlight_1_color_after_color_change = Color.from_html_class(highlight_classes_1)
+
+    print(highlight_1_color_after_color_change)
