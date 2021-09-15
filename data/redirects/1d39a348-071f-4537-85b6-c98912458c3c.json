@@ -1,0 +1,37 @@
+[
+  {
+    "bookId": "1d39a348-071f-4537-85b6-c98912458c3c",
+    "pageId": "62d2ff38-06e9-5ca3-b04e-f0de110e14da",
+    "pathname": "/books/calculus-volume-2/pages/1-chapter-review-exercises"
+  },
+  {
+    "bookId": "1d39a348-071f-4537-85b6-c98912458c3c",
+    "pageId": "bad50760-a742-524d-a737-4c3abb9a8ae3",
+    "pathname": "/books/calculus-volume-2/pages/2-chapter-review-exercises"
+  },
+  {
+    "bookId": "1d39a348-071f-4537-85b6-c98912458c3c",
+    "pageId": "c57a3d34-4f44-5b80-9131-645fbabcc5e6",
+    "pathname": "/books/calculus-volume-2/pages/3-chapter-review-exercises"
+  },
+  {
+    "bookId": "1d39a348-071f-4537-85b6-c98912458c3c",
+    "pageId": "b93a7def-805c-52bd-86a2-c2f60fb0b4fa",
+    "pathname": "/books/calculus-volume-2/pages/4-chapter-review-exercises"
+  },
+  {
+    "bookId": "1d39a348-071f-4537-85b6-c98912458c3c",
+    "pageId": "1c9c6e53-fead-5c19-b52b-fe26f0bc2af3",
+    "pathname": "/books/calculus-volume-2/pages/5-chapter-review-exercises"
+  },
+  {
+    "bookId": "1d39a348-071f-4537-85b6-c98912458c3c",
+    "pageId": "c255c106-cebf-5a50-8934-1bb5fcd25587",
+    "pathname": "/books/calculus-volume-2/pages/6-chapter-review-exercises"
+  },
+  {
+    "bookId": "1d39a348-071f-4537-85b6-c98912458c3c",
+    "pageId": "96b32202-bdb3-59e5-b949-b45d3fbcd33e",
+    "pathname": "/books/calculus-volume-2/pages/7-chapter-review-exercises"
+  }
+]
