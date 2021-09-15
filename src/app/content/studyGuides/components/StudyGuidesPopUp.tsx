@@ -24,7 +24,6 @@ const StudyguidesPopUp = () => {
   const selector = useSelector(studyGuidesOpen);
   const [isStudyGuidesOpen, setIsStudyGuidesOpen] = React.useState(selector || false);
   const bookTheme = useSelector(bookThemeSelector);
-  const services = useServices();
 
   const closeAndTrack = React.useCallback((method: FirstArgumentType<typeof trackClose>) => () => {
     dispatch(closeStudyGuides());
