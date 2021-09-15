@@ -34,12 +34,7 @@ const StudyGuides = ({ className }: { className: string }) => {
   const container = React.useRef<HTMLElement>(null);
   const services = useServices();
   const state = services.getState();
-
-  React.useEffect(() => {
-    console.log('change to sgs: ', state.content.studyGuides);
-
-  }, [state.content.studyGuides]);
-
+  
   React.useLayoutEffect(() => {
     if (container.current) {
       services.promiseCollector.add(allImagesLoaded(container.current));
