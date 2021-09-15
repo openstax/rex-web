@@ -49,7 +49,7 @@ export const totalCountsPerPageOrEmpty = createSelector(
 export const studyGuidesOpen = createSelector(
   studyGuidesSummary,
   studyGuidesEnabled,
-  (summary, flagEnabled) => summary.open && !isEmpty(summary.studyGuides) && flagEnabled
+  (summary, flagEnabled) => summary.open && summary.studyGuides && flagEnabled
 );
 
 export const summaryIsLoading = createSelector(
