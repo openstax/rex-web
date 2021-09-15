@@ -33,8 +33,7 @@ const StudyGuides = ({ className }: { className: string }) => {
   const isLoading = useSelector(selectors.summaryIsLoading);
   const container = React.useRef<HTMLElement>(null);
   const services = useServices();
-  const state = services.getState();
-  
+
   React.useLayoutEffect(() => {
     if (container.current) {
       services.promiseCollector.add(allImagesLoaded(container.current));

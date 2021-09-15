@@ -31,7 +31,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const hasModalQuery = action.payload.query[modalQueryParameterName] === modalUrlName;
       const summaryShouldBeOpen = hasModalQuery; // want to check for feat flag here
       const {colors, locationIds} = getFiltersFromQuery(action.payload.query);
-      console.log('loc change: ', state);
 
       return {
         ...state,
