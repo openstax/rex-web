@@ -31,9 +31,11 @@ const StudyguidesPopUp = () => {
   useOnEsc(popUpRef, isStudyGuidesOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
+    console.log('is study guides open? ', isStudyGuidesOpen);
     const popUp = popUpRef.current;
 
     if (popUp && isStudyGuidesOpen) {
+      console.log('pop up and is open')
       popUp.focus();
     }
   }, [isStudyGuidesOpen]);
