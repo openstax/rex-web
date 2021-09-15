@@ -3,7 +3,6 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { useServices } from '../../../context/Services';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { FirstArgumentType } from '../../../types';
