@@ -35,8 +35,8 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
     .map((match) => {
       const [bookMatch, pageMatch] = match.split(':');
       const pageId = pageMatch && pageMatch.split('.xhtml')[0];
-      const [bookIdStr, bookVersion] = bookMatch && bookMatch.split('@') as [string, string | undefined];
-      const bookId = bookIdStr ? bookIdStr.substr(3) : '';
+      const [bookIdSegment, bookVersion] = bookMatch && bookMatch.split('@') as [string, string | undefined];
+      const bookId = bookIdSegment ? bookIdSegment.substr(3) : '';
       const bookFromConfig = getBookVersionFromUUIDSync(bookId);
 
       return {
