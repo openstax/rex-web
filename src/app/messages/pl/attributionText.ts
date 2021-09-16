@@ -2,11 +2,11 @@
 export const defaultText = `
 <p>
  Chcesz zacytować, udostępnić albo zmodyfikować treść tej książki? Została ona wydana na licencji,
-  <a target=""_blank"" rel=""noopener"" href=""{bookLicenseUrl}"">
+  <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
     {bookLicenseName} {bookLicenseVersion}
   </a> która wymaga od Ciebie uznania autorstwa {copyrightHolder}.{originalMaterialLink, select,
     null {}
-    other {Oryginalna publikacja jest dostępna na: <a target=""_blank"" rel=""noopener"" href=""{originalMaterialLink}"">
+    other {Oryginalna publikacja jest dostępna na: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
       {originalMaterialLink}
     </a>.}
   }{copyrightHolder, select,
@@ -26,7 +26,7 @@ Treści dostępne za darmo na https://openstax.org{introPageUrl}
 
 Jeśli rozpowszechniasz całą książkę lub jej fragment w formacie cyfrowym, na każdym widoku strony umieść informację:
     <blockquote>
-  Treści dostępne za darmo na<a href=""https://openstax.org{introPageUrl}"">https://openstax.org{introPageUrl}</a>
+  Treści dostępne za darmo na<a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
     </blockquote>
   </li>
 </ul>
@@ -35,7 +35,7 @@ Jeśli rozpowszechniasz całą książkę lub jej fragment w formacie cyfrowym, 
 <ul>
   <li>
 Jeśli chcesz zacytować tę książkę, skorzystaj z dostępnych narzędzi do tworzenia wpisów bibliograficznych, jak np.:
-    <a target=""_blank"" rel=""noopener"" href=""https://www.lib.ncsu.edu/citationbuilder/#/default/default"">ten</a>.
+    <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">ten</a>.
     <ul>
       <li>
     Autorzy: {bookAuthors}
@@ -53,10 +53,10 @@ Jeśli chcesz zacytować tę książkę, skorzystaj z dostępnych narzędzi do t
      Miejscowość: Houston, Teksas
       </li>
       <li>
-     URL książki: <a href=""https://openstax.org{introPageUrl}"">https://openstax.org{introPageUrl}</a>
+     URL książki: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
       </li>
       <li>
-      URL fragmentu: <a href=""https://openstax.org{currentPath}"">https://openstax.org{currentPath}</a>
+      URL fragmentu: <a href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
       </li>
     </ul>
   </li>
