@@ -51,7 +51,6 @@ export const studyGuidesOpen = createSelector(
   parentSelectors.book,
   parentSelectors.page,
   (summary, flagEnabled, book, page) => summary.open && flagEnabled && !!book && !!page
-  // if require that studyGuides not be empty then modal rerenders on receiveSummary
 );
 
 export const summaryIsLoading = createSelector(
