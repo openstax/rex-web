@@ -8,7 +8,7 @@ import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { StudyGuidesPopupLoadError } from '../../highlights/errors';
 import { formatReceivedHighlights, loadUntilPageSize } from '../../highlights/utils/highlightLoadingUtils';
-import { book as bookSelector, bookAndPage } from '../../selectors';
+import { book as bookSelector } from '../../selectors';
 import * as actions from '../actions';
 import * as select from '../selectors';
 
@@ -45,9 +45,9 @@ export const hookBody: ActionHookBody<
   typeof actions.setSummaryFilters |
   typeof actions.loadMoreStudyGuides
 > = (services) => async() => {
-  const {book, page} = bookAndPage(services.getState());
+  const summaryIsOpen = select.studyGuidesOpen(services.getState());
 
-  if (!book || !page) { return; }
+  if (!summaryIsOpen) { return; }
 
   const filters = select.summaryFilters(services.getState());
 
