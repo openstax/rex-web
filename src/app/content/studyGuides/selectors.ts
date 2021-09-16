@@ -1,4 +1,3 @@
-import isEmpty from 'lodash/fp/isEmpty';
 import { createSelector } from 'reselect';
 import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
@@ -49,7 +48,10 @@ export const totalCountsPerPageOrEmpty = createSelector(
 export const studyGuidesOpen = createSelector(
   studyGuidesSummary,
   studyGuidesEnabled,
-  (summary, flagEnabled) => summary.open && !isEmpty(summary.studyGuides) && flagEnabled
+  parentSelectors.book,
+  parentSelectors.page,
+  (summary, flagEnabled, book, page) => summary.open && flagEnabled && !!book && !!page
+  // if require that studyGuides not be empty then modal rerenders on receiveSummary
 );
 
 export const summaryIsLoading = createSelector(
