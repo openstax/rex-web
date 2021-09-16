@@ -50,6 +50,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   }
 
   const searchResultHit = meta && meta.searchScrollTarget && findSearchResultHit(results, meta.searchScrollTarget);
+  console.log('has result hit and meta target? ', searchResultHit, meta.searchScrollTarget)
   const selectedResult = searchResultHit && meta.searchScrollTarget
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
     : getFirstResult(book, payload);
@@ -69,6 +70,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   }
 
   const targetPageId = selectedResult?.result.source.pageId || currentPage?.id;
+  // if currentpage has results, use current page
 
   const action = (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id))
     ? replace : push;
