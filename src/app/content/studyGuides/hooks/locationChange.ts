@@ -10,7 +10,6 @@ import { extractTotalCounts } from '../../highlights/utils/paginationUtils';
 import { bookAndPage } from '../../selectors';
 import { receiveStudyGuidesTotalCounts } from '../actions';
 import { studyGuidesEnabled, totalCountsPerPage as totalCountsPerPageSelector } from '../selectors';
-import { hookBody as loadMore } from './loadMore';
 
 // composed in /content/locationChange hook because it needs to happen after book load
 const loadSummary = async(services: MiddlewareAPI & AppServices) => {
@@ -41,7 +40,6 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
 
 export const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const studyGuidesSummary = await loadSummary(services);
-  loadMore(services);
 
   if (!studyGuidesSummary) { return; }
 

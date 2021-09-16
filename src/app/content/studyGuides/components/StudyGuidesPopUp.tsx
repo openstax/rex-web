@@ -20,8 +20,7 @@ const StudyguidesPopUp = () => {
 
   const popUpRef = React.useRef<HTMLElement>(null);
   const trackClose = useAnalyticsEvent('closeStudyGuides');
-  const selector = useSelector(studyGuidesOpen);
-  const [isStudyGuidesOpen, setIsStudyGuidesOpen] = React.useState(selector || false);
+  const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
   const bookTheme = useSelector(bookThemeSelector);
 
   const closeAndTrack = React.useCallback((method: FirstArgumentType<typeof trackClose>) => () => {
@@ -32,13 +31,13 @@ const StudyguidesPopUp = () => {
   useOnEsc(popUpRef, isStudyGuidesOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
-    setIsStudyGuidesOpen(selector);
+    console.log('is modal open change: ', isStudyGuidesOpen);
     const popUp = popUpRef.current;
 
     if (popUp && isStudyGuidesOpen) {
       popUp.focus();
     }
-  }, [selector, isStudyGuidesOpen]);
+  }, [isStudyGuidesOpen]);
 
   return isStudyGuidesOpen ?
     <Modal
