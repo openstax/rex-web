@@ -31,7 +31,6 @@ const StudyguidesPopUp = () => {
   useOnEsc(popUpRef, isStudyGuidesOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
-    console.log('is modal open change: ', isStudyGuidesOpen);
     const popUp = popUpRef.current;
 
     if (popUp && isStudyGuidesOpen) {

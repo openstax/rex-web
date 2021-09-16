@@ -29,7 +29,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
       const hasModalQuery = action.payload.query[modalQueryParameterName] === modalUrlName;
-      const summaryShouldBeOpen = hasModalQuery;
       const {colors, locationIds} = getFiltersFromQuery(action.payload.query);
 
       return {
@@ -38,7 +37,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           filters: {...state.summary.filters, colors, locationIds},
           loading: hasModalQuery,
-          open: summaryShouldBeOpen,
+          open: hasModalQuery,
           pagination: hasModalQuery ? null : state.summary.pagination,
           studyGuides: hasModalQuery ? {} : state.summary.studyGuides,
         },
