@@ -44,7 +44,7 @@ export const hookBody: ActionHookBody<
   typeof locationChange |
   typeof actions.setSummaryFilters |
   typeof actions.loadMoreStudyGuides
-  > = (services) => async() => {
+> = (services) => async() => {
   const {book, page} = bookAndPage(services.getState());
 
   if (!book || !page) { return; }
