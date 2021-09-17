@@ -1,4 +1,3 @@
-import { getBookVersionFromUUIDSync } from '../../gateways/createBookConfigLoader';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { AppServices } from '../types';
 import { hasOSWebData, isArchiveTree } from './guards';
@@ -37,12 +36,10 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
       const pageId = pageMatch && pageMatch.split('.xhtml')[0];
       const [bookIdSegment, bookVersion] = bookMatch && bookMatch.split('@') as [string, string | undefined];
       const bookId = bookIdSegment ? bookIdSegment.substr(3) : '';
-      const bookFromConfig = getBookVersionFromUUIDSync(bookId);
 
       return {
         bookId: (match.includes(':') && bookId) || book.id,
-        bookVersion: bookVersion || (bookFromConfig && bookFromConfig.defaultVersion
-            ? bookFromConfig.defaultVersion : book.version),
+        bookVersion: bookVersion || (!pageId ? book.version : undefined),
         match: match.substr(1),
         pageId: (pageId && stripIdVersion(pageId)) || page.id,
       };
