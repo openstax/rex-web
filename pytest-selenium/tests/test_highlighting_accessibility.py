@@ -17,6 +17,7 @@ from utils.utility import Color, Highlight, Utilities
 )
 def test_change_highlight_color_using_keyboard(selenium, base_url, book_slug, page_slug):
     """Highlight color can be changed using keyboard navigation."""
+
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
@@ -29,11 +30,13 @@ def test_change_highlight_color_using_keyboard(selenium, base_url, book_slug, pa
     while book.notification_present:
         book.notification.got_it()
 
+    # from time import sleep
+
     # AND: Highlight some text in the page without a note
     paragraphs = random.sample(book.content.paragraphs, 1)
     book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE, color=Color.GREEN)
     highlight_no_note = book.content.highlight_ids[0]
-
+    # sleep(1)
     # AND: Navigate to next page and highlight some text with a note
     book.click_next_link()
     paragraphs = random.sample(book.content.paragraphs, 1)
@@ -61,7 +64,7 @@ def test_change_highlight_color_using_keyboard(selenium, base_url, book_slug, pa
         .perform()
     )
 
-    # AND: Navigate out of the highlight and move to the previous link
+    # AND: Navigate out of the highlight
     (ActionChains(selenium).send_keys("H").perform())
 
     # THEN: The highlight color is changed
@@ -69,27 +72,21 @@ def test_change_highlight_color_using_keyboard(selenium, base_url, book_slug, pa
         "class"
     )
     highlight_0_color_after_color_change = Color.from_html_class(highlight_classes_0)
-
     assert highlight_0_color_after_color_change == Color.PINK
 
-    # WHEN: Navigate to the previous page, tab to the highlight and hit H key
+    # WHEN: Navigate to the previous page, tab to the highlight without note and hit H key
     (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
-    # from time import sleep
-    # sleep(4)
-    # (ActionChains(selenium).send_keys(Keys.SHIFT + Keys.TAB).send_keys(Keys.ENTER).perform())
-
     (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
-    (ActionChains(selenium).send_keys(Keys.TAB).perform())
-    (ActionChains(selenium).send_keys("H").perform())
 
-    (
-        ActionChains(selenium)
-        .send_keys(Keys.SHIFT + Keys.TAB + Keys.SHIFT)
-        .send_keys(Keys.SPACE)
-        .perform()
-    )
-    (ActionChains(selenium).send_keys("H").perform())
-    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+    # sleep(1)
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys("H").perform())
+    # sleep(1)
+    (ActionChains(selenium).send_keys(Keys.SHIFT + Keys.TAB + Keys.SHIFT).perform())
+    # sleep(1)
+    (ActionChains(selenium).send_keys(Keys.SPACE).perform())
+    # sleep(1)
+    (ActionChains(selenium).send_keys("H").send_keys(Keys.TAB).perform())
+    # sleep(1)
 
     # THEN: The highlight color is changed
     highlight_classes_1 = book.content.get_highlight(by_id=highlight_no_note)[0].get_attribute(
@@ -97,4 +94,4 @@ def test_change_highlight_color_using_keyboard(selenium, base_url, book_slug, pa
     )
     highlight_1_color_after_color_change = Color.from_html_class(highlight_classes_1)
 
-    print(highlight_1_color_after_color_change)
+    assert highlight_1_color_after_color_change == Color.PINK
