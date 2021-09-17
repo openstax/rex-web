@@ -38,7 +38,7 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
 
       return {
         bookId: (match.includes(':') && bookId && bookId.substr(3)) || book.id,
-        bookVersion: bookVersion || book.version,
+        bookVersion: bookVersion || (!bookId ? book.version : undefined),
         match: match.substr(1),
         pageId: (pageId && stripIdVersion(pageId)) || page.id,
       };
