@@ -34,11 +34,10 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
     .map((match) => {
       const [bookMatch, pageMatch] = match.split(':');
       const pageId = pageMatch && pageMatch.split('.xhtml')[0];
-      const [bookIdSegment, bookVersion] = bookMatch && bookMatch.split('@') as [string, string | undefined];
-      const bookId = bookIdSegment ? bookIdSegment.substr(3) : '';
+      const [bookId, bookVersion] = bookMatch && bookMatch.split('@') as [string, string | undefined];
 
       return {
-        bookId: (match.includes(':') && bookId) || book.id,
+        bookId: (match.includes(':') && bookId && bookId.substr(3)) || book.id,
         bookVersion: bookVersion || (!pageId ? book.version : undefined),
         match: match.substr(1),
         pageId: (pageId && stripIdVersion(pageId)) || page.id,
