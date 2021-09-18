@@ -7,6 +7,7 @@ import { modalUrlName } from '../constants';
 import {
   loadMoreHook,
   locationChangeHook,
+  receiveStudyGuidesTotalCountsHook,
   setSummaryFiltersHook,
 } from './loadMore';
 import loadStudyGuides, { hookBody as loadStudyGuidesHookBody } from './locationChange';
@@ -23,6 +24,7 @@ export default [
   locationChangeHook,
   printStudyGuidesHook,
   openStudyGuidesHook,
+  receiveStudyGuidesTotalCountsHook,
   setSummaryFiltersHook,
   actionHook(actions.openStudyGuides, openModal(modalUrlName)),
   actionHook(actions.closeStudyGuides, closeModal),
