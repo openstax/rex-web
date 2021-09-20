@@ -40,6 +40,7 @@ const loadSummary = async(services: MiddlewareAPI & AppServices) => {
 
 export const hookBody = (services: MiddlewareAPI & AppServices) => async() => {
   const studyGuidesSummary = await loadSummary(services);
+  
   if (!studyGuidesSummary) { return; }
 
   const countsPerSource = assertDefined(studyGuidesSummary.countsPerSource, 'summary response is invalid');
