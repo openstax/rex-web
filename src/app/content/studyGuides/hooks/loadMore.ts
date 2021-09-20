@@ -68,4 +68,4 @@ export const hookBody: ActionHookBody<
 export const locationChangeHook = actionHook(locationChange, hookBody);
 export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);
 export const setSummaryFiltersHook = actionHook(actions.setSummaryFilters, hookBody);
-export const receiveStudyGuidesTotalCountsHook = actionHook(actions.receiveStudyGuidesTotalCounts, hookBody); ;
+export const receiveStudyGuidesTotalCountsHook = actionHook(actions.receiveStudyGuidesTotalCounts, hookBody);

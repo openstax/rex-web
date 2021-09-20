@@ -4,13 +4,16 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
+import { studyGuidesFeatureFlag } from '../../constants';
 import { HighlightData, SummaryHighlights } from '../../highlights/types';
 import { formatBookData } from '../../utils';
 import {
   loadMoreStudyGuides,
+  openStudyGuides,
   receiveStudyGuidesTotalCounts,
   receiveSummaryStudyGuides,
   setSummaryFilters,
@@ -59,6 +62,8 @@ describe('loadMore', () => {
   it('fetches multiple pages across multiple sources', async() => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+    store.dispatch(openStudyGuides());
 
     const maxHighlightsApiPageSize = 20;
 
@@ -181,6 +186,8 @@ describe('loadMore', () => {
   it('calls loadUntilPageSize with correct parameters', async() => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+    store.dispatch(openStudyGuides());
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
@@ -232,6 +239,8 @@ describe('loadMore', () => {
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+    store.dispatch(openStudyGuides());
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
@@ -258,6 +267,8 @@ describe('loadMore', () => {
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+    store.dispatch(openStudyGuides());
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
