@@ -274,7 +274,7 @@ describe('hooks', () => {
       go([hit]);
       expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit, highlight: 0 }));
 
-      expect(dispatch).not.toHaveBeenCalledWith();
+      expect(dispatch).not.toHaveBeenCalled();
     });
 
     it('dispatches REPLACE with search query when page is the same', () => {
