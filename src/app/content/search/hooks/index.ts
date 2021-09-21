@@ -75,6 +75,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 
   const action = targetPageIsCurrentPage ? replace : push;
 
+  // noop if selected result is on a different page and has no meta
   if (!meta && !currentPageHit && !targetPageIsCurrentPage) {
     return;
   }
