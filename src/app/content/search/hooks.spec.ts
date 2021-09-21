@@ -203,6 +203,8 @@ describe('hooks', () => {
       hook(receiveSearchResults(makeSearchResults(hits), meta));
 
     beforeEach(() => {
+      jest.resetAllMocks();
+
       hook = receiveSearchHook(helpers);
     });
 
