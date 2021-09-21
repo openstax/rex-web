@@ -5,7 +5,7 @@ import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
-import { locationChange as navigationLocationChange, replace } from '../../navigation/actions';
+import { locationChange as navigationLocationChange, push, replace } from '../../navigation/actions';
 import { AppServices, ArgumentTypes, MiddlewareAPI, Store } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
@@ -155,7 +155,7 @@ describe('hooks', () => {
 
       hook({} as any);
 
-      expect(dispatch).not.toHaveBeenCalledWith();
+      expect(dispatch).not.toHaveBeenCalledWith(push(expect.anything()));
     });
 
     it('selects search result', () => {
