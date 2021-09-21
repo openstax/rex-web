@@ -6,7 +6,7 @@ jobs:
   setup:
     name: Setup
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI-2020-01-26
+    container: openstax/rex-web:CI-2021-09-21
     outputs:
       deployment-url: ${{ steps.find-deployment.outputs.url }}
     steps:
@@ -52,7 +52,7 @@ jobs:
   scan-books:
     name: Scan
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI-2020-01-26
+    container: openstax/rex-web:CI-2021-09-21
     needs: setup
     steps:
     - uses: actions/checkout@v2
@@ -71,7 +71,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI-2020-01-26
+    container: openstax/rex-web:CI-2021-09-21
     strategy:
       fail-fast: false
       matrix:
@@ -98,7 +98,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI-2020-01-26
+    container: openstax/rex-web:CI-2021-09-21
     steps:
     - uses: actions/checkout@v2
       with:
