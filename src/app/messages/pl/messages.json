@@ -126,6 +126,7 @@
   "i18n:prevnext:prev:aria-label": "Poprzednia strona",
   "i18n:prevnext:prev:text": "Poprzednia",
   "i18n:search-results:bar": "Wyniki wyszukiwania",
+  "i18n:search-results:bar:header:title": "Wyniki wyszukiwania",
   "i18n:search-results:bar:close-text:mobile": "Zamknij",
   "i18n:search-results:bar:current-page": "Bieżąca strona",
   "i18n:search-results:bar:loading-state": "Ładowanie wyników",
