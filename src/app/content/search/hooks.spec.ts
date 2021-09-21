@@ -338,7 +338,7 @@ describe('hooks', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
-      const hit2 = makeSearchResultHit({book, page});
+      const hit2 = makeSearchResultHit({book, page, pagePosition: 0});
       store.dispatch(receiveSearchResults({ hits: { hits: [hit, hit2] } } as any));
       Object.defineProperty(hit2.source, 'elementId', { value: 'elem' });
 

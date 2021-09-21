@@ -45,8 +45,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const results = select.hits(state) || [];
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
 
-  console.log('results: ', results);
-
   if (pageIsLoading || !book) {
     return; // book changed while query was in the air
   }
@@ -71,14 +69,15 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     services.dispatch(selectSearchResult(selectedResult));
   }
 
-  if (!meta && !currentPageHit) {
+  const targetPageId = selectedResult?.result.source.pageId || currentPage?.id;
+  const targetPageIsCurrentPage =
+    (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id));
+
+  const action = targetPageIsCurrentPage ? replace : push;
+
+  if (!meta && !currentPageHit && !targetPageIsCurrentPage) {
     return;
   }
-
-  const targetPageId = selectedResult?.result.source.pageId || currentPage?.id;
-
-  const action = (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id))
-    ? replace : push;
 
   const options = selectedResult
     ? {
