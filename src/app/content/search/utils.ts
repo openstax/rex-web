@@ -183,3 +183,17 @@ export const findSearchResultHit = (
 ): SearchResultHit | undefined => {
   return results.find((result) => result.source.elementId === target.elementId);
 };
+
+export const findFirstHitOnPage = (
+  results: SearchResultHit[],
+  pageId: string
+): SelectedResult | null => {
+  const pageHit = results.find((result) =>
+    stripIdVersion(result.source.pageId) === pageId && result.source.pagePosition === 0);
+
+  if (pageHit) {
+    return {result: pageHit, highlight: 0};
+  }
+
+  return null;
+};

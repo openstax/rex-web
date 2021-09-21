@@ -16,7 +16,7 @@ import { createNavigationMatch } from '../../utils/navigationUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
-import { findSearchResultHit, getFirstResult, getIndexData } from '../utils';
+import { findFirstHitOnPage, findSearchResultHit, getFirstResult, getIndexData } from '../utils';
 import trackSearch from './trackSearch';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
@@ -50,10 +50,11 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   }
 
   const searchResultHit = meta && meta.searchScrollTarget && findSearchResultHit(results, meta.searchScrollTarget);
-  console.log('has result hit and meta target? ', searchResultHit, meta.searchScrollTarget)
+  const currentPageHit = currentPage && findFirstHitOnPage(results, currentPage?.id);
+
   const selectedResult = searchResultHit && meta.searchScrollTarget
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
-    : getFirstResult(book, payload);
+    : currentPageHit || getFirstResult(book, payload);
 
   if (
     selectedResult
@@ -69,8 +70,11 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     services.dispatch(selectSearchResult(selectedResult));
   }
 
+  if (!meta && !currentPageHit) {
+    return;
+  }
+
   const targetPageId = selectedResult?.result.source.pageId || currentPage?.id;
-  // if currentpage has results, use current page
 
   const action = (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id))
     ? replace : push;
