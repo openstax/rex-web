@@ -266,7 +266,7 @@ describe('hooks', () => {
       );
     });
 
-    it('noops when no hit on current page', () => {
+    it('noops if no hit on current page', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...shortPage, references: [] }));
       store.dispatch(requestSearch('asdf'));
@@ -337,7 +337,7 @@ describe('hooks', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
-      const hit2 = makeSearchResultHit({book, page, pagePosition: 0});
+      const hit2 = makeSearchResultHit({book, page});
       store.dispatch(receiveSearchResults({ hits: { hits: [hit, hit2] } } as any));
       Object.defineProperty(hit2.source, 'elementId', { value: 'elem' });
 
