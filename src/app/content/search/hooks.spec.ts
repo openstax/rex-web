@@ -5,7 +5,7 @@ import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
-import { locationChange as navigationLocationChange, push, replace } from '../../navigation/actions';
+import { locationChange as navigationLocationChange, replace } from '../../navigation/actions';
 import { AppServices, ArgumentTypes, MiddlewareAPI, Store } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
@@ -13,6 +13,7 @@ import * as selectors from '../selectors';
 import { formatBookData } from '../utils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
 import { clearSearchHook, receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
+import * as searchSelect from './selectors';
 import { SearchScrollTarget } from './types';
 
 describe('hooks', () => {
@@ -265,7 +266,7 @@ describe('hooks', () => {
       );
     });
 
-    it('dispatches PUSH with first page and search query when page is different', () => {
+    it('noops when no hit on current page', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...shortPage, references: [] }));
       store.dispatch(requestSearch('asdf'));
@@ -273,30 +274,17 @@ describe('hooks', () => {
       go([hit]);
       expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit, highlight: 0 }));
 
-      const search = queryString.stringify({
-        query: 'asdf',
-        target: JSON.stringify({ type: 'search', index: 0 }),
-      });
-      expect(dispatch).toHaveBeenCalledWith(
-        push({
-          params: expect.anything(),
-          route: content,
-          state: {
-            bookUid: book.id,
-            bookVersion: book.version,
-            pageUid: page.id,
-          },
-        }, {
-          hash: hit.source.elementId,
-          search,
-        })
-      );
+      expect(dispatch).not.toHaveBeenCalledWith();
     });
 
     it('dispatches REPLACE with search query when page is the same', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
+
+      const firstHit = makeSearchResultHit({book, page, pagePosition: 0});
+
+      jest.spyOn(searchSelect, 'hits').mockReturnValue([firstHit]);
 
       go([hit]);
 
