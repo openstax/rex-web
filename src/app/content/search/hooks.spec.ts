@@ -283,7 +283,6 @@ describe('hooks', () => {
       store.dispatch(requestSearch('asdf'));
 
       const firstHit = makeSearchResultHit({book, page, pagePosition: 0});
-
       jest.spyOn(searchSelect, 'hits').mockReturnValue([firstHit]);
 
       go([hit]);
