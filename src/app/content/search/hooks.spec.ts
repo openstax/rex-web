@@ -155,7 +155,7 @@ describe('hooks', () => {
 
       hook({} as any);
 
-      expect(dispatch).not.toHaveBeenCalledWith(push(expect.anything()));
+      expect(dispatch).not.toHaveBeenCalledWith();
     });
 
     it('selects search result', () => {
@@ -274,7 +274,7 @@ describe('hooks', () => {
       go([hit]);
       expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit, highlight: 0 }));
 
-      expect(dispatch).not.toHaveBeenCalled();
+      expect(dispatch).not.toHaveBeenCalledWith(push(expect.anything()));
     });
 
     it('dispatches REPLACE with search query when page is the same', () => {
