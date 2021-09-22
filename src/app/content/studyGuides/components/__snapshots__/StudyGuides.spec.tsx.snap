@@ -27,7 +27,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         className="SectionHighlights__HighlightSection-c51y19-3 cYxWVd"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "<span class=\\"os-text\\">Test Page 6</span>",
+            "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
           }
         }
         data-testid="section-title"
