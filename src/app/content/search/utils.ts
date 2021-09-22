@@ -188,11 +188,11 @@ export const findFirstHitOnPage = (
   results: SearchResultHit[],
   pageId: string
 ): SelectedResult | null => {
-  const pageHit = results.find((result) =>
-    stripIdVersion(result.source.pageId) === pageId && result.source.pagePosition === 0);
+  const pageHits = results.filter((result) => stripIdVersion(result.source.pageId) === pageId);
+  const sorted = pageHits.sort((a, b) => a.source.pagePosition - b.source.pagePosition);
 
-  if (pageHit) {
-    return {result: pageHit, highlight: 0};
+  if (sorted[0]) {
+    return {result: sorted[0], highlight: 0};
   }
 
   return null;

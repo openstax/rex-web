@@ -44,7 +44,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const query = select.query(state);
   const results = select.hits(state) || [];
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
-
   if (pageIsLoading || !book) {
     return; // book changed while query was in the air
   }
