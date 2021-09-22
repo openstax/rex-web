@@ -90,8 +90,8 @@
         "contents": [
           {
             "id": "testbook1-testpage6-uuid@1.0",
-            "slug": "10-test-page-6",
-            "title": "<span class=\"os-text\">Test Page 6</span>"
+            "slug": "10-test-page-6-física",
+            "title": "<span class=\"os-text\">Test Page 6 with special characters in url</span>"
           }
         ],
         "title": "<span class=\"os-number\">10</span><span class=\"os-divider\"> </span><span class=\"os-text\">Test Chapter 5</span>"
