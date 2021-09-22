@@ -417,3 +417,68 @@ def test_accessibility_help_link(selenium, base_url, book_slug, page_slug):
     # THEN: The accessibility help page is opened in the same window
     expected_url = "https://openstax.org/accessibility-statement"
     assert book.current_url == expected_url
+
+
+@markers.test_case("C476303")
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_attribution_collapsed_by_default_expands_when_clicked(
+    selenium, base_url, book_slug, page_slug
+):
+
+    # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
+    # WHEN: The page is fully loaded
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    attribution = content.attribution
+
+    # THEN: The attribution section is collapsed by default
+    assert not attribution.is_open
+
+    # AND: The attribution section opens when clicked
+    attribution.click_attribution_link()
+    assert attribution.is_open
+
+    # AND: The attribution collapses on clicking it again
+    attribution.click_attribution_link()
+    assert not attribution.is_open
+
+
+@markers.test_case("C476304")
+@markers.smoke_test
+@markers.parametrize("page_slug", ["preface"])
+@markers.nondestructive
+def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, book_slug, page_slug):
+
+    # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
+    # AND: The citation/attribution tab is open
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    attribution = content.attribution
+    toolbar = content.toolbar
+    toc = content.sidebar.toc
+
+    attribution.click_attribution_link()
+
+    # WHEN: Navigating via next link
+    content.click_next_link()
+
+    # THEN: The citation/attribution section is not open on the new page
+    assert not attribution.is_open
+
+    attribution.click_attribution_link()
+
+    # WHEN: Navigating via Previous link
+    content.click_previous_link()
+
+    # THEN: The citation/attribution section is not open on the new page
+    assert not attribution.is_open
+
+    attribution.click_attribution_link()
+
+    # WHEN: Navigating via TOC link
+    if content.is_mobile:
+        toolbar.click_toc_toggle_button()
+
+    toc.sections[-1].click()
+
+    # THEN: The citation/attribution section is not open on the new page
+    assert not attribution.is_open
