@@ -204,8 +204,38 @@ describe('hooks', () => {
 
     beforeEach(() => {
       jest.resetAllMocks();
-
       hook = receiveSearchHook(helpers);
+    });
+
+    it('uses the provided search scroll target', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('asdf'));
+      const hit2 = makeSearchResultHit({book, page});
+      store.dispatch(receiveSearchResults({ hits: { hits: [hit, hit2] } } as any));
+      Object.defineProperty(hit2.source, 'elementId', { value: 'elem' });
+
+      go([hit, hit2], {searchScrollTarget: { type: 'search', index: 1, elementId: hit2.source.elementId }});
+      expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit2, highlight: 1 }));
+
+      const search = queryString.stringify({
+        query: 'asdf',
+        target: JSON.stringify({ type: 'search', index: 1 }),
+      });
+      expect(dispatch).toHaveBeenCalledWith(
+        replace({
+          params: expect.anything(),
+          route: content,
+          state: {
+            bookUid: book.id,
+            bookVersion: book.version,
+            pageUid: page.id,
+          },
+        }, {
+          hash: hit2.source.elementId,
+          search,
+        })
+      );
     });
 
     it('noops if search, page, and selected search match intended already', () => {
@@ -330,37 +360,6 @@ describe('hooks', () => {
             pageUid: page.id,
           },
         }, {
-          search,
-        })
-      );
-    });
-
-    it('uses the provided search scroll target', () => {
-      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      store.dispatch(receivePage({ ...page, references: [] }));
-      store.dispatch(requestSearch('asdf'));
-      const hit2 = makeSearchResultHit({book, page});
-      store.dispatch(receiveSearchResults({ hits: { hits: [hit, hit2] } } as any));
-      Object.defineProperty(hit2.source, 'elementId', { value: 'elem' });
-
-      go([hit, hit2], {searchScrollTarget: { type: 'search', index: 1, elementId: hit2.source.elementId }});
-      expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit2, highlight: 1 }));
-
-      const search = queryString.stringify({
-        query: 'asdf',
-        target: JSON.stringify({ type: 'search', index: 1 }),
-      });
-      expect(dispatch).toHaveBeenCalledWith(
-        replace({
-          params: expect.anything(),
-          route: content,
-          state: {
-            bookUid: book.id,
-            bookVersion: book.version,
-            pageUid: page.id,
-          },
-        }, {
-          hash: hit2.source.elementId,
           search,
         })
       );
