@@ -261,7 +261,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                 className="styled__SearchResultsLink-as3fh1-13 hmjTQN"
                 dangerouslySetInnerHTML={
                   Object {
-                    "__html": "<span class=\\"os-text\\">Test Page 6</span>",
+                    "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
                   }
                 }
               />
@@ -269,7 +269,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             <a
               className="styled__SectionContentPreview-as3fh1-14 eIxMvU"
               data-testid="search-result"
-              href="books/book-slug-1/pages/10-test-page-6?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
+              href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7Dfs-id1544727"
               onClick={[Function]}
               result={
                 Object {
