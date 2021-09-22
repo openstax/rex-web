@@ -342,6 +342,8 @@ describe('hooks', () => {
       store.dispatch(receiveSearchResults({ hits: { hits: [hit, hit2] } } as any));
       Object.defineProperty(hit2.source, 'elementId', { value: 'elem' });
 
+      jest.spyOn(searchSelect, 'hits').mockReturnValue([hit, hit2]);
+
       go([hit, hit2], {searchScrollTarget: { type: 'search', index: 1, elementId: hit2.source.elementId }});
       expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit2, highlight: 1 }));
 
