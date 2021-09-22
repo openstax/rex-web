@@ -846,10 +846,10 @@ Array [
                         className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 6</span>",
+                            "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
                           }
                         }
-                        href="10-test-page-6"
+                        href="10-test-page-6-f%C3%ADsica"
                         onClick={[Function]}
                       />
                     </li>
@@ -2272,10 +2272,10 @@ Array [
                         className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
                         dangerouslySetInnerHTML={
                           Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 6</span>",
+                            "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
                           }
                         }
-                        href="10-test-page-6"
+                        href="10-test-page-6-f%C3%ADsica"
                         onClick={[Function]}
                       />
                     </li>
