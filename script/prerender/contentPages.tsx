@@ -62,7 +62,7 @@ const prepareApp = async(
   action: AnyMatch,
   expectedCode: number
 ) => {
-  const url = matchPathname(action);
+  const url = decodeURI(matchPathname(action));
   const app = createApp({initialEntries: [action], services});
 
   const timer = minuteCounter();
@@ -73,7 +73,7 @@ const prepareApp = async(
   const styles = new ServerStyleSheet();
   const pathname = navigationSelectors.pathname(state);
 
-  if (pathname !== decodeURI(url)) {
+  if (pathname !== url) {
     throw new Error(`UNSUPPORTED: url: ${url} caused a redirect.`);
   }
   if (errorSelectors.code(state) !== expectedCode) {
@@ -156,7 +156,7 @@ const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
   return {
     changefreq: EnumChangefreq.MONTHLY,
     lastmod: dateFns.format(archivePage.revised, 'YYYY-MM-DD'),
-    url: matchPathname(route),
+    url: encodeURI(url),
   };
 };
 
