@@ -23,9 +23,6 @@ export const openStudyGuides = createStandardAction('Content/StudyGuides/Summary
 export const closeStudyGuides = createStandardAction('Content/StudyGuides/Summary/close')<void>();
 export const loadMoreStudyGuides = createStandardAction('Content/StudyGuides/loadMore')();
 export const printStudyGuides = createStandardAction('Content/StudyGuides/print')<void>();
-export const setDefaultSummaryFilters = createStandardAction('Content/StudyGuides/Summary/setDefaultFilters')<
-  SummaryFilters
->();
 export const setSummaryFilters = createStandardAction('Content/StudyGuides/Summary/setFilters')<
   Partial<SummaryFilters>
 >();
