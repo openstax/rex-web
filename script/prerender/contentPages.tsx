@@ -87,7 +87,7 @@ const prepareApp = async(
 type RenderHtml = (styles: ServerStyleSheet, app: ReturnType<typeof createApp>, state: AppState) => string;
 const renderHtml: RenderHtml = (styles, app, state) => {
   const modules: string[] = [];
-  const book = contentSelectors.book(state);
+  const book = assertDefined(contentSelectors.book(state), 'book not loaded');
 
   return injectHTML(book, indexHtml, {
     body: renderToString(
