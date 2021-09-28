@@ -11,7 +11,7 @@ import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
 import * as contentSelectors from '../../src/app/content/selectors';
-import { ArchiveBook, BookWithOSWebData } from '../../src/app/content/types';
+import { BookWithOSWebData } from '../../src/app/content/types';
 import { makeUnifiedBookLoader, stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
 import * as errorSelectors from '../../src/app/errors/selectors';
