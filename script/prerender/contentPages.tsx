@@ -62,7 +62,7 @@ const prepareApp = async(
   action: AnyMatch,
   expectedCode: number
 ) => {
-  const url = matchPathname(action);
+  const url = decodeURI(matchPathname(action));
   const app = createApp({initialEntries: [action], services});
 
   const timer = minuteCounter();
@@ -156,7 +156,7 @@ const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
   return {
     changefreq: EnumChangefreq.MONTHLY,
     lastmod: dateFns.format(archivePage.revised, 'YYYY-MM-DD'),
-    url: matchPathname(route),
+    url: encodeURI(url),
   };
 };
 
