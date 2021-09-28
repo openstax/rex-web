@@ -1,4 +1,3 @@
-import { getType } from 'typesafe-actions';
 import { replace } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { updateQuery } from '../../../navigation/utils';
@@ -8,7 +7,6 @@ import * as actions from '../actions';
 import { summaryFilters } from '../selectors';
 
 export const hookBody: ActionHookBody<
-  typeof actions.setDefaultSummaryFilters |
   typeof actions.updateSummaryFilters
 > = (services) => (action) => {
   const state = services.getState();
@@ -18,9 +16,7 @@ export const hookBody: ActionHookBody<
 
   if (!match) { return; }
 
-  const updatedFilters = action.type === getType(actions.setDefaultSummaryFilters)
-    ? action.payload
-    : updateSummaryFilters(filters, action.payload);
+  const updatedFilters = updateSummaryFilters(filters, action.payload);
   services.dispatch(replace(match, {
     search: updateQuery(updatedFilters as any as Record<string, string[]>, existingQuery),
   }));
