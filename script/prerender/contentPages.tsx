@@ -10,7 +10,8 @@ import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
-import { BookWithOSWebData } from '../../src/app/content/types';
+import * as contentSelectors from '../../src/app/content/selectors';
+import { ArchiveBook, BookWithOSWebData } from '../../src/app/content/types';
 import { makeUnifiedBookLoader, stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
 import * as errorSelectors from '../../src/app/errors/selectors';
@@ -86,8 +87,9 @@ const prepareApp = async(
 type RenderHtml = (styles: ServerStyleSheet, app: ReturnType<typeof createApp>, state: AppState) => string;
 const renderHtml: RenderHtml = (styles, app, state) => {
   const modules: string[] = [];
+  const book = contentSelectors.book(state);
 
-  return injectHTML(indexHtml, {
+  return injectHTML(book, indexHtml, {
     body: renderToString(
       <StyleSheetManager sheet={styles.instance}>
         <Loadable.Capture report={(m) => modules.push(m)}>
@@ -194,7 +196,11 @@ interface Options {
   modules: string[];
   title: string;
 }
-function injectHTML(html: string, {body, styles, state, fonts, meta, links, modules, title}: Options) {
+function injectHTML(
+  book: ArchiveBook,
+  html: string,
+  {body, styles, state, fonts, meta, links, modules, title}: Options
+) {
 
   const assetManifest = JSON.parse(readAssetFile('asset-manifest.json'));
 
@@ -227,6 +233,8 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, links, modu
   const scripts = extractAssets().map(
     (c) => `<script type="text/javascript" src="${c}"></script>`
   );
+
+  html = html.replace(/lang="en"/, `lang=${book.language}`);
 
   html = html.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
 
