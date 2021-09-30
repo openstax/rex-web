@@ -62,15 +62,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         },
       };
     case getType(actions.receiveSummaryStudyGuides): {
-      // Check if filters wasn't updated while we were loading response.
-      // It may happen if user with slow network connection change filters very fast.
-
-      // if (action.meta.filters && state.summary.filters !== action.meta.filters) {
-      //   console.log('has action meta filters but they dont match state summary filters');
-      //   return state;
-      // }
-      console.log('action meta: ', action.meta);
-
       return {
         ...state,
         summary: {

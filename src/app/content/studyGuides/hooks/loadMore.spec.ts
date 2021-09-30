@@ -180,7 +180,7 @@ describe('loadMore', () => {
 
     expect(loadingSpy).toHaveBeenCalled();
     expect(highlightClient).toHaveBeenCalledTimes(3);
-    expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, {pagination: null, filters}));
+    expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, {pagination: null}));
   });
 
   it('calls loadUntilPageSize with correct parameters', async() => {
@@ -227,7 +227,7 @@ describe('loadMore', () => {
       sets: [GetHighlightsSetsEnum.Curatedopenstax],
     }));
     expect(highlightClient).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null, filters}));
+    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null}));
   });
 
   it('throws StudyGuidesPopupLoadError', async() => {

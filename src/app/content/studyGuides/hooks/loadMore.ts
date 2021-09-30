@@ -64,7 +64,7 @@ export const hookBody: ActionHookBody<
   }
 
   const {formattedHighlights, pagination} = response;
-  services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
+  services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination}));
 };
 
 export const locationChangeHook = actionHook(locationChange, hookBody);
