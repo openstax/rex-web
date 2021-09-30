@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import * as authSelectors from '../../auth/selectors';
+import * as navigationSelectors from '../../navigation/selectors';
 import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
   getHighlightLocationFilters,
@@ -15,6 +16,7 @@ import {
 import * as parentSelectors from '../selectors';
 import { archiveTreeSectionIsChapter } from '../utils/archiveTreeUtils';
 import { colorfilterLabels } from './constants';
+import { getFiltersFromQuery } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -47,17 +49,17 @@ export const totalCountsPerPageOrEmpty = createSelector(
   (summary) => summary.totalCountsPerPage || {}
 );
 
+export const summaryIsLoading = createSelector(
+  studyGuidesSummary,
+  (summary) => summary.loading
+);
+
 export const studyGuidesOpen = createSelector(
   studyGuidesSummary,
   studyGuidesEnabled,
   parentSelectors.book,
   parentSelectors.page,
   (summary, flagEnabled, book, page) => summary.open && flagEnabled && !!book && !!page
-);
-
-export const summaryIsLoading = createSelector(
-  studyGuidesSummary,
-  (summary) => summary.loading
 );
 
 export const summaryStudyGuidesPagination = createSelector(
@@ -97,17 +99,39 @@ export const defaultLocationFilter = createSelector(
   (filters, currentPage) => currentPage && getHighlightLocationFilterForPage(filters, currentPage)
 );
 
-// tslint:disable: max-line-length
+const filtersFromQuery = createSelector(
+  navigationSelectors.query,
+  (query) => getFiltersFromQuery(query)
+);
+
+const unloggedAndQueryMissingFirstChapter = createSelector(
+  authSelectors.loggedOut,
+  parentSelectors.firstChapter,
+  filtersFromQuery,
+  (notLoggedIn, firstChapter, queryFilters) =>
+    notLoggedIn && firstChapter && !queryFilters.locationIds.includes(firstChapter.id)
+);
+
+const loggedAndQueryMissingLocationIds = createSelector(
+  authSelectors.loggedOut,
+  filtersFromQuery,
+  defaultLocationFilter,
+  (notLoggedIn, queryFilters, defaultFilter) =>
+    !notLoggedIn && queryFilters.locationIds.length === 0 && defaultFilter
+);
+
 export const summaryFilters = createSelector(
   localState,
+  unloggedAndQueryMissingFirstChapter,
+  loggedAndQueryMissingLocationIds,
   parentSelectors.firstChapter,
-  authSelectors.loggedOut,
   highlightColorFiltersWithContent,
   defaultLocationFilter,
-  (state, firstChapter, notLoggedIn, colorsWithSG, defaultFilter) => state.summary.filters.colors.length || state.summary.filters.locationIds.length ? state.summary.filters :
-    (notLoggedIn && firstChapter ?
-      { colors: Array.from(colorsWithSG.size ? colorsWithSG : colorfilterLabels), locationIds: [firstChapter.id] }
-        : defaultFilter ? { colors: Array.from(colorsWithSG.size ? colorsWithSG : colorfilterLabels), locationIds: [defaultFilter.id] } : {colors: [], locationIds: []})
+  (state, unlogged, logged, firstChapter, colorsWithSG, defaultFilter) => unlogged && firstChapter
+    ? { colors: Array.from(colorsWithSG.size ? colorsWithSG : colorfilterLabels), locationIds: [firstChapter.id] }
+    : (logged && defaultFilter
+      ? { colors: Array.from(colorsWithSG.size ? colorsWithSG : colorfilterLabels), locationIds: [defaultFilter.id] }
+      : state.summary.filters)
 );
 
 const rawSummaryLocationFilters = createSelector(

@@ -18,11 +18,12 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const { locationIds } = getFiltersFromQuery(query);
 
   if (notLoggedIn && firstChapter && !locationIds.includes(firstChapter.id)) {
+    // set default filters
     // Non logged in users will always see SG only for the first chapter
   } else if (!notLoggedIn && locationIds.length === 0 && defaultFilter) {
+    // set default filters
     // Set default locationId filter for logged in users
   } else {
-    // how to rewrite this conditional
     const studyGuides = select.summaryStudyGuides(state);
     const studyGuidesAreLoading = select.summaryIsLoading(state);
 
@@ -31,5 +32,9 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
     }
   }
 };
+
+// if (user isnt logged in and query filters for locations does not include first chapter) show them first chapter
+// else if (user is logged in and there are no location ids in query and there is a default filter) show them stuff
+// else ...
 
 export const openStudyGuidesHook = actionHook(openStudyGuides, hookBody);

@@ -128,7 +128,7 @@ export default () => {
         <ConnectedChapterFilter
           disabled={userLoggedOut}
           multiselect={true}
-          setFilter={(change: FiltersChange<LinkedArchiveTreeNode>) =>
+          setFilters={(change: FiltersChange<LinkedArchiveTreeNode>) =>
             updateQueryFromFilterChange(dispatch, state, { locations: change })}
         />
       </FilterDropdown>
