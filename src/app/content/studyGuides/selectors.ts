@@ -104,7 +104,7 @@ const filtersFromQuery = createSelector(
   (query) => getFiltersFromQuery(query)
 );
 
-const unloggedAndQueryMissingFirstChapter = createSelector(
+export const unloggedAndQueryMissingFirstChapter = createSelector(
   authSelectors.loggedOut,
   parentSelectors.firstChapter,
   filtersFromQuery,
@@ -112,7 +112,7 @@ const unloggedAndQueryMissingFirstChapter = createSelector(
     notLoggedIn && firstChapter && !queryFilters.locationIds.includes(firstChapter.id)
 );
 
-const loggedAndQueryMissingLocationIds = createSelector(
+export const loggedAndQueryMissingLocationIds = createSelector(
   authSelectors.loggedOut,
   filtersFromQuery,
   defaultLocationFilter,
