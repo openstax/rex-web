@@ -217,8 +217,8 @@ class Library(object):
         },
         "american-government-2e": {
             "default_page": "1-introduction",
-            "search_term": "mass media",
-            "search_results_total": 27,
+            "search_term": "hypodermic theory",
+            "search_results_total": 1,
         },
         "american-government-3e": {
             "default_page": "1-introduction",
@@ -279,7 +279,7 @@ class Library(object):
             "default_page": "1-introduction-to-science-and-the-realm-of-"
             "physics-physical-quantities-and-units",
             "search_term": "Newton's first law",
-            "search_results_total": 2,
+            "search_results_total": 49,
         },
         "college-physics-ap-courses": {
             "default_page": "1-connection-for-ap-r-courses",
@@ -294,7 +294,7 @@ class Library(object):
         "calculus-volume-1": {
             "default_page": "1-introduction",
             "search_term": "number",
-            "search_results_total": 207,
+            "search_results_total": 209,
         },
         "calculus-volume-2": {
             "default_page": "1-introduction",
@@ -304,7 +304,7 @@ class Library(object):
         "calculus-volume-3": {
             "default_page": "1-introduction",
             "search_term": "zero vector",
-            "search_results_total": 101,
+            "search_results_total": 102,
         },
         "introduction-business": {
             "default_page": "1-introduction",
