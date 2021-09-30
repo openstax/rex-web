@@ -7,12 +7,11 @@ import { modalUrlName } from '../constants';
 import {
   loadMoreHook,
   locationChangeHook,
-  receiveStudyGuidesTotalCountsHook,
+  // receiveStudyGuidesTotalCountsHook,
 } from './loadMore';
 import loadStudyGuides, { hookBody as loadStudyGuidesHookBody } from './locationChange';
 import { openStudyGuidesHook } from './openStudyGuides';
 import { printStudyGuidesHook } from './printStudyGuides';
-import { hookBody as updateQueryWithSummaryFiltersHookBody } from './updateQueryWithSummaryFiltersHookBody';
 
 export {
   loadStudyGuides,
@@ -23,9 +22,8 @@ export default [
   locationChangeHook,
   printStudyGuidesHook,
   openStudyGuidesHook,
-  receiveStudyGuidesTotalCountsHook,
+  // receiveStudyGuidesTotalCountsHook,
   actionHook(actions.openStudyGuides, openModal(modalUrlName)),
   actionHook(actions.closeStudyGuides, closeModal),
   actionHook(receiveFeatureFlags, loadStudyGuidesHookBody),
-  actionHook(actions.updateSummaryFilters, updateQueryWithSummaryFiltersHookBody),
 ];

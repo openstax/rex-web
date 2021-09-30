@@ -42,14 +42,17 @@ export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
 export const hookBody: ActionHookBody<
   typeof locationChange |
-  typeof actions.receiveStudyGuidesTotalCounts |
+  // typeof actions.receiveStudyGuidesTotalCounts |
   typeof actions.loadMoreStudyGuides
 > = (services) => async() => {
-  const summaryIsOpen = select.studyGuidesOpen(services.getState());
+  const state = services.getState();
+  const summaryIsOpen = select.studyGuidesOpen(state);
 
   if (!summaryIsOpen) { return; }
 
-  const filters = select.summaryFilters(services.getState());
+  services.dispatch(actions.toggleStudyGuidesSummaryLoading(true));
+
+  const filters = select.summaryFilters(state);
 
   let response: Unpromisify<LoadMoreResponse>;
 
@@ -66,4 +69,4 @@ export const hookBody: ActionHookBody<
 
 export const locationChangeHook = actionHook(locationChange, hookBody);
 export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);
-export const receiveStudyGuidesTotalCountsHook = actionHook(actions.receiveStudyGuidesTotalCounts, hookBody);
+// export const receiveStudyGuidesTotalCountsHook = actionHook(actions.receiveStudyGuidesTotalCounts, hookBody);

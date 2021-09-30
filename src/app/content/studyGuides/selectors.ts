@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import * as authSelectors from '../../auth/selectors';
 import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
   getHighlightLocationFilters,
@@ -13,6 +14,7 @@ import {
 } from '../highlights/utils/selectorsUtils';
 import * as parentSelectors from '../selectors';
 import { archiveTreeSectionIsChapter } from '../utils/archiveTreeUtils';
+import { colorfilterLabels } from './constants';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -84,19 +86,33 @@ export const loadedCountsPerSource = createSelector(
   getLoadedCountsPerSource
 );
 
+export const highlightColorFiltersWithContent = createSelector(
+  totalCountsPerPageOrEmpty,
+  getHighlightColorFiltersWithContent
+);
+
+export const defaultLocationFilter = createSelector(
+  studyGuidesLocationFilters,
+  parentSelectors.page,
+  (filters, currentPage) => currentPage && getHighlightLocationFilterForPage(filters, currentPage)
+);
+
+// tslint:disable: max-line-length
 export const summaryFilters = createSelector(
   localState,
-  (state) => state.summary.filters
+  parentSelectors.firstChapter,
+  authSelectors.loggedOut,
+  highlightColorFiltersWithContent,
+  defaultLocationFilter,
+  (state, firstChapter, notLoggedIn, colorsWithSG, defaultFilter) => state.summary.filters.colors.length || state.summary.filters.locationIds.length ? state.summary.filters :
+    (notLoggedIn && firstChapter ?
+      { colors: Array.from(colorsWithSG.size ? colorsWithSG : colorfilterLabels), locationIds: [firstChapter.id] }
+        : defaultFilter ? { colors: Array.from(colorsWithSG.size ? colorsWithSG : colorfilterLabels), locationIds: [defaultFilter.id] } : {colors: [], locationIds: []})
 );
 
 const rawSummaryLocationFilters = createSelector(
   summaryFilters,
   (filters) => filters.locationIds
-);
-
-export const highlightColorFiltersWithContent = createSelector(
-  totalCountsPerPageOrEmpty,
-  getHighlightColorFiltersWithContent
 );
 
 export const summaryColorFilters = createSelector(
@@ -109,12 +125,6 @@ export const studyGuidesLocationFiltersWithContent = createSelector(
   studyGuidesLocationFilters,
   totalCountsPerPageOrEmpty,
   getHighlightLocationFiltersWithContent
-);
-
-export const defaultLocationFilter = createSelector(
-  studyGuidesLocationFilters,
-  parentSelectors.page,
-  (filters, currentPage) => currentPage && getHighlightLocationFilterForPage(filters, currentPage)
 );
 
 export const summaryLocationFilters = createSelector(

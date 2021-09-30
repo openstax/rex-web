@@ -4,6 +4,8 @@ import { defaultTheme } from './components/constants';
 import { hasOSWebData } from './guards';
 import { getIdFromPageParam } from './utils';
 import {
+  archiveTreeSectionIsChapter,
+  findArchiveTreeNode,
   findArchiveTreeNodeByPageParam,
   prevNextBookPage,
 } from './utils/archiveTreeUtils';
@@ -91,6 +93,11 @@ export const bookAndPage = createSelector(
   book,
   page,
   (selectedBook, selectedPage) => ({book: selectedBook, page: selectedPage})
+);
+
+export const firstChapter = createSelector(
+  book,
+  (selectedBook) => selectedBook && findArchiveTreeNode(archiveTreeSectionIsChapter, selectedBook?.tree)
 );
 
 export const prevNextPage = createSelector(

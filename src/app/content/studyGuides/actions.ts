@@ -1,7 +1,6 @@
 import { createStandardAction } from 'typesafe-actions';
 import {
   CountsPerSource,
-  SummaryFilters,
   SummaryFiltersUpdate,
   SummaryHighlights,
   SummaryHighlightsPagination
