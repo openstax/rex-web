@@ -10,6 +10,7 @@ import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
+import * as contentSelectors from '../../src/app/content/selectors';
 import { BookWithOSWebData } from '../../src/app/content/types';
 import { makeUnifiedBookLoader, stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
@@ -197,6 +198,7 @@ interface Options {
 function injectHTML(html: string, {body, styles, state, fonts, meta, links, modules, title}: Options) {
 
   const assetManifest = JSON.parse(readAssetFile('asset-manifest.json'));
+  const book = assertDefined(contentSelectors.book(state), 'book not loaded');
 
   /*
    * separate chunks are automatically made for vendor code
@@ -227,6 +229,8 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, links, modu
   const scripts = extractAssets().map(
     (c) => `<script type="text/javascript" src="${c}"></script>`
   );
+
+  html = html.replace(/lang="en"/, `lang="${book.language}"`);
 
   html = html.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
 
