@@ -40,7 +40,7 @@ toml==0.10.2
 urllib3==1.26.7
 virtualenv==20.8.1
 wcwidth==0.2.5
-zipp==3.5.0
+zipp==3.6.0
 zope.component==5.0.1
 zope.deferredimport==4.3.1
 zope.deprecation==4.4.0
