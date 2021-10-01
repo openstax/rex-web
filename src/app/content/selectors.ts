@@ -97,7 +97,8 @@ export const bookAndPage = createSelector(
 
 export const firstChapter = createSelector(
   book,
-  (selectedBook) => selectedBook && findArchiveTreeNode(archiveTreeSectionIsChapter, selectedBook?.tree)
+  (selectedBook) =>
+    selectedBook && selectedBook.tree && findArchiveTreeNode(archiveTreeSectionIsChapter, selectedBook.tree)
 );
 
 export const prevNextPage = createSelector(
