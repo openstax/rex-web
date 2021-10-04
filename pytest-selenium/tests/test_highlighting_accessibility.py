@@ -92,3 +92,76 @@ def test_change_highlight_color_using_keyboard(selenium, base_url, book_slug, pa
     assert (
         highlight_1_color_after_color_change == Color.PINK
     ), f"Highlight color in the page {selenium.current_url} is {highlight_1_color_after_color_change}"
+
+
+@markers.test_case("C639520")
+@markers.desktop_only
+@markers.highlighting
+@markers.parametrize("book_slug, page_slug", [("organizational-behavior", "2-introduction")])
+def test_edit_note_using_keyboard(selenium, base_url, book_slug, page_slug):
+    """Edit note using keyboard navigation."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight some text in the page without a note
+    paragraphs = random.sample(book.content.paragraphs, 1)
+    book.content.highlight(target=paragraphs[0], offset=Highlight.ENTIRE, color=Color.GREEN)
+    highlight_no_note = book.content.highlight_ids[0]
+    note_text = Utilities.random_string()
+
+    book.reload()
+
+    # WHEN: Tab to the highlight and hit H key
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys("H").perform())
+
+    # AND: Enter the note in the textbox and hit cancel
+    ActionChains(selenium).send_keys(note_text).perform()
+    ActionChains(selenium).send_keys(Keys.TAB * 2).send_keys(Keys.ENTER).perform()
+
+    # THEN: The corresponding highlight in the content page is not updated with any note info
+    Utilities.click_option(
+        driver=selenium,
+        element=book.content.get_highlight(by_id=highlight_no_note)[0],
+        scroll_to=-130,
+    )
+
+    assert (
+        book.content.highlight_box.note == ""
+    ), "the note is added to highlight even on clicking Cancel"
+
+    book.reload()
+
+    # WHEN: Tab to the highlight and hit H key
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.ENTER).perform())
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys("H").perform())
+
+    # AND: Enter the note in the textbox and hit save
+    (
+        ActionChains(selenium)
+        .send_keys(note_text)
+        .send_keys(Keys.TAB)
+        .send_keys(Keys.ENTER)
+        .perform()
+    )
+
+    # THEN: The corresponding highlight in the content page is not updated with any note info
+    Utilities.click_option(
+        driver=selenium,
+        element=book.content.get_highlight(by_id=highlight_no_note)[0],
+        scroll_to=-130,
+    )
+
+    assert (
+        book.content.highlight_box.note == note_text
+    ), "the note text does not match the note added"
