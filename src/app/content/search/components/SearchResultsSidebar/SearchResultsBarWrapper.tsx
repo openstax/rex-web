@@ -1,8 +1,10 @@
+import { SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import searchIcon from '../.../../../../../../assets/search-icon-v2.svg';
 import Loader from '../../../../components/Loader';
+import { assertNotNull } from '../../../../utils/assertions';
 import { Book } from '../../../types';
 import {
   fixSafariScrolling,
@@ -10,17 +12,20 @@ import {
   setSidebarHeight
 } from '../../../utils/domUtils';
 import { SearchResultContainer, SelectedResult } from '../../types';
+import RelatedKeyTerms from './RelatedKeyTerms';
 import SearchResultContainers from './SearchResultContainers';
 import * as Styled from './styled';
 
 interface ResultsSidebarProps {
   query: string | null;
   hasQuery: boolean;
+  keyTermHits: SearchResultHit[] | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
   searchResultsOpen: boolean;
   book?: Book;
   totalHits: number | null;
+  totalHitsKeyTerms: number | null;
   selectedResult: SelectedResult | null;
 }
 
@@ -72,10 +77,9 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       <Styled.SearchQuery>
         <Styled.SearchIconInsideBar src={searchIcon}/>
         <Styled.HeaderQuery>
-          {this.props.totalHits}{' '}
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
-            values={{total: this.props.totalHits}}
+            values={{search: this.props.totalHits, terms: this.props.totalHitsKeyTerms}}
           />
           <strong> &lsquo;{this.props.query}&rsquo;</strong>
         </Styled.HeaderQuery>
@@ -100,17 +104,43 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     </FormattedMessage>
   </div>;
 
-  public resultContainers = (book: Book, results: SearchResultContainer[]) => <Styled.NavOl>
-    <SearchResultContainers
-      activeSectionRef={this.activeSection}
-      selectedResult={this.props.selectedResult}
-      containers={results}
-      book={book}
-    />
-  </Styled.NavOl>;
+  public resultContainers = (book: Book, results: SearchResultContainer[] | null) => {
+    const displayRelatedKeyTerms = this.props.keyTermHits && this.props.keyTermHits.length > 0;
+    const displaySearchResults = results && results.length > 0;
+    const displaySearchResultsSectionTitle = displayRelatedKeyTerms && displaySearchResults;
+
+    if (!displayRelatedKeyTerms && !displaySearchResults) { return null; }
+
+    return <Styled.NavOl>
+      {displayRelatedKeyTerms && <RelatedKeyTerms
+        book={book}
+        keyTermHits={assertNotNull(this.props.keyTermHits, 'displayRelatedKeyTerms is true')}
+      />}
+      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle>
+        <FormattedMessage id='i18n:search-results:bar:title'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.SearchResultsSectionTitle>}
+      {displaySearchResults && <SearchResultContainers
+        activeSectionRef={this.activeSection}
+        selectedResult={this.props.selectedResult}
+        containers={assertNotNull(results, 'displaySearchResults is true')}
+        book={book}
+      />}
+    </Styled.NavOl>;
+  };
 
   public render() {
-    const { results, book, onClose, query, totalHits, selectedResult, ...propsToForward } = this.props;
+    const {
+      results,
+      book,
+      onClose,
+      query,
+      totalHits,
+      totalHitsKeyTerms,
+      selectedResult,
+      ...propsToForward
+    } = this.props;
 
     return (
       <SearchResultsBar
@@ -119,8 +149,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       >
         {!results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
-        {results && results.length === 0 ? this.noResults() : null}
-        {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
+        {results && results.length === 0 && totalHitsKeyTerms === 0 ? this.noResults() : null}
+        {book && (results || totalHitsKeyTerms) ? this.resultContainers(book, results) : null}
       </SearchResultsBar>
     );
   }
