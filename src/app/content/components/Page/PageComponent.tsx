@@ -186,10 +186,10 @@ export default class PageComponent extends Component<PagePropTypes> {
       a.addEventListener('click', handler);
     });
 
-    mapSolutions(this.container.current, (button) => {
-      const handler = toggleSolution(button, this.props.intl);
-      this.clickListeners.set(button, handler);
-      button.addEventListener('click', handler);
+    mapSolutions(this.container.current, (summary) => {
+      const handler = toggleSolution(summary, this.props.intl);
+      this.clickListeners.set(summary, handler);
+      summary.addEventListener('toggle', handler);
     });
   }
 

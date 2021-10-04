@@ -52,8 +52,15 @@ jest.mock('../../domUtils', () => ({
   scrollTo: jest.fn(),
 }));
 
-const makeEvent = () => {
+const makeClickEvent = () => {
   const event = new Event('click', { bubbles: true, cancelable: true });
+  event.preventDefault();
+  event.preventDefault = jest.fn();
+  return event;
+};
+
+const makeToggleEvent = () => {
+  const event = new Event('toggle', { bubbles: true, cancelable: true });
   event.preventDefault();
   event.preventDefault = jest.fn();
   return event;
@@ -374,17 +381,17 @@ describe('Page', () => {
           </div>
         `);
 
-        const summary = pageElement.querySelector('[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle');
+        const detailsElement = pageElement.querySelector('[data-type="solution"] > details.ui-toggle-wrapper');
         const solution = pageElement.querySelector('[data-type="solution"]');
 
-        if (!summary || !solution) {
+        if (!detailsElement || !solution) {
           return expect(false).toBe(true);
         }
 
         expect(solution.matches('.ui-solution-visible')).toBe(false);
-        summary.dispatchEvent(makeEvent());
+        detailsElement.dispatchEvent(makeToggleEvent());
         expect(solution.matches('.ui-solution-visible')).toBe(true);
-        summary.dispatchEvent(makeEvent());
+        detailsElement.dispatchEvent(makeToggleEvent());
         expect(solution.matches('.ui-solution-visible')).toBe(false);
       });
 
@@ -435,17 +442,17 @@ describe('Page', () => {
           </div>
         `);
 
-        const button = pageElement.querySelector('[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle');
+        const detailsElement = pageElement.querySelector('[data-type="solution"] > details.ui-toggle-wrapper');
         const solution = pageElement.querySelector('[data-type="solution"]');
 
-        if (!button || !solution) {
+        if (!detailsElement || !solution) {
           return expect(false).toBe(true);
         }
 
-        Object.defineProperty(button.parentElement, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeEvent())).not.toThrow();
-        Object.defineProperty(button, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeEvent())).not.toThrow();
+        Object.defineProperty(detailsElement.parentElement, 'parentElement', {value: null, writable: true});
+        expect(() => detailsElement.dispatchEvent(makeToggleEvent())).not.toThrow();
+        Object.defineProperty(detailsElement, 'parentElement', {value: null, writable: true});
+        expect(() => detailsElement.dispatchEvent(makeToggleEvent())).not.toThrow();
       });
     });
 
@@ -515,10 +522,10 @@ describe('Page', () => {
       return;
     }
 
-    const evt1 = makeEvent();
-    const evt2 = makeEvent();
-    const evt3 = makeEvent();
-    const evt4 = makeEvent();
+    const evt1 = makeClickEvent();
+    const evt2 = makeClickEvent();
+    const evt3 = makeClickEvent();
+    const evt4 = makeClickEvent();
 
     firstLink.dispatchEvent(evt1);
     secondLink.dispatchEvent(evt2);
@@ -569,7 +576,7 @@ describe('Page', () => {
       return;
     }
 
-    const event = makeEvent();
+    const event = makeClickEvent();
     lastLink.dispatchEvent(event);
 
     expect(event.preventDefault).not.toHaveBeenCalled();
@@ -597,7 +604,7 @@ describe('Page', () => {
       return expect(firstLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent();
+    const evt1 = makeClickEvent();
 
     firstLink.dispatchEvent(evt1);
 
@@ -642,7 +649,7 @@ describe('Page', () => {
       return expect(hashLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent();
+    const evt1 = makeClickEvent();
 
     hashLink.dispatchEvent(evt1);
 
@@ -674,7 +681,7 @@ describe('Page', () => {
       return expect(archiveLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent();
+    const evt1 = makeClickEvent();
 
     archiveLink.dispatchEvent(evt1);
 

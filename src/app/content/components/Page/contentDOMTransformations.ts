@@ -1,4 +1,4 @@
-import { Document, HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLDetailsElement, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { assertNotNull } from '../../../utils';
 
@@ -28,17 +28,17 @@ const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
   }
 };
 
-export const toggleSolution = (button: HTMLElement, intl: IntlShape) => () => {
-  if (!button.parentElement || !button.parentElement.parentElement) {
+export const toggleSolution = (summaryElement: HTMLElement, intl: IntlShape) => () => {
+  if (!summaryElement.parentElement || !summaryElement.parentElement.parentElement) {
     return;
   }
-  toggleSolutionAttributes(button.parentElement.parentElement, intl);
+  toggleSolutionAttributes(summaryElement.parentElement, intl);
 };
 
-export const mapSolutions = (container: HTMLElement | null, cb: (a: HTMLButtonElement) => void) => {
+export const mapSolutions = (container: HTMLElement | null, cb: (a: HTMLDetailsElement) => void) => {
   if (container) {
-    Array.from(container.querySelectorAll<HTMLButtonElement>(
-      '[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle, .solution > .ui-toggle-wrapper > .ui-toggle'
+    Array.from(container.querySelectorAll<HTMLDetailsElement>(
+      '[data-type="solution"] > details.ui-toggle-wrapper, .solution > details.ui-toggle-wrapper'
     )).forEach(cb);
   }
 };
