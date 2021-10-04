@@ -117,6 +117,7 @@ export const loggedAndQueryMissingLocationIds = createSelector(
   filtersFromQuery,
   defaultLocationFilter,
   (notLoggedIn, queryFilters, defaultFilter) =>
+  // !state.summary.filters.locationIds.length && !state.summary.filters.colors.length
     !notLoggedIn && queryFilters.locationIds.length === 0 && defaultFilter
 );
 

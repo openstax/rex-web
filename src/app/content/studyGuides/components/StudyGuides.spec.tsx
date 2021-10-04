@@ -16,7 +16,7 @@ import { SummaryHighlights } from '../../highlights/types';
 import { getHighlightLocationFilterForPage } from '../../highlights/utils';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
-import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides, setSummaryFilters } from '../actions';
+import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides } from '../actions';
 import { studyGuidesLocationFilters } from '../selectors';
 import StudyGuides, { NoStudyGuidesTip } from './StudyGuides';
 
@@ -155,7 +155,8 @@ describe('StudyGuides', () => {
     } as SummaryHighlights;
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [firstLocation.id, secondLocation.id]}));
+      // set filters
+      // store.dispatch(setSummaryFilters({locationIds: [firstLocation.id, secondLocation.id]}));
       store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
     });
 
@@ -169,7 +170,8 @@ describe('StudyGuides', () => {
     expect(component.root.findAllByType(LoaderWrapper).length).toEqual(0);
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [firstLocation.id, secondLocation.id]}));
+      // set filters
+      // store.dispatch(setSummaryFilters({locationIds: [firstLocation.id, secondLocation.id]}));
     });
 
     const isLoading = component.root.findByType(LoaderWrapper);

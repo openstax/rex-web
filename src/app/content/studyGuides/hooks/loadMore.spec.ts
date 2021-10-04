@@ -16,7 +16,6 @@ import {
   openStudyGuides,
   receiveStudyGuidesTotalCounts,
   receiveSummaryStudyGuides,
-  setSummaryFilters,
   toggleStudyGuidesSummaryLoading,
 } from '../actions';
 import { colorfilterLabels } from '../constants';
@@ -81,10 +80,11 @@ describe('loadMore', () => {
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage11-uuid']},
       'testbook1-testpage8-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage8-uuid']},
     }));
-    store.dispatch(setSummaryFilters({
-      colors: Array.from(colorfilterLabels),
-      locationIds: ['testbook1-testchapter1-uuid'],
-    }));
+    // set filters
+    // store.dispatch(setSummaryFilters({
+    //   colors: Array.from(colorfilterLabels),
+    //   locationIds: ['testbook1-testchapter1-uuid'],
+    // }));
 
     const page1 = createTestHighlights({
       amount: highlightsCount['testbook1-testpage2-uuid'],
@@ -191,10 +191,11 @@ describe('loadMore', () => {
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
-    store.dispatch(setSummaryFilters({
-      colors: Array.from(colorfilterLabels),
-      locationIds: ['testbook1-testchapter1-uuid'],
-    }));
+    // set filters
+    // store.dispatch(setSummaryFilters({
+    //   colors: Array.from(colorfilterLabels),
+    //   locationIds: ['testbook1-testchapter1-uuid'],
+    // }));
 
     const page1 = createTestHighlights({
       amount: 5,
@@ -244,10 +245,11 @@ describe('loadMore', () => {
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
-    store.dispatch(setSummaryFilters({
-      colors: Array.from(colorfilterLabels),
-      locationIds: ['testbook1-testchapter1-uuid'],
-    }));
+        // set filters
+    // store.dispatch(setSummaryFilters({
+    //   colors: Array.from(colorfilterLabels),
+    //   locationIds: ['testbook1-testchapter1-uuid'],
+    // }));
 
     try {
       await hook(store.dispatch(loadMoreStudyGuides()));
@@ -272,10 +274,11 @@ describe('loadMore', () => {
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
-    store.dispatch(setSummaryFilters({
-      colors: Array.from(colorfilterLabels),
-      locationIds: ['testbook1-testchapter1-uuid'],
-    }));
+        // set filters
+    // store.dispatch(setSummaryFilters({
+    //   colors: Array.from(colorfilterLabels),
+    //   locationIds: ['testbook1-testchapter1-uuid'],
+    // }));
 
     try {
       await hook(store.dispatch(loadMoreStudyGuides()));

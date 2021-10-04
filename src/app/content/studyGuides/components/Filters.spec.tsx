@@ -25,7 +25,6 @@ import {
   printStudyGuides,
   receiveStudyGuidesTotalCounts,
   receiveSummaryStudyGuides,
-  setSummaryFilters,
   updateSummaryFilters as updateSummaryFiltersAction,
 } from '../actions';
 import { colorfilterLabels, modalUrlName } from '../constants';
@@ -58,10 +57,11 @@ describe('Filters', () => {
   it('matches snapshot with UTG banner open (opened initially)', () => {
     const chapterId = stripIdVersion(book.tree.contents[2].id);
     store.dispatch(receiveBook(book));
-    store.dispatch(setSummaryFilters({
-      colors: Array.from(colorfilterLabels),
-      locationIds: [chapterId],
-    }));
+    // set filters
+    // store.dispatch(setSummaryFilters({
+    //   colors: Array.from(colorfilterLabels),
+    //   locationIds: [chapterId],
+    // }));
     store.dispatch(receiveStudyGuidesTotalCounts({
       [chapterId]: {
         [HighlightColorEnum.Green]: 1,
@@ -87,7 +87,8 @@ describe('Filters', () => {
   });
 
   it('renders correct label keys for color dropdown', () => {
-    store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
+    // set filters
+    // store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
     const pageId = stripIdVersion(book.tree.contents[0].id);
     store.dispatch(receiveStudyGuidesTotalCounts({
       [pageId]: {
@@ -150,7 +151,8 @@ describe('Filters', () => {
 
   it('dispatches updateSummaryFilters action on selecting colors and chapters', () => {
     const chapter = findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid')!;
-    store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
+    // set summary filters
+    // store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
     store.dispatch(receiveBook(book));
     store.dispatch(receiveStudyGuidesTotalCounts({
       [chapter.id]: {
@@ -229,7 +231,8 @@ describe('Filters', () => {
 
   it('dispatches updateSummaryFilters when removing selected colors from FiltersList', () => {
     store.dispatch(receiveUser({} as any));
-    store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
+    // set filters
+    // store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
     const pageId = stripIdVersion(book.tree.contents[0].id);
     store.dispatch(receiveStudyGuidesTotalCounts({
       [pageId]: {
