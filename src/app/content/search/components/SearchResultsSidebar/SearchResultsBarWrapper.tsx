@@ -59,10 +59,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public activeSection = React.createRef<HTMLElement>();
   public searchSidebarHeader = React.createRef<HTMLElement>();
 
-  public totalResults = () => {
-    console.log('key term hits - ', this.props.totalHitsKeyTerms);
-    return (
-    <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
+  public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
     <Styled.SearchResultsHeader>
       <Styled.SearchResultsHeaderTitle>
         <FormattedMessage id='i18n:search-results:bar:header:title'>
@@ -88,8 +85,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         </Styled.HeaderQuery>
       </Styled.SearchQuery>
     </Styled.SearchQueryWrapper>
-  </Styled.SearchResultsTopBar>
-)};
+  </Styled.SearchResultsTopBar>;
+  
   public noResults = () => <div>
     <Styled.CloseIconWrapper>
       <Styled.CloseIconButton onClick={this.props.onClose}>
