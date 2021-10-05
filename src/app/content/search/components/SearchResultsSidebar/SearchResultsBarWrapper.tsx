@@ -86,7 +86,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       </Styled.SearchQuery>
     </Styled.SearchQueryWrapper>
   </Styled.SearchResultsTopBar>;
-  
+
   public noResults = () => <div>
     <Styled.CloseIconWrapper>
       <Styled.CloseIconButton onClick={this.props.onClose}>
