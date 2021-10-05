@@ -191,12 +191,21 @@ export const findSearchResultHit = (
 export const matchKeyTermHit = (hit: SearchResultHit) =>
   hit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm;
 
+const generateKeyTermExcerpt = (text: string) => {
+  if (text.length <= 115) {
+    return text;
+  }
+  const subString = text.substr(0, 110);
+  return `${subString.substr(0, subString.lastIndexOf(' '))} ...`;
+};
+
 export const getKeyTermPair = (htmlString: string, elementId: string) => {
   const domParser = new DOMParser();
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   const pair = domNode.getElementById(elementId);
+  const definition = pair.querySelector('dd').innerText;
   return {
-    definition: pair.querySelector('dd').innerHTML,
+    definition: generateKeyTermExcerpt(definition),
     term: pair.querySelector('dt').innerText,
   };
 };
