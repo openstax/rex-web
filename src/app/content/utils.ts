@@ -124,3 +124,8 @@ export const getIdFromPageParam = (param: Params['page'] | null) => {
   if (!param) { return ''; }
   return (param as SlugParams).slug || (param as UuidParams).uuid;
 };
+
+export const loadPageContent = async(loader: ReturnType<AppServices['archiveLoader']['book']>, pageId: string) => {
+  const page = await loader.page(pageId).load();
+  return page ? page.content : null;
+};

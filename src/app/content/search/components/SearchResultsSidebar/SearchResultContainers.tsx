@@ -10,7 +10,7 @@ import { closeSearchResultsMobile, selectSearchResult } from '../../actions';
 import { isSearchResultChapter } from '../../guards';
 import * as selectSearch from '../../selectors';
 import { SearchResultChapter, SearchResultContainer,
-  SearchResultPage, SearchScrollTarget, SelectedResult } from '../../types';
+  SearchResultPage, SelectedResult } from '../../types';
 import SearchResultHits from './SearchResultHits';
 import * as Styled from './styled';
 
