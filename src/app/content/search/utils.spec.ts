@@ -1,5 +1,5 @@
 import Highlighter from '@openstax/highlighter';
-import { SearchResult } from '@openstax/open-search-client/dist/models/SearchResult';
+import { SearchResult } from '@openstax/open-search-client/models/SearchResult';
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import * as mockArchive from '../../..//test/mocks/archiveLoader';
 import * as rangyHelpers from '../../../helpers/rangy';

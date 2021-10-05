@@ -84,7 +84,7 @@ export const getIndexData = (indexName: string) => {
 };
 
 export const countTotalHighlights = (results: SearchResultHit[]) => {
-  return results.reduce((count, hit) => count + hit.highlight.visibleContent?.length, 0);
+  return results.reduce((count, hit) => count + hit.highlight.visibleContent.length, 0);
 };
 
 export const countUniqueKeyTermHighlights = (results: SearchResultHit[]) => results.filter((el, index, array) =>
@@ -195,7 +195,8 @@ export const getKeyTermPair = (htmlString: string, elementId: string) => {
   const domParser = new DOMParser();
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   const pair = domNode.getElementById(elementId);
-  const term = pair.querySelector('dt').innerText;
-  const definition = pair.querySelector('dd').innerHTML;
-  return { term, definition };
+  return {
+    definition: pair.querySelector('dd').innerHTML,
+    term: pair.querySelector('dt').innerText,
+  };
 };

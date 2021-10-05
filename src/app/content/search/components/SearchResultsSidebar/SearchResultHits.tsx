@@ -1,4 +1,4 @@
-import { SearchResultHit, SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client';
+import { SearchResultHit } from '@openstax/open-search-client';
 import isEqual from 'lodash/fp/isEqual';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { loadPageContent } from '../../../utils';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { isKeyTermHit } from '../../guards';
 import { selectedResult as selectedResultSelector } from '../../selectors';
-import { KeyTermHit, SearchScrollTarget } from '../../types';
+import { SearchScrollTarget } from '../../types';
 import { getKeyTermPair } from '../../utils';
 import RelatedKeyTermContent from './RelatedKeyTermContent';
 import * as Styled from './styled';
@@ -34,14 +34,12 @@ const SearchResultHits = ({ activeSectionRef, book, hits, getPage, testId, onCli
       return;
     }
 
-    const keyTermsHits = hits.filter((searchHit) =>
-      searchHit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm);
+    const keyTermsHits = hits.filter((searchHit) => isKeyTermHit(searchHit));
 
     const getKeyTermsPages = async() => {
       keyTermsHits.forEach(async(hit) => {
         const content = await loadPageContent(loader, stripIdVersion(hit.source.pageId)) || '';
-        const pair = getKeyTermPair(content, hit.source.elementId);
-        setKeyTerms((pages) => ({...pages, [hit.source.elementId]: pair}));
+        setKeyTerms((pages) => ({...pages, [hit.source.elementId]: getKeyTermPair(content, hit.source.elementId)}));
       });
     };
 
@@ -50,10 +48,9 @@ const SearchResultHits = ({ activeSectionRef, book, hits, getPage, testId, onCli
 
   return <React.Fragment>
     {hits.map((hit) => {
-      if (hit.source.elementType === 'key_term') {
-        const id = hit.source.elementId;
-        const pair = (keyTerms as {[key: string]: any})[id];
-        (hit as KeyTermHit).highlight.term = (pair && pair.term) || hit.highlight.title;
+      if (isKeyTermHit(hit)) {
+        const pair = (keyTerms as {[key: string]: any})[hit.source.elementId];
+        hit.highlight.term = (pair && pair.term) || hit.highlight.title;
         hit.highlight.visibleContent = (pair && pair.definition) ? [pair.definition] : hit.highlight.visibleContent;
       }
 
