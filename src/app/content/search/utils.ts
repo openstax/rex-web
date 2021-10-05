@@ -87,6 +87,9 @@ export const countTotalHighlights = (results: SearchResultHit[]) => {
   return results.reduce((count, hit) => count + hit.highlight.visibleContent?.length, 0);
 };
 
+export const countUniqueKeyTermHighlights = (results: SearchResultHit[]) => results.filter((el, index, array) =>
+    array.findIndex((hit) => hit.source.elementId === el.source.elementId) === index).length;
+
 const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);
 
 const getHighlightRanges = (element: HTMLElement, highlight: string, index: number): RangyRange[] => {

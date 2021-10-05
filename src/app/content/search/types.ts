@@ -38,7 +38,7 @@ export interface SearchScrollTarget extends ScrollTarget {
 }
 
 interface SearchResultHitHighlightKeyTerm extends SearchResultHitHighlight {
-  title: string;
+  term: string;
 }
 
 interface SearchResultHitSourceKeyTerm extends SearchResultHitSource {

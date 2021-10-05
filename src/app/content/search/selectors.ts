@@ -1,6 +1,12 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { countTotalHighlights, getFormattedSearchResults, getSearchResultsForPage, matchKeyTermHit } from './utils';
+import {
+  countTotalHighlights,
+  countUniqueKeyTermHighlights,
+  getFormattedSearchResults,
+  getSearchResultsForPage,
+  matchKeyTermHit
+} from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -44,7 +50,7 @@ export const totalHits = createSelector(
 
 export const totalHitsKeyTerms = createSelector(
   keyTermHits,
-  (keyTermHitsOrNull) => keyTermHitsOrNull ? countTotalHighlights(keyTermHitsOrNull) : null
+  (keyTermHitsOrNull) => keyTermHitsOrNull ? countUniqueKeyTermHighlights(keyTermHitsOrNull) : null
 );
 
 export const getRawResults = createSelector(

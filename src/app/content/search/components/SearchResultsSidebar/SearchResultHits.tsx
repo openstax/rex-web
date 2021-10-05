@@ -8,7 +8,7 @@ import { loadPageContent } from '../../../utils';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { isKeyTermHit } from '../../guards';
 import { selectedResult as selectedResultSelector } from '../../selectors';
-import { SearchScrollTarget } from '../../types';
+import { KeyTermHit, SearchScrollTarget } from '../../types';
 import { getKeyTermPair } from '../../utils';
 import RelatedKeyTermContent from './RelatedKeyTermContent';
 import * as Styled from './styled';
@@ -53,11 +53,9 @@ const SearchResultHits = ({ activeSectionRef, book, hits, getPage, testId, onCli
       if (hit.source.elementType === 'key_term') {
         const id = hit.source.elementId;
         const pair = (keyTerms as {[key: string]: any})[id];
-        hit.highlight.title = (pair && pair.term) || hit.highlight.title;
+        (hit as KeyTermHit).highlight.term = (pair && pair.term) || hit.highlight.title;
         hit.highlight.visibleContent = (pair && pair.definition) ? [pair.definition] : hit.highlight.visibleContent;
       }
-      // then replace visibleContent and title with that
-      // then always display both, with truncation
 
       return hit.highlight.visibleContent?.map((highlight: string, index: number) => {
         const thisResult = {result: hit, highlight: index};
