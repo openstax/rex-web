@@ -32,9 +32,7 @@ export const getFormattedSearchResults = (bookTree: ArchiveTree, searchResults: 
 
 export const getSearchResultsForPage = (page: {id: string}, results: SearchResult) =>
   sortBy('source.pagePosition',
-    results.hits.hits.filter(
-      (result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id))
-      // (result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id) && !matchKeyTermHit(result))
+    results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id))
   );
 
 const filterTreeForSearchResults = (
