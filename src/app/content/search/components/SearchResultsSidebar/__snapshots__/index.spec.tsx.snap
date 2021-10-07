@@ -187,19 +187,12 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         >
           <span
             className="styled__KeyTerm-as3fh1-27 eskZsd"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "term1 - selected",
-              }
-            }
-          />
-          <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "descritpion 1",
-              }
-            }
-          />
+          >
+            term1 - selected
+          </span>
+          <div>
+            descritpion 1
+          </div>
         </div>
       </a>
       <a
@@ -236,19 +229,12 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         >
           <span
             className="styled__KeyTerm-as3fh1-27 eskZsd"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "term2",
-              }
-            }
-          />
-          <div
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "descritpion 2",
-              }
-            }
-          />
+          >
+            term2
+          </span>
+          <div>
+            descritpion 2
+          </div>
         </div>
       </a>
     </div>
@@ -257,6 +243,94 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
     >
       Search Results
     </span>
+    <li
+      className="styled__NavItem-as3fh1-17 fSMHWV"
+    >
+      <div
+        className="styled__LinkWrapper-as3fh1-15 eGzsKN"
+      >
+        <div
+          className="styled__SearchResultsLink-as3fh1-13 hmjTQN"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<span class=\\"os-text\\">Test Page 1</span>",
+            }
+          }
+        />
+      </div>
+    </li>
+    <li
+      className="styled__ListItem-as3fh1-23 bWFiQo"
+    >
+      <details
+        className="Details-xi326o-3 styled__Details-as3fh1-10 iKswOJ"
+        open={true}
+      >
+        <summary
+          className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-12 gjDctA"
+          tabIndex={0}
+        >
+          <div
+            className="styled__SearchBarSummaryContainer-as3fh1-11 jCqvcP"
+            tabIndex={-1}
+          >
+            <svg
+              aria-hidden="true"
+              className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+              fill="currentColor"
+              focusable="false"
+              viewBox="0 0 192 512"
+            >
+              <path
+                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                fill="currentColor"
+              />
+            </svg>
+            <svg
+              aria-hidden="true"
+              className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+              fill="currentColor"
+              focusable="false"
+              viewBox="0 0 320 512"
+            >
+              <path
+                d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                fill="currentColor"
+              />
+            </svg>
+            <span
+              className="styled__SummaryTitle-as3fh1-9 dkRcSL"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+                }
+              }
+            />
+          </div>
+        </summary>
+        <ol
+          className="styled__DetailsOl-as3fh1-16 eIxJTm"
+        >
+          <li
+            className="styled__NavItem-as3fh1-17 fSMHWV"
+          >
+            <div
+              aria-label="Current Page"
+              className="styled__LinkWrapper-as3fh1-15 eGzsKN"
+            >
+              <div
+                className="styled__SearchResultsLink-as3fh1-13 hmjTQN"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
+                  }
+                }
+              />
+            </div>
+          </li>
+        </ol>
+      </details>
+    </li>
     <li
       className="styled__ListItem-as3fh1-23 bWFiQo"
     >

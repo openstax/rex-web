@@ -11,6 +11,7 @@ import { isSearchResultChapter } from '../../guards';
 import * as selectSearch from '../../selectors';
 import { SearchResultChapter, SearchResultContainer,
   SearchResultPage, SelectedResult } from '../../types';
+import { matchKeyTermHit } from '../../utils';
 import SearchResultHits from './SearchResultHits';
 import * as Styled from './styled';
 
@@ -79,7 +80,7 @@ const SearchResult = (props: {
     <SearchResultHits
       activeSectionRef={props.activeSectionRef}
       book={props.book}
-      hits={props.page.results}
+      hits={props.page.results.filter((result) => !matchKeyTermHit(result))}
       testId='search-result'
       getPage={() => props.page}
       onClick={(result) => props.selectResult(result)}

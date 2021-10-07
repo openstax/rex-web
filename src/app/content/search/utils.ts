@@ -33,7 +33,8 @@ export const getFormattedSearchResults = (bookTree: ArchiveTree, searchResults: 
 export const getSearchResultsForPage = (page: {id: string}, results: SearchResult) =>
   sortBy('source.pagePosition',
     results.hits.hits.filter(
-      (result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id) && !matchKeyTermHit(result))
+      (result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id))
+      // (result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id) && !matchKeyTermHit(result))
   );
 
 const filterTreeForSearchResults = (
@@ -184,9 +185,7 @@ export const highlightResults = (
 export const findSearchResultHit = (
   results: SearchResultHit[],
   target: SearchScrollTarget
-): SearchResultHit | undefined => {
-  return results.find((result) => result.source.elementId === target.elementId);
-};
+): SearchResultHit | undefined => results.find((result) => result.source.elementId === target.elementId);
 
 export const matchKeyTermHit = (hit: SearchResultHit) =>
   hit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm;

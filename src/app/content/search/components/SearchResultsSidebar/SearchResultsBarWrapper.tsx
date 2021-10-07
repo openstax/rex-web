@@ -11,6 +11,7 @@ import {
   scrollSidebarSectionIntoView,
   setSidebarHeight
 } from '../../../utils/domUtils';
+import { isKeyTermHit, isSearchResultPage } from '../../guards';
 import { SearchResultContainer, SelectedResult } from '../../types';
 import RelatedKeyTerms from './RelatedKeyTerms';
 import SearchResultContainers from './SearchResultContainers';
@@ -106,7 +107,11 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public resultContainers = (book: Book, results: SearchResultContainer[] | null) => {
     const displayRelatedKeyTerms = this.props.keyTermHits && this.props.keyTermHits.length > 0;
-    const displaySearchResults = results && results.length > 0;
+    const nonKeyTermsResults = results && results.map((container) =>
+      isSearchResultPage(container)
+      ? container.results.map((result) => !isKeyTermHit(result))
+      : container);
+    const displaySearchResults = nonKeyTermsResults && nonKeyTermsResults.length;
     const displaySearchResultsSectionTitle = displayRelatedKeyTerms && displaySearchResults;
 
     if (!displayRelatedKeyTerms && !displaySearchResults) { return null; }
@@ -121,7 +126,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           {(msg) => msg}
         </FormattedMessage>
       </Styled.SearchResultsSectionTitle>}
-      {displaySearchResults && <SearchResultContainers
+      {displaySearchResults &&  <SearchResultContainers
         activeSectionRef={this.activeSection}
         selectedResult={this.props.selectedResult}
         containers={assertNotNull(results, 'displaySearchResults is true')}
