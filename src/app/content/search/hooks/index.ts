@@ -55,8 +55,6 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
     : currentPageHit;
 
-  console.log('selected! ', selectedResult);
-
   if (
     selectedResult
     // We are clearing selected result when requesting a new search so in the theory this should never happen
