@@ -16,7 +16,7 @@ import { createNavigationMatch } from '../../utils/navigationUtils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
-import { findFirstHitOnPage, findSearchResultHit, getFirstResult, getIndexData } from '../utils';
+import { findFirstHitOnPage, findSearchResultHit, getIndexData } from '../utils';
 import trackSearch from './trackSearch';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
@@ -37,7 +37,7 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
   services.dispatch(receiveSearchResults(results, meta));
 };
 
-export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
+export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({meta}) => {
   const state = services.getState();
   const {page: currentPage, book} = selectContent.bookAndPage(state);
   const pageIsLoading = selectContent.loadingPage(state);
@@ -53,7 +53,9 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const currentPageHit = currentPage && findFirstHitOnPage(results, currentPage.id);
   const selectedResult = searchResultHit && meta.searchScrollTarget
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
-    : currentPageHit || getFirstResult(book, payload);
+    : currentPageHit;
+
+  console.log('selected! ', selectedResult);
 
   if (
     selectedResult
