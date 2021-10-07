@@ -58,6 +58,11 @@ export const getRawResults = createSelector(
   (state) => state.results
 );
 
+export const hasNonKeyTermResults = createSelector(
+  getRawResults,
+  (rawResults) => !!(rawResults && rawResults.hits.hits.find((hit) => !matchKeyTermHit(hit)))
+);
+
 export const results = createSelector(
   getRawResults,
   parentSelectors.book,

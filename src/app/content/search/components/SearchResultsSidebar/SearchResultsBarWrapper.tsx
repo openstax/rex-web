@@ -11,7 +11,6 @@ import {
   scrollSidebarSectionIntoView,
   setSidebarHeight
 } from '../../../utils/domUtils';
-import { isKeyTermHit, isSearchResultPage } from '../../guards';
 import { SearchResultContainer, SelectedResult } from '../../types';
 import RelatedKeyTerms from './RelatedKeyTerms';
 import SearchResultContainers from './SearchResultContainers';
@@ -19,6 +18,7 @@ import * as Styled from './styled';
 
 interface ResultsSidebarProps {
   query: string | null;
+  hasNonKeyTermResults: boolean;
   hasQuery: boolean;
   keyTermHits: SearchResultHit[] | null;
   results: SearchResultContainer[] | null;
@@ -107,11 +107,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public resultContainers = (book: Book, results: SearchResultContainer[] | null) => {
     const displayRelatedKeyTerms = this.props.keyTermHits && this.props.keyTermHits.length > 0;
-    const nonKeyTermsResults = results && results.map((container) =>
-      isSearchResultPage(container)
-      ? container.results.map((result) => !isKeyTermHit(result))
-      : container);
-    const displaySearchResults = nonKeyTermsResults && nonKeyTermsResults.length;
+    const displaySearchResults = this.props.hasNonKeyTermResults;
     const displaySearchResultsSectionTitle = displayRelatedKeyTerms && displaySearchResults;
 
     if (!displayRelatedKeyTerms && !displaySearchResults) { return null; }
