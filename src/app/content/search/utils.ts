@@ -93,7 +93,7 @@ const filterTreeForSearchResults = (
       if (contents.length > 0) {
         containers.push({...child, contents});
       }
-    } else { // must be a non-chapter ArchiveTree
+    } else { // must be an non-chapter ArchiveTree
       containers.push(...filterTreeForSearchResults(child, searchResults));
     }
   }
@@ -220,7 +220,9 @@ export const highlightResults = (
 export const findSearchResultHit = (
   results: SearchResultHit[],
   target: SearchScrollTarget
-): SearchResultHit | undefined => results.find((result) => result.source.elementId === target.elementId);
+): SearchResultHit | undefined => {
+  return results.find((result) => result.source.elementId === target.elementId);
+};
 
 export const matchKeyTermHit = (hit: SearchResultHit) =>
   hit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm;
