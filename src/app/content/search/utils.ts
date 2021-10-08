@@ -42,9 +42,9 @@ const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
   parent.contents.map((child) => ({...child, parent}));
 
 export const getSearchResultsForPage = (page: {id: string}, results: SearchResult) =>
-sortBy('source.pagePosition',
-  results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id))
-);
+  sortBy('source.pagePosition',
+    results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id))
+  );
 
 export const filterTreeForHits = (
   node: LinkedArchiveTree,
