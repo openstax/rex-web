@@ -53,8 +53,10 @@ export const getPositions = (target: HTMLElement, isMobile: boolean, windowWidth
   const contentWrapperTopOffset = arrowTopOffset
     + remsToPx(isMobile ? arrowMobileHeight : arrowDesktopHeight)
     + remsToPx(contentMarginTop);
-  const contentWrapperRight = windowWidth - right - padding;
-  const closeButtonLeft = left + spotlightWidth;
+  // additional margin is added to prevent cutting off the close button
+  const additionalRightMargin = windowWidth - left - spotlightWidth < remsToPx(4) && !isMobile ? remsToPx(4) : 0;
+  const contentWrapperRight = windowWidth - right - padding + additionalRightMargin;
+  const closeButtonLeft = left + spotlightWidth - additionalRightMargin;
   const closeButtonTopOffset = contentWrapperTopOffset - remsToPx(closeButtonDistanceFromContent);
 
   return {
