@@ -204,10 +204,9 @@ describe('NudgeStudyTools', () => {
     jest.spyOn(utils, 'usePositions')
       .mockReturnValue(mockPositions);
 
-    const spyFocusWrapper = jest.fn();
-    const createNodeMock = () => ({
-      focus: spyFocusWrapper,
-    });
+    const contentWrapperElement = assertDocument().createElement('div');
+    const spyFocus = jest.spyOn(contentWrapperElement, 'focus');
+    const createNodeMock = () => contentWrapperElement;
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -219,7 +218,7 @@ describe('NudgeStudyTools', () => {
 
     runHooks(renderer);
 
-    expect(spyFocusWrapper).toHaveBeenCalledTimes(1);
+    expect(spyFocus).toHaveBeenCalledTimes(1);
   });
 
   it('sets overflow hidden for body element and resets it', () => {
@@ -300,5 +299,31 @@ describe('NudgeStudyTools', () => {
     });
 
     expect(() => component.root.findByType(NudgeContentWrapper)).toThrow();
+  });
+
+  it('closes on esc', () => {
+    store.dispatch(openNudgeStudyTools());
+
+    jest.spyOn(utils, 'usePositions').mockReturnValue(mockPositions);
+    const useOnEscSpy = jest.spyOn(reactUtils, 'useOnEsc');
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NudgeStudyTools/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
+
+    renderer.act(() => {
+      useOnEscSpy.mock.calls[0][2]();
+    });
+
+    runHooks(renderer);
+
+    expect(() => component.root.findByType(NudgeContentWrapper)).toThrow();
+    useOnEscSpy.mockClear();
   });
 });
