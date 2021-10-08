@@ -38,10 +38,19 @@ export const getKeyTermResults = (searchResults: SearchResult) => ({
 export const getFormattedKeyTermResults = (bookTree: ArchiveTree, searchResults: SearchResult) =>
   filterTreeForSearchResults(linkArchiveTree(bookTree), getKeyTermResults(searchResults));
 
-export const getSortedKeyTermHits = (node: LinkedArchiveTree, searchResults: SearchResult) => {
-  const hits: SearchResultHit[] = [];
-  const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
-    parent.contents.map((child) => ({...child, parent}));
+const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
+  parent.contents.map((child) => ({...child, parent}));
+
+export const getSearchResultsForPage = (page: {id: string}, results: SearchResult) =>
+sortBy('source.pagePosition',
+  results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id))
+);
+
+export const filterTreeForHits = (
+  node: LinkedArchiveTree,
+  searchResults: SearchResult
+  ): SearchResultHit[] => {
+  let hits: SearchResultHit[] = [];
 
   for (const child of linkContents(node)) {
     if (archiveTreeSectionIsPage(child)) {
@@ -49,34 +58,28 @@ export const getSortedKeyTermHits = (node: LinkedArchiveTree, searchResults: Sea
 
       if (results.length > 0) {
         results.forEach((result) => hits.push(result));
+        hits = [...hits, ...results.map((result) => result)];
       }
     } else if (archiveTreeSectionIsChapter(child)) {
-      const contents = getSortedKeyTermHits(child, searchResults);
+      const contents = filterTreeForHits(child, searchResults);
 
       if (contents.length > 0) {
         contents.forEach((pg) => hits.push(pg));
+        hits = [...hits, ...contents.map((section) => section)];
       }
-    } else { // must be an non-chapter ArchiveTree
-      hits.push(...getSortedKeyTermHits(child, searchResults));
+    } else { // must be a non-chapter ArchiveTree
+      hits.push(...filterTreeForHits(child, searchResults));
     }
   }
 
   return hits;
 };
 
-export const getSearchResultsForPage = (page: {id: string}, results: SearchResult) =>
-  sortBy('source.pagePosition',
-    results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id))
-  );
-
 const filterTreeForSearchResults = (
   node: LinkedArchiveTree,
   searchResults: SearchResult
 ): SearchResultContainer[]  => {
   const containers: SearchResultContainer[] = [];
-  const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
-    parent.contents.map((child) => ({...child, parent}));
-
   for (const child of linkContents(node)) {
     if (archiveTreeSectionIsPage(child)) {
       const results = getSearchResultsForPage(child, searchResults);
@@ -90,7 +93,7 @@ const filterTreeForSearchResults = (
       if (contents.length > 0) {
         containers.push({...child, contents});
       }
-    } else { // must be an non-chapter ArchiveTree
+    } else { // must be a non-chapter ArchiveTree
       containers.push(...filterTreeForSearchResults(child, searchResults));
     }
   }

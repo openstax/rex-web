@@ -23,7 +23,7 @@ import {
   makeSearchResults
 } from '../../../../../test/searchResults';
 import TestContainer from '../../../../../test/TestContainer';
-import { runHooksAsync } from '../../../../../test/utils';
+// import { runHooksAsync } from '../../../../../test/utils';
 import * as selectNavigation from '../../../../navigation/selectors';
 import { Store } from '../../../../types';
 import { assertDocument, assertWindow } from '../../../../utils';

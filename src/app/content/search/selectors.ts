@@ -3,11 +3,11 @@ import * as parentSelectors from '../selectors';
 import {
   countTotalHighlights,
   countUniqueKeyTermHighlights,
+  filterTreeForHits,
   getFormattedKeyTermResults,
   getFormattedSearchResults,
   getKeyTermResults,
   getSearchResultsForPage,
-  getSortedKeyTermHits,
   matchKeyTermHit
 } from './utils';
 
@@ -81,7 +81,7 @@ export const formattedkeyTermResults = createSelector(
 export const sortedKeyTermHits = createSelector(
   keyTermResults,
   parentSelectors.book,
-  (selectedResults, book) => selectedResults && book ? getSortedKeyTermHits(book.tree, selectedResults) : null
+  (selectedResults, book) => selectedResults && book ? filterTreeForHits(book.tree, selectedResults) : null
 );
 
 export const results = createSelector(
