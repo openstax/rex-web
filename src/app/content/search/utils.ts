@@ -30,6 +30,40 @@ export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult)
 export const getFormattedSearchResults = (bookTree: ArchiveTree, searchResults: SearchResult) =>
   filterTreeForSearchResults(linkArchiveTree(bookTree), searchResults);
 
+export const getKeyTermResults = (searchResults: SearchResult) => ({
+    ...searchResults,
+    hits: {...searchResults.hits, hits: searchResults.hits.hits.filter((hit) => matchKeyTermHit(hit))},
+  });
+
+export const getFormattedKeyTermResults = (bookTree: ArchiveTree, searchResults: SearchResult) =>
+  filterTreeForSearchResults(linkArchiveTree(bookTree), getKeyTermResults(searchResults));
+
+export const getSortedKeyTermHits = (node: LinkedArchiveTree, searchResults: SearchResult) => {
+  const hits: SearchResultHit[] = [];
+  const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
+    parent.contents.map((child) => ({...child, parent}));
+
+  for (const child of linkContents(node)) {
+    if (archiveTreeSectionIsPage(child)) {
+      const results = getSearchResultsForPage(child, searchResults);
+
+      if (results.length > 0) {
+        results.forEach((result) => hits.push(result));
+      }
+    } else if (archiveTreeSectionIsChapter(child)) {
+      const contents = getSortedKeyTermHits(child, searchResults);
+
+      if (contents.length > 0) {
+        contents.forEach((pg) => hits.push(pg));
+      }
+    } else { // must be an non-chapter ArchiveTree
+      hits.push(...getSortedKeyTermHits(child, searchResults));
+    }
+  }
+
+  return hits;
+};
+
 export const getSearchResultsForPage = (page: {id: string}, results: SearchResult) =>
   sortBy('source.pagePosition',
     results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id))

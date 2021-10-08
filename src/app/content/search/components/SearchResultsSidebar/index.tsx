@@ -78,7 +78,7 @@ export default connect(
     book: select.book(state),
     hasNonKeyTermResults: selectSearch.hasNonKeyTermResults(state),
     hasQuery: !!selectSearch.query(state),
-    keyTermHits: selectSearch.keyTermHits(state),
+    keyTermHits: selectSearch.sortedKeyTermHits(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),

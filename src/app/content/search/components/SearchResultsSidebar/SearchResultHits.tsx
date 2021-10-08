@@ -30,15 +30,11 @@ const SearchResultHits = ({ activeSectionRef, book, hits, getPage, testId, onCli
   const [keyTerms, setKeyTerms] = React.useState({});
 
   React.useEffect(() => {
-    if (!hits) {
-      return;
-    }
-
     const keyTermsHits = hits.filter((searchHit) => isKeyTermHit(searchHit));
 
     const getKeyTermsPages = async() => {
       keyTermsHits.forEach(async(hit) => {
-        const content = await loadPageContent(loader, stripIdVersion(hit.source.pageId)) || '';
+        const content = await loadPageContent(loader, stripIdVersion(hit.source.pageId));
         setKeyTerms((pages) => ({...pages, [hit.source.elementId]: getKeyTermPair(content, hit.source.elementId)}));
       });
     };
