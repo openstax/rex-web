@@ -57,14 +57,12 @@ export const filterTreeForHits = (
       const results = getSearchResultsForPage(child, searchResults);
 
       if (results.length > 0) {
-        results.forEach((result) => hits.push(result));
         hits = [...hits, ...results.map((result) => result)];
       }
     } else if (archiveTreeSectionIsChapter(child)) {
       const contents = filterTreeForHits(child, searchResults);
 
       if (contents.length > 0) {
-        contents.forEach((pg) => hits.push(pg));
         hits = [...hits, ...contents.map((section) => section)];
       }
     } else { // must be a non-chapter ArchiveTree
