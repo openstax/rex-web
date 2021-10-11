@@ -230,7 +230,7 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, links, modu
     (c) => `<script type="text/javascript" src="${c}"></script>`
   );
 
-  html = html.replace(/lang="en"/, `lang="${book.language}"`);
+  html = html.replace(/<html/, `<html lang="${book.language}"`);
 
   html = html.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
 
