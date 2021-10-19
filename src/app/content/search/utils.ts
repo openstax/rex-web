@@ -38,7 +38,7 @@ export const getKeyTermResults = (searchResults: SearchResult) => ({
 export const getFormattedKeyTermResults = (bookTree: ArchiveTree, searchResults: SearchResult) =>
   filterTreeForSearchResults(linkArchiveTree(bookTree), getKeyTermResults(searchResults));
 
-const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
+export const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
   parent.contents.map((child) => ({...child, parent}));
 
 export const getSearchResultsForPage = (page: {id: string}, results: SearchResult) =>
@@ -243,3 +243,6 @@ export const getKeyTermPair = (htmlString: string, elementId: string) => {
     term: pair.querySelector('dt').innerText,
   };
 };
+
+export const nonKeyTermResults = (results: SearchResultHit[]) =>
+  results.filter((result) => !matchKeyTermHit(result));

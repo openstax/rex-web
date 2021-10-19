@@ -122,7 +122,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           {(msg) => msg}
         </FormattedMessage>
       </Styled.SearchResultsSectionTitle>}
-      {displaySearchResults &&  <SearchResultContainers
+      {displaySearchResults && <SearchResultContainers
         activeSectionRef={this.activeSection}
         selectedResult={this.props.selectedResult}
         containers={assertNotNull(results, 'displaySearchResults is true')}
