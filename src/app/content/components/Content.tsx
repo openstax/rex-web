@@ -25,14 +25,16 @@ import {
   sidebarTransitionTime,
   toolbarDesktopHeight,
   toolbarMobileExpandedHeight,
-  toolbarMobileHeight
+  toolbarMobileHeight,
+  verticalNavbar
 } from './constants';
 import ContentPane from './ContentPane';
 import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
 import TableOfContents from './TableOfContents';
 import Toolbar from './Toolbar';
-import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
+import Topbar from './Topbar';
+import { areSidebarsOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 import Wrapper from './Wrapper';
 
 // tslint:disable-next-line:variable-name
@@ -64,7 +66,7 @@ const ContentNotifications = styled(Notifications)`
 const CenteredContentRow = styled.div`
   overflow: visible; /* so sidebar position: sticky works */
   margin: 0 auto;
-  max-width: ${contentWrapperMaxWidth}rem;
+  max-width: ${contentWrapperMaxWidth + verticalNavbar}rem;
 
   @media screen {
     min-height: 100%;
@@ -74,7 +76,7 @@ const CenteredContentRow = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const UndoPadding = isOpenConnector(styled.div`
+const UndoPadding = areSidebarsOpenConnector(styled.div`
   @media screen {
     overflow: visible;
     min-height: 100%;
@@ -95,7 +97,7 @@ const UndoPadding = isOpenConnector(styled.div`
 `);
 
 // tslint:disable-next-line:variable-name
-const MainContentWrapper = isOpenConnector(styled.div`
+const MainContentWrapper = areSidebarsOpenConnector(styled.div`
   @media screen {
     flex: 1;
     display: flex;
@@ -185,19 +187,20 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
       <StudyguidesPopUp />
       <PracticeQuestionsPopup />
       <NudgeStudyTools />
-      <Toolbar />
+      <Topbar />
       <OuterWrapper>
-        <SearchResultsSidebar/>
         <Wrapper>
           <CenteredContentRow>
+            <Toolbar />
             <TableOfContents />
+            <SearchResultsSidebar />
             <ContentPane>
               <UndoPadding>
                 <MainContentWrapper>
                   <ContentNotifications mobileExpanded={mobileExpanded} />
                   <Page />
                   <Attribution />
-                  <Footer/>
+                  <Footer />
                 </MainContentWrapper>
               </UndoPadding>
             </ContentPane>

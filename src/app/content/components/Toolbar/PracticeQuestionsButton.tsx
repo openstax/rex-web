@@ -19,9 +19,7 @@ export const StyledContentLink = styled(ContentLink)`
   ${toolbarDefaultButton}
   text-decoration: none;
   padding: 0;
-  align-items: center;
   color: ${toolbarIconColor.base};
-  height: 100%;
   min-width: ${buttonMinWidth};
 
   :hover,
@@ -38,8 +36,8 @@ const PracticeQuestionsIcon = styled.img`
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsText = styled.span`
   ${toolbarDefaultText}
-  font-size: 1.8rem;
-  line-height: 2.9rem;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
 `;
 
 // tslint:disable-next-line:variable-name

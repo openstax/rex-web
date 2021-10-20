@@ -14,7 +14,7 @@ import * as Styled from './styled';
 
 interface SidebarProps {
   onNavigate: () => void;
-  isOpen: State['tocOpen'];
+  isTocOpen: State['tocOpen'];
   book?: Book;
   page?: Page;
 }
@@ -35,9 +35,9 @@ export class TableOfContents extends Component<SidebarProps> {
   public activeSection = React.createRef<HTMLElement>();
 
   public render() {
-    const {isOpen, book} = this.props;
+    const {isTocOpen, book} = this.props;
 
-    return <SidebarBody isOpen={isOpen} ref={this.sidebar}>
+    return <SidebarBody isTocOpen={isTocOpen} ref={this.sidebar}>
       {this.renderTocHeader()}
       {book && this.renderToc(book)}
     </SidebarBody>;
@@ -119,7 +119,7 @@ export class TableOfContents extends Component<SidebarProps> {
 export default connect(
   (state: AppState) => ({
     ...selectors.bookAndPage(state),
-    isOpen: selectors.tocOpen(state),
+    isTocOpen: selectors.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
     onNavigate: () => dispatch(resetToc()),

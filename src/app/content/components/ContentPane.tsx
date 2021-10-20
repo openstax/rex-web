@@ -10,20 +10,22 @@ import {
   sidebarDesktopWidth,
   sidebarMobileWidth,
   sidebarTransitionTime,
+  verticalNavbar,
 } from './constants';
-import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
+import { areSidebarsOpenConnector } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
-const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
+const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>`
   @media screen {
     flex: 1;
     width: 100%;
     overflow: visible;
     transition: margin-left ${sidebarTransitionTime}ms;
-    ${styleWhenSidebarClosed(css`
-      margin-left: -${sidebarDesktopWidth}rem;
-    `)}
-
+    margin-left: -${sidebarDesktopWidth}rem;
+    margin-right: ${verticalNavbar / 2}rem;
+    ${(props) => (props.isTocOpen || props.isTocOpen ===  null || props.isSearchOpen) && `
+      margin: 0
+    `}
     ${theme.breakpoints.mobile(css`
       margin-left: -${sidebarMobileWidth}rem;
     `)}
@@ -31,21 +33,23 @@ const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
 `;
 
 interface Props {
-  isOpen: State['tocOpen'];
+  isTocOpen: State['tocOpen'];
+  isSearchOpen: boolean;
   onClick: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const ContentPane = ({isOpen, onClick, children}: React.PropsWithChildren<Props>) => <Wrapper isOpen={isOpen}>
-  {isOpen &&
-    <ScrollLock
-      onClick={onClick}
-      mobileOnly={true}
-      overlay={true}
-      zIndex={theme.zIndex.overlay}
-    />}
-  {children}
-</Wrapper>;
+const ContentPane = ({ isTocOpen, isSearchOpen, onClick, children }: React.PropsWithChildren<Props>) =>
+  <Wrapper isTocOpen={isTocOpen} isSearchOpen={isSearchOpen}>
+    {isTocOpen &&
+      <ScrollLock
+        onClick={onClick}
+        mobileOnly={true}
+        overlay={true}
+        zIndex={theme.zIndex.overlay}
+      />}
+    {children}
+  </Wrapper>;
 
 const dispatchConnector = connect(
   () => ({}),
@@ -54,4 +58,4 @@ const dispatchConnector = connect(
   })
 );
 
-export default isOpenConnector(dispatchConnector(ContentPane));
+export default areSidebarsOpenConnector(dispatchConnector(ContentPane));

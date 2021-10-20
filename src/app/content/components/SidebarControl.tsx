@@ -12,13 +12,14 @@ import { toolbarIconColor } from './constants';
 import { toolbarIconStyles } from './Toolbar/iconStyles';
 
 interface InnerProps {
+  isTocOpen: State['tocOpen'];
   message: string;
   onClick: () => void;
   className?: string;
   hideMobileText: boolean;
 }
 interface MiddleProps {
-  isOpen: State['tocOpen'];
+  isTocOpen: State['tocOpen'];
   openToc: () => void;
   closeToc: () => void;
   hideMobileText: boolean;
@@ -26,26 +27,34 @@ interface MiddleProps {
 
 // tslint:disable-next-line:variable-name
 export const ToCButtonText = styled.span`
+  font-size: 1.2rem;
+  line-height: 1.5rem;
   font-weight: 600;
-  font-size: 1.8rem;
-  line-height: 2.9rem;
   margin: 0;
   padding: 0;
+  ${(props) => props.isTocOpen && `
+    font-size: 1.8rem;
+    line-height: 2.9rem;
+  `}
   ${(props) => props.hideMobileText && theme.breakpoints.mobile(css`
     display: none;
   `)}
 `;
 
+// // tslint:disable-next-line: variable-name
+// const StyledTocIcon = styled(TocIcon)``;
+
 // tslint:disable-next-line:variable-name
 const ToCButton = styled.button`
+  display: flex;
+  align-items: center;
+  height: auto;
   color: ${toolbarIconColor.base};
   border: none;
   padding: 0;
-  margin: 0;
-  overflow: visible;
+  margin: 12px 10px;
   background: none;
-  display: flex;
-  align-items: center;
+  overflow: visible;
   cursor: pointer;
 
   :hover {
@@ -54,24 +63,30 @@ const ToCButton = styled.button`
 
   > svg {
     ${toolbarIconStyles};
-    margin-right: 0.5rem;
   }
+
+  ${(props) => !props.isTocOpen && `
+    flex-direction: column;
+    justify-content: center;
+  `}
 `;
 
 const closedMessage = 'i18n:toc:toggle:closed';
 const openMessage = 'i18n:toc:toggle:opened';
 
 // tslint:disable-next-line:variable-name
-export const SidebarControl: React.SFC<InnerProps> = ({message, hideMobileText, children, ...props}) =>
-  <ToCButton aria-label={useIntl().formatMessage({id: message})} {...props}>
-    <TocIcon />
-    <ToCButtonText hideMobileText={!!hideMobileText}>{useIntl().formatMessage({id: 'i18n:toc:title'})}</ToCButtonText>
+export const SidebarControl: React.SFC<InnerProps> = ({isTocOpen, message, hideMobileText, children, ...props}) =>
+  <ToCButton isTocOpen={isTocOpen} aria-label={useIntl().formatMessage({id: message})} {...props}>
+    {!isTocOpen ? <TocIcon /> : null}
+    <ToCButtonText isTocOpen={isTocOpen} hideMobileText={!!hideMobileText}>
+      {useIntl().formatMessage({ id: 'i18n:toc:title' })}
+    </ToCButtonText>
     {children}
   </ToCButton>;
 
 const connector = connect(
   (state: AppState) => ({
-    isOpen:  selectors.tocOpen(state),
+    isTocOpen:  selectors.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
     closeToc:  () => dispatch(actions.closeToc()),
@@ -80,13 +95,14 @@ const connector = connect(
 );
 
 // tslint:disable-next-line:variable-name
-const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
+const lockControlState = (isTocOpen: boolean, Control: React.ComponentType<InnerProps>) =>
   connector((props: MiddleProps) => <Control
     {...props}
+    isTocOpen={isTocOpen}
     data-testid='toc-button'
-    message={isOpen ? openMessage : closedMessage}
-    data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
-    onClick={isOpen ? props.closeToc : props.openToc}
+    message={isTocOpen ? openMessage : closedMessage}
+    data-analytics-label={isTocOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
+    onClick={isTocOpen ? props.closeToc : props.openToc}
   />);
 
 // tslint:disable-next-line:variable-name

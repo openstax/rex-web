@@ -12,7 +12,8 @@ import {
   sidebarTransitionTime,
   toolbarDesktopHeight,
   toolbarIconColor,
-  toolbarMobileHeight
+  toolbarMobileHeight,
+  topbarHeight
 } from '../../constants';
 import { CloseSidebarControl, ToCButtonText } from '../../SidebarControl';
 import { toolbarIconStyles } from '../../Toolbar/iconStyles';
@@ -35,10 +36,10 @@ const sidebarClosedStyle = css`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
+export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
-  margin-top: -${toolbarDesktopHeight}rem;
+  margin-top: -${topbarHeight}rem;
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
@@ -68,7 +69,7 @@ export const SidebarBody = styled.div<{isOpen: State['tocOpen']}>`
   > ol {
     -webkit-overflow-scrolling: touch;
     position: relative;
-    padding: ${sidebarPadding}rem ${sidebarPadding}rem ${sidebarPadding}rem 0.2rem;
+    padding: ${sidebarPadding}rem ${sidebarPadding}rem ${sidebarPadding}rem 1.6rem;
     flex: 1;
 
     > li:first-child {
@@ -120,7 +121,8 @@ export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' 
 // tslint:disable-next-line:variable-name
 export const SidebarHeaderButton = styled((props) => <CloseSidebarControl {...props} />)`
   display: flex;
-  margin-right: ${sidebarPadding}rem;
+  margin: 0 ${sidebarPadding}rem;
+
   flex: 1;
   ${/* stylelint broken */ css`
     ${ToCButtonText}, ${ToCHeader} {

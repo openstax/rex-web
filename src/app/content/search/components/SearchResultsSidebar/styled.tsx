@@ -18,6 +18,7 @@ import {
     toolbarDesktopHeight,
     toolbarIconColor,
     toolbarMobileHeight,
+    topbarHeight,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
 import { toolbarIconStyles } from '../../../components/Toolbar/iconStyles';
@@ -57,26 +58,26 @@ export const NavOl = styled.ol`
 
 const sidebarOpenAnimation = keyframes`
   0% {
-    transform: translateX(0);
+    transform: translateX(-100%);
   }
 
   100% {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
 `;
 
 const sidebarHideAnimation = keyframes`
   0% {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
 
   99% {
-    transform: translateX(0);
+    transform: translateX(-100%);
   }
 
   100% {
     visibility: hidden;
-    transform: translateX(0);
+    transform: translateX(-100%);
   }
 `;
 
@@ -92,16 +93,18 @@ export const SearchResultsBar = styled.div`
   -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
-  margin-top: 0;
+  margin-top: -${topbarHeight}rem;
+  margin-left: -37.5rem;
   padding: 0;
   position: sticky;
   width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${backgroundColor};
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
-  z-index: ${theme.zIndex.searchSidebar};
-  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
-  max-height: calc(100vh - ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem);
-  margin-left: -${searchResultsBarDesktopWidth}rem;
+  transform: translateX(-100%);
+  z-index: ${theme.zIndex.sidebar};
+  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
+  max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
+  // margin-right: ${searchResultsBarDesktopWidth}rem;
   animation: ${sidebarOpenAnimation} ${sidebarTransitionTime}ms forwards;
   ${styleWhenSearchClosed(css`
     animation: ${sidebarHideAnimation} ${sidebarTransitionTime}ms forwards;
