@@ -1,14 +1,12 @@
 import { SearchResultHit } from '@openstax/open-search-client';
 import isEqual from 'lodash/fp/isEqual';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useServices } from '../../../../context/Services';
 import { ArchiveTreeSection, Book } from '../../../types';
 import { loadPageContent } from '../../../utils';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { isKeyTermHit } from '../../guards';
-import { selectedResult as selectedResultSelector } from '../../selectors';
-import { SearchScrollTarget } from '../../types';
+import { SearchScrollTarget, SelectedResult } from '../../types';
 import { getKeyTermPair } from '../../utils';
 import RelatedKeyTermContent from './RelatedKeyTermContent';
 import * as Styled from './styled';
@@ -20,11 +18,13 @@ interface SearchResultHitsProps {
   testId: string;
   getPage: (hit: SearchResultHit) => ArchiveTreeSection;
   onClick: (result: {result: SearchResultHit, highlight: number}) => void;
+  selectedResult: SelectedResult | null;
 }
 
 // tslint:disable-next-line: variable-name
-const SearchResultHits = ({ activeSectionRef, book, hits, getPage, testId, onClick }: SearchResultHitsProps) => {
-  const selectedResult = useSelector(selectedResultSelector);
+const SearchResultHits = ({
+  activeSectionRef, book, hits, getPage, testId, onClick, selectedResult,
+}: SearchResultHitsProps) => {
   const { archiveLoader } = useServices();
   const loader = archiveLoader.book(book.id, book.version);
   const [keyTerms, setKeyTerms] = React.useState({});

@@ -6,11 +6,14 @@ import { assertDefined } from '../../../../utils/assertions';
 import { Book } from '../../../types';
 import { findArchiveTreeNodeById } from '../../../utils/archiveTreeUtils';
 import { closeSearchResultsMobile } from '../../actions';
+import { SelectedResult } from '../../types';
 import SearchResultHits from './SearchResultHits';
 import * as Styled from './styled';
 
 // tslint:disable-next-line: variable-name
-const RelatedKeyTerms = ({ book, keyTermHits }: { book: Book, keyTermHits: SearchResultHit[] }) => {
+const RelatedKeyTerms = ({ book, keyTermHits, selectedResult }: {
+  book: Book, keyTermHits: SearchResultHit[], selectedResult: SelectedResult | null
+}) => {
   const dispatch = useDispatch();
 
   return <Styled.RelatedKeyTerms>
@@ -25,6 +28,7 @@ const RelatedKeyTerms = ({ book, keyTermHits }: { book: Book, keyTermHits: Searc
       testId='related-key-term-result'
       getPage={(hit) => assertDefined(findArchiveTreeNodeById(book.tree, hit.source.pageId), 'hit has to be in a book')}
       onClick={() => dispatch(closeSearchResultsMobile())}
+      selectedResult={selectedResult}
     />
   </Styled.RelatedKeyTerms>;
 };

@@ -90,6 +90,7 @@ const SearchResult = (props: {
       testId='search-result'
       getPage={() => props.page}
       onClick={(result) => props.selectResult(result)}
+      selectedResult={props.selectedResult}
     />
   </Styled.NavItem>;
 };

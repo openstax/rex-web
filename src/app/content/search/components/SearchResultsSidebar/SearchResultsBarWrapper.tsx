@@ -115,6 +115,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     return <Styled.NavOl>
       {displayRelatedKeyTerms && <RelatedKeyTerms
         book={book}
+        selectedResult={this.props.selectedResult}
         keyTermHits={assertNotNull(this.props.keyTermHits, 'displayRelatedKeyTerms is true')}
       />}
       {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle>

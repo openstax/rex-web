@@ -23,7 +23,7 @@ import {
   makeSearchResults
 } from '../../../../../test/searchResults';
 import TestContainer from '../../../../../test/TestContainer';
-// import { runHooksAsync } from '../../../../../test/utils';
+import { runHooksAsync } from '../../../../../test/utils';
 import * as selectNavigation from '../../../../navigation/selectors';
 import { Store } from '../../../../types';
 import { assertDocument, assertWindow } from '../../../../utils';
@@ -139,15 +139,17 @@ describe('SearchResultsSidebar', () => {
     const selectedResult = makeSearchResultHit({
       book: archiveBook,
       elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
-      highlights: ['descritpion 1'],
+      highlights: ['description 1'],
       page,
+      sourceId: 'test-pair1',
       title: 'term1 - selected',
     });
     const otherResult = makeSearchResultHit({
       book: archiveBook,
       elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
-      highlights: ['descritpion 2'],
+      highlights: ['description 2'],
       page: pageInChapter,
+      sourceId: 'test-pair2',
       title: 'term2',
     });
     store.dispatch(
@@ -155,22 +157,19 @@ describe('SearchResultsSidebar', () => {
         makeSearchResults([
           selectedResult,
           otherResult,
-          makeSearchResultHit({ book: archiveBook, page: pageInOtherChapter }),
         ])
       )
     );
-    store.dispatch(selectSearchResult({result: selectedResult, highlight: 0}));
+    // store.dispatch(selectSearchResult({result: selectedResult, highlight: 0}));
 
     const component = renderer.create(render());
-    // component.update(render());
-
-    // await runHooksAsync(renderer);
+    await runHooksAsync(renderer);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it('closes mobile search results when related key term is is clicked', () => {
+  it('closes mobile search results when related key term is clicked', () => {
     store.dispatch(receivePage({ ...pageInChapter, references: [] }));
     store.dispatch(requestSearch('term'));
     store.dispatch(
