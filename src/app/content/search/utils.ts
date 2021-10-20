@@ -35,9 +35,6 @@ export const getKeyTermResults = (searchResults: SearchResult) => ({
     hits: {...searchResults.hits, hits: searchResults.hits.hits.filter((hit) => matchKeyTermHit(hit))},
   });
 
-export const getFormattedKeyTermResults = (bookTree: ArchiveTree, searchResults: SearchResult) =>
-  filterTreeForSearchResults(linkArchiveTree(bookTree), getKeyTermResults(searchResults));
-
 export const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
   parent.contents.map((child) => ({...child, parent}));
 

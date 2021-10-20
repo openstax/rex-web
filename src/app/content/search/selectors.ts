@@ -4,7 +4,6 @@ import {
   countTotalHighlights,
   countUniqueKeyTermHighlights,
   filterTreeForHits,
-  getFormattedKeyTermResults,
   getFormattedSearchResults,
   getKeyTermResults,
   getSearchResultsForPage,
@@ -70,12 +69,6 @@ export const keyTermResults = createSelector(
   getRawResults,
   parentSelectors.book,
   (rawResults, book) => rawResults && book ? getKeyTermResults(rawResults) : null
-);
-
-export const formattedkeyTermResults = createSelector(
-  keyTermResults,
-  parentSelectors.book,
-  (selectedResults, book) => selectedResults && book ? getFormattedKeyTermResults(book.tree, selectedResults) : null
 );
 
 export const sortedKeyTermHits = createSelector(
