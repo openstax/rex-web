@@ -222,7 +222,7 @@ export const findSearchResultHit = (
 export const matchKeyTermHit = (hit: SearchResultHit) =>
   hit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm;
 
-const generateKeyTermExcerpt = (text: string) => {
+export const generateKeyTermExcerpt = (text: string) => {
   if (text.length <= 115) {
     return text;
   }

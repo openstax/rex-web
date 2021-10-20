@@ -148,7 +148,7 @@ describe('SearchResultsSidebar', () => {
       elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
       highlights: ['description 2'],
       page: pageInChapter,
-      sourceId: 'test-pair-page2',
+      sourceId: 'test-pair-page6',
       title: 'term2',
     });
     store.dispatch(
@@ -156,6 +156,7 @@ describe('SearchResultsSidebar', () => {
         makeSearchResults([
           selectedResult,
           otherResult,
+          makeSearchResultHit({ book: archiveBook, page: pageInOtherChapter }),
         ])
       )
     );

@@ -9,7 +9,7 @@ import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResu
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { assertDocument } from '../../utils';
 import { ArchivePage, LinkedArchiveTree } from '../types';
-import { getFirstResult, getFormattedSearchResults, highlightResults } from './utils';
+import { generateKeyTermExcerpt, getFirstResult, getFormattedSearchResults, highlightResults } from './utils';
 
 jest.mock('@openstax/highlighter/dist/Highlight', () => ({
   default: class {
@@ -255,5 +255,16 @@ describe('highlightResults', () => {
 
       expect(captureException).toHaveBeenCalled();
     });
+  });
+});
+
+describe('generateKeyTermExcerpt', () => {
+  it('works with long definition', () => {
+    expect(generateKeyTermExcerpt(
+      // tslint:disable-next-line: max-line-length
+      'sample definition with more than 115 characters sample definition with more than 115 characters sample definition with more than 115 characters'
+      )).toMatchInlineSnapshot((
+        `"sample definition with more than 115 characters sample definition with more than 115 characters sample ..."`
+      ));
   });
 });
