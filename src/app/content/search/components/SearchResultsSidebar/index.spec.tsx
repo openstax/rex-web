@@ -23,7 +23,6 @@ import {
   makeSearchResults
 } from '../../../../../test/searchResults';
 import TestContainer from '../../../../../test/TestContainer';
-import { runHooksAsync } from '../../../../../test/utils';
 import * as selectNavigation from '../../../../navigation/selectors';
 import { Store } from '../../../../types';
 import { assertDocument, assertWindow } from '../../../../utils';
@@ -135,13 +134,13 @@ describe('SearchResultsSidebar', () => {
 
   it('matches snapshot with related key terms', async() => {
     store.dispatch(receivePage({ ...pageInChapter, references: [] }));
-    store.dispatch(requestSearch('term1'));
+    store.dispatch(requestSearch('term'));
     const selectedResult = makeSearchResultHit({
       book: archiveBook,
       elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
       highlights: ['description 1'],
       page,
-      sourceId: 'test-pair1',
+      sourceId: 'test-pair-page1',
       title: 'term1 - selected',
     });
     const otherResult = makeSearchResultHit({
@@ -149,7 +148,7 @@ describe('SearchResultsSidebar', () => {
       elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
       highlights: ['description 2'],
       page: pageInChapter,
-      sourceId: 'test-pair2',
+      sourceId: 'test-pair-page2',
       title: 'term2',
     });
     store.dispatch(
@@ -160,10 +159,9 @@ describe('SearchResultsSidebar', () => {
         ])
       )
     );
-    // store.dispatch(selectSearchResult({result: selectedResult, highlight: 0}));
+    store.dispatch(selectSearchResult({result: selectedResult, highlight: 0}));
 
     const component = renderer.create(render());
-    await runHooksAsync(renderer);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();

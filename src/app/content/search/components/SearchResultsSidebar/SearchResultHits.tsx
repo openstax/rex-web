@@ -65,7 +65,6 @@ const SearchResultHits = ({
           key={index}
           book={book}
           page={getPage(hit)}
-          result={thisResult}
           scrollTarget={target}
           onClick={() => onClick(thisResult)}
           {...isSelected && activeSectionRef ?  {ref: activeSectionRef} : {}}

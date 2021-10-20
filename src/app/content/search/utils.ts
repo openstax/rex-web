@@ -237,10 +237,10 @@ export const getKeyTermPair = (htmlString: string, elementId: string) => {
   const domParser = new DOMParser();
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   const pair = domNode.getElementById(elementId);
-  const definition = pair.querySelector('dd').innerText;
+  const definition = pair.querySelector('dd').textContent;
   return {
     definition: generateKeyTermExcerpt(definition),
-    term: pair.querySelector('dt').innerText,
+    term: pair.querySelector('dt').textContent,
   };
 };
 
