@@ -29,7 +29,7 @@ const SearchResultHits = ({
   const { archiveLoader } = useServices();
 
   React.useEffect(() => {
-    const keyTermsHits = hits.filter((searchHit) => isKeyTermHit(searchHit));
+    const keyTermsHits = hits.filter(isKeyTermHit);
     const loader = archiveLoader.book(book.id, book.version);
 
     const getKeyTermsPages = async() => {
