@@ -25,8 +25,7 @@ import {
   sidebarTransitionTime,
   toolbarDesktopHeight,
   toolbarMobileExpandedHeight,
-  toolbarMobileHeight,
-  verticalNavbar
+  toolbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
 import NudgeStudyTools from './NudgeStudyTools';
@@ -34,7 +33,7 @@ import Page from './Page';
 import TableOfContents from './TableOfContents';
 import Toolbar from './Toolbar';
 import Topbar from './Topbar';
-import { areSidebarsOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
+import { areSidebarsOpenConnector } from './utils/sidebar';
 import Wrapper from './Wrapper';
 
 // tslint:disable-next-line:variable-name
@@ -66,7 +65,8 @@ const ContentNotifications = styled(Notifications)`
 const CenteredContentRow = styled.div`
   overflow: visible; /* so sidebar position: sticky works */
   margin: 0 auto;
-  max-width: ${contentWrapperMaxWidth + verticalNavbar}rem;
+  max-width: ${contentWrapperMaxWidth}rem;
+  // max-width: ${contentWrapperMaxWidth}rem;
 
   @media screen {
     min-height: 100%;
@@ -87,12 +87,12 @@ const UndoPadding = areSidebarsOpenConnector(styled.div`
       margin: 0 -${theme.padding.page.mobile}rem;
     `)}
 
-    ${styleWhenSidebarClosed(css`
+    ${(props) => (props.isTocOpen === false && props.isSearchOpen === false) && `
       margin-left: -${theme.padding.page.desktop}rem;
       ${theme.breakpoints.mobile(css`
         margin-left: -${theme.padding.page.mobile}rem;
       `)}
-    `)}
+    `}
   }
 `);
 
@@ -110,10 +110,10 @@ const MainContentWrapper = areSidebarsOpenConnector(styled.div`
     ${theme.breakpoints.mobile(css`
       max-width: ${contentWrapperMaxWidth}rem;
     `)}
-    ${styleWhenSidebarClosed(css`
+    ${(props) => (props.isTocOpen === false && props.isSearchOpen === false) && `
       max-width: ${contentWrapperMaxWidth}rem;
       margin: 0 auto;
-    `)}
+    `}
   }
 `);
 

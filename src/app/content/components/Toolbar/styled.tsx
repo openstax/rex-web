@@ -63,15 +63,14 @@ export const PlainButton = styled.button`
 
 // tslint:disable-next-line:variable-name
 export const PrintOptWrapper = styled(PlainButton)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;
+  ${toolbarDefaultButton}
 `;
 
 // tslint:disable-next-line:variable-name
 export const PrintOptions = styled.span`
   ${toolbarDefaultText}
+  font-size: 1.2rem;
+  line-height: 1.5rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -89,7 +88,7 @@ export const ToolbarWrapper = styled.div`
   grid-area: navbar;
   top: ${bookBannerDesktopMiniHeight}rem;
   height: calc(100vh - 13rem);
-  margin-left: calc(-${verticalNavbar}rem / 2);
+  margin-left: -${verticalNavbar}rem;
   margin-top: -${topbarHeight}rem;
   max-height: calc(100vh - 7rem);
   max-width: ${verticalNavbar}rem;

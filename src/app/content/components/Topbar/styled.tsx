@@ -20,7 +20,8 @@ import {
   toolbarMobileSearchWrapperHeight,
   toolbarSearchInputHeight,
   toolbarSearchInputMobileHeight,
-  topbarHeight
+  topbarHeight,
+  verticalNavbar
 } from '../constants';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton, shadow } from '../Toolbar/styled';
@@ -48,7 +49,6 @@ const closeIconStyles = css`
 // tslint:disable-next-line: variable-name
 export const TopBarWrapper = areSidebarsOpenConnector(styled.div`
   position: sticky;
-  grid-area: topbar;
   top: ${bookBannerDesktopMiniHeight}rem;
   width: 100%;
   overflow: visible;
@@ -59,8 +59,9 @@ export const TopBarWrapper = areSidebarsOpenConnector(styled.div`
   max-width: ${contentWrapperMaxWidth}rem;
   margin: 0 auto;
   transition: padding-left ${sidebarTransitionTime}ms;
+  padding-left: ${verticalNavbar}rem;
   ${(props) => (props.isTocOpen || props.isTocOpen === null || props.isSearchOpen) && `
-    padding-left: ${sidebarDesktopWidth}rem;
+    padding-left: ${sidebarDesktopWidth + verticalNavbar}rem;
   `}
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileMiniHeight}rem;

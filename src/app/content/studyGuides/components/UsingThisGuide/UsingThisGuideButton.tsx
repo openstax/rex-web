@@ -56,6 +56,7 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
 // tslint:disable-next-line:variable-name
 const UsingThisGuideText = styled.span`
   ${toolbarDefaultText}
+  margin: 0px 0px 0px 0.5rem;
 `;
 
 interface Props {

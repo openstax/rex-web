@@ -10,7 +10,6 @@ import {
   sidebarDesktopWidth,
   sidebarMobileWidth,
   sidebarTransitionTime,
-  verticalNavbar,
 } from './constants';
 import { areSidebarsOpenConnector } from './utils/sidebar';
 
@@ -22,7 +21,6 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>
     overflow: visible;
     transition: margin-left ${sidebarTransitionTime}ms;
     margin-left: -${sidebarDesktopWidth}rem;
-    margin-right: ${verticalNavbar / 2}rem;
     ${(props) => (props.isTocOpen || props.isTocOpen ===  null || props.isSearchOpen) && `
       margin: 0
     `}
