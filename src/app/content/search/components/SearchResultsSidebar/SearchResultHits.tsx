@@ -25,12 +25,12 @@ interface SearchResultHitsProps {
 const SearchResultHits = ({
   activeSectionRef, book, hits, getPage, testId, onClick, selectedResult,
 }: SearchResultHitsProps) => {
-  const { archiveLoader } = useServices();
-  const loader = archiveLoader.book(book.id, book.version);
   const [keyTerms, setKeyTerms] = React.useState({});
+  const { archiveLoader } = useServices();
 
   React.useEffect(() => {
     const keyTermsHits = hits.filter((searchHit) => isKeyTermHit(searchHit));
+    const loader = archiveLoader.book(book.id, book.version);
 
     const getKeyTermsPages = async() => {
       keyTermsHits.forEach(async(hit) => {
@@ -40,7 +40,7 @@ const SearchResultHits = ({
     };
 
     getKeyTermsPages();
-  }, []);
+  }, [hits, book, archiveLoader]);
 
   return <React.Fragment>
     {hits.map((hit) => {
