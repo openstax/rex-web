@@ -33,6 +33,11 @@ export const studyGuidesSummary = createSelector(
   (state) => state.summary
 );
 
+export const studyGuidesFilters = createSelector(
+  studyGuidesSummary,
+  (summary) => summary.filters
+);
+
 export const hasStudyGuides = createSelector(
   studyGuidesSummary,
   (summary) => summary.totalCountsPerPage
@@ -104,7 +109,7 @@ const filtersFromQuery = createSelector(
   (query) => getFiltersFromQuery(query)
 );
 
-export const unloggedAndQueryMissingFirstChapter = createSelector(
+export const loggedOutAndQueryMissingFirstChapter = createSelector(
   authSelectors.loggedOut,
   parentSelectors.firstChapter,
   filtersFromQuery,
@@ -112,7 +117,7 @@ export const unloggedAndQueryMissingFirstChapter = createSelector(
     notLoggedIn && firstChapter && !queryFilters.locationIds.includes(firstChapter.id)
 );
 
-export const loggedAndQueryMissingLocationIds = createSelector(
+export const loggedInAndQueryMissingLocationIds = createSelector(
   authSelectors.loggedOut,
   filtersFromQuery,
   defaultLocationFilter,
@@ -121,18 +126,25 @@ export const loggedAndQueryMissingLocationIds = createSelector(
     !notLoggedIn && queryFilters.locationIds.length === 0 && defaultFilter
 );
 
-export const summaryFilters = createSelector(
-  localState,
-  unloggedAndQueryMissingFirstChapter,
-  loggedAndQueryMissingLocationIds,
-  parentSelectors.firstChapter,
-  highlightColorFiltersWithContent,
+const defaultFilters = createSelector(
+  authSelectors.loggedOut,
   defaultLocationFilter,
-  (state, unlogged, logged, firstChapter, colorsWithSG, defaultFilter) => unlogged && firstChapter
-    ? { colors: Array.from(colorsWithSG.size ? colorsWithSG : colorfilterLabels), locationIds: [firstChapter.id] }
-    : (logged && defaultFilter
-      ? { colors: Array.from(colorsWithSG.size ? colorsWithSG : colorfilterLabels), locationIds: [defaultFilter.id] }
-      : state.summary.filters)
+  highlightColorFiltersWithContent,
+  parentSelectors.firstChapter,
+  (loggedOut, defaultLocation, colorFilters, firstChapter) =>
+    loggedOut ? {
+      colors: Array.from(colorFilters.size ? colorFilters : colorfilterLabels),
+      locationIds: firstChapter ? [firstChapter.id] : null,
+    } : {
+      colors: Array.from(colorFilters.size ? colorFilters : colorfilterLabels),
+      locationIds: defaultLocation ? [defaultLocation.id] : null,
+    }
+);
+
+export const summaryFilters = createSelector(
+  defaultFilters,
+  studyGuidesFilters,
+  (selectedDefault, stateFilters) => ({...selectedDefault, ...stateFilters})
 );
 
 const rawSummaryLocationFilters = createSelector(
