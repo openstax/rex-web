@@ -7,7 +7,8 @@ import {
   getFormattedSearchResults,
   getKeyTermResults,
   getSearchResultsForPage,
-  matchKeyTermHit
+  matchKeyTermHit,
+  nonKeyTermHits
 } from './utils';
 
 export const localState = createSelector(
@@ -37,7 +38,7 @@ export const selectedResult = createSelector(
 
 export const hits = createSelector(
   localState,
-  (state) => state.results ? state.results.hits.hits.filter((hit) => !matchKeyTermHit(hit)) : null
+  (state) => state.results ? nonKeyTermHits(state.results.hits.hits) : null
 );
 
 export const keyTermHits = createSelector(
@@ -62,7 +63,7 @@ export const getRawResults = createSelector(
 
 export const hasNonKeyTermResults = createSelector(
   getRawResults,
-  (rawResults) => !!(rawResults && rawResults.hits.hits.find((hit) => !matchKeyTermHit(hit)))
+  (rawResults) => !!(rawResults && nonKeyTermHits(rawResults.hits.hits).length > 0)
 );
 
 export const keyTermResults = createSelector(

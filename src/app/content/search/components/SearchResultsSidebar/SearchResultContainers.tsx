@@ -11,7 +11,7 @@ import { isSearchResultChapter, isSearchResultPage } from '../../guards';
 import * as selectSearch from '../../selectors';
 import { SearchResultChapter, SearchResultContainer,
   SearchResultPage, SelectedResult } from '../../types';
-import { nonKeyTermResults } from '../../utils';
+import { nonKeyTermHits } from '../../utils';
 import SearchResultHits from './SearchResultHits';
 import * as Styled from './styled';
 
@@ -31,7 +31,7 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
       // only show chapter dropdown if chapter includes non-KT search results
       const showChapterDropdown =
         isSearchResultChapter(node) && node.contents.find((section) =>
-          isSearchResultPage(section) && nonKeyTermResults(section.results).length > 0);
+          isSearchResultPage(section) && nonKeyTermHits(section.results).length > 0);
 
       return isSearchResultChapter(node) && showChapterDropdown ? (
         <SearchResultsDropdown
@@ -45,7 +45,7 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
           key={node.id}
         />
       // only show results section if results include non-KTs
-      ) : (!isSearchResultChapter(node) && nonKeyTermResults(node.results).length ? (
+      ) : (!isSearchResultChapter(node) && nonKeyTermHits(node.results).length ? (
         <SearchResult
           currentPage={props.currentPage}
           currentQuery={props.currentQuery}
@@ -86,7 +86,7 @@ const SearchResult = (props: {
     <SearchResultHits
       activeSectionRef={props.activeSectionRef}
       book={props.book}
-      hits={nonKeyTermResults(props.page.results)}
+      hits={nonKeyTermHits(props.page.results)}
       testId='search-result'
       getPage={() => props.page}
       onClick={(result) => props.selectResult(result)}

@@ -241,5 +241,5 @@ export const getKeyTermPair = (htmlString: string, elementId: string) => {
   };
 };
 
-export const nonKeyTermResults = (results: SearchResultHit[]) =>
-  results.filter((result) => !matchKeyTermHit(result));
+export const nonKeyTermHits = (hits: SearchResultHit[]) =>
+  hits.filter((hit) => !matchKeyTermHit(hit));
