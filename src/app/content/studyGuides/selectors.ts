@@ -129,7 +129,7 @@ export const loggedInAndQueryMissingLocationIds = createSelector(
   (logged, queryFilters, defaultFilter) => logged && queryFilters.locationIds.length === 0 && defaultFilter
 );
 
-const defaultFilters = createSelector(
+export const defaultFilters = createSelector(
   loggedIn,
   defaultLocationFilter,
   highlightColorFiltersWithContent,
@@ -138,7 +138,7 @@ const defaultFilters = createSelector(
     colors: Array.from(colorFilters.size ? colorFilters : colorfilterLabels),
     locationIds: logged && defaultLocation
       ? [defaultLocation.id]
-      : (!logged && firstChapter ? [firstChapter.id] : null),
+      : (!logged && firstChapter ? [firstChapter.id] : []),
   })
 );
 
