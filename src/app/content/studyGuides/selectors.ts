@@ -109,42 +109,44 @@ const filtersFromQuery = createSelector(
   (query) => getFiltersFromQuery(query)
 );
 
-export const loggedOutAndQueryMissingFirstChapter = createSelector(
+const loggedIn = createSelector(
   authSelectors.loggedOut,
+  (loggedOut) => !loggedOut
+);
+
+export const loggedOutAndQueryMissingFirstChapter = createSelector(
+  loggedIn,
   parentSelectors.firstChapter,
   filtersFromQuery,
-  (notLoggedIn, firstChapter, queryFilters) =>
-    notLoggedIn && firstChapter && !queryFilters.locationIds.includes(firstChapter.id)
+  (logged, firstChapter, queryFilters) =>
+    !logged && firstChapter && !queryFilters.locationIds.includes(firstChapter.id)
 );
 
 export const loggedInAndQueryMissingLocationIds = createSelector(
-  authSelectors.loggedOut,
+  loggedIn,
   filtersFromQuery,
   defaultLocationFilter,
-  (notLoggedIn, queryFilters, defaultFilter) =>
-  // !state.summary.filters.locationIds.length && !state.summary.filters.colors.length
-    !notLoggedIn && queryFilters.locationIds.length === 0 && defaultFilter
+  (logged, queryFilters, defaultFilter) => logged && queryFilters.locationIds.length === 0 && defaultFilter
 );
 
 const defaultFilters = createSelector(
-  authSelectors.loggedOut,
+  loggedIn,
   defaultLocationFilter,
   highlightColorFiltersWithContent,
   parentSelectors.firstChapter,
-  (loggedOut, defaultLocation, colorFilters, firstChapter) =>
-    loggedOut ? {
-      colors: Array.from(colorFilters.size ? colorFilters : colorfilterLabels),
-      locationIds: firstChapter ? [firstChapter.id] : null,
-    } : {
-      colors: Array.from(colorFilters.size ? colorFilters : colorfilterLabels),
-      locationIds: defaultLocation ? [defaultLocation.id] : null,
-    }
+  (logged, defaultLocation, colorFilters, firstChapter) => ({
+    colors: Array.from(colorFilters.size ? colorFilters : colorfilterLabels),
+    locationIds: logged && defaultLocation
+      ? [defaultLocation.id]
+      : (!logged && firstChapter ? [firstChapter.id] : null),
+  })
 );
 
 export const summaryFilters = createSelector(
+  loggedIn,
   defaultFilters,
   studyGuidesFilters,
-  (selectedDefault, stateFilters) => ({...selectedDefault, ...stateFilters})
+  (logged, selectedDefault, stateFilters) => logged ? { ...selectedDefault, ...stateFilters } : selectedDefault
 );
 
 const rawSummaryLocationFilters = createSelector(

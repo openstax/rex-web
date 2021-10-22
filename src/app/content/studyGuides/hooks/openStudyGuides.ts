@@ -5,10 +5,10 @@ import * as select from '../selectors';
 
 export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => async() => {
   const state = services.getState();
-  const unloggedAndQueryMissingFirstChapter = select.unloggedAndQueryMissingFirstChapter(state);
-  const loggedAndQueryMissingLocationIds = select.loggedAndQueryMissingLocationIds(state);
+  const loggedOutAndQueryMissingFirstChapter = select.loggedOutAndQueryMissingFirstChapter(state);
+  const loggedInAndQueryMissingLocationIds = select.loggedInAndQueryMissingLocationIds(state);
 
-  if (!unloggedAndQueryMissingFirstChapter && !loggedAndQueryMissingLocationIds) {
+  if (!loggedOutAndQueryMissingFirstChapter && !loggedInAndQueryMissingLocationIds) {
     const studyGuides = select.summaryStudyGuides(state);
     const studyGuidesAreLoading = select.summaryIsLoading(state);
 
