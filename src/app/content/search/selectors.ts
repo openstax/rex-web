@@ -38,12 +38,17 @@ export const selectedResult = createSelector(
 
 export const hits = createSelector(
   localState,
-  (state) => state.results && state.results.hits.hits
+  (state) => state.results ? state.results.hits.hits : null
+);
+
+export const getRawResults = createSelector(
+  localState,
+  (state) => state.results
 );
 
 const nonKTHits = createSelector(
-  localState,
-  (state) => state.results ? nonKeyTermHits(state.results.hits.hits) : null
+  getRawResults,
+  (rawResults) => rawResults ? nonKeyTermHits(rawResults.hits.hits) : null
 );
 
 export const keyTermHits = createSelector(
@@ -61,14 +66,9 @@ export const totalHitsKeyTerms = createSelector(
   (keyTermHitsOrNull) => keyTermHitsOrNull ? countUniqueKeyTermHighlights(keyTermHitsOrNull) : null
 );
 
-export const getRawResults = createSelector(
-  localState,
-  (state) => state.results
-);
-
 export const hasNonKeyTermResults = createSelector(
-  getRawResults,
-  (rawResults) => !!(rawResults && nonKeyTermHits(rawResults.hits.hits).length > 0)
+  nonKTHits,
+  (selectedHits) => selectedHits && selectedHits.length > 0
 );
 
 const keyTermResults = createSelector(
