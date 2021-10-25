@@ -152,7 +152,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         {!results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
         {results && results.length === 0 ? this.noResults() : null}
-        {book && results ? this.resultContainers(book, results) : null}
+        {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
       </SearchResultsBar>
     );
   }
