@@ -107,7 +107,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public resultContainers = (book: Book, results: SearchResultContainer[] | null) => {
     const displayRelatedKeyTerms = this.props.keyTermHits && this.props.keyTermHits.length > 0;
-    const displaySearchResults = this.props.totalHits;
+    const displaySearchResults = results && results.length > 0;
     const displaySearchResultsSectionTitle = displayRelatedKeyTerms && displaySearchResults;
 
     if (!displayRelatedKeyTerms && !displaySearchResults) { return null; }
