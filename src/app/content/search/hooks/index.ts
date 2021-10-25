@@ -42,14 +42,14 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const {page: currentPage, book} = selectContent.bookAndPage(state);
   const pageIsLoading = selectContent.loadingPage(state);
   const query = select.query(state);
-  const searchHits = select.hits(state) || [];
+  const results = select.hits(state) || [];
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
 
   if (pageIsLoading || !book) {
     return; // book changed while query was in the air
   }
 
-  const searchResultHit = meta && meta.searchScrollTarget && findSearchResultHit(searchHits, meta.searchScrollTarget);
+  const searchResultHit = meta && meta.searchScrollTarget && findSearchResultHit(results, meta.searchScrollTarget);
   const selectedResult = searchResultHit && meta.searchScrollTarget
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
     : getFirstResult(book, payload);
