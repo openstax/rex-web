@@ -20,7 +20,7 @@ interface ResultsSidebarProps {
   query: string | null;
   hasQuery: boolean;
   keyTermHits: SearchResultHit[] | null;
-  nonKTResults: SearchResultContainer[] | null;
+  nonKeyTermResults: SearchResultContainer[] | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
   searchResultsOpen: boolean;
@@ -138,7 +138,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       book,
       onClose,
       query,
-      nonKTResults,
+      nonKeyTermResults,
       totalHits,
       totalHitsKeyTerms,
       selectedResult,
@@ -153,7 +153,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         {!results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
         {results && results.length === 0 ? this.noResults() : null}
-        {book && results && results.length > 0 ? this.resultContainers(book, nonKTResults) : null}
+        {book && results && results.length > 0 ? this.resultContainers(book, nonKeyTermResults) : null}
       </SearchResultsBar>
     );
   }

@@ -89,7 +89,7 @@ const rawNonKTResults = createSelector(
   (rawResults) => rawResults ? getNonKeyTermResults(rawResults) : null
 );
 
-export const nonKTResults = createSelector(
+export const nonKeyTermResults = createSelector(
   rawNonKTResults,
   parentSelectors.book,
   (selectedResults, book) => selectedResults && book ? getFormattedSearchResults(book.tree, selectedResults) : null

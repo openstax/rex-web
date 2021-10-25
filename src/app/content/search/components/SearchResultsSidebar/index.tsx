@@ -14,7 +14,7 @@ interface Props {
   query: string | null;
   hasQuery: boolean;
   keyTermHits: SearchResultHit[] | null;
-  nonKTResults: SearchResultContainer[] | null;
+  nonKeyTermResults: SearchResultContainer[] | null;
   totalHits: number | null;
   totalHitsKeyTerms: number | null;
   results: SearchResultContainer[] | null;
@@ -42,7 +42,7 @@ export class SearchResultsSidebar extends Component<Props, State> {
 
   private static getStateProps(props: Props) {
     return {
-      nonKTResults: props.nonKTResults,
+      nonKeyTermResults: props.nonKeyTermResults,
       query: props.query,
       results: props.results,
       selectedResult: props.selectedResult,
@@ -78,7 +78,7 @@ export default connect(
     book: select.book(state),
     hasQuery: !!selectSearch.query(state),
     keyTermHits: selectSearch.sortedKeyTermHits(state),
-    nonKTResults: selectSearch.nonKTResults(state),
+    nonKeyTermResults: selectSearch.nonKeyTermResults(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
