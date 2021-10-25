@@ -110,8 +110,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     const displaySearchResults = results && results.length > 0;
     const displaySearchResultsSectionTitle = displayRelatedKeyTerms && displaySearchResults;
 
-    if (!displayRelatedKeyTerms && !displaySearchResults) { return null; }
-
     return <Styled.NavOl>
       {displayRelatedKeyTerms && <RelatedKeyTerms
         book={book}
