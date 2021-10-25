@@ -144,8 +144,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       ...propsToForward
     } = this.props;
 
-    console.log('bar wrapper results: ', results);
-
     return (
       <SearchResultsBar
         ref={this.searchSidebar}
