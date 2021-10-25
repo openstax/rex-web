@@ -86,7 +86,7 @@ const SearchResult = (props: {
     <SearchResultHits
       activeSectionRef={props.activeSectionRef}
       book={props.book}
-      hits={nonKeyTermHits(props.page.results)}
+      hits={props.page.results}
       testId='search-result'
       getPage={() => props.page}
       onClick={(result) => props.selectResult(result)}

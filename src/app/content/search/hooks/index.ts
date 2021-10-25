@@ -42,14 +42,14 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const {page: currentPage, book} = selectContent.bookAndPage(state);
   const pageIsLoading = selectContent.loadingPage(state);
   const query = select.query(state);
-  const results = select.hits(state) || [];
+  const searchHits = select.hits(state) || [];
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
 
   if (pageIsLoading || !book) {
     return; // book changed while query was in the air
   }
 
-  const searchResultHit = meta && meta.searchScrollTarget && findSearchResultHit(results, meta.searchScrollTarget);
+  const searchResultHit = meta && meta.searchScrollTarget && findSearchResultHit(searchHits, meta.searchScrollTarget);
   const selectedResult = searchResultHit && meta.searchScrollTarget
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
     : getFirstResult(book, payload);
@@ -126,8 +126,7 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async() =
   const scrollTarget = selectNavigation.scrollTarget(state);
   const searchScrollTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? scrollTarget : null;
   const searchHits = select.hits(state) || [];
-  const keyTermHits = select.keyTermHits(state) || [];
-  const targettedHit = searchScrollTarget && findSearchResultHit([...searchHits, ...keyTermHits], searchScrollTarget);
+  const targettedHit = searchScrollTarget && findSearchResultHit(searchHits, searchScrollTarget);
   const navigationSelectedResult = targettedHit && searchScrollTarget
     ? { result: targettedHit, highlight: searchScrollTarget.index }
     : null;

@@ -144,6 +144,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       ...propsToForward
     } = this.props;
 
+    console.log('bar wrapper results: ', results);
+
     return (
       <SearchResultsBar
         ref={this.searchSidebar}
@@ -151,8 +153,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       >
         {!results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
-        {results && results.length === 0 && totalHitsKeyTerms === 0 ? this.noResults() : null}
-        {book && (results || totalHitsKeyTerms) ? this.resultContainers(book, results) : null}
+        {results && results.length === 0 ? this.noResults() : null}
+        {book && results ? this.resultContainers(book, results) : null}
       </SearchResultsBar>
     );
   }
