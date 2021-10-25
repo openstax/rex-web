@@ -230,14 +230,23 @@ export const generateKeyTermExcerpt = (text: string) => {
   return `${subString.substr(0, subString.lastIndexOf(' '))} ...`;
 };
 
+const hideMath = (el: HTMLElement) => {
+  el.querySelectorAll('math').forEach((mathEl: Element) => {
+    (mathEl as HTMLElement).outerHTML = '<span>\u2026</span>';
+  });
+};
+
 export const getKeyTermPair = (htmlString: string, elementId: string) => {
   const domParser = new DOMParser();
   const domNode = domParser.parseFromString(htmlString, 'text/html');
   const pair = domNode.getElementById(elementId);
-  const definition = pair.querySelector('dd').textContent;
+  const definition = pair.querySelector('dd');
+  const term = pair.querySelector('dt');
+  hideMath(definition);
+  hideMath(term);
   return {
-    definition: generateKeyTermExcerpt(definition),
-    term: pair.querySelector('dt').textContent,
+    definition: generateKeyTermExcerpt(definition.textContent),
+    term: term.textContent,
   };
 };
 
