@@ -7,11 +7,10 @@ import * as select from '../../../selectors';
 import { Book, Page } from '../../../types';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { closeSearchResultsMobile, selectSearchResult } from '../../actions';
-import { isSearchResultChapter, isSearchResultPage } from '../../guards';
+import { isSearchResultChapter } from '../../guards';
 import * as selectSearch from '../../selectors';
 import { SearchResultChapter, SearchResultContainer,
   SearchResultPage, SelectedResult } from '../../types';
-import { nonKeyTermHits } from '../../utils';
 import SearchResultHits from './SearchResultHits';
 import * as Styled from './styled';
 
@@ -27,13 +26,8 @@ interface SearchResultContainersProps {
 // tslint:disable-next-line:variable-name
 const SearchResultContainers = ({containers, ...props}: SearchResultContainersProps) => (
   <React.Fragment>
-    {containers.map((node: SearchResultContainer) => {
-      // only show chapter dropdown if chapter includes non-KT search results
-      const showChapterDropdown =
-        isSearchResultChapter(node) && node.contents.find((section) =>
-          isSearchResultPage(section) && nonKeyTermHits(section.results).length > 0);
-
-      return isSearchResultChapter(node) && showChapterDropdown ? (
+    {containers.map((node: SearchResultContainer) =>
+      isSearchResultChapter(node) ? (
         <SearchResultsDropdown
           currentPage={props.currentPage}
           currentQuery={props.currentQuery}
@@ -44,8 +38,7 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
           activeSectionRef={props.activeSectionRef}
           key={node.id}
         />
-      // only show results section if results include non-KTs
-      ) : (!isSearchResultChapter(node) && nonKeyTermHits(node.results).length ? (
+      ) : (
         <SearchResult
           currentPage={props.currentPage}
           currentQuery={props.currentQuery}
@@ -56,8 +49,8 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
           activeSectionRef={props.activeSectionRef}
           key={node.id}
         />
-      ) : null);
-      })}
+      )
+    )}
   </React.Fragment>
 );
 

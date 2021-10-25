@@ -6,9 +6,9 @@ import {
   filterTreeForHits,
   getFormattedSearchResults,
   getKeyTermResults,
+  getNonKeyTermResults,
   getSearchResultsForPage,
   matchKeyTermHit,
-  nonKeyTermHits
 } from './utils';
 
 export const localState = createSelector(
@@ -41,19 +41,19 @@ export const hits = createSelector(
   (state) => state.results ? state.results.hits.hits : null
 );
 
-export const getRawResults = createSelector(
+const getRawResults = createSelector(
   localState,
   (state) => state.results
 );
 
 const nonKTHits = createSelector(
   getRawResults,
-  (rawResults) => rawResults ? nonKeyTermHits(rawResults.hits.hits) : null
+  (rawResults) => rawResults ? rawResults.hits.hits.filter((hit) => !matchKeyTermHit(hit)) : null
 );
 
-export const keyTermHits = createSelector(
-  localState,
-  (state) => state.results ? state.results.hits.hits.filter(matchKeyTermHit) : null
+const keyTermHits = createSelector(
+  getRawResults,
+  (rawResults) => rawResults ? rawResults.hits.hits.filter(matchKeyTermHit) : null
 );
 
 export const totalHits = createSelector(
@@ -64,11 +64,6 @@ export const totalHits = createSelector(
 export const totalHitsKeyTerms = createSelector(
   keyTermHits,
   (keyTermHitsOrNull) => keyTermHitsOrNull ? countUniqueKeyTermHighlights(keyTermHitsOrNull) : null
-);
-
-export const hasNonKeyTermResults = createSelector(
-  nonKTHits,
-  (selectedHits) => !!(selectedHits && selectedHits.length > 0)
 );
 
 const keyTermResults = createSelector(
@@ -87,6 +82,17 @@ export const results = createSelector(
   getRawResults,
   parentSelectors.book,
   (rawResults, book) => rawResults && book ? getFormattedSearchResults(book.tree, rawResults) : null
+);
+
+const rawNonKTResults = createSelector(
+  getRawResults,
+  (rawResults) => rawResults ? getNonKeyTermResults(rawResults) : null
+);
+
+export const nonKTResults = createSelector(
+  rawNonKTResults,
+  parentSelectors.book,
+  (selectedResults, book) => selectedResults && book ? getFormattedSearchResults(book.tree, selectedResults) : null
 );
 
 export const mobileToolbarOpen = createSelector(

@@ -12,9 +12,9 @@ import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 interface Props {
   book?: Book;
   query: string | null;
-  hasNonKeyTermResults: boolean;
   hasQuery: boolean;
   keyTermHits: SearchResultHit[] | null;
+  nonKTResults: SearchResultContainer[] | null;
   totalHits: number | null;
   totalHitsKeyTerms: number | null;
   results: SearchResultContainer[] | null;
@@ -42,7 +42,7 @@ export class SearchResultsSidebar extends Component<Props, State> {
 
   private static getStateProps(props: Props) {
     return {
-      hasNonKeyTermResults: props.hasNonKeyTermResults,
+      nonKTResults: props.nonKTResults,
       query: props.query,
       results: props.results,
       selectedResult: props.selectedResult,
@@ -76,9 +76,9 @@ export class SearchResultsSidebar extends Component<Props, State> {
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
-    hasNonKeyTermResults: selectSearch.hasNonKeyTermResults(state),
     hasQuery: !!selectSearch.query(state),
     keyTermHits: selectSearch.sortedKeyTermHits(state),
+    nonKTResults: selectSearch.nonKTResults(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),

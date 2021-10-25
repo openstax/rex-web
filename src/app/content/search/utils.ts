@@ -30,11 +30,6 @@ export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult)
 export const getFormattedSearchResults = (bookTree: ArchiveTree, searchResults: SearchResult) =>
   filterTreeForSearchResults(linkArchiveTree(bookTree), searchResults);
 
-export const getKeyTermResults = (searchResults: SearchResult) => ({
-    ...searchResults,
-    hits: {...searchResults.hits, hits: searchResults.hits.hits.filter(matchKeyTermHit)},
-  });
-
 export const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
   parent.contents.map((child) => ({...child, parent}));
 
@@ -250,5 +245,12 @@ export const getKeyTermPair = (htmlString: string, elementId: string) => {
   };
 };
 
-export const nonKeyTermHits = (hits: SearchResultHit[]) =>
-  hits.filter((hit) => !matchKeyTermHit(hit));
+export const getKeyTermResults = (searchResults: SearchResult) => ({
+  ...searchResults,
+  hits: {...searchResults.hits, hits: searchResults.hits.hits.filter(matchKeyTermHit)},
+});
+
+export const getNonKeyTermResults = (searchResults: SearchResult) => ({
+  ...searchResults,
+  hits: {...searchResults.hits, hits: searchResults.hits.hits.filter((hit) => !matchKeyTermHit(hit))},
+});

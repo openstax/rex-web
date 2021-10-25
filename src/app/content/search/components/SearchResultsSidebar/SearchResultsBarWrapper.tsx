@@ -18,9 +18,9 @@ import * as Styled from './styled';
 
 interface ResultsSidebarProps {
   query: string | null;
-  hasNonKeyTermResults: boolean;
   hasQuery: boolean;
   keyTermHits: SearchResultHit[] | null;
+  nonKTResults: SearchResultContainer[] | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
   searchResultsOpen: boolean;
@@ -107,7 +107,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public resultContainers = (book: Book, results: SearchResultContainer[] | null) => {
     const displayRelatedKeyTerms = this.props.keyTermHits && this.props.keyTermHits.length > 0;
-    const displaySearchResults = this.props.hasNonKeyTermResults;
+    const displaySearchResults = this.props.totalHits;
     const displaySearchResultsSectionTitle = displayRelatedKeyTerms && displaySearchResults;
 
     if (!displayRelatedKeyTerms && !displaySearchResults) { return null; }
@@ -138,6 +138,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       book,
       onClose,
       query,
+      nonKTResults,
       totalHits,
       totalHitsKeyTerms,
       selectedResult,
@@ -152,7 +153,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         {!results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
         {results && results.length === 0 ? this.noResults() : null}
-        {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
+        {book && results && results.length > 0 ? this.resultContainers(book, nonKTResults) : null}
       </SearchResultsBar>
     );
   }
