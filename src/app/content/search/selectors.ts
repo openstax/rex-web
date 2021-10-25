@@ -68,7 +68,7 @@ export const totalHitsKeyTerms = createSelector(
 
 export const hasNonKeyTermResults = createSelector(
   nonKTHits,
-  (selectedHits) => selectedHits && selectedHits.length > 0
+  (selectedHits) => !!(selectedHits && selectedHits.length > 0)
 );
 
 const keyTermResults = createSelector(
