@@ -97,14 +97,28 @@ describe('usePositions', () => {
       spotlightWidth: 302,
     });
 
-    // Change of windowWidth affects only contentWrapperRight
-    expect(utils.getPositions(target, false, 1200)).toEqual({
+    // Change of windowWidth affects only contentWrapperRight if there is a space for close button
+    expect(utils.getPositions(target, false, 1500)).toEqual({
       arrowLeft: 952,
       arrowTopOffset: 248,
       closeButtonLeft: 1253,
       closeButtonTopOffset: 348,
-      // this is less by 700px (1900 - 1200 = 700)
-      contentWrapperRight: -43,
+      // this is less by 400px (1900 - 1500 = 400)
+      contentWrapperRight: 257,
+      contentWrapperTopOffset: 388,
+      spotlightHeight: 45,
+      spotlightLeftOffset: 941,
+      spotlightTopOffset: 193,
+      spotlightWidth: 302,
+    });
+
+    // Add additional right margin to contentWrapperRight and closeButtonLeft to prevent cutting of close button
+    expect(utils.getPositions(target, false, 1200)).toEqual({
+      arrowLeft: 952,
+      arrowTopOffset: 248,
+      closeButtonLeft: 1213,
+      closeButtonTopOffset: 348,
+      contentWrapperRight: -3,
       contentWrapperTopOffset: 388,
       spotlightHeight: 45,
       spotlightLeftOffset: 941,
