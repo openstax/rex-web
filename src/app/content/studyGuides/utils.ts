@@ -24,7 +24,6 @@ export const getFiltersFromQuery = (query: OutputParams) => {
 };
 
 export const updateQueryFromFilterChange = (dispatch: Dispatch, state: AppState, change: SummaryFiltersUpdate) => {
-  console.log('default loc filter? ', selectors.defaultLocationFilter(state));
   const updatedFilters = updateSummaryFilters(selectors.summaryFilters(state), change);
   const match = navigation.match(state);
   const existingQuery = navigation.query(state);

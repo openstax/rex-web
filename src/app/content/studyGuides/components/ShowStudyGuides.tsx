@@ -38,13 +38,13 @@ const ShowStudyGuides = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(select.summaryIsLoading);
   const hasMoreResults = useSelector(select.hasMoreResults);
-  const summaryStudyGuides = useSelector(select.summaryStudyGuides);
+  const studyGuides = useSelector(select.summaryStudyGuides);
 
   React.useEffect(() => {
-    if (summaryStudyGuides && !Object.keys(summaryStudyGuides).length && hasMoreResults && !isLoading) {
+    if (studyGuides && !Object.keys(studyGuides).length && hasMoreResults && !isLoading) {
       dispatch(loadMoreStudyGuides());
     }
-  }, [summaryStudyGuides, hasMoreResults, isLoading]);
+  }, [studyGuides, hasMoreResults, isLoading]);
 
   const goToTop = () => {
     const refElement = ref.current;

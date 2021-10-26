@@ -14,15 +14,12 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const loggedOutAndQueryMissingFirstChapter = select.loggedOutAndQueryMissingFirstChapter(state);
   const loggedInAndQueryMissingLocationIds = select.loggedInAndQueryMissingLocationIds(state);
   const defaultFilters = select.defaultFilters(state);
-  console.log('default filters: ', defaultFilters);
 
   if (loggedOutAndQueryMissingFirstChapter || loggedInAndQueryMissingLocationIds) {
-    console.log('open SG - if');
     services.dispatch(replace(match, {
       search: updateQuery(defaultFilters as any as Record<string, string[]>, query),
     }));
   } else {
-    console.log('open SG - else');
     const studyGuides = select.summaryStudyGuides(state);
     const studyGuidesAreLoading = select.summaryIsLoading(state);
 

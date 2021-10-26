@@ -2,7 +2,6 @@ import {
   GetHighlightsColorsEnum, GetHighlightsSetsEnum,
 } from '@openstax/highlighter/dist/api';
 import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
-import { locationChange } from '../../../navigation/actions';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
@@ -41,7 +40,6 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
 export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
 export const hookBody: ActionHookBody<
-  typeof locationChange |
   typeof actions.loadMoreStudyGuides
 > = (services) => async() => {
   const state = services.getState();
@@ -64,5 +62,4 @@ export const hookBody: ActionHookBody<
   services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination}));
 };
 
-export const locationChangeHook = actionHook(locationChange, hookBody);
 export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);
