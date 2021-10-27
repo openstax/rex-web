@@ -54,17 +54,17 @@ export const totalCountsPerPageOrEmpty = createSelector(
   (summary) => summary.totalCountsPerPage || {}
 );
 
-export const summaryIsLoading = createSelector(
-  studyGuidesSummary,
-  (summary) => summary.loading
-);
-
 export const studyGuidesOpen = createSelector(
   studyGuidesSummary,
   studyGuidesEnabled,
   parentSelectors.book,
   parentSelectors.page,
   (summary, flagEnabled, book, page) => summary.open && flagEnabled && !!book && !!page
+);
+
+export const summaryIsLoading = createSelector(
+  studyGuidesSummary,
+  (summary) => summary.loading
 );
 
 export const summaryStudyGuidesPagination = createSelector(
