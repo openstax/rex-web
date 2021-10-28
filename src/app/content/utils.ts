@@ -29,7 +29,7 @@ export interface ContentPageRefencesType {
 
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
   const matches: ContentPageRefencesType[] = (
-    page.content.match(/['"]{1}((#[^'"\s]+)|(\.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml(#.[^'"]+)?)))/g) || []
+      page.content.match(/['"]{1}((#[^'"\s]+)|(\.\/([a-z0-9-]+(@[^\/]+)?):([a-z0-9-]+.xhtml(#.[^'"]+)?)))/g) || []
     )
     .map((match) => {
       const [bookMatch, pageMatch] = match.split(':');
