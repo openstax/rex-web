@@ -28,7 +28,7 @@ export interface ContentPageRefencesType {
 }
 
 // tslint:disable-next-line:max-line-length
-const referenceRegex = /['"]{1}((#[^'"\s]+)|(\.\/(?<matchPath>((?<bookId>[a-z0-9-]+)(@(?<bookVersion>[^/]+))?):(?<pageId>[a-z0-9-]+)\.xhtml)(#.[^'"]+)?))/;
+const referenceRegex = /['"]{1}((#[^'"\s]+)|(?<matchPath>\.\/((?<bookId>[a-z0-9-]+)(@(?<bookVersion>[^/]+))?):(?<pageId>[a-z0-9-]+)\.xhtml(#[^'"]+)?))/;
 
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
   const matches: ContentPageRefencesType[] = (
