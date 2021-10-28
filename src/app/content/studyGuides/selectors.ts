@@ -146,7 +146,7 @@ export const summaryFilters = createSelector(
   loggedIn,
   defaultFilters,
   studyGuidesFilters,
-  (logged, selectedDefault, stateFilters) => logged ? { ...selectedDefault, ...stateFilters } : selectedDefault
+  (logged, defaults, filtersFromState) => logged ? { ...defaults, ...filtersFromState } : defaults
 );
 
 const rawSummaryLocationFilters = createSelector(
