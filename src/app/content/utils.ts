@@ -27,7 +27,6 @@ export interface ContentPageRefencesType {
   pageId: string;
 }
 
-// tslint:disable-next-line:max-line-length
 const hashRegex = `#[^'"]+`;
 const pathRegex = `\\./((?<bookId>[a-z0-9-]+)(@(?<bookVersion>[^/]+))?):(?<pageId>[a-z0-9-]+)\\.xhtml(${hashRegex})?`;
 const referenceRegex = `['"]{1}(?<matchPath>((${pathRegex})|(${hashRegex})))`;
