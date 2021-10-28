@@ -27,20 +27,20 @@ export interface ContentPageRefencesType {
   pageId: string;
 }
 
+// tslint:disable-next-line:max-line-length
+const referenceRegex = /['"]{1}((#[^'"\s]+)|(\.\/(?<matchPath>((?<bookId>[a-z0-9-]+)(@(?<bookVersion>[^/]+))?):(?<pageId>[a-z0-9-]+)\.xhtml)(#.[^'"]+)?))/;
+
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
   const matches: ContentPageRefencesType[] = (
-      page.content.match(/['"]{1}((#[^'"\s]+)|(\.\/([a-z0-9-]+(@[^/]+)?):([a-z0-9-]+.xhtml(#.[^'"]+)?)))/g) || []
+      page.content.match(new RegExp(referenceRegex, 'g')) || []
     )
     .map((match) => {
-      const [bookMatch, pageMatch] = match.split(':');
-      const pageId = pageMatch && pageMatch.split('.xhtml')[0];
-      const [bookIdSegment, bookVersion] = bookMatch && bookMatch.split('@') as [string, string | undefined];
-      const bookId = match.includes(':') && bookIdSegment && bookIdSegment.substr(3);
+      const {matchPath, bookId, bookVersion, pageId} = match.match(referenceRegex)?.groups || {};
 
       return {
         bookId: bookId || book.id,
         bookVersion: bookVersion || (!bookId ? book.version : undefined),
-        match: match.substr(1),
+        match: matchPath,
         pageId: (pageId && stripIdVersion(pageId)) || page.id,
       };
     });
