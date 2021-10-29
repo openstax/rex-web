@@ -1,5 +1,5 @@
 import { SearchResult } from '@openstax/open-search-client';
-import { SearchResultHit } from '@openstax/open-search-client/models/SearchResultHit';
+import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
 import { ScrollTarget } from '../../navigation/types';
 import { ArchiveTree, ArchiveTreeSection } from '../types';
 
