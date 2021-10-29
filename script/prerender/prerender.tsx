@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
-import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
 import { ArchiveBook, ArchivePage } from '../../src/app/content/types';
+import { isDefined } from '../../src/app/guards';
 import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
@@ -14,7 +14,6 @@ import { OSWebBook } from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
-import { startServer } from '../server';
 import {
   getStats,
   minuteCounter,
@@ -28,7 +27,11 @@ import { createDiskCache, writeAssetFile } from './fileUtils';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 const {
+  ACCOUNTS_URL,
+  ARCHIVE_URL,
   CODE_VERSION,
+  HIGHLIGHTS_URL,
+  OS_WEB_URL,
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_ARCHIVE_URL,
   REACT_APP_BUY_PRINT_CONFIG_URL,
@@ -36,6 +39,7 @@ const {
   REACT_APP_OS_WEB_API_URL,
   REACT_APP_SEARCH_URL,
   RELEASE_ID,
+  SEARCH_URL,
 } = config;
 
 let networkTime = 0;
@@ -60,26 +64,24 @@ async function renderManifest() {
 
 async function render() {
   await Loadable.preloadAll();
-  const port = await portfinder.getPortPromise();
   const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
     appPrefix: '',
-    archivePrefix: `http://localhost:${port}`,
+    archivePrefix: ARCHIVE_URL,
     bookCache: createDiskCache<string, ArchiveBook>('archive-books'),
     pageCache: createDiskCache<string, ArchivePage>('archive-pages'),
   });
-  const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`, {
+  const osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`, {
     cache: createDiskCache<string, OSWebBook | undefined>('osweb'),
   });
-  const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
-  const searchClient = createSearchClient(`http://localhost:${port}${REACT_APP_SEARCH_URL}`);
-  const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
+  const userLoader = createUserLoader(`${ACCOUNTS_URL}${REACT_APP_ACCOUNTS_URL}`);
+  const searchClient = createSearchClient(`${SEARCH_URL}${REACT_APP_SEARCH_URL}`);
+  const highlightClient = createHighlightClient(`${HIGHLIGHTS_URL}${REACT_APP_HIGHLIGHTS_URL}`);
   const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL, {
     cache: createDiskCache<string, BuyPrintResponse>('buy-print'),
   });
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const bookConfigLoader = createBookConfigLoader();
 
-  const {server} = await startServer({port, onlyProxy: true});
   const renderHelpers = {
     archiveLoader,
     bookConfigLoader,
@@ -98,7 +100,7 @@ async function render() {
     const bookPages = await prepareBookPages(book);
     const sitemap = await renderPages(renderHelpers, bookPages);
 
-    renderSitemap(book.slug, sitemap);
+    renderSitemap(book.slug, sitemap.filter(isDefined));
   }
 
   await renderSitemapIndex();
@@ -112,8 +114,6 @@ async function render() {
 
   // tslint:disable-next-line:no-console max-line-length
   console.log(`Prerender complete. Rendered ${numPages} pages, ${numPages / elapsedMinutes}ppm`);
-
-  server.close();
 }
 
 render().catch((e) => {
