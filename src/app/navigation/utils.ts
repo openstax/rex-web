@@ -172,9 +172,7 @@ export const createNavigationOptions = (
   search: Record<string, string | null | undefined>,
   scrollTarget?: ScrollTarget
 ) => ({
-  hash: scrollTarget
-    ? (scrollTarget.elementId.match(/^#/) ? scrollTarget.elementId : `#${scrollTarget.elementId}`)
-    : undefined,
+  hash: scrollTarget ? scrollTarget.elementId : undefined,
   search: queryString.stringify({
     ...omitBy(isNull, search),
     target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
@@ -182,4 +180,5 @@ export const createNavigationOptions = (
 });
 
 export const navigationOptionsToString = (options: ReturnType<typeof createNavigationOptions>) =>
-  (options.search ? `?${options.search}` : '') + (options.hash ? options.hash : '');
+  (options.search ? `?${options.search}` : '')
+  + (options.hash ? (options.hash.match(/^#/) ? options.hash : `#${options.hash}`) : '');
