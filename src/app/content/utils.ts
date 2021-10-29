@@ -19,6 +19,7 @@ export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtil
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
+import { isDefined } from '../guards';
 
 export interface ContentPageRefencesType {
   bookId: string;
@@ -33,10 +34,11 @@ const referenceRegex = `['"]{1}(?<matchPath>((${pathRegex})|(${hashRegex})))`;
 
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
   const matches: ContentPageRefencesType[] = (
-      page.content.match(new RegExp(referenceRegex, 'g')) || []
-    )
-    .map((match) => {
-      const {matchPath, bookId, bookVersion, pageId} = match.match(new RegExp(referenceRegex))?.groups || {};
+    page.content.match(new RegExp(referenceRegex, 'g')) || []
+  )
+    .map((match) => match.match(new RegExp(referenceRegex))?.groups)
+    .filter(isDefined)
+    .map(({matchPath, bookId, bookVersion, pageId}) => {
 
       return {
         bookId: bookId || book.id,
