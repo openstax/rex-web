@@ -180,4 +180,4 @@ export const createNavigationOptions = (
 });
 
 export const navigationOptionsToString = (options: ReturnType<typeof createNavigationOptions>) =>
-  (options.search ? `?${options.search}` : '') + (options.hash ? options.hash : '');
+  (options.search ? `?${options.search}` : '') + (options.hash ? `#${options.hash}` : '');
