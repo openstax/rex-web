@@ -1,4 +1,5 @@
 import { OSWebBook } from '../../gateways/createOSWebLoader';
+import { isDefined } from '../guards';
 import { AppServices } from '../types';
 import { hasOSWebData, isArchiveTree } from './guards';
 import {
@@ -19,7 +20,6 @@ export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtil
 export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
 export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
-import { isDefined } from '../guards';
 
 export interface ContentPageRefencesType {
   bookId: string;
