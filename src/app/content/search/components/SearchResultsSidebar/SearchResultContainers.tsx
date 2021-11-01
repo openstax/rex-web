@@ -82,7 +82,7 @@ const SearchResult = (props: {
         const thisResult = {result: hit, highlight: index};
         const isSelected = isEqual(props.selectedResult, thisResult);
         const target: SearchScrollTarget = {
-          elementId: `#${thisResult.result.source.elementId}`,
+          elementId: thisResult.result.source.elementId,
           index,
           type: 'search',
         };
