@@ -30,7 +30,7 @@ describe('getContentPageReferences', () => {
 
   beforeEach(() => {
     book = {
-      id: 'booklongid@1',
+      id: 'booklongid',
       title: 'book',
       tree: {
         contents: [
@@ -41,6 +41,7 @@ describe('getContentPageReferences', () => {
           },
         ],
       },
+      version: '1',
     } as ArchiveBook;
 
     page = {
@@ -66,8 +67,8 @@ describe('getContentPageReferences', () => {
     page.content = '<a href="#foo"></a>';
     expect(getContentPageReferences(book, page)).toEqual([
       {
-        bookId: 'booklongid@1',
-        bookVersion: undefined,
+        bookId: 'booklongid',
+        bookVersion: '1',
         match: '#foo',
         pageId: 'adsfasdf',
       },
