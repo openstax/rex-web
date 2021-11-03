@@ -7,8 +7,6 @@ import Loader from '../../../../components/Loader';
 import { assertNotNull } from '../../../../utils/assertions';
 import { Book } from '../../../types';
 import {
-  fixSafariScrolling,
-  scrollSidebarSectionIntoView,
   setSidebarHeight
 } from '../../../utils/domUtils';
 import { SearchResultContainer, SelectedResult } from '../../types';
@@ -157,7 +155,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   }
 
   public componentDidMount = () => {
-    this.scrollToSelectedPage();
     const searchSidebar = this.searchSidebar.current;
 
     if (!searchSidebar || typeof window === 'undefined') {
@@ -167,13 +164,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     const {callback, deregister} = setSidebarHeight(searchSidebar, window);
     callback();
     this.deregister = deregister;
-
-    searchSidebar.addEventListener('webkitAnimationEnd', fixSafariScrolling);
   };
-
-  public componentDidUpdate() {
-    this.scrollToSelectedPage();
-  }
 
   public componentWillUnmount() {
     const searchSidebar = this.searchSidebar.current;
@@ -182,15 +173,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     if (!searchSidebar || typeof window === 'undefined') {
       return;
     }
-    searchSidebar.removeEventListener('webkitAnimationEnd', fixSafariScrolling);
-
   }
   private deregister: () => void = () => null;
-
-  private scrollToSelectedPage() {
-    scrollSidebarSectionIntoView(
-      this.searchSidebar.current,
-      this.activeSection.current
-    );
-  }
 }
