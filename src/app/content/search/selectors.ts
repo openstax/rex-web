@@ -105,3 +105,8 @@ export const currentPageResults = createSelector(
   parentSelectors.page,
   (rawResults, page) => rawResults && page ? getSearchResultsForPage(page, rawResults) : []
 );
+
+export const userSelectedResult = createSelector(
+  localState,
+  (state) => state.userSelectedResult
+);

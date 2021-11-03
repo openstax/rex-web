@@ -15,6 +15,7 @@ export interface State {
   results: SearchResult | null;
   selectedResult: SelectedResult | null;
   sidebarOpen: boolean;
+  userSelectedResult: boolean;
 }
 
 export interface SelectedResult {

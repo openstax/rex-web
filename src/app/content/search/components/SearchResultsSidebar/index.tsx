@@ -21,6 +21,7 @@ interface Props {
   onClose: () => void;
   searchResultsOpen: boolean;
   selectedResult: SelectedResult | null;
+  userSelectedResult: boolean;
 }
 
 interface State {
@@ -85,6 +86,7 @@ export default connect(
     selectedResult: selectSearch.selectedResult(state),
     totalHits: selectSearch.totalHits(state),
     totalHitsKeyTerms: selectSearch.totalHitsKeyTerms(state),
+    userSelectedResult: selectSearch.userSelectedResult(state),
   }),
   (dispatch: Dispatch) => ({
     onClose: () => {

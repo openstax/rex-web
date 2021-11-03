@@ -7,6 +7,8 @@ import Loader from '../../../../components/Loader';
 import { assertNotNull } from '../../../../utils/assertions';
 import { Book } from '../../../types';
 import {
+  fixSafariScrolling,
+  scrollSidebarSectionIntoView,
   setSidebarHeight
 } from '../../../utils/domUtils';
 import { SearchResultContainer, SelectedResult } from '../../types';
@@ -26,6 +28,7 @@ interface ResultsSidebarProps {
   totalHits: number | null;
   totalHitsKeyTerms: number | null;
   selectedResult: SelectedResult | null;
+  userSelectedResult: boolean;
 }
 
 // tslint:disable-next-line: variable-name
@@ -138,6 +141,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       totalHits,
       totalHitsKeyTerms,
       selectedResult,
+      userSelectedResult,
       ...propsToForward
     } = this.props;
 
@@ -155,6 +159,9 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   }
 
   public componentDidMount = () => {
+    if (this.props.userSelectedResult) {
+      this.scrollToSelectedPage();
+    }
     const searchSidebar = this.searchSidebar.current;
 
     if (!searchSidebar || typeof window === 'undefined') {
@@ -164,7 +171,15 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     const {callback, deregister} = setSidebarHeight(searchSidebar, window);
     callback();
     this.deregister = deregister;
+
+    searchSidebar.addEventListener('webkitAnimationEnd', fixSafariScrolling);
   };
+
+  public componentDidUpdate() {
+    if (this.props.userSelectedResult) {
+      this.scrollToSelectedPage();
+    }
+  }
 
   public componentWillUnmount() {
     const searchSidebar = this.searchSidebar.current;
@@ -173,6 +188,15 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     if (!searchSidebar || typeof window === 'undefined') {
       return;
     }
+    searchSidebar.removeEventListener('webkitAnimationEnd', fixSafariScrolling);
+
   }
   private deregister: () => void = () => null;
+
+  private scrollToSelectedPage() {
+    scrollSidebarSectionIntoView(
+      this.searchSidebar.current,
+      this.activeSection.current
+    );
+  }
 }

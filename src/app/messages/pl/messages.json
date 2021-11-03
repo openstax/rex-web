@@ -131,7 +131,7 @@
   "i18n:search-results:bar:current-page": "Bieżąca strona",
   "i18n:search-results:bar:loading-state": "Ładowanie wyników",
   "i18n:search-results:bar:query:no-results": "Nie znaleźliśmy wyników dla ",
-  "i18n:search-results:bar:query:results": "{total, plural, one {Wynik zapytania dla } other {Wyniki zapytania dla }}",
+  "i18n:search-results:bar:query:results": "{terms, plural, =0 {} one {{terms} key term result and } other {{terms} key term results and }}{search, plural, one {{search} Wynik zapytania dla } other {{search} Wyniki zapytania dla }}",
   "i18n:search-results:bar:search-icon:value": "Szukaj",
   "i18n:search-results:bar:title": "All Other Results",
   "i18n:search-results:bar:toggle-text:mobile": "Szukaj wyników",
