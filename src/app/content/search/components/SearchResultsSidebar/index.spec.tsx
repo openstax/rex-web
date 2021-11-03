@@ -23,6 +23,7 @@ import {
   makeSearchResults
 } from '../../../../../test/searchResults';
 import TestContainer from '../../../../../test/TestContainer';
+import { runHooks } from '../../../../../test/utils';
 import * as selectNavigation from '../../../../navigation/selectors';
 import { Store } from '../../../../types';
 import { assertDocument, assertWindow } from '../../../../utils';
@@ -36,7 +37,10 @@ import {
   requestSearch,
   selectSearchResult
 } from '../../actions';
+import * as selectSearch from '../../selectors';
+import { SearchScrollTarget } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
+
 
 describe('SearchResultsSidebar', () => {
   let store: Store;
@@ -250,12 +254,31 @@ describe('SearchResultsSidebar', () => {
     expect(dispatch).toHaveBeenCalledWith(clearSearch());
   });
 
+  it ('scrolls to search scroll target if result selected by user', () => {
+    const searchResult = makeSearchResultHit({ book: archiveBook, page });
+    const scrollSidebarSectionIntoView = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
+    jest.spyOn(selectSearch, 'userSelectedResult').mockReturnValue(true);
+
+    store.dispatch(requestSearch('cool search'));
+    store.dispatch(receiveSearchResults(makeSearchResults([searchResult])));
+    store.dispatch(selectSearchResult({result: searchResult, highlight: 0}));
+
+    renderer.create(render());
+    runHooks(renderer);
+
+    expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(1);
+  });
+
   it('fixes overscroll in safari', () => {
     const {tree} = renderToDom(render());
     const fixForSafariMock = jest.spyOn(domUtils, 'fixSafariScrolling');
+    const firstResult = makeSearchResultHit({ book: archiveBook, page });
+    const secondResult = makeSearchResultHit({ book: archiveBook, page: pageInChapter });
 
     store.dispatch(requestSearch('cool search'));
-    store.dispatch(receiveSearchResults(makeSearchResults()));
+    store.dispatch(receiveSearchResults(makeSearchResults([firstResult, secondResult])));
+    store.dispatch(selectSearchResult({result: firstResult, highlight: 0}));
+    store.dispatch(selectSearchResult({result: secondResult, highlight: 0}));
 
     const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
 
