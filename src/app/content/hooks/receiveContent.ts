@@ -1,3 +1,4 @@
+import { getBookVersionFromUUIDSync } from '../../../gateways/createBookConfigLoader';
 import { setHead } from '../../head/actions';
 import { Link } from '../../head/types';
 import createIntl from '../../messages/createIntl';
@@ -53,6 +54,10 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
 
   if (hasOSWebData(book) && book.promote_image) {
     meta.push({ property: 'og:image', content: book.promote_image.meta.download_url });
+  }
+
+  if (getBookVersionFromUUIDSync(book.id)?.defaultVersion !== book.version) {
+    meta.push({ name: 'robots', content: 'noindex' });
   }
 
   dispatch(setHead({links, meta, title}));
