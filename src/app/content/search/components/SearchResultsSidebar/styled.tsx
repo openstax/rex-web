@@ -2,7 +2,7 @@ import React from 'react';
 import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Details as BaseDetails, Summary } from '../../../../components/Details';
-import { navDesktopHeight } from '../../../../components/NavBar';
+import { navDesktopHeight, navMobileHeight } from '../../../../components/NavBar';
 import Times from '../../../../components/Times';
 import {
   labelStyle,
@@ -13,12 +13,13 @@ import {
     bookBannerDesktopMiniHeight,
     bookBannerMobileMiniHeight,
     searchResultsBarDesktopWidth,
+    searchResultsBarMobileWidth,
     searchSidebarTopOffset,
     sidebarTransitionTime,
-    toolbarDesktopHeight,
     toolbarIconColor,
-    toolbarMobileHeight,
-    topbarHeight,
+    topbarDesktopHeight,
+    topbarMobileHeight,
+    verticalNavbar,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
 import { toolbarIconStyles } from '../../../components/Toolbar/iconStyles';
@@ -35,7 +36,7 @@ export const SearchIconInsideBar = styled.img`
   color: ${theme.color.primary.gray.darker};
   margin-right: 0.7rem;
   margin-left: 1.6rem;
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     margin-left: ${theme.padding.page.mobile}rem;
   `)}
 `;
@@ -92,9 +93,9 @@ export const styleWhenSearchClosed = (closedStyle: FlattenSimpleInterpolation) =
 export const SearchResultsBar = styled.div`
   -webkit-overflow-scrolling: touch;
   overflow-x: visible;
-  top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
-  margin-top: -${topbarHeight}rem;
-  margin-left: -37.5rem;
+  top: ${bookBannerDesktopMiniHeight}rem;
+  margin-top: -${topbarDesktopHeight}rem;
+  margin-left: -${searchResultsBarDesktopWidth}rem;
   padding: 0;
   position: sticky;
   width: ${searchResultsBarDesktopWidth}rem;
@@ -104,18 +105,29 @@ export const SearchResultsBar = styled.div`
   z-index: ${theme.zIndex.sidebar};
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
-  // margin-right: ${searchResultsBarDesktopWidth}rem;
   animation: ${sidebarOpenAnimation} ${sidebarTransitionTime}ms forwards;
   ${styleWhenSearchClosed(css`
     animation: ${sidebarHideAnimation} ${sidebarTransitionTime}ms forwards;
   `)}
   ${theme.breakpoints.mobile(css`
-    margin-left: -100%;
-    width: 100%;
+    width: ${searchResultsBarMobileWidth}rem;
+    margin-left: -${searchResultsBarMobileWidth}rem;
+    top: ${bookBannerMobileMiniHeight}rem;
+    left: ${verticalNavbar}rem;
+    height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
+    max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
+  `)}
+
+  ${theme.breakpoints.mobileMedium(css`
+    z-index: ${theme.zIndex.searchSidebar};
+    margin: 0 -1.6rem 0 -100%;
+    width: 100vw;
     margin-top: 0;
     top: ${searchSidebarTopOffset}rem;
-    padding: 0;
-    max-height: calc(100vh - ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem);
+    max-height: calc(100vh - ${bookBannerMobileMiniHeight + topbarMobileHeight}rem);
+    ${styleWhenSearchClosed(css`
+      margin-left: calc(-100% - ${theme.padding.page.mobile}rem);
+    `)}
   `)}
 
   > ${NavOl} {
@@ -145,6 +157,7 @@ export const SearchResultsHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 50px;
   border-bottom: 1px solid ${theme.color.neutral.formBorder}
 `;
 
@@ -201,7 +214,7 @@ export const SearchBarSummaryContainer = styled.div`
   background: rgba(0, 0, 0, 0.17);
   padding: 1rem 0 1rem 1.6rem;
   border-top: solid 0.1rem ${borderColor};
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     padding-left: ${theme.padding.page.mobile}rem;
 
     ${SummaryTitle} {
@@ -270,7 +283,7 @@ export const SectionContentPreview = styled(
     outline: none;
   }
 
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     padding-left: 5rem;
   `)}
 `;
@@ -282,7 +295,7 @@ export const LinkWrapper = styled.div`
   align-items: center;
   padding: 1.2rem 1.6rem 0.8rem 1.6rem;
   border-top: solid 0.2rem ${borderColor};
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     padding-left: 3.3rem;
   `)}
 `;
@@ -323,7 +336,7 @@ export const CloseIconButton = styled.button`
   overflow: visible;
   height: ${headerHeight - 0.3}rem;
   width: ${headerHeight - 0.3}rem;
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     display: none;
   `)}
 `;
@@ -334,7 +347,7 @@ export const CloseIconWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin: 1.4rem 1.4rem 0 0;
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     display: none;
   `)}
 

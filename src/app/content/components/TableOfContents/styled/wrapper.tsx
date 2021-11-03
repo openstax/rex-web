@@ -10,10 +10,9 @@ import {
   sidebarDesktopWidth,
   sidebarMobileWidth,
   sidebarTransitionTime,
-  toolbarDesktopHeight,
   toolbarIconColor,
-  toolbarMobileHeight,
-  topbarHeight
+  topbarDesktopHeight,
+  topbarMobileHeight
 } from '../../constants';
 import { CloseSidebarControl, ToCButtonText } from '../../SidebarControl';
 import { toolbarIconStyles } from '../../Toolbar/iconStyles';
@@ -39,7 +38,7 @@ const sidebarClosedStyle = css`
 export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
-  margin-top: -${topbarHeight}rem;
+  margin-top: -${topbarDesktopHeight}rem;
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
@@ -57,7 +56,6 @@ export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
   ${theme.breakpoints.mobile(css`
     width: calc(50vw + ${sidebarMobileWidth}rem);
     min-width: calc(50vw + ${sidebarMobileWidth}rem);
-    margin-top: -${toolbarMobileHeight}rem;
     top: ${bookBannerMobileMiniHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
     max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
@@ -98,11 +96,11 @@ export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
 export const ToCHeader = styled.div`
   display: flex;
   align-items: center;
-  height: ${toolbarDesktopHeight}rem;
+  height: ${topbarDesktopHeight}rem;
   overflow: visible;
   box-shadow: 0 1rem 1rem -1rem rgba(0, 0, 0, 0.14);
   ${theme.breakpoints.mobile(css`
-    height: ${toolbarMobileHeight}rem;
+    height: ${topbarMobileHeight}rem;
   `)}
 `;
 

@@ -1,7 +1,10 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeMobileMenu } from '../../actions';
 import { practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
+import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { OpenSidebarControl } from '../SidebarControl';
@@ -14,7 +17,9 @@ import * as Styled from './styled';
 // tslint:disable-next-line: variable-name
 const Toolbar =   () => {
   const isPracticeQuestionsEnabled = useSelector(practiceQuestionsEnabled);
+  const isMobileMenuOpen = useSelector(mobileMenuOpen);
   const sidebarRef = React.useRef<HTMLElement>(null);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -27,8 +32,23 @@ const Toolbar =   () => {
     return deregister;
   }, [sidebarRef]);
 
-  return <Styled.ToolbarWrapper ref={sidebarRef} data-testid='toolbar' data-analytics-region='toolbar'>
-    <OpenSidebarControl hideMobileText={true} />
+  return <Styled.ToolbarWrapper
+    isMobileMenuOpen={isMobileMenuOpen}
+    ref={sidebarRef}
+    data-testid='toolbar'
+    data-analytics-region='toolbar'
+  >
+    <Styled.ToolbarMobileHeader>
+      <Styled.ToolbarMobileHeaderTitle>
+        <FormattedMessage id='i18n:toolbar:header:title'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.ToolbarMobileHeaderTitle>
+      <Styled.CloseToolbarButton onClick={() => dispatch(closeMobileMenu())}>
+        <Styled.TimesIcon />
+      </Styled.CloseToolbarButton>
+    </Styled.ToolbarMobileHeader>
+    <OpenSidebarControl hideMobileText={false} />
     <PracticeQuestionsButton />
     <Styled.NudgeElementTarget id={nudgeStudyToolsTargetId}>
       <StudyGuidesButton />

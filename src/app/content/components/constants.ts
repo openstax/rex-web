@@ -9,10 +9,11 @@ export const bookBannerMobileMiniHeight = 6;
 export const scrollOffset = 3;
 
 export const sidebarDesktopWidth = 37.5;
-export const sidebarMobileWidth = 28.8;
+export const sidebarMobileWidth = 30.4;
 export const sidebarTransitionTime = 300;
 
 export const searchResultsBarDesktopWidth = 37.5;
+export const searchResultsBarMobileWidth = 33.8;
 
 export const toolbarIconColor = theme.color.primary.gray;
 
@@ -27,13 +28,12 @@ export const toolbarMobileSearchWrapperHeight = toolbarSearchInputMobileHeight
   + (mobileSearchContainerMargin * 2)
   + toolbarHrHeight;
 
-export const toolbarDesktopHeight = 5;
-export const toolbarMobileHeight = 4;
-export const toolbarMobileExpandedHeight = toolbarMobileHeight
+export const topbarDesktopHeight = 5;
+export const topbarMobileHeight = 4;
+export const toolbarMobileExpandedHeight = topbarMobileHeight
   + toolbarMobileSearchWrapperHeight;
 
 export const verticalNavbar = 8;
-export const topbarHeight = 5;
 
 export const searchSidebarTopOffset = bookBannerMobileMiniHeight
   + toolbarMobileExpandedHeight;

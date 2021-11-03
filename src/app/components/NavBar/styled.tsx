@@ -286,7 +286,7 @@ export const BarWrapper = styled.div`
   z-index: ${theme.zIndex.navbar}; /* above book nav */
   background: ${theme.color.neutral.base};
   position: relative; /* drop shadow above notifications */
-  padding: 0 ${theme.padding.page.desktop}rem;
+  padding: 0 3.2rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   ${theme.breakpoints.mobile(css`
     padding: 0 ${theme.padding.page.mobile}rem;

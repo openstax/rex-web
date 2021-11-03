@@ -23,9 +23,9 @@ import {
   scrollOffset,
   sidebarDesktopWidth,
   sidebarTransitionTime,
-  toolbarDesktopHeight,
   toolbarMobileExpandedHeight,
-  toolbarMobileHeight
+  topbarDesktopHeight,
+  topbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
 import NudgeStudyTools from './NudgeStudyTools';
@@ -51,11 +51,11 @@ const Background = styled.div`
 const ContentNotifications = styled(Notifications)`
   &&& {
     z-index: ${theme.zIndex.contentNotifications};
-    top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+    top: ${bookBannerDesktopMiniHeight + topbarDesktopHeight}rem;
     ${theme.breakpoints.mobile(css`
       top: ${({mobileExpanded}: {mobileExpanded: boolean}) => mobileExpanded
           ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
-          : bookBannerMobileMiniHeight + toolbarMobileHeight
+          : bookBannerMobileMiniHeight + topbarMobileHeight
       }rem;
     `)}
   }
@@ -171,12 +171,12 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
   <ScrollOffset
     desktopOffset={
       bookBannerDesktopMiniHeight
-      + toolbarDesktopHeight
+      + topbarDesktopHeight
       + scrollOffset
     }
     mobileOffset={
       bookBannerMobileMiniHeight
-      + (mobileExpanded ? toolbarMobileExpandedHeight : toolbarMobileHeight)
+      + (mobileExpanded ? toolbarMobileExpandedHeight : topbarMobileHeight)
       + scrollOffset
     }
   />

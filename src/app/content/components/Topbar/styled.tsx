@@ -20,7 +20,8 @@ import {
   toolbarMobileSearchWrapperHeight,
   toolbarSearchInputHeight,
   toolbarSearchInputMobileHeight,
-  topbarHeight,
+  topbarDesktopHeight,
+  topbarMobileHeight,
   verticalNavbar
 } from '../constants';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
@@ -47,28 +48,55 @@ const closeIconStyles = css`
 `;
 
 // tslint:disable-next-line: variable-name
-export const TopBarWrapper = areSidebarsOpenConnector(styled.div`
+export const TopBarWrapper = styled.div`
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
   width: 100%;
   overflow: visible;
   display: block;
   z-index: ${theme.zIndex.topbar}; /* stay above book content */
-  background-color: ${theme.color.neutral.base};
-  height: ${topbarHeight}rem;
-  max-width: ${contentWrapperMaxWidth}rem;
-  margin: 0 auto;
-  transition: padding-left ${sidebarTransitionTime}ms;
-  padding-left: ${verticalNavbar}rem;
-  ${(props) => (props.isTocOpen || props.isTocOpen === null || props.isSearchOpen) && `
-    padding-left: ${sidebarDesktopWidth + verticalNavbar}rem;
-  `}
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileMiniHeight}rem;
   `)}
+`;
 
-  ${shadow}
-`);
+// tslint:disable-next-line: variable-name
+export const MenuButton = styled((props) => {
+  return <PlainButton {...props}>
+    <div></div>
+  </PlainButton>;
+})`
+  display: none;
+  justify-content: center;
+  ${theme.breakpoints.mobileMedium(css`
+    display: flex;
+  `)}
+
+  div {
+    position: relative;
+    height: 0.1rem;
+    width: 1.63rem;
+    background-color: #5e6062;
+    overflow: unset;
+
+    &::before,  &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      height: 0.1rem;
+      width: 100%;
+      background-color: #5e6062;
+    }
+
+    &::before {
+      top: -6px;
+    }
+
+    &::after {
+      bottom: -6px;
+    }
+  }
+`;
 
 // tslint:disable-next-line:variable-name
 export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) => {
@@ -101,12 +129,12 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
       vertical-align: middle;
     }
 
-    ${(props) => props.desktop && theme.breakpoints.mobile(css`
+    ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
       display: none;
     `)}
     ${(props) => props.mobile && css`
       display: none;
-      ${theme.breakpoints.mobile(css`
+      ${theme.breakpoints.mobileMedium(css`
         display: block;
         height: 100%;
       `)}
@@ -121,7 +149,7 @@ export const CloseButton = styled(
       ${closeIconStyles}
     }
 
-    ${(props) => props.desktop && theme.breakpoints.mobile(css`
+    ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
       display: none;
     `)}
   `;
@@ -166,7 +194,7 @@ export const SearchInputWrapper = styled.form`
       box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
     }
 
-    ${theme.breakpoints.mobile(css`
+    ${theme.breakpoints.mobileMedium(css`
       margin-right: 0;
       height: 100%;
       overflow: hidden;
@@ -201,28 +229,41 @@ export const SearchInput = styled(({ desktop, mobile, ...props }) =>
         color: ${theme.color.text.label};
       }
 
-      ${(props) => props.desktop && theme.breakpoints.mobile(css`
+      ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
         display: none;
       `)}
     `;
 
 // tslint:disable-next-line:variable-name
-export const SearchPrintWrapper = styled.div`
-    height: 100%;
+export const SearchPrintWrapper = areSidebarsOpenConnector(styled.div`
+  height: ${topbarDesktopHeight}rem;
+    max-width: ${contentWrapperMaxWidth}rem;
+    margin: 0 auto;
     text-align: right;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: visible;
+    background-color: ${theme.color.neutral.base};
+    transition: padding-left ${sidebarTransitionTime}ms;
+    ${(props) => (props.isTocOpen || props.isTocOpen === null || props.isSearchOpen) && `
+      padding-left: ${sidebarDesktopWidth}rem;
+    `}
     ${theme.breakpoints.mobile(css`
-      height: 100%;
+      padding-left: ${verticalNavbar}rem;
+    `)}
+    ${theme.breakpoints.mobileMedium(css`
+      height: ${topbarMobileHeight}rem;
+      justify-content: space-between;
+      padding: 0 6px;
       ${SearchInputWrapper} {
         border: none;
         border-radius: 0;
         width: ${buttonMinWidth};
       }
     `)}
-  `;
+    ${shadow}
+  `);
 
 // tslint:disable-next-line:variable-name
 export const MobileSearchContainer = styled.div`
@@ -230,7 +271,7 @@ export const MobileSearchContainer = styled.div`
   margin-top: ${mobileSearchContainerMargin}rem;
   margin-bottom: ${mobileSearchContainerMargin}rem;
   height: ${toolbarSearchInputMobileHeight}rem;
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -243,7 +284,7 @@ export const MobileSearchWrapper = styled.div`
   height: ${toolbarMobileSearchWrapperHeight}rem;
   background-color: ${theme.color.neutral.base};
   ${shadow}
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     display: block;
   `)}
 `;
@@ -254,7 +295,7 @@ export const Hr = styled.hr`
   border-top: ${toolbarHrHeight}rem solid #efeff1;
   display: none;
   margin: 0;
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     display: block;
   `)}
 `;

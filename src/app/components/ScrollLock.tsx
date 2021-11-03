@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
-import { sidebarTransitionTime, toolbarDesktopHeight } from '../content/components/constants';
+import { sidebarTransitionTime, topbarDesktopHeight } from '../content/components/constants';
 import { disablePrint } from '../content/components/utils/disablePrint';
 import { useDisableContentTabbing } from '../reactUtils';
 import theme from '../theme';
@@ -67,7 +67,7 @@ export const Overlay = styled(({ mobileOnly, zIndex, ...props}: OverlayProps) =>
   `}
   position: absolute;
   content: "";
-  top: -${toolbarDesktopHeight}rem;
+  top: -${topbarDesktopHeight}rem;
   bottom: 0;
   left: 0;
   right: 0;

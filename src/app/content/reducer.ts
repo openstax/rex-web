@@ -22,6 +22,7 @@ export const initialState = {
   buyPrint: null,
   highlights: initialHighlightState,
   loading: {},
+  mobileMenuOpen: false,
   pageNotFoundId: null,
   params: null,
   practiceQuestions: initialPracticeQuestionsState,
@@ -75,6 +76,10 @@ function reduceContent(state: State, action: AnyAction) {
       return {...state, tocOpen: false};
     case getType(actions.resetToc):
       return {...state, tocOpen: null};
+    case getType(actions.openMobileMenu):
+      return {...state, mobileMenuOpen: true};
+    case getType(actions.closeMobileMenu):
+      return {...state, mobileMenuOpen: false};
     case getType(actions.requestBook):
       return {...state, loading: {...state.loading, book: action.payload}};
     case getType(actions.receiveBook): {

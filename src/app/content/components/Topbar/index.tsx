@@ -6,6 +6,7 @@ import * as selectFeatureFlags from '../../../featureFlags/selectors';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
+import { openMobileMenu } from '../../actions';
 import {
   clearSearch,
   openMobileToolbar,
@@ -20,6 +21,7 @@ interface Props {
   query: string | null;
   clearSearch: () => void;
   openSearchResults: () => void;
+  openMobileMenu: () => void;
   openMobileToolbar: () => void;
   mobileToolbarOpen: boolean;
   searchSidebarOpen: boolean;
@@ -45,6 +47,11 @@ class Topbar extends React.Component<Props, State> {
   public state = { query: '', queryProp: '', formSubmitted: false };
 
   public render() {
+    const openMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      this.props.openMobileMenu();
+    };
+
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
@@ -87,6 +94,7 @@ class Topbar extends React.Component<Props, State> {
 
     return <Styled.TopBarWrapper>
       <Styled.SearchPrintWrapper>
+        <Styled.MenuButton type='button' onClick={openMenu}/>
         <Styled.SearchInputWrapper
           active={this.props.mobileToolbarOpen}
           onSubmit={onSubmit}
@@ -180,6 +188,7 @@ export default connect(
   }),
   (dispatch: Dispatch) => ({
     clearSearch: flow(clearSearch, dispatch),
+    openMobileMenu: flow(openMobileMenu, dispatch),
     openMobileToolbar: flow(openMobileToolbar, dispatch),
     openSearchResults: flow(openSearchResultsMobile, dispatch),
     search: flow(requestSearch, dispatch),

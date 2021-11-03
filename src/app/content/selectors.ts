@@ -18,6 +18,11 @@ export const tocOpen = createSelector(
   (state) => !state.search.query && state.tocOpen
 );
 
+export const mobileMenuOpen = createSelector(
+  localState,
+  (state) => state.mobileMenuOpen
+);
+
 export const book = createSelector(
   localState,
   (state) => state.book

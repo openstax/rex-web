@@ -1,6 +1,8 @@
+import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { maxNavWidth } from '../../../components/NavBar/styled';
+import Times from '../../../components/Times';
 import {
   textRegularSize,
 } from '../../../components/Typography';
@@ -9,8 +11,8 @@ import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
   toolbarIconColor,
-  toolbarMobileHeight,
-  topbarHeight,
+  topbarDesktopHeight,
+  topbarMobileHeight,
   verticalNavbar,
 } from '../constants';
 import { disablePrint } from '../utils/disablePrint';
@@ -21,9 +23,9 @@ export const buttonMinWidth = `45px`;
 export const toolbarDefaultText = css`
   font-weight: 600;
   ${textRegularSize};
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
+  // ${theme.breakpoints.mobile(css`
+  //   display: none;
+  // `)}
 `;
 
 export const barPadding = css`
@@ -89,7 +91,7 @@ export const ToolbarWrapper = styled.div`
   top: ${bookBannerDesktopMiniHeight}rem;
   height: calc(100vh - 13rem);
   margin-left: -${verticalNavbar}rem;
-  margin-top: -${topbarHeight}rem;
+  margin-top: -${topbarDesktopHeight}rem;
   max-height: calc(100vh - 7rem);
   max-width: ${verticalNavbar}rem;
   overflow: visible;
@@ -98,10 +100,31 @@ export const ToolbarWrapper = styled.div`
   align-items: center;
   z-index: ${theme.zIndex.toolbar}; /* stay above book content */
   background-color: ${theme.color.neutral.base};
+
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileMiniHeight}rem;
-    justify-content: space-between;
-    height: ${toolbarMobileHeight}rem;
+    max-height: calc(100vh - 6rem);
+    margin-left: -${theme.padding.page.mobile}rem;
+    margin-right: ${theme.padding.page.mobile}rem;
+  `)}
+
+  ${theme.breakpoints.mobileMedium(css`
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    max-height: unset;
+    max-width: 100%;
+    width: 100%;
+    justify-content: start;
+    height: ${topbarMobileHeight}rem;
+    transform: translateX(-100%);
+    visibility: hidden;
+
+    ${(props: {isMobileMenuOpen: boolean}) => props.isMobileMenuOpen && `
+      transform: translateX(0);
+      visibility: visible;
+    `}
   `)}
 
   ${shadow}
@@ -111,4 +134,44 @@ export const ToolbarWrapper = styled.div`
 // tslint:disable-next-line: variable-name
 export const NudgeElementTarget = styled.div`
   display: contents;
+`;
+
+// tslint:disable-next-line: variable-name
+export const ToolbarMobileHeader = styled.div`
+  display: none;
+
+  ${theme.breakpoints.mobileMedium(css`
+    display: flex;
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    position: relaitive;
+    margin: 0 16px;
+  `)}
+`;
+
+// tslint:disable-next-line: variable-name
+export const ToolbarMobileHeaderTitle = styled.span`
+  font-size: 1.8rem;
+  color: ${theme.color.primary.gray.base};
+  font-weight: bold;
+`;
+
+// tslint:disable-next-line: variable-name
+export const CloseToolbarButton = styled(PlainButton)`
+  position: absolute;
+  right: 0;
+`;
+
+// tslint:disable-next-line:variable-name
+export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+  ${toolbarIconStyles};
+  margin-right: 0;
+  padding-right: 0;
+  color: ${toolbarIconColor.lighter};
+
+  :hover {
+    color: ${toolbarIconColor.base};
+  }
 `;
