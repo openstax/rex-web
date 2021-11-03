@@ -38,9 +38,7 @@ import {
   selectSearchResult
 } from '../../actions';
 import * as selectSearch from '../../selectors';
-import { SearchScrollTarget } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
-
 
 describe('SearchResultsSidebar', () => {
   let store: Store;
