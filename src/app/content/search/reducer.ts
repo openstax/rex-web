@@ -27,6 +27,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...state,
         loading: false,
         results: action.payload,
+        // user selected the result if there is a search scroll target
         userSelectedResult: !!(action.meta && action.meta.searchScrollTarget),
       };
     }
@@ -34,6 +35,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         ...state,
         selectedResult: action.payload,
+        // user selected the result if this is already set to true OR a result was previously selected
         userSelectedResult: state.userSelectedResult || !!state.selectedResult,
       };
     }
