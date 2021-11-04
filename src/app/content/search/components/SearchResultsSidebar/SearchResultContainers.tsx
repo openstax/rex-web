@@ -9,8 +9,7 @@ import { stripIdVersion } from '../../../utils/idUtils';
 import { closeSearchResultsMobile, selectSearchResult } from '../../actions';
 import { isSearchResultChapter } from '../../guards';
 import * as selectSearch from '../../selectors';
-import { SearchResultChapter, SearchResultContainer,
-  SearchResultPage, SelectedResult } from '../../types';
+import { SearchResultChapter, SearchResultContainer, SearchResultPage, SelectedResult } from '../../types';
 import SearchResultHits from './SearchResultHits';
 import * as Styled from './styled';
 
