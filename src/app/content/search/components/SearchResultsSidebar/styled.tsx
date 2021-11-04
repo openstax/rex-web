@@ -401,4 +401,14 @@ export const KeyTermResult = styled(SimpleResult)`
   ${theme.breakpoints.mobile(css`
     margin-left: 3.2rem;
   `)}
+
+  > div {
+    ::before{
+      content: ''
+    }
+
+    ::after {
+      content: ''
+    }
+  }
 `;
