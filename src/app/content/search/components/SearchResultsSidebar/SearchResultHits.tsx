@@ -17,7 +17,7 @@ interface SearchResultHitsProps {
   hits: SearchResultHit[];
   testId: string;
   getPage: (hit: SearchResultHit) => ArchiveTreeSection;
-  onClick: (result: {result: SearchResultHit, highlight: number}) => void;
+  onClick: (result: { result: SearchResultHit, highlight: number }) => void;
   selectedResult: SelectedResult | null;
 }
 
@@ -35,7 +35,7 @@ const SearchResultHits = ({
     const getKeyTermsPages = async() => {
       keyTermsHits.forEach(async(hit) => {
         const content = await loadPageContent(loader, stripIdVersion(hit.source.pageId));
-        setKeyTerms((pages) => ({...pages, [hit.source.elementId]: getKeyTermPair(content, hit.source.elementId)}));
+        setKeyTerms((pages) => ({ ...pages, [hit.source.elementId]: getKeyTermPair(content, hit.source.elementId) }));
       });
     };
 
@@ -45,13 +45,13 @@ const SearchResultHits = ({
   return <React.Fragment>
     {hits.map((hit) => {
       if (isKeyTermHit(hit)) {
-        const pair = (keyTerms as {[key: string]: any})[hit.source.elementId];
+        const pair = (keyTerms as { [key: string]: any })[hit.source.elementId];
         hit.highlight.term = (pair && pair.term) || hit.highlight.title;
         hit.highlight.visibleContent = (pair && pair.definition) ? [pair.definition] : hit.highlight.visibleContent;
       }
 
       return hit.highlight.visibleContent?.map((highlight: string, index: number) => {
-        const thisResult = {result: hit, highlight: index};
+        const thisResult = { result: hit, highlight: index };
         const isSelected = isEqual(selectedResult, thisResult);
         const target: SearchScrollTarget = {
           elementId: thisResult.result.source.elementId,
@@ -67,11 +67,14 @@ const SearchResultHits = ({
           page={getPage(hit)}
           scrollTarget={target}
           onClick={() => onClick(thisResult)}
-          {...isSelected && activeSectionRef ?  {ref: activeSectionRef} : {}}
+          {...isSelected && activeSectionRef ? { ref: activeSectionRef } : {}}
         >
           {isKeyTermHit(hit)
             ? <RelatedKeyTermContent keyTermHit={hit} />
-            : <div tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }} />}
+            : (<Styled.SimpleResult>
+              <div tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }} />
+            </Styled.SimpleResult>
+            )}
         </Styled.SectionContentPreview>;
       });
     })}
