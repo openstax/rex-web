@@ -160,7 +160,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         onClick={[Function]}
       >
         <div
-          className="styled__SimpleResult-as3fh1-28 styled__KeyTermResult-as3fh1-29 jPQCdN"
+          className="styled__SimpleResult-as3fh1-28 styled__KeyTermResult-as3fh1-29 uzVua"
         >
           <span
             className="styled__KeyTerm-as3fh1-27 eskZsd"
@@ -183,7 +183,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         onClick={[Function]}
       >
         <div
-          className="styled__SimpleResult-as3fh1-28 styled__KeyTermResult-as3fh1-29 jPQCdN"
+          className="styled__SimpleResult-as3fh1-28 styled__KeyTermResult-as3fh1-29 uzVua"
         >
           <span
             className="styled__KeyTerm-as3fh1-27 eskZsd"
