@@ -47,9 +47,10 @@ const SearchResultHits = ({
       if (isKeyTermHit(hit)) {
         const pair = (keyTerms as { [key: string]: any })[hit.source.elementId];
         hit.highlight.term = (pair && pair.term) || hit.highlight.title;
-        hit.highlight.visibleContent = (hit.highlight.visibleContent
-          || (pair && pair.definition ? [pair.definition] : [])).slice(0, 1);
-        }
+        hit.highlight.visibleContent = hit.highlight.visibleContent && hit.highlight.visibleContent.length
+          ? hit.highlight.visibleContent.slice(0)
+          : (pair && pair.definition ? [pair.definition] : []).slice(0);
+      }
 
       return hit.highlight.visibleContent?.map((highlight: string, index: number) => {
         const thisResult = { result: hit, highlight: index };
