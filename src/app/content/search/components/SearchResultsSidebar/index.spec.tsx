@@ -38,6 +38,7 @@ import {
   selectSearchResult
 } from '../../actions';
 import * as selectSearch from '../../selectors';
+import { SearchScrollTarget } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
 describe('SearchResultsSidebar', () => {
@@ -254,11 +255,12 @@ describe('SearchResultsSidebar', () => {
 
   it ('scrolls to search scroll target if result selected by user', () => {
     const searchResult = makeSearchResultHit({ book: archiveBook, page });
+    const searchScrollTarget: SearchScrollTarget = { type: 'search', index: 0, elementId: 'elementId' };
     const scrollSidebarSectionIntoView = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
     jest.spyOn(selectSearch, 'userSelectedResult').mockReturnValue(true);
 
     store.dispatch(requestSearch('cool search'));
-    store.dispatch(receiveSearchResults(makeSearchResults([searchResult])));
+    store.dispatch(receiveSearchResults(makeSearchResults([searchResult]), { searchScrollTarget }));
     store.dispatch(selectSearchResult({result: searchResult, highlight: 0}));
 
     renderer.create(render());
