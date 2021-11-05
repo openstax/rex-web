@@ -218,6 +218,13 @@ export const getKeyTermPair = (htmlString: string, elementId: string) => {
   };
 };
 
+export const getFilteredResults = (searchResults: SearchResult) => ({
+  ...searchResults,
+  hits: {
+    ...searchResults.hits,
+    hits: searchResults.hits.hits.filter((hit) => !matchKeyTermHit(hit) || !!hit.highlight.title)},
+});
+
 export const getNonKeyTermResults = (searchResults: SearchResult) => ({
   ...searchResults,
   hits: {...searchResults.hits, hits: searchResults.hits.hits.filter((hit) => !matchKeyTermHit(hit))},

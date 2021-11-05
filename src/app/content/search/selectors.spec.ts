@@ -1,3 +1,4 @@
+import { SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
@@ -20,6 +21,23 @@ describe('currentPageResults', () => {
 
   it('returns results for current page', () => {
     const hit = makeSearchResultHit({page, book});
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveSearchResults(makeSearchResults([
+      hit,
+    ])));
+
+    expect(select.currentPageResults(store.getState())).toEqual([hit]);
+  });
+
+  it('returns key terms results for current page', () => {
+    const hit = makeSearchResultHit({
+      book,
+      elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
+      highlights: ['description 1'],
+      page,
+      sourceId: 'test-pair-page1',
+      title: 'term1 - selected',
+    });
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveSearchResults(makeSearchResults([
       hit,

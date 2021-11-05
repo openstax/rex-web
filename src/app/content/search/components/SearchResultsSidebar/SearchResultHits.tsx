@@ -47,7 +47,7 @@ const SearchResultHits = ({
       if (isKeyTermHit(hit)) {
         const pair = (keyTerms as { [key: string]: any })[hit.source.elementId];
         hit.highlight.term = (pair && pair.term) || hit.highlight.title;
-        hit.highlight.visibleContent = (pair && pair.definition) ? [pair.definition] : [];
+        hit.highlight.visibleContent = (pair && pair.definition) ? [pair.definition] : hit.highlight.visibleContent;
       }
 
       return hit.highlight.visibleContent?.map((highlight: string, index: number) => {

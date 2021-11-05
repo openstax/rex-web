@@ -3,6 +3,7 @@ import * as parentSelectors from '../selectors';
 import {
   countTotalHighlights,
   countUniqueKeyTermHighlights,
+  getFilteredResults,
   getFormattedSearchResults,
   getNonKeyTermResults,
   getSearchResultsForPage,
@@ -34,11 +35,6 @@ export const selectedResult = createSelector(
   (state) => state.selectedResult
 );
 
-export const hits = createSelector(
-  localState,
-  (state) => state.results ? state.results.hits.hits : null
-);
-
 const getRawResults = createSelector(
   localState,
   (state) => state.results
@@ -56,7 +52,13 @@ const keyTermHits = createSelector(
 
 export const keyTermHitsInTitle = createSelector(
   keyTermHits,
-  (selectedHits) => selectedHits ? selectedHits.filter((hit) => hit.highlight.title) : null
+  (selectedHits) => selectedHits ? selectedHits.filter((hit) => !!hit.highlight.title) : null
+);
+
+export const hits = createSelector(
+  nonKTHits,
+  keyTermHitsInTitle,
+  (chapterHits, filteredkeyTermHits) => [...(chapterHits || []), ...(filteredkeyTermHits || [])]
 );
 
 export const totalHits = createSelector(
@@ -86,15 +88,20 @@ export const nonKeyTermResults = createSelector(
   (selectedResults, book) => selectedResults && book ? getFormattedSearchResults(book.tree, selectedResults) : null
 );
 
+const filteredResults = createSelector(
+  getRawResults,
+  (rawResults) => rawResults ? getFilteredResults(rawResults) : null
+);
+
 export const mobileToolbarOpen = createSelector(
   localState,
   (state) => state.mobileToolbarOpen
 );
 
 export const currentPageResults = createSelector(
-  getRawResults,
+  filteredResults,
   parentSelectors.page,
-  (rawResults, page) => rawResults && page ? getSearchResultsForPage(page, rawResults) : []
+  (selectedResults, page) => selectedResults && page ? getSearchResultsForPage(page, selectedResults) : []
 );
 
 export const userSelectedResult = createSelector(
