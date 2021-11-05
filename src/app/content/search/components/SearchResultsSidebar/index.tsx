@@ -78,7 +78,7 @@ export default connect(
   (state: AppState) => ({
     book: select.book(state),
     hasQuery: !!selectSearch.query(state),
-    keyTermHits: selectSearch.sortedKeyTermHits(state),
+    keyTermHits: selectSearch.keyTermHitsInTitle(state),
     nonKeyTermResults: selectSearch.nonKeyTermResults(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),

@@ -38,33 +38,6 @@ export const getSearchResultsForPage = (page: {id: string}, results: SearchResul
     results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id))
   );
 
-export const filterTreeForHits = (
-  node: LinkedArchiveTree,
-  searchResults: SearchResult
-  ): SearchResultHit[] => {
-  let hits: SearchResultHit[] = [];
-
-  for (const child of linkContents(node)) {
-    if (archiveTreeSectionIsPage(child)) {
-      const results = getSearchResultsForPage(child, searchResults);
-
-      if (results.length > 0) {
-        hits = [...hits, ...results.map((result) => result)];
-      }
-    } else if (archiveTreeSectionIsChapter(child)) {
-      const contents = filterTreeForHits(child, searchResults);
-
-      if (contents.length > 0) {
-        hits = [...hits, ...contents.map((section) => section)];
-      }
-    } else { // must be a non-chapter ArchiveTree
-      hits.push(...filterTreeForHits(child, searchResults));
-    }
-  }
-
-  return hits;
-};
-
 const filterTreeForSearchResults = (
   node: LinkedArchiveTree,
   searchResults: SearchResult
@@ -244,11 +217,6 @@ export const getKeyTermPair = (htmlString: string, elementId: string) => {
     term: term.textContent,
   };
 };
-
-export const getKeyTermResults = (searchResults: SearchResult) => ({
-  ...searchResults,
-  hits: {...searchResults.hits, hits: searchResults.hits.hits.filter(matchKeyTermHit)},
-});
 
 export const getNonKeyTermResults = (searchResults: SearchResult) => ({
   ...searchResults,

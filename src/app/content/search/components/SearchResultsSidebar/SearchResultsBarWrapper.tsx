@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import searchIcon from '../.../../../../../../assets/search-icon-v2.svg';
 import Loader from '../../../../components/Loader';
-import { assertNotNull } from '../../../../utils/assertions';
+import { assertDefined, assertNotNull } from '../../../../utils/assertions';
 import { Book } from '../../../types';
 import {
   fixSafariScrolling,
@@ -110,12 +110,15 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     const displayRelatedKeyTerms = this.props.keyTermHits && this.props.keyTermHits.length > 0;
     const displaySearchResults = results && results.length > 0;
     const displaySearchResultsSectionTitle = displayRelatedKeyTerms && displaySearchResults;
+    const sortedKeyTermHits = this.props.keyTermHits && this.props.keyTermHits.sort((a, b) =>
+      assertDefined(a.highlight.title, 'highlight should have title')
+      .localeCompare(assertDefined(b.highlight.title, 'highlight should have title')));
 
     return <Styled.NavOl>
       {displayRelatedKeyTerms && <RelatedKeyTerms
         book={book}
         selectedResult={this.props.selectedResult}
-        keyTermHits={assertNotNull(this.props.keyTermHits, 'displayRelatedKeyTerms is true')}
+        keyTermHits={assertNotNull(sortedKeyTermHits, 'displayRelatedKeyTerms is true')}
       />}
       {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle>
         <FormattedMessage id='i18n:search-results:bar:title'>
