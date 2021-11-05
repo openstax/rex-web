@@ -56,7 +56,7 @@ const keyTermHits = createSelector(
 
 export const keyTermHitsInTitle = createSelector(
   keyTermHits,
-  (selectedHits) => selectedHits ? selectedHits.filter((hit) => hit.highlight.title) : null
+  (selectedHits) => selectedHits ? selectedHits.filter((hit) => !!hit.highlight.title) : null
 );
 
 export const totalHits = createSelector(
