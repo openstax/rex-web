@@ -10,7 +10,6 @@ import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { assertDocument } from '../../utils';
 import { ArchivePage, LinkedArchiveTree } from '../types';
 import {
-  filterTreeForHits,
   generateKeyTermExcerpt,
   getFirstResult,
   getFormattedSearchResults,
@@ -49,25 +48,6 @@ describe('getFirstResult', () => {
     }
 
     expect(result.result.source.pageId).toEqual(treeWithoutUnits.contents[1].contents![0].id);
-  });
-});
-
-describe('filterTreeForHits', () => {
-
-  it('works with treeWithoutUnits', () => {
-    const chapterHit = makeSearchResultHit({
-      book: {...mockArchive.book, tree: treeWithoutUnits},
-      page: treeWithoutUnits.contents[2] as unknown as ArchivePage,
-    });
-    const searchResults: SearchResult = makeSearchResults([
-      chapterHit,
-    ]);
-    expect(filterTreeForHits(treeWithoutUnits, searchResults)[0].source).toEqual({
-      elementId: 'fs-id1544727',
-      elementType: 'paragraph',
-      pageId: treeWithoutUnits.contents[2].id,
-      pagePosition: 60,
-    });
   });
 });
 
