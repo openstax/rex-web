@@ -42,7 +42,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const {page: currentPage, book} = selectContent.bookAndPage(state);
   const pageIsLoading = selectContent.loadingPage(state);
   const query = select.query(state);
-  const results = select.hits(state) || [];
+  const results = select.hits(state);
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
 
   if (pageIsLoading || !book) {
