@@ -83,7 +83,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
-    // If user nvaigated quickly between pages then most likelly there were multiple componentDidUpdate calls started.
+    // If user navigated quickly between pages then most likelly there were multiple componentDidUpdate calls started.
     // We want to update highlight manager only for the last componentDidUpdate.
     if (!this.shouldUpdateHighlightManagers(prevProps, this.props, runId)) {
       return;
