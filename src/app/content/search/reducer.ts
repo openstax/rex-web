@@ -13,6 +13,7 @@ export const initialState: State = {
   results: null,
   selectedResult: null,
   sidebarOpen: false,
+  userSelectedResult: false,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
@@ -22,10 +23,21 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {...initialState, loading: true, query: action.payload, sidebarOpen: true, mobileToolbarOpen: true};
     }
     case getType(actions.receiveSearchResults): {
-      return {...state, loading: false, results: action.payload};
+      return {
+        ...state,
+        loading: false,
+        results: action.payload,
+        // user selected the result if there is a search scroll target
+        userSelectedResult: !!(action.meta && action.meta.searchScrollTarget),
+      };
     }
     case getType(actions.selectSearchResult): {
-      return {...state, selectedResult: action.payload};
+      return {
+        ...state,
+        selectedResult: action.payload,
+        // user selected the result if this is already set to true OR a result was previously selected
+        userSelectedResult: state.userSelectedResult || !!state.selectedResult,
+      };
     }
     case getType(actions.openMobileToolbar): {
       return {...state, mobileToolbarOpen: true};
