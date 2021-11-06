@@ -7,7 +7,7 @@
     "@formatjs/intl-pluralrules": "^4.0.6",
     "@openstax/highlighter": "^1.12.0",
     "@openstax/event-capture-client": "1.2.2",
-    "@openstax/open-search-client": "0.1.0",
+    "@openstax/open-search-client": "0.1.0-build.7",
     "@sentry/browser": "6.0.2",
     "@sentry/integrations": "^6.0.2",
     "color": "^3.1.2",
