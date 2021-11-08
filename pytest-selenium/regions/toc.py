@@ -14,14 +14,13 @@ class TableOfContents(Region):
 
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
-    _next_section_locator = (
-        By.CSS_SELECTOR,
-        "[aria-label='Current Page'] ~ li > a"
-    )
+    _next_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page'] ~ li > a")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 
     _chapter_link_selector = "li details"
+
+    # _unit_link_selector = (By.XPATH, "//li//a/../../../../../../summary/..")
 
     @property
     def active_section(self):
@@ -36,8 +35,7 @@ class TableOfContents(Region):
 
         """
         return self.driver.execute_script(
-            "return document.querySelectorAll"
-            f"('{self._chapter_link_selector}');"
+            "return document.querySelectorAll" f"('{self._chapter_link_selector}');"
         )
 
     @property
@@ -50,8 +48,7 @@ class TableOfContents(Region):
     def sections(self):
         return [
             self.ContentPage(self.page, section_link)
-            for section_link
-            in self.find_elements(*self._section_link_locator)
+            for section_link in self.find_elements(*self._section_link_locator)
         ]
 
     def expand_chapter(self, chapter: int):
@@ -62,12 +59,10 @@ class TableOfContents(Region):
 
         """
         chapters = self.driver.execute_script(
-            "return document.querySelectorAll"
-            f"('{self._chapter_link_selector}');"
+            "return document.querySelectorAll" f"('{self._chapter_link_selector}');"
         )
         self.driver.execute_script(
-            "return arguments[0].setAttribute('open', '1');",
-            chapters[chapter]
+            "return arguments[0].setAttribute('open', '1');", chapters[chapter]
         )
 
     @property
@@ -99,12 +94,9 @@ class TableOfContents(Region):
 
         _is_active_locator = (By.XPATH, "./..")
 
-        _active_page_mark_selector = '[aria-label=\"Current Page\"]'
+        _active_page_mark_selector = '[aria-label="Current Page"]'
 
-        WAIT = (
-            "return document.querySelectorAll"
-            f"('{_active_page_mark_selector}');"
-        )
+        WAIT = "return document.querySelectorAll" f"('{_active_page_mark_selector}');"
 
         def click(self):
             self.page.click_and_wait_for_load(self.root)
@@ -124,9 +116,7 @@ class TableOfContents(Region):
 
             """
             try:
-                self.wait.until(
-                    lambda _: bool(self.driver.execute_script(self.WAIT))
-                )
+                self.wait.until(lambda _: bool(self.driver.execute_script(self.WAIT)))
             except TimeoutException:
                 return False
             parent = self.find_element(*self._is_active_locator)
