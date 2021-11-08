@@ -8,7 +8,7 @@ import attachHighlight from '../components/utils/attachHighlight';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
-import { isSearchResultChapter } from './guards';
+import { isKeyTermHit, isSearchResultChapter } from './guards';
 import { SearchResultContainer, SearchResultPage, SearchScrollTarget, SelectedResult } from './types';
 
 export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult): SelectedResult | null => {
@@ -152,7 +152,11 @@ export const highlightResults = (
       return {result: hit, highlights: {}};
     }
 
-    const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
+    if (isKeyTermHit(hit) && hit.highlight.title) {
+      hit.highlight.visibleContent = [hit.highlight.title];
+    }
+
+    const hitHighlights = hit.highlight.visibleContent?.map((highlightText, index) => {
       const highlights = getHighlightRanges(element, highlightText, index)
         .map((range) => {
           const highlight = new Highlight(

@@ -53,8 +53,13 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
   const {selectedResult} = current;
 
   services.highlighter.clearFocusedStyles();
-
-  const elementHighlights = services.searchResultMap.find((map) => isEqual(map.result, selectedResult.result));
+  // console.log('searchResultMap: ', services.searchResultMap);
+  const elementHighlights = services.searchResultMap.find((map) => {
+    // console.log('the map: ', map.result, selectedResult);
+    // console.log(isEqual(map.result, selectedResult.result));
+    return isEqual(map.result, selectedResult.result);
+  });
+  // console.log('element highglights ', elementHighlights);
   const selectedHighlights = elementHighlights && elementHighlights.highlights[selectedResult.highlight];
   const firstSelectedHighlight = selectedHighlights && selectedHighlights[0];
 
