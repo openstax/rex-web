@@ -20,9 +20,19 @@ export const searchResultsOpen = createSelector(
   (state) => !!state.query && state.sidebarOpen
 );
 
-export const hasResults = createSelector(
+const getRawResults = createSelector(
   localState,
-  (state) => !!state.results
+  (state) => state.results
+);
+
+const filteredResults = createSelector(
+  getRawResults,
+  (rawResults) => rawResults ? getFilteredResults(rawResults) : null
+);
+
+export const hasResults = createSelector(
+  filteredResults,
+  (selectedResults) => !!selectedResults
 );
 
 export const query = createSelector(
@@ -35,19 +45,14 @@ export const selectedResult = createSelector(
   (state) => state.selectedResult
 );
 
-const getRawResults = createSelector(
-  localState,
-  (state) => state.results
-);
-
 const nonKTHits = createSelector(
-  getRawResults,
-  (rawResults) => rawResults ? rawResults.hits.hits.filter((hit) => !matchKeyTermHit(hit)) : null
+  filteredResults,
+  (selectedResults) => selectedResults ? selectedResults.hits.hits.filter((hit) => !matchKeyTermHit(hit)) : null
 );
 
 const keyTermHits = createSelector(
-  getRawResults,
-  (rawResults) => rawResults ? rawResults.hits.hits.filter(matchKeyTermHit) : null
+  filteredResults,
+  (selectedResults) => selectedResults ? selectedResults.hits.hits.filter(matchKeyTermHit) : null
 );
 
 export const keyTermHitsInTitle = createSelector(
@@ -72,25 +77,20 @@ export const totalHitsKeyTerms = createSelector(
 );
 
 export const results = createSelector(
-  getRawResults,
+  filteredResults,
   parentSelectors.book,
-  (rawResults, book) => rawResults && book ? getFormattedSearchResults(book.tree, rawResults) : null
+  (selectedResults, book) => selectedResults && book ? getFormattedSearchResults(book.tree, selectedResults) : null
 );
 
 const rawNonKTResults = createSelector(
-  getRawResults,
-  (rawResults) => rawResults ? getNonKeyTermResults(rawResults) : null
+  filteredResults,
+  (selectedResults) => selectedResults ? getNonKeyTermResults(selectedResults) : null
 );
 
 export const nonKeyTermResults = createSelector(
   rawNonKTResults,
   parentSelectors.book,
   (selectedResults, book) => selectedResults && book ? getFormattedSearchResults(book.tree, selectedResults) : null
-);
-
-const filteredResults = createSelector(
-  getRawResults,
-  (rawResults) => rawResults ? getFilteredResults(rawResults) : null
 );
 
 export const mobileToolbarOpen = createSelector(
