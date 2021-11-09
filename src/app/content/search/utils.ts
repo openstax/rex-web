@@ -237,6 +237,7 @@ export const getFilteredResults = (searchResults: SearchResult) => ({
   hits: {
     ...searchResults.hits,
     hits: searchResults.hits.hits.filter((hit) =>
+      // use only first condition (acceted doc type) once search backend updated to ignore key term definitions
       matchAcceptedDocTypeHit(hit) && (!matchKeyTermHit(hit) || !!hit.highlight.title)
     )},
 });
