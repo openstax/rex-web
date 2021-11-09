@@ -11,6 +11,12 @@ import { getIdVersion, stripIdVersion } from '../utils/idUtils';
 import { isKeyTermHit, isSearchResultChapter } from './guards';
 import { SearchResultContainer, SearchResultPage, SearchScrollTarget, SelectedResult } from './types';
 
+const ACCEPTED_DOC_TYPES = [
+  SearchResultHitSourceElementTypeEnum.Figure,
+  SearchResultHitSourceElementTypeEnum.KeyTerm,
+  SearchResultHitSourceElementTypeEnum.Paragraph,
+];
+
 export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult): SelectedResult | null => {
   const [result] = getFormattedSearchResults(book.tree, results);
   const findFirstResultPage = (container: SearchResultContainer): SearchResultPage => isSearchResultChapter(container)
@@ -191,9 +197,6 @@ export const findSearchResultHit = (
   return results.find((result) => result.source.elementId === target.elementId);
 };
 
-export const matchKeyTermHit = (hit: SearchResultHit) =>
-  hit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm;
-
 export const generateKeyTermExcerpt = (text: string) => {
   if (text.length <= 115) {
     return text;
@@ -222,11 +225,19 @@ export const getKeyTermPair = (htmlString: string, elementId: string) => {
   };
 };
 
+export const matchKeyTermHit = (hit: SearchResultHit) =>
+  hit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm;
+
+const matchAcceptedDocTypeHit = (hit: SearchResultHit) =>
+  ACCEPTED_DOC_TYPES.indexOf(hit.source.elementType) >= 0;
+
 export const getFilteredResults = (searchResults: SearchResult) => ({
   ...searchResults,
   hits: {
     ...searchResults.hits,
-    hits: searchResults.hits.hits.filter((hit) => !matchKeyTermHit(hit) || !!hit.highlight.title)},
+    hits: searchResults.hits.hits.filter((hit) =>
+      matchAcceptedDocTypeHit(hit) && (!matchKeyTermHit(hit) || !!hit.highlight.title)
+    )},
 });
 
 export const getNonKeyTermResults = (searchResults: SearchResult) => ({
