@@ -158,6 +158,7 @@ export const highlightResults = (
       return {result: hit, highlights: {}};
     }
 
+    // necessary for correct search highlighting of key term results
     if (isKeyTermHit(hit) && hit.highlight.title) {
       hit.highlight.visibleContent = [hit.highlight.title];
     }
@@ -197,6 +198,12 @@ export const findSearchResultHit = (
   return results.find((result) => result.source.elementId === target.elementId);
 };
 
+export const matchKeyTermHit = (hit: SearchResultHit) =>
+  hit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm;
+
+const matchAcceptedDocTypeHit = (hit: SearchResultHit) =>
+  ACCEPTED_DOC_TYPES.indexOf(hit.source.elementType) >= 0;
+
 export const generateKeyTermExcerpt = (text: string) => {
   if (text.length <= 115) {
     return text;
@@ -224,12 +231,6 @@ export const getKeyTermPair = (htmlString: string, elementId: string) => {
     term: term.textContent,
   };
 };
-
-export const matchKeyTermHit = (hit: SearchResultHit) =>
-  hit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm;
-
-const matchAcceptedDocTypeHit = (hit: SearchResultHit) =>
-  ACCEPTED_DOC_TYPES.indexOf(hit.source.elementType) >= 0;
 
 export const getFilteredResults = (searchResults: SearchResult) => ({
   ...searchResults,
