@@ -1,7 +1,8 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, MediaQueryListEvent} from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
+import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
@@ -10,7 +11,10 @@ import { ArchiveTree, Book, Page, State } from '../../types';
 import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
+import { CloseSidebarControl } from '../SidebarControl';
+import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
+import { ToCHeaderText } from './styled';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -30,9 +34,14 @@ const SidebarBody = React.forwardRef<HTMLElement, React.ComponentProps<typeof St
   />
 );
 
-export class TableOfContents extends Component<SidebarProps> {
+export class TableOfContents extends Component<SidebarProps, { isMediumMobile: boolean }> {
   public sidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
+
+  constructor(props: SidebarProps) {
+    super(props);
+    this.state = { isMediumMobile: false };
+  }
 
   public render() {
     const {isTocOpen, book} = this.props;
@@ -51,9 +60,17 @@ export class TableOfContents extends Component<SidebarProps> {
       return;
     }
 
+    const matchMedia = window.matchMedia(theme.breakpoints.mobileMediumQuery);
+    matchMedia.addEventListener('change', this.checkIfMediumMobile);
+    this.setState({ isMediumMobile: matchMedia.matches });
+
     const {callback, deregister} = setSidebarHeight(sidebar, window);
     callback();
-    this.deregister = deregister;
+
+    this.deregister = () => {
+      deregister();
+      matchMedia.removeEventListener('change', this.checkIfMediumMobile);
+    };
   }
 
   public componentDidUpdate(prevProps: SidebarProps) {
@@ -67,6 +84,14 @@ export class TableOfContents extends Component<SidebarProps> {
     this.deregister();
   }
   private deregister: () => void = () => null;
+
+  private checkIfMediumMobile = (e: MediaQueryListEvent) => {
+    if (e.matches) {
+      this.setState({ isMediumMobile: true });
+    } else {
+      this.setState({ isMediumMobile: false });
+    }
+  };
 
   private scrollToSelectedPage() {
     scrollSidebarSectionIntoView(this.sidebar.current, this.activeSection.current);
@@ -109,9 +134,23 @@ export class TableOfContents extends Component<SidebarProps> {
     {this.renderChildren(book, node)}
   </Styled.NavDetails>;
 
-  private renderTocHeader = () => <Styled.ToCHeader data-testid='tocheader'>
-    <Styled.SidebarHeaderButton><Styled.TimesIcon /></Styled.SidebarHeaderButton>
-  </Styled.ToCHeader>;
+  private renderTocHeader = () => {
+    if (this.state.isMediumMobile) {
+      return <Styled.ToCHeader data-testid='tocheader'>
+      <CloseSidebarControl hideMobileText={false}><LeftArrow /></CloseSidebarControl>
+      <FormattedMessage id='i18n:toc:title'>
+        {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
+      </FormattedMessage>
+      <Styled.CloseToCAndMobileMenuButton />
+    </Styled.ToCHeader>;
+    }
+    return <Styled.ToCHeader data-testid='tocheader'>
+      <FormattedMessage id='i18n:toc:title'>
+        {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
+      </FormattedMessage>
+      <CloseSidebarControl hideMobileText={false}><TimesIcon /></CloseSidebarControl>
+    </Styled.ToCHeader>;
+  };
 
   private renderToc = (book: Book) => this.renderChildren(book, book.tree);
 }

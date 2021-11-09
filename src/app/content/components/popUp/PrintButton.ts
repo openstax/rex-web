@@ -10,6 +10,7 @@ export default styled(PrintButton)`
   flex-direction: row;
   cursor: ${({loading}) => loading ? 'wait' : 'pointer'};
   height: max-content;
+  min-height: unset;
   margin:  0 0 0 auto;
   padding-right: ${filters.dropdownToggle.sides.desktop}rem;
   ${theme.breakpoints.mobile(css`

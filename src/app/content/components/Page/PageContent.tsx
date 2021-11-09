@@ -40,7 +40,7 @@ export default styled(MainContent)`
      */
     #${MAIN_CONTENT_ID} > [data-type="page"],
     #${MAIN_CONTENT_ID} > [data-type="composite-page"] {
-      margin-top: ${theme.padding.page.desktop}rem;
+      margin-top: 3.2rem;
       ${theme.breakpoints.mobile(css`
         margin-top: ${theme.padding.page.mobile}rem;
       `)}

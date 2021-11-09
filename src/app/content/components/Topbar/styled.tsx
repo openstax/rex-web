@@ -2,6 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
+import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
@@ -60,42 +61,23 @@ export const TopBarWrapper = styled.div`
   `)}
 `;
 
+// tslint:disable-next-line:variable-name
+export const HamburgerIcon = styled(Hamburger)`
+  ${toolbarIconStyles}
+`;
+
 // tslint:disable-next-line: variable-name
 export const MenuButton = styled((props) => {
   return <PlainButton {...props}>
-    <div></div>
+    <HamburgerIcon />
   </PlainButton>;
 })`
-  display: none;
-  justify-content: center;
-  ${theme.breakpoints.mobileMedium(css`
-    display: flex;
-  `)}
-
-  div {
-    position: relative;
-    height: 0.1rem;
-    width: 1.63rem;
-    background-color: #5e6062;
-    overflow: unset;
-
-    &::before,  &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      height: 0.1rem;
-      width: 100%;
-      background-color: #5e6062;
-    }
-
-    &::before {
-      top: -6px;
-    }
-
-    &::after {
-      bottom: -6px;
-    }
-  }
+    display: none;
+    justify-content: center;
+    align-items: center;
+    ${theme.breakpoints.mobileMedium(css`
+      display: flex;
+    `)}
 `;
 
 // tslint:disable-next-line:variable-name

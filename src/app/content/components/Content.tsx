@@ -83,16 +83,13 @@ const UndoPadding = areSidebarsOpenConnector(styled.div`
     display: flex;
     flex-direction: column;
     margin-right: -${theme.padding.page.desktop}rem;
+    ${(props) => (props.isTocOpen === false && props.isSearchOpen === false) && `
+      margin-left: -${theme.padding.page.desktop}rem;
+    `}
+
     ${theme.breakpoints.mobile(css`
       margin: 0 -${theme.padding.page.mobile}rem;
     `)}
-
-    ${(props) => (props.isTocOpen === false && props.isSearchOpen === false) && `
-      margin-left: -${theme.padding.page.desktop}rem;
-      ${theme.breakpoints.mobile(css`
-        margin-left: -${theme.padding.page.mobile}rem;
-      `)}
-    `}
   }
 `);
 

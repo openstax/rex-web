@@ -1,8 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { navDesktopHeight, navMobileHeight } from '../../../../components/NavBar';
-import Times from '../../../../components/Times';
 import theme from '../../../../theme';
+import { closeMobileMenu, closeToc } from '../../../actions';
 import { State } from '../../../types';
 import {
   bookBannerDesktopMiniHeight,
@@ -14,8 +15,7 @@ import {
   topbarDesktopHeight,
   topbarMobileHeight
 } from '../../constants';
-import { CloseSidebarControl, ToCButtonText } from '../../SidebarControl';
-import { toolbarIconStyles } from '../../Toolbar/iconStyles';
+import { TimesIcon } from '../../Toolbar/styled';
 import { disablePrint } from '../../utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../utils/sidebar';
 
@@ -61,6 +61,18 @@ export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
     max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
   `)}
 
+  ${theme.breakpoints.mobileMedium(css`
+    z-index: ${theme.zIndex.highlightSummaryPopup};
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+  `)}
+
   display: flex;
   flex-direction: column;
 
@@ -96,7 +108,9 @@ export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
 export const ToCHeader = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: ${topbarDesktopHeight}rem;
+  padding: 0 ${sidebarPadding}rem;
   overflow: visible;
   box-shadow: 0 1rem 1rem -1rem rgba(0, 0, 0, 0.14);
   ${theme.breakpoints.mobile(css`
@@ -104,28 +118,41 @@ export const ToCHeader = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
-export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
-  ${toolbarIconStyles};
-  margin-right: 0;
-  padding-right: 0;
-  color: ${toolbarIconColor.lighter};
+// tslint:disable-next-line: variable-name
+export const ToCHeaderText = styled.span`
+  font-size: 1.8rem;
+  line-height: 2.9rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  color: ${toolbarIconColor.base};
+  flex: 1 1 0%;
+  text-align: left;
 
-  :hover {
-    color: ${toolbarIconColor.base};
-  }
+  ${theme.breakpoints.mobileMedium(css`
+    text-align: center;
+  `)}
 `;
 
-// tslint:disable-next-line:variable-name
-export const SidebarHeaderButton = styled((props) => <CloseSidebarControl {...props} />)`
-  display: flex;
-  margin: 0 ${sidebarPadding}rem;
+// tslint:disable-next-line: variable-name
+export const CloseToCAndMobileMenuButton = styled((props) => {
+  const dispatch = useDispatch();
+  return <button
+    onClick={() => {
+      dispatch(closeToc());
+      dispatch(closeMobileMenu());
+    }}
+    {...props}
+  ><TimesIcon /></button>;
+})`
+  color: ${toolbarIconColor.base};
+  border: none;
+  padding: 0;
+  background: none;
+  overflow: visible;
+  cursor: pointer;
 
-  flex: 1;
-  ${/* stylelint broken */ css`
-    ${ToCButtonText}, ${ToCHeader} {
-      flex: 1;
-      text-align: left;
-    }
-  `}
+  :hover {
+    color: ${toolbarIconColor.darker};
+  }
 `;

@@ -27,6 +27,9 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>
     ${theme.breakpoints.mobile(css`
       margin-left: -${sidebarMobileWidth}rem;
     `)}
+    ${theme.breakpoints.mobileMedium(css`
+      margin-left: unset;
+    `)}
   }
 `;
 

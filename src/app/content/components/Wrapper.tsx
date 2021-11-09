@@ -6,20 +6,22 @@ import ScrollLock from '../../components/ScrollLock';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
+import * as contentSelectors from '../selectors';
 
 export { wrapperPadding } from '../../components/Layout';
 
 interface WrapperProps {
   hasQuery: boolean;
   searchResultsOpen: boolean;
+  mobileMenuOpen: boolean;
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
 export const Wrapper = styled(
-  ({hasQuery, searchResultsOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
+  ({hasQuery, searchResultsOpen, mobileMenuOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
     <LayoutBody {...props}>
-      {searchResultsOpen && <ScrollLock overlay={false} mobileOnly={true} />}
+      {(searchResultsOpen || mobileMenuOpen) && <ScrollLock overlay={false} mobileOnly={true} />}
       {children}
     </LayoutBody>
 )`
@@ -37,6 +39,7 @@ export const Wrapper = styled(
 export default connect(
   (state: AppState) => ({
     hasQuery: !!selectSearch.query(state),
+    mobileMenuOpen: contentSelectors.mobileMenuOpen(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
   })
 )(Wrapper);

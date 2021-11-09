@@ -24,8 +24,6 @@ const StudyGuidesIcon = styled.img`
 // tslint:disable-next-line:variable-name
 const StudyGuidesText = styled.span`
   ${toolbarDefaultText}
-  font-size: 1.2rem;
-  line-height: 1.5rem;
 `;
 
 // tslint:disable-next-line:variable-name

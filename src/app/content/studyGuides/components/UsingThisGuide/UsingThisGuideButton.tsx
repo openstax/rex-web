@@ -3,8 +3,8 @@ import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
 import { PlainButton } from '../../../../components/Button';
+import { textRegularSize } from '../../../../components/Typography';
 import theme from '../../../../theme';
-import { toolbarDefaultText } from '../../../components/Toolbar/styled';
 import { disablePrint } from '../../../components/utils/disablePrint';
 import { mobilePaddingSides } from '../../../styles/PopupConstants';
 
@@ -55,7 +55,8 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
 
 // tslint:disable-next-line:variable-name
 const UsingThisGuideText = styled.span`
-  ${toolbarDefaultText}
+  ${textRegularSize};
+  font-weight: 600;
   margin: 0px 0px 0px 0.5rem;
   ${theme.breakpoints.mobile(css`
     display: none;

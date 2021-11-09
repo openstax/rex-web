@@ -19,6 +19,7 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const MyHighlightsWrapper = styled(PlainButton)`
   ${toolbarDefaultButton}
+  height: auto;
 
   > svg {
     ${toolbarIconStyles}

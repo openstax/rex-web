@@ -43,10 +43,12 @@ export const SearchIconInsideBar = styled.img`
 
 // tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
-  color: ${toolbarIconColor.lighter};
+  ${toolbarIconStyles}
+  vertical-align: middle;
+  color: ${toolbarIconColor.base};
 
   :hover {
-    color: ${toolbarIconColor.base};
+    color: ${toolbarIconColor.darker};
   }
 `;
 
@@ -327,7 +329,6 @@ export const SearchQueryAlignment = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const CloseIconButton = styled.button`
-  ${toolbarIconStyles}
   cursor: pointer;
   border: none;
   padding: 0;
