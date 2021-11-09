@@ -140,9 +140,22 @@ export const Link = styled.a`
 `;
 
 // tslint:disable-next-line:variable-name
-export const DropdownToggle = styled.span`
-  ${navElementStyle}
+export const DropdownToggle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  line-height: 16px;
+  font-size: 1.4rem;
+  color: ${theme.color.white};
+  background-color: #007297;
   cursor: pointer;
+
+  :hover {
+    box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.3);
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -173,7 +186,7 @@ export const DropdownList = styled.ul`
   margin: 0;
   padding: 0.6rem 0;
   background: ${theme.color.neutral.base};
-  top: calc(100% - 0.4rem);
+  top: 100%;
   right: 0;
   border-top: 0.4rem solid ${theme.color.primary.green.base};
 
