@@ -175,7 +175,7 @@ export const createNavigationOptions = (
   search: Record<string, string | null | undefined>,
   scrollTarget?: ScrollTarget
 ) => ({
-  hash: scrollTarget ? scrollTarget.elementId : undefined,
+  hash: scrollTarget ? `#${scrollTarget.elementId}` : undefined,
   search: queryString.stringify({
     ...omitBy(isNull, search),
     target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,
