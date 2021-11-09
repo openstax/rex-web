@@ -1,4 +1,5 @@
 import Highlighter from '@openstax/highlighter';
+import { SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client';
 import { SearchResult } from '@openstax/open-search-client/models/SearchResult';
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import * as mockArchive from '../../..//test/mocks/archiveLoader';
@@ -231,6 +232,25 @@ describe('highlightResults', () => {
       highlightResults(highlighter, results);
 
       expect(highlight).not.toBeCalled();
+    });
+
+    it('works with key term result', () => {
+      const results = [
+        makeSearchResultHit({
+          book: mockArchive.book,
+          elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
+          page: mockArchive.page,
+          title: '<strong>key term title</strong>',
+        }),
+      ];
+
+      const element = assertDocument().createElement('p');
+      element.id = results[0].source.elementId;
+      container.append(element);
+
+      highlightResults(highlighter, results);
+
+      expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'key term title'});
     });
   });
 
