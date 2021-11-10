@@ -1,6 +1,14 @@
 import { createSelector } from 'reselect';
 import * as parentSelectors from '../selectors';
-import { countTotalHighlights, getFormattedSearchResults, getSearchResultsForPage } from './utils';
+import {
+  countTotalHighlights,
+  countUniqueKeyTermHighlights,
+  getFilteredResults,
+  getFormattedSearchResults,
+  getNonKeyTermResults,
+  getSearchResultsForPage,
+  matchKeyTermHit,
+} from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -12,9 +20,19 @@ export const searchResultsOpen = createSelector(
   (state) => !!state.query && state.sidebarOpen
 );
 
-export const hasResults = createSelector(
+const getRawResults = createSelector(
   localState,
-  (state) => !!state.results
+  (state) => state.results
+);
+
+const filteredResults = createSelector(
+  getRawResults,
+  (rawResults) => rawResults ? getFilteredResults(rawResults) : null
+);
+
+export const hasResults = createSelector(
+  filteredResults,
+  (selectedResults) => !!selectedResults
 );
 
 export const query = createSelector(
@@ -27,25 +45,52 @@ export const selectedResult = createSelector(
   (state) => state.selectedResult
 );
 
+const nonKTHits = createSelector(
+  filteredResults,
+  (selectedResults) => selectedResults ? selectedResults.hits.hits.filter((hit) => !matchKeyTermHit(hit)) : null
+);
+
+const keyTermHits = createSelector(
+  filteredResults,
+  (selectedResults) => selectedResults ? selectedResults.hits.hits.filter(matchKeyTermHit) : null
+);
+
+export const keyTermHitsInTitle = createSelector(
+  keyTermHits,
+  (selectedHits) => selectedHits ? selectedHits.filter((hit) => !!hit.highlight.title) : null
+);
+
 export const hits = createSelector(
-  localState,
-  (state) => state.results ? state.results.hits.hits : null
+  nonKTHits,
+  keyTermHitsInTitle,
+  (chapterHits, filteredkeyTermHits) => [...(chapterHits || []), ...(filteredkeyTermHits || [])]
 );
 
 export const totalHits = createSelector(
-  hits,
+  nonKTHits,
   (hitsOrNull) => hitsOrNull ? countTotalHighlights(hitsOrNull) : null
 );
 
-export const getRawResults = createSelector(
-  localState,
-  (state) => state.results
+export const totalHitsKeyTerms = createSelector(
+  keyTermHitsInTitle,
+  (keyTermHitsOrNull) => keyTermHitsOrNull ? countUniqueKeyTermHighlights(keyTermHitsOrNull) : null
 );
 
 export const results = createSelector(
-  getRawResults,
+  filteredResults,
   parentSelectors.book,
-  (rawResults, book) => rawResults && book ? getFormattedSearchResults(book.tree, rawResults) : null
+  (selectedResults, book) => selectedResults && book ? getFormattedSearchResults(book.tree, selectedResults) : null
+);
+
+const rawNonKTResults = createSelector(
+  filteredResults,
+  (selectedResults) => selectedResults ? getNonKeyTermResults(selectedResults) : null
+);
+
+export const nonKeyTermResults = createSelector(
+  rawNonKTResults,
+  parentSelectors.book,
+  (selectedResults, book) => selectedResults && book ? getFormattedSearchResults(book.tree, selectedResults) : null
 );
 
 export const mobileToolbarOpen = createSelector(
@@ -54,7 +99,12 @@ export const mobileToolbarOpen = createSelector(
 );
 
 export const currentPageResults = createSelector(
-  getRawResults,
+  filteredResults,
   parentSelectors.page,
-  (rawResults, page) => rawResults && page ? getSearchResultsForPage(page, rawResults) : []
+  (selectedResults, page) => selectedResults && page ? getSearchResultsForPage(page, selectedResults) : []
+);
+
+export const userSelectedResult = createSelector(
+  localState,
+  (state) => state.userSelectedResult
 );

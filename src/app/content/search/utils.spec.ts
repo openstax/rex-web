@@ -1,5 +1,6 @@
 import Highlighter from '@openstax/highlighter';
-import { SearchResult } from '@openstax/open-search-client/dist/models/SearchResult';
+import { SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client';
+import { SearchResult } from '@openstax/open-search-client/models/SearchResult';
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import * as mockArchive from '../../..//test/mocks/archiveLoader';
 import * as rangyHelpers from '../../../helpers/rangy';
@@ -9,7 +10,12 @@ import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResu
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { assertDocument } from '../../utils';
 import { ArchivePage, LinkedArchiveTree } from '../types';
-import { getFirstResult, getFormattedSearchResults, highlightResults } from './utils';
+import {
+  generateKeyTermExcerpt,
+  getFirstResult,
+  getFormattedSearchResults,
+  highlightResults
+} from './utils';
 
 jest.mock('@openstax/highlighter/dist/Highlight', () => ({
   default: class {
@@ -227,6 +233,25 @@ describe('highlightResults', () => {
 
       expect(highlight).not.toBeCalled();
     });
+
+    it('works with key term result', () => {
+      const results = [
+        makeSearchResultHit({
+          book: mockArchive.book,
+          elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
+          page: mockArchive.page,
+          title: '<strong>key term title</strong>',
+        }),
+      ];
+
+      const element = assertDocument().createElement('p');
+      element.id = results[0].source.elementId;
+      container.append(element);
+
+      highlightResults(highlighter, results);
+
+      expect(highlight.mock.calls[0][0]!.data).toEqual({content: 'key term title'});
+    });
   });
 
   describe('with errors' , () => {
@@ -255,5 +280,16 @@ describe('highlightResults', () => {
 
       expect(captureException).toHaveBeenCalled();
     });
+  });
+});
+
+describe('generateKeyTermExcerpt', () => {
+  it('works with long definition', () => {
+    expect(generateKeyTermExcerpt(
+      // tslint:disable-next-line: max-line-length
+      'sample definition with more than 115 characters sample definition with more than 115 characters sample definition with more than 115 characters'
+      )).toMatchInlineSnapshot((
+        `"sample definition with more than 115 characters sample definition with more than 115 characters sample ..."`
+      ));
   });
 });

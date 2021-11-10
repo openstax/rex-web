@@ -1,4 +1,4 @@
-import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
+import { SearchResultHit } from '@openstax/open-search-client/models/SearchResultHit';
 import queryString from 'querystring';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';

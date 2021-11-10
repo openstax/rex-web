@@ -305,7 +305,7 @@ describe('NudgeStudyTools', () => {
     store.dispatch(openNudgeStudyTools());
 
     jest.spyOn(utils, 'usePositions').mockReturnValue(mockPositions);
-    const useOnEscSpy = jest.spyOn(reactUtils, 'useOnEsc');
+    const onEscSpy = jest.spyOn(reactUtils, 'onEsc');
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -318,12 +318,12 @@ describe('NudgeStudyTools', () => {
     expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
 
     renderer.act(() => {
-      useOnEscSpy.mock.calls[0][2]();
+      onEscSpy.mock.calls[0][1]();
     });
 
     runHooks(renderer);
 
     expect(() => component.root.findByType(NudgeContentWrapper)).toThrow();
-    useOnEscSpy.mockClear();
+    onEscSpy.mockClear();
   });
 });
