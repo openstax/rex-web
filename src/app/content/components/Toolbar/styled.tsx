@@ -101,10 +101,12 @@ const showMobileMenu = keyframes`
   0% {
     opacity: 0;
   }
+
   99% {
     opacity: 1;
   }
-  100%{
+
+  100% {
     opacity: 1;
     visibility: visible;
   }
@@ -114,10 +116,12 @@ const hideMobileMenu = keyframes`
   0% {
     opacity: 1;
   }
+
   99% {
     opacity: 0;
   }
-  100%{
+
+  100% {
     opacity: 0;
     visibility: hidden;
   }
@@ -140,7 +144,6 @@ export const ToolbarWrapper = styled.div`
   align-items: center;
   z-index: ${theme.zIndex.toolbar}; /* stay above book content */
   background-color: ${theme.color.neutral.darker};
-
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileMiniHeight}rem;
     max-height: calc(100vh - 6rem);
@@ -162,7 +165,6 @@ export const ToolbarWrapper = styled.div`
     animation: ${hideMobileMenu} .2s forwards;
     z-index: ${theme.zIndex.mobileMenu};
 
-
     ${(props: {isMobileMenuOpen: boolean}) => props.isMobileMenuOpen && css`
       animation: ${showMobileMenu} .2s forwards;
     `}
@@ -180,7 +182,6 @@ export const NudgeElementTarget = styled.div`
 // tslint:disable-next-line: variable-name
 export const ToolbarMobileHeader = styled.div`
   display: none;
-
   ${theme.breakpoints.mobileMedium(css`
     display: flex;
     width: 100%;

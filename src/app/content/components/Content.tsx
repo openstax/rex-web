@@ -66,7 +66,6 @@ const CenteredContentRow = styled.div`
   overflow: visible; /* so sidebar position: sticky works */
   margin: 0 auto;
   max-width: ${contentWrapperMaxWidth}rem;
-  // max-width: ${contentWrapperMaxWidth}rem;
 
   @media screen {
     min-height: 100%;

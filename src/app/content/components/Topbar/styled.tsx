@@ -72,12 +72,12 @@ export const MenuButton = styled((props) => {
     <HamburgerIcon />
   </PlainButton>;
 })`
-    display: none;
-    justify-content: center;
-    align-items: center;
-    ${theme.breakpoints.mobileMedium(css`
-      display: flex;
-    `)}
+  display: none;
+  justify-content: center;
+  align-items: center;
+  ${theme.breakpoints.mobileMedium(css`
+    display: flex;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -219,33 +219,33 @@ export const SearchInput = styled(({ desktop, mobile, ...props }) =>
 // tslint:disable-next-line:variable-name
 export const SearchPrintWrapper = areSidebarsOpenConnector(styled.div`
   height: ${topbarDesktopHeight}rem;
-    max-width: ${contentWrapperMaxWidth}rem;
-    margin: 0 auto;
-    text-align: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: visible;
-    background-color: ${theme.color.neutral.base};
-    transition: padding-left ${sidebarTransitionTime}ms;
-    ${(props) => (props.isTocOpen || props.isTocOpen === null || props.isSearchOpen) && `
-      padding-left: ${sidebarDesktopWidth}rem;
-    `}
-    ${theme.breakpoints.mobile(css`
-      padding-left: ${verticalNavbar}rem;
-    `)}
-    ${theme.breakpoints.mobileMedium(css`
-      height: ${topbarMobileHeight}rem;
-      justify-content: space-between;
-      padding: 0 6px;
-      ${SearchInputWrapper} {
-        border: none;
-        border-radius: 0;
-        width: ${buttonMinWidth};
-      }
-    `)}
-    ${shadow}
-  `);
+  max-width: ${contentWrapperMaxWidth}rem;
+  margin: 0 auto;
+  text-align: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  background-color: ${theme.color.neutral.base};
+  transition: padding-left ${sidebarTransitionTime}ms;
+  ${(props) => (props.isTocOpen || props.isTocOpen === null || props.isSearchOpen) && `
+    padding-left: ${sidebarDesktopWidth}rem;
+  `}
+  ${theme.breakpoints.mobile(css`
+    padding-left: ${verticalNavbar}rem;
+  `)}
+  ${theme.breakpoints.mobileMedium(css`
+    height: ${topbarMobileHeight}rem;
+    justify-content: space-between;
+    padding: 0 6px;
+    ${SearchInputWrapper} {
+      border: none;
+      border-radius: 0;
+      width: ${buttonMinWidth};
+    }
+  `)}
+  ${shadow}
+`);
 
 // tslint:disable-next-line:variable-name
 export const MobileSearchContainer = styled.div`

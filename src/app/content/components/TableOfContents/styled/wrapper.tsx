@@ -128,7 +128,6 @@ export const ToCHeaderText = styled.span`
   color: ${toolbarIconColor.base};
   flex: 1 1 0%;
   text-align: left;
-
   ${theme.breakpoints.mobileMedium(css`
     text-align: center;
   `)}

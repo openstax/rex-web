@@ -1,4 +1,4 @@
-import { HTMLElement, MediaQueryListEvent} from '@openstax/types/lib.dom';
+import { HTMLElement, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
