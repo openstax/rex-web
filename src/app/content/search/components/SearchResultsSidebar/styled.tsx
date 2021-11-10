@@ -160,7 +160,11 @@ export const SearchResultsHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${theme.color.neutral.formBorder}
+  border-bottom: 1px solid ${theme.color.neutral.formBorder};
+  height: ${topbarDesktopHeight}rem;
+  ${theme.breakpoints.mobileMedium(css`
+    height: unset;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
