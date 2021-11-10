@@ -180,6 +180,7 @@ export const SearchQuery = styled.div`
   justify-content: space-between;
   width: 100%;
   line-height: 1.3;
+  border-bottom: 1px solid ${theme.color.neutral.formBorder};
 
   strong {
     padding-left: 0.4rem;
