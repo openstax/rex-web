@@ -1,8 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
+import { textRegularSize } from '../../../components/Typography';
 import theme from '../../../theme';
-import { OpenSidebarControl } from '../SidebarControl';
+import { OpenSidebarControl, ToCButtonText } from '../SidebarControl';
 
 // tslint:disable-next-line: variable-name
 const PageNotFoundWrapper = styled.div`
@@ -34,6 +35,17 @@ const PageNotFoundText = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
+const StyledOpenSidebarControl = styled(OpenSidebarControl)`
+  min-height: unset;
+  flex-direction: row;
+  justify-content: start;
+
+  ${ToCButtonText} {
+    ${textRegularSize};
+  }
+`;
+
+// tslint:disable-next-line: variable-name
 const PageNotFound = () => <PageNotFoundWrapper>
   <PageNotFoundTitle>
     <FormattedMessage id='i18n:page-not-found:heading'>
@@ -46,7 +58,7 @@ const PageNotFound = () => <PageNotFoundWrapper>
         {(msg) => msg}
       </FormattedMessage>
     </span>
-    <OpenSidebarControl hideMobileText={false}/>
+    <StyledOpenSidebarControl />
   </PageNotFoundText>
 </PageNotFoundWrapper>;
 
