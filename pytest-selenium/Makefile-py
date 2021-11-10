@@ -37,7 +37,6 @@ test-rail-sauce: venv
 		--tr-email=$(TR_USERNAME) \
 		--tr-password=$(TR_PASSWORD) \
 		--tr-run-id=$(TR_RUN_ID) \
-		--tr-skip-missing \
 		--highlighting \
 		--base-url=$(BASE_URL) \
 		--driver SauceLabs \

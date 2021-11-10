@@ -140,7 +140,7 @@ describe('ContentLink', () => {
           pageUid: 'testbook1-testpage1-uuid',
         },
       }, {
-        hash: scrollTarget.elementId,
+        hash: `#${scrollTarget.elementId}`,
         search: queryString.stringify({
           query: 'asdf',
           target: JSON.stringify(omit('elementId', scrollTarget)),
