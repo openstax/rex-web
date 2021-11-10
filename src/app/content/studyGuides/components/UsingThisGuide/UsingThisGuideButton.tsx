@@ -57,7 +57,7 @@ export const UsingThisGuideButtonWrapper = styled(PlainButton)`
 const UsingThisGuideText = styled.span`
   ${textRegularSize};
   font-weight: 600;
-  margin: 0px 0px 0px 0.5rem;
+  margin-left: 0.5rem;
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
