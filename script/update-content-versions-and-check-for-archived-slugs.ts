@@ -77,6 +77,7 @@ async function processBook() {
 }
 
 processBook().catch((e) => {
+  // tslint:disable-next-line: no-console
   console.error(e);
   process.exit(1);
 });
