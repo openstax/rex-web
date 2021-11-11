@@ -10,7 +10,6 @@ import { AnyRoute } from './types';
 import { changeToLocation, matchForRoute, matchPathname, matchSearch, matchUrl } from './utils';
 
 export default (routes: AnyRoute[], history: History): Middleware => ({getState, dispatch}) => {
-  const historyState = history.location.state || {};
   history.listen(changeToLocation(routes, dispatch));
 
   return (next: Dispatch) => (action: AnyAction) => {
@@ -40,10 +39,7 @@ export default (routes: AnyRoute[], history: History): Middleware => ({getState,
           ...systemQueryParameters(getState()),
           ...queryString.parse(action.payload.search || ''),
         }),
-      state: {
-        ...action.payload.state,
-        stackDepth: historyState.hasOwnProperty('stackDepth') ? historyState.stackDepth + 1 : 0,
-      },
+      state: action.payload.state,
     });
   };
 };

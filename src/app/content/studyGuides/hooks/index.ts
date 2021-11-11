@@ -20,6 +20,6 @@ export default [
   printStudyGuidesHook,
   openStudyGuidesHook,
   actionHook(actions.openStudyGuides, openModal(modalUrlName)),
-  actionHook(actions.closeStudyGuides, closeModal),
+  actionHook(actions.closeStudyGuides, closeModal()),
   actionHook(receiveFeatureFlags, loadStudyGuidesHookBody),
 ];
