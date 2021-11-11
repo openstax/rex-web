@@ -73,25 +73,4 @@ describe('study guides reducer', () => {
     const state = reducer(initialState, receiveFeatureFlags([studyGuidesFeatureFlag]));
     expect(state.isEnabled).toEqual(true);
   });
-
-  it('noops for receive summary study guides with stale filters', () => {
-    const highlights: SummaryHighlights = {
-      chapter_id: {
-        page_id: [
-          {id: 'highlight'} as HighlightData,
-        ],
-      },
-    };
-
-    const staleFilters = {
-      colors: initialState.summary.filters.colors,
-      locationIds: [],
-    };
-
-    const state = reducer(
-      initialState,
-      actions.receiveSummaryStudyGuides(highlights, {pagination: null, filters: staleFilters }));
-
-    expect(state).toEqual(initialState);
-  });
 });
