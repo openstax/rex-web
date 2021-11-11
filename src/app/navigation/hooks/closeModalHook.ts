@@ -1,11 +1,11 @@
 import { AppServices, MiddlewareAPI } from '../../types';
 
 export const closeModal = () => (services: MiddlewareAPI & AppServices) => () => {
-  if (window?.history.state) {
-    services.history.goBack();
-  } else {
+  if (services.history.location.state === undefined) {
     services.history.replace({
       search: '',
     });
+  } else {
+    services.history.goBack();
   }
 };

@@ -1,20 +1,18 @@
 import createTestServices from '../../../test/createTestServices';
 import { MiddlewareAPI } from '../../types';
-import { assertWindow } from '../../utils/browser-assertions';
 
 describe('closeModal', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let hookFactory: typeof import ('./closeModalHook').closeModal;
-  let window: Window;
 
   beforeEach(() => {
-    window = assertWindow();
     helpers = {
       ...createTestServices(),
       dispatch: jest.fn(),
       getState: jest.fn(),
       history: {
         goBack: jest.fn(),
+        location: {},
         replace: jest.fn(),
       } as any,
     };
@@ -22,7 +20,7 @@ describe('closeModal', () => {
     hookFactory = (require('./closeModalHook').closeModal);
   });
 
-  it('replace on closeModal if window history has no state object', () => {
+  it('replace on closeModal if history.location.state undefined', () => {
     const hook = hookFactory()(helpers);
 
     hook();
@@ -32,10 +30,8 @@ describe('closeModal', () => {
 
   });
 
-  it('go back on closeModal if window history has a state object', () => {
-    jest.spyOn(window, 'history', 'get').mockReturnValue({
-      state: {},
-    } as any);
+  it('go back on closeModal if history.location.state defined', () => {
+    helpers.history.location.state = {};
     const hook = hookFactory()(helpers);
 
     hook();
