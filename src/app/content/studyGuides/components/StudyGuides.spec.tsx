@@ -7,16 +7,19 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter, pageInOtherChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
+import { locationChange } from '../../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
+import { modalQueryParameterName } from '../../constants';
 import { SummaryHighlights } from '../../highlights/types';
 import { getHighlightLocationFilterForPage } from '../../highlights/utils';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
 import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides } from '../actions';
+import { modalUrlName } from '../constants';
 import { studyGuidesLocationFilters } from '../selectors';
 import StudyGuides, { NoStudyGuidesTip } from './StudyGuides';
 
@@ -157,6 +160,14 @@ describe('StudyGuides', () => {
     renderer.act(() => {
       // set filters
       // store.dispatch(setSummaryFilters({locationIds: [firstLocation.id, secondLocation.id]}));
+      store.dispatch(locationChange({
+        action: 'REPLACE',
+        location: {},
+        query: {
+          locationIds: [firstLocation.id, secondLocation.id],
+          [modalQueryParameterName]: modalUrlName,
+        },
+      } as any));
       store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
     });
 
@@ -171,7 +182,14 @@ describe('StudyGuides', () => {
 
     renderer.act(() => {
       // set filters
-      // store.dispatch(setSummaryFilters({locationIds: [firstLocation.id, secondLocation.id]}));
+      store.dispatch(locationChange({
+        action: 'REPLACE',
+        location: {},
+        query: {
+          locationIds: [firstLocation.id, secondLocation.id],
+          [modalQueryParameterName]: modalUrlName,
+        },
+      } as any));
     });
 
     const isLoading = component.root.findByType(LoaderWrapper);
