@@ -150,12 +150,6 @@ export const SearchResultsBar = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const SearchResultsTopBar = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-// tslint:disable-next-line: variable-name
 export const SearchResultsHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -184,7 +178,6 @@ export const SearchQuery = styled.div`
   justify-content: space-between;
   width: 100%;
   line-height: 1.3;
-  border-bottom: 1px solid ${theme.color.neutral.formBorder};
 
   strong {
     padding-left: 0.4rem;
@@ -199,6 +192,16 @@ export const SearchQueryWrapper = styled.div`
   background: ${backgroundColor};
   min-height: ${headerHeight}rem;
   overflow: visible;
+`;
+
+// tslint:disable-next-line: variable-name
+export const SearchResultsTopBar = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  ${SearchQuery} {
+    border-bottom: 1px solid ${theme.color.neutral.formBorder};
+  }
 `;
 
 // tslint:disable-next-line:variable-name
