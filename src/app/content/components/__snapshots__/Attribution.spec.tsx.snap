@@ -2,7 +2,7 @@
 
 exports[`Attribution in browser renders default attribution 1`] = `
 <details
-  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
+  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 dGwEXP"
   data-analytics-region="attribution"
   data-testid="attribution-details"
 >
@@ -114,7 +114,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
 
 exports[`Attribution in browser renders special licensing and attribution for HS Physics 1`] = `
 <details
-  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
+  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 dGwEXP"
   data-analytics-region="attribution"
   data-testid="attribution-details"
 >
@@ -228,7 +228,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
 
 exports[`Attribution in browser renders special licensing and attribution for Intellectual Property 1`] = `
 <details
-  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
+  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 dGwEXP"
   data-analytics-region="attribution"
   data-testid="attribution-details"
 >
@@ -340,7 +340,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
 
 exports[`Attribution in browser renders special licensing and attribution for Statistics 1`] = `
 <details
-  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
+  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 dGwEXP"
   data-analytics-region="attribution"
   data-testid="attribution-details"
 >

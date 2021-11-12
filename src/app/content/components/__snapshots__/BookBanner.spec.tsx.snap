@@ -3,15 +3,15 @@
 exports[`BookBanner outside browser renders 1`] = `
 Array [
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 ehTbbS"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 dvPBpX"
         data-testid="details-link-expanded"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -30,7 +30,7 @@ Array [
         Test Book 1
       </a>
       <h1
-        className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 ggGIzK"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -40,15 +40,15 @@ Array [
     </div>
   </div>,
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 iMlpSa"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 jGQWFK"
         data-testid="details-link-collapsed"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -68,7 +68,7 @@ Array [
         Test Book 1
       </a>
       <span
-        className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 eTtQEi"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -83,15 +83,15 @@ Array [
 exports[`BookBanner without unsaved changes renders correctly when you pass a page and book 1`] = `
 Array [
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 ehTbbS"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 dvPBpX"
         data-testid="details-link-expanded"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -110,7 +110,7 @@ Array [
         Test Book 1
       </a>
       <h1
-        className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 ggGIzK"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -120,15 +120,15 @@ Array [
     </div>
   </div>,
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 iMlpSa"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 jGQWFK"
         data-testid="details-link-collapsed"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -148,7 +148,7 @@ Array [
         Test Book 1
       </a>
       <span
-        className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 eTtQEi"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -163,21 +163,21 @@ Array [
 exports[`BookBanner without unsaved changes renders correctly without osweb data 1`] = `
 Array [
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 ehTbbS"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
     >
       <span
-        className="BookBanner__BookTitle-sc-1avy0c0-2 gUeKV"
+        className="BookBanner__BookTitle-sc-1avy0c0-2 VmSYS"
         data-testid="book-title-expanded"
       >
         Test Book 1
       </span>
       <h1
-        className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 ggGIzK"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -187,21 +187,21 @@ Array [
     </div>
   </div>,
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 iMlpSa"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
     >
       <span
-        className="BookBanner__BookTitle-sc-1avy0c0-2 jvAwFk"
+        className="BookBanner__BookTitle-sc-1avy0c0-2 fxlyoX"
         data-testid="book-title-collapsed"
       >
         Test Book 1
       </span>
       <span
-        className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 eTtQEi"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -216,15 +216,15 @@ Array [
 exports[`BookBanner without unsaved changes renders correctly without pageNode 1`] = `
 Array [
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 ehTbbS"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 dvPBpX"
         data-testid="details-link-expanded"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -245,15 +245,15 @@ Array [
     </div>
   </div>,
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 iMlpSa"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 jGQWFK"
         data-testid="details-link-collapsed"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -279,12 +279,12 @@ Array [
 
 exports[`BookBanner without unsaved changes renders empty state with no page or book 1`] = `
 <div
-  className="BookBanner__BarWrapper-sc-1avy0c0-5 blPrsP"
+  className="BookBanner__BarWrapper-sc-1avy0c0-5 hctrAS"
 />
 `;
 
 exports[`BookBanner without unsaved changes wrapper transition matches snapshot 1`] = `
 <div
-  className="BookBanner__BarWrapper-sc-1avy0c0-5 bYEYED"
+  className="BookBanner__BarWrapper-sc-1avy0c0-5 fCtEKD"
 />
 `;

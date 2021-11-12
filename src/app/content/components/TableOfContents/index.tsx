@@ -18,7 +18,7 @@ import { ToCHeaderText } from './styled';
 
 interface SidebarProps {
   onNavigate: () => void;
-  isTocOpen: State['tocOpen'];
+  isOpen: State['tocOpen'];
   book?: Book;
   page?: Page;
 }
@@ -44,9 +44,9 @@ export class TableOfContents extends Component<SidebarProps, { isMediumMobile: b
   }
 
   public render() {
-    const {isTocOpen, book} = this.props;
+    const {isOpen, book} = this.props;
 
-    return <SidebarBody isTocOpen={isTocOpen} ref={this.sidebar}>
+    return <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
       {this.renderTocHeader()}
       {book && this.renderToc(book)}
     </SidebarBody>;
@@ -158,7 +158,7 @@ export class TableOfContents extends Component<SidebarProps, { isMediumMobile: b
 export default connect(
   (state: AppState) => ({
     ...selectors.bookAndPage(state),
-    isTocOpen: selectors.tocOpen(state),
+    isOpen: selectors.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
     onNavigate: () => dispatch(resetToc()),

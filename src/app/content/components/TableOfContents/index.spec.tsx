@@ -1,3 +1,4 @@
+import { MediaQueryList } from '@openstax/types/lib.dom';
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import renderer from 'react-test-renderer';
@@ -13,6 +14,7 @@ import * as actions from '../../actions';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
+import { CloseToCAndMobileMenuButton } from './styled';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -41,6 +43,38 @@ describe('TableOfContents', () => {
       <ConnectedTableOfContents />
     </TestContainer>);
     expect(() => unmountComponentAtNode(root)).not.toThrow();
+  });
+
+  it('renders mobile version of ToC', () => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+    const sidebar = assertWindow().document.createElement('div');
+    const mock = {
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    } as any as MediaQueryList;
+
+    jest.spyOn(assertWindow(), 'matchMedia')
+      .mockImplementation(() => mock);
+
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>, { createNodeMock: () => sidebar});
+
+    renderer.act(() => {
+      (mock.addEventListener as any as jest.SpyInstance).mock.calls[0][1]({ matches: true });
+    });
+    expect(() => component.root.findByType(CloseToCAndMobileMenuButton)).not.toThrow();
+
+    renderer.act(() => {
+      component.root.findByType(CloseToCAndMobileMenuButton).findByType('button').props.onClick();
+    });
+    expect(dispatchSpy).toHaveBeenCalledWith(actions.closeToc());
+    expect(dispatchSpy).toHaveBeenCalledWith(actions.closeMobileMenu());
+
+    renderer.act(() => {
+      (mock.addEventListener as any as jest.SpyInstance).mock.calls[0][1]({ matches: false });
+    });
+    expect(() => component.root.findByType(CloseToCAndMobileMenuButton)).toThrow();
   });
 
   it('expands and scrolls to current chapter', () => {
