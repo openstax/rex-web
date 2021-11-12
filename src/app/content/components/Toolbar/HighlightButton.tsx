@@ -20,6 +20,7 @@ interface Props {
 const MyHighlightsWrapper = styled(PlainButton)`
   ${toolbarDefaultButton}
   height: auto;
+  padding: 0 10px;
 
   > svg {
     ${toolbarIconStyles}
@@ -34,7 +35,7 @@ const MyHighlightsText = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-const HighlightButton = ({ openMyHighlights }: Props) => {
+const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
   const practiceQuestionsEnabled = useSelector(practiceQuestionsEnabledSelector);
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
 
@@ -46,6 +47,7 @@ const HighlightButton = ({ openMyHighlights }: Props) => {
   const text = useIntl().formatMessage({id: 'i18n:toolbar:highlights:text'});
 
   return <MyHighlightsWrapper
+    isActive={myHighlightsOpen}
     onClick={() => openHighlightsSummary()}
     aria-label={text}
     data-analytics-label='My highlights'

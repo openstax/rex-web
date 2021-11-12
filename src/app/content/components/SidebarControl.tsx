@@ -4,25 +4,21 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
 import theme from '../../theme';
-import { AppState, Dispatch } from '../../types';
+import { Dispatch } from '../../types';
 import * as actions from '../actions';
-import * as selectors from '../selectors';
-import { State } from '../types';
 import { toolbarIconColor } from './constants';
 import { toolbarIconStyles } from './Toolbar/iconStyles';
 import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar/styled';
 
-interface InnerProps {
-  message: string;
+interface OpenSidebarProps {
   onClick: () => void;
   className?: string;
   hideMobileText: boolean;
+  isActive?: boolean;
 }
-interface MiddleProps {
-  isTocOpen: State['tocOpen'];
-  openToc: () => void;
-  closeToc: () => void;
-  hideMobileText: boolean;
+interface CloseSidebarProps {
+  onClick: () => void;
+  className?: string;
 }
 
 // tslint:disable-next-line:variable-name
@@ -37,11 +33,11 @@ export const ToCButtonText = styled.span`
 
 // tslint:disable-next-line:variable-name
 const ToCToolbarButton = styled.button`
+  background: none;
   ${toolbarDefaultButton}
   color: ${toolbarIconColor.base};
   border: none;
-  padding: 0;
-  background: none;
+  padding: 0 10px;
   overflow: visible;
   cursor: pointer;
 
@@ -68,47 +64,44 @@ const ToCButton = styled.button`
   }
 `;
 
-const closedMessage = 'i18n:toc:toggle:closed';
-const openMessage = 'i18n:toc:toggle:opened';
-
 // tslint:disable-next-line:variable-name
-export const OpenSidebar: React.SFC<InnerProps> = ({ message, hideMobileText, children, ...props}) =>
-  <ToCToolbarButton aria-label={useIntl().formatMessage({id: message})} {...props}>
+export const OpenSidebar = ({ hideMobileText, isActive, children, ...props }
+  : React.PropsWithChildren<OpenSidebarProps>) => {
+  return <ToCToolbarButton
+    aria-label={useIntl().formatMessage({ id: 'i18n:toc:toggle:closed' })}
+    data-analytics-label='Click to open the Table of Contents'
+    data-testid='toc-button'
+    isActive={isActive}
+    isRed={true}
+    {...props}
+  >
     <TocIcon />
     <ToCButtonText hideMobileText={!!hideMobileText}>
       {useIntl().formatMessage({ id: 'i18n:toc:title' })}
     </ToCButtonText>
     {children}
   </ToCToolbarButton>;
+  };
 
 // tslint:disable-next-line:variable-name
-export const CloseSidebar: React.SFC<InnerProps> = ({ message, hideMobileText, children, ...props}) =>
-  <ToCButton aria-label={useIntl().formatMessage({id: message})} {...props}>
+export const CloseSidebar = ({ children, ...props}: React.PropsWithChildren<CloseSidebarProps>) =>
+  <ToCButton
+    aria-label={useIntl().formatMessage({ id: 'i18n:toc:toggle:opened' })}
+    data-analytics-label='Click to close the Table of Contents'
+    data-testid='toc-button'
+    {...props}
+  >
     {children}
   </ToCButton>;
 
-const connector = connect(
-  (state: AppState) => ({
-    isTocOpen:  selectors.tocOpen(state),
-  }),
+// tslint:disable-next-line:variable-name
+export const OpenSidebarControl = connect(() => ({}),
   (dispatch: Dispatch) => ({
-    closeToc:  () => dispatch(actions.closeToc()),
-    openToc: () => dispatch(actions.openToc()),
-  })
-);
+    onClick: () => dispatch(actions.openToc()),
+  }))(OpenSidebar);
 
 // tslint:disable-next-line:variable-name
-const lockControlState = (isTocOpen: boolean, Control: React.ComponentType<InnerProps>) =>
-  connector((props: MiddleProps) => <Control
-    {...props}
-    data-testid='toc-button'
-    message={isTocOpen ? openMessage : closedMessage}
-    data-analytics-label={isTocOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
-    onClick={isTocOpen ? props.closeToc : props.openToc}
-  />);
-
-// tslint:disable-next-line:variable-name
-export const OpenSidebarControl = lockControlState(false, OpenSidebar);
-
-// tslint:disable-next-line:variable-name
-export const CloseSidebarControl = lockControlState(true, CloseSidebar);
+export const CloseSidebarControl = connect(() => ({}),
+  (dispatch: Dispatch) => ({
+    onClick: () => dispatch(actions.closeToc()),
+  }))(CloseSidebar);

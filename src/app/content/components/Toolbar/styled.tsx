@@ -78,7 +78,9 @@ export const PlainButton = styled.button`
 
 // tslint:disable-next-line:variable-name
 export const PrintOptWrapper = styled(PlainButton)`
-  ${toolbarDefaultButton}
+  ${toolbarDefaultButton};
+  height: auto;
+  padding: 0 10px;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -135,7 +137,6 @@ export const ToolbarWrapper = styled.div`
   height: calc(100vh - 13rem);
   margin-left: -${verticalNavbar}rem;
   margin-top: -${topbarDesktopHeight}rem;
-  padding: 0 10px;
   max-height: calc(100vh - 7rem);
   max-width: ${verticalNavbar}rem;
   overflow: visible;

@@ -137,7 +137,7 @@ export class TableOfContents extends Component<SidebarProps, { isMediumMobile: b
   private renderTocHeader = () => {
     if (this.state.isMediumMobile) {
       return <Styled.ToCHeader data-testid='tocheader'>
-      <CloseSidebarControl hideMobileText={false}><LeftArrow /></CloseSidebarControl>
+      <CloseSidebarControl><LeftArrow /></CloseSidebarControl>
       <FormattedMessage id='i18n:toc:title'>
         {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
       </FormattedMessage>
@@ -148,7 +148,7 @@ export class TableOfContents extends Component<SidebarProps, { isMediumMobile: b
       <FormattedMessage id='i18n:toc:title'>
         {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
       </FormattedMessage>
-      <CloseSidebarControl hideMobileText={false}><TimesIcon /></CloseSidebarControl>
+      <CloseSidebarControl><TimesIcon /></CloseSidebarControl>
     </Styled.ToCHeader>;
   };
 

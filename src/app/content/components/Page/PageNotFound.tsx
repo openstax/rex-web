@@ -35,7 +35,7 @@ const PageNotFoundText = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const StyledOpenSidebarControl = styled(OpenSidebarControl)`
+export const StyledOpenSidebarControl = styled(OpenSidebarControl)`
   min-height: unset;
   flex-direction: row;
   justify-content: start;

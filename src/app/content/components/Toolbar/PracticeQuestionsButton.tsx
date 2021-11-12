@@ -7,7 +7,11 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import ContentLink from '../../components/ContentLink';
 import { modalQueryParameterName } from '../../constants';
 import { modalUrlName } from '../../practiceQuestions/constants';
-import { hasPracticeQuestions, practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
+import {
+  hasPracticeQuestions,
+  isPracticeQuestionsOpen,
+  practiceQuestionsEnabled
+} from '../../practiceQuestions/selectors';
 import { bookAndPage } from '../../selectors';
 import { toolbarIconColor } from '../constants';
 import { toolbarIconStyles } from './iconStyles';
@@ -17,7 +21,8 @@ import { toolbarDefaultButton, toolbarDefaultText } from './styled';
 export const StyledPracticeQuestionsButton = styled(ContentLink)`
   ${toolbarDefaultButton}
   text-decoration: none;
-  padding: 0;
+  padding: 0 10px;
+  width: 100%;
   color: ${toolbarIconColor.base};
 
   :hover,
@@ -38,14 +43,11 @@ const PracticeQuestionsText = styled.span`
   line-height: 1.5rem;
 `;
 
-interface Props {
-  isActive: boolean;
-}
-
 // tslint:disable-next-line:variable-name
-const PracticeQuestionsButton = (props: Props) => {
+const PracticeQuestionsButton = () => {
   const intl = useIntl();
   const isEnabled = useSelector(practiceQuestionsEnabled);
+  const isPracticeQOpen = useSelector(isPracticeQuestionsOpen);
   const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
   const hasPracticeQs = useSelector(hasPracticeQuestions);
   const { book, page } = useSelector(bookAndPage);
@@ -60,7 +62,7 @@ const PracticeQuestionsButton = (props: Props) => {
     queryParams={{ [modalQueryParameterName]: modalUrlName }}
     onClick={trackOpenClose}
     aria-label={text}
-    isActive={props.isActive}>
+    isActive={isPracticeQOpen}>
     <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
     <PracticeQuestionsText>{text}</PracticeQuestionsText>
   </StyledPracticeQuestionsButton>;
