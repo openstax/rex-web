@@ -49,7 +49,7 @@ const Toolbar =   () => {
         <Styled.TimesIcon />
       </Styled.CloseToolbarButton>
     </Styled.ToolbarMobileHeader>
-    <OpenSidebarControl isActive={isTocOpen !== false} hideMobileText={false} />
+    <OpenSidebarControl isActive={isTocOpen !== false}/>
     <PracticeQuestionsButton />
     <Styled.NudgeElementTarget id={nudgeStudyToolsTargetId}>
       <StudyGuidesButton />

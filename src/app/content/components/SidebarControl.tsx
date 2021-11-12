@@ -1,9 +1,8 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
-import theme from '../../theme';
 import { Dispatch } from '../../types';
 import * as actions from '../actions';
 import { toolbarIconColor } from './constants';
@@ -13,7 +12,6 @@ import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar/styled';
 interface OpenSidebarProps {
   onClick: () => void;
   className?: string;
-  hideMobileText: boolean;
   isActive?: boolean;
 }
 interface CloseSidebarProps {
@@ -26,9 +24,6 @@ export const ToCButtonText = styled.span`
   ${toolbarDefaultText}
   margin: 0;
   padding: 0;
-  ${(props) => props.hideMobileText && theme.breakpoints.mobile(css`
-    display: none;
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -65,7 +60,7 @@ const ToCButton = styled.button`
 `;
 
 // tslint:disable-next-line:variable-name
-export const OpenSidebar = ({ hideMobileText, isActive, children, ...props }
+export const OpenSidebar = ({ isActive, children, ...props }
   : React.PropsWithChildren<OpenSidebarProps>) => {
   return <ToCToolbarButton
     aria-label={useIntl().formatMessage({ id: 'i18n:toc:toggle:closed' })}
@@ -76,7 +71,7 @@ export const OpenSidebar = ({ hideMobileText, isActive, children, ...props }
     {...props}
   >
     <TocIcon />
-    <ToCButtonText hideMobileText={!!hideMobileText}>
+    <ToCButtonText>
       {useIntl().formatMessage({ id: 'i18n:toc:title' })}
     </ToCButtonText>
     {children}
