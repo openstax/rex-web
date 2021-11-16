@@ -3,6 +3,8 @@ from pages.content import Content
 from . import markers
 from utils import utility
 
+from selenium.common.exceptions import ElementNotInteractableException
+
 
 @markers.test_case("C250849", "C242270")
 @markers.parametrize("page_slug", ["preface"])
@@ -135,3 +137,38 @@ def test_toc_closes_after_selecting_page_in_mobile(selenium, base_url, book_slug
 
     # THEN: The TOC is automatically closed
     assert not sidebar.is_displayed
+
+
+@markers.test_case("C250849", "C242270")
+@markers.parametrize("book_slug, page_slug", [("microbiology", "preface")])
+@markers.nondestructive
+def test_units(selenium, base_url, book_slug, page_slug):
+    """ Test that table of contents toggle button opens and closes the sidebar """
+
+    # GIVEN: The selenium driver, base_url, book_slug, and page_slug
+    # WHEN: The book and page URL is loaded
+    content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    sidebar = content.sidebar
+    toc = content.sidebar.toc
+
+    # AND: Window width is 1024 or greater (Desktop)
+    if content.is_desktop:
+
+        # THEN: Sidebar is open by default
+        assert sidebar.header.is_displayed
+
+        # print(toc.units)
+        # for x in toc.units:
+        #     print(x.text)
+
+        # toc.expand_unit(0)
+        # toc.expand_chapter(2)
+        section = toc.sections[3]
+        try:
+            section.click()
+        except ElementNotInteractableException:
+            # toc.expand_unit(0)
+            toc.expand_chapter(1)
+            section.click()
+        print(content.current_url)

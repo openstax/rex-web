@@ -1,6 +1,6 @@
 from typing import List
 
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import ElementNotInteractableException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -16,11 +16,31 @@ class TableOfContents(Region):
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
     _next_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page'] ~ li > a")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
-    _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 
-    _chapter_link_selector = "li details"
+    _unit_link_selector = (By.XPATH, "//ol/li[1] / details /../../..")
 
-    # _unit_link_selector = (By.XPATH, "//li//a/../../../../../../summary/..")
+    class Chapter(Region):
+        _chapter_link_selector = "li details"
+
+    @property
+    def units(self) -> List[WebElement]:
+        return self.find_elements(*self._unit_link_selector)
+
+    @property
+    def total_units(self) -> int:
+        return len(self.units)
+
+    def expand_unit(self, unit: int):
+        """Expand a unit from TOC.
+
+        :param int unit: the unit number to expand
+        :return: None
+
+        """
+
+        self.driver.execute_script(
+            "return arguments[0].setAttribute('open', '1');", self.units[unit]
+        )
 
     @property
     def active_section(self):
@@ -121,3 +141,32 @@ class TableOfContents(Region):
                 return False
             parent = self.find_element(*self._is_active_locator)
             return "Current Page" in parent.get_attribute("outerHTML")
+
+        def click_section(self):
+            try:
+                self.click()
+            except ElementNotInteractableException:
+                # expand previous details tag
+                # Xpath_section_link = self.find_elements(By.XPATH, "//ol/li/a/../../../../../..")
+                # expand_previous_dropdown = self.root/..
+                open_chapter = "return arguments[0].setAttribute('open', '1');"
+                self.driver.execute_script(open_chapter, self.units[1])
+
+                # try:
+                #     self.click()
+                # except ElementNotInteractableException:
+                #         # expand previous details tag
+                #     try:
+                #         self.click()
+                #     except NoSuchElementException:
+                #             # do something else
+                #
+
+        #     chapter_is_open = 'return arguments[0].hasAttribute("open");'
+        #         return self.driver.execute_script(chapter_is_open, self.root)
+        #
+        # XPATH_SEARCH = (
+        #     "//span[contains(text(),'{term}') and contains(@class,'highlight')]")
+        #
+        # phrase_searched = book.content.find_elements(
+        #     By.XPATH, XPATH_SEARCH.format(term=phrase))
