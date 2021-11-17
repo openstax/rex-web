@@ -12,17 +12,14 @@ import { runHooks } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
 import Checkbox from '../../../components/Checkbox';
 import { DropdownToggle } from '../../../components/Dropdown';
-import { content } from '../../../content/routes';
 import { locationChange, replace } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { updateQuery } from '../../../navigation/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { assertDefined } from '../../../utils/assertions';
 import { receiveBook } from '../../actions';
 import FiltersList, { FiltersListColor } from '../../components/popUp/FiltersList';
 import { modalQueryParameterName } from '../../constants';
-import { SummaryFiltersUpdate } from '../../highlights/types';
 import updateSummaryFilters from '../../highlights/utils/updateSummaryFilters';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
@@ -272,10 +269,21 @@ describe('Filters', () => {
     }
   });
 
-  it('dispatches updateSummaryFilters when removing selected colors from FiltersList', () => {
+  it('dispatches locationChange when removing selected colors from FiltersList', () => {
+    const state = store.getState();
+    const match = navigation.match(state);
+    const existingQuery = navigation.query(state);
+
     store.dispatch(receiveUser({} as any));
     // set filters
-    // store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        // tslint:disable-next-line:max-line-length
+        search: `?${queryString.stringify({colors: Array.from(colorfilterLabels)})}&modal=${modalUrlName}`,
+      },
+    } as any));
+
     const pageId = stripIdVersion(book.tree.contents[0].id);
     store.dispatch(receiveStudyGuidesTotalCounts({
       [pageId]: {
@@ -296,9 +304,17 @@ describe('Filters', () => {
       green.props.onRemove();
     });
 
-    expect(dispatch).toHaveBeenCalledWith(updateSummaryFiltersAction({
-      colors: { new: [], remove: [HighlightColorEnum.Green] },
-    }));
+    const update = updateSummaryFilters(
+      selectors.summaryFilters(state),
+      { colors: { new: [], remove: [HighlightColorEnum.Green] }, }
+    );
+
+    if (match) {
+      const historyReplace = replace(match, {
+        search: updateQuery(update as any as Record<string, string[]>, existingQuery),
+      });
+      expect(dispatch).toHaveBeenCalledWith(historyReplace);
+    }
   });
 
   describe('PrintButton', () => {
