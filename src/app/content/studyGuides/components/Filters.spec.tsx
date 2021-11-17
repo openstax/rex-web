@@ -1,5 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import * as Cookies from 'js-cookie';
+import queryString from 'query-string';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
@@ -11,9 +12,13 @@ import { runHooks } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
 import Checkbox from '../../../components/Checkbox';
 import { DropdownToggle } from '../../../components/Dropdown';
-import { locationChange } from '../../../navigation/actions';
+import { content } from '../../../content/routes';
+import { locationChange, replace } from '../../../navigation/actions';
+import * as navigation from '../../../navigation/selectors';
+import { updateQuery } from '../../../navigation/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
+import { assertDefined } from '../../../utils/assertions';
 import { receiveBook } from '../../actions';
 import FiltersList, { FiltersListColor } from '../../components/popUp/FiltersList';
 import { modalQueryParameterName } from '../../constants';
@@ -22,13 +27,14 @@ import updateSummaryFilters from '../../highlights/utils/updateSummaryFilters';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import {
+  loadMoreStudyGuides,
   printStudyGuides,
   receiveStudyGuidesTotalCounts,
   receiveSummaryStudyGuides,
-  updateSummaryFilters as updateSummaryFiltersAction,
 } from '../actions';
 import { colorfilterLabels, modalUrlName } from '../constants';
 import * as selectors from '../selectors';
+import { updateQueryFromFilterChange } from '../utils';
 import Filters from './Filters';
 import { cookieUTG } from './UsingThisGuide/constants';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
@@ -56,12 +62,23 @@ describe('Filters', () => {
 
   it('matches snapshot with UTG banner open (opened initially)', () => {
     const chapterId = stripIdVersion(book.tree.contents[2].id);
-    store.dispatch(receiveBook(book));
+
     // set filters
-    // store.dispatch(setSummaryFilters({
-    //   colors: Array.from(colorfilterLabels),
-    //   locationIds: [chapterId],
-    // }));
+    // store.dispatch(locationChange({
+    //   action: 'PUSH',
+    //   location: {
+    //     search: `modal=${modalUrlName}`,
+    //   },
+    // } as any));
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        // tslint:disable-next-line:max-line-length
+        search: `?${queryString.stringify({colors: Array.from(colorfilterLabels)})}&locationIds=${chapterId}&modal=${modalUrlName}`,
+      },
+    } as any));
+
+    store.dispatch(receiveBook(book));
     store.dispatch(receiveStudyGuidesTotalCounts({
       [chapterId]: {
         [HighlightColorEnum.Green]: 1,
@@ -71,6 +88,7 @@ describe('Filters', () => {
         [HighlightColorEnum.Purple]: 1,
       },
     }));
+    store.dispatch(loadMoreStudyGuides());
 
     const component = renderer.create(<TestContainer services={services} store={store}>
       <Filters />
@@ -88,7 +106,17 @@ describe('Filters', () => {
 
   it('renders correct label keys for color dropdown', () => {
     // set filters
-    // store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        // tslint:disable-next-line:max-line-length
+        search: `?${queryString.stringify({colors: Array.from(colorfilterLabels)})}&modal=${modalUrlName}`,
+      },
+      query: {
+        colors: Array.from(colorfilterLabels),
+        [modalQueryParameterName]: modalUrlName,
+      },
+    } as any));
     const pageId = stripIdVersion(book.tree.contents[0].id);
     store.dispatch(receiveStudyGuidesTotalCounts({
       [pageId]: {
@@ -99,6 +127,8 @@ describe('Filters', () => {
         [HighlightColorEnum.Purple]: 1,
       },
     }));
+
+    jest.spyOn(selectors, 'studyGuidesOpen').mockReturnValue(true);
 
     const component = renderer.create(<TestContainer services={services} store={store}>
       <Filters />
@@ -115,7 +145,7 @@ describe('Filters', () => {
     expect(labelYellowKey).toBeTruthy();
   });
 
-  it('does renders ConnectedFilterList if user is logged in', () => {
+  it('renders ConnectedFilterList if user is logged in', () => {
     store.dispatch(receiveUser({} as any));
     const pageId = stripIdVersion(book.tree.contents[0].id);
     store.dispatch(receiveStudyGuidesTotalCounts({
@@ -149,10 +179,19 @@ describe('Filters', () => {
     expect(() => component.root.findByType(FiltersList)).toThrow();
   });
 
-  it('dispatches updateSummaryFilters action on selecting colors and chapters', () => {
+  it('dispatches locationChange action on selecting colors and chapters', () => {
+    const state = store.getState();
     const chapter = findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid')!;
+
     // set summary filters
-    // store.dispatch(setSummaryFilters({ colors: Array.from(colorfilterLabels) }));
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        // tslint:disable-next-line:max-line-length
+        search: `?${queryString.stringify({colors: Array.from(colorfilterLabels)})}&modal=${modalUrlName}`,
+      },
+    } as any));
+
     store.dispatch(receiveBook(book));
     store.dispatch(receiveStudyGuidesTotalCounts({
       [chapter.id]: {
@@ -160,22 +199,6 @@ describe('Filters', () => {
         [HighlightColorEnum.Yellow]: 1,
       },
     }));
-
-    // call action that should be triggered by the hook for updateSummaryFilters
-    const updateFilters = (update: SummaryFiltersUpdate) => {
-      renderer.act(() => {
-        const updatedFilters = updateSummaryFilters(selectors.summaryFilters(store.getState()), update);
-        store.dispatch(locationChange({
-          action: 'REPLACE',
-          location: {},
-          query: {
-            [modalQueryParameterName]: modalUrlName,
-            ...updatedFilters,
-          },
-        } as any));
-        store.dispatch(receiveBook(book));
-      });
-    };
 
     const component = renderer.create(<TestContainer services={services} store={store}>
       <Filters />
@@ -193,22 +216,37 @@ describe('Filters', () => {
       yellowCheckbox.props.onChange();
     });
 
-    const firstUpdate = updateSummaryFiltersAction({
-      colors: { new: [], remove: [HighlightColorEnum.Yellow] },
-    });
-    expect(dispatch).toHaveBeenCalledWith(firstUpdate);
-    updateFilters(firstUpdate.payload);
+    const match = navigation.match(state);
+    const existingQuery = navigation.query(state);
+
+    const firstUpdate = updateSummaryFilters(
+      selectors.summaryFilters(state),
+      { colors: { new: [], remove: [HighlightColorEnum.Yellow] } }
+    );
+
+    if (match) {
+      const firstReplace = replace(match, {
+        search: updateQuery(firstUpdate as any as Record<string, string[]>, existingQuery),
+      });
+      expect(dispatch).toHaveBeenCalledWith(firstReplace);
+    }
 
     renderer.act(() => {
       yellowCheckbox.props.onChange();
       colorFilterToggle.props.onClick();
     });
 
-    const secondUpdate = updateSummaryFiltersAction({
-      colors: { new: [HighlightColorEnum.Yellow], remove: [] },
-    });
-    expect(dispatch).toHaveBeenCalledWith(secondUpdate);
-    updateFilters(secondUpdate.payload);
+    const secondUpdate = updateSummaryFilters(
+      selectors.summaryFilters(state),
+      { colors: { new: [HighlightColorEnum.Yellow], remove: [] } }
+    );
+
+    if (match) {
+      const secondReplace = replace(match, {
+        search: updateQuery(secondUpdate as any as Record<string, string[]>, existingQuery),
+      });
+      expect(dispatch).toHaveBeenCalledWith(secondReplace);
+    }
 
     dispatch.mockClear();
 
@@ -222,11 +260,16 @@ describe('Filters', () => {
       ch1.props.onChange();
     });
 
-    const thirdUpdate = updateSummaryFiltersAction({
-      locations: { new: [chapter], remove: [] },
-    });
-    expect(dispatch).toHaveBeenCalledWith(thirdUpdate);
-    updateFilters(thirdUpdate.payload);
+    const thirdUpdate = updateSummaryFilters(
+      selectors.summaryFilters(state),
+      { locations: { new: [chapter], remove: [] } }
+    );
+    if (match) {
+      const thirdReplace = replace(match, {
+        search: updateQuery(thirdUpdate as any as Record<string, string[]>, existingQuery),
+      });
+      expect(dispatch).toHaveBeenCalledWith(thirdReplace);
+    }
   });
 
   it('dispatches updateSummaryFilters when removing selected colors from FiltersList', () => {

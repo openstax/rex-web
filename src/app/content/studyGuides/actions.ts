@@ -1,7 +1,6 @@
 import { createStandardAction } from 'typesafe-actions';
 import {
   CountsPerSource,
-  SummaryFiltersUpdate,
   SummaryHighlights,
   SummaryHighlightsPagination
 } from '../highlights/types';
@@ -22,9 +21,6 @@ export const openStudyGuides = createStandardAction('Content/StudyGuides/Summary
 export const closeStudyGuides = createStandardAction('Content/StudyGuides/Summary/close')<void>();
 export const loadMoreStudyGuides = createStandardAction('Content/StudyGuides/loadMore')();
 export const printStudyGuides = createStandardAction('Content/StudyGuides/print')<void>();
-export const updateSummaryFilters = createStandardAction('Content/StudyGuides/Summary/updateFilters')<
-  SummaryFiltersUpdate
->();
 export const toggleStudyGuidesSummaryLoading = createStandardAction('Content/StudyGuides/Summary/loading')<boolean>();
 export const receiveStudyGuidesTotalCounts = createStandardAction(
   'Content/StudyGuides/receiveTotalCounts'
