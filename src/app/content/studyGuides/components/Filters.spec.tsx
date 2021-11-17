@@ -31,7 +31,6 @@ import {
 } from '../actions';
 import { colorfilterLabels, modalUrlName } from '../constants';
 import * as selectors from '../selectors';
-import { updateQueryFromFilterChange } from '../utils';
 import Filters from './Filters';
 import { cookieUTG } from './UsingThisGuide/constants';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
