@@ -23,6 +23,20 @@ body {
 
 #main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
   @import "./content-baked.less";
+
+  @font-face {
+    font-family: 'IBM Plex Sans';
+    font-style: italic;
+    font-weight: 400;
+    src: url('./src/assets/fonts/ibm-plex-sans-v9-latin-italic.woff2') format('woff2'), url('./src/assets/fonts/ibm-plex-sans-v9-latin-italic.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./src/assets/fonts/ibm-plex-sans-v9-latin-regular.woff2') format('woff2'), url('./src/assets/fonts/ibm-plex-sans-v9-latin-regular.woff') format('woff');
+  }
+
   font-size: 1.6rem;
   line-height: 2.3rem;
 
@@ -36,6 +50,31 @@ body {
   
     &:hover {
       color: #0064A0;
+    }
+  }
+
+  p {
+
+    &.public-domain,
+    &.student-sample {
+      font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;
+      padding: 1rem 2rem;
+      margin: 1rem 0 2rem;
+    }
+
+    &.public-domain {
+      border-left: 0.1rem solid #1E9575;
+    }
+
+    &.student-sample {
+      border-left: 0.1rem solid #005F9A;
+    }
+    
+    &.annotation-text {
+      color: #005F9A;
+      font-size: 1.4rem;
+      font-style: italic;
+      font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;
     }
   }
 
