@@ -82,7 +82,7 @@ const LoggedInState: SFC<{user: User, currentPath: string}> = ({user, currentPat
 
 // tslint:disable-next-line:variable-name
 const LoggedOutState: SFC<{currentPath: string}> = ({currentPath}) => <FormattedMessage id='i18n:nav:login:text'>
-  {(msg) => <Styled.Link href={'/accounts/login?r=' + currentPath}
+  {(msg) => <Styled.Link target='_blank' href={'/accounts/login?r=' + currentPath}
     data-testid='nav-login' data-analytics-label='login'> {msg}
   </Styled.Link>}
 </FormattedMessage>;
