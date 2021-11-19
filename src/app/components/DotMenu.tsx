@@ -38,13 +38,17 @@ export const DotMenuToggle = styled(React.forwardRef<HTMLDivElement>((props, ref
 // tslint:disable-next-line:variable-name
 export const DotMenuDropdownList = styled(DropdownList)`
   && {
-    ${(props) => props.rightAlign === true ? css`right: 0; left: unset` : css`left: 0; right: unset` }
+    ${(props) => {
+      return props.rightAlign === true
+        ? css`right: 0; left: unset`
+        : css`left: 0; right: unset`
+      ;
+    }}
   }
 `;
 
 // tslint:disable-next-line:variable-name
-export const DotMenuDropdown = styled((props: DropdownProps) => <Dropdown toggle={<DotMenuToggle />} {...props}>
-</Dropdown>)`
+export const DotMenuDropdown = styled((props: DropdownProps) => <Dropdown toggle={<DotMenuToggle />} {...props} />)`
   .focus-within ${DotMenuIcon} {
     color: ${theme.color.primary.gray.base};
   }
