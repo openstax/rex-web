@@ -142,7 +142,7 @@ function accountsProxy(app) {
     autoRewrite: true,
     cookieDomainRewrite: "",
     onProxyReq: (preq, req, res) => {
-      //preq.setHeader('X-Forwarded-Host', req.headers.host);
+      preq.setHeader('X-Forwarded-Host', req.headers.host);
     }
   }));
 }
