@@ -259,8 +259,10 @@ interface CommonDropdownProps {
 type TabTransparentDropdownProps = CommonDropdownProps & Props;
 export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & ControlledProps);
 
+export type DropdownProps = TabTransparentDropdownProps | TabHiddenDropdownProps;
+
 // tslint:disable-next-line:variable-name
-const Dropdown = ({transparentTab, ...props}: TabTransparentDropdownProps | TabHiddenDropdownProps) =>
+const Dropdown = ({transparentTab, ...props}: DropdownProps) =>
   transparentTab !== false
     ? <TabTransparentDropdown {...props} />
     : <TabHiddenDropDown {...props} />;

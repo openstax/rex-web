@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
 import theme from '../theme';
 import { PlainButton } from './Button';
-import Dropdown, { DropdownList } from './Dropdown';
+import Dropdown, { DropdownList, DropdownProps } from './Dropdown';
 
 // tslint:disable-next-line:variable-name
 export const DotMenuIcon = styled(EllipsisV)`
@@ -43,8 +43,8 @@ export const DotMenuDropdownList = styled(DropdownList)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const DotMenuDropdown = styled(Dropdown)`
-
+export const DotMenuDropdown = styled((props: DropdownProps) => <Dropdown toggle={<DotMenuToggle />} {...props}>
+</Dropdown>)`
   .focus-within ${DotMenuIcon} {
     color: ${theme.color.primary.gray.base};
   }

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { IntlShape } from 'react-intl';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import BOOKS from '../../../config.books';
-import { DotMenuDropdown, DotMenuDropdownList, DotMenuToggle } from '../../components/DotMenu';
+import { DotMenuDropdown, DotMenuDropdownList } from '../../components/DotMenu';
 import { DropdownItem } from '../../components/Dropdown';
 import { H3 } from '../../components/Typography';
 import { StyledContentLink } from '../../content/components/ContentLink';
@@ -22,6 +23,10 @@ const BookLI = styled.li`
   justify-content: space-between;
 `;
 
+export const exportBookHandler = (book: Book, intl: IntlShape) => () => {
+  downloadFile(`${book.title}.csv`, generateBookPageSpreadsheet(book, intl));
+};
+
 // tslint:disable-next-line:variable-name
 const Books = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -36,17 +41,15 @@ const Books = () => {
         setBooks((state) => ([...state, bookData].sort((bookA, bookB) => bookA.title.localeCompare(bookB.title))));
       });
     }
-  }, []);
+  }, [archiveLoader, osWebLoader]);
 
   const renderBookLink = (book: Book) => {
     const page = findDefaultBookPage(book);
     return <>
       <H3><StyledContentLink book={book} page={page}>{book.title}</StyledContentLink></H3>
-      <DotMenuDropdown toggle={<DotMenuToggle />} transparentTab={false}>
+      <DotMenuDropdown transparentTab={false}>
         <DotMenuDropdownList rightAlign>
-          <DropdownItem message='i18n:dev:exportBookPages' onClick={() =>
-            downloadFile(`${book.title}.csv`, generateBookPageSpreadsheet(book, intl))
-          } />
+          <DropdownItem message='i18n:dev:exportBookPages' onClick={exportBookHandler(book, intl)} />
         </DotMenuDropdownList>
       </DotMenuDropdown>
     </>;
