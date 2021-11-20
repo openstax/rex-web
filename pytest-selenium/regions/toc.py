@@ -18,9 +18,33 @@ class TableOfContents(Region):
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
 
     _unit_link_selector = (By.XPATH, "//ol/li[1] / details /../../..")
+    _chapter_link_selector = "li details ol li details"
+    _eoc_link_selector = (By.CSS_SELECTOR, "li details ol li details")
+    _eob_link_locator = (By.CSS_SELECTOR, "ol li details")
 
-    class Chapter(Region):
-        _chapter_link_selector = "li details"
+    @property
+    def eob_link(self):
+        return self.find_elements(*self._eob_link_locator)[-1]
+
+    def expand_eob(self):
+        """Expand a eob link from TOC.
+
+        :param int eob: the eob number to expand
+        :return: None
+
+        """
+
+        self.driver.execute_script("return arguments[0].setAttribute('open', '1');", self.eob_link)
+
+    def collapse_eob(self):
+        """Collapse an eob link from TOC.
+
+        :param int eob: the unit number to collapse
+        :return: None
+
+        """
+
+        self.driver.execute_script("return arguments[0].removeAttribute('open');", self.eob_link)
 
     @property
     def units(self) -> List[WebElement]:
@@ -29,6 +53,38 @@ class TableOfContents(Region):
     @property
     def total_units(self) -> int:
         return len(self.units)
+
+    @property
+    def eoc_link(self) -> List[WebElement]:
+        return self.find_elements(*self._eoc_link_selector)
+
+    @property
+    def total_eoc(self) -> int:
+        return len(self.eoc_link)
+
+    def expand_eoc(self, eoc: int):
+        """Expand a eoc link from TOC.
+
+        :param int eoc: the eoc number to expand
+        :return: None
+
+        """
+
+        self.driver.execute_script(
+            "return arguments[0].setAttribute('open', '1');", self.eoc_link[eoc]
+        )
+
+    def collapse_eoc(self, eoc: int):
+        """Collapse an eoc link from TOC.
+
+        :param int eoc: the unit number to collapse
+        :return: None
+
+        """
+
+        self.driver.execute_script(
+            "return arguments[0].removeAttribute('open');", self.eoc_link[eoc]
+        )
 
     def expand_unit(self, unit: int):
         """Expand a unit from TOC.
@@ -41,6 +97,16 @@ class TableOfContents(Region):
         self.driver.execute_script(
             "return arguments[0].setAttribute('open', '1');", self.units[unit]
         )
+
+    def collapse_unit(self, unit: int):
+        """Collapse an unit from TOC.
+
+        :param int unit: the unit number to collapse
+        :return: None
+
+        """
+
+        self.driver.execute_script("return arguments[0].removeAttribute('open');", self.units[unit])
 
     @property
     def active_section(self):
@@ -57,6 +123,10 @@ class TableOfContents(Region):
         return self.driver.execute_script(
             "return document.querySelectorAll" f"('{self._chapter_link_selector}');"
         )
+
+    @property
+    def total_chapters(self) -> int:
+        return len(self.chapters)
 
     @property
     def preface(self):
@@ -84,6 +154,55 @@ class TableOfContents(Region):
         self.driver.execute_script(
             "return arguments[0].setAttribute('open', '1');", chapters[chapter]
         )
+
+    def collapse_chapter(self, chapter: int):
+        """Collapse a chapter from TOC.
+
+        :param int chapter: the chapter number to collapse
+        :return: None
+
+        """
+        chapters = self.driver.execute_script(
+            "return document.querySelectorAll" f"('{self._chapter_link_selector}');"
+        )
+        self.driver.execute_script(
+            "return arguments[0].removeAttribute('open');", chapters[chapter]
+        )
+
+    def click_section(self, n: int):
+        try:
+            self.sections[n].click()
+        except ElementNotInteractableException:
+            for unit in range(self.total_units):
+                self.expand_unit(unit)
+                for chapter in range(0, self.total_chapters, 2):
+                    self.expand_chapter(chapter)
+                    try:
+                        self.sections[n].click()
+                        return
+
+                    except ElementNotInteractableException:
+                        if self.eoc_link:
+                            for eoc in range(chapter + 1, self.total_eoc):
+                                self.expand_eoc(eoc)
+                                try:
+                                    self.sections[n].click()
+                                    return
+                                except ElementNotInteractableException:
+                                    if self.eob_link:
+                                        self.expand_eob()
+                                        try:
+                                            self.sections[n].click()
+                                        except ElementNotInteractableException:
+                                            self.collapse_eob()
+
+                                    self.collapse_eoc(eoc)
+                                    break
+                        self.collapse_chapter(chapter)
+                        continue
+                self.collapse_unit(unit)
+                continue
+            return
 
     @property
     def first_section(self):
