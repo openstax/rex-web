@@ -75,6 +75,72 @@ body {
       font-style: italic;
       font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;
     }
+
+    &.linguistic-icon ~ .os-text,
+    &.culture-icon ~ .os-text,
+    &.dreaming-icon ~ .os-text,
+    &.visual-icon ~ .os-text,
+    &.speech-icon ~ .os-text,
+    &.auditory-icon ~ .os-text,
+    &.kinesthetic-icon ~ .os-text {
+      display: block;
+      padding: 0 0 0 2rem;
+      margin: 0 0 2rem;
+    }
+  }
+
+  span {
+    &.linguistic-icon:before,
+    &.culture-icon:before,
+    &.dreaming-icon:before,
+    &.visual-icon:before,
+    &.speech-icon:before,
+    &.auditory-icon:before,
+    &.kinesthetic-icon:before {
+      height: 0;
+      content: '';
+      display: flex;
+      flex-direction: column;
+      width: 2.5rem;
+      height: 2.5rem;
+      margin: 1rem 0 0 -2rem;
+
+      @media screen and (max-width: 75em) {
+        margin: 1rem 0 0 -1rem;
+      }
+    }
+
+    &.linguistic-icon:before {
+      background: url('../../../static/icons/cosmos-linguistic.svg');
+    }
+    
+    &.culture-icon:before {
+      background: url('../../../static/icons/cosmos-culture.svg');
+    }
+
+    &.dreaming-icon:before {
+      background: url('../../../static/icons/cosmos-dreaming.svg');
+    }
+
+    &.visual-icon:before {
+      background: url('../../../static/icons/cosmos-visual.svg');
+    }
+
+    &.speech-icon:before {
+      background: url('../../../static/icons/cosmos-speech.svg');
+    }
+
+    &.auditory-icon:before {
+      background: url('../../../static/icons/cosmos-auditory.svg');
+    }
+
+    &.kinesthetic-icon:before {
+      background: url('../../../static/icons/cosmos-kinesthetic.svg');
+    }
+  }
+
+  div.os-icons {
+    height: 0;
   }
 
   u[data-effect="double-underline"] {
