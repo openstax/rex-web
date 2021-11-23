@@ -19,6 +19,7 @@
 
 body {
   font-size: @font-size-base;
+  -webkit-print-color-adjust:exact;
 }
 
 #main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
@@ -84,7 +85,7 @@ body {
     &.auditory-icon ~ .os-text,
     &.kinesthetic-icon ~ .os-text {
       display: block;
-      padding: 0 0 0 2.5rem;
+      padding: 0 0 0 3.5rem;
     }
   }
 
@@ -101,7 +102,7 @@ body {
       display: flex;
       width: 2.5rem;
       height: 2.5rem;
-      margin: 1rem 0 0 -1rem;
+      margin: 1rem 0 0 0;
     }
 
     &.linguistic-icon:before {
