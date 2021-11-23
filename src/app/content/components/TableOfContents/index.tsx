@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { resetToc } from '../../actions';
+import { closeMobileMenu, resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
 import * as selectors from '../../selectors';
 import { ArchiveTree, Book, Page, State } from '../../types';
@@ -161,6 +161,9 @@ export default connect(
     isOpen: selectors.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
-    onNavigate: () => dispatch(resetToc()),
+    onNavigate: () => {
+      dispatch(resetToc());
+      dispatch(closeMobileMenu());
+    },
   })
 )(TableOfContents);

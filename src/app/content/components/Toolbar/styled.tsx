@@ -13,7 +13,6 @@ import {
   bookBannerMobileMiniHeight,
   toolbarIconColor,
   topbarDesktopHeight,
-  topbarMobileHeight,
   verticalNavbar,
 } from '../constants';
 import { disablePrint } from '../utils/disablePrint';
@@ -46,17 +45,16 @@ export const toolbarDefaultButton = css`
   align-items: center;
   justify-content: center;
   min-height: 77px;
-  ${theme.breakpoints.mobileMedium(css`
-    flex-direction: row;
-    justify-content: start;
-    min-width: 169.817px; /* to line up menu elements */
-    min-height: unset;
-    margin-top: 25px;
-  `)}
-
   ${(props: { isActive: boolean }) => props.isActive && `
     background-color: rgba(0,0,0,0.1);
   `}
+  ${theme.breakpoints.mobileMedium(css`
+    flex-direction: row;
+    justify-content: start;
+    min-height: unset;
+    margin-top: 25px;
+    background: none;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -95,10 +93,6 @@ export const PrintIcon = styled(Print)`
   ${toolbarIconStyles}
 `;
 
-export const shadow = css`
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
-`;
-
 const showMobileMenu = keyframes`
   0% {
     opacity: 0;
@@ -131,28 +125,27 @@ const hideMobileMenu = keyframes`
 
 // tslint:disable-next-line:variable-name
 export const ToolbarWrapper = styled.div`
+  grid-area: 1 / 1 / auto / 2;
   position: sticky;
-  grid-area: navbar;
   top: ${bookBannerDesktopMiniHeight}rem;
   height: calc(100vh - 13rem);
-  margin-left: -${verticalNavbar}rem;
   margin-top: -${topbarDesktopHeight}rem;
   max-height: calc(100vh - 7rem);
   max-width: ${verticalNavbar}rem;
   overflow: visible;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   z-index: ${theme.zIndex.toolbar}; /* stay above book content */
   background-color: ${theme.color.neutral.darker};
+  border-right: 1px solid ${theme.color.neutral.formBorder};
+  border-left: 1px solid ${theme.color.neutral.formBorder};
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileMiniHeight}rem;
     max-height: calc(100vh - 6rem);
-    margin-left: -${theme.padding.page.mobile}rem;
-    margin-right: ${theme.padding.page.mobile}rem;
   `)}
 
   ${theme.breakpoints.mobileMedium(css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
@@ -161,8 +154,6 @@ export const ToolbarWrapper = styled.div`
     max-height: unset;
     max-width: 100%;
     width: 100%;
-    justify-content: start;
-    height: ${topbarMobileHeight}rem;
     animation: ${hideMobileMenu} .2s forwards;
     z-index: ${theme.zIndex.mobileMenu};
 
@@ -171,7 +162,6 @@ export const ToolbarWrapper = styled.div`
     `}
   `)}
 
-  ${shadow}
   ${disablePrint}
 `;
 
@@ -190,7 +180,7 @@ export const ToolbarMobileHeader = styled.div`
     justify-content: center;
     align-items: center;
     position: relaitive;
-    border-bottom: 1px solid #d5d5d5;
+    border-bottom: 1px solid ${theme.color.neutral.formBorder};
   `)}
 `;
 
@@ -229,4 +219,10 @@ export const LeftArrow = styled(ChevronLeft)`
   :hover {
     color: ${toolbarIconColor.darker};
   }
+`;
+
+// tslint:disable-next-line: variable-name
+export const ToolbarElements = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

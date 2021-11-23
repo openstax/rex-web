@@ -4,10 +4,10 @@ import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeMobileMenu } from '../../actions';
 import * as pqSelectors from '../../practiceQuestions/selectors';
-import { mobileMenuOpen, tocOpen } from '../../selectors';
+import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
-import { OpenSidebarControl } from '../SidebarControl';
+import { ToggleSidebarControl } from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -17,7 +17,6 @@ import * as Styled from './styled';
 // tslint:disable-next-line: variable-name
 const Toolbar =   () => {
   const isMobileMenuOpen = useSelector(mobileMenuOpen);
-  const isTocOpen = useSelector(tocOpen);
   const isPracticeQuestionsEnabled = useSelector(pqSelectors.practiceQuestionsEnabled);
   const sidebarRef = React.useRef<HTMLElement>(null);
   const dispatch = useDispatch();
@@ -49,13 +48,15 @@ const Toolbar =   () => {
         <Styled.TimesIcon />
       </Styled.CloseToolbarButton>
     </Styled.ToolbarMobileHeader>
-    <OpenSidebarControl isActive={isTocOpen !== false}/>
-    <PracticeQuestionsButton />
-    <Styled.NudgeElementTarget id={nudgeStudyToolsTargetId}>
-      <StudyGuidesButton />
-      <HighlightButton />
-    </Styled.NudgeElementTarget>
-    {!isPracticeQuestionsEnabled ? <PrintButton /> : null}
+    <Styled.ToolbarElements>
+      <ToggleSidebarControl showActivatedState/>
+      <PracticeQuestionsButton />
+      <Styled.NudgeElementTarget id={nudgeStudyToolsTargetId}>
+        <StudyGuidesButton />
+        <HighlightButton />
+      </Styled.NudgeElementTarget>
+      {!isPracticeQuestionsEnabled ? <PrintButton /> : null}
+    </Styled.ToolbarElements>
   </Styled.ToolbarWrapper>;
 };
 

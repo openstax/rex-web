@@ -19,9 +19,7 @@ import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
-  mainContentBackground,
   scrollOffset,
-  sidebarDesktopWidth,
   sidebarTransitionTime,
   toolbarMobileExpandedHeight,
   topbarDesktopHeight,
@@ -63,9 +61,16 @@ const ContentNotifications = styled(Notifications)`
 
 // tslint:disable-next-line:variable-name
 const CenteredContentRow = styled.div`
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: center;
+  width: 100%;
   overflow: visible; /* so sidebar position: sticky works */
   margin: 0 auto;
   max-width: ${contentWrapperMaxWidth}rem;
+  ${theme.breakpoints.mobile(css`
+    grid-column-start: 2;
+  `)}
 
   @media screen {
     min-height: 100%;
@@ -81,14 +86,6 @@ const UndoPadding = areSidebarsOpenConnector(styled.div`
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    margin-right: -${theme.padding.page.desktop}rem;
-    ${(props) => (props.isTocOpen === false && props.isSearchOpen === false) && `
-      margin-left: -${theme.padding.page.desktop}rem;
-    `}
-
-    ${theme.breakpoints.mobile(css`
-      margin: 0 -${theme.padding.page.mobile}rem;
-    `)}
   }
 `);
 
@@ -99,16 +96,16 @@ const MainContentWrapper = areSidebarsOpenConnector(styled.div`
     display: flex;
     flex-direction: column;
     overflow: visible;
-    background-color: ${mainContentBackground};
     transition: max-width ${sidebarTransitionTime}ms;
     width: 100%;
-    max-width: ${contentWrapperMaxWidth - sidebarDesktopWidth}rem;
+    margin: 0 auto;
     ${theme.breakpoints.mobile(css`
+      padding-left: 0;
       max-width: ${contentWrapperMaxWidth}rem;
     `)}
     ${(props) => (props.isTocOpen === false && props.isSearchOpen === false) && `
       max-width: ${contentWrapperMaxWidth}rem;
-      margin: 0 auto;
+      padding-left: 0;
     `}
   }
 `);
@@ -117,7 +114,7 @@ const MainContentWrapper = areSidebarsOpenConnector(styled.div`
 const OuterWrapper = styled.div`
   @media screen {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     overflow: visible;
   }
 `;
@@ -183,13 +180,13 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
       <StudyguidesPopUp />
       <PracticeQuestionsPopup />
       <NudgeStudyTools />
-      <Topbar />
       <OuterWrapper>
+        <Topbar />
         <Wrapper>
+          <Toolbar />
+          <TableOfContents />
+          <SearchResultsSidebar />
           <CenteredContentRow>
-            <Toolbar />
-            <TableOfContents />
-            <SearchResultsSidebar />
             <ContentPane>
               <UndoPadding>
                 <MainContentWrapper>

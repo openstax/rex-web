@@ -25,7 +25,13 @@ export const wrapperPadding = css`
 // tslint:disable-next-line:variable-name
 export const LayoutBody = styled.div`
   width: 100%;
-  ${wrapperPadding}
+  max-width: 148rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 8rem auto auto;
+  ${theme.breakpoints.mobileMedium(css`
+    grid-template-columns: auto;
+  `)}
 `;
 
 export default Layout;

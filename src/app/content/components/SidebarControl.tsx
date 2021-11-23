@@ -1,23 +1,33 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
-import { Dispatch } from '../../types';
+import theme from '../../theme';
+import { AppState, Dispatch } from '../../types';
 import * as actions from '../actions';
+import * as selectors from '../selectors';
+import { State } from '../types';
 import { toolbarIconColor } from './constants';
 import { toolbarIconStyles } from './Toolbar/iconStyles';
 import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar/styled';
 
-interface OpenSidebarProps {
+interface InnerProps {
+  message: string;
   onClick: () => void;
   className?: string;
-  isActive?: boolean;
+  isActive?: boolean | null;
 }
-interface CloseSidebarProps {
-  onClick: () => void;
-  className?: string;
+
+interface MiddleProps {
+  isOpen: State['tocOpen'];
+  openToc: () => void;
+  closeToc: () => void;
+  showActivatedState?: boolean;
 }
+
+const closedMessage = 'i18n:toc:toggle:closed';
+const openMessage = 'i18n:toc:toggle:opened';
 
 // tslint:disable-next-line:variable-name
 export const ToCButtonText = styled.span`
@@ -27,7 +37,7 @@ export const ToCButtonText = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-const ToCToolbarButton = styled.button`
+const ToCButton = styled.button`
   background: none;
   ${toolbarDefaultButton}
   color: ${toolbarIconColor.base};
@@ -35,6 +45,14 @@ const ToCToolbarButton = styled.button`
   padding: 0 10px;
   overflow: visible;
   cursor: pointer;
+  ${(props: { isActive: boolean }) => props.isActive === null && `
+    background-color: rgba(0,0,0,0.1);
+  `};
+  ${theme.breakpoints.mobile(css`
+    ${(props: { isActive: boolean }) => props.isActive === null && `
+      background: none;
+    `};
+  `)}
 
   :hover {
     color: ${toolbarIconColor.darker};
@@ -46,7 +64,7 @@ const ToCToolbarButton = styled.button`
 `;
 
 // tslint:disable-next-line: variable-name
-const ToCButton = styled.button`
+const CloseToCButton = styled.button`
   color: ${toolbarIconColor.base};
   border: none;
   padding: 0;
@@ -60,14 +78,9 @@ const ToCButton = styled.button`
 `;
 
 // tslint:disable-next-line:variable-name
-export const OpenSidebar = ({ isActive, children, ...props }
-  : React.PropsWithChildren<OpenSidebarProps>) => {
-  return <ToCToolbarButton
-    aria-label={useIntl().formatMessage({ id: 'i18n:toc:toggle:closed' })}
-    data-analytics-label='Click to open the Table of Contents'
-    data-testid='toc-button'
-    isActive={isActive}
-    isRed={true}
+export const SidebarControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) => {
+  return <ToCButton
+    aria-label={useIntl().formatMessage({ id: message })}
     {...props}
   >
     <TocIcon />
@@ -75,28 +88,46 @@ export const OpenSidebar = ({ isActive, children, ...props }
       {useIntl().formatMessage({ id: 'i18n:toc:title' })}
     </ToCButtonText>
     {children}
-  </ToCToolbarButton>;
+  </ToCButton>;
   };
 
 // tslint:disable-next-line:variable-name
-export const CloseSidebar = ({ children, ...props}: React.PropsWithChildren<CloseSidebarProps>) =>
-  <ToCButton
-    aria-label={useIntl().formatMessage({ id: 'i18n:toc:toggle:opened' })}
-    data-analytics-label='Click to close the Table of Contents'
-    data-testid='toc-button'
+export const CloseSidebar = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
+  <CloseToCButton
+    aria-label={useIntl().formatMessage({ id: message })}
     {...props}
   >
     {children}
-  </ToCButton>;
+  </CloseToCButton>;
+
+const connector = connect(
+  (state: AppState) => ({
+    isOpen:  selectors.tocOpen(state),
+  }),
+  (dispatch: Dispatch) => ({
+    closeToc:  () => dispatch(actions.closeToc()),
+    openToc: () => dispatch(actions.openToc()),
+  })
+);
 
 // tslint:disable-next-line:variable-name
-export const OpenSidebarControl = connect(() => ({}),
-  (dispatch: Dispatch) => ({
-    onClick: () => dispatch(actions.openToc()),
-  }))(OpenSidebar);
+const lockControlState = (Control: React.ComponentType<InnerProps>, isOpen: boolean | null = null, ) =>
+  connector((props: MiddleProps) => <Control
+    {...props}
+    data-testid='toc-button'
+    message={(isOpen ?? props.isOpen) ? openMessage : closedMessage}
+    data-analytics-label={(isOpen || props.isOpen)
+      ? 'Click to close the Table of Contents'
+      : 'Click to open the Table of Contents'}
+    onClick={(isOpen ?? props.isOpen) ? props.closeToc : props.openToc}
+    isActive={Boolean(props.showActivatedState) && props.isOpen}
+  />);
 
 // tslint:disable-next-line:variable-name
-export const CloseSidebarControl = connect(() => ({}),
-  (dispatch: Dispatch) => ({
-    onClick: () => dispatch(actions.closeToc()),
-  }))(CloseSidebar);
+export const ToggleSidebarControl = lockControlState(SidebarControl);
+
+// tslint:disable-next-line:variable-name
+export const CloseSidebarControl = lockControlState(CloseSidebar, true);
+
+// tslint:disable-next-line: variable-name
+export const OpenSidebarControl = lockControlState(SidebarControl, false);

@@ -7,8 +7,8 @@ import { Dispatch } from '../../types';
 import { closeToc } from '../actions';
 import { State } from '../types';
 import {
+  mainContentBackground,
   sidebarDesktopWidth,
-  sidebarMobileWidth,
   sidebarTransitionTime,
 } from './constants';
 import { areSidebarsOpenConnector } from './utils/sidebar';
@@ -19,16 +19,14 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>
     flex: 1;
     width: 100%;
     overflow: visible;
-    transition: margin-left ${sidebarTransitionTime}ms;
-    margin-left: -${sidebarDesktopWidth}rem;
+    transition: padding-left ${sidebarTransitionTime}ms;
+    background-color: ${mainContentBackground};
     ${(props) => (props.isTocOpen || props.isTocOpen ===  null || props.isSearchOpen) && `
-      margin: 0
+      padding-left: ${sidebarDesktopWidth + 5.2}rem; // prevent overflow
     `}
+
     ${theme.breakpoints.mobile(css`
-      margin-left: -${sidebarMobileWidth}rem;
-    `)}
-    ${theme.breakpoints.mobileMedium(css`
-      margin-left: unset;
+      padding-left: 0;
     `)}
   }
 `;

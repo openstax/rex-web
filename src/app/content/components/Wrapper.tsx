@@ -25,7 +25,6 @@ export const Wrapper = styled(
       {children}
     </LayoutBody>
 )`
-  grid-area: content;
   position: relative; /* for sidebar overlay */
   overflow: visible; /* so sidebar position: sticky works */
 

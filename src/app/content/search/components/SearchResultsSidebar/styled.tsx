@@ -62,26 +62,26 @@ export const NavOl = styled.ol`
 
 const sidebarOpenAnimation = keyframes`
   0% {
-    transform: translateX(-100%);
+    transform: scaleX(0);
   }
 
   100% {
-    transform: translateX(0);
+    transform: scaleX(1);
   }
 `;
 
 const sidebarHideAnimation = keyframes`
   0% {
-    transform: translateX(0);
+    transform: scaleX(1);
   }
 
   99% {
-    transform: translateX(-100%);
+    transform: scaleX(0);
   }
 
   100% {
     visibility: hidden;
-    transform: translateX(-100%);
+    transform: scaleX(0);
   }
 `;
 
@@ -96,15 +96,15 @@ export const styleWhenSearchClosed = (closedStyle: FlattenSimpleInterpolation) =
 export const SearchResultsBar = styled.div`
   -webkit-overflow-scrolling: touch;
   overflow-x: visible;
+  grid-area: 1 / 2 / auto / 3;
+  position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
   margin-top: -${topbarDesktopHeight}rem;
-  margin-left: -${searchResultsBarDesktopWidth}rem;
-  padding: 0;
-  position: sticky;
   width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${backgroundColor};
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
-  transform: translateX(-100%);
+  transform-origin: left;
+  transform: scaleX(0);
   z-index: ${theme.zIndex.sidebar};
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
@@ -114,7 +114,6 @@ export const SearchResultsBar = styled.div`
   `)}
   ${theme.breakpoints.mobile(css`
     width: ${searchResultsBarMobileWidth}rem;
-    margin-left: -${searchResultsBarMobileWidth}rem;
     top: ${bookBannerMobileMiniHeight}rem;
     left: ${verticalNavbar}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
@@ -123,14 +122,10 @@ export const SearchResultsBar = styled.div`
 
   ${theme.breakpoints.mobileMedium(css`
     z-index: ${theme.zIndex.searchSidebar};
-    margin: 0 -1.6rem 0 -100%;
     width: 100vw;
     margin-top: 0;
     top: ${searchSidebarTopOffset}rem;
     max-height: calc(100vh - ${bookBannerMobileMiniHeight + topbarMobileHeight}rem);
-    ${styleWhenSearchClosed(css`
-      margin-left: calc(-100% - ${theme.padding.page.mobile}rem);
-    `)}
   `)}
 
   > ${NavOl} {

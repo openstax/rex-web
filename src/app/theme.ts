@@ -28,7 +28,7 @@ const greyColors = {
 
 const padding = {
   page: {
-    desktop: 8,
+    desktop: 3.2,
     mobile: 1.6,
   },
 };

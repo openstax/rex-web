@@ -26,7 +26,7 @@ import {
   verticalNavbar
 } from '../constants';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
-import { barPadding, buttonMinWidth, PlainButton, shadow } from '../Toolbar/styled';
+import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
 import { applySearchIconColor } from '../utils/applySearchIconColor';
 import { areSidebarsOpenConnector } from '../utils/sidebar';
 
@@ -46,6 +46,10 @@ const closeIconStyles = css`
   height: 1.6rem;
   width: 1.6rem;
   color: #cdcdcd;
+`;
+
+const shadow = css`
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
 `;
 
 // tslint:disable-next-line: variable-name

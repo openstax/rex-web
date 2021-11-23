@@ -23,7 +23,7 @@ const sidebarPadding = 1.8;
 
 const sidebarClosedStyle = css`
   overflow-y: hidden;
-  transform: translateX(-${sidebarDesktopWidth}rem);
+  transform: scaleX(0);
   box-shadow: none;
   pointer-events: none;
   visibility: hidden;
@@ -36,26 +36,24 @@ const sidebarClosedStyle = css`
 
 // tslint:disable-next-line:variable-name
 export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
+  grid-area: 1 / 2 / auto / 3;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
   margin-top: -${topbarDesktopHeight}rem;
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
+  transform-origin: left;
   transition:
     transform ${sidebarTransitionTime}ms ease-in-out,
     opacity ${sidebarTransitionTime}ms ease-in-out,
     box-shadow ${sidebarTransitionTime}ms ease-in-out;
   background-color: ${theme.color.neutral.darker};
   z-index: ${theme.zIndex.sidebar};
-  margin-left: -50vw;
-  padding-left: 50vw;
-  width: calc(50vw + ${sidebarDesktopWidth}rem);
-  min-width: calc(50vw + ${sidebarDesktopWidth}rem);
+  width: ${sidebarDesktopWidth}rem;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
   ${theme.breakpoints.mobile(css`
-    width: calc(50vw + ${sidebarMobileWidth}rem);
-    min-width: calc(50vw + ${sidebarMobileWidth}rem);
+    width: ${sidebarMobileWidth}rem;
     top: ${bookBannerMobileMiniHeight}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
     max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
@@ -112,6 +110,7 @@ export const ToCHeader = styled.div`
   height: ${topbarDesktopHeight}rem;
   padding: 0 ${sidebarPadding}rem;
   overflow: visible;
+  border-bottom: 1px solid ${theme.color.neutral.formBorder};
   box-shadow: 0 1rem 1rem -1rem rgba(0, 0, 0, 0.14);
   ${theme.breakpoints.mobile(css`
     height: ${topbarMobileHeight}rem;
