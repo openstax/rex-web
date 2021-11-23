@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
 from regions.base import Region
-from utils.utility import Utilities
+from utils.utility import Utilities, units, eob
 
 
 class TableOfContents(Region):
@@ -120,9 +120,13 @@ class TableOfContents(Region):
         :rtype: list(WebElement)
 
         """
-        return self.driver.execute_script(
-            "return document.querySelectorAll" f"('{self._chapter_link_selector}');"
-        )
+        # return self.driver.execute_script(
+        #     "return document.querySelectorAll" f"('{self._chapter_link_selector}');")
+        # return self.find_elements(*self._chapter_link_selector)
+        return [
+            self.ContentPage(self.page, chapter_link)
+            for chapter_link in self.find_elements(*self._chapter_link_locator)
+        ]
 
     @property
     def total_chapters(self) -> int:
@@ -148,11 +152,11 @@ class TableOfContents(Region):
         :return: None
 
         """
-        chapters = self.driver.execute_script(
-            "return document.querySelectorAll" f"('{self._chapter_link_selector}');"
-        )
+        # chapters = self.driver.execute_script(
+        #     "return document.querySelectorAll" f"('{self._chapter_link_selector}');"
+        # )
         self.driver.execute_script(
-            "return arguments[0].setAttribute('open', '1');", chapters[chapter]
+            "return arguments[0].setAttribute('open', '1');", self.chapters[chapter]
         )
 
     def collapse_chapter(self, chapter: int):
@@ -169,40 +173,94 @@ class TableOfContents(Region):
             "return arguments[0].removeAttribute('open');", chapters[chapter]
         )
 
-    def click_section(self, n: int):
+    def click_units(self, n: int):
         try:
             self.sections[n].click()
         except ElementNotInteractableException:
             for unit in range(self.total_units):
                 self.expand_unit(unit)
-                for chapter in range(0, self.total_chapters, 2):
+                for chapter in range(0, self.total_chapters):
                     self.expand_chapter(chapter)
                     try:
                         self.sections[n].click()
                         return
-
                     except ElementNotInteractableException:
-                        if self.eoc_link:
-                            for eoc in range(chapter + 1, self.total_eoc):
-                                self.expand_eoc(eoc)
-                                try:
-                                    self.sections[n].click()
-                                    return
-                                except ElementNotInteractableException:
-                                    if self.eob_link:
-                                        self.expand_eob()
-                                        try:
-                                            self.sections[n].click()
-                                        except ElementNotInteractableException:
-                                            self.collapse_eob()
-
-                                    self.collapse_eoc(eoc)
-                                    break
                         self.collapse_chapter(chapter)
                         continue
                 self.collapse_unit(unit)
                 continue
             return
+
+    def click_eob(self, n: int):
+        self.expand_eob()
+        try:
+            self.sections[n].click()
+        except ElementNotInteractableException:
+            self.collapse_eob()
+            return
+
+    def click_chapter(self, n: int):
+        for chapter in range(0, self.total_chapters):
+            self.expand_chapter(chapter)
+            try:
+                self.sections[n].click()
+                return
+            except ElementNotInteractableException:
+                self.collapse_chapter(chapter)
+
+    # def step_value(self):
+
+    def click_section(self, book_slug, n: int):
+        try:
+            self.sections[n].click()
+        except ElementNotInteractableException:
+            if eob(book_slug) is True:
+                self.click_eob(n)
+            elif units(book_slug) is True:
+                self.click_units(n)
+
+            elif units(book_slug) is False:
+                self.click_chapter(n)
+            else:
+                print("book might have eoc")
+
+    def click_sections(self, n: int):
+        try:
+            self.sections[n].click()
+        except ElementNotInteractableException:
+            # If book has unit, expand unit & then expand chapter and then try section click
+            if self.units:
+                for unit in range(self.total_units):
+                    self.expand_unit(unit)
+                    for chapter in range(0, self.total_chapters, 2):
+                        self.expand_chapter(chapter)
+                        try:
+                            self.sections[n].click()
+                            return
+                        # If book has nested EOC, expand EOC & try section click
+                        except ElementNotInteractableException:
+                            if self.eoc_link:
+                                for eoc in range(chapter + 1, self.total_eoc):
+                                    self.expand_eoc(eoc)
+                                    try:
+                                        self.sections[n].click()
+                                        return
+                                    except ElementNotInteractableException:
+                                        # If book has nested EOB, expand EOB & try section click
+                                        if self.eob_link:
+                                            self.expand_eob()
+                                            try:
+                                                self.sections[n].click()
+                                            except ElementNotInteractableException:
+                                                self.collapse_eob()
+
+                                        self.collapse_eoc(eoc)
+                                        break
+                            self.collapse_chapter(chapter)
+                            continue
+                    self.collapse_unit(unit)
+                    continue
+                return
 
     @property
     def first_section(self):
@@ -261,31 +319,31 @@ class TableOfContents(Region):
             parent = self.find_element(*self._is_active_locator)
             return "Current Page" in parent.get_attribute("outerHTML")
 
-        def click_section(self):
-            try:
-                self.click()
-            except ElementNotInteractableException:
-                # expand previous details tag
-                # Xpath_section_link = self.find_elements(By.XPATH, "//ol/li/a/../../../../../..")
-                # expand_previous_dropdown = self.root/..
-                open_chapter = "return arguments[0].setAttribute('open', '1');"
-                self.driver.execute_script(open_chapter, self.units[1])
-
-                # try:
-                #     self.click()
-                # except ElementNotInteractableException:
-                #         # expand previous details tag
-                #     try:
-                #         self.click()
-                #     except NoSuchElementException:
-                #             # do something else
-                #
-
-        #     chapter_is_open = 'return arguments[0].hasAttribute("open");'
-        #         return self.driver.execute_script(chapter_is_open, self.root)
+        # def click_section(self):
+        #     try:
+        #         self.click()
+        #     except ElementNotInteractableException:
+        #         # expand previous details tag
+        #         # Xpath_section_link = self.find_elements(By.XPATH, "//ol/li/a/../../../../../..")
+        #         # expand_previous_dropdown = self.root/..
+        #         open_chapter = "return arguments[0].setAttribute('open', '1');"
+        #         self.driver.execute_script(open_chapter, self.units[1])
         #
-        # XPATH_SEARCH = (
-        #     "//span[contains(text(),'{term}') and contains(@class,'highlight')]")
+        #         # try:
+        #         #     self.click()
+        #         # except ElementNotInteractableException:
+        #         #         # expand previous details tag
+        #         #     try:
+        #         #         self.click()
+        #         #     except NoSuchElementException:
+        #         #             # do something else
+        #         #
         #
-        # phrase_searched = book.content.find_elements(
-        #     By.XPATH, XPATH_SEARCH.format(term=phrase))
+        # #     chapter_is_open = 'return arguments[0].hasAttribute("open");'
+        # #         return self.driver.execute_script(chapter_is_open, self.root)
+        # #
+        # # XPATH_SEARCH = (
+        # #     "//span[contains(text(),'{term}') and contains(@class,'highlight')]")
+        # #
+        # # phrase_searched = book.content.find_elements(
+        # #     By.XPATH, XPATH_SEARCH.format(term=phrase))
