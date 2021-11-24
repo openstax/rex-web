@@ -14,6 +14,8 @@ import {
   requestSearch,
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
+import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
+import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';
 
 interface Props {
@@ -94,7 +96,9 @@ class Topbar extends React.Component<Props, State> {
 
     return <Styled.TopBarWrapper>
       <Styled.SearchPrintWrapper>
-        <Styled.MenuButton type='button' onClick={openMenu}/>
+        <NudgeElementTarget id={mobileNudgeStudyToolsTargetId}>
+          <Styled.MenuButton type='button' onClick={openMenu}/>
+        </NudgeElementTarget>
         <Styled.SearchInputWrapper
           active={this.props.mobileToolbarOpen}
           onSubmit={onSubmit}

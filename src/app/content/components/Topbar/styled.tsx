@@ -242,6 +242,7 @@ export const SearchPrintWrapper = areSidebarsOpenConnector(styled.div`
     height: ${topbarMobileHeight}rem;
     justify-content: space-between;
     padding: 0 6px;
+    transition: none;
     ${SearchInputWrapper} {
       border: none;
       border-radius: 0;

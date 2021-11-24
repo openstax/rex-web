@@ -156,8 +156,8 @@ export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boole
   React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled, cb]);
 };
 
-export const useMatchMobileQuery = () => {
-  const matchMedia = assertWindow().matchMedia(theme.breakpoints.mobileQuery);
+export const useMatchMobileMediumQuery = () => {
+  const matchMedia = assertWindow().matchMedia(theme.breakpoints.mobileMediumQuery);
   const [isMobile, setIsMobile] = React.useState(matchMedia.matches);
 
   const listener = React.useCallback((e: MediaQueryListEvent) => {

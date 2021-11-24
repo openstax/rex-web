@@ -7,6 +7,7 @@ import * as pqSelectors from '../../practiceQuestions/selectors';
 import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
+import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import { ToggleSidebarControl } from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
@@ -51,10 +52,10 @@ const Toolbar =   () => {
     <Styled.ToolbarElements>
       <ToggleSidebarControl showActivatedState/>
       <PracticeQuestionsButton />
-      <Styled.NudgeElementTarget id={nudgeStudyToolsTargetId}>
+      <NudgeElementTarget id={nudgeStudyToolsTargetId}>
         <StudyGuidesButton />
         <HighlightButton />
-      </Styled.NudgeElementTarget>
+      </NudgeElementTarget>
       {!isPracticeQuestionsEnabled ? <PrintButton /> : null}
     </Styled.ToolbarElements>
   </Styled.ToolbarWrapper>;

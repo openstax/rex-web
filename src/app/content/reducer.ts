@@ -77,7 +77,7 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(actions.resetToc):
       return {...state, tocOpen: null};
     case getType(actions.openMobileMenu):
-      return {...state, mobileMenuOpen: true};
+      return {...state, mobileMenuOpen: true, showNudgeStudyTools: false};
     case getType(actions.closeMobileMenu):
       return {...state, mobileMenuOpen: false};
     case getType(actions.requestBook):

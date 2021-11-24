@@ -166,11 +166,6 @@ export const ToolbarWrapper = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const NudgeElementTarget = styled.div`
-  display: contents;
-`;
-
-// tslint:disable-next-line: variable-name
 export const ToolbarMobileHeader = styled.div`
   display: none;
   ${theme.breakpoints.mobileMedium(css`
