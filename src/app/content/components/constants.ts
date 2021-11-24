@@ -11,6 +11,7 @@ export const scrollOffset = 3;
 export const sidebarDesktopWidth = 37.5;
 export const sidebarMobileWidth = 30.4;
 export const sidebarTransitionTime = 300;
+export const sidebarAdditionalOffset = 5.2;
 
 export const searchResultsBarDesktopWidth = 37.5;
 export const searchResultsBarMobileWidth = 33.8;
