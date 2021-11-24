@@ -19,6 +19,7 @@ class TableOfContents(Region):
 
     _unit_link_selector = (By.XPATH, "//ol/li[1] / details /../../..")
     _chapter_link_selector = "li details ol li details"
+    _chapter_with_units_link_selector = (By.XPATH, "/li/details | //li/details/ol/li/details")
     _eoc_link_selector = (By.CSS_SELECTOR, "li details ol li details")
     _eob_link_locator = (By.CSS_SELECTOR, "ol li details")
 
@@ -122,11 +123,8 @@ class TableOfContents(Region):
         """
         # return self.driver.execute_script(
         #     "return document.querySelectorAll" f"('{self._chapter_link_selector}');")
-        # return self.find_elements(*self._chapter_link_selector)
-        return [
-            self.ContentPage(self.page, chapter_link)
-            for chapter_link in self.find_elements(*self._chapter_link_locator)
-        ]
+
+        return self.find_elements(*self._chapter_link_selector)
 
     @property
     def total_chapters(self) -> int:
@@ -166,11 +164,11 @@ class TableOfContents(Region):
         :return: None
 
         """
-        chapters = self.driver.execute_script(
-            "return document.querySelectorAll" f"('{self._chapter_link_selector}');"
-        )
+        # chapters = self.driver.execute_script(
+        #     "return document.querySelectorAll" f"('{self._chapter_link_selector}');"
+        # )
         self.driver.execute_script(
-            "return arguments[0].removeAttribute('open');", chapters[chapter]
+            "return arguments[0].removeAttribute('open');", self.chapters[chapter]
         )
 
     def click_units(self, n: int):
@@ -186,7 +184,6 @@ class TableOfContents(Region):
                         return
                     except ElementNotInteractableException:
                         self.collapse_chapter(chapter)
-                        continue
                 self.collapse_unit(unit)
                 continue
             return
