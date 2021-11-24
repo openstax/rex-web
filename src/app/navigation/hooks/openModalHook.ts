@@ -7,10 +7,11 @@ import { updateQuery } from '../utils';
 export const openModal = (modalUrlName: string) => (services: MiddlewareAPI & AppServices) => () => {
   const state = services.getState();
   const match = navigation.match(state);
+  const query = navigation.query(state);
 
   if (match) {
     services.dispatch(push(match, {
-      search: updateQuery({[modalQueryParameterName]: modalUrlName}),
+      search: updateQuery({[modalQueryParameterName]: modalUrlName}, query),
     }));
   }
 };
