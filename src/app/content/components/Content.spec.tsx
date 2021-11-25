@@ -268,7 +268,7 @@ describe('content', () => {
 
     renderer.act(() => {
       component.root
-        .findByProps({ 'aria-label': 'Click to close the Table of Contents' })
+        .findAllByProps({ 'aria-label': 'Click to close the Table of Contents' })[0]
         .props.onClick();
     });
 

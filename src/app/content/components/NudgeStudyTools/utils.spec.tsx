@@ -52,6 +52,18 @@ describe('usePositions', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
+  it('selects hamburger menu as nudge study tools target if isMobile prop is passed', () => {
+    target.remove();
+    const hamburgerMenu = assertDocument().createElement('div');
+    hamburgerMenu.setAttribute('id', constants.mobileNudgeStudyToolsTargetId);
+    assertDocument().body.appendChild(hamburgerMenu);
+    const component = renderer.create(<Provider store={store}>
+      <Component isMobile={true} />
+    </Provider>);
+
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
   it('return positions and updates body overflow to previous value after finishing calculations', () => {
     jest.spyOn(studyGuidesSelect, 'hasStudyGuides')
       .mockReturnValue(true);
@@ -82,64 +94,34 @@ describe('usePositions', () => {
     });
   });
 
-  it('returns different positions depends on isMobile and windowWidth', () => {
+  it('returns different positions depends on isMobile', () => {
     // Default values
-    expect(utils.getPositions(target, false, 1900)).toEqual({
-      arrowLeft: 952,
-      arrowTopOffset: 248,
-      closeButtonLeft: 1253,
-      closeButtonTopOffset: 348,
-      contentWrapperRight: 657,
-      contentWrapperTopOffset: 388,
-      spotlightHeight: 45,
-      spotlightLeftOffset: 941,
-      spotlightTopOffset: 193,
-      spotlightWidth: 302,
+    expect(utils.getPositions(target, false)).toEqual({
+      arrowLeft: 1082,
+      arrowTopOffset: 244,
+      closeButtonLeft: 1949,
+      closeButtonTopOffset: 319,
+      contentWrapperLeft: 1243,
+      contentWrapperTopOffset: 375,
+      spotlightHeight: 25,
+      spotlightLeftOffset: 951,
+      spotlightTopOffset: 203,
+      spotlightWidth: 282,
     });
 
-    // Change of windowWidth affects only contentWrapperRight if there is a space for close button
-    expect(utils.getPositions(target, false, 1500)).toEqual({
-      arrowLeft: 952,
-      arrowTopOffset: 248,
-      closeButtonLeft: 1253,
-      closeButtonTopOffset: 348,
-      // this is less by 400px (1900 - 1500 = 400)
-      contentWrapperRight: 257,
-      contentWrapperTopOffset: 388,
-      spotlightHeight: 45,
-      spotlightLeftOffset: 941,
-      spotlightTopOffset: 193,
-      spotlightWidth: 302,
-    });
-
-    // Add additional right margin to contentWrapperRight and closeButtonLeft to prevent cutting of close button
-    expect(utils.getPositions(target, false, 1200)).toEqual({
-      arrowLeft: 952,
-      arrowTopOffset: 248,
-      closeButtonLeft: 1213,
-      closeButtonTopOffset: 348,
-      contentWrapperRight: -3,
-      contentWrapperTopOffset: 388,
-      spotlightHeight: 45,
-      spotlightLeftOffset: 941,
-      spotlightTopOffset: 193,
-      spotlightWidth: 302,
-    });
-
-    // Values when isMobile prop is passed (since we are not changing windowWidth only some of the values will change)
-    expect(utils.getPositions(target, true, 1900)).toEqual({
-      arrowLeft: 1050,
-      arrowTopOffset: 248,
-      closeButtonLeft: 1253,
-      // Close button adjusted to contentWrapperTopOffset
-      closeButtonTopOffset: 280,
-      contentWrapperRight: 657,
-      // In mobile arrow is smaller so content is closer to the top
-      contentWrapperTopOffset: 320,
-      spotlightHeight: 45,
-      spotlightLeftOffset: 941,
-      spotlightTopOffset: 193,
-      spotlightWidth: 302,
+    // Add additional padding to the spotlight when isMobile prop is passed
+    expect(utils.getPositions(target, true)).toEqual({
+      arrowLeft: 1082,
+      arrowTopOffset: 244,
+      // it also effects closeButton and contentWrapper
+      closeButtonLeft: 1955,
+      closeButtonTopOffset: 319,
+      contentWrapperLeft: 1249,
+      contentWrapperTopOffset: 375,
+      spotlightHeight: 25,
+      spotlightLeftOffset: 945,
+      spotlightTopOffset: 203,
+      spotlightWidth: 294,
     });
   });
 });

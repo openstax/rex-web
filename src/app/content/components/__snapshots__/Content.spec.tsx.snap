@@ -118,173 +118,178 @@ Array [
       </div>
     </div>
     <div
-      className="styled__TopBarWrapper-sc-12dq39v-0 jtwopu"
+      className="Content__OuterWrapper-sc-1f451g1-5 jMKekf"
     >
       <div
-        className="styled__SearchPrintWrapper-sc-12dq39v-9 lplJuv"
-      >
-        <button
-          className="styled__MenuButton-sc-12dq39v-2 bDNWEV styled__PlainButton-sc-1119auh-0 kPdLbJ"
-          onClick={[Function]}
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            className="styled__HamburgerIcon-sc-12dq39v-1 fKwlfW StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 448 512"
-          >
-            <path
-              d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-        <form
-          className="styled__SearchInputWrapper-sc-12dq39v-7 fypUzO"
-          data-experiment={true}
-          data-testid="desktop-search"
-          onSubmit={[Function]}
-        >
-          <input
-            aria-label="Search this book"
-            className="styled__SearchInput-sc-12dq39v-8 kGWMSU"
-            data-testid="desktop-search-input"
-            onChange={[Function]}
-            placeholder="Search this book"
-            type="search"
-            value=""
-          />
-          <button
-            aria-label="Search this book"
-            className="styled__SearchButton-sc-12dq39v-3 cWAPrW styled__PlainButton-sc-1119auh-0 kPdLbJ"
-            data-analytics-label="Search this book"
-            data-experiment={true}
-            data-testid="mobile-toggle"
-            onClick={[Function]}
-            type="button"
-            value="Search"
-          >
-            <svg
-              aria-hidden="true"
-              height="18px"
-              version="1.1"
-              viewBox="0 0 18 18"
-              width="18px"
-            >
-              <g
-                fill="none"
-                fillRule="evenodd"
-                stroke="none"
-                strokeWidth="1"
-              >
-                <g
-                  fill="currentColor"
-                  fillRule="nonzero"
-                  transform="translate(-938.000000, -206.000000)"
-                >
-                  <path
-                    d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
-                  />
-                </g>
-              </g>
-            </svg>
-          </button>
-          <button
-            className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
-            data-experiment={true}
-            value="Search"
-          >
-            <svg
-              aria-hidden="true"
-              height="18px"
-              version="1.1"
-              viewBox="0 0 18 18"
-              width="18px"
-            >
-              <g
-                fill="none"
-                fillRule="evenodd"
-                stroke="none"
-                strokeWidth="1"
-              >
-                <g
-                  fill="currentColor"
-                  fillRule="nonzero"
-                  transform="translate(-938.000000, -206.000000)"
-                >
-                  <path
-                    d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
-                  />
-                </g>
-              </g>
-            </svg>
-          </button>
-        </form>
-      </div>
-    </div>
-    <div
-      className="Content__OuterWrapper-sc-1f451g1-5 eEKyye"
-    >
-      <div
-        className="Wrapper-m6kdbg-0 kOGWyR Layout__LayoutBody-s6mgs9-0 erAfDJ"
+        className="styled__TopBarWrapper-sc-12dq39v-0 jtwopu"
       >
         <div
-          className="Content__CenteredContentRow-sc-1f451g1-2 fwznpu"
+          className="styled__SearchPrintWrapper-sc-12dq39v-9 kRRdlW"
         >
           <div
-            className="styled__ToolbarWrapper-sc-1119auh-4 ljtZLV"
-            data-analytics-region="toolbar"
-            data-testid="toolbar"
+            className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
+            id="mobile-menu-button"
           >
-            <div
-              className="styled__ToolbarMobileHeader-sc-1119auh-6 sGaLL"
+            <button
+              className="styled__MenuButton-sc-12dq39v-2 bDNWEV styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              onClick={[Function]}
+              type="button"
             >
-              <span
-                className="styled__ToolbarMobileHeaderTitle-sc-1119auh-7 iLojsC"
+              <svg
+                aria-hidden="true"
+                className="styled__HamburgerIcon-sc-12dq39v-1 fKwlfW StyledIconBase-sc-bdy9j4 cCvWXa"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 448 512"
               >
-                Menu
-              </span>
-              <button
-                className="styled__PlainButton-sc-1119auh-0 styled__CloseToolbarButton-sc-1119auh-8 fXddPz"
-                onClick={[Function]}
+                <path
+                  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          </div>
+          <form
+            className="styled__SearchInputWrapper-sc-12dq39v-7 fypUzO"
+            data-experiment={true}
+            data-testid="desktop-search"
+            onSubmit={[Function]}
+          >
+            <input
+              aria-label="Search this book"
+              className="styled__SearchInput-sc-12dq39v-8 kGWMSU"
+              data-testid="desktop-search-input"
+              onChange={[Function]}
+              placeholder="Search this book"
+              type="search"
+              value=""
+            />
+            <button
+              aria-label="Search this book"
+              className="styled__SearchButton-sc-12dq39v-3 cWAPrW styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-analytics-label="Search this book"
+              data-experiment={true}
+              data-testid="mobile-toggle"
+              onClick={[Function]}
+              type="button"
+              value="Search"
+            >
+              <svg
+                aria-hidden="true"
+                height="18px"
+                version="1.1"
+                viewBox="0 0 18 18"
+                width="18px"
               >
-                <svg
-                  aria-hidden="true"
-                  className="styled__TimesIcon-sc-1119auh-9 irnPCT"
-                  focusable="false"
-                  height="15px"
-                  version="1.1"
-                  viewBox="0 0 15 15"
-                  width="15px"
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
                 >
                   <g
-                    fill="none"
-                    fillRule="evenodd"
-                    stroke="none"
-                    strokeWidth="1"
+                    fill="currentColor"
+                    fillRule="nonzero"
+                    transform="translate(-938.000000, -206.000000)"
+                  >
+                    <path
+                      d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </button>
+            <button
+              className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-experiment={true}
+              value="Search"
+            >
+              <svg
+                aria-hidden="true"
+                height="18px"
+                version="1.1"
+                viewBox="0 0 18 18"
+                width="18px"
+              >
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
+                >
+                  <g
+                    fill="currentColor"
+                    fillRule="nonzero"
+                    transform="translate(-938.000000, -206.000000)"
+                  >
+                    <path
+                      d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div
+        className="Wrapper-m6kdbg-0 bwERCu Layout__LayoutBody-s6mgs9-0 cfjRHz"
+      >
+        <div
+          className="styled__ToolbarWrapper-sc-1119auh-4 lgmRtf"
+          data-analytics-region="toolbar"
+          data-testid="toolbar"
+        >
+          <div
+            className="styled__ToolbarMobileHeader-sc-1119auh-5 kDdWXI"
+          >
+            <span
+              className="styled__ToolbarMobileHeaderTitle-sc-1119auh-6 bewiKT"
+            >
+              Menu
+            </span>
+            <button
+              className="styled__PlainButton-sc-1119auh-0 styled__CloseToolbarButton-sc-1119auh-7 jzddtN"
+              onClick={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="styled__TimesIcon-sc-1119auh-8 gGfwqa"
+                focusable="false"
+                height="15px"
+                version="1.1"
+                viewBox="0 0 15 15"
+                width="15px"
+              >
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
+                >
+                  <g
+                    fill="currentColor"
+                    transform="translate(-302.000000, -18.000000)"
                   >
                     <g
-                      fill="currentColor"
-                      transform="translate(-302.000000, -18.000000)"
+                      transform="translate(302.000000, 18.000000)"
                     >
-                      <g
-                        transform="translate(302.000000, 18.000000)"
-                      >
-                        <path
-                          d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                        />
-                      </g>
+                      <path
+                        d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                      />
                     </g>
                   </g>
-                </svg>
-              </button>
-            </div>
+                </g>
+              </svg>
+            </button>
+          </div>
+          <div
+            className="styled__ToolbarElements-sc-1119auh-10 eqEpxH"
+          >
             <button
-              aria-label="Click to open the Table of Contents"
-              className="SidebarControl__ToCToolbarButton-sdjc7-1 gnjPkM"
-              data-analytics-label="Click to open the Table of Contents"
+              aria-label="Click to close the Table of Contents"
+              className="SidebarControl__ToCButton-sdjc7-1 dGmONU"
+              data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
             >
@@ -319,12 +324,12 @@ Array [
               </span>
             </button>
             <div
-              className="styled__NudgeElementTarget-sc-1119auh-5 gsvChP"
+              className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
               id="nudge-study-tools"
             >
               <button
                 aria-label="My highlights"
-                className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 haNnMQ"
+                className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 jsNcNX"
                 data-analytics-label="My highlights"
                 onClick={[Function]}
               >
@@ -386,7 +391,7 @@ Array [
             </div>
             <button
               aria-label="print"
-              className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 iNttUx"
+              className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 jcfgAp"
               data-analytics-label="print"
               data-testid="print"
               onClick={[Function]}
@@ -410,612 +415,616 @@ Array [
               </span>
             </button>
           </div>
+        </div>
+        <div
+          aria-label="Table of contents"
+          className="wrapper__SidebarBody-sc-1nl0jy-0 kIpRDw"
+          data-analytics-region="toc"
+          data-testid="toc"
+        >
           <div
-            aria-label="Table of contents"
-            className="wrapper__SidebarBody-sc-1nl0jy-0 gJqHpt"
-            data-analytics-region="toc"
-            data-testid="toc"
+            className="wrapper__ToCHeader-sc-1nl0jy-1 ijNosp"
+            data-testid="tocheader"
           >
-            <div
-              className="wrapper__ToCHeader-sc-1nl0jy-1 lqJkt"
-              data-testid="tocheader"
+            <span
+              className="wrapper__ToCHeaderText-sc-1nl0jy-2 bNyifZ"
             >
-              <span
-                className="wrapper__ToCHeaderText-sc-1nl0jy-2 bNyifZ"
+              Table of contents
+            </span>
+            <button
+              aria-label="Click to close the Table of Contents"
+              className="SidebarControl__CloseToCButton-sdjc7-2 gEXexK"
+              data-analytics-label="Click to close the Table of Contents"
+              data-testid="toc-button"
+              onClick={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="styled__TimesIcon-sc-1119auh-8 gGfwqa"
+                focusable="false"
+                height="15px"
+                version="1.1"
+                viewBox="0 0 15 15"
+                width="15px"
               >
-                Table of contents
-              </span>
-              <button
-                aria-label="Click to close the Table of Contents"
-                className="SidebarControl__ToCButton-sdjc7-2 bMjLuL"
-                data-analytics-label="Click to close the Table of Contents"
-                data-testid="toc-button"
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="styled__TimesIcon-sc-1119auh-9 irnPCT"
-                  focusable="false"
-                  height="15px"
-                  version="1.1"
-                  viewBox="0 0 15 15"
-                  width="15px"
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
                 >
                   <g
-                    fill="none"
-                    fillRule="evenodd"
-                    stroke="none"
-                    strokeWidth="1"
+                    fill="currentColor"
+                    transform="translate(-302.000000, -18.000000)"
                   >
                     <g
-                      fill="currentColor"
-                      transform="translate(-302.000000, -18.000000)"
+                      transform="translate(302.000000, 18.000000)"
                     >
-                      <g
-                        transform="translate(302.000000, 18.000000)"
-                      >
-                        <path
-                          d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                        />
-                      </g>
+                      <path
+                        d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                      />
                     </g>
                   </g>
-                </svg>
-              </button>
-            </div>
-            <ol
-              className="styled__NavOl-sc-18yti3s-5 gncPwk"
-            >
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <a
-                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-text\\">Test Page 1</span>",
-                    }
-                  }
-                  href="test-page-1"
-                  onClick={[Function]}
-                />
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jPwHOh"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <details
-                        className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                      >
-                        <summary
-                          className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                        >
-                          <div
-                            className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                              fill="currentColor"
-                              focusable="false"
-                              viewBox="0 0 192 512"
-                            >
-                              <path
-                                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                                fill="currentColor"
-                              />
-                            </svg>
-                            <svg
-                              aria-hidden="true"
-                              className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                              fill="currentColor"
-                              focusable="false"
-                              viewBox="0 0 320 512"
-                            >
-                              <path
-                                d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                                fill="currentColor"
-                              />
-                            </svg>
-                            <span
-                              className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                              dangerouslySetInnerHTML={
-                                Object {
-                                  "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
-                                }
-                              }
-                            />
-                          </div>
-                        </summary>
-                        <ol
-                          className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                        >
-                          <li
-                            className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                          >
-                            <a
-                              className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                              dangerouslySetInnerHTML={
-                                Object {
-                                  "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
-                                }
-                              }
-                              href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
-                              onClick={[Function]}
-                            />
-                          </li>
-                        </ol>
-                      </details>
-                    </li>
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
-                          }
-                        }
-                        href="1-1-physics-an-introduction"
-                        onClick={[Function]}
-                      />
-                    </li>
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
-                          }
-                        }
-                        href="23-12-rlc-series-ac-circuits"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 3</span>",
-                          }
-                        }
-                        href="2-test-page-3"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                  open={true}
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                  >
-                    <li
-                      aria-label="Current Page"
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 4</span>",
-                          }
-                        }
-                        href="3-test-page-4"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 5</span>",
-                          }
-                        }
-                        href="4-test-page-5"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
-                          }
-                        }
-                        href="10-test-page-6-f%C3%ADsica"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 7</span>",
-                          }
-                        }
-                        href="12-test-page-7"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <a
-                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
-                    }
-                  }
-                  href="a-atomic-masses"
-                  onClick={[Function]}
-                />
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <a
-                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
-                    }
-                  }
-                  href="d-glossary-of-key-symbols-and-notation"
-                  onClick={[Function]}
-                />
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <a
-                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
-                    }
-                  }
-                  href="test-page-for-generic-styles"
-                  onClick={[Function]}
-                />
-              </li>
-            </ol>
+                </g>
+              </svg>
+            </button>
           </div>
+          <ol
+            className="styled__NavOl-sc-18yti3s-5 gncPwk"
+          >
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <a
+                className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-text\\">Test Page 1</span>",
+                  }
+                }
+                href="test-page-1"
+                onClick={[Function]}
+              />
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jPwHOh"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <details
+                      className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+                    >
+                      <summary
+                        className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                      >
+                        <div
+                          className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 192 512"
+                          >
+                            <path
+                              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                          <svg
+                            aria-hidden="true"
+                            className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 320 512"
+                          >
+                            <path
+                              d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                          <span
+                            className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+                              }
+                            }
+                          />
+                        </div>
+                      </summary>
+                      <ol
+                        className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                      >
+                        <li
+                          className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                        >
+                          <a
+                            className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
+                              }
+                            }
+                            href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                            onClick={[Function]}
+                          />
+                        </li>
+                      </ol>
+                    </details>
+                  </li>
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
+                        }
+                      }
+                      href="1-1-physics-an-introduction"
+                      onClick={[Function]}
+                    />
+                  </li>
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
+                        }
+                      }
+                      href="23-12-rlc-series-ac-circuits"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 3</span>",
+                        }
+                      }
+                      href="2-test-page-3"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+                open={true}
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                >
+                  <li
+                    aria-label="Current Page"
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 4</span>",
+                        }
+                      }
+                      href="3-test-page-4"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 5</span>",
+                        }
+                      }
+                      href="4-test-page-5"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
+                        }
+                      }
+                      href="10-test-page-6-f%C3%ADsica"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 7</span>",
+                        }
+                      }
+                      href="12-test-page-7"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <a
+                className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
+                  }
+                }
+                href="a-atomic-masses"
+                onClick={[Function]}
+              />
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <a
+                className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
+                  }
+                }
+                href="d-glossary-of-key-symbols-and-notation"
+                onClick={[Function]}
+              />
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <a
+                className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
+                  }
+                }
+                href="test-page-for-generic-styles"
+                onClick={[Function]}
+              />
+            </li>
+          </ol>
+        </div>
+        <div
+          className="Content__CenteredContentRow-sc-1f451g1-2 jTJVLA"
+        >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 etJfRW"
+            className="ContentPane__Wrapper-sc-6et83r-0 cBxgEE"
           >
             <div
-              className="Content__UndoPadding-sc-1f451g1-3 gZrtYH"
+              className="Content__UndoPadding-sc-1f451g1-3 hQOKTS"
             >
               <div
-                className="Content__MainContentWrapper-sc-1f451g1-4 ijnHNS"
+                className="Content__MainContentWrapper-sc-1f451g1-4 eOYbpE"
               >
                 <div
                   className="MinPageHeight-sc-1i28xs0-0 hxgCaZ"
                 >
                   <div
-                    className="RedoPadding-sc-1rj2rww-0 cXhAXV"
+                    className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
                       className="page-content PageContent-ny9bj0-0 cXwdbF"
@@ -1081,7 +1090,7 @@ Array [
                   </div>
                 </div>
                 <details
-                  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 dGwEXP"
+                  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
                   data-analytics-region="attribution"
                   data-testid="attribution-details"
                 >
@@ -1582,173 +1591,178 @@ Array [
       </div>
     </div>
     <div
-      className="styled__TopBarWrapper-sc-12dq39v-0 jtwopu"
+      className="Content__OuterWrapper-sc-1f451g1-5 jMKekf"
     >
       <div
-        className="styled__SearchPrintWrapper-sc-12dq39v-9 lplJuv"
-      >
-        <button
-          className="styled__MenuButton-sc-12dq39v-2 bDNWEV styled__PlainButton-sc-1119auh-0 kPdLbJ"
-          onClick={[Function]}
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            className="styled__HamburgerIcon-sc-12dq39v-1 fKwlfW StyledIconBase-sc-bdy9j4 cCvWXa"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 448 512"
-          >
-            <path
-              d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-        <form
-          className="styled__SearchInputWrapper-sc-12dq39v-7 fypUzO"
-          data-experiment={true}
-          data-testid="desktop-search"
-          onSubmit={[Function]}
-        >
-          <input
-            aria-label="Search this book"
-            className="styled__SearchInput-sc-12dq39v-8 kGWMSU"
-            data-testid="desktop-search-input"
-            onChange={[Function]}
-            placeholder="Search this book"
-            type="search"
-            value=""
-          />
-          <button
-            aria-label="Search this book"
-            className="styled__SearchButton-sc-12dq39v-3 cWAPrW styled__PlainButton-sc-1119auh-0 kPdLbJ"
-            data-analytics-label="Search this book"
-            data-experiment={true}
-            data-testid="mobile-toggle"
-            onClick={[Function]}
-            type="button"
-            value="Search"
-          >
-            <svg
-              aria-hidden="true"
-              height="18px"
-              version="1.1"
-              viewBox="0 0 18 18"
-              width="18px"
-            >
-              <g
-                fill="none"
-                fillRule="evenodd"
-                stroke="none"
-                strokeWidth="1"
-              >
-                <g
-                  fill="currentColor"
-                  fillRule="nonzero"
-                  transform="translate(-938.000000, -206.000000)"
-                >
-                  <path
-                    d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
-                  />
-                </g>
-              </g>
-            </svg>
-          </button>
-          <button
-            className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
-            data-experiment={true}
-            value="Search"
-          >
-            <svg
-              aria-hidden="true"
-              height="18px"
-              version="1.1"
-              viewBox="0 0 18 18"
-              width="18px"
-            >
-              <g
-                fill="none"
-                fillRule="evenodd"
-                stroke="none"
-                strokeWidth="1"
-              >
-                <g
-                  fill="currentColor"
-                  fillRule="nonzero"
-                  transform="translate(-938.000000, -206.000000)"
-                >
-                  <path
-                    d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
-                  />
-                </g>
-              </g>
-            </svg>
-          </button>
-        </form>
-      </div>
-    </div>
-    <div
-      className="Content__OuterWrapper-sc-1f451g1-5 eEKyye"
-    >
-      <div
-        className="Wrapper-m6kdbg-0 kOGWyR Layout__LayoutBody-s6mgs9-0 erAfDJ"
+        className="styled__TopBarWrapper-sc-12dq39v-0 jtwopu"
       >
         <div
-          className="Content__CenteredContentRow-sc-1f451g1-2 fwznpu"
+          className="styled__SearchPrintWrapper-sc-12dq39v-9 kRRdlW"
         >
           <div
-            className="styled__ToolbarWrapper-sc-1119auh-4 ljtZLV"
-            data-analytics-region="toolbar"
-            data-testid="toolbar"
+            className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
+            id="mobile-menu-button"
           >
-            <div
-              className="styled__ToolbarMobileHeader-sc-1119auh-6 sGaLL"
+            <button
+              className="styled__MenuButton-sc-12dq39v-2 bDNWEV styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              onClick={[Function]}
+              type="button"
             >
-              <span
-                className="styled__ToolbarMobileHeaderTitle-sc-1119auh-7 iLojsC"
+              <svg
+                aria-hidden="true"
+                className="styled__HamburgerIcon-sc-12dq39v-1 fKwlfW StyledIconBase-sc-bdy9j4 cCvWXa"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 448 512"
               >
-                Menu
-              </span>
-              <button
-                className="styled__PlainButton-sc-1119auh-0 styled__CloseToolbarButton-sc-1119auh-8 fXddPz"
-                onClick={[Function]}
+                <path
+                  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          </div>
+          <form
+            className="styled__SearchInputWrapper-sc-12dq39v-7 fypUzO"
+            data-experiment={true}
+            data-testid="desktop-search"
+            onSubmit={[Function]}
+          >
+            <input
+              aria-label="Search this book"
+              className="styled__SearchInput-sc-12dq39v-8 kGWMSU"
+              data-testid="desktop-search-input"
+              onChange={[Function]}
+              placeholder="Search this book"
+              type="search"
+              value=""
+            />
+            <button
+              aria-label="Search this book"
+              className="styled__SearchButton-sc-12dq39v-3 cWAPrW styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-analytics-label="Search this book"
+              data-experiment={true}
+              data-testid="mobile-toggle"
+              onClick={[Function]}
+              type="button"
+              value="Search"
+            >
+              <svg
+                aria-hidden="true"
+                height="18px"
+                version="1.1"
+                viewBox="0 0 18 18"
+                width="18px"
               >
-                <svg
-                  aria-hidden="true"
-                  className="styled__TimesIcon-sc-1119auh-9 irnPCT"
-                  focusable="false"
-                  height="15px"
-                  version="1.1"
-                  viewBox="0 0 15 15"
-                  width="15px"
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
                 >
                   <g
-                    fill="none"
-                    fillRule="evenodd"
-                    stroke="none"
-                    strokeWidth="1"
+                    fill="currentColor"
+                    fillRule="nonzero"
+                    transform="translate(-938.000000, -206.000000)"
+                  >
+                    <path
+                      d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </button>
+            <button
+              className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              data-experiment={true}
+              value="Search"
+            >
+              <svg
+                aria-hidden="true"
+                height="18px"
+                version="1.1"
+                viewBox="0 0 18 18"
+                width="18px"
+              >
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
+                >
+                  <g
+                    fill="currentColor"
+                    fillRule="nonzero"
+                    transform="translate(-938.000000, -206.000000)"
+                  >
+                    <path
+                      d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div
+        className="Wrapper-m6kdbg-0 bwERCu Layout__LayoutBody-s6mgs9-0 cfjRHz"
+      >
+        <div
+          className="styled__ToolbarWrapper-sc-1119auh-4 lgmRtf"
+          data-analytics-region="toolbar"
+          data-testid="toolbar"
+        >
+          <div
+            className="styled__ToolbarMobileHeader-sc-1119auh-5 kDdWXI"
+          >
+            <span
+              className="styled__ToolbarMobileHeaderTitle-sc-1119auh-6 bewiKT"
+            >
+              Menu
+            </span>
+            <button
+              className="styled__PlainButton-sc-1119auh-0 styled__CloseToolbarButton-sc-1119auh-7 jzddtN"
+              onClick={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="styled__TimesIcon-sc-1119auh-8 gGfwqa"
+                focusable="false"
+                height="15px"
+                version="1.1"
+                viewBox="0 0 15 15"
+                width="15px"
+              >
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
+                >
+                  <g
+                    fill="currentColor"
+                    transform="translate(-302.000000, -18.000000)"
                   >
                     <g
-                      fill="currentColor"
-                      transform="translate(-302.000000, -18.000000)"
+                      transform="translate(302.000000, 18.000000)"
                     >
-                      <g
-                        transform="translate(302.000000, 18.000000)"
-                      >
-                        <path
-                          d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                        />
-                      </g>
+                      <path
+                        d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                      />
                     </g>
                   </g>
-                </svg>
-              </button>
-            </div>
+                </g>
+              </svg>
+            </button>
+          </div>
+          <div
+            className="styled__ToolbarElements-sc-1119auh-10 eqEpxH"
+          >
             <button
-              aria-label="Click to open the Table of Contents"
-              className="SidebarControl__ToCToolbarButton-sdjc7-1 gnjPkM"
-              data-analytics-label="Click to open the Table of Contents"
+              aria-label="Click to close the Table of Contents"
+              className="SidebarControl__ToCButton-sdjc7-1 dGmONU"
+              data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
             >
@@ -1783,12 +1797,12 @@ Array [
               </span>
             </button>
             <div
-              className="styled__NudgeElementTarget-sc-1119auh-5 gsvChP"
+              className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
               id="nudge-study-tools"
             >
               <button
                 aria-label="My highlights"
-                className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 haNnMQ"
+                className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 jsNcNX"
                 data-analytics-label="My highlights"
                 onClick={[Function]}
               >
@@ -1850,7 +1864,7 @@ Array [
             </div>
             <button
               aria-label="print"
-              className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 iNttUx"
+              className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 jcfgAp"
               data-analytics-label="print"
               data-testid="print"
               onClick={[Function]}
@@ -1874,610 +1888,614 @@ Array [
               </span>
             </button>
           </div>
+        </div>
+        <div
+          aria-label="Table of contents"
+          className="wrapper__SidebarBody-sc-1nl0jy-0 kIpRDw"
+          data-analytics-region="toc"
+          data-testid="toc"
+        >
           <div
-            aria-label="Table of contents"
-            className="wrapper__SidebarBody-sc-1nl0jy-0 gJqHpt"
-            data-analytics-region="toc"
-            data-testid="toc"
+            className="wrapper__ToCHeader-sc-1nl0jy-1 ijNosp"
+            data-testid="tocheader"
           >
-            <div
-              className="wrapper__ToCHeader-sc-1nl0jy-1 lqJkt"
-              data-testid="tocheader"
+            <span
+              className="wrapper__ToCHeaderText-sc-1nl0jy-2 bNyifZ"
             >
-              <span
-                className="wrapper__ToCHeaderText-sc-1nl0jy-2 bNyifZ"
+              Table of contents
+            </span>
+            <button
+              aria-label="Click to close the Table of Contents"
+              className="SidebarControl__CloseToCButton-sdjc7-2 gEXexK"
+              data-analytics-label="Click to close the Table of Contents"
+              data-testid="toc-button"
+              onClick={[Function]}
+            >
+              <svg
+                aria-hidden="true"
+                className="styled__TimesIcon-sc-1119auh-8 gGfwqa"
+                focusable="false"
+                height="15px"
+                version="1.1"
+                viewBox="0 0 15 15"
+                width="15px"
               >
-                Table of contents
-              </span>
-              <button
-                aria-label="Click to close the Table of Contents"
-                className="SidebarControl__ToCButton-sdjc7-2 bMjLuL"
-                data-analytics-label="Click to close the Table of Contents"
-                data-testid="toc-button"
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="styled__TimesIcon-sc-1119auh-9 irnPCT"
-                  focusable="false"
-                  height="15px"
-                  version="1.1"
-                  viewBox="0 0 15 15"
-                  width="15px"
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
                 >
                   <g
-                    fill="none"
-                    fillRule="evenodd"
-                    stroke="none"
-                    strokeWidth="1"
+                    fill="currentColor"
+                    transform="translate(-302.000000, -18.000000)"
                   >
                     <g
-                      fill="currentColor"
-                      transform="translate(-302.000000, -18.000000)"
+                      transform="translate(302.000000, 18.000000)"
                     >
-                      <g
-                        transform="translate(302.000000, 18.000000)"
-                      >
-                        <path
-                          d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                        />
-                      </g>
+                      <path
+                        d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                      />
                     </g>
                   </g>
-                </svg>
-              </button>
-            </div>
-            <ol
-              className="styled__NavOl-sc-18yti3s-5 gncPwk"
-            >
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <a
-                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-text\\">Test Page 1</span>",
-                    }
-                  }
-                  href="test-page-1"
-                  onClick={[Function]}
-                />
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jPwHOh"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <details
-                        className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                      >
-                        <summary
-                          className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                        >
-                          <div
-                            className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                              fill="currentColor"
-                              focusable="false"
-                              viewBox="0 0 192 512"
-                            >
-                              <path
-                                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                                fill="currentColor"
-                              />
-                            </svg>
-                            <svg
-                              aria-hidden="true"
-                              className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                              fill="currentColor"
-                              focusable="false"
-                              viewBox="0 0 320 512"
-                            >
-                              <path
-                                d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                                fill="currentColor"
-                              />
-                            </svg>
-                            <span
-                              className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                              dangerouslySetInnerHTML={
-                                Object {
-                                  "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
-                                }
-                              }
-                            />
-                          </div>
-                        </summary>
-                        <ol
-                          className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                        >
-                          <li
-                            className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                          >
-                            <a
-                              className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                              dangerouslySetInnerHTML={
-                                Object {
-                                  "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
-                                }
-                              }
-                              href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
-                              onClick={[Function]}
-                            />
-                          </li>
-                        </ol>
-                      </details>
-                    </li>
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
-                          }
-                        }
-                        href="1-1-physics-an-introduction"
-                        onClick={[Function]}
-                      />
-                    </li>
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
-                          }
-                        }
-                        href="23-12-rlc-series-ac-circuits"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 3</span>",
-                          }
-                        }
-                        href="2-test-page-3"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 4</span>",
-                          }
-                        }
-                        href="3-test-page-4"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 5</span>",
-                          }
-                        }
-                        href="4-test-page-5"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
-                          }
-                        }
-                        href="10-test-page-6-f%C3%ADsica"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <details
-                  className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
-                >
-                  <summary
-                    className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
-                  >
-                    <div
-                      className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 192 512"
-                      >
-                        <path
-                          d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <svg
-                        aria-hidden="true"
-                        className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-                        fill="currentColor"
-                        focusable="false"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <span
-                        className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
-                          }
-                        }
-                      />
-                    </div>
-                  </summary>
-                  <ol
-                    className="styled__NavOl-sc-18yti3s-5 jjmdsB"
-                  >
-                    <li
-                      className="styled__NavItem-sc-18yti3s-2 lcPtic"
-                    >
-                      <a
-                        className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                        dangerouslySetInnerHTML={
-                          Object {
-                            "__html": "<span class=\\"os-text\\">Test Page 7</span>",
-                          }
-                        }
-                        href="12-test-page-7"
-                        onClick={[Function]}
-                      />
-                    </li>
-                  </ol>
-                </details>
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <a
-                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
-                    }
-                  }
-                  href="a-atomic-masses"
-                  onClick={[Function]}
-                />
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <a
-                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
-                    }
-                  }
-                  href="d-glossary-of-key-symbols-and-notation"
-                  onClick={[Function]}
-                />
-              </li>
-              <li
-                className="styled__NavItem-sc-18yti3s-2 lcPtic"
-              >
-                <a
-                  className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
-                    }
-                  }
-                  href="test-page-for-generic-styles"
-                  onClick={[Function]}
-                />
-              </li>
-            </ol>
+                </g>
+              </svg>
+            </button>
           </div>
+          <ol
+            className="styled__NavOl-sc-18yti3s-5 gncPwk"
+          >
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <a
+                className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-text\\">Test Page 1</span>",
+                  }
+                }
+                href="test-page-1"
+                onClick={[Function]}
+              />
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jPwHOh"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <details
+                      className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+                    >
+                      <summary
+                        className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                      >
+                        <div
+                          className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 192 512"
+                          >
+                            <path
+                              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                          <svg
+                            aria-hidden="true"
+                            className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                            fill="currentColor"
+                            focusable="false"
+                            viewBox="0 0 320 512"
+                          >
+                            <path
+                              d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                          <span
+                            className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+                              }
+                            }
+                          />
+                        </div>
+                      </summary>
+                      <ol
+                        className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                      >
+                        <li
+                          className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                        >
+                          <a
+                            className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                            dangerouslySetInnerHTML={
+                              Object {
+                                "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
+                              }
+                            }
+                            href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                            onClick={[Function]}
+                          />
+                        </li>
+                      </ol>
+                    </details>
+                  </li>
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
+                        }
+                      }
+                      href="1-1-physics-an-introduction"
+                      onClick={[Function]}
+                    />
+                  </li>
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
+                        }
+                      }
+                      href="23-12-rlc-series-ac-circuits"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 3</span>",
+                        }
+                      }
+                      href="2-test-page-3"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 4</span>",
+                        }
+                      }
+                      href="3-test-page-4"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 5</span>",
+                        }
+                      }
+                      href="4-test-page-5"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
+                        }
+                      }
+                      href="10-test-page-6-f%C3%ADsica"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <details
+                className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
+              >
+                <summary
+                  className="Details__Summary-xi326o-2 styled__Summary-sc-18yti3s-3 hLZWYd"
+                >
+                  <div
+                    className="styled__SummaryWrapper-sc-18yti3s-4 jeQjgr"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 192 512"
+                    >
+                      <path
+                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <svg
+                      aria-hidden="true"
+                      className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                      fill="currentColor"
+                      focusable="false"
+                      viewBox="0 0 320 512"
+                    >
+                      <path
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <span
+                      className="styled__SummaryTitle-sc-18yti3s-0 cSTpUE"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+                        }
+                      }
+                    />
+                  </div>
+                </summary>
+                <ol
+                  className="styled__NavOl-sc-18yti3s-5 jjmdsB"
+                >
+                  <li
+                    className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                  >
+                    <a
+                      className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "<span class=\\"os-text\\">Test Page 7</span>",
+                        }
+                      }
+                      href="12-test-page-7"
+                      onClick={[Function]}
+                    />
+                  </li>
+                </ol>
+              </details>
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <a
+                className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
+                  }
+                }
+                href="a-atomic-masses"
+                onClick={[Function]}
+              />
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <a
+                className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
+                  }
+                }
+                href="d-glossary-of-key-symbols-and-notation"
+                onClick={[Function]}
+              />
+            </li>
+            <li
+              className="styled__NavItem-sc-18yti3s-2 lcPtic"
+            >
+              <a
+                className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
+                  }
+                }
+                href="test-page-for-generic-styles"
+                onClick={[Function]}
+              />
+            </li>
+          </ol>
+        </div>
+        <div
+          className="Content__CenteredContentRow-sc-1f451g1-2 jTJVLA"
+        >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 etJfRW"
+            className="ContentPane__Wrapper-sc-6et83r-0 cBxgEE"
           >
             <div
-              className="Content__UndoPadding-sc-1f451g1-3 gZrtYH"
+              className="Content__UndoPadding-sc-1f451g1-3 hQOKTS"
             >
               <div
-                className="Content__MainContentWrapper-sc-1f451g1-4 ijnHNS"
+                className="Content__MainContentWrapper-sc-1f451g1-4 eOYbpE"
               >
                 <div
                   className="MinPageHeight-sc-1i28xs0-0 hxgCaZ"
                 >
                   <div
-                    className="RedoPadding-sc-1rj2rww-0 cXhAXV"
+                    className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
                       className="PageContent-ny9bj0-0 cXwdbF"
@@ -2564,7 +2582,7 @@ Array [
                   </div>
                 </div>
                 <details
-                  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 dGwEXP"
+                  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
                   data-analytics-region="attribution"
                   data-testid="attribution-details"
                 >

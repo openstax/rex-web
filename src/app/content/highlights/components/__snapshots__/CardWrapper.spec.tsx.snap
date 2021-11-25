@@ -2,7 +2,7 @@
 
 exports[`CardWrapper matches snapshot 1`] = `
 <div
-  className="sc-bdVaJa hmIzUN"
+  className="sc-bdVaJa tJxxE"
 >
   <span
     container={<div />}

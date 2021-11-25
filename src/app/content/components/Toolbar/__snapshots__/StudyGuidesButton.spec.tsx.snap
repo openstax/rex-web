@@ -7,7 +7,7 @@ exports[`study guides button does not render if feature flag is not enabled 1`] 
 exports[`study guides button render if feature flag is enabled and book has study guide 1`] = `
 <button
   aria-label="Study guides"
-  className="styled__PlainButton-sc-1119auh-0 StudyGuidesButton__StudyGuidesWrapper-sc-1gy68g-0 gpADps"
+  className="styled__PlainButton-sc-1119auh-0 StudyGuidesButton__StudyGuidesWrapper-sc-1gy68g-0 hHugiZ"
   data-analytics-label="Study guides"
   onClick={[Function]}
 >

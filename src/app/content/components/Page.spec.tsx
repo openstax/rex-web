@@ -52,6 +52,11 @@ jest.mock('../../domUtils', () => ({
   scrollTo: jest.fn(),
 }));
 
+jest.mock('../../reactUtils', () => ({
+  ...(jest as any).requireActual('../../reactUtils'),
+  useMatchMobileQuery: jest.fn(),
+}));
+
 const makeEvent = () => {
   const event = new Event('click', { bubbles: true, cancelable: true });
   event.preventDefault();
