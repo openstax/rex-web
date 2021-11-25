@@ -1,9 +1,9 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
-import theme from '../../theme';
+import { useMatchMobileQuery } from '../../reactUtils';
 import { AppState, Dispatch } from '../../types';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
@@ -45,14 +45,6 @@ const ToCButton = styled.button`
   padding: 0 10px;
   overflow: visible;
   cursor: pointer;
-  ${(props: { isActive: boolean }) => props.isActive === null && `
-    background-color: rgba(0,0,0,0.1);
-  `};
-  ${theme.breakpoints.mobile(css`
-    ${(props: { isActive: boolean }) => props.isActive === null && `
-      background: none;
-    `};
-  `)}
 
   :hover {
     color: ${toolbarIconColor.darker};
@@ -111,17 +103,20 @@ const connector = connect(
 );
 
 // tslint:disable-next-line:variable-name
-const lockControlState = (Control: React.ComponentType<InnerProps>, isOpen: boolean | null = null, ) =>
-  connector((props: MiddleProps) => <Control
+const lockControlState = (Control: React.ComponentType<InnerProps>, forcedIsOpen: boolean | null = null, ) =>
+  connector((props: MiddleProps) => {
+  const isMobile = useMatchMobileQuery();
+  const isToCOpened = forcedIsOpen !== null ? forcedIsOpen : props.isOpen === null ? !isMobile : props.isOpen;
+
+  return <Control
     {...props}
     data-testid='toc-button'
-    message={(isOpen ?? props.isOpen) ? openMessage : closedMessage}
-    data-analytics-label={(isOpen || props.isOpen)
-      ? 'Click to close the Table of Contents'
-      : 'Click to open the Table of Contents'}
-    onClick={(isOpen ?? props.isOpen) ? props.closeToc : props.openToc}
-    isActive={Boolean(props.showActivatedState) && props.isOpen}
-  />);
+    message={isToCOpened ? openMessage : closedMessage}
+    data-analytics-label={isToCOpened ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
+    onClick={isToCOpened ? props.closeToc : props.openToc}
+    isActive={Boolean(props.showActivatedState) && isToCOpened}
+  />;
+});
 
 // tslint:disable-next-line:variable-name
 export const ToggleSidebarControl = lockControlState(SidebarControl);
