@@ -484,6 +484,14 @@ def units(element):
         return False
 
 
+def eoc(element):
+    book_list = Library.books
+    if book_list[element]["eoc"] == 1:
+        return True
+    else:
+        return False
+
+
 def eob(element):
     book_list = Library.books
     if book_list[element]["eob"] == 1:

@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
 from regions.base import Region
-from utils.utility import Utilities, units, eob
+from utils.utility import Utilities, units, eob, eoc
 
 
 class TableOfContents(Region):
@@ -17,8 +17,10 @@ class TableOfContents(Region):
     _next_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page'] ~ li > a")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
 
-    _unit_link_selector = (By.XPATH, "//ol/li[1] / details /../../..")
-    _chapter_link_selector = "li details ol li details"
+    # _unit_link_selector = (By.XPATH, "//ol/li[1] / details /../../..")
+    _unit_link_selector = (By.XPATH, "// li[1] / a /../../../../../..")
+    # _chapter_link_selector = "li details ol li details"
+    _chapter_link_selector = (By.XPATH, "// li[1] / a /../../..")
     _chapter_with_units_link_selector = (By.XPATH, "/li/details | //li/details/ol/li/details")
     _eoc_link_selector = (By.CSS_SELECTOR, "li details ol li details")
     _eob_link_locator = (By.CSS_SELECTOR, "ol li details")
@@ -63,7 +65,7 @@ class TableOfContents(Region):
     def total_eoc(self) -> int:
         return len(self.eoc_link)
 
-    def expand_eoc(self, eoc: int):
+    def expand_eoc(self):
         """Expand a eoc link from TOC.
 
         :param int eoc: the eoc number to expand
@@ -75,7 +77,7 @@ class TableOfContents(Region):
             "return arguments[0].setAttribute('open', '1');", self.eoc_link[eoc]
         )
 
-    def collapse_eoc(self, eoc: int):
+    def collapse_eoc(self):
         """Collapse an eoc link from TOC.
 
         :param int eoc: the unit number to collapse
@@ -205,6 +207,14 @@ class TableOfContents(Region):
             except ElementNotInteractableException:
                 self.collapse_chapter(chapter)
 
+    def click_eoc(self, n: int):
+        self.expand_eoc()
+        try:
+            self.sections[n].click()
+        except ElementNotInteractableException:
+            self.collapse_eoc()
+            return
+
     # def step_value(self):
 
     def click_section(self, book_slug, n: int):
@@ -215,7 +225,8 @@ class TableOfContents(Region):
                 self.click_eob(n)
             elif units(book_slug) is True:
                 self.click_units(n)
-
+            elif eoc(book_slug) is True:
+                self.click_eoc(n)
             elif units(book_slug) is False:
                 self.click_chapter(n)
             else:
@@ -237,8 +248,8 @@ class TableOfContents(Region):
                         # If book has nested EOC, expand EOC & try section click
                         except ElementNotInteractableException:
                             if self.eoc_link:
-                                for eoc in range(chapter + 1, self.total_eoc):
-                                    self.expand_eoc(eoc)
+                                for eocs in range(chapter + 1, self.total_eoc):
+                                    self.expand_eoc(eocs)
                                     try:
                                         self.sections[n].click()
                                         return
@@ -251,7 +262,7 @@ class TableOfContents(Region):
                                             except ElementNotInteractableException:
                                                 self.collapse_eob()
 
-                                        self.collapse_eoc(eoc)
+                                        self.collapse_eoc(eocs)
                                         break
                             self.collapse_chapter(chapter)
                             continue
