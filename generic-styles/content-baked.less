@@ -203,7 +203,7 @@ span[data-type="media"] img {
   }
   .title(note) {
     display: block;
-    margin: 0 1.5rem 1rem;
+    margin: 0 1.5rem 0;
     padding: 1.5rem 1.5rem 1rem;
     border-bottom: 0.2rem solid @gray-lighter;
     color: @gray;
@@ -232,6 +232,7 @@ span[data-type="media"] img {
   }
   .body(example) {
     .body(note);
+    margin-top: 1rem;
   }
 }
 
@@ -364,6 +365,10 @@ h1.example-title .text {
 .os-note-body {
   img {
     display: block;
+  }
+
+  [data-type="exercise"]:first-of-type {
+    margin-top: 1rem;
   }
 }
 
@@ -625,7 +630,6 @@ figure {
   [data-type="title"] {
     display: block;
     margin-top: 0;
-    margin-bottom: 1rem;
     padding: 0 1.5rem 1rem;
     border-bottom: .2rem solid #dcdcdc;
     color: #555;
@@ -635,8 +639,12 @@ figure {
     text-transform: uppercase;
   }
   p {
-    margin: 0 0 1rem 1.5rem;
+    margin: 1rem 0 1rem 1.5rem;
     color: #555;
+  }
+
+  &[data-type="note"] {
+    padding: 0;
   }
 }
 
