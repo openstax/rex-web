@@ -19,7 +19,7 @@
 
 body {
   font-size: @font-size-base;
-  -webkit-print-color-adjust:exact;
+  -webkit-print-color-adjust: exact;
 }
 
 #main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
@@ -79,6 +79,11 @@ body {
   }
 
   span {
+    &.os-icons {
+      display: flex;
+      float: left;
+    }
+
     &.linguistic-icon,
     &.culture-icon,
     &.dreaming-icon,
@@ -86,7 +91,6 @@ body {
     &.speech-icon,
     &.auditory-icon,
     &.kinesthetic-icon {
-
       width: 2rem;
       height: 2rem;
       margin: .15rem 1rem .15rem 0;
@@ -119,11 +123,6 @@ body {
     &.kinesthetic-icon {
       background: url('../../../static/icons/cosmos-kinesthetic.svg');
     }
-  }
-
-  div.os-icons {
-    display: flex;
-    float: left;
   }
 
   u[data-effect="double-underline"] {
