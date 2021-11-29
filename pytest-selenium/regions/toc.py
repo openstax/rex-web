@@ -65,7 +65,7 @@ class TableOfContents(Region):
     def total_eoc(self) -> int:
         return len(self.eoc_link)
 
-    def expand_eoc(self):
+    def expand_eoc(self, eoc):
         """Expand a eoc link from TOC.
 
         :param int eoc: the eoc number to expand
@@ -77,7 +77,7 @@ class TableOfContents(Region):
             "return arguments[0].setAttribute('open', '1');", self.eoc_link[eoc]
         )
 
-    def collapse_eoc(self):
+    def collapse_eoc(self, eoc):
         """Collapse an eoc link from TOC.
 
         :param int eoc: the unit number to collapse
@@ -196,24 +196,24 @@ class TableOfContents(Region):
             self.sections[n].click()
         except ElementNotInteractableException:
             self.collapse_eob()
-            return
 
-    def click_chapter(self, n: int):
+    def click_chapter(self, n: int, book_slug):
         for chapter in range(0, self.total_chapters):
             self.expand_chapter(chapter)
             try:
                 self.sections[n].click()
                 return
             except ElementNotInteractableException:
-                self.collapse_chapter(chapter)
-
-    def click_eoc(self, n: int):
-        self.expand_eoc()
-        try:
-            self.sections[n].click()
-        except ElementNotInteractableException:
-            self.collapse_eoc()
-            return
+                # if eoc(book_slug) is True:
+                #     for eocs in range(chapter + 1, self.total_eoc):
+                #         self.expand_eoc(eocs)
+                #         try:
+                #             self.sections[n].click()
+                #             return
+                #         except ElementNotInteractableException:
+                #             self.collapse_eoc(eocs)
+                if eoc(book_slug) is False:
+                    self.collapse_chapter(chapter)
 
     # def step_value(self):
 
@@ -221,54 +221,14 @@ class TableOfContents(Region):
         try:
             self.sections[n].click()
         except ElementNotInteractableException:
-            if eob(book_slug) is True:
-                self.click_eob(n)
-            elif units(book_slug) is True:
+            if units(book_slug) is True:
                 self.click_units(n)
-            elif eoc(book_slug) is True:
-                self.click_eoc(n)
             elif units(book_slug) is False:
-                self.click_chapter(n)
+                self.click_chapter(n, book_slug)
+            elif eob(book_slug) is True:
+                self.click_eob(n)
             else:
-                print("book might have eoc")
-
-    def click_sections(self, n: int):
-        try:
-            self.sections[n].click()
-        except ElementNotInteractableException:
-            # If book has unit, expand unit & then expand chapter and then try section click
-            if self.units:
-                for unit in range(self.total_units):
-                    self.expand_unit(unit)
-                    for chapter in range(0, self.total_chapters, 2):
-                        self.expand_chapter(chapter)
-                        try:
-                            self.sections[n].click()
-                            return
-                        # If book has nested EOC, expand EOC & try section click
-                        except ElementNotInteractableException:
-                            if self.eoc_link:
-                                for eocs in range(chapter + 1, self.total_eoc):
-                                    self.expand_eoc(eocs)
-                                    try:
-                                        self.sections[n].click()
-                                        return
-                                    except ElementNotInteractableException:
-                                        # If book has nested EOB, expand EOB & try section click
-                                        if self.eob_link:
-                                            self.expand_eob()
-                                            try:
-                                                self.sections[n].click()
-                                            except ElementNotInteractableException:
-                                                self.collapse_eob()
-
-                                        self.collapse_eoc(eocs)
-                                        break
-                            self.collapse_chapter(chapter)
-                            continue
-                    self.collapse_unit(unit)
-                    continue
-                return
+                print("book might have some other nest")
 
     @property
     def first_section(self):

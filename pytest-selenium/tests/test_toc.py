@@ -138,7 +138,7 @@ def test_toc_closes_after_selecting_page_in_mobile(selenium, base_url, book_slug
 
 
 @markers.test_case("C250849", "C242270")
-@markers.parametrize("book_slug, page_slug", [("algebra-and-trigonometry", "preface")])
+@markers.parametrize("book_slug, page_slug", [("biology-2e", "preface")])
 @markers.nondestructive
 def test_units(selenium, base_url, book_slug, page_slug):
     """ Test that table of contents toggle button opens and closes the sidebar """
@@ -158,5 +158,5 @@ def test_units(selenium, base_url, book_slug, page_slug):
 
         print(toc.total_chapters)
         print(len(toc.sections))
-        toc.click_section(book_slug, 9)
+        toc.click_section(book_slug, 200)
         print(content.current_url)
