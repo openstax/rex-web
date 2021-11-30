@@ -30,11 +30,23 @@ export interface ContentPageRefencesType {
 
 const hashRegex = `#[^'"]+`;
 const pathRegex = `\\./((?<bookId>[a-z0-9-]+)(@(?<bookVersion>[^/]+))?):(?<pageId>[a-z0-9-]+)\\.xhtml(${hashRegex})?`;
-const referenceRegex = `['"]{1}(?<matchPath>((${pathRegex})|(${hashRegex})))`;
+const referenceRegex = `(?<matchPath>((${pathRegex})|(${hashRegex})))`;
 
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
+  const domParser = new DOMParser();
+  const domNode = domParser.parseFromString(page.content, 'text/html');
+  const references = [];
+
+  for (const link of domNode.links) {
+    const href = link.getAttribute('href');
+    if (new RegExp(referenceRegex, 'g').test(href)) {
+      references.push(href);
+    }
+  }
+
   const matches: ContentPageRefencesType[] = (
-    page.content.match(new RegExp(referenceRegex, 'g')) || []
+    references || []
+    // page.content.match(new RegExp(referenceRegex, 'g')) || []
   )
     .map((match) => match.match(new RegExp(referenceRegex))?.groups)
     .filter(isDefined)
