@@ -36,12 +36,11 @@ const referenceRegex = `(?<matchPath>((${pathRegex})|(${hashRegex})))`;
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
   const domParser = new DOMParser();
   const domNode = domParser.parseFromString(page.content, 'text/html');
-  const references = Array.from(domNode.querySelectorAll('a'))
-    .map((link) => (link as HTMLAnchorElement).getAttribute('href') || '');
 
   const matches: ContentPageRefencesType[] = (
-    references
+    Array.from(domNode.querySelectorAll('a'))
   )
+    .map((link) => (link as HTMLAnchorElement).getAttribute('href') || '')
     .map((match) => match.match(new RegExp(referenceRegex))?.groups)
     .filter(isDefined)
     .map(({matchPath, bookId, bookVersion, pageId}) => {
