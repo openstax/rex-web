@@ -37,14 +37,13 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
   const domParser = new DOMParser();
   const domNode = domParser.parseFromString(page.content, 'text/html');
   const references = Array.from(domNode.links)
-    .map((link) => (link as HTMLAnchorElement).getAttribute('href') || '')
-    .filter((href) => href && href.match(new RegExp(referenceRegex, 'g')));
+    .map((link) => (link instanceof HTMLAnchorElement && link.getAttribute('href')) || '');
 
   const matches: ContentPageRefencesType[] = (
     references
   )
     .map((match) => match.match(new RegExp(referenceRegex))?.groups)
-    .filter(isDefined)
+    .filter((isDefined))
     .map(({matchPath, bookId, bookVersion, pageId}) => {
 
       return {
