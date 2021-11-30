@@ -116,9 +116,11 @@ const lockControlState = (Control: React.ComponentType<InnerProps>, forcedIsOpen
   return <Control
     {...props}
     data-testid='toc-button'
-    message={isToCOpened ? openMessage : closedMessage}
-    data-analytics-label={isToCOpened ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
-    onClick={isToCOpened ? props.closeToc : props.openToc}
+    message={isToCOpened === false ? closedMessage : openMessage}
+    data-analytics-label={isToCOpened === false
+      ? 'Click to open the Table of Contents'
+      : 'Click to close the Table of Contents'}
+    onClick={isToCOpened === false ? props.openToc : props.closeToc}
     isActive={Boolean(props.showActivatedState) && isToCOpened}
   />;
 });
