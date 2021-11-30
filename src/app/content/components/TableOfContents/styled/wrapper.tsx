@@ -23,7 +23,7 @@ const sidebarPadding = 1.8;
 
 const sidebarClosedStyle = css`
   overflow-y: hidden;
-  transform: scaleX(0);
+  transform: translateX(-100%);
   box-shadow: none;
   pointer-events: none;
   visibility: hidden;

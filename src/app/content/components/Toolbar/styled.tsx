@@ -11,6 +11,7 @@ import theme from '../../../theme';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
+  sidebarDesktopWidth,
   toolbarIconColor,
   topbarDesktopHeight,
   verticalNavbar,
@@ -137,9 +138,25 @@ export const ToolbarWrapper = styled.div`
   background-color: ${theme.color.neutral.darker};
   border-right: 1px solid ${theme.color.neutral.formBorder};
   border-left: 1px solid ${theme.color.neutral.formBorder};
+
+  // hides the sidebar whens it's sliding in
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -${sidebarDesktopWidth + .1}rem; /* adding 1px prevents hiding toolbar's left border */
+    width: ${sidebarDesktopWidth}rem;
+    height: 100%;
+    background-color: ${theme.color.neutral.darker};
+  }
+
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileMiniHeight}rem;
     max-height: calc(100vh - 6rem);
+
+    &::before {
+      display: none;
+    }
   `)}
 
   ${theme.breakpoints.mobileMedium(css`

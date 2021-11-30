@@ -28,6 +28,7 @@ import {
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
 import { applySearchIconColor } from '../utils/applySearchIconColor';
+import { disablePrint } from '../utils/disablePrint';
 import { areSidebarsOpenConnector } from '../utils/sidebar';
 
 const hideSearchChrome = css`
