@@ -83,12 +83,12 @@ export class TableOfContents extends Component<SidebarProps> {
         const active = this.props.page && stripIdVersion(item.id) === this.props.page.id;
 
         return isArchiveTree(item)
-        ? <Styled.NavItem key={item.id} type={sectionType}>
+        ? <Styled.NavItem key={item.id} sectionType={sectionType}>
             {this.renderTocNode(book, item)}
           </Styled.NavItem>
         : <Styled.NavItem
           key={item.id}
-          type={sectionType}
+          sectionType={sectionType}
           ref={active ? this.activeSection : null}
           active={active}
         >

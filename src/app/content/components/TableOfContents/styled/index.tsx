@@ -64,12 +64,12 @@ export const ContentLink = styled(ContentLinkComponent)`
 interface NavItemComponentProps {
   active?: boolean;
   className?: string;
-  type?: string;
+  sectionType?: string;
 }
 // tslint:disable-next-line:variable-name
 export const NavItemComponent = React.forwardRef<HTMLLIElement, NavItemComponentProps>(
-  ({active, className, children, type}, ref) => <li
-    data-type={type}
+  ({active, className, children, sectionType}, ref) => <li
+    data-type={sectionType}
     ref={ref}
     className={className}
     {...(active ? {'aria-label': 'Current Page'} : {})}
