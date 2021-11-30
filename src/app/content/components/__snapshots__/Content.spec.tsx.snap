@@ -121,7 +121,7 @@ Array [
       className="Content__OuterWrapper-sc-1f451g1-5 jMKekf"
     >
       <div
-        className="styled__TopBarWrapper-sc-12dq39v-0 jtwopu"
+        className="styled__TopBarWrapper-sc-12dq39v-0 bpFSVr"
       >
         <div
           className="styled__SearchPrintWrapper-sc-12dq39v-9 kRRdlW"
@@ -131,6 +131,7 @@ Array [
             id="mobile-menu-button"
           >
             <button
+              aria-label="Click to open menu"
               className="styled__MenuButton-sc-12dq39v-2 bDNWEV styled__PlainButton-sc-1119auh-0 kPdLbJ"
               onClick={[Function]}
               type="button"
@@ -236,7 +237,7 @@ Array [
         className="Wrapper-m6kdbg-0 bwERCu Layout__LayoutBody-s6mgs9-0 cfjRHz"
       >
         <div
-          className="styled__ToolbarWrapper-sc-1119auh-4 lgmRtf"
+          className="styled__ToolbarWrapper-sc-1119auh-4 hxfBvQ"
           data-analytics-region="toolbar"
           data-testid="toolbar"
         >
@@ -288,7 +289,7 @@ Array [
           >
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 dGmONU"
+              className="SidebarControl__ToCButton-sdjc7-1 vPzGt"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -418,7 +419,7 @@ Array [
         </div>
         <div
           aria-label="Table of contents"
-          className="wrapper__SidebarBody-sc-1nl0jy-0 kIpRDw"
+          className="wrapper__SidebarBody-sc-1nl0jy-0 epWWiK"
           data-analytics-region="toc"
           data-testid="toc"
         >
@@ -1594,7 +1595,7 @@ Array [
       className="Content__OuterWrapper-sc-1f451g1-5 jMKekf"
     >
       <div
-        className="styled__TopBarWrapper-sc-12dq39v-0 jtwopu"
+        className="styled__TopBarWrapper-sc-12dq39v-0 bpFSVr"
       >
         <div
           className="styled__SearchPrintWrapper-sc-12dq39v-9 kRRdlW"
@@ -1604,6 +1605,7 @@ Array [
             id="mobile-menu-button"
           >
             <button
+              aria-label="Click to open menu"
               className="styled__MenuButton-sc-12dq39v-2 bDNWEV styled__PlainButton-sc-1119auh-0 kPdLbJ"
               onClick={[Function]}
               type="button"
@@ -1709,7 +1711,7 @@ Array [
         className="Wrapper-m6kdbg-0 bwERCu Layout__LayoutBody-s6mgs9-0 cfjRHz"
       >
         <div
-          className="styled__ToolbarWrapper-sc-1119auh-4 lgmRtf"
+          className="styled__ToolbarWrapper-sc-1119auh-4 hxfBvQ"
           data-analytics-region="toolbar"
           data-testid="toolbar"
         >
@@ -1761,7 +1763,7 @@ Array [
           >
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 dGmONU"
+              className="SidebarControl__ToCButton-sdjc7-1 vPzGt"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -1891,7 +1893,7 @@ Array [
         </div>
         <div
           aria-label="Table of contents"
-          className="wrapper__SidebarBody-sc-1nl0jy-0 kIpRDw"
+          className="wrapper__SidebarBody-sc-1nl0jy-0 epWWiK"
           data-analytics-region="toc"
           data-testid="toc"
         >

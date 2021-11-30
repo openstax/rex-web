@@ -139,7 +139,7 @@ export const ToolbarWrapper = styled.div`
   border-right: 1px solid ${theme.color.neutral.formBorder};
   border-left: 1px solid ${theme.color.neutral.formBorder};
 
-  // hides the sidebar whens it's sliding in
+  /* hides the sidebar whens it's sliding in */
   &::before {
     content: '';
     position: absolute;
