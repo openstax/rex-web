@@ -43,7 +43,7 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
     references
   )
     .map((match) => match.match(new RegExp(referenceRegex))?.groups)
-    .filter((isDefined))
+    .filter(isDefined)
     .map(({matchPath, bookId, bookVersion, pageId}) => {
 
       return {
