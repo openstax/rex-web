@@ -1,9 +1,9 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
-import { useMatchMobileQuery } from '../../reactUtils';
+import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
@@ -39,6 +39,12 @@ export const ToCButtonText = styled.span`
 // tslint:disable-next-line:variable-name
 const ToCButton = styled.button`
   background: none;
+  ${(props: { isActive: boolean | null}) => props.isActive === null && `
+    background-color: rgba(0,0,0,0.1);
+  `}
+  ${(props: { isActive: boolean | null}) => props.isActive === null && theme.breakpoints.mobile(css`
+    background: none;
+  `)}
   ${toolbarDefaultButton}
   color: ${toolbarIconColor.base};
   border: none;
@@ -105,8 +111,7 @@ const connector = connect(
 // tslint:disable-next-line:variable-name
 const lockControlState = (Control: React.ComponentType<InnerProps>, forcedIsOpen: boolean | null = null, ) =>
   connector((props: MiddleProps) => {
-  const isMobile = useMatchMobileQuery();
-  const isToCOpened = forcedIsOpen !== null ? forcedIsOpen : props.isOpen === null ? !isMobile : props.isOpen;
+  const isToCOpened = forcedIsOpen !== null ? forcedIsOpen : props.isOpen;
 
   return <Control
     {...props}
