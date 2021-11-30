@@ -72,7 +72,9 @@ export const HamburgerIcon = styled(Hamburger)`
 
 // tslint:disable-next-line: variable-name
 export const MenuButton = styled((props) => {
-  return <PlainButton {...props}>
+  const intl = useIntl();
+
+  return <PlainButton {...props} aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:open'})}>
     <HamburgerIcon />
   </PlainButton>;
 })`

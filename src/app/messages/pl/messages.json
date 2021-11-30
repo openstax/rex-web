@@ -160,6 +160,7 @@
   "i18n:toolbar:buy-book:text": "Zamów wydruk",
   "i18n:practice-questions:popup:answers:choice": "Odpowiedź {choiceIndicator}",
   "i18n:toolbar:header:title": "Menu",
+  "i18n:toolbar:mobile-menu:open": "Kliknij, żeby przejść do menu",
   "i18n:toolbar:highlights:popup:body:add-highlight": "Zakreślaj i rób notatki",
   "i18n:toolbar:highlights:popup:body:highlights-free": "Zaloguj się, żeby dodawać notatki. 100% ZA DARMO.",
   "i18n:toolbar:highlights:popup:body:no-highlights-in-book": "W tej książce nie ma zakreśleń.",
