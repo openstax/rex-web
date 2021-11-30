@@ -6,6 +6,7 @@ import {
   ArchiveTree,
   ArchiveTreeNode,
   ArchiveTreeSection,
+  ArchiveTreeSectionType,
   Book,
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
@@ -173,3 +174,10 @@ export const archiveTreeSectionIsAnswerKey = (section: LinkedArchiveTreeNode): s
   isLinkedArchiveTree(section)
   && section.slug === 'answer-key'
 ;
+export const getArchiveTreeSectionType = (section: LinkedArchiveTreeNode): ArchiveTreeSectionType =>
+  archiveTreeSectionIsBook(section)
+    ? 'book'
+    : (archiveTreeSectionIsUnit(section)
+      ? 'unit'
+        : (archiveTreeSectionIsChapter(section)
+          ? 'chapter' : 'page'));
