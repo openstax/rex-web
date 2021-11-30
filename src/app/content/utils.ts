@@ -1,3 +1,4 @@
+import { HTMLAnchorElement } from '@openstax/types/lib.dom';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { isDefined } from '../guards';
 import { AppServices } from '../types';
@@ -30,12 +31,16 @@ export interface ContentPageRefencesType {
 
 const hashRegex = `#[^'"]+`;
 const pathRegex = `\\./((?<bookId>[a-z0-9-]+)(@(?<bookVersion>[^/]+))?):(?<pageId>[a-z0-9-]+)\\.xhtml(${hashRegex})?`;
-const referenceRegex = `['"]{1}(?<matchPath>((${pathRegex})|(${hashRegex})))`;
+const referenceRegex = `(?<matchPath>((${pathRegex})|(${hashRegex})))`;
 
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
+  const domParser = new DOMParser();
+  const domNode = domParser.parseFromString(page.content, 'text/html');
+
   const matches: ContentPageRefencesType[] = (
-    page.content.match(new RegExp(referenceRegex, 'g')) || []
+    Array.from(domNode.querySelectorAll('a'))
   )
+    .map((link) => (link as HTMLAnchorElement).getAttribute('href') || '')
     .map((match) => match.match(new RegExp(referenceRegex))?.groups)
     .filter(isDefined)
     .map(({matchPath, bookId, bookVersion, pageId}) => {
