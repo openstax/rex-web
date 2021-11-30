@@ -85,6 +85,11 @@ describe('getContentPageReferences', () => {
     expect(getContentPageReferences(book, page)).toEqual([]);
   });
 
+  it('ignores links with no href', () => {
+    page.content = '<a name="foo"></a>';
+    expect(getContentPageReferences(book, page)).toEqual([]);
+  });
+
   it('picks rap links without book version even if they are not in config.books.json', () => {
     page.content = `
       asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3wrong:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a>
