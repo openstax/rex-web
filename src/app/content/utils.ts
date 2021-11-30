@@ -36,8 +36,9 @@ const referenceRegex = `(?<matchPath>((${pathRegex})|(${hashRegex})))`;
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
   const domParser = new DOMParser();
   const domNode = domParser.parseFromString(page.content, 'text/html');
-  const hrefs = Array.from(domNode.links).map((link) => (link as HTMLAnchorElement).getAttribute('href') || '');
-  const references = hrefs.filter((href) => href && href.match(new RegExp(referenceRegex, 'g')));
+  const references = Array.from(domNode.links)
+    .map((link) => (link as HTMLAnchorElement).getAttribute('href') || '')
+    .filter((href) => href && href.match(new RegExp(referenceRegex, 'g')));
 
   const matches: ContentPageRefencesType[] = (
     references
