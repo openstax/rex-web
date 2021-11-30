@@ -63,6 +63,8 @@ export const TopBarWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileMiniHeight}rem;
   `)}
+
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
