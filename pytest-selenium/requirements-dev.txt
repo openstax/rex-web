@@ -18,7 +18,7 @@ pluggy==1.0.0
 pre-commit==2.16.0
 py==1.11.0
 pyAesCrypt==6.0.0
-pycparser==2.20
+pycparser==2.21
 pyparsing==2.4.7
 PyPOM==2.2.0
 pytest==6.2.5
