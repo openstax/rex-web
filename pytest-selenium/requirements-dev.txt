@@ -13,7 +13,7 @@ idna==2.10 # pyup: ignore
 importlib-metadata==4.8.2
 more-itertools==8.12.0
 nodeenv==1.6.0
-packaging==21.0
+packaging==21.3
 pluggy==1.0.0
 pre-commit==2.15.0
 py==1.10.0
