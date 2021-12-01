@@ -99,8 +99,7 @@ export class TableOfContents extends Component<SidebarProps> {
       })}
     </Styled.NavOl>;
 
-  private renderTocNode = (book: Book, node: ArchiveTree) =>
-    <Styled.NavDetails
+  private renderTocNode = (book: Book, node: ArchiveTree) => <Styled.NavDetails
     {...this.props.page && archiveTreeContainsNode(node, this.props.page.id)
         ? {defaultOpen: true}
         : {}
