@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../types';
 import { resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
+import { linkContents } from '../../search/utils';
 import * as selectors from '../../selectors';
 import { ArchiveTree, Book, Page, State } from '../../types';
-import { archiveTreeContainsNode, getArchiveTreeSectionType, linkArchiveTree } from '../../utils/archiveTreeUtils';
+import { archiveTreeContainsNode, getArchiveTreeSectionType } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as Styled from './styled';
@@ -74,8 +75,8 @@ export class TableOfContents extends Component<SidebarProps> {
 
   private renderChildren = (book: Book, section: ArchiveTree) =>
     <Styled.NavOl section={section}>
-      {linkArchiveTree(section).contents.map((item) => {
-        const sectionType = isArchiveTree(item) ? getArchiveTreeSectionType(linkArchiveTree(item)) : 'page';
+      {linkContents(section).map((item) => {
+        const sectionType = getArchiveTreeSectionType(item);
         const active = this.props.page && stripIdVersion(item.id) === this.props.page.id;
 
         return isArchiveTree(item)
