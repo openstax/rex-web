@@ -7,7 +7,7 @@ import { resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
 import * as selectors from '../../selectors';
 import { ArchiveTree, Book, Page, State } from '../../types';
-import { archiveTreeContainsNode, flattenArchiveTree, getArchiveTreeSectionType } from '../../utils/archiveTreeUtils';
+import { archiveTreeContainsNode, getArchiveTreeSectionType, linkArchiveTree } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as Styled from './styled';
@@ -72,14 +72,10 @@ export class TableOfContents extends Component<SidebarProps> {
     scrollSidebarSectionIntoView(this.sidebar.current, this.activeSection.current);
   }
 
-  private renderChildren = (book: Book, section: ArchiveTree) => {
-    const flattenedTree = flattenArchiveTree(section);
-
-    return (
+  private renderChildren = (book: Book, section: ArchiveTree) =>
     <Styled.NavOl section={section}>
-      {section.contents.map((item) => {
-        const flattenedNode = flattenedTree.find((node) => node.id === stripIdVersion(item.id));
-        const sectionType = flattenedNode ? getArchiveTreeSectionType(flattenedNode) : '';
+      {linkArchiveTree(section).contents.map((item) => {
+        const sectionType = isArchiveTree(item) ? getArchiveTreeSectionType(linkArchiveTree(item)) : 'page';
         const active = this.props.page && stripIdVersion(item.id) === this.props.page.id;
 
         return isArchiveTree(item)
@@ -100,7 +96,7 @@ export class TableOfContents extends Component<SidebarProps> {
           />
         </Styled.NavItem>;
       })}
-    </Styled.NavOl>); };
+    </Styled.NavOl>;
 
   private renderTocNode = (book: Book, node: ArchiveTree) => {
     return (<Styled.NavDetails

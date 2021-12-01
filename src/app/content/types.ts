@@ -104,7 +104,7 @@ export interface ArchiveTreeNode {
   slug: string;
 }
 
-export type ArchiveTreeSectionType = 'book' | 'unit' | 'chapter' | 'page';
+export type ArchiveTreeSectionType = 'book' | 'unit' | 'chapter' | 'page' | null;
 
 export type ArchiveTreeSection = ArchiveTreeNode;
 

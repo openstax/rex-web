@@ -180,4 +180,6 @@ export const getArchiveTreeSectionType = (section: LinkedArchiveTreeNode): Archi
     : (archiveTreeSectionIsUnit(section)
       ? 'unit'
         : (archiveTreeSectionIsChapter(section)
-          ? 'chapter' : 'page'));
+          ? 'chapter'
+            : (archiveTreeSectionIsPage(section)
+            ? 'page' : null)));
