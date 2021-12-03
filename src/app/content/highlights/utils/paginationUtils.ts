@@ -103,10 +103,13 @@ export const filterCountsPerSourceByLocationFilter = (
 export const filterCountsPerSourceByColorFilter = (
   colorFilters: SummaryFilters['colors'],
   counts: CountsPerSource
-) => flow(
+) => {
+  console.log('filter by color: ', colorFilters, counts);
+  return flow(
   mapValues(pick(colorFilters)),
   pickBy(not(isEmpty))
 )(counts) as CountsPerSource;
+};
 
 export const incrementPage = (pagination: NonNullable<SummaryHighlightsPagination>) =>
   ({...pagination, page: pagination.page + 1});
