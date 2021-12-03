@@ -59,8 +59,6 @@ export const hookBody: ActionHookBody<
   }
 
   const {formattedHighlights, pagination} = response;
-  console.log('formatted: ', formattedHighlights);
-  console.log('pagination: ', pagination);
   services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination}));
 };
 

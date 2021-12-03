@@ -223,7 +223,6 @@ describe('Filters', () => {
     const [yellowCheckbox] = component.root.findAllByType(Checkbox);
 
     renderer.act(() => {
-      console.log('about to change yellow box');
       yellowCheckbox.props.onChange();
     });
 
@@ -244,7 +243,6 @@ describe('Filters', () => {
     // expect(dispatch).toHaveBeenCalledWith(firstReplace);
 
     renderer.act(() => {
-      console.log('about to change yellow box 2');
       yellowCheckbox.props.onChange();
       colorFilterToggle.props.onClick();
     });

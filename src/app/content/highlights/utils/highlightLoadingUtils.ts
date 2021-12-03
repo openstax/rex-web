@@ -89,8 +89,6 @@ const fetchHighlightsForSource = async({
     ? pagination
     : null;
 
-  console.log('Hilites: ', data);
-
   return {
     highlights: prevHighlights ? [...prevHighlights, ...data] : data,
     pagination: nextPagination,

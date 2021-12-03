@@ -5,7 +5,6 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { resetModules } from '../../../../test/utils';
 import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import { locationChange } from '../../../navigation/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
@@ -22,7 +21,6 @@ import {
   toggleStudyGuidesSummaryLoading,
 } from '../actions';
 import { colorfilterLabels, modalUrlName } from '../constants';
-import * as selectors from '../selectors';
 import { summaryFilters } from '../selectors';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -63,6 +61,26 @@ describe('loadMore', () => {
   });
 
   it('fetches multiple pages across multiple sources', async() => {
+    const query = {
+      colors: Array.from(colorfilterLabels),
+      locationIds: ['testbook1-testchapter1-uuid'],
+      [modalQueryParameterName]: modalUrlName,
+    };
+
+    // set filters
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        search: `${modalQueryParameterName}=${modalUrlName}`,
+      },
+    } as any));
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        search: `?${queryString.stringify(query)}`,
+      },
+    } as any));
+
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
@@ -84,11 +102,6 @@ describe('loadMore', () => {
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage11-uuid']},
       'testbook1-testpage8-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage8-uuid']},
     }));
-    // set filters
-    // store.dispatch(setSummaryFilters({
-    //   colors: Array.from(colorfilterLabels),
-    //   locationIds: ['testbook1-testchapter1-uuid'],
-    // }));
 
     const page1 = createTestHighlights({
       amount: highlightsCount['testbook1-testpage2-uuid'],
@@ -216,9 +229,6 @@ describe('loadMore', () => {
     }));
     store.dispatch(openStudyGuides());
 
-    jest.spyOn(selectors, 'studyGuidesOpen')
-      .mockReturnValue(true);
-
     const page1 = createTestHighlights({
       amount: 5,
       sourceId: 'testbook1-testpage2-uuid',
@@ -258,20 +268,9 @@ describe('loadMore', () => {
 
     const query = {
       colors: Array.from(colorfilterLabels),
-      locationId: ['testbook1-testchapter1-uuid'],
+      locationIds: ['testbook1-testchapter1-uuid'],
       [modalQueryParameterName]: modalUrlName,
     };
-
-    jest.spyOn(helpers.highlightClient, 'getHighlights')
-      .mockRejectedValueOnce(error);
-
-    store.dispatch(receiveBook(book));
-    store.dispatch(receivePage(page));
-    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(receiveStudyGuidesTotalCounts({
-      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
-    }));
-    store.dispatch(openStudyGuides());
 
     // set filters
     store.dispatch(locationChange({
@@ -287,6 +286,17 @@ describe('loadMore', () => {
       },
     } as any));
 
+    jest.spyOn(helpers.highlightClient, 'getHighlights')
+      .mockRejectedValueOnce(error);
+
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage(page));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
+    }));
+    store.dispatch(openStudyGuides());
+
     try {
       await hook(store.dispatch(loadMoreStudyGuides()));
     } catch (error) {
@@ -297,11 +307,25 @@ describe('loadMore', () => {
   });
 
   it('throws ApplicationError', async() => {
-    // const query = {
-    //   colors: Array.from(colorfilterLabels),
-    //   locationId: ['testbook1-testchapter1-uuid'],
-    //   [modalQueryParameterName]: modalUrlName,
-    // };
+    const query = {
+      colors: Array.from(colorfilterLabels),
+      locationIds: ['testbook1-testchapter1-uuid'],
+      [modalQueryParameterName]: modalUrlName,
+    };
+
+    // set filters
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        search: `${modalQueryParameterName}=${modalUrlName}`,
+      },
+    } as any));
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        search: `?${queryString.stringify(query)}`,
+      },
+    } as any));
 
     expect.assertions(3);
     const mockCustomApplicationError = new ApplicationError('error');
@@ -312,17 +336,10 @@ describe('loadMore', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(openStudyGuides());
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
-
-    // store.dispatch(locationChange({
-    //   action: 'REPLACE',
-    //   location: {
-    //     search: `?${queryString.stringify(query)}`,
-    //   },
-    // } as any));
+    store.dispatch(openStudyGuides());
 
     try {
       await hook(store.dispatch(loadMoreStudyGuides()));
