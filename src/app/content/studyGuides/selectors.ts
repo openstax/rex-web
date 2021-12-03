@@ -171,7 +171,7 @@ export const summaryLocationFilters = createSelector(
   (selectedLocations) => new Set(selectedLocations)
 );
 
-const selectedStudyGuidesLocationFilters = createSelector(
+export const selectedStudyGuidesLocationFilters = createSelector(
   studyGuidesLocationFilters,
   summaryLocationFilters,
   getSelectedHighlightsLocationFilters

@@ -190,7 +190,7 @@ describe('loadMore', () => {
   it('calls loadUntilPageSize with correct parameters', async() => {
     const query = {
       colors: Array.from(colorfilterLabels),
-      locationId: ['testbook1-testchapter1-uuid'],
+      locationIds: ['testbook1-testchapter1-uuid'],
       [modalQueryParameterName]: modalUrlName,
     };
 

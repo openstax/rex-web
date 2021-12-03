@@ -21,9 +21,6 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
   const previousPagination = select.summaryStudyGuidesPagination(state);
   const book = bookSelector(state);
 
-  console.log('counts per page: ', select.totalCountsPerPage(state));
-  console.log('filtered counts: ', filteredCounts);
-
   const {highlights, pagination} = await loadUntilPageSize({
     book,
     colors: [...colorFilters] as unknown as GetHighlightsColorsEnum[],
@@ -34,8 +31,6 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
     sets: [GetHighlightsSetsEnum.Curatedopenstax],
     sourcesFetched,
   });
-
-  console.log('highlights: ', highlights);
 
   return {
     formattedHighlights: formatReceivedHighlights(highlights, locationFilters),

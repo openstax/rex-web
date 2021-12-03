@@ -119,9 +119,7 @@ export const loadUntilPageSize = async({
       sourceIds: getNewSources(args.book, args.sourcesFetched, args.countsPerSource, args.pageSize),
     };
 
-  // we need source Ids
   if (!args.book || sourceIds.length === 0) {
-    console.log('returning before fetching highlights bc source ids: ', sourceIds);
     return {pagination: null, highlights: args.highlights || []};
   }
 
