@@ -13,91 +13,91 @@ const isBookData = (something: any): something is BookData => {
   return typeof something.uuid === 'string' && typeof something.slug === 'string';
 };
 
-interface ApprovedBooksData {
+interface ApprovedBooksData_v1 {
   style: string;
   tutor_only: boolean;
   books: BookData[];
 }
 
-const isApprovedBooksData = (something: any): something is ApprovedBooksData => {
+const isApprovedBooksData_v1 = (something: any): something is ApprovedBooksData_v1 => {
   return typeof something.style === 'string'
     && typeof something.tutor_only === 'boolean'
     && Array.isArray(something.books)
     && something.books.every(isBookData);
 };
 
-interface ApprovedCollection extends ApprovedBooksData {
+interface ApprovedCollection_v1 extends ApprovedBooksData_v1 {
   collection_id: string;
   server: string;
 }
 
-const isApprovedCollection = (something: any): something is ApprovedCollection => {
+const isApprovedCollection_v1 = (something: any): something is ApprovedCollection_v1 => {
   return typeof something.collection_id === 'string'
     && typeof something.server === 'string'
-    && isApprovedBooksData(something);
+    && isApprovedBooksData_v1(something);
 };
 
-interface ApprovedRepo extends ApprovedBooksData {
+interface ApprovedRepo_v1 extends ApprovedBooksData_v1 {
   repository_name: string;
 }
 
-const isApprovedRepo = (something: any): something is ApprovedRepo => {
-  return typeof something.repository_name === 'string' && isApprovedBooksData(something);
+const isApprovedRepo_v1 = (something: any): something is ApprovedRepo_v1 => {
+  return typeof something.repository_name === 'string' && isApprovedBooksData_v1(something);
 };
 
-interface ApprovedVersion {
+interface ApprovedVersion_v1 {
   content_version: string;
   min_code_version: string;
 }
 
-const isApprovedVersion = (something: any): something is ApprovedVersion => {
+const isApprovedVersion_v1 = (something: any): something is ApprovedVersion_v1 => {
   return typeof something.content_version === 'string' && typeof something.min_code_version === 'string';
 };
 
-interface ApprovedVersionCollection extends ApprovedVersion {
+interface ApprovedVersionCollection_v1 extends ApprovedVersion_v1 {
   collection_id: string;
 }
 
-const isApprovedVersionCollection = (something: any): something is ApprovedVersionCollection => {
-  return typeof something.collection_id === 'string' && isApprovedVersion(something);
+const isApprovedVersionCollection_v1 = (something: any): something is ApprovedVersionCollection_v1 => {
+  return typeof something.collection_id === 'string' && isApprovedVersion_v1(something);
 };
 
-interface ApprovedVersionRepo extends ApprovedVersion {
+interface ApprovedVersionRepo_v1 extends ApprovedVersion_v1 {
   repository_name: string;
 }
 
-const isApprovedVersionRepo = (something: any): something is ApprovedVersionRepo => {
-  return typeof something.repository_name === 'string' && isApprovedVersion(something);
+const isApprovedVersionRepo_v1 = (something: any): something is ApprovedVersionRepo_v1 => {
+  return typeof something.repository_name === 'string' && isApprovedVersion_v1(something);
 };
 
-interface ApprovedBooksAndVersions {
-  approved_books: Array<ApprovedCollection | ApprovedRepo>;
-  approved_versions: Array<ApprovedVersionCollection | ApprovedVersionRepo>;
+interface ApprovedBooksAndVersions_v1 {
+  approved_books: Array<ApprovedCollection_v1 | ApprovedRepo_v1>;
+  approved_versions: Array<ApprovedVersionCollection_v1 | ApprovedVersionRepo_v1>;
 }
 
-const isApprovedBooksAndVersions = (something: any): something is ApprovedBooksAndVersions => {
+const isApprovedBooksAndVersions_v1 = (something: any): something is ApprovedBooksAndVersions_v1 => {
   return Array.isArray(something.approved_books)
     && something.approved_books.every(
-      (element: any) => isApprovedCollection(element) || isApprovedRepo(element))
+      (element: any) => isApprovedCollection_v1(element) || isApprovedRepo_v1(element))
     && something.approved_versions.every(
-      (element: any) => isApprovedVersionCollection(element) || isApprovedVersionRepo(element));
+      (element: any) => isApprovedVersionCollection_v1(element) || isApprovedVersionRepo_v1(element));
 };
 
-const matchRepoVersion = (repoData: ApprovedRepo, archiveVersion?: string) =>
-  (versionData: ApprovedVersionCollection | ApprovedVersionRepo): versionData is ApprovedVersionRepo => {
+const matchRepoVersion_v1 = (repoData: ApprovedRepo_v1, archiveVersion?: string) =>
+  (versionData: ApprovedVersionCollection_v1 | ApprovedVersionRepo_v1): versionData is ApprovedVersionRepo_v1 => {
   if (archiveVersion && versionData.min_code_version > archiveVersion) { return false; }
-  return isApprovedVersionRepo(versionData) && versionData.repository_name === repoData.repository_name;
+  return isApprovedVersionRepo_v1(versionData) && versionData.repository_name === repoData.repository_name;
 };
 
-const matchCollectionVersion = (collectionData: ApprovedCollection, archiveVersion?: string) =>
-  (versionData: ApprovedVersionCollection | ApprovedVersionRepo): versionData is ApprovedVersionCollection => {
+const matchCollectionVersion_v1 = (collectionData: ApprovedCollection_v1, archiveVersion?: string) =>
+  (versionData: ApprovedVersionCollection_v1 | ApprovedVersionRepo_v1): versionData is ApprovedVersionCollection_v1 => {
   if (archiveVersion && versionData.min_code_version > archiveVersion) { return false; }
-  return isApprovedVersionCollection(versionData) && versionData.collection_id === collectionData.collection_id;
+  return isApprovedVersionCollection_v1(versionData) && versionData.collection_id === collectionData.collection_id;
 };
 
-const getDesiredVersion = (
-  approvedVersions: Array<ApprovedVersionCollection | ApprovedVersionRepo>,
-  colOrRepo: ApprovedRepo | ApprovedCollection
+const getDesiredVersion_v1 = (
+  approvedVersions: Array<ApprovedVersionCollection_v1 | ApprovedVersionRepo_v1>,
+  colOrRepo: ApprovedRepo_v1 | ApprovedCollection_v1
 ): string | undefined => {
   // Example archive code version: 20210224.204120
   const archiveVersion = assertNotNull(
@@ -105,14 +105,14 @@ const getDesiredVersion = (
     'REACT_APP_ARCHIVE_URL does not contain valid code version'
   )[0];
 
-  const [filter, transformVersion, sortFunction] = isApprovedCollection(colOrRepo)
+  const [filter, transformVersion, sortFunction] = isApprovedCollection_v1(colOrRepo)
     ? [
-      matchCollectionVersion(colOrRepo, archiveVersion),
+      matchCollectionVersion_v1(colOrRepo, archiveVersion),
       (version: string) => version.slice(2),
       semverSort.desc,
     ]
     : [
-      matchRepoVersion(colOrRepo, archiveVersion),
+      matchRepoVersion_v1(colOrRepo, archiveVersion),
       (version: string) => version,
       (array: string[]) => array.sort().reverse(),
     ];
@@ -132,37 +132,21 @@ const getDesiredVersion = (
   return transformed[0];
 };
 
-const transformData = () => {
-  const { data } = argv as { data?: string };
-
-  if (!data) {
-    throw new Error('data argument is missing');
-  }
-
-  let parsed: ApprovedBooksAndVersions;
-  try {
-    parsed = JSON.parse(data);
-    if (!isApprovedBooksAndVersions(parsed)) {
-      throw new Error('Data is valid JSON, but has wrong structure. See ApprovedBooksAndVersions interface.');
-    }
-  } catch (e) {
-    throw new Error(`Error while parsing data. Details: ${e}`);
-  }
-
+const transformData_v1 = (data: ApprovedBooksAndVersions_v1): { [key: string]: string } => {
   const results: { [key: string]: string } = {};
 
-  const { approved_books, approved_versions } = parsed;
+  const { approved_books, approved_versions } = data;
 
   for (const collectionOrRepo of approved_books) {
     if (
       collectionOrRepo.tutor_only
-      || (isApprovedCollection(collectionOrRepo) && collectionOrRepo.server !== 'cnx.org')
+      || (isApprovedCollection_v1(collectionOrRepo) && collectionOrRepo.server !== 'cnx.org')
     ) {
       continue;
     }
 
     const books = collectionOrRepo.books;
-    const desiredVersion = getDesiredVersion(approved_versions, collectionOrRepo);
+    const desiredVersion = getDesiredVersion_v1(approved_versions, collectionOrRepo);
 
     if (!desiredVersion) {
       // Skip if we couldn't find the version matching currently used archive version
@@ -176,10 +160,33 @@ const transformData = () => {
     }
   }
 
+  return results;
+}
+
+const transformData = () => {
+  const { data } = argv as { data?: string };
+
+  if (!data) {
+    throw new Error('data argument is missing');
+  }
+
+  let parsed: ApprovedBooksAndVersions_v1;
+  let results;
+  try {
+    parsed = JSON.parse(data);
+    if (isApprovedBooksAndVersions_v1(parsed)) {
+      results = transformData_v1(parsed)
+    } else {
+      throw new Error('Data is valid JSON, but has wrong structure. See ApprovedBooksAndVersions interface.');
+    }
+  } catch (e) {
+    throw new Error(`Error while parsing data. Details: ${e}`);
+  }
+
   // this script is used in the update-content/script.bash
   // so we write results to the terminal to assign them to a variable
   process.stdout.write(JSON.stringify(results));
-  return results;
+  return results
 };
 
 transformData();
