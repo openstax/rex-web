@@ -83,6 +83,86 @@ const isApprovedBooksAndVersions_v1 = (something: any): something is ApprovedBoo
       (element: any) => isApprovedVersionCollection_v1(element) || isApprovedVersionRepo_v1(element));
 };
 
+enum ApprovedPlatformKind_v2 {
+  REX = 'REX',
+  Tutor = 'TUTOR'
+}
+
+type ApprovedPlatform_v2 = ApprovedPlatformKind_v2.REX | ApprovedPlatformKind_v2.Tutor
+
+const isApprovedPlatform_v2 = (str: string) => {
+  return str === ApprovedPlatformKind_v2.REX || str === ApprovedPlatformKind_v2.Tutor
+}
+
+interface ApprovedRepo_v2 {
+  repository_name: string;
+  platforms: Array<ApprovedPlatform_v2>;
+  versions: Array<ApprovedRepoVersion_v2>;
+}
+
+const isApprovedRepo_v2 = (something: any): something is ApprovedRepo_v2 => {
+  return typeof something.repository_name === 'string'
+    && Array.isArray(something.platforms)
+    && something.platforms.every(
+      (element: any) => isApprovedPlatform_v2(element)
+    )
+    && Array.isArray(something.versions)
+    && something.versions.every(
+      (element: any) => isApprovedRepoVersion_v2(element)
+    )
+}
+interface ApprovedRepoVersion_v2 {
+  min_code_version: string, // TODO: Since everyone is treating this as a number should this just become a number? Or maybe v3?
+  edition: number,
+  commit_sha: string,
+  commit_metadata: {
+    committed_at: string,
+    books: Array<ApprovedRepoVersionBook_v2>
+  }
+}
+
+const isApprovedRepoVersion_v2 = (something: any): something is ApprovedRepoVersion_v2 => {
+  return typeof something.min_code_version === 'string' 
+    && typeof something.edition === 'number'
+    && typeof something.commit_sha === 'string'
+    && typeof something.commit_metadata === 'object'
+    && typeof something.commit_metadata.committed_at === 'string'
+    && Array.isArray(something.commit_metadata.books)
+    && something.commit_metadata.books.every(
+      (element: any) => isApprovedRepoVersionBook_v2(element)
+    )
+}
+
+interface ApprovedRepoVersionBook_v2 {
+  style: string;
+  uuid: string;
+  slug: string;
+}
+
+const isApprovedRepoVersionBook_v2 = (something: any): something is ApprovedRepoVersionBook_v2 => {
+  return typeof something.style === 'string'
+    && typeof something.uuid === 'string'
+    && typeof something.slug === 'string'
+}
+
+interface ApprovedBooksAndVersions_v2 {
+  version: 2;
+  approved_books: Array<ApprovedCollection_v1 | ApprovedRepo_v2>;
+  approved_versions: Array<ApprovedVersionCollection_v1>;
+}
+
+const isApprovedBooksAndVersions_v2 = (something: any): something is ApprovedBooksAndVersions_v2 => {
+  return something.version === 2
+    && Array.isArray(something.approved_books)
+    && something.approved_books.every(
+      (element: any) => isApprovedRepo_v2(element) || isApprovedCollection_v1(element)
+    )
+    && Array.isArray(something.approved_versions)
+    && something.approved_versions.every(
+      (element: any) => isApprovedVersion_v1(element)
+    )
+}
+
 const matchRepoVersion_v1 = (repoData: ApprovedRepo_v1, archiveVersion?: string) =>
   (versionData: ApprovedVersionCollection_v1 | ApprovedVersionRepo_v1): versionData is ApprovedVersionRepo_v1 => {
   if (archiveVersion && versionData.min_code_version > archiveVersion) { return false; }
@@ -163,6 +243,32 @@ const transformData_v1 = (data: ApprovedBooksAndVersions_v1): { [key: string]: s
   return results;
 }
 
+const transformData_v2 = (data: ApprovedBooksAndVersions_v2) => {
+  // get all the v1 archive entries
+  const v1Data: ApprovedBooksAndVersions_v1 = {
+    approved_books: data.approved_books.filter(b => isApprovedCollection_v1(b)) as ApprovedCollection_v1[],
+    approved_versions: data.approved_versions
+  }
+  const results = transformData_v1(v1Data)
+
+  // Add the v2 git entries
+  const approvedRepos = data.approved_books.filter(b => isApprovedRepo_v2(b)) as ApprovedRepo_v2[]
+  for (const repo of approvedRepos) {
+    if (!repo.platforms.includes(ApprovedPlatformKind_v2.REX)) {
+      continue
+    }
+    const versions = repo.versions.sort((a, b) => Date.parse(a.commit_metadata.committed_at) - Date.parse(b.commit_metadata.committed_at))
+
+    for (const version of versions) {
+      for (const book of version.commit_metadata.books) {
+        results[book.uuid] = version.commit_sha
+      }
+    }
+  }
+
+  return results
+}
+
 const transformData = () => {
   const { data } = argv as { data?: string };
 
@@ -174,7 +280,9 @@ const transformData = () => {
   let results;
   try {
     parsed = JSON.parse(data);
-    if (isApprovedBooksAndVersions_v1(parsed)) {
+    if (isApprovedBooksAndVersions_v2(parsed)) {
+      results = transformData_v2(parsed)
+    } else if (isApprovedBooksAndVersions_v1(parsed)) {
       results = transformData_v1(parsed)
     } else {
       throw new Error('Data is valid JSON, but has wrong structure. See ApprovedBooksAndVersions interface.');
