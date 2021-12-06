@@ -1,5 +1,6 @@
 import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
+import { isDefined } from '../../guards';
 import { assertDefined } from '../../utils';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
@@ -174,13 +175,27 @@ export const archiveTreeSectionIsAnswerKey = (section: LinkedArchiveTreeNode): s
   isLinkedArchiveTree(section)
   && section.slug === 'answer-key'
 ;
+export const archiveTreeSectionIsEOCTree = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
+  isLinkedArchiveTree(section) &&
+  isDefined(section.parent) &&
+  archiveTreeSectionIsChapter(section.parent)
+;
+export const archiveTreeSectionIsEOBTree = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
+  isLinkedArchiveTree(section) &&
+  isDefined(section.parent) &&
+  archiveTreeSectionIsBook(section.parent)
+;
 export const getArchiveTreeSectionType = (section: LinkedArchiveTreeNode | LinkedArchiveTreeSection)
   : ArchiveTreeSectionType =>
-  archiveTreeSectionIsBook(section)
-    ? 'book'
-    : (archiveTreeSectionIsUnit(section)
-      ? 'unit'
+    archiveTreeSectionIsBook(section)
+      ? 'book'
+      : (archiveTreeSectionIsUnit(section)
+        ? 'unit'
         : (archiveTreeSectionIsChapter(section)
-          ? 'chapter'
-            : (archiveTreeSectionIsPage(section)
-            ? 'page' : null)));
+            ? 'chapter'
+            : archiveTreeSectionIsEOCTree(section)
+              ? 'eoc-dropdown'
+              : archiveTreeSectionIsEOBTree(section)
+                ? 'eob-dropdown'
+                : (archiveTreeSectionIsPage(section)
+                    ? 'page' : null)));
