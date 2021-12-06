@@ -144,10 +144,10 @@ export const DropdownToggle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35px;
-  height: 35px;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
-  line-height: 16px;
+  line-height: 1.6rem;
   font-size: 1.4rem;
   color: ${theme.color.white};
   background-color: #007297;
@@ -299,7 +299,7 @@ export const BarWrapper = styled.div`
   z-index: ${theme.zIndex.navbar}; /* above book nav */
   background: ${theme.color.neutral.base};
   position: relative; /* drop shadow above notifications */
-  padding: 0 3.2rem;
+  padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   ${theme.breakpoints.mobile(css`
     padding: 0 ${theme.padding.page.mobile}rem;

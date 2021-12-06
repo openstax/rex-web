@@ -62,26 +62,26 @@ export const NavOl = styled.ol`
 
 const sidebarOpenAnimation = keyframes`
   0% {
-    transform: scaleX(0);
+    transform: translateX(-100%);
   }
 
   100% {
-    transform: scaleX(1);
+    transform: translateX(0);
   }
 `;
 
 const sidebarHideAnimation = keyframes`
   0% {
-    transform: scaleX(1);
+    transform: translateX(0);
   }
 
   99% {
-    transform: scaleX(0);
+    transform: translateX(-100%);
   }
 
   100% {
     visibility: hidden;
-    transform: scaleX(0);
+    transform: translateX(-100%);
   }
 `;
 
@@ -121,8 +121,10 @@ export const SearchResultsBar = styled.div`
   `)}
 
   ${theme.breakpoints.mobileMedium(css`
+    grid-column: 1 / -1;
     z-index: ${theme.zIndex.searchSidebar};
-    width: 100vw;
+    left: 0;
+    width: 100%;
     margin-top: 0;
     top: ${searchSidebarTopOffset}rem;
     max-height: calc(100vh - ${bookBannerMobileMiniHeight + topbarMobileHeight}rem);

@@ -71,6 +71,9 @@ const CenteredContentRow = styled.div`
   ${theme.breakpoints.mobile(css`
     grid-column-start: 2;
   `)}
+  ${theme.breakpoints.mobileMedium(css`
+    grid-column: 1 / -1;
+  `)}
 
   @media screen {
     min-height: 100%;

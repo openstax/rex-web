@@ -30,7 +30,7 @@ export const LayoutBody = styled.div`
   display: grid;
   grid-template-columns: 8rem auto auto;
   ${theme.breakpoints.mobileMedium(css`
-    grid-template-columns: auto;
+    grid-template-columns: 100%;
   `)}
 `;
 

@@ -141,7 +141,7 @@ export const BarWrapper = styled.div<BarWrapperProps>`
   ${disablePrint}
 
   top: 0;
-  padding: 0 3.2rem;
+  padding: 0 ${theme.padding.page.desktop}rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
