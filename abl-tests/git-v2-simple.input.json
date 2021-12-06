@@ -5,7 +5,7 @@
             "repository_name": "osbooks-writing-guide",
             "platforms": ["REX"],
             "versions": [{
-              "min_code_version": "20211111.15352",
+              "min_code_version": "00000000.000000",
               "edition": 1,
               "commit_sha": "c3f7f0a3aca2f342294c1befdaffb6ec93486e2b",
               "commit_metadata": {

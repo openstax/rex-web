@@ -4,6 +4,12 @@ import { assertNotNull } from '../src/app/utils';
 import { REACT_APP_ARCHIVE_URL } from '../src/config';
 import configuredBooks from '../src/config.books';
 
+// Example archive code version: 20210224.204120
+const archiveVersion = assertNotNull(
+  REACT_APP_ARCHIVE_URL.match(/[0-9]+\.[0-9]+/),
+  'REACT_APP_ARCHIVE_URL does not contain valid code version'
+)[0];
+
 interface BookData {
   uuid: string;
   slug: string;
@@ -179,12 +185,6 @@ const getDesiredVersion_v1 = (
   approvedVersions: Array<ApprovedVersionCollection_v1 | ApprovedVersionRepo_v1>,
   colOrRepo: ApprovedRepo_v1 | ApprovedCollection_v1
 ): string | undefined => {
-  // Example archive code version: 20210224.204120
-  const archiveVersion = assertNotNull(
-    REACT_APP_ARCHIVE_URL.match(/[0-9]+\.[0-9]+/),
-    'REACT_APP_ARCHIVE_URL does not contain valid code version'
-  )[0];
-
   const [filter, transformVersion, sortFunction] = isApprovedCollection_v1(colOrRepo)
     ? [
       matchCollectionVersion_v1(colOrRepo, archiveVersion),
@@ -260,8 +260,15 @@ const transformData_v2 = (data: ApprovedBooksAndVersions_v2) => {
     const versions = repo.versions.sort((a, b) => Date.parse(a.commit_metadata.committed_at) - Date.parse(b.commit_metadata.committed_at))
 
     for (const version of versions) {
+      if (archiveVersion && version.min_code_version > archiveVersion) { continue }
+
       for (const book of version.commit_metadata.books) {
-        results[book.uuid] = version.commit_sha
+        let sha = version.commit_sha
+        if (version.commit_sha.length > 7) {
+          console.warn('Truncating sha because some magic somewhere in the pipeline does it too', version.commit_sha)
+          sha = version.commit_sha.substr(0, 7)
+        }
+        results[book.uuid] = sha
       }
     }
   }
