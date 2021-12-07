@@ -184,17 +184,16 @@ describe('Filters', () => {
   });
 
   it('dispatches locationChange action on selecting colors and chapters', () => {
-    const state = store.getState();
-    const existingQuery = navigation.query(state);
-    const pageSlug = book.tree.contents[0].slug;
     const chapter = findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid')!;
+
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     // set summary filters
     store.dispatch(locationChange({
       action: 'REPLACE',
       location: {
         // tslint:disable-next-line:max-line-length
-        search: `?${queryString.stringify({colors: Array.from(colorfilterLabels)})}&modal=${modalUrlName}`,
+        search: `?${queryString.stringify({colors: Array.from(colorfilterLabels)})}&locationIds=${chapter.id}&modal=${modalUrlName}`,
       },
     } as any));
 
@@ -208,11 +207,11 @@ describe('Filters', () => {
 
     store.dispatch(openStudyGuides());
 
+    dispatch.mockClear();
+
     const component = renderer.create(<TestContainer services={services} store={store}>
       <Filters />
     </TestContainer>);
-
-    dispatch.mockClear();
 
     const [chapterFilterToggle, colorFilterToggle] = component.root.findAllByType(DropdownToggle);
 
@@ -226,63 +225,46 @@ describe('Filters', () => {
       yellowCheckbox.props.onChange();
     });
 
-    const firstUpdate = updateSummaryFilters(
-      selectors.summaryFilters(state),
-      { colors: { new: [], remove: [HighlightColorEnum.Yellow] } }
+    expect(dispatch).toHaveBeenCalledWith(
+      replace(mockMatch, {
+        search: `colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=SG`,
+      })
     );
 
-    const firstReplace = locationChange({
-      action: 'REPLACE',
-      location: {
-        hash: '',
-        pathname: `books/${book.slug}/pages/${pageSlug}`,
-        search: updateQuery(firstUpdate as any as Record<string, string[]>, existingQuery),
-        state: {},
-      },
-    });
-    // expect(dispatch).toHaveBeenCalledWith(firstReplace);
+    dispatch.mockClear();
 
     renderer.act(() => {
       yellowCheckbox.props.onChange();
       colorFilterToggle.props.onClick();
     });
 
-    // const secondUpdate = updateSummaryFilters(
-    //   selectors.summaryFilters(state),
-    //   { colors: { new: [HighlightColorEnum.Yellow], remove: [] } }
-    // );
+    expect(dispatch).toHaveBeenCalledWith(
+      replace(mockMatch, {
+        search: `colors=yellow&colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=${modalUrlName}`,
+      })
+    );
 
-    // const secondReplace = replace(mockMatch, {
-    //   search: updateQuery(secondUpdate as any as Record<string, string[]>, existingQuery),
-    // });
-    // expect(dispatch).toHaveBeenCalledWith(secondReplace);
+    dispatch.mockClear();
 
-    // dispatch.mockClear();
+    renderer.act(() => {
+      chapterFilterToggle.props.onClick();
+    });
 
-    // renderer.act(() => {
-    //   chapterFilterToggle.props.onClick();
-    // });
+    const [ch1] = component.root.findAllByType(Checkbox);
 
-    // const [ch1] = component.root.findAllByType(Checkbox);
+    renderer.act(() => {
+      ch1.props.onChange();
+    });
 
-    // renderer.act(() => {
-    //   ch1.props.onChange();
-    // });
-
-    // const thirdUpdate = updateSummaryFilters(
-    //   selectors.summaryFilters(state),
-    //   { locations: { new: [chapter], remove: [] } }
-    // );
-
-    // const thirdReplace = replace(mockMatch, {
-    //   search: updateQuery(thirdUpdate as any as Record<string, string[]>, existingQuery),
-    // });
-    // expect(dispatch).toHaveBeenCalledWith(thirdReplace);
+    expect(dispatch).toHaveBeenCalledWith(
+      replace(mockMatch, {
+        search: `colors=yellow&colors=green&colors=blue&colors=purple&modal=${modalUrlName}`,
+      })
+    );
   });
 
   it('dispatches locationChange when removing selected colors from FiltersList', () => {
-    const state = store.getState();
-    const existingQuery = navigation.query(state);
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     store.dispatch(receiveUser({} as any));
     // set filters
@@ -310,17 +292,14 @@ describe('Filters', () => {
 
     const [green] = filtersList.findAllByType(FiltersListColor);
 
+    dispatch.mockClear();
+
     renderer.act(() => {
       green.props.onRemove();
     });
 
-    const update = updateSummaryFilters(
-      selectors.summaryFilters(state),
-      { colors: { new: [], remove: [HighlightColorEnum.Green] }, }
-    );
-
     const historyReplace = replace(mockMatch, {
-      search: updateQuery(update as any as Record<string, string[]>, existingQuery),
+      search: 'colors=yellow&colors=blue&colors=purple&modal=SG',
     });
     expect(dispatch).toHaveBeenCalledWith(historyReplace);
   });
