@@ -163,7 +163,10 @@ export const archiveTreeSectionIsPage = isLinkedArchiveTreeSection;
 export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)
   && archiveTreeSectionIsBook(section.parent)
-  && section.contents.every(isArchiveTree)
+  // following condition and `slice(1)` added to accomodate writing composition TOC structure
+  // may be removed when book json includes section types
+  && section.contents.length > 1
+  && section.contents.slice(1).every(isArchiveTree)
 ;
 export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
   isLinkedArchiveTree(section)

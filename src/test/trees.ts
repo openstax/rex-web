@@ -78,6 +78,26 @@ export const treeWithUnits = {
           // tslint:disable-next-line:max-line-length
           title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
         },
+        {
+          contents: [
+            {
+              id: 'page1@1',
+              slug: '2-1-page-1',
+              // tslint:disable-next-line:max-line-length
+              title: '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">page 1</span>',
+            },
+            {
+              id: 'page2@1',
+              slug: '2-2-page-2',
+              // tslint:disable-next-line:max-line-length
+              title: '<span class="os-number">1.2</span><span class="os-divider"> </span><span class="os-text">page 2</span>',
+            },
+          ],
+          id: 'chapter2@1',
+          slug: '1-chapter-2',
+          // tslint:disable-next-line:max-line-length
+          title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
+        },
       ],
       id: 'unitid@1',
       slug: 'some-unit',
