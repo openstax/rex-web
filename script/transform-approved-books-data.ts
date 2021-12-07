@@ -152,13 +152,13 @@ const isApprovedRepoVersionBookVer2 = (something: any): something is ApprovedRep
 };
 
 interface ApprovedBooksAndVersionsVer2 {
-  version: 2;
+  api_version: 2;
   approved_books: Array<ApprovedCollectionVer1 | ApprovedRepoVer2>;
   approved_versions: ApprovedVersionCollectionVer1[];
 }
 
 const isApprovedBooksAndVersionsVer2 = (something: any): something is ApprovedBooksAndVersionsVer2 => {
-  return something.version === 2
+  return something.api_version === 2
     && Array.isArray(something.approved_books)
     && something.approved_books.every(
       (element: any) => isApprovedRepoVer2(element) || isApprovedCollectionVer1(element)

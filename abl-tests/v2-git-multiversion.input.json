@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "api_version": 2,
   "approved_books": [
     {
       "repository_name": "osbooks-college-algebra-bundle",
