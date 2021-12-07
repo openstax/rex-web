@@ -176,14 +176,15 @@ export const archiveTreeSectionIsAnswerKey = (section: LinkedArchiveTreeNode): s
   && section.slug === 'answer-key'
 ;
 export const archiveTreeSectionIsEOCTree = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
-  isLinkedArchiveTree(section) &&
-  isDefined(section.parent) &&
-  archiveTreeSectionIsChapter(section.parent)
+  isLinkedArchiveTree(section)
+  && isDefined(section.parent)
+  && archiveTreeSectionIsChapter(section.parent)
 ;
 export const archiveTreeSectionIsEOBTree = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
-  isLinkedArchiveTree(section) &&
-  isDefined(section.parent) &&
-  archiveTreeSectionIsBook(section.parent)
+  isLinkedArchiveTree(section)
+  && getArchiveTreeSectionNumber(section) === null
+  && !archiveTreeSectionIsUnit(section)
+  && archiveTreeSectionIsBook(section.parent)
 ;
 export const getArchiveTreeSectionType = (section: LinkedArchiveTreeNode | LinkedArchiveTreeSection)
   : ArchiveTreeSectionType =>
@@ -197,5 +198,4 @@ export const getArchiveTreeSectionType = (section: LinkedArchiveTreeNode | Linke
               ? 'eoc-dropdown'
               : archiveTreeSectionIsEOBTree(section)
                 ? 'eob-dropdown'
-                : (archiveTreeSectionIsPage(section)
-                    ? 'page' : null)));
+                : 'page'));
