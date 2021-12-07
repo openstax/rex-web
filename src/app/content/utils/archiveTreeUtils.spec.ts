@@ -125,6 +125,8 @@ describe('tree section identifiers', () => {
     expect(archiveTreeSectionIsPage(treeWithoutUnits)).toBe(false);
     expect(archiveTreeSectionIsUnit(treeWithoutUnits)).toBe(false);
     expect(archiveTreeSectionIsChapter(treeWithoutUnits)).toBe(false);
+    expect(archiveTreeSectionIsEOCTree(treeWithoutUnits)).toBe(false);
+    expect(archiveTreeSectionIsEOBTree(treeWithoutUnits)).toBe(false);
     expect(getArchiveTreeSectionType(treeWithoutUnits)).toBe('book');
   });
 
