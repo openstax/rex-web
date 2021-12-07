@@ -5,7 +5,7 @@ certifi==2021.10.8
 cffi==1.15.0
 cfgv==3.3.1
 chardet==4.0.0
-chromedriver-binary==97.0.4692.20.0
+chromedriver-binary==96.0.4664.45
 cryptography==36.0.0
 Faker==9.9.0
 identify==2.4.0
@@ -32,7 +32,7 @@ pytest-variables==1.9.0
 python-dateutil==2.8.2
 PyYAML==6.0
 requests==2.26.0
-selenium==4.1.0
+selenium==3.141.0
 simplejson==3.17.6
 six==1.16.0
 text-unidecode==1.3
