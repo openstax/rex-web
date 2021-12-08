@@ -36,8 +36,9 @@ export const getHighlightLocationFilters = (filterBy: (section: LocationFilterSe
   sectionsToLocationFilters
 );
 
-export const sectionIsHighlightLocationFitler = (section: LocationFilterSection) =>
-  (archiveTreeSectionIsPage(section) && archiveTreeSectionIsBook(section.parent))
+export const sectionIsHighlightLocationFilter = (section: LocationFilterSection) =>
+  (archiveTreeSectionIsPage(section)
+    && (archiveTreeSectionIsBook(section.parent) || archiveTreeSectionIsUnit(section.parent)))
   || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section))
   || archiveTreeSectionIsAnswerKey(section)
 ;
