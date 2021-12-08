@@ -36,6 +36,7 @@ export const getHighlightLocationFilters = (filterBy: (section: LocationFilterSe
   sectionsToLocationFilters
 );
 
+// condition allowing unit parents added to accomodate writing guide book
 export const sectionIsHighlightLocationFilter = (section: LocationFilterSection) =>
   (archiveTreeSectionIsPage(section)
     && (archiveTreeSectionIsBook(section.parent) || archiveTreeSectionIsUnit(section.parent)))
