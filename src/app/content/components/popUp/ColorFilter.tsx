@@ -46,8 +46,10 @@ const ColorFilter = ({
 
   const handleChange = (label: HighlightColorEnum) => {
     if (selectedColorFilters.has(label)) {
+      console.log('removing ', label);
       setSelectedColors({ remove: [label], new: [] });
     } else {
+      console.log('adding ', label);
       setSelectedColors({ remove: [], new: [label] });
     }
   };
