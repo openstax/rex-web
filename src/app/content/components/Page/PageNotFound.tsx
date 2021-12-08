@@ -1,9 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
-import { textRegularSize } from '../../../components/Typography';
 import theme from '../../../theme';
-import { OpenSidebarControl, ToCButtonText } from '../SidebarControl';
+import { StyledOpenSidebarControl } from '../SidebarControl';
 
 // tslint:disable-next-line: variable-name
 const PageNotFoundWrapper = styled.div`
@@ -31,17 +30,6 @@ const PageNotFoundText = styled.div`
 
   span {
     margin-right: 0.5rem;
-  }
-`;
-
-// tslint:disable-next-line: variable-name
-export const StyledOpenSidebarControl = styled(OpenSidebarControl)`
-  min-height: unset;
-  flex-direction: row;
-  justify-content: start;
-
-  ${ToCButtonText} {
-    ${textRegularSize};
   }
 `;
 

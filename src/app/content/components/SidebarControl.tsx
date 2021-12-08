@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
+import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import * as actions from '../actions';
@@ -13,6 +14,7 @@ import { toolbarIconStyles } from './Toolbar/iconStyles';
 import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar/styled';
 
 interface InnerProps {
+  isOpen: State['tocOpen'];
   message: string;
   onClick: () => void;
   className?: string;
@@ -37,14 +39,8 @@ export const ToCButtonText = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-const ToCButton = styled.button`
+const ToCButton = styled.button<{isOpen: State['tocOpen'], isActive: boolean }>`
   background: none;
-  ${(props: { isActive: boolean | null}) => props.isActive === null && `
-    background-color: rgba(0,0,0,0.1);
-  `}
-  ${(props: { isActive: boolean | null}) => props.isActive === null && theme.breakpoints.mobile(css`
-    background: none;
-  `)}
   ${toolbarDefaultButton}
   color: ${toolbarIconColor.base};
   border: none;
@@ -59,6 +55,14 @@ const ToCButton = styled.button`
   > svg {
     ${toolbarIconStyles};
   }
+
+  display: ${({isOpen, isActive}) => (isOpen === false) !== isActive ? 'flex' : 'none'};
+  ${(props) => props.isOpen === null && !props.isActive && theme.breakpoints.mobile(css`
+    display: flex;
+  `)}
+  ${(props) => props.isOpen === null && props.isActive && theme.breakpoints.mobile(css`
+    display: none;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -109,27 +113,34 @@ const connector = connect(
 );
 
 // tslint:disable-next-line:variable-name
-const lockControlState = (Control: React.ComponentType<InnerProps>, forcedIsOpen: boolean | null = null, ) =>
-  connector((props: MiddleProps) => {
-  const isToCOpened = forcedIsOpen !== null ? forcedIsOpen : props.isOpen;
-
-  return <Control
+const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
+  connector((props: MiddleProps) => <Control
     {...props}
     data-testid='toc-button'
-    message={isToCOpened === false ? closedMessage : openMessage}
-    data-analytics-label={isToCOpened === false
-      ? 'Click to open the Table of Contents'
-      : 'Click to close the Table of Contents'}
-    onClick={isToCOpened === false ? props.openToc : props.closeToc}
-    isActive={Boolean(props.showActivatedState) && isToCOpened}
-  />;
-});
-
-// tslint:disable-next-line:variable-name
-export const ToggleSidebarControl = lockControlState(SidebarControl);
-
-// tslint:disable-next-line:variable-name
-export const CloseSidebarControl = lockControlState(CloseSidebar, true);
+    message={isOpen ? openMessage : closedMessage}
+    data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
+    onClick={isOpen ? props.closeToc : props.openToc}
+    isActive={Boolean(props.showActivatedState) && isOpen}
+  />);
 
 // tslint:disable-next-line: variable-name
-export const OpenSidebarControl = lockControlState(SidebarControl, false);
+export const OpenSidebarControl = lockControlState(false, SidebarControl);
+
+// tslint:disable-next-line: variable-name
+export const CloseSidebarControl = lockControlState(true, SidebarControl);
+
+// tslint:disable-next-line:variable-name
+export const SidebarExitButton = lockControlState(true, CloseSidebar);
+
+// tslint:disable-next-line: variable-name
+export const StyledOpenSidebarControl = styled(OpenSidebarControl)`
+  display: flex;
+  padding: 0;
+  min-height: unset;
+  flex-direction: row;
+  justify-content: start;
+
+  ${ToCButtonText} {
+    ${textRegularSize};
+  }
+`;

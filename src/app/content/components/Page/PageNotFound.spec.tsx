@@ -5,7 +5,8 @@ import TestContainer from '../../../../test/TestContainer';
 import { Store } from '../../../types';
 import { openToc } from '../../actions';
 import { tocOpen } from '../../selectors';
-import PageNotFound, { StyledOpenSidebarControl } from './PageNotFound';
+import { StyledOpenSidebarControl } from '../SidebarControl';
+import PageNotFound from './PageNotFound';
 
 describe('PageNotFound', () => {
   let store: Store;

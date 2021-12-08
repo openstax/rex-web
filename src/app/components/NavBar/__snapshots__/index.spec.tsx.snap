@@ -79,7 +79,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       data-testid="user-nav"
     >
       <div
-        className="styled__DropdownToggle-sc-3syvnw-7 hjvJiX"
+        className="styled__DropdownToggle-sc-3syvnw-7 hkZkwG"
         data-testid="user-nav-toggle"
         tabIndex="0"
       >

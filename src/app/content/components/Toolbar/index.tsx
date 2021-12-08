@@ -8,7 +8,7 @@ import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
-import { ToggleSidebarControl } from '../SidebarControl';
+import { CloseSidebarControl, OpenSidebarControl } from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -50,7 +50,8 @@ const Toolbar =   () => {
       </Styled.CloseToolbarButton>
     </Styled.ToolbarMobileHeader>
     <Styled.ToolbarElements>
-      <ToggleSidebarControl showActivatedState/>
+      <OpenSidebarControl showActivatedState/>
+      <CloseSidebarControl showActivatedState/>
       <PracticeQuestionsButton />
       <NudgeElementTarget id={nudgeStudyToolsTargetId}>
         <StudyGuidesButton />
