@@ -24,7 +24,7 @@ import {
   stats
 } from './contentPages';
 import createRedirects from './createRedirects';
-import { createDiskCache, writeAssetFile } from './fileUtils';
+import { createDiskCache, writeAssetFile, writeHtmlAsset } from './fileUtils';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 const {
@@ -96,7 +96,7 @@ async function render() {
 
   for (const book of books) {
     const bookPages = await prepareBookPages(book);
-    const sitemap = await renderPages(renderHelpers, bookPages);
+    const sitemap = await renderPages(renderHelpers, bookPages, writeHtmlAsset);
 
     renderSitemap(book.slug, sitemap);
   }

@@ -17,6 +17,14 @@ export const writeAssetFile = (filepath: string, contents: string) => {
   writeFile(prefixPath(filepath), contents);
 };
 
+export const writeHtmlAsset = (uri: string, html: string) => {
+  if (assetDirectoryExists(uri)) {
+    writeAssetFile(path.join(uri, 'index.html'), html);
+  } else {
+    writeAssetFile(uri, html);
+  }
+};
+
 export const readAssetFile = flow(prefixPath, readFile);
 
 export const createDiskCache = <K extends string, V>(prefix: string): Cache<K, V> => {
