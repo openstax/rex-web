@@ -14,13 +14,11 @@ import Checkbox from '../../../components/Checkbox';
 import { DropdownToggle } from '../../../components/Dropdown';
 import { locationChange, replace } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
-import { updateQuery } from '../../../navigation/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook } from '../../actions';
 import FiltersList, { FiltersListColor } from '../../components/popUp/FiltersList';
 import { modalQueryParameterName } from '../../constants';
-import updateSummaryFilters from '../../highlights/utils/updateSummaryFilters';
 import * as routes from '../../routes';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
@@ -233,19 +231,19 @@ describe('Filters', () => {
 
     dispatch.mockClear();
 
-    // renderer.act(() => {
-    //   yellowCheckbox.props.onChange();
-    //   colorFilterToggle.props.onClick();
-    // });
+    renderer.act(() => {
+      yellowCheckbox.props.onChange();
+      colorFilterToggle.props.onClick();
+    });
 
-    // expect(dispatch).toHaveBeenCalledWith(
-    //   replace(mockMatch, {
-    //     search:
-    //      `colors=yellow&colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=${modalUrlName}`,
-    //   })
-    // );
+    expect(dispatch).toHaveBeenCalledWith(
+      replace(mockMatch, {
+        search:
+         `colors=yellow&colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=${modalUrlName}`,
+      })
+    );
 
-    // dispatch.mockClear();
+    dispatch.mockClear();
 
     renderer.act(() => {
       chapterFilterToggle.props.onClick();

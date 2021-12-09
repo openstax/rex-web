@@ -6,22 +6,17 @@ import { book as archiveBook, shortPage } from '../../../../test/mocks/archiveLo
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
-import * as routes from '../../../content/routes';
 import { locationChange, replace } from '../../../navigation/actions';
-import * as selectNavigation from '../../../navigation/selectors';
 import { AnyMatch } from '../../../navigation/types';
-import { updateQuery } from '../../../navigation/utils';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
-import updateSummaryFilters from '../../highlights/utils/updateSummaryFilters';
 import { formatBookData } from '../../utils';
-import { stripIdVersion } from '../../utils/idUtils';
 import {
   loadMoreStudyGuides,
   openStudyGuides,
   receiveStudyGuidesTotalCounts,
 } from '../actions';
-import { colorfilterLabels, modalUrlName } from '../constants';
+import { colorfilterLabels } from '../constants';
 import * as selectors from '../selectors';
 
 jest.mock('./loadMore', () => ({

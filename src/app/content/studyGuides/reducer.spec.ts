@@ -1,7 +1,7 @@
 import { receiveFeatureFlags } from '../../featureFlags/actions';
 import { locationChange } from '../../navigation/actions';
 import { studyGuidesFeatureFlag } from '../constants';
-import { HighlightData, SummaryHighlights } from '../highlights/types';
+import { SummaryHighlights } from '../highlights/types';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
 
