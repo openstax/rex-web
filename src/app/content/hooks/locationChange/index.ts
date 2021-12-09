@@ -20,14 +20,25 @@ const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
 
   await resolveContent(services, action.match);
 
-  await Promise.all([
-    syncSearch(services)(action),
-    loadBuyPrintConfig(services)(),
-    loadHighlights(services)(locationChange(action)),
-    loadStudyGuides(services)(),
-    loadPracticeQuestions(services)(),
-    initializeIntl(services)(),
-  ]);
+  /*
+   * there is a dependency loop causing `getScrollTargetFromQuery` to be
+   * undefined in `navigationSelectors.scrollTarget` that is for some
+   * reason only showing up in the lambda renderer and not the existing pre-render.
+   */
+  await Promise.all(typeof(window) === 'undefined'
+    ? [
+      loadBuyPrintConfig(services)(),
+      initializeIntl(services)(),
+    ]
+    : [
+      syncSearch(services)(action),
+      loadBuyPrintConfig(services)(),
+      loadHighlights(services)(locationChange(action)),
+      loadStudyGuides(services)(),
+      loadPracticeQuestions(services)(),
+      initializeIntl(services)(),
+    ]
+  );
 };
 
 export default hookBody;

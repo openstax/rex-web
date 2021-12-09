@@ -76,7 +76,7 @@ export const handler: SQSHandler = async(event, context) => {
     console.log('hello');
     // tslint:disable-next-line:no-console
     console.log(event, context);
-  } catch (e: any) {
+  } catch (e) {
     // tslint:disable-next-line:no-console
     console.log('error in js', e);
     throw e;
