@@ -240,7 +240,8 @@ describe('Filters', () => {
 
     // expect(dispatch).toHaveBeenCalledWith(
     //   replace(mockMatch, {
-    //     search: `colors=yellow&colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=${modalUrlName}`,
+    //     search:
+    //      `colors=yellow&colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=${modalUrlName}`,
     //   })
     // );
 
