@@ -22,10 +22,12 @@ export const filterCounts = (
   totalCounts: CountsPerSource,
   locationFilters: LocationFilters,
   colorFilters: Set<HighlightColorEnum>
-) => flow(
+) => {
+  return flow(
     (counts) => filterCountsPerSourceByLocationFilter(locationFilters, counts),
     (counts) => filterCountsPerSourceByColorFilter([...colorFilters], counts)
   )(totalCounts);
+};
 
 export const getSelectedHighlightsLocationFilters = (
   locationFilters: LocationFilters,
