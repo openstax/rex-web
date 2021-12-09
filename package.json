@@ -97,6 +97,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.44.0",
     "@babel/core": "^7.0.0-0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
@@ -107,6 +108,7 @@
     "@babel/preset-typescript": "^7.1.0",
     "@babel/register": "^7.0.0",
     "@openstax/types": "^3.1.0",
+    "@types/aws-lambda": "^8.10.86",
     "@types/color": "^3.0.0",
     "@types/express": "^4.16.0",
     "@types/flat": "^0.0.28",
