@@ -16,11 +16,11 @@ const Wrapper = styled.div`
   max-width: ${contentWrapperMaxWidth}rem;
   ${theme.breakpoints.mobile(css`
     grid-column-start: 2;
+    /* override js inline style adding additional padding */
+    padding-left: 0 !important;
   `)}
   ${theme.breakpoints.mobileMedium(css`
     grid-column: 1 / -1;
-    /* override js inline style adding additional padding */
-    padding-left: 0 !important;
   `)}
 
   @media screen {
