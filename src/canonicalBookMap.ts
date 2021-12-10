@@ -29,6 +29,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   ...preAlgebra,
   ...sociology,
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c' : [
+    /* Algebra & Trigonometry 2e */ ['eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e', {}],
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
     /* Precalculus */ ['fd53eae1-fa23-47c7-bb1b-972349835c3c', {}],
   ],
@@ -39,6 +40,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* Principles of Management */['c3acb2ab-7d5c-45ad-b3cd-e59673fedd4e', {}],
   ],
   /* College Algebra with Corequisite Support */ '507feb1e-cfff-4b54-bc07-d52636cecfe3': [
+    /* College Algebra with Corequisite Support 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {
       /* Preface to the same module in College Alg */
       'd7efb6f6-d662-4f44-8589-02f4da32e995': '88a0b1d1-c1cf-4561-81b9-a13079be0dde',
@@ -412,6 +414,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* Chemistry 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {}],
   ],
   /* Precalculus */ 'fd53eae1-fa23-47c7-bb1b-972349835c3c' : [
+    /* Precalculus 2e */ ['59024a63-2b1a-4631-94c5-ae275a77b587', {}],
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
   ],
 };
