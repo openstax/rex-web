@@ -118,7 +118,7 @@ Array [
       </div>
     </div>
     <div
-      className="Content__OuterWrapper-sc-1f451g1-5 jMKekf"
+      className="Content__OuterWrapper-sc-1f451g1-4 gyejSp"
     >
       <div
         className="styled__TopBarWrapper-sc-12dq39v-0 bpFSVr"
@@ -1047,16 +1047,17 @@ Array [
           </ol>
         </div>
         <div
-          className="Content__CenteredContentRow-sc-1f451g1-2 ihcasT"
+          className="CenteredContentRow__Wrapper-sc-22brdm-0 iosMxN"
+          data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 cBxgEE"
+            className="ContentPane__Wrapper-sc-6et83r-0 cHREzH"
           >
             <div
-              className="Content__UndoPadding-sc-1f451g1-3 hQOKTS"
+              className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
             >
               <div
-                className="Content__MainContentWrapper-sc-1f451g1-4 eOYbpE"
+                className="Content__MainContentWrapper-sc-1f451g1-3 gBAWJn"
               >
                 <div
                   className="MinPageHeight-sc-1i28xs0-0 hxgCaZ"
@@ -1629,7 +1630,7 @@ Array [
       </div>
     </div>
     <div
-      className="Content__OuterWrapper-sc-1f451g1-5 jMKekf"
+      className="Content__OuterWrapper-sc-1f451g1-4 gyejSp"
     >
       <div
         className="styled__TopBarWrapper-sc-12dq39v-0 bpFSVr"
@@ -2556,16 +2557,17 @@ Array [
           </ol>
         </div>
         <div
-          className="Content__CenteredContentRow-sc-1f451g1-2 ihcasT"
+          className="CenteredContentRow__Wrapper-sc-22brdm-0 iosMxN"
+          data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 cBxgEE"
+            className="ContentPane__Wrapper-sc-6et83r-0 cHREzH"
           >
             <div
-              className="Content__UndoPadding-sc-1f451g1-3 hQOKTS"
+              className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
             >
               <div
-                className="Content__MainContentWrapper-sc-1f451g1-4 eOYbpE"
+                className="Content__MainContentWrapper-sc-1f451g1-3 gBAWJn"
               >
                 <div
                   className="MinPageHeight-sc-1i28xs0-0 hxgCaZ"

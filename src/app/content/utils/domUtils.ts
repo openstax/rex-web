@@ -1,4 +1,6 @@
 import { HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import { remsToPx } from '../../utils';
+import { verticalNavbar } from '../components/constants';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "Node.children" */ 'mdn-polyfills/Node.prototype.children');
@@ -84,6 +86,28 @@ export const setSidebarHeight = (sidebar: HTMLElement, window: Window) => {
     deregister: () => {
       window.removeEventListener('scroll', animation);
       window.removeEventListener('resize', animation);
+    },
+  };
+};
+
+export const setContentAdditionalPadding =  (content: HTMLElement, window: Window) => {
+  const callback = () => {
+    const left = content.getBoundingClientRect().left;
+    const hiddenPart = remsToPx(verticalNavbar) - left;
+
+    if (hiddenPart > 0) {
+      content.style.setProperty('padding-left', `${hiddenPart}px`);
+    } else {
+      content.style.setProperty('padding-left', '0px');
+    }
+  };
+
+  window.addEventListener('resize', callback);
+
+  return {
+    callback,
+    deregister: () => {
+      window.removeEventListener('resize', callback);
     },
   };
 };

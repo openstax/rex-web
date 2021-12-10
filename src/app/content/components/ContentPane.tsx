@@ -8,7 +8,6 @@ import { closeToc } from '../actions';
 import { State } from '../types';
 import {
   mainContentBackground,
-  sidebarAdditionalOffset,
   sidebarDesktopWidth,
   sidebarTransitionTime,
 } from './constants';
@@ -23,7 +22,7 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>
     transition: padding-left ${sidebarTransitionTime}ms;
     background-color: ${mainContentBackground};
     ${(props) => (props.isTocOpen || props.isTocOpen ===  null || props.isSearchOpen) && `
-      padding-left: ${sidebarDesktopWidth + sidebarAdditionalOffset}rem;
+      padding-left: ${sidebarDesktopWidth}rem;
     `}
 
     ${theme.breakpoints.mobile(css`

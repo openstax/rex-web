@@ -1,4 +1,6 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import { unmountComponentAtNode } from 'react-dom';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
@@ -6,18 +8,20 @@ import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../../test/MessageProvider';
 import { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { renderToDom } from '../../../test/reactutils';
 import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
 import { locationChange } from '../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../types';
-import { assertWindow } from '../../utils';
+import { assertNotNull, assertWindow, remsToPx } from '../../utils';
 import { openToc, receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
 import { openMobileToolbar } from '../search/actions';
 import { formatBookData } from '../utils';
 import { findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
 import BuyBook from './BuyBook';
+import { verticalNavbar } from './constants';
 import Content from './Content';
 import { TableOfContents } from './TableOfContents';
 
@@ -281,5 +285,42 @@ describe('content', () => {
     });
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
+  });
+
+  it('Add additional padding to prevent hidinng behind vertical navigation', () => {
+    if (!document || !window) {
+      expect(window).toBeTruthy();
+      return expect(document).toBeTruthy();
+    }
+
+    const render = () => <Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <Content />
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>;
+
+    const {root} = renderToDom(render());
+    const centeredContentRow = assertNotNull(root.querySelector('[data-testid="centered-content-row"]'), '');
+
+    const spySetProperty = jest.spyOn((centeredContentRow as HTMLElement).style, 'setProperty');
+    jest.spyOn(centeredContentRow, 'getBoundingClientRect')
+    .mockReturnValueOnce({left: 50 } as any)
+    .mockReturnValueOnce({left: 100 } as any);
+
+    const event = document.createEvent('UIEvents');
+    event.initEvent('resize', true, false);
+    renderer.act(() => {
+      assertWindow().dispatchEvent(event);
+    });
+    expect(spySetProperty).toHaveBeenCalledWith('padding-left', `${remsToPx(verticalNavbar) - 50}px`);
+
+    renderer.act(() => {
+      assertWindow().dispatchEvent(event);
+    });
+    expect(spySetProperty).toHaveBeenCalledWith('padding-left', '0px');
+
+    expect(() => unmountComponentAtNode(root)).not.toThrow();
   });
 });

@@ -15,6 +15,7 @@ import StudyguidesPopUp from '../studyGuides/components/StudyGuidesPopUp';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
+import CenteredContentRow from './CenteredContentRow';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -56,29 +57,6 @@ const ContentNotifications = styled(Notifications)`
           : bookBannerMobileMiniHeight + topbarMobileHeight
       }rem;
     `)}
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-const CenteredContentRow = styled.div`
-  grid-column: 1 / -1;
-  grid-row: 1;
-  justify-self: center;
-  width: 100%;
-  overflow: visible; /* so sidebar position: sticky works */
-  margin: 0 auto;
-  max-width: ${contentWrapperMaxWidth}rem;
-  ${theme.breakpoints.mobile(css`
-    grid-column-start: 2;
-  `)}
-  ${theme.breakpoints.mobileMedium(css`
-    grid-column: 1 / -1;
-  `)}
-
-  @media screen {
-    min-height: 100%;
-    display: flex;
-    flex-direction: row;
   }
 `;
 

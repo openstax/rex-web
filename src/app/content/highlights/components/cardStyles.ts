@@ -5,7 +5,6 @@ import { remsToEms } from '../../../utils';
 import {
   contentTextWidth,
   searchResultsBarDesktopWidth,
-  sidebarAdditionalOffset,
   sidebarDesktopWidth,
 } from '../../components/constants';
 import { disablePrint } from '../../components/utils/disablePrint';
@@ -43,9 +42,9 @@ const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMar
 const minimalWidth = contentTextWidth + additionalWidthForCard;
 export const minimalWidthForCards = '(max-width: ' + remsToEms(minimalWidth) + 'em)';
 export const minimalWidthForCardsWithToc = '(max-width: ' +
-  remsToEms(minimalWidth + sidebarDesktopWidth + sidebarAdditionalOffset) + 'em)';
+  remsToEms(minimalWidth + sidebarDesktopWidth) + 'em)';
 export const minimalWidthForCardsWithSearchResults = '(max-width: ' +
-  remsToEms(minimalWidth + searchResultsBarDesktopWidth + sidebarAdditionalOffset) + 'em)';
+  remsToEms(minimalWidth + searchResultsBarDesktopWidth) + 'em)';
 
 const overlapDisplay = css`
   ${(props: CardProps) => !!props.isActive && css`
