@@ -1,5 +1,6 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { SQSHandler } from 'aws-lambda';
+import Loadable from 'react-loadable';
 import { content } from '../../src/app/content/routes';
 import { Match } from '../../src/app/navigation/types';
 import config from '../../src/config';
@@ -20,13 +21,17 @@ const s3Client = new S3Client({
 });
 
 const saveS3Page = (prefix: string) => (url: string, html: string) => {
+  const key = `${prefix}${url}`.replace(/^\/+/, '');
+
   // tslint:disable-next-line:no-console
-  console.log('writing s3 file: ', url);
+  console.log('writing s3 file: ', key);
 
   return s3Client.send(new PutObjectCommand({
     Body: html,
     Bucket: process.env.BUCKET_NAME,
-    Key: `${prefix}${url}`,
+    CacheControl: 'max-age=0',
+    ContentType: 'text/html',
+    Key: key,
   }));
 };
 
@@ -35,6 +40,8 @@ export const handler: SQSHandler = async(event, context) => {
   console.log('recieved event: ', event);
 
   try {
+    await Loadable.preloadAll();
+
     const archiveLoader = createArchiveLoader(config.REACT_APP_ARCHIVE_URL, {
       appPrefix: '',
       archivePrefix: config.ARCHIVE_URL,

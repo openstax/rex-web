@@ -98,11 +98,11 @@ Resources:
       Environment:
         Variables:
           BABEL_CACHE_PATH: /tmp/babel-cache.json
-          REACT_APP_CODE_VERSION: !Sub CodeVersion
-          REACT_APP_RELEASE_ID: !Sub ReleaseId 
+          REACT_APP_CODE_VERSION: !Ref CodeVersion
+          REACT_APP_RELEASE_ID: !Ref ReleaseId 
           REACT_APP_ENV: production
-          PUBLIC_URL: !Sub PublicUrl 
-          BUCKET_REGION: !Sub BucketRegion 
+          PUBLIC_URL: !Ref PublicUrl 
+          BUCKET_REGION: !Ref BucketRegion 
           BUCKET_NAME: !Ref BucketName
   LogGroup:
     Type: AWS::Logs::LogGroup

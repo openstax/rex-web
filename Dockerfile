@@ -33,9 +33,6 @@ ENV PATH /usr/local/node/bin:$PATH
 
 from utils as lambda
 
-COPY . /code
-WORKDIR /code
-
 RUN apt-get update && apt-get install -y \
   # deps from readme https://github.com/aws/aws-lambda-nodejs-runtime-interface-client
   g++ make cmake unzip libcurl4-openssl-dev \
@@ -44,7 +41,11 @@ RUN apt-get update && apt-get install -y \
   rm -rf /var/lib/apt/lists/* && \
   yarn global add aws-lambda-ric
 
+WORKDIR /code
+COPY package.json yarn.lock /code
 RUN yarn install
+
+COPY . /code
 RUN \
   REACT_APP_CODE_VERSION=test \
   PUBLIC_URL=/rex/releases/test/2021-12-08 \
