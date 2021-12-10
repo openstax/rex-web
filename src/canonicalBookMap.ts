@@ -39,6 +39,9 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   /* Organizational Behavior */ '2d941ab9-ac5b-4eb8-b21c-965d36a4f296': [
     /* Principles of Management */['c3acb2ab-7d5c-45ad-b3cd-e59673fedd4e', {}],
   ],
+  /* College Algebra */ '9b08c294-057f-4201-9f48-5d6ad992740d': [
+    /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
+  ],
   /* College Algebra with Corequisite Support */ '507feb1e-cfff-4b54-bc07-d52636cecfe3': [
     /* College Algebra with Corequisite Support 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {
