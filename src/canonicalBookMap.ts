@@ -29,11 +29,6 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   ...preAlgebra,
   ...sociology,
 
-// /* Algebra & Trigonometry 2e */ ['eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e', {}],
-// /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
-// /* College Algebra with Corequisite Support 2e */ ['59024a63-2b1a-4631-94c5-ae275a77b587', {}],
-// /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
-
   /* Algebra & Trigonometry 2e */ 'eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e' : [
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
