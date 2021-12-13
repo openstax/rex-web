@@ -512,6 +512,7 @@ Array [
           >
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="page"
             >
               <a
                 className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -526,6 +527,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -575,6 +577,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="chapter"
                   >
                     <details
                       className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -624,6 +627,7 @@ Array [
                       >
                         <li
                           className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                          data-type="page"
                         >
                           <a
                             className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -641,6 +645,7 @@ Array [
                   </li>
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -655,6 +660,7 @@ Array [
                   </li>
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -672,6 +678,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -721,6 +728,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -738,6 +746,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -789,6 +798,7 @@ Array [
                   <li
                     aria-label="Current Page"
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -806,6 +816,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -855,6 +866,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -872,6 +884,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -921,6 +934,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -938,6 +952,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -987,6 +1002,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -1004,6 +1020,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="page"
             >
               <a
                 className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -1018,6 +1035,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="page"
             >
               <a
                 className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -1032,6 +1050,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="page"
             >
               <a
                 className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -1047,7 +1066,7 @@ Array [
           </ol>
         </div>
         <div
-          className="CenteredContentRow__Wrapper-sc-22brdm-0 iosMxN"
+          className="CenteredContentRow__Wrapper-sc-22brdm-0 jZvrZy"
           data-testid="centered-content-row"
         >
           <div
@@ -2024,6 +2043,7 @@ Array [
           >
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="page"
             >
               <a
                 className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2038,6 +2058,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -2087,6 +2108,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="chapter"
                   >
                     <details
                       className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -2136,6 +2158,7 @@ Array [
                       >
                         <li
                           className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                          data-type="page"
                         >
                           <a
                             className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2153,6 +2176,7 @@ Array [
                   </li>
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2167,6 +2191,7 @@ Array [
                   </li>
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2184,6 +2209,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -2233,6 +2259,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2250,6 +2277,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -2299,6 +2327,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2316,6 +2345,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -2365,6 +2395,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2382,6 +2413,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -2431,6 +2463,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2448,6 +2481,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="chapter"
             >
               <details
                 className="styled__NavDetails-sc-18yti3s-6 fFBOM Details-xi326o-3 iboMxh"
@@ -2497,6 +2531,7 @@ Array [
                 >
                   <li
                     className="styled__NavItem-sc-18yti3s-2 lcPtic"
+                    data-type="page"
                   >
                     <a
                       className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2514,6 +2549,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="page"
             >
               <a
                 className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2528,6 +2564,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="page"
             >
               <a
                 className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2542,6 +2579,7 @@ Array [
             </li>
             <li
               className="styled__NavItem-sc-18yti3s-2 lcPtic"
+              data-type="page"
             >
               <a
                 className="styled__ContentLink-sc-18yti3s-1 cRIWDW"
@@ -2557,7 +2595,7 @@ Array [
           </ol>
         </div>
         <div
-          className="CenteredContentRow__Wrapper-sc-22brdm-0 iosMxN"
+          className="CenteredContentRow__Wrapper-sc-22brdm-0 jZvrZy"
           data-testid="centered-content-row"
         >
           <div
