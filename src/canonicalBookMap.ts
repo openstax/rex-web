@@ -700,7 +700,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   /* Chemistry: Atoms First 2e */ 'd9b85ee6-c57f-4861-8208-5ddf261e9c5f' : [
     /* Chemistry 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {}],
   ],
-  /* Precalculus 2e */ 'fd53eae1-fa23-47c7-bb1b-972349835c3c' : [
+  /* Precalculus 2e */ 'f021395f-fd63-46cd-ab95-037c6f051730' : [
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
   ],
   /* Precalculus */ 'fd53eae1-fa23-47c7-bb1b-972349835c3c' : [
