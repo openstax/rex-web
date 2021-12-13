@@ -38,6 +38,7 @@ describe('content', () => {
         ['[data-testid="toc"]', 'style'],
         ['[data-testid="search-results-sidebar"]', 'style'],
         ['[data-testid="loader"] path', 'style'],
+        ['[data-testid="centered-content-row"]', 'style'],
         // img src is changed from data:image/svg+xml;base64... to static path
         ['[data-testid="navbar"] img', 'src'],
         // caused by DynamicContentStyles component
