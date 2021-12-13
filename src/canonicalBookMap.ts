@@ -286,8 +286,8 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
   ],
   /* Precalculus */ 'fd53eae1-fa23-47c7-bb1b-972349835c3c' : [
-    /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
+    /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
   ],
 };
 
