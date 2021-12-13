@@ -284,12 +284,14 @@ describe('parseContents', () => {
           {
             contents: [
               {id: 'chapter@sth', title: chapterHtml, contents: [{id: 'page@sth', title: pageHtml}]},
+              {id: 'chapter2@sth', title: chapterHtml, contents: [{id: 'page@sth', title: pageHtml}]},
             ],
             id: 'unit@unit',
             title: unitHtml,
           },
           {
             contents: [
+              {id: 'chapter@sth', title: chapter2Html, contents: [{id: 'page2@sth', title: pageHtml}]},
               {id: 'chapter2@sth', title: chapter2Html, contents: [{id: 'page2@sth', title: pageHtml}]},
             ],
             id: 'unit2@unit',
