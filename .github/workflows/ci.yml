@@ -126,4 +126,4 @@ jobs:
         path: node_modules
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
     - run: yarn install
-    - run: ./abl-tests/test.bash
+    - run: ./script/validate-abl-import/test.bash
