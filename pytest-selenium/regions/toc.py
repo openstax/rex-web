@@ -15,10 +15,10 @@ class TableOfContents(Region):
     _preface_section_link_locator = (By.CSS_SELECTOR, "[href=preface]")
     _next_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page'] ~ li > a")
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
-    _unit_link_selector = (By.XPATH, "// li[1] / a /../../../../../..")
-    _chapter_link_selector = (By.XPATH, "// li[1] / a /../../..")
-    _eoc_link_selector = (By.CSS_SELECTOR, "li details ol li details")
-    _eob_link_locator = (By.CSS_SELECTOR, "ol li details")
+    _unit_link_locator = (By.CSS_SELECTOR, "[data-type='unit']")
+    _chapter_link_locator = (By.CSS_SELECTOR, "[data-type='chapter']")
+    _eoc_link_locator = (By.CSS_SELECTOR, "[data-type='eoc-dropdown']")
+    _eob_link_locator = (By.CSS_SELECTOR, "[data-type='eob-dropdown']")
 
     @property
     def active_section(self):
@@ -32,15 +32,15 @@ class TableOfContents(Region):
         :rtype: list(WebElement)
 
         """
-        return self.find_elements(*self._chapter_link_selector)
+        return self.find_elements(*self._chapter_link_locator)
 
     @property
     def eob_link(self):
-        return self.find_elements(*self._eob_link_locator)[-1]
+        return self.find_elements(*self._eob_link_locator)
 
     @property
     def eoc_link(self) -> List[WebElement]:
-        return self.find_elements(*self._eoc_link_selector)
+        return self.find_elements(*self._eoc_link_locator)
 
     @property
     def first_section(self):
@@ -84,7 +84,7 @@ class TableOfContents(Region):
 
     @property
     def units(self) -> List[WebElement]:
-        return self.find_elements(*self._unit_link_selector)
+        return self.find_elements(*self._unit_link_locator)
 
     @property
     def total_units(self) -> int:
@@ -177,7 +177,7 @@ class TableOfContents(Region):
     def click_units(self, n: int, book_slug):
         for unit in range(self.total_units):
             self.expand_unit(unit)
-            for chapter in range(0, self.total_chapters):
+            for chapter in range(self.total_chapters):
                 self.expand_chapter(chapter)
                 try:
                     self.sections[n].click()
@@ -197,7 +197,7 @@ class TableOfContents(Region):
             self.collapse_eob()
 
     def click_chapter(self, n: int, book_slug):
-        for chapter in range(0, self.total_chapters):
+        for chapter in range(self.total_chapters):
             self.expand_chapter(chapter)
             try:
                 self.sections[n].click()
@@ -212,7 +212,7 @@ class TableOfContents(Region):
             self.sections[n].click()
         except ElementNotInteractableException:
             if units(book_slug) is True:
-                self.click_units(n)
+                self.click_units(n, book_slug)
             elif units(book_slug) is False:
                 self.click_chapter(n, book_slug)
             elif eob(book_slug) is True:
