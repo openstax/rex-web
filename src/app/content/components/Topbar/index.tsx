@@ -94,7 +94,7 @@ class Topbar extends React.Component<Props, State> {
 
     const newButtonEnabled = !!this.props.searchButtonColor;
 
-    return <Styled.TopBarWrapper>
+    return <Styled.TopBarWrapper data-testid='topbar'>
       <Styled.SearchPrintWrapper>
         <NudgeElementTarget id={mobileNudgeStudyToolsTargetId}>
           <Styled.MenuButton type='button' onClick={openMenu}/>
