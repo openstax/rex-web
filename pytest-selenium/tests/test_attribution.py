@@ -61,6 +61,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     attribution = content.attribution
     toolbar = content.toolbar
+    topbar = content.topbar
     toc = content.sidebar.toc
 
     attribution.click_attribution_link()
@@ -83,6 +84,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
 
     # WHEN: Navigating via TOC link
     if content.is_mobile:
+        topbar.click_mobile_menu_button()
         toolbar.click_toc_toggle_button()
 
     toc.sections[-1].click()
