@@ -122,6 +122,7 @@ Array [
     >
       <div
         className="styled__TopBarWrapper-sc-12dq39v-0 bpFSVr"
+        data-testid="topbar"
       >
         <div
           className="styled__SearchPrintWrapper-sc-12dq39v-9 kRRdlW"
@@ -1653,6 +1654,7 @@ Array [
     >
       <div
         className="styled__TopBarWrapper-sc-12dq39v-0 bpFSVr"
+        data-testid="topbar"
       >
         <div
           className="styled__SearchPrintWrapper-sc-12dq39v-9 kRRdlW"
