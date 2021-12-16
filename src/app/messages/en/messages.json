@@ -161,6 +161,7 @@
   "i18n:practice-questions:popup:answers:choice": "Choice {choiceIndicator}",
   "i18n:toolbar:header:title": "Menu",
   "i18n:toolbar:mobile-menu:open": "Click to open menu",
+  "i18n:toolbar:mobile-menu:close": "Click to close menu",
   "i18n:toolbar:highlights:popup:body:add-highlight": "Make a highlight and add a note",
   "i18n:toolbar:highlights:popup:body:highlights-free": "Log in to highlight. 100% FREE.",
   "i18n:toolbar:highlights:popup:body:no-highlights-in-book": "You have no highlights in this book",

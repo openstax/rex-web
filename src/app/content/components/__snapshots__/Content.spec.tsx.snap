@@ -251,7 +251,8 @@ Array [
               Menu
             </span>
             <button
-              className="styled__PlainButton-sc-1119auh-0 styled__CloseToolbarButton-sc-1119auh-7 jzddtN"
+              aria-label="Click to close menu"
+              className="styled__CloseToolbarButton-sc-1119auh-7 kqQFXn styled__PlainButton-sc-1119auh-0 kPdLbJ"
               onClick={[Function]}
             >
               <svg
@@ -1783,7 +1784,8 @@ Array [
               Menu
             </span>
             <button
-              className="styled__PlainButton-sc-1119auh-0 styled__CloseToolbarButton-sc-1119auh-7 jzddtN"
+              aria-label="Click to close menu"
+              className="styled__CloseToolbarButton-sc-1119auh-7 kqQFXn styled__PlainButton-sc-1119auh-0 kPdLbJ"
               onClick={[Function]}
             >
               <svg

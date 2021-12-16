@@ -46,7 +46,6 @@ const Toolbar =   () => {
         </FormattedMessage>
       </Styled.ToolbarMobileHeaderTitle>
       <Styled.CloseToolbarButton onClick={() => dispatch(closeMobileMenu())}>
-        <Styled.TimesIcon />
       </Styled.CloseToolbarButton>
     </Styled.ToolbarMobileHeader>
     <Styled.ToolbarElements>

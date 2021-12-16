@@ -15,7 +15,7 @@ import {
   topbarDesktopHeight,
   topbarMobileHeight
 } from '../../constants';
-import { TimesIcon } from '../../Toolbar/styled';
+import { CloseToolbarButton } from '../../Toolbar/styled';
 import { disablePrint } from '../../utils/disablePrint';
 import { styleWhenSidebarClosed } from '../../utils/sidebar';
 
@@ -135,13 +135,12 @@ export const ToCHeaderText = styled.span`
 // tslint:disable-next-line: variable-name
 export const CloseToCAndMobileMenuButton = styled((props) => {
   const dispatch = useDispatch();
-  return <button
+  return <CloseToolbarButton
     onClick={() => {
       dispatch(closeToc());
       dispatch(closeMobileMenu());
     }}
-    {...props}
-  ><TimesIcon /></button>;
+    {...props} />;
 })`
   color: ${toolbarIconColor.base};
   border: none;
