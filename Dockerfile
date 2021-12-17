@@ -26,37 +26,9 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | b
   NVM_DIR="$HOME/.nvm" && . $HOME/.nvm/nvm.sh && \
   cd && nvm install && \
   npm install -g yarn && \
-  mv $(dirname $(dirname $(which node))) /usr/local/node && \
-  rm -r "$NVM_DIR"
+  ln -s $(dirname $(which node)) /usr/local/node-bin
 
-ENV PATH /usr/local/node/bin:$PATH
-
-from utils as lambda
-
-RUN apt-get update && apt-get install -y \
-  # deps from readme https://github.com/aws/aws-lambda-nodejs-runtime-interface-client
-  g++ make cmake unzip libcurl4-openssl-dev \
-  # random other deps needed to add for it to work
-  python3 autoconf libtool && \
-  rm -rf /var/lib/apt/lists/* && \
-  yarn global add aws-lambda-ric
-
-WORKDIR /code
-COPY package.json yarn.lock /code
-RUN yarn install
-
-COPY . /code
-RUN \
-  REACT_APP_CODE_VERSION=test \
-  PUBLIC_URL=/rex/releases/test/2021-12-08 \
-  REACT_APP_RELEASE_ID=test/2021-12-08 \
-  REACT_APP_ENV=production \
-  yarn build
-
-WORKDIR /code/script/lambda
-
-ENTRYPOINT ["/usr/local/node/bin/npx", "aws-lambda-ric"]
-CMD ["entry.handler"]
+ENV PATH /usr/local/node-bin:$PATH
 
 from utils as CI
 
