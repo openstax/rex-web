@@ -11,4 +11,4 @@ cd rex-web
 
 yarn install
 yarn build:clean
-yarn prerender-worker
+yarn prerender:work
