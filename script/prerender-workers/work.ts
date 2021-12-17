@@ -1,16 +1,12 @@
 // tslint:disable:no-console
 import './setup';
+
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import {
-  DeleteMessageCommand,
-  ReceiveMessageCommand,
-  SendMessageBatchCommand,
-  SQSClient,
-} from '@aws-sdk/client-sqs';
+import { DeleteMessageBatchCommand, ReceiveMessageCommand, SQSClient } from '@aws-sdk/client-sqs';
 import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
-import { ArchiveBook, ArchivePage } from '../../src/app/content/types';
 import { content } from '../../src/app/content/routes';
+import { ArchiveBook, ArchivePage } from '../../src/app/content/types';
 import { Match } from '../../src/app/navigation/types';
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
@@ -25,6 +21,7 @@ import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
 import { startServer } from '../server';
 import { renderPages } from './contentPages';
+import { createDiskCache } from './fileUtils';
 
 const {
   REACT_APP_ACCOUNTS_URL,
@@ -42,7 +39,7 @@ const sqsClient = new SQSClient({ region: process.env.WORK_REGION });
 const s3Client = new S3Client({ region: process.env.BUCKET_REGION });
 
 const saveS3Page = (url: string, html: string) => {
-  const key = `/rex/releases/${process.env.RELEASE_ID}/${url}`;
+  const key = `/rex/releases/${RELEASE_ID}/${url}`;
 
   console.log('writing s3 file: ', key);
 
@@ -55,7 +52,7 @@ const saveS3Page = (url: string, html: string) => {
   }));
 };
 
-async function work() => {
+async function work() {
   await Loadable.preloadAll();
   const port = await portfinder.getPortPromise();
   const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
@@ -68,7 +65,8 @@ async function work() => {
     cache: createDiskCache<string, OSWebBook | undefined>('osweb'),
   });
 
-  const {server} = await startServer({port, onlyProxy: true});
+  // We never close this server it just dies when the worker is terminated
+  await startServer({port, onlyProxy: true});
 
   const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
   const searchClient = createSearchClient(`http://localhost:${port}${REACT_APP_SEARCH_URL}`);
@@ -92,28 +90,48 @@ async function work() => {
   };
 
   const receiveMessageCommand = new ReceiveMessageCommand({
+    MaxNumberOfMessages: 10,
     QueueUrl: process.env.WORK_QUEUE_URL,
-    MaxNumberOfMessages: 10
   });
 
   while (true) {
     // Listen to the queue for work
     const receiveMessageResult = await sqsClient.send(receiveMessageCommand);
 
-    console.log(`received messages: ${receiveMessageResult.Messages}`);
+    const messages = receiveMessageResult.Messages;
 
-    const pages: Array<{
-      route: Match<typeof content>,
-      code: number,
-    }> = receiveMessageResult.Messages.map((message) => {
-      const payload = JSON.parse(message.body) as Payload;
-      return {route: {...payload, route: content}, code: 200};
+    if (!messages) throw new Error('SQS returned something weird (missing messages)');
+
+    console.log(`received messages: ${JSON.stringify(messages)}`);
+
+    const pages: Array<{route: Match<typeof content>, code: number}> = [];
+    const entries: Array<{Id: string, ReceiptHandle: string}> = [];
+    messages.forEach((message, messageIndex) => {
+      const body = message.Body;
+
+      if (!body) throw new Error('SQS returned something weird (missing message body)');
+
+      const receiptHandle = message.ReceiptHandle;
+
+      if (!receiptHandle) {
+        throw new Error('SQS returned something weird (missing message receipt handle)');
+      }
+
+      const payload = JSON.parse(body) as Payload;
+      pages.push({route: {...payload, route: content}, code: 200});
+      entries.push({Id: messageIndex.toString(), ReceiptHandle: receiptHandle});
     });
 
     console.log(`rendering ${pages.length} pages`);
 
-    //const sitemaps =
+    // const sitemaps =
     await renderPages(services, pages, saveS3Page);
+
+    // Delete successfully processed messages from the queue
+    await sqsClient.send(new DeleteMessageBatchCommand({
+      Entries: entries,
+      QueueUrl: process.env.WORK_QUEUE_URL,
+    }));
 
     // Queue up the sitemaps for processing elsewhere
     /* TODO: sitemap
@@ -126,8 +144,7 @@ async function work() => {
   }
 
   // Code here would never be reached, as the loop above never terminates
-  // server.close();
-};
+}
 
 work().catch((e) => {
   console.error(e.message, e.stack);

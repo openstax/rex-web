@@ -30,12 +30,14 @@ export const stats = {
   renderHtml: 0,
 };
 
+type Page = Match<typeof content>;
+
 export async function prepareContentPage(
   book: BookWithOSWebData,
   pageId: string,
   pageSlug: string
 ) {
-  const action: Match<typeof content> = {
+  const action: Page = {
     params: {
       book: {
         slug: book.slug,
@@ -123,12 +125,8 @@ export const getStats = () => {
   return {numPages, elapsedMinutes};
 };
 
-export interface OXSitemapItemOptions extends SitemapItemOptions {
-  bookSlug: string;
-}
-
 type MakeRenderPage = (services: AppOptions['services'], savePage: (uri: string, content: string) => void) =>
-  ({code, route}: {route: Match<typeof content>, code: number}) => Promise<OXSitemapItemOptions>;
+  ({code, route}: {route: Page, code: number}) => Promise<SitemapItemOptions>;
 
 const makeRenderPage: MakeRenderPage = (services, savePage) => async({code, route}) => {
 
@@ -154,7 +152,6 @@ const makeRenderPage: MakeRenderPage = (services, savePage) => async({code, rout
   await savePage(url, html);
 
   return {
-    bookSlug: route.params.book.slug,
     changefreq: EnumChangefreq.MONTHLY,
     lastmod: dateFns.format(archivePage.revised, 'YYYY-MM-DD'),
     url: encodeURI(url),
@@ -171,7 +168,7 @@ export const prepareBooks = async(
   }));
 };
 
-export type Pages = Array<{code: number, route: Match<typeof content>}>;
+export type Pages = Array<{code: number, route: Page}>;
 
 export const prepareBookPages = (book: BookWithOSWebData) => asyncPool(20, findTreePages(book.tree), (section) =>
   prepareContentPage(book, stripIdVersion(section.id),

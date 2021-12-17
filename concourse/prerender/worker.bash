@@ -2,8 +2,6 @@
 
 set -o pipefail
 
-destination=$(pwd)/release
-
 # shellcheck disable=SC1091
 source build-configs/config.env
 # shellcheck disable=SC2046

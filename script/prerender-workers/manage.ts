@@ -1,11 +1,12 @@
 // tslint:disable:no-console
 import './setup';
+
 import {
   CloudFormationClient,
   CreateStackCommand,
   DeleteStackCommand,
+  DescribeStacksCommand,
   waitUntilStackCreateComplete,
-  waitUntilStackDeleteComplete,
 } from '@aws-sdk/client-cloudformation';
 import {
   GetQueueAttributesCommand,
@@ -16,13 +17,14 @@ import {
 import fetch from 'node-fetch';
 import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
-import { ArchiveBook, ArchivePage } from '../../src/app/content/types';
+import asyncPool from 'tiny-async-pool';
+import { ArchiveBook, ArchivePage, BookWithOSWebData } from '../../src/app/content/types';
 import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { OSWebBook } from '../../src/gateways/createOSWebLoader';
-import { startServer } from '../server';
+import { startServer, Server } from '../server';
 import {
   getStats,
   minuteCounter,
@@ -32,7 +34,7 @@ import {
 } from './contentPages';
 import createRedirects from './createRedirects';
 import { createDiskCache, writeAssetFile } from './fileUtils';
-import { renderSitemap, renderSitemapIndex, OXSitemapItemOptions } from './sitemap';
+//import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 const {
   CODE_VERSION,
@@ -44,9 +46,7 @@ const {
 const WORKERS_STACK_NAME = `rex-${RELEASE_ID}-prerender-workers`;
 const WORKERS_STACK_TIMEOUT_SECONDS = 300;
 const PRERENDER_TIMEOUT_SECONDS = 300;
-
-const cfnClient = new CloudFormationClient({ region: process.env.WORK_REGION })
-const sqsClient = new SQSClient({ region: process.env.WORK_REGION });
+const MAX_CONCURRENT_BOOK_TOCS = 10;
 
 let networkTime = 0;
 (global as any).fetch = (...args: Parameters<typeof fetch>) => {
@@ -58,9 +58,21 @@ let networkTime = 0;
     });
 };
 
+const cfnClient = new CloudFormationClient({ region: process.env.WORK_REGION });
+const sqsClient = new SQSClient({ region: process.env.WORK_REGION });
+
+let archiveLoader: ReturnType<typeof createArchiveLoader>;
+let osWebLoader: ReturnType<typeof createOSWebLoader>;
+let server: Server;
+
+let workQueueUrl = '';
+//let sitemapQueueUrl = '';
+let deadLetterQueueUrl = '';
+let queuesAreReady = false;
+
 let timeoutDate;
 let numPages = 0;
-const bookSitemaps = {};
+//const bookSitemaps = {};
 
 async function renderManifest() {
   writeAssetFile('/rex/release.json', JSON.stringify({
@@ -79,8 +91,6 @@ async function createWorkersStack() {
   timeoutDate = new Date(1000 * PRERENDER_TIMEOUT_SECONDS + new Date().getTime());
 
   return cfnClient.send(new CreateStackCommand({
-    StackName: WORKERS_STACK_NAME,
-    TemplateURL: 'file://cfn.yml',
     Parameters: [
       {
         ParameterKey: 'BucketName',
@@ -95,6 +105,8 @@ async function createWorkersStack() {
         ParameterValue: `${timeoutDate.toISOString().slice(0, -5)}Z`,
       },
     ],
+    StackName: WORKERS_STACK_NAME,
+    TemplateURL: 'file://cfn.yml',
   }));
 }
 
@@ -102,80 +114,99 @@ async function deleteWorkersStack() {
   return cfnClient.send(new DeleteStackCommand({StackName: WORKERS_STACK_NAME}));
 }
 
+async function queueBookPages(book: BookWithOSWebData) {
+  const pages = await prepareBookPages(book)
+
+  numPages += pages.length;
+
+  // If the workers stack is not ready yet, wait 100ms and re-check
+  while (!queuesAreReady) await new Promise(r => setTimeout(r, 100));
+
+  for (let pageIndex = 0; pageIndex < pages.length; pageIndex += 10) {
+    const pageBatch = pages.slice(pageIndex, pageIndex + 10);
+
+    // If the entire request fails, this command will throw and be caught at the end of this file
+    // However, we also need to check if only some of the messages failed
+    const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
+      Entries: pageBatch.map((page, batchIndex) => {
+        return {Id: batchIndex.toString(), MessageBody: JSON.stringify(page)};
+      }),
+      QueueUrl: workQueueUrl,
+    }));
+    const failedMessages = sendMessageBatchResult.Failed;
+
+    if (!failedMessages) throw new Error('SQS returned something weird (missing failed messages)')
+
+    const numFailures = failedMessages.length;
+    if (numFailures > 0) {
+      throw new Error(`SQS SendMessageBatch Error: ${numFailures} out of ${pageBatch.length
+        } pages in a batch failed to be queued. Failures: ${JSON.stringify(failedMessages)}`);
+    }
+  }
+}
+
 async function manage() {
   await Loadable.preloadAll();
   const port = await portfinder.getPortPromise();
-  const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+  archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
     appPrefix: '',
     archivePrefix: `http://localhost:${port}`,
     bookCache: createDiskCache<string, ArchiveBook>('archive-books'),
     pageCache: createDiskCache<string, ArchivePage>('archive-pages'),
   });
-  const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`, {
+  osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`, {
     cache: createDiskCache<string, OSWebBook | undefined>('osweb'),
   });
 
-  const {server} = await startServer({port, onlyProxy: true});
+  server = (await startServer({port, onlyProxy: true})).server;
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
 
-  // TODO: Check memory usage
-  // If it becomes too high, drop the hash table and move this inside the next loop
-  // or store the pages in a file instead?
-  const bookPages = {};
-  books.each((book) => {
-    bookPages[book] = await prepareBookPages(book);
-    numPages += bookPages[book].length;
-  });
+  // We can start fetching book ToCs while the stack is created,
+  // but we need a limit so we don't use up all the memory
+  const queuePromise = asyncPool(MAX_CONCURRENT_BOOK_TOCS, books, queueBookPages);
 
   // Wait for the workers stack to be ready
-  await waitUntilStackCreateComplete({
-    params: {maxWaitTime: WORKERS_STACK_TIMEOUT_SECONDS, minDelay: 10, maxDelay: 10},
-    input: {StackName: WORKERS_STACK_NAME},
-  });
+  await waitUntilStackCreateComplete(
+    {client: cfnClient, maxWaitTime: WORKERS_STACK_TIMEOUT_SECONDS, minDelay: 10, maxDelay: 10},
+    {StackName: WORKERS_STACK_NAME}
+  );
 
   // Get the queue URLs
-  let workQueueUrl;
-  let sitemapQueueUrl;
-  let deadLetterQueueUrl;
   const describeStacksResult = await cfnClient.send(new DescribeStacksCommand({
-    StackName: WORKERS_STACK_NAME
+    StackName: WORKERS_STACK_NAME,
   }));
-  for (const output of describeStacksResult.Stacks[0].Outputs) {
+
+  // https://github.com/aws/aws-sdk-js-v3/issues/1613
+  if (!describeStacksResult.Stacks) throw new Error('CFN returned something weird (missing stacks)')
+
+  const stack = describeStacksResult.Stacks[0];
+
+  if (!stack) throw new Error(`${WORKERS_STACK_NAME} stack not found`);
+
+  if (!stack.Outputs) throw new Error('CFN returned something weird (missing stack outputs)')
+
+  for (const output of stack.Outputs) {
+    if (!output.OutputValue) throw new Error('CFN returned something weird (missing output value)')
+
     switch (output.OutputKey) {
       case `${WORKERS_STACK_NAME}-work-queue-url`:
-        workQueueUrl = output.OutputValue
+        workQueueUrl = output.OutputValue;
         break;
       case `${WORKERS_STACK_NAME}-sitemap-queue-url`:
-        sitemapQueueUrl = output.OutputValue
+        //sitemapQueueUrl = output.OutputValue;
         break;
       case `${WORKERS_STACK_NAME}-dead-letter-queue-url`:
-        deadLetterQueueUrl = output.OutputValue
+        deadLetterQueueUrl = output.OutputValue;
         break;
     }
   }
 
-  for (const book of books) {
-    const pages = bookPages[book];
+  // Let the queuing begin
+  queuesAreReady = true;
 
-    for (var pageIndex = 0; pageIndex < pages.length; pageIndex += 10) {
-      const pageBatch = pages.slice(pageIndex, pageIndex + 10);
-
-      // If the entire request fails, this command will throw and be caught at the end of this file
-      // However, we also need to check if only some of the messages failed
-      const failed = await sqsClient.send(new SendMessageBatchCommand({
-        QueueUrl: workQueueUrl,
-        Entries: pageBatch.map((page, index) => {
-          return {Id: index.toString(), MessageBody: JSON.stringify(page)};
-        }),
-      })).Failed;
-      const numFailures = failed.length;
-      if (numFailures > 0) {
-        throw `SQS SendMessageBatch Error: ${numFailures} out of ${pages.length
-          } pages in a batch failed to be queued. Failures: ${JSON.stringify(failed)}`;
-      }
-    }
-  }
+  // Wait for all book pages to be queued
+  await queuePromise;
 
   // TODO: Code between this comment and ENDTODO can maybe be removed
   // if the manager ends up processing the sitemap index and checks the page count there
@@ -185,34 +216,43 @@ async function manage() {
 
   // First wait 1 minute after sending the last message for the queue attributes to stabilize
   // This is required according to SQS docs
-  await new Promise(resolve => setTimeout(resolve, 60000));
+  await new Promise((resolve) => setTimeout(resolve, 60000));
 
   // Now check that all the NumberOfMessages attributes are 0
   let workQueueEmpty = false;
   const getQueueAttributesCommand = new GetQueueAttributesCommand({
-    QueueUrl: workQueueUrl,
     AttributeNames: [
       'ApproximateNumberOfMessages',
       'ApproximateNumberOfMessagesDelayed',
-      'ApproximateNumberOfMessagesNotVisible'
+      'ApproximateNumberOfMessagesNotVisible',
     ],
+    QueueUrl: workQueueUrl,
   });
   do {
-    const getQueueAttributesResult = sqsClient.send(getQueueAttributesCommand);
-    workQueueEmpty = getQueueAttributesResult.Attributes.every((attribute) => value == 0)
+    const getQueueAttributesResult = await sqsClient.send(getQueueAttributesCommand);
+    const attributes = getQueueAttributesResult.Attributes;
+
+    if (!attributes) throw new Error('SQS returned something weird (missing work queue attrs)');
+
+    workQueueEmpty = attributes['ApproximateNumberOfMessages'] === '0' &&
+                     attributes['ApproximateNumberOfMessagesDelayed'] === '0' &&
+                     attributes['ApproximateNumberOfMessagesNotVisible'] === '0';
   } while (!workQueueEmpty);
 
   // Ensure that the dead letter queue is also empty
   // Since we are the only consumer of the dead letter queue, we use long polling to check
   // that it is empty rather than waiting another minute and checking the queue attributes
   const receiveDLQMessageResult = await sqsClient.send(new ReceiveMessageCommand({
-    QueueUrl: deadLetterQueueUrl,
     MaxNumberOfMessages: 10,
+    QueueUrl: deadLetterQueueUrl,
   }));
-  const numDLQMessages = receiveDLQMessageResult.Messages.length;
-  if (numDLQMessages > 0) {
-    throw `Received ${numDLQMessages} messages from the dead letter queue: ${
-      JSON.stringify(receiveDLQMessageResult.Messages)}`;
+  const dlqMessages = receiveDLQMessageResult.Messages;
+
+  if (!dlqMessages) throw new Error('SQS returned something weird (missing dlq messages)');
+
+  if (dlqMessages.length > 0) {
+    throw new Error(`Received ${dlqMessages.length} messages from the dead letter queue: ${
+      JSON.stringify(dlqMessages)}`);
   }
 
   // ENDTODO
@@ -274,7 +314,7 @@ async function cleanup() {
   // Proceed with other tasks while the stack deletes
   await deleteWorkersStack();
 
-  console.log('Sitemap not implemented yet')
+  console.log('Sitemap not implemented yet');
   // Render all the sitemaps
   /* TODO: sitemap
   for (const bookSlug in bookSitemaps) {
@@ -301,19 +341,13 @@ async function cleanup() {
 
 // Start creating the worker stack first since it takes a while
 // Do not wait for the stack creation to complete since we have other tasks to do first
-createWorkersStack().then(
-  manage().then(
-    cleanup().catch((e) => {
-      console.error(e.message, e.stack);
-      process.exit(1);
-    });
-  ).catch((e) => {
-    console.error(e.message, e.stack);
-    // Do not wait for the stack deletion to complete since we can't handle a delete failure anyway
-    await deleteWorkersStack();
-    process.exit(1);
-  });
-).catch((e) => {
+createWorkersStack().then(() => manage().catch(async (e) => {
+  // catch for manage() only
+  // Do not wait for the stack deletion to complete since we can't handle a delete failure anyway
+  await deleteWorkersStack();
+  throw e;
+})).then(() => cleanup()).catch((e) => {
+  // catch for all functions
   console.error(e.message, e.stack);
   process.exit(1);
 });

@@ -80,10 +80,6 @@ Resources:
               Value: !Ref BucketName
             - Name: BUCKET_REGION
               Value: !Ref BucketRegion
-            - Name: RELEASE_ID
-              Value: !Ref ReleaseId
-            - Name: SITEMAP_QUEUE_URL
-              Value: !Ref SitemapQueue
             - Name: WORK_QUEUE_URL
               Value: !Ref WorkQueue
             - Name: WORK_REGION
