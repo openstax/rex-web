@@ -123,8 +123,12 @@ export const getStats = () => {
   return {numPages, elapsedMinutes};
 };
 
+export interface OXSitemapItemOptions extends SitemapItemOptions {
+  bookSlug: string;
+}
+
 type MakeRenderPage = (services: AppOptions['services'], savePage: (uri: string, content: string) => void) =>
-  ({code, route}: {route: Match<typeof content>, code: number}) => Promise<SitemapItemOptions>;
+  ({code, route}: {route: Match<typeof content>, code: number}) => Promise<OXSitemapItemOptions>;
 
 const makeRenderPage: MakeRenderPage = (services, savePage) => async({code, route}) => {
 
@@ -150,6 +154,7 @@ const makeRenderPage: MakeRenderPage = (services, savePage) => async({code, rout
   await savePage(url, html);
 
   return {
+    bookSlug: route.params.book.slug,
     changefreq: EnumChangefreq.MONTHLY,
     lastmod: dateFns.format(archivePage.revised, 'YYYY-MM-DD'),
     url: encodeURI(url),
