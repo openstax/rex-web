@@ -1,5 +1,4 @@
 import dateFns from 'date-fns';
-import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import Loadable from 'react-loadable';
@@ -24,7 +23,7 @@ import { AppServices, AppState } from '../../src/app/types';
 import { assertDefined } from '../../src/app/utils';
 import BOOKS from '../../src/config.books';
 import FontCollector from '../../src/helpers/FontCollector';
-import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils';
+import { readAssetFile } from './fileUtils';
 
 export const stats = {
   promiseCollector: 0,
@@ -124,10 +123,14 @@ export const getStats = () => {
   return {numPages, elapsedMinutes};
 };
 
-type MakeRenderPage = (services: AppOptions['services']) =>
-  ({code, route}: {route: Match<typeof content>, code: number}) => Promise<SitemapItemOptions>;
+export interface OXSitemapItemOptions extends SitemapItemOptions {
+  bookSlug: string;
+}
 
-const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
+type MakeRenderPage = (services: AppOptions['services'], savePage: (uri: string, content: string) => void) =>
+  ({code, route}: {route: Match<typeof content>, code: number}) => Promise<OXSitemapItemOptions>;
+
+const makeRenderPage: MakeRenderPage = (services, savePage) => async({code, route}) => {
 
   if (!route.state || !('bookUid' in route.state)) {
     throw new Error('match state wasn\'t defined, it should have been');
@@ -148,13 +151,10 @@ const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
 
   numPages++;
 
-  if (assetDirectoryExists(url)) {
-    writeAssetFile(path.join(url, 'index.html'), html);
-  } else {
-    writeAssetFile(url, html);
-  }
+  await savePage(url, html);
 
   return {
+    bookSlug: route.params.book.slug,
     changefreq: EnumChangefreq.MONTHLY,
     lastmod: dateFns.format(archivePage.revised, 'YYYY-MM-DD'),
     url: encodeURI(url),
@@ -180,8 +180,12 @@ export const prepareBookPages = (book: BookWithOSWebData) => asyncPool(20, findT
     .then((route) => ({code: 200, route}))
 );
 
-export const renderPages = async(services: AppOptions['services'], pages: Pages) => {
-  const renderPage = makeRenderPage(services);
+export const renderPages = async(
+  services: AppOptions['services'],
+  pages: Pages,
+  savePage: (uri: string, content: string) => void
+) => {
+  const renderPage = makeRenderPage(services, savePage);
   return await asyncPool(1, pages, renderPage);
 };
 
