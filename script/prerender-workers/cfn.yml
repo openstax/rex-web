@@ -53,16 +53,16 @@ Resources:
         deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
         maxReceiveCount: 3
 
-  SitemapQueue:
-    Type: AWS::SQS::Queue
-    Properties:
-      KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub ${AWS::StackName}-sitemap-queue
-      ReceiveMessageWaitTimeSeconds: 20
-      RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
-      RedrivePolicy:
-        deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
-        maxReceiveCount: 3
+  #SitemapQueue:
+  #  Type: AWS::SQS::Queue
+  #  Properties:
+  #    KmsMasterKeyId: alias/aws/sqs
+  #    QueueName: !Sub ${AWS::StackName}-sitemap-queue
+  #    ReceiveMessageWaitTimeSeconds: 20
+  #    RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
+  #    RedrivePolicy:
+  #      deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
+  #      maxReceiveCount: 3
 
   Cluster:
     Type: AWS::ECS::Cluster
@@ -190,11 +190,11 @@ Outputs:
     Export:
       Name: !Sub ${AWS::StackName}-work-queue-url
 
-  SitemapQueueUrl:
-    Description: The sitemap queue's SQS endpoint URL
-    Value: !Ref SitemapQueue
-    Export:
-      Name: !Sub ${AWS::StackName}-sitemap-queue-url
+  #SitemapQueueUrl:
+  #  Description: The sitemap queue's SQS endpoint URL
+  #  Value: !Ref SitemapQueue
+  #  Export:
+  #    Name: !Sub ${AWS::StackName}-sitemap-queue-url
 
   DeadLetterQueueUrl:
     Description: The dead letter queue's SQS endpoint URL

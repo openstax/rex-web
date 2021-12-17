@@ -112,15 +112,17 @@ async function work() => {
 
     console.log(`rendering ${pages.length} pages`);
 
-    const sitemaps = await renderPages(services, pages, saveS3Page);
+    //const sitemaps =
+    await renderPages(services, pages, saveS3Page);
 
-    // Queue up the sitemaps for processing
+    // Queue up the sitemaps for processing elsewhere
+    /* TODO: sitemap
     const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
       QueueUrl: process.env.SITEMAP_QUEUE_URL,
       Entries: sitemaps.map((sitemap, index) => {
         return {Id: index.toString(), MessageBody: JSON.stringify(sitemap)};
       }),
-    }));
+    }));*/
   }
 
   // Code here would never be reached, as the loop above never terminates

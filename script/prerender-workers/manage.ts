@@ -177,8 +177,56 @@ async function manage() {
     }
   }
 
+  // TODO: Code between this comment and ENDTODO can maybe be removed
+  // if the manager ends up processing the sitemap index and checks the page count there
+  // see the commented-out sitemap code after ENDTODO for details
+
+  // Ensure the work queue is empty
+
+  // First wait 1 minute after sending the last message for the queue attributes to stabilize
+  // This is required according to SQS docs
+  await new Promise(resolve => setTimeout(resolve, 60000));
+
+  // Now check that all the NumberOfMessages attributes are 0
+  let workQueueEmpty = false;
+  const getQueueAttributesCommand = new GetQueueAttributesCommand({
+    QueueUrl: workQueueUrl,
+    AttributeNames: [
+      'ApproximateNumberOfMessages',
+      'ApproximateNumberOfMessagesDelayed',
+      'ApproximateNumberOfMessagesNotVisible'
+    ],
+  });
+  do {
+    const getQueueAttributesResult = sqsClient.send(getQueueAttributesCommand);
+    workQueueEmpty = getQueueAttributesResult.Attributes.every((attribute) => value == 0)
+  } while (!workQueueEmpty);
+
+  // Ensure that the dead letter queue is also empty
+  // Since we are the only consumer of the dead letter queue, we use long polling to check
+  // that it is empty rather than waiting another minute and checking the queue attributes
+  const receiveDLQMessageResult = await sqsClient.send(new ReceiveMessageCommand({
+    QueueUrl: deadLetterQueueUrl,
+    MaxNumberOfMessages: 10,
+  }));
+  const numDLQMessages = receiveDLQMessageResult.Messages.length;
+  if (numDLQMessages > 0) {
+    throw `Received ${numDLQMessages} messages from the dead letter queue: ${
+      JSON.stringify(receiveDLQMessageResult.Messages)}`;
+  }
+
+  // ENDTODO
+
+  // TODO: sitemap
+  // If we end up collecting all the sitemaps here and we include a count of pages on each
+  // sitemap, we can make sure the total matches numPages
+  // If we did that, we wouldn't need to query the work queue attributes.
+  // The DLQ check could also be done when we stop receiving sitemap messages
+  // The commented out code below shows how this would work
+
   // Collect sitemaps by book for rendering
   // We also use this to count and ensure we have rendered all the pages
+  /*
   let numRenderedPages = 0;
   const receiveSitemapMessageCommand = new ReceiveMessageCommand({
     QueueUrl: sitemapQueueUrl,
@@ -194,9 +242,10 @@ async function manage() {
     if (receiveSitemapMessageResult.Messages.length === 0) {
       // Check the dead letter queue and see if we should abort early
       const receiveDLQMessageResult = await sqsClient.send(receiveDLQMessageCommand);
-      if (receiveDLQMessageResult.Messages.length) {
-        throw `Received one or more messages from the dead letter queue: ${
-          JSON.stringify(receiveDLQMessageResult.Messages)}`
+      const numDLQMessages = receiveDLQMessageResult.Messages.length;
+      if (numDLQMessages > 0) {
+        throw `Received ${numDLQMessages} messages from the dead letter queue: ${
+          JSON.stringify(receiveDLQMessageResult.Messages)}`;
       }
 
       // Also check if we have exceeded the prerender timeout
@@ -216,6 +265,7 @@ async function manage() {
       }
     }
   }
+  */
 
   // All pages have been rendered and sitemaps collected at this point
 }
@@ -224,12 +274,15 @@ async function cleanup() {
   // Proceed with other tasks while the stack deletes
   await deleteWorkersStack();
 
+  console.log('Sitemap not implemented yet')
   // Render all the sitemaps
+  /* TODO: sitemap
   for (const bookSlug in bookSitemaps) {
     renderSitemap(bookSlug, bookSitemaps[bookSlug]);
   }
 
   await renderSitemapIndex();
+  */
   await renderManifest();
   await createRedirects(archiveLoader, osWebLoader);
 
