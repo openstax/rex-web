@@ -64,6 +64,8 @@
     "build:js": "export REACT_APP_ENV=${REACT_APP_ENV:-production} && GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP:-true} craco build",
     "build:clean": "npm run-script clean && npm run-script build",
     "prerender": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender/index",
+    "prerender-manager": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender/manage",
+    "prerender-worker": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender/work",
     "server": "REACT_APP_ENV=${REACT_APP_ENV:-development} node ./script/entry server/cli",
     "codecov": "codecov -f ./coverage/lcov.info",
     "coverage-report": "open coverage/index.html",
@@ -97,7 +99,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@aws-sdk/client-cloudformation": "^3.43.0",
     "@aws-sdk/client-s3": "^3.44.0",
+    "@aws-sdk/client-sqs": "^3.43.0",
     "@babel/core": "^7.0.0-0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",

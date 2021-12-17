@@ -1,3 +1,4 @@
+import './setup';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { SQSHandler } from 'aws-lambda';
 import Loadable from 'react-loadable';
@@ -12,13 +13,11 @@ import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
-import { renderPages } from '../prerender/contentPages';
+import { renderPages } from './contentPages';
 
 type Payload = Omit<Match<typeof content>, 'route'>;
 
-const s3Client = new S3Client({
-  region: process.env.BUCKET_REGION,
-});
+const s3Client = new S3Client({ region: process.env.BUCKET_REGION });
 
 const saveS3Page = (prefix: string) => (url: string, html: string) => {
   const key = `${prefix}${url}`.replace(/^\/+/, '');

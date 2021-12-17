@@ -1,0 +1,158 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: Rex prerender EC2 spot instance workers
+
+Parameters:
+
+  BucketName:
+    Description: Name of the bucket to store the prerendering output files in
+    Type: String
+    ConstraintDescription: Must be an existing S3 bucket
+
+  ReleaseId:
+    Description: Version of the Rex container to use
+    Type: String
+    ConstraintDescription: Must be an existing Rex container version available in the Rex Web ECR
+
+  ValidUntil:
+    Description: Timestamp for when the EC2 Fleet request expires (prerendering timeout)
+    Type: String
+    AllowedPattern: ^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$
+    ConstraintDescription: Must be a timestamp in the YYYY-MM-DDTHH:MM:SSZ format
+
+Resources:
+
+  DeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      KmsMasterKeyId: alias/aws/sqs
+      QueueName: !Sub ${AWS::StackName}-dlq
+      MessageRetentionPeriod: 1209600
+      VisibilityTimeout: 0
+      # Leads to a circular dependency error with the main queue
+      # RedriveAllowPolicy:
+      #   redrivePermission: byQueue
+      #   sourceQueueArns: !GetAtt Queue.Arn
+
+  Queue:
+    Type: AWS::SQS::Queue
+    Properties:
+      KmsMasterKeyId: alias/aws/sqs
+      QueueName: !Sub ${AWS::StackName}-queue
+      ReceiveMessageWaitTimeSeconds: 3
+      RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
+        maxReceiveCount: 3
+
+  Cluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub ${AWS::StackName}-cluster
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+        - EntryPoint:
+            - worker.bash
+          Environment:
+            - Name: BUCKET_NAME
+              Value: !Ref BucketName
+            - Name: RELEASE_ID
+              Value: !Ref ReleaseId
+            - Name: QUEUE
+              Value: !Ref Queue
+          Image: !Sub
+            - ${URI}:${ReleaseId}
+            - URI: !ImportValue RexWebECRRepositoryURI
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-create-group: true
+              awslogs-group: /rex/prerendering
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: workers
+              mode: non-blocking
+          Memory: 768
+          Name: !Sub ${AWS::StackName}-task-definition
+          WorkingDirectory: rex-web/concourse/prerender
+      Family: Prerendering
+      NetworkMode: host
+
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref Cluster
+      EnableECSManagedTags: true
+      EnableExecuteCommand: true
+      LaunchType: EC2
+      PropagateTags: SERVICE
+      SchedulingStrategy: DAEMON
+      ServiceName: Prerendering
+      TaskDefinition: !Ref TaskDefinition
+
+  LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/sda1
+            Ebs:
+              Encrypted: true
+              VolumeType: gp3
+        IamInstanceProfile:
+          Name: !ImportValue RexPrerenderWorkersInstanceProfileName
+        ImageId: >-
+          {{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id}}
+        InstanceInitiatedShutdownBehavior: terminate
+        InstanceType: t2.micro
+        SecurityGroupIds:
+          - !ImportValue RexPrerenderWorkersSecurityGroupID
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-instance
+              - Key: Project
+                Value: Unified
+              - Key: Application
+                Value: Rex
+              - Key: Environment
+                Value: production
+          - ResourceType: volume
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-instance
+              - Key: Project
+                Value: Unified
+              - Key: Application
+                Value: Rex
+              - Key: Environment
+                Value: production
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash -eu
+
+            set -o pipefail
+
+            cat <<EOF >> /etc/ecs/ecs.config
+            ECS_CLUSTER=${Cluster}
+            ECS_CONTAINER_INSTANCE_PROPAGATE_TAGS_FROM=ec2_instance
+            EOF
+      LaunchTemplateName: !Sub ${AWS::StackName}-launch-template
+
+  Fleet:
+    Type: AWS::EC2::EC2Fleet
+    Properties:
+      LaunchTemplateConfigs:
+        - LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref LaunchTemplate
+            Version: !GetAtt LaunchTemplate.LatestVersionNumber
+      ReplaceUnhealthyInstances: true
+      TargetCapacitySpecification:
+        DefaultTargetCapacityType: spot
+        TargetCapacityUnitType: vcpu
+        TotalTargetCapacity: 2 # So we don't break the bank while testing TODO: Increase
+      Type: maintain
+      ValidUntil: !Ref ValidUntil
