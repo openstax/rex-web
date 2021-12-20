@@ -138,6 +138,7 @@ export const updateQuery = (
 
     return queryString.stringify({...parsedExistingQuery, ...values});
   }
+
   return queryString.stringify(values);
 };
 

@@ -1,3 +1,4 @@
+import * as authSelect from '../../../auth/selectors';
 import { replace } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { AnyMatch } from '../../../navigation/types';
@@ -12,10 +13,10 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const query = navigation.query(state);
   const match = navigation.match(state);
   const loggedOutAndQueryMissingFirstChapter = select.loggedOutAndQueryMissingFirstChapter(state);
-  const loggedInAndQueryMissingLocationIds = select.loggedInAndQueryMissingLocationIds(state);
+  const loggedOut = authSelect.loggedOut(state);
   const summaryFilters = select.summaryFilters(state);
 
-  if (loggedOutAndQueryMissingFirstChapter || loggedInAndQueryMissingLocationIds) {
+  if (loggedOutAndQueryMissingFirstChapter || !loggedOut) {
     services.dispatch(replace(match as AnyMatch, {
       search: updateQuery(summaryFilters as any as Record<string, string[]>, query),
     }));

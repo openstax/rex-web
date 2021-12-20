@@ -122,14 +122,7 @@ export const loggedOutAndQueryMissingFirstChapter = createSelector(
     !logged && firstChapter && !queryFilters.locationIds.includes(firstChapter.id)
 );
 
-export const loggedInAndQueryMissingLocationIds = createSelector(
-  loggedIn,
-  filtersFromQuery,
-  defaultLocationFilter,
-  (logged, queryFilters, defaultFilter) => logged && queryFilters.locationIds.length === 0 && defaultFilter
-);
-
-export const defaultFilters = createSelector(
+const defaultFilters = createSelector(
   loggedIn,
   defaultLocationFilter,
   highlightColorFiltersWithContent,
