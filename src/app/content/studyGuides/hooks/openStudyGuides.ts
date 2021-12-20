@@ -13,11 +13,11 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const match = navigation.match(state);
   const loggedOutAndQueryMissingFirstChapter = select.loggedOutAndQueryMissingFirstChapter(state);
   const loggedInAndQueryMissingLocationIds = select.loggedInAndQueryMissingLocationIds(state);
-  const defaultFilters = select.defaultFilters(state);
+  const summaryFilters = select.summaryFilters(state);
 
   if (loggedOutAndQueryMissingFirstChapter || loggedInAndQueryMissingLocationIds) {
     services.dispatch(replace(match as AnyMatch, {
-      search: updateQuery(defaultFilters as any as Record<string, string[]>, query),
+      search: updateQuery(summaryFilters as any as Record<string, string[]>, query),
     }));
   } else {
     const studyGuides = select.summaryStudyGuides(state);
