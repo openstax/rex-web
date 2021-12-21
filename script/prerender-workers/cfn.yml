@@ -31,7 +31,7 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub ${AWS::StackName}-dlq
+      QueueName: !Sub rex-${ReleaseId}-prerender-dlq
       MessageRetentionPeriod: 1209600
       ReceiveMessageWaitTimeSeconds: 20
       VisibilityTimeout: 0
@@ -46,7 +46,7 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub ${AWS::StackName}-work-queue
+      QueueName: !Sub rex-${ReleaseId}-prerender-work-queue
       ReceiveMessageWaitTimeSeconds: 20
       RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
       RedrivePolicy:
@@ -57,7 +57,7 @@ Resources:
   #  Type: AWS::SQS::Queue
   #  Properties:
   #    KmsMasterKeyId: alias/aws/sqs
-  #    QueueName: !Sub ${AWS::StackName}-sitemap-queue
+  #    QueueName: !Sub rex-${ReleaseId}-prerender-sitemap-queue
   #    ReceiveMessageWaitTimeSeconds: 20
   #    RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
   #    RedrivePolicy:
@@ -100,6 +100,7 @@ Resources:
           WorkingDirectory: rex-web/concourse/prerender
       Family: Prerendering
       NetworkMode: host
+      TaskRoleArn: !ImportValue RexPrerenderWorkersContainerRoleName
 
   Service:
     Type: AWS::ECS::Service
@@ -144,7 +145,7 @@ Resources:
           - ResourceType: volume
             Tags:
               - Key: Name
-                Value: !Sub ${AWS::StackName}-instance
+                Value: !Sub ${AWS::StackName}-volume
               - Key: Project
                 Value: Unified
               - Key: Application
@@ -170,12 +171,28 @@ Resources:
         - LaunchTemplateSpecification:
             LaunchTemplateId: !Ref LaunchTemplate
             Version: !GetAtt LaunchTemplate.LatestVersionNumber
+          Overrides:
+            - SubnetId: !Sub
+                - ${Subnet1}, ${Subnet2}, ${Subnet3}
+                - Subnet1: !ImportValue RexPrerenderWorkersSubnet1ID
+                  Subnet2: !ImportValue RexPrerenderWorkersSubnet2ID
+                  Subnet3: !ImportValue RexPrerenderWorkersSubnet3ID
       ReplaceUnhealthyInstances: true
+      TagSpecifications:
+        - ResourceType: fleet
+          Tags:
+            - Key: Name
+              Value: !Sub ${AWS::StackName}-fleet
+            - Key: Project
+              Value: Unified
+            - Key: Application
+              Value: Rex
+            - Key: Environment
+              Value: production
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
-        TargetCapacityUnitType: vcpu
         TotalTargetCapacity: 2 # So we don't break the bank while testing TODO: Increase
-      Type: maintain
+      TerminateInstancesWithExpiration: true
       ValidUntil: !Ref ValidUntil
 
 Outputs:

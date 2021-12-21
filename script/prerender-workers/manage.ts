@@ -15,6 +15,7 @@ import {
   SQSClient,
 } from '@aws-sdk/client-sqs';
 import fetch from 'node-fetch';
+import path from 'path';
 import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
 import asyncPool from 'tiny-async-pool';
@@ -24,6 +25,7 @@ import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { OSWebBook } from '../../src/gateways/createOSWebLoader';
+import { readFile } from '../../src/helpers/fileUtils';
 import { startServer, Server } from '../server';
 import {
   getStats,
@@ -43,8 +45,9 @@ const {
   RELEASE_ID,
 } = config;
 
-const WORKERS_STACK_NAME = `rex-${RELEASE_ID}-prerender-workers`;
-const WORKERS_STACK_TIMEOUT_SECONDS = 300;
+const SANITIZED_RELEASE_ID = RELEASE_ID.replace('/', '-');
+const WORKERS_STACK_NAME = `rex-${SANITIZED_RELEASE_ID}-prerender-workers`;
+const WORKERS_DEPLOY_TIMEOUT_SECONDS = 180;
 const PRERENDER_TIMEOUT_SECONDS = 300;
 const MAX_CONCURRENT_BOOK_TOCS = 10;
 
@@ -90,6 +93,8 @@ async function createWorkersStack() {
   // Set the timeoutDate, used also by manage()
   timeoutDate = new Date(1000 * PRERENDER_TIMEOUT_SECONDS + new Date().getTime());
 
+  console.log(`Creating workers stack (not waiting); timeout at ${timeoutDate}`);
+
   return cfnClient.send(new CreateStackCommand({
     Parameters: [
       {
@@ -97,8 +102,12 @@ async function createWorkersStack() {
         ParameterValue: process.env.BUCKET_NAME,
       },
       {
+        ParameterKey: 'BucketRegion',
+        ParameterValue: process.env.BUCKET_REGION,
+      },
+      {
         ParameterKey: 'ReleaseId',
-        ParameterValue: RELEASE_ID,
+        ParameterValue: SANITIZED_RELEASE_ID,
       },
       {
         ParameterKey: 'ValidUntil',
@@ -106,11 +115,19 @@ async function createWorkersStack() {
       },
     ],
     StackName: WORKERS_STACK_NAME,
-    TemplateURL: 'file://cfn.yml',
+    Tags: [
+      {Key: 'Project', Value: 'Unified'},
+      {Key: 'Application', Value: 'Rex'},
+      {Key: 'Environment', Value: 'shared'},
+      {Key: 'Owner', Value: 'dante'},
+    ],
+    TemplateBody: readFile(path.join(__dirname, 'cfn.yml')),
   }));
 }
 
 async function deleteWorkersStack() {
+  console.log('Deleting workers stack (not waiting)');
+
   return cfnClient.send(new DeleteStackCommand({StackName: WORKERS_STACK_NAME}));
 }
 
@@ -158,19 +175,29 @@ async function manage() {
     cache: createDiskCache<string, OSWebBook | undefined>('osweb'),
   });
 
+  console.log('Starting openstax.org proxy server');
+
   server = (await startServer({port, onlyProxy: true})).server;
 
+  console.log('Preparing books');
+
   const books = await prepareBooks(archiveLoader, osWebLoader);
+
+  console.log('Starting queuing threads');
 
   // We can start fetching book ToCs while the stack is created,
   // but we need a limit so we don't use up all the memory
   const queuePromise = asyncPool(MAX_CONCURRENT_BOOK_TOCS, books, queueBookPages);
 
+  console.log('Waiting for the workers stack to be created');
+
   // Wait for the workers stack to be ready
   await waitUntilStackCreateComplete(
-    {client: cfnClient, maxWaitTime: WORKERS_STACK_TIMEOUT_SECONDS, minDelay: 10, maxDelay: 10},
+    {client: cfnClient, maxWaitTime: WORKERS_DEPLOY_TIMEOUT_SECONDS, minDelay: 10, maxDelay: 10},
     {StackName: WORKERS_STACK_NAME}
   );
+
+  console.log('Retrieving queue URLs');
 
   // Get the queue URLs
   const describeStacksResult = await cfnClient.send(new DescribeStacksCommand({
@@ -202,11 +229,15 @@ async function manage() {
     }
   }
 
+  console.log('Begin queuing prerendering jobs; waiting for all jobs to be queued');
+
   // Let the queuing begin
   queuesAreReady = true;
 
   // Wait for all book pages to be queued
   await queuePromise;
+
+  console.log('All prerendering jobs queued; waiting 1 minute for queue attributes to stabilize');
 
   // TODO: Code between this comment and ENDTODO can maybe be removed
   // if the manager ends up processing the sitemap index and checks the page count there
@@ -217,6 +248,8 @@ async function manage() {
   // First wait 1 minute after sending the last message for the queue attributes to stabilize
   // This is required according to SQS docs
   await new Promise((resolve) => setTimeout(resolve, 60000));
+
+  console.log('Waiting for the work queue to be empty');
 
   // Now check that all the NumberOfMessages attributes are 0
   let workQueueEmpty = false;
@@ -238,6 +271,8 @@ async function manage() {
                      attributes['ApproximateNumberOfMessagesDelayed'] === '0' &&
                      attributes['ApproximateNumberOfMessagesNotVisible'] === '0';
   } while (!workQueueEmpty);
+
+  console.log('Ensuring that the dead letter queue is empty');
 
   // Ensure that the dead letter queue is also empty
   // Since we are the only consumer of the dead letter queue, we use long polling to check
@@ -311,12 +346,15 @@ async function manage() {
 }
 
 async function cleanup() {
+  console.log('Deleting workers stack');
+
   // Proceed with other tasks while the stack deletes
   await deleteWorkersStack();
 
-  console.log('Sitemap not implemented yet');
+  console.log('TODO: sitemap');
+
   // Render all the sitemaps
-  /* TODO: sitemap
+  /*
   for (const bookSlug in bookSitemaps) {
     renderSitemap(bookSlug, bookSitemaps[bookSlug]);
   }
