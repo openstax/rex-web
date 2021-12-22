@@ -68,7 +68,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
 
     if (this.props.searchHighlights.selectedResult) {
-      this.searchHighlightManager.update({searchResults: [], selectedResult: null}, this.props.searchHighlights, {
+      this.searchHighlightManager.update(null, this.props.searchHighlights, {
         forceRedraw: true,
         onSelect: this.onSearchHighlightSelect,
       });
