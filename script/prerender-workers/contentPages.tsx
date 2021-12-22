@@ -131,17 +131,17 @@ type MakeRenderPage = (services: AppOptions['services'], savePage: (uri: string,
 const makeRenderPage: MakeRenderPage = (services, savePage) => async({code, route}) => {
 
   if (!route.state || !('bookUid' in route.state)) {
-    throw new Error('match state wasn\'t defined, it should have been');
+    throw new Error('Match state wasn\'t defined, it should have been');
   }
 
   const {bookUid, bookVersion, pageUid} = route.state;
   const archivePage = assertDefined(
     await services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load(),
-    'page wasn\'t cached, it should have been'
+    'Page wasn\'t cached, it should have been'
   );
 
   const {app, styles, state, url} = await prepareApp(services, route, code);
-  console.info(`rendering ${url}`); // tslint:disable-line:no-console
+  console.info(`Rendering ${url}`); // tslint:disable-line:no-console
 
   const timer = minuteCounter();
   const html = await renderHtml(styles, app, state);

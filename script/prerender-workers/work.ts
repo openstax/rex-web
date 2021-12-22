@@ -30,7 +30,6 @@ const {
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
   REACT_APP_SEARCH_URL,
-  RELEASE_ID,
 } = config;
 
 type Payload = Omit<Match<typeof content>, 'route'>;
@@ -39,9 +38,11 @@ const sqsClient = new SQSClient({ region: process.env.WORK_REGION });
 const s3Client = new S3Client({ region: process.env.BUCKET_REGION });
 
 const saveS3Page = (url: string, html: string) => {
-  const key = `/rex/releases/${RELEASE_ID}/${url}`;
+  let path = process.env.PUBLIC_URL;
+  if (path[0] === '/') path = path.slice(1);
+  const key = `${path}${url}`;
 
-  console.log('writing s3 file: ', key);
+  console.log(`Writing s3 file: /${key}`);
 
   return s3Client.send(new PutObjectCommand({
     Body: html,
@@ -53,6 +54,8 @@ const saveS3Page = (url: string, html: string) => {
 };
 
 async function work() {
+  console.log('Initializing worker');
+
   await Loadable.preloadAll();
   const port = await portfinder.getPortPromise();
   const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
@@ -64,6 +67,8 @@ async function work() {
   const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`, {
     cache: createDiskCache<string, OSWebBook | undefined>('osweb'),
   });
+
+  console.log('Starting openstax.org proxy server');
 
   // We never close this server it just dies when the worker is terminated
   await startServer({port, onlyProxy: true});
@@ -94,27 +99,36 @@ async function work() {
     QueueUrl: process.env.WORK_QUEUE_URL,
   });
 
+  console.log(`Bucket: ${process.env.BUCKET_NAME} (${process.env.BUCKET_REGION})`);
+
   while (true) {
-    // Listen to the queue for work
+    console.log(`Listening to ${process.env.WORK_QUEUE_URL} for work`);
+
     const receiveMessageResult = await sqsClient.send(receiveMessageCommand);
 
     const messages = receiveMessageResult.Messages;
 
-    if (!messages) throw new Error('SQS returned something weird (missing messages)');
+    if (!messages) {
+      throw new Error('[SQS] [ReceiveMessage] Unexpected response: missing Messages key');
+    }
 
-    console.log(`received messages: ${JSON.stringify(messages)}`);
+    console.log(`Parsing ${messages.length} received messages`);
 
     const pages: Array<{route: Match<typeof content>, code: number}> = [];
     const entries: Array<{Id: string, ReceiptHandle: string}> = [];
     messages.forEach((message, messageIndex) => {
       const body = message.Body;
 
-      if (!body) throw new Error('SQS returned something weird (missing message body)');
+      if (!body) {
+        throw new Error('[SQS] [ReceiveMessage] Unexpected response: message missing Body key');
+      }
 
       const receiptHandle = message.ReceiptHandle;
 
       if (!receiptHandle) {
-        throw new Error('SQS returned something weird (missing message receipt handle)');
+        throw new Error(
+          '[SQS] [ReceiveMessage] Unexpected response: message missing ReceiptHandle key'
+        );
       }
 
       const payload = JSON.parse(body) as Payload;
@@ -122,10 +136,12 @@ async function work() {
       entries.push({Id: messageIndex.toString(), ReceiptHandle: receiptHandle});
     });
 
-    console.log(`rendering ${pages.length} pages`);
+    console.log(`Rendering ${pages.length} pages`);
 
     // const sitemaps =
     await renderPages(services, pages, saveS3Page);
+
+    console.log(`Deleting ${messages.length} messages`);
 
     // Delete successfully processed messages from the queue
     await sqsClient.send(new DeleteMessageBatchCommand({

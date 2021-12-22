@@ -40,7 +40,7 @@ ignoreStyles(DEFAULT_EXTENSIONS, (mod, filename) => {
       // and inline it again here
       const fileContent = fs.readFileSync(filename);
       const mimetype = mime.getType(filename);
-      mod.exports = `data:${mimetype || ''};base64,${new Buffer(fileContent).toString('base64')}`;
+      mod.exports = `data:${mimetype || ''};base64,${Buffer.from(fileContent).toString('base64')}`;
     }
   }
 });

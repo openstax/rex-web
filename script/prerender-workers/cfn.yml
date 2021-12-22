@@ -14,10 +14,19 @@ Parameters:
     Type: String
     ConstraintDescription: Must be a valid AWS region name
 
-  ReleaseId:
-    Description: Version of the Rex container to use
+  CodeVersion:
+    Description: Code version to use, e.g. "v4"
     Type: String
-    ConstraintDescription: Must be an existing Rex container version available in the Rex Web ECR
+
+  PublicUrl:
+    Description: Public URL to use, e.g. "/rex/releases/${CodeVersion}/${ReleaseIdSuffix}"
+    Type: String
+    ConstraintDescription: Must be a path starting with /
+
+  ReleaseIdSuffix:
+    Description: Release ID suffix to use, e.g. part of some git hash
+    Type: String
+    ConstraintDescription: Must be the last part of the Release ID, without the CodeVersion
 
   ValidUntil:
     Description: Timestamp for when the EC2 Fleet request expires (prerendering timeout)
@@ -31,7 +40,7 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub rex-${ReleaseId}-prerender-dlq
+      QueueName: !Sub rex-${CodeVersion}-${ReleaseIdSuffix}-prerender-dlq
       MessageRetentionPeriod: 1209600
       ReceiveMessageWaitTimeSeconds: 20
       VisibilityTimeout: 0
@@ -46,7 +55,7 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub rex-${ReleaseId}-prerender-work-queue
+      QueueName: !Sub rex-${CodeVersion}-${ReleaseIdSuffix}-prerender-work-queue
       ReceiveMessageWaitTimeSeconds: 20
       RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
       RedrivePolicy:
@@ -57,7 +66,7 @@ Resources:
   #  Type: AWS::SQS::Queue
   #  Properties:
   #    KmsMasterKeyId: alias/aws/sqs
-  #    QueueName: !Sub rex-${ReleaseId}-prerender-sitemap-queue
+  #    QueueName: !Sub rex-${CodeVersion}-${ReleaseIdSuffix}-prerender-sitemap-queue
   #    ReceiveMessageWaitTimeSeconds: 20
   #    RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
   #    RedrivePolicy:
@@ -73,31 +82,38 @@ Resources:
     Type: AWS::ECS::TaskDefinition
     Properties:
       ContainerDefinitions:
-        - EntryPoint:
-            - worker.bash
+        - Command:
+            - prerender:work
+          EntryPoint:
+            - yarn
           Environment:
             - Name: BUCKET_NAME
               Value: !Ref BucketName
             - Name: BUCKET_REGION
               Value: !Ref BucketRegion
+            - Name: PUBLIC_URL
+              Value: !Ref PublicUrl
+            - Name: REACT_APP_CODE_VERSION
+              Value: !Ref CodeVersion
+            - Name: REACT_APP_RELEASE_ID
+              Value: !Sub ${CodeVersion}/${ReleaseIdSuffix}
             - Name: WORK_QUEUE_URL
               Value: !Ref WorkQueue
             - Name: WORK_REGION
               Value: !Ref AWS::Region
           Image: !Sub
-            - ${URI}:${ReleaseId}
+            - ${URI}:${CodeVersion}-${ReleaseIdSuffix}
             - URI: !ImportValue RexWebECRRepositoryURI
           LogConfiguration:
             LogDriver: awslogs
             Options:
               awslogs-create-group: true
-              awslogs-group: /rex/prerendering
+              awslogs-group: /rex/prerender
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: workers
               mode: non-blocking
           Memory: 768
           Name: !Sub ${AWS::StackName}-task-definition
-          WorkingDirectory: rex-web/concourse/prerender
       Family: Prerendering
       NetworkMode: host
       TaskRoleArn: !ImportValue RexPrerenderWorkersContainerRoleName
@@ -119,7 +135,7 @@ Resources:
     Properties:
       LaunchTemplateData:
         BlockDeviceMappings:
-          - DeviceName: /dev/sda1
+          - DeviceName: /dev/xvda
             Ebs:
               Encrypted: true
               VolumeType: gp3
@@ -200,17 +216,11 @@ Outputs:
   WorkQueueUrl:
     Description: The work queue's SQS endpoint URL
     Value: !Ref WorkQueue
-    Export:
-      Name: !Sub ${AWS::StackName}-work-queue-url
 
   #SitemapQueueUrl:
   #  Description: The sitemap queue's SQS endpoint URL
   #  Value: !Ref SitemapQueue
-  #  Export:
-  #    Name: !Sub ${AWS::StackName}-sitemap-queue-url
 
   DeadLetterQueueUrl:
     Description: The dead letter queue's SQS endpoint URL
     Value: !Ref DeadLetterQueue
-    Export:
-      Name: !Sub ${AWS::StackName}-dead-letter-queue-url
