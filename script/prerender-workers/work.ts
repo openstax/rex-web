@@ -3,33 +3,32 @@ import './setup';
 
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { DeleteMessageBatchCommand, ReceiveMessageCommand, SQSClient } from '@aws-sdk/client-sqs';
-import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
 import { content } from '../../src/app/content/routes';
-import { ArchiveBook, ArchivePage } from '../../src/app/content/types';
 import { Match } from '../../src/app/navigation/types';
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
-import { BuyPrintResponse } from '../../src/gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
-import { OSWebBook } from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
-import { startServer } from '../server';
 import { renderPages } from './contentPages';
-import { createDiskCache } from './fileUtils';
 
 const {
+  ACCOUNTS_URL,
+  ARCHIVE_URL,
+  HIGHLIGHTS_URL,
+  OS_WEB_URL,
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_ARCHIVE_URL,
   REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
   REACT_APP_SEARCH_URL,
+  SEARCH_URL,
 } = config;
 
 type Payload = Omit<Match<typeof content>, 'route'>;
@@ -39,7 +38,7 @@ const s3Client = new S3Client({ region: process.env.BUCKET_REGION });
 
 const saveS3Page = (url: string, html: string) => {
   let path = process.env.PUBLIC_URL;
-  if (path[0] === '/') path = path.slice(1);
+  if (path[0] === '/') { path = path.slice(1); }
   const key = `${path}${url}`;
 
   console.log(`Writing s3 file: /${key}`);
@@ -57,28 +56,16 @@ async function work() {
   console.log('Initializing worker');
 
   await Loadable.preloadAll();
-  const port = await portfinder.getPortPromise();
+
   const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
     appPrefix: '',
-    archivePrefix: `http://localhost:${port}`,
-    bookCache: createDiskCache<string, ArchiveBook>('archive-books'),
-    pageCache: createDiskCache<string, ArchivePage>('archive-pages'),
+    archivePrefix: ARCHIVE_URL,
   });
-  const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`, {
-    cache: createDiskCache<string, OSWebBook | undefined>('osweb'),
-  });
-
-  console.log('Starting openstax.org proxy server');
-
-  // We never close this server it just dies when the worker is terminated
-  await startServer({port, onlyProxy: true});
-
-  const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
-  const searchClient = createSearchClient(`http://localhost:${port}${REACT_APP_SEARCH_URL}`);
-  const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
-  const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL, {
-    cache: createDiskCache<string, BuyPrintResponse>('buy-print'),
-  });
+  const osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
+  const userLoader = createUserLoader(`${ACCOUNTS_URL}${REACT_APP_ACCOUNTS_URL}`);
+  const searchClient = createSearchClient(`${SEARCH_URL}${REACT_APP_SEARCH_URL}`);
+  const highlightClient = createHighlightClient(`${HIGHLIGHTS_URL}${REACT_APP_HIGHLIGHTS_URL}`);
+  const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const bookConfigLoader = createBookConfigLoader();
 
@@ -110,10 +97,10 @@ async function work() {
 
     const numMessages = messages.length;
 
-    if (numMessages == 0) {
-      console.log('Received no messages, waiting 10 seconds to retry')
+    if (numMessages === 0) {
+      console.log('Received no messages, waiting 10 seconds to retry');
 
-      await new Promise(r => setTimeout(r, 10000));
+      await new Promise((r) => setTimeout(r, 10000));
 
       continue;
     }

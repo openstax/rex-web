@@ -17,17 +17,14 @@ import {
 import omit from 'lodash/fp/omit';
 import fetch from 'node-fetch';
 import path from 'path';
-import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
 import asyncPool from 'tiny-async-pool';
-import { ArchiveBook, ArchivePage, BookWithOSWebData } from '../../src/app/content/types';
+import { BookWithOSWebData } from '../../src/app/content/types';
 import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
-import { OSWebBook } from '../../src/gateways/createOSWebLoader';
 import { readFile } from '../../src/helpers/fileUtils';
-import { startServer, Server } from '../server';
 import {
   getStats,
   minuteCounter,
@@ -36,11 +33,13 @@ import {
   stats
 } from './contentPages';
 import createRedirects from './createRedirects';
-import { createDiskCache, writeAssetFile } from './fileUtils';
-//import { renderSitemap, renderSitemapIndex } from './sitemap';
+import { writeAssetFile } from './fileUtils';
+// import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 const {
+  ARCHIVE_URL,
   CODE_VERSION,
+  OS_WEB_URL,
   REACT_APP_ARCHIVE_URL,
   REACT_APP_OS_WEB_API_URL,
   RELEASE_ID,
@@ -52,7 +51,7 @@ const WORKERS_DEPLOY_TIMEOUT_SECONDS = 120;
 
 const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
 const BUCKET_REGION = process.env.BUCKET_REGION || 'us-east-1';
-const PUBLIC_URL = process.env.PUBLIC_URL || `/rex/releases/${CODE_VERSION}/${RELEASE_ID_SUFFIX}`;
+const PUBLIC_URL = process.env.PUBLIC_URL || `/rex/releases/${RELEASE_ID}`;
 const RELEASE_ID_SUFFIX = RELEASE_ID.split('/', 2)[1];
 const WORK_REGION = process.env.WORK_REGION || 'us-east-2';
 const WORKERS_STACK_NAME = `rex-${CODE_VERSION}-${RELEASE_ID_SUFFIX}-prerender-workers`;
@@ -72,16 +71,15 @@ const sqsClient = new SQSClient({ region: WORK_REGION });
 
 let archiveLoader: ReturnType<typeof createArchiveLoader>;
 let osWebLoader: ReturnType<typeof createOSWebLoader>;
-let server: Server;
 
 let workQueueUrl = '';
-//let sitemapQueueUrl = '';
+// let sitemapQueueUrl = '';
 let deadLetterQueueUrl = '';
 let queuesAreReady = false;
 
-let timeoutDate;
+let timeoutDate: Date;
 let numPages = 0;
-//const bookSitemaps = {};
+// const bookSitemaps = {};
 
 async function renderManifest() {
   writeAssetFile('/rex/release.json', JSON.stringify({
@@ -149,12 +147,12 @@ async function deleteWorkersStack() {
 async function queueBookPages(book: BookWithOSWebData) {
   console.log(`[${book.title}] Preparing book pages`);
 
-  const pages = await prepareBookPages(book)
+  const pages = await prepareBookPages(book);
   const numBookPages = pages.length;
   numPages += numBookPages;
 
   // If the workers stack is not ready yet, wait 100ms and re-check
-  while (!queuesAreReady) await new Promise(r => setTimeout(r, 100));
+  while (!queuesAreReady) { await new Promise((r) => setTimeout(r, 100)); }
 
   console.log(`[${book.title}] Queuing ${numBookPages} book pages in batches of 10`);
 
@@ -193,20 +191,12 @@ async function manage() {
   console.log('Initializing manager');
 
   await Loadable.preloadAll();
-  const port = await portfinder.getPortPromise();
+
   archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
     appPrefix: '',
-    archivePrefix: `http://localhost:${port}`,
-    bookCache: createDiskCache<string, ArchiveBook>('archive-books'),
-    pageCache: createDiskCache<string, ArchivePage>('archive-pages'),
+    archivePrefix: ARCHIVE_URL,
   });
-  osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`, {
-    cache: createDiskCache<string, OSWebBook | undefined>('osweb'),
-  });
-
-  console.log('Starting openstax.org proxy server');
-
-  server = (await startServer({port, onlyProxy: true})).server;
+  osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
 
   console.log('Preparing all books');
 
@@ -219,7 +209,7 @@ async function manage() {
   const queuePromise = asyncPool(MAX_CONCURRENT_BOOK_TOCS, books, queueBookPages);
 
   // Just to make the message below print after the book queuing messages
-  await new Promise(r => setTimeout(r, 0));
+  await new Promise((r) => setTimeout(r, 0));
 
   console.log('Waiting for the workers stack to be created');
 
@@ -243,7 +233,7 @@ async function manage() {
 
   const stack = describeStacksResult.Stacks[0];
 
-  if (!stack) throw new Error(`${WORKERS_STACK_NAME} stack not found`);
+  if (!stack) { throw new Error(`${WORKERS_STACK_NAME} stack not found`); }
 
   if (!stack.Outputs) {
     throw new Error('[CFN] [DescribeStacks] Unexpected response: missing stack Outputs key');
@@ -259,7 +249,7 @@ async function manage() {
         workQueueUrl = output.OutputValue;
         break;
       case 'SitemapQueueUrl':
-        //sitemapQueueUrl = output.OutputValue;
+        // sitemapQueueUrl = output.OutputValue;
         break;
       case 'DeadLetterQueueUrl':
         deadLetterQueueUrl = output.OutputValue;
@@ -308,7 +298,6 @@ async function manage() {
   console.log('Waiting for the work queue to be empty');
 
   // Now check that all the NumberOfMessages attributes are 0
-  let workQueueIsEmpty = false;
   const getQueueAttributesCommand = new GetQueueAttributesCommand({
     AttributeNames: [
       'ApproximateNumberOfMessages',
@@ -325,11 +314,11 @@ async function manage() {
       throw new Error('[SQS] [GetQueueAttributes] Unexpected response: missing Attributes key');
     }
 
-    const numMessages = parseInt(attributes['ApproximateNumberOfMessages'], 10) +
-      parseInt(attributes['ApproximateNumberOfMessagesDelayed'], 10) +
-      parseInt(attributes['ApproximateNumberOfMessagesNotVisible'], 10);
+    const numMessages = parseInt(attributes.ApproximateNumberOfMessages, 10) +
+      parseInt(attributes.ApproximateNumberOfMessagesDelayed, 10) +
+      parseInt(attributes.ApproximateNumberOfMessagesNotVisible, 10);
 
-    if (numMessages === 0) break;
+    if (numMessages === 0) { break; }
 
     console.log(`${numMessages}/${numPages} prerendering jobs remaining`);
 
@@ -440,8 +429,6 @@ async function cleanup() {
 
   console.log(`Prerender complete. Rendered ${numPages} pages, ${numPages / elapsedMinutes}ppm`);
 
-  server.close();
-
   // TODO: Wait for the stack to delete and fail the build if it fails to delete?
   //       We can do it to get notified and prevent having a bunch of failed delete stacks,
   //       but for the purposes of the build itself we are already done
@@ -449,7 +436,7 @@ async function cleanup() {
 
 // Start creating the worker stack first since it takes a while
 // Do not wait for the stack creation to complete since we have other tasks to do first
-createWorkersStack().then(() => manage().catch(async (e) => {
+createWorkersStack().then(() => manage().catch(async(e) => {
   // catch for manage() only
   // Do not wait for the stack deletion to complete since we can't handle a delete failure anyway
   await deleteWorkersStack();
