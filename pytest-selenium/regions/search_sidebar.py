@@ -18,7 +18,8 @@ class SearchSidebar(Region):
 
     _close_sidebar_locator = (By.CSS_SELECTOR, "[class*=CloseIconButton]")
     _no_results_locator = (By.CSS_SELECTOR, "[class*=SearchQueryAlignment]")
-    _result_option_locator = (By.CSS_SELECTOR, "a")
+    _chapter_result_option_locator = (By.CSS_SELECTOR, "li a")
+    _rkt_result_option_locator = (By.CSS_SELECTOR, "div a")
     _search_result_locator = (By.CSS_SELECTOR, "[data-testid$=result]")
     _search_results_sidebar_locator = (
         By.XPATH,
@@ -48,7 +49,7 @@ class SearchSidebar(Region):
                 VISIBILITY, self.close_search_sidebar_button))
 
     @property
-    def results(self) -> List[WebElement]:
+    def chapter_results(self) -> List[WebElement]:
         """Return the list of search results.
 
         :return: the list of book pages containing some or all of the search
@@ -56,11 +57,51 @@ class SearchSidebar(Region):
         :rtype: list(WebElement)
 
         """
-        return self.find_elements(*self._result_option_locator)
+        return self.find_elements(*self._chapter_result_option_locator)
 
     @property
-    def search_result_total(self):
-        return len(self.results)
+    def chapter_search_result_total(self):
+        return len(self.chapter_results)
+
+    # fmt: on
+
+    @property
+    def is_displayed(self):
+        try:
+            return self.root.is_displayed()
+        except NoSuchElementException:
+            return False
+
+    @property
+    def rkt_results(self) -> List[WebElement]:
+        """Return the list of search results.
+
+        :return: the list of book pages containing some or all of the search
+            terms
+        :rtype: list(WebElement)
+
+        """
+        return self.find_elements(*self._rkt_result_option_locator)
+
+    @property
+    def rkt_search_result_total(self):
+        return len(self.rkt_results)
+
+    @property
+    def search_results_sidebar(self):
+        return self.find_element(*self._search_results_sidebar_locator)
+
+    @property
+    def search_results_present(self):
+        return self.wait.until(
+            expected.visibility_of_element_located(self._search_results_sidebar_locator)
+        )
+
+    @property
+    def search_results_not_displayed(self):
+        return self.wait.until(
+            expected.invisibility_of_element_located(self.search_results_sidebar)
+        )
 
     def search_results(self, term: str = "") -> List[WebElement]:
         """Return the search results from search sidebar.
@@ -80,34 +121,8 @@ class SearchSidebar(Region):
             try:
                 return [
                     result
-                    for result
-                    in self.find_elements(*self._search_result_locator)
+                    for result in self.find_elements(*self._search_result_locator)
                     if x in result.get_attribute("textContent")
                 ]
             except IndexError:
                 continue
-
-    # fmt: on
-
-    @property
-    def is_displayed(self):
-        try:
-            return self.root.is_displayed()
-        except NoSuchElementException:
-            return False
-
-    @property
-    def search_results_sidebar(self):
-        return self.find_element(*self._search_results_sidebar_locator)
-
-    @property
-    def search_results_present(self):
-        return self.wait.until(
-            expected.visibility_of_element_located(self._search_results_sidebar_locator)
-        )
-
-    @property
-    def search_results_not_displayed(self):
-        return self.wait.until(
-            expected.invisibility_of_element_located(self.search_results_sidebar)
-        )
