@@ -183,7 +183,6 @@ describe('Filters', () => {
 
   it('dispatches history replace on selecting colors and chapters', () => {
     const chapter = findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid')!;
-
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     // set summary filters
@@ -204,7 +203,6 @@ describe('Filters', () => {
     }));
 
     store.dispatch(openStudyGuides());
-
     dispatch.mockClear();
 
     const component = renderer.create(<TestContainer services={services} store={store}>
