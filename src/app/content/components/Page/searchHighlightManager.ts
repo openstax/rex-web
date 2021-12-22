@@ -72,7 +72,7 @@ const selectResult = (services: Services, previous: HighlightProp | null, curren
     firstSelectedHighlight.addFocusedStyles();
   }
 
-  if (previous.selectedResult === current.selectedResult) { return; }
+  if (previous && previous.selectedResult === current.selectedResult) { return; }
 
   if (firstSelectedHighlight) {
     allImagesLoaded(services.container).then(
@@ -84,7 +84,7 @@ const selectResult = (services: Services, previous: HighlightProp | null, curren
 };
 
 const handleUpdate = (services: Services) => (
-  previous: HighlightProp,
+  previous: HighlightProp | null,
   current: HighlightProp,
   options: UpdateOptions
 ) => {
