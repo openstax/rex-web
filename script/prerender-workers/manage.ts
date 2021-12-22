@@ -47,7 +47,7 @@ const {
 } = config;
 
 const MAX_CONCURRENT_BOOK_TOCS = 10;
-const PRERENDER_TIMEOUT_SECONDS = 600;
+const PRERENDER_TIMEOUT_SECONDS = 1980;
 const WORKERS_DEPLOY_TIMEOUT_SECONDS = 120;
 
 const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
@@ -352,11 +352,8 @@ async function manage() {
     MaxNumberOfMessages: 10,
     QueueUrl: deadLetterQueueUrl,
   }));
-  const dlqMessages = receiveDLQMessageResult.Messages;
 
-  if (!dlqMessages) {
-    throw new Error('[SQS] [ReceiveMessage] Unexpected response: missing Messages key');
-  }
+  const dlqMessages = receiveDLQMessageResult.Messages || [];
 
   if (dlqMessages.length > 0) {
     throw new Error(`Received ${dlqMessages.length} messages from the dead letter queue: ${

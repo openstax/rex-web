@@ -106,13 +106,19 @@ async function work() {
 
     const receiveMessageResult = await sqsClient.send(receiveMessageCommand);
 
-    const messages = receiveMessageResult.Messages;
+    const messages = receiveMessageResult.Messages || [];
 
-    if (!messages) {
-      throw new Error('[SQS] [ReceiveMessage] Unexpected response: missing Messages key');
+    const numMessages = messages.length;
+
+    if (numMessages == 0) {
+      console.log('Received no messages, waiting 10 seconds to retry')
+
+      await new Promise(r => setTimeout(r, 10000));
+
+      continue;
     }
 
-    console.log(`Parsing ${messages.length} received messages`);
+    console.log(`Parsing ${numMessages} received messages`);
 
     const pages: Array<{route: Match<typeof content>, code: number}> = [];
     const entries: Array<{Id: string, ReceiptHandle: string}> = [];
