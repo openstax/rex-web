@@ -36,14 +36,14 @@ type Payload = Omit<Match<typeof content>, 'route'>;
 const sqsClient = new SQSClient({ region: process.env.WORK_REGION });
 const s3Client = new S3Client({ region: process.env.BUCKET_REGION });
 
-const saveS3Page = (url: string, html: string) => {
+const saveS3Page = async (url: string, html: string) => {
   let path = process.env.PUBLIC_URL;
   if (path[0] === '/') { path = path.slice(1); }
   const key = `${path}${url}`;
 
   console.log(`Writing s3 file: /${key}`);
 
-  return s3Client.send(new PutObjectCommand({
+  return await s3Client.send(new PutObjectCommand({
     Body: html,
     Bucket: process.env.BUCKET_NAME,
     CacheControl: 'max-age=0',
@@ -98,7 +98,7 @@ async function work() {
     const numMessages = messages.length;
 
     if (numMessages === 0) {
-      console.log('Received no messages, waiting 10 seconds to retry');
+      console.log('Received no messages; waiting 10 seconds to retry');
 
       await new Promise((r) => setTimeout(r, 10000));
 

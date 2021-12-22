@@ -100,7 +100,7 @@ async function createWorkersStack() {
   console.log(`Prerender timeout set to ${timeoutDate}`);
   console.log('Creating workers stack (not waiting)');
 
-  return cfnClient.send(new CreateStackCommand({
+  return await cfnClient.send(new CreateStackCommand({
     Parameters: [
       {
         ParameterKey: 'BucketName',
@@ -141,7 +141,7 @@ async function createWorkersStack() {
 async function deleteWorkersStack() {
   console.log('Deleting workers stack (not waiting)');
 
-  return cfnClient.send(new DeleteStackCommand({StackName: WORKERS_STACK_NAME}));
+  return await cfnClient.send(new DeleteStackCommand({StackName: WORKERS_STACK_NAME}));
 }
 
 async function queueBookPages(book: BookWithOSWebData) {
