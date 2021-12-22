@@ -34,6 +34,10 @@ const StudyGuides = ({ className }: { className: string }) => {
   const container = React.useRef<HTMLElement>(null);
   const services = useServices();
 
+  React.useEffect(() => {
+    console.log('ordered: ', orderedStudyGuides && orderedStudyGuides[0]?.pages[0]);
+  }, [orderedStudyGuides]);
+
   React.useLayoutEffect(() => {
     if (container.current) {
       services.promiseCollector.add(allImagesLoaded(container.current));
