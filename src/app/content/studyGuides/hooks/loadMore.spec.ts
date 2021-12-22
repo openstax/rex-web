@@ -138,7 +138,6 @@ describe('loadMore', () => {
       },
     };
 
-    const filters = summaryFilters(store.getState());
     await hook(loadMoreStudyGuides());
 
     expect(highlightClient).lastCalledWith(expect.objectContaining({
@@ -147,7 +146,6 @@ describe('loadMore', () => {
       sourceIds: ['testbook1-testpage2-uuid', 'testbook1-testpage11-uuid'],
     }));
     expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response, {
-      filters,
       pagination: {
         page: 1,
         perPage: maxHighlightsApiPageSize,

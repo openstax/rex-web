@@ -229,7 +229,13 @@ describe('Filters', () => {
       })
     );
 
-    dispatch.mockClear();
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        // tslint:disable-next-line:max-line-length
+        search: `?colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=SG`,
+      },
+    } as any));
 
     renderer.act(() => {
       yellowCheckbox.props.onChange();
