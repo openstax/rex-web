@@ -42,7 +42,7 @@ virtualenv==20.12.1
 wcwidth==0.2.5
 zipp==3.7.0
 zope.component==5.0.1
-zope.deferredimport==4.3.1
+zope.deferredimport==4.4
 zope.deprecation==4.4.0
 zope.event==4.5.0
 zope.hookable==5.1.0
