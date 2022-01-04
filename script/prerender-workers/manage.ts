@@ -145,7 +145,7 @@ async function deleteWorkersStack() {
 }
 
 async function queueBookPages(book: BookWithOSWebData) {
-  // if (book.slug !== 'college-physics') return;
+  //if (book.slug !== 'college-physics') { return; }
   console.log(`[${book.title}] Preparing book pages`);
 
   const pages = await prepareBookPages(book);
@@ -189,7 +189,7 @@ async function queueBookPages(book: BookWithOSWebData) {
 }
 
 async function manage() {
-  console.log('Initializing manager');
+  console.log('Preloading routes');
 
   await Loadable.preloadAll();
 

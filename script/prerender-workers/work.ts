@@ -3,6 +3,7 @@ import './setup';
 
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { DeleteMessageBatchCommand, ReceiveMessageCommand, SQSClient } from '@aws-sdk/client-sqs';
+import { fromContainerMetadata } from '@aws-sdk/credential-providers';
 import Loadable from 'react-loadable';
 import { content } from '../../src/app/content/routes';
 import { Match } from '../../src/app/navigation/types';
@@ -33,10 +34,9 @@ const {
 
 type Payload = Omit<Match<typeof content>, 'route'>;
 
-const sqsClient = new SQSClient({ region: process.env.WORK_REGION });
-const s3Client = new S3Client({ region: process.env.BUCKET_REGION });
+let s3Client: S3Client;
 
-const saveS3Page = async (url: string, html: string) => {
+const saveS3Page = async(url: string, html: string) => {
   let path = process.env.PUBLIC_URL;
   if (path[0] === '/') { path = path.slice(1); }
   const key = `${path}${url}`;
@@ -53,7 +53,13 @@ const saveS3Page = async (url: string, html: string) => {
 };
 
 async function work() {
-  console.log('Initializing worker');
+  console.log('Fetching container credentials');
+
+  const credentials = await fromContainerMetadata();
+  const sqsClient = new SQSClient({ credentials, region: process.env.WORK_REGION });
+  s3Client = new S3Client({ credentials, region: process.env.BUCKET_REGION });
+
+  console.log('Preloading routes');
 
   await Loadable.preloadAll();
 

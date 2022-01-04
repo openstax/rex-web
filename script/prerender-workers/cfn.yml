@@ -60,7 +60,7 @@ Resources:
       RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
       RedrivePolicy:
         deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
-        maxReceiveCount: 3
+        maxReceiveCount: 10
 
   #SitemapQueue:
   #  Type: AWS::SQS::Queue
@@ -85,6 +85,7 @@ Resources:
       ContainerDefinitions:
         - Command:
             - prerender:work
+          Cpu: 1024
           EntryPoint:
             - yarn
           Environment:
@@ -113,13 +114,13 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: workers
               mode: non-blocking
-          Memory: 768
+          Memory: 512
           Name: !Sub ${AWS::StackName}-task-definition
       Family: Prerendering
       NetworkMode: host
       TaskRoleArn: !ImportValue RexPrerenderWorkersContainerRoleName
 
-  Service:
+  Service1:
     Type: AWS::ECS::Service
     Properties:
       Cluster: !Ref Cluster
@@ -128,7 +129,19 @@ Resources:
       LaunchType: EC2
       PropagateTags: SERVICE
       SchedulingStrategy: DAEMON
-      ServiceName: Prerendering
+      ServiceName: Prerendering-1
+      TaskDefinition: !Ref TaskDefinition
+
+  Service2:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref Cluster
+      EnableECSManagedTags: true
+      EnableExecuteCommand: true
+      LaunchType: EC2
+      PropagateTags: SERVICE
+      SchedulingStrategy: DAEMON
+      ServiceName: Prerendering-2
       TaskDefinition: !Ref TaskDefinition
 
   LaunchTemplate:
@@ -145,7 +158,7 @@ Resources:
         ImageId: >-
           {{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id}}
         InstanceInitiatedShutdownBehavior: terminate
-        InstanceType: t2.micro
+        InstanceType: c6i.large
         SecurityGroupIds:
           - !ImportValue RexPrerenderWorkersSecurityGroupID
         TagSpecifications:
@@ -208,7 +221,7 @@ Resources:
               Value: production
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
-        TotalTargetCapacity: 4 # So we don't break the bank while testing TODO: Increase
+        TotalTargetCapacity: 20 # So we don't break the bank while testing TODO: Increase
       TerminateInstancesWithExpiration: true
       ValidUntil: !Ref ValidUntil
 
