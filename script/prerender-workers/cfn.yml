@@ -80,6 +80,7 @@ Resources:
 
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
+    DependsOn: Cluster # for Cluster deletion to work properly
     Properties:
       ContainerDefinitions:
         - Command:

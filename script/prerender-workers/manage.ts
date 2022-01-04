@@ -145,6 +145,7 @@ async function deleteWorkersStack() {
 }
 
 async function queueBookPages(book: BookWithOSWebData) {
+  // if (book.slug !== 'college-physics') return;
   console.log(`[${book.title}] Preparing book pages`);
 
   const pages = await prepareBookPages(book);
