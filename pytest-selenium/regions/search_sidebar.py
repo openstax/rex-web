@@ -19,7 +19,7 @@ class SearchSidebar(Region):
     _close_sidebar_locator = (By.CSS_SELECTOR, "[class*=CloseIconButton]")
     _no_results_locator = (By.CSS_SELECTOR, "[class*=SearchQueryAlignment]")
     _chapter_result_option_locator = (By.CSS_SELECTOR, "li a")
-    _rkt_result_option_locator = (By.CSS_SELECTOR, "div a")
+    _rkt_result_option_locator = (By.CSS_SELECTOR, "div > a")
     _search_result_locator = (By.CSS_SELECTOR, "[data-testid$=result]")
     _search_results_sidebar_locator = (
         By.XPATH,
