@@ -50,7 +50,7 @@ class SearchSidebar(Region):
 
     @property
     def chapter_results(self) -> List[WebElement]:
-        """Return the list of search results.
+        """Return the list of chapter search results.
 
         :return: the list of book pages containing some or all of the search
             terms
@@ -74,9 +74,9 @@ class SearchSidebar(Region):
 
     @property
     def rkt_results(self) -> List[WebElement]:
-        """Return the list of search results.
+        """Return the list of related key term search results.
 
-        :return: the list of book pages containing some or all of the search
+        :return: the list of book pages containing some or all of the related key term search
             terms
         :rtype: list(WebElement)
 
