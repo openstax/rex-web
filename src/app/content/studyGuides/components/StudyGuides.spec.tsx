@@ -7,6 +7,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter, pageInOtherChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
+import { runHooks } from '../../../../test/utils';
 import { locationChange } from '../../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
@@ -210,7 +211,10 @@ describe('StudyGuides', () => {
 
   it('shows "no results" state', () => {
     const summaryStudyGuides = {} as SummaryHighlights;
-    store.dispatch(receiveSummaryStudyGuides(summaryStudyGuides, {pagination: null}));
+    const state = store.getState();
+
+    jest.spyOn(selectors, 'orderedSummaryStudyGuides')
+    .mockReturnValue(getSortedSummaryHighlights(summaryStudyGuides, selectors.studyGuidesLocationFilters(state)));
 
     const component = renderer.create(<TestContainer services={services} store={store}>
       <StudyGuides />
