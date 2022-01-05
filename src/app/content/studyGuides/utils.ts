@@ -2,7 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlights-client';
 import { OutputParams } from 'query-string';
 import { replace } from '../../navigation/actions';
 import * as navigation from '../../navigation/selectors';
-import { updateQuery } from '../../navigation/utils';
+import { getQueryForParam } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
 import { colorFilterQueryParameterName, locationIdsFilterQueryParameterName } from '../constants';
 import { SummaryFiltersUpdate } from '../highlights/types';
@@ -29,6 +29,6 @@ export const updateQueryFromFilterChange = (dispatch: Dispatch, state: AppState,
   const existingQuery = navigation.query(state);
   if (!match ) { return; }
   dispatch(replace(match, {
-    search: updateQuery(updatedFilters as any as Record<string, string[]>, existingQuery),
+    search: getQueryForParam(updatedFilters as any as Record<string, string[]>, existingQuery),
   }));
 };

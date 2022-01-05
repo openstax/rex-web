@@ -2,7 +2,7 @@ import { loggedOut } from '../../../auth/selectors';
 import { replace } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { AnyMatch } from '../../../navigation/types';
-import { updateQuery } from '../../../navigation/utils';
+import { getQueryForParam } from '../../../navigation/utils';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
 import { loadMoreStudyGuides, openStudyGuides } from '../actions';
@@ -19,7 +19,7 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
 
   if (loggedOutAndQueryMissingFirstChapter || (!notLoggedIn && defaultFilter)) {
     services.dispatch(replace(match as AnyMatch, {
-      search: updateQuery(summaryFilters as any as Record<string, string[]>, query),
+      search: getQueryForParam(summaryFilters as any as Record<string, string[]>, query),
     }));
   } else {
     const studyGuides = select.summaryStudyGuides(state);

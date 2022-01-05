@@ -127,7 +127,7 @@ export const findPathForParams = (params: object, paths: string[]) => {
   });
 };
 
-export const updateQuery = (
+export const getQueryForParam = (
   values: Record<string, string | string[]>,
   existingQuery?: string | OutputParams
 ) => {

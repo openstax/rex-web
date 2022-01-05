@@ -7,6 +7,7 @@ import { AnyMatch, AnyRoute } from './types';
 import {
   findPathForParams,
   findRouteMatch,
+  getQueryForParam,
   getScrollTargetFromQuery,
   getUrlRegexParams,
   injectParamsToBaseUrl,
@@ -15,7 +16,6 @@ import {
   matchSearch,
   matchUrl,
   routeHook,
-  updateQuery,
 } from './utils';
 
 const routes = [
@@ -305,13 +305,13 @@ describe('getScrollTargetFromQuery', () => {
   });
 });
 
-describe('updateQuery', () => {
+describe('getQueryForParam', () => {
   it('returns a query string for a parameter', () => {
-    expect(updateQuery({myParameter: 'whatever'}))
+    expect(getQueryForParam({myParameter: 'whatever'}))
       .toBe('myParameter=whatever');
   });
   it('adds parameters to an existing query', () => {
-    expect(updateQuery({myParameter: 'whatever'}, 'a=1&b=3'))
+    expect(getQueryForParam({myParameter: 'whatever'}, 'a=1&b=3'))
       .toBe('a=1&b=3&myParameter=whatever');
   });
 });
