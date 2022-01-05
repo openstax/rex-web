@@ -1,10 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlights-client';
-import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
-import { book as archiveBook } from '../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../test/mocks/osWebLoader';
-import { MiddlewareAPI, Store } from '../../types';
-import { formatBookData } from '../utils';
 import { getFiltersFromQuery, updateQueryFromFilterChange } from './utils';
 
 describe('utils', () => {
