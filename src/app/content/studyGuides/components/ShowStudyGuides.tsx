@@ -44,7 +44,7 @@ const ShowStudyGuides = () => {
     if (studyGuides && !Object.keys(studyGuides).length && hasMoreResults && !isLoading) {
       dispatch(loadMoreStudyGuides());
     }
-  }, [studyGuides, hasMoreResults, isLoading]);
+  }, [studyGuides, hasMoreResults, isLoading, dispatch]);
 
   const goToTop = () => {
     const refElement = ref.current;

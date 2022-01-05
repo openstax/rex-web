@@ -17,7 +17,7 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const summaryFilters = select.summaryFilters(state);
   const defaultLocationFilter = select.defaultLocationFilter(state);
 
-  if (loggedOutAndQueryMissingFirstChapter || !loggedOut && defaultLocationFilter) {
+  if (loggedOutAndQueryMissingFirstChapter || (!loggedOut && defaultLocationFilter)) {
     services.dispatch(replace(match as AnyMatch, {
       search: updateQuery(summaryFilters as any as Record<string, string[]>, query),
     }));
