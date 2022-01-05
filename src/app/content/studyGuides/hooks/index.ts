@@ -2,7 +2,7 @@ import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import { closeModal } from '../../../navigation/hooks/closeModalHook';
 import { openModal } from '../../../navigation/hooks/openModalHook';
 import { actionHook } from '../../../utils';
-import * as actions from '../actions';
+import { closeStudyGuides, openStudyGuides } from '../actions';
 import { modalUrlName } from '../constants';
 import {
   loadMoreHook,
@@ -19,7 +19,7 @@ export default [
   loadMoreHook,
   printStudyGuidesHook,
   openStudyGuidesHook,
-  actionHook(actions.openStudyGuides, openModal(modalUrlName)),
-  actionHook(actions.closeStudyGuides, closeModal()),
+  actionHook(openStudyGuides, openModal(modalUrlName)),
+  actionHook(closeStudyGuides, closeModal()),
   actionHook(receiveFeatureFlags, loadStudyGuidesHookBody),
 ];
