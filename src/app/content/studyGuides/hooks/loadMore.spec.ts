@@ -21,7 +21,6 @@ import {
   toggleStudyGuidesSummaryLoading,
 } from '../actions';
 import { colorfilterLabels, modalUrlName } from '../constants';
-import { summaryFilters } from '../selectors';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};

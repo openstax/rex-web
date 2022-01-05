@@ -184,6 +184,7 @@ describe('Filters', () => {
   it('dispatches history replace on selecting colors and chapters', () => {
     const chapter = findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid')!;
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
+    // store.dispatch(receiveUser({} as any));
 
     // set summary filters
     store.dispatch(locationChange({
@@ -195,6 +196,7 @@ describe('Filters', () => {
     } as any));
 
     store.dispatch(receiveBook(book));
+
     store.dispatch(receiveStudyGuidesTotalCounts({
       [chapter.id]: {
         [HighlightColorEnum.Green]: 1,
@@ -219,31 +221,12 @@ describe('Filters', () => {
 
     renderer.act(() => {
       yellowCheckbox.props.onChange();
-    });
-
-    expect(dispatch).toHaveBeenCalledWith(
-      replace(mockMatch, {
-        search: `colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=SG`,
-      })
-    );
-
-    store.dispatch(locationChange({
-      action: 'REPLACE',
-      location: {
-        // tslint:disable-next-line:max-line-length
-        search: `?colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=SG`,
-      },
-    } as any));
-
-    renderer.act(() => {
-      yellowCheckbox.props.onChange();
       colorFilterToggle.props.onClick();
     });
 
     expect(dispatch).toHaveBeenCalledWith(
       replace(mockMatch, {
-        search:
-         `colors=yellow&colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=${modalUrlName}`,
+        search: `colors=green&colors=blue&colors=purple&locationIds=${chapter.id}&modal=${modalUrlName}`,
       })
     );
 
