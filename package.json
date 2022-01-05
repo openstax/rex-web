@@ -102,7 +102,6 @@
     "@aws-sdk/client-cloudformation": "^3.43.0",
     "@aws-sdk/client-s3": "^3.44.0",
     "@aws-sdk/client-sqs": "^3.43.0",
-    "@aws-sdk/credential-providers": "^3.45.0",
     "@babel/core": "^7.0.0-0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",

@@ -183,7 +183,7 @@ export const renderPages = async(
   savePage: (uri: string, content: string) => void
 ) => {
   const renderPage = makeRenderPage(services, savePage);
-  return await asyncPool(5, pages, renderPage);
+  return await asyncPool(1, pages, renderPage);
 };
 
 interface Options {

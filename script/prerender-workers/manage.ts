@@ -16,6 +16,7 @@ import {
 } from '@aws-sdk/client-sqs';
 import omit from 'lodash/fp/omit';
 import fetch from 'node-fetch';
+import { cpus } from 'os';
 import path from 'path';
 import Loadable from 'react-loadable';
 import asyncPool from 'tiny-async-pool';
@@ -45,8 +46,8 @@ const {
   RELEASE_ID,
 } = config;
 
-const MAX_CONCURRENT_BOOK_TOCS = 10;
-const PRERENDER_TIMEOUT_SECONDS = 1980;
+const MAX_CONCURRENT_BOOK_TOCS = cpus().length;
+const PRERENDER_TIMEOUT_SECONDS = 1800;
 const WORKERS_DEPLOY_TIMEOUT_SECONDS = 120;
 
 const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
@@ -145,7 +146,7 @@ async function deleteWorkersStack() {
 }
 
 async function queueBookPages(book: BookWithOSWebData) {
-  //if (book.slug !== 'college-physics') { return; }
+  // if (book.slug !== 'college-physics') { return; }
   console.log(`[${book.title}] Preparing book pages`);
 
   const pages = await prepareBookPages(book);
@@ -346,11 +347,10 @@ async function manage() {
   const dlqMessages = receiveDLQMessageResult.Messages || [];
 
   if (dlqMessages.length > 0) {
-    throw new Error(`Received ${dlqMessages.length} messages from the dead letter queue: ${
-      JSON.stringify(dlqMessages)}`);
+    throw new Error(`Some pages failed to render: ${JSON.stringify(dlqMessages)}`);
   }
 
-  console.log('The dead letter queue is empty');
+  console.log(`The dead letter queue is empty; all ${numPages} pages rendered successfully`);
 
   // ENDTODO
 

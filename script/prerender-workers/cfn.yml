@@ -114,13 +114,13 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: workers
               mode: non-blocking
-          Memory: 512
+          Memory: 1024
           Name: !Sub ${AWS::StackName}-task-definition
       Family: Prerendering
       NetworkMode: host
       TaskRoleArn: !ImportValue RexPrerenderWorkersContainerRoleName
 
-  Service1:
+  Service:
     Type: AWS::ECS::Service
     Properties:
       Cluster: !Ref Cluster
@@ -129,19 +129,7 @@ Resources:
       LaunchType: EC2
       PropagateTags: SERVICE
       SchedulingStrategy: DAEMON
-      ServiceName: Prerendering-1
-      TaskDefinition: !Ref TaskDefinition
-
-  Service2:
-    Type: AWS::ECS::Service
-    Properties:
-      Cluster: !Ref Cluster
-      EnableECSManagedTags: true
-      EnableExecuteCommand: true
-      LaunchType: EC2
-      PropagateTags: SERVICE
-      SchedulingStrategy: DAEMON
-      ServiceName: Prerendering-2
+      ServiceName: Prerendering
       TaskDefinition: !Ref TaskDefinition
 
   LaunchTemplate:
@@ -221,7 +209,7 @@ Resources:
               Value: production
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
-        TotalTargetCapacity: 20 # So we don't break the bank while testing TODO: Increase
+        TotalTargetCapacity: 2 # So we don't break the bank while testing TODO: Increase
       TerminateInstancesWithExpiration: true
       ValidUntil: !Ref ValidUntil
 
