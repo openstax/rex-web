@@ -1,5 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlights-client';
 import createTestStore from '../../../test/createTestStore';
+import { Store } from '../../types';
 import { getFiltersFromQuery, updateQueryFromFilterChange } from './utils';
 
 describe('utils', () => {
