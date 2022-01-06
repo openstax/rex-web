@@ -185,7 +185,6 @@ describe('Filters', () => {
   it('dispatches history replace on selecting colors and chapters', () => {
     const chapter = findArchiveTreeNodeById(book.tree, 'testbook1-testchapter1-uuid')!;
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
-    // store.dispatch(receiveUser({} as any));
 
     // set summary filters
     store.dispatch(locationChange({
@@ -197,7 +196,6 @@ describe('Filters', () => {
     } as any));
 
     store.dispatch(receiveBook(book));
-
     store.dispatch(receiveStudyGuidesTotalCounts({
       [chapter.id]: {
         [HighlightColorEnum.Green]: 1,
