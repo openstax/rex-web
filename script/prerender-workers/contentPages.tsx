@@ -188,7 +188,7 @@ export const renderPages = async(
   savePage: (uri: string, content: string) => void
 ) => {
   const renderPage = makeRenderPage(services, savePage);
-  return pages.map(renderPage);
+  return Promise.all(pages.map(renderPage));
 };
 
 interface Options {

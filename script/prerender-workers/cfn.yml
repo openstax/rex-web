@@ -208,7 +208,7 @@ Resources:
               Value: production
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
-        TotalTargetCapacity: 2 # So we don't break the bank while testing TODO: Increase
+        TotalTargetCapacity: 10 # So we don't break the bank while testing TODO: Increase
       TerminateInstancesWithExpiration: true
       ValidUntil: !Ref ValidUntil
 

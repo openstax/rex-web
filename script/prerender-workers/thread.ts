@@ -4,11 +4,14 @@
   A single worker thread
   Receives messages from work.ts, parses them, renders the pages, uploads them to S3,
   and sends back the entries to be deleted
+  This code runs with --unhandled-rejections=strict so unhandled rejections will abort the thread
 */
 
 import './setup';
 
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { DeleteMessageBatchRequestEntry, Message } from '@aws-sdk/client-sqs';
+import { fromContainerMetadata } from '@aws-sdk/credential-providers';
 import Loadable from 'react-loadable';
 import { parentPort } from 'worker_threads';
 import { content } from '../../src/app/content/routes';
@@ -40,9 +43,9 @@ const {
   SEARCH_URL,
 } = config;
 
-const s3Client = new S3Client({ region: process.env.BUCKET_REGION });
+let s3Client: S3Client;
 
-const saveS3Page = async(url: string, html: string) => {
+async function saveS3Page(url: string, html: string) {
   let path = process.env.PUBLIC_URL;
   if (path[0] === '/') { path = path.slice(1); }
   const key = `${path}${url}`;
@@ -56,9 +59,17 @@ const saveS3Page = async(url: string, html: string) => {
     ContentType: 'text/html',
     Key: key,
   }));
-};
+}
 
 async function run() {
+  console.log('Fetching container credentials');
+
+  const credentials = await fromContainerMetadata();
+
+  console.log('Initializing S3 client');
+
+  s3Client = new S3Client({ credentials, region: process.env.BUCKET_REGION });
+
   console.log('Preloading route components');
 
   await Loadable.preloadAll();
@@ -89,11 +100,11 @@ async function run() {
 
   const parent = parentPort!;
 
-  parent.on('message', async(messages: Array<{Body: string, ReceiptHandle: string}>) => {
+  parent.on('message', async(messages: Message[]) => {
     console.log(`Parsing ${messages.length} received messages`);
 
     const pages: Array<{route: Match<typeof content>, code: number}> = [];
-    const entries: Array<{Id: string, ReceiptHandle: string}> = [];
+    const entries: DeleteMessageBatchRequestEntry[] = [];
     messages.forEach((message, messageIndex) => {
       const body = message.Body;
 
@@ -101,17 +112,9 @@ async function run() {
         throw new Error('[SQS] [ReceiveMessage] Unexpected response: message missing Body key');
       }
 
-      const receiptHandle = message.ReceiptHandle;
-
-      if (!receiptHandle) {
-        throw new Error(
-          '[SQS] [ReceiveMessage] Unexpected response: message missing ReceiptHandle key'
-        );
-      }
-
       const payload = JSON.parse(body) as Payload;
       pages.push({route: {...payload, route: content}, code: 200});
-      entries.push({Id: messageIndex.toString(), ReceiptHandle: receiptHandle});
+      entries.push({Id: messageIndex.toString(), ReceiptHandle: message.ReceiptHandle});
     });
 
     console.log(`Rendering ${pages.length} pages`);
@@ -122,7 +125,4 @@ async function run() {
   });
 }
 
-run().catch((e) => {
-  console.error(e.message, e.stack);
-  process.exit(1);
-});
+run();
