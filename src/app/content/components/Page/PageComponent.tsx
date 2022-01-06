@@ -67,6 +67,13 @@ export default class PageComponent extends Component<PagePropTypes> {
     // tslint:disable-next-line: max-line-length
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
+
+    if (this.props.searchHighlights.selectedResult) {
+      this.searchHighlightManager.update(null, this.props.searchHighlights, {
+        forceRedraw: true,
+        onSelect: this.onSearchHighlightSelect,
+      });
+    }
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
