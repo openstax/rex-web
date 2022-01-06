@@ -147,7 +147,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   >
     <div
       className="styled__RelatedKeyTerms-as3fh1-26 hyfLfL"
-      data-analytics-region="kt-results"
+      data-analytics-region="kt-search-results"
     >
       <span
         className="styled__SearchResultsSectionTitle-as3fh1-24 lhrXpY"
