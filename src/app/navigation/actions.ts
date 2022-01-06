@@ -14,9 +14,7 @@ export const locationChange = createStandardAction('Navigation/locationChange').
 const makeCallHistoryMethodAction = (method: HistoryAction['method']) => (
   match: AnyMatch,
   options: {hash?: string, search?: string} = {}
-) => {
-  return callHistoryMethod({method, ...match, ...options});
-};
+) => callHistoryMethod({method, ...match, ...options});
 
 export const push = makeCallHistoryMethodAction('push');
 export const replace = makeCallHistoryMethodAction('replace');

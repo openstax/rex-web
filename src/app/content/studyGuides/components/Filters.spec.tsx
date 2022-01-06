@@ -54,6 +54,7 @@ describe('Filters', () => {
     route: routes.content,
     state: {},
   };
+  const colors = Array.from(colorfilterLabels);
 
   beforeEach(() => {
     store = createTestStore();
@@ -76,7 +77,7 @@ describe('Filters', () => {
       action: 'REPLACE',
       location: {
         // tslint:disable-next-line:max-line-length
-        search: `?${queryString.stringify({colors: Array.from(colorfilterLabels)})}&locationIds=${chapterId}&modal=${modalUrlName}`,
+        search: `?${queryString.stringify({colors})}&locationIds=${chapterId}&modal=${modalUrlName}`,
       },
     } as any));
 
@@ -112,10 +113,10 @@ describe('Filters', () => {
       action: 'REPLACE',
       location: {
         // tslint:disable-next-line:max-line-length
-        search: `?${queryString.stringify({colors: Array.from(colorfilterLabels)})}&modal=${modalUrlName}`,
+        search: `?${queryString.stringify({colors})}&modal=${modalUrlName}`,
       },
       query: {
-        colors: Array.from(colorfilterLabels),
+        colors,
         [modalQueryParameterName]: modalUrlName,
       },
     } as any));
@@ -191,7 +192,7 @@ describe('Filters', () => {
       action: 'REPLACE',
       location: {
         // tslint:disable-next-line:max-line-length
-        search: `?${queryString.stringify({colors: Array.from(colorfilterLabels)})}&locationIds=${chapter.id}&modal=${modalUrlName}`,
+        search: `?${queryString.stringify({colors})}&locationIds=${chapter.id}&modal=${modalUrlName}`,
       },
     } as any));
 
@@ -258,7 +259,7 @@ describe('Filters', () => {
       action: 'REPLACE',
       location: {
         // tslint:disable-next-line:max-line-length
-        search: `?${queryString.stringify({colors: Array.from(colorfilterLabels)})}&modal=${modalUrlName}`,
+        search: `?${queryString.stringify({colors})}&modal=${modalUrlName}`,
       },
     } as any));
 

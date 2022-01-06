@@ -44,6 +44,7 @@ describe('loadMore', () => {
   let dispatch: jest.SpyInstance;
   let loadingSpy: jest.SpyInstance;
   let hook: ReturnType<typeof import ('./loadMore').hookBody>;
+  const colors = Array.from(colorfilterLabels);
 
   beforeEach(() => {
     store = createTestStore();
@@ -61,7 +62,7 @@ describe('loadMore', () => {
 
   it('fetches multiple pages across multiple sources', async() => {
     const query = {
-      colors: Array.from(colorfilterLabels),
+      colors,
       locationIds: ['testbook1-testchapter1-uuid'],
       [modalQueryParameterName]: modalUrlName,
     };
@@ -199,7 +200,7 @@ describe('loadMore', () => {
 
   it('calls loadUntilPageSize with correct parameters', async() => {
     const query = {
-      colors: Array.from(colorfilterLabels),
+      colors,
       locationIds: ['testbook1-testchapter1-uuid'],
       [modalQueryParameterName]: modalUrlName,
     };
@@ -264,7 +265,7 @@ describe('loadMore', () => {
     const error = {} as any;
 
     const query = {
-      colors: Array.from(colorfilterLabels),
+      colors,
       locationIds: ['testbook1-testchapter1-uuid'],
       [modalQueryParameterName]: modalUrlName,
     };
@@ -305,7 +306,7 @@ describe('loadMore', () => {
 
   it('throws ApplicationError', async() => {
     const query = {
-      colors: Array.from(colorfilterLabels),
+      colors,
       locationIds: ['testbook1-testchapter1-uuid'],
       [modalQueryParameterName]: modalUrlName,
     };
