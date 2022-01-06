@@ -123,7 +123,7 @@
     "@types/js-cookie": "^2.2.2",
     "@types/lodash": "^4.14.136",
     "@types/md5-file": "^4.0.0",
-    "@types/node": "^12.0.10",
+    "@types/node": "^14.0.0",
     "@types/node-fetch": "^2.1.4",
     "@types/pretty": "^2.0.0",
     "@types/progress": "^2.0.3",

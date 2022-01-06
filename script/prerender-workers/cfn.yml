@@ -36,6 +36,11 @@ Parameters:
 
 Resources:
 
+  Cluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub ${AWS::StackName}-cluster
+
   DeadLetterQueue:
     Type: AWS::SQS::Queue
     Properties:
@@ -53,6 +58,7 @@ Resources:
 
   WorkQueue:
     Type: AWS::SQS::Queue
+    DependsOn: Cluster # workaround for Cluster deletion to work properly
     Properties:
       KmsMasterKeyId: alias/aws/sqs
       QueueName: !Sub rex-${CodeVersion}-${ReleaseIdSuffix}-prerender-work-queue
@@ -73,19 +79,12 @@ Resources:
   #      deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
   #      maxReceiveCount: 3
 
-  Cluster:
-    Type: AWS::ECS::Cluster
-    Properties:
-      ClusterName: !Sub ${AWS::StackName}-cluster
-
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
-    DependsOn: Cluster # for Cluster deletion to work properly
     Properties:
       ContainerDefinitions:
         - Command:
             - prerender:work
-          Cpu: 1024
           EntryPoint:
             - yarn
           Environment:
@@ -114,7 +113,7 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: workers
               mode: non-blocking
-          Memory: 1024
+          MemoryReservation: 1024
           Name: !Sub ${AWS::StackName}-task-definition
       Family: Prerendering
       NetworkMode: host

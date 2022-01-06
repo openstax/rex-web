@@ -5,7 +5,6 @@ import Loadable from 'react-loadable';
 import { EnumChangefreq } from 'sitemap';
 import { SitemapItemOptions } from 'sitemap';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
-import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
@@ -32,7 +31,7 @@ export const stats = {
 
 type Page = Match<typeof content>;
 
-export async function prepareContentPage(
+export function prepareContentPage(
   book: BookWithOSWebData,
   pageId: string,
   pageSlug: string
@@ -170,11 +169,17 @@ export const prepareBooks = async(
 
 export type Pages = Array<{code: number, route: Page}>;
 
-export const prepareBookPages = (book: BookWithOSWebData) => asyncPool(20, findTreePages(book.tree), (section) =>
-  prepareContentPage(book, stripIdVersion(section.id),
-    assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`)
-  )
-    .then((route) => ({code: 200, route}))
+export const prepareBookPages = (book: BookWithOSWebData) => findTreePages(book.tree).map(
+  (section) => {
+    return {
+      code: 200,
+      route: prepareContentPage(
+        book,
+        stripIdVersion(section.id),
+        assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`)
+      ),
+    };
+  }
 );
 
 export const renderPages = async(
@@ -183,7 +188,7 @@ export const renderPages = async(
   savePage: (uri: string, content: string) => void
 ) => {
   const renderPage = makeRenderPage(services, savePage);
-  return await asyncPool(1, pages, renderPage);
+  return pages.map(renderPage);
 };
 
 interface Options {

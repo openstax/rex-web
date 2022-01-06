@@ -1,4 +1,11 @@
 // tslint:disable:no-console
+
+/*
+  Manages a fleet of spot instances
+  Creates a cloudformation stack with a spot fleet and SQS queues, preloads all the book ToCs,
+  queues up each page in the queue to be prerendered, and deletes the stack at the end
+*/
+
 import './setup';
 
 import {
@@ -16,7 +23,6 @@ import {
 } from '@aws-sdk/client-sqs';
 import omit from 'lodash/fp/omit';
 import fetch from 'node-fetch';
-import { cpus } from 'os';
 import path from 'path';
 import Loadable from 'react-loadable';
 import asyncPool from 'tiny-async-pool';
@@ -46,7 +52,7 @@ const {
   RELEASE_ID,
 } = config;
 
-const MAX_CONCURRENT_BOOK_TOCS = cpus().length;
+const MAX_CONCURRENT_BOOK_TOCS = 5;
 const PRERENDER_TIMEOUT_SECONDS = 1800;
 const WORKERS_DEPLOY_TIMEOUT_SECONDS = 120;
 
@@ -99,7 +105,7 @@ async function createWorkersStack() {
   timeoutDate = new Date(1000 * PRERENDER_TIMEOUT_SECONDS + new Date().getTime());
 
   console.log(`Prerender timeout set to ${timeoutDate}`);
-  console.log('Creating workers stack (not waiting)');
+  console.log('Started workers stack creation');
 
   return await cfnClient.send(new CreateStackCommand({
     Parameters: [
@@ -140,7 +146,7 @@ async function createWorkersStack() {
 }
 
 async function deleteWorkersStack() {
-  console.log('Deleting workers stack (not waiting)');
+  console.log('Started workers stack deletion');
 
   return await cfnClient.send(new DeleteStackCommand({StackName: WORKERS_STACK_NAME}));
 }
@@ -190,7 +196,7 @@ async function queueBookPages(book: BookWithOSWebData) {
 }
 
 async function manage() {
-  console.log('Preloading routes');
+  console.log('Preloading route components');
 
   await Loadable.preloadAll();
 

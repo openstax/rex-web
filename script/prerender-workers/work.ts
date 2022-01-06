@@ -1,86 +1,89 @@
 // tslint:disable:no-console
+
+/*
+  Manages worker threads in a single instance
+  Receives messages from the SQS queue, distributes them to worker threads,
+  and deletes processed messages from the queue
+*/
+
 import './setup';
 
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { DeleteMessageBatchCommand, ReceiveMessageCommand, SQSClient } from '@aws-sdk/client-sqs';
-import Loadable from 'react-loadable';
-import { content } from '../../src/app/content/routes';
-import { Match } from '../../src/app/navigation/types';
-import config from '../../src/config';
-import createArchiveLoader from '../../src/gateways/createArchiveLoader';
-import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
-import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
-import createHighlightClient from '../../src/gateways/createHighlightClient';
-import createOSWebLoader from '../../src/gateways/createOSWebLoader';
-import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
-import createSearchClient from '../../src/gateways/createSearchClient';
-import createUserLoader from '../../src/gateways/createUserLoader';
-import { renderPages } from './contentPages';
-
-const {
-  ACCOUNTS_URL,
-  ARCHIVE_URL,
-  HIGHLIGHTS_URL,
-  OS_WEB_URL,
-  REACT_APP_ACCOUNTS_URL,
-  REACT_APP_ARCHIVE_URL,
-  REACT_APP_BUY_PRINT_CONFIG_URL,
-  REACT_APP_HIGHLIGHTS_URL,
-  REACT_APP_OS_WEB_API_URL,
-  REACT_APP_SEARCH_URL,
-  SEARCH_URL,
-} = config;
-
-type Payload = Omit<Match<typeof content>, 'route'>;
+import { cpus } from 'os';
+import path from 'path';
+import { Worker } from 'worker_threads';
 
 const sqsClient = new SQSClient({ region: process.env.WORK_REGION });
-const s3Client = new S3Client({ region: process.env.BUCKET_REGION });
 
-const saveS3Page = async(url: string, html: string) => {
-  let path = process.env.PUBLIC_URL;
-  if (path[0] === '/') { path = path.slice(1); }
-  const key = `${path}${url}`;
+// Idle worker thread queue
+// It only supports 1 waiter at a time but that is all we need
 
-  console.log(`Writing s3 file: /${key}`);
+const idleWorkers: Worker[] = [];
 
-  return await s3Client.send(new PutObjectCommand({
-    Body: html,
-    Bucket: process.env.BUCKET_NAME,
-    CacheControl: 'max-age=0',
-    ContentType: 'text/html',
-    Key: key,
-  }));
-};
+let resolveWorkerPromise: ((worker: Worker) => void) | null;
+
+function pushWorker(worker: Worker) {
+  if (resolveWorkerPromise) {
+    // Someone is waiting for the worker, so resolve the promise rather than adding it to the queue
+    resolveWorkerPromise(worker);
+    resolveWorkerPromise = null;
+  } else {
+    // Add the idle worker to the queue
+    idleWorkers.push(worker);
+  }
+}
+
+async function popWorker() {
+  // Check if an idle worker is available
+  const worker = idleWorkers.pop();
+
+  if (worker) {
+    // Return the available idle worker
+    return worker;
+  } else {
+    // Set a promise that will be resolved when pushWorker is called
+    return new Promise<Worker>((resolve) => {
+      resolveWorkerPromise = resolve;
+    });
+  }
+}
+
+async function initializeWorker() {
+  // Must be a js file, not ts
+  const worker = new Worker(
+    `${path.resolve(__dirname, '../entry.js')}`, { argv: [ 'prerender-workers/thread' ] }
+  );
+
+  // End-of-work callback
+  worker.on('message', async(entries: Array<{Id: string, ReceiptHandle: string}>) => {
+    console.log(`Deleting ${entries.length} messages`);
+
+    // Delete successfully processed messages from the queue
+    await sqsClient.send(new DeleteMessageBatchCommand({
+      Entries: entries,
+      QueueUrl: process.env.WORK_QUEUE_URL,
+    }));
+
+    // The worker is now idle again
+    pushWorker(worker);
+  });
+
+  // Log errors
+  worker.on('error', console.error);
+  worker.on('messageerror', console.error);
+
+  // Restart the worker if terminated
+  worker.on('exit', (code: number) => {
+    if (code === 1) { initializeWorker(); }
+  });
+
+  // The worker starts idle
+  pushWorker(worker);
+}
+
+for (const _undefined of Array(cpus().length + 1)) { initializeWorker(); }
 
 async function work() {
-  console.log('Preloading routes');
-
-  await Loadable.preloadAll();
-
-  const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
-    appPrefix: '',
-    archivePrefix: ARCHIVE_URL,
-  });
-  const osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
-  const userLoader = createUserLoader(`${ACCOUNTS_URL}${REACT_APP_ACCOUNTS_URL}`);
-  const searchClient = createSearchClient(`${SEARCH_URL}${REACT_APP_SEARCH_URL}`);
-  const highlightClient = createHighlightClient(`${HIGHLIGHTS_URL}${REACT_APP_HIGHLIGHTS_URL}`);
-  const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
-  const practiceQuestionsLoader = createPracticeQuestionsLoader();
-  const bookConfigLoader = createBookConfigLoader();
-
-  const services = {
-    archiveLoader,
-    bookConfigLoader,
-    buyPrintConfigLoader,
-    config,
-    highlightClient,
-    osWebLoader,
-    practiceQuestionsLoader,
-    searchClient,
-    userLoader,
-  };
-
   const receiveMessageCommand = new ReceiveMessageCommand({
     MaxNumberOfMessages: 10,
     QueueUrl: process.env.WORK_QUEUE_URL,
@@ -89,58 +92,26 @@ async function work() {
   console.log(`Bucket: ${process.env.BUCKET_NAME} (${process.env.BUCKET_REGION})`);
 
   while (true) {
+    const worker = await popWorker();
+
     console.log(`Listening to ${process.env.WORK_QUEUE_URL} for work`);
 
     const receiveMessageResult = await sqsClient.send(receiveMessageCommand);
 
     const messages = receiveMessageResult.Messages || [];
 
-    const numMessages = messages.length;
-
-    if (numMessages === 0) {
+    if (messages.length === 0) {
       console.log('Received no messages; waiting 10 seconds to retry');
+
+      pushWorker(worker);
 
       await new Promise((r) => setTimeout(r, 10000));
 
       continue;
     }
 
-    console.log(`Parsing ${numMessages} received messages`);
-
-    const pages: Array<{route: Match<typeof content>, code: number}> = [];
-    const entries: Array<{Id: string, ReceiptHandle: string}> = [];
-    messages.forEach((message, messageIndex) => {
-      const body = message.Body;
-
-      if (!body) {
-        throw new Error('[SQS] [ReceiveMessage] Unexpected response: message missing Body key');
-      }
-
-      const receiptHandle = message.ReceiptHandle;
-
-      if (!receiptHandle) {
-        throw new Error(
-          '[SQS] [ReceiveMessage] Unexpected response: message missing ReceiptHandle key'
-        );
-      }
-
-      const payload = JSON.parse(body) as Payload;
-      pages.push({route: {...payload, route: content}, code: 200});
-      entries.push({Id: messageIndex.toString(), ReceiptHandle: receiptHandle});
-    });
-
-    console.log(`Rendering ${pages.length} pages`);
-
-    // const sitemaps =
-    await renderPages(services, pages, saveS3Page);
-
-    console.log(`Deleting ${messages.length} messages`);
-
-    // Delete successfully processed messages from the queue
-    await sqsClient.send(new DeleteMessageBatchCommand({
-      Entries: entries,
-      QueueUrl: process.env.WORK_QUEUE_URL,
-    }));
+    // Begin work
+    worker.postMessage(messages);
 
     // Queue up the sitemaps for processing elsewhere
     /* TODO: sitemap
