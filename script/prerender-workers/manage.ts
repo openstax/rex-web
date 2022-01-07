@@ -26,7 +26,7 @@ import fetch from 'node-fetch';
 import path from 'path';
 import Loadable from 'react-loadable';
 import asyncPool from 'tiny-async-pool';
-import { BookWithOSWebData } from '../../src/app/content/types';
+import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
@@ -36,7 +36,6 @@ import {
   getStats,
   minuteCounter,
   prepareBookPages,
-  prepareBooks,
   stats
 } from './contentPages';
 import createRedirects from './createRedirects';
@@ -52,8 +51,14 @@ const {
   RELEASE_ID,
 } = config;
 
-const MAX_CONCURRENT_BOOK_TOCS = 5;
+// Increasing this too much can lead to connection issues and greater memory usage in the manager
+const MAX_CONCURRENT_BOOKS = 5;
+
+// The worker fleet is automatically terminated after this many seconds
+// This is insurance in case this process gets stuck or crashes without deleting the workers stack
 const PRERENDER_TIMEOUT_SECONDS = 1800;
+
+// Abort the build if the workers stack is not ready after this many seconds
 const WORKERS_DEPLOY_TIMEOUT_SECONDS = 120;
 
 const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
@@ -78,11 +83,10 @@ const sqsClient = new SQSClient({ region: WORK_REGION });
 
 let archiveLoader: ReturnType<typeof createArchiveLoader>;
 let osWebLoader: ReturnType<typeof createOSWebLoader>;
+let bookLoader: ReturnType<typeof makeUnifiedBookLoader>;
 
-let workQueueUrl = '';
-// let sitemapQueueUrl = '';
-let deadLetterQueueUrl = '';
-let queuesAreReady = false;
+let resolveWorkQueuePromise: (workQueueUrl: string) => void;
+const workQueuePromise = new Promise<string>((resolve) => { resolveWorkQueuePromise = resolve; });
 
 let timeoutDate: Date;
 let numPages = 0;
@@ -151,16 +155,20 @@ async function deleteWorkersStack() {
   return cfnClient.send(new DeleteStackCommand({StackName: WORKERS_STACK_NAME}));
 }
 
-async function queueBookPages(book: BookWithOSWebData) {
-  // if (book.slug !== 'college-physics') { return; }
-  console.log(`[${book.title}] Preparing book pages`);
+async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {defaultVersion: string}]) {
+  // Don't have the book title yet at this point
+  console.log(`Loading book ${bookId}@${defaultVersion}`);
 
-  const pages = await prepareBookPages(book);
+  const book = await bookLoader(bookId, defaultVersion);
+
+  console.log(`[${book.title}] Book loaded; preparing pages`);
+
+  const pages = prepareBookPages(book);
   const numBookPages = pages.length;
   numPages += numBookPages;
 
-  // If the workers stack is not ready yet, wait 100ms and re-check
-  while (!queuesAreReady) { await new Promise((r) => setTimeout(r, 100)); }
+  // Wait until the work queue is ready
+  const workQueueUrl = await workQueuePromise;
 
   console.log(`[${book.title}] Queuing ${numBookPages} book pages in batches of 10`);
 
@@ -206,20 +214,15 @@ async function manage() {
   });
   osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
 
-  console.log('Preparing all books');
-
-  const books = await prepareBooks(archiveLoader, osWebLoader);
-
-  console.log(`Starting ${MAX_CONCURRENT_BOOK_TOCS} queuing threads`);
+  bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
   // We can start fetching book ToCs while the stack is created,
   // but we need a limit so we don't use up all the memory
-  const queuePromise = asyncPool(MAX_CONCURRENT_BOOK_TOCS, books, queueBookPages);
+  console.log(`Loading books in batches of ${MAX_CONCURRENT_BOOKS}`);
 
-  // Just to make the message below print after the book queuing messages
-  await new Promise((r) => setImmediate(r));
-
-  console.log('Waiting for the workers stack to be created');
+  const allPagesQueuedPromise = asyncPool(
+    MAX_CONCURRENT_BOOKS, Object.entries(BOOKS), prepareAndQueueBook
+  );
 
   // Wait for the workers stack to be ready
   await waitUntilStackCreateComplete(
@@ -247,6 +250,9 @@ async function manage() {
     throw new Error('[CFN] [DescribeStacks] Unexpected response: missing stack Outputs key');
   }
 
+  let workQueueUrl: string | undefined;
+  let deadLetterQueueUrl: string | undefined;
+
   for (const output of stack.Outputs) {
     if (!output.OutputValue) {
       throw new Error('[CFN] [DescribeStacks] Unexpected response: missing output OutputValue key');
@@ -255,9 +261,7 @@ async function manage() {
     switch (output.OutputKey) {
       case 'WorkQueueUrl':
         workQueueUrl = output.OutputValue;
-        break;
-      case 'SitemapQueueUrl':
-        // sitemapQueueUrl = output.OutputValue;
+        resolveWorkQueuePromise(workQueueUrl);
         break;
       case 'DeadLetterQueueUrl':
         deadLetterQueueUrl = output.OutputValue;
@@ -269,25 +273,14 @@ async function manage() {
     throw new Error(`${WORKERS_STACK_NAME} stack did not have a WorkQueueUrl output`);
   }
 
-  /*
-  if (!sitemapQueueUrl) {
-    throw new Error(`${WORKERS_STACK_NAME} stack did not have a SitemapQueueUrl output`);
-  }
-  */
-
   if (!deadLetterQueueUrl) {
     throw new Error(`${WORKERS_STACK_NAME} stack did not have a DeadLetterQueueUrl output`);
   }
 
-  console.log('Begin queuing prerendering jobs');
-
-  // Let the queuing begin
-  queuesAreReady = true;
-
   console.log('Waiting for all jobs to be queued');
 
   // Wait for all book pages to be queued
-  await queuePromise;
+  await allPagesQueuedPromise;
 
   console.log(`All ${numPages} page prerendering jobs queued`);
 

@@ -10,7 +10,7 @@ import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
 import * as contentSelectors from '../../src/app/content/selectors';
 import { BookWithOSWebData } from '../../src/app/content/types';
-import { makeUnifiedBookLoader, stripIdVersion } from '../../src/app/content/utils';
+import { stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
 import * as errorSelectors from '../../src/app/errors/selectors';
 import * as headSelectors from '../../src/app/head/selectors';
@@ -18,9 +18,8 @@ import { Link, Meta } from '../../src/app/head/types';
 import * as navigationSelectors from '../../src/app/navigation/selectors';
 import { AnyMatch, Match } from '../../src/app/navigation/types';
 import { matchPathname } from '../../src/app/navigation/utils';
-import { AppServices, AppState } from '../../src/app/types';
+import { AppState } from '../../src/app/types';
 import { assertDefined } from '../../src/app/utils';
-import BOOKS from '../../src/config.books';
 import FontCollector from '../../src/helpers/FontCollector';
 import { readAssetFile } from './fileUtils';
 
@@ -155,16 +154,6 @@ export const makeRenderPage: MakeRenderPage = (services, savePage) => async({cod
     lastmod: dateFns.format(archivePage.revised, 'YYYY-MM-DD'),
     url: encodeURI(url),
   };
-};
-
-export const prepareBooks = async(
-  archiveLoader: AppServices['archiveLoader'],
-  osWebLoader: AppServices['osWebLoader']
-): Promise<BookWithOSWebData[]> => {
-  return Promise.all(Object.entries(BOOKS).map(async([bookId, {defaultVersion}]) => {
-    const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
-    return bookLoader(bookId, defaultVersion);
-  }));
 };
 
 export const prepareBookPages = (book: BookWithOSWebData) => findTreePages(book.tree).map(

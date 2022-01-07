@@ -34,8 +34,8 @@ const receiveMessageCommand = new ReceiveMessageCommand({
 // because trying to extend a native class leads to a Babel error
 class SQSWorker {
   private worker: Worker;
-  private resolvePromise: ((receiptHandle: string) => void) | null = null;
-  private rejectPromise: ((error: Error) => void) | null = null;
+  private resolvePromise: ((receiptHandle: string) => void) | undefined;
+  private rejectPromise: ((error: Error) => void) | undefined;
 
   constructor() {
     console.log('Initializing prerendering worker thread');
