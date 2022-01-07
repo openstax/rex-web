@@ -185,9 +185,6 @@ function allSettled<Type>(promises: Array<Promise<Type>>) {
 
 async function work() {
   while (true) {
-    // Make sure we have at least 1 worker available before we listen to the queue
-    let worker: SQSWorker | null = await popWorker();
-
     console.log(`Listening to ${process.env.WORK_QUEUE_URL} for work`);
 
     const receiveMessageResult = await sqsClient.send(receiveMessageCommand);
@@ -196,8 +193,6 @@ async function work() {
 
     if (messages.length === 0) {
       console.log('Received no messages; waiting 10 seconds to retry');
-
-      pushWorker(worker);
 
       await new Promise((r) => setTimeout(r, 10000));
 
@@ -208,16 +203,11 @@ async function work() {
     const heartbeatInterval = setInterval(sqsHeartbeat, 15000, messages);
 
     const workPromises = messages.map(async(message) => {
-      // Used from the second iteration onwards
-      if (!worker) { worker = await popWorker(); }
+      // Get an available worker or wait for one
+      const worker = await popWorker();
 
       // Begin work
-      const workPromise = worker.startWork(message);
-
-      // The next iteration should receive a different worker
-      worker = null;
-
-      return workPromise;
+      return worker.startWork(message);
     });
 
     // Wait for the work on all messages to be done
