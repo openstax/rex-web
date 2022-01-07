@@ -1413,6 +1413,9 @@ describe('Page', () => {
   });
 
   it('renders <PageNotFound> component', () => {
+    // for 100% coverage of reApplyLocationHash function
+    assertWindow().location.hash = 'my_hash';
+
     jest.spyOn(select, 'pageNotFound')
       .mockReturnValue(true);
 
@@ -1428,11 +1431,6 @@ describe('Page', () => {
       </Provider>);
 
     expect(component.root.findByType(PageNotFound)).toBeTruthy();
-  });
-
-  it('reapplies location hash', () => {
-  // for 100% coverage of reApplyLocationHash function
-    assertWindow().location.hash = 'my_hash';
   });
 
   describe('with prerendered state', () => {
