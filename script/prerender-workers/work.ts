@@ -11,7 +11,6 @@ import './setup';
 import {
   ChangeMessageVisibilityCommand,
   DeleteMessageBatchCommand,
-  DeleteMessageBatchRequestEntry,
   Message,
   ReceiveMessageCommand,
   SQSClient,
@@ -35,10 +34,11 @@ const receiveMessageCommand = new ReceiveMessageCommand({
 // because trying to extend a native class leads to a Babel error
 class SQSWorker {
   private worker: Worker;
-  private interval: number | null = null;
+  private resolvePromise: ((receiptHandle: string) => void) | null = null;
+  private rejectPromise: ((error: Error) => void) | null = null;
 
   constructor() {
-    console.log('Initializing worker thread');
+    console.log('Initializing prerendering worker thread');
 
     // Must be a js file, not ts
     this.worker = new Worker(
@@ -49,18 +49,10 @@ class SQSWorker {
     );
 
     // End-of-work callback
-    this.worker.on('message', async(entries: DeleteMessageBatchRequestEntry[]) => {
+    this.worker.on('message', async(receiptHandle: string) => {
       try {
-        console.log(`Deleting ${entries.length} messages`);
-
-        // Stop the SQS heartbeat
-        this.endWork();
-
-        // Delete successfully processed messages from the queue
-        await sqsClient.send(new DeleteMessageBatchCommand({
-          Entries: entries,
-          QueueUrl: process.env.WORK_QUEUE_URL,
-        }));
+        // Pass the receiptHandle back to the main loop
+        if (this.resolvePromise) { this.resolvePromise(receiptHandle); }
 
         // The worker is now idle again
         pushWorker(this);
@@ -76,9 +68,9 @@ class SQSWorker {
       try {
         console.log(`Worker thread exited with status code ${code}`);
 
-        this.endWork();
+        if (this.rejectPromise) { this.rejectPromise(new Error(code.toString())); }
 
-        // Restart the worker if terminated by an error
+        // Start a brand new worker thread if terminated by an error
         if (code !== 0) { pushWorker(new SQSWorker()); }
       } catch (e) {
         // Error on the main thread; Stop the whole container and let someone else retry
@@ -93,59 +85,37 @@ class SQSWorker {
     this.worker.on('messageerror', console.error);
   }
 
-  public startWork(messages: Message[]) {
-    // Configure the SQS heartbeat
-    this.interval = setInterval(this.sqsHeartbeat, 15000, messages);
+  public async startWork(message: Message) {
+    // This promise will be resolved when the worker is done
+    const promise = new Promise<string>((resolve, reject) => {
+      this.resolvePromise = resolve;
+      this.rejectPromise = reject;
+    });
 
     // Begin work on a separate thread
-    this.worker.postMessage(messages);
-  }
+    this.worker.postMessage(message);
 
-  protected endWork() {
-    // Stop the SQS heartbeat
-    if (this.interval) {
-      clearInterval(this.interval);
-      this.interval = null;
-    }
-  }
-
-  protected async sqsHeartbeat(messages: Message[]) {
-    console.log(`Sending SQS hearbeat for ${messages.length} messages`);
-
-    for (const message of messages) {
-      try {
-        await sqsClient.send(new ChangeMessageVisibilityCommand({
-          QueueUrl: process.env.WORK_QUEUE_URL,
-          ReceiptHandle: message.ReceiptHandle,
-          VisibilityTimeout: 30,
-        }));
-      } catch (e) {
-        console.error(e.message, e.stack);
-        // Even if one message got deleted,
-        // we should continue trying to send the heartbeat for the others
-      }
-    }
+    return promise;
   }
 }
 
 // Idle worker thread (LIFO) queue
-// It only supports 1 waiter at a time but that is all we need
+// LIFO is cheaper in complexity and we don't really care about the order of the rendering
 
 const idleWorkers: SQSWorker[] = [];
-
-let resolveWorkerPromise: ((worker: SQSWorker) => void) | null;
+const resolveWorkerPromises: Array<(worker: SQSWorker) => void> = [];
 
 function pushWorker(worker: SQSWorker) {
+  // Check if someone is already waiting for a worker
+  const resolveWorkerPromise = resolveWorkerPromises.pop();
+
   if (resolveWorkerPromise) {
-    console.log('Main thread already waiting for worker thread; sending it directly');
+    // console.log('Main thread already waiting for worker thread; sending it directly');
 
-    // Someone is waiting for the worker, so resolve the promise rather than adding it to the queue
     resolveWorkerPromise(worker);
-    resolveWorkerPromise = null;
   } else {
-    console.log('Main thread not ready yet; adding worker thread to idle worker queue');
+    // console.log('Main thread not ready yet; adding worker thread to idle worker queue');
 
-    // Add the idle worker to the queue
     idleWorkers.push(worker);
   }
 }
@@ -155,24 +125,68 @@ async function popWorker() {
   const worker = idleWorkers.pop();
 
   if (worker) {
-    console.log('Main thread got worker thread from idle worker queue');
+    // console.log('Main thread got worker thread from idle worker queue');
 
     return worker;
   } else {
-    console.log('All worker threads busy; main thread waiting for available worker thread');
+    // console.log('All worker threads busy; main thread waiting for available worker thread');
 
-    // Set a promise that will be resolved when pushWorker is called
-    return new Promise<SQSWorker>((resolve) => {
-      resolveWorkerPromise = resolve;
-    });
+    // Return a promise that will be resolved when pushWorker is called
+    return new Promise<SQSWorker>((resolve) => { resolveWorkerPromises.push(resolve); });
+  }
+}
+
+async function sqsHeartbeat(messages: Message[]) {
+  console.log(`Sending SQS hearbeat for ${messages.length} messages`);
+
+  for (const message of messages) {
+    try {
+      await sqsClient.send(new ChangeMessageVisibilityCommand({
+        QueueUrl: process.env.WORK_QUEUE_URL,
+        ReceiptHandle: message.ReceiptHandle,
+        VisibilityTimeout: 30,
+      }));
+    } catch (e) {
+      console.error(e.message, e.stack);
+      // Even if one message got deleted,
+      // we should continue trying to send the heartbeat for the others
+    }
   }
 }
 
 for (const _undefined of Array(cpus().length + 1)) { pushWorker(new SQSWorker()); }
 
+// Typescript shenanigans so filter() returns the correct type for the return value of allSettled()
+// https://stackoverflow.com/a/65479695
+interface FulfilledPromiseResult<Type> {
+  status: 'fulfilled';
+  value: Type;
+}
+interface RejectedPromiseResult {
+  status: 'rejected';
+  reason: Error;
+}
+function isFulfilledPromiseResult<Type>(
+  promiseResult: FulfilledPromiseResult<Type> | RejectedPromiseResult
+): promiseResult is FulfilledPromiseResult<Type> { return promiseResult.status === 'fulfilled'; }
+
+// https://github.com/amrayn/allsettled-polyfill/blob/master/index.js
+function allSettled<Type>(promises: Array<Promise<Type>>) {
+  return Promise.all(
+    promises.map(
+      (p) => p.then(
+        (value: Type) => ({ status: 'fulfilled', value } as FulfilledPromiseResult<Type>)
+      ).catch(
+        (reason: Error) => ({ status: 'rejected', reason } as RejectedPromiseResult)
+      )
+    )
+  );
+}
+
 async function work() {
   while (true) {
-    const worker = await popWorker();
+    // Make sure we have at least 1 worker available before we listen to the queue
+    let worker: SQSWorker | null = await popWorker();
 
     console.log(`Listening to ${process.env.WORK_QUEUE_URL} for work`);
 
@@ -190,16 +204,60 @@ async function work() {
       continue;
     }
 
-    // Begin work
-    worker.startWork(messages);
+    // The delay here should be about half of the VisibilityTimeout
+    const heartbeatInterval = setInterval(sqsHeartbeat, 15000, messages);
+
+    const workPromises = messages.map(async(message) => {
+      // Used from the second iteration onwards
+      if (!worker) { worker = await popWorker(); }
+
+      // Begin work
+      const workPromise = worker.startWork(message);
+
+      // The next iteration should receive a different worker
+      worker = null;
+
+      return workPromise;
+    });
+
+    // Wait for the work on all messages to be done
+    const results = await allSettled(workPromises);
+
+    // Stop the heartbeat interval
+    clearInterval(heartbeatInterval);
+
+    // Check which messages succeeded
+    // The Id only has to be unique within this request, it has no other meaning
+    const successfulEntries = results.filter(isFulfilledPromiseResult).map(
+      (result, index) => ({ Id: index.toString(), ReceiptHandle: result.value })
+    );
+
+    const numSuccesses = successfulEntries.length;
+    const numResults = results.length;
+
+    if (numSuccesses === 0) {
+      console.log(`Received ${numResults} failures and no successes`);
+
+      continue;
+    }
+
+    console.log(`Received ${numSuccesses} successes and ${
+      numResults - numSuccesses} failures; deleting succesful messages`);
+
+    // Delete only the successful messages
+    // The Id only has to be unique within this request, it has no other meaning
+    await sqsClient.send(new DeleteMessageBatchCommand({
+      Entries: successfulEntries,
+      QueueUrl: process.env.WORK_QUEUE_URL,
+    }));
 
     // Queue up the sitemaps for processing elsewhere
     /* TODO: sitemap
     const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
       QueueUrl: process.env.SITEMAP_QUEUE_URL,
-      Entries: sitemaps.map((sitemap, index) => {
-        return {Id: index.toString(), MessageBody: JSON.stringify(sitemap)};
-      }),
+      Entries: sitemaps.map((sitemap, index) => (
+        {Id: index.toString(), MessageBody: JSON.stringify(sitemap)}
+      )),
     }));*/
   }
 

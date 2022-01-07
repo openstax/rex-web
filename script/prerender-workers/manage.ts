@@ -107,7 +107,7 @@ async function createWorkersStack() {
   console.log(`Prerender timeout set to ${timeoutDate}`);
   console.log('Started workers stack creation');
 
-  return await cfnClient.send(new CreateStackCommand({
+  return cfnClient.send(new CreateStackCommand({
     Parameters: [
       {
         ParameterKey: 'BucketName',
@@ -148,7 +148,7 @@ async function createWorkersStack() {
 async function deleteWorkersStack() {
   console.log('Started workers stack deletion');
 
-  return await cfnClient.send(new DeleteStackCommand({StackName: WORKERS_STACK_NAME}));
+  return cfnClient.send(new DeleteStackCommand({StackName: WORKERS_STACK_NAME}));
 }
 
 async function queueBookPages(book: BookWithOSWebData) {
@@ -170,9 +170,9 @@ async function queueBookPages(book: BookWithOSWebData) {
     // If the entire request fails, this command will throw and be caught at the end of this file
     // However, we also need to check if only some of the messages failed
     const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
-      Entries: pageBatch.map((page, batchIndex) => {
-        return {Id: batchIndex.toString(), MessageBody: JSON.stringify(omit('route', page.route))};
-      }),
+      Entries: pageBatch.map((page, batchIndex) => (
+        { Id: batchIndex.toString(), MessageBody: JSON.stringify(omit('route', page.route)) }
+      )),
       QueueUrl: workQueueUrl,
     }));
 
@@ -217,7 +217,7 @@ async function manage() {
   const queuePromise = asyncPool(MAX_CONCURRENT_BOOK_TOCS, books, queueBookPages);
 
   // Just to make the message below print after the book queuing messages
-  await new Promise((r) => setTimeout(r, 0));
+  await new Promise((r) => setImmediate(r));
 
   console.log('Waiting for the workers stack to be created');
 

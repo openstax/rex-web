@@ -127,7 +127,7 @@ export const getStats = () => {
 type MakeRenderPage = (services: AppOptions['services'], savePage: (uri: string, content: string) => void) =>
   ({code, route}: {route: Page, code: number}) => Promise<SitemapItemOptions>;
 
-const makeRenderPage: MakeRenderPage = (services, savePage) => async({code, route}) => {
+export const makeRenderPage: MakeRenderPage = (services, savePage) => async({code, route}) => {
 
   if (!route.state || !('bookUid' in route.state)) {
     throw new Error('Match state wasn\'t defined, it should have been');
@@ -163,11 +163,9 @@ export const prepareBooks = async(
 ): Promise<BookWithOSWebData[]> => {
   return Promise.all(Object.entries(BOOKS).map(async([bookId, {defaultVersion}]) => {
     const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
-    return await bookLoader(bookId, defaultVersion);
+    return bookLoader(bookId, defaultVersion);
   }));
 };
-
-export type Pages = Array<{code: number, route: Page}>;
 
 export const prepareBookPages = (book: BookWithOSWebData) => findTreePages(book.tree).map(
   (section) => {
@@ -181,15 +179,6 @@ export const prepareBookPages = (book: BookWithOSWebData) => findTreePages(book.
     };
   }
 );
-
-export const renderPages = async(
-  services: AppOptions['services'],
-  pages: Pages,
-  savePage: (uri: string, content: string) => void
-) => {
-  const renderPage = makeRenderPage(services, savePage);
-  return Promise.all(pages.map(renderPage));
-};
 
 interface Options {
   body: string;

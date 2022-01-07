@@ -10,7 +10,7 @@
 import './setup';
 
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { DeleteMessageBatchRequestEntry, Message } from '@aws-sdk/client-sqs';
+import { Message } from '@aws-sdk/client-sqs';
 import { fromContainerMetadata } from '@aws-sdk/credential-providers';
 import Loadable from 'react-loadable';
 import { parentPort } from 'worker_threads';
@@ -25,7 +25,7 @@ import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
-import { renderPages } from './contentPages';
+import { makeRenderPage } from './contentPages';
 
 type Payload = Omit<Match<typeof content>, 'route'>;
 
@@ -52,7 +52,7 @@ async function saveS3Page(url: string, html: string) {
 
   console.log(`Writing s3 file: /${key}`);
 
-  return await s3Client.send(new PutObjectCommand({
+  return s3Client.send(new PutObjectCommand({
     Body: html,
     Bucket: process.env.BUCKET_NAME,
     CacheControl: 'max-age=0',
@@ -98,30 +98,23 @@ async function run() {
     userLoader,
   };
 
+  const renderPage = makeRenderPage(services, saveS3Page);
+
   const parent = parentPort!;
 
-  parent.on('message', async(messages: Message[]) => {
-    console.log(`Parsing ${messages.length} received messages`);
+  parent.on('message', async(message: Message) => {
+    const body = message.Body;
 
-    const pages: Array<{route: Match<typeof content>, code: number}> = [];
-    const entries: DeleteMessageBatchRequestEntry[] = [];
-    messages.forEach((message, messageIndex) => {
-      const body = message.Body;
+    if (!body) {
+      throw new Error('[SQS] [ReceiveMessage] Unexpected response: message missing Body key');
+    }
 
-      if (!body) {
-        throw new Error('[SQS] [ReceiveMessage] Unexpected response: message missing Body key');
-      }
+    const payload = JSON.parse(body) as Payload;
+    const page = {route: {...payload, route: content}, code: 200};
 
-      const payload = JSON.parse(body) as Payload;
-      pages.push({route: {...payload, route: content}, code: 200});
-      entries.push({Id: messageIndex.toString(), ReceiptHandle: message.ReceiptHandle});
-    });
+    await renderPage(page);
 
-    console.log(`Rendering ${pages.length} pages`);
-
-    await renderPages(services, pages, saveS3Page);
-
-    parent.postMessage(entries);
+    parent.postMessage(message.ReceiptHandle);
   });
 }
 
