@@ -8,10 +8,10 @@ export const renderSitemap = (slug: string, urls: SitemapItemOptions[]) => {
 
   const filePath = sitemapPath(slug);
 
-  writeS3File(filePath, bookSitemap.toString());
+  writeS3File(filePath, bookSitemap.toString(), 'text/xml');
 };
 
 export const renderSitemapIndex = (urls: SitemapItemOptions[]) => {
   const sitemapIndex = sitemap.buildSitemapIndex({ urls });
-  writeS3File(sitemapPath('index'), sitemapIndex.toString());
+  writeS3File(sitemapPath('index'), sitemapIndex.toString(), 'text/xml');
 };

@@ -57,7 +57,7 @@ export const createDiskCache = <K extends string, V>(prefix: string): Cache<K, V
 
 let s3Client: S3Client | undefined;
 
-export async function writeS3File(filepath: string, contents: string) {
+export async function writeS3File(filepath: string, contents: string, contentType = 'text/html') {
   let basePath = process.env.PUBLIC_URL;
   if (basePath[0] === '/') { basePath = basePath.slice(1); }
   const key = `${basePath}${filepath}`;
@@ -78,7 +78,7 @@ export async function writeS3File(filepath: string, contents: string) {
     Body: contents,
     Bucket: process.env.BUCKET_NAME,
     CacheControl: 'max-age=0',
-    ContentType: 'text/html',
+    ContentType: contentType,
     Key: key,
   }));
 }
