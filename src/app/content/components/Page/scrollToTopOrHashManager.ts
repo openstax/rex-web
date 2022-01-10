@@ -58,7 +58,7 @@ const scrollToTopOrHashManager = (
   ) {
     return;
   }
-  if (!previous || (previous.page !== current.page)) {
+  if (!previous || previous.page !== current.page) {
     scrollToTargetOrTop(container, current.hash);
   } else if (previous.hash !== current.hash) {
     scrollToTarget(container, current.hash);
