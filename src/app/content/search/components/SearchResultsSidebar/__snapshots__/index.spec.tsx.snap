@@ -143,7 +143,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
     </div>
   </div>
   <div
-    className="styled__NavWrapper-as3fh1-2 gsMGal"
+    className="styled__NavWrapper-as3fh1-2 ZSyGJ"
   >
     <div
       className="styled__RelatedKeyTerms-as3fh1-27 fcduze"
@@ -207,7 +207,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       Chapter results
     </span>
     <ol
-      className="styled__SearchResultsOl-as3fh1-3 ithHNP"
+      className="styled__SearchResultsOl-as3fh1-3 kHsHvH"
       data-analytics-region="content-search-results"
     >
       <li
@@ -383,10 +383,10 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
     </div>
   </div>
   <div
-    className="styled__NavWrapper-as3fh1-2 gsMGal"
+    className="styled__NavWrapper-as3fh1-2 ZSyGJ"
   >
     <ol
-      className="styled__SearchResultsOl-as3fh1-3 ithHNP"
+      className="styled__SearchResultsOl-as3fh1-3 kHsHvH"
       data-analytics-region="content-search-results"
     >
       <li

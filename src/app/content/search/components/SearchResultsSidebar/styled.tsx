@@ -50,17 +50,17 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 `;
 
 // tslint:disable-next-line:variable-name
-export const NavWrapper = styled.div`
-  .os-divider {
-    width: 0.4rem;
-  }
-`;
+export const NavWrapper = styled.div``;
 
 // tslint:disable-next-line:variable-name
 export const SearchResultsOl = styled.ol`
   list-style: none;
   padding: 0;
   margin: 0;
+
+  .os-divider {
+    width: 0.4rem;
+  }
 `;
 
 const sidebarOpenAnimation = keyframes`
