@@ -22,7 +22,6 @@ import {
   SendMessageCommand,
   SQSClient,
 } from '@aws-sdk/client-sqs';
-import fetch from 'node-fetch';
 import path from 'path';
 import Loadable from 'react-loadable';
 import asyncPool from 'tiny-async-pool';
@@ -32,12 +31,7 @@ import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { readFile } from '../../src/helpers/fileUtils';
-import {
-  getStats,
-  minuteCounter,
-  prepareBookPages,
-  stats
-} from './contentPages';
+import { globalMinuteCounter, prepareBookPages } from './contentPages';
 import createRedirects from './createRedirects';
 import { writeAssetFile } from './fileUtils';
 
@@ -66,16 +60,6 @@ const PUBLIC_URL = process.env.PUBLIC_URL || `/rex/releases/${RELEASE_ID}`;
 const RELEASE_ID_SUFFIX = RELEASE_ID.split('/', 2)[1];
 const WORK_REGION = process.env.WORK_REGION || 'us-east-2';
 const WORKERS_STACK_NAME = `rex-${CODE_VERSION}-${RELEASE_ID_SUFFIX}-prerender-workers`;
-
-let networkTime = 0;
-(global as any).fetch = (...args: Parameters<typeof fetch>) => {
-  const networkTimer = minuteCounter();
-  return fetch(...args)
-    .then((response) => {
-      networkTime += networkTimer();
-      return response;
-    });
-};
 
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
@@ -385,13 +369,11 @@ async function cleanup() {
   await renderManifest();
   await createRedirects(archiveLoader, osWebLoader);
 
-  const {elapsedMinutes} = getStats();
-
-  console.log({...stats, elapsedMinutes, networkTime});
+  const elapsedMinutes = globalMinuteCounter();
 
   console.log(
-    `Prerender complete. Rendered ${numPages} pages, ${numBooks
-    } sitemaps and the sitemap index. ${numPages / elapsedMinutes}ppm`
+    `Prerender complete in ${elapsedMinutes} minutes. Rendered ${numPages} pages, ${
+    numBooks} sitemaps and the sitemap index. ${numPages / elapsedMinutes}ppm`
   );
 
   /* TODO?: Wait for the stack to delete and fail the build if it fails to delete

@@ -132,12 +132,7 @@ export const minuteCounter = () => {
   };
 };
 
-let numPages = 0;
-const globalMinuteCounter = minuteCounter();
-export const getStats = () => {
-  const elapsedMinutes = globalMinuteCounter();
-  return {numPages, elapsedMinutes};
-};
+export const globalMinuteCounter = minuteCounter();
 
 type MakeGetArchiveBook = (
   services: AppOptions['services']
@@ -184,8 +179,6 @@ export const makeRenderPage: MakeRenderPage = (services, savePage) => async({cod
   const timer = minuteCounter();
   const html = await renderHtml(styles, app, state);
   stats.renderHtml += timer();
-
-  numPages++;
 
   await savePage(url, html);
 };
