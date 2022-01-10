@@ -12,10 +12,13 @@ import './setup';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Message } from '@aws-sdk/client-sqs';
 import { fromContainerMetadata } from '@aws-sdk/credential-providers';
+import dateFns from 'date-fns';
 import Loadable from 'react-loadable';
+import { EnumChangefreq } from 'sitemap';
+import asyncPool from 'tiny-async-pool';
 import { parentPort } from 'worker_threads';
-import { content } from '../../src/app/content/routes';
-import { Match } from '../../src/app/navigation/types';
+import { ArchiveContent } from '../../src/app/content/types';
+import { matchPathname } from '../../src/app/navigation/utils';
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
@@ -25,9 +28,22 @@ import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
-import { makeRenderPage } from './contentPages';
+import {
+  deserializeBook,
+  deserializePage,
+  makeGetArchiveBook,
+  makeGetArchivePage,
+  makeRenderPage,
+  SerializedBookMatch,
+  SerializedPageMatch,
+} from './contentPages';
+import { renderSitemap, renderSitemapIndex, sitemapPath } from './sitemap';
 
-type Payload = Omit<Match<typeof content>, 'route'>;
+const MAX_CONCURRENT_CONNECTIONS = 5;
+
+type PrerenderPayload = { page: SerializedPageMatch };
+type SitemapPayload = { pages: SerializedPageMatch[], slug: string };
+type SitemapIndexPayload = { books: SerializedBookMatch[] };
 
 const {
   ACCOUNTS_URL,
@@ -59,6 +75,14 @@ async function saveS3Page(url: string, html: string) {
     ContentType: 'text/html',
     Key: key,
   }));
+}
+
+function getSitemapItemOptions(content: ArchiveContent, url: string) {
+  return {
+    changefreq: EnumChangefreq.MONTHLY,
+    lastmod: dateFns.format(content.revised, 'YYYY-MM-DD'),
+    url, // Page URL
+  };
 }
 
 async function run() {
@@ -98,6 +122,8 @@ async function run() {
     userLoader,
   };
 
+  const getArchiveBook = makeGetArchiveBook(services);
+  const getArchivePage = makeGetArchivePage(services);
   const renderPage = makeRenderPage(services, saveS3Page);
 
   const parent = parentPort!;
@@ -109,10 +135,36 @@ async function run() {
       throw new Error('[SQS] [ReceiveMessage] Unexpected response: message missing Body key');
     }
 
-    const payload = JSON.parse(body) as Payload;
-    const page = {route: {...payload, route: content}, code: 200};
+    const task = JSON.parse(body);
 
-    await renderPage(page);
+    switch (task.type) {
+      case 'prerender': {
+        const payload = task.payload as PrerenderPayload;
+        const page = deserializePage(payload.page);
+        await renderPage({code: 200, route: page});
+        break;
+      }
+      case 'sitemap': {
+        const payload = task.payload as SitemapPayload;
+        const pages = payload.pages.map((page: SerializedPageMatch) => deserializePage(page));
+        const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, pages, async(page) => {
+          const archivePage = await getArchivePage(page);
+          return getSitemapItemOptions(archivePage, matchPathname(page));
+        });
+        await renderSitemap(payload.slug, items);
+        break;
+      }
+      case 'sitemapIndex': {
+        const payload = task.payload as SitemapIndexPayload;
+        const books = payload.books.map((book: SerializedBookMatch) => deserializeBook(book));
+        const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, books, async(book) => {
+          const archiveBook = await getArchiveBook(book);
+          return getSitemapItemOptions(archiveBook, sitemapPath(book.params.book.slug));
+        });
+        await renderSitemapIndex(items);
+        break;
+      }
+    }
 
     parent.postMessage(message.ReceiptHandle);
   });

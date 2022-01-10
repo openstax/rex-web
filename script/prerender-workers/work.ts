@@ -240,15 +240,6 @@ async function work() {
       Entries: successfulEntries,
       QueueUrl: process.env.WORK_QUEUE_URL,
     }));
-
-    // Queue up the sitemaps for processing elsewhere
-    /* TODO: sitemap
-    const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
-      QueueUrl: process.env.SITEMAP_QUEUE_URL,
-      Entries: sitemaps.map((sitemap, index) => (
-        {Id: index.toString(), MessageBody: JSON.stringify(sitemap)}
-      )),
-    }));*/
   }
 
   // Code here would never be reached, as the loop above never terminates

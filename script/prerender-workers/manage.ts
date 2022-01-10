@@ -19,9 +19,9 @@ import {
   GetQueueAttributesCommand,
   ReceiveMessageCommand,
   SendMessageBatchCommand,
+  SendMessageCommand,
   SQSClient,
 } from '@aws-sdk/client-sqs';
-import omit from 'lodash/fp/omit';
 import fetch from 'node-fetch';
 import path from 'path';
 import Loadable from 'react-loadable';
@@ -40,7 +40,6 @@ import {
 } from './contentPages';
 import createRedirects from './createRedirects';
 import { writeAssetFile } from './fileUtils';
-// import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 const {
   ARCHIVE_URL,
@@ -90,7 +89,6 @@ const workQueuePromise = new Promise<string>((resolve) => { resolveWorkQueueProm
 
 let timeoutDate: Date;
 let numPages = 0;
-// const bookSitemaps = {};
 
 async function renderManifest() {
   writeAssetFile('/rex/release.json', JSON.stringify({
@@ -178,9 +176,10 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
     // If the entire request fails, this command will throw and be caught at the end of this file
     // However, we also need to check if only some of the messages failed
     const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
-      Entries: pageBatch.map((page, batchIndex) => (
-        { Id: batchIndex.toString(), MessageBody: JSON.stringify(omit('route', page.route)) }
-      )),
+      Entries: pageBatch.map((page, batchIndex) => ({
+        Id: batchIndex.toString(),
+        MessageBody: JSON.stringify({ payload: { page }, type: 'prerender' }),
+      })),
       QueueUrl: workQueueUrl,
     }));
 
@@ -200,7 +199,22 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
     }
   }
 
-  console.log(`[${book.title}] Done queuing all ${numBookPages} book pages`);
+  console.log(`[${book.title}] All ${numBookPages} book pages queued`);
+
+  console.log(`[${book.title}] Queuing sitemap`);
+
+  await sqsClient.send(new SendMessageCommand({
+    MessageBody: JSON.stringify({ payload: { pages, slug: book.slug }, type: 'sitemap' }),
+    QueueUrl: workQueueUrl,
+  }));
+
+  console.log(`[${book.title}] Sitemap queued`);
+
+  // Used in the sitemap index
+  return {
+    params: { book: { slug: book.slug } },
+    state: { bookUid: book.id, bookVersion: book.version },
+  };
 }
 
 async function manage() {
@@ -280,13 +294,18 @@ async function manage() {
   console.log('Waiting for all jobs to be queued');
 
   // Wait for all book pages to be queued
-  await allPagesQueuedPromise;
+  const books = await allPagesQueuedPromise;
 
-  console.log(`All ${numPages} page prerendering jobs queued`);
+  console.log(`All ${numPages} page prerendering jobs and all ${BOOKS.length} sitemap jobs queued`);
 
-  // TODO: Code between this comment and ENDTODO can maybe be removed
-  // if the manager ends up processing the sitemap index and checks the page count there
-  // see the commented-out sitemap code after ENDTODO for details
+  console.log('Queuing sitemap index job');
+
+  await sqsClient.send(new SendMessageCommand({
+    MessageBody: JSON.stringify({ payload: { books }, type: 'sitemapIndex' }),
+    QueueUrl: workQueueUrl,
+  }));
+
+  console.log('Sitemap index job queued');
 
   // Ensure the work queue is empty
 
@@ -351,75 +370,13 @@ async function manage() {
 
   console.log(`The dead letter queue is empty; all ${numPages} pages rendered successfully`);
 
-  // ENDTODO
-
-  // TODO: sitemap
-  // If we end up collecting all the sitemaps here and we include a count of pages on each
-  // sitemap, we can make sure the total matches numPages
-  // If we did that, we wouldn't need to query the work queue attributes.
-  // The DLQ check could also be done when we stop receiving sitemap messages
-  // The commented out code below shows how this would work
-
-  // Collect sitemaps by book for rendering
-  // We also use this to count and ensure we have rendered all the pages
-  /*
-  let numRenderedPages = 0;
-  const receiveSitemapMessageCommand = new ReceiveMessageCommand({
-    QueueUrl: sitemapQueueUrl,
-    MaxNumberOfMessages: 10,
-  });
-  const receiveDLQMessageCommand = new ReceiveMessageCommand({
-    QueueUrl: deadLetterQueueUrl,
-    MaxNumberOfMessages: 10,
-  });
-  while (numRenderedPages < numPages) {
-    const receiveSitemapMessageResult = await sqsClient.send(receiveSitemapMessageCommand);
-
-    if (receiveSitemapMessageResult.Messages.length === 0) {
-      // Check the dead letter queue and see if we should abort early
-      const receiveDLQMessageResult = await sqsClient.send(receiveDLQMessageCommand);
-      const numDLQMessages = receiveDLQMessageResult.Messages.length;
-      if (numDLQMessages > 0) {
-        throw `Received ${numDLQMessages} messages from the dead letter queue: ${
-          JSON.stringify(receiveDLQMessageResult.Messages)}`;
-      }
-
-      // Also check if we have exceeded the prerender timeout
-      if (new Date() > timeoutDate) {
-        throw `Not all sitemaps received within ${PRERENDER_TIMEOUT_SECONDS} seconds.`;
-      }
-    } else {
-      for (const message of receiveSitemapMessageResult.Messages) {
-        const sitemaps = JSON.parse(message) as OXSitemapItemOptions[];
-
-        numRenderedPages += sitemap.length;
-
-        for (const sitemap of sitemaps) {
-          bookSitemaps[sitemap.bookSlug] ||= [];
-          bookSitemaps[sitemap.bookSlug].push(sitemap);
-        }
-      }
-    }
-  }
-  */
-
-  // All pages have been rendered and sitemaps collected at this point
+  // All pages, sitemaps and sitemap index have been rendered at this point
 }
 
 async function cleanup() {
   // Proceed with other tasks while the stack deletes
   await deleteWorkersStack();
 
-  console.log('TODO: sitemap');
-
-  // Render all the sitemaps
-  /*
-  for (const bookSlug in bookSitemaps) {
-    renderSitemap(bookSlug, bookSitemaps[bookSlug]);
-  }
-
-  await renderSitemapIndex();
-  */
   await renderManifest();
   await createRedirects(archiveLoader, osWebLoader);
 

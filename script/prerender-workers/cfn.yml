@@ -46,15 +46,12 @@ Resources:
     Properties:
       KmsMasterKeyId: alias/aws/sqs
       QueueName: !Sub rex-${CodeVersion}-${ReleaseIdSuffix}-prerender-dlq
-      MessageRetentionPeriod: 1209600
       ReceiveMessageWaitTimeSeconds: 20
       VisibilityTimeout: 0
-      # Leads to circular dependency errors with the other queues
-      # RedriveAllowPolicy:
+      # RedriveAllowPolicy: # leads to circular dependency errors with the worker queue
       #   redrivePermission: byQueue
       #   sourceQueueArns:
       #     - !GetAtt WorkQueue.Arn
-      #     - !GetAtt SitemapQueue.Arn
 
   WorkQueue:
     Type: AWS::SQS::Queue
@@ -66,18 +63,7 @@ Resources:
       RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
       RedrivePolicy:
         deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
-        maxReceiveCount: 10
-
-  #SitemapQueue:
-  #  Type: AWS::SQS::Queue
-  #  Properties:
-  #    KmsMasterKeyId: alias/aws/sqs
-  #    QueueName: !Sub rex-${CodeVersion}-${ReleaseIdSuffix}-prerender-sitemap-queue
-  #    ReceiveMessageWaitTimeSeconds: 20
-  #    RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
-  #    RedrivePolicy:
-  #      deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
-  #      maxReceiveCount: 3
+        maxReceiveCount: 5
 
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
@@ -217,10 +203,6 @@ Outputs:
   WorkQueueUrl:
     Description: The work queue's SQS endpoint URL
     Value: !Ref WorkQueue
-
-  #SitemapQueueUrl:
-  #  Description: The sitemap queue's SQS endpoint URL
-  #  Value: !Ref SitemapQueue
 
   DeadLetterQueueUrl:
     Description: The dead letter queue's SQS endpoint URL
