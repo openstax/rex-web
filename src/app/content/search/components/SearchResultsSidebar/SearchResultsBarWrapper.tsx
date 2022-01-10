@@ -125,7 +125,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           {(msg) => msg}
         </FormattedMessage>
       </Styled.SearchResultsSectionTitle>}
-      <Styled.SearchResultsOl>
+      <Styled.SearchResultsOl data-analytics-region='content-search-results'>
         {displaySearchResults && <SearchResultContainers
           activeSectionRef={this.activeSection}
           selectedResult={this.props.selectedResult}
