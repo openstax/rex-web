@@ -59,7 +59,6 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public componentDidMount() {
     this.postProcess();
-    this.reApplyLocationHash();
     if (!this.container.current) {
       return;
     }
@@ -68,11 +67,16 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
 
+    // Sometimes data is already populated on mount, eg when navigating to a new tab
     if (this.props.searchHighlights.selectedResult) {
       this.searchHighlightManager.update(null, this.props.searchHighlights, {
         forceRedraw: true,
         onSelect: this.onSearchHighlightSelect,
       });
+    }
+
+    if (this.props.scrollToTopOrHash.hash) {
+      this.scrollToTopOrHashManager({...this.props.scrollToTopOrHash, hash: ''}, this.props.scrollToTopOrHash);
     }
   }
 
@@ -235,17 +239,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     const newId = this.componentDidUpdateCounter + 1;
     this.componentDidUpdateCounter = newId;
     return newId;
-  }
-
-  // Reapply the location hash to make the anchors linking to dynamically generated content work
-  // when the link is opened in a new tab
-  private reApplyLocationHash() {
-    const window = assertWindow();
-    if (window.location.hash) {
-      const hash = window.location.hash;
-      window.location.hash = '';
-      window.location.hash = hash;
-    }
   }
 
   /**
