@@ -88,6 +88,7 @@ let resolveWorkQueuePromise: (workQueueUrl: string) => void;
 const workQueuePromise = new Promise<string>((resolve) => { resolveWorkQueuePromise = resolve; });
 
 let timeoutDate: Date;
+let numBooks = 0;
 let numPages = 0;
 
 async function renderManifest() {
@@ -201,7 +202,7 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
 
   console.log(`[${book.title}] All ${numBookPages} book pages queued`);
 
-  console.log(`[${book.title}] Queuing sitemap`);
+  // console.log(`[${book.title}] Queuing sitemap`);
 
   await sqsClient.send(new SendMessageCommand({
     MessageBody: JSON.stringify({ payload: { pages, slug: book.slug }, type: 'sitemap' }),
@@ -296,9 +297,11 @@ async function manage() {
   // Wait for all book pages to be queued
   const books = await allPagesQueuedPromise;
 
-  console.log(`All ${numPages} page prerendering jobs and all ${BOOKS.length} sitemap jobs queued`);
+  numBooks = books.length;
 
-  console.log('Queuing sitemap index job');
+  console.log(`All ${numPages} page prerendering jobs and all ${numBooks} sitemap jobs queued`);
+
+  // console.log('Queuing sitemap index job');
 
   await sqsClient.send(new SendMessageCommand({
     MessageBody: JSON.stringify({ payload: { books }, type: 'sitemapIndex' }),
@@ -306,6 +309,8 @@ async function manage() {
   }));
 
   console.log('Sitemap index job queued');
+
+  const numJobs = numPages + numBooks + 1;
 
   // Ensure the work queue is empty
 
@@ -340,7 +345,7 @@ async function manage() {
 
     if (numMessages === 0) { break; }
 
-    console.log(`${numMessages}/${numPages} prerendering jobs remaining`);
+    console.log(`${numMessages}/${numJobs} prerendering jobs remaining`);
 
     if (new Date() > timeoutDate) {
       throw new Error(`Not all prerendering jobs finished within ${
@@ -350,7 +355,7 @@ async function manage() {
     await new Promise((resolve) => setTimeout(resolve, 10000));
   }
 
-  console.log(`All ${numPages} prerendering jobs finished`);
+  console.log(`All ${numJobs} prerendering jobs finished`);
 
   console.log('Ensuring that the dead letter queue is empty');
 
@@ -368,7 +373,7 @@ async function manage() {
     throw new Error(`Some pages failed to render: ${JSON.stringify(dlqMessages)}`);
   }
 
-  console.log(`The dead letter queue is empty; all ${numPages} pages rendered successfully`);
+  console.log(`The dead letter queue is empty; all ${numJobs} jobs finished successfully`);
 
   // All pages, sitemaps and sitemap index have been rendered at this point
 }
@@ -384,11 +389,14 @@ async function cleanup() {
 
   console.log({...stats, elapsedMinutes, networkTime});
 
-  console.log(`Prerender complete. Rendered ${numPages} pages, ${numPages / elapsedMinutes}ppm`);
+  console.log(
+    `Prerender complete. Rendered ${numPages} pages, ${numBooks
+    } sitemaps and the sitemap index. ${numPages / elapsedMinutes}ppm`
+  );
 
-  // TODO: Wait for the stack to delete and fail the build if it fails to delete?
-  //       We can do it to get notified and prevent having a bunch of failed delete stacks,
-  //       but for the purposes of the build itself we are already done
+  /* TODO?: Wait for the stack to delete and fail the build if it fails to delete
+            We can do it to get notified and prevent having a bunch of failed delete stacks,
+            but for the purposes of the build itself we are already done */
 }
 
 // Start creating the worker stack first since it takes a while

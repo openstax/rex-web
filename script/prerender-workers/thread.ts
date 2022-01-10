@@ -9,9 +9,7 @@
 
 import './setup';
 
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Message } from '@aws-sdk/client-sqs';
-import { fromContainerMetadata } from '@aws-sdk/credential-providers';
 import dateFns from 'date-fns';
 import Loadable from 'react-loadable';
 import { EnumChangefreq } from 'sitemap';
@@ -37,6 +35,7 @@ import {
   SerializedBookMatch,
   SerializedPageMatch,
 } from './contentPages';
+import { writeS3File } from './fileUtils';
 import { renderSitemap, renderSitemapIndex, sitemapPath } from './sitemap';
 
 const MAX_CONCURRENT_CONNECTIONS = 5;
@@ -59,24 +58,6 @@ const {
   SEARCH_URL,
 } = config;
 
-let s3Client: S3Client;
-
-async function saveS3Page(url: string, html: string) {
-  let path = process.env.PUBLIC_URL;
-  if (path[0] === '/') { path = path.slice(1); }
-  const key = `${path}${url}`;
-
-  console.log(`Writing s3 file: /${key}`);
-
-  return s3Client.send(new PutObjectCommand({
-    Body: html,
-    Bucket: process.env.BUCKET_NAME,
-    CacheControl: 'max-age=0',
-    ContentType: 'text/html',
-    Key: key,
-  }));
-}
-
 function getSitemapItemOptions(content: ArchiveContent, url: string) {
   return {
     changefreq: EnumChangefreq.MONTHLY,
@@ -86,14 +67,6 @@ function getSitemapItemOptions(content: ArchiveContent, url: string) {
 }
 
 async function run() {
-  console.log('Fetching container credentials');
-
-  const credentials = await fromContainerMetadata();
-
-  console.log('Initializing S3 client');
-
-  s3Client = new S3Client({ credentials, region: process.env.BUCKET_REGION });
-
   console.log('Preloading route components');
 
   await Loadable.preloadAll();
@@ -124,7 +97,7 @@ async function run() {
 
   const getArchiveBook = makeGetArchiveBook(services);
   const getArchivePage = makeGetArchivePage(services);
-  const renderPage = makeRenderPage(services, saveS3Page);
+  const renderPage = makeRenderPage(services, writeS3File);
 
   const parent = parentPort!;
 

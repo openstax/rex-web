@@ -1,5 +1,5 @@
 import sitemap, { SitemapItemOptions } from 'sitemap';
-import { writeAssetFile } from './fileUtils';
+import { writeS3File } from './fileUtils';
 
 export const sitemapPath = (pathName: string) => `/rex/sitemaps/${pathName}.xml`;
 
@@ -8,10 +8,10 @@ export const renderSitemap = (slug: string, urls: SitemapItemOptions[]) => {
 
   const filePath = sitemapPath(slug);
 
-  writeAssetFile(filePath, bookSitemap.toString());
+  writeS3File(filePath, bookSitemap.toString());
 };
 
 export const renderSitemapIndex = (urls: SitemapItemOptions[]) => {
   const sitemapIndex = sitemap.buildSitemapIndex({ urls });
-  writeAssetFile(sitemapPath('index'), sitemapIndex.toString());
+  writeS3File(sitemapPath('index'), sitemapIndex.toString());
 };
