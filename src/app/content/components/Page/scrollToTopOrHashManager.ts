@@ -48,7 +48,7 @@ const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLEleme
 
 const scrollToTopOrHashManager = (
   container: HTMLElement
-) => (previous: ScrollTargetProp, current: ScrollTargetProp) => {
+) => (previous: ScrollTargetProp | null, current: ScrollTargetProp) => {
   if (
     current.scrollTarget
     && isSearchScrollTarget(current.scrollTarget)
@@ -58,7 +58,7 @@ const scrollToTopOrHashManager = (
   ) {
     return;
   }
-  if (previous.page !== current.page) {
+  if (!previous || (previous.page !== current.page)) {
     scrollToTargetOrTop(container, current.hash);
   } else if (previous.hash !== current.hash) {
     scrollToTarget(container, current.hash);

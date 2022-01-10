@@ -74,9 +74,7 @@ export default class PageComponent extends Component<PagePropTypes> {
         onSelect: this.onSearchHighlightSelect,
       });
     }
-    if (this.props.scrollToTopOrHash.hash) {
-      this.scrollToTopOrHashManager({...this.props.scrollToTopOrHash, hash: ''}, this.props.scrollToTopOrHash);
-    }
+    this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
