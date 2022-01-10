@@ -137,9 +137,9 @@ async function popWorker() {
 }
 
 async function sqsHeartbeat(messages: Message[]) {
-  console.log(`Sending SQS hearbeat for ${messages.length} messages`);
+  console.log(`Sending SQS heartbeat for ${messages.length} messages`);
 
-  for (const message of messages) {
+  messages.forEach(async(message) => {
     try {
       await sqsClient.send(new ChangeMessageVisibilityCommand({
         QueueUrl: process.env.WORK_QUEUE_URL,
@@ -151,23 +151,25 @@ async function sqsHeartbeat(messages: Message[]) {
       // Even if one message got deleted,
       // we should continue trying to send the heartbeat for the others
     }
-  }
+  });
 }
 
 for (const _undefined of Array(cpus().length + 1)) { pushWorker(new SQSWorker()); }
 
 // Typescript shenanigans so filter() returns the correct type for the return value of allSettled()
 // https://stackoverflow.com/a/65479695
-interface FulfilledPromiseResult<Type> {
+type FulfilledPromiseResult<Type> = {
   status: 'fulfilled';
   value: Type;
-}
-interface RejectedPromiseResult {
+};
+type RejectedPromiseResult = {
   status: 'rejected';
   reason: Error;
-}
+};
+type PromiseResult<Type> = FulfilledPromiseResult<Type> | RejectedPromiseResult;
+
 function isFulfilledPromiseResult<Type>(
-  promiseResult: FulfilledPromiseResult<Type> | RejectedPromiseResult
+  promiseResult: PromiseResult<Type>
 ): promiseResult is FulfilledPromiseResult<Type> { return promiseResult.status === 'fulfilled'; }
 
 // https://github.com/amrayn/allsettled-polyfill/blob/master/index.js
@@ -202,44 +204,53 @@ async function work() {
     // The delay here should be about half of the VisibilityTimeout
     const heartbeatInterval = setInterval(sqsHeartbeat, 15000, messages);
 
-    const workPromises = messages.map(async(message) => {
+    // Send 1 message to each worker
+    // We want to make sure we don't read more messages than we have available workers,
+    // so this loop must block when waiting for a worker
+    const workPromises: Array<Promise<string>> = [];
+    for (const message of messages) {
       // Get an available worker or wait for one
       const worker = await popWorker();
 
       // Begin work
-      return worker.startWork(message);
-    });
-
-    // Wait for the work on all messages to be done
-    const results = await allSettled(workPromises);
-
-    // Stop the heartbeat interval
-    clearInterval(heartbeatInterval);
-
-    // Check which messages succeeded
-    // The Id only has to be unique within this request, it has no other meaning
-    const successfulEntries = results.filter(isFulfilledPromiseResult).map(
-      (result, index) => ({ Id: index.toString(), ReceiptHandle: result.value })
-    );
-
-    const numSuccesses = successfulEntries.length;
-    const numResults = results.length;
-
-    if (numSuccesses === 0) {
-      console.log(`Received ${numResults} failures and no successes`);
-
-      continue;
+      workPromises.push(worker.startWork(message));
     }
 
-    console.log(`Received ${numSuccesses} successes and ${
-      numResults - numSuccesses} failures; deleting succesful messages`);
+    // Wait for the work on all messages to be done, then delete the successful ones
+    // allSettled() (Promise.allSettled in ES2020) always succeeds and returns an array of objects
+    // that specify which promises in the iterable argument succeeded and which failed
+    // We use then() instead of await to avoid having to wait for all threads to be done at once
+    // This way the threads that are already done can start work on the next 10 messages
+    allSettled(workPromises).then(async(results) => {
+      // Stop the heartbeat interval
+      clearInterval(heartbeatInterval);
 
-    // Delete only the successful messages
-    // The Id only has to be unique within this request, it has no other meaning
-    await sqsClient.send(new DeleteMessageBatchCommand({
-      Entries: successfulEntries,
-      QueueUrl: process.env.WORK_QUEUE_URL,
-    }));
+      // Check which messages succeeded
+      // The Id only has to be unique within this request, it has no other meaning
+      const successfulEntries = results.filter(isFulfilledPromiseResult).map(
+        (result, index) => ({ Id: index.toString(), ReceiptHandle: result.value })
+      );
+
+      const numSuccesses = successfulEntries.length;
+      const numResults = results.length;
+
+      if (numSuccesses === 0) {
+        console.log(`Received ${numResults} failures and no successes`);
+
+        // Nothing to delete, so just return
+        return;
+      }
+
+      console.log(`Received ${numSuccesses} successes and ${
+        numResults - numSuccesses} failures; deleting succesful messages`);
+
+      // Delete only the successful messages
+      // The Id only has to be unique within this request, it has no other meaning
+      return sqsClient.send(new DeleteMessageBatchCommand({
+        Entries: successfulEntries,
+        QueueUrl: process.env.WORK_QUEUE_URL,
+      }));
+    });
   }
 
   // Code here would never be reached, as the loop above never terminates
