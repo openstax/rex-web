@@ -20,11 +20,6 @@ import { assertDefined } from '../../src/app/utils';
 import FontCollector from '../../src/helpers/FontCollector';
 import { readAssetFile } from './fileUtils';
 
-export const stats = {
-  promiseCollector: 0,
-  renderHtml: 0,
-};
-
 export type BookMatch = {
   params: { book: { slug: string } },
   route: typeof content,
@@ -81,9 +76,7 @@ const prepareApp = async(
   const url = decodeURI(matchPathname(action));
   const app = createApp({initialEntries: [action], services});
 
-  const timer = minuteCounter();
   await app.services.promiseCollector.calm();
-  stats.promiseCollector += timer();
 
   const state = app.store.getState();
   const styles = new ServerStyleSheet();
@@ -176,9 +169,7 @@ export const makeRenderPage: MakeRenderPage = (services, savePage) => async({cod
   const {app, styles, state, url} = await prepareApp(services, route, code);
   console.info(`Rendering ${url}`); // tslint:disable-line:no-console
 
-  const timer = minuteCounter();
   const html = await renderHtml(styles, app, state);
-  stats.renderHtml += timer();
 
   await savePage(url, html);
 };
