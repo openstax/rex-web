@@ -22,6 +22,7 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>
     ${(props) => (props.isTocOpen || props.isTocOpen ===  null || props.isSearchOpen) && `
       padding-left: ${sidebarDesktopWithToolbarWidth}rem;
     `}
+
     ${theme.breakpoints.mobile(css`
       padding-left: 0;
     `)}
