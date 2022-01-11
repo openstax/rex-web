@@ -6,14 +6,24 @@ production_url=https://openstax.org
 work_dir=$(pwd)
 failed=0
 
-release_id=$(curl -s "${production_url}/rex/environment.json" | jq .release_id -r)
-files=$(aws --profile openstax s3api list-objects --bucket "$PROD_UNIFIED_S3_BUCKET" --prefix "rex/releases/$release_id/books/" | jq -r '.Contents[] | .Key')
-number=$(wc -l <<< "$files" | awk '{$1=$1};1')
+prod_release_id=$(curl -s "${production_url}/rex/environment.json" | jq .release_id -r)
+prod_files=$(aws --profile openstax s3api list-objects --bucket "$PROD_UNIFIED_S3_BUCKET" --prefix "rex/releases/$prod_release_id/books/" | jq -r '.Contents[] | .Key' | sed -e "s/.*\/\(books\/.*\)/\1/")
+prod_number=$(wc -l <<< "$prod_files" | awk '{$1=$1};1')
 
-echo "testing $number urls..."
+uploaded_files=$(aws --profile openstax s3api list-objects --bucket "$PROD_UNIFIED_S3_BUCKET" --prefix "rex/releases/$REACT_APP_RELEASE_ID/books/" | jq -r '.Contents[] | .Key' | sed -e "s/.*\/\(books\/.*\)/\1/")
+uploaded_number=$(wc -l <<< "$uploaded_files" | awk '{$1=$1};1')
 
-for full_path in $files; do
-  file_path="/release/$(sed -e "s/.*\/\(books\/.*\)/\1/" <<< "$full_path")"
+# Bash array difference (with newline-separated inputs)
+# Adapted from https://stackoverflow.com/a/28161520
+# Returns files in $production_files but not in $already_uploaded
+not_uploaded_files=$(echo "${prod_files}\n${uploaded_files}\n${uploaded_files}" | sort | uniq -u)
+not_uploaded_number=$(wc -l <<< "$not_uploaded_files" | awk '{$1=$1};1')
+
+echo "Production: $prod_number urls. Already uploaded: $uploaded_number urls. Testing: $not_uploaded_number urls."
+
+for path_starting_with_book in $not_uploaded_files; do
+  file_path="/release/$path_starting_with_book"
+
   if [ ! -f "$work_dir$file_path" ]; then
     echo "MISSING PATH: $file_path";
     failed=1;
