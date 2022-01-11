@@ -9,7 +9,6 @@ import { State } from '../types';
 import {
   mainContentBackground,
   sidebarDesktopWidth,
-  sidebarTransitionTime,
 } from './constants';
 import { areSidebarsOpenConnector } from './utils/sidebar';
 
@@ -19,12 +18,10 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>
     flex: 1;
     width: 100%;
     overflow: visible;
-    transition: padding-left ${sidebarTransitionTime}ms;
     background-color: ${mainContentBackground};
     ${(props) => (props.isTocOpen || props.isTocOpen ===  null || props.isSearchOpen) && `
       padding-left: ${sidebarDesktopWidth}rem;
     `}
-
     ${theme.breakpoints.desktopSmall(css`
       padding-left: 0;
     `)}

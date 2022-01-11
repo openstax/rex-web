@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import theme from '../../theme';
+import { sidebarDesktopWithToolbarWidth } from './constants';
 
 // tslint:disable-next-line: variable-name
 const Wrapper = styled.div`
@@ -11,7 +12,7 @@ const Wrapper = styled.div`
   overflow: visible; /* so sidebar position: sticky works */
   margin: 0 auto;
   ${theme.breakpoints.desktopSmall(css`
-    padding-left: 45.6rem;
+    padding-left: ${sidebarDesktopWithToolbarWidth}rem;
   `)}
   ${theme.breakpoints.mobile(css`
     padding-left: 0;
