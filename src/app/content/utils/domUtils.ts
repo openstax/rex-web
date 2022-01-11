@@ -1,5 +1,7 @@
 import { HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import theme from '../../theme';
 import { remsToPx } from '../../utils';
+import { assertWindow } from '../../utils/browser-assertions';
 import { verticalNavbar } from '../components/constants';
 
 if (typeof(document) !== 'undefined') {
@@ -94,8 +96,10 @@ export const setContentAdditionalPadding =  (content: HTMLElement, window: Windo
   const callback = () => {
     const left = content.getBoundingClientRect().left;
     const hiddenPart = remsToPx(verticalNavbar) - left;
+    const screen = assertWindow().innerWidth;
+    const mobileBreakpointPx = theme.breakpoints.mobileBreak * 16;
 
-    if (hiddenPart > 0) {
+    if (hiddenPart > 0 && screen > mobileBreakpointPx) {
       content.style.setProperty('padding-left', `${hiddenPart}px`);
     } else {
       content.style.setProperty('padding-left', '0px');
