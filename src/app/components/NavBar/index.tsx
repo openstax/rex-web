@@ -63,8 +63,8 @@ export const Dropdown: React.FunctionComponent<{user: User, currentPath: string}
 };
 
 // tslint:disable-next-line:variable-name
-const DropdownToggle: SFC<{user: User}> = ({user: { firstName }}) => {
-  const initials = (firstName[0] + firstName.slice(-1)).toUpperCase();
+const DropdownToggle: SFC<{user: User}> = ({user: { firstName, lastName }}) => {
+  const initials = (firstName[0] + lastName[0]).toUpperCase();
   return <Styled.DropdownToggle tabIndex='0' data-testid='user-nav-toggle'>{initials}</Styled.DropdownToggle>;
 };
 
