@@ -8,7 +8,7 @@ import { closeToc } from '../actions';
 import { State } from '../types';
 import {
   mainContentBackground,
-  sidebarDesktopWidth,
+  sidebarDesktopWithToolbarWidth,
 } from './constants';
 import { areSidebarsOpenConnector } from './utils/sidebar';
 
@@ -20,9 +20,9 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>
     overflow: visible;
     background-color: ${mainContentBackground};
     ${(props) => (props.isTocOpen || props.isTocOpen ===  null || props.isSearchOpen) && `
-      padding-left: ${sidebarDesktopWidth}rem;
+      padding-left: ${sidebarDesktopWithToolbarWidth}rem;
     `}
-    ${theme.breakpoints.desktopSmall(css`
+    ${theme.breakpoints.mobile(css`
       padding-left: 0;
     `)}
   }
