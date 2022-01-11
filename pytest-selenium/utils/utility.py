@@ -239,16 +239,28 @@ def get_search_term(element):
     return search_term
 
 
-def expected_search_results_total(element) -> int:
-    """Total search results for the search performed on the book.
+def expected_chapter_search_results_total(element) -> int:
+    """Total chapter search results for the search performed on the book.
 
         :param int element: the book slug
-        :return: total number of search results defined for the book slug in the library
+        :return: total number of chapter search results defined for the book slug in the library
         :rtype: int
 
     """
     book_list = Library.books
-    return book_list[element]["search_results_total"]
+    return book_list[element]["chapter_search_results_total"]
+
+
+def expected_rkt_search_results_total(element) -> int:
+    """Total rkt search results for the search performed on the book.
+
+        :param int element: the book slug
+        :return: total number of rkt search results defined for the book slug in the library
+        :rtype: int
+
+    """
+    book_list = Library.books
+    return book_list[element]["rkt_search_results_total"]
 
 
 class Utilities(object):
