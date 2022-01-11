@@ -12,7 +12,13 @@ from selenium.common.exceptions import TimeoutException
 
 from pages.content import Content
 from tests import markers
-from utils.utility import Utilities, Library, get_search_term, expected_search_results_total
+from utils.utility import (
+    Utilities,
+    Library,
+    get_search_term,
+    expected_chapter_search_results_total,
+    expected_rkt_search_results_total,
+)
 
 XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-highlight first text last focus')]"
 
@@ -428,7 +434,8 @@ def test_search_results(selenium, base_url, page_slug):
         # WHEN: Search is performed
         search_sidebar = book.search_sidebar
         search_term = get_search_term(book_slug)
-        expected_value = expected_search_results_total(book_slug)
+        chapter_search_results_expected_value = expected_chapter_search_results_total(book_slug)
+        rkt_results_expected_value = expected_rkt_search_results_total(book_slug)
 
         # AND: Search sidebar is open
         book.toolbar.search_for(search_term)
@@ -440,13 +447,20 @@ def test_search_results(selenium, base_url, page_slug):
             assert search_sidebar.search_results_present
 
         # THEN: Search sidebar shows total number of matches throughout the book
+        assert search_sidebar.rkt_search_result_total == rkt_results_expected_value
         try:
-            assert search_sidebar.search_result_total == expected_value
+            assert (
+                search_sidebar.chapter_search_result_total == chapter_search_results_expected_value
+            )
         except AssertionError:
             # Total search results vary slightly between environment/search sessions which is being worked on by the developers.
             # Till then asserting with a threshold value
             print(
-                f"Search results mismatch for '{book_slug}', expected = '{expected_value}', actual = '{search_sidebar.search_result_total}'"
+                f"Search results mismatch for '{book_slug}', expected = '{chapter_search_results_expected_value}', actual = '{search_sidebar.chapter_search_result_total}'"
             )
             tc = unittest.TestCase()
-            tc.assertAlmostEqual(search_sidebar.search_result_total, expected_value, delta=3)
+            tc.assertAlmostEqual(
+                search_sidebar.chapter_search_result_total,
+                chapter_search_results_expected_value,
+                delta=3,
+            )
