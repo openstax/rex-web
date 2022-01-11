@@ -152,6 +152,10 @@ export const DropdownToggle = styled.div`
   color: ${theme.color.white};
   background-color: #007297;
   cursor: pointer;
+  margin-top: 1.6rem;
+  ${theme.breakpoints.mobile(css`
+    margin-top: 0;
+  `)}
 
   :hover {
     box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.3);
@@ -240,6 +244,7 @@ const overlayShown = css`
 // tslint:disable-next-line:variable-name
 export const DropdownOverlay = styled.div`
   overflow: visible;
+  margin-bottom: 0.8rem;
   ${theme.breakpoints.mobile(css`
     background: ${Color(theme.color.neutral.base).alpha(0).string()};
     transition: background 200ms;
@@ -252,6 +257,7 @@ export const DropdownOverlay = styled.div`
     height: 0;
     width: 0;
     overflow: hidden;
+    margin-bottom: 0;
 
     &:focus,
     &.focus-within,
