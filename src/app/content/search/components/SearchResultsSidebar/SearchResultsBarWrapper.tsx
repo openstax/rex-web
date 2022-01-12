@@ -114,7 +114,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       assertDefined(a.highlight.title, 'highlight should have title')
       .localeCompare(assertDefined(b.highlight.title, 'highlight should have title')));
 
-    return <Styled.NavOl>
+    return <Styled.NavWrapper>
       {displayRelatedKeyTerms && <RelatedKeyTerms
         book={book}
         selectedResult={this.props.selectedResult}
@@ -125,13 +125,16 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
           {(msg) => msg}
         </FormattedMessage>
       </Styled.SearchResultsSectionTitle>}
-      {displaySearchResults && <SearchResultContainers
-        activeSectionRef={this.activeSection}
-        selectedResult={this.props.selectedResult}
-        containers={assertNotNull(results, 'displaySearchResults is true')}
-        book={book}
-      />}
-    </Styled.NavOl>;
+      <Styled.SearchResultsOl data-analytics-region='content-search-results'>
+        {displaySearchResults && <SearchResultContainers
+          activeSectionRef={this.activeSection}
+          selectedResult={this.props.selectedResult}
+          containers={assertNotNull(results, 'displaySearchResults is true')}
+          book={book}
+        />
+        }
+      </Styled.SearchResultsOl>
+    </Styled.NavWrapper>;
   };
 
   public render() {
