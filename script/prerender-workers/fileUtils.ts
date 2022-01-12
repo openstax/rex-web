@@ -59,6 +59,7 @@ let s3Client: S3Client | undefined;
 
 export async function writeS3File(filepath: string, contents: string, contentType = 'text/html') {
   let basePath = process.env.PUBLIC_URL;
+  if (!basePath) { throw new Error('PUBLIC_URL environment variable not set'); }
   if (basePath[0] === '/') { basePath = basePath.slice(1); }
   const key = `${basePath}${filepath}`;
 
