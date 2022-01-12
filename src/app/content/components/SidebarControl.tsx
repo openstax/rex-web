@@ -56,7 +56,7 @@ const ToCButton = styled.button<{isOpen: State['tocOpen'], isActive: boolean }>`
     ${toolbarIconStyles};
   }
 
-  display: ${({isOpen, isActive}) => (isOpen === false) !== isActive ? 'flex' : 'none'};
+  display: ${({isOpen, isActive}) => (isOpen && isActive) || (!isOpen && !isActive) ? 'flex' : 'none'};
   ${(props) => props.isOpen === null && !props.isActive && theme.breakpoints.mobile(css`
     display: flex;
   `)}
