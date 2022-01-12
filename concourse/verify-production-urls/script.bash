@@ -15,7 +15,12 @@ uploaded_number=$(wc -l <<< "$uploaded_files" | awk '{$1=$1};1')
 
 # Bash array difference (with newline-separated inputs)
 # Adapted from https://stackoverflow.com/a/28161520
-# Returns files in $production_files but not in $already_uploaded
+# Returns files in $prod_files but not in $uploaded_files
+# Algorithm:
+# 1. Concatenate all entries, newline-separated
+# 2. Sort entries
+# 3. Remove all lines that appear more than once
+# The array to be removed appears twice in the input so none of its entries are added to the output
 not_uploaded_files=$(print "$prod_files\n$uploaded_files\n$uploaded_files" | sort | uniq -u)
 not_uploaded_number=$(wc -l <<< "$not_uploaded_files" | awk '{$1=$1};1')
 
