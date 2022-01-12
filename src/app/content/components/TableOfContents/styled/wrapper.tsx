@@ -60,7 +60,7 @@ export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
   `)}
 
   ${theme.breakpoints.mobileMedium(css`
-    z-index: ${theme.zIndex.highlightSummaryPopup};
+    z-index: ${theme.zIndex.sidebarMobileMedium};
     position: fixed;
     top: 0;
     left: 0;
