@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from enum import Enum
-import json
+from json import loads
 from platform import system
 from random import choice, choices, randint
 from string import digits, ascii_letters
