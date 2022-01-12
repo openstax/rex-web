@@ -18,12 +18,14 @@ export default async(services: AppServices & MiddlewareAPI) => {
   root.insertAdjacentElement('afterend', domNode);
 
   const userChoice: boolean = await new Promise((resolve) => {
-    const focusedHighlight = focused(services.getState())!;
+    const focusedHighlight = focused(services.getState());
     services.dispatch(clearFocusedHighlight());
     const confirm = () => resolve(true);
     const deny = () => {
       resolve(false);
-      services.dispatch(focusHighlight(focusedHighlight));
+      if (focusedHighlight) {
+        services.dispatch(focusHighlight(focusedHighlight));
+      }
       services.dispatch(setAnnotationChangesPending(true));
     };
     ReactDOM.render(
