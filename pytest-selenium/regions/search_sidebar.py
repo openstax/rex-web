@@ -22,7 +22,7 @@ class SearchSidebar(Region):
     _search_result_locator = (By.CSS_SELECTOR, "[data-testid$=result]")
     _search_results_sidebar_locator = (
         By.XPATH,
-        "//div[@data-testid = 'search-results-sidebar']/ol",
+        "//div[@data-testid = 'search-results-sidebar']/div[2]",
     )
 
     # fmt: off
