@@ -213,238 +213,285 @@ class Library(object):
         "algebra-and-trigonometry": {
             "default_page": "1-introduction-to-prerequisites",
             "search_term": "Graphs of Parabolas",
-            "search_results_total": 6,
+            "chapter_search_results_total": 6,
+            "rkt_search_results_total": 0,
         },
         "american-government-2e": {
             "default_page": "1-introduction",
             "search_term": "hypodermic theory",
-            "search_results_total": 1,
+            "chapter_search_results_total": 1,
+            "rkt_search_results_total": 1,
         },
         "american-government-3e": {
             "default_page": "1-introduction",
             "search_term": "Commercial fishers",
-            "search_results_total": 2,
+            "chapter_search_results_total": 2,
+            "rkt_search_results_total": 0,
         },
         "anatomy-and-physiology": {
             "default_page": "1-introduction",
             "search_term": "20 percent oxygen",
-            "search_results_total": 19,
+            "chapter_search_results_total": 19,
+            "rkt_search_results_total": 0,
         },
         "astronomy": {
             "default_page": "1-introduction",
             "search_term": "leap year",
-            "search_results_total": 23,
+            "chapter_search_results_total": 23,
+            "rkt_search_results_total": 0,
         },
         "biology-2e": {
             "default_page": "1-introduction",
             "search_term": "evolution theory",
-            "search_results_total": 46,
+            "chapter_search_results_total": 46,
+            "rkt_search_results_total": 0,
         },
         "biology-ap-courses": {
             "default_page": "1-introduction",
             "search_term": "Virus",
-            "search_results_total": 177,
+            "chapter_search_results_total": 177,
+            "rkt_search_results_total": 10,
         },
         "business-ethics": {
             "default_page": "1-introduction",
             "search_term": "enculturation",
-            "search_results_total": 9,
+            "chapter_search_results_total": 9,
+            "rkt_search_results_total": 1,
         },
         "business-law-i-essentials": {
             "default_page": "1-introduction",
             "search_term": "industrialization",
-            "search_results_total": 4,
+            "chapter_search_results_total": 4,
+            "rkt_search_results_total": 0,
         },
         "chemistry-2e": {
             "default_page": "1-introduction",
             "search_term": "molecule",
-            "search_results_total": 425,
+            "chapter_search_results_total": 425,
+            "rkt_search_results_total": 4,
         },
         "chemistry-atoms-first-2e": {
             "default_page": "1-introduction",
             "search_term": "coffee",
-            "search_results_total": 31,
+            "chapter_search_results_total": 31,
+            "rkt_search_results_total": 0,
         },
         "college-algebra": {
             "default_page": "1-introduction-to-prerequisites",
             "search_term": "hyperbola",
-            "search_results_total": 113,
+            "chapter_search_results_total": 113,
+            "rkt_search_results_total": 2,
         },
         "college-algebra-corequisite-support": {
             "default_page": "1-introduction-to-prerequisites",
             "search_term": "commutative property of addition",
-            "search_results_total": 1,
+            "chapter_search_results_total": 1,
+            "rkt_search_results_total": 1,
         },
         "college-physics": {
             "default_page": "1-introduction-to-science-and-the-realm-of-"
             "physics-physical-quantities-and-units",
             "search_term": "Newton's first law",
-            "search_results_total": 49,
+            "chapter_search_results_total": 49,
+            "rkt_search_results_total": 3,
         },
         "college-physics-ap-courses": {
             "default_page": "1-connection-for-ap-r-courses",
             "search_term": "kinetic energy",
-            "search_results_total": 1022,
+            "chapter_search_results_total": 1022,
+            "rkt_search_results_total": 11,
         },
         "concepts-biology": {
             "default_page": "1-introduction",
             "search_term": "Cell",
-            "search_results_total": 780,
+            "chapter_search_results_total": 780,
+            "rkt_search_results_total": 23,
         },
         "calculus-volume-1": {
             "default_page": "1-introduction",
             "search_term": "number",
-            "search_results_total": 209,
+            "chapter_search_results_total": 209,
+            "rkt_search_results_total": 1,
         },
         "calculus-volume-2": {
             "default_page": "1-introduction",
             "search_term": "summation notation",
-            "search_results_total": 6,
+            "chapter_search_results_total": 6,
+            "rkt_search_results_total": 1,
         },
         "calculus-volume-3": {
             "default_page": "1-introduction",
             "search_term": "zero vector",
-            "search_results_total": 102,
-        },
-        "introduction-business": {
-            "default_page": "1-introduction",
-            "search_term": "Buyer behavior",
-            "search_results_total": 15,
+            "chapter_search_results_total": 102,
+            "rkt_search_results_total": 1,
         },
         "college-success": {
             "default_page": "1-introduction",
             "search_term": "Shira’s career path",
-            "search_results_total": 9,
+            "chapter_search_results_total": 9,
+            "rkt_search_results_total": 0,
         },
         "entrepreneurship": {
             "default_page": "1-introduction",
             "search_term": "Business Model",
-            "search_results_total": 349,
+            "chapter_search_results_total": 349,
+            "rkt_search_results_total": 8,
         },
         "elementary-algebra-2e": {
             "default_page": "1-introduction",
             "search_term": "common denominator",
-            "search_results_total": 67,
+            "chapter_search_results_total": 67,
+            "rkt_search_results_total": 1,
         },
         "intermediate-algebra-2e": {
             "default_page": "1-introduction",
             "search_term": "quadratic equations and functions",
-            "search_results_total": 6,
+            "chapter_search_results_total": 6,
+            "rkt_search_results_total": 0,
         },
         "introductory-business-statistics": {
             "default_page": "1-introduction",
             "search_term": "chi-square probabilities",
-            "search_results_total": 2,
+            "chapter_search_results_total": 2,
+            "rkt_search_results_total": 0,
+        },
+        "introduction-business": {
+            "default_page": "1-introduction",
+            "search_term": "Buyer behavior",
+            "chapter_search_results_total": 15,
+            "rkt_search_results_total": 1,
         },
         "introduction-sociology-2e": {
             "default_page": "1-introduction-to-sociology",
             "search_term": "certificates or degrees",
-            "search_results_total": 4,
+            "chapter_search_results_total": 4,
+            "rkt_search_results_total": 0,
         },
         "introduction-sociology-3e": {
             "default_page": "1-introduction-to-sociology",
             "search_term": "Berger, 1963",
-            "search_results_total": 5,
+            "chapter_search_results_total": 5,
+            "rkt_search_results_total": 0,
         },
         "introductory-statistics": {
             "default_page": "1-introduction",
             "search_term": "randomly selected student",
-            "search_results_total": 12,
+            "chapter_search_results_total": 12,
+            "rkt_search_results_total": 0,
         },
         "microbiology": {
             "default_page": "1-introduction",
             "search_term": "ecosystems",
-            "search_results_total": 18,
+            "chapter_search_results_total": 18,
+            "rkt_search_results_total": 0,
         },
         "organizational-behavior": {
             "default_page": "1-introduction",
             "search_term": "organizational development",
-            "search_results_total": 44,
+            "chapter_search_results_total": 44,
+            "rkt_search_results_total": 2,
         },
         "physics": {
             "default_page": "1-introduction",
             "search_term": "linear relationship",
-            "search_results_total": 10,
+            "chapter_search_results_total": 10,
+            "rkt_search_results_total": 0,
         },
         "precalculus": {
             "default_page": "1-introduction-to-functions",
             "search_term": "Pythagorean Identities",
-            "search_results_total": 18,
+            "chapter_search_results_total": 18,
+            "rkt_search_results_total": 1,
         },
         "prealgebra-2e": {
             "default_page": "1-introduction",
             "search_term": "Whole Numbers",
-            "search_results_total": 160,
+            "chapter_search_results_total": 160,
+            "rkt_search_results_total": 1,
         },
         "principles-financial-accounting": {
             "default_page": "1-why-it-matters",
             "search_term": "Explain the Pricing of Long-Term Liabilities",
-            "search_results_total": 7,
+            "chapter_search_results_total": 7,
+            "rkt_search_results_total": 0,
         },
         "principles-economics-2e": {
             "default_page": "1-introduction",
             "search_term": "Elasticity",
-            "search_results_total": 165,
+            "chapter_search_results_total": 165,
+            "rkt_search_results_total": 11,
         },
         "principles-macroeconomics-2e": {
             "default_page": "1-introduction",
             "search_term": "modern economic growth",
-            "search_results_total": 14,
+            "chapter_search_results_total": 14,
+            "rkt_search_results_total": 1,
         },
         "principles-microeconomics-2e": {
             "default_page": "1-introduction",
             "search_term": "Explicit costs",
-            "search_results_total": 18,
+            "chapter_search_results_total": 18,
+            "rkt_search_results_total": 1,
         },
         "principles-macroeconomics-ap-courses-2e": {
             "default_page": "1-introduction",
             "search_term": "adjustable-rate mortgage",
-            "search_results_total": 14,
+            "chapter_search_results_total": 14,
+            "rkt_search_results_total": 1,
         },
         "principles-microeconomics-ap-courses-2e": {
             "default_page": "1-introduction",
             "search_term": "positive externality",
-            "search_results_total": 24,
+            "chapter_search_results_total": 24,
+            "rkt_search_results_total": 1,
         },
         "principles-managerial-accounting": {
             "default_page": "1-why-it-matters",
             "search_term": "relevant range",
-            "search_results_total": 51,
+            "chapter_search_results_total": 51,
+            "rkt_search_results_total": 3,
         },
         "principles-management": {
             "default_page": "1-introduction",
             "search_term": "plan is a decision to carry out a particular action",
-            "search_results_total": 11,
+            "chapter_search_results_total": 11,
+            "rkt_search_results_total": 0,
         },
         "psychology-2e": {
             "default_page": "1-introduction",
             "search_term": "event schema",
-            "search_results_total": 15,
+            "chapter_search_results_total": 15,
+            "rkt_search_results_total": 1,
         },
         "statistics": {
             "default_page": "1-introduction",
             "search_term": "memoryless property",
-            "search_results_total": 5,
+            "chapter_search_results_total": 5,
+            "rkt_search_results_total": 1,
         },
         "university-physics-volume-1": {
             "default_page": "1-introduction",
             "search_term": "interference",
-            "search_results_total": 66,
+            "chapter_search_results_total": 66,
+            "rkt_search_results_total": 3,
         },
         "university-physics-volume-2": {
             "default_page": "1-introduction",
             "search_term": "interference fringes",
-            "search_results_total": 3,
+            "chapter_search_results_total": 3,
+            "rkt_search_results_total": 0,
         },
         "university-physics-volume-3": {
             "default_page": "1-introduction",
             "search_term": "interference fringes",
-            "search_results_total": 61,
+            "chapter_search_results_total": 61,
+            "rkt_search_results_total": 1,
         },
         "us-history": {
             "default_page": "1-introduction",
             "search_term": "PATRIOTS",
-            "search_results_total": 20,
+            "chapter_search_results_total": 20,
+            "rkt_search_results_total": 0,
         },
     }
 
@@ -472,16 +519,28 @@ def get_search_term(element):
     return search_term
 
 
-def expected_search_results_total(element) -> int:
-    """Total search results for the search performed on the book.
+def expected_chapter_search_results_total(element) -> int:
+    """Total chapter search results for the search performed on the book.
 
         :param int element: the book slug
-        :return: total number of search results defined for the book slug in the library
+        :return: total number of chapter search results defined for the book slug in the library
         :rtype: int
 
     """
     book_list = Library.books
-    return book_list[element]["search_results_total"]
+    return book_list[element]["chapter_search_results_total"]
+
+
+def expected_rkt_search_results_total(element) -> int:
+    """Total rkt search results for the search performed on the book.
+
+        :param int element: the book slug
+        :return: total number of rkt search results defined for the book slug in the library
+        :rtype: int
+
+    """
+    book_list = Library.books
+    return book_list[element]["rkt_search_results_total"]
 
 
 class Utilities(object):
