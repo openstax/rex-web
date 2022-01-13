@@ -136,6 +136,7 @@ async function popWorker() {
   }
 }
 
+// Extends the SQS VisibilityTimeout for the given messages
 async function sqsHeartbeat(messages: Message[]) {
   console.log(`Sending SQS heartbeat for ${messages.length} messages`);
 
@@ -201,6 +202,21 @@ async function work() {
       continue;
     }
 
+    /*
+      The VisibilityTimeout for the work queue is fairly short (30 seconds) so errors
+      (for example, connection errors) can be retried by another worker without waiting too long.
+
+      However, since some of the index pages take 10 minutes or more to render, the worker has to
+      send periodic heartbeats to SQS to keep the VisibilityTimeout for messages that are being
+      worked on.
+      If the visibility timeout expires, the delete message command won't actually delete the
+      message at the end and the build will never finish.
+
+      The SQS heartbeat interval is cleared when all messages in a batch are either rendered or
+      error out, allowing the VisibilityTimeout to expire and the errors to be retried by another
+      worker.
+    */
+
     // The delay here should be about half of the VisibilityTimeout
     const heartbeatInterval = setInterval(sqsHeartbeat, 15000, messages);
 
@@ -245,7 +261,6 @@ async function work() {
         numResults - numSuccesses} failures; deleting succesful messages`);
 
       // Delete only the successful messages
-      // The Id only has to be unique within this request, it has no other meaning
       return sqsClient.send(new DeleteMessageBatchCommand({
         Entries: successfulEntries,
         QueueUrl: process.env.WORK_QUEUE_URL,
