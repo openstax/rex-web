@@ -26,6 +26,7 @@ import path from 'path';
 import Loadable from 'react-loadable';
 import asyncPool from 'tiny-async-pool';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
+import { assertDefined } from '../../src/app/utils';
 import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
@@ -232,38 +233,38 @@ async function manage() {
   console.log('Retrieving queue URLs');
 
   // Get the queue URLs
-  const describeStacksResult = await cfnClient.send(new DescribeStacksCommand({
-    StackName: WORKERS_STACK_NAME,
-  }));
+  const describeStacksResult = await cfnClient.send(
+    new DescribeStacksCommand({StackName: WORKERS_STACK_NAME})
+  );
 
-  // https://github.com/aws/aws-sdk-js-v3/issues/1613
-  if (!describeStacksResult.Stacks) {
-    throw new Error('[CFN] [DescribeStacks] Unexpected response: missing Stacks key');
-  }
-
-  const stack = describeStacksResult.Stacks[0];
-
-  if (!stack) { throw new Error(`${WORKERS_STACK_NAME} stack not found`); }
-
-  if (!stack.Outputs) {
-    throw new Error('[CFN] [DescribeStacks] Unexpected response: missing stack Outputs key');
-  }
+  const stacks = assertDefined(
+    describeStacksResult.Stacks, '[CFN] [DescribeStacks] Unexpected response: missing Stacks key'
+  );
+  const stack = assertDefined(stacks[0], `${WORKERS_STACK_NAME} stack not found`);
+  const outputs = assertDefined(
+    stack.Outputs, '[CFN] [DescribeStacks] Unexpected response: missing stack Outputs key'
+  );
 
   let workQueueUrl: string | undefined;
   let deadLetterQueueUrl: string | undefined;
 
-  for (const output of stack.Outputs) {
-    if (!output.OutputValue) {
-      throw new Error('[CFN] [DescribeStacks] Unexpected response: missing output OutputValue key');
-    }
+  for (const output of outputs) {
+    const outputKey = assertDefined(
+      output.OutputKey,
+      '[CFN] [DescribeStacks] Unexpected response: missing output OutputKey key'
+    );
+    const outputValue = assertDefined(
+      output.OutputValue,
+      '[CFN] [DescribeStacks] Unexpected response: missing output OutputValue key'
+    );
 
-    switch (output.OutputKey) {
+    switch (outputKey) {
       case 'WorkQueueUrl':
-        workQueueUrl = output.OutputValue;
+        workQueueUrl = outputValue;
         resolveWorkQueuePromise(workQueueUrl);
         break;
       case 'DeadLetterQueueUrl':
-        deadLetterQueueUrl = output.OutputValue;
+        deadLetterQueueUrl = outputValue;
         break;
     }
   }
@@ -317,11 +318,10 @@ async function manage() {
   });
   while (true) {
     const getQueueAttributesResult = await sqsClient.send(getQueueAttributesCommand);
-    const attributes = getQueueAttributesResult.Attributes;
-
-    if (!attributes) {
-      throw new Error('[SQS] [GetQueueAttributes] Unexpected response: missing Attributes key');
-    }
+    const attributes = assertDefined(
+      getQueueAttributesResult.Attributes,
+      '[SQS] [GetQueueAttributes] Unexpected response: missing Attributes key'
+    );
 
     const numMessages = parseInt(attributes.ApproximateNumberOfMessages, 10) +
       parseInt(attributes.ApproximateNumberOfMessagesDelayed, 10) +
