@@ -212,7 +212,7 @@ class Library(object):
 
     # Read the books details from books.json file
     book_details = open("/Users/malar/Rex/rex-web/pytest-selenium/utils/books.json", "r")
-    books = json.loads(book_details.read())
+    books = loads(book_details.read())
     book_details.close()
 
     def random_book_slug(self):
