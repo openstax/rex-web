@@ -163,7 +163,7 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
     const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
       Entries: pageBatch.map((page, batchIndex) => ({
         Id: batchIndex.toString(),
-        MessageBody: JSON.stringify({ payload: { page }, type: 'prerender' }),
+        MessageBody: JSON.stringify({ payload: { page }, type: 'page' }),
       })),
       QueueUrl: workQueueUrl,
     }));

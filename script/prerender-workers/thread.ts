@@ -15,8 +15,10 @@ import Loadable from 'react-loadable';
 import { EnumChangefreq } from 'sitemap';
 import asyncPool from 'tiny-async-pool';
 import { parentPort } from 'worker_threads';
+import { AppOptions } from '../../src/app';
 import { ArchiveContent } from '../../src/app/content/types';
 import { matchPathname } from '../../src/app/navigation/utils';
+import { assertDefined, assertObject, assertString } from '../../src/app/utils';
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
@@ -29,9 +31,9 @@ import createUserLoader from '../../src/gateways/createUserLoader';
 import {
   deserializeBook,
   deserializePage,
-  makeGetArchiveBook,
-  makeGetArchivePage,
-  makeRenderPage,
+  getArchiveBook,
+  getArchivePage,
+  renderPage,
   SerializedBookMatch,
   SerializedPageMatch,
 } from './contentPages';
@@ -40,7 +42,7 @@ import { renderSitemap, renderSitemapIndex, sitemapPath } from './sitemap';
 
 const MAX_CONCURRENT_CONNECTIONS = 5;
 
-type PrerenderPayload = { page: SerializedPageMatch };
+type PagePayload = { page: SerializedPageMatch };
 type SitemapPayload = { pages: SerializedPageMatch[], slug: string };
 type SitemapIndexPayload = { books: SerializedBookMatch[] };
 
@@ -64,6 +66,49 @@ function getSitemapItemOptions(content: ArchiveContent, url: string) {
     lastmod: dateFns.format(content.revised, 'YYYY-MM-DD'),
     url, // Page URL
   };
+}
+
+// Types won't save us from bad JSON so check that the payload has the correct structure
+
+async function pageTask(services: AppOptions['services'], payload: PagePayload) {
+  const page = deserializePage(
+    assertObject(payload.page, `Page task payload.page is not an object: ${payload}`)
+  );
+  return renderPage(services, writeS3File, 200, page);
+}
+
+async function sitemapTask(services: AppOptions['services'], payload: SitemapPayload) {
+  const pagesArray = assertObject(
+    payload.pages, `Sitemap task payload.pages is not an object: ${payload}`
+  );
+  const pages = pagesArray.map(
+    (page: SerializedPageMatch, index: number) => deserializePage(
+      assertObject(page, `Sitemap task payload.pages[${index}] is not an object: ${pagesArray}`)
+    )
+  );
+  const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, pages, async(page) => {
+    const archivePage = await getArchivePage(services, page);
+    return getSitemapItemOptions(archivePage, matchPathname(page));
+  });
+  return renderSitemap(
+    assertString(payload.slug, `Sitemap task payload.slug is not a string: ${payload}`), items
+  );
+}
+
+async function sitemapIndexTask(services: AppOptions['services'], payload: SitemapIndexPayload) {
+  const booksArray = assertObject(
+    payload.books, `SitemapIndex task payload.books is not an object: ${payload}`
+  );
+  const books = booksArray.map(
+    (book: SerializedBookMatch, index: number) => deserializeBook(
+      assertObject(book, `Sitemap task payload.books[${index}] is not an object: ${booksArray}`)
+    )
+  );
+  const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, books, async(book) => {
+    const archiveBook = await getArchiveBook(services, book);
+    return getSitemapItemOptions(archiveBook, sitemapPath(book.params.book.slug));
+  });
+  return renderSitemapIndex(items);
 }
 
 async function run() {
@@ -95,49 +140,37 @@ async function run() {
     userLoader,
   };
 
-  const getArchiveBook = makeGetArchiveBook(services);
-  const getArchivePage = makeGetArchivePage(services);
-  const renderPage = makeRenderPage(services, writeS3File);
+  const boundPageTask = pageTask.bind(null, services);
+  const boundSitemapTask = sitemapTask.bind(null, services);
+  const boundSitemapIndexTask = sitemapIndexTask.bind(null, services);
+
+  const TASKS: { [key: string]: ((payload: any) => Promise<void>) | undefined } = {
+    page: boundPageTask,
+    sitemap: boundSitemapTask,
+    sitemapIndex: boundSitemapIndexTask,
+  };
 
   const parent = parentPort!;
 
   parent.on('message', async(message: Message) => {
-    const body = message.Body;
+    const body = assertDefined(
+      message.Body, '[SQS] [ReceiveMessage] Unexpected response: message missing Body key'
+    );
 
-    if (!body) {
-      throw new Error('[SQS] [ReceiveMessage] Unexpected response: message missing Body key');
-    }
+    // Types won't save us from bad JSON so check that the received JSON has the expected structure
 
-    const task = JSON.parse(body);
+    const task = assertObject(JSON.parse(body), `Task is not an object: ${body}`);
 
-    switch (task.type) {
-      case 'prerender': {
-        const payload = task.payload as PrerenderPayload;
-        const page = deserializePage(payload.page);
-        await renderPage({code: 200, route: page});
-        break;
-      }
-      case 'sitemap': {
-        const payload = task.payload as SitemapPayload;
-        const pages = payload.pages.map((page: SerializedPageMatch) => deserializePage(page));
-        const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, pages, async(page) => {
-          const archivePage = await getArchivePage(page);
-          return getSitemapItemOptions(archivePage, matchPathname(page));
-        });
-        await renderSitemap(payload.slug, items);
-        break;
-      }
-      case 'sitemapIndex': {
-        const payload = task.payload as SitemapIndexPayload;
-        const books = payload.books.map((book: SerializedBookMatch) => deserializeBook(book));
-        const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, books, async(book) => {
-          const archiveBook = await getArchiveBook(book);
-          return getSitemapItemOptions(archiveBook, sitemapPath(book.params.book.slug));
-        });
-        await renderSitemapIndex(items);
-        break;
-      }
-    }
+    // Types won't save us from bad JSON so check that the received JSON has the expected structure
+
+    const taskFunction = assertDefined(
+      TASKS[assertString(task.type, `Task type is not a string: ${task.type}`)],
+      `Unknown task type: ${task.type}`
+    );
+
+    await taskFunction(
+      assertObject(task.payload, `Task payload is not an object: ${task.payload}`)
+    );
 
     parent.postMessage(message.ReceiptHandle);
   });

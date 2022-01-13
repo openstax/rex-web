@@ -6,7 +6,7 @@ import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
 import * as contentSelectors from '../../src/app/content/selectors';
-import { ArchiveBook, ArchivePage, BookWithOSWebData } from '../../src/app/content/types';
+import { BookWithOSWebData } from '../../src/app/content/types';
 import { stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
 import * as errorSelectors from '../../src/app/errors/selectors';
@@ -127,11 +127,7 @@ export const minuteCounter = () => {
 
 export const globalMinuteCounter = minuteCounter();
 
-type MakeGetArchiveBook = (
-  services: AppOptions['services']
-) => (route: BookMatch) => Promise<ArchiveBook>;
-
-export const makeGetArchiveBook: MakeGetArchiveBook = (services) => async(route) => {
+export async function getArchiveBook(services: AppOptions['services'], route: BookMatch) {
   if (!route.state || !('bookUid' in route.state)) {
     throw new Error('match state wasn\'t defined, it should have been');
   }
@@ -142,13 +138,9 @@ export const makeGetArchiveBook: MakeGetArchiveBook = (services) => async(route)
     await services.archiveLoader.book(bookUid, bookVersion).load(),
     'book wasn\'t cached, it should have been'
   );
-};
+}
 
-type MakeGetArchivePage = (
-  services: AppOptions['services']
-) => (route: PageMatch) => Promise<ArchivePage>;
-
-export const makeGetArchivePage: MakeGetArchivePage = (services) => async(route) => {
+export async function getArchivePage(services: AppOptions['services'], route: PageMatch) {
   if (!route.state || !('bookUid' in route.state)) {
     throw new Error('match state wasn\'t defined, it should have been');
   }
@@ -159,20 +151,21 @@ export const makeGetArchivePage: MakeGetArchivePage = (services) => async(route)
     await services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load(),
     'page wasn\'t cached, it should have been'
   );
-};
+}
 
-type MakeRenderPage = (
-  services: AppOptions['services'], savePage: (uri: string, content: string) => void
-) => ({code, route}: {code: number, route: PageMatch}) => void;
-
-export const makeRenderPage: MakeRenderPage = (services, savePage) => async({code, route}) => {
+export async function renderPage(
+  services: AppOptions['services'],
+  savePage: (uri: string, content: string) => void,
+  code: number,
+  route: PageMatch
+) {
   const {app, styles, state, url} = await prepareApp(services, route, code);
   console.info(`Rendering ${url}`); // tslint:disable-line:no-console
 
   const html = await renderHtml(styles, app, state);
 
-  await savePage(url, html);
-};
+  return savePage(url, html);
+}
 
 export const prepareBookPages = (book: BookWithOSWebData) => findTreePages(book.tree).map(
   (section) => prepareContentPage(

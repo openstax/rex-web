@@ -27,3 +27,15 @@ export const assertString = <X>(x: X, message: string): string => {
 
   return x;
 };
+
+// When the argument is "any", we don't want to cast it to object
+// or we'll be unable to assign it to more specific types
+// So we just exclude all primitive types instead
+export const assertObject = <X>(x: X, message: string) => {
+  // typeof null === 'object'
+  if (x === null || typeof x !== 'object') {
+    throw new Error(message);
+  }
+
+  return x as Exclude<X, number | string | boolean | bigint | symbol | null | undefined>;
+};
