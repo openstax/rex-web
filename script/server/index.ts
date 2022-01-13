@@ -6,8 +6,6 @@ import serveStatic from 'serve-static';
 import config from '../../src/config';
 import setupProxy from '../../src/setupProxy';
 
-export { Server } from 'http';
-
 export interface Options {
   fallback404?: boolean;
   onlyProxy?: boolean;
