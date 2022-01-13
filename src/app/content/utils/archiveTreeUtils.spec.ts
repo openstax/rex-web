@@ -1,11 +1,13 @@
 import { book } from '../../../test/mocks/archiveLoader';
 import makeArchiveSection from '../../../test/mocks/archiveSection';
 import makeArchiveTree from '../../../test/mocks/archiveTree';
-import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
+import { treeWithDropdowns, treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { ArchiveTree, LinkedArchiveTree } from '../types';
 import {
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
+  archiveTreeSectionIsEOBTree,
+  archiveTreeSectionIsEOCTree,
   archiveTreeSectionIsPage,
   archiveTreeSectionIsUnit,
   findArchiveTreeNodeById,
@@ -13,6 +15,7 @@ import {
   findDefaultBookPage,
   getArchiveTreeSectionNumber,
   getArchiveTreeSectionTitle,
+  getArchiveTreeSectionType,
   nodeHasId,
   splitTitleParts,
 } from './archiveTreeUtils';
@@ -122,6 +125,9 @@ describe('tree section identifiers', () => {
     expect(archiveTreeSectionIsPage(treeWithoutUnits)).toBe(false);
     expect(archiveTreeSectionIsUnit(treeWithoutUnits)).toBe(false);
     expect(archiveTreeSectionIsChapter(treeWithoutUnits)).toBe(false);
+    expect(archiveTreeSectionIsEOCTree(treeWithoutUnits)).toBe(false);
+    expect(archiveTreeSectionIsEOBTree(treeWithoutUnits)).toBe(false);
+    expect(getArchiveTreeSectionType(treeWithoutUnits)).toBe('book');
   });
 
   it('identifies the preface', () => {
@@ -148,6 +154,9 @@ describe('tree section identifiers', () => {
     expect(archiveTreeSectionIsPage(chapter)).toBe(false);
     expect(archiveTreeSectionIsUnit(chapter)).toBe(false);
     expect(archiveTreeSectionIsChapter(chapter)).toBe(true);
+    expect(archiveTreeSectionIsEOCTree(chapter)).toBe(false);
+    expect(archiveTreeSectionIsEOBTree(chapter)).toBe(false);
+    expect(getArchiveTreeSectionType(chapter)).toBe('chapter');
   });
 
   it('identifies units', () => {
@@ -161,6 +170,41 @@ describe('tree section identifiers', () => {
     expect(archiveTreeSectionIsPage(unit)).toBe(false);
     expect(archiveTreeSectionIsUnit(unit)).toBe(true);
     expect(archiveTreeSectionIsChapter(unit)).toBe(false);
+    expect(archiveTreeSectionIsEOCTree(unit)).toBe(false);
+    expect(archiveTreeSectionIsEOBTree(unit)).toBe(false);
+    expect(getArchiveTreeSectionType(unit)).toBe('unit');
+  });
+
+  it('identifies end of book dropdowns', () => {
+    const unit = findArchiveTreeNodeById(treeWithDropdowns, 'answerkey');
+
+    if (!unit) {
+      return expect(unit).toBeTruthy();
+    }
+
+    expect(archiveTreeSectionIsBook(unit)).toBe(false);
+    expect(archiveTreeSectionIsPage(unit)).toBe(false);
+    expect(archiveTreeSectionIsUnit(unit)).toBe(false);
+    expect(archiveTreeSectionIsChapter(unit)).toBe(false);
+    expect(archiveTreeSectionIsEOCTree(unit)).toBe(false);
+    expect(archiveTreeSectionIsEOBTree(unit)).toBe(true);
+    expect(getArchiveTreeSectionType(unit)).toBe('eob-dropdown');
+  });
+
+  it('identifies end of chapter dropdowns', () => {
+    const unit = findArchiveTreeNodeById(treeWithDropdowns, 'review');
+
+    if (!unit) {
+      return expect(unit).toBeTruthy();
+    }
+
+    expect(archiveTreeSectionIsBook(unit)).toBe(false);
+    expect(archiveTreeSectionIsPage(unit)).toBe(false);
+    expect(archiveTreeSectionIsUnit(unit)).toBe(false);
+    expect(archiveTreeSectionIsChapter(unit)).toBe(false);
+    expect(archiveTreeSectionIsEOCTree(unit)).toBe(true);
+    expect(archiveTreeSectionIsEOBTree(unit)).toBe(false);
+    expect(getArchiveTreeSectionType(unit)).toBe('eoc-dropdown');
   });
 });
 

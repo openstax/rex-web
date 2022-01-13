@@ -1,4 +1,5 @@
 import createTestServices from '../../test/createTestServices';
+import createTestStore from '../../test/createTestStore';
 import { book, page } from '../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules } from '../../test/utils';
@@ -83,7 +84,12 @@ describe('content route', () => {
     });
 
     it('renders a component', () => {
-      const services = createTestServices();
+      const store = createTestStore();
+      const services = {
+        ...createTestServices(),
+        dispatch: store.dispatch,
+        getState: store.getState,
+      };
 
       const params = {
         book: {

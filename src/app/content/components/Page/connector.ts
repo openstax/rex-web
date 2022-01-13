@@ -3,11 +3,11 @@ import { IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import * as selectNavigation from '../../../navigation/selectors';
 import { addToast } from '../../../notifications/actions';
-import { AppServices, AppState } from '../../../types';
+import { AppServices, AppState, MiddlewareAPI } from '../../../types';
 import { merge } from '../../../utils';
 import { mobileToolbarOpen, query } from '../../search/selectors';
 import * as select from '../../selectors';
-import { State } from '../../types';
+import { State, SystemQueryParams } from '../../types';
 import { ContentLinkProp, mapDispatchToContentLinkProp, mapStateToContentLinkProp } from './contentLinkHandler';
 import { HighlightProp, mapDispatchToHighlightProp, mapStateToHighlightProp } from './highlightManager';
 import { mapStateToScrollToTopOrHashProp } from './scrollToTopOrHashManager';
@@ -27,9 +27,9 @@ export interface PagePropTypes {
   scrollToTopOrHash: ReturnType<typeof mapStateToScrollToTopOrHashProp>;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
   highlights: HighlightProp;
-  services: AppServices;
+  services: AppServices & MiddlewareAPI;
   addToast: typeof addToast;
-  systemQueryParams: ReturnType<typeof selectNavigation.systemQueryParameters>;
+  systemQueryParams: SystemQueryParams;
 }
 
 export default connect(

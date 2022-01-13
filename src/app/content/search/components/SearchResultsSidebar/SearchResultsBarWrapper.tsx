@@ -1,7 +1,10 @@
+import { SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import searchIcon from '../.../../../../../../assets/search-icon-v2.svg';
 import Loader from '../../../../components/Loader';
+import { assertDefined, assertNotNull } from '../../../../utils/assertions';
 import { Book } from '../../../types';
 import {
   fixSafariScrolling,
@@ -9,18 +12,23 @@ import {
   setSidebarHeight
 } from '../../../utils/domUtils';
 import { SearchResultContainer, SelectedResult } from '../../types';
+import RelatedKeyTerms from './RelatedKeyTerms';
 import SearchResultContainers from './SearchResultContainers';
 import * as Styled from './styled';
 
 interface ResultsSidebarProps {
   query: string | null;
   hasQuery: boolean;
+  keyTermHits: SearchResultHit[] | null;
+  nonKeyTermResults: SearchResultContainer[] | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
   searchResultsOpen: boolean;
   book?: Book;
   totalHits: number | null;
+  totalHitsKeyTerms: number | null;
   selectedResult: SelectedResult | null;
+  userSelectedResult: boolean;
 }
 
 // tslint:disable-next-line: variable-name
@@ -53,25 +61,33 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public activeSection = React.createRef<HTMLElement>();
   public searchSidebarHeader = React.createRef<HTMLElement>();
 
-  public totalResults = () => <Styled.SearchQueryWrapper ref={this.searchSidebarHeader}>
-    <Styled.SearchQuery>
-      <Styled.SearchIconInsideBar />
+  public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
+    <Styled.SearchResultsHeader>
+      <Styled.SearchResultsHeaderTitle>
+        <FormattedMessage id='i18n:search-results:bar:header:title'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.SearchResultsHeaderTitle>
+      <Styled.CloseIconButton
+        onClick={this.props.onClose}
+        data-testid='close-search'
+      >
+        <Styled.CloseIcon />
+      </Styled.CloseIconButton>
+    </Styled.SearchResultsHeader>
+    <Styled.SearchQueryWrapper >
+      <Styled.SearchQuery>
+        <Styled.SearchIconInsideBar src={searchIcon}/>
         <Styled.HeaderQuery>
-          {this.props.totalHits}{' '}
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
-            values={{total: this.props.totalHits}}
+            values={{search: this.props.totalHits, terms: this.props.totalHitsKeyTerms}}
           />
           <strong> &lsquo;{this.props.query}&rsquo;</strong>
         </Styled.HeaderQuery>
-        <Styled.CloseIconButton
-          onClick={this.props.onClose}
-          data-testid='close-search'
-        >
-        <Styled.CloseIcon />
-      </Styled.CloseIconButton>
-    </Styled.SearchQuery>
-  </Styled.SearchQueryWrapper>;
+      </Styled.SearchQuery>
+    </Styled.SearchQueryWrapper>
+  </Styled.SearchResultsTopBar>;
 
   public noResults = () => <div>
     <Styled.CloseIconWrapper>
@@ -90,34 +106,68 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     </FormattedMessage>
   </div>;
 
-  public resultContainers = (book: Book, results: SearchResultContainer[]) => <Styled.NavOl>
-    <SearchResultContainers
-      activeSectionRef={this.activeSection}
-      selectedResult={this.props.selectedResult}
-      containers={results}
-      book={book}
-    />
-  </Styled.NavOl>;
+  public resultContainers = (book: Book, results: SearchResultContainer[] | null) => {
+    const displayRelatedKeyTerms = this.props.keyTermHits && this.props.keyTermHits.length > 0;
+    const displaySearchResults = results && results.length > 0;
+    const displaySearchResultsSectionTitle = displayRelatedKeyTerms && displaySearchResults;
+    const sortedKeyTermHits = this.props.keyTermHits && this.props.keyTermHits.sort((a, b) =>
+      assertDefined(a.highlight.title, 'highlight should have title')
+      .localeCompare(assertDefined(b.highlight.title, 'highlight should have title')));
+
+    return <Styled.NavWrapper>
+      {displayRelatedKeyTerms && <RelatedKeyTerms
+        book={book}
+        selectedResult={this.props.selectedResult}
+        keyTermHits={assertNotNull(sortedKeyTermHits, 'displayRelatedKeyTerms is true')}
+      />}
+      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle>
+        <FormattedMessage id='i18n:search-results:bar:title'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.SearchResultsSectionTitle>}
+      <Styled.SearchResultsOl data-analytics-region='content-search-results'>
+        {displaySearchResults && <SearchResultContainers
+          activeSectionRef={this.activeSection}
+          selectedResult={this.props.selectedResult}
+          containers={assertNotNull(results, 'displaySearchResults is true')}
+          book={book}
+        />
+        }
+      </Styled.SearchResultsOl>
+    </Styled.NavWrapper>;
+  };
 
   public render() {
-    const { results, book, searchResultsOpen, hasQuery } = this.props;
+    const {
+      results,
+      book,
+      onClose,
+      query,
+      nonKeyTermResults,
+      totalHits,
+      totalHitsKeyTerms,
+      selectedResult,
+      userSelectedResult,
+      ...propsToForward
+    } = this.props;
 
     return (
       <SearchResultsBar
-        searchResultsOpen={searchResultsOpen}
-        hasQuery={hasQuery}
         ref={this.searchSidebar}
+        {...propsToForward}
       >
-        {!results ? <LoadingState onClose={this.props.onClose} /> : null}
+        {!results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
         {results && results.length === 0 ? this.noResults() : null}
-        {book && results && results.length > 0 ? this.resultContainers(book, results) : null}
+        {book && results && results.length > 0 ? this.resultContainers(book, nonKeyTermResults) : null}
       </SearchResultsBar>
     );
   }
 
   public componentDidMount = () => {
-    this.scrollToSelectedPage();
+    if (this.props.userSelectedResult) {
+      this.scrollToSelectedPage();
+    }
     const searchSidebar = this.searchSidebar.current;
 
     if (!searchSidebar || typeof window === 'undefined') {
@@ -132,7 +182,9 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   };
 
   public componentDidUpdate() {
-    this.scrollToSelectedPage();
+    if (this.props.userSelectedResult) {
+      this.scrollToSelectedPage();
+    }
   }
 
   public componentWillUnmount() {

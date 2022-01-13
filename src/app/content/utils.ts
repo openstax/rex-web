@@ -1,8 +1,11 @@
+import { HTMLAnchorElement } from '@openstax/types/lib.dom';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
+import { isDefined } from '../guards';
 import { AppServices } from '../types';
 import { hasOSWebData, isArchiveTree } from './guards';
 import {
   ArchiveBook,
+  ArchivePage,
   ArchiveTree,
   ArchiveTreeNode,
   Book,
@@ -26,18 +29,27 @@ export interface ContentPageRefencesType {
   pageId: string;
 }
 
-export function getContentPageReferences(htmlContent: string) {
-  const matches: ContentPageRefencesType[] = (htmlContent.match(/.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml)/g) || [])
-    .map((match) => {
-      const [bookMatch, pageMatch] = match.split(':');
-      const pageId = pageMatch.split('.xhtml')[0];
-      const [bookId, bookVersion] = bookMatch.split('@') as [string, string | undefined];
+const hashRegex = `#[^'"]+`;
+const pathRegex = `\\./((?<bookId>[a-z0-9-]+)(@(?<bookVersion>[^/]+))?):(?<pageId>[a-z0-9-]+)\\.xhtml(${hashRegex})?`;
+const referenceRegex = `(?<matchPath>((${pathRegex})|(${hashRegex})))`;
+
+export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
+  const domParser = new DOMParser();
+  const domNode = domParser.parseFromString(page.content, 'text/html');
+
+  const matches: ContentPageRefencesType[] = (
+    Array.from(domNode.querySelectorAll('a'))
+  )
+    .map((link) => (link as HTMLAnchorElement).getAttribute('href') || '')
+    .map((match) => match.match(new RegExp(referenceRegex))?.groups)
+    .filter(isDefined)
+    .map(({matchPath, bookId, bookVersion, pageId}) => {
 
       return {
-        bookId: bookId.substr(2),
-        bookVersion,
-        match,
-        pageId: stripIdVersion(pageId),
+        bookId: bookId || book.id,
+        bookVersion: bookVersion || (!bookId ? book.version : undefined),
+        match: matchPath,
+        pageId: (pageId && stripIdVersion(pageId)) || page.id,
       };
     });
 
@@ -63,6 +75,7 @@ export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveT
 
 const pickArchiveFields = (archiveBook: ArchiveBook) => ({
   id: archiveBook.id,
+  language: archiveBook.language,
   license: archiveBook.license,
   revised: archiveBook.revised,
   title: archiveBook.title,
@@ -118,4 +131,9 @@ export const preloadedPageIdIs = (window: Window, id: string) => window.__PRELOA
 export const getIdFromPageParam = (param: Params['page'] | null) => {
   if (!param) { return ''; }
   return (param as SlugParams).slug || (param as UuidParams).uuid;
+};
+
+export const loadPageContent = async(loader: ReturnType<AppServices['archiveLoader']['book']>, pageId: string) => {
+  const page = await loader.page(pageId).load();
+  return page.content;
 };

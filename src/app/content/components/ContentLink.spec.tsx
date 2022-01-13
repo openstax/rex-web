@@ -71,8 +71,11 @@ describe('ContentLink', () => {
     it('dispatches navigation action with search if there is a search', async() => {
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveBook(book));
+      const mockSearch = {
+        query: 'asdf',
+      };
       const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} />
+        <ConnectedContentLink book={book} page={page} queryParams={mockSearch} />
       </TestContainer>);
 
       const event = await click(component);
@@ -96,7 +99,7 @@ describe('ContentLink', () => {
         query: 'search-from-direct-prop',
       };
       const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} search={mockSearch} />
+        <ConnectedContentLink book={book} page={page} queryParams={mockSearch} />
       </TestContainer>);
 
       const event = await click(component);
@@ -117,8 +120,11 @@ describe('ContentLink', () => {
       const scrollTarget: SearchScrollTarget = { type: 'search', index: 1, elementId: 'anchor' };
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveBook(book));
+      const mockSearch = {
+        query: 'asdf',
+      };
       const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} scrollTarget={scrollTarget} />
+        <ConnectedContentLink book={book} page={page} queryParams={mockSearch} scrollTarget={scrollTarget} />
       </TestContainer>);
 
       dispatch.mockClear();
@@ -134,7 +140,7 @@ describe('ContentLink', () => {
           pageUid: 'testbook1-testpage1-uuid',
         },
       }, {
-        hash: scrollTarget.elementId,
+        hash: `#${scrollTarget.elementId}`,
         search: queryString.stringify({
           query: 'asdf',
           target: JSON.stringify(omit('elementId', scrollTarget)),

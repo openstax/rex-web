@@ -88,7 +88,7 @@ describe('setHead hook', () => {
     expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
 
-  describe('meta description', () => {
+  describe('metadata', () => {
     it('dispatches sethead with description tags', async() => {
       store.dispatch(receiveBook(combinedBook));
       store.dispatch(receivePage({
@@ -113,6 +113,7 @@ describe('setHead hook', () => {
         ]),
       })));
     });
+
     it('always dispatches sethead with description tags', async() => {
       store.dispatch(receiveBook(book));
       store.dispatch(receivePage({
@@ -159,6 +160,53 @@ describe('setHead hook', () => {
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
           {property: 'og:image', content: 'mock_download_url'},
+        ]),
+      })));
+    });
+
+    it('dispatches sethead with robots:noindex tag if book is not default', async() => {
+      store.dispatch(receiveBook({
+        ...combinedBook,
+        version: 'somerandoversion',
+      }));
+      store.dispatch(receivePage({
+        ...page,
+        references: [],
+      }));
+      const bookId = book.id;
+      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+
+      await hook(receivePage({
+        ...page,
+        references: [],
+      }));
+
+      expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
+        meta: expect.arrayContaining([
+          {name: 'robots', content: 'noindex'},
+        ]),
+      })));
+    });
+
+    it('dispatches sethead without robots:noindex tag if book is default', async() => {
+      store.dispatch(receiveBook({
+        ...combinedBook,
+      }));
+      store.dispatch(receivePage({
+        ...page,
+        references: [],
+      }));
+      const bookId = book.id;
+      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+
+      await hook(receivePage({
+        ...page,
+        references: [],
+      }));
+
+      expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
+        meta: expect.not.arrayContaining([
+          {name: 'robots', content: 'noindex'},
         ]),
       })));
     });

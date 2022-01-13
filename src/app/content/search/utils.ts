@@ -1,5 +1,5 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
-import { SearchResult, SearchResultHit } from '@openstax/open-search-client';
+import { SearchResult, SearchResultHit, SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import sortBy from 'lodash/fp/sortBy';
 import rangy, { findTextInRange, RangyRange } from '../../../helpers/rangy';
@@ -8,8 +8,14 @@ import attachHighlight from '../components/utils/attachHighlight';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
-import { isSearchResultChapter } from './guards';
+import { isKeyTermHit, isSearchResultChapter } from './guards';
 import { SearchResultContainer, SearchResultPage, SearchScrollTarget, SelectedResult } from './types';
+
+const ACCEPTED_DOC_TYPES = [
+  SearchResultHitSourceElementTypeEnum.Figure,
+  SearchResultHitSourceElementTypeEnum.KeyTerm,
+  SearchResultHitSourceElementTypeEnum.Paragraph,
+];
 
 export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult): SelectedResult | null => {
   const [result] = getFormattedSearchResults(book.tree, results);
@@ -30,9 +36,12 @@ export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult)
 export const getFormattedSearchResults = (bookTree: ArchiveTree, searchResults: SearchResult) =>
   filterTreeForSearchResults(linkArchiveTree(bookTree), searchResults);
 
+export const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
+  parent.contents.map((child) => ({...child, parent}));
+
 export const getSearchResultsForPage = (page: {id: string}, results: SearchResult) =>
   sortBy('source.pagePosition',
-    results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) ===  stripIdVersion(page.id))
+    results.hits.hits.filter((result) => stripIdVersion(result.source.pageId) === stripIdVersion(page.id))
   );
 
 const filterTreeForSearchResults = (
@@ -40,9 +49,6 @@ const filterTreeForSearchResults = (
   searchResults: SearchResult
 ): SearchResultContainer[]  => {
   const containers: SearchResultContainer[] = [];
-  const linkContents = (parent: LinkedArchiveTree): LinkedArchiveTreeNode[] =>
-    parent.contents.map((child) => ({...child, parent}));
-
   for (const child of linkContents(node)) {
     if (archiveTreeSectionIsPage(child)) {
       const results = getSearchResultsForPage(child, searchResults);
@@ -72,9 +78,11 @@ export const getIndexData = (indexName: string) => {
   }
 
   const [version, indexingStrategy] = tail.split('_');
+  const id = stripIdVersion(indexName);
+  const idArchiveSplit = id.split('__');
 
   return {
-    bookId: stripIdVersion(indexName),
+    bookId: idArchiveSplit.length > 1 ? idArchiveSplit[1] : id,
     indexingStrategy,
     version,
   };
@@ -83,6 +91,9 @@ export const getIndexData = (indexName: string) => {
 export const countTotalHighlights = (results: SearchResultHit[]) => {
   return results.reduce((count, hit) => count + hit.highlight.visibleContent.length, 0);
 };
+
+export const countUniqueKeyTermHighlights = (results: SearchResultHit[]) => results.filter((el, index, array) =>
+    array.findIndex((hit) => hit.source.elementId === el.source.elementId) === index).length;
 
 const getHighlightPartMatches = getAllRegexMatches(/.{0,10}(<strong>.*?<\/strong>(\s*<strong>.*?<\/strong>)*).{0,10}/g);
 
@@ -147,7 +158,12 @@ export const highlightResults = (
       return {result: hit, highlights: {}};
     }
 
-    const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
+    // necessary for correct search highlighting of key term results
+    if (isKeyTermHit(hit) && hit.highlight.title) {
+      hit.highlight.visibleContent = [hit.highlight.title];
+    }
+
+    const hitHighlights = hit.highlight.visibleContent?.map((highlightText, index) => {
       const highlights = getHighlightRanges(element, highlightText, index)
         .map((range) => {
           const highlight = new Highlight(
@@ -181,3 +197,52 @@ export const findSearchResultHit = (
 ): SearchResultHit | undefined => {
   return results.find((result) => result.source.elementId === target.elementId);
 };
+
+export const matchKeyTermHit = (hit: SearchResultHit) =>
+  hit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm;
+
+const matchAcceptedDocTypeHit = (hit: SearchResultHit) =>
+  ACCEPTED_DOC_TYPES.indexOf(hit.source.elementType) >= 0;
+
+export const generateKeyTermExcerpt = (text: string) => {
+  if (text.length <= 115) {
+    return text;
+  }
+  const subString = text.substr(0, 110);
+  return `${subString.substr(0, subString.lastIndexOf(' '))} ...`;
+};
+
+const hideMath = (el: HTMLElement) => {
+  el.querySelectorAll('math').forEach((mathEl: Element) => {
+    (mathEl as HTMLElement).outerHTML = '<span>\u2026</span>';
+  });
+};
+
+export const getKeyTermPair = (htmlString: string, elementId: string) => {
+  const domParser = new DOMParser();
+  const domNode = domParser.parseFromString(htmlString, 'text/html');
+  const pair = domNode.getElementById(elementId);
+  const definition = pair.querySelector('dd');
+  const term = pair.querySelector('dt');
+  hideMath(definition);
+  hideMath(term);
+  return {
+    definition: generateKeyTermExcerpt(definition.textContent),
+    term: term.textContent,
+  };
+};
+
+export const getFilteredResults = (searchResults: SearchResult) => ({
+  ...searchResults,
+  hits: {
+    ...searchResults.hits,
+    hits: searchResults.hits.hits.filter((hit) =>
+      // use only first condition (acceted doc type) once search backend updated to ignore key term definitions
+      matchAcceptedDocTypeHit(hit) && (!matchKeyTermHit(hit) || !!hit.highlight.title)
+    )},
+});
+
+export const getNonKeyTermResults = (searchResults: SearchResult) => ({
+  ...searchResults,
+  hits: {...searchResults.hits, hits: searchResults.hits.hits.filter((hit) => !matchKeyTermHit(hit))},
+});

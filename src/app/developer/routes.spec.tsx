@@ -1,4 +1,5 @@
 import createTestServices from '../../test/createTestServices';
+import createTestStore from '../../test/createTestStore';
 import { reactAndFriends, resetModules } from '../../test/utils';
 
 describe('developer route', () => {
@@ -31,7 +32,12 @@ describe('developer route', () => {
     });
 
     it('renders a component', () => {
-      const services = createTestServices();
+      const store = createTestStore();
+      const services = {
+        ...createTestServices(),
+        dispatch: store.dispatch,
+        getState: store.getState,
+      };
 
       const match = {
         route: developerHome,

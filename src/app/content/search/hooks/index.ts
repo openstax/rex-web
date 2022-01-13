@@ -1,5 +1,7 @@
 import isEqual from 'lodash/fp/isEqual';
 import queryString from 'query-string';
+import { REACT_APP_ARCHIVE } from '../../../../config';
+import BOOKS from '../../../../config.books';
 import { push, replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
@@ -26,8 +28,10 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     return;
   }
 
+  const pipeline = BOOKS[book.id]?.archiveOverride?.replace(/^\/apps\/archive\//, '') || REACT_APP_ARCHIVE;
+
   const results = await services.searchClient.search({
-    books: [`${book.id}@${book.version}`],
+    books: [`${pipeline}/${book.id}@${book.version}`],
     indexStrategy: 'i1',
     q: payload,
     searchStrategy: 's1',
@@ -41,7 +45,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const {page: currentPage, book} = selectContent.bookAndPage(state);
   const pageIsLoading = selectContent.loadingPage(state);
   const query = select.query(state);
-  const results = select.hits(state) || [];
+  const results = select.hits(state);
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
 
   if (pageIsLoading || !book) {
@@ -97,13 +101,24 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 };
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
-  const scrollTarget = selectNavigation.scrollTarget(services.getState());
-  if (scrollTarget && isSearchScrollTarget(scrollTarget)) {
-    services.history.replace({
-      hash: '',
-      search: '',
-    });
+  const state = services.getState();
+  const scrollTarget = selectNavigation.scrollTarget(state);
+  const hash = selectNavigation.hash(state);
+  const query = selectNavigation.query(state);
+
+  if (!Object.keys(query).length) {
+    return;
   }
+
+  const systemQueryParams = selectNavigation.systemQueryParameters(state);
+  const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
+  const newTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : persistentQueryParams.target;
+  const newPersistentParams = {...persistentQueryParams, query: undefined, target: newTarget || undefined};
+
+  services.history.replace({
+    hash: scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : hash,
+    search: queryString.stringify(systemQueryParams) + queryString.stringify(newPersistentParams),
+  });
 };
 
 // composed in /content/locationChange hook because it needs to happen after book load
@@ -113,7 +128,7 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async() =
   const searchQuery = select.query(state);
   const scrollTarget = selectNavigation.scrollTarget(state);
   const searchScrollTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? scrollTarget : null;
-  const searchHits = select.hits(state) || [];
+  const searchHits = select.hits(state);
   const targettedHit = searchScrollTarget && findSearchResultHit(searchHits, searchScrollTarget);
   const navigationSelectedResult = targettedHit && searchScrollTarget
     ? { result: targettedHit, highlight: searchScrollTarget.index }

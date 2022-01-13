@@ -4,14 +4,15 @@ import flow from 'lodash/fp/flow';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
-import { AppServices, AppState, Dispatch } from '../../../types';
+import { createNavigationOptions, navigationOptionsToString } from '../../../navigation/utils';
+import { AppServices, AppState, Dispatch, MiddlewareAPI } from '../../../types';
 import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
 import { hasOSWebData, isPageReferenceError } from '../../guards';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import { focused, hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { Book, PageReferenceError, PageReferenceMap } from '../../types';
+import { Book, PageReferenceError, PageReferenceMap, SystemQueryParams } from '../../types';
 import { isClickWithModifierKeys } from '../../utils/domUtils';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
 
@@ -22,7 +23,9 @@ export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) =
   hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
   locationState: selectNavigation.locationState(state),
   page: select.page(state),
+  persistentQueryParams: selectNavigation.persistentQueryParameters(state),
   references: select.contentReferences(state),
+  systemQueryParams: selectNavigation.systemQueryParameters(state),
 }));
 export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
   navigate: flow(push, dispatch),
@@ -39,24 +42,28 @@ const reducePageReferenceError = (reference: PageReferenceError, document: Docum
 };
 
 // tslint:disable-next-line: max-line-length
-const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryString: string) => {
+const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryParams: SystemQueryParams) => {
   const path = content.getUrl(reference.params);
-  const a = assertNotNull(
-    document.querySelector(`[href^='${reference.match}']`),
-    'references are created from hrefs');
-  const href = assertNotNull(a.getAttribute('href'), 'it was found by href value')
-    .replace(reference.match, toRelativeUrl(currentPath, path) + systemQueryString);
-  a.setAttribute('href', href);
+  const options = createNavigationOptions(systemQueryParams);
+  const a = document.querySelector(`[href^='${reference.match}']`) as HTMLAnchorElement;
+  if (!a) {
+    return;
+  }
+  const href = assertNotNull(a.getAttribute('href'), 'it was found by href value');
+  options.hash = a.hash;
+  const newHref = href
+    .replace(reference.match, toRelativeUrl(currentPath, path) + navigationOptionsToString(options));
+  a.setAttribute('href', newHref);
 };
 
 // tslint:disable-next-line: max-line-length
-export const reduceReferences = (document: Document, {references, currentPath}: ContentLinkProp, systemQueryString: string) => {
+export const reduceReferences = (document: Document, {references, currentPath, systemQueryParams}: ContentLinkProp) => {
   for (const reference of references) {
     // references may contain PageReferenceError only if UNLIMITED_CONTENT is set to true
     if (isPageReferenceError(reference)) {
       reducePageReferenceError(reference, document);
     } else {
-      reduceReference(reference, currentPath, document, systemQueryString);
+      reduceReference(reference, currentPath, document, systemQueryParams);
     }
   }
 };
@@ -70,7 +77,8 @@ const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageRefere
       || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
     );
 
-export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, services: AppServices) =>
+// tslint:disable-next-line: max-line-length
+export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, services: AppServices & MiddlewareAPI) =>
   async(e: MouseEvent) => {
     const {
       references,

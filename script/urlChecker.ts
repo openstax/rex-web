@@ -3,7 +3,7 @@ import { JSDOM } from 'jsdom';
 import chunk from 'lodash/chunk';
 import fetch from 'node-fetch';
 import path from 'path';
-import { argv } from 'yargs';
+import argv from 'yargs';
 import { RedirectsData } from '../data/redirects/types';
 import { content as contentRoute } from '../src/app/content/routes';
 import { Book, BookWithOSWebData, LinkedArchiveTreeSection } from '../src/app/content/types';
@@ -24,7 +24,7 @@ const {
   bookVersion,
   archiveUrl,
   useUnversionedUrls,
-} = argv as {
+} = argv.string('bookVersion').argv as {
   rootUrl?: string;
   bookId?: string;
   bookVersion?: string;
@@ -106,7 +106,9 @@ const getUrl = (book: Book) => useUnversionedUrls
   : (treeSection: LinkedArchiveTreeSection) => getBookPageUrlAndParams(book, treeSection).url;
 
 async function checkUrls() {
-  const archiveLoader = createArchiveLoader(`${archiveUrl ? archiveUrl : rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const archiveLoader = createArchiveLoader(config.REACT_APP_ARCHIVE_URL, {
+    archivePrefix: archiveUrl ? archiveUrl : rootUrl,
+  });
   const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const url = assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port');
   const books = await findBooks({

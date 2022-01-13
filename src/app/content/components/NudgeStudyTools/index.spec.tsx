@@ -3,12 +3,13 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import MessageProvider from '../../../../test/MessageProvider';
 import { makeFindByTestId } from '../../../../test/reactutils';
+import { runHooks } from '../../../../test/utils';
 import * as Services from '../../../context/Services';
 import { receiveFeatureFlags } from '../../../featureFlags/actions';
-import MessageProvider from '../../../MessageProvider';
 import * as reactUtils from '../../../reactUtils';
-import { AppServices, Store } from '../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
@@ -25,7 +26,7 @@ import * as utils from './utils';
 describe('NudgeStudyTools', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
-  let services: AppServices;
+  let services: AppServices & MiddlewareAPI;
   const mockPositions = {
     arrowLeft: 1200,
     arrowTopOffset: 245,
@@ -44,7 +45,11 @@ describe('NudgeStudyTools', () => {
 
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('sets cookies, opens nudge and track opening for books without SG', () => {
@@ -61,9 +66,7 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    // Call useEffect hooks
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
+    runHooks(renderer);
 
     expect(spySetCookies).toHaveBeenCalled();
     expect(spyTrack).toHaveBeenCalled();
@@ -86,9 +89,7 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    // Call useEffect hooks
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
+    runHooks(renderer);
 
     expect(spySetCookies).toHaveBeenCalled();
     expect(spyTrack).toHaveBeenCalled();
@@ -203,10 +204,9 @@ describe('NudgeStudyTools', () => {
     jest.spyOn(utils, 'usePositions')
       .mockReturnValue(mockPositions);
 
-    const spyFocusWrapper = jest.fn();
-    const createNodeMock = () => ({
-      focus: spyFocusWrapper,
-    });
+    const contentWrapperElement = assertDocument().createElement('div');
+    const spyFocus = jest.spyOn(contentWrapperElement, 'focus');
+    const createNodeMock = () => contentWrapperElement;
 
     renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -216,11 +216,9 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>, { createNodeMock });
 
-    // Call useEffect's
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
+    runHooks(renderer);
 
-    expect(spyFocusWrapper).toHaveBeenCalledTimes(1);
+    expect(spyFocus).toHaveBeenCalledTimes(1);
   });
 
   it('sets overflow hidden for body element and resets it', () => {
@@ -239,9 +237,7 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    // Call useEffect's
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
+    runHooks(renderer);
 
     expect(() => component.root.findByType(NudgeArrow)).not.toThrow();
 
@@ -256,8 +252,7 @@ describe('NudgeStudyTools', () => {
       </Services.Provider>
     </Provider>);
 
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
+    runHooks(renderer);
 
     expect(assertDocument().body.style.overflow).toEqual('');
   });
@@ -304,5 +299,31 @@ describe('NudgeStudyTools', () => {
     });
 
     expect(() => component.root.findByType(NudgeContentWrapper)).toThrow();
+  });
+
+  it('closes on esc', () => {
+    store.dispatch(openNudgeStudyTools());
+
+    jest.spyOn(utils, 'usePositions').mockReturnValue(mockPositions);
+    const onEscSpy = jest.spyOn(reactUtils, 'onEsc');
+
+    const component = renderer.create(<Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NudgeStudyTools/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>);
+
+    expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
+
+    renderer.act(() => {
+      onEscSpy.mock.calls[0][1]();
+    });
+
+    runHooks(renderer);
+
+    expect(() => component.root.findByType(NudgeContentWrapper)).toThrow();
+    onEscSpy.mockClear();
   });
 });

@@ -1,3 +1,4 @@
+import { SearchResultHitSourceElementTypeEnum } from '@openstax/open-search-client';
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
@@ -22,6 +23,8 @@ import {
   makeSearchResults
 } from '../../../../../test/searchResults';
 import TestContainer from '../../../../../test/TestContainer';
+import { runHooks } from '../../../../../test/utils';
+import * as selectNavigation from '../../../../navigation/selectors';
 import { Store } from '../../../../types';
 import { assertDocument, assertWindow } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
@@ -34,6 +37,8 @@ import {
   requestSearch,
   selectSearchResult
 } from '../../actions';
+import * as selectSearch from '../../selectors';
+import { SearchScrollTarget } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
 
 describe('SearchResultsSidebar', () => {
@@ -92,6 +97,7 @@ describe('SearchResultsSidebar', () => {
   });
 
   it('shows sidebar with loading state if there is a search', () => {
+    jest.spyOn(selectNavigation, 'persistentQueryParameters').mockReturnValue({query: 'cool search'});
     store.dispatch(requestSearch('cool search'));
     const component = renderer.create(render());
     const findById = makeFindByTestId(component.root);
@@ -101,6 +107,7 @@ describe('SearchResultsSidebar', () => {
   });
 
   it('matches snapshot for no search results', () => {
+    jest.spyOn(selectNavigation, 'persistentQueryParameters').mockReturnValue({query: 'cool search'});
     store.dispatch(requestSearch('cool search'));
     store.dispatch(receiveSearchResults(makeSearchResults([])));
 
@@ -109,6 +116,7 @@ describe('SearchResultsSidebar', () => {
   });
 
   it('matches snapshot with results', () => {
+    jest.spyOn(selectNavigation, 'persistentQueryParameters').mockReturnValue({query: 'cool search'});
     store.dispatch(receivePage({ ...pageInChapter, references: [] }));
     store.dispatch(requestSearch('cool search'));
     const selectedResult = makeSearchResultHit({ book: archiveBook, page });
@@ -125,6 +133,71 @@ describe('SearchResultsSidebar', () => {
 
     const tree = renderer.create(render()).toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot with related key terms', async() => {
+    store.dispatch(receivePage({ ...pageInChapter, references: [] }));
+    store.dispatch(requestSearch('term'));
+    const selectedResult = makeSearchResultHit({
+      book: archiveBook,
+      elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
+      highlights: ['description 1'],
+      page,
+      sourceId: 'test-pair-page1',
+      title: 'term1 - selected',
+    });
+    const otherResult = makeSearchResultHit({
+      book: archiveBook,
+      elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
+      highlights: ['description 2'],
+      page: pageInChapter,
+      sourceId: 'test-pair-page6',
+      title: 'term2',
+    });
+    store.dispatch(
+      receiveSearchResults(
+        makeSearchResults([
+          selectedResult,
+          otherResult,
+          makeSearchResultHit({ book: archiveBook, page: pageInOtherChapter }),
+        ])
+      )
+    );
+    store.dispatch(selectSearchResult({result: selectedResult, highlight: 0}));
+
+    const component = renderer.create(render());
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('closes mobile search results when related key term is clicked', () => {
+    store.dispatch(receivePage({ ...pageInChapter, references: [] }));
+    store.dispatch(requestSearch('term'));
+    store.dispatch(
+      receiveSearchResults(
+        makeSearchResults([
+          makeSearchResultHit({
+            book: archiveBook,
+            elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
+            highlights: ['descritpion'],
+            page: pageInChapter,
+            title: 'term',
+          }),
+        ])
+      )
+    );
+
+    const component = renderer.create(render());
+    const findById = makeFindByTestId(component.root);
+
+    expect(dispatch).not.toHaveBeenCalledWith(closeSearchResultsMobile());
+
+    renderer.act(() => {
+      findById('related-key-term-result').props.onClick(makeEvent());
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
   });
 
   it('doesn\'t move focus when loading without results', () => {
@@ -180,12 +253,32 @@ describe('SearchResultsSidebar', () => {
     expect(dispatch).toHaveBeenCalledWith(clearSearch());
   });
 
+  it ('scrolls to search scroll target if result selected by user', () => {
+    const searchResult = makeSearchResultHit({ book: archiveBook, page });
+    const searchScrollTarget: SearchScrollTarget = { type: 'search', index: 0, elementId: 'elementId' };
+    const scrollSidebarSectionIntoView = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
+    jest.spyOn(selectSearch, 'userSelectedResult').mockReturnValue(true);
+
+    store.dispatch(requestSearch('cool search'));
+    store.dispatch(receiveSearchResults(makeSearchResults([searchResult]), { searchScrollTarget }));
+    store.dispatch(selectSearchResult({result: searchResult, highlight: 0}));
+
+    renderer.create(render());
+    runHooks(renderer);
+
+    expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(1);
+  });
+
   it('fixes overscroll in safari', () => {
     const {tree} = renderToDom(render());
     const fixForSafariMock = jest.spyOn(domUtils, 'fixSafariScrolling');
+    const firstResult = makeSearchResultHit({ book: archiveBook, page });
+    const secondResult = makeSearchResultHit({ book: archiveBook, page: pageInChapter });
 
     store.dispatch(requestSearch('cool search'));
-    store.dispatch(receiveSearchResults(makeSearchResults()));
+    store.dispatch(receiveSearchResults(makeSearchResults([firstResult, secondResult])));
+    store.dispatch(selectSearchResult({result: firstResult, highlight: 0}));
+    store.dispatch(selectSearchResult({result: secondResult, highlight: 0}));
 
     const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
 

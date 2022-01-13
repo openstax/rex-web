@@ -6,7 +6,7 @@ jobs:
   setup:
     name: Setup
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI-2020-01-26
+    container: openstax/rex-web:CI-2021-09-21
     outputs:
       deployment-url: ${{ steps.find-deployment.outputs.url }}
     steps:
@@ -21,7 +21,7 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules8
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
     - run: yarn install
     - name: Find Deployment
       id: find-deployment
@@ -52,7 +52,7 @@ jobs:
   scan-books:
     name: Scan
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI-2020-01-26
+    container: openstax/rex-web:CI-2021-09-21
     needs: setup
     steps:
     - uses: actions/checkout@v2
@@ -62,7 +62,7 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules8
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
     - run: yarn install
     - run: ./script/validate-modified-books.bash
       env:
@@ -71,7 +71,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI-2020-01-26
+    container: openstax/rex-web:CI-2021-09-21
     strategy:
       fail-fast: false
       matrix:
@@ -86,7 +86,7 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules8
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
     - run: yarn install
     - run: yarn ci:test:${{ matrix.suite }}
     - uses: actions/upload-artifact@v2
@@ -98,7 +98,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    container: openstax/rex-web:CI-2020-01-26
+    container: openstax/rex-web:CI-2021-09-21
     steps:
     - uses: actions/checkout@v2
       with:
@@ -107,6 +107,23 @@ jobs:
       id: node_modules
       with:
         path: node_modules
-        key: node_modules8
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
     - run: yarn install
     - run: yarn lint
+
+  abl:
+    name: ABL Schema Tests
+    runs-on: ubuntu-latest
+    container: openstax/rex-web:CI-2021-09-21
+    needs: setup
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - uses: actions/cache@v2
+      id: node_modules
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+    - run: yarn install
+    - run: ./script/validate-abl-import/test.bash
