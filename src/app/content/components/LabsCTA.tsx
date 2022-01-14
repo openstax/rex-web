@@ -162,7 +162,7 @@ const LabsCTA = () => {
     <LabsCTAWrapper data-experiment={true}>
       <LabsCTAHeader>
         <Column>
-          <LabsLogo src={icon} />
+          <LabsLogo src={icon} role='img' alt='' />
         </Column>
         <Column maxWidth={config[0].maxWidth}>
           {config[0].text.map(({text, ...params}, j) => <LabsText {...params} key={j}> {text}</LabsText>)}
