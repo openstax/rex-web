@@ -3,12 +3,14 @@ platform: linux
 
 inputs:
 - name: rex-web
-- name: release
 
 params:
+  PROD_AWS_ACCESS_KEY_ID: ((prod-aws-access-key-id))
+  PROD_AWS_SECRET_ACCESS_KEY: ((prod-aws-secret-access-key))
   PROD_UNIFIED_S3_BUCKET: ((prod-unified-s3-bucket))
-  AWS_ACCESS_KEY_ID: ((prod-aws-access-key-id))
-  AWS_SECRET_ACCESS_KEY: ((prod-aws-secret-access-key))
+  SAND_AWS_ACCESS_KEY_ID: ((aws-access-key-id))
+  SAND_AWS_SECRET_ACCESS_KEY: ((aws-secret-access-key))
+  SAND_UNIFIED_S3_BUCKET: ((unified-s3-bucket))
 
 run:
   path: rex-web/concourse/verify-production-urls/script.bash
