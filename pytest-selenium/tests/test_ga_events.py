@@ -313,9 +313,9 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     """The page submits the correct GA event when ."""
     # SETUP:
     excerpt_event_action = None  # Not yet known, uses the search result link
-    excerpt_event_category = "REX Link (search-results)"
+    excerpt_event_category = "REX Link (content-search-results)"
     excerpt_event_label = f"/books/{book_slug}/pages/{page_slug}"
-    search_event_action = "Andromeda"
+    search_event_action = "ampere"
     search_event_category = "REX search"
     search_event_label = book_slug
     search_term = search_event_action
@@ -328,7 +328,7 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     search = book.mobile_search_toolbar if book.is_mobile else book.toolbar
 
     # WHEN:  they search for a term
-    search_results = search.search_for(search_term).results
+    search_results = search.search_for(search_term).chapter_results
 
     # THEN:  the correct Google Analytics search link event is queued
     #        { eventAction: "{search term}",
@@ -351,7 +351,7 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
 
     # THEN:  the correct Google Analytics search link event is queued
     #        { eventAction: "{new page slug}",
-    #          eventCategory: "REX Link (search-results)",
+    #          eventCategory: "REX Link (content-search-results)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     link_click_event = Utilities.get_analytics_queue(selenium, -2)
     assert (
