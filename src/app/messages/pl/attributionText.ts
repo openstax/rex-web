@@ -26,7 +26,7 @@ Treści dostępne za darmo na https://openstax.org{introPageUrl}
 
 Jeśli rozpowszechniasz całą książkę lub jej fragment w formacie cyfrowym, na każdym widoku strony umieść informację:
     <blockquote>
-  Treści dostępne za darmo na<a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+  Treści dostępne za darmo na <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
     </blockquote>
   </li>
 </ul>

@@ -28,16 +28,19 @@ const toggleSolutionSectionStyles = (section: HTMLElement, shouldBeVisible: bool
 
 const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
   const section = assertNotNull(solution.querySelector('section'), 'Expected solution to contain a <section>');
+  const button = assertNotNull(solution.querySelector('.ui-toggle'), 'Expected solution to contain a toggle <button>');
 
   if (solution.classList.contains('ui-solution-visible')) {
     solution.classList.remove('ui-solution-visible');
     solution.setAttribute('aria-expanded', 'false');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
+    button.setAttribute('data-content', intl.formatMessage({id: 'i18n:content:solution:show'}));
     toggleSolutionSectionStyles(section, false);
   } else {
     solution.className += ' ui-solution-visible';
     solution.setAttribute('aria-expanded', 'true');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:hide'}));
+    button.setAttribute('data-content', intl.formatMessage({id: 'i18n:content:solution:hide'}));
     toggleSolutionSectionStyles(section, true);
   }
 };
@@ -134,15 +137,16 @@ const initialSolutionStyles = 'display: block; overflow: hidden; height: 0px';
 
 function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   const title = intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
+  const showSolutionText = intl.formatMessage({id: 'i18n:content:solution:show'});
 
   // Wrap solutions in a div so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
-    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
+    el.setAttribute('aria-label', showSolutionText);
     el.setAttribute('aria-expanded', 'false');
     const contents = el.innerHTML;
     el.innerHTML = `
       <div class="ui-toggle-wrapper">
-        <button class="btn-link ui-toggle" title="${title}"></button>
+        <button class="btn-link ui-toggle" title="${title}" data-content="${showSolutionText}"></button>
       </div>
       <section class="ui-body" role="alert" style="${initialSolutionStyles}">${contents}</section>
     `;
