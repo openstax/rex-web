@@ -98,7 +98,7 @@ async function render() {
     const bookPages = await prepareBookPages(book);
     const sitemap = await renderPages(renderHelpers, bookPages);
 
-    renderSitemap(book.slug, sitemap);
+    await renderSitemap(book.slug, sitemap);
   }
 
   await renderSitemapIndex();

@@ -164,7 +164,7 @@ export async function getArchivePage(services: AppOptions['services'], route: Pa
   );
 }
 
-// getArchiveBook() and renderPage() are used only by the multi-instance prerender code
+// getArchiveBook() and renderAndSavePage() are used only by the multi-instance prerender code
 
 export async function getArchiveBook(services: AppOptions['services'], route: BookMatch) {
   if (!route.state || !('bookUid' in route.state)) {
@@ -179,7 +179,7 @@ export async function getArchiveBook(services: AppOptions['services'], route: Bo
   );
 }
 
-export async function renderPage(
+export async function renderAndSavePage(
   services: AppOptions['services'],
   savePage: (uri: string, content: string) => void,
   code: number,
@@ -248,8 +248,8 @@ export const prepareBookPages = (book: BookWithOSWebData) => findTreePages(book.
 );
 
 export const renderPages = async(services: AppOptions['services'], pages: Pages) => {
-  const renderPageWithStats = makeRenderPage(services);
-  return await asyncPool(1, pages, renderPageWithStats);
+  const renderPage = makeRenderPage(services);
+  return await asyncPool(1, pages, renderPage);
 };
 
 interface Options {

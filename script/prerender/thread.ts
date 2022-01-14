@@ -33,12 +33,12 @@ import {
   deserializePage,
   getArchiveBook,
   getArchivePage,
-  renderPage,
+  renderAndSavePage,
   SerializedBookMatch,
   SerializedPageMatch,
 } from './contentPages';
-import { writeS3File } from './fileUtils';
-import { renderSitemapIndexToS3, renderSitemapToS3, sitemapPath } from './sitemap';
+import { writeS3HtmlFile, writeS3XmlFile } from './fileUtils';
+import { renderAndSaveSitemap, renderAndSaveSitemapIndex, sitemapPath } from './sitemap';
 
 const MAX_CONCURRENT_CONNECTIONS = 5;
 
@@ -74,7 +74,7 @@ async function pageTask(services: AppOptions['services'], payload: PagePayload) 
   const page = deserializePage(
     assertObject(payload.page, `Page task payload.page is not an object: ${payload}`)
   );
-  return renderPage(services, writeS3File, 200, page);
+  return renderAndSavePage(services, writeS3HtmlFile, 200, page);
 }
 
 async function sitemapTask(services: AppOptions['services'], payload: SitemapPayload) {
@@ -90,8 +90,10 @@ async function sitemapTask(services: AppOptions['services'], payload: SitemapPay
     const archivePage = await getArchivePage(services, page);
     return getSitemapItemOptions(archivePage, matchPathname(page));
   });
-  return renderSitemapToS3(
-    assertString(payload.slug, `Sitemap task payload.slug is not a string: ${payload}`), items
+  return renderAndSaveSitemap(
+    writeS3XmlFile,
+    assertString(payload.slug, `Sitemap task payload.slug is not a string: ${payload}`),
+    items
   );
 }
 
@@ -108,7 +110,7 @@ async function sitemapIndexTask(services: AppOptions['services'], payload: Sitem
     const archiveBook = await getArchiveBook(services, book);
     return getSitemapItemOptions(archiveBook, sitemapPath(book.params.book.slug));
   });
-  return renderSitemapIndexToS3(items);
+  return renderAndSaveSitemapIndex(writeS3XmlFile, items);
 }
 
 async function run() {
@@ -144,7 +146,7 @@ async function run() {
   const boundSitemapTask = sitemapTask.bind(null, services);
   const boundSitemapIndexTask = sitemapIndexTask.bind(null, services);
 
-  const TASKS: { [key: string]: ((payload: any) => Promise<void>) | undefined } = {
+  const TASKS: { [key: string]: ((payload: any) => Promise<unknown>) | undefined } = {
     page: boundPageTask,
     sitemap: boundSitemapTask,
     sitemapIndex: boundSitemapIndexTask,
