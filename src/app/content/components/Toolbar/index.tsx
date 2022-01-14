@@ -3,7 +3,6 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import * as selectFeatureFlags from '../../../featureFlags/selectors';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
@@ -199,7 +198,7 @@ export default connect(
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     practiceQuestionsEnabled: practiceQuestionsEnabledSelector(state),
     query: selectSearch.query(state),
-    searchButtonColor: selectFeatureFlags.searchButtonColor(state),
+    searchButtonColor: selectSearch.searchButtonColor(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
     tocOpen: tocOpen(state),
   }),
