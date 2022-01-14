@@ -10,5 +10,5 @@ export const bottomText = `
 `;
 
 export const missionText = `
-  OpenStax jest częścią Rice University i fundacją non profit typu 501(c)(3). <a href="/give" target="_blank">Wpłać darowiznę</a>i pomóż nam dotrzeć do większej liczby studentów.
+  OpenStax jest częścią Rice University i fundacją non profit typu 501(c)(3). <a href="/give" target="_blank">Wpłać darowiznę</a> i pomóż nam dotrzeć do większej liczby studentów.
 `;
