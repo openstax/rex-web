@@ -1,3 +1,4 @@
+import Sentry from '../../../helpers/Sentry';
 import { receiveFeatureFlags } from '../../featureFlags/actions';
 import { ActionHookBody } from '../../types';
 import { receivePage } from '../actions';
@@ -19,7 +20,11 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
   }
 
   const result = await fetch('https://kinetic.openstax.org/api/v1/eligibility?book=' + book.slug)
-    .then((response) => response.json());
+    .then((response) => response.json())
+    .catch((e) => {
+      Sentry.captureException(e);
+      return {eligible: false};
+    });
 
   if (result.eligible) {
     dispatch(receiveFeatureFlags(['kineticEnabled']));
