@@ -151,21 +151,6 @@ export const getStats = () => {
   return {numPages, elapsedMinutes};
 };
 
-export async function getArchivePage(services: AppOptions['services'], route: PageMatch) {
-  if (!route.state || !('bookUid' in route.state)) {
-    throw new Error('match state wasn\'t defined, it should have been');
-  }
-
-  const {bookUid, bookVersion, pageUid} = route.state;
-
-  return assertDefined(
-    await services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load(),
-    'page wasn\'t cached, it should have been'
-  );
-}
-
-// getArchiveBook() and renderAndSavePage() are used only by the multi-instance prerender code
-
 export async function getArchiveBook(services: AppOptions['services'], route: BookMatch) {
   if (!route.state || !('bookUid' in route.state)) {
     throw new Error('match state wasn\'t defined, it should have been');
@@ -176,6 +161,19 @@ export async function getArchiveBook(services: AppOptions['services'], route: Bo
   return assertDefined(
     await services.archiveLoader.book(bookUid, bookVersion).load(),
     'book wasn\'t cached, it should have been'
+  );
+}
+
+export async function getArchivePage(services: AppOptions['services'], route: PageMatch) {
+  if (!route.state || !('bookUid' in route.state)) {
+    throw new Error('match state wasn\'t defined, it should have been');
+  }
+
+  const {bookUid, bookVersion, pageUid} = route.state;
+
+  return assertDefined(
+    await services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load(),
+    'page wasn\'t cached, it should have been'
   );
 }
 
@@ -190,10 +188,20 @@ export async function renderAndSavePage(
 
   const html = await renderHtml(styles, app, state);
 
-  return savePage(url, html);
+  await savePage(url, html);
+
+  return url;
 }
 
-// Note: makeRenderPage() and renderPages() are used only by the single-instance prerender code
+// Note: savePageAsset() and makeRenderPage() are used only by the single-instance prerender code
+
+function savePageAsset(url: string, html: string) {
+  if (assetDirectoryExists(url)) {
+    writeAssetFile(path.join(url, 'index.html'), html);
+  } else {
+    writeAssetFile(url, html);
+  }
+}
 
 type MakeRenderPage = (services: AppOptions['services']) =>
   ({code, route}: {route: PageMatch, code: number}) => Promise<SitemapItemOptions>;
@@ -202,21 +210,12 @@ const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
 
   const archivePage = await getArchivePage(services, route);
 
-  const {app, styles, state, url} = await prepareApp(services, route, code);
-  console.info(`rendering ${url}`); // tslint:disable-line:no-console
-
   // Note: stat collection in memory does not work with multi-instance prerender code
   const timer = minuteCounter();
-  const html = await renderHtml(styles, app, state);
+  const url = await renderAndSavePage(services, savePageAsset, code, route);
   stats.renderHtml += timer();
 
   numPages++;
-
-  if (assetDirectoryExists(url)) {
-    writeAssetFile(path.join(url, 'index.html'), html);
-  } else {
-    writeAssetFile(url, html);
-  }
 
   return {
     changefreq: EnumChangefreq.MONTHLY,
@@ -246,6 +245,8 @@ export const prepareBookPages = (book: BookWithOSWebData) => findTreePages(book.
     assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`)
   )})
 );
+
+// Note: renderPages() is used only by the single-instance prerender code
 
 export const renderPages = async(services: AppOptions['services'], pages: Pages) => {
   const renderPage = makeRenderPage(services);

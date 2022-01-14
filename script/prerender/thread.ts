@@ -146,7 +146,7 @@ async function run() {
   const boundSitemapTask = sitemapTask.bind(null, services);
   const boundSitemapIndexTask = sitemapIndexTask.bind(null, services);
 
-  const TASKS: { [key: string]: ((payload: any) => Promise<unknown>) | undefined } = {
+  const TASKS: { [key: string]: ((payload: any) => void) | undefined } = {
     page: boundPageTask,
     sitemap: boundSitemapTask,
     sitemapIndex: boundSitemapIndexTask,

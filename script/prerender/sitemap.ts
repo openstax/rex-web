@@ -10,7 +10,7 @@ import { writeAssetFile } from './fileUtils';
 export const sitemapPath = (pathName: string) => `/rex/sitemaps/${pathName}.xml`;
 
 export const renderAndSaveSitemap = async(
-  saveFile: (path: string, contents: string) => unknown | Promise<unknown>,
+  saveFile: (path: string, contents: string) => void,
   slug: string,
   urls: SitemapItemOptions[]
 ) => {
@@ -24,7 +24,7 @@ export const renderAndSaveSitemap = async(
 };
 
 export const renderAndSaveSitemapIndex = async(
-  saveFile: (path: string, contents: string) => unknown | Promise<unknown>,
+  saveFile: (path: string, contents: string) => void,
   urls: SitemapItemOptions[]
 ) => {
   const sitemapIndex = sitemap.buildSitemapIndex({ urls });
