@@ -14,7 +14,9 @@ exports[`PrevNextBar renders first variant 1`] = `
       className="LabsCTA__Column-sc-117qi5r-2 cRAhAC"
     >
       <img
+        alt=""
         className="LabsCTA__LabsLogo-sc-117qi5r-0 LUvlV"
+        role="img"
         src="kinetic.svg"
       />
     </div>
@@ -76,7 +78,9 @@ exports[`PrevNextBar renders second variant 1`] = `
       className="LabsCTA__Column-sc-117qi5r-2 cRAhAC"
     >
       <img
+        alt=""
         className="LabsCTA__LabsLogo-sc-117qi5r-0 LUvlV"
+        role="img"
         src="kinetic.svg"
       />
     </div>
@@ -131,7 +135,9 @@ exports[`PrevNextBar renders third variant 1`] = `
       className="LabsCTA__Column-sc-117qi5r-2 cRAhAC"
     >
       <img
+        alt=""
         className="LabsCTA__LabsLogo-sc-117qi5r-0 LUvlV"
+        role="img"
         src="kinetic.svg"
       />
     </div>
