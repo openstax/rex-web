@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
+import { searchButtonStyle } from '../../featureFlags/selectors';
 import * as parentSelectors from '../selectors';
+import { BookWithOSWebData } from '../types';
 import {
   countTotalHighlights,
   countUniqueKeyTermHighlights,
@@ -107,4 +109,14 @@ export const currentPageResults = createSelector(
 export const userSelectedResult = createSelector(
   localState,
   (state) => state.userSelectedResult
+);
+
+export const searchButtonColor = createSelector(
+  searchButtonStyle,
+  parentSelectors.book,
+  parentSelectors.bookTheme,
+  (selectedStyle, selectedBook, selectedTheme) =>
+    selectedBook && selectedStyle === 'grayButton' ? 'gray' as BookWithOSWebData['theme']
+      : (selectedBook && selectedStyle === 'bannerColorButton' ? selectedTheme : null
+  )
 );
