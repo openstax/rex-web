@@ -345,7 +345,7 @@ describe('Page', () => {
               + `aria-expanded="false"`
             + `>
       <div class="ui-toggle-wrapper">
-        <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
+        <button class="btn-link ui-toggle" title="Show/Hide Solution" data-content="show solution"></button>
       </div>
       <section class="ui-body" role="alert" style="display: block; overflow: hidden; height: 0px">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
