@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
+import * as selectFeatureFlags from '../../featureFlags/selectors';
 import * as navigationSelectors from '../../navigation/selectors';
+import { practiceQuestionsFeatureFlag } from '../constants';
 import * as parentSelectors from '../selectors';
 import { modalUrlName } from './constants';
 import { getPracticeQuestionsLocationFilters } from './utils';
@@ -10,8 +12,8 @@ export const localState = createSelector(
 );
 
 export const practiceQuestionsEnabled = createSelector(
-  localState,
-  (state) => state.isEnabled
+  selectFeatureFlags.localState,
+  (state) => !!state[practiceQuestionsFeatureFlag]
 );
 
 export const practiceQuestionsSummary = createSelector(

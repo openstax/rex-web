@@ -9,6 +9,7 @@ import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
+import LabsCTA from '../LabsCTA';
 import PageToasts from '../Page/PageToasts';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
@@ -151,6 +152,7 @@ export default class PageComponent extends Component<PagePropTypes> {
         dangerouslySetInnerHTML={{ __html: html}}
       />
       <PrevNextBar />
+      <LabsCTA />
       <BuyBook />
     </React.Fragment>;
   };
