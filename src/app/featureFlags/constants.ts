@@ -21,4 +21,5 @@ export const experimentIds: { [key: string]: keyof typeof experiments } = {
   'zHtr33wcS1mVgFn7b2nU3A': 'searchButton', // prod
 
   'xneKbLnfQ8SbU-BvFNBM7Q': 'kineticBanner', // dev
+  'L3WXXDcvT_OhGcLxyDcYOQ': 'kineticBanner', // prod
 };
