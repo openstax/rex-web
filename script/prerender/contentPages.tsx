@@ -31,12 +31,39 @@ export const stats = {
   renderHtml: 0,
 };
 
-export async function prepareContentPage(
+export type BookMatch = {
+  params: { book: { slug: string } },
+  route: typeof content,
+  state: { bookUid: string, bookVersion: string },
+};
+export type SerializedBookMatch = Omit<BookMatch, 'route'>;
+
+export function deserializeBook(book: SerializedBookMatch) {
+  return {...book, route: content};
+}
+
+/* Note: PageMatch can be made more restrictive if single-instance prerender code is removed:
+export type PageMatch = {
+  params: { book: { slug: string }, page: { slug: string } },
+  route: typeof content,
+  state: { bookUid: string, bookVersion: string, pageUid: string },
+};
+*/
+export type PageMatch = Match<typeof content>;
+export type SerializedPageMatch = Omit<PageMatch, 'route'>;
+
+export function deserializePage(page: SerializedPageMatch) {
+  return {...page, route: content};
+}
+
+// Note: Could return a SerializedPageMatch instead if single-instance prerender code is removed
+
+export function prepareContentPage(
   book: BookWithOSWebData,
   pageId: string,
   pageSlug: string
 ) {
-  const action: Match<typeof content> = {
+  const action: PageMatch = {
     params: {
       book: {
         slug: book.slug,
@@ -118,30 +145,67 @@ export const minuteCounter = () => {
 };
 
 let numPages = 0;
-const globalMinuteCounter = minuteCounter();
+export const globalMinuteCounter = minuteCounter();
 export const getStats = () => {
   const elapsedMinutes = globalMinuteCounter();
   return {numPages, elapsedMinutes};
 };
 
-type MakeRenderPage = (services: AppOptions['services']) =>
-  ({code, route}: {route: Match<typeof content>, code: number}) => Promise<SitemapItemOptions>;
-
-const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
-
+export async function getArchivePage(services: AppOptions['services'], route: PageMatch) {
   if (!route.state || !('bookUid' in route.state)) {
     throw new Error('match state wasn\'t defined, it should have been');
   }
 
   const {bookUid, bookVersion, pageUid} = route.state;
-  const archivePage = assertDefined(
+
+  return assertDefined(
     await services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load(),
     'page wasn\'t cached, it should have been'
   );
+}
+
+// getArchiveBook() and renderPage() are used only by the multi-instance prerender code
+
+export async function getArchiveBook(services: AppOptions['services'], route: BookMatch) {
+  if (!route.state || !('bookUid' in route.state)) {
+    throw new Error('match state wasn\'t defined, it should have been');
+  }
+
+  const {bookUid, bookVersion} = route.state;
+
+  return assertDefined(
+    await services.archiveLoader.book(bookUid, bookVersion).load(),
+    'book wasn\'t cached, it should have been'
+  );
+}
+
+export async function renderPage(
+  services: AppOptions['services'],
+  savePage: (uri: string, content: string) => void,
+  code: number,
+  route: PageMatch
+) {
+  const {app, styles, state, url} = await prepareApp(services, route, code);
+  console.info(`Rendering ${url}`); // tslint:disable-line:no-console
+
+  const html = await renderHtml(styles, app, state);
+
+  return savePage(url, html);
+}
+
+// Note: makeRenderPage() and renderPages() are used only by the single-instance prerender code
+
+type MakeRenderPage = (services: AppOptions['services']) =>
+  ({code, route}: {route: PageMatch, code: number}) => Promise<SitemapItemOptions>;
+
+const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
+
+  const archivePage = await getArchivePage(services, route);
 
   const {app, styles, state, url} = await prepareApp(services, route, code);
   console.info(`rendering ${url}`); // tslint:disable-line:no-console
 
+  // Note: stat collection in memory does not work with multi-instance prerender code
   const timer = minuteCounter();
   const html = await renderHtml(styles, app, state);
   stats.renderHtml += timer();
@@ -171,18 +235,21 @@ export const prepareBooks = async(
   }));
 };
 
-export type Pages = Array<{code: number, route: Match<typeof content>}>;
+// Note: Could return Array<SerializedPageMatch> if single-instance prerender code is removed
 
-export const prepareBookPages = (book: BookWithOSWebData) => asyncPool(20, findTreePages(book.tree), (section) =>
-  prepareContentPage(book, stripIdVersion(section.id),
+export type Pages = Array<{code: number, route: PageMatch}>;
+
+export const prepareBookPages = (book: BookWithOSWebData) => findTreePages(book.tree).map(
+  (section) => ({code: 200, route: prepareContentPage(
+    book,
+    stripIdVersion(section.id),
     assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`)
-  )
-    .then((route) => ({code: 200, route}))
+  )})
 );
 
 export const renderPages = async(services: AppOptions['services'], pages: Pages) => {
-  const renderPage = makeRenderPage(services);
-  return await asyncPool(1, pages, renderPage);
+  const renderPageWithStats = makeRenderPage(services);
+  return await asyncPool(1, pages, renderPageWithStats);
 };
 
 interface Options {

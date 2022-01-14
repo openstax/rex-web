@@ -22,6 +22,7 @@ import {
   SendMessageCommand,
   SQSClient,
 } from '@aws-sdk/client-sqs';
+import omit from 'lodash/fp/omit';
 import path from 'path';
 import Loadable from 'react-loadable';
 import asyncPool from 'tiny-async-pool';
@@ -147,7 +148,7 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
 
   console.log(`[${book.title}] Book loaded; preparing pages`);
 
-  const pages = prepareBookPages(book);
+  const pages = prepareBookPages(book).map((page) => omit('route', page.route));
   const numBookPages = pages.length;
   numPages += numBookPages;
 
@@ -293,7 +294,7 @@ async function manage() {
     QueueUrl: workQueueUrl,
   }));
 
-  console.log('Sitemap index job queued');
+  console.log('1 sitemap index job queued');
 
   const numJobs = numPages + numBooks + 1;
 

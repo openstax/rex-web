@@ -43,7 +43,7 @@ class SQSWorker {
     // Must be a js file, not ts
     this.worker = new Worker(
       `${path.resolve(__dirname, '../entry.js')}`, {
-        argv: [ 'prerender-workers/thread' ],
+        argv: [ 'prerender/thread' ],
         execArgv: [ ...process.execArgv, '--unhandled-rejections=strict' ],
       }
     );

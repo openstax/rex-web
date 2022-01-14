@@ -38,7 +38,7 @@ import {
   SerializedPageMatch,
 } from './contentPages';
 import { writeS3File } from './fileUtils';
-import { renderSitemap, renderSitemapIndex, sitemapPath } from './sitemap';
+import { renderSitemapIndexToS3, renderSitemapToS3, sitemapPath } from './sitemap';
 
 const MAX_CONCURRENT_CONNECTIONS = 5;
 
@@ -90,7 +90,7 @@ async function sitemapTask(services: AppOptions['services'], payload: SitemapPay
     const archivePage = await getArchivePage(services, page);
     return getSitemapItemOptions(archivePage, matchPathname(page));
   });
-  return renderSitemap(
+  return renderSitemapToS3(
     assertString(payload.slug, `Sitemap task payload.slug is not a string: ${payload}`), items
   );
 }
@@ -108,7 +108,7 @@ async function sitemapIndexTask(services: AppOptions['services'], payload: Sitem
     const archiveBook = await getArchiveBook(services, book);
     return getSitemapItemOptions(archiveBook, sitemapPath(book.params.book.slug));
   });
-  return renderSitemapIndex(items);
+  return renderSitemapIndexToS3(items);
 }
 
 async function run() {
