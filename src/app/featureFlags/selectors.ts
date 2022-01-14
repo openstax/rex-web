@@ -13,6 +13,11 @@ export const searchButtonStyle = createSelector(
   (featureFlags) => featureFlags.searchButton || null
 );
 
+export const kineticBannerVariant = createSelector(
+  enabled,
+  (featureFlags) => typeof featureFlags.kineticBanner === 'number'  ? featureFlags.kineticBanner : false
+);
+
 export const searchButtonColor = createSelector(
   searchButtonStyle,
   book,

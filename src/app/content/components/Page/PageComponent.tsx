@@ -152,9 +152,7 @@ export default class PageComponent extends Component<PagePropTypes> {
         dangerouslySetInnerHTML={{ __html: html}}
       />
       <PrevNextBar />
-      <LabsCTA variant={1} />
-      <LabsCTA variant={2} />
-      <LabsCTA variant={3} />
+      <LabsCTA />
       <BuyBook />
     </React.Fragment>;
   };

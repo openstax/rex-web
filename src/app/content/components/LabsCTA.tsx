@@ -1,8 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import icon from '../../../assets/kinetic.svg';
 import Button from '../../components/Button';
+import { kineticBannerVariant } from '../../featureFlags/selectors';
 import theme from '../../theme';
 
 // tslint:disable-next-line: variable-name
@@ -148,8 +150,13 @@ const variants = [
 ];
 
 // tslint:disable-next-line: variable-name
-const LabsCTA = (props: {variant: number}) => {
-  const config = variants[props.variant - 1];
+const LabsCTA = () => {
+  const variant = useSelector(kineticBannerVariant);
+  const config = typeof variant === 'number' && variants[variant];
+
+  if (!config) {
+    return null;
+  }
 
   return (
     <LabsCTAWrapper>
@@ -166,17 +173,17 @@ const LabsCTA = (props: {variant: number}) => {
       </Column>
       <Column last>
         <LabsCTALink
-          component={<a />}
+          component={<a href='/kinetic/'>
+            <FormattedMessage id='i18n:toolbar:labs-cta:link'>
+              {(msg) => msg}
+            </FormattedMessage>
+          </a>}
+          data-analytics-label='kinetic-banner'
           variant='primary'
           size='large'
           target='_blank'
           rel='noopener'
-          href='/kinetic/'
-        >
-          <FormattedMessage id='i18n:toolbar:labs-cta:link'>
-            {(msg) => msg}
-          </FormattedMessage>
-        </LabsCTALink>
+        />
       </Column>
     </LabsCTAWrapper>
   );
