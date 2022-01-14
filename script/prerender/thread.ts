@@ -163,8 +163,6 @@ async function run() {
 
     const task = assertObject(JSON.parse(body), `Task is not an object: ${body}`);
 
-    // Types won't save us from bad JSON so check that the received JSON has the expected structure
-
     const taskFunction = assertDefined(
       TASKS[assertString(task.type, `Task type is not a string: ${task.type}`)],
       `Unknown task type: ${task.type}`
