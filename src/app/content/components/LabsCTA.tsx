@@ -20,7 +20,7 @@ const LabsCTAWrapper = styled.div`
   padding: 2.5rem;
   display: flex;
   align-items: center;
-  background-color: #151B2C;
+  background-color: #151b2c;
   ${theme.breakpoints.mobileMedium(css`
     padding: 1.6rem;
     align-items: flex-start;
@@ -28,6 +28,8 @@ const LabsCTAWrapper = styled.div`
   `)}
 `;
 
+/* stylelint-disable block-opening-brace-newline-after, block-closing-brace-newline-before */
+/* stylelint-disable block-opening-brace-space-after, block-closing-brace-space-before */
 // tslint:disable-next-line: variable-name
 const Column = styled.div`
   display: flex;
@@ -54,7 +56,6 @@ const Column = styled.div`
 const LabsCTAHeader = styled.div`
   display: flex;
   flex-direction: row;
-
   ${theme.breakpoints.mobileMedium(css`
     width:100%;
     align-items: center;
@@ -70,7 +71,6 @@ const LabsText = styled.div`
   font-size: ${(props) => props.size}rem;
   font-weight: ${(props) => props.weight};
   line-height: ${(props) => props.lineHeight}rem;
-
   ${(props) => props.size === 'h1' ? css`
       font-size: 1.4rem;
       font-weight: 500;
@@ -92,7 +92,7 @@ const LabsText = styled.div`
 
 // tslint:disable-next-line: variable-name
 const LabsCTALink = styled(Button)`
-  background-color: #6922EA;
+  background-color: #6922ea;
 `;
 
 const variants = [
@@ -159,7 +159,7 @@ const LabsCTA = () => {
   }
 
   return (
-    <LabsCTAWrapper>
+    <LabsCTAWrapper data-experiment={true}>
       <LabsCTAHeader>
         <Column>
           <LabsLogo src={icon} />
