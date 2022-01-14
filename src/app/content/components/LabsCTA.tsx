@@ -6,6 +6,7 @@ import icon from '../../../assets/kinetic.svg';
 import Button from '../../components/Button';
 import { kineticBannerVariant } from '../../featureFlags/selectors';
 import theme from '../../theme';
+import { disablePrint } from './utils/disablePrint';
 
 // tslint:disable-next-line: variable-name
 const LabsLogo = styled.img`
@@ -26,6 +27,7 @@ const LabsCTAWrapper = styled.div`
     align-items: flex-start;
     flex-direction: column;
   `)}
+  ${disablePrint}
 `;
 
 /* stylelint-disable block-opening-brace-newline-after, block-closing-brace-newline-before */

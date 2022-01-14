@@ -4,7 +4,7 @@ exports[`PrevNextBar renders \`null\` when selector is false 1`] = `null`;
 
 exports[`PrevNextBar renders first variant 1`] = `
 <div
-  className="LabsCTA__LabsCTAWrapper-sc-117qi5r-1 XBuyT"
+  className="LabsCTA__LabsCTAWrapper-sc-117qi5r-1 figEZj"
   data-experiment={true}
 >
   <div
@@ -68,7 +68,7 @@ exports[`PrevNextBar renders first variant 1`] = `
 
 exports[`PrevNextBar renders second variant 1`] = `
 <div
-  className="LabsCTA__LabsCTAWrapper-sc-117qi5r-1 XBuyT"
+  className="LabsCTA__LabsCTAWrapper-sc-117qi5r-1 figEZj"
   data-experiment={true}
 >
   <div
@@ -125,7 +125,7 @@ exports[`PrevNextBar renders second variant 1`] = `
 
 exports[`PrevNextBar renders third variant 1`] = `
 <div
-  className="LabsCTA__LabsCTAWrapper-sc-117qi5r-1 XBuyT"
+  className="LabsCTA__LabsCTAWrapper-sc-117qi5r-1 figEZj"
   data-experiment={true}
 >
   <div
