@@ -306,21 +306,17 @@ blockquote {
       > .ui-toggle {
         font-weight: bold;
         text-align: center;
+        text-transform: capitalize;
+
+        &::before {
+          content: "["attr(data-content)"]";
+        }
       }
     }
 
     &:not(.ui-solution-visible) {
-      > .ui-toggle-wrapper > button.ui-toggle::before {
-        content: "[Show Solution]";
-      }
       > section {
         display: none;
-      }
-    }
-
-    &.ui-solution-visible {
-      > .ui-toggle-wrapper > button.ui-toggle::before {
-        content: "[Hide Solution]";
       }
     }
   }
