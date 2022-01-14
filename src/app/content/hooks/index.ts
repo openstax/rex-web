@@ -6,6 +6,7 @@ import practiceQuestionsHooks from '../practiceQuestions/hooks';
 import * as routes from '../routes';
 import searchHooks from '../search/hooks';
 import studyGuidesHooks from '../studyGuides/hooks';
+import kineticEnabled from './kineticEnabled';
 import locationChangeBody from './locationChange';
 import receiveContentBody from './receiveContent';
 import receivePageNotFoundId from './receivePageNotFoundId';
@@ -18,4 +19,5 @@ export default [
   receivePageNotFoundId,
   routeHook(routes.content, locationChangeBody),
   actionHook(actions.receivePage, receiveContentBody),
+  actionHook(actions.receivePage, kineticEnabled),
 ];
