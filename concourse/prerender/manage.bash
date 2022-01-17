@@ -1,6 +1,6 @@
-#!/bin/bash -eux
+#!/bin/bash
 
-set -o pipefail
+set -euxo pipefail
 
 destination=$(pwd)/release
 
