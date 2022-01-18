@@ -7,7 +7,7 @@ import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
-import { CloseSidebarControl, CloseMobileMenuButton, OpenSidebarControl } from '../SidebarControl';
+import { CloseMobileMenuButton, CloseSidebarControl, OpenSidebarControl } from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -15,7 +15,7 @@ import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
 // tslint:disable-next-line: variable-name
-const Toolbar =   () => {
+const VerticalNav =   () => {
   const isMobileMenuOpen = useSelector(mobileMenuOpen);
   const isPracticeQuestionsEnabled = useSelector(pqSelectors.practiceQuestionsEnabled);
   const sidebarRef = React.useRef<HTMLElement>(null);
@@ -58,4 +58,4 @@ const Toolbar =   () => {
   </Styled.ToolbarWrapper>;
 };
 
-export default Toolbar;
+export default VerticalNav;

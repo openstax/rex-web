@@ -3,14 +3,14 @@
 exports[`content matches snapshot 1`] = `
 Array [
   <a
-    className="HiddenLink-wwwegq-0 iBdUsP"
+    className="HiddenLink-wwwegq-0 bkbyvj"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
   <a
-    className="HiddenLink-wwwegq-0 iBdUsP"
+    className="HiddenLink-wwwegq-0 bkbyvj"
     href={
       Array [
         "https://openstax.org/accessibility-statement",
@@ -252,12 +252,12 @@ Array [
             </span>
             <button
               aria-label="Click to close menu"
-              className="styled__CloseToolbarButton-sc-1119auh-7 kqQFXn styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="SidebarControl__CloseMobileMenuButton-sdjc7-3 cgensW styled__PlainButton-sc-1119auh-0 kPdLbJ"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="styled__TimesIcon-sc-1119auh-8 gGfwqa"
+                className="styled__TimesIcon-sc-1119auh-7 ylhyk"
                 focusable="false"
                 height="15px"
                 version="1.1"
@@ -287,11 +287,11 @@ Array [
             </button>
           </div>
           <div
-            className="styled__ToolbarElements-sc-1119auh-10 eqEpxH"
+            className="styled__ToolbarElements-sc-1119auh-9 imZhNB"
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 hBGnvm"
+              className="SidebarControl__ToCButton-sdjc7-1 gQQyPI"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -328,7 +328,7 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 ibeoGO"
+              className="SidebarControl__ToCButton-sdjc7-1 kHrFyD"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -473,14 +473,14 @@ Array [
             </span>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__CloseToCButton-sdjc7-2 gEXexK"
+              className="SidebarControl__CloseToCButton-sdjc7-2 YljAj"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="styled__TimesIcon-sc-1119auh-8 gGfwqa"
+                className="styled__TimesIcon-sc-1119auh-7 ylhyk"
                 focusable="false"
                 height="15px"
                 version="1.1"
@@ -1536,14 +1536,14 @@ Array [
 exports[`content renders empty state 1`] = `
 Array [
   <a
-    className="HiddenLink-wwwegq-0 iBdUsP"
+    className="HiddenLink-wwwegq-0 bkbyvj"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
   <a
-    className="HiddenLink-wwwegq-0 iBdUsP"
+    className="HiddenLink-wwwegq-0 bkbyvj"
     href={
       Array [
         "https://openstax.org/accessibility-statement",
@@ -1785,12 +1785,12 @@ Array [
             </span>
             <button
               aria-label="Click to close menu"
-              className="styled__CloseToolbarButton-sc-1119auh-7 kqQFXn styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="SidebarControl__CloseMobileMenuButton-sdjc7-3 cgensW styled__PlainButton-sc-1119auh-0 kPdLbJ"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="styled__TimesIcon-sc-1119auh-8 gGfwqa"
+                className="styled__TimesIcon-sc-1119auh-7 ylhyk"
                 focusable="false"
                 height="15px"
                 version="1.1"
@@ -1820,11 +1820,11 @@ Array [
             </button>
           </div>
           <div
-            className="styled__ToolbarElements-sc-1119auh-10 eqEpxH"
+            className="styled__ToolbarElements-sc-1119auh-9 imZhNB"
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 hBGnvm"
+              className="SidebarControl__ToCButton-sdjc7-1 gQQyPI"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -1861,7 +1861,7 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 ibeoGO"
+              className="SidebarControl__ToCButton-sdjc7-1 kHrFyD"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -2006,14 +2006,14 @@ Array [
             </span>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__CloseToCButton-sdjc7-2 gEXexK"
+              className="SidebarControl__CloseToCButton-sdjc7-2 YljAj"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="styled__TimesIcon-sc-1119auh-8 gGfwqa"
+                className="styled__TimesIcon-sc-1119auh-7 ylhyk"
                 focusable="false"
                 height="15px"
                 version="1.1"

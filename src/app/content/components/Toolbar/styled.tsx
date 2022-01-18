@@ -204,19 +204,6 @@ export const ToolbarMobileHeaderTitle = styled.span`
   font-weight: bold;
 `;
 
-// tslint:disable-next-line: variable-name
-export const CloseToolbarButton = styled((props) => {
-  const intl = useIntl();
-
-  return <PlainButton {...props} aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:close'})}>
-        <TimesIcon />
-  </PlainButton>;
-})`
-  height: 40px;
-  position: absolute;
-  right: 0;
-`;
-
 // tslint:disable-next-line:variable-name
 export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   ${toolbarIconStyles};

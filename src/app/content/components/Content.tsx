@@ -30,7 +30,7 @@ import ContentPane from './ContentPane';
 import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
 import TableOfContents from './TableOfContents';
-import Toolbar from './Toolbar';
+import VerticalNav from './Toolbar';
 import Topbar from './Topbar';
 import { areSidebarsOpenConnector } from './utils/sidebar';
 import Wrapper from './Wrapper';
@@ -164,7 +164,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
       <OuterWrapper>
         <Topbar />
         <Wrapper>
-          <Toolbar />
+          <VerticalNav />
           <TableOfContents />
           <SearchResultsSidebar />
           <CenteredContentRow>
