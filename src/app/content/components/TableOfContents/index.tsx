@@ -12,7 +12,7 @@ import { ArchiveTree, Book, Page, State } from '../../types';
 import { archiveTreeContainsNode, getArchiveTreeSectionType } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { CloseMobileMenuButton, SidebarExitButton } from '../SidebarControl';
+import { CloseMobileMenuButton, TOCCloseButton } from '../SidebarControl';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
 import { ToCHeaderText } from './styled';
@@ -143,7 +143,7 @@ export class TableOfContents extends Component<SidebarProps, { isMediumMobile: b
   private renderTocHeader = () => {
     if (this.state.isMediumMobile) {
       return <Styled.ToCHeader data-testid='tocheader'>
-      <SidebarExitButton><LeftArrow /></SidebarExitButton>
+      <TOCCloseButton><LeftArrow /></TOCCloseButton>
       <FormattedMessage id='i18n:toc:title'>
         {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
       </FormattedMessage>
@@ -154,7 +154,7 @@ export class TableOfContents extends Component<SidebarProps, { isMediumMobile: b
       <FormattedMessage id='i18n:toc:title'>
         {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
       </FormattedMessage>
-      <SidebarExitButton><TimesIcon /></SidebarExitButton>
+      <TOCCloseButton><TimesIcon /></TOCCloseButton>
     </Styled.ToCHeader>;
   };
 

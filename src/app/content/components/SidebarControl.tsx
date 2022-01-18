@@ -99,12 +99,8 @@ export const CloseMobileMenuButton = styled((props) => {
   right: 0;
 `;
 
-// tslint:disable-next-line: variable-name
-export const CloseMobileMenuFromTOCButton = styled((props) =>
-  <CloseMobileMenuButton {...props} />)`${mobileButtonStyles}`;
-
 // tslint:disable-next-line:variable-name
-export const SidebarControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) => {
+export const TOCControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) => {
   return <ToCButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
@@ -118,7 +114,7 @@ export const SidebarControl = ({ message, children, ...props }: React.PropsWithC
   };
 
 // tslint:disable-next-line:variable-name
-export const CloseSidebar = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
+export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
   <CloseToCButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
@@ -148,16 +144,16 @@ const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerPro
   />);
 
 // tslint:disable-next-line: variable-name
-export const OpenSidebarControl = lockControlState(false, SidebarControl);
+export const OpenTOCControl = lockControlState(false, TOCControl);
 
 // tslint:disable-next-line: variable-name
-export const CloseSidebarControl = lockControlState(true, SidebarControl);
+export const CloseTOCControl = lockControlState(true, TOCControl);
 
 // tslint:disable-next-line:variable-name
-export const SidebarExitButton = lockControlState(true, CloseSidebar);
+export const TOCCloseButton = lockControlState(true, CloseTOC);
 
 // tslint:disable-next-line: variable-name
-export const StyledOpenSidebarControl = styled(OpenSidebarControl)`
+export const StyledOpenTOCControl = styled(OpenTOCControl)`
   display: flex;
   padding: 0;
   min-height: unset;
