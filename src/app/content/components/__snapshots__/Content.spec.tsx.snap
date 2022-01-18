@@ -252,7 +252,7 @@ Array [
             </span>
             <button
               aria-label="Click to close menu"
-              className="SidebarControl__CloseMobileMenuButton-sdjc7-3 cgensW styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="SidebarControl__CloseMobileMenuAndTOCButton-sdjc7-3 NCYOX styled__PlainButton-sc-1119auh-0 kPdLbJ"
               onClick={[Function]}
             >
               <svg
@@ -473,7 +473,7 @@ Array [
             </span>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__CloseToCButton-sdjc7-2 YljAj"
+              className="SidebarControl__CloseToCButton-sdjc7-2 gEXexK"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -1785,7 +1785,7 @@ Array [
             </span>
             <button
               aria-label="Click to close menu"
-              className="SidebarControl__CloseMobileMenuButton-sdjc7-3 cgensW styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="SidebarControl__CloseMobileMenuAndTOCButton-sdjc7-3 NCYOX styled__PlainButton-sc-1119auh-0 kPdLbJ"
               onClick={[Function]}
             >
               <svg
@@ -2006,7 +2006,7 @@ Array [
             </span>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__CloseToCButton-sdjc7-2 YljAj"
+              className="SidebarControl__CloseToCButton-sdjc7-2 gEXexK"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
