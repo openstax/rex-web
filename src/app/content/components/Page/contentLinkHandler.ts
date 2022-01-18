@@ -90,6 +90,11 @@ export const reduceReferences = (
         reduceReference(reference, currentPath, a, options);
       }
     }
+    /*
+    else {
+      console.log(`Reference not found: ${href}`); // tslint:disable-line:no-console
+    }
+    */
   }
 };
 
