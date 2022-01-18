@@ -100,7 +100,8 @@ class SQSWorker {
 }
 
 // Idle worker thread (LIFO) queue
-// LIFO is cheaper in complexity and we don't really care about the order of the rendering
+// LIFO is the easiest one to implement efficiently with an array
+// and we don't really care about the order of the threads
 
 const idleWorkers: SQSWorker[] = [];
 const resolveWorkerPromises: Array<(worker: SQSWorker) => void> = [];
@@ -155,6 +156,7 @@ async function sqsHeartbeat(messages: Message[]) {
   });
 }
 
+// Having a few more worker threads than CPUs seemed to help keep CPU utilization high
 for (const _undefined of Array(Math.ceil(1.5 * cpus().length))) { pushWorker(new SQSWorker()); }
 
 // Typescript shenanigans so filter() returns the correct type for the return value of allSettled()
@@ -173,7 +175,8 @@ function isFulfilledPromiseResult<Type>(
   promiseResult: PromiseResult<Type>
 ): promiseResult is FulfilledPromiseResult<Type> { return promiseResult.status === 'fulfilled'; }
 
-// https://github.com/amrayn/allsettled-polyfill/blob/master/index.js
+// ES2020 has Promise.allSettled()
+// Adapted from https://github.com/amrayn/allsettled-polyfill/blob/master/index.js
 function allSettled<Type>(promises: Array<Promise<Type>>) {
   return Promise.all(
     promises.map(
