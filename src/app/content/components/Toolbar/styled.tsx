@@ -1,5 +1,4 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular';
 import { Print } from 'styled-icons/fa-solid/Print';
