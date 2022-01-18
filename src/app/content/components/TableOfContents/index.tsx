@@ -12,7 +12,7 @@ import { ArchiveTree, Book, Page, State } from '../../types';
 import { archiveTreeContainsNode, getArchiveTreeSectionType } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { SidebarExitButton } from '../SidebarControl';
+import { CloseMobileMenuButton, SidebarExitButton } from '../SidebarControl';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
 import { ToCHeaderText } from './styled';
@@ -147,7 +147,7 @@ export class TableOfContents extends Component<SidebarProps, { isMediumMobile: b
       <FormattedMessage id='i18n:toc:title'>
         {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
       </FormattedMessage>
-      <Styled.CloseToCAndMobileMenuButton />
+      <CloseMobileMenuButton />
     </Styled.ToCHeader>;
     }
     return <Styled.ToCHeader data-testid='tocheader'>

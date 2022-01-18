@@ -1,14 +1,13 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeMobileMenu } from '../../actions';
+import { useSelector } from 'react-redux';
 import * as pqSelectors from '../../practiceQuestions/selectors';
 import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
-import { CloseSidebarControl, OpenSidebarControl } from '../SidebarControl';
+import { CloseSidebarControl, CloseMobileMenuButton, OpenSidebarControl } from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -20,7 +19,6 @@ const Toolbar =   () => {
   const isMobileMenuOpen = useSelector(mobileMenuOpen);
   const isPracticeQuestionsEnabled = useSelector(pqSelectors.practiceQuestionsEnabled);
   const sidebarRef = React.useRef<HTMLElement>(null);
-  const dispatch = useDispatch();
 
   React.useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -45,8 +43,7 @@ const Toolbar =   () => {
           {(msg) => msg}
         </FormattedMessage>
       </Styled.ToolbarMobileHeaderTitle>
-      <Styled.CloseToolbarButton onClick={() => dispatch(closeMobileMenu())}>
-      </Styled.CloseToolbarButton>
+      <CloseMobileMenuButton />
     </Styled.ToolbarMobileHeader>
     <Styled.ToolbarElements>
       <OpenSidebarControl showActivatedState/>
