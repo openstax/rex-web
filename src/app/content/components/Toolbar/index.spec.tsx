@@ -14,7 +14,7 @@ import { assertWindow } from '../../../utils';
 import { closeMobileMenu } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import * as selectors from '../../selectors';
-import { CloseMobileMenuButton } from '../SidebarControl';
+import { CloseMobileMenuAndTOCButton } from '../SidebarControl';
 
 describe('toolbar', () => {
   let store: Store;
@@ -56,7 +56,7 @@ describe('toolbar', () => {
     </TestContainer>);
 
     renderer.act(() => {
-      component.root.findByType(CloseMobileMenuButton).props.onClick();
+      component.root.findByType(CloseMobileMenuAndTOCButton).props.onClick();
     });
 
     expect(dispatchSpy).toHaveBeenCalledWith(closeMobileMenu());

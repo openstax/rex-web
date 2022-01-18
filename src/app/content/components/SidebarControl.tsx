@@ -65,7 +65,8 @@ const ToCButton = styled.button<{isOpen: State['tocOpen'], isActive: boolean }>`
   `)}
 `;
 
-const mobileButtonStyles = `
+// tslint:disable-next-line: variable-name
+const CloseToCButton = styled.button`
   color: ${toolbarIconColor.base};
   border: none;
   padding: 0;
@@ -79,10 +80,7 @@ const mobileButtonStyles = `
 `;
 
 // tslint:disable-next-line: variable-name
-const CloseToCButton = styled.button`${mobileButtonStyles}`;
-
-// tslint:disable-next-line: variable-name
-export const CloseMobileMenuButton = styled((props) => {
+export const CloseMobileMenuAndTOCButton = styled((props) => {
   const intl = useIntl();
   const dispatch = useDispatch();
 
