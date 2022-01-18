@@ -46,6 +46,8 @@ const {
   RELEASE_ID,
 } = config;
 
+if (!RELEASE_ID) { throw new Error('REACT_APP_RELEASE_ID environment variable must be set'); }
+
 // Increasing this too much can lead to connection issues and greater memory usage in the manager
 const MAX_CONCURRENT_BOOKS = 5;
 
@@ -59,9 +61,9 @@ const WORKERS_DEPLOY_TIMEOUT_SECONDS = 120;
 const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
 const BUCKET_REGION = process.env.BUCKET_REGION || 'us-east-1';
 const PUBLIC_URL = process.env.PUBLIC_URL || `/rex/releases/${RELEASE_ID}`;
-const RELEASE_ID_SUFFIX = RELEASE_ID.split('/', 2)[1];
+const SANITIZED_RELEASE_ID = RELEASE_ID.replace('/', '-');
 const WORK_REGION = process.env.WORK_REGION || 'us-east-2';
-const WORKERS_STACK_NAME = `rex-${CODE_VERSION}-${RELEASE_ID_SUFFIX}-prerender-workers`;
+const WORKERS_STACK_NAME = `rex-${SANITIZED_RELEASE_ID}-prerender-workers`;
 
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
@@ -107,16 +109,16 @@ async function createWorkersStack() {
         ParameterValue: BUCKET_REGION,
       },
       {
-        ParameterKey: 'CodeVersion',
-        ParameterValue: CODE_VERSION,
-      },
-      {
         ParameterKey: 'PublicUrl',
         ParameterValue: PUBLIC_URL,
       },
       {
-        ParameterKey: 'ReleaseIdSuffix',
-        ParameterValue: RELEASE_ID_SUFFIX,
+        ParameterKey: 'ReleaseId',
+        ParameterValue: RELEASE_ID,
+      },
+      {
+        ParameterKey: 'SanitizedReleaseId',
+        ParameterValue: SANITIZED_RELEASE_ID,
       },
       {
         ParameterKey: 'ValidUntil',

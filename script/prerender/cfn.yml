@@ -14,19 +14,23 @@ Parameters:
     Type: String
     ConstraintDescription: Must be a valid AWS region name
 
-  CodeVersion:
-    Description: Code version to use, e.g. "v4"
-    Type: String
-
   PublicUrl:
-    Description: Public URL to use, e.g. "/rex/releases/${CodeVersion}/${ReleaseIdSuffix}"
+    Description: Public URL to use, e.g. "/rex/releases/${ReleaseId}"
     Type: String
     ConstraintDescription: Must be a path starting with /
 
-  ReleaseIdSuffix:
-    Description: Release ID suffix to use, e.g. part of some git hash
+  ReleaseId:
+    Description: Release ID to use, e.g. v4/part-of-git-hash
     Type: String
-    ConstraintDescription: Must be the last part of the Release ID, without the CodeVersion
+    ConstraintDescription: Must be a valid Rex Release ID
+
+  SanitizedReleaseId:
+    Description: Sanitized release ID to use, e.g. v4-part-of-git-hash
+    Type: String
+    AllowedPattern: ^[a-z0-9][-._a-z0-9]{0,127}$
+    ConstraintDescription: >-
+      Must start with a lowercase letter or digit and contain up to 128
+      lowercase letters, digits, underscores, periods and dashes
 
   ValidUntil:
     Description: Timestamp for when the EC2 Fleet request expires (prerendering timeout)
@@ -45,7 +49,7 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub rex-${CodeVersion}-${ReleaseIdSuffix}-prerender-dlq
+      QueueName: !Sub rex-${SanitizedReleaseId}-prerender-dlq
       ReceiveMessageWaitTimeSeconds: 20
       VisibilityTimeout: 0
       # RedriveAllowPolicy: # leads to circular dependency errors with the worker queue
@@ -58,7 +62,7 @@ Resources:
     DependsOn: Cluster # workaround for Cluster deletion to work properly
     Properties:
       KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub rex-${CodeVersion}-${ReleaseIdSuffix}-prerender-work-queue
+      QueueName: !Sub rex-${SanitizedReleaseId}-prerender-work-queue
       ReceiveMessageWaitTimeSeconds: 20
       RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
       RedrivePolicy:
@@ -80,16 +84,14 @@ Resources:
               Value: !Ref BucketRegion
             - Name: PUBLIC_URL
               Value: !Ref PublicUrl
-            - Name: REACT_APP_CODE_VERSION
-              Value: !Ref CodeVersion
             - Name: REACT_APP_RELEASE_ID
-              Value: !Sub ${CodeVersion}/${ReleaseIdSuffix}
+              Value: !Ref ReleaseId
             - Name: WORK_QUEUE_URL
               Value: !Ref WorkQueue
             - Name: WORK_REGION
               Value: !Ref AWS::Region
           Image: !Sub
-            - ${URI}:${CodeVersion}-${ReleaseIdSuffix}
+            - ${URI}:${SanitizedReleaseId}
             - URI: !ImportValue RexWebECRRepositoryURI
           LogConfiguration:
             LogDriver: awslogs
