@@ -31,7 +31,7 @@ export interface ContentPageRefencesType {
 
 const hashRegex = `#[^'"]+`;
 const pathRegex = `\\./((?<bookId>[a-z0-9-]+)(@(?<bookVersion>[^/]+))?):(?<pageId>[a-z0-9-]+)\\.xhtml(${hashRegex})?`;
-const referenceRegex = `(?<matchPath>((${pathRegex})|(${hashRegex})))`;
+const referenceRegex = `^(?<matchPath>((${pathRegex})|(${hashRegex})).*)$`;
 
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
   const domParser = new DOMParser();
