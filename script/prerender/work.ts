@@ -155,7 +155,7 @@ async function sqsHeartbeat(messages: Message[]) {
   });
 }
 
-for (const _undefined of Array(cpus().length + 1)) { pushWorker(new SQSWorker()); }
+for (const _undefined of Array(Math.ceil(1.5 * cpus().length))) { pushWorker(new SQSWorker()); }
 
 // Typescript shenanigans so filter() returns the correct type for the return value of allSettled()
 // https://stackoverflow.com/a/65479695
