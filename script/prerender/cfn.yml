@@ -25,12 +25,18 @@ Parameters:
     ConstraintDescription: Must be a valid Rex Release ID
 
   SanitizedReleaseId:
-    Description: Sanitized release ID to use, e.g. v4-part-of-git-hash
+    Description: Sanitized release ID, e.g. v4-part-of-git-hash, to find the docker image to use
     Type: String
-    AllowedPattern: ^[a-z0-9][-._a-z0-9]{0,127}$
+    AllowedPattern: ^[0-9a-z][-_.0-9a-z]{0,31}$
     ConstraintDescription: >-
-      Must start with a lowercase letter or digit and contain up to 128
+      Must start with a lowercase letter or digit and contain up to 32
       lowercase letters, digits, underscores, periods and dashes
+
+  BuildId:
+    Description: A randomized string used to make sure the stack and resource names are unique
+    Type: String
+    AllowedPattern: ^[0-9A-Za-z]{1,32}$
+    ConstraintDescription: 1 to 64 alphanumeric characters and dashes
 
   ValidUntil:
     Description: Timestamp for when the EC2 Fleet request expires (prerendering timeout)
@@ -49,7 +55,7 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub rex-${SanitizedReleaseId}-prerender-dlq
+      QueueName: !Sub rex-${SanitizedReleaseId}-prerender-dlq-${BuildId}
       ReceiveMessageWaitTimeSeconds: 20
       VisibilityTimeout: 0
       # RedriveAllowPolicy: # leads to circular dependency errors with the worker queue
@@ -62,7 +68,7 @@ Resources:
     DependsOn: Cluster # workaround for Cluster deletion to work properly
     Properties:
       KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub rex-${SanitizedReleaseId}-prerender-work-queue
+      QueueName: !Sub rex-${SanitizedReleaseId}-prerender-work-queue-${BuildId}
       ReceiveMessageWaitTimeSeconds: 20
       RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
       RedrivePolicy:

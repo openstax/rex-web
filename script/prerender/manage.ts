@@ -22,6 +22,7 @@ import {
   SendMessageCommand,
   SQSClient,
 } from '@aws-sdk/client-sqs';
+import { randomBytes } from 'crypto';
 import omit from 'lodash/fp/omit';
 import path from 'path';
 import Loadable from 'react-loadable';
@@ -61,9 +62,17 @@ const WORKERS_DEPLOY_TIMEOUT_SECONDS = 120;
 const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
 const BUCKET_REGION = process.env.BUCKET_REGION || 'us-east-1';
 const PUBLIC_URL = process.env.PUBLIC_URL || `/rex/releases/${RELEASE_ID}`;
-const SANITIZED_RELEASE_ID = RELEASE_ID.replace('/', '-');
 const WORK_REGION = process.env.WORK_REGION || 'us-east-2';
-const WORKERS_STACK_NAME = `rex-${SANITIZED_RELEASE_ID}-prerender-workers`;
+
+// Docker accepts only lowercase alphanumeric characters and dashes
+const SANITIZED_RELEASE_ID = RELEASE_ID.replace(/\//g, '-').toLowerCase();
+
+// Generate a 16 alphanumeric char random build ID, used to keep the stack and resource names unique
+// The argument to randomBytes() just has to be large enough
+// so that we still have 16 characters left after removing all +, / and =
+const BUILD_ID = randomBytes(24).toString('base64').replace(/[^a-zA-Z0-9]/g, '').substring(0, 16);
+
+const WORKERS_STACK_NAME = `rex-${SANITIZED_RELEASE_ID}-prerender-workers-${BUILD_ID}`;
 
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
@@ -119,6 +128,10 @@ async function createWorkersStack() {
       {
         ParameterKey: 'SanitizedReleaseId',
         ParameterValue: SANITIZED_RELEASE_ID,
+      },
+      {
+        ParameterKey: 'BuildId',
+        ParameterValue: BUILD_ID,
       },
       {
         ParameterKey: 'ValidUntil',
