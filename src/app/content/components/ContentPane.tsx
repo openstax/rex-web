@@ -11,7 +11,7 @@ import {
   sidebarDesktopWidth,
   sidebarTransitionTime,
 } from './constants';
-import { isVerticalNavOpenConnector } from './utils/sidebar';
+import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
 const Wrapper = styled.div<{isVerticalNavOpen: State['tocOpen']}>`
@@ -21,9 +21,11 @@ const Wrapper = styled.div<{isVerticalNavOpen: State['tocOpen']}>`
     overflow: visible;
     transition: padding-left ${sidebarTransitionTime}ms;
     background-color: ${mainContentBackground};
-    ${(props) => (props.isVerticalNavOpen || props.isVerticalNavOpen ===  null) && `
-      padding-left: ${sidebarDesktopWidth}rem;
-    `}
+    padding-left: ${sidebarDesktopWidth}rem;
+
+    ${styleWhenSidebarClosed(css`
+      padding-left: 0;
+    `)}
 
     ${theme.breakpoints.mobile(css`
       padding-left: 0;
@@ -32,7 +34,7 @@ const Wrapper = styled.div<{isVerticalNavOpen: State['tocOpen']}>`
 `;
 
 interface Props {
-  isVerticalNavOpen?: State['tocOpen'];
+  isVerticalNavOpen: State['tocOpen'];
   onClick: () => void;
 }
 
