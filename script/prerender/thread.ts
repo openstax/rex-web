@@ -28,15 +28,14 @@ import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
+import { renderAndSavePage } from './contentPages';
 import {
-  deserializeBook,
-  deserializePage,
+  deserializePageMatch,
   getArchiveBook,
   getArchivePage,
-  renderAndSavePage,
   SerializedBookMatch,
   SerializedPageMatch,
-} from './contentPages';
+} from './contentRoutes';
 import { writeS3HtmlFile, writeS3XmlFile } from './fileUtils';
 import { renderAndSaveSitemap, renderAndSaveSitemapIndex, sitemapPath } from './sitemap';
 
@@ -71,7 +70,7 @@ function getSitemapItemOptions(content: ArchiveContent, url: string) {
 // Types won't save us from bad JSON so check that the payload has the correct structure
 
 async function pageTask(services: AppOptions['services'], payload: PagePayload) {
-  const page = deserializePage(
+  const page = deserializePageMatch(
     assertObject(payload.page, `Page task payload.page is not an object: ${payload}`)
   );
   return renderAndSavePage(services, writeS3HtmlFile, 200, page);
@@ -82,7 +81,7 @@ async function sitemapTask(services: AppOptions['services'], payload: SitemapPay
     payload.pages, `Sitemap task payload.pages is not an object: ${payload}`
   );
   const pages = pagesArray.map(
-    (page: SerializedPageMatch, index: number) => deserializePage(
+    (page: SerializedPageMatch, index: number) => deserializePageMatch(
       assertObject(page, `Sitemap task payload.pages[${index}] is not an object: ${pagesArray}`)
     )
   );
@@ -102,8 +101,8 @@ async function sitemapIndexTask(services: AppOptions['services'], payload: Sitem
     payload.books, `SitemapIndex task payload.books is not an object: ${payload}`
   );
   const books = booksArray.map(
-    (book: SerializedBookMatch, index: number) => deserializeBook(
-      assertObject(book, `Sitemap task payload.books[${index}] is not an object: ${booksArray}`)
+    (book: SerializedBookMatch, index: number) => assertObject(
+      book, `Sitemap task payload.books[${index}] is not an object: ${booksArray}`
     )
   );
   const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, books, async(book) => {

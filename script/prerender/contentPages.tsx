@@ -18,43 +18,19 @@ import * as errorSelectors from '../../src/app/errors/selectors';
 import * as headSelectors from '../../src/app/head/selectors';
 import { Link, Meta } from '../../src/app/head/types';
 import * as navigationSelectors from '../../src/app/navigation/selectors';
-import { AnyMatch, Match } from '../../src/app/navigation/types';
+import { AnyMatch } from '../../src/app/navigation/types';
 import { matchPathname } from '../../src/app/navigation/utils';
 import { AppServices, AppState } from '../../src/app/types';
 import { assertDefined } from '../../src/app/utils';
 import BOOKS from '../../src/config.books';
 import FontCollector from '../../src/helpers/FontCollector';
+import { getArchivePage, PageMatch } from './contentRoutes';
 import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils';
 
 export const stats = {
   promiseCollector: 0,
   renderHtml: 0,
 };
-
-export type BookMatch = {
-  params: { book: { slug: string } },
-  route: typeof content,
-  state: { bookUid: string, bookVersion: string },
-};
-export type SerializedBookMatch = Omit<BookMatch, 'route'>;
-
-export function deserializeBook(book: SerializedBookMatch) {
-  return {...book, route: content};
-}
-
-/* Note: PageMatch can be made more restrictive if single-instance prerender code is removed:
-export type PageMatch = {
-  params: { book: { slug: string }, page: { slug: string } },
-  route: typeof content,
-  state: { bookUid: string, bookVersion: string, pageUid: string },
-};
-*/
-export type PageMatch = Match<typeof content>;
-export type SerializedPageMatch = Omit<PageMatch, 'route'>;
-
-export function deserializePage(page: SerializedPageMatch) {
-  return {...page, route: content};
-}
 
 // Note: Could return a SerializedPageMatch instead if single-instance prerender code is removed
 
@@ -150,32 +126,6 @@ export const getStats = () => {
   const elapsedMinutes = globalMinuteCounter();
   return {numPages, elapsedMinutes};
 };
-
-export async function getArchiveBook(services: AppOptions['services'], route: BookMatch) {
-  if (!route.state || !('bookUid' in route.state)) {
-    throw new Error('match state wasn\'t defined, it should have been');
-  }
-
-  const {bookUid, bookVersion} = route.state;
-
-  return assertDefined(
-    await services.archiveLoader.book(bookUid, bookVersion).load(),
-    'book wasn\'t cached, it should have been'
-  );
-}
-
-export async function getArchivePage(services: AppOptions['services'], route: PageMatch) {
-  if (!route.state || !('bookUid' in route.state)) {
-    throw new Error('match state wasn\'t defined, it should have been');
-  }
-
-  const {bookUid, bookVersion, pageUid} = route.state;
-
-  return assertDefined(
-    await services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load(),
-    'page wasn\'t cached, it should have been'
-  );
-}
 
 export async function renderAndSavePage(
   services: AppOptions['services'],
