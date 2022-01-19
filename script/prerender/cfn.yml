@@ -150,7 +150,7 @@ Resources:
               - Key: Project
                 Value: Unified
               - Key: Application
-                Value: Rex
+                Value: Rex Prerender
               - Key: Environment
                 Value: production
           - ResourceType: volume
@@ -160,7 +160,7 @@ Resources:
               - Key: Project
                 Value: Unified
               - Key: Application
-                Value: Rex
+                Value: Rex Prerender
               - Key: Environment
                 Value: production
         UserData:
@@ -197,7 +197,7 @@ Resources:
             - Key: Project
               Value: Unified
             - Key: Application
-              Value: Rex
+              Value: Rex Prerender
             - Key: Environment
               Value: production
       TargetCapacitySpecification:
