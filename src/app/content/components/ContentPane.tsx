@@ -14,7 +14,7 @@ import {
 import { isVerticalNavOpenConnector } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
-const Wrapper = styled.div<{isVerticalNavOpen: State['verticalNavOpen']}>`
+const Wrapper = styled.div<{isVerticalNavOpen: State['tocOpen']}>`
   @media screen {
     flex: 1;
     width: 100%;
@@ -32,7 +32,7 @@ const Wrapper = styled.div<{isVerticalNavOpen: State['verticalNavOpen']}>`
 `;
 
 interface Props {
-  isVerticalNavOpen: State['verticalNavOpen'];
+  isVerticalNavOpen?: State['tocOpen'];
   onClick: () => void;
 }
 

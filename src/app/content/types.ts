@@ -37,7 +37,7 @@ export type Params = {
 };
 
 export interface State {
-  verticalNavOpen: boolean | null;
+  tocOpen: boolean | null;
   mobileMenuOpen: boolean;
   pageNotFoundId: string | null;
   params: Params | null;

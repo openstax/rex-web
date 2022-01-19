@@ -29,7 +29,7 @@ import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
 import { applySearchIconColor } from '../utils/applySearchIconColor';
 import { disablePrint } from '../utils/disablePrint';
-import { areSidebarsOpenConnector } from '../utils/sidebar';
+import { isVerticalNavOpenConnector } from '../utils/sidebar';
 
 const hideSearchChrome = css`
   appearance: textfield;
@@ -226,7 +226,7 @@ export const SearchInput = styled(({ desktop, mobile, ...props }) =>
     `;
 
 // tslint:disable-next-line:variable-name
-export const SearchPrintWrapper = areSidebarsOpenConnector(styled.div`
+export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   height: ${topbarDesktopHeight}rem;
   max-width: ${contentWrapperMaxWidth}rem;
   margin: 0 auto;

@@ -14,7 +14,7 @@ import { toolbarIconStyles } from './Toolbar/iconStyles';
 import { PlainButton, TimesIcon, toolbarDefaultButton, toolbarDefaultText } from './Toolbar/styled';
 
 interface InnerProps {
-  isOpen: State['verticalNavOpen'];
+  isOpen: State['tocOpen'];
   message: string;
   onClick: () => void;
   className?: string;
@@ -22,7 +22,7 @@ interface InnerProps {
 }
 
 interface MiddleProps {
-  isOpen: State['verticalNavOpen'];
+  isOpen: State['tocOpen'];
   openToc: () => void;
   closeToc: () => void;
   showActivatedState?: boolean;
@@ -39,7 +39,7 @@ export const ToCButtonText = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-const ToCButton = styled.button<{isOpen: State['verticalNavOpen'], isActive: boolean }>`
+const ToCButton = styled.button<{isOpen: State['tocOpen'], isActive: boolean }>`
   background: none;
   ${toolbarDefaultButton}
   color: ${toolbarIconColor.base};

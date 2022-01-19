@@ -31,7 +31,7 @@ const sidebarClosedStyle = css`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SidebarBody = styled.div<{isVerticalNavOpen: State['verticalNavOpen']}>`
+export const SidebarBody = styled.div<{isVerticalNavOpen: State['tocOpen']}>`
   grid-area: 1 / 2 / auto / 3;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
