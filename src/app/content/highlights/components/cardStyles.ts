@@ -34,7 +34,7 @@ import { cardBorder } from './style';
  * which unfortunately means knowledge of all the sidebar widths and their state
  * too.
  *
- * consider making a helper like `styleWhenVerticalNavClosed` maybe `styleWhenContentWidth`
+ * consider making a helper like `styleWhenSidebarClosed` maybe `styleWhenContentWidth`
  * that has a selector to get the relevant stuff.
  */
 
