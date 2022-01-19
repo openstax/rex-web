@@ -80,7 +80,7 @@ const CloseToCButton = styled.button`
 `;
 
 // tslint:disable-next-line: variable-name
-export const CloseMobileMenuAndTOCButton = styled((props) => {
+export const CloseToCAndMobileMenuButton = styled((props) => {
   const intl = useIntl();
   const dispatch = useDispatch();
 

@@ -7,7 +7,7 @@ import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
-import { CloseMobileMenuAndTOCButton, CloseTOCControl, OpenTOCControl } from '../SidebarControl';
+import { CloseToCAndMobileMenuButton, CloseTOCControl, OpenTOCControl } from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -43,7 +43,7 @@ const VerticalNav =   () => {
           {(msg) => msg}
         </FormattedMessage>
       </Styled.ToolbarMobileHeaderTitle>
-      <CloseMobileMenuAndTOCButton />
+      <CloseToCAndMobileMenuButton />
     </Styled.ToolbarMobileHeader>
     <Styled.ToolbarElements>
       <OpenTOCControl showActivatedState/>

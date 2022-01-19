@@ -252,7 +252,7 @@ Array [
             </span>
             <button
               aria-label="Click to close menu"
-              className="SidebarControl__CloseMobileMenuAndTOCButton-sdjc7-3 NCYOX styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="SidebarControl__CloseToCAndMobileMenuButton-sdjc7-3 ljQULd styled__PlainButton-sc-1119auh-0 kPdLbJ"
               onClick={[Function]}
             >
               <svg
@@ -1785,7 +1785,7 @@ Array [
             </span>
             <button
               aria-label="Click to close menu"
-              className="SidebarControl__CloseMobileMenuAndTOCButton-sdjc7-3 NCYOX styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="SidebarControl__CloseToCAndMobileMenuButton-sdjc7-3 ljQULd styled__PlainButton-sc-1119auh-0 kPdLbJ"
               onClick={[Function]}
             >
               <svg

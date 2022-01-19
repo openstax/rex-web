@@ -14,7 +14,7 @@ import * as actions from '../../actions';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
-import { CloseMobileMenuAndTOCButton } from '../SidebarControl';
+import { CloseToCAndMobileMenuButton } from '../SidebarControl';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -63,17 +63,17 @@ describe('TableOfContents', () => {
     renderer.act(() => {
       (mock.addEventListener as any as jest.SpyInstance).mock.calls[0][1]({ matches: true });
     });
-    expect(() => component.root.findByType(CloseMobileMenuAndTOCButton)).not.toThrow();
+    expect(() => component.root.findByType(CloseToCAndMobileMenuButton)).not.toThrow();
 
     renderer.act(() => {
-      component.root.findByType(CloseMobileMenuAndTOCButton).findByType('button').props.onClick();
+      component.root.findByType(CloseToCAndMobileMenuButton).findByType('button').props.onClick();
     });
     expect(dispatchSpy).toHaveBeenCalledWith(actions.closeMobileMenu());
 
     renderer.act(() => {
       (mock.addEventListener as any as jest.SpyInstance).mock.calls[0][1]({ matches: false });
     });
-    expect(() => component.root.findByType(CloseMobileMenuAndTOCButton)).toThrow();
+    expect(() => component.root.findByType(CloseToCAndMobileMenuButton)).toThrow();
   });
 
   it('expands and scrolls to current chapter', () => {
