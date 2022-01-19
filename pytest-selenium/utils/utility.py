@@ -211,7 +211,7 @@ class Highlight:
 class Library(object):
 
     # Read the books details from books.json file
-    book_details = open("/Users/malar/Rex/rex-web/pytest-selenium/utils/books.json", "r")
+    book_details = open("pytest-selenium/utils/books.json", "r")
     books = loads(book_details.read())
     book_details.close()
 
