@@ -237,7 +237,7 @@ export const SearchPrintWrapper = areSidebarsOpenConnector(styled.div`
   overflow: visible;
   background-color: ${theme.color.neutral.base};
   transition: padding-left ${sidebarTransitionTime}ms;
-  ${(props) => (props.isTocOpen || props.isTocOpen === null || props.isSearchOpen) && `
+  ${(props) => (props.isVerticalNavOpen === null || props.isVerticalNavOpen) && `
     padding-left: ${sidebarDesktopWidth}rem;
   `}
   ${theme.breakpoints.mobile(css`

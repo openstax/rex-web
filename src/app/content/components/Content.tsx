@@ -32,7 +32,7 @@ import Page from './Page';
 import TableOfContents from './TableOfContents';
 import VerticalNav from './Toolbar';
 import Topbar from './Topbar';
-import { areSidebarsOpenConnector } from './utils/sidebar';
+import { isVerticalNavOpenConnector } from './utils/sidebar';
 import Wrapper from './Wrapper';
 
 // tslint:disable-next-line:variable-name
@@ -61,7 +61,7 @@ const ContentNotifications = styled(Notifications)`
 `;
 
 // tslint:disable-next-line:variable-name
-const UndoPadding = areSidebarsOpenConnector(styled.div`
+const UndoPadding = isVerticalNavOpenConnector(styled.div`
   @media screen {
     overflow: visible;
     min-height: 100%;
@@ -71,7 +71,7 @@ const UndoPadding = areSidebarsOpenConnector(styled.div`
 `);
 
 // tslint:disable-next-line:variable-name
-const MainContentWrapper = areSidebarsOpenConnector(styled.div`
+const MainContentWrapper = isVerticalNavOpenConnector(styled.div`
   @media screen {
     flex: 1;
     display: flex;
@@ -84,7 +84,7 @@ const MainContentWrapper = areSidebarsOpenConnector(styled.div`
       padding-left: 0;
       max-width: ${contentWrapperMaxWidth}rem;
     `)}
-    ${(props) => (props.isTocOpen === false && props.isSearchOpen === false) && `
+    ${(props) => (props.isVerticalNavOpen === false) && `
       max-width: ${contentWrapperMaxWidth}rem;
       padding-left: 0;
     `}

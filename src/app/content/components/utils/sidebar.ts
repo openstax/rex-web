@@ -7,12 +7,13 @@ import * as searchSelectors from '../../search/selectors';
 import * as contentSelectors from '../../selectors';
 import { State } from '../../types';
 
-export const areSidebarsOpenConnector = connect((state: AppState) => ({
-  isSearchOpen: searchSelectors.searchResultsOpen(state),
-  isTocOpen: contentSelectors.tocOpen(state),
+export const isVerticalNavOpenConnector = connect((state: AppState) => ({
+  verticalNavOpen: searchSelectors.searchResultsOpen(state) || contentSelectors.tocOpen(state),
 }));
 
 export const styleWhenSidebarClosed = (closedStyle: FlattenSimpleInterpolation) => css`
-  ${(props: {isTocOpen: State['tocOpen']}) => props.isTocOpen === null && theme.breakpoints.mobile(closedStyle)}
-  ${(props: {isTocOpen: State['tocOpen']}) => props.isTocOpen === false && closedStyle}
+  ${(props: {isVerticalNavOpen: State['verticalNavOpen']}) =>
+    props.isVerticalNavOpen === null && theme.breakpoints.mobile(closedStyle)}
+  ${(props: {isVerticalNavOpen: State['verticalNavOpen']}) =>
+    props.isVerticalNavOpen === false && closedStyle}
 `;

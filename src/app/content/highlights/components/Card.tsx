@@ -34,7 +34,7 @@ export interface CardProps {
   book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
   isActive: boolean;
-  isTocOpen: boolean;
+  isVerticalNavOpen: boolean;
   hasQuery: boolean;
   highlighter: Highlighter;
   highlight: Highlight;

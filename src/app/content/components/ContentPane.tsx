@@ -11,17 +11,17 @@ import {
   sidebarDesktopWidth,
   sidebarTransitionTime,
 } from './constants';
-import { areSidebarsOpenConnector } from './utils/sidebar';
+import { isVerticalNavOpenConnector } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
-const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>`
+const Wrapper = styled.div<{isVerticalNavOpen: State['verticalNavOpen']}>`
   @media screen {
     flex: 1;
     width: 100%;
     overflow: visible;
     transition: padding-left ${sidebarTransitionTime}ms;
     background-color: ${mainContentBackground};
-    ${(props) => (props.isTocOpen || props.isTocOpen ===  null || props.isSearchOpen) && `
+    ${(props) => (props.isVerticalNavOpen || props.isVerticalNavOpen ===  null) && `
       padding-left: ${sidebarDesktopWidth}rem;
     `}
 
@@ -32,15 +32,14 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>
 `;
 
 interface Props {
-  isTocOpen: State['tocOpen'];
-  isSearchOpen: boolean;
+  isVerticalNavOpen: State['verticalNavOpen'];
   onClick: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const ContentPane = ({ isTocOpen, isSearchOpen, onClick, children }: React.PropsWithChildren<Props>) =>
-  <Wrapper isTocOpen={isTocOpen} isSearchOpen={isSearchOpen}>
-    {isTocOpen &&
+const ContentPane = ({ isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
+  <Wrapper isVerticalNavOpen={isVerticalNavOpen}>
+    {isVerticalNavOpen &&
       <ScrollLock
         onClick={onClick}
         mobileOnly={true}
@@ -57,4 +56,4 @@ const dispatchConnector = connect(
   })
 );
 
-export default areSidebarsOpenConnector(dispatchConnector(ContentPane));
+export default isVerticalNavOpenConnector(dispatchConnector(ContentPane));
