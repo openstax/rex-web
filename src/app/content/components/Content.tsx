@@ -61,14 +61,14 @@ const ContentNotifications = styled(Notifications)`
 `;
 
 // tslint:disable-next-line:variable-name
-const UndoPadding = isVerticalNavOpenConnector(styled.div`
+const UndoPadding = styled.div`
   @media screen {
     overflow: visible;
     min-height: 100%;
     display: flex;
     flex-direction: column;
   }
-`);
+`;
 
 // tslint:disable-next-line:variable-name
 const MainContentWrapper = isVerticalNavOpenConnector(styled.div`
