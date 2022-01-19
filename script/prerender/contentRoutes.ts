@@ -2,7 +2,6 @@ import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
 import { ContentRoute, ContentRouteState, SlugParams } from '../../src/app/content/types';
 import { Match, Route } from '../../src/app/navigation/types';
-import { assertDefined } from '../../src/app/utils';
 
 // Can't use Omit<Params, 'page'> because we need SlugParams and not UuidParams
 type BookParams = { book: SlugParams; };
@@ -25,10 +24,7 @@ export async function getArchiveBook(services: AppOptions['services'], match: Se
 
   const {bookUid, bookVersion} = match.state;
 
-  return assertDefined(
-    await services.archiveLoader.book(bookUid, bookVersion).load(),
-    'book wasn\'t cached, it should have been'
-  );
+  return services.archiveLoader.book(bookUid, bookVersion).load();
 }
 
 export async function getArchivePage(services: AppOptions['services'], match: SerializedPageMatch) {
@@ -38,8 +34,5 @@ export async function getArchivePage(services: AppOptions['services'], match: Se
 
   const {bookUid, bookVersion, pageUid} = match.state;
 
-  return assertDefined(
-    await services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load(),
-    'page wasn\'t cached, it should have been'
-  );
+  return services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load();
 }
