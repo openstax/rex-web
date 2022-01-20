@@ -11,7 +11,7 @@ import {
   sidebarDesktopWidth,
   sidebarTransitionTime,
 } from './constants';
-import { isVerticalNavOpenConnector, styleWhenTocClosed } from './utils/sidebar';
+import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
 const Wrapper = styled.div`
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     background-color: ${mainContentBackground};
     padding-left: ${sidebarDesktopWidth}rem;
 
-    ${styleWhenTocClosed(css`
+    ${styleWhenSidebarClosed(css`
       padding-left: 0;
     `)}
 
