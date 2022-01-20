@@ -73,10 +73,15 @@ const CloseToCButton = styled.button`
   background: none;
   overflow: visible;
   cursor: pointer;
+  display: block;
 
   :hover {
     color: ${toolbarIconColor.darker};
   }
+
+  ${theme.breakpoints.mobile(css`
+    display: none;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -95,6 +100,11 @@ export const CloseToCAndMobileMenuButton = styled((props) => {
   height: 40px;
   position: absolute;
   right: 0;
+  display: none;
+
+  ${theme.breakpoints.mobile(css`
+    display: block;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -148,7 +158,16 @@ export const OpenTOCControl = lockControlState(false, TOCControl);
 export const CloseTOCControl = lockControlState(true, TOCControl);
 
 // tslint:disable-next-line:variable-name
-export const TOCCloseButton = lockControlState(true, CloseTOC);
+export const TOCCloseButton = (lockControlState(true, CloseTOC));
+
+// tslint:disable-next-line:variable-name
+export const TOCBackButton = styled(TOCCloseButton)`
+  display: none;
+
+  ${theme.breakpoints.mobile(css`
+    display: block;
+  `)}
+`;
 
 // tslint:disable-next-line: variable-name
 export const StyledOpenTOCControl = styled(OpenTOCControl)`
