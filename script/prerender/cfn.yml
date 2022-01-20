@@ -58,10 +58,6 @@ Resources:
       QueueName: !Sub rex-${SanitizedReleaseId}-prerender-dlq-${BuildId}
       ReceiveMessageWaitTimeSeconds: 20
       VisibilityTimeout: 0
-      # RedriveAllowPolicy: # leads to circular dependency errors with the worker queue
-      #   redrivePermission: byQueue
-      #   sourceQueueArns:
-      #     - !GetAtt WorkQueue.Arn
 
   WorkQueue:
     Type: AWS::SQS::Queue
