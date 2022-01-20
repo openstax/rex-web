@@ -16,33 +16,6 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   setLinksAttributes(rootEl);
 };
 
-const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
-  if (solution.classList.contains('ui-solution-visible')) {
-    solution.classList.remove('ui-solution-visible');
-    solution.setAttribute('aria-expanded', 'false');
-    solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
-  } else {
-    solution.className += ' ui-solution-visible';
-    solution.setAttribute('aria-expanded', 'true');
-    solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:hide'}));
-  }
-};
-
-export const toggleSolution = (summaryElement: HTMLElement, intl: IntlShape) => () => {
-  if (!summaryElement.parentElement || !summaryElement.parentElement.parentElement) {
-    return;
-  }
-  toggleSolutionAttributes(summaryElement.parentElement, intl);
-};
-
-export const mapSolutions = (container: HTMLElement | null, cb: (a: HTMLDetailsElement) => void) => {
-  if (container) {
-    Array.from(container.querySelectorAll<HTMLDetailsElement>(
-      '[data-type="solution"] > details.ui-toggle-wrapper, .solution > details.ui-toggle-wrapper'
-    )).forEach(cb);
-  }
-};
-
 function removeDocumentTitle(rootEl: HTMLElement) {
   rootEl.querySelectorAll([
     'h1[data-type="document-title"]',
@@ -118,12 +91,11 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
 
   // Wrap solutions in a div so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
-    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
-    el.setAttribute('aria-expanded', 'false');
+    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:toggle-title'}));
     const contents = el.innerHTML;
     el.innerHTML = `
       <details class="ui-toggle-wrapper">
-        <summary class="btn-link ui-toggle" title="${title}"></summary>
+        <summary class="btn-link ui-toggle" title="${title}" data-content="${title}"></summary>
         <section class="ui-body" role="alert">${contents}</section>
       </details>
     `;
