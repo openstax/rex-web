@@ -127,13 +127,13 @@ export class TableOfContents extends Component<SidebarProps> {
 
   private renderTocHeader = () => {
     return <Styled.ToCHeader data-testid='tocheader'>
-    <TOCBackButton><LeftArrow /></TOCBackButton>
-    <FormattedMessage id='i18n:toc:title'>
-      {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
-    </FormattedMessage>
-    <CloseToCAndMobileMenuButton />
-    <TOCCloseButton><TimesIcon /></TOCCloseButton>
-  </Styled.ToCHeader>;
+      <TOCBackButton><LeftArrow /></TOCBackButton>
+      <FormattedMessage id='i18n:toc:title'>
+        {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
+      </FormattedMessage>
+      <CloseToCAndMobileMenuButton />
+      <TOCCloseButton><TimesIcon /></TOCCloseButton>
+    </Styled.ToCHeader>;
   };
 
   private renderToc = (book: Book) => this.renderChildren(book, book.tree);

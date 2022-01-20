@@ -79,7 +79,7 @@ const CloseToCButton = styled.button`
     color: ${toolbarIconColor.darker};
   }
 
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     display: none;
   `)}
 `;
@@ -102,7 +102,7 @@ export const CloseToCAndMobileMenuButton = styled((props) => {
   right: 0;
   display: none;
 
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     display: block;
   `)}
 `;
@@ -164,7 +164,7 @@ export const TOCCloseButton = (lockControlState(true, CloseTOC));
 export const TOCBackButton = styled(TOCCloseButton)`
   display: none;
 
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     display: block;
   `)}
 `;
