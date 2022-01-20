@@ -8,7 +8,7 @@ import * as contentSelectors from '../../selectors';
 import { State } from '../../types';
 
 export const isVerticalNavOpenConnector = connect((state: AppState) => ({
-  verticalNavOpen: searchSelectors.searchResultsOpen(state) || contentSelectors.tocOpen(state),
+  isVerticalNavOpen: searchSelectors.searchResultsOpen(state) || contentSelectors.tocOpen(state),
 }));
 
 export const styleWhenSidebarClosed = (closedStyle: FlattenSimpleInterpolation) => css`

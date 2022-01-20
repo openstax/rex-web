@@ -458,7 +458,7 @@ Array [
         </div>
         <div
           aria-label="Table of contents"
-          className="wrapper__SidebarBody-sc-1nl0jy-0 epWWiK"
+          className="wrapper__SidebarBody-sc-1nl0jy-0 geZWFe"
           data-analytics-region="toc"
           data-testid="toc"
         >
@@ -1072,7 +1072,7 @@ Array [
           data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 cHREzH"
+            className="ContentPane__Wrapper-sc-6et83r-0 jnLdXj"
           >
             <div
               className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
@@ -1991,7 +1991,7 @@ Array [
         </div>
         <div
           aria-label="Table of contents"
-          className="wrapper__SidebarBody-sc-1nl0jy-0 epWWiK"
+          className="wrapper__SidebarBody-sc-1nl0jy-0 geZWFe"
           data-analytics-region="toc"
           data-testid="toc"
         >
@@ -2603,7 +2603,7 @@ Array [
           data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 cHREzH"
+            className="ContentPane__Wrapper-sc-6et83r-0 jnLdXj"
           >
             <div
               className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
