@@ -14,7 +14,7 @@ import {
 import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
-const Wrapper = styled.div<{isVerticalNavOpen: State['tocOpen']}>`
+const Wrapper = styled.div<{isTocOpen: State['tocOpen']}>`
   @media screen {
     flex: 1;
     width: 100%;
