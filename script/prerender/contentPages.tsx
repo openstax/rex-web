@@ -1,3 +1,5 @@
+import './setup'
+
 import dateFns from 'date-fns';
 import path from 'path';
 import React from 'react';

@@ -7,8 +7,6 @@
   This code runs with --unhandled-rejections=strict so unhandled rejections will abort the thread
 */
 
-import './setup';
-
 import { Message } from '@aws-sdk/client-sqs';
 import dateFns from 'date-fns';
 import Loadable from 'react-loadable';

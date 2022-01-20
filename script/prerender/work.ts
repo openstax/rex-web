@@ -6,8 +6,6 @@
   and deletes processed messages from the queue
 */
 
-import './setup';
-
 import {
   ChangeMessageVisibilityCommand,
   DeleteMessageBatchCommand,

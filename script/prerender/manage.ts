@@ -6,8 +6,6 @@
   queues up each page in the queue to be prerendered, and deletes the stack at the end
 */
 
-import './setup';
-
 import {
   CloudFormationClient,
   CreateStackCommand,
