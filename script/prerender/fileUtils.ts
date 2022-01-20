@@ -50,13 +50,16 @@ export const createDiskCache = <K extends string, V>(prefix: string): Cache<K, V
 
 let s3Client: S3Client | undefined;
 
-async function writeS3File(contentType: string, filepath: string, contents: string) {
+// Generates a release path for a file without a leading /, used when uploading the release to S3
+function prefixReleasePath(filepath: string) {
   let basePath = assertDefined(process.env.PUBLIC_URL, 'PUBLIC_URL environment variable not set');
   if (basePath[0] === '/') { basePath = basePath.slice(1); }
-  const key = `${basePath}${filepath}`;
+  return `${basePath}${filepath}`;
+}
 
+async function writeS3File(key: string, contents: string, contentType: string) {
   if (!s3Client) {
-    // We explicitly pass credentials to the S3 Client only once during initialization
+    // We explicitly pass credentials to the S3 Client only once
     // so it'll not try to load them over and over
 
     console.log('Fetching container credentials');
@@ -76,5 +79,14 @@ async function writeS3File(contentType: string, filepath: string, contents: stri
   }));
 }
 
-export const writeS3HtmlFile = writeS3File.bind(null, 'text/html');
-export const writeS3XmlFile = writeS3File.bind(null, 'text/xml');
+async function writeS3ReleaseFile(filepath: string, contents: string, contentType: string) {
+  return writeS3File(prefixReleasePath(filepath), contents, contentType);
+}
+
+export async function writeS3ReleaseHtmlFile(filepath: string, contents: string) {
+  return writeS3ReleaseFile(filepath, contents, 'text/html');
+}
+
+export async function writeS3ReleaseXmlFile(filepath: string, contents: string) {
+  return writeS3ReleaseFile(filepath, contents, 'text/xml');
+}

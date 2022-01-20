@@ -36,7 +36,7 @@ import {
   SerializedBookMatch,
   SerializedPageMatch,
 } from './contentRoutes';
-import { writeS3HtmlFile, writeS3XmlFile } from './fileUtils';
+import { writeS3ReleaseHtmlFile, writeS3ReleaseXmlFile } from './fileUtils';
 import { renderAndSaveSitemap, renderAndSaveSitemapIndex, sitemapPath } from './sitemap';
 
 const MAX_CONCURRENT_CONNECTIONS = 5;
@@ -73,7 +73,7 @@ async function pageTask(services: AppOptions['services'], payload: PagePayload) 
   const page = assertObject(
     payload.page, `Page task payload.page is not an object: ${payload}`
   );
-  return renderAndSavePage(services, writeS3HtmlFile, 200, page);
+  return renderAndSavePage(services, writeS3ReleaseHtmlFile, 200, page);
 }
 
 async function sitemapTask(services: AppOptions['services'], payload: SitemapPayload) {
@@ -90,7 +90,7 @@ async function sitemapTask(services: AppOptions['services'], payload: SitemapPay
     return getSitemapItemOptions(archivePage, matchPathname(page));
   });
   return renderAndSaveSitemap(
-    writeS3XmlFile,
+    writeS3ReleaseXmlFile,
     assertString(payload.slug, `Sitemap task payload.slug is not a string: ${payload}`),
     items
   );
@@ -109,7 +109,7 @@ async function sitemapIndexTask(services: AppOptions['services'], payload: Sitem
     const archiveBook = await getArchiveBook(services, book);
     return getSitemapItemOptions(archiveBook, sitemapPath(book.params.book.slug));
   });
-  return renderAndSaveSitemapIndex(writeS3XmlFile, items);
+  return renderAndSaveSitemapIndex(writeS3ReleaseXmlFile, items);
 }
 
 async function run() {
