@@ -13,7 +13,7 @@ import {
   topbarMobileHeight
 } from '../../constants';
 import { disablePrint } from '../../utils/disablePrint';
-import { styleWhenSidebarClosed } from '../../utils/sidebar';
+import { styleWhenTocClosed } from '../../utils/sidebar';
 
 const sidebarPadding = 1.8;
 
@@ -94,7 +94,7 @@ export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
     opacity: 1;
   }
 
-  ${styleWhenSidebarClosed(sidebarClosedStyle)}
+  ${styleWhenTocClosed(sidebarClosedStyle)}
   ${disablePrint}
 `;
 

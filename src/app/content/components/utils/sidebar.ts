@@ -11,7 +11,7 @@ export const isVerticalNavOpenConnector = connect((state: AppState) => ({
   isVerticalNavOpen: searchSelectors.searchResultsOpen(state) || contentSelectors.tocOpen(state),
 }));
 
-export const styleWhenSidebarClosed = (closedStyle: FlattenSimpleInterpolation) => css`
+export const styleWhenTocClosed = (closedStyle: FlattenSimpleInterpolation) => css`
   ${(props: {isTocOpen: State['tocOpen']}) =>
     props.isTocOpen === null && theme.breakpoints.mobile(closedStyle)}
   ${(props: {isTocOpen: State['tocOpen']}) =>
