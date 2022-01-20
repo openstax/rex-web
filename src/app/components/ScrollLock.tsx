@@ -9,7 +9,7 @@ import OnScroll, { OnTouchMoveCallback } from './OnScroll';
 // tslint:disable-next-line:variable-name
 const ScrollLockBodyClass = createGlobalStyle`
   body.body {
-    ${(props: {mobileOnly?: boolean}) => props.mobileOnly && css`
+    ${(props: {mediumOnly?: boolean}) => props.mediumOnly && css`
       ${theme.breakpoints.mobile(css`
         @media print {
           #root {
@@ -19,9 +19,18 @@ const ScrollLockBodyClass = createGlobalStyle`
 
         overflow: hidden;
       `)}
+      ${theme.breakpoints.mobileMedium(css`
+        @media print {
+          #root {
+            display: block;
+          }
+        }
+
+        overflow: visible;
+      `)}
     `}
 
-    ${(props: {mobileOnly?: boolean}) => props.mobileOnly === false && css`
+    ${(props: {mediumOnly?: boolean}) => props.mediumOnly === false && css`
       @media print {
         #root {
           display: none;
@@ -51,13 +60,13 @@ const fadeIn = keyframes`
 
 interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
-  mobileOnly?: boolean;
+  mediumOnly?: boolean;
   zIndex?: number;
 }
 
 // tslint:disable-next-line:variable-name
-export const Overlay = styled(({ mobileOnly, zIndex, ...props}: OverlayProps) => {
-  useDisableContentTabbing(mobileOnly ? false : true);
+export const Overlay = styled(({ mediumOnly, zIndex, ...props}: OverlayProps) => {
+  useDisableContentTabbing(mediumOnly ? false : true);
   return <div {...props} />;
 })`
   animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
@@ -71,11 +80,15 @@ export const Overlay = styled(({ mobileOnly, zIndex, ...props}: OverlayProps) =>
   bottom: 0;
   left: 0;
   right: 0;
-  ${(props: {mobileOnly?: boolean}) => props.mobileOnly && css`
+  ${(props: {mediumOnly?: boolean}) => props.mediumOnly && css`
     display: none;
 
     ${theme.breakpoints.mobile(css`
       display: block;
+    `)}
+
+    ${theme.breakpoints.mobileMedium(css`
+      display: none;
     `)}
   `}
 
@@ -85,7 +98,7 @@ export const Overlay = styled(({ mobileOnly, zIndex, ...props}: OverlayProps) =>
 interface Props {
   onClick?: () => void;
   overlay?: boolean;
-  mobileOnly?: boolean | undefined;
+  mediumOnly?: boolean | undefined;
   zIndex?: number | undefined;
 }
 
@@ -93,11 +106,11 @@ export default class ScrollLock extends React.Component<Props> {
 
   public render() {
     return <OnScroll onTouchMove={this.blockScroll}>
-      <ScrollLockBodyClass mobileOnly={this.props.mobileOnly}/>
+      <ScrollLockBodyClass mediumOnly={this.props.mediumOnly}/>
       {this.props.overlay !== false && <Overlay
         data-testid='scroll-lock-overlay'
         onClick={this.props.onClick}
-        mobileOnly={this.props.mobileOnly}
+        mediumOnly={this.props.mediumOnly}
         zIndex={this.props.zIndex}
       />}
     </OnScroll>;

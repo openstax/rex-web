@@ -8,6 +8,8 @@ import * as contentSelectors from '../../selectors';
 import { State } from '../../types';
 
 export const isVerticalNavOpenConnector = connect((state: AppState) => ({
+  isSearchOpen: searchSelectors.searchResultsOpen(state),
+  isTocOpen: contentSelectors.tocOpen(state),
   isVerticalNavOpen: searchSelectors.searchResultsOpen(state) || contentSelectors.tocOpen(state),
 }));
 
