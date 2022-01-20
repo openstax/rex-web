@@ -163,7 +163,7 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
 
   console.log(`[${book.title}] Book loaded; preparing pages`);
 
-  const pages = prepareBookPages(book).map((page) => omit('route', page.route));
+  const pages = prepareBookPages(book).map((page) => omit('route', page));
   const numBookPages = pages.length;
   numPages += numBookPages;
 

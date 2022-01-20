@@ -70,8 +70,8 @@ function getSitemapItemOptions(content: ArchiveContent, url: string) {
 // Types won't save us from bad JSON so check that the payload has the correct structure
 
 async function pageTask(services: AppOptions['services'], payload: PagePayload) {
-  const page = deserializePageMatch(
-    assertObject(payload.page, `Page task payload.page is not an object: ${payload}`)
+  const page = assertObject(
+    payload.page, `Page task payload.page is not an object: ${payload}`
   );
   return renderAndSavePage(services, writeS3HtmlFile, 200, page);
 }

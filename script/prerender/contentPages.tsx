@@ -9,7 +9,6 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
 import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
-import { content } from '../../src/app/content/routes';
 import * as contentSelectors from '../../src/app/content/selectors';
 import { BookWithOSWebData } from '../../src/app/content/types';
 import { makeUnifiedBookLoader, stripIdVersion } from '../../src/app/content/utils';
@@ -24,7 +23,7 @@ import { AppServices, AppState } from '../../src/app/types';
 import { assertDefined } from '../../src/app/utils';
 import BOOKS from '../../src/config.books';
 import FontCollector from '../../src/helpers/FontCollector';
-import { getArchivePage, PageMatch } from './contentRoutes';
+import { deserializePageMatch, getArchivePage, SerializedPageMatch } from './contentRoutes';
 import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils';
 
 export const stats = {
@@ -32,14 +31,12 @@ export const stats = {
   renderHtml: 0,
 };
 
-// Note: Could return a SerializedPageMatch instead if single-instance prerender code is removed
-
 export function prepareContentPage(
   book: BookWithOSWebData,
   pageId: string,
   pageSlug: string
 ) {
-  const action: PageMatch = {
+  const action: SerializedPageMatch = {
     params: {
       book: {
         slug: book.slug,
@@ -48,7 +45,6 @@ export function prepareContentPage(
         slug: pageSlug,
       },
     },
-    route: content,
     state: {
       bookUid: book.id,
       bookVersion: book.version,
@@ -131,9 +127,10 @@ export async function renderAndSavePage(
   services: AppOptions['services'],
   savePage: (uri: string, content: string) => void,
   code: number,
-  route: PageMatch
+  serializedMatch: SerializedPageMatch
 ) {
-  const {app, styles, state, url} = await prepareApp(services, route, code);
+  const match = deserializePageMatch(serializedMatch);
+  const {app, styles, state, url} = await prepareApp(services, match, code);
   console.info(`Rendering ${url}`); // tslint:disable-line:no-console
 
   const html = await renderHtml(styles, app, state);
@@ -154,15 +151,15 @@ function savePageAsset(url: string, html: string) {
 }
 
 type MakeRenderPage = (services: AppOptions['services']) =>
-  ({code, route}: {route: PageMatch, code: number}) => Promise<SitemapItemOptions>;
+  (serializedRoute: SerializedPageMatch) => Promise<SitemapItemOptions>;
 
-const makeRenderPage: MakeRenderPage = (services) => async({code, route}) => {
+const makeRenderPage: MakeRenderPage = (services) => async(route) => {
 
   const archivePage = await getArchivePage(services, route);
 
   // Note: stat collection in memory does not work with multi-instance prerender code
   const timer = minuteCounter();
-  const url = await renderAndSavePage(services, savePageAsset, code, route);
+  const url = await renderAndSavePage(services, savePageAsset, 200, route);
   stats.renderHtml += timer();
 
   numPages++;
@@ -184,16 +181,14 @@ export const prepareBooks = async(
   }));
 };
 
-// Note: Could return Array<SerializedPageMatch> if single-instance prerender code is removed
-
-export type Pages = Array<{code: number, route: PageMatch}>;
+export type Pages = SerializedPageMatch[];
 
 export const prepareBookPages = (book: BookWithOSWebData) => findTreePages(book.tree).map(
-  (section) => ({code: 200, route: prepareContentPage(
+  (section) => prepareContentPage(
     book,
     stripIdVersion(section.id),
     assertDefined(section.slug, `Book JSON does not provide a page slug for ${section.id}`)
-  )})
+  )
 );
 
 // Note: renderPages() is used only by the single-instance prerender code
