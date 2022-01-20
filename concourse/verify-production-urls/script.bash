@@ -13,14 +13,9 @@ get_bucket_release_files () {
 count_files () { wc -l <<< "$1" | awk '{$1=$1};1'; }
 
 # Bash array difference (with newline-separated inputs)
-# Adapted from https://stackoverflow.com/a/28161520
 # Returns files in $1 but not in $2
-# Algorithm:
-# 1. Concatenate all entries, one on each line
-# 2. Sort lines
-# 3. Remove all lines that appear more than once
-# The array to be removed appears twice in the input so none of its entries are added to the output
-diff_file_lists () { printf "%s\n%s\n%s\n" "$1" "$2" "$2" | sort | uniq -u; }
+# comm requires sorted inputs so we sort $1 and $2 separately first
+diff_file_lists () { comm -23 <(sort <<<"$1") <(sort <<<"$2"); }
 
 current_files=$(get_bucket_release_files "$current_release_id")
 current_number=$(count_files "$current_files")
