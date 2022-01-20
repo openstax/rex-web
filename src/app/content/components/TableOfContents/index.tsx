@@ -61,10 +61,7 @@ export class TableOfContents extends Component<SidebarProps> {
 
     const {callback, deregister} = setSidebarHeight(sidebar, window);
     callback();
-
-    this.deregister = () => {
-      deregister();
-    };
+    this.deregister = deregister;
   }
 
   public componentDidUpdate(prevProps: SidebarProps) {
