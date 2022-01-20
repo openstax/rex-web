@@ -34,11 +34,10 @@ import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { readFile } from '../../src/helpers/fileUtils';
 import { globalMinuteCounter, prepareBookPages } from './contentPages';
 import createRedirects from './createRedirects';
-import { writeAssetFile } from './fileUtils';
+import renderManifest from './renderManifest';
 
 const {
   ARCHIVE_URL,
-  CODE_VERSION,
   OS_WEB_URL,
   REACT_APP_ARCHIVE_URL,
   REACT_APP_OS_WEB_API_URL,
@@ -85,16 +84,6 @@ const workQueuePromise = new Promise<string>((resolve) => { resolveWorkQueueProm
 let timeoutDate: Date;
 let numBooks = 0;
 let numPages = 0;
-
-async function renderManifest() {
-  writeAssetFile('/rex/release.json', JSON.stringify({
-    books: BOOKS,
-    code: CODE_VERSION,
-    id: RELEASE_ID,
-  }, null, 2));
-
-  writeAssetFile('/rex/config.json', JSON.stringify(config, null, 2));
-}
 
 // These functions begin the stack creation/deletion but do not wait for them to finish,
 // since we have other tasks to do while they are running

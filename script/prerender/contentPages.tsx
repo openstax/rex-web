@@ -1,4 +1,4 @@
-import './setup'
+import './setup';
 
 import dateFns from 'date-fns';
 import path from 'path';
@@ -142,7 +142,8 @@ export async function renderAndSavePage(
   return url;
 }
 
-// Note: savePageAsset() and makeRenderPage() are used only by the single-instance prerender code
+// Note: savePageAsset(), makeRenderPage() and prepareBooks()
+// are used only by the single-instance prerender code
 
 function savePageAsset(url: string, html: string) {
   if (assetDirectoryExists(url)) {
