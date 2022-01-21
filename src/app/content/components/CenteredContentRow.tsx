@@ -13,7 +13,7 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>
   overflow: visible; /* so sidebar position: sticky works */
   margin: 0 auto;
   ${(props) => theme.breakpoints.desktopMedium(css`
-    padding-left: ${(props.isTocOpen || props.isTocOpen ===  null || props.isSearchOpen)
+    padding-left: ${(props.isVerticalNavOpen || props.isVerticalNavOpen ===  null)
       ? sidebarDesktopWithToolbarWidth + 'rem'
       : 0};
   `)}
