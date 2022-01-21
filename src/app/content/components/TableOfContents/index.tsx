@@ -1,8 +1,7 @@
-import { HTMLElement, MediaQueryListEvent } from '@openstax/types/lib.dom';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { closeMobileMenu, resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
@@ -12,7 +11,7 @@ import { ArchiveTree, Book, Page, State } from '../../types';
 import { archiveTreeContainsNode, getArchiveTreeSectionType } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
-import { SidebarExitButton } from '../SidebarControl';
+import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
 import { ToCHeaderText } from './styled';
@@ -35,13 +34,12 @@ const SidebarBody = React.forwardRef<HTMLElement, React.ComponentProps<typeof St
   />
 );
 
-export class TableOfContents extends Component<SidebarProps, { isMediumMobile: boolean }> {
+export class TableOfContents extends Component<SidebarProps> {
   public sidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
 
   constructor(props: SidebarProps) {
     super(props);
-    this.state = { isMediumMobile: false };
   }
 
   public render() {
@@ -61,17 +59,9 @@ export class TableOfContents extends Component<SidebarProps, { isMediumMobile: b
       return;
     }
 
-    const matchMedia = window.matchMedia(theme.breakpoints.mobileMediumQuery);
-    matchMedia.addEventListener('change', this.checkIfMediumMobile);
-    this.setState({ isMediumMobile: matchMedia.matches });
-
     const {callback, deregister} = setSidebarHeight(sidebar, window);
     callback();
-
-    this.deregister = () => {
-      deregister();
-      matchMedia.removeEventListener('change', this.checkIfMediumMobile);
-    };
+    this.deregister = deregister;
   }
 
   public componentDidUpdate(prevProps: SidebarProps) {
@@ -85,14 +75,6 @@ export class TableOfContents extends Component<SidebarProps, { isMediumMobile: b
     this.deregister();
   }
   private deregister: () => void = () => null;
-
-  private checkIfMediumMobile = (e: MediaQueryListEvent) => {
-    if (e.matches) {
-      this.setState({ isMediumMobile: true });
-    } else {
-      this.setState({ isMediumMobile: false });
-    }
-  };
 
   private scrollToSelectedPage() {
     scrollSidebarSectionIntoView(this.sidebar.current, this.activeSection.current);
@@ -141,20 +123,13 @@ export class TableOfContents extends Component<SidebarProps, { isMediumMobile: b
   </Styled.NavDetails>;
 
   private renderTocHeader = () => {
-    if (this.state.isMediumMobile) {
-      return <Styled.ToCHeader data-testid='tocheader'>
-      <SidebarExitButton><LeftArrow /></SidebarExitButton>
-      <FormattedMessage id='i18n:toc:title'>
-        {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
-      </FormattedMessage>
-      <Styled.CloseToCAndMobileMenuButton />
-    </Styled.ToCHeader>;
-    }
     return <Styled.ToCHeader data-testid='tocheader'>
+      <TOCBackButton><LeftArrow /></TOCBackButton>
       <FormattedMessage id='i18n:toc:title'>
         {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
       </FormattedMessage>
-      <SidebarExitButton><TimesIcon /></SidebarExitButton>
+      <CloseToCAndMobileMenuButton />
+      <TOCCloseButton><TimesIcon /></TOCCloseButton>
     </Styled.ToCHeader>;
   };
 

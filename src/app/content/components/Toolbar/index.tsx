@@ -1,14 +1,13 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeMobileMenu } from '../../actions';
+import { useSelector } from 'react-redux';
 import * as pqSelectors from '../../practiceQuestions/selectors';
 import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
-import { CloseSidebarControl, OpenSidebarControl } from '../SidebarControl';
+import { CloseToCAndMobileMenuButton, CloseTOCControl, OpenTOCControl } from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -16,11 +15,10 @@ import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
 // tslint:disable-next-line: variable-name
-const Toolbar =   () => {
+const VerticalNav =   () => {
   const isMobileMenuOpen = useSelector(mobileMenuOpen);
   const isPracticeQuestionsEnabled = useSelector(pqSelectors.practiceQuestionsEnabled);
   const sidebarRef = React.useRef<HTMLElement>(null);
-  const dispatch = useDispatch();
 
   React.useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -45,12 +43,11 @@ const Toolbar =   () => {
           {(msg) => msg}
         </FormattedMessage>
       </Styled.ToolbarMobileHeaderTitle>
-      <Styled.CloseToolbarButton onClick={() => dispatch(closeMobileMenu())}>
-      </Styled.CloseToolbarButton>
+      <CloseToCAndMobileMenuButton />
     </Styled.ToolbarMobileHeader>
     <Styled.ToolbarElements>
-      <OpenSidebarControl showActivatedState/>
-      <CloseSidebarControl showActivatedState/>
+      <OpenTOCControl showActivatedState/>
+      <CloseTOCControl showActivatedState/>
       <PracticeQuestionsButton />
       <NudgeElementTarget id={nudgeStudyToolsTargetId}>
         <StudyGuidesButton />
@@ -61,4 +58,4 @@ const Toolbar =   () => {
   </Styled.ToolbarWrapper>;
 };
 
-export default Toolbar;
+export default VerticalNav;

@@ -161,6 +161,7 @@ export default {
     'toolbar',
     'navbar',
     'mobileMenu',
+    'sidebarMobileMedium',
     'highlightSummaryPopup',
     'highlightsHelpInfoMobile',
     'nudgeOverlay',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
 import { textRegularSize } from '../../components/Typography';
@@ -11,7 +11,7 @@ import * as selectors from '../selectors';
 import { State } from '../types';
 import { toolbarIconColor } from './constants';
 import { toolbarIconStyles } from './Toolbar/iconStyles';
-import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar/styled';
+import { PlainButton, TimesIcon, toolbarDefaultButton, toolbarDefaultText } from './Toolbar/styled';
 
 interface InnerProps {
   isOpen: State['tocOpen'];
@@ -56,7 +56,7 @@ const ToCButton = styled.button<{isOpen: State['tocOpen'], isActive: boolean }>`
     ${toolbarIconStyles};
   }
 
-  display: ${({isOpen, isActive}) => (isOpen === false) !== isActive ? 'flex' : 'none'};
+  display: ${({isOpen, isActive}) => (isOpen && isActive) || (!isOpen && !isActive) ? 'flex' : 'none'};
   ${(props) => props.isOpen === null && !props.isActive && theme.breakpoints.mobile(css`
     display: flex;
   `)}
@@ -73,14 +73,42 @@ const CloseToCButton = styled.button`
   background: none;
   overflow: visible;
   cursor: pointer;
+  display: block;
 
   :hover {
     color: ${toolbarIconColor.darker};
   }
+
+  ${theme.breakpoints.mobileMedium(css`
+    display: none;
+  `)}
+`;
+
+// tslint:disable-next-line: variable-name
+export const CloseToCAndMobileMenuButton = styled((props) => {
+  const intl = useIntl();
+  const dispatch = useDispatch();
+
+  return <PlainButton
+    {...props}
+    onClick={() => dispatch(actions.closeMobileMenu())}
+    aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:close'})}
+    >
+      <TimesIcon />
+  </PlainButton>;
+})`
+  height: 40px;
+  position: absolute;
+  right: 0;
+  display: none;
+
+  ${theme.breakpoints.mobileMedium(css`
+    display: block;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
-export const SidebarControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) => {
+export const TOCControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) => {
   return <ToCButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
@@ -94,7 +122,7 @@ export const SidebarControl = ({ message, children, ...props }: React.PropsWithC
   };
 
 // tslint:disable-next-line:variable-name
-export const CloseSidebar = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
+export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
   <CloseToCButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
@@ -124,16 +152,25 @@ const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerPro
   />);
 
 // tslint:disable-next-line: variable-name
-export const OpenSidebarControl = lockControlState(false, SidebarControl);
+export const OpenTOCControl = lockControlState(false, TOCControl);
 
 // tslint:disable-next-line: variable-name
-export const CloseSidebarControl = lockControlState(true, SidebarControl);
+export const CloseTOCControl = lockControlState(true, TOCControl);
 
 // tslint:disable-next-line:variable-name
-export const SidebarExitButton = lockControlState(true, CloseSidebar);
+export const TOCCloseButton = (lockControlState(true, CloseTOC));
+
+// tslint:disable-next-line:variable-name
+export const TOCBackButton = styled(TOCCloseButton)`
+  display: none;
+
+  ${theme.breakpoints.mobileMedium(css`
+    display: block;
+  `)}
+`;
 
 // tslint:disable-next-line: variable-name
-export const StyledOpenSidebarControl = styled(OpenSidebarControl)`
+export const StyledOpenTOCControl = styled(OpenTOCControl)`
   display: flex;
   padding: 0;
   min-height: unset;

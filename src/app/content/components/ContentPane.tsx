@@ -10,18 +10,20 @@ import {
   mainContentBackground,
   sidebarDesktopWithToolbarWidth,
 } from './constants';
-import { areSidebarsOpenConnector } from './utils/sidebar';
+import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line:variable-name
-const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>`
+const Wrapper = styled.div`
   @media screen {
     flex: 1;
     width: 100%;
     overflow: visible;
     background-color: ${mainContentBackground};
-    ${(props) => (props.isTocOpen || props.isTocOpen ===  null || props.isSearchOpen) && `
-      padding-left: ${sidebarDesktopWithToolbarWidth}rem;
-    `}
+    padding-left: ${sidebarDesktopWithToolbarWidth}rem;
+
+    ${styleWhenSidebarClosed(css`
+      padding-left: 0;
+    `)}
 
     ${theme.breakpoints.mobile(css`
       padding-left: 0;
@@ -30,18 +32,17 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isSearchOpen: boolean}>
 `;
 
 interface Props {
-  isTocOpen: State['tocOpen'];
-  isSearchOpen: boolean;
+  isVerticalNavOpen: State['tocOpen'];
   onClick: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const ContentPane = ({ isTocOpen, isSearchOpen, onClick, children }: React.PropsWithChildren<Props>) =>
-  <Wrapper isTocOpen={isTocOpen} isSearchOpen={isSearchOpen}>
-    {isTocOpen &&
+const ContentPane = ({ isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
+  <Wrapper isVerticalNavOpen={isVerticalNavOpen}>
+    {isVerticalNavOpen &&
       <ScrollLock
         onClick={onClick}
-        mobileOnly={true}
+        mediumOnly={true}
         overlay={true}
         zIndex={theme.zIndex.overlay}
       />}
@@ -55,4 +56,4 @@ const dispatchConnector = connect(
   })
 );
 
-export default areSidebarsOpenConnector(dispatchConnector(ContentPane));
+export default isVerticalNavOpenConnector(dispatchConnector(ContentPane));

@@ -14,7 +14,7 @@ import * as actions from '../../actions';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
-import { CloseToCAndMobileMenuButton } from './styled';
+import { CloseToCAndMobileMenuButton } from '../SidebarControl';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -68,7 +68,6 @@ describe('TableOfContents', () => {
     renderer.act(() => {
       component.root.findByType(CloseToCAndMobileMenuButton).findByType('button').props.onClick();
     });
-    expect(dispatchSpy).toHaveBeenCalledWith(actions.closeToc());
     expect(dispatchSpy).toHaveBeenCalledWith(actions.closeMobileMenu());
 
     renderer.act(() => {

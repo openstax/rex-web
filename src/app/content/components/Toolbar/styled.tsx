@@ -1,5 +1,4 @@
 import React from 'react';
-import { useIntl } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular';
 import { Print } from 'styled-icons/fa-solid/Print';
@@ -202,19 +201,6 @@ export const ToolbarMobileHeaderTitle = styled.span`
   font-size: 1.8rem;
   color: ${theme.color.primary.gray.base};
   font-weight: bold;
-`;
-
-// tslint:disable-next-line: variable-name
-export const CloseToolbarButton = styled((props) => {
-  const intl = useIntl();
-
-  return <PlainButton {...props} aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:close'})}>
-        <TimesIcon />
-  </PlainButton>;
-})`
-  height: 40px;
-  position: absolute;
-  right: 0;
 `;
 
 // tslint:disable-next-line:variable-name

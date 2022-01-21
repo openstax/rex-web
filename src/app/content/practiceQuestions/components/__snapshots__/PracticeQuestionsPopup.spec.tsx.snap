@@ -7,12 +7,12 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   className="PopupStyles__PopupWrapper-w0z1hl-0 cYcgUJ"
 >
   <div
-    className="ScrollLock__Overlay-sc-1fi845b-0 gshJxt"
+    className="ScrollLock__Overlay-sc-1fi845b-0 bDZyGN"
     data-testid="scroll-lock-overlay"
     onClick={[Function]}
   />
   <div
-    className="PopupStyles__Modal-w0z1hl-3 gPPhtJ"
+    className="PopupStyles__Modal-w0z1hl-3 etDDkl"
     data-testid="practice-questions-popup-wrapper"
     tabIndex="-1"
   >

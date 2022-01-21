@@ -1,9 +1,6 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { navDesktopHeight, navMobileHeight } from '../../../../components/NavBar';
 import theme from '../../../../theme';
-import { closeMobileMenu, closeToc } from '../../../actions';
 import { State } from '../../../types';
 import {
   bookBannerDesktopMiniHeight,
@@ -15,9 +12,8 @@ import {
   topbarDesktopHeight,
   topbarMobileHeight
 } from '../../constants';
-import { CloseToolbarButton } from '../../Toolbar/styled';
 import { disablePrint } from '../../utils/disablePrint';
-import { styleWhenSidebarClosed } from '../../utils/sidebar';
+import { styleWhenTocClosed } from '../../utils/sidebar';
 
 const sidebarPadding = 1.8;
 
@@ -60,7 +56,7 @@ export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
   `)}
 
   ${theme.breakpoints.mobileMedium(css`
-    z-index: ${theme.zIndex.highlightSummaryPopup};
+    z-index: ${theme.zIndex.sidebarMobileMedium};
     position: fixed;
     top: 0;
     left: 0;
@@ -98,7 +94,7 @@ export const SidebarBody = styled.div<{isTocOpen: State['tocOpen']}>`
     opacity: 1;
   }
 
-  ${styleWhenSidebarClosed(sidebarClosedStyle)}
+  ${styleWhenTocClosed(sidebarClosedStyle)}
   ${disablePrint}
 `;
 
@@ -130,26 +126,4 @@ export const ToCHeaderText = styled.span`
   ${theme.breakpoints.mobileMedium(css`
     text-align: center;
   `)}
-`;
-
-// tslint:disable-next-line: variable-name
-export const CloseToCAndMobileMenuButton = styled((props) => {
-  const dispatch = useDispatch();
-  return <CloseToolbarButton
-    onClick={() => {
-      dispatch(closeToc());
-      dispatch(closeMobileMenu());
-    }}
-    {...props} />;
-})`
-  color: ${toolbarIconColor.base};
-  border: none;
-  padding: 0;
-  background: none;
-  overflow: visible;
-  cursor: pointer;
-
-  :hover {
-    color: ${toolbarIconColor.darker};
-  }
 `;
