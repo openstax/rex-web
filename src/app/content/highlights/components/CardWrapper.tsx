@@ -110,6 +110,26 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     };
   }, [container]);
 
+  React.useEffect(() => {
+    const observers: typeof MutationObserver[] = [];
+
+    container.querySelectorAll('[data-type="solution"] details').forEach((detailElement) => {
+      const mutationObserver = new MutationObserver(() => {
+        assertDefined(
+          setNewCardsPositionsRef.current,
+          'setNewCardsPositionsRef should be already defined by useEffect'
+        )();
+      });
+      mutationObserver.observe(detailElement, { attributeFilter: ['open'] });
+      observers.push(mutationObserver);
+    })
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, [container]);
+
+
   return highlights.length
     ? <div className={className} ref={element}>
       {highlights.map((highlight, index) => {
