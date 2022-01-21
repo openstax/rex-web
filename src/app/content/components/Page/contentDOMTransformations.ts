@@ -1,4 +1,4 @@
-import { Document, HTMLDetailsElement, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { assertNotNull } from '../../../utils';
 
@@ -89,7 +89,7 @@ function fixLists(rootEl: HTMLElement) {
 function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   const title = intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
 
-  // Wrap solutions in a div so "Show/Hide Solutions" work
+  // Wrap solutions in a details element so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
     el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:toggle-title'}));
     const contents = el.innerHTML;
