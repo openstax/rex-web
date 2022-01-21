@@ -94,35 +94,38 @@ describe('usePositions', () => {
     });
   });
 
-  it('returns different positions depends on isMobile', () => {
+  it('returns different positions depending on isMobile', () => {
     // Default values
-    expect(utils.getPositions(target, false)).toEqual({
-      arrowLeft: 1082,
-      arrowTopOffset: 244,
-      closeButtonLeft: 1949,
-      closeButtonTopOffset: 319,
-      contentWrapperLeft: 1243,
-      contentWrapperTopOffset: 375,
-      spotlightHeight: 25,
-      spotlightLeftOffset: 951,
-      spotlightTopOffset: 203,
-      spotlightWidth: 282,
-    });
+    expect(utils.getPositions(target, false)).toMatchSnapshot(`
+    Object {
+      "arrowLeft": 1082,
+      "arrowTopOffset": 244,
+      "closeButtonLeft": 1949,
+      "closeButtonTopOffset": 319,
+      "contentWrapperLeft": 1243,
+      "contentWrapperTopOffset": 375,
+      "spotlightHeight": 25,
+      "spotlightLeftOffset": 951,
+      "spotlightTopOffset": 203,
+      "spotlightWidth": 282,
+    }
+  `)
 
     // Add additional padding to the spotlight when isMobile prop is passed
-    expect(utils.getPositions(target, true)).toEqual({
-      arrowLeft: 1082,
-      arrowTopOffset: 244,
-      // it also effects closeButton and contentWrapper
-      closeButtonLeft: 1955,
-      closeButtonTopOffset: 319,
-      contentWrapperLeft: 1249,
-      contentWrapperTopOffset: 375,
-      spotlightHeight: 25,
-      spotlightLeftOffset: 945,
-      spotlightTopOffset: 203,
-      spotlightWidth: 294,
-    });
+    expect(utils.getPositions(target, true)).toMatchInlineSnapshot(`
+    Object {
+      "arrowLeft": 1082,
+      "arrowTopOffset": 244,
+      "closeButtonLeft": 1955,
+      "closeButtonTopOffset": 319,
+      "contentWrapperLeft": 1249,
+      "contentWrapperTopOffset": 375,
+      "spotlightHeight": 25,
+      "spotlightLeftOffset": 945,
+      "spotlightTopOffset": 203,
+      "spotlightWidth": 294,
+    }
+  `);
   });
 });
 
