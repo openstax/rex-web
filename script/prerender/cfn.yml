@@ -24,13 +24,12 @@ Parameters:
     Type: String
     ConstraintDescription: Must be a valid Rex Release ID
 
-  SanitizedReleaseId:
-    Description: Sanitized release ID, e.g. v4-part-of-git-hash, to find the docker image to use
+  PrerenderImageTag:
+    Description: Prerender Docker container image tag, e.g. v4-part-of-git-hash-prerender
     Type: String
-    AllowedPattern: ^[0-9a-z][-_.0-9a-z]{0,31}$
+    AllowedPattern: ^[_0-9A-Za-z][-_.0-9A-Za-z]{0,127}$
     ConstraintDescription: >-
-      Must start with a lowercase letter or digit and contain up to 32
-      lowercase letters, digits, underscores, periods and dashes
+      Up to 128 letters, digits, underscores, periods or dashes; cannot start with a period or dash
 
   ValidUntil:
     Description: Timestamp for when the EC2 Fleet request expires (prerendering timeout)
@@ -87,7 +86,7 @@ Resources:
             - Name: WORK_REGION
               Value: !Ref AWS::Region
           Image: !Sub
-            - ${URI}:${SanitizedReleaseId}
+            - ${URI}:${PrerenderImageTag}
             - URI: !ImportValue RexWebECRRepositoryURI
           LogConfiguration:
             LogDriver: awslogs
