@@ -295,17 +295,21 @@ async function manage() {
 
   const numJobs = numPages + numBooks + 1;
 
-  // Ensure the work queue is empty
-
+  // Waiting 1 minute is required according to SQS docs (in the "Important" box):
+  // https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueAttributes.html
   console.log('Waiting 1 minute for the work queue attributes to stabilize');
-
-  // First wait 1 minute after sending the last message for the queue attributes to stabilize
-  // This is required according to SQS docs
   await new Promise((resolve) => setTimeout(resolve, 60000));
 
+  /*
+     Now check that all the NumberOfMessages attributes are 0
+     In theory we should also have to receive 0's for "several minutes"
+     to determine that the queue is truly empty:
+     https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/confirm-queue-is-empty.html
+     We skip this on the assumption that all SQS servers should see all messages,
+     since we stopped creating messages at least 1 minute ago,
+     and none of these messages should disappear without being properly deleted
+  */
   console.log('Waiting for the work queue to be empty');
-
-  // Now check that all the NumberOfMessages attributes are 0
   const getQueueAttributesCommand = new GetQueueAttributesCommand({
     AttributeNames: [
       'ApproximateNumberOfMessages',
