@@ -95,7 +95,7 @@ async function createWorkersStack() {
 
   const workersStackName = `rex-${SANITIZED_RELEASE_ID}-prerender-workers-${buildId}`;
 
-  console.log(`Creating ${name} stack...`);
+  console.log(`Creating ${workersStackName} stack...`);
 
   await cfnClient.send(new CreateStackCommand({
     Parameters: [
