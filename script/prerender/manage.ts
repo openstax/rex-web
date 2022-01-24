@@ -25,7 +25,6 @@ import { formatInTimeZone } from 'date-fns-tz';
 import chunk from 'lodash/fp/chunk';
 import omit from 'lodash/fp/omit';
 import path from 'path';
-import Loadable from 'react-loadable';
 import asyncPool from 'tiny-async-pool';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { assertDefined } from '../../src/app/utils';
@@ -83,9 +82,12 @@ type PageTask = { payload: SerializedPageMatch, type: 'page' };
 type SitemapTask = { payload: SitemapPayload, type: 'sitemap' };
 type SitemapIndexTask = { payload: SerializedBookMatch[], type: 'sitemapIndex' };
 
-let archiveLoader: ReturnType<typeof createArchiveLoader>;
-let osWebLoader: ReturnType<typeof createOSWebLoader>;
-let bookLoader: ReturnType<typeof makeUnifiedBookLoader>;
+const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+  appPrefix: '',
+  archivePrefix: ARCHIVE_URL,
+});
+const osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
+const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
 let resolveWorkQueuePromise: (workQueueUrl: string) => void;
 const workQueuePromise = new Promise<string>((resolve) => { resolveWorkQueuePromise = resolve; });
@@ -216,18 +218,6 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
 }
 
 async function manage() {
-  console.log('Preloading route components');
-
-  await Loadable.preloadAll();
-
-  archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
-    appPrefix: '',
-    archivePrefix: ARCHIVE_URL,
-  });
-  osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
-
-  bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
-
   // We can start fetching book ToCs while the stack is created,
   // but we need a limit so we don't use up all the memory
   console.log(`Loading books in batches of ${MAX_CONCURRENT_BOOKS}`);
