@@ -11,7 +11,9 @@ import {
   CreateStackCommand,
   DeleteStackCommand,
   DescribeStacksCommand,
+  Output,
   waitUntilStackCreateComplete,
+  waitUntilStackDeleteComplete,
 } from '@aws-sdk/client-cloudformation';
 import {
   GetQueueAttributesCommand,
@@ -23,7 +25,6 @@ import {
 import { randomBytes } from 'crypto';
 import { formatInTimeZone } from 'date-fns-tz';
 import chunk from 'lodash/fp/chunk';
-import omit from 'lodash/fp/omit';
 import path from 'path';
 import asyncPool from 'tiny-async-pool';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
@@ -66,13 +67,6 @@ const WORK_REGION = process.env.WORK_REGION || 'us-east-2';
 // Docker accepts only lowercase alphanumeric characters and dashes
 const SANITIZED_RELEASE_ID = RELEASE_ID.replace(/\//g, '-').toLowerCase();
 
-// Generate a 16 alphanumeric char random build ID, used to keep the stack and resource names unique
-// The argument to randomBytes() just has to be large enough
-// so that we still have 16 characters left after removing all +, / and =
-const BUILD_ID = randomBytes(24).toString('base64').replace(/[^a-zA-Z0-9]/g, '').substring(0, 16);
-
-const WORKERS_STACK_NAME = `rex-${SANITIZED_RELEASE_ID}-prerender-workers-${BUILD_ID}`;
-
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
 
@@ -89,23 +83,24 @@ const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
 const osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
 const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
-let resolveWorkQueuePromise: (workQueueUrl: string) => void;
-const workQueuePromise = new Promise<string>((resolve) => { resolveWorkQueuePromise = resolve; });
+const timeoutDate = new Date(1000 * PRERENDER_TIMEOUT_SECONDS + new Date().getTime());
 
-let timeoutDate: Date;
+console.log(`Prerender timeout set to ${timeoutDate}`);
+
 let numBooks = 0;
 let numPages = 0;
 
-// These functions begin the stack creation/deletion but do not wait for them to finish,
-// since we have other tasks to do while they are running
 async function createWorkersStack() {
-  // Set the timeoutDate, used also by manage()
-  timeoutDate = new Date(1000 * PRERENDER_TIMEOUT_SECONDS + new Date().getTime());
+  // Generate a 16 alphanum char random build ID, used to keep the stack and resource names unique
+  // The argument to randomBytes() just has to be large enough
+  // so that we still have 16 characters left after removing all +, / and =
+  const buildId = randomBytes(24).toString('base64').replace(/[^a-zA-Z0-9]/g, '').substring(0, 16);
 
-  console.log(`Prerender timeout set to ${timeoutDate}`);
-  console.log('Started workers stack creation');
+  const workersStackName = `rex-${SANITIZED_RELEASE_ID}-prerender-workers-${buildId}`;
 
-  return cfnClient.send(new CreateStackCommand({
+  console.log(`Creating ${name} stack...`);
+
+  await cfnClient.send(new CreateStackCommand({
     Parameters: [
       {
         ParameterKey: 'BucketName',
@@ -129,14 +124,14 @@ async function createWorkersStack() {
       },
       {
         ParameterKey: 'BuildId',
-        ParameterValue: BUILD_ID,
+        ParameterValue: buildId,
       },
       {
         ParameterKey: 'ValidUntil',
         ParameterValue: formatInTimeZone(timeoutDate, 'UTC', 'yyyy-MM-dd\'T\'HH:mm:ssX'),
       },
     ],
-    StackName: WORKERS_STACK_NAME,
+    StackName: workersStackName,
     Tags: [
       {Key: 'Project', Value: 'Unified'},
       {Key: 'Application', Value: 'Rex'},
@@ -145,142 +140,133 @@ async function createWorkersStack() {
     ],
     TemplateBody: readFile(path.join(__dirname, 'cfn.yml')),
   }));
+
+  // We return this immediately without waiting for the stack to be created
+  // so we can cleanup properly if there's a failure during waiting
+  return workersStackName;
 }
 
-async function deleteWorkersStack() {
+async function deleteWorkersStack(workersStackName: string) {
   console.log('Started workers stack deletion');
 
-  return cfnClient.send(new DeleteStackCommand({StackName: WORKERS_STACK_NAME}));
-}
+  await cfnClient.send(new DeleteStackCommand({StackName: workersStackName}));
 
-async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {defaultVersion: string}]) {
-  // Don't have the book title yet at this point
-  console.log(`Loading book ${bookId}@${defaultVersion}`);
-
-  const book = await bookLoader(bookId, defaultVersion);
-
-  console.log(`[${book.title}] Book loaded; preparing pages`);
-
-  const pages = prepareBookPages(book).map((page) => omit('route', page));
-  const numBookPages = pages.length;
-  numPages += numBookPages;
-
-  // Wait until the work queue is ready
-  const workQueueUrl = await workQueuePromise;
-
-  console.log(`[${book.title}] Queuing ${numBookPages} book pages in batches of 10`);
-
-  for (const pageBatch of chunk(10, pages)) {
-    // If the entire request fails, this command will throw and be caught at the end of this file
-    // However, we also need to check if only some of the messages failed
-    const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
-      Entries: pageBatch.map((page, batchIndex) => ({
-        Id: batchIndex.toString(),
-        MessageBody: JSON.stringify({ payload: page, type: 'page' } as PageTask),
-      })),
-      QueueUrl: workQueueUrl,
-    }));
-
-    const failedMessages = sendMessageBatchResult.Failed || [];
-    const numFailures = failedMessages.length;
-    if (numFailures > 0) {
-      throw new Error(`[SQS] [SendMessageBatch] Error: ${numFailures} out of ${pageBatch.length
-        } pages in a batch failed to be queued. Failures: ${JSON.stringify(failedMessages)}`);
-    }
-
-    const successfulMessages = sendMessageBatchResult.Successful || [];
-    const numSuccesses = successfulMessages.length;
-    if (numSuccesses < pageBatch.length) {
-      throw new Error(`[SQS] [SendMessageBatch] Unexpected response: received only ${numSuccesses
-        } successes out of ${pageBatch.length} pages in a batch but also no failures. Successes: ${
-        JSON.stringify(successfulMessages)}`);
-    }
-  }
-
-  console.log(`[${book.title}] All ${numBookPages} book pages queued`);
-
-  await sqsClient.send(new SendMessageCommand({
-    MessageBody: JSON.stringify(
-      { payload: { pages, slug: book.slug }, type: 'sitemap' } as SitemapTask
-    ),
-    QueueUrl: workQueueUrl,
-  }));
-
-  console.log(`[${book.title}] Sitemap queued`);
-
-  // Used in the sitemap index
-  return {
-    params: { book: { slug: book.slug } },
-    state: { bookUid: book.id, bookVersion: book.version },
-  };
-}
-
-async function manage() {
-  // We can start fetching book ToCs while the stack is created,
-  // but we need a limit so we don't use up all the memory
-  console.log(`Loading books in batches of ${MAX_CONCURRENT_BOOKS}`);
-
-  const allPagesQueuedPromise = asyncPool(
-    MAX_CONCURRENT_BOOKS, Object.entries(BOOKS), prepareAndQueueBook
+  return waitUntilStackDeleteComplete(
+    {client: cfnClient, maxWaitTime: WORKERS_DEPLOY_TIMEOUT_SECONDS, minDelay: 10, maxDelay: 10},
+    {StackName: workersStackName}
   );
+}
 
-  // Wait for the workers stack to be ready
+function findOutputValue(outputs: Output[], key: string) {
+  return assertDefined(
+    assertDefined(
+      outputs.find((output: Output) => assertDefined(
+        output.OutputKey, '[CFN] [DescribeStacks] Unexpected response: missing output OutputKey'
+      ) === key), `Stack Output with OutputKey ${key} not found`
+    ).OutputValue, `[CFN] [DescribeStacks] Unexpected response: missing ${key} output OutputValue`
+  );
+}
+
+// Returns an object containing the workQueueUrl and deadLetterQueueUrl
+async function getQueueUrls(workersStackName: string) {
+  // This wait is here and not in createWorkersStack()
+  // so we can cleanup properly if there's a failure during stack creation
   await waitUntilStackCreateComplete(
     {client: cfnClient, maxWaitTime: WORKERS_DEPLOY_TIMEOUT_SECONDS, minDelay: 10, maxDelay: 10},
-    {StackName: WORKERS_STACK_NAME}
+    {StackName: workersStackName}
   );
 
   console.log('Retrieving queue URLs');
 
-  // Get the queue URLs
   const describeStacksResult = await cfnClient.send(
-    new DescribeStacksCommand({StackName: WORKERS_STACK_NAME})
+    new DescribeStacksCommand({StackName: workersStackName})
   );
 
   const stacks = assertDefined(
     describeStacksResult.Stacks, '[CFN] [DescribeStacks] Unexpected response: missing Stacks key'
   );
-  const stack = assertDefined(stacks[0], `${WORKERS_STACK_NAME} stack not found`);
+  const stack = assertDefined(stacks[0], `${workersStackName} stack not found`);
   const outputs = assertDefined(
     stack.Outputs, '[CFN] [DescribeStacks] Unexpected response: missing stack Outputs key'
   );
 
-  let workQueueUrl: string | undefined;
-  let deadLetterQueueUrl: string | undefined;
+  return {
+    deadLetterQueueUrl: findOutputValue(outputs, 'DeadLetterQueueUrl'),
+    workQueueUrl: findOutputValue(outputs, 'WorkQueueUrl'),
+  };
+}
 
-  for (const output of outputs) {
-    const outputKey = assertDefined(
-      output.OutputKey,
-      '[CFN] [DescribeStacks] Unexpected response: missing output OutputKey key'
-    );
-    const outputValue = assertDefined(
-      output.OutputValue,
-      '[CFN] [DescribeStacks] Unexpected response: missing output OutputValue key'
-    );
+function makePrepareAndQueueBook(workQueueUrl: string) {
+  return async([bookId, {defaultVersion}]: [string, {defaultVersion: string}]) => {
+    // Don't have the book title yet at this point
+    console.log(`Loading book ${bookId}@${defaultVersion}`);
 
-    switch (outputKey) {
-      case 'WorkQueueUrl':
-        workQueueUrl = outputValue;
-        resolveWorkQueuePromise(workQueueUrl);
-        break;
-      case 'DeadLetterQueueUrl':
-        deadLetterQueueUrl = outputValue;
-        break;
+    const book = await bookLoader(bookId, defaultVersion);
+
+    console.log(`[${book.title}] Book loaded; preparing pages`);
+
+    const pages = prepareBookPages(book);
+    const numBookPages = pages.length;
+    numPages += numBookPages;
+
+    console.log(`[${book.title}] Queuing ${numBookPages} book pages in batches of 10`);
+
+    for (const pageBatch of chunk(10, pages)) {
+      // If the entire request fails, this command will throw and be caught at the end of this file
+      // However, we also need to check if only some of the messages failed
+      const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
+        Entries: pageBatch.map((page, batchIndex) => ({
+          Id: batchIndex.toString(),
+          MessageBody: JSON.stringify({ payload: page, type: 'page' } as PageTask),
+        })),
+        QueueUrl: workQueueUrl,
+      }));
+
+      const failedMessages = sendMessageBatchResult.Failed || [];
+      const numFailures = failedMessages.length;
+      if (numFailures > 0) {
+        throw new Error(`[SQS] [SendMessageBatch] Error: ${numFailures} out of ${pageBatch.length
+          } pages in a batch failed to be queued. Failures: ${JSON.stringify(failedMessages)}`);
+      }
+
+      const successfulMessages = sendMessageBatchResult.Successful || [];
+      const numSuccesses = successfulMessages.length;
+      if (numSuccesses < pageBatch.length) {
+        throw new Error(`[SQS] [SendMessageBatch] Unexpected response: received only ${numSuccesses
+          } successes out of ${pageBatch.length} pages in a batch but no failures. Successes: ${
+          JSON.stringify(successfulMessages)}`);
+      }
     }
-  }
 
-  if (!workQueueUrl) {
-    throw new Error(`${WORKERS_STACK_NAME} stack did not have a WorkQueueUrl output`);
-  }
+    console.log(`[${book.title}] All ${numBookPages} book pages queued`);
 
-  if (!deadLetterQueueUrl) {
-    throw new Error(`${WORKERS_STACK_NAME} stack did not have a DeadLetterQueueUrl output`);
-  }
+    await sqsClient.send(new SendMessageCommand({
+      MessageBody: JSON.stringify(
+        { payload: { pages, slug: book.slug }, type: 'sitemap' } as SitemapTask
+      ),
+      QueueUrl: workQueueUrl,
+    }));
 
-  console.log('Waiting for all jobs to be queued');
+    console.log(`[${book.title}] Sitemap queued`);
 
-  // Wait for all book pages to be queued
-  const books = await allPagesQueuedPromise;
+    // Used in the sitemap index
+    return {
+      params: { book: { slug: book.slug } },
+      state: { bookUid: book.id, bookVersion: book.version },
+    };
+  };
+}
+
+async function queueAndRenderRelease(
+  prepareAndQueueBook: (
+    [bookId, {defaultVersion}]: [string, {defaultVersion: string}]
+  ) => Promise<SerializedBookMatch>,
+  workQueueUrl: string,
+  deadLetterQueueUrl: string
+) {
+  console.log(`Loading and queuing books in batches of ${MAX_CONCURRENT_BOOKS}`);
+
+  const books = await asyncPool(MAX_CONCURRENT_BOOKS, Object.entries(BOOKS), prepareAndQueueBook);
 
   numBooks = books.length;
 
@@ -362,12 +348,11 @@ async function manage() {
   console.log(`The dead letter queue is empty; all ${numJobs} jobs finished successfully`);
 
   // All pages, sitemaps and sitemap index have been rendered at this point
+
+  finishRendering();
 }
 
-async function cleanup() {
-  // Proceed with other tasks while the stack deletes
-  await deleteWorkersStack();
-
+async function finishRendering() {
   await renderManifest();
   await createRedirects(archiveLoader, osWebLoader);
 
@@ -377,22 +362,21 @@ async function cleanup() {
     `Prerender complete in ${elapsedMinutes} minutes. Rendered ${numPages} pages, ${
     numBooks} sitemaps and the sitemap index. ${numPages / elapsedMinutes}ppm`
   );
-
-  /* TODO?: Wait for the stack to delete and fail the build if it fails to delete
-            We can do it to get notified and prevent having a bunch of failed delete stacks,
-            but for the purposes of the build itself we are already done */
 }
 
-// Start creating the worker stack first since it takes a while
-// Do not wait for the stack creation to complete since we have other tasks to do first
-createWorkersStack().then(() => manage().catch(async(e) => {
-  // catch for manage() only
-  // Do not wait for the stack deletion to complete since we can't handle a delete failure anyway
-  await deleteWorkersStack();
+async function manage() {
+  const workersStackName = await createWorkersStack();
 
-  throw e;
-})).then(() => cleanup()).catch((e) => {
-  // catch for all functions
+  try {
+    const { workQueueUrl, deadLetterQueueUrl } = await getQueueUrls(workersStackName);
+    const prepareAndQueueBook = makePrepareAndQueueBook(workQueueUrl);
+    await queueAndRenderRelease(prepareAndQueueBook, workQueueUrl, deadLetterQueueUrl);
+  } finally {
+    await deleteWorkersStack(workersStackName);
+  }
+}
+
+manage().catch((e) => {
   console.error(e.message, e.stack);
   process.exit(1);
 });
