@@ -35,6 +35,7 @@ import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { readFile } from '../../src/helpers/fileUtils';
 import { globalMinuteCounter, prepareBookPages } from './contentPages';
+import { SerializedBookMatch, SerializedPageMatch } from './contentRoutes';
 import createRedirects from './createRedirects';
 import renderManifest from './renderManifest';
 
@@ -75,6 +76,12 @@ const WORKERS_STACK_NAME = `rex-${SANITIZED_RELEASE_ID}-prerender-workers-${BUIL
 
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
+
+export type SitemapPayload = { pages: SerializedPageMatch[], slug: string };
+
+type PageTask = { payload: SerializedPageMatch, type: 'page' };
+type SitemapTask = { payload: SitemapPayload, type: 'sitemap' };
+type SitemapIndexTask = { payload: SerializedBookMatch[], type: 'sitemapIndex' };
 
 let archiveLoader: ReturnType<typeof createArchiveLoader>;
 let osWebLoader: ReturnType<typeof createOSWebLoader>;
@@ -167,7 +174,7 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
     const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
       Entries: pageBatch.map((page, batchIndex) => ({
         Id: batchIndex.toString(),
-        MessageBody: JSON.stringify({ payload: page, type: 'page' }),
+        MessageBody: JSON.stringify({ payload: page, type: 'page' } as PageTask),
       })),
       QueueUrl: workQueueUrl,
     }));
@@ -193,7 +200,9 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
   // console.log(`[${book.title}] Queuing sitemap`);
 
   await sqsClient.send(new SendMessageCommand({
-    MessageBody: JSON.stringify({ payload: { pages, slug: book.slug }, type: 'sitemap' }),
+    MessageBody: JSON.stringify(
+      { payload: { pages, slug: book.slug }, type: 'sitemap' } as SitemapTask
+    ),
     QueueUrl: workQueueUrl,
   }));
 
@@ -292,7 +301,7 @@ async function manage() {
   // console.log('Queuing sitemap index job');
 
   await sqsClient.send(new SendMessageCommand({
-    MessageBody: JSON.stringify({ payload: books, type: 'sitemapIndex' }),
+    MessageBody: JSON.stringify({ payload: books, type: 'sitemapIndex' } as SitemapIndexTask),
     QueueUrl: workQueueUrl,
   }));
 
