@@ -21,6 +21,7 @@ import {
   SQSClient,
 } from '@aws-sdk/client-sqs';
 import { randomBytes } from 'crypto';
+import { formatInTimeZone } from 'date-fns-tz';
 import omit from 'lodash/fp/omit';
 import path from 'path';
 import Loadable from 'react-loadable';
@@ -122,7 +123,7 @@ async function createWorkersStack() {
       },
       {
         ParameterKey: 'ValidUntil',
-        ParameterValue: `${timeoutDate.toISOString().slice(0, -5)}Z`,
+        ParameterValue: formatInTimeZone(timeoutDate, 'UTC', 'yyyy-MM-dd\'T\'HH:mm:ssX'),
       },
     ],
     StackName: WORKERS_STACK_NAME,

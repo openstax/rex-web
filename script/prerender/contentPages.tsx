@@ -1,6 +1,6 @@
 import './setup';
 
-import dateFns from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -12,7 +12,7 @@ import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
 import * as contentSelectors from '../../src/app/content/selectors';
-import { BookWithOSWebData } from '../../src/app/content/types';
+import { ArchiveContent, BookWithOSWebData } from '../../src/app/content/types';
 import { makeUnifiedBookLoader, stripIdVersion } from '../../src/app/content/utils';
 import { findTreePages } from '../../src/app/content/utils/archiveTreeUtils';
 import * as errorSelectors from '../../src/app/errors/selectors';
@@ -153,6 +153,14 @@ function savePageAsset(url: string, html: string) {
   }
 }
 
+export function getSitemapItemOptions(content: ArchiveContent, url: string) {
+  return {
+    changefreq: EnumChangefreq.MONTHLY,
+    lastmod: format(parseISO(content.revised), 'yyyy-MM-dd'),
+    url: encodeURI(url),
+  };
+}
+
 type MakeRenderPage = (services: AppOptions['services']) =>
   (serializedRoute: SerializedPageMatch) => Promise<SitemapItemOptions>;
 
@@ -167,11 +175,7 @@ const makeRenderPage: MakeRenderPage = (services) => async(route) => {
 
   numPages++;
 
-  return {
-    changefreq: EnumChangefreq.MONTHLY,
-    lastmod: dateFns.format(archivePage.revised, 'YYYY-MM-DD'),
-    url: encodeURI(url),
-  };
+  return getSitemapItemOptions(archivePage, url);
 };
 
 export const prepareBooks = async(

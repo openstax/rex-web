@@ -8,13 +8,10 @@
 */
 
 import { Message } from '@aws-sdk/client-sqs';
-import dateFns from 'date-fns';
 import Loadable from 'react-loadable';
-import { EnumChangefreq } from 'sitemap';
 import asyncPool from 'tiny-async-pool';
 import { parentPort } from 'worker_threads';
 import { AppOptions } from '../../src/app';
-import { ArchiveContent } from '../../src/app/content/types';
 import { matchPathname } from '../../src/app/navigation/utils';
 import { assertDefined, assertObject, assertString } from '../../src/app/utils';
 import config from '../../src/config';
@@ -26,7 +23,7 @@ import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
 import createUserLoader from '../../src/gateways/createUserLoader';
-import { renderAndSavePage } from './contentPages';
+import { getSitemapItemOptions, renderAndSavePage } from './contentPages';
 import {
   deserializePageMatch,
   getArchiveBook,
@@ -56,14 +53,6 @@ const {
   REACT_APP_SEARCH_URL,
   SEARCH_URL,
 } = config;
-
-function getSitemapItemOptions(content: ArchiveContent, url: string) {
-  return {
-    changefreq: EnumChangefreq.MONTHLY,
-    lastmod: dateFns.format(content.revised, 'YYYY-MM-DD'),
-    url, // Page URL
-  };
-}
 
 // Types won't save us from bad JSON so check that the payload has the correct structure
 
