@@ -87,9 +87,6 @@ const timeoutDate = new Date(1000 * PRERENDER_TIMEOUT_SECONDS + new Date().getTi
 
 console.log(`Prerender timeout set to ${timeoutDate}`);
 
-let numBooks = 0;
-let numPages = 0;
-
 async function createWorkersStack() {
   // Generate a 16 alphanum char random build ID, used to keep the stack and resource names unique
   // The argument to randomBytes() just has to be large enough
@@ -203,7 +200,14 @@ async function getQueueUrls(workersStackName: string) {
   };
 }
 
-function makePrepareAndQueueBook(workQueueUrl: string) {
+class Stats {
+  public pages = 0;
+  public sitemaps = 0;
+  public sitemapIndexes = 0;
+  get total() { return this.pages + this.sitemaps + this.sitemapIndexes; }
+}
+
+function makePrepareAndQueueBook(workQueueUrl: string, stats: Stats) {
   return async([bookId, {defaultVersion}]: [string, {defaultVersion: string}]) => {
     // Don't have the book title yet at this point
     console.log(`Loading book ${bookId}@${defaultVersion}`);
@@ -214,7 +218,7 @@ function makePrepareAndQueueBook(workQueueUrl: string) {
 
     const pages = prepareBookPages(book);
     const numBookPages = pages.length;
-    numPages += numBookPages;
+    stats.pages += numBookPages;
 
     console.log(`[${book.title}] Queuing ${numBookPages} book pages in batches of 10`);
 
@@ -264,30 +268,38 @@ function makePrepareAndQueueBook(workQueueUrl: string) {
   };
 }
 
-async function queueAndRenderRelease(
-  prepareAndQueueBook: (
-    [bookId, {defaultVersion}]: [string, {defaultVersion: string}]
-  ) => Promise<SerializedBookMatch>,
-  workQueueUrl: string,
-  deadLetterQueueUrl: string
-) {
+async function queueWork(workQueueUrl: string) {
+  const stats = new Stats();
+
+  const prepareAndQueueBook = makePrepareAndQueueBook(workQueueUrl, stats);
+
   console.log(`Loading and queuing books in batches of ${MAX_CONCURRENT_BOOKS}`);
 
   const books = await asyncPool(MAX_CONCURRENT_BOOKS, Object.entries(BOOKS), prepareAndQueueBook);
 
-  numBooks = books.length;
+  stats.sitemaps = books.length;
 
-  console.log(`All ${numPages} page prerendering jobs and all ${numBooks} sitemap jobs queued`);
+  console.log(
+    `All ${stats.pages} page prerendering jobs and all ${stats.sitemaps} sitemap jobs queued`
+  );
 
   await sqsClient.send(new SendMessageCommand({
     MessageBody: JSON.stringify({ payload: books, type: 'sitemapIndex' } as SitemapIndexTask),
     QueueUrl: workQueueUrl,
   }));
 
+  stats.sitemapIndexes = 1;
+
   console.log('1 sitemap index job queued');
 
-  const numJobs = numPages + numBooks + 1;
+  return stats;
+}
 
+async function waitUntilWorkDone(
+  workQueueUrl: string,
+  deadLetterQueueUrl: string,
+  stats: Stats
+) {
   // Waiting 1 minute is required according to SQS docs (in the "Important" box):
   // https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_GetQueueAttributes.html
   console.log('Waiting 1 minute for the work queue attributes to stabilize');
@@ -295,7 +307,7 @@ async function queueAndRenderRelease(
 
   /*
      Now check that all the NumberOfMessages attributes are 0
-     In theory we should also have to receive 0's for "several minutes"
+     In theory we should also wait until we receive 0's for "several minutes"
      to determine that the queue is truly empty:
      https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/confirm-queue-is-empty.html
      We skip this on the assumption that all SQS servers should see all messages,
@@ -324,7 +336,7 @@ async function queueAndRenderRelease(
 
     if (numMessages === 0) { break; }
 
-    console.log(`${numMessages}/${numJobs} prerendering jobs remaining`);
+    console.log(`${numMessages}/${stats.total} prerendering jobs remaining`);
 
     if (new Date() > timeoutDate) {
       throw new Error(`Not all prerendering jobs finished within ${
@@ -334,7 +346,7 @@ async function queueAndRenderRelease(
     await new Promise((resolve) => setTimeout(resolve, 10000));
   }
 
-  console.log(`All ${numJobs} prerendering jobs finished`);
+  console.log(`All ${stats.total} prerendering jobs finished`);
 
   console.log('Ensuring that the dead letter queue is empty');
 
@@ -352,22 +364,20 @@ async function queueAndRenderRelease(
     throw new Error(`Some pages failed to render: ${JSON.stringify(dlqMessages)}`);
   }
 
-  console.log(`The dead letter queue is empty; all ${numJobs} jobs finished successfully`);
-
   // All pages, sitemaps and sitemap index have been rendered at this point
-
-  finishRendering();
+  console.log(`The dead letter queue is empty; all ${stats.total} jobs finished successfully`);
 }
 
-async function finishRendering() {
+async function finishRendering(stats: Stats) {
   await renderManifest();
   await createRedirects(archiveLoader, osWebLoader);
 
   const elapsedMinutes = globalMinuteCounter();
 
   console.log(
-    `Prerender complete in ${elapsedMinutes} minutes. Rendered ${numPages} pages, ${
-    numBooks} sitemaps and the sitemap index. ${numPages / elapsedMinutes}ppm`
+    `Prerender complete in ${elapsedMinutes} minutes. Rendered ${stats.pages} pages, ${
+    stats.sitemaps} sitemaps and ${stats.sitemapIndexes} sitemap index. ${
+    stats.total / elapsedMinutes}ppm`
   );
 }
 
@@ -376,8 +386,9 @@ async function manage() {
 
   try {
     const { workQueueUrl, deadLetterQueueUrl } = await getQueueUrls(workersStackName);
-    const prepareAndQueueBook = makePrepareAndQueueBook(workQueueUrl);
-    await queueAndRenderRelease(prepareAndQueueBook, workQueueUrl, deadLetterQueueUrl);
+    const stats = await queueWork(workQueueUrl);
+    await waitUntilWorkDone(workQueueUrl, deadLetterQueueUrl, stats);
+    await finishRendering(stats);
   } finally {
     await deleteWorkersStack(workersStackName);
   }
