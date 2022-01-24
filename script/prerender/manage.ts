@@ -22,6 +22,7 @@ import {
 } from '@aws-sdk/client-sqs';
 import { randomBytes } from 'crypto';
 import { formatInTimeZone } from 'date-fns-tz';
+import chunk from 'lodash/fp/chunk';
 import omit from 'lodash/fp/omit';
 import path from 'path';
 import Loadable from 'react-loadable';
@@ -160,9 +161,7 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
 
   console.log(`[${book.title}] Queuing ${numBookPages} book pages in batches of 10`);
 
-  for (let pageIndex = 0; pageIndex < pages.length; pageIndex += 10) {
-    const pageBatch = pages.slice(pageIndex, pageIndex + 10);
-
+  for (const pageBatch of chunk(10, pages)) {
     // If the entire request fails, this command will throw and be caught at the end of this file
     // However, we also need to check if only some of the messages failed
     const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
