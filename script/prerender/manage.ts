@@ -47,7 +47,7 @@ const {
   RELEASE_ID,
 } = config;
 
-if (!RELEASE_ID) { throw new Error('REACT_APP_RELEASE_ID environment variable must be set'); }
+assertDefined(RELEASE_ID, 'REACT_APP_RELEASE_ID environment variable must be set');
 
 // Increasing this too much can lead to connection issues and greater memory usage in the manager
 const MAX_CONCURRENT_BOOKS = 5;
@@ -158,12 +158,19 @@ async function deleteWorkersStack(workersStackName: string) {
 }
 
 function findOutputValue(outputs: Output[], key: string) {
+  const foundOutput = outputs.find((output: Output) => {
+    const outputKey = assertDefined(
+      output.OutputKey, '[CFN] [DescribeStacks] Unexpected response: missing output OutputKey'
+    );
+
+    return outputKey === key;
+  });
+
+  const existingOutput = assertDefined(foundOutput, `Stack Output with OutputKey ${key} not found`);
+
   return assertDefined(
-    assertDefined(
-      outputs.find((output: Output) => assertDefined(
-        output.OutputKey, '[CFN] [DescribeStacks] Unexpected response: missing output OutputKey'
-      ) === key), `Stack Output with OutputKey ${key} not found`
-    ).OutputValue, `[CFN] [DescribeStacks] Unexpected response: missing ${key} output OutputValue`
+    existingOutput.OutputValue,
+    `[CFN] [DescribeStacks] Unexpected response: missing ${key} output OutputValue`
   );
 }
 
