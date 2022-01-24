@@ -32,12 +32,6 @@ Parameters:
       Must start with a lowercase letter or digit and contain up to 32
       lowercase letters, digits, underscores, periods and dashes
 
-  BuildId:
-    Description: A randomized string used to make sure the stack and resource names are unique
-    Type: String
-    AllowedPattern: ^[0-9A-Za-z]{1,32}$
-    ConstraintDescription: 1 to 64 alphanumeric characters and dashes
-
   ValidUntil:
     Description: Timestamp for when the EC2 Fleet request expires (prerendering timeout)
     Type: String
@@ -55,7 +49,7 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub rex-${SanitizedReleaseId}-prerender-dlq-${BuildId}
+      QueueName: !Sub ${AWS::StackName}-dlq
       ReceiveMessageWaitTimeSeconds: 20
       VisibilityTimeout: 0
 
@@ -64,7 +58,7 @@ Resources:
     DependsOn: Cluster # workaround for Cluster deletion to work properly
     Properties:
       KmsMasterKeyId: alias/aws/sqs
-      QueueName: !Sub rex-${SanitizedReleaseId}-prerender-work-queue-${BuildId}
+      QueueName: !Sub ${AWS::StackName}-work-queue
       ReceiveMessageWaitTimeSeconds: 20
       RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
       RedrivePolicy:
@@ -198,7 +192,7 @@ Resources:
               Value: production
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
-        TotalTargetCapacity: 10
+        TotalTargetCapacity: 5
       TerminateInstancesWithExpiration: true
       ValidUntil: !Ref ValidUntil
 
