@@ -42,7 +42,7 @@ const ContentPane = ({ isVerticalNavOpen, onClick, children }: React.PropsWithCh
     {isVerticalNavOpen &&
       <ScrollLock
         onClick={onClick}
-        mediumOnly={true}
+        mobileOnly={true}
         overlay={true}
         zIndex={theme.zIndex.overlay}
       />}
