@@ -199,8 +199,6 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
 
   console.log(`[${book.title}] All ${numBookPages} book pages queued`);
 
-  // console.log(`[${book.title}] Queuing sitemap`);
-
   await sqsClient.send(new SendMessageCommand({
     MessageBody: JSON.stringify(
       { payload: { pages, slug: book.slug }, type: 'sitemap' } as SitemapTask
@@ -287,8 +285,6 @@ async function manage() {
   numBooks = books.length;
 
   console.log(`All ${numPages} page prerendering jobs and all ${numBooks} sitemap jobs queued`);
-
-  // console.log('Queuing sitemap index job');
 
   await sqsClient.send(new SendMessageCommand({
     MessageBody: JSON.stringify({ payload: books, type: 'sitemapIndex' } as SitemapIndexTask),
