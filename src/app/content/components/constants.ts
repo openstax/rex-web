@@ -18,12 +18,14 @@ export const searchResultsBarMobileWidth = 33.8;
 export const toolbarIconColor = theme.color.primary.gray;
 
 export const mobileSearchContainerMargin = 1;
+export const toolbarWidth = 8;
 export const toolbarSearchInputHeight = 3.2;
 export const toolbarSearchInputMobileHeight = 3.2;
 export const toolbarSearchInputMobileWidth = 18.5;
 export const toolbarToggleSearchBarTextMobileWidth = 11.2;
 export const toolbarButtonMargin = 2;
 export const toolbarHrHeight = 0.1;
+export const sidebarDesktopWithToolbarWidth = searchResultsBarDesktopWidth + toolbarWidth;
 export const toolbarMobileSearchWrapperHeight = toolbarSearchInputMobileHeight
   + (mobileSearchContainerMargin * 2)
   + toolbarHrHeight;

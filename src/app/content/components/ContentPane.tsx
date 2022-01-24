@@ -8,8 +8,7 @@ import { closeToc } from '../actions';
 import { State } from '../types';
 import {
   mainContentBackground,
-  sidebarDesktopWidth,
-  sidebarTransitionTime,
+  sidebarDesktopWithToolbarWidth,
 } from './constants';
 import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
@@ -19,9 +18,8 @@ const Wrapper = styled.div`
     flex: 1;
     width: 100%;
     overflow: visible;
-    transition: padding-left ${sidebarTransitionTime}ms;
     background-color: ${mainContentBackground};
-    padding-left: ${sidebarDesktopWidth}rem;
+    padding-left: ${sidebarDesktopWithToolbarWidth}rem;
 
     ${styleWhenSidebarClosed(css`
       padding-left: 0;
