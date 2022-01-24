@@ -96,6 +96,12 @@ const Card = (props: CardProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [annotation, props.isActive]);
 
+  React.useEffect(() => {
+    if (!props.isHidden && element.current) {
+      requestAnimationFrame(() => props.onHeightChange(element));
+    }
+  }, [props.isHidden]);
+
   const location = React.useMemo(() => {
     return props.page && getHighlightLocationFilterForPage(locationFilters, props.page);
   }, [locationFilters, props.page]);

@@ -67,5 +67,4 @@ declare global {
   var DOMParser: dom.DOMParserConstructor;
   var KeyboardEvent: dom.KeyboardEventConstructor
   var ResizeObserver: dom.ResizeObserverConstructor
-  var MutationObserver: dom.MutationObserverConstructor
 }
