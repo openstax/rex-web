@@ -14,18 +14,23 @@ Parameters:
     Type: String
     ConstraintDescription: Must be a valid AWS region name
 
+  CodeVersion:
+    Description: Code version to use, for example the Rex git commit hash
+    Type: String
+    ConstraintDescription: Must be a valid Rex code version
+
   PublicUrl:
-    Description: Public URL to use, e.g. "/rex/releases/${ReleaseId}"
+    Description: Public URL to use, for example "/rex/releases/${ReleaseId}"
     Type: String
     ConstraintDescription: Must be a path starting with /
 
   ReleaseId:
-    Description: Release ID to use, e.g. v4/part-of-git-hash
+    Description: Release ID to use, for example "v4/${someHash}"
     Type: String
     ConstraintDescription: Must be a valid Rex Release ID
 
   PrerenderImageTag:
-    Description: Prerender Docker container image tag, e.g. v4-part-of-git-hash-prerender
+    Description: Prerender Docker container image tag, for example "v4-${someHash}-prerender"
     Type: String
     AllowedPattern: ^[_0-9A-Za-z][-_.0-9A-Za-z]{0,127}$
     ConstraintDescription: >-
@@ -79,6 +84,8 @@ Resources:
               Value: !Ref BucketRegion
             - Name: PUBLIC_URL
               Value: !Ref PublicUrl
+            - Name: REACT_APP_CODE_VERSION
+              Value: !Ref CodeVersion
             - Name: REACT_APP_RELEASE_ID
               Value: !Ref ReleaseId
             - Name: WORK_QUEUE_URL

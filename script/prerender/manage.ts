@@ -41,6 +41,7 @@ import renderManifest from './renderManifest';
 
 const {
   ARCHIVE_URL,
+  CODE_VERSION,
   OS_WEB_URL,
   REACT_APP_ARCHIVE_URL,
   REACT_APP_OS_WEB_API_URL,
@@ -105,6 +106,10 @@ async function createWorkersStack() {
       {
         ParameterKey: 'BucketRegion',
         ParameterValue: BUCKET_REGION,
+      },
+      {
+        ParameterKey: 'CodeVersion',
+        ParameterValue: CODE_VERSION,
       },
       {
         ParameterKey: 'PrerenderImageTag',
