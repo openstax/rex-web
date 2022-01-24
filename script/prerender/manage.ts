@@ -167,7 +167,7 @@ async function prepareAndQueueBook([bookId, {defaultVersion}]: [string, {default
     const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
       Entries: pageBatch.map((page, batchIndex) => ({
         Id: batchIndex.toString(),
-        MessageBody: JSON.stringify({ payload: { page }, type: 'page' }),
+        MessageBody: JSON.stringify({ payload: page, type: 'page' }),
       })),
       QueueUrl: workQueueUrl,
     }));
@@ -292,7 +292,7 @@ async function manage() {
   // console.log('Queuing sitemap index job');
 
   await sqsClient.send(new SendMessageCommand({
-    MessageBody: JSON.stringify({ payload: { books }, type: 'sitemapIndex' }),
+    MessageBody: JSON.stringify({ payload: books, type: 'sitemapIndex' }),
     QueueUrl: workQueueUrl,
   }));
 

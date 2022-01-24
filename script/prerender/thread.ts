@@ -36,9 +36,9 @@ import { renderAndSaveSitemap, renderAndSaveSitemapIndex, sitemapPath } from './
 
 const MAX_CONCURRENT_CONNECTIONS = 5;
 
-type PagePayload = { page: SerializedPageMatch };
+type PagePayload = SerializedPageMatch;
 type SitemapPayload = { pages: SerializedPageMatch[], slug: string };
-type SitemapIndexPayload = { books: SerializedBookMatch[] };
+type SitemapIndexPayload = SerializedBookMatch[];
 
 const {
   ACCOUNTS_URL,
@@ -54,12 +54,10 @@ const {
   SEARCH_URL,
 } = config;
 
-// Types won't save us from bad JSON so check that the payload has the correct structure
+// Types won't save us from bad JSON so check that the payloads have the correct structure
 
 async function pageTask(services: AppOptions['services'], payload: PagePayload) {
-  const page = assertObject(
-    payload.page, `Page task payload.page is not an object: ${payload}`
-  );
+  const page = assertObject(payload, `Page task payload is not an object: ${payload}`);
   return renderAndSavePage(services, writeS3ReleaseHtmlFile, 200, page);
 }
 
@@ -85,11 +83,11 @@ async function sitemapTask(services: AppOptions['services'], payload: SitemapPay
 
 async function sitemapIndexTask(services: AppOptions['services'], payload: SitemapIndexPayload) {
   const booksArray = assertObject(
-    payload.books, `SitemapIndex task payload.books is not an object: ${payload}`
+    payload, `SitemapIndex task payload is not an object: ${payload}`
   );
   const books = booksArray.map(
     (book: SerializedBookMatch, index: number) => assertObject(
-      book, `Sitemap task payload.books[${index}] is not an object: ${booksArray}`
+      book, `Sitemap task payload[${index}] is not an object: ${booksArray}`
     )
   );
   const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, books, async(book) => {
