@@ -15,6 +15,7 @@ import { closeMobileMenu } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import * as selectors from '../../selectors';
 import { CloseToCAndMobileMenuButton } from '../SidebarControl';
+import { PlainButton } from './styled';
 
 describe('toolbar', () => {
   let store: Store;
@@ -56,7 +57,7 @@ describe('toolbar', () => {
     </TestContainer>);
 
     renderer.act(() => {
-      component.root.findByType(CloseToCAndMobileMenuButton).props.onClick();
+      component.root.findByType(CloseToCAndMobileMenuButton).findByType(PlainButton).props.onClick();
     });
 
     expect(dispatchSpy).toHaveBeenCalledWith(closeMobileMenu());
