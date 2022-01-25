@@ -32,13 +32,16 @@ async function updateArchiveVersion() {
   const bookList = newBookVersions(args.contentVersion).filter((book): book is NewBookVersion => !!book);
 
   if (args.newArchive === REACT_APP_ARCHIVE && !bookList.length) {
-    console.log('Current and new archive url are the same. Content already at desired version. Skipping...');
+    console.log('Current and new archive url are the same. Content already at desired versions. Skipping...');
     return;
-  } else if (args.newArchive === REACT_APP_ARCHIVE && bookList) {
+  } else if (args.newArchive === REACT_APP_ARCHIVE && bookList.length) {
+    console.log('Current and new archive url are the same. Processing content version updates...');
     for (const book of bookList) {
       await processBook(book);
     }
     return;
+  } else if (!bookList.length) {
+    console.log('Content already at desired versions. Updating archive version...');
   }
 
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
