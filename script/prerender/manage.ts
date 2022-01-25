@@ -57,8 +57,8 @@ const MAX_CONCURRENT_BOOKS = 5;
 // This is insurance in case this process gets stuck or crashes without deleting the workers stack
 const PRERENDER_TIMEOUT_SECONDS = 1800;
 
-// Abort the build if the workers stack is not ready after this many seconds
-const WORKERS_DEPLOY_TIMEOUT_SECONDS = 120;
+// Abort the build if the workers stack is not created/deleted after this many seconds
+const WORKERS_DEPLOY_TIMEOUT_SECONDS = 180;
 
 const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
 const BUCKET_REGION = process.env.BUCKET_REGION || 'us-east-1';

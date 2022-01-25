@@ -198,7 +198,7 @@ Resources:
               Value: production
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
-        TotalTargetCapacity: 5
+        TotalTargetCapacity: 10
       TerminateInstancesWithExpiration: true
       ValidUntil: !Ref ValidUntil
 
