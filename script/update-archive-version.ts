@@ -73,7 +73,6 @@ async function updateArchiveAndContentVersions() {
   const bookEntries = Object.entries(BOOKS_CONFIG);
 
   console.log('Preparing redirects...');
-
   for (const [entryId, { defaultVersion }] of bookEntries) {
     const bookToUpdate = booksToUpdate.find((book) => book.bookId === entryId);
 
@@ -130,7 +129,6 @@ async function updateArchiveAndContentVersions() {
 }
 
 updateArchiveAndContentVersions()
-  .catch((e) => {
-    console.log('an error has prevented the upgrade from completing: ', e);
+  .catch(() => {
     process.exit(1);
   });
