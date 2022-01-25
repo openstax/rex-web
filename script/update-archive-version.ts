@@ -102,8 +102,7 @@ async function updateArchiveAndContentVersions() {
         if (redirects > 0) {
           newRedirects.push([book, redirects]);
         }
-      })
-      .catch((e) => console.log('loader e: ', e));
+      });
   }));
 
   console.log('new redirects: ', newRedirects);
