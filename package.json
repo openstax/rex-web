@@ -65,7 +65,7 @@
     "build:clean": "npm run-script clean && npm run-script build",
     "prerender": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender/index",
     "prerender:manage": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender/manage",
-    "prerender:work": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender/work",
+    "prerender:work": "REACT_APP_ENV=${REACT_APP_ENV:-production} node --max-old-space-size=$(($(nproc) * 256)) ./script/entry prerender/work",
     "server": "REACT_APP_ENV=${REACT_APP_ENV:-development} node ./script/entry server/cli",
     "codecov": "codecov -f ./coverage/lcov.info",
     "coverage-report": "open coverage/index.html",

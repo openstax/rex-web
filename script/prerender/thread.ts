@@ -4,13 +4,13 @@
   A single worker thread
   Receives messages from work.ts, parses them, renders the pages, uploads them to S3,
   and sends back the entries to be deleted
-  This code runs with --unhandled-rejections=strict so unhandled rejections will abort the thread
 */
 
 import { Message } from '@aws-sdk/client-sqs';
 import Loadable from 'react-loadable';
 import asyncPool from 'tiny-async-pool';
 import { parentPort } from 'worker_threads';
+import { AppOptions } from '../../src/app';
 import { matchPathname } from '../../src/app/navigation/utils';
 import { assertDefined, assertNotNull, assertObject, assertString } from '../../src/app/utils';
 import config from '../../src/config';
@@ -31,6 +31,7 @@ import {
   SerializedPageMatch,
 } from './contentRoutes';
 import { writeS3ReleaseHtmlFile, writeS3ReleaseXmlFile } from './fileUtils';
+import './logUnhandledRejectionsAndExit';
 import { SitemapPayload } from './manage';
 import { renderAndSaveSitemap, renderAndSaveSitemapIndex, sitemapPath } from './sitemap';
 
@@ -50,7 +51,64 @@ const {
   SEARCH_URL,
 } = config;
 
-async function run() {
+const parent = assertNotNull(
+  parentPort, 'thread.ts must be called in a worker thread from the worker_threads library'
+);
+
+// The payload type is known only at runtime, so check that it has the correct structure
+
+function makePageTask(services: AppOptions['services']) {
+  return async(payload: SerializedPageMatch) => {
+    assertDefined(payload.params, `Page task payload.params is not an object: ${payload}`);
+    assertDefined(payload.state, `Page task payload.state is not an object: ${payload}`);
+    return renderAndSavePage(services, writeS3ReleaseHtmlFile, 200, payload);
+  };
+}
+
+function makeSitemapTask(services: AppOptions['services']) {
+  return async(payload: SitemapPayload) => {
+    const pagesArray = assertObject(
+      payload.pages, `Sitemap task payload.pages is not an object: ${payload}`
+    );
+    const pages = pagesArray.map(
+      (page: SerializedPageMatch, index: number) => deserializePageMatch(
+        assertObject(page, `Sitemap task payload.pages[${index}] is not an object: ${pagesArray}`)
+      )
+    );
+    const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, pages, async(page) => {
+      const archivePage = await getArchivePage(services, page);
+      return getSitemapItemOptions(archivePage, matchPathname(page));
+    });
+    return renderAndSaveSitemap(
+      writeS3ReleaseXmlFile,
+      assertString(payload.slug, `Sitemap task payload.slug is not a string: ${payload}`),
+      items
+    );
+  };
+}
+
+function makeSitemapIndexTask(services: AppOptions['services']) {
+  return async(payload: SerializedBookMatch[]) => {
+    const books = payload.map(
+      (book: SerializedBookMatch, index: number) => assertObject(
+        book, `Sitemap Index task payload[${index}] is not an object: ${payload}`
+      )
+    );
+    const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, books, async(book) => {
+      const archiveBook = await getArchiveBook(services, book);
+      return getSitemapItemOptions(archiveBook, sitemapPath(book.params.book.slug));
+    });
+    return renderAndSaveSitemapIndex(writeS3ReleaseXmlFile, items);
+  };
+}
+
+type AnyTaskFunction = ((payload: SerializedPageMatch) => void) |
+                       ((payload: SitemapPayload) => void) |
+                       ((payload: SerializedBookMatch[]) => void);
+
+type TaskFunctionsMap = { [key: string]: AnyTaskFunction | undefined };
+
+async function makeTaskFunctionsMap() {
   console.log('Preloading route components');
 
   await Loadable.preloadAll();
@@ -79,62 +137,18 @@ async function run() {
     userLoader,
   };
 
-  // The payload type is known only at runtime, so check that it has the correct structure
+  return {
+    page: makePageTask(services),
+    sitemap: makeSitemapTask(services),
+    sitemapIndex: makeSitemapIndexTask(services),
+  } as TaskFunctionsMap;
+}
 
-  const pageTask = async(payload: SerializedPageMatch) => {
-    assertDefined(payload.params, `Page task payload.params is not an object: ${payload}`);
-    assertDefined(payload.state, `Page task payload.state is not an object: ${payload}`);
-    return renderAndSavePage(services, writeS3ReleaseHtmlFile, 200, payload);
-  };
-
-  const sitemapTask = async(payload: SitemapPayload) => {
-    const pagesArray = assertObject(
-      payload.pages, `Sitemap task payload.pages is not an object: ${payload}`
-    );
-    const pages = pagesArray.map(
-      (page: SerializedPageMatch, index: number) => deserializePageMatch(
-        assertObject(page, `Sitemap task payload.pages[${index}] is not an object: ${pagesArray}`)
-      )
-    );
-    const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, pages, async(page) => {
-      const archivePage = await getArchivePage(services, page);
-      return getSitemapItemOptions(archivePage, matchPathname(page));
-    });
-    return renderAndSaveSitemap(
-      writeS3ReleaseXmlFile,
-      assertString(payload.slug, `Sitemap task payload.slug is not a string: ${payload}`),
-      items
-    );
-  };
-
-  const sitemapIndexTask = async(payload: SerializedBookMatch[]) => {
-    const books = payload.map(
-      (book: SerializedBookMatch, index: number) => assertObject(
-        book, `Sitemap Index task payload[${index}] is not an object: ${payload}`
-      )
-    );
-    const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, books, async(book) => {
-      const archiveBook = await getArchiveBook(services, book);
-      return getSitemapItemOptions(archiveBook, sitemapPath(book.params.book.slug));
-    });
-    return renderAndSaveSitemapIndex(writeS3ReleaseXmlFile, items);
-  };
-
-  type AnyTaskFunction = ((payload: SerializedPageMatch) => void) |
-                         ((payload: SitemapPayload) => void) |
-                         ((payload: SerializedBookMatch[]) => void);
-
-  const TASKS: { [key: string]: AnyTaskFunction | undefined } = {
-    page: pageTask,
-    sitemap: sitemapTask,
-    sitemapIndex: sitemapIndexTask,
-  };
-
-  const parent = assertNotNull(
-    parentPort, 'thread.ts must be called in a worker thread from the worker_threads library'
-  );
-
-  parent.on('message', async(message: Message) => {
+// handleWorkMessage() is used as a callback so it needs to catch and handle any errors
+// The alternative would be to throw errors on all unhandled promise rejections,
+// which will be future node behavior
+function makeHandleWorkMessage(taskFunctions: TaskFunctionsMap) {
+  return async(message: Message) => {
     const body = assertDefined(
       message.Body, '[SQS] [ReceiveMessage] Unexpected response: message missing Body key'
     );
@@ -146,7 +160,7 @@ async function run() {
     const taskType = assertString(
       messageBody.type, `Message body.type is not a string: ${messageBody.type}`
     );
-    const taskFunction = assertDefined(TASKS[taskType], `Unknown task type: ${taskType}`);
+    const taskFunction = assertDefined(taskFunctions[taskType], `Unknown task type: ${taskType}`);
     const payload = assertObject(
       messageBody.payload, `Message body.payload is not an object: ${messageBody.payload}`
     );
@@ -158,7 +172,15 @@ async function run() {
 
     // Send back the ReceiptHandle for successfully-processed messages so they can be deleted
     parent.postMessage(message.ReceiptHandle);
-  });
+  };
+}
+
+async function run() {
+  const taskFunctionsMap = await makeTaskFunctionsMap();
+
+  const handleWorkMessage = makeHandleWorkMessage(taskFunctionsMap);
+
+  parent.on('message', handleWorkMessage);
 }
 
 run();

@@ -135,7 +135,7 @@ Resources:
         ImageId: >-
           {{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id}}
         InstanceInitiatedShutdownBehavior: terminate
-        InstanceType: c6i.xlarge
+        InstanceType: c6i.8xlarge
         SecurityGroupIds:
           - !ImportValue RexPrerenderWorkersSecurityGroupID
         TagSpecifications:
@@ -198,7 +198,7 @@ Resources:
               Value: production
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
-        TotalTargetCapacity: 10
+        TotalTargetCapacity: 2
       TerminateInstancesWithExpiration: true
       ValidUntil: !Ref ValidUntil
 

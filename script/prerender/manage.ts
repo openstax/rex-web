@@ -37,6 +37,7 @@ import { readFile } from '../../src/helpers/fileUtils';
 import { globalMinuteCounter, prepareBookPages } from './contentPages';
 import { SerializedBookMatch, SerializedPageMatch } from './contentRoutes';
 import createRedirects from './createRedirects';
+import './logUnhandledRejectionsAndExit';
 import renderManifest from './renderManifest';
 
 const {
@@ -57,8 +58,11 @@ const MAX_CONCURRENT_BOOKS = 5;
 // This is insurance in case this process gets stuck or crashes without deleting the workers stack
 const PRERENDER_TIMEOUT_SECONDS = 1800;
 
-// Abort the build if the workers stack is not created/deleted after this many seconds
-const WORKERS_DEPLOY_TIMEOUT_SECONDS = 180;
+// Abort the build if the workers stack is not created within this many seconds
+const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 120;
+
+// Stack deletion needs an extra minute per SQS queue to be deleted
+const WORKERS_STACK_DELETE_TIMEOUT_SECONDS = WORKERS_STACK_CREATE_TIMEOUT_SECONDS + 120;
 
 const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
 const BUCKET_REGION = process.env.BUCKET_REGION || 'us-east-1';
@@ -144,12 +148,17 @@ async function createWorkersStack() {
 }
 
 async function deleteWorkersStack(workersStackName: string) {
-  console.log('Started workers stack deletion');
+  console.log(`Deleting ${workersStackName} stack...`);
 
   await cfnClient.send(new DeleteStackCommand({StackName: workersStackName}));
 
   return waitUntilStackDeleteComplete(
-    {client: cfnClient, maxWaitTime: WORKERS_DEPLOY_TIMEOUT_SECONDS, minDelay: 10, maxDelay: 10},
+    {
+      client: cfnClient,
+      maxDelay: 10,
+      maxWaitTime: WORKERS_STACK_DELETE_TIMEOUT_SECONDS,
+      minDelay: 10,
+    },
     {StackName: workersStackName}
   );
 }
@@ -176,7 +185,12 @@ async function getQueueUrls(workersStackName: string) {
   // This wait is here and not in createWorkersStack()
   // so we can cleanup properly if there's a failure during stack creation
   await waitUntilStackCreateComplete(
-    {client: cfnClient, maxWaitTime: WORKERS_DEPLOY_TIMEOUT_SECONDS, minDelay: 10, maxDelay: 10},
+    {
+      client: cfnClient,
+      maxDelay: 10,
+      maxWaitTime: WORKERS_STACK_CREATE_TIMEOUT_SECONDS,
+      minDelay: 10,
+    },
     {StackName: workersStackName}
   );
 
@@ -394,7 +408,4 @@ async function manage() {
   }
 }
 
-manage().catch((e) => {
-  console.error(e.message, e.stack);
-  process.exit(1);
-});
+manage();
