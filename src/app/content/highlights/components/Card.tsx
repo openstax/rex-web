@@ -100,6 +100,7 @@ const Card = (props: CardProps) => {
     if (!isHidden && element.current) {
       requestAnimationFrame(() => props.onHeightChange(element));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHidden]);
 
   const location = React.useMemo(() => {
