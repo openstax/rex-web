@@ -7,7 +7,7 @@ import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import updateRedirectsData from './utils/update-redirects-data';
 
-export interface NewBookVersion {
+export interface SimpleBook {
   bookId: string;
   versionNumber: string;
 }
@@ -43,7 +43,7 @@ async function updateRedirections(bookId: string, currentVersion: string, newVer
   return updateRedirectsData(currentBook, newBook);
 }
 
-async function processBook(book: NewBookVersion, newArchive?: string) {
+async function processBook(book: SimpleBook, newArchive?: string) {
   const {bookId, versionNumber} = book;
   const { defaultVersion } = books[bookId] || {};
   const newVersion = versionNumber.toString();

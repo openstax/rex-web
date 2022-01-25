@@ -10,7 +10,7 @@ import ArchiveUrlConfig from '../src/config.archive-url';
 import BOOKS_CONFIG from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
-import processBook, { NewBookVersion } from './update-content-versions-and-check-for-archived-slugs';
+import processBook, { SimpleBook } from './update-content-versions-and-check-for-archived-slugs';
 import updateRedirectsData from './utils/update-redirects-data';
 
 const configArchiveUrlPath = path.resolve(__dirname, '../src/config.archive-url.json');
@@ -29,10 +29,10 @@ const newBookVersions = (books: string[]) => books.map((book) => {
 });
 
 async function updateArchiveVersion() {
-  const booksToUpdate = newBookVersions(args.contentVersion).filter((book): book is NewBookVersion => !!book);
+  const booksToUpdate = newBookVersions(args.contentVersion).filter((book): book is SimpleBook => !!book);
 
   if (args.newArchive === REACT_APP_ARCHIVE && !booksToUpdate.length) {
-    console.log('Current and new archive url are the same. Content already at desired versions. Skipping...');
+    console.log('Current and new archive url are the same. No books need content updates. Skipping...');
     return;
   } else if (args.newArchive === REACT_APP_ARCHIVE && booksToUpdate.length) {
     console.log('Current and new archive url are the same. Processing content version updates...');
@@ -41,7 +41,7 @@ async function updateArchiveVersion() {
     }
     return;
   } else if (!booksToUpdate.length) {
-    console.log('Content already at desired versions. Updating archive version...');
+    console.log('No books need content updates. Updating archive version...');
   }
 
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
@@ -61,7 +61,9 @@ async function updateArchiveVersion() {
   );
 
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
-  // update config first
+  for (const book of booksToUpdate) {
+    await processBook(book, args.newArchive);
+  }
   const bookEntries = Object.entries(BOOKS_CONFIG);
 
   console.log('Preparing books...');
