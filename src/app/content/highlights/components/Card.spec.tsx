@@ -429,4 +429,38 @@ describe('Card', () => {
 
     expect(spyScrollIntoView).toHaveBeenCalledWith(firstElement, [secondElement, cardElement]);
   });
+
+  it('calls onHeightChange when isHidden is false', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    const cardElement = assertDocument().createElement('div');
+    assertWindow().document.body.append(cardElement);
+    store.dispatch(receiveHighlights({
+      highlights: [
+        { id: highlight.id, annotation: 'asd' },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+
+    const onHeightChange = jest.fn();
+    const testProps = { isHidden: true, onHeightChange: onHeightChange };
+
+    renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} {...testProps} />
+    </TestContainer>, { createNodeMock: () => cardElement });
+
+    expect(onHeightChange).not.toHaveBeenCalled();
+
+    testProps.isHidden = false;
+
+    renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} {...testProps} />
+    </TestContainer>, { createNodeMock: () => cardElement });
+
+    renderer.act(() => {
+      store.dispatch(focusHighlight(highlight.id));
+    });
+
+    expect(onHeightChange).toHaveBeenCalledWith({ current: cardElement });
+  });
 });
