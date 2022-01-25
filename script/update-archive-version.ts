@@ -11,7 +11,7 @@ import ArchiveUrlConfig from '../src/config.archive-url';
 import BOOKS_CONFIG from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
-import processBook, { SimpleBook } from './update-content-versions-and-check-for-archived-slugs';
+import processBookVersionUpdate, { SimpleBook } from './update-content-versions-and-check-for-archived-slugs';
 import updateRedirectsData from './utils/update-redirects-data';
 
 const configArchiveUrlPath = path.resolve(__dirname, '../src/config.archive-url.json');
@@ -43,7 +43,7 @@ async function updateArchiveVersion() {
   } else if (args.newArchive === REACT_APP_ARCHIVE && booksToUpdate.length) {
     console.log('Current and new archive url are the same. Processing content version updates...');
     for (const book of booksToUpdate) {
-      await processBook(book);
+      await processBookVersionUpdate(book);
     }
     return;
   } else if (!booksToUpdate.length) {
@@ -69,7 +69,7 @@ async function updateArchiveVersion() {
 
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
   for (const book of booksToUpdate) {
-    await processBook(book, `${REACT_APP_ARCHIVE_URL_BASE}${args.newArchive}`);
+    await processBookVersionUpdate(book, `${REACT_APP_ARCHIVE_URL_BASE}${args.newArchive}`);
   }
   const bookEntries = Object.entries(BOOKS_CONFIG);
 

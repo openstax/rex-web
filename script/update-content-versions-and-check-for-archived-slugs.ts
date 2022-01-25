@@ -21,7 +21,7 @@ const bookLoader = (newArchiveUrl?: string) => {
   createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`)
 ); };
 
-async function processBook(book: SimpleBook, newArchive?: string) {
+async function processBookVersionUpdate(book: SimpleBook, newArchive?: string) {
   const {bookId, versionNumber} = book;
   const { defaultVersion } = books[bookId] || {};
   const newVersion = versionNumber.toString();
@@ -48,4 +48,4 @@ async function processBook(book: SimpleBook, newArchive?: string) {
   console.log(`updated ${title}`);
 }
 
-export default processBook;
+export default processBookVersionUpdate;
