@@ -21,7 +21,7 @@ const args = argv as any as {
   contentVersion: string[],
 };
 
-const booksToUpdate = (books: string[]) => books.map((book) => {
+const newBookVersions = (books: string[]) => books.map((book) => {
   const bookId = book.split('@')[0];
   const versionNumber = book.split('@')[1].toString();
   const { defaultVersion } = BOOKS_CONFIG[parseInt(bookId, 10)] || {};
@@ -29,14 +29,14 @@ const booksToUpdate = (books: string[]) => books.map((book) => {
 });
 
 async function updateArchiveVersion() {
-  const contentList = booksToUpdate(args.contentVersion).filter((el): el is NewBookVersion => !!el);
+  const bookList = newBookVersions(args.contentVersion).filter((book): book is NewBookVersion => !!book);
 
-  if (args.newArchive === REACT_APP_ARCHIVE && !contentList.length) {
+  if (args.newArchive === REACT_APP_ARCHIVE && !bookList.length) {
     console.log('Current and new archive url are the same. Content already at desired version. Skipping...');
     return;
-  } else if (args.newArchive === REACT_APP_ARCHIVE && contentList) {
-    for (const book of contentList) {
-      processBook(book);
+  } else if (args.newArchive === REACT_APP_ARCHIVE && bookList) {
+    for (const book of bookList) {
+      await processBook(book);
     }
     return;
   }
