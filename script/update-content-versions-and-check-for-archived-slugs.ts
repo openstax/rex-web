@@ -14,26 +14,26 @@ export interface NewBookVersion {
 
 const booksPath = path.resolve(__dirname, '../src/config.books.json');
 
-const bookLoader = makeUnifiedBookLoader(
-  createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+const bookLoader = (newPipeline?: string) => makeUnifiedBookLoader(
+  createArchiveLoader(newPipeline || REACT_APP_ARCHIVE_URL, {
     archivePrefix: ARCHIVE_URL,
   }),
   createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`)
 );
 
-async function updateRedirections(bookId: string, currentVersion: string, newVersion: string) {
+async function updateRedirections(bookId: string, currentVersion: string, newVersion: string, newArchive?: string) {
   if (currentVersion === newVersion) {
     return 0;
   }
 
-  const currentBook = await bookLoader(bookId, currentVersion)
+  const currentBook = await bookLoader()(bookId, currentVersion)
     .catch((error) => {
       // tslint:disable-next-line: no-console
       console.log(`error while loading book ${bookId} with defaultVersion ${currentVersion}`);
       throw error;
     });
 
-  const newBook = await bookLoader(bookId, newVersion)
+  const newBook = await bookLoader(newArchive)(bookId, newVersion)
     .catch((error) => {
       // tslint:disable-next-line: no-console
       console.log(`error while loading book ${bookId} with newVersion ${newVersion}`);
@@ -43,7 +43,7 @@ async function updateRedirections(bookId: string, currentVersion: string, newVer
   return updateRedirectsData(currentBook, newBook);
 }
 
-async function processBook(book: NewBookVersion) {
+async function processBook(book: NewBookVersion, newArchive?: string) {
   const {bookId, versionNumber} = book;
   const { defaultVersion } = books[bookId] || {};
   const newVersion = versionNumber.toString();
@@ -54,10 +54,10 @@ async function processBook(book: NewBookVersion) {
     process.exit(0);
   }
 
-  const { title, version } = await bookLoader(bookId, newVersion)
+  const { title, version } = await bookLoader(newArchive)(bookId, newVersion)
     .catch((error) => {
       // tslint:disable-next-line: no-console
-      console.log(`error while loading book ${bookId} with version ${newVersion}`);
+      console.log(`error while loading book ${bookId} with version ${newVersion} using new pipeline ${newArchive}`);
       throw error;
     });
 
@@ -69,8 +69,11 @@ async function processBook(book: NewBookVersion) {
   // defaultVersion will be undefined when we add a new book.
   // In this case we don't need to updateRedirections because there is nothing to update.
   const newRedirectionsCounter = defaultVersion
-    ? await updateRedirections(bookId, defaultVersion, newVersion)
+    ? await updateRedirections(bookId, defaultVersion, newVersion, newArchive)
     : 0;
+
+  // tslint:disable-next-line: no-console
+  console.log(`updated ${title} and added ${newRedirectionsCounter} new redirections`);
 }
 
 export default processBook;
