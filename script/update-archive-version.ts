@@ -29,7 +29,11 @@ const newBookVersions = (books: string[]) => books.map((book) => {
 });
 
 async function updateArchiveVersion() {
-  const booksToUpdate = newBookVersions(args.contentVersion).filter((book): book is SimpleBook => !!book);
+  const booksToUpdate = args.contentVersion
+    ? newBookVersions(args.contentVersion).filter((book): book is SimpleBook => !!book)
+    : [];
+
+  console.log(typeof args.newArchive, typeof REACT_APP_ARCHIVE);
 
   if (args.newArchive === REACT_APP_ARCHIVE && !booksToUpdate.length) {
     console.log('Current and new archive url are the same. No books need content updates. Skipping...');
@@ -124,7 +128,7 @@ async function updateArchiveVersion() {
 }
 
 updateArchiveVersion()
-  .catch(() => {
-    console.log('an error has prevented the upgrade from completing');
+  .catch((e) => {
+    console.log('an error has prevented the upgrade from completing: ', e);
     process.exit(1);
   });
