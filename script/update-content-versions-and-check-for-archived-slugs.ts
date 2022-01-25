@@ -33,8 +33,8 @@ async function processBookVersionUpdate(book: SimpleBook, newArchive?: string) {
 
   const { title, version } = await bookLoader(newArchive)(bookId, newVersion)
     .catch((error) => {
-      // tslint:disable-next-line: no-console
-      console.log(`error while loading book ${bookId} with version ${newVersion} using new pipeline ${newArchive}`);
+      // tslint:disable-next-line: no-console max-line-length
+      console.log(`error while loading book ${bookId} with version ${newVersion} using pipeline ${newArchive || REACT_APP_ARCHIVE_URL}`);
       throw error;
     });
 
