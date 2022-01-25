@@ -22,23 +22,23 @@ const args = argv.string('newArchive').argv as any as {
   contentVersion: string | string[],
 };
 
-const newBookVersions = (books: string[]) => books.map((book) => {
+const getBooksToUpdate = (books: string[]) => books.map((book) => {
   const bookId = book.split('@')[0];
   const versionNumber = book.split('@')[1].toString();
   const { defaultVersion } = BOOKS_CONFIG[parseInt(bookId, 10)] || {};
   return defaultVersion === versionNumber ? null : {bookId, versionNumber};
 });
 
-async function updateArchiveVersion() {
+async function updateArchiveAndContentVersions() {
   const booksReceived = args.contentVersion
     ? (isString(args.contentVersion)  ? [args.contentVersion] : args.contentVersion)
     : [];
   const booksToUpdate = booksReceived.length
-    ? newBookVersions(booksReceived).filter((book): book is SimpleBook => !!book)
+    ? getBooksToUpdate(booksReceived).filter((book): book is SimpleBook => !!book)
     : [];
 
   if (args.newArchive === REACT_APP_ARCHIVE && !booksToUpdate.length) {
-    console.log('Current and new archive url are the same. No books need content updates. Skipping...');
+    console.log('Current and new archive url are the same. No books need version updates. Skipping...');
     return;
   } else if (args.newArchive === REACT_APP_ARCHIVE && booksToUpdate.length) {
     console.log('Current and new archive url are the same. Processing content version updates...');
@@ -47,11 +47,10 @@ async function updateArchiveVersion() {
     }
     return;
   } else if (!booksToUpdate.length) {
-    console.log('No books need content updates. Updating archive version...');
+    console.log('No books need version updates. Updating archive version...');
   }
 
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
-  console.log(REACT_APP_ARCHIVE_URL, args.newArchive);
 
   const currentBookLoader = makeUnifiedBookLoader(
     createArchiveLoader(REACT_APP_ARCHIVE_URL, {
@@ -130,7 +129,7 @@ async function updateArchiveVersion() {
   fs.writeFileSync(configArchiveUrlPath, JSON.stringify(newConfig, undefined, 2) + '\n', 'utf8');
 }
 
-updateArchiveVersion()
+updateArchiveAndContentVersions()
   .catch((e) => {
     console.log('an error has prevented the upgrade from completing: ', e);
     process.exit(1);
