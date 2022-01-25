@@ -105,8 +105,6 @@ async function updateArchiveAndContentVersions() {
       });
   }));
 
-  console.log('new redirects: ', newRedirects);
-
   // New line after progress bar
   console.log('');
 
