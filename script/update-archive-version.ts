@@ -29,18 +29,18 @@ const newBookVersions = (books: string[]) => books.map((book) => {
 });
 
 async function updateArchiveVersion() {
-  const bookList = newBookVersions(args.contentVersion).filter((book): book is NewBookVersion => !!book);
+  const booksToUpdate = newBookVersions(args.contentVersion).filter((book): book is NewBookVersion => !!book);
 
-  if (args.newArchive === REACT_APP_ARCHIVE && !bookList.length) {
+  if (args.newArchive === REACT_APP_ARCHIVE && !booksToUpdate.length) {
     console.log('Current and new archive url are the same. Content already at desired versions. Skipping...');
     return;
-  } else if (args.newArchive === REACT_APP_ARCHIVE && bookList.length) {
+  } else if (args.newArchive === REACT_APP_ARCHIVE && booksToUpdate.length) {
     console.log('Current and new archive url are the same. Processing content version updates...');
-    for (const book of bookList) {
+    for (const book of booksToUpdate) {
       await processBook(book);
     }
     return;
-  } else if (!bookList.length) {
+  } else if (!booksToUpdate.length) {
     console.log('Content already at desired versions. Updating archive version...');
   }
 
@@ -61,15 +61,18 @@ async function updateArchiveVersion() {
   );
 
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
+  // update config first
   const bookEntries = Object.entries(BOOKS_CONFIG);
 
   console.log('Preparing books...');
 
-  for (const [bookId, { defaultVersion }] of bookEntries) {
+  for (const [entryId, { defaultVersion }] of bookEntries) {
+    const bookToUpdate = booksToUpdate.find((book) => book.bookId === entryId);
+
     updateRedirectsPromises.push(async() => {
       const [currentBook, newBook] = await Promise.all([
-        currentBookLoader(bookId, defaultVersion),
-        newBookLoader(bookId, defaultVersion),
+        currentBookLoader(entryId, defaultVersion),
+        newBookLoader(entryId, bookToUpdate ? bookToUpdate.versionNumber : defaultVersion),
       ]);
 
       const redirects = await updateRedirectsData(currentBook, newBook);
