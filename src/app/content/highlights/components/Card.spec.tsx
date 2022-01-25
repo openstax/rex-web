@@ -443,7 +443,7 @@ describe('Card', () => {
     }));
 
     const onHeightChange = jest.fn();
-    const testProps = { isHidden: true, onHeightChange: onHeightChange };
+    const testProps = { isHidden: true, onHeightChange };
 
     renderer.create(<TestContainer store={store}>
       <Card {...cardProps} {...testProps} />
