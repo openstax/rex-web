@@ -17,7 +17,7 @@ const configArchiveUrlPath = path.resolve(__dirname, '../src/config.archive-url.
 const { REACT_APP_ARCHIVE_URL_BASE } = ArchiveUrlConfig;
 
 const args = argv.string('newArchive').argv as any as {
-  newArchive: string,
+  pipelineVersion: string,
   contentVersion: string | string[],
 };
 
@@ -36,10 +36,10 @@ async function updateArchiveAndContentVersions() {
     ? getBooksToUpdate(booksReceived).filter((book): book is SimpleBook => !!book)
     : [];
 
-  if (args.newArchive === REACT_APP_ARCHIVE && !booksToUpdate.length) {
+  if (args.pipelineVersion === REACT_APP_ARCHIVE && !booksToUpdate.length) {
     console.log('Current and new archive url are the same. No books need version updates. Skipping...');
     return;
-  } else if (args.newArchive === REACT_APP_ARCHIVE && booksToUpdate.length) {
+  } else if (args.pipelineVersion === REACT_APP_ARCHIVE && booksToUpdate.length) {
     console.log('Current and new archive url are the same. Processing content version updates...');
     for (const book of booksToUpdate) {
       await processBookVersionUpdate(book);
@@ -59,7 +59,7 @@ async function updateArchiveAndContentVersions() {
   );
 
   const newBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(`${REACT_APP_ARCHIVE_URL_BASE}${args.newArchive}`, {
+    createArchiveLoader(`${REACT_APP_ARCHIVE_URL_BASE}${args.pipelineVersion}`, {
       archivePrefix: ARCHIVE_URL,
     }),
     osWebLoader
@@ -67,7 +67,7 @@ async function updateArchiveAndContentVersions() {
 
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
   for (const book of booksToUpdate) {
-    await processBookVersionUpdate(book, `${REACT_APP_ARCHIVE_URL_BASE}${args.newArchive}`);
+    await processBookVersionUpdate(book, `${REACT_APP_ARCHIVE_URL_BASE}${args.pipelineVersion}`);
   }
   const bookEntries = Object.entries(BOOKS_CONFIG);
 
@@ -118,11 +118,11 @@ async function updateArchiveAndContentVersions() {
   }
 
   const newConfig: typeof ArchiveUrlConfig = {
-    REACT_APP_ARCHIVE: args.newArchive,
+    REACT_APP_ARCHIVE: args.pipelineVersion,
     REACT_APP_ARCHIVE_URL_BASE,
   };
 
-  console.log(`Updating config.archive-url.json with ${args.newArchive}`);
+  console.log(`Updating config.archive-url.json with ${args.pipelineVersion}`);
 
   fs.writeFileSync(configArchiveUrlPath, JSON.stringify(newConfig, undefined, 2) + '\n', 'utf8');
 }
