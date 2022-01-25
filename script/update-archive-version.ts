@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import ProgressBar from 'progress';
-import { argv } from 'yargs';
+import argv from 'yargs';
 import { BookWithOSWebData } from '../src/app/content/types';
 import { makeUnifiedBookLoader } from '../src/app/content/utils';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
@@ -16,7 +16,7 @@ import updateRedirectsData from './utils/update-redirects-data';
 const configArchiveUrlPath = path.resolve(__dirname, '../src/config.archive-url.json');
 const { REACT_APP_ARCHIVE_URL_BASE } = ArchiveUrlConfig;
 
-const args = argv as any as {
+const args = argv.string('newArchive').argv as any as {
   newArchive: string,
   contentVersion: string[],
 };
