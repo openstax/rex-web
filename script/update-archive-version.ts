@@ -73,13 +73,13 @@ async function updateArchiveAndContentVersions() {
   const bookEntries = Object.entries(BOOKS_CONFIG);
 
   console.log('Preparing redirects...');
-  for (const [entryId, { defaultVersion }] of bookEntries) {
-    const bookToUpdate = booksToUpdate.find((book) => book.bookId === entryId);
+  for (const [bookId, { defaultVersion }] of bookEntries) {
+    const bookToUpdate = booksToUpdate.find((book) => book.bookId === bookId);
 
     updateRedirectsPromises.push(async() => {
       const [currentBook, newBook] = await Promise.all([
-        currentBookLoader(entryId, defaultVersion),
-        newBookLoader(entryId, bookToUpdate ? bookToUpdate.versionNumber : defaultVersion),
+        currentBookLoader(bookId, defaultVersion),
+        newBookLoader(bookId, bookToUpdate ? bookToUpdate.versionNumber : defaultVersion),
       ]);
 
       const redirects = await updateRedirectsData(currentBook, newBook);
