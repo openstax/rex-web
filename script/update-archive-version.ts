@@ -1,5 +1,6 @@
 // tslint:disable: no-console
 import fs from 'fs';
+import { isString } from 'lodash';
 import path from 'path';
 import ProgressBar from 'progress';
 import argv from 'yargs';
@@ -18,7 +19,7 @@ const { REACT_APP_ARCHIVE_URL_BASE } = ArchiveUrlConfig;
 
 const args = argv.string('newArchive').argv as any as {
   newArchive: string,
-  contentVersion: string[],
+  contentVersion: string | string[],
 };
 
 const newBookVersions = (books: string[]) => books.map((book) => {
@@ -29,11 +30,12 @@ const newBookVersions = (books: string[]) => books.map((book) => {
 });
 
 async function updateArchiveVersion() {
-  const booksToUpdate = args.contentVersion
-    ? newBookVersions(args.contentVersion).filter((book): book is SimpleBook => !!book)
+  const booksReceived = args.contentVersion
+    ? (isString(args.contentVersion)  ? [args.contentVersion] : args.contentVersion)
     : [];
-
-  console.log(typeof args.newArchive, typeof REACT_APP_ARCHIVE);
+  const booksToUpdate = booksReceived.length
+    ? newBookVersions(booksReceived).filter((book): book is SimpleBook => !!book)
+    : [];
 
   if (args.newArchive === REACT_APP_ARCHIVE && !booksToUpdate.length) {
     console.log('Current and new archive url are the same. No books need content updates. Skipping...');
@@ -49,6 +51,7 @@ async function updateArchiveVersion() {
   }
 
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
+  console.log(REACT_APP_ARCHIVE_URL, args.newArchive);
 
   const currentBookLoader = makeUnifiedBookLoader(
     createArchiveLoader(REACT_APP_ARCHIVE_URL, {
@@ -58,7 +61,7 @@ async function updateArchiveVersion() {
   );
 
   const newBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(args.newArchive, {
+    createArchiveLoader(`${REACT_APP_ARCHIVE_URL_BASE}${args.newArchive}`, {
       archivePrefix: ARCHIVE_URL,
     }),
     osWebLoader
@@ -70,7 +73,7 @@ async function updateArchiveVersion() {
   }
   const bookEntries = Object.entries(BOOKS_CONFIG);
 
-  console.log('Preparing books...');
+  console.log('Preparing redirects...');
 
   for (const [entryId, { defaultVersion }] of bookEntries) {
     const bookToUpdate = booksToUpdate.find((book) => book.bookId === entryId);

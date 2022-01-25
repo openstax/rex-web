@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { makeUnifiedBookLoader } from '../src/app/content/utils';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
+import { REACT_APP_ARCHIVE_URL_BASE } from '../src/config.archive-url';
 import books from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
@@ -14,12 +15,13 @@ export interface SimpleBook {
 
 const booksPath = path.resolve(__dirname, '../src/config.books.json');
 
-const bookLoader = (newPipeline?: string) => makeUnifiedBookLoader(
-  createArchiveLoader(newPipeline || REACT_APP_ARCHIVE_URL, {
+const bookLoader = (newArchiveUrl?: string) => {
+  return makeUnifiedBookLoader(
+  createArchiveLoader((newArchiveUrl || REACT_APP_ARCHIVE_URL), {
     archivePrefix: ARCHIVE_URL,
   }),
   createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`)
-);
+); };
 
 async function updateRedirections(bookId: string, currentVersion: string, newVersion: string, newArchive?: string) {
   if (currentVersion === newVersion) {
@@ -33,7 +35,7 @@ async function updateRedirections(bookId: string, currentVersion: string, newVer
       throw error;
     });
 
-  const newBook = await bookLoader(newArchive)(bookId, newVersion)
+  const newBook = await bookLoader(`${REACT_APP_ARCHIVE_URL_BASE}${newArchive}`)(bookId, newVersion)
     .catch((error) => {
       // tslint:disable-next-line: no-console
       console.log(`error while loading book ${bookId} with newVersion ${newVersion}`);
@@ -51,10 +53,10 @@ async function processBook(book: SimpleBook, newArchive?: string) {
   if (defaultVersion === newVersion) {
     // tslint:disable-next-line: no-console
     console.log(`${bookId} already at desired version.`);
-    process.exit(0);
+    return;
   }
 
-  const { title, version } = await bookLoader(newArchive)(bookId, newVersion)
+  const { title, version } = await bookLoader(`${REACT_APP_ARCHIVE_URL_BASE}${newArchive}`)(bookId, newVersion)
     .catch((error) => {
       // tslint:disable-next-line: no-console
       console.log(`error while loading book ${bookId} with version ${newVersion} using new pipeline ${newArchive}`);

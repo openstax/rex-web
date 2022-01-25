@@ -1,4 +1,5 @@
 import * as dom from '@openstax/types/lib.dom';
+import { string } from 'yargs';
 import { assertWindow } from './utils';
 
 export const isDefined = <X>(x: X): x is Exclude<X, undefined> => x !== undefined;
@@ -28,3 +29,6 @@ export const isWindow = (thing: any): thing is Window =>
 
 export const isHtmlElementWithHighlight = (thing: any): thing is dom.HTMLElement =>
   isHtmlElement(thing) && thing.hasAttribute('data-highlight-id');
+
+export const isString = (thing: any): thing is string =>
+  typeof thing === 'string';
