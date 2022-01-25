@@ -69,7 +69,7 @@ async function updateArchiveVersion() {
 
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
   for (const book of booksToUpdate) {
-    await processBook(book, args.newArchive);
+    await processBook(book, `${REACT_APP_ARCHIVE_URL_BASE}${args.newArchive}`);
   }
   const bookEntries = Object.entries(BOOKS_CONFIG);
 
