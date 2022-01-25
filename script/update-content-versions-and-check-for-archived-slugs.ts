@@ -13,13 +13,12 @@ export interface SimpleBook {
 
 const booksPath = path.resolve(__dirname, '../src/config.books.json');
 
-const bookLoader = (newArchiveUrl?: string) => {
-  return makeUnifiedBookLoader(
+const bookLoader = (newArchiveUrl?: string) => makeUnifiedBookLoader(
   createArchiveLoader((newArchiveUrl || REACT_APP_ARCHIVE_URL), {
     archivePrefix: ARCHIVE_URL,
   }),
   createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`)
-); };
+);
 
 async function processBookVersionUpdate(book: SimpleBook, newArchive?: string) {
   const {bookId, versionNumber} = book;
