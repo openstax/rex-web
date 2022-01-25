@@ -7,21 +7,37 @@ import { BookWithOSWebData } from '../src/app/content/types';
 import { makeUnifiedBookLoader } from '../src/app/content/utils';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import ArchiveUrlConfig from '../src/config.archive-url';
-import BOOKS from '../src/config.books';
+import BOOKS_CONFIG from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
+import processBook, { NewBookVersion } from './update-content-versions-and-check-for-archived-slugs';
 import updateRedirectsData from './utils/update-redirects-data';
 
 const configArchiveUrlPath = path.resolve(__dirname, '../src/config.archive-url.json');
 const { REACT_APP_ARCHIVE_URL_BASE } = ArchiveUrlConfig;
 
 const args = argv as any as {
-  newArchive: string
+  newArchive: string,
+  contentVersion: string[],
 };
 
+const booksToUpdate = (books: string[]) => books.map((book) => {
+  const bookId = book.split('@')[0];
+  const versionNumber = book.split('@')[1].toString();
+  const { defaultVersion } = BOOKS_CONFIG[parseInt(bookId, 10)] || {};
+  return defaultVersion === versionNumber ? null : {bookId, versionNumber};
+});
+
 async function updateArchiveVersion() {
-  if (args.newArchive === REACT_APP_ARCHIVE) {
-    console.log('Current and new archive url are the same. Skipping...');
+  const contentList = booksToUpdate(args.contentVersion).filter((el): el is NewBookVersion => !!el);
+
+  if (args.newArchive === REACT_APP_ARCHIVE && !contentList.length) {
+    console.log('Current and new archive url are the same. Content already at desired version. Skipping...');
+    return;
+  } else if (args.newArchive === REACT_APP_ARCHIVE && contentList) {
+    for (const book of contentList) {
+      processBook(book);
+    }
     return;
   }
 
@@ -42,7 +58,7 @@ async function updateArchiveVersion() {
   );
 
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
-  const bookEntries = Object.entries(BOOKS);
+  const bookEntries = Object.entries(BOOKS_CONFIG);
 
   console.log('Preparing books...');
 
