@@ -1,6 +1,5 @@
 // tslint:disable: no-console
 import fs from 'fs';
-import { isString } from 'lodash';
 import path from 'path';
 import ProgressBar from 'progress';
 import argv from 'yargs';
@@ -31,7 +30,7 @@ const getBooksToUpdate = (books: string[]) => books.map((book) => {
 
 async function updateArchiveAndContentVersions() {
   const booksReceived = args.contentVersion
-    ? (isString(args.contentVersion)  ? [args.contentVersion] : args.contentVersion)
+    ? (typeof args.contentVersion === 'string' ? [args.contentVersion] : args.contentVersion)
     : [];
   const booksToUpdate = booksReceived.length
     ? getBooksToUpdate(booksReceived).filter((book): book is SimpleBook => !!book)

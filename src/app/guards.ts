@@ -28,6 +28,3 @@ export const isWindow = (thing: any): thing is Window =>
 
 export const isHtmlElementWithHighlight = (thing: any): thing is dom.HTMLElement =>
   isHtmlElement(thing) && thing.hasAttribute('data-highlight-id');
-
-export const isString = (thing: any): thing is string =>
-  typeof thing === 'string';
