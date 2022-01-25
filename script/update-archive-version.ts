@@ -25,7 +25,7 @@ const args = argv.string('newArchive').argv as any as {
 const getBooksToUpdate = (books: string[]) => books.map((book) => {
   const bookId = book.split('@')[0];
   const versionNumber = book.split('@')[1].toString();
-  const { defaultVersion } = BOOKS_CONFIG[parseInt(bookId, 10)] || {};
+  const { defaultVersion } = BOOKS_CONFIG[bookId] || {};
   return defaultVersion === versionNumber ? null : {bookId, versionNumber};
 });
 
@@ -102,8 +102,11 @@ async function updateArchiveAndContentVersions() {
         if (redirects > 0) {
           newRedirects.push([book, redirects]);
         }
-      });
+      })
+      .catch((e) => console.log('loader e: ', e));
   }));
+
+  console.log('new redirects: ', newRedirects);
 
   // New line after progress bar
   console.log('');
