@@ -1,5 +1,4 @@
 import * as dom from '@openstax/types/lib.dom';
-import { string } from 'yargs';
 import { assertWindow } from './utils';
 
 export const isDefined = <X>(x: X): x is Exclude<X, undefined> => x !== undefined;
