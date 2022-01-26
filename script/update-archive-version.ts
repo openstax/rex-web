@@ -10,21 +10,22 @@ import ArchiveUrlConfig from '../src/config.archive-url';
 import BOOKS_CONFIG from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
-import processBookVersionUpdate, { SimpleBook } from './update-content-versions-and-check-for-archived-slugs';
+import processBookVersionUpdate, { SimpleBook } from './utils/update-content-versions';
 import updateRedirectsData from './utils/update-redirects-data';
 
 const configArchiveUrlPath = path.resolve(__dirname, '../src/config.archive-url.json');
 const { REACT_APP_ARCHIVE_URL_BASE } = ArchiveUrlConfig;
 
-const args = argv.string('newArchive').argv as any as {
+const args = argv.string('pipelineVersion').argv as any as {
   pipelineVersion: string,
   contentVersion: string | string[],
 };
 
 const getBooksToUpdate = (books: string[]) => books.map((book) => {
   const bookId = book.split('@')[0];
-  const versionNumber = book.split('@')[1].toString();
+  const versionNumber = book.split('@')[1];
   const { defaultVersion } = BOOKS_CONFIG[bookId] || {};
+  console.log(typeof defaultVersion, typeof versionNumber, defaultVersion === versionNumber);
   return defaultVersion === versionNumber ? null : {bookId, versionNumber};
 });
 

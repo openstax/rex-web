@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import { makeUnifiedBookLoader } from '../src/app/content/utils';
-import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
-import books from '../src/config.books';
-import createArchiveLoader from '../src/gateways/createArchiveLoader';
-import createOSWebLoader from '../src/gateways/createOSWebLoader';
+import { makeUnifiedBookLoader } from '../../src/app/content/utils';
+import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../../src/config';
+import books from '../../src/config.books';
+import createArchiveLoader from '../../src/gateways/createArchiveLoader';
+import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 
 export interface SimpleBook {
   bookId: string;
