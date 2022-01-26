@@ -34,7 +34,7 @@ async function updateArchiveAndContentVersions() {
     ? (typeof args.contentVersion === 'string' ? [args.contentVersion] : args.contentVersion)
     : [];
   const booksToUpdate = booksReceived.length
-    ? getBooksToUpdate(booksReceived).filter((book): book is SimpleBook => isDefined(book))
+    ? getBooksToUpdate(booksReceived).filter(isDefined)
     : [];
 
   if (args.pipelineVersion === REACT_APP_ARCHIVE && !booksToUpdate.length) {
