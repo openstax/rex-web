@@ -5,6 +5,7 @@ import ProgressBar from 'progress';
 import argv from 'yargs';
 import { BookWithOSWebData } from '../src/app/content/types';
 import { makeUnifiedBookLoader } from '../src/app/content/utils';
+import { isDefined } from '../src/app/guards';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import ArchiveUrlConfig from '../src/config.archive-url';
 import BOOKS_CONFIG from '../src/config.books';
@@ -33,7 +34,7 @@ async function updateArchiveAndContentVersions() {
     ? (typeof args.contentVersion === 'string' ? [args.contentVersion] : args.contentVersion)
     : [];
   const booksToUpdate = booksReceived.length
-    ? getBooksToUpdate(booksReceived).filter((book): book is SimpleBook => !!book)
+    ? getBooksToUpdate(booksReceived).filter((book): book is SimpleBook => isDefined(book))
     : [];
 
   if (args.pipelineVersion === REACT_APP_ARCHIVE && !booksToUpdate.length) {
