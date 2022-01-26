@@ -307,7 +307,7 @@ def test_account_profile_menu_bar_click_ga_event(selenium, base_url, book_slug, 
     assert last_event["eventLabel"] == event_label
 
 
-@markers.test_case("C545852", "C621368")
+@markers.test_case("C545852", "C621368", "C642894")
 @markers.parametrize(
     "book_slug, page_slug",
     [("physics", "1-3-the-language-of-physics-physical-quantities-and-units")],
