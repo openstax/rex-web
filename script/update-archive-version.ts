@@ -40,7 +40,7 @@ async function updateArchiveAndContentVersions() {
   if (args.pipelineVersion === REACT_APP_ARCHIVE && !booksToUpdate.length) {
     console.log('Current and new archive url are the same. No books need version updates. Skipping...');
     return;
-  } else if (args.pipelineVersion === REACT_APP_ARCHIVE && booksToUpdate.length) {
+  } else if ((!args.pipelineVersion || args.pipelineVersion === REACT_APP_ARCHIVE) && booksToUpdate.length) {
     console.log('Current and new archive url are the same. Processing content version updates...');
     for (const book of booksToUpdate) {
       await processBookVersionUpdate(book);
