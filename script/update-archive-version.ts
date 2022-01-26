@@ -70,7 +70,9 @@ async function updateArchiveAndContentVersions() {
   }
   const bookEntries = updatePipeline
     ? Object.entries(BOOKS_CONFIG)
-    : Object.entries(BOOKS_CONFIG).filter((entry) => booksToUpdate.map((el) => el.bookId).indexOf(entry[0]) > -1);
+    : Object.entries(BOOKS_CONFIG).filter((entry) =>
+      booksToUpdate.map((b) => b.bookId).find((id) => id === entry[0])
+    );
 
   for (const [bookId, { defaultVersion }] of bookEntries) {
     updateRedirectsPromises.push(async() => {
