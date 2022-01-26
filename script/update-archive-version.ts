@@ -131,7 +131,6 @@ async function updateArchiveAndContentVersions() {
 }
 
 updateArchiveAndContentVersions()
-  .catch((e) => {
-    console.log('error: ', e)
+  .catch(() => {
     process.exit(1);
   });
