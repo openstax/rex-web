@@ -116,6 +116,7 @@ async function updateArchiveAndContentVersions() {
   }
 
   if (!updatePipeline) {
+    console.log('Current and new archive url are the same. Skipping archive update...');
     return;
   }
 
@@ -130,6 +131,7 @@ async function updateArchiveAndContentVersions() {
 }
 
 updateArchiveAndContentVersions()
-  .catch(() => {
+  .catch((e) => {
+    console.log('error: ', e)
     process.exit(1);
   });

@@ -11,7 +11,7 @@ export interface SimpleBook {
   versionNumber: string;
 }
 
-const booksPath = path.resolve(__dirname, '../src/config.books.json');
+const booksPath = path.resolve(__dirname, '../../src/config.books.json');
 
 const bookLoader = (newArchiveUrl?: string) => makeUnifiedBookLoader(
   createArchiveLoader((newArchiveUrl || REACT_APP_ARCHIVE_URL), {
