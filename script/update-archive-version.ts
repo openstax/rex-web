@@ -72,7 +72,6 @@ async function updateArchiveAndContentVersions() {
     ? Object.entries(BOOKS_CONFIG)
     : Object.entries(BOOKS_CONFIG).filter((entry) => booksToUpdate.map((el) => el.bookId).indexOf(entry[0]) > -1);
 
-  console.log('Preparing redirects...');
   for (const [bookId, { defaultVersion }] of bookEntries) {
     updateRedirectsPromises.push(async() => {
       const [currentBook, newBook] = await Promise.all([
@@ -133,5 +132,6 @@ async function updateArchiveAndContentVersions() {
 
 updateArchiveAndContentVersions()
   .catch(() => {
+    console.log('an error has prevented the upgrade from completing');
     process.exit(1);
   });
