@@ -72,7 +72,6 @@ async function updateArchiveAndContentVersions() {
 
   console.log('Preparing redirects...');
   for (const [bookId, { defaultVersion }] of bookEntries) {
-
     updateRedirectsPromises.push(async() => {
       const [currentBook, newBook] = await Promise.all([
         currentBookLoader(bookId, defaultVersion),
