@@ -33,38 +33,68 @@ export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
 export type ContentLinkProp =
   ReturnType<typeof mapStateToContentLinkProp> & ReturnType<typeof mapDispatchToContentLinkProp>;
 
-const reducePageReferenceError = (reference: PageReferenceError, document: Document) => {
-  const a = assertNotNull(
-    document.querySelector(`[href^='${reference.match}']`),
-    'references are created from hrefs');
+const reducePageReferenceError = (a: HTMLAnchorElement) => {
   a.removeAttribute('href');
   a.setAttribute('onclick', 'alert("This link is broken because of a cross book content loading issue")');
 };
 
 // tslint:disable-next-line: max-line-length
-const reduceReference = (reference: PageReferenceMap, currentPath: string, document: Document, systemQueryParams: SystemQueryParams) => {
+const reduceReference = (
+  reference: PageReferenceMap,
+  currentPath: string,
+  a: HTMLAnchorElement,
+  options: ReturnType<typeof createNavigationOptions>
+) => {
   const path = content.getUrl(reference.params);
-  const options = createNavigationOptions(systemQueryParams);
-  const a = document.querySelector(`[href^='${reference.match}']`) as HTMLAnchorElement;
-  if (!a) {
-    return;
-  }
-  const href = assertNotNull(a.getAttribute('href'), 'it was found by href value');
-  options.hash = a.hash;
-  const newHref = href
-    .replace(reference.match, toRelativeUrl(currentPath, path) + navigationOptionsToString(options));
+  const href = assertNotNull(a.getAttribute('href'), 'it was found by having an href attribute');
+  const newHref = href.replace(
+    reference.match,
+    toRelativeUrl(currentPath, path) + navigationOptionsToString({ ...options, hash: a.hash })
+  );
   a.setAttribute('href', newHref);
 };
 
 // tslint:disable-next-line: max-line-length
-export const reduceReferences = (document: Document, {references, currentPath, systemQueryParams}: ContentLinkProp) => {
-  for (const reference of references) {
-    // references may contain PageReferenceError only if UNLIMITED_CONTENT is set to true
-    if (isPageReferenceError(reference)) {
-      reducePageReferenceError(reference, document);
-    } else {
-      reduceReference(reference, currentPath, document, systemQueryParams);
+export const reduceReferences = (
+  document: Document, {references, currentPath, systemQueryParams}: ContentLinkProp
+) => {
+  /*
+     Testing seems to indicate that exact matches are enough
+     There are at least 2 cases that don't seem to currently occur in the content
+     that would work in the old code but not here though:
+     1. Reference to a page with a query string
+     2. Reference with a url fragment containing a single quote
+     These cases would only be partially matched by current regexes in getContentPageReferences()
+  */
+  const referenceMap: { [key: string]: PageReferenceMap | PageReferenceError | undefined } = {};
+
+  for (const reference of references) { referenceMap[reference.match] = reference; }
+
+  const options = createNavigationOptions(systemQueryParams as SystemQueryParams);
+
+  for (const a of Array.from(document.querySelectorAll<HTMLAnchorElement>('[href]'))) {
+    const href = assertNotNull(a.getAttribute('href'), 'it was found by having an href attribute');
+
+    // The code previously gave priority to reference errors
+    // Since we expect that all references have different matches and most references will be good,
+    // we check referenceMap before referenceErrorMap here
+    const reference = referenceMap[href];
+
+    if (reference) {
+      // references may contain PageReferenceError only if UNLIMITED_CONTENT is set to true
+      if (isPageReferenceError(reference)) {
+        // console.log(`Reference Error found: ${href}`); // tslint:disable-line:no-console
+        reducePageReferenceError(a);
+      } else {
+        // console.log(`Reference found: ${href}`); // tslint:disable-line:no-console
+        reduceReference(reference, currentPath, a, options);
+      }
     }
+    /*
+    else {
+      console.log(`Reference not found: ${href}`); // tslint:disable-line:no-console
+    }
+    */
   }
 };
 

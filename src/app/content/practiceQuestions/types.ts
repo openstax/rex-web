@@ -1,7 +1,6 @@
 import { LinkedArchiveTreeSection } from '../types';
 
 export interface State {
-  isEnabled: boolean;
   summary: PracticeQuestionsSummary | null;
   selectedSection: LinkedArchiveTreeSection | null;
   currentQuestionIndex: number | null;
