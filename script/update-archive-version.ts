@@ -63,6 +63,8 @@ async function updateArchiveAndContentVersions() {
     : currentBookLoader;
 
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
+
+  console.log('Preparing books...');
   for (const book of booksToUpdate) {
     await processBookVersionUpdate(book, updatePipeline ? newArchiveUrl : undefined);
   }
