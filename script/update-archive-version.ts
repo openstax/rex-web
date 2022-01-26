@@ -25,7 +25,6 @@ const getBooksToUpdate = (books: string[]) => books.map((book) => {
   const bookId = book.split('@')[0];
   const versionNumber = book.split('@')[1];
   const { defaultVersion } = BOOKS_CONFIG[bookId] || {};
-  console.log(typeof defaultVersion, typeof versionNumber, defaultVersion === versionNumber);
   return defaultVersion === versionNumber ? null : {bookId, versionNumber};
 });
 
