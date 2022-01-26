@@ -1,23 +1,37 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 production_url=https://openstax.org
+current_release_id=$(curl -s "${production_url}/rex/environment.json" | jq .release_id -r)
 
-work_dir=$(pwd)
-failed=0
+get_bucket_release_files () {
+  AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+  aws s3api list-objects --bucket "$PROD_UNIFIED_S3_BUCKET" --prefix "rex/releases/$1/books/" \
+  --output json | jq -r '.Contents[] | .Key' | sed -e "s/.*\/\(books\/.*\)/\1/"
+}
 
-release_id=$(curl -s "${production_url}/rex/environment.json" | jq .release_id -r)
-files=$(aws --profile openstax s3api list-objects --bucket "$PROD_UNIFIED_S3_BUCKET" --prefix "rex/releases/$release_id/books/" | jq -r '.Contents[] | .Key')
-number=$(wc -l <<< "$files" | awk '{$1=$1};1')
+count_files () { wc -l <<< "$1" | awk '{$1=$1};1'; }
 
-echo "testing $number urls..."
+# Bash array difference (with newline-separated inputs)
+# Returns files in $1 but not in $2
+# comm requires sorted inputs so we sort $1 and $2 separately first
+diff_file_lists () { comm -23 <(sort <<<"$1") <(sort <<<"$2"); }
 
-for full_path in $files; do
-  file_path="/release/$(sed -e "s/.*\/\(books\/.*\)/\1/" <<< "$full_path")"
-  if [ ! -f "$work_dir$file_path" ]; then
-    echo "MISSING PATH: $file_path";
-    failed=1;
-  fi;
-done
+current_files=$(get_bucket_release_files "$current_release_id")
+current_number=$(count_files "$current_files")
 
-exit "$failed"
+echo "testing $current_number urls from current release $current_release_id"
+
+new_release_files=$(get_bucket_release_files "$REACT_APP_RELEASE_ID")
+new_release_number=$(count_files "$new_release_files")
+
+echo "found $new_release_number urls in new release $REACT_APP_RELEASE_ID"
+
+missing_files=$(diff_file_lists "$current_files" "$new_release_files")
+
+if [ -n "$missing_files" ]; then
+  printf "MISSING PATHS:\n%s\n" "$missing_files"
+  exit 1
+fi
+
+echo 'all current release files also present in the new release'
