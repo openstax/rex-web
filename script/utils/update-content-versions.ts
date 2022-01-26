@@ -30,7 +30,6 @@ async function processBookVersionUpdate(book: SimpleBook, newArchive?: string) {
     console.log(`${bookId} already at desired version.`);
     return;
   }
-  console.log(newArchive, newArchive || REACT_APP_ARCHIVE_URL);
 
   const { title, version } = await bookLoader(newArchive)(bookId, newVersion)
     .catch((error) => {
