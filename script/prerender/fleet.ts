@@ -71,7 +71,7 @@ const PUBLIC_URL = process.env.PUBLIC_URL || `/rex/releases/${RELEASE_ID}`;
 const WORK_REGION = process.env.WORK_REGION || 'us-east-2';
 
 // Docker does not accept forward slashes in the image tag
-const PRERENDER_IMAGE_TAG = `${RELEASE_ID.replace(/\//g, '-')}-prerender`;
+const PRERENDER_IMAGE_TAG = `${RELEASE_ID.replace(/\//g, '-')}`;
 
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
