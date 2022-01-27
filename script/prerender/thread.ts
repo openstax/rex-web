@@ -32,8 +32,12 @@ import {
 } from './contentRoutes';
 import { writeS3ReleaseHtmlFile, writeS3ReleaseXmlFile } from './fileUtils';
 import './logUnhandledRejectionsAndExit';
-import { SitemapPayload } from './manage';
-import { renderAndSaveSitemap, renderAndSaveSitemapIndex, sitemapPath } from './sitemap';
+import {
+  renderAndSaveSitemap,
+  renderAndSaveSitemapIndex,
+  sitemapPath,
+  SitemapPayload,
+} from './sitemap';
 
 const MAX_CONCURRENT_CONNECTIONS = 5;
 

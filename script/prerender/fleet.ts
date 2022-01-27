@@ -39,6 +39,7 @@ import { SerializedBookMatch, SerializedPageMatch } from './contentRoutes';
 import createRedirects from './createRedirects';
 import './logUnhandledRejectionsAndExit';
 import renderManifest from './renderManifest';
+import { SitemapPayload } from './sitemap';
 
 const {
   ARCHIVE_URL,
@@ -74,8 +75,6 @@ const PRERENDER_IMAGE_TAG = `${RELEASE_ID.replace(/\//g, '-')}-prerender`;
 
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
-
-export type SitemapPayload = { pages: SerializedPageMatch[], slug: string };
 
 type PageTask = { payload: SerializedPageMatch, type: 'page' };
 type SitemapTask = { payload: SitemapPayload, type: 'sitemap' };

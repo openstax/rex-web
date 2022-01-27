@@ -11,4 +11,4 @@ caches:
 - path: rex-web/node_modules
 
 run:
-  path: rex-web/concourse/prerender/script.bash
+  path: rex-web/concourse/prerender/local.bash

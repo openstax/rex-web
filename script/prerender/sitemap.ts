@@ -9,6 +9,8 @@ import { writeAssetFile } from './fileUtils';
 
 export const sitemapPath = (pathName: string) => `/rex/sitemaps/${pathName}.xml`;
 
+export type SitemapPayload = { pages: SerializedPageMatch[], slug: string };
+
 export const renderAndSaveSitemap = async(
   saveFile: (path: string, contents: string) => void,
   slug: string,

@@ -13,6 +13,6 @@ cd rex-web
 
 yarn install
 yarn build:clean
-yarn prerender:manage
+yarn prerender:fleet
 
 cp -r build/* "$destination"
