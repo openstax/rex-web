@@ -38,19 +38,6 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | b
 
 ENV PATH /usr/local/node/bin:$PATH
 
-FROM utils AS prerender
-
-# Docker trickery so we can reuse the yarn install layer until package.json or yarn.lock change
-COPY package.json yarn.lock /code/
-WORKDIR /code
-RUN yarn install
-
-COPY . /code
-RUN yarn build
-
-ENTRYPOINT ["yarn"]
-CMD ["prerender:work"]
-
 FROM utils AS CI
 
 # shellcheck (apt version is very old)
@@ -106,3 +93,13 @@ RUN apt-get update && apt-get install -y \
   wget \
   xdg-utils \
   && rm -rf /var/lib/apt/lists/*
+
+FROM CI AS release
+
+# Docker trickery so we can reuse the yarn install layer until package.json or yarn.lock change
+COPY package.json yarn.lock /code/
+WORKDIR /code
+RUN yarn install
+
+COPY . /code
+RUN yarn build
