@@ -86,7 +86,7 @@ class SQSWorker {
 }
 
 // Idle worker thread (LIFO) queue
-// LIFO is the easiest one to implement efficiently with an array
+// LIFO is the easiest one to implement efficiently with arrays
 // and we don't really care about the order of the threads
 
 const idleWorkers: SQSWorker[] = [];
@@ -97,12 +97,10 @@ function pushWorker(worker: SQSWorker) {
   const resolveWorkerPromise = resolveWorkerPromises.pop();
 
   if (resolveWorkerPromise) {
-    // console.log('Main thread already waiting for worker thread; sending it directly');
-
+    // Main thread already waiting for worker thread; sending it directly
     resolveWorkerPromise(worker);
   } else {
-    // console.log('Main thread not ready yet; adding worker thread to idle worker queue');
-
+    // Main thread not ready yet; adding worker thread to idle worker queue
     idleWorkers.push(worker);
   }
 }
@@ -112,12 +110,10 @@ async function popWorker() {
   const worker = idleWorkers.pop();
 
   if (worker) {
-    // console.log('Main thread got worker thread from idle worker queue');
-
+    // Main thread gets worker thread directly from the idle worker queue
     return worker;
   } else {
-    // console.log('All worker threads busy; main thread waiting for available worker thread');
-
+    // All worker threads busy; main thread waiting for available worker thread
     // Return a promise that will be resolved when pushWorker is called
     return new Promise<SQSWorker>((resolve) => { resolveWorkerPromises.push(resolve); });
   }
