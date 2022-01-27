@@ -26,7 +26,9 @@ const getBooksToUpdate = (books: string[]) => books.map((book) => {
   const bookId = book.split('@')[0];
   const versionNumber = book.split('@')[1];
   const { defaultVersion } = BOOKS_CONFIG[bookId] || {};
-  return defaultVersion === versionNumber ? undefined : {bookId, versionNumber};
+  return defaultVersion === versionNumber
+    ? undefined
+    : [bookId, {defaultVersion: versionNumber}] as [string, {defaultVersion: string}];
 });
 
 async function updateArchiveAndContentVersions() {
@@ -34,9 +36,7 @@ async function updateArchiveAndContentVersions() {
   const booksReceived = args.contentVersion
     ? (typeof args.contentVersion === 'string' ? [args.contentVersion] : args.contentVersion)
     : [];
-  const booksToUpdate = booksReceived.length
-    ? getBooksToUpdate(booksReceived).filter(isDefined)
-    : [];
+  const booksToUpdate = booksReceived.length ? getBooksToUpdate(booksReceived).filter(isDefined) : [];
 
   if (!updatePipeline && !booksToUpdate.length) {
     console.log('Current and new archive url are the same. No books need version updates. Skipping...');
@@ -66,13 +66,12 @@ async function updateArchiveAndContentVersions() {
 
   console.log('Preparing books...');
   for (const book of booksToUpdate) {
-    await processBookVersionUpdate(book, updatePipeline ? newArchiveUrl : undefined);
-  }
-  const bookEntries = updatePipeline
-    ? Object.entries(BOOKS_CONFIG)
-    : Object.entries(BOOKS_CONFIG).filter((entry) =>
-      booksToUpdate.map((b) => b.bookId).find((id) => id === entry[0])
+    await processBookVersionUpdate(
+      {bookId: (book[0] as string), versionNumber: (book[1] as {defaultVersion: string}).defaultVersion},
+      updatePipeline ? newArchiveUrl : undefined
     );
+  }
+  const bookEntries = updatePipeline ? Object.entries(BOOKS_CONFIG) : booksToUpdate;
 
   for (const [bookId, { defaultVersion }] of bookEntries) {
     updateRedirectsPromises.push(async() => {
