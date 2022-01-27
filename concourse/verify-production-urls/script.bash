@@ -10,7 +10,7 @@ get_bucket_release_files () {
   --output json | jq -r '.Contents[] | .Key' | sed -e "s/.*\/\(books\/.*\)/\1/"
 }
 
-count_files () { wc -l <<< "$1" | awk '{$1=$1};1'; }
+count_files () { grep -v '^$' <<< "$1" | wc -l <<< "$1" | awk '{$1=$1};1'; }
 
 # Bash array difference (with newline-separated inputs)
 # Returns files in $1 but not in $2
