@@ -33,6 +33,7 @@ const getBooksToUpdate = (books: string[]) => books.map((book) => {
 
 async function updateArchiveAndContentVersions() {
   const updatePipeline = args.pipelineVersion && args.pipelineVersion !== REACT_APP_ARCHIVE;
+  const newArchiveUrl = updatePipeline ? `${REACT_APP_ARCHIVE_URL_BASE}${args.pipelineVersion}` : REACT_APP_ARCHIVE_URL;
   const booksReceived = args.contentVersion
     ? (typeof args.contentVersion === 'string' ? [args.contentVersion] : args.contentVersion)
     : [];
@@ -43,7 +44,6 @@ async function updateArchiveAndContentVersions() {
     return;
   }
 
-  const newArchiveUrl = `${REACT_APP_ARCHIVE_URL_BASE}${args.pipelineVersion}`;
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
   const currentBookLoader = makeUnifiedBookLoader(
@@ -53,22 +53,22 @@ async function updateArchiveAndContentVersions() {
     osWebLoader
   );
 
-  const newBookLoader = updatePipeline
-    ? makeUnifiedBookLoader(
-        createArchiveLoader(newArchiveUrl, {
-          archivePrefix: ARCHIVE_URL,
-        }),
-        osWebLoader
-      )
-    : currentBookLoader;
+  const newBookLoader = makeUnifiedBookLoader(
+    createArchiveLoader(newArchiveUrl, {
+      archivePrefix: ARCHIVE_URL,
+    }),
+    osWebLoader
+  );
 
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
 
   console.log('Preparing books...');
   for (const book of booksToUpdate) {
-    await processBookVersionUpdate(
-      {bookId: (book[0] as string), versionNumber: (book[1] as {defaultVersion: string}).defaultVersion},
-      updatePipeline ? newArchiveUrl : undefined
+    await processBookVersionUpdate({
+        bookId: (book[0] as string),
+        versionNumber: (book[1] as {defaultVersion: string}).defaultVersion,
+      },
+      newArchiveUrl
     );
   }
   const bookEntries = updatePipeline ? Object.entries(BOOKS_CONFIG) : booksToUpdate;
