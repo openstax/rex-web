@@ -9,8 +9,5 @@ params:
   GITHUB_USERNAME: ((github-username))
   GITHUB_PASSWORD: ((github-token))
 
-caches:
-- path: rex-web/node_modules
-
 run:
   path: rex-web/concourse/update-content/script.bash

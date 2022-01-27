@@ -7,8 +7,8 @@ inputs:
 outputs:
 - name: release
 
-caches:
-- path: rex-web/node_modules
+params:
+  PRERENDER_MODE: ((prerender-mode))
 
 run:
-  path: rex-web/concourse/prerender/fleet.bash
+  path: rex-web/concourse/prerender/script.bash
