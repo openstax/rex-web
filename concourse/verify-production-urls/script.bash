@@ -5,12 +5,11 @@ production_url=https://openstax.org
 current_release_id=$(curl -s "${production_url}/rex/environment.json" | jq .release_id -r)
 
 get_bucket_release_files () {
-  AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
   aws s3api list-objects --bucket "$PROD_UNIFIED_S3_BUCKET" --prefix "rex/releases/$1/books/" \
   --output json | jq -r '.Contents[] | .Key' | sed -e "s/.*\/\(books\/.*\)/\1/"
 }
 
-count_files () { wc -l <<< "$1" | awk '{$1=$1};1'; }
+count_files () { grep -cv '^$' <<< "$1"; }
 
 # Bash array difference (with newline-separated inputs)
 # Returns files in $1 but not in $2
