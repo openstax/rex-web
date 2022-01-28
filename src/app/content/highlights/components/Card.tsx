@@ -62,7 +62,7 @@ const Card = (props: CardProps) => {
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const services = useServices();
 
-  const { isActive, isHidden, highlight: { id }, focus } = props;
+  const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
     if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services))) {
@@ -95,13 +95,6 @@ const Card = (props: CardProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [annotation, props.isActive]);
-
-  React.useEffect(() => {
-    if (!isHidden && element.current) {
-      requestAnimationFrame(() => props.onHeightChange(element));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHidden]);
 
   const location = React.useMemo(() => {
     return props.page && getHighlightLocationFilterForPage(locationFilters, props.page);
