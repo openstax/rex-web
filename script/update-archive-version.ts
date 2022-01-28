@@ -65,8 +65,9 @@ async function updateArchiveAndContentVersions() {
 
   console.log('Preparing books...');
   for (const book of booksToUpdate) {
+    const [bookId, bookVersion] = book;
     const updatedBooksConfig = { ...BOOKS_CONFIG };
-    updatedBooksConfig[book[0]] = { defaultVersion: book[1].defaultVersion };
+    updatedBooksConfig[bookId] = bookVersion;
     fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
   }
 
