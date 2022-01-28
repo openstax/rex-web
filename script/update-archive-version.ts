@@ -40,8 +40,9 @@ async function updateArchiveAndContentVersions() {
   const booksToUpdate = booksReceived.length ? getBooksToUpdate(booksReceived).filter(isDefined) : [];
 
   if (!updatePipeline && !booksToUpdate.length) {
-    console.log('Current and new archive url are the same. No books need version updates. Skipping...');
-    return;
+    console.log('Current and new archive url are the same. No books need version updates.');
+    process.exit(1);
+
   }
 
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
