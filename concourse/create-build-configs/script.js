@@ -8,6 +8,7 @@ const booksFile = 'rex-web/src/config.books.json';
 const envFile = 'build-configs/config.env';
 const commitFile = 'build-configs/commit.txt';
 const releaseFile = 'build-configs/release-id.txt';
+const imageFile = 'build-configs/image-tag.txt';
 const booksConfigFile = 'build-configs/books.json';
 
 const handleErr = err => {
@@ -34,9 +35,10 @@ Promise.all([
   //  - v3 is arbitrary but now it will be easy to check for the older releases and delete them (uses the rex code version)
   //  - v4 now hashes the code version and books config into a new version identifier
   const releaseId = `v4/${version.substring(0, 7)}`;
+  const imageTag = releaseId.replace(/\//g, '-');
   const args = {
     BOOKS: books,
-    IMAGE_TAG: releaseId.replace(/\//g, '-'),
+    IMAGE_TAG: imageTag,
     REACT_APP_CODE_VERSION: commit,
     PUBLIC_URL: `/rex/releases/${releaseId}`,
     REACT_APP_RELEASE_ID: releaseId,
@@ -55,6 +57,9 @@ Promise.all([
 
   console.log(`Generating release id file with: ${releaseId}`);
   fs.writeFile(releaseFile, releaseId, handleErr);
+
+  console.log(`Generating image tag file with: ${imageTag}`);
+  fs.writeFile(imageFile, imageTag, handleErr);
 
   console.log(`Generating books file...`);
   fs.writeFile(booksConfigFile, books, handleErr);
