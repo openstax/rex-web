@@ -11,6 +11,6 @@ export $(cut -d= -f1 build-configs/config.env)
 
 cd rex-web
 
-yarn prerender:$PRERENDER_MODE
+yarn "prerender:$PRERENDER_MODE"
 
 cp -r build/* "$destination"

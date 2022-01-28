@@ -5,6 +5,7 @@ import identity from 'lodash/fp/identity';
 import map from 'lodash/fp/map';
 import max from 'lodash/fp/max';
 import sitemap, { SitemapItemOptions } from 'sitemap';
+import { SerializedPageMatch } from './contentRoutes';
 import { writeAssetFile } from './fileUtils';
 
 export const sitemapPath = (pathName: string) => `/rex/sitemaps/${pathName}.xml`;
