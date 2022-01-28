@@ -36,6 +36,7 @@ Promise.all([
   const releaseId = `v4/${version.substring(0, 7)}`;
   const args = {
     BOOKS: books,
+    IMAGE_TAG: releaseId.replace(/\//g, '-'),
     REACT_APP_CODE_VERSION: commit,
     PUBLIC_URL: `/rex/releases/${releaseId}`,
     REACT_APP_RELEASE_ID: releaseId,
