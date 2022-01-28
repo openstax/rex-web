@@ -11,10 +11,10 @@ import ArchiveUrlConfig from '../src/config.archive-url';
 import BOOKS_CONFIG from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
-import processBookVersionUpdate from './utils/update-content-versions';
 import updateRedirectsData from './utils/update-redirects-data';
 
 const configArchiveUrlPath = path.resolve(__dirname, '../src/config.archive-url.json');
+const booksPath = path.resolve(__dirname, '../src/config.books.json');
 const { REACT_APP_ARCHIVE_URL_BASE } = ArchiveUrlConfig;
 
 const args = argv.string('pipelineVersion').argv as any as {
@@ -64,13 +64,11 @@ async function updateArchiveAndContentVersions() {
 
   console.log('Preparing books...');
   for (const book of booksToUpdate) {
-    await processBookVersionUpdate({
-        bookId: (book[0] as string),
-        versionNumber: (book[1] as {defaultVersion: string}).defaultVersion,
-      },
-      newArchiveUrl
-    );
+    const updatedBooksConfig = { ...BOOKS_CONFIG };
+    updatedBooksConfig[book[0]] = { defaultVersion: book[1].defaultVersion };
+    fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
   }
+
   const bookEntries = updatePipeline ? Object.entries(BOOKS_CONFIG) : booksToUpdate;
 
   for (const [bookId, { defaultVersion }] of bookEntries) {
