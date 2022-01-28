@@ -2,27 +2,47 @@
 import fs from 'fs';
 import path from 'path';
 import ProgressBar from 'progress';
-import { argv } from 'yargs';
+import argv from 'yargs';
 import { BookWithOSWebData } from '../src/app/content/types';
 import { makeUnifiedBookLoader } from '../src/app/content/utils';
+import { isDefined } from '../src/app/guards';
 import { ARCHIVE_URL, REACT_APP_ARCHIVE, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import ArchiveUrlConfig from '../src/config.archive-url';
-import BOOKS from '../src/config.books';
+import BOOKS_CONFIG from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import updateRedirectsData from './utils/update-redirects-data';
 
 const configArchiveUrlPath = path.resolve(__dirname, '../src/config.archive-url.json');
+const booksPath = path.resolve(__dirname, '../src/config.books.json');
 const { REACT_APP_ARCHIVE_URL_BASE } = ArchiveUrlConfig;
 
-const args = argv as any as {
-  newArchive: string
+const args = argv.string('pipelineVersion').argv as any as {
+  pipelineVersion: string,
+  contentVersion: string | string[],
 };
 
-async function updateArchiveVersion() {
-  if (args.newArchive === REACT_APP_ARCHIVE) {
-    console.log('Current and new archive url are the same. Skipping...');
-    return;
+const getBooksToUpdate = (books: string[]) => books.map((book) => {
+  const bookId = book.split('@')[0];
+  const versionNumber = book.split('@')[1];
+  const { defaultVersion } = BOOKS_CONFIG[bookId] || {};
+  return defaultVersion === versionNumber
+    ? undefined
+    : [bookId, {defaultVersion: versionNumber}] as [string, {defaultVersion: string}];
+});
+
+async function updateArchiveAndContentVersions() {
+  const updatePipeline = args.pipelineVersion && args.pipelineVersion !== REACT_APP_ARCHIVE;
+  const newArchiveUrl = updatePipeline ? `${REACT_APP_ARCHIVE_URL_BASE}${args.pipelineVersion}` : REACT_APP_ARCHIVE_URL;
+  const booksReceived = args.contentVersion
+    ? (typeof args.contentVersion === 'string' ? [args.contentVersion] : args.contentVersion)
+    : [];
+  const booksToUpdate = booksReceived.length ? getBooksToUpdate(booksReceived).filter(isDefined) : [];
+
+  if (!updatePipeline && !booksToUpdate.length) {
+    console.log('Current and new archive url are the same. No books need version updates.');
+    process.exit(1);
+
   }
 
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
@@ -35,16 +55,23 @@ async function updateArchiveVersion() {
   );
 
   const newBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(args.newArchive, {
+    createArchiveLoader(newArchiveUrl, {
       archivePrefix: ARCHIVE_URL,
     }),
     osWebLoader
   );
 
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
-  const bookEntries = Object.entries(BOOKS);
 
   console.log('Preparing books...');
+  for (const book of booksToUpdate) {
+    const [bookId, bookVersion] = book;
+    const updatedBooksConfig = { ...BOOKS_CONFIG };
+    updatedBooksConfig[bookId] = bookVersion;
+    fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
+  }
+
+  const bookEntries = updatePipeline ? Object.entries(BOOKS_CONFIG) : booksToUpdate;
 
   for (const [bookId, { defaultVersion }] of bookEntries) {
     updateRedirectsPromises.push(async() => {
@@ -89,17 +116,22 @@ async function updateArchiveVersion() {
     console.log('No new redirects were added.');
   }
 
+  if (!updatePipeline) {
+    console.log('Current and new archive url are the same. Skipping archive update...');
+    return;
+  }
+
   const newConfig: typeof ArchiveUrlConfig = {
-    REACT_APP_ARCHIVE: args.newArchive,
+    REACT_APP_ARCHIVE: args.pipelineVersion,
     REACT_APP_ARCHIVE_URL_BASE,
   };
 
-  console.log(`Updating config.archive-url.json with ${args.newArchive}`);
+  console.log(`Updating config.archive-url.json with ${args.pipelineVersion}`);
 
   fs.writeFileSync(configArchiveUrlPath, JSON.stringify(newConfig, undefined, 2) + '\n', 'utf8');
 }
 
-updateArchiveVersion()
+updateArchiveAndContentVersions()
   .catch(() => {
     console.log('an error has prevented the upgrade from completing');
     process.exit(1);
