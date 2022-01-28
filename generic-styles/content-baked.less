@@ -219,6 +219,15 @@ span[data-type="media"] img {
     color: @gray;
     overflow-x: auto;
 
+    > *:not(section):not(header):first-child {
+      margin-top: 1rem;
+    }
+
+    > header {
+      // Match padding of adjacent section
+      margin-top: 3rem;
+    }
+
     span[data-type="media"] {
       display: block;
       margin: 1rem 0;
@@ -232,7 +241,6 @@ span[data-type="media"] img {
   }
   .body(example) {
     .body(note);
-    margin-top: 1rem;
   }
 }
 
