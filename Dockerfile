@@ -38,7 +38,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | b
 
 ENV PATH /usr/local/node/bin:$PATH
 
-FROM utils AS CI
+FROM utils AS ci
 
 # shellcheck (apt version is very old)
 # includes crazy hack around some linking issue from https://github.com/koalaman/shellcheck/issues/1053#issuecomment-357816927
@@ -94,7 +94,7 @@ RUN apt-get update && apt-get install -y \
   xdg-utils \
   && rm -rf /var/lib/apt/lists/*
 
-FROM CI AS release
+FROM utils AS release
 
 # Docker trickery so we can reuse the yarn install layer until package.json or yarn.lock change
 COPY package.json yarn.lock /code/
