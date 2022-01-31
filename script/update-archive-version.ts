@@ -137,7 +137,7 @@ async function updateArchiveAndContentVersions() {
 }
 
 updateArchiveAndContentVersions()
-  .catch(() => {
-    console.log('an error has prevented the upgrade from completing');
+  .catch((e) => {
+    console.log('an error has prevented the upgrade from completing: ', e);
     process.exit(1);
   });
