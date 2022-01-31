@@ -25,8 +25,9 @@ const args = argv.string('pipelineVersion').argv as any as {
 const getBooksToUpdate = (books: string[]) => books.map((book) => {
   const bookId = book.split('@')[0];
   const versionNumber = book.split('@')[1];
-  const { defaultVersion } = BOOKS_CONFIG[bookId] || {};
-  return defaultVersion === versionNumber
+  const { defaultVersion, archiveOverride } = BOOKS_CONFIG[bookId] || {};
+  // include only books with a version change or where there is an existing pinned pipeline
+  return defaultVersion === versionNumber && !archiveOverride
     ? undefined
     : [bookId, {defaultVersion: versionNumber}] as [string, {defaultVersion: string, archiveOverride?: string}];
 });
