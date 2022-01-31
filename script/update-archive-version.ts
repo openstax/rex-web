@@ -26,6 +26,7 @@ const getBooksToUpdate = (books: string[]) => books.map((book) => {
   const bookId = book.split('@')[0];
   const versionNumber = book.split('@')[1];
   const { defaultVersion, archiveOverride } = BOOKS_CONFIG[bookId] || {};
+  // include only books with a version change or where there is an existing pinned pipeline
   return defaultVersion === versionNumber && !archiveOverride
     ? undefined
     : [bookId, {defaultVersion: versionNumber}] as [string, {defaultVersion: string, archiveOverride?: string}];
@@ -138,7 +139,7 @@ async function updateArchiveAndContentVersions() {
 }
 
 updateArchiveAndContentVersions()
-  .catch((e) => {
-    console.log('an error has prevented the upgrade from completing: ', e);
+  .catch(() => {
+    console.log('an error has prevented the upgrade from completing');
     process.exit(1);
   });
