@@ -65,9 +65,10 @@ async function updateArchiveAndContentVersions() {
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
 
   console.log('Preparing books...');
+  const updatedBooksConfig = { ...BOOKS_CONFIG };
+
   for (const book of booksToUpdate) {
     const [bookId, bookVersion] = book;
-    const updatedBooksConfig = { ...BOOKS_CONFIG };
     updatedBooksConfig[bookId] = bookVersion;
     fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
   }
@@ -137,7 +138,7 @@ async function updateArchiveAndContentVersions() {
 }
 
 updateArchiveAndContentVersions()
-  .catch((e) => {
-    console.log('an error has prevented the upgrade from completing: ', e);
+  .catch(() => {
+    console.log('an error has prevented the upgrade from completing');
     process.exit(1);
   });
