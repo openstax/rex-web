@@ -25,8 +25,8 @@ const args = argv.string('pipelineVersion').argv as any as {
 const getBooksToUpdate = (books: string[]) => books.map((book) => {
   const bookId = book.split('@')[0];
   const versionNumber = book.split('@')[1];
-  const { defaultVersion } = BOOKS_CONFIG[bookId] || {};
-  return defaultVersion === versionNumber
+  const { defaultVersion, archiveOverride } = BOOKS_CONFIG[bookId] || {};
+  return defaultVersion === versionNumber && !archiveOverride
     ? undefined
     : [bookId, {defaultVersion: versionNumber}] as [string, {defaultVersion: string, archiveOverride?: string}];
 });
@@ -138,7 +138,7 @@ async function updateArchiveAndContentVersions() {
 }
 
 updateArchiveAndContentVersions()
-  .catch(() => {
-    console.log('an error has prevented the upgrade from completing');
+  .catch((e) => {
+    console.log('an error has prevented the upgrade from completing: ', e);
     process.exit(1);
   });
