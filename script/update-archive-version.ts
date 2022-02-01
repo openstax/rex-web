@@ -25,10 +25,11 @@ const args = argv.string('pipelineVersion').argv as any as {
 const getBooksToUpdate = (books: string[]) => books.map((book) => {
   const bookId = book.split('@')[0];
   const versionNumber = book.split('@')[1];
-  const { defaultVersion } = BOOKS_CONFIG[bookId] || {};
-  return defaultVersion === versionNumber
+  const { defaultVersion, archiveOverride } = BOOKS_CONFIG[bookId] || {};
+  // include only books with a version change or where there is an existing pinned pipeline
+  return defaultVersion === versionNumber && !archiveOverride
     ? undefined
-    : [bookId, {defaultVersion: versionNumber}] as [string, {defaultVersion: string}];
+    : [bookId, {defaultVersion: versionNumber}] as [string, {defaultVersion: string, archiveOverride?: string}];
 });
 
 async function updateArchiveAndContentVersions() {
@@ -57,6 +58,7 @@ async function updateArchiveAndContentVersions() {
   const newBookLoader = makeUnifiedBookLoader(
     createArchiveLoader(newArchiveUrl, {
       archivePrefix: ARCHIVE_URL,
+      disablePerBookPinning: true,
     }),
     osWebLoader
   );
@@ -64,26 +66,31 @@ async function updateArchiveAndContentVersions() {
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
 
   console.log('Preparing books...');
+  const updatedBooksConfig = { ...BOOKS_CONFIG };
+
   for (const book of booksToUpdate) {
     const [bookId, bookVersion] = book;
-    const updatedBooksConfig = { ...BOOKS_CONFIG };
     updatedBooksConfig[bookId] = bookVersion;
     fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
   }
 
   const bookEntries = updatePipeline ? Object.entries(BOOKS_CONFIG) : booksToUpdate;
 
-  for (const [bookId, { defaultVersion }] of bookEntries) {
-    updateRedirectsPromises.push(async() => {
-      const [currentBook, newBook] = await Promise.all([
-        currentBookLoader(bookId, defaultVersion),
-        newBookLoader(bookId, defaultVersion),
-      ]);
+  for (const [bookId, { defaultVersion, archiveOverride }] of bookEntries) {
+    const bookHasContentUpdate = booksToUpdate.find((book) => book[0] === bookId);
+    // ignore books with a pinned archive that have no content updates
+    if (bookHasContentUpdate || !archiveOverride) {
+      updateRedirectsPromises.push(async() => {
+        const [currentBook, newBook] = await Promise.all([
+          currentBookLoader(bookId, defaultVersion),
+          newBookLoader(bookId, bookHasContentUpdate ? bookHasContentUpdate[1].defaultVersion : defaultVersion),
+        ]);
 
-      const redirects = await updateRedirectsData(currentBook, newBook);
+        const redirects = await updateRedirectsData(currentBook, newBook);
 
-      return [currentBook, redirects];
-    });
+        return [currentBook, redirects];
+      });
+    }
   }
 
   const newRedirects: Array<[BookWithOSWebData, number]> = [];

@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck disable=SC1091
+source build-configs/config.env
+# shellcheck disable=SC2046
+export $(cut -d= -f1 build-configs/config.env)
+
 production_url=https://openstax.org
 current_release_id=$(curl -s "${production_url}/rex/environment.json" | jq .release_id -r)
 
