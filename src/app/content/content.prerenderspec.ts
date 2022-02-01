@@ -26,10 +26,9 @@ describe('content', () => {
         '[data-testid="nav-login"]',
         '[data-experiment]',
       ].forEach((selector) => {
-        const element = root.querySelector(selector);
-        if (element) {
+        root.querySelectorAll(selector).forEach((element) => {
           element.remove();
-        }
+        });
       });
 
       // these attributes are intended to be changed on page load

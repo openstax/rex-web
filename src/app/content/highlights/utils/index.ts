@@ -3,7 +3,7 @@ export {
   getHighlightColorFiltersWithContent,
   getHighlightLocationFilterForPage,
   getHighlightLocationFiltersWithContent,
-  sectionIsHighlightLocationFitler
+  sectionIsHighlightLocationFilter
 } from './locationFiltersUtils';
 
 export {

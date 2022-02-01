@@ -44,6 +44,8 @@ const SearchResultHits = ({
 
   return <React.Fragment>
     {hits.map((hit) => {
+      // inefficient data structure for search results should be addressed in the future
+      // https://app.zenhub.com/workspaces/openstax-unified-5b71aabe3815ff014b102258/issues/openstax/unified/1750
       if (isKeyTermHit(hit)) {
         const pair = (keyTerms as { [key: string]: any })[hit.source.elementId];
         hit.highlight.term = (pair && pair.term) || hit.highlight.title;

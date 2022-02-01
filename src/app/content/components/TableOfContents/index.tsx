@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../types';
 import { resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
+import { linkContents } from '../../search/utils';
 import * as selectors from '../../selectors';
 import { ArchiveTree, Book, Page, State } from '../../types';
-import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
+import { archiveTreeContainsNode, getArchiveTreeSectionType } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import * as Styled from './styled';
@@ -74,12 +75,17 @@ export class TableOfContents extends Component<SidebarProps> {
 
   private renderChildren = (book: Book, section: ArchiveTree) =>
     <Styled.NavOl section={section}>
-      {section.contents.map((item) => {
+      {linkContents(section).map((item) => {
+        const sectionType = getArchiveTreeSectionType(item);
         const active = this.props.page && stripIdVersion(item.id) === this.props.page.id;
+
         return isArchiveTree(item)
-        ? <Styled.NavItem key={item.id}>{this.renderTocNode(book, item)}</Styled.NavItem>
+        ? <Styled.NavItem key={item.id} sectionType={sectionType}>
+            {this.renderTocNode(book, item)}
+          </Styled.NavItem>
         : <Styled.NavItem
           key={item.id}
+          sectionType={sectionType}
           ref={active ? this.activeSection : null}
           active={active}
         >
