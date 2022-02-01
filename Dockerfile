@@ -95,11 +95,3 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 FROM utils AS release
-
-# Docker trickery so we can reuse the yarn install layer until package.json or yarn.lock change
-COPY package.json yarn.lock /code/
-WORKDIR /code
-RUN yarn install
-
-COPY . /code
-RUN yarn build:clean
