@@ -38,6 +38,7 @@ class Page(pypom.Page):
         self.driver.add_cookie({"name": "nudge_study_guides_counter", "value": "1"})
         self.driver.add_cookie({"name": "nudge_study_guides_page_counter", "value": "1"})
         self.driver.add_cookie({"name": "nudge_study_guides_date", "value": current_date})
+        self.driver.add_cookie({"name": "ANALYTICS_OPT_OUT", "value": "1"})
         return self
 
     @property
@@ -217,7 +218,6 @@ class Page(pypom.Page):
 
     def username(self, element):
         """Get the username of a logged in user."""
-
         return element.get_attribute("innerText")
 
     def element_in_viewport(self, target: WebElement):

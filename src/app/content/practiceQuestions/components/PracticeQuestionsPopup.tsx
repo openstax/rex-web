@@ -65,6 +65,7 @@ const PracticeQuestionsPopup = () => {
         <CloseIconWrapper
           data-testid='close-practice-questions-popup'
           aria-label={intl.formatMessage({id: 'i18n:practice-questions:popup:close'})}
+          data-analytics-label='Click to close Practice Questions modal'
           onClick={closeAndTrack('button')}
         >
           <CloseIcon colorSchema={bookTheme} />

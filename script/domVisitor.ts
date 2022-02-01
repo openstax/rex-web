@@ -1,11 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
-import { argv } from 'yargs';
+import argv from 'yargs';
 import { Book } from '../src/app/content/types';
 import { getBookPageUrlAndParams } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { assertDefined } from '../src/app/utils';
+import config from '../src/config';
+import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
 import progressBar from './utils/progressBar';
 
@@ -17,7 +20,7 @@ const {
   queryString,
   rootUrl,
   showBrowser,
-} = argv as {
+} = argv.string('bookVersion').argv as {
   quiet?: string;
   archiveUrl?: string;
   bookId?: string;
@@ -28,7 +31,7 @@ const {
 };
 
 const devTools = false;
-const auditName = argv._[1];
+const auditName = argv.argv._[1];
 const auditPath = `./audits/${auditName}`;
 
 if (!auditName) {
@@ -142,10 +145,15 @@ async function run() {
     devtools: devTools,
     headless: showBrowser === undefined,
   });
+  const archiveLoader = createArchiveLoader(config.REACT_APP_ARCHIVE_URL, {
+    archivePrefix: archiveUrl ? archiveUrl : rootUrl,
+  });
+  const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const books = await findBooks({
-    archiveUrl,
+    archiveLoader,
     bookId,
     bookVersion,
+    osWebLoader,
     rootUrl: assertDefined(rootUrl, 'please define a rootUrl parameter, format: http://host:port'),
   });
 

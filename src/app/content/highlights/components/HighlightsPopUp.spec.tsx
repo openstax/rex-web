@@ -1,18 +1,16 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
 import renderer, { act } from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
+import TestContainer from '../../../../test/TestContainer';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
-import * as Services from '../../../context/Services';
 import * as appGuards from '../../../guards';
-import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
 import { receiveBook } from '../../actions';
@@ -40,24 +38,24 @@ describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
   let store: Store;
   let user: User;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
-    services = createTestServices();
     store = createTestStore();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
 
     dispatch = jest.spyOn(store, 'dispatch');
   });
 
   it('opens pop up in "not logged in" state', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <HighlightButton />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <HighlightButton />
+    </TestContainer>);
 
     act(() => {
       /* fire events that update state */
@@ -68,13 +66,9 @@ describe('MyHighlights button and PopUp', () => {
   });
 
   it('closes pop up', async() => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <HighlightsPopUp />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <HighlightsPopUp />
+    </TestContainer>);
 
     act(() => { store.dispatch(openMyHighlights()); });
     act(() => {
@@ -88,14 +82,10 @@ describe('MyHighlights button and PopUp', () => {
   it('opens pop up in "logged in" state', async() => {
     store.dispatch(receiveUser(user));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <HighlightButton />
-          <HighlightsPopUp />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <HighlightButton />
+      <HighlightsPopUp />
+    </TestContainer>);
 
     act(() => {
       /* fire events that update state */
@@ -110,15 +100,22 @@ describe('MyHighlights button and PopUp', () => {
     const addEventListener = jest.fn();
     const removeEventListener = jest.fn();
     const querySelectorAll = jest.fn(() => []);
-    const createNodeMock = () => ({focus, addEventListener, removeEventListener, querySelectorAll});
+    const getAttribute = jest.fn();
+    const setAttribute = jest.fn();
+    const removeAttribute = jest.fn();
+    const createNodeMock = () => ({
+      addEventListener,
+      focus,
+      getAttribute,
+      querySelectorAll,
+      removeAttribute,
+      removeEventListener,
+      setAttribute,
+    });
 
-    renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <HighlightsPopUp />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, {createNodeMock});
+    renderer.create(<TestContainer services={services} store={store}>
+      <HighlightsPopUp />
+    </TestContainer>, {createNodeMock});
 
     const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
     isHtmlElement.mockReturnValueOnce(true);
@@ -136,13 +133,9 @@ describe('MyHighlights button and PopUp', () => {
     const removeEventListener = jest.fn();
     const createNodeMock = () => ({focus, addEventListener, removeEventListener});
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
+    const component = renderer.create(<TestContainer services={services} store={store}>
           <HighlightsPopUp />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, {createNodeMock});
+    </TestContainer>, {createNodeMock});
 
     const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
 
@@ -163,13 +156,9 @@ describe('MyHighlights button and PopUp', () => {
     const removeEventListener = jest.fn();
     const createNodeMock = () => ({focus, addEventListener, removeEventListener});
 
-    renderer.create(<Provider store={{...store, }}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <HighlightsPopUp />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, {createNodeMock});
+    renderer.create(<TestContainer services={services} store={store}>
+      <HighlightsPopUp />
+    </TestContainer>, {createNodeMock});
 
     const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
 
@@ -189,13 +178,9 @@ describe('MyHighlights button and PopUp', () => {
     store.dispatch(openMyHighlights());
     store.dispatch(receiveUser(user));
 
-    const { node } = renderToDom(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <HighlightsPopUp />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <HighlightsPopUp />
+    </TestContainer>);
 
     const track = jest.spyOn(services.analytics.openCloseMH, 'track');
     const element = assertNotNull(node.querySelector('[data-testid=\'highlights-popup-wrapper\']'), '');
@@ -211,13 +196,9 @@ describe('MyHighlights button and PopUp', () => {
     store.dispatch(openMyHighlights());
     store.dispatch(receiveUser(user));
 
-    const { node } = renderToDom(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <HighlightsPopUp />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <HighlightsPopUp />
+    </TestContainer>);
 
     const track = jest.spyOn(services.analytics.openCloseMH, 'track');
     const element = assertNotNull(node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');
@@ -244,15 +225,22 @@ describe('MyHighlights button and PopUp', () => {
     const addEventListener = jest.fn();
     const removeEventListener = jest.fn();
     const querySelectorAll = jest.fn(() => []);
-    const createNodeMock = () => ({focus, addEventListener, removeEventListener, querySelectorAll});
+    const getAttribute = jest.fn();
+    const setAttribute = jest.fn();
+    const removeAttribute = jest.fn();
+    const createNodeMock = () => ({
+      addEventListener,
+      focus,
+      getAttribute,
+      querySelectorAll,
+      removeAttribute,
+      removeEventListener,
+      setAttribute,
+    });
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <HighlightsPopUp />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, {createNodeMock});
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <HighlightsPopUp />
+    </TestContainer>, {createNodeMock});
 
     const header = component.root.findByType(Header);
     const closeIcon = component.root.findByType(CloseIcon);

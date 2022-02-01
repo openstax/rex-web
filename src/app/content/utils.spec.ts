@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash/fp/cloneDeep';
 import { resetModules } from '../../test/utils';
-import { ArchiveBook, ArchiveTree, Book } from './types';
+import { ArchiveBook, ArchivePage, ArchiveTree, Book } from './types';
 import {
   getContentPageReferences,
   getIdFromPageParam,
@@ -9,6 +9,10 @@ import {
   stripIdVersion,
   toRelativeUrl,
 } from './utils';
+
+jest.mock('../../config.books', () => ({
+  '13ac107a-f15f-49d2-97e8-60ab2e3b519c': { defaultVersion: '29.7' },
+}));
 
 describe('stripIdVersion', () => {
   it('strips ids', () => {
@@ -21,55 +25,94 @@ describe('stripIdVersion', () => {
 });
 
 describe('getContentPageReferences', () => {
+  let book: ArchiveBook;
+  let page: ArchivePage;
+
+  beforeEach(() => {
+    book = {
+      id: 'booklongid',
+      title: 'book',
+      tree: {
+        contents: [
+          {
+            id: 'pagelongid@1',
+            slug: 'preface',
+            title: '<span class="os-text">Preface</span>',
+          },
+        ],
+      },
+      version: '1',
+    } as ArchiveBook;
+
+    page = {
+      abstract: '',
+      content: 'some cool content',
+      id: 'adsfasdf',
+      revised: '2018-07-30T15:58:45Z',
+      slug: 'mock-slug',
+      title: 'qerqwer',
+    };
+  });
+
   it('works with no references in the content', () => {
-    expect(getContentPageReferences('some cool content')).toEqual([]);
+    expect(getContentPageReferences(book, page)).toEqual([]);
   });
 
   it('works with empty content', () => {
-    expect(getContentPageReferences('')).toEqual([]);
+    page.content = '';
+    expect(getContentPageReferences(book, page)).toEqual([]);
   });
 
-  it('ignores urls not in links', () => {
-    expect(
-      getContentPageReferences('asdfasdfasf /contents/as8s8xu9sdnjsd9 asdfadf')
-    ).toEqual([]);
-  });
-
-  it('picks up basic content reference', () => {
-    expect(
-      getContentPageReferences('asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf')
-    ).toEqual([
+  it ('works with hash links', () => {
+    page.content = '<a href="#foo"></a>';
+    expect(getContentPageReferences(book, page)).toEqual([
       {
-        match: '/contents/as8s8xu9sdnjsd9',
-        pageId: 'as8s8xu9sdnjsd9',
+        bookId: 'booklongid',
+        bookVersion: '1',
+        match: '#foo',
+        pageId: 'adsfasdf',
       },
     ]);
   });
 
-  it('picks up multiple references', () => {
+  it('ignores urls not in links', () => {
+    page.content = 'asdfasdfasf /contents/as8s8xu9sdnjsd9 asdfadf';
+    expect(getContentPageReferences(book, page)).toEqual([]);
+  });
+
+  it('ignores urls without book version', () => {
+    page.content = 'asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf';
+    expect(getContentPageReferences(book, page)).toEqual([]);
+  });
+
+  it('ignores links with no href', () => {
+    page.content = '<a name="foo"></a>';
+    expect(getContentPageReferences(book, page)).toEqual([]);
+  });
+
+  it('picks rap links without book version even if they are not in config.books.json', () => {
+    page.content = `
+      asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3wrong:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a>
+    `;
     expect(
-      getContentPageReferences(`
-      asdfa <a href="/contents/as8s8xu9sdnjsd9"></a> sdf
-      <a href="/contents/9sdnjsd9"></a>
-    `)
+      getContentPageReferences(book, page)
     ).toEqual([
       {
-        match: '/contents/as8s8xu9sdnjsd9',
-        pageId: 'as8s8xu9sdnjsd9',
-      },
-      {
-        match: '/contents/9sdnjsd9',
-        pageId: '9sdnjsd9',
+        bookId: '13ac107a-f15f-49d2-97e8-60ab2e3wrong',
+        bookVersion: undefined,
+        match: './13ac107a-f15f-49d2-97e8-60ab2e3wrong:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml',
+        pageId: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       },
     ]);
   });
 
   it('picks up multiple rap links', () => {
-    expect(
-      getContentPageReferences(`
+    page.content = `
       asdfa <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c@29.7:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> sdf
       <a href="./13ac107a-f15f-49d2-97e8-60ab2e3b519c:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a>
-    `)
+    `;
+    expect(
+      getContentPageReferences(book, page)
     ).toEqual([
       {
         bookId: '13ac107a-f15f-49d2-97e8-60ab2e3b519c',
@@ -241,12 +284,14 @@ describe('parseContents', () => {
           {
             contents: [
               {id: 'chapter@sth', title: chapterHtml, contents: [{id: 'page@sth', title: pageHtml}]},
+              {id: 'chapter2@sth', title: chapterHtml, contents: [{id: 'page@sth', title: pageHtml}]},
             ],
             id: 'unit@unit',
             title: unitHtml,
           },
           {
             contents: [
+              {id: 'chapter@sth', title: chapter2Html, contents: [{id: 'page2@sth', title: pageHtml}]},
               {id: 'chapter2@sth', title: chapter2Html, contents: [{id: 'page2@sth', title: pageHtml}]},
             ],
             id: 'unit2@unit',

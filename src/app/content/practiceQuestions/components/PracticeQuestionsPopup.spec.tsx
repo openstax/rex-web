@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { renderToDom } from '../../../../test/reactutils';
-import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
+import TestContainer from '../../../../test/TestContainer';
 import { push } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
-import { Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
 import { content } from '../../routes';
 import { nextQuestion } from '../actions';
@@ -41,13 +39,17 @@ const mockMatch = {
 
 describe('PracticeQuestions', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let container: HTMLElement;
   let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     container = assertWindow().document.createElement('div');
     dispatch = jest.spyOn(store, 'dispatch');
   });
@@ -59,13 +61,9 @@ describe('PracticeQuestions', () => {
   it('renders practice questions modal if it is open', () => {
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services} >
-        <MessageProvider>
-          <PracticeQuestionsPopup />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, { createNodeMock: () => container });
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>, { createNodeMock: () => container });
 
     expect(component.toJSON()).toMatchSnapshot();
   });
@@ -73,13 +71,9 @@ describe('PracticeQuestions', () => {
   it('doesn\'t render practice questions modal if it is closed', () => {
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(false);
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services} >
-        <MessageProvider>
-          <PracticeQuestionsPopup />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, { createNodeMock: () => container });
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>, { createNodeMock: () => container });
 
     expect(component.toJSON()).toMatchSnapshot();
   });
@@ -90,13 +84,9 @@ describe('PracticeQuestions', () => {
     const addEventListener = jest.fn();
     const createNodeMock = () => ({focus, addEventListener});
 
-    renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <PracticeQuestionsPopup />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, {createNodeMock});
+    renderer.create(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>, {createNodeMock});
 
     expect(focus).toHaveBeenCalled();
   });
@@ -106,13 +96,9 @@ describe('PracticeQuestions', () => {
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services} >
-        <MessageProvider>
-          <PracticeQuestionsPopup />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, { createNodeMock: () => container });
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>, { createNodeMock: () => container });
 
     renderer.act(() => {
       const closeButton = component.root.findByProps({ 'data-testid': 'close-practice-questions-popup' });
@@ -128,13 +114,9 @@ describe('PracticeQuestions', () => {
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
-    const { node } = renderToDom(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <PracticeQuestionsPopup />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>);
 
     const element = assertNotNull(node.querySelector('[data-testid=\'practice-questions-popup-wrapper\']'), '');
 
@@ -149,13 +131,9 @@ describe('PracticeQuestions', () => {
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
-    const { node } = renderToDom(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <PracticeQuestionsPopup />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>);
 
     const element = assertNotNull(node.querySelector('[data-testid=\'practice-questions-popup-wrapper\']'), '');
 
@@ -170,13 +148,9 @@ describe('PracticeQuestions', () => {
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
-    const { node } = renderToDom(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <PracticeQuestionsPopup />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>);
 
     const element = assertNotNull(node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');
 
@@ -200,13 +174,9 @@ describe('PracticeQuestions', () => {
 
     store.dispatch(nextQuestion());
 
-    const { node } = renderToDom(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <PracticeQuestionsPopup />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>);
 
     const element = assertNotNull(node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');
 
@@ -233,13 +203,9 @@ describe('PracticeQuestions', () => {
 
     store.dispatch(nextQuestion());
 
-    const { node } = renderToDom(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <PracticeQuestionsPopup />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>);
 
     const element = assertNotNull(node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');
 

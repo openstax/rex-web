@@ -1,19 +1,17 @@
-import { Document, HTMLButtonElement, HTMLElement, HTMLImageElement } from '@openstax/types/lib.dom';
+import { Document, HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
-import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../../../../config';
-import { ifUndefined } from '../../../fpUtils';
 import { assertNotNull } from '../../../utils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
 // We are passing Document because it is required to prerender.
 export const transformContent = (document: Document, rootEl: HTMLElement, intl: IntlShape) => {
+  removeDocumentTitle(rootEl);
   addScopeToTables(rootEl);
   wrapElements(document, rootEl);
   tweakFigures(rootEl);
   fixLists(rootEl);
   wrapSolutions(rootEl, intl);
-  prefixResources(rootEl);
   moveFootnotes(document, rootEl, intl);
   setLinksAttributes(rootEl);
 };
@@ -30,16 +28,19 @@ const toggleSolutionSectionStyles = (section: HTMLElement, shouldBeVisible: bool
 
 const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
   const section = assertNotNull(solution.querySelector('section'), 'Expected solution to contain a <section>');
+  const button = assertNotNull(solution.querySelector('.ui-toggle'), 'Expected solution to contain a toggle <button>');
 
   if (solution.classList.contains('ui-solution-visible')) {
     solution.classList.remove('ui-solution-visible');
     solution.setAttribute('aria-expanded', 'false');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
+    button.setAttribute('data-content', intl.formatMessage({id: 'i18n:content:solution:show'}));
     toggleSolutionSectionStyles(section, false);
   } else {
     solution.className += ' ui-solution-visible';
     solution.setAttribute('aria-expanded', 'true');
     solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:hide'}));
+    button.setAttribute('data-content', intl.formatMessage({id: 'i18n:content:solution:hide'}));
     toggleSolutionSectionStyles(section, true);
   }
 };
@@ -58,6 +59,14 @@ export const mapSolutions = (container: HTMLElement | null, cb: (a: HTMLButtonEl
     )).forEach(cb);
   }
 };
+
+function removeDocumentTitle(rootEl: HTMLElement) {
+  rootEl.querySelectorAll([
+    'h1[data-type="document-title"]',
+    'h2[data-type="document-title"]',
+    'div[data-type="document-title"]',
+  ].join(',')).forEach((el) => el.remove());
+}
 
 function addScopeToTables(rootEl: HTMLElement) {
   rootEl.querySelectorAll('table th').forEach((el) => el.setAttribute('scope', 'col'));
@@ -128,28 +137,20 @@ const initialSolutionStyles = 'display: block; overflow: hidden; height: 0px';
 
 function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   const title = intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
+  const showSolutionText = intl.formatMessage({id: 'i18n:content:solution:show'});
 
   // Wrap solutions in a div so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
-    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
+    el.setAttribute('aria-label', showSolutionText);
     el.setAttribute('aria-expanded', 'false');
     const contents = el.innerHTML;
     el.innerHTML = `
       <div class="ui-toggle-wrapper">
-        <button class="btn-link ui-toggle" title="${title}"></button>
+        <button class="btn-link ui-toggle" title="${title}" data-content="${showSolutionText}"></button>
       </div>
       <section class="ui-body" role="alert" style="${initialSolutionStyles}">${contents}</section>
     `;
   });
-}
-
-/*
- * when resources are relative this function will no longer be necessary
- */
-function prefixResources(rootEl: HTMLElement) {
-  rootEl.querySelectorAll<HTMLImageElement>('img[src^="/resources/"]').forEach(
-    (el) => el.src = ifUndefined(REACT_APP_ARCHIVE_URL_OVERRIDE, '') + el.getAttribute('src')
-  );
 }
 
 function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape) {

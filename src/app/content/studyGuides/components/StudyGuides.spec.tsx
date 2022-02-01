@@ -1,15 +1,13 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import { typesetMath } from '../../../../helpers/mathjax';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter, pageInOtherChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
+import TestContainer from '../../../../test/TestContainer';
+import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights from '../../components/SectionHighlights';
@@ -46,7 +44,7 @@ const hlYellow = {
 describe('StudyGuides', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();
@@ -54,7 +52,11 @@ describe('StudyGuides', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...page, references: []}));
 
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('properly display summary highlights', () => {
@@ -84,13 +86,9 @@ describe('StudyGuides', () => {
 
     store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <StudyGuides />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <StudyGuides />
+    </TestContainer>);
 
     expect(component.toJSON()).toMatchSnapshot();
   });
@@ -124,13 +122,9 @@ describe('StudyGuides', () => {
 
     store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
 
-    renderer.create(<Provider store={store}>
-      <Services.Provider value={services} >
-        <MessageProvider>
-          <StudyGuides />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, { createNodeMock: () => container });
+    renderer.create(<TestContainer services={services} store={store}>
+      <StudyGuides />
+    </TestContainer>, { createNodeMock: () => container });
 
     expect(spyPromiseCollectorAdd).toHaveBeenCalledWith(allImagesLoaded(container));
     expect(spyPromiseCollectorAdd).toHaveBeenCalledWith(typesetMath(container, assertWindow()));
@@ -165,13 +159,9 @@ describe('StudyGuides', () => {
       store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
     });
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <StudyGuides/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <StudyGuides/>
+    </TestContainer>);
 
     const sections = component.root.findAllByType(SectionHighlights);
     expect(sections.length).toEqual(2);
@@ -190,13 +180,9 @@ describe('StudyGuides', () => {
     const summaryStudyGuides = {} as SummaryHighlights;
     store.dispatch(receiveSummaryStudyGuides(summaryStudyGuides, {pagination: null}));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <StudyGuides />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <StudyGuides />
+    </TestContainer>);
 
     expect(component.root.findByProps(NoStudyGuidesTip)).toBeDefined();
   });

@@ -80,12 +80,14 @@ export default () =>
       <FilterDropdown
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+        dataAnalyticsLabel='Filter highlights by Chapter'
       >
         <ConnectedChapterFilter multiselect={true} />
       </FilterDropdown>
       <FilterDropdown
         label='i18n:highlighting:filters:colors'
         ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
+        dataAnalyticsLabel='Filter highlights by Color'
       >
         <ConnectedColorFilter
           styles={highlightStyles}
@@ -96,6 +98,9 @@ export default () =>
     </FiltersTopBar>
     <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:highlighting:filters:remove:color'}
-      colorLabelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
+      colorDataAnalyticsLabel={(color: HighlightColorEnum) => `Remove breadcrumb for color ${color}`}
+      colorLabelKey={(color: HighlightColorEnum) => `i18n:highlighting:colors:${color}`}
+      chapterAriaLabelKey={() => 'i18n:highlighting:filters:remove:chapter'}
+      chapterDataAnalyticsLabel={(splitTitle: string) => `Remove breadcrumb for chapter ${splitTitle}`}
     />
   </Filters>;

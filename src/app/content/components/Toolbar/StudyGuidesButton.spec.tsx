@@ -3,10 +3,10 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { receiveFeatureFlags } from '../../../actions';
+import MessageProvider from '../../../../test/MessageProvider';
 import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
+import { receiveFeatureFlags } from '../../../featureFlags/actions';
+import { MiddlewareAPI, Store } from '../../../types';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { CountsPerSource } from '../../highlights/types';
 import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
@@ -14,11 +14,15 @@ import StudyGuidesButton, { StudyGuidesWrapper } from './StudyGuidesButton';
 
 describe('study guides button', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('does not render if feature flag is not enabled', () => {
@@ -65,7 +69,7 @@ describe('study guides button', () => {
   });
 
   it('clicking button triggers analytics event', () => {
-    const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
+    const spyTrack = jest.spyOn(services.analytics.openStudyGuides, 'track');
 
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
     store.dispatch(receiveStudyGuidesTotalCounts({ countsPerSource: { asd: { green: 1 } } } as CountsPerSource));
@@ -82,16 +86,6 @@ describe('study guides button', () => {
       const button = component.root.findByType(StudyGuidesWrapper);
       button.props.onClick();
     });
-
-    expect(spyTrack).toHaveBeenCalled();
-  });
-
-  // Temporary test for a coverage until we add component wich handles that
-  it('trigger analytics close event', () => {
-    const spyTrack = jest.spyOn(services.analytics.openCloseStudyGuides, 'track');
-
-    const trackOpenClose = services.analytics.openCloseStudyGuides.bind(store.getState());
-    trackOpenClose('esc');
 
     expect(spyTrack).toHaveBeenCalled();
   });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Home matches snapshot 1`] = `
+exports[`Home matches snapshot and books are sorted 1`] = `
 Array [
   <a
     className="HiddenLink-wwwegq-0 kZsmVR"
@@ -69,7 +69,20 @@ Array [
                   href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                   onClick={[Function]}
                 >
-                  Test Book 1
+                  0 Should be first
+                </a>
+              </h3>
+            </li>
+            <li>
+              <h3
+                className="headings__H3-sc-1xfiggv-2 dxSanG"
+              >
+                <a
+                  className="ContentLink__StyledContentLink-ctb7jh-0 jAbAdk"
+                  href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                  onClick={[Function]}
+                >
+                  Should be second
                 </a>
               </h3>
             </li>
@@ -89,34 +102,34 @@ Array [
             className="Button__ButtonGroup-ayg7nk-1 jzhcUT"
           >
             <button
-              className="Button-ayg7nk-0 bmzHbc"
+              className="Button-ayg7nk-0 liRzrl"
               onClick={[Function]}
             >
               accept cookies
             </button>
             <button
-              className="Button-ayg7nk-0 bmzHbc"
+              className="Button-ayg7nk-0 liRzrl"
               data-testid="trigger-updates-available"
               onClick={[Function]}
             >
               update available
             </button>
             <button
-              className="Button-ayg7nk-0 bmzHbc"
+              className="Button-ayg7nk-0 liRzrl"
               data-testid="trigger-messages"
               onClick={[Function]}
             >
               app messages
             </button>
             <button
-              className="Button-ayg7nk-0 bmzHbc"
+              className="Button-ayg7nk-0 liRzrl"
               data-testid="trigger-inline-error"
               onClick={[Function]}
             >
               inline error
             </button>
             <button
-              className="Button-ayg7nk-0 bmzHbc"
+              className="Button-ayg7nk-0 liRzrl"
               data-testid="trigger-modal-error"
               onClick={[Function]}
             >

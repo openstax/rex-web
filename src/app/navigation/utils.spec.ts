@@ -235,7 +235,7 @@ describe('matchSearch', () => {
     expect(
       matchSearch(
         {route: routes[2], params} as AnyMatch,
-        ''
+        {}
       )
     ).toEqual('archive=https%3A%2F%2Farchive-content03.cnx.org');
     expect(spy).toHaveBeenCalledWith(params);
@@ -252,7 +252,7 @@ describe('matchSearch', () => {
     expect(
       matchSearch(
         {route: routes[2]} as AnyMatch,
-        ''
+        {}
       )
     ).toEqual('archive=https%3A%2F%2Farchive-content03.cnx.org');
   });

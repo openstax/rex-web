@@ -13,6 +13,7 @@ exports[`Filters matches snapshot 1`] = `
       <button
         aria-label="Filter highlights by Chapter"
         className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+        data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
         <div
@@ -41,6 +42,7 @@ exports[`Filters matches snapshot 1`] = `
       <button
         aria-label="Filter highlights by Color"
         className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+        data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
         <div
@@ -66,6 +68,7 @@ exports[`Filters matches snapshot 1`] = `
     <button
       aria-label="print"
       className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 iIYjST styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+      data-analytics-label="print"
       data-testid="print"
       disabled={false}
       onClick={[Function]}
@@ -98,6 +101,7 @@ exports[`Filters matches snapshot 1`] = `
       <button
         aria-label="Remove breadcrumb for color blue"
         className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
         <svg
@@ -139,6 +143,7 @@ exports[`Filters matches snapshot 1`] = `
       <button
         aria-label="Remove breadcrumb for color green"
         className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
         <svg
@@ -180,6 +185,7 @@ exports[`Filters matches snapshot 1`] = `
       <button
         aria-label="Remove breadcrumb for color pink"
         className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
         <svg
@@ -221,6 +227,7 @@ exports[`Filters matches snapshot 1`] = `
       <button
         aria-label="Remove breadcrumb for color purple"
         className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
         <svg
@@ -262,6 +269,7 @@ exports[`Filters matches snapshot 1`] = `
       <button
         aria-label="Remove breadcrumb for color yellow"
         className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
         <svg
@@ -314,6 +322,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
       <button
         aria-label="Filter highlights by Chapter"
         className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+        data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
         <div
@@ -342,6 +351,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
       <button
         aria-label="Filter highlights by Color"
         className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
+        data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
         <div
@@ -403,6 +413,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     <button
       aria-label="print"
       className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 iIYjST styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+      data-analytics-label="print"
       data-testid="print"
       disabled={false}
       onClick={[Function]}

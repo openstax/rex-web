@@ -1,11 +1,11 @@
 import { Highlight } from '@openstax/highlighter';
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { makeFindByTestId } from '../../../../test/reactutils';
+import TestContainer from '../../../../test/TestContainer';
+import { runHooks } from '../../../../test/utils';
 import { DropdownToggle } from '../../../components/Dropdown';
-import MessageProvider from '../../../MessageProvider';
 import { Store } from '../../../types';
 import { assertDocument, assertWindow } from '../../../utils';
 import { openToc } from '../../actions';
@@ -38,33 +38,27 @@ describe('DisplayNote', () => {
   });
 
   it('matches snapshot', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={false} />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={false} />
+    </TestContainer>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('matches snapshot when focused', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={true} />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('matches snapshot when focused with opened dropdown', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={true} />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -76,11 +70,9 @@ describe('DisplayNote', () => {
   });
 
   it('shows delete confirmation', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={true} />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -99,11 +91,9 @@ describe('DisplayNote', () => {
   });
 
   it('confirmation deletes', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={true} />
-      </MessageProvider>
-    </Provider>, { createNodeMock: () => assertDocument().createElement('div')});
+    const component = renderer.create(<TestContainer store={store}>
+          <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>, { createNodeMock: () => assertDocument().createElement('div')});
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -126,11 +116,9 @@ describe('DisplayNote', () => {
   });
 
   it('confirmation cancels and does not call props.onBlur', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={true} />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -155,13 +143,11 @@ describe('DisplayNote', () => {
   });
 
   it('closes confirmation after changing focus and reopen', () => {
-    let isFocused = true;
+    let isActive = true;
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={isFocused} />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={isActive} />
+    </TestContainer>);
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
 
@@ -178,39 +164,31 @@ describe('DisplayNote', () => {
 
     expect(component.root.findByType(Confirmation)).toBeDefined();
 
-    isFocused = false;
+    isActive = false;
 
-    component.update(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={isFocused} />
-      </MessageProvider>
-    </Provider>);
+    component.update(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={isActive} />
+    </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
+    runHooks(renderer);
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
 
-    isFocused = true;
+    isActive = true;
 
-    component.update(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={isFocused} />
-      </MessageProvider>
-    </Provider>);
+    component.update(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={isActive} />
+    </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    renderer.act(() => {});
+    runHooks(renderer);
 
     expect(() => component.root.findByType(Confirmation)).toThrow();
   });
 
   it('calls onHeightChange when textToggle state changes', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} isFocused={false} />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={false} />
+    </TestContainer>);
 
     const trucatedText = component.root.findByType(TruncatedText);
 
@@ -227,11 +205,9 @@ describe('DisplayNote', () => {
       id: 'asdf',
     } as any as Highlight;
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} highlight={highlight} isFocused={false} />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
+    </TestContainer>);
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -244,11 +220,9 @@ describe('DisplayNote', () => {
   it('calls onHeightChange on open toc, search sidebar or window resize', () => {
     const highlight = { id: 'asdf', elements: [] } as any as Highlight;
 
-    renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} highlight={highlight} isFocused={false} />
-      </MessageProvider>
-    </Provider>);
+    renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
+    </TestContainer>);
 
     renderer.act(() => {
       store.dispatch(openToc());
@@ -273,11 +247,9 @@ describe('DisplayNote', () => {
   it('does not throw after unmout', () => {
     const highlight = { id: 'asdf', elements: [] } as any as Highlight;
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider onError={doNothing}>
-        <DisplayNote {...displayNoteProps} highlight={highlight} isFocused={false} />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
+    </TestContainer>);
 
     expect(() => component.unmount()).not.toThrow();
   });

@@ -273,7 +273,8 @@ export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='tr
   ${theme.breakpoints.mobile(css`
     ${DropdownToggle}:focus ~ &,
     ${DropdownOverlay}:focus ~ &,
-    ${DropdownOverlay}.focus-within ~ & {
+    ${DropdownOverlay}.focus-within ~ &,
+    ${DropdownOverlay}:focus-within ~ & {
       display: block;
     }
   `)}

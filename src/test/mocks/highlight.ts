@@ -5,6 +5,7 @@ export default (id: string = Math.random().toString(36).substring(7)) => {
   return {
     addFocusedStyles: jest.fn(),
     elements: [] as HTMLElement[],
+    focus: jest.fn(),
     getStyle: jest.fn(),
     id,
     isAttached: jest.fn(() => true),

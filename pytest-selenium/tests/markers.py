@@ -8,3 +8,6 @@ parametrize = mark.parametrize
 skip_test = mark.skip
 smoke_test = mark.smoke_test
 test_case = pytestrail.case
+dev_only = mark.dev_only
+highlighting = mark.highlighting
+non_heroku = mark.non_heroku

@@ -5,11 +5,13 @@ exports[`CardWrapper matches snapshot 1`] = `
   className="sc-bdVaJa jZCMyL"
 >
   <span
+    container={<div />}
     data-mock-card={true}
     highlight={
       Object {
         "addFocusedStyles": [MockFunction],
         "elements": Array [],
+        "focus": [MockFunction],
         "getStyle": [MockFunction],
         "id": "id1",
         "isAttached": [MockFunction],
@@ -23,6 +25,7 @@ exports[`CardWrapper matches snapshot 1`] = `
       }
     }
     onHeightChange={[Function]}
+    shouldFocusCard={false}
     zIndex={1}
   />
 </div>
