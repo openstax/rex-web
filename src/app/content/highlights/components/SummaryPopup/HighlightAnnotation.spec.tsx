@@ -1,14 +1,12 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';
 import { book, page } from '../../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
-import * as Services from '../../../../context/Services';
-import MessageProvider from '../../../../MessageProvider';
-import { Store } from '../../../../types';
+import TestContainer from '../../../../../test/TestContainer';
+import { MiddlewareAPI, Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
 import { highlightLocationFilters } from '../../selectors';
@@ -27,36 +25,32 @@ describe('HighlightDeleteWrapper', () => {
   });
 
   it('match snapshot when editing is set to false', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightAnnotation
-          annotation='Some annotation'
-          isEditing={false}
-          // tslint:disable-next-line: no-empty
-          onSave={() => {}}
-          // tslint:disable-next-line: no-empty
-          onCancel={() => {}}
-        />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <HighlightAnnotation
+        annotation='Some annotation'
+        isEditing={false}
+        // tslint:disable-next-line: no-empty
+        onSave={() => {}}
+        // tslint:disable-next-line: no-empty
+        onCancel={() => {}}
+      />
+    </TestContainer>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('match snapshot when editing is set to true', () => {
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightAnnotation
-          annotation='Some annotation'
-          isEditing={true}
-          // tslint:disable-next-line: no-empty
-          onSave={() => {}}
-          // tslint:disable-next-line: no-empty
-          onCancel={() => {}}
-        />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <HighlightAnnotation
+        annotation='Some annotation'
+        isEditing={true}
+        // tslint:disable-next-line: no-empty
+        onSave={() => {}}
+        // tslint:disable-next-line: no-empty
+        onCancel={() => {}}
+      />
+    </TestContainer>);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -67,16 +61,14 @@ describe('HighlightDeleteWrapper', () => {
     let cancelClicked = false;
     const annotation = 'TEST';
 
-    const component = renderer.create(<Provider store={store}>
-      <MessageProvider>
-        <HighlightAnnotation
-          annotation={annotation}
-          isEditing={true}
-          onCancel={() => { cancelClicked = true; }}
-          onSave={(text) => { savedText = text; }}
-        />
-      </MessageProvider>
-    </Provider>);
+    const component = renderer.create(<TestContainer store={store}>
+      <HighlightAnnotation
+        annotation={annotation}
+        isEditing={true}
+        onCancel={() => { cancelClicked = true; }}
+        onSave={(text) => { savedText = text; }}
+      />
+    </TestContainer>);
 
     renderer.act(() => { return; });
 
@@ -102,12 +94,16 @@ describe('HighlightDeleteWrapper', () => {
 
 describe('Highlight annotation', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let highlight: ReturnType<typeof createMockHighlight>;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     highlight = createMockHighlight('asdf');
   });
 
@@ -118,20 +114,16 @@ describe('Highlight annotation', () => {
     const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
 
-    jest.spyOn(utils, 'createHighlightLink')
+    jest.spyOn(utils, 'useCreateHighlightLink')
       .mockReturnValue('/link/to/highlight');
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <HighlightListElement
-            highlight={highlight as unknown as HighlightData}
-            locationFilterId={location!.id}
-            pageId={page.id}
-          />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <HighlightListElement
+        highlight={highlight as unknown as HighlightData}
+        locationFilterId={location!.id}
+        pageId={page.id}
+      />
+    </TestContainer>);
 
     const track = jest.spyOn(services.analytics.editAnnotation, 'track');
 

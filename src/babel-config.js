@@ -21,6 +21,7 @@ module.exports = function(additionalExtensions = ['.ts', '.tsx']) {
       'macros',
       '@babel/proposal-class-properties',
       '@babel/proposal-object-rest-spread',
+      '@babel/plugin-proposal-optional-chaining',
       '@babel/transform-runtime',
       'babel-plugin-transform-dynamic-import',
     ]

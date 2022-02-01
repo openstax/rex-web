@@ -19,6 +19,7 @@ const PrintButton = (props: Props) => {
         onClick={props.onClick ? props.onClick : () => assertWindow().print()}
         aria-label={intl.formatMessage({id: 'i18n:toolbar:print:aria-label'})}
         data-testid='print'
+        data-analytics-label='print'
         className={props.className}
         disabled={props.disabled}
       >

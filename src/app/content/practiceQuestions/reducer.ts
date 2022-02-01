@@ -1,15 +1,12 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { receiveFeatureFlags } from '../../actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
-import { practiceQuestionsFeatureFlag } from '../constants';
 import * as actions from './actions';
 import { State } from './types';
 
 export const initialState: State = {
   currentQuestionIndex: null,
-  isEnabled: false,
   loading: false,
   questionAnswers: {},
   questions: [],
@@ -28,8 +25,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
         questions: [],
         selectedSection: null,
       };
-    case getType(receiveFeatureFlags):
-      return {...state, isEnabled: action.payload.includes(practiceQuestionsFeatureFlag)};
     case getType(actions.receivePracticeQuestionsSummary):
       return {...state, summary: action.payload};
     case getType(actions.setSelectedSection):

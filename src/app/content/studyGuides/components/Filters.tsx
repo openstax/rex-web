@@ -21,6 +21,27 @@ import { cookieUTG } from './UsingThisGuide/constants';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
 import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
+// converting color to a label is based on "i18n:studyguides:popup:filters:remove:color" from messages.json
+const createColorDataAnalyticsLabel = (color: HighlightColorEnum): string => {
+  let label;
+  switch (color) {
+    case 'blue':
+      label = 'Important Concepts';
+      break;
+    case 'green':
+      label = 'Connections & Relationships';
+      break;
+    case 'purple':
+      label = 'Enrichment';
+      break;
+    case 'yellow':
+      label = 'Key Terms';
+      break;
+  }
+
+  return `Remove breadcrumb for label ${label}`;
+};
+
 // tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
   (state: AppState) => ({
@@ -107,12 +128,14 @@ export default () => {
       <FilterDropdown
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+        dataAnalyticsLabel='Filter study guides by Chapter'
       >
         <ConnectedChapterFilter disabled={userLoggedOut} multiselect={true} />
       </FilterDropdown>
       <FilterDropdown
         label='i18n:highlighting:filters:colors'
         ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
+        dataAnalyticsLabel='Filter study guides by Color'
       >
         <ConnectedColorFilter
           disabled={userLoggedOut}
@@ -131,7 +154,10 @@ export default () => {
     />
     {!userLoggedOut && <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
-      colorLabelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
+      colorDataAnalyticsLabel={(color: HighlightColorEnum) => createColorDataAnalyticsLabel(color)}
+      colorLabelKey={(color: HighlightColorEnum) => `i18n:studyguides:popup:filters:${color}`}
+      chapterAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:chapter'}
+      chapterDataAnalyticsLabel={(splitTitle: string) => `Remove breadcrumb for chapter ${splitTitle}`}
     />}
   </Filters>;
 };

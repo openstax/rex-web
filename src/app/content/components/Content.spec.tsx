@@ -3,14 +3,14 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import MessageProvider from '../../../test/MessageProvider';
 import { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
-import MessageProvider from '../../MessageProvider';
 import { locationChange } from '../../navigation/actions';
-import { Store } from '../../types';
+import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { openToc, receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
@@ -21,20 +21,16 @@ import BuyBook from './BuyBook';
 import Content from './Content';
 import { TableOfContents } from './TableOfContents';
 
-jest.mock('../../../config', () => {
+jest.mock('../../../config.books', () => {
   const mockBook = (jest as any).requireActual(
     '../../../test/mocks/archiveLoader'
   ).book;
-  return {
-    BOOKS: {
-      [mockBook.id]: { defaultVersion: mockBook.version },
-    },
-  };
+  return { [mockBook.id]: { defaultVersion: mockBook.version } };
 });
 
 describe('content', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   const bookState = formatBookData(book, mockCmsBook);
 
   beforeEach(() => {
@@ -61,7 +57,11 @@ describe('content', () => {
         },
       })
     );
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('matches snapshot', () => {
@@ -84,6 +84,7 @@ describe('content', () => {
   });
 
   it('renders empty state', () => {
+    store.dispatch(receiveBook(bookState));
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     const component = renderer.create(
       <Provider store={store}>
@@ -117,6 +118,8 @@ describe('content', () => {
   });
 
   it('provides the right scroll offset when mobile search collapsed', () => {
+    store.dispatch(receiveBook(bookState));
+
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -138,6 +141,7 @@ describe('content', () => {
   });
 
   it('provides the right scroll offset when mobile search collapsed', () => {
+    store.dispatch(receiveBook(bookState));
     store.dispatch(openMobileToolbar());
 
     const component = renderer.create(
@@ -204,6 +208,8 @@ describe('content', () => {
   });
 
   it('renders with ToC in null state', () => {
+    store.dispatch(receiveBook(bookState));
+
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -221,6 +227,7 @@ describe('content', () => {
 
   it('clicking overlay closes toc', () => {
     renderer.act(() => {
+      store.dispatch(receiveBook(bookState));
       store.dispatch(openToc());
     });
 
@@ -245,6 +252,8 @@ describe('content', () => {
   });
 
   it('SidebarControl opens and closes ToC', () => {
+    store.dispatch(receiveBook(bookState));
+
     const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>

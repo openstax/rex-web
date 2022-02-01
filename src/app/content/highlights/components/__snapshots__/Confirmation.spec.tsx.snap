@@ -2,7 +2,7 @@
 
 exports[`Confirmation matches snapshot no selection 1`] = `
 <div
-  className="Confirmation__Overlay-stssi9-0 cyvPi"
+  className="Confirmation__Overlay-stssi9-0 jzhfSA"
   data-analytics-region="region"
   tabIndex={-1}
 >
@@ -13,7 +13,7 @@ exports[`Confirmation matches snapshot no selection 1`] = `
     className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
   >
     <button
-      className="Button-ayg7nk-0 bXETKb"
+      className="Button-ayg7nk-0 dIvXiu"
       data-analytics-label="confirm"
       data-testid="confirm"
       onClick={[Function]}
@@ -21,7 +21,7 @@ exports[`Confirmation matches snapshot no selection 1`] = `
       confirm
     </button>
     <button
-      className="Button-ayg7nk-0 kWlfWJ"
+      className="Button-ayg7nk-0 bHTkEr"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}

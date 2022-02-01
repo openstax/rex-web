@@ -57,6 +57,7 @@ const Button = styled(ButtonHoc)`
   border-radius: 0.2rem;
   text-decoration: none;
   white-space: nowrap;
+  overflow: initial;
   ${(props) => props.size === 'large' && `
     font-size: 1.6rem;
     height: 5rem;

@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Consumer } from '../context/SkipToContent';
 import { mergeRefs } from '../utils';
+import DynamicContentStyles from './DynamicContentStyles';
 
 interface Props {
   className?: string;
@@ -11,7 +12,7 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const HideOutline = styled.div`
+const HideOutline = styled(DynamicContentStyles)`
   outline: none;
 `;
 

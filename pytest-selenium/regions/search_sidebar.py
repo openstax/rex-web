@@ -18,20 +18,21 @@ class SearchSidebar(Region):
 
     _close_sidebar_locator = (By.CSS_SELECTOR, "[class*=CloseIconButton]")
     _no_results_locator = (By.CSS_SELECTOR, "[class*=SearchQueryAlignment]")
+    _chapter_result_option_locator = (By.CSS_SELECTOR, "li a")
+    _rkt_result_option_locator = (By.CSS_SELECTOR, "div > a")
     _search_result_locator = (By.CSS_SELECTOR, "[data-testid$=result]")
     _search_results_sidebar_locator = (
         By.XPATH,
-        "//div[@data-testid = 'search-results-sidebar']/ol",
+        "//div[@data-testid = 'search-results-sidebar']/div[2]",
     )
 
     # fmt: off
     @property
     def no_results_message(self):
-        try:
-            return (self.find_element(*self._no_results_locator)
-                    .get_attribute("textContent"))
-        except NoSuchElementException:
-            return ""
+        results = self.find_elements(*self._no_results_locator)
+        if results:
+            return results[0].text
+        return ""
 
     @property
     def close_search_sidebar_button(self):
@@ -47,25 +48,20 @@ class SearchSidebar(Region):
             lambda _: not self.driver.execute_script(
                 VISIBILITY, self.close_search_sidebar_button))
 
-    def search_results(self, term: str = "") -> List[WebElement]:
-        """Return the search results from search sidebar.
+    @property
+    def chapter_results(self) -> List[WebElement]:
+        """Return the list of chapter search results.
 
-        :param str term: search term defined in the test
-        :return: search results displayed in search sidebar
+        :return: the list of book pages containing some or all of the search
+            terms
         :rtype: list(WebElement)
 
-        Search functionality works based on fuzzy search
-        So split into single words when the search term has multiple words
-        Return the search results if atleast one of the words in the search term is present in the search sidebar.
-
         """
-        split_search_term = re.findall(r"\w+", term)
-        for x in split_search_term:
-            try:
-                return [result for result in self.find_elements(*self._search_result_locator)
-                        if x in result.get_attribute("textContent")]
-            except IndexError:
-                continue
+        return self.find_elements(*self._chapter_result_option_locator)
+
+    @property
+    def chapter_search_result_total(self):
+        return len(self.chapter_results)
 
     # fmt: on
 
@@ -75,6 +71,21 @@ class SearchSidebar(Region):
             return self.root.is_displayed()
         except NoSuchElementException:
             return False
+
+    @property
+    def rkt_results(self) -> List[WebElement]:
+        """Return the list of related key term search results.
+
+        :return: the list of book pages containing some or all of the related key term search
+            terms
+        :rtype: list(WebElement)
+
+        """
+        return self.find_elements(*self._rkt_result_option_locator)
+
+    @property
+    def rkt_search_result_total(self):
+        return len(self.rkt_results)
 
     @property
     def search_results_sidebar(self):
@@ -91,3 +102,27 @@ class SearchSidebar(Region):
         return self.wait.until(
             expected.invisibility_of_element_located(self.search_results_sidebar)
         )
+
+    def search_results(self, term: str = "") -> List[WebElement]:
+        """Return the search results from search sidebar.
+
+        :param str term: search term defined in the test
+        :return: search results displayed in search sidebar
+        :rtype: list(WebElement)
+
+        Search functionality works based on fuzzy search
+        So split into single words when the search term has multiple words
+        Return the search results if atleast one of the words in the search
+        term is present in the search sidebar.
+
+        """
+        split_search_term = re.findall(r"\w+", term)
+        for x in split_search_term:
+            try:
+                return [
+                    result
+                    for result in self.find_elements(*self._search_result_locator)
+                    if x in result.get_attribute("textContent")
+                ]
+            except IndexError:
+                continue

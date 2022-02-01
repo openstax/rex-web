@@ -6,6 +6,7 @@ import { finishRender, navigate } from '../../test/browserutils';
 const TEST_PAGE_WITHOUT_MATH = '/books/book-slug-1/pages/2-test-page-3';
 const TEST_PAGE_WITH_LINKS_NAME = '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
 const TEST_PAGE_WITH_LINKS = '/books/book-slug-1/pages/' + TEST_PAGE_WITH_LINKS_NAME;
+const TEST_PAGE_WITH_FIGURE = '/books/book-slug-1/pages/test-page-for-generic-styles';
 
 describe('content', () => {
   it('doesn\'t modify the markup on page load', async() => {
@@ -23,11 +24,11 @@ describe('content', () => {
       [
         '[data-testid="user-nav"]',
         '[data-testid="nav-login"]',
+        '[data-experiment]',
       ].forEach((selector) => {
-        const element = root.querySelector(selector);
-        if (element) {
+        root.querySelectorAll(selector).forEach((element) => {
           element.remove();
-        }
+        });
       });
 
       // these attributes are intended to be changed on page load
@@ -35,6 +36,10 @@ describe('content', () => {
         ['[data-testid="toc"]', 'style'],
         ['[data-testid="search-results-sidebar"]', 'style'],
         ['[data-testid="loader"] path', 'style'],
+        // img src is changed from data:image/svg+xml;base64... to static path
+        ['[data-testid="navbar"] img', 'src'],
+        // caused by DynamicContentStyles component
+        ['#main-content', 'class'],
       ].forEach(([selector, attribute]) => {
         root.querySelectorAll(selector).forEach((element) =>
           element.removeAttribute(attribute)
@@ -65,7 +70,7 @@ describe('content', () => {
     expect(pretty(secondHTML)).toEqual(pretty(firstHTML));
   });
 
-  it('updates links in content', async() => {
+  it('updates content links in content', async() => {
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE_WITH_LINKS);
 
@@ -78,6 +83,22 @@ describe('content', () => {
 
     expect(links).toEqual([
       'test-page-1',
+    ]);
+  });
+
+  it('updates resource links in content', async() => {
+    await page.setJavaScriptEnabled(false);
+    await navigate(page, TEST_PAGE_WITH_FIGURE);
+
+    const links: string[] = await page.evaluate(() =>
+      document
+        ? Array.from(document.querySelectorAll('#main-content img'))
+          .map((element) => element.getAttribute('src') as string)
+        : []
+    );
+
+    expect(links).toEqual([
+      '/apps/archive/codeversion/resources/c7cc4c5e00a4bc07cb74f29cac2fb3c6cd6d53b5',
     ]);
   });
 

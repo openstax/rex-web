@@ -1,15 +1,15 @@
 import React from 'react';
-import { BOOKS } from '../../../config';
+import BOOKS from '../../../config.books';
 import { H3 } from '../../components/Typography';
 import { StyledContentLink } from '../../content/components/ContentLink';
 import { Book } from '../../content/types';
 import { findDefaultBookPage, makeUnifiedBookLoader } from '../../content/utils';
 import withServices from '../../context/Services';
-import { AppServices } from '../../types';
+import { AppServices, MiddlewareAPI } from '../../types';
 import Panel from './Panel';
 
 interface Props {
-  services: AppServices;
+  services: AppServices & MiddlewareAPI;
 }
 interface State {
   books: Book[];
@@ -24,11 +24,13 @@ class Books extends React.Component<Props, State> {
     const {archiveLoader, osWebLoader} = this.props.services;
     const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
-    const books = await Promise.all(Object.entries(BOOKS).map(([bookId, {defaultVersion}]) =>
-      bookLoader(bookId, defaultVersion)
-    ));
-
-    this.setState({books});
+    for (const [bookId, {defaultVersion}] of Object.entries(BOOKS)) {
+      bookLoader(bookId, defaultVersion).then((bookData) => {
+        this.setState((state) => ({
+          books: [...state.books, bookData].sort((bookA, bookB) => bookA.title.localeCompare(bookB.title)),
+        }));
+      });
+    }
   }
 
   public render() {

@@ -3,14 +3,15 @@
 from __future__ import annotations
 
 from enum import Enum
+from json import loads
 from platform import system
 from random import choice, choices, randint
 from string import digits, ascii_letters
-
 from time import sleep
 from typing import Dict, List, Tuple
 
 from faker import Faker
+from pypom import Page, Region
 from selenium.common.exceptions import (
     ElementClickInterceptedException,
     NoSuchElementException,
@@ -22,6 +23,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 
 # Constant usage values for javascript commands
+ANALYTICS_QUEUE = (
+    "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
+    ".map(x => x.command.payload);"
+)
 ASYNC_DELETE = r"""
 (async function delete_page_highlights() {
   const ids = __APP_STORE.getState().content.highlights.highlights.map(({id}) => id);
@@ -51,8 +56,14 @@ class Color(Enum):
     PURPLE = "purple"
     YELLOW = "yellow"
 
-    def __str__(self):
-        return self.value
+    def __str__(cls) -> str:
+        """Return the color as a string.
+
+        :return: the color as a string
+        :rtype: str
+
+        """
+        return cls.value
 
     @classmethod
     def from_html_class(cls, classes: str) -> Color:
@@ -85,6 +96,12 @@ class Color(Enum):
 
     @classmethod
     def options(cls) -> List[Color]:
+        """Return the color options.
+
+        :return: the ``Color`` options as a list
+        :rtype: list(Enum)
+
+        """
         return [color for _, color in cls.__members__.items()]
 
 
@@ -129,24 +146,21 @@ class Highlight:
         """Retry highlighting content to smooth out false test failures."""
         starting_highlights = len(set(book.content.highlight_ids))
         tries = 5
-        while (starting_highlights >= len(set(book.content.highlight_ids)) and
-               tries):
+        while starting_highlights >= len(set(book.content.highlight_ids)) and tries:
             target = by(group) if by else group
             try:
-                book.content.highlight(
-                    target=target,
-                    offset=offset,
-                    color=color)
+                book.content.highlight(target=target, offset=offset, color=color)
             except NoSuchElementException:
                 tries = tries - 1
                 # clear actions that may interfere with retrying the highlight
-                (ActionChains(book.driver)
+                (
+                    ActionChains(book.driver)
                     .move_to_element(target)
                     .release(target)
                     .pause(1)
                     .click(target)
                     .perform()
-                 )
+                )
         if not tries:
             name = f" <{str(name)}>" if name else ""
             raise HighlightingException(f"Failed to highlight{name}")
@@ -196,139 +210,21 @@ class Highlight:
 
 class Library(object):
 
-    books = {
-        "anatomy-and-physiology": {
-            "default_page": "1-introduction",
-            "search_term": "20 percent oxygen",
-        },
-        "astronomy": {"default_page": "1-introduction", "search_term": "leap year"},
-        "biology-2e": {"default_page": "1-introduction", "search_term": "evolution theory"},
-        "biology-ap-courses": {"default_page": "1-introduction", "search_term": "Virus"},
-        "chemistry-2e": {"default_page": "1-introduction", "search_term": "molecule"},
-        "chemistry-atoms-first-2e": {"default_page": "1-introduction", "search_term": "coffee"},
-        "college-physics": {
-            "default_page": "1-introduction-to-science-and-the-realm-of-"
-            "physics-physical-quantities-and-units",
-            "search_term": "Newton's first law",
-        },
-        "college-physics-ap-courses": {
-            "default_page": "1-connection-for-ap-r-courses",
-            "search_term": "kinetic energy",
-        },
-        "concepts-biology": {"default_page": "1-introduction", "search_term": "Cell"},
-        "microbiology": {"default_page": "1-introduction", "search_term": "ecosystems"},
-        "calculus-volume-1": {
-            "default_page": "1-introduction",
-            "search_term": "summation notation",
-        },
-        "calculus-volume-2": {
-            "default_page": "1-introduction",
-            "search_term": "summation notation",
-        },
-        "calculus-volume-3": {"default_page": "1-introduction", "search_term": "zero vector"},
-        "university-physics-volume-1": {
-            "default_page": "1-introduction",
-            "search_term": "interference",
-        },
-        "university-physics-volume-2": {
-            "default_page": "1-introduction",
-            "search_term": "interference fringes",
-        },
-        "university-physics-volume-3": {
-            "default_page": "1-introduction",
-            "search_term": "interference fringes",
-        },
-        "american-government-2e": {"default_page": "1-introduction", "search_term": "mass media"},
-        "principles-economics-2e": {"default_page": "1-introduction", "search_term": "Elasticity"},
-        "principles-macroeconomics-2e": {
-            "default_page": "1-introduction",
-            "search_term": "modern economic growth",
-        },
-        "principles-microeconomics-2e": {
-            "default_page": "1-introduction",
-            "search_term": "Explicit costs",
-        },
-        "introduction-sociology-2e": {
-            "default_page": "1-introduction-to-sociology",
-            "search_term": "certificates or degrees",
-        },
-        "us-history": {"default_page": "1-introduction", "search_term": "PATRIOTS"},
-        "principles-financial-accounting": {
-            "default_page": "1-why-it-matters",
-            "search_term": "Explain the Pricing of Long-Term Liabilities",
-        },
-        "principles-managerial-accounting": {
-            "default_page": "1-why-it-matters",
-            "search_term": "relevant range",
-        },
-        "introduction-business": {
-            "default_page": "1-introduction",
-            "search_term": "Buyer behavior",
-        },
-        "business-ethics": {"default_page": "1-introduction", "search_term": "enculturation"},
-        "introductory-business-statistics": {
-            "default_page": "1-introduction",
-            "search_term": "chi-square probabilities",
-        },
-        "principles-management": {
-            "default_page": "1-introduction",
-            "search_term": "plan is a decision to carry out a particular action",
-        },
-        "entrepreneurship": {"default_page": "1-introduction", "search_term": "Business Model"},
-        "organizational-behavior": {
-            "default_page": "1-introduction",
-            "search_term": "organizational development",
-        },
-        "introductory-statistics": {
-            "default_page": "1-introduction",
-            "search_term": "randomly selected student",
-        },
-        "precalculus": {
-            "default_page": "1-introduction-to-functions",
-            "search_term": "Pythagorean Identities",
-        },
-        "college-algebra": {
-            "default_page": "1-introduction-to-prerequisites",
-            "search_term": "hyperbola",
-        },
-        "algebra-and-trigonometry": {
-            "default_page": "1-introduction-to-prerequisites",
-            "search_term": "Graphs of Parabolas",
-        },
-        "business-law-i-essentials": {
-            "default_page": "1-introduction",
-            "search_term": "industrialization",
-        },
-        "principles-macroeconomics-ap-courses-2e": {
-            "default_page": "1-introduction",
-            "search_term": "adjustable-rate mortgage",
-        },
-        "principles-microeconomics-ap-courses-2e": {
-            "default_page": "1-introduction",
-            "search_term": "positive externality",
-        },
-        "prealgebra-2e": {"default_page": "1-introduction", "search_term": "Whole Numbers"},
-        "psychology-2e": {"default_page": "1-introduction", "search_term": "event schema"},
-        "college-success": {"default_page": "1-introduction", "search_term": "Shira’s career path"},
-        "elementary-algebra-2e": {
-            "default_page": "1-introduction",
-            "search_term": "common denominator",
-        },
-        "intermediate-algebra-2e": {
-            "default_page": "1-introduction",
-            "search_term": "quadratic equations and functions",
-        },
-        "physics": {"default_page": "1-introduction", "search_term": "linear relationship"},
-        "statistics": {"default_page": "1-introduction", "search_term": "memoryless property"},
-        "college-algebra-corequisite-support": {
-            "default_page": "1-introduction-to-prerequisites",
-            "search_term": "commutative property of addition",
-        },
-    }
+    # Read the books details from books.json file
+    book_details = open("pytest-selenium/utils/books.json", "r")
+    books = loads(book_details.read())
+    book_details.close()
 
     def random_book_slug(self):
+        """Book slug of a random book selected from the Library."""
         random_book_slug = choice(list(self.books.keys()))
         return random_book_slug
+
+    @property
+    def book_slugs_list(self):
+        """List of book slugs for all the books present in the Library."""
+        book_slugs_list = list(self.books.keys())
+        return book_slugs_list
 
 
 def get_default_page(element):
@@ -341,6 +237,30 @@ def get_search_term(element):
     book_list = Library.books
     search_term = book_list[element]["search_term"]
     return search_term
+
+
+def expected_chapter_search_results_total(element) -> int:
+    """Total chapter search results for the search performed on the book.
+
+        :param int element: the book slug
+        :return: total number of chapter search results defined for the book slug in the library
+        :rtype: int
+
+    """
+    book_list = Library.books
+    return book_list[element]["chapter_search_results_total"]
+
+
+def expected_rkt_search_results_total(element) -> int:
+    """Total rkt search results for the search performed on the book.
+
+        :param int element: the book slug
+        :return: total number of rkt search results defined for the book slug in the library
+        :rtype: int
+
+    """
+    book_list = Library.books
+    return book_list[element]["rkt_search_results_total"]
 
 
 class Utilities(object):
@@ -395,6 +315,22 @@ class Utilities(object):
                         element = driver.find_element(*locator)
 
     @classmethod
+    def get_analytics_queue(cls, driver, index: int = None):
+        """Access the list of queued Google Analytics events.
+
+        :param driver: a selenium webdriver
+        :param index: a specific event in the list; defaults to ``None``
+        :type driver: Webdriver
+        :type index: int, optional
+        :return: the list of queued Google Analytics events
+
+        """
+        queue = driver.execute_script(ANALYTICS_QUEUE)
+        if index or index == 0:
+            return queue[index]
+        return queue
+
+    @classmethod
     def has_scroll_bar(cls, driver, element) -> bool:
         """Return True if the element currently has a vertical scroll bar.
 
@@ -407,6 +343,20 @@ class Utilities(object):
 
         """
         return driver.execute_script(HAS_SCROLL_BAR, element)
+
+    @classmethod
+    def parent_page(cls, region: Region) -> Page:
+        """Return the first page object found.
+
+        :param region: the current region object in a page object tree
+        :type region: :py:class:`~pypom.Region`
+        :return: the first ``Page`` object found in the current tree
+        :rtype: :py:class:`~pypom.Page`
+
+        """
+        if isinstance(region.page, Region):
+            return cls.parent_page(region.page)
+        return region.page
 
     @classmethod
     def random_name(cls) -> Tuple(str, str):
@@ -466,7 +416,7 @@ class Utilities(object):
         sleep(0.75)
 
     @classmethod
-    def switch_to(cls, driver, locator=None, element=None):
+    def switch_to(cls, driver, link_locator=None, element=None, action=None):
         """Switch to the other window handle.
 
         :param driver: the selenium webdriver object
@@ -478,8 +428,14 @@ class Utilities(object):
 
         """
         current = driver.current_window_handle
-        cls.click_option(driver=driver, locator=locator, element=element)
+        data = None
+        if not action:
+            cls.click_option(driver=driver, locator=link_locator, element=element)
+        else:
+            data = action()
         sleep(1)
         new_handle = 1 if current == driver.window_handles[0] else 0
         if len(driver.window_handles) > 1:
             driver.switch_to.window(driver.window_handles[new_handle])
+        if data:
+            return data

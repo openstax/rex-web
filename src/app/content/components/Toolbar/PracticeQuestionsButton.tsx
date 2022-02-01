@@ -38,6 +38,8 @@ const PracticeQuestionsIcon = styled.img`
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsText = styled.span`
   ${toolbarDefaultText}
+  font-size: 1.8rem;
+  line-height: 2.9rem;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -55,7 +57,7 @@ const PracticeQuestionsButton = () => {
   return <StyledContentLink
     book={book}
     page={page}
-    search={{ [modalQueryParameterName]: modalUrlName }}
+    queryParams={{ [modalQueryParameterName]: modalUrlName }}
     onClick={trackOpenClose}
     aria-label={text}>
     <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />

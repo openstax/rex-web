@@ -116,7 +116,7 @@ export const h1Content = (target: puppeteer.Page) => target.evaluate(() => {
 
 export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string) => {
 
-  const port = (new URL(target.wsEndpoint())).port;
+  const port = Number((new URL(target.wsEndpoint())).port);
   const { lhr } = await lighthouse(url(urlPath), {port}, lighthouseConfig);
 
   expect(lhr.categories.customAccessibility.score).toBeGreaterThanOrEqual(1);

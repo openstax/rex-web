@@ -2,6 +2,7 @@
   "release_id": "development",
   "messages": [],
   "configs": {
+    "quasar_api": "default",
     "feature_flags": [
       "practiceQuestionsEnabled",
       "studyGuidesEnabled"

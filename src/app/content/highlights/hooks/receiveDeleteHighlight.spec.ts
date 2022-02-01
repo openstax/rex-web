@@ -1,10 +1,10 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
 import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { createHighlight, receiveDeleteHighlight } from '../actions';
+import { HighlightData } from '../types';
 
 const createMockHighlight = () => ({
   id: Math.random().toString(36).substring(7),
@@ -40,7 +40,7 @@ describe('receiveDeleteHighlight', () => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight')
       .mockResolvedValue({} as any);
 
-    hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
+    hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
     await new Promise((resolve) => setImmediate(resolve));
 
     expect(deleteHighlightClient).toHaveBeenCalledWith({id: highlight.id});
@@ -49,7 +49,7 @@ describe('receiveDeleteHighlight', () => {
   it('doesn\'t call highlightClient when reverting creation', async() => {
     const deleteHighlightClient = jest.spyOn(helpers.highlightClient, 'deleteHighlight');
 
-    hook(receiveDeleteHighlight(highlight as unknown as Highlight, {...meta, revertingAfterFailure: true}));
+    hook(receiveDeleteHighlight(highlight as unknown as HighlightData, {...meta, revertingAfterFailure: true}));
     await new Promise((resolve) => setImmediate(resolve));
 
     expect(deleteHighlightClient).not.toHaveBeenCalled();
@@ -63,7 +63,7 @@ describe('receiveDeleteHighlight', () => {
       .mockRejectedValue(error);
 
     try {
-      await hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
+      await hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
     } catch (error) {
       expect(deleteHighlightClient).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(createHighlight(highlight, {...meta, revertingAfterFailure: true}));
@@ -78,7 +78,7 @@ describe('receiveDeleteHighlight', () => {
       .mockRejectedValue(error);
 
     try {
-      await hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
+      await hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
     } catch (error) {
       expect(deleteHighlightClient).toHaveBeenCalled();
       expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.delete);
@@ -94,7 +94,7 @@ describe('receiveDeleteHighlight', () => {
       .mockRejectedValue(mockCustomApplicationError);
 
     try {
-      await hook(receiveDeleteHighlight(highlight as unknown as Highlight, meta));
+      await hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
     } catch (error) {
       expect(deleteHighlightClient).toHaveBeenCalled();
       expect(error instanceof ApplicationError).toEqual(true);

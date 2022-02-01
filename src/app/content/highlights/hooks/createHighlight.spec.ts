@@ -1,4 +1,3 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
 import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
@@ -9,15 +8,16 @@ import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import { createHighlight, receiveDeleteHighlight } from '../actions';
+import { HighlightData } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
-const mockConfig = {BOOKS: {
+const mockBookConfig = {
  [book.id]: {defaultVersion: book.version},
-} as {[key: string]: {defaultVersion: string}}};
+} as {[key: string]: {defaultVersion: string}};
 
 jest.mock('../../../../helpers/Sentry');
-jest.doMock('../../../../config', () => mockConfig);
+jest.doMock('../../../../config.books', () => mockBookConfig);
 
 const createMockHighlight = () => ({
     id: Math.random().toString(36).substring(7),
@@ -82,7 +82,7 @@ describe('createHighlight', () => {
     } catch (error) {
       expect(createHighlightClient).toHaveBeenCalledWith({highlight: mock});
       expect(dispatch).toHaveBeenCalledWith(
-        receiveDeleteHighlight(mock as unknown as Highlight, {...meta, revertingAfterFailure: true})
+        receiveDeleteHighlight(mock as unknown as HighlightData, {...meta, revertingAfterFailure: true})
       );
     }
   });

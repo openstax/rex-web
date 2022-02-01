@@ -33,6 +33,7 @@ interface Props {
   searchSidebarOpen: boolean;
   hasSearchResults: boolean;
   practiceQuestionsEnabled: boolean;
+  searchButtonColor: string | null;
 }
 
 interface State {
@@ -53,6 +54,7 @@ class Toolbar extends React.Component<Props, State> {
   public state = { query: '', queryProp: '', formSubmitted: false };
 
   public render() {
+
     const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
@@ -94,6 +96,8 @@ class Toolbar extends React.Component<Props, State> {
     const hideFromFocus = this.props.tocOpen === true
       || (this.props.tocOpen === null && !this.props.searchSidebarOpen);
 
+    const newButtonEnabled = !!this.props.searchButtonColor;
+
     return <Styled.BarWrapper data-analytics-region='toolbar'>
       <Styled.TopBar data-testid='toolbar'>
         <Styled.SearchPrintWrapper>
@@ -101,6 +105,8 @@ class Toolbar extends React.Component<Props, State> {
             active={this.props.mobileToolbarOpen}
             onSubmit={onSubmit}
             data-testid='desktop-search'
+            data-experiment
+            colorSchema={this.props.searchButtonColor}
           >
             <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
               onChange={onChange}
@@ -108,12 +114,25 @@ class Toolbar extends React.Component<Props, State> {
             <Styled.SearchButton mobile
               type='button'
               ariaLabelId='i18n:toolbar:search:toggle'
+              data-analytics-label='Search this book'
               data-testid='mobile-toggle'
+              data-experiment
               onClick={toggleMobile}
+              colorSchema={this.props.searchButtonColor}
             />
-            {!this.state.formSubmitted && <Styled.SearchButton desktop />}
-            {this.state.formSubmitted &&
+            {!this.state.formSubmitted && !newButtonEnabled &&
+              <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+            }
+            {this.state.formSubmitted && !newButtonEnabled &&
               <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
+            }
+            {this.state.formSubmitted && newButtonEnabled &&
+              <Styled.CloseButtonNew desktop type='button' onClick={onClear} data-testid='desktop-clear-search'>
+                <Styled.CloseIcon />
+              </Styled.CloseButtonNew>
+            }
+            {newButtonEnabled &&
+              <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
             }
           </Styled.SearchInputWrapper>
         </Styled.SearchPrintWrapper>
@@ -140,15 +159,32 @@ class Toolbar extends React.Component<Props, State> {
                 <Styled.InnerText>{msg}</Styled.InnerText>
               </Styled.SeachResultsTextButton>}
             </FormattedMessage>}
-          <Styled.SearchInputWrapper action='#' onSubmit={onSubmit} data-testid='mobile-search'>
+          <Styled.SearchInputWrapper
+            action='#'
+            onSubmit={onSubmit}
+            data-testid='mobile-search'
+            data-experiment
+            colorSchema={this.props.searchButtonColor}
+          >
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
               onChange={onChange} value={this.state.query} />
-            {this.state.query && <Styled.CloseButton
-              type='button'
-              onClick={onClear}
-              data-testid='mobile-clear-search'
-            />}
+            {
+              this.state.query && newButtonEnabled && <Styled.CloseButtonNew
+                type='button'
+                onClick={onClear}
+                data-testid='mobile-clear-search'
+              >
+                <Styled.CloseIcon />
+              </Styled.CloseButtonNew>
+              }
+              {
+                this.state.query && !newButtonEnabled && <Styled.CloseButton
+                type='button'
+                onClick={onClear}
+                data-testid='mobile-clear-search'
+              />
+              }
           </Styled.SearchInputWrapper>
         </Styled.MobileSearchContainer>
       </Styled.MobileSearchWrapper>}
@@ -162,6 +198,7 @@ export default connect(
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     practiceQuestionsEnabled: practiceQuestionsEnabledSelector(state),
     query: selectSearch.query(state),
+    searchButtonColor: selectSearch.searchButtonColor(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
     tocOpen: tocOpen(state),
   }),

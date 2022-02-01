@@ -3,35 +3,37 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import MessageProvider from '../../../../test/MessageProvider';
 import { book as archiveBook, page as shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { receiveFeatureFlags } from '../../../actions';
 import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
+import { receiveFeatureFlags } from '../../../featureFlags/actions';
+import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import * as selectors from '../../practiceQuestions/selectors';
 import { formatBookData } from '../../utils';
 import PracticeQuestionsButton, { StyledContentLink } from './PracticeQuestionsButton';
 
-jest.mock('../../../../config', () => {
+jest.mock('../../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../../test/mocks/archiveLoader').book;
-  return {BOOKS: {
-   [mockBook.id]: {defaultVersion: mockBook.version},
-  }};
+  return { [mockBook.id]: { defaultVersion: mockBook.version } };
 });
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('practice questions button', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let render: () => JSX.Element;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     render = () => <Provider store={store}>
       <Services.Provider value={services}>
         <MessageProvider>

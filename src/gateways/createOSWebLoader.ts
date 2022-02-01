@@ -1,10 +1,12 @@
 import { BookWithOSWebData } from '../app/content/types';
+import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 
 export interface OSWebBook {
   meta: {
     slug: string;
   };
+  promote_image: BookWithOSWebData['promote_image'];
   publish_date: string | null;
   authors: Array<{
     value: {
@@ -25,15 +27,22 @@ interface OSWebResponse {
   items: OSWebBook[];
 }
 
-export const fields = 'cnx_id,authors,publish_date,cover_color,amazon_link,book_state';
+export const fields = 'cnx_id,authors,publish_date,cover_color,amazon_link,book_state,promote_image';
 
-export default (prefix: string) => {
+interface Options {
+  cache?: Cache<string, OSWebBook | undefined>;
+}
+
+const defaultOptions = () => ({
+  cache: createCache<string, OSWebBook | undefined>({maxRecords: 5}),
+});
+
+export default (prefix: string, options: Options = {}) => {
+  const {cache} = {...defaultOptions(), ...options};
   const baseUrl = `${prefix}/v2/pages`;
   const toJson = (response: any) => response.json() as Promise<OSWebResponse>;
 
   const firstRecord = (data: OSWebResponse) => data.items[0];
-
-  const cache = new Map();
 
   const cacheRecord = (id: string) => (record: OSWebBook) => {
     if (!record) {
@@ -46,8 +55,9 @@ export default (prefix: string) => {
   };
 
   const loader = (buildUrl: (param: string) => string) => (param: string): Promise<OSWebBook | undefined> => {
-    if (cache.has(param)) {
-      return Promise.resolve(cache.get(param));
+    const cached = cache.get(param);
+    if (cached) {
+      return Promise.resolve(cached);
     }
 
     return fetch(buildUrl(param))

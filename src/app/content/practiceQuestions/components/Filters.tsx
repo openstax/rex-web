@@ -37,6 +37,7 @@ export default () => {
       <FilterDropdown
         label='i18n:practice-questions:popup:filters:chapters'
         ariaLabelId='i18n:practice-questions:popup:filters:filter-by:aria-label'
+        dataAnalyticsLabel='Filter PQ by Chapter & Section'
         open={open}
         setOpen={(isOpen: boolean) => setOpen(isOpen)}
       >

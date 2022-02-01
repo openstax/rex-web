@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" prefix="og: http://ogp.me/ns#">
+<html prefix="og: http://ogp.me/ns#">
   <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="/favicon.ico">
@@ -29,6 +29,14 @@
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
     </script>
     <!-- End Google Analytics -->
+
+    <!-- Google Optmize (declaring gtag helper function) -->
+    <script>
+      function gtag() {
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push(arguments);}
+    </script>
+    <!-- End Google Optimize -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML-full&delayStartupUntil=configured" async></script>
     <!--

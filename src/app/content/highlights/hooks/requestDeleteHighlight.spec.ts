@@ -1,14 +1,14 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { locationChange } from '../../../navigation/actions';
 import { scrollTarget } from '../../../navigation/selectors';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
 import { createHighlight, receiveDeleteHighlight, requestDeleteHighlight } from '../actions';
+import { HighlightData } from '../types';
 
 const createMockHighlight = () => ({
   id: Math.random().toString(36).substring(7),
-}) as Highlight;
+}) as HighlightData;
 
 describe('requestDeleteHighlight', () => {
   let store: Store;
