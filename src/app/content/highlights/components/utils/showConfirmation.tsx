@@ -4,7 +4,7 @@ import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid/v4';
 import { AppServices, MiddlewareAPI } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
-import { clearFocusedHighlight, focusHighlight, setAnnotationChangesPending } from '../../actions';
+import { focusHighlight, setAnnotationChangesPending } from '../../actions';
 import { focused } from '../../selectors';
 import ConfirmationModal from '../ConfirmationModal';
 
@@ -19,7 +19,6 @@ export default async(services: AppServices & MiddlewareAPI) => {
 
   const userChoice: boolean = await new Promise((resolve) => {
     const focusedHighlight = focused(services.getState());
-    services.dispatch(clearFocusedHighlight());
     const confirm = () => resolve(true);
     const deny = () => {
       resolve(false);
