@@ -8,6 +8,7 @@ params:
   AWS_ACCESS_KEY_ID: ((prod-aws-access-key-id))
   AWS_SECRET_ACCESS_KEY: ((prod-aws-secret-access-key))
   PROD_UNIFIED_S3_BUCKET: ((prod-unified-s3-bucket))
+  RELEASE_ID:
 
 run:
   path: rex-web/concourse/verify-production-urls/script.bash

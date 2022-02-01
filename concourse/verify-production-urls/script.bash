@@ -21,10 +21,10 @@ current_number=$(count_files "$current_files")
 
 echo "testing $current_number urls from current release $current_release_id"
 
-new_release_files=$(get_bucket_release_files "$REACT_APP_RELEASE_ID")
+new_release_files=$(get_bucket_release_files "$RELEASE_ID")
 new_release_number=$(count_files "$new_release_files")
 
-echo "found $new_release_number urls in new release $REACT_APP_RELEASE_ID"
+echo "found $new_release_number urls in new release $RELEASE_ID"
 
 missing_files=$(diff_file_lists "$current_files" "$new_release_files")
 
