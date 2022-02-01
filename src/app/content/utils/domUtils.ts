@@ -58,7 +58,7 @@ export const scrollSidebarSectionIntoView = (sidebar: HTMLElement | null, active
 export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
   let focus = activeSection;
 
-  while (focus && focus.getAttribute('aria-label') !== 'Table of Contents') {
+  while (focus && focus.getAttribute('data-testid') !== 'toc') {
     if (focus.tagName === 'DETAILS' && !focus.hasAttribute('open')) {
       focus.setAttribute('open', '');
     }

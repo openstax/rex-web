@@ -22,9 +22,9 @@ export * from './wrapper';
   .appendChild(document.createElement('span'))
 );
  */
-const numberCharacterWidth = .7796875;
-const letterCharacterWidth = 1.0375;
-const numberPeriodWidth = .390625;
+const numberCharacterWidth = .890625;
+const letterCharacterWidth = 1.5109375;
+const numberPeriodWidth = .4453125;
 const dividerWidth = .8;
 
 const activeState = css`
@@ -35,6 +35,8 @@ const activeState = css`
 // tslint:disable-next-line:variable-name
 export const SummaryTitle = styled.span`
   ${labelStyle}
+  font-size: 1.6rem;
+  line-height: 1.8rem;
   display: flex;
   flex: 1;
 `;
@@ -42,6 +44,8 @@ export const SummaryTitle = styled.span`
 // tslint:disable-next-line:variable-name
 export const ContentLink = styled(ContentLinkComponent)`
   ${labelStyle}
+  font-size: 1.6rem;
+  line-height: 1.8rem;
   display: flex;
   margin-left: ${iconSize}rem;
   text-decoration: none;
@@ -60,10 +64,12 @@ export const ContentLink = styled(ContentLinkComponent)`
 interface NavItemComponentProps {
   active?: boolean;
   className?: string;
+  sectionType?: string;
 }
 // tslint:disable-next-line:variable-name
 export const NavItemComponent = React.forwardRef<HTMLLIElement, NavItemComponentProps>(
-  ({active, className, children}, ref) => <li
+  ({active, className, children, sectionType}, ref) => <li
+    data-type={sectionType}
     ref={ref}
     className={className}
     {...(active ? {'aria-label': 'Current Page'} : {})}

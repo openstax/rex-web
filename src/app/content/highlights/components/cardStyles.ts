@@ -47,14 +47,14 @@ export const minimalWidthForCardsWithSearchResults = '(max-width: ' +
   remsToEms(minimalWidth + searchResultsBarDesktopWidth) + 'em)';
 
 const overlapDisplay = css`
-  ${(props: CardProps) => !!props.isFocused && css`
+  ${(props: CardProps) => !!props.isActive && css`
     left: unset;
     right: ${cardMinWindowMargin}rem;
     top: ${props.highlightOffsets
       ? props.highlightOffsets.bottom
       : getHighlightBottomOffset(props.container, props.highlight)}px;
   `}
-  ${(props: CardProps) => !props.isFocused && css`
+  ${(props: CardProps) => !props.isActive && css`
     display: none;
   `}
 `;
@@ -63,13 +63,13 @@ const rightSideDisplay = css`
   left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
   right: unset;
   top: ${(props: CardProps) => `${props.topOffset || getHighlightBottomOffset(props.container, props.highlight)}px;`}
-  ${(props: CardProps) => !!props.isFocused && css`
+  ${(props: CardProps) => !!props.isActive && css`
     left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
   `}
 `;
 
 const touchScreenDisplay = css`
-  ${(props: CardProps) => !!props.isFocused && css`
+  ${(props: CardProps) => !!props.isActive && css`
     left: 0;
     right: 0;
     bottom: 0;
@@ -77,7 +77,7 @@ const touchScreenDisplay = css`
     position: fixed;
     padding: 0;
   `}
-  ${(props: CardProps) => !props.isFocused && css`
+  ${(props: CardProps) => !props.isActive && css`
     display: none;
   `}
 `;
@@ -97,6 +97,9 @@ const fadeInAnimation = css`
 `;
 
 export const mainCardStyles = css`
+  ${(props: CardProps) => !props.isActive && (!props.data || !props.data.annotation)
+    ? 'display: none;'
+    : 'display: block;'}
   ${fadeInAnimation}
   position: absolute;
   padding: ${cardPadding}rem;

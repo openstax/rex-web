@@ -58,7 +58,9 @@ describe('Sentry error logging', () => {
     Sentry.initializeWithMiddleware()(store);
     const err = new Error('this is bad');
     Sentry.captureException(err);
-    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err);
+    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: Severity.Error });
+    Sentry.captureException(err, Severity.Warning);
+    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: Severity.Warning });
     Sentry.log('logged');
     expect(SentryLibrary.captureMessage).toHaveBeenCalledWith('logged', 'log');
   });
@@ -98,7 +100,7 @@ describe('Sentry error logging', () => {
     Sentry.initializeWithMiddleware();
 
     const spyConsoleInfo = jest.spyOn(console, 'info')
-      .mockImplementationOnce(jest.fn)
+      .mockImplementation(jest.fn())
     ;
 
     expect(spyConsoleInfo).not.toHaveBeenCalled();
@@ -115,7 +117,7 @@ describe('Sentry error logging', () => {
     Sentry.initializeWithMiddleware();
 
     const spyConsoleWarn = jest.spyOn(console, 'warn')
-      .mockImplementationOnce(jest.fn)
+      .mockImplementation(jest.fn())
     ;
 
     expect(spyConsoleWarn).not.toHaveBeenCalled();

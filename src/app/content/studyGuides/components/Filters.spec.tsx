@@ -1,18 +1,17 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import * as Cookies from 'js-cookie';
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import TestContainer from '../../../../test/TestContainer';
+import { runHooks } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
 import Checkbox from '../../../components/Checkbox';
 import { DropdownToggle } from '../../../components/Dropdown';
-import * as Services from '../../../context/Services';
-import MessageProvider from '../../../MessageProvider';
-import { Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook } from '../../actions';
 import FiltersList, { FiltersListColor } from '../../components/popUp/FiltersList';
@@ -31,15 +30,18 @@ import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
 describe('Filters', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
   const window = assertWindow();
   const book = formatBookData(archiveBook, mockCmsBook);
 
   beforeEach(() => {
-    services = createTestServices();
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
 
     window.print = jest.fn();
 
@@ -58,13 +60,9 @@ describe('Filters', () => {
       },
     }));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Filters />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Filters />
+    </TestContainer>);
 
     renderer.act(() => {
       const [chapterFilterToggle, colorFilterToggle] = component.root.findAllByType(DropdownToggle);
@@ -88,13 +86,9 @@ describe('Filters', () => {
       },
     }));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Filters />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Filters />
+    </TestContainer>);
 
     const labelBlueKey = component.root.findByProps({ id: 'i18n:studyguides:popup:filters:blue' });
     const labelGreenKey = component.root.findByProps({ id: 'i18n:studyguides:popup:filters:green' });
@@ -117,13 +111,9 @@ describe('Filters', () => {
       },
     }));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Filters />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Filters />
+    </TestContainer>);
 
     expect(() => component.root.findByType(FiltersList)).not.toThrow();
   });
@@ -138,13 +128,9 @@ describe('Filters', () => {
       },
     }));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Filters />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Filters />
+    </TestContainer>);
 
     expect(() => component.root.findByType(FiltersList)).toThrow();
   });
@@ -159,13 +145,9 @@ describe('Filters', () => {
       },
     }));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Filters />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Filters />
+    </TestContainer>);
 
     const [chapterFilterToggle, colorFilterToggle] = component.root.findAllByType(DropdownToggle);
 
@@ -219,13 +201,9 @@ describe('Filters', () => {
       },
     }));
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <Filters />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <Filters />
+    </TestContainer>);
 
     const filtersList = component.root.findByType(FiltersList);
 
@@ -242,13 +220,9 @@ describe('Filters', () => {
 
   describe('PrintButton', () => {
     it('triggers print immediately if nothing left to load', () => {
-      const component = renderer.create(<Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Filters />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>);
+      const component = renderer.create(<TestContainer services={services} store={store}>
+        <Filters />
+      </TestContainer>);
 
       const printButton = component.root.findByProps({'data-testid': 'print'});
 
@@ -263,13 +237,9 @@ describe('Filters', () => {
     it('loads remaining highlights before printing', () => {
       store.dispatch(receiveSummaryStudyGuides({}, {pagination: {} as any}));
 
-      const component = renderer.create(<Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Filters />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>);
+      const component = renderer.create(<TestContainer services={services} store={store}>
+        <Filters />
+      </TestContainer>);
 
       const printButton = component.root.findByProps({'data-testid': 'print'});
 
@@ -286,13 +256,9 @@ describe('Filters', () => {
       // If cookie is set then banner will be closed initially
       Cookies.set(cookieUTG, 'true');
 
-      const component = renderer.create(<Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Filters />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>);
+      const component = renderer.create(<TestContainer services={services} store={store}>
+        <Filters />
+      </TestContainer>);
 
       const uTGbutton = component.root.findByType(UsingThisGuideButton);
 
@@ -317,17 +283,11 @@ describe('Filters', () => {
 
       const spyTrack = jest.spyOn(services.analytics.openUTG, 'track');
 
-      const component = renderer.create(<Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Filters />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>);
+      const component = renderer.create(<TestContainer services={services} store={store}>
+        <Filters />
+      </TestContainer>);
 
-      // wait for hooks
-      // tslint:disable-next-line: no-empty
-      renderer.act(() => {});
+      runHooks(renderer);
 
       const banner = component.root.findByType(UsingThisGuideBanner);
       expect(banner.props.show).toEqual(true);
@@ -340,13 +300,9 @@ describe('Filters', () => {
       // If cookie is set then banner will be closed initially
       Cookies.set(cookieUTG, 'true');
 
-      const component = renderer.create(<Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Filters />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>);
+      const component = renderer.create(<TestContainer services={services} store={store}>
+        <Filters />
+      </TestContainer>);
 
       const banner = component.root.findByType(UsingThisGuideBanner);
       expect(banner.props.show).toEqual(false);

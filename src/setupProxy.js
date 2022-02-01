@@ -28,10 +28,11 @@ const { default: prepareRedirects } = require('../script/utils/prepareRedirects'
 const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
 const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 
-const archiveLoader = createArchiveLoader(`/${REACT_APP_ARCHIVE_URL}`, REACT_APP_ARCHIVE_URL);
-const osWebLoader = createOSWebLoader(`/${REACT_APP_OS_WEB_API_URL}`);
+const archiveLoader = createArchiveLoader(`${ARCHIVE_URL}${REACT_APP_ARCHIVE_URL}`);
+const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
 const archivePaths = [
+  '/apps/archive',
   '/extras',
   '/contents',
   '/resources',
@@ -48,6 +49,7 @@ function getReqInfo(request) {
   const {search, pathname} = url.parse(request.url);
   const cookie = request.headers.cookie || '';
   return {
+    url: request.url,
     search,
     pathname,
     authenticated: cookie.includes('session')
@@ -95,6 +97,11 @@ const findFileIn = (baseDir, reqInfo) => {
   } else if (isDirectory(filePath) && isFile(indexFilePath)) {
     return indexFilePath;
   } else {
+    console.log(`did not find fixture file for ${reqInfo.url}, looked in:
+  ${queryFilePath}
+  ${filePath}
+  ${indexFilePath}
+`);
     return null;
   }
 };
@@ -106,10 +113,11 @@ function setupTestProxy(app) {
     const reqInfo = getReqInfo(req);
 
     const fixtureDir = path.join(__dirname, 'test/fixtures');
-    const authFile = findFileIn(path.join(fixtureDir, 'authenticated'), reqInfo);
+    const authFile = reqInfo.authenticated && findFileIn(path.join(fixtureDir, 'authenticated'), reqInfo);
     const publicFile = findFileIn(fixtureDir, reqInfo);
 
-    if (authFile && reqInfo.authenticated) {
+
+    if (authFile) {
       sendFile(res, authFile);
     } else if (publicFile) {
       sendFile(res, publicFile);
@@ -134,7 +142,7 @@ function accountsProxy(app) {
     autoRewrite: true,
     cookieDomainRewrite: "",
     onProxyReq: (preq, req, res) => {
-      preq.setHeader('host', req.headers.host);
+      preq.setHeader('X-Forwarded-Host', req.headers.host);
     }
   }));
 }
@@ -201,6 +209,19 @@ function stubRedirects(app) {
   });
 }
 
+function stubRelease(app) {
+  app.use((req, res, next) => {
+    const {pathname} = url.parse(req.url);
+
+    if (pathname === '/rex/release.json') {
+      const releaseFile = path.join(__dirname, 'release.development.json');
+      sendFile(res, releaseFile);
+    } else {
+      next();
+    }
+  })
+}
+
 async function setupProxy(app) {
   if (!ARCHIVE_URL) { throw new Error('ARCHIVE_URL configuration must be defined'); }
   if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
@@ -212,6 +233,7 @@ async function setupProxy(app) {
   osWebApiProxy(app);
   stubEnvironment(app);
   stubRedirects(app);
+  stubRelease(app);
 
   if (!SKIP_OS_WEB_PROXY) {
     osWebProxy(app);

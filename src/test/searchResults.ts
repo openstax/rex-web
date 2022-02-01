@@ -3,27 +3,29 @@ import { ArchiveBook, ArchivePage, ArchiveTreeSection } from '../app/content/typ
 import { getIdVersion, stripIdVersion } from '../app/content/utils/idUtils';
 import * as mockArchive from './mocks/archiveLoader';
 
-const isArchiveTreeSection = (thing: ArchivePage | ArchiveTreeSection): thing is ArchiveTreeSection =>
-  !(thing as ArchivePage).version;
+const isArchivePage = (thing: ArchivePage | ArchiveTreeSection): thing is ArchivePage =>
+  !!(thing as ArchivePage).revised;
 
 export const makeSearchResultHit = (
-  {book, page, highlights, sourceId}: {
+  {book, page, highlights, sourceId, elementType, title}: {
     book: ArchiveBook,
+    elementType?: SearchResultHitSourceElementTypeEnum,
     page: ArchivePage | ArchiveTreeSection,
     highlights?: string[],
     sourceId?: string,
+    title?: string,
   } = {
     book: mockArchive.book,
     page: mockArchive.page,
   }
 ): SearchResultHit => ({
-  highlight: { visibleContent: highlights || ['cool <strong>highlight</strong> bruh'] },
-  index: `${book.id}@${book.version}_i1`,
+  highlight: { title, visibleContent: highlights || ['cool <strong>highlight</strong> bruh'] },
+  index: `codeversion__${book.id}@${book.version}_i1`,
   score: 2,
   source: {
     elementId: sourceId || 'fs-id1544727',
-    elementType: SearchResultHitSourceElementTypeEnum.Paragraph,
-    pageId: `${stripIdVersion(page.id)}@${isArchiveTreeSection(page) ? getIdVersion(page.id) : page.version}`,
+    elementType: elementType || SearchResultHitSourceElementTypeEnum.Paragraph,
+    pageId: `${stripIdVersion(page.id)}@${isArchivePage(page) ? '1.0' : getIdVersion(page.id)}`,
     pagePosition: 60,
   },
 });

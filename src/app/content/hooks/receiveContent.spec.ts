@@ -12,11 +12,11 @@ import { formatBookData } from '../utils';
 import * as archiveUtils from '../utils/archiveTreeUtils';
 import * as seoUtils from '../utils/seoUtils';
 
-const mockConfig = {BOOKS: {
+const mockBookConfig = {
  [book.id]: {defaultVersion: book.version},
-} as {[key: string]: {defaultVersion: string}}};
+} as {[key: string]: {defaultVersion: string}};
 
-jest.doMock('../../../config', () => mockConfig);
+jest.doMock('../../../config.books', () => mockBookConfig);
 
 describe('setHead hook', () => {
   let getCanonicalUrlParams: typeof import ('../utils/canonicalUrl').getCanonicalUrlParams;
@@ -88,30 +88,32 @@ describe('setHead hook', () => {
     expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
 
-  describe('meta description', () => {
+  describe('metadata', () => {
     it('dispatches sethead with description tags', async() => {
       store.dispatch(receiveBook(combinedBook));
       store.dispatch(receivePage({
         ...page,
-        abstract: 'foobar',
         references: [],
       }));
       const bookId = book.id;
       CANONICAL_MAP[bookId] = [ [bookId, {}] ];
 
+      jest.spyOn(seoUtils, 'getPageDescription')
+        .mockReturnValue('mock seo description');
+
       await hook(receivePage({
         ...page,
-        abstract: 'foobar',
         references: [],
       }));
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
-          {name: 'description', content: 'foobar'},
-          {property: 'og:description', content: 'foobar'},
+          {name: 'description', content: 'mock seo description'},
+          {property: 'og:description', content: 'mock seo description'},
         ]),
       })));
     });
+
     it('always dispatches sethead with description tags', async() => {
       store.dispatch(receiveBook(book));
       store.dispatch(receivePage({
@@ -132,6 +134,79 @@ describe('setHead hook', () => {
         meta: expect.arrayContaining([
           expect.objectContaining({name: 'description'}),
           expect.objectContaining({property: 'og:description'}),
+        ]),
+      })));
+    });
+
+    it('dispatches sethead with og:image tag if book has that data', async() => {
+      store.dispatch(receiveBook({
+        ...combinedBook,
+        promote_image: { meta: { download_url: 'mock_download_url' } } as any,
+      }));
+      store.dispatch(receivePage({
+        ...page,
+        abstract: 'foobar',
+        references: [],
+      }));
+      const bookId = book.id;
+      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+
+      await hook(receivePage({
+        ...page,
+        abstract: 'foobar',
+        references: [],
+      }));
+
+      expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
+        meta: expect.arrayContaining([
+          {property: 'og:image', content: 'mock_download_url'},
+        ]),
+      })));
+    });
+
+    it('dispatches sethead with robots:noindex tag if book is not default', async() => {
+      store.dispatch(receiveBook({
+        ...combinedBook,
+        version: 'somerandoversion',
+      }));
+      store.dispatch(receivePage({
+        ...page,
+        references: [],
+      }));
+      const bookId = book.id;
+      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+
+      await hook(receivePage({
+        ...page,
+        references: [],
+      }));
+
+      expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
+        meta: expect.arrayContaining([
+          {name: 'robots', content: 'noindex'},
+        ]),
+      })));
+    });
+
+    it('dispatches sethead without robots:noindex tag if book is default', async() => {
+      store.dispatch(receiveBook({
+        ...combinedBook,
+      }));
+      store.dispatch(receivePage({
+        ...page,
+        references: [],
+      }));
+      const bookId = book.id;
+      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+
+      await hook(receivePage({
+        ...page,
+        references: [],
+      }));
+
+      expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
+        meta: expect.not.arrayContaining([
+          {name: 'robots', content: 'noindex'},
         ]),
       })));
     });

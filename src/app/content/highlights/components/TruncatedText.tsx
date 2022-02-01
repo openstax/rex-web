@@ -9,7 +9,7 @@ import { cardPadding } from '../constants';
 
 interface Props {
   text: string;
-  isFocused: boolean;
+  isActive: boolean;
   className?: string;
   onChange: () => void;
 }
@@ -29,7 +29,7 @@ const Link = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-const NoteText = ({text, isFocused, className, onChange }: Props) => {
+const NoteText = ({text, isActive, className, onChange }: Props) => {
   const noteTextRef = React.useRef<HTMLElement>(null);
   const [showLink, setShowLink] = React.useState<boolean>(false);
 
@@ -41,7 +41,7 @@ const NoteText = ({text, isFocused, className, onChange }: Props) => {
     }
     onChange();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
+  }, [isActive]);
 
   return <React.Fragment>
     <p ref={noteTextRef} className={className}>{text}</p>
@@ -62,12 +62,12 @@ export default styled(NoteText)`
   line-height: ${lineHeight}rem;
   margin: 0 ${cardPadding / 2}rem 0 0;
   padding: 0;
-  ${(props: Props) => props.isFocused && css`
+  ${(props: Props) => props.isActive && css`
     + ${Link} {
       display: none;
     }
   `}
-  ${(props: Props) => !props.isFocused && css`
+  ${(props: Props) => !props.isActive && css`
     text-overflow: ellipsis;
     overflow: hidden;
     max-height: ${lineHeight * 3}rem;

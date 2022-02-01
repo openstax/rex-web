@@ -1,5 +1,5 @@
 @table-cell-padding: 0.5em 1em;
-@base-font: 14px;
+@base-font: 16px;
 
 // Styles for the contents of a page.
 // This should **only** be imported inside a containing selector like:
@@ -32,8 +32,8 @@ a:not([role="button"]) {
 
 img {
   max-width: 100%;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 pre {
@@ -74,7 +74,7 @@ figure {
   // do not wrap this in a .media so it applies to editing in Aloha
   img {
     max-width: 100%;
-    padding: 0; //overrides top&bott padding on img, all img EXCEPT those in figure tags should have 1em top&bott padding
+    margin: 0; //overrides top&bott margin on img, all img EXCEPT those in figure tags should have 1em top&bott margin
   }
 
   > [data-type="media"],
@@ -182,7 +182,7 @@ figure[data-orient="vertical"] {
       top: 1.5rem;
       left: 1.5rem;
       color: @gray;
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       font-weight: bold;
       letter-spacing: 0.1rem;
       text-transform: uppercase;
@@ -307,21 +307,17 @@ blockquote {
       > .ui-toggle {
         font-weight: bold;
         text-align: center;
+        text-transform: capitalize;
+
+        &::before {
+          content: "["attr(data-content)"]";
+        }
       }
     }
 
     &:not(.ui-solution-visible) {
-      > .ui-toggle-wrapper > button.ui-toggle::before {
-        content: "[Show Solution]";
-      }
       > section {
         display: none;
-      }
-    }
-
-    &.ui-solution-visible {
-      > .ui-toggle-wrapper > button.ui-toggle::before {
-        content: "[Hide Solution]";
       }
     }
   }
@@ -407,7 +403,7 @@ table {
 
     > .title {
       display: block;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: bold;
 
       &::before {

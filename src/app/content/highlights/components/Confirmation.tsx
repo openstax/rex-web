@@ -22,10 +22,10 @@ export const Overlay = styled.div`
   flex-direction: column;
   padding: 1.6rem;
   top: 0;
-  right: 0;
   left: 0;
   overflow: visible;
   min-height: 100%;
+  min-width: 100%;
 
   label {
     ${labelStyle}

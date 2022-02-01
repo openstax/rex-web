@@ -1,4 +1,4 @@
-import { SearchResultHit } from '@openstax/open-search-client/dist/models/SearchResultHit';
+import { SearchResultHit } from '@openstax/open-search-client/models/SearchResultHit';
 import queryString from 'querystring';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
@@ -84,25 +84,33 @@ describe('hooks', () => {
       expect(spy).toHaveBeenCalledWith({ hash: '', search: '' });
     });
 
-    it('noops if there was no scroll target or if it wasn\'t search scroll target', () => {
-      const mockNOTSearchScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'asd' })}`;
+    it('noops if there was no query', () => {
       const spy = jest.spyOn(helpers.history, 'replace');
 
       store.dispatch(navigationLocationChange({
         location: { hash: '', search: '' },
+        query: {},
       } as any));
 
       hook(clearSearch());
 
       expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('does not modify target or hash that are not from search', () => {
+      const mockNOTSearchScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'asd' })}`;
+      const spy = jest.spyOn(helpers.history, 'replace');
 
       store.dispatch(navigationLocationChange({
         location: { hash: 'elementId', search: mockNOTSearchScrollTarget },
+        query: { target: mockNOTSearchScrollTarget },
       } as any));
 
       hook(clearSearch());
 
-      expect(spy).not.toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith({
+        hash: 'elementId', search: `target=%7B%22type%22%3A%22highlight%22%2C%22id%22%3A%22asd%22%7D`,
+      });
     });
   });
 
@@ -197,13 +205,6 @@ describe('hooks', () => {
       hook = receiveSearchHook(helpers);
     });
 
-    it('noops if there are no results', () => {
-      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      store.dispatch(receivePage({ ...page, references: [] }));
-      go();
-      expect(dispatch).not.toHaveBeenCalled();
-    });
-
     it('noops if search, page, and selected search match intended already', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
@@ -237,6 +238,15 @@ describe('hooks', () => {
         },
       ]);
       expect(dispatch).not.toHaveBeenCalled();
+    });
+
+    it('noops if page is undefined and search query has no hits', () => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(requestSearch('asdf'));
+      go([]);
+
+      expect(dispatch).not.toHaveBeenCalledWith(selectSearchResult);
+      expect(dispatch).not.toHaveBeenCalledWith(replace);
     });
 
     it('throws if index string is improperly formatted', () => {
@@ -310,15 +320,17 @@ describe('hooks', () => {
       );
     });
 
-    it('dispatches REPLACE with search query when page is undefined', () => {
+    it('dispatches REPLACE with search query that has no hits', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
       store.dispatch(requestSearch('asdf'));
-      go([hit]);
+      go([]);
 
       const search = queryString.stringify({
         query: 'asdf',
-        target: JSON.stringify({ type: 'search', index: 0 }),
       });
+
+      expect(dispatch).not.toHaveBeenCalledWith(selectSearchResult);
       expect(dispatch).toHaveBeenCalledWith(
         replace({
           params: expect.anything(),
@@ -329,7 +341,6 @@ describe('hooks', () => {
             pageUid: page.id,
           },
         }, {
-          hash: hit.source.elementId,
           search,
         })
       );

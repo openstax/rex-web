@@ -21,7 +21,9 @@ const greyColors = {
   darker: '#424242',
   foreground: textColors.white,
   foregroundHover: '#424242',
-  lighter: '#818181',
+  light: '#818181',
+  lighter: '#c5c5c5',
+  lightest: '#ededed',
 };
 
 const padding = {
@@ -61,12 +63,12 @@ const color = {
     'green': {
       base: '#63a524',
       foreground: textColors.black,
-      foregroundHover: greyColors.lighter,
+      foregroundHover: greyColors.light,
     },
     'light-blue': {
       base: '#0DC0DC',
       foreground: textColors.black,
-      foregroundHover: greyColors.lighter,
+      foregroundHover: greyColors.light,
     },
     'orange': {
       base: '#f36b32',
@@ -83,7 +85,7 @@ const color = {
     'yellow': {
       base: '#f4d019',
       foreground: textColors.black,
-      foregroundHover: greyColors.lighter,
+      foregroundHover: greyColors.light,
     },
   },
   secondary: {

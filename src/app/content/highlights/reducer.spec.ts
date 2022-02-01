@@ -1,4 +1,4 @@
-import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { assertNotNull } from '../../utils';
@@ -152,7 +152,7 @@ describe('highlight reducer', () => {
     it('noops when highlight doesn\'t exist', () => {
       const state = reducer({
         ...initialState,
-      }, actions.receiveDeleteHighlight({id: 'asdf'} as Highlight, {
+      }, actions.receiveDeleteHighlight({id: 'asdf'} as HighlightData, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));
@@ -205,7 +205,7 @@ describe('highlight reducer', () => {
             highlightSource: {[HighlightColorEnum.Green]: 1},
           },
         },
-      }, actions.receiveDeleteHighlight({id: 'asdf'} as Highlight, {
+      }, actions.receiveDeleteHighlight({id: 'asdf'} as HighlightData, {
         locationFilterId: 'highlightChapter',
         pageId: 'highlightSource',
       }));

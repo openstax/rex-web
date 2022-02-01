@@ -4,6 +4,7 @@ exports[`HighlightsPrintButton matches snapshot 1`] = `
 <button
   aria-label="print"
   className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 iIYjST styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+  data-analytics-label="print"
   data-testid="print"
   disabled={false}
   onClick={[Function]}

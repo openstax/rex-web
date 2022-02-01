@@ -6,6 +6,17 @@ import { content } from './routes';
 import { State as SearchState } from './search/types';
 import { State as StudyGuidesState } from './studyGuides/types';
 
+export type ContentQueryParams = {
+  modal?: string,
+  query?: string | null,
+  target?: string,
+};
+
+export type SystemQueryParams = {
+  archive?: string,
+  'content-style'?: string,
+};
+
 export type SlugParams = {
   slug: string;
 };
@@ -59,6 +70,15 @@ export interface BookWithOSWebData extends ArchiveBook {
   book_state: 'coming_soon' | 'deprecated' | 'live' | 'new_edition_available' | 'retired';
   theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
   slug: string;
+  promote_image: null | {
+    id: number;
+    title: string;
+    meta: {
+      type: string;
+      detail_url: string;
+      download_url: string;
+    }
+  };
   publish_date: string;
   amazon_link: string;
   authors: Array<{
@@ -72,10 +92,10 @@ export interface BookWithOSWebData extends ArchiveBook {
 export type Book = BookWithOSWebData | ArchiveBook;
 
 export interface Page {
-  abstract: string;
+  abstract: string | null;
   id: string;
   title: string;
-  version: string;
+  slug: string;
 }
 
 export interface ArchiveTreeNode {
@@ -83,6 +103,8 @@ export interface ArchiveTreeNode {
   title: string;
   slug: string;
 }
+
+export type ArchiveTreeSectionType = 'book' | 'unit' | 'chapter' | 'page' | 'eoc-dropdown' | 'eob-dropdown';
 
 export type ArchiveTreeSection = ArchiveTreeNode;
 
@@ -105,6 +127,7 @@ export interface ArchiveBook {
   title: string;
   tree: ArchiveTree;
   version: string;
+  language: string;
   license: {
     name: string;
     url: string;
@@ -114,12 +137,12 @@ export interface ArchiveBook {
 }
 
 export interface ArchivePage {
-  abstract: string;
+  abstract: string | null;
   id: string;
   content: string;
-  version: string;
   title: string;
   revised: string;
+  slug: string;
 }
 
 export type ArchiveContent = ArchivePage | ArchiveBook;

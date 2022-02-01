@@ -1,10 +1,10 @@
 import { AppState } from '../../types';
+import { practiceQuestionsFeatureFlag } from '../constants';
 import { modalUrlName } from './constants';
 import * as selectors from './selectors';
 
 const initialState = {
   currentQuestionIndex: null,
-  isEnabled: false,
   loading: false,
   questionAnswers: {},
   questions: [],
@@ -13,19 +13,22 @@ const initialState = {
 };
 
 describe('isPracticeQuestionsOpen', () => {
-  it('returns true if has practice questions and has modal url', () => {
+  it('returns true if has practice questions and has modal url and ff is enabled', () => {
     const rootState = ({
-    content: {
-    practiceQuestions: {
-      ...initialState,
-      summary: { countsPerSource: { asd: 1 } },
+      content: {
+        practiceQuestions: {
+          ...initialState,
+          summary: { countsPerSource: { asd: 1 } },
+        },
       },
-    },
-    navigation: {
-      query: {
-        modal: modalUrlName,
+      featureFlags: {
+        [practiceQuestionsFeatureFlag]: true,
       },
-    },
+      navigation: {
+        query: {
+          modal: modalUrlName,
+        },
+      },
     } as any) as AppState;
 
     expect(selectors.isPracticeQuestionsOpen(rootState)).toBe(true);
@@ -38,6 +41,9 @@ describe('isPracticeQuestionsOpen', () => {
           ...initialState,
           summary: null,
         },
+      },
+      featureFlags: {
+        [practiceQuestionsFeatureFlag]: true,
       },
       navigation: {
         query: {
@@ -57,8 +63,31 @@ describe('isPracticeQuestionsOpen', () => {
           summary: { countsPerSource: { asd: 1 } },
         },
       },
+      featureFlags: {
+        [practiceQuestionsFeatureFlag]: true,
+      },
       navigation: {
         query: {},
+      },
+    } as any) as AppState;
+
+    expect(selectors.isPracticeQuestionsOpen(rootState)).toBe(false);
+  });
+
+  it('returns false if ff is not enabled', () => {
+    const rootState = ({
+      content: {
+        practiceQuestions: {
+          ...initialState,
+          summary: { countsPerSource: { asd: 1 } },
+        },
+      },
+      featureFlags: {
+      },
+      navigation: {
+        query: {
+          modal: modalUrlName,
+        },
       },
     } as any) as AppState;
 
