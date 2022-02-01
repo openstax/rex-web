@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck disable=SC1091
+source build-configs/config.env
+# shellcheck disable=SC2046
+export $(cut -d= -f1 build-configs/config.env)
+
 production_url=https://openstax.org
 current_release_id=$(curl -s "${production_url}/rex/environment.json" | jq .release_id -r)
 
@@ -21,10 +26,10 @@ current_number=$(count_files "$current_files")
 
 echo "testing $current_number urls from current release $current_release_id"
 
-new_release_files=$(get_bucket_release_files "$RELEASE_ID")
+new_release_files=$(get_bucket_release_files "$REACT_APP_RELEASE_ID")
 new_release_number=$(count_files "$new_release_files")
 
-echo "found $new_release_number urls in new release $RELEASE_ID"
+echo "found $new_release_number urls in new release $REACT_APP_RELEASE_ID"
 
 missing_files=$(diff_file_lists "$current_files" "$new_release_files")
 
