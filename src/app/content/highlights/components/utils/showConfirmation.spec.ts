@@ -9,8 +9,9 @@ import { assertDocument } from '../../../../utils';
 import { receiveBook } from '../../../actions';
 import { initialState } from '../../../reducer';
 import { formatBookData } from '../../../utils';
-import { clearFocusedHighlight, focusHighlight, setAnnotationChangesPending } from '../../actions';
+import { focusHighlight, setAnnotationChangesPending } from '../../actions';
 import { initialState as initialHighlightState } from '../../reducer';
+import * as select from '../../selectors';
 import showConfirmation from './showConfirmation';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -89,7 +90,6 @@ describe('ShowConfirmation', () => {
     store.dispatch(receiveBook(book));
     const answer = await showConfirmation(services);
 
-    expect(dispatch).toHaveBeenCalledWith(clearFocusedHighlight());
     expect(answer).toBe(true);
     expect(createElement).toHaveBeenCalledWith('div');
     expect(render).toHaveBeenCalledWith(expect.anything(), modalNode);
@@ -101,9 +101,19 @@ describe('ShowConfirmation', () => {
     store.dispatch(receiveBook(book));
     const answer = await showConfirmation(services);
 
-    expect(dispatch).toHaveBeenCalledWith(clearFocusedHighlight());
     expect(answer).toBe(false);
     expect(dispatch).toHaveBeenCalledWith(focusHighlight(focusedHighlight));
+    expect(dispatch).toHaveBeenCalledWith(setAnnotationChangesPending(true));
+    expect(unmount).toHaveBeenCalledWith(modalNode);
+  });
+
+  it('does not focus on denial if no focused highlight', async() => {
+    store.dispatch(receiveBook(book));
+    jest.spyOn(select, 'focused').mockReturnValue(undefined);
+    const answer = await showConfirmation(services);
+
+    expect(answer).toBe(false);
+    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(focusedHighlight));
     expect(dispatch).toHaveBeenCalledWith(setAnnotationChangesPending(true));
     expect(unmount).toHaveBeenCalledWith(modalNode);
   });

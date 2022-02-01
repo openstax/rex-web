@@ -194,7 +194,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.focusHighlight): {
-      console.log('focusing...');
       return {
         ...state,
         currentPage: {
