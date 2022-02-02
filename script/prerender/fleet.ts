@@ -96,7 +96,7 @@ async function createWorkersStack() {
   // The argument to randomBytes() just has to be large enough
   // so that we still have 16 characters left after removing all +, / and =
   const buildId = randomBytes(24).toString('base64').replace(/[^a-zA-Z0-9]/g, '').substring(0, 16);
-  const workersStackName = `rex-${IMAGE_TAG}-workers-${buildId}`;
+  const workersStackName = `rex-${IMAGE_TAG}-prerender-workers-${buildId}`;
 
   console.log(`Creating ${workersStackName} stack...`);
 
