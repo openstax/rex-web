@@ -8,6 +8,9 @@ outputs:
 - name: release
 
 params:
+  AWS_ACCESS_KEY_ID: ((prod-aws-access-key-id))
+  AWS_SECRET_ACCESS_KEY: ((prod-aws-secret-access-key))
+  BUCKET_NAME: ((prod-unified-s3-bucket))
   PRERENDER_MODE: ((prerender-mode))
 
 run:

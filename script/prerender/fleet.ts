@@ -71,7 +71,7 @@ const PUBLIC_URL = process.env.PUBLIC_URL || `/rex/releases/${RELEASE_ID}`;
 const WORK_REGION = process.env.WORK_REGION || 'us-east-2';
 
 // Docker does not accept forward slashes in the image tag
-const PRERENDER_IMAGE_TAG = `${RELEASE_ID.replace(/\//g, '-')}`;
+const IMAGE_TAG = process.env.IMAGE_TAG || `${RELEASE_ID.replace(/\//g, '-')}`;
 
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
@@ -96,7 +96,7 @@ async function createWorkersStack() {
   // The argument to randomBytes() just has to be large enough
   // so that we still have 16 characters left after removing all +, / and =
   const buildId = randomBytes(24).toString('base64').replace(/[^a-zA-Z0-9]/g, '').substring(0, 16);
-  const workersStackName = `rex-${PRERENDER_IMAGE_TAG}-workers-${buildId}`;
+  const workersStackName = `rex-${IMAGE_TAG}-workers-${buildId}`;
 
   console.log(`Creating ${workersStackName} stack...`);
 
@@ -115,8 +115,8 @@ async function createWorkersStack() {
         ParameterValue: CODE_VERSION,
       },
       {
-        ParameterKey: 'PrerenderImageTag',
-        ParameterValue: PRERENDER_IMAGE_TAG,
+        ParameterKey: 'ImageTag',
+        ParameterValue: IMAGE_TAG,
       },
       {
         ParameterKey: 'PublicUrl',
