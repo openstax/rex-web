@@ -86,9 +86,9 @@ describe('CardWrapper', () => {
   });
 
   it('set highlight as hidden if it\'s inside a collapsed ancestor', () => {
-    const element = assertDocument().createElement('div');
+    const element = assertDocument().createElement('details');
     const collapsedAncestor = assertDocument().createElement('div');
-    collapsedAncestor.setAttribute('aria-expanded', 'false');
+    element.removeAttribute('open');
     collapsedAncestor.dataset.type = 'solution';
     collapsedAncestor.appendChild(element);
     const hiddenHighlight = {

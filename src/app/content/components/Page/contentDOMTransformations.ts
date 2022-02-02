@@ -1,4 +1,4 @@
-import { Document, HTMLDetailsElement, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { assertNotNull } from '../../../utils';
 
@@ -14,33 +14,6 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   wrapSolutions(rootEl, intl);
   moveFootnotes(document, rootEl, intl);
   setLinksAttributes(rootEl);
-};
-
-const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
-  if (solution.classList.contains('ui-solution-visible')) {
-    solution.classList.remove('ui-solution-visible');
-    solution.setAttribute('aria-expanded', 'false');
-    solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
-  } else {
-    solution.className += ' ui-solution-visible';
-    solution.setAttribute('aria-expanded', 'true');
-    solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:hide'}));
-  }
-};
-
-export const toggleSolution = (summaryElement: HTMLElement, intl: IntlShape) => () => {
-  if (!summaryElement.parentElement || !summaryElement.parentElement.parentElement) {
-    return;
-  }
-  toggleSolutionAttributes(summaryElement.parentElement, intl);
-};
-
-export const mapSolutions = (container: HTMLElement | null, cb: (a: HTMLDetailsElement) => void) => {
-  if (container) {
-    Array.from(container.querySelectorAll<HTMLDetailsElement>(
-      '[data-type="solution"] > details.ui-toggle-wrapper, .solution > details.ui-toggle-wrapper'
-    )).forEach(cb);
-  }
 };
 
 function removeDocumentTitle(rootEl: HTMLElement) {
@@ -116,14 +89,13 @@ function fixLists(rootEl: HTMLElement) {
 function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   const title = intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
 
-  // Wrap solutions in a div so "Show/Hide Solutions" work
+  // Wrap solutions in a details element so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
-    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
-    el.setAttribute('aria-expanded', 'false');
+    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:toggle-title'}));
     const contents = el.innerHTML;
     el.innerHTML = `
       <details class="ui-toggle-wrapper">
-        <summary class="btn-link ui-toggle" title="${title}"></summary>
+        <summary class="btn-link ui-toggle" title="${title}" data-content="${title}"></summary>
         <section class="ui-body" role="alert">${contents}</section>
       </details>
     `;

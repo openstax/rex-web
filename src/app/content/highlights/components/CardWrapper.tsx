@@ -78,7 +78,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const checkIfHiddenByCollapsedAncestor = (highlight: Highlight) => {
     const highlightElement = highlight.elements[0] as HTMLElement;
     const collapsedAncestor = highlightElement
-      ? highlightElement.closest('[data-type="solution"][aria-expanded="false"]')
+      ? highlightElement.closest('[data-type="solution"] details:not([open])')
       : null;
     return Boolean(collapsedAncestor);
   };

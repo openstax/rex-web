@@ -348,11 +348,10 @@ describe('Page', () => {
               + `data-type="solution" `
               + `id="fs-id2913818" `
               + `data-print-placement="here" `
-              + `aria-label="show solution" `
-              + `aria-expanded="false"`
+              + `aria-label="Show/Hide Solution"`
             + `>
       <details class="ui-toggle-wrapper">
-        <summary class="btn-link ui-toggle" title="Show/Hide Solution"></summary>
+        <summary class="btn-link ui-toggle" title="Show/Hide Solution" data-content="Show/Hide Solution"></summary>
         <section class="ui-body" role="alert">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
               <div class="os-solution-container">
@@ -363,36 +362,6 @@ describe('Page', () => {
     </div>
           </section></div>
         `);
-      });
-
-      it('can be opened and closed', async() => {
-        await htmlHelper(`
-          <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
-            <h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
-            <div data-type="problem" id="problem1"><div class="os-problem-container">
-              <p id="paragraph1">blah blah blah</p>
-            </div></div>
-            <div data-type="solution" id="fs-id2913818" data-print-placement="here">
-              <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
-              <div class="os-solution-container">
-                <p id="paragraph2">answer answer answer.</p>
-              </div>
-            </div>
-          </div>
-        `);
-
-        const detailsElement = pageElement.querySelector('[data-type="solution"] > details.ui-toggle-wrapper');
-        const solution = pageElement.querySelector('[data-type="solution"]');
-
-        if (!detailsElement || !solution) {
-          return expect(false).toBe(true);
-        }
-
-        expect(solution.matches('.ui-solution-visible')).toBe(false);
-        detailsElement.dispatchEvent(makeToggleEvent());
-        expect(solution.matches('.ui-solution-visible')).toBe(true);
-        detailsElement.dispatchEvent(makeToggleEvent());
-        expect(solution.matches('.ui-solution-visible')).toBe(false);
       });
 
       it('doesn\'t use display none to hide solutions', async() => {
