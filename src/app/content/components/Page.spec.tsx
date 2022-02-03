@@ -344,22 +344,21 @@ describe('Page', () => {
             <div data-type="problem" id="problem1"><div class="os-problem-container">
               <p id="paragraph1">blah blah blah</p>
             </div></div>
-            <div `
+            <details `
               + `data-type="solution" `
               + `id="fs-id2913818" `
               + `data-print-placement="here" `
-              + `aria-label="Show/Hide Solution"`
+              + `aria-label="Show/Hide Solution" `
+              + `class="ui-toggle-wrapper"`
             + `>
-      <details class="ui-toggle-wrapper">
-        <summary class="btn-link ui-toggle" title="Show/Hide Solution" data-content="Show/Hide Solution"></summary>
-        <section class="ui-body" role="alert">
+      <summary class="btn-link ui-toggle" title="Show/Hide Solution" data-content="Show/Hide Solution"></summary>
+      <section class="ui-body" role="alert">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
               <div class="os-solution-container">
                 <p id="paragraph2">answer answer answer.</p>
               </div>
             </section>
-      </details>
-    </div>
+    </details>
           </section></div>
         `);
       });
@@ -411,17 +410,17 @@ describe('Page', () => {
           </div>
         `);
 
-        const detailsElement = pageElement.querySelector('[data-type="solution"] > details.ui-toggle-wrapper');
-        const solution = pageElement.querySelector('[data-type="solution"]');
+        const button = pageElement.querySelector('[data-type="solution"] > .ui-toggle');
+        const solution = pageElement.querySelector('details[data-type="solution"]');
 
-        if (!detailsElement || !solution) {
+        if (!button || !solution) {
           return expect(false).toBe(true);
         }
 
-        Object.defineProperty(detailsElement.parentElement, 'parentElement', {value: null, writable: true});
-        expect(() => detailsElement.dispatchEvent(makeToggleEvent())).not.toThrow();
-        Object.defineProperty(detailsElement, 'parentElement', {value: null, writable: true});
-        expect(() => detailsElement.dispatchEvent(makeToggleEvent())).not.toThrow();
+        Object.defineProperty(button.parentElement, 'parentElement', {value: null, writable: true});
+        expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
+        Object.defineProperty(button, 'parentElement', {value: null, writable: true});
+        expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
       });
     });
 

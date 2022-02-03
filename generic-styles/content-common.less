@@ -306,14 +306,11 @@ blockquote {
       text-align: center;
       list-style: none;
       cursor: pointer;
-    }
+      text-transform: capitalize;
 
-    &:not([open]) > summary.ui-toggle::before {
-      content: "[Show Solution]";
-    }
-
-    &[open] summary.ui-toggle::before {
-      content: "[Hide Solution]";
+      &::before {
+        content: "["attr(data-content)"]";
+      }
     }
   }
 
