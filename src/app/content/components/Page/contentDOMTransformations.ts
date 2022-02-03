@@ -93,12 +93,18 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
     el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:toggle-title'}));
     const contents = el.innerHTML;
-    el.innerHTML = `
-      <details class="ui-toggle-wrapper">
-        <summary class="btn-link ui-toggle" title="${title}" data-content="${title}"></summary>
-        <section class="ui-body" role="alert">${contents}</section>
-      </details>
+    const detailsEl = document!.createElement('details');
+
+    Array.from(el.attributes).forEach((attr) => {
+      detailsEl.setAttribute(attr.name, attr.value);
+    });
+
+    detailsEl.classList.add('ui-toggle-wrapper');
+    detailsEl.innerHTML = `
+      <summary class="btn-link ui-toggle" title="${title}" data-content="${title}"></summary>
+      <section class="ui-body" role="alert">${contents}</section>
     `;
+    el.replaceWith(detailsEl);
   });
 }
 

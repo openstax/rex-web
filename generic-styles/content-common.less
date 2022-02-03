@@ -301,26 +301,19 @@ blockquote {
     border-top: 0.1rem solid @gray;
 
     // The Show/Hide Solution text
-    > .ui-toggle-wrapper > .ui-toggle {
-        font-weight: bold;
-        text-align: center;
-        list-style: none;
-        cursor: pointer;
+    > .ui-toggle {
+      font-weight: bold;
+      text-align: center;
+      list-style: none;
+      cursor: pointer;
     }
 
-    &:not(.ui-solution-visible) {
-      > .ui-toggle-wrapper > summary.ui-toggle::before {
-        content: "[Show Solution]";
-      }
-      > section {
-        display: none;
-      }
+    &:not([open]) > summary.ui-toggle::before {
+      content: "[Show Solution]";
     }
 
-    &.ui-solution-visible {
-      > .ui-toggle-wrapper > summary.ui-toggle::before {
-        content: "[Hide Solution]";
-      }
+    &[open] summary.ui-toggle::before {
+      content: "[Hide Solution]";
     }
   }
 
