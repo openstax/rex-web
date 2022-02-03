@@ -2,7 +2,6 @@
 platform: linux
 
 inputs:
-- name: rex-web
 - name: build-configs
 outputs:
 - name: release
@@ -14,4 +13,4 @@ params:
   PRERENDER_MODE: ((prerender-mode))
 
 run:
-  path: rex-web/concourse/prerender/script.bash
+  path: /code/concourse/prerender/script.bash
