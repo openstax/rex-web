@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd rex-web
+cd /code
 
 if [ "$GITHUB_USERNAME" != "" ] && [ "$GITHUB_PASSWORD" != "" ]; then
   git config --global user.email "$GITHUB_USERNAME"
