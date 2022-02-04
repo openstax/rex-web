@@ -88,6 +88,7 @@ function fixLists(rootEl: HTMLElement) {
 
 function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
   const title = intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
+  const showSolutionText = intl.formatMessage({id: 'i18n:content:solution:show'});
 
   // Wrap solutions in a details element so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {

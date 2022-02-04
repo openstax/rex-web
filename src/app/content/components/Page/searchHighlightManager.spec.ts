@@ -109,6 +109,6 @@ describe('searchHighlightManager', () => {
   it('handles highlight.formatMessage', () => {
     const options = Highlighter.mock.calls[0][1];
     options.formatMessage({ id: 'asdfg' });
-    expect(intl.formatMessage).toHaveBeenCalledWith({ id: 'asdfg' }, { style: 'search' });
+    expect(intl.formatMessage).toHaveBeenCalledWith({ id: 'asdfg:search' });
   });
 });
