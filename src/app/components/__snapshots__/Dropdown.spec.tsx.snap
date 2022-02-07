@@ -14,7 +14,7 @@ exports[`Dropdown matches snapshot 1`] = `
       show more
     </button>
     <ol
-      className="Dropdown__DropdownList-rmc6yw-4 evYLnV"
+      className="Dropdown__DropdownList-rmc6yw-4 ksrroJ"
     >
       <li>
         <a
@@ -71,7 +71,7 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
     show more
   </button>
   <ol
-    className="Dropdown__DropdownList-rmc6yw-4 evYLnV"
+    className="Dropdown__DropdownList-rmc6yw-4 ksrroJ"
   >
     <li>
       <a
