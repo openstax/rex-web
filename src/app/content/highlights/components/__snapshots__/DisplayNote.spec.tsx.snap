@@ -2,7 +2,7 @@
 
 exports[`DisplayNote matches snapshot 1`] = `
 <div
-  className="DisplayNote-wzwggt-1 blUofp"
+  className="DisplayNote-wzwggt-1 cixiIq"
   data-highlight-card={true}
   tabIndex={-1}
 >
@@ -10,7 +10,7 @@ exports[`DisplayNote matches snapshot 1`] = `
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -18,7 +18,7 @@ exports[`DisplayNote matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -74,7 +74,7 @@ exports[`DisplayNote matches snapshot 1`] = `
 
 exports[`DisplayNote matches snapshot when focused 1`] = `
 <div
-  className="DisplayNote-wzwggt-1 eDRYVj"
+  className="DisplayNote-wzwggt-1 ryJyB"
   data-highlight-card={true}
   tabIndex={-1}
 >
@@ -82,7 +82,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -90,7 +90,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -146,7 +146,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 
 exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 <div
-  className="DisplayNote-wzwggt-1 eDRYVj"
+  className="DisplayNote-wzwggt-1 ryJyB"
   data-highlight-card={true}
   tabIndex={-1}
 >
@@ -154,7 +154,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -162,7 +162,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -175,7 +175,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       </div>
     </button>
     <ol
-      className="Dropdown__DropdownList-rmc6yw-4 evYLnV"
+      className="Dropdown__DropdownList-rmc6yw-4 ksrroJ"
     >
       <li>
         <a

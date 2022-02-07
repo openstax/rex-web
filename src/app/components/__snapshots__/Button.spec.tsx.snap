@@ -45,6 +45,24 @@ exports[`Button matches snapshot - small 1`] = `
 />
 `;
 
+exports[`ButtonGroup matches snapshot (expand) 1`] = `
+<div
+  className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+/>
+`;
+
+exports[`ButtonGroup matches snapshot (not-expand) 1`] = `
+<div
+  className="Button__ButtonGroup-ayg7nk-1 jzhcUT"
+/>
+`;
+
+exports[`ButtonGroup matches snapshot 1`] = `
+<div
+  className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+/>
+`;
+
 exports[`ButtonLink matches snapshot (decorated and disabled) 1`] = `
 <button
   className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 Rtfaq"
