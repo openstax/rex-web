@@ -2,14 +2,14 @@
 
 exports[`ContextMenu match snapshot when closed 1`] = `
 <div
-  className="ContextMenu__StyledContextMenu-a36hp5-0 juAWPn"
+  className="ContextMenu__StyledContextMenu-a36hp5-0 eFRhVx"
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Edit this highlight"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -17,7 +17,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -35,14 +35,14 @@ exports[`ContextMenu match snapshot when closed 1`] = `
 
 exports[`ContextMenu match snapshot when open 1`] = `
 <div
-  className="ContextMenu__StyledContextMenu-a36hp5-0 juAWPn"
+  className="ContextMenu__StyledContextMenu-a36hp5-0 eFRhVx"
 >
   <div
     className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
   >
     <button
       aria-label="Edit this highlight"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF MenuToggle-sc-1el28uq-1 feKQcX Button__PlainButton-ayg7nk-2 chgswm"
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
       onClick={[Function]}
     >
       <div
@@ -50,7 +50,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="MenuToggle__MenuIcon-sc-1el28uq-0 jkTkPG StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -296,7 +296,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         </label>
       </div>
       <ol
-        className="Dropdown__DropdownList-rmc6yw-4 ContextMenu__StyledDropdownList-a36hp5-1 ziTIl"
+        className="Dropdown__DropdownList-rmc6yw-4 ContextMenu__StyledDropdownList-a36hp5-1 cqWhBl"
       >
         <li
           aria-label="Add note"
