@@ -25,7 +25,6 @@ export default async(services: AppServices & MiddlewareAPI) => {
       if (focusedHighlight) {
         services.dispatch(focusHighlight(focusedHighlight));
       }
-      services.dispatch(setAnnotationChangesPending(true));
     };
     ReactDOM.render(
       <RawIntlProvider value={intl}>
