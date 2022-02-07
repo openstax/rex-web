@@ -3,16 +3,16 @@
 exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-3 cYhhnj"
+  className="styled__SearchResultsBar-as3fh1-4 dxIFwg"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div>
     <div
-      className="styled__CloseIconWrapper-as3fh1-20 cTztJS"
+      className="styled__CloseIconWrapper-as3fh1-21 fQdWHv"
     >
       <button
-        className="styled__CloseIconButton-as3fh1-19 cMpUBy"
+        className="styled__CloseIconButton-as3fh1-20 hTNMDN"
         onClick={[Function]}
       >
         <svg
@@ -47,10 +47,10 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
       </button>
     </div>
     <div
-      className="styled__SearchQuery-as3fh1-7 dkZmAk"
+      className="styled__SearchQuery-as3fh1-8 dHObjQ"
     >
       <div
-        className="styled__SearchQueryAlignment-as3fh1-18 bDnppb"
+        className="styled__SearchQueryAlignment-as3fh1-19 kImcBZ"
       >
         Sorry, no results found for 
          
@@ -68,23 +68,23 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-3 cYhhnj"
+  className="styled__SearchResultsBar-as3fh1-4 dxIFwg"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div
-    className="styled__SearchResultsTopBar-as3fh1-4 iqKAVu"
+    className="styled__SearchResultsTopBar-as3fh1-5 gWCuVB"
   >
     <div
-      className="styled__SearchResultsHeader-as3fh1-5 bDKAci"
+      className="styled__SearchResultsHeader-as3fh1-6 tKnMq"
     >
       <span
-        className="styled__SearchResultsHeaderTitle-as3fh1-6 dopeqz"
+        className="styled__SearchResultsHeaderTitle-as3fh1-7 hcjHXF"
       >
         Search results
       </span>
       <button
-        className="styled__CloseIconButton-as3fh1-19 cMpUBy"
+        className="styled__CloseIconButton-as3fh1-20 hTNMDN"
         data-testid="close-search"
         onClick={[Function]}
       >
@@ -120,17 +120,17 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       </button>
     </div>
     <div
-      className="styled__SearchQueryWrapper-as3fh1-8 bvmymb"
+      className="styled__SearchQueryWrapper-as3fh1-9 ikvDao"
     >
       <div
-        className="styled__SearchQuery-as3fh1-7 dkZmAk"
+        className="styled__SearchQuery-as3fh1-8 dHObjQ"
       >
         <img
           className="styled__SearchIconInsideBar-as3fh1-0 edHBGg"
           src="search-icon-v2.svg"
         />
         <div
-          className="styled__HeaderQuery-as3fh1-22 gOTSQU"
+          className="styled__HeaderQuery-as3fh1-23 jgZMYn"
         >
           2 key term results and 1 search result for 
           <strong>
@@ -142,28 +142,29 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       </div>
     </div>
   </div>
-  <ol
-    className="styled__NavOl-as3fh1-2 jPrtty"
+  <div
+    className="styled__NavWrapper-as3fh1-2 ZSyGJ"
   >
     <div
-      className="styled__RelatedKeyTerms-as3fh1-26 hyfLfL"
+      className="styled__RelatedKeyTerms-as3fh1-27 fcduze"
+      data-analytics-region="kt-search-results"
     >
       <span
-        className="styled__SearchResultsSectionTitle-as3fh1-24 lhrXpY"
+        className="styled__SearchResultsSectionTitle-as3fh1-25 iUxHSe"
       >
         Related key terms
       </span>
       <a
-        className="styled__SectionContentPreview-as3fh1-14 iaxwjB"
+        className="styled__SectionContentPreview-as3fh1-15 caeGwU"
         data-testid="related-key-term-result"
         href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page1"
         onClick={[Function]}
       >
         <div
-          className="styled__SimpleResult-as3fh1-28 styled__KeyTermResult-as3fh1-29 uzVua"
+          className="styled__SimpleResult-as3fh1-29 styled__KeyTermResult-as3fh1-30 fMzRdE"
         >
           <span
-            className="styled__KeyTerm-as3fh1-27 eskZsd"
+            className="styled__KeyTerm-as3fh1-28 kXnHGv"
           >
             term1 - selected
           </span>
@@ -177,16 +178,16 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         </div>
       </a>
       <a
-        className="styled__SectionContentPreview-as3fh1-14 jBHjSa"
+        className="styled__SectionContentPreview-as3fh1-15 kRChqI"
         data-testid="related-key-term-result"
         href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page6"
         onClick={[Function]}
       >
         <div
-          className="styled__SimpleResult-as3fh1-28 styled__KeyTermResult-as3fh1-29 uzVua"
+          className="styled__SimpleResult-as3fh1-29 styled__KeyTermResult-as3fh1-30 fMzRdE"
         >
           <span
-            className="styled__KeyTerm-as3fh1-27 eskZsd"
+            className="styled__KeyTerm-as3fh1-28 kXnHGv"
           >
             term2
           </span>
@@ -201,124 +202,129 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       </a>
     </div>
     <span
-      className="styled__SearchResultsSectionTitle-as3fh1-24 lhrXpY"
+      className="styled__SearchResultsSectionTitle-as3fh1-25 iUxHSe"
     >
       Chapter results
     </span>
-    <li
-      className="styled__ListItem-as3fh1-23 bWFiQo"
+    <ol
+      className="styled__SearchResultsOl-as3fh1-3 kHsHvH"
+      data-analytics-region="content-search-results"
     >
-      <details
-        className="Details-xi326o-3 styled__Details-as3fh1-10 iKswOJ"
-        open={true}
+      <li
+        className="styled__ListItem-as3fh1-24 lgfehI"
       >
-        <summary
-          className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-12 gjDctA"
-          tabIndex={0}
+        <details
+          className="Details-xi326o-3 styled__Details-as3fh1-11 quSzi"
+          open={true}
         >
-          <div
-            className="styled__SearchBarSummaryContainer-as3fh1-11 jCqvcP"
-            tabIndex={-1}
-          >
-            <svg
-              aria-hidden="true"
-              className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-              fill="currentColor"
-              focusable="false"
-              viewBox="0 0 192 512"
-            >
-              <path
-                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                fill="currentColor"
-              />
-            </svg>
-            <svg
-              aria-hidden="true"
-              className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-              fill="currentColor"
-              focusable="false"
-              viewBox="0 0 320 512"
-            >
-              <path
-                d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                fill="currentColor"
-              />
-            </svg>
-            <span
-              className="styled__SummaryTitle-as3fh1-9 dkRcSL"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
-                }
-              }
-            />
-          </div>
-        </summary>
-        <ol
-          className="styled__DetailsOl-as3fh1-16 eIxJTm"
-        >
-          <li
-            className="styled__NavItem-as3fh1-17 fSMHWV"
+          <summary
+            className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-13 gnEcZo"
+            tabIndex={0}
           >
             <div
-              className="styled__LinkWrapper-as3fh1-15 eGzsKN"
+              className="styled__SearchBarSummaryContainer-as3fh1-12 hyZoUB"
+              tabIndex={-1}
             >
-              <div
-                className="styled__SearchResultsLink-as3fh1-13 hmjTQN"
+              <svg
+                aria-hidden="true"
+                className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 192 512"
+              >
+                <path
+                  d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                  fill="currentColor"
+                />
+              </svg>
+              <svg
+                aria-hidden="true"
+                className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 320 512"
+              >
+                <path
+                  d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span
+                className="styled__SummaryTitle-as3fh1-10 jFbUUT"
                 dangerouslySetInnerHTML={
                   Object {
-                    "__html": "<span class=\\"os-text\\">Test Page 7</span>",
+                    "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
                   }
                 }
               />
             </div>
-            <a
-              className="styled__SectionContentPreview-as3fh1-14 jBHjSa"
-              data-testid="search-result"
-              href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
-              onClick={[Function]}
+          </summary>
+          <ol
+            className="styled__DetailsOl-as3fh1-17 enXkEh"
+          >
+            <li
+              className="styled__NavItem-as3fh1-18 FQWqZ"
             >
               <div
-                className="styled__SimpleResult-as3fh1-28 bPjZDB"
+                className="styled__LinkWrapper-as3fh1-16 eLXzky"
               >
                 <div
+                  className="styled__SearchResultsLink-as3fh1-14 hPsLTj"
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "cool <strong>highlight</strong> bruh",
+                      "__html": "<span class=\\"os-text\\">Test Page 7</span>",
                     }
                   }
-                  tabIndex={-1}
                 />
               </div>
-            </a>
-          </li>
-        </ol>
-      </details>
-    </li>
-  </ol>
+              <a
+                className="styled__SectionContentPreview-as3fh1-15 kRChqI"
+                data-testid="search-result"
+                href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
+                onClick={[Function]}
+              >
+                <div
+                  className="styled__SimpleResult-as3fh1-29 hCZLQH"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "cool <strong>highlight</strong> bruh",
+                      }
+                    }
+                    tabIndex={-1}
+                  />
+                </div>
+              </a>
+            </li>
+          </ol>
+        </details>
+      </li>
+    </ol>
+  </div>
 </div>
 `;
 
 exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-3 cYhhnj"
+  className="styled__SearchResultsBar-as3fh1-4 dxIFwg"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div
-    className="styled__SearchResultsTopBar-as3fh1-4 iqKAVu"
+    className="styled__SearchResultsTopBar-as3fh1-5 gWCuVB"
   >
     <div
-      className="styled__SearchResultsHeader-as3fh1-5 bDKAci"
+      className="styled__SearchResultsHeader-as3fh1-6 tKnMq"
     >
       <span
-        className="styled__SearchResultsHeaderTitle-as3fh1-6 dopeqz"
+        className="styled__SearchResultsHeaderTitle-as3fh1-7 hcjHXF"
       >
         Search results
       </span>
       <button
-        className="styled__CloseIconButton-as3fh1-19 cMpUBy"
+        className="styled__CloseIconButton-as3fh1-20 hTNMDN"
         data-testid="close-search"
         onClick={[Function]}
       >
@@ -354,17 +360,17 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       </button>
     </div>
     <div
-      className="styled__SearchQueryWrapper-as3fh1-8 bvmymb"
+      className="styled__SearchQueryWrapper-as3fh1-9 ikvDao"
     >
       <div
-        className="styled__SearchQuery-as3fh1-7 dkZmAk"
+        className="styled__SearchQuery-as3fh1-8 dHObjQ"
       >
         <img
           className="styled__SearchIconInsideBar-as3fh1-0 edHBGg"
           src="search-icon-v2.svg"
         />
         <div
-          className="styled__HeaderQuery-as3fh1-22 gOTSQU"
+          className="styled__HeaderQuery-as3fh1-23 jgZMYn"
         >
           3 search results for 
           <strong>
@@ -376,245 +382,250 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       </div>
     </div>
   </div>
-  <ol
-    className="styled__NavOl-as3fh1-2 jPrtty"
+  <div
+    className="styled__NavWrapper-as3fh1-2 ZSyGJ"
   >
-    <li
-      className="styled__NavItem-as3fh1-17 fSMHWV"
+    <ol
+      className="styled__SearchResultsOl-as3fh1-3 kHsHvH"
+      data-analytics-region="content-search-results"
     >
-      <div
-        className="styled__LinkWrapper-as3fh1-15 eGzsKN"
+      <li
+        className="styled__NavItem-as3fh1-18 FQWqZ"
       >
         <div
-          className="styled__SearchResultsLink-as3fh1-13 hmjTQN"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-text\\">Test Page 1</span>",
-            }
-          }
-        />
-      </div>
-      <a
-        className="styled__SectionContentPreview-as3fh1-14 iaxwjB"
-        data-testid="search-result"
-        href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
-        onClick={[Function]}
-      >
-        <div
-          className="styled__SimpleResult-as3fh1-28 bPjZDB"
+          className="styled__LinkWrapper-as3fh1-16 eLXzky"
         >
           <div
+            className="styled__SearchResultsLink-as3fh1-14 hPsLTj"
             dangerouslySetInnerHTML={
               Object {
-                "__html": "cool <strong>highlight</strong> bruh",
+                "__html": "<span class=\\"os-text\\">Test Page 1</span>",
               }
             }
-            tabIndex={-1}
           />
         </div>
-      </a>
-    </li>
-    <li
-      className="styled__ListItem-as3fh1-23 bWFiQo"
-    >
-      <details
-        className="Details-xi326o-3 styled__Details-as3fh1-10 iKswOJ"
-        open={true}
-      >
-        <summary
-          className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-12 gjDctA"
-          tabIndex={0}
+        <a
+          className="styled__SectionContentPreview-as3fh1-15 caeGwU"
+          data-testid="search-result"
+          href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
+          onClick={[Function]}
         >
           <div
-            className="styled__SearchBarSummaryContainer-as3fh1-11 jCqvcP"
-            tabIndex={-1}
-          >
-            <svg
-              aria-hidden="true"
-              className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-              fill="currentColor"
-              focusable="false"
-              viewBox="0 0 192 512"
-            >
-              <path
-                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                fill="currentColor"
-              />
-            </svg>
-            <svg
-              aria-hidden="true"
-              className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-              fill="currentColor"
-              focusable="false"
-              viewBox="0 0 320 512"
-            >
-              <path
-                d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                fill="currentColor"
-              />
-            </svg>
-            <span
-              className="styled__SummaryTitle-as3fh1-9 dkRcSL"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
-                }
-              }
-            />
-          </div>
-        </summary>
-        <ol
-          className="styled__DetailsOl-as3fh1-16 eIxJTm"
-        >
-          <li
-            className="styled__NavItem-as3fh1-17 fSMHWV"
+            className="styled__SimpleResult-as3fh1-29 hCZLQH"
           >
             <div
-              aria-label="Current Page"
-              className="styled__LinkWrapper-as3fh1-15 eGzsKN"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "cool <strong>highlight</strong> bruh",
+                }
+              }
+              tabIndex={-1}
+            />
+          </div>
+        </a>
+      </li>
+      <li
+        className="styled__ListItem-as3fh1-24 lgfehI"
+      >
+        <details
+          className="Details-xi326o-3 styled__Details-as3fh1-11 quSzi"
+          open={true}
+        >
+          <summary
+            className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-13 gnEcZo"
+            tabIndex={0}
+          >
+            <div
+              className="styled__SearchBarSummaryContainer-as3fh1-12 hyZoUB"
+              tabIndex={-1}
             >
-              <div
-                className="styled__SearchResultsLink-as3fh1-13 hmjTQN"
+              <svg
+                aria-hidden="true"
+                className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 192 512"
+              >
+                <path
+                  d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                  fill="currentColor"
+                />
+              </svg>
+              <svg
+                aria-hidden="true"
+                className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 320 512"
+              >
+                <path
+                  d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span
+                className="styled__SummaryTitle-as3fh1-10 jFbUUT"
                 dangerouslySetInnerHTML={
                   Object {
-                    "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
+                    "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
                   }
                 }
               />
             </div>
-            <a
-              className="styled__SectionContentPreview-as3fh1-14 jBHjSa"
-              data-testid="search-result"
-              href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
-              onClick={[Function]}
+          </summary>
+          <ol
+            className="styled__DetailsOl-as3fh1-17 enXkEh"
+          >
+            <li
+              className="styled__NavItem-as3fh1-18 FQWqZ"
             >
               <div
-                className="styled__SimpleResult-as3fh1-28 bPjZDB"
+                aria-label="Current Page"
+                className="styled__LinkWrapper-as3fh1-16 eLXzky"
               >
                 <div
+                  className="styled__SearchResultsLink-as3fh1-14 hPsLTj"
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "cool <strong>highlight</strong> bruh",
+                      "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
                     }
                   }
-                  tabIndex={-1}
                 />
               </div>
-            </a>
-          </li>
-        </ol>
-      </details>
-    </li>
-    <li
-      className="styled__ListItem-as3fh1-23 bWFiQo"
-    >
-      <details
-        className="Details-xi326o-3 styled__Details-as3fh1-10 iKswOJ"
-        open={true}
+              <a
+                className="styled__SectionContentPreview-as3fh1-15 kRChqI"
+                data-testid="search-result"
+                href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
+                onClick={[Function]}
+              >
+                <div
+                  className="styled__SimpleResult-as3fh1-29 hCZLQH"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "cool <strong>highlight</strong> bruh",
+                      }
+                    }
+                    tabIndex={-1}
+                  />
+                </div>
+              </a>
+            </li>
+          </ol>
+        </details>
+      </li>
+      <li
+        className="styled__ListItem-as3fh1-24 lgfehI"
       >
-        <summary
-          className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-12 gjDctA"
-          tabIndex={0}
+        <details
+          className="Details-xi326o-3 styled__Details-as3fh1-11 quSzi"
+          open={true}
         >
-          <div
-            className="styled__SearchBarSummaryContainer-as3fh1-11 jCqvcP"
-            tabIndex={-1}
-          >
-            <svg
-              aria-hidden="true"
-              className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
-              fill="currentColor"
-              focusable="false"
-              viewBox="0 0 192 512"
-            >
-              <path
-                d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
-                fill="currentColor"
-              />
-            </svg>
-            <svg
-              aria-hidden="true"
-              className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
-              fill="currentColor"
-              focusable="false"
-              viewBox="0 0 320 512"
-            >
-              <path
-                d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                fill="currentColor"
-              />
-            </svg>
-            <span
-              className="styled__SummaryTitle-as3fh1-9 dkRcSL"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
-                }
-              }
-            />
-          </div>
-        </summary>
-        <ol
-          className="styled__DetailsOl-as3fh1-16 eIxJTm"
-        >
-          <li
-            className="styled__NavItem-as3fh1-17 fSMHWV"
+          <summary
+            className="Details__Summary-xi326o-2 styled__SearchBarSummary-as3fh1-13 gnEcZo"
+            tabIndex={0}
           >
             <div
-              className="styled__LinkWrapper-as3fh1-15 eGzsKN"
+              className="styled__SearchBarSummaryContainer-as3fh1-12 hyZoUB"
+              tabIndex={-1}
             >
-              <div
-                className="styled__SearchResultsLink-as3fh1-13 hmjTQN"
+              <svg
+                aria-hidden="true"
+                className="Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 192 512"
+              >
+                <path
+                  d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                  fill="currentColor"
+                />
+              </svg>
+              <svg
+                aria-hidden="true"
+                className="Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 320 512"
+              >
+                <path
+                  d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                  fill="currentColor"
+                />
+              </svg>
+              <span
+                className="styled__SummaryTitle-as3fh1-10 jFbUUT"
                 dangerouslySetInnerHTML={
                   Object {
-                    "__html": "<span class=\\"os-text\\">Test Page 7</span>",
+                    "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
                   }
                 }
               />
             </div>
-            <a
-              className="styled__SectionContentPreview-as3fh1-14 jBHjSa"
-              data-testid="search-result"
-              href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
-              onClick={[Function]}
+          </summary>
+          <ol
+            className="styled__DetailsOl-as3fh1-17 enXkEh"
+          >
+            <li
+              className="styled__NavItem-as3fh1-18 FQWqZ"
             >
               <div
-                className="styled__SimpleResult-as3fh1-28 bPjZDB"
+                className="styled__LinkWrapper-as3fh1-16 eLXzky"
               >
                 <div
+                  className="styled__SearchResultsLink-as3fh1-14 hPsLTj"
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "cool <strong>highlight</strong> bruh",
+                      "__html": "<span class=\\"os-text\\">Test Page 7</span>",
                     }
                   }
-                  tabIndex={-1}
                 />
               </div>
-            </a>
-          </li>
-        </ol>
-      </details>
-    </li>
-  </ol>
+              <a
+                className="styled__SectionContentPreview-as3fh1-15 kRChqI"
+                data-testid="search-result"
+                href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
+                onClick={[Function]}
+              >
+                <div
+                  className="styled__SimpleResult-as3fh1-29 hCZLQH"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "cool <strong>highlight</strong> bruh",
+                      }
+                    }
+                    tabIndex={-1}
+                  />
+                </div>
+              </a>
+            </li>
+          </ol>
+        </details>
+      </li>
+    </ol>
+  </div>
 </div>
 `;
 
 exports[`SearchResultsSidebar shows sidebar with loading state if there is a search 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-3 cYhhnj"
+  className="styled__SearchResultsBar-as3fh1-4 dxIFwg"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div
     aria-label="Loading results"
-    className="styled__LoadingWrapper-as3fh1-21 fDKrIA"
+    className="styled__LoadingWrapper-as3fh1-22 gbYqll"
   >
     <div
-      className="styled__CloseIconWrapper-as3fh1-20 cTztJS"
+      className="styled__CloseIconWrapper-as3fh1-21 fQdWHv"
     >
       <button
-        className="styled__CloseIconButton-as3fh1-19 cMpUBy"
+        className="styled__CloseIconButton-as3fh1-20 hTNMDN"
         onClick={[Function]}
       >
         <svg

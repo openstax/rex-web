@@ -9,6 +9,7 @@ import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
+import LabsCTA from '../LabsCTA';
 import PageToasts from '../Page/PageToasts';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
@@ -67,12 +68,14 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
 
+    // Sometimes data is already populated on mount, eg when navigating to a new tab
     if (this.props.searchHighlights.selectedResult) {
       this.searchHighlightManager.update(null, this.props.searchHighlights, {
         forceRedraw: true,
         onSelect: this.onSearchHighlightSelect,
       });
     }
+    this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
@@ -149,6 +152,7 @@ export default class PageComponent extends Component<PagePropTypes> {
         dangerouslySetInnerHTML={{ __html: html}}
       />
       <PrevNextBar />
+      <LabsCTA />
       <BuyBook />
     </React.Fragment>;
   };
