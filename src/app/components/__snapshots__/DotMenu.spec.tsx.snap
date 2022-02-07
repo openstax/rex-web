@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown matches snapshot 1`] = `
+<div
+  className="DotMenu__DotMenuDropdown-khcauc-3 hDFPiE Dropdown-rmc6yw-5 fBPFfC Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM"
+>
+  <div
+    className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
+  >
+    <button
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+      tabIndex={0}
+    >
+      <div
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 192 512"
+        >
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+    </button>
+    <ol
+      className="Dropdown__DropdownList-rmc6yw-4 DotMenu__DotMenuDropdownList-khcauc-2 fHGnJd"
+    >
+      <li>
+        <a
+          href=""
+          onClick={[Function]}
+          tabIndex={0}
+        >
+          Delete
+        </a>
+      </li>
+      <li>
+        <a
+          href="/wooo"
+          onClick={[Function]}
+          tabIndex={0}
+        >
+          Edit
+        </a>
+      </li>
+    </ol>
+  </div>
+  <button
+    className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+    tabIndex={0}
+  >
+    <div
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 192 512"
+      >
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  </button>
+</div>
+`;
+
+exports[`Dropdown matches snapshot on right align 1`] = `
+<div
+  className="DotMenu__DotMenuDropdown-khcauc-3 hDFPiE Dropdown-rmc6yw-5 fBPFfC Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM"
+>
+  <div
+    className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
+  >
+    <button
+      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+      tabIndex={0}
+    >
+      <div
+        tabIndex={-1}
+      >
+        <svg
+          aria-hidden="true"
+          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 192 512"
+        >
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+    </button>
+    <ol
+      className="Dropdown__DropdownList-rmc6yw-4 DotMenu__DotMenuDropdownList-khcauc-2 jNSZKe"
+    >
+      <li>
+        <a
+          href=""
+          onClick={[Function]}
+          tabIndex={0}
+        >
+          Delete
+        </a>
+      </li>
+      <li>
+        <a
+          href="/wooo"
+          onClick={[Function]}
+          tabIndex={0}
+        >
+          Edit
+        </a>
+      </li>
+    </ol>
+  </div>
+  <button
+    className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+    tabIndex={0}
+  >
+    <div
+      tabIndex={-1}
+    >
+      <svg
+        aria-hidden="true"
+        className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+        fill="currentColor"
+        focusable="false"
+        viewBox="0 0 192 512"
+      >
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  </button>
+</div>
+`;

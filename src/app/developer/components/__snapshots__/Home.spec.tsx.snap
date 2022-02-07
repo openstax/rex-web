@@ -40,154 +40,226 @@ Array [
     </div>
   </div>,
   <div
-    className="Layout__LayoutBody-s6mgs9-0 Home__Wrapper-kkxtzr-1 hvoruj"
+    className="Layout__LayoutBody-s6mgs9-0 Home__Wrapper-kkxtzr-3 fENBpB"
   >
     <div
-      className="Home__HomeStyle-kkxtzr-0 ebFfeP"
+      className="Home__HomeStyle-kkxtzr-0 dWEdFf"
     >
       <h1
         className="headings__H1-sc-1xfiggv-0 cErBHT"
       >
         REX Developer Homepage
       </h1>
-      <div>
-        <h2
-          className="headings__H2-sc-1xfiggv-1 hrMREQ"
-        >
-          Books
-        </h2>
+      <div
+        className="Home__Row-kkxtzr-1 vVBgR"
+      >
         <div
-          className="Panel__Wrappper-sc-13xpmbe-0 dMnuSy"
+          className="Home__Col-kkxtzr-2 ehTeyo"
         >
-          <ul>
-            <li>
-              <h3
-                className="headings__H3-sc-1xfiggv-2 dxSanG"
+          <div>
+            <h2
+              className="headings__H2-sc-1xfiggv-1 hrMREQ"
+            >
+              Notifications
+            </h2>
+            <div
+              className="Panel__Wrappper-sc-13xpmbe-0 dMnuSy"
+            >
+              <div
+                className="Button__ButtonGroup-ayg7nk-1 eDyKty"
               >
-                <a
-                  className="ContentLink__StyledContentLink-ctb7jh-0 jAbAdk"
-                  href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                <button
+                  className="Button-ayg7nk-0 liRzrl"
                   onClick={[Function]}
                 >
-                  0 Should be first
-                </a>
-              </h3>
-            </li>
-            <li>
-              <h3
-                className="headings__H3-sc-1xfiggv-2 dxSanG"
-              >
-                <a
-                  className="ContentLink__StyledContentLink-ctb7jh-0 jAbAdk"
-                  href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                  accept cookies
+                </button>
+                <button
+                  className="Button-ayg7nk-0 liRzrl"
+                  data-testid="trigger-updates-available"
                   onClick={[Function]}
                 >
-                  Should be second
-                </a>
-              </h3>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <h2
-          className="headings__H2-sc-1xfiggv-1 hrMREQ"
-        >
-          Notifications
-        </h2>
-        <div
-          className="Panel__Wrappper-sc-13xpmbe-0 dMnuSy"
-        >
-          <div
-            className="Button__ButtonGroup-ayg7nk-1 jzhcUT"
-          >
-            <button
-              className="Button-ayg7nk-0 liRzrl"
-              onClick={[Function]}
+                  update available
+                </button>
+                <button
+                  className="Button-ayg7nk-0 liRzrl"
+                  data-testid="trigger-messages"
+                  onClick={[Function]}
+                >
+                  app messages
+                </button>
+                <button
+                  className="Button-ayg7nk-0 liRzrl"
+                  data-testid="trigger-inline-error"
+                  onClick={[Function]}
+                >
+                  inline error
+                </button>
+                <button
+                  className="Button-ayg7nk-0 liRzrl"
+                  data-testid="trigger-modal-error"
+                  onClick={[Function]}
+                >
+                  modal error
+                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h2
+              className="headings__H2-sc-1xfiggv-1 hrMREQ"
             >
-              accept cookies
-            </button>
-            <button
-              className="Button-ayg7nk-0 liRzrl"
-              data-testid="trigger-updates-available"
-              onClick={[Function]}
+              Routes
+            </h2>
+            <div
+              className="Panel__Wrappper-sc-13xpmbe-0 dMnuSy"
             >
-              update available
-            </button>
-            <button
-              className="Button-ayg7nk-0 liRzrl"
-              data-testid="trigger-messages"
-              onClick={[Function]}
-            >
-              app messages
-            </button>
-            <button
-              className="Button-ayg7nk-0 liRzrl"
-              data-testid="trigger-inline-error"
-              onClick={[Function]}
-            >
-              inline error
-            </button>
-            <button
-              className="Button-ayg7nk-0 liRzrl"
-              data-testid="trigger-modal-error"
-              onClick={[Function]}
-            >
-              modal error
-            </button>
+              <div>
+                <h3
+                  className="headings__H3-sc-1xfiggv-2 dxSanG"
+                >
+                  Developer Home
+                </h3>
+                path: 
+                /
+                <br />
+                /books/list
+                <br />
+              </div>
+              <div>
+                <h3
+                  className="headings__H3-sc-1xfiggv-2 dxSanG"
+                >
+                  Content
+                </h3>
+                path: 
+                /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_slug
+                <br />
+                /books/:book_slug@:book_version/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /books/:book_slug@:book_version/pages/:page_slug
+                <br />
+                /books/:book_slug/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /books/:book_slug/pages/:page_slug
+                <br />
+              </div>
+              <div>
+                <h3
+                  className="headings__H3-sc-1xfiggv-2 dxSanG"
+                >
+                  NotFound
+                </h3>
+                path: 
+                /(.*)
+                <br />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div>
-        <h2
-          className="headings__H2-sc-1xfiggv-1 hrMREQ"
-        >
-          Routes
-        </h2>
         <div
-          className="Panel__Wrappper-sc-13xpmbe-0 dMnuSy"
+          className="Home__Col-kkxtzr-2 ehTeyo"
         >
           <div>
-            <h3
-              className="headings__H3-sc-1xfiggv-2 dxSanG"
+            <h2
+              className="headings__H2-sc-1xfiggv-1 hrMREQ"
             >
-              Developer Home
-            </h3>
-            path: 
-            /
-            <br />
-            /books/list
-            <br />
-          </div>
-          <div>
-            <h3
-              className="headings__H3-sc-1xfiggv-2 dxSanG"
+              Books
+            </h2>
+            <div
+              className="Panel__Wrappper-sc-13xpmbe-0 dMnuSy"
             >
-              Content
-            </h3>
-            path: 
-            /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
-            <br />
-            /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_slug
-            <br />
-            /books/:book_slug@:book_version/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
-            <br />
-            /books/:book_slug@:book_version/pages/:page_slug
-            <br />
-            /books/:book_slug/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
-            <br />
-            /books/:book_slug/pages/:page_slug
-            <br />
-          </div>
-          <div>
-            <h3
-              className="headings__H3-sc-1xfiggv-2 dxSanG"
-            >
-              NotFound
-            </h3>
-            path: 
-            /(.*)
-            <br />
+              <ul
+                style={
+                  Object {
+                    "paddingBottom": "5rem",
+                  }
+                }
+              >
+                <li
+                  className="Books__BookLI-su6o3k-0 idnaZh"
+                >
+                  <h3
+                    className="headings__H3-sc-1xfiggv-2 dxSanG"
+                  >
+                    <a
+                      className="ContentLink__StyledContentLink-ctb7jh-0 jAbAdk"
+                      href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                      onClick={[Function]}
+                    >
+                      0 Should be first
+                    </a>
+                  </h3>
+                  <div
+                    className="DotMenu__DotMenuDropdown-khcauc-3 hDFPiE Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+                  >
+                    <button
+                      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+                      onClick={[Function]}
+                    >
+                      <div
+                        tabIndex={-1}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+                          fill="currentColor"
+                          focusable="false"
+                          viewBox="0 0 192 512"
+                        >
+                          <path
+                            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
+                </li>
+                <li
+                  className="Books__BookLI-su6o3k-0 idnaZh"
+                >
+                  <h3
+                    className="headings__H3-sc-1xfiggv-2 dxSanG"
+                  >
+                    <a
+                      className="ContentLink__StyledContentLink-ctb7jh-0 jAbAdk"
+                      href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                      onClick={[Function]}
+                    >
+                      Should be second
+                    </a>
+                  </h3>
+                  <div
+                    className="DotMenu__DotMenuDropdown-khcauc-3 hDFPiE Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+                  >
+                    <button
+                      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+                      onClick={[Function]}
+                    >
+                      <div
+                        tabIndex={-1}
+                      >
+                        <svg
+                          aria-hidden="true"
+                          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+                          fill="currentColor"
+                          focusable="false"
+                          viewBox="0 0 192 512"
+                        >
+                          <path
+                            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
