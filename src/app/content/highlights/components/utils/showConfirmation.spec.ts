@@ -9,7 +9,7 @@ import { assertDocument } from '../../../../utils';
 import { receiveBook } from '../../../actions';
 import { initialState } from '../../../reducer';
 import { formatBookData } from '../../../utils';
-import { focusHighlight, setAnnotationChangesPending } from '../../actions';
+import { focusHighlight } from '../../actions';
 import { initialState as initialHighlightState } from '../../reducer';
 import * as select from '../../selectors';
 import showConfirmation from './showConfirmation';
