@@ -76,14 +76,17 @@ async function updateArchiveAndContentVersions() {
 
   const bookEntries = updatePipeline ? Object.entries(BOOKS_CONFIG) : booksToUpdate;
 
-  for (const [bookId, { defaultVersion, archiveOverride }] of bookEntries) {
+  for (const [bookId, { archiveOverride }] of bookEntries) {
     const bookHasContentUpdate = booksToUpdate.find((book) => book[0] === bookId);
     // ignore books with a pinned archive that have no content updates
     if (bookHasContentUpdate || !archiveOverride) {
       updateRedirectsPromises.push(async() => {
         const [currentBook, newBook] = await Promise.all([
-          currentBookLoader(bookId, defaultVersion),
-          newBookLoader(bookId, bookHasContentUpdate ? bookHasContentUpdate[1].defaultVersion : defaultVersion),
+          currentBookLoader(bookId, BOOKS_CONFIG[bookId].defaultVersion),
+          newBookLoader(bookId, bookHasContentUpdate
+            ? bookHasContentUpdate[1].defaultVersion
+            : BOOKS_CONFIG[bookId].defaultVersion
+          ),
         ]);
 
         const redirects = await updateRedirectsData(currentBook, newBook);
