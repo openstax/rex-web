@@ -103,7 +103,6 @@ describe('ShowConfirmation', () => {
 
     expect(answer).toBe(false);
     expect(dispatch).toHaveBeenCalledWith(focusHighlight(focusedHighlight));
-    expect(dispatch).toHaveBeenCalledWith(setAnnotationChangesPending(true));
     expect(unmount).toHaveBeenCalledWith(modalNode);
   });
 
@@ -114,7 +113,6 @@ describe('ShowConfirmation', () => {
 
     expect(answer).toBe(false);
     expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(focusedHighlight));
-    expect(dispatch).toHaveBeenCalledWith(setAnnotationChangesPending(true));
     expect(unmount).toHaveBeenCalledWith(modalNode);
   });
 });
