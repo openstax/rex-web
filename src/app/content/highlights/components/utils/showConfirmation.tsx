@@ -4,7 +4,7 @@ import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid/v4';
 import { AppServices, MiddlewareAPI } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
-import { focusHighlight, setAnnotationChangesPending } from '../../actions';
+import { focusHighlight } from '../../actions';
 import { focused } from '../../selectors';
 import ConfirmationModal from '../ConfirmationModal';
 
