@@ -308,6 +308,8 @@ blockquote {
       cursor: pointer;
       text-transform: capitalize;
 
+      &::-webkit-details-marker { display: none; }
+
       &::before {
         content: "["attr(data-content)"]";
       }
