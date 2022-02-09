@@ -348,8 +348,7 @@ describe('Page', () => {
               + `data-type="solution" `
               + `id="fs-id2913818" `
               + `data-print-placement="here" `
-              + `aria-label="Show/Hide Solution" `
-              + `class="ui-toggle-wrapper"`
+              + `aria-label="Show/Hide Solution"`
             + `>
       <summary class="btn-link ui-toggle" title="Show/Hide Solution" data-content="Show/Hide Solution"></summary>
       <section class="ui-body" role="alert">

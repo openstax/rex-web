@@ -99,7 +99,6 @@ function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
       detailsEl.setAttribute(attr.name, attr.value);
     });
 
-    detailsEl.classList.add('ui-toggle-wrapper');
     detailsEl.innerHTML = `
       <summary class="btn-link ui-toggle" title="${title}" data-content="${title}"></summary>
       <section class="ui-body" role="alert">${contents}</section>
