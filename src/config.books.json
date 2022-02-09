@@ -96,10 +96,12 @@
     "defaultVersion": "39.1"
   },
   "9ab4ba6d-1e48-486d-a2de-38ae1617ca84": {
-    "defaultVersion": "b9d5118"
+    "defaultVersion": "7.16",
+    "archiveOverride": "/apps/archive/20210823.155019"
   },
   "920d1c8a-606c-4888-bfd4-d1ee27ce1795": {
-    "defaultVersion": "b9d5118"
+    "defaultVersion": "18.15",
+    "archiveOverride": "/apps/archive/20210823.155019"
   },
   "636cbfd9-4e37-4575-83ab-9dec9029ca4e": {
     "defaultVersion": "17.1"
