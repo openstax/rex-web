@@ -1,4 +1,5 @@
 {
+  "i18n:dev:exportBookPages": "Export Pages",
   "i18n:a11y:skipToContent": "Skip to Content",
   "i18n:a11y:accessibilityHelp": "Go to accessibility page",
   "i18n:a11y:accessibilityHelp:link": "https://openstax.org/accessibility-statement",
@@ -160,6 +161,7 @@
   "i18n:toc:toggle:opened": "Click to close the Table of Contents",
   "i18n:toolbar:buy-book:aria-label:text": "Buy book",
   "i18n:toolbar:buy-book:text": "Order a print copy",
+  "i18n:toolbar:labs-cta:link": "Explore Kinetic",
   "i18n:practice-questions:popup:answers:choice": "Choice {choiceIndicator}",
   "i18n:toolbar:highlights:popup:body:add-highlight": "Make a highlight and add a note",
   "i18n:toolbar:highlights:popup:body:highlights-free": "Log in to highlight. 100% FREE.",

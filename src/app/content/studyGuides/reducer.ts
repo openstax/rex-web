@@ -1,17 +1,15 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { receiveFeatureFlags } from '../../featureFlags/actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
-import { modalQueryParameterName, studyGuidesFeatureFlag } from '../constants';
+import { modalQueryParameterName } from '../constants';
 import * as actions from './actions';
 import { modalUrlName } from './constants';
 import { State } from './types';
 import { getFiltersFromQuery } from './utils';
 
 export const initialState: State = {
-  isEnabled: false,
   summary: {
     filters: {
       colors: [],
@@ -46,8 +44,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         },
       };
     }
-    case getType(receiveFeatureFlags):
-      return {...state, isEnabled: action.payload.includes(studyGuidesFeatureFlag)};
     case getType(actions.openStudyGuides):
       return {...state, summary: {...state.summary, open: true}};
     case getType(actions.closeStudyGuides):

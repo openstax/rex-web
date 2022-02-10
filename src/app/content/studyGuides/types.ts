@@ -11,7 +11,6 @@ export interface StudyGuidesSummaryFilters {
 }
 
 export interface State {
-  isEnabled: boolean;
   summary: {
     filters: StudyGuidesSummaryFilters,
     loading: boolean,
