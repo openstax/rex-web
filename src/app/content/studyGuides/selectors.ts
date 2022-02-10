@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import * as authSelectors from '../../auth/selectors';
+import * as selectFeatureFlags from '../../featureFlags/selectors';
 import * as navigationSelectors from '../../navigation/selectors';
+import { studyGuidesFeatureFlag } from '../constants';
 import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
   getHighlightLocationFilters,
@@ -24,8 +26,8 @@ export const localState = createSelector(
 );
 
 export const studyGuidesEnabled = createSelector(
-  localState,
-  (state) => state.isEnabled
+  selectFeatureFlags.localState,
+  (state) => !!state[studyGuidesFeatureFlag]
 );
 
 export const studyGuidesSummary = createSelector(
