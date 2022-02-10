@@ -21,7 +21,7 @@ describe('closeModal', () => {
   });
 
   it('replace on closeModal if history.location.state undefined', () => {
-    const hook = hookFactory()(helpers);
+    const hook = hookFactory(helpers);
 
     hook();
 
@@ -32,7 +32,7 @@ describe('closeModal', () => {
 
   it('go back on closeModal if history.location.state defined', () => {
     helpers.history.location.state = {};
-    const hook = hookFactory()(helpers);
+    const hook = hookFactory(helpers);
 
     hook();
 

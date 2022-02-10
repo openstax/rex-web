@@ -1,6 +1,6 @@
 import { AppServices, MiddlewareAPI } from '../../types';
 
-export const closeModal = () => (services: MiddlewareAPI & AppServices) => () => {
+export const closeModal = (services: MiddlewareAPI & AppServices) => () => {
   if (services.history.location.state === undefined) {
     services.history.replace({
       search: '',

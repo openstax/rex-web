@@ -28,7 +28,7 @@ export default [
   openMyHighlightsHook,
   printHighlightsHook,
   loadMoreHook,
-  actionHook(closeMyHighlights, closeModal()),
+  actionHook(closeMyHighlights, closeModal),
   actionHook(openMyHighlights, openModal(modalUrlName)),
   actionHook(receiveUser, loadHighlights),
   actionHook(receivePageFocus, loadHighlights),
