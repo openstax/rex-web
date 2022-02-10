@@ -3,7 +3,7 @@ import { APP_ENV, UNLIMITED_CONTENT } from '../../../../config';
 import { getBookVersionFromUUIDSync } from '../../../../gateways/createBookConfigLoader';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
-import { assertDefined, BookNotFoundError } from '../../../utils';
+import { assertDefined, BookNotFoundError, BookVersionNotFoundError } from '../../../utils';
 import { receiveBook, receivePage, receivePageNotFoundId, requestBook, requestPage } from '../../actions';
 import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
@@ -39,7 +39,7 @@ const getBookResponse = async(
   bookSlug?: string
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]>  => {
   const osWebBook = bookSlug ? await osWebLoader.getBookFromSlug(bookSlug) : undefined;
-  const archiveBook = await loader.load();
+  const archiveBook = await loader.load().catch(() => { throw new BookVersionNotFoundError(); });
   const newBook = formatBookData(archiveBook, osWebBook);
   return [newBook, archiveLoader.book(newBook.id, newBook.version)];
 };
