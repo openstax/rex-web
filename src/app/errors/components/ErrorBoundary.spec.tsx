@@ -14,10 +14,11 @@ const Buggy = () => {
   throw new Error('this is a bug');
 };
 
+// tslint:disable-next-line:variable-name
 const BuggyPromise = () => {
   const rejectionEvent = new PromiseRejectionEvent('unhandledrejection', {
     promise: new Promise(() => null),
-    reason: 'this is a bug'
+    reason: 'this is a bug',
   });
 
   const window = assertWindow();
