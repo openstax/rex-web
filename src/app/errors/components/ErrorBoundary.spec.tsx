@@ -22,7 +22,7 @@ const BuggyPromise = () => {
   });
 
   const window = assertWindow();
-  window!.onunhandledrejection(rejectionEvent);
+  window.onunhandledrejection!(rejectionEvent);
   return null;
 };
 
