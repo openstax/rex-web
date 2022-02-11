@@ -101,5 +101,8 @@ COPY package.json yarn.lock /code/
 WORKDIR /code
 RUN yarn install
 
+ARG PUBLIC_URL
+ENV PUBLIC_URL=${PUBLIC_URL}
+
 COPY . /code
 RUN yarn build:clean
