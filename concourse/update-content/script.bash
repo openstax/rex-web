@@ -43,7 +43,7 @@ for book_and_version in $book_entries; do
 
   current_version=$(jq -r --arg bookId "$book_id" '.[$bookId].defaultVersion' < src/config.books.json)
 
-  if [[ "$current_version" -eq "$new_version" ]]; then
+  if [[ "$current_version" == "$new_version" ]]; then
     continue
   fi
 
