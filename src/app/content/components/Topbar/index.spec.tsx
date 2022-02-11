@@ -11,8 +11,6 @@ import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } f
 import { makeSearchResults } from '../../../../test/searchResults';
 import TestContainer from '../../../../test/TestContainer';
 import * as Services from '../../../context/Services';
-import * as featureFlagSelectors from '../../../featureFlags/selectors';
-import { searchButtonColor } from '../../../featureFlags/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { openMobileMenu } from '../../actions';
@@ -268,8 +266,8 @@ describe('search button', () => {
   const render = () => renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
 
   it('button has theme bg color applied', () => {
-    const color = searchButtonColor.resultFunc('bannerColorButton', book, 'blue');
-    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue(color);
+    const color = searchSelectors.searchButtonColor.resultFunc('bannerColorButton', book, 'blue');
+    jest.spyOn(searchSelectors, 'searchButtonColor').mockReturnValue(color);
     jest.spyOn(searchSelectors, 'mobileToolbarOpen').mockReturnValue(true);
 
     const component = render();
@@ -280,8 +278,8 @@ describe('search button', () => {
   });
 
   it('button has gray bg color applied', () => {
-    const color = searchButtonColor.resultFunc('grayButton', book, 'red');
-    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue(color);
+    const color = searchSelectors.searchButtonColor.resultFunc('grayButton', book, 'red');
+    jest.spyOn(searchSelectors, 'searchButtonColor').mockReturnValue(color);
 
     const component = render();
     const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
@@ -291,8 +289,8 @@ describe('search button', () => {
   });
 
   it('button has no bg color applied', () => {
-    const color = searchButtonColor.resultFunc(null, book, 'blue');
-    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue(color);
+    const color = searchSelectors.searchButtonColor.resultFunc(null, book, 'blue');
+    jest.spyOn(searchSelectors, 'searchButtonColor').mockReturnValue(color);
 
     const component = render();
     const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
@@ -302,7 +300,7 @@ describe('search button', () => {
   });
 
   it('new search buttons use new close button', () => {
-    jest.spyOn(featureFlagSelectors, 'searchButtonColor').mockReturnValue('green');
+    jest.spyOn(searchSelectors, 'searchButtonColor').mockReturnValue('green');
 
     const component = render();
     const findById = makeFindByTestId(component.root);
