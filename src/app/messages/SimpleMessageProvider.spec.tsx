@@ -32,12 +32,12 @@ describe('SimpleMessageProvider', () => {
     SimpleMessageProvider = require('../messages/SimpleMessageProvider').default;
 
     const component = renderer.create(<Provider store={store}>
-        <SimpleMessageProvider />
-      </Provider>);
+      <SimpleMessageProvider />
+    </Provider>);
 
     component.update(<Provider store={store}>
       <SimpleMessageProvider />
-      </Provider>);
+    </Provider>);
 
     await runHooksAsync(renderer);
 
