@@ -191,10 +191,9 @@ def test_license_details(selenium, base_url, page_slug):
             license_url == license_url_expected
         ), f"{book_slug} has license url as {license_url}. But expected name is {license_url_expected}"
 
-        attribution_text_expected = "you must attribute OpenStax"
-
         # AND: OpenStax is present in the attribution text
         # AND: Copyright name is OpenStax
+        attribution_text_expected = "you must attribute OpenStax"
         if book_slug not in ("physics", "statistics", "introduction-intellectual-property"):
             assert attribution_text_expected in attribution.attribution_text
             assert attribution.copyright_name == "OpenStax"
