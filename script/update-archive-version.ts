@@ -74,7 +74,12 @@ async function updateArchiveAndContentVersions() {
     fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
   }
 
-  const bookEntries = updatePipeline ? Object.entries(BOOKS_CONFIG) : booksToUpdate;
+  const bookEntries = updatePipeline
+    // updating pipeline, check redirects for every book
+    ? Object.entries(BOOKS_CONFIG)
+    // updating content, check redirects for updated books (not new books)
+    : booksToUpdate.filter(([bookId]) => !!BOOKS_CONFIG[bookId])
+  ;
 
   for (const [bookId] of bookEntries) {
     const bookHasContentUpdate = booksToUpdate.find((book) => book[0] === bookId);
