@@ -40,17 +40,10 @@ Array [
     </div>
   </div>,
   <div
-<<<<<<< HEAD
-    className="Layout__LayoutBody-s6mgs9-0 Home__Wrapper-kkxtzr-1 lhVXwg"
+    className="Layout__LayoutBody-s6mgs9-0 Home__Wrapper-kkxtzr-3 eBDYoX"
   >
     <div
-      className="Home__HomeStyle-kkxtzr-0 bniZxc"
-=======
-    className="Layout__LayoutBody-s6mgs9-0 Home__Wrapper-kkxtzr-3 fENBpB"
-  >
-    <div
-      className="Home__HomeStyle-kkxtzr-0 dWEdFf"
->>>>>>> master
+      className="Home__HomeStyle-kkxtzr-0 cjtepw"
     >
       <h1
         className="headings__H1-sc-1xfiggv-0 cErBHT"
