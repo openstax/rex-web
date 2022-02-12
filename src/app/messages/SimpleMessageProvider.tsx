@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IntlShape, RawIntlProvider } from 'react-intl';
+import { assertWindow } from '../utils/browser-assertions';
 import createIntl from './createIntl';
 
 // tslint:disable-next-line:variable-name
@@ -8,7 +9,7 @@ const SimpleMessageProvider = (props: { children?: React.ReactNode }) => {
 
   useEffect(() => {
     const setUpIntl = async() => {
-      const languageWithCode = window!.navigator.language || 'en-US';
+      const languageWithCode = assertWindow().navigator.language || 'en-US';
       const language = new (Intl as any).Locale(languageWithCode).language;
       const intlObject = await createIntl(language);
       setIntl(intlObject);

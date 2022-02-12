@@ -11,6 +11,7 @@ import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography/headings';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
+import { assertWindow } from '../../utils/browser-assertions';
 import { recordError } from '../actions';
 import { getMessageIdStack } from '../selectors';
 import ErrorIdList from './ErrorIdList';
@@ -57,11 +58,11 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    window!.addEventListener('unhandledrejection', this.handleRejection);
+    assertWindow().addEventListener('unhandledrejection', this.handleRejection);
   }
 
   public componentWillUnmount() {
-    window!.removeEventListener('unhandledrejection', this.handleRejection);
+    assertWindow().removeEventListener('unhandledrejection', this.handleRejection);
   }
 
   public render() {
