@@ -67,4 +67,10 @@ declare global {
   var DOMParser: dom.DOMParserConstructor;
   var KeyboardEvent: dom.KeyboardEventConstructor
   var ResizeObserver: dom.ResizeObserverConstructor
+
+  namespace Intl {
+    var Locale: {
+      new(locale: string): { language: string };
+    }
+  }
 }
