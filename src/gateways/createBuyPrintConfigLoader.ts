@@ -35,7 +35,8 @@ export default (url: string, options: Options = {}) => {
           if (response.status === 200) {
             return response.json() as Promise<BuyPrintResponse>;
           } else {
-            return rejectResponse(response,  (status, message) => new Error(`Error response from BuyPrint ${status}: ${message}`));
+            return rejectResponse(response,  (status, message) =>
+              new Error(`Error response from BuyPrint ${status}: ${message}`));
           }
         })
         .catch((e) => {
