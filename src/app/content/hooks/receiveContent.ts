@@ -13,6 +13,8 @@ import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import { createTitle, getPageDescription } from '../utils/seoUtils';
 
+const escapeQuotes = (text: string) => text.replace(/"/g, '&quot;');
+
 const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
   const { getState, dispatch, archiveLoader, osWebLoader } = services;
 
@@ -44,10 +46,11 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
   const links = canonicalUrl ? [
     {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`} as Link,
   ] : [];
+  const escapedDescription = escapeQuotes(description);
   const meta = [
-    {name: 'description', content: description},
-    {property: 'og:description', content: description},
-    {property: 'og:title', content: title},
+    {name: 'description', content: escapedDescription},
+    {property: 'og:description', content: escapedDescription},
+    {property: 'og:title', content: escapeQuotes(title)},
     {property: 'og:url', content: `https://openstax.org${currentPath}`},
     {name: 'theme-color', content: bookTheme},
   ];
