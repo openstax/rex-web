@@ -52,8 +52,15 @@ jest.mock('../../domUtils', () => ({
   scrollTo: jest.fn(),
 }));
 
-const makeEvent = () => {
+const makeClickEvent = () => {
   const event = new Event('click', { bubbles: true, cancelable: true });
+  event.preventDefault();
+  event.preventDefault = jest.fn();
+  return event;
+};
+
+const makeToggleEvent = () => {
+  const event = new Event('toggle', { bubbles: true, cancelable: true });
   event.preventDefault();
   event.preventDefault = jest.fn();
   return event;
@@ -337,55 +344,22 @@ describe('Page', () => {
             <div data-type="problem" id="problem1"><div class="os-problem-container">
               <p id="paragraph1">blah blah blah</p>
             </div></div>
-            <div `
+            <details `
               + `data-type="solution" `
               + `id="fs-id2913818" `
               + `data-print-placement="here" `
-              + `aria-label="show solution" `
-              + `aria-expanded="false"`
+              + `aria-label="Show/Hide Solution"`
             + `>
-      <div class="ui-toggle-wrapper">
-        <button class="btn-link ui-toggle" title="Show/Hide Solution" data-content="show solution"></button>
-      </div>
-      <section class="ui-body" role="alert" style="display: block; overflow: hidden; height: 0px">
+      <summary class="btn-link ui-toggle" title="Show/Hide Solution" data-content="Show/Hide Solution"></summary>
+      <section class="ui-body" role="alert">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
               <div class="os-solution-container">
                 <p id="paragraph2">answer answer answer.</p>
               </div>
             </section>
-    </div>
+    </details>
           </section></div>
         `);
-      });
-
-      it('can be opened and closed', async() => {
-        await htmlHelper(`
-          <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
-            <h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
-            <div data-type="problem" id="problem1"><div class="os-problem-container">
-              <p id="paragraph1">blah blah blah</p>
-            </div></div>
-            <div data-type="solution" id="fs-id2913818" data-print-placement="here">
-              <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
-              <div class="os-solution-container">
-                <p id="paragraph2">answer answer answer.</p>
-              </div>
-            </div>
-          </div>
-        `);
-
-        const button = pageElement.querySelector('[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle');
-        const solution = pageElement.querySelector('[data-type="solution"]');
-
-        if (!button || !solution) {
-          return expect(false).toBe(true);
-        }
-
-        expect(solution.matches('.ui-solution-visible')).toBe(false);
-        button.dispatchEvent(makeEvent());
-        expect(solution.matches('.ui-solution-visible')).toBe(true);
-        button.dispatchEvent(makeEvent());
-        expect(solution.matches('.ui-solution-visible')).toBe(false);
       });
 
       it('doesn\'t use display none to hide solutions', async() => {
@@ -435,17 +409,17 @@ describe('Page', () => {
           </div>
         `);
 
-        const button = pageElement.querySelector('[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle');
-        const solution = pageElement.querySelector('[data-type="solution"]');
+        const button = pageElement.querySelector('[data-type="solution"] > .ui-toggle');
+        const solution = pageElement.querySelector('details[data-type="solution"]');
 
         if (!button || !solution) {
           return expect(false).toBe(true);
         }
 
         Object.defineProperty(button.parentElement, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeEvent())).not.toThrow();
+        expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
         Object.defineProperty(button, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeEvent())).not.toThrow();
+        expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
       });
     });
 
@@ -515,10 +489,10 @@ describe('Page', () => {
       return;
     }
 
-    const evt1 = makeEvent();
-    const evt2 = makeEvent();
-    const evt3 = makeEvent();
-    const evt4 = makeEvent();
+    const evt1 = makeClickEvent();
+    const evt2 = makeClickEvent();
+    const evt3 = makeClickEvent();
+    const evt4 = makeClickEvent();
 
     firstLink.dispatchEvent(evt1);
     secondLink.dispatchEvent(evt2);
@@ -569,7 +543,7 @@ describe('Page', () => {
       return;
     }
 
-    const event = makeEvent();
+    const event = makeClickEvent();
     lastLink.dispatchEvent(event);
 
     expect(event.preventDefault).not.toHaveBeenCalled();
@@ -597,7 +571,7 @@ describe('Page', () => {
       return expect(firstLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent();
+    const evt1 = makeClickEvent();
 
     firstLink.dispatchEvent(evt1);
 
@@ -642,7 +616,7 @@ describe('Page', () => {
       return expect(hashLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent();
+    const evt1 = makeClickEvent();
 
     hashLink.dispatchEvent(evt1);
 
@@ -674,7 +648,7 @@ describe('Page', () => {
       return expect(archiveLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent();
+    const evt1 = makeClickEvent();
 
     archiveLink.dispatchEvent(evt1);
 
