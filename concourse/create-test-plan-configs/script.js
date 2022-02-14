@@ -48,7 +48,7 @@ const processPlan = plan => {
   }
 };
 
-const mapPlans = plans => Promise.all(plans.map(planSummary =>
+const mapPlans = plansResponse => Promise.all(plansResponse.plans.map(planSummary =>
   fetch(`${testrailApi}/get_plan/${planSummary.id}`, {headers})
     .then(response => response.json())
     .then(processPlan)
