@@ -50,6 +50,7 @@ export interface CardProps {
   topOffset?: number;
   highlightOffsets?: { top: number, bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
+  isHidden: boolean;
 }
 
 // tslint:disable-next-line:variable-name
