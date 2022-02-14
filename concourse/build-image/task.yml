@@ -10,7 +10,7 @@ image_resource:
     tag: master
 
 params:
-  BUILD_ARGS_FILE: build-configs/config.env
+  BUILD_ARGS_FILE: build-configs/unquoted-config.env
   CONTEXT: rex-web
   UNPACK_ROOTFS: true
 
