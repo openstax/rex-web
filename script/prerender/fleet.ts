@@ -60,7 +60,7 @@ const MAX_CONCURRENT_BOOKS = 5;
 const PRERENDER_TIMEOUT_SECONDS = 1800;
 
 // Abort the build if the workers stack is not created within this many seconds
-const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 120;
+const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 180;
 
 // Stack deletion needs an extra minute per SQS queue to be deleted
 const WORKERS_STACK_DELETE_TIMEOUT_SECONDS = WORKERS_STACK_CREATE_TIMEOUT_SECONDS + 120;
