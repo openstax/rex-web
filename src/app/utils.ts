@@ -58,7 +58,7 @@ const makeCatchError = ({dispatch, getState}: MiddlewareAPI) => (e: Error) => {
     Sentry.captureException(e);
     dispatch(replace({route: notFound, params: {url: selectNavigation.pathname(getState())}, state: {}}));
     return;
-  } else if (e instanceof BookVersionNotFoundError) {
+  } else if (e instanceof ArchiveBookMissingError) {
     throw e;
   } else if (e instanceof ToastMesssageError) {
     const errorId = Sentry.captureException(e);
@@ -188,4 +188,4 @@ export class UnauthenticatedError extends ApplicationError {}
 export class BookNotFoundError extends ApplicationError {}
 
 // tslint:disable-next-line: max-classes-per-file
-export class BookVersionNotFoundError extends ApplicationError {}
+export class ArchiveBookMissingError extends ApplicationError {}

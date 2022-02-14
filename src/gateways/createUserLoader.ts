@@ -19,7 +19,7 @@ export default (url: string) => {
         } else if (response.status === 403) {
           return Promise.resolve(undefined);
         } else {
-          return rejectResponse(response,  (status, message) => `Error response from Accounts ${status}: ${message}`);
+          return rejectResponse(response,  (status, message) => new Error(`Error response from Accounts ${status}: ${message}`));
         }
       }),
   };
