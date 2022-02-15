@@ -11,7 +11,7 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   wrapElements(document, rootEl);
   tweakFigures(rootEl);
   fixLists(rootEl);
-  wrapSolutions(rootEl, intl);
+  wrapSolutions(document, rootEl, intl);
   moveFootnotes(document, rootEl, intl);
   setLinksAttributes(rootEl);
 };
@@ -86,14 +86,14 @@ function fixLists(rootEl: HTMLElement) {
   });
 }
 
-function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
+function wrapSolutions(document: Document, rootEl: HTMLElement, intl: IntlShape) {
   const title = intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
 
   // Wrap solutions in a details element so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
     el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:toggle-title'}));
     const contents = el.innerHTML;
-    const detailsEl = document!.createElement('details');
+    const detailsEl = document.createElement('details');
 
     Array.from(el.attributes).forEach((attr) => {
       detailsEl.setAttribute(attr.name, attr.value);
