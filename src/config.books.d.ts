@@ -1,8 +1,10 @@
+export interface BookVersionConfig {
+  defaultVersion: string;
+  archiveOverride?: string;
+}
+
 interface Books {
-  [key: string]: {
-    defaultVersion: string;
-    archiveOverride?: string;
-  };
+  [key: string]: BookVersionConfig;
 }
 
 declare const books: Books;
