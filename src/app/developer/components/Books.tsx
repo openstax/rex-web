@@ -3,6 +3,7 @@ import { IntlShape } from 'react-intl';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import BOOKS from '../../../config.books';
+import { BookVersionConfig } from '../../../config.books';
 import { DotMenuDropdown, DotMenuDropdownList } from '../../components/DotMenu';
 import { DropdownItem } from '../../components/Dropdown';
 import { H3 } from '../../components/Typography';
@@ -21,6 +22,15 @@ const BookLI = styled.li`
   overflow: visible;
   align-items: center;
   justify-content: space-between;
+
+  h3 {
+    padding-bottom: 0;
+  }
+
+  small {
+    margin-top: -0.2rem;
+    color: #ccc;
+  }
 `;
 
 export const exportBookHandler = (book: Book, intl: IntlShape) => () => {
@@ -29,7 +39,9 @@ export const exportBookHandler = (book: Book, intl: IntlShape) => () => {
 
 // tslint:disable-next-line:variable-name
 const Books = () => {
-  const [books, setBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useState<
+    Array<[string, BookVersionConfig] | [string, BookVersionConfig, Book]>
+  >(Object.entries(BOOKS));
   const {archiveLoader, osWebLoader} = useServices();
   const intl = useIntl();
 
@@ -38,27 +50,36 @@ const Books = () => {
 
     for (const [bookId, {defaultVersion}] of Object.entries(BOOKS)) {
       bookLoader(bookId, defaultVersion).then((bookData) => {
-        setBooks((state) => ([...state, bookData].sort((bookA, bookB) => bookA.title.localeCompare(bookB.title))));
+        setBooks((state) => state.map((data) => data[0] === bookId ? [data[0], data[1], bookData] : data));
       });
     }
   }, [archiveLoader, osWebLoader]);
 
-  const renderBookLink = (book: Book) => {
-    const page = findDefaultBookPage(book);
+  const renderBookLink = (id: string, book: Book | undefined) => {
+    const page = book && findDefaultBookPage(book);
     return <>
-      <H3><StyledContentLink book={book} page={page}>{book.title}</StyledContentLink></H3>
-      <DotMenuDropdown transparentTab={false}>
-        <DotMenuDropdownList rightAlign>
-          <DropdownItem message='i18n:dev:exportBookPages' onClick={exportBookHandler(book, intl)} />
-        </DotMenuDropdownList>
-      </DotMenuDropdown>
+      <div>
+        <H3>{book && page
+          ? <StyledContentLink book={book} page={page}>{book.title}</StyledContentLink>
+          : <>&nbsp;</>}
+        </H3>
+        <small>{id}</small>
+      </div>
+      {book && page
+        ? <DotMenuDropdown transparentTab={false}>
+          <DotMenuDropdownList rightAlign>
+            <DropdownItem message='i18n:dev:exportBookPages' onClick={exportBookHandler(book, intl)} />
+          </DotMenuDropdownList>
+        </DotMenuDropdown>
+        : null
+      }
     </>;
   };
 
   return <Panel title='Books'>
     <ul style={{paddingBottom: '5rem'}}>
-      {books.map((book) => <BookLI key={book.id}>
-        {renderBookLink(book)}
+      {books.map(([id, config, book]) => <BookLI key={id}>
+        {renderBookLink(`${id}@${config.defaultVersion}`, book)}
       </BookLI>)}
     </ul>
   </Panel>;

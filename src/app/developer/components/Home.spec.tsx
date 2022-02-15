@@ -22,10 +22,10 @@ describe('Home', () => {
     dispatch: store.dispatch,
     getState: store.getState,
   };
-  services.archiveLoader.mockBook({ ...book, id: 'some-id', title: 'Should be second' } as any);
-  services.archiveLoader.mockBook({ ...book, id: 'some-id-2', title: '0 Should be first' } as any);
+  services.archiveLoader.mockBook({ ...book, id: 'some-id', title: 'booktitle' } as any);
+  services.archiveLoader.mockBook({ ...book, id: 'some-id-2', title: 'booktitle2' } as any);
 
-  it('matches snapshot and books are sorted', async() => {
+  it('matches snapshot', async() => {
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     const component = renderer.create(<TestContainer services={services}>
       <Home />
