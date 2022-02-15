@@ -1,6 +1,7 @@
 import createTestStore from '../../test/createTestStore';
 import { reactAndFriends, resetModules, runHooksAsync } from '../../test/utils';
 import { Store } from '../types';
+import { assertWindow } from '../utils/browser-assertions';
 
 // tslint:disable: variable-name
 describe('SimpleMessageProvider', () => {
@@ -16,7 +17,7 @@ describe('SimpleMessageProvider', () => {
     store = createTestStore();
     ({Provider, React, renderer} = reactAndFriends());
 
-    jest.spyOn(window!.navigator, 'language', 'get').mockReturnValue('es');
+    jest.spyOn(assertWindow().navigator, 'language', 'get').mockReturnValue('es');
   });
 
   it('loads data from the browser locale', async() => {
