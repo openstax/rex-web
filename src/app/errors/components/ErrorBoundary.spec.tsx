@@ -56,10 +56,11 @@ describe('ErrorBoundary', () => {
   });
 
   it('captures unhandled rejected promises', () => {
-    renderer.create(<TestContainer>
+    const tree = renderer.create(<TestContainer>
       <ErrorBoundary><BuggyPromise /></ErrorBoundary>
     </TestContainer>);
 
+    expect(tree).toMatchSnapshot();
     expect(consoleError).toHaveBeenCalledWith(
       expect.stringMatching(/error occurred in the <BuggyPromise> component/)
     );
