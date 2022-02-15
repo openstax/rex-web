@@ -65,6 +65,7 @@ function removeDocumentTitle(rootEl: HTMLElement) {
     'h1[data-type="document-title"]',
     'h2[data-type="document-title"]',
     'div[data-type="document-title"]',
+    'h3.os-subtitle',
   ].join(',')).forEach((el) => el.remove());
 }
 
