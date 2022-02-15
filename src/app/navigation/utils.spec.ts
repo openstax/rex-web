@@ -307,11 +307,11 @@ describe('getScrollTargetFromQuery', () => {
 
 describe('getQueryForParam', () => {
   it('returns a query string for a parameter', () => {
-    expect(getQueryForParam('myParameter', 'whatever'))
+    expect(getQueryForParam({myParameter: 'whatever'}))
       .toBe('myParameter=whatever');
   });
   it('adds parameters to an existing query', () => {
-    expect(getQueryForParam('myParameter', 'whatever', 'a=1&b=3'))
+    expect(getQueryForParam({myParameter: 'whatever'}, 'a=1&b=3'))
       .toBe('a=1&b=3&myParameter=whatever');
   });
 });
