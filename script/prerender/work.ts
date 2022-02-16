@@ -34,6 +34,51 @@ const receiveMessageCommand = new ReceiveMessageCommand({
   QueueUrl: process.env.WORK_QUEUE_URL,
 });
 
+// Typescript shenanigans so filter() returns the correct type for the return value of allSettled()
+// https://stackoverflow.com/a/65479695
+type FulfilledPromiseResult<Type> = {
+  status: 'fulfilled';
+  value: Type;
+};
+type RejectedPromiseResult = {
+  status: 'rejected';
+  reason: Error;
+};
+type PromiseResult<Type> = FulfilledPromiseResult<Type> | RejectedPromiseResult;
+
+// ES2020 has Promise.allSettled()
+// Adapted from https://github.com/amrayn/allsettled-polyfill/blob/master/index.js
+function allSettled<Type>(promises: Array<Promise<Type>>) {
+  return Promise.all(
+    promises.map(
+      (p) => p.then(
+        (value: Type) => ({ status: 'fulfilled', value } as FulfilledPromiseResult<Type>)
+      ).catch(
+        (reason: Error) => ({ status: 'rejected', reason } as RejectedPromiseResult)
+      )
+    )
+  );
+}
+
+function isFulfilledPromiseResult<Type>(
+  promiseResult: PromiseResult<Type>
+): promiseResult is FulfilledPromiseResult<Type> { return promiseResult.status === 'fulfilled'; }
+
+// Changes the SQS VisibilityTimeout for the given ReceiptHandles to the given number of seconds
+async function changeReceiptHandlesVisibility(receiptHandles: string[], visibilityTimeout: number) {
+  // We use Promise.allSettled() here to prevent failing all messages
+  // in case one or more messages have already been deleted by other workers
+  return allSettled(
+    receiptHandles.map(async(receiptHandle) => sqsClient.send(
+      new ChangeMessageVisibilityCommand({
+        QueueUrl: process.env.WORK_QUEUE_URL,
+        ReceiptHandle: receiptHandle,
+        VisibilityTimeout: visibilityTimeout,
+      })
+    ))
+  );
+}
+
 // To be used with setInterval() with a delay of around 15000
 // Extends the SQS VisibilityTimeout for the given Message ReceiptHandles
 // We keep the VisibilityTimeout low to ensure messages can be quickly
@@ -48,7 +93,8 @@ function makeSQSHeartbeat(receiptHandles: string[]) {
 
     if (numHeartbeats > MAX_HEARTBEATS) {
       // We don't currently track which threads are processing this batch or other batches,
-      // so we just log the error and make no attempt to interrupt any of them
+      // so we just stop sending the heartbeat and log the error,
+      // but make no attempt to interrupt any of them
       console.error(
         `Did not finish processing ${receiptHandles.length} messages within ${
         MAX_HEARTBEATS} heartbeats (current: #${numHeartbeats})`
@@ -56,19 +102,7 @@ function makeSQSHeartbeat(receiptHandles: string[]) {
     } else {
       console.log(`Sending SQS heartbeat #${numHeartbeats} for ${receiptHandles.length} messages`);
 
-      receiptHandles.forEach(async(receiptHandle) => {
-        try {
-          await sqsClient.send(new ChangeMessageVisibilityCommand({
-            QueueUrl: process.env.WORK_QUEUE_URL,
-            ReceiptHandle: receiptHandle,
-            VisibilityTimeout: 30, // This should be about twice the interval delay, in seconds
-          }));
-        } catch (error) {
-          console.error(error.message, error.stack);
-          // Even if one message got deleted,
-          // we should not abort the work and continue trying to send the heartbeat for the others
-        }
-      });
+      return changeReceiptHandlesVisibility(receiptHandles, 30);
     }
   };
 }
@@ -117,19 +151,7 @@ function handleSQSMessages(messages: Message[]) {
       // but since these arrays have at most 10 elements, Array.includes() wins here
       const failedHandles = receiptHandles.filter((handle) => !successfulHandles.includes(handle));
 
-      failedHandles.forEach(async(handle) => {
-        try {
-          await sqsClient.send(new ChangeMessageVisibilityCommand({
-            QueueUrl: process.env.WORK_QUEUE_URL,
-            ReceiptHandle: handle,
-            VisibilityTimeout: 0,
-          }));
-        } catch (error) {
-          // This can happen if a message got processed and deleted by another worker
-          // we simply log the error and continue trying to send the command for the other messages
-          console.error(error.message, error.stack);
-        }
-      });
+      await changeReceiptHandlesVisibility(failedHandles, 0);
     }
   };
 }
@@ -226,36 +248,6 @@ async function popWorker() {
 
 // Having a few more worker threads than CPUs seemed to help keep CPU utilization high
 for (const _undefined of Array(Math.ceil(1.5 * cpus().length))) { pushWorker(new SQSWorker()); }
-
-// Typescript shenanigans so filter() returns the correct type for the return value of allSettled()
-// https://stackoverflow.com/a/65479695
-type FulfilledPromiseResult<Type> = {
-  status: 'fulfilled';
-  value: Type;
-};
-type RejectedPromiseResult = {
-  status: 'rejected';
-  reason: Error;
-};
-type PromiseResult<Type> = FulfilledPromiseResult<Type> | RejectedPromiseResult;
-
-function isFulfilledPromiseResult<Type>(
-  promiseResult: PromiseResult<Type>
-): promiseResult is FulfilledPromiseResult<Type> { return promiseResult.status === 'fulfilled'; }
-
-// ES2020 has Promise.allSettled()
-// Adapted from https://github.com/amrayn/allsettled-polyfill/blob/master/index.js
-function allSettled<Type>(promises: Array<Promise<Type>>) {
-  return Promise.all(
-    promises.map(
-      (p) => p.then(
-        (value: Type) => ({ status: 'fulfilled', value } as FulfilledPromiseResult<Type>)
-      ).catch(
-        (reason: Error) => ({ status: 'rejected', reason } as RejectedPromiseResult)
-      )
-    )
-  );
-}
 
 async function work() {
   while (true) {
