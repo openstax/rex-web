@@ -64,7 +64,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
   const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions({...persistentQueryParams, ...systemQueryParams}, scrollTarget)
+    ? createNavigationOptions({...persistentQueryParams, modal: null, ...systemQueryParams}, scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
   const services = useServices();
