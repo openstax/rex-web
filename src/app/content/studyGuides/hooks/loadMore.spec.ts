@@ -1,22 +1,26 @@
 import { GetHighlightsSetsEnum, HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import queryString from 'query-string';
 import { ApplicationError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page as archivePage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
+import { receiveFeatureFlags } from '../../../featureFlags/actions';
+import { locationChange } from '../../../navigation/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
+import { modalQueryParameterName, studyGuidesFeatureFlag } from '../../constants';
 import { HighlightData, SummaryHighlights } from '../../highlights/types';
 import { formatBookData } from '../../utils';
 import {
   loadMoreStudyGuides,
+  openStudyGuides,
   receiveStudyGuidesTotalCounts,
   receiveSummaryStudyGuides,
-  setDefaultSummaryFilters,
   toggleStudyGuidesSummaryLoading,
 } from '../actions';
-import { summaryFilters } from '../selectors';
+import { colorfilterLabels, modalUrlName } from '../constants';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...archivePage, references: []};
@@ -40,6 +44,7 @@ describe('loadMore', () => {
   let dispatch: jest.SpyInstance;
   let loadingSpy: jest.SpyInstance;
   let hook: ReturnType<typeof import ('./loadMore').hookBody>;
+  const colors = Array.from(colorfilterLabels);
 
   beforeEach(() => {
     store = createTestStore();
@@ -56,8 +61,30 @@ describe('loadMore', () => {
   });
 
   it('fetches multiple pages across multiple sources', async() => {
+    const query = {
+      colors,
+      locationIds: ['testbook1-testchapter1-uuid'],
+      [modalQueryParameterName]: modalUrlName,
+    };
+
+    // set filters
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        search: `${modalQueryParameterName}=${modalUrlName}`,
+      },
+    } as any));
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        search: `?${queryString.stringify(query)}`,
+      },
+    } as any));
+
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
+    store.dispatch(openStudyGuides());
 
     const maxHighlightsApiPageSize = 20;
 
@@ -75,9 +102,6 @@ describe('loadMore', () => {
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage11-uuid']},
       'testbook1-testpage8-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage8-uuid']},
     }));
-    store.dispatch(setDefaultSummaryFilters({locationIds: [
-      'testbook1-testchapter1-uuid',
-    ]}));
 
     const page1 = createTestHighlights({
       amount: highlightsCount['testbook1-testpage2-uuid'],
@@ -114,7 +138,6 @@ describe('loadMore', () => {
       },
     };
 
-    const filters = summaryFilters(store.getState());
     await hook(loadMoreStudyGuides());
 
     expect(highlightClient).lastCalledWith(expect.objectContaining({
@@ -123,7 +146,6 @@ describe('loadMore', () => {
       sourceIds: ['testbook1-testpage2-uuid', 'testbook1-testpage11-uuid'],
     }));
     expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response, {
-      filters,
       pagination: {
         page: 1,
         perPage: maxHighlightsApiPageSize,
@@ -173,16 +195,37 @@ describe('loadMore', () => {
 
     expect(loadingSpy).toHaveBeenCalled();
     expect(highlightClient).toHaveBeenCalledTimes(3);
-    expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, {pagination: null, filters}));
+    expect(dispatch).lastCalledWith(receiveSummaryStudyGuides(response2, {pagination: null}));
   });
 
   it('calls loadUntilPageSize with correct parameters', async() => {
+    const query = {
+      colors,
+      locationIds: ['testbook1-testchapter1-uuid'],
+      [modalQueryParameterName]: modalUrlName,
+    };
+
+    // set filters
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        search: `${modalQueryParameterName}=${modalUrlName}`,
+      },
+    } as any));
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        search: `?${queryString.stringify(query)}`,
+      },
+    } as any));
+
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
-    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']}));
+    store.dispatch(openStudyGuides());
 
     const page1 = createTestHighlights({
       amount: 5,
@@ -206,7 +249,6 @@ describe('loadMore', () => {
       },
     };
 
-    const filters = summaryFilters(store.getState());
     await hook(store.dispatch(loadMoreStudyGuides()));
 
     expect(loadingSpy).toHaveBeenCalledWith(expect.objectContaining({
@@ -215,22 +257,43 @@ describe('loadMore', () => {
       sets: [GetHighlightsSetsEnum.Curatedopenstax],
     }));
     expect(highlightClient).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null, filters}));
+    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides(response, {pagination: null}));
   });
 
   it('throws StudyGuidesPopupLoadError', async() => {
     expect.assertions(3);
     const error = {} as any;
 
+    const query = {
+      colors,
+      locationIds: ['testbook1-testchapter1-uuid'],
+      [modalQueryParameterName]: modalUrlName,
+    };
+
+    // set filters
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        search: `${modalQueryParameterName}=${modalUrlName}`,
+      },
+    } as any));
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        search: `?${queryString.stringify(query)}`,
+      },
+    } as any));
+
     jest.spyOn(helpers.highlightClient, 'getHighlights')
       .mockRejectedValueOnce(error);
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
-    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']}));
+    store.dispatch(openStudyGuides());
 
     try {
       await hook(store.dispatch(loadMoreStudyGuides()));
@@ -242,6 +305,26 @@ describe('loadMore', () => {
   });
 
   it('throws ApplicationError', async() => {
+    const query = {
+      colors,
+      locationIds: ['testbook1-testchapter1-uuid'],
+      [modalQueryParameterName]: modalUrlName,
+    };
+
+    // set filters
+    store.dispatch(locationChange({
+      action: 'PUSH',
+      location: {
+        search: `${modalQueryParameterName}=${modalUrlName}`,
+      },
+    } as any));
+    store.dispatch(locationChange({
+      action: 'REPLACE',
+      location: {
+        search: `?${queryString.stringify(query)}`,
+      },
+    } as any));
+
     expect.assertions(3);
     const mockCustomApplicationError = new ApplicationError('error');
 
@@ -250,10 +333,11 @@ describe('loadMore', () => {
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage(page));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
     }));
-    store.dispatch(setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']}));
+    store.dispatch(openStudyGuides());
 
     try {
       await hook(store.dispatch(loadMoreStudyGuides()));
@@ -264,19 +348,25 @@ describe('loadMore', () => {
     }
   });
 
-  it('doesn\'t explode without a page', async() => {
+  it('noops without a page', async() => {
     store.dispatch(receiveBook(book));
-    store.dispatch(receiveStudyGuidesTotalCounts({
-      'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: 5},
-    }));
 
-    const filters = summaryFilters(store.getState());
     const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights');
 
     await hook(store.dispatch(loadMoreStudyGuides()));
 
     expect(highlightClient).not.toHaveBeenCalled();
-    expect(filters.locationIds).toEqual([]);
-    expect(dispatch).toHaveBeenCalledWith(receiveSummaryStudyGuides({}, {pagination: null, filters}));
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  it('noops without a book', async() => {
+    store.dispatch(receivePage(page));
+
+    const highlightClient = jest.spyOn(helpers.highlightClient, 'getHighlights');
+
+    await hook(store.dispatch(loadMoreStudyGuides()));
+
+    expect(highlightClient).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 });

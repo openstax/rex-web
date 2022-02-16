@@ -26,7 +26,9 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
   const formatSection = (section: LinkedArchiveTreeNode) => ({
     bookId: currentBook.id,
     pageId: section.id,
-    pathname: content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } }),
+    pathname: decodeURI(
+      content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
+    ),
   });
 
   const matchRedirect = (section: LinkedArchiveTreeNode) => isEqual(formatSection(section));
