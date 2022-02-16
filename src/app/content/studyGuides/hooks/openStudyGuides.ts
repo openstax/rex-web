@@ -1,24 +1,26 @@
 import { loggedOut } from '../../../auth/selectors';
+import { replace } from '../../../navigation/actions';
+import * as navigation from '../../../navigation/selectors';
+import { AnyMatch } from '../../../navigation/types';
+import { getQueryForParam } from '../../../navigation/utils';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
-import * as selectContent from '../../selectors';
-import { archiveTreeSectionIsChapter, findArchiveTreeNode } from '../../utils/archiveTreeUtils';
-import { loadMoreStudyGuides, openStudyGuides, setDefaultSummaryFilters } from '../actions';
+import { loadMoreStudyGuides, openStudyGuides } from '../actions';
 import * as select from '../selectors';
 
 export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => async() => {
   const state = services.getState();
-  const filtersHaveBeenSet = select.filtersHaveBeenSet(state);
-  const currentFilters = select.summaryLocationFilters(state);
-  const defaultFilter = select.defaultLocationFilter(state);
+  const query = navigation.query(state);
+  const match = navigation.match(state);
+  const loggedOutAndQueryMissingFirstChapter = select.loggedOutAndQueryMissingFirstChapter(state);
   const notLoggedIn = loggedOut(state);
-  const book = selectContent.book(state);
-  const firstChapter = book && findArchiveTreeNode(archiveTreeSectionIsChapter, book.tree);
+  const summaryFilters = select.summaryFilters(state);
+  const defaultFilter = select.defaultLocationFilter(state);
 
-  if (notLoggedIn && firstChapter && !currentFilters.has(firstChapter.id)) {
-    services.dispatch(setDefaultSummaryFilters({ locationIds: [firstChapter.id] }));
-  } else if (!notLoggedIn && !filtersHaveBeenSet && defaultFilter && !currentFilters.has(defaultFilter.id)) {
-    services.dispatch(setDefaultSummaryFilters({locationIds: [defaultFilter.id]}));
+  if (loggedOutAndQueryMissingFirstChapter || (!notLoggedIn && defaultFilter)) {
+    services.dispatch(replace(match as AnyMatch, {
+      search: getQueryForParam(summaryFilters as any as Record<string, string[]>, query),
+    }));
   } else {
     const studyGuides = select.summaryStudyGuides(state);
     const studyGuidesAreLoading = select.summaryIsLoading(state);
