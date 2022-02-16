@@ -1,4 +1,5 @@
 import UntypedHighlighter, { Highlight } from '@openstax/highlighter';
+import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import { makeSearchResultHit } from '../../../../test/searchResults';
@@ -33,17 +34,15 @@ describe('searchHighlightManager', () => {
   let attachedManager: ReturnType<typeof searchHighlightManager>;
   let onHighlightSelect: jest.Mock;
   let intl: IntlShape;
-  let solutionButtonClick: jest.SpyInstance;
+  let details: HTMLDetailsElement;
 
   beforeEach(() => {
     const container = assertDocument().createElement('div');
     const collapsedSolution = assertDocument().createElement('div');
     collapsedSolution.setAttribute('data-type', 'solution');
     collapsedSolution.setAttribute('aria-expanded', 'false');
-    const button = assertDocument().createElement('button');
-    collapsedSolution.append(button);
-
-    solutionButtonClick = jest.spyOn(button, 'click');
+    details = assertDocument().createElement('details');
+    collapsedSolution.append(details);
 
     const hl1 = assertDocument().createElement('span');
     const hl2 = assertDocument().createElement('span');
@@ -79,6 +78,8 @@ describe('searchHighlightManager', () => {
   it(testName, () => {
     const selectedSearchResult = {highlight: 0, result: searchResults[0]};
 
+    expect(details.open).toBe(false);
+
     attachedManager.update(
       {searchResults, selectedResult: null },
       {searchResults, selectedResult: selectedSearchResult},
@@ -102,7 +103,7 @@ describe('searchHighlightManager', () => {
     );
 
     expect(onHighlightSelect).toHaveBeenCalledTimes(2);
-    expect(solutionButtonClick).toHaveBeenCalledTimes(2);
+    expect(details.open).toBe(true);
   });
 
   it('handles highlight.formatMessage', () => {

@@ -124,6 +124,7 @@ export const SearchResultsBar = styled.div`
   `)}
 
   > ${NavWrapper} {
+    position: relative;
     flex: 1;
     ::before {
       display: none;
