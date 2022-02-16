@@ -97,10 +97,11 @@ const fadeInAnimation = css`
 `;
 
 export const mainCardStyles = css`
-  ${(props: CardProps) => !props.isActive && (!props.data || !props.data.annotation)
-    ? 'display: none;'
-    : 'display: block;'}
+  ${(props: CardProps) => (!props.isActive && (!props.data || !props.data.annotation)) || props.isHidden
+    ? 'visibility: hidden;'
+    : 'visibility: visible;'}
   ${fadeInAnimation}
+  display: block;
   position: absolute;
   padding: ${cardPadding}rem;
   ${cardBorder}
