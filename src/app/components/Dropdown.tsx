@@ -170,6 +170,7 @@ export const DropdownList = styled.ol`
   margin: 0;
   padding: 0.6rem 0;
   background: ${theme.color.neutral.formBackground};
+  z-index: 1;
 
   li {
     display: inline-block;
@@ -177,6 +178,7 @@ export const DropdownList = styled.ol`
 
   li button,
   li a {
+    white-space: nowrap;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -257,8 +259,10 @@ interface CommonDropdownProps {
 type TabTransparentDropdownProps = CommonDropdownProps & Props;
 export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & ControlledProps);
 
+export type DropdownProps = TabTransparentDropdownProps | TabHiddenDropdownProps;
+
 // tslint:disable-next-line:variable-name
-const Dropdown = ({transparentTab, ...props}: TabTransparentDropdownProps | TabHiddenDropdownProps) =>
+const Dropdown = ({transparentTab, ...props}: DropdownProps) =>
   transparentTab !== false
     ? <TabTransparentDropdown {...props} />
     : <TabHiddenDropDown {...props} />;

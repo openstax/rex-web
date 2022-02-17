@@ -1,17 +1,23 @@
+import { HighlightColorEnum } from '@openstax/highlights-client';
+import queryString from 'query-string';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
+import { locationChange, replace } from '../../../navigation/actions';
+import { AnyMatch } from '../../../navigation/types';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import { formatBookData } from '../../utils';
 import {
   loadMoreStudyGuides,
   openStudyGuides,
-  setDefaultSummaryFilters
+  receiveStudyGuidesTotalCounts,
 } from '../actions';
+import { colorfilterLabels } from '../constants';
+import * as selectors from '../selectors';
 
 jest.mock('./loadMore', () => ({
   loadMore: jest.fn(),
@@ -47,7 +53,7 @@ describe('openStudyGuides', () => {
   it('noops if study guides are being/were initialized', async() => {
     store.dispatch(loadMoreStudyGuides());
     await hook(openStudyGuides());
-    expect(dispatch).not.toHaveBeenCalledWith(setDefaultSummaryFilters(expect.anything()));
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it('sets current chapter filter to the current page when user is logged in', async() => {
@@ -56,9 +62,12 @@ describe('openStudyGuides', () => {
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     await hook(openStudyGuides());
-    expect(dispatch).toHaveBeenCalledWith(
-      setDefaultSummaryFilters({locationIds: ['testbook1-testchapter3-uuid']})
-    );
+
+    const historyReplace = replace({} as unknown as AnyMatch, {
+      // tslint:disable-next-line: max-line-length
+      search: `${queryString.stringify({colors: Array.from(colorfilterLabels)})}&locationIds=testbook1-testchapter3-uuid`,
+    });
+    expect(dispatch).toHaveBeenCalledWith(historyReplace);
   });
 
   it('sets current chapter filter to the first page when user is not logged in', async() => {
@@ -67,8 +76,45 @@ describe('openStudyGuides', () => {
     store.dispatch(receivePage({ ...shortPage, references: [] }));
 
     await hook(openStudyGuides());
-    expect(dispatch).toHaveBeenCalledWith(
-      setDefaultSummaryFilters({locationIds: ['testbook1-testchapter1-uuid']})
-    );
+
+    const historyReplace = replace({} as unknown as AnyMatch, {
+      // tslint:disable-next-line: max-line-length
+      search: `${queryString.stringify({colors: Array.from(colorfilterLabels)})}&locationIds=testbook1-testchapter1-uuid`,
+    });
+    expect(dispatch).toHaveBeenCalledWith(historyReplace);
+  });
+
+  it('sets colors from query', async() => {
+    store.dispatch(locationChange({ location: { search: 'colors=blue' } } as any));
+    store.dispatch(receiveLoggedOut());
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
+
+    await hook(openStudyGuides());
+
+    expect(selectors.studyGuidesFilters(store.getState())).toEqual({
+        colors: [HighlightColorEnum.Blue],
+        locationIds: [],
+    });
+  });
+
+  it('sets colors from colors with content', async() => {
+    store.dispatch(locationChange({ location: { search: '' } } as any));
+    store.dispatch(receiveLoggedOut());
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage({ ...shortPage, references: [] }));
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      countsPerSource: {
+        green: 1,
+      },
+    }));
+
+    await hook(openStudyGuides());
+
+    const historyReplace = replace({} as unknown as AnyMatch, {
+      // tslint:disable-next-line: max-line-length
+      search: `${queryString.stringify({colors: [HighlightColorEnum.Green]})}&locationIds=testbook1-testchapter1-uuid`,
+    });
+    expect(dispatch).toHaveBeenCalledWith(historyReplace);
   });
 });

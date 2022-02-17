@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Button from './Button';
-import { ButtonLink } from './Button';
+import { ButtonGroup, ButtonLink } from './Button';
 
 describe('Button', () => {
   it('matches snapshot - link', () => {
@@ -56,6 +56,26 @@ describe('ButtonLink', () => {
 
   it('matches snapshot (decorated and disabled)', () => {
     const component = renderer.create(<ButtonLink decorated disabled />);
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});
+
+describe('ButtonGroup', () => {
+  it('matches snapshot', () => {
+    const component = renderer.create(<ButtonGroup />);
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot (expand)', () => {
+    const component = renderer.create(<ButtonGroup expand />);
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot (not-expand)', () => {
+    const component = renderer.create(<ButtonGroup expand={false} />);
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });

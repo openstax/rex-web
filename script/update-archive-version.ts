@@ -74,16 +74,24 @@ async function updateArchiveAndContentVersions() {
     fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
   }
 
-  const bookEntries = updatePipeline ? Object.entries(BOOKS_CONFIG) : booksToUpdate;
+  const bookEntries = updatePipeline
+    // updating pipeline, check redirects for every book
+    ? Object.entries(BOOKS_CONFIG)
+    // updating content, check redirects for updated books (not new books)
+    : booksToUpdate.filter(([bookId]) => !!BOOKS_CONFIG[bookId])
+  ;
 
-  for (const [bookId, { defaultVersion, archiveOverride }] of bookEntries) {
+  for (const [bookId] of bookEntries) {
     const bookHasContentUpdate = booksToUpdate.find((book) => book[0] === bookId);
     // ignore books with a pinned archive that have no content updates
-    if (bookHasContentUpdate || !archiveOverride) {
+    if (bookHasContentUpdate || !BOOKS_CONFIG[bookId].archiveOverride) {
       updateRedirectsPromises.push(async() => {
         const [currentBook, newBook] = await Promise.all([
-          currentBookLoader(bookId, defaultVersion),
-          newBookLoader(bookId, bookHasContentUpdate ? bookHasContentUpdate[1].defaultVersion : defaultVersion),
+          currentBookLoader(bookId, BOOKS_CONFIG[bookId].defaultVersion),
+          newBookLoader(bookId, bookHasContentUpdate
+            ? bookHasContentUpdate[1].defaultVersion
+            : BOOKS_CONFIG[bookId].defaultVersion
+          ),
         ]);
 
         const redirects = await updateRedirectsData(currentBook, newBook);
@@ -139,7 +147,7 @@ async function updateArchiveAndContentVersions() {
 }
 
 updateArchiveAndContentVersions()
-  .catch(() => {
-    console.log('an error has prevented the upgrade from completing');
+  .catch((e) => {
+    console.error('an error has prevented the upgrade from completing', e);
     process.exit(1);
   });

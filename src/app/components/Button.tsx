@@ -112,7 +112,7 @@ export const ButtonGroup = styled.div`
   ${(props: {expand?: boolean}) => props.expand === false && css`
     grid-auto-columns: min-content;
   `}
-  grid-auto-flow: column;
+  grid-auto-flow: ${(props: {vertical?: boolean}) => props.vertical === true ? 'row' : 'column'};
   grid-gap: 1rem;
 `;
 
