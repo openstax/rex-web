@@ -190,7 +190,6 @@ span[data-type="media"] img {
 #blockish {
   .style(note) {
     margin: 3rem 0;
-    padding: 1.5rem;
     border: 0.2rem solid @gray-lighter;
     background-color: @gray-lightest;
 
@@ -204,9 +203,8 @@ span[data-type="media"] img {
   }
   .title(note) {
     display: block;
-    margin-top: 0;
-    margin-bottom: 1rem;
-    padding: 0rem 1.5rem 1rem 1.5rem;
+    margin: 0 1.5rem 0;
+    padding: 1.5rem 1.5rem 1rem;
     border-bottom: 0.2rem solid @gray-lighter;
     color: @gray;
     font-size: 1.7rem;
@@ -215,10 +213,20 @@ span[data-type="media"] img {
     text-transform: uppercase;
   }
   .body(note) {
-    padding: 0rem 1.5rem;
+    padding: 0rem 3rem 1.5rem;
     border-top: none;
     background-color: @gray-lightest;
     color: @gray;
+    overflow-x: auto;
+
+    > *:not(section):not(header):first-child {
+      margin-top: 1rem;
+    }
+
+    > header {
+      // Match padding of adjacent section
+      margin-top: 3rem;
+    }
 
     span[data-type="media"] {
       display: block;
@@ -365,6 +373,10 @@ h1.example-title .text {
 .os-note-body {
   img {
     display: block;
+  }
+
+  [data-type="exercise"]:first-of-type {
+    margin-top: 1rem;
   }
 }
 
@@ -626,7 +638,6 @@ figure {
   [data-type="title"] {
     display: block;
     margin-top: 0;
-    margin-bottom: 1rem;
     padding: 0 1.5rem 1rem;
     border-bottom: .2rem solid #dcdcdc;
     color: #555;
@@ -636,8 +647,12 @@ figure {
     text-transform: uppercase;
   }
   p {
-    margin: 0 0 1rem 1.5rem;
+    margin: 1rem 0 1rem 1.5rem;
     color: #555;
+  }
+
+  &[data-type="note"] {
+    padding: 0;
   }
 }
 
