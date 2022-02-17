@@ -181,13 +181,11 @@ def test_license_details(selenium, base_url, page_slug):
         license_name = attribution.citation_builder.get_attribute("text").strip()
         license_url = attribution.citation_builder.get_attribute("href").strip()
 
-        if license_name == license_name_expected:
-            pass
-        elif license_name == "CC BY":
+        if license_name == "CC BY":
             print(
                 f"{book_slug} has license name as {license_name}. But expected name is {license_name_expected}"
             )
-        else:
+        elif license_name != license_name_expected:
             pytest.xfail(
                 f"{book_slug} has license name as {license_name}. But expected name is {license_name_expected}"
             )
