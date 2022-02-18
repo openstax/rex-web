@@ -63,7 +63,6 @@ export default {
     }
 
     if (this.isEnabled) {
-      console.log('sentry captureException called', new Date().getMilliseconds()); // tslint:disable-line:no-console
       return Sentry.captureException(error, { level });
     } else if (!this.shouldCollectErrors) {
       switch (level) {
