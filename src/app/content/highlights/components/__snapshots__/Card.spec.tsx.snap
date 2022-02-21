@@ -6,7 +6,11 @@ exports[`Card matches snapshot when focused without note 1`] = `
   onClick={[Function]}
 >
   <div
+<<<<<<< HEAD
     className="sc-bdVaJa ldHKsv"
+=======
+    className="sc-bdVaJa hKBLma"
+>>>>>>> master
     data={
       Object {
         "color": "yellow",
@@ -66,7 +70,11 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   onClick={[Function]}
 >
   <div
+<<<<<<< HEAD
     className="sc-bdVaJa kaLyGH"
+=======
+    className="sc-bdVaJa kwGDhL"
+>>>>>>> master
     data={
       Object {
         "id": "asdf",
@@ -112,7 +120,11 @@ exports[`Card matches snapshot without data 1`] = `
   onClick={[Function]}
 >
   <div
+<<<<<<< HEAD
     className="sc-bdVaJa iaMoyd"
+=======
+    className="sc-bdVaJa hTKfIb"
+>>>>>>> master
     hasUnsavedHighlight={false}
     highlight={
       Object {

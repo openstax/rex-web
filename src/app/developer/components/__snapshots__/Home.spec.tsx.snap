@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Home matches snapshot and books are sorted 1`] = `
+exports[`Home matches snapshot 1`] = `
 Array [
   <a
     className="HiddenLink-wwwegq-0 bkbyvj"
@@ -179,19 +179,24 @@ Array [
                 }
               >
                 <li
-                  className="Books__BookLI-su6o3k-0 idnaZh"
+                  className="Books__BookLI-su6o3k-0 gviQOf"
                 >
-                  <h3
-                    className="headings__H3-sc-1xfiggv-2 dxSanG"
-                  >
-                    <a
-                      className="ContentLink__StyledContentLink-ctb7jh-0 jAbAdk"
-                      href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
-                      onClick={[Function]}
+                  <div>
+                    <h3
+                      className="headings__H3-sc-1xfiggv-2 dxSanG"
                     >
-                      0 Should be first
-                    </a>
-                  </h3>
+                      <a
+                        className="ContentLink__StyledContentLink-ctb7jh-0 jAbAdk"
+                        href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                        onClick={[Function]}
+                      >
+                        booktitle
+                      </a>
+                    </h3>
+                    <small>
+                      some-id@1.0
+                    </small>
+                  </div>
                   <div
                     className="DotMenu__DotMenuDropdown-khcauc-3 hDFPiE Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
                   >
@@ -219,19 +224,24 @@ Array [
                   </div>
                 </li>
                 <li
-                  className="Books__BookLI-su6o3k-0 idnaZh"
+                  className="Books__BookLI-su6o3k-0 gviQOf"
                 >
-                  <h3
-                    className="headings__H3-sc-1xfiggv-2 dxSanG"
-                  >
-                    <a
-                      className="ContentLink__StyledContentLink-ctb7jh-0 jAbAdk"
-                      href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
-                      onClick={[Function]}
+                  <div>
+                    <h3
+                      className="headings__H3-sc-1xfiggv-2 dxSanG"
                     >
-                      Should be second
-                    </a>
-                  </h3>
+                      <a
+                        className="ContentLink__StyledContentLink-ctb7jh-0 jAbAdk"
+                        href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
+                        onClick={[Function]}
+                      >
+                        booktitle2
+                      </a>
+                    </h3>
+                    <small>
+                      some-id-2@1.0
+                    </small>
+                  </div>
                   <div
                     className="DotMenu__DotMenuDropdown-khcauc-3 hDFPiE Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
                   >
