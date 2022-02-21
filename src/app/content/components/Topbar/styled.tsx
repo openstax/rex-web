@@ -12,6 +12,7 @@ import { BookWithOSWebData } from '../../types';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
+  contentWrapperMaxWidth,
   mobileSearchContainerMargin,
   sidebarDesktopWidth,
   sidebarTransitionTime,
@@ -227,6 +228,7 @@ export const SearchInput = styled(({ desktop, mobile, ...props }) =>
 // tslint:disable-next-line:variable-name
 export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   height: ${topbarDesktopHeight}rem;
+  max-width: ${contentWrapperMaxWidth}rem;
   margin: 0 auto;
   text-align: right;
   display: flex;
