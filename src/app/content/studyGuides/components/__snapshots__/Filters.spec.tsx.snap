@@ -600,11 +600,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="print"
-<<<<<<< HEAD
-        className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 jcbTdL styled__PrintOptWrapper-sc-1119auh-1 jcfgAp"
-=======
-        className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 DFaYK styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
->>>>>>> master
+        className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 dhzxTr styled__PrintOptWrapper-sc-1119auh-1 jcfgAp"
         data-analytics-label="print"
         data-testid="print"
         disabled={true}
