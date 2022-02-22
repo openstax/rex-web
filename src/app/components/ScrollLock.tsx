@@ -13,11 +13,11 @@ const ScrollLockBodyClass = createGlobalStyle`
       ${theme.breakpoints.mobile(css`
         @media print {
           #root {
-            display: block;
+            display: none;
           }
         }
 
-        overflow: visible;
+        overflow: hidden;
       `)}
     `}
 

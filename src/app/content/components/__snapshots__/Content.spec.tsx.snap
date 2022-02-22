@@ -125,7 +125,7 @@ Array [
         data-testid="topbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-12dq39v-9 sEKIh"
+          className="styled__SearchPrintWrapper-sc-12dq39v-9 iePkrS"
         >
           <div
             className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
@@ -1712,7 +1712,7 @@ Array [
         data-testid="topbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-12dq39v-9 sEKIh"
+          className="styled__SearchPrintWrapper-sc-12dq39v-9 iePkrS"
         >
           <div
             className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
