@@ -32,19 +32,27 @@ const Wrapper = styled.div`
 `;
 
 interface Props {
+  isTocOpen: State['tocOpen'];
   isVerticalNavOpen: State['tocOpen'];
   onClick: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const ContentPane = ({ isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
+const ContentPane = ({ isTocOpen, isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
   <Wrapper isVerticalNavOpen={isVerticalNavOpen}>
-    {isVerticalNavOpen &&
+    {isTocOpen &&
       <ScrollLock
         onClick={onClick}
         mobileOnly={true}
         overlay={true}
         zIndex={theme.zIndex.overlay}
+      />}
+      {isVerticalNavOpen && !isTocOpen &&
+        <ScrollLock
+          onClick={onClick}
+          mobileMediumAndUp={true}
+          overlay={true}
+          zIndex={theme.zIndex.overlay}
       />}
     {children}
   </Wrapper>;

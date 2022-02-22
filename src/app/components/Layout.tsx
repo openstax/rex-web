@@ -30,6 +30,7 @@ export const LayoutBody = styled.div`
 
 // tslint:disable-next-line:variable-name
 export const ContentLayoutBody = styled.div`
+  width: 100%;
   max-width: 148rem;
   margin: 0 auto;
   display: grid;
