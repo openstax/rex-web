@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { LayoutBody } from '../../components/Layout';
+import { ContentLayoutBody } from '../../components/Layout';
 import ScrollLock from '../../components/ScrollLock';
 import theme from '../../theme';
 import { AppState } from '../../types';
@@ -19,10 +19,10 @@ interface WrapperProps {
 // tslint:disable-next-line:variable-name
 export const Wrapper = styled(
   ({hasQuery, verticalNavOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
-    <LayoutBody {...props}>
+    <ContentLayoutBody {...props}>
       {verticalNavOpen && <ScrollLock overlay={false} mobileOnly={true} />}
       {children}
-    </LayoutBody>
+    </ContentLayoutBody>
 )`
   position: relative; /* for sidebar overlay */
   overflow: visible; /* so sidebar position: sticky works */

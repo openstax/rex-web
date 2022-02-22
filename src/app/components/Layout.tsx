@@ -25,6 +25,11 @@ export const wrapperPadding = css`
 // tslint:disable-next-line:variable-name
 export const LayoutBody = styled.div`
   width: 100%;
+  ${wrapperPadding}
+`;
+
+// tslint:disable-next-line:variable-name
+export const ContentLayoutBody = styled.div`
   max-width: 148rem;
   margin: 0 auto;
   display: grid;
