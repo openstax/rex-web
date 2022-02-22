@@ -51,13 +51,12 @@ const fadeIn = keyframes`
 
 interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
-  mobileMediumAndUp?: boolean;
   mobileOnly?: boolean;
   zIndex?: number;
 }
 
 // tslint:disable-next-line:variable-name
-export const Overlay = styled(({ mobileMediumAndUp, mobileOnly, zIndex, ...props}: OverlayProps) => {
+export const Overlay = styled(({ mobileOnly, zIndex, ...props}: OverlayProps) => {
   useDisableContentTabbing(mobileOnly ? false : true);
   return <div {...props} />;
 })`
@@ -78,9 +77,6 @@ export const Overlay = styled(({ mobileMediumAndUp, mobileOnly, zIndex, ...props
     ${theme.breakpoints.mobile(css`
       display: block;
     `)}
-  `}
-  ${(props: {mobileMediumAndUp?: boolean}) => props.mobileMediumAndUp && css`
-    display: block;
 
     ${theme.breakpoints.mobileMedium(css`
       display: none;
@@ -93,7 +89,6 @@ export const Overlay = styled(({ mobileMediumAndUp, mobileOnly, zIndex, ...props
 interface Props {
   onClick?: () => void;
   overlay?: boolean;
-  mobileMediumAndUp?: boolean | undefined;
   mobileOnly?: boolean | undefined;
   zIndex?: number | undefined;
 }
@@ -106,7 +101,6 @@ export default class ScrollLock extends React.Component<Props> {
       {this.props.overlay !== false && <Overlay
         data-testid='scroll-lock-overlay'
         onClick={this.props.onClick}
-        mobileMediumAndUp={this.props.mobileMediumAndUp}
         mobileOnly={this.props.mobileOnly}
         zIndex={this.props.zIndex}
       />}

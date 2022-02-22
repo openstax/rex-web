@@ -38,19 +38,13 @@ interface Props {
 }
 
 // tslint:disable-next-line:variable-name
-const ContentPane = ({ isTocOpen, isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
+const ContentPane = ({ isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
   <Wrapper isVerticalNavOpen={isVerticalNavOpen}>
-    {isTocOpen &&
-      <ScrollLock
-        onClick={onClick}
-        mobileOnly={true}
-        overlay={true}
-        zIndex={theme.zIndex.overlay}
-      />}
-      {isVerticalNavOpen && !isTocOpen &&
+      {isVerticalNavOpen &&
         <ScrollLock
           onClick={onClick}
-          mobileMediumAndUp={true}
+          // mobileMediumOnly={!isTocOpen}
+          mobileOnly={true}
           overlay={true}
           zIndex={theme.zIndex.overlay}
       />}
