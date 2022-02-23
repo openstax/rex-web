@@ -101,7 +101,6 @@ export const CloseToCAndMobileMenuButton = styled((props) => {
   position: absolute;
   right: 0;
   display: none;
-
   ${theme.breakpoints.mobileMedium(css`
     display: block;
   `)}
@@ -163,7 +162,6 @@ export const TOCCloseButton = (lockControlState(true, CloseTOC));
 // tslint:disable-next-line:variable-name
 export const TOCBackButton = styled(TOCCloseButton)`
   display: none;
-
   ${theme.breakpoints.mobileMedium(css`
     display: block;
   `)}

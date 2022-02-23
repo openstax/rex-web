@@ -153,6 +153,7 @@ export const DropdownToggle = styled.div`
   background-color: #007297;
   cursor: pointer;
   margin-top: 1.6rem;
+
   ${theme.breakpoints.mobile(css`
     margin-top: 0;
   `)}

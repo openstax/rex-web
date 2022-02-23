@@ -141,7 +141,7 @@ export const ToolbarWrapper = styled.div`
 
   /* hides the sidebar whens it's sliding in */
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -${sidebarDesktopWidth + .1}rem; /* adding 1px prevents hiding toolbar's left border */

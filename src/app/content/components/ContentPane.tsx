@@ -20,7 +20,6 @@ const Wrapper = styled.div`
     overflow: visible;
     background-color: ${mainContentBackground};
     padding-left: ${sidebarDesktopWithToolbarWidth}rem;
-
     ${styleWhenSidebarClosed(css`
       padding-left: 0;
     `)}
