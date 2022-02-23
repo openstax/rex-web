@@ -48,8 +48,8 @@ const BodyErrorText = styled.div`
 const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
 const windowDefined = () => {
-  return typeof(window) !== 'undefined'
-}
+  return typeof(window) !== 'undefined';
+};
 
 class ErrorBoundary extends React.Component<Props, State> {
 
