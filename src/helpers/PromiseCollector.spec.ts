@@ -59,11 +59,11 @@ describe('PromiseCollector', () => {
     });
   });
 
-  it('swallows errors when removing promises with .finally', async () => {
+  it('swallows errors when removing promises with .finally', async() => {
     // The "fail" case of this test is with a process exit code
     // of ERR_UNHANDLED_REJECTION, not a typical jest fail
-    await expect(async () => {
-      const p1 = new Promise(() => { throw new Error('error') })
+    await expect(async() => {
+      const p1 = new Promise(() => { throw new Error('error'); });
       collector.add(p1);
       await collector.calm();
     }).rejects.toMatchObject(Error('error'));
