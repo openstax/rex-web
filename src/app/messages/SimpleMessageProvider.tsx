@@ -19,7 +19,7 @@ const SimpleMessageProvider = (props: { children?: React.ReactNode }) => {
   }, []);
 
   if (!intl) {
-    return <>{props.children}</>
+    return <>{props.children}</>;
   }
 
   return (
