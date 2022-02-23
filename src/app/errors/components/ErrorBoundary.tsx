@@ -11,7 +11,6 @@ import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography/headings';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
-import { assertWindow } from '../../utils/browser-assertions';
 import { recordError } from '../actions';
 import { getMessageIdStack } from '../selectors';
 import ErrorIdList from './ErrorIdList';
