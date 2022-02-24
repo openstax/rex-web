@@ -2,7 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Sentry from '../../../helpers/Sentry';
 import TestContainer from '../../../test/TestContainer';
-import { assertWindow } from '../../utils/browser-assertions';
 import ErrorBoundary from './ErrorBoundary';
 
 jest.mock('../../../helpers/Sentry', () => ({
@@ -12,18 +11,6 @@ jest.mock('../../../helpers/Sentry', () => ({
 // tslint:disable-next-line:variable-name
 const Buggy = () => {
   throw new Error('this is a bug');
-};
-
-// tslint:disable-next-line:variable-name
-const BuggyPromise = () => {
-  const rejectionEvent = new PromiseRejectionEvent('unhandledrejection', {
-    promise: new Promise(() => null),
-    reason: 'this is a bug',
-  });
-
-  const window = assertWindow();
-  window.onunhandledrejection!(rejectionEvent);
-  return null;
 };
 
 describe('ErrorBoundary', () => {
@@ -53,18 +40,5 @@ describe('ErrorBoundary', () => {
       expect.stringMatching(/error occurred in the <Buggy> component/)
     );
     expect(Sentry.captureException).toHaveBeenCalled();
-  });
-
-  it('captures unhandled rejected promises', () => {
-    const tree = renderer.create(<TestContainer>
-      <ErrorBoundary><BuggyPromise /></ErrorBoundary>
-    </TestContainer>);
-
-    expect(tree).toMatchSnapshot();
-    expect(consoleError).toHaveBeenCalledWith(
-      expect.stringMatching(/error occurred in the <BuggyPromise> component/)
-    );
-    expect(Sentry.captureException).toHaveBeenCalled();
-
   });
 });
