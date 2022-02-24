@@ -16,17 +16,42 @@ describe('SimpleMessageProvider', () => {
 
     store = createTestStore();
     ({Provider, React, renderer} = reactAndFriends());
-
-    jest.spyOn(assertWindow().navigator, 'language', 'get').mockReturnValue('es');
   });
 
   it('loads data from the browser locale', async() => {
+    jest.spyOn(assertWindow().navigator, 'language', 'get').mockReturnValueOnce('es');
     let loaded = false;
 
     jest.doMock('@formatjs/intl-pluralrules/should-polyfill', () => ({
       shouldPolyfill: () => true,
     }));
     jest.doMock('@formatjs/intl-pluralrules/locale-data/es', () => {
+      loaded = true;
+    });
+
+    SimpleMessageProvider = require('../messages/SimpleMessageProvider').default;
+
+    const component = renderer.create(<Provider store={store}>
+      <SimpleMessageProvider />
+    </Provider>);
+
+    component.update(<Provider store={store}>
+      <SimpleMessageProvider />
+    </Provider>);
+
+    await runHooksAsync(renderer);
+
+    expect(loaded).toBe(true);
+  });
+
+  it('defaults to en if browser locale cannot be determined', async() => {
+    jest.spyOn(assertWindow().navigator, 'language', 'get').mockReturnValueOnce('');
+    let loaded = false;
+
+    jest.doMock('@formatjs/intl-pluralrules/should-polyfill', () => ({
+      shouldPolyfill: () => true,
+    }));
+    jest.doMock('@formatjs/intl-pluralrules/locale-data/en', () => {
       loaded = true;
     });
 
