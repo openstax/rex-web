@@ -471,3 +471,32 @@ table {
 [data-type="equation"] {
   overflow: auto;
 }
+
+//
+// Code
+// --------------------------------------------------
+[data-type="code"] {
+  font-family: 'IBM Plex Mono', monospace;
+
+  &.blue-code,
+  .blue-code {
+    color: #2E3092;
+  }
+
+  &.red-code,
+  .red-code {
+    color: #B90000;
+  }
+}
+
+pre[data-type="code"] {
+  display: block;
+  overflow: auto;
+
+  &.centered-code {
+    color: @gray;
+    text-align: center;
+    background: none;
+    margin: 0 auto;
+  }
+}
