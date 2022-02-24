@@ -7,6 +7,7 @@ const mockBook = book as any as jest.SpyInstance;
 
 jest.mock('../selectors', () => ({
   book: jest.fn(),
+  firstChapter: jest.fn(),
   localState: (state: any) => ({studyGuides: state}),
   page: jest.fn(),
 }));

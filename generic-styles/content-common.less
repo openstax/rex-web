@@ -224,7 +224,6 @@ figure[data-orient="vertical"] {
   }
   .style(note) {
     margin: 3rem 6rem 0 6rem;
-    padding: 1.5rem;
     background-color: @gray-lightest;
 
     @media (max-width: @screen-xs-max) {
@@ -295,29 +294,23 @@ blockquote {
     padding: 0.5em 1em;
   }
 
-  // Exercise Solutions contain a button to toggle showing or hiding the solution
+  // Exercise Solutions contain a summary to toggle showing or hiding the solution
   [data-type="solution"],
   .solution {
     border-top: 0.1rem solid @gray;
 
     // The Show/Hide Solution text
-    > .ui-toggle-wrapper {
+    > .ui-toggle {
+      font-weight: bold;
       text-align: center;
+      list-style: none;
+      cursor: pointer;
+      text-transform: capitalize;
 
-      > .ui-toggle {
-        font-weight: bold;
-        text-align: center;
-        text-transform: capitalize;
+      &::-webkit-details-marker { display: none; }
 
-        &::before {
-          content: "["attr(data-content)"]";
-        }
-      }
-    }
-
-    &:not(.ui-solution-visible) {
-      > section {
-        display: none;
+      &::before {
+        content: "["attr(data-content)"]";
       }
     }
   }

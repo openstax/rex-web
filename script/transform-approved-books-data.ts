@@ -268,11 +268,11 @@ const transformDataVer2 = (data: ApprovedBooksAndVersionsVer2) => {
       for (const book of version.commit_metadata.books) {
         let sha = version.commit_sha;
         if (version.commit_sha.length > 7) {
-          // tslint:disable-next-line:no-console
-          console.warn('Truncating sha because some magic somewhere in the pipeline does it too', version.commit_sha);
           sha = version.commit_sha.substr(0, 7);
         }
-        results[book.uuid] = sha;
+        if (!configuredBooks[book.uuid] || configuredBooks[book.uuid].defaultVersion !== sha) {
+          results[book.uuid] = sha;
+        }
       }
     }
   }
