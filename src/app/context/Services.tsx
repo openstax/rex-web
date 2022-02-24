@@ -2,7 +2,7 @@ import React from 'react';
 import { useStore } from 'react-redux';
 import { AppServices, MiddlewareAPI } from '../types';
 
-export const servicesContext = React.createContext({} as AppServices);
+export const servicesContext = React.createContext({} as AppServices & MiddlewareAPI);
 
 const {Consumer, Provider} = servicesContext;
 
