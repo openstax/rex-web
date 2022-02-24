@@ -46,10 +46,10 @@ describe('ErrorBoundary', () => {
     expect(Sentry.captureException).toHaveBeenCalled();
   });
 
-  it('captures unhandled rejected promises', async () => {
+  it('captures unhandled rejected promises', () => {
     const tree = renderer.create(<TestContainer>
       <ErrorBoundary>test</ErrorBoundary>
-    </TestContainer>)
+    </TestContainer>);
 
     assertWindow().dispatchEvent(rejectionEvent);
     expect(tree).toMatchSnapshot();
