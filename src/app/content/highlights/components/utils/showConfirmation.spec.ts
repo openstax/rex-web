@@ -7,11 +7,7 @@ import { mockCmsBook } from '../../../..//../test/mocks/osWebLoader';
 import { AppServices, MiddlewareAPI, Store } from '../../../../types';
 import { assertDocument } from '../../../../utils';
 import { receiveBook } from '../../../actions';
-import { initialState } from '../../../reducer';
 import { formatBookData } from '../../../utils';
-import { focusHighlight } from '../../actions';
-import { initialState as initialHighlightState } from '../../reducer';
-import * as select from '../../selectors';
 import showConfirmation from './showConfirmation';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -39,15 +35,12 @@ const rootNode = (() => {
 
 const modalNode = assertDocument().createElement('div');
 
-const focusedHighlight = 'highlightId';
-
 describe('ShowConfirmation', () => {
   let createElement: jest.SpyInstance;
   let render: jest.SpyInstance;
   let unmount: jest.SpyInstance;
   let services: AppServices & MiddlewareAPI;
   let store: Store;
-  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     resetModules();
@@ -65,20 +58,7 @@ describe('ShowConfirmation', () => {
     unmount = jest.spyOn(ReactDOM, 'unmountComponentAtNode');
 
     createElement = jest.spyOn(document, 'createElement').mockImplementation(() => modalNode);
-
-    store = createTestStore({
-      content: {
-        ...initialState,
-        highlights: {
-          ...initialHighlightState,
-          currentPage: {
-            ...initialHighlightState.currentPage,
-            focused: focusedHighlight,
-          },
-        },
-      },
-    });
-    dispatch = jest.spyOn(store, 'dispatch');
+    store = createTestStore();
     services = {
       ...createTestServices(),
       dispatch: store.dispatch,
@@ -102,17 +82,6 @@ describe('ShowConfirmation', () => {
     const answer = await showConfirmation(services);
 
     expect(answer).toBe(false);
-    expect(dispatch).toHaveBeenCalledWith(focusHighlight(focusedHighlight));
-    expect(unmount).toHaveBeenCalledWith(modalNode);
-  });
-
-  it('does not focus on denial if no focused highlight', async() => {
-    store.dispatch(receiveBook(book));
-    jest.spyOn(select, 'focused').mockReturnValue(undefined);
-    const answer = await showConfirmation(services);
-
-    expect(answer).toBe(false);
-    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(focusedHighlight));
     expect(unmount).toHaveBeenCalledWith(modalNode);
   });
 });
