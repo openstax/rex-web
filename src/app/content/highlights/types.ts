@@ -40,7 +40,6 @@ export interface State {
     highlights: null | HighlightData[];
     hasUnsavedHighlight: boolean;
     focused?: string;
-    timeFocused?: number;
   };
   summary: {
     open: boolean,
