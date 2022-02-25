@@ -49,11 +49,6 @@ export const focused = createSelector(
   (state) => state.currentPage.focused
 );
 
-export const lastFocused = createSelector(
-  localState,
-  (state) => state.currentPage.timeFocused
-);
-
 export const hasUnsavedHighlight = createSelector(
   localState,
   (state) => state.currentPage.hasUnsavedHighlight

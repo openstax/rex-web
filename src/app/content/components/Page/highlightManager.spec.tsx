@@ -57,7 +57,6 @@ describe('highlightManager', () => {
   beforeEach(() => {
     window = assertWindow();
     element = window.document.createElement('div');
-    store = createTestStore();
     prop = {
       clearFocus: jest.fn(),
       focus: jest.fn(),
