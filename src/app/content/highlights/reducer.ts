@@ -199,7 +199,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         currentPage: {
           ...state.currentPage,
           focused: action.payload,
-          // hasUnsavedHighlight: false,
           timeFocused: Date.now(),
         },
       };
