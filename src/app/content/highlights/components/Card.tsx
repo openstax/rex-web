@@ -65,7 +65,6 @@ const Card = (props: CardProps) => {
   const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
-    console.log('focusing - has unsaved hilite? ', hasUnsavedHighlight);
     if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services))) {
       focus(id);
     }

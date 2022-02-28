@@ -194,13 +194,13 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       };
     }
     case getType(actions.focusHighlight): {
-      const refocusing = state.currentPage.focused === action.payload;
+      const isRefocusing = state.currentPage.focused === action.payload;
       return {
         ...state,
         currentPage: {
           ...state.currentPage,
           focused: action.payload,
-          hasUnsavedHighlight: refocusing,
+          hasUnsavedHighlight: isRefocusing,
           timeFocused: Date.now(),
         },
       };
