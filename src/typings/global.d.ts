@@ -56,6 +56,11 @@ declare global {
     ga: UniversalAnalytics.ga;
     dataLayer: object[];
     gtag: (eventKey?: string, eventVal?: string, eventObj?: object) => boolean | void;
+    Intl: {
+      Locale: {
+        new(locale: string): { language: string };
+      };
+    };
   }
 
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;
@@ -67,10 +72,4 @@ declare global {
   var DOMParser: dom.DOMParserConstructor;
   var KeyboardEvent: dom.KeyboardEventConstructor
   var ResizeObserver: dom.ResizeObserverConstructor
-
-  namespace Intl {
-    var Locale: {
-      new(locale: string): { language: string };
-    }
-  }
 }
