@@ -59,8 +59,8 @@ const makeCatchError = ({dispatch, getState}: MiddlewareAPI) => (e: Error) => {
     dispatch(replace({route: notFound, params: {url: selectNavigation.pathname(getState())}, state: {}}));
     return;
   } else if (e instanceof ArchiveBookMissingError) {
-    // Most the app doesn't render until book data is loaded, so to handle this
-    // error, we need re-throw and let the outer ErrorBoundary handle it.
+    // Most of the app intentionally doesn't render until book data is loaded,
+    // so allow this error to bubble up and let the outer ErrorBoundary handle it.
     throw e;
   } else if (e instanceof ToastMesssageError) {
     const errorId = Sentry.captureException(e);
