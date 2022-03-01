@@ -46,10 +46,6 @@ const BodyErrorText = styled.div`
 // tslint:disable-next-line:variable-name
 const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
-const windowDefined = () => {
-  return typeof(window) !== 'undefined';
-};
-
 class ErrorBoundary extends React.Component<Props, State> {
 
   public state: State = { error: undefined };
@@ -61,14 +57,14 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    if (windowDefined()) {
-      window?.addEventListener('unhandledrejection', this.handleRejection);
+    if (typeof(window) !== 'undefined') {
+      window.addEventListener('unhandledrejection', this.handleRejection);
     }
   }
 
   public componentWillUnmount() {
-    if (windowDefined()) {
-      window?.removeEventListener('unhandledrejection', this.handleRejection);
+    if (typeof(window) !== 'undefined') {
+      window.removeEventListener('unhandledrejection', this.handleRejection);
     }
   }
 
