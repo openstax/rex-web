@@ -17,7 +17,7 @@ ACTION_SCRIPT = (
     "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
     ".map(x => x.command.payload);"
 )
-
+# __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands().map(x => x.command.payload);
 
 # --------------------- #
 # Critical Priority SEO #
@@ -32,15 +32,20 @@ def test_the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page
     event_action = None
     event_category = "REX Link (toc)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    page_view_type = "pageview"
+    page_view_page = None
+    new_events = 2
 
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click a table of contents link
     if book.is_mobile:
         book.toolbar.click_toc_toggle_button()
+        new_events += 1
     event_action = book.sidebar.toc.next_section_page_slug
     book.sidebar.toc.view_next_section()
 
@@ -48,15 +53,25 @@ def test_the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page
     #        { eventAction: "{page_slug}",
     #          eventCategory: "REX Link (toc)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    toc_link_event = Utilities.get_analytics_queue(selenium, -2)
+    analytics_queue = Utilities.get_analytics_queue(selenium)
+    toc_link_event = analytics_queue[-2]
+    page_view_event = analytics_queue[-1]
+    page_view_page = "/".join([""] + selenium.current_url.split("/")[3:])
     assert (
         "eventAction" in toc_link_event
         and "eventCategory" in toc_link_event
         and "eventLabel" in toc_link_event
-    ), "Not viewing the correct GA event"
+    ), "Not viewing the correct GA event (eventAction)"
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
     assert toc_link_event["eventAction"] == event_action
     assert toc_link_event["eventCategory"] == event_category
     assert toc_link_event["eventLabel"] == event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
+    assert len(analytics_queue) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C591503")
@@ -67,11 +82,13 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(selenium, base_url, bo
     event_action = "buy-book"
     event_category = "REX Link"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the 'Order a print copy' button
     book.order_a_print_copy(remain_on_page=True)
@@ -80,13 +97,15 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(selenium, base_url, bo
     #        { eventAction: "buy-book",
     #          eventCategory: "REX Link (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    analytics_queue = Utilities.get_analytics_queue(selenium)
+    last_event = analytics_queue[-1]
     assert (
         "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
     ), "Not viewing the correct GA event"
     assert last_event["eventAction"] == event_action
     assert last_event["eventCategory"] == event_category
     assert last_event["eventLabel"] == event_label
+    assert len(analytics_queue) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621361", "C621362")
@@ -100,15 +119,22 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     load_script = 'return document.querySelector("[data-analytics-label={label}]");'
     next_event_action = "next"
     next_event_category = "REX Link (prev-next)"
-    next_event_label = None  # Not yet known
+    next_event_label = None
+    next_page_view_type = "pageview"
+    next_page_view_page = f"/books/{book_slug}/pages/{page_slug}"
+    next_link_events = 2
     previous_event_action = "prev"
     previous_event_category = next_event_category
-    previous_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    previous_event_label = next_page_view_page
+    previous_page_view_type = "pageview"
+    previous_page_view_page = None
+    previous_link_events = 2
 
     # GIVEN: a user viewing a book that is not the first book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the 'Previous' link
     #        (use a script because we need the events before the page changes)
@@ -124,7 +150,9 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     #          eventCategory: "REX Link (prev-next)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     next_event_label = "/".join([""] + selenium.current_url.split("/")[3:])
+    previous_page_view_page = next_event_label
     transition_event = events[-2]
+    transition_pageview_event = events[-1]
     assert (
         "eventAction" in transition_event
         and "eventCategory" in transition_event
@@ -133,6 +161,9 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     assert transition_event["eventAction"] == previous_event_action
     assert transition_event["eventCategory"] == previous_event_category
     assert transition_event["eventLabel"] == previous_event_label
+    assert transition_pageview_event["hitType"] == next_page_view_type
+    assert transition_pageview_event["page"] == previous_page_view_page
+    assert len(events) == initial_events + previous_link_events, "Wrong number of GA events found"
 
     # WHEN:  they click the 'Next' link
     #        (use a script because we need the events before the page changes)
@@ -145,6 +176,7 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     #          eventCategory: "REX Link (prev-next)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     transition_event = events[-2]
+    transition_pageview_event = events[-1]
     assert (
         "eventAction" in transition_event
         and "eventCategory" in transition_event
@@ -153,6 +185,11 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     assert transition_event["eventAction"] == next_event_action
     assert transition_event["eventCategory"] == next_event_category
     assert transition_event["eventLabel"] == next_event_label
+    assert transition_pageview_event["hitType"] == next_page_view_type
+    assert transition_pageview_event["page"] == next_page_view_page
+    assert (
+        len(events) == initial_events + previous_link_events + next_link_events
+    ), "Wrong number of GA events found"
 
 
 @markers.test_case("C621363")
@@ -160,13 +197,17 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
 def test_user_logout_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a user logs out."""
     # SETUP:
-    event_action = f"/accounts/logout?r=/books/{book_slug}/pages/{page_slug}"
-    event_category = "REX Link (openstax-navbar)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    log_out_event_action = f"/accounts/logout?r=/books/{book_slug}/pages/{page_slug}"
+    log_out_event_category = "REX Link (openstax-navbar)"
+    log_out_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     selector = "a[href*=logout]"
+    unload_event_action = f"/books/{book_slug}/pages/{page_slug}"
+    unload_event_category = "REX unload"
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the user menu
     # AND:   click the 'Log out' menu link
@@ -179,14 +220,22 @@ def test_user_logout_ga_event(selenium, base_url, book_slug, page_slug):
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     log_out_event = events[-2]
+    unload_event = events[-1]
     assert (
         "eventAction" in log_out_event
         and "eventCategory" in log_out_event
         and "eventLabel" in log_out_event
-    ), "Not viewing the correct GA event"
-    assert log_out_event["eventAction"] == event_action
-    assert log_out_event["eventCategory"] == event_category
-    assert log_out_event["eventLabel"] == event_label
+    ), "Not viewing the correct GA event (log out)"
+    assert log_out_event["eventAction"] == log_out_event_action
+    assert log_out_event["eventCategory"] == log_out_event_category
+    assert log_out_event["eventLabel"] == log_out_event_label
+    assert (
+        "eventAction" in unload_event
+        and "eventCategory" in unload_event
+    ), "Not viewing the correct GA event (unload)"
+    assert unload_event["eventAction"] == unload_event_action
+    assert unload_event["eventCategory"] == unload_event_category
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621364", "C621366")
@@ -197,6 +246,7 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
     close_event_action = "Click to close the Table of Contents"
     close_event_category = "REX Button (toc)"
     close_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     open_event_action = "Click to open the Table of Contents"
     open_event_category = "REX Button (toolbar)"
     open_event_label = close_event_label
@@ -207,6 +257,7 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
         book.notification.got_it()
     if book.is_mobile:
         book.toolbar.click_toc_toggle_button()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they close the table of contents
     book.sidebar.header.click_toc_toggle_button()
@@ -230,13 +281,15 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
     #        { eventAction: "Click to open the Table of Contents",
     #          eventCategory: "REX Button (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    last_event = events[-1]
     assert (
         "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
     ), "Not viewing the correct GA event"
     assert last_event["eventAction"] == open_event_action
     assert last_event["eventCategory"] == open_event_category
     assert last_event["eventLabel"] == open_event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621365")
