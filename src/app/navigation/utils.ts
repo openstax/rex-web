@@ -98,8 +98,8 @@ export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) 
   actionHook(actions.locationChange, (stateHelpers) => {
     let storedLocation: State;
     const boundHook = body(stateHelpers);
-    const storeLocation = (path: State) => {
-      storedLocation = path;
+    const storeLocation = (location: State) => {
+      storedLocation = location;
     };
 
     return (action) => {
