@@ -15,14 +15,13 @@ const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
   const state = services.getState();
   const pathname = selectNavigation.pathname(state);
   const query = selectNavigation.query(state);
+  const prevPath = action.prevLocation?.pathname;
+  const prevQuery = action.prevLocation?.query;
 
-  const prevLocation = action.prevLocation;
-  const prevPath = prevLocation?.pathname;
+  const pathOrModalChanged =
+    pathname !== prevPath || prevQuery.modal !== query.modal;
 
-  const hasNonModalQueryChange =
-    pathname === prevPath && prevLocation?.query.modal === query.modal;
-
-  if (action.action !== 'REPLACE' && !hasNonModalQueryChange) {
+  if (action.action !== 'REPLACE' && pathOrModalChanged) {
     googleAnalyticsClient.trackPageView(pathname, query);
   }
 
