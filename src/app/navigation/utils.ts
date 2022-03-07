@@ -104,7 +104,11 @@ export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) 
 
     return (action) => {
       const prevLocation = storedLocation;
-      storeLocation({...action.payload.location, query: action.payload.query, match: action.payload.match});
+      storeLocation({
+        ...action.payload.location,
+        match: action.payload.match,
+        query: action.payload.query,
+      });
       if (locationChangeForRoute(route, action.payload)) {
         return boundHook({...action.payload, prevLocation});
       }
