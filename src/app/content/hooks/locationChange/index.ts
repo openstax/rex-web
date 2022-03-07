@@ -16,7 +16,9 @@ const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
   const pathname = selectNavigation.pathname(state);
   const query = selectNavigation.query(state);
 
-  googleAnalyticsClient.trackPageView(pathname, query);
+  if (action.action !== 'REPLACE') {
+    googleAnalyticsClient.trackPageView(pathname, query);
+  }
 
   await resolveContent(services, action.match);
 
