@@ -20,7 +20,8 @@ import {
   Route,
   RouteHookBody,
   RouteState,
-  ScrollTarget
+  ScrollTarget,
+  State
 } from './types';
 
 if (typeof(document) !== 'undefined') {
@@ -95,17 +96,17 @@ export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, l
 
 export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) =>
   actionHook(actions.locationChange, (stateHelpers) => {
-    let storedPath: string;
+    let storedPath: State;
     const boundHook = body(stateHelpers);
-    const storePath = (path: string) => {
+    const storePath = (path: State) => {
       storedPath = path;
     };
 
     return (action) => {
-      const prevPath = storedPath;
-      storePath(action.payload.location.pathname);
+      const prevLocation = storedPath;
+      storePath({...action.payload.location, query: action.payload.query, match: action.payload.match});
       if (locationChangeForRoute(route, action.payload)) {
-        return boundHook({...action.payload, prevPath});
+        return boundHook({...action.payload, prevLocation});
       }
     };
   });

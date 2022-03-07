@@ -58,7 +58,7 @@ export interface LocationChange<M = AnyMatch> {
   location: Location;
   match?: M;
   action: Action;
-  prevPath?: string;
+  prevLocation?: State;
 }
 
 export type AnyRoute = typeof routes[number];
