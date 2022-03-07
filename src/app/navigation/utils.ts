@@ -96,15 +96,15 @@ export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, l
 
 export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) =>
   actionHook(actions.locationChange, (stateHelpers) => {
-    let storedPath: State;
+    let storedLocation: State;
     const boundHook = body(stateHelpers);
-    const storePath = (path: State) => {
-      storedPath = path;
+    const storeLocation = (path: State) => {
+      storedLocation = path;
     };
 
     return (action) => {
-      const prevLocation = storedPath;
-      storePath({...action.payload.location, query: action.payload.query, match: action.payload.match});
+      const prevLocation = storedLocation;
+      storeLocation({...action.payload.location, query: action.payload.query, match: action.payload.match});
       if (locationChangeForRoute(route, action.payload)) {
         return boundHook({...action.payload, prevLocation});
       }
