@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
+import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
   activateSwAndReload,
   findAndInstallServiceWorkerUpdate,
-  serviceWorkerNeedsUpdate
 } from '../../../helpers/applicationUpdates';
 import Button, { ButtonGroup } from '../../components/Button';
-import { useServices } from '../../context/Services';
+import { assertWindow } from '../../utils';
 import { Body, Group, Header, P } from './Card';
 
 /*
@@ -16,16 +16,17 @@ import { Body, Group, Header, P } from './Card';
 
 // tslint:disable-next-line:variable-name
 const UpdatesAvailable = ({className}: {className?: string}) => {
-  const sw = useServices().serviceWorker;
-  const [readyToReload, setReadyToReload] = useState<boolean>(!serviceWorkerNeedsUpdate(sw));
+  const serviceWorkerContainer = assertWindow().navigator.serviceWorker;
+  const [sw, setSw] = useState<ServiceWorkerRegistration | undefined>(undefined);
 
-  useEffect(() => {
-    findAndInstallServiceWorkerUpdate(sw, () => setReadyToReload(true));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  if (serviceWorkerContainer) {
+    serviceWorkerContainer.ready.then((registration) => {
+      findAndInstallServiceWorkerUpdate(registration, () => setSw(registration));
+    });
 
-  if (!readyToReload) {
-    return null;
+    if (!sw) {
+      return null;
+    }
   }
 
   return <Body className={className}>
