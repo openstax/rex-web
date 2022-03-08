@@ -3,11 +3,12 @@
 from math import isclose
 from random import choice
 from string import digits, ascii_letters
-import re
+
+# import re
 from time import sleep
 import unittest
 
-from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 
 from pages.content import Content
@@ -150,7 +151,8 @@ def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug
 
 
 @markers.test_case("C543239")
-@markers.parametrize("page_slug", ["preface"])
+# @markers.parametrize("page_slug", ["preface"])
+@markers.parametrize("book_slug,page_slug", [("college-physics-ap-courses", "preface")])
 @markers.nondestructive
 def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_slug):
     """Opening TOC closes search sidebar and content stays in the same location"""
@@ -174,21 +176,22 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         assert search_sidebar.search_results_present
 
         # Loop through the words in search term and assert if atleast one of them is highlighted in the book
-        split_search_term = re.findall(r"\w+", search_term)
-        for x in split_search_term:
-            focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
-            try:
-                assert (
-                    focussed_search_term
-                ), f"the highlighted search term ('{x}') was not found on the page"
-                assert book.element_in_viewport(focussed_search_term[0])
-            except AssertionError:
-                continue
-            except IndexError:
-                # Wait till the focussed search term is scrolled to the viewport
-                sleep(1)
-                assert book.element_in_viewport(focussed_search_term[0])
-            break
+        # split_search_term = re.findall(r"\w+", search_term)
+        # for x in split_search_term:
+        #     focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
+        #     try:
+        #         assert (
+        #             focussed_search_term
+        #         ), f"the highlighted search term ('{x}') was not found on the page"
+        #         assert book.element_in_viewport(focussed_search_term[0])
+        #     except AssertionError:
+        #         continue
+        #     except IndexError:
+        #         # Wait till the focussed search term is scrolled to the viewport
+        #         sleep(1)
+        #         assert book.element_in_viewport(focussed_search_term[0])
+        #     break
+        book.assert_search_term_is_highlighted_in_content_page(search_term)
 
         scroll_position_before_closing_search_sidebar = book.scroll_position
 
@@ -252,25 +255,26 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
 
         # For mobile, content is not visible when search results are displayed.
         # So click on first search result to store the content scroll position.
-        search_results = book.search_sidebar.search_results(search_term)
-        Utilities.click_option(selenium, element=search_results[0])
+        # search_results = book.search_sidebar.search_results(search_term)
+        Utilities.click_option(selenium, element=book.search_sidebar.chapter_results[0])
 
         # Loop through the words in search term and assert if atleast one of them is highlighted in the book
-        split_search_term = re.findall(r"\w+", search_term)
-        for x in split_search_term:
-            focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
-            try:
-                assert (
-                    focussed_search_term
-                ), f"the highlighted search term ('{x}') was not found on the page"
-                assert book.element_in_viewport(focussed_search_term[0])
-            except AssertionError:
-                continue
-            except IndexError:
-                # Wait till the focussed search term is scrolled to the viewport
-                sleep(1)
-                assert book.element_in_viewport(focussed_search_term[0])
-            break
+        book.assert_search_term_is_highlighted_in_content_page(search_term)
+        # split_search_term = re.findall(r"\w+", search_term)
+        # for x in split_search_term:
+        #     focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
+        #     try:
+        #         assert (
+        #             focussed_search_term
+        #         ), f"the highlighted search term ('{x}') was not found on the page"
+        #         assert book.element_in_viewport(focussed_search_term[0])
+        #     except AssertionError:
+        #         continue
+        #     except IndexError:
+        #         # Wait till the focussed search term is scrolled to the viewport
+        #         sleep(1)
+        #         assert book.element_in_viewport(focussed_search_term[0])
+        #     break
 
         search_result_scroll_position = book.scroll_position
 

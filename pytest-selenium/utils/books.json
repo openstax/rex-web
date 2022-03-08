@@ -35,6 +35,12 @@
         "chapter_search_results_total": 23,
         "rkt_search_results_total": 0
     },
+    "astronomy-2e": {
+        "default_page": "1-introduction",
+        "search_term": "(AU)",
+        "chapter_search_results_total": 76,
+        "rkt_search_results_total": 1
+    },
     "biology-2e": {
         "default_page": "1-introduction",
         "search_term": "evolution theory",
@@ -92,7 +98,7 @@
         "college-algebra-corequisite-support-2e": {
         "default_page": "1-introduction-to-prerequisites",
         "search_term": "table",
-        "chapter_search_results_total": 261,
+        "chapter_search_results_total": 262,
         "rkt_search_results_total": 0
     },
     "college-physics": {
@@ -140,7 +146,7 @@
     "entrepreneurship": {
         "default_page": "1-introduction",
         "search_term": "Business Model",
-        "chapter_search_results_total": 349,
+        "chapter_search_results_total": 350,
         "rkt_search_results_total": 8
     },
     "elementary-algebra-2e": {
@@ -154,6 +160,12 @@
         "search_term": "quadratic equations and functions",
         "chapter_search_results_total": 6,
         "rkt_search_results_total": 0
+    },
+    "introduction-anthropology": {
+        "default_page": "1-introduction",
+        "search_term": "orientalism",
+        "chapter_search_results_total": 13,
+        "rkt_search_results_total": 1
     },
     "introductory-business-statistics": {
         "default_page": "1-introduction",
@@ -206,7 +218,7 @@
     "physics": {
         "default_page": "1-introduction",
         "search_term": "linear relationship",
-        "chapter_search_results_total": 10,
+        "chapter_search_results_total": 11,
         "rkt_search_results_total": 0
     },
     "precalculus": {
@@ -218,7 +230,7 @@
     "precalculus-2e": {
         "default_page": "1-introduction-to-functions",
         "search_term": "one-to-one function",
-        "chapter_search_results_total": 413,
+        "chapter_search_results_total": 410,
         "rkt_search_results_total": 3
     },
 
@@ -237,7 +249,7 @@
     "principles-economics-2e": {
         "default_page": "1-introduction",
         "search_term": "Elasticity",
-        "chapter_search_results_total": 165,
+        "chapter_search_results_total": 166,
         "rkt_search_results_total": 11
     },
     "principles-macroeconomics-2e": {
