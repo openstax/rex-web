@@ -5,6 +5,12 @@
         "chapter_search_results_total": 6,
         "rkt_search_results_total": 0
     },
+        "algebra-and-trigonometry-2e": {
+        "default_page": "1-introduction-to-prerequisites",
+        "search_term": "quadratic equations",
+        "chapter_search_results_total": 58,
+        "rkt_search_results_total": 2
+    },
     "american-government-2e": {
         "default_page": "1-introduction",
         "search_term": "hypodermic theory",
@@ -71,11 +77,23 @@
         "chapter_search_results_total": 113,
         "rkt_search_results_total": 2
     },
+        "college-algebra-2e": {
+        "default_page": "1-introduction-to-prerequisites",
+        "search_term": "index",
+        "chapter_search_results_total": 13,
+        "rkt_search_results_total": 2
+    },
     "college-algebra-corequisite-support": {
         "default_page": "1-introduction-to-prerequisites",
         "search_term": "commutative property of addition",
         "chapter_search_results_total": 1,
         "rkt_search_results_total": 1
+    },
+        "college-algebra-corequisite-support-2e": {
+        "default_page": "1-introduction-to-prerequisites",
+        "search_term": "table",
+        "chapter_search_results_total": 261,
+        "rkt_search_results_total": 0
     },
     "college-physics": {
         "default_page": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
@@ -149,6 +167,12 @@
         "chapter_search_results_total": 15,
         "rkt_search_results_total": 1
     },
+    "introduction-intellectual-property": {
+        "default_page": "1-introduction",
+        "search_term": "plant patent",
+        "chapter_search_results_total": 15,
+        "rkt_search_results_total": 0
+    },
     "introduction-sociology-2e": {
         "default_page": "1-introduction-to-sociology",
         "search_term": "certificates or degrees",
@@ -191,6 +215,13 @@
         "chapter_search_results_total": 18,
         "rkt_search_results_total": 1
     },
+    "precalculus-2e": {
+        "default_page": "1-introduction-to-functions",
+        "search_term": "one-to-one function",
+        "chapter_search_results_total": 413,
+        "rkt_search_results_total": 3
+    },
+
     "prealgebra-2e": {
         "default_page": "1-introduction",
         "search_term": "Whole Numbers",
@@ -279,6 +310,12 @@
         "default_page": "1-introduction",
         "search_term": "PATRIOTS",
         "chapter_search_results_total": 20,
+        "rkt_search_results_total": 0
+    },
+    "writing-guide": {
+        "default_page": "1-introduction",
+        "search_term": "Social Media Savvy",
+        "chapter_search_results_total": 2,
         "rkt_search_results_total": 0
     }
 }
