@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { ContentLayoutBody } from '../../components/Layout';
 import ScrollLock from '../../components/ScrollLock';
 import theme from '../../theme';
 import { AppState } from '../../types';
@@ -32,6 +31,18 @@ export const Wrapper = styled(
       margin-left: 0;
     `)}
   }
+`;
+
+// tslint:disable-next-line:variable-name
+const ContentLayoutBody = styled.div`
+  width: 100%;
+  max-width: 148rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 8rem auto auto;
+  ${theme.breakpoints.mobileMedium(css`
+    grid-template-columns: 100%;
+  `)}
 `;
 
 export default connect(

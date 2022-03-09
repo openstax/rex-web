@@ -28,16 +28,4 @@ export const LayoutBody = styled.div`
   ${wrapperPadding}
 `;
 
-// tslint:disable-next-line:variable-name
-export const ContentLayoutBody = styled.div`
-  width: 100%;
-  max-width: 148rem;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 8rem auto auto;
-  ${theme.breakpoints.mobileMedium(css`
-    grid-template-columns: 100%;
-  `)}
-`;
-
 export default Layout;

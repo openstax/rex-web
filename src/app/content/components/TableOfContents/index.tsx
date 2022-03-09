@@ -38,10 +38,6 @@ export class TableOfContents extends Component<SidebarProps> {
   public sidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
 
-  constructor(props: SidebarProps) {
-    super(props);
-  }
-
   public render() {
     const {isOpen, book} = this.props;
 
