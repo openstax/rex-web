@@ -3,7 +3,7 @@ import { isEqual } from 'lodash/fp';
 import path from 'path';
 import { RedirectsData } from '../../data/redirects/types';
 import { content } from '../../src/app/content/routes';
-import { BookWithOSWebData, LinkedArchiveTree, LinkedArchiveTreeNode, LinkedArchiveTreeSection } from '../../src/app/content/types';
+import { BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
 import { flattenArchiveTree } from '../../src/app/content/utils';
 import { disableArchiveTreeCaching } from '../../src/app/content/utils/archiveTreeUtils';
 
