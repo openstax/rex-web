@@ -38,6 +38,7 @@ interface Props {
   myForwardedRef: React.Ref<HTMLAnchorElement>;
   systemQueryParams?: SystemQueryParams;
   persistentQueryParams?: ContentQueryParams;
+  ignoreModal?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -56,6 +57,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     hasUnsavedHighlight,
     systemQueryParams,
     persistentQueryParams,
+    ignoreModal,
     ...anchorProps
   } = props;
   const {url, params} = getBookPageUrlAndParams(book, page);
@@ -64,7 +66,8 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
   const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions({...persistentQueryParams, ...systemQueryParams}, scrollTarget)
+    ? createNavigationOptions({...persistentQueryParams, ...(ignoreModal && {modal: null}), ...systemQueryParams},
+      scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
   const services = useServices();
