@@ -268,6 +268,7 @@ class Page(pypom.Page):
         """
         # Wait for search results to load especially on math books
         sleep(2)
+
         # Break the search phrase to a list of words
         split_search_term = re.findall(r"\w+", search_term)
 
@@ -308,9 +309,9 @@ class Page(pypom.Page):
                         f"Value of focussed_search_term = '{focussed_search_term}'."
                         f"If the value is null, the search term ('{search_term}') is not highlighted in the page."
                     )
-
                 else:
                     continue
+
             except AssertionError:
                 pytest.fail(f"highlighted search term ('{search_term}') is not in view port")
 
