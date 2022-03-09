@@ -238,7 +238,7 @@ Array [
         className="Wrapper-m6kdbg-0 bwERCu Layout__ContentLayoutBody-s6mgs9-1 ibyTsv"
       >
         <div
-          className="styled__ToolbarWrapper-sc-1119auh-4 hxfBvQ"
+          className="styled__ToolbarWrapper-sc-1119auh-4 FSENt"
           data-analytics-region="toolbar"
           data-testid="toolbar"
         >
@@ -1825,7 +1825,7 @@ Array [
         className="Wrapper-m6kdbg-0 bwERCu Layout__ContentLayoutBody-s6mgs9-1 ibyTsv"
       >
         <div
-          className="styled__ToolbarWrapper-sc-1119auh-4 hxfBvQ"
+          className="styled__ToolbarWrapper-sc-1119auh-4 FSENt"
           data-analytics-region="toolbar"
           data-testid="toolbar"
         >
