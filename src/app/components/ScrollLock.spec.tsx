@@ -90,8 +90,8 @@ describe('MobileScrollLock', () => {
           win.matchMedia = () => ({matches: true}) as MediaQueryList;
         });
 
-        it('renders on when mobileOnly disabled', () => {
-          const {root} = renderToDom(<MobileScrollLock mobileOnly={false} />);
+        it('renders on when mediumScreensOnly disabled', () => {
+          const {root} = renderToDom(<MobileScrollLock mediumScreensOnly={false} />);
           expect(() => ReactDOM.unmountComponentAtNode(root)).not.toThrow();
         });
 

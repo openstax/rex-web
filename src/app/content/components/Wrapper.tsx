@@ -19,7 +19,7 @@ interface WrapperProps {
 export const Wrapper = styled(
   ({hasQuery, verticalNavOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
     <ContentLayoutBody {...props}>
-      {verticalNavOpen && <ScrollLock overlay={false} mobileOnly={true} />}
+      {verticalNavOpen && <ScrollLock overlay={false} mediumScreensOnly={true} />}
       {children}
     </ContentLayoutBody>
 )`
