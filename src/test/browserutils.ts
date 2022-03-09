@@ -34,7 +34,7 @@ if (process.env.CI) {
   page.setDefaultNavigationTimeout(90 * 1000);
 }
 
-export const desktopWidth = 1350;
+export const desktopWidth = 1380;
 export const setWideDesktopViewport = (target: puppeteer.Page) =>
   target.setViewport({height: 1074, width: desktopWidth * 2});
 export const setTallerDesktopViewport = (target: puppeteer.Page) =>
