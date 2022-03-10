@@ -42,7 +42,7 @@ const LinkToSection = ({ section }: LinkToSectionProps) => {
 
   if (!section) { return null; }
 
-  return <StyledLink book={book} page={section} target='_blank' data-analytics-label='Go to link' >
+  return <StyledLink book={book} page={section} ignoreModal={true} target='_blank' data-analytics-label='Go to link' >
     <FormattedMessage id='i18n:practice-questions:popup:read'>
       {(msg) => msg}
     </FormattedMessage>

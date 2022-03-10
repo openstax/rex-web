@@ -20,6 +20,7 @@ function removeDocumentTitle(rootEl: HTMLElement) {
   rootEl.querySelectorAll([
     'h1[data-type="document-title"]',
     'h2[data-type="document-title"]',
+    'h3[data-type="document-subtitle"]',
     'div[data-type="document-title"]',
   ].join(',')).forEach((el) => el.remove());
 }
