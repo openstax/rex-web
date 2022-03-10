@@ -1,11 +1,13 @@
 import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
+import { isDefined } from '../../guards';
 import { assertDefined } from '../../utils';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
   ArchiveTree,
   ArchiveTreeNode,
   ArchiveTreeSection,
+  ArchiveTreeSectionType,
   Book,
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
@@ -161,8 +163,11 @@ export const archiveTreeSectionIsPage = isLinkedArchiveTreeSection;
 export const archiveTreeSectionIsUnit = (section: LinkedArchiveTreeNode) =>
   isArchiveTree(section)
   && archiveTreeSectionIsBook(section.parent)
-  && section.contents.every(isArchiveTree)
-;
+  // length condition and `slice(1)` added to accomodate writing composition TOC structure
+  // may be removed when book json includes section types
+  && (section.contents.length > 1
+    ? section.contents.slice(1).every(isArchiveTree)
+    : section.contents.every(isArchiveTree));
 export const archiveTreeSectionIsChapter = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
   isLinkedArchiveTree(section)
   && !archiveTreeSectionIsBook(section)
@@ -173,3 +178,27 @@ export const archiveTreeSectionIsAnswerKey = (section: LinkedArchiveTreeNode): s
   isLinkedArchiveTree(section)
   && section.slug === 'answer-key'
 ;
+export const archiveTreeSectionIsEOCTree = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
+  isLinkedArchiveTree(section)
+  && isDefined(section.parent)
+  && archiveTreeSectionIsChapter(section.parent)
+;
+export const archiveTreeSectionIsEOBTree = (section: LinkedArchiveTreeNode): section is LinkedArchiveTree =>
+  isLinkedArchiveTree(section)
+  && getArchiveTreeSectionNumber(section) === null
+  && !archiveTreeSectionIsUnit(section)
+  && archiveTreeSectionIsBook(section.parent)
+;
+export const getArchiveTreeSectionType = (section: LinkedArchiveTreeNode | LinkedArchiveTreeSection)
+  : ArchiveTreeSectionType =>
+    archiveTreeSectionIsBook(section)
+      ? 'book'
+      : (archiveTreeSectionIsUnit(section)
+        ? 'unit'
+        : (archiveTreeSectionIsChapter(section)
+            ? 'chapter'
+            : archiveTreeSectionIsEOCTree(section)
+              ? 'eoc-dropdown'
+              : archiveTreeSectionIsEOBTree(section)
+                ? 'eob-dropdown'
+                : 'page'));

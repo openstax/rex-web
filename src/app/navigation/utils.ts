@@ -127,16 +127,19 @@ export const findPathForParams = (params: object, paths: string[]) => {
   });
 };
 
-export const getQueryForParam = (param: string, value: string, existingQuery?: string | OutputParams) => {
+export const getQueryForParam = (
+  values: Record<string, string | string[]>,
+  existingQuery?: string | OutputParams
+) => {
   if (existingQuery) {
     const parsedExistingQuery = typeof existingQuery === 'string'
       ? queryString.parse(existingQuery)
       : existingQuery;
 
-    return queryString.stringify({...parsedExistingQuery, [param]: value});
+    return queryString.stringify({...parsedExistingQuery, ...values});
   }
 
-  return queryString.stringify({[param]: value});
+  return queryString.stringify(values);
 };
 
 export const isScrollTarget = (
@@ -172,7 +175,7 @@ export const createNavigationOptions = (
   search: Record<string, string | null | undefined>,
   scrollTarget?: ScrollTarget
 ) => ({
-  hash: scrollTarget ? scrollTarget.elementId : undefined,
+  hash: scrollTarget ? `#${scrollTarget.elementId}` : undefined,
   search: queryString.stringify({
     ...omitBy(isNull, search),
     target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,

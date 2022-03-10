@@ -6,7 +6,8 @@ import { navDesktopHeight } from '../../../../components/NavBar';
 import Times from '../../../../components/Times';
 import {
   labelStyle,
-  textRegularStyle
+  textRegularStyle,
+  textStyle
 } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import {
@@ -49,7 +50,14 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 `;
 
 // tslint:disable-next-line:variable-name
-export const NavOl = styled.ol`
+export const NavWrapper = styled.div``;
+
+// tslint:disable-next-line:variable-name
+export const SearchResultsOl = styled.ol`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
   .os-divider {
     width: 0.4rem;
   }
@@ -115,7 +123,8 @@ export const SearchResultsBar = styled.div`
     max-height: calc(100vh - ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem);
   `)}
 
-  > ${NavOl} {
+  > ${NavWrapper} {
+    position: relative;
     flex: 1;
     ::before {
       display: none;
@@ -241,35 +250,14 @@ export const SectionContentPreview = styled(
   display: block;
   text-decoration: none;
   line-height: 1.3;
-  padding: 0 0 0 3.2rem;
-
-  :not(:last-child) > div {
-    border-bottom: solid 0.1rem ${borderColor};
-  }
 
   ${(props: {selectedResult: boolean}) => props.selectedResult && css`
     background: ${borderColor};
   `}
 
-  > div {
-    padding: 1.2rem ${theme.padding.page.mobile}rem 1.2rem 0;
-
-    ::before{
-      content: '... '
-    }
-
-    ::after {
-      content: ' ...'
-    }
-  }
-
   > * {
     outline: none;
   }
-
-  ${theme.breakpoints.mobile(css`
-    padding-left: 5rem;
-  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -363,4 +351,72 @@ export const HeaderQuery = styled.div`
 export const ListItem = styled.li`
   overflow: visible;
   display: block;
+`;
+
+// tslint:disable-next-line: variable-name
+export const SearchResultsSectionTitle = styled.span`
+  ${textStyle}
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: flex;
+  padding: 1.2rem 3.2rem;
+`;
+
+// tslint:disable-next-line: variable-name
+export const KeyTermContainer = styled.div``;
+
+// tslint:disable-next-line: variable-name
+export const RelatedKeyTerms = styled.div`
+  background-color: ${theme.color.white};
+
+  ${SectionContentPreview} {
+    padding-right: 2.4rem;
+  }
+`;
+
+// tslint:disable-next-line: variable-name
+export const KeyTerm = styled.span`
+  display: block;
+  font-weight: bold;
+`;
+
+// tslint:disable-next-line: variable-name
+export const SimpleResult = styled.div`
+  margin: 0 0 0 3.2rem;
+  padding: 1.2rem ${theme.padding.page.mobile}rem 1.2rem 0;
+
+  ${theme.breakpoints.mobile(css`
+    margin-left: 5rem;
+  `)}
+
+  ${SectionContentPreview}:not(:last-child) > & {
+    border-bottom: solid 0.1rem ${borderColor};
+  }
+
+  > div {
+    ::before{
+      content: '... '
+    }
+
+    ::after {
+      content: ' ...'
+    }
+  }
+`;
+
+// tslint:disable-next-line: variable-name
+export const KeyTermResult = styled(SimpleResult)`
+  ${theme.breakpoints.mobile(css`
+    margin-left: 3.2rem;
+  `)}
+
+  > div {
+    ::before{
+      content: ''
+    }
+
+    ::after {
+      content: ''
+    }
+  }
 `;

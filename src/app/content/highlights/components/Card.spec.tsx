@@ -429,4 +429,5 @@ describe('Card', () => {
 
     expect(spyScrollIntoView).toHaveBeenCalledWith(firstElement, [secondElement, cardElement]);
   });
+
 });

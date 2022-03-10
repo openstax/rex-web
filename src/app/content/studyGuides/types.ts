@@ -7,12 +7,10 @@ import {
 
 export interface StudyGuidesSummaryFilters {
   colors: HighlightColorEnum[];
-  default: boolean;
   locationIds: string[];
 }
 
 export interface State {
-  isEnabled: boolean;
   summary: {
     filters: StudyGuidesSummaryFilters,
     loading: boolean,

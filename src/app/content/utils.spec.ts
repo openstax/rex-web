@@ -30,7 +30,7 @@ describe('getContentPageReferences', () => {
 
   beforeEach(() => {
     book = {
-      id: 'booklongid@1',
+      id: 'booklongid',
       title: 'book',
       tree: {
         contents: [
@@ -41,6 +41,7 @@ describe('getContentPageReferences', () => {
           },
         ],
       },
+      version: '1',
     } as ArchiveBook;
 
     page = {
@@ -66,8 +67,8 @@ describe('getContentPageReferences', () => {
     page.content = '<a href="#foo"></a>';
     expect(getContentPageReferences(book, page)).toEqual([
       {
-        bookId: 'booklongid@1',
-        bookVersion: undefined,
+        bookId: 'booklongid',
+        bookVersion: '1',
         match: '#foo',
         pageId: 'adsfasdf',
       },
@@ -81,6 +82,11 @@ describe('getContentPageReferences', () => {
 
   it('ignores urls without book version', () => {
     page.content = 'asdfasdfasf <a href="/contents/as8s8xu9sdnjsd9"></a> asdfadf';
+    expect(getContentPageReferences(book, page)).toEqual([]);
+  });
+
+  it('ignores links with no href', () => {
+    page.content = '<a name="foo"></a>';
     expect(getContentPageReferences(book, page)).toEqual([]);
   });
 
@@ -278,12 +284,14 @@ describe('parseContents', () => {
           {
             contents: [
               {id: 'chapter@sth', title: chapterHtml, contents: [{id: 'page@sth', title: pageHtml}]},
+              {id: 'chapter2@sth', title: chapterHtml, contents: [{id: 'page@sth', title: pageHtml}]},
             ],
             id: 'unit@unit',
             title: unitHtml,
           },
           {
             contents: [
+              {id: 'chapter@sth', title: chapter2Html, contents: [{id: 'page2@sth', title: pageHtml}]},
               {id: 'chapter2@sth', title: chapter2Html, contents: [{id: 'page2@sth', title: pageHtml}]},
             ],
             id: 'unit2@unit',

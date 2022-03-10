@@ -33,8 +33,9 @@ export interface UpdateOptions {
   onSelect: (selectedHighlight?: Highlight) => void;
 }
 
-const updateResults = (services: Services, previous: HighlightProp, current: HighlightProp, options: UpdateOptions) => {
-  if (!options.forceRedraw && previous.searchResults === current.searchResults) {
+// tslint:disable-next-line: max-line-length
+const updateResults = (services: Services, previous: HighlightProp | null, current: HighlightProp, options: UpdateOptions) => {
+  if (!options.forceRedraw && previous && previous.searchResults === current.searchResults) {
     return;
   }
 
@@ -42,11 +43,12 @@ const updateResults = (services: Services, previous: HighlightProp, current: Hig
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
-const selectResult = (services: Services, previous: HighlightProp, current: HighlightProp, options: UpdateOptions) => {
+// tslint:disable-next-line: max-line-length
+const selectResult = (services: Services, previous: HighlightProp | null, current: HighlightProp, options: UpdateOptions) => {
   if (!current.selectedResult) {
     return;
   }
-  if (!options.forceRedraw && previous.selectedResult === current.selectedResult) {
+  if (!options.forceRedraw && previous && previous.selectedResult === current.selectedResult) {
     return;
   }
 
@@ -60,17 +62,16 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
 
   if (firstSelectedHighlight) {
     // If selected result is in the collapsed solution then expand it
-    const solution = (firstSelectedHighlight.elements[0] as HTMLElement)
-      .closest('[data-type="solution"][aria-expanded="false"]');
-    if (solution) {
-      const button = solution.querySelector('button');
-      button?.click();
+    const details = (firstSelectedHighlight.elements[0] as HTMLElement)
+      .closest('[data-type="solution"][aria-expanded="false"]')?.querySelector('details');
+    if (details) {
+      details.open = true;
     }
 
     firstSelectedHighlight.addFocusedStyles();
   }
 
-  if (previous.selectedResult === current.selectedResult) { return; }
+  if (previous && previous.selectedResult === current.selectedResult) { return; }
 
   if (firstSelectedHighlight) {
     allImagesLoaded(services.container).then(
@@ -82,7 +83,7 @@ const selectResult = (services: Services, previous: HighlightProp, current: High
 };
 
 const handleUpdate = (services: Services) => (
-  previous: HighlightProp,
+  previous: HighlightProp | null,
   current: HighlightProp,
   options: UpdateOptions
 ) => {
@@ -95,7 +96,7 @@ const searchHighlightManager = (container: HTMLElement, intl: IntlShape) => {
     container,
     highlighter: new Highlighter(container, {
       className: 'search-highlight',
-      formatMessage: ({ id }) => intl.formatMessage({ id }, { style: 'search' }),
+      formatMessage: ({ id }) => intl.formatMessage({ id: `${id}:search` }),
     }),
     searchResultMap: [],
   };

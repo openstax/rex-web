@@ -1,4 +1,6 @@
+import { HTMLAnchorElement } from '@openstax/types/lib.dom';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
+import { isDefined } from '../guards';
 import { AppServices } from '../types';
 import { hasOSWebData, isArchiveTree } from './guards';
 import {
@@ -27,20 +29,26 @@ export interface ContentPageRefencesType {
   pageId: string;
 }
 
+const hashRegex = `#[^'"]+`;
+const pathRegex = `\\./((?<bookId>[a-z0-9-]+)(@(?<bookVersion>[^/]+))?):(?<pageId>[a-z0-9-]+)\\.xhtml(${hashRegex})?`;
+const referenceRegex = `^(?<matchPath>((${pathRegex})|(${hashRegex})).*)$`;
+
 export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
+  const domParser = new DOMParser();
+  const domNode = domParser.parseFromString(page.content, 'text/html');
+
   const matches: ContentPageRefencesType[] = (
-    page.content.match(/['"]{1}((#[^'"\s]+)|(\.\/([a-z0-9-]+(@[\d.]+)?):([a-z0-9-]+.xhtml(#.[^'"]+)?)))/g) || []
-    )
-    .map((match) => {
-      const [bookMatch, pageMatch] = match.split(':');
-      const pageId = pageMatch && pageMatch.split('.xhtml')[0];
-      const [bookIdSegment, bookVersion] = bookMatch && bookMatch.split('@') as [string, string | undefined];
-      const bookId = match.includes(':') && bookIdSegment && bookIdSegment.substr(3);
+    Array.from(domNode.querySelectorAll('a'))
+  )
+    .map((link) => (link as HTMLAnchorElement).getAttribute('href') || '')
+    .map((match) => match.match(new RegExp(referenceRegex))?.groups)
+    .filter(isDefined)
+    .map(({matchPath, bookId, bookVersion, pageId}) => {
 
       return {
         bookId: bookId || book.id,
         bookVersion: bookVersion || (!bookId ? book.version : undefined),
-        match: match.substr(1),
+        match: matchPath,
         pageId: (pageId && stripIdVersion(pageId)) || page.id,
       };
     });
@@ -123,4 +131,9 @@ export const preloadedPageIdIs = (window: Window, id: string) => window.__PRELOA
 export const getIdFromPageParam = (param: Params['page'] | null) => {
   if (!param) { return ''; }
   return (param as SlugParams).slug || (param as UuidParams).uuid;
+};
+
+export const loadPageContent = async(loader: ReturnType<AppServices['archiveLoader']['book']>, pageId: string) => {
+  const page = await loader.page(pageId).load();
+  return page.content;
 };

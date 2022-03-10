@@ -1,4 +1,4 @@
-import { Document, HTMLButtonElement, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { assertNotNull } from '../../../utils';
 
@@ -11,56 +11,16 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   wrapElements(document, rootEl);
   tweakFigures(rootEl);
   fixLists(rootEl);
-  wrapSolutions(rootEl, intl);
+  wrapSolutions(document, rootEl, intl);
   moveFootnotes(document, rootEl, intl);
   setLinksAttributes(rootEl);
-};
-
-const toggleSolutionSectionStyles = (section: HTMLElement, shouldBeVisible: boolean) => {
-  if (shouldBeVisible) {
-    section.style.height = 'auto';
-    section.style.overflow = 'visible';
-  } else {
-    section.style.height = '0px';
-    section.style.overflow = 'hidden';
-  }
-};
-
-const toggleSolutionAttributes = (solution: HTMLElement, intl: IntlShape) => {
-  const section = assertNotNull(solution.querySelector('section'), 'Expected solution to contain a <section>');
-
-  if (solution.classList.contains('ui-solution-visible')) {
-    solution.classList.remove('ui-solution-visible');
-    solution.setAttribute('aria-expanded', 'false');
-    solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
-    toggleSolutionSectionStyles(section, false);
-  } else {
-    solution.className += ' ui-solution-visible';
-    solution.setAttribute('aria-expanded', 'true');
-    solution.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:hide'}));
-    toggleSolutionSectionStyles(section, true);
-  }
-};
-
-export const toggleSolution = (button: HTMLElement, intl: IntlShape) => () => {
-  if (!button.parentElement || !button.parentElement.parentElement) {
-    return;
-  }
-  toggleSolutionAttributes(button.parentElement.parentElement, intl);
-};
-
-export const mapSolutions = (container: HTMLElement | null, cb: (a: HTMLButtonElement) => void) => {
-  if (container) {
-    Array.from(container.querySelectorAll<HTMLButtonElement>(
-      '[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle, .solution > .ui-toggle-wrapper > .ui-toggle'
-    )).forEach(cb);
-  }
 };
 
 function removeDocumentTitle(rootEl: HTMLElement) {
   rootEl.querySelectorAll([
     'h1[data-type="document-title"]',
     'h2[data-type="document-title"]',
+    'h3[data-type="document-subtitle"]',
     'div[data-type="document-title"]',
   ].join(',')).forEach((el) => el.remove());
 }
@@ -127,25 +87,24 @@ function fixLists(rootEl: HTMLElement) {
   });
 }
 
-// hide text visually, but make rangy still search through it
-// when highlighting a search result
-// https://github.com/timdown/rangy/wiki/Text-Range-Module#visible-text
-const initialSolutionStyles = 'display: block; overflow: hidden; height: 0px';
-
-function wrapSolutions(rootEl: HTMLElement, intl: IntlShape) {
+function wrapSolutions(document: Document, rootEl: HTMLElement, intl: IntlShape) {
   const title = intl.formatMessage({id: 'i18n:content:solution:toggle-title'});
 
-  // Wrap solutions in a div so "Show/Hide Solutions" work
+  // Wrap solutions in a details element so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
-    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:show'}));
-    el.setAttribute('aria-expanded', 'false');
+    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:toggle-title'}));
     const contents = el.innerHTML;
-    el.innerHTML = `
-      <div class="ui-toggle-wrapper">
-        <button class="btn-link ui-toggle" title="${title}"></button>
-      </div>
-      <section class="ui-body" role="alert" style="${initialSolutionStyles}">${contents}</section>
+    const detailsEl = document.createElement('details');
+
+    Array.from(el.attributes).forEach((attr) => {
+      detailsEl.setAttribute(attr.name, attr.value);
+    });
+
+    detailsEl.innerHTML = `
+      <summary class="btn-link ui-toggle" title="${title}" data-content="${title}"></summary>
+      <section class="ui-body" role="alert">${contents}</section>
     `;
+    el.replaceWith(detailsEl);
   });
 }
 
