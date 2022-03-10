@@ -26,7 +26,7 @@ Treści dostępne za darmo na https://openstax.org{introPageUrl}
 
 Jeśli rozpowszechniasz całą książkę lub jej fragment w formacie cyfrowym, na każdym widoku strony umieść informację:
     <blockquote>
-  Treści dostępne za darmo na<a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+  Treści dostępne za darmo na <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
     </blockquote>
   </li>
 </ul>
@@ -41,7 +41,7 @@ Jeśli chcesz zacytować tę książkę, skorzystaj z dostępnych narzędzi do t
     Autorzy: {bookAuthors}
       </li>
       <li>
-     Wydawca/strona internetowa: OpenStax
+     Wydawca/strona internetowa: OpenStax Poland
       </li>
       <li>
      Tytuł książki: {bookTitle}
@@ -50,7 +50,7 @@ Jeśli chcesz zacytować tę książkę, skorzystaj z dostępnych narzędzi do t
         Data publikacji: {bookPublishDate, date, medium}
       </li>
       <li>
-     Miejscowość: Houston, Teksas
+     Miejscowość: Warszawa
       </li>
       <li>
      URL książki: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>

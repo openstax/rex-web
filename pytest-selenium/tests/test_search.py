@@ -1,18 +1,26 @@
 """Test REx search."""
 
+import pytest
+import re
+import unittest
 from math import isclose
 from random import choice
 from string import digits, ascii_letters
-import re
 from time import sleep
-import unittest
 
+from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 
 from pages.content import Content
 from tests import markers
-from utils.utility import Utilities, Library, get_search_term, expected_search_results_total
+from utils.utility import (
+    Utilities,
+    Library,
+    get_search_term,
+    expected_chapter_search_results_total,
+    expected_rkt_search_results_total,
+)
 
 XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-highlight first text last focus')]"
 
@@ -428,7 +436,8 @@ def test_search_results(selenium, base_url, page_slug):
         # WHEN: Search is performed
         search_sidebar = book.search_sidebar
         search_term = get_search_term(book_slug)
-        expected_value = expected_search_results_total(book_slug)
+        chapter_search_results_expected_value = expected_chapter_search_results_total(book_slug)
+        rkt_results_expected_value = expected_rkt_search_results_total(book_slug)
 
         # AND: Search sidebar is open
         book.toolbar.search_for(search_term)
@@ -440,13 +449,93 @@ def test_search_results(selenium, base_url, page_slug):
             assert search_sidebar.search_results_present
 
         # THEN: Search sidebar shows total number of matches throughout the book
+        assert search_sidebar.rkt_search_result_total == rkt_results_expected_value
         try:
-            assert search_sidebar.search_result_total == expected_value
+            assert (
+                search_sidebar.chapter_search_result_total == chapter_search_results_expected_value
+            )
         except AssertionError:
             # Total search results vary slightly between environment/search sessions which is being worked on by the developers.
             # Till then asserting with a threshold value
             print(
-                f"Search results mismatch for '{book_slug}', expected = '{expected_value}', actual = '{search_sidebar.search_result_total}'"
+                f"Search results mismatch for '{book_slug}', expected = '{chapter_search_results_expected_value}', actual = '{search_sidebar.chapter_search_result_total}'"
             )
             tc = unittest.TestCase()
-            tc.assertAlmostEqual(search_sidebar.search_result_total, expected_value, delta=3)
+            tc.assertAlmostEqual(
+                search_sidebar.chapter_search_result_total,
+                chapter_search_results_expected_value,
+                delta=3,
+            )
+
+
+@markers.test_case("C641288")
+@markers.parametrize("book_slug, page_slug", [("introductory-statistics", "1-introduction")])
+@markers.nondestructive
+@markers.desktop_only
+def test_open_search_results_in_new_tab(selenium, base_url, book_slug, page_slug):
+    """Search results can be opened in a new tab."""
+
+    # GIVEN: Book page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    # Skip any notification/nudge popups
+    while book.notification_present:
+        book.notification.got_it()
+
+    toolbar = book.toolbar
+    search_sidebar = book.search_sidebar
+    search_term = get_search_term(book_slug)
+
+    # AND: Search sidebar is displayed with search results
+    toolbar.search_for(search_term)
+    assert search_sidebar.search_results_present
+    page_url_with_search_results = search_sidebar.chapter_results[9].get_attribute("href")
+
+    # WHEN: Open search result from section 2.2 in new window
+    book.open_new_tab()
+    book.switch_to_window(1)
+
+    rex = Content(selenium)
+    selenium.get(page_url_with_search_results)
+    rex.wait_for_page_to_load()
+    book_banner = rex.bookbanner
+
+    # THEN: Page 2.2 displays highlighted search result in new window
+    assert book_banner.section_title == "2.2 Histograms, Frequency Polygons, and Time Series Graphs"
+
+    # Loop through the words in search term and assert if atleast one of the search word is highlighted
+    split_search_term = re.findall(r"\w+", search_term)
+    for x in split_search_term:
+        focussed_search_term = rex.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
+        if focussed_search_term == []:
+            focussed_search_term = rex.content.find_elements(
+                By.XPATH, XPATH_SEARCH.format(term=x.capitalize() if x[0].islower() else x.lower())
+            )
+        try:
+            rex.wait.until(expected.visibility_of(focussed_search_term[0]))
+            assert rex.element_in_viewport(focussed_search_term[0])
+        except TimeoutException:
+            if split_search_term.index(x) == len(split_search_term) - 1:
+                pytest.fail(
+                    f"the highlighted search term ('{search_term}') was not found on the page"
+                )
+            else:
+                continue
+        except IndexError:
+            if split_search_term.index(x) == len(split_search_term) - 1:
+                pytest.fail(
+                    f"Value of focussed_search_term = '{focussed_search_term}'."
+                    f"If the value is null, the search term ('{search_term}') is not highlighted in the page."
+                )
+            else:
+                continue
+        except AssertionError:
+            pytest.fail(f"highlighted search term ('{search_term}') is not in view port")
+
+        break
+
+    # AND: Search string stays in the search box as in the first window
+    assert rex.toolbar.search_term_displayed_in_search_textbox == search_term
+
+    # AND: Total search results is same as in first window
+    assert rex.search_sidebar.chapter_search_result_total == 13

@@ -9,10 +9,11 @@ import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
+import LabsCTA from '../LabsCTA';
 import PageToasts from '../Page/PageToasts';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
-import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
+import { transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
@@ -66,6 +67,15 @@ export default class PageComponent extends Component<PagePropTypes> {
     // tslint:disable-next-line: max-line-length
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
+
+    // Sometimes data is already populated on mount, eg when navigating to a new tab
+    if (this.props.searchHighlights.selectedResult) {
+      this.searchHighlightManager.update(null, this.props.searchHighlights, {
+        forceRedraw: true,
+        onSelect: this.onSearchHighlightSelect,
+      });
+    }
+    this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
@@ -142,6 +152,7 @@ export default class PageComponent extends Component<PagePropTypes> {
         dangerouslySetInnerHTML={{ __html: html}}
       />
       <PrevNextBar />
+      <LabsCTA />
       <BuyBook />
     </React.Fragment>;
   };
@@ -185,12 +196,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
     });
-
-    mapSolutions(this.container.current, (button) => {
-      const handler = toggleSolution(button, this.props.intl);
-      this.clickListeners.set(button, handler);
-      button.addEventListener('click', handler);
-    });
   }
 
   private listenersOff() {
@@ -202,7 +207,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     };
 
     this.mapLinks(removeIfExists);
-    mapSolutions(this.container.current, removeIfExists);
   }
 
   private postProcess() {

@@ -5,6 +5,7 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
+import { runHooks } from '../../../../test/utils';
 import GoToTopButton from '../../../components/GoToTopButton';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
@@ -66,6 +67,23 @@ describe('ShowStudyGuides', () => {
     renderer.act(() => {
       sgWrapper.props.onScroll();
     });
+
+    expect(dispatch).toHaveBeenCalledWith(loadMoreStudyGuides());
+  });
+
+  it('requests more highlights when there are more results', () => {
+    const container = window.document.createElement('div');
+    const dispatch = spyOn(store, 'dispatch');
+
+    jest.spyOn(selectors, 'hasMoreResults').mockReturnValue(true);
+    jest.spyOn(selectors, 'summaryIsLoading').mockReturnValue(false);
+    jest.spyOn(selectors, 'summaryStudyGuides').mockReturnValue({});
+
+    renderer.create(<TestContainer store={store}>
+      <ShowStudyGuides />
+    </TestContainer>, { createNodeMock: () => container});
+
+    runHooks(renderer);
 
     expect(dispatch).toHaveBeenCalledWith(loadMoreStudyGuides());
   });

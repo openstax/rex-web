@@ -43,7 +43,13 @@ for book_and_version in $book_entries; do
   git checkout src/config.books.json
   (git checkout "$branch" && git merge "origin/$rex_default_branch" --no-edit -X theirs) || git checkout -b "$branch"
 
-  node script/entry.js update-content-versions-and-check-for-archived-slugs --bookId "$book_id" --versionNumber "$new_version"
+  current_version=$(jq -r --arg bookId "$book_id" '.[$bookId].defaultVersion' < src/config.books.json)
+
+  if [[ "$current_version" == "$new_version" ]]; then
+    continue
+  fi
+
+  node script/entry.js update-archive-version --contentVersion "$book_id@$new_version"
 
   if [[ -z $(git status --porcelain) ]]; then
     continue

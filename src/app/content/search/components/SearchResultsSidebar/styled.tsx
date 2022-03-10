@@ -50,7 +50,14 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 `;
 
 // tslint:disable-next-line:variable-name
-export const NavOl = styled.ol`
+export const NavWrapper = styled.div``;
+
+// tslint:disable-next-line:variable-name
+export const SearchResultsOl = styled.ol`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
   .os-divider {
     width: 0.4rem;
   }
@@ -116,7 +123,8 @@ export const SearchResultsBar = styled.div`
     max-height: calc(100vh - ${bookBannerMobileMiniHeight + toolbarMobileHeight}rem);
   `)}
 
-  > ${NavOl} {
+  > ${NavWrapper} {
+    position: relative;
     flex: 1;
     ::before {
       display: none;

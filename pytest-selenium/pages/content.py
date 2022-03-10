@@ -401,6 +401,11 @@ class Content(Page):
             '[data-testid="attribution-details"] summary',
         )
         _book_url_locator = (By.XPATH, "//*[contains(text(), 'Book URL')]/a")
+        _citation_builder_url_locator = (
+            By.XPATH,
+            "//*[contains(text(), 'Want to cite, share, or modify this book')]/a",
+        )
+        _copyright_locator = (By.CSS_SELECTOR, "div > p:nth-of-type(2)")
         _section_url_locator = (By.XPATH, "//*[contains(text(), 'Section URL')]/a")
 
         @property
@@ -408,24 +413,63 @@ class Content(Page):
             return self.find_element(*self._attribution_toggle_locator)
 
         @property
-        def is_open(self) -> bool:
-            return bool(self.root.get_attribute("open"))
+        def access_free_url(self) -> str:
+            return self.find_element(*self._access_free_locator).get_attribute("href")
 
         @property
-        def section_url_within_attribution(self) -> WebElement:
-            return self.find_element(*self._section_url_locator)
+        def attribution_text(self) -> str:
+            """Return stripped text present under the Attribution link.
 
-        @property
-        def section_url(self) -> str:
-            return self.section_url_within_attribution.get_attribute("href")
+            :return: The stripped text present under the Attribution link
+            :rtype: str
+
+            """
+            return self.root.get_attribute("textContent").strip()
 
         @property
         def book_url(self) -> str:
             return self.find_element(*self._book_url_locator).get_attribute("href")
 
         @property
-        def access_free_url(self) -> str:
-            return self.find_element(*self._access_free_locator).get_attribute("href")
+        def citation_builder(self) -> WebElement:
+            """Return citation builder link location under attribution link.
+
+            :return: Citation builder link location under attribution link
+            :rtype: WebElement
+
+            """
+            return self.find_element(*self._citation_builder_url_locator)
+
+        @property
+        def copyright_name(self) -> str:
+            """Return copyright name under attribution link.
+
+            Exclude the revision date and other license related text from the Copyright
+            section under Attribution link and return the copyright name alone.
+
+            :return: copyright name under attribution link
+            :rtype: str
+
+            """
+            copyright_text = self.find_element(*self._copyright_locator).get_attribute(
+                "textContent"
+            )
+            copyright_text_split = copyright_text.split(".")[0]
+            copyright_name_split = copyright_text_split.split(",")[1]
+            copyright_name = copyright_name_split[5:]
+            return copyright_name.strip()
+
+        @property
+        def is_open(self) -> bool:
+            return bool(self.root.get_attribute("open"))
+
+        @property
+        def section_url(self) -> str:
+            return self.section_url_within_attribution.get_attribute("href")
+
+        @property
+        def section_url_within_attribution(self) -> WebElement:
+            return self.find_element(*self._section_url_locator)
 
         def click_attribution_link(self):
             self.offscreen_click(self.attribution_link)

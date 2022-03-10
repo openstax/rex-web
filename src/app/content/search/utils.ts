@@ -8,8 +8,14 @@ import attachHighlight from '../components/utils/attachHighlight';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
 import { getIdVersion, stripIdVersion } from '../utils/idUtils';
-import { isSearchResultChapter } from './guards';
+import { isKeyTermHit, isSearchResultChapter } from './guards';
 import { SearchResultContainer, SearchResultPage, SearchScrollTarget, SelectedResult } from './types';
+
+const ACCEPTED_DOC_TYPES = [
+  SearchResultHitSourceElementTypeEnum.Figure,
+  SearchResultHitSourceElementTypeEnum.KeyTerm,
+  SearchResultHitSourceElementTypeEnum.Paragraph,
+];
 
 export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult): SelectedResult | null => {
   const [result] = getFormattedSearchResults(book.tree, results);
@@ -152,7 +158,12 @@ export const highlightResults = (
       return {result: hit, highlights: {}};
     }
 
-    const hitHighlights = hit.highlight.visibleContent.map((highlightText, index) => {
+    // necessary for correct search highlighting of key term results
+    if (isKeyTermHit(hit) && hit.highlight.title) {
+      hit.highlight.visibleContent = [hit.highlight.title];
+    }
+
+    const hitHighlights = hit.highlight.visibleContent?.map((highlightText, index) => {
       const highlights = getHighlightRanges(element, highlightText, index)
         .map((range) => {
           const highlight = new Highlight(
@@ -190,6 +201,9 @@ export const findSearchResultHit = (
 export const matchKeyTermHit = (hit: SearchResultHit) =>
   hit.source.elementType === SearchResultHitSourceElementTypeEnum.KeyTerm;
 
+const matchAcceptedDocTypeHit = (hit: SearchResultHit) =>
+  ACCEPTED_DOC_TYPES.indexOf(hit.source.elementType) >= 0;
+
 export const generateKeyTermExcerpt = (text: string) => {
   if (text.length <= 115) {
     return text;
@@ -222,7 +236,10 @@ export const getFilteredResults = (searchResults: SearchResult) => ({
   ...searchResults,
   hits: {
     ...searchResults.hits,
-    hits: searchResults.hits.hits.filter((hit) => !matchKeyTermHit(hit) || !!hit.highlight.title)},
+    hits: searchResults.hits.hits.filter((hit) =>
+      // use only first condition (acceted doc type) once search backend updated to ignore key term definitions
+      matchAcceptedDocTypeHit(hit) && (!matchKeyTermHit(hit) || !!hit.highlight.title)
+    )},
 });
 
 export const getNonKeyTermResults = (searchResults: SearchResult) => ({
