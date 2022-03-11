@@ -259,8 +259,8 @@ class Page(pypom.Page):
         return None
 
     def assert_search_term_is_highlighted_in_content_page(self, search_term):
-        """"Loop through the words in search phrase and
-        assert if atleast one of the search word is highlighted in content.
+        """Loop through the words in search phrase and
+        assert if at least one of the search word is highlighted in content.
 
         :param str search_term: the search term entered in search text box
         :return: None
