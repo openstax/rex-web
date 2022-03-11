@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import re
+import pytest
+
 from time import sleep
 from math import ceil as round_up
 from typing import Tuple
 from datetime import datetime
-
 
 import pypom
 from selenium.webdriver.remote.webelement import WebElement
@@ -22,6 +24,9 @@ from selenium.webdriver.support import expected_conditions as expected
 from tests.conftest import DESKTOP, MOBILE
 
 BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
+XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-highlight first text last focus')]"
+# If search term is inside a block of search highlight use this XPATH
+XPATH_SEARCH_BLOCK = "//span[contains(@class,'search-highlight first text last focus')]//span[contains(text(),'{term}')]"
 
 
 class Page(pypom.Page):
@@ -252,3 +257,62 @@ class Page(pypom.Page):
 
         sleep(3)
         return None
+
+    def assert_search_term_is_highlighted_in_content_page(self, search_term):
+        """Loop through the words in search phrase and
+        assert if at least one of the search word is highlighted in content.
+
+        :param str search_term: the search term entered in search text box
+        :return: None
+
+        """
+        # Wait for search results to load especially on math books
+        sleep(2)
+
+        # Break the search phrase to a list of words
+        split_search_term = re.findall(r"\w+", search_term)
+
+        for x in split_search_term:
+            #  Find the element in content matching the search highlight and search word
+            focussed_search_term = self.content.find_elements(
+                By.XPATH, XPATH_SEARCH.format(term=x)
+            ) or self.content.find_elements(By.XPATH, XPATH_SEARCH_BLOCK.format(term=x))
+
+            # Change capitalization of search word to check if it is in content
+            if focussed_search_term == []:
+                focussed_search_term = self.content.find_elements(
+                    By.XPATH,
+                    XPATH_SEARCH.format(term=x.capitalize() if x[0].islower() else x.lower()),
+                ) or self.content.find_elements(
+                    By.XPATH,
+                    XPATH_SEARCH_BLOCK.format(term=x.capitalize() if x[0].islower() else x.lower()),
+                )
+
+            try:
+                # Verify search word is highlighted in content
+                self.wait.until(expected.visibility_of(focussed_search_term[0]))
+
+                # Verify if the search word is scrolled to viewport
+                assert self.element_in_viewport(focussed_search_term[0])
+
+            except TimeoutException:
+                if split_search_term.index(x) == len(split_search_term) - 1:
+                    pytest.fail(
+                        f"the highlighted search term ('{search_term}') was not found on the page"
+                    )
+                else:
+                    continue
+
+            except IndexError:
+                if split_search_term.index(x) == len(split_search_term) - 1:
+                    pytest.fail(
+                        f"Value of focussed_search_term = '{focussed_search_term}'."
+                        f"If the value is null, the search term ('{search_term}') is not highlighted in the page."
+                    )
+                else:
+                    continue
+
+            except AssertionError:
+                pytest.fail(f"highlighted search term ('{search_term}') is not in view port")
+
+            break
