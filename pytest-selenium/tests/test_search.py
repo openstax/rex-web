@@ -1,15 +1,11 @@
 """Test REx search."""
 
-import pytest
-import re
 import unittest
 from math import isclose
 from random import choice
 from string import digits, ascii_letters
 from time import sleep
 
-from selenium.webdriver.support import expected_conditions as expected
-from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 
 from pages.content import Content
@@ -21,8 +17,6 @@ from utils.utility import (
     expected_chapter_search_results_total,
     expected_rkt_search_results_total,
 )
-
-XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-highlight first text last focus')]"
 
 
 # fmt: off
@@ -176,22 +170,8 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         topbar.search_for(search_term)
         assert search_sidebar.search_results_present
 
-        # Loop through the words in search term and assert if atleast one of them is highlighted in the book
-        split_search_term = re.findall(r"\w+", search_term)
-        for x in split_search_term:
-            focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
-            try:
-                assert (
-                    focussed_search_term
-                ), f"the highlighted search term ('{x}') was not found on the page"
-                assert book.element_in_viewport(focussed_search_term[0])
-            except AssertionError:
-                continue
-            except IndexError:
-                # Wait till the focussed search term is scrolled to the viewport
-                sleep(1)
-                assert book.element_in_viewport(focussed_search_term[0])
-            break
+        # AND: Search term is focussed in the content page
+        book.assert_search_term_is_highlighted_in_content_page(search_term)
 
         scroll_position_before_closing_search_sidebar = book.scroll_position
 
@@ -255,25 +235,10 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
 
         # For mobile, content is not visible when search results are displayed.
         # So click on first search result to store the content scroll position.
-        search_results = book.search_sidebar.search_results(search_term)
-        Utilities.click_option(selenium, element=search_results[0])
+        Utilities.click_option(selenium, element=book.search_sidebar.chapter_results[0])
 
-        # Loop through the words in search term and assert if atleast one of them is highlighted in the book
-        split_search_term = re.findall(r"\w+", search_term)
-        for x in split_search_term:
-            focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
-            try:
-                assert (
-                    focussed_search_term
-                ), f"the highlighted search term ('{x}') was not found on the page"
-                assert book.element_in_viewport(focussed_search_term[0])
-            except AssertionError:
-                continue
-            except IndexError:
-                # Wait till the focussed search term is scrolled to the viewport
-                sleep(1)
-                assert book.element_in_viewport(focussed_search_term[0])
-            break
+        # AND: Search term is focussed in the content page
+        book.assert_search_term_is_highlighted_in_content_page(search_term)
 
         search_result_scroll_position = book.scroll_position
 
@@ -505,36 +470,8 @@ def test_open_search_results_in_new_tab(selenium, base_url, book_slug, page_slug
     # THEN: Page 2.2 displays highlighted search result in new window
     assert book_banner.section_title == "2.2 Histograms, Frequency Polygons, and Time Series Graphs"
 
-    # Loop through the words in search term and assert if atleast one of the search word is highlighted
-    split_search_term = re.findall(r"\w+", search_term)
-    for x in split_search_term:
-        focussed_search_term = rex.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
-        if focussed_search_term == []:
-            focussed_search_term = rex.content.find_elements(
-                By.XPATH, XPATH_SEARCH.format(term=x.capitalize() if x[0].islower() else x.lower())
-            )
-        try:
-            rex.wait.until(expected.visibility_of(focussed_search_term[0]))
-            assert rex.element_in_viewport(focussed_search_term[0])
-        except TimeoutException:
-            if split_search_term.index(x) == len(split_search_term) - 1:
-                pytest.fail(
-                    f"the highlighted search term ('{search_term}') was not found on the page"
-                )
-            else:
-                continue
-        except IndexError:
-            if split_search_term.index(x) == len(split_search_term) - 1:
-                pytest.fail(
-                    f"Value of focussed_search_term = '{focussed_search_term}'."
-                    f"If the value is null, the search term ('{search_term}') is not highlighted in the page."
-                )
-            else:
-                continue
-        except AssertionError:
-            pytest.fail(f"highlighted search term ('{search_term}') is not in view port")
-
-        break
+    # AND: Search term is focussed in the content page
+    book.assert_search_term_is_highlighted_in_content_page(search_term)
 
     # AND: Search string stays in the search box as in the first window
     assert rex.toolbar.search_term_displayed_in_search_textbox == search_term
