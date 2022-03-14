@@ -1,5 +1,6 @@
 @table-cell-padding: 0.5em 1em;
 @base-font: 16px;
+@monospace-font: 'IBM Plex Mono', monospace;
 
 // Styles for the contents of a page.
 // This should **only** be imported inside a containing selector like:
@@ -476,7 +477,7 @@ table {
 // Code
 // --------------------------------------------------
 [data-type="code"] {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: @monospace-font;
 
   &.blue-code,
   .blue-code {
@@ -499,4 +500,15 @@ pre[data-type="code"] {
     background: none;
     margin: 0 auto;
   }
+}
+
+//
+// Functions
+// --------------------------------------------------
+
+.primary-function, .secondary-function {
+  font-family: @monospace-font;
+}
+.primary-function {
+  font-weight: bold;
 }
