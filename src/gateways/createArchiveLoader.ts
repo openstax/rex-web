@@ -1,9 +1,9 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
 import { ifUndefined } from '../app/fpUtils';
-import BOOKS from '../config.books';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
+import { getBookVersionFromUUIDSync } from './createBookConfigLoader';
 
 interface Options {
   /*
@@ -51,7 +51,7 @@ export default (archivePath: string, options: Options = {}) => {
 
   const contentUrlBase = (host: string, bookId: string) => disablePerBookPinning
     ? `${host}${archivePath}`
-    : `${host}${BOOKS[bookId]?.archiveOverride || archivePath}`;
+    : `${host}${getBookVersionFromUUIDSync(bookId)?.archiveOverride || archivePath}`;
   const contentUrl = (host: string, bookId: string, ref: string) =>
     `${contentUrlBase(host, bookId)}/contents/${ref}.json`;
 
