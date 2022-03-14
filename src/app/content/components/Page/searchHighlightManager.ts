@@ -63,7 +63,7 @@ const selectResult = (services: Services, previous: HighlightProp | null, curren
 
   if (firstSelectedHighlight) {
     // If selected result is in the collapsed solution then expand it
-    expandClosestSolution(firstSelectedHighlight.elements[0] as HTMLElement)
+    expandClosestSolution(firstSelectedHighlight.elements[0] as HTMLElement);
     firstSelectedHighlight.addFocusedStyles();
   }
 
